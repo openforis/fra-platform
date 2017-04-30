@@ -1,0 +1,12 @@
+{
+  "name": "frap",
+  "scripts": {
+    "build": "webpack --config webpack.config.js"
+  },
+  "devDependencies": {
+    "webpack": "^2.4.1"
+  },
+  "dependencies": {
+    "ramda": "^0.23.0"
+  }
+}
