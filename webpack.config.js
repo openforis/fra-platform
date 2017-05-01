@@ -7,7 +7,7 @@ const jsBundleName = process.env.NODE_ENV === 'production' ? 'bundle-[hash].js' 
 const cssBundleName = process.env.NODE_ENV === 'production' ? 'styles-[hash].css' : 'styles.css';
 
 module.exports = {
-    entry: './webapp/index.js',
+    entry: './webapp/index.jsx',
     output: {
         filename: jsBundleName,
         path: path.resolve(__dirname, 'dist')
