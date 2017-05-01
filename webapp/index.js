@@ -5,7 +5,6 @@ function component () {
 
     /* lodash is required for the next line to work */
     element.innerHTML = R.concat('Hello','webpack');
-
     return element;
 }
 
