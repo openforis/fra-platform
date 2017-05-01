@@ -1,13 +1,16 @@
 import R from 'ramda';
+import React from 'react';
+import ReactDOM from 'react-dom';
 
 require('../web-resources/testStyle.less');
 
-function component () {
-    var element = document.createElement('div');
+const Heading = () => <h1>{R.concat('Hello ','frap')}</h1>
 
-    /* lodash is required for the next line to work */
-    element.innerHTML = R.concat('Hello','frap');
-    return element;
+function renderApp() {
+    ReactDOM.render(
+        <Heading/>,
+        document.getElementById('main')
+    );
 }
 
-document.body.appendChild(component());
+renderApp()
