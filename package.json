@@ -1,7 +1,8 @@
 {
   "name": "frap",
   "scripts": {
-    "build": "webpack --config webpack.config.js"
+    "build": "webpack --config webpack.config.js",
+    "clean": "rm -rf dist/"
   },
   "devDependencies": {
     "babel-core": "^6.24.1",
