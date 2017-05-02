@@ -8,6 +8,7 @@ const cssBundleName = process.env.NODE_ENV === 'production' ? 'styles-[hash].css
 
 module.exports = {
     entry: './webapp/index.jsx',
+    devtool: 'source-map',
     output: {
         filename: jsBundleName,
         path: path.resolve(__dirname, 'dist')
@@ -35,11 +36,11 @@ module.exports = {
         ]
     },
     plugins: [
-        // new webpack.optimize.UglifyJsPlugin({
-        //     compress: {warnings: false},
-        //     output: {comments: false},
-        //     sourceMap: true
-        // }),
+        new webpack.optimize.UglifyJsPlugin({
+            compress: {warnings: false},
+            output: {comments: false},
+            sourceMap: true
+        }),
         new ExtractTextPlugin({filename: cssBundleName}),
         new HtmlWebpackPlugin({template: './web-resources/index.html'})
     ]
