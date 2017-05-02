@@ -5,10 +5,8 @@ const app = express()
 const serverHttpPort = 9001
 
 app.use(compression({threshold: 512}))
-app.get('/', function (req, res) {
-    res.send('Fra Platform')
-})
+app.use('/', express.static(`${__dirname}/../dist`))
 
 app.listen(serverHttpPort, (req, resp) => {
-    console.log('frap server listening on port ', serverHttpPort)
+    console.log('FRA Platform server listening on port ', serverHttpPort)
 })
