@@ -1,8 +1,13 @@
 {
   "name": "frap",
+  "engines": {
+    "node": "6.10.2"
+  },
   "scripts": {
     "build": "webpack --config webpack.config.js",
-    "clean": "rm -rf dist/"
+    "clean": "rm -rf dist/",
+    "start": "node server/server.js",
+    "postinstall":  "webpack --config webpack.config.js"
   },
   "devDependencies": {
     "babel-core": "^6.24.1",
