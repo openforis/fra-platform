@@ -10,7 +10,13 @@ LTS version we are using is 6.x).
 
 ## Building web application
 
+To build it once:
+
 ```yarn run build```
+
+To constantly build it when something changes, run:
+
+```yarn run build -- --watch```
 
 ## Running the server
 
