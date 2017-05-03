@@ -5,9 +5,13 @@
   },
   "scripts": {
     "build": "webpack --config webpack.config.js",
+    "build:watch": "webpack --config webpack.config.js --watch",
     "clean": "rm -rf dist/",
     "start": "node server/server.js",
-    "postinstall":  "webpack --config webpack.config.js"
+    "postinstall": "webpack --config webpack.config.js",
+    "watch": "yarn build:watch & yarn watch:server & yarn livereload:app",
+    "watch:server": "NODE_ENV=development nodemon -e js --watch server server/server.js",
+    "livereload:app": "node --eval \"require('livereload').createServer().watch('./')\""
   },
   "devDependencies": {
     "babel-core": "^6.24.1",
@@ -20,6 +24,8 @@
     "html-webpack-plugin": "^2.28.0",
     "less": "^2.7.2",
     "less-loader": "^4.0.3",
+    "livereload": "^0.6.2",
+    "nodemon": "^1.11.0",
     "style-loader": "^0.16.1",
     "webpack": "^2.4.1"
   },
