@@ -11,8 +11,12 @@ const initial = {
   msg: "hello"
 }
 
+const actions = {'CHANGE_MSG': (state, action) => ({...state, msg: action.newMsg})}
+
 let reducer = (state=initial, action) => {
-  return state
+    const actionHandler = actions[action.type]
+    if (actionHandler) return actionHandler(state, action)
+    return state
 }
 
 function renderApp() {
