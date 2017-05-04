@@ -36,25 +36,44 @@ const DataInput = ({name, ...props}) =>
     <DataTable {...props} />
   </div>
 
-const NationalDataEntry = ({match, data, valueChange}) => {
-  console.log("data", data)
+const NationalDataEntry = ({match, columns, valueChange}) => {
+  console.log("data", columns)
   return <div>
     <Link to="/">Back home</Link>
     <h3>{match.params.countryIso}</h3>
-    <DataInput name="Forest area" columns={data} valueChange={valueChange}/>
+    <DataInput name="Forest area" columns={columns} valueChange={valueChange}/>
   </div>
 }
 
 const mapstateToProps = R.identity
 
-const changedValue = ({name, value}) => ({type: 'CHANGED_VALUE', name, value})
-const changeStart = () => ({type: 'CHANGE_START'})
+const changedAction = ({name, value}) => ({
+          type: 'CHANGED_VALUE',
+          name, value
+        })
 
-const valueChange = (name, value) => dispatch => {
-  dispatch(changeStart())
-  return axios.post('/api/data', {name, value}).then(() => {
+const changedValue = ({name, value}) => {
+  const dispatched = dispatch =>
+    axios.post('/api/data', {name, value}).then(() => {
+      dispatch(changedAction({name, value}))
+    })
+  dispatched.meta = {
+    debounce: {
+      time: 200,
+      key: "CHANGED"
+    }
+  }
+  return dispatched
+}
+
+const changeStart = ({name, value}) => ({type: 'CHANGE_START', name, value})
+
+const valueChange = (name, value) => {
+  const dispatched = dispatch => {
+    dispatch(changeStart({name, value}))
     dispatch(changedValue({name, value}))
-  })
+  }
+  return dispatched
 }
 
 export default connect(mapstateToProps, {valueChange})(NationalDataEntry)

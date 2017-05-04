@@ -5,10 +5,11 @@ import Routes from "./routes"
 import { Provider } from "react-redux"
 import { createStore, applyMiddleware } from "redux"
 import thunkMiddleware from "redux-thunk"
+import createDebounce from "redux-debounced"
 
 const initial = {
   msg: "hello",
-  data: {
+  columns: {
     "FRA2005": {
       name: "FRA2005",
       value: 0
@@ -16,14 +17,19 @@ const initial = {
     "FRA2010": {
       name: "FRA2010",
       value: 10
+    },
+    "FRA2015": {
+      name: "FRA2015",
+      value: 0
     }
   }
 }
 
 const actions = {
   'CHANGED_VALUE': (state, action) =>
-    R.assocPath(['data', action.name, 'value'], action.value, state),
-  'CHANGE_START': (state, action) => ({...state})
+    R.assocPath(['columns', action.name, 'value'], action.value, state),
+  'CHANGE_START': (state, action) =>
+    R.assocPath(['columns', action.name, 'value'], action.value, state),
 }
 
 let reducer = (state = initial, action) => {
@@ -33,7 +39,8 @@ let reducer = (state = initial, action) => {
   return state
 }
 
-const store = createStore(reducer, applyMiddleware(thunkMiddleware))
+const store = createStore(reducer, applyMiddleware(createDebounce(),
+  thunkMiddleware))
 
 function renderApp() {
   ReactDOM.render(

@@ -39,6 +39,7 @@
     "react-redux": "^5.0.4",
     "react-router-dom": "^4.1.1",
     "redux": "^3.6.0",
+    "redux-debounced": "^0.4.0",
     "redux-promise": "^0.5.3",
     "redux-thunk": "^2.2.0"
   },
