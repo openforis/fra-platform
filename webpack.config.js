@@ -3,12 +3,26 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const webpack = require('webpack');
 
-const jsBundleName = process.env.NODE_ENV === 'production' ? 'bundle-[hash].js' : 'bundle.js';
-const cssBundleName = process.env.NODE_ENV === 'production' ? 'styles-[hash].css' : 'styles.css';
+const prodBuild = process.env.NODE_ENV === 'production'
 
-module.exports = {
+const jsBundleName = prodBuild ? 'bundle-[hash].js' : 'bundle.js';
+const cssBundleName = prodBuild ? 'styles-[hash].css' : 'styles.css';
+
+const alwaysInUseplugins = [
+    new ExtractTextPlugin({filename: cssBundleName}),
+    new HtmlWebpackPlugin({template: './web-resources/index.html'})
+];
+
+const uglifyPlugin = new webpack.optimize.UglifyJsPlugin({
+    compress: {warnings: false},
+    output: {comments: false},
+    sourceMap: true
+});
+
+const plugins = prodBuild ? [...alwaysInUseplugins, uglifyPlugin] : alwaysInUseplugins;
+
+const webPackConfig = {
     entry: './webapp/index.jsx',
-    devtool: 'source-map',
     output: {
         filename: jsBundleName,
         path: path.resolve(__dirname, 'dist')
@@ -35,13 +49,9 @@ module.exports = {
             }
         ]
     },
-    plugins: [
-        new webpack.optimize.UglifyJsPlugin({
-            compress: {warnings: false},
-            output: {comments: false},
-            sourceMap: true
-        }),
-        new ExtractTextPlugin({filename: cssBundleName}),
-        new HtmlWebpackPlugin({template: './web-resources/index.html'})
-    ]
+    plugins: plugins
 };
+
+if (prodBuild) webPackConfig.devtool = 'source-map';
+
+module.exports = webPackConfig;
