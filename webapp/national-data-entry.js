@@ -21,6 +21,7 @@ const DataTable = ({columns, valueChange}) =>
         R.values(columns).map(v =>
           <td key={v.name}>
             <input
+              className={`input-${v.status}`}
               value={v.value}
               onChange={ e => {valueChange(v.name, e.currentTarget.value)}}/>
           </td>
@@ -37,7 +38,6 @@ const DataInput = ({name, ...props}) =>
   </div>
 
 const NationalDataEntry = ({match, columns, valueChange}) => {
-  console.log("data", columns)
   return <div>
     <Link to="/">Back home</Link>
     <h3>{match.params.countryIso}</h3>
@@ -48,9 +48,9 @@ const NationalDataEntry = ({match, columns, valueChange}) => {
 const mapstateToProps = R.identity
 
 const changedAction = ({name, value}) => ({
-          type: 'CHANGED_VALUE',
-          name, value
-        })
+  type: 'CHANGED_VALUE',
+  name, value
+})
 
 const changedValue = ({name, value}) => {
   const dispatched = dispatch =>
@@ -59,7 +59,7 @@ const changedValue = ({name, value}) => {
     })
   dispatched.meta = {
     debounce: {
-      time: 200,
+      time: 800,
       key: "CHANGED"
     }
   }

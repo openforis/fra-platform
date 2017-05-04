@@ -12,24 +12,33 @@ const initial = {
   columns: {
     "FRA2005": {
       name: "FRA2005",
-      value: 0
+      value: 0,
+      status: undefined
     },
     "FRA2010": {
       name: "FRA2010",
-      value: 10
+      value: 10,
+      status: undefined
     },
     "FRA2015": {
       name: "FRA2015",
-      value: 0
+      value: 0,
+      status: undefined
     }
   }
 }
 
 const actions = {
   'CHANGED_VALUE': (state, action) =>
-    R.assocPath(['columns', action.name, 'value'], action.value, state),
+    R.pipe(
+      R.assocPath(['columns', action.name, 'value'], action.value),
+      R.assocPath(['columns', action.name, 'status'], "saved"),
+    )(state),
   'CHANGE_START': (state, action) =>
-    R.assocPath(['columns', action.name, 'value'], action.value, state),
+    R.pipe(
+      R.assocPath(['columns', action.name, 'value'], action.value),
+      R.assocPath(['columns', action.name, 'status'], "saving")
+    )(state)
 }
 
 let reducer = (state = initial, action) => {
