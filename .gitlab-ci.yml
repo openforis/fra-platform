@@ -3,6 +3,7 @@ image: node:6
 dev-deploy:
   type: deploy
   script:
+  - gem install dpl
   - yarn install
   - yarn build
   - dpl --provider=heroku --app=fra-platform --api-key=$HEROKU_STAGING_API_KEY
