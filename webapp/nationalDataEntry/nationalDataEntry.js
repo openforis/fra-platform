@@ -6,7 +6,7 @@ import { connect } from "react-redux"
 import * as R from "ramda"
 import {save, fetch} from "./actions"
 
-const DataTable = ({columns, save}) =>
+const DataTable = ({columns, save, countryIso}) =>
   <table className="nde__input-table">
     <thead>
     <tr>
@@ -25,7 +25,7 @@ const DataTable = ({columns, save}) =>
             <input
               className={`nde__input-${v.status}`}
               value={v.value}
-              onChange={ e => {save(v.name, e.currentTarget.value, {columns})}}/>
+              onChange={ e => {save(countryIso, v.name, e.currentTarget.value, {columns})}}/>
           </td>
         )
       }
@@ -33,26 +33,26 @@ const DataTable = ({columns, save}) =>
     </tbody>
   </table>
 
-const DataInput = ({name, ...props}) =>
-  <div>
-    <h2>{name}</h2>
+const DataInput = (props) => {
+  return  <div>
+    <h2>{props.name}</h2>
     <DataTable {...props} />
   </div>
+}
 
-const NationalDataEntry = ({match, columns, save}) => {
+const NationalDataEntry = (props) => {
   return <div>
     <Link to="/">Back home</Link>
-    <h3>{match.params.countryIso}</h3>
-    <DataInput name="Forest area" columns={columns} save={save}/>
+    <DataInput {...props} name="Forest area"/>
   </div>
 }
 
 class DataFetchingComponent extends React.Component {
   componentWillMount() {
-    this.props.fetch('italy')
+    this.props.fetch(this.props.match.params.countryIso)
   }
   render() {
-    return <NationalDataEntry {...this.props} />
+    return <NationalDataEntry {...this.props} countryIso={this.props.match.params.countryIso} />
   }
 }
 

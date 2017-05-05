@@ -14,13 +14,13 @@ app.use( compression( { threshold: 512 } ) )
 app.use( '/', express.static( `${__dirname}/../dist` ) )
 app.use(bodyParser.json({limit: '5000kb'}))
 
-app.post( '/api/data', ( req, res ) => {
-    console.log(os.tmpdir())
-    fs.writeFile(os.tmpdir() + '/italy.json', JSON.stringify(req.body), () => {
+app.post( '/api/country/:countryId', ( req, res ) => {
+    console.log('tmp dir:', os.tmpdir())
+    fs.writeFile(os.tmpdir() + `/${req.params['countryId']}.json`, JSON.stringify(req.body), () => {
         res.send( 'ok' )
     })
 })
-app.get('/api/data/country/:countryId', (req, res) => {
+app.get('/api/country/:countryId', (req, res) => {
    fs.readFile(os.tmpdir() + `/${req.params['countryId']}.json`, (err, data) => {
      if(err) {
        return res.send(JSON.stringify(initialData))
