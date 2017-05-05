@@ -1,11 +1,10 @@
+import './style.less'
+
 import React from "react"
 import { Link } from "react-router-dom"
 import { connect } from "react-redux"
 import * as R from "ramda"
-
 import {save, fetch} from "./actions"
-
-require('./style.less')
 
 const DataTable = ({columns, save}) =>
   <table className="nde__input-table">
