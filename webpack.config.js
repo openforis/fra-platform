@@ -22,7 +22,7 @@ const uglifyPlugin = new webpack.optimize.UglifyJsPlugin({
 const plugins = prodBuild ? [...alwaysInUseplugins, uglifyPlugin] : alwaysInUseplugins;
 
 const webPackConfig = {
-    entry: './webapp/index.jsx',
+    entry: './webapp/main.js',
     output: {
         filename: jsBundleName,
         path: path.resolve(__dirname, 'dist')
@@ -52,6 +52,6 @@ const webPackConfig = {
     plugins: plugins
 };
 
-if (prodBuild) webPackConfig.devtool = 'source-map';
+webPackConfig.devtool = 'source-map';
 
 module.exports = webPackConfig;

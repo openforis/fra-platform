@@ -2,7 +2,7 @@ import React from 'react';
 import { HashRouter as Router, Route } from 'react-router-dom'
 
 import Default from './default'
-import NationalDataEntry from './national-data-entry'
+import NationalDataEntry from './nationalDataEntry/nationalDataEntry'
 
 const Routes = () => (
     <Router>
