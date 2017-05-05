@@ -23,7 +23,6 @@ const DataTable = ({columns, save, countryIso}) =>
         R.values(columns).map(v =>
           <td key={v.name}>
             <input
-              className={`nde__input-${v.status}`}
               value={v.value}
               onChange={ e => {save(countryIso, v.name, e.currentTarget.value, {columns})}}/>
           </td>
