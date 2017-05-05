@@ -33,9 +33,9 @@ const DataTable = ({columns, save, countryIso}) =>
   </table>
 
 const DataInput = (props) => {
-  return <div>
+  return <div className="nde__data-input-component">
     <h2>{props.name}</h2>
-      <span>{props.status}</span>
+      <span className="nde__status-indicator">{props.status}</span>
     <DataTable {...props} />
   </div>
 }
