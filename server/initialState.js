@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   columns: {
     "FRA2005": {
       name: "FRA2005",

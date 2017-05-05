@@ -2,6 +2,8 @@ const express     = require( 'express' )
 const bodyParser  = require('body-parser')
 const compression = require( 'compression' )
 
+const initialData  = require('./initialState')
+
 const os = require('os')
 const fs = require('fs')
 
@@ -20,8 +22,10 @@ app.post( '/api/data', ( req, res ) => {
 })
 app.get('/api/data/country/:countryId', (req, res) => {
    fs.readFile(os.tmpdir() + `/${req.params['countryId']}.json`, (err, data) => {
-     console.log(err)
-       res.send(data)
+     if(err) {
+       return res.send(JSON.stringify(initialData))
+     }
+       return res.send(data)
    })
 })
 

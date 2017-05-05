@@ -1,7 +1,6 @@
 import * as R from "ramda"
 
 import * as types from "./actions"
-import initial from "./initialState"
 
 const actions = {
   [types.valueChangeCompleted]: (state, action) =>
@@ -17,7 +16,7 @@ const actions = {
   [types.valuesFetched]: (state, action) => action.data
 }
 
-export default (state=initial, action) => {
+export default (state={}, action) => {
   console.log("action", action)
   const actionHandler = actions[action.type]
   if (actionHandler) return actionHandler(state, action)
