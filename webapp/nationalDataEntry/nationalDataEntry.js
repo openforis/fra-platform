@@ -24,7 +24,7 @@ const DataTable = ({columns, save}) =>
         R.values(columns).map(v =>
           <td key={v.name}>
             <input
-              className={`input-${v.status}`}
+              className={`nde__input-${v.status}`}
               value={v.value}
               onChange={ e => {save(v.name, e.currentTarget.value, {columns})}}/>
           </td>
