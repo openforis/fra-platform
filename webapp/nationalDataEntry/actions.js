@@ -1,4 +1,5 @@
 import axios from "axios"
+import * as R from "ramda"
 
 export const valueChangeStart = 'nationalDataEntry/value/change/start'
 export const valueChangeCompleted = 'nationalDataEntry/value/change/completed'
@@ -8,9 +9,9 @@ const changed = ({name, value}) => ({
   name, value
 })
 
-const change = ({name, value}) => {
+const change = ({name, value, data}) => {
   const dispatched = dispatch =>
-    axios.post('/api/data', {name, value}).then(() => {
+    axios.post('/api/data', R.assocPath([name, "value"], value, data)).then(() => {
       dispatch(changed({name, value}))
     })
   dispatched.meta = {
@@ -24,8 +25,8 @@ const change = ({name, value}) => {
 
 const start = ({name, value}) => ({type: valueChangeStart, name, value})
 
-export const save = (name, value) => dispatch => {
+export const save = (name, value, data) => dispatch => {
     dispatch(start({name, value}))
-    dispatch(change({name, value}))
+    dispatch(change({name, value, data}))
 }
 

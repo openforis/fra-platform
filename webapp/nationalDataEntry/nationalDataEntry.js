@@ -24,7 +24,7 @@ const DataTable = ({columns, save}) =>
             <input
               className={`input-${v.status}`}
               value={v.value}
-              onChange={ e => {save(v.name, e.currentTarget.value)}}/>
+              onChange={ e => {save(v.name, e.currentTarget.value, columns)}}/>
           </td>
         )
       }
