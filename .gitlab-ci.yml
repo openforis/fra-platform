@@ -4,7 +4,7 @@ dev-deploy:
   type: deploy
   script:
   - apt-get update
-  - apt-get install --assume-yes ruby-dev
+  - apt-get install --assume-yes rubygems
   - gem install dpl
   - yarn install
   - yarn build
