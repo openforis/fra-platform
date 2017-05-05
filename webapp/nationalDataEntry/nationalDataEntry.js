@@ -8,7 +8,7 @@ import {save, fetch} from "./actions"
 require('./style.less')
 
 const DataTable = ({columns, save}) =>
-  <table>
+  <table className="nde__input-table">
     <thead>
     <tr>
       {

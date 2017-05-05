@@ -8,6 +8,7 @@ import createDebounce from "redux-debounced"
 
 import reducer from "./rootReducer"
 
+require('./style.less')
 
 const store = createStore(reducer, applyMiddleware(createDebounce(),
   thunkMiddleware))
