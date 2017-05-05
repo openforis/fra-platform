@@ -12,6 +12,7 @@ const serverHttpPort = process.env.PORT || 9001
 
 app.use( compression( { threshold: 512 } ) )
 app.use( '/', express.static( `${__dirname}/../dist` ) )
+app.use('/img/', express.static(`${__dirname}/../web-resources/img`))
 app.use(bodyParser.json({limit: '5000kb'}))
 
 app.post( '/api/country/:countryIso', ( req, res ) => {

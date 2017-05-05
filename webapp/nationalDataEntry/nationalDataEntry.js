@@ -1,10 +1,8 @@
-import './style.less'
-
+import "./style.less"
 import React from "react"
-import { Link } from "react-router-dom"
 import { connect } from "react-redux"
 import * as R from "ramda"
-import {save, fetch} from "./actions"
+import { save, fetch } from "./actions"
 
 const DataTable = ({columns, save, countryIso}) =>
   <table className="nde__input-table">
@@ -42,7 +40,6 @@ const DataInput = (props) => {
 
 const NationalDataEntry = (props) => {
   return <div>
-    <Link to="/">Back home</Link>
     <DataInput {...props} name="Forest area"/>
   </div>
 }
