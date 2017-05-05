@@ -7,7 +7,7 @@ const Routes = () => (
   <Router>
     <div>
       <div className="main__header">
-        <img src="/img/FAO_logo.png" />
+        <img src="/img/FAO_logo.png" height="48" />
         <Link to="/">FRA Platform</Link>
       </div>
       <div className="main__container">
