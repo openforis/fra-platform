@@ -17,7 +17,13 @@ app.post( '/api/data', ( req, res ) => {
     fs.writeFile(os.tmpdir() + '/italy.json', JSON.stringify(req.body), () => {
         res.send( 'ok' )
     })
-} )
+})
+app.get('/api/data/country/:countryId', (req, res) => {
+   fs.readFile(os.tmpdir() + `/${req.params['countryId']}.json`, (err, data) => {
+     console.log(err)
+       res.send(data)
+   })
+})
 
 
 app.listen( serverHttpPort, ( req, resp ) => {

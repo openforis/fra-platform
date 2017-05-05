@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 import { connect } from "react-redux"
 import * as R from "ramda"
 
-import {save} from "./actions"
+import {save, fetch} from "./actions"
 
 const DataTable = ({columns, save}) =>
   <table>
@@ -24,7 +24,7 @@ const DataTable = ({columns, save}) =>
             <input
               className={`input-${v.status}`}
               value={v.value}
-              onChange={ e => {save(v.name, e.currentTarget.value, columns)}}/>
+              onChange={ e => {save(v.name, e.currentTarget.value, {columns})}}/>
           </td>
         )
       }
@@ -46,9 +46,19 @@ const NationalDataEntry = ({match, columns, save}) => {
   </div>
 }
 
+class DataFetchingComponent extends React.Component {
+  componentWillMount() {
+    this.props.fetch('italy')
+  }
+  render() {
+    return <NationalDataEntry {...this.props} />
+  }
+}
+
+
 const mapstateToProps = state => {
   console.log("props state", state)
   return state['nationalDataEntry']
 }
 
-export default connect(mapstateToProps, {save})(NationalDataEntry)
+export default connect(mapstateToProps, {save, fetch})(DataFetchingComponent)

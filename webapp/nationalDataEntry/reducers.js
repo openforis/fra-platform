@@ -13,7 +13,8 @@ const actions = {
     R.pipe(
       R.assocPath(['columns', action.name, 'value'], action.value),
       R.assocPath(['columns', action.name, 'status'], "saving")
-    )(state)
+    )(state),
+  [types.valuesFetched]: (state, action) => action.data
 }
 
 export default (state=initial, action) => {
