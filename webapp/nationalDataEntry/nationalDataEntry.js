@@ -33,8 +33,9 @@ const DataTable = ({columns, save, countryIso}) =>
   </table>
 
 const DataInput = (props) => {
-  return  <div>
+  return <div>
     <h2>{props.name}</h2>
+      <span>{props.status}</span>
     <DataTable {...props} />
   </div>
 }

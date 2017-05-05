@@ -6,12 +6,12 @@ const actions = {
   [types.valueChangeCompleted]: (state, action) =>
     R.pipe(
       R.assocPath(['columns', action.name, 'value'], action.value),
-      R.assocPath(['columns', action.name, 'status'], "saved"),
+      R.assoc('status', null),
     )(state),
   [types.valueChangeStart]: (state, action) =>
     R.pipe(
       R.assocPath(['columns', action.name, 'value'], action.value),
-      R.assocPath(['columns', action.name, 'status'], "saving")
+      R.assoc('status', "saving...")
     )(state),
   [types.valuesFetched]: (state, action) => action.data
 }
