@@ -10,14 +10,14 @@ const changed = ({name, value}) => ({
   name, value
 })
 
-const fetched = (countryId, data) => ({
+const fetched = (countryIso, data) => ({
   type: valuesFetched,
-  countryId, data
+  countryIso, data
 })
 
-const change = ({countryId, name, value, data}) => {
+const change = ({countryIso, name, value, data}) => {
   const dispatched = dispatch =>
-    axios.post(`/api/country/${countryId}`, R.assocPath(["columns", name, "value"], value, data)).then(() => {
+    axios.post(`/api/country/${countryIso}`, R.assocPath(["columns", name, "value"], value, data)).then(() => {
       dispatch(changed({name, value}))
     })
   dispatched.meta = {
@@ -31,14 +31,14 @@ const change = ({countryId, name, value, data}) => {
 
 const start = ({name, value}) => ({type: valueChangeStart, name, value})
 
-export const save = (countryId, name, value, data) => dispatch => {
+export const save = (countryIso, name, value, data) => dispatch => {
     dispatch(start({name, value}))
-    dispatch(change({countryId, name, value, data}))
+    dispatch(change({countryIso, name, value, data}))
 }
 
-export const fetch = (countryId) => dispatch => {
-  axios.get(`/api/country/${countryId}`).then(resp => {
-    dispatch(fetched(countryId, resp.data))
+export const fetch = (countryIso) => dispatch => {
+  axios.get(`/api/country/${countryIso}`).then(resp => {
+    dispatch(fetched(countryIso, resp.data))
   })
 }
 
