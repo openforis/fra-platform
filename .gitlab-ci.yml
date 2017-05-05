@@ -3,6 +3,7 @@ image: node:6
 dev-deploy:
   type: deploy
   script:
+  - apt-get update
   - apt-get install ruby-dev
   - gem install dpl
   - yarn install
