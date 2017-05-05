@@ -5,6 +5,8 @@ import * as R from "ramda"
 
 import {save, fetch} from "./actions"
 
+require('./style.less')
+
 const DataTable = ({columns, save}) =>
   <table>
     <thead>
