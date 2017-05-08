@@ -33,7 +33,7 @@ const DataInput = (props) => {
           <div>
               {/*placeholder for chart heading*/}
           </div>
-          <button>+ Add national data point</button>
+          <button className="nde__add-original-datapoint-button">+ Add original data point</button>
       </div>
       <span className="nde__status-indicator">{props.status}</span>
     
