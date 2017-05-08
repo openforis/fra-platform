@@ -1,11 +1,13 @@
 import React from "react"
 import { connect } from "react-redux"
+import { clearApplicationError } from './actions'
 import "./style.less"
 
-const ErrorBox = ({msg}) => <div className="ae__container">
+const ErrorBox = ({msg, clearApplicationError}) => <div className="ae__container">
     {msg}
+    <button onClick={() => clearApplicationError()}>X</button>
     </div>
 
-const ErrorComponent = ({msg}) => msg ? <ErrorBox msg={msg}/> : null
+const ErrorComponent = (props) => props.msg ? <ErrorBox {...props}/> : null
 
-export default connect(state => state['applicationError'])(ErrorComponent)
+export default connect(state => state['applicationError'], {clearApplicationError})(ErrorComponent)
