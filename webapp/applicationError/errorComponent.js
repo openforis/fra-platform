@@ -5,7 +5,7 @@ import "./style.less"
 
 const ErrorBox = ({msg, clearApplicationError}) => <div className="ae__container">
     {msg}
-    <button onClick={() => clearApplicationError()}>X</button>
+    <button className="ae__clear-button" onClick={() => clearApplicationError()}>X</button>
     </div>
 
 const ErrorComponent = (props) => props.msg ? <ErrorBox {...props}/> : null
