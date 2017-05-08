@@ -1,23 +1,40 @@
 .nde__input-table {
   border-collapse: collapse;
   font-size: inherit;
-  th {
-    background: #F5F5F5;
-    border: 1px solid #CCCCCC;
-    padding: 10px;
-    text-align: right;
+  width: 100%;
+
+
+  .nde__input-table-heading {
+    display: flex;
+    justify-content: center;
+    > div {
+      background: #F5F5F5;
+      border: 1px solid #CCCCCC;
+      padding: 10px;
+      text-align: right;
+      width: 100px;
+      min-width: 50px;
+    }
   }
-  td {
-    border: 1px solid #CCCCCC;
-    padding: 0;
+
+  .nde__input-table-content {
+    display: flex;
+    justify-content: center;
+    > div {
+      border: 1px solid #CCCCCC;
+      padding: 0;
+      width: 100px;
+      min-width: 50px;
+    }
   }
+
   input {
     color: inherit;
     font-size: inherit;
     border: none;
     text-align: right;
     padding: 10px;
-    width: 100px;
+    width: 100%;
   }
 }
 
@@ -30,4 +47,17 @@
 
 .nde__data-input-component {
   position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.nde__data-input-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.nde__data-table-container {
+  display: flex;
+  justify-content: flex-start;
+  overflow-x: auto;
 }

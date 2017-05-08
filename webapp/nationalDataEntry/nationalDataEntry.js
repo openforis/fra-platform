@@ -5,36 +5,41 @@ import * as R from "ramda"
 import { save, fetch } from "./actions"
 
 const DataTable = ({reportingYears, save, countryIso}) =>
-  <table className="nde__input-table">
-    <thead>
-    <tr>
+  <div className="nde__input-table">
+    <div className="nde__input-table-heading">
       {
         R.keys(reportingYears).map(v =>
-          <th key={v}>{v}</th>
+          <div key={v}>{v}</div>
         )
       }
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
+    </div>
+    <div className="nde__input-table-content">
       {
         R.values(reportingYears).map(v =>
-          <td key={v.name}>
+          <div key={v.name}>
             <input
               value={v.value || ''}
               onChange={ e => {save(countryIso, v.name, e.currentTarget.value, {reportingYears})}}/>
-          </td>
+          </div>
         )
       }
-    </tr>
-    </tbody>
-  </table>
+    </div>
+  </div>
 
 const DataInput = (props) => {
   return <div className="nde__data-input-component">
     <h2>{props.name}</h2>
+      <div className="nde__data-input-header">
+          <div>
+              {/*placeholder for chart heading*/}
+          </div>
+          <button>+ Add national data point</button>
+      </div>
       <span className="nde__status-indicator">{props.status}</span>
-    <DataTable {...props} />
+    
+      <div className="nde__data-table-container">
+        <DataTable {...props} />
+      </div>
   </div>
 }
 
