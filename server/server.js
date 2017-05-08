@@ -18,18 +18,18 @@ app.post( '/api/country/:countryIso', ( req, res ) => {
     console.log('tmp dir:', os.tmpdir())
     fs.writeFileAsync(`${os.tmpdir()}/${req.params['countryIso']}.json`, JSON.stringify(req.body))
         .then(() => {
-            res.send({})
+            res.json({})
         }).catch((err) => {
             console.log('Could not write file', err)
-            res.status(500).send({error: 'Could not write country data'})
+            res.status(500).json({error: 'Could not write country data'})
         })
 })
 app.get('/api/country/:countryIso', (req, res) => {
    fs.readFileAsync(`${os.tmpdir()}/${req.params['countryIso']}.json`)
        .then((data) => {
-         return res.send(data)
+         return res.json(JSON.parse(data))
         }).catch((_) => {
-           return res.send(JSON.stringify(initialData))
+           return res.json(initialData)
        })
 })
 
