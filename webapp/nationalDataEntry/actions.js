@@ -1,5 +1,6 @@
 import axios from "axios"
 import * as R from "ramda"
+import {applicationError} from "../applicationError/actions"
 
 export const valueChangeStart = 'nationalDataEntry/value/change/start'
 export const valueChangeCompleted = 'nationalDataEntry/value/change/completed'
@@ -19,7 +20,10 @@ const change = ({countryIso, name, value, data}) => {
   const dispatched = dispatch =>
     axios.post(`/api/country/${countryIso}`, R.assocPath(["columns", name, "value"], value, data)).then(() => {
       dispatch(changed({name, value}))
+    }).catch((err) => {
+      dispatch(applicationError(err))
     })
+
   dispatched.meta = {
     debounce: {
       time: 800,

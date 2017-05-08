@@ -1,6 +1,7 @@
 import React from "react"
 import { HashRouter as Router, Route, Link } from "react-router-dom"
 import Default from "./default"
+import ErrorComponent from "./applicationError/errorComponent"
 import NationalDataEntry from "./nationalDataEntry/nationalDataEntry"
 
 const Routes = () => (
@@ -10,6 +11,7 @@ const Routes = () => (
         <img src="/img/FAO_logo.png" height="48" />
         <Link to="/">FRA Platform</Link>
       </div>
+      <ErrorComponent/>
       <div className="main__container">
         <Route exact path="/" component={Default}/>
         <Route path="/country/:countryIso" component={NationalDataEntry}/>
