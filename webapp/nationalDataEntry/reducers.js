@@ -1,8 +1,9 @@
 import * as R from "ramda"
 
 import * as types from "./actions"
+import {applyReducerFunction} from '../utils/reduxUtils'
 
-const actions = {
+const actionHandlers = {
   [types.valueChangeCompleted]: (state, action) =>
     R.pipe(
       R.assocPath(['columns', action.name, 'value'], action.value),
@@ -16,10 +17,4 @@ const actions = {
   [types.valuesFetched]: (state, action) => action.data
 }
 
-export default (state={}, action) => {
-  console.log("action", action)
-  const actionHandler = actions[action.type]
-  if (actionHandler) return actionHandler(state, action)
-  console.log("state", state)
-  return state
-}
+export default (state={}, action) => applyReducerFunction(actionHandlers, state, action)

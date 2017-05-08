@@ -1,8 +1,9 @@
-import {applicationErrorType} from './actions'
+import {applicationErrorType, clearApplicationErrorType} from './actions'
+import {applyReducerFunction} from '../utils/reduxUtils'
 
-export default (state={}, action) => {
-    if (action.type === applicationErrorType) {
-        return {...state, msg: action.error + ''}
-    }
-    return state
+const actionHandlers = {
+    [applicationErrorType]: (state, action) => ({...state, msg: action.error + ''}),
+    [clearApplicationErrorType]: (state, action) => ({...state, msg: null})
 }
+
+export default (state={}, action) => applyReducerFunction(actionHandlers, state, action)
