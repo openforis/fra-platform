@@ -4,12 +4,12 @@ import { connect } from "react-redux"
 import * as R from "ramda"
 import { save, fetch } from "./actions"
 
-const DataTable = ({columns, save, countryIso}) =>
+const DataTable = ({reportingYears, save, countryIso}) =>
   <table className="nde__input-table">
     <thead>
     <tr>
       {
-        R.keys(columns).map(v =>
+        R.keys(reportingYears).map(v =>
           <th key={v}>{v}</th>
         )
       }
@@ -18,11 +18,11 @@ const DataTable = ({columns, save, countryIso}) =>
     <tbody>
     <tr>
       {
-        R.values(columns).map(v =>
+        R.values(reportingYears).map(v =>
           <td key={v.name}>
             <input
-              value={v.value}
-              onChange={ e => {save(countryIso, v.name, e.currentTarget.value, {columns})}}/>
+              value={v.value || ''}
+              onChange={ e => {save(countryIso, v.name, e.currentTarget.value, {reportingYears})}}/>
           </td>
         )
       }
