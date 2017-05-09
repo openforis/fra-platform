@@ -7,7 +7,7 @@ const fs          = Promise.promisifyAll(require('fs'))
 
 require('dotenv').config()
 
-const initialData    = require('./initialState')
+const forestAreaTableResponse    = require('./forestAreaTableResponse')
 const app            = express()
 
 app.use( compression( { threshold: 512 } ) )
@@ -30,7 +30,7 @@ app.get('/api/country/:countryIso', (req, res) => {
        .then((data) => {
          return res.json(JSON.parse(data))
         }).catch((_) => {
-           return res.json(initialData)
+           return res.json(forestAreaTableResponse)
        })
 })
 

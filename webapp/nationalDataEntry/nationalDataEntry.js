@@ -5,23 +5,23 @@ import * as R from "ramda"
 import { save, fetch } from "./actions"
 import { Link } from 'react-router-dom'
 
-const DataTable = ( { reportingYears, save, countryIso } ) =>
+const DataTable = ( { fra, save, countryIso } ) =>
     <div className="nde__input-table">
         <div className="nde__input-table-heading">
             {
-                R.keys( reportingYears ).map( v =>
+                R.keys( fra ).map( v =>
                     <div key={v}>{v}</div>
                 )
             }
         </div>
         <div className="nde__input-table-content">
             {
-                R.values( reportingYears ).map( v =>
+                R.values( fra ).map( v =>
                     <div key={v.name}>
                         <input
                             value={v.fraValue || ''}
                             onChange={ e => {
-                                save( countryIso, v.name, e.currentTarget.value, { reportingYears } )
+                                save( countryIso, v.name, e.currentTarget.value, { fra } )
                             }}/>
                     </div>
                 )

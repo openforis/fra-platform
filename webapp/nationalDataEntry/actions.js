@@ -18,7 +18,7 @@ const fetched = (countryIso, data) => ({
 
 const change = ({countryIso, name, value, data}) => {
   const dispatched = dispatch =>
-    axios.post(`/api/country/${countryIso}`, R.assocPath(["reportingYears", name, "fraValue"], value, data)).then(() => {
+    axios.post(`/api/country/${countryIso}`, R.assocPath(["fra", name, "fraValue"], value, data)).then(() => {
       dispatch(changed({name, value}))
     }).catch((err) => {
       dispatch(applicationError(err))

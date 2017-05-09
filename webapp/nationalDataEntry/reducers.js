@@ -6,12 +6,12 @@ import {applyReducerFunction} from '../utils/reduxUtils'
 const actionHandlers = {
   [types.valueChangeCompleted]: (state, action) =>
     R.pipe(
-      R.assocPath(['reportingYears', action.name, 'fraValue'], action.value),
+      R.assocPath(['fra', action.name, 'fraValue'], action.value),
       R.assoc('status', null),
     )(state),
   [types.valueChangeStart]: (state, action) =>
     R.pipe(
-      R.assocPath(['reportingYears', action.name, 'fraValue'], action.value),
+      R.assocPath(['fra', action.name, 'fraValue'], action.value),
       R.assoc('status', "saving...")
     )(state),
   [types.valuesFetched]: (state, action) => action.data
