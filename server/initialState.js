@@ -1,40 +1,40 @@
 module.exports = {
     reportingYears: {
         "1990": {
-            name  : "1900",
-            value : null
+            name  : "1990",
+            fraValue : null
         },
         "2000": {
             name  : "2000",
-            value : null
+            fraValue : null
         },
         "2010": {
             name  : "2010",
-            value : null
+            fraValue : null
         },
         "2015": {
             name  : "2015",
-            value : null
+            fraValue : null
         },
         "2016": {
             name  : "2016",
-            value : null
+            fraValue : null
         },
         "2017": {
             name  : "2017",
-            value : null
+            fraValue : null
         },
         "2018": {
             name  : "2018",
-            value : null
+            fraValue : null
         },
         "2019": {
             name  : "2019",
-            value : null
+            fraValue : null
         },
         "2020": {
             name  : "2020",
-            value : null
+            fraValue : null
         }
     }
 }

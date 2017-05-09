@@ -19,7 +19,7 @@ const DataTable = ( { reportingYears, save, countryIso } ) =>
                 R.values( reportingYears ).map( v =>
                     <div key={v.name}>
                         <input
-                            value={v.value || ''}
+                            value={v.fraValue || ''}
                             onChange={ e => {
                                 save( countryIso, v.name, e.currentTarget.value, { reportingYears } )
                             }}/>
