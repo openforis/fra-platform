@@ -5,9 +5,10 @@ const os          = require('os')
 const Promise     = require('bluebird')
 const fs          = Promise.promisifyAll(require('fs'))
 
+require('dotenv').config()
+
 const initialData    = require('./initialState')
 const app            = express()
-const serverHttpPort = process.env.PORT || 9001
 
 app.use( compression( { threshold: 512 } ) )
 app.use( '/', express.static( `${__dirname}/../dist` ) )
@@ -33,6 +34,6 @@ app.get('/api/country/:countryIso', (req, res) => {
        })
 })
 
-app.listen( serverHttpPort, ( req, resp ) => {
-    console.log( 'FRA Platform server listening on port ', serverHttpPort )
+app.listen(process.env.PORT, () => {
+    console.log( 'FRA Platform server listening on port ', process.env.PORT)
 })
