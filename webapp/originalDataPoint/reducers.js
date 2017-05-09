@@ -9,7 +9,7 @@ const actionHandlers = {
             R.assoc( 'active', action.active )
         )( state ),
     [ types.dataPointSaveDraftCompleted ]: ( state, action ) =>
-        R.assoc( 'status', null )
+        R.assoc( 'status', null )( state )
 }
 
 export default ( state = {}, action ) => applyReducerFunction( actionHandlers, state, action )
