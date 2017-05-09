@@ -36,7 +36,7 @@ const DataInput = ( props ) => {
             <div>
                 {/*placeholder for chart heading*/}
             </div>
-            <Link className="nde__add-original-datapoint-button" to={`/country/odp/${props.countryIso}`}>+ Add original data point</Link>
+            <Link className="btn-primary" to={`/country/odp/${props.countryIso}`}>+ Add original data point</Link>
             
             {/*<button className="nde__add-original-datapoint-button">+ Add original data point</button>*/}
         </div>

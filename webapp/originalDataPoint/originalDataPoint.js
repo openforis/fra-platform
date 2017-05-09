@@ -22,7 +22,7 @@ const DataInput = ( props ) => {
             </div>
         </div>
         <div className="odp_data-input-row">
-            <Link className="nde__add-original-datapoint-button" to={`/country/${props.countryIso}`}>Close</Link>
+            <Link className="btn-primary" to={`/country/${props.countryIso}`}>Close</Link>
         </div>
     </div>
 }
