@@ -8,7 +8,7 @@ import R from "ramda"
 
 const years = [ '', ...R.range( 1990, 2020 ) ]
 
-const DataInput = ({ match, saveDraft, active, status }) => {
+const DataInput = ({ match, saveDraft, active }) => {
     const countryIso = match.params.countryIso
     
     return <div className="odp__data-input-component">
@@ -38,6 +38,7 @@ const DataInput = ({ match, saveDraft, active, status }) => {
 const OriginalDataPoint = (props) =>
     <div className="odp__container">
         <h2>Add original data point</h2>
+        <span className="odp__status-indicator">{props.status}</span>
         <DataInput {...props}/>
     </div>
 
