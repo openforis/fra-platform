@@ -3,9 +3,12 @@ import * as types from "./actions"
 import { applyReducerFunction } from '../utils/reduxUtils'
 
 const actionHandlers = {
-    [types.dataPointSaveDraftStart]    : ( state, action ) =>
-        R.assoc( 'status', "saving...", state ),
-    [types.dataPointSaveDraftCompleted]: ( state, action ) =>
+    [types.dataPointSaveDraftStart]      : ( state, action ) =>
+        R.pipe(
+            R.assoc( 'status', "saving..." ),
+            R.assoc( 'active', action.active )
+        )( state ),
+    [ types.dataPointSaveDraftCompleted ]: ( state, action ) =>
         R.assoc( 'status', null )
 }
 

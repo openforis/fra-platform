@@ -5,11 +5,12 @@ export const dataPointSaveDraftStart     = 'originalDataPoint/saveDraft/start'
 export const dataPointSaveDraftCompleted = 'originalDataPoint/saveDraft/completed'
 
 export const saveDraft = ( countryIso, obj ) => dispatch => {
-    dispatch( startSavingDraft() )
+    console.log( "=====+PERKELE", countryIso, obj )
+    dispatch( startSavingDraft( obj ) )
     dispatch( persistDraft( countryIso, obj ) )
 }
 
-const startSavingDraft = () => ({ type: dataPointSaveDraftStart })
+const startSavingDraft = ( obj ) => ({ type: dataPointSaveDraftStart, active: obj })
 
 const persistDraft = ( countryIso, obj ) => {
     const dispatched = dispatch =>

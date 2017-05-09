@@ -4,16 +4,18 @@ import React from "react"
 import { Link } from "react-router-dom"
 import { connect } from "react-redux"
 import { saveDraft } from "./actions"
+import R from "ramda"
 
-const years = [ 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020 ]
+const years = [ '', ...R.range( 1990, 2020 ) ]
 
-const DataInput = ( { saveDraft, countryIso } ) => {
+const DataInput = ( { match, saveDraft, active, status } ) => {
+    const countryIso = match.params.countryIso
+    
     return <div className="odp__data-input-component">
         <div className="odp_data-input-row">
             <div><h3>Year</h3></div>
             <div>
-                <select>
-                    <option></option>
+                <select value={active.year}>
                     {years.map( ( year ) => <option key={year} value={year}>{year}</option> )}
                 </select>
             </div>
@@ -21,7 +23,10 @@ const DataInput = ( { saveDraft, countryIso } ) => {
         <div className="odp_data-input-row">
             <div><h3>Forest area</h3></div>
             <div>
-                <input />
+                <input value={active.forestArea}
+                       onChange={( e ) =>
+                           saveDraft( countryIso, R.assoc( "forestArea", e.target.value, active ) )
+                       }/>
             </div>
         </div>
         <div className="odp_data-input-row">
@@ -30,13 +35,17 @@ const DataInput = ( { saveDraft, countryIso } ) => {
     </div>
 }
 
-const OriginalDataPoint = ( { saveDraft, match } ) =>
+const OriginalDataPoint = ( props ) =>
     <div className="odp__container">
         <h2>Add original data point</h2>
-        <DataInput saveDraft={saveDraft} countryIso={match.params.countryIso}/>
+        <DataInput {...props}/>
     </div>
 
-const mapStateToProps = state => state[ 'originalDataPoint' ]
+const mapStateToProps = state => {
+    const odp    = state[ 'originalDataPoint' ]
+    const active = odp.active || { year: '', forestArea: '' }
+    return { ...odp, active }
+}
 
 
 export default connect( mapStateToProps, { saveDraft } )( OriginalDataPoint )
