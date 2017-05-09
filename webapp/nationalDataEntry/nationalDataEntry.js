@@ -30,8 +30,6 @@ const DataTable = ( { reportingYears, save, countryIso } ) =>
     </div>
 
 const DataInput = ( props ) => {
-        console.log(props)
-
     return <div className="nde__data-input-component">
         <h2>{props.name}</h2>
         <div className="nde__data-input-header">
