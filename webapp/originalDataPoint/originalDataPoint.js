@@ -28,7 +28,6 @@ const DataInput = ( props ) => {
 }
 
 const OriginalDataPoint = ( { match } ) => {
-    console.log( match )
     return <div className="odp__container">
         <h2>Add original data point</h2>
         <DataInput countryIso={match.params.countryIso}/>
