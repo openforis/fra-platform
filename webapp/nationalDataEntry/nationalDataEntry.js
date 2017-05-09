@@ -65,8 +65,6 @@ class DataFetchingComponent extends React.Component {
 }
 
 
-const mapStateToProps = state => {
-    return state[ 'nationalDataEntry' ]
-}
+const mapStateToProps = state => state[ 'nationalDataEntry' ]
 
 export default connect( mapStateToProps, { save, fetch } )( DataFetchingComponent )

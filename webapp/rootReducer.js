@@ -1,6 +1,7 @@
-import {combineReducers} from "redux"
+import { combineReducers } from "redux"
 
-import nationalDataEntry from "./nationalDataEntry/reducers"
 import applicationError from "./applicationError/reducer"
+import nationalDataEntry from "./nationalDataEntry/reducers"
+import originalDataPoint from "./originalDataPoint/reducers"
 
-export  default combineReducers({nationalDataEntry, applicationError})
+export  default combineReducers( { applicationError, nationalDataEntry, originalDataPoint } )
