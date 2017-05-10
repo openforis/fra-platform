@@ -1,9 +1,10 @@
 const express     = require( 'express' )
 const bodyParser  = require( 'body-parser' )
 const compression = require( 'compression' )
-const os          = require( 'os' )
-const Promise     = require( 'bluebird' )
-const fs          = Promise.promisifyAll( require( 'fs' ) )
+const os          = require('os')
+const Promise     = require('bluebird')
+const fs          = Promise.promisifyAll(require('fs'))
+const migrations  = require('./db/migration/execMigrations')
 
 require( 'dotenv' ).config()
 
@@ -37,6 +38,8 @@ app.get( '/api/country/:countryIso', ( req, res ) => {
 
 app.post( '/api/country/originalDataPoint/draft/:countryIso', ( req, res ) => res.json( {} ) )
 
-app.listen( process.env.PORT, () => {
-    console.log( 'FRA Platform server listening on port ', process.env.PORT )
-} )
+migrations()
+
+app.listen(process.env.PORT, () => {
+    console.log( 'FRA Platform server listening on port ', process.env.PORT)
+})

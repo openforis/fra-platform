@@ -1322,6 +1322,21 @@ date-now@^0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/date-now/-/date-now-0.1.4.tgz#eaf439fd4d4848ad74e5cc7dbef200672b9e345b"
 
+db-migrate-base@^1.2.5:
+  version "1.2.7"
+  resolved "https://registry.yarnpkg.com/db-migrate-base/-/db-migrate-base-1.2.7.tgz#eedbc528f8053c7814feaad2469a8aa130a3009f"
+  dependencies:
+    bluebird "^3.1.1"
+
+db-migrate-pg@^0.1.11:
+  version "0.1.11"
+  resolved "https://registry.yarnpkg.com/db-migrate-pg/-/db-migrate-pg-0.1.11.tgz#0ce87f3446b8c662afdadbb64277953a6ff31843"
+  dependencies:
+    bluebird "^3.1.1"
+    db-migrate-base "^1.2.5"
+    pg "^4.5.5"
+    semver "^5.0.3"
+
 db-migrate-shared@^1.1.2:
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/db-migrate-shared/-/db-migrate-shared-1.1.3.tgz#edb3c817b295022c61984c187267419bb36a2d58"
@@ -1835,6 +1850,10 @@ gauge@~2.7.1:
     string-width "^1.0.1"
     strip-ansi "^3.0.1"
     wide-align "^1.1.0"
+
+generic-pool@2.4.2:
+  version "2.4.2"
+  resolved "https://registry.yarnpkg.com/generic-pool/-/generic-pool-2.4.2.tgz#886bc5bf0beb7db96e81bcbba078818de5a62683"
 
 generic-pool@2.4.3:
   version "2.4.3"
@@ -3031,6 +3050,18 @@ pg-types@1.*:
     postgres-date "~1.0.0"
     postgres-interval "~1.0.0"
 
+pg@^4.5.5:
+  version "4.5.6"
+  resolved "https://registry.yarnpkg.com/pg/-/pg-4.5.6.tgz#a1de4878afa5cb208a25815f5ff89d2e0ebf52f8"
+  dependencies:
+    buffer-writer "1.0.1"
+    generic-pool "2.4.2"
+    packet-reader "0.2.0"
+    pg-connection-string "0.1.3"
+    pg-types "1.*"
+    pgpass "0.0.3"
+    semver "^4.1.0"
+
 pg@^6.1.5:
   version "6.1.5"
   resolved "https://registry.yarnpkg.com/pg/-/pg-6.1.5.tgz#204fa40c1252ab7220d7cf6992886b20d77862b8"
@@ -3042,6 +3073,12 @@ pg@^6.1.5:
     pg-types "1.*"
     pgpass "1.x"
     semver "4.3.2"
+
+pgpass@0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/pgpass/-/pgpass-0.0.3.tgz#12e67e343b3189c2f31206ebc9cc0befffcf9140"
+  dependencies:
+    split "~0.3"
 
 pgpass@1.x:
   version "1.0.1"
@@ -3799,7 +3836,7 @@ semver-diff@^2.0.0:
   version "5.3.0"
   resolved "https://registry.yarnpkg.com/semver/-/semver-5.3.0.tgz#9b2ce5d3de02d17c6012ad326aa6b4d0cf54f94f"
 
-semver@4.3.2:
+semver@4.3.2, semver@^4.1.0:
   version "4.3.2"
   resolved "https://registry.yarnpkg.com/semver/-/semver-4.3.2.tgz#c7a07158a80bedd052355b770d82d6640f803be7"
 
@@ -3908,7 +3945,7 @@ spdx-license-ids@^1.0.2:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/spdx-license-ids/-/spdx-license-ids-1.2.2.tgz#c9df7a3424594ade6bd11900d596696dc06bac57"
 
-split@0.3:
+split@0.3, split@~0.3:
   version "0.3.3"
   resolved "https://registry.yarnpkg.com/split/-/split-0.3.3.tgz#cd0eea5e63a211dfff7eb0f091c4133e2d0dd28f"
   dependencies:

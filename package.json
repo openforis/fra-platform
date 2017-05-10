@@ -12,7 +12,7 @@
     "watch": "yarn build:watch & yarn watch:server & yarn livereload:app",
     "watch:server": "NODE_ENV=development nodemon -e js --watch server server/server.js",
     "livereload:app": "node --eval \"require('livereload').createServer().watch('./')\"",
-    "migrate": "./server/db/migration/create-migration.sh"
+    "create-migration": "./server/db/migration/create-migration.sh"
   },
   "devDependencies": {
     "babel-core": "^6.24.1",
@@ -36,6 +36,7 @@
     "body-parser": "^1.17.1",
     "compression": "^1.6.2",
     "db-migrate": "^0.10.0-beta.20",
+    "db-migrate-pg": "^0.1.11",
     "dotenv": "^4.0.0",
     "express": "^4.15.2",
     "pg": "^6.1.5",
