@@ -55,10 +55,15 @@ app.post( '/api/country/originalDataPoint/draft/:countryIso', ( req, res ) => {
           .then(id => res.json({odpId: id}))
           .catch(err => sendErr(res, err))
     }
+    else {
+        eofRepository.updateDraft(req.body)
+          .then(() => res.json({odpId: req.body.id}))
+          .catch(err => sendErr(res, err))
+    }
 })
 
 const sendErr = (res, err) =>
-  res.status(500).json({error: 'Could not serve', err})
+  console.error(err) || res.status(500).json({error: 'Could not serve', err})
 
 migrations()
 

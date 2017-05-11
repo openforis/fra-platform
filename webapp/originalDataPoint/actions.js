@@ -11,7 +11,7 @@ export const saveDraft = ( countryIso, obj ) => dispatch => {
 
 const startSavingDraft = ( obj ) => ({ type: dataPointSaveDraftStart, active: obj })
 
-const persistDraft = ( countryIso, obj ) => {
+const persistDraft = (countryIso, obj) => {
     const dispatched = dispatch =>
         axios.post( `/api/country/originalDataPoint/draft/${countryIso}`, obj ).then((resp) => {
             dispatch( saveDraftCompleted(resp.data.odpId) )

@@ -21,3 +21,11 @@ module.exports.insertDraft = (iso, draft) =>
   ).then(res => Number(res.rows[0].odp_id))
 
 
+module.exports.updateDraft = draft =>
+  db.query(
+    "SELECT draft_id FROM eof_odp WHERE id = $1", [draft.id]
+  ).then(res =>
+    db.query("UPDATE eof_odp_version SET year = $1, forest_area = $2 WHERE id = $3;",
+      [draft.year, draft.forestArea, res.rows[0].draft_id])
+  )
+
