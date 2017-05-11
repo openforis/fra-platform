@@ -29,3 +29,7 @@ module.exports.updateDraft = draft =>
       [draft.year, draft.forestArea, res.rows[0].draft_id])
   )
 
+module.exports.markAsActual = opdId =>
+  db.query(
+    "UPDATE eof_odp SET draft_id = null, actual_id = (SELECT draft_id FROM eof_odp WHERE id = $1)", [opdId]
+  )

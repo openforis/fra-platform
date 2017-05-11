@@ -1,14 +1,13 @@
 import "./style.less"
 
 import React from "react"
-import { Link } from "react-router-dom"
 import { connect } from "react-redux"
-import { saveDraft } from "./actions"
+import { saveDraft, markAsActual } from "./actions"
 import R from "ramda"
 
 const years = [ '', ...R.range( 1990, 2020 ) ]
 
-const DataInput = ({ match, saveDraft, active }) => {
+const DataInput = ({ match, saveDraft, markAsActual, active }) => {
     const countryIso = match.params.countryIso
     
     return <div className="odp__data-input-component">
@@ -30,7 +29,7 @@ const DataInput = ({ match, saveDraft, active }) => {
             </div>
         </div>
         <div className="odp_data-input-row">
-            <Link className="btn-primary" to={`/country/${countryIso}`}>Save & Close</Link>
+            <button className="btn-primary" onClick={() => markAsActual(countryIso, active.id) }>Save & Close</button>
         </div>
     </div>
 }
@@ -48,4 +47,4 @@ const mapStateToProps = state => {
     return { ...odp, active }
 }
 
-export default connect( mapStateToProps, { saveDraft } )( OriginalDataPoint )
+export default connect( mapStateToProps, { saveDraft, markAsActual } )( OriginalDataPoint )
