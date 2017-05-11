@@ -1,4 +1,4 @@
-const db = require("./db/db")
+const db = require("../db/db")
 
 module.exports.saveDraft = (countryIso, draft) => {
  return emptyOdp(countryIso).then(isEmpty => {
