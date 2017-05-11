@@ -16,8 +16,8 @@ const DataInput = ({ match, saveDraft, active }) => {
             <div><h3>Year</h3></div>
             <div>
                 <select
-                    value={active.year}
-                    onChange={(e) => saveDraft( countryIso, R.assoc( "year", e.target.value, active ) ) }>
+                    value={active.year || ""}
+                    onChange={(e) => saveDraft( countryIso, R.assoc( "year", Number(e.target.value), active ) ) }>
                     {years.map( (year) => <option key={year} value={year}>{year}</option> )}
                 </select>
             </div>
@@ -25,8 +25,8 @@ const DataInput = ({ match, saveDraft, active }) => {
         <div className="odp_data-input-row">
             <div><h3>Forest area</h3></div>
             <div>
-                <input value={active.forestArea}
-                       onChange={(e) => saveDraft( countryIso, R.assoc( "forestArea", e.target.value, active ) ) }/>
+                <input value={active.forestArea || ""}
+                       onChange={(e) => saveDraft( countryIso, R.assoc( "forestArea", Number(e.target.value), active ) ) }/>
             </div>
         </div>
         <div className="odp_data-input-row">
@@ -44,7 +44,7 @@ const OriginalDataPoint = (props) =>
 
 const mapStateToProps = state => {
     const odp    = state[ 'originalDataPoint' ]
-    const active = odp.active || { year: '', forestArea: '' }
+    const active = odp.active || { year: null, forestArea: null }
     return { ...odp, active }
 }
 

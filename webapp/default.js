@@ -5,7 +5,7 @@ const Default = () => (
     <div>
         Welcome to FRA platform 2017
         <hr />
-        <Link to="/country/ita">Click to access Italy</Link>
+        <Link to="/country/ITA">Click to access Italy</Link>
     </div>
 )
 

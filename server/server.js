@@ -10,6 +10,7 @@ require( 'dotenv' ).config()
 
 const forestAreaTableResponse = require( './forestAreaTableResponse' )
 const countryRepository = require('./countryRepository')
+const eofRepository = require('./eofRepository')
 
 const app                     = express()
 
@@ -47,7 +48,13 @@ app.get( '/api/country/:countryIso', ( req, res ) => {
     } )
 } )
 
-app.post( '/api/country/originalDataPoint/draft/:countryIso', ( req, res ) => res.json( {} ) )
+app.post( '/api/country/originalDataPoint/draft/:countryIso', ( req, res ) => {
+    console.log("server req", req.body)
+    if(!req.body.id) {
+        eofRepository.insertDraft(req.params['countryIso'], req.body)
+    }
+    res.json({})
+})
 
 migrations()
 
