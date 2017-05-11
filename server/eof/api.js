@@ -8,19 +8,14 @@ const forestAreaTableResponse = require('./forestAreaTableResponse')
 
 module.exports.init = app => {
 
-    app.post('/api/country/:countryIso', (req, res) => {
-        console.log('tmp dir:', os.tmpdir())
-        fs.writeFileAsync(`${os.tmpdir()}/${req.params['countryIso']}.json`, JSON.stringify(req.body))
-            .then(() => {
-                res.json({})
-            }).catch((err) => {
-            console.log('Could not write file', err)
-            res.status(500).json({error: 'Could not write country data'})
-        })
+    app.post('/api/country/:countryIso/:year', (req, res) => {
+        eofRepository.persistFraForestArea(req.params.countryIso, req.params.year, req.body.forestArea)
+            .then(() => res.json({}))
+            .catch(err => sendErr(res, err))
     })
 
     app.get('/api/country/:countryIso', (req, res) => {
-        fs.readFileAsync(`${os.tmpdir()}/${req.params['countryIso']}.json`)
+        fs.readFileAsync(`${os.tmpdir()}/${req.params.countryIso}.json`)
             .then((data) => {
                 return res.json(JSON.parse(data))
             }).catch((_) => {

@@ -1,10 +1,9 @@
 const db = require("../db/db")
 
-module.exports.saveDraft = (countryIso, draft) => {
- return emptyOdp(countryIso).then(isEmpty => {
-   return isEmpty ? insertDraft(draft) : updateDraft(draft)
-  }).catch(err => console.error(err))
-}
+module.exports.saveDraft = (countryIso, draft) =>
+ emptyOdp(countryIso).then(isEmpty =>
+   isEmpty ? insertDraft(draft) : updateDraft(draft)
+  ).catch(err => console.error(err))
 
 const emptyOdp = (iso) => db.query(`SELECT * from eof_odp WHERE country_iso = '${iso}';`).then(result =>
   result.rows.length == 0
@@ -33,3 +32,21 @@ module.exports.markAsActual = opdId =>
   db.query(
     "UPDATE eof_odp SET actual_id = draft_id, draft_id = null WHERE id = $1", [opdId]
   )
+
+const emptyFraForestArea = (countryIso, year) =>
+ db.query("SELECT id FROM eof_fra_values WHERE country_iso = $1 and year = $2", [countryIso, year])
+     .then(result => result.rows.length == 0)
+
+module.exports.persistFraForestArea = (countryIso, year, forestArea) =>
+  emptyFraForestArea(countryIso, year).then(isEmpty =>
+      isEmpty ? insertFraForestArea(countryIso, year, forestArea)
+          :
+          updateFraForestArea(countryIso, year, forestArea))
+
+const insertFraForestArea = (countryIso, year, forestArea) =>
+  db.query("INSERT INTO eof_fra_values (country_iso, year, forest_area) VALUES ($1, $2, $3)",
+           [countryIso, year, forestArea])
+
+const updateFraForestArea = (countryIso, year, forestArea) =>
+    db.query("UPDATE eof_fra_values SET country_iso = $1, year = $2, forest_area = $3",
+        [countryIso, year, forestArea])

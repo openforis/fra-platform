@@ -17,12 +17,13 @@ const fetched = (countryIso, data) => ({
 })
 
 const change = ({countryIso, name, value, data}) => {
-  const dispatched = dispatch =>
-    axios.post(`/api/country/${countryIso}`, R.assocPath(["fra", name, "fraValue"], value, data)).then(() => {
-      dispatch(changed({name, value}))
-    }).catch((err) => {
-      dispatch(applicationError(err))
-    })
+  const dispatched = dispatch => {
+      return axios.post(`/api/country/${countryIso}/${name}`, {forestArea: value}).then(() => {
+          dispatch(changed({name, value}))
+      }).catch((err) => {
+          dispatch(applicationError(err))
+      })
+  }
 
   dispatched.meta = {
     debounce: {
