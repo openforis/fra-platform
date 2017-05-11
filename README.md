@@ -49,3 +49,8 @@ You should edit the `<timestamp-kuikka-up.sql` to contain your `create table` -s
 add the corresponding `drop table` to `<timestamp>-kuikka-down.sql` if we ever want to run migrations downwards.
 
 
+# Design decisions
+
+* all numeric values for areas are stored in hectares, and converted for UI for user unnits
+* Data points are stored in precision of year
+
