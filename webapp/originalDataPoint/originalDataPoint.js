@@ -29,7 +29,7 @@ const DataInput = ({ match, saveDraft, markAsActual, active }) => {
             </div>
         </div>
         <div className="odp_data-input-row">
-            <button className="btn-primary" onClick={() => markAsActual(countryIso, active.id) }>Save & Close</button>
+            <button disabled={!active.id} className="btn-primary" onClick={() => markAsActual(countryIso, active.id) }>Save & Close</button>
         </div>
     </div>
 }
