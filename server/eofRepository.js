@@ -18,6 +18,6 @@ module.exports.insertDraft = (iso, draft) =>
     db.query("INSERT INTO eof_odp (country_iso, draft_id) VALUES ($1, CURRVAL('eof_odp_version_id_seq'));", [iso])
   ).then(() =>
     db.query("SELECT CURRVAL('eof_odp_id_seq') AS odp_id;")
-  ).then(res => res.rows[0].odp_id)
+  ).then(res => Number(res.rows[0].odp_id))
 
 

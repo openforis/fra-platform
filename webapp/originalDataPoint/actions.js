@@ -13,8 +13,8 @@ const startSavingDraft = ( obj ) => ({ type: dataPointSaveDraftStart, active: ob
 
 const persistDraft = ( countryIso, obj ) => {
     const dispatched = dispatch =>
-        axios.post( `/api/country/originalDataPoint/draft/${countryIso}`, obj ).then( () => {
-            dispatch( saveDraftCompleted() )
+        axios.post( `/api/country/originalDataPoint/draft/${countryIso}`, obj ).then((resp) => {
+            dispatch( saveDraftCompleted(resp.data.odpId) )
         } ).catch( ( err ) => {
             dispatch( applicationError( err ) )
         } )
@@ -22,10 +22,10 @@ const persistDraft = ( countryIso, obj ) => {
     dispatched.meta = {
         debounce: {
             time: 800,
-            key : "ODP-CHANGED"
+            key : dataPointSaveDraftStart
         }
     }
     return dispatched
 }
 
-const saveDraftCompleted = () => ({ type: dataPointSaveDraftCompleted })
+const saveDraftCompleted = odpId => ({ type: dataPointSaveDraftCompleted, odpId })

@@ -9,7 +9,10 @@ const actionHandlers = {
             R.assoc( 'active', action.active )
         )( state ),
     [ types.dataPointSaveDraftCompleted ]: ( state, action ) =>
-        R.assoc( 'status', null )( state )
+        R.pipe(
+          R.assoc( 'status', null ),
+          R.assocPath(['active', 'id'], Number(action.odpId))
+        )(state)
 }
 
 export default ( state = {}, action ) => applyReducerFunction( actionHandlers, state, action )

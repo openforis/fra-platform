@@ -52,7 +52,7 @@ app.post( '/api/country/originalDataPoint/draft/:countryIso', ( req, res ) => {
     console.log("server req", req.body)
     if(!req.body.id) {
         eofRepository.insertDraft(req.params['countryIso'], req.body)
-          .then(id => res.json({odp_id: id}))
+          .then(id => res.json({odpId: id}))
           .catch(err => sendErr(res, err))
     }
 })
