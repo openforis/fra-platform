@@ -34,13 +34,13 @@ const saveDraftCompleted = odpId => ({ type: dataPointSaveDraftCompleted, odpId 
 
 // Marking drafts
 
-const startMarking = opdId => ({type: dataPointMakeDraftActualStart, opdId})
+export const markAsActualCompleted = 'originalDataPoint/markAsActual/completed'
 
 export const markAsActual = (countryIso, odpId) => dispatch =>
-    axios.post(`/api/country/originalDataPoint/draft/markAsActual/${odpId}`).then(
-      resp =>
-          window.location = `#/country/${countryIso}`
-      )
+    axios.post(`/api/country/originalDataPoint/draft/markAsActual/${odpId}`).then(resp => {
+        dispatch({type: markAsActualCompleted})
+        window.location = `#/country/${countryIso}`
+    })
     .catch(err =>
       dispatch( applicationError( err ))
     )

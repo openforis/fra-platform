@@ -12,7 +12,8 @@ const actionHandlers = {
         R.pipe(
           R.assoc( 'status', null ),
           R.assocPath(['active', 'id'], Number(action.odpId))
-        )(state)
+        )(state),
+    [ types.markAsActualCompleted ]: ( state, action ) => R.assoc( 'active', null, state)
 }
 
 export default ( state = {}, action ) => applyReducerFunction( actionHandlers, state, action )
