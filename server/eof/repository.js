@@ -54,4 +54,4 @@ const updateFraForestArea = (countryIso, year, forestArea) =>
 
 module.exports.readFraForestAreas = (countryIso) =>
   db.query("SELECT year, forest_area from eof_fra_values WHERE country_iso = $1", [countryIso])
-  .then((result) => R.reduce((results, row) => {return R.assoc(row.year, row.forest_area, results)}, {}, result.rows))
+  .then((result) => R.reduce((results, row) => { return R.assoc(row.year+'', {fraValue: row.forest_area, name: row.year+''}, results)}, {}, result.rows))

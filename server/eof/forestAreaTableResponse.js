@@ -9,8 +9,7 @@ module.exports = {
     fra: {
         "1990": {
             name  : "1990",
-            fraValue : null,
-            origValue : 1234
+            fraValue : null
         },
         "2000": {
             name  : "2000",

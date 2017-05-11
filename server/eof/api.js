@@ -3,6 +3,7 @@ const os = require('os')
 const Promise = require('bluebird')
 const fs = Promise.promisifyAll(require('fs'))
 const {sendErr} = require('../requestUtils')
+const R = require("ramda")
 
 const forestAreaTableResponse = require('./forestAreaTableResponse')
 
@@ -16,14 +17,10 @@ module.exports.init = app => {
 
     app.get('/api/country/:countryIso', (req, res) => {
         eofRepository.readFraForestAreas(req.params.countryIso)
-            .then(res => console.log("fra values from db", res))
-
-        fs.readFileAsync(`${os.tmpdir()}/${req.params.countryIso}.json`)
-            .then((data) => {
-                return res.json(JSON.parse(data))
-            }).catch((_) => {
-            return res.json(forestAreaTableResponse)
-        })
+            .then(result => {
+                return res.json({fra: R.merge(forestAreaTableResponse.fra, result)})
+            })
+            .catch(err => sendErr(res, err))
     })
 
     app.post('/api/country/originalDataPoint/draft/:countryIso', (req, res) => {
