@@ -15,6 +15,9 @@ module.exports.init = app => {
     })
 
     app.get('/api/country/:countryIso', (req, res) => {
+        eofRepository.readFraForestAreas(req.params.countryIso)
+            .then(res => console.log("fra values from db", res))
+
         fs.readFileAsync(`${os.tmpdir()}/${req.params.countryIso}.json`)
             .then((data) => {
                 return res.json(JSON.parse(data))

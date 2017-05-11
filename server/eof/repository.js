@@ -1,4 +1,5 @@
 const db = require("../db/db")
+const R = require("ramda")
 
 module.exports.saveDraft = (countryIso, draft) =>
  emptyOdp(countryIso).then(isEmpty =>
@@ -48,5 +49,9 @@ const insertFraForestArea = (countryIso, year, forestArea) =>
            [countryIso, year, forestArea])
 
 const updateFraForestArea = (countryIso, year, forestArea) =>
-    db.query("UPDATE eof_fra_values SET country_iso = $1, year = $2, forest_area = $3",
-        [countryIso, year, forestArea])
+  db.query("UPDATE eof_fra_values SET country_iso = $1, year = $2, forest_area = $3",
+      [countryIso, year, forestArea])
+
+module.exports.readFraForestAreas = (countryIso) =>
+  db.query("SELECT year, forest_area from eof_fra_values WHERE country_iso = $1", [countryIso])
+  .then((result) => R.reduce((results, row) => {return R.assoc(row.year, row.forest_area, results)}, {}, result.rows))
