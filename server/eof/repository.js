@@ -31,5 +31,5 @@ module.exports.updateDraft = draft =>
 
 module.exports.markAsActual = opdId =>
   db.query(
-    "UPDATE eof_odp SET draft_id = null, actual_id = (SELECT draft_id FROM eof_odp WHERE id = $1)", [opdId]
+    "UPDATE eof_odp SET draft_id = null, actual_id = (SELECT draft_id FROM eof_odp WHERE id = $1) WHERE id = $1", [opdId]
   )
