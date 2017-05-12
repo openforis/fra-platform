@@ -20,7 +20,6 @@ module.exports.init = app => {
         const odp = eofRepository.readOriginalDataPoints(req.params.countryIso)
 
         Promise.all([fra, odp]).then(result => {
-            console.log("promise all", result)
                 const forestAreas = R.pipe(
                   R.merge(forestAreaTableResponse.fra),
                   R.merge(result[1]),
