@@ -7,6 +7,11 @@ module.exports.getDraftId = odpId =>
     "SELECT draft_id FROM eof_odp WHERE id = $1", [odpId]
   ).then(resp => console.log("getDraft", resp) || resp.rows[0].draft_id)
 
+module.exports.createOdp = (countryIso) =>
+  db.query("INSERT INTO eof_odp (country_iso ) VALUES ($1)", [countryIso]).then(resp =>
+    db.query("SELECT last_value FROM eof_odp_id_seq").then(resp => resp.rows[0].last_value)
+  )
+
 module.exports.insertDraft = (iso, draft) =>
   db.query(
    "INSERT INTO eof_odp_version (forest_area, calculated, year) VALUES ($1, FALSE, $2);",
@@ -29,10 +34,13 @@ module.exports.updateDraft = draft =>
       [draft.year, draft.forestArea, res.rows[0].draft_id])
   )
 
-module.exports.markAsActual = opdId =>
+module.exports.markAsActual = odpId =>
   db.query(
-    "UPDATE eof_odp SET actual_id = draft_id, draft_id = null WHERE id = $1", [opdId]
-  )
+    "DELETE FROM eof_odp_version WHERE id = (SELECT actual_id FROM eof_odp WHERE id = $1)" , [odpId]
+  ).then(() =>
+  db.query(
+    "UPDATE eof_odp SET actual_id = draft_id, draft_id = null WHERE id = $1", [odpId]
+  ))
 
 const emptyFraForestArea = (countryIso, year) =>
  db.query("SELECT id FROM eof_fra_values WHERE country_iso = $1 and year = $2", [countryIso, year])
@@ -79,9 +87,9 @@ module.exports.readOriginalDataPoints = countryIso =>
       ELSE FALSE END AS draft
     FROM eof_odp p
       JOIN eof_odp_version v
-        ON v.id = CASE WHEN p.actual_id IS NULL
-        THEN p.draft_id
-                  ELSE p.actual_id END
+        ON v.id = CASE WHEN p.draft_id IS NULL
+        THEN p.actual_id
+                  ELSE p.draft_id END
     WHERE p.country_iso = $1 AND v.year IS NOT NULL
   `, [countryIso]).then(result => R.reduce(R.partialRight(reduceForestAreas, ["odp"]), {}, result.rows))
 
@@ -94,9 +102,9 @@ module.exports.getOdp = odpId =>
     FROM eof_odp p
       JOIN eof_odp_version v
         ON v.id =
-           CASE WHEN p.actual_id IS NULL
-             THEN p.draft_id
-           ELSE p.actual_id
+           CASE WHEN p.draft_id IS NULL
+             THEN p.actual_id
+           ELSE p.draft_id
            END
     WHERE p.id = $1
   `, [odpId]).then(result => result.rows[0])

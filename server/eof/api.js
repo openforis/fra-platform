@@ -38,24 +38,38 @@ module.exports.init = app => {
         .catch(err => sendErr(res, err))
     })
 
-    app.post('/api/country/originalDataPoint/draft/:countryIso', (req, res) => {
-        const odpId = req.params.odpId
-        if (!odpId || !eofRepository.getDraftId(req.body.odpId)) {
-            eofRepository.insertDraft(req.params['countryIso'], req.body)
-                .then(id => res.json({odpId: id}))
-                .catch(err => sendErr(res, err))
-        }
-        else {
-            eofRepository.updateDraft(req.body)
-                .then(() => res.json({odpId: req.body.odpId}))
-                .catch(err => sendErr(res, err))
-        }
-    })
+  app.post('/api/country/originalDataPoint/draft/:countryIso', (req, res) => {
+    const odpId = req.params.odpId
+    const countryIso = req.params.countryIso
+    if (!odpId)
+      eofRepository.createOdp(countryIso).then(newOdpId => {
+        updateOdp(newOdpId, countryIso, req.body, res)
+      })
+    else {
+      updateOdp(odpId, countryIso, req.body, res)
+    }
+  })
 
-    app.post('/api/country/originalDataPoint/draft/markAsActual/:opdId', (req, res) =>
-        eofRepository.markAsActual(req.params.opdId)
-            .then(
-                () => res.json({}))
-            .catch(err => sendErr(res, err))
-    )
+  const updateOdp = (odpId, countryIso, body, res) => {
+    console.log("updating odp id", odpId)
+    eofRepository.getDraftId(odpId).then(draftId => {
+      if (!draftId) {
+        eofRepository.insertDraft(countryIso, body)
+          .then(id => res.json({odpId}))
+          .catch(err => sendErr(res, err))
+      }
+      else {
+        eofRepository.updateDraft(body)
+          .then(() => res.json({odpId}))
+          .catch(err => sendErr(res, err))
+      }
+    })
+  }
+
+  app.post('/api/country/originalDataPoint/draft/markAsActual/:opdId', (req, res) =>
+      eofRepository.markAsActual(req.params.opdId)
+          .then(
+              () => res.json({}))
+          .catch(err => sendErr(res, err))
+  )
 }
