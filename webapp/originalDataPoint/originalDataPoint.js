@@ -2,7 +2,7 @@ import "./style.less"
 
 import React from "react"
 import { connect } from "react-redux"
-import { saveDraft, markAsActual } from "./actions"
+import { saveDraft, markAsActual, fetch } from "./actions"
 import R from "ramda"
 
 const years = [ '', ...R.range( 1990, 2020 ) ]
@@ -29,17 +29,27 @@ const DataInput = ({ match, saveDraft, markAsActual, active }) => {
             </div>
         </div>
         <div className="odp_data-input-row">
-            <button disabled={!active.id} className="btn-primary" onClick={() => markAsActual(countryIso, active.id) }>Save & Close</button>
+            <button disabled={!active.odpId} className="btn-primary" onClick={() => markAsActual(countryIso, active.odpId) }>Save & Close</button>
         </div>
     </div>
 }
 
-const OriginalDataPoint = (props) =>
-    <div className="odp__container">
-        <h2>Add original data point</h2>
-        <span className="odp__status-indicator">{props.status}</span>
-        <DataInput {...props}/>
-    </div>
+class OriginalDataPoint extends React.Component {
+    componentWillMount() {
+        const odpId = this.props.match.params.odpId
+        console.log("match", this.props.match)
+        if(odpId) {
+            this.props.fetch(odpId)
+        }
+    }
+    render() {
+        return <div className="odp__container">
+            <h2>Add original data point</h2>
+            <span className="odp__status-indicator">{this.props.status}</span>
+            <DataInput {...this.props}/>
+        </div>
+    }
+}
 
 const mapStateToProps = state => {
     const odp    = state[ 'originalDataPoint' ]
@@ -47,4 +57,4 @@ const mapStateToProps = state => {
     return { ...odp, active }
 }
 
-export default connect( mapStateToProps, { saveDraft, markAsActual } )( OriginalDataPoint )
+export default connect( mapStateToProps, { saveDraft, markAsActual, fetch} )( OriginalDataPoint )

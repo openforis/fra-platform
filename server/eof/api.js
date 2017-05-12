@@ -31,15 +31,23 @@ module.exports.init = app => {
             .catch(err => sendErr(res, err))
     })
 
+    app.get('/api/country/originalDataPoint/:odpId', (req, res) => {
+        eofRepository.getOdp(req.params.odpId).then(resp =>
+            res.json({odpId: resp.odp_id, forestArea: resp.forest_area, year: resp.year})
+        )
+        .catch(err => sendErr(res, err))
+    })
+
     app.post('/api/country/originalDataPoint/draft/:countryIso', (req, res) => {
-        if (!req.body.id) {
+        const odpId = req.params.odpId
+        if (!odpId || !eofRepository.getDraftId(req.body.odpId)) {
             eofRepository.insertDraft(req.params['countryIso'], req.body)
                 .then(id => res.json({odpId: id}))
                 .catch(err => sendErr(res, err))
         }
         else {
             eofRepository.updateDraft(req.body)
-                .then(() => res.json({odpId: req.body.id}))
+                .then(() => res.json({odpId: req.body.odpId}))
                 .catch(err => sendErr(res, err))
         }
     })

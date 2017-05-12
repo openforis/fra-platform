@@ -44,3 +44,16 @@ export const markAsActual = (countryIso, odpId) => dispatch =>
     .catch(err =>
       dispatch( applicationError( err ))
     )
+
+// fetching odp's
+
+export const odpFetchCompleted = 'originalDataPoint/fetch/completed'
+
+export const fetch = (odpId) => dispatch =>
+    axios.get(`/api/country/originalDataPoint/${odpId}`).then(resp => {
+        dispatch({type: odpFetchCompleted, active: resp.data})
+    })
+    .catch(err =>
+      dispatch( applicationError( err ))
+    )
+

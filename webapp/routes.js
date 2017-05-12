@@ -16,6 +16,7 @@ const Routes = () => (
                 <Route exact path="/" component={Default}/>
                 <Route exact path="/country/:countryIso" component={NationalDataEntry}/>
                 <Route exact path="/country/odp/:countryIso" component={OriginalDataPoint}/>
+                <Route exact path="/country/odp/:countryIso/:odpId" component={OriginalDataPoint}/>
             </div>
         </div>
     </Router>

@@ -10,7 +10,12 @@ const DataTable = ( { fra, save, countryIso } ) =>
         <div className="nde__input-table-heading">
             {
                 R.values(fra).map(v =>
-                    <div key={`${v.type}_${v.name}`}>{v.name}</div>
+                    <div key={`${v.type}_${v.name}`}>
+                        { v.type == "odp" ?
+                           <Link to={`/country/odp/${countryIso}/${v.odpId}`}>{v.name}</Link>
+                          : v.name
+                        }
+                    </div>
                 )
             }
         </div>
