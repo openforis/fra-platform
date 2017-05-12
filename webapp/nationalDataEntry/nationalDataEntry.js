@@ -9,19 +9,21 @@ const DataTable = ( { fra, save, countryIso } ) =>
     <div className="nde__input-table">
         <div className="nde__input-table-heading">
             {
-                R.keys( fra ).map( v =>
-                    <div key={v}>{v}</div>
+                R.values(fra).map(v =>
+                    <div key={`${v.type}_${v.name}`}>{v.name}</div>
                 )
             }
         </div>
         <div className="nde__input-table-content">
             {
-                R.values( fra ).map( v =>
-                    <div key={v.name}>
+                R.values(fra).map(v =>
+                    <div key={`${v.type}_${v.name}`}>
                         <input
-                            value={v.fraValue || ''}
+                            value={v.forestArea || ''}
+                            readOnly={v.type == "odp"}
+                            disabled={v.type == "odp"}
                             onChange={ e => {
-                                save( countryIso, v.name, e.currentTarget.value, { fra } )
+                                save( countryIso, v.name, e.target.value, { fra } )
                             }}/>
                     </div>
                 )

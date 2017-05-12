@@ -24,7 +24,6 @@ const change = ({countryIso, name, value, data}) => {
           dispatch(applicationError(err))
       })
   }
-
   dispatched.meta = {
     debounce: {
       time: 800,

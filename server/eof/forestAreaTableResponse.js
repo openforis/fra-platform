@@ -7,41 +7,59 @@ module.exports = {
 // }
 
     fra: {
-        "1990": {
+        "fra_1990": {
             name  : "1990",
-            fraValue : null
+            year  : 1990,
+            type: "fra",
+            forestArea : null
         },
-        "2000": {
+        "fra_2000": {
             name  : "2000",
-            fraValue : null
+            year  : 2000,
+            type: "fra",
+            forestArea : null
         },
-        "2010": {
+        "fra_2010": {
             name  : "2010",
-            fraValue : null
+            year  : 2010,
+            type: "fra",
+            forestArea : null
         },
-        "2015": {
+        "fra_2015": {
             name  : "2015",
-            fraValue : null
+            year  : 2015,
+            type: "fra",
+            forestArea : null
         },
-        "2016": {
+        "fra_2016": {
             name  : "2016",
-            fraValue : null
+            year  : 2016,
+            type: "fra",
+            forestArea : null
         },
-        "2017": {
+        "fra_2017": {
             name  : "2017",
-            fraValue : null
+            year  : 2017,
+            type: "fra",
+            forestArea : null
         },
-        "2018": {
+        "fra_2018": {
             name  : "2018",
-            fraValue : null
+            year  : 2018,
+            type: "fra",
+            forestArea : null
         },
-        "2019": {
+        "fra_2019": {
             name  : "2019",
-            fraValue : null
+            year  : 2019,
+            type: "fra",
+            forestArea : null
         },
-        "2020": {
+        "fra_2020": {
             name  : "2020",
-            fraValue : null
+            year  : 2020,
+            type: "fra",
+            forestArea : null
         }
     }
 }
