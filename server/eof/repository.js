@@ -66,7 +66,8 @@ const reduceForestAreas = (results, row, type = 'fra') => R.assoc(`${type}_${row
     forestArea: Number(row.forest_area),
     name: row.year + '',
     type,
-    year: Number(row.year)
+    year: Number(row.year),
+    draft: !!row.draft
   },
   results)
 
