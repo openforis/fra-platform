@@ -25,8 +25,8 @@ const DataTable = ( { fra, save, countryIso } ) =>
                     <div key={`${v.type}_${v.name}`}>
                         <input
                             value={v.forestArea || ''}
-                            readOnly={v.type == "odp"}
-                            disabled={v.type == "odp"}
+                            readOnly={v.type === "odp"}
+                            disabled={v.type === "odp"}
                             onChange={ e => {
                                 save( countryIso, v.name, e.target.value, { fra } )
                             }}/>
