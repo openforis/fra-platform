@@ -19,15 +19,16 @@ module.exports.init = app => {
         const fra = eofRepository.readFraForestAreas(req.params.countryIso)
         const odp = eofRepository.readOriginalDataPoints(req.params.countryIso)
 
-        Promise.all([fra, odp]).then(result => {
-            const forestAreas = R.pipe(
-                R.merge(forestAreaTableResponse.fra),
-                R.merge(result[1]),
-                R.values,
-                R.sort((a, b) => a.year - b.year)
-            )(result[0])
-            return res.json({fra: forestAreas})
-        })
+        Promise.all([fra, odp])
+            .then(result => {
+                const forestAreas = R.pipe(
+                    R.merge(forestAreaTableResponse.fra),
+                    R.merge(result[1]),
+                    R.values,
+                    R.sort((a, b) => a.year - b.year)
+                )(result[0])
+                return res.json({fra: forestAreas})
+            })
             .catch(err => sendErr(res, err))
     })
 
