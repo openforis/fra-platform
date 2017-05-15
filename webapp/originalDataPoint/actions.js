@@ -32,13 +32,16 @@ const persistDraft = (countryIso, obj) => {
 
 const saveDraftCompleted = odpId => ({ type: dataPointSaveDraftCompleted, odpId })
 
-// Marking drafts
+// clear active
 
-export const markAsActualCompleted = 'originalDataPoint/markAsActual/completed'
+export const clearActiveAction = 'originalDataPoint/clearActive'
+export const clearActive = () => ({type: clearActiveAction})
+
+// Marking drafts
 
 export const markAsActual = (countryIso, odpId) => dispatch =>
     axios.post(`/api/country/originalDataPoint/draft/markAsActual/${odpId}`).then(resp => {
-        dispatch({type: markAsActualCompleted})
+        dispatch({type: clearActiveAction})
         window.location = `#/country/${countryIso}`
     })
     .catch(err =>
@@ -56,4 +59,3 @@ export const fetch = (odpId) => dispatch =>
     .catch(err =>
       dispatch( applicationError( err ))
     )
-

@@ -2,7 +2,7 @@ import "./style.less"
 
 import React from "react"
 import { connect } from "react-redux"
-import { saveDraft, markAsActual, fetch } from "./actions"
+import { saveDraft, markAsActual, fetch, clearActive } from "./actions"
 import R from "ramda"
 
 const years = [ '', ...R.range( 1990, 2020 ) ]
@@ -40,6 +40,8 @@ class OriginalDataPoint extends React.Component {
         console.log("match", this.props.match)
         if(odpId) {
             this.props.fetch(odpId)
+        } else {
+            this.props.clearActive()
         }
     }
     render() {
@@ -57,4 +59,4 @@ const mapStateToProps = state => {
     return { ...odp, active }
 }
 
-export default connect( mapStateToProps, { saveDraft, markAsActual, fetch} )( OriginalDataPoint )
+export default connect( mapStateToProps, { saveDraft, markAsActual, fetch, clearActive} )( OriginalDataPoint )
