@@ -5,19 +5,19 @@ import * as R from "ramda"
 import { save, fetch } from "./actions"
 import { Link } from 'react-router-dom'
 
-const odpCell = (odpValue) => {
+const OdpCell = ({odpValue}) => {
     return <span className="nde__input-table-readonly-cell">
         {odpValue.forestArea}
         </span>
 }
 
-const odpHeading = (countryIso, odpValue) =>
+const OdpHeading = ({countryIso, odpValue}) =>
     <Link to={`/country/odp/${countryIso}/${odpValue.odpId}`}>
         {odpValue.draft ? "!" : ""}
         {odpValue.name}
     </Link>
 
-const fraValueCell = (fraValue, fra, countryIso, save) => <input
+const FraValueCell = ({fraValue, fra, countryIso, save}) => <input
     value={fraValue.forestArea || ''}
     onChange={ e => {
         save( countryIso, fraValue.name, e.target.value, { fra } )
@@ -30,7 +30,7 @@ const DataTable = ( { fra, save, countryIso } ) =>
                 R.values(fra).map(v =>
                     <div key={`${v.type}_${v.name}`}>
                         { v.type === "odp" ?
-                            odpHeading(countryIso, v)
+                            <OdpHeading countryIso={countryIso} odpValue={v} />
                           : v.name
                         }
                     </div>
@@ -41,7 +41,12 @@ const DataTable = ( { fra, save, countryIso } ) =>
             {
                 R.values(fra).map(v =>
                     <div key={`${v.type}_${v.name}`}>
-                        { v.type === "odp" ? odpCell(v) : fraValueCell(v, fra, countryIso, save)}
+                    {
+                        v.type === "odp" ?
+                            <OdpCell odpValue={v}/>
+                            :
+                            <FraValueCell fraValue={v} fra={fra} countryIso={countryIso} save={save}/>
+                    }
                     </div>
                 )
             }
