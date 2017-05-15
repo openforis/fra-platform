@@ -5,13 +5,21 @@ import * as R from "ramda"
 import { save, fetch } from "./actions"
 import { Link } from 'react-router-dom'
 
+const odpCell = (forestArea) => <span className="nde__input-table-readonly-cell">{forestArea}</span>
+
+const fraValueCell = (fraValue, fra, countryIso, save) => <input
+    value={fraValue.forestArea || ''}
+    onChange={ e => {
+        save( countryIso, fraValue.name, e.target.value, { fra } )
+    }}/>
+
 const DataTable = ( { fra, save, countryIso } ) =>
     <div className="nde__input-table">
         <div className="nde__input-table-heading">
             {
                 R.values(fra).map(v =>
                     <div key={`${v.type}_${v.name}`}>
-                        { v.type == "odp" ?
+                        { v.type === "odp" ?
                            <Link to={`/country/odp/${countryIso}/${v.odpId}`}>{v.name}</Link>
                           : v.name
                         }
@@ -23,13 +31,7 @@ const DataTable = ( { fra, save, countryIso } ) =>
             {
                 R.values(fra).map(v =>
                     <div key={`${v.type}_${v.name}`}>
-                        <input
-                            value={v.forestArea || ''}
-                            readOnly={v.type === "odp"}
-                            disabled={v.type === "odp"}
-                            onChange={ e => {
-                                save( countryIso, v.name, e.target.value, { fra } )
-                            }}/>
+                        { v.type === "odp" ? odpCell(v.forestArea) : fraValueCell(v, fra, countryIso, save)}
                     </div>
                 )
             }
