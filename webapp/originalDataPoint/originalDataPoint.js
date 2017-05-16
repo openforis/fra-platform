@@ -7,7 +7,7 @@ import R from "ramda"
 
 const years = [ '', ...R.range( 1990, 2020 ) ]
 
-const DataInput = ({ match, saveDraft, markAsActual, active }) => {
+const DataInput = ({ match, saveDraft, markAsActual, active, status }) => {
     const countryIso = match.params.countryIso
     
     return <div className="odp__data-input-component">
@@ -29,7 +29,7 @@ const DataInput = ({ match, saveDraft, markAsActual, active }) => {
             </div>
         </div>
         <div className="odp_data-input-row">
-            <button disabled={!active.odpId} className="btn-primary" onClick={() => markAsActual(countryIso, active.odpId) }>Save & Close</button>
+            <button disabled={!active.odpId || status} className="btn-primary" onClick={() => markAsActual(countryIso, active.odpId) }>Save & Close</button>
         </div>
     </div>
 }

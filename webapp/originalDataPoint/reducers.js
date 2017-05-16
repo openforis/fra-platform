@@ -3,7 +3,7 @@ import * as types from "./actions"
 import { applyReducerFunction } from '../utils/reduxUtils'
 
 const actionHandlers = {
-    [types.dataPointSaveDraftStart]      : ( state, action ) =>
+    [types.dataPointSaveDraftStart]: ( state, action ) =>
         R.pipe(
             R.assoc( 'status', "saving..." ),
             R.assoc( 'active', action.active )
