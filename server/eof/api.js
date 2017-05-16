@@ -41,24 +41,23 @@ module.exports.init = app => {
     })
 
     app.post('/api/country/originalDataPoint/draft/:countryIso', (req, res) => {
-        const odpId = req.params.odpId
+        const odpId = req.body.odpId
         const countryIso = req.params.countryIso
-        if (!odpId)
+        if (!odpId) {
             eofRepository.createOdp(countryIso)
                 .then(newOdpId => {
-                    updateOdp(newOdpId, countryIso, req.body, res)
+                    updateOrInsertDraft(newOdpId, countryIso, req.body, res)
                 })
-        else {
-            updateOdp(odpId, countryIso, req.body, res)
+        } else {
+            updateOrInsertDraft(odpId, countryIso, req.body, res)
         }
     })
 
-    const updateOdp = (odpId, countryIso, body, res) => {
-        console.log("updating odp id", odpId)
+    const updateOrInsertDraft = (odpId, countryIso, body, res) => {
         eofRepository.getDraftId(odpId)
             .then(draftId => {
                 if (!draftId) {
-                    eofRepository.insertDraft(countryIso, body)
+                    eofRepository.insertDraft(odpId, countryIso, body)
                         .then(id => res.json({odpId}))
                         .catch(err => sendErr(res, err))
                 }

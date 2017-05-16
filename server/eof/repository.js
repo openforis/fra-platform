@@ -5,26 +5,20 @@ const R = require("ramda")
 module.exports.getDraftId = odpId =>
   db.query(
     "SELECT draft_id FROM eof_odp WHERE id = $1", [odpId]
-  ).then(resp => console.log("getDraft", resp) || resp.rows[0].draft_id)
+  ).then(resp => resp.rows[0].draft_id)
 
 module.exports.createOdp = (countryIso) =>
   db.query("INSERT INTO eof_odp (country_iso ) VALUES ($1)", [countryIso]).then(resp =>
     db.query("SELECT last_value FROM eof_odp_id_seq").then(resp => resp.rows[0].last_value)
   )
 
-module.exports.insertDraft = (iso, draft) =>
+module.exports.insertDraft = (odpId, iso, draft) =>
   db.query(
    "INSERT INTO eof_odp_version (forest_area, calculated, year) VALUES ($1, FALSE, $2);",
     [draft.forestArea, draft.year]
   ).then(() =>
-    draft.odpId ?
-      db.query("UPDATE eof_odp SET draft_id = (SELECT last_value FROM eof_odp_version_id_seq) WHERE id = $1", [draft.odpId])
-      : db.query("INSERT INTO eof_odp (country_iso, draft_id) VALUES ($1, (SELECT last_value FROM eof_odp_version_id_seq));", [iso])
-  ).then(() =>
-    draft.odpId ?
-      {rows: [{last_value: draft.odpId}]}
-      : db.query("SELECT last_value FROM eof_odp_id_seq AS odp_id;")
-  ).then(res => Number(res.rows[0].last_value))
+      db.query("UPDATE eof_odp SET draft_id = (SELECT last_value FROM eof_odp_version_id_seq) WHERE id = $1", [odpId])
+  )
 
 module.exports.updateDraft = draft =>
   db.query(
@@ -36,11 +30,8 @@ module.exports.updateDraft = draft =>
 
 module.exports.markAsActual = odpId =>
   db.query(
-    "DELETE FROM eof_odp_version WHERE id = (SELECT actual_id FROM eof_odp WHERE id = $1)" , [odpId]
-  ).then(() =>
-  db.query(
     "UPDATE eof_odp SET actual_id = draft_id, draft_id = null WHERE id = $1", [odpId]
-  ))
+  )
 
 const emptyFraForestArea = (countryIso, year) =>
  db.query("SELECT id FROM eof_fra_values WHERE country_iso = $1 and year = $2", [countryIso, year])
