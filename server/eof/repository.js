@@ -8,7 +8,7 @@ module.exports.saveDraft = (countryIso, draft) => {
             client.query("BEGIN")
                 .then(() => doSaveDraft(client, countryIso, draft))
                 .then((response) => [response, client.query("COMMIT")])
-                .then(([response, _]) => response)
+                .then(([response, _]) => { client.release(); return response })
 //                .catch(err => [err, client.query("ROLLBACK")])
 //                .then(([err, _]) => { throw err })
         )
