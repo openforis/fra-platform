@@ -1,6 +1,6 @@
 const db = require("../db/db")
 const R = require("ramda")
-
+const Promise = require("bluebird")
 
 module.exports.getDraftId = odpId =>
   db.query(
@@ -28,10 +28,22 @@ module.exports.updateDraft = draft =>
       [draft.year, draft.forestArea, res.rows[0].draft_id])
   )
 
-module.exports.markAsActual = odpId =>
-  db.query(
-    "UPDATE eof_odp SET actual_id = draft_id, draft_id = null WHERE id = $1", [odpId]
-  )
+module.exports.markAsActual = odpId => {
+    const selectOldActualPromise = db.query("SELECT actual_id FROM eof_odp WHERE id = $1", [odpId])
+    const updateOdpPromise = db.query(
+        "UPDATE eof_odp SET actual_id = draft_id, draft_id = null WHERE id = $1", [odpId]
+    )
+    return Promise.join(selectOldActualPromise, updateOdpPromise, (oldActualResult, _) => {
+        if (oldActualResult.rowCount > 0) {
+            console.log("Gonna remove old actual with result", oldActualResult.rows[0].actual_id)
+            return oldActualResult.rows[0].actual_id
+        }
+        return null
+    }).then((oldActualId) => {
+        if (oldActualId) return db.query("DELETE FROM eof_odp_version WHERE id = $1", [oldActualId])
+        return null
+    })
+}
 
 const emptyFraForestArea = (countryIso, year) =>
  db.query("SELECT id FROM eof_fra_values WHERE country_iso = $1 and year = $2", [countryIso, year])
