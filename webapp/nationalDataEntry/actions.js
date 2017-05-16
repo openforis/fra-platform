@@ -16,7 +16,7 @@ const fetched = (countryIso, data) => ({
   countryIso, data
 })
 
-const change = ({countryIso, name, value, data}) => {
+const change = ({countryIso, name, value}) => {
   const dispatched = dispatch => {
       return axios.post(`/api/country/${countryIso}/${name}`, {forestArea: value}).then(() => {
           dispatch(changed({name, value}))
@@ -35,9 +35,9 @@ const change = ({countryIso, name, value, data}) => {
 
 const start = ({name, value}) => ({type: valueChangeStart, name, value})
 
-export const save = (countryIso, name, value, data) => dispatch => {
+export const save = (countryIso, name, value) => dispatch => {
     dispatch(start({name, value}))
-    dispatch(change({countryIso, name, value, data}))
+    dispatch(change({countryIso, name, value}))
 }
 
 export const fetch = (countryIso) => dispatch => {

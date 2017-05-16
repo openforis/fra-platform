@@ -20,8 +20,9 @@ const OdpHeading = ({countryIso, odpValue}) =>
 const FraValueCell = ({fraValue, fra, countryIso, save}) => <input
     value={fraValue.forestArea || ''}
     onChange={ e => {
-        save( countryIso, fraValue.name, e.target.value, { fra } )
+        save(countryIso, fraValue.name, e.target.value)
     }}/>
+
 
 const DataTable = ( { fra, save, countryIso } ) =>
     <div className="nde__input-table">
