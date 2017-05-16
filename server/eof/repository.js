@@ -2,17 +2,40 @@ const db = require("../db/db")
 const R = require("ramda")
 const Promise = require("bluebird")
 
-module.exports.getDraftId = odpId =>
+module.exports.saveDraft = (countryIso, draft) => {
+    const odpId = draft.odpId
+    if (!odpId) {
+        return createOdp(countryIso)
+            .then(newOdpId => updateOrInsertDraft(newOdpId, countryIso, draft))
+    } else {
+        return updateOrInsertDraft(odpId, countryIso, draft)
+    }
+}
+
+const updateOrInsertDraft = (odpId, countryIso, draft) =>
+    getDraftId(odpId)
+        .then(draftId => {
+            if (!draftId) {
+                return insertDraft(odpId, countryIso, draft)
+                    .then(() => ({odpId}))
+            }
+            else {
+                return updateDraft(draft)
+                    .then(() => ({odpId}))
+            }
+        })
+
+const getDraftId = odpId =>
   db.query(
     "SELECT draft_id FROM odp WHERE id = $1", [odpId]
   ).then(resp => resp.rows[0].draft_id)
 
-module.exports.createOdp = (countryIso) =>
+const createOdp = (countryIso) =>
   db.query("INSERT INTO odp (country_iso ) VALUES ($1)", [countryIso]).then(resp =>
     db.query("SELECT last_value FROM odp_id_seq").then(resp => resp.rows[0].last_value)
   )
 
-module.exports.insertDraft = (odpId, iso, draft) =>
+const insertDraft = (odpId, iso, draft) =>
   db.query(
    "INSERT INTO odp_version (forest_area, calculated, year) VALUES ($1, FALSE, $2);",
     [draft.forestArea, draft.year]
@@ -20,7 +43,7 @@ module.exports.insertDraft = (odpId, iso, draft) =>
       db.query("UPDATE odp SET draft_id = (SELECT last_value FROM odp_version_id_seq) WHERE id = $1", [odpId])
   )
 
-module.exports.updateDraft = draft =>
+const updateDraft = draft =>
   db.query(
     "SELECT draft_id FROM odp WHERE id = $1", [draft.odpId]
   ).then(res =>

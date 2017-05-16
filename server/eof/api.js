@@ -41,33 +41,11 @@ module.exports.init = app => {
     })
 
     app.post('/api/country/originalDataPoint/draft/:countryIso', (req, res) => {
-        const odpId = req.body.odpId
         const countryIso = req.params.countryIso
-        if (!odpId) {
-            eofRepository.createOdp(countryIso)
-                .then(newOdpId => {
-                    updateOrInsertDraft(newOdpId, countryIso, req.body, res)
-                })
-        } else {
-            updateOrInsertDraft(odpId, countryIso, req.body, res)
-        }
+        eofRepository.saveDraft(countryIso, req.body)
+            .then(result => res.json(result))
+            .catch(err => sendErr(res, err))
     })
-
-    const updateOrInsertDraft = (odpId, countryIso, body, res) => {
-        eofRepository.getDraftId(odpId)
-            .then(draftId => {
-                if (!draftId) {
-                    eofRepository.insertDraft(odpId, countryIso, body)
-                        .then(id => res.json({odpId}))
-                        .catch(err => sendErr(res, err))
-                }
-                else {
-                    eofRepository.updateDraft(body)
-                        .then(() => res.json({odpId}))
-                        .catch(err => sendErr(res, err))
-                }
-            })
-    }
 
     app.post('/api/country/originalDataPoint/draft/markAsActual/:opdId', (req, res) =>
         eofRepository.markAsActual(req.params.opdId)
