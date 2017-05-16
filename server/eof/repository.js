@@ -4,34 +4,34 @@ const Promise = require("bluebird")
 
 module.exports.getDraftId = odpId =>
   db.query(
-    "SELECT draft_id FROM eof_odp WHERE id = $1", [odpId]
+    "SELECT draft_id FROM odp WHERE id = $1", [odpId]
   ).then(resp => resp.rows[0].draft_id)
 
 module.exports.createOdp = (countryIso) =>
-  db.query("INSERT INTO eof_odp (country_iso ) VALUES ($1)", [countryIso]).then(resp =>
-    db.query("SELECT last_value FROM eof_odp_id_seq").then(resp => resp.rows[0].last_value)
+  db.query("INSERT INTO odp (country_iso ) VALUES ($1)", [countryIso]).then(resp =>
+    db.query("SELECT last_value FROM odp_id_seq").then(resp => resp.rows[0].last_value)
   )
 
 module.exports.insertDraft = (odpId, iso, draft) =>
   db.query(
-   "INSERT INTO eof_odp_version (forest_area, calculated, year) VALUES ($1, FALSE, $2);",
+   "INSERT INTO odp_version (forest_area, calculated, year) VALUES ($1, FALSE, $2);",
     [draft.forestArea, draft.year]
   ).then(() =>
-      db.query("UPDATE eof_odp SET draft_id = (SELECT last_value FROM eof_odp_version_id_seq) WHERE id = $1", [odpId])
+      db.query("UPDATE odp SET draft_id = (SELECT last_value FROM odp_version_id_seq) WHERE id = $1", [odpId])
   )
 
 module.exports.updateDraft = draft =>
   db.query(
-    "SELECT draft_id FROM eof_odp WHERE id = $1", [draft.odpId]
+    "SELECT draft_id FROM odp WHERE id = $1", [draft.odpId]
   ).then(res =>
-    db.query("UPDATE eof_odp_version SET year = $1, forest_area = $2 WHERE id = $3;",
+    db.query("UPDATE odp_version SET year = $1, forest_area = $2 WHERE id = $3;",
       [draft.year, draft.forestArea, res.rows[0].draft_id])
   )
 
 module.exports.markAsActual = odpId => {
-    const selectOldActualPromise = db.query("SELECT actual_id FROM eof_odp WHERE id = $1", [odpId])
+    const selectOldActualPromise = db.query("SELECT actual_id FROM odp WHERE id = $1", [odpId])
     const updateOdpPromise = db.query(
-        "UPDATE eof_odp SET actual_id = draft_id, draft_id = null WHERE id = $1", [odpId]
+        "UPDATE odp SET actual_id = draft_id, draft_id = null WHERE id = $1", [odpId]
     )
     return Promise.join(selectOldActualPromise, updateOdpPromise, (oldActualResult, _) => {
         if (oldActualResult.rowCount > 0) {
@@ -40,7 +40,7 @@ module.exports.markAsActual = odpId => {
         }
         return null
     }).then((oldActualId) => {
-        if (oldActualId) return db.query("DELETE FROM eof_odp_version WHERE id = $1", [oldActualId])
+        if (oldActualId) return db.query("DELETE FROM odp_version WHERE id = $1", [oldActualId])
         return null
     })
 }
@@ -89,8 +89,8 @@ module.exports.readOriginalDataPoints = countryIso =>
       CASE WHEN p.actual_id IS NULL
         THEN TRUE
       ELSE FALSE END AS draft
-    FROM eof_odp p
-      JOIN eof_odp_version v
+    FROM odp p
+      JOIN odp_version v
         ON v.id = CASE WHEN p.draft_id IS NULL
         THEN p.actual_id
                   ELSE p.draft_id END
@@ -103,8 +103,8 @@ module.exports.getOdp = odpId =>
       p.id AS odp_id,
       v.forest_area,
       v.year
-    FROM eof_odp p
-      JOIN eof_odp_version v
+    FROM odp p
+      JOIN odp_version v
         ON v.id =
            CASE WHEN p.draft_id IS NULL
              THEN p.actual_id
