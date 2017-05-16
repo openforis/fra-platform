@@ -26,5 +26,5 @@ module.exports.query = (text, values) => {
 
 // For multiple operations, such as a transactions
 module.exports.connect = function () {
-    return pool.connectAsync();
+    return pool.connect();
 }
