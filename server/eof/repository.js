@@ -2,45 +2,65 @@ const db = require("../db/db")
 const R = require("ramda")
 const Promise = require("bluebird")
 
-module.exports.getDraftId = odpId =>
-  db.query(
+module.exports.saveDraft = (client, countryIso, draft) =>
+    !draft.odpId ?
+        createOdp(client, countryIso)
+            .then(newOdpId => updateOrInsertDraft(client, newOdpId, countryIso, draft))
+        :
+        updateOrInsertDraft(client, draft.odpId, countryIso, draft)
+
+
+const updateOrInsertDraft = (client, odpId, countryIso, draft) =>
+    getDraftId(client, odpId)
+        .then(draftId => {
+            if (!draftId) {
+                return insertDraft(client, odpId, countryIso, draft)
+                    .then(() => ({odpId}))
+            }
+            else {
+                return updateDraft(client, draft)
+                    .then(() => ({odpId}))
+            }
+        })
+
+const getDraftId = (client, odpId) =>
+  client.query(
     "SELECT draft_id FROM odp WHERE id = $1", [odpId]
   ).then(resp => resp.rows[0].draft_id)
 
-module.exports.createOdp = (countryIso) =>
-  db.query("INSERT INTO odp (country_iso ) VALUES ($1)", [countryIso]).then(resp =>
-    db.query("SELECT last_value FROM odp_id_seq").then(resp => resp.rows[0].last_value)
+const createOdp = (client, countryIso) =>
+  client.query("INSERT INTO odp (country_iso ) VALUES ($1)", [countryIso]).then(resp =>
+    client.query("SELECT last_value FROM odp_id_seq").then(resp => resp.rows[0].last_value)
   )
 
-module.exports.insertDraft = (odpId, iso, draft) =>
-  db.query(
+const insertDraft = (client, odpId, iso, draft) =>
+  client.query(
    "INSERT INTO odp_version (forest_area, calculated, year) VALUES ($1, FALSE, $2);",
     [draft.forestArea, draft.year]
   ).then(() =>
-      db.query("UPDATE odp SET draft_id = (SELECT last_value FROM odp_version_id_seq) WHERE id = $1", [odpId])
+      client.query("UPDATE odp SET draft_id = (SELECT last_value FROM odp_version_id_seq) WHERE id = $1", [odpId])
   )
 
-module.exports.updateDraft = draft =>
-  db.query(
+const updateDraft = (client, draft) =>
+  client.query(
     "SELECT draft_id FROM odp WHERE id = $1", [draft.odpId]
   ).then(res =>
-    db.query("UPDATE odp_version SET year = $1, forest_area = $2 WHERE id = $3;",
+    client.query("UPDATE odp_version SET year = $1, forest_area = $2 WHERE id = $3;",
       [draft.year, draft.forestArea, res.rows[0].draft_id])
   )
 
-module.exports.markAsActual = odpId => {
-    const selectOldActualPromise = db.query("SELECT actual_id FROM odp WHERE id = $1", [odpId])
-    const updateOdpPromise = db.query(
+module.exports.markAsActual = (client, odpId) => {
+    const selectOldActualPromise = client.query("SELECT actual_id FROM odp WHERE id = $1", [odpId])
+    const updateOdpPromise = client.query(
         "UPDATE odp SET actual_id = draft_id, draft_id = null WHERE id = $1", [odpId]
     )
     return Promise.join(selectOldActualPromise, updateOdpPromise, (oldActualResult, _) => {
         if (oldActualResult.rowCount > 0) {
-            console.log("Gonna remove old actual with result", oldActualResult.rows[0].actual_id)
             return oldActualResult.rows[0].actual_id
         }
         return null
     }).then((oldActualId) => {
-        if (oldActualId) return db.query("DELETE FROM odp_version WHERE id = $1", [oldActualId])
+        if (oldActualId) return client.query("DELETE FROM odp_version WHERE id = $1", [oldActualId])
         return null
     })
 }
