@@ -63,6 +63,7 @@ module.exports.transaction = (fn, argv) => {
 }
 
 const isCatchResult = (result) =>
+    result &&
     result.hasOwnProperty("length") &&
     typeof result.length === "number" &&
     result.length === 2 &&

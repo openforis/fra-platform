@@ -49,7 +49,7 @@ module.exports.init = app => {
     })
 
     app.post('/api/country/originalDataPoint/draft/markAsActual/:opdId', (req, res) =>
-        eofRepository.markAsActual(req.params.opdId)
+        db.transaction(eofRepository.markAsActual, [req.params.opdId])
             .then(() => res.json({}))
             .catch(err => sendErr(res, err))
     )

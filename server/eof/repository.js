@@ -49,9 +49,9 @@ const updateDraft = (client, draft) =>
       [draft.year, draft.forestArea, res.rows[0].draft_id])
   )
 
-module.exports.markAsActual = odpId => {
-    const selectOldActualPromise = db.query("SELECT actual_id FROM odp WHERE id = $1", [odpId])
-    const updateOdpPromise = db.query(
+module.exports.markAsActual = (client, odpId) => {
+    const selectOldActualPromise = client.query("SELECT actual_id FROM odp WHERE id = $1", [odpId])
+    const updateOdpPromise = client.query(
         "UPDATE odp SET actual_id = draft_id, draft_id = null WHERE id = $1", [odpId]
     )
     return Promise.join(selectOldActualPromise, updateOdpPromise, (oldActualResult, _) => {
@@ -60,7 +60,7 @@ module.exports.markAsActual = odpId => {
         }
         return null
     }).then((oldActualId) => {
-        if (oldActualId) return db.query("DELETE FROM odp_version WHERE id = $1", [oldActualId])
+        if (oldActualId) return client.query("DELETE FROM odp_version WHERE id = $1", [oldActualId])
         return null
     })
 }
