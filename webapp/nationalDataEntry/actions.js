@@ -1,48 +1,53 @@
 import axios from "axios"
 import * as R from "ramda"
-import {applicationError} from "../applicationError/actions"
+import { applicationError } from "../applicationError/actions"
 
-export const valueChangeStart = 'nationalDataEntry/value/change/start'
+export const valueChangeStart     = 'nationalDataEntry/value/change/start'
 export const valueChangeCompleted = 'nationalDataEntry/value/change/completed'
-export const valuesFetched = 'nationalDataEntry/value/fetch/completed'
+export const valuesFetched        = 'nationalDataEntry/value/fetch/completed'
 
-const changed = ({name, value}) => ({
-  type: valueChangeCompleted,
-  name, value
+const changed = ({ name, value }) => ({
+    type: valueChangeCompleted,
+    name, value
 })
 
 const fetched = (countryIso, data) => ({
-  type: valuesFetched,
-  countryIso, data
+    type: valuesFetched,
+    countryIso, data
 })
 
-const change = ({countryIso, name, value}) => {
-  const dispatched = dispatch => {
-      return axios.post(`/api/country/${countryIso}/${name}`, {forestArea: value}).then(() => {
-          dispatch(changed({name, value}))
-      }).catch((err) => {
-          dispatch(applicationError(err))
-      })
-  }
-  dispatched.meta = {
-    debounce: {
-      time: 800,
-      key: `valueChangeStart_${name}`
+const change = ({ countryIso, name, value }) => {
+    const dispatched = dispatch => {
+        return axios.post( `/api/country/${countryIso}/${name}`, { forestArea: value } ).then( () => {
+            dispatch( changed( { name, value } ) )
+        } ).catch( (err) => {
+            dispatch( applicationError( err ) )
+        } )
     }
-  }
-  return dispatched
+    dispatched.meta  = {
+        debounce: {
+            time: 800,
+            key : `valueChangeStart_${name}`
+        }
+    }
+    return dispatched
 }
 
-const start = ({name, value}) => ({type: valueChangeStart, name, value})
+const start = ({ name, value }) => ({ type: valueChangeStart, name, value })
 
 export const save = (countryIso, name, value) => dispatch => {
-    dispatch(start({name, value}))
-    dispatch(change({countryIso, name, value}))
+    dispatch( start( { name, value } ) )
+    dispatch( change( { countryIso, name, value } ) )
 }
 
 export const fetch = (countryIso) => dispatch => {
-  axios.get(`/api/country/${countryIso}`).then(resp => {
-    dispatch(fetched(countryIso, resp.data))
-  })
+    axios.get( `/api/country/${countryIso}` ).then( resp => {
+        dispatch( fetched( countryIso, resp.data ) )
+    } )
 }
 
+export const generateFraValues = (countryIso) => {
+    axios.get( `/api/country/generateFraValues/${countryIso}` ).then( resp => {
+        fetch(countryIso)
+    } )
+}

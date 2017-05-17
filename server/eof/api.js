@@ -16,10 +16,10 @@ module.exports.init = app => {
             .catch(err => sendErr(res, err))
     })
 
-    app.get('/api/country/:countryIso', (req, res) => {
+    const getCountryData = (req , res) => {
         const fra = eofRepository.readFraForestAreas(req.params.countryIso)
         const odp = eofRepository.readOriginalDataPoints(req.params.countryIso)
-
+    
         Promise.all([fra, odp])
             .then(result => {
                 const forestAreas = R.pipe(
@@ -31,7 +31,9 @@ module.exports.init = app => {
                 return res.json({fra: forestAreas})
             })
             .catch(err => sendErr(res, err))
-    })
+    }
+    
+    app.get('/api/country/:countryIso', (req, res) => getCountryData(req, res) )
 
     app.get('/api/country/originalDataPoint/:odpId', (req, res) => {
         eofRepository.getOdp(req.params.odpId)
@@ -53,4 +55,11 @@ module.exports.init = app => {
             .then(() => res.json({}))
             .catch(err => sendErr(res, err))
     )
+    
+    
+    app.get('/api/country/generateFraValues/:countryIso' , (req,res) => {
+        // const countryIso = req.params.countryIso
+        // console.log("== ciso", countryIso)
+        return getCountryData(req, res)
+    })
 }

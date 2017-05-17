@@ -2,7 +2,7 @@ import "./style.less"
 import React from "react"
 import { connect } from "react-redux"
 import * as R from "ramda"
-import { save, fetch } from "./actions"
+import { save, fetch, generateFraValues } from "./actions"
 import { Link } from 'react-router-dom'
 
 const OdpCell = ({odpValue}) => {
@@ -55,6 +55,15 @@ const DataTable = ( { fra, save, countryIso } ) =>
     </div>
 
 const DataInput = ( props ) => {
+    
+    const disableGenerateFRA = ()=>{
+        const odps = R.pipe(
+            R.values,
+            R.filter( v => v.type == "odp")
+        )(props.fra)
+        return odps.length < 2
+    }
+    
     return <div className="nde__data-input-component">
         <h2>{props.name}</h2>
         <div className="nde__data-input-header">
@@ -64,7 +73,12 @@ const DataInput = ( props ) => {
             <Link className="btn-primary" to={`/country/odp/${props.countryIso}`}>+ Add original data point</Link>
         </div>
         <span className="nde__status-indicator">{props.status}</span>
-        
+        <div className="nde__data-table-header">
+            <div>
+                {/*placeholder for chart heading*/}
+            </div>
+            <button disabled={disableGenerateFRA()} className="btn-primary" onClick={generateFraValues(props.countryIso)}>Generate FRA values</button>
+        </div>
         <div className="nde__data-table-container">
             <DataTable {...props} />
         </div>
@@ -90,4 +104,4 @@ class DataFetchingComponent extends React.Component {
 
 const mapStateToProps = state => state[ 'nationalDataEntry' ]
 
-export default connect( mapStateToProps, { save, fetch } )( DataFetchingComponent )
+export default connect( mapStateToProps, { save, fetch, generateFraValues } )( DataFetchingComponent )
