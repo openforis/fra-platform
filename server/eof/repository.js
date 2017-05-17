@@ -2,56 +2,13 @@ const db = require("../db/db")
 const R = require("ramda")
 const Promise = require("bluebird")
 
-module.exports.transaction = (fn, argv) => {
-    return db.connect()
-        .then((client) =>
-            client.query("BEGIN")
-                .then(() => fn.apply(null, [client]).apply(null, argv))
-                .then((response) => [response, client.query("COMMIT")])
-                .then(([response, _]) => {
-                    client.release()
-                    return response
-                })
-                .catch(err => [err, client.query("ROLLBACK")])
-                .then(result => {
-                    // result is an array of length 2 if we got an error
-                    if (result.length === 2) {
-                        throw result[0]
-                    } else {
-                        return result
-                    }
-                })
-        )
-}
-
-module.exports.doSaveDraft = (client) => (countryIso, draft) =>
+module.exports.saveDraft = (client, countryIso, draft) =>
     !draft.odpId ?
         createOdp(client, countryIso)
             .then(newOdpId => updateOrInsertDraft(client, newOdpId, countryIso, draft))
         :
         updateOrInsertDraft(client, draft.odpId, countryIso, draft)
 
-module.exports.saveDraft = (countryIso, draft) => {
-    return db.connect()
-        .then((client) =>
-            client.query("BEGIN")
-                .then(() => doSaveDraft(client, countryIso, draft))
-                .then((response) => [response, client.query("COMMIT")])
-                .then(([response, _]) => {
-                    client.release()
-                    return response
-                })
-                .catch(err => [err, client.query("ROLLBACK")])
-                .then(result => {
-                    // result is an array of length 2 if we got an error
-                    if (result.length === 2) {
-                        throw result[0]
-                    } else {
-                        return result
-                    }
-                })
-        )
-}
 
 const updateOrInsertDraft = (client, odpId, countryIso, draft) =>
     getDraftId(client, odpId)

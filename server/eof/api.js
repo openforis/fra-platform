@@ -1,4 +1,5 @@
 const eofRepository = require('./repository')
+const db = require('../db/db')
 const os = require('os')
 const Promise = require('bluebird')
 const fs = Promise.promisifyAll(require('fs'))
@@ -42,7 +43,7 @@ module.exports.init = app => {
 
     app.post('/api/country/originalDataPoint/draft/:countryIso', (req, res) => {
         const countryIso = req.params.countryIso
-        eofRepository.transaction(eofRepository.doSaveDraft, [countryIso, req.body])
+        db.transaction(eofRepository.saveDraft, [countryIso, req.body])
             .then(result => res.json(result))
             .catch(err => sendErr(res, err))
     })

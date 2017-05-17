@@ -24,7 +24,40 @@ module.exports.query = (text, values) => {
     return pool.queryAsync(text, values)
 }
 
-// For multiple operations, such as a transactions
-module.exports.connect = function () {
+const connect = function () {
     return pool.connect();
+}
+
+// For multiple operations, such as a transactions
+module.exports.connect = connect
+
+/*
+ * Pass in a function-reference and it's arguments after client like this:
+ * db.transaction(someRepository.saveStuff, [name, contents])
+ *
+ * The function signature would look like this:
+ * saveStuff(client, name, contents)
+ *
+ * You must always use the client to queries
+ */
+module.exports.transaction = (fn, argv) => {
+    return connect()
+        .then(client =>
+            client.query("BEGIN")
+                .then(() => fn.apply(null, [client, ...argv])
+                .then(response => [response, client.query("COMMIT")])
+                .then(([response, _]) => {
+                    client.release()
+                    return response
+                })
+                .catch(err => [err, client.query("ROLLBACK")])
+                .then(result => {
+                    // result is an array of length 2 if we got an error
+                    if (result.length === 2) {
+                        throw result[0]
+                    } else {
+                        return result
+                    }
+                }))
+        )
 }
