@@ -42,7 +42,7 @@ module.exports.init = app => {
 
     app.post('/api/country/originalDataPoint/draft/:countryIso', (req, res) => {
         const countryIso = req.params.countryIso
-        eofRepository.saveDraft(countryIso, req.body)
+        eofRepository.transaction(eofRepository.doSaveDraft, [countryIso, req.body])
             .then(result => res.json(result))
             .catch(err => sendErr(res, err))
     })
