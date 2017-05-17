@@ -5,6 +5,6 @@ const Footer = ({status}) => console.log(status) || <div>
         {status}
     </div>
 
-const mapStateToProps = state => console.log(state, state['autoSave']) || state['autoSave']
+const mapStateToProps = state => state.autoSave
 
 export default connect(mapStateToProps)( Footer )
