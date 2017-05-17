@@ -69,19 +69,19 @@ const emptyFraForestArea = (countryIso, year) =>
  db.query("SELECT id FROM eof_fra_values WHERE country_iso = $1 and year = $2", [countryIso, year])
      .then(result => result.rows.length == 0)
 
-module.exports.persistFraForestArea = (countryIso, year, forestArea) =>
+module.exports.persistFraForestArea = (countryIso, year, forestArea, estimated=false) =>
   emptyFraForestArea(countryIso, year).then(isEmpty =>
-      isEmpty ? insertFraForestArea(countryIso, year, forestArea)
+      isEmpty ? insertFraForestArea(countryIso, year, forestArea, estimated)
           :
-          updateFraForestArea(countryIso, year, forestArea))
+          updateFraForestArea(countryIso, year, forestArea, estimated))
 
-const insertFraForestArea = (countryIso, year, forestArea) =>
-  db.query("INSERT INTO eof_fra_values (country_iso, year, forest_area) VALUES ($1, $2, $3)",
-           [countryIso, year, forestArea])
+const insertFraForestArea = (countryIso, year, forestArea, estimated) =>
+  db.query("INSERT INTO eof_fra_values (country_iso, year, forest_area, estimated) VALUES ($1, $2, $3, $4)",
+           [countryIso, year, forestArea, estimated])
 
-const updateFraForestArea = (countryIso, year, forestArea) =>
-  db.query("UPDATE eof_fra_values SET forest_area = $3 WHERE country_iso = $1 AND year = $2",
-      [countryIso, year, forestArea])
+const updateFraForestArea = (countryIso, year, forestArea, estimated) =>
+  db.query("UPDATE eof_fra_values SET forest_area = $3, estimated = $4 WHERE country_iso = $1 AND year = $2",
+      [countryIso, year, forestArea, estimated])
 
 const reduceForestAreas = (results, row, type = 'fra') => R.assoc(`${type}_${row.year}`,
   {
@@ -212,7 +212,7 @@ module.exports.getPreviousValue = (countryIso , year) =>
         ORDER BY
            year DESC
         LIMIT 1
-     `, [countryIso , year], countryIso , year).then(result => result.rows[0])
+     `, [countryIso , year, countryIso , year]).then(result => result.rows[0])
 
 
 module.exports.get2PreviousValues = (countryIso , year) =>
@@ -246,4 +246,4 @@ module.exports.get2PreviousValues = (countryIso , year) =>
         ORDER BY
            year DESC
         LIMIT 2
-     `, [countryIso , year], countryIso , year).then(result => result.rows)
+     `, [countryIso , year, countryIso , year]).then(result => result.rows)
