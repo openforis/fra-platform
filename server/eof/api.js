@@ -57,9 +57,36 @@ module.exports.init = app => {
     )
     
     
+    
     app.get('/api/country/generateFraValues/:countryIso' , (req,res) => {
-        // const countryIso = req.params.countryIso
+        const countryIso = req.params.countryIso
         // console.log("== ciso", countryIso)
+        const years = [ 1990, 2000, 2010, 2015, 2016, 2017, 2018, 2019, 2020 ]
+        for(const year of years){
+            console.log("======== " , year )
+            eofRepository.getOdpByYear(countryIso, year).then(odp =>{
+                if(odp) {
+                    // 1: if value exists , copy
+                    //eofRepository.persistFraForestArea(countryIso,year, odp.forest_area)
+                } else {
+                    const previousValue = eofRepository.getPreviousValue(countryIso, year)
+                    const nextValue = eofRepository.getNextValue(countryIso, year)
+                    // 2: if value has 1 before and one after, interpolate
+                    Promise.all([previousValue, nextValue]).then(result =>{
+                        if( result[0] && result[1] ){
+                        
+                        } else {
+                            eofRepository.get2PreviousValues(countryIso,year).then(result=>{
+                                if(result && result.length == 2){
+                                    // 3: if value has 2 before extrapolate
+                                }
+                            })
+                        }
+                    })
+                
+                }
+            })
+        }
         return getCountryData(req, res)
     })
 }
