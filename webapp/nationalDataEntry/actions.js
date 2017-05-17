@@ -46,8 +46,8 @@ export const fetch = (countryIso) => dispatch => {
     } )
 }
 
-export const generateFraValues = (countryIso) => {
+export const generateFraValues = (countryIso) => dispatch => {
     axios.get( `/api/country/generateFraValues/${countryIso}` ).then( resp => {
-        fetch(countryIso)
+        dispatch(fetch(countryIso) )
     } )
 }

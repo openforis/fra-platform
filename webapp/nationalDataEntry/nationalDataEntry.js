@@ -56,7 +56,7 @@ const DataTable = ( { fra, save, countryIso } ) =>
 
 const DataInput = ( props ) => {
     
-    const disableGenerateFRA = ()=>{
+    const disableGenerateFRAValues = ()=>{
         const odps = R.pipe(
             R.values,
             R.filter( v => v.type == "odp")
@@ -77,7 +77,7 @@ const DataInput = ( props ) => {
             <div>
                 {/*placeholder for chart heading*/}
             </div>
-            <button disabled={disableGenerateFRA()} className="btn-primary" onClick={generateFraValues(props.countryIso)}>Generate FRA values</button>
+            <button disabled={disableGenerateFRAValues()} className="btn-primary" onClick={() => props.generateFraValues(props.countryIso)}>Generate FRA values</button>
         </div>
         <div className="nde__data-table-container">
             <DataTable {...props} />
