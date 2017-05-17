@@ -9,7 +9,7 @@ import OriginalDataPoint from './originalDataPoint/originalDataPoint'
 
 const Routes = () => (
     <Router>
-        <div>
+        <div className="app__root">
             <Header/>
             <ErrorComponent/>
             <div className="main__container">
