@@ -63,8 +63,6 @@ const DataInput = ( props ) => {
             </div>
             <Link className="btn-primary" to={`/country/odp/${props.countryIso}`}>+ Add original data point</Link>
         </div>
-        <span className="nde__status-indicator">{props.status}</span>
-        
         <div className="nde__data-table-container">
             <DataTable {...props} />
         </div>
@@ -86,7 +84,6 @@ class DataFetchingComponent extends React.Component {
         return <NationalDataEntry {...this.props} countryIso={this.props.match.params.countryIso}/>
     }
 }
-
 
 const mapStateToProps = state => state[ 'nationalDataEntry' ]
 
