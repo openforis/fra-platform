@@ -69,19 +69,19 @@ const emptyFraForestArea = (countryIso, year) =>
  db.query("SELECT id FROM eof_fra_values WHERE country_iso = $1 and year = $2", [countryIso, year])
      .then(result => result.rows.length == 0)
 
-module.exports.persistFraForestArea = (countryIso, year, forestArea) =>
+module.exports.persistFraForestArea = (countryIso, year, forestArea, estimated=false) =>
   emptyFraForestArea(countryIso, year).then(isEmpty =>
-      isEmpty ? insertFraForestArea(countryIso, year, forestArea)
+      isEmpty ? insertFraForestArea(countryIso, year, forestArea, estimated)
           :
-          updateFraForestArea(countryIso, year, forestArea))
+          updateFraForestArea(countryIso, year, forestArea, estimated))
 
-const insertFraForestArea = (countryIso, year, forestArea) =>
-  db.query("INSERT INTO eof_fra_values (country_iso, year, forest_area) VALUES ($1, $2, $3)",
-           [countryIso, year, forestArea])
+const insertFraForestArea = (countryIso, year, forestArea, estimated) =>
+  db.query("INSERT INTO eof_fra_values (country_iso, year, forest_area, estimated) VALUES ($1, $2, $3, $4)",
+           [countryIso, year, forestArea, estimated])
 
-const updateFraForestArea = (countryIso, year, forestArea) =>
-  db.query("UPDATE eof_fra_values SET forest_area = $3 WHERE country_iso = $1 AND year = $2",
-      [countryIso, year, forestArea])
+const updateFraForestArea = (countryIso, year, forestArea, estimated) =>
+  db.query("UPDATE eof_fra_values SET forest_area = $3, estimated = $4 WHERE country_iso = $1 AND year = $2",
+      [countryIso, year, forestArea, estimated])
 
 const reduceForestAreas = (results, row, type = 'fra') => R.assoc(`${type}_${row.year}`,
   {
@@ -132,3 +132,118 @@ module.exports.getOdp = odpId =>
            END
     WHERE p.id = $1
   `, [odpId]).then(result => result.rows[0])
+
+
+// functions used for interpolation / extrapolation
+//TODO remove draft if not needed
+module.exports.getOdpByYear = (countryIso , year) =>
+    db.query(`
+        SELECT
+          p.id as odp_id,
+          p.draft_id,
+          p.actual_id,
+          v.forest_area,
+          v.year,
+          CASE WHEN p.actual_id IS NULL
+            THEN TRUE
+          ELSE FALSE END AS draft
+        FROM odp p
+          JOIN odp_version v
+            ON v.id = CASE WHEN p.draft_id IS NULL
+            THEN p.actual_id
+                      ELSE p.draft_id END
+        WHERE p.country_iso = $1
+        AND v.year = $2
+     `, [countryIso , year]).then(result => result.rows[0])
+
+module.exports.getNextValue = (countryIso , year) =>
+    db.query(`
+        SELECT
+            v.forest_area,
+            v.year
+        FROM
+            odp p
+        JOIN
+            odp_version v
+        ON
+            v.id =
+            CASE
+                WHEN p.draft_id IS NULL
+                THEN p.actual_id
+                ELSE p.draft_id
+            END
+        WHERE
+            p.country_iso = $1
+        AND v.year > $2
+        ORDER BY
+            v.year
+        LIMIT 1
+     `, [countryIso , year]).then(result => result.rows[0])
+
+// previous value also takes into account if a fra value has been estimated
+module.exports.getPreviousValue = (countryIso , year) =>
+    db.query(`
+        SELECT
+            v.forest_area,
+            v.year
+        FROM
+            odp p
+        JOIN
+            odp_version v
+        ON
+            v.id =
+            CASE
+                WHEN p.draft_id IS NULL
+                THEN p.actual_id
+                ELSE p.draft_id
+            END
+        WHERE
+            p.country_iso = $1
+        AND v.year < $2
+        UNION SELECT
+            f.forest_area,
+            f.year
+        FROM
+            eof_fra_values f
+        WHERE
+            f.country_iso = $3
+        AND f.year < $4
+        AND f.estimated = true
+        ORDER BY
+           year DESC
+        LIMIT 1
+     `, [countryIso , year, countryIso , year]).then(result => result.rows[0])
+
+
+module.exports.get2PreviousValues = (countryIso , year) =>
+    db.query(`
+        SELECT
+            v.forest_area,
+            v.year
+        FROM
+            odp p
+        JOIN
+            odp_version v
+        ON
+            v.id =
+            CASE
+                WHEN p.draft_id IS NULL
+                THEN p.actual_id
+                ELSE p.draft_id
+            END
+        WHERE
+            p.country_iso = $1
+        AND v.year < $2
+        UNION SELECT
+            f.forest_area,
+            f.year
+        FROM
+            eof_fra_values f
+        WHERE
+            f.country_iso = $3
+        AND f.year < $4
+        AND f.estimated = true
+        ORDER BY
+           year DESC
+        LIMIT 2
+     `, [countryIso , year, countryIso , year]).then(result => result.rows)
