@@ -56,7 +56,7 @@ module.exports.init = app => {
   )
   
   app.get('/api/country/generateFraValues/:countryIso', (req, res) => {
-    const years = [1990, 2000, 2010, 2015, 2016, 2017, 2018, 2019, 2020]
+    const years = [1990, 2000, 2010, 2015, 2020]
     
     EstimationEngine
       .estimateFraValues(req.params.countryIso, years)

@@ -57,10 +57,9 @@ const estimateFraValue = (countryIso, year) => {
   })
 }
 
-module.exports.estimateFraValues = (countryIso , years) => {
+module.exports.estimateFraValues = (countryIso, years) => {
   return new Promise((resolve, reject) => {
-    
-    let idx     = 0
+    let idx = 0
     
     const estimate = (countryIso, year) =>
       estimateFraValue(countryIso, year).then((res) => {
