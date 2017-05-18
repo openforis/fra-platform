@@ -60,7 +60,7 @@ module.exports.init = app => {
     
     EstimationEngine
       .estimateFraValues(req.params.countryIso, years)
-      .then(() => console.log('AAAAAAAAAAAAAAAA DONE!~!~! PERKELE') || res.json({}))
+      .then(() => res.json({}))
     
   })
 }
