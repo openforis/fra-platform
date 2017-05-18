@@ -1,9 +1,9 @@
 import "./style.less"
 import React from "react"
-import { connect } from "react-redux"
+import {connect} from "react-redux"
 import * as R from "ramda"
-import { save, fetch, generateFraValues } from "./actions"
-import { Link } from 'react-router-dom'
+import {save, fetch, generateFraValues} from "./actions"
+import {Link} from 'react-router-dom'
 
 const OdpCell = ({odpValue}) => {
     return <span className="nde__input-table-readonly-cell">
@@ -24,15 +24,15 @@ const FraValueCell = ({fraValue, fra, countryIso, save}) => <input
     }}/>
 
 
-const DataTable = ( { fra, save, countryIso } ) =>
+const DataTable = ({fra, save, countryIso}) =>
     <div className="nde__input-table">
         <div className="nde__input-table-heading">
             {
                 R.values(fra).map(v =>
                     <div key={`${v.type}_${v.name}`}>
                         { v.type === "odp" ?
-                            <OdpHeading countryIso={countryIso} odpValue={v} />
-                          : v.name
+                            <OdpHeading countryIso={countryIso} odpValue={v}/>
+                            : v.name
                         }
                     </div>
                 )
@@ -42,28 +42,28 @@ const DataTable = ( { fra, save, countryIso } ) =>
             {
                 R.values(fra).map(v =>
                     <div key={`${v.type}_${v.name}`}>
-                    {
-                        v.type === "odp" ?
-                            <OdpCell odpValue={v}/>
-                            :
-                            <FraValueCell fraValue={v} fra={fra} countryIso={countryIso} save={save}/>
-                    }
+                        {
+                            v.type === "odp" ?
+                                <OdpCell odpValue={v}/>
+                                :
+                                <FraValueCell fraValue={v} fra={fra} countryIso={countryIso} save={save}/>
+                        }
                     </div>
                 )
             }
         </div>
     </div>
 
-const DataInput = ( props ) => {
-    
-    const disableGenerateFRAValues = ()=>{
+const DataInput = (props) => {
+
+    const disableGenerateFRAValues = () => {
         const odps = R.pipe(
             R.values,
-            R.filter( v => v.type == "odp")
+            R.filter(v => v.type == "odp")
         )(props.fra)
         return odps.length < 2
     }
-    
+
     return <div className="nde__data-input-component">
         <h2>{props.name}</h2>
         <div className="nde__data-input-header">
@@ -76,7 +76,9 @@ const DataInput = ( props ) => {
             <div>
                 {/*placeholder for chart heading*/}
             </div>
-            <button disabled={disableGenerateFRAValues()} className="btn-primary" onClick={() => props.generateFraValues(props.countryIso)}>Generate FRA values</button>
+            <button disabled={disableGenerateFRAValues()} className="btn-primary"
+                    onClick={() => props.generateFraValues(props.countryIso)}>Generate FRA values
+            </button>
         </div>
         <div className="nde__data-table-container">
             <DataTable {...props} />
@@ -84,7 +86,7 @@ const DataInput = ( props ) => {
     </div>
 }
 
-const NationalDataEntry = ( props ) => {
+const NationalDataEntry = (props) => {
     return <div>
         <DataInput {...props} name="Forest area"/>
     </div>
@@ -92,14 +94,14 @@ const NationalDataEntry = ( props ) => {
 
 class DataFetchingComponent extends React.Component {
     componentWillMount() {
-        this.props.fetch( this.props.match.params.countryIso )
+        this.props.fetch(this.props.match.params.countryIso)
     }
-    
+
     render() {
         return <NationalDataEntry {...this.props} countryIso={this.props.match.params.countryIso}/>
     }
 }
 
-const mapStateToProps = state => state[ 'nationalDataEntry' ]
+const mapStateToProps = state => state['nationalDataEntry']
 
-export default connect( mapStateToProps, { save, fetch, generateFraValues } )( DataFetchingComponent )
+export default connect(mapStateToProps, {save, fetch, generateFraValues})(DataFetchingComponent)
