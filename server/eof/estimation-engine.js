@@ -13,7 +13,7 @@ const linearExtrapolation = (x, xa, ya, xb, yb) => {
 
 const interpolate = (countryIso, year, pointA, pointB) =>
   new Promise((resolve) => {
-    let newValue = linearInterpolation(year, Number(pointA.year), Number(pointA.forest_area), Number(pointB.year), Number(pointB.forest_area))
+    let newValue = linearInterpolation(year, pointA.year, pointA.forest_area, pointB.year, pointB.forest_area)
     newValue = newValue < 0 ? 0 : Number(newValue.toFixed(3))
     eofRepository
       .persistFraForestArea(countryIso, year, newValue, true)
@@ -22,7 +22,7 @@ const interpolate = (countryIso, year, pointA, pointB) =>
 
 const extrapolate = (countryIso, year, pointA, pointB) =>
   new Promise((resolve) => {
-    let newValue = linearExtrapolation(year, Number(pointA.year), Number(pointA.forest_area), Number(pointB.year), Number(pointB.forest_area))
+    let newValue = linearExtrapolation(year, pointA.year, pointA.forest_area, pointB.year, pointB.forest_area)
     newValue = newValue < 0 ? 0 : Number(newValue.toFixed(3))
     eofRepository
       .persistFraForestArea(countryIso, year, newValue, true)
@@ -47,12 +47,13 @@ const estimateFraValue = (countryIso, year, values) => {
       } else {
         const previous2Values = R.pipe(R.filter(v => v.year < year), R.sort((a, b) => b.year - a.year))(values).slice(0, 2)
 
-        if (previous2Values.length == 2)
+        if (previous2Values.length === 2)
           extrapolate(countryIso, year, previous2Values[1], previous2Values[0]).then(res => {
             values.push({year: year, forest_area: res})
             resolve(res)
           })
-        else resolve(null)
+        else
+          resolve(null)
 
       }
     }
@@ -66,7 +67,7 @@ module.exports.estimateFraValues = (countryIso, years) => {
 
     const estimate = (countryIso, year, values) =>
       estimateFraValue(countryIso, year, values).then((res) => {
-        if (idx == years.length - 1)
+        if (idx === years.length - 1)
           resolve()
         else
           estimate(countryIso, years[++idx], values)
