@@ -1,4 +1,5 @@
 const eofRepository = require('./repository')
+const R = require('ramda')
 
 const linearInterpolation = (x, xa, ya, xb, yb) => {
   const y = ya + ( yb - ya) * (x - xa) / (xb - xa)
@@ -28,35 +29,34 @@ const extrapolate = (countryIso, year, pointA, pointB) =>
       .then(() => resolve(newValue))
   })
 
-const estimateFraValue = (countryIso, year) => {
+const estimateFraValue = (countryIso, year, values) => {
   return new Promise((resolve, reject) => {
 
-    eofRepository.getOdpByYear(countryIso, year).then(odp => {
-      if (odp) {
-        // 1: if value exists , copy
-        eofRepository.persistFraForestArea(countryIso, year, odp.forest_area, true).then(() => resolve(odp.forest_area))
-      } else {
-        const previousValue = eofRepository.getPreviousValue(countryIso, year)
-        const nextValue = eofRepository.getNextValue(countryIso, year)
+    const odp = R.find(R.propEq('year', year))(values)
+    if (odp) {
+      eofRepository.persistFraForestArea(countryIso, year, odp.forest_area, true).then(() => resolve(odp.forest_area))
+    } else {
+      const previousValue = R.pipe(R.filter(v => v.year < year), R.sort((a, b) => b.year - a.year))(values)[0]
+      const nextValue = R.pipe(R.filter(v => v.year > year), R.sort((a, b) => a.year - b.year))(values)[0]
 
-        // 2: if value has 1 before and one after, interpolate
-        Promise.all([previousValue, nextValue]).then(result => {
-          if (result[0] && result[1]) {
-            interpolate(countryIso, year, result[0], result[1]).then(res => resolve(res))
-          } else {
-            eofRepository.get2PreviousValues(countryIso, year).then(result => {
-              if (result && result.length == 2) {
-                // 3: if value has 2 before extrapolate
-                extrapolate(countryIso, year, result[1], result[0]).then(res => resolve(res))
-              } else {
-                resolve(null)
-              }
-            })
-          }
+      if (previousValue && nextValue) {
+        interpolate(countryIso, year, previousValue, nextValue).then(res => {
+          values.push({year: year, forest_area: res})
+          resolve(res)
         })
+      } else {
+        const previous2Values = R.pipe(R.filter(v => v.year < year), R.sort((a, b) => b.year - a.year))(values).slice(0, 2)
+
+        if (previous2Values.length == 2)
+          extrapolate(countryIso, year, previous2Values[1], previous2Values[0]).then(res => {
+            values.push({year: year, forest_area: res})
+            resolve(res)
+          })
+        else resolve(null)
 
       }
-    })
+    }
+
   })
 }
 
@@ -64,14 +64,16 @@ module.exports.estimateFraValues = (countryIso, years) => {
   return new Promise((resolve, reject) => {
     let idx = 0
 
-    const estimate = (countryIso, year) =>
-      estimateFraValue(countryIso, year).then((res) => {
+    const estimate = (countryIso, year, values) =>
+      estimateFraValue(countryIso, year, values).then((res) => {
         if (idx == years.length - 1)
           resolve()
         else
-          estimate(countryIso, years[++idx])
+          estimate(countryIso, years[++idx], values)
       })
 
-    estimate(countryIso, years[0])
+    eofRepository
+      .getOdpValues(countryIso)
+      .then(values => estimate(countryIso, years[0], values))
   })
 }
