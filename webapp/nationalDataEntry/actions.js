@@ -20,17 +20,12 @@ const change = ({countryIso, name, value}) => {
       })
   }
   dispatched.meta = {
-    debounce: {
-      time: 800,
-      key: `valueChangeStart_${name}`
-    }
-    dispatched.meta  = {
-        debounce: {
-            time: 800,
-            key : `valueChangeStart_${name}`
-        }
-    }
-    return dispatched
+      debounce: {
+          time: 800,
+          key: `valueChangeStart_${name}`
+      }
+  }
+  return dispatched
 }
 
 const start = ({ name, value }) => ({ type: valueChangeStart, name, value })
