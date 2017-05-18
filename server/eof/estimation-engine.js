@@ -26,7 +26,8 @@ const estimateFraValue = (countryIso, year) => {
           if (result[0] && result[1]) {
             const pointA   = result[0]
             const pointB   = result[1]
-            const newValue = interpolate(year, Number(pointA.year), Number(pointA.forest_area), Number(pointB.year), Number(pointB.forest_area))
+            let newValue = interpolate(year, Number(pointA.year), Number(pointA.forest_area), Number(pointB.year), Number(pointB.forest_area))
+            newValue = newValue < 0 ? 0 : newValue
             eofRepository.persistFraForestArea(countryIso, year, newValue, true).then(() => resolve(newValue))
           } else {
             eofRepository.get2PreviousValues(countryIso, year).then(result => {
@@ -35,7 +36,8 @@ const estimateFraValue = (countryIso, year) => {
                 // 3: if value has 2 before extrapolate
                 const pointA   = result[1]
                 const pointB   = result[0]
-                const newValue = extrapolate(year, Number(pointA.year), Number(pointA.forest_area), Number(pointB.year), Number(pointB.forest_area))
+                let newValue = extrapolate(year, Number(pointA.year), Number(pointA.forest_area), Number(pointB.year), Number(pointB.forest_area))
+                newValue = newValue < 0 ? 0 : newValue
                 eofRepository.persistFraForestArea(countryIso, year, newValue, true).then(() => resolve(newValue))
               } else {
                 resolve(null)
