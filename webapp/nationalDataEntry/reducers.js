@@ -1,7 +1,7 @@
-import * as R from "ramda"
+import * as R from 'ramda'
 
-import * as types from "./actions"
-import {applyReducerFunction} from '../utils/reduxUtils'
+import * as types from './actions'
+import { applyReducerFunction } from '../utils/reduxUtils'
 
 const updateValue = (state, action) => {
   const idx         = R.findIndex(R.propEq('name', action.name), state.fra)
@@ -11,6 +11,7 @@ const updateValue = (state, action) => {
 }
 
 const actionHandlers = {
+
   [types.valueChangeCompleted]  : (state, action) =>
     R.pipe(
       R.partialRight(updateValue, [action]),
@@ -21,4 +22,4 @@ const actionHandlers = {
   [types.generateFraValuesStart]:(state,action) => R.assoc('generatingFraValues', true)(state)
 }
 
-export default (state={}, action) => applyReducerFunction(actionHandlers, state, action)
+export default (state = {}, action) => applyReducerFunction(actionHandlers, state, action)

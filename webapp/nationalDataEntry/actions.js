@@ -3,8 +3,10 @@ import * as R from 'ramda'
 import { applicationError } from '../applicationError/actions'
 import * as autosave from '../autosave/actions'
 
-export const valueChangeStart = 'nationalDataEntry/value/change/start'
-export const valuesFetched    = 'nationalDataEntry/value/fetch/completed'
+export const valueChangeStart     = 'nationalDataEntry/value/change/start'
+export const valueChangeCompleted = 'nationalDataEntry/value/change/completed'
+export const valuesFetched        = 'nationalDataEntry/value/fetch/completed'
+
 
 const fetched = (countryIso, data) => ({
   type: valuesFetched,
@@ -31,7 +33,6 @@ const change = ({countryIso, name, value}) => {
 const start = ({name, value}) => ({type: valueChangeStart, name, value})
 
 export const save = (countryIso, name, value) => dispatch => {
-  dispatch(start({name, value}))
   dispatch(autosave.start)
   dispatch(change({countryIso, name, value}))
 }
