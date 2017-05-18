@@ -11,12 +11,6 @@ const updateValue = (state, action) => {
 }
 
 const actionHandlers = {
-
-  [types.valueChangeCompleted]  : (state, action) =>
-    R.pipe(
-      R.partialRight(updateValue, [action]),
-      R.assoc('status', null),
-    )(state),
   [types.valueChangeStart]      : (state, action) => updateValue(state, action),
   [types.valuesFetched]         : (state, action) => action.data,
   [types.generateFraValuesStart]:(state,action) => R.assoc('generatingFraValues', true)(state)
