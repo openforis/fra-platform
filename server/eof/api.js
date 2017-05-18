@@ -61,6 +61,6 @@ module.exports.init = app => {
     EstimationEngine
       .estimateFraValues(req.params.countryIso, years)
       .then(() => res.json({}))
-    
   })
+  
 }

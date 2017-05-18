@@ -61,7 +61,7 @@ const DataInput = ( props ) => {
             R.values,
             R.filter( v => v.type == "odp")
         )(props.fra)
-        return odps.length < 2
+        return props.generatingFraValues || odps.length < 2
     }
     
     return <div className="nde__data-input-component">

@@ -21,7 +21,8 @@ const actionHandlers = {
       R.partialRight(updateValue, [action]),
       R.assoc('status', "saving..."),
     )(state),
-  [types.valuesFetched]: (state, action) => action.data
+  [types.valuesFetched]: (state, action) => action.data,
+  [types.generateFraValuesStart] :(state,action) => R.assoc('generatingFraValues', true)(state)
 }
 
 export default (state={}, action) => applyReducerFunction(actionHandlers, state, action)
