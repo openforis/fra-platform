@@ -3,9 +3,8 @@ import * as R from 'ramda'
 import { applicationError } from '../applicationError/actions'
 import * as autosave from '../autosave/actions'
 
-export const valueChangeStart     = 'nationalDataEntry/value/change/start'
-export const valuesFetched        = 'nationalDataEntry/value/fetch/completed'
-
+export const valueChangeStart = 'nationalDataEntry/value/change/start'
+export const valuesFetched = 'nationalDataEntry/value/fetch/completed'
 
 const fetched = (countryIso, data) => ({
   type: valuesFetched,
@@ -20,10 +19,10 @@ const change = ({countryIso, name, value}) => {
       dispatch(applicationError(err))
     })
   }
-  dispatched.meta  = {
+  dispatched.meta = {
     debounce: {
       time: 800,
-      key : `valueChangeStart_${name}`
+      key: `valueChangeStart_${name}`
     }
   }
   return dispatched
@@ -47,7 +46,7 @@ export const generateFraValuesStart = 'nationalDataEntry/generateFraValues/start
 
 export const generateFraValues = (countryIso) => dispatch => {
   dispatch({type: generateFraValuesStart})
-  
+
   axios.get(`/api/country/generateFraValues/${countryIso}`).then(resp => {
     dispatch(fetch(countryIso))
   })
