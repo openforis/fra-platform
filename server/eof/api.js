@@ -16,24 +16,22 @@ module.exports.init = app => {
             .catch(err => sendErr(res, err))
     })
 
-    const getCountryData = (req , res) => {
-        const fra = eofRepository.readFraForestAreas(req.params.countryIso)
-        const odp = eofRepository.readOriginalDataPoints(req.params.countryIso)
-    
-        Promise.all([fra, odp])
-            .then(result => {
-                const forestAreas = R.pipe(
-                    R.merge(forestAreaTableResponse.fra),
-                    R.merge(result[1]),
-                    R.values,
-                    R.sort((a, b) => a.year - b.year)
-                )(result[0])
-                return res.json({fra: forestAreas})
-            })
-            .catch(err => sendErr(res, err))
-    }
-    
-    app.get('/api/country/:countryIso', (req, res) => getCountryData(req, res) )
+    app.get('/api/country/:countryIso', (req, res) => {
+      const fra = eofRepository.readFraForestAreas(req.params.countryIso)
+      const odp = eofRepository.readOriginalDataPoints(req.params.countryIso)
+  
+      Promise.all([fra, odp])
+        .then(result => {
+          const forestAreas = R.pipe(
+            R.merge(forestAreaTableResponse.fra),
+            R.merge(result[1]),
+            R.values,
+            R.sort((a, b) => a.year - b.year)
+          )(result[0])
+          return res.json({fra: forestAreas})
+        })
+        .catch(err => sendErr(res, err))
+    })
 
     app.get('/api/country/originalDataPoint/:odpId', (req, res) => {
         eofRepository.getOdp(req.params.odpId)
@@ -121,16 +119,14 @@ module.exports.init = app => {
                 const   years = [ 1990, 2000, 2010, 2015, 2016, 2017, 2018, 2019, 2020 ]
                 let     idx = 0
                 
-                const estimate = (countryIso, year) =>{
-                    estimateFraValue(countryIso, year).then((res)=>{
+                const estimate = (countryIso, year) =>
+                    estimateFraValue(countryIso, year).then( (res) => {
                         if(idx == years.length-1)
-                            resolve({})
-                        else {
+                            resolve()
+                        else
                             estimate(countryIso, years[++idx])
-                        }
-                        
                     })
-                }
+                
     
                 estimate(countryIso, years[0])
             })
