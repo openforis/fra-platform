@@ -1,25 +1,25 @@
 import React from "react"
-import { HashRouter as Router, Route } from "react-router-dom"
 
 import Header from "./header/header"
-import Default from "./default"
 import ErrorComponent from "./applicationError/errorComponent"
-import NationalDataEntry from "./nationalDataEntry/nationalDataEntry"
-import OriginalDataPoint from './originalDataPoint/originalDataPoint'
+import Router from "./router/router"
 
-const Routes = () => (
-    <Router>
-        <div className="app__root">
-            <Header/>
-            <ErrorComponent/>
-            <div className="main__container">
-                <Route exact path="/" component={Default}/>
-                <Route exact path="/country/:countryIso" component={NationalDataEntry}/>
-                <Route exact path="/country/odp/:countryIso" component={OriginalDataPoint}/>
-                <Route exact path="/country/odp/:countryIso/:odpId" component={OriginalDataPoint}/>
-            </div>
-        </div>
-    </Router>
-)
+// const routes = {
+//   "/": Default
+// }
 
-export default Routes
+export default ({path}) => {
+  return <div className="app__root">
+          <Header/>
+          <ErrorComponent/>
+          <div className="main__container">
+            <Router path={path} />
+              {/*<Route exact path="/" component={Default}/>*/}
+              {/*<Route exact path="/login" component={Login}/>*/}
+              {/*<Route exact path="/country/:countryIso" component={NationalDataEntry}/>*/}
+              {/*<Route exact path="/country/odp/:countryIso" component={OriginalDataPoint}/>*/}
+              {/*<Route exact path="/country/odp/:countryIso/:odpId" component={OriginalDataPoint}/>*/}
+          </div>
+      </div>
+}
+

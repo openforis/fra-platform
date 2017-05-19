@@ -1,0 +1,63 @@
+@import "../app-styles/config";
+@import "../app-styles/buttons";
+
+.main__container {
+  flex-grow: 2;
+}
+.login__root {
+  background-color: #f5f5f5;
+  width: 100%;
+  height: 100%;
+}
+
+.login__box {
+  position: absolute;
+  top:0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  margin: auto;
+  padding: 32px;
+
+  width: 480px;
+  height: 394px;
+  border-radius: 2px;
+  background-color: #ffffff;
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
+  border: solid 1px #cccccc;
+
+  .input {
+    margin-bottom: 17px;
+    label {
+      display: block;
+      font-size: @font-m;
+      font-family: @font-family-1;
+      color: @text-body
+    }
+  }
+  input[type="password"],
+  input[type="text"] {
+    height: 36px;
+    font-size: @font-l;
+    padding: 3px;
+    width: 100%;
+    border-radius: 2px;
+    background-color: #ffffff;
+    border: solid 1px @ui-border;
+  }
+}
+
+.login__header {
+  font-family: @font-family-1;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 1.2;
+  color: @text-body;
+  display: block;
+  margin-bottom: 33px;
+}
+.login__btn {
+  margin-top: 24px;
+  padding: 8px 16px;
+}

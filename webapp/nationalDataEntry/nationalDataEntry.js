@@ -3,7 +3,7 @@ import React from "react"
 import { connect } from "react-redux"
 import * as R from "ramda"
 import { save, fetch, generateFraValues } from "./actions"
-import { Link } from 'react-router-dom'
+import { Link } from "./../link"
 
 const OdpCell = ({odpValue}) => {
     return <span className="nde__input-table-readonly-cell">

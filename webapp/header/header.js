@@ -1,6 +1,6 @@
 import "./style.less"
 import React from "react"
-import { Link } from "react-router-dom"
+import { Link } from "./../link"
 
 const CountryItem = ({name, role}) =>
   <div className="country__item">
