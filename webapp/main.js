@@ -2,7 +2,7 @@ import './app-styles/style.less'
 
 import React from "react"
 import ReactDOM from "react-dom"
-import Routes from "./routes"
+import Page from "./routes"
 import { Provider } from "react-redux"
 import { createStore, applyMiddleware } from "redux"
 import thunkMiddleware from "redux-thunk"
@@ -15,7 +15,7 @@ const store = createStore(reducer, applyMiddleware(createDebounce(),
 function renderApp() {
   ReactDOM.render(
     <Provider store={store}>
-      <Routes />
+      <Page />
     </Provider>,
     document.getElementById('main')
   );

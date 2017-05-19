@@ -3,7 +3,7 @@ import React from "react"
 import { connect } from 'react-redux'
 import * as R from "ramda"
 import { save, fetch, generateFraValues } from './actions'
-import { Link } from 'react-router-dom'
+import { Link } from "./../link"
 
 const OdpCell = ({odpValue}) => {
     return <span className="nde__input-table-readonly-cell">
@@ -52,7 +52,7 @@ const DataTable = ({fra, save, countryIso}) =>
     </div>
 
 const DataInput = (props) => {
-  
+
   const disableGenerateFRAValues = () => {
         const odps = R.pipe(
             R.values,
@@ -91,7 +91,16 @@ const NationalDataEntry = (props) => {
 
 class DataFetchingComponent extends React.Component {
     componentWillMount() {
-      this.props.fetch(this.props.match.params.countryIso)
+        this.fetch(this.props.match.params.countryIso)
+
+    }
+    componentWillReceiveProps(next) {
+        if(!R.equals(this.props.match.params.countryIso, next.match.params.countryIso))
+            this.fetch(next.match.params.countryIso)
+    }
+
+    fetch(countryIso) {
+       this.props.fetch(countryIso)
     }
 
     render() {
