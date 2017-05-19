@@ -93,9 +93,18 @@ const NationalDataEntry = ( props ) => {
 
 class DataFetchingComponent extends React.Component {
     componentWillMount() {
-        this.props.fetch( this.props.match.params.countryIso )
+        this.fetch(this.props.match.params.countryIso)
+
     }
-    
+    componentWillReceiveProps(next) {
+        if(!R.equals(this.props.match.params.countryIso, next.match.params.countryIso))
+            this.fetch(next.match.params.countryIso)
+    }
+
+    fetch(countryIso) {
+       this.props.fetch(countryIso)
+    }
+
     render() {
         return <NationalDataEntry {...this.props} countryIso={this.props.match.params.countryIso}/>
     }

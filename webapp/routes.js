@@ -1,19 +1,36 @@
+import * as R from "ramda"
 import React from "react"
+import Route from "route-parser"
 
 import Header from "./header/header"
 import ErrorComponent from "./applicationError/errorComponent"
 import Router from "./router/router"
 
-// const routes = {
-//   "/": Default
-// }
+import Default from "./default"
+import NationalDataEntry from "./nationalDataEntry/nationalDataEntry"
+import OriginalDataPoint from "./originalDataPoint/originalDataPoint"
+
+const routes = {
+  "/": Default,
+  "#/": Default,
+  "#/country/:countryIso": NationalDataEntry,
+  "#/country/odp/:countryIso": OriginalDataPoint,
+  "#/country/odp/:countryIso/:odpId": OriginalDataPoint
+}
+
+const routeConfig = R.pipe(
+      R.keys,
+      R.map(k => ({route: new Route(k), component: routes[k]}))
+    )(routes)
+
+console.log("route config", routeConfig)
 
 export default ({path}) => {
   return <div className="app__root">
           <Header/>
           <ErrorComponent/>
           <div className="main__container">
-            <Router path={path} />
+            <Router path={path} routes={routeConfig} />
               {/*<Route exact path="/" component={Default}/>*/}
               {/*<Route exact path="/login" component={Login}/>*/}
               {/*<Route exact path="/country/:countryIso" component={NationalDataEntry}/>*/}
