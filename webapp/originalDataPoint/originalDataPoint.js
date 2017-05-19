@@ -28,11 +28,6 @@ const DataInput = ({match, saveDraft, markAsActual, active, autoSaving}) => {
           onChange={(e) => saveDraft(countryIso, R.assoc('forestArea', Number(e.target.value), active)) }/>
       </div>
     </div>
-    <div className="odp_data-input-row">
-      <button disabled={!active.odpId || autoSaving} className="btn-primary"
-              onClick={() => markAsActual(countryIso, active.odpId) }>Save & Close
-      </button>
-    </div>
     <div>
       <h3 className="odp__section">National classes</h3>
       <table className="odp__input-table">
@@ -57,15 +52,6 @@ const DataInput = ({match, saveDraft, markAsActual, active, autoSaving}) => {
         </tr>
         </tbody>
       </table>
-    </div>
-
-    <div className="odp_data-input-row">
-      <div><h3>Forest area</h3></div>
-      <div>
-        <input
-          value={active.forestArea || ''}
-          onChange={(e) => saveDraft(countryIso, R.assoc('forestArea', Number(e.target.value), active)) }/>
-      </div>
     </div>
     <div className="odp_data-input-row">
       <button disabled={!active.odpId || autoSaving} className="btn-primary"
