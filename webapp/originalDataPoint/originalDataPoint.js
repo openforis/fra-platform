@@ -42,6 +42,10 @@ const DataInput = ({match, saveDraft, markAsActual, active, autoSaving}) => {
         {
           R.addIndex(R.map)((nationalClass, index) => <NationalClassRow key={index} {...nationalClass}/>, active.nationalClasses)
         }
+        <tr>
+          <td><input type="text"/></td>
+          <td><input type="text"/></td>
+        </tr>
         </tbody>
       </table>
     </div>
@@ -62,13 +66,6 @@ const DataInput = ({match, saveDraft, markAsActual, active, autoSaving}) => {
           console.log("national classes", active.nationalClasses) ||
           R.addIndex(R.map)((nationalClass, index) => <ExtentOfForestRow key={index} {...nationalClass}/>, active.nationalClasses)
         }
-        <tr>
-          <td><input type="text"/></td>
-          <td><input type="text"/></td>
-          <td><input type="text"/></td>
-          <td><input type="text"/></td>
-          <td><input type="text"/></td>
-        </tr>
         </tbody>
       </table>
     </div>
