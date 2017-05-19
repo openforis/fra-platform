@@ -15,8 +15,8 @@ const routes = {
   '/': Login,
   '#/': Login,
   '#/country/:countryIso': NationalDataEntry,
-  '#/country/odp/:countryIso': OriginalDataPoint,
-  '#/country/odp/:countryIso/:odpId': OriginalDataPoint
+  '#/country/:countryIso/odp': OriginalDataPoint,
+  '#/country/:countryIso/odp/:odpId': OriginalDataPoint
 }
 
 const routeConfig = R.pipe(
