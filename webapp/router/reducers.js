@@ -1,14 +1,12 @@
-import * as R from "ramda"
+import * as R from 'ramda'
 
-import {applyReducerFunction} from '../utils/reduxUtils'
+import { applyReducerFunction } from '../utils/reduxUtils'
+import { routerFollowLink } from './actions'
 
-import {routerFollowLink} from "./actions"
-
-const actionHandlers =  {
+const actionHandlers = {
   [routerFollowLink]: (state, action) => {
-    return R.assoc("path", action.to)(state)
+    return R.assoc('path', action.to)(state)
   }
 }
 
-
-export default (state={}, action) => applyReducerFunction(actionHandlers, state, action)
+export default (state = {}, action) => applyReducerFunction(actionHandlers, state, action)

@@ -1,12 +1,12 @@
-import React from "react"
-import { connect } from "react-redux"
+import React from 'react'
+import { connect } from 'react-redux'
 import { clearApplicationError } from './actions'
-import "./style.less"
+import './style.less'
 
 const ErrorBox = ({msg, clearApplicationError}) => <div className="ae__container">
-    {msg}
-    <button className="ae__clear-button" onClick={() => clearApplicationError()}>X</button>
-    </div>
+  {msg}
+  <button className="ae__clear-button" onClick={() => clearApplicationError()}>X</button>
+</div>
 
 const ErrorComponent = (props) => props.msg ? <ErrorBox {...props}/> : null
 
