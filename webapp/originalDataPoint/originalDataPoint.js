@@ -9,6 +9,7 @@ const years = ['', ...R.range(1990, 2020)]
 
 const DataInput = ({match, saveDraft, markAsActual, active, autoSaving}) => {
   const countryIso = match.params.countryIso
+
   return <div className="odp__data-input-component">
     <div className="odp_data-input-row">
       <div><h3>Year</h3></div>
@@ -34,7 +35,22 @@ const DataInput = ({match, saveDraft, markAsActual, active, autoSaving}) => {
         <thead>
         <tr>
           <th>National class</th>
-          <th>Value</th>
+          <th>Definition</th>
+        </tr>
+        </thead>
+        <tbody>
+        {
+          R.addIndex(R.map)((nationalClass, index) => <NationalClassRow key={index} {...nationalClass}/>, active.nationalClasses)
+        }
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <h3 className="odp__section">Extent of forest</h3>
+      <table className="odp__input-table">
+        <thead>
+        <tr>
+          <th>National class</th>
           <th>Value</th>
           <th>Forest</th>
           <th>Other wooded land</th>
@@ -42,13 +58,16 @@ const DataInput = ({match, saveDraft, markAsActual, active, autoSaving}) => {
         </tr>
         </thead>
         <tbody>
+        {
+          console.log("national classes", active.nationalClasses) ||
+          R.addIndex(R.map)((nationalClass, index) => <ExtentOfForestRow key={index} {...nationalClass}/>, active.nationalClasses)
+        }
         <tr>
-          <td><input></input></td>
-          <td><input></input></td>
-          <td><input></input></td>
-          <td><input></input></td>
-          <td><input></input></td>
-          <td><input></input></td>
+          <td><input type="text"/></td>
+          <td><input type="text"/></td>
+          <td><input type="text"/></td>
+          <td><input type="text"/></td>
+          <td><input type="text"/></td>
         </tr>
         </tbody>
       </table>
@@ -60,6 +79,21 @@ const DataInput = ({match, saveDraft, markAsActual, active, autoSaving}) => {
     </div>
   </div>
 }
+
+const NationalClassRow = ({className, definition}) =>
+  <tr>
+    <td><input type="text" value={className || ''} onChange={(evt) => console.log(evt.target.value)}/></td>
+    <td><input type="text" value={definition || '' } onChange={(evt) => console.log(evt.target.value)}/></td>
+  </tr>
+
+const ExtentOfForestRow = ({className, forestPercent, otherWoodedLandPercent, otherLandPercent}) =>
+  <tr>
+    <td><input type="text" value={className || ''} onChange={(evt) => console.log(evt.target.value)}/></td>
+    <td><input type="text" value={forestPercent || ''} onChange={(evt) => console.log(evt.target.value)}/></td>
+    <td><input type="text" value={otherWoodedLandPercent || ''} onChange={(evt) => console.log(evt.target.value)}/></td>
+    <td><input type="text" value={otherLandPercent || ''} onChange={(evt) => console.log(evt.target.value)}/></td>
+    <td><input type="text" value={forestPercent || ''} onChange={(evt) => console.log(evt.target.value)}/></td>
+  </tr>
 
 class OriginalDataPoint extends React.Component {
   componentWillMount () {
@@ -80,10 +114,16 @@ class OriginalDataPoint extends React.Component {
   }
 }
 
+const emptyDataPoint = () => ({
+  year: null,
+  forestArea: null,
+  nationalClasses: [{className: "a", value: null, definition: null, forestPercent: null, otherWoodedLandPercent: null, otherLandPercent: null}]
+})
+
 const mapStateToProps = state => {
   const odp = state.originalDataPoint
   const autoSaving = !!state.autoSave.status
-  const active = odp.active || {year: null, forestArea: null}
+  const active = odp.active || emptyDataPoint()
   return {...odp, active, autoSaving}
 }
 
