@@ -1,6 +1,6 @@
-import "./style.less"
-import React from "react"
-import { Link } from "./../link"
+import './style.less'
+import React from 'react'
+import { Link } from './../link'
 
 const CountryItem = ({name, role}) =>
   <div className="country__item">
@@ -27,12 +27,7 @@ const SecondaryItem = ({order, label, status}) =>
   </div>
 
 export default () => <div className="main__header">
-  <CountryItem name="Italy" role="National Correspondent" />
-
-  <PrimaryItem label="Original Data" link="send to review" />
-
-  <SecondaryItem order="1" label="Extent of Forest" status="not started" />
-
-
-
+  <CountryItem name="Italy" role="National Correspondent"/>
+  <PrimaryItem label="Original Data" link="send to review"/>
+  <SecondaryItem order="1" label="Extent of Forest" status="not started"/>
 </div>

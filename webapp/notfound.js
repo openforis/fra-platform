@@ -3,7 +3,7 @@ import { Link } from './link'
 
 const Notfound = () => (
   <div>
-      Not found
+    Not found
     <hr />
     <ul>
       <li><Link to="/">Back to main page</Link></li>
