@@ -23,19 +23,12 @@ const routeConfig = R.pipe(
       R.map(k => ({route: new Route(k), component: routes[k]}))
     )(routes)
 
-console.log("route config", routeConfig)
-
 export default ({path}) => {
   return <div className="app__root">
           <Header/>
           <ErrorComponent/>
           <div className="main__container">
             <Router path={path} routes={routeConfig} />
-              {/*<Route exact path="/" component={Default}/>*/}
-              {/*<Route exact path="/login" component={Login}/>*/}
-              {/*<Route exact path="/country/:countryIso" component={NationalDataEntry}/>*/}
-              {/*<Route exact path="/country/odp/:countryIso" component={OriginalDataPoint}/>*/}
-              {/*<Route exact path="/country/odp/:countryIso/:odpId" component={OriginalDataPoint}/>*/}
           </div>
       </div>
 }
