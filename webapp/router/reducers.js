@@ -2,7 +2,7 @@ import * as R from 'ramda'
 import Route from 'route-parser'
 
 import { applyReducerFunction } from '../utils/reduxUtils'
-import { routerFollowLink, routerSetCountry } from './actions'
+import { routerFollowLink } from './actions'
 
 const actionHandlers = {
   [routerFollowLink]: (state, action) => {

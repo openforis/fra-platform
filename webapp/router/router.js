@@ -24,7 +24,6 @@ class Router extends React.Component {
 }
 
 const mapStateToProps = state => {
-  console.log("router state", state.router)
   return state.router.path ? {path: state.router.path} : {path: (window.location.hash || window.location.pathname) }
 }
 
