@@ -34,6 +34,31 @@ const DataInput = ({match, saveDraft, markAsActual, active, autoSaving}) => {
                     onClick={() => markAsActual(countryIso, active.odpId) }>Save & Close
             </button>
         </div>
+        <div>
+            <h3 className="odp__section">National classes</h3>
+            <table className="odp__input-table">
+                <thead>
+                    <tr>
+                        <th>National class</th>
+                        <th>Value</th>
+                        <th>Value</th>
+                        <th>Forest</th>
+                        <th>Other wooded land</th>
+                        <th>Other land</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>aa</td>
+                        <td>cc</td>
+                        <td>bb</td>
+                        <td>er</td>
+                        <td>ww</td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 }
 
