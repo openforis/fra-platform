@@ -2,20 +2,25 @@ import * as R from 'ramda'
 import React from 'react'
 import { connect } from 'react-redux'
 import Route from 'route-parser'
+import countries from 'i18n-iso-countries'
 
 import { Link } from './../link'
 import { follow } from './../router/actions'
 
 import './style.less'
 
-const CountryItem = ({name, role}) =>
-  <div className="country__item">
-    <div className="country__flag"></div>
+const CountryItem = ({name, role}) => {
+  const style = {
+    content: `url('/img/flags/${countries.alpha3ToAlpha2(name)}.svg'`
+  }
+  return <div className="country__item">
+    <div className="country__flag" style={style}></div>
     <div className="country__info">
       <span className="country__name">{name}</span>
       <span className="country__nc">{role}</span>
     </div>
   </div>
+}
 
 const PrimaryItem = ({label, link}) =>
   <div className="primary__item">
