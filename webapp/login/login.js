@@ -18,7 +18,7 @@ const Login = () =>
         <input id="un" type="checkbox" disabled="disabled"/>
         <label for="un" type="text">Remember me on this browser</label>
       </div>
-      <button className="btn-primary login__btn">Sign in</button>
+      <Link to="/country/ITA" className="btn-primary login__btn">Sign in</Link>
     </div>
   </div>
 

@@ -1,6 +1,10 @@
-import './style.less'
+import * as R from 'ramda'
 import React from 'react'
+import { connect } from 'react-redux'
+
 import { Link } from './../link'
+
+import './style.less'
 
 const CountryItem = ({name, role}) =>
   <div className="country__item">
@@ -26,8 +30,20 @@ const SecondaryItem = ({order, label, status}) =>
     </div>
   </div>
 
-export default () => <div className="main__header">
-  <CountryItem name="Italy" role="National Correspondent"/>
-  <PrimaryItem label="Original Data" link="send to review"/>
-  <SecondaryItem order="1" label="Extent of Forest" status="not started"/>
-</div>
+const hideNav = path => !path || R.equals("/", path) || R.equals("#/", path)
+
+const Nav = ({path}) => {
+
+  return <div className={`main__header ${hideNav(path) ? 'hidden' : ''}`}>
+    <CountryItem name="Italy" role="National Correspondent"/>
+    <PrimaryItem label="Original Data" link="send to review"/>
+    <SecondaryItem order="1" label="Extent of Forest" status="not started"/>
+  </div>
+}
+
+const mapStateToProps = state => {
+  console.log("state", state)
+  return R.pipe(R.path(["router"]), R.defaultTo({}))(state)
+}
+
+export default connect(mapStateToProps, {})(Nav)

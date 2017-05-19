@@ -7,13 +7,13 @@ import Footer from './footer/footer'
 import ErrorComponent from './applicationError/errorComponent'
 import Router from './router/router'
 
-import Default from './default'
+import Login from './login/login'
 import NationalDataEntry from './nationalDataEntry/nationalDataEntry'
 import OriginalDataPoint from './originalDataPoint/originalDataPoint'
 
 const routes = {
-  '/': Default,
-  '#/': Default,
+  '/': Login,
+  '#/': Login,
   '#/country/:countryIso': NationalDataEntry,
   '#/country/odp/:countryIso': OriginalDataPoint,
   '#/country/odp/:countryIso/:odpId': OriginalDataPoint
