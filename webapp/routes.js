@@ -3,12 +3,13 @@ import React from "react"
 import Route from "route-parser"
 
 import Header from "./header/header"
+import Footer from './footer/footer'
 import ErrorComponent from "./applicationError/errorComponent"
 import Router from "./router/router"
 
 import Default from "./default"
 import NationalDataEntry from "./nationalDataEntry/nationalDataEntry"
-import OriginalDataPoint from "./originalDataPoint/originalDataPoint"
+import OriginalDataPoint from './originalDataPoint/originalDataPoint'
 
 const routes = {
   "/": Default,
@@ -30,6 +31,7 @@ export default ({path}) => {
           <div className="main__container">
             <Router path={path} routes={routeConfig} />
           </div>
+          <Footer/>
       </div>
 }
 
