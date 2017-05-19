@@ -1,9 +1,9 @@
 import "./style.less"
 import React from "react"
-import {connect} from "react-redux"
+import { connect } from 'react-redux'
 import * as R from "ramda"
-import {save, fetch, generateFraValues} from "./actions"
-import {Link} from 'react-router-dom'
+import { save, fetch, generateFraValues } from './actions'
+import { Link } from 'react-router-dom'
 
 const OdpCell = ({odpValue}) => {
     return <span className="nde__input-table-readonly-cell">
@@ -17,12 +17,12 @@ const OdpHeading = ({countryIso, odpValue}) =>
         {odpValue.name}
     </Link>
 
-const FraValueCell = ({fraValue, fra, countryIso, save}) => <input
-    value={fraValue.forestArea || ''}
+const FraValueCell = ({fraValue, fra, countryIso, save}) =>
+  <input
+    value={typeof fraValue.forestArea === 'number' ? fraValue.forestArea : ''}
     onChange={ e => {
         save(countryIso, fraValue.name, e.target.value)
     }}/>
-
 
 const DataTable = ({fra, save, countryIso}) =>
     <div className="nde__input-table">
@@ -30,9 +30,8 @@ const DataTable = ({fra, save, countryIso}) =>
             {
                 R.values(fra).map(v =>
                     <div key={`${v.type}_${v.name}`}>
-                        { v.type === "odp" ?
-                            <OdpHeading countryIso={countryIso} odpValue={v}/>
-                            : v.name
+                        { v.type === "odp" ? <OdpHeading countryIso={countryIso} odpValue={v}/>
+                          : v.name
                         }
                     </div>
                 )
@@ -42,12 +41,10 @@ const DataTable = ({fra, save, countryIso}) =>
             {
                 R.values(fra).map(v =>
                     <div key={`${v.type}_${v.name}`}>
-                        {
-                            v.type === "odp" ?
-                                <OdpCell odpValue={v}/>
-                                :
-                                <FraValueCell fraValue={v} fra={fra} countryIso={countryIso} save={save}/>
-                        }
+                      {
+                        v.type === 'odp' ? <OdpCell odpValue={v}/>
+                          : <FraValueCell fraValue={v} fra={fra} countryIso={countryIso} save={save}/>
+                      }
                     </div>
                 )
             }
@@ -55,13 +52,13 @@ const DataTable = ({fra, save, countryIso}) =>
     </div>
 
 const DataInput = (props) => {
-
-    const disableGenerateFRAValues = () => {
+  
+  const disableGenerateFRAValues = () => {
         const odps = R.pipe(
             R.values,
-            R.filter(v => v.type == "odp")
+          R.filter(v => v.type == 'odp')
         )(props.fra)
-        return odps.length < 2
+        return props.generatingFraValues || odps.length < 2
     }
 
     return <div className="nde__data-input-component">
@@ -94,7 +91,7 @@ const NationalDataEntry = (props) => {
 
 class DataFetchingComponent extends React.Component {
     componentWillMount() {
-        this.props.fetch(this.props.match.params.countryIso)
+      this.props.fetch(this.props.match.params.countryIso)
     }
 
     render() {

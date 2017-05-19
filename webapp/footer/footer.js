@@ -1,12 +1,12 @@
-import "./style.less"
+import './style.less'
 
-import React from "react"
-import { connect } from "react-redux"
+import React from 'react'
+import { connect } from 'react-redux'
 
 const Footer = ({status}) => <div className="footer__container">
-        <span className="footer__autosave-status">{status}</span>
-    </div>
+  <span className="footer__autosave-status">{status}</span>
+</div>
 
 const mapStateToProps = state => state.autoSave
 
-export default connect(mapStateToProps)( Footer )
+export default connect(mapStateToProps)(Footer)

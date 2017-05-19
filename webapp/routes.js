@@ -2,7 +2,7 @@ import React from "react"
 import { HashRouter as Router, Route } from "react-router-dom"
 
 import Header from "./header/header"
-import Footer from "./footer/footer"
+import Footer from './footer/footer'
 import Default from "./default"
 import ErrorComponent from "./applicationError/errorComponent"
 import NationalDataEntry from "./nationalDataEntry/nationalDataEntry"
@@ -19,7 +19,7 @@ const Routes = () => (
                 <Route exact path="/country/odp/:countryIso" component={OriginalDataPoint}/>
                 <Route exact path="/country/odp/:countryIso/:odpId" component={OriginalDataPoint}/>
             </div>
-            <Footer/>
+          <Footer/>
         </div>
     </Router>
 )
