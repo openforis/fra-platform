@@ -49,12 +49,12 @@ const DataInput = ({match, saveDraft, markAsActual, active, autoSaving}) => {
                 </thead>
                 <tbody>
                     <tr>
-                        <td>aa</td>
-                        <td>cc</td>
-                        <td>bb</td>
-                        <td>er</td>
-                        <td>ww</td>
-                        <td></td>
+                        <td><input></input></td>
+                        <td><input></input></td>
+                        <td><input></input></td>
+                        <td><input></input></td>
+                        <td><input></input></td>
+                        <td><input></input></td>
                     </tr>
                 </tbody>
             </table>
