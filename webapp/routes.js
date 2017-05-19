@@ -1,27 +1,36 @@
-import React from "react"
-import { HashRouter as Router, Route } from "react-router-dom"
+import * as R from 'ramda'
+import React from 'react'
+import Route from 'route-parser'
 
-import Header from "./header/header"
+import Header from './header/header'
 import Footer from './footer/footer'
-import Default from "./default"
-import ErrorComponent from "./applicationError/errorComponent"
-import NationalDataEntry from "./nationalDataEntry/nationalDataEntry"
+import ErrorComponent from './applicationError/errorComponent'
+import Router from './router/router'
+
+import Default from './default'
+import NationalDataEntry from './nationalDataEntry/nationalDataEntry'
 import OriginalDataPoint from './originalDataPoint/originalDataPoint'
 
-const Routes = () => (
-    <Router>
-        <div>
-            <Header/>
-            <ErrorComponent/>
-            <div className="main__container">
-                <Route exact path="/" component={Default}/>
-                <Route exact path="/country/:countryIso" component={NationalDataEntry}/>
-                <Route exact path="/country/odp/:countryIso" component={OriginalDataPoint}/>
-                <Route exact path="/country/odp/:countryIso/:odpId" component={OriginalDataPoint}/>
-            </div>
-          <Footer/>
-        </div>
-    </Router>
-)
+const routes = {
+  '/': Default,
+  '#/': Default,
+  '#/country/:countryIso': NationalDataEntry,
+  '#/country/odp/:countryIso': OriginalDataPoint,
+  '#/country/odp/:countryIso/:odpId': OriginalDataPoint
+}
 
-export default Routes
+const routeConfig = R.pipe(
+  R.keys,
+  R.map(k => ({route: new Route(k), component: routes[k]}))
+)(routes)
+
+export default ({path}) => {
+  return <div className="app__root">
+    <Header/>
+    <ErrorComponent/>
+    <div className="fra-routes__container">
+      <Router path={path} routes={routeConfig}/>
+    </div>
+    <Footer/>
+  </div>
+}

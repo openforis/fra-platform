@@ -15,7 +15,6 @@ app.use('/', express.static(`${__dirname}/../dist`))
 app.use('/img/', express.static(`${__dirname}/../web-resources/img`))
 app.use(bodyParser.json({limit: '5000kb'}))
 
-
 app.get('/api/country/all', (req, res) => {
   countryRepository.getAllCountries().then(result => {
     res.json(result.rows)
