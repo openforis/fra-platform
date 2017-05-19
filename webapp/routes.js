@@ -28,7 +28,7 @@ export default ({path}) => {
   return <div className="app__root">
           <Header/>
           <ErrorComponent/>
-          <div className="main__container">
+          <div className="fra-routes__container">
             <Router path={path} routes={routeConfig} />
           </div>
           <Footer/>

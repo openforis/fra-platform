@@ -4,11 +4,8 @@ import {applyReducerFunction} from '../utils/reduxUtils'
 
 import {routerFollowLink} from "./actions"
 
-console.log("router action", routerFollowLink)
-
 const actionHandlers =  {
   [routerFollowLink]: (state, action) => {
-    console.log("folowlink reducer", action)
     return R.assoc("path", action.to)(state)
   }
 }
