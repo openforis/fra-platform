@@ -97,7 +97,6 @@ const NationalClassRow = ({className, definition, odp, index, saveDraft, country
       <input type="text"
              value={className || ''}
              onChange={(evt) =>
-               console.log("onchange") ||
                saveDraft(countryIso, updateNationalClass(odp, index, 'className', evt.target.value))}/>
     </td>
     <td><input type="text" value={definition || '' } onChange={(evt) => console.log(evt.target.value)}/></td>
