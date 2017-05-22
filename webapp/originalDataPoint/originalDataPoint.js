@@ -80,13 +80,9 @@ const nationalClassRows = nationalClasses => {
 }
 
 const extentOfForestRows = nationalClasses =>
-  console.log("nationalClasses", nationalClasses) ||
   R.pipe(
     R.filter((nationalClass) => !nationalClass.placeHolder),
-    mapIndexed ((nationalClass, index) =>
-      <ExtentOfForestRow
-        key={index} {...nationalClass}/>
-    )
+    mapIndexed ((nationalClass, index) => <ExtentOfForestRow key={index} {...nationalClass}/>)
   )(nationalClasses)
 
 const NationalClassRow = ({className, definition}) =>
