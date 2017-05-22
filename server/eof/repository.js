@@ -134,18 +134,30 @@ module.exports.readOriginalDataPoints = countryIso =>
 module.exports.getOdp = odpId =>
   db.query(`
     SELECT
-      p.id AS odp_id,
-      v.forest_area,
-      v.year
-    FROM odp p
-      JOIN odp_version v
-        ON v.id =
-           CASE WHEN p.draft_id IS NULL
-             THEN p.actual_id
-           ELSE p.draft_id
-           END
-    WHERE p.id = $1
-  `, [odpId]).then(result => result.rows[0])
+     CASE WHEN draft_id IS NULL
+          THEN actual_id
+          ELSE draft_id
+          END
+      AS version_id
+    FROM odp
+    WHERE id = $1
+  `, [odpId]
+  ).then(result => result.rows[0].version_id
+  ).then(versionId => Promise.all([versionId, db.query('SELECT name FROM odp_class WHERE odp_version_id = $1', [versionId])])
+  ).then(([versionId, result]) => [versionId, R.map(row => ({className: row.name}), result.rows)]
+  ).then(([versionId, nationalClasses]) =>
+    Promise.all([db.query(`
+                  SELECT
+                    p.id AS odp_id,
+                    v.forest_area,
+                    v.year
+                  FROM odp p
+                    JOIN odp_version v
+                      ON v.id = $2
+                  WHERE p.id = $1
+                `, [odpId, versionId]),
+                nationalClasses])
+  ).then(([result, nationalClasses]) => R.assoc('nationalClasses', nationalClasses, result.rows[0]))
 
 // functions used for interpolation / extrapolation
 module.exports.getOdpValues = (countryIso) =>
