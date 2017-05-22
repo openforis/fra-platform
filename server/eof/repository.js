@@ -43,10 +43,17 @@ const insertDraft = (client, odpId, iso, draft) =>
 const updateDraft = (client, draft) =>
   client.query(
     'SELECT draft_id FROM odp WHERE id = $1', [draft.odpId]
-  ).then(res =>
+  ).then((res) => res.rows[0].draft_id
+  ).then(draftId => {
+      return [draftId, wipeClassData(client, draftId), addClassData(client, draftId, draft)]
+    }
+  ).then(([draftId, ..._]) =>
     client.query('UPDATE odp_version SET year = $1, forest_area = $2 WHERE id = $3;',
-      [draft.year, draft.forestArea, res.rows[0].draft_id])
+      [draft.year, draft.forestArea, draftId])
   )
+
+const wipeClassData = (client, odpVersionId) =>
+  client.query('DELETE FROM odp_class WHERE odp_version_id = $1', [odpVersionId])
 
 const addClassData = (client, odpVersionId, odp) => {
   const nationalInserts = R.map(
