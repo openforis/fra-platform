@@ -2,6 +2,7 @@ import './style.less'
 
 import React from 'react'
 import { connect } from 'react-redux'
+import { updateNationalClass } from './nationalClass'
 import { saveDraft, markAsActual, fetch, clearActive } from './actions'
 import R from 'ramda'
 
@@ -40,7 +41,7 @@ const DataInput = ({match, saveDraft, markAsActual, active, autoSaving}) => {
         </thead>
         <tbody>
         {
-          nationalClassRows(active.nationalClasses)
+          nationalClassRows(countryIso, active, saveDraft)
         }
         </tbody>
       </table>
@@ -74,20 +75,31 @@ const DataInput = ({match, saveDraft, markAsActual, active, autoSaving}) => {
 
 const mapIndexed = R.addIndex(R.map)
 
-const nationalClassRows = nationalClasses => {
-  return mapIndexed ((nationalClass, index) => <NationalClassRow
-    key={index} {...nationalClass}/>, nationalClasses)
+const nationalClassRows = (countryIso, odp, saveDraft) => {
+  return mapIndexed((nationalClass, index) => <NationalClassRow
+    key={index}
+    index={index}
+    odp={odp}
+    saveDraft={saveDraft}
+    countryIso={countryIso}
+    {...nationalClass}/>, odp.nationalClasses)
 }
 
 const extentOfForestRows = nationalClasses =>
   R.pipe(
     R.filter((nationalClass) => !nationalClass.placeHolder),
-    mapIndexed ((nationalClass, index) => <ExtentOfForestRow key={index} {...nationalClass}/>)
+    mapIndexed((nationalClass, index) => <ExtentOfForestRow key={index} {...nationalClass}/>)
   )(nationalClasses)
 
-const NationalClassRow = ({className, definition}) =>
+const NationalClassRow = ({className, definition, odp, index, saveDraft, countryIso}) =>
   <tr>
-    <td><input type="text" value={className || ''} onChange={(evt) => console.log(evt.target.value)}/></td>
+    <td>
+      <input type="text"
+             value={className || ''}
+             onChange={(evt) =>
+               console.log("onchange") ||
+               saveDraft(countryIso, updateNationalClass(odp, index, 'className', evt.target.value))}/>
+    </td>
     <td><input type="text" value={definition || '' } onChange={(evt) => console.log(evt.target.value)}/></td>
   </tr>
 
