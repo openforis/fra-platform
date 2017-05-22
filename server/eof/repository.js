@@ -34,7 +34,8 @@ const insertDraft = (client, odpId, iso, draft) =>
   client.query(
     'INSERT INTO odp_version (forest_area, calculated, year) VALUES ($1, FALSE, $2);',
     [draft.forestArea, draft.year]
-  ).then(() => addClassData(client, draft)
+  ).then(() => client.query('SELECT last_value AS odp_version_id FROM odp_version_id_seq')
+  ).then(result => addClassData(client, result.rows[0].odp_version_id, draft)
   ).then(() =>
     client.query('UPDATE odp SET draft_id = (SELECT last_value FROM odp_version_id_seq) WHERE id = $1', [odpId])
   )
@@ -47,11 +48,11 @@ const updateDraft = (client, draft) =>
       [draft.year, draft.forestArea, res.rows[0].draft_id])
   )
 
-const addClassData = (client, odp) => {
+const addClassData = (client, odpVersionId, odp) => {
   const nationalInserts = R.map(
     (nationalClass) => client.query(
-      'INSERT INTO odp_class (odp_version_id, name) VALUES ((SELECT last_value FROM odp_version_id_seq), $1);',
-      [nationalClass.className]),
+      'INSERT INTO odp_class (odp_version_id, name) VALUES ($1, $2);',
+      [odpVersionId, nationalClass.className]),
     odp.nationalClasses)
   return Promise.all(nationalInserts)
 }
