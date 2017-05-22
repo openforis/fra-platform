@@ -20,9 +20,7 @@ pool.on('error', function (err, client) {
 })
 
 // the query function for passing queries to the pool
-module.exports.query = (text, values) => {
-  return pool.queryAsync(text, values)
-}
+module.exports.query = (text, values) => pool.query(text, values)
 
 const connect = function () {
   return pool.connect()
