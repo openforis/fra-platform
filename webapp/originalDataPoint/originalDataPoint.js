@@ -40,12 +40,8 @@ const DataInput = ({match, saveDraft, markAsActual, active, autoSaving}) => {
         </thead>
         <tbody>
         {
-          R.addIndex(R.map)((nationalClass, index) => <NationalClassRow key={index} {...nationalClass}/>, active.nationalClasses)
+          nationalClassRows(active.nationalClasses)
         }
-        <tr>
-          <td><input type="text"/></td>
-          <td><input type="text"/></td>
-        </tr>
         </tbody>
       </table>
     </div>
@@ -63,8 +59,7 @@ const DataInput = ({match, saveDraft, markAsActual, active, autoSaving}) => {
         </thead>
         <tbody>
         {
-          console.log("national classes", active.nationalClasses) ||
-          R.addIndex(R.map)((nationalClass, index) => <ExtentOfForestRow key={index} {...nationalClass}/>, active.nationalClasses)
+          extentOfForestRows(active.nationalClasses)
         }
         </tbody>
       </table>
@@ -76,6 +71,23 @@ const DataInput = ({match, saveDraft, markAsActual, active, autoSaving}) => {
     </div>
   </div>
 }
+
+const mapIndexed = R.addIndex(R.map)
+
+const nationalClassRows = nationalClasses => {
+  return mapIndexed ((nationalClass, index) => <NationalClassRow
+    key={index} {...nationalClass}/>, nationalClasses)
+}
+
+const extentOfForestRows = nationalClasses =>
+  console.log("nationalClasses", nationalClasses) ||
+  R.pipe(
+    R.filter((nationalClass) => !nationalClass.placeHolder),
+    mapIndexed ((nationalClass, index) =>
+      <ExtentOfForestRow
+        key={index} {...nationalClass}/>
+    )
+  )(nationalClasses)
 
 const NationalClassRow = ({className, definition}) =>
   <tr>
@@ -111,10 +123,19 @@ class OriginalDataPoint extends React.Component {
   }
 }
 
+const emptyNationalClass = () => ({
+  className: '',
+  definition: '',
+  value: null,
+  forestPercent: null,
+  otherWoodedLandPercent: null,
+  otherLandPercent: null
+})
+
 const emptyDataPoint = () => ({
   year: null,
   forestArea: null,
-  nationalClasses: [{className: "a", value: null, definition: null, forestPercent: null, otherWoodedLandPercent: null, otherLandPercent: null}]
+  nationalClasses: [emptyNationalClass(), {placeHolder: true, ...emptyNationalClass()}]
 })
 
 const mapStateToProps = state => {
