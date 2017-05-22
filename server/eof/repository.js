@@ -34,6 +34,7 @@ const insertDraft = (client, odpId, iso, draft) =>
   client.query(
     'INSERT INTO odp_version (forest_area, calculated, year) VALUES ($1, FALSE, $2);',
     [draft.forestArea, draft.year]
+  ).then(() => addClassData(client, draft)
   ).then(() =>
     client.query('UPDATE odp SET draft_id = (SELECT last_value FROM odp_version_id_seq) WHERE id = $1', [odpId])
   )
@@ -45,6 +46,15 @@ const updateDraft = (client, draft) =>
     client.query('UPDATE odp_version SET year = $1, forest_area = $2 WHERE id = $3;',
       [draft.year, draft.forestArea, res.rows[0].draft_id])
   )
+
+const addClassData = (client, odp) => {
+  const nationalInserts = R.map(
+    (nationalClass) => client.query(
+      'INSERT INTO odp_class (odp_version_id, name) VALUES ((SELECT last_value FROM odp_version_id_seq), $1);',
+      [nationalClass.className]),
+    odp.nationalClasses)
+  return Promise.all(nationalInserts)
+}
 
 module.exports.markAsActual = (client, odpId) => {
   const selectOldActualPromise = client.query('SELECT actual_id FROM odp WHERE id = $1', [odpId])
