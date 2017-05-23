@@ -91,10 +91,10 @@ const NationalClassRow = ({className, definition, placeHolder, odp, index, saveD
       { placeHolder
         ? null //placeHolder-rows can't be removed
         : <div
-            className="odp__national-class-remove"
-            onClick={(evt) => saveDraft(countryIso, originalDataPoint.removeNationalClass(odp, index))}>
-            x
-          </div>
+          className="odp__national-class-remove"
+          onClick={(evt) => saveDraft(countryIso, originalDataPoint.removeNationalClass(odp, index))}>
+          x
+        </div>
       }
       <input className="odp__national-class-row-class-name-input"
              type="text"
@@ -102,7 +102,12 @@ const NationalClassRow = ({className, definition, placeHolder, odp, index, saveD
              onChange={(evt) =>
                saveDraft(countryIso, originalDataPoint.updateNationalClass(odp, index, 'className', evt.target.value))}/>
     </td>
-    <td><input type="text" value={definition || '' } onChange={(evt) => console.log(evt.target.value)}/></td>
+    <td>
+      <input type="text"
+             value={definition || '' }
+             onChange={(evt) =>
+               saveDraft(countryIso, originalDataPoint.updateNationalClass(odp, index, 'definition', evt.target.value))}/>
+    </td>
   </tr>
 
 const extentOfForestRows = nationalClasses =>
