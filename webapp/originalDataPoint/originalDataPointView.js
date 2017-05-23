@@ -150,7 +150,7 @@ const ExtentOfForestRow = ({
 
   return <tr>
     <td className="odp__extent-of-forest-class-name"><span>{className}</span></td>
-    <td>
+    <td className="odp__extent-of-forest-area-cell">
       <input type="text" value={area || ''}
              onChange={ numberUpdated('area', area) }/>
     </td>
