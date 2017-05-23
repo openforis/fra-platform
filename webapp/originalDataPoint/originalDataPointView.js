@@ -140,8 +140,13 @@ const ExtentOfForestRow = ({
                              otherWoodedLandPercent,
                              otherLandPercent
                            }) => {
+  const numberOrCurrent = (newValue, currentValue) => {
+    if (newValue === '') return null
+    if (isNaN(newValue)) return currentValue
+    return newValue
+  }
   const numberUpdated = (fieldName, currentValue) => evt =>
-    saveDraft(countryIso, originalDataPoint.updateNationalClass(odp, index, fieldName, Number(evt.target.value) || currentValue))
+    saveDraft(countryIso, originalDataPoint.updateNationalClass(odp, index, fieldName, numberOrCurrent(evt.target.value, currentValue)))
 
   return <tr>
     <td className="odp__extent-of-forest-class-name"><span>{className}</span></td>
