@@ -64,7 +64,7 @@ const DataInput = ({match, saveDraft, markAsActual, active, autoSaving}) => {
         }
         <tr>
           <td className="odp__national-class-total-heading">Total</td>
-          <td className="odp__national-class-total-cell"></td>
+          <td className="odp__national-class-total-cell">{ originalDataPoint.totalForest(active) }</td>
           <td className="odp__national-class-total-cell"></td>
           <td className="odp__national-class-total-cell"></td>
           <td className="odp__national-class-total-cell"></td>
