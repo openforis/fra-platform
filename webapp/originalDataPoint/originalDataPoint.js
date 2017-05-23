@@ -44,10 +44,10 @@ export const addNationalClassPlaceHolder = (odp) => ({
   nationalClasses: [...odp.nationalClasses, nationalClassPlaceHolder()]
 })
 
-export const totalForest = (odp) => {
+export const totalForest = (odp, percentFieldName) => {
   const reduceTotal = (total, nationalClass) =>
-    isNaN(nationalClass.area) || isNaN(nationalClass.forestPercent) // isNaN actually tests whether something can be converted to a number, not whether it's NaN
+    isNaN(nationalClass.area) || isNaN(nationalClass[percentFieldName]) // isNaN actually tests whether something can be converted to a number, not whether it's NaN
       ? 0
-      : total + (Number(nationalClass.area) * (Number(nationalClass.forestPercent)/100.0))
+      : total + (Number(nationalClass.area) * (Number(nationalClass[percentFieldName])/100.0))
   return R.reduce(reduceTotal, 0, odp.nationalClasses)
 }
