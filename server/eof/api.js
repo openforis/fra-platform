@@ -5,7 +5,7 @@ const Promise = require('bluebird')
 const fs = Promise.promisifyAll(require('fs'))
 const {sendErr} = require('../requestUtils')
 const R = require('ramda')
-const EstimationEngine = require('./estimation-engine')
+const estimationEngine = require('./estimation-engine')
 
 const forestAreaTableResponse = require('./forestAreaTableResponse')
 
@@ -55,10 +55,9 @@ module.exports.init = app => {
       .catch(err => sendErr(res, err))
   )
 
-  app.get('/api/country/generateFraValues/:countryIso', (req, res) => {
+  app.post('/api/country/estimation/generateFraValues/:countryIso', (req, res) => {
     const years = [1990, 2000, 2010, 2015, 2020]
-
-    EstimationEngine
+    estimationEngine
       .estimateFraValues(req.params.countryIso, years)
       .then(() => res.json({}))
   })
