@@ -85,20 +85,17 @@ const nationalClassRows = (countryIso, odp, saveDraft) => {
     {...nationalClass}/>, odp.nationalClasses)
 }
 
-const extentOfForestRows = nationalClasses =>
-  R.pipe(
-    R.filter((nationalClass) => !nationalClass.placeHolder),
-    mapIndexed((nationalClass, index) => <ExtentOfForestRow key={index} {...nationalClass}/>)
-  )(nationalClasses)
-
-const NationalClassRow = ({className, definition, odp, index, saveDraft, countryIso}) =>
+const NationalClassRow = ({className, definition, placeHolder, odp, index, saveDraft, countryIso}) =>
   <tr>
     <td className="odp__national-class-row-class-name">
-      <div
-        className="odp__national-class-remove"
-        onClick={(evt) => saveDraft(countryIso, originalDataPoint.removeNationalClass(odp, index))}>
-        x
-      </div>
+      { placeHolder
+        ? null //placeHolder-rows can't be removed
+        : <div
+            className="odp__national-class-remove"
+            onClick={(evt) => saveDraft(countryIso, originalDataPoint.removeNationalClass(odp, index))}>
+            x
+          </div>
+      }
       <input className="odp__national-class-row-class-name-input"
              type="text"
              value={className || ''}
@@ -107,6 +104,12 @@ const NationalClassRow = ({className, definition, odp, index, saveDraft, country
     </td>
     <td><input type="text" value={definition || '' } onChange={(evt) => console.log(evt.target.value)}/></td>
   </tr>
+
+const extentOfForestRows = nationalClasses =>
+  R.pipe(
+    R.filter((nationalClass) => !nationalClass.placeHolder),
+    mapIndexed((nationalClass, index) => <ExtentOfForestRow key={index} {...nationalClass}/>)
+  )(nationalClasses)
 
 const ExtentOfForestRow = ({className, forestPercent, otherWoodedLandPercent, otherLandPercent}) =>
   <tr>
