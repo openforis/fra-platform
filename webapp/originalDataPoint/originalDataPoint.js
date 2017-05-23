@@ -25,7 +25,7 @@ export const removeClassPlaceholder = (odp) => {
 export const emptyNationalClass = () => ({
   className: '',
   definition: '',
-  value: null,
+  area: null,
   forestPercent: null,
   otherWoodedLandPercent: null,
   otherLandPercent: null

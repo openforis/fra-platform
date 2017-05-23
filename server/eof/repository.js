@@ -58,8 +58,19 @@ const wipeClassData = (client, odpVersionId) =>
 const addClassData = (client, odpVersionId, odp) => {
   const nationalInserts = R.map(
     (nationalClass) => client.query(
-      'INSERT INTO odp_class (odp_version_id, name, definition) VALUES ($1, $2, $3);',
-      [odpVersionId, nationalClass.className, nationalClass.definition]),
+      `INSERT INTO odp_class 
+        (odp_version_id, 
+        name, 
+        definition, 
+        area) 
+       VALUES 
+        ($1, $2, $3, $4);`,
+      [
+        odpVersionId,
+        nationalClass.className,
+        nationalClass.definition,
+        nationalClass.area
+      ]),
     odp.nationalClasses)
   return Promise.all(nationalInserts)
 }
@@ -147,8 +158,19 @@ module.exports.getOdp = odpId =>
     WHERE id = $1
   `, [odpId]
   ).then(result => result.rows[0].version_id
-  ).then(versionId => Promise.all([versionId, db.query('SELECT name, definition FROM odp_class WHERE odp_version_id = $1', [versionId])])
-  ).then(([versionId, result]) => [versionId, R.map(row => ({className: row.name, definition: row.definition}), result.rows)]
+  ).then(versionId => Promise.all([
+    versionId,
+    db.query(`SELECT name, 
+                     definition,
+                     area
+              FROM odp_class 
+              WHERE odp_version_id = $1`,
+             [versionId])])
+  ).then(([versionId, result]) => [versionId, R.map(row => ({
+      className: row.name,
+      definition: row.definition,
+      area: row.area
+    }), result.rows)]
   ).then(([versionId, nationalClasses]) =>
     Promise.all([db.query(`
                   SELECT
@@ -161,7 +183,8 @@ module.exports.getOdp = odpId =>
                   WHERE p.id = $1
                 `, [odpId, versionId]),
       nationalClasses])
-  ).then(([result, nationalClasses]) => R.assoc('nationalClasses', nationalClasses, result.rows[0]))
+  ).then(([result, nationalClasses]) =>
+    R.assoc('nationalClasses', nationalClasses, result.rows[0]))
 
 // functions used for interpolation / extrapolation
 module.exports.getOdpValues = (countryIso) =>

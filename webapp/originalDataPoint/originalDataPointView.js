@@ -60,7 +60,7 @@ const DataInput = ({match, saveDraft, markAsActual, active, autoSaving}) => {
         </thead>
         <tbody>
         {
-          extentOfForestRows(active.nationalClasses)
+          extentOfForestRows(countryIso, active, saveDraft)
         }
         </tbody>
       </table>
@@ -85,7 +85,7 @@ const nationalClassRows = (countryIso, odp, saveDraft) => {
     {...nationalClass}/>, odp.nationalClasses)
 }
 
-const NationalClassRow = ({className, definition, placeHolder, odp, index, saveDraft, countryIso}) =>
+const NationalClassRow = ({odp, index, saveDraft, countryIso, className, definition, placeHolder}) =>
   <tr>
     <td className="odp__national-class-row-class-name">
       { placeHolder
@@ -110,19 +110,39 @@ const NationalClassRow = ({className, definition, placeHolder, odp, index, saveD
     </td>
   </tr>
 
-const extentOfForestRows = nationalClasses =>
+const extentOfForestRows = (countryIso, odp, saveDraft) =>
   R.pipe(
-    R.filter((nationalClass) => !nationalClass.placeHolder),
-    mapIndexed((nationalClass, index) => <ExtentOfForestRow key={index} {...nationalClass}/>)
-  )(nationalClasses)
+    R.filter(nationalClass => !nationalClass.placeHolder),
+    mapIndexed((nationalClass, index) => <ExtentOfForestRow
+      key={index}
+      index={index}
+      odp={odp}
+      saveDraft={saveDraft}
+      countryIso={countryIso}
+      {...nationalClass}/>)
+  )(odp.nationalClasses)
 
-const ExtentOfForestRow = ({className, forestPercent, otherWoodedLandPercent, otherLandPercent}) =>
+const ExtentOfForestRow = ({
+                             odp,
+                             index,
+                             saveDraft,
+                             countryIso,
+                             className,
+                             area,
+                             forestPercent,
+                             otherWoodedLandPercent,
+                             otherLandPercent
+                           }) =>
   <tr>
     <td className="odp__extent-of-forest-class-name"><span>{className}</span></td>
+    <td>
+      <input type="text" value={area || ''}
+             onChange={(evt) =>
+               saveDraft(countryIso, originalDataPoint.updateNationalClass(odp, index, 'area', Number(evt.target.value) || area))}/>
+    </td>
     <td><input type="text" value={forestPercent || ''} onChange={(evt) => console.log(evt.target.value)}/></td>
     <td><input type="text" value={otherWoodedLandPercent || ''} onChange={(evt) => console.log(evt.target.value)}/></td>
     <td><input type="text" value={otherLandPercent || ''} onChange={(evt) => console.log(evt.target.value)}/></td>
-    <td><input type="text" value={forestPercent || ''} onChange={(evt) => console.log(evt.target.value)}/></td>
   </tr>
 
 class OriginalDataPointView extends React.Component {
