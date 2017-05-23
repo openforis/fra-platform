@@ -142,21 +142,21 @@ const ExtentOfForestRow = ({
       <input type="text" value={area || ''}
              onChange={ numberUpdated('area', area) }/>
     </td>
-    <td>
+    <td className="odp__extent-of-forest-percent-cell">
       <input
         type="text"
         value={forestPercent || ''}
         onChange={ numberUpdated('forestPercent', forestPercent) }/>
       % &nbsp;
     </td>
-    <td>
+    <td className="odp__extent-of-forest-percent-cell">
       <input
         type="text"
         value={otherWoodedLandPercent || ''}
         onChange={ numberUpdated('otherWoodedLandPercent', otherWoodedLandPercent) }/>
       % &nbsp;
     </td>
-    <td>
+    <td className="odp__extent-of-forest-percent-cell">
       <input
         type="text"
         value={otherLandPercent || ''}
