@@ -60,7 +60,7 @@ const DataInput = ({match, saveDraft, markAsActual, active, autoSaving}) => {
         </thead>
         <tbody>
         {
-          console.log("active", active) || extentOfForestRows(active.nationalClasses)
+          extentOfForestRows(active.nationalClasses)
         }
         </tbody>
       </table>
