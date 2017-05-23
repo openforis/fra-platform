@@ -38,7 +38,7 @@ class Chart extends Component {
         <XAxis {...this.props} {...styles} />
         <YAxis {...this.props} {...styles} />
       </svg>
-        : <div>loading...</div>}
+        : null }
     </div>
   }
 }

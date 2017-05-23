@@ -29,7 +29,7 @@ const linesStyle = {
 
 const DataCircles = (props) =>
   <g>
-    <path className="pppppp" d={renderLines(props)} style={linesStyle}></path>
+    <path d={renderLines(props)} style={linesStyle}></path>
     { props.data.map(renderCircles(props)) }
   </g>
 
