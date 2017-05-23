@@ -62,14 +62,21 @@ const addClassData = (client, odpVersionId, odp) => {
         (odp_version_id, 
         name, 
         definition, 
-        area) 
+        area,
+        forest_percent,
+        other_wooded_land_percent,
+        other_land_percent
+        ) 
        VALUES 
-        ($1, $2, $3, $4);`,
+        ($1, $2, $3, $4, $5, $6, $7);`,
       [
         odpVersionId,
         nationalClass.className,
         nationalClass.definition,
-        nationalClass.area
+        nationalClass.area,
+        nationalClass.forestPercent,
+        nationalClass.otherWoodedLandPercent,
+        nationalClass.otherLandPercent
       ]),
     odp.nationalClasses)
   return Promise.all(nationalInserts)
@@ -162,14 +169,20 @@ module.exports.getOdp = odpId =>
     versionId,
     db.query(`SELECT name, 
                      definition,
-                     area
+                     area,
+                     forest_percent,
+                     other_wooded_land_percent,
+                     other_land_percent
               FROM odp_class 
               WHERE odp_version_id = $1`,
              [versionId])])
   ).then(([versionId, result]) => [versionId, R.map(row => ({
       className: row.name,
       definition: row.definition,
-      area: row.area
+      area: row.area,
+      forestPercent: row.forest_percent,
+      otherWoodedLandPercent: row.other_wooded_land_percent,
+      otherLandPercent: row.other_land_percent
     }), result.rows)]
   ).then(([versionId, nationalClasses]) =>
     Promise.all([db.query(`
