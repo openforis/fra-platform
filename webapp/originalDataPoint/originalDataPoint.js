@@ -15,6 +15,8 @@ export const updateNationalClass = (odp, index, field, value) => {
   return {...odp, nationalClasses: updatedClasses}
 }
 
+export const removeNationalClass = (odp, index) => ({...odp, nationalClasses: R.remove(index, 1, odp.nationalClasses)})
+
 export const removeClassPlaceholder = (odp) => {
   const updatedClasses = R.filter(nClass => !nClass.placeHolder, odp.nationalClasses)
   return {...odp, nationalClasses: updatedClasses}

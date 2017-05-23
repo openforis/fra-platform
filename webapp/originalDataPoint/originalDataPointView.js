@@ -94,7 +94,11 @@ const extentOfForestRows = nationalClasses =>
 const NationalClassRow = ({className, definition, odp, index, saveDraft, countryIso}) =>
   <tr>
     <td className="odp__national-class-row-class-name">
-      <div className="odp__national-class-remove">x</div>
+      <div
+        className="odp__national-class-remove"
+        onClick={(evt) => saveDraft(countryIso, originalDataPoint.removeNationalClass(odp, index))}>
+        x
+      </div>
       <input className="odp__national-class-row-class-name-input"
              type="text"
              value={className || ''}
