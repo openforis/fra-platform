@@ -11,7 +11,7 @@ class XAxis extends Component {
   }
 
   renderAxis () {
-    var axis = d3.axisBottom(this.props.xScale).ticks(5)
+    var axis = d3.axisBottom(this.props.xScale).ticks(5).tickFormat(d3.format("0000"))
     d3.select(this.refs.axis).call(axis)
   }
 
