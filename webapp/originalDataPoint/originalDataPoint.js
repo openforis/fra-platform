@@ -1,7 +1,17 @@
+/*
+ * Functions for dealing with and creating the OriginalDataPoint datastructure
+ */
+
 import R from 'ramda'
 
 export const updateNationalClass = (odp, index, field, value) => {
-  const updatedClasses = R.adjust(R.assoc(field, value), index, odp.nationalClasses)
+  const nationalClassToUpdate = odp.nationalClasses[index]
+  const wasPlaceHolder = nationalClassToUpdate.placeHolder
+  const updatedNationalClass = R.dissoc('placeHolder', {...nationalClassToUpdate,  [field]: value})
+  const classesWithValueUpdated = R.update(index, updatedNationalClass, odp.nationalClasses)
+  const updatedClasses = wasPlaceHolder
+    ? [...classesWithValueUpdated, nationalClassPlaceHolder()]
+    : classesWithValueUpdated
   return {...odp, nationalClasses: updatedClasses}
 }
 
