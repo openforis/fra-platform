@@ -2,7 +2,7 @@ import './style.less'
 
 import React from 'react'
 import { connect } from 'react-redux'
-import { updateNationalClass } from './nationalClass'
+import { updateNationalClass } from './originalDataPoint'
 import { saveDraft, markAsActual, fetch, clearActive } from './actions'
 import R from 'ramda'
 
