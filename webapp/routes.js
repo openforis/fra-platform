@@ -9,14 +9,14 @@ import Router from './router/router'
 
 import Default from './default'
 import NationalDataEntry from './nationalDataEntry/nationalDataEntry'
-import OriginalDataPoint from './originalDataPoint/originalDataPoint'
+import OriginalDataPointView from './originalDataPoint/originalDataPointView'
 
 const routes = {
   '/': Default,
   '#/': Default,
   '#/country/:countryIso': NationalDataEntry,
-  '#/country/odp/:countryIso': OriginalDataPoint,
-  '#/country/odp/:countryIso/:odpId': OriginalDataPoint
+  '#/country/odp/:countryIso': OriginalDataPointView,
+  '#/country/odp/:countryIso/:odpId': OriginalDataPointView
 }
 
 const routeConfig = R.pipe(

@@ -111,7 +111,7 @@ const ExtentOfForestRow = ({className, forestPercent, otherWoodedLandPercent, ot
     <td><input type="text" value={forestPercent || ''} onChange={(evt) => console.log(evt.target.value)}/></td>
   </tr>
 
-class OriginalDataPoint extends React.Component {
+class OriginalDataPointView extends React.Component {
   componentWillMount () {
     const odpId = this.props.match.params.odpId
     console.log('match', this.props.match)
@@ -152,4 +152,4 @@ const mapStateToProps = state => {
   return {...odp, active, autoSaving}
 }
 
-export default connect(mapStateToProps, {saveDraft, markAsActual, fetch, clearActive})(OriginalDataPoint)
+export default connect(mapStateToProps, {saveDraft, markAsActual, fetch, clearActive})(OriginalDataPointView)
