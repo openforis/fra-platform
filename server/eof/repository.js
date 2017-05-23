@@ -65,12 +65,12 @@ const addClassData = (client, odpVersionId, odp) => {
 }
 
 module.exports.markAsActual = (client, odpId) => {
-  const selectOldActualPromise = client.query('SELECT actual_id FROM odp WHERE id = $1', [odpId])
+  const currentOdpPromise = client.query('SELECT actual_id, draft_id FROM odp WHERE id = $1', [odpId])
   const updateOdpPromise = client.query(
-    'UPDATE odp SET actual_id = draft_id, draft_id = null WHERE id = $1', [odpId]
+    'UPDATE odp SET actual_id = draft_id, draft_id = null WHERE id = $1 AND draft_id IS NOT NULL', [odpId]
   )
-  return Promise.join(selectOldActualPromise, updateOdpPromise, (oldActualResult, _) => {
-    if (oldActualResult.rowCount > 0) {
+  return Promise.join(currentOdpPromise, updateOdpPromise, (oldActualResult, _) => {
+    if (oldActualResult.rowCount > 0 && oldActualResult.rows[0].draft_id) {
       return oldActualResult.rows[0].actual_id
     }
     return null
