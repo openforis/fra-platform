@@ -56,7 +56,11 @@ module.exports.init = app => {
   )
 
   app.post('/api/country/estimation/generateFraValues/:countryIso', (req, res) => {
-    const years = [1990, 2000, 2010, 2015, 2020]
+    const years = R.pipe(
+      R.values,
+      R.map((v) => v.year)
+    )(forestAreaTableResponse.fra)
+
     estimationEngine
       .estimateFraValues(req.params.countryIso, years)
       .then(() => res.json({}))
