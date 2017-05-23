@@ -32,10 +32,10 @@ const DataInput = ({match, saveDraft, markAsActual, active, autoSaving}) => {
     </div>
     <div>
       <h3 className="odp__section">National classes</h3>
-      <table className="odp__input-table">
+      <table className="odp__input-table odp__national-class-table">
         <thead>
         <tr>
-          <th>National class</th>
+          <th className="odp__national-class-table-national-class-column">National class</th>
           <th>Definition</th>
         </tr>
         </thead>
