@@ -62,6 +62,13 @@ const DataInput = ({match, saveDraft, markAsActual, active, autoSaving}) => {
         {
           extentOfForestRows(countryIso, active, saveDraft)
         }
+        <tr>
+          <td className="odp__national-class-total-heading">Total</td>
+          <td className="odp__national-class-total-cell"></td>
+          <td className="odp__national-class-total-cell"></td>
+          <td className="odp__national-class-total-cell"></td>
+          <td className="odp__national-class-total-cell"></td>
+        </tr>
         </tbody>
       </table>
     </div>
