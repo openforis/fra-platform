@@ -23,7 +23,7 @@ const renderLines = ({xScale, yScale, data}) => d3.line()
 const linesStyle = {
   fill: 'none',
   stroke: '#acacb3',
-  strokeWidth: 2,
+  strokeWidth: 1.5,
   shapeRendering: 'geometricPrecision'
 }
 
