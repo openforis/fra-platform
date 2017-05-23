@@ -70,7 +70,9 @@ const DataInput = (props) => {
       </div>
       <Link className="btn-primary" to={`/country/odp/${props.countryIso}`}>+ Add original data point</Link>
     </div>
-    <Chart />
+    <div className="nde__data-chart">
+      <Chart />
+    </div>
     <div className="nde__data-table-header">
       <div>
         {/*placeholder for chart heading*/}
@@ -94,7 +96,6 @@ const NationalDataEntry = (props) => {
 class DataFetchingComponent extends React.Component {
   componentWillMount () {
     this.fetch(this.props.match.params.countryIso)
-
   }
 
   componentWillReceiveProps (next) {

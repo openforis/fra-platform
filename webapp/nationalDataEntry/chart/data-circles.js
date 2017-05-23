@@ -6,14 +6,16 @@ const renderCircles = ({xScale, yScale}) => {
     const circleProps = {
       cx: xScale(coords[0]),
       cy: yScale(coords[1]),
-      r: 2,
+      r: 3.5,
       key: index
     }
 
-    return <circle {...circleProps} />
+    return (circleProps.cx && circleProps.cy) ? <circle {...circleProps} /> : null
   }
 }
 
-export default (props) => {
+const DataCircles = (props) => {
   return <g>{ props.data.map(renderCircles(props)) }</g>
 }
+
+export default DataCircles
