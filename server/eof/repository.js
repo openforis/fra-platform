@@ -75,7 +75,11 @@ module.exports.markAsActual = (client, odpId) => {
     }
     return null
   }).then((oldActualId) => {
-    if (oldActualId) return client.query('DELETE FROM odp_version WHERE id = $1', [oldActualId])
+    if (oldActualId) {
+      return Promise.all([
+        wipeClassData(client, oldActualId),
+        client.query('DELETE FROM odp_version WHERE id = $1', [oldActualId])])
+    }
     return null
   })
 }
@@ -156,7 +160,7 @@ module.exports.getOdp = odpId =>
                       ON v.id = $2
                   WHERE p.id = $1
                 `, [odpId, versionId]),
-                nationalClasses])
+      nationalClasses])
   ).then(([result, nationalClasses]) => R.assoc('nationalClasses', nationalClasses, result.rows[0]))
 
 // functions used for interpolation / extrapolation
