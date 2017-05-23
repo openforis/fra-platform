@@ -132,18 +132,39 @@ const ExtentOfForestRow = ({
                              forestPercent,
                              otherWoodedLandPercent,
                              otherLandPercent
-                           }) =>
-  <tr>
+                           }) => {
+  const numberUpdated = (fieldName, currentValue) => evt =>
+    saveDraft(countryIso, originalDataPoint.updateNationalClass(odp, index, fieldName, Number(evt.target.value) || currentValue))
+
+  return <tr>
     <td className="odp__extent-of-forest-class-name"><span>{className}</span></td>
     <td>
       <input type="text" value={area || ''}
-             onChange={(evt) =>
-               saveDraft(countryIso, originalDataPoint.updateNationalClass(odp, index, 'area', Number(evt.target.value) || area))}/>
+             onChange={ numberUpdated('area', area) }/>
     </td>
-    <td><input type="text" value={forestPercent || ''} onChange={(evt) => console.log(evt.target.value)}/></td>
-    <td><input type="text" value={otherWoodedLandPercent || ''} onChange={(evt) => console.log(evt.target.value)}/></td>
-    <td><input type="text" value={otherLandPercent || ''} onChange={(evt) => console.log(evt.target.value)}/></td>
+    <td>
+      <input
+        type="text"
+        value={forestPercent || ''}
+        onChange={ numberUpdated('forestPercent', forestPercent) }/>
+      % &nbsp;
+    </td>
+    <td>
+      <input
+        type="text"
+        value={otherWoodedLandPercent || ''}
+        onChange={ numberUpdated('otherWoodedLandPercent', otherWoodedLandPercent) }/>
+      % &nbsp;
+    </td>
+    <td>
+      <input
+        type="text"
+        value={otherLandPercent || ''}
+        onChange={ numberUpdated('otherLandPercent', otherLandPercent) }/>
+      % &nbsp;
+    </td>
   </tr>
+}
 
 class OriginalDataPointView extends React.Component {
   componentWillMount () {

@@ -7,7 +7,7 @@ import R from 'ramda'
 export const updateNationalClass = (odp, index, field, value) => {
   const nationalClassToUpdate = odp.nationalClasses[index]
   const wasPlaceHolder = nationalClassToUpdate.placeHolder
-  const updatedNationalClass = R.dissoc('placeHolder', {...nationalClassToUpdate,  [field]: value})
+  const updatedNationalClass = R.dissoc('placeHolder', {...nationalClassToUpdate, [field]: value})
   const classesWithValueUpdated = R.update(index, updatedNationalClass, odp.nationalClasses)
   const updatedClasses = wasPlaceHolder
     ? [...classesWithValueUpdated, nationalClassPlaceHolder()]
@@ -39,4 +39,7 @@ export const emptyDataPoint = () => ({
   nationalClasses: [emptyNationalClass(), nationalClassPlaceHolder()]
 })
 
-export const addNationalClassPlaceHolder = (odp) => ({...odp, nationalClasses: [...odp.nationalClasses, nationalClassPlaceHolder()]})
+export const addNationalClassPlaceHolder = (odp) => ({
+  ...odp,
+  nationalClasses: [...odp.nationalClasses, nationalClassPlaceHolder()]
+})
