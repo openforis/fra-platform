@@ -48,7 +48,7 @@ const DataInput = ({match, saveDraft, markAsActual, active, autoSaving}) => {
     </div>
     <div>
       <h3 className="odp__section">Extent of forest</h3>
-      <table className="odp__input-table">
+      <table className="odp__input-table odp__extent-of-forest-table">
         <thead>
         <tr>
           <th>National class</th>
