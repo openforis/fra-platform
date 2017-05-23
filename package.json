@@ -35,6 +35,7 @@
     "bluebird": "^3.5.0",
     "body-parser": "^1.17.1",
     "compression": "^1.6.2",
+    "d3": "^4.9.1",
     "db-migrate": "^0.10.0-beta.20",
     "db-migrate-pg": "^0.1.11",
     "dotenv": "^4.0.0",

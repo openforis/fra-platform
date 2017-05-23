@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import * as R from 'ramda'
 import { save, fetch, generateFraValues } from './actions'
 import { Link } from './../link'
+import Chart from './chart/chart'
 
 const OdpCell = ({odpValue}) => {
   return <span className="nde__input-table-readonly-cell">
@@ -69,6 +70,7 @@ const DataInput = (props) => {
       </div>
       <Link className="btn-primary" to={`/country/odp/${props.countryIso}`}>+ Add original data point</Link>
     </div>
+    <Chart />
     <div className="nde__data-table-header">
       <div>
         {/*placeholder for chart heading*/}
