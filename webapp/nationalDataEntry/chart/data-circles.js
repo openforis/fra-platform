@@ -10,7 +10,7 @@ const renderCircles = ({xScale, yScale}) => {
       key: index
     }
 
-    return (circleProps.cx && circleProps.cy) ? <circle {...circleProps} /> : null
+    return (circleProps.cx && circleProps.cy) ? <circle {...circleProps} fill="#138C97" /> : null
   }
 }
 

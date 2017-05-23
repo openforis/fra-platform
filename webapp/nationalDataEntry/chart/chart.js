@@ -3,7 +3,8 @@ import { connect } from 'react-redux'
 import * as d3 from 'd3'
 import R from 'ramda'
 import DataCircles from './data-circles'
-import XYAxis from './x-y-axis'
+import XAxis from './x-axis'
+import YAxis from './y-axis'
 
 const styles = {
   width: 800,
@@ -34,7 +35,8 @@ class Chart extends Component {
     return <div ref="chartContainer">
       {this.props.data ? <svg width={styles.width} height={styles.height}>
         <DataCircles {...this.props} {...styles} />
-        <XYAxis {...this.props} {...styles} />
+        <XAxis {...this.props} {...styles} />
+        <YAxis {...this.props} {...styles} />
       </svg>
         : <div>loading...</div>}
     </div>
