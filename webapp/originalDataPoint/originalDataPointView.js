@@ -2,7 +2,7 @@ import './style.less'
 
 import React from 'react'
 import { connect } from 'react-redux'
-import { updateNationalClass } from './originalDataPoint'
+import * as originalDataPoint from './originalDataPoint'
 import { saveDraft, markAsActual, fetch, clearActive } from './actions'
 import R from 'ramda'
 
@@ -60,7 +60,7 @@ const DataInput = ({match, saveDraft, markAsActual, active, autoSaving}) => {
         </thead>
         <tbody>
         {
-          extentOfForestRows(active.nationalClasses)
+          console.log("active", active) || extentOfForestRows(active.nationalClasses)
         }
         </tbody>
       </table>
@@ -97,7 +97,7 @@ const NationalClassRow = ({className, definition, odp, index, saveDraft, country
       <input type="text"
              value={className || ''}
              onChange={(evt) =>
-               saveDraft(countryIso, updateNationalClass(odp, index, 'className', evt.target.value))}/>
+               saveDraft(countryIso, originalDataPoint.updateNationalClass(odp, index, 'className', evt.target.value))}/>
     </td>
     <td><input type="text" value={definition || '' } onChange={(evt) => console.log(evt.target.value)}/></td>
   </tr>
@@ -130,25 +130,10 @@ class OriginalDataPointView extends React.Component {
   }
 }
 
-const emptyNationalClass = () => ({
-  className: '',
-  definition: '',
-  value: null,
-  forestPercent: null,
-  otherWoodedLandPercent: null,
-  otherLandPercent: null
-})
-
-const emptyDataPoint = () => ({
-  year: null,
-  forestArea: null,
-  nationalClasses: [emptyNationalClass(), {placeHolder: true, ...emptyNationalClass()}]
-})
-
 const mapStateToProps = state => {
   const odp = state.originalDataPoint
   const autoSaving = !!state.autoSave.status
-  const active = odp.active || emptyDataPoint()
+  const active = odp.active || originalDataPoint.emptyDataPoint()
   return {...odp, active, autoSaving}
 }
 

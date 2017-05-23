@@ -1,6 +1,6 @@
 import { applicationError } from '../applicationError/actions'
 import * as autosave from '../autosave/actions'
-import { removeClassPlaceholder } from './originalDataPoint'
+import { removeClassPlaceholder, addNationalClassPlaceHolder } from './originalDataPoint'
 import axios from 'axios'
 
 // Drafting
@@ -58,7 +58,7 @@ export const odpFetchCompleted = 'originalDataPoint/fetch/completed'
 
 export const fetch = (odpId) => dispatch =>
   axios.get(`/api/country/originalDataPoint/${odpId}`).then(resp => {
-    dispatch({type: odpFetchCompleted, active: resp.data})
+    dispatch({type: odpFetchCompleted, active: addNationalClassPlaceHolder(resp.data)})
   })
     .catch(err =>
       dispatch(applicationError(err))
