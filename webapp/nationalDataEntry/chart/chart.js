@@ -9,7 +9,7 @@ import YAxis from './y-axis'
 const styles = {
   width: 800,
   height: 300,
-  padding: 50
+  padding: 30
 }
 
 // Returns the highest Y coordinate from the data set
