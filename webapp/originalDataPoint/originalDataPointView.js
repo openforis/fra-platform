@@ -104,7 +104,7 @@ const NationalClassRow = ({className, definition, odp, index, saveDraft, country
 
 const ExtentOfForestRow = ({className, forestPercent, otherWoodedLandPercent, otherLandPercent}) =>
   <tr>
-    <td><input type="text" value={className || ''} onChange={(evt) => console.log(evt.target.value)}/></td>
+    <td className="odp__extent-of-forest-class-name"><span>{className}</span></td>
     <td><input type="text" value={forestPercent || ''} onChange={(evt) => console.log(evt.target.value)}/></td>
     <td><input type="text" value={otherWoodedLandPercent || ''} onChange={(evt) => console.log(evt.target.value)}/></td>
     <td><input type="text" value={otherLandPercent || ''} onChange={(evt) => console.log(evt.target.value)}/></td>
