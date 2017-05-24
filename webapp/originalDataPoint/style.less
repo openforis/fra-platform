@@ -1,10 +1,7 @@
 .odp_data-input-row{
   display: flex;
   justify-content: flex-start;
-
-  > div {
-    padding: 5px 10px;
-  }
+  h3 { margin-right: 10px; }
 }
 
 .odp__section {
@@ -15,7 +12,7 @@
   border-collapse: collapse;
   margin-bottom: 15px;
   th {
-    text-align: middle;
+    font-size: 13px;
     background: #F5F5F5;
     border: 1px solid #CCCCCC;
     padding: 10px;
@@ -23,6 +20,7 @@
   }
   td {
     border: 1px solid #CCCCCC;
+    font-size: 13px;
   }
   input {
     border: none;
@@ -31,6 +29,9 @@
 
 .odp__national-class-table {
   width: 100%;
+  th {
+    text-align: left;
+  }
   input {
     width: 100%;
     padding: 10px;
@@ -40,6 +41,9 @@
 .odp__extent-of-forest-table {
   input {
     padding: 10px 3px 10px 10px;
+  }
+  th {
+    text-align: right;
   }
 }
 
