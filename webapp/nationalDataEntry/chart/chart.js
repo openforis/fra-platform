@@ -24,8 +24,11 @@ const getXScale = (data) => {
 
 // Returns a function that "scales" Y coordinates from the data to fit the chart
 const getYScale = (data) => {
+  let max = yMax(data)
+  max = max ? max : 98765
+
   return d3.scaleLinear()
-    .domain([0, yMax(data)])
+    .domain([0, max])
     .range([styles.height - styles.padding, styles.padding])
 }
 
@@ -53,6 +56,7 @@ const mapStateToProps = state => {
   if (nde && nde.fra) {
     const data = R.pipe(
       R.values,
+      R.filter(v => v.forestArea),
       R.map((v) => { return {year: v.year, forestArea: v.forestArea, type: v.type} })
     )(nde.fra)
 
