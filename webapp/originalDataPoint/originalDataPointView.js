@@ -73,9 +73,10 @@ const DataInput = ({match, saveDraft, markAsActual, active, autoSaving}) => {
       </table>
     </div>
     <div className="odp__bottom-buttons">
-      <button className="btn odp__cancel-button"
-              onClick={() => console.log("cancel")}>Cancel
-      </button>
+      <a className="btn odp__cancel-button"
+         href={`/\#/country/${countryIso}`}>
+        Cancel
+      </a>
       <button disabled={!active.odpId || autoSaving} className="btn-primary"
               onClick={() => markAsActual(countryIso, active.odpId) }>Save & Close
       </button>
