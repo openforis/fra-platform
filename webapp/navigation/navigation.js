@@ -163,11 +163,11 @@ const Nav = ({path, country, follow}) => {
     <PrimaryItem label="Original Data" />
     <PrimaryItem label="Annually reported" link="send to review"/>
     {
-      annualItems.map(v => <SecondaryItem path={path} goTo={follow} countryIso={country} {...v} />)
+      annualItems.map(v => <SecondaryItem path={path} key={v.label} goTo={follow} countryIso={country} {...v} />)
     }
     <PrimaryItem label="Five-year Cycle" link="send to review"/>
     {
-      fiveYearItems.map(v => <SecondaryItem {...v} />)
+      fiveYearItems.map(v => <SecondaryItem key={v.label} {...v} />)
     }
   </div>
 }
