@@ -1,5 +1,6 @@
 import { applicationError } from '../applicationError/actions'
 import * as autosave from '../autosave/actions'
+import { removeClassPlaceholder, addNationalClassPlaceHolder } from './originalDataPoint'
 import axios from 'axios'
 
 // Drafting
@@ -15,9 +16,9 @@ export const saveDraft = (countryIso, obj) => dispatch => {
 
 const startSavingDraft = (obj) => ({type: dataPointSaveDraftStart, active: obj})
 
-const persistDraft = (countryIso, obj) => {
+const persistDraft = (countryIso, odp) => {
   const dispatched = dispatch =>
-    axios.post(`/api/country/originalDataPoint/draft/${countryIso}`, obj).then((resp) => {
+    axios.post(`/api/country/originalDataPoint/draft/${countryIso}`, removeClassPlaceholder(odp)).then((resp) => {
       dispatch(autosave.complete)
       dispatch(saveDraftCompleted(resp.data.odpId))
     }).catch((err) => {
@@ -57,7 +58,7 @@ export const odpFetchCompleted = 'originalDataPoint/fetch/completed'
 
 export const fetch = (odpId) => dispatch =>
   axios.get(`/api/country/originalDataPoint/${odpId}`).then(resp => {
-    dispatch({type: odpFetchCompleted, active: resp.data})
+    dispatch({type: odpFetchCompleted, active: addNationalClassPlaceHolder(resp.data)})
   })
     .catch(err =>
       dispatch(applicationError(err))
