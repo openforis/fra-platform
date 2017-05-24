@@ -21,8 +21,19 @@ const renderLines = ({xScale, yScale, data}) => d3.line()
   .y((d) => yScale(d.forestArea))
   (data)
 
-const DataCircles = (props) =>
-  <g>
+const renderImage = ({data, width, padding}) => {
+  return data.length <= 0 ? <g className="noDataPlaceholder">
+    <image href="/img/tucan.svg"
+           width="80" height="112"
+           x={(width / 2) + padding - 40} y="96"></image>
+  </g>
+    : null
+}
+
+const DataCircles = (props) => {
+
+  return <g>
+    { renderImage(props) }
     <path d={renderLines(props)} style={{
       fill: 'none',
       stroke: '#acacb3',
@@ -31,5 +42,7 @@ const DataCircles = (props) =>
     }}></path>
     { props.data.map(renderCircles(props)) }
   </g>
+
+}
 
 export default DataCircles

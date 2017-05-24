@@ -56,7 +56,7 @@ const mapStateToProps = state => {
   if (nde && nde.fra) {
     const data = R.pipe(
       R.values,
-      R.filter(v => v.forestArea),
+      R.filter(v => typeof v.forestArea === 'number'),
       R.map((v) => { return {year: v.year, forestArea: v.forestArea, type: v.type} })
     )(nde.fra)
 
