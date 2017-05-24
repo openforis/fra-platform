@@ -12,7 +12,7 @@ const OdpCell = ({odpValue}) => {
 }
 
 const OdpHeading = ({countryIso, odpValue}) =>
-  <Link to={`/country/odp/${countryIso}/${odpValue.odpId}`}>
+  <Link to={`/country/${countryIso}/odp/${odpValue.odpId}`}>
     {odpValue.draft ? '!' : ''}
     {odpValue.name}
   </Link>
@@ -67,7 +67,7 @@ const DataInput = (props) => {
       <div>
         {/*placeholder for chart heading*/}
       </div>
-      <Link className="btn-primary" to={`/country/odp/${props.countryIso}`}>+ Add original data point</Link>
+      <Link className="btn-primary" to={`/country/${props.countryIso}/odp`}>+ Add original data point</Link>
     </div>
     <div className="nde__data-table-header">
       <div>

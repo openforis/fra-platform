@@ -11,6 +11,9 @@ class Router extends React.Component {
     window.onhashchange = () => {
       this.props.follow(location.hash)
     }
+    window.onload = () => {
+      this.props.follow(location.hash)
+    }
   }
 
   render () {
@@ -21,7 +24,7 @@ class Router extends React.Component {
 }
 
 const mapStateToProps = state => {
-  return state.router.path ? {path: state.router.path} : {path: window.location.hash}
+  return state.router.path ? {path: state.router.path} : {path: (window.location.hash || window.location.pathname) }
 }
 
 export default connect(mapStateToProps, {follow})(Router)

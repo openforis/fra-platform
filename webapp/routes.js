@@ -2,21 +2,21 @@ import * as R from 'ramda'
 import React from 'react'
 import Route from 'route-parser'
 
-import Header from './header/header'
+import Header from './navigation/navigation'
 import Footer from './footer/footer'
 import ErrorComponent from './applicationError/errorComponent'
 import Router from './router/router'
 
-import DefaultView from './default'
+import LoginView from './login/login'
 import NationalDataEntryView from './nationalDataEntry/nationalDataEntryView'
 import OriginalDataPointView from './originalDataPoint/originalDataPointView'
 
 const routes = {
-  '/': DefaultView,
-  '#/': DefaultView,
+  '/': LoginView,
+  '#/': LoginView,
   '#/country/:countryIso': NationalDataEntryView,
-  '#/country/odp/:countryIso': OriginalDataPointView,
-  '#/country/odp/:countryIso/:odpId': OriginalDataPointView
+  '#/country/:countryIso/odp': OriginalDataPointView,
+  '#/country/:countryIso/odp/:odpId': OriginalDataPointView
 }
 
 const routeConfig = R.pipe(

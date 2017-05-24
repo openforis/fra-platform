@@ -2059,6 +2059,12 @@ https-browserify@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/https-browserify/-/https-browserify-0.0.1.tgz#3f91365cabe60b77ed0ebba24b454e3e09d95a82"
 
+i18n-iso-countries@^1.11.0:
+  version "1.11.0"
+  resolved "https://registry.yarnpkg.com/i18n-iso-countries/-/i18n-iso-countries-1.11.0.tgz#3656864c023e582f37a86d5c7d13ac19f2c6ae8b"
+  dependencies:
+    pad "1.0.0"
+
 i@0.3.x:
   version "0.3.5"
   resolved "https://registry.yarnpkg.com/i/-/i-0.3.5.tgz#1d2b854158ec8169113c6cb7f6b6801e99e211d5"
@@ -2925,6 +2931,10 @@ package-json@^1.0.0:
 packet-reader@0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/packet-reader/-/packet-reader-0.2.0.tgz#819df4d010b82d5ea5671f8a1a3acf039bcd7700"
+
+pad@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/pad/-/pad-1.0.0.tgz#a8fc56d247d7f76116d247512a9387b738b7b06e"
 
 pako@~0.2.0:
   version "0.2.9"
