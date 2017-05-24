@@ -36,14 +36,7 @@ module.exports.init = app => {
 
   app.get('/api/country/originalDataPoint/:odpId', (req, res) => {
     eofRepository.getOdp(req.params.odpId)
-      .then(resp =>
-        res.json({
-          odpId: resp.odp_id,
-          forestArea: resp.forest_area,
-          year: resp.year,
-          nationalClasses: resp.nationalClasses
-        })
-      )
+      .then(resp => res.json(resp))
       .catch(err => sendErr(res, err))
   })
 

@@ -1,6 +1,7 @@
 const db = require('../db/db')
 const R = require('ramda')
 const Promise = require('bluebird')
+const camelize = require('camelize')
 
 module.exports.saveDraft = (client, countryIso, draft) =>
   !draft.odpId ? createOdp(client, countryIso)
@@ -197,7 +198,7 @@ module.exports.getOdp = odpId =>
                 `, [odpId, versionId]),
       nationalClasses])
   ).then(([result, nationalClasses]) =>
-    R.assoc('nationalClasses', nationalClasses, result.rows[0]))
+    R.assoc('nationalClasses', nationalClasses, camelize(result.rows[0])))
 
 // functions used for interpolation / extrapolation
 module.exports.getOdpValues = (countryIso) =>
