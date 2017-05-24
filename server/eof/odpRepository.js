@@ -149,12 +149,12 @@ module.exports.getOdp = odpId =>
   ).then(([result, nationalClasses]) =>
     R.assoc('nationalClasses', nationalClasses, camelize(result.rows[0])))
 
-const reduceForestAreas = (results, row, type = 'fra') => R.assoc(`${type}_${row.year}`,
+const odpReducer = (results, row, type = 'fra') => R.assoc(`odp_${row.year}`,
   {
-    odpId: R.defaultTo(null, row.odp_id),
+    odpId: row.odp_id,
     forestArea: Number(row.forest_area),
     name: row.year + '',
-    type,
+    type: 'odp',
     year: Number(row.year),
     draft: !!row.draft_id
   },
@@ -177,7 +177,7 @@ module.exports.readOriginalDataPoints = countryIso =>
         THEN p.actual_id
                   ELSE p.draft_id END
     WHERE p.country_iso = $1 AND v.year IS NOT NULL
-  `, [countryIso]).then(result => R.reduce(R.partialRight(reduceForestAreas, ['odp']), {}, result.rows))
+  `, [countryIso]).then(result => R.reduce(odpReducer, {}, result.rows))
 
 
 // functions used for interpolation / extrapolation
