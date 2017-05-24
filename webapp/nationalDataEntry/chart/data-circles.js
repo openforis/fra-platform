@@ -7,12 +7,15 @@ const renderCircles = ({xScale, yScale}) => {
     const circleProps = {
       cx: xScale(d.year),
       cy: yScale(d.forestArea),
-      r: 4,
+      r: d.type === 'odp' ? 4 : 7,
       key: index
     }
 
-    return (circleProps.cx && circleProps.cy) ?
-      <circle {...circleProps} fill={d.type === 'odp' ? '#189aa7' : '#666666' }/> : null
+    return (circleProps.cx && circleProps.cy) ? <circle {...circleProps}
+                                                        fill={d.type === 'odp' ? '#189aa7' : 'none' }
+                                                        stroke={d.type === 'odp' ? 'none' : '#333333' }
+                                                        strokeWidth={d.type === 'odp' ? 0 : 1.5 }
+    /> : null
   }
 }
 
