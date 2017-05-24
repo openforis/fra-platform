@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as d3 from 'd3'
 import R from 'ramda'
+
+import NoDataPlaceholder from './no-data-placeholder'
 import DataCircles from './data-circles'
 import XAxis from './x-axis'
 import YAxis from './y-axis'
@@ -42,6 +44,7 @@ class Chart extends Component {
   render () {
     return <div ref="chartContainer">
       { this.props.data ? <svg width={styles.width} height={styles.height}>
+        <NoDataPlaceholder {...this.props} {...styles} />
         <DataCircles {...this.props} {...styles} />
         <XAxis {...this.props} {...styles} />
         <YAxis {...this.props} {...styles} />

@@ -26,19 +26,10 @@ const renderLines = ({xScale, yScale, data}) => d3.line()
   .curve(d3.curveLinear)
   (data)
 
-const renderImage = ({data, width, padding}) => {
-  return data.length <= 0 ? <g className="noDataPlaceholder">
-    <image href="/img/tucan.svg"
-           width="80" height="112"
-           x={(width / 2) + padding - 40} y="96"></image>
-  </g>
-    : null
-}
 
 const DataCircles = (props) => {
 
   return <g>
-    { renderImage(props) }
     <path d={renderLines({...props, data: R.filter(v => v.type === 'odp', props.data)})} style={{
       fill: 'none',
       stroke: '#acacb3',
