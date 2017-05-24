@@ -162,21 +162,26 @@ const odpReducer = (results, row, type = 'fra') => R.assoc(`odp_${row.year}`,
 
 module.exports.readOriginalDataPoints = countryIso =>
   db.query(`
+  
       SELECT
-      p.id as odp_id,
-      p.draft_id,
-      p.actual_id,
-      v.forest_area,
-      v.year,
-      CASE WHEN p.actual_id IS NULL
-        THEN TRUE
-      ELSE FALSE END AS draft
-    FROM odp p
-      JOIN odp_version v
-        ON v.id = CASE WHEN p.draft_id IS NULL
-        THEN p.actual_id
-                  ELSE p.draft_id END
-    WHERE p.country_iso = $1 AND v.year IS NOT NULL
+        p.id as odp_id,
+        v.year,
+        SUM(c.area * (c.forest_percent/100.0)) AS forest_area,
+        CASE WHEN p.draft_id IS NULL
+          THEN FALSE
+          ELSE TRUE
+        END AS draft
+      FROM odp p
+        JOIN odp_version v
+          ON v.id =
+             CASE WHEN p.draft_id IS NULL
+               THEN p.actual_id
+             ELSE p.draft_id
+             END
+        JOIN odp_class c
+          ON c.odp_version_id = v.id
+      WHERE p.country_iso = $1 AND v.year IS NOT NULL
+      GROUP BY odp_id, v.year, draft 
   `, [countryIso]).then(result => R.reduce(odpReducer, {}, result.rows))
 
 
