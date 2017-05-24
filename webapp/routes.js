@@ -7,14 +7,14 @@ import Footer from './footer/footer'
 import ErrorComponent from './applicationError/errorComponent'
 import Router from './router/router'
 
-import Default from './default'
-import NationalDataEntry from './nationalDataEntry/nationalDataEntry'
+import DefaultView from './default'
+import NationalDataEntryView from './nationalDataEntry/nationalDataEntryView'
 import OriginalDataPointView from './originalDataPoint/originalDataPointView'
 
 const routes = {
-  '/': Default,
-  '#/': Default,
-  '#/country/:countryIso': NationalDataEntry,
+  '/': DefaultView,
+  '#/': DefaultView,
+  '#/country/:countryIso': NationalDataEntryView,
   '#/country/odp/:countryIso': OriginalDataPointView,
   '#/country/odp/:countryIso/:odpId': OriginalDataPointView
 }
