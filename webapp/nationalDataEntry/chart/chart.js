@@ -38,12 +38,11 @@ class Chart extends Component {
 
   render () {
     return <div ref="chartContainer">
-      { this.props.data ?
-        <svg width={styles.width} height={styles.height}>
-          <DataCircles {...this.props} {...styles} />
-          <XAxis {...this.props} {...styles} />
-          <YAxis {...this.props} {...styles} />
-        </svg>
+      { this.props.data ? <svg width={styles.width} height={styles.height}>
+        <DataCircles {...this.props} {...styles} />
+        <XAxis {...this.props} {...styles} />
+        <YAxis {...this.props} {...styles} />
+      </svg>
         : null }
     </div>
   }
@@ -54,7 +53,7 @@ const mapStateToProps = state => {
   if (nde && nde.fra) {
     const data = R.pipe(
       R.values,
-      R.map((v) => { return {year: v.year, forestArea: v.forestArea} })
+      R.map((v) => { return {year: v.year, forestArea: v.forestArea, type: v.type} })
     )(nde.fra)
 
     const xScale = getXScale(data)
