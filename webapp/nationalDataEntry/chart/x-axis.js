@@ -6,11 +6,6 @@ class XAxis extends Component {
     this.renderAxis()
   }
 
-  //
-  // componentDidUpdate () {
-  //   this.renderAxis()
-  // }
-
   renderAxis () {
     var axis = d3.axisBottom(this.props.xScale).ticks(5).tickFormat(d3.format('0000')).tickSize(0).tickPadding(10)
 
