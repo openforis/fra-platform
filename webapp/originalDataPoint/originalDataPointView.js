@@ -109,6 +109,7 @@ const NationalClassRow = ({odp, index, saveDraft, countryIso, className, definit
       }
       <input className="odp__national-class-row-class-name-input"
              type="text"
+             placeholder={ !placeHolder ? 'Enter or copy and paste national classes' : ''}
              value={className || ''}
              onChange={(evt) =>
                saveDraft(countryIso, originalDataPoint.updateNationalClass(odp, index, 'className', evt.target.value))}/>
