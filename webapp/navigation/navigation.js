@@ -76,7 +76,7 @@ const annualItems = [
     status: "not started"
   }
 ]
-const fiveYeaItems = [
+const fiveYearItems = [
   {
     order: 6,
     label: "Forest area loss, gain and net change",
@@ -158,7 +158,7 @@ const fiveYeaItems = [
 ]
 
 const Nav = ({path, country, follow}) => {
-  return <div className={`main__header ${hideNav(path) ? 'hidden' : ''}`}>
+  return <div className={`main__navigation ${hideNav(path) ? 'hidden' : ''}`}>
     <CountryItem name={country} role="National Correspondent"/>
     <PrimaryItem label="Original Data" />
     <PrimaryItem label="Annually reported" link="send to review"/>
@@ -167,7 +167,7 @@ const Nav = ({path, country, follow}) => {
     }
     <PrimaryItem label="Five-year Cycle" link="send to review"/>
     {
-      fiveYeaItems.map(v => <SecondaryItem {...v} />)
+      fiveYearItems.map(v => <SecondaryItem {...v} />)
     }
   </div>
 }

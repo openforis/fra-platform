@@ -2,7 +2,7 @@ import * as R from 'ramda'
 import React from 'react'
 import Route from 'route-parser'
 
-import Header from './header/header'
+import Header from './navigation/navigation'
 import Footer from './footer/footer'
 import ErrorComponent from './applicationError/errorComponent'
 import Router from './router/router'
