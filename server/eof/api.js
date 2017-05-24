@@ -5,7 +5,7 @@ const Promise = require('bluebird')
 const fs = Promise.promisifyAll(require('fs'))
 const {sendErr} = require('../requestUtils')
 const R = require('ramda')
-const EstimationEngine = require('./estimation-engine')
+const estimationEngine = require('./estimation-engine')
 
 const forestAreaTableResponse = require('./forestAreaTableResponse')
 
@@ -36,9 +36,7 @@ module.exports.init = app => {
 
   app.get('/api/country/originalDataPoint/:odpId', (req, res) => {
     eofRepository.getOdp(req.params.odpId)
-      .then(resp =>
-        res.json({odpId: resp.odp_id, forestArea: resp.forest_area, year: resp.year})
-      )
+      .then(resp => res.json(resp))
       .catch(err => sendErr(res, err))
   })
 
@@ -55,10 +53,13 @@ module.exports.init = app => {
       .catch(err => sendErr(res, err))
   )
 
-  app.get('/api/country/generateFraValues/:countryIso', (req, res) => {
-    const years = [1990, 2000, 2010, 2015, 2020]
+  app.post('/api/country/estimation/generateFraValues/:countryIso', (req, res) => {
+    const years = R.pipe(
+      R.values,
+      R.map((v) => v.year)
+    )(forestAreaTableResponse.fra)
 
-    EstimationEngine
+    estimationEngine
       .estimateFraValues(req.params.countryIso, years)
       .then(() => res.json({}))
   })

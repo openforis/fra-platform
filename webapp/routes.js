@@ -7,16 +7,16 @@ import Footer from './footer/footer'
 import ErrorComponent from './applicationError/errorComponent'
 import Router from './router/router'
 
-import Login from './login/login'
-import NationalDataEntry from './nationalDataEntry/nationalDataEntry'
-import OriginalDataPoint from './originalDataPoint/originalDataPoint'
+import LoginView from './login/login'
+import NationalDataEntryView from './nationalDataEntry/nationalDataEntryView'
+import OriginalDataPointView from './originalDataPoint/originalDataPointView'
 
 const routes = {
-  '/': Login,
-  '#/': Login,
-  '#/country/:countryIso': NationalDataEntry,
-  '#/country/:countryIso/odp': OriginalDataPoint,
-  '#/country/:countryIso/odp/:odpId': OriginalDataPoint
+  '/': LoginView,
+  '#/': LoginView,
+  '#/country/:countryIso': NationalDataEntryView,
+  '#/country/:countryIso/odp': OriginalDataPointView,
+  '#/country/:countryIso/odp/:odpId': OriginalDataPointView
 }
 
 const routeConfig = R.pipe(

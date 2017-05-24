@@ -47,7 +47,7 @@ export const generateFraValuesStart = 'nationalDataEntry/generateFraValues/start
 export const generateFraValues = (countryIso) => dispatch => {
   dispatch({type: generateFraValuesStart})
 
-  axios.get(`/api/country/generateFraValues/${countryIso}`).then(resp => {
+  axios.post(`/api/country/estimation/generateFraValues/${countryIso}`).then(resp => {
     dispatch(fetch(countryIso))
   })
 }
