@@ -31,13 +31,19 @@ const getYScale = (data) => {
 
 class Chart extends Component {
 
+  shouldComponentUpdate (nextProps) {
+    const isDataEqual = R.equals(this.props.data, nextProps.data)
+    return !isDataEqual
+  }
+
   render () {
     return <div ref="chartContainer">
-      {this.props.data ? <svg width={styles.width} height={styles.height}>
-        <DataCircles {...this.props} {...styles} />
-        <XAxis {...this.props} {...styles} />
-        <YAxis {...this.props} {...styles} />
-      </svg>
+      { this.props.data ?
+        <svg width={styles.width} height={styles.height}>
+          <DataCircles {...this.props} {...styles} />
+          <XAxis {...this.props} {...styles} />
+          <YAxis {...this.props} {...styles} />
+        </svg>
         : null }
     </div>
   }
