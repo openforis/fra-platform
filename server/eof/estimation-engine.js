@@ -1,4 +1,5 @@
-const eofRepository = require('./repository')
+const eofRepository = require('./fraRepository')
+const odpRepository = require('./odpRepository')
 const R = require('ramda')
 
 const linearInterpolation = (x, xa, ya, xb, yb) => {
@@ -73,7 +74,7 @@ module.exports.estimateFraValues = (countryIso, years) => {
           estimate(countryIso, years[++idx], values)
       })
 
-    eofRepository
+    odpRepository
       .getOdpValues(countryIso)
       .then(values => estimate(countryIso, years[0], values))
   })
