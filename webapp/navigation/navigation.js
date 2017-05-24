@@ -11,7 +11,7 @@ import './style.less'
 
 const CountryItem = ({name, role}) => {
   const style = {
-    content: `url('/img/flags/${countries.alpha3ToAlpha2(name)}.svg'`
+    content: `url('/img/flags/${(countries.alpha3ToAlpha2(name) || "").toLowerCase()}.svg'`
   }
   return <div className="country__item">
     <div className="country__flag" style={style}></div>
