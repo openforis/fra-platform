@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
 import * as d3 from 'd3'
-
+import R from 'ramda'
 class XAxis extends Component {
   componentDidMount () {
     this.renderAxis()
   }
 
   renderAxis () {
-    var axis = d3.axisBottom(this.props.xScale).ticks(5).tickFormat(d3.format('0000')).tickSize(0).tickPadding(10)
+    const tickValues = R.filter(v => v % 5 == 0, R.range(1990, 2021))
+    var axis = d3.axisBottom(this.props.xScale).tickValues(tickValues).tickFormat(d3.format('0000')).tickSize(0).tickPadding(10)
 
     const node = this.refs.axis
     d3.select(node).call(axis)

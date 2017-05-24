@@ -18,7 +18,7 @@ const yMax = (data) => d3.max(data, (d) => d.forestArea)
 // Returns a function that "scales" X coordinates from the data to fit the chart
 const getXScale = (data) => {
   return d3.scaleLinear()
-    .domain([1990, 2020])
+    .domain([1988, 2020])
     .range([styles.padding, styles.width - styles.padding * 2])
 }
 
