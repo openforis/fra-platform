@@ -13,7 +13,7 @@ const styles = {
 }
 
 // Returns the highest Y coordinate from the data set
-const yMax = (data) => d3.max(data, (d) => d[1])
+const yMax = (data) => d3.max(data, (d) => d.forestArea)
 
 // Returns a function that "scales" X coordinates from the data to fit the chart
 const getXScale = (data) => {
@@ -51,10 +51,10 @@ class Chart extends Component {
 
 const mapStateToProps = state => {
   const nde = state['nationalDataEntry']
-  if (nde) {
+  if (nde && nde.fra) {
     const data = R.pipe(
       R.values,
-      R.map((v) => [v.year, v.forestArea])
+      R.map((v) => { return {year: v.year, forestArea: v.forestArea} })
     )(nde.fra)
 
     const xScale = getXScale(data)
@@ -62,6 +62,7 @@ const mapStateToProps = state => {
 
     return {data, xScale, yScale}
   }
+  return {}
 }
 
 export default connect(mapStateToProps)(Chart)

@@ -2,11 +2,11 @@ import React from 'react'
 import * as d3 from 'd3'
 
 const renderCircles = ({xScale, yScale}) => {
-  return (coords, index) => {
+  return (d, index) => {
 
     const circleProps = {
-      cx: xScale(coords[0]),
-      cy: yScale(coords[1]),
+      cx: xScale(d.year),
+      cy: yScale(d.forestArea),
       r: 4,
       key: index
     }
@@ -16,8 +16,8 @@ const renderCircles = ({xScale, yScale}) => {
 }
 
 const renderLines = ({xScale, yScale, data}) => d3.line()
-  .x((d) => xScale(d[0]))
-  .y((d) => yScale(d[1]))
+  .x((d) => xScale(d.year))
+  .y((d) => yScale(d.forestArea))
   (data)
 
 const linesStyle = {

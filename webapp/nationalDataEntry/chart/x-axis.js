@@ -18,7 +18,7 @@ class XAxis extends Component {
     d3.select(node).call(axis)
       .selectAll('text').style('fill', '#666666').style('font-size', '12px')
 
-    d3.select(node).select('path').remove()//.style('stroke','#cccccc')
+    d3.select(node).select('path').remove()
   }
 
   render () {
