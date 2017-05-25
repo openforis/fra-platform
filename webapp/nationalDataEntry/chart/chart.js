@@ -54,13 +54,47 @@ class Chart extends Component {
   }
 }
 
+const linearExtrapolation = (x, xa, ya, xb, yb) => {
+  const y = ya + (x - xa) / (xb - xa) * (yb - ya)
+  return y
+}
+
+const linearExtrapolationBackwards = (x, xa, ya, xb, yb) => {
+  const y = yb + (xb - x) / (xb - xa) * (ya - yb)
+  return y
+}
+
+const addPlaceholders = (data) => {
+
+  const fraData = R.filter(v => v.type === 'fra', data)
+
+  if (fraData.length > 0) {
+    const odps = R.filter(v => v.type === 'odp', data)
+    const firstPoint = {
+      year: 1987, type: 'placeholder',
+      forestArea: linearExtrapolationBackwards(1987, odps[0].year, odps[0].forestArea, odps[1].year, odps[1].forestArea)
+    }
+    const lastIndex = data.length - 1
+    const lastPoint = {
+      year: 2023, type: 'placeholder',
+      forestArea: linearExtrapolation(2023, data[lastIndex - 1].year, data[lastIndex - 1].forestArea, data[lastIndex].year, data[lastIndex].forestArea)
+    }
+    return R.pipe(
+      R.insert(0, firstPoint),
+      R.insert(data.length + 1, lastPoint)
+    )(data)
+
+  }
+  return data
+}
 const mapStateToProps = state => {
   const nde = state['nationalDataEntry']
   if (nde && nde.fra) {
     let data = R.pipe(
       R.values,
       R.filter(v => typeof v.forestArea === 'number'),
-      R.map((v) => { return {year: v.year, forestArea: v.forestArea, type: v.type} })
+      R.map((v) => { return {year: v.year, forestArea: v.forestArea, type: v.type, estimated: v.estimated} }),
+      addPlaceholders
     )(nde.fra)
 
     const xScale = getXScale(data)
