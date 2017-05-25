@@ -33,7 +33,7 @@ class Chart extends Component {
 const mapStateToProps = state => {
   const nde = state['nationalDataEntry']
   if (nde && nde.fra) {
-    let data = R.pipe(
+    const data = R.pipe(
       R.values,
       R.filter(v => typeof v.forestArea === 'number'),
       R.map((v) => { return {year: v.year, forestArea: v.forestArea, type: v.type, estimated: v.estimated} }),
