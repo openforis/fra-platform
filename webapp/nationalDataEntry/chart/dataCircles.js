@@ -29,12 +29,12 @@ const renderLines = ({xScale, yScale, data}) => d3.line()
 const DataCircles = (props) => {
 
   return <g>
-    <path d={renderLines({...props, data: R.filter(v => v.type === 'odp', props.data)})} style={{
-      fill: 'none',
-      stroke: '#a1a1a8',
-      strokeWidth: 1.5,
-      shapeRendering: 'geometricPrecision'
-    }}></path>
+    {/*<path d={renderLines({...props, data: R.filter(v => v.type === 'odp', props.data)})} style={{*/}
+    {/*fill: 'none',*/}
+    {/*stroke: '#a1a1a8',*/}
+    {/*strokeWidth: 1.5,*/}
+    {/*shapeRendering: 'geometricPrecision'*/}
+    {/*}}></path>*/}
     <path d={renderLines({...props, data: R.filter(v => R.contains(v.type, ['fra', 'placeholder']), props.data)})}
           style={{
             fill: 'none',
