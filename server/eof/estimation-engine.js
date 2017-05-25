@@ -11,6 +11,11 @@ const linearExtrapolation = (x, xa, ya, xb, yb) => {
   return y
 }
 
+const linearExtrapolationBackwards = (x, xa, ya, xb, yb) => {
+  const y = yb + (xb - x) / (xb - xa) * (ya - yb)
+  return y
+}
+
 const estimate = (countryIso, year, pointA, pointB, estFunction) =>
   new Promise((resolve) => {
     let newValue = R.call(estFunction, year, pointA.year, pointA.forest_area, pointB.year, pointB.forest_area)
@@ -43,8 +48,17 @@ const estimateFraValue = (countryIso, year, values) => {
             values.push({year: year, forest_area: res})
             resolve(res)
           })
-        else
-          resolve(null)
+        else {
+          const next2Values = R.pipe(R.filter(v => v.year > year), R.sort((a, b) => a.year - b.year))(values).slice(0, 2)
+
+          if (next2Values.length === 2)
+            estimate(countryIso, year, next2Values[0], next2Values[1], linearExtrapolationBackwards).then(res => {
+              values.push({year: year, forest_area: res})
+              resolve(res)
+            })
+          else
+            resolve(null)
+        }
 
       }
     }
