@@ -27,7 +27,7 @@ module.exports.init = app => {
           R.merge(forestAreaTableResponse.fra),
           R.merge(result[1]),
           R.values,
-          R.sort((a, b) => a.year - b.year)
+          R.sort((a, b) => a.year === b.year ? (a.type < b.type ? -1 : 1) : a.year - b.year)
         )(result[0])
         return res.json({fra: forestAreas})
       })
