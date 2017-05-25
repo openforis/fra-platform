@@ -1,6 +1,6 @@
 import React from 'react'
 
-const NoDataPlaceHolder = ({data, width, padding}) =>
+const NoDataPlaceholder = ({data, width, padding}) =>
   data.length <= 0 ? <g className="noDataPlaceholder">
     <image href="/img/tucan.svg"
            width="62" height="87"
@@ -8,4 +8,4 @@ const NoDataPlaceHolder = ({data, width, padding}) =>
   </g>
     : null
 
-export default NoDataPlaceHolder
+export default NoDataPlaceholder

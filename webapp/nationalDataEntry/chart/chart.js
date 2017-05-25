@@ -3,10 +3,10 @@ import { connect } from 'react-redux'
 import * as d3 from 'd3'
 import R from 'ramda'
 
-import NoDataPlaceholder from './no-data-placeholder'
-import DataCircles from './data-circles'
-import XAxis from './x-axis'
-import YAxis from './y-axis'
+import NoDataPlaceholder from './noDataPlaceholder'
+import DataCircles from './dataCircles'
+import XAxis from './xAxis'
+import YAxis from './yAxis'
 
 const styles = {
   width: 800,
