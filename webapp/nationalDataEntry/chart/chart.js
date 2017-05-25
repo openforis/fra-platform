@@ -55,12 +55,14 @@ class Chart extends Component {
 }
 
 const linearExtrapolation = (x, xa, ya, xb, yb) => {
-  const y = ya + (x - xa) / (xb - xa) * (yb - ya)
+  let y = ya + (x - xa) / (xb - xa) * (yb - ya)
+  y = y < 0 ? 0 : y
   return y
 }
 
 const linearExtrapolationBackwards = (x, xa, ya, xb, yb) => {
-  const y = yb + (xb - x) / (xb - xa) * (ya - yb)
+  let y = yb + (xb - x) / (xb - xa) * (ya - yb)
+  y = y < 0 ? 0 : y
   return y
 }
 
@@ -68,11 +70,10 @@ const addPlaceholders = (data) => {
 
   const fraData = R.filter(v => v.type === 'fra', data)
 
-  if (fraData.length > 0) {
-    const odps = R.filter(v => v.type === 'odp', data)
+  if (data.length >= 2 && fraData.length > 0) {
     const firstPoint = {
       year: 1987, type: 'placeholder',
-      forestArea: linearExtrapolationBackwards(1987, odps[0].year, odps[0].forestArea, odps[1].year, odps[1].forestArea)
+      forestArea: linearExtrapolationBackwards(1987, data[0].year, data[0].forestArea, data[1].year, data[1].forestArea)
     }
     const lastIndex = data.length - 1
     const lastPoint = {
