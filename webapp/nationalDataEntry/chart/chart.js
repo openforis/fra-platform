@@ -20,7 +20,7 @@ const yMax = (data) => d3.max(data, (d) => d.forestArea)
 // Returns a function that "scales" X coordinates from the data to fit the chart
 const getXScale = (data) => {
   return d3.scaleLinear()
-    .domain([1988, 2020])
+    .domain([1987, 2023])
     .range([styles.padding, styles.width - styles.padding * 2])
 }
 
@@ -57,7 +57,7 @@ class Chart extends Component {
 const mapStateToProps = state => {
   const nde = state['nationalDataEntry']
   if (nde && nde.fra) {
-    const data = R.pipe(
+    let data = R.pipe(
       R.values,
       R.filter(v => typeof v.forestArea === 'number'),
       R.map((v) => { return {year: v.year, forestArea: v.forestArea, type: v.type} })

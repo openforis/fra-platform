@@ -13,9 +13,9 @@ const renderCircles = ({xScale, yScale}) => {
     }
 
     return (circleProps.cx && circleProps.cy) ? <circle {...circleProps}
-                                                        fill={d.type === 'odp' ? '#189aa7' : '#FFF' }
-                                                        stroke={d.type === 'odp' ? 'none' : '#333333' }
-                                                        strokeWidth={d.type === 'odp' ? 0 : 1.5 }
+                                                        fill={d.type === 'fra' ? '#FFF' : d.type == 'odp' ? '#189aa7' : 'none' }
+                                                        stroke={d.type === 'fra' ? '#333333' : 'none'  }
+                                                        strokeWidth={d.type === 'fra' ? 1.5 : 0 }
     /> : null
   }
 }
@@ -26,7 +26,6 @@ const renderLines = ({xScale, yScale, data}) => d3.line()
   .curve(d3.curveLinear)
   (data)
 
-
 const DataCircles = (props) => {
 
   return <g>
@@ -36,13 +35,14 @@ const DataCircles = (props) => {
       strokeWidth: 1.5,
       shapeRendering: 'geometricPrecision'
     }}></path>
-    <path d={renderLines({...props, data: R.filter(v => v.type === 'fra', props.data)})} style={{
-      fill: 'none',
-      stroke: 'rgba(73,144,226,.35)',
-      strokeWidth: 2.5,
-      shapeRendering: 'geometricPrecision',
-      strokeDasharray: '6,2'
-    }}></path>
+    <path d={renderLines({...props, data: R.filter(v => R.contains(v.type, ['fra', 'placeholder']), props.data)})}
+          style={{
+            fill: 'none',
+            stroke: 'rgba(73,144,226,.35)',
+            strokeWidth: 2.5,
+            shapeRendering: 'geometricPrecision',
+            strokeDasharray: '6,2'
+          }}></path>
     { props.data.map(renderCircles(props)) }
   </g>
 
