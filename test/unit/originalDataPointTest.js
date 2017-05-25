@@ -3,6 +3,12 @@ const originalDataPoint = require('../../webapp/originalDataPoint/originalDataPo
 
 describe('originalDataPoint', () => {
   it('calculates correct total forest amount', () => {
-    assert.equal(100.00, originalDataPoint.totalForest({nationalClasses: [{area: 200, forestPercent: 50}]}, 'forestPercent'))
+    const odpWithNationalClasses = {
+      nationalClasses: [{area: 200, forestPercent: 50},
+        {area: 1000, forestPercent: 10},
+        {area: null, forestPercent: 5},
+        {area: 400, forestPercent: null}]
+    }
+    assert.equal(200.00, originalDataPoint.totalForest(odpWithNationalClasses, 'forestPercent'))
   })
 })
