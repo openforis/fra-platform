@@ -88,12 +88,13 @@ const reduceForestAreas = (results, row, type = 'fra') => R.assoc(`${type}_${row
     name: row.year + '',
     type,
     year: Number(row.year),
-    draft: !!row.draft_id
+    draft: !!row.draft_id,
+    estimated: row.estimated
   },
   results)
 
 module.exports.readFraForestAreas = (countryIso) =>
-  db.query('SELECT year, forest_area from eof_fra_values WHERE country_iso = $1', [countryIso])
+  db.query('SELECT year, forest_area, estimated from eof_fra_values WHERE country_iso = $1', [countryIso])
     .then((result) => R.reduce(reduceForestAreas, {}, result.rows))
 
 module.exports.readOriginalDataPoints = countryIso =>

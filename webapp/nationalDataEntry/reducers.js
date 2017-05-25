@@ -7,7 +7,10 @@ const updateValue = (state, action) => {
   const idx = R.findIndex(R.propEq('name', action.name), state.fra)
   const newState = R.clone(state)
   const value = action.value ? Number(action.value) : null
-  newState.fra[idx] = R.assoc('forestArea', value)(newState.fra[idx])
+  newState.fra[idx] = R.pipe(
+    R.assoc('forestArea', value),
+    R.assoc('estimated', false)
+  )(newState.fra[idx])
   return newState
 }
 
