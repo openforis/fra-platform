@@ -14,7 +14,7 @@ const linearExtrapolation = (x, xa, ya, xb, yb) => {
 
 const interpolate = (countryIso, year, pointA, pointB) =>
   new Promise((resolve) => {
-    let newValue = linearInterpolation(year, pointA.year, pointA.forest_area, pointB.year, pointB.forest_area)
+    let newValue = linearInterpolation(year, pointA.year, pointA.forestArea, pointB.year, pointB.forestArea)
     newValue = newValue < 0 ? 0 : Number(newValue.toFixed(3))
     eofRepository
       .persistFraForestArea(countryIso, year, newValue, true)
@@ -23,7 +23,7 @@ const interpolate = (countryIso, year, pointA, pointB) =>
 
 const extrapolate = (countryIso, year, pointA, pointB) =>
   new Promise((resolve) => {
-    let newValue = linearExtrapolation(year, pointA.year, pointA.forest_area, pointB.year, pointB.forest_area)
+    let newValue = linearExtrapolation(year, pointA.year, pointA.forestArea, pointB.year, pointB.forestArea)
     newValue = newValue < 0 ? 0 : Number(newValue.toFixed(3))
     eofRepository
       .persistFraForestArea(countryIso, year, newValue, true)
@@ -35,14 +35,14 @@ const estimateFraValue = (countryIso, year, values) => {
 
     const odp = R.find(R.propEq('year', year))(values)
     if (odp) {
-      eofRepository.persistFraForestArea(countryIso, year, odp.forest_area, true).then(() => resolve(odp.forest_area))
+      eofRepository.persistFraForestArea(countryIso, year, odp.forestArea, true).then(() => resolve(odp.forestArea))
     } else {
       const previousValue = R.pipe(R.filter(v => v.year < year), R.sort((a, b) => b.year - a.year))(values)[0]
       const nextValue = R.pipe(R.filter(v => v.year > year), R.sort((a, b) => a.year - b.year))(values)[0]
 
       if (previousValue && nextValue) {
         interpolate(countryIso, year, previousValue, nextValue).then(res => {
-          values.push({year: year, forest_area: res})
+          values.push({year: year, forestArea: res})
           resolve(res)
         })
       } else {
@@ -50,7 +50,7 @@ const estimateFraValue = (countryIso, year, values) => {
 
         if (previous2Values.length === 2)
           extrapolate(countryIso, year, previous2Values[1], previous2Values[0]).then(res => {
-            values.push({year: year, forest_area: res})
+            values.push({year: year, forestArea: res})
             resolve(res)
           })
         else
@@ -75,7 +75,7 @@ module.exports.estimateFraValues = (countryIso, years) => {
       })
 
     odpRepository
-      .getOdpValues(countryIso)
-      .then(values => estimate(countryIso, years[0], values))
+      .readOriginalDataPoints(countryIso)
+      .then(values => estimate(countryIso, years[0], R.values(values)))
   })
 }

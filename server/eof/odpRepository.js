@@ -183,23 +183,3 @@ module.exports.readOriginalDataPoints = countryIso =>
       WHERE p.country_iso = $1 AND v.year IS NOT NULL
       GROUP BY odp_id, v.year, draft 
   `, [countryIso]).then(result => R.reduce(odpReducer, {}, result.rows))
-
-
-// functions used for interpolation / extrapolation
-module.exports.getOdpValues = (countryIso) =>
-  db.query(`
-  SELECT
-    v.forest_area,
-    v.year
-  FROM odp p
-    JOIN odp_version v
-      ON v.id = CASE WHEN p.draft_id IS NULL
-      THEN p.actual_id
-                ELSE p.draft_id END
-  WHERE p.country_iso = $1
-  `, [countryIso]).then(result => result.rows.map(v => {
-    return {
-      year: Number(v.year),
-      forest_area: Number(v.forest_area)
-    }
-  }))
