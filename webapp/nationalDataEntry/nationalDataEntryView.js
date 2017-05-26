@@ -28,9 +28,10 @@ const FraValueCell = ({fraValue, fra, countryIso, save}) =>
 const DataTable = ({fra, save, countryIso}) =>
   <div className="nde__input-table">
     <div className="nde__input-table-heading">
+      <div className="nde__input-header-cell "/>
       {
         R.values(fra).map(v =>
-          <div key={`${v.type}_${v.name}`}>
+          <div className="nde__input-header-cell" key={`${v.type}_${v.name}`}>
             { v.type === 'odp' ? <OdpHeading countryIso={countryIso} odpValue={v}/>
               : v.name
             }
@@ -39,9 +40,10 @@ const DataTable = ({fra, save, countryIso}) =>
       }
     </div>
     <div className="nde__input-table-content">
+      <div className="nde__input-header-cell">Forest</div>
       {
         R.values(fra).map(v =>
-          <div key={`${v.type}_${v.name}`}>
+          <div className="nde__input-table-content-cell" key={`${v.type}_${v.name}`}>
             {
               v.type === 'odp' ? <OdpCell odpValue={v}/>
                 : <FraValueCell fraValue={v} fra={fra} countryIso={countryIso} save={save}/>

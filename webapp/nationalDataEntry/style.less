@@ -6,25 +6,30 @@
   .nde__input-table-heading {
     display: flex;
     justify-content: center;
-    > div {
-      background: #F5F5F5;
-      border: 1px solid #CCCCCC;
-      padding: 10px;
+    > .nde__input-header-cell {
       text-align: right;
-      width: 100px;
-      min-width: 50px;
     }
+  }
+
+  .nde__input-header-cell {
+    background: #F5F5F5;
+    border: 1px solid #CCCCCC;
+    padding: 10px;
+    width: 100px;
+    min-width: 50px;
+    font-weight: bold;
   }
 
   .nde__input-table-content {
     display: flex;
     justify-content: center;
-    > div {
-      border: 1px solid #CCCCCC;
-      padding: 0;
-      width: 100px;
-      min-width: 50px;
-    }
+  }
+
+  .nde__input-table-content-cell {
+    border: 1px solid #CCCCCC;
+    padding: 0;
+    width: 100px;
+    min-width: 50px;
   }
 
   input {
