@@ -155,7 +155,7 @@ const odpReducer = (results, row, type = 'fra') => R.assoc(`odp_${row.year}`,
     name: row.year + '',
     type: 'odp',
     year: Number(row.year),
-    draft: !!row.draft_id
+    draft: row.draft
   },
   results)
 
