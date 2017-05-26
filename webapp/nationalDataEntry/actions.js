@@ -46,7 +46,7 @@ export const save = (countryIso, name, newValue, currentValue) => dispatch => {
 export const fetch = (countryIso) => dispatch => {
   axios.get(`/api/country/${countryIso}`).then(resp => {
     dispatch(fetched(countryIso, resp.data))
-  })
+  }).catch (err => dispatch(applicationError(err)))
 }
 
 export const generateFraValuesStart = 'nationalDataEntry/generateFraValues/start'
