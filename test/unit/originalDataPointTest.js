@@ -11,4 +11,8 @@ describe('originalDataPoint', () => {
     }
     assert.equal(200.00, originalDataPoint.totalForest(odpWithNationalClasses, 'forestPercent'))
   })
+
+  it('fails', () => {
+    assert.fail(true, false, "testing failure")
+  })
 })
