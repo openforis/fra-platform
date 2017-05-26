@@ -21,10 +21,11 @@ const updateFraForestArea = (countryIso, year, forestArea, estimated) =>
 
 const forestAreaReducer = (results, row, type = 'fra') => R.assoc(`fra_${row.year}`,
   {
-    forestArea: Number(row.forest_area),
+    forestArea: row.forest_area ? Number(row.forest_area) : null,
     name: row.year + '',
     type: 'fra',
-    year: Number(row.year)
+    year: Number(row.year),
+    estimated: row.estimated
   },
   results)
 
