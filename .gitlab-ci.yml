@@ -7,6 +7,7 @@ dev-deploy:
   - apt-get install --assume-yes rubygems
   - gem install dpl
   - yarn install
+  - yarn test
   - yarn build
   - dpl --provider=heroku --app=fra-platform --api-key=$HEROKU_STAGING_API_KEY
   only:
