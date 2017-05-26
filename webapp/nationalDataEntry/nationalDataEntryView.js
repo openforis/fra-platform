@@ -20,9 +20,9 @@ const OdpHeading = ({countryIso, odpValue}) =>
 
 const FraValueCell = ({fraValue, fra, countryIso, save}) =>
   <input
-    value={typeof fraValue.forestArea === 'number' ? fraValue.forestArea : ''}
+    value={ fraValue.forestArea || ''}
     onChange={ e => {
-      save(countryIso, fraValue.name, e.target.value)
+      save(countryIso, fraValue.name, e.target.value, fraValue.forestArea)
     }}/>
 
 const DataTable = ({fra, save, countryIso}) =>

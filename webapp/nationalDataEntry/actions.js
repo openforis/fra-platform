@@ -30,10 +30,17 @@ const change = ({countryIso, name, value}) => {
 
 const start = ({name, value}) => ({type: valueChangeStart, name, value})
 
-export const save = (countryIso, name, value) => dispatch => {
-  dispatch(start({name, value}))
+const sanitize = (newValue, currentValue) => {
+  if (newValue === '') return null
+  if (isNaN(newValue)) return currentValue
+  return Number(newValue)
+}
+
+export const save = (countryIso, name, newValue, currentValue) => dispatch => {
+  const sanitizedValue = sanitize(newValue, currentValue)
+  dispatch(start({name, value: sanitizedValue}))
   dispatch(autosave.start)
-  dispatch(change({countryIso, name, value}))
+  dispatch(change({countryIso, name, value: sanitizedValue}))
 }
 
 export const fetch = (countryIso) => dispatch => {
