@@ -12,18 +12,14 @@ const linearExtrapolation = (x, xa, ya, xb, yb) => {
   return y
 }
 
-const interpolate = (countryIso, year, pointA, pointB) =>
-  new Promise((resolve) => {
-    let newValue = linearInterpolation(year, pointA.year, pointA.forestArea, pointB.year, pointB.forestArea)
-    newValue = newValue < 0 ? 0 : Number(newValue.toFixed(3))
-    eofRepository
-      .persistFraForestArea(countryIso, year, newValue, true)
-      .then(() => resolve(newValue))
-  })
+const linearExtrapolationBackwards = (x, xa, ya, xb, yb) => {
+  const y = yb + (xb - x) / (xb - xa) * (ya - yb)
+  return y
+}
 
-const extrapolate = (countryIso, year, pointA, pointB) =>
+const estimate = (countryIso, year, pointA, pointB, estFunction) =>
   new Promise((resolve) => {
-    let newValue = linearExtrapolation(year, pointA.year, pointA.forestArea, pointB.year, pointB.forestArea)
+    let newValue = R.call(estFunction, year, pointA.year, pointA.forestArea, pointB.year, pointB.forestArea)
     newValue = newValue < 0 ? 0 : Number(newValue.toFixed(3))
     eofRepository
       .persistFraForestArea(countryIso, year, newValue, true)
@@ -41,7 +37,7 @@ const estimateFraValue = (countryIso, year, values) => {
       const nextValue = R.pipe(R.filter(v => v.year > year), R.sort((a, b) => a.year - b.year))(values)[0]
 
       if (previousValue && nextValue) {
-        interpolate(countryIso, year, previousValue, nextValue).then(res => {
+        estimate(countryIso, year, previousValue, nextValue, linearInterpolation).then(res => {
           values.push({year: year, forestArea: res})
           resolve(res)
         })
@@ -49,12 +45,21 @@ const estimateFraValue = (countryIso, year, values) => {
         const previous2Values = R.pipe(R.filter(v => v.year < year), R.sort((a, b) => b.year - a.year))(values).slice(0, 2)
 
         if (previous2Values.length === 2)
-          extrapolate(countryIso, year, previous2Values[1], previous2Values[0]).then(res => {
+          estimate(countryIso, year, previous2Values[1], previous2Values[0], linearExtrapolation).then(res => {
             values.push({year: year, forestArea: res})
             resolve(res)
           })
-        else
-          resolve(null)
+        else {
+          const next2Values = R.pipe(R.filter(v => v.year > year), R.sort((a, b) => a.year - b.year))(values).slice(0, 2)
+
+          if (next2Values.length === 2)
+            estimate(countryIso, year, next2Values[0], next2Values[1], linearExtrapolationBackwards).then(res => {
+              values.push({year: year, forest_area: res})
+              resolve(res)
+            })
+          else
+            resolve(null)
+        }
 
       }
     }
