@@ -2,20 +2,14 @@ const eofRepository = require('./fraRepository')
 const odpRepository = require('./odpRepository')
 const R = require('ramda')
 
-const linearInterpolation = (x, xa, ya, xb, yb) => {
-  const y = ya + ( yb - ya) * (x - xa) / (xb - xa)
-  return y
-}
+const linearInterpolation = (x, xa, ya, xb, yb) =>
+  ya + ( yb - ya) * (x - xa) / (xb - xa)
 
-const linearExtrapolation = (x, xa, ya, xb, yb) => {
-  const y = ya + (x - xa) / (xb - xa) * (yb - ya)
-  return y
-}
+const linearExtrapolation = (x, xa, ya, xb, yb) =>
+  ya + (x - xa) / (xb - xa) * (yb - ya)
 
-const linearExtrapolationBackwards = (x, xa, ya, xb, yb) => {
-  const y = yb + (xb - x) / (xb - xa) * (ya - yb)
-  return y
-}
+const linearExtrapolationBackwards = (x, xa, ya, xb, yb) =>
+  yb + (xb - x) / (xb - xa) * (ya - yb)
 
 const estimate = (countryIso, year, pointA, pointB, estFunction) =>
   new Promise((resolve) => {
