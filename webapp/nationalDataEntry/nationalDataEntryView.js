@@ -18,13 +18,6 @@ const OdpHeading = ({countryIso, odpValue}) =>
     {odpValue.name}
   </Link>
 
-const FraValueCell = ({fraValue, fra, countryIso, save, field}) =>
-  <input
-    value={ fraValue[field] || ''}
-    onChange={ e => {
-      save(countryIso, fraValue.name, e.target.value, fraValue, field)
-    }}/>
-
 const DataTable = ({fra, save, countryIso}) =>
   <div className="nde__input-table">
     <div className="nde__input-table-heading">
@@ -39,20 +32,30 @@ const DataTable = ({fra, save, countryIso}) =>
         )
       }
     </div>
-    <div className="nde__input-table-content">
-      <div className="nde__input-header-cell">Forest</div>
-      {
-        R.values(fra).map(v =>
-          <div className="nde__input-table-content-cell" key={`${v.type}_${v.name}`}>
-            {
-              v.type === 'odp' ? <OdpCell odpValue={v}/>
-                : <FraValueCell fraValue={v} fra={fra} countryIso={countryIso} save={save} field="forestArea"/>
-            }
-          </div>
-        )
-      }
-    </div>
+    { fraValueRow('Forest', countryIso, fra, save) }
   </div>
+
+const fraValueRow = (rowHeading, countryIso, fra, save) =>
+  <div className="nde__input-table-content">
+    <div className="nde__input-header-cell">{ rowHeading }</div>
+    {
+      R.values(fra).map(v =>
+        <div className="nde__input-table-content-cell" key={`${v.type}_${v.name}`}>
+          {
+            v.type === 'odp' ? <OdpCell odpValue={v}/>
+              : fraValueCell(v, fra, countryIso, save, 'forestArea')
+          }
+        </div>
+      )
+    }
+  </div>
+
+const fraValueCell = (fraValue, fra, countryIso, save, field) =>
+  <input
+    value={ fraValue[field] || ''}
+    onChange={ e => {
+      save(countryIso, fraValue.name, e.target.value, fraValue, field)
+    }}/>
 
 const NationalDataEntry = (props) => {
 
