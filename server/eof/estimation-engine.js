@@ -19,9 +19,7 @@ const estimate = (countryIso, year, pointA, pointB, estFunction) => {
     (newFraObj, field) => R.assoc([field], estimateField(field), newFraObj),
     {},
     fraFields)
-  return eofRepository
-    .persistFraValues(countryIso, year, newFraValues, true)
-    .then(() => R.assoc('year', year, newFraValues))
+  return R.assoc('year', year, newFraValues)
 }
 
 const extrapolate = (countryIso, year, values) => {
@@ -32,15 +30,15 @@ const extrapolate = (countryIso, year, values) => {
     const next2Values = R.pipe(R.filter(v => v.year > year), R.sort((a, b) => a.year - b.year))(values).slice(0, 2)
     if (next2Values.length === 2)
       return estimate(countryIso, year, next2Values[0], next2Values[1], linearExtrapolationBackwards)
-    else
-      return Promise.resolve(null)
+    else return null
   }
 }
 
 const estimateFraValue = (countryIso, year, values) => {
   const odp = R.find(R.propEq('year', year))(values)
   if (odp) {
-    return eofRepository.persistFraValues(countryIso, year, odp, true).then(() => null)
+    return null
+//    return eofRepository.persistFraValues(countryIso, year, odp, true).then(() => null)
   } else {
     const previousValue = R.pipe(R.filter(v => v.year < year), R.sort((a, b) => b.year - a.year))(values)[0]
     const nextValue = R.pipe(R.filter(v => v.year > year), R.sort((a, b) => a.year - b.year))(values)[0]
@@ -52,22 +50,30 @@ const estimateFraValue = (countryIso, year, values) => {
   }
 }
 
-module.exports.estimateFraValues = (countryIso, years) => {
-  return new Promise((resolve) => {
-    let idx = 0
+// Pure function, no side-effects
+const estimateFraValues = (countryIso, years, odpValues) => {
+  console.log("years", years)
+  let idx = 0
+  const estimate = (countryIso, year, values) => {
+    console.log("estimating for year", year)
+    const newValue = estimateFraValue(countryIso, year, values)
+    if (idx === years.length) { console.log("€€€ returning values", values); return values }
+    else {
+      const newValues = newValue ? [...values, newValue] : values
+      return estimate(countryIso, years[++idx], newValues)
+    }
+  }
+  return estimate(countryIso, years[0], odpValues)
+}
 
-    const estimate = (countryIso, year, values) =>
-      estimateFraValue(countryIso, year, values).then((newValue) => {
-        if (idx === years.length - 1)
-          resolve()
-        else {
-          const newValues = newValue ? [...values, newValue] : values
-          estimate(countryIso, years[++idx], newValues)
-        }
-      })
-
-    odpRepository
-      .readOriginalDataPoints(countryIso)
-      .then(values => estimate(countryIso, years[0], R.values(values)))
-  })
+module.exports.estimateAndPersistFraValues = (countryIso, years) => {
+  return odpRepository
+    .readOriginalDataPoints(countryIso)
+    .then(values => {
+      const estimated = estimateFraValues(countryIso, years, R.values(values))
+      console.log("@@ estimated in then", estimated)
+      return Promise.all(R.map(estimatedValues =>
+          console.log("storing", estimatedValues) || eofRepository.persistFraValues(countryIso, estimatedValues.year, estimatedValues, true),
+        estimated))
+    })
 }

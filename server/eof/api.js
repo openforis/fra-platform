@@ -61,8 +61,9 @@ module.exports.init = app => {
     )(forestAreaTableResponse.fra)
 
     estimationEngine
-      .estimateFraValues(req.params.countryIso, years)
+      .estimateAndPersistFraValues(req.params.countryIso, years)
       .then(() => res.json({}))
+      .catch(err => sendErr(res, err))
   })
 
 }
