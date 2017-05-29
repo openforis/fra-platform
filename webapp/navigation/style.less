@@ -25,6 +25,7 @@
    .country__flag {
      width: 32px;
      height: 32px;
+     min-width: 32px;
      border: solid 1px rgba(0, 0, 0, 0.1);
      margin: 4px;
      border-radius: 50%;
@@ -34,6 +35,7 @@
    }
    .country__item {
      display: flex;
+     position: relative;
      flex-flow: row nowrap;
      align-items: stretch;
 
@@ -62,6 +64,65 @@
      line-height: 1.67;
      color: #666666;
      color: var(--text-mute);
+   }
+
+   .country__change {
+     position: relative;
+     font-size: 20px;
+     cursor: hand;
+   }
+   .country__list {
+     &.hidden {
+       display: none;
+     }
+
+     width: 150px;
+     overflow-x: hidden;
+     font-size: 13px;
+
+     .country__list-main-element {
+       max-width: 150px;
+       left: -80px;
+     }
+
+     .country__list-content {
+       position: absolute;
+       top: 22px;
+       z-index: 10;
+       max-height: 200px;
+       background: white;
+
+       overflow-y: scroll;
+       overflow-x: hidden;
+       padding: 2px;
+
+       a {
+         display: block;
+         text-decoration: none;
+         color: @text-body;
+         margin-bottom: 2px;
+
+         &:hover {
+           background-color: @ui-accent-light;
+         }
+       }
+     }
+
+     .country__list-header {
+       position: absolute;
+       top: 0px;
+       width: 100%;
+       border-bottom: 1px solid #cccccc;
+       padding: 1px;
+       margin-bottom: 2px;
+       background: @ui-accent;
+
+     }
+     .country__list-close {
+       float: right;
+       padding-right: 3px;
+       color: white;
+     }
    }
 
    .primary__item {
