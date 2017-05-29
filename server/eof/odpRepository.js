@@ -152,6 +152,7 @@ const odpReducer = (results, row, type = 'fra') => R.assoc(`odp_${row.year}`,
   {
     odpId: row.odp_id,
     forestArea: Number(row.forest_area),
+    otherWoodenLand: Number(row.other_wooden_land_area),
     name: row.year + '',
     type: 'odp',
     year: Number(row.year),
@@ -166,6 +167,7 @@ module.exports.readOriginalDataPoints = countryIso =>
         p.id as odp_id,
         v.year,
         SUM(c.area * (c.forest_percent/100.0)) AS forest_area,
+        SUM(c.area * (c.other_wooden_land_percent/100.0)) AS other_wooden_land_area,
         CASE WHEN p.draft_id IS NULL
           THEN FALSE
           ELSE TRUE
