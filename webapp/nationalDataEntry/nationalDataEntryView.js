@@ -59,7 +59,7 @@ const NationalDataEntry = (props) => {
   const disableGenerateFRAValues = () => {
     const odps = R.pipe(
       R.values,
-      R.filter(v => v.type == 'odp')
+      R.filter(v => v.type === 'odp')
     )(props.fra)
     return props.generatingFraValues || odps.length < 2
   }
