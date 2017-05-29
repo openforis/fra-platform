@@ -11,14 +11,13 @@ const linearExtrapolation = (x, xa, ya, xb, yb) =>
 const linearExtrapolationBackwards = (x, xa, ya, xb, yb) =>
   yb + (xb - x) / (xb - xa) * (ya - yb)
 
-const estimate = (countryIso, year, pointA, pointB, estFunction) =>
-  new Promise((resolve) => {
-    let newValue = estFunction(year, pointA.year, pointA.forestArea, pointB.year, pointB.forestArea)
-    newValue = newValue < 0 ? 0 : Number(newValue.toFixed(3))
-    eofRepository
-      .persistFraValues(countryIso, year, {forestArea: newValue}, true)
-      .then(() => resolve(newValue))
-  })
+const estimate = (countryIso, year, pointA, pointB, estFunction) => {
+  let newValue = estFunction(year, pointA.year, pointA.forestArea, pointB.year, pointB.forestArea)
+  newValue = newValue < 0 ? 0 : Number(newValue.toFixed(3))
+  return eofRepository
+    .persistFraValues(countryIso, year, {forestArea: newValue}, true)
+    .then(() => newValue)
+}
 
 const estimateFraValue = (countryIso, year, values) => {
   return new Promise((resolve, reject) => {
