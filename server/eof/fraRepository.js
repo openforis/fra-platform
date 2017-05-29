@@ -6,18 +6,18 @@ const emptyFraForestArea = (countryIso, year) =>
   db.query('SELECT id FROM eof_fra_values WHERE country_iso = $1 and year = $2', [countryIso, year])
     .then(result => result.rows.length === 0)
 
-module.exports.persistFraForestArea = (countryIso, year, forestArea, estimated = false) =>
+module.exports.persistFraValues = (countryIso, year, fraValues, estimated = false) =>
   emptyFraForestArea(countryIso, year).then(isEmpty =>
-    isEmpty ? insertFraForestArea(countryIso, year, forestArea, estimated)
-      : updateFraForestArea(countryIso, year, forestArea, estimated))
+    isEmpty ? insertFraForestArea(countryIso, year, fraValues, estimated)
+      : updateFraForestArea(countryIso, year, fraValues, estimated))
 
-const insertFraForestArea = (countryIso, year, forestArea, estimated) =>
+const insertFraForestArea = (countryIso, year, fraValues, estimated) =>
   db.query('INSERT INTO eof_fra_values (country_iso, year, forest_area, estimated) VALUES ($1, $2, $3, $4)',
-    [countryIso, year, forestArea, estimated])
+    [countryIso, year, fraValues.forestArea, estimated])
 
-const updateFraForestArea = (countryIso, year, forestArea, estimated) =>
+const updateFraForestArea = (countryIso, year, fraValues, estimated) =>
   db.query('UPDATE eof_fra_values SET forest_area = $3, estimated = $4 WHERE country_iso = $1 AND year = $2',
-    [countryIso, year, forestArea, estimated])
+    [countryIso, year, fraValues.forestArea, estimated])
 
 const forestAreaReducer = (results, row, type = 'fra') => R.assoc(`fra_${row.year}`,
   {

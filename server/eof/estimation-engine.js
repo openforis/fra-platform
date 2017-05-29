@@ -22,7 +22,7 @@ const estimate = (countryIso, year, pointA, pointB, estFunction) =>
     let newValue = R.call(estFunction, year, pointA.year, pointA.forestArea, pointB.year, pointB.forestArea)
     newValue = newValue < 0 ? 0 : Number(newValue.toFixed(3))
     eofRepository
-      .persistFraForestArea(countryIso, year, newValue, true)
+      .persistFraValues(countryIso, year, {forestArea: newValue}, true)
       .then(() => resolve(newValue))
   })
 
@@ -31,7 +31,7 @@ const estimateFraValue = (countryIso, year, values) => {
 
     const odp = R.find(R.propEq('year', year))(values)
     if (odp) {
-      eofRepository.persistFraForestArea(countryIso, year, odp.forestArea, true).then(() => resolve(odp.forestArea))
+      eofRepository.persistFraValues(countryIso, year, odp, true).then(() => resolve(odp.forestArea))
     } else {
       const previousValue = R.pipe(R.filter(v => v.year < year), R.sort((a, b) => b.year - a.year))(values)[0]
       const nextValue = R.pipe(R.filter(v => v.year > year), R.sort((a, b) => a.year - b.year))(values)[0]

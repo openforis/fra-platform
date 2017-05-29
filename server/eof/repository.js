@@ -107,7 +107,7 @@ const emptyFraForestArea = (countryIso, year) =>
   db.query('SELECT id FROM eof_fra_values WHERE country_iso = $1 and year = $2', [countryIso, year])
     .then(result => result.rows.length == 0)
 
-module.exports.persistFraForestArea = (countryIso, year, forestArea, estimated = false) => {
+module.exports.persistFraValues = (countryIso, year, forestArea, estimated = false) => {
   forestArea = forestArea ? forestArea : null
   return emptyFraForestArea(countryIso, year).then(isEmpty =>
     isEmpty ? insertFraForestArea(countryIso, year, forestArea, estimated)
