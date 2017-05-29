@@ -34,7 +34,6 @@ const estimateFraValue = (countryIso, year, values) => {
 
       if (previousValue && nextValue) {
         estimate(countryIso, year, previousValue, nextValue, linearInterpolation).then(res => {
-          values.push(res)
           resolve(res)
         })
       } else {
@@ -42,21 +41,18 @@ const estimateFraValue = (countryIso, year, values) => {
 
         if (previous2Values.length === 2)
           estimate(countryIso, year, previous2Values[1], previous2Values[0], linearExtrapolation).then(res => {
-            values.push(res)
-            resolve()
+            resolve(res)
           })
         else {
           const next2Values = R.pipe(R.filter(v => v.year > year), R.sort((a, b) => a.year - b.year))(values).slice(0, 2)
 
           if (next2Values.length === 2)
             estimate(countryIso, year, next2Values[0], next2Values[1], linearExtrapolationBackwards).then(res => {
-              values.push(res)
-              resolve()
+              resolve(res)
             })
           else
-            resolve()
+            resolve(null)
         }
-
       }
     }
 
@@ -68,11 +64,13 @@ module.exports.estimateFraValues = (countryIso, years) => {
     let idx = 0
 
     const estimate = (countryIso, year, values) =>
-      estimateFraValue(countryIso, year, values).then(() => {
+      estimateFraValue(countryIso, year, values).then((newValue) => {
         if (idx === years.length - 1)
           resolve()
-        else
-          estimate(countryIso, years[++idx], values)
+        else {
+          const newValues = newValue ? [...values, newValue] : values
+          estimate(countryIso, years[++idx], newValues)
+        }
       })
 
     odpRepository
