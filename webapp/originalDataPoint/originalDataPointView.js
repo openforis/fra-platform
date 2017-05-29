@@ -44,7 +44,7 @@ const DataInput = ({match, saveDraft, markAsActual, active, autoSaving}) => {
         <thead>
         <tr>
           <th>National class</th>
-          <th>Value</th>
+          <th className="odp__extent-of-forest-divide-after-cell">Value</th>
           <th>Forest</th>
           <th>Other wooded land</th>
           <th>Other land</th>
@@ -56,7 +56,7 @@ const DataInput = ({match, saveDraft, markAsActual, active, autoSaving}) => {
         }
         <tr>
           <td className="odp__national-class-total-heading">Total</td>
-          <td className="odp__national-class-total-cell"></td>
+          <td className="odp__national-class-total-cell odp__extent-of-forest-divide-after-cell"></td>
           <td className="odp__national-class-total-cell">{ originalDataPoint.totalForest(active, 'forestPercent') }</td>
           <td className="odp__national-class-total-cell">{ originalDataPoint.totalForest(active, 'otherWoodedLandPercent') }</td>
           <td className="odp__national-class-total-cell">{ originalDataPoint.totalForest(active, 'otherLandPercent') }</td>
@@ -147,7 +147,7 @@ const ExtentOfForestRow = ({
 
   return <tr>
     <td className="odp__extent-of-forest-class-name"><span>{className}</span></td>
-    <td className="odp__extent-of-forest-area-cell">
+    <td className="odp__extent-of-forest-area-cell odp__extent-of-forest-divide-after-cell">
       <input type="text" value={area || ''}
              onChange={ numberUpdated('area', area) }/>
     </td>
