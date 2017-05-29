@@ -24,6 +24,19 @@ const estimate = (countryIso, year, pointA, pointB, estFunction) => {
     .then(() => R.assoc('year', year, newFraValues))
 }
 
+const extrapolate = (countryIso, year, values) => {
+  const previous2Values = R.pipe(R.filter(v => v.year < year), R.sort((a, b) => b.year - a.year))(values).slice(0, 2)
+  if (previous2Values.length === 2) {
+    return estimate(countryIso, year, previous2Values[1], previous2Values[0], linearExtrapolation)
+  } else {
+    const next2Values = R.pipe(R.filter(v => v.year > year), R.sort((a, b) => a.year - b.year))(values).slice(0, 2)
+    if (next2Values.length === 2)
+      return estimate(countryIso, year, next2Values[0], next2Values[1], linearExtrapolationBackwards)
+    else
+      return Promise.resolve(null)
+  }
+}
+
 const estimateFraValue = (countryIso, year, values) => {
   const odp = R.find(R.propEq('year', year))(values)
   if (odp) {
@@ -34,16 +47,7 @@ const estimateFraValue = (countryIso, year, values) => {
     if (previousValue && nextValue) {
       return estimate(countryIso, year, previousValue, nextValue, linearInterpolation)
     } else {
-      const previous2Values = R.pipe(R.filter(v => v.year < year), R.sort((a, b) => b.year - a.year))(values).slice(0, 2)
-      if (previous2Values.length === 2) {
-        return estimate(countryIso, year, previous2Values[1], previous2Values[0], linearExtrapolation)
-      } else {
-        const next2Values = R.pipe(R.filter(v => v.year > year), R.sort((a, b) => a.year - b.year))(values).slice(0, 2)
-        if (next2Values.length === 2)
-          return estimate(countryIso, year, next2Values[0], next2Values[1], linearExtrapolationBackwards)
-        else
-          return Promise.resolve(null)
-      }
+      return extrapolate(countryIso, year, values)
     }
   }
 }
