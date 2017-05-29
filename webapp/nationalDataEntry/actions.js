@@ -13,7 +13,7 @@ const fetched = (countryIso, data) => ({
 
 const change = ({countryIso, name, value}) => {
   const dispatched = dispatch => {
-    return axios.post(`/api/country/${countryIso}/${name}`, {forestArea: value}).then(() => {
+    return axios.post(`/api/country/${countryIso}/${name}`, value).then(() => {
       dispatch(autosave.complete)
     }).catch((err) => {
       dispatch(applicationError(err))
@@ -36,11 +36,12 @@ const sanitize = (newValue, currentValue) => {
   return Number(newValue)
 }
 
-export const save = (countryIso, name, newValue, currentValue) => dispatch => {
-  const sanitizedValue = sanitize(newValue, currentValue)
-  dispatch(start({name, value: sanitizedValue}))
+export const save = (countryIso, name, newValue, fraValue, field) => dispatch => {
+  const sanitizedValue = sanitize(newValue, fraValue[field])
+  const newFraValue = {...fraValue, [field]: sanitizedValue}
+  dispatch(start({name, value: newFraValue}))
   dispatch(autosave.start)
-  dispatch(change({countryIso, name, value: sanitizedValue}))
+  dispatch(change({countryIso, name, value: newFraValue}))
 }
 
 export const fetch = (countryIso) => dispatch => {

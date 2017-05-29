@@ -5,12 +5,8 @@ import { applyReducerFunction } from '../utils/reduxUtils'
 
 const updateValue = (state, action) => {
   const idx = R.findIndex(R.propEq('name', action.name), state.fra)
-  const newState = R.clone(state)
-  newState.fra[idx] = R.pipe(
-    R.assoc('forestArea', action.value),
-    R.assoc('estimated', false)
-  )(newState.fra[idx])
-  return newState
+  const updatedValue = {...action.value, estimated: false}
+  return {...state, fra: R.update(idx, updatedValue, state.fra)}
 }
 
 const actionHandlers = {
