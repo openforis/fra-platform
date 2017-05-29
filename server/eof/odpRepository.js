@@ -65,7 +65,7 @@ const addClassData = (client, odpVersionId, odp) => {
         definition, 
         area,
         forest_percent,
-        other_wooded_land_percent,
+        other_wooden_land_percent,
         other_land_percent
         ) 
        VALUES 
@@ -76,7 +76,7 @@ const addClassData = (client, odpVersionId, odp) => {
         nationalClass.definition,
         nationalClass.area,
         nationalClass.forestPercent,
-        nationalClass.otherWoodedLandPercent,
+        nationalClass.otherWoodenLandPercent,
         nationalClass.otherLandPercent
       ]),
     odp.nationalClasses)
@@ -121,7 +121,7 @@ module.exports.getOdp = odpId =>
                      definition,
                      area,
                      forest_percent,
-                     other_wooded_land_percent,
+                     other_wooden_land_percent,
                      other_land_percent
               FROM odp_class 
               WHERE odp_version_id = $1`,
@@ -131,7 +131,7 @@ module.exports.getOdp = odpId =>
       definition: row.definition,
       area: row.area,
       forestPercent: row.forest_percent,
-      otherWoodedLandPercent: row.other_wooded_land_percent,
+      otherWoodenLandPercent: row.other_wooden_land_percent,
       otherLandPercent: row.other_land_percent
     }), result.rows)]
   ).then(([versionId, nationalClasses]) =>

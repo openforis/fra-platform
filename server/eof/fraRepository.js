@@ -14,7 +14,7 @@ module.exports.persistFraValues = (countryIso, year, fraValues, estimated = fals
 const insertFraForestArea = (countryIso, year, fraValues, estimated) =>
   db.query(`INSERT INTO 
              eof_fra_values 
-             (country_iso, year, forest_area, estimated) 
+             (country_iso, year, forest_area,other_wooden_land, estimated) 
              VALUES 
              ($1, $2, $3, $4, $5)`,
     [countryIso,

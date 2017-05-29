@@ -1,0 +1,1 @@
+ALTER TABLE odp_class RENAME COLUMN other_wooded_land_percent TO other_wooden_land_percent;
