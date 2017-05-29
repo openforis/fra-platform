@@ -42,16 +42,17 @@ const linearExtrapolationBackwards = (x, xa, ya, xb, yb) => {
 export const addPlaceholders = (data) => {
 
   const fraData = R.filter(v => v.type === 'fra', data)
+  const odps = R.filter(v => v.type === 'odp', data)
 
-  if (data.length >= 2 && fraData.length > 0) {
+  if (odps.length >= 2 && fraData.length >= 1) {
     const firstPoint = {
       year: 1987, type: 'placeholder',
-      forestArea: linearExtrapolationBackwards(1987, data[0].year, data[0].forestArea, data[1].year, data[1].forestArea)
+      forestArea: linearExtrapolationBackwards(1987, odps[0].year, odps[0].forestArea, odps[1].year, odps[1].forestArea)
     }
-    const lastIndex = data.length - 1
+    const lastIndex = odps.length - 1
     const lastPoint = {
       year: 2023, type: 'placeholder',
-      forestArea: linearExtrapolation(2023, data[lastIndex - 1].year, data[lastIndex - 1].forestArea, data[lastIndex].year, data[lastIndex].forestArea)
+      forestArea: linearExtrapolation(2023, odps[lastIndex - 1].year, odps[lastIndex - 1].forestArea, odps[lastIndex].year, odps[lastIndex].forestArea)
     }
     return R.pipe(
       R.insert(0, firstPoint),
