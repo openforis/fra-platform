@@ -6,12 +6,6 @@ import { save, fetch, generateFraValues } from './actions'
 import { Link } from './../link'
 import Chart from './chart/chart'
 
-const OdpCell = ({odpValue}) => {
-  return <span className="nde__input-table-readonly-cell">
-        {odpValue.forestArea}
-        </span>
-}
-
 const OdpHeading = ({countryIso, odpValue}) =>
   <Link to={`/country/${countryIso}/odp/${odpValue.odpId}`}>
     {odpValue.draft ? '!' : ''}
@@ -43,7 +37,8 @@ const fraValueRow = (rowHeading, countryIso, field, fra, save) =>
       R.values(fra).map(v =>
         <div className="nde__input-table-content-cell" key={`${v.type}_${v.name}`}>
           {
-            v.type === 'odp' ? <OdpCell odpValue={v}/>
+            v.type === 'odp'
+              ? odpCell(v, field)
               : fraValueCell(v, fra, countryIso, save, field)
           }
         </div>
@@ -57,6 +52,11 @@ const fraValueCell = (fraValue, fra, countryIso, save, field) =>
     onChange={ e => {
       save(countryIso, fraValue.name, e.target.value, fraValue, field)
     }}/>
+
+const odpCell = (odpValue, field) =>
+  <span className="nde__input-table-readonly-cell">
+    {odpValue[field]}
+  </span>
 
 const NationalDataEntry = (props) => {
 
