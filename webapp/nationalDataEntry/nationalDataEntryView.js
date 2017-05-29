@@ -54,7 +54,7 @@ const DataTable = ({fra, save, countryIso}) =>
     </div>
   </div>
 
-const DataInput = (props) => {
+const NationalDataEntry = (props) => {
 
   const disableGenerateFRAValues = () => {
     const odps = R.pipe(
@@ -65,7 +65,7 @@ const DataInput = (props) => {
   }
 
   return <div className="nde__data-input-component">
-    <h2>{props.name}</h2>
+    <h2>Forest area</h2>
     <div className="nde__data-input-header">
       <div>
         {/*placeholder for chart heading*/}
@@ -89,11 +89,6 @@ const DataInput = (props) => {
   </div>
 }
 
-const NationalDataEntry = (props) => {
-  return <div>
-    <DataInput {...props} name="Forest area"/>
-  </div>
-}
 
 class DataFetchingComponent extends React.Component {
   componentWillMount () {
@@ -114,6 +109,6 @@ class DataFetchingComponent extends React.Component {
   }
 }
 
-const mapStateToProps = state => state['nationalDataEntry']
+const mapStateToProps = state => state.nationalDataEntry
 
 export default connect(mapStateToProps, {save, fetch, generateFraValues})(DataFetchingComponent)
