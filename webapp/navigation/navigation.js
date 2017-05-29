@@ -46,8 +46,8 @@ class CountryItem extends React.Component {
 
 const CountryList = ({isOpen, countries}) => {
   return <div className={`country__list ${isOpen ? '' : 'hidden'}`}>
-    <div className="country__list-header"><span>close</span></div>
-    <div className="country__list-content">
+    <div className="country__list-header country__list-main-element"><span className="country__list-close">close</span></div>
+    <div className="country__list-content country__list-main-element">
       {
         countries.map(c => <Link className="country__list-item" to={`/country/${c.countryIso}`}
                                  key={c.countryIso}>{c.name}</Link>)

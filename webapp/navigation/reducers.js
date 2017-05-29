@@ -3,7 +3,7 @@ import { listCountries } from './actions'
 
 const actionHandlers = {
   [listCountries]: (state, action) => {
-    return {countries: action.countries, ...state}
+    return {...state, countries: action.countries}
   }
 }
 
