@@ -8,19 +8,21 @@ const emptyFraForestArea = (countryIso, year) =>
 
 module.exports.persistFraValues = (countryIso, year, fraValues, estimated = false) =>
   emptyFraForestArea(countryIso, year).then(isEmpty =>
-    isEmpty ? insertFraForestArea(countryIso, year, fraValues, estimated)
+    isEmpty
+      ? insertFraForestArea(countryIso, year, fraValues, estimated)
       : updateFraForestArea(countryIso, year, fraValues, estimated))
 
 const insertFraForestArea = (countryIso, year, fraValues, estimated) =>
   db.query(`INSERT INTO 
              eof_fra_values 
-             (country_iso, year, forest_area,other_wooden_land, estimated) 
+             (country_iso, year, forest_area, other_wooden_land, other_land, estimated) 
              VALUES 
-             ($1, $2, $3, $4, $5)`,
+             ($1, $2, $3, $4, $5, $6)`,
     [countryIso,
      year,
      fraValues.forestArea,
      fraValues.otherWoodenLand,
+     fraValues.otherLand,
      estimated])
 
 const updateFraForestArea = (countryIso, year, fraValues, estimated) =>
@@ -29,18 +31,21 @@ const updateFraForestArea = (countryIso, year, fraValues, estimated) =>
             SET 
              forest_area = $3,
              other_wooden_land = $4,
-             estimated = $5 
+             other_land = $5,
+             estimated = $6 
             WHERE country_iso = $1 AND year = $2`,
     [countryIso,
      year,
      fraValues.forestArea,
      fraValues.otherWoodenLand,
+     fraValues.otherLand,
      estimated])
 
 const forestAreaReducer = (results, row, type = 'fra') => R.assoc(`fra_${row.year}`,
   {
     forestArea: row.forest_area,
     otherWoodenLand: row.other_wooden_land,
+    otherLand: row.other_land,
     name: row.year + '',
     type: 'fra',
     year: Number(row.year),
@@ -49,5 +54,7 @@ const forestAreaReducer = (results, row, type = 'fra') => R.assoc(`fra_${row.yea
   results)
 
 module.exports.readFraForestAreas = (countryIso) =>
-  db.query('SELECT year, forest_area, other_wooden_land from eof_fra_values WHERE country_iso = $1', [countryIso])
-    .then((result) => R.reduce(forestAreaReducer, {}, result.rows))
+  db.query(
+    'SELECT year, forest_area, other_wooden_land, other_land from eof_fra_values WHERE country_iso = $1',
+    [countryIso]
+  ).then((result) => R.reduce(forestAreaReducer, {}, result.rows))

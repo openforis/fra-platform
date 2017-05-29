@@ -16,7 +16,7 @@ const estimate = (countryIso, year, pointA, pointB, estFunction) => {
   const newFraValues = R.reduce(
     (newFraObj, field) => R.assoc([field], estimateField(field), newFraObj),
     {},
-    ['forestArea', 'otherWoodenLand'])
+    ['forestArea', 'otherWoodenLand', 'otherLand'])
   return eofRepository
     .persistFraValues(countryIso, year, newFraValues, true)
     .then(() => R.assoc('year', year, newFraValues))
