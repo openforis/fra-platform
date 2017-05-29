@@ -23,7 +23,7 @@ const estimate = (countryIso, year, pointA, pointB, estFunction) => {
 }
 
 const estimateFraValue = (countryIso, year, values) => {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
 
     const odp = R.find(R.propEq('year', year))(values)
     if (odp) {
