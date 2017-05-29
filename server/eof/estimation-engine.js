@@ -56,18 +56,13 @@ const estimateFraValue = (countryIso, year, values) => {
 
 // Pure function, no side-effects
 const estimateFraValues = (countryIso, years, odpValues) => {
-  let idx = 0
-  const estimate = (countryIso, year, values) => {
-    const newValue = estimateFraValue(countryIso, year, values)
-    if (idx === years.length) {
-      return values
-    }
-    else {
-      const newValues = newValue ? [...values, newValue] : values
-      return estimate(countryIso, years[++idx], newValues)
-    }
-  }
-  return estimate(countryIso, years[0], odpValues)
+  return R.reduce(
+    (values, year) => {
+      const newValue = estimateFraValue(countryIso, year, values)
+      return newValue ? [...values, newValue] : values
+    },
+    odpValues,
+    years)
 }
 
 module.exports.estimateAndPersistFraValues = (countryIso, years) => {
