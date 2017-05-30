@@ -13,7 +13,7 @@ const DataInput = ({match, saveDraft, markAsActual, active, autoSaving}) => {
 
   return <div className="odp__data-input-component">
     <div className="odp_data-input-row">
-      <div><h3>Year</h3></div>
+      <div><h3 className="subhead">Year</h3></div>
       <div>
         <select
           value={active.year || ''}
@@ -23,7 +23,7 @@ const DataInput = ({match, saveDraft, markAsActual, active, autoSaving}) => {
       </div>
     </div>
     <div>
-      <h3 className="odp__section">National classes</h3>
+      <h3 className="subhead odp__section">National classes</h3>
       <table className="odp__input-table odp__national-class-table">
         <thead>
         <tr>
@@ -39,7 +39,7 @@ const DataInput = ({match, saveDraft, markAsActual, active, autoSaving}) => {
       </table>
     </div>
     <div>
-      <h3 className="odp__section">Extent of forest</h3>
+      <h3 className="subhead odp__section">Extent of forest</h3>
       <table className="odp__input-table odp__extent-of-forest-table">
         <thead>
         <tr>
@@ -187,7 +187,7 @@ class OriginalDataPointView extends React.Component {
 
   render () {
     return <div className="odp__container">
-      <h2>Add original data point</h2>
+      <h2 className="headline">Add original data point</h2>
       <DataInput {...this.props}/>
     </div>
   }

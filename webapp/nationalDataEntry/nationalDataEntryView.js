@@ -75,7 +75,7 @@ const NationalDataEntry = (props) => {
   }
 
   return <div className="nde__data-input-component">
-    <h2>Forest area</h2>
+    <h2 className="headline">Forest area</h2>
     <div className="nde__data-input-header">
       <div>
         {/*placeholder for chart heading*/}

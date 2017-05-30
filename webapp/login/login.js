@@ -8,8 +8,8 @@ const Login = () =>
       <img src="img/fao_logo.svg" className="fao-logo"/>
       <div className="login__box">
         <img src="img/tucan.svg" className="tucan"/>
-        <span className="login__header">Login to FRA Platform</span>
         <div className="input">
+        <h2 className="login__header headline">Login to FRA Platform</h2>
           <label htmlFor="un">Email</label>
           <input id="un" type="text"/>
         </div>
