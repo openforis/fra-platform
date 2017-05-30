@@ -41,11 +41,15 @@ const updateFraForestArea = (countryIso, year, fraValues, estimated) =>
      fraValues.otherLand,
      estimated])
 
+const toNumberOrNull = (numericFromDb) => numericFromDb === null
+  ? null
+  : Number(numericFromDb)
+
 const forestAreaReducer = (results, row, type = 'fra') => R.assoc(`fra_${row.year}`,
   {
-    forestArea: row.forest_area,
-    otherWoodenLand: row.other_wooden_land,
-    otherLand: row.other_land,
+    forestArea: toNumberOrNull(row.forest_area),
+    otherWoodenLand: toNumberOrNull(row.other_wooden_land),
+    otherLand: toNumberOrNull(row.other_land),
     name: row.year + '',
     type: 'fra',
     year: Number(row.year),

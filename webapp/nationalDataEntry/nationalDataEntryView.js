@@ -47,9 +47,14 @@ const fraValueRow = (rowHeading, countryIso, field, fra, save) =>
     }
   </div>
 
+const fraFieldValueForInput = (fieldValue) =>
+  typeof fieldValue === 'number'
+  ? fieldValue
+  : ''
+
 const fraValueCell = (fraValue, fra, countryIso, save, field) =>
   <input
-    value={ fraValue[field] || ''}
+    value={ fraFieldValueForInput(fraValue[field]) }
     onChange={ e => {
       save(countryIso, fraValue.name, e.target.value, fraValue, field)
     }}/>
