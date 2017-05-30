@@ -51,7 +51,7 @@ const DataCircles = (props) => {
   const odps = R.filter(v => v.type === 'odp', props.data)
 
   return <g>
-    <path d={renderTrend({...props, data: R.filter(v => R.contains(v.type, ['fra', 'placeholder']), props.data)})}
+    <path d={renderTrend({...props})}
           style={{
             fill: 'none',
             stroke: 'rgba(73,144,226,.35)',
