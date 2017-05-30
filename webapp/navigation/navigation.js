@@ -23,7 +23,7 @@ class CountryItem extends React.Component {
     const role = this.props.role
     const countries = this.props.countries || []
     const style = {
-      content: `url('/img/flags/${(I18n.alpha3ToAlpha2(name) || '').toLowerCase()}.svg'`
+      backgroundImage: `url('/img/flags/${(I18n.alpha3ToAlpha2(name) || '').toLowerCase()}.svg'`
     }
     return <div className="country__item">
       <div className="country__flag" style={style}></div>
@@ -68,10 +68,10 @@ const SecondaryItem = ({path, countryIso, order, pathTemplate = "#/tbd", label, 
 
   return <div className={`secondary__item ${R.equals(path, linkTo) ? 'selected' : ''}`}
               onClick={e => goTo(linkTo)}>
-    <span className="order">{order}</span>
+    <span className="secondary__order">{order}</span>
     <div>
-      <span className="label">{label}</span>
-      <span className="status">{status}</span>
+      <span className="secondary__label">{label}</span>
+      <span className="secondary__status">{status}</span>
     </div>
   </div>
 }
