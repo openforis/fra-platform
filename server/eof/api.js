@@ -13,7 +13,7 @@ const forestAreaTableResponse = require('./forestAreaTableResponse')
 module.exports.init = app => {
 
   app.post('/api/country/:countryIso/:year', (req, res) => {
-    fraRepository.persistFraForestArea(req.params.countryIso, req.params.year, req.body.forestArea)
+    fraRepository.persistFraValues(req.params.countryIso, req.params.year, req.body)
       .then(() => res.json({}))
       .catch(err => sendErr(res, err))
   })
@@ -61,8 +61,9 @@ module.exports.init = app => {
     )(forestAreaTableResponse.fra)
 
     estimationEngine
-      .estimateFraValues(req.params.countryIso, years)
+      .estimateAndPersistFraValues(req.params.countryIso, years)
       .then(() => res.json({}))
+      .catch(err => sendErr(res, err))
   })
 
 }

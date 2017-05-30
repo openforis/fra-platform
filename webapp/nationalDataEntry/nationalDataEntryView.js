@@ -6,29 +6,16 @@ import { save, fetch, generateFraValues } from './actions'
 import { Link } from './../link'
 import Chart from './chart/chart'
 
-const OdpCell = ({odpValue}) => {
-  return <span className="nde__input-table-readonly-cell">
-        {odpValue.forestArea}
-        </span>
-}
-
 const OdpHeading = ({countryIso, odpValue}) =>
   <Link to={`/country/${countryIso}/odp/${odpValue.odpId}`}>
     {odpValue.draft ? '!' : ''}
     {odpValue.name}
   </Link>
 
-const FraValueCell = ({fraValue, fra, countryIso, save}) =>
-  <input
-    value={ fraValue.forestArea || ''}
-    onChange={ e => {
-      save(countryIso, fraValue.name, e.target.value, fraValue.forestArea)
-    }}/>
-
 const DataTable = ({fra, save, countryIso}) =>
   <div className="nde__input-table">
     <div className="nde__input-table-heading">
-      <div className="nde__input-header-cell "/>
+      <div className="nde__input-table-content-row-header-cell"/>
       {
         R.values(fra).map(v =>
           <div className="nde__input-header-cell" key={`${v.type}_${v.name}`}>
@@ -39,33 +26,56 @@ const DataTable = ({fra, save, countryIso}) =>
         )
       }
     </div>
-    <div className="nde__input-table-content">
-      <div className="nde__input-header-cell">Forest</div>
-      {
-        R.values(fra).map(v =>
-          <div className="nde__input-table-content-cell" key={`${v.type}_${v.name}`}>
-            {
-              v.type === 'odp' ? <OdpCell odpValue={v}/>
-                : <FraValueCell fraValue={v} fra={fra} countryIso={countryIso} save={save}/>
-            }
-          </div>
-        )
-      }
-    </div>
+    { fraValueRow('Forest', countryIso, 'forestArea', fra, save) }
+    { fraValueRow('Other wooden land', countryIso, 'otherWoodenLand', fra, save) }
+    { fraValueRow('Other land', countryIso, 'otherLand', fra, save) }
   </div>
 
-const DataInput = (props) => {
+const fraValueRow = (rowHeading, countryIso, field, fra, save) =>
+  <div className="nde__input-table-content">
+    <div className="nde__input-table-content-row-header-cell">{ rowHeading }</div>
+    {
+      R.values(fra).map(v =>
+        <div className="nde__input-table-content-cell" key={`${v.type}_${v.name}`}>
+          {
+            v.type === 'odp'
+              ? odpCell(v, field)
+              : fraValueCell(v, fra, countryIso, save, field)
+          }
+        </div>
+      )
+    }
+  </div>
+
+const fraFieldValueForInput = (fieldValue) =>
+  typeof fieldValue === 'number'
+  ? fieldValue
+  : ''
+
+const fraValueCell = (fraValue, fra, countryIso, save, field) =>
+  <input
+    value={ fraFieldValueForInput(fraValue[field]) }
+    onChange={ e => {
+      save(countryIso, fraValue.name, e.target.value, fraValue, field)
+    }}/>
+
+const odpCell = (odpValue, field) =>
+  <span className="nde__input-table-readonly-cell">
+    {odpValue[field]}
+  </span>
+
+const NationalDataEntry = (props) => {
 
   const disableGenerateFRAValues = () => {
     const odps = R.pipe(
       R.values,
-      R.filter(v => v.type == 'odp')
+      R.filter(v => v.type === 'odp')
     )(props.fra)
     return props.generatingFraValues || odps.length < 2
   }
 
   return <div className="nde__data-input-component">
-    <h2>{props.name}</h2>
+    <h2>Forest area</h2>
     <div className="nde__data-input-header">
       <div>
         {/*placeholder for chart heading*/}
@@ -89,12 +99,6 @@ const DataInput = (props) => {
   </div>
 }
 
-const NationalDataEntry = (props) => {
-  return <div>
-    <DataInput {...props} name="Forest area"/>
-  </div>
-}
-
 class DataFetchingComponent extends React.Component {
   componentWillMount () {
     this.fetch(this.props.match.params.countryIso)
@@ -114,6 +118,6 @@ class DataFetchingComponent extends React.Component {
   }
 }
 
-const mapStateToProps = state => state['nationalDataEntry']
+const mapStateToProps = state => state.nationalDataEntry
 
 export default connect(mapStateToProps, {save, fetch, generateFraValues})(DataFetchingComponent)

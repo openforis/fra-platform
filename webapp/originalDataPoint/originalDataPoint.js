@@ -27,7 +27,7 @@ export const emptyNationalClass = () => ({
   definition: '',
   area: null,
   forestPercent: null,
-  otherWoodedLandPercent: null,
+  otherWoodenLandPercent: null,
   otherLandPercent: null
 })
 

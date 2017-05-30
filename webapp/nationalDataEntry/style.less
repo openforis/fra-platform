@@ -1,3 +1,4 @@
+@import "../app-styles/config";
 
 .nde__input-table {
   border-collapse: collapse;
@@ -17,6 +18,14 @@
     padding: 10px;
     width: 100px;
     min-width: 50px;
+    font-weight: bold;
+  }
+
+  .nde__input-table-content-row-header-cell {
+    background: #F5F5F5;
+    border: 1px solid #CCCCCC;
+    padding: 10px;
+    width: 150px;
     font-weight: bold;
   }
 
@@ -50,7 +59,7 @@
   text-align: right;
   padding: 10px;
   width: 100%;
-  background: #fefafa;
+  color: @text-mute;
 }
 
 .nde__data-input-component {

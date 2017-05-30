@@ -2,85 +2,83 @@ const eofRepository = require('./fraRepository')
 const odpRepository = require('./odpRepository')
 const R = require('ramda')
 
-const linearInterpolation = (x, xa, ya, xb, yb) => {
-  const y = ya + ( yb - ya) * (x - xa) / (xb - xa)
-  return y
+const linearInterpolation = (x, xa, ya, xb, yb) => ya + ( yb - ya) * (x - xa) / (xb - xa)
+
+const linearExtrapolation = (x, xa, ya, xb, yb) => ya + (x - xa) / (xb - xa) * (yb - ya)
+
+const linearExtrapolationBackwards = (x, xa, ya, xb, yb) => yb + (xb - x) / (xb - xa) * (ya - yb)
+
+const fraFields = ['forestArea', 'otherWoodenLand', 'otherLand']
+
+const estimate = (year, pointA, pointB, estFunction) => {
+  const estimateField = (field) => {
+    let estimated = estFunction(year, pointA.year, pointA[field], pointB.year, pointB[field])
+    return estimated < 0 ? 0 : Number(estimated.toFixed(3))
+  }
+  const newFraValues = R.reduce(
+    (newFraObj, field) => R.assoc([field], estimateField(field), newFraObj),
+    {},
+    fraFields)
+  return R.pipe(
+    R.assoc('year', year),
+    R.assoc('store', true))
+  (newFraValues)
 }
 
-const linearExtrapolation = (x, xa, ya, xb, yb) => {
-  const y = ya + (x - xa) / (xb - xa) * (yb - ya)
-  return y
+const extrapolate = (year, values) => {
+  const previous2Values = R.pipe(R.filter(v => v.year < year), R.sort((a, b) => b.year - a.year))(values).slice(0, 2)
+  if (previous2Values.length === 2) {
+    return estimate(year, previous2Values[1], previous2Values[0], linearExtrapolation)
+  } else {
+    const next2Values = R.pipe(R.filter(v => v.year > year), R.sort((a, b) => a.year - b.year))(values).slice(0, 2)
+    if (next2Values.length === 2)
+      return estimate(year, next2Values[0], next2Values[1], linearExtrapolationBackwards)
+    else return null
+  }
 }
 
-const linearExtrapolationBackwards = (x, xa, ya, xb, yb) => {
-  const y = yb + (xb - x) / (xb - xa) * (ya - yb)
-  return y
-}
-
-const estimate = (countryIso, year, pointA, pointB, estFunction) =>
-  new Promise((resolve) => {
-    let newValue = R.call(estFunction, year, pointA.year, pointA.forestArea, pointB.year, pointB.forestArea)
-    newValue = newValue < 0 ? 0 : Number(newValue.toFixed(3))
-    eofRepository
-      .persistFraForestArea(countryIso, year, newValue, true)
-      .then(() => resolve(newValue))
-  })
-
-const estimateFraValue = (countryIso, year, values) => {
-  return new Promise((resolve, reject) => {
-
-    const odp = R.find(R.propEq('year', year))(values)
-    if (odp) {
-      eofRepository.persistFraForestArea(countryIso, year, odp.forestArea, true).then(() => resolve(odp.forestArea))
+const estimateFraValue = (year, values) => {
+  const odp = R.find(R.propEq('year', year))(values)
+  if (odp) {
+    return R.assoc('store', true, odp)
+  } else {
+    // Filter out duplicate values generated because FRA year and ODP year both exist:
+    const valuesWithoutOdpFraDuplicates = R.reject(val => val.store && val.type === 'odp', values)
+    const previousValue = R.pipe(R.filter(v => v.year < year), R.sort((a, b) => b.year - a.year))(valuesWithoutOdpFraDuplicates)[0]
+    const nextValue = R.pipe(R.filter(v => v.year > year), R.sort((a, b) => a.year - b.year))(valuesWithoutOdpFraDuplicates)[0]
+    if (previousValue && nextValue) {
+      return estimate(year, previousValue, nextValue, linearInterpolation)
     } else {
-      const previousValue = R.pipe(R.filter(v => v.year < year), R.sort((a, b) => b.year - a.year))(values)[0]
-      const nextValue = R.pipe(R.filter(v => v.year > year), R.sort((a, b) => a.year - b.year))(values)[0]
-
-      if (previousValue && nextValue) {
-        estimate(countryIso, year, previousValue, nextValue, linearInterpolation).then(res => {
-          values.push({year: year, forestArea: res})
-          resolve(res)
-        })
-      } else {
-        const previous2Values = R.pipe(R.filter(v => v.year < year), R.sort((a, b) => b.year - a.year))(values).slice(0, 2)
-
-        if (previous2Values.length === 2)
-          estimate(countryIso, year, previous2Values[1], previous2Values[0], linearExtrapolation).then(res => {
-            values.push({year: year, forestArea: res})
-            resolve(res)
-          })
-        else {
-          const next2Values = R.pipe(R.filter(v => v.year > year), R.sort((a, b) => a.year - b.year))(values).slice(0, 2)
-
-          if (next2Values.length === 2)
-            estimate(countryIso, year, next2Values[0], next2Values[1], linearExtrapolationBackwards).then(res => {
-              values.push({year: year, forest_area: res})
-              resolve(res)
-            })
-          else
-            resolve(null)
-        }
-
-      }
+      return extrapolate(year, valuesWithoutOdpFraDuplicates)
     }
-
-  })
+  }
 }
 
-module.exports.estimateFraValues = (countryIso, years) => {
-  return new Promise((resolve, reject) => {
-    let idx = 0
+// Pure function, no side-effects
+const estimateFraValues = (years, odpValues) => {
+  const allEstimatedValues =
+    R.reduce(
+      (values, year) => {
+        const newValue = estimateFraValue(year, values)
+        return newValue ? [...values, newValue] : values
+      },
+      odpValues,
+      years)
+  return R.pipe(
+    R.filter(estimatedValues => estimatedValues.store),
+    R.map(estimatedValues => R.pick([...fraFields, 'year'], estimatedValues)))(allEstimatedValues)
+}
 
-    const estimate = (countryIso, year, values) =>
-      estimateFraValue(countryIso, year, values).then((res) => {
-        if (idx === years.length - 1)
-          resolve()
-        else
-          estimate(countryIso, years[++idx], values)
-      })
+module.exports.estimateFraValues = estimateFraValues
 
-    odpRepository
-      .readOriginalDataPoints(countryIso)
-      .then(values => estimate(countryIso, years[0], R.values(values)))
-  })
+module.exports.estimateAndPersistFraValues = (countryIso, years) => {
+  return odpRepository
+    .readOriginalDataPoints(countryIso)
+    .then(values => {
+      const estimated = estimateFraValues(years, R.values(values))
+      return Promise.all(
+        R.map(
+          estimatedValues => eofRepository.persistFraValues(countryIso, estimatedValues.year, estimatedValues, true),
+          estimated))
+    })
 }
