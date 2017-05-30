@@ -187,7 +187,7 @@ class OriginalDataPointView extends React.Component {
 
   render () {
     return <div className="odp__container">
-      <h2 className="headline">Add original data point</h2>
+      <h2 className="headline">Add national data point</h2>
       <DataInput {...this.props}/>
     </div>
   }

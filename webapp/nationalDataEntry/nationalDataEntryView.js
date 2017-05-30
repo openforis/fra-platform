@@ -80,7 +80,7 @@ const NationalDataEntry = (props) => {
       <div>
         {/*placeholder for chart heading*/}
       </div>
-      <Link className="btn btn-primary" to={`/country/${props.countryIso}/odp`}>+ Add original data point</Link>
+      <Link className="btn btn-primary" to={`/country/${props.countryIso}/odp`}>+ Add national data point</Link>
     </div>
     <div className="nde__data-chart">
       <Chart />

@@ -78,7 +78,7 @@ const hideNav = path => !path || R.equals("/", path) || R.equals("#/", path)
 const Nav = ({path, country, countries, follow, getCountryList}) => {
   return <div className={`main__navigation ${hideNav(path) ? 'hidden' : ''}`}>
     <CountryItem name={country} countries={countries} listCountries={getCountryList} role="National Correspondent"/>
-    <PrimaryItem label="Original Data" />
+    <PrimaryItem label="National Data" />
     <PrimaryItem label="Annually reported" link="Send to review"/>
     {
       annualItems.map(v => <SecondaryItem path={path} key={v.label} goTo={follow} countryIso={country} {...v} />)
