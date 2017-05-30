@@ -8,7 +8,7 @@ export const styles = {
 }
 
 // Returns the highest Y coordinate from the data set
-export const yMax = (data) => d3.max(data, (d) => d.forestArea)
+export const yMax = (data) => d3.max(data, (d) => d.value)
 
 // Returns a function that "scales" X coordinates from the data to fit the chart
 export const getXScale = (data) => {
@@ -47,12 +47,12 @@ export const addPlaceholders = (data) => {
   if (odps.length >= 2 && fraData.length >= 1) {
     const firstPoint = {
       year: 1987, type: 'placeholder',
-      forestArea: linearExtrapolationBackwards(1987, odps[0].year, odps[0].forestArea, odps[1].year, odps[1].forestArea)
+      value: linearExtrapolationBackwards(1987, odps[0].year, odps[0].value, odps[1].year, odps[1].value)
     }
     const lastIndex = odps.length - 1
     const lastPoint = {
       year: 2023, type: 'placeholder',
-      forestArea: linearExtrapolation(2023, odps[lastIndex - 1].year, odps[lastIndex - 1].forestArea, odps[lastIndex].year, odps[lastIndex].forestArea)
+      value: linearExtrapolation(2023, odps[lastIndex - 1].year, odps[lastIndex - 1].value, odps[lastIndex].year, odps[lastIndex].value)
     }
     return R.pipe(
       R.insert(0, firstPoint),
@@ -61,4 +61,18 @@ export const addPlaceholders = (data) => {
 
   }
   return data
+}
+
+export const getChartData = (fra, property) => {
+  const data = R.pipe(
+    R.values,
+    R.filter(v => typeof v[property] === 'number'),
+    R.map((v) => { return {year: v.year, value: v[property], type: v.type, estimated: v.estimated} }),
+    addPlaceholders
+  )(fra)
+
+  const xScale = getXScale(data)
+  const yScale = getYScale(data)
+
+  return {data, xScale, yScale}
 }

@@ -8,22 +8,22 @@ import DataCircles from './dataCircles'
 import XAxis from './xAxis'
 import YAxis from './yAxis'
 
-import { getXScale, getYScale, styles, addPlaceholders } from './chartData'
+import { getChartData, styles } from './chartData'
 
 class Chart extends Component {
 
   shouldComponentUpdate (nextProps) {
-    const isDataEqual = R.equals(this.props.data, nextProps.data)
+    const isDataEqual = R.equals(this.props.forestArea, nextProps.forestArea)
     return !isDataEqual
   }
 
   render () {
     return <div ref="chartContainer">
-      { this.props.data ? <svg width={styles.width} height={styles.height}>
-        <YAxis {...this.props} {...styles} />
-        <XAxis {...this.props} {...styles} />
-        <DataCircles {...this.props} {...styles} />
-        <NoDataPlaceholder {...this.props} {...styles} />
+      { this.props.forestArea ? <svg width={styles.width} height={styles.height}>
+        <YAxis {...this.props.forestArea} {...styles} />
+        <XAxis {...this.props.forestArea} {...styles} />
+        <DataCircles {...this.props.forestArea} {...styles} />
+        <NoDataPlaceholder {...this.props.forestArea} {...styles} />
       </svg>
         : null }
     </div>
@@ -33,17 +33,9 @@ class Chart extends Component {
 const mapStateToProps = state => {
   const nde = state['nationalDataEntry']
   if (nde && nde.fra) {
-    const data = R.pipe(
-      R.values,
-      R.filter(v => typeof v.forestArea === 'number'),
-      R.map((v) => { return {year: v.year, forestArea: v.forestArea, type: v.type, estimated: v.estimated} }),
-      addPlaceholders
-    )(nde.fra)
+    const forestArea = getChartData(nde.fra, 'forestArea')
 
-    const xScale = getXScale(data)
-    const yScale = getYScale(data)
-
-    return {data, xScale, yScale}
+    return {forestArea}
   }
   return {}
 }
