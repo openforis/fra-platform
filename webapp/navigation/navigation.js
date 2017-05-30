@@ -25,32 +25,28 @@ class CountryItem extends React.Component {
     const style = {
       backgroundImage: `url('/img/flags/${(I18n.alpha3ToAlpha2(name) || '').toLowerCase()}.svg'`
     }
-    return <div className="country__item">
-      <div className="country__flag" style={style}></div>
-      <div className="country__info">
-        <span className="country__name">{I18n.getName(name, 'en')}</span>
-        <span className="country__nc">{role}</span>
-      </div>
-      <div className="country__change" onClick={() => {
+    return <div className="country__item" onClick={() => {
         this.setState({isOpen: R.not(this.state.isOpen)})
         if (R.isEmpty(countries)) {
           this.props.listCountries()
         }
       }}>
-        <span>⬍</span>
-        <CountryList isOpen={this.state.isOpen} countries={countries}/>
+      <div className="country__flag" style={style}></div>
+      <div className="country__info">
+        <span className="country__name">{I18n.getName(name, 'en')}</span>
+        <span className="country__nc">{role}</span>
       </div>
+      <div className="country__change">⬍</div>
+      <CountryList isOpen={this.state.isOpen} countries={countries} currentCountry={name}/>
     </div>
   }
 }
 
-const CountryList = ({isOpen, countries}) => {
+const CountryList = ({isOpen, countries, currentCountry}) => {
   return <div className={`country__list ${isOpen ? '' : 'hidden'}`}>
-    <div className="country__list-header country__list-main-element"><span className="country__list-close">close</span></div>
-    <div className="country__list-content country__list-main-element">
+    <div className="country__list-content">
       {
-        countries.map(c => <Link className="country__list-item" to={`/country/${c.countryIso}`}
-                                 key={c.countryIso}>{c.name}</Link>)
+        countries.map(c => <Link className={`country__list-item ${R.equals(currentCountry, c.countryIso) ? 'selected' : ''}`} to={`/country/${c.countryIso}`} key={c.countryIso}>{c.name}</Link>)
       }
     </div>
   </div>

@@ -21,92 +21,74 @@
   padding: 16px;
   border-bottom: 1px solid @ui-border;
   background-color: @ui-bg;
-}
 
-.country__flag {
-  background-repeat: no-repeat;
-  background-size: cover;
-  width: 32px;
-  height: 32px;
-  box-shadow: 0 0 0 1px rgba(0,0,0,.1) inset;
-  border-radius: 100%;
-}
+  &:hover {
+    cursor: pointer;
+    background-color: #eee;
+    transition: all .15s ease-in-out;
+  }
 
-.country__info {
-  flex-grow: 1;
-  margin: 0 8px;
-}
+  .country__flag {
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 32px;
+    height: 32px;
+    box-shadow: 0 0 0 1px rgba(0,0,0,.1) inset;
+    border-radius: 100%;
+  }
 
-.country__name {
-  color: @text-body;
-  display: block;
-  font-weight: 700;
-  line-height: 20px;
-}
+  .country__info {
+    flex-grow: 1;
+    margin: 0 8px;
+  }
 
-.country__nc {
-  color: @text-mute;
-  display: block;
-  font-size: @font-xs;
-  line-height: 20px;
-}
+  .country__name {
+    color: @text-body;
+    display: block;
+    font-weight: 700;
+    line-height: 20px;
+  }
 
-.country__change {
-  position: relative;
-  cursor: pointer;
+  .country__nc {
+    color: @text-mute;
+    display: block;
+    font-size: @font-xs;
+    line-height: 20px;
+  }
 }
 
 .country__list {
+  position: absolute;
+  top: 68px;
+  left: 16px;
+  width: 224px;
+  background: white;
+  border-radius: 2px;
+  border: 1px solid @ui-border;
+  box-shadow: 0 0 8px rgba(0,0,0,.2);
+
   &.hidden {
     display: none;
   }
 
-  width: 150px;
-  overflow-x: hidden;
-  font-size: 13px;
-
-  .country__list-main-element {
-    max-width: 150px;
-    left: -80px;
-  }
-
   .country__list-content {
-    position: absolute;
-    top: 22px;
-    z-index: 10;
-    max-height: 200px;
-    background: white;
-
+    max-height: 560px;
     overflow-y: scroll;
     overflow-x: hidden;
-    padding: 2px;
+    z-index: 10;
+    padding: 4px 0;
+  }
 
-    a {
-      display: block;
-      text-decoration: none;
-      color: @text-body;
-      margin-bottom: 2px;
+  .country__list-item {
+    display: block;
+    color: @text-body;
+    text-decoration: none;
+    padding: 6px 12px;
 
-      &:hover {
-        background-color: @ui-accent-light;
-      }
+    &:hover,
+    &.selected {
+      background: #eee;
     }
-  }
-
-  .country__list-header {
-    position: absolute;
-    top: 0px;
-    width: 100%;
-    border-bottom: 1px solid #cccccc;
-    padding: 1px;
-    margin-bottom: 2px;
-    background: @ui-accent;
-
-  }
-  .country__list-close {
-    float: right;
-    padding-right: 3px;
-    color: white;
   }
 }
 
