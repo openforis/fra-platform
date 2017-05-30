@@ -178,7 +178,6 @@ const ExtentOfForestRow = ({
 class OriginalDataPointView extends React.Component {
   componentWillMount () {
     const odpId = this.props.match.params.odpId
-    console.log('match', this.props.match)
     if (odpId) {
       this.props.fetch(odpId)
     } else {
