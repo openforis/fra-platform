@@ -33,6 +33,16 @@ button:hover {
   padding: 5px 10px;
 }
 
+.btn-primary {
+  background-color: @ui-accent;
+  color: white;
+
+  &:hover {
+    background-color: darken(@ui-accent, 4%);
+    color: white;
+  }
+}
+
 .btn-secondary {
   background-color: @ui-bg;
   border-color: @ui-border;
@@ -40,15 +50,7 @@ button:hover {
 
   &:hover {
     background-color: darken(@ui-bg, 4%);
-  }
-}
-
-.btn-primary {
-  background: @ui-accent;
-  color: white;
-
-  &:hover {
-    background-color: darken(@ui-accent, 4%);
+    color: @text-mute;
   }
 }
 
