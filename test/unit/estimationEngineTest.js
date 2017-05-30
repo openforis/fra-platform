@@ -87,7 +87,7 @@ const expectedEstimations1 = [
 
 describe('estimationEngine', () => {
   it('Interpolates and extrapolates as expected', () => {
-    const estimated = estimationEngine.estimateFraValues('ITA',
+    const estimated = estimationEngine.estimateFraValues(
       fraYears,
       testOdpSet1)
     assert(R.equals(expectedEstimations1, estimated), 'Estimated values were not as expected')
