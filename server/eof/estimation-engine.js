@@ -67,6 +67,8 @@ const estimateFraValues = (countryIso, years, odpValues) => {
   return R.filter(estimatedValues => estimatedValues.store, allEstimatedValues)
 }
 
+module.exports.estimateFraValues = estimateFraValues
+
 module.exports.estimateAndPersistFraValues = (countryIso, years) => {
   return odpRepository
     .readOriginalDataPoints(countryIso)
