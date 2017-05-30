@@ -83,11 +83,11 @@ const Nav = ({path, country, countries, follow, getCountryList}) => {
   return <div className={`main__navigation ${hideNav(path) ? 'hidden' : ''}`}>
     <CountryItem name={country} countries={countries} listCountries={getCountryList} role="National Correspondent"/>
     <PrimaryItem label="Original Data" />
-    <PrimaryItem label="Annually reported" link="send to review"/>
+    <PrimaryItem label="Annually reported" link="Send to review"/>
     {
       annualItems.map(v => <SecondaryItem path={path} key={v.label} goTo={follow} countryIso={country} {...v} />)
     }
-    <PrimaryItem label="Five-year Cycle" link="send to review"/>
+    <PrimaryItem label="Five-year Cycle" link="Send to review"/>
     {
       fiveYearItems.map(v => <SecondaryItem key={v.label} {...v} />)
     }
