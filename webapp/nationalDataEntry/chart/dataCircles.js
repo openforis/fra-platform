@@ -39,7 +39,19 @@ const renderOdpLines = ({xScale, yScale}) => (d, index) => {
     </foreignObject>
     <line {...lineProps} strokeWidth="1" stroke="rgba(0, 0, 0, 0.3)"></line>
   </g>
+}
 
+const renderLabel = ({data, label, xScale, yScale}) => {
+  const d1 = data[0]
+  const d2 = data[data.length - 1]
+  const textProps = {
+    x: xScale(d1.year),
+    y: yScale(d1.value),
+    x1: xScale(d2.year),
+    y1: yScale(d2.value)
+  }
+  textProps.transform = `translate(40, -30) rotate(${Math.atan2(textProps.y1 - textProps.y, textProps.x1 - textProps.x) * 180 / Math.PI})`
+  return <text {...textProps} style={{fill: '#555555', fontSize: '12px', fontFamily: 'HelveticaNeue'}}>{label}</text>
 }
 
 const DataCircles = (props) => {
@@ -62,6 +74,7 @@ const DataCircles = (props) => {
     }}></path>
     { odps.map(renderOdpLines(props)) }
     { props.data.map(renderPoints(props)) }
+    { renderLabel({...props, data: R.filter(v => v.type !== 'placeholder', props.data)}) }
   </g>
 
 }

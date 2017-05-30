@@ -23,8 +23,8 @@ class Chart extends Component {
       { this.props.data ? <svg width={styles.width} height={styles.height}>
         <YAxis {...this.props} {...styles} />
         <XAxis {...this.props} {...styles} />
-        <DataCircles {...this.props} data={this.props.data.forestArea} {...styles} />
-        <DataCircles {...this.props} data={this.props.data.otherWoodedLand} {...styles} />
+        <DataCircles {...this.props} data={this.props.data.forestArea} {...styles} label="Forest Area"/>
+        <DataCircles {...this.props} data={this.props.data.otherWoodedLand} {...styles} label="Other Wooded Land"/>
         <NoDataPlaceholder {...this.props} {...styles} />
       </svg>
         : null }
