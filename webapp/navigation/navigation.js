@@ -26,7 +26,7 @@ class CountryItem extends React.Component {
       content: `url('/img/flags/${(I18n.alpha3ToAlpha2(name) || '').toLowerCase()}.svg'`
     }
     return <div className="country__item">
-      <div className="country__flag" style={style}></div>
+      <div className="country__flag" style={style}/>
       <div className="country__info">
         <span className="country__name">{I18n.getName(name, 'en')}</span>
         <span className="country__nc">{role}</span>
@@ -62,18 +62,18 @@ const PrimaryItem = ({label, link}) =>
     <Link className="primary__link" to="/">{link}</Link>
   </div>
 
-const SecondaryItem = ({path, countryIso, order, pathTemplate = "#/tbd", label, status, goTo}) => {
+const SecondaryItem = ({path, countryIso, order, pathTemplate = '#/tbd', label, status}) => {
   const route = new Route(pathTemplate)
   const linkTo = route.reverse({countryIso})
 
-  return <div className={`secondary__item ${R.equals(path, linkTo) ? 'selected' : ''}`}
-              onClick={e => goTo(linkTo)}>
+  return <Link className={`secondary__item ${R.equals(path, linkTo) ? 'selected' : ''}`}
+               to={ '/'+linkTo }>
     <span className="order">{order}</span>
     <div>
       <span className="label">{label}</span>
       <span className="status">{status}</span>
     </div>
-  </div>
+  </Link>
 }
 
 const hideNav = path => !path || R.equals("/", path) || R.equals("#/", path)
@@ -82,7 +82,7 @@ const hideNav = path => !path || R.equals("/", path) || R.equals("#/", path)
 const Nav = ({path, country, countries, follow, getCountryList}) => {
   return <div className={`main__navigation ${hideNav(path) ? 'hidden' : ''}`}>
     <CountryItem name={country} countries={countries} listCountries={getCountryList} role="National Correspondent"/>
-    <PrimaryItem label="Original Data" />
+    <PrimaryItem label="Original Data"/>
     <PrimaryItem label="Annually reported" link="send to review"/>
     {
       annualItems.map(v => <SecondaryItem path={path} key={v.label} goTo={follow} countryIso={country} {...v} />)

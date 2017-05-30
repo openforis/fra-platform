@@ -3,6 +3,8 @@ import * as R from 'ramda'
 
 import { connect } from 'react-redux'
 
-const link = ({to, ...props}) => <a href={`#${to}`} {...props} />
+const removeRedundantPrefixIfExists = (link) => link.replace(/#\//gi, '')
+
+const link = ({to, ...props}) => <a href={`#${removeRedundantPrefixIfExists(to)}`} {...props} />
 
 export const Link = connect(R.empty, {})(link)
