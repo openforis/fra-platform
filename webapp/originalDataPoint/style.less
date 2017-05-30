@@ -116,5 +116,12 @@
 
 .odp__bottom-buttons {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.odp__delete-link {
+  color: red;
+  cursor: pointer;
+  &:hover { color: darken(red, 10%); }
 }
