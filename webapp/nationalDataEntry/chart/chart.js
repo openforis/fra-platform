@@ -20,10 +20,10 @@ class Chart extends Component {
   render () {
     return <div ref="chartContainer">
       { this.props.data ? <svg width={styles.width} height={styles.height}>
-        <NoDataPlaceholder {...this.props} {...styles} />
         <DataCircles {...this.props} {...styles} />
         <XAxis {...this.props} {...styles} />
         <YAxis {...this.props} {...styles} />
+        <NoDataPlaceholder {...this.props} {...styles} />
       </svg>
         : null }
     </div>
