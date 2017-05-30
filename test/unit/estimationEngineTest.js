@@ -1,5 +1,5 @@
 const assert = require('chai').assert
-const estimationEngine = require('../../server/eof/estimation-engine')
+const estimationEngine = require('../../server/eof/estimationEngine')
 const R = require('ramda')
 
 const fraYears = [

@@ -6,7 +6,7 @@ const Promise = require('bluebird')
 const fs = Promise.promisifyAll(require('fs'))
 const {sendErr} = require('../requestUtils')
 const R = require('ramda')
-const estimationEngine = require('./estimation-engine')
+const estimationEngine = require('./estimationEngine')
 
 const forestAreaTableResponse = require('./forestAreaTableResponse')
 
