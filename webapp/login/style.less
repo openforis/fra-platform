@@ -10,25 +10,38 @@
   height: 100%;
 }
 
-.login__box {
+.login__wrapper {
+  margin: 0 auto;
+  max-width: 480px;
+  position: relative;
+  top: 40%;
+  transform: translateY(-40%);
+}
+
+.fao-logo {
+  display: block;
+  width: auto;
+  height: 60px;
+  margin: 0 auto;
+}
+
+.tucan {
   position: absolute;
-  top:0;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  right: -34px;
+  top: 24.5px;
+}
 
-  margin: auto;
+.login__box {
+  margin-top: 24px;
   padding: 32px;
-
-  width: 480px;
-  height: 394px;
   border-radius: 2px;
-  background-color: #ffffff;
+  background-color: white;
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
-  border: solid 1px #cccccc;
+  border: solid 1px @ui-border;
 
   .input {
     margin-bottom: 17px;
+
     label {
       display: block;
       font-size: @font-m;
