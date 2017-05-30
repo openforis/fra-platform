@@ -64,7 +64,9 @@ const estimateFraValues = (countryIso, years, odpValues) => {
       },
       odpValues,
       years)
-  return R.filter(estimatedValues => estimatedValues.store, allEstimatedValues)
+  return R.pipe(
+    R.filter(estimatedValues => estimatedValues.store),
+    R.map(estimatedValues => R.pick([...fraFields, 'year'], estimatedValues)))(allEstimatedValues)
 }
 
 module.exports.estimateFraValues = estimateFraValues
