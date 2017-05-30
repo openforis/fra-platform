@@ -55,14 +55,14 @@ const DataCircles = (props) => {
           style={{
             fill: 'none',
             stroke: 'rgba(73,144,226,.35)',
-            strokeWidth: 3,
+            strokeWidth: 2,
             shapeRendering: 'geometricPrecision',
             strokeDasharray: '6,2'
           }}></path>
     <path d={renderTrend({...props, data: odps})} style={{
       fill: 'none',
       stroke: '#a1a1a8',
-      strokeWidth: 1.5,
+      strokeWidth: 2,
       shapeRendering: 'geometricPrecision'
     }}></path>
     { odps.map(renderOdpLines(props)) }
