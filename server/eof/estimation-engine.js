@@ -8,7 +8,7 @@ const linearExtrapolation = (x, xa, ya, xb, yb) => ya + (x - xa) / (xb - xa) * (
 
 const linearExtrapolationBackwards = (x, xa, ya, xb, yb) => yb + (xb - x) / (xb - xa) * (ya - yb)
 
-const fraFields = ['forestArea', 'otherWoodenLand', 'otherLand']
+const fraFields = ['forestArea', 'otherWoodedLand', 'otherLand']
 
 const estimate = (year, pointA, pointB, estFunction) => {
   const estimateField = (field) => {

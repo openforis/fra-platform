@@ -27,7 +27,7 @@ const DataTable = ({fra, save, countryIso}) =>
       }
     </div>
     { fraValueRow('Forest', countryIso, 'forestArea', fra, save) }
-    { fraValueRow('Other wooden land', countryIso, 'otherWoodenLand', fra, save) }
+    { fraValueRow('Other wooded land', countryIso, 'otherWoodedLand', fra, save) }
     { fraValueRow('Other land', countryIso, 'otherLand', fra, save) }
   </div>
 

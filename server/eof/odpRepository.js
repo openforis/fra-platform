@@ -65,7 +65,7 @@ const addClassData = (client, odpVersionId, odp) => {
         definition, 
         area,
         forest_percent,
-        other_wooden_land_percent,
+        other_wooded_land_percent,
         other_land_percent
         ) 
        VALUES 
@@ -76,7 +76,7 @@ const addClassData = (client, odpVersionId, odp) => {
         nationalClass.definition,
         nationalClass.area,
         nationalClass.forestPercent,
-        nationalClass.otherWoodenLandPercent,
+        nationalClass.otherWoodedLandPercent,
         nationalClass.otherLandPercent
       ]),
     odp.nationalClasses)
@@ -121,7 +121,7 @@ module.exports.getOdp = odpId =>
                      definition,
                      area,
                      forest_percent,
-                     other_wooden_land_percent,
+                     other_wooded_land_percent,
                      other_land_percent
               FROM odp_class 
               WHERE odp_version_id = $1`,
@@ -131,7 +131,7 @@ module.exports.getOdp = odpId =>
       definition: row.definition,
       area: row.area,
       forestPercent: row.forest_percent,
-      otherWoodenLandPercent: row.other_wooden_land_percent,
+      otherWoodedLandPercent: row.other_wooded_land_percent,
       otherLandPercent: row.other_land_percent
     }), result.rows)]
   ).then(([versionId, nationalClasses]) =>
@@ -152,7 +152,7 @@ const odpReducer = (results, row, type = 'fra') => R.assoc(`odp_${row.year}`,
   {
     odpId: row.odp_id,
     forestArea: Number(row.forest_area),
-    otherWoodenLand: Number(row.other_wooden_land_area),
+    otherWoodedLand: Number(row.other_wooded_land_area),
     otherLand: Number(row.other_land_area),
     name: row.year + '',
     type: 'odp',
@@ -168,7 +168,7 @@ module.exports.readOriginalDataPoints = countryIso =>
         p.id as odp_id,
         v.year,
         SUM(c.area * (c.forest_percent/100.0)) AS forest_area,
-        SUM(c.area * (c.other_wooden_land_percent/100.0)) AS other_wooden_land_area,
+        SUM(c.area * (c.other_wooded_land_percent/100.0)) AS other_wooded_land_area,
         SUM(c.area * (c.other_land_percent/100.0)) AS other_land_area,
         CASE WHEN p.draft_id IS NULL
           THEN FALSE
