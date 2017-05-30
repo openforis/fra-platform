@@ -56,13 +56,15 @@ const estimateFraValue = (countryIso, year, values) => {
 
 // Pure function, no side-effects
 const estimateFraValues = (countryIso, years, odpValues) => {
-  return R.reduce(
-    (values, year) => {
-      const newValue = estimateFraValue(countryIso, year, values)
-      return newValue ? [...values, newValue] : values
-    },
-    odpValues,
-    years)
+  const allEstimatedValues =
+    R.reduce(
+      (values, year) => {
+        const newValue = estimateFraValue(countryIso, year, values)
+        return newValue ? [...values, newValue] : values
+      },
+      odpValues,
+      years)
+  return R.filter(estimatedValues => estimatedValues.store, allEstimatedValues)
 }
 
 module.exports.estimateAndPersistFraValues = (countryIso, years) => {
@@ -70,9 +72,9 @@ module.exports.estimateAndPersistFraValues = (countryIso, years) => {
     .readOriginalDataPoints(countryIso)
     .then(values => {
       const estimated = estimateFraValues(countryIso, years, R.values(values))
-      const toStore = R.filter(estimatedValues => estimatedValues.store, estimated)
-      return Promise.all(R.map(estimatedValues =>
-          eofRepository.persistFraValues(countryIso, estimatedValues.year, estimatedValues, true),
-        toStore))
+      return Promise.all(
+        R.map(
+          estimatedValues => eofRepository.persistFraValues(countryIso, estimatedValues.year, estimatedValues, true),
+          estimated))
     })
 }
