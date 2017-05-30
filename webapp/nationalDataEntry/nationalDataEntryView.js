@@ -80,7 +80,7 @@ const NationalDataEntry = (props) => {
       <div>
         {/*placeholder for chart heading*/}
       </div>
-      <Link className="btn-primary" to={`/country/${props.countryIso}/odp`}>+ Add original data point</Link>
+      <Link className="btn btn-primary" to={`/country/${props.countryIso}/odp`}>+ Add original data point</Link>
     </div>
     <div className="nde__data-chart">
       <Chart />
@@ -89,7 +89,7 @@ const NationalDataEntry = (props) => {
       <div>
         {/*placeholder for chart heading*/}
       </div>
-      <button disabled={disableGenerateFRAValues()} className="btn-primary"
+      <button disabled={disableGenerateFRAValues()} className="btn btn-primary"
               onClick={() => props.generateFraValues(props.countryIso)}>Generate FRA values
       </button>
     </div>
