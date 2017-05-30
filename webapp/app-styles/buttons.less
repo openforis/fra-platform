@@ -6,27 +6,59 @@ button:hover {
 
 .btn {
   border-radius: 2px;
-  background-color: #f5f5f5;
-  border: solid 1px @ui-border;
-  font-size: @font-xs;
+  border: solid 1px transparent;
+  cursor: pointer;
+  display: inline-block;
   font-family: @font-family-1;
-  font-weight: bold;
+  font-size: @font-m;
+  font-weight: 700;
+  line-height: 20px;
+  padding: 8px 16px;
   text-align: center;
-  color: #666666;
-  padding: 7px 15px 7px 15px;
+  text-decoration: none;
+  transition: all .15s ease-in-out;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.btn.disabled,
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: .4;
+  pointer-events: none;
+}
+
+.btn-s {
+  font-size: @font-s;
+  padding: 5px 10px;
+}
+
+.btn-secondary {
+  background-color: @ui-bg;
+  border-color: @ui-border;
+  color: @text-mute;
+
+  &:hover {
+    background-color: darken(@ui-bg, 4%);
+  }
 }
 
 .btn-primary {
   background: @ui-accent;
-  border: none;
   color: white;
-  border-radius: 3px;
-  font-size: @font-xs;
-  font-weight: bold;
-  text-decoration: none;
-  padding: 7px 15px 7px 15px;
+
+  &:hover {
+    background-color: darken(@ui-accent, 4%);
+  }
 }
 
-.btn-primary:disabled {
-  opacity: .4;
+.btn-destructive {
+  background: transparent;
+  color: @ui-destructive;
+  font-weight: 400;
+
+  &:hover {
+    color: darken(@ui-destructive, 4%);
+    text-decoration: underline;
+  }
 }
