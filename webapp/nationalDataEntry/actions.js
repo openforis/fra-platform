@@ -33,7 +33,7 @@ const start = ({name, value}) => ({type: valueChangeStart, name, value})
 const sanitize = (newValue, currentValue) => {
   if (newValue === '') return null
   if (isNaN(newValue)) return currentValue
-  return Number(newValue)
+  return Number(newValue) + '' //convert back to string so that the UI value is able to show zero as well
 }
 
 export const save = (countryIso, name, newValue, fraValue, field) => dispatch => {
