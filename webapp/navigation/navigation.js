@@ -58,6 +58,16 @@ const PrimaryItem = ({label, link}) =>
     <Link className="navi__primary-link" to="/">{link}</Link>
   </div>
 
+const LinkItem = ({path, countryIso, pathTemplate = '/tbd', label}) => {
+  const route = new Route(pathTemplate)
+  const linkTo = route.reverse({countryIso})
+
+  return <Link className={`navi__link-item ${R.equals(path, linkTo) ? 'selected' : ''}`}
+               to={ linkTo }>
+      <span className="navi__link-label">{label}</span>
+  </Link>
+}
+
 const SecondaryItem = ({path, countryIso, order, pathTemplate = '/tbd', label, status}) => {
   const route = new Route(pathTemplate)
   const linkTo = route.reverse({countryIso})
@@ -78,7 +88,7 @@ const hideNav = path => !path || R.equals("/", path) || R.equals("#/", path)
 const Nav = ({path, country, countries, follow, getCountryList}) => {
   return <div className={`main__navigation ${hideNav(path) ? 'hidden' : ''}`}>
     <CountryItem name={country} countries={countries} listCountries={getCountryList} role="National Correspondent"/>
-    <PrimaryItem label="National Data" />
+    <LinkItem label="National Data" countryIso={country} path={path} pathTemplate="/country/:countryIso/odp" />
     <PrimaryItem label="Annually reported" link="Send to review"/>
     {
       annualItems.map(v => <SecondaryItem path={path} key={v.label} goTo={follow} countryIso={country} {...v} />)
