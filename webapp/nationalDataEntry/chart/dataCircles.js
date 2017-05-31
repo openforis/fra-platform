@@ -34,7 +34,7 @@ const renderOdpLines = ({xScale, yScale}) => (d, index) => {
   }
 
   return <g key={index}>
-    <foreignObject width="200" y={lineProps.y2 - 25} x={lineProps.x2 - 100} style={{textAlign: 'center'}}>
+    <foreignObject width="200" y={lineProps.y2 - 22} x={lineProps.x2 - 100} style={{textAlign: 'center'}}>
       <text dy={lineProps.y2} dx={lineProps.x2} style={{fill: '#333333', fontSize: '12px'}}>{d.value}</text>
     </foreignObject>
     <line {...lineProps} strokeWidth="1" stroke="rgba(0, 0, 0, 0.3)"></line>
@@ -43,18 +43,11 @@ const renderOdpLines = ({xScale, yScale}) => (d, index) => {
 
 const renderLabel = ({data, label, xScale, yScale}) => {
   if (data.length >= 2) {
-
-    const d1 = data[0]
-    const d2 = data[data.length - 1]
     const textProps = {
-      x: 0,
-      // x: xScale(d1.year),
-      y: yScale(d1.value),
-      x1: xScale(d2.year),
-      y1: yScale(d2.value)
+      x: xScale(data[0].year) + 50,
+      y: yScale(d3.max(data, d => d.value)) - 20
     }
-    // textProps.transform = `translate(0, -5) rotate(${Math.atan2(textProps.y1 - textProps.y, textProps.x1 - textProps.x) * 180 / Math.PI})`
-    textProps.transform = `translate(50, -5)`
+
     return <text {...textProps} style={{fill: '#555555', fontSize: '12px', fontFamily: 'HelveticaNeue'}}>{label}</text>
   }
 }
@@ -63,6 +56,7 @@ const DataCircles = (props) => {
   const odps = R.filter(v => v.type === 'odp', props.data)
 
   return <g>
+    { renderLabel({...props, data: R.filter(v => v.type !== 'placeholder', props.data)}) }
     <path d={renderTrend(props)}
           style={{
             fill: 'none',
@@ -79,7 +73,6 @@ const DataCircles = (props) => {
     }}></path>
     { odps.map(renderOdpLines(props)) }
     { props.data.map(renderPoints(props)) }
-    {/*{ renderLabel({...props, data: R.filter(v => v.type !== 'placeholder', props.data)}) }*/}
   </g>
 
 }
