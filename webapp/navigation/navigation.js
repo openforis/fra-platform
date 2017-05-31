@@ -67,7 +67,7 @@ const SecondaryItem = ({path, countryIso, order, pathTemplate = '#/tbd', label, 
   const linkTo = route.reverse({countryIso})
 
   return <Link className={`secondary__item ${R.equals(path, linkTo) ? 'selected' : ''}`}
-               to={ '/'+linkTo }>
+               to={ linkTo }>
     <span className="order">{order}</span>
     <div>
       <span className="label">{label}</span>
