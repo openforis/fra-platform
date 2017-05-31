@@ -41,6 +41,17 @@ const saveDraftCompleted = odpId => ({type: dataPointSaveDraftCompleted, odpId})
 export const clearActiveAction = 'originalDataPoint/clearActive'
 export const clearActive = () => ({type: clearActiveAction})
 
+// Delete
+
+export const deleteOdp = (countryIso) => {
+  axios.delete(`/api/country/originalDataPoint/${odpId}`)
+    .then(() => {
+      dispatch({type: "TODO TODO TODO "})
+      window.location = `#/country/${countryIso}`
+    }).catch(err => dispatch(applicationError(err))
+  )
+}
+
 // Marking drafts
 
 export const markAsActual = (countryIso, odpId) => dispatch =>

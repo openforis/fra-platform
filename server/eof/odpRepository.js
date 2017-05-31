@@ -103,6 +103,8 @@ module.exports.markAsActual = (client, odpId) => {
   })
 }
 
+module.exports.deleteOdp = odpId => null //TODO
+
 module.exports.getOdp = odpId =>
   db.query(`
     SELECT
