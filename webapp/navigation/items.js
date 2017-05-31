@@ -2,13 +2,13 @@ export const annualItems = [
   {
     order: 1,
     label: "Extent of forest",
-    pathTemplate: "#/country/:countryIso",
+    pathTemplate: "/country/:countryIso",
     status: "not started"
   },
   {
     order: 2,
     label: "Growing stock",
-    pathTemplate: "#/todo",
+    pathTemplate: "/todo",
     status: "not started"
   },
   {

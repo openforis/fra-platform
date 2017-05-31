@@ -13,10 +13,10 @@ import OriginalDataPointView from './originalDataPoint/originalDataPointView'
 
 const routes = {
   '/': LoginView,
-  '#/': LoginView,
-  '#/country/:countryIso': NationalDataEntryView,
-  '#/country/:countryIso/odp': OriginalDataPointView,
-  '#/country/:countryIso/odp/:odpId': OriginalDataPointView
+  '/': LoginView,
+  '/country/:countryIso': NationalDataEntryView,
+  '/country/:countryIso/odp': OriginalDataPointView,
+  '/country/:countryIso/odp/:odpId': OriginalDataPointView
 }
 
 const routeConfig = R.pipe(
