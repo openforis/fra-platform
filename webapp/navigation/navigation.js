@@ -62,12 +62,11 @@ const PrimaryItem = ({label, link}) =>
     <Link className="primary__link" to="/">{link}</Link>
   </div>
 
-const SecondaryItem = ({path, countryIso, order, pathTemplate = '#/tbd', label, status}) => {
+const SecondaryItem = ({path, countryIso, order, pathTemplate = '/tbd', label, status}) => {
   const route = new Route(pathTemplate)
   const linkTo = route.reverse({countryIso})
 
-  const pathWithoutHash = path ? path.replace(/#/gi, '') : null
-  return <Link className={`secondary__item ${R.equals(pathWithoutHash, linkTo) ? 'selected' : ''}`}
+  return <Link className={`secondary__item ${R.equals(path, linkTo) ? 'selected' : ''}`}
                to={ linkTo }>
     <span className="order">{order}</span>
     <div>
