@@ -75,4 +75,4 @@ Video: https://fraplatform.slack.com/files/mlindholm/F5MQSQ0JJ/export-icon-set.m
 * Settings: https://fraplatform.slack.com/files/mlindholm/F5LUBPDPD/export-icon-set-settings.png
 * Download & Unzip
 * Move `icon.svg, demo.svg` to `/img`
-* Run `cleanup-icons.sh`
+* Run `update-icons.sh`
