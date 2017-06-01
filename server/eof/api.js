@@ -41,6 +41,12 @@ module.exports.init = app => {
       .catch(err => sendErr(res, err))
   })
 
+  app.delete('/api/country/originalDataPoint/:odpId', (req, res) => {
+    db.transaction(odpRepository.deleteOdp, [req.params.odpId])
+      .then(() => res.json({}))
+      .catch(err => sendErr(res, err))
+  })
+
   app.post('/api/country/originalDataPoint/draft/:countryIso', (req, res) => {
     const countryIso = req.params.countryIso
     db.transaction(odpRepository.saveDraft, [countryIso, req.body])

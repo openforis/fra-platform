@@ -3,14 +3,14 @@ import './style.less'
 import React from 'react'
 import { connect } from 'react-redux'
 import * as originalDataPoint from './originalDataPoint'
-import { saveDraft, markAsActual, fetch, clearActive } from './actions'
+import { saveDraft, markAsActual, remove, fetch, clearActive } from './actions'
 import R from 'ramda'
 
 const years = ['', ...R.range(1990, 2020)]
 
-const DataInput = ({match, saveDraft, markAsActual, active, autoSaving}) => {
+const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving}) => {
   const countryIso = match.params.countryIso
-
+  const saveControlsDisabled = () => !active.odpId || autoSaving
   return <div className="odp__data-input-component">
     <div className="odp_data-input-row">
       <div><h3 className="subhead">Year</h3></div>
@@ -58,20 +58,30 @@ const DataInput = ({match, saveDraft, markAsActual, active, autoSaving}) => {
           <td className="odp__national-class-total-heading">Total</td>
           <td className="odp__national-class-total-cell odp__extent-of-forest-divide-after-cell"></td>
           <td className="odp__national-class-total-cell">{ originalDataPoint.totalForest(active, 'forestPercent') }</td>
-          <td className="odp__national-class-total-cell">{ originalDataPoint.totalForest(active, 'otherWoodedLandPercent') }</td>
-          <td className="odp__national-class-total-cell">{ originalDataPoint.totalForest(active, 'otherLandPercent') }</td>
+          <td
+            className="odp__national-class-total-cell">{ originalDataPoint.totalForest(active, 'otherWoodedLandPercent') }</td>
+          <td
+            className="odp__national-class-total-cell">{ originalDataPoint.totalForest(active, 'otherLandPercent') }</td>
         </tr>
         </tbody>
       </table>
     </div>
     <div className="odp__bottom-buttons">
-      <a className="btn btn-secondary odp__cancel-button"
-         href={`/\#/country/${countryIso}`}>
-        Cancel
-      </a>
-      <button disabled={!active.odpId || autoSaving} className="btn btn-primary"
-              onClick={() => markAsActual(countryIso, active.odpId) }>Save & Close
-      </button>
+      <span className={ saveControlsDisabled() ? 'btn btn-destructive disabled' : 'btn btn-destructive' }
+            onClick={ () => saveControlsDisabled() ? null : remove(countryIso, active.odpId) }>
+         Delete
+      </span>
+      <div>
+        <a className="btn btn-secondary odp__cancel-button"
+           href={`/\#/country/${countryIso}`}>
+          Cancel
+        </a>
+        <button disabled={ saveControlsDisabled() }
+                className="btn btn-primary"
+                onClick={() => markAsActual(countryIso, active.odpId) }>
+          Save & Close
+        </button>
+      </div>
     </div>
   </div>
 }
@@ -200,4 +210,4 @@ const mapStateToProps = state => {
   return {...odp, active, autoSaving}
 }
 
-export default connect(mapStateToProps, {saveDraft, markAsActual, fetch, clearActive})(OriginalDataPointView)
+export default connect(mapStateToProps, {saveDraft, markAsActual, remove, fetch, clearActive})(OriginalDataPointView)
