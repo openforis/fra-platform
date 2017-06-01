@@ -67,7 +67,7 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving})
       </table>
     </div>
     <div className="odp__bottom-buttons">
-      <span className={ saveControlsDisabled() ? 'odp__delete-link--disabled' : 'odp__delete-link' }
+      <span className={ saveControlsDisabled() ? 'btn btn-destructive disabled' : 'btn btn-destructive' }
             onClick={ () => saveControlsDisabled() ? null : remove(countryIso, active.odpId) }>
          Delete
       </span>
