@@ -10,7 +10,7 @@ const years = ['', ...R.range(1990, 2020)]
 
 const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving}) => {
   const countryIso = match.params.countryIso
-
+  const saveControlsDisabled = () => !active.odpId || autoSaving
   return <div className="odp__data-input-component">
     <div className="odp_data-input-row">
       <div><h3 className="subhead">Year</h3></div>
@@ -58,15 +58,17 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving})
           <td className="odp__national-class-total-heading">Total</td>
           <td className="odp__national-class-total-cell odp__extent-of-forest-divide-after-cell"></td>
           <td className="odp__national-class-total-cell">{ originalDataPoint.totalForest(active, 'forestPercent') }</td>
-          <td className="odp__national-class-total-cell">{ originalDataPoint.totalForest(active, 'otherWoodedLandPercent') }</td>
-          <td className="odp__national-class-total-cell">{ originalDataPoint.totalForest(active, 'otherLandPercent') }</td>
+          <td
+            className="odp__national-class-total-cell">{ originalDataPoint.totalForest(active, 'otherWoodedLandPercent') }</td>
+          <td
+            className="odp__national-class-total-cell">{ originalDataPoint.totalForest(active, 'otherLandPercent') }</td>
         </tr>
         </tbody>
       </table>
     </div>
     <div className="odp__bottom-buttons">
-      <span className="odp__delete-link"
-         onClick={ () => remove(countryIso, active.odpId) }>
+      <span className={ saveControlsDisabled() ? 'odp__delete-link--disabled' : 'odp__delete-link' }
+            onClick={ () => saveControlsDisabled() ? null : remove(countryIso, active.odpId) }>
          Delete
       </span>
       <div>
@@ -74,8 +76,10 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving})
            href={`/\#/country/${countryIso}`}>
           Cancel
         </a>
-        <button disabled={!active.odpId || autoSaving} className="btn btn-primary"
-                onClick={() => markAsActual(countryIso, active.odpId) }>Save & Close
+        <button disabled={ saveControlsDisabled() }
+                className="btn btn-primary"
+                onClick={() => markAsActual(countryIso, active.odpId) }>
+          Save & Close
         </button>
       </div>
     </div>
