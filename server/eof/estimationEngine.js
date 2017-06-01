@@ -13,7 +13,7 @@ const fraFields = ['forestArea', 'otherWoodedLand', 'otherLand']
 const estimate = (year, pointA, pointB, estFunction) => {
   const estimateField = (field) => {
     let estimated = estFunction(year, pointA.year, pointA[field], pointB.year, pointB[field])
-    return estimated < 0 ? 0 : Number(estimated.toFixed(3))
+    return estimated < 0 ? 0 : Math.round(Number(estimated))
   }
   const newFraValues = R.reduce(
     (newFraObj, field) => R.assoc([field], estimateField(field), newFraObj),
