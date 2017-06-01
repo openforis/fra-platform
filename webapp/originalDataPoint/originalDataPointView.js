@@ -4,6 +4,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import * as originalDataPoint from './originalDataPoint'
 import { saveDraft, markAsActual, remove, fetch, clearActive } from './actions'
+import { toIntegerFallbackToPrevious } from '../utils/numberInput'
 import R from 'ramda'
 
 const years = ['', ...R.range(1990, 2020)]
@@ -147,13 +148,9 @@ const ExtentOfForestRow = ({
                              otherWoodedLandPercent,
                              otherLandPercent
                            }) => {
-  const numberOrCurrent = (newValue, currentValue) => {
-    if (newValue === '') return null
-    if (isNaN(newValue)) return currentValue
-    return newValue
-  }
+
   const numberUpdated = (fieldName, currentValue) => evt =>
-    saveDraft(countryIso, originalDataPoint.updateNationalClass(odp, index, fieldName, numberOrCurrent(evt.target.value, currentValue)))
+    saveDraft(countryIso, originalDataPoint.updateNationalClass(odp, index, fieldName, toIntegerFallbackToPrevious(evt.target.value, currentValue)))
 
   return <tr>
     <td className="odp__extent-of-forest-class-name"><span>{className}</span></td>

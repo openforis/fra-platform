@@ -1,5 +1,5 @@
 import axios from 'axios'
-import * as R from 'ramda'
+import { toIntegerFallbackToPrevious } from '../utils/numberInput'
 import { applicationError } from '../applicationError/actions'
 import * as autosave from '../autosave/actions'
 
@@ -30,14 +30,8 @@ const change = ({countryIso, name, value}) => {
 
 const start = ({name, value}) => ({type: valueChangeStart, name, value})
 
-const sanitize = (newValue, currentValue) => {
-  if (newValue === '') return null
-  if (isNaN(newValue)) return currentValue
-  return Number(newValue)
-}
-
 export const save = (countryIso, name, newValue, fraValue, field) => dispatch => {
-  const sanitizedValue = sanitize(newValue, fraValue[field])
+  const sanitizedValue = toIntegerFallbackToPrevious(newValue, fraValue[field])
   const newFraValue = {...fraValue, [field]: sanitizedValue}
   dispatch(start({name, value: newFraValue}))
   dispatch(autosave.start)
