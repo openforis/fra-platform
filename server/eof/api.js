@@ -13,11 +13,10 @@ const forestAreaTableResponse = require('./forestAreaTableResponse')
 
 module.exports.init = app => {
 
-  app.get('/api/country/issue/', (req, res) => {
-    // db.transaction(issueRepository.getEofIssues(req.params.countryIso))
-    //   .then(result => res.json(result))
-    //   .catch(err => sendErr(res, err))
-    res.send("ok")
+  app.get('/api/country/issue/:countryIso', (req, res) => {
+    db.transaction(issueRepository.getEofIssues, [req.params.countryIso])
+      .then(result => res.json(result))
+      .catch(err => sendErr(res, err))
   })
   app.post('/api/country/issue/:countryIso', (req, res) => {
     db.transaction(issueRepository.createEofIssue, [req.params.countryIso, 1, req.body.msg])

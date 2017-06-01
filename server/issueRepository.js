@@ -3,8 +3,12 @@ const camelize = require('camelize')
 
 module.exports.getEofIssues = (client, countryIso) => {
   return client.query(`
-    SELECT * FROM eof_issue i WHERE i.countryIso = $1 JOIN fra_comment c ON c.issue_id = i.id ORDER BY c.id ASC;
-  `)
+    SELECT i.id as issue_id, c.id as comment_id, c.user_id as user_id, c.message as message, c.status_changed as status_changed FROM eof_issue i
+    JOIN fra_comment c ON (c.issue_id = i.id) WHERE i.country_iso = $1;
+  `, [countryIso]).then(res => {
+      return camelize(res.rows)
+    }
+  )
 }
 
 module.exports.createEofIssue = (client, countryIso, userId, msg) => {
