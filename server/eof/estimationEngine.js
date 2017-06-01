@@ -13,7 +13,7 @@ const fraFields = ['forestArea', 'otherWoodedLand', 'otherLand']
 const estimate = (year, pointA, pointB, estFunction) => {
   const estimateField = (field) => {
     let estimated = estFunction(year, pointA.year, pointA[field], pointB.year, pointB[field])
-    return estimated < 0 ? 0 : Math.round(Number(estimated))
+    return estimated < 0 ? 0 : Number(estimated)
   }
   const newFraValues = R.reduce(
     (newFraObj, field) => R.assoc([field], estimateField(field), newFraObj),
@@ -56,6 +56,13 @@ const estimateFraValue = (year, values) => {
 
 // Pure function, no side-effects
 const estimateFraValues = (years, odpValues) => {
+  const pickFieldsAndRoundEstimates = (estimatedValues) =>
+      R.pipe(
+        R.pick([...fraFields, 'year']),
+        R.toPairs,
+        R.map(([name, value]) => R.contains(name, fraFields) ? [name, Math.round(value)] : [name, value]),
+        R.fromPairs)(estimatedValues)
+
   const allEstimatedValues =
     R.reduce(
       (values, year) => {
@@ -66,7 +73,7 @@ const estimateFraValues = (years, odpValues) => {
       years)
   return R.pipe(
     R.filter(estimatedValues => estimatedValues.store),
-    R.map(estimatedValues => R.pick([...fraFields, 'year'], estimatedValues)))(allEstimatedValues)
+    R.map(pickFieldsAndRoundEstimates))(allEstimatedValues)
 }
 
 module.exports.estimateFraValues = estimateFraValues
