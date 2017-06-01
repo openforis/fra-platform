@@ -8,7 +8,7 @@ import DataCircles from './dataCircles'
 import XAxis from './xAxis'
 import YAxis from './yAxis'
 
-import { getXScale, getYScale, styles, addPlaceholders } from './chartData'
+import { getChartData, getXScale, getYScale, styles } from './chartData'
 
 class Chart extends Component {
 
@@ -18,11 +18,13 @@ class Chart extends Component {
   }
 
   render () {
+
     return <div ref="chartContainer">
       { this.props.data ? <svg width={styles.width} height={styles.height}>
-        <DataCircles {...this.props} {...styles} />
-        <XAxis {...this.props} {...styles} />
         <YAxis {...this.props} {...styles} />
+        <XAxis {...this.props} {...styles} />
+        <DataCircles {...this.props} data={this.props.data.forestArea} {...styles} label="Forest Area"/>
+        <DataCircles {...this.props} data={this.props.data.otherWoodedLand} {...styles} label="Other Wooded Land"/>
         <NoDataPlaceholder {...this.props} {...styles} />
       </svg>
         : null }
@@ -33,14 +35,13 @@ class Chart extends Component {
 const mapStateToProps = state => {
   const nde = state['nationalDataEntry']
   if (nde && nde.fra) {
-    const data = R.pipe(
-      R.values,
-      R.filter(v => typeof v.forestArea === 'number'),
-      R.map((v) => { return {year: v.year, forestArea: v.forestArea, type: v.type, estimated: v.estimated} }),
-      addPlaceholders
-    )(nde.fra)
 
-    const xScale = getXScale(data)
+    const data = {
+      forestArea: getChartData(nde.fra, 'forestArea'),
+      otherWoodedLand: getChartData(nde.fra, 'otherWoodedLand')
+    }
+
+    const xScale = getXScale()
     const yScale = getYScale(data)
 
     return {data, xScale, yScale}

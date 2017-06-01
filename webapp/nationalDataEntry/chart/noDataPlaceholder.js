@@ -1,11 +1,18 @@
 import React from 'react'
 
+const Text = ({text, width, y}) =>
+  <foreignObject width={width} y={y} style={{textAlign: 'center'}}>
+    <text style={{fontSize: '14px', color: '#666666'}} x="0" y="0">{text}</text>
+  </foreignObject>
+
 const NoDataPlaceholder = ({data, width, padding}) =>
-  data.length <= 0 ? <g className="noDataPlaceholder">
+  data.forestArea.length <= 0 && data.otherWoodedLand.length <= 0
+    ? <g className="noDataPlaceholder">
     <image href="/img/tucan.svg"
            width="62" height="87"
-           x={(width / 2) + padding - 40} y="15.5"/>
-    <text x="100" y="154" width="360" fontSize="14" fill="#999">To get started, add new national data points and use them to generate FRA values automatically.</text>
+           x={(width / 2) + padding - 40} y="16.5"></image>
+    <Text text="To get started, add new national data points and use" width={width} y="130"/>
+    <Text text="them to generate FRA values automatically." width={width} y="150"/>
   </g>
     : null
 
