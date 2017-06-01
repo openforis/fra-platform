@@ -42,8 +42,8 @@ module.exports.init = app => {
   })
 
   app.delete('/api/country/originalDataPoint/:odpId', (req, res) => {
-    odpRepository.deleteOdp(req.params.odpId)
-      .then(resp => res.json({}))
+    db.transaction(odpRepository.deleteOdp, [req.params.odpId])
+      .then(() => res.json({}))
       .catch(err => sendErr(res, err))
   })
 

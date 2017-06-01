@@ -103,7 +103,26 @@ module.exports.markAsActual = (client, odpId) => {
   })
 }
 
-module.exports.deleteOdp = odpId => console.log("delete odp", odpId) || Promise.resolve(null)
+module.exports.deleteOdp = (client, odpId) => {
+  return client.query(
+    'SELECT actual_id, draft_id FROM odp WHERE id = $1'
+    , [odpId]
+  ).then(selectResult =>
+    client.query('DELETE FROM odp WHERE id = $1', [odpId])
+      .then(() => [selectResult.rows[0].draft_id, selectResult.rows[0].actual_id])
+  ).then(([draftId, actualId]) => {
+    return Promise.all([
+      draftId
+        ? wipeClassData(client, draftId)
+        .then(() => client.query('DELETE FROM odp_version WHERE id = $1', [draftId]))
+        : Promise.resolve(),
+      actualId
+        ? wipeClassData(client, actualId)
+        .then(() => client.query('DELETE FROM odp_version WHERE id = $1', [actualId]))
+        : Promise.resolve()
+    ])
+  })
+}
 
 module.exports.getOdp = odpId =>
   db.query(`
