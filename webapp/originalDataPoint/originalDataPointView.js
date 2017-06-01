@@ -66,7 +66,7 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving})
     </div>
     <div className="odp__bottom-buttons">
       <span className="odp__delete-link"
-         onClick={ () => console.log("onclick") || remove(countryIso, active.odpId) }>
+         onClick={ () => remove(countryIso, active.odpId) }>
          Delete
       </span>
       <div>
