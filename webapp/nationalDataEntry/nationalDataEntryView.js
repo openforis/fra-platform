@@ -54,6 +54,7 @@ const fraFieldValueForInput = (fieldValue) =>
 
 const fraValueCell = (fraValue, fra, countryIso, save, field) =>
   <input
+    className="nde__input-table-input"
     value={ fraFieldValueForInput(fraValue[field]) }
     onChange={ e => {
       save(countryIso, fraValue.name, e.target.value, fraValue, field)
