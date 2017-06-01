@@ -3,12 +3,12 @@ import './style.less'
 import React from 'react'
 import { connect } from 'react-redux'
 import * as originalDataPoint from './originalDataPoint'
-import { saveDraft, markAsActual, fetch, clearActive } from './actions'
+import { saveDraft, markAsActual, remove, fetch, clearActive } from './actions'
 import R from 'ramda'
 
 const years = ['', ...R.range(1990, 2020)]
 
-const DataInput = ({match, saveDraft, markAsActual, active, autoSaving}) => {
+const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving}) => {
   const countryIso = match.params.countryIso
 
   return <div className="odp__data-input-component">
@@ -66,7 +66,7 @@ const DataInput = ({match, saveDraft, markAsActual, active, autoSaving}) => {
     </div>
     <div className="odp__bottom-buttons">
       <span className="odp__delete-link"
-         onClick={ () => console.log("click") }>
+         onClick={ () => console.log("onclick") || remove(countryIso, active.odpId) }>
          Delete
       </span>
       <div>
@@ -206,4 +206,4 @@ const mapStateToProps = state => {
   return {...odp, active, autoSaving}
 }
 
-export default connect(mapStateToProps, {saveDraft, markAsActual, fetch, clearActive})(OriginalDataPointView)
+export default connect(mapStateToProps, {saveDraft, markAsActual, remove, fetch, clearActive})(OriginalDataPointView)

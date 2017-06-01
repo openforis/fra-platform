@@ -43,10 +43,10 @@ export const clearActive = () => ({type: clearActiveAction})
 
 // Delete
 
-export const deleteOdp = (countryIso) => {
+export const remove = (countryIso, odpId) => dispatch => {
   axios.delete(`/api/country/originalDataPoint/${odpId}`)
     .then(() => {
-      dispatch({type: "TODO TODO TODO "})
+      dispatch({type: clearActiveAction})
       window.location = `#/country/${countryIso}`
     }).catch(err => dispatch(applicationError(err))
   )

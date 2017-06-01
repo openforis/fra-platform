@@ -103,7 +103,7 @@ module.exports.markAsActual = (client, odpId) => {
   })
 }
 
-module.exports.deleteOdp = odpId => null //TODO
+module.exports.deleteOdp = odpId => console.log("delete odp", odpId) || Promise.resolve(null)
 
 module.exports.getOdp = odpId =>
   db.query(`
