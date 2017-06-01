@@ -54,3 +54,21 @@ add the corresponding `drop table` to `<timestamp>-kuikka-down.sql` if we ever w
 * all numeric values for areas are stored in hectares, and converted for UI for user unnits
 * Data points are stored in precision of year
 
+# Icons
+
+https://nucleoapp.com
+
+## Add icon to set
+Video: https://fraplatform.slack.com/files/mlindholm/F5M13AE7L/add-icon-to-set.mov
+Select the icon you like, making sure it's from the 16px set
+Add to Projects
+Select FRA Platform
+
+## Export icon set
+Video: https://fraplatform.slack.com/files/mlindholm/F5MQSQ0JJ/export-icon-set.mov
+Go to Projects > FRA Platform
+Select all & Download
+Settings: https://fraplatform.slack.com/files/mlindholm/F5LUBPDPD/export-icon-set-settings.png
+Download & Unzip
+Move `icon.svg, demo.svg` to `/img`
+Run `cleanup-icons.sh`
