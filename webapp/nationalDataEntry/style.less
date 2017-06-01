@@ -2,6 +2,8 @@
 
 .nde__input-table {
   border-collapse: collapse;
+  border-top: @ui-thin-border;
+  border-left: @ui-thin-border;
   font-size: inherit;
 
   .nde__input-table-heading {
@@ -14,7 +16,8 @@
 
   .nde__input-header-cell {
     background: #F5F5F5;
-    border: 1px solid #CCCCCC;
+    border-right: @ui-thin-border;
+    border-bottom: @ui-thin-border;
     padding: 10px;
     width: 100px;
     min-width: 50px;
@@ -23,7 +26,8 @@
 
   .nde__input-table-content-row-header-cell {
     background: #F5F5F5;
-    border: 1px solid #CCCCCC;
+    border-right: @ui-thin-border;
+    border-bottom: @ui-thin-border;
     padding: 10px;
     width: 150px;
     font-weight: bold;
@@ -35,7 +39,8 @@
   }
 
   .nde__input-table-content-cell {
-    border: 1px solid #CCCCCC;
+    border-right: @ui-thin-border;
+    border-bottom: @ui-thin-border;
     padding: 0;
     width: 100px;
     min-width: 50px;
@@ -63,27 +68,28 @@
 }
 
 .nde__data-input-component {
-  position: relative;
-  display: flex;
-  flex-direction: column;
+  margin: 24px;
 }
 
 .nde__data-input-header {
   display: flex;
   justify-content: space-between;
+  max-width: calc(~"100vw - 319px");
 }
 
 .nde__data-table-header {
   display: flex;
   justify-content: space-between;
+  max-width: calc(~"100vw - 319px");
   padding: 10px 0;
 }
 .nde__data-table-container {
   display: flex;
   justify-content: flex-start;
   overflow-x: auto;
-  margin: 15px 0 0 15px;
-  max-width: 1165px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  max-width: calc(~"100vw - 319px");
 }
 
 .nde__data-chart {
