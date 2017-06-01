@@ -65,4 +65,5 @@ result &&
 result.hasOwnProperty('length') &&
 typeof result.length === 'number' &&
 result.length === 2 &&
+result[0] &&
 result[0].__error
