@@ -58,7 +58,7 @@ add the corresponding `drop table` to `<timestamp>-kuikka-down.sql` if we ever w
 
 https://nucleoapp.com
 
-## Add icon to set
+### Add icon to set
 
 Video: https://fraplatform.slack.com/files/mlindholm/F5M13AE7L/add-icon-to-set.mov
 
@@ -66,7 +66,7 @@ Video: https://fraplatform.slack.com/files/mlindholm/F5M13AE7L/add-icon-to-set.m
 * Add to Projects
 * Select `FRA Platform`
 
-## Export icon set
+### Export icon set
 
 Video: https://fraplatform.slack.com/files/mlindholm/F5MQSQ0JJ/export-icon-set.mov
 
