@@ -6,7 +6,7 @@ import * as originalDataPoint from './originalDataPoint'
 import { saveDraft, markAsActual, fetch, clearActive } from './actions'
 import R from 'ramda'
 
-const years = ['', ...R.range(1990, 2020)]
+const years = ['', ...R.range(1990, 2021)]
 
 const DataInput = ({match, saveDraft, markAsActual, active, autoSaving}) => {
   const countryIso = match.params.countryIso
@@ -88,6 +88,18 @@ const nationalClassRows = (countryIso, odp, saveDraft) => {
     {...nationalClass}/>, odp.nationalClasses)
 }
 
+const updatePastedValues = (evt, odp, index, saveDraft, countryIso, property) => {
+  evt.stopPropagation()
+  evt.preventDefault()
+
+  const el = document.createElement('html')
+  el.innerHTML = evt.clipboardData.getData('text/html')
+  const tds = el.getElementsByTagName('td')
+
+  mapIndexed((td, i) => odp = originalDataPoint.updateNationalClass(odp, i + index, property, R.trim(td.innerText)), tds)
+  saveDraft(countryIso, odp)
+}
+
 const NationalClassRow = ({odp, index, saveDraft, countryIso, className, definition, placeHolder}) =>
   <tr>
     <td className="odp__national-class-row-class-name">
@@ -104,7 +116,9 @@ const NationalClassRow = ({odp, index, saveDraft, countryIso, className, definit
              placeholder={ !placeHolder ? 'Enter or copy and paste national classes' : ''}
              value={className || ''}
              onChange={(evt) =>
-               saveDraft(countryIso, originalDataPoint.updateNationalClass(odp, index, 'className', evt.target.value))}/>
+               saveDraft(countryIso, originalDataPoint.updateNationalClass(odp, index, 'className', evt.target.value))}
+             onPaste={evt => updatePastedValues(evt, odp, index, saveDraft, countryIso, 'className')}
+      />
     </td>
     <td>
       <input type="text"
@@ -149,7 +163,8 @@ const ExtentOfForestRow = ({
     <td className="odp__extent-of-forest-class-name"><span>{className}</span></td>
     <td className="odp__extent-of-forest-area-cell odp__extent-of-forest-divide-after-cell">
       <input type="text" value={area || ''}
-             onChange={ numberUpdated('area', area) }/>
+             onChange={ numberUpdated('area', area) }
+             onPaste={evt => updatePastedValues(evt, odp, index, saveDraft, countryIso, 'area')}/>
     </td>
     <td className="odp__extent-of-forest-percent-cell">
       <input
