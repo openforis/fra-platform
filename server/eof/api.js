@@ -1,5 +1,6 @@
 const fraRepository = require('./fraRepository')
 const odpRepository = require('./odpRepository')
+const issueRepository = require('./../issueRepository')
 const db = require('../db/db')
 const os = require('os')
 const Promise = require('bluebird')
@@ -11,6 +12,18 @@ const estimationEngine = require('./estimationEngine')
 const forestAreaTableResponse = require('./forestAreaTableResponse')
 
 module.exports.init = app => {
+
+  app.get('/api/country/issue/', (req, res) => {
+    // db.transaction(issueRepository.getEofIssues(req.params.countryIso))
+    //   .then(result => res.json(result))
+    //   .catch(err => sendErr(res, err))
+    res.send("ok")
+  })
+  app.post('/api/country/issue/:countryIso', (req, res) => {
+    db.transaction(issueRepository.createEofIssue, [req.params.countryIso, 1, req.body.msg])
+      .then(result => res.json(result))
+      .catch(err => sendErr(res, err))
+  })
 
   app.post('/api/country/:countryIso/:year', (req, res) => {
     fraRepository.persistFraValues(req.params.countryIso, req.params.year, req.body)
@@ -71,5 +84,8 @@ module.exports.init = app => {
       .then(() => res.json({}))
       .catch(err => sendErr(res, err))
   })
+
+
+
 
 }
