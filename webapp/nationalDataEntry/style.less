@@ -78,7 +78,7 @@
 
 .nde__data-input-header {
   text-align: right;
-  padding-bottom: 16px;
+  padding-bottom: 24px;
 }
 
 .nde__data-chart {
@@ -87,8 +87,17 @@
 }
 
 .nde__data-table-header {
-  text-align: right;
+  display: flex;
+  align-items: center;
   padding-bottom: 16px;
+
+  .subhead {
+    flex-grow: 1;
+  }
+
+  > *:nth-child(n + 2) {
+    margin-left: 16px;
+  }
 }
 
 .nde__data-table-container {
