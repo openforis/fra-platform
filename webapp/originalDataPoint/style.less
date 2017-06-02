@@ -46,16 +46,21 @@
   }
 }
 
-.odp__extent-of-forest-table {
+.odp__eof-table {
   input {
     padding: 10px 3px 10px 10px;
   }
-  th {
-    text-align: right;
-  }
 }
 
-.odp__extent-of-forest-table.odp__input-table {
+.odp__eof-header-left {
+  text-align: left;
+}
+
+.odp__eof-header-right {
+  text-align: right;
+}
+
+.odp__eof-table.odp__input-table {
   margin-bottom: 40px;
 }
 
@@ -63,9 +68,23 @@
   width: 30%;
 }
 
-.odp__extent-of-forest-class-name {
+.odp__eof-class-name {
   background: #F5F5F5;
   padding: 10px;
+}
+
+.odp__eof-area-cell {
+  > input { text-align: right; }
+}
+
+.odp__eof-percent-cell {
+  white-space: nowrap;
+  > input { text-align: right; }
+}
+
+.odp__eof-table th.odp__eof-divide-after-cell,
+.odp__eof-table td.odp__eof-divide-after-cell {
+  border-right: 3px solid #CCCCCC;
 }
 
 .odp__national-class-row-class-name {
@@ -89,20 +108,6 @@
 
 .odp__input-table input.odp__national-class-row-class-name-input {
   padding-left: 20px;
-}
-
-.odp__extent-of-forest-area-cell {
-  > input { text-align: right; }
-}
-
-.odp__extent-of-forest-percent-cell {
-  white-space: nowrap;
-  > input { text-align: right; }
-}
-
-.odp__extent-of-forest-table th.odp__extent-of-forest-divide-after-cell,
-.odp__extent-of-forest-table td.odp__extent-of-forest-divide-after-cell {
-  border-right: 3px solid #CCCCCC;
 }
 
 .odp__national-class-total-heading {

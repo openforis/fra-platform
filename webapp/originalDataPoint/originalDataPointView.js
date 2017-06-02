@@ -41,14 +41,18 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving})
     </div>
     <div>
       <h3 className="subhead odp__section">Extent of forest</h3>
-      <table className="odp__input-table odp__extent-of-forest-table">
+      <table className="odp__input-table odp__eof-table">
         <thead>
         <tr>
-          <th>National class</th>
-          <th className="odp__extent-of-forest-divide-after-cell">Value</th>
-          <th>Forest</th>
-          <th>Other wooded land</th>
-          <th>Other land</th>
+          <th className="odp__eof-header-left odp__eof-divide-after-cell" colSpan="2">National classes</th>
+          <th className="odp__eof-header-left" colSpan="3">FRA classes</th>
+        </tr>
+        <tr>
+          <th className="odp__eof-header-left">Class</th>
+          <th className="odp__eof-divide-after-cell odp__eof-header-right">Area</th>
+          <th className="odp__eof-header-right" >Forest</th>
+          <th className="odp__eof-header-right" >Other wooded land</th>
+          <th className="odp__eof-header-right" >Other land</th>
         </tr>
         </thead>
         <tbody>
@@ -57,7 +61,7 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving})
         }
         <tr>
           <td className="odp__national-class-total-heading">Total</td>
-          <td className="odp__national-class-total-cell odp__extent-of-forest-divide-after-cell"></td>
+          <td className="odp__national-class-total-cell odp__eof-divide-after-cell"></td>
           <td className="odp__national-class-total-cell">{ originalDataPoint.totalForest(active, 'forestPercent') }</td>
           <td
             className="odp__national-class-total-cell">{ originalDataPoint.totalForest(active, 'otherWoodedLandPercent') }</td>
@@ -167,27 +171,27 @@ const ExtentOfForestRow = ({
     saveDraft(countryIso, originalDataPoint.updateNationalClass(odp, index, fieldName, toIntegerFallbackToPrevious(evt.target.value, currentValue)))
 
   return <tr>
-    <td className="odp__extent-of-forest-class-name"><span>{className}</span></td>
-    <td className="odp__extent-of-forest-area-cell odp__extent-of-forest-divide-after-cell">
+    <td className="odp__eof-class-name"><span>{className}</span></td>
+    <td className="odp__eof-area-cell odp__eof-divide-after-cell">
       <input type="text" value={area || ''}
              onChange={ numberUpdated('area', area) }
              onPaste={evt => updatePastedValues(evt, odp, index, saveDraft, countryIso, 'area')}/>
     </td>
-    <td className="odp__extent-of-forest-percent-cell">
+    <td className="odp__eof-percent-cell">
       <input
         type="text"
         value={forestPercent || ''}
         onChange={ numberUpdated('forestPercent', forestPercent) }/>
       % &nbsp;
     </td>
-    <td className="odp__extent-of-forest-percent-cell">
+    <td className="odp__eof-percent-cell">
       <input
         type="text"
         value={otherWoodedLandPercent || ''}
         onChange={ numberUpdated('otherWoodedLandPercent', otherWoodedLandPercent) }/>
       % &nbsp;
     </td>
-    <td className="odp__extent-of-forest-percent-cell">
+    <td className="odp__eof-percent-cell">
       <input
         type="text"
         value={otherLandPercent || ''}
