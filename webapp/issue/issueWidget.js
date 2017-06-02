@@ -25,6 +25,15 @@ class IssueWidget extends React.Component {
 
   render () {
     console.log('comments', this.props.comments)
+
+    const Comments = ({comments}) => {
+      return <div>
+        {
+          comments.map(c => <div>{c.message}</div>)
+        }
+      </div>
+    }
+
     const AddComment = () =>
       <div className={`nde__issue ${this.state.showAddComment ? '' : 'nde__issue-hidden'}`}>
         <i className="nde__issue-close" onClick={() => this.setState({showAddComment: false})}>
@@ -43,6 +52,12 @@ class IssueWidget extends React.Component {
         <div className="great-clear"></div>
       </div>
 
+    const CommentThread = ({comments}) =>
+      <div>
+        <Comments comments={comments}/>
+        <AddComment/>
+      </div>
+
     const CommentStatus = ({count}) => {
       console.log('length', count)
       return <div onClick={() => this.setState({showAddComment: true})}>
@@ -56,7 +71,7 @@ class IssueWidget extends React.Component {
     const count = this.props.comments ? this.props.comments.length : 0
 
     return <div className="nde__add-issue">{
-      this.state.showAddComment ? <AddComment/> : <CommentStatus count={count}/>
+      this.state.showAddComment ? <CommentThread comments={this.props.comments || []}/> : <CommentStatus count={count}/>
     }</div>
   }
 }
