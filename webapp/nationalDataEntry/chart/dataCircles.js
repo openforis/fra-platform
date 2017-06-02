@@ -35,7 +35,7 @@ const renderOdpLines = ({xScale, yScale}) => (d, index) => {
 
   return <g key={index}>
     <foreignObject width="200" y={lineProps.y2 - 22} x={lineProps.x2 - 100} style={{textAlign: 'center'}}>
-      <text dy={lineProps.y2} dx={lineProps.x2} style={{fill: '#333333', fontSize: '12px'}}>{d.value}</text>
+      <text dy={lineProps.y2} dx={lineProps.x2} style={{fill: '#333333', fontSize: '12px', fontWeight: '500', backgroundColor: '#ffffff'}}>{d.value}</text>
     </foreignObject>
     <line {...lineProps} strokeWidth="1" stroke="rgba(0, 0, 0, 0.3)"></line>
   </g>
@@ -48,7 +48,7 @@ const renderLabel = ({data, label, xScale, yScale}) => {
       y: yScale(d3.max(data, d => d.value)) - 20
     }
 
-    return <text {...textProps} style={{fill: '#555555', fontSize: '12px', fontFamily: 'HelveticaNeue'}}>{label}</text>
+    return <text {...textProps} style={{fill: '#666666', fontSize: '12px', fontFamily: 'HelveticaNeue'}}>{label}</text>
   }
 }
 
@@ -60,14 +60,14 @@ const DataCircles = (props) => {
     <path d={renderTrend(props)}
           style={{
             fill: 'none',
-            stroke: 'rgba(73,144,226,.35)',
+            stroke: 'rgba(0,0,0,.2',
             strokeWidth: 2,
             shapeRendering: 'geometricPrecision',
-            strokeDasharray: '6,2'
+            strokeDasharray: '5,4'
           }}></path>
     <path d={renderTrend({...props, data: odps})} style={{
       fill: 'none',
-      stroke: '#a1a1a8',
+      stroke: 'rgba(24,154,167,.5)',
       strokeWidth: 2,
       shapeRendering: 'geometricPrecision'
     }}></path>
