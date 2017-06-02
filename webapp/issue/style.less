@@ -1,0 +1,36 @@
+@import "../app-styles/config";
+
+.nde__issue {
+  background: white;
+  border: 1px solid #CCCCCC;
+  padding: 6px;
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.2);
+
+  .nde__issue-comment-input {
+    border: none;
+    margin: 8px 4px 0px;
+    width: 100%;
+    min-height: 70px;
+    margin-bottom: 4px;
+    font-size: @font-s;
+    font-family: @font-family-1;
+    &:focus {
+      outline: none;
+    }
+  }
+  button {
+    float: right;
+  }
+
+  width: 262px;
+  position: absolute;
+
+  .nde__issue-close {
+    float: right;
+    cursor: pointer;
+  }
+}
+
+.nde__issue-hidden {
+  display: none;
+}
