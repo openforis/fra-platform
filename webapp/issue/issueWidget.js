@@ -20,8 +20,12 @@ class IssueWidget extends React.Component {
   }
 
   componentWillReceiveProps (next) {
-    if(next.countryIso != this.props.countryIso)
+    if (next.countryIso != this.props.countryIso)
       this.props.retrieveComments(next.countryIso)
+    if (next.status == 'completed') {
+      this.setState({showAddComment: false})
+      this.props.retrieveComments(next.countryIso)
+    }
   }
 
   render () {
@@ -43,10 +47,12 @@ class IssueWidget extends React.Component {
           </svg>
         </i>
         <div className="nde__issue-author">Örjan Jonsson</div>
-        <div contentEditable={true} className="nde__issue-comment-input"
+        <div contentEditable={true} ref={input => this.commentInput}
+             id="nde__comment-input"
+             className="nde__issue-comment-input"
              placeholder="Write comment message"></div>
         <button className="btn btn-icon btn-s"
-                onClick={() => this.props.postComment(this.props.countryIso, '1', null, 'data')}>
+                onClick={() => this.props.postComment(this.props.countryIso, '1', null, document.getElementById("nde__comment-input").innerHTML)}>
           <svg className="icon-24 icon-accent">
             <use xlinkHref="img/icon.svg#icon-circle-add"/>
           </svg>
