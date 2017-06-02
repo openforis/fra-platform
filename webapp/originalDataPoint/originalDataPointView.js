@@ -4,7 +4,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import * as originalDataPoint from './originalDataPoint'
 import { saveDraft, markAsActual, remove, fetch, clearActive } from './actions'
-import { toIntegerFallbackToPrevious } from '../utils/numberInput'
+import { acceptNextInteger } from '../utils/numberInput'
 import R from 'ramda'
 
 const years = ['', ...R.range(1990, 2021)]
@@ -179,7 +179,7 @@ const ExtentOfForestRow = ({
                            }) => {
 
   const numberUpdated = (fieldName, currentValue) => evt =>
-    saveDraft(countryIso, originalDataPoint.updateNationalClass(odp, index, fieldName, toIntegerFallbackToPrevious(evt.target.value, currentValue)))
+    saveDraft(countryIso, originalDataPoint.updateNationalClass(odp, index, fieldName, acceptNextInteger(evt.target.value, currentValue)))
 
   return <tr>
     <td className="odp__eof-class-name"><span>{className}</span></td>

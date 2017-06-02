@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { toIntegerFallbackToPrevious } from '../utils/numberInput'
+import { acceptNextInteger } from '../utils/numberInput'
 import { applicationError } from '../applicationError/actions'
 import * as autosave from '../autosave/actions'
 
@@ -31,7 +31,7 @@ const change = ({countryIso, name, value}) => {
 const start = ({name, value}) => ({type: valueChangeStart, name, value})
 
 export const save = (countryIso, name, newValue, fraValue, field) => dispatch => {
-  const sanitizedValue = toIntegerFallbackToPrevious(newValue, fraValue[field])
+  const sanitizedValue = acceptNextInteger(newValue, fraValue[field])
   const newFraValue = {...fraValue, [field]: sanitizedValue}
   dispatch(start({name, value: newFraValue}))
   dispatch(autosave.start)
