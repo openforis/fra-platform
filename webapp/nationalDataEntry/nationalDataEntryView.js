@@ -80,7 +80,10 @@ const NationalDataEntry = (props) => {
       <h2 className="headline">Extent of forest</h2>
     </div>
     <div className="nde__data-input-header">
-      <Link className="btn btn-primary" to={`/country/${props.countryIso}/odp`}>+ Add national data point</Link>
+      <Link className="btn btn-primary" to={`/country/${props.countryIso}/odp`}>
+        <svg className="icon icon-middle icon-white"><use xlinkHref="img/icon.svg#icon-small-add"/></svg>
+        Add national data point
+      </Link>
     </div>
     <div className="nde__data-chart">
       <Chart />
