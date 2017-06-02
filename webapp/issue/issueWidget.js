@@ -15,16 +15,12 @@ class IssueWidget extends React.Component {
     this.props.retrieveComments(this.props.countryIso)
   }
 
-  componentDidUpdate () {
-    // this.props.retrieveComments(this.props.countryIso)
-  }
-
   componentWillReceiveProps (next) {
     if (next.countryIso != this.props.countryIso)
       this.props.retrieveComments(next.countryIso)
     if (next.status == 'completed') {
       this.setState({showAddComment: false})
-      this.props.retrieveComments(next.countryIso)
+      window.setTimeout(() => this.props.retrieveComments(next.countryIso), 200) // TODO: fix this
     }
   }
 
@@ -47,7 +43,7 @@ class IssueWidget extends React.Component {
           </svg>
         </i>
         <div className="nde__issue-author">Örjan Jonsson</div>
-        <div contentEditable={true} ref={input => this.commentInput}
+        <div contentEditable={true}
              id="nde__comment-input"
              className="nde__issue-comment-input"
              placeholder="Write comment message"></div>
@@ -87,7 +83,6 @@ class IssueWidget extends React.Component {
 }
 
 const mapStateToProps = state => {
-  console.log('state->props', state)
   return state.issue
 }
 
