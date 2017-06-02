@@ -1,4 +1,3 @@
-const R = require('ramda')
 const camelize = require('camelize')
 
 module.exports.getEofIssues = (client, countryIso) => {
