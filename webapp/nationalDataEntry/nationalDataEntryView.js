@@ -76,23 +76,20 @@ const NationalDataEntry = (props) => {
   }
 
   return <div className="nde__data-input-component">
-    <h2 className="headline">Forest area</h2>
+    <div className="nde__data-page-header">
+      <h2 className="headline">Extent of forest</h2>
+    </div>
     <div className="nde__data-input-header">
-      <div>
-        {/*placeholder for chart heading*/}
-      </div>
       <Link className="btn btn-primary" to={`/country/${props.countryIso}/odp`}>+ Add national data point</Link>
     </div>
     <div className="nde__data-chart">
       <Chart />
     </div>
     <div className="nde__data-table-header">
-      <div>
-        {/*placeholder for chart heading*/}
-      </div>
-      <button disabled={disableGenerateFRAValues()} className="btn btn-primary"
-              onClick={() => props.generateFraValues(props.countryIso)}>Generate FRA values
-      </button>
+        <h3 className="subhead">Extent of forest values</h3>
+        <button disabled={disableGenerateFRAValues()} className="btn btn-primary"
+                onClick={() => props.generateFraValues(props.countryIso)}>Generate FRA values
+        </button>
     </div>
     <div className="nde__data-table-container">
       <DataTable {...props} />
