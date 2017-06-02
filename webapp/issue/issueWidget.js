@@ -19,8 +19,9 @@ class IssueWidget extends React.Component {
     // this.props.retrieveComments(this.props.countryIso)
   }
 
-  componentWillReceiveProps () {
-    console.log('hello, new props on the way')
+  componentWillReceiveProps (next) {
+    if(next.countryIso != this.props.countryIso)
+      this.props.retrieveComments(next.countryIso)
   }
 
   render () {
@@ -42,7 +43,8 @@ class IssueWidget extends React.Component {
           </svg>
         </i>
         <div className="nde__issue-author">Örjan Jonsson</div>
-        <div contentEditable={true} className="nde__issue-comment-input" placeholder="Write comment message"></div>
+        <div contentEditable={true} className="nde__issue-comment-input"
+             placeholder="Write comment message"></div>
         <button className="btn btn-icon btn-s"
                 onClick={() => this.props.postComment(this.props.countryIso, '1', null, 'data')}>
           <svg className="icon-24 icon-accent">
@@ -62,16 +64,18 @@ class IssueWidget extends React.Component {
       console.log('length', count)
       return <div onClick={() => this.setState({showAddComment: true})}>
         {
-          count > 0 ? <div className="nde__issue-status-count">{count}</div> : <svg className="icon-24">
-            <use xlinkHref="img/icon.svg#icon-circle-add"/>
-          </svg>
+          count > 0 ? <div className="nde__issue-status-count">{count}</div> :
+            <svg className="icon-24">
+              <use xlinkHref="img/icon.svg#icon-circle-add"/>
+            </svg>
         }
       </div>
     }
     const count = this.props.comments ? this.props.comments.length : 0
 
     return <div className="nde__add-issue">{
-      this.state.showAddComment ? <CommentThread comments={this.props.comments || []}/> : <CommentStatus count={count}/>
+      this.state.showAddComment ? <CommentThread comments={this.props.comments || []}/> :
+        <CommentStatus count={count}/>
     }</div>
   }
 }
