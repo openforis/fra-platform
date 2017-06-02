@@ -23,9 +23,10 @@
   background-color: @ui-bg;
 
   &:hover {
+    background-color: darken(@ui-bg, 4%);
+    color: inherit;
     cursor: pointer;
-    background-color: #eee;
-    transition: all .15s ease-in-out;
+    transition: @ease-in-out;
   }
 }
 
@@ -89,7 +90,8 @@
 
   &:hover,
   &.selected {
-    background: #eee;
+    background-color: darken(@ui-bg, 4%);
+    color: inherit;
   }
 }
 
@@ -98,11 +100,17 @@
   width: 100%;
   padding: 12px 24px;
   text-decoration: none;
-  font-family: @font-family-1;
   color: @text-body;
+
+  &:hover {
+    background-color: darken(@ui-bg, 4%);
+    color: inherit;
+    transition: @ease-in-out;
+  }
 
   &.selected {
     background-color: @ui-accent-light;
+    color: inherit;
   }
 }
 .navi__link-label {
@@ -134,14 +142,16 @@
   flex-flow: row nowrap;
   text-decoration: none;
   color: @text-body;
-  font-family: @font-family-1;
 
   &:hover {
-    cursor: pointer;
+    background-color: darken(@ui-bg, 4%);
+    color: inherit;
+    transition: @ease-in-out;
   }
 
   &.selected {
     background-color: @ui-accent-light;
+    color: inherit;
   }
 }
 
