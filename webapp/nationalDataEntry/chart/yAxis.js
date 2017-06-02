@@ -11,7 +11,7 @@ class YAxis extends Component {
   }
 
   renderAxis () {
-    var axis = d3.axisLeft(this.props.yScale).ticks(5).tickSizeInner(-(this.props.width - this.props.padding * 3)).tickSizeOuter(0)
+    var axis = d3.axisLeft(this.props.yScale).ticks(5).tickSizeInner(-this.props.width).tickSizeOuter(0)
     const node = this.refs.axis
     d3.select(node).call(axis)
       .selectAll('path').style('stroke', '#cccccc')
@@ -20,7 +20,7 @@ class YAxis extends Component {
   }
 
   render () {
-    return <g className="axis" ref="axis" transform={`translate(${this.props.padding}, 0)`}></g>
+    return <g className="axis" ref="axis" transform={`translate(0, 0)`}></g>
   }
 }
 
