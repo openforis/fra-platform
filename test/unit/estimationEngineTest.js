@@ -1,6 +1,7 @@
 const assert = require('chai').assert
 const estimationEngine = require('../../server/eof/estimationEngine')
 const R = require('ramda')
+const jsonDiff = require('jsondiffpatch')
 
 const fraYears = [
   1990,
@@ -31,37 +32,37 @@ const testOdpSet1 = [
 
 const expectedEstimations1 = [
   {
-    forestArea: 38518.519,
+    forestArea: 38519,
     otherWoodedLand: 1000,
     otherLand: 80000,
     year: 1990,
   },
   {
-    forestArea: 53333.333,
+    forestArea: 53333,
     otherWoodedLand: 11000,
     otherLand: 80000,
     year: 2000,
   },
   {
-    forestArea: 68148.148,
+    forestArea: 68148,
     otherWoodedLand: 21000,
     otherLand: 80000,
     year: 2010,
   },
   {
-    forestArea: 75555.556,
+    forestArea: 75556,
     otherWoodedLand: 26000,
     otherLand: 80000,
     year: 2015,
   },
   {
-    forestArea: 77037.037,
+    forestArea: 77037,
     otherWoodedLand: 27000,
     otherLand: 80000,
     year: 2016,
   },
   {
-    forestArea: 78518.519,
+    forestArea: 78519,
     otherWoodedLand: 28000,
     otherLand: 80000,
     year: 2017,
@@ -73,13 +74,13 @@ const expectedEstimations1 = [
     year: 2018,
   },
   {
-    forestArea: 81481.481,
+    forestArea: 81481,
     otherWoodedLand: 30000,
     otherLand: 80000,
     year: 2019,
   },
   {
-    forestArea: 82962.962,
+    forestArea: 82963,
     otherWoodedLand: 31000,
     otherLand: 80000,
     year: 2020,
@@ -90,6 +91,8 @@ describe('estimationEngine', () => {
     const estimated = estimationEngine.estimateFraValues(
       fraYears,
       testOdpSet1)
-    assert(R.equals(expectedEstimations1, estimated), 'Estimated values were not as expected')
+    assert(
+      R.equals(expectedEstimations1, estimated),
+      `Estimated values were not as expected ${JSON.stringify(jsonDiff.diff(expectedEstimations1, estimated))}`)
   })
 })
