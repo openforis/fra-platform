@@ -1,16 +1,19 @@
 @import "../app-styles/config";
 
+.nde__add-issue {
+  padding: 0 12px;
+}
+
 .nde__issue {
   background: white;
   border: 1px solid #CCCCCC;
-  padding: 6px;
   box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.2);
+  width: 262px;
 
   .nde__issue-comment-input {
     border: none;
-    margin: 8px 4px 0px;
-    width: 100%;
-    min-height: 70px;
+    margin: 16px;
+    min-height: 30px;
     margin-bottom: 4px;
     font-size: @font-s;
     font-family: @font-family-1;
@@ -20,10 +23,21 @@
   }
   button {
     float: right;
+    clear: both;
+    margin-bottom: 6px;
+    margin-right: 6px;
+  }
+  .great-clear {
+    clear: both;
   }
 
-  width: 262px;
-  position: absolute;
+  .nde__issue-author {
+    font-size: @font-s;
+    font-family: @font-family-1;
+    font-weight: bold;
+    border-bottom: @ui-thin-border;
+    padding: 16px;
+  }
 
   .nde__issue-close {
     float: right;
