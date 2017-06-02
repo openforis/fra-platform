@@ -17,6 +17,7 @@ class DataTable extends React.Component {
 
   componentDidUpdate () {
     this.commentLeftPos = Math.max(document.documentElement.clientWidth, window.innerWidth || 0) - (264 + 6)
+    console.log("left pos", this.commentLeftPos)
   }
 
   render () {
@@ -38,7 +39,7 @@ class DataTable extends React.Component {
         { fraValueRow('Other wooded land', this.props.countryIso, 'otherWoodedLand', this.props.fra, this.props.save) }
         { fraValueRow('Other land', this.props.countryIso, 'otherLand', this.props.fra, this.props.save) }
       </div>
-      <IssueWidget leftPosition={this.commentLeftPos}/>
+      <IssueWidget countryIso={this.props.countryIso} leftPosition={this.commentLeftPos}/>
     </div>
   }
 }
