@@ -6,6 +6,7 @@ import originalDataPoint from './originalDataPoint/reducers'
 import autoSave from './autosave/reducer'
 import navigation from './navigation/reducers'
 import router from './router/reducers'
+import issue from './issue/reducer'
 
 export default combineReducers({
   applicationError,
@@ -13,5 +14,6 @@ export default combineReducers({
   originalDataPoint,
   autoSave,
   navigation,
-  router
+  router,
+  issue
 })
