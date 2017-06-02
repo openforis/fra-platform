@@ -1,7 +1,8 @@
 const camelize = require('camelize')
+const db = require('./db/db')
 
-module.exports.getEofIssues = (client, countryIso) => {
-  return client.query(`
+module.exports.getEofIssues = countryIso => {
+  return db.query(`
     SELECT i.id as issue_id, c.id as comment_id, c.user_id as user_id, c.message as message, c.status_changed as status_changed FROM eof_issue i
     JOIN fra_comment c ON (c.issue_id = i.id) WHERE i.country_iso = $1;
   `, [countryIso]).then(res => {

@@ -14,7 +14,7 @@ const forestAreaTableResponse = require('./forestAreaTableResponse')
 module.exports.init = app => {
 
   app.get('/api/country/issue/:countryIso', (req, res) => {
-    db.transaction(issueRepository.getEofIssues, [req.params.countryIso])
+   issueRepository.getEofIssues(req.params.countryIso)
       .then(result => res.json(result))
       .catch(err => sendErr(res, err))
   })
