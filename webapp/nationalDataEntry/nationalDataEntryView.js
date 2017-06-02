@@ -76,7 +76,9 @@ const NationalDataEntry = (props) => {
   }
 
   return <div className="nde__data-input-component">
+    <div className="nde__data-page-header">
       <h2 className="headline">Extent of forest</h2>
+    </div>
     <div className="nde__data-input-header">
       <Link className="btn btn-primary" to={`/country/${props.countryIso}/odp`}>+ Add national data point</Link>
     </div>
