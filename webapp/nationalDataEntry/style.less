@@ -1,70 +1,75 @@
 @import "../app-styles/config";
 
 .nde__input-table {
+  width: 100%;
+  overflow-x: scroll;
   border-collapse: collapse;
   border-top: @ui-thin-border;
   border-left: @ui-thin-border;
-  font-size: inherit;
+  font-size: 13px;
+  line-height: 20px;
 
   .nde__input-table-heading {
     display: flex;
-    justify-content: center;
-    > .nde__input-header-cell {
-      text-align: right;
-    }
   }
 
   .nde__input-header-cell {
-    background: #F5F5F5;
-    border-right: @ui-thin-border;
+    width: 200px;
+    min-width: 100px;
+    background: @ui-bg;
     border-bottom: @ui-thin-border;
-    padding: 10px;
-    width: 100px;
-    min-width: 50px;
+    border-right: @ui-thin-border;
     font-weight: bold;
+    padding: 10px;
+    text-align: right;
   }
 
   .nde__input-table-content-row-header-cell {
-    background: #F5F5F5;
-    border-right: @ui-thin-border;
+    width: 200px;
+    min-width: 100px;
+    min-width: 200px;
+    background: @ui-bg;
     border-bottom: @ui-thin-border;
-    padding: 10px;
-    width: 150px;
+    border-right: @ui-thin-border;
     font-weight: bold;
+    padding: 10px;
   }
 
   .nde__input-table-content {
     display: flex;
-    justify-content: center;
   }
 
   .nde__input-table-content-cell {
+    width: 200px;
+    min-width: 100px;
     border-right: @ui-thin-border;
     border-bottom: @ui-thin-border;
     padding: 0;
-    width: 100px;
-    min-width: 50px;
   }
 
-  input {
+  .nde__input-table-input {
     color: inherit;
     font-size: inherit;
     border: none;
     text-align: right;
-    padding: 12px 10px;
+    line-height: inherit;
+    padding: 10px;
     width: 100%;
+    margin: 0;
   }
-  input:disabled {
-    color: #CCCCCC;
-  }
-}
 
-.nde__input-table-readonly-cell {
-  display: inline-block;
-  text-align: right;
-  padding: 10px;
-  width: 100%;
-  color: @text-mute;
+  .nde__input-table-input:disabled {
+    color: @ui-border;
+  }
+
+  .nde__input-table-readonly-cell {
+    display: inline-block;
+    text-align: right;
+    line-height: inherit;
+    padding: 10px;
+    width: 100%;
+    color: @text-mute;
+  }
 }
 
 .nde__data-input-component {
@@ -72,27 +77,19 @@
 }
 
 .nde__data-input-header {
-  display: flex;
-  justify-content: space-between;
-  max-width: calc(~"100vw - 319px");
+  text-align: right;
 }
 
 .nde__data-table-header {
-  display: flex;
-  justify-content: space-between;
-  max-width: calc(~"100vw - 319px");
+  text-align: right;
   padding: 10px 0;
 }
+
 .nde__data-table-container {
-  display: flex;
-  justify-content: flex-start;
-  overflow-x: auto;
-  margin-top: 15px;
-  margin-bottom: 15px;
-  max-width: calc(~"100vw - 319px");
+  margin-top: 16px;
+  margin-bottom: 16px;
 }
 
 .nde__data-chart {
-  display: flex;
-  justify-content: center;
+  text-align: center;
 }
