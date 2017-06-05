@@ -15,13 +15,8 @@ const OdpHeading = ({countryIso, odpValue}) =>
 
 class DataTable extends React.Component {
 
-  componentDidUpdate () {
-    this.commentLeftPos = Math.max(document.documentElement.clientWidth, window.innerWidth || 0) - (264 + 6)
-    console.log("left pos", this.commentLeftPos)
-  }
-
   render () {
-    return <div className="nde__data-table-container" ref={tbl => this.input_table = tbl}>
+    return <div className="nde__data-table-container">
       <div className="nde__input-table">
         <div className="nde__input-table-heading">
           <div className="nde__input-table-content-row-header-cell"/>
@@ -39,7 +34,7 @@ class DataTable extends React.Component {
         { fraValueRow('Other wooded land', this.props.countryIso, 'otherWoodedLand', this.props.fra, this.props.save) }
         { fraValueRow('Other land', this.props.countryIso, 'otherLand', this.props.fra, this.props.save) }
       </div>
-      <IssueWidget countryIso={this.props.countryIso} leftPosition={this.commentLeftPos}/>
+      <IssueWidget countryIso={this.props.countryIso}/>
     </div>
   }
 }

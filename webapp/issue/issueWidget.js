@@ -8,7 +8,7 @@ class IssueWidget extends React.Component {
 
   constructor (props) {
     super(props)
-    this.state = {showAddComment: true}
+    this.state = {showAddComment: false}
   }
 
   componentWillMount () {
@@ -16,8 +16,10 @@ class IssueWidget extends React.Component {
   }
 
   componentWillReceiveProps (next) {
-    if (next.countryIso != this.props.countryIso)
+    if (next.countryIso !== this.props.countryIso) {
       this.props.retrieveComments(next.countryIso)
+      this.setState({showAddComment: false})
+    }
   }
 
   render () {
