@@ -8,7 +8,9 @@ import {
 const actionHandlers = {
   [issuePostCommentCompleted]: (state, action) => ({...state, 'status': action.status}),
   [issueRetrieveCommentsStarted]: (state, action) => ({...state, 'status': action.status}),
-  [issueRetrieveCommentsCompleted]: (state, action) => ({...state, 'comments': action.comments})
+  [issueRetrieveCommentsCompleted]: (state, action) => {
+    return {...state, [action.target]: action.comments}
+  }
 }
 
 export default (state = {}, action) => applyReducerFunction(actionHandlers, state, action)

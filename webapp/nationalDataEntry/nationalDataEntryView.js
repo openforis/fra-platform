@@ -30,16 +30,15 @@ class DataTable extends React.Component {
             )
           }
         </div>
-        { fraValueRow('Forest', this.props.countryIso, 'forestArea', this.props.fra, this.props.save) }
-        { fraValueRow('Other wooded land', this.props.countryIso, 'otherWoodedLand', this.props.fra, this.props.save) }
-        { fraValueRow('Other land', this.props.countryIso, 'otherLand', this.props.fra, this.props.save) }
+        { fraValueRow('Forest', "forest", this.props.countryIso, 'forestArea', this.props.fra, this.props.save) }
+        { fraValueRow('Other wooded land', 'otherWoodedLand', this.props.countryIso, 'otherWoodedLand', this.props.fra, this.props.save) }
+        { fraValueRow('Other land', 'otherLand', this.props.countryIso, 'otherLand', this.props.fra, this.props.save) }
       </div>
-      <IssueWidget countryIso={this.props.countryIso}/>
     </div>
   }
 }
 
-const fraValueRow = (rowHeading, countryIso, field, fra, save) =>
+const fraValueRow = (rowHeading, target, countryIso, field, fra, save) =>
   <div className="nde__input-table-content">
     <div className="nde__input-table-content-row-header-cell">{ rowHeading }</div>
     {
@@ -53,6 +52,7 @@ const fraValueRow = (rowHeading, countryIso, field, fra, save) =>
         </div>
       )
     }
+    <IssueWidget target={target} countryIso={countryIso}/>
   </div>
 
 const fraFieldValueForInput = (fieldValue) =>

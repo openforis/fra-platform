@@ -1,0 +1,1 @@
+ALTER TABLE eof_issue ADD COLuMN target VARCHAR(20);
