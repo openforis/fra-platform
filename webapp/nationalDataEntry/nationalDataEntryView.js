@@ -5,6 +5,7 @@ import * as R from 'ramda'
 import { save, fetch, generateFraValues } from './actions'
 import { Link } from './../link'
 import Chart from './chart/chart'
+import IssueWidget from '../issue/issueWidget'
 
 const OdpHeading = ({countryIso, odpValue}) =>
   <Link to={`/country/${countryIso}/odp/${odpValue.odpId}`}>
@@ -12,24 +13,31 @@ const OdpHeading = ({countryIso, odpValue}) =>
     {odpValue.name}
   </Link>
 
-const DataTable = ({fra, save, countryIso}) =>
-  <div className="nde__input-table">
-    <div className="nde__input-table-heading">
-      <div className="nde__input-table-content-row-header-cell"/>
-      {
-        R.values(fra).map(v =>
-          <div className="nde__input-header-cell" key={`${v.type}_${v.name}`}>
-            { v.type === 'odp' ? <OdpHeading countryIso={countryIso} odpValue={v}/>
-              : v.name
-            }
-          </div>
-        )
-      }
+class DataTable extends React.Component {
+
+  render () {
+    return <div className="nde__data-table-container">
+      <div className="nde__input-table">
+        <div className="nde__input-table-heading">
+          <div className="nde__input-table-content-row-header-cell"/>
+          {
+            R.values(this.props.fra).map(v =>
+              <div className="nde__input-header-cell" key={`${v.type}_${v.name}`}>
+                { v.type === 'odp' ? <OdpHeading countryIso={this.props.countryIso} odpValue={v}/>
+                  : v.name
+                }
+              </div>
+            )
+          }
+        </div>
+        { fraValueRow('Forest', this.props.countryIso, 'forestArea', this.props.fra, this.props.save) }
+        { fraValueRow('Other wooded land', this.props.countryIso, 'otherWoodedLand', this.props.fra, this.props.save) }
+        { fraValueRow('Other land', this.props.countryIso, 'otherLand', this.props.fra, this.props.save) }
+      </div>
+      <IssueWidget countryIso={this.props.countryIso}/>
     </div>
-    { fraValueRow('Forest', countryIso, 'forestArea', fra, save) }
-    { fraValueRow('Other wooded land', countryIso, 'otherWoodedLand', fra, save) }
-    { fraValueRow('Other land', countryIso, 'otherLand', fra, save) }
-  </div>
+  }
+}
 
 const fraValueRow = (rowHeading, countryIso, field, fra, save) =>
   <div className="nde__input-table-content">
@@ -94,9 +102,7 @@ const NationalDataEntry = (props) => {
                 onClick={() => props.generateFraValues(props.countryIso)}>Generate FRA values
         </button>
     </div>
-    <div className="nde__data-table-container">
       <DataTable {...props} />
-    </div>
   </div>
 }
 

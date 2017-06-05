@@ -1,0 +1,86 @@
+@import "../app-styles/config";
+
+.fra-issue__add-issue {
+  padding: 0 12px;
+}
+
+.fra-issue__issue {
+  background: white;
+  border: 1px solid #CCCCCC;
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.2);
+  width: 262px;
+
+  button {
+    float: right;
+    clear: both;
+    margin-bottom: 6px;
+    margin-right: 6px;
+    outline: none;
+  }
+  .great-clear {
+    clear: both;
+  }
+}
+
+.fra-issue__issue-comment-input {
+  border: none;
+  margin: 16px;
+  min-height: 14px;
+  margin-bottom: 4px;
+  font-size: @font-s;
+  font-family: @font-family-1;
+  &:focus {
+    outline: none;
+  }
+}
+
+.fra-issue__comment-edit-author {
+  font-size: @font-s;
+  font-family: @font-family-1;
+  font-weight: bold;
+  border-bottom: @ui-thin-border;
+  padding: 16px;
+}
+.fra-issue__comment-edit-author-empty {
+  margin-top: 16px;
+  border-bottom: @ui-thin-border;
+}
+
+.fra-issue__issue-close {
+  float: right;
+  cursor: pointer;
+}
+.fra-issue__issue-status-count {
+  width: 24px;
+  min-width: 24px;
+  height: 24px;
+  background: @ui-accent;
+  color: white;
+  border-radius: 100%;
+  text-align: center;
+  line-height: 24px;
+  cursor: pointer;
+  font-size: @font-xs;
+}
+
+.fra-issue__issue-hidden {
+  display: none;
+}
+
+.fra-issue__comment {
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 16px;
+}
+
+.fra-issue__comment-author {
+  font-size: @font-s;
+  font-weight: bold;
+}
+.fra-issue__comment-time {
+  font-size: @font-xxs;
+  margin-bottom: 6px;
+}
+.fra-issue__comment-text {
+  font-size: @font-s;
+}
