@@ -43,12 +43,12 @@ module.exports.transaction = (fn, argv) => {
     .then(client =>
       client.query('BEGIN')
         .then(() => fn.apply(null, [client, ...argv])
-          .then(response => [response, client.query('COMMIT')])
+          .then(response => Promise.all([response, client.query('COMMIT')]))
           .then(([response, _]) => {
             client.release()
             return response
           })
-          .catch(err => [{__error: err}, client.query('ROLLBACK')])
+          .catch(err => Promise.all([{__error: err}, client.query('ROLLBACK')]))
           .then(result => {
             // Test if we have arrived via catch
             if (isCatchResult(result)) {
