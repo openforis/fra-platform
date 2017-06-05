@@ -12,8 +12,8 @@ const LoginView = ({requestLogin, loginFailed}) =>
       <h2 className="login__header headline">Login to FRA Platform</h2>
       {loginFailed ? <div className="login__fail-info">Kirjautuminen epäonnistui</div> : ''}
       <div className="input-group">
-        <label htmlFor="un">Email</label>
-        <input id="un" type="text"/>
+        <label htmlFor="email">Email</label>
+        <input id="email" type="text"/>
       </div>
       <div className="input-group">
         <label htmlFor="un">Password</label>
@@ -23,8 +23,8 @@ const LoginView = ({requestLogin, loginFailed}) =>
         <input id="un" type="checkbox" disabled="disabled"/>
         <label htmlFor="un" type="text">Remember me on this browser</label>
       </div>
-      {/*<Link to="/country/ITA" className="btn btn-primary login__btn">Sign in</Link>*/}
-      <button className="btn btn-primary login__btn" onClick={() => requestLogin('xx@asd.com')}>
+      <button className="btn btn-primary login__btn"
+              onClick={() => requestLogin(document.getElementById("email").value)}>
         Sign in
       </button>
     </div>
