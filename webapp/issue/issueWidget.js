@@ -11,10 +11,10 @@ const Comments = ({comments}) =>
   <div>
     {
       mapIndexed((c, i) =>
-          <div key={i} className="nde__comment">
-            <div className="nde__comment-author">{c.email}</div>
-            <div className="nde__comment-time">just now</div>
-            <div className="nde__comment-text">
+          <div key={i} className="fra-issue__comment">
+            <div className="fra-issue__comment-author">{c.email}</div>
+            <div className="fra-issue__comment-time">just now</div>
+            <div className="fra-issue__comment-text">
               {c.message}
             </div>
           </div>,
@@ -25,14 +25,14 @@ const Comments = ({comments}) =>
 const AddComment = ({countryIso, postComment, isFirst}) =>
   <div>
     <div
-      className={`nde__comment-edit-author${isFirst ? '' : '-empty'} `}>{isFirst ? `Jan Egeland` : ''}</div>
+      className={`fra-issue__comment-edit-author${isFirst ? '' : '-empty'} `}>{isFirst ? `Jan Egeland` : ''}</div>
     <div contentEditable={true}
-         id="nde__comment-input"
-         className="nde__issue-comment-input"
+         id="fra-issue__comment-input"
+         className="fra-issue__issue-comment-input"
          placeholder="Write comment message"></div>
     <button className="btn btn-icon btn-s"
             onClick={() =>
-              postComment(countryIso, '1', null, document.getElementById('nde__comment-input').innerHTML)}>
+              postComment(countryIso, '1', null, document.getElementById('fra-issue__comment-input').innerHTML)}>
       <svg className="icon-24 icon-accent">
         <use xlinkHref="img/icon.svg#icon-circle-add"/>
       </svg>
@@ -43,15 +43,15 @@ const AddComment = ({countryIso, postComment, isFirst}) =>
 const CommentStatus = ({count, ...props}) =>
   <div {...props} >
     {
-      count > 0 ? <div className="nde__issue-status-count">{count}</div> : <svg className="icon-24">
+      count > 0 ? <div className="fra-issue__issue-status-count">{count}</div> : <svg className="icon-24">
         <use xlinkHref="img/icon.svg#icon-circle-add"/>
       </svg>
     }
   </div>
 
 const CommentThread = ({countryIso, comments, showAdd, postComment, close}) =>
-  <div className={`nde__issue ${showAdd ? '' : 'nde__issue-hidden'}`}>
-    <i className="nde__issue-close" onClick={ e => close(e) }>
+  <div className={`fra-issue__issue ${showAdd ? '' : 'fra-issue__issue-hidden'}`}>
+    <i className="fra-issue__issue-close" onClick={ e => close(e) }>
       <svg className="icon-24">
         <use xlinkHref="img/icon.svg#icon-small-remove"/>
       </svg>
@@ -83,7 +83,7 @@ class IssueWidget extends React.Component {
     const count = this.props.comments ? this.props.comments.length : 0
     const close = R.partial((ctx, evt) => ctx.setState({showAddComment: false}), [this])
 
-    return <div className="nde__add-issue">{
+    return <div className="fra-issue__add-issue">{
       this.state.showAddComment ? <CommentThread
         countryIso={this.props.countryIso}
         comments={this.props.comments || []}
