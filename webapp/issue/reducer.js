@@ -10,6 +10,5 @@ const actionHandlers = {
   [issueRetrieveCommentsStarted]: (state, action) => ({...state, 'status': action.status}),
   [issueRetrieveCommentsCompleted]: (state, action) => ({...state, 'comments': action.comments})
 }
-}
 
 export default (state = {}, action) => applyReducerFunction(actionHandlers, state, action)
