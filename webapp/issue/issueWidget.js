@@ -1,8 +1,65 @@
+import * as R from 'ramda'
 import React from 'react'
 import { connect } from 'react-redux'
 
 import './style.less'
 import { postComment, retrieveComments } from './actions'
+
+const mapIndexed = R.addIndex(R.map)
+
+const Comments = ({comments}) =>
+  <div>
+    {
+      mapIndexed((c, i) =>
+          <div key={i} className="nde__comment">
+            <div className="nde__comment-author">{c.email}</div>
+            <div className="nde__comment-time">just now</div>
+            <div className="nde__comment-text">
+              {c.message}
+            </div>
+          </div>,
+        comments)
+    }
+  </div>
+
+const AddComment = ({countryIso, postComment, isFirst}) =>
+  <div>
+    <div
+      className={`nde__comment-edit-author${isFirst ? '' : '-empty'} `}>{isFirst ? `Jan Egeland` : ''}</div>
+    <div contentEditable={true}
+         id="nde__comment-input"
+         className="nde__issue-comment-input"
+         placeholder="Write comment message"></div>
+    <button className="btn btn-icon btn-s"
+            onClick={() =>
+              postComment(countryIso, '1', null, document.getElementById('nde__comment-input').innerHTML)}>
+      <svg className="icon-24 icon-accent">
+        <use xlinkHref="img/icon.svg#icon-circle-add"/>
+      </svg>
+    </button>
+    <div className="great-clear"></div>
+  </div>
+
+const CommentStatus = ({count, ...props}) =>
+  <div {...props} >
+    {
+      count > 0 ? <div className="nde__issue-status-count">{count}</div> : <svg className="icon-24">
+        <use xlinkHref="img/icon.svg#icon-circle-add"/>
+      </svg>
+    }
+  </div>
+
+const CommentThread = ({countryIso, comments, showAdd, postComment, close}) =>
+  <div className={`nde__issue ${showAdd ? '' : 'nde__issue-hidden'}`}>
+    <i className="nde__issue-close" onClick={ e => close(e) }>
+      <svg className="icon-24">
+        <use xlinkHref="img/icon.svg#icon-small-remove"/>
+      </svg>
+    </i>
+    <Comments comments={comments}/>
+    <AddComment countryIso={countryIso} postComment={postComment}
+                isFirst={comments.length === 0}/>
+  </div>
 
 class IssueWidget extends React.Component {
 
@@ -23,65 +80,17 @@ class IssueWidget extends React.Component {
   }
 
   render () {
-
-    const Comments = ({comments}) => {
-      return <div>
-        {
-          comments.map(
-            c =>
-              <div className="nde__comment">
-                <div className="nde__comment-author">{c.email}</div>
-                <div className="nde__comment-time">just now</div>
-                <div className="nde__comment-text">
-                  {c.message}
-                </div>
-              </div>)
-        }
-      </div>
-    }
-
-    const AddComment = ({first}) =>
-      <div>
-        <div className={`nde__comment-edit-author${first ? '': '-empty'} `}>{first ? `Örjan Jonsson` : ''}</div>
-        <div contentEditable={true}
-             id="nde__comment-input"
-             className="nde__issue-comment-input"
-             placeholder="Write comment message"></div>
-        <button className="btn btn-icon btn-s"
-                onClick={() => this.props.postComment(this.props.countryIso, '1', null, document.getElementById("nde__comment-input").innerHTML)}>
-          <svg className="icon-24 icon-accent">
-            <use xlinkHref="img/icon.svg#icon-circle-add"/>
-          </svg>
-        </button>
-        <div className="great-clear"></div>
-      </div>
-
-    const CommentThread = ({comments}) =>
-        <div className={`nde__issue ${this.state.showAddComment ? '' : 'nde__issue-hidden'}`}>
-        <i className="nde__issue-close" onClick={() => this.setState({showAddComment: false})}>
-          <svg className="icon-24">
-            <use xlinkHref="img/icon.svg#icon-small-remove"/>
-          </svg>
-        </i>
-        <Comments comments={comments}/>
-        <AddComment first={comments.length === 0} />
-      </div>
-
-    const CommentStatus = ({count}) => {
-      return <div onClick={() => this.setState({showAddComment: true})}>
-        {
-          count > 0 ? <div className="nde__issue-status-count">{count}</div> :
-            <svg className="icon-24">
-              <use xlinkHref="img/icon.svg#icon-circle-add"/>
-            </svg>
-        }
-      </div>
-    }
     const count = this.props.comments ? this.props.comments.length : 0
+    const close = R.partial((ctx, evt) => ctx.setState({showAddComment: false}), [this])
 
     return <div className="nde__add-issue">{
-      this.state.showAddComment ? <CommentThread comments={this.props.comments || []}/> :
-        <CommentStatus count={count}/>
+      this.state.showAddComment ? <CommentThread
+        countryIso={this.props.countryIso}
+        comments={this.props.comments || []}
+        showAdd={this.state.showAddComment}
+        postComment={this.props.postComment}
+        close={close}/> :
+        <CommentStatus count={count} onClick={() => this.setState({showAddComment: true})}/>
     }</div>
   }
 }
