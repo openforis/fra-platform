@@ -6,7 +6,10 @@ export const issueRetrieveCommentsCompleted = 'issue/comment/retrieve/completed'
 
 export const postComment = (countryIso, userId, issueId, msg) => dispatch => {
   axios.post(`api/country/issue/${countryIso}`, {msg}).then(() => {
-      return dispatch({type: issuePostCommentCompleted, status: 'completed'})
+      dispatch({type: issuePostCommentCompleted, status: 'completed'})
+      axios.get(`api/country/issue/${countryIso}`).then(resp =>
+        dispatch({type: issueRetrieveCommentsCompleted, comments: resp.data})
+      )
     }
   )
 }

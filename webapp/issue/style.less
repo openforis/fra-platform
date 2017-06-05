@@ -32,19 +32,22 @@
     clear: both;
   }
 
-  .nde__issue-author {
+  .nde__comment-edit-author {
     font-size: @font-s;
     font-family: @font-family-1;
     font-weight: bold;
     border-bottom: @ui-thin-border;
     padding: 16px;
   }
+  .nde__comment-edit-author-empty {
+    margin-top: 16px;
+    border-bottom: @ui-thin-border;
+  }
 
   .nde__issue-close {
     float: right;
     cursor: pointer;
   }
-
 }
 
 .nde__issue-status-count {
@@ -62,4 +65,21 @@
 
 .nde__issue-hidden {
   display: none;
+}
+
+.nde__comment {
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 16px;
+
+  .nde__comment-author {
+    font-size: @font-s;
+    font-weight: bold;
+  }
+  .nde__comment-time {
+    font-size: @font-xxs;
+  }
+  .nde__comment-text {
+    font-size: @font-s;
+  }
 }

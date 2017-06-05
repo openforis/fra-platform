@@ -8,7 +8,7 @@ class IssueWidget extends React.Component {
 
   constructor (props) {
     super(props)
-    this.state = {showAddComment: false}
+    this.state = {showAddComment: true}
   }
 
   componentWillMount () {
@@ -18,31 +18,29 @@ class IssueWidget extends React.Component {
   componentWillReceiveProps (next) {
     if (next.countryIso != this.props.countryIso)
       this.props.retrieveComments(next.countryIso)
-    if (next.status == 'completed') {
-      this.setState({showAddComment: false})
-      window.setTimeout(() => this.props.retrieveComments(next.countryIso), 200) // TODO: fix this
-    }
   }
 
   render () {
-    console.log('comments', this.props.comments)
 
     const Comments = ({comments}) => {
       return <div>
         {
-          comments.map(c => <div>{c.message}</div>)
+          comments.map(
+            c =>
+              <div className="nde__comment">
+                <div className="nde__comment-author">{c.email}</div>
+                <div className="nde__comment-time">just now</div>
+                <div className="nde__comment-text">
+                  {c.message}
+                </div>
+              </div>)
         }
       </div>
     }
 
-    const AddComment = () =>
-      <div className={`nde__issue ${this.state.showAddComment ? '' : 'nde__issue-hidden'}`}>
-        <i className="nde__issue-close" onClick={() => this.setState({showAddComment: false})}>
-          <svg className="icon">
-            <use xlinkHref="img/icon.svg#icon-small-remove"/>
-          </svg>
-        </i>
-        <div className="nde__issue-author">Örjan Jonsson</div>
+    const AddComment = ({first}) =>
+      <div>
+        <div className={`nde__comment-edit-author${first ? '': '-empty'} `}>{first ? `Örjan Jonsson` : ''}</div>
         <div contentEditable={true}
              id="nde__comment-input"
              className="nde__issue-comment-input"
@@ -57,13 +55,17 @@ class IssueWidget extends React.Component {
       </div>
 
     const CommentThread = ({comments}) =>
-      <div>
+        <div className={`nde__issue ${this.state.showAddComment ? '' : 'nde__issue-hidden'}`}>
+        <i className="nde__issue-close" onClick={() => this.setState({showAddComment: false})}>
+          <svg className="icon-24">
+            <use xlinkHref="img/icon.svg#icon-small-remove"/>
+          </svg>
+        </i>
         <Comments comments={comments}/>
-        <AddComment/>
+        <AddComment first={comments.length === 0} />
       </div>
 
     const CommentStatus = ({count}) => {
-      console.log('length', count)
       return <div onClick={() => this.setState({showAddComment: true})}>
         {
           count > 0 ? <div className="nde__issue-status-count">{count}</div> :
