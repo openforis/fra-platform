@@ -3,7 +3,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import './style.less'
-import { postComment, retrieveComments } from './actions'
+import { postComment, retrieveComments, openCommentThread, closeCommentThread } from './actions'
 
 const mapIndexed = R.addIndex(R.map)
 
@@ -40,8 +40,8 @@ const AddComment = ({countryIso, target, postComment, isFirst}) =>
     <div className="great-clear"></div>
   </div>
 
-const CommentStatus = ({count, ...props}) =>
-  <div {...props} >
+const CommentStatus = ({count, visible, ...props}) =>
+  <div {...props} className={`fra-issue__issue-status-${visible ? 'visible' : 'hidden'}`} >
     {
       count > 0 ? <div className="fra-issue__issue-status-count">{count}</div> : <svg className="icon-24">
         <use xlinkHref="img/icon.svg#icon-circle-add"/>
@@ -73,8 +73,12 @@ class IssueWidget extends React.Component {
   }
 
   componentWillReceiveProps (next) {
-    if (next.countryIso !== this.props.countryIso) {
+    if (next.countryIso !== this.props.countryIso) { // changing country
+      this.props.closeCommentThread(this.props.target)
       this.props.retrieveComments(next.countryIso, this.props.target)
+      this.setState({showAddComment: false})
+    }
+    if(next.openThread !== this.props.target) { // other comment thread is opened, close this
       this.setState({showAddComment: false})
     }
   }
@@ -82,9 +86,14 @@ class IssueWidget extends React.Component {
   render () {
     const comments = this.props[this.props.target] || []
     const count = comments ? comments.length  : 0
-    const close = R.partial((ctx, evt) => ctx.setState({showAddComment: false}), [this])
+    const style= {'zIndex': this.state.showAddComment ? 1: 0 }
+    const close = R.partial(ctx => {
+      ctx.props.closeCommentThread(ctx.props.taret)
+      ctx.setState({showAddComment: false})}, [this])
 
-    return <div className="fra-issue__add-issue">{
+    const statusVisible = this.props.openThread === this.props.target || !this.props.openThread
+
+    return <div className="fra-issue__add-issue" style={style}>{
       this.state.showAddComment ? <CommentThread
         countryIso={this.props.countryIso}
         target={this.props.target}
@@ -92,7 +101,10 @@ class IssueWidget extends React.Component {
         showAdd={this.state.showAddComment}
         postComment={this.props.postComment}
         close={close}/> :
-        <CommentStatus count={count} onClick={() => this.setState({showAddComment: true})}/>
+        <CommentStatus count={count} visible={statusVisible} onClick={() => {
+          this.props.openCommentThread(this.props.target)
+          this.setState({showAddComment: true})
+        }}/>
     }</div>
   }
 }
@@ -101,4 +113,9 @@ const mapStateToProps = state => {
   return state.issue
 }
 
-export default connect(mapStateToProps, {postComment, retrieveComments})(IssueWidget)
+export default connect(mapStateToProps, {
+  openCommentThread,
+  closeCommentThread,
+  postComment,
+  retrieveComments
+})(IssueWidget)

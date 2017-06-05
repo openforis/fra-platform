@@ -83,7 +83,9 @@ const NationalDataEntry = (props) => {
     return props.generatingFraValues || odps.length < 2
   }
 
-  return <div className="nde__data-input-component">
+  const marginClass = R.isNil(props.openCommentThread) ? "" : "comment-thread-margin"
+
+  return <div className={`nde__data-input-component ${marginClass}`}>
     <div className="nde__data-page-header">
       <h2 className="headline">Extent of forest</h2>
     </div>
@@ -125,6 +127,6 @@ class DataFetchingComponent extends React.Component {
   }
 }
 
-const mapStateToProps = state => state.nationalDataEntry
+const mapStateToProps = state => R.merge(state.nationalDataEntry, {"openCommentThread": state.issue.openThread})
 
 export default connect(mapStateToProps, {save, fetch, generateFraValues})(DataFetchingComponent)
