@@ -10,7 +10,7 @@ const LoginView = ({requestLogin, loginFailed}) =>
     <div className="login__box">
       <img src="img/tucan.svg" className="tucan"/>
       <h2 className="login__header headline">Login to FRA Platform</h2>
-      {loginFailed ? <div className="login__fail-info">Kirjautuminen epäonnistui</div> : ''}
+      {loginFailed ? <div className="login__fail-info">Login failed</div> : ''}
       <div className="input-group">
         <label htmlFor="email">Email</label>
         <input id="email" type="text"/>
