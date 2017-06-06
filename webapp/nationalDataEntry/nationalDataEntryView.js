@@ -90,7 +90,7 @@ const NationalDataEntry = (props) => {
     return props.generatingFraValues || odps.length < 2
   }
 
-  const marginClass = R.isNil(props.openCommentThread) ? "" : "nde__comment-thread-margin"
+  const marginClass = R.isNil(props.openCommentThread) ? "nde__comment-margin" : "nde__comment-thread-margin"
 
   return <div className={`nde__data-input-component`}>
     <div className="nde__data-page-header">
