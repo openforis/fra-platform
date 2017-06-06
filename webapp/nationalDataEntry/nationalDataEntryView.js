@@ -30,16 +30,23 @@ class DataTable extends React.Component {
             )
           }
         </div>
-        { fraValueRow('Forest', this.props.countryIso, 'forestArea', this.props.fra, this.props.save) }
-        { fraValueRow('Other wooded land', this.props.countryIso, 'otherWoodedLand', this.props.fra, this.props.save) }
-        { fraValueRow('Other land', this.props.countryIso, 'otherLand', this.props.fra, this.props.save) }
+        { fraValueRow('Forest', "forest", this.props.countryIso, 'forestArea', this.props.fra, this.props.save) }
+        { fraValueRow('Other wooded land', 'otherWoodedLand', this.props.countryIso, 'otherWoodedLand', this.props.fra, this.props.save) }
+        { fraValueRow('Other land', 'otherLand', this.props.countryIso, 'otherLand', this.props.fra, this.props.save) }
       </div>
-      <IssueWidget countryIso={this.props.countryIso}/>
+      <div className="nde__comment-column">
+        <div className="nde__comment-cell"><IssueWidget target='forestArea'
+                                                        countryIso={this.props.countryIso}/></div>
+        <div className="nde__comment-cell"><IssueWidget target='otherWoodedLand'
+                                                        countryIso={this.props.countryIso}/></div>
+        <div className="nde__comment-cell"><IssueWidget target='otherLand'
+                                                        countryIso={this.props.countryIso}/></div>
+      </div>
     </div>
   }
 }
 
-const fraValueRow = (rowHeading, countryIso, field, fra, save) =>
+const fraValueRow = (rowHeading, target, countryIso, field, fra, save) =>
   <div className="nde__input-table-content">
     <div className="nde__input-table-content-row-header-cell">{ rowHeading }</div>
     {
@@ -83,24 +90,30 @@ const NationalDataEntry = (props) => {
     return props.generatingFraValues || odps.length < 2
   }
 
-  return <div className="nde__data-input-component">
+  const marginClass = R.isNil(props.openCommentThread) ? "nde__comment-margin" : "nde__comment-thread-margin"
+
+  return <div className={`nde__data-input-component`}>
     <div className="nde__data-page-header">
       <h2 className="headline">Extent of forest</h2>
     </div>
-    <div className="nde__data-input-header">
-      <Link className="btn btn-primary" to={`/country/${props.countryIso}/odp`}>
-        <svg className="icon icon-middle icon-white"><use xlinkHref="img/icon.svg#icon-small-add"/></svg>
-        Add national data point
-      </Link>
-    </div>
-    <div className="nde__data-chart">
-      <Chart />
-    </div>
-    <div className="nde__data-table-header">
+    <div className={`${marginClass}`}>
+      <div className="nde__data-input-header">
+        <Link className="btn btn-primary" to={`/country/${props.countryIso}/odp`}>
+          <svg className="icon icon-middle icon-white">
+            <use xlinkHref="img/icon.svg#icon-small-add"/>
+          </svg>
+          Add national data point
+        </Link>
+      </div>
+      <div className="nde__data-chart">
+        <Chart />
+      </div>
+      <div className="nde__data-table-header">
         <h3 className="subhead">Extent of forest values</h3>
         <button disabled={disableGenerateFRAValues()} className="btn btn-primary"
                 onClick={() => props.generateFraValues(props.countryIso)}>Generate FRA values
         </button>
+      </div>
     </div>
       <DataTable {...props} />
   </div>
@@ -125,6 +138,6 @@ class DataFetchingComponent extends React.Component {
   }
 }
 
-const mapStateToProps = state => state.nationalDataEntry
+const mapStateToProps = state => R.merge(state.nationalDataEntry, {"openCommentThread": state.issue.openThread})
 
 export default connect(mapStateToProps, {save, fetch, generateFraValues})(DataFetchingComponent)

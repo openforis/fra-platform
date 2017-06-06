@@ -1,7 +1,6 @@
 @import "../app-styles/config";
 
 .nde__input-table {
-  width: 100%;
   overflow-x: auto;
   border-collapse: collapse;
   border-top: @ui-thin-border;
@@ -79,7 +78,16 @@
 }
 
 .nde__data-input-component {
-  padding: 24px;
+  padding: 24px 0 24px 24px;
+}
+
+.nde__comment-margin {
+  margin-right: 48px;
+}
+
+.nde__comment-thread-margin {
+  margin-right: 280px;
+  transition: margin 400ms;
 }
 
 .nde__data-page-header {
@@ -116,4 +124,12 @@
   display: flex;
   flex-flow: row nowrap;
   align-items: flex-start;
+}
+
+.nde__comment-cell {
+  height: 40px;
+  padding-top: 10px;
+  &:first-of-type {
+    margin-top: 42px;
+  }
 }
