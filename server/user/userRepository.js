@@ -2,7 +2,7 @@ const db = require('../db/db')
 const camelize = require('camelize')
 const R = require('ramda')
 
-module.exports.getUserInfo = (email) =>
+module.exports.getUserInfo = email =>
   db.query('SELECT id, name FROM fra_user WHERE email = $1', [email])
     .then(res => {
       if (res.rows.length > 0) {
