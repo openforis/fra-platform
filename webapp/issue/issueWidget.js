@@ -27,17 +27,16 @@ const AddComment = ({countryIso, target, postComment, isFirst}) =>
     <div
       className={`fra-issue__comment-edit-author${isFirst ? '' : '-empty'} `}>{isFirst ? `Jan Egeland` : ''}</div>
     <div contentEditable={true}
-         id="fra-issue__comment-input"
+         id={`fra-issue__comment-input-${target}`}
          className="fra-issue__issue-comment-input"
          placeholder="Write comment message"></div>
     <button className="btn btn-icon btn-s"
             onClick={() =>
-              postComment(countryIso, target, '1', null, document.getElementById('fra-issue__comment-input').innerHTML)}>
+              postComment(countryIso, target, '1', null, document.getElementById(`fra-issue__comment-input-${target}`).innerHTML)}>
       <svg className="icon-24 icon-accent">
         <use xlinkHref="img/icon.svg#icon-circle-add"/>
       </svg>
     </button>
-    <div className="great-clear"></div>
   </div>
 
 const CommentStatus = ({count, visible, ...props}) =>
@@ -50,7 +49,7 @@ const CommentStatus = ({count, visible, ...props}) =>
   </div>
 
 const CommentThread = ({countryIso, target, comments, showAdd, postComment, close}) =>
-  <div className={`fra-issue__issue ${showAdd ? '' : 'fra-issue__issue-hidden'}`}>
+  <div className={`fra-issue__issue ${showAdd ? 'fra-issue__issue-visible' : 'fra-issue__issue-hidden'}`}>
     <i className="fra-issue__issue-close" onClick={ e => close(e) }>
       <svg className="icon-24">
         <use xlinkHref="img/icon.svg#icon-small-remove"/>
@@ -93,19 +92,19 @@ class IssueWidget extends React.Component {
 
     const statusVisible = this.props.openThread === this.props.target || !this.props.openThread
 
-    return <div className="fra-issue__add-issue" style={style}>{
-      this.state.showAddComment ? <CommentThread
+    return <div className="fra-issue__add-issue" style={style}>
+       <CommentThread
         countryIso={this.props.countryIso}
         target={this.props.target}
         comments={comments}
         showAdd={this.state.showAddComment}
         postComment={this.props.postComment}
-        close={close}/> :
-        <CommentStatus count={count} visible={statusVisible} onClick={() => {
+        close={close}/>
+        <CommentStatus count={count} visible={!this.state.showAddComment} onClick={() => {
           this.props.openCommentThread(this.props.target)
-          this.setState({showAddComment: true})
+          window.setTimeout(() => this.setState({showAddComment: true}), 0)
         }}/>
-    }</div>
+    </div>
   }
 }
 
