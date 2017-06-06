@@ -13,7 +13,7 @@ const LoginView = ({requestLogin, loginFailed}) =>
         {loginFailed ? <div className="login__fail-info">Login failed</div> : ''}
         <div className="login__input-group">
           <label htmlFor="email">Email</label>
-          <input id="email" type="text"/>
+          <input id="email" type="text" value="jan.egeland@mailinator.com"/>
         </div>
         <div className="login__input-group">
           <label htmlFor="un">Password</label>
