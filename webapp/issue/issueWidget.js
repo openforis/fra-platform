@@ -27,12 +27,12 @@ const AddComment = ({countryIso, target, postComment, isFirst}) =>
     <div
       className={`fra-issue__comment-edit-author${isFirst ? '' : '-empty'} `}>{isFirst ? `Jan Egeland` : ''}</div>
     <div contentEditable={true}
-         id="fra-issue__comment-input"
+         id={`fra-issue__comment-input-${target}`}
          className="fra-issue__issue-comment-input"
          placeholder="Write comment message"></div>
     <button className="btn btn-icon btn-s"
             onClick={() =>
-              postComment(countryIso, target, '1', null, document.getElementById('fra-issue__comment-input').innerHTML)}>
+              postComment(countryIso, target, '1', null, document.getElementById(`fra-issue__comment-input-${target}`).innerHTML)}>
       <svg className="icon-24 icon-accent">
         <use xlinkHref="img/icon.svg#icon-circle-add"/>
       </svg>
