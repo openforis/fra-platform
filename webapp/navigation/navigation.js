@@ -36,7 +36,7 @@ class CountryItem extends React.Component {
         <span className="navi__country-name">{I18n.getName(name, 'en')}</span>
         <span className="navi__country-nc">{role}</span>
       </div>
-      <div>⬍</div>
+      <svg className="icon"><use xlinkHref="img/icon.svg#icon-small-down"/></svg>
       <CountryList isOpen={this.state.isOpen} countries={countries} currentCountry={name}/>
     </div>
   }
