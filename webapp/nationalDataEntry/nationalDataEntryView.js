@@ -34,6 +34,14 @@ class DataTable extends React.Component {
         { fraValueRow('Other wooded land', 'otherWoodedLand', this.props.countryIso, 'otherWoodedLand', this.props.fra, this.props.save) }
         { fraValueRow('Other land', 'otherLand', this.props.countryIso, 'otherLand', this.props.fra, this.props.save) }
       </div>
+      <div className="nde__comment-column">
+        <div className="nde__comment-cell"><IssueWidget target='forestArea'
+                                                        countryIso={this.props.countryIso}/></div>
+        <div className="nde__comment-cell"><IssueWidget target='otherWoodedLand'
+                                                        countryIso={this.props.countryIso}/></div>
+        <div className="nde__comment-cell"><IssueWidget target='otherLand'
+                                                        countryIso={this.props.countryIso}/></div>
+      </div>
     </div>
   }
 }
@@ -52,7 +60,6 @@ const fraValueRow = (rowHeading, target, countryIso, field, fra, save) =>
         </div>
       )
     }
-    <IssueWidget target={target} countryIso={countryIso}/>
   </div>
 
 const fraFieldValueForInput = (fieldValue) =>
