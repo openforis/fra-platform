@@ -1,30 +1,37 @@
 import React from 'react'
-import { Link } from './../link'
+import { connect } from 'react-redux'
+import { requestLogin } from './actions'
 import './style.less'
 
-const Login = () =>
+const LoginView = ({requestLogin, loginFailed}) =>
   <div className="login__root">
     <div className="login__wrapper">
-      <img src="img/fao_logo.svg" className="fao-logo"/>
+      <img src="img/fao_logo.svg" className="login__fao-logo"/>
       <div className="login__box">
-        <img src="img/tucan.svg" className="tucan"/>
+        <img src="img/tucan.svg" className="login__tucan"/>
         <h2 className="login__header headline">Login to FRA Platform</h2>
-        <div className="input-group">
-          <label htmlFor="un">Email</label>
-          <input id="un" type="text"/>
+        {loginFailed ? <div className="login__fail-info">Login failed</div> : ''}
+        <div className="login__input-group">
+          <label htmlFor="email">Email</label>
+          <input id="email" type="text"/>
         </div>
-        <div className="input-group">
+        <div className="login__input-group">
           <label htmlFor="un">Password</label>
           <input id="un" type="password"/>
         </div>
-        <div className="checkbox-group">
+        <div className="login__checkbox-group">
           <input id="un" type="checkbox" disabled="disabled"/>
           <label htmlFor="un" type="text">Remember me on this browser</label>
         </div>
-        <Link to="/country/ITA" className="btn btn-primary login__btn">Sign in</Link>
+        <button className="btn btn-primary login__btn"
+                onClick={() => requestLogin(document.getElementById("email").value)}>
+          Sign in
+        </button>
       </div>
-      <p className="legal">&copy; FAO, 2017</p>
+      <p className="login__legal">&copy; FAO, 2017</p>
     </div>
   </div>
 
-export default Login
+const mapStateToProps = state => state.user
+
+export default connect(mapStateToProps, {requestLogin})(LoginView)

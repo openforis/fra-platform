@@ -6,6 +6,7 @@ import originalDataPoint from './originalDataPoint/reducers'
 import autoSave from './autosave/reducer'
 import navigation from './navigation/reducers'
 import router from './router/reducers'
+import user from './login/reducer'
 import issue from './issue/reducer'
 
 export default combineReducers({
@@ -15,5 +16,6 @@ export default combineReducers({
   autoSave,
   navigation,
   router,
+  user,
   issue
 })

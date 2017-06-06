@@ -7,6 +7,7 @@ require('dotenv').config()
 
 const countryRepository = require('./countryRepository')
 const eofApi = require('./eof/api')
+const userApi = require('./user/userApi')
 
 const app = express()
 
@@ -25,6 +26,7 @@ app.get('/api/country/all', (req, res) => {
 })
 
 eofApi.init(app)
+userApi.init(app)
 
 migrations()
 
