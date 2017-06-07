@@ -167,6 +167,30 @@ const extentOfForestRows = (countryIso, odp, saveDraft) =>
       {...nationalClass}/>)
   )(odp.nationalClasses)
 
+class ForestAreaInput extends React.Component {
+  render () {
+    const {area, odp, index, countryIso, numberUpdated} = this.props
+    return <input type="text"
+                  ref="areaInput"
+                  value={ this.hasFocus ? area : separateThousandsWithSpaces(area) }
+                  onChange={ numberUpdated('area', area) }
+                  onFocus={
+                    () => {
+                      this.hasFocus = true
+                      this.refs.areaInput.value = area
+                    }
+                  }
+                  onBlur={
+                    () => {
+                      this.hasFocus = false
+                      this.refs.areaInput.value = separateThousandsWithSpaces(area)
+                    }
+                  }
+                  onPaste={updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 0)}
+    />
+  }
+}
+
 const ExtentOfForestRow = ({
                              odp,
                              index,
@@ -176,7 +200,8 @@ const ExtentOfForestRow = ({
                              area,
                              forestPercent,
                              otherWoodedLandPercent,
-                             otherLandPercent
+                             otherLandPercent,
+                             ...props
                            }) => {
 
   const numberUpdated = (fieldName, currentValue) => evt =>
@@ -185,10 +210,7 @@ const ExtentOfForestRow = ({
   return <tr>
     <td className="odp__eof-class-name"><span>{className}</span></td>
     <td className="odp__eof-area-cell odp__eof-divide-after-cell">
-      <input type="text" value={separateThousandsWithSpaces(area)}
-             onChange={ numberUpdated('area', area) }
-             onPaste={updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 0)}
-      />
+      <ForestAreaInput {...props} area={area} numberUpdated={numberUpdated}/>
     </td>
     <td className="odp__eof-percent-cell">
       <input
