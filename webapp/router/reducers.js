@@ -7,7 +7,7 @@ import { routerFollowLink } from './actions'
 const actionHandlers = {
   [routerFollowLink]: (state, action) => {
     const pathWithoutHash = action.to ? action.to.replace(/#/gi, '') : null
-    const pathState = {...state,'path': pathWithoutHash}
+    const pathState = {...state, path: pathWithoutHash}
 
     const r = new Route('#/country/:countryIso(/)(odp*)(/)(:odpId)')
     const match = r.match(location.hash)

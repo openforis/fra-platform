@@ -1,15 +1,21 @@
+require('dotenv').config()
+
 const express = require('express')
 const bodyParser = require('body-parser')
 const compression = require('compression')
 const migrations = require('./db/migration/execMigrations')
-
-require('dotenv').config()
+const sessionInit = require('./sessionInit')
 
 const countryRepository = require('./countryRepository')
 const eofApi = require('./eof/api')
 const userApi = require('./user/userApi')
 
 const app = express()
+
+migrations()
+
+sessionInit.init(app)
+userApi.init(app)
 
 app.use(compression({threshold: 512}))
 app.use('/', express.static(`${__dirname}/../dist`))
@@ -26,9 +32,6 @@ app.get('/api/country/all', (req, res) => {
 })
 
 eofApi.init(app)
-userApi.init(app)
-
-migrations()
 
 app.listen(process.env.PORT, () => {
   console.log('FRA Platform server listening on port ', process.env.PORT)
