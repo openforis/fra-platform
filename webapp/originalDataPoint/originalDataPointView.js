@@ -50,9 +50,9 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving})
         <tr>
           <th className="odp__eof-header-left">Class</th>
           <th className="odp__eof-divide-after-cell odp__eof-header-right">Area</th>
-          <th className="odp__eof-header-right" >Forest</th>
-          <th className="odp__eof-header-right" >Other wooded land</th>
-          <th className="odp__eof-header-right" >Other land</th>
+          <th className="odp__eof-header-right">Forest</th>
+          <th className="odp__eof-header-right">Other wooded land</th>
+          <th className="odp__eof-header-right">Other land</th>
         </tr>
         </thead>
         <tbody>
@@ -103,18 +103,26 @@ const nationalClassRows = (countryIso, odp, saveDraft) => {
     {...nationalClass}/>, odp.nationalClasses)
 }
 
-const updatePastedValues = (evt, odp, index, saveDraft, countryIso, property) => {
+const updatePastedValues = (odp, rowIndex, saveDraft, countryIso, dataCols, colIndex) => evt => {
   evt.stopPropagation()
   evt.preventDefault()
 
   const el = document.createElement('html')
   el.innerHTML = evt.clipboardData.getData('text/html')
-  const tds = el.getElementsByTagName('td')
 
-  mapIndexed((td, i) => odp = originalDataPoint.updateNationalClass(odp, i + index, property, R.trim(td.innerText)), tds)
+  let i = rowIndex + colIndex
+  R.map(row =>
+      R.map(col => {
+        const property = dataCols[i % dataCols.length]
+        odp = originalDataPoint.updateNationalClass(odp, Math.floor(i / dataCols.length), property, col.innerText.replace(/\s+/g, ''))
+        i++
+      }, row.getElementsByTagName('td'))
+    , el.getElementsByTagName('tr'))
+
   saveDraft(countryIso, odp)
 }
 
+const nationalClassCols = ['className', 'definition']
 const NationalClassRow = ({odp, index, saveDraft, countryIso, className, definition, placeHolder}) =>
   <tr>
     <td className="odp__national-class-row-class-name">
@@ -132,17 +140,20 @@ const NationalClassRow = ({odp, index, saveDraft, countryIso, className, definit
              value={className || ''}
              onChange={(evt) =>
                saveDraft(countryIso, originalDataPoint.updateNationalClass(odp, index, 'className', evt.target.value))}
-             onPaste={evt => updatePastedValues(evt, odp, index, saveDraft, countryIso, 'className')}
+             onPaste={updatePastedValues(odp, index, saveDraft, countryIso, nationalClassCols, 0)}
       />
     </td>
     <td>
       <input type="text"
              value={definition || '' }
              onChange={(evt) =>
-               saveDraft(countryIso, originalDataPoint.updateNationalClass(odp, index, 'definition', evt.target.value))}/>
+               saveDraft(countryIso, originalDataPoint.updateNationalClass(odp, index, 'definition', evt.target.value))}
+             onPaste={updatePastedValues(odp, index, saveDraft, countryIso, nationalClassCols, 1)}
+      />
     </td>
   </tr>
 
+const extentOfForestCols = ['area', 'forestPercent', 'otherWoodedLandPercent', 'otherLandPercent']
 const extentOfForestRows = (countryIso, odp, saveDraft) =>
   R.pipe(
     R.filter(nationalClass => !nationalClass.placeHolder),
@@ -175,27 +186,34 @@ const ExtentOfForestRow = ({
     <td className="odp__eof-area-cell odp__eof-divide-after-cell">
       <input type="text" value={area || ''}
              onChange={ numberUpdated('area', area) }
-             onPaste={evt => updatePastedValues(evt, odp, index, saveDraft, countryIso, 'area')}/>
+             onPaste={updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 0)}
+      />
     </td>
     <td className="odp__eof-percent-cell">
       <input
         type="text"
         value={forestPercent || ''}
-        onChange={ numberUpdated('forestPercent', forestPercent) }/>
+        onChange={ numberUpdated('forestPercent', forestPercent) }
+        onPaste={updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 1)}
+      />
       % &nbsp;
     </td>
     <td className="odp__eof-percent-cell">
       <input
         type="text"
         value={otherWoodedLandPercent || ''}
-        onChange={ numberUpdated('otherWoodedLandPercent', otherWoodedLandPercent) }/>
+        onChange={ numberUpdated('otherWoodedLandPercent', otherWoodedLandPercent) }
+        onPaste={updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 2)}
+      />
       % &nbsp;
     </td>
     <td className="odp__eof-percent-cell">
       <input
         type="text"
         value={otherLandPercent || ''}
-        onChange={ numberUpdated('otherLandPercent', otherLandPercent) }/>
+        onChange={ numberUpdated('otherLandPercent', otherLandPercent) }
+        onPaste={updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 3)}
+      />
       % &nbsp;
     </td>
   </tr>
