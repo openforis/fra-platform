@@ -15,14 +15,7 @@ const app = express()
 migrations()
 
 sessionInit.init(app)
-
-app.use((req, res, next) => {
-  const loggedInCookieValue = req.session.loggedInUser
-    ? 'true'
-    : 'false'
-  res.cookie('loggedIn', loggedInCookieValue, {maxAge: 30 * 24 * 60 * 60 * 1000})
-  next()
-})
+userApi.init(app)
 
 app.use(compression({threshold: 512}))
 app.use('/', express.static(`${__dirname}/../dist`))
@@ -39,7 +32,6 @@ app.get('/api/country/all', (req, res) => {
 })
 
 eofApi.init(app)
-userApi.init(app)
 
 app.listen(process.env.PORT, () => {
   console.log('FRA Platform server listening on port ', process.env.PORT)
