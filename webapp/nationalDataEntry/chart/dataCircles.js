@@ -33,12 +33,7 @@ const renderOdpLines = ({xScale, yScale}) => (d, index) => {
     y2: yScale(d.value)
   }
 
-  return <g key={index}>
-    <foreignObject width="200" y={lineProps.y2 - 22} x={lineProps.x2 - 100} style={{textAlign: 'center'}}>
-      <text dy={lineProps.y2} dx={lineProps.x2} style={{fill: '#333333', fontSize: '12px', fontWeight: '500', backgroundColor: '#ffffff'}}>{d.value}</text>
-    </foreignObject>
-    <line {...lineProps} strokeWidth="1" stroke="rgba(0, 0, 0, 0.3)"></line>
-  </g>
+  return <line key={index} {...lineProps} strokeWidth="1" stroke="rgba(0, 0, 0, 0.3)"></line>
 }
 
 const DataCircles = (props) => {
