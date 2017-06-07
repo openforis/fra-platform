@@ -3,7 +3,7 @@ const pgSession = require('connect-pg-simple')(session)
 const db = require('./db/db')
 
 const sessionOptions = {
-  secret: "f80e6754-70f7-44e9-83b0-3a69fbb696bb",
+  secret: process.env.FOO_COOKIE_SECRET,
   resave: false,
   saveUninitialized: true,
   cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 },

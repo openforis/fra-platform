@@ -1,10 +1,10 @@
+require('dotenv').config()
+
 const express = require('express')
 const bodyParser = require('body-parser')
 const compression = require('compression')
 const migrations = require('./db/migration/execMigrations')
 const sessionInit = require('./sessionInit')
-
-require('dotenv').config()
 
 const countryRepository = require('./countryRepository')
 const eofApi = require('./eof/api')
