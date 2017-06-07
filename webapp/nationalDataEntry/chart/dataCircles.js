@@ -39,8 +39,11 @@ const renderOdpLines = ({xScale, yScale}) => (d, index) => {
 const DataCircles = (props) => {
   const odps = R.filter(v => v.type === 'odp', props.data)
 
+  const prev = v => R.pipe(R.filter(d => d.year <= v.year && d.type === 'fra'), R.reverse)(props.data)[0]
+  const fra = R.filter(v => (v.type === 'odp') ? prev(v).estimated : true, props.data)
+
   return <g>
-    <path d={renderTrend(props)}
+    <path d={renderTrend({...props, data: fra})}
           style={{
             fill: 'none',
             stroke: 'rgba(0,0,0,.2',

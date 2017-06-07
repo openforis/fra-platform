@@ -59,6 +59,6 @@ const forestAreaReducer = (results, row, type = 'fra') => R.assoc(`fra_${row.yea
 
 module.exports.readFraForestAreas = (countryIso) =>
   db.query(
-    'SELECT year, forest_area, other_wooded_land, other_land from eof_fra_values WHERE country_iso = $1',
+    'SELECT year, forest_area, other_wooded_land, other_land, estimated from eof_fra_values WHERE country_iso = $1',
     [countryIso]
   ).then((result) => R.reduce(forestAreaReducer, {}, result.rows))
