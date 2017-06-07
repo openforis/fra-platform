@@ -14,6 +14,7 @@ const config = {
 }
 
 const pool = promise.promisifyAll(new pg.Pool(config))
+module.exports.pool = pool
 
 pool.on('error', function (err, client) {
   console.error('idle client error', err.message, err.stack)

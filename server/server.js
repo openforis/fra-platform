@@ -2,6 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const compression = require('compression')
 const migrations = require('./db/migration/execMigrations')
+const sessionInit = require('./sessionInit')
 
 require('dotenv').config()
 
@@ -10,6 +11,10 @@ const eofApi = require('./eof/api')
 const userApi = require('./user/userApi')
 
 const app = express()
+
+migrations()
+
+sessionInit.init(app)
 
 app.use(compression({threshold: 512}))
 app.use('/', express.static(`${__dirname}/../dist`))
@@ -25,10 +30,14 @@ app.get('/api/country/all', (req, res) => {
   })
 })
 
+app.get('/api/sessiontest', (req, res) => {
+  console.log("our session value", req.session.foo)
+  req.session.foo = "bar"
+  res.json({foo: req.session.foo})
+})
+
 eofApi.init(app)
 userApi.init(app)
-
-migrations()
 
 app.listen(process.env.PORT, () => {
   console.log('FRA Platform server listening on port ', process.env.PORT)
