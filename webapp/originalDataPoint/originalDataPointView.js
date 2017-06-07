@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import * as originalDataPoint from './originalDataPoint'
 import { saveDraft, markAsActual, remove, fetch, clearActive } from './actions'
 import { acceptNextInteger } from '../utils/numberInput'
+import { separateThousandsWithSpaces } from '../utils/numberFormat'
 import R from 'ramda'
 
 const years = ['', ...R.range(1990, 2021)]
@@ -184,7 +185,7 @@ const ExtentOfForestRow = ({
   return <tr>
     <td className="odp__eof-class-name"><span>{className}</span></td>
     <td className="odp__eof-area-cell odp__eof-divide-after-cell">
-      <input type="text" value={area || ''}
+      <input type="text" value={separateThousandsWithSpaces(area)}
              onChange={ numberUpdated('area', area) }
              onPaste={updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 0)}
       />
