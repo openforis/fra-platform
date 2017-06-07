@@ -93,17 +93,7 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving})
 
 const mapIndexed = R.addIndex(R.map)
 
-const nationalClassRows = (countryIso, odp, saveDraft) => {
-  return mapIndexed((nationalClass, index) => <NationalClassRow
-    key={index}
-    index={index}
-    odp={odp}
-    saveDraft={saveDraft}
-    countryIso={countryIso}
-    {...nationalClass}/>, odp.nationalClasses)
-}
-
-const updatePastedValues = (odp, rowIndex, saveDraft, countryIso, dataCols, colIndex) => evt => {
+const updatePastedValues = (odp, rowIndex, saveDraft, countryIso, dataCols, colIndex, isInteger) => evt => {
   evt.stopPropagation()
   evt.preventDefault()
 
@@ -115,7 +105,8 @@ const updatePastedValues = (odp, rowIndex, saveDraft, countryIso, dataCols, colI
     const cols = row.getElementsByTagName('td')
     R.map(col => {
       const property = dataCols[i % dataCols.length]
-      odp = originalDataPoint.updateNationalClass(odp, Math.floor(i / dataCols.length), property, col.innerText.replace(/\s+/g, ''))
+      const value = isInteger ? Math.round(Number(col.innerText.replace(/\s+/g, ''))) : col.innerText
+      odp = originalDataPoint.updateNationalClass(odp, Math.floor(i / dataCols.length), property, value)
       i += dataCols.length - cols.length + 1
     }, cols)
   }, el.getElementsByTagName('tr'))
@@ -124,6 +115,16 @@ const updatePastedValues = (odp, rowIndex, saveDraft, countryIso, dataCols, colI
 }
 
 const nationalClassCols = ['className', 'definition']
+const nationalClassRows = (countryIso, odp, saveDraft) => {
+  return mapIndexed((nationalClass, index) => <NationalClassRow
+    key={index}
+    index={index}
+    odp={odp}
+    saveDraft={saveDraft}
+    countryIso={countryIso}
+    {...nationalClass}/>, odp.nationalClasses)
+}
+
 const NationalClassRow = ({odp, index, saveDraft, countryIso, className, definition, placeHolder}) =>
   <tr>
     <td className="odp__national-class-row-class-name">
@@ -187,7 +188,7 @@ const ExtentOfForestRow = ({
     <td className="odp__eof-area-cell odp__eof-divide-after-cell">
       <input type="text" value={area || ''}
              onChange={ numberUpdated('area', area) }
-             onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 0) }
+             onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 0, true) }
       />
     </td>
     <td className="odp__eof-percent-cell">
@@ -195,7 +196,7 @@ const ExtentOfForestRow = ({
         type="text"
         value={forestPercent || ''}
         onChange={ numberUpdated('forestPercent', forestPercent) }
-        onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 1) }
+        onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 1, true) }
       />
       % &nbsp;
     </td>
@@ -204,7 +205,7 @@ const ExtentOfForestRow = ({
         type="text"
         value={otherWoodedLandPercent || ''}
         onChange={ numberUpdated('otherWoodedLandPercent', otherWoodedLandPercent) }
-        onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 2) }
+        onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 2, true) }
       />
       % &nbsp;
     </td>
@@ -213,7 +214,7 @@ const ExtentOfForestRow = ({
         type="text"
         value={otherLandPercent || ''}
         onChange={ numberUpdated('otherLandPercent', otherLandPercent) }
-        onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 3) }
+        onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 3, true) }
       />
       % &nbsp;
     </td>
