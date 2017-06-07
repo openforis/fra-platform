@@ -41,22 +41,10 @@ const renderOdpLines = ({xScale, yScale}) => (d, index) => {
   </g>
 }
 
-const renderLabel = ({data, label, xScale, yScale}) => {
-  if (data.length >= 2) {
-    const textProps = {
-      x: xScale(data[0].year) + 50,
-      y: yScale(d3.max(data, d => d.value)) - 20
-    }
-
-    return <text {...textProps} style={{fill: '#666666', fontSize: '12px', fontFamily: 'HelveticaNeue'}}>{label}</text>
-  }
-}
-
 const DataCircles = (props) => {
   const odps = R.filter(v => v.type === 'odp', props.data)
 
   return <g>
-    { renderLabel({...props, data: R.filter(v => v.type !== 'placeholder', props.data)}) }
     <path d={renderTrend(props)}
           style={{
             fill: 'none',
