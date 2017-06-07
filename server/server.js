@@ -16,6 +16,14 @@ migrations()
 
 sessionInit.init(app)
 
+app.use((req, res, next) => {
+  const loggedInCookieValue = req.session.loggedInUser
+    ? 'true'
+    : 'false'
+  res.cookie('loggedIn', loggedInCookieValue, {maxAge: 30 * 24 * 60 * 60 * 1000})
+  next()
+})
+
 app.use(compression({threshold: 512}))
 app.use('/', express.static(`${__dirname}/../dist`))
 app.use('/img/', express.static(`${__dirname}/../web-resources/img`))
@@ -28,12 +36,6 @@ app.get('/api/country/all', (req, res) => {
     console.error(err)
     res.status(500).json({error: 'Could not retrieve country data'})
   })
-})
-
-app.get('/api/sessiontest', (req, res) => {
-  console.log("our session value", req.session.foo)
-  req.session.foo = "bar"
-  res.json({foo: req.session.foo})
 })
 
 eofApi.init(app)

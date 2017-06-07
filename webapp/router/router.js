@@ -1,6 +1,7 @@
 import * as R from 'ramda'
 import React from 'react'
 import { connect } from 'react-redux'
+import * as Cookies from 'js-cookie'
 
 import { follow } from './actions'
 import Notfound from '../notfound'
@@ -8,7 +9,7 @@ import Notfound from '../notfound'
 class Router extends React.Component {
 
   follow() {
-    if (!this.props.loggedIn || !location.hash === '') window.location.hash = ''
+    if (!(Cookies.get('loggedIn') === 'true') || !location.hash === '') window.location.hash = ''
     this.props.follow(location.hash)
   }
 
@@ -30,11 +31,10 @@ class Router extends React.Component {
 }
 
 const mapStateToProps = state => {
-  const loggedIn = !!state.user.userInfo
   const path = state.router.path
     ? state.router.path
     : (window.location.hash || window.location.pathname)
-  return {path, loggedIn}
+  return {path}
 }
 
 export default connect(mapStateToProps, {follow})(Router)
