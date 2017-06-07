@@ -110,14 +110,15 @@ const updatePastedValues = (odp, rowIndex, saveDraft, countryIso, dataCols, colI
   const el = document.createElement('html')
   el.innerHTML = evt.clipboardData.getData('text/html')
 
-  let i = rowIndex + colIndex
-  R.map(row =>
-      R.map(col => {
-        const property = dataCols[i % dataCols.length]
-        odp = originalDataPoint.updateNationalClass(odp, Math.floor(i / dataCols.length), property, col.innerText.replace(/\s+/g, ''))
-        i++
-      }, row.getElementsByTagName('td'))
-    , el.getElementsByTagName('tr'))
+  let i = rowIndex * dataCols.length + colIndex
+  R.map(row => {
+    const cols = row.getElementsByTagName('td')
+    R.map(col => {
+      const property = dataCols[i % dataCols.length]
+      odp = originalDataPoint.updateNationalClass(odp, Math.floor(i / dataCols.length), property, col.innerText.replace(/\s+/g, ''))
+      i += dataCols.length - cols.length + 1
+    }, cols)
+  }, el.getElementsByTagName('tr'))
 
   saveDraft(countryIso, odp)
 }
@@ -140,7 +141,7 @@ const NationalClassRow = ({odp, index, saveDraft, countryIso, className, definit
              value={className || ''}
              onChange={(evt) =>
                saveDraft(countryIso, originalDataPoint.updateNationalClass(odp, index, 'className', evt.target.value))}
-             onPaste={updatePastedValues(odp, index, saveDraft, countryIso, nationalClassCols, 0)}
+             onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, nationalClassCols, 0) }
       />
     </td>
     <td>
@@ -148,7 +149,7 @@ const NationalClassRow = ({odp, index, saveDraft, countryIso, className, definit
              value={definition || '' }
              onChange={(evt) =>
                saveDraft(countryIso, originalDataPoint.updateNationalClass(odp, index, 'definition', evt.target.value))}
-             onPaste={updatePastedValues(odp, index, saveDraft, countryIso, nationalClassCols, 1)}
+             onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, nationalClassCols, 1) }
       />
     </td>
   </tr>
@@ -186,7 +187,7 @@ const ExtentOfForestRow = ({
     <td className="odp__eof-area-cell odp__eof-divide-after-cell">
       <input type="text" value={area || ''}
              onChange={ numberUpdated('area', area) }
-             onPaste={updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 0)}
+             onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 0) }
       />
     </td>
     <td className="odp__eof-percent-cell">
@@ -194,7 +195,7 @@ const ExtentOfForestRow = ({
         type="text"
         value={forestPercent || ''}
         onChange={ numberUpdated('forestPercent', forestPercent) }
-        onPaste={updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 1)}
+        onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 1) }
       />
       % &nbsp;
     </td>
@@ -203,7 +204,7 @@ const ExtentOfForestRow = ({
         type="text"
         value={otherWoodedLandPercent || ''}
         onChange={ numberUpdated('otherWoodedLandPercent', otherWoodedLandPercent) }
-        onPaste={updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 2)}
+        onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 2) }
       />
       % &nbsp;
     </td>
@@ -212,7 +213,7 @@ const ExtentOfForestRow = ({
         type="text"
         value={otherLandPercent || ''}
         onChange={ numberUpdated('otherLandPercent', otherLandPercent) }
-        onPaste={updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 3)}
+        onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 3) }
       />
       % &nbsp;
     </td>
