@@ -158,7 +158,7 @@ const extentOfForestCols = ['area', 'forestPercent', 'otherWoodedLandPercent', '
 const extentOfForestRows = (countryIso, odp, saveDraft) =>
   R.pipe(
     R.filter(nationalClass => !nationalClass.placeHolder),
-    mapIndexed((nationalClass, index) => <ExtentOfForestRow
+    mapIndexed((nationalClass, index) => console.log("nationalClass", nationalClass) || <ExtentOfForestRow
       key={index}
       index={index}
       odp={odp}

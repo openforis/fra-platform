@@ -124,6 +124,10 @@ module.exports.deleteOdp = (client, odpId) => {
   })
 }
 
+const toNumberOrNull = (numericFromDb) => numericFromDb === null
+  ? null
+  : Number(numericFromDb)
+
 module.exports.getOdp = odpId =>
   db.query(`
     SELECT
@@ -150,7 +154,7 @@ module.exports.getOdp = odpId =>
   ).then(([versionId, result]) => [versionId, R.map(row => ({
       className: row.name,
       definition: row.definition,
-      area: row.area,
+      area: toNumberOrNull(row.area),
       forestPercent: row.forest_percent,
       otherWoodedLandPercent: row.other_wooded_land_percent,
       otherLandPercent: row.other_land_percent
