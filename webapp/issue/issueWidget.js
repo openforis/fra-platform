@@ -31,8 +31,11 @@ const AddComment = ({countryIso, section, target, postComment, isFirst}) =>
          className="fra-issue__issue-comment-input"
          placeholder="Write comment message"></div>
     <button className="btn btn-icon btn-s"
-            onClick={() =>
-              postComment(countryIso, section, target, '1', null, document.getElementById(`fra-issue__comment-input-${target}`).innerHTML)}>
+            onClick={() => {
+              postComment(countryIso, section, target, '1', null, document.getElementById(`fra-issue__comment-input-${target}`).innerHTML)
+              document.getElementById(`fra-issue__comment-input-${target}`).innerHTML = ''
+            }
+            }>
       <svg className="icon-24 icon-accent">
         <use xlinkHref="img/icon.svg#icon-circle-add"/>
       </svg>
