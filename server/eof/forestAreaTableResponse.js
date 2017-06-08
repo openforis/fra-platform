@@ -1,11 +1,4 @@
 module.exports = {
-
-//view gets response;
-// {
-//     fra: {"1990":{year:1990,forestArea:12312},"2000":{year:2000,forestArea:3432}}
-//     original: [{id:1231,year:1990,forestArea:12312}]
-// }
-
   fra: {
     'fra_1990': {
       name: '1990',
