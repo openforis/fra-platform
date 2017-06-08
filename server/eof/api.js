@@ -19,15 +19,9 @@ module.exports.init = app => {
         const target =  req.query.target && req.query.target.split(',')
         const issues = R.map(issue => {
           const diff = R.pipe(R.path(['target', 'params']), R.difference(target))(issue)
-          return R.isEmpty(diff)
+          return R.isEmpty(diff) ? issue : []
         }, result)
-
-        if(R.contains(true, issues)) {
-          res.json(result[R.indexOf(true, issues)])
-        }
-        else {
-          res.json([])
-        }
+        res.json(R.reject(R.isEmpty, issues))
       })
       .catch(err => sendErr(res, err))
   })

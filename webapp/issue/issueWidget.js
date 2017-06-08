@@ -90,7 +90,6 @@ class IssueWidget extends React.Component {
       ctx.props.closeCommentThread(ctx.props.taret)
       ctx.setState({showAddComment: false})}, [this])
 
-    console.log('target', this.props.target)
     return <div className="fra-issue__add-issue" style={style}>
        <CommentThread
         countryIso={this.props.countryIso}

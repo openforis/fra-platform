@@ -13,7 +13,7 @@ const actionHandlers = {
   [issuePostCommentCompleted]: (state, action) => ({...state, 'status': action.status}),
   [issueRetrieveCommentsStarted]: (state, action) => ({...state, 'status': action.status}),
   [issueRetrieveCommentsCompleted]: (state, action) => {
-    return {...state, [action.target]: action.comments}
+    return {...state, [action.target]: action.issue}
   },
   [issueOpenCommentThread]: (state, action) => ({...state, 'openThread': action.target}),
   [issueCloseCommentThread]: (state, action) => R.omit(['openThread'], state)
