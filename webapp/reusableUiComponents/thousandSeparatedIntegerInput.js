@@ -11,6 +11,7 @@ export class ThousandSeparatedIntegerInput extends React.Component {
   render () {
     const {integerValue, onChange, onPaste, className} = this.props
     return <input type="text"
+                  maxLength="100"
                   ref="inputField"
                   className={className}
                   value={ this.hasFocus
