@@ -124,7 +124,7 @@ module.exports.deleteOdp = (client, odpId) => {
   })
 }
 
-const toNumberOrNull = (numericFromDb) => numericFromDb === null
+const toNumberOrNull = numericFromDb => numericFromDb === null
   ? null
   : Number(numericFromDb)
 
