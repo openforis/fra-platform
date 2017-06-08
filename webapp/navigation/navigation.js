@@ -89,7 +89,6 @@ const Nav = ({path, country, countries, follow, getCountryList}) => {
   return <div className={`main__navigation ${hideNav(path) ? 'hidden' : ''}`}>
     <CountryItem name={country} countries={countries} listCountries={getCountryList} role="National Correspondent"/>
     <LinkItem label="National Data" countryIso={country} path={path} pathTemplate="/country/:countryIso/odp" />
-    <PrimaryItem label="Annually reported" link="Send to review"/>
     {
       annualItems.map(v => <SecondaryItem path={path} key={v.label} goTo={follow} countryIso={country} {...v} />)
     }
