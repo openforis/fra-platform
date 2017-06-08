@@ -9,6 +9,6 @@ dev-deploy:
   - yarn install
   - yarn test
   - yarn build
-  - dpl --provider=heroku --app=fra-platform --api-key=$HEROKU_STAGING_API_KEY
+  - dpl --provider=heroku --app=dev-fra-platform --api-key=$HEROKU_STAGING_API_KEY
   only:
   - master
