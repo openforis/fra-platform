@@ -13,7 +13,7 @@ const renderPoints = ({xScale, yScale}) => (d, index) => {
 
   return (circleProps.cx && circleProps.cy)
     ? <circle {...circleProps}
-              fill={d.type === 'fra' ? '#FFF' : d.type === 'odp' ? '#189aa7' : 'none' }
+              fill={d.type === 'fra' ? '#FFF' : '#189aa7' }
               stroke={d.type === 'fra' ? '#333333' : 'none'  }
               strokeWidth={d.type === 'fra' ? 1.5 : 0 }/>
     : null
