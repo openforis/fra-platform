@@ -17,7 +17,6 @@ module.exports.init = app => {
     userRepository.getUserInfo(req.params.email)
       .then(result => {
         if (result) {
-          console.log("user", result)
           req.session.loggedInUser = result
           // We'll have to override the cookie value which has already been set in the middleware:
           setLoggedInCookie(res, 'true')

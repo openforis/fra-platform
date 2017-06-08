@@ -6,7 +6,6 @@ import { save, fetch, generateFraValues } from './actions'
 import { Link } from './../link'
 import Chart from './chart/chart'
 import IssueWidget from '../issue/issueWidget'
-import { retrieveComments } from '../issue/actions'
 
 const OdpHeading = ({countryIso, odpValue}) =>
   <Link to={`/country/${countryIso}/odp/${odpValue.odpId}`}>
@@ -143,4 +142,4 @@ class DataFetchingComponent extends React.Component {
 
 const mapStateToProps = state => R.merge(state.nationalDataEntry, {"openCommentThread": state.issue.openThread})
 
-export default connect(mapStateToProps, {save, fetch, generateFraValues, retrieveComments})(DataFetchingComponent)
+export default connect(mapStateToProps, {save, fetch, generateFraValues})(DataFetchingComponent)
