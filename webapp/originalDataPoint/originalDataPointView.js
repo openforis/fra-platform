@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import * as originalDataPoint from './originalDataPoint'
 import { saveDraft, markAsActual, remove, fetch, clearActive } from './actions'
 import { acceptNextInteger } from '../utils/numberInput'
-import { separateThousandsWithSpaces } from '../utils/numberFormat'
+import { ThousandSeparatedIntegerInput } from '../reusableUiComponents/thousandSeparatedIntegerInput'
 import R from 'ramda'
 
 const years = ['', ...R.range(1990, 2021)]
@@ -167,29 +167,6 @@ const extentOfForestRows = (countryIso, odp, saveDraft) =>
       {...nationalClass}/>)
   )(odp.nationalClasses)
 
-class ThousandSeparatedIntegerInput extends React.Component {
-  render () {
-    const {integerValue, onChange, onPaste} = this.props
-    return <input type="text"
-                  ref="inputField"
-                  value={ this.hasFocus ? integerValue : separateThousandsWithSpaces(integerValue) }
-                  onChange={ onChange }
-                  onPaste={ onPaste }
-                  onFocus={
-                    () => {
-                      this.hasFocus = true
-                      this.refs.inputField.value = integerValue
-                    }
-                  }
-                  onBlur={
-                    () => {
-                      this.hasFocus = false
-                      this.refs.inputField.value = separateThousandsWithSpaces(integerValue)
-                    }
-                  }
-    />
-  }
-}
 
 const ExtentOfForestRow = ({
                              odp,
