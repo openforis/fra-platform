@@ -22,7 +22,7 @@ export class ThousandSeparatedIntegerInput extends React.Component {
                   onFocus={
                     () => {
                       this.hasFocus = true
-                      this.refs.inputField.value = integerValue
+                      this.refs.inputField.value = integerValue || null //prevent text "undefined" from rendering
                     }
                   }
                   onBlur={
