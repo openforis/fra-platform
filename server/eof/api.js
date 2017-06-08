@@ -13,13 +13,28 @@ const forestAreaTableResponse = require('./forestAreaTableResponse')
 
 module.exports.init = app => {
 
-  app.get('/api/country/issue/:countryIso/:target', (req, res) => {
-   issueRepository.getEofIssues(req.params.countryIso, req.params.target)
+  app.get('/api/country/issue/:countryIso/:section', (req, res) => {
+    issueRepository.getIssues(req.params.countryIso, req.params.section)
+      .then(result => {
+        const target =  req.query.target && req.query.target.split(',')
+        // todo: filter target
+        res.json(result)
+      })
+      .catch(err => sendErr(res, err))
+  })
+  app.post('/api/country/issue/:countryIso/:section', (req, res) => {
+    console.log("user2", req.session.loggedInUser)
+    const userId = req.session.loggedInUser.id
+    const target = req.query.target ? req.query.target.split(',') : []
+    console.log("target", target)
+    db.transaction(
+      issueRepository.createIssueWithComment,
+      [req.params.countryIso, req.params.section, {params: target}, userId, req.body.msg])
       .then(result => res.json(result))
       .catch(err => sendErr(res, err))
   })
-  app.post('/api/country/issue/:countryIso/:target', (req, res) => {
-    db.transaction(issueRepository.createEofIssue, [req.params.countryIso, req.params.target, 1, req.body.msg])
+  app.post('/api/country/issue/:issueId/comment', (req, res) => {
+    db.transaction(issueRepository.createComment, [req.params.issueId, req.body.userId, req.body.msg, ''])
       .then(result => res.json(result))
       .catch(err => sendErr(res, err))
   })
