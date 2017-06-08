@@ -12,7 +12,7 @@ const Comments = ({comments}) =>
     {
       mapIndexed((c, i) =>
           <div key={i} className="fra-issue__comment">
-            <div className="fra-issue__comment-author">{c.email}</div>
+            <div className="fra-issue__comment-author">{c.username}</div>
             <div className="fra-issue__comment-time">just now</div>
             <div className="fra-issue__comment-text">
               {c.message}
@@ -77,7 +77,7 @@ class IssueWidget extends React.Component {
       this.props.retrieveComments(next.countryIso, this.props.section, this.props.target)
       this.setState({showAddComment: false})
     }
-    if(next.openThread !== this.props.target) { // other comment thread is opened, close this
+    if(!next.openThread || next.openThread.join('_') !== this.props.target.join('_')) { // other comment thread is opened, close this
       this.setState({showAddComment: false})
     }
   }

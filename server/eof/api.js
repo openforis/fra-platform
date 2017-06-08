@@ -26,10 +26,8 @@ module.exports.init = app => {
       .catch(err => sendErr(res, err))
   })
   app.post('/api/country/issue/:countryIso/:section', (req, res) => {
-    console.log("user2", req.session.loggedInUser)
     const userId = req.session.loggedInUser.id
     const target = req.query.target ? req.query.target.split(',') : []
-    console.log("target", target)
     db.transaction(
       issueRepository.createIssueWithComment,
       [req.params.countryIso, req.params.section, {params: target}, userId, req.body.msg])

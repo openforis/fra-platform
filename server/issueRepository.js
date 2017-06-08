@@ -15,7 +15,6 @@ module.exports.getIssues = (countryIso, section) => {
 }
 
 module.exports.createIssueWithComment = (client, countryIso, section, target, userId, msg) => {
-  console.log("target json")
   return client.query(`
     INSERT INTO issue (country_iso, section, target, status) VALUES ($1, $2, $3, $4);
   `, [countryIso, section, target,'open'])
