@@ -103,11 +103,12 @@ const updatePastedValues = (odp, rowIndex, saveDraft, countryIso, dataCols, colI
   let i = rowIndex * dataCols.length + colIndex
   R.map(row => {
     const cols = row.getElementsByTagName('td')
-    R.map(col => {
+    const offset = dataCols.length - cols.length
+    mapIndexed((col, j) => {
       const property = dataCols[i % dataCols.length]
       const value = isInteger ? Math.round(Number(col.innerText.replace(/\s+/g, ''))) : col.innerText
       odp = originalDataPoint.updateNationalClass(odp, Math.floor(i / dataCols.length), property, value)
-      i += dataCols.length - cols.length + 1
+      i += (j === cols.length - 1) ? offset + 1 : 1
     }, cols)
   }, el.getElementsByTagName('tr'))
 
