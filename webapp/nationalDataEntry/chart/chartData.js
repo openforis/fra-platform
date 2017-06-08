@@ -66,12 +66,10 @@ export const addPlaceholders = (data) => {
 }
 
 export const getChartData = (fra, property) => {
-  const data = R.pipe(
+  return R.pipe(
     R.values,
     R.filter(v => typeof v[property] === 'number'),
-    R.map((v) => { return {year: v.year, value: v[property], type: v.type, estimated: v.estimated} }),
+    R.map((v) => { return {year: v.year, value: v[property], type: v.type, estimated: v[`${property}Estimated`]} }),
     addPlaceholders
   )(fra)
-
-  return data
 }
