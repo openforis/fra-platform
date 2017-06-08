@@ -9,14 +9,13 @@ const renderUnfocusedIntegerValue = integerValue =>
 
 export class ThousandSeparatedIntegerInput extends React.Component {
   render () {
-    const {integerValue, onChange, onPaste} = this.props
+    const {integerValue, onChange, onPaste, className} = this.props
     return <input type="text"
                   ref="inputField"
+                  className={className}
                   value={ this.hasFocus
-                            ?
-                            renderFocusedIntegerValue(integerValue)
-                            :
-                            renderUnfocusedIntegerValue(integerValue)
+                    ? renderFocusedIntegerValue(integerValue)
+                    : renderUnfocusedIntegerValue(integerValue)
                   }
                   onChange={ onChange }
                   onPaste={ onPaste }
