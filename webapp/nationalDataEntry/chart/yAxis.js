@@ -15,8 +15,13 @@ class YAxis extends Component {
   }
 
   renderAxis () {
-    var axis = d3.axisLeft(this.props.yScale).ticks(5).tickSizeInner(-this.props.width).tickSizeOuter(0)
+    const formatLabel = v => d3.format(',')(v).replace(/,/g, ' ')
+
+    var axis = d3.axisLeft(this.props.yScale)
+      .ticks(5).tickSizeInner(-this.props.width).tickSizeOuter(0).tickFormat(formatLabel)
+
     const node = this.refs.axis
+
     d3.select(node).call(axis)
       .selectAll('path').style('stroke', '#cccccc')
 
