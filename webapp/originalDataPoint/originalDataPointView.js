@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import * as originalDataPoint from './originalDataPoint'
 import { saveDraft, markAsActual, remove, fetch, clearActive } from './actions'
 import { acceptNextInteger } from '../utils/numberInput'
+import { ThousandSeparatedIntegerInput } from '../reusableUiComponents/thousandSeparatedIntegerInput'
 import R from 'ramda'
 
 const years = ['', ...R.range(1990, 2021)]
@@ -166,6 +167,7 @@ const extentOfForestRows = (countryIso, odp, saveDraft) =>
       {...nationalClass}/>)
   )(odp.nationalClasses)
 
+
 const ExtentOfForestRow = ({
                              odp,
                              index,
@@ -175,7 +177,8 @@ const ExtentOfForestRow = ({
                              area,
                              forestPercent,
                              otherWoodedLandPercent,
-                             otherLandPercent
+                             otherLandPercent,
+                             ...props
                            }) => {
 
   const numberUpdated = (fieldName, currentValue) => evt =>
@@ -184,10 +187,9 @@ const ExtentOfForestRow = ({
   return <tr>
     <td className="odp__eof-class-name"><span>{className}</span></td>
     <td className="odp__eof-area-cell odp__eof-divide-after-cell">
-      <input type="text" value={area || ''}
-             onChange={ numberUpdated('area', area) }
-             onPaste={updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 0)}
-      />
+      <ThousandSeparatedIntegerInput integerValue={ area }
+                                     onChange={ numberUpdated('area', area) }
+                                     onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 0) }/>
     </td>
     <td className="odp__eof-percent-cell">
       <input
