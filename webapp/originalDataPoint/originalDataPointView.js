@@ -167,26 +167,26 @@ const extentOfForestRows = (countryIso, odp, saveDraft) =>
       {...nationalClass}/>)
   )(odp.nationalClasses)
 
-class ForestAreaInput extends React.Component {
+class ThousandSeparatedIntegerInput extends React.Component {
   render () {
-    const {area, odp, index, countryIso, numberUpdated} = this.props
+    const {integerValue, onChange, onPaste} = this.props
     return <input type="text"
-                  ref="areaInput"
-                  value={ this.hasFocus ? area : separateThousandsWithSpaces(area) }
-                  onChange={ numberUpdated('area', area) }
+                  ref="inputField"
+                  value={ this.hasFocus ? integerValue : separateThousandsWithSpaces(integerValue) }
+                  onChange={ onChange }
+                  onPaste={ onPaste }
                   onFocus={
                     () => {
                       this.hasFocus = true
-                      this.refs.areaInput.value = area
+                      this.refs.inputField.value = integerValue
                     }
                   }
                   onBlur={
                     () => {
                       this.hasFocus = false
-                      this.refs.areaInput.value = separateThousandsWithSpaces(area)
+                      this.refs.inputField.value = separateThousandsWithSpaces(integerValue)
                     }
                   }
-                  onPaste={updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 0)}
     />
   }
 }
@@ -210,7 +210,9 @@ const ExtentOfForestRow = ({
   return <tr>
     <td className="odp__eof-class-name"><span>{className}</span></td>
     <td className="odp__eof-area-cell odp__eof-divide-after-cell">
-      <ForestAreaInput {...props} area={area} numberUpdated={numberUpdated}/>
+      <ThousandSeparatedIntegerInput integerValue={ area }
+                                     onChange={ numberUpdated('area', area) }
+                                     onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 0) }/>
     </td>
     <td className="odp__eof-percent-cell">
       <input
