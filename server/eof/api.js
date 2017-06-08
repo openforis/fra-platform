@@ -17,8 +17,17 @@ module.exports.init = app => {
     issueRepository.getIssues(req.params.countryIso, req.params.section)
       .then(result => {
         const target =  req.query.target && req.query.target.split(',')
-        // todo: filter target
-        res.json(result)
+        const issues = R.map(issue => {
+          const diff = R.pipe(R.path(['target', 'params']), R.difference(target))(issue)
+          return R.isEmpty(diff)
+        }, result)
+
+        if(R.contains(true, issues)) {
+          res.json(result[R.indexOf(true, issues)])
+        }
+        else {
+          res.json([])
+        }
       })
       .catch(err => sendErr(res, err))
   })

@@ -16,9 +16,9 @@ export const postComment = (countryIso, section, target, userId, issueId, msg) =
   )
 }
 
-export const retrieveComments = (countryIso, section) => dispatch => {
+export const retrieveComments = (countryIso, section, target) => dispatch => {
   dispatch({section: section, type: issueRetrieveCommentsStarted, status: 'started'})
-  axios.get(`api/country/issue/${countryIso}/${section}`).then(resp =>
+  axios.get(`api/country/issue/${countryIso}/${section}?target=${target}`).then(resp =>
     dispatch({section: section, type: issueRetrieveCommentsCompleted, comments: resp.data})
   )
 }
