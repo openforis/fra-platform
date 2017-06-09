@@ -5,6 +5,26 @@
   right: -2px;
 }
 
+.fra-issue__triangle-marker {
+  position: absolute;
+  top: 12px;
+  left: -11px;
+  width: 12px;
+  height: 12px;
+  overflow: hidden;
+
+}
+.fra-issue__triangle {
+  position: absolute;
+  top: 0;
+  right: -6px;
+  width: 12px;
+  height: 12px;
+  border: 1px solid #CCCCCC;
+  background: white;
+  transform: rotate(45deg);
+}
+
 .fra-issue__issue {
   position: relative;
   background: white;
@@ -76,7 +96,9 @@
 
 .fra-issue__issue-status-hidden {
   display: none;
-
+}
+.fra-issue__issue-status-visible {
+  cursor: pointer;
 }
 
 .fra-issue__comment-add-btn {

@@ -48,7 +48,7 @@ const AddComment = ({countryIso, section, target, postComment, onCancel, isFirst
     <button className="fra-issue__comment-add-btn btn btn-primary btn-s"
             onClick={() => {
               postComment(countryIso, section, target, '1', null, document.getElementById(`fra-issue__comment-input-${target}`).value)
-              document.getElementById(`fra-issue__comment-input-${target}`).innerHTML = ''
+              document.getElementById(`fra-issue__comment-input-${target}`).value = ''
             }}>Add</button>
     <button className="btn btn-s btn-secondary" onClick={() => onCancel()}>Cancel</button>
   </div>
@@ -64,6 +64,9 @@ const CommentStatus = ({count, visible, ...props}) =>
 
 const CommentThread = ({countryIso, section, target, comments, showAdd, postComment, close}) =>
   <div className={`fra-issue__issue ${showAdd ? 'fra-issue__issue-visible' : 'fra-issue__issue-hidden'}`}>
+    <div className="fra-issue__triangle-marker">
+      <div className="fra-issue__triangle"></div>
+    </div>
     <Comments comments={comments}/>
     <AddComment countryIso={countryIso} section={section} target={target} postComment={postComment}
                 onCancel={close}
