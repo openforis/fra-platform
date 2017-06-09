@@ -66,13 +66,18 @@
     color: @ui-border;
   }
 
-  .nde__input-table-readonly-cell {
+  .nde__input-header-cell_odp {
+    background-color: lighten(@ui-accent-light, 8%);
+  }
+
+  .nde__input-table-cell_odp {
+    background-color: lighten(@ui-accent-light, 12%);
     display: inline-block;
     text-align: right;
     line-height: inherit;
     padding: 10px;
     width: 100%;
-    color: @text-disabled;
+    color: @text-body;
     cursor: not-allowed;
   }
 }

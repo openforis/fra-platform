@@ -22,7 +22,7 @@ class DataTable extends React.Component {
           <div className="nde__input-table-content-row-header-cell"/>
           {
             R.values(this.props.fra).map(v =>
-              <div className="nde__input-header-cell" key={`${v.type}_${v.name}`}>
+              <div className={`nde__input-header-cell nde__input-header-cell_${v.type}`} key={`${v.type}_${v.name}`}>
                 { v.type === 'odp' ? <OdpHeading countryIso={this.props.countryIso} odpValue={v}/>
                   : v.name
                 }
@@ -77,7 +77,7 @@ const fraValueCell = (fraValue, fra, countryIso, save, field) =>
     onChange={ e => { save(countryIso, fraValue.name, e.target.value, fraValue, field) } }/>
 
 const odpCell = (odpValue, field) =>
-  <span className="nde__input-table-readonly-cell">
+  <span className="nde__input-table-cell_odp">
     {odpValue[field]}
   </span>
 
