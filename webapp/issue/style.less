@@ -1,13 +1,12 @@
 @import "../app-styles/config";
 
 .fra-issue__add-issue {
-  padding: 0 12px;
-  right: -2px;
+  padding: 0 12px 12px;
 }
 
 .fra-issue__triangle-marker {
   position: absolute;
-  top: 12px;
+  top: 20px;
   left: -11px;
   width: 12px;
   height: 12px;
@@ -29,19 +28,19 @@
   position: relative;
   background: white;
   border: 1px solid #CCCCCC;
-  padding: 16px;
+  padding: 8px 0;
   box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.2);
-  width: 262px;
+  width: 256px;
 }
 
 .fra-issue__issue-comment-input {
   border: none;
-  margin: 16px 0;
+  margin: 8px 0;
   min-height: 14px;
-  max-height: 260px;
-  width: 240px;
+  max-height: 256px;
+  width: 100%;
   resize: none;
-  padding-bottom: 4px;
+  padding: 8px 16px 0;
   font-size: @font-s;
   font-family: @font-family-1;
   &:focus {
@@ -49,15 +48,24 @@
   }
 }
 
+.fra-issue__comment-buttons {
+  padding: 0 16px 8px;
+}
+
+.fra-issue__comment {
+  padding: 8px 16px;
+}
+
 .fra-issue__comment-edit-author {
   font-size: @font-s;
   font-family: @font-family-1;
   font-weight: bold;
+  padding: 8px 16px 16px;
   border-bottom: @ui-thin-border;
-  padding-bottom: 16px;
 }
+
 .fra-issue__comment-edit-author-empty {
-  margin-top: 16px;
+  padding-bottom: 8px;
   border-bottom: @ui-thin-border;
 }
 
@@ -86,9 +94,10 @@
   overflow: hidden;
   transition: visibility 0s, opacity 0.2  s linear;
 }
+
 .fra-issue__issue-visible {
   height: auto;
-  width: 260px;
+  width: 256px;
   visibility: visible;
   transition: width 0s, 0.1s linear;
   transition-timing-function: cubic-bezier(0, 0, 0.58, 1);
@@ -112,10 +121,12 @@
   font-weight: bold;
 }
 .fra-issue__comment-time {
+  color: @text-mute;
   font-size: @font-xxs;
   margin-bottom: 6px;
 }
 .fra-issue__comment-text {
   font-size: @font-s;
+  line-height: 1.4;
   overflow-wrap: break-word;
 }

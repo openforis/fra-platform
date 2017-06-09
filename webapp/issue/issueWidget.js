@@ -45,12 +45,14 @@ const AddComment = ({issueId, countryIso, section, target, postComment, onCancel
          id={`fra-issue__comment-input-${target}`}
          className="fra-issue__issue-comment-input"
          placeholder="Write comment message"></textarea>
-    <button className="fra-issue__comment-add-btn btn btn-primary btn-s"
-            onClick={() => {
-              postComment(issueId, countryIso, section, target, null, document.getElementById(`fra-issue__comment-input-${target}`).value)
-              document.getElementById(`fra-issue__comment-input-${target}`).value = ''
-            }}>Add</button>
-    <button className="btn btn-s btn-secondary" onClick={() => onCancel()}>Cancel</button>
+    <div className="fra-issue__comment-buttons">
+        <button className="fra-issue__comment-add-btn btn btn-primary btn-s"
+                onClick={() => {
+                  postComment(issueId, countryIso, section, target, null, document.getElementById(`fra-issue__comment-input-${target}`).value)
+                  document.getElementById(`fra-issue__comment-input-${target}`).value = ''
+                }}>Add</button>
+        <button className="btn btn-s btn-secondary" onClick={() => onCancel()}>Cancel</button>
+    </div>
   </div>
 
 const CommentStatus = ({count, visible, ...props}) =>
