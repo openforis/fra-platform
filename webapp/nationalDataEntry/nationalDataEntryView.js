@@ -30,7 +30,7 @@ class DataTable extends React.Component {
             )
           }
         </div>
-        { fraValueRow('Forest', "forest", this.props.countryIso, 'forestArea', this.props.fra, this.props.save) }
+        { fraValueRow('Forest area', "forest", this.props.countryIso, 'forestArea', this.props.fra, this.props.save) }
         { fraValueRow('Other wooded land', 'otherWoodedLand', this.props.countryIso, 'otherWoodedLand', this.props.fra, this.props.save) }
         { fraValueRow('Other land', 'otherLand', this.props.countryIso, 'otherLand', this.props.fra, this.props.save) }
       </div>
