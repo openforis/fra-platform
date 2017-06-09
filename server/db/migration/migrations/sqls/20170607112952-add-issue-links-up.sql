@@ -1,0 +1,4 @@
+DROP TABLE eof_issue;
+ALTER TABLE issue ADD COLUMN country_iso VARCHAR(3) REFERENCES country(country_iso) NOT NULL;
+ALTER TABLE issue ADD COLUMN section VARCHAR(50);
+ALTER TABLE issue ADD COLUMN target JSON NOT NULL;

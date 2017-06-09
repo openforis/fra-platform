@@ -71,13 +71,15 @@ const LinkItem = ({path, countryIso, pathTemplate = '/tbd', label}) => {
 const SecondaryItem = ({path, countryIso, order, pathTemplate = '/tbd', label, status}) => {
   const route = new Route(pathTemplate)
   const linkTo = route.reverse({countryIso})
+  const isTodoItem = pathTemplate.indexOf('/todo') !== -1
+  const secondaryTextClass = isTodoItem ? 'navi__disabled-menu-item-text' : ''
 
   return <Link className={`navi__secondary-item ${R.equals(path, linkTo) ? 'selected' : ''}`}
                to={ linkTo }>
-    <span className="navi__secondary-order">{order}</span>
+    <span className={`navi__secondary-order ${secondaryTextClass}`}>{order}</span>
     <div>
-      <span className="navi__secondary-label">{label}</span>
-      <span className="navi__secondary-status">{status}</span>
+      <span className={`navi__secondary-label ${secondaryTextClass}`}>{label}</span>
+      <span className={`navi__secondary-status ${secondaryTextClass}`}>{status}</span>
     </div>
   </Link>
 }
@@ -89,11 +91,11 @@ const Nav = ({path, country, countries, follow, getCountryList}) => {
   return <div className={`main__navigation ${hideNav(path) ? 'hidden' : ''}`}>
     <CountryItem name={country} countries={countries} listCountries={getCountryList} role="National Correspondent"/>
     <LinkItem label="National Data" countryIso={country} path={path} pathTemplate="/country/:countryIso/odp" />
-    <PrimaryItem label="Annually reported" link="Send to review"/>
+    <PrimaryItem label="Annually reported"/>
     {
       annualItems.map(v => <SecondaryItem path={path} key={v.label} goTo={follow} countryIso={country} {...v} />)
     }
-    <PrimaryItem label="Five-year Cycle" link="Send to review"/>
+    <PrimaryItem label="Five-year Cycle"/>
     {
       fiveYearItems.map(v => <SecondaryItem key={v.label} {...v} />)
     }

@@ -15,14 +15,6 @@ const LoginView = ({requestLogin, loginFailed}) =>
           <label htmlFor="email">Email</label>
           <input id="email" type="text" defaultValue="jan.egeland@mailinator.com"/>
         </div>
-        <div className="login__input-group">
-          <label htmlFor="un">Password</label>
-          <input id="un" type="password"/>
-        </div>
-        <div className="login__checkbox-group">
-          <input id="un" type="checkbox" disabled="disabled"/>
-          <label htmlFor="un" type="text">Remember me on this browser</label>
-        </div>
         <button className="btn btn-primary login__btn"
                 onClick={() => requestLogin(document.getElementById("email").value)}>
           Sign in

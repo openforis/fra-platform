@@ -6,6 +6,7 @@ import { save, fetch, generateFraValues } from './actions'
 import { Link } from './../link'
 import Chart from './chart/chart'
 import IssueWidget from '../issue/issueWidget'
+import { ThousandSeparatedIntegerInput } from '../reusableUiComponents/thousandSeparatedIntegerInput'
 
 const OdpHeading = ({countryIso, odpValue}) =>
   <Link to={`/country/${countryIso}/odp/${odpValue.odpId}`}>
@@ -14,7 +15,6 @@ const OdpHeading = ({countryIso, odpValue}) =>
   </Link>
 
 class DataTable extends React.Component {
-
   render () {
     return <div className="nde__data-table-container">
       <div className="nde__input-table">
@@ -35,11 +35,14 @@ class DataTable extends React.Component {
         { fraValueRow('Other land', 'otherLand', this.props.countryIso, 'otherLand', this.props.fra, this.props.save) }
       </div>
       <div className="nde__comment-column">
-        <div className="nde__comment-cell"><IssueWidget target='forestArea'
+        <div className="nde__comment-cell"><IssueWidget target={['forest']}
+                                                        countryIso={this.props.countryIso}
+                                                        section='EOF'/></div>
+        <div className="nde__comment-cell"><IssueWidget section='EOF'
+                                                        target={['otherWoodedLand']}
                                                         countryIso={this.props.countryIso}/></div>
-        <div className="nde__comment-cell"><IssueWidget target='otherWoodedLand'
-                                                        countryIso={this.props.countryIso}/></div>
-        <div className="nde__comment-cell"><IssueWidget target='otherLand'
+        <div className="nde__comment-cell"><IssueWidget section='EOF'
+                                                        target={['otherLand']}
                                                         countryIso={this.props.countryIso}/></div>
       </div>
     </div>
@@ -68,12 +71,10 @@ const fraFieldValueForInput = (fieldValue) =>
   : ''
 
 const fraValueCell = (fraValue, fra, countryIso, save, field) =>
-  <input
+  <ThousandSeparatedIntegerInput
     className="nde__input-table-input"
-    value={ fraFieldValueForInput(fraValue[field]) }
-    onChange={ e => {
-      save(countryIso, fraValue.name, e.target.value, fraValue, field)
-    }}/>
+    integerValue={ fraValue[field] }
+    onChange={ e => { save(countryIso, fraValue.name, e.target.value, fraValue, field) } }/>
 
 const odpCell = (odpValue, field) =>
   <span className="nde__input-table-readonly-cell">
