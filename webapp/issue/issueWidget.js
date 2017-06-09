@@ -22,24 +22,35 @@ const Comments = ({comments}) =>
     }
   </div>
 
-const AddComment = ({countryIso, section, target, postComment, isFirst}) =>
+const AddComment = ({countryIso, section, target, postComment, onCancel, isFirst}) =>
   <div>
     <div
       className={`fra-issue__comment-edit-author${isFirst ? '' : '-empty'} `}>{isFirst ? `Jan Egeland` : ''}</div>
-    <div contentEditable={true}
+    <textarea
+         onKeyUp={(e) => {
+           if(e.keyCode === 8) {
+             const elem = document.getElementById(`fra-issue__comment-input-${target}`)
+             if(elem.textLength === 0) {
+               elem.style.height = '40px'
+             }
+           }
+           if(e.keyCode === 27) { // escape
+             onCancel()
+           }
+         } }
+         onInput={() => {
+           const elem = document.getElementById(`fra-issue__comment-input-${target}`)
+           elem.style.height= `${elem.scrollHeight}px`
+         }}
          id={`fra-issue__comment-input-${target}`}
          className="fra-issue__issue-comment-input"
-         placeholder="Write comment message"></div>
-    <button className="btn btn-icon btn-s"
+         placeholder="Write comment message"></textarea>
+    <button className="fra-issue__comment-add-btn btn btn-primary btn-s"
             onClick={() => {
-              postComment(countryIso, section, target, '1', null, document.getElementById(`fra-issue__comment-input-${target}`).innerHTML)
+              postComment(countryIso, section, target, '1', null, document.getElementById(`fra-issue__comment-input-${target}`).value)
               document.getElementById(`fra-issue__comment-input-${target}`).innerHTML = ''
-            }
-            }>
-      <svg className="icon-24 icon-accent">
-        <use xlinkHref="img/icon.svg#icon-circle-add"/>
-      </svg>
-    </button>
+            }}>Add</button>
+    <button className="btn btn-s btn-secondary" onClick={() => onCancel()}>Cancel</button>
   </div>
 
 const CommentStatus = ({count, visible, ...props}) =>
@@ -53,13 +64,9 @@ const CommentStatus = ({count, visible, ...props}) =>
 
 const CommentThread = ({countryIso, section, target, comments, showAdd, postComment, close}) =>
   <div className={`fra-issue__issue ${showAdd ? 'fra-issue__issue-visible' : 'fra-issue__issue-hidden'}`}>
-    <i className="fra-issue__issue-close" onClick={ e => close(e) }>
-      <svg className="icon-24">
-        <use xlinkHref="img/icon.svg#icon-small-remove"/>
-      </svg>
-    </i>
     <Comments comments={comments}/>
     <AddComment countryIso={countryIso} section={section} target={target} postComment={postComment}
+                onCancel={close}
                 isFirst={comments.length === 0}/>
   </div>
 
