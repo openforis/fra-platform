@@ -32,7 +32,7 @@ const start = ({name, value}) => ({type: valueChangeStart, name, value})
 
 export const save = (countryIso, name, newValue, fraValue, field) => dispatch => {
   const sanitizedValue = acceptNextInteger(newValue, fraValue[field])
-  const newFraValue = {...fraValue, [field]: sanitizedValue}
+  const newFraValue = {...fraValue, [field]: sanitizedValue, [`${field}Estimated`]: false}
   dispatch(start({name, value: newFraValue}))
   dispatch(autosave.start)
   dispatch(change({countryIso, name, value: newFraValue}))
@@ -41,7 +41,7 @@ export const save = (countryIso, name, newValue, fraValue, field) => dispatch =>
 export const fetch = (countryIso) => dispatch => {
   axios.get(`/api/country/${countryIso}`).then(resp => {
     dispatch(fetched(countryIso, resp.data))
-  }).catch (err => dispatch(applicationError(err)))
+  }).catch(err => dispatch(applicationError(err)))
 }
 
 export const generateFraValuesStart = 'nationalDataEntry/generateFraValues/start'
