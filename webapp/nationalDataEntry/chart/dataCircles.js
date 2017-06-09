@@ -60,7 +60,7 @@ const DataCircles = (props) => {
     <path d={renderTrend(props)}
           style={{
             fill: 'none',
-            stroke: 'rgba(0,0,0,.2',
+            stroke: 'rgba(0,0,0,.2)',
             strokeWidth: 2,
             shapeRendering: 'geometricPrecision',
             strokeDasharray: '5,4'
