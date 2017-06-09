@@ -20,7 +20,6 @@ export const requestLogin = (email) => dispatch => {
 }
 
 export const getLoggedinUserInfo = () => dispatch => {
-  console.log("getLoggedInUserInfo")
   axios.get(`/api/loggedInUser/`)
     .then(resp => {
       dispatch({type: userInfo, userInfo: resp.data.userInfo})
