@@ -5,6 +5,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 const Footer = ({status, userInfo}) => <div className="footer__container">
+  {/* Placeholder for space-between flexbox alignment */}
   <div/>
   <div className="footer__item footer__autosave-status">{status}</div>
   <div className="footer__item">{userInfo ? userInfo.name : ''}</div>
