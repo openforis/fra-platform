@@ -3,7 +3,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import './style.less'
-import { postComment, retrieveComments, openCommentThread, closeCommentThread } from './actions'
+import {postComment, retrieveComments, openCommentThread, closeCommentThread } from './actions'
 
 const mapIndexed = R.addIndex(R.map)
 
@@ -64,16 +64,18 @@ const CommentStatus = ({count, visible, ...props}) =>
 
 const CommentThread = ({countryIso, section, target, comments, showAdd, postComment, close}) => {
   const issueId = comments.length > 0 ? comments[0].issueId : null
-  return   <div className={`fra-issue__issue ${showAdd ? 'fra-issue__issue-visible' : 'fra-issue__issue-hidden'}`}>
+  return <div
+    className={`fra-issue__issue ${showAdd ? 'fra-issue__issue-visible' : 'fra-issue__issue-hidden'}`}>
     <div className="fra-issue__triangle-marker">
       <div className="fra-issue__triangle"></div>
     </div>
     <Comments comments={comments}/>
-    <AddComment issueId={issueId} countryIso={countryIso} section={section} target={target} postComment={postComment}
+    <AddComment issueId={issueId} countryIso={countryIso} section={section} target={target}
+                postComment={postComment}
                 onCancel={close}
                 isFirst={comments.length === 0}/>
   </div>
-
+}
 class IssueWidget extends React.Component {
 
   constructor (props) {
@@ -125,9 +127,9 @@ const mapStateToProps = state => {
   return state.issue
 }
 
-export default connect(mapStateToProps, {
-  openCommentThread,
-  closeCommentThread,
-  postComment,
-  retrieveComments
-})(IssueWidget)
+  export default connect(mapStateToProps, {
+    openCommentThread,
+    closeCommentThread,
+    postComment,
+    retrieveComments
+  })(IssueWidget)
