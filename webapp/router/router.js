@@ -5,11 +5,17 @@ import * as Cookies from 'js-cookie'
 
 import { follow } from './actions'
 import Notfound from '../notfound'
+import { getLoggedinUserInfo } from '../login/actions'
 
 class Router extends React.Component {
 
   follow() {
-    if (!(Cookies.get('loggedIn') === 'true') || !location.hash === '') window.location.hash = ''
+    if (!(Cookies.get('loggedIn') === 'true') || !location.hash === '') {
+      window.location.hash = ''
+    }
+    else if (!this.props.loggedInUserInfoLoaded) {
+      this.props.getLoggedinUserInfo()
+    }
     this.props.follow(location.hash)
   }
 
@@ -34,7 +40,8 @@ const mapStateToProps = state => {
   const path = state.router.path
     ? state.router.path
     : (window.location.hash || window.location.pathname)
-  return {path}
+  const loggedInUserInfoLoaded = !!state.user.userInfo
+  return {path, loggedInUserInfoLoaded}
 }
 
-export default connect(mapStateToProps, {follow})(Router)
+export default connect(mapStateToProps, {follow, getLoggedinUserInfo})(Router)

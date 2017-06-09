@@ -24,8 +24,14 @@ module.exports.init = app => {
           req.session.loggedInUser = null
           setLoggedInCookie(res, 'false')
         }
-        res.json({userInfo: result, loginStatus: result ? 'ok' : 'fail'})
+        res.json({loginStatus: result ? 'ok' : 'fail'})
       })
       .catch(err => sendErr(res, err))
+  })
+  app.get('/api/loggedInUser/', (req, res) => {
+    if (req.session.loggedInUser)
+      res.json({userInfo: req.session.loggedInUser})
+    else
+      res.status(401).json({error: 'Not logged in'})
   })
 }
