@@ -6,6 +6,7 @@ import { save, fetch, generateFraValues } from './actions'
 import { Link } from './../link'
 import Chart from './chart/chart'
 import IssueWidget from '../issue/issueWidget'
+import { ThousandSeparatedIntegerInput } from '../reusableUiComponents/thousandSeparatedIntegerInput'
 
 const OdpHeading = ({countryIso, odpValue}) =>
   <Link to={`/country/${countryIso}/odp/${odpValue.odpId}`}>
@@ -29,7 +30,7 @@ class DataTable extends React.Component {
             )
           }
         </div>
-        { fraValueRow('Forest', "forest", this.props.countryIso, 'forestArea', this.props.fra, this.props.save) }
+        { fraValueRow('Forest area', "forest", this.props.countryIso, 'forestArea', this.props.fra, this.props.save) }
         { fraValueRow('Other wooded land', 'otherWoodedLand', this.props.countryIso, 'otherWoodedLand', this.props.fra, this.props.save) }
         { fraValueRow('Other land', 'otherLand', this.props.countryIso, 'otherLand', this.props.fra, this.props.save) }
       </div>
@@ -70,12 +71,10 @@ const fraFieldValueForInput = (fieldValue) =>
   : ''
 
 const fraValueCell = (fraValue, fra, countryIso, save, field) =>
-  <input
+  <ThousandSeparatedIntegerInput
     className="nde__input-table-input"
-    value={ fraFieldValueForInput(fraValue[field]) }
-    onChange={ e => {
-      save(countryIso, fraValue.name, e.target.value, fraValue, field)
-    }}/>
+    integerValue={ fraValue[field] }
+    onChange={ e => { save(countryIso, fraValue.name, e.target.value, fraValue, field) } }/>
 
 const odpCell = (odpValue, field) =>
   <span className="nde__input-table-readonly-cell">

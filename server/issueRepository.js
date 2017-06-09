@@ -15,8 +15,8 @@ module.exports.getIssues = (countryIso, section) => {
   )
 }
 
-module.exports.createIssueWithComment = (client, countryIso, section, target, userId, msg) => {
-  return client.query(`
+module.exports.createIssueWithComment = (client, countryIso, section, target, userId, msg) =>
+  client.query(`
     INSERT INTO issue (country_iso, section, target, status) VALUES ($1, $2, $3, $4);
   `, [countryIso, section, target, 'open'])
     .then(res => client.query(`SELECT last_value FROM issue_id_seq`))
@@ -24,11 +24,10 @@ module.exports.createIssueWithComment = (client, countryIso, section, target, us
       INSERT INTO fra_comment (issue_id, user_id, message, status_changed)
       VALUES ($1, $2, $3, 'opened');
   `, [res.rows[0].last_value, userId, msg]))
-}
 
-module.exports.createComment = (client, issueId, userId, msg, status_changed) => {
+module.exports.createComment = (client, issueId, userId, msg, status_changed) =>
   client.query(`
     INSERT INTO fra_comment (issue_id, user_id, message, status_changed)
     VALUES ($1, $2, $3, $4);
  `, [issueId, userId, msg, status_changed])
-}
+

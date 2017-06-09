@@ -22,7 +22,7 @@ const Comments = ({comments}) =>
     }
   </div>
 
-const AddComment = ({countryIso, section, target, postComment, onCancel, isFirst}) =>
+const AddComment = ({issueId, countryIso, section, target, postComment, onCancel, isFirst}) =>
   <div>
     <div
       className={`fra-issue__comment-edit-author${isFirst ? '' : '-empty'} `}>{isFirst ? `Jan Egeland` : ''}</div>
@@ -47,7 +47,7 @@ const AddComment = ({countryIso, section, target, postComment, onCancel, isFirst
          placeholder="Write comment message"></textarea>
     <button className="fra-issue__comment-add-btn btn btn-primary btn-s"
             onClick={() => {
-              postComment(countryIso, section, target, '1', null, document.getElementById(`fra-issue__comment-input-${target}`).value)
+              postComment(issueId, countryIso, section, target, null, document.getElementById(`fra-issue__comment-input-${target}`).value)
               document.getElementById(`fra-issue__comment-input-${target}`).value = ''
             }}>Add</button>
     <button className="btn btn-s btn-secondary" onClick={() => onCancel()}>Cancel</button>
@@ -62,13 +62,14 @@ const CommentStatus = ({count, visible, ...props}) =>
     }
   </div>
 
-const CommentThread = ({countryIso, section, target, comments, showAdd, postComment, close}) =>
-  <div className={`fra-issue__issue ${showAdd ? 'fra-issue__issue-visible' : 'fra-issue__issue-hidden'}`}>
+const CommentThread = ({countryIso, section, target, comments, showAdd, postComment, close}) => {
+  const issueId = comments.length > 0 ? comments[0].issueId : null
+  return   <div className={`fra-issue__issue ${showAdd ? 'fra-issue__issue-visible' : 'fra-issue__issue-hidden'}`}>
     <div className="fra-issue__triangle-marker">
       <div className="fra-issue__triangle"></div>
     </div>
     <Comments comments={comments}/>
-    <AddComment countryIso={countryIso} section={section} target={target} postComment={postComment}
+    <AddComment issueId={issueId} countryIso={countryIso} section={section} target={target} postComment={postComment}
                 onCancel={close}
                 isFirst={comments.length === 0}/>
   </div>

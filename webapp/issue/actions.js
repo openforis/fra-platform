@@ -16,8 +16,9 @@ const readingCompletion = (section, target, dispatch) => resp => {
   })
 }
 
-export const postComment = (countryIso, section, target, userId, issueId, msg) => dispatch => {
-  axios.post(`api/country/issue/${countryIso}/${section}?target=${target}`, {msg}).then(() => {
+export const postComment = (issueId, countryIso, section, target, userId, msg) => dispatch => {
+  const api = issueId ? `api/country/comment/${issueId}` : `api/country/issue/${countryIso}/${section}?target=${target}`
+  axios.post(api, {msg}).then(() => {
       dispatch({target: target, type: issuePostCommentCompleted, status: 'completed'})
       axios.get(`api/country/issue/${countryIso}/${section}?target=${target}`)
         .then(readingCompletion(section, target, dispatch))

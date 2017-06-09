@@ -31,12 +31,13 @@ module.exports.init = app => {
     db.transaction(
       issueRepository.createIssueWithComment,
       [req.params.countryIso, req.params.section, {params: target}, userId, req.body.msg])
-      .then(result => res.json(result))
+      .then(result => res.json({}))
       .catch(err => sendErr(res, err))
   })
-  app.post('/api/country/issue/:issueId/comment', (req, res) => {
-    db.transaction(issueRepository.createComment, [req.params.issueId, req.body.userId, req.body.msg, ''])
-      .then(result => res.json(result))
+  app.post('/api/country/comment/:issueId', (req, res) => {
+    const userId = req.session.loggedInUser.id
+    db.transaction(issueRepository.createComment, [req.params.issueId, userId, req.body.msg, ''])
+      .then(result => res.json({}))
       .catch(err => sendErr(res, err))
   })
 
