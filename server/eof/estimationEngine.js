@@ -57,11 +57,11 @@ const estimateFraValue = (year, values) => {
 // Pure function, no side-effects
 const estimateFraValues = (years, odpValues) => {
   const pickFieldsAndRoundEstimates = (estimatedValues) =>
-      R.pipe(
-        R.pick([...fraFields, 'year']),
-        R.toPairs,
-        R.map(([name, value]) => R.contains(name, fraFields) ? [name, Math.round(value)] : [name, value]),
-        R.fromPairs)(estimatedValues)
+    R.pipe(
+      R.pick([...fraFields, 'year']),
+      R.toPairs,
+      R.map(([name, value]) => R.contains(name, fraFields) ? [name, Math.round(value)] : [name, value]),
+      R.fromPairs)(estimatedValues)
 
   const allEstimatedValues =
     R.reduce(
@@ -71,9 +71,16 @@ const estimateFraValues = (years, odpValues) => {
       },
       odpValues,
       years)
+
+  const addEstimatedFlags = x => {
+    R.forEach(fraField => x = R.assoc(`${fraField}Estimated`, true, x), fraFields)
+    return x
+  }
+
   return R.pipe(
     R.filter(estimatedValues => estimatedValues.store),
-    R.map(pickFieldsAndRoundEstimates))(allEstimatedValues)
+    R.map(pickFieldsAndRoundEstimates),
+    R.map(addEstimatedFlags))(allEstimatedValues)
 }
 
 module.exports.estimateFraValues = estimateFraValues
