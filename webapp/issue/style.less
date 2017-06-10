@@ -92,15 +92,14 @@
   padding: 0;
   visibility: hidden;
   overflow: hidden;
-  transition: visibility 0s, opacity 0.2  s linear;
+  transition: visibility 0s, opacity 0.1s ease-out, width 0.1s ease-out;
 }
 
 .fra-issue__issue-visible {
   height: auto;
   width: 256px;
   visibility: visible;
-  transition: width 0s, 0.1s linear;
-  transition-timing-function: cubic-bezier(0, 0, 0.58, 1);
+  transition: visibility 0s, width 0.1s ease-out, opacity 0.1s ease-out 0.1s;
   opacity: 1;
 }
 
