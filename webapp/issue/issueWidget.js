@@ -44,7 +44,7 @@ const AddComment = ({issueId, countryIso, section, target, postComment, onCancel
          }}
          id={`fra-issue__comment-input-${target}`}
          className="fra-issue__issue-comment-input"
-         placeholder="Write comment message"></textarea>
+         placeholder="Write a comment"></textarea>
     <div className="fra-issue__comment-buttons">
         <button className="fra-issue__comment-add-btn btn btn-primary btn-s"
                 onClick={() => {
