@@ -105,7 +105,7 @@ class IssueWidget extends React.Component {
     const count = comments ? comments.length  : 0
     const style= {'zIndex': this.state.showAddComment ? 1: 0 }
     const close = R.partial(ctx => {
-      ctx.props.closeCommentThread(ctx.props.taret)
+      ctx.props.closeCommentThread(ctx.props.target)
       ctx.setState({showAddComment: false})}, [this])
 
     return <div className="fra-issue__add-issue" style={style}>
