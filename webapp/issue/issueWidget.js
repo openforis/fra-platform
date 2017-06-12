@@ -22,10 +22,10 @@ const Comments = ({comments}) =>
     }
   </div>
 
-const AddComment = ({issueId, countryIso, section, target, postComment, onCancel, isFirst}) =>
+const AddComment = ({issueId, countryIso, section, target, postComment, onCancel, isFirst, userInfo}) =>
   <div>
     <div
-      className={`fra-issue__comment-edit-author${isFirst ? '' : '-empty'} `}>{isFirst ? `Jan Egeland` : ''}</div>
+      className={`fra-issue__comment-edit-author${isFirst ? '' : '-empty'} `}>{isFirst ? R.path(['name'], userInfo) : ''}</div>
     <textarea
          onKeyUp={(e) => {
            if(e.keyCode === 8) {
@@ -44,7 +44,7 @@ const AddComment = ({issueId, countryIso, section, target, postComment, onCancel
          }}
          id={`fra-issue__comment-input-${target}`}
          className="fra-issue__issue-comment-input"
-         placeholder="Write a comment"></textarea>
+         placeholder="Write a comment"/>
     <div className="fra-issue__comment-buttons">
         <button className="fra-issue__comment-add-btn btn btn-primary btn-s"
                 onClick={() => {
@@ -64,7 +64,7 @@ const CommentStatus = ({count, visible, ...props}) =>
     }
   </div>
 
-const CommentThread = ({countryIso, section, target, comments, showAdd, postComment, close}) => {
+const CommentThread = ({countryIso, section, target, comments, showAdd, postComment, close, userInfo}) => {
   const issueId = comments.length > 0 ? comments[0].issueId : null
   return <div
     className={`fra-issue__issue ${showAdd ? 'fra-issue__issue-visible' : 'fra-issue__issue-hidden'}`}>
@@ -72,10 +72,14 @@ const CommentThread = ({countryIso, section, target, comments, showAdd, postComm
       <div className="fra-issue__triangle"></div>
     </div>
     <Comments comments={comments}/>
-    <AddComment issueId={issueId} countryIso={countryIso} section={section} target={target}
+    <AddComment issueId={issueId}
+                countryIso={countryIso}
+                section={section}
+                target={target}
                 postComment={postComment}
                 onCancel={close}
-                isFirst={comments.length === 0}/>
+                isFirst={comments.length === 0}
+                userInfo={userInfo}/>
   </div>
 }
 class IssueWidget extends React.Component {
@@ -116,7 +120,8 @@ class IssueWidget extends React.Component {
         section={this.props.section}
         showAdd={this.state.showAddComment}
         postComment={this.props.postComment}
-        close={close}/>
+        close={close}
+        userInfo={this.props.userInfo}/>
         <CommentStatus count={count} visible={!this.state.showAddComment} onClick={() => {
           this.props.openCommentThread(this.props.target)
           window.setTimeout(() => this.setState({showAddComment: true}), 0)
@@ -125,9 +130,7 @@ class IssueWidget extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  return state.issue
-}
+const mapStateToProps = state => R.merge(state.issue, state.user)
 
   export default connect(mapStateToProps, {
     openCommentThread,
