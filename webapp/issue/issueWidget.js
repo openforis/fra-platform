@@ -64,10 +64,10 @@ const CommentStatus = ({count, visible, ...props}) =>
     }
   </div>
 
-const CommentThread = ({countryIso, section, target, comments, showAdd, postComment, close}) => {
+const CommentThread = ({countryIso, section, target, comments, visualState, postComment, close}) => {
   const issueId = comments.length > 0 ? comments[0].issueId : null
-  return <div
-    className={`fra-issue__issue ${showAdd ? 'fra-issue__issue-visible' : 'fra-issue__issue-hidden'}`}>
+  return <div className={`fra-issue__comment-widget-${visualState}`}>
+    <div className={`fra-issue__issue fra-issue__issue-visible`}>
     <div className="fra-issue__triangle-marker">
       <div className="fra-issue__triangle"></div>
     </div>
@@ -76,13 +76,14 @@ const CommentThread = ({countryIso, section, target, comments, showAdd, postComm
                 postComment={postComment}
                 onCancel={close}
                 isFirst={comments.length === 0}/>
+    </div>
   </div>
 }
 class IssueWidget extends React.Component {
 
   constructor (props) {
     super(props)
-    this.state = {showAddComment: false}
+    this.state = {widgetVisualState: 'hidden'}
   }
 
   componentWillMount () {
@@ -93,34 +94,37 @@ class IssueWidget extends React.Component {
     if (next.countryIso !== this.props.countryIso) { // changing country
       this.props.closeCommentThread(this.props.target)
       this.props.retrieveComments(next.countryIso, this.props.section, this.props.target)
-      this.setState({showAddComment: false})
+      this.setState({widgetVisualState: 'hidden'})
     }
-    if(!next.openThread || next.openThread.join('_') !== this.props.target.join('_')) { // other comment thread is opened, close this
-      this.setState({showAddComment: false})
+    if(!next.openThread) { // comments are being closed
+      this.setState({widgetVisualState: 'hidden'})
+    }
+    else if(next.openThread.join('_') !== this.props.target.join('_')) { // other comment thread is opened, close this
+      this.setState({widgetVisualState: 'otherTarget'})
     }
   }
 
   render () {
     const comments = this.props[this.props.target] || []
     const count = comments ? comments.length  : 0
-    const style= {'zIndex': this.state.showAddComment ? 1: 0 }
+    const style= {'zIndex': this.state.widgetVisualState === 'visible' ? 1: 0 }
     const close = R.partial(ctx => {
       ctx.props.closeCommentThread(ctx.props.target)
-      ctx.setState({showAddComment: false})}, [this])
+      ctx.setState({widgetVisualState: 'hidden'})}, [this])
 
     return <div className="fra-issue__add-issue" style={style}>
+      <CommentStatus count={count} visible={true} onClick={() => {
+        this.props.openCommentThread(this.props.target)
+        window.setTimeout(() => this.setState({widgetVisualState: 'visible'}), 0)
+      }}/>
        <CommentThread
         countryIso={this.props.countryIso}
         target={this.props.target}
         comments={comments}
         section={this.props.section}
-        showAdd={this.state.showAddComment}
+        visualState={this.state.widgetVisualState}
         postComment={this.props.postComment}
         close={close}/>
-        <CommentStatus count={count} visible={!this.state.showAddComment} onClick={() => {
-          this.props.openCommentThread(this.props.target)
-          window.setTimeout(() => this.setState({showAddComment: true}), 0)
-        }}/>
     </div>
   }
 }
