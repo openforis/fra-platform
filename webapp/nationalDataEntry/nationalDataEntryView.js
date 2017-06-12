@@ -6,6 +6,7 @@ import { save, fetch, generateFraValues } from './actions'
 import { Link } from './../link'
 import Chart from './chart/chart'
 import IssueWidget from '../issue/issueWidget'
+import LoggedInPageTemplate from '../loggedInPageTemplate'
 import { ThousandSeparatedIntegerInput } from '../reusableUiComponents/thousandSeparatedIntegerInput'
 
 const OdpHeading = ({countryIso, odpValue}) =>
@@ -135,7 +136,9 @@ class DataFetchingComponent extends React.Component {
   }
 
   render () {
-    return <NationalDataEntry {...this.props} countryIso={this.props.match.params.countryIso}/>
+    return <LoggedInPageTemplate>
+      <NationalDataEntry {...this.props} countryIso={this.props.match.params.countryIso}/>
+    </LoggedInPageTemplate>
   }
 }
 
