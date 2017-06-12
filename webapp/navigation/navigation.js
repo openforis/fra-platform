@@ -85,10 +85,18 @@ const SecondaryItem = ({path, countryIso, order, pathTemplate = '/tbd', label, s
   </Link>
 }
 
+const roleLabel = (userInfo) => {
+  if (!userInfo) return null
+  const reviewerFound = R.find(R.propEq('role', 'REVIEWER'))(userInfo.roles)
+  if (reviewerFound) return 'Reviewer'
+  const nationalCorrespondentFound = R.find(R.propEq('role', 'NATIONAL_CORRESPONDENT'))(userInfo.roles)
+  if (nationalCorrespondentFound) return 'National Correspondent'
+  return null
+}
 
-const Nav = ({path, country, countries, follow, getCountryList}) => {
+const Nav = ({path, country, countries, follow, getCountryList, userInfo}) => {
   return <div className="main__navigation">
-    <CountryItem name={country} countries={countries} listCountries={getCountryList} role="National Correspondent"/>
+    <CountryItem name={country} countries={countries} listCountries={getCountryList} role={ roleLabel(userInfo) }/>
     <LinkItem label="National Data" countryIso={country} path={path} pathTemplate="/country/:countryIso/odp" />
     <PrimaryItem label="Annually reported"/>
     {
@@ -101,8 +109,6 @@ const Nav = ({path, country, countries, follow, getCountryList}) => {
   </div>
 }
 
-const mapStateToProps = state => {
-  return R.merge(state.navigation, state.router)
-}
+const mapStateToProps = state => R.pipe(R.merge(state.navigation), R.merge(state.router))(state.user)
 
 export default connect(mapStateToProps, {follow, getCountryList})(Nav)
