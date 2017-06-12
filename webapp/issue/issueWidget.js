@@ -104,7 +104,7 @@ class IssueWidget extends React.Component {
       this.setState({widgetVisualState: 'hidden'})
     }
     else if(next.openThread.join('_') !== this.props.target.join('_')) { // other comment thread is opened, close this
-      this.setState({widgetVisualState: 'otherTarget'})
+      this.setState({widgetVisualState: 'other-target'})
     }
   }
 
