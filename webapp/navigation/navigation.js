@@ -84,11 +84,9 @@ const SecondaryItem = ({path, countryIso, order, pathTemplate = '/tbd', label, s
   </Link>
 }
 
-const hideNav = path => !path || R.equals("/", path) || R.equals("#/", path)
-
 
 const Nav = ({path, country, countries, follow, getCountryList}) => {
-  return <div className={`main__navigation ${hideNav(path) ? 'hidden' : ''}`}>
+  return <div className="main__navigation">
     <CountryItem name={country} countries={countries} listCountries={getCountryList} role="National Correspondent"/>
     <LinkItem label="National Data" countryIso={country} path={path} pathTemplate="/country/:countryIso/odp" />
     <PrimaryItem label="Annually reported"/>
