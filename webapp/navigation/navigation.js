@@ -43,7 +43,8 @@ class CountryItem extends React.Component {
 }
 
 const CountryList = ({isOpen, countries, currentCountry}) => {
-  return <div className={`navi__country-list ${isOpen ? '' : 'hidden'}`}>
+  if (!isOpen) return <noscript/>
+  return <div className="navi__country-list">
     <div className="navi__country-list-content">
       {
         countries.map(c => <Link className={`navi__country-list-item ${R.equals(currentCountry, c.countryIso) ? 'selected' : ''}`} to={`/country/${c.countryIso}`} key={c.countryIso}>{c.name}</Link>)
