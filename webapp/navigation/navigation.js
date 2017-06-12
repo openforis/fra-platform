@@ -103,7 +103,7 @@ const Nav = ({path, country, countries, follow, getCountryList}) => {
 }
 
 const mapStateToProps = state => {
-  return R.pipe(R.pick(['navigation', 'router']), R.values, R.reduce(R.merge, {}), R.defaultTo({}))(state)
+  return R.merge(state.navigation, state.router)
 }
 
 export default connect(mapStateToProps, {follow, getCountryList})(Nav)
