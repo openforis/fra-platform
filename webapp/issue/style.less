@@ -1,6 +1,31 @@
 @import "../app-styles/config";
 
+.fra-issue__comment-widget-visible {
+  position: relative;
+  width: 260px;
+  visibility: visible;
+  opacity: 1;
+  transition: visibility 0.1s, opacity 0.1s ease-out, width 0.1s ease-out;
+}
+
+.fra-issue__comment-widget-hidden {
+  position: relative;
+  width: 0;
+  visibility: hidden;
+  opacity: 0;
+  overflow: hidden;
+  transition: visibility 0s, width 0.1s ease-out, width 0.1s ease-out;
+}
+.fra-issue__comment-widget-other-target {
+  position: relative;
+  width: 260px;
+  visibility: hidden;
+  overflow: hidden;
+  transition: visibility 0s, width 0s;
+}
+
 .fra-issue__add-issue {
+  display: flex;
   padding: 0 12px 12px;
 }
 
@@ -25,7 +50,10 @@
 }
 
 .fra-issue__issue {
-  position: relative;
+  position: absolute;
+  z-index: 1;
+  top: -15px;
+  left: 8px;
   background: white;
   border: 1px solid #CCCCCC;
   padding: 8px 0;
@@ -69,9 +97,6 @@
   border-bottom: @ui-thin-border;
 }
 
-.fra-issue__issue-close {
-
-}
 .fra-issue__issue-status-count {
   width: 24px;
   min-width: 24px;
@@ -85,34 +110,12 @@
   font-size: @font-xs;
 }
 
-.fra-issue__issue-hidden {
-  opacity: 0;
-  height: 0;
-  width: 0;
-  padding: 0;
-  visibility: hidden;
-  overflow: hidden;
-  transition: visibility 0s, opacity 0.1s ease-out, width 0.1s ease-out;
-}
-
-.fra-issue__issue-visible {
-  height: auto;
-  width: 256px;
-  visibility: visible;
-  transition: visibility 0s, width 0.1s ease-out, opacity 0.1s ease-out 0.1s;
-  opacity: 1;
-}
-
-.fra-issue__issue-status-hidden {
-  display: none;
-}
 .fra-issue__issue-status-visible {
   cursor: pointer;
 }
 
 .fra-issue__comment-add-btn {
   margin-right: 8px;
-
 }
 
 .fra-issue__comment-author {
