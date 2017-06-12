@@ -4,7 +4,7 @@ import R from 'ramda'
 const documentWidth = window.innerWidth
 
 export const styles = {
-  width: documentWidth - 350,
+  width: documentWidth - 328,
   height: 320,
   padding: 55
 }
