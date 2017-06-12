@@ -6,7 +6,9 @@ const documentWidth = window.innerWidth
 export const styles = {
   width: documentWidth - 328,
   height: 320,
-  padding: 55
+  top: 24,
+  left: 64,
+  bottom: 32
 }
 
 // Returns the highest Y coordinate from the data set
@@ -16,7 +18,7 @@ export const yMax = (forestArea, otherWoodedLand) => R.max(d3.max(forestArea, (d
 export const getXScale = () => {
   return d3.scaleLinear()
     .domain([1989, 2021])
-    .range([styles.padding, styles.width])
+    .range([styles.left, styles.width])
 }
 
 // Returns a function that "scales" Y coordinates from the data to fit the chart
@@ -26,7 +28,7 @@ export const getYScale = (data) => {
 
   return d3.scaleLinear()
     .domain([0, max])
-    .range([styles.height - styles.padding, styles.padding])
+    .range([styles.height - styles.bottom, styles.top])
 }
 
 export const getChartData = (fra, property) => {
