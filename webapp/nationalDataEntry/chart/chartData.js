@@ -6,7 +6,7 @@ const documentWidth = window.innerWidth
 export const styles = {
   width: documentWidth - 328,
   height: 320,
-  padding: 55
+  padding: 64
 }
 
 // Returns the highest Y coordinate from the data set
@@ -26,7 +26,7 @@ export const getYScale = (data) => {
 
   return d3.scaleLinear()
     .domain([0, max])
-    .range([styles.height - styles.padding, styles.padding])
+    .range([styles.height - (styles.padding/2), styles.padding/2])
 }
 
 export const getChartData = (fra, property) => {
