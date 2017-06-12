@@ -31,11 +31,11 @@ class YAxis extends Component {
     if (!this.hasData())
       d3.select(node).selectAll('text').remove()
 
-    d3.select(node).selectAll('line').style('stroke', (val, i) => i == 0 ? '#cccccc' : 'rgba(204,204,204,0.3)')
+    d3.select(node).selectAll('line').style('stroke', (val, i) => i == 0 ? '#cccccc' : 'rgba(0,0,0,.07)')
   }
 
   render () {
-    return <g className="axis" ref="axis" transform={`translate(${this.hasData() ? this.props.padding : '0'}, 0)`}></g>
+    return <g className="axis" ref="axis" transform={`translate(${this.hasData() ? this.props.left : '0'}, 0)`}></g>
   }
 }
 

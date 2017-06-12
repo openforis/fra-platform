@@ -18,7 +18,7 @@ class XAxis extends Component {
   }
 
   render () {
-    return <g className="axis" ref="axis" transform={`translate(0, ${this.props.height - (this.props.padding/2)})`}></g>
+    return <g className="axis" ref="axis" transform={`translate(0, ${this.props.height - this.props.bottom})`}></g>
   }
 }
 
