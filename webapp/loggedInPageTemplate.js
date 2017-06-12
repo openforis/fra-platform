@@ -1,11 +1,11 @@
 import React from 'react'
-import Header from './navigation/navigation'
+import Navigation from './navigation/navigation'
 import Footer from './footer/footer'
 import ErrorComponent from './applicationError/errorComponent'
 
 export default ({children}) => {
   return <div className="app__root">
-    <Header/>
+    <Navigation/>
     <ErrorComponent/>
     <div className="fra-view-content__container">
       { children }
