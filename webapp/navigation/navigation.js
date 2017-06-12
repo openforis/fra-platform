@@ -43,7 +43,8 @@ class CountryItem extends React.Component {
 }
 
 const CountryList = ({isOpen, countries, currentCountry}) => {
-  return <div className={`navi__country-list ${isOpen ? '' : 'hidden'}`}>
+  if (!isOpen) return <noscript/>
+  return <div className="navi__country-list">
     <div className="navi__country-list-content">
       {
         countries.map(c => <Link className={`navi__country-list-item ${R.equals(currentCountry, c.countryIso) ? 'selected' : ''}`} to={`/country/${c.countryIso}`} key={c.countryIso}>{c.name}</Link>)
@@ -84,11 +85,9 @@ const SecondaryItem = ({path, countryIso, order, pathTemplate = '/tbd', label, s
   </Link>
 }
 
-const hideNav = path => !path || R.equals("/", path) || R.equals("#/", path)
-
 
 const Nav = ({path, country, countries, follow, getCountryList}) => {
-  return <div className={`main__navigation ${hideNav(path) ? 'hidden' : ''}`}>
+  return <div className="main__navigation">
     <CountryItem name={country} countries={countries} listCountries={getCountryList} role="National Correspondent"/>
     <LinkItem label="National Data" countryIso={country} path={path} pathTemplate="/country/:countryIso/odp" />
     <PrimaryItem label="Annually reported"/>

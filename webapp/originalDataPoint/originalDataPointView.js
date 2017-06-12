@@ -6,6 +6,7 @@ import * as originalDataPoint from './originalDataPoint'
 import { saveDraft, markAsActual, remove, fetch, clearActive } from './actions'
 import { acceptNextInteger } from '../utils/numberInput'
 import { ThousandSeparatedIntegerInput } from '../reusableUiComponents/thousandSeparatedIntegerInput'
+import LoggedInPageTemplate from '../loggedInPageTemplate'
 import R from 'ramda'
 
 const years = ['', ...R.range(1990, 2021)]
@@ -170,7 +171,6 @@ const extentOfForestRows = (countryIso, odp, saveDraft) =>
       {...nationalClass}/>)
   )(odp.nationalClasses)
 
-
 const ExtentOfForestRow = ({
                              odp,
                              index,
@@ -235,12 +235,14 @@ class OriginalDataPointView extends React.Component {
   }
 
   render () {
-    return <div className="odp__container">
-      <div className="odp_data-page-header">
-        <h2 className="headline">Add national data point</h2>
+    return <LoggedInPageTemplate>
+      <div className="odp__container">
+        <div className="odp_data-page-header">
+          <h2 className="headline">Add national data point</h2>
+        </div>
+        <DataInput {...this.props}/>
       </div>
-      <DataInput {...this.props}/>
-    </div>
+    </LoggedInPageTemplate>
   }
 }
 
