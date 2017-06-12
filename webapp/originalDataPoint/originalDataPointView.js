@@ -16,9 +16,10 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving})
   const saveControlsDisabled = () => !active.odpId || autoSaving
   return <div className="odp__data-input-component">
     <div className="odp_data-input-row">
-      <div><h3 className="subhead">Year</h3></div>
       <div>
+        <h3 className="subhead">Year</h3>
         <select
+          className="select"
           value={active.year || ''}
           onChange={(e) => saveDraft(countryIso, R.assoc('year', Number(e.target.value), active)) }>
           {years.map((year) => <option key={year} value={year}>{year}</option>)}
