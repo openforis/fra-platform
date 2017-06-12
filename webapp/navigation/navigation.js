@@ -86,11 +86,10 @@ const SecondaryItem = ({path, countryIso, order, pathTemplate = '/tbd', label, s
 }
 
 const roleLabel = (userInfo) => {
+  const hasRole = (role) => R.find(R.propEq('role', role))(userInfo.roles)
   if (!userInfo) return null
-  const reviewerFound = R.find(R.propEq('role', 'REVIEWER'))(userInfo.roles)
-  if (reviewerFound) return 'Reviewer'
-  const nationalCorrespondentFound = R.find(R.propEq('role', 'NATIONAL_CORRESPONDENT'))(userInfo.roles)
-  if (nationalCorrespondentFound) return 'National Correspondent'
+  if (hasRole('REVIEWER')) return 'Reviewer'
+  if (hasRole('NATIONAL_CORRESPONDENT')) return 'National Correspondent'
   return null
 }
 
