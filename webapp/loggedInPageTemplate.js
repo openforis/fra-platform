@@ -7,7 +7,7 @@ export default ({children}) => {
   return <div className="app__root">
     <Header/>
     <ErrorComponent/>
-    <div className="fra-routes__container">
+    <div className="fra-view-content__container">
       { children }
     </div>
     <Footer/>
