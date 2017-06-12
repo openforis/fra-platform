@@ -1,3 +1,5 @@
+@import "../app-styles/config";
+
 .odp__container {
   padding: 24px;
 }
@@ -13,42 +15,84 @@
 }
 
 .odp__section {
-  margin: 20px 0 20px 0;
+  margin-top: 24px;
+  margin-bottom: 16px;
 }
 
 .odp__input-table {
   border-collapse: collapse;
-  margin-bottom: 15px;
+  margin-bottom: 16px;
+  font-size: 13px;
+  line-height: 20px;
+
   th {
-    font-size: 13px;
-    background: #F5F5F5;
-    border: 1px solid #CCCCCC;
+    background-color: @ui-bg;
+    border: @ui-thin-border;
     padding: 10px;
     min-width: 100px;
   }
+
   td {
-    border: 1px solid #CCCCCC;
-    font-size: 13px;
+    padding: 0;
+    border: @ui-thin-border;
   }
+
   input {
+    color: inherit;
+    font-size: inherit;
     border: none;
+    line-height: inherit;
+    padding: 10px;
+    margin: 0;
+    width: 100%;
+
+    &::placeholder {
+      color: @text-mute;
+      font-style: italic;
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 1px @text-body;
+    }
   }
 }
 
 .odp__national-class-table {
   width: 100%;
+
   th {
     text-align: left;
   }
+
   input {
-    width: 100%;
     padding: 10px;
   }
 }
 
 .odp__eof-table {
+  width: 100%;
+
+  .odp__national-class-total-heading {
+    background-color: @ui-bg;
+    font-weight: bold;
+    padding: 10px;
+  }
+
+  .odp__eof-class-name {
+    background-color: @ui-bg;
+    padding: 10px;
+  }
+
+  .odp__national-class-total-cell {
+    font-weight: bold;
+    text-align: right;
+    padding: 10px;
+  }
+
   input {
-    padding: 10px 3px 10px 10px;
+    padding-right: 28px;
+    margin-right: -24px;
   }
 }
 
@@ -68,13 +112,11 @@
   width: 30%;
 }
 
-.odp__eof-class-name {
-  background: #F5F5F5;
-  padding: 10px;
-}
-
 .odp__eof-area-cell {
-  > input { text-align: right; }
+  > input {
+    text-align: right;
+    padding-right: 10px;
+  }
 }
 
 .odp__eof-percent-cell {
@@ -84,42 +126,22 @@
 
 .odp__eof-table th.odp__eof-divide-after-cell,
 .odp__eof-table td.odp__eof-divide-after-cell {
-  border-right: 3px solid #CCCCCC;
+  border-right: 4px double @ui-border;
 }
 
 .odp__national-class-row-class-name {
   position: relative;
 }
 
-.odp__national-class-row-class-name:hover .odp__national-class-remove {
-  display: inline-block;
-}
-
 .odp__national-class-remove {
-  display: none;
   position: absolute;
-  top: 12px;
-  left: 5px;
-  color: grey;
-  font-weight: bold;
-  font-size: 12px;
+  top: 13px;
+  left: 4px;
   cursor: pointer;
 }
 
 .odp__input-table input.odp__national-class-row-class-name-input {
-  padding-left: 20px;
-}
-
-.odp__national-class-total-heading {
-  background: #F5F5F5;
-  font-weight: bold;
-  padding: 10px;
-}
-
-.odp__national-class-total-cell {
-  font-weight: bold;
-  text-align: right;
-  padding: 10px;
+  padding-left: 24px;
 }
 
 .odp__cancel-button {
