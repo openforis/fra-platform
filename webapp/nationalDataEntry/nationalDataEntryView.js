@@ -83,10 +83,18 @@ const odpCell = (odpValue, field) =>
   </span>
 
 class ChartWrapper extends React.Component {
+
+  constructor () {
+    super()
+    this.resizeListener = () => this.forceUpdate()
+  }
+
   componentDidMount() {
-    window.addEventListener('resize', () => {
-      this.forceUpdate()
-    }, true)
+    window.addEventListener('resize', this.resizeListener, true)
+  }
+
+  componentWillUnmount(){
+    window.removeEventListener('resize', this.resizeListener, true)
   }
 
   render() {
