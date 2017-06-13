@@ -18,7 +18,7 @@ class Chart extends Component {
   }
 
   render () {
-
+    console.log("Wrapper width", this.props.wrapperWidth)
     return <div ref="chartContainer">
       { this.props.data ? <svg width={styles.width} height={styles.height}>
         <YAxis {...this.props} {...styles} />

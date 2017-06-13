@@ -82,6 +82,16 @@ const odpCell = (odpValue, field) =>
     {odpValue[field]}
   </span>
 
+class ChartWrapper extends React.Component {
+  render() {
+    const defaultWidth = 913 //TODO what's a good default before we have bounding rect?
+    const width = this.refs.chartWrapper ? this.refs.chartWrapper.getBoundingClientRect().width : defaultWidth
+    return <div ref="chartWrapper" className="nde__data-chart">
+      <Chart wrapperWidth={width}/>
+    </div>
+  }
+}
+
 const NationalDataEntry = (props) => {
 
   const disableGenerateFRAValues = () => {
@@ -107,9 +117,7 @@ const NationalDataEntry = (props) => {
           Add national data point
         </Link>
       </div>
-      <div className="nde__data-chart">
-        <Chart />
-      </div>
+      <ChartWrapper/>
       <div className="nde__data-table-header">
         <h3 className="subhead">Extent of forest values</h3>
         <button disabled={disableGenerateFRAValues()} className="btn btn-primary"
