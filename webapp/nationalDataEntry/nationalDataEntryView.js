@@ -83,6 +83,12 @@ const odpCell = (odpValue, field) =>
   </span>
 
 class ChartWrapper extends React.Component {
+  componentDidMount() {
+    window.addEventListener('resize', () => {
+      this.forceUpdate()
+    }, true)
+  }
+
   render() {
     const defaultWidth = 913 //TODO what's a good default before we have bounding rect?
     const width = this.refs.chartWrapper ? this.refs.chartWrapper.getBoundingClientRect().width : defaultWidth

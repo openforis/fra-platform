@@ -14,7 +14,8 @@ class Chart extends Component {
 
   shouldComponentUpdate (nextProps) {
     const isDataEqual = R.equals(this.props.data, nextProps.data)
-    return !isDataEqual
+    const isWidthTheSame = this.props.wrapperWidth === nextProps.wrapperWidth
+    return !isDataEqual || !isWidthTheSame
   }
 
   render () {
