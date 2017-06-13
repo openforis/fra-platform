@@ -1,10 +1,7 @@
 import * as d3 from 'd3'
 import R from 'ramda'
 
-const documentWidth = window.innerWidth
-
 export const styles = {
-  width: documentWidth - 328,
   height: 320,
   top: 24,
   left: 64,
@@ -15,14 +12,14 @@ export const styles = {
 export const yMax = (forestArea, otherWoodedLand) => R.max(d3.max(forestArea, (d) => d.value), d3.max(otherWoodedLand, (d) => d.value))
 
 // Returns a function that "scales" X coordinates from the data to fit the chart
-export const getXScale = () => {
+export const getXScale = (props) => {
   return d3.scaleLinear()
     .domain([1989, 2021])
-    .range([styles.left, styles.width])
+    .range([styles.left, props.wrapperWidth])
 }
 
 // Returns a function that "scales" Y coordinates from the data to fit the chart
-export const getYScale = (data) => {
+export const getYScale = (data, props) => {
   let max = yMax(data.forestArea, data.otherWoodedLand)
   max = max ? max : 98765
 

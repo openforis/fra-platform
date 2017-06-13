@@ -18,9 +18,8 @@ class Chart extends Component {
   }
 
   render () {
-    console.log("Wrapper width", this.props.wrapperWidth)
     return <div ref="chartContainer">
-      { this.props.data ? <svg width={styles.width} height={styles.height}>
+      { this.props.data ? <svg width={this.props.wrapperWidth} height={styles.height}>
         <YAxis {...this.props} {...styles} />
         <XAxis {...this.props} {...styles} />
         <DataCircles {...this.props} data={this.props.data.forestArea} {...styles} />
@@ -33,7 +32,6 @@ class Chart extends Component {
 }
 
 const mapStateToProps = (state, props) => {
-  console.log("Wrapper width to be passed to getChartData", props.wrapperWidth)
 
   const nde = state['nationalDataEntry']
   if (nde && nde.fra) {
@@ -43,7 +41,7 @@ const mapStateToProps = (state, props) => {
       otherWoodedLand: getChartData(nde.fra, 'otherWoodedLand')
     }
 
-    const xScale = getXScale()
+    const xScale = getXScale(props)
     const yScale = getYScale(data)
 
     return {data, xScale, yScale}
