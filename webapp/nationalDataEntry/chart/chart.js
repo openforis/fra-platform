@@ -32,7 +32,9 @@ class Chart extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, props) => {
+  console.log("Wrapper width to be passed to getChartData", props.wrapperWidth)
+
   const nde = state['nationalDataEntry']
   if (nde && nde.fra) {
 
