@@ -139,7 +139,9 @@ const NationalClassRow = ({odp, index, saveDraft, countryIso, className, definit
         : <div
           className="odp__national-class-remove"
           onClick={(evt) => saveDraft(countryIso, originalDataPoint.removeNationalClass(odp, index))}>
-            <svg className="icon"><use xlinkHref="img/icon.svg#icon-small-remove"/></svg>
+          <svg className="icon">
+            <use xlinkHref="img/icon.svg#icon-small-remove"/>
+          </svg>
         </div>
       }
       <input className="odp__national-class-row-class-name-input"
@@ -228,6 +230,7 @@ const ExtentOfForestRow = ({
 }
 
 class OriginalDataPointView extends React.Component {
+
   componentWillMount () {
     const odpId = this.props.match.params.odpId
     if (odpId) {
@@ -237,10 +240,20 @@ class OriginalDataPointView extends React.Component {
     }
   }
 
-  componentDidMount() {
+  componentWillReceiveProps (props) {
+    if (this.props.match.params.odpId && !this.props.active.odpId) {
+      this.descriptionEditor.setData(props.active.description)
+    }
+  }
+
+  componentDidMount () {
     this.descriptionEditor = CKEDITOR.replace(document.getElementById('originalDataPointDescription'))
-    this.descriptionEditor.setData('<i>Placeholder</i>')
-    this.descriptionEditor.on('change', (evt) =>  console.log( 'Data to save: ' + evt.editor.getData()))
+    this.descriptionEditor.on('change', (evt) => {
+        this.props.saveDraft(
+          this.props.match.params.countryIso,
+          {...this.props.active, description: evt.editor.getData()})
+      }
+    )
   }
 
   render () {
