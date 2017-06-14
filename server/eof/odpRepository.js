@@ -33,8 +33,8 @@ const createOdp = (client, countryIso) =>
 
 const insertDraft = (client, odpId, iso, draft) =>
   client.query(
-    'INSERT INTO odp_version (year) VALUES ($1);',
-    [draft.year]
+    'INSERT INTO odp_version (year, description) VALUES ($1, $2);',
+    [draft.year, draft.description]
   ).then(() => client.query('SELECT last_value AS odp_version_id FROM odp_version_id_seq')
   ).then(result => addClassData(client, result.rows[0].odp_version_id, draft)
   ).then(() =>
@@ -49,8 +49,8 @@ const updateDraft = (client, draft) =>
       return [draftId, wipeClassData(client, draftId), addClassData(client, draftId, draft)]
     }
   ).then(([draftId, ..._]) =>
-    client.query('UPDATE odp_version SET year = $1 WHERE id = $2;',
-      [draft.year, draftId])
+    client.query('UPDATE odp_version SET year = $1, description = $2 WHERE id = $3;',
+      [draft.year, draft.description, draftId])
   )
 
 const wipeClassData = (client, odpVersionId) =>
@@ -163,7 +163,8 @@ module.exports.getOdp = odpId =>
     Promise.all([db.query(`
                   SELECT
                     p.id AS odp_id,
-                    v.year
+                    v.year,
+                    v.description
                   FROM odp p
                     JOIN odp_version v
                       ON v.id = $2
