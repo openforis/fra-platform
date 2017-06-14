@@ -96,7 +96,7 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving})
 
 const mapIndexed = R.addIndex(R.map)
 
-const updatePastedValues = (odp, rowIndex, saveDraft, countryIso, dataCols, colIndex, isInteger = false) => evt => {
+const updatePastedValues = (odp, rowIndex, saveDraft, countryIso, dataCols, colIndex, isInteger = false, addRows = true) => evt => {
   evt.stopPropagation()
   evt.preventDefault()
 
@@ -111,13 +111,15 @@ const updatePastedValues = (odp, rowIndex, saveDraft, countryIso, dataCols, colI
 
   const rows = el.getElementsByTagName('tr')
   if (rows.length > 0)
-    mapIndexed((row, i) =>
+    mapIndexed((row, i) => {
+      i += rowIndex
+      if (addRows || i < R.filter(v => !v.placeHolder, odp.nationalClasses).length)
         mapIndexed((col, j) => {
           j += colIndex
           if (j < dataCols.length)
-            updateOdp(i + rowIndex, j, col.innerText)
+            updateOdp(i, j, col.innerText)
         }, row.getElementsByTagName('td'))
-      , rows)
+    }, rows)
   else
     updateOdp(rowIndex, colIndex, evt.clipboardData.getData('text/plain'))
 
@@ -201,14 +203,14 @@ const ExtentOfForestRow = ({
     <td className="odp__eof-area-cell odp__eof-divide-after-cell">
       <ThousandSeparatedIntegerInput integerValue={ area }
                                      onChange={ numberUpdated('area', area) }
-                                     onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 0, true) }/>
+                                     onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 0, true, false) }/>
     </td>
     <td className="odp__eof-percent-cell">
       <input
         type="text"
         value={forestPercent || ''}
         onChange={ numberUpdated('forestPercent', forestPercent) }
-        onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 1, true) }
+        onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 1, true, false) }
       />
       % &nbsp;
     </td>
@@ -217,7 +219,7 @@ const ExtentOfForestRow = ({
         type="text"
         value={otherWoodedLandPercent || ''}
         onChange={ numberUpdated('otherWoodedLandPercent', otherWoodedLandPercent) }
-        onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 2, true) }
+        onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 2, true, false) }
       />
       % &nbsp;
     </td>
@@ -226,7 +228,7 @@ const ExtentOfForestRow = ({
         type="text"
         value={otherLandPercent || ''}
         onChange={ numberUpdated('otherLandPercent', otherLandPercent) }
-        onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 3, true) }
+        onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 3, true, false) }
       />
       % &nbsp;
     </td>
