@@ -8,7 +8,7 @@
   padding-bottom: 24px;
 }
 
-.odp_data-input-row{
+.odp_data-input-row {
   display: flex;
   justify-content: flex-start;
 
@@ -157,4 +157,22 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+/* ckeditor style modifications */
+
+.odp__data-input-component {
+  .cke_top {
+    background: @ui-bg;
+    border-bottom: 1px solid @ui-border;
+  }
+
+  .cke_bottom {
+    background: @ui-bg;
+    border-top: 1px solid @ui-border;
+  }
+
+  .cke_chrome {
+    border: 1px solid @ui-border;
+  }
 }
