@@ -105,6 +105,7 @@ const updatePastedValues = (odp, rowIndex, saveDraft, countryIso, dataCols, colI
 
   const updateOdp = (rowNo, colNo, value) => {
     value = isInteger ? Math.round(Number(value.replace(/\s+/g, ''))) : value
+    value = isNaN(value) ? null : value
     const property = dataCols[colNo % dataCols.length]
     odp = originalDataPoint.updateNationalClass(odp, rowNo, property, value)
   }
