@@ -231,7 +231,7 @@ const ExtentOfForestRow = ({
 
 class OriginalDataPointView extends React.Component {
 
-  componentWillMount () {
+  fetchData () {
     const odpId = this.props.match.params.odpId
     if (odpId) {
       this.props.fetch(odpId)
@@ -260,6 +260,10 @@ class OriginalDataPointView extends React.Component {
           {...this.props.active, description: evt.editor.getData()})
       }
     )
+    // We need to fetch the data only after CKEDITOR instance is ready :(
+    // Otherwise there is no guarantee that the setData()-method succeeds in
+    // setting pre-existing html-content
+    this.descriptionEditor.on('instanceReady', () => this.fetchData())
   }
 
   render () {
