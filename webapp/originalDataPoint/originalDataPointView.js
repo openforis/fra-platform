@@ -240,6 +240,12 @@ class OriginalDataPointView extends React.Component {
     }
   }
 
+  componentWillUnmount() {
+    this.props.clearActive()
+    this.descriptionEditor.destroy(false)
+    this.descriptionEditor = null
+  }
+
   componentWillReceiveProps (props) {
     if (this.props.match.params.odpId && !this.props.active.odpId) {
       this.descriptionEditor.setData(props.active.description)
