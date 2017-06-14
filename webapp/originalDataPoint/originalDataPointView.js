@@ -96,7 +96,7 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving})
 
 const mapIndexed = R.addIndex(R.map)
 
-const updatePastedValues = (odp, rowIndex, saveDraft, countryIso, dataCols, colIndex, isInteger) => evt => {
+const updatePastedValues = (odp, rowIndex, saveDraft, countryIso, dataCols, colIndex, isInteger = false) => evt => {
   evt.stopPropagation()
   evt.preventDefault()
 
@@ -105,25 +105,21 @@ const updatePastedValues = (odp, rowIndex, saveDraft, countryIso, dataCols, colI
 
   const updateOdp = (rowNo, colNo, value) => {
     value = isInteger ? Math.round(Number(value.replace(/\s+/g, ''))) : value
-    value = isNaN(value) ? null : value
-    const property = dataCols[colNo % dataCols.length]
-    odp = originalDataPoint.updateNationalClass(odp, rowNo, property, value)
+    value = isInteger && isNaN(value) ? null : value
+    odp = originalDataPoint.updateNationalClass(odp, rowNo, dataCols[colNo], value)
   }
 
   const rows = el.getElementsByTagName('tr')
-  if (rows.length > 0) {
-    let i = rowIndex * dataCols.length + colIndex
-    R.map(row => {
-      const cols = row.getElementsByTagName('td')
-      const offset = dataCols.length - cols.length
-      mapIndexed((col, j) => {
-        updateOdp(Math.floor(i / dataCols.length), i % dataCols.length, col.innerText)
-        i += (j === cols.length - 1) ? offset + 1 : 1
-      }, cols)
-    }, rows)
-  } else {
+  if (rows.length > 0)
+    mapIndexed((row, i) =>
+        mapIndexed((col, j) => {
+          j += colIndex
+          if (j < dataCols.length)
+            updateOdp(i + rowIndex, j, col.innerText)
+        }, row.getElementsByTagName('td'))
+      , rows)
+  else
     updateOdp(rowIndex, colIndex, evt.clipboardData.getData('text/plain'))
-  }
 
   saveDraft(countryIso, odp)
 }
