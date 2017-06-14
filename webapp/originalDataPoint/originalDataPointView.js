@@ -103,17 +103,26 @@ const updatePastedValues = (odp, rowIndex, saveDraft, countryIso, dataCols, colI
   const el = document.createElement('html')
   el.innerHTML = evt.clipboardData.getData('text/html')
 
-  let i = rowIndex * dataCols.length + colIndex
-  R.map(row => {
-    const cols = row.getElementsByTagName('td')
-    const offset = dataCols.length - cols.length
-    mapIndexed((col, j) => {
-      const property = dataCols[i % dataCols.length]
-      const value = isInteger ? Math.round(Number(col.innerText.replace(/\s+/g, ''))) : col.innerText
-      odp = originalDataPoint.updateNationalClass(odp, Math.floor(i / dataCols.length), property, value)
-      i += (j === cols.length - 1) ? offset + 1 : 1
-    }, cols)
-  }, el.getElementsByTagName('tr'))
+  const updateOdp = (rowNo, colNo, value) => {
+    value = isInteger ? Math.round(Number(value.replace(/\s+/g, ''))) : value
+    const property = dataCols[colNo % dataCols.length]
+    odp = originalDataPoint.updateNationalClass(odp, rowNo, property, value)
+  }
+
+  const rows = el.getElementsByTagName('tr')
+  if (rows.length > 0) {
+    let i = rowIndex * dataCols.length + colIndex
+    R.map(row => {
+      const cols = row.getElementsByTagName('td')
+      const offset = dataCols.length - cols.length
+      mapIndexed((col, j) => {
+        updateOdp(Math.floor(i / dataCols.length), i % dataCols.length, col.innerText)
+        i += (j === cols.length - 1) ? offset + 1 : 1
+      }, cols)
+    }, rows)
+  } else {
+    updateOdp(rowIndex, colIndex, evt.clipboardData.getData('text/plain'))
+  }
 
   saveDraft(countryIso, odp)
 }
@@ -137,7 +146,9 @@ const NationalClassRow = ({odp, index, saveDraft, countryIso, className, definit
         : <div
           className="odp__national-class-remove"
           onClick={(evt) => saveDraft(countryIso, originalDataPoint.removeNationalClass(odp, index))}>
-            <svg className="icon"><use xlinkHref="img/icon.svg#icon-small-remove"/></svg>
+          <svg className="icon">
+            <use xlinkHref="img/icon.svg#icon-small-remove"/>
+          </svg>
         </div>
       }
       <input className="odp__national-class-row-class-name-input"
