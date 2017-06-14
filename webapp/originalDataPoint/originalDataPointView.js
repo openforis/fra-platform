@@ -238,8 +238,9 @@ class OriginalDataPointView extends React.Component {
   }
 
   componentDidMount() {
-    console.log(document.getElementById('originalDataPointDescription'))
-    CKEDITOR.replace(document.getElementById('originalDataPointDescription'))
+    this.descriptionEditor = CKEDITOR.replace(document.getElementById('originalDataPointDescription'))
+    this.descriptionEditor.setData('<i>Placeholder</i>')
+    this.descriptionEditor.on('change', (evt) =>  console.log( 'Data to save: ' + evt.editor.getData()))
   }
 
   render () {
