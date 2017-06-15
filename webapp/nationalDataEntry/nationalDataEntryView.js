@@ -31,7 +31,7 @@ class DataTable extends React.Component {
             )
           }
         </div>
-        { fraValueRow('Forest area', "forest", this.props.countryIso, 'forestArea', this.props.fra, this.props.save) }
+        { fraValueRow('Forest area', 'forest', this.props.countryIso, 'forestArea', this.props.fra, this.props.save) }
         { fraValueRow('Other wooded land', 'otherWoodedLand', this.props.countryIso, 'otherWoodedLand', this.props.fra, this.props.save) }
         { fraValueRow('Other land', 'otherLand', this.props.countryIso, 'otherLand', this.props.fra, this.props.save) }
       </div>
@@ -68,8 +68,8 @@ const fraValueRow = (rowHeading, target, countryIso, field, fra, save) =>
 
 const fraFieldValueForInput = (fieldValue) =>
   typeof fieldValue === 'number'
-  ? fieldValue
-  : ''
+    ? fieldValue
+    : ''
 
 const fraValueCell = (fraValue, fra, countryIso, save, field) =>
   <ThousandSeparatedIntegerInput
@@ -89,15 +89,15 @@ class ChartWrapper extends React.Component {
     this.resizeListener = () => this.forceUpdate()
   }
 
-  componentDidMount() {
+  componentDidMount () {
     window.addEventListener('resize', this.resizeListener, true)
   }
 
-  componentWillUnmount(){
+  componentWillUnmount () {
     window.removeEventListener('resize', this.resizeListener, true)
   }
 
-  render() {
+  render () {
     const defaultWidth = 913 //TODO what's a good default before we have bounding rect?
     const width = this.refs.chartWrapper ? this.refs.chartWrapper.getBoundingClientRect().width : defaultWidth
     return <div ref="chartWrapper" className="nde__data-chart">
@@ -116,7 +116,7 @@ const NationalDataEntry = (props) => {
     return props.generatingFraValues || odps.length < 2
   }
 
-  const marginClass = R.isNil(props.openCommentThread) ? "nde__comment-margin" : "nde__comment-thread-margin"
+  const marginClass = R.isNil(props.openCommentThread) ? 'nde__comment-margin' : 'nde__comment-thread-margin'
 
   return <div className={`nde__data-input-component`}>
     <div className="nde__data-page-header">
@@ -134,12 +134,14 @@ const NationalDataEntry = (props) => {
       <ChartWrapper/>
       <div className="nde__data-table-header">
         <h3 className="subhead">Extent of forest values</h3>
-        <button disabled={disableGenerateFRAValues()} className="btn btn-primary"
+        <button disabled={ disableGenerateFRAValues() } className="btn btn-primary"
                 onClick={() => props.generateFraValues(props.countryIso)}>Generate FRA values
         </button>
       </div>
     </div>
-      <DataTable {...props} />
+    <DataTable {...props} />
+
+
   </div>
 }
 
@@ -164,6 +166,6 @@ class DataFetchingComponent extends React.Component {
   }
 }
 
-const mapStateToProps = state => R.merge(state.nationalDataEntry, {"openCommentThread": state.issue.openThread})
+const mapStateToProps = state => R.merge(state.nationalDataEntry, {'openCommentThread': state.issue.openThread})
 
 export default connect(mapStateToProps, {save, fetch, generateFraValues})(DataFetchingComponent)

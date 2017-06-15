@@ -8,6 +8,7 @@ import { acceptNextInteger } from '../utils/numberInput'
 import { ThousandSeparatedIntegerInput } from '../reusableUiComponents/thousandSeparatedIntegerInput'
 import LoggedInPageTemplate from '../loggedInPageTemplate'
 import R from 'ramda'
+import ckEditorConfig from '../ckEditor/ckEditorConfig'
 
 const years = ['', ...R.range(1990, 2021)]
 
@@ -229,26 +230,6 @@ const ExtentOfForestRow = ({
   </tr>
 }
 
-const ckeditorConfig = {
-  plugins: 'a11yhelp,about,basicstyles,blockquote,clipboard,contextmenu,enterkey,entities,floatingspace,format,horizontalrule,htmlwriter,image,indentlist,link,list,magicline,pastefromword,pastetext,removeformat,resize,showborders,specialchar,stylescombo,tab,table,tabletools,toolbar,undo,wysiwygarea',
-  toolbarGroups: [
-    {name: 'clipboard', groups: ['clipboard', 'undo']},
-    {name: 'editing', groups: ['find', 'selection', 'spellchecker']},
-    {name: 'links'},
-    {name: 'insert'},
-    {name: 'forms'},
-    {name: 'tools'},
-    {name: 'document', groups: ['mode', 'document', 'doctools']},
-    {name: 'others'},
-    '/',
-    {name: 'basicstyles', groups: ['basicstyles', 'cleanup']},
-    {name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align', 'bidi']},
-    {name: 'styles'},
-    {name: 'colors'},
-    {name: 'about'}
-  ]
-}
-
 class OriginalDataPointView extends React.Component {
 
   fetchData () {
@@ -285,7 +266,7 @@ class OriginalDataPointView extends React.Component {
   }
 
   componentDidMount () {
-    this.descriptionEditor = CKEDITOR.replace(document.getElementById('originalDataPointDescription'), ckeditorConfig)
+    this.descriptionEditor = CKEDITOR.replace(document.getElementById('originalDataPointDescription'), ckEditorConfig)
     // We need to fetch the data only after CKEDITOR instance is ready :(
     // Otherwise there is no guarantee that the setData()-method succeeds in
     // setting pre-existing html-content
