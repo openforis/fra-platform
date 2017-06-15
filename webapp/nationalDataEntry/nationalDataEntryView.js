@@ -142,7 +142,8 @@ class NationalDataEntry extends React.Component {
         </div>
       </div>
       <DataTable {...this.props} />
-
+      <h3 className="subhead odp__section">Data Sources</h3>
+      <textarea id="dataSourcesDescription"/>
 
     </div>
   }
@@ -150,7 +151,15 @@ class NationalDataEntry extends React.Component {
 
 class DataFetchingComponent extends React.Component {
   componentWillMount () {
-    this.fetch(this.props.match.params.countryIso)
+    // this.fetch(this.props.match.params.countryIso)
+  }
+
+  componentDidMount () {
+    this.dataSourcesDescription = CKEDITOR.replace(document.getElementById('dataSourcesDescription'), ckEditorConfig)
+    // We need to fetch the data only after CKEDITOR instance is ready :(
+    // Otherwise there is no guarantee that the setData()-method succeeds in
+    // setting pre-existing html-content
+    this.dataSourcesDescription.on('instanceReady', () => this.fetch(this.props.match.params.countryIso))
   }
 
   componentWillReceiveProps (next) {
