@@ -3,12 +3,16 @@ import * as d3 from 'd3'
 import R from 'ramda'
 class XAxis extends Component {
   componentDidMount () {
-    this.renderAxis()
+    this.renderAxis(this.props)
   }
 
-  renderAxis () {
-    const tickValues = R.filter(v => v % 5 == 0, R.range(1990, 2021))
-    var axis = d3.axisBottom(this.props.xScale).tickValues(tickValues).tickFormat(d3.format('0000')).tickSize(0).tickPadding(16)
+  componentWillReceiveProps(nextProps) {
+    this.renderAxis(nextProps)
+  }
+
+  renderAxis (props) {
+    const tickValues = R.filter(v => v % 5 === 0, R.range(1990, 2021))
+    var axis = d3.axisBottom(props.xScale).tickValues(tickValues).tickFormat(d3.format('0000')).tickSize(0).tickPadding(16)
 
     const node = this.refs.axis
     d3.select(node).call(axis)
@@ -18,7 +22,7 @@ class XAxis extends Component {
   }
 
   render () {
-    return <g className="axis" ref="axis" transform={`translate(0, ${this.props.height - this.props.bottom})`}></g>
+    return <g className="axis" ref="axis" transform={`translate(0, ${this.props.height - this.props.bottom})`}/>
   }
 }
 

@@ -18,7 +18,7 @@ class YAxis extends Component {
     const formatLabel = v => d3.format(',')(v).replace(/,/g, ' ')
 
     var axis = d3.axisLeft(this.props.yScale)
-      .ticks(5).tickSizeInner(-this.props.width).tickSizeOuter(0).tickFormat(formatLabel).tickPadding(8)
+      .ticks(5).tickSizeInner(-this.props.wrapperWidth).tickSizeOuter(0).tickFormat(formatLabel).tickPadding(8)
 
     const node = this.refs.axis
 
