@@ -74,6 +74,8 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving})
         </tbody>
       </table>
     </div>
+    <h3 className="subhead odp__section">Comments</h3>
+    <textarea id="originalDataPointDescription"/>
     <div className="odp__bottom-buttons">
       <span className={ saveControlsDisabled() ? 'btn btn-destructive disabled' : 'btn btn-destructive' }
             onClick={ () => saveControlsDisabled() ? null : remove(countryIso, active.odpId) }>
@@ -137,7 +139,9 @@ const NationalClassRow = ({odp, index, saveDraft, countryIso, className, definit
         : <div
           className="odp__national-class-remove"
           onClick={(evt) => saveDraft(countryIso, originalDataPoint.removeNationalClass(odp, index))}>
-            <svg className="icon"><use xlinkHref="img/icon.svg#icon-small-remove"/></svg>
+          <svg className="icon">
+            <use xlinkHref="img/icon.svg#icon-small-remove"/>
+          </svg>
         </div>
       }
       <input className="odp__national-class-row-class-name-input"
@@ -226,13 +230,46 @@ const ExtentOfForestRow = ({
 }
 
 class OriginalDataPointView extends React.Component {
-  componentWillMount () {
+
+  fetchData () {
     const odpId = this.props.match.params.odpId
     if (odpId) {
       this.props.fetch(odpId)
     } else {
       this.props.clearActive()
+      this.initCkeditorChangeListener()
     }
+  }
+
+  initCkeditorChangeListener() {
+    this.descriptionEditor.on('change', (evt) => {
+        this.props.saveDraft(
+          this.props.match.params.countryIso,
+          {...this.props.active, description: evt.editor.getData()})
+      }
+    )
+  }
+
+  componentWillUnmount() {
+    this.props.clearActive()
+    this.descriptionEditor.destroy(false)
+    this.descriptionEditor = null
+  }
+
+  componentWillReceiveProps (props) {
+    if (this.props.match.params.odpId  && !this.props.active.odpId && props.active.odpId) {
+      this.descriptionEditor.setData(
+        props.active.description,
+        { callback: () => this.initCkeditorChangeListener() })
+    }
+  }
+
+  componentDidMount () {
+    this.descriptionEditor = CKEDITOR.replace(document.getElementById('originalDataPointDescription'))
+    // We need to fetch the data only after CKEDITOR instance is ready :(
+    // Otherwise there is no guarantee that the setData()-method succeeds in
+    // setting pre-existing html-content
+    this.descriptionEditor.on('instanceReady', () => this.fetchData())
   }
 
   render () {
