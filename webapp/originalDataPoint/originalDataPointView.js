@@ -229,6 +229,26 @@ const ExtentOfForestRow = ({
   </tr>
 }
 
+const ckeditorConfig = {
+  plugins: 'a11yhelp,about,basicstyles,blockquote,clipboard,contextmenu,enterkey,entities,floatingspace,format,horizontalrule,htmlwriter,image,indentlist,link,list,magicline,pastefromword,pastetext,removeformat,resize,showborders,specialchar,stylescombo,tab,table,tabletools,toolbar,undo,wysiwygarea',
+  toolbarGroups: [
+    {name: 'clipboard', groups: ['clipboard', 'undo']},
+    {name: 'editing', groups: ['find', 'selection', 'spellchecker']},
+    {name: 'links'},
+    {name: 'insert'},
+    {name: 'forms'},
+    {name: 'tools'},
+    {name: 'document', groups: ['mode', 'document', 'doctools']},
+    {name: 'others'},
+    '/',
+    {name: 'basicstyles', groups: ['basicstyles', 'cleanup']},
+    {name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align', 'bidi']},
+    {name: 'styles'},
+    {name: 'colors'},
+    {name: 'about'}
+  ]
+}
+
 class OriginalDataPointView extends React.Component {
 
   fetchData () {
@@ -241,7 +261,7 @@ class OriginalDataPointView extends React.Component {
     }
   }
 
-  initCkeditorChangeListener() {
+  initCkeditorChangeListener () {
     this.descriptionEditor.on('change', (evt) => {
         this.props.saveDraft(
           this.props.match.params.countryIso,
@@ -250,22 +270,22 @@ class OriginalDataPointView extends React.Component {
     )
   }
 
-  componentWillUnmount() {
+  componentWillUnmount () {
     this.props.clearActive()
     this.descriptionEditor.destroy(false)
     this.descriptionEditor = null
   }
 
   componentWillReceiveProps (props) {
-    if (this.props.match.params.odpId  && !this.props.active.odpId && props.active.odpId) {
+    if (this.props.match.params.odpId && !this.props.active.odpId && props.active.odpId) {
       this.descriptionEditor.setData(
         props.active.description,
-        { callback: () => this.initCkeditorChangeListener() })
+        {callback: () => this.initCkeditorChangeListener()})
     }
   }
 
   componentDidMount () {
-    this.descriptionEditor = CKEDITOR.replace(document.getElementById('originalDataPointDescription'))
+    this.descriptionEditor = CKEDITOR.replace(document.getElementById('originalDataPointDescription'), ckeditorConfig)
     // We need to fetch the data only after CKEDITOR instance is ready :(
     // Otherwise there is no guarantee that the setData()-method succeeds in
     // setting pre-existing html-content
