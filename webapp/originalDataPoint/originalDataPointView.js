@@ -237,7 +237,17 @@ class OriginalDataPointView extends React.Component {
       this.props.fetch(odpId)
     } else {
       this.props.clearActive()
+      this.initCkeditorChangeListener()
     }
+  }
+
+  initCkeditorChangeListener() {
+    this.descriptionEditor.on('change', (evt) => {
+        this.props.saveDraft(
+          this.props.match.params.countryIso,
+          {...this.props.active, description: evt.editor.getData()})
+      }
+    )
   }
 
   componentWillUnmount() {
@@ -247,19 +257,15 @@ class OriginalDataPointView extends React.Component {
   }
 
   componentWillReceiveProps (props) {
-    if (this.props.match.params.odpId && !this.props.active.odpId) {
-      this.descriptionEditor.setData(props.active.description)
+    if (this.props.match.params.odpId  && !this.props.active.odpId && props.active.odpId) {
+      this.descriptionEditor.setData(
+        props.active.description,
+        { callback: () => console.log('setting change listener') || this.initCkeditorChangeListener() })
     }
   }
 
   componentDidMount () {
     this.descriptionEditor = CKEDITOR.replace(document.getElementById('originalDataPointDescription'))
-    this.descriptionEditor.on('change', (evt) => {
-        this.props.saveDraft(
-          this.props.match.params.countryIso,
-          {...this.props.active, description: evt.editor.getData()})
-      }
-    )
     // We need to fetch the data only after CKEDITOR instance is ready :(
     // Otherwise there is no guarantee that the setData()-method succeeds in
     // setting pre-existing html-content
