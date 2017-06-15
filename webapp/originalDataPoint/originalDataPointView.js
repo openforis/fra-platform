@@ -260,7 +260,7 @@ class OriginalDataPointView extends React.Component {
     if (this.props.match.params.odpId  && !this.props.active.odpId && props.active.odpId) {
       this.descriptionEditor.setData(
         props.active.description,
-        { callback: () => console.log('setting change listener') || this.initCkeditorChangeListener() })
+        { callback: () => this.initCkeditorChangeListener() })
     }
   }
 
