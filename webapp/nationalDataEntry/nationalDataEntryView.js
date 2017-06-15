@@ -8,6 +8,7 @@ import Chart from './chart/chart'
 import IssueWidget from '../issue/issueWidget'
 import LoggedInPageTemplate from '../loggedInPageTemplate'
 import { ThousandSeparatedIntegerInput } from '../reusableUiComponents/thousandSeparatedIntegerInput'
+import ckEditorConfig from '../ckEditor/ckEditorConfig'
 
 const OdpHeading = ({countryIso, odpValue}) =>
   <Link to={`/country/${countryIso}/odp/${odpValue.odpId}`}>
@@ -106,43 +107,45 @@ class ChartWrapper extends React.Component {
   }
 }
 
-const NationalDataEntry = (props) => {
+class NationalDataEntry extends React.Component {
 
-  const disableGenerateFRAValues = () => {
+  disableGenerateFRAValues () {
     const odps = R.pipe(
       R.values,
       R.filter(v => v.type === 'odp')
-    )(props.fra)
-    return props.generatingFraValues || odps.length < 2
+    )(this.props.fra)
+    return this.props.generatingFraValues || odps.length < 2
   }
 
-  const marginClass = R.isNil(props.openCommentThread) ? 'nde__comment-margin' : 'nde__comment-thread-margin'
+  render () {
+    const marginClass = R.isNil(this.props.openCommentThread) ? 'nde__comment-margin' : 'nde__comment-thread-margin'
 
-  return <div className={`nde__data-input-component`}>
-    <div className="nde__data-page-header">
-      <h2 className="headline">Extent of forest</h2>
-    </div>
-    <div className={`${marginClass}`}>
-      <div className="nde__data-input-header">
-        <Link className="btn btn-primary" to={`/country/${props.countryIso}/odp`}>
-          <svg className="icon icon-middle icon-white">
-            <use xlinkHref="img/icon.svg#icon-small-add"/>
-          </svg>
-          Add national data point
-        </Link>
+    return <div className={`nde__data-input-component`}>
+      <div className="nde__data-page-header">
+        <h2 className="headline">Extent of forest</h2>
       </div>
-      <ChartWrapper/>
-      <div className="nde__data-table-header">
-        <h3 className="subhead">Extent of forest values</h3>
-        <button disabled={ disableGenerateFRAValues() } className="btn btn-primary"
-                onClick={() => props.generateFraValues(props.countryIso)}>Generate FRA values
-        </button>
+      <div className={`${marginClass}`}>
+        <div className="nde__data-input-header">
+          <Link className="btn btn-primary" to={`/country/${this.props.countryIso}/odp`}>
+            <svg className="icon icon-middle icon-white">
+              <use xlinkHref="img/icon.svg#icon-small-add"/>
+            </svg>
+            Add national data point
+          </Link>
+        </div>
+        <ChartWrapper/>
+        <div className="nde__data-table-header">
+          <h3 className="subhead">Extent of forest values</h3>
+          <button disabled={ this.disableGenerateFRAValues() } className="btn btn-primary"
+                  onClick={() => this.props.generateFraValues(this.props.countryIso)}>Generate FRA values
+          </button>
+        </div>
       </div>
+      <DataTable {...this.props} />
+
+
     </div>
-    <DataTable {...props} />
-
-
-  </div>
+  }
 }
 
 class DataFetchingComponent extends React.Component {
