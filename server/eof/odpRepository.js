@@ -187,7 +187,7 @@ const odpReducer = (results, row, type = 'fra') => R.assoc(`odp_${row.year}`,
   },
   results)
 
-module.exports.readOriginalDataPoints = countryIso =>
+module.exports.readOriginalDataPoints = (countryIso, allowNullYears = false) =>
   db.query(`
   
       SELECT
@@ -209,6 +209,6 @@ module.exports.readOriginalDataPoints = countryIso =>
              END
         JOIN odp_class c
           ON c.odp_version_id = v.id
-      WHERE p.country_iso = $1 AND v.year IS NOT NULL
+      WHERE p.country_iso = $1 ${allowNullYears ? '' : 'AND year IS NOT NULL' }
       GROUP BY odp_id, v.year, draft 
   `, [countryIso]).then(result => R.reduce(odpReducer, {}, result.rows))

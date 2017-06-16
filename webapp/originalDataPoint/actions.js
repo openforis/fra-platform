@@ -76,7 +76,7 @@ export const fetch = (odpId) => dispatch =>
       dispatch(applicationError(err))
     )
 export const fetchOdps = countryIso => dispatch =>
-  axios.get(`/api/country/originalDataPoints`).then(resp => {
+  axios.get(`/api/odp/${countryIso}`).then(resp => {
     dispatch({type: odpListFetchCompleted, data: resp.data})
   })
     .catch(err =>

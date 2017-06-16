@@ -5,7 +5,7 @@ const odpRepository = require('../eof/odpRepository')
 module.exports.init = app => {
 
   app.get('/api/odp/:countryIso', (req, res) => {
-    odpRepository.readOriginalDataPoints(req.params.countryIso)
+    odpRepository.readOriginalDataPoints(req.params.countryIso, true)
       .then(resp => res.json(R.values(resp)))
       .catch(err => {
         console.error(err)
