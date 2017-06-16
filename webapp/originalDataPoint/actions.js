@@ -66,10 +66,18 @@ export const markAsActual = (countryIso, odpId) => dispatch =>
 // fetching odp's
 
 export const odpFetchCompleted = 'originalDataPoint/fetch/completed'
+export const odpListFetchCompleted = 'originalDataPointList/fetch/completed'
 
 export const fetch = (odpId) => dispatch =>
   axios.get(`/api/country/originalDataPoint/${odpId}`).then(resp => {
     dispatch({type: odpFetchCompleted, active: addNationalClassPlaceHolder(resp.data)})
+  })
+    .catch(err =>
+      dispatch(applicationError(err))
+    )
+export const fetchOdps = countryIso => dispatch =>
+  axios.get(`/api/country/originalDataPoints`).then(resp => {
+    dispatch({type: odpListFetchCompleted, data: resp.data})
   })
     .catch(err =>
       dispatch(applicationError(err))
