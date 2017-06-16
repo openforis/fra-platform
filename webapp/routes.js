@@ -5,13 +5,14 @@ import Router from './router/router'
 import LoginView from './login/login'
 import NationalDataEntryView from './nationalDataEntry/nationalDataEntryView'
 import OriginalDataPointView from './originalDataPoint/originalDataPointView'
+import SpecificForestCategoriesView from './specificForestCategories/specificForestCategoriesView'
 
 const routes = {
   '/': LoginView,
-  '/': LoginView,
   '/country/:countryIso': NationalDataEntryView,
   '/country/:countryIso/odp': OriginalDataPointView,
-  '/country/:countryIso/odp/:odpId': OriginalDataPointView
+  '/country/:countryIso/odp/:odpId': OriginalDataPointView,
+  '/country/:countryIso/specificForestCategories': SpecificForestCategoriesView
 }
 
 const routeConfig = R.pipe(
