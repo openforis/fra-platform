@@ -100,4 +100,17 @@ module.exports.init = app => {
       .then(() => res.json({}))
       .catch(err => sendErr(res, err))
   })
+
+  app.get('/api/status/:countryIso', (req, res) => {
+   const odpData = odpRepository.readOriginalDataPoints(req.params.countryIso, true)
+
+    Promise.all([odpData]).then(result => {
+      // odp
+      const odpStatus = {count: R.values(result[0]).length }
+
+      res.json({odpStatus})
+
+    })
+    .catch(err => sendErr(res, err))
+  })
 }

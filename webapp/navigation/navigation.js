@@ -6,7 +6,7 @@ import I18n from 'i18n-iso-countries'
 
 import { Link } from './../link'
 import { follow } from './../router/actions'
-import { getCountryList } from './actions'
+import { getCountryList, fetchNavStatus } from './actions'
 import { annualItems, fiveYearItems } from './items'
 
 import './style.less'
@@ -108,6 +108,17 @@ const Nav = ({path, country, countries, follow, getCountryList, userInfo}) => {
   </div>
 }
 
+class NavigationSync extends React.Component {
+
+  componentWillMount() {
+    this.props.fetchNavStatus(this.props.country)
+  }
+
+  render() {
+    return <Nav {...this.props} />
+  }
+}
+
 const mapStateToProps = state => R.pipe(R.merge(state.navigation), R.merge(state.router))(state.user)
 
-export default connect(mapStateToProps, {follow, getCountryList})(Nav)
+export default connect(mapStateToProps, {follow, getCountryList, fetchNavStatus})(NavigationSync)
