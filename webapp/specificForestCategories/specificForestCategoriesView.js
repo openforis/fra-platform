@@ -9,7 +9,9 @@ const mapStateToProps = state => state
 class SpecificForestCategoriesView extends React.Component {
   render() {
     return <LoggedInPageTemplate>
-      <h2 className="headline">Specific forest categories</h2>
+      <div className="sfc__container">
+        <h2 className="headline">Specific forest categories</h2>
+      </div>
     </LoggedInPageTemplate>
   }
 }
