@@ -21,8 +21,9 @@ const exampleTable = () => <table className="fra-table">
 const mapIndexed = R.addIndex(R.map)
 
 const integerInput = (rowIdx, colIdx) => {
-  return <td key={`${rowIdx}-${colIdx}`} className="fra-table__cell-input">
+  return <td key={`${rowIdx}-${colIdx}`} className="fra-table__cell">
     <ThousandSeparatedIntegerInput integerValue={ null }
+                                   className="fra-table__integer-input"
                                    onChange={ console.log('integer updated', rowIdx, colIdx) }
                                    onPaste={ console.log('pasted', rowIdx, colIdx) }/>
 
@@ -53,7 +54,7 @@ const tableBody = (tableSpec) =>
   {tableRows(tableSpec)}
   </tbody>
 
-const createTable = (tableSpec) => <table>
+const createTable = (tableSpec) => <table className="fra-table">
     {tableSpec.header}
    {tableBody(tableSpec)}
   </table>
