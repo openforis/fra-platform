@@ -19,12 +19,12 @@ const tableSpec = {
               </tr>
             </thead>,
   rows: [
-    [{type: 'readOnly', jsx: <td className="fra-table__header-cell">Bamboo</td>},
+    [{type: 'readOnly', jsx: <td key="bamboo" className="fra-table__header-cell">Bamboo</td>},
       {type: 'integerInput'},
       {type: 'integerInput'}
     ],
     [
-      {type: 'readOnly', jsx: <td className="fra-table__header-cell">Mangroves</td>},
+      {type: 'readOnly', jsx: <td key="mangroves" className="fra-table__header-cell">Mangroves</td>},
       {type: 'integerInput'},
       {type: 'integerInput'}
     ]

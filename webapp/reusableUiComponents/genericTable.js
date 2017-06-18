@@ -24,8 +24,8 @@ const integerInput = (rowIdx, colIdx) => {
   return <td key={`${rowIdx}-${colIdx}`} className="fra-table__cell">
     <ThousandSeparatedIntegerInput integerValue={ null }
                                    className="fra-table__integer-input"
-                                   onChange={ console.log('integer updated', rowIdx, colIdx) }
-                                   onPaste={ console.log('pasted', rowIdx, colIdx) }/>
+                                   onChange={ () => console.log('integer updated', rowIdx, colIdx) }
+                                   onPaste={ () => console.log('pasted', rowIdx, colIdx) }/>
 
   </td>
 }
