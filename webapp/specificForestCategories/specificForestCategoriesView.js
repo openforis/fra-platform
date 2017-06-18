@@ -10,7 +10,10 @@ const tableSpec = {
   name: 'specificForestCategories', // used to uniquely identify table
   header:   <thead>
               <tr>
-                <td className="fra-table__header-cell">FRA 2020 Categories</td>
+                <td rowSpan="2" className="fra-table__header-cell">FRA 2020 Categories</td>
+                <td colSpan="2"className="fra-table__header-cell">Area (1000 ha)</td>
+              </tr>
+              <tr>
                 <td className="fra-table__header-cell">1990</td>
                 <td className="fra-table__header-cell">2000</td>
               </tr>
