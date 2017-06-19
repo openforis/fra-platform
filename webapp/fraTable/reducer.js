@@ -8,7 +8,7 @@ const actionHandlers = {
     const tableSpec = action.tableSpec
     assert(tableSpec.name, 'tableSpec is missing name')
     const tableValues = state[tableSpec.name] || table.createTableData(tableSpec)
-    const updatedValues = table.update(tableValues, action.rowIdx, action.colIdx, action.newValue)
+    const updatedValues = table.update(tableValues, action.rowIdx, action.colIdx, Number(action.newValue))
     return {...state, [tableSpec.name]: updatedValues}
   }
 }

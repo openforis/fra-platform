@@ -54,7 +54,7 @@ const FraTable = (props) => <table className="fra-table">
 
 const mapStateToProps = (state, props) => {
   assert(props.tableSpec.name, 'tableSpec is missing name')
-  return {...props, tableData: state[props.tableSpec.name] || table.createTableData(props.tableSpec)}
+  return {...props, tableData: state.fraTable[props.tableSpec.name] || table.createTableData(props.tableSpec)}
 }
 
 export default connect(mapStateToProps, { tableValueChanged })(FraTable)
