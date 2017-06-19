@@ -1,13 +1,16 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import R from 'ramda'
+import assert from 'assert'
 
 import './tableStyles.less'
 import { ThousandSeparatedIntegerInput } from '../reusableUiComponents/thousandSeparatedIntegerInput'
 
-
 const exampleTable = () => <table className="fra-table">
   <thead>
-  <tr><td className="fra-table__header-cell">heading</td></tr>
+  <tr>
+    <td className="fra-table__header-cell">heading</td>
+  </tr>
   </thead>
   <tbody>
   <tr className="">
@@ -46,7 +49,7 @@ const tableRows = (tableSpec) => {
       <tr key={rowIdx}>
         {mapIndexed((cellSpec, colIdx) => cell(rowIdx, colIdx, cellSpec), rowSpec)}
       </tr>
-    ,tableSpec.rows)
+    , tableSpec.rows)
 }
 
 const tableBody = (tableSpec) =>
@@ -55,8 +58,20 @@ const tableBody = (tableSpec) =>
   </tbody>
 
 const createTable = (tableSpec) => <table className="fra-table">
-    {tableSpec.header}
-   {tableBody(tableSpec)}
-  </table>
+  {tableSpec.header}
+  {tableBody(tableSpec)}
+</table>
 
-export default ({tableSpec}) => createTable(tableSpec)//exampleTable()
+const FraTable = ({tableSpec, tableData}) => createTable(tableSpec)
+
+const createTableData = (tableSpec) =>
+  R.map(
+    (rowIdx) => new Array(tableSpec.rows[0].length),
+    R.range(0, tableSpec.rows.length))
+
+const mapStateToProps = (state, props) => {
+  assert(props.tableSpec.name, 'tabSpec is missing name')
+  return {tableData: state[props.tableSpec.name] || createTableData(props.tableSpec)}
+}
+
+export default connect(mapStateToProps, {})(FraTable)
