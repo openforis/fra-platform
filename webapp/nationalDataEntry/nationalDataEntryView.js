@@ -7,6 +7,7 @@ import { Link } from './../link'
 import Chart from './chart/chart'
 import IssueWidget from '../issue/issueWidget'
 import LoggedInPageTemplate from '../loggedInPageTemplate'
+import { separateThousandsWithSpaces } from '../utils/numberFormat'
 import { ThousandSeparatedIntegerInput } from '../reusableUiComponents/thousandSeparatedIntegerInput'
 
 const OdpHeading = ({countryIso, odpValue}) =>
@@ -79,7 +80,7 @@ const fraValueCell = (fraValue, fra, countryIso, save, field) =>
 
 const odpCell = (odpValue, field) =>
   <span className="nde__input-table-cell_odp">
-    {odpValue[field]}
+    {separateThousandsWithSpaces(odpValue[field])}
   </span>
 
 class ChartWrapper extends React.Component {
