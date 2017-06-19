@@ -76,17 +76,18 @@ module.exports.init = app => {
       .catch(err => sendErr(res, err))
   })
 
-  app.get('/api/status/:countryIso', (req, res) => {
+  app.get('/api/nav/status/:countryIso', (req, res) => {
    const odpData = odpRepository.readOriginalDataPoints(req.params.countryIso, true)
 
-    Promise.all([odpData]).then(result => {
+    // in future we certainly will need the Promise.all here wink wink
+    Promise.all([odpData]).then(([odpResult]) => {
       const odpStatus = {
-        count: R.values(result[0]).length,
+        count: R.values(odpResult).length,
         errors: R.pipe( // if year not specified for a odp, raise error flag
           R.values,
           R.filter(R.pathEq(['year'], 0)),
           R.isEmpty,
-          R.not)(result[0])
+          R.not)(odpResult)
       }
 
       res.json({odpStatus})
