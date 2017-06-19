@@ -64,31 +64,6 @@ module.exports.init = app => {
       .catch(err => sendErr(res, err))
   })
 
-  app.get('/api/country/originalDataPoint/:odpId', (req, res) => {
-    odpRepository.getOdp(req.params.odpId)
-      .then(resp => res.json(resp))
-      .catch(err => sendErr(res, err))
-  })
-
-  app.delete('/api/country/originalDataPoint/:odpId', (req, res) => {
-    db.transaction(odpRepository.deleteOdp, [req.params.odpId])
-      .then(() => res.json({}))
-      .catch(err => sendErr(res, err))
-  })
-
-  app.post('/api/country/originalDataPoint/draft/:countryIso', (req, res) => {
-    const countryIso = req.params.countryIso
-    db.transaction(odpRepository.saveDraft, [countryIso, req.body])
-      .then(result => res.json(result))
-      .catch(err => sendErr(res, err))
-  })
-
-  app.post('/api/country/originalDataPoint/draft/markAsActual/:opdId', (req, res) =>
-    db.transaction(odpRepository.markAsActual, [req.params.opdId])
-      .then(() => res.json({}))
-      .catch(err => sendErr(res, err))
-  )
-
   app.post('/api/country/estimation/generateFraValues/:countryIso', (req, res) => {
     const years = R.pipe(
       R.values,
