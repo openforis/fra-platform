@@ -80,7 +80,7 @@ const fraValueCell = (fraValue, fra, countryIso, save, field) =>
 
 const odpCell = (odpValue, field) =>
   <span className="nde__input-table-cell_odp">
-    {separateThousandsWithSpaces(odpValue[field])}
+    {separateThousandsWithSpaces(Math.round(odpValue[field]))}
   </span>
 
 class ChartWrapper extends React.Component {
