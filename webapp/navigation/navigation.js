@@ -96,7 +96,7 @@ const roleLabel = (userInfo) => {
 const Nav = ({path, country, countries, follow, getCountryList, userInfo}) => {
   return <div className="main__navigation">
     <CountryItem name={country} countries={countries} listCountries={getCountryList} role={ roleLabel(userInfo) }/>
-    <LinkItem label="National Data" countryIso={country} path={path} pathTemplate="/country/:countryIso/odp" />
+    <LinkItem label="National Data" countryIso={country} path={path} pathTemplate="/country/:countryIso/odps" />
     <PrimaryItem label="Annually reported"/>
     {
       annualItems.map(v => <SecondaryItem path={path} key={v.label} goTo={follow} countryIso={country} {...v} />)
