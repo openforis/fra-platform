@@ -90,7 +90,7 @@
 .navi__link-item {
   display: inline-block;
   width: 100%;
-  padding: 12px 24px;
+  padding: 12px 12px 12px 24px;
   text-decoration: none;
   color: @text-body;
 
@@ -106,9 +106,18 @@
   }
 }
 .navi__link-label {
-  display: block;
   font-weight: bold;
   line-height: 20px;
+}
+
+.navi__link-item-status {
+  margin: 8px;
+}
+
+.navi__link-error-status {
+  top: 3px;
+  position: relative;
+  float: right;
 }
 
 .navi__primary-item {

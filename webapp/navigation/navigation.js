@@ -65,8 +65,15 @@ const NationalDataItem = ({path, countryIso, pathTemplate = '/tbd', status = {co
 
   return <Link className={`navi__link-item ${R.equals(path, linkTo) ? 'selected' : ''}`}
                to={ linkTo }>
-    <span className="navi__link-label">{label}</span><span
-    className="navi__link-item-status">{status.count}</span>
+    <span className="navi__link-label">{label}</span>
+    <span className="navi__link-item-status">{status.count}</span>
+    <span className="navi__link-error-status">
+      { status.errors ? <svg className="icon icon-red">
+        <use xlinkHref="img/icon.svg#icon-alert"/>
+      </svg>
+        : null
+      }
+    </span>
   </Link>
 }
 

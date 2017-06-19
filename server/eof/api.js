@@ -105,8 +105,14 @@ module.exports.init = app => {
    const odpData = odpRepository.readOriginalDataPoints(req.params.countryIso, true)
 
     Promise.all([odpData]).then(result => {
-      // odp
-      const odpStatus = {count: R.values(result[0]).length }
+      const odpStatus = {
+        count: R.values(result[0]).length,
+        errors: R.pipe( // if year not specified for a odp, raise error flag
+          R.values,
+          R.filter(R.pathEq(['year'], 0)),
+          R.isEmpty,
+          R.not)(result[0])
+      }
 
       res.json({odpStatus})
 
