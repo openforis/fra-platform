@@ -13,7 +13,7 @@ module.exports.init = app => {
     }
     if(R.not(R.isNil(req.query.countryIso))) {
       odpRepository.readOriginalDataPoints(req.query.countryIso, true)
-        .then(resp => res.json(R.values(resp)))
+        .then(resp => res.json(R.sort((a,b) => a.year - b.year, R.values(resp))))
         .catch(err => {
           console.error(err)
           res.status(500).json({error: 'Could not retrieve data'})
@@ -35,7 +35,7 @@ module.exports.init = app => {
   })
 
   app.post('/api/odp/markAsActual', (req, res) =>
-    db.transaction(odpRepository.markAsActual, [req.query.opdId])
+    db.transaction(odpRepository.markAsActual, [req.query.odpId])
       .then(() => res.json({}))
       .catch(err => sendErr(res, err))
   )

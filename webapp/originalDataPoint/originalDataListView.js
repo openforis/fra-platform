@@ -13,13 +13,17 @@ const ODPListing = ({countryIso, odps = []}) => <div className="odp-list__contai
     <thead>
     <tr className='odp-list__list-row'>
       <th>Year</th>
+      <th>{ /* notification icons */ }</th>
       <th>Methods</th>
       <th></th>
     </tr>
     </thead>
     <tbody>
     { odps.map(odp => <tr className='odp-list__list-row' key={odp.odpId}>
-      <td>{odp.year == 0 ? '-' : odp.year}</td>
+      <td className='odp-list__year-column'>{odp.year == 0 ? '-' : odp.year}</td>
+      <td className='odp-list__notification-column'>{odp.year == 0 ? <svg className='icon icon-red'>
+        <use xlinkHref='img/icon.svg#icon-alert'/>
+      </svg> : null}</td>
       <td>-</td>
       <td><Link to={`/country/${countryIso}/odp/${odp.odpId}`}>Edit</Link></td>
     </tr>)}

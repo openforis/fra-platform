@@ -64,13 +64,13 @@
   border-radius: 2px;
   border: 1px solid @ui-border;
   box-shadow: @shadow-2;
+  z-index: 10;
 }
 
 .navi__country-list-content {
   max-height: 560px;
   overflow-y: scroll;
   overflow-x: hidden;
-  z-index: 10;
   padding: 4px 0;
 }
 
@@ -90,7 +90,7 @@
 .navi__link-item {
   display: inline-block;
   width: 100%;
-  padding: 12px 24px;
+  padding: 12px 12px 12px 24px;
   text-decoration: none;
   color: @text-body;
 
@@ -106,9 +106,18 @@
   }
 }
 .navi__link-label {
-  display: block;
   font-weight: bold;
   line-height: 20px;
+}
+
+.navi__link-item-status {
+  margin: 8px;
+}
+
+.navi__link-error-status {
+  top: 3px;
+  position: relative;
+  float: right;
 }
 
 .navi__primary-item {
