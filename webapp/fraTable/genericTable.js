@@ -5,37 +5,27 @@ import assert from 'assert'
 
 import './tableStyles.less'
 import { ThousandSeparatedIntegerInput } from '../reusableUiComponents/thousandSeparatedIntegerInput'
-
-const exampleTable = () => <table className="fra-table">
-  <thead>
-  <tr>
-    <td className="fra-table__header-cell">heading</td>
-  </tr>
-  </thead>
-  <tbody>
-  <tr className="">
-    <td className="fra-table__cell">
-      <input className="fra-table__cell-input"/>
-    </td>
-  </tr>
-  </tbody>
-</table>
+import * as table from './table'
+import { tableValueChanged } from './actions'
 
 const mapIndexed = R.addIndex(R.map)
 
-const integerInput = (rowIdx, colIdx) => {
-  return <td key={`${rowIdx}-${colIdx}`} className="fra-table__cell">
-    <ThousandSeparatedIntegerInput integerValue={ null }
+const IntegerInput = ({tableSpec, tableData, rowIdx, colIdx, tableValueChanged}) => {
+  const currentValue = tableData[rowIdx][colIdx]
+  return <td className="fra-table__cell">
+    <ThousandSeparatedIntegerInput integerValue={ currentValue }
                                    className="fra-table__integer-input"
-                                   onChange={ () => console.log('integer updated', rowIdx, colIdx) }
+                                   onChange={ (evt) => tableValueChanged(tableSpec, rowIdx, colIdx, evt.target.value) }
                                    onPaste={ () => console.log('pasted', rowIdx, colIdx) }/>
-
   </td>
 }
 
-const cell = (rowIdx, colIdx, cellSpec) => {
+const Cell = (props) => {
+  const {tableSpec, rowIdx, colIdx} = props
+  const cellSpec = tableSpec.rows[rowIdx][colIdx]
+  assert(cellSpec, `No cellspec for ${rowIdx} ${colIdx}`)
   if (cellSpec.type === 'integerInput') {
-    return integerInput(rowIdx, colIdx)
+    return <IntegerInput {...props}/>
   } else if (cellSpec.type === 'readOnly') {
     return cellSpec.jsx
   } else {
@@ -43,35 +33,28 @@ const cell = (rowIdx, colIdx, cellSpec) => {
   }
 }
 
-const tableRows = (tableSpec) => {
+const tableRows = (props) => {
   return mapIndexed(
     (rowSpec, rowIdx) =>
       <tr key={rowIdx}>
-        {mapIndexed((cellSpec, colIdx) => cell(rowIdx, colIdx, cellSpec), rowSpec)}
-      </tr>
-    , tableSpec.rows)
+        { mapIndexed((cellSpec, colIdx) => <Cell key={`${rowIdx}-${colIdx}`} rowIdx={rowIdx} colIdx={colIdx} {...props}/>, rowSpec) }
+      </tr>,
+    props.tableSpec.rows)
 }
 
-const tableBody = (tableSpec) =>
+const TableBody = (props) =>
   <tbody>
-  {tableRows(tableSpec)}
+   {tableRows(props)}
   </tbody>
 
-const createTable = (tableSpec) => <table className="fra-table">
-  {tableSpec.header}
-  {tableBody(tableSpec)}
+const FraTable = (props) => <table className="fra-table">
+  {props.tableSpec.header}
+  <TableBody {...props}/>
 </table>
 
-const FraTable = ({tableSpec, tableData}) => createTable(tableSpec)
-
-const createTableData = (tableSpec) =>
-  R.map(
-    (rowIdx) => new Array(tableSpec.rows[0].length),
-    R.range(0, tableSpec.rows.length))
-
 const mapStateToProps = (state, props) => {
-  assert(props.tableSpec.name, 'tabSpec is missing name')
-  return {tableData: state[props.tableSpec.name] || createTableData(props.tableSpec)}
+  assert(props.tableSpec.name, 'tableSpec is missing name')
+  return {...props, tableData: state[props.tableSpec.name] || table.createTableData(props.tableSpec)}
 }
 
-export default connect(mapStateToProps, {})(FraTable)
+export default connect(mapStateToProps, { tableValueChanged })(FraTable)
