@@ -35,7 +35,7 @@ module.exports.init = app => {
   })
 
   app.post('/api/odp/markAsActual', (req, res) =>
-    db.transaction(odpRepository.markAsActual, [req.query.opdId])
+    db.transaction(odpRepository.markAsActual, [req.query.odpId])
       .then(() => res.json({}))
       .catch(err => sendErr(res, err))
   )
