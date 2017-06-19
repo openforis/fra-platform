@@ -21,7 +21,8 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving})
         <select
           className="select"
           value={active.year || ''}
-          onChange={(e) => saveDraft(countryIso, R.assoc('year', Number(e.target.value), active)) }>
+          onChange={
+            (e) => saveDraft(countryIso, R.assoc('year', R.isEmpty(e.target.value) ? null : Number(e.target.value), active)) }>
           {years.map((year) => <option key={year} value={year}>{year}</option>)}
         </select>
       </div>
