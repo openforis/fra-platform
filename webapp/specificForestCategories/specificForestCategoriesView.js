@@ -3,7 +3,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import LoggedInPageTemplate from '../loggedInPageTemplate'
-import GenericTable from '../reusableUiComponents/genericTable'
+import GenericTable from '../fraTable/genericTable'
 
 
 const tableSpec = {
