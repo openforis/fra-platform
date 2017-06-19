@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import * as originalDataPoint from './originalDataPoint'
 import { saveDraft, markAsActual, remove, fetch, clearActive } from './actions'
 import { acceptNextInteger } from '../utils/numberInput'
+import { separateThousandsWithSpaces } from '../utils/numberFormat'
 import { ThousandSeparatedIntegerInput } from '../reusableUiComponents/thousandSeparatedIntegerInput'
 import LoggedInPageTemplate from '../loggedInPageTemplate'
 import R from 'ramda'
@@ -66,11 +67,12 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving})
         <tr>
           <td className="odp__national-class-total-heading">Total</td>
           <td className="odp__national-class-total-cell odp__eof-divide-after-cell"></td>
-          <td className="odp__national-class-total-cell">{ originalDataPoint.totalForest(active, 'forestPercent') }</td>
           <td
-            className="odp__national-class-total-cell">{ originalDataPoint.totalForest(active, 'otherWoodedLandPercent') }</td>
+            className="odp__national-class-total-cell">{ separateThousandsWithSpaces(Number(originalDataPoint.totalForest(active, 'forestPercent'))) }</td>
           <td
-            className="odp__national-class-total-cell">{ originalDataPoint.totalForest(active, 'otherLandPercent') }</td>
+            className="odp__national-class-total-cell">{ separateThousandsWithSpaces(Number(originalDataPoint.totalForest(active, 'otherWoodedLandPercent'))) }</td>
+          <td
+            className="odp__national-class-total-cell">{ separateThousandsWithSpaces(Number(originalDataPoint.totalForest(active, 'otherLandPercent'))) }</td>
         </tr>
         </tbody>
       </table>
