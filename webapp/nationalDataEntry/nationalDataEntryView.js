@@ -143,6 +143,10 @@ const NationalDataEntry = (props) => {
     <DataTable {...props} />
     <h3 className="subhead nde__description-header">Data Sources</h3>
     <textarea id="dataSourcesDescription"/>
+    <h3 className="subhead nde__description-header">National classification and definitions</h3>
+    <textarea id="nationalClassificationDescription"/>
+    <h3 className="subhead nde__description-header">Original data</h3>
+    <textarea id="originalDataDescription"/>
 
   </div>
 }
