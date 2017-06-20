@@ -8,7 +8,7 @@ import Chart from './chart/chart'
 import IssueWidget from '../issue/issueWidget'
 import LoggedInPageTemplate from '../loggedInPageTemplate'
 import { ThousandSeparatedIntegerInput } from '../reusableUiComponents/thousandSeparatedIntegerInput'
-import ckEditorConfig from '../ckEditor/ckEditorConfig'
+import ckEditorConfig, { isEditorReady } from '../ckEditor/ckEditorConfig'
 
 const OdpHeading = ({countryIso, odpValue}) =>
   <Link to={`/country/${countryIso}/odp/${odpValue.odpId}`}>
@@ -157,10 +157,8 @@ class DataFetchingComponent extends React.Component {
     this.dataSourcesDescription = CKEDITOR.replace(document.getElementById('dataSourcesDescription'), ckEditorConfig)
     this.nationalClassificationDescription = CKEDITOR.replace(document.getElementById('nationalClassificationDescription'), ckEditorConfig)
     this.originalDataDescription = CKEDITOR.replace(document.getElementById('originalDataDescription'), ckEditorConfig)
-    // We need to fetch the data only after CKEDITOR instance is ready :(
-    // Otherwise there is no guarantee that the setData()-method succeeds in
-    // setting pre-existing html-content
-    const isEditorReady = (editor) => editor.status === 'ready'
+
+    // Data fetching is necessary when CKEDITOR instances are ready
     const fetchWhenReady = () => {
       if (isEditorReady(this.dataSourcesDescription) && isEditorReady(this.nationalClassificationDescription) && isEditorReady(this.originalDataDescription))
         this.fetch(this.props.match.params.countryIso)
