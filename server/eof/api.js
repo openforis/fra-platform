@@ -16,7 +16,7 @@ module.exports.init = app => {
   app.get('/api/country/issue/:countryIso/:section', (req, res) => {
     issueRepository.getIssues(req.params.countryIso, req.params.section)
       .then(result => {
-        const target =  req.query.target && req.query.target.split(',')
+        const target = req.query.target && req.query.target.split(',')
         const issues = R.map(issue => {
           const diff = R.pipe(R.path(['target', 'params']), R.difference(target))(issue)
           return R.isEmpty(diff) ? issue : []
@@ -50,8 +50,9 @@ module.exports.init = app => {
   app.get('/api/country/:countryIso', (req, res) => {
     const fra = fraRepository.readFraForestAreas(req.params.countryIso)
     const odp = odpRepository.readOriginalDataPoints(req.params.countryIso)
+    const desc = fraRepository.readEofDescriptions(req.params.countryIso)
 
-    Promise.all([fra, odp])
+    Promise.all([fra, odp, desc])
       .then(result => {
         const forestAreas = R.pipe(
           R.merge(forestAreaTableResponse.fra),
@@ -59,7 +60,7 @@ module.exports.init = app => {
           R.values,
           R.sort((a, b) => a.year === b.year ? (a.type < b.type ? -1 : 1) : a.year - b.year)
         )(result[0])
-        return res.json({fra: forestAreas})
+        return res.json({fra: forestAreas, eofDescriptions: desc})
       })
       .catch(err => sendErr(res, err))
   })
