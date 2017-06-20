@@ -152,16 +152,22 @@ const NationalDataEntry = (props) => {
 }
 
 class DataFetchingComponent extends React.Component {
-  // componentWillMount () {
-  //   this.fetch(this.props.match.params.countryIso)
-  // }
 
   componentDidMount () {
     this.dataSourcesDescription = CKEDITOR.replace(document.getElementById('dataSourcesDescription'), ckEditorConfig)
+    this.nationalClassificationDescription = CKEDITOR.replace(document.getElementById('nationalClassificationDescription'), ckEditorConfig)
+    this.originalDataDescription = CKEDITOR.replace(document.getElementById('originalDataDescription'), ckEditorConfig)
     // We need to fetch the data only after CKEDITOR instance is ready :(
     // Otherwise there is no guarantee that the setData()-method succeeds in
     // setting pre-existing html-content
-    this.dataSourcesDescription.on('instanceReady', () => this.fetch(this.props.match.params.countryIso))
+    const isEditorReady = (editor) => editor.status === 'ready'
+    const fetchWhenReady = () => {
+      if (isEditorReady(this.dataSourcesDescription) && isEditorReady(this.nationalClassificationDescription) && isEditorReady(this.originalDataDescription))
+        this.fetch(this.props.match.params.countryIso)
+    }
+    this.dataSourcesDescription.on('instanceReady', fetchWhenReady)
+    this.nationalClassificationDescription.on('instanceReady', fetchWhenReady)
+    this.originalDataDescription.on('instanceReady', fetchWhenReady)
   }
 
   componentWillReceiveProps (next) {
