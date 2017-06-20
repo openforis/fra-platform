@@ -153,6 +153,17 @@ const NationalDataEntry = (props) => {
 
 class DataFetchingComponent extends React.Component {
 
+  initDescriptionEditor (editor) {
+    editor.on('change', evt => {
+    })
+  }
+
+  setEditorData (props, editor, field) {
+    editor.setData(
+      props.eofDescriptions[field],
+      {callback: this.initDescriptionEditor(editor)})
+  }
+
   componentDidMount () {
     this.dataSourcesDescription = CKEDITOR.replace(document.getElementById('dataSourcesDescription'), ckEditorConfig)
     this.nationalClassificationDescription = CKEDITOR.replace(document.getElementById('nationalClassificationDescription'), ckEditorConfig)
@@ -169,8 +180,13 @@ class DataFetchingComponent extends React.Component {
   }
 
   componentWillReceiveProps (next) {
-    if (!R.equals(this.props.match.params.countryIso, next.match.params.countryIso))
+    if (!R.equals(this.props.match.params.countryIso, next.match.params.countryIso)) {
       this.fetch(next.match.params.countryIso)
+    } else if (next.eofDescriptions) {
+      this.setEditorData(next, this.dataSourcesDescription, 'dataSources')
+      this.setEditorData(next, this.nationalClassificationDescription, 'nationalClassification')
+      this.setEditorData(next, this.originalDataDescription, 'originalData')
+    }
   }
 
   fetch (countryIso) {

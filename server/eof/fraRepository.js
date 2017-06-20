@@ -75,4 +75,11 @@ module.exports.readEofDescriptions = (countryIso) =>
   db.query(
     `SELECT data_sources, national_classification, original_data FROM eof_descriptions WHERE country_iso =  $1`,
     [countryIso]
-  ).then(result => result.rows[0])
+  ).then(result => {
+    const row = result.rows[0]
+    return row ? {
+      dataSources: row.data_sources,
+      nationalClassification: row.national_classification,
+      originalData: row.original_data
+    } : null
+  })

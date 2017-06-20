@@ -60,7 +60,7 @@ module.exports.init = app => {
           R.values,
           R.sort((a, b) => a.year === b.year ? (a.type < b.type ? -1 : 1) : a.year - b.year)
         )(result[0])
-        return res.json({fra: forestAreas, eofDescriptions: desc})
+        return res.json({fra: forestAreas, eofDescriptions: result[2]})
       })
       .catch(err => sendErr(res, err))
   })
