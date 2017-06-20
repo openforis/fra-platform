@@ -12,7 +12,7 @@ module.exports.init = app => {
         .catch(err => sendErr(res, err))
     }
     if(R.not(R.isNil(req.query.countryIso))) {
-      odpRepository.readOriginalDataPoints(req.query.countryIso, true)
+      odpRepository.listOriginalDataPoints(req.query.countryIso)
         .then(resp => res.json(R.sort((a,b) => a.year - b.year, R.values(resp))))
         .catch(err => {
           console.error(err)
@@ -29,7 +29,7 @@ module.exports.init = app => {
 
   app.post('/api/odp/draft', (req, res) => {
     const countryIso = req.query.countryIso
-    db.transaction(odpRepository.saveDraft, [countryIso, req.body])
+    return db.transaction(odpRepository.saveDraft, [countryIso, req.body])
       .then(result => res.json(result))
       .catch(err => sendErr(res, err))
   })

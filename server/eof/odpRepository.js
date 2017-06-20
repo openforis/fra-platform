@@ -187,7 +187,17 @@ const odpReducer = (results, row, type = 'fra') => R.assoc(`odp_${row.year}`,
   },
   results)
 
-module.exports.readOriginalDataPoints = (countryIso, allowNullYears = false) =>
+const odpListReducer = (results, row, type = 'fra') => R.assoc(`odp_${row.odp_id}`,
+  {
+    odpId: row.odp_id,
+    name: row.year + '',
+    type: 'odp',
+    year: Number(row.year),
+    draft: row.draft
+  },
+  results)
+
+module.exports.readOriginalDataPoints = (countryIso) =>
   db.query(`
   
       SELECT
@@ -209,6 +219,21 @@ module.exports.readOriginalDataPoints = (countryIso, allowNullYears = false) =>
              END
         JOIN odp_class c
           ON c.odp_version_id = v.id
-      WHERE p.country_iso = $1 ${allowNullYears ? '' : 'AND year IS NOT NULL' }
+      WHERE p.country_iso = $1 AND year IS NOT NULL
       GROUP BY odp_id, v.year, draft 
   `, [countryIso]).then(result => R.reduce(odpReducer, {}, result.rows))
+
+module.exports.listOriginalDataPoints = (countryIso) =>
+  db.query(`
+      SELECT
+        p.id as odp_id,
+        v.year
+      FROM odp p
+        JOIN odp_version v
+          ON v.id =
+             CASE WHEN p.draft_id IS NULL
+               THEN p.actual_id
+             ELSE p.draft_id
+             END
+      WHERE p.country_iso = $1
+  `, [countryIso]).then(result => R.reduce(odpListReducer, {}, result.rows))

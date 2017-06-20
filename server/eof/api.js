@@ -77,7 +77,7 @@ module.exports.init = app => {
   })
 
   app.get('/api/nav/status/:countryIso', (req, res) => {
-   const odpData = odpRepository.readOriginalDataPoints(req.params.countryIso, true)
+   const odpData = odpRepository.listOriginalDataPoints(req.params.countryIso, true)
 
     // in future we certainly will need the Promise.all here wink wink
     Promise.all([odpData]).then(([odpResult]) => {
