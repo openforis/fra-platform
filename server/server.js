@@ -9,6 +9,7 @@ const sessionInit = require('./sessionInit')
 const countryRepository = require('./countryRepository')
 const eofApi = require('./eof/api')
 const userApi = require('./user/userApi')
+const fraTableApi = require('./fraTable/api')
 
 const app = express()
 
@@ -32,6 +33,7 @@ app.get('/api/country/all', (req, res) => {
 })
 
 eofApi.init(app)
+fraTableApi.init(app)
 
 app.listen(process.env.PORT, () => {
   console.log('FRA Platform server listening on port ', process.env.PORT)

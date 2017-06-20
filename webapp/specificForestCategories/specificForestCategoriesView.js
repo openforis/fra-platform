@@ -36,7 +36,7 @@ class SpecificForestCategoriesView extends React.Component {
     return <LoggedInPageTemplate>
       <div className="sfc__container">
         <h2 className="headline">Specific forest categories</h2>
-        <GenericTable tableSpec={tableSpec}/>
+        <GenericTable tableSpec={tableSpec} countryIso={this.props.match.params.countryIso}/>
       </div>
     </LoggedInPageTemplate>
   }

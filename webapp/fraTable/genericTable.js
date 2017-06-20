@@ -10,12 +10,12 @@ import { tableValueChanged } from './actions'
 
 const mapIndexed = R.addIndex(R.map)
 
-const IntegerInput = ({tableSpec, tableData, rowIdx, colIdx, tableValueChanged}) => {
+const IntegerInput = ({countryIso, tableSpec, tableData, rowIdx, colIdx, tableValueChanged}) => {
   const currentValue = tableData[rowIdx][colIdx]
   return <td className="fra-table__cell">
     <ThousandSeparatedIntegerInput integerValue={ currentValue }
                                    className="fra-table__integer-input"
-                                   onChange={ (evt) => tableValueChanged(tableSpec, rowIdx, colIdx, evt.target.value) }
+                                   onChange={ (evt) => tableValueChanged(countryIso, tableSpec, rowIdx, colIdx, evt.target.value) }
                                    onPaste={ () => console.log('pasted', rowIdx, colIdx) }/>
   </td>
 }
