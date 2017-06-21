@@ -8,6 +8,7 @@ const fs = Promise.promisifyAll(require('fs'))
 const {sendErr} = require('../requestUtils')
 const R = require('ramda')
 const estimationEngine = require('./estimationEngine')
+const snake = require('to-snake-case')
 
 const forestAreaTableResponse = require('./forestAreaTableResponse')
 
@@ -101,4 +102,10 @@ module.exports.init = app => {
       .then(() => res.json({}))
       .catch(err => sendErr(res, err))
   })
+
+  app.post('/api/country/descriptions/:countryIso/:descField', (req, res) =>
+    db.transaction(fraRepository.persistEofDescriptions, [req.params.countryIso, snake(req.params.descField), req.body.value])
+      .then(result => res.json({}))
+      .catch(err => sendErr(res, err))
+  )
 }

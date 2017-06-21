@@ -2,7 +2,7 @@ import './style.less'
 import React from 'react'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
-import { save, fetch, generateFraValues } from './actions'
+import { save, fetch, generateFraValues, saveDescriptions } from './actions'
 import { Link } from './../link'
 import Chart from './chart/chart'
 import IssueWidget from '../issue/issueWidget'
@@ -153,15 +153,28 @@ const NationalDataEntry = (props) => {
 
 class DataFetchingComponent extends React.Component {
 
-  initDescriptionEditor (editor) {
-    editor.on('change', evt => {
-    })
+  initDescriptionEditor (editor, field) {
+    // Data fetching is necessary when CKEDITOR instances are ready
+    const fetchWhenReady = () => {
+      if (isEditorReady(this.dataSourcesDescription) && isEditorReady(this.nationalClassificationDescription) && isEditorReady(this.originalDataDescription))
+        this.fetch(this.props.match.params.countryIso)
+    }
+
+    const updateValue = evt => {
+      if (this.props.eofDescriptions) {
+        const data = R.trim(evt.editor.getData())
+        if (!R.equals(this.props.eofDescriptions[field], data))
+          this.props.saveDescriptions(this.props.match.params.countryIso, field, data)
+      }
+    }
+
+    editor.on('instanceReady', fetchWhenReady)
+    editor.on('key', updateValue)
+    editor.on('blur', updateValue)
   }
 
-  setEditorData (props, editor, field) {
-    editor.setData(
-      props.eofDescriptions[field],
-      {callback: this.initDescriptionEditor(editor)})
+  setEditorData (editor, field) {
+    editor.setData(this.props.eofDescriptions[field])
   }
 
   componentDidMount () {
@@ -169,23 +182,30 @@ class DataFetchingComponent extends React.Component {
     this.nationalClassificationDescription = CKEDITOR.replace(document.getElementById('nationalClassificationDescription'), ckEditorConfig)
     this.originalDataDescription = CKEDITOR.replace(document.getElementById('originalDataDescription'), ckEditorConfig)
 
-    // Data fetching is necessary when CKEDITOR instances are ready
-    const fetchWhenReady = () => {
-      if (isEditorReady(this.dataSourcesDescription) && isEditorReady(this.nationalClassificationDescription) && isEditorReady(this.originalDataDescription))
-        this.fetch(this.props.match.params.countryIso)
-    }
-    this.dataSourcesDescription.on('instanceReady', fetchWhenReady)
-    this.nationalClassificationDescription.on('instanceReady', fetchWhenReady)
-    this.originalDataDescription.on('instanceReady', fetchWhenReady)
+    this.initDescriptionEditor(this.dataSourcesDescription, 'dataSources')
+    this.initDescriptionEditor(this.nationalClassificationDescription, 'nationalClassification')
+    this.initDescriptionEditor(this.originalDataDescription, 'originalData')
   }
 
   componentWillReceiveProps (next) {
-    if (!R.equals(this.props.match.params.countryIso, next.match.params.countryIso)) {
+    if (!R.equals(this.props.match.params.countryIso, next.match.params.countryIso))
       this.fetch(next.match.params.countryIso)
-    } else if (next.eofDescriptions) {
-      this.setEditorData(next, this.dataSourcesDescription, 'dataSources')
-      this.setEditorData(next, this.nationalClassificationDescription, 'nationalClassification')
-      this.setEditorData(next, this.originalDataDescription, 'originalData')
+  }
+
+  componentWillUnmount () {
+    this.dataSourcesDescription.destroy(false)
+    this.dataSourcesDescription = null
+    this.nationalClassificationDescription.destroy(false)
+    this.nationalClassificationDescription = null
+    this.originalDataDescription.destroy(false)
+    this.originalDataDescription = null
+  }
+
+  componentDidUpdate (prevProps) {
+    if (this.props.eofDescriptions && !this.props.eofDescriptions.editing) {
+      this.setEditorData(this.dataSourcesDescription, 'dataSources')
+      this.setEditorData(this.nationalClassificationDescription, 'nationalClassification')
+      this.setEditorData(this.originalDataDescription, 'originalData')
     }
   }
 
@@ -202,4 +222,4 @@ class DataFetchingComponent extends React.Component {
 
 const mapStateToProps = state => R.merge(state.nationalDataEntry, {'openCommentThread': state.issue.openThread})
 
-export default connect(mapStateToProps, {save, fetch, generateFraValues})(DataFetchingComponent)
+export default connect(mapStateToProps, {save, fetch, generateFraValues, saveDescriptions})(DataFetchingComponent)

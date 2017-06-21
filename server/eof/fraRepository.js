@@ -75,11 +75,26 @@ module.exports.readEofDescriptions = (countryIso) =>
   db.query(
     `SELECT data_sources, national_classification, original_data FROM eof_descriptions WHERE country_iso =  $1`,
     [countryIso]
-  ).then(result => {
-    const row = result.rows[0]
-    return row ? {
-      dataSources: row.data_sources,
-      nationalClassification: row.national_classification,
-      originalData: row.original_data
-    } : null
-  })
+  ).then(result => result.rows[0] ? camelize(result.rows[0]) : {})
+
+const isEmptyEofDescriptions = (client, countryIso) =>
+  client.query('SELECT id FROM eof_descriptions WHERE country_iso = $1 ', [countryIso])
+    .then(result => result.rows.length === 0)
+
+module.exports.persistEofDescriptions = (client, countryIso, descField, value) =>
+  isEmptyEofDescriptions(client, countryIso).then(isEmpty =>
+    isEmpty
+      ? insertEofDescriptions(client, countryIso, descField, value)
+      : updateEofDescriptions(client, countryIso, descField, value))
+
+const insertEofDescriptions = (client, countryIso, descField, value) =>
+  client.query(`INSERT INTO eof_descriptions (country_iso, ${descField}) VALUES ($1, $2)`,
+    [countryIso, value])
+
+const updateEofDescriptions = (client, countryIso, descField, value) =>
+  client.query(`UPDATE 
+            eof_descriptions 
+            SET 
+             ${descField} = $2
+            WHERE country_iso = $1`,
+    [countryIso, value])
