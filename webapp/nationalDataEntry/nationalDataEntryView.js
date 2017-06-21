@@ -8,6 +8,7 @@ import Chart from './chart/chart'
 import IssueWidget from '../issue/issueWidget'
 import LoggedInPageTemplate from '../loggedInPageTemplate'
 import { ThousandSeparatedIntegerInput } from '../reusableUiComponents/thousandSeparatedIntegerInput'
+import Description from './description/description'
 import ckEditorConfig, { isEditorReady } from '../ckEditor/ckEditorConfig'
 
 const OdpHeading = ({countryIso, odpValue}) =>
@@ -141,50 +142,54 @@ const NationalDataEntry = (props) => {
       </div>
     </div>
     <DataTable {...props} />
-    <h3 className="subhead nde__description-header">Data Sources</h3>
-    <textarea id="dataSourcesDescription"/>
-    <h3 className="subhead nde__description-header">National classification and definitions</h3>
-    <textarea id="nationalClassificationDescription"/>
-    <h3 className="subhead nde__description-header">Original data</h3>
-    <textarea id="originalDataDescription"/>
+    <Description title="Data Sources" field="dataSources"/>
+    {/*<h3 className="subhead nde__description-header">Data Sources</h3>*/}
+    {/*<textarea id="dataSourcesDescription"/>*/}
+    {/*<h3 className="subhead nde__description-header">National classification and definitions</h3>*/}
+    {/*<textarea id="nationalClassificationDescription"/>*/}
+    {/*<h3 className="subhead nde__description-header">Original data</h3>*/}
+    {/*<textarea id="originalDataDescription"/>*/}
 
   </div>
 }
 
 class DataFetchingComponent extends React.Component {
-
-  initDescriptionEditor (editor, field) {
-    // Data fetching is necessary when CKEDITOR instances are ready
-    const fetchWhenReady = () => {
-      if (isEditorReady(this.dataSourcesDescription) && isEditorReady(this.nationalClassificationDescription) && isEditorReady(this.originalDataDescription))
-        this.fetch(this.props.match.params.countryIso)
-    }
-
-    const updateValue = evt => {
-      if (this.props.eofDescriptions) {
-        const data = R.trim(evt.editor.getData())
-        if (!R.equals(this.props.eofDescriptions[field], data))
-          this.props.saveDescriptions(this.props.match.params.countryIso, field, data)
-      }
-    }
-
-    editor.on('instanceReady', fetchWhenReady)
-    editor.on('key', updateValue)
-    editor.on('blur', updateValue)
+  componentWillMount () {
+    this.fetch(this.props.match.params.countryIso)
   }
 
-  setEditorData (editor, field) {
-    editor.setData(this.props.eofDescriptions[field])
-  }
+  // initDescriptionEditor (editor, field) {
+  //   // Data fetching is necessary when CKEDITOR instances are ready
+  //   const fetchWhenReady = () => {
+  //     if (isEditorReady(this.dataSourcesDescription) && isEditorReady(this.nationalClassificationDescription) && isEditorReady(this.originalDataDescription))
+  //       this.fetch(this.props.match.params.countryIso)
+  //   }
+  //
+  //   const updateValue = evt => {
+  //     if (this.props.eofDescriptions) {
+  //       const data = R.trim(evt.editor.getData())
+  //       if (!R.equals(this.props.eofDescriptions[field], data))
+  //         this.props.saveDescriptions(this.props.match.params.countryIso, field, data)
+  //     }
+  //   }
+  //
+  //   editor.on('instanceReady', fetchWhenReady)
+  //   editor.on('key', updateValue)
+  //   editor.on('blur', updateValue)
+  // }
+  //
+  // setEditorData (editor, field) {
+  //   editor.setData(this.props.eofDescriptions[field])
+  // }
 
   componentDidMount () {
-    this.dataSourcesDescription = CKEDITOR.replace(document.getElementById('dataSourcesDescription'), ckEditorConfig)
-    this.nationalClassificationDescription = CKEDITOR.replace(document.getElementById('nationalClassificationDescription'), ckEditorConfig)
-    this.originalDataDescription = CKEDITOR.replace(document.getElementById('originalDataDescription'), ckEditorConfig)
-
-    this.initDescriptionEditor(this.dataSourcesDescription, 'dataSources')
-    this.initDescriptionEditor(this.nationalClassificationDescription, 'nationalClassification')
-    this.initDescriptionEditor(this.originalDataDescription, 'originalData')
+    // this.dataSourcesDescription = CKEDITOR.replace(document.getElementById('dataSourcesDescription'), ckEditorConfig)
+    // this.nationalClassificationDescription = CKEDITOR.replace(document.getElementById('nationalClassificationDescription'), ckEditorConfig)
+    // this.originalDataDescription = CKEDITOR.replace(document.getElementById('originalDataDescription'), ckEditorConfig)
+    //
+    // this.initDescriptionEditor(this.dataSourcesDescription, 'dataSources')
+    // this.initDescriptionEditor(this.nationalClassificationDescription, 'nationalClassification')
+    // this.initDescriptionEditor(this.originalDataDescription, 'originalData')
   }
 
   componentWillReceiveProps (next) {
@@ -192,22 +197,22 @@ class DataFetchingComponent extends React.Component {
       this.fetch(next.match.params.countryIso)
   }
 
-  componentWillUnmount () {
-    this.dataSourcesDescription.destroy(false)
-    this.dataSourcesDescription = null
-    this.nationalClassificationDescription.destroy(false)
-    this.nationalClassificationDescription = null
-    this.originalDataDescription.destroy(false)
-    this.originalDataDescription = null
-  }
+  // componentWillUnmount () {
+  //   this.dataSourcesDescription.destroy(false)
+  //   this.dataSourcesDescription = null
+  //   this.nationalClassificationDescription.destroy(false)
+  //   this.nationalClassificationDescription = null
+  //   this.originalDataDescription.destroy(false)
+  //   this.originalDataDescription = null
+  // }
 
-  componentDidUpdate (prevProps) {
-    if (this.props.eofDescriptions && !this.props.eofDescriptions.editing) {
-      this.setEditorData(this.dataSourcesDescription, 'dataSources')
-      this.setEditorData(this.nationalClassificationDescription, 'nationalClassification')
-      this.setEditorData(this.originalDataDescription, 'originalData')
-    }
-  }
+  // componentDidUpdate (prevProps) {
+  //   if (this.props.eofDescriptions && !this.props.eofDescriptions.editing) {
+  //     this.setEditorData(this.dataSourcesDescription, 'dataSources')
+  //     this.setEditorData(this.nationalClassificationDescription, 'nationalClassification')
+  //     this.setEditorData(this.originalDataDescription, 'originalData')
+  //   }
+  // }
 
   fetch (countryIso) {
     this.props.fetch(countryIso)
