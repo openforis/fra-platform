@@ -46,4 +46,6 @@ class Description extends Component {
   }
 }
 
-export default Description
+const mapStateToProps = state => state.eofDescriptions
+
+export default connect(mapStateToProps, null)(Description)
