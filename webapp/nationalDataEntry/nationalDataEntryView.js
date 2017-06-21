@@ -81,7 +81,7 @@ const readHtmlElem = elem => {
   R.map(row => {
     const rdata = []
     R.map(cell => {
-      rdata.push(cell.innerText)
+      rdata.push(Number(cell.innerText))
     }, row.getElementsByTagName('td'))
     data.push(rdata)
   }, rows)
@@ -100,8 +100,7 @@ const updatePastedValues = (evt, rowIdx, colIdx, fra, rowNames = {
   el.innerHTML = evt.clipboardData.getData('text/html')
 
   const toPaste = readHtmlElem(el)
-  const fraOnly = R.map(R.pick(['year', 'type']), R.reject(R.propEq(['type'], 'odp'), fra))
-  console.log('fraonly', fraOnly)
+  const fraOnly = R.map(R.pick(['year', 'type']), fra)
 
   let pasted = {}
   mapIndexed((r, i) => {

@@ -12,7 +12,7 @@ const updateValues = (state, action) => {
   const newfra = R.map(fra => {
     const ni = R.findIndex(cd => cd.year === fra.year && fra.type === 'fra')(R.values(action.columnData))
     if (ni === -1) return fra
-    return R.merge(fra, action.columnData[ni])
+    return R.merge(fra, R.values(action.columnData)[ni])
   }, state.fra)
   return {...state, fra: R.merge(state.fra, newfra)}
 }
