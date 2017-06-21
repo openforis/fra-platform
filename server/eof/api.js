@@ -41,6 +41,10 @@ module.exports.init = app => {
       .catch(err => sendErr(res, err))
   })
 
+  app.post('/api/eof/:countryIso', (req, res) => {
+    res.json({})
+  })
+
   app.post('/api/country/:countryIso/:year', (req, res) => {
     fraRepository.persistFraValues(req.params.countryIso, req.params.year, req.body)
       .then(() => res.json({}))
