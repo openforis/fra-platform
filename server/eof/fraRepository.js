@@ -71,8 +71,8 @@ module.exports.readFraForestAreas = (countryIso) =>
     [countryIso]
   ).then((result) => R.reduce(forestAreaReducer, {}, result.rows))
 
-module.exports.readEofDescriptions = (countryIso) =>
-  db.query(
+module.exports.readEofDescriptions = (client, countryIso) =>
+  client.query(
     `SELECT data_sources, national_classification, original_data FROM eof_descriptions WHERE country_iso =  $1`,
     [countryIso]
   ).then(result => result.rows[0] ? camelize(result.rows[0]) : {})

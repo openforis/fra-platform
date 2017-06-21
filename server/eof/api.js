@@ -104,6 +104,12 @@ module.exports.init = app => {
       .catch(err => sendErr(res, err))
   })
 
+  app.get('/api/country/descriptions/:countryIso', (req, res) =>
+    db.transaction(fraRepository.readEofDescriptions, [req.params.countryIso])
+      .then(result => res.json(result))
+      .catch(err => sendErr(res, err))
+  )
+
   app.post('/api/country/descriptions/:countryIso/:descField', (req, res) =>
     db.transaction(fraRepository.persistEofDescriptions, [req.params.countryIso, snake(req.params.descField), req.body.value])
       .then(result => res.json({}))
