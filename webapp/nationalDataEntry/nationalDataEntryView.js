@@ -141,7 +141,7 @@ const NationalDataEntry = (props) => {
       </div>
     </div>
     <DataTable {...props} />
-    <Description title="Data Sources" field="dataSources"/>
+    <Description title="Data Sources" field="dataSources" countryIso={props.match.params.countryIso}/>
     {/*<h3 className="subhead nde__description-header">Data Sources</h3>*/}
     {/*<textarea id="dataSourcesDescription"/>*/}
     {/*<h3 className="subhead nde__description-header">National classification and definitions</h3>*/}
