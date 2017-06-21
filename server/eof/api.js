@@ -26,6 +26,7 @@ module.exports.init = app => {
       })
       .catch(err => sendErr(res, err))
   })
+
   app.post('/api/country/issue/:countryIso/:section', (req, res) => {
     const userId = req.session.loggedInUser.id
     const target = req.query.target ? req.query.target.split(',') : []
@@ -35,6 +36,7 @@ module.exports.init = app => {
       .then(result => res.json({}))
       .catch(err => sendErr(res, err))
   })
+
   app.post('/api/country/comment/:issueId', (req, res) => {
     const userId = req.session.loggedInUser.id
     db.transaction(issueRepository.createComment, [req.params.issueId, userId, req.body.msg, ''])
