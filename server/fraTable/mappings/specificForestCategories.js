@@ -1,4 +1,5 @@
-module.exports.mapping = {
+module.exports = {
+  tableName: 'specific_forest_categories',
   rows: {
     indexOffset: 0,
     names: ['bamboo', 'mangroves', 'rubber_plantations']
