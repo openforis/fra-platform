@@ -1,4 +1,4 @@
-const mapping = {
+module.exports.mapping = {
   rows: {
     indexOffset: 0,
     names: ['bamboo', 'mangroves', 'rubber_plantations']
@@ -8,5 +8,3 @@ const mapping = {
     names: ['1990', '2000']
   }
 }
-
-export default mapping
