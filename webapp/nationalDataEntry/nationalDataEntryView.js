@@ -2,13 +2,15 @@ import './style.less'
 import React from 'react'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
-import { save, fetch, generateFraValues } from './actions'
+import { save, saveMany, fetch, generateFraValues } from './actions'
 import { Link } from './../link'
 import Chart from './chart/chart'
 import IssueWidget from '../issue/issueWidget'
 import LoggedInPageTemplate from '../loggedInPageTemplate'
 import { separateThousandsWithSpaces } from '../utils/numberFormat'
 import { ThousandSeparatedIntegerInput } from '../reusableUiComponents/thousandSeparatedIntegerInput'
+
+const mapIndexed = R.addIndex(R.map)
 
 const OdpHeading = ({countryIso, odpValue}) =>
   <Link to={`/country/${countryIso}/odp/${odpValue.odpId}`}>
@@ -32,9 +34,9 @@ class DataTable extends React.Component {
             )
           }
         </div>
-        { fraValueRow('Forest area', "forest", this.props.countryIso, 'forestArea', this.props.fra, this.props.save) }
-        { fraValueRow('Other wooded land', 'otherWoodedLand', this.props.countryIso, 'otherWoodedLand', this.props.fra, this.props.save) }
-        { fraValueRow('Other land', 'otherLand', this.props.countryIso, 'otherLand', this.props.fra, this.props.save) }
+        { fraValueRow('Forest area', "forest", this.props.countryIso, 'forestArea', this.props.fra, this.props.save, this.props.saveMany, 0) }
+        { fraValueRow('Other wooded land', 'otherWoodedLand', this.props.countryIso, 'otherWoodedLand', this.props.fra, this.props.save, this.props.saveMany, 1) }
+        { fraValueRow('Other land', 'otherLand', this.props.countryIso, 'otherLand', this.props.fra, this.props.save, this.props.saveMany, 2) }
       </div>
       <div className="nde__comment-column">
         <div className="nde__comment-cell"><IssueWidget target={['forest']}
@@ -51,19 +53,20 @@ class DataTable extends React.Component {
   }
 }
 
-const fraValueRow = (rowHeading, target, countryIso, field, fra, save) =>
+const fraValueRow = (rowHeading, target, countryIso, field, fra, save, saveMany, colId) =>
   <div className="nde__input-table-content">
     <div className="nde__input-table-content-row-header-cell">{ rowHeading }</div>
     {
-      R.values(fra).map(v =>
+      // R.values(fra).map(v =>
+      mapIndexed((v,i) =>
         <div className="nde__input-table-content-cell" key={`${v.type}_${v.name}`}>
           {
             v.type === 'odp'
               ? odpCell(v, field)
-              : fraValueCell(v, fra, countryIso, save, field)
+              : fraValueCell(v, fra, countryIso, save, saveMany, field, colId, i)
           }
         </div>
-      )
+      , R.values(fra))
     }
   </div>
 
@@ -72,10 +75,51 @@ const fraFieldValueForInput = (fieldValue) =>
   ? fieldValue
   : ''
 
-const fraValueCell = (fraValue, fra, countryIso, save, field) =>
+const readHtmlElem = elem => {
+  const data = []
+  const rows = elem.getElementsByTagName('tr')
+  R.map(row => {
+    const rdata = []
+    R.map(cell => {
+      rdata.push(cell.innerText)
+    }, row.getElementsByTagName('td'))
+    data.push(rdata)
+  }, rows)
+  return data
+}
+
+const updatePastedValues = (evt, rowIdx, colIdx, fra, rowNames = {
+  0: 'forestArea',
+  1: 'otherWoodedLand',
+  2: 'otherLand'
+}) => {
+  evt.stopPropagation()
+  evt.preventDefault()
+
+  const el = document.createElement('html')
+  el.innerHTML = evt.clipboardData.getData('text/html')
+
+  const toPaste = readHtmlElem(el)
+  const fraOnly = R.map(R.pick(['year', 'type']), R.reject(R.propEq(['type'], 'odp'), fra))
+  console.log('fraonly', fraOnly)
+
+  let pasted = {}
+  mapIndexed((r, i) => {
+    const row = rowIdx + i
+    mapIndexed((c, j) => {
+      const col = colIdx + j
+      pasted = R.mergeDeepRight({[col]: R.merge(fraOnly[col], {[rowNames[row]]: c})}, pasted)
+    }, r)
+  }, toPaste)
+  console.log('pasted', pasted)
+  return pasted
+}
+
+const fraValueCell = (fraValue, fra, countryIso, save, saveMany, field, colIdx, rowIdx) =>
   <ThousandSeparatedIntegerInput
     className="nde__input-table-input"
     integerValue={ fraValue[field] }
+    onPaste={ e => saveMany(countryIso, updatePastedValues(e, colIdx, rowIdx, fra)) }
     onChange={ e => { save(countryIso, fraValue.name, e.target.value, fraValue, field) } }/>
 
 const odpCell = (odpValue, field) =>
@@ -167,4 +211,4 @@ class DataFetchingComponent extends React.Component {
 
 const mapStateToProps = state => R.merge(state.nationalDataEntry, {"openCommentThread": state.issue.openThread})
 
-export default connect(mapStateToProps, {save, fetch, generateFraValues})(DataFetchingComponent)
+export default connect(mapStateToProps, {save, saveMany, fetch, generateFraValues})(DataFetchingComponent)
