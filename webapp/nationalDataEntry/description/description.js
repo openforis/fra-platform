@@ -11,12 +11,13 @@ class Description extends Component {
   }
 
   initCkeditorChangeListener () {
-    // this.editor.on('change', (evt) => {
-    //     this.props.saveDraft(
-    //       this.props.match.params.countryIso,
-    //       {...this.props.active, description: evt.editor.getData()})
-    //   }
-    // )
+    this.editor.on('change', (evt) => {
+      console.log('this.editor change', evt.editor.getData())
+      this.props.saveDescriptions(this.props.countryIso, this.props.field, evt.editor.getData())
+      // this.props.saveDraft(
+      //   this.props.match.params.countryIso,
+      //   {...this.props.active, description: evt.editor.getData()})
+    })
   }
 
   componentWillReceiveProps (nextProps) {
@@ -29,7 +30,8 @@ class Description extends Component {
         nextProps.eofDescriptions[this.props.field]
         , {
           callback: () => {
-            this.initCkeditorChangeListener()
+            if (!this.editor.hasListeners('change'))
+              this.initCkeditorChangeListener()
             console.log('this.editor', this.editor)
             console.log('this.editor', this.editor.hasListeners('change'))
 
@@ -69,4 +71,4 @@ class Description extends Component {
 // const mapStateToProps = state => console.log('state', state) || ({eofDescriptions: state.eofDescriptions})
 const mapStateToProps = state => ({eofDescriptions: state.eofDescriptions})
 
-export default connect(mapStateToProps, {fetchDescriptions})(Description)
+export default connect(mapStateToProps, {fetchDescriptions, saveDescriptions})(Description)
