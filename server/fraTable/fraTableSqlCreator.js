@@ -1,8 +1,19 @@
+/*
+ * To create table definition (CREATE TABLE... clause) use repl to call createTableDefinition like this:
+ *
+ * ~/<project-home>$ node
+ * > var sqlCreator = require('./server/fraTable/fraTableSqlCreator')
+ * > sqlCreator.createTableDefinition('specificForestCategories', 'NUMERIC')
+ *
+ * -> CREATE TABLE specific_forest_categories (country_iso VARCHAR, row_name VARCHAR, 1990 NUMERIC, 2000 NUMERIC);'
+ */
+
 const R = require('ramda')
 const tableMappings = require('./tableMappings')
 const assert = require('assert')
 
 const fixedFraTableColumns = ['country_iso', 'row_name']
+const fixedFraTableColumnDataTypes = ['VARCHAR', 'VARCHAR']
 
 const createInsert = (tableName, columnNamesStr, valuePlaceholdersStr, row) =>
   [`INSERT INTO ${tableName} (${columnNamesStr}) VALUES (${valuePlaceholdersStr})`, row]
@@ -16,8 +27,15 @@ const createRowData = (countryIso, mapping, rowIndex, rawRow) => {
   return [...fixedValues, ...trimmed]
 }
 
-const createInserts = (countryIso, tableSpecName, tableData) => {
+const getMapping = (tableSpecName) => {
   const mapping = tableMappings.getMapping(tableSpecName)
+  assert(mapping, `Could not find mapping for ${tableSpecName}`)
+  console.log(mapping)
+  return mapping
+}
+
+const createInserts = (countryIso, tableSpecName, tableData) => {
+  const mapping = getMapping(tableSpecName)
   assert(mapping, `Could not find mapping for ${tableSpecName}`)
   console.log(mapping)
   const tableSpecificColumnCount = tableData[0].length - mapping.mapping.columns.indexOffset
@@ -34,4 +52,17 @@ const createInserts = (countryIso, tableSpecName, tableData) => {
     trimmedTableRows)
 }
 
+// Currently assumes all dynamic columns are of the same type (might have to change that later)
+const createTableDefinition = (tableSpecName, columnDataType) => {
+  const mapping = getMapping(tableSpecName)
+  const columnNames = createColumnNames(mapping)
+  const dynamicDataDataTypeArray = R.map(()=> columnDataType, mapping.mapping.columns.names)
+  const dataTypes = [...fixedFraTableColumnDataTypes, ...dynamicDataDataTypeArray]
+  assert(dataTypes.length === columnNames.length, 'Data types and column names arrays should be of the same length! Check your mapping')
+  const columns = R.zip(columnNames, dataTypes)
+  const columnsStr = R.join(', ', R.map(([name, dataType]) => `${name} ${dataType}`, columns))
+  return `CREATE TABLE ${mapping.mapping.tableName} (${columnsStr});`
+}
+
 module.exports.createInserts = createInserts
+module.exports.createTableDefinition = createTableDefinition
