@@ -19,5 +19,3 @@ const ckEditorConfig = {
 }
 
 export default ckEditorConfig
-
-export const isEditorReady = editor => editor.status === 'ready'
