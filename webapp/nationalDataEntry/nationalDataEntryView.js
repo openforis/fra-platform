@@ -2,7 +2,7 @@ import './style.less'
 import React from 'react'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
-import { save, fetch, generateFraValues, saveDescriptions } from './actions'
+import { save, fetch, generateFraValues } from './actions'
 import { Link } from './../link'
 import Chart from './chart/chart'
 import IssueWidget from '../issue/issueWidget'
@@ -226,4 +226,4 @@ class DataFetchingComponent extends React.Component {
 
 const mapStateToProps = state => R.merge(state.nationalDataEntry, {'openCommentThread': state.issue.openThread})
 
-export default connect(mapStateToProps, {save, fetch, generateFraValues, saveDescriptions})(DataFetchingComponent)
+export default connect(mapStateToProps, {save, fetch, generateFraValues})(DataFetchingComponent)

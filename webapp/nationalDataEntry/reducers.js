@@ -11,11 +11,7 @@ const updateValue = (state, action) => {
 const actionHandlers = {
   [types.valueChangeStart]: (state, action) => updateValue(state, action),
   [types.valuesFetched]: (state, action) => action.data,
-  [types.generateFraValuesStart]: (state, action) => R.assoc('generatingFraValues', true)(state),
-  [types.descriptionsChangeStart]: (state, action) => ({
-    ...state,
-    eofDescriptions: R.pipe(R.assoc(action.descField, action.value), R.assoc('editing', true))(state.eofDescriptions)
-  })
+  [types.generateFraValuesStart]: (state, action) => R.assoc('generatingFraValues', true)(state)
 }
 
 export default (state = {}, action) => applyReducerFunction(actionHandlers, state, action)
