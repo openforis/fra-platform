@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import * as originalDataPoint from './originalDataPoint'
 import { saveDraft, markAsActual, remove, fetch, clearActive } from './actions'
 import { acceptNextInteger } from '../utils/numberInput'
+import { separateThousandsWithSpaces } from '../utils/numberFormat'
 import { ThousandSeparatedIntegerInput } from '../reusableUiComponents/thousandSeparatedIntegerInput'
 import LoggedInPageTemplate from '../loggedInPageTemplate'
 import R from 'ramda'
@@ -22,7 +23,8 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving})
         <select
           className="select"
           value={active.year || ''}
-          onChange={(e) => saveDraft(countryIso, R.assoc('year', Number(e.target.value), active)) }>
+          onChange={
+            (e) => saveDraft(countryIso, R.assoc('year', R.isEmpty(e.target.value) ? null : Number(e.target.value), active)) }>
           {years.map((year) => <option key={year} value={year}>{year}</option>)}
         </select>
       </div>
@@ -66,11 +68,12 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving})
         <tr>
           <td className="odp__national-class-total-heading">Total</td>
           <td className="odp__national-class-total-cell odp__eof-divide-after-cell"></td>
-          <td className="odp__national-class-total-cell">{ originalDataPoint.totalForest(active, 'forestPercent') }</td>
           <td
-            className="odp__national-class-total-cell">{ originalDataPoint.totalForest(active, 'otherWoodedLandPercent') }</td>
+            className="odp__national-class-total-cell">{ separateThousandsWithSpaces(Number(originalDataPoint.totalForest(active, 'forestPercent'))) }</td>
           <td
-            className="odp__national-class-total-cell">{ originalDataPoint.totalForest(active, 'otherLandPercent') }</td>
+            className="odp__national-class-total-cell">{ separateThousandsWithSpaces(Number(originalDataPoint.totalForest(active, 'otherWoodedLandPercent'))) }</td>
+          <td
+            className="odp__national-class-total-cell">{ separateThousandsWithSpaces(Number(originalDataPoint.totalForest(active, 'otherLandPercent'))) }</td>
         </tr>
         </tbody>
       </table>
@@ -99,24 +102,32 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving})
 
 const mapIndexed = R.addIndex(R.map)
 
-const updatePastedValues = (odp, rowIndex, saveDraft, countryIso, dataCols, colIndex, isInteger) => evt => {
+const updatePastedValues = (odp, rowIndex, saveDraft, countryIso, dataCols, colIndex, isInteger = false, addRows = true) => evt => {
   evt.stopPropagation()
   evt.preventDefault()
 
   const el = document.createElement('html')
   el.innerHTML = evt.clipboardData.getData('text/html')
 
-  let i = rowIndex * dataCols.length + colIndex
-  R.map(row => {
-    const cols = row.getElementsByTagName('td')
-    const offset = dataCols.length - cols.length
-    mapIndexed((col, j) => {
-      const property = dataCols[i % dataCols.length]
-      const value = isInteger ? Math.round(Number(col.innerText.replace(/\s+/g, ''))) : col.innerText
-      odp = originalDataPoint.updateNationalClass(odp, Math.floor(i / dataCols.length), property, value)
-      i += (j === cols.length - 1) ? offset + 1 : 1
-    }, cols)
-  }, el.getElementsByTagName('tr'))
+  const updateOdp = (rowNo, colNo, value) => {
+    value = isInteger ? Math.round(Number(value.replace(/\s+/g, ''))) : value
+    value = isInteger && isNaN(value) ? null : value
+    odp = originalDataPoint.updateNationalClass(odp, rowNo, dataCols[colNo], value)
+  }
+
+  const rows = el.getElementsByTagName('tr')
+  if (rows.length > 0)
+    mapIndexed((row, i) => {
+      i += rowIndex
+      if (addRows || i < R.filter(v => !v.placeHolder, odp.nationalClasses).length)
+        mapIndexed((col, j) => {
+          j += colIndex
+          if (j < dataCols.length)
+            updateOdp(i, j, col.innerText)
+        }, row.getElementsByTagName('td'))
+    }, rows)
+  else
+    updateOdp(rowIndex, colIndex, evt.clipboardData.getData('text/plain'))
 
   saveDraft(countryIso, odp)
 }
@@ -198,14 +209,14 @@ const ExtentOfForestRow = ({
     <td className="odp__eof-area-cell odp__eof-divide-after-cell">
       <ThousandSeparatedIntegerInput integerValue={ area }
                                      onChange={ numberUpdated('area', area) }
-                                     onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 0, true) }/>
+                                     onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 0, true, false) }/>
     </td>
     <td className="odp__eof-percent-cell">
       <input
         type="text"
         value={forestPercent || ''}
         onChange={ numberUpdated('forestPercent', forestPercent) }
-        onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 1, true) }
+        onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 1, true, false) }
       />
       % &nbsp;
     </td>
@@ -214,7 +225,7 @@ const ExtentOfForestRow = ({
         type="text"
         value={otherWoodedLandPercent || ''}
         onChange={ numberUpdated('otherWoodedLandPercent', otherWoodedLandPercent) }
-        onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 2, true) }
+        onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 2, true, false) }
       />
       % &nbsp;
     </td>
@@ -223,7 +234,7 @@ const ExtentOfForestRow = ({
         type="text"
         value={otherLandPercent || ''}
         onChange={ numberUpdated('otherLandPercent', otherLandPercent) }
-        onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 3, true) }
+        onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 3, true, false) }
       />
       % &nbsp;
     </td>

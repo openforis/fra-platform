@@ -6,7 +6,7 @@ import I18n from 'i18n-iso-countries'
 
 import { Link } from './../link'
 import { follow } from './../router/actions'
-import { getCountryList } from './actions'
+import { getCountryList, fetchNavStatus } from './actions'
 import { annualItems, fiveYearItems } from './items'
 
 import './style.less'
@@ -59,13 +59,21 @@ const PrimaryItem = ({label, link}) =>
     <Link className="navi__primary-link" to="/">{link}</Link>
   </div>
 
-const LinkItem = ({path, countryIso, pathTemplate = '/tbd', label}) => {
+const NationalDataItem = ({path, countryIso, pathTemplate = '/tbd', status = {count: 0}, label}) => {
   const route = new Route(pathTemplate)
   const linkTo = route.reverse({countryIso})
 
   return <Link className={`navi__link-item ${R.equals(path, linkTo) ? 'selected' : ''}`}
                to={ linkTo }>
-      <span className="navi__link-label">{label}</span>
+    <span className="navi__link-label">{label}</span>
+    <span className="navi__link-item-status">{status.count}</span>
+    <span className="navi__link-error-status">
+      { status.errors ? <svg className="icon icon-red">
+        <use xlinkHref="img/icon.svg#icon-alert"/>
+      </svg>
+        : null
+      }
+    </span>
   </Link>
 }
 
@@ -93,10 +101,10 @@ const roleLabel = (userInfo) => {
   return null
 }
 
-const Nav = ({path, country, countries, follow, getCountryList, userInfo}) => {
+const Nav = ({path, country, countries, follow, getCountryList, status = {}, userInfo}) => {
   return <div className="main__navigation">
     <CountryItem name={country} countries={countries} listCountries={getCountryList} role={ roleLabel(userInfo) }/>
-    <LinkItem label="National Data" countryIso={country} path={path} pathTemplate="/country/:countryIso/odp" />
+    <NationalDataItem label="National Data" countryIso={country} status={status.odpStatus} path={path} pathTemplate="/country/:countryIso/odps" />
     <PrimaryItem label="Annually reported"/>
     {
       annualItems.map(v => <SecondaryItem path={path} key={v.label} goTo={follow} countryIso={country} {...v} />)
@@ -108,6 +116,17 @@ const Nav = ({path, country, countries, follow, getCountryList, userInfo}) => {
   </div>
 }
 
+class NavigationSync extends React.Component {
+
+  componentWillMount() {
+    this.props.fetchNavStatus(this.props.country)
+  }
+
+  render() {
+    return <Nav {...this.props} />
+  }
+}
+
 const mapStateToProps = state => R.pipe(R.merge(state.navigation), R.merge(state.router))(state.user)
 
-export default connect(mapStateToProps, {follow, getCountryList})(Nav)
+export default connect(mapStateToProps, {follow, getCountryList, fetchNavStatus})(NavigationSync)

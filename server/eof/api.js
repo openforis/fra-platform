@@ -67,31 +67,6 @@ module.exports.init = app => {
       .catch(err => sendErr(res, err))
   })
 
-  app.get('/api/country/originalDataPoint/:odpId', (req, res) => {
-    odpRepository.getOdp(req.params.odpId)
-      .then(resp => res.json(resp))
-      .catch(err => sendErr(res, err))
-  })
-
-  app.delete('/api/country/originalDataPoint/:odpId', (req, res) => {
-    db.transaction(odpRepository.deleteOdp, [req.params.odpId])
-      .then(() => res.json({}))
-      .catch(err => sendErr(res, err))
-  })
-
-  app.post('/api/country/originalDataPoint/draft/:countryIso', (req, res) => {
-    const countryIso = req.params.countryIso
-    db.transaction(odpRepository.saveDraft, [countryIso, req.body])
-      .then(result => res.json(result))
-      .catch(err => sendErr(res, err))
-  })
-
-  app.post('/api/country/originalDataPoint/draft/markAsActual/:opdId', (req, res) =>
-    db.transaction(odpRepository.markAsActual, [req.params.opdId])
-      .then(() => res.json({}))
-      .catch(err => sendErr(res, err))
-  )
-
   app.post('/api/country/estimation/generateFraValues/:countryIso', (req, res) => {
     const years = R.pipe(
       R.values,
@@ -115,4 +90,25 @@ module.exports.init = app => {
       .then(result => res.json({}))
       .catch(err => sendErr(res, err))
   )
+  
+  app.get('/api/nav/status/:countryIso', (req, res) => {
+   const odpData = odpRepository.listOriginalDataPoints(req.params.countryIso, true)
+
+    // in future we certainly will need the Promise.all here wink wink
+    Promise.all([odpData]).then(([odpResult]) => {
+      const odpStatus = {
+        count: R.values(odpResult).length,
+        errors: R.pipe( // if year not specified for a odp, raise error flag
+          R.values,
+          R.filter(R.pathEq(['year'], 0)),
+          R.isEmpty,
+          R.not)(odpResult)
+      }
+
+      res.json({odpStatus})
+
+    })
+    .catch(err => sendErr(res, err))
+  })
+
 }
