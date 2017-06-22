@@ -9,7 +9,7 @@ import IssueWidget from '../issue/issueWidget'
 import LoggedInPageTemplate from '../loggedInPageTemplate'
 import { separateThousandsWithSpaces } from '../utils/numberFormat'
 import { ThousandSeparatedIntegerInput } from '../reusableUiComponents/thousandSeparatedIntegerInput'
-import { readExcelClipboard } from '../utils/copyPasteUtil'
+import { readPasteClipboard } from '../utils/copyPasteUtil'
 
 const mapIndexed = R.addIndex(R.map)
 
@@ -58,7 +58,6 @@ const fraValueRow = (rowHeading, target, countryIso, field, fra, save, saveMany,
   <div className="nde__input-table-content">
     <div className="nde__input-table-content-row-header-cell">{ rowHeading }</div>
     {
-      // R.values(fra).map(v =>
       mapIndexed((v,i) =>
         <div className="nde__input-table-content-cell" key={`${v.type}_${v.name}`}>
           {
@@ -87,10 +86,10 @@ const updatePastedValues = (evt, rowIdx, colIdx, fra, rowNames = {
     const row = rowIdx + i
     mapIndexed((c, j) => {
       const col = colIdx + j
-      if (R.isNil(fra[col])) return
+      if (fra.type === 'odp' || R.isNil(fra[col])) return
       toPaste = R.mergeDeepRight({[fra[col].year]: {[rowNames[row]]: c}}, toPaste)
     }, r)
-  }, readExcelClipboard(evt))
+  }, readPasteClipboard(evt))
 
   const pasted = R.pipe(
     R.map(fra => toPaste[fra.year] ? R.merge(fra, toPaste[fra.year]) : null),
