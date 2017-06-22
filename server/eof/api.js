@@ -79,17 +79,15 @@ module.exports.init = app => {
   app.get('/api/nav/status/:countryIso', (req, res) => {
    const odpData = odpRepository.listOriginalDataPoints(req.params.countryIso, true)
 
-    const yearInvalid = R.pipe( // if year not specified for a odp, raise error flag
+    const yearsValid = R.pipe( // if year not specified for a odp, raise error flag
           R.values,
           R.filter(R.pathEq(['year'], 0)),
-          R.isEmpty,
-          R.not)
-
-    const percentagesInvalid = R.pipe(
+          R.isEmpty
+    )
+    const percentagesValid = R.pipe( // if total percentages of odp go over 100, raise error flag
       R.values,
       R.filter(R.pipe(R.prop('totalPercentage'), R.lt(100))),
-      R.isEmpty,
-      R.not
+      R.isEmpty
     )
 
     // in future we certainly will need the Promise.all here wink wink
@@ -97,7 +95,7 @@ module.exports.init = app => {
      console.log(odpResult)
       const odpStatus = {
         count: R.values(odpResult).length,
-        errors: R.contains(true, [yearInvalid(odpResult), percentagesInvalid(odpResult)])
+        errors: R.contains(false, [yearsValid(odpResult), percentagesValid(odpResult)])
       }
 
       res.json({odpStatus})
