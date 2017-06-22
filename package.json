@@ -58,7 +58,8 @@
     "redux-debounced": "^0.4.0",
     "redux-promise": "^0.5.3",
     "redux-thunk": "^2.2.0",
-    "route-parser": "^0.0.5"
+    "route-parser": "^0.0.5",
+    "to-snake-case": "^1.0.0"
   },
   "browserslist": [
     "last 2 versions"

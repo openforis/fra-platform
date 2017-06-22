@@ -9,6 +9,7 @@ import IssueWidget from '../issue/issueWidget'
 import LoggedInPageTemplate from '../loggedInPageTemplate'
 import { separateThousandsWithSpaces } from '../utils/numberFormat'
 import { ThousandSeparatedIntegerInput } from '../reusableUiComponents/thousandSeparatedIntegerInput'
+import Description from '../description/description'
 import { readPasteClipboard } from '../utils/copyPasteUtil'
 
 const mapIndexed = R.addIndex(R.map)
@@ -72,8 +73,8 @@ const fraValueRow = (rowHeading, target, countryIso, field, fra, save, saveMany,
 
 const fraFieldValueForInput = (fieldValue) =>
   typeof fieldValue === 'number'
-  ? fieldValue
-  : ''
+    ? fieldValue
+    : ''
 
 const updatePastedValues = (evt, rowIdx, colIdx, fra, rowNames = {
   0: 'forestArea',
@@ -117,15 +118,15 @@ class ChartWrapper extends React.Component {
     this.resizeListener = () => this.forceUpdate()
   }
 
-  componentDidMount() {
+  componentDidMount () {
     window.addEventListener('resize', this.resizeListener, true)
   }
 
-  componentWillUnmount(){
+  componentWillUnmount () {
     window.removeEventListener('resize', this.resizeListener, true)
   }
 
-  render() {
+  render () {
     const defaultWidth = 913 //TODO what's a good default before we have bounding rect?
     const width = this.refs.chartWrapper ? this.refs.chartWrapper.getBoundingClientRect().width : defaultWidth
     return <div ref="chartWrapper" className="nde__data-chart">
@@ -144,7 +145,7 @@ const NationalDataEntry = (props) => {
     return props.generatingFraValues || odps.length < 2
   }
 
-  const marginClass = R.isNil(props.openCommentThread) ? "nde__comment-margin" : "nde__comment-thread-margin"
+  const marginClass = R.isNil(props.openCommentThread) ? 'nde__comment-margin' : 'nde__comment-thread-margin'
 
   return <div className={`nde__data-input-component`}>
     <div className="nde__data-page-header">
@@ -162,12 +163,16 @@ const NationalDataEntry = (props) => {
       <ChartWrapper/>
       <div className="nde__data-table-header">
         <h3 className="subhead">Extent of forest values</h3>
-        <button disabled={disableGenerateFRAValues()} className="btn btn-primary"
+        <button disabled={ disableGenerateFRAValues() } className="btn btn-primary"
                 onClick={() => props.generateFraValues(props.countryIso)}>Generate FRA values
         </button>
       </div>
     </div>
-      <DataTable {...props} />
+    <DataTable {...props} />
+    <Description title="Data Sources" name="dataSources" countryIso={props.match.params.countryIso}/>
+    <Description title="National classification and definitions" name="nationalClassification"
+                 countryIso={props.match.params.countryIso}/>
+    <Description title="Original data" name="originalData" countryIso={props.match.params.countryIso}/>
   </div>
 }
 
@@ -192,6 +197,6 @@ class DataFetchingComponent extends React.Component {
   }
 }
 
-const mapStateToProps = state => R.merge(state.nationalDataEntry, {"openCommentThread": state.issue.openThread})
+const mapStateToProps = state => R.merge(state.nationalDataEntry, {'openCommentThread': state.issue.openThread})
 
 export default connect(mapStateToProps, {save, saveMany, fetch, generateFraValues})(DataFetchingComponent)

@@ -16,7 +16,7 @@ module.exports.init = app => {
   app.get('/api/country/issue/:countryIso/:section', (req, res) => {
     issueRepository.getIssues(req.params.countryIso, req.params.section)
       .then(result => {
-        const target =  req.query.target && req.query.target.split(',')
+        const target = req.query.target && req.query.target.split(',')
         const issues = R.map(issue => {
           const diff = R.pipe(R.path(['target', 'params']), R.difference(target))(issue)
           return R.isEmpty(diff) ? issue : []
@@ -25,6 +25,7 @@ module.exports.init = app => {
       })
       .catch(err => sendErr(res, err))
   })
+
   app.post('/api/country/issue/:countryIso/:section', (req, res) => {
     const userId = req.session.loggedInUser.id
     const target = req.query.target ? req.query.target.split(',') : []
@@ -34,6 +35,7 @@ module.exports.init = app => {
       .then(result => res.json({}))
       .catch(err => sendErr(res, err))
   })
+
   app.post('/api/country/comment/:issueId', (req, res) => {
     const userId = req.session.loggedInUser.id
     db.transaction(issueRepository.createComment, [req.params.issueId, userId, req.body.msg, ''])
@@ -111,4 +113,5 @@ module.exports.init = app => {
     })
     .catch(err => sendErr(res, err))
   })
+
 }
