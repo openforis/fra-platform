@@ -99,18 +99,21 @@ const updatePastedValues = (evt, rowIdx, colIdx, fra, rowNames = {
   const el = document.createElement('html')
   el.innerHTML = evt.clipboardData.getData('text/html')
 
-  const toPaste = readHtmlElem(el)
-  const fraOnly = R.map(R.pick(['year', 'type']), fra)
-
-  let pasted = {}
+  let toPaste = {}
   mapIndexed((r, i) => {
     const row = rowIdx + i
     mapIndexed((c, j) => {
       const col = colIdx + j
-      pasted = R.mergeDeepRight({[col]: R.merge(fraOnly[col], {[rowNames[row]]: c})}, pasted)
+      toPaste = R.mergeDeepRight({[fra[col].year]: {[rowNames[row]]: c}}, toPaste)
     }, r)
-  }, toPaste)
-  console.log('pasted', pasted)
+  }, readHtmlElem(el))
+
+  let pasted = []
+  R.map(fra => {
+    if (toPaste[fra.year])
+    pasted.push(R.merge(fra, toPaste[fra.year]))
+  }, fra)
+
   return pasted
 }
 
