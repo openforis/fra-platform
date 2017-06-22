@@ -9,6 +9,7 @@ import IssueWidget from '../issue/issueWidget'
 import LoggedInPageTemplate from '../loggedInPageTemplate'
 import { separateThousandsWithSpaces } from '../utils/numberFormat'
 import { ThousandSeparatedIntegerInput } from '../reusableUiComponents/thousandSeparatedIntegerInput'
+import { readExcelClipboard } from '../utils/copyPasteUtil'
 
 const mapIndexed = R.addIndex(R.map)
 
@@ -75,29 +76,11 @@ const fraFieldValueForInput = (fieldValue) =>
   ? fieldValue
   : ''
 
-const readHtmlElem = elem => {
-  const data = []
-  const rows = elem.getElementsByTagName('tr')
-  R.map(row => {
-    const rdata = []
-    R.map(cell => {
-      rdata.push(Number(cell.innerText))
-    }, row.getElementsByTagName('td'))
-    data.push(rdata)
-  }, rows)
-  return data
-}
-
 const updatePastedValues = (evt, rowIdx, colIdx, fra, rowNames = {
   0: 'forestArea',
   1: 'otherWoodedLand',
   2: 'otherLand'
 }) => {
-  evt.stopPropagation()
-  evt.preventDefault()
-
-  const el = document.createElement('html')
-  el.innerHTML = evt.clipboardData.getData('text/html')
 
   let toPaste = {}
   mapIndexed((r, i) => {
@@ -107,7 +90,7 @@ const updatePastedValues = (evt, rowIdx, colIdx, fra, rowNames = {
       if (R.isNil(fra[col])) return
       toPaste = R.mergeDeepRight({[fra[col].year]: {[rowNames[row]]: c}}, toPaste)
     }, r)
-  }, readHtmlElem(el))
+  }, readExcelClipboard(evt))
 
   const pasted = R.pipe(
     R.map(fra => toPaste[fra.year] ? R.merge(fra, toPaste[fra.year]) : null),
