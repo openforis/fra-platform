@@ -264,8 +264,6 @@ class OriginalDataPointView extends React.Component {
 
   componentWillUnmount () {
     this.props.clearActive()
-    this.descriptionEditor.destroy(false)
-    this.descriptionEditor = null
   }
 
   componentWillReceiveProps (props) {
