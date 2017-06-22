@@ -71,11 +71,11 @@ module.exports.readFraForestAreas = (countryIso) =>
     [countryIso]
   ).then((result) => R.reduce(forestAreaReducer, {}, result.rows))
 
-module.exports.readEofDescriptions = (client, countryIso) =>
+module.exports.readEofDescriptions = (client, countryIso, descField) =>
   client.query(
-    `SELECT data_sources, national_classification, original_data FROM eof_descriptions WHERE country_iso =  $1`,
+    `SELECT ${descField} FROM eof_descriptions WHERE country_iso =  $1`,
     [countryIso]
-  ).then(result => result.rows[0] ? camelize(result.rows[0]) : {})
+  ).then(result => ({[camelize(descField)]: {value: result.rows[0] ? result.rows[0][descField] : ''}}))
 
 const isEmptyEofDescriptions = (client, countryIso) =>
   client.query('SELECT id FROM eof_descriptions WHERE country_iso = $1 ', [countryIso])

@@ -4,9 +4,14 @@ import * as types from './actions'
 import { applyReducerFunction } from '../../utils/reduxUtils'
 
 const actionHandlers = {
-  [types.descriptionsFetchStart]: (state, action) => R.dissoc('fetched')(state.eofDescriptions),
-  [types.descriptionsFetched]: (state, action) => R.assoc('fetched', true)(action.data),
-  [types.descriptionsChangeStart]: (state, action) => R.pipe(R.assoc(action.descField, action.value), R.dissoc('fetched'))(state)
+  [types.descriptionsFetched]: (state, action) => {
+    const data = {[action.descField]: R.assoc('fetched', true)(action.data[action.descField])}
+    return R.merge(state, data)
+  },
+  [types.descriptionsChangeStart]: (state, action) => {
+    const data = {[action.descField]: R.pipe(R.assoc('value', action.value), R.dissoc('fetched'))(state[action.descField])}
+    return R.merge(state, data)
+  }
 }
 
 export default (state = {}, action) => applyReducerFunction(actionHandlers, state, action)

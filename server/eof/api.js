@@ -79,8 +79,8 @@ module.exports.init = app => {
       .catch(err => sendErr(res, err))
   })
 
-  app.get('/api/country/descriptions/:countryIso', (req, res) =>
-    db.transaction(fraRepository.readEofDescriptions, [req.params.countryIso])
+  app.get('/api/country/descriptions/:countryIso/:descField', (req, res) =>
+    db.transaction(fraRepository.readEofDescriptions, [req.params.countryIso, snake(req.params.descField)])
       .then(result => res.json(result))
       .catch(err => sendErr(res, err))
   )

@@ -7,7 +7,7 @@ import { saveDescriptions, fetchDescriptions } from './actions'
 class Description extends Component {
 
   fetchData (countryIso) {
-    this.props.fetchDescriptions(countryIso)
+    this.props.fetchDescriptions(countryIso, this.props.field)
   }
 
   initCkeditorChangeListener () {
@@ -19,9 +19,9 @@ class Description extends Component {
   componentWillReceiveProps (nextProps) {
     if (!R.equals(this.props.countryIso, nextProps.countryIso))
       this.fetchData(nextProps.countryIso)
-    else if (nextProps.eofDescriptions.fetched)
+    else if (nextProps[this.props.field] && nextProps[this.props.field].fetched)
       this.editor.setData(
-        nextProps.eofDescriptions[this.props.field]
+        nextProps[this.props.field].value
         , {
           callback: () => {
             if (!this.editor.hasListeners('change'))
@@ -50,6 +50,6 @@ class Description extends Component {
   }
 }
 
-const mapStateToProps = state => ({eofDescriptions: state.eofDescriptions})
+const mapStateToProps = state => state.eofDescriptions
 
 export default connect(mapStateToProps, {fetchDescriptions, saveDescriptions})(Description)

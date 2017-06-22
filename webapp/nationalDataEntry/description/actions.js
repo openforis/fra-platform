@@ -2,13 +2,11 @@ import axios from 'axios'
 import * as autosave from '../../autosave/actions'
 import { applicationError } from '../../applicationError/actions'
 
-export const descriptionsFetchStart = 'nationalDataEntry/descriptions/fetch/start'
 export const descriptionsFetched = 'nationalDataEntry/descriptions/fetched'
 
-export const fetchDescriptions = countryIso => dispatch => {
-  dispatch({type: descriptionsFetchStart})
-  axios.get(`/api/country/descriptions/${countryIso}`)
-    .then(resp => dispatch({type: descriptionsFetched, data: resp.data}))
+export const fetchDescriptions = (countryIso, descField) => dispatch => {
+  axios.get(`/api/country/descriptions/${countryIso}/${descField}`)
+    .then(resp => dispatch({type: descriptionsFetched, data: resp.data, descField}))
     .catch(err => dispatch(applicationError(err)))
 }
 
