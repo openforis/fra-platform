@@ -108,7 +108,7 @@ const updatePastedValues = (evt, rowIdx, colIdx, fra, rowNames = {
     }, r)
   }, readHtmlElem(el))
 
-  let pasted = R.pipe(
+  const pasted = R.pipe(
     R.map(fra => toPaste[fra.year] ? R.merge(fra, toPaste[fra.year]) : null),
     R.reject(R.isNil))(fra)
 

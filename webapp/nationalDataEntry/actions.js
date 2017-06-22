@@ -32,7 +32,7 @@ const change = ({countryIso, name, value}) => {
 
 const changeMany = ({countryIso, columnData}) => {
   const dispatched = dispatch => {
-    return axios.post(`/api/eof/${countryIso}`, columnData).then(() => {
+    return axios.post(`/api/eof/${countryIso}`, {columns: columnData}).then(() => {
       dispatch(autosave.complete)
     }).catch((err) => {
       dispatch(applicationError(err))

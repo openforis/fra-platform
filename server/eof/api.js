@@ -42,7 +42,15 @@ module.exports.init = app => {
   })
 
   app.post('/api/eof/:countryIso', (req, res) => {
-    res.json({})
+    const updates = []
+    R.map(c => {
+      updates.push(fraRepository.persistFraValues(req.params.countryIso, c.year, c))
+    }, req.body.columns)
+
+    Promise.all(updates)
+      .then(() => res.json({}))
+      .catch(err => sendErr(res, err))
+
   })
 
   app.post('/api/country/:countryIso/:year', (req, res) => {
