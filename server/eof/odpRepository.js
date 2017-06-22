@@ -193,6 +193,7 @@ const odpListReducer = (results, row, type = 'fra') => R.assoc(`odp_${row.odp_id
     name: row.year + '',
     type: 'odp',
     year: Number(row.year),
+    totalPercentage: row.total_percentage,
     draft: row.draft
   },
   results)
@@ -227,6 +228,7 @@ module.exports.listOriginalDataPoints = (countryIso) =>
   db.query(`
       SELECT
         p.id as odp_id,
+        c.forest_percent + c.other_wooded_land_percent + c.other_land_percent AS total_percentage,
         v.year
       FROM odp p
         JOIN odp_version v
@@ -235,5 +237,7 @@ module.exports.listOriginalDataPoints = (countryIso) =>
                THEN p.actual_id
              ELSE p.draft_id
              END
+        JOIN odp_class c
+          ON c.odp_version_id = v.id
       WHERE p.country_iso = $1
   `, [countryIso]).then(result => R.reduce(odpListReducer, {}, result.rows))
