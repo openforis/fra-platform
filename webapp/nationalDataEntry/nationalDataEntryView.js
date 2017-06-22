@@ -104,6 +104,7 @@ const updatePastedValues = (evt, rowIdx, colIdx, fra, rowNames = {
     const row = rowIdx + i
     mapIndexed((c, j) => {
       const col = colIdx + j
+      if (R.isNil(fra[col])) return
       toPaste = R.mergeDeepRight({[fra[col].year]: {[rowNames[row]]: c}}, toPaste)
     }, r)
   }, readHtmlElem(el))

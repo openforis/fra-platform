@@ -50,7 +50,6 @@ module.exports.init = app => {
     Promise.all(updates)
       .then(() => res.json({}))
       .catch(err => sendErr(res, err))
-
   })
 
   app.post('/api/country/:countryIso/:year', (req, res) => {
