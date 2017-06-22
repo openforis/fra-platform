@@ -50,7 +50,7 @@
     "i18n-iso-countries": "^1.11.0",
     "js-cookie": "^2.1.4",
     "pg": "^6.1.5",
-    "ramda": "^0.23.0",
+    "ramda": "^0.24.1",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-redux": "^5.0.4",

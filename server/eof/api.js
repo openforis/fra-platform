@@ -43,6 +43,17 @@ module.exports.init = app => {
       .catch(err => sendErr(res, err))
   })
 
+  app.post('/api/eof/:countryIso', (req, res) => {
+    const updates = []
+    R.map(c => {
+      updates.push(fraRepository.persistFraValues(req.params.countryIso, c.year, c))
+    }, req.body.columns)
+
+    Promise.all(updates)
+      .then(() => res.json({}))
+      .catch(err => sendErr(res, err))
+  })
+
   app.post('/api/country/:countryIso/:year', (req, res) => {
     fraRepository.persistFraValues(req.params.countryIso, req.params.year, req.body)
       .then(() => res.json({}))
@@ -81,19 +92,24 @@ module.exports.init = app => {
   app.get('/api/nav/status/:countryIso', (req, res) => {
    const odpData = odpRepository.listOriginalDataPoints(req.params.countryIso, true)
 
+    const yearsValid = R.pipe( // if year not specified for a odp, raise error flag
+          R.values,
+          R.filter(R.pathEq(['year'], 0)),
+          R.isEmpty
+    )
+    const percentagesValid = R.pipe( // if total percentages of odp go over 100, raise error flag
+      R.values,
+      R.filter(R.pipe(R.prop('totalPercentage'), R.lt(100))),
+      R.isEmpty
+    )
+
     // in future we certainly will need the Promise.all here wink wink
     Promise.all([odpData]).then(([odpResult]) => {
       const odpStatus = {
         count: R.values(odpResult).length,
-        errors: R.pipe( // if year not specified for a odp, raise error flag
-          R.values,
-          R.filter(R.pathEq(['year'], 0)),
-          R.isEmpty,
-          R.not)(odpResult)
+        errors: R.contains(false, [yearsValid(odpResult), percentagesValid(odpResult)])
       }
-
       res.json({odpStatus})
-
     })
     .catch(err => sendErr(res, err))
   })
