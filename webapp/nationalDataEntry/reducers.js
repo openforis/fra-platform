@@ -14,7 +14,7 @@ const updateValues = (state, action) => {
     if (ni === -1) return fra
     return R.merge(fra, R.values(action.columnData)[ni])
   }, state.fra)
-  return {...state, fra: R.merge(state.fra, newfra)}
+  return {...state, fra: R.pipe(R.merge(state.fra), R.values)(newfra)}
 }
 
 const actionHandlers = {
