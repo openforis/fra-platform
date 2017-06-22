@@ -92,14 +92,11 @@ module.exports.init = app => {
 
     // in future we certainly will need the Promise.all here wink wink
     Promise.all([odpData]).then(([odpResult]) => {
-     console.log(odpResult)
       const odpStatus = {
         count: R.values(odpResult).length,
         errors: R.contains(false, [yearsValid(odpResult), percentagesValid(odpResult)])
       }
-
       res.json({odpStatus})
-
     })
     .catch(err => sendErr(res, err))
   })
