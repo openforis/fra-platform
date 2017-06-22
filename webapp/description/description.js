@@ -7,21 +7,21 @@ import { saveDescriptions, fetchDescriptions } from './actions'
 class Description extends Component {
 
   fetchData (countryIso) {
-    this.props.fetchDescriptions(countryIso, this.props.field)
+    this.props.fetchDescriptions(countryIso, this.props.name)
   }
 
   initCkeditorChangeListener () {
     this.editor.on('change', (evt) =>
-      this.props.saveDescriptions(this.props.countryIso, this.props.field, evt.editor.getData())
+      this.props.saveDescriptions(this.props.countryIso, this.props.name, evt.editor.getData())
     )
   }
 
   componentWillReceiveProps (nextProps) {
     if (!R.equals(this.props.countryIso, nextProps.countryIso))
       this.fetchData(nextProps.countryIso)
-    else if (nextProps[this.props.field] && nextProps[this.props.field].fetched)
+    else if (nextProps[this.props.name] && nextProps[this.props.name].fetched)
       this.editor.setData(
-        nextProps[this.props.field].value
+        nextProps[this.props.name].content
         , {
           callback: () => {
             if (!this.editor.hasListeners('change'))
@@ -32,7 +32,7 @@ class Description extends Component {
   }
 
   componentDidMount () {
-    this.editor = CKEDITOR.replace(document.getElementById(this.props.field), ckEditorConfig)
+    this.editor = CKEDITOR.replace(document.getElementById(this.props.name), ckEditorConfig)
     // Data fetching is necessary when CKEDITOR instances are ready
     this.editor.on('instanceReady', () => this.fetchData(this.props.countryIso))
   }
@@ -45,7 +45,7 @@ class Description extends Component {
   render () {
     return <div>
       <h3 className="subhead nde__description-header">{this.props.title}</h3>
-      <textarea id={this.props.field}/>
+      <textarea id={this.props.name}/>
     </div>
   }
 }

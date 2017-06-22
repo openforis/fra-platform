@@ -142,10 +142,10 @@ const NationalDataEntry = (props) => {
       </div>
     </div>
     <DataTable {...props} />
-    <Description title="Data Sources" field="dataSources" countryIso={props.match.params.countryIso}/>
-    <Description title="National classification and definitions" field="nationalClassification"
+    <Description title="Data Sources" name="dataSources" countryIso={props.match.params.countryIso}/>
+    <Description title="National classification and definitions" name="nationalClassification"
                  countryIso={props.match.params.countryIso}/>
-    <Description title="Original data" field="originalData" countryIso={props.match.params.countryIso}/>
+    <Description title="Original data" name="originalData" countryIso={props.match.params.countryIso}/>
   </div>
 }
 

@@ -1,30 +1,30 @@
 const camelize = require('camelize')
 
-module.exports.readDescriptions = (client, countryIso, descField) =>
+module.exports.readDescriptions = (client, countryIso, name) =>
   client.query(
-    `SELECT description FROM descriptions WHERE country_iso = $1 AND field = $2`,
-    [countryIso, descField]
-  ).then(result => ({[camelize(descField)]: {value: result.rows[0] ? result.rows[0].description : ''}}))
+    `SELECT content FROM descriptions WHERE country_iso = $1 AND name = $2`,
+    [countryIso, name]
+  ).then(result => ({[camelize(name)]: {content: result.rows[0] ? result.rows[0].content : ''}}))
 
-const isEmptyDescriptions = (client, countryIso, descField) =>
-  client.query('SELECT id FROM descriptions WHERE country_iso = $1 AND field = $2', [countryIso, descField])
+const isEmptyDescriptions = (client, countryIso, name) =>
+  client.query('SELECT id FROM descriptions WHERE country_iso = $1 AND name = $2', [countryIso, name])
     .then(result => result.rows.length === 0)
 
-module.exports.persistDescriptions = (client, countryIso, descField, value) =>
-  isEmptyDescriptions(client, countryIso, descField).then(isEmpty =>
+module.exports.persistDescriptions = (client, countryIso, name, content) =>
+  isEmptyDescriptions(client, countryIso, name).then(isEmpty =>
     isEmpty
-      ? insertDescriptions(client, countryIso, descField, value)
-      : updateDescriptions(client, countryIso, descField, value))
+      ? insertDescriptions(client, countryIso, name, content)
+      : updateDescriptions(client, countryIso, name, content))
 
-const insertDescriptions = (client, countryIso, descField, value) =>
-  client.query(`INSERT INTO descriptions (country_iso, field, description) VALUES ($1, $2, $3)`,
-    [countryIso, descField, value])
+const insertDescriptions = (client, countryIso, name, content) =>
+  client.query(`INSERT INTO descriptions (country_iso, name, content) VALUES ($1, $2, $3)`,
+    [countryIso, name, content])
 
-const updateDescriptions = (client, countryIso, descField, value) =>
+const updateDescriptions = (client, countryIso, name, content) =>
   client.query(`UPDATE 
             descriptions 
             SET 
-             description = $3
+             content = $3
             WHERE country_iso = $1
-            AND field = $2`,
-    [countryIso, descField, value])
+            AND name = $2`,
+    [countryIso, name, content])

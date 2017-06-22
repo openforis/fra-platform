@@ -9,10 +9,10 @@ eof_descriptions
   DROP COLUMN "original_data";
 ALTER TABLE
 eof_descriptions
-  ADD COLUMN field VARCHAR;
+  ADD COLUMN name VARCHAR;
 ALTER TABLE
 eof_descriptions
-  ADD COLUMN description TEXT;
+  ADD COLUMN content TEXT;
 ALTER TABLE
 eof_descriptions
   RENAME TO descriptions;

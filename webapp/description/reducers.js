@@ -5,11 +5,11 @@ import { applyReducerFunction } from '../utils/reduxUtils'
 
 const actionHandlers = {
   [types.descriptionsFetched]: (state, action) => {
-    const data = {[action.descField]: R.assoc('fetched', true)(action.data[action.descField])}
+    const data = {[action.name]: R.assoc('fetched', true)(action.data[action.name])}
     return R.merge(state, data)
   },
   [types.descriptionsChangeStart]: (state, action) => {
-    const data = {[action.descField]: R.pipe(R.assoc('value', action.value), R.dissoc('fetched'))(state[action.descField])}
+    const data = {[action.name]: R.pipe(R.assoc('content', action.content), R.dissoc('fetched'))(state[action.name])}
     return R.merge(state, data)
   }
 }
