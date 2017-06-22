@@ -1,10 +1,8 @@
-const camelize = require('camelize')
-
 module.exports.readDescriptions = (client, countryIso, name) =>
   client.query(
     `SELECT content FROM descriptions WHERE country_iso = $1 AND name = $2`,
     [countryIso, name]
-  ).then(result => ({[camelize(name)]: {content: result.rows[0] ? result.rows[0].content : ''}}))
+  ).then(result => ({[name]: {content: result.rows[0] ? result.rows[0].content : ''}}))
 
 const isEmptyDescriptions = (client, countryIso, name) =>
   client.query('SELECT id FROM descriptions WHERE country_iso = $1 AND name = $2', [countryIso, name])
