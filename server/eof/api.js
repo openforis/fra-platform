@@ -80,13 +80,13 @@ module.exports.init = app => {
   })
 
   app.get('/api/country/descriptions/:countryIso/:descField', (req, res) =>
-    db.transaction(fraRepository.readEofDescriptions, [req.params.countryIso, snake(req.params.descField)])
+    db.transaction(fraRepository.readDescriptions, [req.params.countryIso, snake(req.params.descField)])
       .then(result => res.json(result))
       .catch(err => sendErr(res, err))
   )
 
   app.post('/api/country/descriptions/:countryIso/:descField', (req, res) =>
-    db.transaction(fraRepository.persistEofDescriptions, [req.params.countryIso, snake(req.params.descField), req.body.value])
+    db.transaction(fraRepository.persistDescriptions, [req.params.countryIso, snake(req.params.descField), req.body.value])
       .then(result => res.json({}))
       .catch(err => sendErr(res, err))
   )

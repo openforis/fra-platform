@@ -71,30 +71,31 @@ module.exports.readFraForestAreas = (countryIso) =>
     [countryIso]
   ).then((result) => R.reduce(forestAreaReducer, {}, result.rows))
 
-module.exports.readEofDescriptions = (client, countryIso, descField) =>
+module.exports.readDescriptions = (client, countryIso, descField) =>
   client.query(
-    `SELECT ${descField} FROM eof_descriptions WHERE country_iso =  $1`,
-    [countryIso]
-  ).then(result => ({[camelize(descField)]: {value: result.rows[0] ? result.rows[0][descField] : ''}}))
+    `SELECT description FROM descriptions WHERE country_iso = $1 AND field = $2`,
+    [countryIso, descField]
+  ).then(result => ({[camelize(descField)]: {value: result.rows[0] ? result.rows[0].description : ''}}))
 
-const isEmptyEofDescriptions = (client, countryIso) =>
-  client.query('SELECT id FROM eof_descriptions WHERE country_iso = $1 ', [countryIso])
+const isEmptyDescriptions = (client, countryIso, descField) =>
+  client.query('SELECT id FROM descriptions WHERE country_iso = $1 AND field = $2', [countryIso, descField])
     .then(result => result.rows.length === 0)
 
-module.exports.persistEofDescriptions = (client, countryIso, descField, value) =>
-  isEmptyEofDescriptions(client, countryIso).then(isEmpty =>
+module.exports.persistDescriptions = (client, countryIso, descField, value) =>
+  isEmptyDescriptions(client, countryIso, descField).then(isEmpty =>
     isEmpty
-      ? insertEofDescriptions(client, countryIso, descField, value)
+      ? insertDescriptions(client, countryIso, descField, value)
       : updateEofDescriptions(client, countryIso, descField, value))
 
-const insertEofDescriptions = (client, countryIso, descField, value) =>
-  client.query(`INSERT INTO eof_descriptions (country_iso, ${descField}) VALUES ($1, $2)`,
-    [countryIso, value])
+const insertDescriptions = (client, countryIso, descField, value) =>
+  client.query(`INSERT INTO descriptions (country_iso, field, description) VALUES ($1, $2, $3)`,
+    [countryIso, descField, value])
 
 const updateEofDescriptions = (client, countryIso, descField, value) =>
   client.query(`UPDATE 
-            eof_descriptions 
+            descriptions 
             SET 
-             ${descField} = $2
-            WHERE country_iso = $1`,
-    [countryIso, value])
+             description = $3
+            WHERE country_iso = $1
+            AND field = $2`,
+    [countryIso, descField, value])
