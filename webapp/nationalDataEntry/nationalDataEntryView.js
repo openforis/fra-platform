@@ -9,7 +9,7 @@ import IssueWidget from '../issue/issueWidget'
 import LoggedInPageTemplate from '../loggedInPageTemplate'
 import { separateThousandsWithSpaces } from '../utils/numberFormat'
 import { ThousandSeparatedIntegerInput } from '../reusableUiComponents/thousandSeparatedIntegerInput'
-import Description from './description/description'
+import Description from '../description/description'
 
 const OdpHeading = ({countryIso, odpValue}) =>
   <Link to={`/country/${countryIso}/odp/${odpValue.odpId}`}>

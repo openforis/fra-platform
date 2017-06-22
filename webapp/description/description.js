@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import R from 'ramda'
-import ckEditorConfig from '../../ckEditor/ckEditorConfig'
+import ckEditorConfig from '../ckEditor/ckEditorConfig'
 import { saveDescriptions, fetchDescriptions } from './actions'
 
 class Description extends Component {
@@ -50,6 +50,6 @@ class Description extends Component {
   }
 }
 
-const mapStateToProps = state => state.eofDescriptions
+const mapStateToProps = state => state.descriptions
 
 export default connect(mapStateToProps, {fetchDescriptions, saveDescriptions})(Description)
