@@ -2,7 +2,7 @@ import * as R from 'ramda'
 import React from 'react'
 import { connect } from 'react-redux'
 
-import './style.less'
+import '../issue/style.less'
 import {getCommentCount, openCommentThread, closeCommentThread } from './actions'
 
 const CommentStatus = ({count, visible, ...props}) =>
@@ -35,6 +35,7 @@ class IssueWidget extends React.Component {
   }
 
   render () {
+    console.log("satus props", this.props)
     const targetCount = this.props[this.props.target] || {}
     const count = R.isEmpty(targetCount) ? 0 : targetCount// comments ? comments.length  : 0
     const style= {'zIndex': this.state.widgetVisualState === 'visible' ? 1: 0 }
@@ -51,7 +52,7 @@ class IssueWidget extends React.Component {
   }
 }
 
-const mapStateToProps = state => R.merge(state.issue, state.user)
+const mapStateToProps = state => R.merge(state.review, state.user)
 
   export default connect(mapStateToProps, {
     openCommentThread,

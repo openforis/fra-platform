@@ -5,7 +5,7 @@ import * as R from 'ramda'
 import { save, saveMany, fetch, generateFraValues } from './actions'
 import { Link } from './../link'
 import Chart from './chart/chart'
-import IssueWidget from '../issue/issueWidget'
+import IssueWidget from '../review/issueWidget'
 import LoggedInPageTemplate from '../loggedInPageTemplate'
 import { separateThousandsWithSpaces } from '../utils/numberFormat'
 import { ThousandSeparatedIntegerInput } from '../reusableUiComponents/thousandSeparatedIntegerInput'
@@ -197,6 +197,6 @@ class DataFetchingComponent extends React.Component {
   }
 }
 
-const mapStateToProps = state => R.merge(state.nationalDataEntry, {'openCommentThread': state.issue.openThread})
+const mapStateToProps = state => R.merge(state.nationalDataEntry, {'openCommentThread': state.review.openThread})
 
 export default connect(mapStateToProps, {save, saveMany, fetch, generateFraValues})(DataFetchingComponent)
