@@ -45,7 +45,7 @@ class IssueWidget extends React.Component {
 
     return <div className="fra-issue__add-issue" style={style}>
       <CommentStatus count={count} visible={true} onClick={() => {
-        this.props.openCommentThread(this.props.target)
+        this.props.openCommentThread(this.props.countryIso, this.props.section, this.props.target)
         window.setTimeout(() => this.setState({widgetVisualState: 'visible'}), 0)
       }}/>
     </div>

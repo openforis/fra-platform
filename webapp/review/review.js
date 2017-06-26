@@ -76,8 +76,13 @@ const CommentThread = ({countryIso, section, target, comments, visualState, post
   </div>
 }
 
-const ReviewPanel = ({active}) => <div className={`review-panel ${active ? 'active' : 'hidden'}`}>hello
-  {/*<CommentThread*/}
+class ReviewPanel extends React.Component {
+
+render() {
+  console.log("panel props", this.props)
+  const isActive = R.pipe(R.defaultTo([]), R.isEmpty, R.not)(this.props.openThread)
+  return <div className={`review-panel ${isActive ? 'active' : 'hidden'}`}>hello
+    {/*<CommentThread*/}
     {/*countryIso={this.props.countryIso}*/}
     {/*target={this.props.target}*/}
     {/*comments={comments}*/}
@@ -86,7 +91,9 @@ const ReviewPanel = ({active}) => <div className={`review-panel ${active ? 'acti
     {/*postComment={this.props.postComment}*/}
     {/*close={close}*/}
     {/*userInfo={this.props.userInfo}/>*/}
-</div>
+  </div>
+}
+}
 
 const mapSateToProps = R.pipe(R.prop('review'), R.defaultTo({}))
 

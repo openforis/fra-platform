@@ -38,9 +38,11 @@ export const getCommentCount = (countryIso, section, target) => dispatch => {
   axios.get(`api/review/${countryIso}/comments/count/${section}?target=${target}`)
     .then(resp => {
       dispatch({type: reviewGetCommentCountCompleted, section, target, count: resp.data.count})
-      dispatch({type: issueOpenCommentThread, target})
     })
 }
 
-export const openCommentThread = target => ({type: issueOpenCommentThread, target})
+export const openCommentThread = (countryIso, section, target) => dispatch => {
+  retrieveComments(countryIso, section, target)(dispatch)
+  dispatch({type: issueOpenCommentThread, target})
+}
 export const closeCommentThread = target => ({type: issueCloseCommentThread, target})
