@@ -25,16 +25,16 @@ class CountryItem extends React.Component {
     const style = {
       backgroundImage: `url('/img/flags/${(I18n.alpha3ToAlpha2(name) || '').toLowerCase()}.svg'`
     }
-    return <div className="navi__country-item" onClick={() => {
+    return <div className="nav__country-item" onClick={() => {
         this.setState({isOpen: R.not(this.state.isOpen)})
         if (R.isEmpty(countries)) {
           this.props.listCountries()
         }
       }}>
-      <div className="navi__country-flag" style={style}></div>
-      <div className="navi__country-info">
-        <span className="navi__country-name">{I18n.getName(name, 'en')}</span>
-        <span className="navi__country-nc">{role}</span>
+      <div className="nav__country-flag" style={style}></div>
+      <div className="nav__country-info">
+        <span className="nav__country-name">{I18n.getName(name, 'en')}</span>
+        <span className="nav__country-role">{role}</span>
       </div>
       <svg className="icon"><use xlinkHref="img/icon.svg#icon-small-down"/></svg>
       <CountryList isOpen={this.state.isOpen} countries={countries} currentCountry={name}/>
@@ -44,31 +44,31 @@ class CountryItem extends React.Component {
 
 const CountryList = ({isOpen, countries, currentCountry}) => {
   if (!isOpen) return <noscript/>
-  return <div className="navi__country-list">
-    <div className="navi__country-list-content">
+  return <div className="nav__country-list">
+    <div className="nav__country-list-content">
       {
-        countries.map(c => <Link className={`navi__country-list-item ${R.equals(currentCountry, c.countryIso) ? 'selected' : ''}`} to={`/country/${c.countryIso}`} key={c.countryIso}>{c.name}</Link>)
+        countries.map(c => <Link className={`nav__country-list-item ${R.equals(currentCountry, c.countryIso) ? 'selected' : ''}`} to={`/country/${c.countryIso}`} key={c.countryIso}>{c.name}</Link>)
       }
     </div>
   </div>
 }
 
 const PrimaryItem = ({label, link}) =>
-  <div className="navi__primary-item">
-    <span className="navi__primary-label">{label}</span>
-    <Link className="navi__primary-link" to="/">{link}</Link>
+  <div className="nav__primary-item">
+    <span className="nav__primary-label">{label}</span>
+    <Link className="nav__primary-link" to="/">{link}</Link>
   </div>
 
 const NationalDataItem = ({path, countryIso, pathTemplate = '/tbd', status = {count: 0}, label}) => {
   const route = new Route(pathTemplate)
   const linkTo = route.reverse({countryIso})
 
-  return <Link className={`navi__link-item ${R.equals(path, linkTo) ? 'selected' : ''}`}
+  return <Link className={`nav__link-item ${R.equals(path, linkTo) ? 'selected' : ''}`}
                to={ linkTo }>
-    <span className="navi__link-label">{label}</span>
-    <span className="navi__link-item-status">{status.count}</span>
-    <span className="navi__link-error-status">
-      { status.errors ? <svg className="icon icon-red">
+    <span className="nav__link-label">{label}</span>
+    <span className="nav__link-item-status">{status.count}</span>
+    <span className="nav__link-error-status">
+      { status.errors ? <svg className="icon icon-middle icon-red">
         <use xlinkHref="img/icon.svg#icon-alert"/>
       </svg>
         : null
@@ -81,14 +81,14 @@ const SecondaryItem = ({path, countryIso, order, pathTemplate = '/tbd', label, s
   const route = new Route(pathTemplate)
   const linkTo = route.reverse({countryIso})
   const isTodoItem = pathTemplate.indexOf('/todo') !== -1
-  const secondaryTextClass = isTodoItem ? 'navi__disabled-menu-item-text' : ''
+  const secondaryTextClass = isTodoItem ? 'nav__disabled-menu-item-text' : ''
 
-  return <Link className={`navi__secondary-item ${R.equals(path, linkTo) ? 'selected' : ''}`}
+  return <Link className={`nav__secondary-item ${R.equals(path, linkTo) ? 'selected' : ''}`}
                to={ linkTo }>
-    <span className={`navi__secondary-order ${secondaryTextClass}`}>{order}</span>
+    <span className={`nav__secondary-order ${secondaryTextClass}`}>{order}</span>
     <div>
-      <span className={`navi__secondary-label ${secondaryTextClass}`}>{label}</span>
-      <span className={`navi__secondary-status ${secondaryTextClass}`}>{status}</span>
+      <span className={`nav__secondary-label ${secondaryTextClass}`}>{label}</span>
+      <span className={`nav__secondary-status ${secondaryTextClass}`}>{status}</span>
     </div>
   </Link>
 }
@@ -102,17 +102,21 @@ const roleLabel = (userInfo) => {
 }
 
 const Nav = ({path, country, countries, follow, getCountryList, status = {}, userInfo}) => {
-  return <div className="main__navigation">
-    <CountryItem name={country} countries={countries} listCountries={getCountryList} role={ roleLabel(userInfo) }/>
-    <NationalDataItem label="National Data" countryIso={country} status={status.odpStatus} path={path} pathTemplate="/country/:countryIso/odps" />
-    <PrimaryItem label="Annually reported"/>
-    {
-      annualItems.map(v => <SecondaryItem path={path} key={v.label} goTo={follow} countryIso={country} {...v} />)
-    }
-    <PrimaryItem label="Five-year Cycle"/>
-    {
-      fiveYearItems.map(v => <SecondaryItem key={v.label} {...v} />)
-    }
+  return <div className="main__nav-wrapper">
+    <div className="main__nav">
+      <CountryItem name={country} countries={countries} listCountries={getCountryList} role={ roleLabel(userInfo) }/>
+      <div className="nav__link-list">
+        <NationalDataItem label="National Data" countryIso={country} status={status.odpStatus} path={path} pathTemplate="/country/:countryIso/odps" />
+        <PrimaryItem label="Annually reported"/>
+        {
+          annualItems.map(v => <SecondaryItem path={path} key={v.label} goTo={follow} countryIso={country} {...v} />)
+        }
+        <PrimaryItem label="Five-year Cycle"/>
+        {
+          fiveYearItems.map(v => <SecondaryItem key={v.label} {...v} />)
+        }
+      </div>
+    </div>
   </div>
 }
 
