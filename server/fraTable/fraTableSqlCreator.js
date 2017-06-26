@@ -18,7 +18,7 @@ const fixedFraTableColumnDataTypes = ['VARCHAR', 'VARCHAR']
 const createInsert = (tableName, columnNamesStr, valuePlaceholdersStr, row) =>
   [`INSERT INTO ${tableName} (${columnNamesStr}) VALUES (${valuePlaceholdersStr})`, row]
 
-const createColumnNames = (mapping) => [...fixedFraTableColumns, ...mapping.mapping.columns.names]
+const createColumnNames = (mapping) => R.map((columnName) => `"${columnName}"`,[...fixedFraTableColumns, ...mapping.mapping.columns.names])
 
 const createRowData = (countryIso, mapping, rowIndex, rawRow) => {
   const trimmed = R.drop(mapping.mapping.columns.indexOffset, rawRow)
@@ -59,13 +59,13 @@ const createTableDefinition = (tableSpecName, columnDataType) => {
   const dataTypes = [...fixedFraTableColumnDataTypes, ...dynamicDataDataTypeArray]
   assert(dataTypes.length === columnNames.length, 'Data types and column names arrays should be of the same length! Check your mapping')
   const columns = R.zip(columnNames, dataTypes)
-  const columnsStr = R.join(', ', R.map(([name, dataType]) => `"${name}" ${dataType}`, columns))
+  const columnsStr = R.join(', ', R.map(([name, dataType]) => `${name} ${dataType}`, columns))
   return `CREATE TABLE ${mapping.mapping.tableName} (${columnsStr}, PRIMARY KEY (country_iso, row_name));`
 }
 
 const createDelete = (countryIso, tableSpecName) => {
   const mapping = getMapping(tableSpecName)
-  return `DELETE FROM ${mapping.mapping.tableName} WHERE country_iso = ${countryIso};`
+  return [`DELETE FROM ${mapping.mapping.tableName} WHERE country_iso = $1;`, [countryIso]]
 }
 
 module.exports.createInserts = createInserts
