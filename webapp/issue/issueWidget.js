@@ -35,8 +35,8 @@ class IssueWidget extends React.Component {
   }
 
   render () {
-    const comments = this.props[this.props.target] || []
-    const count = comments ? comments.length  : 0
+    const targetCount = this.props[this.props.target] || {}
+    const count = R.isEmpty(targetCount) ? 0 : targetCount// comments ? comments.length  : 0
     const style= {'zIndex': this.state.widgetVisualState === 'visible' ? 1: 0 }
     const close = R.partial(ctx => {
       ctx.props.closeCommentThread(ctx.props.target)

@@ -6,7 +6,8 @@ import {
   issueRetrieveCommentsStarted,
   issueRetrieveCommentsCompleted,
   issueOpenCommentThread,
-  issueCloseCommentThread
+  issueCloseCommentThread,
+  reviewGetCommentCountCompleted
 } from './actions'
 
 const actionHandlers = {
@@ -15,6 +16,7 @@ const actionHandlers = {
   [issueRetrieveCommentsCompleted]: (state, action) => {
     return {...state, [action.target]: action.issue}
   },
+  [reviewGetCommentCountCompleted]: (state, action) => ({...state, [action.target]: action.count}),
   [issueOpenCommentThread]: (state, action) => ({...state, 'openThread': action.target}),
   [issueCloseCommentThread]: (state, action) => R.omit(['openThread'], state)
 }
