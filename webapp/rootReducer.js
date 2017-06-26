@@ -9,6 +9,7 @@ import router from './router/reducers'
 import user from './login/reducer'
 import issue from './issue/reducer'
 import descriptions from './description/reducers'
+import review from './review/review'
 
 export default combineReducers({
   applicationError,

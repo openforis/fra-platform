@@ -14,6 +14,7 @@ const fetched = (countryIso, data) => ({
 })
 
 const change = ({countryIso, name, value}) => {
+  console.log("changing ")
   const dispatched = dispatch => {
     return axios.post(`/api/country/${countryIso}/${name}`, value).then(() => {
       dispatch(autosave.complete)
@@ -31,6 +32,7 @@ const change = ({countryIso, name, value}) => {
 }
 
 const changeMany = ({countryIso, columnData}) => {
+  console.log("changing many")
   const dispatched = dispatch => {
     return axios.post(`/api/eof/${countryIso}`, {columns: columnData}).then(() => {
       dispatch(autosave.complete)
