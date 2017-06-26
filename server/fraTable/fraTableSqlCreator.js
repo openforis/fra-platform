@@ -27,11 +27,16 @@ const createRowData = (countryIso, mapping, rowIndex, rawRow) => {
   return [...fixedValues, ...trimmed]
 }
 
-const getMapping = (tableSpecName) => {
-  const mapping = tableMappings.getMapping(tableSpecName)
-  assert(mapping, `Could not find mapping for ${tableSpecName}`)
-  console.log(mapping)
-  return mapping
+const getMapping = (tableSpecName) => tableMappings.getMapping(tableSpecName)
+
+const createSelect = (countryIso, tableSpecName) => {
+  const mapping = getMapping(tableSpecName)
+  return [`SELECT ${createColumnNames(mapping)} FROM ${mapping.mapping.tableName} WHERE country_iso = $1`, [countryIso]]
+}
+
+const createDelete = (countryIso, tableSpecName) => {
+  const mapping = getMapping(tableSpecName)
+  return [`DELETE FROM ${mapping.mapping.tableName} WHERE country_iso = $1;`, [countryIso]]
 }
 
 const createInserts = (countryIso, tableSpecName, tableData) => {
@@ -63,11 +68,8 @@ const createTableDefinition = (tableSpecName, columnDataType) => {
   return `CREATE TABLE ${mapping.mapping.tableName} (${columnsStr}, PRIMARY KEY (country_iso, row_name));`
 }
 
-const createDelete = (countryIso, tableSpecName) => {
-  const mapping = getMapping(tableSpecName)
-  return [`DELETE FROM ${mapping.mapping.tableName} WHERE country_iso = $1;`, [countryIso]]
-}
-
 module.exports.createInserts = createInserts
 module.exports.createTableDefinition = createTableDefinition
 module.exports.createDelete = createDelete
+module.exports.createSelect = createSelect
+module.exports.fixedFraTableColumns = fixedFraTableColumns

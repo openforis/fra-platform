@@ -27,6 +27,11 @@ const tableSpec = {
       {type: 'readOnly', jsx: <td key="mangroves" className="fra-table__header-cell">Mangroves</td>},
       {type: 'integerInput'},
       {type: 'integerInput'}
+    ],
+    [
+      {type: 'readOnly', jsx: <td key="mangroves" className="fra-table__header-cell">Rubber plantations</td>},
+      {type: 'integerInput'},
+      {type: 'integerInput'}
     ]
   ]
 }
