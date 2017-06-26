@@ -1,16 +1,19 @@
+@import "../app-styles/config";
+
 .footer__container {
   background: white;
   position: fixed;
   bottom: 0;
-  width: 100%;
+  right: 0;
+  width: calc(~"100vw - 256px");
   display: flex;
   justify-content: space-between;
-  padding: 10px 276px 10px 20px;
-  margin-left: 256px;
+  padding: 9px 24px;
+  border-top: @ui-thin-border;
 }
 
 .footer__item {
-  color: #666666;
+  color: @text-mute;
 }
 
 .footer__autosave-status {
