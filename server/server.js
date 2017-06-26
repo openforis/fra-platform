@@ -11,6 +11,7 @@ const eofApi = require('./eof/api')
 const odpApi = require('./odp/api')
 const userApi = require('./user/userApi')
 const descriptionsApi = require('./descriptions/api')
+const reviewApi = require('./review/api')
 
 const app = express()
 
@@ -36,6 +37,7 @@ app.get('/api/country/all', (req, res) => {
 odpApi.init(app)
 eofApi.init(app)
 descriptionsApi.init(app)
+reviewApi.init(app)
 
 app.listen(process.env.PORT, () => {
   console.log('FRA Platform server listening on port ', process.env.PORT)

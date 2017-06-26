@@ -3,8 +3,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import './style.less'
-import {postComment, retrieveComments, openCommentThread, closeCommentThread } from './actions'
-
+import {getCommentCount, openCommentThread, closeCommentThread } from './actions'
 
 const CommentStatus = ({count, visible, ...props}) =>
   <div {...props} className={`fra-issue__issue-status-${visible ? 'visible' : 'hidden'}`} >
@@ -23,20 +22,15 @@ class IssueWidget extends React.Component {
   }
 
   componentWillMount () {
-    this.props.retrieveComments(this.props.countryIso, this.props.section, this.props.target)
+    this.props.getCommentCount(this.props.countryIso, this.props.section, this.props.target)
   }
 
   componentWillReceiveProps (next) {
     if (next.countryIso !== this.props.countryIso) { // changing country
-      this.props.closeCommentThread(this.props.target)
-      this.props.retrieveComments(next.countryIso, this.props.section, this.props.target)
-      this.setState({widgetVisualState: 'hidden'})
+      this.props.getCommentCount(next.countryIso, this.props.section, this.props.target)
     }
     if(!next.openThread) { // comments are being closed
-      this.setState({widgetVisualState: 'hidden'})
-    }
-    else if(next.openThread.join('_') !== this.props.target.join('_')) { // other comment thread is opened, close this
-      this.setState({widgetVisualState: 'other-target'})
+
     }
   }
 
@@ -62,6 +56,5 @@ const mapStateToProps = state => R.merge(state.issue, state.user)
   export default connect(mapStateToProps, {
     openCommentThread,
     closeCommentThread,
-    postComment,
-    retrieveComments
+    getCommentCount
   })(IssueWidget)
