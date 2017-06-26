@@ -79,7 +79,9 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving})
       </table>
     </div>
     <h3 className="subhead odp__section">Comments</h3>
-    <textarea id="originalDataPointDescription"/>
+    <div className="cke_wrapper">
+      <textarea id="originalDataPointDescription"/>
+    </div>
     <div className="odp__bottom-buttons">
       <span className={ saveControlsDisabled() ? 'btn btn-destructive disabled' : 'btn btn-destructive' }
             onClick={ () => saveControlsDisabled() ? null : remove(countryIso, active.odpId) }>
