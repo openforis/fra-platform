@@ -37,7 +37,6 @@ const getMapping = (tableSpecName) => {
 const createInserts = (countryIso, tableSpecName, tableData) => {
   const mapping = getMapping(tableSpecName)
   assert(mapping, `Could not find mapping for ${tableSpecName}`)
-  console.log(mapping)
   const tableSpecificColumnCount = tableData[0].length - mapping.mapping.columns.indexOffset
   const columnNames = createColumnNames(mapping)
   const tableName = mapping.mapping.tableName
@@ -64,5 +63,11 @@ const createTableDefinition = (tableSpecName, columnDataType) => {
   return `CREATE TABLE ${mapping.mapping.tableName} (${columnsStr}, PRIMARY KEY (country_iso, row_name));`
 }
 
+const createDelete = (countryIso, tableSpecName) => {
+  const mapping = getMapping(tableSpecName)
+  return `DELETE FROM ${mapping.mapping.tableName} WHERE country_iso = ${countryIso};`
+}
+
 module.exports.createInserts = createInserts
 module.exports.createTableDefinition = createTableDefinition
+module.exports.createDelete = createDelete
