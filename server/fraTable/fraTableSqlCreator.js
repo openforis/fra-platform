@@ -60,8 +60,8 @@ const createTableDefinition = (tableSpecName, columnDataType) => {
   const dataTypes = [...fixedFraTableColumnDataTypes, ...dynamicDataDataTypeArray]
   assert(dataTypes.length === columnNames.length, 'Data types and column names arrays should be of the same length! Check your mapping')
   const columns = R.zip(columnNames, dataTypes)
-  const columnsStr = R.join(', ', R.map(([name, dataType]) => `${name} ${dataType}`, columns))
-  return `CREATE TABLE ${mapping.mapping.tableName} (${columnsStr});`
+  const columnsStr = R.join(', ', R.map(([name, dataType]) => `"${name}" ${dataType}`, columns))
+  return `CREATE TABLE ${mapping.mapping.tableName} (${columnsStr}, PRIMARY KEY (country_iso, row_name));`
 }
 
 module.exports.createInserts = createInserts
