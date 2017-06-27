@@ -36,8 +36,8 @@ class IssueWidget extends React.Component {
 
   render () {
     console.log("satus props", this.props)
-    const targetCount = this.props[this.props.target] || {}
-    const count = R.isEmpty(targetCount) ? 0 : targetCount// comments ? comments.length  : 0
+    const targetProps = this.props[this.props.target] || {}
+    const count = R.isNil(targetProps) ? 0 : targetProps.count // comments ? comments.length  : 0
     const style= {'zIndex': this.state.widgetVisualState === 'visible' ? 1: 0 }
     const close = R.partial(ctx => {
       ctx.props.closeCommentThread(ctx.props.target)

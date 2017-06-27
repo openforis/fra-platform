@@ -14,10 +14,12 @@ const actionHandlers = {
   [issuePostCommentCompleted]: (state, action) => ({...state, 'status': action.status}),
   [issueRetrieveCommentsStarted]: (state, action) => ({...state, 'status': action.status}),
   [issueRetrieveCommentsCompleted]: (state, action) => {
-    return {...state, [action.target]: action.issue}
+    return {...state, [action.target]: R.merge(state[action.target], {issue: action.issue})}
   },
-  [reviewGetCommentCountCompleted]: (state, action) =>{ console.log("action", action)
-  return ({...state, [action.target]: action.count})},
+  [reviewGetCommentCountCompleted]: (state, action) =>
+  { console.log("action", action)
+    return ({...state, [action.target]: R.merge(state[action.target], {count: action.count})})
+  },
   [issueOpenCommentThread]: (state, action) => ({...state, 'openThread': action.target}),
   [issueCloseCommentThread]: (state, action) => R.omit(['openThread'], state)
 }
