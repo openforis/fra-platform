@@ -79,23 +79,27 @@ const CommentThread = ({countryIso, section, target, comments, visualState, post
 class ReviewPanel extends React.Component {
 
 render() {
-  console.log("panel props", this.props)
   const isActive = R.pipe(R.defaultTo([]), R.isEmpty, R.not)(this.props.openThread)
-  return <div className={`review-panel ${isActive ? 'active' : 'hidden'}`}>hello
-    {/*<CommentThread*/}
-    {/*countryIso={this.props.countryIso}*/}
-    {/*target={this.props.target}*/}
-    {/*comments={comments}*/}
-    {/*section={this.props.section}*/}
-    {/*visualState={this.state.widgetVisualState}*/}
-    {/*postComment={this.props.postComment}*/}
-    {/*close={close}*/}
-    {/*userInfo={this.props.userInfo}/>*/}
+  const target = isActive ? R.head(this.props.openThread) : null
+  const comments = target ? this.props[target].issue : []
+  const close = R.partial(ctx => {
+    ctx.props.closeCommentThread(ctx.props.target)
+    ctx.setState({widgetVisualState: 'hidden'})}, [this])
+  return <div className={`review-panel ${isActive ? 'active' : 'hidden'}`}>
+    <CommentThread
+    countryIso={this.props.country}
+    target={target}
+    comments={R.defaultTo([], comments)}
+    section="eof"
+    visualState='visible'
+    postComment={this.props.postComment}
+    close={close}
+    userInfo={this.props.userInfo}/>
   </div>
 }
 }
 
-const mapSateToProps = R.pipe(R.prop('review'), R.defaultTo({}))
+const mapSateToProps = state => R.pipe(R.prop('review'), R.defaultTo({}), R.merge(state.router), R.merge(state.user))(state)
 
 export default connect(mapSateToProps, {postComment, retrieveComments})(ReviewPanel)
 

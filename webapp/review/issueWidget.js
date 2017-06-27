@@ -39,9 +39,6 @@ class IssueWidget extends React.Component {
     const targetProps = this.props[this.props.target] || {}
     const count = R.isNil(targetProps) ? 0 : targetProps.count // comments ? comments.length  : 0
     const style= {'zIndex': this.state.widgetVisualState === 'visible' ? 1: 0 }
-    const close = R.partial(ctx => {
-      ctx.props.closeCommentThread(ctx.props.target)
-      ctx.setState({widgetVisualState: 'hidden'})}, [this])
 
     return <div className="fra-issue__add-issue" style={style}>
       <CommentStatus count={count} visible={true} onClick={() => {
