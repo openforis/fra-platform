@@ -50,8 +50,7 @@
     width: 100%;
 
     &::placeholder {
-      color: @text-mute;
-      font-style: italic;
+      color: @text-disabled;
     }
 
     &:focus {
@@ -175,6 +174,14 @@
 
 .odp-list__year-column {
   width: 60px;
+}
+
+.odp-list__edit-column {
+  text-align: right;
+}
+
+.odp_list__empty-column {
+  color: @text-disabled;
 }
 
 .odp-list__list-row {
