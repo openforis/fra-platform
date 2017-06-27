@@ -31,7 +31,7 @@ class YAxis extends Component {
     if (!this.hasData())
       d3.select(node).selectAll('text').remove()
 
-    d3.select(node).selectAll('line').style('stroke', (val, i) => i == 0 ? '#cccccc' : 'rgba(0,0,0,.07)')
+    d3.select(node).selectAll('line').style('stroke', (val, i) => i == 0 ? '#cccccc' : 'rgba(0,0,0,.08)')
   }
 
   render () {
