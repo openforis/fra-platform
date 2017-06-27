@@ -1,21 +1,27 @@
 @import "../app-styles/config";
 
-.main__navigation {
-  background: @ui-bg;
-  padding-bottom: 8px;
+.main__nav-wrapper {
+  position: relative;
   width: 256px;
-  height: 100%;
-  overflow-y: auto;
-  min-width: 256px;
-  position: fixed;
 }
 
-.navi__country-item {
+.main__nav {
+  background-color: @ui-bg;
+  border-right: @ui-thin-border;
+  position: fixed;
+  width: 256px;
+  overflow: hidden;
+}
+
+// Current country
+
+.nav__country-item {
   display: flex;
   position: relative;
   flex-flow: row nowrap;
   align-items: center;
-  padding: 16px;
+  padding: 0 16px;
+  height: 72px;
   border-bottom: 1px solid @ui-border;
   background-color: @ui-bg;
 
@@ -27,7 +33,7 @@
   }
 }
 
-.navi__country-flag {
+.nav__country-flag {
   background-repeat: no-repeat;
   background-size: cover;
   width: 32px;
@@ -37,26 +43,26 @@
   border-radius: 100%;
 }
 
-.navi__country-info {
+.nav__country-info {
   flex-grow: 1;
   margin: 0 8px;
 }
 
-.navi__country-name {
+.nav__country-name {
   color: @text-body;
   display: block;
   font-weight: 700;
   line-height: 20px;
 }
 
-.navi__country-nc {
+.nav__country-role {
   color: @text-mute;
   display: block;
   font-size: @font-xs;
   line-height: 20px;
 }
 
-.navi__country-list {
+.nav__country-list {
   position: absolute;
   top: 68px;
   left: 16px;
@@ -68,14 +74,14 @@
   z-index: 10;
 }
 
-.navi__country-list-content {
+.nav__country-list-content {
   max-height: 560px;
   overflow-y: scroll;
   overflow-x: hidden;
   padding: 4px 0;
 }
 
-.navi__country-list-item {
+.nav__country-list-item {
   display: block;
   color: @text-body;
   text-decoration: none;
@@ -88,7 +94,16 @@
   }
 }
 
-.navi__link-item {
+// Questionare
+
+.nav__link-list {
+  overflow-y: auto;
+  height: calc(~"100vh - 72px");
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.nav__link-item {
   display: inline-block;
   width: 100%;
   padding: 12px 12px 12px 24px;
@@ -106,39 +121,39 @@
     color: inherit;
   }
 }
-.navi__link-label {
+
+.nav__link-label {
   font-weight: bold;
   line-height: 20px;
 }
 
-.navi__link-item-status {
+.nav__link-item-status {
+  color: @text-mute;
   margin: 8px;
 }
 
-.navi__link-error-status {
-  top: 3px;
-  position: relative;
+.nav__link-error-status {
   float: right;
 }
 
-.navi__primary-item {
+.nav__primary-item {
   padding: 12px 24px;
 }
 
-.navi__primary-label {
+.nav__primary-label {
   display: block;
   font-weight: bold;
   line-height: 20px;
 }
 
-.navi__primary-link {
+.nav__primary-link {
   font-size: @font-s;
   display: inline-block;
   margin-top: 4px;
   line-height: 20px;
 }
 
-.navi__secondary-item {
+.nav__secondary-item {
   padding: 12px 24px;
   display: flex;
   flex-flow: row nowrap;
@@ -157,27 +172,26 @@
   }
 }
 
-.navi__secondary-order {
+.nav__secondary-order {
   flex: 0 0 auto;
   width: 24px;
   font-size: @font-s;
 }
 
-.navi__secondary-status.navi__disabled-menu-item-text,
-.navi__disabled-menu-item-text {
-  color: lighten(@text-mute, 30%);
-}
-
-.navi__secondary-label {
+.nav__secondary-label {
   display: block;
   font-size: @font-s;
   line-height: 20px;
 }
 
-.navi__secondary-status {
+.nav__secondary-status {
   display: block;
   font-size: @font-xs;
   color: @text-mute;
   line-height: 20px;
 }
 
+.nav__secondary-status.nav__disabled-menu-item-text,
+.nav__disabled-menu-item-text {
+  color: lighten(@text-mute, 30%);
+}
