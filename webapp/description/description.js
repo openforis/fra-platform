@@ -37,6 +37,11 @@ class Description extends Component {
     this.editor.on('instanceReady', () => this.fetchData(this.props.countryIso))
   }
 
+  componentWillUnmount () {
+    this.editor.destroy(false)
+    this.editor = null
+  }
+
   render () {
     return <div>
       <h3 className="subhead nde__description-header">{this.props.title}</h3>
