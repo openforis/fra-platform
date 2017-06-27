@@ -16,7 +16,7 @@ button:hover {
   padding: 7px 15px;
   text-align: center;
   text-decoration: none;
-  transition: all .15s ease-in-out;
+  transition: @ease-out;
   vertical-align: middle;
   white-space: nowrap;
   outline: none;
@@ -71,6 +71,18 @@ button:hover {
 
   &:hover {
     color: darken(@ui-destructive, 4%);
+    text-decoration: underline;
+  }
+}
+
+.link {
+  cursor: pointer;
+  display: inline-block;
+  transition: @ease-out;
+  text-decoration: none;
+  outline: none;
+
+  &:hover {
     text-decoration: underline;
   }
 }
