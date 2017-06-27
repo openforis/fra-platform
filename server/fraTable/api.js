@@ -11,6 +11,6 @@ module.exports.init = app => {
 
   app.get('/api/readFraTable/:countryIso/:tableSpecName', (req, res) => {
     repository.read(req.params.countryIso, req.params.tableSpecName)
-      .then(result => console.log(result) || res.json({}))
+      .then(result => res.json(result))
   })
 }
