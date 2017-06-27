@@ -45,7 +45,9 @@ class Description extends Component {
   render () {
     return <div>
       <h3 className="subhead nde__description-header">{this.props.title}</h3>
-      <textarea id={this.props.name}/>
+      <div className="cke_wrapper">
+        <textarea id={this.props.name}/>
+      </div>
     </div>
   }
 }

@@ -1,4 +1,5 @@
 import './app-styles/style.less'
+import './ckEditor/style.less'
 
 import React from 'react'
 import ReactDOM from 'react-dom'
