@@ -1,13 +1,3 @@
-/*
- * To create table definition (CREATE TABLE... clause) use repl to call createTableDefinition like this:
- *
- * ~/<project-home>$ node
- * > var sqlCreator = require('./server/fraTable/fraTableSqlCreator')
- * > sqlCreator.createTableDefinition('specificForestCategories', 'NUMERIC')
- *
- * -> CREATE TABLE specific_forest_categories (country_iso VARCHAR, row_name VARCHAR, 1990 NUMERIC, 2000 NUMERIC);'
- */
-
 const R = require('ramda')
 const tableMappings = require('./tableMappings')
 const assert = require('assert')
