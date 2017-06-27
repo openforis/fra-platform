@@ -16,7 +16,7 @@ module.exports.save = (client, countryIso, tableSpecName, tableState) => {
   )
 }
 
-const createTableData = (cols, rows) => console.log('cols', cols, 'rows', rows) ||
+const createTableData = (cols, rows) =>
   R.map(
     (rowIdx) => new Array(cols),
     R.range(0, rows))
