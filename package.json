@@ -50,6 +50,8 @@
     "express-session": "^1.15.3",
     "i18n-iso-countries": "^1.11.0",
     "js-cookie": "^2.1.4",
+    "passport": "^0.3.2",
+    "passport-google-oauth": "^1.0.0",
     "pg": "^6.1.5",
     "ramda": "^0.24.1",
     "react": "^15.5.4",
