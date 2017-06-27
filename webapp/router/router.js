@@ -10,7 +10,7 @@ import { getLoggedinUserInfo } from '../login/actions'
 class Router extends React.Component {
 
   follow() {
-    if (!(Cookies.get('loggedIn') === 'true') || !location.hash === '') {
+    if (!(Cookies.get('loggedInUser') ) || !location.hash === '') {
       window.location.hash = ''
     }
     else if (!this.props.loggedInUserInfoLoaded) {

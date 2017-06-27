@@ -6,6 +6,7 @@ const compression = require('compression')
 const migrations = require('./db/migration/execMigrations')
 const sessionInit = require('./sessionInit')
 
+const authApi = require('./auth/authApi')
 const countryRepository = require('./countryRepository')
 const eofApi = require('./eof/api')
 const odpApi = require('./odp/api')
@@ -17,6 +18,7 @@ const app = express()
 
 migrations()
 
+authApi.init(app)
 sessionInit.init(app)
 userApi.init(app)
 

@@ -20,6 +20,7 @@ const LoginView = ({requestLogin, loginFailed}) =>
           Sign in
         </button>
       </div>
+      <a href="/auth/google">Sign In with Google</a>
       <p className="login__legal">&copy; FAO, 2017</p>
     </div>
   </div>
