@@ -6,7 +6,7 @@ import assert from 'assert'
 import './tableStyles.less'
 import { ThousandSeparatedIntegerInput } from '../reusableUiComponents/thousandSeparatedIntegerInput'
 import * as table from './table'
-import { tableValueChanged } from './actions'
+import { tableValueChanged, fetchTableData } from './actions'
 
 const mapIndexed = R.addIndex(R.map)
 
@@ -47,14 +47,23 @@ const TableBody = (props) =>
    {tableRows(props)}
   </tbody>
 
-const FraTable = (props) => <table className="fra-table">
-  {props.tableSpec.header}
-  <TableBody {...props}/>
-</table>
+class FraTable extends React.Component {
+
+  componentWillMount() {
+    this.props.fetchTableData(this.props.countryIso, this.props.tableSpec)
+  }
+
+  render () {
+    return <table className="fra-table">
+      {this.props.tableSpec.header}
+      <TableBody {...this.props}/>
+    </table>
+  }
+}
 
 const mapStateToProps = (state, props) => {
   assert(props.tableSpec.name, 'tableSpec is missing name')
   return {...props, tableData: state.fraTable[props.tableSpec.name] || table.createTableData(props.tableSpec)}
 }
 
-export default connect(mapStateToProps, { tableValueChanged })(FraTable)
+export default connect(mapStateToProps, { tableValueChanged, fetchTableData })(FraTable)

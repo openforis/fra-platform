@@ -21,14 +21,18 @@ const createTableData = (cols, rows) =>
     (rowIdx) => new Array(cols),
     R.range(0, rows))
 
+const toNumber = value => value === null ? null : Number(value)
+
+// Now assumes that values are numbers, we might have to add types to
+// mapping later in addition to row and column names
 const update = (tableValues, rowIdx, colIdx, newValue) =>
-  R.update(rowIdx, R.update(colIdx, newValue, tableValues[rowIdx]), tableValues)
+  R.update(rowIdx, R.update(colIdx, toNumber(newValue), tableValues[rowIdx]), tableValues)
 
 const handleRow = mapping => (tableData, row) => {
   const values = R.omit(sqlCreator.fixedFraTableColumns, row)
   const rowIdx = mapping.getRowIndex(row.row_name)
   return R.reduce(
-    (tableDataAccu, [column, fieldValue]) => console.log("reduce fn", tableDataAccu, column, fieldValue) || update(tableDataAccu, rowIdx, mapping.getColumnIndex(column), fieldValue),
+    (tableDataAccu, [column, fieldValue]) => update(tableDataAccu, rowIdx, mapping.getColumnIndex(column), fieldValue),
     tableData,
     R.toPairs(values)
   )

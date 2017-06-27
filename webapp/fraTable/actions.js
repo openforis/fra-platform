@@ -19,6 +19,7 @@ const saveChanges = (countryIso, tableSpecName, tableState) => {
       dispatch(autosave.complete)
     }).catch((err) => {
       dispatch(applicationError(err))
+      dispatch(autosave.complete)
     })
 
   debounced.meta = {
@@ -33,5 +34,14 @@ const saveChanges = (countryIso, tableSpecName, tableState) => {
 export const tableValueChanged = (countryIso, tableSpec, rowIdx, colIdx, newValue) => (dispatch, getState) => {
   const newTableState = createNewTableState(tableSpec, rowIdx, colIdx, newValue, getState)
   dispatch({type: tableValueChangedAction, tableSpec, newTableState})
+  dispatch(autosave.start)
   dispatch(saveChanges(countryIso, tableSpec.name, newTableState))
+}
+
+export const fetchTableData = (countryIso, tableSpec) => dispatch => {
+  axios.get(`/api/readFraTable/${countryIso}/${tableSpec.name}`).then(resp => {
+    dispatch({type: tableValueChangedAction, tableSpec, newTableState: resp.data})
+  }).catch((err) => {
+    dispatch(applicationError(err))
+  })
 }
