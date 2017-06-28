@@ -14,8 +14,7 @@ const IntegerInput = ({countryIso, tableSpec, tableData, rowIdx, colIdx, tableVa
   return <td className="fra-table__cell">
     <ThousandSeparatedIntegerInput integerValue={ currentValue }
                                    className="fra-table__integer-input"
-                                   onChange={ (evt) => tableValueChanged(countryIso, tableSpec, rowIdx, colIdx, evt.target.value) }
-                                   onPaste={ () => console.log('pasted', rowIdx, colIdx) }/>
+                                   onChange={ (evt) => tableValueChanged(countryIso, tableSpec, rowIdx, colIdx, evt.target.value) }/>
   </td>
 }
 
