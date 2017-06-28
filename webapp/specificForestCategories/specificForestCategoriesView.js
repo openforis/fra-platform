@@ -10,7 +10,7 @@ class SpecificForestCategoriesView extends React.Component {
   render() {
     return <LoggedInPageTemplate>
       <div className="sfc__container">
-        <h2 className="headline ofc__page-header">Specific forest categories</h2>
+        <h2 className="headline sfc__page-header">Specific forest categories</h2>
         <TraditionalTable tableSpec={tableSpec} countryIso={this.props.match.params.countryIso}/>
       </div>
     </LoggedInPageTemplate>
