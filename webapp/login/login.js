@@ -13,15 +13,11 @@ const LoginView = ({requestLogin}) =>
         <h2 className="login__header headline">Login to FRA Platform</h2>
         {getUrlParameter('u') ? <div className="login__fail-info">User not authorized</div> : ''}
         <div className="login__input-group">
-          <label htmlFor="email">Email</label>
-          <input id="email" type="text" defaultValue="jan.egeland@mailinator.com"/>
+          <a className="btn btn-primary login__btn" href="/auth/google">
+            Sign in with Google
+          </a>
         </div>
-        <button className="btn btn-primary login__btn"
-                onClick={() => requestLogin(document.getElementById('email').value)}>
-          Sign in
-        </button>
       </div>
-      <a href="/auth/google">Sign In with Google</a>
       <p className="login__legal">&copy; FAO, 2017</p>
     </div>
   </div>
