@@ -1,11 +1,11 @@
 /*
  * To create table definition (CREATE TABLE... clause) use this script:
  *
- * ~/<project-home>$ node server/traditionalTable/createTableTool.js <name of the table spec>
+ * ~/<project-home>$ node tools/createTraditionalTable.js <name of the table spec>
  *
  * For spec names, see tableMappings.js (const mappings = ...)
  */
-const sqlCreator = require('./traditionalTableSqlCreator')
+const sqlCreator = require('../server/traditionalTable/traditionalTableSqlCreator')
 
 if (process.argv.length < 3) {
   console.log(`Usage: ${process.argv[0]} <name of the table spec>`)
