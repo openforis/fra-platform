@@ -1,5 +1,5 @@
-@import "../app-styles/config";
-
+@import (reference) "../app-styles/config";
+@import (reference) "../app-styles/fraTable";
 .odp__container {
   padding: 32px 32px 64px;
 }
@@ -23,40 +23,20 @@
 }
 
 .odp__input-table {
-  border-collapse: collapse;
+  .fra-table;
   margin-bottom: 16px;
-  font-size: 13px;
-  line-height: 20px;
 
   th {
-    background-color: @ui-bg;
-    border: @ui-thin-border;
-    padding: 10px;
+    .fra-table__header-cell;
     min-width: 100px;
   }
 
   td {
-    padding: 0;
-    border: @ui-thin-border;
+    .fra-table__cell;
   }
 
   input {
-    color: inherit;
-    font-size: inherit;
-    border: none;
-    line-height: inherit;
-    padding: 10px;
-    margin: 0;
-    width: 100%;
-
-    &::placeholder {
-      color: @text-disabled;
-    }
-
-    &:focus {
-      outline: none;
-      box-shadow: 0 0 0 1px @text-body;
-    }
+    .fra-table__input;
   }
 }
 
@@ -75,9 +55,8 @@
 .odp__eof-table {
   width: 100%;
 
-  .odp__national-class-total-heading {
-    background-color: @ui-bg;
-    font-weight: bold;
+  // Override padding: 0 from ".odp__input-table td" -selector :(
+  .fra-table__header-cell {
     padding: 10px;
   }
 
@@ -116,8 +95,7 @@
 
 .odp__eof-area-cell {
   > input {
-    text-align: right;
-    padding-right: 10px;
+    .fra-table__integer-input;
   }
 }
 
