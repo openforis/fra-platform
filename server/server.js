@@ -10,7 +10,7 @@ const countryRepository = require('./countryRepository')
 const eofApi = require('./eof/api')
 const odpApi = require('./odp/api')
 const userApi = require('./user/userApi')
-const fraTableApi = require('./traditionalTable/api')
+const traditionalTableApi = require('./traditionalTable/api')
 const descriptionsApi = require('./descriptions/api')
 
 const app = express()
@@ -36,7 +36,7 @@ app.get('/api/country/all', (req, res) => {
 
 odpApi.init(app)
 eofApi.init(app)
-fraTableApi.init(app)
+traditionalTableApi.init(app)
 descriptionsApi.init(app)
 
 app.listen(process.env.PORT, () => {

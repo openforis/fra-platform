@@ -8,9 +8,9 @@ import { acceptNextInteger } from '../utils/numberInput'
 export const tableValueChangedAction = 'traditionalTable/tableValueChanged'
 
 const createNewTableState = (tableSpec, rowIdx, colIdx, newValue, getState) => {
-  const fraTableState = getState().traditionalTable
+  const traditionalTableState = getState().traditionalTable
   assert(tableSpec.name, 'tableSpec is missing name')
-  const tableValues = fraTableState[tableSpec.name] || table.createTableData(tableSpec)
+  const tableValues = traditionalTableState[tableSpec.name] || table.createTableData(tableSpec)
   //When we accept more than integers as input, we should use tableSpec to determine
   //the type here and use the proper transformation
   const sanitizedNewValue = acceptNextInteger(newValue, tableValues[rowIdx][colIdx])
