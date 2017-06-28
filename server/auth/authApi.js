@@ -9,7 +9,6 @@ const R = require('ramda')
 
 module.exports.init = app => {
 
-  // app.configure(() => {
   app.use(express.static('public'))
   app.use(cookieParser())
   app.use(bodyParser.urlencoded({extended: true}))
@@ -23,42 +22,26 @@ module.exports.init = app => {
   }))
   app.use(passport.initialize())
   app.use(passport.session())
-  // })
 
   passport.use(new GoogleStrategy({
       clientID: '1011844730374-24343gagnjfauhn43of92kgvj7jffoe2.apps.googleusercontent.com',
       clientSecret: 'PhG3-PKrEu2KytSjCAeoJjrv',
       callbackURL: '/auth/google/callback'
     },
-    (accessToken, refreshToken, profile, done) => {
-      // const user = R.pipe(R.dissoc('_raw'), R.dissoc('_json'))(profile)
-      // console.log('===== user ', user)
-      userRepository.findUserByLoginEmails(profile.emails.map(e => e.value))
-        .then(user => console.log('===== user ', user))
-      return done(null, false, {message: 'User not authorized'})
-      // return done(null, user)
-      // User.findOrCreate({googleId: profile.id}, function (err, user) {
-      //   return done(err, user)
-      // })
-    }
+    (accessToken, refreshToken, profile, done) =>
+      userRepository
+        .findUserByLoginEmails(profile.emails.map(e => e.value))
+        .then(user => user ? done(null, user) : done(null, false, {message: 'User not authorized'}))
   ))
 
   passport.serializeUser(function (user, done) {
     console.log('=== serializeUser user ', user)
-    done(null, user.id)
+    done(null, user)
   })
 
-  passport.deserializeUser(function (id, done) {
-    // User.findById(id, function(err, user) {
-    const user = {
-      id: '000',
-      displayName: 'Mino Togna',
-      name: {familyName: 'Togna', givenName: 'Mino'},
-      photos: [{value: 'https://lh5.googleusercontent.com/-eYkPADSj8hI/AAAAAAAAAAI/AAAAAAAABiE/S57ZUPD5IAg/photo.jpg?sz=50'}],
-      provider: 'google',
-    }
+  passport.deserializeUser(function (user, done) {
+    console.log('=== deserializeUser user ', user)
     done(null, user)
-    // })
   })
 
   app.get('/auth/google',

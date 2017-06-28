@@ -17,7 +17,7 @@ const getUserInfo = email =>
     }
     ).then(res => res ? R.assoc('roles', camelize(res[1].rows), res[0]) : null)
 
-module.exports.getUserInfo = getUserInfo
+module.exports.getUserInfoByEmail = getUserInfo
 
 module.exports.findUserByLoginEmails = emails =>
   db.query('SELECT email from fra_user WHERE login_email in ($1)', [emails.join(',')])

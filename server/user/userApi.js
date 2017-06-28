@@ -14,7 +14,7 @@ module.exports.init = app => {
     next()
   })
   app.post('/api/login/:email', (req, res) => {
-    userRepository.getUserInfo(req.params.email)
+    userRepository.getUserInfoByEmail(req.params.email)
       .then(result => {
         if (result) {
           req.session.loggedInUser = result
