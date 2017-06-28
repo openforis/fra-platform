@@ -35,7 +35,7 @@ export const fiveYearItems = [
   {
     order: 6,
     label: "Forest area loss, gain and net change",
-    pathTemplate: "#/todo",
+    pathTemplate: "/country/:countryIso/forestAreaChange",
     status: "Not started"
   },
   {
