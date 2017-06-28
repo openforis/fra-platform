@@ -1,5 +1,6 @@
 const db = require('../db/db')
 const R = require('ramda')
+const { toNumberOrNull  } = require('../utils/databaseConversions')
 
 const emptyFraForestArea = (countryIso, year) =>
   db.query('SELECT id FROM eof_fra_values WHERE country_iso = $1 and year = $2', [countryIso, year])
@@ -45,10 +46,6 @@ const updateFraForestArea = (countryIso, year, fraValues) =>
       fraValues.forestAreaEstimated,
       fraValues.otherWoodedLandEstimated,
       fraValues.otherLandEstimated])
-
-const toNumberOrNull = (numericFromDb) => numericFromDb === null
-  ? null
-  : Number(numericFromDb)
 
 const forestAreaReducer = (results, row, type = 'fra') => R.assoc(`fra_${row.year}`,
   {
