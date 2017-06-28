@@ -6,9 +6,11 @@ import LoginView from './login/login'
 import NationalDataEntryView from './nationalDataEntry/nationalDataEntryView'
 import OriginalDataPointView from './originalDataPoint/originalDataPointView'
 import SpecificForestCategoriesView from './specificForestCategories/specificForestCategoriesView'
+import OriginalDataListView from './originalDataPoint/originalDataListView'
 
 const routes = {
   '/': LoginView,
+  '/country/:countryIso/odps': OriginalDataListView,
   '/country/:countryIso': NationalDataEntryView,
   '/country/:countryIso/odp': OriginalDataPointView,
   '/country/:countryIso/odp/:odpId': OriginalDataPointView,

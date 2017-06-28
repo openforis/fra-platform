@@ -5,9 +5,11 @@ import { connect } from 'react-redux'
 import * as originalDataPoint from './originalDataPoint'
 import { saveDraft, markAsActual, remove, fetch, clearActive } from './actions'
 import { acceptNextInteger } from '../utils/numberInput'
+import { separateThousandsWithSpaces } from '../utils/numberFormat'
 import { ThousandSeparatedIntegerInput } from '../reusableUiComponents/thousandSeparatedIntegerInput'
 import LoggedInPageTemplate from '../loggedInPageTemplate'
 import R from 'ramda'
+import ckEditorConfig from '../ckEditor/ckEditorConfig'
 
 const years = ['', ...R.range(1990, 2021)]
 
@@ -21,7 +23,8 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving})
         <select
           className="select"
           value={active.year || ''}
-          onChange={(e) => saveDraft(countryIso, R.assoc('year', Number(e.target.value), active)) }>
+          onChange={
+            (e) => saveDraft(countryIso, R.assoc('year', R.isEmpty(e.target.value) ? null : Number(e.target.value), active)) }>
           {years.map((year) => <option key={year} value={year}>{year}</option>)}
         </select>
       </div>
@@ -65,17 +68,20 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving})
         <tr>
           <td className="odp__national-class-total-heading">Total</td>
           <td className="odp__national-class-total-cell odp__eof-divide-after-cell"></td>
-          <td className="odp__national-class-total-cell">{ originalDataPoint.totalForest(active, 'forestPercent') }</td>
           <td
-            className="odp__national-class-total-cell">{ originalDataPoint.totalForest(active, 'otherWoodedLandPercent') }</td>
+            className="odp__national-class-total-cell">{ separateThousandsWithSpaces(Number(originalDataPoint.totalForest(active, 'forestPercent'))) }</td>
           <td
-            className="odp__national-class-total-cell">{ originalDataPoint.totalForest(active, 'otherLandPercent') }</td>
+            className="odp__national-class-total-cell">{ separateThousandsWithSpaces(Number(originalDataPoint.totalForest(active, 'otherWoodedLandPercent'))) }</td>
+          <td
+            className="odp__national-class-total-cell">{ separateThousandsWithSpaces(Number(originalDataPoint.totalForest(active, 'otherLandPercent'))) }</td>
         </tr>
         </tbody>
       </table>
     </div>
     <h3 className="subhead odp__section">Comments</h3>
-    <textarea id="originalDataPointDescription"/>
+    <div className="cke_wrapper">
+      <textarea id="originalDataPointDescription"/>
+    </div>
     <div className="odp__bottom-buttons">
       <span className={ saveControlsDisabled() ? 'btn btn-destructive disabled' : 'btn btn-destructive' }
             onClick={ () => saveControlsDisabled() ? null : remove(countryIso, active.odpId) }>
@@ -237,26 +243,6 @@ const ExtentOfForestRow = ({
   </tr>
 }
 
-const ckeditorConfig = {
-  plugins: 'a11yhelp,about,basicstyles,blockquote,clipboard,contextmenu,enterkey,entities,floatingspace,format,horizontalrule,htmlwriter,image,indentlist,link,list,magicline,pastefromword,pastetext,removeformat,resize,showborders,specialchar,stylescombo,tab,table,tabletools,toolbar,undo,wysiwygarea',
-  toolbarGroups: [
-    {name: 'clipboard', groups: ['clipboard', 'undo']},
-    {name: 'editing', groups: ['find', 'selection', 'spellchecker']},
-    {name: 'links'},
-    {name: 'insert'},
-    {name: 'forms'},
-    {name: 'tools'},
-    {name: 'document', groups: ['mode', 'document', 'doctools']},
-    {name: 'others'},
-    '/',
-    {name: 'basicstyles', groups: ['basicstyles', 'cleanup']},
-    {name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align', 'bidi']},
-    {name: 'styles'},
-    {name: 'colors'},
-    {name: 'about'}
-  ]
-}
-
 class OriginalDataPointView extends React.Component {
 
   fetchData () {
@@ -293,7 +279,7 @@ class OriginalDataPointView extends React.Component {
   }
 
   componentDidMount () {
-    this.descriptionEditor = CKEDITOR.replace(document.getElementById('originalDataPointDescription'), ckeditorConfig)
+    this.descriptionEditor = CKEDITOR.replace(document.getElementById('originalDataPointDescription'), ckEditorConfig)
     // We need to fetch the data only after CKEDITOR instance is ready :(
     // Otherwise there is no guarantee that the setData()-method succeeds in
     // setting pre-existing html-content

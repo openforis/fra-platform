@@ -6,6 +6,8 @@ import * as autosave from '../autosave/actions'
 export const valueChangeStart = 'nationalDataEntry/value/change/start'
 export const valuesFetched = 'nationalDataEntry/value/fetch/completed'
 
+export const pasteChangeStart = 'nationalDataEntry/value/paste/start'
+
 const fetched = (countryIso, data) => ({
   type: valuesFetched,
   countryIso, data
@@ -28,6 +30,17 @@ const change = ({countryIso, name, value}) => {
   return dispatched
 }
 
+const changeMany = ({countryIso, columnData}) => {
+  const dispatched = dispatch => {
+    return axios.post(`/api/eof/${countryIso}`, {columns: columnData}).then(() => {
+      dispatch(autosave.complete)
+    }).catch((err) => {
+      dispatch(applicationError(err))
+    })
+  }
+  return dispatched
+}
+
 const start = ({name, value}) => ({type: valueChangeStart, name, value})
 
 export const save = (countryIso, name, newValue, fraValue, field) => dispatch => {
@@ -36,6 +49,12 @@ export const save = (countryIso, name, newValue, fraValue, field) => dispatch =>
   dispatch(start({name, value: newFraValue}))
   dispatch(autosave.start)
   dispatch(change({countryIso, name, value: newFraValue}))
+}
+
+export const saveMany = (countryIso, columnData) => dispatch => {
+  dispatch({type: pasteChangeStart, columnData})
+  dispatch(autosave.start)
+  dispatch(changeMany({countryIso, columnData}))
 }
 
 export const fetch = (countryIso) => dispatch => {

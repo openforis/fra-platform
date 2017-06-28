@@ -1,7 +1,7 @@
 @import "../app-styles/config";
 
 .odp__container {
-  padding: 24px;
+  padding: 32px 32px 64px;
 }
 
 .odp_data-page-header {
@@ -153,26 +153,35 @@
 }
 
 .odp__bottom-buttons {
-  margin: 30px 0 30px 0;
+  margin-top: 24px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-/* ckeditor style modifications */
+.odp-list__container {
+  padding: 32px 32px 64px;
 
-.odp__data-input-component {
-  .cke_top {
-    background: @ui-bg;
-    border-bottom: 1px solid @ui-border;
+  h2, table {
+    margin-bottom: 24px;
   }
+}
 
-  .cke_bottom {
-    background: @ui-bg;
-    border-top: 1px solid @ui-border;
-  }
+.odp-list__list-table {
+  width: 100%;
+  font-size: @font-m;
+  border-collapse: collapse;
+}
 
-  .cke_chrome {
-    border: 1px solid @ui-border;
+.odp-list__year-column {
+  width: 60px;
+}
+
+.odp-list__list-row {
+  border-bottom: @ui-thin-border;
+  height: 44px;
+  text-align: left;
+  td, th {
+    padding: 12px;
   }
 }

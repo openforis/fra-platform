@@ -2,12 +2,17 @@ import './style.less'
 import React from 'react'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
-import { save, fetch, generateFraValues } from './actions'
+import { save, saveMany, fetch, generateFraValues } from './actions'
 import { Link } from './../link'
 import Chart from './chart/chart'
 import IssueWidget from '../issue/issueWidget'
 import LoggedInPageTemplate from '../loggedInPageTemplate'
+import { separateThousandsWithSpaces } from '../utils/numberFormat'
 import { ThousandSeparatedIntegerInput } from '../reusableUiComponents/thousandSeparatedIntegerInput'
+import Description from '../description/description'
+import { readPasteClipboard } from '../utils/copyPasteUtil'
+
+const mapIndexed = R.addIndex(R.map)
 
 const OdpHeading = ({countryIso, odpValue}) =>
   <Link to={`/country/${countryIso}/odp/${odpValue.odpId}`}>
@@ -31,9 +36,9 @@ class DataTable extends React.Component {
             )
           }
         </div>
-        { fraValueRow('Forest area', "forest", this.props.countryIso, 'forestArea', this.props.fra, this.props.save) }
-        { fraValueRow('Other wooded land', 'otherWoodedLand', this.props.countryIso, 'otherWoodedLand', this.props.fra, this.props.save) }
-        { fraValueRow('Other land', 'otherLand', this.props.countryIso, 'otherLand', this.props.fra, this.props.save) }
+        { fraValueRow('Forest area', "forest", this.props.countryIso, 'forestArea', this.props.fra, this.props.save, this.props.saveMany, 0) }
+        { fraValueRow('Other wooded land', 'otherWoodedLand', this.props.countryIso, 'otherWoodedLand', this.props.fra, this.props.save, this.props.saveMany, 1) }
+        { fraValueRow('Other land', 'otherLand', this.props.countryIso, 'otherLand', this.props.fra, this.props.save, this.props.saveMany, 2) }
       </div>
       <div className="nde__comment-column">
         <div className="nde__comment-cell"><IssueWidget target={['forest']}
@@ -50,36 +55,60 @@ class DataTable extends React.Component {
   }
 }
 
-const fraValueRow = (rowHeading, target, countryIso, field, fra, save) =>
+const fraValueRow = (rowHeading, target, countryIso, field, fra, save, saveMany, colId) =>
   <div className="nde__input-table-content">
     <div className="nde__input-table-content-row-header-cell">{ rowHeading }</div>
     {
-      R.values(fra).map(v =>
+      mapIndexed((v,i) =>
         <div className="nde__input-table-content-cell" key={`${v.type}_${v.name}`}>
           {
             v.type === 'odp'
               ? odpCell(v, field)
-              : fraValueCell(v, fra, countryIso, save, field)
+              : fraValueCell(v, fra, countryIso, save, saveMany, field, colId, i)
           }
         </div>
-      )
+      , R.values(fra))
     }
   </div>
 
 const fraFieldValueForInput = (fieldValue) =>
   typeof fieldValue === 'number'
-  ? fieldValue
-  : ''
+    ? fieldValue
+    : ''
 
-const fraValueCell = (fraValue, fra, countryIso, save, field) =>
+const updatePastedValues = (evt, rowIdx, colIdx, fra, rowNames = {
+  0: 'forestArea',
+  1: 'otherWoodedLand',
+  2: 'otherLand'
+}) => {
+
+  let toPaste = {}
+  mapIndexed((r, i) => {
+    const row = rowIdx + i
+    mapIndexed((c, j) => {
+      const col = colIdx + j
+      if (fra.type === 'odp' || R.isNil(fra[col])) return
+      toPaste = R.mergeDeepRight({[fra[col].year]: {[rowNames[row]]: c}}, toPaste)
+    }, r)
+  }, readPasteClipboard(evt))
+
+  const pasted = R.pipe(
+    R.map(fra => toPaste[fra.year] ? R.merge(fra, toPaste[fra.year]) : null),
+    R.reject(R.isNil))(fra)
+
+  return pasted
+}
+
+const fraValueCell = (fraValue, fra, countryIso, save, saveMany, field, colIdx, rowIdx) =>
   <ThousandSeparatedIntegerInput
     className="nde__input-table-input"
     integerValue={ fraValue[field] }
+    onPaste={ e => saveMany(countryIso, updatePastedValues(e, colIdx, rowIdx, fra)) }
     onChange={ e => { save(countryIso, fraValue.name, e.target.value, fraValue, field) } }/>
 
 const odpCell = (odpValue, field) =>
   <span className="nde__input-table-cell_odp">
-    {odpValue[field]}
+    {separateThousandsWithSpaces(Math.round(odpValue[field]))}
   </span>
 
 class ChartWrapper extends React.Component {
@@ -89,15 +118,15 @@ class ChartWrapper extends React.Component {
     this.resizeListener = () => this.forceUpdate()
   }
 
-  componentDidMount() {
+  componentDidMount () {
     window.addEventListener('resize', this.resizeListener, true)
   }
 
-  componentWillUnmount(){
+  componentWillUnmount () {
     window.removeEventListener('resize', this.resizeListener, true)
   }
 
-  render() {
+  render () {
     const defaultWidth = 913 //TODO what's a good default before we have bounding rect?
     const width = this.refs.chartWrapper ? this.refs.chartWrapper.getBoundingClientRect().width : defaultWidth
     return <div ref="chartWrapper" className="nde__data-chart">
@@ -116,7 +145,7 @@ const NationalDataEntry = (props) => {
     return props.generatingFraValues || odps.length < 2
   }
 
-  const marginClass = R.isNil(props.openCommentThread) ? "nde__comment-margin" : "nde__comment-thread-margin"
+  const marginClass = R.isNil(props.openCommentThread) ? 'nde__comment-margin' : 'nde__comment-thread-margin'
 
   return <div className={`nde__data-input-component`}>
     <div className="nde__data-page-header">
@@ -134,12 +163,16 @@ const NationalDataEntry = (props) => {
       <ChartWrapper/>
       <div className="nde__data-table-header">
         <h3 className="subhead">Extent of forest values</h3>
-        <button disabled={disableGenerateFRAValues()} className="btn btn-primary"
+        <button disabled={ disableGenerateFRAValues() } className="btn btn-primary"
                 onClick={() => props.generateFraValues(props.countryIso)}>Generate FRA values
         </button>
       </div>
     </div>
-      <DataTable {...props} />
+    <DataTable {...props} />
+    <Description title="Data Sources" name="dataSources" countryIso={props.match.params.countryIso}/>
+    <Description title="National classification and definitions" name="nationalClassification"
+                 countryIso={props.match.params.countryIso}/>
+    <Description title="Original data" name="originalData" countryIso={props.match.params.countryIso}/>
   </div>
 }
 
@@ -164,6 +197,6 @@ class DataFetchingComponent extends React.Component {
   }
 }
 
-const mapStateToProps = state => R.merge(state.nationalDataEntry, {"openCommentThread": state.issue.openThread})
+const mapStateToProps = state => R.merge(state.nationalDataEntry, {'openCommentThread': state.issue.openThread})
 
-export default connect(mapStateToProps, {save, fetch, generateFraValues})(DataFetchingComponent)
+export default connect(mapStateToProps, {save, saveMany, fetch, generateFraValues})(DataFetchingComponent)

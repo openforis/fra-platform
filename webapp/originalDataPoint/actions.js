@@ -18,7 +18,7 @@ const startSavingDraft = (obj) => ({type: dataPointSaveDraftStart, active: obj})
 
 const persistDraft = (countryIso, odp) => {
   const dispatched = dispatch =>
-    axios.post(`/api/country/originalDataPoint/draft/${countryIso}`, removeClassPlaceholder(odp)).then((resp) => {
+    axios.post(`/api/odp/draft/?countryIso=${countryIso}`, removeClassPlaceholder(odp)).then((resp) => {
       dispatch(autosave.complete)
       dispatch(saveDraftCompleted(resp.data.odpId))
     }).catch((err) => {
@@ -44,7 +44,7 @@ export const clearActive = () => ({type: clearActiveAction})
 // Delete
 
 export const remove = (countryIso, odpId) => dispatch => {
-  axios.delete(`/api/country/originalDataPoint/${odpId}`)
+  axios.delete(`/api/odp/?odpId=${odpId}`)
     .then(() => {
       dispatch({type: clearActiveAction})
       window.location = `#/country/${countryIso}`
@@ -55,7 +55,7 @@ export const remove = (countryIso, odpId) => dispatch => {
 // Marking drafts
 
 export const markAsActual = (countryIso, odpId) => dispatch =>
-  axios.post(`/api/country/originalDataPoint/draft/markAsActual/${odpId}`).then(resp => {
+  axios.post(`/api/odp/markAsActual/?odpId=${odpId}`).then(resp => {
     dispatch({type: clearActiveAction})
     window.location = `#/country/${countryIso}`
   })
@@ -66,10 +66,18 @@ export const markAsActual = (countryIso, odpId) => dispatch =>
 // fetching odp's
 
 export const odpFetchCompleted = 'originalDataPoint/fetch/completed'
+export const odpListFetchCompleted = 'originalDataPointList/fetch/completed'
 
 export const fetch = (odpId) => dispatch =>
-  axios.get(`/api/country/originalDataPoint/${odpId}`).then(resp => {
+  axios.get(`/api/odp/?odpId=${odpId}`).then(resp => {
     dispatch({type: odpFetchCompleted, active: addNationalClassPlaceHolder(resp.data)})
+  })
+    .catch(err =>
+      dispatch(applicationError(err))
+    )
+export const fetchOdps = countryIso => dispatch =>
+  axios.get(`/api/odp/?countryIso=${countryIso}`).then(resp => {
+    dispatch({type: odpListFetchCompleted, data: resp.data})
   })
     .catch(err =>
       dispatch(applicationError(err))

@@ -16,7 +16,7 @@ module.exports.init = app => {
   app.get('/api/country/issue/:countryIso/:section', (req, res) => {
     issueRepository.getIssues(req.params.countryIso, req.params.section)
       .then(result => {
-        const target =  req.query.target && req.query.target.split(',')
+        const target = req.query.target && req.query.target.split(',')
         const issues = R.map(issue => {
           const diff = R.pipe(R.path(['target', 'params']), R.difference(target))(issue)
           return R.isEmpty(diff) ? issue : []
@@ -25,6 +25,7 @@ module.exports.init = app => {
       })
       .catch(err => sendErr(res, err))
   })
+
   app.post('/api/country/issue/:countryIso/:section', (req, res) => {
     const userId = req.session.loggedInUser.id
     const target = req.query.target ? req.query.target.split(',') : []
@@ -34,10 +35,22 @@ module.exports.init = app => {
       .then(result => res.json({}))
       .catch(err => sendErr(res, err))
   })
+
   app.post('/api/country/comment/:issueId', (req, res) => {
     const userId = req.session.loggedInUser.id
     db.transaction(issueRepository.createComment, [req.params.issueId, userId, req.body.msg, ''])
       .then(result => res.json({}))
+      .catch(err => sendErr(res, err))
+  })
+
+  app.post('/api/eof/:countryIso', (req, res) => {
+    const updates = []
+    R.map(c => {
+      updates.push(fraRepository.persistFraValues(req.params.countryIso, c.year, c))
+    }, req.body.columns)
+
+    Promise.all(updates)
+      .then(() => res.json({}))
       .catch(err => sendErr(res, err))
   })
 
@@ -64,31 +77,6 @@ module.exports.init = app => {
       .catch(err => sendErr(res, err))
   })
 
-  app.get('/api/country/originalDataPoint/:odpId', (req, res) => {
-    odpRepository.getOdp(req.params.odpId)
-      .then(resp => res.json(resp))
-      .catch(err => sendErr(res, err))
-  })
-
-  app.delete('/api/country/originalDataPoint/:odpId', (req, res) => {
-    db.transaction(odpRepository.deleteOdp, [req.params.odpId])
-      .then(() => res.json({}))
-      .catch(err => sendErr(res, err))
-  })
-
-  app.post('/api/country/originalDataPoint/draft/:countryIso', (req, res) => {
-    const countryIso = req.params.countryIso
-    db.transaction(odpRepository.saveDraft, [countryIso, req.body])
-      .then(result => res.json(result))
-      .catch(err => sendErr(res, err))
-  })
-
-  app.post('/api/country/originalDataPoint/draft/markAsActual/:opdId', (req, res) =>
-    db.transaction(odpRepository.markAsActual, [req.params.opdId])
-      .then(() => res.json({}))
-      .catch(err => sendErr(res, err))
-  )
-
   app.post('/api/country/estimation/generateFraValues/:countryIso', (req, res) => {
     const years = R.pipe(
       R.values,
@@ -100,4 +88,30 @@ module.exports.init = app => {
       .then(() => res.json({}))
       .catch(err => sendErr(res, err))
   })
+
+  app.get('/api/nav/status/:countryIso', (req, res) => {
+   const odpData = odpRepository.listOriginalDataPoints(req.params.countryIso, true)
+
+    const yearsValid = R.pipe( // if year not specified for a odp, raise error flag
+          R.values,
+          R.filter(R.pathEq(['year'], 0)),
+          R.isEmpty
+    )
+    const percentagesValid = R.pipe( // if total percentages of odp go over 100, raise error flag
+      R.values,
+      R.filter(R.pipe(R.prop('totalPercentage'), R.lt(100))),
+      R.isEmpty
+    )
+
+    // in future we certainly will need the Promise.all here wink wink
+    Promise.all([odpData]).then(([odpResult]) => {
+      const odpStatus = {
+        count: R.values(odpResult).length,
+        errors: R.contains(false, [yearsValid(odpResult), percentagesValid(odpResult)])
+      }
+      res.json({odpStatus})
+    })
+    .catch(err => sendErr(res, err))
+  })
+
 }

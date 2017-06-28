@@ -1,6 +1,5 @@
 const db = require('../db/db')
 const R = require('ramda')
-const camelize = require('camelize')
 
 const emptyFraForestArea = (countryIso, year) =>
   db.query('SELECT id FROM eof_fra_values WHERE country_iso = $1 and year = $2', [countryIso, year])
@@ -70,3 +69,4 @@ module.exports.readFraForestAreas = (countryIso) =>
     'SELECT year, forest_area, other_wooded_land, other_land, forest_area_estimated, other_wooded_land_estimated , other_land_estimated from eof_fra_values WHERE country_iso = $1',
     [countryIso]
   ).then((result) => R.reduce(forestAreaReducer, {}, result.rows))
+
