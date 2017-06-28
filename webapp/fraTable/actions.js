@@ -3,6 +3,7 @@ import assert from 'assert'
 import axios from 'axios'
 import * as autosave from '../autosave/actions'
 import { applicationError } from '../applicationError/actions'
+import { acceptNextInteger } from '../utils/numberInput'
 
 export const tableValueChangedAction = 'fraTable/tableValueChanged'
 
@@ -10,7 +11,10 @@ const createNewTableState = (tableSpec, rowIdx, colIdx, newValue, getState) => {
   const fraTableState = getState().fraTable
   assert(tableSpec.name, 'tableSpec is missing name')
   const tableValues = fraTableState[tableSpec.name] || table.createTableData(tableSpec)
-  return table.update(tableValues, rowIdx, colIdx, !isNaN(newValue) ? Number(newValue) : newValue) // TODO use tableSpec for this
+  //When we accept more than integers as input, we should use tableSpec to determine
+  //the type here and use the proper transformation
+  const sanitizedNewValue = acceptNextInteger(newValue, tableValues[rowIdx][colIdx])
+  return table.update(tableValues, rowIdx, colIdx, sanitizedNewValue)
 }
 
 const saveChanges = (countryIso, tableSpecName, tableState) => {
