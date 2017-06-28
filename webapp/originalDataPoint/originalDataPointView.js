@@ -66,7 +66,7 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving})
           extentOfForestRows(countryIso, active, saveDraft)
         }
         <tr>
-          <td className="odp__national-class-total-heading">Total</td>
+          <td className="fra-table__header-cell">Total</td>
           <td className="odp__national-class-total-cell odp__eof-divide-after-cell"></td>
           <td
             className="odp__national-class-total-cell">{ separateThousandsWithSpaces(Number(originalDataPoint.totalForest(active, 'forestPercent'))) }</td>

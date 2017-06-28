@@ -1,10 +1,7 @@
 @import (reference) "./config";
 
 .fra-table {
-  overflow-x: auto;
   border-collapse: collapse;
-  border-top: 1px solid @ui-border;
-  border-left: 1px solid @ui-border;
   font-size: 13px;
   line-height: 20px;
 }
@@ -21,7 +18,7 @@
   border: 1px solid #CCCCCC;
 }
 
-.fra-table__integer-input {
+.fra-table__input {
   color: inherit;
   font-size: inherit;
   border: none;
@@ -29,11 +26,19 @@
   padding: 10px;
   margin: 0;
   width: 100%;
-  text-align: right;
   &:focus {
     outline: none;
     box-shadow: 0 0 0 1px @text-body;
   }
+  &::placeholder {
+    color: @text-mute;
+    font-style: italic;
+  }
+}
+
+.fra-table__integer-input {
+  .fra-table__input;
+  text-align: right;
 }
 
 .fra-table__cell-input {
