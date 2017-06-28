@@ -1,5 +1,5 @@
 const db = require('../db/db')
-const repository = require('./fraTableRepository')
+const repository = require('./traditionalTableRepository')
 const {sendErr} = require('../requestUtils')
 
 module.exports.init = app => {

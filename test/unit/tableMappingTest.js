@@ -1,5 +1,5 @@
 const assert = require('chai').assert
-const tableMappings = require('../../server/fraTable/tableMappings')
+const tableMappings = require('../../server/traditionalTable/tableMappings')
 
 const exampleData = {
   rows: {

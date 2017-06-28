@@ -10,7 +10,7 @@ const countryRepository = require('./countryRepository')
 const eofApi = require('./eof/api')
 const odpApi = require('./odp/api')
 const userApi = require('./user/userApi')
-const fraTableApi = require('./fraTable/api')
+const fraTableApi = require('./traditionalTable/api')
 const descriptionsApi = require('./descriptions/api')
 
 const app = express()

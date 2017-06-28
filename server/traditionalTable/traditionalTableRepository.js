@@ -1,6 +1,6 @@
 const db = require('../db/db')
 const R = require('ramda')
-const sqlCreator = require('./fraTableSqlCreator')
+const sqlCreator = require('./traditionalTableSqlCreator')
 const tableMappings = require('./tableMappings')
 
 module.exports.save = (client, countryIso, tableSpecName, tableState) => {
