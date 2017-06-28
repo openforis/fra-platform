@@ -25,8 +25,10 @@ const ODPListing = ({countryIso, odps = []}) => <div className="odp-list__contai
         <use xlinkHref='img/icon.svg#icon-alert'/>
       </svg> : null}</td>
       <td>-</td>
-      <td><Link to={`/country/${countryIso}/odp/${odp.odpId}`}>Edit</Link></td>
-    </tr>) : <tr className='odp-list__list-row'><td>No national data added</td><td></td><td></td><td></td></tr>}
+      <td className='odp-list__edit-column'>
+        <Link className="link" to={`/country/${countryIso}/odp/${odp.odpId}`}>Edit</Link>
+      </td>
+    </tr>) : <tr className="odp-list__list-row"><td className="odp_list__empty-column" colSpan="4">No national data added</td></tr>}
     </tbody>
   </table>
   <Link className="btn btn-primary" to={`/country/${countryIso}/odp`}>

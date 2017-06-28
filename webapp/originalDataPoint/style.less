@@ -50,8 +50,7 @@
     width: 100%;
 
     &::placeholder {
-      color: @text-mute;
-      font-style: italic;
+      color: @text-disabled;
     }
 
     &:focus {
@@ -170,6 +169,7 @@
 .odp-list__list-table {
   width: 100%;
   font-size: @font-m;
+  line-height: 20px;
   border-collapse: collapse;
 }
 
@@ -177,10 +177,18 @@
   width: 60px;
 }
 
+.odp-list__edit-column {
+  text-align: right;
+}
+
+.odp_list__empty-column {
+  color: @text-disabled;
+}
+
 .odp-list__list-row {
   border-bottom: @ui-thin-border;
-  height: 44px;
   text-align: left;
+
   td, th {
     padding: 12px;
   }
