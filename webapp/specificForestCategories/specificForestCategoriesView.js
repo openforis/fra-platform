@@ -3,7 +3,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import LoggedInPageTemplate from '../loggedInPageTemplate'
-import GenericTable from '../fraTable/genericTable'
+import TraditionalTable from '../traditionalTable/traditionalTable'
 import tableSpec from './tableSpec'
 
 class SpecificForestCategoriesView extends React.Component {
@@ -11,7 +11,7 @@ class SpecificForestCategoriesView extends React.Component {
     return <LoggedInPageTemplate>
       <div className="sfc__container">
         <h2 className="headline ofc__page-header">Specific forest categories</h2>
-        <GenericTable tableSpec={tableSpec} countryIso={this.props.match.params.countryIso}/>
+        <TraditionalTable tableSpec={tableSpec} countryIso={this.props.match.params.countryIso}/>
       </div>
     </LoggedInPageTemplate>
   }
