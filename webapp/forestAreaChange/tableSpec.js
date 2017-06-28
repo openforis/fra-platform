@@ -32,7 +32,10 @@ export default {
     ],
     [
       {type: 'readOnly', jsx: <td key="" className="fra-table__header-cell">Forest area net change</td>},
-      ...integerInputColumns
+      {type: 'readOnly', jsx: <td key="" className="fra-table__text-readonly-cell">TBD</td>},
+      {type: 'readOnly', jsx: <td key="" className="fra-table__text-readonly-cell">TBD</td>},
+      {type: 'readOnly', jsx: <td key="" className="fra-table__text-readonly-cell">TBD</td>},
+      {type: 'readOnly', jsx: <td key="" className="fra-table__text-readonly-cell">TBD</td>}
     ]
   ]
 }
