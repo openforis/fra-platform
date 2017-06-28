@@ -18,7 +18,7 @@ module.exports.init = app => {
     secret: 'loggedInUser',
     name: 'loggedInUser',
     resave: true,
-    saveUninitialized: true,
+    saveUninitialized: false,
     cookie: {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: false}
   }))
   app.use(passport.initialize())
@@ -31,9 +31,12 @@ module.exports.init = app => {
       callbackURL: '/auth/google/callback'
     },
     (accessToken, refreshToken, profile, done) => {
-      const user = R.pipe(R.dissoc('_raw'), R.dissoc('_json'))(profile)
-      console.log('===== user ', user)
-      return done(null, user)
+      // const user = R.pipe(R.dissoc('_raw'), R.dissoc('_json'))(profile)
+      // console.log('===== user ', user)
+      userRepository.findUserByLoginEmails(profile.emails.map(e => e.value))
+        .then(user => console.log('===== user ', user))
+      return done(null, false, {message: 'User not authorized'})
+      // return done(null, user)
       // User.findOrCreate({googleId: profile.id}, function (err, user) {
       //   return done(err, user)
       // })
@@ -41,6 +44,7 @@ module.exports.init = app => {
   ))
 
   passport.serializeUser(function (user, done) {
+    console.log('=== serializeUser user ', user)
     done(null, user.id)
   })
 

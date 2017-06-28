@@ -29,6 +29,8 @@ module.exports.init = app => {
       .catch(err => sendErr(res, err))
   })
   app.get('/api/loggedInUser/', (req, res) => {
+    console.log('==== session:')
+    console.log(req.session)
     if (req.session.loggedInUser)
       res.json({userInfo: req.session.loggedInUser})
     else
