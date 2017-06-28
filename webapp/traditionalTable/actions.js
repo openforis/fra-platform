@@ -19,7 +19,7 @@ const createNewTableState = (tableSpec, rowIdx, colIdx, newValue, getState) => {
 
 const saveChanges = (countryIso, tableSpecName, tableState) => {
   const debounced = dispatch =>
-    axios.post(`/api/saveFraTable/${countryIso}/${tableSpecName}`, {tableState}).then(() => {
+    axios.post(`/api/saveTraditionalTable/${countryIso}/${tableSpecName}`, {tableState}).then(() => {
       dispatch(autosave.complete)
     }).catch((err) => {
       dispatch(applicationError(err))
@@ -29,7 +29,7 @@ const saveChanges = (countryIso, tableSpecName, tableState) => {
   debounced.meta = {
     debounce: {
       time: 800,
-      key: 'saveFraTable-' + tableSpecName
+      key: 'saveTraditionalTable-' + tableSpecName
     }
   }
   return debounced
@@ -43,7 +43,7 @@ export const tableValueChanged = (countryIso, tableSpec, rowIdx, colIdx, newValu
 }
 
 export const fetchTableData = (countryIso, tableSpec) => dispatch => {
-  axios.get(`/api/readFraTable/${countryIso}/${tableSpec.name}`).then(resp => {
+  axios.get(`/api/readTraditionalTable/${countryIso}/${tableSpec.name}`).then(resp => {
     dispatch({type: tableValueChangedAction, tableSpec, newTableState: resp.data})
   }).catch((err) => {
     dispatch(applicationError(err))
