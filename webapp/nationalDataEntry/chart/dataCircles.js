@@ -33,7 +33,7 @@ const renderOdpLines = ({xScale, yScale}) => (d, index) => {
     y2: yScale(d.value)
   }
 
-  return <line key={index} {...lineProps} strokeWidth="1" stroke="rgba(0, 0, 0, 0.3)"></line>
+  return <line key={index} {...lineProps} strokeWidth="1" stroke="#cccccc"></line>
 }
 
 const DataCircles = (props) => {

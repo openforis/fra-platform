@@ -2,6 +2,7 @@ const db = require('../db/db')
 const R = require('ramda')
 const sqlCreator = require('./traditionalTableSqlCreator')
 const tableMappings = require('./tableMappings')
+const { toNumberOrNull  } = require('../utils/databaseConversions')
 
 module.exports.save = (client, countryIso, tableSpecName, tableState) => {
   const [deleteQuery, deleteQyeryParams] = sqlCreator.createDelete(countryIso, tableSpecName)
@@ -21,12 +22,10 @@ const createTableData = (cols, rows) =>
     (rowIdx) => new Array(cols),
     R.range(0, rows))
 
-const toNumber = value => value === null ? null : Number(value)
-
 // Now assumes that values are numbers, we might have to add types to
 // mapping later in addition to row and column names
 const update = (tableValues, rowIdx, colIdx, newValue) =>
-  R.update(rowIdx, R.update(colIdx, toNumber(newValue), tableValues[rowIdx]), tableValues)
+  R.update(rowIdx, R.update(colIdx, toNumberOrNull(newValue), tableValues[rowIdx]), tableValues)
 
 const handleRow = mapping => (tableData, row) => {
   const values = R.omit(sqlCreator.fixedFraTableColumns, row)
