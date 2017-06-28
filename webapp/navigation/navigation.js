@@ -113,7 +113,7 @@ const Nav = ({path, country, countries, follow, getCountryList, status = {}, use
         }
         <PrimaryItem label="Five-year Cycle"/>
         {
-          fiveYearItems.map(v => <SecondaryItem key={v.label} {...v} />)
+          fiveYearItems.map(v => <SecondaryItem path={path} key={v.label} goTo={follow} countryIso={country} {...v} />)
         }
       </div>
     </div>

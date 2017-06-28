@@ -8,6 +8,7 @@ import navigation from './navigation/reducers'
 import router from './router/reducers'
 import user from './login/reducer'
 import issue from './issue/reducer'
+import traditionalTable from './traditionalTable/reducer'
 import descriptions from './description/reducers'
 
 export default combineReducers({
@@ -19,5 +20,6 @@ export default combineReducers({
   navigation,
   router,
   user,
-  issue
+  issue,
+  traditionalTable
 })
