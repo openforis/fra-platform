@@ -5,10 +5,10 @@ import * as autosave from '../autosave/actions'
 import { applicationError } from '../applicationError/actions'
 import { acceptNextInteger } from '../utils/numberInput'
 
-export const tableValueChangedAction = 'fraTable/tableValueChanged'
+export const tableValueChangedAction = 'traditionalTable/tableValueChanged'
 
 const createNewTableState = (tableSpec, rowIdx, colIdx, newValue, getState) => {
-  const fraTableState = getState().fraTable
+  const fraTableState = getState().traditionalTable
   assert(tableSpec.name, 'tableSpec is missing name')
   const tableValues = fraTableState[tableSpec.name] || table.createTableData(tableSpec)
   //When we accept more than integers as input, we should use tableSpec to determine

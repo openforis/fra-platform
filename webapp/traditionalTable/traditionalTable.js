@@ -62,7 +62,7 @@ class FraTable extends React.Component {
 
 const mapStateToProps = (state, props) => {
   assert(props.tableSpec.name, 'tableSpec is missing name')
-  return {...props, tableData: state.fraTable[props.tableSpec.name] || table.createTableData(props.tableSpec)}
+  return {...props, tableData: state.traditionalTable[props.tableSpec.name] || table.createTableData(props.tableSpec)}
 }
 
 export default connect(mapStateToProps, { tableValueChanged, fetchTableData })(FraTable)
