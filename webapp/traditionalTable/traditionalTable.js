@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import R from 'ramda'
 import assert from 'assert'
 
-import './tableStyles.less'
 import { ThousandSeparatedIntegerInput } from '../reusableUiComponents/thousandSeparatedIntegerInput'
 import * as table from './table'
 import { tableValueChanged, fetchTableData } from './actions'
