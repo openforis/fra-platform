@@ -16,6 +16,8 @@ const years = ['', ...R.range(1990, 2021)]
 const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving}) => {
   const countryIso = match.params.countryIso
   const saveControlsDisabled = () => !active.odpId || autoSaving
+  const copyPreviousValuesDisabled = () => active.year ? false : true
+
   return <div className="odp__data-input-component">
     <div className="odp_data-input-row">
       <div>
@@ -32,7 +34,9 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving})
     <div>
       <h3 className="subhead odp__section">
         National classes
-        <button disabled="disabled" className="btn btn-primary btn-copy-prev-values">Copy previous values</button>
+        <button disabled={copyPreviousValuesDisabled()} className="btn btn-primary btn-copy-prev-values">Copy
+          previous values
+        </button>
       </h3>
       <table className="odp__input-table odp__national-class-table">
         <thead>
