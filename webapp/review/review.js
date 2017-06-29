@@ -2,7 +2,7 @@ import * as R from 'ramda'
 import React from 'react'
 import { connect } from 'react-redux'
 
-import {postComment, retrieveComments} from './actions'
+import {postComment, retrieveComments, closeCommentThread} from './actions'
 
 import './style.less'
 
@@ -52,7 +52,10 @@ const AddComment = ({issueId, countryIso, section, target, postComment, onCancel
                 postComment(issueId, countryIso, section, target, null, document.getElementById(`fra-issue__comment-input-${target}`).value)
                 document.getElementById(`fra-issue__comment-input-${target}`).value = ''
               }}>Add</button>
-      <button className="btn btn-s btn-secondary" onClick={() => onCancel()}>Cancel</button>
+      <button className="btn btn-s btn-secondary" onClick={() => {
+        console.log('cancel')
+        onCancel()
+      }}>Cancel</button>
     </div>
   </div>
 
@@ -80,12 +83,14 @@ class ReviewPanel extends React.Component {
 
 render() {
   const isActive = R.pipe(R.defaultTo([]), R.isEmpty, R.not)(this.props.openThread)
+  console.log('isActive', isActive)
   const target = isActive ? R.head(this.props.openThread) : null
   const comments = target ? this.props[target].issue : []
   const close = R.partial(ctx => {
+    console.log('closing')
     ctx.props.closeCommentThread(ctx.props.target)
     // ctx.setState({widgetVisualState: 'hidden'})}, [this])
-  })
+  }, [this])
   return <div className={`review-panel-${isActive ? 'active' : 'hidden'}`}>
     <CommentThread
     countryIso={this.props.country}
@@ -102,5 +107,5 @@ render() {
 
 const mapSateToProps = state => R.pipe(R.prop('review'), R.defaultTo({}), R.merge(state.router), R.merge(state.user))(state)
 
-export default connect(mapSateToProps, {postComment, retrieveComments})(ReviewPanel)
+export default connect(mapSateToProps, {postComment, retrieveComments, closeCommentThread})(ReviewPanel)
 

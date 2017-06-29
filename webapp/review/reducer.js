@@ -21,7 +21,12 @@ const actionHandlers = {
     return ({...state, [action.target]: R.merge(state[action.target], {count: action.count})})
   },
   [issueOpenCommentThread]: (state, action) => ({...state, 'openThread': action.target}),
-  [issueCloseCommentThread]: (state, action) => R.omit(['openThread'], state)
+  [issueCloseCommentThread]: (state, action) => {
+    console.log('state', state)
+    const newstate = R.omit(['openThread'], state)
+    console.log('new state', newstate)
+    return newstate
+  }
 }
 
 export default (state = {}, action) => applyReducerFunction(actionHandlers, state, action)
