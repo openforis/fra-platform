@@ -1,3 +1,5 @@
+@import "../app-styles/config";
+
 .fra-issue__add-issue {
   display: flex;
   padding: 0 12px 12px;
@@ -11,6 +13,12 @@
   visibility: visible;
   transition: visibility 0.1s, opacity 0.1s ease-out, width 0.1s ease-out;
   opacity: 1;
+  border: 1px solid #CCCCCC;
+  box-shadow: inset 1px 0 0 0 #cccccc;
+  box-shadow: inset 1px 0 0 0 var(--ui-border);
+  background: white;
+  display: flex;
+  flex-flow: column nowrap;
 }
 
 .review-panel-hidden {
@@ -20,22 +28,46 @@
   opacity: 0;
 }
 
+.review-panel__add-comment {
+}
+
 .review-panel__comments {
+
+}
+
+.fra-issue__issue-comment-input {
+  border: solid 1px #cccccc;
+  border-radius: 2px;
+  margin: 8px 16px;
+  height: 36px;
+  min-height: 36px;
+  max-height: 76px;
+  width: 256px;
+  resize: none;
+  padding: 8px 16px 0;
+  font-size: @font-s;
+  font-family: @font-family-1;
+  &:focus {
+    outline: none;
+  }
+}
+
+.fra-issue__comment-edit-author-empty {
+  padding-bottom: 8px;
 }
 
 .fra-issue__issue {
   position: absolute;
   overflow-y: auto;
   height: 100%;
+  width: 100%;
   z-index: 1;
   background: white;
-  border: 1px solid #CCCCCC;
   padding: 8px 0;
-  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.2);
 }
 .fra-issue__comment-widget-visible {
   position: relative;
-  height: 100%;
+  height: calc(~"100% - 98px");
   visibility: visible;
   opacity: 1;
   transition: visibility 0.1s, opacity 0.1s ease-out, width 0.1s ease-out;

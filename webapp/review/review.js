@@ -24,9 +24,7 @@ const Comments = ({comments}) =>
   </div>
 
 const AddComment = ({issueId, countryIso, section, target, postComment, onCancel, isFirst, userInfo}) =>
-  <div>
-    <div
-      className={`fra-issue__comment-edit-author${isFirst ? '' : '-empty'} `}>{isFirst ? R.path(['name'], userInfo) : ''}</div>
+  <div className="review-panel__add-comment">
     <textarea
       onKeyUp={(e) => {
         if(e.keyCode === 8) {
@@ -60,21 +58,12 @@ const AddComment = ({issueId, countryIso, section, target, postComment, onCancel
   </div>
 
 const CommentThread = ({countryIso, section, target, comments, visualState, postComment, close, userInfo}) => {
-  const issueId = comments.length > 0 ? comments[0].issueId : null
-  return <div className={`fra-issue__comment-widget-${visualState}`}>
+  return <div className={`fra-issue__comment-widget-visible`}>
     <div className={`fra-issue__issue fra-issue__issue-visible`}>
       <div className="fra-issue__triangle-marker">
         <div className="fra-issue__triangle"></div>
       </div>
       <Comments comments={comments}/>
-      <AddComment issueId={issueId}
-                  countryIso={countryIso}
-                  section={section}
-                  target={target}
-                  postComment={postComment}
-                  onCancel={close}
-                  isFirst={comments.length === 0}
-                  userInfo={userInfo}/>
     </div>
   </div>
 }
@@ -84,7 +73,8 @@ class ReviewPanel extends React.Component {
 render() {
   const isActive = R.pipe(R.defaultTo([]), R.isEmpty, R.not)(this.props.openThread)
   const target = isActive ? R.head(this.props.openThread) : null
-  const comments = target ? this.props[target].issue : []
+  const comments = R.defaultTo([], target ? this.props[target].issue : [])
+  const issueId = comments && comments.length > 0 ? comments[0].issueId : null
   const close = R.partial(ctx => {
     ctx.props.closeCommentThread(ctx.props.target)
   }, [this])
@@ -92,14 +82,15 @@ render() {
 
   return <div className={`review-panel-${isActive ? 'active' : 'hidden'}`}>
     <CommentThread
-    countryIso={this.props.country}
-    target={target}
-    comments={R.defaultTo([], comments)}
-    section='EOF'
-    visualState='visible'
-    postComment={this.props.postComment}
-    close={close}
-    userInfo={this.props.userInfo}/>
+    comments={R.defaultTo([], comments)}/>
+    <AddComment issueId={issueId}
+                countryIso={this.props.country}
+                section='EOF'
+                target={target}
+                postComment={this.props.postComment}
+                onCancel={close}
+                isFirst={comments.length === 0}
+                userInfo={this.props.userInfo}/>
   </div>
 }
 }
