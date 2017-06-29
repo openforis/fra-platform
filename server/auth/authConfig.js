@@ -7,17 +7,17 @@ const session = require('express-session')
 
 module.exports.init = (app, verifyCallback) => {
 
-  app.use(express.static('public'))
+  // app.use(express.static('public'))
   app.use(cookieParser())
-  app.use(bodyParser.urlencoded({extended: true}))
-  app.use(bodyParser.json())
-  app.use(session({
-    secret: 'loggedInUser',
-    name: 'loggedInUser',
-    resave: true,
-    saveUninitialized: true,
-    cookie: {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: false}
-  }))
+  // app.use(bodyParser.urlencoded({extended: true}))
+  // app.use(bodyParser.json())
+  // app.use(session({
+  //   secret: 'loggedInUser',
+  //   name: 'loggedInUser',
+  //   resave: true,
+  //   saveUninitialized: true,
+  //   cookie: {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: false}
+  // }))
   app.use(passport.initialize())
   app.use(passport.session())
 
