@@ -15,10 +15,10 @@ import { readPasteClipboard } from '../utils/copyPasteUtil'
 const mapIndexed = R.addIndex(R.map)
 
 const OdpHeading = ({countryIso, odpValue}) =>
-  <Link className="link" to={`/country/${countryIso}/odp/${odpValue.odpId}`}>
-    {odpValue.draft ? '!' : ''}
-    {odpValue.name}
-  </Link>
+    <Link className="link" to={`/country/${countryIso}/odp/${odpValue.odpId}`}>
+      {odpValue.draft ? <svg className="icon icon-sub icon-red icon-margin"><use xlinkHref="img/icon.svg#icon-alert"/></svg> : ''}
+      {odpValue.name}
+    </Link>
 
 class DataTable extends React.Component {
   render () {
