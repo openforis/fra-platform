@@ -290,7 +290,7 @@ class OriginalDataPointView extends React.Component {
     return <LoggedInPageTemplate>
       <div className="odp__container">
         <div className="odp_data-page-header">
-          <h2 className="headline">Add national data point</h2>
+          <h2 className="headline">National data point</h2>
         </div>
         <DataInput {...this.props}/>
       </div>
