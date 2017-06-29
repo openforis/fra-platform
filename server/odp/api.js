@@ -1,19 +1,19 @@
 const R = require('ramda')
-
 const db = require('../db/db')
 const odpRepository = require('./odpRepository')
+const {sendErr} = require('../requestUtils')
 
 module.exports.init = app => {
 
   app.get('/api/odp', (req, res) => {
-    if(R.not(R.isNil(req.query.odpId))) {
+    if (R.not(R.isNil(req.query.odpId))) {
       odpRepository.getOdp(req.query.odpId)
         .then(resp => res.json(resp))
         .catch(err => sendErr(res, err))
     }
-    if(R.not(R.isNil(req.query.countryIso))) {
+    if (R.not(R.isNil(req.query.countryIso))) {
       odpRepository.listOriginalDataPoints(req.query.countryIso)
-        .then(resp => res.json(R.sort((a,b) => a.year - b.year, R.values(resp))))
+        .then(resp => res.json(R.sort((a, b) => a.year - b.year, R.values(resp))))
         .catch(err => {
           console.error(err)
           res.status(500).json({error: 'Could not retrieve data'})
@@ -39,4 +39,22 @@ module.exports.init = app => {
       .then(() => res.json({}))
       .catch(err => sendErr(res, err))
   )
+
+  app.get('/api/prevOdp/:countryIso', (req, res) => {
+    odpRepository.listOriginalDataPoints(req.params.countryIso)
+      .then(resp => {
+        const prevOdp = R.pipe(
+          R.filter(o => o.year !== 0 && o.year < req.query.year),
+          R.sort((a, b) => b.year - a.year),
+          R.head
+        )(R.values(resp))
+
+        prevOdp
+          ? odpRepository.getOdp(prevOdp.odpId).then(odp => { res.json(odp) }).catch(err => sendErr(res, err))
+          : res.json({})
+      })
+      .catch(err => sendErr(res, err))
+
+  })
+
 }
