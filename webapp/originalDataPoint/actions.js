@@ -82,3 +82,15 @@ export const fetchOdps = countryIso => dispatch =>
     .catch(err =>
       dispatch(applicationError(err))
     )
+
+export const copyPreviousNationalClasses = (countryIso, odp) => dispatch => {
+  console.log('==== ', odp)
+  axios.get(`/api/prevOdp/${countryIso}?year=${odp.year}`).then(resp => {
+    const prevOdp = resp.data
+    if (prevOdp.nationalClasses)
+      console.log('==== prevOdp ', prevOdp)
+    else
+      dispatch(applicationError(`Unable to find any National data point prior to ${odp.year}`))
+  })
+}
+
