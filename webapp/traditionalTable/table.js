@@ -14,6 +14,9 @@ const getSliceLenses = (tableSpec) => {
   ]
 }
 
+export const update = (tableValues, rowIdx, colIdx, newValue) =>
+  R.update(rowIdx, R.update(colIdx, newValue, tableValues[rowIdx]), tableValues)
+
 export const fillTableDatafromValueSlice = (tableSpec, fullTableData, valueSliceData) => {
   const [rowSliceLens, colSliceLens] = getSliceLenses(tableSpec)
   const handleRow = (index, row, data) => {
@@ -27,9 +30,6 @@ export const fillTableDatafromValueSlice = (tableSpec, fullTableData, valueSlice
   )
   return reduceResult.data
 }
-
-export const update = (tableValues, rowIdx, colIdx, newValue) =>
-  R.update(rowIdx, R.update(colIdx, newValue, tableValues[rowIdx]), tableValues)
 
 export const getValueSliceFromTableValues = (tableSpec, tableValues) => {
   const [rowSliceLens, colSliceLens] = getSliceLenses(tableSpec)
