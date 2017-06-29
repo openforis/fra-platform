@@ -50,7 +50,7 @@ module.exports.init = app => {
         )(R.values(resp))
 
         prevOdp
-          ? odpRepository.getOdp(prevOdp.odpId).then(odp => { res.json(odp) }).catch(err => sendErr(res, err))
+          ? odpRepository.getOdp(prevOdp.odpId).then(odp => res.json(odp)).catch(err => sendErr(res, err))
           : res.json({})
       })
       .catch(err => sendErr(res, err))
