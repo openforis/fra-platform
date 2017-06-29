@@ -83,20 +83,19 @@ class ReviewPanel extends React.Component {
 
 render() {
   const isActive = R.pipe(R.defaultTo([]), R.isEmpty, R.not)(this.props.openThread)
-  console.log('isActive', isActive)
   const target = isActive ? R.head(this.props.openThread) : null
   const comments = target ? this.props[target].issue : []
   const close = R.partial(ctx => {
-    console.log('closing')
     ctx.props.closeCommentThread(ctx.props.target)
-    // ctx.setState({widgetVisualState: 'hidden'})}, [this])
   }, [this])
+  console.log('target',  target)
+
   return <div className={`review-panel-${isActive ? 'active' : 'hidden'}`}>
     <CommentThread
     countryIso={this.props.country}
     target={target}
     comments={R.defaultTo([], comments)}
-    section="eof"
+    section='EOF'
     visualState='visible'
     postComment={this.props.postComment}
     close={close}
