@@ -18,7 +18,6 @@ const app = express()
 
 migrations()
 
-authApi.init(app)
 sessionInit.init(app)
 userApi.init(app)
 
@@ -26,6 +25,8 @@ app.use(compression({threshold: 512}))
 app.use('/', express.static(`${__dirname}/../dist`))
 app.use('/img/', express.static(`${__dirname}/../web-resources/img`))
 app.use(bodyParser.json({limit: '5000kb'}))
+
+authApi.init(app)
 
 app.get('/api/country/all', (req, res) => {
   countryRepository.getAllCountries().then(result => {
