@@ -30,7 +30,10 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving})
       </div>
     </div>
     <div>
-      <h3 className="subhead odp__section">National classes</h3>
+      <h3 className="subhead odp__section">
+        National classes&nbsp;&nbsp;&nbsp;&nbsp;
+        <button disabled="disabled" className="btn btn-primary">Copy previous values</button>
+      </h3>
       <table className="odp__input-table odp__national-class-table">
         <thead>
         <tr>
