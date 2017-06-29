@@ -9,11 +9,34 @@
   height: 100%;
   width: 288px;
   visibility: visible;
+  transition: visibility 0.1s, opacity 0.1s ease-out, width 0.1s ease-out;
   opacity: 1;
 }
+
 .review-panel-hidden {
   visibility: hidden;
   width: 0;
   transition: visibility 0s, width 0.1s ease-out, width 0.1s ease-out;
   opacity: 0;
+}
+
+.review-panel__comments {
+}
+
+.fra-issue__issue {
+  position: absolute;
+  overflow-y: auto;
+  height: 100%;
+  z-index: 1;
+  background: white;
+  border: 1px solid #CCCCCC;
+  padding: 8px 0;
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.2);
+}
+.fra-issue__comment-widget-visible {
+  position: relative;
+  height: 100%;
+  visibility: visible;
+  opacity: 1;
+  transition: visibility 0.1s, opacity 0.1s ease-out, width 0.1s ease-out;
 }

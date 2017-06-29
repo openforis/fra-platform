@@ -16,8 +16,8 @@ const template = ({children, commentsOpen}) => {
     <div className={containerClass}>
       { children }
     </div>
-    <Review />
     <Footer/>
+    <Review />
   </div>
 }
 

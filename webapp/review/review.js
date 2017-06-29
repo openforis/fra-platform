@@ -9,7 +9,7 @@ import './style.less'
 const mapIndexed = R.addIndex(R.map)
 
 const Comments = ({comments}) =>
-  <div>
+  <div className='review-panel__comments'>
     {
       mapIndexed((c, i) =>
           <div key={i} className="fra-issue__comment">
