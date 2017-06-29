@@ -36,5 +36,6 @@ export default {
       {type: 'integerInput'},
       {type: 'integerInput'}
     ]
-  ]
+  ],
+  valueSlice: { columnStart: 1 }
 }

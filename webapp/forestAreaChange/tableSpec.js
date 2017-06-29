@@ -43,5 +43,5 @@ export default {
     rowEnd: -1,
     columnStart: 1,
     columnEnd: undefined
-  },
+  }
 }
