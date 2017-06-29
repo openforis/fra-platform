@@ -66,7 +66,7 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving})
           extentOfForestRows(countryIso, active, saveDraft)
         }
         <tr>
-          <td className="odp__national-class-total-heading">Total</td>
+          <td className="fra-table__header-cell">Total</td>
           <td className="odp__national-class-total-cell odp__eof-divide-after-cell"></td>
           <td
             className="odp__national-class-total-cell">{ separateThousandsWithSpaces(Number(originalDataPoint.totalForest(active, 'forestPercent'))) }</td>
@@ -79,7 +79,9 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving})
       </table>
     </div>
     <h3 className="subhead odp__section">Comments</h3>
-    <textarea id="originalDataPointDescription"/>
+    <div className="cke_wrapper">
+      <textarea id="originalDataPointDescription"/>
+    </div>
     <div className="odp__bottom-buttons">
       <span className={ saveControlsDisabled() ? 'btn btn-destructive disabled' : 'btn btn-destructive' }
             onClick={ () => saveControlsDisabled() ? null : remove(countryIso, active.odpId) }>
@@ -264,6 +266,8 @@ class OriginalDataPointView extends React.Component {
 
   componentWillUnmount () {
     this.props.clearActive()
+    this.descriptionEditor.destroy(false)
+    this.descriptionEditor = null
   }
 
   componentWillReceiveProps (props) {

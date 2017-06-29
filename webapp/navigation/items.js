@@ -47,7 +47,7 @@ export const fiveYearItems = [
   {
     order: 8,
     label: "Specific forest categories",
-    pathTemplate: "#/todo",
+    pathTemplate: "/country/:countryIso/specificForestCategories",
     status: "Not started"
   },
   {

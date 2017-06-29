@@ -1,0 +1,52 @@
+@import (reference) "./config";
+
+.fra-table {
+  border-collapse: collapse;
+  font-size: 13px;
+  line-height: 20px;
+}
+
+.fra-table__header-cell {
+  background-color: @ui-bg;
+  border: 1px solid @ui-border;
+  padding: 10px;
+  font-weight: bold;
+}
+
+.fra-table__cell {
+  padding: 0;
+  border: 1px solid #CCCCCC;
+}
+
+.fra-table__input {
+  color: inherit;
+  font-size: inherit;
+  border: none;
+  line-height: inherit;
+  padding: 10px;
+  margin: 0;
+  width: 100%;
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 1px @text-body;
+  }
+  &::placeholder {
+    color: @text-mute;
+  }
+}
+
+.fra-table__integer-input {
+  .fra-table__input;
+  text-align: right;
+}
+
+.fra-table__cell-input {
+  color: inherit;
+  font-size: inherit;
+  border: none;
+  text-align: right;
+  line-height: inherit;
+  padding: 10px;
+  width: 100%;
+  margin: 0;
+}

@@ -2,6 +2,7 @@ const db = require('../db/db')
 const R = require('ramda')
 const Promise = require('bluebird')
 const camelize = require('camelize')
+const { toNumberOrNull  } = require('../utils/databaseConversions')
 
 module.exports.saveDraft = (client, countryIso, draft) =>
   !draft.odpId ? createOdp(client, countryIso)
@@ -123,10 +124,6 @@ module.exports.deleteOdp = (client, odpId) => {
     ])
   })
 }
-
-const toNumberOrNull = numericFromDb => numericFromDb === null
-  ? null
-  : Number(numericFromDb)
 
 module.exports.getOdp = odpId =>
   db.query(`

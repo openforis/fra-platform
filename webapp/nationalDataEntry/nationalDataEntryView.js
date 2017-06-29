@@ -15,7 +15,7 @@ import { readPasteClipboard } from '../utils/copyPasteUtil'
 const mapIndexed = R.addIndex(R.map)
 
 const OdpHeading = ({countryIso, odpValue}) =>
-  <Link to={`/country/${countryIso}/odp/${odpValue.odpId}`}>
+  <Link className="link" to={`/country/${countryIso}/odp/${odpValue.odpId}`}>
     {odpValue.draft ? '!' : ''}
     {odpValue.name}
   </Link>
