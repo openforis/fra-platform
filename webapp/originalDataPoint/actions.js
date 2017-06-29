@@ -84,7 +84,7 @@ export const fetchOdps = countryIso => dispatch =>
     )
 
 export const copyPreviousNationalClasses = (countryIso, odp) => dispatch => {
-  axios.get(`/api/prevOdp/${countryIso}?year=${odp.year}`).then(resp => {
+  axios.get(`/api/prevOdp/${countryIso}/${odp.year}`).then(resp => {
     const prevOdp = resp.data
     if (prevOdp.nationalClasses)
       saveDraft(countryIso, copyNationalClasses(odp, prevOdp))(dispatch)

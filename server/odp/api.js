@@ -40,11 +40,11 @@ module.exports.init = app => {
       .catch(err => sendErr(res, err))
   )
 
-  app.get('/api/prevOdp/:countryIso', (req, res) => {
+  app.get('/api/prevOdp/:countryIso/:year', (req, res) => {
     odpRepository.listOriginalDataPoints(req.params.countryIso)
       .then(resp => {
         const prevOdp = R.pipe(
-          R.filter(o => o.year !== 0 && o.year < req.query.year),
+          R.filter(o => o.year !== 0 && o.year < req.params.year),
           R.sort((a, b) => b.year - a.year),
           R.head
         )(R.values(resp))
