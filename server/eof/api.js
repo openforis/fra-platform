@@ -1,5 +1,5 @@
 const fraRepository = require('./fraRepository')
-const odpRepository = require('./odpRepository')
+const odpRepository = require('../odp/odpRepository')
 const issueRepository = require('./../issueRepository')
 const db = require('../db/db')
 const os = require('os')

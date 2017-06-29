@@ -1,5 +1,5 @@
 const eofRepository = require('./fraRepository')
-const odpRepository = require('./odpRepository')
+const odpRepository = require('../odp/odpRepository')
 const R = require('ramda')
 
 const linearInterpolation = (x, xa, ya, xb, yb) => ya + ( yb - ya) * (x - xa) / (xb - xa)

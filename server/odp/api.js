@@ -1,7 +1,7 @@
 const R = require('ramda')
 
 const db = require('../db/db')
-const odpRepository = require('../eof/odpRepository')
+const odpRepository = require('./odpRepository')
 
 module.exports.init = app => {
 
