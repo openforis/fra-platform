@@ -45,8 +45,12 @@ export const tableValueChanged = (countryIso, tableSpec, rowIdx, colIdx, newValu
 export const fetchTableData = (countryIso, tableSpec) => dispatch => {
   axios.get(`/api/traditionalTable/${countryIso}/${tableSpec.name}`).then(resp => {
     const emptyTableData = table.createTableData(tableSpec)
-    const filled = table.fillTableDatafromValueSlice(tableSpec, emptyTableData, resp.data)
-    dispatch({type: tableValueChangedAction, tableSpec, newTableState: filled})
+    if (resp.data) {
+      const filled = table.fillTableDatafromValueSlice(tableSpec, emptyTableData, resp.data)
+      dispatch({type: tableValueChangedAction, tableSpec, newTableState: filled})
+    } else {
+      dispatch({type: tableValueChangedAction, tableSpec, newTableState: emptyTableData})
+    }
   }).catch((err) => {
     dispatch(applicationError(err))
   })
