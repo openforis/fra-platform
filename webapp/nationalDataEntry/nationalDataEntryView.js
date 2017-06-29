@@ -191,7 +191,7 @@ class DataFetchingComponent extends React.Component {
   }
 
   render () {
-    return <LoggedInPageTemplate>
+    return <LoggedInPageTemplate commentsOpen={this.props.openCommentThread}>
       <NationalDataEntry {...this.props} countryIso={this.props.match.params.countryIso}/>
     </LoggedInPageTemplate>
   }

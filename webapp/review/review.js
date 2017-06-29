@@ -84,8 +84,9 @@ render() {
   const comments = target ? this.props[target].issue : []
   const close = R.partial(ctx => {
     ctx.props.closeCommentThread(ctx.props.target)
-    ctx.setState({widgetVisualState: 'hidden'})}, [this])
-  return <div className={`review-panel ${isActive ? 'active' : 'hidden'}`}>
+    // ctx.setState({widgetVisualState: 'hidden'})}, [this])
+  })
+  return <div className={`review-panel-${isActive ? 'active' : 'hidden'}`}>
     <CommentThread
     countryIso={this.props.country}
     target={target}

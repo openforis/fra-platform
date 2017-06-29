@@ -2,3 +2,18 @@
   display: flex;
   padding: 0 12px 12px;
 }
+
+.review-panel-active {
+  position: fixed;
+  right: 0;
+  height: 100%;
+  width: 288px;
+  visibility: visible;
+  opacity: 1;
+}
+.review-panel-hidden {
+  visibility: hidden;
+  width: 0;
+  transition: visibility 0s, width 0.1s ease-out, width 0.1s ease-out;
+  opacity: 0;
+}
