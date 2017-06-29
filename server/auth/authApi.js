@@ -18,18 +18,18 @@ module.exports.init = app => {
 
   app.get('/auth/google/callback',
     (req, res, next) => {
-      passport.authenticate('google', (err, user, info) => {
+      passport.authenticate('google', (err, user) => {
         if (err) return next(err)
+
         if (!user) {
           req.logout()
-          console.log('=== ! user ')
           setLoggedInCookie(res, false)
           return res.redirect('/?u=1')
         }
+
         req.logIn(user, err => {
           if (err) return next(err)
           setLoggedInCookie(res, true)
-          console.log('=== user ', user)
           return res.redirect('/#/country/ITA')
         })
       })(req, res, next)
