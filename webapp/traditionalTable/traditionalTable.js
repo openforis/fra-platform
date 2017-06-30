@@ -21,7 +21,7 @@ const IntegerInput = ({countryIso, tableSpec, tableData, rowIdx, colIdx, tableVa
 const cellTypeHandlers = {
   'integerInput': (cellSpec, props) => <IntegerInput {...props}/>,
   'readOnly': (cellSpec, props) => cellSpec.jsx,
-
+  'custom': (cellSpec, props) => cellSpec.render(props)
 }
 
 const Cell = (props) => {
