@@ -11,6 +11,7 @@ const mapIndexed = R.addIndex(R.map)
 const Comments = ({comments}) =>
   <div className='review-panel__comments'>
     {
+      comments && R.not(R.isEmpty(comments)) ?
       mapIndexed((c, i) =>
           <div key={i} className="fra-issue__comment">
             <div className="fra-issue__comment-author">{c.username}</div>
@@ -19,7 +20,10 @@ const Comments = ({comments}) =>
               {c.message}
             </div>
           </div>,
-        comments)
+        comments) : <div className='review-panel__comment-placeholder'>
+        <svg className="icon"><use xlinkHref="img/icon.svg#icon-chat-45"/></svg>
+        <span className="review-panel__comment-placeholder-text">No comments</span>
+      </div>
     }
   </div>
 
