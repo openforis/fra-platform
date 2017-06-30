@@ -84,7 +84,8 @@ class ReviewPanel extends React.Component {
 
 render() {
   const isActive = R.pipe(R.defaultTo({}), R.isEmpty, R.not)(this.props.openThread)
-  const target = isActive ? R.head(this.props.openThread.target) : null
+  const target = R.isNil(this.props.openThread) ? null : R.head(this.props.openThread.target)
+  const section = R.isNil(this.props.openThread) ? '' : this.props.openThread.section
   const name = R.isNil(this.props.openThread) ? '' : this.props.openThread.name
   const comments = R.defaultTo([], target ? this.props[target].issue : [])
   const issueId = comments && comments.length > 0 ? comments[0].issueId : null
@@ -98,7 +99,7 @@ render() {
     comments={comments}/>
     <AddComment issueId={issueId}
                 countryIso={this.props.country}
-                section='EOF'
+                section={section}
                 target={target}
                 postComment={this.props.postComment}
                 onCancel={close}

@@ -19,7 +19,10 @@ const actionHandlers = {
   [reviewGetCommentCountCompleted]: (state, action) =>
     ({...state, [action.target]: R.merge(state[action.target], {count: action.count})})
   ,
-  [issueOpenCommentThread]: (state, action) => ({...state, 'openThread': {target: action.target, name: action.name}}),
+  [issueOpenCommentThread]: (state, action) => ({
+    ...state,
+    'openThread': {target: action.target, section: action.section, name: action.name}
+  }),
   [issueCloseCommentThread]: state =>
      R.omit(['openThread'], state)
 }
