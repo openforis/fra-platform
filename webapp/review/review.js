@@ -11,8 +11,7 @@ const mapIndexed = R.addIndex(R.map)
 const Comments = ({comments}) =>
   <div className='fra-review__comments'>
     {
-      comments && R.not(R.isEmpty(comments)) ?
-      mapIndexed((c, i) =>
+      comments && R.not(R.isEmpty(comments)) ? mapIndexed((c, i) =>
           <div key={i} className="fra-review__comment">
             <div className="fra-review__comment-author">{c.username}</div>
             <div className="fra-review__comment-time">just now</div>
@@ -21,7 +20,9 @@ const Comments = ({comments}) =>
             </div>
           </div>,
         comments) : <div className='fra-review__comment-placeholder'>
-        <svg className="icon"><use xlinkHref="img/icon.svg#icon-chat-45"/></svg>
+        <svg className="icon">
+          <use xlinkHref="img/icon.svg#icon-chat-45"/>
+        </svg>
         <span className="fra-review__comment-placeholder-text">No comments</span>
       </div>
     }
@@ -31,19 +32,19 @@ const AddComment = ({issueId, countryIso, section, target, postComment, onCancel
   <div className="fra-review__add-comment">
     <textarea
       onKeyUp={(e) => {
-        if(e.keyCode === 8) {
+        if (e.keyCode === 8) {
           const elem = document.getElementById(`fra-review__comment-input-${target}`)
-          if(elem.textLength === 0) {
+          if (elem.textLength === 0) {
             elem.style.height = '40px'
           }
         }
-        if(e.keyCode === 27) { // escape
+        if (e.keyCode === 27) { // escape
           onCancel()
         }
       } }
       onInput={() => {
         const elem = document.getElementById(`fra-review__comment-input-${target}`)
-        elem.style.height= `${elem.scrollHeight}px`
+        elem.style.height = `${elem.scrollHeight}px`
       }}
       id={`fra-review__comment-input-${target}`}
       className="fra-review__issue-comment-input"
@@ -53,10 +54,12 @@ const AddComment = ({issueId, countryIso, section, target, postComment, onCancel
               onClick={() => {
                 postComment(issueId, countryIso, section, target, null, document.getElementById(`fra-review__comment-input-${target}`).value)
                 document.getElementById(`fra-review__comment-input-${target}`).value = ''
-              }}>Add</button>
+              }}>Add
+      </button>
       <button className="btn btn-s btn-secondary" onClick={() => {
         onCancel()
-      }}>Cancel</button>
+      }}>Cancel
+      </button>
     </div>
   </div>
 
@@ -75,7 +78,9 @@ const ReviewHeader = ({name, close}) =>
   <div className="fra-review__header">
     <h2>Comments</h2>
     <div className="fra-review__header-close-btn" onClick={e => close(e)}>
-      <svg className="icon icon-24"><use xlinkHref="img/icon.svg#icon-small-remove"/></svg>
+      <svg className="icon icon-24">
+        <use xlinkHref="img/icon.svg#icon-small-remove"/>
+      </svg>
     </div>
     <span>{name}</span>
   </div>
@@ -87,34 +92,38 @@ class ReviewPanel extends React.Component {
     }
   }
 
-render() {
-  const isActive = R.pipe(R.defaultTo({}), R.isEmpty, R.not)(this.props.openThread)
-  const target = R.isNil(this.props.openThread) ? null : R.head(this.props.openThread.target)
-  const section = R.isNil(this.props.openThread) ? '' : this.props.openThread.section
-  const name = R.isNil(this.props.openThread) ? '' : this.props.openThread.name
-  const comments = R.defaultTo([], target ? this.props[target].issue : [])
-  const issueId = comments && comments.length > 0 ? comments[0].issueId : null
-  const close = R.partial(ctx => {
-    ctx.props.closeCommentThread(ctx.props.target)
-  }, [this])
+  render () {
+    const isActive = R.pipe(R.defaultTo({}), R.isEmpty, R.not)(this.props.openThread)
+    const target = R.isNil(this.props.openThread) ? null : R.head(this.props.openThread.target)
+    const section = R.isNil(this.props.openThread) ? '' : this.props.openThread.section
+    const name = R.isNil(this.props.openThread) ? '' : this.props.openThread.name
+    const comments = R.defaultTo([], target ? this.props[target].issue : [])
+    const issueId = comments && comments.length > 0 ? comments[0].issueId : null
+    const close = R.partial(ctx => {
+      ctx.props.closeCommentThread(ctx.props.target)
+    }, [this])
 
-  return <div className={`fra-review-${isActive ? 'active' : 'hidden'}`}>
-    <ReviewHeader name={name} close={close} />
-    <CommentThread
-    comments={comments}/>
-    <AddComment issueId={issueId}
-                countryIso={this.props.country}
-                section={section}
-                target={target}
-                postComment={this.props.postComment}
-                onCancel={close}
-                isFirst={comments.length === 0}
-                userInfo={this.props.userInfo}/>
-  </div>
-}
+    return <div className={`fra-review-${isActive ? 'active' : 'hidden'}`}>
+      <ReviewHeader name={name} close={close}/>
+      <CommentThread
+        comments={comments}/>
+      <AddComment issueId={issueId}
+                  countryIso={this.props.country}
+                  section={section}
+                  target={target}
+                  postComment={this.props.postComment}
+                  onCancel={close}
+                  isFirst={comments.length === 0}
+                  userInfo={this.props.userInfo}/>
+    </div>
+  }
 }
 
 const mapSateToProps = state => R.pipe(R.prop('review'), R.defaultTo({}), R.merge(state.router), R.merge(state.user))(state)
 
-export default connect(mapSateToProps, {postComment, retrieveComments, closeCommentThread})(ReviewPanel)
+export default connect(mapSateToProps, {
+  postComment,
+  retrieveComments,
+  closeCommentThread
+})(ReviewPanel)
 

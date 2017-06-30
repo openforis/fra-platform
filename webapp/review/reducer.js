@@ -24,7 +24,7 @@ const actionHandlers = {
     'openThread': {target: action.target, section: action.section, name: action.name}
   }),
   [issueCloseCommentThread]: state =>
-     R.omit(['openThread'], state)
+    R.omit(['openThread'], state)
 }
 
 export default (state = {}, action) => applyReducerFunction(actionHandlers, state, action)
