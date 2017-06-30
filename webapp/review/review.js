@@ -2,7 +2,7 @@ import * as R from 'ramda'
 import React from 'react'
 import { connect } from 'react-redux'
 
-import {postComment, retrieveComments, closeCommentThread} from './actions'
+import { postComment, retrieveComments, closeCommentThread } from './actions'
 
 import './style.less'
 
@@ -51,7 +51,6 @@ const AddComment = ({issueId, countryIso, section, target, postComment, onCancel
                 document.getElementById(`fra-issue__comment-input-${target}`).value = ''
               }}>Add</button>
       <button className="btn btn-s btn-secondary" onClick={() => {
-        console.log('cancel')
         onCancel()
       }}>Cancel</button>
     </div>
@@ -68,6 +67,15 @@ const CommentThread = ({countryIso, section, target, comments, visualState, post
   </div>
 }
 
+const ReviewHeader = ({name, close}) =>
+  <div className="review-panel__header">
+    <h2>Comments</h2>
+    <div className="review-panel__header-close-btn" onClick={e => close(e)}>
+      <svg className="icon icon-24"><use xlinkHref="img/icon.svg#icon-small-remove"/></svg>
+    </div>
+    <span>{name}</span>
+  </div>
+
 class ReviewPanel extends React.Component {
 
 render() {
@@ -81,6 +89,7 @@ render() {
   console.log('target',  target)
 
   return <div className={`review-panel-${isActive ? 'active' : 'hidden'}`}>
+    <ReviewHeader name={target} close={close} />
     <CommentThread
     comments={R.defaultTo([], comments)}/>
     <AddComment issueId={issueId}
