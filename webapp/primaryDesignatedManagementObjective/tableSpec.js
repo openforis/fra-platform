@@ -6,6 +6,23 @@ const createPdmoInputRow = (rowHeader) => [
   ...(R.times(() => ({type: 'integerInput'}), 5))
 ]
 
+const totalForestArea = (tableData, columnIdx) =>
+  R.reduce((sum, rowIdx) => {
+    const value = tableData[rowIdx][columnIdx]
+    if (!R.isNil(value))
+      return sum + value
+    else
+      return sum
+    },
+    0,
+    R.range(0, 7)
+  )
+
+const totalForestAreaCell = (column) => (props) =>
+  <td key="" className="fra-table__text-readonly-cell-align-right">
+    {totalForestArea(props.tableData, column)}
+  </td>
+
 export default {
   name: 'primaryDesignatedManagementObjective',
   header: <thead>
@@ -25,9 +42,17 @@ export default {
     createPdmoInputRow('Social Services'),
     createPdmoInputRow('Multiple use'),
     createPdmoInputRow('Other'),
-    createPdmoInputRow('No/unknown')
+    createPdmoInputRow('No/unknown'),
+    [{type: 'readOnly', jsx: <td key="" className="fra-table__header-cell">Total forest area</td>},
+     {type: 'custom', render: totalForestAreaCell(1)},
+     {type: 'custom', render: totalForestAreaCell(2)},
+     {type: 'custom', render: totalForestAreaCell(3)},
+     {type: 'custom', render: totalForestAreaCell(4)},
+     {type: 'custom', render: totalForestAreaCell(5)}],
+
   ],
   valueSlice: {
-    columnStart: 1
+    columnStart: 1,
+    rowEnd: -1
   }
 }
