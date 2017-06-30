@@ -9,30 +9,30 @@ import './style.less'
 const mapIndexed = R.addIndex(R.map)
 
 const Comments = ({comments}) =>
-  <div className='review-panel__comments'>
+  <div className='fra-review__comments'>
     {
       comments && R.not(R.isEmpty(comments)) ?
       mapIndexed((c, i) =>
-          <div key={i} className="fra-issue__comment">
-            <div className="fra-issue__comment-author">{c.username}</div>
-            <div className="fra-issue__comment-time">just now</div>
-            <div className="fra-issue__comment-text">
+          <div key={i} className="fra-review__comment">
+            <div className="fra-review__comment-author">{c.username}</div>
+            <div className="fra-review__comment-time">just now</div>
+            <div className="fra-review__comment-text">
               {c.message}
             </div>
           </div>,
-        comments) : <div className='review-panel__comment-placeholder'>
+        comments) : <div className='fra-review__comment-placeholder'>
         <svg className="icon"><use xlinkHref="img/icon.svg#icon-chat-45"/></svg>
-        <span className="review-panel__comment-placeholder-text">No comments</span>
+        <span className="fra-review__comment-placeholder-text">No comments</span>
       </div>
     }
   </div>
 
 const AddComment = ({issueId, countryIso, section, target, postComment, onCancel, isFirst, userInfo}) =>
-  <div className="review-panel__add-comment">
+  <div className="fra-review__add-comment">
     <textarea
       onKeyUp={(e) => {
         if(e.keyCode === 8) {
-          const elem = document.getElementById(`fra-issue__comment-input-${target}`)
+          const elem = document.getElementById(`fra-review__comment-input-${target}`)
           if(elem.textLength === 0) {
             elem.style.height = '40px'
           }
@@ -42,17 +42,17 @@ const AddComment = ({issueId, countryIso, section, target, postComment, onCancel
         }
       } }
       onInput={() => {
-        const elem = document.getElementById(`fra-issue__comment-input-${target}`)
+        const elem = document.getElementById(`fra-review__comment-input-${target}`)
         elem.style.height= `${elem.scrollHeight}px`
       }}
-      id={`fra-issue__comment-input-${target}`}
-      className="fra-issue__issue-comment-input"
+      id={`fra-review__comment-input-${target}`}
+      className="fra-review__issue-comment-input"
       placeholder="Write a comment"/>
-    <div className="fra-issue__comment-buttons">
-      <button className="fra-issue__comment-add-btn btn btn-primary btn-s"
+    <div className="fra-review__comment-buttons">
+      <button className="fra-review__comment-add-btn btn btn-primary btn-s"
               onClick={() => {
-                postComment(issueId, countryIso, section, target, null, document.getElementById(`fra-issue__comment-input-${target}`).value)
-                document.getElementById(`fra-issue__comment-input-${target}`).value = ''
+                postComment(issueId, countryIso, section, target, null, document.getElementById(`fra-review__comment-input-${target}`).value)
+                document.getElementById(`fra-review__comment-input-${target}`).value = ''
               }}>Add</button>
       <button className="btn btn-s btn-secondary" onClick={() => {
         onCancel()
@@ -61,10 +61,10 @@ const AddComment = ({issueId, countryIso, section, target, postComment, onCancel
   </div>
 
 const CommentThread = ({countryIso, section, target, comments, visualState, postComment, close, userInfo}) => {
-  return <div className={`fra-issue__comment-widget-visible`}>
-    <div className={`fra-issue__issue fra-issue__issue-visible`}>
-      <div className="fra-issue__triangle-marker">
-        <div className="fra-issue__triangle"></div>
+  return <div className={`fra-review__comment-widget-visible`}>
+    <div className={`fra-review__issue fra-review__issue-visible`}>
+      <div className="fra-review__triangle-marker">
+        <div className="fra-review__triangle"></div>
       </div>
       <Comments comments={comments}/>
     </div>
@@ -72,9 +72,9 @@ const CommentThread = ({countryIso, section, target, comments, visualState, post
 }
 
 const ReviewHeader = ({name, close}) =>
-  <div className="review-panel__header">
+  <div className="fra-review__header">
     <h2>Comments</h2>
-    <div className="review-panel__header-close-btn" onClick={e => close(e)}>
+    <div className="fra-review__header-close-btn" onClick={e => close(e)}>
       <svg className="icon icon-24"><use xlinkHref="img/icon.svg#icon-small-remove"/></svg>
     </div>
     <span>{name}</span>
@@ -94,7 +94,7 @@ render() {
   console.log('openThread',  this.props.openThread)
   console.log('props',  this.props)
 
-  return <div className={`review-panel-${isActive ? 'active' : 'hidden'}`}>
+  return <div className={`fra-review-${isActive ? 'active' : 'hidden'}`}>
     <ReviewHeader name={name} close={close} />
     <CommentThread
     comments={R.defaultTo([], comments)}/>

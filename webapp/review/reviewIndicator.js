@@ -6,9 +6,9 @@ import '../issue/style.less'
 import {getCommentCount, openCommentThread, closeCommentThread } from './actions'
 
 const CommentStatus = ({count, visible, ...props}) =>
-  <div {...props} className={`fra-issue__issue-status-${visible ? 'visible' : 'hidden'}`} >
+  <div {...props} className={`fra-review__issue-status-${visible ? 'visible' : 'hidden'}`} >
     {
-      count > 0 ? <div className="fra-issue__issue-status-count">{count}</div> : <svg className="icon-24">
+      count > 0 ? <div className="fra-review__issue-status-count">{count}</div> : <svg className="icon-24">
         <use xlinkHref="img/icon.svg#icon-circle-add"/>
       </svg>
     }
@@ -40,7 +40,7 @@ class IssueWidget extends React.Component {
     const count = R.isNil(targetProps) ? 0 : targetProps.count // comments ? comments.length  : 0
     const style= {'zIndex': this.state.widgetVisualState === 'visible' ? 1: 0 }
 
-    return <div className="fra-issue__add-issue" style={style}>
+    return <div className="fra-review__add-issue" style={style}>
       <CommentStatus count={count} visible={true} onClick={() => {
         this.props.openCommentThread(this.props.countryIso, this.props.section, this.props.target, this.props.name)
         window.setTimeout(() => this.setState({widgetVisualState: 'visible'}), 0)

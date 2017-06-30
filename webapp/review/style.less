@@ -1,11 +1,11 @@
 @import "../app-styles/config";
 
-.fra-issue__add-issue {
+.fra-review__add-issue {
   display: flex;
   padding: 0 12px 12px;
 }
 
-.review-panel-active {
+.fra-review-active {
   position: fixed;
   right: 0;
   height: 100%;
@@ -21,20 +21,20 @@
   flex-flow: column nowrap;
 }
 
-.review-panel-hidden {
+.fra-review-hidden {
   visibility: hidden;
   width: 0;
   opacity: 0;
 
-  .fra-issue__issue-comment-input {
+  .fra-review__issue-comment-input {
     display: none;
   }
-  .fra-issue__comment-buttons {
+  .fra-review__comment-buttons {
     display: none;
   }
 }
 
-.review-panel__header {
+.fra-review__header {
   height: 76px;
   background-color: #f5f5f5;
   padding: 16px;
@@ -45,18 +45,17 @@
     font-weight: bold;
     line-height: 1.25;
     color: #111111;
-    color: var(--text-heading);
   }
 }
 
-.review-panel__header-close-btn {
+.fra-review__header-close-btn {
   position: absolute;
   cursor: pointer;
   right: 16px;
   top: 16px;
 }
 
-.review-panel__comment-placeholder {
+.fra-review__comment-placeholder {
   position: absolute;
   top: 50%;
   left: calc(~"50% - 44.5px");
@@ -65,11 +64,11 @@
   flex-flow: column nowrap;
   align-items: center;
 }
-.review-panel__comment-placeholder-text {
+.fra-review__comment-placeholder-text {
   display: block;
 }
 
-.fra-issue__issue-comment-input {
+.fra-review__issue-comment-input {
   border: solid 1px #cccccc;
   border-radius: 2px;
   margin: 8px 16px;
@@ -85,15 +84,15 @@
     outline: none;
   }
 }
-.fra-issue__comment-buttons {
+.fra-review__comment-buttons {
   padding: 0 16px 8px;
 }
 
-.fra-issue__comment-edit-author-empty {
+.fra-review__comment-edit-author-empty {
   padding-bottom: 8px;
 }
 
-.fra-issue__issue {
+.fra-review__issue {
   position: absolute;
   overflow-y: auto;
   height: 100%;
@@ -102,10 +101,94 @@
   background: white;
   padding: 8px 0;
 }
-.fra-issue__comment-widget-visible {
+.fra-review__comment-widget-visible {
   position: relative;
   height: calc(~"100% - 98px");
   visibility: visible;
   opacity: 1;
   transition: visibility 0.1s, opacity 0.1s ease-out, width 0.1s ease-out;
+}
+
+.fra-review__comment-widget-hidden {
+  position: relative;
+  width: 0;
+  visibility: hidden;
+  opacity: 0;
+  overflow: hidden;
+  transition: visibility 0s, width 0.1s ease-out, width 0.1s ease-out;
+}
+.fra-review__comment-widget-other-target {
+  position: relative;
+  width: 260px;
+  visibility: hidden;
+  overflow: hidden;
+  transition: visibility 0s, width 0s;
+}
+
+.fra-review__triangle-marker {
+  position: absolute;
+  top: 20px;
+  left: -11px;
+  width: 12px;
+  height: 12px;
+  overflow: hidden;
+
+}
+.fra-review__triangle {
+  position: absolute;
+  top: 0;
+  right: -6px;
+  width: 12px;
+  height: 12px;
+  border: 1px solid #CCCCCC;
+  background: white;
+  transform: rotate(45deg);
+}
+
+.fra-review__comment {
+  padding: 8px 16px;
+}
+
+.fra-review__comment-edit-author {
+  font-size: @font-s;
+  font-family: @font-family-1;
+  font-weight: bold;
+  padding: 8px 16px 16px;
+  border-bottom: @ui-thin-border;
+}
+
+.fra-review__issue-status-count {
+  width: 24px;
+  min-width: 24px;
+  height: 24px;
+  background: @ui-accent;
+  color: white;
+  border-radius: 100%;
+  text-align: center;
+  line-height: 24px;
+  cursor: pointer;
+  font-size: @font-xs;
+}
+
+.fra-review__issue-status-visible {
+  cursor: pointer;
+}
+
+.fra-review__comment-add-btn {
+  margin-right: 8px;
+}
+
+.fra-review__comment-author {
+  font-size: @font-s;
+  font-weight: bold;
+}
+.fra-review__comment-time {
+  color: @text-mute;
+  font-size: @font-xxs;
+  margin-bottom: 6px;
+}
+.fra-review__comment-text {
+  font-size: @font-s;
+  line-height: 1.4;
+  overflow-wrap: break-word;
 }
