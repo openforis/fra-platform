@@ -19,7 +19,6 @@ class ReviewIndicator extends React.Component {
 
   constructor (props) {
     super(props)
-    this.state = {widgetVisualState: 'hidden'}
   }
 
   componentWillMount () {
@@ -30,20 +29,15 @@ class ReviewIndicator extends React.Component {
     if (next.countryIso !== this.props.countryIso) { // changing country
       this.props.getCommentCount(next.countryIso, this.props.section, this.props.target)
     }
-    if (!next.openThread) { // comments are being closed
-
-    }
   }
 
   render () {
     const targetProps = this.props[this.props.target] || {}
     const count = R.isNil(targetProps) ? 0 : targetProps.count // comments ? comments.length  : 0
-    const style = {'zIndex': this.state.widgetVisualState === 'visible' ? 1 : 0}
 
-    return <div className="fra-review__add-issue" style={style}>
+    return <div className="fra-review__add-issue">
       <CommentStatus count={count} visible={true} onClick={() => {
         this.props.openCommentThread(this.props.countryIso, this.props.section, this.props.target, this.props.name)
-        window.setTimeout(() => this.setState({widgetVisualState: 'visible'}), 0)
       }}/>
     </div>
   }
