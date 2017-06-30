@@ -3,7 +3,8 @@ import R from 'ramda'
 
 const integerInputColumns = R.times(() => ({type: 'integerInput'}), 4)
 
-const netChange = (expansion, deforestation) => !isNaN(expansion) && !isNaN(deforestation) ? expansion - deforestation : null
+const netChange = (expansion, deforestation) =>
+  !R.isNil(expansion) && !R.isNil(deforestation) ? expansion - deforestation : null
 
 const netChangeCell = (column) => (props) =>
   <td key="" className="fra-table__text-readonly-cell">
