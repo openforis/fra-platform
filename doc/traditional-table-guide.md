@@ -234,3 +234,30 @@ Now our row-definitions look more compact:
 Adding a view to the FRA Platform navigation is out of scope for this
 guide. But we will show how to add a table to any view/page.
 
+So, skipping the navigation stuff, we assume that a view file has been
+created and it's in
+`webapp/primaryDesignatedManagementObjective/primaryDesignatedManagementObjectiveView.js`.
+
+Next, we need to import the tableSpec we just created:
+
+```import tableSpec from './tableSpec```
+
+And the TraditionalTable component:
+
+```
+import TraditionalTable from '../traditionalTable/traditionalTable'
+```
+
+Now we can use the TraditionalTable component in our render-method or
+function like this:
+
+```
+<TraditionalTable tableSpec={tableSpec} countryIso={this.props.match.params.countryIso}/>
+```
+
+(The above assumes countryIso is in the props, but it can come from
+anywhere as long as it's passed in)
+
+And we're finished! The table is rendered in the UI, fetches it's
+own data and autosaves it.
+
