@@ -18,14 +18,19 @@ const IntegerInput = ({countryIso, tableSpec, tableData, rowIdx, colIdx, tableVa
   </td>
 }
 
+const cellTypeHandlers = {
+  'integerInput': (cellSpec, props) => <IntegerInput {...props}/>,
+  'readOnly': (cellSpec, props) => cellSpec.jsx,
+
+}
+
 const Cell = (props) => {
   const {tableSpec, rowIdx, colIdx} = props
   const cellSpec = tableSpec.rows[rowIdx][colIdx]
   assert(cellSpec, `No cellspec for ${rowIdx} ${colIdx}`)
-  if (cellSpec.type === 'integerInput') {
-    return <IntegerInput {...props}/>
-  } else if (cellSpec.type === 'readOnly') {
-    return cellSpec.jsx
+  const handler = cellTypeHandlers[cellSpec.type]
+  if (handler) {
+    return handler(cellSpec, props)
   } else {
     throw `Unknown cell type ${cellSpec.type}`
   }
