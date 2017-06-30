@@ -23,6 +23,7 @@ userApi.init(app)
 app.use(compression({threshold: 512}))
 app.use('/', express.static(`${__dirname}/../dist`))
 app.use('/img/', express.static(`${__dirname}/../web-resources/img`))
+app.use('/css/', express.static(`${__dirname}/../web-resources/css`))
 app.use(bodyParser.json({limit: '5000kb'}))
 
 app.get('/api/country/all', (req, res) => {
