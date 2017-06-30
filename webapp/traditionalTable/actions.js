@@ -19,7 +19,10 @@ const createNewTableState = (tableSpec, rowIdx, colIdx, newValue, getState) => {
 
 const saveChanges = (countryIso, tableSpec, tableData) => {
   const debounced = dispatch =>
-    axios.post(`/api/traditionalTable/${countryIso}/${tableSpec.name}`, table.getValueSliceFromTableValues(tableSpec, tableData)).then(() => {
+    axios.post(
+      `/api/traditionalTable/${countryIso}/${tableSpec.name}`,
+      table.getValueSliceFromTableData(tableSpec, tableData)
+    ).then(() => {
       dispatch(autosave.complete)
     }).catch((err) => {
       dispatch(applicationError(err))

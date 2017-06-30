@@ -16,11 +16,11 @@ const specWithSlice = {
 describe('table', () => {
   it('Slices last row and first column away', () => {
     const expected = [[1, 2], [3, 4]]
-    const actual = table.getValueSliceFromTableValues(specWithSlice, dataToSlice)
+    const actual = table.getValueSliceFromTableData(specWithSlice, dataToSlice)
     assert(R.equals(expected, actual), `Expected ${JSON.stringify(expected)} actual ${JSON.stringify(actual)}`)
   })
   it('Returns all data if there is no slicing', () => {
-    const actual = table.getValueSliceFromTableValues({}, dataToSlice)
+    const actual = table.getValueSliceFromTableData({}, dataToSlice)
     assert(R.equals(dataToSlice, actual), `Expected ${JSON.stringify(dataToSlice)} actual ${JSON.stringify(actual)}`)
   })
   it('Creates the full, larger data matrix from a slice and tableSpec', () => {

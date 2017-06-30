@@ -31,7 +31,7 @@ export const fillTableDatafromValueSlice = (tableSpec, fullTableData, valueSlice
   return reduceResult.data
 }
 
-export const getValueSliceFromTableValues = (tableSpec, tableValues) => {
+export const getValueSliceFromTableData = (tableSpec, tableValues) => {
   const [rowSliceLens, colSliceLens] = getSliceLenses(tableSpec)
   return L.collect([rowSliceLens, L.elems, colSliceLens], tableValues)
 }
