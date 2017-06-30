@@ -60,7 +60,7 @@ const AddComment = ({issueId, countryIso, section, target, postComment, onCancel
     </div>
   </div>
 
-const CommentThread = ({countryIso, section, target, comments, visualState, postComment, close, userInfo}) => {
+const CommentThread = ({comments}) => {
   return <div className={`fra-review__comment-widget-visible`}>
     <div className={`fra-review__issue fra-review__issue-visible`}>
       <div className="fra-review__triangle-marker">
@@ -91,13 +91,11 @@ render() {
   const close = R.partial(ctx => {
     ctx.props.closeCommentThread(ctx.props.target)
   }, [this])
-  console.log('openThread',  this.props.openThread)
-  console.log('props',  this.props)
 
   return <div className={`fra-review-${isActive ? 'active' : 'hidden'}`}>
     <ReviewHeader name={name} close={close} />
     <CommentThread
-    comments={R.defaultTo([], comments)}/>
+    comments={comments}/>
     <AddComment issueId={issueId}
                 countryIso={this.props.country}
                 section='EOF'
