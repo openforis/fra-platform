@@ -24,8 +24,14 @@
 .review-panel-hidden {
   visibility: hidden;
   width: 0;
-  transition: visibility 0s, width 0.1s ease-out, width 0.1s ease-out;
   opacity: 0;
+
+  .fra-issue__issue-comment-input {
+    display: none;
+  }
+  .fra-issue__comment-buttons {
+    display: none;
+  }
 }
 
 .review-panel__add-comment {
@@ -50,6 +56,9 @@
   &:focus {
     outline: none;
   }
+}
+.fra-issue__comment-buttons {
+  padding: 0 16px 8px;
 }
 
 .fra-issue__comment-edit-author-empty {
