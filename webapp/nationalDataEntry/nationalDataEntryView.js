@@ -42,12 +42,15 @@ class DataTable extends React.Component {
       </div>
       <div className="nde__comment-column">
         <div className="nde__comment-cell"><IssueWidget target={['forest']}
+                                                        name="Forest"
                                                         countryIso={this.props.countryIso}
                                                         section='EOF'/></div>
         <div className="nde__comment-cell"><IssueWidget section='EOF'
+                                                        name="Other wooded land"
                                                         target={['otherWoodedLand']}
                                                         countryIso={this.props.countryIso}/></div>
         <div className="nde__comment-cell"><IssueWidget section='EOF'
+                                                        name="Other land"
                                                         target={['otherLand']}
                                                         countryIso={this.props.countryIso}/></div>
       </div>

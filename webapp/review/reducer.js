@@ -20,7 +20,7 @@ const actionHandlers = {
   { console.log("action", action)
     return ({...state, [action.target]: R.merge(state[action.target], {count: action.count})})
   },
-  [issueOpenCommentThread]: (state, action) => ({...state, 'openThread': action.target}),
+  [issueOpenCommentThread]: (state, action) => ({...state, 'openThread': {target: action.target, name: action.name}}),
   [issueCloseCommentThread]: (state, action) => {
     console.log('state', state)
     const newstate = R.omit(['openThread'], state)

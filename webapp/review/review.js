@@ -79,17 +79,19 @@ const ReviewHeader = ({name, close}) =>
 class ReviewPanel extends React.Component {
 
 render() {
-  const isActive = R.pipe(R.defaultTo([]), R.isEmpty, R.not)(this.props.openThread)
-  const target = isActive ? R.head(this.props.openThread) : null
+  const isActive = R.pipe(R.defaultTo({}), R.isEmpty, R.not)(this.props.openThread)
+  const target = isActive ? R.head(this.props.openThread.target) : null
+  const name = R.isNil(this.props.openThread) ? '' : this.props.openThread.name
   const comments = R.defaultTo([], target ? this.props[target].issue : [])
   const issueId = comments && comments.length > 0 ? comments[0].issueId : null
   const close = R.partial(ctx => {
     ctx.props.closeCommentThread(ctx.props.target)
   }, [this])
-  console.log('target',  target)
+  console.log('openThread',  this.props.openThread)
+  console.log('props',  this.props)
 
   return <div className={`review-panel-${isActive ? 'active' : 'hidden'}`}>
-    <ReviewHeader name={target} close={close} />
+    <ReviewHeader name={name} close={close} />
     <CommentThread
     comments={R.defaultTo([], comments)}/>
     <AddComment issueId={issueId}
