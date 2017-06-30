@@ -7,7 +7,8 @@ const ckEditorConfig = {
     {name: 'links'},
     {name: 'insert'},
     {name: 'about'}
-  ]
+  ],
+  removeButtons: 'Underline'
 }
 
 export default ckEditorConfig
