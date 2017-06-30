@@ -48,8 +48,7 @@ export default {
      {type: 'custom', render: totalForestAreaCell(2)},
      {type: 'custom', render: totalForestAreaCell(3)},
      {type: 'custom', render: totalForestAreaCell(4)},
-     {type: 'custom', render: totalForestAreaCell(5)}],
-
+     {type: 'custom', render: totalForestAreaCell(5)}]
   ],
   valueSlice: {
     columnStart: 1,
