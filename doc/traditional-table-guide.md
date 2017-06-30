@@ -94,4 +94,143 @@ After this we copy/paste the _create table_ statemenet above into
 
 Next time we start the server, the table is there.
 
+## 3. Create tableSpec for the UI
+
+The front-end table is described via a *tableSpec* js-file which
+contains the description of the table and possibly also some code. 
+
+First, we add a new js file
+`webapp/primaryDesignatedManagementObjectives/tableSpec.js` and add
+React import there: `import React from 'react'`
+
+Next we describe the parts that tableSpec consists of.
+
+### Name
+
+The tableSpec name, which is used to identify the table. We already
+practically chose it when we named our new mapping in
+`tableMappings.js` above. The name is also used to match the front-end
+data with backend persistence-functionality.
+
+So in our case we add:
+
+```name: "primaryDesignatedManagementObjective"```
+
+### Header
+
+The header-portion is just plain JSX which should provide a lot of
+flexibility if we want to e.g. have multiple header rows with varying
+colspans and styles.
+
+We add just the full *thead* here:
+
+```
+header: <thead>
+  <tr>
+    <td className="fra-table__header-cell"/>
+    <td className="fra-table__header-cell-align-right">1990</td>
+    <td className="fra-table__header-cell-align-right">2000</td>
+    <td className="fra-table__header-cell-align-right">2010</td>
+    <td className="fra-table__header-cell-align-right">2015</td>
+    <td className="fra-table__header-cell-align-right">2020</td>
+  </tr>
+</thead>
+```
+
+First column is empty, we'll ad "row-headers" there.
+
+### Rows
+
+For the "row-heading" (the first column which contains just static
+text), well add this inside a rows-array attribute:
+
+```
+rows: [{type: 'readOnly', jsx: <td key="expansion" className="fra-table__header-cell">Production</td>}]
+
+```
+
+This is a Javascript Object which describes a readonly-cell with
+custom JSX. So we have one row with one cell now. Next, let's add a
+dynamic input field cell:
+
+```
+{type: 'integerInput'}
+```
+
+Now the whole row looks like this:
+
+```
+[{type: 'readOnly', jsx: <td key="production" className="fra-table__header-cell">Production</td>},
+ {type: 'integerInput'}]
+```
+
+We have one readonly and one input cell. To add all the input fields,
+we just paste more of them:
+
+```
+[{type: 'readOnly', jsx: <td key="production" className="fra-table__header-cell">Production</td>},
+ {type: 'integerInput'},
+ {type: 'integerInput'},
+ {type: 'integerInput'},
+ {type: 'integerInput'},
+ {type: 'integerInput'}
+ ]
+```
+
+Rest of the rows with input-fields look the same, only the text
+in the readOnly-cell changes:
+
+
+```
+rows: [
+ [
+  {type: 'readOnly', jsx: <td key="production" className="fra-table__header-cell">Production</td>},
+  {type: 'integerInput'},
+  {type: 'integerInput'},
+  {type: 'integerInput'},
+  {type: 'integerInput'},
+  {type: 'integerInput'}
+ ],
+ [
+  {type: 'readOnly', jsx: <td key="protection" className="fra-table__header-cell">Protection of soil and water</td>},
+  {type: 'integerInput'},
+  {type: 'integerInput'},
+  {type: 'integerInput'},
+  {type: 'integerInput'},
+  {type: 'integerInput'}
+ ]
+]
+```
+
+This starts to look really repetitive. Thankfully this is not json,
+but Javascript. So nothing prevents us from having some code to reduce
+the copy/paste stuff. Let's use a function to create
+all the rows which are almost identical:
+
+```
+const createPdmoIOnputRow = (rowHeader) => [
+  {type: 'readOnly', jsx: <td key="protection" className="fra-table__header-cell">{rowHeader}</td>},
+  ...(R.times(() => ({type: 'integerInput'}), 5))
+]
+```
+
+Now our row-definitions look more compact:
+
+```
+  rows: [
+    createPdmoIOnputRow('Production'),
+    createPdmoIOnputRow('Protection of soil and water'),
+    createPdmoIOnputRow('Conservation of biodiversity'),
+    createPdmoIOnputRow('Social Services'),
+    createPdmoIOnputRow('Multiple use'),
+    createPdmoIOnputRow('Other'),
+    createPdmoIOnputRow('No/unknown')
+  ],
+
+```
+
+## 4. Add the table to a view.
+
+Adding a view to the FRA Platform navigation is out of scope for this
+guide. But we will show how to add a table to any view/page.
 

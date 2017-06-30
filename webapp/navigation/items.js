@@ -65,7 +65,7 @@ export const fiveYearItems = [
   {
     order: 11,
     label: "Primary designated management objective",
-    pathTemplate: "#/todo",
+    pathTemplate: "/country/:countryIso/primaryDesignatedManagementObjectiveView",
     status: "Not started"
   },
   {
