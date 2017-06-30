@@ -81,6 +81,11 @@ const ReviewHeader = ({name, close}) =>
   </div>
 
 class ReviewPanel extends React.Component {
+  componentWillReceiveProps (next) {
+    if (!R.equals(this.props.country, next.country)) {
+      this.props.closeCommentThread(this.props.target)
+    }
+  }
 
 render() {
   const isActive = R.pipe(R.defaultTo({}), R.isEmpty, R.not)(this.props.openThread)
