@@ -10,7 +10,6 @@ import ErrorComponent from './applicationError/errorComponent'
 const template = ({children, commentsOpen}) => {
   const containerClass = R.isNil(commentsOpen) ? 'fra-view-content__container' : 'fra-view-content__container-commenting'
   const footerWidth = R.isNil(commentsOpen) ? 256: 544
-  console.log('class', containerClass)
   return <div className="app__root">
     <Navigation/>
     <ErrorComponent/>

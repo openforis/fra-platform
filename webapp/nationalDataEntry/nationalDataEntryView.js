@@ -5,7 +5,7 @@ import * as R from 'ramda'
 import { save, saveMany, fetch, generateFraValues } from './actions'
 import { Link } from './../link'
 import Chart from './chart/chart'
-import IssueWidget from '../review/reviewIndicator'
+import ReviewIndicator from '../review/reviewIndicator'
 import LoggedInPageTemplate from '../loggedInPageTemplate'
 import { separateThousandsWithSpaces } from '../utils/numberFormat'
 import { ThousandSeparatedIntegerInput } from '../reusableUiComponents/thousandSeparatedIntegerInput'
@@ -41,15 +41,15 @@ class DataTable extends React.Component {
         { fraValueRow('Other land', 'otherLand', this.props.countryIso, 'otherLand', this.props.fra, this.props.save, this.props.saveMany, 2) }
       </div>
       <div className="nde__comment-column">
-        <div className="nde__comment-cell"><IssueWidget target={['forest']}
+        <div className="nde__comment-cell"><ReviewIndicator target={['forest']}
                                                         name="Forest"
                                                         countryIso={this.props.countryIso}
                                                         section='EOF'/></div>
-        <div className="nde__comment-cell"><IssueWidget section='EOF'
+        <div className="nde__comment-cell"><ReviewIndicator section='EOF'
                                                         name="Other wooded land"
                                                         target={['otherWoodedLand']}
                                                         countryIso={this.props.countryIso}/></div>
-        <div className="nde__comment-cell"><IssueWidget section='EOF'
+        <div className="nde__comment-cell"><ReviewIndicator section='EOF'
                                                         name="Other land"
                                                         target={['otherLand']}
                                                         countryIso={this.props.countryIso}/></div>

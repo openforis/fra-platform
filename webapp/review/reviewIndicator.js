@@ -14,7 +14,7 @@ const CommentStatus = ({count, visible, ...props}) =>
     }
   </div>
 
-class IssueWidget extends React.Component {
+class ReviewIndicator extends React.Component {
 
   constructor (props) {
     super(props)
@@ -35,7 +35,6 @@ class IssueWidget extends React.Component {
   }
 
   render () {
-    console.log("satus props", this.props)
     const targetProps = this.props[this.props.target] || {}
     const count = R.isNil(targetProps) ? 0 : targetProps.count // comments ? comments.length  : 0
     const style= {'zIndex': this.state.widgetVisualState === 'visible' ? 1: 0 }
@@ -55,4 +54,4 @@ const mapStateToProps = state => R.merge(state.review, state.user)
     openCommentThread,
     closeCommentThread,
     getCommentCount
-  })(IssueWidget)
+  })(ReviewIndicator)
