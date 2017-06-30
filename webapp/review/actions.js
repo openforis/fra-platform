@@ -23,7 +23,7 @@ export const postComment = (issueId, countryIso, section, target, userId, msg) =
   axios.post(api, {msg}).then(() => {
       dispatch({target: target, type: issuePostCommentCompleted, status: 'completed'})
       axios.get(`api/country/issue/${countryIso}/${section}?target=${target}`)
-        .then(readingCompletion(section, target, dispatch))
+        .then(readingCompletion(section, target, dispatch) && getCommentCount(countryIso, section, target)(dispatch))
     }
   )
 }
