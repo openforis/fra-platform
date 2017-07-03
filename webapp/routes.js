@@ -9,6 +9,7 @@ import SpecificForestCategoriesView from './specificForestCategories/specificFor
 import PrimaryDesignatedManagementObjectiveView from './primaryDesignatedManagementObjective/primaryDesignatedManagementObjectiveView'
 import OriginalDataListView from './originalDataPoint/originalDataListView'
 import ForestAreaChangeView from './forestAreaChange/forestAreaChangeView'
+import AreaAffecteByFireView from './areaAffectedByFire/areaAffectedByFireView'
 
 const routes = {
   '/': LoginView,
@@ -18,7 +19,8 @@ const routes = {
   '/country/:countryIso/odp/:odpId': OriginalDataPointView,
   '/country/:countryIso/specificForestCategories': SpecificForestCategoriesView,
   '/country/:countryIso/forestAreaChange': ForestAreaChangeView,
-  '/country/:countryIso/primaryDesignatedManagementObjectiveView': PrimaryDesignatedManagementObjectiveView
+  '/country/:countryIso/primaryDesignatedManagementObjectiveView': PrimaryDesignatedManagementObjectiveView,
+  '/country/:countryIso/areaAffectedByFire': AreaAffecteByFireView
 }
 
 const routeConfig = R.pipe(
