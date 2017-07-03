@@ -13,9 +13,7 @@
   visibility: visible;
   transition: visibility 0.1s, opacity 0.1s ease-out, width 0.1s ease-out;
   opacity: 1;
-  border: 1px solid #CCCCCC;
-  box-shadow: inset 1px 0 0 0 #cccccc;
-  box-shadow: inset 1px 0 0 0 var(--ui-border);
+  border-left: @ui-thin-border;
   background: white;
   display: flex;
   flex-flow: column nowrap;
@@ -29,9 +27,11 @@
   .fra-review__issue-comment-input {
     display: none;
   }
+
   .fra-review__comment-buttons {
     display: none;
   }
+
   .fra-review__header {
     display: none;
   }
@@ -76,7 +76,7 @@
 }
 
 .fra-review__issue-comment-input {
-  border: solid 1px #cccccc;
+  border: @ui-thin-border;
   border-radius: 2px;
   margin: 8px 16px;
   height: 36px;
@@ -84,13 +84,15 @@
   max-height: 76px;
   width: 256px;
   resize: none;
-  padding: 8px 16px 0;
+  padding: 8px;
   font-size: @font-s;
-  font-family: @font-family-1;
+  line-height: inherit;
+
   &:focus {
     outline: none;
   }
 }
+
 .fra-review__comment-buttons {
   padding: 0 16px 8px;
 }
