@@ -14,7 +14,7 @@ const specWithSlice = {
 }
 
 describe('table', () => {
-  it('Slices last row and first column away', () => {
+  it('Slices first and last rows and first column away', () => {
     const expected = [[1, 2], [3, 4]]
     const actual = table.getValueSliceFromTableData(specWithSlice, dataToSlice)
     assert(R.equals(expected, actual), `Expected ${JSON.stringify(expected)} actual ${JSON.stringify(actual)}`)
