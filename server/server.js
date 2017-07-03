@@ -6,6 +6,7 @@ const compression = require('compression')
 const migrations = require('./db/migration/execMigrations')
 const sessionInit = require('./sessionInit')
 
+const authApi = require('./auth/authApi')
 const countryRepository = require('./countryRepository')
 const eofApi = require('./eof/api')
 const odpApi = require('./odp/api')
@@ -25,6 +26,8 @@ app.use('/', express.static(`${__dirname}/../dist`))
 app.use('/img/', express.static(`${__dirname}/../web-resources/img`))
 app.use('/css/', express.static(`${__dirname}/../web-resources/css`))
 app.use(bodyParser.json({limit: '5000kb'}))
+
+authApi.init(app)
 
 app.get('/api/country/all', (req, res) => {
   countryRepository.getAllCountries().then(result => {

@@ -9,11 +9,11 @@ import { getLoggedinUserInfo } from '../login/actions'
 
 class Router extends React.Component {
 
-  follow() {
-    if (!(Cookies.get('loggedIn') === 'true') || !location.hash === '') {
+  follow () {
+    const loggedInCookie = R.defaultTo('false')(Cookies.get('loggedIn'))
+    if (loggedInCookie === 'false' && location.hash !== '') {
       window.location.hash = ''
-    }
-    else if (!this.props.loggedInUserInfoLoaded) {
+    } else if (!this.props.loggedInUserInfoLoaded) {
       this.props.getLoggedinUserInfo()
     }
     this.props.follow(location.hash)
@@ -31,8 +31,8 @@ class Router extends React.Component {
   render () {
     const route = R.find(route => route.route.match(this.props.path))(this.props.routes)
     return (route
-            ? React.createElement(route.component, {match: {params: route.route.match(this.props.path)}})
-            : <Notfound/>)
+      ? React.createElement(route.component, {match: {params: route.route.match(this.props.path)}})
+      : <Notfound/>)
   }
 }
 

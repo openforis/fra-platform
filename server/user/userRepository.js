@@ -2,7 +2,7 @@ const db = require('../db/db')
 const camelize = require('camelize')
 const R = require('ramda')
 
-module.exports.getUserInfo = email =>
+const getUserInfo = email =>
   db.query('SELECT id, name FROM fra_user WHERE email = $1', [email])
     .then(res => {
       if (res.rows.length > 0) {
@@ -16,3 +16,9 @@ module.exports.getUserInfo = email =>
       }
     }
     ).then(res => res ? R.assoc('roles', camelize(res[1].rows), res[0]) : null)
+
+module.exports.getUserInfoByEmail = getUserInfo
+
+module.exports.findUserByLoginEmails = emails =>
+  db.query('SELECT email from fra_user WHERE login_email in ($1)', [emails.join(',')])
+    .then(res => res.rows.length > 0 ? getUserInfo(res.rows[0].email) : null)
