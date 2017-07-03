@@ -19,7 +19,7 @@ const totalForestArea = (tableData, columnIdx) =>
   )
 
 const totalForestAreaCell = (column) => (props) =>
-  <td key="" className="fra-table__text-readonly-cell-align-right">
+  <td key="" className="fra-table__aggregate-cell">
     {totalForestArea(props.tableData, column)}
   </td>
 
