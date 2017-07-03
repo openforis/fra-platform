@@ -8,7 +8,7 @@ export const issueCloseCommentThread = 'issue/comment/thread/close'
 
 export const reviewGetCommentCountCompleted = 'review/comment/count/completed'
 
-const readingCompletion = (section, target, dispatch) => resp => {
+const sectionCommentsReceived = (section, target, dispatch) => resp => {
   const targetkey = typeof target === 'string' ? target : target.join('_')
   dispatch({
     type: issueRetrieveCommentsCompleted,
@@ -24,7 +24,7 @@ export const postComment = (issueId, countryIso, section, target, userId, msg) =
       dispatch({target: target, type: issuePostCommentCompleted, status: 'completed'})
       getCommentCount(countryIso, section, target)(dispatch)
       axios.get(`api/review/${countryIso}/${section}?target=${target}`)
-        .then(readingCompletion(section, target, dispatch))
+        .then(sectionCommentsReceived(section, target, dispatch))
     }
   )
 }
@@ -32,7 +32,7 @@ export const postComment = (issueId, countryIso, section, target, userId, msg) =
 export const retrieveComments = (countryIso, section, target) => dispatch => {
   dispatch({section: section, type: issueRetrieveCommentsStarted, status: 'started'})
   axios.get(`api/review/${countryIso}/${section}?target=${target}`)
-    .then(readingCompletion(section, target, dispatch))
+    .then(sectionCommentsReceived(section, target, dispatch))
 }
 
 export const getCommentCount = (countryIso, section, target) => dispatch => {

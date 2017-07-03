@@ -8,20 +8,22 @@ import './style.less'
 
 const mapIndexed = R.addIndex(R.map)
 
+const onCommentKeyInput = onCancel => e => {
+  if (e.keyCode === 8) {
+    const elem = document.getElementById(`fra-review__comment-input-${target}`)
+    if (elem.textLength === 0) {
+      elem.style.height = '40px'
+    }
+  }
+  if (e.keyCode === 27) { // escape
+    onCancel()
+  }
+}
+
 const AddComment = ({issueId, countryIso, section, target, postComment, onCancel, isFirst, userInfo}) =>
   <div className="fra-review__add-comment">
     <textarea
-      onKeyUp={(e) => {
-        if (e.keyCode === 8) {
-          const elem = document.getElementById(`fra-review__comment-input-${target}`)
-          if (elem.textLength === 0) {
-            elem.style.height = '40px'
-          }
-        }
-        if (e.keyCode === 27) { // escape
-          onCancel()
-        }
-      } }
+      onKeyUp={onCommentKeyInput(onCancel)}
       onInput={() => {
         const elem = document.getElementById(`fra-review__comment-input-${target}`)
         elem.style.height = `${elem.scrollHeight}px`
