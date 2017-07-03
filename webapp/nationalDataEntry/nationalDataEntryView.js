@@ -5,7 +5,7 @@ import * as R from 'ramda'
 import { save, saveMany, fetch, generateFraValues } from './actions'
 import { Link } from './../link'
 import Chart from './chart/chart'
-import IssueWidget from '../issue/issueWidget'
+import ReviewIndicator from '../review/reviewIndicator'
 import LoggedInPageTemplate from '../loggedInPageTemplate'
 import { separateThousandsWithSpaces } from '../utils/numberFormat'
 import { ThousandSeparatedIntegerInput } from '../reusableUiComponents/thousandSeparatedIntegerInput'
@@ -41,13 +41,16 @@ class DataTable extends React.Component {
         { fraValueRow('Other land', 'otherLand', this.props.countryIso, 'otherLand', this.props.fra, this.props.save, this.props.saveMany, 2) }
       </div>
       <div className="nde__comment-column">
-        <div className="nde__comment-cell"><IssueWidget target={['forest']}
+        <div className="nde__comment-cell"><ReviewIndicator target={['forest']}
+                                                        name="Forest"
                                                         countryIso={this.props.countryIso}
                                                         section='EOF'/></div>
-        <div className="nde__comment-cell"><IssueWidget section='EOF'
+        <div className="nde__comment-cell"><ReviewIndicator section='EOF'
+                                                        name="Other wooded land"
                                                         target={['otherWoodedLand']}
                                                         countryIso={this.props.countryIso}/></div>
-        <div className="nde__comment-cell"><IssueWidget section='EOF'
+        <div className="nde__comment-cell"><ReviewIndicator section='EOF'
+                                                        name="Other land"
                                                         target={['otherLand']}
                                                         countryIso={this.props.countryIso}/></div>
       </div>
@@ -145,13 +148,11 @@ const NationalDataEntry = (props) => {
     return props.generatingFraValues || odps.length < 2
   }
 
-  const marginClass = R.isNil(props.openCommentThread) ? 'nde__comment-margin' : 'nde__comment-thread-margin'
-
-  return <div className={`nde__data-input-component`}>
+  return <div className='nde__data-input-component'>
     <div className="nde__data-page-header">
       <h2 className="headline">Extent of forest</h2>
     </div>
-    <div className={`${marginClass}`}>
+    <div className='nde__comment-margin'>
       <div className="nde__data-input-header">
         <Link className="btn btn-primary" to={`/country/${props.countryIso}/odp`}>
           <svg className="icon icon-middle icon-white">
@@ -191,12 +192,12 @@ class DataFetchingComponent extends React.Component {
   }
 
   render () {
-    return <LoggedInPageTemplate>
+    return <LoggedInPageTemplate commentsOpen={this.props.openCommentThread}>
       <NationalDataEntry {...this.props} countryIso={this.props.match.params.countryIso}/>
     </LoggedInPageTemplate>
   }
 }
 
-const mapStateToProps = state => R.merge(state.nationalDataEntry, {'openCommentThread': state.issue.openThread})
+const mapStateToProps = state => R.merge(state.nationalDataEntry, {'openCommentThread': state.review.openThread})
 
 export default connect(mapStateToProps, {save, saveMany, fetch, generateFraValues})(DataFetchingComponent)

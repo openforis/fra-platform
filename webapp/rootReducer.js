@@ -7,9 +7,9 @@ import autoSave from './autosave/reducer'
 import navigation from './navigation/reducers'
 import router from './router/reducers'
 import user from './login/reducer'
-import issue from './issue/reducer'
 import traditionalTable from './traditionalTable/reducer'
 import descriptions from './description/reducers'
+import review from './review/reducer'
 
 export default combineReducers({
   applicationError,
@@ -20,6 +20,6 @@ export default combineReducers({
   navigation,
   router,
   user,
-  issue,
+  review,
   traditionalTable
 })
