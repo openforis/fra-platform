@@ -11,10 +11,9 @@ const createInsert = (tableName, columnNamesStr, valuePlaceholdersStr, row) =>
 const createColumnNames = (mapping) => R.map((columnName) => `"${columnName}"`,[...fixedFraTableColumns, ...mapping.columns.names])
 
 const createRowData = (countryIso, mapping, rowIndex, rawRow) => {
-  const trimmed = R.drop(mapping.columns.indexOffset, rawRow)
   //These values are there for all fra tables
   const fixedValues = [countryIso, mapping.getRowName(rowIndex)]
-  return [...fixedValues, ...trimmed]
+  return [...fixedValues, ...rawRow]
 }
 
 const getMapping = (tableSpecName) => tableMappings.getMapping(tableSpecName)
@@ -32,18 +31,17 @@ const createDelete = (countryIso, tableSpecName) => {
 const createInserts = (countryIso, tableSpecName, tableData) => {
   const mapping = getMapping(tableSpecName)
   assert(mapping, `Could not find mapping for ${tableSpecName}`)
-  const tableSpecificColumnCount = tableData[0].length - mapping.columns.indexOffset
+  const tableSpecificColumnCount = tableData[0].length
   const columnNames = createColumnNames(mapping)
   const tableName = mapping.tableName
   const columnNamesStr = R.join(',', columnNames)
   const valuePlaceholdersStr = R.join(',', R.map((idx) => `$${idx+1}`, R.range(0, tableSpecificColumnCount + fixedFraTableColumns.length)))
-  const trimmedTableRows = R.drop(mapping.rows.indexOffset, tableData)
   return R.addIndex(R.map)((row, rowIndex) => createInsert(
     tableName,
     columnNamesStr,
     valuePlaceholdersStr,
     createRowData(countryIso, mapping, rowIndex, row)),
-    trimmedTableRows)
+    tableData)
 }
 
 // Currently assumes all dynamic columns are of the same type (might have to change that later)

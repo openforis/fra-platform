@@ -4,9 +4,9 @@ const sqlCreator = require('./traditionalTableSqlCreator')
 const tableMappings = require('./tableMappings')
 const { toNumberOrNull  } = require('../utils/databaseConversions')
 
-module.exports.save = (client, countryIso, tableSpecName, tableState) => {
+module.exports.save = (client, countryIso, tableSpecName, tableData) => {
   const [deleteQuery, deleteQyeryParams] = sqlCreator.createDelete(countryIso, tableSpecName)
-  const insertQueries = sqlCreator.createInserts(countryIso, tableSpecName, tableState.tableState)
+  const insertQueries = sqlCreator.createInserts(countryIso, tableSpecName, tableData)
 
   return client.query(
     deleteQuery, deleteQyeryParams
