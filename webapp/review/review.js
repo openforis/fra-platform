@@ -53,15 +53,13 @@ const CommentThread = ({comments}) => {
           comments && R.not(R.isEmpty(comments)) ? mapIndexed((c, i) =>
               <div key={i} className="fra-review__comment">
                 <div className="fra-review__comment-author">{c.username}</div>
-                <div className="fra-review__comment-time">just now</div>
+                <div className="fra-review__comment-time">Just now</div>
                 <div className="fra-review__comment-text">
                   {c.message}
                 </div>
               </div>,
             comments) : <div className='fra-review__comment-placeholder'>
-            <svg className="icon">
-              <use xlinkHref="img/icon.svg#icon-chat-45"/>
-            </svg>
+            <svg className="fra-review__comment-placeholder-icon icon-24"><use xlinkHref="img/icon.svg#icon-chat-46"/></svg>
             <span className="fra-review__comment-placeholder-text">No comments</span>
           </div>
         }
@@ -72,13 +70,13 @@ const CommentThread = ({comments}) => {
 
 const ReviewHeader = ({name, close}) =>
   <div className="fra-review__header">
-    <h2>Comments</h2>
+    <h2 className="fra-review__header-title subhead">Comments</h2>
     <div className="fra-review__header-close-btn" onClick={e => close(e)}>
       <svg className="icon icon-24">
         <use xlinkHref="img/icon.svg#icon-small-remove"/>
       </svg>
     </div>
-    <span>{name}</span>
+    <div className="fra-review__header-target">{name}</div>
   </div>
 
 class ReviewPanel extends React.Component {

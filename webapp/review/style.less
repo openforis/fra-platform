@@ -13,9 +13,7 @@
   visibility: visible;
   transition: visibility 0.1s, opacity 0.1s ease-out, width 0.1s ease-out;
   opacity: 1;
-  border: 1px solid #CCCCCC;
-  box-shadow: inset 1px 0 0 0 #cccccc;
-  box-shadow: inset 1px 0 0 0 var(--ui-border);
+  border-left: @ui-thin-border;
   background: white;
   display: flex;
   flex-flow: column nowrap;
@@ -29,9 +27,11 @@
   .fra-review__issue-comment-input {
     display: none;
   }
+
   .fra-review__comment-buttons {
     display: none;
   }
+
   .fra-review__header {
     display: none;
   }
@@ -39,40 +39,44 @@
 
 .fra-review__header {
   height: 76px;
-  background-color: #f5f5f5;
+  background-color: @ui-bg;
   padding: 16px;
-  border-bottom: 1px solid #CCCCCC;
-  h2 {
-    font-family: HelveticaNeue;
-    font-size: 16px;
-    font-weight: bold;
-    line-height: 1.25;
-    color: #111111;
-  }
+  border-bottom: @ui-thin-border;
 }
 
 .fra-review__header-close-btn {
   position: absolute;
   cursor: pointer;
-  right: 16px;
-  top: 16px;
+  right: 14px;
+  top: 14px;
+}
+
+.fra-review__header-target {
+  margin-top: 4px;
 }
 
 .fra-review__comment-placeholder {
   position: absolute;
   top: 50%;
-  left: calc(~"50% - 44.5px");
-  width: 89px;
+  left: calc(~"50% - 50px");
+  width: 100px;
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
 }
+
+.fra-review__comment-placeholder-icon {
+  fill: rgba(0,0,0,.3)
+}
+
 .fra-review__comment-placeholder-text {
   display: block;
+  color: @text-disabled;
+  margin-top: 8px;
 }
 
 .fra-review__issue-comment-input {
-  border: solid 1px #cccccc;
+  border: @ui-thin-border;
   border-radius: 2px;
   margin: 8px 16px;
   height: 36px;
@@ -80,13 +84,15 @@
   max-height: 76px;
   width: 256px;
   resize: none;
-  padding: 8px 16px 0;
+  padding: 8px;
   font-size: @font-s;
-  font-family: @font-family-1;
+  line-height: inherit;
+
   &:focus {
     outline: none;
   }
 }
+
 .fra-review__comment-buttons {
   padding: 0 16px 8px;
 }
@@ -104,6 +110,7 @@
   background: white;
   padding: 8px 0;
 }
+
 .fra-review__comment-widget-visible {
   position: relative;
   height: calc(~"100% - 98px");
@@ -120,6 +127,7 @@
   overflow: hidden;
   transition: visibility 0s, width 0.1s ease-out, width 0.1s ease-out;
 }
+
 .fra-review__comment-widget-other-target {
   position: relative;
   width: 260px;
@@ -130,11 +138,11 @@
 
 .fra-review__comment {
   padding: 8px 16px;
+  line-height: 18px;
 }
 
 .fra-review__comment-edit-author {
   font-size: @font-s;
-  font-family: @font-family-1;
   font-weight: bold;
   padding: 8px 16px 16px;
   border-bottom: @ui-thin-border;
@@ -165,13 +173,15 @@
   font-size: @font-s;
   font-weight: bold;
 }
+
 .fra-review__comment-time {
   color: @text-mute;
-  font-size: @font-xxs;
-  margin-bottom: 6px;
+  font-size: @font-xs;
+  margin-top: 4px;
 }
+
 .fra-review__comment-text {
   font-size: @font-s;
-  line-height: 1.4;
+  margin-top: 4px;
   overflow-wrap: break-word;
 }
