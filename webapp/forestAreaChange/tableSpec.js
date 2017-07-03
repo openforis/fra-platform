@@ -7,7 +7,7 @@ const netChange = (expansion, deforestation) =>
   !R.isNil(expansion) && !R.isNil(deforestation) ? expansion - deforestation : null
 
 const netChangeCell = (column) => (props) =>
-  <td key="" className="fra-table__text-readonly-cell-align-right">
+  <td key="" className="fra-table__aggregate-cell">
     {netChange(props.tableData[0][column], props.tableData[3][column])}
   </td>
 

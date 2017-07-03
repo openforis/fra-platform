@@ -2,8 +2,9 @@ const R = require('ramda')
 const assert = require('assert')
 const specificForestCategories = require('./mappings/specificForestCategories')
 const forestAreaChange = require('./mappings/forestAreaChange')
+const primaryDesignatedManagementObjective = require('./mappings/primaryDesignatedManagementObjective')
 
-const mappings = {specificForestCategories, forestAreaChange}
+const mappings = {specificForestCategories, forestAreaChange, primaryDesignatedManagementObjective}
 
 const getIndex = (name, names) => {
   const idx = R.findIndex((x) => x === name, names)
