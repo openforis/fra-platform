@@ -8,9 +8,9 @@ The following steps show how to create a new view with this kind of
 traditional table. We'll use "Primary designated management objective"
 as an example.
 
-## 1. Create the database mapping model.
+## 1. Create the database mapping model
 
-We start with from the bottom, and create a database description
+We'll move from bottom-up, and create a database description
 file. This can be used to create the database table in the next
 step.
 
@@ -25,7 +25,7 @@ following rows:
 * Other
 * No/unknown
 
-Note that we are only listing the rows and columns which have
+Note that we only listed the rows and columns which have
 user-entered, dynamic data.
 
 We'll create the corresponding database mapping file which has more
@@ -82,7 +82,7 @@ CREATE TABLE primary_designated_management_objective ("country_iso" VARCHAR, "ro
 
 ```
 
-This table is ready to use, we can just add it as a new migration SQL
+This table definition is ready to use, we can just add it as a new migration SQL
 file:
 
 ```
@@ -92,7 +92,7 @@ yarn run create-migration create-designated-management-objective
 After this we copy/paste the _create table_ statemenet above into
 `server/db/migration/migrations/sqls/<timestamp>-create-designated-management-objective-up.sql`
 
-Next time we start the server, the table is there.
+Next time we start the server, the table will be created.
 
 ## 3. Create tableSpec for the UI
 
@@ -101,9 +101,15 @@ contains the description of the table and possibly also some code.
 
 First, we add a new js file
 `webapp/primaryDesignatedManagementObjectives/tableSpec.js` and add
-React import there: `import React from 'react'`
+React import there: `import React from 'react'`. The tableSpec is a JavaScript
+object exported from the module. Let's create an empty one (we'll fill
+in the attributes next).
 
-Next we describe the parts that tableSpec consists of.
+```
+export default {}
+```
+
+Now we'll describe the attributes that tableSpec consists of.
 
 ### Name
 
@@ -142,7 +148,7 @@ First column is empty, we'll ad "row-headers" there.
 ### Rows
 
 For the "row-heading" (the first column which contains just static
-text), well add this inside a rows-array attribute:
+text), well add this inside a rows attribute which contains an array:
 
 ```
 rows: [{type: 'readOnly', jsx: <td key="expansion" className="fra-table__header-cell">Production</td>}]
@@ -297,7 +303,7 @@ Because the tableData can contain, for example:
 the ones we created with `{type: 'readOnly'}` earlier
 * Aggregate, calculated cells which are created with `{type: 'custom'}`
 
-it is clear that tableData will contain stuff we do not want to save
+it is clear that tableData will contain cells we do not want to save
 into the database. The way to tackle that is tableSpec's `valueSlice`
 attribute. It is optional, you don't have to specify it if there are
 no cells which should not be saved like custom or readOnly in your
@@ -329,9 +335,9 @@ Because of the defaults, we can have a more compact version:
   }
 ```
 
-That now handles the removal of our totals and the row header column
+We have now defined a valueSlice which handles the removal of our totals and the row header column
 we specified. Those will not be sent to server for saving (they
-contain just undefined values anyway). 
+contain just undefined values anyway).
 
 ## 4. Add the table to a view.
 
@@ -359,8 +365,8 @@ function like this:
 <TraditionalTable tableSpec={tableSpec} countryIso={this.props.match.params.countryIso}/>
 ```
 
-(The above assumes countryIso is in the props, but it can come from
-anywhere as long as it's passed in)
+(The above assumes countryIso is in the props, but it can of course come from
+anywhere)
 
 And we're finished! The table is rendered in the UI, fetches it's
 own data and autosaves it.
