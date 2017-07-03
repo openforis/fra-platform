@@ -1,6 +1,6 @@
 import { applicationError } from '../applicationError/actions'
 import * as autosave from '../autosave/actions'
-import { removeClassPlaceholder, addNationalClassPlaceHolder } from './originalDataPoint'
+import { removeClassPlaceholder, addNationalClassPlaceHolder, copyNationalClasses } from './originalDataPoint'
 import axios from 'axios'
 
 // Drafting
@@ -82,3 +82,14 @@ export const fetchOdps = countryIso => dispatch =>
     .catch(err =>
       dispatch(applicationError(err))
     )
+
+export const copyPreviousNationalClasses = (countryIso, odp) => dispatch => {
+  axios.get(`/api/prevOdp/${countryIso}/${odp.year}`).then(resp => {
+    const prevOdp = resp.data
+    if (prevOdp.nationalClasses)
+      saveDraft(countryIso, copyNationalClasses(odp, prevOdp))(dispatch)
+    else
+      dispatch(applicationError(`Unable to find any National data point prior to ${odp.year}`))
+  })
+}
+

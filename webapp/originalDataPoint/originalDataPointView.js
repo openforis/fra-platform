@@ -3,7 +3,7 @@ import './style.less'
 import React from 'react'
 import { connect } from 'react-redux'
 import * as originalDataPoint from './originalDataPoint'
-import { saveDraft, markAsActual, remove, fetch, clearActive } from './actions'
+import { saveDraft, markAsActual, remove, fetch, clearActive, copyPreviousNationalClasses } from './actions'
 import { acceptNextInteger } from '../utils/numberInput'
 import { separateThousandsWithSpaces } from '../utils/numberFormat'
 import { ThousandSeparatedIntegerInput } from '../reusableUiComponents/thousandSeparatedIntegerInput'
@@ -13,9 +13,11 @@ import ckEditorConfig from '../ckEditor/ckEditorConfig'
 
 const years = ['', ...R.range(1990, 2021)]
 
-const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving}) => {
+const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, copyPreviousNationalClasses}) => {
   const countryIso = match.params.countryIso
   const saveControlsDisabled = () => !active.odpId || autoSaving
+  const copyPreviousClassesDisabled = () => active.year && !autoSaving ? false : true
+
   return <div className="odp__data-input-component">
     <div className="odp_data-input-row">
       <div>
@@ -30,7 +32,14 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving})
       </div>
     </div>
     <div>
-      <h3 className="subhead odp__section">National classes</h3>
+      <h3 className="subhead odp__section">
+        National classes
+        <button disabled={copyPreviousClassesDisabled()}
+                className="btn btn-primary btn-copy-prev-values"
+                onClick={() => copyPreviousNationalClasses(countryIso, active)}>
+          Copy previous values
+        </button>
+      </h3>
       <table className="odp__input-table odp__national-class-table">
         <thead>
         <tr>
@@ -305,4 +314,11 @@ const mapStateToProps = state => {
   return {...odp, active, autoSaving}
 }
 
-export default connect(mapStateToProps, {saveDraft, markAsActual, remove, fetch, clearActive})(OriginalDataPointView)
+export default connect(mapStateToProps, {
+  saveDraft,
+  markAsActual,
+  remove,
+  fetch,
+  clearActive,
+  copyPreviousNationalClasses
+})(OriginalDataPointView)
