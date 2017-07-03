@@ -53,6 +53,7 @@
     "js-cookie": "^2.1.4",
     "passport": "^0.3.2",
     "passport-google-oauth": "^1.0.0",
+    "partial.lenses": "^11.9.0",
     "pg": "^6.1.5",
     "ramda": "^0.24.1",
     "react": "^15.5.4",

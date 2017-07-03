@@ -2402,6 +2402,10 @@ indexof@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/indexof/-/indexof-0.0.1.tgz#82dc336d232b9062179d05ab3293a66059fd435d"
 
+infestines@^0.4.2:
+  version "0.4.4"
+  resolved "https://registry.yarnpkg.com/infestines/-/infestines-0.4.4.tgz#a5be26a97396d87d55272097477e11122db4cb9a"
+
 infinity-agent@^2.0.0:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/infinity-agent/-/infinity-agent-2.0.3.tgz#45e0e2ff7a9eb030b27d62b74b3744b7a7ac4216"
@@ -3378,6 +3382,12 @@ passport@^0.3.2:
   dependencies:
     passport-strategy "1.x.x"
     pause "0.0.1"
+
+partial.lenses@^11.9.0:
+  version "11.9.0"
+  resolved "https://registry.yarnpkg.com/partial.lenses/-/partial.lenses-11.9.0.tgz#c04e667d37ab274dbbe241e4409821495d3ba7a0"
+  dependencies:
+    infestines "^0.4.2"
 
 path-browserify@0.0.0:
   version "0.0.0"

@@ -49,12 +49,12 @@ You should edit the `<timestamp-kuikka-up.sql` to contain your `create table` -s
 add the corresponding `drop table` to `<timestamp>-kuikka-down.sql` if we ever want to run migrations downwards.
 
 
-# Design decisions
+## Design decisions
 
 * all numeric values for areas are stored in hectares, and converted for UI for user unnits
 * Data points are stored in precision of year
 
-# Icons
+## Icons
 
 https://nucleoapp.com
 
@@ -76,3 +76,10 @@ Video: https://fraplatform.slack.com/files/mlindholm/F5MQSQ0JJ/export-icon-set.m
 * Download & Unzip
 * Move `icon.svg, demo.svg` to `/img`
 * Run `update-icons.sh`
+
+## Using the traditional table framework
+
+FRA Platform contains a simple framework for creating tables with
+fixed amount of rows and columns. These tables can store and retrieve
+their own data so it reduces the need to custom-code the logic for
+these simple cases. [The user guide is here](doc/traditional-table-guide.md).

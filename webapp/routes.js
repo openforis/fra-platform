@@ -6,7 +6,9 @@ import LoginView from './login/login'
 import NationalDataEntryView from './nationalDataEntry/nationalDataEntryView'
 import OriginalDataPointView from './originalDataPoint/originalDataPointView'
 import SpecificForestCategoriesView from './specificForestCategories/specificForestCategoriesView'
+import PrimaryDesignatedManagementObjectiveView from './primaryDesignatedManagementObjective/primaryDesignatedManagementObjectiveView'
 import OriginalDataListView from './originalDataPoint/originalDataListView'
+import ForestAreaChangeView from './forestAreaChange/forestAreaChangeView'
 
 const routes = {
   '/': LoginView,
@@ -14,7 +16,9 @@ const routes = {
   '/country/:countryIso': NationalDataEntryView,
   '/country/:countryIso/odp': OriginalDataPointView,
   '/country/:countryIso/odp/:odpId': OriginalDataPointView,
-  '/country/:countryIso/specificForestCategories': SpecificForestCategoriesView
+  '/country/:countryIso/specificForestCategories': SpecificForestCategoriesView,
+  '/country/:countryIso/forestAreaChange': ForestAreaChangeView,
+  '/country/:countryIso/primaryDesignatedManagementObjectiveView': PrimaryDesignatedManagementObjectiveView
 }
 
 const routeConfig = R.pipe(

@@ -17,9 +17,12 @@ const createNewTableState = (tableSpec, rowIdx, colIdx, newValue, getState) => {
   return table.update(tableValues, rowIdx, colIdx, sanitizedNewValue)
 }
 
-const saveChanges = (countryIso, tableSpecName, tableState) => {
+const saveChanges = (countryIso, tableSpec, tableData) => {
   const debounced = dispatch =>
-    axios.post(`/api/traditionalTable/${countryIso}/${tableSpecName}`, {tableState}).then(() => {
+    axios.post(
+      `/api/traditionalTable/${countryIso}/${tableSpec.name}`,
+      table.getValueSliceFromTableData(tableSpec, tableData)
+    ).then(() => {
       dispatch(autosave.complete)
     }).catch((err) => {
       dispatch(applicationError(err))
@@ -29,7 +32,7 @@ const saveChanges = (countryIso, tableSpecName, tableState) => {
   debounced.meta = {
     debounce: {
       time: 800,
-      key: 'saveTraditionalTable-' + tableSpecName
+      key: 'saveTraditionalTable-' + tableSpec.name
     }
   }
   return debounced
@@ -39,12 +42,18 @@ export const tableValueChanged = (countryIso, tableSpec, rowIdx, colIdx, newValu
   const newTableState = createNewTableState(tableSpec, rowIdx, colIdx, newValue, getState)
   dispatch({type: tableValueChangedAction, tableSpec, newTableState})
   dispatch(autosave.start)
-  dispatch(saveChanges(countryIso, tableSpec.name, newTableState))
+  dispatch(saveChanges(countryIso, tableSpec, newTableState))
 }
 
 export const fetchTableData = (countryIso, tableSpec) => dispatch => {
   axios.get(`/api/traditionalTable/${countryIso}/${tableSpec.name}`).then(resp => {
-    dispatch({type: tableValueChangedAction, tableSpec, newTableState: resp.data})
+    const emptyTableData = table.createTableData(tableSpec)
+    if (resp.data) {
+      const filled = table.fillTableDatafromValueSlice(tableSpec, emptyTableData, resp.data)
+      dispatch({type: tableValueChangedAction, tableSpec, newTableState: filled})
+    } else {
+      dispatch({type: tableValueChangedAction, tableSpec, newTableState: emptyTableData})
+    }
   }).catch((err) => {
     dispatch(applicationError(err))
   })

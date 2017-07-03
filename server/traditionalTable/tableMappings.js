@@ -1,25 +1,27 @@
 const R = require('ramda')
 const assert = require('assert')
 const specificForestCategories = require('./mappings/specificForestCategories')
+const forestAreaChange = require('./mappings/forestAreaChange')
+const primaryDesignatedManagementObjective = require('./mappings/primaryDesignatedManagementObjective')
 
-const mappings = {specificForestCategories}
+const mappings = {specificForestCategories, forestAreaChange, primaryDesignatedManagementObjective}
 
-const getIndex = (name, names, indexOffset) => {
+const getIndex = (name, names) => {
   const idx = R.findIndex((x) => x === name, names)
-  return idx === -1 ? -1 : idx + indexOffset
+  return idx === -1 ? -1 : idx
 }
 
-const getName = (idx, names, indexOffset) => names[idx - indexOffset]
+const getName = (idx, names) => names[idx]
 
 const Mapping = (mapping) =>
   R.merge(mapping,
     {
-      getRowName: (idx) => getName(idx, mapping.rows.names, mapping.rows.indexOffset),
-      getRowIndex: (name) => getIndex(name, mapping.rows.names, mapping.rows.indexOffset),
-      getFullRowCount: () => mapping.rows.names.length + mapping.rows.indexOffset,
-      getColumnName: (idx) => getName(idx, mapping.columns.names, mapping.columns.indexOffset),
-      getColumnIndex: (name) => getIndex(name, mapping.columns.names, mapping.columns.indexOffset),
-      getFullColumnCount: () => mapping.columns.names.length + mapping.columns.indexOffset
+      getRowName: (idx) => getName(idx, mapping.rows.names),
+      getRowIndex: (name) => getIndex(name, mapping.rows.names),
+      getFullRowCount: () => mapping.rows.names.length,
+      getColumnName: (idx) => getName(idx, mapping.columns.names),
+      getColumnIndex: (name) => getIndex(name, mapping.columns.names),
+      getFullColumnCount: () => mapping.columns.names.length
     })
 
 const assertSanity = (mappingObj) => {

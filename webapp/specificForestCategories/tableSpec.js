@@ -5,11 +5,11 @@ export default {
   header: <thead>
           <tr>
             <td className="fra-table__header-cell"/>
-            <td className="fra-table__header-cell">1990</td>
-            <td className="fra-table__header-cell">2000</td>
-            <td className="fra-table__header-cell">2010</td>
-            <td className="fra-table__header-cell">2015</td>
-            <td className="fra-table__header-cell">2020</td>
+            <td className="fra-table__header-cell-align-right">1990</td>
+            <td className="fra-table__header-cell-align-right">2000</td>
+            <td className="fra-table__header-cell-align-right">2010</td>
+            <td className="fra-table__header-cell-align-right">2015</td>
+            <td className="fra-table__header-cell-align-right">2020</td>
           </tr>
           </thead>,
   rows: [
@@ -36,5 +36,6 @@ export default {
       {type: 'integerInput'},
       {type: 'integerInput'}
     ]
-  ]
+  ],
+  valueSlice: { columnStart: 1 }
 }
