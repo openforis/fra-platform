@@ -9,16 +9,33 @@ import { tableValueChanged, fetchTableData } from './actions'
 
 const mapIndexed = R.addIndex(R.map)
 
+const handlePaste = (evt) => {
+  evt.stopPropagation()
+  evt.preventDefault()
+  console.log(evt)
+  const el = document.createElement('html')
+  el.innerHTML = evt.clipboardData.getData('text/html')
+  const rows = el.getElementsByTagName('tr')
+  console.log('pasted html')
+  console.log(evt.clipboardData.getData('text/html'))
+  console.log('pasted rows')
+  console.log(rows)
+  console.log('xpasted text')
+  const txt = evt.clipboardData.getData('text/plain')
+  console.log('the text', txt)
+}
+
 const IntegerInput = ({countryIso, tableSpec, tableData, rowIdx, colIdx, tableValueChanged}) => {
   const currentValue = tableData[rowIdx][colIdx]
   return <td className="fra-table__cell">
     <ThousandSeparatedIntegerInput integerValue={ currentValue }
                                    className="fra-table__integer-input"
-                                   onChange={ (evt) => tableValueChanged(countryIso, tableSpec, rowIdx, colIdx, evt.target.value) }/>
+                                   onChange={ (evt) => tableValueChanged(countryIso, tableSpec, rowIdx, colIdx, evt.target.value)}
+                                   onPaste={ handlePaste }/>
   </td>
 }
 
-const cellTypeHandlers = {
+const cellTypes = {
   'integerInput': (cellSpec, props) => <IntegerInput {...props}/>,
   'readOnly': (cellSpec, props) => cellSpec.jsx,
   'custom': (cellSpec, props) => cellSpec.render(props)
@@ -28,7 +45,7 @@ const Cell = (props) => {
   const {tableSpec, rowIdx, colIdx} = props
   const cellSpec = tableSpec.rows[rowIdx][colIdx]
   assert(cellSpec, `No cellspec for ${rowIdx} ${colIdx}`)
-  const handler = cellTypeHandlers[cellSpec.type]
+  const handler = cellTypes[cellSpec.type]
   if (handler) {
     return handler(cellSpec, props)
   } else {
