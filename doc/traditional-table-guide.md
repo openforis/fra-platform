@@ -288,7 +288,43 @@ const totalForestAreaCell = (column) => (props) =>
 
 We can make as many sum rows or even columns as we want with this
 custom cell type. We'll just have to exclude those from the data that
-we sent to server to save, which is the next topic.
+we sent to server to save, which is the next topic. To summarize our
+table specification is now:
+
+```
+export default {
+  name: 'primaryDesignatedManagementObjective',
+  header: <thead>
+  <tr>
+    <td className="fra-table__header-cell"/>
+    <td className="fra-table__header-cell-align-right">1990</td>
+    <td className="fra-table__header-cell-align-right">2000</td>
+    <td className="fra-table__header-cell-align-right">2010</td>
+    <td className="fra-table__header-cell-align-right">2015</td>
+    <td className="fra-table__header-cell-align-right">2020</td>
+  </tr>
+  </thead>,
+  rows: [
+    createPdmoInputRow('Production'),
+    createPdmoInputRow('Protection of soil and water'),
+    createPdmoInputRow('Conservation of biodiversity'),
+    createPdmoInputRow('Social Services'),
+    createPdmoInputRow('Multiple use'),
+    createPdmoInputRow('Other'),
+    createPdmoInputRow('No/unknown'),
+    [{type: 'readOnly', jsx: <td key="" className="fra-table__header-cell">Total forest area</td>},
+     {type: 'custom', render: totalForestAreaCell(1)},
+     {type: 'custom', render: totalForestAreaCell(2)},
+     {type: 'custom', render: totalForestAreaCell(3)},
+     {type: 'custom', render: totalForestAreaCell(4)},
+     {type: 'custom', render: totalForestAreaCell(5)}]
+  ],
+  valueSlice: {
+    columnStart: 1,
+    rowEnd: -1
+  }
+}
+```
 
 ### valueSlice
 
