@@ -97,7 +97,7 @@ Next time we start the server, the table is there.
 ## 3. Create tableSpec for the UI
 
 The front-end table is described via a *tableSpec* js-file which
-contains the description of the table and possibly also some code. 
+contains the description of the table and possibly also some code.
 
 First, we add a new js file
 `webapp/primaryDesignatedManagementObjectives/tableSpec.js` and add
@@ -228,6 +228,110 @@ Now our row-definitions look more compact:
   ],
 
 ```
+
+Our example table also needs a sum row at the bottom. There is a
+custom cell type which provides a function. This function accepts
+a properties object as parameter which contains the whole table's data
+(among other things). The function should return JSX. A simple example
+of such cell and an aggregate function:
+
+```
+const rowAmount = 7
+const sum = (tableData, column) => R.reduce((sum, rowIdx) => {
+    return sum + tableData[rowIdx][columnIdx],
+    0,
+    R.range(0, rowAmount)
+  )
+...
+{type: 'custom', render: (props) => <td {sum(props.tableData, 1)} </td>}
+```
+
+We have to take into account null/undefined values as well though. The
+table data is initialized with undefined values and can contain nulls
+as well (this happens when user erases the field value). We'll deal
+with both undefined and null with Ramda's `isNil` function. So our
+example gets a bit more complicated. We'll add a cell like this for
+each column for which we calculate the sum:
+
+```
+{type: 'custom', render: totalForestAreaCell(1)}
+
+```
+
+And the functions which the cell uses is the actual beef here:
+
+```
+const totalForestArea = (tableData, columnIdx) =>
+  R.reduce((sum, rowIdx) => {
+    const value = tableData[rowIdx][columnIdx]
+    if (!R.isNil(value))
+      return sum + value
+    else
+      return sum
+    },
+    0,
+    R.range(0, 7)
+  )
+
+const totalForestAreaCell = (column) => (props) =>
+  <td key="" className="fra-table__text-readonly-cell-align-right">
+    {totalForestArea(props.tableData, column)}
+  </td>
+
+```
+
+We can make as many sum rows or even columns as we want with this
+custom cell type. We'll just have to exclude those from the data that
+we sent to server to save, which is the next topic.
+
+### valueSlice
+
+To make the code simpler, traditional tables create a tableData
+structure which has as many rows and columns as our tableSpec's `rows` matrix
+defines. Note that `header` is not included, so you can have as many `<tr>`s as
+you want there and they are not included when indexing rows.
+
+Because the tableData can contain, for example:
+
+* Cells which are static row headers like
+the ones we created with `{type: 'readOnly'}` earlier
+* Aggregate, calculated cells which are created with `{type: 'custom'}`
+
+it is clear that tableData will contain stuff we do not want to save
+into the database. The way to tackle that is tableSpec's `valueSlice`
+attribute. It is optional, you don't have to specify it if there are
+no cells which should not be saved like custom or readOnly in your
+tableSpec. It's attributes are also optional, so you can just provide
+one of them. Here's an example which contains all of it's attributes:
+
+```
+  valueSlice: {
+    rowStart: 0,
+    rowEnd: -1,
+    columnStart: 1,
+    columnEnd: undefined
+  }
+```
+
+This will remove one column from start ("row headers") with
+`columnStart: 1` and one row at the end with `rowEnd: -1`. Negative
+indexing means that we count down from the length of the row or column
+array. Zero in `rowStart` can be omitted because that's the default,
+also undefined in `columnEnd` is same as the default so it can be
+omitted (means that no columns from the end are removed).
+
+Because of the defaults, we can have a more compact version:
+
+```
+  valueSlice: {
+    columnStart: 1,
+    rowEnd: -1
+  }
+```
+
+That now handles the removal of our totals and the row header column
+we specified. Those will not be sent to server for saving (they
+contain just undefined values anyway). 
 
 ## 4. Add the table to a view.
 
