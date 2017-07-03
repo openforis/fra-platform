@@ -83,7 +83,7 @@ export const fiveYearItems = [
   {
     order: 14,
     label: "Area affected by fire",
-    pathTemplate: "#/todo",
+    pathTemplate: "/country/:countryIso/areaAffectedByFire",
     status: "Not started"
   },
   {

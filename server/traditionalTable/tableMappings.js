@@ -3,8 +3,14 @@ const assert = require('assert')
 const specificForestCategories = require('./mappings/specificForestCategories')
 const forestAreaChange = require('./mappings/forestAreaChange')
 const primaryDesignatedManagementObjective = require('./mappings/primaryDesignatedManagementObjective')
+const areaAffectedByFire = require('./mappings/areaAffectedByFire')
 
-const mappings = {specificForestCategories, forestAreaChange, primaryDesignatedManagementObjective}
+const mappings = {
+  specificForestCategories,
+  forestAreaChange,
+  primaryDesignatedManagementObjective,
+  areaAffectedByFire
+}
 
 const getIndex = (name, names) => {
   const idx = R.findIndex((x) => x === name, names)
