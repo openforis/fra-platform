@@ -6,6 +6,7 @@ import assert from 'assert'
 import { ThousandSeparatedIntegerInput } from '../reusableUiComponents/thousandSeparatedIntegerInput'
 import * as table from './table'
 import { tableValueChanged, fetchTableData } from './actions'
+import { acceptableAsInteger } from '../utils/numberInput'
 
 const mapIndexed = R.addIndex(R.map)
 
@@ -30,15 +31,24 @@ const IntegerInput = ({countryIso, tableSpec, tableData, rowIdx, colIdx, tableVa
   return <td className="fra-table__cell">
     <ThousandSeparatedIntegerInput integerValue={ currentValue }
                                    className="fra-table__integer-input"
-                                   onChange={ (evt) => tableValueChanged(countryIso, tableSpec, rowIdx, colIdx, evt.target.value)}
+                                   onChange={
+                                     (evt) => {
+                                       console.log('EVT')
+                                      const newValue = evt.target.value
+                                      if (acceptableAsInteger(newValue)) {
+                                        console.log('changing tableValue based on', newValue)
+                                        tableValueChanged(countryIso, tableSpec, rowIdx, colIdx, evt.target.value)
+                                      }
+                                    }
+                                   }
                                    onPaste={ handlePaste }/>
   </td>
 }
 
 const cellTypes = {
-  'integerInput': (cellSpec, props) => <IntegerInput {...props}/>,
-  'readOnly': (cellSpec, props) => cellSpec.jsx,
-  'custom': (cellSpec, props) => cellSpec.render(props)
+  'integerInput': {render: (cellSpec, props) => <IntegerInput {...props}/>, acceptsValue: acceptableAsInteger},
+  'readOnly': {render: (cellSpec, props) => cellSpec.jsx},
+  'custom': {render: (cellSpec, props) => cellSpec.render(props)}
 }
 
 const Cell = (props) => {
@@ -47,7 +57,7 @@ const Cell = (props) => {
   assert(cellSpec, `No cellspec for ${rowIdx} ${colIdx}`)
   const handler = cellTypes[cellSpec.type]
   if (handler) {
-    return handler(cellSpec, props)
+    return handler.render(cellSpec, props)
   } else {
     throw `Unknown cell type ${cellSpec.type}`
   }
@@ -57,19 +67,20 @@ const tableRows = (props) => {
   return mapIndexed(
     (rowSpec, rowIdx) =>
       <tr key={rowIdx}>
-        { mapIndexed((cellSpec, colIdx) => <Cell key={`${rowIdx}-${colIdx}`} rowIdx={rowIdx} colIdx={colIdx} {...props}/>, rowSpec) }
+        { mapIndexed((cellSpec, colIdx) => <Cell key={`${rowIdx}-${colIdx}`} rowIdx={rowIdx}
+                                                 colIdx={colIdx} {...props}/>, rowSpec) }
       </tr>,
     props.tableSpec.rows)
 }
 
 const TableBody = (props) =>
   <tbody>
-   {tableRows(props)}
+  {tableRows(props)}
   </tbody>
 
 class FraTable extends React.Component {
 
-  componentWillMount() {
+  componentWillMount () {
     this.props.fetchTableData(this.props.countryIso, this.props.tableSpec)
   }
 
@@ -86,4 +97,4 @@ const mapStateToProps = (state, props) => {
   return {...props, tableData: state.traditionalTable[props.tableSpec.name] || table.createTableData(props.tableSpec)}
 }
 
-export default connect(mapStateToProps, { tableValueChanged, fetchTableData })(FraTable)
+export default connect(mapStateToProps, {tableValueChanged, fetchTableData})(FraTable)
