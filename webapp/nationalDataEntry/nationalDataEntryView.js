@@ -170,10 +170,30 @@ const NationalDataEntry = (props) => {
       </div>
     </div>
     <DataTable {...props} />
-    <Description title="Data Sources" name="dataSources" countryIso={props.match.params.countryIso}/>
-    <Description title="National classification and definitions" name="nationalClassification"
-                 countryIso={props.match.params.countryIso}/>
-    <Description title="Original data" name="originalData" countryIso={props.match.params.countryIso}/>
+    <div className="nde__description-field nde__comment-margin">
+      <Description title="Data Sources" name="dataSources"
+                   countryIso={props.match.params.countryIso}/>
+      <ReviewIndicator section='EOF'
+                       name="Data Sources"
+                       target={['data_sources']}
+                       countryIso={props.match.params.countryIso}/>
+    </div>
+    <div className="nde__description-field nde__comment-margin">
+      <Description title="National classification and definitions" name="nationalClassification"
+                   countryIso={props.match.params.countryIso}/>
+      <ReviewIndicator section='EOF'
+                       name="National classification and definitions"
+                       target={['national_classifications']}
+                       countryIso={props.match.params.countryIso}/>
+    </div>
+    <div className="nde__description-field nde__comment-margin">
+      <Description title="Original data" name="originalData"
+                   countryIso={props.match.params.countryIso}/>
+      <ReviewIndicator section='EOF'
+                       name="Original data"
+                       target={['original_data']}
+                       countryIso={props.match.params.countryIso}/>
+    </div>
   </div>
 }
 
