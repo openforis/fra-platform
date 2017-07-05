@@ -4,6 +4,8 @@
 
 import R from 'ramda'
 
+const uuidv4 = require('uuid/v4')
+
 export const updateNationalClass = (odp, index, field, value) => {
   const nationalClassToUpdate = odp.nationalClasses[index]
   const wasPlaceHolder = nationalClassToUpdate.placeHolder
@@ -28,7 +30,8 @@ export const defaultNationalClass = (className = '', definition = '') => ({
   area: null,
   forestPercent: null,
   otherWoodedLandPercent: null,
-  otherLandPercent: null
+  otherLandPercent: null,
+  uuid: uuidv4()
 })
 
 export const nationalClassPlaceHolder = () => ({...defaultNationalClass(), placeHolder: true})
