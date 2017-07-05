@@ -22,14 +22,7 @@ const OdpHeading = ({countryIso, odpValue}) =>
 
 class DataTable extends React.Component {
 
-
-
   render () {
-    console.log('open thread', this.props.openCommentThread)
-    if(this.props.openCommentThread &&
-      this.props.openCommentThread.section === 'EOF') {
-
-    }
     return <div className="nde__data-table-container">
       <div className="nde__data-table-scroll-content">
       <table className="fra-table">
@@ -76,7 +69,6 @@ class DataTable extends React.Component {
 }
 
 const fraValueRow = (rowHeading, target, countryIso, field, fra, save, saveMany, colId, openThread) => {
-  console.log('thread', openThread)
   return <tr
     className={`${openThread && R.isEmpty(R.difference(openThread.target, target)) ? 'fra-row-comments__open' : ''}`}>
     <td className="fra-table__header-cell">{ rowHeading }</td>
@@ -163,6 +155,10 @@ const NationalDataEntry = (props) => {
     return props.generatingFraValues || odps.length < 2
   }
 
+  const sourceTarget = ['data_sources']
+  const originalDataTarget = ['original_data']
+  const classificationTarget = ['national_classifications']
+
   return <div className='nde__data-input-component'>
     <div className="nde__data-page-header">
       <h2 className="headline">Extent of forest</h2>
@@ -186,27 +182,30 @@ const NationalDataEntry = (props) => {
     </div>
     <DataTable {...props} />
     <div className="nde__description-field nde__comment-margin">
-      <Description title="Data Sources" name="dataSources"
+      <Description title="Data Sources" name="dataSources" classes={`${props.openCommentThread &&
+        R.isEmpty(R.difference(props.openCommentThread.target, sourceTarget)) ? 'fra-row-comments__open' : ''}`}
                    countryIso={props.match.params.countryIso}/>
       <ReviewIndicator section='EOF'
                        name="Data Sources"
-                       target={['data_sources']}
+                       target={sourceTarget}
                        countryIso={props.match.params.countryIso}/>
     </div>
     <div className="nde__description-field nde__comment-margin">
-      <Description title="National classification and definitions" name="nationalClassification"
+      <Description title="National classification and definitions" name="nationalClassification" classes={`${props.openCommentThread &&
+        R.isEmpty(R.difference(props.openCommentThread.target, classificationTarget)) ? 'fra-row-comments__open' : ''}`}
                    countryIso={props.match.params.countryIso}/>
       <ReviewIndicator section='EOF'
                        name="National classification and definitions"
-                       target={['national_classifications']}
+                       target={classificationTarget}
                        countryIso={props.match.params.countryIso}/>
     </div>
     <div className="nde__description-field nde__comment-margin">
-      <Description title="Original data" name="originalData"
+      <Description title="Original data" name="originalData" classes={`${props.openCommentThread &&
+        R.isEmpty(R.difference(props.openCommentThread.target, originalDataTarget)) ? 'fra-row-comments__open' : ''}`}
                    countryIso={props.match.params.countryIso}/>
       <ReviewIndicator section='EOF'
                        name="Original data"
-                       target={['original_data']}
+                       target={originalDataTarget}
                        countryIso={props.match.params.countryIso}/>
     </div>
   </div>

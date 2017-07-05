@@ -188,16 +188,18 @@
 }
 
 .fra-row-comments__open {
-  .nde__input-table-content-row-header-cell {
-    border-top: 1px solid @ui-accent;
-    border-left: 1px solid @ui-accent;
-    border-bottom: 1px solid @ui-accent;
+  td {
+    background: @ui-comment;
   }
-  .nde__input-table-content-cell {
-    border-top: 1px solid @ui-accent;
-    border-bottom: 1px solid @ui-accent;
-    &:last-of-type {
-      border-right: 1px solid @ui-accent;
-    }
+  input {
+    background: @ui-comment;
   }
+
+  .cke_wrapper {
+    border: 1px solid @ui-comment-border;
+  }
+  .cke_wysiwyg_frame {
+    background: @ui-comment;
+  }
+
 }

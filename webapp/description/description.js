@@ -43,7 +43,7 @@ class Description extends Component {
   }
 
   render () {
-    return <div>
+    return <div className={this.props.classes || ''}>
       <h3 className="subhead nde__description-header">{this.props.title}</h3>
       <div className="cke_wrapper">
         <textarea id={this.props.name}/>
