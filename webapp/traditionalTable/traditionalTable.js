@@ -10,6 +10,18 @@ import { acceptNextInteger, acceptableAsInteger } from '../utils/numberInput'
 
 const mapIndexed = R.addIndex(R.map)
 
+const applyDataStartingFromCell = (cellRowIdx, cellColIdx, tableSpec, tableData, newData) => {
+  return R.reduce((tableData, {rowIdx, colIdx, cellData}) => {
+    const rowIdxToUpdate = cellRowIdx + rowIdx
+    const colIdxToUpdate = cellColIdx + colIdx
+    if (rowIdxToUpdate > tableSpec.rows.length - 1 ||
+      colIdxToUpdate > tableSpec.rows[0].length - 1) return tableData
+    const [_, cellType] = getCellSpecAndType(tableSpec, rowIdxToUpdate, colIdxToUpdate)
+    if (!cellType.acceptValue) return tableData
+    return table.update(tableData, cellRowIdx + rowIdx, cellColIdx + colIdx, cellType.acceptValue(cellData, tableData[rowIdxToUpdate][colIdxToUpdate]))
+  }, tableData, newData)
+}
+
 const handlePaste = (countryIso, cellRowIdx, cellColIdx, tableSpec, tableData, tableChanged) =>(evt) => {
   evt.stopPropagation()
   evt.preventDefault()
@@ -22,15 +34,7 @@ const handlePaste = (countryIso, cellRowIdx, cellColIdx, tableSpec, tableData, t
         (row, rowIdx) =>
           mapIndexed((column, colIdx) => ({rowIdx, colIdx, cellData: column.innerText}), row.getElementsByTagName('td')),
         rows))
-    const updatedTable = R.reduce((tableData, {rowIdx, colIdx, cellData}) => {
-      const rowIdxToUpdate = cellRowIdx+rowIdx
-      const colIdxToUpdate = cellColIdx+colIdx
-      if (rowIdxToUpdate > tableSpec.rows.length-1 ||
-        colIdxToUpdate > tableSpec.rows[0].length-1) return tableData
-      const [_, cellType] = getCellSpecAndType(tableSpec, rowIdxToUpdate, colIdxToUpdate)
-      if (!cellType.acceptValue) return tableData
-      return table.update(tableData, cellRowIdx+rowIdx, cellColIdx+colIdx, cellType.acceptValue(cellData, tableData[rowIdxToUpdate][colIdxToUpdate]))
-    }, tableData, pastedData)
+    const updatedTable = applyDataStartingFromCell(cellRowIdx, cellColIdx, tableSpec, tableData, pastedData)
     console.log('updated table')
     console.log(updatedTable)
     tableChanged(countryIso, tableSpec, updatedTable)
