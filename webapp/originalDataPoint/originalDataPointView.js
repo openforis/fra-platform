@@ -19,97 +19,105 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
   const saveControlsDisabled = () => !active.odpId || autoSaving
   const copyPreviousClassesDisabled = () => active.year && !autoSaving ? false : true
 
-  return <div className="odp__data-input-component">
-    <div className="odp_data-input-row">
-      <div>
-        <h3 className="subhead">Year</h3>
-        <select
-          className="select"
-          value={active.year || ''}
-          onChange={
-            (e) => saveDraft(countryIso, R.assoc('year', R.isEmpty(e.target.value) ? null : Number(e.target.value), active)) }>
-          {years.map((year) => <option key={year} value={year}>{year}</option>)}
-        </select>
+  return active
+    ? <div className="odp__data-input-component">
+      <div className="odp_data-input-row">
+        <div>
+          <h3 className="subhead">Year</h3>
+          <select
+            className="select"
+            value={active.year || ''}
+            onChange={
+              (e) => saveDraft(countryIso, R.assoc('year', R.isEmpty(e.target.value) ? null : Number(e.target.value), active)) }>
+            {years.map((year) => <option key={year} value={year}>{year}</option>)}
+          </select>
+        </div>
       </div>
-    </div>
-    <div>
-      <h3 className="subhead odp__section">
-        National classes
-        <button disabled={copyPreviousClassesDisabled()}
-                className="btn btn-primary btn-copy-prev-values"
-                onClick={() => copyPreviousNationalClasses(countryIso, active)}>
-          Copy previous values
-        </button>
-      </h3>
-      <table className="odp__input-table odp__national-class-table">
-        <thead>
-        <tr>
-          <th className="odp__national-class-table-national-class-column">National class</th>
-          <th>Definition</th>
-        </tr>
-        </thead>
-        <tbody>
-        {
-          nationalClassRows(countryIso, active, saveDraft)
-        }
-        </tbody>
-      </table>
-    </div>
-    <div>
-      <h3 className="subhead odp__section">Extent of forest</h3>
-      <table className="odp__input-table odp__eof-table">
-        <thead>
-        <tr>
-          <th className="odp__eof-header-left odp__eof-divide-after-cell" colSpan="2">National classes</th>
-          <th className="odp__eof-header-left" colSpan="3">FRA classes</th>
-        </tr>
-        <tr>
-          <th className="odp__eof-header-left">Class</th>
-          <th className="odp__eof-divide-after-cell odp__eof-header-right">Area</th>
-          <th className="odp__eof-header-right">Forest</th>
-          <th className="odp__eof-header-right">Other wooded land</th>
-          <th className="odp__eof-header-right">Other land</th>
-        </tr>
-        </thead>
-        <tbody>
-        {
-          extentOfForestRows(countryIso, active, saveDraft)
-        }
-        <tr>
-          <td className="fra-table__header-cell">Total</td>
-          <td className="odp__national-class-total-cell odp__eof-divide-after-cell"></td>
-          <td
-            className="odp__national-class-total-cell">{ separateThousandsWithSpaces(Number(originalDataPoint.totalForest(active, 'forestPercent'))) }</td>
-          <td
-            className="odp__national-class-total-cell">{ separateThousandsWithSpaces(Number(originalDataPoint.totalForest(active, 'otherWoodedLandPercent'))) }</td>
-          <td
-            className="odp__national-class-total-cell">{ separateThousandsWithSpaces(Number(originalDataPoint.totalForest(active, 'otherLandPercent'))) }</td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
-    <h3 className="subhead odp__section">Comments</h3>
-    <div className="cke_wrapper">
-      <textarea id="originalDataPointDescription"/>
-    </div>
-    <div className="odp__bottom-buttons">
+      <div>
+        <h3 className="subhead odp__section">
+          National classes
+          <button disabled={copyPreviousClassesDisabled()}
+                  className="btn btn-primary btn-copy-prev-values"
+                  onClick={() => copyPreviousNationalClasses(countryIso, active)}>
+            Copy previous values
+          </button>
+        </h3>
+        <table className="odp__input-table odp__national-class-table">
+          <thead>
+          <tr>
+            <th className="odp__national-class-table-national-class-column">National class</th>
+            <th>Definition</th>
+          </tr>
+          </thead>
+          <tbody>
+          {
+            nationalClassRows(countryIso, active, saveDraft)
+          }
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <h3 className="subhead odp__section">Extent of forest</h3>
+        <table className="odp__input-table odp__eof-table">
+          <thead>
+          <tr>
+            <th className="odp__eof-header-left odp__eof-divide-after-cell" colSpan="2">National classes</th>
+            <th className="odp__eof-header-left" colSpan="3">FRA classes</th>
+          </tr>
+          <tr>
+            <th className="odp__eof-header-left">Class</th>
+            <th className="odp__eof-divide-after-cell odp__eof-header-right">Area</th>
+            <th className="odp__eof-header-right">Forest</th>
+            <th className="odp__eof-header-right">Other wooded land</th>
+            <th className="odp__eof-header-right">Other land</th>
+          </tr>
+          </thead>
+          <tbody>
+          {
+            extentOfForestRows(countryIso, active, saveDraft)
+          }
+          <tr>
+            <td className="fra-table__header-cell">Total</td>
+            <td className="odp__national-class-total-cell odp__eof-divide-after-cell"></td>
+            <td
+              className="odp__national-class-total-cell">{ separateThousandsWithSpaces(Number(originalDataPoint.totalForest(active, 'forestPercent'))) }</td>
+            <td
+              className="odp__national-class-total-cell">{ separateThousandsWithSpaces(Number(originalDataPoint.totalForest(active, 'otherWoodedLandPercent'))) }</td>
+            <td
+              className="odp__national-class-total-cell">{ separateThousandsWithSpaces(Number(originalDataPoint.totalForest(active, 'otherLandPercent'))) }</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <h3 className="subhead odp__section">Comments</h3>
+      <div className="cke_wrapper">
+        { active.odpId
+          ? <ReviewIndicator section='NDP'
+                             name="National data point"
+                             target={[`${active.odpId}_comments`]}
+                             countryIso={countryIso}/>
+          : null}
+        <CommentsEditor active={active} match={match} saveDraft={saveDraft}/>
+      </div>
+      <div className="odp__bottom-buttons">
       <span className={ saveControlsDisabled() ? 'btn btn-destructive disabled' : 'btn btn-destructive' }
             onClick={ () => saveControlsDisabled() ? null : remove(countryIso, active.odpId) }>
          Delete
       </span>
-      <div>
-        <a className="btn btn-secondary odp__cancel-button"
-           href={`/\#/country/${countryIso}`}>
-          Cancel
-        </a>
-        <button disabled={ saveControlsDisabled() }
-                className="btn btn-primary"
-                onClick={() => markAsActual(countryIso, active.odpId) }>
-          Save & Close
-        </button>
+        <div>
+          <a className="btn btn-secondary odp__cancel-button"
+             href={`/\#/country/${countryIso}`}>
+            Cancel
+          </a>
+          <button disabled={ saveControlsDisabled() }
+                  className="btn btn-primary"
+                  onClick={() => markAsActual(countryIso, active.odpId) }>
+            Save & Close
+          </button>
+        </div>
       </div>
     </div>
-  </div>
+    : null
 }
 
 const mapIndexed = R.addIndex(R.map)
@@ -269,16 +277,15 @@ const ExtentOfForestRow = ({
   </tr>
 }
 
-class OriginalDataPointView extends React.Component {
+class CommentsEditor extends React.Component {
 
-  fetchData () {
-    const odpId = this.props.match.params.odpId
-    if (odpId) {
-      this.props.fetch(odpId)
-    } else {
-      this.props.clearActive()
+  initCKeditor () {
+    if (this.props.match.params.odpId)
+      this.descriptionEditor.setData(
+        this.props.active.description,
+        {callback: () => this.initCkeditorChangeListener()})
+    else
       this.initCkeditorChangeListener()
-    }
   }
 
   initCkeditorChangeListener () {
@@ -291,17 +298,8 @@ class OriginalDataPointView extends React.Component {
   }
 
   componentWillUnmount () {
-    this.props.clearActive()
     this.descriptionEditor.destroy(false)
     this.descriptionEditor = null
-  }
-
-  componentWillReceiveProps (props) {
-    if (this.props.match.params.odpId && !this.props.active.odpId && props.active.odpId) {
-      this.descriptionEditor.setData(
-        props.active.description,
-        {callback: () => this.initCkeditorChangeListener()})
-    }
   }
 
   componentDidMount () {
@@ -309,7 +307,28 @@ class OriginalDataPointView extends React.Component {
     // We need to fetch the data only after CKEDITOR instance is ready :(
     // Otherwise there is no guarantee that the setData()-method succeeds in
     // setting pre-existing html-content
-    this.descriptionEditor.on('instanceReady', () => this.fetchData())
+    this.descriptionEditor.on('instanceReady', () => this.initCKeditor())
+  }
+
+  render () {
+    return <textarea id="originalDataPointDescription"/>
+  }
+
+}
+
+class OriginalDataPointView extends React.Component {
+
+  componentDidMount () {
+    const odpId = this.props.match.params.odpId
+    if (odpId) {
+      this.props.fetch(odpId)
+    } else {
+      this.props.clearActive()
+    }
+  }
+
+  componentWillUnmount () {
+    this.props.clearActive()
   }
 
   render () {
@@ -327,7 +346,7 @@ class OriginalDataPointView extends React.Component {
 const mapStateToProps = state => {
   const odp = state.originalDataPoint
   const autoSaving = !!state.autoSave.status
-  const active = odp.active || originalDataPoint.emptyDataPoint()
+  const active = odp.active
   return {...odp, active, autoSaving}
 }
 
