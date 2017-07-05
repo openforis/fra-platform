@@ -186,7 +186,6 @@ const NationalClassRow = ({odp, index, saveDraft, countryIso, className, definit
       />
     </td>
     <td>
-      {console.log('=== adding ', index, odp.nationalClasses[index], odp.nationalClasses[index].uuid) }
       {placeHolder
         ? null
         : <ReviewIndicator section='NDP'
