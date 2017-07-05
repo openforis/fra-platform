@@ -8,8 +8,13 @@ const ckEditorConfig = {
     {name: 'insert'},
     {name: 'about'}
   ],
-  removeButtons: 'Underline',
-  contentsCss: '/css/ckeditor.css'
+  removeButtons: 'HorizontalRule,SpecialChar,Scayt,Cut,Copy,Paste,Anchor,Maximize,Source,Strike,Outdent,Indent,Blockquote,Styles,Format',
+  contentsCss: '/ckeditor/ckeditor.css',
+  height: 200,
+  extraPlugins: 'autogrow',
+  autoGrow_minHeight: 200,
+  autoGrow_maxHeight: 600,
+  autoGrow_bottomSpace: 0
 }
 
 export default ckEditorConfig
