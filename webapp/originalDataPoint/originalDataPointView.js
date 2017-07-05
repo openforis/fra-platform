@@ -259,6 +259,13 @@ const ExtentOfForestRow = ({
       />
       % &nbsp;
     </td>
+    <td className="odp__col-review">
+      <ReviewIndicator section='NDP'
+                       name="National data point"
+                       target={[`${odp.nationalClasses[index].uuid}_class_value`]}
+                       countryIso={countryIso}/>
+
+    </td>
   </tr>
 }
 
