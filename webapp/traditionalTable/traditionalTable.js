@@ -49,7 +49,6 @@ const IntegerInput = ({countryIso, tableSpec, tableData, rowIdx, colIdx, tableVa
                                    className="fra-table__integer-input"
                                    onChange={
                                      (evt) => {
-                                       console.log('EVT')
                                        const newValue = evt.target.value
                                        if (acceptableAsInteger(newValue)) {
                                          const sanitizedNewValue = acceptNextInteger(newValue, tableData[rowIdx][colIdx])
