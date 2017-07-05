@@ -15,7 +15,16 @@ export const updateNationalClass = (odp, index, field, value) => {
   return {...odp, nationalClasses: updatedClasses}
 }
 
-export const removeNationalClass = (odp, index) => ({...odp, nationalClasses: R.remove(index, 1, odp.nationalClasses)})
+export const removeNationalClass = (odp, index) => {
+  const updatedOpd = R.pipe(
+    o => ({...o, nationalClasses: R.remove(index, 1, odp.nationalClasses)}),
+    removeClassPlaceholder,
+    o => o.nationalClasses.length > 0
+      ? {...o, nationalClasses: [...o.nationalClasses, nationalClassPlaceHolder()]}
+      : {...o, nationalClasses: [defaultNationalClass(), nationalClassPlaceHolder()]}
+  )(odp)
+  return updatedOpd
+}
 
 export const removeClassPlaceholder = (odp) => {
   const updatedClasses = R.filter(nClass => !nClass.placeHolder, odp.nationalClasses)
