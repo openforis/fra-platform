@@ -1,5 +1,6 @@
 import R from 'ramda'
 import * as L from "partial.lenses"
+import * as cellTypes from './cellTypes'
 
 export const createTableData = (tableSpec) =>
   R.map(
@@ -16,6 +17,23 @@ const getSliceLenses = (tableSpec) => {
 
 export const update = (tableValues, rowIdx, colIdx, newValue) =>
   R.update(rowIdx, R.update(colIdx, newValue, tableValues[rowIdx]), tableValues)
+
+export const fillTableDataStartingFromCell = (startRowIdx, startColIdx, tableSpec, tableData, newData) => {
+  return R.reduce((tableData, {rowIdx, colIdx, cellData}) => {
+    const rowIdxToUpdate = startRowIdx + rowIdx
+    const colIdxToUpdate = startColIdx + colIdx
+    if (rowIdxToUpdate > tableSpec.rows.length - 1 ||
+      colIdxToUpdate > tableSpec.rows[0].length - 1) return tableData
+    const [_, cellType] = cellTypes.getCellSpecAndType(tableSpec, rowIdxToUpdate, colIdxToUpdate)
+    if (!cellType.acceptValue) return tableData
+    return update(
+      tableData,
+      startRowIdx + rowIdx,
+      startColIdx + colIdx,
+      cellType.acceptValue(cellData, tableData[rowIdxToUpdate][colIdxToUpdate])
+    )
+  }, tableData, newData)
+}
 
 export const fillTableDatafromValueSlice = (tableSpec, fullTableData, valueSliceData) => {
   const [rowSliceLens, colSliceLens] = getSliceLenses(tableSpec)
