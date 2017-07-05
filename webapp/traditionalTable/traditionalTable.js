@@ -22,7 +22,7 @@ const applyDataStartingFromCell = (startRowIdx, startColIdx, tableSpec, tableDat
   }, tableData, newData)
 }
 
-const handlePaste = (countryIso, cellRowIdx, cellColIdx, tableSpec, tableData, tableChanged) =>(evt) => {
+const handlePaste = (countryIso, cellRowIdx, cellColIdx, tableSpec, tableData, tableChanged) => (evt) => {
   evt.stopPropagation()
   evt.preventDefault()
   const el = document.createElement('html')
@@ -30,10 +30,12 @@ const handlePaste = (countryIso, cellRowIdx, cellColIdx, tableSpec, tableData, t
   const rows = el.getElementsByTagName('tr')
   if (rows.length > 0) {
     const pastedData =
-      R.flatten(mapIndexed(
-        (row, rowIdx) =>
-          mapIndexed((column, colIdx) => ({rowIdx, colIdx, cellData: column.innerText}), row.getElementsByTagName('td')),
-        rows))
+      R.flatten(
+        mapIndexed(
+          (row, rowIdx) =>
+            mapIndexed((column, colIdx) =>
+              ({rowIdx, colIdx, cellData: column.innerText}), row.getElementsByTagName('td')),
+          rows))
     const updatedTable = applyDataStartingFromCell(cellRowIdx, cellColIdx, tableSpec, tableData, pastedData)
     tableChanged(countryIso, tableSpec, updatedTable)
   }
@@ -48,12 +50,12 @@ const IntegerInput = ({countryIso, tableSpec, tableData, rowIdx, colIdx, tableVa
                                    onChange={
                                      (evt) => {
                                        console.log('EVT')
-                                      const newValue = evt.target.value
-                                      if (acceptableAsInteger(newValue)) {
-                                        const sanitizedNewValue = acceptNextInteger(newValue, tableData[rowIdx][colIdx])
-                                        tableValueChanged(countryIso, tableSpec, rowIdx, colIdx, sanitizedNewValue)
-                                      }
-                                    }
+                                       const newValue = evt.target.value
+                                       if (acceptableAsInteger(newValue)) {
+                                         const sanitizedNewValue = acceptNextInteger(newValue, tableData[rowIdx][colIdx])
+                                         tableValueChanged(countryIso, tableSpec, rowIdx, colIdx, sanitizedNewValue)
+                                       }
+                                     }
                                    }
                                    onPaste={ handlePaste(countryIso, rowIdx, colIdx, tableSpec, tableData, tableChanged) }/>
   </td>
