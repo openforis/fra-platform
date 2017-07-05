@@ -31,25 +31,31 @@ class DataTable extends React.Component {
 
     }
     return <div className="nde__data-table-container">
-      <div className="nde__input-table">
-        <div className="nde__input-table-heading">
-          <div className="nde__input-table-content-row-header-cell"/>
+      <div className="nde__data-table-scroll-content">
+      <table className="fra-table">
+        <thead>
+          <tr>
+          <th className="fra-table__header-cell"></th>
           {
             R.values(this.props.fra).map(v =>
-              <div className={`nde__input-header-cell nde__input-header-cell_${v.type}`} key={`${v.type}_${v.name}`}>
+              <th className={`fra-table__header-cell-align-right ${v.type === 'odp' ? 'odp-header-cell' : ''}`} key={`${v.type}_${v.name}`}>
                 { v.type === 'odp' ? <OdpHeading countryIso={this.props.countryIso} odpValue={v}/>
                   : v.name
                 }
-              </div>
+              </th>
             )
           }
-        </div>
+          </tr>
+        </thead>
+        <tbody>
         { fraValueRow('Forest area', 'forest', this.props.countryIso, 'forestArea',
           this.props.fra, this.props.save, this.props.saveMany, 0, this.props.openCommentThread) }
         { fraValueRow('Other wooded land', 'otherWoodedLand', this.props.countryIso, 'otherWoodedLand',
           this.props.fra, this.props.save, this.props.saveMany, 1, this.props.openCommentThread) }
         { fraValueRow('Other land', 'otherLand', this.props.countryIso, 'otherLand',
           this.props.fra, this.props.save, this.props.saveMany, 2, this.props.openCommentThread) }
+          </tbody>
+      </table>
       </div>
       <div className="nde__comment-column">
         <div className="nde__comment-cell"><ReviewIndicator target={['forest']}
@@ -71,21 +77,21 @@ class DataTable extends React.Component {
 
 const fraValueRow = (rowHeading, target, countryIso, field, fra, save, saveMany, colId, openThread) => {
   console.log('thread', openThread)
-  return <div
-    className={`nde__input-table-content ${openThread && R.isEmpty(R.difference(openThread.target, target)) ? 'fra-row-comments__open' : ''}`}>
-    <div className="nde__input-table-content-row-header-cell">{ rowHeading }</div>
+  return <tr
+    className={`${openThread && R.isEmpty(R.difference(openThread.target, target)) ? 'fra-row-comments__open' : ''}`}>
+    <td className="fra-table__header-cell">{ rowHeading }</td>
     {
       mapIndexed((v, i) =>
-          <div className="nde__input-table-content-cell" key={`${v.type}_${v.name}`}>
+          <td className={`fra-table__${v.type === 'odp' ? 'text-readonly-cell' : 'cell'}`} key={`${v.type}_${v.name}`}>
             {
               v.type === 'odp'
                 ? odpCell(v, field)
                 : fraValueCell(v, fra, countryIso, save, saveMany, field, colId, i)
             }
-          </div>
+          </td>
         , R.values(fra))
     }
-  </div>
+  </tr>
 }
 
 const updatePastedValues = (evt, rowIdx, colIdx, fra, rowNames = {
@@ -113,7 +119,7 @@ const updatePastedValues = (evt, rowIdx, colIdx, fra, rowNames = {
 
 const fraValueCell = (fraValue, fra, countryIso, save, saveMany, field, colIdx, rowIdx) =>
   <ThousandSeparatedIntegerInput
-    className="nde__input-table-input"
+    className="fra-table__integer-input"
     integerValue={ fraValue[field] }
     onPaste={ e => saveMany(countryIso, updatePastedValues(e, colIdx, rowIdx, fra)) }
     onChange={ e => { save(countryIso, fraValue.name, e.target.value, fraValue, field) } }/>
