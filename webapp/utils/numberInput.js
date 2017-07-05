@@ -5,5 +5,6 @@ export const acceptNextInteger = (newValue, currentValue) => {
   const newValueTrimmed = newValue.replace(/\s/g, '')
   if (newValueTrimmed === '') return null
   if (isNaN(newValueTrimmed) || newValueTrimmed.indexOf('.') !== -1) return currentValue
+  if (newValueTrimmed.length > 20) return currentValue
   return Math.round(Number(newValueTrimmed))
 }
