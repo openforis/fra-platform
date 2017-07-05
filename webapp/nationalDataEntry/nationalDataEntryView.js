@@ -21,7 +21,15 @@ const OdpHeading = ({countryIso, odpValue}) =>
     </Link>
 
 class DataTable extends React.Component {
+
+
+
   render () {
+    console.log('open thread', this.props.openCommentThread)
+    if(this.props.openCommentThread &&
+      this.props.openCommentThread.section === 'EOF') {
+
+    }
     return <div className="nde__data-table-container">
       <div className="nde__input-table">
         <div className="nde__input-table-heading">
@@ -36,9 +44,12 @@ class DataTable extends React.Component {
             )
           }
         </div>
-        { fraValueRow('Forest area', "forest", this.props.countryIso, 'forestArea', this.props.fra, this.props.save, this.props.saveMany, 0) }
-        { fraValueRow('Other wooded land', 'otherWoodedLand', this.props.countryIso, 'otherWoodedLand', this.props.fra, this.props.save, this.props.saveMany, 1) }
-        { fraValueRow('Other land', 'otherLand', this.props.countryIso, 'otherLand', this.props.fra, this.props.save, this.props.saveMany, 2) }
+        { fraValueRow('Forest area', 'forest', this.props.countryIso, 'forestArea',
+          this.props.fra, this.props.save, this.props.saveMany, 0, this.props.openCommentThread) }
+        { fraValueRow('Other wooded land', 'otherWoodedLand', this.props.countryIso, 'otherWoodedLand',
+          this.props.fra, this.props.save, this.props.saveMany, 1, this.props.openCommentThread) }
+        { fraValueRow('Other land', 'otherLand', this.props.countryIso, 'otherLand',
+          this.props.fra, this.props.save, this.props.saveMany, 2, this.props.openCommentThread) }
       </div>
       <div className="nde__comment-column">
         <div className="nde__comment-cell"><ReviewIndicator target={['forest']}
@@ -58,26 +69,24 @@ class DataTable extends React.Component {
   }
 }
 
-const fraValueRow = (rowHeading, target, countryIso, field, fra, save, saveMany, colId) =>
-  <div className="nde__input-table-content">
+const fraValueRow = (rowHeading, target, countryIso, field, fra, save, saveMany, colId, openThread) => {
+  console.log('thread', openThread)
+  return <div
+    className={`nde__input-table-content ${openThread && R.isEmpty(R.difference(openThread.target, target)) ? 'fra-row-comments__open' : ''}`}>
     <div className="nde__input-table-content-row-header-cell">{ rowHeading }</div>
     {
-      mapIndexed((v,i) =>
-        <div className="nde__input-table-content-cell" key={`${v.type}_${v.name}`}>
-          {
-            v.type === 'odp'
-              ? odpCell(v, field)
-              : fraValueCell(v, fra, countryIso, save, saveMany, field, colId, i)
-          }
-        </div>
-      , R.values(fra))
+      mapIndexed((v, i) =>
+          <div className="nde__input-table-content-cell" key={`${v.type}_${v.name}`}>
+            {
+              v.type === 'odp'
+                ? odpCell(v, field)
+                : fraValueCell(v, fra, countryIso, save, saveMany, field, colId, i)
+            }
+          </div>
+        , R.values(fra))
     }
   </div>
-
-const fraFieldValueForInput = (fieldValue) =>
-  typeof fieldValue === 'number'
-    ? fieldValue
-    : ''
+}
 
 const updatePastedValues = (evt, rowIdx, colIdx, fra, rowNames = {
   0: 'forestArea',
