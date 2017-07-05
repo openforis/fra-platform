@@ -87,6 +87,7 @@ class ReviewPanel extends React.Component {
   }
 
   render () {
+    console.log('**** rendering review ', this.props)
     const isActive = R.pipe(R.defaultTo({}), R.isEmpty, R.not)(this.props.openThread)
     const target = R.isNil(this.props.openThread) ? null : R.head(this.props.openThread.target)
     const section = R.isNil(this.props.openThread) ? '' : this.props.openThread.section

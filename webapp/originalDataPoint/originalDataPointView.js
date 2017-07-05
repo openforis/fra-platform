@@ -10,6 +10,7 @@ import { ThousandSeparatedIntegerInput } from '../reusableUiComponents/thousandS
 import LoggedInPageTemplate from '../loggedInPageTemplate'
 import R from 'ramda'
 import ckEditorConfig from '../ckEditor/ckEditorConfig'
+import ReviewIndicator from '../review/reviewIndicator'
 
 const years = ['', ...R.range(1990, 2021)]
 
@@ -183,6 +184,16 @@ const NationalClassRow = ({odp, index, saveDraft, countryIso, className, definit
                saveDraft(countryIso, originalDataPoint.updateNationalClass(odp, index, 'definition', evt.target.value))}
              onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, nationalClassCols, 1) }
       />
+    </td>
+    <td>
+      {console.log('=== adding ', index, odp.nationalClasses[index], odp.nationalClasses[index].uuid) }
+      {placeHolder
+        ? null
+        : <ReviewIndicator section='NDP'
+                           name="National data point"
+                           target={[`${odp.nationalClasses[index].uuid}_class_definition`]}
+                           countryIso={countryIso}/>
+      }
     </td>
   </tr>
 

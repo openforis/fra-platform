@@ -30,6 +30,7 @@ class ReviewIndicator extends React.Component {
   }
 
   render () {
+    console.log('**** rendering reviewIndicator ', this.props)
     const targetProps = this.props[this.props.target] || {}
     const count = R.isNil(targetProps) ? 0 : targetProps.count // comments ? comments.length  : 0
 
