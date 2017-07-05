@@ -3,7 +3,14 @@ import * as table from './table'
 
 const mapIndexed = R.addIndex(R.map)
 
-export const handlePaste = (countryIso, cellRowIdx, cellColIdx, tableSpec, tableData, tableChanged) => (evt) => {
+export const handlePaste = (countryIso,
+                            cellRowIdx,
+                            cellColIdx,
+                            tableSpec,
+                            tableData,
+                            tableChanged,
+                            tableValueChanged) =>
+                            (evt) => {
   evt.stopPropagation()
   evt.preventDefault()
   const el = document.createElement('html')
@@ -19,6 +26,8 @@ export const handlePaste = (countryIso, cellRowIdx, cellColIdx, tableSpec, table
           rows))
     const updatedTable = table.fillTableDataStartingFromCell(cellRowIdx, cellColIdx, tableSpec, tableData, pastedData)
     tableChanged(countryIso, tableSpec, updatedTable)
+  } else {
+    const newValue = evt.clipboardData.getData('text/plain')
+    tableValueChanged(countryIso, tableSpec, cellRowIdx, cellColIdx, newValue)
   }
-  const txt = evt.clipboardData.getData('text/plain')
 }

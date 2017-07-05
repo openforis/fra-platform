@@ -15,8 +15,15 @@ const getSliceLenses = (tableSpec) => {
   ]
 }
 
-export const update = (tableValues, rowIdx, colIdx, newValue) =>
+const update = (tableValues, rowIdx, colIdx, newValue) =>
   R.update(rowIdx, R.update(colIdx, newValue, tableValues[rowIdx]), tableValues)
+
+export const updateCellValue = (tableSpec, tableValues, rowIdx, colIdx, newValue) => {
+  const currentValue = tableValues[rowIdx][colIdx]
+  const [_, cellType] = cellTypes.getCellSpecAndType(tableSpec, rowIdx, colIdx)
+  const sanitizedNewValue = cellType.acceptValue(newValue, currentValue)
+  return update(tableValues, rowIdx, colIdx, sanitizedNewValue)
+}
 
 export const fillTableDataStartingFromCell = (startRowIdx, startColIdx, tableSpec, tableData, newData) => {
   return R.reduce((tableData, {rowIdx, colIdx, cellData}) => {

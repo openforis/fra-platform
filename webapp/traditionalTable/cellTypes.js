@@ -13,13 +13,23 @@ const IntegerInput = ({countryIso, tableSpec, tableData, rowIdx, colIdx, tableVa
                                    onChange={
                                      (evt) => {
                                        const newValue = evt.target.value
+                                       // This if prevents just a useless, no-op autosave, the value wouldn't
+                                       // be accepted anyway...
                                        if (acceptableAsInteger(newValue)) {
-                                         const sanitizedNewValue = acceptNextInteger(newValue, tableData[rowIdx][colIdx])
-                                         tableValueChanged(countryIso, tableSpec, rowIdx, colIdx, sanitizedNewValue)
+                                         tableValueChanged(countryIso, tableSpec, rowIdx, colIdx, newValue)
                                        }
                                      }
                                    }
-                                   onPaste={ handlePaste(countryIso, rowIdx, colIdx, tableSpec, tableData, tableChanged) }/>
+                                   onPaste={
+                                     handlePaste(
+                                       countryIso,
+                                       rowIdx,
+                                       colIdx,
+                                       tableSpec,
+                                       tableData,
+                                       tableChanged,
+                                       tableValueChanged)
+                                   }/>
   </td>
 }
 
