@@ -185,7 +185,7 @@ const NationalClassRow = ({odp, index, saveDraft, countryIso, className, definit
              onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, nationalClassCols, 1) }
       />
     </td>
-    <td>
+    <td className="odp__col-review">
       {placeHolder
         ? null
         : <ReviewIndicator section='NDP'
