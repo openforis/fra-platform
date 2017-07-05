@@ -67,10 +67,11 @@ const addClassData = (client, odpVersionId, odp) => {
         area,
         forest_percent,
         other_wooded_land_percent,
-        other_land_percent
+        other_land_percent,
+        uuid
         ) 
        VALUES 
-        ($1, $2, $3, $4, $5, $6, $7);`,
+        ($1, $2, $3, $4, $5, $6, $7, $8);`,
       [
         odpVersionId,
         nationalClass.className,
@@ -78,7 +79,8 @@ const addClassData = (client, odpVersionId, odp) => {
         nationalClass.area,
         nationalClass.forestPercent,
         nationalClass.otherWoodedLandPercent,
-        nationalClass.otherLandPercent
+        nationalClass.otherLandPercent,
+        nationalClass.uuid
       ]),
     odp.nationalClasses)
   return Promise.all(nationalInserts)
