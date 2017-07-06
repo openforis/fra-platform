@@ -17,6 +17,11 @@ const reviewApi = require('./review/api')
 
 const app = express()
 const apiRouter = express.Router()
+//Nothing should be cached by default with the APIs
+apiRouter.use((req, res, next) => {
+  res.set('Cache-Control', 'no-store')
+  next()
+})
 
 migrations()
 
