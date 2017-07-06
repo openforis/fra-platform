@@ -8,7 +8,7 @@ const actionHandlers = {
   [types.dataPointSaveDraftCompleted ]: (state, action) =>
     R.pipe(
       R.assocPath(['active', 'odpId'], Number(action.odpId)),
-      R.dissocPath(['active', 'validationStatus'])
+      R.assocPath(['active', 'validationStatus'], action.validationStatus)
     )(state),
   [types.odpFetchCompleted]: (state, action) => R.assoc('active', action.active)(state),
   [types.clearActiveAction ]: (state, action) => R.assoc('active', emptyDataPoint(), state),
