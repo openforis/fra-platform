@@ -33,16 +33,19 @@ const IntegerInput = ({countryIso, tableSpec, tableData, rowIdx, colIdx, tableVa
   </td>
 }
 
-const cellTypes = {
-  'integerInput': {render: (cellSpec, props) => <IntegerInput {...props}/>, acceptValue: acceptNextInteger},
-  'readOnly': {render: (cellSpec, props) => cellSpec.jsx},
-  'custom': {render: (cellSpec, props) => cellSpec.render(props)}
+const cellTypeCreators = {
+  'integerInput': (cellSpec) => ({
+    render: (props) => <IntegerInput {...props}/>,
+    acceptValue: acceptNextInteger
+  }),
+  'readOnly': (cellSpec) => ({render: (props) => cellSpec.jsx}),
+  'custom': (cellSpec) => ({render: (props) => cellSpec.render(props)})
 }
 
-export const getCellSpecAndType = (tableSpec, rowIdx, colIdx) => {
+export const getCellType = (tableSpec, rowIdx, colIdx) => {
   const cellSpec = tableSpec.rows[rowIdx][colIdx]
   assert(cellSpec, `No cellspec for ${rowIdx} ${colIdx}`)
-  const cellType = cellTypes[cellSpec.type]
+  const cellType = cellTypeCreators[cellSpec.type]
   assert(cellType, `Unknown cell type ${cellSpec.type}`)
-  return [cellSpec, cellType]
+  return cellType(cellSpec)
 }

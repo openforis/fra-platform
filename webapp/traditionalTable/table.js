@@ -20,7 +20,7 @@ const update = (tableValues, rowIdx, colIdx, newValue) =>
 
 export const updateCellValue = (tableSpec, tableValues, rowIdx, colIdx, newValue) => {
   const currentValue = tableValues[rowIdx][colIdx]
-  const [_, cellType] = cellTypes.getCellSpecAndType(tableSpec, rowIdx, colIdx)
+  const cellType = cellTypes.getCellType(tableSpec, rowIdx, colIdx)
   const sanitizedNewValue = cellType.acceptValue(newValue, currentValue)
   return update(tableValues, rowIdx, colIdx, sanitizedNewValue)
 }
@@ -31,7 +31,7 @@ export const fillTableDataStartingFromCell = (startRowIdx, startColIdx, tableSpe
     const colIdxToUpdate = startColIdx + colIdx
     if (rowIdxToUpdate > tableSpec.rows.length - 1 ||
       colIdxToUpdate > tableSpec.rows[0].length - 1) return tableData
-    const [_, cellType] = cellTypes.getCellSpecAndType(tableSpec, rowIdxToUpdate, colIdxToUpdate)
+    const cellType = cellTypes.getCellType(tableSpec, rowIdxToUpdate, colIdxToUpdate)
     if (!cellType.acceptValue) return tableData
     return update(
       tableData,

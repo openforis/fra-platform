@@ -11,8 +11,8 @@ const mapIndexed = R.addIndex(R.map)
 
 const Cell = (props) => {
   const {tableSpec, rowIdx, colIdx} = props
-  const [cellSpec, cellType] = cellTypes.getCellSpecAndType(tableSpec, rowIdx, colIdx)
-  return cellType.render(cellSpec, props)
+  const cellType = cellTypes.getCellType(tableSpec, rowIdx, colIdx)
+  return cellType.render(props)
 }
 
 const tableRows = (props) => {
