@@ -1,0 +1,32 @@
+@import "./config";
+
+.alert {
+  text-align: left;
+  border-radius: 2px;
+  padding: 9px;
+  border: 1px solid rgba(0,0,0,.15);
+  line-height: 20px;
+
+  svg {
+    .icon-sub;
+    .icon-margin;
+  }
+}
+
+.alert-error {
+  .mixin-alert(@ui-destructive);
+}
+
+.alert-info {
+  .mixin-alert(@ui-accent);
+}
+
+.mixin-alert(@color) {
+  color: fade(black, 75%);
+  background-color: fade(@color, 10%);
+  border-color: fade(darken(@color, 30%), 15%);
+
+  svg {
+    fill: darken(@color, 5%);
+  }
+}
