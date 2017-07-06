@@ -51,18 +51,18 @@ class DataTable extends React.Component {
       </table>
       </div>
       <div className="nde__comment-column">
-        <div className="nde__comment-cell"><ReviewIndicator target={['forest']}
-                                                        name="Forest"
-                                                        countryIso={this.props.countryIso}
-                                                        section='EOF'/></div>
-        <div className="nde__comment-cell"><ReviewIndicator section='EOF'
-                                                        name="Other wooded land"
-                                                        target={['otherWoodedLand']}
-                                                        countryIso={this.props.countryIso}/></div>
-        <div className="nde__comment-cell"><ReviewIndicator section='EOF'
-                                                        name="Other land"
-                                                        target={['otherLand']}
-                                                        countryIso={this.props.countryIso}/></div>
+        <ReviewIndicator target={['forest']}
+                    name="Forest"
+                    countryIso={this.props.countryIso}
+                    section='EOF'/>
+        <ReviewIndicator section='EOF'
+                    name="Other wooded land"
+                    target={['otherWoodedLand']}
+                    countryIso={this.props.countryIso}/>
+        <ReviewIndicator section='EOF'
+                    name="Other land"
+                    target={['otherLand']}
+                    countryIso={this.props.countryIso}/>
       </div>
     </div>
   }
@@ -117,7 +117,7 @@ const fraValueCell = (fraValue, fra, countryIso, save, saveMany, field, colIdx, 
     onChange={ e => { save(countryIso, fraValue.name, e.target.value, fraValue, field) } }/>
 
 const odpCell = (odpValue, field) =>
-  <span className="nde__input-table-cell_odp">
+  <span>
     {separateThousandsWithSpaces(Math.round(odpValue[field]))}
   </span>
 
@@ -163,7 +163,7 @@ const NationalDataEntry = (props) => {
     <div className="nde__data-page-header">
       <h2 className="headline">Extent of forest</h2>
     </div>
-    <div className='nde__comment-margin'>
+    <div className='nde__comment-transition'>
       <div className="nde__data-input-header">
         <Link className="btn btn-primary" to={`/country/${props.countryIso}/odp`}>
           <svg className="icon icon-middle icon-white">
@@ -181,7 +181,7 @@ const NationalDataEntry = (props) => {
       </div>
     </div>
     <DataTable {...props} />
-    <div className="nde__description-field nde__comment-margin">
+    <div className="nde__description-field nde__comment-transition">
       <Description title="Data Sources" name="dataSources" classes={`${props.openCommentThread &&
         R.isEmpty(R.difference(props.openCommentThread.target, sourceTarget)) ? 'fra-row-comments__open' : ''}`}
                    countryIso={props.match.params.countryIso}/>
@@ -190,7 +190,7 @@ const NationalDataEntry = (props) => {
                        target={sourceTarget}
                        countryIso={props.match.params.countryIso}/>
     </div>
-    <div className="nde__description-field nde__comment-margin">
+    <div className="nde__description-field nde__comment-transition">
       <Description title="National classification and definitions" name="nationalClassification" classes={`${props.openCommentThread &&
         R.isEmpty(R.difference(props.openCommentThread.target, classificationTarget)) ? 'fra-row-comments__open' : ''}`}
                    countryIso={props.match.params.countryIso}/>
@@ -199,7 +199,7 @@ const NationalDataEntry = (props) => {
                        target={classificationTarget}
                        countryIso={props.match.params.countryIso}/>
     </div>
-    <div className="nde__description-field nde__comment-margin">
+    <div className="nde__description-field nde__comment-transition">
       <Description title="Original data" name="originalData" classes={`${props.openCommentThread &&
         R.isEmpty(R.difference(props.openCommentThread.target, originalDataTarget)) ? 'fra-row-comments__open' : ''}`}
                    countryIso={props.match.params.countryIso}/>

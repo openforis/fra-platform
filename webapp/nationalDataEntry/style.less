@@ -4,101 +4,19 @@
   padding: 32px 32px 64px 32px;
 }
 
-.nde__input-table {
-  overflow-x: auto;
-  border-collapse: collapse;
-  border-top: @ui-thin-border;
-  border-left: @ui-thin-border;
-  font-size: 13px;
-  line-height: 20px;
-
-  .nde__input-table-heading {
-    display: flex;
-  }
-
-  .nde__input-header-cell {
-    width: 200px;
-    min-width: 100px;
-    background: @ui-bg;
-    border-bottom: @ui-thin-border;
-    border-right: @ui-thin-border;
-    font-weight: bold;
-    padding: 10px;
-    text-align: right;
-  }
-
-  .nde__input-table-content-row-header-cell {
-    width: 200px;
-    min-width: 100px;
-    min-width: 200px;
-    background: @ui-bg;
-    border-bottom: @ui-thin-border;
-    border-right: @ui-thin-border;
-    font-weight: bold;
-    padding: 10px;
-  }
-
-  .nde__input-table-content {
-    display: flex;
-  }
-
-  .nde__input-table-content-cell {
-    width: 200px;
-    min-width: 100px;
-    border-right: @ui-thin-border;
-    border-bottom: @ui-thin-border;
-    padding: 0;
-  }
-
-  .nde__input-table-input {
-    color: inherit;
-    font-size: inherit;
-    border: none;
-    text-align: right;
-    line-height: inherit;
-    padding: 10px;
-    width: 100%;
-    margin: 0;
-    text-overflow: ellipsis;
-
-    &:focus {
-      outline: none;
-      box-shadow: 0 0 0 1px @text-body;
-    }
-  }
-
-  .nde__input-table-input:disabled {
-    color: @ui-border;
-  }
-
-  .nde__input-header-cell_odp {
-    background-color: lighten(@ui-accent-light, 8%);
-  }
-
-  .nde__input-table-cell_odp {
-    background-color: lighten(@ui-accent-light, 12%);
-    display: inline-block;
-    text-align: right;
-    line-height: inherit;
-    padding: 10px;
-    width: 100%;
-    color: @text-body;
-    cursor: not-allowed;
-  }
-}
-
-.nde__comment-margin {
-  margin-right: 8 px;
-  transition: margin 0.1s ease-out;
+.nde__comment-transition {
+  transition: @ease-out;
 }
 
 .nde__description-field {
   position: relative;
   display: flex;
   justify-content: space-between;
+
   .fra-review__add-issue {
     padding-top: 60px;
   }
+
   > div:first-of-type {
     flex-grow: 2;
   }
@@ -136,41 +54,46 @@
   display: flex;
   align-items: flex-start;
   padding-bottom: 32px;
+
   .fra-table {
-    width: 99%;
+    width: 100%;
     overflow: auto;
   }
-  td {
+
+  .fra-table__cell,
+  .fra-table__text-readonly-cell {
     width: 200px;
     min-width: 100px;
   }
+
   .fra-table__header-cell {
     min-width: 200px;
   }
+
   .fra-table__header-cell-align-right {
     &.odp-header-cell {
       background-color: lighten(@ui-accent-light, 8%);
     }
   }
+
   .fra-table__text-readonly-cell {
     text-align: right;
     background-color: lighten(@ui-accent-light, 12%);
     color: @text-body;
   }
 }
+
 .nde__data-table-scroll-content {
   overflow: auto;
-}
-
-.nde__comment-cell {
-  height: 41px;
-  padding-top: 8px;
-  &:first-of-type {
-    margin-top: 42px;
-  }
 }
 
 .nde__description-header {
   margin-top: 24px;
   margin-bottom: 16px;
+}
+
+.nde__comment-column {
+  .fra-review__add-issue:first-of-type {
+    margin-top: 42px;
+  }
 }
