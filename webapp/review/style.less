@@ -189,19 +189,9 @@
   overflow-wrap: break-word;
 }
 
-.fra-row-comments__open {
-  td {
-    background: @ui-comment;
-  }
-  input {
-    background: @ui-comment;
-  }
-
-  .cke_wrapper {
-    border: 1px solid @ui-comment-border;
-  }
-  .cke_wysiwyg_frame {
-    background: @ui-comment;
-  }
-
+tr.fra-row-comments__open,
+div.fra-row-comments__open .cke_wrapper {
+  outline: 1px solid @ui-accent;
+  outline-offset: -1px;
+  box-shadow: 0 0 4px fade(@ui-accent, 50%);
 }
