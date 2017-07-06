@@ -16,7 +16,6 @@
   position: relative;
   top: 40%;
   transform: translateY(-40%);
-
 }
 
 .login__fao-logo {
@@ -38,9 +37,8 @@
   top: 23px;
 }
 
-.login__fail-info {
-  color: red;
-  margin-bottom: 20px;
+.login__fail {
+  margin-bottom: 16px;
 }
 
 .login__box {
@@ -48,8 +46,8 @@
   padding: 64px 32px;
   border-radius: 2px;
   background-color: white;
-  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
-  border: solid 1px @ui-border;
+  box-shadow: @shadow-1;
+  border: @ui-thin-border;
   text-align: center;
 }
 
@@ -70,7 +68,7 @@
   input[type="text"] {
     background-color: white;
     border-radius: 2px;
-    border: solid 1px @ui-border;
+    border: @ui-thin-border;
     color: @text-body;
     font-family: @font-family-1;
     font-size: @font-m;

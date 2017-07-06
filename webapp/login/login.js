@@ -11,7 +11,7 @@ const LoginView = ({requestLogin}) =>
       <div className="login__box">
         <img src="img/tucan.svg" className="login__tucan"/>
         <h2 className="login__header headline">Login to FRA Platform</h2>
-        {getUrlParameter('u') ? <div className="login__fail-info">User not authorized</div> : ''}
+        { getUrlParameter('u') ? <div className="login__fail alert alert-error"><svg className='icon'><use xlinkHref='img/icon.svg#icon-alert'/></svg> User not authorized</div> : ''}
         <div className="login__input-group">
           <a className="btn btn-primary login__btn" href="/auth/google">
             Sign in with Google
