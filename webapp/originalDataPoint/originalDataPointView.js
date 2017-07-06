@@ -237,8 +237,8 @@ const ExtentOfForestRow = ({
 
   const validationStatusCssClass = () => {
     if (odp.validationStatus) {
-      const status = odp.validationStatus.nationalClasses[index]
-      return status.validPercentage ? '' : 'error'
+      const status = R.find(R.propEq('uuid', odp.nationalClasses[index].uuid))(odp.validationStatus.nationalClasses)
+      return status && !status.validPercentage ? 'error' : ''
     }
   }
 
