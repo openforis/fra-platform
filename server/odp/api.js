@@ -4,9 +4,13 @@ const odpRepository = require('./odpRepository')
 const {sendErr} = require('../requestUtils')
 
 const validateNdp = ndp => {
-  const validYear = R.not(R.or(R.pathEq('year', 0, ndp), R.isNil(ndp.year)))
-
   const defaultTo0 = R.defaultTo(0)
+
+  const validYear = R.pipe(
+    defaultTo0,
+    R.partialRight(R.gt, [0]),
+  )(ndp.year)
+
   const validateNationalClassPercentage = cls => R.pipe(
     c => R.sum([defaultTo0(c.forestPercent), defaultTo0(c.otherWoodedLandPercent), defaultTo0(c.otherLandPercent)]),
     R.equals(100)
