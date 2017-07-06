@@ -35,8 +35,8 @@ export const fillTableDataStartingFromCell = (startRowIdx, startColIdx, tableSpe
     if (!cellType.acceptValue) return tableData
     return update(
       tableData,
-      startRowIdx + rowIdx,
-      startColIdx + colIdx,
+      rowIdxToUpdate,
+      colIdxToUpdate,
       cellType.acceptValue(cellData, tableData[rowIdxToUpdate][colIdxToUpdate])
     )
   }, tableData, newData)

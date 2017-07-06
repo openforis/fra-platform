@@ -4,7 +4,9 @@ const trim = (value) => value.replace(/\s/g, '')
 export const acceptableAsInteger = (newValue) => {
   const newValueTrimmed = trim(newValue)
   if (newValueTrimmed === '') return true
-  return !isNaN(newValueTrimmed) && newValueTrimmed.indexOf('.') === -1
+  return !isNaN(newValueTrimmed) &&
+          newValueTrimmed.indexOf('.') === -1 &&
+          isFinite(newValueTrimmed)
 }
 
 // Util function for UI fields which require integer values to be stored
