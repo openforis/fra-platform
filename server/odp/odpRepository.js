@@ -215,7 +215,7 @@ module.exports.readOriginalDataPoints = (countryIso) =>
                THEN p.actual_id
              ELSE p.draft_id
              END
-        JOIN odp_class c
+      LEFT OUTER JOIN odp_class c
           ON c.odp_version_id = v.id
       WHERE p.country_iso = $1 AND year IS NOT NULL
       GROUP BY odp_id, v.year, draft 
@@ -234,7 +234,7 @@ module.exports.listOriginalDataPoints = (countryIso) =>
                THEN p.actual_id
              ELSE p.draft_id
              END
-        JOIN odp_class c
+      LEFT OUTER JOIN odp_class c
           ON c.odp_version_id = v.id
       WHERE p.country_iso = $1
   `, [countryIso]).then(result => R.reduce(odpListReducer, {}, result.rows))
