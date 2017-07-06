@@ -11,6 +11,7 @@ import { separateThousandsWithSpaces } from '../utils/numberFormat'
 import { ThousandSeparatedIntegerInput } from '../reusableUiComponents/thousandSeparatedIntegerInput'
 import Description from '../description/description'
 import { readPasteClipboard } from '../utils/copyPasteUtil'
+import {acceptNextInteger} from '../utils/numberInput'
 
 const mapIndexed = R.addIndex(R.map)
 
@@ -103,7 +104,19 @@ const updatePastedValues = (evt, rowIdx, colIdx, fra, rowNames = {
   }, readPasteClipboard(evt))
 
   const pasted = R.pipe(
-    R.map(fra => toPaste[fra.year] ? R.merge(fra, toPaste[fra.year]) : null),
+    R.map(fra => {
+      // Validates pasted values and filters out values that are not accepted by
+      // acceptNextInteger-function.
+      const acceptedValues = R.pipe(
+        R.keys,
+        R.map(k => {
+          return {[k]: acceptNextInteger(String(toPaste[fra.year][k]), fra[k])}
+        }),
+        R.reduce(R.merge, {})
+      )(R.defaultTo({}, toPaste[fra.year]))
+
+      return toPaste[fra.year] ? R.merge(fra, acceptedValues) : null
+    }),
     R.reject(R.isNil))(fra)
 
   return pasted
