@@ -94,7 +94,7 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
       { active.odpId
         ? <ReviewIndicator section='NDP'
                            name="National data point"
-                           target={[`${active.odpId}_comments`]}
+                           target={[`${active.odpId}`, 'comments']}
                            countryIso={countryIso}/>
         : null}
       <CommentsEditor active={active} match={match} saveDraft={saveDraft}/>
@@ -199,7 +199,7 @@ const NationalClassRow = ({odp, index, saveDraft, countryIso, className, definit
         ? null
         : <ReviewIndicator section='NDP'
                            name="National data point"
-                           target={[`${odp.nationalClasses[index].uuid}_class_definition`]}
+                           target={[`${odp.nationalClasses[index].uuid}`, 'class_definition']}
                            countryIso={countryIso}/>
       }
     </td>
@@ -271,7 +271,7 @@ const ExtentOfForestRow = ({
     <td className="odp__col-review">
       <ReviewIndicator section='NDP'
                        name="National data point"
-                       target={[`${odp.nationalClasses[index].uuid}_class_value`]}
+                       target={[`${odp.nationalClasses[index].uuid}`, 'npd_class_value']}
                        countryIso={countryIso}/>
 
     </td>
