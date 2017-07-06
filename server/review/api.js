@@ -7,7 +7,7 @@ const issueRepository = require('./../issueRepository')
 module.exports.init = app => {
 
   app.post('/api/review/:issueId', (req, res) => {
-    const userId = req.session.loggedInUser.id
+    const userId = req.session.passport.user.id
     db.transaction(issueRepository.createComment, [req.params.issueId, userId, req.body.msg, ''])
       .then(result => res.json({}))
       .catch(err => sendErr(res, err))
@@ -27,7 +27,7 @@ module.exports.init = app => {
   })
 
   app.post('/api/review/:countryIso/:section', (req, res) => {
-    const userId = req.session.loggedInUser.id
+    const userId =  req.session.passport.user.id
     const target = req.query.target ? req.query.target.split(',') : []
     db.transaction(
       issueRepository.createIssueWithComment,

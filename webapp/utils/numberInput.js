@@ -13,5 +13,6 @@ export const acceptNextInteger = (newValue, currentValue) => {
   const newValueTrimmed = trim(newValue)
   if (newValueTrimmed === '') return null
   if (!acceptableAsInteger(newValue)) return currentValue
+  if (newValueTrimmed.length > 20) return currentValue
   return Math.round(Number(newValueTrimmed))
 }

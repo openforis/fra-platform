@@ -1,8 +1,8 @@
 @import "../app-styles/config";
 
 .fra-review__add-issue {
-  display: flex;
-  padding: 0 12px 12px;
+  position: relative;
+  padding: 0 0 12px;
 }
 
 .fra-review-active {
@@ -86,7 +86,6 @@
   resize: none;
   padding: 8px;
   font-size: @font-s;
-  line-height: inherit;
 
   &:focus {
     outline: none;
@@ -162,6 +161,8 @@
 }
 
 .fra-review__issue-status-visible {
+  position: absolute;
+  right: -28px;
   cursor: pointer;
 }
 
