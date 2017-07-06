@@ -18,10 +18,11 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
   const countryIso = match.params.countryIso
   const saveControlsDisabled = () => !active.odpId || autoSaving
   const copyPreviousClassesDisabled = () => active.year && !autoSaving ? false : true
+  const validationStatusCssClass = () => active.validationStatus && !active.validationStatus.year.valid ? 'error' : ''
 
   return <div className="odp__data-input-component">
     <div className="odp_data-input-row">
-      <div>
+      <div className={`${validationStatusCssClass()}`}>
         <h3 className="subhead">Year</h3>
         <select
           className="select"
