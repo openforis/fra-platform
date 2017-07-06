@@ -9,7 +9,7 @@ export const issueCloseCommentThread = 'issue/comment/thread/close'
 export const reviewGetCommentCountCompleted = 'review/comment/count/completed'
 
 const sectionCommentsReceived = (section, target, dispatch) => resp => {
-  const targetkey = typeof target === 'string' ? target : target.join('_')
+  const targetkey = typeof target === 'string' ? target : target.join('')
   dispatch({
     type: issueRetrieveCommentsCompleted,
     section: section,

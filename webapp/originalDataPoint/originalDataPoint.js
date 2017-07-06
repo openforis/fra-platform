@@ -4,6 +4,8 @@
 
 import R from 'ramda'
 
+const uuidv4 = require('uuid/v4')
+
 export const updateNationalClass = (odp, index, field, value) => {
   const nationalClassToUpdate = odp.nationalClasses[index]
   const wasPlaceHolder = nationalClassToUpdate.placeHolder
@@ -15,7 +17,14 @@ export const updateNationalClass = (odp, index, field, value) => {
   return {...odp, nationalClasses: updatedClasses}
 }
 
-export const removeNationalClass = (odp, index) => ({...odp, nationalClasses: R.remove(index, 1, odp.nationalClasses)})
+export const removeNationalClass = (odp, index) =>
+  R.pipe(
+    o => ({...o, nationalClasses: R.remove(index, 1, odp.nationalClasses)}),
+    removeClassPlaceholder,
+    o => o.nationalClasses.length > 0
+      ? {...o, nationalClasses: [...o.nationalClasses, nationalClassPlaceHolder()]}
+      : {...o, nationalClasses: [defaultNationalClass(), nationalClassPlaceHolder()]}
+  )(odp)
 
 export const removeClassPlaceholder = (odp) => {
   const updatedClasses = R.filter(nClass => !nClass.placeHolder, odp.nationalClasses)
@@ -28,7 +37,8 @@ export const defaultNationalClass = (className = '', definition = '') => ({
   area: null,
   forestPercent: null,
   otherWoodedLandPercent: null,
-  otherLandPercent: null
+  otherLandPercent: null,
+  uuid: uuidv4()
 })
 
 export const nationalClassPlaceHolder = () => ({...defaultNationalClass(), placeHolder: true})

@@ -19,9 +19,9 @@ class Description extends Component {
   componentWillReceiveProps (nextProps) {
     if (!R.equals(this.props.countryIso, nextProps.countryIso))
       this.fetchData(nextProps.countryIso)
-    else if (nextProps[this.props.name] && nextProps[this.props.name].fetched)
+    else if (nextProps.fetched) {
       this.editor.setData(
-        nextProps[this.props.name].content
+        nextProps.content
         , {
           callback: () => {
             if (!this.editor.hasListeners('change'))
@@ -29,6 +29,7 @@ class Description extends Component {
           }
         }
       )
+    }
   }
 
   componentDidMount () {
@@ -52,6 +53,8 @@ class Description extends Component {
   }
 }
 
-const mapStateToProps = state => state.descriptions
+const mapStateToProps = (state, props) => {
+  return R.defaultTo({}, state.descriptions[props.name])
+}
 
 export default connect(mapStateToProps, {fetchDescriptions, saveDescriptions})(Description)
