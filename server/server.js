@@ -16,11 +16,12 @@ const descriptionsApi = require('./descriptions/api')
 const reviewApi = require('./review/api')
 
 const app = express()
+const apiRouter = express.Router()
 
 migrations()
 
 sessionInit.init(app)
-userApi.init(app)
+userApi.init(apiRouter)
 
 app.use(compression({threshold: 512}))
 app.use('/', express.static(`${__dirname}/../dist`))
@@ -31,7 +32,7 @@ app.use(bodyParser.json({limit: '5000kb'}))
 
 authApi.init(app)
 
-app.get('/api/country/all', (req, res) => {
+apiRouter.get('/country/all', (req, res) => {
   countryRepository.getAllCountries().then(result => {
     res.json(result.rows)
   }).catch(err => {
@@ -40,11 +41,13 @@ app.get('/api/country/all', (req, res) => {
   })
 })
 
-odpApi.init(app)
-eofApi.init(app)
-traditionalTableApi.init(app)
-descriptionsApi.init(app)
-reviewApi.init(app)
+odpApi.init(apiRouter)
+eofApi.init(apiRouter)
+traditionalTableApi.init(apiRouter)
+descriptionsApi.init(apiRouter)
+reviewApi.init(apiRouter)
+
+app.use('/api', apiRouter)
 
 app.listen(process.env.PORT, () => {
   console.log('FRA Platform server listening on port ', process.env.PORT)

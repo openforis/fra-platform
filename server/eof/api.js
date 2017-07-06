@@ -13,7 +13,7 @@ const forestAreaTableResponse = require('./forestAreaTableResponse')
 
 module.exports.init = app => {
 
-  app.post('/api/eof/:countryIso', (req, res) => {
+  app.post('/eof/:countryIso', (req, res) => {
     const updates = []
     R.map(c => {
       updates.push(fraRepository.persistFraValues(req.params.countryIso, c.year, c))
@@ -24,13 +24,13 @@ module.exports.init = app => {
       .catch(err => sendErr(res, err))
   })
 
-  app.post('/api/country/:countryIso/:year', (req, res) => {
+  app.post('/country/:countryIso/:year', (req, res) => {
     fraRepository.persistFraValues(req.params.countryIso, req.params.year, req.body)
       .then(() => res.json({}))
       .catch(err => sendErr(res, err))
   })
 
-  app.get('/api/country/:countryIso', (req, res) => {
+  app.get('/country/:countryIso', (req, res) => {
     const fra = fraRepository.readFraForestAreas(req.params.countryIso)
     const odp = odpRepository.readOriginalDataPoints(req.params.countryIso)
 
@@ -47,7 +47,7 @@ module.exports.init = app => {
       .catch(err => sendErr(res, err))
   })
 
-  app.post('/api/country/estimation/generateFraValues/:countryIso', (req, res) => {
+  app.post('/country/estimation/generateFraValues/:countryIso', (req, res) => {
     const years = R.pipe(
       R.values,
       R.map((v) => v.year)
@@ -59,7 +59,7 @@ module.exports.init = app => {
       .catch(err => sendErr(res, err))
   })
 
-  app.get('/api/nav/status/:countryIso', (req, res) => {
+  app.get('/nav/status/:countryIso', (req, res) => {
    const odpData = odpRepository.listOriginalDataPoints(req.params.countryIso, true)
 
     const yearsValid = R.pipe( // if year not specified for a odp, raise error flag

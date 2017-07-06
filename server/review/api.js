@@ -6,14 +6,14 @@ const issueRepository = require('./../issueRepository')
 
 module.exports.init = app => {
 
-  app.post('/api/review/:issueId', (req, res) => {
+  app.post('/review/:issueId', (req, res) => {
     const userId = req.session.passport.user.id
     db.transaction(issueRepository.createComment, [req.params.issueId, userId, req.body.msg, ''])
       .then(result => res.json({}))
       .catch(err => sendErr(res, err))
   })
 
-  app.get('/api/review/:countryIso/:section/count', (req, res) => {
+  app.get('/review/:countryIso/:section/count', (req, res) => {
     issueRepository.getIssues(req.params.countryIso, req.params.section)
       .then(result => {
         const target = req.query.target && req.query.target.split(',')
@@ -26,7 +26,7 @@ module.exports.init = app => {
       .catch(err => sendErr(res, err))
   })
 
-  app.post('/api/review/:countryIso/:section', (req, res) => {
+  app.post('/review/:countryIso/:section', (req, res) => {
     const userId =  req.session.passport.user.id
     const target = req.query.target ? req.query.target.split(',') : []
     db.transaction(
@@ -36,7 +36,7 @@ module.exports.init = app => {
       .catch(err => sendErr(res, err))
   })
 
-  app.get('/api/review/:countryIso/:section', (req, res) => {
+  app.get('/review/:countryIso/:section', (req, res) => {
     issueRepository.getIssues(req.params.countryIso, req.params.section)
       .then(result => {
         const target = req.query.target && req.query.target.split(',')

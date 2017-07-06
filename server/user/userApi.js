@@ -1,6 +1,6 @@
 module.exports.init = app => {
 
-  app.get('/api/loggedInUser/', (req, res) => {
+  app.get('/loggedInUser/', (req, res) => {
     const userInfo = req.session.passport ? req.session.passport.user : null
 
     userInfo
