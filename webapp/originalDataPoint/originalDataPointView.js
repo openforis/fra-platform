@@ -11,8 +11,6 @@ import LoggedInPageTemplate from '../loggedInPageTemplate'
 import R from 'ramda'
 import ckEditorConfig from '../ckEditor/ckEditorConfig'
 
-CKEDITOR.plugins.addExternal( 'autogrow', '/ckeditor/autogrow/', 'plugin.js' )
-
 const years = ['', ...R.range(1990, 2021)]
 
 const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, copyPreviousNationalClasses}) => {

@@ -4,8 +4,6 @@ import R from 'ramda'
 import ckEditorConfig from '../ckEditor/ckEditorConfig'
 import { saveDescriptions, fetchDescriptions } from './actions'
 
-CKEDITOR.plugins.addExternal( 'autogrow', '/ckeditor/autogrow/', 'plugin.js' )
-
 class Description extends Component {
 
   fetchData (countryIso) {
