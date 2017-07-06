@@ -22,9 +22,15 @@ apiRouter.use((req, res, next) => {
   res.set('Cache-Control', 'no-store')
   next()
 })
+
+const bundleMatch = /^\/bundle-.*\.js(\.map)?$|^\/styles-.*\.css(\.map)?$/
+const oneYearInSeconds = 60 * 60 * 24 * 365
+
 app.use((req, res, next) => {
   if (req.path === '/') {
     res.set('Cache-Control', 'no-store')
+  } else if (req.path.match(bundleMatch)) {
+    res.set('Cache-Control', `public, max-age=${oneYearInSeconds}`)
   }
   next()
 })
