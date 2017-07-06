@@ -234,6 +234,13 @@ const ExtentOfForestRow = ({
   const numberUpdated = (fieldName, currentValue) => evt =>
     saveDraft(countryIso, originalDataPoint.updateNationalClass(odp, index, fieldName, acceptNextInteger(evt.target.value, currentValue)))
 
+  const validationStatusCssClass = () => {
+    if (odp.validationStatus) {
+      const status = odp.validationStatus.nationalClasses[index]
+      return status.validPercentage ? '' : 'error'
+    }
+  }
+
   return <tr>
     <td className="odp__eof-class-name"><span>{className}</span></td>
     <td className="odp__eof-area-cell odp__eof-divide-after-cell">
@@ -241,7 +248,7 @@ const ExtentOfForestRow = ({
                                      onChange={ numberUpdated('area', area) }
                                      onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 0, true, false) }/>
     </td>
-    <td className="odp__eof-percent-cell">
+    <td className={`odp__eof-percent-cell ${validationStatusCssClass()}`}>
       <input
         type="text"
         value={forestPercent || ''}
@@ -250,7 +257,7 @@ const ExtentOfForestRow = ({
       />
       % &nbsp;
     </td>
-    <td className="odp__eof-percent-cell">
+    <td className={`odp__eof-percent-cell ${validationStatusCssClass()}`}>
       <input
         type="text"
         value={otherWoodedLandPercent || ''}
@@ -259,7 +266,7 @@ const ExtentOfForestRow = ({
       />
       % &nbsp;
     </td>
-    <td className="odp__eof-percent-cell">
+    <td className={`odp__eof-percent-cell ${validationStatusCssClass()}`}>
       <input
         type="text"
         value={otherLandPercent || ''}
