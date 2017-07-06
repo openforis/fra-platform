@@ -54,9 +54,12 @@ export const remove = (countryIso, odpId) => dispatch => {
 
 // Marking drafts
 
+export const ndpValidationStatusFetchCompleted = 'originalDataPoint/validationStatus/fetch/completed'
+
 export const markAsActual = (countryIso, odpId) => dispatch => {
   dispatch(autosave.start)
   axios.post(`/api/odp/markAsActual/?odpId=${odpId}`).then(resp => {
+    dispatch({type: ndpValidationStatusFetchCompleted, data: resp.data})
     dispatch(autosave.complete)
   }).catch(err =>
     dispatch(applicationError(err))

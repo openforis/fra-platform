@@ -9,7 +9,11 @@ const actionHandlers = {
     R.assocPath(['active', 'odpId'], Number(action.odpId), state),
   [types.odpFetchCompleted]: (state, action) => R.assoc('active', action.active)(state),
   [types.clearActiveAction ]: (state, action) => R.assoc('active', emptyDataPoint(), state),
-  [types.odpListFetchCompleted]: (state, action) => R.assoc('odps', action.data)(state)
+  [types.odpListFetchCompleted]: (state, action) => R.assoc('odps', action.data)(state),
+  [types.ndpValidationStatusFetchCompleted]: (state, action) => ({
+    ...state,
+    active: R.assoc('validationStatus', action.data)(state.active)
+  })
 }
 
 export default (state = {}, action) => applyReducerFunction(actionHandlers, state, action)
