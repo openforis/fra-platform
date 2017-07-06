@@ -36,25 +36,27 @@ module.exports.init = app => {
 
   const validateOdp = odp => {
     const validYear = R.not(R.or(R.pathEq('year', 0, odp), R.isNil(odp.year)))
-    const defaultTo0 = R.defaultTo(0)// R.pipe(v => console.log("---- v " , v) || v, R.defaultTo(0) , v => (Number(v)) )
-    const validClasses = R.map(cls => R.pipe(
-      // c => console.log("**** " , c) || c,
-      o => R.sum(defaultTo0(o.forestPercent), defaultTo0(o.otherWoodedLandPercent), defaultTo0(o.otherLandPercent)),
-      // c => console.log("****2 " , c) || c,
-      R.equals(100),
-      validPercentage => ({validPercentage})
-    )(cls), odp.nationalClasses)
-    return {validYear, validClasses}
+
+    const defaultTo0 = R.defaultTo(0)
+    const validateNationalClassPercentage = cls => R.pipe(
+      c => R.sum([defaultTo0(c.forestPercent), defaultTo0(c.otherWoodedLandPercent), defaultTo0(c.otherLandPercent)]),
+      R.equals(100)
+    )(cls)
+
+    const nationalClasses = R.map(
+      c => ({uuid: c.uuid, validPercentage: validateNationalClassPercentage(c)})
+      , odp.nationalClasses)
+
+    return {year: {valid: validYear}, nationalClasses}
   }
 
   app.post('/api/odp/markAsActual', (req, res) =>
     db.transaction(odpRepository.markAsActual, [req.query.odpId])
       .then(() =>
         odpRepository.getOdp(req.query.odpId)
-          .then(odp => {
-            // console.log('=== resp ', odp)
+          .then(odp =>
             res.json(validateOdp(odp))
-          })
+          )
       ).catch(err => sendErr(res, err))
   )
 
