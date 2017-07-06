@@ -88,7 +88,7 @@ class ReviewPanel extends React.Component {
 
   render () {
     const isActive = R.pipe(R.defaultTo({}), R.isEmpty, R.not)(this.props.openThread)
-    const target = R.isNil(this.props.openThread) ? null : R.head(this.props.openThread.target)
+    const target = R.isNil(this.props.openThread) ? null : (this.props.openThread.target).join(',')
     const section = R.isNil(this.props.openThread) ? '' : this.props.openThread.section
     const name = R.isNil(this.props.openThread) ? '' : this.props.openThread.name
     const comments = R.defaultTo([], target ? this.props[target].issue : [])
