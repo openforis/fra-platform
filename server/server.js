@@ -22,6 +22,12 @@ apiRouter.use((req, res, next) => {
   res.set('Cache-Control', 'no-store')
   next()
 })
+app.use((req, res, next) => {
+  if (req.path === '/') {
+    res.set('Cache-Control', 'no-store')
+  }
+  next()
+})
 
 migrations()
 
