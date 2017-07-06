@@ -88,16 +88,10 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
         </tbody>
       </table>
     </div>
+
     <h3 className="subhead odp__section">Comments</h3>
-    <div className="cke_wrapper">
-      { active.odpId
-        ? <ReviewIndicator section='NDP'
-                           name="National data point"
-                           target={[`${active.odpId}_comments`]}
-                           countryIso={countryIso}/>
-        : null}
-      <CommentsEditor active={active} match={match} saveDraft={saveDraft}/>
-    </div>
+    <CommentsEditor active={active} match={match} saveDraft={saveDraft}/>
+
     <div className="odp__bottom-buttons">
       <span className={ saveControlsDisabled() ? 'btn btn-destructive disabled' : 'btn btn-destructive' }
             onClick={ () => saveControlsDisabled() ? null : remove(countryIso, active.odpId) }>
@@ -309,7 +303,16 @@ class CommentsEditor extends React.Component {
   }
 
   render () {
-    return <textarea id="originalDataPointDescription"/>
+    return
+    <div className="cke_wrapper">
+      { this.props.active.odpId
+        ? <ReviewIndicator section='NDP'
+                           name="National data point"
+                           target={[`${active.odpId}_comments`]}
+                           countryIso={countryIso}/>
+        : null}
+      <textarea id="originalDataPointDescription"/>
+    </div>
   }
 
 }
