@@ -34,10 +34,18 @@ module.exports.init = app => {
       .catch(err => sendErr(res, err))
   })
 
+  const validateOdp = odp => {}
+
   app.post('/api/odp/markAsActual', (req, res) =>
     db.transaction(odpRepository.markAsActual, [req.query.odpId])
-      .then(() => res.json({}))
-      .catch(err => sendErr(res, err))
+      .then(() =>
+        odpRepository.getOdp(req.query.odpId)
+          .then(odp => {
+            // R.or(R.pathEq('year', 0 , odp) , R.isNil
+            console.log('=== resp ', odp)
+            res.json({})
+          })
+      ).catch(err => sendErr(res, err))
   )
 
   app.get('/api/prevOdp/:countryIso/:year', (req, res) => {
