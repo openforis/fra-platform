@@ -5,8 +5,8 @@ import axios from 'axios'
 
 // Drafting
 
-export const dataPointSaveDraftStart = 'originalDataPoint/saveDraft/start'
-export const dataPointSaveDraftCompleted = 'originalDataPoint/saveDraft/completed'
+export const odpSaveDraftStart = 'originalDataPoint/saveDraft/start'
+export const odpSaveDraftCompleted = 'originalDataPoint/saveDraft/completed'
 
 export const saveDraft = (countryIso, obj) => dispatch => {
   dispatch(autosave.start)
@@ -14,7 +14,7 @@ export const saveDraft = (countryIso, obj) => dispatch => {
   dispatch(persistDraft(countryIso, obj))
 }
 
-const startSavingDraft = (obj) => ({type: dataPointSaveDraftStart, active: obj})
+const startSavingDraft = (obj) => ({type: odpSaveDraftStart, active: obj})
 
 const persistDraft = (countryIso, odp) => {
   const dispatched = dispatch =>
@@ -28,25 +28,25 @@ const persistDraft = (countryIso, odp) => {
   dispatched.meta = {
     debounce: {
       time: 800,
-      key: dataPointSaveDraftStart
+      key: odpSaveDraftStart
     }
   }
   return dispatched
 }
 
-const saveDraftCompleted = (odpId, validationStatus) => ({type: dataPointSaveDraftCompleted, odpId, validationStatus})
+const saveDraftCompleted = (odpId, validationStatus) => ({type: odpSaveDraftCompleted, odpId, validationStatus})
 
 // clear active
 
-export const clearActiveAction = 'originalDataPoint/clearActive'
-export const clearActive = () => ({type: clearActiveAction})
+export const odpClearActiveAction = 'originalDataPoint/clearActive'
+export const clearActive = () => ({type: odpClearActiveAction})
 
 // Delete
 
 export const remove = (countryIso, odpId) => dispatch => {
   axios.delete(`/api/odp/?odpId=${odpId}`)
     .then(() => {
-      dispatch({type: clearActiveAction})
+      dispatch({type: odpClearActiveAction})
       window.location = `#/country/${countryIso}`
     }).catch(err => dispatch(applicationError(err))
   )
@@ -54,12 +54,12 @@ export const remove = (countryIso, odpId) => dispatch => {
 
 // Marking drafts
 
-export const ndpValidationStatusFetchCompleted = 'originalDataPoint/validationStatus/fetch/completed'
+export const odpValidationStatusFetchCompleted = 'originalDataPoint/validationStatus/fetch/completed'
 
 export const markAsActual = (countryIso, odpId) => dispatch => {
   dispatch(autosave.start)
   axios.post(`/api/odp/markAsActual/?odpId=${odpId}`).then(resp => {
-    dispatch({type: ndpValidationStatusFetchCompleted, data: resp.data})
+    dispatch({type: odpValidationStatusFetchCompleted, data: resp.data})
     dispatch(autosave.complete)
   }).catch(err =>
     dispatch(applicationError(err))
