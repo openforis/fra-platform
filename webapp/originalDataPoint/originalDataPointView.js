@@ -10,6 +10,7 @@ import { ThousandSeparatedIntegerInput } from '../reusableUiComponents/thousandS
 import LoggedInPageTemplate from '../loggedInPageTemplate'
 import R from 'ramda'
 import ckEditorConfig from '../ckEditor/ckEditorConfig'
+import ReviewIndicator from '../review/reviewIndicator'
 
 const years = ['', ...R.range(1990, 2021)]
 
@@ -87,10 +88,19 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
         </tbody>
       </table>
     </div>
+
     <h3 className="subhead odp__section">Comments</h3>
     <div className="cke_wrapper">
-      <textarea id="originalDataPointDescription"/>
+      { active.odpId
+        ? <ReviewIndicator section='NDP'
+                           name="National data point"
+                           target={[`${active.odpId}`, 'comments']}
+                           countryIso={countryIso}/>
+        : null}
+      <CommentsEditor active={active} match={match} saveDraft={saveDraft}/>
     </div>
+
+
     <div className="odp__bottom-buttons">
       <span className={ saveControlsDisabled() ? 'btn btn-destructive disabled' : 'btn btn-destructive' }
             onClick={ () => saveControlsDisabled() ? null : remove(countryIso, active.odpId) }>
@@ -184,6 +194,15 @@ const NationalClassRow = ({odp, index, saveDraft, countryIso, className, definit
              onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, nationalClassCols, 1) }
       />
     </td>
+    <td className="odp__col-review">
+      {placeHolder
+        ? null
+        : <ReviewIndicator section='NDP'
+                           name="National data point"
+                           target={[`${odp.nationalClasses[index].uuid}`, 'class_definition']}
+                           countryIso={countryIso}/>
+      }
+    </td>
   </tr>
 
 const extentOfForestCols = ['area', 'forestPercent', 'otherWoodedLandPercent', 'otherLandPercent']
@@ -249,19 +268,25 @@ const ExtentOfForestRow = ({
       />
       % &nbsp;
     </td>
+    <td className="odp__col-review">
+      <ReviewIndicator section='NDP'
+                       name="National data point"
+                       target={[`${odp.nationalClasses[index].uuid}`, 'npd_class_value']}
+                       countryIso={countryIso}/>
+
+    </td>
   </tr>
 }
 
-class OriginalDataPointView extends React.Component {
+class CommentsEditor extends React.Component {
 
-  fetchData () {
-    const odpId = this.props.match.params.odpId
-    if (odpId) {
-      this.props.fetch(odpId)
-    } else {
-      this.props.clearActive()
+  initCKeditor () {
+    if (this.props.match.params.odpId)
+      this.descriptionEditor.setData(
+        this.props.active.description,
+        {callback: () => this.initCkeditorChangeListener()})
+    else
       this.initCkeditorChangeListener()
-    }
   }
 
   initCkeditorChangeListener () {
@@ -274,17 +299,8 @@ class OriginalDataPointView extends React.Component {
   }
 
   componentWillUnmount () {
-    this.props.clearActive()
     this.descriptionEditor.destroy(false)
     this.descriptionEditor = null
-  }
-
-  componentWillReceiveProps (props) {
-    if (this.props.match.params.odpId && !this.props.active.odpId && props.active.odpId) {
-      this.descriptionEditor.setData(
-        props.active.description,
-        {callback: () => this.initCkeditorChangeListener()})
-    }
   }
 
   componentDidMount () {
@@ -292,7 +308,28 @@ class OriginalDataPointView extends React.Component {
     // We need to fetch the data only after CKEDITOR instance is ready :(
     // Otherwise there is no guarantee that the setData()-method succeeds in
     // setting pre-existing html-content
-    this.descriptionEditor.on('instanceReady', () => this.fetchData())
+    this.descriptionEditor.on('instanceReady', () => this.initCKeditor())
+  }
+
+  render () {
+    return <textarea id="originalDataPointDescription"/>
+  }
+
+}
+
+class OriginalDataPointView extends React.Component {
+
+  componentDidMount () {
+    const odpId = this.props.match.params.odpId
+    if (odpId) {
+      this.props.fetch(odpId)
+    } else {
+      this.props.clearActive()
+    }
+  }
+
+  componentWillUnmount () {
+    this.props.clearActive()
   }
 
   render () {
@@ -301,7 +338,9 @@ class OriginalDataPointView extends React.Component {
         <div className="odp_data-page-header">
           <h2 className="headline">National data point</h2>
         </div>
-        <DataInput {...this.props}/>
+        {this.props.active
+          ? <DataInput {...this.props}/>
+          : null}
       </div>
     </LoggedInPageTemplate>
   }
@@ -310,7 +349,7 @@ class OriginalDataPointView extends React.Component {
 const mapStateToProps = state => {
   const odp = state.originalDataPoint
   const autoSaving = !!state.autoSave.status
-  const active = odp.active || originalDataPoint.emptyDataPoint()
+  const active = odp.active
   return {...odp, active, autoSaving}
 }
 

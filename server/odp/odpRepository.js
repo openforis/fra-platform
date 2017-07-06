@@ -2,7 +2,7 @@ const db = require('../db/db')
 const R = require('ramda')
 const Promise = require('bluebird')
 const camelize = require('camelize')
-const { toNumberOrNull  } = require('../utils/databaseConversions')
+const {toNumberOrNull} = require('../utils/databaseConversions')
 
 module.exports.saveDraft = (client, countryIso, draft) =>
   !draft.odpId ? createOdp(client, countryIso)
@@ -67,10 +67,10 @@ const addClassData = (client, odpVersionId, odp) => {
         area,
         forest_percent,
         other_wooded_land_percent,
-        other_land_percent
-        ) 
+        other_land_percent,
+        uuid) 
        VALUES 
-        ($1, $2, $3, $4, $5, $6, $7);`,
+        ($1, $2, $3, $4, $5, $6, $7, $8);`,
       [
         odpVersionId,
         nationalClass.className,
@@ -78,7 +78,8 @@ const addClassData = (client, odpVersionId, odp) => {
         nationalClass.area,
         nationalClass.forestPercent,
         nationalClass.otherWoodedLandPercent,
-        nationalClass.otherLandPercent
+        nationalClass.otherLandPercent,
+        nationalClass.uuid
       ]),
     odp.nationalClasses)
   return Promise.all(nationalInserts)
@@ -144,7 +145,8 @@ module.exports.getOdp = odpId =>
                      area,
                      forest_percent,
                      other_wooded_land_percent,
-                     other_land_percent
+                     other_land_percent,
+                     uuid
               FROM odp_class 
               WHERE odp_version_id = $1`,
       [versionId])])
@@ -154,7 +156,8 @@ module.exports.getOdp = odpId =>
       area: toNumberOrNull(row.area),
       forestPercent: row.forest_percent,
       otherWoodedLandPercent: row.other_wooded_land_percent,
-      otherLandPercent: row.other_land_percent
+    otherLandPercent: row.other_land_percent,
+    uuid: row.uuid
     }), result.rows)]
   ).then(([versionId, nationalClasses]) =>
     Promise.all([db.query(`

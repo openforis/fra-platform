@@ -8,8 +8,9 @@ import { getCommentCount, openCommentThread, closeCommentThread } from './action
 const CommentStatus = ({count, visible, ...props}) =>
   <div {...props} className={`fra-review__issue-status-${visible ? 'visible' : 'hidden'}`}>
     {
-      count > 0 ? <div className="fra-review__issue-status-count">{count}</div> :
-        <svg className="icon-24"><use xlinkHref="img/icon.svg#icon-circle-add-17"/></svg>
+      count > 0 ? <div className="fra-review__issue-status-count">{count}</div> : <svg className="icon-24">
+        <use xlinkHref="img/icon.svg#icon-circle-add-17"/>
+      </svg>
     }
   </div>
 
@@ -19,13 +20,14 @@ class ReviewIndicator extends React.Component {
     super(props)
   }
 
-  componentWillMount () {
+  componentDidMount () {
     this.props.getCommentCount(this.props.countryIso, this.props.section, this.props.target)
   }
 
   componentWillReceiveProps (next) {
-    if (next.countryIso !== this.props.countryIso) { // changing country
-      this.props.getCommentCount(next.countryIso, this.props.section, this.props.target)
+    // changing country or target
+    if (next.countryIso !== this.props.countryIso || !R.equals(next.target, this.props.target)) {
+      this.props.getCommentCount(next.countryIso, next.section, next.target)
     }
   }
 
