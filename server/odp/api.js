@@ -24,7 +24,7 @@ module.exports.init = app => {
   app.get('/api/odp', (req, res) => {
     if (R.not(R.isNil(req.query.odpId))) {
       odpRepository.getOdp(req.query.odpId)
-        .then(resp => res.json(resp))
+        .then(resp => res.json(R.assoc('validationStatus', validateNdp(resp))(resp)))
         .catch(err => sendErr(res, err))
     }
     if (R.not(R.isNil(req.query.countryIso))) {
