@@ -39,7 +39,7 @@ export const nationalClassPlaceHolder = () => ({...defaultNationalClass(), place
 export const emptyDataPoint = () => ({
   year: null,
   forestArea: null,
-  nationalClasses: [defaultNationalClass(), nationalClassPlaceHolder()]
+  nationalClasses: [nationalClassPlaceHolder()]
 })
 
 export const addNationalClassPlaceHolder = (odp) => ({
