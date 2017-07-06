@@ -54,14 +54,14 @@ export const remove = (countryIso, odpId) => dispatch => {
 
 // Marking drafts
 
-export const markAsActual = (countryIso, odpId) => dispatch =>
+export const markAsActual = (countryIso, odpId) => dispatch => {
+  dispatch(autosave.start)
   axios.post(`/api/odp/markAsActual/?odpId=${odpId}`).then(resp => {
-    dispatch({type: clearActiveAction})
-    window.location = `#/country/${countryIso}`
-  })
-    .catch(err =>
-      dispatch(applicationError(err))
-    )
+    dispatch(autosave.complete)
+  }).catch(err =>
+    dispatch(applicationError(err))
+  )
+}
 
 // fetching odp's
 
