@@ -19,105 +19,103 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
   const saveControlsDisabled = () => !active.odpId || autoSaving
   const copyPreviousClassesDisabled = () => active.year && !autoSaving ? false : true
 
-  return active
-    ? <div className="odp__data-input-component">
-      <div className="odp_data-input-row">
-        <div>
-          <h3 className="subhead">Year</h3>
-          <select
-            className="select"
-            value={active.year || ''}
-            onChange={
-              (e) => saveDraft(countryIso, R.assoc('year', R.isEmpty(e.target.value) ? null : Number(e.target.value), active)) }>
-            {years.map((year) => <option key={year} value={year}>{year}</option>)}
-          </select>
-        </div>
-      </div>
+  return <div className="odp__data-input-component">
+    <div className="odp_data-input-row">
       <div>
-        <h3 className="subhead odp__section">
-          National classes
-          <button disabled={copyPreviousClassesDisabled()}
-                  className="btn btn-primary btn-copy-prev-values"
-                  onClick={() => copyPreviousNationalClasses(countryIso, active)}>
-            Copy previous values
-          </button>
-        </h3>
-        <table className="odp__input-table odp__national-class-table">
-          <thead>
-          <tr>
-            <th className="odp__national-class-table-national-class-column">National class</th>
-            <th>Definition</th>
-          </tr>
-          </thead>
-          <tbody>
-          {
-            nationalClassRows(countryIso, active, saveDraft)
-          }
-          </tbody>
-        </table>
+        <h3 className="subhead">Year</h3>
+        <select
+          className="select"
+          value={active.year || ''}
+          onChange={
+            (e) => saveDraft(countryIso, R.assoc('year', R.isEmpty(e.target.value) ? null : Number(e.target.value), active)) }>
+          {years.map((year) => <option key={year} value={year}>{year}</option>)}
+        </select>
       </div>
-      <div>
-        <h3 className="subhead odp__section">Extent of forest</h3>
-        <table className="odp__input-table odp__eof-table">
-          <thead>
-          <tr>
-            <th className="odp__eof-header-left odp__eof-divide-after-cell" colSpan="2">National classes</th>
-            <th className="odp__eof-header-left" colSpan="3">FRA classes</th>
-          </tr>
-          <tr>
-            <th className="odp__eof-header-left">Class</th>
-            <th className="odp__eof-divide-after-cell odp__eof-header-right">Area</th>
-            <th className="odp__eof-header-right">Forest</th>
-            <th className="odp__eof-header-right">Other wooded land</th>
-            <th className="odp__eof-header-right">Other land</th>
-          </tr>
-          </thead>
-          <tbody>
-          {
-            extentOfForestRows(countryIso, active, saveDraft)
-          }
-          <tr>
-            <td className="fra-table__header-cell">Total</td>
-            <td className="odp__national-class-total-cell odp__eof-divide-after-cell"></td>
-            <td
-              className="odp__national-class-total-cell">{ separateThousandsWithSpaces(Number(originalDataPoint.totalForest(active, 'forestPercent'))) }</td>
-            <td
-              className="odp__national-class-total-cell">{ separateThousandsWithSpaces(Number(originalDataPoint.totalForest(active, 'otherWoodedLandPercent'))) }</td>
-            <td
-              className="odp__national-class-total-cell">{ separateThousandsWithSpaces(Number(originalDataPoint.totalForest(active, 'otherLandPercent'))) }</td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
-      <h3 className="subhead odp__section">Comments</h3>
-      <div className="cke_wrapper">
-        { active.odpId
-          ? <ReviewIndicator section='NDP'
-                             name="National data point"
-                             target={[`${active.odpId}_comments`]}
-                             countryIso={countryIso}/>
-          : null}
-        <CommentsEditor active={active} match={match} saveDraft={saveDraft}/>
-      </div>
-      <div className="odp__bottom-buttons">
+    </div>
+    <div>
+      <h3 className="subhead odp__section">
+        National classes
+        <button disabled={copyPreviousClassesDisabled()}
+                className="btn btn-primary btn-copy-prev-values"
+                onClick={() => copyPreviousNationalClasses(countryIso, active)}>
+          Copy previous values
+        </button>
+      </h3>
+      <table className="odp__input-table odp__national-class-table">
+        <thead>
+        <tr>
+          <th className="odp__national-class-table-national-class-column">National class</th>
+          <th>Definition</th>
+        </tr>
+        </thead>
+        <tbody>
+        {
+          nationalClassRows(countryIso, active, saveDraft)
+        }
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <h3 className="subhead odp__section">Extent of forest</h3>
+      <table className="odp__input-table odp__eof-table">
+        <thead>
+        <tr>
+          <th className="odp__eof-header-left odp__eof-divide-after-cell" colSpan="2">National classes</th>
+          <th className="odp__eof-header-left" colSpan="3">FRA classes</th>
+        </tr>
+        <tr>
+          <th className="odp__eof-header-left">Class</th>
+          <th className="odp__eof-divide-after-cell odp__eof-header-right">Area</th>
+          <th className="odp__eof-header-right">Forest</th>
+          <th className="odp__eof-header-right">Other wooded land</th>
+          <th className="odp__eof-header-right">Other land</th>
+        </tr>
+        </thead>
+        <tbody>
+        {
+          extentOfForestRows(countryIso, active, saveDraft)
+        }
+        <tr>
+          <td className="fra-table__header-cell">Total</td>
+          <td className="odp__national-class-total-cell odp__eof-divide-after-cell"></td>
+          <td
+            className="odp__national-class-total-cell">{ separateThousandsWithSpaces(Number(originalDataPoint.totalForest(active, 'forestPercent'))) }</td>
+          <td
+            className="odp__national-class-total-cell">{ separateThousandsWithSpaces(Number(originalDataPoint.totalForest(active, 'otherWoodedLandPercent'))) }</td>
+          <td
+            className="odp__national-class-total-cell">{ separateThousandsWithSpaces(Number(originalDataPoint.totalForest(active, 'otherLandPercent'))) }</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <h3 className="subhead odp__section">Comments</h3>
+    <div className="cke_wrapper">
+      { active.odpId
+        ? <ReviewIndicator section='NDP'
+                           name="National data point"
+                           target={[`${active.odpId}_comments`]}
+                           countryIso={countryIso}/>
+        : null}
+      <CommentsEditor active={active} match={match} saveDraft={saveDraft}/>
+    </div>
+    <div className="odp__bottom-buttons">
       <span className={ saveControlsDisabled() ? 'btn btn-destructive disabled' : 'btn btn-destructive' }
             onClick={ () => saveControlsDisabled() ? null : remove(countryIso, active.odpId) }>
          Delete
       </span>
-        <div>
-          <a className="btn btn-secondary odp__cancel-button"
-             href={`/\#/country/${countryIso}`}>
-            Cancel
-          </a>
-          <button disabled={ saveControlsDisabled() }
-                  className="btn btn-primary"
-                  onClick={() => markAsActual(countryIso, active.odpId) }>
-            Save & Close
-          </button>
-        </div>
+      <div>
+        <a className="btn btn-secondary odp__cancel-button"
+           href={`/\#/country/${countryIso}`}>
+          Cancel
+        </a>
+        <button disabled={ saveControlsDisabled() }
+                className="btn btn-primary"
+                onClick={() => markAsActual(countryIso, active.odpId) }>
+          Save & Close
+        </button>
       </div>
     </div>
-    : null
+  </div>
 }
 
 const mapIndexed = R.addIndex(R.map)
@@ -337,7 +335,9 @@ class OriginalDataPointView extends React.Component {
         <div className="odp_data-page-header">
           <h2 className="headline">National data point</h2>
         </div>
-        <DataInput {...this.props}/>
+        {this.props.active
+          ? <DataInput {...this.props}/>
+          : null}
       </div>
     </LoggedInPageTemplate>
   }
