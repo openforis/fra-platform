@@ -3,6 +3,22 @@ const db = require('../db/db')
 const odpRepository = require('./odpRepository')
 const {sendErr} = require('../requestUtils')
 
+const validateNdp = ndp => {
+  const validYear = R.not(R.or(R.pathEq('year', 0, ndp), R.isNil(ndp.year)))
+
+  const defaultTo0 = R.defaultTo(0)
+  const validateNationalClassPercentage = cls => R.pipe(
+    c => R.sum([defaultTo0(c.forestPercent), defaultTo0(c.otherWoodedLandPercent), defaultTo0(c.otherLandPercent)]),
+    R.equals(100)
+  )(cls)
+
+  const nationalClasses = R.map(
+    c => ({uuid: c.uuid, validPercentage: validateNationalClassPercentage(c)})
+    , ndp.nationalClasses)
+
+  return {year: {valid: validYear}, nationalClasses}
+}
+
 module.exports.init = app => {
 
   app.get('/api/odp', (req, res) => {
@@ -30,32 +46,24 @@ module.exports.init = app => {
   app.post('/api/odp/draft', (req, res) => {
     const countryIso = req.query.countryIso
     return db.transaction(odpRepository.saveDraft, [countryIso, req.body])
-      .then(result => res.json(result))
+      .then(result => {
+        if (req.query.validate === 'true')
+          odpRepository.getOdp(result.odpId)
+            .then(ndp =>
+              res.json(R.assoc('validationStatus', validateNdp(ndp))(result))
+            )
+        else
+          res.json(result)
+      })
       .catch(err => sendErr(res, err))
   })
-
-  const validateOdp = odp => {
-    const validYear = R.not(R.or(R.pathEq('year', 0, odp), R.isNil(odp.year)))
-
-    const defaultTo0 = R.defaultTo(0)
-    const validateNationalClassPercentage = cls => R.pipe(
-      c => R.sum([defaultTo0(c.forestPercent), defaultTo0(c.otherWoodedLandPercent), defaultTo0(c.otherLandPercent)]),
-      R.equals(100)
-    )(cls)
-
-    const nationalClasses = R.map(
-      c => ({uuid: c.uuid, validPercentage: validateNationalClassPercentage(c)})
-      , odp.nationalClasses)
-
-    return {year: {valid: validYear}, nationalClasses}
-  }
 
   app.post('/api/odp/markAsActual', (req, res) =>
     db.transaction(odpRepository.markAsActual, [req.query.odpId])
       .then(() =>
         odpRepository.getOdp(req.query.odpId)
           .then(odp =>
-            res.json(validateOdp(odp))
+            res.json(validateNdp(odp))
           )
       ).catch(err => sendErr(res, err))
   )
