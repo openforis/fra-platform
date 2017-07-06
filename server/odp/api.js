@@ -3,13 +3,13 @@ const db = require('../db/db')
 const odpRepository = require('./odpRepository')
 const {sendErr} = require('../requestUtils')
 
-const validateNdp = ndp => {
+const validateOdp = odp => {
   const defaultTo0 = R.defaultTo(0)
 
   const validYear = R.pipe(
     defaultTo0,
     R.partialRight(R.gt, [0]),
-  )(ndp.year)
+  )(odp.year)
 
   const validateNationalClassPercentage = cls => R.pipe(
     c => R.sum([defaultTo0(c.forestPercent), defaultTo0(c.otherWoodedLandPercent), defaultTo0(c.otherLandPercent)]),
@@ -18,7 +18,7 @@ const validateNdp = ndp => {
 
   const nationalClasses = R.map(
     c => ({uuid: c.uuid, validPercentage: validateNationalClassPercentage(c)})
-    , ndp.nationalClasses)
+    , odp.nationalClasses)
 
   return {year: {valid: validYear}, nationalClasses}
 }
@@ -28,7 +28,7 @@ module.exports.init = app => {
   app.get('/api/odp', (req, res) => {
     if (R.not(R.isNil(req.query.odpId))) {
       odpRepository.getOdp(req.query.odpId)
-        .then(resp => res.json(R.assoc('validationStatus', validateNdp(resp))(resp)))
+        .then(resp => res.json(R.assoc('validationStatus', validateOdp(resp))(resp)))
         .catch(err => sendErr(res, err))
     }
     if (R.not(R.isNil(req.query.countryIso))) {
@@ -54,7 +54,7 @@ module.exports.init = app => {
         if (req.query.validate === 'true')
           odpRepository.getOdp(result.odpId)
             .then(ndp =>
-              res.json(R.assoc('validationStatus', validateNdp(ndp))(result))
+              res.json(R.assoc('validationStatus', validateOdp(ndp))(result))
             )
         else
           res.json(result)
@@ -67,7 +67,7 @@ module.exports.init = app => {
       .then(() =>
         odpRepository.getOdp(req.query.odpId)
           .then(odp =>
-            res.json(validateNdp(odp))
+            res.json(validateOdp(odp))
           )
       ).catch(err => sendErr(res, err))
   )

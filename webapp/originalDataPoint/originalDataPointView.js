@@ -18,7 +18,7 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
   const countryIso = match.params.countryIso
   const saveControlsDisabled = () => !active.odpId || autoSaving
   const copyPreviousClassesDisabled = () => active.year && !autoSaving ? false : true
-  const validationStatusCssClass = () => active.validationStatus && !active.validationStatus.year.valid ? 'error' : ''
+  const validationStatusCssClass = () => `error${active.validationStatus && !active.validationStatus.year.valid ? '' : '-free'}`
 
   return <div className="odp__data-input-component">
     <div className="odp_data-input-row">
@@ -238,8 +238,9 @@ const ExtentOfForestRow = ({
   const validationStatusCssClass = () => {
     if (odp.validationStatus) {
       const status = R.find(R.propEq('uuid', odp.nationalClasses[index].uuid))(odp.validationStatus.nationalClasses)
-      return status && !status.validPercentage ? 'error' : ''
+      return `error${status && !status.validPercentage ? '' : '-free'}`
     }
+    return 'error-free'
   }
 
   return <tr>
