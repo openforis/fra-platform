@@ -114,7 +114,7 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
         <button disabled={ saveControlsDisabled() }
                 className="btn btn-primary"
                 onClick={() => markAsActual(countryIso, active.odpId) }>
-          Save & Close
+          Save
         </button>
       </div>
     </div>
