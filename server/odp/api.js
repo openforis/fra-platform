@@ -5,7 +5,7 @@ const {sendErr} = require('../requestUtils')
 
 module.exports.init = app => {
 
-  app.get('/api/odp', (req, res) => {
+  app.get('/odp', (req, res) => {
     if (R.not(R.isNil(req.query.odpId))) {
       odpRepository.getOdp(req.query.odpId)
         .then(resp => res.json(resp))
@@ -21,26 +21,26 @@ module.exports.init = app => {
     }
   })
 
-  app.delete('/api/odp', (req, res) => {
+  app.delete('/odp', (req, res) => {
     db.transaction(odpRepository.deleteOdp, [req.query.odpId])
       .then(() => res.json({}))
       .catch(err => sendErr(res, err))
   })
 
-  app.post('/api/odp/draft', (req, res) => {
+  app.post('/odp/draft', (req, res) => {
     const countryIso = req.query.countryIso
     return db.transaction(odpRepository.saveDraft, [countryIso, req.body])
       .then(result => res.json(result))
       .catch(err => sendErr(res, err))
   })
 
-  app.post('/api/odp/markAsActual', (req, res) =>
+  app.post('/odp/markAsActual', (req, res) =>
     db.transaction(odpRepository.markAsActual, [req.query.odpId])
       .then(() => res.json({}))
       .catch(err => sendErr(res, err))
   )
 
-  app.get('/api/prevOdp/:countryIso/:year', (req, res) => {
+  app.get('/prevOdp/:countryIso/:year', (req, res) => {
     odpRepository.listOriginalDataPoints(req.params.countryIso)
       .then(resp => {
         const prevOdp = R.pipe(

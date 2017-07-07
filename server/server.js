@@ -5,22 +5,17 @@ const bodyParser = require('body-parser')
 const compression = require('compression')
 const migrations = require('./db/migration/execMigrations')
 const sessionInit = require('./sessionInit')
-
+const apiRouter = require('./apiRouter')
 const authApi = require('./auth/authApi')
-const countryRepository = require('./countryRepository')
-const eofApi = require('./eof/api')
-const odpApi = require('./odp/api')
-const userApi = require('./user/userApi')
-const traditionalTableApi = require('./traditionalTable/api')
-const descriptionsApi = require('./descriptions/api')
-const reviewApi = require('./review/api')
+const resourceCacheControl = require('./resourceCacheControl')
 
 const app = express()
+
+resourceCacheControl.init(app)
 
 migrations()
 
 sessionInit.init(app)
-userApi.init(app)
 
 app.use(compression({threshold: 512}))
 app.use('/', express.static(`${__dirname}/../dist`))
@@ -29,22 +24,10 @@ app.use('/css/', express.static(`${__dirname}/../web-resources/css`))
 app.use('/ckeditor/', express.static(`${__dirname}/../web-resources/ckeditor`))
 app.use(bodyParser.json({limit: '5000kb'}))
 
+//Not part of apiRouter because of special urls (starting from root)
 authApi.init(app)
 
-app.get('/api/country/all', (req, res) => {
-  countryRepository.getAllCountries().then(result => {
-    res.json(result.rows)
-  }).catch(err => {
-    console.error(err)
-    res.status(500).json({error: 'Could not retrieve country data'})
-  })
-})
-
-odpApi.init(app)
-eofApi.init(app)
-traditionalTableApi.init(app)
-descriptionsApi.init(app)
-reviewApi.init(app)
+app.use('/api', apiRouter.router)
 
 app.listen(process.env.PORT, () => {
   console.log('FRA Platform server listening on port ', process.env.PORT)

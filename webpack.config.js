@@ -5,8 +5,8 @@ const webpack = require('webpack');
 
 const prodBuild = process.env.NODE_ENV === 'production'
 
-const jsBundleName = prodBuild ? 'bundle-[hash].js' : 'bundle.js';
-const cssBundleName = prodBuild ? 'styles-[hash].css' : 'styles.css';
+const jsBundleName = 'bundle-[hash].js';
+const cssBundleName = 'styles-[hash].css';
 
 const alwaysInUseplugins = [
     new ExtractTextPlugin({filename: cssBundleName}),
