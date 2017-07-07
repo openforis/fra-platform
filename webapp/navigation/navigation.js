@@ -143,6 +143,9 @@ class NavigationSync extends React.Component {
     if (!R.equals(this.props.country, next.country)) {
       this.props.fetchNavStatus(next.country)
     }
+    else if(next.updateNeeded) {
+      this.props.fetchNavStatus(this.props.country)
+    }
   }
 
   render() {
