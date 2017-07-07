@@ -10,9 +10,7 @@ const areaAffectedByFire = ({match}) =>
   <LoggedInPageTemplate>
     <div className="aabf__container">
       <h2 className="headline fac__page-header">Area affected by fire</h2>
-      <div className="aabf__traditional-table-wrapper">
-        <TraditionalTable tableSpec={tableSpec} countryIso={match.params.countryIso}/>
-      </div>
+      <TraditionalTable tableSpec={tableSpec} countryIso={match.params.countryIso}/>
       <Description title="Description"
                    name="areaAffectedByFire"
                    countryIso={match.params.countryIso}/>

@@ -6,6 +6,7 @@ import assert from 'assert'
 import * as table from './table'
 import * as cellTypes from './cellTypes'
 import { tableValueChanged, tableChanged, fetchTableData } from './actions'
+import ReviewIndicator from '../review/reviewIndicator'
 
 const mapIndexed = R.addIndex(R.map)
 
@@ -15,12 +16,40 @@ const Cell = (props) => {
   return cellType.render(props)
 }
 
+class ReviewWrapper extends React.Component {
+  render () {
+    if (this.refs.rowAnchor) {
+      console.log('top', this.refs.rowAnchor.getBoundingClientRect().top)
+      console.log('tableTop', this.props.tableTop)
+    }
+    const top = this.refs.rowAnchor && this.props.tableTop
+      ? this.refs.rowAnchor.getBoundingClientRect().top - this.props.tableTop
+      : 0
+    return <td ref="rowAnchor">
+      <div style={{position: 'absolute', top: top, right: 2}}>
+        <ReviewIndicator section={`TraditionalTable-${this.props.tableSpec.name}`}
+                         name="National data point"
+                         target={['row', `${this.props.rowIdx}`]}
+                         countryIso={this.props.countryIso}/>
+      </div>
+    </td>
+  }
+}
+
 const tableRows = (props) => {
   return mapIndexed(
     (rowSpec, rowIdx) =>
       <tr key={rowIdx}>
-        { mapIndexed((cellSpec, colIdx) => <Cell key={`${rowIdx}-${colIdx}`} rowIdx={rowIdx}
-                                                 colIdx={colIdx} {...props}/>, rowSpec) }
+        {
+          mapIndexed(
+            (cellSpec, colIdx) => <Cell key={`${rowIdx}-${colIdx}`}
+                                        rowIdx={rowIdx}
+                                        colIdx={colIdx}
+                                        {...props}/>,
+            rowSpec
+          )
+        }
+        <ReviewWrapper {...props} rowIdx={rowIdx}/>
       </tr>,
     props.tableSpec.rows)
 }
@@ -37,10 +66,15 @@ class FraTable extends React.Component {
   }
 
   render () {
-    return <table className="fra-table">
-      {this.props.tableSpec.header}
-      <TableBody {...this.props}/>
-    </table>
+    return <div ref="traditionalTable" style={{position: 'relative'}}>
+      <div style={{overflowX: 'auto'}}>
+        <table className="fra-table">
+          {this.props.tableSpec.header}
+          <TableBody {...this.props}
+                     tableTop={this.refs.traditionalTable ? this.refs.traditionalTable.getBoundingClientRect().top : null}/>
+        </table>
+      </div>
+    </div>
   }
 }
 
