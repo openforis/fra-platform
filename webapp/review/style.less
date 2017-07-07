@@ -1,8 +1,7 @@
 @import "../app-styles/config";
 
 .fra-review__add-issue {
-  position: relative;
-  padding: 0 0 18px;
+  margin-right: -32px;
 }
 
 .fra-review-active {
@@ -148,21 +147,24 @@
 }
 
 .fra-review__issue-status-count {
-  width: 24px;
-  min-width: 24px;
-  height: 24px;
+  width: 20px;
+  min-width: 20px;
+  height: 20px;
   background: @ui-accent;
   color: white;
   border-radius: 100%;
   text-align: center;
-  line-height: 24px;
+  line-height: 20px;
   cursor: pointer;
-  font-size: @font-xs;
+  font-size: @font-xxs;
 }
 
 .fra-review__issue-status-visible {
-  position: absolute;
-  right: -28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 32px;
+  height: 41px;
   cursor: pointer;
 }
 
@@ -185,4 +187,11 @@
   font-size: @font-s;
   margin-top: 4px;
   overflow-wrap: break-word;
+}
+
+tr.fra-row-comments__open,
+div.fra-row-comments__open .cke_wrapper {
+  outline: 1px solid @ui-accent;
+  outline-offset: -1px;
+  box-shadow: 0 0 4px fade(@ui-accent, 50%);
 }

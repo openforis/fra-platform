@@ -8,6 +8,7 @@
 
 .fra-table__header-cell {
   background-color: @ui-bg;
+  background-color: fade(black, 4%);
   border: 1px solid @ui-border;
   padding: 10px;
   font-weight: bold;
@@ -20,12 +21,12 @@
 
 .fra-table__cell {
   padding: 0;
-  border: 1px solid #CCCCCC;
+  border: 1px solid @ui-border;
 }
 
 .fra-table__text-readonly-cell {
   padding: 10px;
-  border: 1px solid #CCCCCC;
+  border: 1px solid @ui-border;
 }
 
 .fra-table__text-readonly-cell-align-right {
@@ -39,6 +40,7 @@
 }
 
 .fra-table__input {
+  background: transparent;
   color: inherit;
   font-size: inherit;
   border: none;
@@ -46,6 +48,7 @@
   padding: 10px;
   margin: 0;
   width: 100%;
+
   &:focus {
     outline: none;
     box-shadow: 0 0 0 1px @text-body;

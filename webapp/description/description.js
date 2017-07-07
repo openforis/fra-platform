@@ -19,7 +19,7 @@ class Description extends Component {
   componentWillReceiveProps (nextProps) {
     if (!R.equals(this.props.countryIso, nextProps.countryIso))
       this.fetchData(nextProps.countryIso)
-    else if (nextProps.fetched) {
+    else if (nextProps.fetched && R.not(R.equals(this.props.content, nextProps.content))) {
       this.editor.setData(
         nextProps.content
         , {
@@ -44,7 +44,7 @@ class Description extends Component {
   }
 
   render () {
-    return <div>
+    return <div className={this.props.classes || ''}>
       <h3 className="subhead nde__description-header">{this.props.title}</h3>
       <div className="cke_wrapper">
         <textarea id={this.props.name}/>

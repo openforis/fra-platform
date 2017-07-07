@@ -8,9 +8,8 @@ import { getCommentCount, openCommentThread, closeCommentThread } from './action
 const CommentStatus = ({count, visible, ...props}) =>
   <div {...props} className={`fra-review__issue-status-${visible ? 'visible' : 'hidden'}`}>
     {
-      count > 0 ? <div className="fra-review__issue-status-count">{count}</div> : <svg className="icon-24">
-        <use xlinkHref="img/icon.svg#icon-circle-add-17"/>
-      </svg>
+      count > 0 ? <div className="fra-review__issue-status-count">{count}</div> :
+        <svg className="icon"><use xlinkHref="img/icon.svg#icon-circle-add"/></svg>
     }
   </div>
 
