@@ -82,7 +82,7 @@ const ReviewHeader = ({name, close}) =>
 class ReviewPanel extends React.Component {
   componentWillReceiveProps (next) {
     if (!R.equals(this.props.country, next.country)) {
-      this.props.closeCommentThread(this.props.target)
+      this.props.closeCommentThread()
     }
   }
 
@@ -94,7 +94,7 @@ class ReviewPanel extends React.Component {
     const comments = R.defaultTo([], target ? this.props[target].issue : [])
     const issueId = comments && comments.length > 0 ? comments[0].issueId : null
     const close = R.partial(ctx => {
-      ctx.props.closeCommentThread(ctx.props.target)
+      ctx.props.closeCommentThread()
     }, [this])
 
     return <div className={`fra-review-${isActive ? 'active' : 'hidden'}`}>
