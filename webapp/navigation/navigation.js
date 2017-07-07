@@ -77,7 +77,7 @@ const NationalDataItem = ({path, countryIso, pathTemplate = '/tbd', status = {co
   </Link>
 }
 
-const SecondaryItem = ({path, countryIso, order, pathTemplate = '/tbd', label, status, statusDescription = 'Not started'}) => {
+const SecondaryItem = ({path, countryIso, order, pathTemplate = '/tbd', label, status = [], statusDescription = 'Not started'}) => {
   const route = new Route(pathTemplate)
   const linkTo = route.reverse({countryIso})
   const isTodoItem = pathTemplate.indexOf('/todo') !== -1
