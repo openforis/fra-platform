@@ -77,18 +77,24 @@ const NationalDataItem = ({path, countryIso, pathTemplate = '/tbd', status = {co
   </Link>
 }
 
-const SecondaryItem = ({path, countryIso, order, pathTemplate = '/tbd', label, status}) => {
+const SecondaryItem = ({path, countryIso, order, pathTemplate = '/tbd', label, status, statusDescription = 'Not started'}) => {
   const route = new Route(pathTemplate)
   const linkTo = route.reverse({countryIso})
   const isTodoItem = pathTemplate.indexOf('/todo') !== -1
   const secondaryTextClass = isTodoItem ? 'nav__disabled-menu-item-text' : ''
 
+  console.log('item status', status)
+  const hasOpenIssues = R.pipe(R.filter(R.pipe(R.prop('status'), R.equals('open'))), R.isEmpty, R.not)(status)
+  console.log('ooen issues', hasOpenIssues)
   return <Link className={`nav__secondary-item ${R.equals(path, linkTo) ? 'selected' : ''}`}
                to={ linkTo }>
     <span className={`nav__secondary-order ${secondaryTextClass}`}>{order}</span>
     <div>
       <span className={`nav__secondary-label ${secondaryTextClass}`}>{label}</span>
-      <span className={`nav__secondary-status ${secondaryTextClass}`}>{status}</span>
+      <span className={`nav__secondary-status ${secondaryTextClass}`}>{statusDescription}</span>
+    </div>
+    <div className='nav__secondary-status-content'>
+      { hasOpenIssues ? <div className='nav__secondary-has-open-issue'></div> : null }
     </div>
   </Link>
 }
@@ -102,6 +108,8 @@ const roleLabel = (userInfo) => {
 }
 
 const Nav = ({path, country, countries, follow, getCountryList, status = {}, userInfo}) => {
+
+  console.log('status', status)
   return <div className="main__nav-wrapper">
     <div className="main__nav">
       <CountryItem name={country} countries={countries} listCountries={getCountryList} role={ roleLabel(userInfo) }/>
@@ -109,7 +117,10 @@ const Nav = ({path, country, countries, follow, getCountryList, status = {}, use
         <NationalDataItem label="National Data" countryIso={country} status={status.odpStatus} path={path} pathTemplate="/country/:countryIso/odps" />
         <PrimaryItem label="Annually reported"/>
         {
-          annualItems.map(v => <SecondaryItem path={path} key={v.label} goTo={follow} countryIso={country} {...v} />)
+          annualItems.map(v => <SecondaryItem path={path} key={v.label} goTo={follow}
+                                              countryIso={country}
+                                              status={R.filter(R.pipe(R.prop('section'), R.equals(R.defaultTo('', v.section))))(status.reviewStatus || [])}
+                                              {...v} />)
         }
         <PrimaryItem label="Five-year Cycle"/>
         {

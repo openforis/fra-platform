@@ -2,8 +2,9 @@ export const annualItems = [
   {
     order: 1,
     label: "Extent of forest",
+    section: 'EOF',
     pathTemplate: "/country/:countryIso",
-    status: "Not started"
+    statusDescription: "Not started"
   },
   {
     order: 2,
