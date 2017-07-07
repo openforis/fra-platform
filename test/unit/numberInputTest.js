@@ -12,4 +12,9 @@ describe("Number input", () => {
     const actual = acceptNextInteger('123456789012345678901', '1')
     assert.equal('1', actual)
   })
+
+  it('does not accept scientific notation', () => {
+    const actual = acceptNextInteger('1e3', '1')
+    assert.equal('1', actual)
+  })
 })
