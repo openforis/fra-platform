@@ -1,12 +1,12 @@
 import './style.less'
 
 import React from 'react'
-import { connect } from 'react-redux'
+import {connect} from 'react-redux'
 import * as originalDataPoint from './originalDataPoint'
-import { saveDraft, markAsActual, remove, fetch, clearActive, copyPreviousNationalClasses } from './actions'
-import { acceptNextInteger } from '../utils/numberInput'
-import { separateThousandsWithSpaces } from '../utils/numberFormat'
-import { ThousandSeparatedIntegerInput } from '../reusableUiComponents/thousandSeparatedIntegerInput'
+import {saveDraft, markAsActual, remove, fetch, clearActive, copyPreviousNationalClasses} from './actions'
+import {acceptNextInteger} from '../utils/numberInput'
+import {separateThousandsWithSpaces} from '../utils/numberFormat'
+import {ThousandSeparatedIntegerInput} from '../reusableUiComponents/thousandSeparatedIntegerInput'
 import LoggedInPageTemplate from '../loggedInPageTemplate'
 import R from 'ramda'
 import ckEditorConfig from '../ckEditor/ckEditorConfig'
@@ -18,9 +18,9 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
   const countryIso = match.params.countryIso
   const saveControlsDisabled = () => !active.odpId || autoSaving
   const copyPreviousClassesDisabled = () => active.year && !autoSaving ? false : true
-  const validationStatusCssClass = () => `error${active.validationStatus && !active.validationStatus.year.valid ? '' : '-free'}`
+  const validationStatusCssClass = () => active.validationStatus && !active.validationStatus.year.valid ? 'error' : ''
 
-  return <div className="odp__data-input-component">
+  return <div className="odp__data-input-component form-group">
     <div className="odp_data-input-row">
       <div className={`${validationStatusCssClass()}`}>
         <h3 className="subhead">Year</h3>
@@ -238,9 +238,8 @@ const ExtentOfForestRow = ({
   const validationStatusCssClass = () => {
     if (odp.validationStatus) {
       const status = R.find(R.propEq('uuid', odp.nationalClasses[index].uuid))(odp.validationStatus.nationalClasses)
-      return `error${status && !status.validPercentage ? '' : '-free'}`
+      return status && !status.validPercentage ? 'error' : ''
     }
-    return 'error-free'
   }
 
   return <tr>
@@ -289,7 +288,7 @@ const ExtentOfForestRow = ({
 
 class CommentsEditor extends React.Component {
 
-  initCKeditor () {
+  initCKeditor() {
     if (this.props.match.params.odpId)
       this.descriptionEditor.setData(
         this.props.active.description,
@@ -298,7 +297,7 @@ class CommentsEditor extends React.Component {
       this.initCkeditorChangeListener()
   }
 
-  initCkeditorChangeListener () {
+  initCkeditorChangeListener() {
     this.descriptionEditor.on('change', (evt) => {
         this.props.saveDraft(
           this.props.match.params.countryIso,
@@ -307,12 +306,12 @@ class CommentsEditor extends React.Component {
     )
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     this.descriptionEditor.destroy(false)
     this.descriptionEditor = null
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.descriptionEditor = CKEDITOR.replace(document.getElementById('originalDataPointDescription'), ckEditorConfig)
     // We need to fetch the data only after CKEDITOR instance is ready :(
     // Otherwise there is no guarantee that the setData()-method succeeds in
@@ -320,7 +319,7 @@ class CommentsEditor extends React.Component {
     this.descriptionEditor.on('instanceReady', () => this.initCKeditor())
   }
 
-  render () {
+  render() {
     return <textarea id="originalDataPointDescription"/>
   }
 
@@ -328,7 +327,7 @@ class CommentsEditor extends React.Component {
 
 class OriginalDataPointView extends React.Component {
 
-  componentDidMount () {
+  componentDidMount() {
     const odpId = this.props.match.params.odpId
     if (odpId) {
       this.props.fetch(odpId)
@@ -337,11 +336,11 @@ class OriginalDataPointView extends React.Component {
     }
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     this.props.clearActive()
   }
 
-  render () {
+  render() {
     return <LoggedInPageTemplate>
       <div className="odp__container">
         <div className="odp_data-page-header">

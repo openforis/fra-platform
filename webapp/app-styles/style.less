@@ -66,11 +66,13 @@ a:hover {
   overflow-x: hidden;
 }
 
-.error-free input, .error-free select {
-  transition: background-color 300ms ease-out;
-}
-
-.error input, .error select {
-  background-color: rgba(208, 2, 27, 0.25) !important;
-  transition: background-color 300ms ease-out;
+.form-group {
+  input, select {
+    transition: background-color 300ms ease-out;
+  }
+  .error {
+    input, select {
+      background-color: rgba(208, 2, 27, 0.25) !important;
+    }
+  }
 }
