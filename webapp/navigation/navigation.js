@@ -67,6 +67,9 @@ const NationalDataItem = ({path, countryIso, pathTemplate = '/tbd', status = {co
                to={ linkTo }>
     <span className="nav__link-label">{label}</span>
     <span className="nav__link-item-status">{status.count}</span>
+    <span className="nav__link-review-status">
+      { R.isEmpty(status.issues) ? null : <div className='nav__secondary-has-open-issue'></div> }
+    </span>
     <span className="nav__link-error-status">
       { status.errors ? <svg className="icon icon-middle icon-red">
         <use xlinkHref="img/icon.svg#icon-alert"/>
@@ -110,7 +113,10 @@ const Nav = ({path, country, countries, follow, getCountryList, status = {}, use
     <div className="main__nav">
       <CountryItem name={country} countries={countries} listCountries={getCountryList} role={ roleLabel(userInfo) }/>
       <div className="nav__link-list">
-        <NationalDataItem label="National Data" countryIso={country} status={status.odpStatus} path={path} pathTemplate="/country/:countryIso/odps" />
+        <NationalDataItem label="National Data"
+                          countryIso={country}
+                          status={R.merge({issues: R.filter(R.pipe(R.prop('section'), R.equals('NDP')))(status.reviewStatus || [])}, status.odpStatus)}
+                          path={path} pathTemplate="/country/:countryIso/odps" />
         <PrimaryItem label="Annually reported"/>
         {
           annualItems.map(v => <SecondaryItem path={path} key={v.label} goTo={follow}
