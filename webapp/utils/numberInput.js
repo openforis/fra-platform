@@ -1,3 +1,4 @@
+import * as R from 'ramda'
 
 const trim = (value) => value.replace(/\s/g, '')
 
@@ -16,5 +17,6 @@ export const acceptNextInteger = (newValue, currentValue) => {
   if (newValueTrimmed === '') return null
   if (!acceptableAsInteger(newValue)) return currentValue
   if (newValueTrimmed.length > 20) return currentValue
+  if (R.contains('e', newValueTrimmed)) return currentValue
   return Math.round(Number(newValueTrimmed))
 }
