@@ -83,9 +83,7 @@ const SecondaryItem = ({path, countryIso, order, pathTemplate = '/tbd', label, s
   const isTodoItem = pathTemplate.indexOf('/todo') !== -1
   const secondaryTextClass = isTodoItem ? 'nav__disabled-menu-item-text' : ''
 
-  console.log('item status', status)
   const hasOpenIssues = R.pipe(R.filter(R.pipe(R.prop('status'), R.equals('open'))), R.isEmpty, R.not)(status)
-  console.log('ooen issues', hasOpenIssues)
   return <Link className={`nav__secondary-item ${R.equals(path, linkTo) ? 'selected' : ''}`}
                to={ linkTo }>
     <span className={`nav__secondary-order ${secondaryTextClass}`}>{order}</span>
@@ -108,8 +106,6 @@ const roleLabel = (userInfo) => {
 }
 
 const Nav = ({path, country, countries, follow, getCountryList, status = {}, userInfo}) => {
-
-  console.log('status', status)
   return <div className="main__nav-wrapper">
     <div className="main__nav">
       <CountryItem name={country} countries={countries} listCountries={getCountryList} role={ roleLabel(userInfo) }/>
