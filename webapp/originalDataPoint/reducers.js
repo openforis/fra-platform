@@ -8,7 +8,9 @@ const actionHandlers = {
   [types.dataPointSaveDraftCompleted ]: (state, action) =>
     R.assocPath(['active', 'odpId'], Number(action.odpId), state),
   [types.odpFetchCompleted]: (state, action) => R.assoc('active', action.active)(state),
-  [types.clearActiveAction ]: (state, action) => R.assoc('active', emptyDataPoint(), state),
+  [types.clearActiveAction ]: (state, action) =>
+    R.assoc('active', R.merge(emptyDataPoint(), {odpYears: R.path(['data', 'odpYears'], action)}), state)
+  ,
   [types.odpListFetchCompleted]: (state, action) => R.assoc('odps', action.data)(state)
 }
 

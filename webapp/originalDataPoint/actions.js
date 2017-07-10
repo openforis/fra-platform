@@ -75,7 +75,7 @@ export const fetch = (odpId, countryIso) => dispatch =>
     console.log('resp', resp)
     console.log(odpId)
     if (R.equals(odpId, -1)) {
-      dispatch({type: clearActiveAction}, {data: resp.data})
+      dispatch({type: clearActiveAction, data: resp.data})
     }
     else {
       dispatch({type: odpFetchCompleted, active: addNationalClassPlaceHolder(resp.data)})
