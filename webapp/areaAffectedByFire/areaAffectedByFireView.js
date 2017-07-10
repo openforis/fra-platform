@@ -8,8 +8,8 @@ import Description from '../description/description'
 
 const areaAffectedByFire = ({match}) =>
   <LoggedInPageTemplate>
-    <div className="aabf__container">
-      <h2 className="headline fac__page-header">Area affected by fire</h2>
+    <div className="tw__container aabf__container">
+      <h2 className="headline tw__page-header">Area affected by fire</h2>
       <TraditionalTable tableSpec={tableSpec} countryIso={match.params.countryIso}/>
       <Description title="Description"
                    name="areaAffectedByFire"
