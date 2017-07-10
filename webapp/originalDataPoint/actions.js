@@ -2,7 +2,11 @@ import * as R from 'ramda'
 
 import { applicationError } from '../applicationError/actions'
 import * as autosave from '../autosave/actions'
-import { removeClassPlaceholder, addNationalClassPlaceHolder, copyNationalClasses } from './originalDataPoint'
+import {
+  removeClassPlaceholder,
+  addNationalClassPlaceHolder,
+  copyNationalClasses
+} from './originalDataPoint'
 import axios from 'axios'
 
 // Drafting
@@ -72,8 +76,6 @@ export const odpListFetchCompleted = 'originalDataPointList/fetch/completed'
 
 export const fetch = (odpId, countryIso) => dispatch =>
   axios.get(`/api/odp/?odpId=${odpId}&countryIso=${countryIso}`).then(resp => {
-    console.log('resp', resp)
-    console.log(odpId)
     if (R.equals(odpId, -1)) {
       dispatch({type: clearActiveAction, data: resp.data})
     }

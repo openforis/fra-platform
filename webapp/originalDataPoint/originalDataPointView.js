@@ -341,9 +341,6 @@ class OriginalDataPointView extends React.Component {
   }
 
   render () {
-    console.log('props', this.props)
-    const yearsUnavailable = R.defaultTo([], R.path(['active', 'odpYears'],this.props))
-    console.log('unavailable', yearsUnavailable)
     return <LoggedInPageTemplate>
       <div className="odp__container">
         <div className="odp_data-page-header">
