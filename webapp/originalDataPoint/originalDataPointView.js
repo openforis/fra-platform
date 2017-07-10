@@ -18,6 +18,7 @@ const DataInput = ({match, years, saveDraft, markAsActual, remove, active, autoS
   const countryIso = match.params.countryIso
   const saveControlsDisabled = () => !active.odpId || autoSaving
   const copyPreviousClassesDisabled = () => active.year && !autoSaving ? false : true
+  const unselectable = R.defaultTo([], active.odpYears)
 
   return <div className="odp__data-input-component">
     <div className="odp_data-input-row">
@@ -28,7 +29,15 @@ const DataInput = ({match, years, saveDraft, markAsActual, remove, active, autoS
           value={active.year || ''}
           onChange={
             (e) => saveDraft(countryIso, R.assoc('year', R.isEmpty(e.target.value) ? null : Number(e.target.value), active)) }>
-          {years.map((year) => <option key={year} value={year}>{year}</option>)}
+          {
+            years.map(
+              year =>
+                <option key={year}
+                        value={year}
+                        disabled={R.and(R.contains(year, unselectable), R.not(R.equals(year, active.year)))}>
+                  {year}</option>
+            )
+          }
         </select>
       </div>
     </div>
@@ -341,7 +350,7 @@ class OriginalDataPointView extends React.Component {
           <h2 className="headline">National data point</h2>
         </div>
         {this.props.active
-          ? <DataInput years={R.without(yearsUnavailable, years)} {...this.props}/>
+          ? <DataInput years={years} {...this.props}/>
           : null}
       </div>
     </LoggedInPageTemplate>

@@ -172,7 +172,10 @@ module.exports.getOdp = odpId =>
                 `, [odpId, versionId]),
       nationalClasses])
   ).then(([result, nationalClasses]) =>
-    R.assoc('nationalClasses', nationalClasses, camelize(result.rows[0])))
+   R.pipe(
+     R.assoc('nationalClasses', nationalClasses),
+     R.assoc('year', toNumberOrNull(result.rows[0].year)))
+   (camelize(result.rows[0])))
 
 const odpReducer = (results, row, type = 'fra') => R.assoc(`odp_${row.year}`,
   {
