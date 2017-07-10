@@ -7,6 +7,7 @@ import * as table from './table'
 import * as cellTypes from './cellTypes'
 import { tableValueChanged, tableChanged, fetchTableData } from './actions'
 import ReviewIndicator from '../review/reviewIndicator'
+import UpdateOnResizeReactComponent from '../reusableUiComponents/updateOnResizeReactComponent'
 
 const mapIndexed = R.addIndex(R.map)
 
@@ -59,24 +60,7 @@ const TableBody = (props) =>
   {tableRows(props)}
   </tbody>
 
-class FraTable extends React.Component {
-
-  constructor () {
-    super()
-    this.resizeListener = () => this.forceUpdate()
-  }
-
-  componentDidMount () {
-    window.addEventListener('resize', this.resizeListener, true)
-  }
-
-  componentWillUnmount () {
-    window.removeEventListener('resize', this.resizeListener, true)
-  }
-
-  componentWillMount () {
-    this.props.fetchTableData(this.props.countryIso, this.props.tableSpec)
-  }
+class FraTable extends UpdateOnResizeReactComponent {
 
   render () {
     return <div ref="traditionalTable" style={{position: 'relative'}}>
