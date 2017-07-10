@@ -320,12 +320,11 @@ class CommentsEditor extends React.Component {
 class OriginalDataPointView extends React.Component {
 
   componentDidMount () {
-    const odpId = this.props.match.params.odpId
-    if (odpId) {
+    const odpId = R.defaultTo(-1, this.props.match.params.odpId)
       this.props.fetch(odpId, this.props.match.params.countryIso)
-    } else {
-      this.props.clearActive()
-    }
+    // } else {
+    //   this.props.clearActive()
+    // }
   }
 
   componentWillUnmount () {
@@ -333,6 +332,7 @@ class OriginalDataPointView extends React.Component {
   }
 
   render () {
+    console.log('props', this.props)
     return <LoggedInPageTemplate>
       <div className="odp__container">
         <div className="odp_data-page-header">

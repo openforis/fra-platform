@@ -7,7 +7,9 @@ module.exports.init = app => {
 
   app.get('/odp', (req, res) => {
     if (R.not(R.isNil(req.query.odpId))) {
-      const odp = odpRepository.getOdp(req.query.odpId)
+      console.log('odpid', req.query.odpId)
+      console.log('-1', R.equals('-1', req.query.odpId))
+      const odp = R.equals('-1', req.query.odpId) ? Promise.resolve({}) : odpRepository.getOdp(req.query.odpId)
       const odps = odpRepository.listOriginalDataPoints(req.query.countryIso)
       Promise.all([odp, odps])
         .then(resp => {
