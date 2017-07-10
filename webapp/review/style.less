@@ -159,13 +159,26 @@
   font-size: @font-xxs;
 }
 
-.fra-review__issue-status-visible {
+.fra-review__issue-status {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 32px;
   height: 41px;
   cursor: pointer;
+
+  .icon {
+    transition: @ease-out;
+  }
+
+  &.active,
+  &:hover {
+    .icon {
+      fill: rgba(0,0,0,.75);
+      width: 20px;
+      height: 20px;
+    }
+  }
 }
 
 .fra-review__comment-add-btn {
