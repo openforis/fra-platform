@@ -3,7 +3,14 @@ import './style.less'
 import React from 'react'
 import { connect } from 'react-redux'
 import * as originalDataPoint from './originalDataPoint'
-import { saveDraft, markAsActual, remove, fetch, clearActive, copyPreviousNationalClasses } from './actions'
+import {
+  saveDraft,
+  markAsActual,
+  remove,
+  fetch,
+  clearActive,
+  copyPreviousNationalClasses
+} from './actions'
 import { acceptNextInteger } from '../utils/numberInput'
 import { separateThousandsWithSpaces } from '../utils/numberFormat'
 import { ThousandSeparatedIntegerInput } from '../reusableUiComponents/thousandSeparatedIntegerInput'
@@ -330,10 +337,7 @@ class OriginalDataPointView extends React.Component {
 
   componentDidMount () {
     const odpId = R.defaultTo(-1, this.props.match.params.odpId)
-      this.props.fetch(odpId, this.props.match.params.countryIso)
-    // } else {
-    //   this.props.clearActive()
-    // }
+    this.props.fetch(odpId, this.props.match.params.countryIso)
   }
 
   componentWillUnmount () {
