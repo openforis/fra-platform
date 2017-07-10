@@ -173,6 +173,11 @@
 .odp-list__list-row {
   border-bottom: @ui-thin-border;
   text-align: left;
+  transition: @ease-out;
+
+  &:hover {
+    background: lighten(@ui-bg, 2%);
+  }
 
   td, th {
     padding: 12px;
