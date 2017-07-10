@@ -61,6 +61,19 @@ const TableBody = (props) =>
 
 class FraTable extends React.Component {
 
+  constructor () {
+    super()
+    this.resizeListener = () => this.forceUpdate()
+  }
+
+  componentDidMount () {
+    window.addEventListener('resize', this.resizeListener, true)
+  }
+
+  componentWillUnmount () {
+    window.removeEventListener('resize', this.resizeListener, true)
+  }
+
   componentWillMount () {
     this.props.fetchTableData(this.props.countryIso, this.props.tableSpec)
   }
@@ -71,7 +84,11 @@ class FraTable extends React.Component {
         <table className="fra-table">
           {this.props.tableSpec.header}
           <TableBody {...this.props}
-                     tableTop={this.refs.traditionalTable ? this.refs.traditionalTable.getBoundingClientRect().top : null}/>
+                     tableTop={
+                       this.refs.traditionalTable
+                         ? this.refs.traditionalTable.getBoundingClientRect().top
+                         : null
+                     }/>
         </table>
       </div>
     </div>
