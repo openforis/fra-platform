@@ -1,4 +1,4 @@
-import './style.less'
+import '../app-styles/traditionalView.less'
 import React from 'react'
 
 import LoggedInPageTemplate from '../loggedInPageTemplate'
@@ -8,8 +8,8 @@ import Description from '../description/description'
 
 const PrimaryDesignatedManagementObjectiveView = props =>
   <LoggedInPageTemplate>
-    <div className="pdmo__container">
-      <h2 className="headline pdmo__page-header">Primary designated management objective</h2>
+    <div className="tw__container">
+      <h2 className="headline tw__page-header">Primary designated management objective</h2>
       <TraditionalTable tableSpec={tableSpec} countryIso={props.match.params.countryIso}/>
       <Description title="Description"
                    name="primaryDesignatedManagementObjective"

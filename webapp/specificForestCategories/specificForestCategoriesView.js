@@ -1,4 +1,4 @@
-import './style.less'
+import '../app-styles/traditionalView.less'
 import React from 'react'
 
 import LoggedInPageTemplate from '../loggedInPageTemplate'
@@ -8,8 +8,8 @@ import Description from '../description/description'
 
 const SpecificForestCategoriesView = props =>
   <LoggedInPageTemplate>
-    <div className="sfc__container">
-      <h2 className="headline sfc__page-header">Specific forest categories</h2>
+    <div className="tw__container">
+      <h2 className="headline tw__page-header">Specific forest categories</h2>
       <TraditionalTable tableSpec={tableSpec} countryIso={props.match.params.countryIso}/>
       <Description title="Description"
                    name="specificForestCategories"

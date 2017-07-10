@@ -1,4 +1,4 @@
-import './style.less'
+import '../app-styles/traditionalView.less'
 import React from 'react'
 
 import LoggedInPageTemplate from '../loggedInPageTemplate'
@@ -8,8 +8,8 @@ import Description from '../description/description'
 
 const ForestAreaChangeView = (props) =>
     <LoggedInPageTemplate>
-      <div className="fac__container">
-        <h2 className="headline fac__page-header">Forest area loss, gain and net change</h2>
+      <div className="tw__container">
+        <h2 className="headline tw__page-header">Forest area loss, gain and net change</h2>
         <TraditionalTable tableSpec={tableSpec} countryIso={props.match.params.countryIso}/>
         <Description title="Description"
                      name="forestAreaChange"

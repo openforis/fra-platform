@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import R from 'ramda'
 import assert from 'assert'
 
+import './style.less'
 import * as table from './table'
 import * as cellTypes from './cellTypes'
 import { tableValueChanged, tableChanged, fetchTableData } from './actions'
@@ -19,10 +20,6 @@ const Cell = (props) => {
 
 class ReviewWrapper extends React.Component {
   render () {
-    if (this.refs.rowAnchor) {
-      console.log('top', this.refs.rowAnchor.getBoundingClientRect().top)
-      console.log('tableTop', this.props.tableTop)
-    }
     const top = this.refs.rowAnchor && this.props.tableTop
       ? this.refs.rowAnchor.getBoundingClientRect().top - this.props.tableTop
       : 0
@@ -67,7 +64,7 @@ class FraTable extends UpdateOnResizeReactComponent {
   }
 
   render () {
-    return <div ref="traditionalTable" style={{position: 'relative'}}>
+    return <div ref="traditionalTable" className="traditional-table">
       <div style={{overflowX: 'auto'}}>
         <table className="fra-table">
           {this.props.tableSpec.header}
