@@ -1,6 +1,7 @@
 import * as R from 'ramda'
 
 import { applyReducerFunction } from '../utils/reduxUtils'
+import { routerFollowLink } from '../router/actions'
 import {
   issuePostCommentCompleted,
   issueRetrieveCommentsStarted,
@@ -24,7 +25,8 @@ const actionHandlers = {
     'openThread': {target: action.target, section: action.section, name: action.name}
   }),
   [issueCloseCommentThread]: state =>
-    R.omit(['openThread'], state)
+    R.omit(['openThread'], state),
+  [routerFollowLink]: state => R.omit(['openThread'], state)
 }
 
 export default (state = {}, action) => applyReducerFunction(actionHandlers, state, action)
