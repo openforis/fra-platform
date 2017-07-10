@@ -65,7 +65,7 @@ class FraTable extends UpdateOnResizeReactComponent {
 
   render () {
     return <div ref="traditionalTable" className="traditional-table">
-      <div style={{overflowX: 'auto'}}>
+      <div className="traditional-table__scroll-wrapper">
         <table className="fra-table">
           {this.props.tableSpec.header}
           <TableBody {...this.props}
