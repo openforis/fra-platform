@@ -14,7 +14,7 @@ import ReviewIndicator from '../review/reviewIndicator'
 
 const years = ['', ...R.range(1990, 2021)]
 
-const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, copyPreviousNationalClasses}) => {
+const DataInput = ({match, years, saveDraft, markAsActual, remove, active, autoSaving, copyPreviousNationalClasses}) => {
   const countryIso = match.params.countryIso
   const saveControlsDisabled = () => !active.odpId || autoSaving
   const copyPreviousClassesDisabled = () => active.year && !autoSaving ? false : true

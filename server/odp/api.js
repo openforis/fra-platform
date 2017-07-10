@@ -7,11 +7,21 @@ module.exports.init = app => {
 
   app.get('/odp', (req, res) => {
     if (R.not(R.isNil(req.query.odpId))) {
-      odpRepository.getOdp(req.query.odpId)
-        .then(resp => res.json(resp))
+      const odp = odpRepository.getOdp(req.query.odpId)
+      const odps = odpRepository.listOriginalDataPoints(req.query.countryIso)
+      Promise.all([odp, odps])
+        .then(resp => {
+          const result = R.merge(
+            resp[0],
+            {
+              odpYears: R.pipe(R.values, R.map(R.prop('year')), R.uniq)(resp[1])
+            }
+          )
+          return res.json(result)
+        })
         .catch(err => sendErr(res, err))
     }
-    if (R.not(R.isNil(req.query.countryIso))) {
+    else if (R.not(R.isNil(req.query.countryIso))) {
       odpRepository.listOriginalDataPoints(req.query.countryIso)
         .then(resp => res.json(R.sort((a, b) => a.year - b.year, R.values(resp))))
         .catch(err => {
