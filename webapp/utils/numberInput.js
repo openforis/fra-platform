@@ -1,9 +1,11 @@
+import * as R from 'ramda'
 
 const trim = (value) => value.replace(/\s/g, '')
 
 export const acceptableAsInteger = (newValue) => {
   const newValueTrimmed = trim(newValue)
   if (newValueTrimmed === '') return true
+  if (R.contains('e', newValueTrimmed)) return false
   return !isNaN(newValueTrimmed) &&
           newValueTrimmed.indexOf('.') === -1 &&
           isFinite(newValueTrimmed)
