@@ -10,7 +10,7 @@ const actionHandlers = {
     return {...state, updateNeeded: true}
   },
   [fetchNavStatusCompleted]: (state, action) => {
-    return {...state, status: action.status}
+    return {...state, status: action.status, updateNeeded: false}
   }
 }
 
