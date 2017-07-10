@@ -5,6 +5,7 @@ const trim = (value) => value.replace(/\s/g, '')
 export const acceptableAsInteger = (newValue) => {
   const newValueTrimmed = trim(newValue)
   if (newValueTrimmed === '') return true
+  if (R.contains('e', newValueTrimmed)) return false
   return !isNaN(newValueTrimmed) &&
           newValueTrimmed.indexOf('.') === -1 &&
           isFinite(newValueTrimmed)
@@ -17,6 +18,5 @@ export const acceptNextInteger = (newValue, currentValue) => {
   if (newValueTrimmed === '') return null
   if (!acceptableAsInteger(newValue)) return currentValue
   if (newValueTrimmed.length > 20) return currentValue
-  if (R.contains('e', newValueTrimmed)) return currentValue
   return Math.round(Number(newValueTrimmed))
 }
