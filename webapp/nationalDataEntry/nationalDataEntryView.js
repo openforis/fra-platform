@@ -12,6 +12,7 @@ import { ThousandSeparatedIntegerInput } from '../reusableUiComponents/thousandS
 import Description from '../description/description'
 import { readPasteClipboard } from '../utils/copyPasteUtil'
 import {acceptNextInteger} from '../utils/numberInput'
+import UpdateOnResizeReactComponent from '../reusableUiComponents/updateOnResizeReactComponent'
 
 const mapIndexed = R.addIndex(R.map)
 
@@ -141,21 +142,7 @@ const odpCell = (odpValue, field) =>
     {separateThousandsWithSpaces(Math.round(odpValue[field]))}
   </span>
 
-class ChartWrapper extends React.Component {
-
-  constructor () {
-    super()
-    this.resizeListener = () => this.forceUpdate()
-  }
-
-  componentDidMount () {
-    window.addEventListener('resize', this.resizeListener, true)
-  }
-
-  componentWillUnmount () {
-    window.removeEventListener('resize', this.resizeListener, true)
-  }
-
+class ChartWrapper extends UpdateOnResizeReactComponent {
   render () {
     const defaultWidth = 913 //TODO what's a good default before we have bounding rect?
     const width = this.refs.chartWrapper ? this.refs.chartWrapper.getBoundingClientRect().width : defaultWidth

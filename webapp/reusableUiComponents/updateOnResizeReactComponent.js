@@ -13,10 +13,6 @@ class UpdateOnResizeReactComponent extends React.Component {
   componentWillUnmount () {
     window.removeEventListener('resize', this.resizeListener, true)
   }
-
-  componentWillMount () {
-    this.props.fetchTableData(this.props.countryIso, this.props.tableSpec)
-  }
 }
 
 export default UpdateOnResizeReactComponent

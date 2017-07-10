@@ -62,6 +62,10 @@ const TableBody = (props) =>
 
 class FraTable extends UpdateOnResizeReactComponent {
 
+  componentWillMount () {
+    this.props.fetchTableData(this.props.countryIso, this.props.tableSpec)
+  }
+
   render () {
     return <div ref="traditionalTable" style={{position: 'relative'}}>
       <div style={{overflowX: 'auto'}}>
