@@ -1,4 +1,3 @@
-import '../app-styles/traditionalView.less'
 import React from 'react'
 
 import LoggedInPageTemplate from '../loggedInPageTemplate'
