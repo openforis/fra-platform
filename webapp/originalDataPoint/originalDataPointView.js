@@ -322,7 +322,7 @@ class OriginalDataPointView extends React.Component {
   componentDidMount () {
     const odpId = this.props.match.params.odpId
     if (odpId) {
-      this.props.fetch(odpId)
+      this.props.fetch(odpId, this.props.match.params.countryIso)
     } else {
       this.props.clearActive()
     }
