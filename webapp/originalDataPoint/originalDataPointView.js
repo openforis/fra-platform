@@ -14,10 +14,11 @@ import ReviewIndicator from '../review/reviewIndicator'
 
 const years = ['', ...R.range(1990, 2021)]
 
-const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, copyPreviousNationalClasses}) => {
+const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, copyPreviousNationalClasses, copyDisabled}) => {
   const countryIso = match.params.countryIso
   const saveControlsDisabled = () => !active.odpId || autoSaving
   const copyPreviousClassesDisabled = () => active.year && !autoSaving ? false : true
+
 
   return <div className="odp__data-input-component">
     <div className="odp_data-input-row">
@@ -35,7 +36,7 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
     <div>
       <h3 className="subhead odp__section">
         National classes
-        <button disabled={copyPreviousClassesDisabled()}
+        <button disabled={copyDisabled || copyPreviousClassesDisabled()}
                 className="btn btn-primary btn-copy-prev-values"
                 onClick={() => copyPreviousNationalClasses(countryIso, active)}>
           Copy previous values
@@ -319,9 +320,15 @@ class CommentsEditor extends React.Component {
 
 class OriginalDataPointView extends React.Component {
 
+  constructor (props) {
+    super(props)
+    this.state = {copyPreviousDisabled: false}
+  }
+
   componentDidMount () {
     const odpId = this.props.match.params.odpId
     if (odpId) {
+      this.setState({copyPreviousDisabled: true})
       this.props.fetch(odpId)
     } else {
       this.props.clearActive()
@@ -333,13 +340,14 @@ class OriginalDataPointView extends React.Component {
   }
 
   render () {
+    console.log('odp props', this.props)
     return <LoggedInPageTemplate>
       <div className="odp__container">
         <div className="odp_data-page-header">
           <h2 className="headline">National data point</h2>
         </div>
         {this.props.active
-          ? <DataInput {...this.props}/>
+          ? <DataInput copyDisabled={this.state.copyPreviousDisabled} {...this.props}/>
           : null}
       </div>
     </LoggedInPageTemplate>
