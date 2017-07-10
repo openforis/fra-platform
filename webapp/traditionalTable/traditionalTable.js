@@ -26,7 +26,7 @@ class ReviewWrapper extends React.Component {
     return <td ref="rowAnchor">
       <div style={{position: 'absolute', top: top, right: 2}}>
         <ReviewIndicator section={`TraditionalTable-${this.props.tableSpec.name}`}
-                         name="National data point"
+                         name=""
                          target={['row', `${this.props.rowIdx}`]}
                          countryIso={this.props.countryIso}/>
       </div>
