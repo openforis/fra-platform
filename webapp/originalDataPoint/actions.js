@@ -59,8 +59,13 @@ export const odpValidationStatusFetchCompleted = 'originalDataPoint/validationSt
 export const markAsActual = (countryIso, odpId) => dispatch => {
   dispatch(autosave.start)
   axios.post(`/api/odp/markAsActual/?odpId=${odpId}`).then(resp => {
-    dispatch({type: odpValidationStatusFetchCompleted, data: resp.data})
-    dispatch(autosave.complete)
+    if (resp.data.valid) {
+      dispatch({type: odpClearActiveAction})
+      window.location = `#/country/${countryIso}`
+    } else {
+      dispatch({type: odpValidationStatusFetchCompleted, data: resp.data})
+      dispatch(autosave.complete)
+    }
   }).catch(err =>
     dispatch(applicationError(err))
   )
