@@ -55,12 +55,13 @@ const updateDraft = (client, draft) =>
   )
 
 module.exports.deleteDraft = (client, odpId) =>
-  client.query('SELECT draft_id FROM odp WHERE id = $1', [odpId])
-    .then(res => res.rows[0].draft_id)
-    .then(draftId => client.query('DELETE FROM odp_version WHERE id = $1', [draftId]))
-    .then(() => client.query('SELECT actual_id FROM odp WHERE id = $1', [odpId]))
+  client.query('SELECT actual_id FROM odp WHERE id = $1', [odpId])
     .then(res => res.rows[0].actual_id)
-    .then(actualId => actualId ? null : deleteOdp(client, odpId))
+    .then(actualId =>
+      actualId
+        ? client.query('UPDATE odp SET draft_id = null WHERE id = $1', [odpId])
+        : deleteOdp(client, odpId)
+    )
 
 const wipeClassData = (client, odpVersionId) =>
   client.query('DELETE FROM odp_class WHERE odp_version_id = $1', [odpVersionId])

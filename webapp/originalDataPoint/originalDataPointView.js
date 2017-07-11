@@ -22,7 +22,7 @@ import ReviewIndicator from '../review/reviewIndicator'
 
 const years = ['', ...R.range(1990, 2021)]
 
-const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, copyPreviousNationalClasses}) => {
+const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, copyPreviousNationalClasses, cancelDraft}) => {
   const countryIso = match.params.countryIso
   const saveControlsDisabled = () => !active.odpId || autoSaving
   const copyPreviousClassesDisabled = () => active.year && !autoSaving ? false : true
@@ -108,7 +108,6 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
       <CommentsEditor active={active} match={match} saveDraft={saveDraft}/>
     </div>
 
-
     <div className="odp__bottom-buttons">
       <span className={ saveControlsDisabled() ? 'btn btn-destructive disabled' : 'btn btn-destructive' }
             onClick={ () => saveControlsDisabled() ? null : remove(countryIso, active.odpId) }>
@@ -116,7 +115,7 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
       </span>
       <div>
         <a className="btn btn-secondary odp__cancel-button"
-           onClick={() => cancelDraft(countryIso, active)}>
+           onClick={() => cancelDraft(countryIso, active.odpId)}>
           Cancel
         </a>
         <button disabled={ saveControlsDisabled() }
