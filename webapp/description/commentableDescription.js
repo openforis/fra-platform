@@ -3,6 +3,7 @@ import R from 'ramda'
 import assert from 'assert'
 import { connect } from 'react-redux'
 
+import './style.less'
 import ReviewIndicator from '../review/reviewIndicator'
 import Description from '../description/description'
 
@@ -19,17 +20,17 @@ class CommentableReviewDescription extends React.Component {
   render() {
     assertProps(this.props)
     const reviewIndicatorTarget = [this.props.descriptionName]
-    return <div className="tv__description-with-review-indicator">
+    return <div className="commentable-description">
       <div className={
         R.equals(this.props.openCommentThreadTarget, reviewIndicatorTarget)
-        ? 'tv__description-wrapper fra-row-comments__open'
-        : 'tv__description-wrapper'
+        ? 'commentable-description__description-wrapper fra-row-comments__open'
+        : 'commentable-description__description-wrapper'
       }>
         <Description title={this.props.descriptionTitle}
                      name={this.props.descriptionName}
                      countryIso={this.props.countryIso}/>
       </div>
-      <div className="tv__review-indicator-wrapper">
+      <div className="commentable-description__review-indicator-wrapper">
         <ReviewIndicator section={this.props.section}
                          name=""
                          target={reviewIndicatorTarget}
