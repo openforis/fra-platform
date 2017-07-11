@@ -89,18 +89,19 @@ export const odpListFetchCompleted = 'originalDataPointList/fetch/completed'
 
 export const fetch = (odpId) => dispatch =>
   axios.get(`/api/odp/?odpId=${odpId}`).then(resp => {
-    dispatch({type: odpFetchCompleted, active: addNationalClassPlaceHolder(resp.data)})
-  })
-    .catch(err =>
-      dispatch(applicationError(err))
-    )
+    const odp = addNationalClassPlaceHolder(resp.data)
+    dispatch({type: odpFetchCompleted, active: odp})
+    dispatch(validationCompleted(validateDataPoint(odp)))
+  }).catch(err =>
+    dispatch(applicationError(err))
+  )
+
 export const fetchOdps = countryIso => dispatch =>
   axios.get(`/api/odp/?countryIso=${countryIso}`).then(resp => {
     dispatch({type: odpListFetchCompleted, data: resp.data})
-  })
-    .catch(err =>
-      dispatch(applicationError(err))
-    )
+  }).catch(err =>
+    dispatch(applicationError(err))
+  )
 
 export const copyPreviousNationalClasses = (countryIso, odp) => dispatch => {
   axios.get(`/api/prevOdp/${countryIso}/${odp.year}`).then(resp => {
