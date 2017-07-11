@@ -59,3 +59,27 @@ export const copyNationalClasses = (odpTarget, odpSource) => ({
   ...odpTarget,
   nationalClasses: [...odpSource.nationalClasses.map(c => defaultNationalClass(c.className, c.definition)), nationalClassPlaceHolder()]
 })
+
+export const validateDataPoint = odp => {
+  const defaultTo0 = R.defaultTo(0)
+
+  const validYear = R.pipe(
+    defaultTo0,
+    R.partialRight(R.gt, [0])
+  )(odp.year)
+
+  const validateNationalClassPercentage = cls => R.pipe(
+    c => R.sum([defaultTo0(c.forestPercent), defaultTo0(c.otherWoodedLandPercent), defaultTo0(c.otherLandPercent)]),
+    R.equals(100)
+  )(cls)
+
+  const nationalClasses = R.map(
+    c => ({uuid: c.uuid, validPercentage: validateNationalClassPercentage(c)})
+    , odp.nationalClasses)
+
+  return {
+    year: {valid: validYear},
+    nationalClasses,
+    valid: !validYear || R.filter(c => !c.validPercentage, nationalClasses).length !== 0 ? false : true
+  }
+}
