@@ -81,7 +81,7 @@ export const validateDataPoint = odp => {
       v => R.assoc('validPercentage', c.placeHolder || !v.validArea || !v.validClassName ? true : validateNationalClassPercentage(c), v),
       v => R.assoc('valid', v.validClassName && v.validArea && v.validPercentage, v)
     )({})
-    , odp.nationalClasses)
+    , odp.nationalClasses.length === 1 ? odp.nationalClasses : R.filter(c => !c.placeHolder, odp.nationalClasses))
 
   return {
     year: {valid: validYear},

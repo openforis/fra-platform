@@ -155,7 +155,7 @@ const updatePastedValues = (odp, rowIndex, saveDraft, countryIso, dataCols, colI
 }
 
 const getValidationStatusRow = (odp, index) => odp.validationStatus
-  ? R.find(R.propEq('uuid', odp.nationalClasses[index].uuid))(odp.validationStatus.nationalClasses)
+  ? R.defaultTo({}, R.find(R.propEq('uuid', odp.nationalClasses[index].uuid), odp.validationStatus.nationalClasses))
   : {}
 
 const nationalClassCols = ['className', 'definition']
