@@ -3,7 +3,15 @@ import './style.less'
 import React from 'react'
 import { connect } from 'react-redux'
 import * as originalDataPoint from './originalDataPoint'
-import { saveDraft, markAsActual, remove, fetch, clearActive, copyPreviousNationalClasses } from './actions'
+import {
+  saveDraft,
+  markAsActual,
+  remove,
+  fetch,
+  clearActive,
+  copyPreviousNationalClasses,
+  cancelDraft
+} from './actions'
 import { acceptNextInteger } from '../utils/numberInput'
 import { separateThousandsWithSpaces } from '../utils/numberFormat'
 import { ThousandSeparatedIntegerInput } from '../reusableUiComponents/thousandSeparatedIntegerInput'
@@ -108,7 +116,7 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
       </span>
       <div>
         <a className="btn btn-secondary odp__cancel-button"
-           href={`/\#/country/${countryIso}`}>
+           onClick={() => cancelDraft(countryIso, active)}>
           Cancel
         </a>
         <button disabled={ saveControlsDisabled() }
@@ -359,5 +367,6 @@ export default connect(mapStateToProps, {
   remove,
   fetch,
   clearActive,
-  copyPreviousNationalClasses
+  copyPreviousNationalClasses,
+  cancelDraft
 })(OriginalDataPointView)

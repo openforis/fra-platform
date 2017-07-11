@@ -93,3 +93,5 @@ export const copyPreviousNationalClasses = (countryIso, odp) => dispatch => {
   })
 }
 
+export const cancelDraft = (countryIso, odp) => console.log('oooo ', odp)
+
