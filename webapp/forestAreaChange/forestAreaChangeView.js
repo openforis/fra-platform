@@ -8,16 +8,16 @@ import ReviewIndicator from '../review/reviewIndicator'
 
 const ForestAreaChangeView = (props) =>
     <LoggedInPageTemplate>
-      <div className="tw__container">
-        <h2 className="headline tw__page-header">Forest area loss, gain and net change</h2>
+      <div className="tv__container">
+        <h2 className="headline tv__page-header">Forest area loss, gain and net change</h2>
         <TraditionalTable tableSpec={tableSpec} countryIso={props.match.params.countryIso}/>
-        <div className="tw__description-with-review-indicator">
-          <div className="tw__description-wrapper">
+        <div className="tv__description-with-review-indicator">
+          <div className="tv__description-wrapper">
             <Description title="Description"
                          name="forestAreaChange"
                          countryIso={props.match.params.countryIso}/>
           </div>
-          <div className="tw__review-indicator-wrapper">
+          <div className="tv__review-indicator-wrapper">
             <ReviewIndicator section='forestAreaChange'
                              name="Forest area change"
                              target={['description']}

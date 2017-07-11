@@ -9,16 +9,16 @@ import ReviewIndicator from '../review/reviewIndicator'
 
 const areaAffectedByFire = ({match}) =>
   <LoggedInPageTemplate>
-    <div className="tw__container aabf__container">
-      <h2 className="headline tw__page-header">Area affected by fire</h2>
+    <div className="tv__container aabf__container">
+      <h2 className="headline tv__page-header">Area affected by fire</h2>
       <TraditionalTable tableSpec={tableSpec} countryIso={match.params.countryIso}/>
-      <div className="tw__description-with-review-indicator">
-        <div className="tw__description-wrapper">
+      <div className="tv__description-with-review-indicator">
+        <div className="tv__description-wrapper">
           <Description title="Description"
                        name="areaAffectedByFire"
                        countryIso={match.params.countryIso}/>
         </div>
-        <div className="tw__review-indicator-wrapper">
+        <div className="tv__review-indicator-wrapper">
           <ReviewIndicator section='areaAffectedByFire'
                            name="Area affected by fire"
                            target={['description']}

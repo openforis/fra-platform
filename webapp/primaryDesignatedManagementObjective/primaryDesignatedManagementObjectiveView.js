@@ -8,16 +8,16 @@ import ReviewIndicator from '../review/reviewIndicator'
 
 const PrimaryDesignatedManagementObjectiveView = props =>
   <LoggedInPageTemplate>
-    <div className="tw__container">
-      <h2 className="headline tw__page-header">Primary designated management objective</h2>
+    <div className="tv__container">
+      <h2 className="headline tv__page-header">Primary designated management objective</h2>
       <TraditionalTable tableSpec={tableSpec} countryIso={props.match.params.countryIso}/>
-      <div className="tw__description-with-review-indicator">
-        <div className="tw__description-wrapper">
+      <div className="tv__description-with-review-indicator">
+        <div className="tv__description-wrapper">
           <Description title="Description"
                        name="primaryDesignatedManagementObjective"
                        countryIso={props.match.params.countryIso}/>
         </div>
-        <div className="tw__review-indicator-wrapper">
+        <div className="tv__review-indicator-wrapper">
           <ReviewIndicator section='primaryDesignatedManagementObjective'
                            name="Primary management objective"
                            target={['description']}
