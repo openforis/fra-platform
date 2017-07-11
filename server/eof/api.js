@@ -1,6 +1,6 @@
 const fraRepository = require('./fraRepository')
 const odpRepository = require('../odp/odpRepository')
-const issueRepository = require('./../issueRepository')
+const reviewRepository = require('../review/reviewRepository')
 const db = require('../db/db')
 const os = require('os')
 const Promise = require('bluebird')
@@ -60,12 +60,13 @@ module.exports.init = app => {
   })
 
   app.get('/nav/status/:countryIso', (req, res) => {
-   const odpData = odpRepository.listOriginalDataPoints(req.params.countryIso, true)
+    const odpData = odpRepository.listOriginalDataPoints(req.params.countryIso, true)
+    const reviewStatus = reviewRepository.allIssues(req.params.countryIso)
 
     const yearsValid = R.pipe( // if year not specified for a odp, raise error flag
-          R.values,
-          R.filter(R.pathEq(['year'], 0)),
-          R.isEmpty
+      R.values,
+      R.filter(R.pathEq(['year'], 0)),
+      R.isEmpty
     )
     const percentagesValid = R.pipe( // if total percentages of odp go over 100, raise error flag
       R.values,
@@ -74,14 +75,16 @@ module.exports.init = app => {
     )
 
     // in future we certainly will need the Promise.all here wink wink
-    Promise.all([odpData]).then(([odpResult]) => {
+    Promise.all([odpData, reviewStatus]).then(([odpResult, reviewResult]) => {
       const odpStatus = {
         count: R.values(odpResult).length,
-        errors: R.contains(false, [yearsValid(odpResult), percentagesValid(odpResult)])
+        errors: R.contains(false, [yearsValid(odpResult), percentagesValid(odpResult)]),
       }
-      res.json({odpStatus})
+
+
+      res.json(R.merge({reviewStatus: reviewResult}, {odpStatus}))
     })
-    .catch(err => sendErr(res, err))
+      .catch(err => sendErr(res, err))
   })
 
 }
