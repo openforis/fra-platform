@@ -11,6 +11,9 @@ import ReviewIndicator from '../review/reviewIndicator'
 import UpdateOnResizeReactComponent from '../reusableUiComponents/updateOnResizeReactComponent'
 
 const mapIndexed = R.addIndex(R.map)
+const commentTarget = (rowIdx) => ['row', `${rowIdx}`]
+const rowShouldBeHighlighted = (rowIdx, openCommentThreadTarget) =>
+  R.equals(commentTarget(rowIdx), openCommentThreadTarget)
 
 const Cell = (props) => {
   const {tableSpec, rowIdx, colIdx} = props
@@ -27,7 +30,7 @@ class ReviewWrapper extends React.Component {
       <div className="traditional-table__review-indicator-row-anchor" style={{top: top}}>
         <ReviewIndicator section={`TraditionalTable-${this.props.tableSpec.name}`}
                          name=""
-                         target={['row', `${this.props.rowIdx}`]}
+                         target={commentTarget(this.props.rowIdx)}
                          countryIso={this.props.countryIso}/>
       </div>
     </td>
@@ -37,7 +40,7 @@ class ReviewWrapper extends React.Component {
 const tableRows = (props) => {
   return mapIndexed(
     (rowSpec, rowIdx) =>
-      <tr key={rowIdx}>
+      <tr key={rowIdx} className={rowShouldBeHighlighted(rowIdx, props.openCommentThreadTarget) ? 'fra-row-comments__open' : ''}>
         {
           mapIndexed(
             (cellSpec, colIdx) => <Cell key={`${rowIdx}-${colIdx}`}
@@ -82,7 +85,11 @@ class FraTable extends UpdateOnResizeReactComponent {
 
 const mapStateToProps = (state, props) => {
   assert(props.tableSpec.name, 'tableSpec is missing name')
-  return {...props, tableData: state.traditionalTable[props.tableSpec.name] || table.createTableData(props.tableSpec)}
+  return {
+    ...props,
+    tableData: state.traditionalTable[props.tableSpec.name] || table.createTableData(props.tableSpec),
+    openCommentThreadTarget: state.review.openThread ? state.review.openThread.target : null
+  }
 }
 
 export default connect(mapStateToProps, {tableValueChanged, tableChanged, fetchTableData})(FraTable)
