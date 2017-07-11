@@ -28,7 +28,7 @@ class ReviewWrapper extends React.Component {
       : 0
     return <td ref="rowAnchor">
       <div className="traditional-table__review-indicator-row-anchor" style={{top: top}}>
-        <ReviewIndicator section={`TraditionalTable-${this.props.tableSpec.name}`}
+        <ReviewIndicator section={`traditionalTable-${this.props.tableSpec.name}`}
                          name=""
                          target={commentTarget(this.props.rowIdx)}
                          countryIso={this.props.countryIso}/>
