@@ -34,6 +34,12 @@ module.exports.init = app => {
       .catch(err => sendErr(res, err))
   })
 
+  app.delete('/odp/draft', (req, res) => {
+    return db.transaction(odpRepository.deleteDraft, [req.query.odpId])
+      .then(() => res.json({}))
+      .catch(err => sendErr(res, err))
+  })
+
   app.post('/odp/markAsActual', (req, res) =>
     db.transaction(odpRepository.markAsActual, [req.query.odpId])
       .then(() => res.json({}))
