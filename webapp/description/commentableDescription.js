@@ -14,10 +14,8 @@ const assertProps = props =>
     'Some property is missing for CommentableDescription'
   )
 
-
 class CommentableReviewDescription extends React.Component {
   render() {
-    console.log('CommentableReviewDescription.render')
     assertProps(this.props)
     return <div className="tv__description-with-review-indicator">
       <div className="tv__description-wrapper">
