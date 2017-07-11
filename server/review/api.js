@@ -1,7 +1,7 @@
 const R = require('ramda')
 
 const db = require('../db/db')
-
+const {sendErr} = require('../requestUtils')
 const issueRepository = require('./reviewRepository')
 
 module.exports.init = app => {
