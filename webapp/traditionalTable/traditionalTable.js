@@ -40,7 +40,8 @@ class ReviewWrapper extends React.Component {
 const tableRows = (props) => {
   return mapIndexed(
     (rowSpec, rowIdx) =>
-      <tr key={rowIdx} className={rowShouldBeHighlighted(rowIdx, props.openCommentThreadTarget) ? 'fra-row-comments__open' : ''}>
+      <tr key={rowIdx}
+          className={rowShouldBeHighlighted(rowIdx, props.openCommentThreadTarget) ? 'fra-row-comments__open' : ''}>
         {
           mapIndexed(
             (cellSpec, colIdx) => <Cell key={`${rowIdx}-${colIdx}`}
