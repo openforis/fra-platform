@@ -8,7 +8,7 @@ const validateOdp = odp => {
 
   const validYear = R.pipe(
     defaultTo0,
-    R.partialRight(R.gt, [0]),
+    R.partialRight(R.gt, [0])
   )(odp.year)
 
   const validateNationalClassPercentage = cls => R.pipe(
