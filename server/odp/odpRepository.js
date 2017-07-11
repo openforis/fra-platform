@@ -54,11 +54,13 @@ const updateDraft = (client, draft) =>
       [draft.year, draft.description, draftId])
   )
 
-module.exports.deleteDraft = (client, draft) =>
-  client.query(
-    'SELECT draft_id FROM odp WHERE id = $1', [draft.odpId]
-  ).then(res => res.rows[0].draft_id
-  ).then(draftId => client.query('DELETE FROM odp_version WHERE id = $1', [draftId]))
+module.exports.deleteDraft = (client, odpId) =>
+  client.query('SELECT draft_id FROM odp WHERE id = $1', [odpId])
+    .then(res => res.rows[0].draft_id)
+    .then(draftId => client.query('DELETE FROM odp_version WHERE id = $1', [draftId]))
+    .then(() => client.query('SELECT actual_id FROM odp WHERE id = $1', [odpId]))
+    .then(res => res.rows[0].actual_id)
+    .then(actualId => actualId ? null : deleteOdp(client, odpId))
 
 const wipeClassData = (client, odpVersionId) =>
   client.query('DELETE FROM odp_class WHERE odp_version_id = $1', [odpVersionId])
@@ -111,7 +113,7 @@ module.exports.markAsActual = (client, odpId) => {
   })
 }
 
-module.exports.deleteOdp = (client, odpId) => {
+const deleteOdp = (client, odpId) => {
   return client.query(
     'SELECT actual_id, draft_id FROM odp WHERE id = $1'
     , [odpId]
@@ -131,6 +133,7 @@ module.exports.deleteOdp = (client, odpId) => {
     ])
   })
 }
+module.exports.deleteOdp = deleteOdp
 
 module.exports.getOdp = odpId =>
   db.query(`
