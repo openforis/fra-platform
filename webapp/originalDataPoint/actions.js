@@ -18,18 +18,23 @@ export const saveDraft = (countryIso, obj) => dispatch => {
   dispatch(autosave.start)
   dispatch(startSavingDraft(obj))
   dispatch(persistDraft(countryIso, obj))
+  if (obj.validationStatus)
+    dispatch(validationCompleted(validateDataPoint(obj)))
 }
 
 const startSavingDraft = (obj) => ({type: odpSaveDraftStart, active: obj})
 
+const validationCompleted = validationStatus => ({type: odpValidationCompleted, data: validationStatus})
+
 const persistDraft = (countryIso, odp) => {
-  const dispatched = dispatch =>
+  const dispatched = dispatch => {
     axios.post(`/api/odp/draft/?countryIso=${countryIso}`, removeClassPlaceholder(odp)).then((resp) => {
       dispatch(autosave.complete)
       dispatch(saveDraftCompleted(resp.data.odpId))
     }).catch((err) => {
       dispatch(applicationError(err))
     })
+  }
 
   dispatched.meta = {
     debounce: {
@@ -64,7 +69,7 @@ export const markAsActual = (countryIso, odp) => dispatch => {
   dispatch(autosave.start)
 
   const validationStatus = validateDataPoint(odp)
-  dispatch({type: odpValidationCompleted, data: validationStatus})
+  dispatch(validationCompleted(validationStatus))
 
   axios.post(`/api/odp/markAsActual/?odpId=${odp.odpId}`).then(resp => {
     dispatch(autosave.complete)
