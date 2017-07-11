@@ -24,9 +24,9 @@ const startSavingDraft = (obj) => ({type: odpSaveDraftStart, active: obj})
 
 const persistDraft = (countryIso, odp) => {
   const dispatched = dispatch =>
-    axios.post(`/api/odp/draft/?countryIso=${countryIso}&validate=${odp.validationStatus ? 'true' : 'false'}`, removeClassPlaceholder(odp)).then((resp) => {
+    axios.post(`/api/odp/draft/?countryIso=${countryIso}`, removeClassPlaceholder(odp)).then((resp) => {
       dispatch(autosave.complete)
-      dispatch(saveDraftCompleted(resp.data.odpId, resp.data.validationStatus))
+      dispatch(saveDraftCompleted(resp.data.odpId))
     }).catch((err) => {
       dispatch(applicationError(err))
     })
@@ -40,7 +40,7 @@ const persistDraft = (countryIso, odp) => {
   return dispatched
 }
 
-const saveDraftCompleted = (odpId, validationStatus) => ({type: odpSaveDraftCompleted, odpId, validationStatus})
+const saveDraftCompleted = odpId => ({type: odpSaveDraftCompleted, odpId})
 
 // clear active
 
