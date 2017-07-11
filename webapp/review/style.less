@@ -78,15 +78,21 @@
   padding: 8px 16px;
 }
 
+.fra-review__issue-comment-input-border {
   border-radius: 2px;
-  margin: 8px 16px;
-  height: 36px;
-  min-height: 36px;
-  max-height: 76px;
-  width: 256px;
-  resize: none;
-  padding: 8px;
+  border: @ui-thin-border;
+}
+
+.fra-review__issue-comment-input {
+  border: none;
+  display: block;
+  font-family: @font-family-1;
   font-size: @font-s;
+  line-height: 18px;
+  padding: 8px;
+  padding-right: 32px;
+  resize: none;
+  }
 
   &:focus {
     outline: none;
