@@ -81,6 +81,7 @@
 .fra-review__issue-comment-input-border {
   border-radius: 2px;
   border: @ui-thin-border;
+  overflow: hidden;
 }
 
 .fra-review__issue-comment-input {
@@ -89,9 +90,12 @@
   font-family: @font-family-1;
   font-size: @font-s;
   line-height: 18px;
+  max-height: 400px;
+  overflow: auto;
   padding: 8px;
   padding-right: 32px;
   resize: none;
+  width: 278px;
   }
 
   &:focus {
