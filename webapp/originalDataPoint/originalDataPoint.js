@@ -74,12 +74,18 @@ export const validateDataPoint = odp => {
   )(cls)
 
   const nationalClasses = R.map(
-    c => ({uuid: c.uuid, validPercentage: validateNationalClassPercentage(c)})
-    , R.filter(c => !c.placeHolder, odp.nationalClasses))
+    c => R.pipe(
+      R.assoc('uuid', c.uuid),
+      R.assoc('validClassName', R.not(R.isEmpty(c.className))),
+      v => R.assoc('validArea', c.placeHolder || !v.validClassName ? true : !isNaN(parseFloat(c.area)), v),
+      v => R.assoc('validPercentage', c.placeHolder || !v.validArea || !v.validClassName ? true : validateNationalClassPercentage(c), v),
+      v => R.assoc('valid', v.validClassName && v.validArea && v.validPercentage, v)
+    )({})
+    , odp.nationalClasses)
 
   return {
     year: {valid: validYear},
     nationalClasses,
-    valid: !validYear || R.filter(c => !c.validPercentage, nationalClasses).length !== 0 ? false : true
+    valid: !validYear || R.filter(c => !c.valid, nationalClasses).length !== 0 ? false : true
   }
 }
