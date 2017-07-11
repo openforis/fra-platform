@@ -54,6 +54,12 @@ const updateDraft = (client, draft) =>
       [draft.year, draft.description, draftId])
   )
 
+module.exports.deleteDraft = (client, draft) =>
+  client.query(
+    'SELECT draft_id FROM odp WHERE id = $1', [draft.odpId]
+  ).then(res => res.rows[0].draft_id
+  ).then(draftId => client.query('DELETE FROM odp_version WHERE id = $1', [draftId]))
+
 const wipeClassData = (client, odpVersionId) =>
   client.query('DELETE FROM odp_class WHERE odp_version_id = $1', [odpVersionId])
 
