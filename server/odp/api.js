@@ -20,7 +20,11 @@ const validateOdp = odp => {
     c => ({uuid: c.uuid, validPercentage: validateNationalClassPercentage(c)})
     , odp.nationalClasses)
 
-  return {year: {valid: validYear}, nationalClasses}
+  return {
+    year: {valid: validYear},
+    nationalClasses,
+    valid: !validYear || R.filter(c => !c.validPercentage, nationalClasses).length !== 0 ? false : true
+  }
 }
 
 module.exports.init = app => {
