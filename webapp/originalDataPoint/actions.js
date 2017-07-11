@@ -1,12 +1,18 @@
+import axios from 'axios'
 import { applicationError } from '../applicationError/actions'
 import * as autosave from '../autosave/actions'
-import { removeClassPlaceholder, addNationalClassPlaceHolder, copyNationalClasses } from './originalDataPoint'
-import axios from 'axios'
+import {
+  removeClassPlaceholder,
+  addNationalClassPlaceHolder,
+  copyNationalClasses,
+  validateDataPoint
+} from './originalDataPoint'
 
 // Drafting
 
 export const odpSaveDraftStart = 'originalDataPoint/saveDraft/start'
 export const odpSaveDraftCompleted = 'originalDataPoint/saveDraft/completed'
+export const odpValidationCompleted = 'originalDataPoint/validationStatus/completed'
 
 export const saveDraft = (countryIso, obj) => dispatch => {
   dispatch(autosave.start)
@@ -54,17 +60,17 @@ export const remove = (countryIso, odpId) => dispatch => {
 
 // Marking drafts
 
-export const odpValidationStatusFetchCompleted = 'originalDataPoint/validationStatus/fetch/completed'
-
-export const markAsActual = (countryIso, odpId) => dispatch => {
+export const markAsActual = (countryIso, odp) => dispatch => {
   dispatch(autosave.start)
-  axios.post(`/api/odp/markAsActual/?odpId=${odpId}`).then(resp => {
-    if (resp.data.valid) {
+
+  const validationStatus = validateDataPoint(odp)
+  dispatch({type: odpValidationCompleted, data: validationStatus})
+
+  axios.post(`/api/odp/markAsActual/?odpId=${odp.odpId}`).then(resp => {
+    dispatch(autosave.complete)
+    if (validationStatus.valid) {
       dispatch({type: odpClearActiveAction})
       window.location = `#/country/${countryIso}`
-    } else {
-      dispatch({type: odpValidationStatusFetchCompleted, data: resp.data})
-      dispatch(autosave.complete)
     }
   }).catch(err =>
     dispatch(applicationError(err))

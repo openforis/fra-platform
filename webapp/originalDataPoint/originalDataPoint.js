@@ -75,7 +75,7 @@ export const validateDataPoint = odp => {
 
   const nationalClasses = R.map(
     c => ({uuid: c.uuid, validPercentage: validateNationalClassPercentage(c)})
-    , odp.nationalClasses)
+    , R.filter(c => !c.placeHolder, odp.nationalClasses))
 
   return {
     year: {valid: validYear},
