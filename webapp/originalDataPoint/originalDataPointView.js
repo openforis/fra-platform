@@ -22,7 +22,7 @@ import ReviewIndicator from '../review/reviewIndicator'
 
 const years = ['', ...R.range(1990, 2021)]
 
-const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, copyPreviousNationalClasses, cancelDraft}) => {
+const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, copyPreviousNationalClasses, cancelDraft, copyDisabled}) => {
   const countryIso = match.params.countryIso
   const saveControlsDisabled = () => !active.odpId || autoSaving
   const copyPreviousClassesDisabled = () => active.year && !autoSaving ? false : true
@@ -43,7 +43,7 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
     <div>
       <h3 className="subhead odp__section">
         National classes
-        <button disabled={copyPreviousClassesDisabled()}
+        <button disabled={copyDisabled || copyPreviousClassesDisabled()}
                 className="btn btn-primary btn-copy-prev-values"
                 onClick={() => copyPreviousNationalClasses(countryIso, active)}>
           Copy previous values
@@ -346,7 +346,7 @@ class OriginalDataPointView extends React.Component {
           <h2 className="headline">National data point</h2>
         </div>
         {this.props.active
-          ? <DataInput {...this.props}/>
+          ? <DataInput copyDisabled={R.not(R.isNil(R.path(['match','params','odpId'], this.props)))} {...this.props}/>
           : null}
       </div>
     </LoggedInPageTemplate>
