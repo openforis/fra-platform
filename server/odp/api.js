@@ -13,7 +13,7 @@ module.exports.init = app => {
     }
     if (R.not(R.isNil(req.query.countryIso))) {
       odpRepository.listOriginalDataPoints(req.query.countryIso)
-        .then(resp => res.json(R.sort((a, b) => a.year - b.year, R.values(resp))))
+        .then(resp => res.json(resp))
         .catch(err => {
           console.error(err)
           res.status(500).json({error: 'Could not retrieve data'})
