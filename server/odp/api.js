@@ -2,7 +2,6 @@ const R = require('ramda')
 const db = require('../db/db')
 const odpRepository = require('./odpRepository')
 const {sendErr} = require('../requestUtils')
-const {validateDataPoint} = require('../../common/originalDataPoint')
 
 module.exports.init = app => {
 
@@ -13,10 +12,8 @@ module.exports.init = app => {
         .catch(err => sendErr(res, err))
     }
     if (R.not(R.isNil(req.query.countryIso))) {
-      odpRepository.listOriginalDataPoints(req.query.countryIso)
-        .then(resp =>
-          res.json(R.map(odp => R.assoc('validationStatus', validateDataPoint(odp), odp), resp))
-        )
+      odpRepository.listAndValidateOriginalDataPoints(req.query.countryIso)
+        .then(resp => res.json(resp))
         .catch(err => {
           console.error(err)
           res.status(500).json({error: 'Could not retrieve data'})
