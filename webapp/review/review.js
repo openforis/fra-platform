@@ -36,14 +36,15 @@ const AddComment = ({issueId, countryIso, section, target, postComment, onCancel
     </div>
   </div>
 
-const CommentThread = ({comments}) => {
+const CommentThread = ({comments, userInfo = {}}) => {
+  const isThisMe = R.pipe(R.prop('userId'), R.equals(userInfo.id))
   return <div className={`fra-review__comment-widget-visible`}>
     <div className={`fra-review__issue fra-review__issue-visible`}>
       <div className='fra-review__comments'>
         {
           comments && R.not(R.isEmpty(comments)) ? mapIndexed((c, i) =>
               <div key={i} className="fra-review__comment">
-                <div className="fra-review__comment-author">{c.username}</div>
+                <div className={`fra-review__comment-author ${isThisMe(c) ? 'author-me' : ''}`}>{c.username}</div>
                 <div className="fra-review__comment-time">Just now</div>
                 <div className="fra-review__comment-text">
                   {c.message}
@@ -91,7 +92,8 @@ class ReviewPanel extends React.Component {
     return <div className={`fra-review-${isActive ? 'active' : 'hidden'}`}>
       <ReviewHeader name={name} close={close}/>
       <CommentThread
-        comments={comments}/>
+        comments={comments}
+        userInfo={this.props.userInfo}/>
       <AddComment issueId={issueId}
                   countryIso={this.props.country}
                   section={section}

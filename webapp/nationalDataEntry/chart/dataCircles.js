@@ -13,7 +13,7 @@ const renderPoints = ({xScale, yScale}) => (d, index) => {
 
   return (circleProps.cx && circleProps.cy)
     ? <circle {...circleProps}
-              fill={d.type === 'fra' ? '#FFF' : '#189aa7' }
+              fill={d.type === 'fra' ? '#ffffff' : '#0098a6' }
               stroke={d.type === 'fra' ? '#333333' : 'none'  }
               strokeWidth={d.type === 'fra' ? 1.5 : 0 }/>
     : null
@@ -54,7 +54,7 @@ const DataCircles = (props) => {
           }}></path>
     <path d={renderTrend({...props, data: odps})} style={{
       fill: 'none',
-      stroke: 'rgba(24,154,167,.5)',
+      stroke: 'rgba(0,152,166,.5)',
       strokeWidth: 2,
       shapeRendering: 'geometricPrecision'
     }}></path>

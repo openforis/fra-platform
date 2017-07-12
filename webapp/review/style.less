@@ -172,15 +172,29 @@
   line-height: 20px;
   cursor: pointer;
   font-size: @font-xxs;
+  transition: @ease-out;
 }
 
-.fra-review__issue-status-visible {
+.fra-review__issue-status {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 32px;
   height: 41px;
   cursor: pointer;
+
+  .icon {
+    transition: @ease-out;
+  }
+
+  &.active,
+  &:hover {
+    .icon {
+      fill: rgba(0,0,0,.75);
+      width: 20px;
+      height: 20px;
+    }
+  }
 }
 
 .fra-review__comment-add-btn {
@@ -190,6 +204,10 @@
 .fra-review__comment-author {
   font-size: @font-s;
   font-weight: bold;
+
+  &.author-me {
+    color: darken(@ui-accent, 2%);
+  }
 }
 
 .fra-review__comment-time {
