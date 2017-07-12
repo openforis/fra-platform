@@ -32,7 +32,7 @@ class CommentableReviewDescription extends React.Component {
       </div>
       <div className="commentable-description__review-indicator-wrapper">
         <ReviewIndicator section={this.props.section}
-                         name=""
+                         name={this.props.descriptionTitle}
                          target={reviewIndicatorTarget}
                          countryIso={this.props.countryIso}/>
       </div>
