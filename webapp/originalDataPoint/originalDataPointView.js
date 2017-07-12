@@ -333,7 +333,6 @@ class OriginalDataPointView extends React.Component {
   }
 
   render () {
-    console.log('odp',R.path(['match','params','odpId'], this.props))
     return <LoggedInPageTemplate>
       <div className="odp__container">
         <div className="odp_data-page-header">
