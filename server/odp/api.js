@@ -74,7 +74,6 @@ module.exports.init = app => {
           : res.json({})
       })
       .catch(err => sendErr(res, err))
-
   })
 
 }
