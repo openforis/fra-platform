@@ -74,17 +74,32 @@
   margin-top: 8px;
 }
 
-.fra-review__issue-comment-input {
-  border: @ui-thin-border;
+.fra-review__add-comment {
+  padding: 8px 16px;
+}
+
+.fra-review__issue-comment-input-border {
   border-radius: 2px;
-  margin: 8px 16px;
-  height: 36px;
-  min-height: 36px;
-  max-height: 76px;
-  width: 256px;
-  resize: none;
-  padding: 8px;
+  border: @ui-thin-border;
+  overflow: hidden;
+}
+
+.fra-review__issue-comment-input {
+  border: none;
+  display: block;
+  font-family: inherit;
   font-size: @font-s;
+  line-height: 18px;
+  max-height: 400px;
+  overflow: auto;
+  padding: 8px;
+  padding-right: 32px;
+  resize: none;
+  width: 278px;
+
+  &::placeholder {
+    color: @text-disabled;
+  }
 
   &:focus {
     outline: none;
@@ -92,7 +107,7 @@
 }
 
 .fra-review__comment-buttons {
-  padding: 0 16px 8px;
+  padding-top: 8px;
 }
 
 .fra-review__comment-edit-author-empty {

@@ -8,29 +8,20 @@ import './style.less'
 
 const mapIndexed = R.addIndex(R.map)
 
-const onCommentKeyInput = (onCancel, target) => e => {
-  if (e.keyCode === 8) {
-    const elem = document.getElementById(`fra-review__comment-input-${target}`)
-    if (elem.textLength === 0) {
-      elem.style.height = '40px'
-    }
-  }
-  if (e.keyCode === 27) { // escape
-    onCancel()
-  }
-}
-
 const AddComment = ({issueId, countryIso, section, target, postComment, onCancel, isFirst, userInfo}) =>
   <div className="fra-review__add-comment">
-    <textarea
-      onKeyUp={onCommentKeyInput(onCancel, target)}
-      onInput={() => {
-        const elem = document.getElementById(`fra-review__comment-input-${target}`)
-        elem.style.height = `${elem.scrollHeight}px`
-      }}
-      id={`fra-review__comment-input-${target}`}
-      className="fra-review__issue-comment-input"
-      placeholder="Write a comment"/>
+    <div className="fra-review__issue-comment-input-border">
+      <textarea
+        rows="1"
+        onInput={() => {
+          const elem = document.getElementById(`fra-review__comment-input-${target}`)
+          elem.style.height = 'auto'
+          elem.style.height = `${elem.scrollHeight}px`
+        }}
+        id={`fra-review__comment-input-${target}`}
+        className="fra-review__issue-comment-input"
+        placeholder="Write a comment…"/>
+    </div>
     <div className="fra-review__comment-buttons">
       <button className="fra-review__comment-add-btn btn btn-primary btn-s"
               onClick={() => {
