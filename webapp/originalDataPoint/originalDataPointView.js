@@ -19,7 +19,6 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
   const saveControlsDisabled = () => !active.odpId || autoSaving
   const copyPreviousClassesDisabled = () => active.year && !autoSaving ? false : true
 
-
   return <div className="odp__data-input-component">
     <div className="odp_data-input-row">
       <div>
@@ -320,15 +319,9 @@ class CommentsEditor extends React.Component {
 
 class OriginalDataPointView extends React.Component {
 
-  constructor (props) {
-    super(props)
-    this.state = {copyPreviousDisabled: false}
-  }
-
   componentDidMount () {
     const odpId = this.props.match.params.odpId
     if (odpId) {
-      this.setState({copyPreviousDisabled: true})
       this.props.fetch(odpId)
     } else {
       this.props.clearActive()
@@ -340,14 +333,14 @@ class OriginalDataPointView extends React.Component {
   }
 
   render () {
-    console.log('odp props', this.props)
+    console.log('odp',R.path(['match','params','odpId'], this.props))
     return <LoggedInPageTemplate>
       <div className="odp__container">
         <div className="odp_data-page-header">
           <h2 className="headline">National data point</h2>
         </div>
         {this.props.active
-          ? <DataInput copyDisabled={this.state.copyPreviousDisabled} {...this.props}/>
+          ? <DataInput copyDisabled={R.not(R.isNil(R.path(['match','params','odpId'], this.props)))} {...this.props}/>
           : null}
       </div>
     </LoggedInPageTemplate>
