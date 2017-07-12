@@ -41,7 +41,7 @@ const DataInput = ({match, years, saveDraft, markAsActual, remove, active, autoS
               year =>
                 <option key={year}
                         value={year}
-                        disabled={R.and(R.contains(year, unselectable), R.not(R.equals(year, active.year)))}>
+                        disabled={R.contains(year, unselectable)}>
                   {year}</option>
             )
           }
