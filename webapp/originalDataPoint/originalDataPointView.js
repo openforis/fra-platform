@@ -209,7 +209,7 @@ const NationalClassRow = ({odp, index, saveDraft, countryIso, className, definit
   </tr>
 
 const extentOfForestCols = ['area', 'forestPercent', 'otherWoodedLandPercent', 'otherLandPercent']
-const extentOfForestRows = (countryIso, odp, saveDraft) =>
+const extentOfForestRows = (countryIso, odp, saveDraft, openThread) =>
   R.pipe(
     R.filter(nationalClass => !nationalClass.placeHolder),
     mapIndexed((nationalClass, index) => <ExtentOfForestRow
@@ -218,6 +218,7 @@ const extentOfForestRows = (countryIso, odp, saveDraft) =>
       odp={odp}
       saveDraft={saveDraft}
       countryIso={countryIso}
+      openThread={openThread}
       {...nationalClass}/>)
   )(odp.nationalClasses)
 
@@ -231,13 +232,14 @@ const ExtentOfForestRow = ({
                              forestPercent,
                              otherWoodedLandPercent,
                              otherLandPercent,
+                             openThread,
                              ...props
                            }) => {
 
   const numberUpdated = (fieldName, currentValue) => evt =>
     saveDraft(countryIso, originalDataPoint.updateNationalClass(odp, index, fieldName, acceptNextInteger(evt.target.value, currentValue)))
 
-  return <tr>
+  return <tr className={isCommentsOpen([odp.nationalClasses[index].uuid, 'ndp_class_value'], openThread) ? 'fra-row-comments__open' : ''}>
     <td className="odp__eof-class-name"><span>{className}</span></td>
     <td className="odp__eof-area-cell odp__eof-divide-after-cell">
       <ThousandSeparatedIntegerInput integerValue={ area }
