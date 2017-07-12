@@ -26,10 +26,11 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
   const countryIso = match.params.countryIso
   const saveControlsDisabled = () => !active.odpId || autoSaving
   const copyPreviousClassesDisabled = () => active.year && !autoSaving ? false : true
+  const yearValidationStatusClass = () => active.validationStatus && !active.validationStatus.year.valid ? 'error' : ''
 
-  return <div className="odp__data-input-component">
+  return <div className="odp__data-input-component form-group">
     <div className="odp_data-input-row">
-      <div>
+      <div className={`${yearValidationStatusClass()}`}>
         <h3 className="subhead">Year</h3>
         <select
           className="select"
@@ -120,8 +121,8 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
         </a>
         <button disabled={ saveControlsDisabled() }
                 className="btn btn-primary"
-                onClick={() => markAsActual(countryIso, active.odpId) }>
-          Save & Close
+                onClick={() => markAsActual(countryIso, active) }>
+          Save data
         </button>
       </div>
     </div>
@@ -160,6 +161,10 @@ const updatePastedValues = (odp, rowIndex, saveDraft, countryIso, dataCols, colI
   saveDraft(countryIso, odp)
 }
 
+const getValidationStatusRow = (odp, index) => odp.validationStatus
+  ? R.defaultTo({}, R.find(R.propEq('uuid', odp.nationalClasses[index].uuid), odp.validationStatus.nationalClasses))
+  : {}
+
 const nationalClassCols = ['className', 'definition']
 const nationalClassRows = (countryIso, odp, saveDraft) => {
   return mapIndexed((nationalClass, index) => <NationalClassRow
@@ -173,7 +178,8 @@ const nationalClassRows = (countryIso, odp, saveDraft) => {
 
 const NationalClassRow = ({odp, index, saveDraft, countryIso, className, definition, placeHolder}) =>
   <tr>
-    <td className="odp__national-class-row-class-name">
+    <td
+      className={`odp__national-class-row-class-name ${getValidationStatusRow(odp, index).validClassName === false ? 'error' : ''}`}>
       { placeHolder
         ? null //placeHolder-rows can't be removed
         : <div
@@ -186,7 +192,7 @@ const NationalClassRow = ({odp, index, saveDraft, countryIso, className, definit
       }
       <input className="odp__national-class-row-class-name-input"
              type="text"
-             placeholder={ !placeHolder ? 'Enter or copy and paste national classes' : ''}
+             placeholder={ placeHolder && index === 0 ? 'Enter or copy and paste national classes' : ''}
              value={className || ''}
              onChange={(evt) =>
                saveDraft(countryIso, originalDataPoint.updateNationalClass(odp, index, 'className', evt.target.value))}
@@ -241,14 +247,18 @@ const ExtentOfForestRow = ({
   const numberUpdated = (fieldName, currentValue) => evt =>
     saveDraft(countryIso, originalDataPoint.updateNationalClass(odp, index, fieldName, acceptNextInteger(evt.target.value, currentValue)))
 
+  const validationStatus = getValidationStatusRow(odp, index)
+  const validationStatusPercentage = () => validationStatus.validPercentage === false ? 'error' : ''
+
   return <tr>
     <td className="odp__eof-class-name"><span>{className}</span></td>
-    <td className="odp__eof-area-cell odp__eof-divide-after-cell">
+    <td
+      className={`odp__eof-area-cell odp__eof-divide-after-cell ${validationStatus.validArea === false ? 'error' : ''}`}>
       <ThousandSeparatedIntegerInput integerValue={ area }
                                      onChange={ numberUpdated('area', area) }
                                      onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 0, true, false) }/>
     </td>
-    <td className="odp__eof-percent-cell">
+    <td className={`odp__eof-percent-cell ${validationStatusPercentage()}`}>
       <input
         type="text"
         value={forestPercent || ''}
@@ -257,7 +267,7 @@ const ExtentOfForestRow = ({
       />
       % &nbsp;
     </td>
-    <td className="odp__eof-percent-cell">
+    <td className={`odp__eof-percent-cell ${validationStatusPercentage()}`}>
       <input
         type="text"
         value={otherWoodedLandPercent || ''}
@@ -266,7 +276,7 @@ const ExtentOfForestRow = ({
       />
       % &nbsp;
     </td>
-    <td className="odp__eof-percent-cell">
+    <td className={`odp__eof-percent-cell ${validationStatusPercentage()}`}>
       <input
         type="text"
         value={otherLandPercent || ''}

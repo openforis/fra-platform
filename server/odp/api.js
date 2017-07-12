@@ -42,8 +42,8 @@ module.exports.init = app => {
 
   app.post('/odp/markAsActual', (req, res) =>
     db.transaction(odpRepository.markAsActual, [req.query.odpId])
-      .then(() => res.json({}))
-      .catch(err => sendErr(res, err))
+      .then(() => res.json({})
+      ).catch(err => sendErr(res, err))
   )
 
   app.get('/prevOdp/:countryIso/:year', (req, res) => {
