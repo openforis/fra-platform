@@ -68,7 +68,7 @@ const ReviewHeader = ({name, close}) =>
         <use xlinkHref="img/icon.svg#icon-small-remove"/>
       </svg>
     </div>
-    <div className="fra-review__header-target">{name}</div>
+    {name ? <div className="fra-review__header-target">{name}</div> : null}
   </div>
 
 class ReviewPanel extends React.Component {
