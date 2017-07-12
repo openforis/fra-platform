@@ -3,6 +3,7 @@ const R = require('ramda')
 const Promise = require('bluebird')
 const camelize = require('camelize')
 const {toNumberOrNull} = require('../utils/databaseConversions')
+const {validateDataPoint} = require('../../common/originalDataPoint')
 
 module.exports.saveDraft = (client, countryIso, draft) =>
   !draft.odpId ? createOdp(client, countryIso)
@@ -228,8 +229,16 @@ module.exports.readOriginalDataPoints = (countryIso) =>
       GROUP BY odp_id, v.year, draft 
   `, [countryIso]).then(result => R.reduce(odpReducer, {}, result.rows))
 
-module.exports.listOriginalDataPoints = countryIso =>
+const listOriginalDataPoints = countryIso =>
   db.query(`SELECT p.id as odp_id FROM odp p WHERE country_iso = $1`, [countryIso])
     .then(res => res.rows.map(r => getOdp(r.odp_id)))
     .then(getOdps => Promise.all(getOdps))
     .then(odps => R.sort((a, b) => Number(R.defaultTo(0, a.year)) - Number(R.defaultTo(0, b.year)), R.values(odps)))
+
+module.exports.listOriginalDataPoints = listOriginalDataPoints
+
+module.exports.listAndValidateOriginalDataPoints = countryIso =>
+  listOriginalDataPoints(countryIso)
+    .then(odps => R.map(odp => R.assoc('validationStatus', validateDataPoint(odp), odp), odps))
+
+

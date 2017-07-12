@@ -2,7 +2,6 @@ const R = require('ramda')
 const db = require('../db/db')
 const odpRepository = require('./odpRepository')
 const {sendErr} = require('../requestUtils')
-const {validateDataPoint} = require('../../common/originalDataPoint')
 
 module.exports.init = app => {
 
@@ -28,7 +27,7 @@ module.exports.init = app => {
   })
 
   app.get('/odps/:countryIso', (req, res) => {
-    odpRepository.listOriginalDataPoints(req.params.countryIso)
+    odpRepository.listAndValidateOriginalDataPoints(req.params.countryIso)
       .then(resp => res.json(R.sort((a, b) => a.year - b.year, R.values(resp))))
       .catch(err => {
         console.error(err)
