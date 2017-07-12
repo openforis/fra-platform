@@ -60,27 +60,15 @@ module.exports.init = app => {
   })
 
   app.get('/nav/status/:countryIso', (req, res) => {
-    const odpData = odpRepository.listOriginalDataPoints(req.params.countryIso, true)
+    const odpData = odpRepository.listAndValidateOriginalDataPoints(req.params.countryIso)
     const reviewStatus = reviewRepository.allIssues(req.params.countryIso)
 
-    const yearsValid = R.pipe( // if year not specified for a odp, raise error flag
-      R.values,
-      R.filter(R.pathEq(['year'], 0)),
-      R.isEmpty
-    )
-    const percentagesValid = R.pipe( // if total percentages of odp go over 100, raise error flag
-      R.values,
-      R.filter(R.pipe(R.prop('totalPercentage'), R.lt(100))),
-      R.isEmpty
-    )
-
     // in future we certainly will need the Promise.all here wink wink
-    Promise.all([odpData, reviewStatus]).then(([odpResult, reviewResult]) => {
+    Promise.all([odpData, reviewStatus]).then(([odps, reviewResult]) => {
       const odpStatus = {
-        count: R.values(odpResult).length,
-        errors: R.contains(false, [yearsValid(odpResult), percentagesValid(odpResult)]),
+        count: odps.length,
+        errors: R.filter(o => !o.validationStatus.valid, odps).length !== 0,
       }
-
 
       res.json(R.merge({reviewStatus: reviewResult}, {odpStatus}))
     })
