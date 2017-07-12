@@ -1,5 +1,5 @@
 const camelize = require('camelize')
-const db = require('./db/db')
+const db = require('../db/db')
 
 module.exports.getIssues = (countryIso, section) => {
   return db.query(`
@@ -10,6 +10,17 @@ module.exports.getIssues = (countryIso, section) => {
     JOIN fra_user u ON (u.id = c.user_id)
     WHERE i.country_iso = $1 AND i.section = $2;
   `, [countryIso, section]).then(res => {
+      return camelize(res.rows)
+    }
+  )
+}
+
+module.exports.allIssues = countryIso => {
+  return db.query(`
+    SELECT i.id as issue_id, i.section as section, i.target as target, i.status as status
+    FROM issue i
+    WHERE i.country_iso = $1;
+  `, [countryIso]).then(res => {
       return camelize(res.rows)
     }
   )
