@@ -25,7 +25,7 @@ const DataInput = ({match, years, saveDraft, markAsActual, remove, active, autoS
   const countryIso = match.params.countryIso
   const saveControlsDisabled = () => !active.odpId || autoSaving
   const copyPreviousClassesDisabled = () => active.year && !autoSaving ? false : true
-  const unselectable = R.defaultTo([], active.odpYears)
+  const unselectable = R.defaultTo([], active.reservedYears)
 
   return <div className="odp__data-input-component">
     <div className="odp_data-input-row">

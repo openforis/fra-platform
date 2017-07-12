@@ -13,7 +13,7 @@ module.exports.init = app => {
         const result = R.merge(
           odpResult,
           {
-            odpYears: R.pipe(
+            reservedYears: R.pipe(
               R.values,
               R.map(R.prop('year')),
               R.uniq,

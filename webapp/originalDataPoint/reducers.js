@@ -9,7 +9,7 @@ const actionHandlers = {
     R.assocPath(['active', 'odpId'], Number(action.odpId), state),
   [types.odpFetchCompleted]: (state, action) => R.assoc('active', action.active)(state),
   [types.clearActiveAction ]: (state, action) =>
-    R.assoc('active', R.merge(emptyDataPoint(), {odpYears: R.path(['data', 'odpYears'], action)}), state)
+    R.assoc('active', R.merge(emptyDataPoint(), {reservedYears: R.path(['data', 'reservedYears'], action)}), state)
   ,
   [types.odpListFetchCompleted]: (state, action) => R.assoc('odps', action.data)(state)
 }
