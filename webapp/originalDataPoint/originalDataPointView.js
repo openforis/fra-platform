@@ -336,7 +336,7 @@ class CommentsEditor extends React.Component {
 class OriginalDataPointView extends React.Component {
 
   componentDidMount () {
-    const odpId = R.defaultTo(-1, this.props.match.params.odpId)
+    const odpId = R.defaultTo(null, this.props.match.params.odpId)
     this.props.fetch(odpId, this.props.match.params.countryIso)
   }
 

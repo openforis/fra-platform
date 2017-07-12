@@ -75,8 +75,8 @@ export const odpFetchCompleted = 'originalDataPoint/fetch/completed'
 export const odpListFetchCompleted = 'originalDataPointList/fetch/completed'
 
 export const fetch = (odpId, countryIso) => dispatch =>
-  axios.get(`/api/odp/?odpId=${odpId}&countryIso=${countryIso}`).then(resp => {
-    if (R.equals(odpId, -1)) {
+  axios.get(`/api/odp/?${R.isNil(odpId) ? '' : `odpId=${odpId}&`}countryIso=${countryIso}`).then(resp => {
+    if (R.isNil(odpId)) {
       dispatch({type: clearActiveAction, data: resp.data})
     }
     else {
@@ -87,7 +87,7 @@ export const fetch = (odpId, countryIso) => dispatch =>
       dispatch(applicationError(err))
     )
 export const fetchOdps = countryIso => dispatch =>
-  axios.get(`/api/odp/?countryIso=${countryIso}`).then(resp => {
+  axios.get(`/api/odps/${countryIso}`).then(resp => {
     dispatch({type: odpListFetchCompleted, data: resp.data})
   })
     .catch(err =>
