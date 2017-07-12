@@ -2,6 +2,7 @@ const R = require('ramda')
 const db = require('../db/db')
 const odpRepository = require('./odpRepository')
 const {sendErr} = require('../requestUtils')
+const {validateDataPoint} = require('../../common/originalDataPoint')
 
 module.exports.init = app => {
 

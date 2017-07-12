@@ -1,6 +1,6 @@
-import R from 'ramda'
+const R = require('ramda')
 
-export const validateDataPoint = odp => {
+module.exports.validateDataPoint = odp => {
   const defaultTo0 = R.defaultTo(0)
 
   const validYear = R.pipe(
