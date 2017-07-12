@@ -14,7 +14,9 @@ import ReviewIndicator from '../review/reviewIndicator'
 
 const years = ['', ...R.range(1990, 2021)]
 
-const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, copyPreviousNationalClasses}) => {
+const isCommentsOpen =  (target, openThread = {}) => R.equals('NDP', openThread.section) && R.isEmpty(R.difference(openThread.target, target))
+
+const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, copyPreviousNationalClasses, openThread}) => {
   const countryIso = match.params.countryIso
   const saveControlsDisabled = () => !active.odpId || autoSaving
   const copyPreviousClassesDisabled = () => active.year && !autoSaving ? false : true
@@ -50,7 +52,7 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
         </thead>
         <tbody>
         {
-          nationalClassRows(countryIso, active, saveDraft)
+          nationalClassRows(countryIso, active, saveDraft, openThread)
         }
         </tbody>
       </table>
@@ -73,7 +75,7 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
         </thead>
         <tbody>
         {
-          extentOfForestRows(countryIso, active, saveDraft)
+          extentOfForestRows(countryIso, active, saveDraft, openThread)
         }
         <tr>
           <td className="fra-table__header-cell">Total</td>
@@ -154,18 +156,19 @@ const updatePastedValues = (odp, rowIndex, saveDraft, countryIso, dataCols, colI
 }
 
 const nationalClassCols = ['className', 'definition']
-const nationalClassRows = (countryIso, odp, saveDraft) => {
+const nationalClassRows = (countryIso, odp, saveDraft, openThread) => {
   return mapIndexed((nationalClass, index) => <NationalClassRow
     key={index}
     index={index}
     odp={odp}
     saveDraft={saveDraft}
     countryIso={countryIso}
+    openThread={openThread}
     {...nationalClass}/>, odp.nationalClasses)
 }
 
-const NationalClassRow = ({odp, index, saveDraft, countryIso, className, definition, placeHolder}) =>
-  <tr>
+const NationalClassRow = ({odp, index, saveDraft, countryIso, className, definition, placeHolder, openThread}) =>
+  <tr className={`${isCommentsOpen([odp.nationalClasses[index].uuid, 'class_definition'], openThread) ? 'fra-row-comments__open' : ''}`}>
     <td className="odp__national-class-row-class-name">
       { placeHolder
         ? null //placeHolder-rows can't be removed
@@ -271,7 +274,7 @@ const ExtentOfForestRow = ({
     <td className="odp__col-review">
       <ReviewIndicator section='NDP'
                        name="National data point"
-                       target={[`${odp.nationalClasses[index].uuid}`, 'npd_class_value']}
+                       target={[`${odp.nationalClasses[index].uuid}`, 'ndp_class_value']}
                        countryIso={countryIso}/>
 
     </td>
@@ -350,7 +353,8 @@ const mapStateToProps = state => {
   const odp = state.originalDataPoint
   const autoSaving = !!state.autoSave.status
   const active = odp.active
-  return {...odp, active, autoSaving}
+  const openThread = R.defaultTo({target: [], section: ''}, R.path(['review', 'openThread'], state))
+  return {...odp, active, autoSaving, openThread}
 }
 
 export default connect(mapStateToProps, {
