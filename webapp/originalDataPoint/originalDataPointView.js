@@ -276,6 +276,7 @@ const ExtentOfForestRow = ({
     <td className={`odp__eof-percent-cell ${validationStatusPercentage()}`}>
       <input
         type="text"
+        maxLength="3"
         value={forestPercent || ''}
         onChange={ numberUpdated('forestPercent', forestPercent) }
         onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 1, true, false) }
@@ -285,6 +286,7 @@ const ExtentOfForestRow = ({
     <td className={`odp__eof-percent-cell ${validationStatusPercentage()}`}>
       <input
         type="text"
+        maxLength="3"
         value={otherWoodedLandPercent || ''}
         onChange={ numberUpdated('otherWoodedLandPercent', otherWoodedLandPercent) }
         onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 2, true, false) }
@@ -294,6 +296,7 @@ const ExtentOfForestRow = ({
     <td className={`odp__eof-percent-cell ${validationStatusPercentage()}`}>
       <input
         type="text"
+        maxLength="3"
         value={otherLandPercent || ''}
         onChange={ numberUpdated('otherLandPercent', otherLandPercent) }
         onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 3, true, false) }
