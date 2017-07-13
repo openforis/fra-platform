@@ -10,7 +10,7 @@ class VerticallyGrowingTextField extends React.Component {
 
     this.state = {
       height: DEFAULT_HEIGHT,
-      value: 'Don\'t get lost in the upside down',
+      value: '',
     }
 
     this.setValue = this.setValue.bind(this)
@@ -49,7 +49,6 @@ class VerticallyGrowingTextField extends React.Component {
           className="textarea"
           name="textarea"
           id="textarea"
-          autoFocus={true}
           defaultValue={value}
           style={{
             height,
@@ -69,7 +68,11 @@ class VerticallyGrowingTextField extends React.Component {
         ref={(c) => this.ghost = c}
         aria-hidden="true"
       >
-        {this.state.value ? this.state.value.replace(/\n/, '\nx') : null}
+        {/*
+          Use 'x' as a placeholder to keep ghost field in right height even when
+          there's no input or plain newline before any text in new row
+         */}
+        {this.state.value ? this.state.value.replace(/\n/g, '\nx') : 'x'}
       </div>
     )
   }
