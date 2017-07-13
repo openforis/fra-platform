@@ -5,13 +5,7 @@ class VerticallyGrowingTextField extends React.Component {
 
   constructor (props) {
     super(props)
-
-    this.state = {
-      value: ''
-    }
-
-    this.setValue = this.setValue.bind(this)
-    this.setFilledTextareaHeight = this.setFilledTextareaHeight.bind(this)
+    this.state = {value: null}
   }
 
   componentDidMount () {
@@ -44,11 +38,9 @@ class VerticallyGrowingTextField extends React.Component {
         <textarea
           className="vgtf__textarea"
           defaultValue={value}
-          style={{
-            height
-          }}
-          onChange={this.setValue}
-          onKeyUp={this.setFilledTextareaHeight}
+          style={{height}}
+          onChange={(evt) => this.setValue(evt)}
+          onKeyUp={() => this.setFilledTextareaHeight()}
         />
       </div>
     )
@@ -57,7 +49,7 @@ class VerticallyGrowingTextField extends React.Component {
   getGhostField () {
     return (
       <div
-        className="textarea textarea--ghost"
+        className="vgtf__textarea--ghost"
         ref={(c) => this.ghost = c}
         aria-hidden="true"
       >
