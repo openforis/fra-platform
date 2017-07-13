@@ -39,4 +39,4 @@ module.exports.getOdpIssueTargets = odp => R.pipe(
     }, odp.nationalClasses)
     return a
   }
-)
+)(odp)

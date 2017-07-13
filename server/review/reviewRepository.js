@@ -56,3 +56,10 @@ module.exports.createComment = (client, issueId, userId, msg, status_changed) =>
     VALUES ($1, $2, $3, $4);
  `, [issueId, userId, msg, status_changed])
 
+module.exports.deleteIssues = (client, countryIso, section, targets) =>
+  client.query(`SELECT id AS issue_id FROM issue WHERE country_iso = $1 AND section = $2 AND target IN(${targets.join(',')})`, [countryIso, section])
+    .then(res => res.rows.map(r => r.issue_id))
+    .then(issue_ids => issue_ids.length > 0 ? client.query(`DELETE from fra_comment WHERE issue_id IN (${issue_ids.join(',')})`).then(() => issue_ids) : [])
+    .then(issue_ids => issue_ids.length > 0 ? client.query(`DELETE from issue WHERE id IN (${issue_ids.join(',')})`) : null)
+
+

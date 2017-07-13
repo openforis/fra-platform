@@ -32,13 +32,14 @@ module.exports.init = app => {
     odpRepository
       .listAndValidateOriginalDataPoints(req.params.countryIso)
       .then(odps => {
-        const issues = odps.map(R.pipe(
-          getOdpIssueTargets,
-          targets =>
-            reviewRepository
-              .getIssuesByTargets(req.params.countryIso, 'NDP', targets)
-              .then(issues => R.assoc('issues', issues, odp))
-          )([])
+        const issues = odps.map(odp =>
+          R.pipe(
+            getOdpIssueTargets,
+            targets =>
+              reviewRepository
+                .getIssuesByTargets(req.params.countryIso, 'NDP', targets)
+                .then(issues => R.assoc('issues', issues, odp))
+          )(odp)
         )
         Promise
           .all(issues)
@@ -51,8 +52,11 @@ module.exports.init = app => {
   )
 
   app.delete('/odp', (req, res) => {
-    db.transaction(odpRepository.deleteOdp, [req.query.odpId])
-      .then(() => res.json({}))
+    odpRepository.getOdp(req.query.odpId)
+      .then(odp =>
+        db.transaction(reviewRepository.deleteIssues, [odp.countryIso, 'NDP', getOdpIssueTargets(odp)]))
+      .then(db.transaction(odpRepository.deleteOdp, [req.query.odpId])
+        .then(() => res.json({})))
       .catch(err => sendErr(res, err))
   })
 
