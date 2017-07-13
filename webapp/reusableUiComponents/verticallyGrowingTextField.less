@@ -1,0 +1,28 @@
+
+.container {
+  position: relative;
+}
+
+.textarea {
+  width: 360px;
+  outline: none;
+  min-height: 20px;
+  padding: 0;
+  box-shadow: none;
+  display: block;
+  border: 2px solid black;
+  overflow: hidden;  // Removes scrollbar
+  //transition: height 0.2s ease;
+}
+
+.textarea--ghost {
+  opacity: 0.3;
+  display: block;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  //  Uncomment below to hide the ghost div...
+  //
+  visibility: hidden;
+  position: absolute;
+  top: 0;
+}

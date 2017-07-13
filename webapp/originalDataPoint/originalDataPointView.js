@@ -16,6 +16,7 @@ import { fetchNavStatus } from '../navigation/actions'
 import { acceptNextInteger } from '../utils/numberInput'
 import { separateThousandsWithSpaces } from '../utils/numberFormat'
 import { ThousandSeparatedIntegerInput } from '../reusableUiComponents/thousandSeparatedIntegerInput'
+import VerticallyGrowingTextField from '../reusableUiComponents/verticallyGrowingTextField'
 import LoggedInPageTemplate from '../loggedInPageTemplate'
 import R from 'ramda'
 import ckEditorConfig from '../ckEditor/ckEditorConfig'
@@ -210,12 +211,15 @@ const NationalClassRow = ({odp, index, saveDraft, countryIso, className, definit
       />
     </td>
     <td>
+      { <VerticallyGrowingTextField/>
+        /*
       <input type="text"
              value={definition || '' }
              onChange={(evt) =>
                saveDraft(countryIso, originalDataPoint.updateNationalClass(odp, index, 'definition', evt.target.value))}
              onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, nationalClassCols, 1) }
       />
+       */}
     </td>
     <td className="odp__col-review">
       {placeHolder
