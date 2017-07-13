@@ -22,11 +22,12 @@ import ReviewIndicator from '../review/reviewIndicator'
 
 const years = ['', ...R.range(1990, 2021)]
 
-const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, copyPreviousNationalClasses, cancelDraft, copyDisabled}) => {
+const DataInput = ({match, years, saveDraft, markAsActual, remove, active, autoSaving, copyPreviousNationalClasses, cancelDraft, copyDisabled}) => {
   const countryIso = match.params.countryIso
   const saveControlsDisabled = () => !active.odpId || autoSaving
   const copyPreviousClassesDisabled = () => active.year && !autoSaving ? false : true
   const yearValidationStatusClass = () => active.validationStatus && !active.validationStatus.year.valid ? 'error' : ''
+  const unselectable = R.defaultTo([], active.reservedYears)
 
   return <div className="odp__data-input-component form-group">
     <div className="odp_data-input-row">
@@ -37,7 +38,15 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
           value={active.year || ''}
           onChange={
             (e) => saveDraft(countryIso, R.assoc('year', R.isEmpty(e.target.value) ? null : Number(e.target.value), active)) }>
-          {years.map((year) => <option key={year} value={year}>{year}</option>)}
+          {
+            years.map(
+              year =>
+                <option key={year}
+                        value={year}
+                        disabled={R.contains(year, unselectable)}>
+                  {year}</option>
+            )
+          }
         </select>
       </div>
     </div>
@@ -337,12 +346,8 @@ class CommentsEditor extends React.Component {
 class OriginalDataPointView extends React.Component {
 
   componentDidMount () {
-    const odpId = this.props.match.params.odpId
-    if (odpId) {
-      this.props.fetch(odpId)
-    } else {
-      this.props.clearActive()
-    }
+    const odpId = R.defaultTo(null, this.props.match.params.odpId)
+    this.props.fetch(odpId, this.props.match.params.countryIso)
   }
 
   componentWillUnmount () {
@@ -355,9 +360,14 @@ class OriginalDataPointView extends React.Component {
         <div className="odp_data-page-header">
           <h2 className="headline">National data point</h2>
         </div>
-        {this.props.active
-          ? <DataInput copyDisabled={R.not(R.isNil(R.path(['match','params','odpId'], this.props)))} {...this.props}/>
-          : null}
+        {
+          this.props.active
+          ? <DataInput years={years}
+                       copyDisabled={R.not(R.isNil(R.path(['match','params','odpId'], this.props)))}
+                       {...this.props}/>
+            : null
+
+        }
       </div>
     </LoggedInPageTemplate>
   }

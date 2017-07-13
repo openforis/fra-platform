@@ -6,19 +6,33 @@ const {sendErr} = require('../requestUtils')
 module.exports.init = app => {
 
   app.get('/odp', (req, res) => {
-    if (R.not(R.isNil(req.query.odpId))) {
-      odpRepository.getOdp(req.query.odpId)
-        .then(resp => res.json(resp))
-        .catch(err => sendErr(res, err))
-    }
-    if (R.not(R.isNil(req.query.countryIso))) {
-      odpRepository.listOriginalDataPoints(req.query.countryIso)
-        .then(resp => res.json(R.sort((a, b) => a.year - b.year, R.values(resp))))
-        .catch(err => {
-          console.error(err)
-          res.status(500).json({error: 'Could not retrieve data'})
-        })
-    }
+    const odp = R.isNil(req.query.odpId) ? Promise.resolve({}) : odpRepository.getOdp(req.query.odpId)
+    const odps = odpRepository.listOriginalDataPoints(req.query.countryIso)
+    Promise.all([odp, odps])
+      .then(([odpResult, odpsResult]) => {
+        const result = R.merge(
+          odpResult,
+          {
+            reservedYears: R.pipe(
+              R.values,
+              R.map(R.prop('year')),
+              R.uniq,
+              R.reject(R.equals(R.defaultTo(null, odpResult.year))) // odp's year is not reserved for the odp itself
+            )(odpsResult)
+          }
+        )
+        return res.json(result)
+      })
+      .catch(err => sendErr(res, err))
+  })
+
+  app.get('/odps/:countryIso', (req, res) => {
+    odpRepository.listOriginalDataPoints(req.params.countryIso)
+      .then(resp => res.json(R.sort((a, b) => a.year - b.year, R.values(resp))))
+      .catch(err => {
+        console.error(err)
+        res.status(500).json({error: 'Could not retrieve data'})
+      })
   })
 
   app.delete('/odp', (req, res) => {

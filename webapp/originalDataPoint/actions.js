@@ -1,4 +1,6 @@
 import axios from 'axios'
+import * as R from 'ramda'
+
 import { applicationError } from '../applicationError/actions'
 import * as autosave from '../autosave/actions'
 import {
@@ -86,17 +88,22 @@ export const markAsActual = (countryIso, odp) => dispatch => {
 export const odpFetchCompleted = 'originalDataPoint/fetch/completed'
 export const odpListFetchCompleted = 'originalDataPointList/fetch/completed'
 
-export const fetch = (odpId) => dispatch =>
-  axios.get(`/api/odp/?odpId=${odpId}`).then(resp => {
-    const odp = addNationalClassPlaceHolder(resp.data)
-    dispatch({type: odpFetchCompleted, active: odp})
-    dispatch(validationCompleted(validateDataPoint(odp)))
-  }).catch(err =>
-    dispatch(applicationError(err))
-  )
-
+export const fetch = (odpId, countryIso) => dispatch =>
+  axios.get(`/api/odp/?${R.isNil(odpId) ? '' : `odpId=${odpId}&`}countryIso=${countryIso}`).then(resp => {
+    if (R.isNil(odpId)) {
+      dispatch({type: odpClearActiveAction, data: resp.data})
+    }
+    else {
+      const odp = addNationalClassPlaceHolder(resp.data)
+      dispatch({type: odpFetchCompleted, active: odp})
+      dispatch(validationCompleted(validateDataPoint(odp)))
+    }
+  })
+    .catch(err =>
+      dispatch(applicationError(err))
+    )
 export const fetchOdps = countryIso => dispatch =>
-  axios.get(`/api/odp/?countryIso=${countryIso}`).then(resp => {
+  axios.get(`/api/odps/${countryIso}`).then(resp => {
     dispatch({type: odpListFetchCompleted, data: resp.data})
   }).catch(err =>
     dispatch(applicationError(err))
