@@ -1,16 +1,13 @@
 import React from 'react'
 import './verticallyGrowingTextField.less'
 
-const DEFAULT_HEIGHT = 2
-
 class VerticallyGrowingTextField extends React.Component {
 
   constructor (props) {
     super(props)
 
     this.state = {
-      height: DEFAULT_HEIGHT,
-      value: '',
+      value: ''
     }
 
     this.setValue = this.setValue.bind(this)
@@ -40,19 +37,15 @@ class VerticallyGrowingTextField extends React.Component {
   }
 
   getExpandableField () {
-    const isOneLine = this.state.height <= DEFAULT_HEIGHT
     const {height, value} = this.state
 
     return (
       <div>
         <textarea
-          className="textarea"
-          name="textarea"
-          id="textarea"
+          className="vgtf__textarea"
           defaultValue={value}
           style={{
-            height,
-            resize: isOneLine ? 'none' : null
+            height
           }}
           onChange={this.setValue}
           onKeyUp={this.setFilledTextareaHeight}
