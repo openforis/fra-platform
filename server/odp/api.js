@@ -1,6 +1,7 @@
 const R = require('ramda')
 const db = require('../db/db')
 const odpRepository = require('./odpRepository')
+const reviewRepository = require('../review/reviewRepository')
 const {sendErr} = require('../requestUtils')
 
 module.exports.init = app => {
@@ -26,14 +27,35 @@ module.exports.init = app => {
       .catch(err => sendErr(res, err))
   })
 
-  app.get('/odps/:countryIso', (req, res) => {
-    odpRepository.listAndValidateOriginalDataPoints(req.params.countryIso)
-      .then(resp => res.json(R.sort((a, b) => a.year - b.year, R.values(resp))))
+  app.get('/odps/:countryIso', (req, res) =>
+    odpRepository
+      .listAndValidateOriginalDataPoints(req.params.countryIso)
+      .then(odps => {
+        const issues = odps.map(
+          odp => R.pipe(
+            R.append(`'{"params":["${odp.odpId}","comments"]}'`),
+            a => {
+              R.forEach(c => {
+                a = R.append(`'{"params":["${c.uuid}","class_definition"]}'`, a)
+                a = R.append(`'{"params":["${c.uuid}","npd_class_value"]}'`, a)
+              }, odp.nationalClasses)
+              return a
+            },
+            targets =>
+              reviewRepository
+                .getIssuesByTargets(req.params.countryIso, 'NDP', targets)
+                .then(issues => R.assoc('issues', issues, odp))
+          )([])
+        )
+        Promise
+          .all(issues)
+          .then(odpsWithIssues => res.json(odpsWithIssues))
+      })
       .catch(err => {
         console.error(err)
         res.status(500).json({error: 'Could not retrieve data'})
       })
-  })
+  )
 
   app.delete('/odp', (req, res) => {
     db.transaction(odpRepository.deleteOdp, [req.query.odpId])
