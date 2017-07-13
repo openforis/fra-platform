@@ -14,6 +14,7 @@ import {
 } from './actions'
 import { fetchNavStatus } from '../navigation/actions'
 import { acceptNextInteger } from '../utils/numberInput'
+import { readPasteClipboard } from '../utils/copyPasteUtil'
 import { separateThousandsWithSpaces } from '../utils/numberFormat'
 import { ThousandSeparatedIntegerInput } from '../reusableUiComponents/thousandSeparatedIntegerInput'
 import LoggedInPageTemplate from '../loggedInPageTemplate'
@@ -144,31 +145,38 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
 const mapIndexed = R.addIndex(R.map)
 
 const updatePastedValues = (odp, rowIndex, saveDraft, countryIso, dataCols, colIndex, isInteger = false, addRows = true) => evt => {
-  evt.stopPropagation()
-  evt.preventDefault()
-
-  const el = document.createElement('html')
-  el.innerHTML = evt.clipboardData.getData('text/html')
+  // evt.stopPropagation()
+  // evt.preventDefault()
+  //
+  // const el = document.createElement('html')
+  // el.innerHTML = evt.clipboardData.getData('text/html')
 
   const updateOdp = (rowNo, colNo, value) => {
-    value = isInteger ? Math.round(Number(value.replace(/\s+/g, ''))) : value
-    value = isInteger && isNaN(value) ? null : value
+    // value = isInteger ? Math.round(Number(value.replace(/\s+/g, ''))) : value
+    // value = isInteger && isNaN(value) ? null : value
     odp = originalDataPoint.updateNationalClass(odp, rowNo, dataCols[colNo], value)
   }
 
-  const rows = el.getElementsByTagName('tr')
-  if (rows.length > 0)
-    mapIndexed((row, i) => {
-      i += rowIndex
-      if (addRows || i < R.filter(v => !v.placeHolder, odp.nationalClasses).length)
-        mapIndexed((col, j) => {
-          j += colIndex
-          if (j < dataCols.length)
-            updateOdp(i, j, col.innerText)
-        }, row.getElementsByTagName('td'))
-    }, rows)
-  else
-    updateOdp(rowIndex, colIndex, evt.clipboardData.getData('text/plain'))
+  // const rows = el.getElementsByTagName('tr')
+  // if (rows.length > 0)
+  //   mapIndexed((row, i) => {
+  //     i += rowIndex
+  //     if (addRows || i < R.filter(v => !v.placeHolder, odp.nationalClasses).length)
+  //       mapIndexed((col, j) => {
+  //         j += colIndex
+  //         if (j < dataCols.length)
+  //       }, row.getElementsByTagName('td'))
+  //   }, rows)
+  // else
+  //   updateOdp(rowIndex, colIndex, evt.clipboardData.getData('text/plain'))
+
+  mapIndexed((r, i) => {
+    const row = rowIndex+ i
+    mapIndexed((c, j) => {
+      const col = colIndex + j
+      updateOdp(row, col, c)
+    }, r)
+  }, readPasteClipboard(evt))
 
   saveDraft(countryIso, odp)
 }
