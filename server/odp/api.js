@@ -27,7 +27,7 @@ module.exports.init = app => {
   })
 
   app.get('/odps/:countryIso', (req, res) => {
-    odpRepository.listOriginalDataPoints(req.params.countryIso)
+    odpRepository.listAndValidateOriginalDataPoints(req.params.countryIso)
       .then(resp => res.json(R.sort((a, b) => a.year - b.year, R.values(resp))))
       .catch(err => {
         console.error(err)
@@ -74,7 +74,6 @@ module.exports.init = app => {
           : res.json({})
       })
       .catch(err => sendErr(res, err))
-
   })
 
 }

@@ -3,6 +3,7 @@ const R = require('ramda')
 const Promise = require('bluebird')
 const camelize = require('camelize')
 const {toNumberOrNull} = require('../utils/databaseConversions')
+const {validateDataPoint} = require('../../common/originalDataPointValidator')
 
 module.exports.saveDraft = (client, countryIso, draft) =>
   !draft.odpId ? createOdp(client, countryIso)
@@ -136,7 +137,7 @@ const deleteOdp = (client, odpId) => {
 }
 module.exports.deleteOdp = deleteOdp
 
-module.exports.getOdp = odpId =>
+const getOdp = odpId =>
   db.query(`
     SELECT
      CASE WHEN draft_id IS NULL
@@ -187,6 +188,8 @@ module.exports.getOdp = odpId =>
      R.assoc('year', toNumberOrNull(result.rows[0].year)))
    (camelize(result.rows[0])))
 
+module.exports.getOdp = getOdp
+
 const odpReducer = (results, row, type = 'fra') => R.assoc(`odp_${row.year}`,
   {
     odpId: row.odp_id,
@@ -196,17 +199,6 @@ const odpReducer = (results, row, type = 'fra') => R.assoc(`odp_${row.year}`,
     name: row.year + '',
     type: 'odp',
     year: Number(row.year),
-    draft: row.draft
-  },
-  results)
-
-const odpListReducer = (results, row, type = 'fra') => R.assoc(`odp_${row.odp_id}`,
-  {
-    odpId: row.odp_id,
-    name: row.year + '',
-    type: 'odp',
-    year: Number(row.year),
-    totalPercentage: row.total_percentage,
     draft: row.draft
   },
   results)
@@ -237,20 +229,15 @@ module.exports.readOriginalDataPoints = (countryIso) =>
       GROUP BY odp_id, v.year, draft 
   `, [countryIso]).then(result => R.reduce(odpReducer, {}, result.rows))
 
-module.exports.listOriginalDataPoints = (countryIso) =>
-  db.query(`
-      SELECT
-        p.id as odp_id,
-        c.forest_percent + c.other_wooded_land_percent + c.other_land_percent AS total_percentage,
-        v.year
-      FROM odp p
-        JOIN odp_version v
-          ON v.id =
-             CASE WHEN p.draft_id IS NULL
-               THEN p.actual_id
-             ELSE p.draft_id
-             END
-      LEFT OUTER JOIN odp_class c
-          ON c.odp_version_id = v.id
-      WHERE p.country_iso = $1
-  `, [countryIso]).then(result => R.reduce(odpListReducer, {}, result.rows))
+const listOriginalDataPoints = countryIso =>
+  db.query(`SELECT p.id as odp_id FROM odp p WHERE country_iso = $1`, [countryIso])
+    .then(res => Promise.all(res.rows.map(r => getOdp(r.odp_id))))
+    .then(odps => R.sort((a, b) => Number(R.defaultTo(0, a.year)) - Number(R.defaultTo(0, b.year)), R.values(odps)))
+
+module.exports.listOriginalDataPoints = listOriginalDataPoints
+
+module.exports.listAndValidateOriginalDataPoints = countryIso =>
+  listOriginalDataPoints(countryIso)
+    .then(odps => R.map(odp => R.assoc('validationStatus', validateDataPoint(odp), odp), odps))
+
+

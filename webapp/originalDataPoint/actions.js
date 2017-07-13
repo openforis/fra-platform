@@ -3,18 +3,18 @@ import * as R from 'ramda'
 
 import { applicationError } from '../applicationError/actions'
 import * as autosave from '../autosave/actions'
-import {
-  removeClassPlaceholder,
-  addNationalClassPlaceHolder,
-  copyNationalClasses,
-  validateDataPoint
-} from './originalDataPoint'
+import { removeClassPlaceholder, addNationalClassPlaceHolder, copyNationalClasses } from './originalDataPoint'
+import { validateDataPoint } from '../../common/originalDataPointValidator'
+import { fetchNavStatus } from '../navigation/actions'
+
+// Validation
+export const odpValidationCompleted = 'originalDataPoint/validationStatus/completed'
+const validationCompleted = validationStatus => ({type: odpValidationCompleted, data: validationStatus})
 
 // Drafting
 
 export const odpSaveDraftStart = 'originalDataPoint/saveDraft/start'
 export const odpSaveDraftCompleted = 'originalDataPoint/saveDraft/completed'
-export const odpValidationCompleted = 'originalDataPoint/validationStatus/completed'
 
 export const saveDraft = (countryIso, obj) => dispatch => {
   dispatch(autosave.start)
@@ -25,8 +25,6 @@ export const saveDraft = (countryIso, obj) => dispatch => {
 }
 
 const startSavingDraft = (obj) => ({type: odpSaveDraftStart, active: obj})
-
-const validationCompleted = validationStatus => ({type: odpValidationCompleted, data: validationStatus})
 
 const persistDraft = (countryIso, odp) => {
   const dispatched = dispatch => {
@@ -60,6 +58,7 @@ export const remove = (countryIso, odpId) => dispatch => {
   axios.delete(`/api/odp/?odpId=${odpId}`)
     .then(() => {
       dispatch({type: odpClearActiveAction})
+      fetchNavStatus(countryIso)(dispatch)
       window.location = `#/country/${countryIso}`
     }).catch(err => dispatch(applicationError(err))
   )
@@ -76,6 +75,7 @@ export const markAsActual = (countryIso, odp) => dispatch => {
     axios.post(`/api/odp/markAsActual/?odpId=${odp.odpId}`).then(resp => {
       dispatch(autosave.complete)
       dispatch({type: odpClearActiveAction})
+      fetchNavStatus(countryIso)(dispatch)
       window.location = `#/country/${countryIso}`
     }).catch(err =>
       dispatch(applicationError(err))
