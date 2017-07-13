@@ -144,31 +144,11 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
 
 const mapIndexed = R.addIndex(R.map)
 
-const updatePastedValues = (odp, rowIndex, saveDraft, countryIso, dataCols, colIndex, isInteger = false, addRows = true) => evt => {
-  // evt.stopPropagation()
-  // evt.preventDefault()
-  //
-  // const el = document.createElement('html')
-  // el.innerHTML = evt.clipboardData.getData('text/html')
+const updatePastedValues = (odp, rowIndex, saveDraft, countryIso, dataCols, colIndex, type = 'integer') => evt => {
 
   const updateOdp = (rowNo, colNo, value) => {
-    // value = isInteger ? Math.round(Number(value.replace(/\s+/g, ''))) : value
-    // value = isInteger && isNaN(value) ? null : value
     odp = originalDataPoint.updateNationalClass(odp, rowNo, dataCols[colNo], value)
   }
-
-  // const rows = el.getElementsByTagName('tr')
-  // if (rows.length > 0)
-  //   mapIndexed((row, i) => {
-  //     i += rowIndex
-  //     if (addRows || i < R.filter(v => !v.placeHolder, odp.nationalClasses).length)
-  //       mapIndexed((col, j) => {
-  //         j += colIndex
-  //         if (j < dataCols.length)
-  //       }, row.getElementsByTagName('td'))
-  //   }, rows)
-  // else
-  //   updateOdp(rowIndex, colIndex, evt.clipboardData.getData('text/plain'))
 
   mapIndexed((r, i) => {
     const row = rowIndex+ i
@@ -176,7 +156,7 @@ const updatePastedValues = (odp, rowIndex, saveDraft, countryIso, dataCols, colI
       const col = colIndex + j
       updateOdp(row, col, c)
     }, r)
-  }, readPasteClipboard(evt))
+  }, readPasteClipboard(evt, type))
 
   saveDraft(countryIso, odp)
 }
@@ -279,14 +259,14 @@ const ExtentOfForestRow = ({
       className={`odp__eof-area-cell odp__eof-divide-after-cell ${validationStatus.validArea === false ? 'error' : ''}`}>
       <ThousandSeparatedIntegerInput integerValue={ area }
                                      onChange={ numberUpdated('area', area) }
-                                     onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 0, true, false) }/>
+                                     onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 0, 'integer') }/>
     </td>
     <td className={`odp__eof-percent-cell ${validationStatusPercentage()}`}>
       <input
         type="text"
         value={forestPercent || ''}
         onChange={ numberUpdated('forestPercent', forestPercent) }
-        onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 1, true, false) }
+        onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 1, 'integer') }
       />
       % &nbsp;
     </td>
@@ -295,7 +275,7 @@ const ExtentOfForestRow = ({
         type="text"
         value={otherWoodedLandPercent || ''}
         onChange={ numberUpdated('otherWoodedLandPercent', otherWoodedLandPercent) }
-        onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 2, true, false) }
+        onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 2, 'integer') }
       />
       % &nbsp;
     </td>
@@ -304,7 +284,7 @@ const ExtentOfForestRow = ({
         type="text"
         value={otherLandPercent || ''}
         onChange={ numberUpdated('otherLandPercent', otherLandPercent) }
-        onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 3, true, false) }
+        onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 3, 'integer') }
       />
       % &nbsp;
     </td>
