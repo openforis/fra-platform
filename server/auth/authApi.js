@@ -35,4 +35,9 @@ module.exports.init = app => {
 
     })
 
+  app.post('/auth/logout', (req, res) => {
+    req.logout()
+    setLoggedInCookie(res, false)
+    res.json({})
+  })
 }
