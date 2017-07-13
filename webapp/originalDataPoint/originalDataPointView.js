@@ -24,7 +24,8 @@ const years = ['', ...R.range(1990, 2021)]
 
 const isCommentsOpen =  (target, openThread = {}) => R.equals('NDP', openThread.section) && R.isEmpty(R.difference(openThread.target, target))
 
-const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, copyPreviousNationalClasses, openThread}) => {
+const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, copyPreviousNationalClasses, copyDisabled, openThread}) => {
+const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, copyPreviousNationalClasses, copyDisabled, openThread}) => {
   const countryIso = match.params.countryIso
   const saveControlsDisabled = () => !active.odpId || autoSaving
   const copyPreviousClassesDisabled = () => active.year && !autoSaving ? false : true
