@@ -16,7 +16,7 @@ class UserControl extends React.Component {
       className="footer__user-control"
       onClick={ evt => this.setState({opened: !this.state.opened}) }>
       {this.props.userName + ' '}
-      <svg className="icon">
+      <svg className="icon footer__user-control-caret">
         <use xlinkHref={`img/icon.svg#icon-small-${iconRefSuffix}`}/>
       </svg>
       {
