@@ -5,6 +5,7 @@ import { applicationError } from '../applicationError/actions'
 import * as autosave from '../autosave/actions'
 import { removeClassPlaceholder, addNationalClassPlaceHolder, copyNationalClasses } from './originalDataPoint'
 import { validateDataPoint } from '../../common/originalDataPointValidator'
+import { fetchNavStatus } from '../navigation/actions'
 
 // Validation
 export const odpValidationCompleted = 'originalDataPoint/validationStatus/completed'
@@ -57,6 +58,7 @@ export const remove = (countryIso, odpId) => dispatch => {
   axios.delete(`/api/odp/?odpId=${odpId}`)
     .then(() => {
       dispatch({type: odpClearActiveAction})
+      fetchNavStatus(countryIso)(dispatch)
       window.location = `#/country/${countryIso}`
     }).catch(err => dispatch(applicationError(err))
   )
@@ -73,6 +75,7 @@ export const markAsActual = (countryIso, odp) => dispatch => {
     axios.post(`/api/odp/markAsActual/?odpId=${odp.odpId}`).then(resp => {
       dispatch(autosave.complete)
       dispatch({type: odpClearActiveAction})
+      fetchNavStatus(countryIso)(dispatch)
       window.location = `#/country/${countryIso}`
     }).catch(err =>
       dispatch(applicationError(err))
