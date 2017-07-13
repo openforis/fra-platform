@@ -21,7 +21,7 @@ class UserControl extends React.Component {
       </svg>
       {
         this.state.opened
-          ? <div onClick={() => console.log('logout') || this.props.logout()} className="footer__user-control-opened">
+          ? <div onClick={() => this.props.logout()} className="footer__user-control-opened">
           Logout
         </div>
           : null
