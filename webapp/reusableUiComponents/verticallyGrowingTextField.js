@@ -64,7 +64,7 @@ class VerticallyGrowingTextField extends React.Component {
 
   render () {
     return (
-      <div className="container">
+      <div className="vgtf__container">
         {this.getExpandableField()}
         {this.getGhostField()}
       </div>
