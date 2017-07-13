@@ -23,7 +23,10 @@ import ReviewIndicator from '../review/reviewIndicator'
 
 const years = ['', ...R.range(1990, 2021)]
 
-const DataInput = ({match, years, saveDraft, markAsActual, remove, active, autoSaving, copyPreviousNationalClasses, cancelDraft, copyDisabled}) => {
+const isCommentsOpen =  (target, openThread = {}) => R.equals('NDP', openThread.section) && R.isEmpty(R.difference(openThread.target, target))
+
+const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, copyPreviousNationalClasses, copyDisabled, openThread}) => {
+const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, copyPreviousNationalClasses, copyDisabled, openThread}) => {
   const countryIso = match.params.countryIso
   const saveControlsDisabled = () => !active.odpId || autoSaving
   const copyPreviousClassesDisabled = () => active.year && !autoSaving ? false : true
@@ -69,7 +72,7 @@ const DataInput = ({match, years, saveDraft, markAsActual, remove, active, autoS
         </thead>
         <tbody>
         {
-          nationalClassRows(countryIso, active, saveDraft)
+          nationalClassRows(countryIso, active, saveDraft, openThread)
         }
         </tbody>
       </table>
@@ -92,7 +95,7 @@ const DataInput = ({match, years, saveDraft, markAsActual, remove, active, autoS
         </thead>
         <tbody>
         {
-          extentOfForestRows(countryIso, active, saveDraft)
+          extentOfForestRows(countryIso, active, saveDraft, openThread)
         }
         <tr>
           <td className="fra-table__header-cell">Total</td>
@@ -176,18 +179,19 @@ const getValidationStatusRow = (odp, index) => odp.validationStatus
   : {}
 
 const nationalClassCols = ['className', 'definition']
-const nationalClassRows = (countryIso, odp, saveDraft) => {
+const nationalClassRows = (countryIso, odp, saveDraft, openThread) => {
   return mapIndexed((nationalClass, index) => <NationalClassRow
     key={index}
     index={index}
     odp={odp}
     saveDraft={saveDraft}
     countryIso={countryIso}
+    openThread={openThread}
     {...nationalClass}/>, odp.nationalClasses)
 }
 
-const NationalClassRow = ({odp, index, saveDraft, countryIso, className, definition, placeHolder}) =>
-  <tr>
+const NationalClassRow = ({odp, index, saveDraft, countryIso, className, definition, placeHolder, openThread}) =>
+    <tr className={`${isCommentsOpen([odp.nationalClasses[index].uuid, 'class_definition'], openThread) ? 'fra-row-comments__open' : ''}`}>
     <td
       className={`odp__national-class-row-class-name ${getValidationStatusRow(odp, index).validClassName === false ? 'error' : ''}`}>
       { placeHolder
@@ -229,7 +233,7 @@ const NationalClassRow = ({odp, index, saveDraft, countryIso, className, definit
   </tr>
 
 const extentOfForestCols = ['area', 'forestPercent', 'otherWoodedLandPercent', 'otherLandPercent']
-const extentOfForestRows = (countryIso, odp, saveDraft) =>
+const extentOfForestRows = (countryIso, odp, saveDraft, openThread) =>
   R.pipe(
     R.filter(nationalClass => !nationalClass.placeHolder),
     mapIndexed((nationalClass, index) => <ExtentOfForestRow
@@ -238,6 +242,7 @@ const extentOfForestRows = (countryIso, odp, saveDraft) =>
       odp={odp}
       saveDraft={saveDraft}
       countryIso={countryIso}
+      openThread={openThread}
       {...nationalClass}/>)
   )(odp.nationalClasses)
 
@@ -251,6 +256,7 @@ const ExtentOfForestRow = ({
                              forestPercent,
                              otherWoodedLandPercent,
                              otherLandPercent,
+                             openThread,
                              ...props
                            }) => {
 
@@ -260,7 +266,7 @@ const ExtentOfForestRow = ({
   const validationStatus = getValidationStatusRow(odp, index)
   const validationStatusPercentage = () => validationStatus.validPercentage === false ? 'error' : ''
 
-  return <tr>
+  return <tr className={isCommentsOpen([odp.nationalClasses[index].uuid, 'ndp_class_value'], openThread) ? 'fra-row-comments__open' : ''}>
     <td className="odp__eof-class-name"><span>{className}</span></td>
     <td
       className={`odp__eof-area-cell odp__eof-divide-after-cell ${validationStatus.validArea === false ? 'error' : ''}`}>
@@ -298,7 +304,7 @@ const ExtentOfForestRow = ({
     <td className="odp__col-review">
       <ReviewIndicator section='NDP'
                        name="National data point"
-                       target={[`${odp.nationalClasses[index].uuid}`, 'npd_class_value']}
+                       target={[`${odp.nationalClasses[index].uuid}`, 'ndp_class_value']}
                        countryIso={countryIso}/>
 
     </td>
@@ -379,7 +385,8 @@ const mapStateToProps = state => {
   const odp = state.originalDataPoint
   const autoSaving = !!state.autoSave.status
   const active = odp.active
-  return {...odp, active, autoSaving}
+  const openThread = R.defaultTo({target: [], section: ''}, R.path(['review', 'openThread'], state))
+  return {...odp, active, autoSaving, openThread}
 }
 
 export default connect(mapStateToProps, {
