@@ -9,11 +9,13 @@ class UserControl extends React.Component {
     this.setState({opened: false})
   }
   render() {
-    return <span className="footer__user-control">
+    const iconRefSuffix = this.state.opened ? 'down' : 'up'
+    return <span
+              className="footer__user-control"
+              onClick={ evt => this.setState({opened: !this.state.opened}) }>
       {this.props.userName + ' '}
-      <svg onClick={ evt => this.setState({opened: true}) }
-           className="icon">
-        <use xlinkHref="img/icon.svg#icon-small-up"/>
+      <svg className="icon">
+        <use xlinkHref={`img/icon.svg#icon-small-${iconRefSuffix}`}/>
       </svg>
       {this.state.opened ? <div className="footer__user-control-opened">Logout</div> : null}
     </span>
