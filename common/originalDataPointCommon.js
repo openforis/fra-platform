@@ -29,3 +29,14 @@ module.exports.validateDataPoint = odp => {
     valid: !validYear || R.filter(c => !c.valid, nationalClasses).length !== 0 ? false : true
   }
 }
+
+module.exports.getOdpIssueTargets = odp => R.pipe(
+  R.append(`'{"params":["${odp.odpId}","comments"]}'`),
+  a => {
+    R.forEach(c => {
+      a = R.append(`'{"params":["${c.uuid}","class_definition"]}'`, a)
+      a = R.append(`'{"params":["${c.uuid}","npd_class_value"]}'`, a)
+    }, odp.nationalClasses)
+    return a
+  }
+)

@@ -3,7 +3,7 @@ const R = require('ramda')
 const Promise = require('bluebird')
 const camelize = require('camelize')
 const {toNumberOrNull} = require('../utils/databaseConversions')
-const {validateDataPoint} = require('../../common/originalDataPointValidator')
+const {validateDataPoint} = require('../../common/originalDataPointCommon')
 
 module.exports.saveDraft = (client, countryIso, draft) =>
   !draft.odpId ? createOdp(client, countryIso)
