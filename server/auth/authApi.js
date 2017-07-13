@@ -1,6 +1,7 @@
 const passport = require('passport')
 const userRepository = require('../user/userRepository')
 const authConfig = require('./authConfig')
+const { setLoggedInCookie } = require('./loggedInCookie')
 
 module.exports.init = app => {
 
@@ -10,8 +11,6 @@ module.exports.init = app => {
       .then(user => user ? done(null, user) : done(null, false, {message: 'User not authorized'}))
 
   authConfig.init(app, verifyCallback)
-
-  const setLoggedInCookie = (res, value) => res.cookie('loggedIn', value, {maxAge: 30 * 24 * 60 * 60 * 1000})
 
   app.get('/auth/google',
     passport.authenticate('google', {scope: ['https://www.googleapis.com/auth/plus.login', 'profile', 'email']}))
@@ -36,4 +35,9 @@ module.exports.init = app => {
 
     })
 
+  app.post('/auth/logout', (req, res) => {
+    req.logout()
+    setLoggedInCookie(res, false)
+    res.json({})
+  })
 }

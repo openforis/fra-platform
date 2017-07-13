@@ -12,6 +12,7 @@ class Router extends React.Component {
   follow () {
     const loggedInCookie = R.defaultTo('false')(Cookies.get('loggedIn'))
     if (loggedInCookie === 'false' && location.hash !== '') {
+      // "redirecting" user when user has not authenticated or session has ran out
       window.location.hash = ''
     } else if (!this.props.loggedInUserInfoLoaded) {
       this.props.getLoggedinUserInfo()

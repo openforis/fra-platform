@@ -1,4 +1,4 @@
-@import "../app-styles/config";
+@import (reference) "../app-styles/config";
 
 .footer__container {
   background: white;
@@ -17,4 +17,32 @@
 
 .footer__autosave-status {
   font-style: italic;
+}
+
+.footer__user-control {
+  position: relative;
+  cursor: pointer;
+}
+
+.footer__user-control-opened {
+  width: 114px;
+  position: absolute;
+  top: -48px;
+  text-align: right;
+  right: -1px;
+  background-color: white;
+  padding: 10px;
+  border-radius: 2px;
+  border: 1px solid #d5d5d5;
+  box-shadow: @shadow-2;
+  &:hover {
+    background-color: darken(@ui-bg, 4%);
+    cursor: pointer;
+    transition: @ease-out;
+  }
+}
+
+.footer__user-control-caret {
+  position: relative;
+  top: 2px;
 }

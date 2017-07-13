@@ -7,15 +7,16 @@ const migrations = require('./db/migration/execMigrations')
 const sessionInit = require('./sessionInit')
 const apiRouter = require('./apiRouter')
 const authApi = require('./auth/authApi')
+const authMiddleware = require('./auth/authMiddleware')
 const resourceCacheControl = require('./resourceCacheControl')
 
 const app = express()
 
-resourceCacheControl.init(app)
-
 migrations()
 
+resourceCacheControl.init(app)
 sessionInit.init(app)
+authMiddleware.init(app)
 
 app.use(compression({threshold: 512}))
 app.use('/', express.static(`${__dirname}/../dist`))
