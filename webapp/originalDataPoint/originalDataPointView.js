@@ -197,7 +197,7 @@ const NationalClassRow = ({odp, index, saveDraft, countryIso, className, definit
              value={className || ''}
              onChange={(evt) =>
                saveDraft(countryIso, originalDataPoint.updateNationalClass(odp, index, 'className', evt.target.value))}
-             onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, nationalClassCols, 0) }
+             onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, nationalClassCols, 0, 'text') }
       />
     </td>
     <td>
@@ -205,7 +205,7 @@ const NationalClassRow = ({odp, index, saveDraft, countryIso, className, definit
              value={definition || '' }
              onChange={(evt) =>
                saveDraft(countryIso, originalDataPoint.updateNationalClass(odp, index, 'definition', evt.target.value))}
-             onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, nationalClassCols, 1) }
+             onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, nationalClassCols, 1, 'text') }
       />
     </td>
     <td className="odp__col-review">
