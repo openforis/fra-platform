@@ -46,4 +46,4 @@ export const openCommentThread = (countryIso, section, target, name) => dispatch
   retrieveComments(countryIso, section, target)(dispatch)
   dispatch({type: issueOpenCommentThread, target, section, name})
 }
-export const closeCommentThread = target => ({type: issueCloseCommentThread, target})
+export const closeCommentThread = () => ({type: issueCloseCommentThread})

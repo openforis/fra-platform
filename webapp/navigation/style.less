@@ -133,6 +133,15 @@
   margin: 8px;
 }
 
+.nav__link-review-status {
+  .nav__secondary-has-open-issue {
+    display: inline-block;
+    float: right;
+    margin-top: 4px;
+    margin-left: 6px;
+  }
+}
+
 .nav__link-error-status {
   float: right;
 }
@@ -155,8 +164,9 @@
 }
 
 .nav__secondary-item {
-  padding: 12px 24px;
+  padding: 12px 12px 12px 24px;
   display: flex;
+  align-items: stretch;
   flex-flow: row nowrap;
   text-decoration: none;
   color: @text-body;
@@ -183,6 +193,21 @@
   display: block;
   font-size: @font-s;
   line-height: 20px;
+}
+.nav__secondary-status-content {
+  flex-grow: 2;
+  display: flex;
+  flex-flow: row-reverse nowrap;
+  align-items: center;
+}
+.nav__secondary-has-open-issue {
+  width: 10px;
+  min-width: 10px;
+  height: 10px;
+  background: @ui-accent;
+  color: white;
+  border-radius: 100%;
+  text-align: center;
 }
 
 .nav__secondary-status {

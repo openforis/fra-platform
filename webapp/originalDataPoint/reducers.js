@@ -4,14 +4,15 @@ import { applyReducerFunction } from '../utils/reduxUtils'
 import { emptyDataPoint } from './originalDataPoint'
 
 const actionHandlers = {
-  [types.dataPointSaveDraftStart]: (state, action) => R.assoc('active', action.active, state),
-  [types.dataPointSaveDraftCompleted ]: (state, action) =>
-    R.assocPath(['active', 'odpId'], Number(action.odpId), state),
+  [types.odpSaveDraftStart]: (state, action) => R.assoc('active', action.active, state),
+  [types.odpSaveDraftCompleted ]: (state, action) => R.assocPath(['active', 'odpId'], Number(action.odpId), state),
   [types.odpFetchCompleted]: (state, action) => R.assoc('active', action.active)(state),
-  [types.clearActiveAction ]: (state, action) =>
+  [types.odpListFetchCompleted]: (state, action) => R.assoc('odps', action.data)(state),
+  [types.odpValidationCompleted]: (state, action) =>
+    R.assocPath(['active', 'validationStatus'], action.data)(state),
+  [types.odpClearActiveAction ]: (state, action) =>
     R.assoc('active', R.merge(emptyDataPoint(), {reservedYears: R.path(['data', 'reservedYears'], action)}), state)
-  ,
-  [types.odpListFetchCompleted]: (state, action) => R.assoc('odps', action.data)(state)
+
 }
 
 export default (state = {}, action) => applyReducerFunction(actionHandlers, state, action)

@@ -48,10 +48,16 @@ module.exports.init = app => {
       .catch(err => sendErr(res, err))
   })
 
-  app.post('/odp/markAsActual', (req, res) =>
-    db.transaction(odpRepository.markAsActual, [req.query.odpId])
+  app.delete('/odp/draft', (req, res) =>
+    db.transaction(odpRepository.deleteDraft, [req.query.odpId])
       .then(() => res.json({}))
       .catch(err => sendErr(res, err))
+  )
+
+  app.post('/odp/markAsActual', (req, res) =>
+    db.transaction(odpRepository.markAsActual, [req.query.odpId])
+      .then(() => res.json({})
+      ).catch(err => sendErr(res, err))
   )
 
   app.get('/prevOdp/:countryIso/:year', (req, res) => {

@@ -1,9 +1,12 @@
-//===WARNING==== DO NOT IMPORT SPECIFIC COMPONENT STYLES HERE
+//===WARNING====
+// DO NOT IMPORT SPECIFIC COMPONENT STYLES HERE,
+// ONLY MORE GENERAL STUFF USED IN MANY PLACES
 @import "./config";
 //Import all common application styles
 @import "./buttons";
 @import "./icon";
 @import "./fraTable";
+@import "./traditionalView";
 @import "./alert";
 
 html {
@@ -45,11 +48,11 @@ h1, h2, h3, h4, h5 {
 }
 
 a {
-  color: darken(@ui-accent, 4%);
+  color: darken(@ui-accent, 2%);
 }
 
 a:hover {
-  color: darken(@ui-accent, 8%);
+  color: darken(@ui-accent, 4%);
 }
 
 .app__root {
@@ -65,4 +68,15 @@ a:hover {
 .fra-view-content__container-commenting {
   width: calc(~"100% - 544px");
   overflow-x: hidden;
+}
+
+.form-group {
+  input, select {
+    transition: background-color 250ms ease-out;
+  }
+  .error {
+    input, select {
+      background-color: #ffeeee;
+    }
+  }
 }
