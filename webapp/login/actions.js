@@ -7,16 +7,18 @@ export const getLoggedinUserInfo = () => dispatch => {
   axios.get(`/api/loggedInUser/`)
     .then(resp => {
       dispatch({type: userInfo, userInfo: resp.data.userInfo})
-    }).catch((err) => {
+    })
+    .catch((err) => {
       dispatch(applicationError(err))
-  })
+    })
 }
 
 export const logout = () => dispatch => {
   axios.post(`/auth/logout`)
     .then(() => {
       window.location.hash = ''
-    }).catch((err) => {
-    dispatch(applicationError(err))
-  })
+    })
+    .catch((err) => {
+      dispatch(applicationError(err))
+    })
 }
