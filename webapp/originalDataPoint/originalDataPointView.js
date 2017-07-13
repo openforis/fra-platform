@@ -12,6 +12,7 @@ import {
   copyPreviousNationalClasses,
   cancelDraft
 } from './actions'
+import { fetchNavStatus } from '../navigation/actions'
 import { acceptNextInteger } from '../utils/numberInput'
 import { separateThousandsWithSpaces } from '../utils/numberFormat'
 import { ThousandSeparatedIntegerInput } from '../reusableUiComponents/thousandSeparatedIntegerInput'
@@ -351,6 +352,7 @@ class OriginalDataPointView extends React.Component {
   }
 
   componentWillUnmount () {
+    this.props.fetchNavStatus(this.props.match.params.countryIso)
     this.props.clearActive()
   }
 
@@ -387,5 +389,6 @@ export default connect(mapStateToProps, {
   fetch,
   clearActive,
   copyPreviousNationalClasses,
-  cancelDraft
+  cancelDraft,
+  fetchNavStatus
 })(OriginalDataPointView)
