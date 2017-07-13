@@ -228,8 +228,7 @@ module.exports.readOriginalDataPoints = (countryIso) =>
 
 const listOriginalDataPoints = countryIso =>
   db.query(`SELECT p.id as odp_id FROM odp p WHERE country_iso = $1`, [countryIso])
-    .then(res => res.rows.map(r => getOdp(r.odp_id)))
-    .then(getOdps => Promise.all(getOdps))
+    .then(res => Promise.all(res.rows.map(r => getOdp(r.odp_id))))
     .then(odps => R.sort((a, b) => Number(R.defaultTo(0, a.year)) - Number(R.defaultTo(0, b.year)), R.values(odps)))
 
 module.exports.listOriginalDataPoints = listOriginalDataPoints
