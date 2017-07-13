@@ -8,6 +8,7 @@ export const getCountryList = () => dispatch => {
     dispatch({type: listCountries, countries: resp.data})
   })
 }
+
 export const fetchNavStatus = countryIso => dispatch => {
   axios.get(`/api/nav/status/${countryIso}`).then(resp => {
     dispatch({type: fetchNavStatusCompleted, status: resp.data})
