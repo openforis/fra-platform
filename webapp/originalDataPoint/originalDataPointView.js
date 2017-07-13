@@ -32,7 +32,7 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
   const yearValidationStatusClass = () => active.validationStatus && !active.validationStatus.year.valid ? 'error' : ''
   const unselectable = R.defaultTo([], active.reservedYears)
 
-  return <div className="odp__data-input-component form-group">
+  return <div className="odp__data-input-component odp_validate-form">
     <div className="odp_data-input-row">
       <div className={`${yearValidationStatusClass()}`}>
         <h3 className="subhead">Year</h3>
