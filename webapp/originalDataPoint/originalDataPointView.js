@@ -33,7 +33,7 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
   const yearValidationStatusClass = () => active.validationStatus && !active.validationStatus.year.valid ? 'error' : ''
   const unselectable = R.defaultTo([], active.reservedYears)
 
-  return <div className="odp__data-input-component form-group">
+  return <div className="odp__data-input-component odp_validate-form">
     <div className="odp_data-input-row">
       <div className={`${yearValidationStatusClass()}`}>
         <h3 className="subhead">Year</h3>
@@ -264,6 +264,7 @@ const ExtentOfForestRow = ({
     <td className={`odp__eof-percent-cell ${validationStatusPercentage()}`}>
       <input
         type="text"
+        maxLength="3"
         value={forestPercent || ''}
         onChange={ numberUpdated('forestPercent', forestPercent) }
         onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 1, 'integer') }
@@ -273,6 +274,7 @@ const ExtentOfForestRow = ({
     <td className={`odp__eof-percent-cell ${validationStatusPercentage()}`}>
       <input
         type="text"
+        maxLength="3"
         value={otherWoodedLandPercent || ''}
         onChange={ numberUpdated('otherWoodedLandPercent', otherWoodedLandPercent) }
         onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 2, 'integer') }
@@ -282,6 +284,7 @@ const ExtentOfForestRow = ({
     <td className={`odp__eof-percent-cell ${validationStatusPercentage()}`}>
       <input
         type="text"
+        maxLength="3"
         value={otherLandPercent || ''}
         onChange={ numberUpdated('otherLandPercent', otherLandPercent) }
         onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 3, 'integer') }
