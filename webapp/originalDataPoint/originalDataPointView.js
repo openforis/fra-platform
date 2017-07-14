@@ -17,6 +17,7 @@ import { acceptNextInteger } from '../utils/numberInput'
 import { readPasteClipboard } from '../utils/copyPasteUtil'
 import { separateThousandsWithSpaces } from '../utils/numberFormat'
 import { ThousandSeparatedIntegerInput } from '../reusableUiComponents/thousandSeparatedIntegerInput'
+import VerticallyGrowingTextField from '../reusableUiComponents/verticallyGrowingTextField'
 import LoggedInPageTemplate from '../loggedInPageTemplate'
 import R from 'ramda'
 import ckEditorConfig from '../ckEditor/ckEditorConfig'
@@ -180,33 +181,36 @@ const nationalClassRows = (countryIso, odp, saveDraft, openThread) => {
 const NationalClassRow = ({odp, index, saveDraft, countryIso, className, definition, placeHolder, openThread}) =>
     <tr className={`${isCommentsOpen([odp.nationalClasses[index].uuid, 'class_definition'], openThread) ? 'fra-row-comments__open' : ''}`}>
     <td
-      className={`odp__national-class-row-class-name ${getValidationStatusRow(odp, index).validClassName === false ? 'error' : ''}`}>
-      { placeHolder
-        ? null //placeHolder-rows can't be removed
-        : <div
-          className="odp__national-class-remove"
-          onClick={(evt) => saveDraft(countryIso, originalDataPoint.removeNationalClass(odp, index))}>
-          <svg className="icon">
-            <use xlinkHref="img/icon.svg#icon-small-remove"/>
-          </svg>
-        </div>
-      }
-      <input className="odp__national-class-row-class-name-input"
-             type="text"
-             placeholder={ placeHolder && index === 0 ? 'Enter or copy and paste national classes' : ''}
-             value={className || ''}
-             onChange={(evt) =>
-               saveDraft(countryIso, originalDataPoint.updateNationalClass(odp, index, 'className', evt.target.value))}
-             onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, nationalClassCols, 0, 'text', true )}
-      />
+      className={getValidationStatusRow(odp, index).validClassName === false ? 'error' : ''}>
+      <div className="odp__national-class-remove-anchor">
+        { placeHolder
+          ? null //placeHolder-rows can't be removed
+          : <div
+            className="odp__national-class-remove"
+            onClick={(evt) => saveDraft(countryIso, originalDataPoint.removeNationalClass(odp, index))}>
+            <svg className="icon">
+              <use xlinkHref="img/icon.svg#icon-small-remove"/>
+            </svg>
+          </div>
+        }
+        <input className="odp__national-class-row-class-name-input"
+               type="text"
+               placeholder={ placeHolder && index === 0 ? 'Enter or copy and paste national classes' : ''}
+               value={className || ''}
+               onChange={(evt) =>
+                 saveDraft(countryIso, originalDataPoint.updateNationalClass(odp, index, 'className', evt.target.value))}
+               onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, nationalClassCols, 0, 'text', true )}
+        />
+      </div>
     </td>
     <td>
-      <input type="text"
-             value={definition || '' }
-             onChange={(evt) =>
-               saveDraft(countryIso, originalDataPoint.updateNationalClass(odp, index, 'definition', evt.target.value))}
-             onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, nationalClassCols, 1, 'text', true) }
+      <VerticallyGrowingTextField
+          value={definition || '' }
+          onChange={(evt) =>
+            saveDraft(countryIso, originalDataPoint.updateNationalClass(odp, index, 'definition', evt.target.value))}
+          onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, nationalClassCols, 1, 'text', true) }
       />
+
     </td>
     <td className="odp__col-review">
       {placeHolder
