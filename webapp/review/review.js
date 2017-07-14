@@ -46,7 +46,7 @@ const CommentThread = ({comments, userInfo = {}}) => {
               <div key={i} className="fra-review__comment">
                 <div className="fra-review__comment-header">
                   <div>
-                    <img className="fra-review__avatar" src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50" />
+                    <img className="fra-review__avatar" src={`https://www.gravatar.com/avatar/${c.hash}?d=mm`} />
                   </div>
                   <div>
                     <div className={`fra-review__comment-author ${isThisMe(c) ? 'author-me' : ''}`}>{c.username}</div>
