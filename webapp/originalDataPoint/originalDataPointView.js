@@ -190,25 +190,27 @@ const nationalClassRows = (countryIso, odp, saveDraft) => {
 const NationalClassRow = ({odp, index, saveDraft, countryIso, className, definition, placeHolder}) =>
   <tr>
     <td
-      className={`odp__national-class-row-class-name ${getValidationStatusRow(odp, index).validClassName === false ? 'error' : ''}`}>
-      { placeHolder
-        ? null //placeHolder-rows can't be removed
-        : <div
-          className="odp__national-class-remove"
-          onClick={(evt) => saveDraft(countryIso, originalDataPoint.removeNationalClass(odp, index))}>
-          <svg className="icon">
-            <use xlinkHref="img/icon.svg#icon-small-remove"/>
-          </svg>
-        </div>
-      }
-      <input className="odp__national-class-row-class-name-input"
-             type="text"
-             placeholder={ placeHolder && index === 0 ? 'Enter or copy and paste national classes' : ''}
-             value={className || ''}
-             onChange={(evt) =>
-               saveDraft(countryIso, originalDataPoint.updateNationalClass(odp, index, 'className', evt.target.value))}
-             onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, nationalClassCols, 0) }
-      />
+      className={getValidationStatusRow(odp, index).validClassName === false ? 'error' : ''}>
+      <div className="odp__national-class-remove-anchor">
+        { placeHolder
+          ? null //placeHolder-rows can't be removed
+          : <div
+            className="odp__national-class-remove"
+            onClick={(evt) => saveDraft(countryIso, originalDataPoint.removeNationalClass(odp, index))}>
+            <svg className="icon">
+              <use xlinkHref="img/icon.svg#icon-small-remove"/>
+            </svg>
+          </div>
+        }
+        <input className="odp__national-class-row-class-name-input"
+               type="text"
+               placeholder={ placeHolder && index === 0 ? 'Enter or copy and paste national classes' : ''}
+               value={className || ''}
+               onChange={(evt) =>
+                 saveDraft(countryIso, originalDataPoint.updateNationalClass(odp, index, 'className', evt.target.value))}
+               onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, nationalClassCols, 0) }
+        />
+      </div>
     </td>
     <td>
       <VerticallyGrowingTextField
