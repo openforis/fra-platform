@@ -23,7 +23,7 @@ class VerticallyGrowingTextField extends React.Component {
     }
   }
 
-  getExpandableField () {
+  expandableField () {
     const {height} = this.state
 
     return (
@@ -40,7 +40,7 @@ class VerticallyGrowingTextField extends React.Component {
     )
   }
 
-  getGhostField () {
+  ghostField () {
     return (
       <div
         className="vgtf__textarea--ghost"
@@ -59,8 +59,8 @@ class VerticallyGrowingTextField extends React.Component {
   render () {
     return (
       <div className="vgtf__container">
-        {this.getExpandableField()}
-        {this.getGhostField()}
+        {this.expandableField()}
+        {this.ghostField()}
       </div>
     )
   }
