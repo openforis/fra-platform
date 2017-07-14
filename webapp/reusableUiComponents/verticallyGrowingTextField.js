@@ -11,18 +11,15 @@ class VerticallyGrowingTextField extends React.Component {
   }
 
   componentDidMount () {
-    this.mounted = true
     this.setFilledTextareaHeight()
   }
 
   setFilledTextareaHeight () {
-    if (this.mounted) {
-      const element = this.ghost
+    const element = this.ghost
 
-      this.setState({
-        height: element.clientHeight,
-      })
-    }
+    this.setState({
+      height: element.clientHeight,
+    })
   }
 
   expandableField () {
