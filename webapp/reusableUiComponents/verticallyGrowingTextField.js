@@ -5,12 +5,11 @@ class VerticallyGrowingTextField extends React.Component {
 
   constructor (props) {
     super(props)
-    this.state = {value: null}
+    this.state = {}
   }
 
   componentDidMount () {
     this.mounted = true
-
     this.setFilledTextareaHeight()
   }
 
@@ -24,22 +23,17 @@ class VerticallyGrowingTextField extends React.Component {
     }
   }
 
-  setValue (event) {
-    const {value} = event.target
-
-    this.setState({value})
-  }
-
   getExpandableField () {
-    const {height, value} = this.state
+    const {height} = this.state
 
     return (
       <div>
         <textarea
           className="vgtf__textarea"
-          defaultValue={value}
+          value={this.props.value}
           style={{height}}
-          onChange={(evt) => this.setValue(evt)}
+          onChange={this.props.onChange}
+          onPaste={this.props.onPaste}
           onKeyUp={() => this.setFilledTextareaHeight()}
         />
       </div>
@@ -57,7 +51,7 @@ class VerticallyGrowingTextField extends React.Component {
           Use 'x' as a placeholder to keep ghost field in right height even when
           there's no input or plain newline before any text in new row
          */}
-        {this.state.value ? this.state.value.replace(/\n/g, '\nx') : 'x'}
+        { this.props.value ? this.props.value.replace(/\n/g, '\nx') : 'x' }
       </div>
     )
   }

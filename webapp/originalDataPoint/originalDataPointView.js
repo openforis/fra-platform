@@ -211,15 +211,13 @@ const NationalClassRow = ({odp, index, saveDraft, countryIso, className, definit
       />
     </td>
     <td>
-      { <VerticallyGrowingTextField/>
-        /*
-      <input type="text"
-             value={definition || '' }
-             onChange={(evt) =>
-               saveDraft(countryIso, originalDataPoint.updateNationalClass(odp, index, 'definition', evt.target.value))}
-             onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, nationalClassCols, 1) }
+      <VerticallyGrowingTextField
+          value={definition || '' }
+          onChange={(evt) =>
+            saveDraft(countryIso, originalDataPoint.updateNationalClass(odp, index, 'definition', evt.target.value))}
+          onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, nationalClassCols, 1) }
       />
-       */}
+
     </td>
     <td className="odp__col-review">
       {placeHolder
