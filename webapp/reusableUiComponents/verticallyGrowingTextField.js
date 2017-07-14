@@ -1,6 +1,8 @@
 import React from 'react'
 import './verticallyGrowingTextField.less'
 
+// Based on http://dev.edenspiekermann.com/2016/08/26/react-textarea-auto-resize/
+
 class VerticallyGrowingTextField extends React.Component {
 
   constructor (props) {
