@@ -1,3 +1,4 @@
+const crypto = require('crypto')
 const R = require('ramda')
 
 const db = require('../db/db')
@@ -44,7 +45,21 @@ module.exports.init = app => {
           const diff = R.pipe(R.path(['target', 'params']), R.difference(target))(issue)
           return R.isEmpty(diff) ? issue : []
         }, result)
-        res.json(R.reject(R.isEmpty, issues))
+        res.json(
+          R.pipe(
+            R.reject(R.isEmpty),
+            R.map(
+              comment =>
+              R.merge(R.omit('email', comment), // leave out email
+              R.pipe( // calculate email hash for gravatar
+                R.prop('email'),
+                v => crypto.createHash('md5').update(v).digest('hex'),
+                h => ({hash: h})
+              )(comment)
+              )
+            )
+          )(issues)
+        )
       })
       .catch(err => sendErr(res, err))
   })
