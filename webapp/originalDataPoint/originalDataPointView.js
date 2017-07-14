@@ -14,6 +14,7 @@ import {
 } from './actions'
 import { fetchNavStatus } from '../navigation/actions'
 import { acceptNextInteger } from '../utils/numberInput'
+import { readPasteClipboard } from '../utils/copyPasteUtil'
 import { separateThousandsWithSpaces } from '../utils/numberFormat'
 import { ThousandSeparatedIntegerInput } from '../reusableUiComponents/thousandSeparatedIntegerInput'
 import VerticallyGrowingTextField from '../reusableUiComponents/verticallyGrowingTextField'
@@ -24,14 +25,16 @@ import ReviewIndicator from '../review/reviewIndicator'
 
 const years = ['', ...R.range(1990, 2021)]
 
-const DataInput = ({match, years, saveDraft, markAsActual, remove, active, autoSaving, copyPreviousNationalClasses, cancelDraft, copyDisabled}) => {
+const isCommentsOpen =  (target, openThread = {}) => R.equals('NDP', openThread.section) && R.isEmpty(R.difference(openThread.target, target))
+
+const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, cancelDraft, copyPreviousNationalClasses, copyDisabled, openThread}) => {
   const countryIso = match.params.countryIso
   const saveControlsDisabled = () => !active.odpId || autoSaving
   const copyPreviousClassesDisabled = () => active.year && !autoSaving ? false : true
   const yearValidationStatusClass = () => active.validationStatus && !active.validationStatus.year.valid ? 'error' : ''
   const unselectable = R.defaultTo([], active.reservedYears)
 
-  return <div className="odp__data-input-component form-group">
+  return <div className="odp__data-input-component odp_validate-form">
     <div className="odp_data-input-row">
       <div className={`${yearValidationStatusClass()}`}>
         <h3 className="subhead">Year</h3>
@@ -70,7 +73,7 @@ const DataInput = ({match, years, saveDraft, markAsActual, remove, active, autoS
         </thead>
         <tbody>
         {
-          nationalClassRows(countryIso, active, saveDraft)
+          nationalClassRows(countryIso, active, saveDraft, openThread)
         }
         </tbody>
       </table>
@@ -93,7 +96,7 @@ const DataInput = ({match, years, saveDraft, markAsActual, remove, active, autoS
         </thead>
         <tbody>
         {
-          extentOfForestRows(countryIso, active, saveDraft)
+          extentOfForestRows(countryIso, active, saveDraft, openThread)
         }
         <tr>
           <td className="fra-table__header-cell">Total</td>
@@ -142,33 +145,20 @@ const DataInput = ({match, years, saveDraft, markAsActual, remove, active, autoS
 
 const mapIndexed = R.addIndex(R.map)
 
-const updatePastedValues = (odp, rowIndex, saveDraft, countryIso, dataCols, colIndex, isInteger = false, addRows = true) => evt => {
-  evt.stopPropagation()
-  evt.preventDefault()
-
-  const el = document.createElement('html')
-  el.innerHTML = evt.clipboardData.getData('text/html')
-
+const updatePastedValues = (odp, rowIndex, saveDraft, countryIso, dataCols, colIndex, type = 'integer', allowGrow = false) => evt => {
   const updateOdp = (rowNo, colNo, value) => {
-    value = isInteger ? Math.round(Number(value.replace(/\s+/g, ''))) : value
-    value = isInteger && isNaN(value) ? null : value
     odp = originalDataPoint.updateNationalClass(odp, rowNo, dataCols[colNo], value)
   }
+  const rowCount = R.filter(v => !v.placeHolder, odp.nationalClasses).length
+  const pastedData  = allowGrow ? readPasteClipboard(evt, type) : R.take(rowCount - rowIndex, readPasteClipboard(evt, type))
 
-  const rows = el.getElementsByTagName('tr')
-  if (rows.length > 0)
-    mapIndexed((row, i) => {
-      i += rowIndex
-      if (addRows || i < R.filter(v => !v.placeHolder, odp.nationalClasses).length)
-        mapIndexed((col, j) => {
-          j += colIndex
-          if (j < dataCols.length)
-            updateOdp(i, j, col.innerText)
-        }, row.getElementsByTagName('td'))
-    }, rows)
-  else
-    updateOdp(rowIndex, colIndex, evt.clipboardData.getData('text/plain'))
-
+  mapIndexed((r, i) => {
+    const row = rowIndex+ i
+    mapIndexed((c, j) => {
+      const col = colIndex + j
+      updateOdp(row, col, c)
+    }, r)
+  }, pastedData)
   saveDraft(countryIso, odp)
 }
 
@@ -177,18 +167,19 @@ const getValidationStatusRow = (odp, index) => odp.validationStatus
   : {}
 
 const nationalClassCols = ['className', 'definition']
-const nationalClassRows = (countryIso, odp, saveDraft) => {
+const nationalClassRows = (countryIso, odp, saveDraft, openThread) => {
   return mapIndexed((nationalClass, index) => <NationalClassRow
     key={index}
     index={index}
     odp={odp}
     saveDraft={saveDraft}
     countryIso={countryIso}
+    openThread={openThread}
     {...nationalClass}/>, odp.nationalClasses)
 }
 
-const NationalClassRow = ({odp, index, saveDraft, countryIso, className, definition, placeHolder}) =>
-  <tr>
+const NationalClassRow = ({odp, index, saveDraft, countryIso, className, definition, placeHolder, openThread}) =>
+    <tr className={`${isCommentsOpen([odp.nationalClasses[index].uuid, 'class_definition'], openThread) ? 'fra-row-comments__open' : ''}`}>
     <td
       className={getValidationStatusRow(odp, index).validClassName === false ? 'error' : ''}>
       <div className="odp__national-class-remove-anchor">
@@ -208,7 +199,7 @@ const NationalClassRow = ({odp, index, saveDraft, countryIso, className, definit
                value={className || ''}
                onChange={(evt) =>
                  saveDraft(countryIso, originalDataPoint.updateNationalClass(odp, index, 'className', evt.target.value))}
-               onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, nationalClassCols, 0) }
+               onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, nationalClassCols, 0, 'text', true )}
         />
       </div>
     </td>
@@ -217,7 +208,7 @@ const NationalClassRow = ({odp, index, saveDraft, countryIso, className, definit
           value={definition || '' }
           onChange={(evt) =>
             saveDraft(countryIso, originalDataPoint.updateNationalClass(odp, index, 'definition', evt.target.value))}
-          onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, nationalClassCols, 1) }
+          onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, nationalClassCols, 1, 'text', true) }
       />
 
     </td>
@@ -233,7 +224,7 @@ const NationalClassRow = ({odp, index, saveDraft, countryIso, className, definit
   </tr>
 
 const extentOfForestCols = ['area', 'forestPercent', 'otherWoodedLandPercent', 'otherLandPercent']
-const extentOfForestRows = (countryIso, odp, saveDraft) =>
+const extentOfForestRows = (countryIso, odp, saveDraft, openThread) =>
   R.pipe(
     R.filter(nationalClass => !nationalClass.placeHolder),
     mapIndexed((nationalClass, index) => <ExtentOfForestRow
@@ -242,6 +233,7 @@ const extentOfForestRows = (countryIso, odp, saveDraft) =>
       odp={odp}
       saveDraft={saveDraft}
       countryIso={countryIso}
+      openThread={openThread}
       {...nationalClass}/>)
   )(odp.nationalClasses)
 
@@ -255,6 +247,7 @@ const ExtentOfForestRow = ({
                              forestPercent,
                              otherWoodedLandPercent,
                              otherLandPercent,
+                             openThread,
                              ...props
                            }) => {
 
@@ -264,45 +257,48 @@ const ExtentOfForestRow = ({
   const validationStatus = getValidationStatusRow(odp, index)
   const validationStatusPercentage = () => validationStatus.validPercentage === false ? 'error' : ''
 
-  return <tr>
+  return <tr className={isCommentsOpen([odp.nationalClasses[index].uuid, 'ndp_class_value'], openThread) ? 'fra-row-comments__open' : ''}>
     <td className="odp__eof-class-name"><span>{className}</span></td>
     <td
       className={`odp__eof-area-cell odp__eof-divide-after-cell ${validationStatus.validArea === false ? 'error' : ''}`}>
       <ThousandSeparatedIntegerInput integerValue={ area }
                                      onChange={ numberUpdated('area', area) }
-                                     onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 0, true, false) }/>
+                                     onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 0, 'integer') }/>
     </td>
     <td className={`odp__eof-percent-cell ${validationStatusPercentage()}`}>
       <input
         type="text"
+        maxLength="3"
         value={forestPercent || ''}
         onChange={ numberUpdated('forestPercent', forestPercent) }
-        onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 1, true, false) }
+        onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 1, 'integer') }
       />
       % &nbsp;
     </td>
     <td className={`odp__eof-percent-cell ${validationStatusPercentage()}`}>
       <input
         type="text"
+        maxLength="3"
         value={otherWoodedLandPercent || ''}
         onChange={ numberUpdated('otherWoodedLandPercent', otherWoodedLandPercent) }
-        onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 2, true, false) }
+        onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 2, 'integer') }
       />
       % &nbsp;
     </td>
     <td className={`odp__eof-percent-cell ${validationStatusPercentage()}`}>
       <input
         type="text"
+        maxLength="3"
         value={otherLandPercent || ''}
         onChange={ numberUpdated('otherLandPercent', otherLandPercent) }
-        onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 3, true, false) }
+        onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 3, 'integer') }
       />
       % &nbsp;
     </td>
     <td className="odp__col-review">
       <ReviewIndicator section='NDP'
                        name="National data point"
-                       target={[`${odp.nationalClasses[index].uuid}`, 'npd_class_value']}
+                       target={[`${odp.nationalClasses[index].uuid}`, 'ndp_class_value']}
                        countryIso={countryIso}/>
 
     </td>
@@ -383,7 +379,8 @@ const mapStateToProps = state => {
   const odp = state.originalDataPoint
   const autoSaving = !!state.autoSave.status
   const active = odp.active
-  return {...odp, active, autoSaving}
+  const openThread = R.defaultTo({target: [], section: ''}, R.path(['review', 'openThread'], state))
+  return {...odp, active, autoSaving, openThread}
 }
 
 export default connect(mapStateToProps, {

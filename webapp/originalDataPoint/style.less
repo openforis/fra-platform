@@ -49,7 +49,7 @@
   }
 
   input {
-    padding: 10px;
+    .fra-table__input;
   }
 }
 
@@ -64,6 +64,7 @@
   .odp__eof-class-name {
     background-color: @ui-bg;
     padding: 10px;
+    max-width: 300px;
   }
 
   .odp__national-class-total-cell {
@@ -73,8 +74,7 @@
   }
 
   input {
-    padding-right: 28px;
-    margin-right: -24px;
+    .fra-table__integer-input;
   }
 }
 
@@ -94,16 +94,12 @@
   width: 30%;
 }
 
-.odp__eof-area-cell {
-  > input {
-    .fra-table__integer-input;
-  }
-}
-
 .odp__eof-percent-cell {
   white-space: nowrap;
-  > input {
-    text-align: right;
+
+  input {
+    padding-right: 28px;
+    margin-right: -24px;
   }
 }
 
@@ -190,4 +186,17 @@
 
 .odp__data-input-component .cke_wrapper .fra-review__add-issue {
   padding: 0 !important;
+}
+
+// Validation
+
+.odp_validate-form {
+  input, select {
+    transition: @ease-out;
+  }
+  .error {
+    input, select {
+      background-color: fade(@ui-destructive, 10%);
+    }
+  }
 }

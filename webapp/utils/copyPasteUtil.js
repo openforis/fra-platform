@@ -1,32 +1,42 @@
 import * as R from 'ramda'
 
-const readHtmlElem = elem => {
+import {acceptNextInteger} from './numberInput'
+
+const parseValue = (raw, type) => {
+  if(R.equals('integer', type)) {
+    return acceptNextInteger(raw, null)
+  }
+  return raw
+}
+
+const readHtmlElem = (elem, type) => {
   const data = []
   const rows = elem.getElementsByTagName('tr')
   R.map(row => {
     const rdata = []
     R.map(cell => {
-      rdata.push(Number(cell.innerText))
+      rdata.push(parseValue(cell.innerText, type))
     }, row.getElementsByTagName('td'))
     data.push(rdata)
   }, rows)
   return data
 }
 
-const readExcelClipboard = evt => {
+const readExcelClipboard = (evt, type = 'integer') => {
   const el = document.createElement('html')
   el.innerHTML = evt.clipboardData.getData('text/html')
-  return readHtmlElem(el)
+  return readHtmlElem(el, type)
 }
 
-const readPlainTextClipboard = evt => {
-  return [[Number(evt.clipboardData.getData('text/plain'))]]
+const readPlainTextClipboard = (evt, type = 'integer') => {
+  const raw = evt.clipboardData.getData('text/plain')
+  return [[parseValue(raw, type)]]
 }
 
-export const readPasteClipboard = evt => {
+export const readPasteClipboard = (evt, type) => {
   evt.stopPropagation()
   evt.preventDefault()
 
-  const xlsHtml = readExcelClipboard(evt)
-  return R.isEmpty(xlsHtml) ? readPlainTextClipboard(evt) : xlsHtml
+  const xlsHtml = readExcelClipboard(evt, type)
+  return R.isEmpty(xlsHtml) ? readPlainTextClipboard(evt, type) : xlsHtml
 }
