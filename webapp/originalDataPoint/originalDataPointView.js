@@ -112,8 +112,10 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
     </div>
 
     <h3 className="subhead odp__section">Comments</h3>
-    <div className="cke_wrapper odp__cke_wrapper">
+    <div className={`odp__cke_wrapper ${isCommentsOpen([`${active.odpId}`, 'comments'], openThread) ? 'fra-row-comments__open' : '' }`}>
+    <div className="cke_wrapper">
       <CommentsEditor active={active} match={match} saveDraft={saveDraft}/>
+    </div>
       { active.odpId
         ? <ReviewIndicator section='NDP'
                            name="National data point"
