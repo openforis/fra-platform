@@ -144,11 +144,12 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
 
 const mapIndexed = R.addIndex(R.map)
 
-const updatePastedValues = (odp, rowIndex, saveDraft, countryIso, dataCols, colIndex, type = 'integer') => evt => {
-
+const updatePastedValues = (odp, rowIndex, saveDraft, countryIso, dataCols, colIndex, type = 'integer', allowGrow = false) => evt => {
   const updateOdp = (rowNo, colNo, value) => {
     odp = originalDataPoint.updateNationalClass(odp, rowNo, dataCols[colNo], value)
   }
+  const rowCount = R.filter(v => !v.placeHolder, odp.nationalClasses).length
+  const pastedData  = allowGrow ? readPasteClipboard(evt, type) : R.take(rowCount - rowIndex, readPasteClipboard(evt, type))
 
   mapIndexed((r, i) => {
     const row = rowIndex+ i
@@ -156,8 +157,7 @@ const updatePastedValues = (odp, rowIndex, saveDraft, countryIso, dataCols, colI
       const col = colIndex + j
       updateOdp(row, col, c)
     }, r)
-  }, readPasteClipboard(evt, type))
-
+  }, pastedData)
   saveDraft(countryIso, odp)
 }
 
@@ -197,7 +197,7 @@ const NationalClassRow = ({odp, index, saveDraft, countryIso, className, definit
              value={className || ''}
              onChange={(evt) =>
                saveDraft(countryIso, originalDataPoint.updateNationalClass(odp, index, 'className', evt.target.value))}
-             onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, nationalClassCols, 0, 'text') }
+             onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, nationalClassCols, 0, 'text', true )}
       />
     </td>
     <td>
@@ -205,7 +205,7 @@ const NationalClassRow = ({odp, index, saveDraft, countryIso, className, definit
              value={definition || '' }
              onChange={(evt) =>
                saveDraft(countryIso, originalDataPoint.updateNationalClass(odp, index, 'definition', evt.target.value))}
-             onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, nationalClassCols, 1, 'text') }
+             onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, nationalClassCols, 1, 'text', true) }
       />
     </td>
     <td className="odp__col-review">
