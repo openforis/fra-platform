@@ -5,13 +5,31 @@ const { setLoggedInCookie } = require('./loggedInCookie')
 const {sendErr} = require('../requestUtils')
 const countryRepository = require('../country/countryRepository')
 
+const verifyCallback = (accessToken, refreshToken, profile, done) =>
+  userRepository
+    .findUserByLoginEmails(profile.emails.map(e => e.value))
+    .then(user => user ? done(null, user) : done(null, false, {message: 'User not authorized'}))
+
+const authenticationFailed = (req, res) => {
+  req.logout()
+  setLoggedInCookie(res, false)
+  res.redirect('/?u=1')
+}
+
+const authenticationSuccessful = (req, user, next, res) => {
+  req.logIn(user, err => {
+    if (err) {
+      next(err)
+    } else {
+      countryRepository.getAllCountries().then(result => {
+        setLoggedInCookie(res, true)
+        res.redirect(`/#/country/${result.rows[0].countryIso}`)
+      }).catch(err => sendErr(res, err))
+    }
+  })
+}
+
 module.exports.init = app => {
-
-  const verifyCallback = (accessToken, refreshToken, profile, done) =>
-    userRepository
-      .findUserByLoginEmails(profile.emails.map(e => e.value))
-      .then(user => user ? done(null, user) : done(null, false, {message: 'User not authorized'}))
-
   authConfig.init(app, verifyCallback)
 
   app.get('/auth/google',
@@ -23,23 +41,11 @@ module.exports.init = app => {
         if (err) {
           next(err)
         } else if (!user) {
-          req.logout()
-          setLoggedInCookie(res, false)
-          res.redirect('/?u=1')
+          authenticationFailed(req, res)
         } else {
-          req.logIn(user, err => {
-            if (err) {
-              next(err)
-            } else {
-              countryRepository.getAllCountries().then(result => {
-                setLoggedInCookie(res, true)
-                res.redirect(`/#/country/${result.rows[0].countryIso}`)
-              }).catch(err => sendErr(res, err))
-            }
-          })
+          authenticationSuccessful(req, user, next, res)
         }
       })(req, res, next)
-
     })
 
   app.post('/auth/logout', (req, res) => {
