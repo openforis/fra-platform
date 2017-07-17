@@ -10,7 +10,9 @@ const renderUnfocusedIntegerValue = integerValue =>
 export class ThousandSeparatedIntegerInput extends React.Component {
   render () {
     const {integerValue, onChange, onPaste, className} = this.props
-    return <input type="text"
+    return <div>
+      <div style={{position: 'absolute', left: -3000}}> {integerValue} </div>
+      <input type="text"
                   maxLength="100"
                   ref="inputField"
                   className={className}
@@ -33,5 +35,6 @@ export class ThousandSeparatedIntegerInput extends React.Component {
                     }
                   }
     />
+  </div>
   }
 }
