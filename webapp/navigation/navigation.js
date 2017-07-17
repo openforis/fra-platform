@@ -47,7 +47,10 @@ const CountryList = ({isOpen, countries, currentCountry}) => {
   return <div className="nav__country-list">
     <div className="nav__country-list-content">
       {
-        countries.map(c => <Link className={`nav__country-list-item ${R.equals(currentCountry, c.countryIso) ? 'selected' : ''}`} to={`/country/${c.countryIso}`} key={c.countryIso}>{c.name}</Link>)
+        countries.map(c => <Link className={`nav__country-list-item ${R.equals(currentCountry, c.countryIso) ? 'selected' : ''}`}
+                                 to={`/country/${c.countryIso}`}
+                                 key={c.countryIso}>{c.name}
+                                 </Link>)
       }
     </div>
   </div>
