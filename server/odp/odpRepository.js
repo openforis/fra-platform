@@ -3,7 +3,8 @@ const R = require('ramda')
 const Promise = require('bluebird')
 const camelize = require('camelize')
 const {toNumberOrNull} = require('../utils/databaseConversions')
-const {validateDataPoint} = require('../../common/originalDataPointValidator')
+const {validateDataPoint} = require('../../common/originalDataPointCommon')
+const {deleteIssuesByIds} = require('../review/reviewRepository')
 
 module.exports.saveDraft = (client, countryIso, draft) =>
   !draft.odpId ? createOdp(client, countryIso)
@@ -16,10 +17,26 @@ const updateOrInsertDraft = (client, odpId, countryIso, draft) =>
       if (!draftId) {
         return insertDraft(client, odpId, countryIso, draft)
           .then(() => ({odpId}))
-      }
-      else {
+      } else {
         return updateDraft(client, draft)
-          .then(() => ({odpId}))
+          .then(() => {
+              const classUuids = draft.nationalClasses.map(c => `"${c.uuid}"`)
+              const classQueryPlaceholders = R.range(3, draft.nationalClasses.length + 3).map(i => '$' + i).join(',')
+
+              return db.query(`
+                  SELECT 
+                    i.id as issue_id
+                  FROM issue i
+                  WHERE i.country_iso = $1
+                  AND i.section = $2
+                  AND i.target #> '{params,0}' = '"${odpId}"'
+                  AND i.target #> '{params,2}' NOT IN (${classQueryPlaceholders})`
+                , [countryIso, 'NDP', ...classUuids])
+                .then(res => res.rows.map(r => r.issue_id))
+                .then(issueIds => deleteIssuesByIds(client, issueIds))
+                .then(() => ({odpId}))
+            }
+          )
       }
     })
 
@@ -70,16 +87,16 @@ const wipeClassData = (client, odpVersionId) =>
 const addClassData = (client, odpVersionId, odp) => {
   const nationalInserts = R.map(
     (nationalClass) => client.query(
-      `INSERT INTO odp_class 
-        (odp_version_id, 
-        name, 
-        definition, 
+      `INSERT INTO odp_class
+        (odp_version_id,
+        name,
+        definition,
         area,
         forest_percent,
         other_wooded_land_percent,
         other_land_percent,
-        uuid) 
-       VALUES 
+        uuid)
+        VALUES
         ($1, $2, $3, $4, $5, $6, $7, $8);`,
       [
         odpVersionId,
@@ -137,56 +154,67 @@ const deleteOdp = (client, odpId) => {
 }
 module.exports.deleteOdp = deleteOdp
 
-const getOdp = odpId =>
-  db.query(`
-    SELECT
-     CASE WHEN draft_id IS NULL
-          THEN actual_id
-          ELSE draft_id
-          END
-      AS version_id
-    FROM odp
-    WHERE id = $1
-  `, [odpId]
-  ).then(result => result.rows[0].version_id
-  ).then(versionId => Promise.all([
-    versionId,
-    db.query(`SELECT name, 
-                     definition,
-                     area,
-                     forest_percent,
-                     other_wooded_land_percent,
-                     other_land_percent,
-                     uuid
-              FROM odp_class 
-              WHERE odp_version_id = $1`,
-      [versionId])])
-  ).then(([versionId, result]) => [versionId, R.map(row => ({
+const getOdpVersionId = odpId =>
+  db.query(
+    `
+        SELECT
+          CASE WHEN draft_id IS NULL
+            THEN actual_id
+            ELSE draft_id
+          END AS version_id
+        FROM odp
+        WHERE id = $1
+        `
+    , [odpId]
+  ).then(result => result.rows[0].version_id)
+
+const getOdpNationalClasses = odpVersionId =>
+  db.query(
+    `SELECT 
+      name,
+      definition,
+      area,
+      forest_percent,
+      other_wooded_land_percent,
+      other_land_percent,
+      uuid
+     FROM odp_class
+     WHERE odp_version_id = $1`
+    ,
+    [odpVersionId])
+    .then(result => R.map(row => ({
       className: row.name,
       definition: row.definition,
       area: toNumberOrNull(row.area),
       forestPercent: row.forest_percent,
       otherWoodedLandPercent: row.other_wooded_land_percent,
-    otherLandPercent: row.other_land_percent,
-    uuid: row.uuid
-    }), result.rows)]
-  ).then(([versionId, nationalClasses]) =>
-    Promise.all([db.query(`
-                  SELECT
-                    p.id AS odp_id,
-                    v.year,
-                    v.description
-                  FROM odp p
-                    JOIN odp_version v
-                      ON v.id = $2
-                  WHERE p.id = $1
-                `, [odpId, versionId]),
-      nationalClasses])
-  ).then(([result, nationalClasses]) =>
-   R.pipe(
-     R.assoc('nationalClasses', nationalClasses),
-     R.assoc('year', toNumberOrNull(result.rows[0].year)))
-   (camelize(result.rows[0])))
+      otherLandPercent: row.other_land_percent,
+      uuid: row.uuid
+    }), result.rows))
+
+const getOdp = odpId =>
+  getOdpVersionId(odpId)
+    .then(versionId =>
+      Promise.all([versionId, getOdpNationalClasses(versionId)])
+    )
+    .then(([versionId, nationalClasses]) =>
+      Promise.all([db.query(
+        `SELECT
+          p.id AS odp_id,
+          p.country_iso,
+          v.year,
+          v.description
+        FROM odp p
+        JOIN odp_version v
+        ON v.id = $2
+        WHERE p.id = $1
+        `, [odpId, versionId]),
+        nationalClasses])
+    ).then(([result, nationalClasses]) =>
+    R.pipe(
+      R.assoc('nationalClasses', nationalClasses),
+      R.assoc('year', toNumberOrNull(result.rows[0].year)))
+    (camelize(result.rows[0])))
 
 module.exports.getOdp = getOdp
 
@@ -205,29 +233,30 @@ const odpReducer = (results, row, type = 'fra') => R.assoc(`odp_${row.year}`,
 
 module.exports.readOriginalDataPoints = (countryIso) =>
   db.query(`
-  
-      SELECT
-        p.id as odp_id,
-        v.year,
-        SUM(c.area * (c.forest_percent/100.0)) AS forest_area,
-        SUM(c.area * (c.other_wooded_land_percent/100.0)) AS other_wooded_land_area,
-        SUM(c.area * (c.other_land_percent/100.0)) AS other_land_area,
-        CASE WHEN p.draft_id IS NULL
+        SELECT
+          p.id as odp_id,
+          v.year,
+          SUM(c.area * (c.forest_percent/100.0)) AS forest_area,
+          SUM(c.area * (c.other_wooded_land_percent/100.0)) AS other_wooded_land_area,
+          SUM(c.area * (c.other_land_percent/100.0)) AS other_land_area,
+        CASE 
+          WHEN p.draft_id IS NULL
           THEN FALSE
           ELSE TRUE
         END AS draft
-      FROM odp p
+        FROM odp p
         JOIN odp_version v
-          ON v.id =
-             CASE WHEN p.draft_id IS NULL
-               THEN p.actual_id
-             ELSE p.draft_id
-             END
-      LEFT OUTER JOIN odp_class c
+        ON v.id =
+          CASE WHEN p.draft_id IS NULL
+          THEN p.actual_id
+          ELSE p.draft_id
+        END
+        LEFT OUTER JOIN odp_class c
           ON c.odp_version_id = v.id
-      WHERE p.country_iso = $1 AND year IS NOT NULL
-      GROUP BY odp_id, v.year, draft 
-  `, [countryIso]).then(result => R.reduce(odpReducer, {}, result.rows))
+        WHERE p.country_iso = $1 AND year IS NOT NULL
+        GROUP BY odp_id, v.year, draft
+        `
+    , [countryIso]).then(result => R.reduce(odpReducer, {}, result.rows))
 
 const listOriginalDataPoints = countryIso =>
   db.query(`SELECT p.id as odp_id FROM odp p WHERE country_iso = $1`, [countryIso])

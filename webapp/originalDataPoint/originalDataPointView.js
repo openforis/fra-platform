@@ -215,11 +215,11 @@ const NationalClassRow = ({odp, index, saveDraft, countryIso, className, definit
 
     </td>
     <td className="odp__col-review">
-      {placeHolder
+      {placeHolder || !odp.odpId
         ? null
         : <ReviewIndicator section='NDP'
                            name="National data point"
-                           target={[`${odp.nationalClasses[index].uuid}`, 'class_definition']}
+                           target={[odp.odpId, 'class_definition', `${odp.nationalClasses[index].uuid}`]}
                            countryIso={countryIso}/>
       }
     </td>
@@ -298,11 +298,12 @@ const ExtentOfForestRow = ({
       % &nbsp;
     </td>
     <td className="odp__col-review">
-      <ReviewIndicator section='NDP'
-                       name="National data point"
-                       target={[`${odp.nationalClasses[index].uuid}`, 'ndp_class_value']}
-                       countryIso={countryIso}/>
-
+      {odp.odpId
+        ? <ReviewIndicator section='NDP'
+                           name="National data point"
+                           target={[odp.odpId, 'class_value', `${odp.nationalClasses[index].uuid}`]}
+                           countryIso={countryIso}/>
+        : null }
     </td>
   </tr>
 }
@@ -366,9 +367,9 @@ class OriginalDataPointView extends React.Component {
         </div>
         {
           this.props.active
-          ? <DataInput years={years}
-                       copyDisabled={R.not(R.isNil(R.path(['match','params','odpId'], this.props)))}
-                       {...this.props}/>
+            ? <DataInput years={years}
+                         copyDisabled={R.not(R.isNil(R.path(['match', 'params', 'odpId'], this.props)))}
+                         {...this.props}/>
             : null
 
         }

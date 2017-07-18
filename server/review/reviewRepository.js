@@ -1,19 +1,24 @@
 const camelize = require('camelize')
 const db = require('../db/db')
+const R = require('ramda')
+const Promise = require('bluebird')
 
-module.exports.getIssues = (countryIso, section) => {
-  return db.query(`
-    SELECT i.id as issue_id, i.target as target, c.id as comment_id,
+module.exports.getIssues = (countryIso, section) =>
+  db.query(`
+    SELECT 
+      i.id as issue_id, i.target as target, c.id as comment_id,
       c.user_id as user_id, u.email as email, u.name as username,
-      c.message as message, c.status_changed as status_changed FROM issue i
-    JOIN fra_comment c ON (c.issue_id = i.id)
-    JOIN fra_user u ON (u.id = c.user_id)
-    WHERE i.country_iso = $1 AND i.section = $2;
-  `, [countryIso, section]).then(res => {
-      return camelize(res.rows)
-    }
-  )
-}
+      c.message as message, c.status_changed as status_changed 
+    FROM 
+      issue i
+    JOIN fra_comment c 
+      ON (c.issue_id = i.id)
+    JOIN fra_user u 
+      ON (u.id = c.user_id)
+    WHERE 
+      i.country_iso = $1 AND i.section = $2;
+  `, [countryIso, section])
+    .then(res => camelize(res.rows))
 
 module.exports.allIssues = countryIso => {
   return db.query(`
@@ -25,6 +30,19 @@ module.exports.allIssues = countryIso => {
     }
   )
 }
+
+const getIssuesByParam = (countryIso, section, paramPosition, paramValue) =>
+  db.query(`
+    SELECT 
+      i.id as issue_id, i.section, i.target, i.status
+    FROM issue i
+    WHERE i.country_iso = $1
+    AND i.section = $2
+    AND i.target #> '{params,${paramPosition}}' = '"${paramValue}"'`
+    , [countryIso, section])
+    .then(res => camelize(res.rows))
+
+module.exports.getIssuesByParam = getIssuesByParam
 
 module.exports.createIssueWithComment = (client, countryIso, section, target, userId, msg) =>
   client.query(`
@@ -41,4 +59,24 @@ module.exports.createComment = (client, issueId, userId, msg, status_changed) =>
     INSERT INTO fra_comment (issue_id, user_id, message, status_changed)
     VALUES ($1, $2, $3, $4);
  `, [issueId, userId, msg, status_changed])
+
+const deleteIssuesByIds = (client, issueIds) => {
+  if (issueIds.length > 0) {
+    const issueIdQueryPlaceholders = R.range(1, issueIds.length + 1).map(i => '$' + i).join(',')
+
+    return client
+      .query(`DELETE from fra_comment WHERE issue_id IN (${issueIdQueryPlaceholders})`, issueIds)
+      .then(() =>
+        client.query(`DELETE from issue WHERE id IN (${issueIdQueryPlaceholders})`, issueIds)
+      )
+  } else
+    return Promise.resolve()
+}
+
+module.exports.deleteIssuesByIds = deleteIssuesByIds
+
+module.exports.deleteIssues = (client, countryIso, section, paramPosition, paramValue) =>
+  getIssuesByParam(countryIso, section, paramPosition, paramValue)
+    .then(res => res.map(r => r.issueId))
+    .then(issueIds => deleteIssuesByIds(client, issueIds))
 

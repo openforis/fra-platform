@@ -21,9 +21,16 @@ const ODPListing = ({countryIso, odps = []}) => <div className="odp-list__contai
     <tbody>
     { odps.length > 0 ? odps.map(odp => <tr className='odp-list__list-row' key={odp.odpId}>
       <td className='odp-list__year-column'>{odp.year == 0 ? '-' : odp.year}</td>
-      <td className='odp-list__notification-column'>{!odp.validationStatus.valid ? <svg className='icon icon-red'>
-        <use xlinkHref='img/icon.svg#icon-alert'/>
-      </svg> : null}</td>
+      <td className='odp-list__notification-column'>
+        {!odp.validationStatus.valid ? <div>
+          <svg className='icon icon-red'>
+            <use xlinkHref='img/icon.svg#icon-alert'/>
+          </svg>
+        </div> : null}
+        { R.isEmpty(odp.issues) ? null : <div>
+          <div className='issue-open'></div>
+        </div> }
+      </td>
       <td>-</td>
       <td className='odp-list__edit-column'>
         <Link className="link" to={`/country/${countryIso}/odp/${odp.odpId}`}>Edit</Link>
