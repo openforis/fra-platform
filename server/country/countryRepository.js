@@ -4,8 +4,6 @@ const camelize = require('camelize')
 
 const getAllCountries = () => db.query('SELECT country_iso, name FROM country ORDER BY name ASC').then(res => camelize(res))
 
-module.exports.getAllCountries = getAllCountries
-
 module.exports.getAllowedCountries = (roles) => {
   const hasRole = (role) => R.find(R.propEq('role', role), roles)
   // Either of these give access to full country list
