@@ -1,6 +1,7 @@
 const camelize = require('camelize')
 const db = require('../db/db')
 const R = require('ramda')
+const Promise = require('bluebird')
 
 module.exports.getIssues = (countryIso, section) =>
   db.query(`
@@ -59,20 +60,23 @@ module.exports.createComment = (client, issueId, userId, msg, status_changed) =>
     VALUES ($1, $2, $3, $4);
  `, [issueId, userId, msg, status_changed])
 
+const deleteIssuesByIds = (client, issueIds) => {
+  if (issueIds.length > 0) {
+    const issueIdQueryPlaceholders = R.range(1, issueIds.length + 1).map(i => '$' + i).join(',')
+
+    return client
+      .query(`DELETE from fra_comment WHERE issue_id IN (${issueIdQueryPlaceholders})`, issueIds)
+      .then(() =>
+        client.query(`DELETE from issue WHERE id IN (${issueIdQueryPlaceholders})`, issueIds)
+      )
+  } else
+    return Promise.resolve()
+}
+
+module.exports.deleteIssuesByIds = deleteIssuesByIds
+
 module.exports.deleteIssues = (client, countryIso, section, paramPosition, paramValue) =>
   getIssuesByParam(countryIso, section, paramPosition, paramValue)
-    .then(res => [
-      res.map(r => r.issueId),
-      R.range(1, res.length + 1).map(i => '$' + i).join(',')
-    ])
-    .then(([issueIds, issueIdQueryPlaceholders]) =>
-      issueIds.length > 0
-        ? client.query(`DELETE from fra_comment WHERE issue_id IN (${issueIdQueryPlaceholders})`, issueIds)
-        .then(() => [issueIds, issueIdQueryPlaceholders])
-        : [[], []])
-    .then(([issueIds, issueIdQueryPlaceholders]) =>
-      issueIds.length > 0
-        ? client.query(`DELETE from issue WHERE id IN (${issueIdQueryPlaceholders})`, issueIds)
-        : null)
-
+    .then(res => res.map(r => r.issueId))
+    .then(issueIds => deleteIssuesByIds(client, issueIds))
 
