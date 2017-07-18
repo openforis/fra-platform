@@ -137,7 +137,7 @@ const deleteOdp = (client, odpId) => {
 }
 module.exports.deleteOdp = deleteOdp
 
-const getOdp = odpId =>
+const getOdpVersionId = odpId =>
   db.query(`
     SELECT
      CASE WHEN draft_id IS NULL
@@ -148,10 +148,10 @@ const getOdp = odpId =>
     FROM odp
     WHERE id = $1
   `, [odpId]
-  ).then(result => result.rows[0].version_id
-  ).then(versionId => Promise.all([
-    versionId,
-    db.query(`SELECT name, 
+  ).then(result => result.rows[0].version_id)
+
+const getOdpNationalClasses = odpVersionId =>
+  db.query(`SELECT name, 
                      definition,
                      area,
                      forest_percent,
@@ -160,18 +160,24 @@ const getOdp = odpId =>
                      uuid
               FROM odp_class 
               WHERE odp_version_id = $1`,
-      [versionId])])
-  ).then(([versionId, result]) => [versionId, R.map(row => ({
+    [odpVersionId])
+    .then(result => R.map(row => ({
       className: row.name,
       definition: row.definition,
       area: toNumberOrNull(row.area),
       forestPercent: row.forest_percent,
       otherWoodedLandPercent: row.other_wooded_land_percent,
-    otherLandPercent: row.other_land_percent,
-    uuid: row.uuid
-    }), result.rows)]
-  ).then(([versionId, nationalClasses]) =>
-    Promise.all([db.query(`
+      otherLandPercent: row.other_land_percent,
+      uuid: row.uuid
+    }), result.rows))
+
+const getOdp = odpId =>
+  getOdpVersionId(odpId)
+    .then(versionId =>
+      Promise.all([versionId, getOdpNationalClasses(versionId)])
+    )
+    .then(([versionId, nationalClasses]) =>
+      Promise.all([db.query(`
                   SELECT
                     p.id AS odp_id,
                     p.country_iso,
@@ -182,8 +188,8 @@ const getOdp = odpId =>
                       ON v.id = $2
                   WHERE p.id = $1
                 `, [odpId, versionId]),
-      nationalClasses])
-  ).then(([result, nationalClasses]) =>
+        nationalClasses])
+    ).then(([result, nationalClasses]) =>
     R.pipe(
       R.assoc('nationalClasses', nationalClasses),
       R.assoc('year', toNumberOrNull(result.rows[0].year)))
