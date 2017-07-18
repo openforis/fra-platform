@@ -8,9 +8,9 @@ import * as R from 'ramda'
 // <ROLE>_ALL roles are changed to their corresponding "normal" roles, e.g.
 // REVIEWER_ALL will be REVIEWER for the country we are interested in
 
-const reviewer = {role: 'REVIEWER', label: 'Reviewer'}
-const nationalCorrespondent = {role: 'NATIONAL_CORRESPONDENT', label: 'National Correspondent'}
-const noRole = {role: 'NONE', label: 'N/A'}
+export const reviewer = {role: 'REVIEWER', label: 'Reviewer'}
+export const nationalCorrespondent = {role: 'NATIONAL_CORRESPONDENT', label: 'National Correspondent'}
+export const noRole = {role: 'NONE', label: 'N/A'}
 
 export const mostPowerfulRole = (countryIso, userInfo) => {
   if (!userInfo) return noRole
