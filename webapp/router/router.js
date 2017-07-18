@@ -5,7 +5,7 @@ import * as Cookies from 'js-cookie'
 
 import { follow } from './actions'
 import Notfound from '../notfound'
-import { getLoggedinUserInfo } from '../login/actions'
+import { getLoggedinUserInfo } from '../user/actions'
 
 class Router extends React.Component {
 
