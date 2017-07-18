@@ -29,7 +29,7 @@ module.exports.allIssues = countryIso => {
   )
 }
 
-module.exports.getIssuesByParam = (countryIso, section, paramPosition, paramValue) =>
+const getIssuesByParam = (countryIso, section, paramPosition, paramValue) =>
   db.query(`
     SELECT 
       i.id as issue_id, i.section, i.target, i.status
@@ -39,6 +39,8 @@ module.exports.getIssuesByParam = (countryIso, section, paramPosition, paramValu
     AND i.target #> '{params,${paramPosition}}' = '"${paramValue}"'`
     , [countryIso, section])
     .then(res => camelize(res.rows))
+
+module.exports.getIssuesByParam = getIssuesByParam
 
 module.exports.createIssueWithComment = (client, countryIso, section, target, userId, msg) =>
   client.query(`
@@ -56,10 +58,10 @@ module.exports.createComment = (client, issueId, userId, msg, status_changed) =>
     VALUES ($1, $2, $3, $4);
  `, [issueId, userId, msg, status_changed])
 
-module.exports.deleteIssues = (client, countryIso, section, targets) =>
-  client.query(`SELECT id AS issue_id FROM issue WHERE country_iso = $1 AND section = $2 AND target IN(${targets.join(',')})`, [countryIso, section])
-    .then(res => res.rows.map(r => r.issue_id))
-    .then(issue_ids => issue_ids.length > 0 ? client.query(`DELETE from fra_comment WHERE issue_id IN (${issue_ids.join(',')})`).then(() => issue_ids) : [])
-    .then(issue_ids => issue_ids.length > 0 ? client.query(`DELETE from issue WHERE id IN (${issue_ids.join(',')})`) : null)
+module.exports.deleteIssues = (client, countryIso, section, paramPosition, paramValue) =>
+  getIssuesByParam(countryIso, section, paramPosition, paramValue)
+    .then(res => res.map(r => r.issueId))
+    .then(issueIds => issueIds.length > 0 ? client.query(`DELETE from fra_comment WHERE issue_id IN (${issueIds.join(',')})`).then(() => issueIds) : [])
+    .then(issueIds => issueIds.length > 0 ? client.query(`DELETE from issue WHERE id IN (${issueIds.join(',')})`) : null)
 
 

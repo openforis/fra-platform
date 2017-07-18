@@ -46,14 +46,12 @@ module.exports.init = app => {
       })
   )
 
-  app.delete('/odp', (req, res) => {
-    odpRepository.getOdp(req.query.odpId)
-      .then(odp =>
-        db.transaction(reviewRepository.deleteIssues, [odp.countryIso, 'NDP', getOdpIssueTargets(odp)]))
+  app.delete('/odp', (req, res) =>
+    db.transaction(reviewRepository.deleteIssues, [req.query.countryIso, 'NDP', 0, req.query.odpId])
       .then(db.transaction(odpRepository.deleteOdp, [req.query.odpId])
         .then(() => res.json({})))
       .catch(err => sendErr(res, err))
-  })
+  )
 
   app.post('/odp/draft', (req, res) => {
     const countryIso = req.query.countryIso

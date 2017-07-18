@@ -55,7 +55,7 @@ export const clearActive = () => ({type: odpClearActiveAction})
 // Delete
 
 export const remove = (countryIso, odpId) => dispatch => {
-  axios.delete(`/api/odp/?odpId=${odpId}`)
+  axios.delete(`/api/odp/?odpId=${odpId}&countryIso=${countryIso}`)
     .then(() => {
       dispatch({type: odpClearActiveAction})
       fetchNavStatus(countryIso)(dispatch)
