@@ -2,7 +2,7 @@ import * as R from 'ramda'
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { postComment, retrieveComments, closeCommentThread } from './actions'
+import { postComment, retrieveComments, closeCommentThread, deleteComment } from './actions'
 
 import './style.less'
 
@@ -36,7 +36,7 @@ const AddComment = ({issueId, countryIso, section, target, postComment, onCancel
     </div>
   </div>
 
-const CommentThread = ({comments, userInfo = {}}) => {
+const CommentThread = ({comments, userInfo = {}, countryIso, section, target, deleteComment}) => {
   const isThisMe = R.pipe(R.prop('userId'), R.equals(userInfo.id))
   return <div className={`fra-review__comment-widget-visible`}>
     <div className={`fra-review__issue fra-review__issue-visible`}>
@@ -52,7 +52,9 @@ const CommentThread = ({comments, userInfo = {}}) => {
                     <div className={`fra-review__comment-author ${isThisMe(c) ? 'author-me' : ''}`}>
                       <div>{c.username}</div>
                       {isThisMe
-                        ? <button className="btn">Delete</button>
+                        ? <button
+                          className="btn"
+                          onClick={() => deleteComment(countryIso, section, target, c.commentId)}>Delete</button>
                         : null }
                     </div>
                     <div className="fra-review__comment-time">Just now</div>
@@ -107,15 +109,22 @@ class ReviewPanel extends React.Component {
       <ReviewHeader name={name} close={close}/>
       <CommentThread
         comments={comments}
-        userInfo={this.props.userInfo}/>
-      <AddComment issueId={issueId}
-                  countryIso={this.props.country}
-                  section={section}
-                  target={target}
-                  postComment={this.props.postComment}
-                  onCancel={close}
-                  isFirst={comments.length === 0}
-                  userInfo={this.props.userInfo}/>
+        userInfo={this.props.userInfo}
+        countryIso={this.props.country}
+        section={section}
+        target={target}
+        deleteComment={this.props.deleteComment}
+      />
+      <AddComment
+        issueId={issueId}
+        countryIso={this.props.country}
+        section={section}
+        target={target}
+        postComment={this.props.postComment}
+        onCancel={close}
+        isFirst={comments.length === 0}
+        userInfo={this.props.userInfo}
+      />
     </div>
   }
 }
@@ -125,6 +134,7 @@ const mapSateToProps = state => R.pipe(R.prop('review'), R.defaultTo({}), R.merg
 export default connect(mapSateToProps, {
   postComment,
   retrieveComments,
-  closeCommentThread
+  closeCommentThread,
+  deleteComment
 })(ReviewPanel)
 

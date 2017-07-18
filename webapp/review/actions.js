@@ -47,3 +47,8 @@ export const openCommentThread = (countryIso, section, target, name) => dispatch
   dispatch({type: issueOpenCommentThread, target, section, name})
 }
 export const closeCommentThread = () => ({type: issueCloseCommentThread})
+
+export const deleteComment = (countryIso, section, target, commentId) => dispatch => {
+  // console.log(countryIso, section, target, commentId)
+  retrieveComments(countryIso, section, target)(dispatch)
+}
