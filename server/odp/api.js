@@ -43,7 +43,7 @@ module.exports.init = app => {
             },
             targets =>
               reviewRepository
-                .getIssuesByTargets(req.params.countryIso, 'NDP', targets)
+                .getIssuesByParam(req.params.countryIso, 'NDP', 0, odp.odpId)
                 .then(issues => R.assoc('issues', issues, odp))
           )([])
         )

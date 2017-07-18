@@ -29,14 +29,14 @@ module.exports.allIssues = countryIso => {
   )
 }
 
-module.exports.getIssuesByTargets = (countryIso, section, targets) =>
+module.exports.getIssuesByParam = (countryIso, section, paramPosition, paramValue) =>
   db.query(`
     SELECT 
       i.id as issue_id, i.section, i.target, i.status
     FROM issue i
     WHERE i.country_iso = $1
     AND i.section = $2
-    AND i.target in (${targets.join(',')})`
+    AND i.target #> '{params,${paramPosition}}' = '"${paramValue}"'`
     , [countryIso, section])
     .then(res => camelize(res.rows))
 
