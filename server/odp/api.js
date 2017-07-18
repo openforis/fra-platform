@@ -3,7 +3,6 @@ const db = require('../db/db')
 const odpRepository = require('./odpRepository')
 const reviewRepository = require('../review/reviewRepository')
 const {sendErr} = require('../requestUtils')
-const {getOdpIssueTargets} = require('../../common/originalDataPointCommon')
 
 module.exports.init = app => {
 
@@ -33,13 +32,9 @@ module.exports.init = app => {
       .listAndValidateOriginalDataPoints(req.params.countryIso)
       .then(odps => {
         const issues = odps.map(odp =>
-          R.pipe(
-            getOdpIssueTargets,
-            targets =>
-              reviewRepository
-                .getIssuesByParam(req.params.countryIso, 'NDP', 0, odp.odpId)
-                .then(issues => R.assoc('issues', issues, odp))
-          )(odp)
+          reviewRepository
+            .getIssuesByParam(req.params.countryIso, 'NDP', 0, odp.odpId)
+            .then(issues => R.assoc('issues', issues, odp))
         )
         Promise
           .all(issues)
