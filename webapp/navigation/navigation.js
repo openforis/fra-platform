@@ -8,6 +8,7 @@ import { Link } from './../link'
 import { follow } from './../router/actions'
 import { getCountryList, fetchNavStatus } from './actions'
 import { annualItems, fiveYearItems } from './items'
+import { mostPowerfulRole } from '../user/countryRole'
 
 import './style.less'
 
@@ -103,17 +104,7 @@ const SecondaryItem = ({path, countryIso, order, pathTemplate = '/tbd', label, s
   </Link>
 }
 
-const roleLabel = (countryIso, userInfo) => {
-  if (!userInfo) return null
-  const hasRole = (role, roles) => R.find(R.propEq('role', role))(roles)
-  if (hasRole('REVIEWER_ALL', userInfo.roles)) return 'Reviewer'
-  const rolesForCountry = R.filter(R.propEq('countryIso', countryIso))(userInfo.roles)
-  //If user has both roles for country, the stronger (Reviewer) "wins"
-  if (hasRole('REVIEWER', rolesForCountry)) return 'Reviewer'
-  if (hasRole('NATIONAL_CORRESPONDENT_ALL', userInfo.roles)) return 'National Correspondent'
-  if (hasRole('NATIONAL_CORRESPONDENT', rolesForCountry)) return 'National Correspondent'
-  return null
-}
+const roleLabel = (countryIso, userInfo) => mostPowerfulRole(countryIso, userInfo).label
 
 const Nav = ({path, country, countries, follow, getCountryList, status = {}, userInfo}) => {
   return <div className="main__nav-wrapper">
