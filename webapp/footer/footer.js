@@ -3,7 +3,7 @@ import * as R from 'ramda'
 
 import React from 'react'
 import { connect } from 'react-redux'
-import { logout } from '../login/actions'
+import { logout } from '../user/actions'
 
 class UserControl extends React.Component {
   componentWillMount () {
