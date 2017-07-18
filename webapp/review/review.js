@@ -44,8 +44,15 @@ const CommentThread = ({comments, userInfo = {}}) => {
         {
           comments && R.not(R.isEmpty(comments)) ? mapIndexed((c, i) =>
               <div key={i} className="fra-review__comment">
-                <div className={`fra-review__comment-author ${isThisMe(c) ? 'author-me' : ''}`}>{c.username}</div>
-                <div className="fra-review__comment-time">Just now</div>
+                <div className="fra-review__comment-header">
+                  <div>
+                    <img className="fra-review__avatar" src={`https://www.gravatar.com/avatar/${c.hash}?d=mm`} />
+                  </div>
+                  <div>
+                    <div className={`fra-review__comment-author ${isThisMe(c) ? 'author-me' : ''}`}>{c.username}</div>
+                    <div className="fra-review__comment-time">Just now</div>
+                  </div>
+                </div>
                 <div className="fra-review__comment-text">
                   {c.message}
                 </div>
