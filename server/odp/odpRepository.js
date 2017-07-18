@@ -3,7 +3,7 @@ const R = require('ramda')
 const Promise = require('bluebird')
 const camelize = require('camelize')
 const {toNumberOrNull} = require('../utils/databaseConversions')
-const {validateDataPoint} = require('../../common/originalDataPointValidator')
+const {validateDataPoint} = require('../../common/originalDataPointCommon')
 
 module.exports.saveDraft = (client, countryIso, draft) =>
   !draft.odpId ? createOdp(client, countryIso)
@@ -174,6 +174,7 @@ const getOdp = odpId =>
     Promise.all([db.query(`
                   SELECT
                     p.id AS odp_id,
+                    p.country_iso,
                     v.year,
                     v.description
                   FROM odp p
@@ -183,10 +184,10 @@ const getOdp = odpId =>
                 `, [odpId, versionId]),
       nationalClasses])
   ).then(([result, nationalClasses]) =>
-   R.pipe(
-     R.assoc('nationalClasses', nationalClasses),
-     R.assoc('year', toNumberOrNull(result.rows[0].year)))
-   (camelize(result.rows[0])))
+    R.pipe(
+      R.assoc('nationalClasses', nationalClasses),
+      R.assoc('year', toNumberOrNull(result.rows[0].year)))
+    (camelize(result.rows[0])))
 
 module.exports.getOdp = getOdp
 

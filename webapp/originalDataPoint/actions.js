@@ -4,7 +4,7 @@ import * as R from 'ramda'
 import { applicationError } from '../applicationError/actions'
 import * as autosave from '../autosave/actions'
 import { removeClassPlaceholder, addNationalClassPlaceHolder, copyNationalClasses } from './originalDataPoint'
-import { validateDataPoint } from '../../common/originalDataPointValidator'
+import {validateDataPoint} from '../../common/originalDataPointCommon'
 import { fetchNavStatus } from '../navigation/actions'
 
 // Validation

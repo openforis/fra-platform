@@ -3,6 +3,7 @@ const db = require('../db/db')
 const odpRepository = require('./odpRepository')
 const reviewRepository = require('../review/reviewRepository')
 const {sendErr} = require('../requestUtils')
+const {getOdpIssueTargets} = require('../../common/originalDataPointCommon')
 
 module.exports.init = app => {
 
@@ -31,21 +32,14 @@ module.exports.init = app => {
     odpRepository
       .listAndValidateOriginalDataPoints(req.params.countryIso)
       .then(odps => {
-        const issues = odps.map(
-          odp => R.pipe(
-            R.append(`'{"params":["${odp.odpId}","comments"]}'`),
-            a => {
-              R.forEach(c => {
-                a = R.append(`'{"params":["${c.uuid}","class_definition"]}'`, a)
-                a = R.append(`'{"params":["${c.uuid}","npd_class_value"]}'`, a)
-              }, odp.nationalClasses)
-              return a
-            },
+        const issues = odps.map(odp =>
+          R.pipe(
+            getOdpIssueTargets,
             targets =>
               reviewRepository
                 .getIssuesByParam(req.params.countryIso, 'NDP', 0, odp.odpId)
                 .then(issues => R.assoc('issues', issues, odp))
-          )([])
+          )(odp)
         )
         Promise
           .all(issues)
@@ -58,8 +52,11 @@ module.exports.init = app => {
   )
 
   app.delete('/odp', (req, res) => {
-    db.transaction(odpRepository.deleteOdp, [req.query.odpId])
-      .then(() => res.json({}))
+    odpRepository.getOdp(req.query.odpId)
+      .then(odp =>
+        db.transaction(reviewRepository.deleteIssues, [odp.countryIso, 'NDP', getOdpIssueTargets(odp)]))
+      .then(db.transaction(odpRepository.deleteOdp, [req.query.odpId])
+        .then(() => res.json({})))
       .catch(err => sendErr(res, err))
   })
 
