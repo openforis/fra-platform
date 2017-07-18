@@ -46,10 +46,15 @@ const CommentThread = ({comments, userInfo = {}}) => {
               <div key={i} className="fra-review__comment">
                 <div className="fra-review__comment-header">
                   <div>
-                    <img className="fra-review__avatar" src={`https://www.gravatar.com/avatar/${c.hash}?d=mm`} />
+                    <img className="fra-review__avatar" src={`https://www.gravatar.com/avatar/${c.hash}?d=mm`}/>
                   </div>
-                  <div>
-                    <div className={`fra-review__comment-author ${isThisMe(c) ? 'author-me' : ''}`}>{c.username}</div>
+                  <div className="fra-review__comment-author-section">
+                    <div className={`fra-review__comment-author ${isThisMe(c) ? 'author-me' : ''}`}>
+                      <div>{c.username}</div>
+                      {isThisMe
+                        ? <button className="btn">Delete</button>
+                        : null }
+                    </div>
                     <div className="fra-review__comment-time">Just now</div>
                   </div>
                 </div>
@@ -58,7 +63,9 @@ const CommentThread = ({comments, userInfo = {}}) => {
                 </div>
               </div>,
             comments) : <div className='fra-review__comment-placeholder'>
-            <svg className="fra-review__comment-placeholder-icon icon-24"><use xlinkHref="img/icon.svg#icon-chat-46"/></svg>
+            <svg className="fra-review__comment-placeholder-icon icon-24">
+              <use xlinkHref="img/icon.svg#icon-chat-46"/>
+            </svg>
             <span className="fra-review__comment-placeholder-text">No comments</span>
           </div>
         }
