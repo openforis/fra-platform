@@ -38,7 +38,7 @@ const AddComment = ({issueId, countryIso, section, target, postComment, onCancel
 
 const CommentThread = ({comments, userInfo = {}, countryIso, section, target, deleteComment}) => {
   const isThisMe = R.pipe(R.prop('userId'), R.equals(userInfo.id))
-  const isCommentDeleted = R.pipe(R.prop('statusChanged'), R.equals('deleted'))
+  const isCommentDeleted = R.propEq('deleted', true)
 
   return <div className={`fra-review__comment-widget-visible`}>
     <div className={`fra-review__issue fra-review__issue-visible`}>

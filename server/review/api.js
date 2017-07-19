@@ -27,7 +27,7 @@ module.exports.init = app => {
         }, result)
         res.json({
           count: R.pipe(
-            R.filter(i => R.pipe(R.pathEq(['statusChanged'], 'deleted'), R.not)(i)),
+            R.filter(i => !i.deleted),
             R.reject(R.isEmpty),
             R.length)(issues)
         })
