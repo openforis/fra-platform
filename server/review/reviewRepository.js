@@ -3,7 +3,7 @@ const db = require('../db/db')
 const R = require('ramda')
 const Promise = require('bluebird')
 
-module.exports.getIssues = (countryIso, section) =>
+module.exports.getIssueComments = (countryIso, section) =>
   db.query(`
     SELECT 
       i.id as issue_id, i.target as target, c.id as comment_id,
