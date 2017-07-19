@@ -5,7 +5,7 @@ const db = require('../db/db')
 const os = require('os')
 const Promise = require('bluebird')
 const fs = Promise.promisifyAll(require('fs'))
-const {sendErr} = require('../requestUtils')
+const {sendErr} = require('../utils/requestUtils')
 const R = require('ramda')
 const estimationEngine = require('./estimationEngine')
 

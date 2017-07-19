@@ -1,6 +1,6 @@
 const db = require('../db/db')
 const repository = require('./traditionalTableRepository')
-const {sendErr} = require('../requestUtils')
+const {sendErr} = require('../utils/requestUtils')
 
 module.exports.init = app => {
   app.post('/traditionalTable/:countryIso/:tableSpecName', (req, res) => {

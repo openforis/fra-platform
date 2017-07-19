@@ -1,5 +1,5 @@
 const db = require('../db/db')
-const {sendErr} = require('../requestUtils')
+const {sendErr} = require('../utils/requestUtils')
 const repository = require('./descriptionsRepository')
 
 module.exports.init = app => {
