@@ -30,9 +30,14 @@ module.exports.getIssueComments = (countryIso, section) =>
 
 module.exports.getIssuesByCountry = countryIso => {
   return db.query(`
-    SELECT i.id as issue_id, i.section as section, i.target as target, i.status as status
-    FROM issue i
-    WHERE i.country_iso = $1;
+    SELECT 
+      i.id as issue_id, i.section as section, i.target as target, i.status as status
+    FROM 
+      issue i
+    WHERE 
+      i.country_iso = $1
+    AND
+      i.id in (SELECT DISTINCT c.issue_id FROM fra_comment c WHERE c.deleted = false)  
   `, [countryIso]).then(res => {
       return camelize(res.rows)
     }
