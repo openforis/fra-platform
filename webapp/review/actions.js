@@ -51,4 +51,7 @@ export const closeCommentThread = () => ({type: issueCloseCommentThread})
 export const deleteComment = (countryIso, section, target, commentId) => dispatch =>
   axios
     .delete(`api/review/${countryIso}/comments/${commentId}`)
-    .then(() => retrieveComments(countryIso, section, target)(dispatch))
+    .then(() => {
+      retrieveComments(countryIso, section, target)(dispatch)
+      getCommentCount(countryIso, section, target)(dispatch)
+    })
