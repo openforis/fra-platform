@@ -14,7 +14,8 @@ module.exports.getIssueComments = (countryIso, section) =>
         ELSE c.message 
       END as message, 
       c.status_changed,
-      c.deleted 
+      c.deleted,
+      c.added_time
     FROM 
       issue i
     JOIN fra_comment c 
