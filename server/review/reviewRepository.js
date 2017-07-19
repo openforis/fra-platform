@@ -28,7 +28,7 @@ module.exports.getIssueComments = (countryIso, section) =>
   `, [countryIso, section])
     .then(res => camelize(res.rows))
 
-module.exports.allIssues = countryIso => {
+module.exports.getIssuesByCountry = countryIso => {
   return db.query(`
     SELECT i.id as issue_id, i.section as section, i.target as target, i.status as status
     FROM issue i

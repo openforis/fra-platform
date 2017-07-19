@@ -66,7 +66,7 @@ module.exports.init = app => {
   app.get('/nav/status/:countryIso', (req, res) => {
     checkCountryAccessFromReqParams(req)
     const odpData = odpRepository.listAndValidateOriginalDataPoints(req.params.countryIso)
-    const reviewStatus = reviewRepository.allIssues(req.params.countryIso)
+    const reviewStatus = reviewRepository.getIssuesByCountry(req.params.countryIso)
 
     // in future we certainly will need the Promise.all here wink wink
     Promise.all([odpData, reviewStatus]).then(([odps, reviewResult]) => {
