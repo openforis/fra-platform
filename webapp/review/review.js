@@ -45,7 +45,6 @@ const CommentThread = ({comments, userInfo = {}, countryIso, section, target, de
       <div className='fra-review__comments'>
         {
           comments && R.not(R.isEmpty(comments)) ? mapIndexed((c, i) =>
-            console.log(`comment ${i} is: `, c) ||
             <div key={i} className="fra-review__comment">
               <div className="fra-review__comment-header">
                 <div>
@@ -67,7 +66,7 @@ const CommentThread = ({comments, userInfo = {}, countryIso, section, target, de
                 </div>
               </div>
               <div className={`fra-review__comment-text ${isCommentDeleted(c) ? 'fra-review__comment-deleted' : ''}`}>
-                {c.message}
+                {isCommentDeleted(c) ? 'Comment deleted' : c.message}
               </div>
             </div>,
             comments) : <div className='fra-review__comment-placeholder'>
