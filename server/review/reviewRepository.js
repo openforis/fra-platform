@@ -6,13 +6,15 @@ const Promise = require('bluebird')
 module.exports.getIssueComments = (countryIso, section) =>
   db.query(`
     SELECT 
-      i.id as issue_id, i.target as target, c.id as comment_id,
-      c.user_id as user_id, u.email as email, u.name as username,
+      i.id as issue_id, i.target, 
+      u.email, u.name as username,
+      c.id as comment_id, c.user_id,
       CASE 
-        WHEN c.status_changed = 'deleted' THEN ''
+        WHEN c.deleted = true THEN ''
         ELSE c.message 
       END as message, 
-      c.status_changed as status_changed 
+      c.status_changed,
+      c.deleted 
     FROM 
       issue i
     JOIN fra_comment c 
@@ -87,5 +89,5 @@ module.exports.deleteIssues = (client, countryIso, section, paramPosition, param
     .then(issueIds => deleteIssuesByIds(client, issueIds))
 
 module.exports.deleteComment = (client, commentId) =>
-  client.query('UPDATE fra_comment SET status_changed = $1 WHERE id = $2', ['deleted', commentId])
+  client.query('UPDATE fra_comment SET deleted = $1 WHERE id = $2', [true, commentId])
 
