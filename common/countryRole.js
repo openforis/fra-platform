@@ -1,4 +1,4 @@
-import * as R from 'ramda'
+const R = require('ramda')
 
 // Returns the most powerful role that the user has
 // for a certain country (REVIEWER > NATIONAL_CORRESPONDENT)
@@ -8,11 +8,11 @@ import * as R from 'ramda'
 // <ROLE>_ALL roles are changed to their corresponding "normal" roles, e.g.
 // REVIEWER_ALL will be REVIEWER for the country we are interested in
 
-export const reviewer = {role: 'REVIEWER', label: 'Reviewer'}
-export const nationalCorrespondent = {role: 'NATIONAL_CORRESPONDENT', label: 'National Correspondent'}
-export const noRole = {role: 'NONE', label: 'N/A'}
+const reviewer = {role: 'REVIEWER', label: 'Reviewer'}
+const nationalCorrespondent = {role: 'NATIONAL_CORRESPONDENT', label: 'National Correspondent'}
+const noRole = {role: 'NONE', label: 'N/A'}
 
-export const mostPowerfulRole = (countryIso, userInfo) => {
+const mostPowerfulRole = (countryIso, userInfo) => {
   if (!userInfo) return noRole
   const hasRole = (role, roles) => R.find(R.propEq('role', role))(roles)
   if (hasRole('REVIEWER_ALL', userInfo.roles)) return reviewer
@@ -23,3 +23,8 @@ export const mostPowerfulRole = (countryIso, userInfo) => {
   if (hasRole('NATIONAL_CORRESPONDENT', rolesForCountry)) return nationalCorrespondent
   return noRole //Return null-object for undefined/null-safe access. Shouldn't happen in practice
 }
+
+module.exports.mostPowerfulRole = mostPowerfulRole
+module.exports.reviewer = reviewer
+module.exports.nationalCorrespondent = nationalCorrespondent
+module.exports.noRole = noRole

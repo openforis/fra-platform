@@ -9,6 +9,7 @@ const apiRouter = require('./apiRouter')
 const authApi = require('./auth/authApi')
 const authMiddleware = require('./auth/authMiddleware')
 const resourceCacheControl = require('./resourceCacheControl')
+const { sendErr } = require('./utils/requestUtils')
 
 const app = express()
 
@@ -29,6 +30,16 @@ app.use(bodyParser.json({limit: '5000kb'}))
 authApi.init(app)
 
 app.use('/api', apiRouter.router)
+
+// Custom error-handling for handling custom exceptions and
+// sending the uncaught errors as json instead of HTML
+// http://expressjs.com/en/guide/error-handling.html
+app.use((err, req, res, next) => {
+  if (err) {
+    console.log('API ERROR HANDLER!!!', err)
+    sendErr(res, err)
+  }
+})
 
 app.listen(process.env.PORT, () => {
   console.log('FRA Platform server listening on port ', process.env.PORT)

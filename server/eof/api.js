@@ -8,6 +8,7 @@ const fs = Promise.promisifyAll(require('fs'))
 const {sendErr} = require('../utils/requestUtils')
 const R = require('ramda')
 const estimationEngine = require('./estimationEngine')
+const { checkCountryAccess } = require('../utils/accessControl')
 
 const forestAreaTableResponse = require('./forestAreaTableResponse')
 
@@ -31,6 +32,7 @@ module.exports.init = app => {
   })
 
   app.get('/country/:countryIso', (req, res) => {
+    checkCountryAccess(req.params.countryIso, req)
     const fra = fraRepository.readFraForestAreas(req.params.countryIso)
     const odp = odpRepository.readOriginalDataPoints(req.params.countryIso)
 
