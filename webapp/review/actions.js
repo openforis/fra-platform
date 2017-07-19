@@ -48,7 +48,7 @@ export const openCommentThread = (countryIso, section, target, name) => dispatch
 }
 export const closeCommentThread = () => ({type: issueCloseCommentThread})
 
-export const deleteComment = (countryIso, section, target, commentId) => dispatch => {
-  // console.log(countryIso, section, target, commentId)
-  retrieveComments(countryIso, section, target)(dispatch)
-}
+export const deleteComment = (countryIso, section, target, commentId) => dispatch =>
+  axios
+    .delete(`api/review/${countryIso}/comments/${commentId}`)
+    .then(() => retrieveComments(countryIso, section, target)(dispatch))

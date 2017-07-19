@@ -52,9 +52,8 @@ const CommentThread = ({comments, userInfo = {}, countryIso, section, target, de
                     <div className={`fra-review__comment-author ${isThisMe(c) ? 'author-me' : ''}`}>
                       <div>{c.username}</div>
                       {isThisMe
-                        ? <button
-                          className="btn"
-                          onClick={() => deleteComment(countryIso, section, target, c.commentId)}>Delete</button>
+                        ? <button className="btn"
+                                  onClick={() => deleteComment(countryIso, section, target, c.commentId)}>Delete</button>
                         : null }
                     </div>
                     <div className="fra-review__comment-time">Just now</div>
