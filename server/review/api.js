@@ -22,7 +22,12 @@ module.exports.init = app => {
           const diff = R.pipe(R.path(['target', 'params']), R.difference(target))(issue)
           return R.isEmpty(diff) ? issue : []
         }, result)
-        res.json({count: R.pipe(R.reject(R.isEmpty), R.length)(issues)})
+        res.json({
+          count: R.pipe(
+            R.filter(i => R.pipe(R.pathEq(['statusChanged'], 'deleted'), R.not)(i)),
+            R.reject(R.isEmpty),
+            R.length)(issues)
+        })
       })
       .catch(err => sendErr(res, err))
   })
