@@ -8,7 +8,11 @@ module.exports.getIssues = (countryIso, section) =>
     SELECT 
       i.id as issue_id, i.target as target, c.id as comment_id,
       c.user_id as user_id, u.email as email, u.name as username,
-      c.message as message, c.status_changed as status_changed 
+      CASE 
+        WHEN c.status_changed = 'deleted' THEN ''
+        ELSE c.message 
+      END as message, 
+      c.status_changed as status_changed 
     FROM 
       issue i
     JOIN fra_comment c 
