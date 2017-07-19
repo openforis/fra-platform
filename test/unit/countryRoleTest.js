@@ -1,6 +1,6 @@
 const assert = require('chai').assert
 const R = require('ramda')
-const countryRole = require('../../webapp/user/countryRole')
+const countryRole = require('../../common/countryRole')
 
 const plainUserInfo = {
   roles: [
