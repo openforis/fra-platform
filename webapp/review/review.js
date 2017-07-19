@@ -7,7 +7,6 @@ import { postComment, retrieveComments, closeCommentThread, deleteComment } from
 import './style.less'
 
 const mapIndexed = R.addIndex(R.map)
-const isCommentDeleted = c => c.statusChanged === 'deleted'
 
 const AddComment = ({issueId, countryIso, section, target, postComment, onCancel, isFirst, userInfo}) =>
   <div className="fra-review__add-comment">
@@ -39,6 +38,8 @@ const AddComment = ({issueId, countryIso, section, target, postComment, onCancel
 
 const CommentThread = ({comments, userInfo = {}, countryIso, section, target, deleteComment}) => {
   const isThisMe = R.pipe(R.prop('userId'), R.equals(userInfo.id))
+  const isCommentDeleted = R.pipe(R.prop('statusChanged'), R.equals('deleted'))
+
   return <div className={`fra-review__comment-widget-visible`}>
     <div className={`fra-review__issue fra-review__issue-visible`}>
       <div className='fra-review__comments'>
@@ -51,17 +52,21 @@ const CommentThread = ({comments, userInfo = {}, countryIso, section, target, de
                   <img className="fra-review__avatar" src={`https://www.gravatar.com/avatar/${c.hash}?d=mm`}/>
                 </div>
                 <div className="fra-review__comment-author-section">
-                  <div className={`fra-review__comment-author ${isThisMe(c) ? 'author-me' : ''}`}>
+                  <div
+                    className={`fra-review__comment-author ${ isCommentDeleted(c) ? 'fra-review__comment-deleted' : isThisMe(c) ? 'author-me' : ''}`}>
                     <div>{c.username}</div>
                     {isThisMe && !isCommentDeleted(c)
                       ? <button className="btn"
                                 onClick={() => deleteComment(countryIso, section, target, c.commentId)}>Delete</button>
                       : null }
                   </div>
-                  <div className="fra-review__comment-time">Just now</div>
+                  <div
+                    className={`fra-review__comment-time ${isCommentDeleted(c) ? 'fra-review__comment-deleted' : ''}`}>
+                    Just now
+                  </div>
                 </div>
               </div>
-              <div className="fra-review__comment-text">
+              <div className={`fra-review__comment-text ${isCommentDeleted(c) ? 'fra-review__comment-deleted' : ''}`}>
                 {c.message}
               </div>
             </div>,
