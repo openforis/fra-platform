@@ -18,7 +18,7 @@ module.exports.init = app => {
 
   app.get('/review/:countryIso/:section/count', (req, res) => {
     checkCountryAccessFromReqParams(req)
-    reviewRepository.getIssues(req.params.countryIso, req.params.section)
+    reviewRepository.getIssueComments(req.params.countryIso, req.params.section)
       .then(result => {
         const target = req.query.target && req.query.target.split(',')
         const issues = R.map(issue => {
@@ -43,7 +43,7 @@ module.exports.init = app => {
 
   app.get('/review/:countryIso/:section', (req, res) => {
     checkCountryAccessFromReqParams(req)
-    reviewRepository.getIssues(req.params.countryIso, req.params.section)
+    reviewRepository.getIssueComments(req.params.countryIso, req.params.section)
       .then(result => {
         const target = req.query.target && req.query.target.split(',')
         const issues = R.map(issue => {
