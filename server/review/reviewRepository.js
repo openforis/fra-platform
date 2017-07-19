@@ -51,7 +51,8 @@ const getIssuesByParam = (countryIso, section, paramPosition, paramValue) =>
     FROM issue i
     WHERE i.country_iso = $1
     AND i.section = $2
-    AND i.target #> '{params,${paramPosition}}' = '"${paramValue}"'`
+    AND i.target #> '{params,${paramPosition}}' = '"${paramValue}"'
+    AND i.id in (SELECT DISTINCT c.issue_id FROM fra_comment c WHERE c.deleted = false)`
     , [countryIso, section])
     .then(res => camelize(res.rows))
 
