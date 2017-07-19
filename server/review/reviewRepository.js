@@ -16,7 +16,9 @@ module.exports.getIssues = (countryIso, section) =>
     JOIN fra_user u 
       ON (u.id = c.user_id)
     WHERE 
-      i.country_iso = $1 AND i.section = $2;
+      i.country_iso = $1 AND i.section = $2
+    ORDER BY
+      c.id  
   `, [countryIso, section])
     .then(res => camelize(res.rows))
 
