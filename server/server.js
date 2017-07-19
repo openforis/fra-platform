@@ -35,10 +35,7 @@ app.use('/api', apiRouter.router)
 // sending the uncaught errors as json instead of HTML
 // http://expressjs.com/en/guide/error-handling.html
 app.use((err, req, res, next) => {
-  if (err) {
-    console.log('API ERROR HANDLER!!!', err)
-    sendErr(res, err)
-  }
+  if (err) sendErr(res, err)
 })
 
 app.listen(process.env.PORT, () => {
