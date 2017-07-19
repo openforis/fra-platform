@@ -15,7 +15,7 @@ module.exports.getIssueComments = (countryIso, section) =>
       END as message, 
       c.status_changed,
       c.deleted,
-      c.added_time
+      to_char(c.added_time,'YYYY-MM-DD"T"HH24:MI:ssZ') as added_time
     FROM 
       issue i
     JOIN fra_comment c 
