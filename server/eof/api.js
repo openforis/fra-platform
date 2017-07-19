@@ -13,8 +13,8 @@ const { checkCountryAccess } = require('../utils/accessControl')
 const forestAreaTableResponse = require('./forestAreaTableResponse')
 
 module.exports.init = app => {
-
   app.post('/eof/:countryIso', (req, res) => {
+    checkCountryAccess(req.params.countryIso, req)
     const updates = []
     R.map(c => {
       updates.push(fraRepository.persistFraValues(req.params.countryIso, c.year, c))
@@ -26,6 +26,7 @@ module.exports.init = app => {
   })
 
   app.post('/country/:countryIso/:year', (req, res) => {
+    checkCountryAccess(req.params.countryIso, req)
     fraRepository.persistFraValues(req.params.countryIso, req.params.year, req.body)
       .then(() => res.json({}))
       .catch(err => sendErr(res, err))
@@ -50,6 +51,7 @@ module.exports.init = app => {
   })
 
   app.post('/country/estimation/generateFraValues/:countryIso', (req, res) => {
+    checkCountryAccess(req.params.countryIso, req)
     const years = R.pipe(
       R.values,
       R.map((v) => v.year)
@@ -62,6 +64,7 @@ module.exports.init = app => {
   })
 
   app.get('/nav/status/:countryIso', (req, res) => {
+    checkCountryAccess(req.params.countryIso, req)
     const odpData = odpRepository.listAndValidateOriginalDataPoints(req.params.countryIso)
     const reviewStatus = reviewRepository.allIssues(req.params.countryIso)
 
