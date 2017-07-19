@@ -7,6 +7,7 @@ import { postComment, retrieveComments, closeCommentThread, deleteComment } from
 import './style.less'
 
 const mapIndexed = R.addIndex(R.map)
+const isCommentDeleted = c => c.statusChanged === 'deleted'
 
 const AddComment = ({issueId, countryIso, section, target, postComment, onCancel, isFirst, userInfo}) =>
   <div className="fra-review__add-comment">
@@ -43,26 +44,27 @@ const CommentThread = ({comments, userInfo = {}, countryIso, section, target, de
       <div className='fra-review__comments'>
         {
           comments && R.not(R.isEmpty(comments)) ? mapIndexed((c, i) =>
-              <div key={i} className="fra-review__comment">
-                <div className="fra-review__comment-header">
-                  <div>
-                    <img className="fra-review__avatar" src={`https://www.gravatar.com/avatar/${c.hash}?d=mm`}/>
-                  </div>
-                  <div className="fra-review__comment-author-section">
-                    <div className={`fra-review__comment-author ${isThisMe(c) ? 'author-me' : ''}`}>
-                      <div>{c.username}</div>
-                      {isThisMe
-                        ? <button className="btn"
-                                  onClick={() => deleteComment(countryIso, section, target, c.commentId)}>Delete</button>
-                        : null }
-                    </div>
-                    <div className="fra-review__comment-time">Just now</div>
-                  </div>
+            console.log(`comment ${i} is: `, c) ||
+            <div key={i} className="fra-review__comment">
+              <div className="fra-review__comment-header">
+                <div>
+                  <img className="fra-review__avatar" src={`https://www.gravatar.com/avatar/${c.hash}?d=mm`}/>
                 </div>
-                <div className="fra-review__comment-text">
-                  {c.message}
+                <div className="fra-review__comment-author-section">
+                  <div className={`fra-review__comment-author ${isThisMe(c) ? 'author-me' : ''}`}>
+                    <div>{c.username}</div>
+                    {isThisMe && !isCommentDeleted(c)
+                      ? <button className="btn"
+                                onClick={() => deleteComment(countryIso, section, target, c.commentId)}>Delete</button>
+                      : null }
+                  </div>
+                  <div className="fra-review__comment-time">Just now</div>
                 </div>
-              </div>,
+              </div>
+              <div className="fra-review__comment-text">
+                {c.message}
+              </div>
+            </div>,
             comments) : <div className='fra-review__comment-placeholder'>
             <svg className="fra-review__comment-placeholder-icon icon-24">
               <use xlinkHref="img/icon.svg#icon-chat-46"/>
