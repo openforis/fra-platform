@@ -18,12 +18,17 @@ const authenticationFailed = (req, res) => {
 
 const authenticationSuccessful = (req, user, next, res) => {
   req.logIn(user, err => {
+    console.log('req.login')
     if (err) {
+      console.log('req.login error')
       next(err)
     } else {
+      console.log('req.login getting allowed countries')
       countryRepository.getAllowedCountries(user.roles).then(result => {
         setLoggedInCookie(res, true)
+        console.log('sending redirect')
         res.redirect(`/#/country/${result.rows[0].countryIso}`)
+        console.log('after redirect')
       }).catch(err => sendErr(res, err))
     }
   })
