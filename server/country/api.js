@@ -1,13 +1,8 @@
-const R = require('ramda')
 const countryRepository = require('./countryRepository')
 
 module.exports.init = app => {
   app.get('/country/all', (req, res) => {
-    const user = R.path(['session', 'passport', 'user'], req)
-    if (!user) {
-      res.status(401).json({error: 'Not logged in'})
-      return
-    }
+    const user = req.session.passport.user
     countryRepository.getAllowedCountries(user.roles).then(result => {
       res.json(result.rows)
     }).catch(err => {
