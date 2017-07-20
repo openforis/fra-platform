@@ -2,12 +2,14 @@ const crypto = require('crypto')
 const R = require('ramda')
 
 const db = require('../db/db')
-const {sendErr} = require('../requestUtils')
+const {sendErr} = require('../utils/requestUtils')
+const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
 const issueRepository = require('./reviewRepository')
 
 module.exports.init = app => {
 
   app.post('/review/:issueId', (req, res) => {
+    //TODO access control check based on issueId! (can't do it with plain countryIso here)
     const userId = req.session.passport.user.id
     db.transaction(issueRepository.createComment, [req.params.issueId, userId, req.body.msg, ''])
       .then(result => res.json({}))
@@ -15,6 +17,7 @@ module.exports.init = app => {
   })
 
   app.get('/review/:countryIso/:section/count', (req, res) => {
+    checkCountryAccessFromReqParams(req)
     issueRepository.getIssues(req.params.countryIso, req.params.section)
       .then(result => {
         const target = req.query.target && req.query.target.split(',')
@@ -28,6 +31,7 @@ module.exports.init = app => {
   })
 
   app.post('/review/:countryIso/:section', (req, res) => {
+    checkCountryAccessFromReqParams(req)
     const userId =  req.session.passport.user.id
     const target = req.query.target ? req.query.target.split(',') : []
     db.transaction(
@@ -38,6 +42,7 @@ module.exports.init = app => {
   })
 
   app.get('/review/:countryIso/:section', (req, res) => {
+    checkCountryAccessFromReqParams(req)
     issueRepository.getIssues(req.params.countryIso, req.params.section)
       .then(result => {
         const target = req.query.target && req.query.target.split(',')

@@ -8,7 +8,7 @@ import { Link } from './../link'
 import { follow } from './../router/actions'
 import { getCountryList, fetchNavStatus } from './actions'
 import { annualItems, fiveYearItems } from './items'
-import { mostPowerfulRole } from '../user/countryRole'
+import { mostPowerfulRole } from '../../common/countryRole'
 
 import './style.less'
 

@@ -2,7 +2,7 @@ const passport = require('passport')
 const userRepository = require('../user/userRepository')
 const authConfig = require('./authConfig')
 const { setLoggedInCookie } = require('./loggedInCookie')
-const {sendErr} = require('../requestUtils')
+const {sendErr} = require('../utils/requestUtils')
 const countryRepository = require('../country/countryRepository')
 
 const verifyCallback = (accessToken, refreshToken, profile, done) =>
