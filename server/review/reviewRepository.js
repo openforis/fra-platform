@@ -107,7 +107,6 @@ module.exports.markCommentAsDeleted = (client, commentId) =>
   client.query('UPDATE fra_comment SET deleted = $1 WHERE id = $2', [true, commentId])
 
 module.exports.markIssueAsResolved = (client, issueId, userId) =>
-  client
-    .query('UPDATE issue SET status = $1 WHERE id = $2', ['resolved', issueId])
-    .then(() => createComment(client, issueId, userId, 'Marked as resolved', 'resolved'))
+  createComment(client, issueId, userId, 'Marked as resolved', 'resolved')
+    .then(() => client.query('UPDATE issue SET status = $1 WHERE id = $2', ['resolved', issueId]))
 
