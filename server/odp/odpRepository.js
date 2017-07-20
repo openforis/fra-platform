@@ -4,26 +4,18 @@ const Promise = require('bluebird')
 const camelize = require('camelize')
 const {toNumberOrNull} = require('../utils/databaseConversions')
 const {validateDataPoint} = require('../../common/originalDataPointCommon')
-const {deleteIssuesByIds} = require('../review/reviewRepository')
+const {deleteIssuesByIds, deleteIssues} = require('../review/reviewRepository')
 
 module.exports.saveDraft = (client, countryIso, draft) =>
   !draft.odpId ? createOdp(client, countryIso)
-    .then(newOdpId => updateOrInsertDraft(client, newOdpId, countryIso, draft))
+      .then(newOdpId => updateOrInsertDraft(client, newOdpId, countryIso, draft))
     : updateOrInsertDraft(client, draft.odpId, countryIso, draft)
 
-const updateOrInsertDraft = (client, odpId, countryIso, draft) =>
-  getDraftId(client, odpId)
-    .then(draftId => {
-      if (!draftId) {
-        return insertDraft(client, odpId, countryIso, draft)
-          .then(() => ({odpId}))
-      } else {
-        return updateDraft(client, draft)
-          .then(() => {
-              const classUuids = draft.nationalClasses.map(c => `"${c.uuid}"`)
-              const classQueryPlaceholders = R.range(3, draft.nationalClasses.length + 3).map(i => '$' + i).join(',')
+const wipeNationalClassIssues = (client, odpId, countryIso, nationalClasses) => {
+  const classUuids = nationalClasses.map(c => `"${c.uuid}"`)
+  const classQueryPlaceholders = R.range(3, nationalClasses.length + 3).map(i => '$' + i).join(',')
 
-              return db.query(`
+  return client.query(`
                   SELECT 
                     i.id as issue_id
                   FROM issue i
@@ -31,13 +23,22 @@ const updateOrInsertDraft = (client, odpId, countryIso, draft) =>
                   AND i.section = $2
                   AND i.target #> '{params,0}' = '"${odpId}"'
                   AND i.target #> '{params,2}' NOT IN (${classQueryPlaceholders})`
-                , [countryIso, 'NDP', ...classUuids])
-                .then(res => res.rows.map(r => r.issue_id))
-                .then(issueIds => deleteIssuesByIds(client, issueIds))
-                .then(() => ({odpId}))
-            }
-          )
-      }
+    , [countryIso, 'NDP', ...classUuids])
+    .then(res => res.rows.map(r => r.issue_id))
+    .then(issueIds => deleteIssuesByIds(client, issueIds))
+    .then(() => ({odpId}))
+}
+
+const updateOrInsertDraft = (client, odpId, countryIso, draft) =>
+  getDraftId(client, odpId)
+    .then(draftId => {
+      if (!draftId)
+        return insertDraft(client, odpId, countryIso, draft)
+          .then(() => ({odpId}))
+      else
+        return updateDraft(client, draft)
+          .then(() => wipeNationalClassIssues(client, odpId, countryIso, draft.nationalClasses))
+
     })
 
 const getDraftId = (client, odpId) =>
@@ -72,13 +73,16 @@ const updateDraft = (client, draft) =>
       [draft.year, draft.description, draftId])
   )
 
-module.exports.deleteDraft = (client, odpId) =>
+module.exports.deleteDraft = (client, odpId, countryIso) =>
   client.query('SELECT actual_id FROM odp WHERE id = $1', [odpId])
     .then(res => res.rows[0].actual_id)
     .then(actualId =>
       actualId
         ? client.query('UPDATE odp SET draft_id = null WHERE id = $1', [odpId])
-        : deleteOdp(client, odpId)
+          .then(() => getOdpVersionId(client, odpId))
+          .then(odpVersionId => getOdpNationalClasses(client, odpVersionId))
+          .then(odpClasses => wipeNationalClassIssues(client, odpId, countryIso, odpClasses))
+        : deleteOdp(client, odpId, countryIso)
     )
 
 const wipeClassData = (client, odpVersionId) =>
@@ -132,7 +136,7 @@ module.exports.markAsActual = (client, odpId) => {
   })
 }
 
-const deleteOdp = (client, odpId) => {
+const deleteOdp = (client, odpId, countryIso) => {
   return client.query(
     'SELECT actual_id, draft_id FROM odp WHERE id = $1'
     , [odpId]
@@ -143,19 +147,20 @@ const deleteOdp = (client, odpId) => {
     return Promise.all([
       draftId
         ? wipeClassData(client, draftId)
-        .then(() => client.query('DELETE FROM odp_version WHERE id = $1', [draftId]))
+          .then(() => client.query('DELETE FROM odp_version WHERE id = $1', [draftId]))
         : Promise.resolve(),
       actualId
         ? wipeClassData(client, actualId)
-        .then(() => client.query('DELETE FROM odp_version WHERE id = $1', [actualId]))
-        : Promise.resolve()
+          .then(() => client.query('DELETE FROM odp_version WHERE id = $1', [actualId]))
+        : Promise.resolve(),
+      deleteIssues(client, countryIso, 'NDP', 0, odpId)
     ])
   })
 }
 module.exports.deleteOdp = deleteOdp
 
-const getOdpVersionId = odpId =>
-  db.query(
+const getOdpVersionId = (queryProvider, odpId) =>
+  queryProvider.query(
     `
         SELECT
           CASE WHEN draft_id IS NULL
@@ -168,8 +173,8 @@ const getOdpVersionId = odpId =>
     , [odpId]
   ).then(result => result.rows[0].version_id)
 
-const getOdpNationalClasses = odpVersionId =>
-  db.query(
+const getOdpNationalClasses = (queryProvider, odpVersionId) =>
+  queryProvider.query(
     `SELECT 
       name,
       definition,
@@ -193,9 +198,9 @@ const getOdpNationalClasses = odpVersionId =>
     }), result.rows))
 
 const getOdp = odpId =>
-  getOdpVersionId(odpId)
+  getOdpVersionId(db, odpId)
     .then(versionId =>
-      Promise.all([versionId, getOdpNationalClasses(versionId)])
+      Promise.all([versionId, getOdpNationalClasses(db, versionId)])
     )
     .then(([versionId, nationalClasses]) =>
       Promise.all([db.query(
