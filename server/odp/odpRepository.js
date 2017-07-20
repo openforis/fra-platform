@@ -4,7 +4,7 @@ const Promise = require('bluebird')
 const camelize = require('camelize')
 const {toNumberOrNull} = require('../utils/databaseConversions')
 const {validateDataPoint} = require('../../common/originalDataPointCommon')
-const {deleteIssuesByIds} = require('../review/reviewRepository')
+const {deleteIssuesByIds, deleteIssues} = require('../review/reviewRepository')
 
 module.exports.saveDraft = (client, countryIso, draft) =>
   !draft.odpId ? createOdp(client, countryIso)
@@ -82,7 +82,7 @@ module.exports.deleteDraft = (client, odpId, countryIso) =>
           .then(() => getOdpVersionId(client, odpId))
           .then(odpVersionId => getOdpNationalClasses(client, odpVersionId))
           .then(odpClasses => wipeNationalClassIssues(client, odpId, countryIso, odpClasses))
-        : deleteOdp(client, odpId)
+        : deleteOdp(client, odpId, countryIso)
     )
 
 const wipeClassData = (client, odpVersionId) =>
@@ -136,7 +136,7 @@ module.exports.markAsActual = (client, odpId) => {
   })
 }
 
-const deleteOdp = (client, odpId) => {
+const deleteOdp = (client, odpId, countryIso) => {
   return client.query(
     'SELECT actual_id, draft_id FROM odp WHERE id = $1'
     , [odpId]
@@ -152,7 +152,8 @@ const deleteOdp = (client, odpId) => {
       actualId
         ? wipeClassData(client, actualId)
           .then(() => client.query('DELETE FROM odp_version WHERE id = $1', [actualId]))
-        : Promise.resolve()
+        : Promise.resolve(),
+      deleteIssues(client, countryIso, 'NDP', 0, odpId)
     ])
   })
 }
