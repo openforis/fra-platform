@@ -84,7 +84,7 @@ const CommentThread = ({comments, userInfo = {}, countryIso, section, target, ma
                     <div
                       className={`fra-review__comment-author ${ isCommentDeleted(c) ? 'fra-review__comment-deleted' : isThisMe(c) ? 'author-me' : ''}`}>
                       <div>{c.username}</div>
-                      {isThisMe && !isCommentDeleted(c) && !isCommentStatusResolved(c)
+                      {isThisMe(c) && !isCommentDeleted(c) && !isCommentStatusResolved(c)
                         ? <button className="btn fra-review__comment-delete-button"
                                   onClick={() => markCommentAsDeleted(countryIso, section, target, c.commentId)}>
                           Delete</button>

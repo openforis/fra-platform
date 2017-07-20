@@ -63,7 +63,7 @@ module.exports.getIssuesByParam = getIssuesByParam
 module.exports.createIssueWithComment = (client, countryIso, section, target, userId, msg) =>
   client.query(`
     INSERT INTO issue (country_iso, section, target, status) VALUES ($1, $2, $3, $4);
-  `, [countryIso, section, target, 'open'])
+  `, [countryIso, section, target, 'opened'])
     .then(res => client.query(`SELECT last_value FROM issue_id_seq`))
     .then(res => client.query(`
       INSERT INTO fra_comment (issue_id, user_id, message, status_changed)
