@@ -39,6 +39,7 @@ const AddComment = ({issueId, countryIso, section, target, postComment, onCancel
 const CommentThread = ({comments, userInfo = {}, countryIso, section, target, markCommentAsDeleted}) => {
   const isThisMe = R.pipe(R.prop('userId'), R.equals(userInfo.id))
   const isCommentDeleted = R.propEq('deleted', true)
+  const isCommentStatusResolved = R.propEq('statusChanged', 'resolved')
   const getCommentTimestamp = c => {
     const commentTimestamp = parse(c.addedTime)
     const now = new Date()
@@ -77,7 +78,7 @@ const CommentThread = ({comments, userInfo = {}, countryIso, section, target, ma
                     <div
                       className={`fra-review__comment-author ${ isCommentDeleted(c) ? 'fra-review__comment-deleted' : isThisMe(c) ? 'author-me' : ''}`}>
                       <div>{c.username}</div>
-                      {isThisMe && !isCommentDeleted(c)
+                      {isThisMe && !isCommentDeleted(c) && !isCommentStatusResolved(c)
                         ? <button className="btn fra-review__comment-delete-button"
                                   onClick={() => markCommentAsDeleted(countryIso, section, target, c.commentId)}>
                           Delete</button>
