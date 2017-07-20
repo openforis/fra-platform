@@ -2,8 +2,9 @@ import './style.less'
 import * as R from 'ramda'
 import React from 'react'
 import { connect } from 'react-redux'
-import { postComment, retrieveComments, closeCommentThread, markCommentAsDeleted } from './actions'
+import { postComment, retrieveComments, closeCommentThread, markCommentAsDeleted, markIssueAsResolved } from './actions'
 import { parse, differenceInMonths, differenceInWeeks, differenceInDays, differenceInHours, format } from 'date-fns'
+import { isReviewer } from '../../common/countryRole'
 
 const mapIndexed = R.addIndex(R.map)
 
@@ -105,7 +106,7 @@ const CommentThread = ({comments, userInfo = {}, countryIso, section, target, ma
   </div>
 }
 
-const ReviewHeader = ({name, close}) =>
+const ReviewHeader = ({name, close, userInfo, countryIso, section, target, issueId, markIssueAsResolved}) =>
   <div className="fra-review__header">
     <h2 className="fra-review__header-title subhead">Comments</h2>
     <div className="fra-review__header-close-btn" onClick={e => close(e)}>
@@ -114,6 +115,15 @@ const ReviewHeader = ({name, close}) =>
       </svg>
     </div>
     {name ? <div className="fra-review__header-target">{name}</div> : null}
+    {issueId && isReviewer(countryIso, userInfo)
+      ? <div className="fra-review__header-target">
+        <button
+          className="btn btn-primary btn-s"
+          onClick={() => markIssueAsResolved(countryIso, section, target, issueId)}>
+          Resolve
+        </button>
+      </div>
+      : null}
   </div>
 
 class ReviewPanel extends React.Component {
@@ -135,7 +145,16 @@ class ReviewPanel extends React.Component {
     }, [this])
 
     return <div className={`fra-review-${isActive ? 'active' : 'hidden'}`}>
-      <ReviewHeader name={name} close={close}/>
+      <ReviewHeader
+        name={name}
+        close={close}
+        userInfo={this.props.userInfo}
+        countryIso={this.props.country}
+        section={section}
+        target={target}
+        issueId={issueId}
+        markIssueAsResolved={this.props.markIssueAsResolved}
+      />
       <CommentThread
         comments={comments}
         userInfo={this.props.userInfo}
@@ -164,6 +183,7 @@ export default connect(mapSateToProps, {
   postComment,
   retrieveComments,
   closeCommentThread,
-  markCommentAsDeleted
+  markCommentAsDeleted,
+  markIssueAsResolved
 })(ReviewPanel)
 
