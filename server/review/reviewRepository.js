@@ -95,6 +95,6 @@ module.exports.deleteIssues = (client, countryIso, section, paramPosition, param
     .then(res => res.map(r => r.issueId))
     .then(issueIds => deleteIssuesByIds(client, issueIds))
 
-module.exports.deleteComment = (client, commentId) =>
+module.exports.markCommentAsDeleted = (client, commentId) =>
   client.query('UPDATE fra_comment SET deleted = $1 WHERE id = $2', [true, commentId])
 

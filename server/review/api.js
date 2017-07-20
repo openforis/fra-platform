@@ -76,7 +76,7 @@ module.exports.init = app => {
 
   app.delete('/review/:countryIso/comments/:commentId', (req, res) =>
     db
-      .transaction(reviewRepository.deleteComment, [req.params.commentId])
+      .transaction(reviewRepository.markCommentAsDeleted, [req.params.commentId])
       .then(() => res.json({}))
       .catch(err => sendErr(res, err))
   )

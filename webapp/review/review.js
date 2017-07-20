@@ -2,7 +2,7 @@ import './style.less'
 import * as R from 'ramda'
 import React from 'react'
 import { connect } from 'react-redux'
-import { postComment, retrieveComments, closeCommentThread, deleteComment } from './actions'
+import { postComment, retrieveComments, closeCommentThread, markCommentAsDeleted } from './actions'
 import { parse, differenceInMonths, differenceInWeeks, differenceInDays, differenceInHours, format } from 'date-fns'
 
 const mapIndexed = R.addIndex(R.map)
@@ -35,7 +35,7 @@ const AddComment = ({issueId, countryIso, section, target, postComment, onCancel
     </div>
   </div>
 
-const CommentThread = ({comments, userInfo = {}, countryIso, section, target, deleteComment}) => {
+const CommentThread = ({comments, userInfo = {}, countryIso, section, target, markCommentAsDeleted}) => {
   const isThisMe = R.pipe(R.prop('userId'), R.equals(userInfo.id))
   const isCommentDeleted = R.propEq('deleted', true)
   const getCommentTimestamp = c => {
@@ -78,7 +78,8 @@ const CommentThread = ({comments, userInfo = {}, countryIso, section, target, de
                       <div>{c.username}</div>
                       {isThisMe && !isCommentDeleted(c)
                         ? <button className="btn"
-                                  onClick={() => deleteComment(countryIso, section, target, c.commentId)}>Delete</button>
+                                  onClick={() => markCommentAsDeleted(countryIso, section, target, c.commentId)}>
+                          Delete</button>
                         : null}
                     </div>
                     <div
@@ -140,7 +141,7 @@ class ReviewPanel extends React.Component {
         countryIso={this.props.country}
         section={section}
         target={target}
-        deleteComment={this.props.deleteComment}
+        markCommentAsDeleted={this.props.markCommentAsDeleted}
       />
       <AddComment
         issueId={issueId}
@@ -162,6 +163,6 @@ export default connect(mapSateToProps, {
   postComment,
   retrieveComments,
   closeCommentThread,
-  deleteComment
+  markCommentAsDeleted
 })(ReviewPanel)
 
