@@ -9,7 +9,6 @@ const reviewRepository = require('./reviewRepository')
 module.exports.init = app => {
 
   app.post('/review/:issueId', (req, res) => {
-    //TODO access control check based on issueId! (can't do it with plain countryIso here)
     const user = req.session.passport.user
     db.transaction(reviewRepository.createComment, [req.params.issueId, user, req.body.msg, ''])
       .then(result => res.json({}))
