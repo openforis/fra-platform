@@ -107,7 +107,7 @@ const CommentThread = ({comments, userInfo = {}, countryIso, section, target, ma
   </div>
 }
 
-const ReviewHeader = ({name, close, userInfo, countryIso, section, target, issueId, markIssueAsResolved}) =>
+const ReviewHeader = ({name, close, userInfo, countryIso, section, target, issueId, issueStatus, markIssueAsResolved}) =>
   <div className="fra-review__header">
     <h2 className="fra-review__header-title subhead">Comments</h2>
     <div className="fra-review__header-close-btn" onClick={e => close(e)}>
@@ -116,7 +116,7 @@ const ReviewHeader = ({name, close, userInfo, countryIso, section, target, issue
       </svg>
     </div>
     {name ? <div className="fra-review__header-target">{name}</div> : null}
-    {issueId && isReviewer(countryIso, userInfo)
+    {issueId && isReviewer(countryIso, userInfo) && issueStatus !== 'resolved'
       ? <div className="fra-review__header-target">
         <button
           className="btn btn-primary btn-s"
@@ -141,6 +141,7 @@ class ReviewPanel extends React.Component {
     const name = R.isNil(this.props.openThread) ? '' : this.props.openThread.name
     const comments = R.defaultTo([], target ? this.props[target].issue : [])
     const issueId = comments && comments.length > 0 ? comments[0].issueId : null
+    const issueStatus = comments && comments.length > 0 ? comments[0].issueStatus : null
     const close = R.partial(ctx => {
       ctx.props.closeCommentThread()
     }, [this])
@@ -154,6 +155,7 @@ class ReviewPanel extends React.Component {
         section={section}
         target={target}
         issueId={issueId}
+        issueStatus={issueStatus}
         markIssueAsResolved={this.props.markIssueAsResolved}
       />
       <CommentThread

@@ -6,7 +6,7 @@ const Promise = require('bluebird')
 module.exports.getIssueComments = (countryIso, section) =>
   db.query(`
     SELECT 
-      i.id as issue_id, i.target, 
+      i.id as issue_id, i.target, i.status as issue_status,
       u.email, u.name as username,
       c.id as comment_id, c.user_id,
       CASE 
