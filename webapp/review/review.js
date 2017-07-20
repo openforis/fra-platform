@@ -1,10 +1,9 @@
+import './style.less'
 import * as R from 'ramda'
 import React from 'react'
 import { connect } from 'react-redux'
-
-import { postComment, retrieveComments, closeCommentThread } from './actions'
-
-import './style.less'
+import { postComment, retrieveComments, closeCommentThread, markCommentAsDeleted } from './actions'
+import { parse, differenceInMonths, differenceInWeeks, differenceInDays, differenceInHours, format } from 'date-fns'
 
 const mapIndexed = R.addIndex(R.map)
 
@@ -36,8 +35,33 @@ const AddComment = ({issueId, countryIso, section, target, postComment, onCancel
     </div>
   </div>
 
-const CommentThread = ({comments, userInfo = {}}) => {
+const CommentThread = ({comments, userInfo = {}, countryIso, section, target, markCommentAsDeleted}) => {
   const isThisMe = R.pipe(R.prop('userId'), R.equals(userInfo.id))
+  const isCommentDeleted = R.propEq('deleted', true)
+  const getCommentTimestamp = c => {
+    const commentTimestamp = parse(c.addedTime)
+    const now = new Date()
+
+    const formatDiff = (fn, unit) => {
+      const diff = fn(now, commentTimestamp)
+      return `${diff} ${unit}${diff > 1 ? 's' : ''} ago`
+    }
+
+    if (differenceInMonths(now, commentTimestamp) > 0)
+      return format(commentTimestamp, 'DD MMMM YYYY')
+
+    if (differenceInWeeks(now, commentTimestamp) > 0)
+      return formatDiff(differenceInWeeks, 'week')
+
+    if (differenceInDays(now, commentTimestamp) > 0)
+      return formatDiff(differenceInDays, 'day')
+
+    if (differenceInHours(now, commentTimestamp) > 0)
+      return formatDiff(differenceInHours, 'hour')
+
+    return 'A moment ago'
+  }
+
   return <div className={`fra-review__comment-widget-visible`}>
     <div className={`fra-review__issue fra-review__issue-visible`}>
       <div className='fra-review__comments'>
@@ -46,19 +70,33 @@ const CommentThread = ({comments, userInfo = {}}) => {
               <div key={i} className="fra-review__comment">
                 <div className="fra-review__comment-header">
                   <div>
-                    <img className="fra-review__avatar" src={`https://www.gravatar.com/avatar/${c.hash}?d=mm`} />
+                    <img className="fra-review__avatar" src={`https://www.gravatar.com/avatar/${c.hash}?d=mm`}/>
                   </div>
-                  <div>
-                    <div className={`fra-review__comment-author ${isThisMe(c) ? 'author-me' : ''}`}>{c.username}</div>
-                    <div className="fra-review__comment-time">Just now</div>
+                  <div className="fra-review__comment-author-section">
+                    <div
+                      className={`fra-review__comment-author ${ isCommentDeleted(c) ? 'fra-review__comment-deleted' : isThisMe(c) ? 'author-me' : ''}`}>
+                      <div>{c.username}</div>
+                      {isThisMe && !isCommentDeleted(c)
+                        ? <button className="btn fra-review__comment-delete-button"
+                                  onClick={() => markCommentAsDeleted(countryIso, section, target, c.commentId)}>
+                          Delete</button>
+                        : null}
+                    </div>
+                    <div
+                      className={`fra-review__comment-time ${isCommentDeleted(c) ? 'fra-review__comment-deleted' : ''}`}>
+                      {getCommentTimestamp(c)}
+                    </div>
                   </div>
                 </div>
-                <div className="fra-review__comment-text">
-                  {c.message}
+                <div
+                  className={`fra-review__comment-text ${isCommentDeleted(c) ? 'fra-review__comment-deleted-text' : ''}`}>
+                  {isCommentDeleted(c) ? 'Comment deleted' : c.message}
                 </div>
               </div>,
             comments) : <div className='fra-review__comment-placeholder'>
-            <svg className="fra-review__comment-placeholder-icon icon-24"><use xlinkHref="img/icon.svg#icon-chat-46"/></svg>
+            <svg className="fra-review__comment-placeholder-icon icon-24">
+              <use xlinkHref="img/icon.svg#icon-chat-46"/>
+            </svg>
             <span className="fra-review__comment-placeholder-text">No comments</span>
           </div>
         }
@@ -100,15 +138,22 @@ class ReviewPanel extends React.Component {
       <ReviewHeader name={name} close={close}/>
       <CommentThread
         comments={comments}
-        userInfo={this.props.userInfo}/>
-      <AddComment issueId={issueId}
-                  countryIso={this.props.country}
-                  section={section}
-                  target={target}
-                  postComment={this.props.postComment}
-                  onCancel={close}
-                  isFirst={comments.length === 0}
-                  userInfo={this.props.userInfo}/>
+        userInfo={this.props.userInfo}
+        countryIso={this.props.country}
+        section={section}
+        target={target}
+        markCommentAsDeleted={this.props.markCommentAsDeleted}
+      />
+      <AddComment
+        issueId={issueId}
+        countryIso={this.props.country}
+        section={section}
+        target={target}
+        postComment={this.props.postComment}
+        onCancel={close}
+        isFirst={comments.length === 0}
+        userInfo={this.props.userInfo}
+      />
     </div>
   }
 }
@@ -118,6 +163,7 @@ const mapSateToProps = state => R.pipe(R.prop('review'), R.defaultTo({}), R.merg
 export default connect(mapSateToProps, {
   postComment,
   retrieveComments,
-  closeCommentThread
+  closeCommentThread,
+  markCommentAsDeleted
 })(ReviewPanel)
 

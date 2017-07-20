@@ -3,12 +3,19 @@ const db = require('../db/db')
 const R = require('ramda')
 const Promise = require('bluebird')
 
-module.exports.getIssues = (countryIso, section) =>
+module.exports.getIssueComments = (countryIso, section) =>
   db.query(`
     SELECT 
-      i.id as issue_id, i.target as target, c.id as comment_id,
-      c.user_id as user_id, u.email as email, u.name as username,
-      c.message as message, c.status_changed as status_changed 
+      i.id as issue_id, i.target, 
+      u.email, u.name as username,
+      c.id as comment_id, c.user_id,
+      CASE 
+        WHEN c.deleted = true THEN ''
+        ELSE c.message 
+      END as message, 
+      c.status_changed,
+      c.deleted,
+      to_char(c.added_time,'YYYY-MM-DD"T"HH24:MI:ssZ') as added_time
     FROM 
       issue i
     JOIN fra_comment c 
@@ -16,15 +23,22 @@ module.exports.getIssues = (countryIso, section) =>
     JOIN fra_user u 
       ON (u.id = c.user_id)
     WHERE 
-      i.country_iso = $1 AND i.section = $2;
+      i.country_iso = $1 AND i.section = $2
+    ORDER BY
+      c.id  
   `, [countryIso, section])
     .then(res => camelize(res.rows))
 
-module.exports.allIssues = countryIso => {
+module.exports.getIssuesByCountry = countryIso => {
   return db.query(`
-    SELECT i.id as issue_id, i.section as section, i.target as target, i.status as status
-    FROM issue i
-    WHERE i.country_iso = $1;
+    SELECT 
+      i.id as issue_id, i.section as section, i.target as target, i.status as status
+    FROM 
+      issue i
+    WHERE 
+      i.country_iso = $1
+    AND
+      i.id in (SELECT DISTINCT c.issue_id FROM fra_comment c WHERE c.deleted = false)  
   `, [countryIso]).then(res => {
       return camelize(res.rows)
     }
@@ -38,7 +52,8 @@ const getIssuesByParam = (countryIso, section, paramPosition, paramValue) =>
     FROM issue i
     WHERE i.country_iso = $1
     AND i.section = $2
-    AND i.target #> '{params,${paramPosition}}' = '"${paramValue}"'`
+    AND i.target #> '{params,${paramPosition}}' = '"${paramValue}"'
+    AND i.id in (SELECT DISTINCT c.issue_id FROM fra_comment c WHERE c.deleted = false)`
     , [countryIso, section])
     .then(res => camelize(res.rows))
 
@@ -79,4 +94,7 @@ module.exports.deleteIssues = (client, countryIso, section, paramPosition, param
   getIssuesByParam(countryIso, section, paramPosition, paramValue)
     .then(res => res.map(r => r.issueId))
     .then(issueIds => deleteIssuesByIds(client, issueIds))
+
+module.exports.markCommentAsDeleted = (client, commentId) =>
+  client.query('UPDATE fra_comment SET deleted = $1 WHERE id = $2', [true, commentId])
 
