@@ -8,10 +8,13 @@ import { isReviewer } from '../../common/countryRole'
 
 const mapIndexed = R.addIndex(R.map)
 
-const AddComment = ({issueId, countryIso, section, target, postComment, onCancel, isFirst, userInfo}) =>
-  <div className="fra-review__add-comment">
+const AddComment = ({issueId, countryIso, section, target, postComment, onCancel, isFirst, userInfo, issueStatus}) => {
+  const canAddComment = () => issueStatus !== 'resolved' || isReviewer(countryIso, userInfo)
+
+  return <div className="fra-review__add-comment">
     <div className="fra-review__issue-comment-input-border">
       <textarea
+        disabled={!canAddComment()}
         rows="1"
         onInput={() => {
           const elem = document.getElementById(`fra-review__comment-input-${target}`)
@@ -20,21 +23,24 @@ const AddComment = ({issueId, countryIso, section, target, postComment, onCancel
         }}
         id={`fra-review__comment-input-${target}`}
         className="fra-review__issue-comment-input"
-        placeholder="Write a comment…"/>
+        placeholder={`${canAddComment() ? 'Write a comment…' : 'Commenting closed'}`}/>
     </div>
     <div className="fra-review__comment-buttons">
       <button className="fra-review__comment-add-btn btn btn-primary btn-s"
+              disabled={!canAddComment()}
               onClick={() => {
                 postComment(issueId, countryIso, section, target, null, document.getElementById(`fra-review__comment-input-${target}`).value)
                 document.getElementById(`fra-review__comment-input-${target}`).value = ''
               }}>Add
       </button>
-      <button className="btn btn-s btn-secondary" onClick={() => {
-        onCancel()
-      }}>Cancel
+      <button className="btn btn-s btn-secondary"
+              disabled={!canAddComment()}
+              onClick={() => onCancel()}>
+        Cancel
       </button>
     </div>
   </div>
+}
 
 const CommentThread = ({comments, userInfo = {}, countryIso, section, target, markCommentAsDeleted}) => {
   const isThisMe = R.pipe(R.prop('userId'), R.equals(userInfo.id))
@@ -175,6 +181,7 @@ class ReviewPanel extends React.Component {
         onCancel={close}
         isFirst={comments.length === 0}
         userInfo={this.props.userInfo}
+        issueStatus={issueStatus}
       />
     </div>
   }
