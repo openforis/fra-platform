@@ -88,7 +88,8 @@ const CommentThread = ({comments, userInfo = {}, countryIso, section, target, ma
                     </div>
                   </div>
                 </div>
-                <div className={`fra-review__comment-text ${isCommentDeleted(c) ? 'fra-review__comment-deleted' : ''}`}>
+                <div
+                  className={`fra-review__comment-text ${isCommentDeleted(c) ? 'fra-review__comment-deleted-text' : ''}`}>
                   {isCommentDeleted(c) ? 'Comment deleted' : c.message}
                 </div>
               </div>,
