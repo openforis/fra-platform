@@ -8,7 +8,7 @@ const {deleteIssuesByIds} = require('../review/reviewRepository')
 
 module.exports.saveDraft = (client, countryIso, draft) =>
   !draft.odpId ? createOdp(client, countryIso)
-    .then(newOdpId => updateOrInsertDraft(client, newOdpId, countryIso, draft))
+      .then(newOdpId => updateOrInsertDraft(client, newOdpId, countryIso, draft))
     : updateOrInsertDraft(client, draft.odpId, countryIso, draft)
 
 const updateOrInsertDraft = (client, odpId, countryIso, draft) =>
@@ -80,6 +80,9 @@ module.exports.deleteDraft = (client, odpId) =>
         ? client.query('UPDATE odp SET draft_id = null WHERE id = $1', [odpId])
         : deleteOdp(client, odpId)
     )
+    .then(() => getOdpVersionId(client, odpId))
+    .then(odpVersionId => getOdpNationalClasses(client, odpVersionId))
+
 
 const wipeClassData = (client, odpVersionId) =>
   client.query('DELETE FROM odp_class WHERE odp_version_id = $1', [odpVersionId])
@@ -143,19 +146,19 @@ const deleteOdp = (client, odpId) => {
     return Promise.all([
       draftId
         ? wipeClassData(client, draftId)
-        .then(() => client.query('DELETE FROM odp_version WHERE id = $1', [draftId]))
+          .then(() => client.query('DELETE FROM odp_version WHERE id = $1', [draftId]))
         : Promise.resolve(),
       actualId
         ? wipeClassData(client, actualId)
-        .then(() => client.query('DELETE FROM odp_version WHERE id = $1', [actualId]))
+          .then(() => client.query('DELETE FROM odp_version WHERE id = $1', [actualId]))
         : Promise.resolve()
     ])
   })
 }
 module.exports.deleteOdp = deleteOdp
 
-const getOdpVersionId = odpId =>
-  db.query(
+const getOdpVersionId = (queryProvider, odpId) =>
+  queryProvider.query(
     `
         SELECT
           CASE WHEN draft_id IS NULL
@@ -168,8 +171,8 @@ const getOdpVersionId = odpId =>
     , [odpId]
   ).then(result => result.rows[0].version_id)
 
-const getOdpNationalClasses = odpVersionId =>
-  db.query(
+const getOdpNationalClasses = (queryProvider, odpVersionId) =>
+  queryProvider.query(
     `SELECT 
       name,
       definition,
@@ -193,9 +196,9 @@ const getOdpNationalClasses = odpVersionId =>
     }), result.rows))
 
 const getOdp = odpId =>
-  getOdpVersionId(odpId)
+  getOdpVersionId(db, odpId)
     .then(versionId =>
-      Promise.all([versionId, getOdpNationalClasses(versionId)])
+      Promise.all([versionId, getOdpNationalClasses(db, versionId)])
     )
     .then(([versionId, nationalClasses]) =>
       Promise.all([db.query(
