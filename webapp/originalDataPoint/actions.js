@@ -121,7 +121,7 @@ export const copyPreviousNationalClasses = (countryIso, odp) => dispatch => {
 
 export const cancelDraft = (countryIso, odpId) => dispatch => {
   if (odpId)
-    axios.delete(`/api/odp/draft/?odpId=${odpId}`)
+    axios.delete(`/api/odp/draft/?odpId=${odpId}&countryIso=${countryIso}`)
       .then(() => window.location = `#/country/${countryIso}`)
       .catch((err) => dispatch(applicationError(err)))
   else

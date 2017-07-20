@@ -70,7 +70,8 @@ module.exports.init = app => {
 
   app.delete('/odp/draft', (req, res) => {
       //TODO access control! We have to check that odpId is attached to the correct country!
-      db.transaction(odpRepository.deleteDraft, [req.query.odpId])
+    checkCountryAccessFromReqParams(req)
+    db.transaction(odpRepository.deleteDraft, [req.query.odpId, req.query.countryIso])
         .then(() => res.json({}))
         .catch(err => sendErr(res, err))
     }
