@@ -53,9 +53,8 @@ module.exports.init = app => {
   app.delete('/odp', (req, res) => {
       checkCountryAccessFromReqParams(req)
       //TODO access control! we have to check that odpId is attached to the correct country!
-      db.transaction(reviewRepository.deleteIssues, [req.query.countryIso, 'NDP', 0, req.query.odpId])
-        .then(db.transaction(odpRepository.deleteOdp, [req.query.odpId])
-          .then(() => res.json({})))
+    db.transaction(odpRepository.deleteOdp, [req.query.odpId, req.query.countryIso])
+      .then(() => res.json({}))
         .catch(err => sendErr(res, err))
     }
   )
@@ -70,7 +69,8 @@ module.exports.init = app => {
 
   app.delete('/odp/draft', (req, res) => {
       //TODO access control! We have to check that odpId is attached to the correct country!
-      db.transaction(odpRepository.deleteDraft, [req.query.odpId])
+    checkCountryAccessFromReqParams(req)
+    db.transaction(odpRepository.deleteDraft, [req.query.odpId, req.query.countryIso])
         .then(() => res.json({}))
         .catch(err => sendErr(res, err))
     }
