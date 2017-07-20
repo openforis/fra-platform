@@ -81,6 +81,8 @@ module.exports.createComment = (client, issueId, user, msg, status_changed) =>
       VALUES ($1, $2, $3, $4);
      `, [issueId, user.id, msg, status_changed]))
 
+module.exports.createComment = createComment
+
 const deleteIssuesByIds = (client, issueIds) => {
   if (issueIds.length > 0) {
     const issueIdQueryPlaceholders = R.range(1, issueIds.length + 1).map(i => '$' + i).join(',')
@@ -103,4 +105,9 @@ module.exports.deleteIssues = (client, countryIso, section, paramPosition, param
 
 module.exports.markCommentAsDeleted = (client, commentId) =>
   client.query('UPDATE fra_comment SET deleted = $1 WHERE id = $2', [true, commentId])
+
+module.exports.markIssueAsResolved = (client, issueId, userId) =>
+  client
+    .query('UPDATE issue SET status = $1 WHERE id = $2', ['resolved', issueId])
+    .then(() => createComment(client, issueId, userId, 'Marked as resolved', 'resolved'))
 

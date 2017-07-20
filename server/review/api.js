@@ -83,7 +83,8 @@ module.exports.init = app => {
   app.post('/issue/markAsResolved', (req, res) => {
     //TODO access control check based on user role
     checkCountryAccessFromReqParams(req)
-    console.log('post', req.query.issueId)
-    res.json({})
+    db.transaction(reviewRepository.markIssueAsResolved, [req.query.issueId, req.query.userId])
+      .then(() => res.json({}))
+      .catch(err => sendErr(res, err))
   })
 }
