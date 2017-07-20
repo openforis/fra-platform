@@ -119,7 +119,7 @@ const ReviewHeader = ({name, close, userInfo, countryIso, section, target, issue
       ? <div className="fra-review__header-target">
         <button
           className="btn btn-primary btn-s"
-          onClick={() => markIssueAsResolved(countryIso, section, target, issueId)}>
+          onClick={() => markIssueAsResolved(countryIso, section, target, issueId, userInfo.id)}>
           Resolve
         </button>
       </div>

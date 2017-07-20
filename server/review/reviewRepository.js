@@ -69,11 +69,13 @@ module.exports.createIssueWithComment = (client, countryIso, section, target, us
       VALUES ($1, $2, $3, 'opened');
   `, [res.rows[0].last_value, userId, msg]))
 
-module.exports.createComment = (client, issueId, userId, msg, status_changed) =>
+const createComment = (client, issueId, userId, msg, status_changed) =>
   client.query(`
     INSERT INTO fra_comment (issue_id, user_id, message, status_changed)
     VALUES ($1, $2, $3, $4);
  `, [issueId, userId, msg, status_changed])
+
+module.exports.createComment = createComment
 
 const deleteIssuesByIds = (client, issueIds) => {
   if (issueIds.length > 0) {
@@ -97,4 +99,9 @@ module.exports.deleteIssues = (client, countryIso, section, paramPosition, param
 
 module.exports.markCommentAsDeleted = (client, commentId) =>
   client.query('UPDATE fra_comment SET deleted = $1 WHERE id = $2', [true, commentId])
+
+module.exports.markIssueAsResolved = (client, issueId, userId) =>
+  client
+    .query('UPDATE issue SET status = $1 WHERE id = $2', ['resolved', issueId])
+    .then(() => createComment(client, issueId, userId, 'Marked as resolved', 'resolved'))
 
