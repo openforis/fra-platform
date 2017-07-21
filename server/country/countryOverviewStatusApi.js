@@ -1,10 +1,11 @@
 const Promise = require('bluebird')
 const R = require('ramda')
 
-const { sendErr } = require('../utils/requestUtils')
-const { checkCountryAccessFromReqParams } = require('../utils/accessControl')
+const {sendErr} = require('../utils/requestUtils')
+const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
 const reviewRepository = require('../review/reviewRepository')
 const odpRepository = require('../odp/odpRepository')
+const assessmentRepository = require('../assessment/assessmentRepository')
 
 module.exports.init = app => {
 
@@ -12,15 +13,21 @@ module.exports.init = app => {
     checkCountryAccessFromReqParams(req)
     const odpData = odpRepository.listAndValidateOriginalDataPoints(req.params.countryIso)
     const reviewStatus = reviewRepository.getIssuesByCountry(req.params.countryIso)
+    const assessmentStatuses = assessmentRepository.getAssessmentStatuses(req.params.countryIso)
 
     // in future we certainly will need the Promise.all here wink wink
-    Promise.all([odpData, reviewStatus]).then(([odps, reviewResult]) => {
+    Promise.all(
+      [
+        odpData,
+        reviewStatus,
+        assessmentStatuses
+      ]
+    ).then(([odps, reviewStatus, assessmentStatuses]) => {
       const odpStatus = {
         count: odps.length,
         errors: R.filter(o => !o.validationStatus.valid, odps).length !== 0,
       }
-
-      res.json(R.merge({reviewStatus: reviewResult}, {odpStatus}))
+      res.json({odpStatus, reviewStatus, assessmentStatuses})
     })
       .catch(err => sendErr(res, err))
   })

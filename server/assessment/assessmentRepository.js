@@ -1,4 +1,6 @@
 const db = require('../db/db')
+const camelize = require('camelize')
+const R = require('ramda')
 
 module.exports.changeAssessmentStatus =
   (client, countryIso, assessmentType, status) =>
@@ -24,3 +26,15 @@ module.exports.changeAssessmentStatus =
            AND type = $3`,
           [status, countryIso, assessmentType])
     )
+
+module.exports.getAssessmentStatuses = (countryIso) =>
+  db.query(
+    `SELECT
+       type AS assessment_type,
+       status
+      FROM
+        assessment
+      WHERE
+        country_iso = $1`,
+    [countryIso]
+  ).then(result => R.map(camelize, result.rows))
