@@ -118,12 +118,13 @@ const addClassData = (client, odpVersionId, odp) => {
   return Promise.all(nationalInserts)
 }
 
-module.exports.markAsActual = (client, odpId) => {
+module.exports.markAsActual = (client, odpId, user) => {
   const currentOdpPromise = client.query('SELECT actual_id, draft_id FROM odp WHERE id = $1', [odpId])
+  const checkCountryAccess = getAndCheckOdpCountryId(client, odpId, user)
   const updateOdpPromise = client.query(
     'UPDATE odp SET actual_id = draft_id, draft_id = null WHERE id = $1 AND draft_id IS NOT NULL', [odpId]
   )
-  return Promise.join(currentOdpPromise, updateOdpPromise, (oldActualResult, _) => {
+  return Promise.join(currentOdpPromise, checkCountryAccess, updateOdpPromise, (oldActualResult) => {
     if (oldActualResult.rowCount > 0 && oldActualResult.rows[0].draft_id) {
       return oldActualResult.rows[0].actual_id
     }

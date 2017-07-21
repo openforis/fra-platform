@@ -91,8 +91,7 @@ module.exports.init = app => {
   })
 
   app.post('/odp/markAsActual', (req, res) =>
-    //TODO access control! request doesn't contain countryIso
-    db.transaction(odpRepository.markAsActual, [req.query.odpId])
+    db.transaction(odpRepository.markAsActual, [req.query.odpId, req.session.passport.user])
       .then(() => res.json({})
       ).catch(err => sendErr(res, err))
   )
