@@ -2,7 +2,7 @@ import axios from 'axios'
 import { applicationError } from '../applicationError/actions'
 
 export const listCountries = 'navigation/country/list'
-export const fetchCountryOverviewStatus = 'navigation/status/completed'
+export const fetchCountryOverviewStatusCompleted = 'navigation/status/completed'
 
 export const getCountryList = () => dispatch => {
   axios.get('/api/country/all').then(resp => {
@@ -12,7 +12,7 @@ export const getCountryList = () => dispatch => {
 
 export const fetchCountryOverviewStatus = countryIso => dispatch => {
   axios.get(`/api/country/overviewStatus/${countryIso}`).then(resp => {
-    dispatch({type: fetchCountryOverviewStatus, status: resp.data})
+    dispatch({type: fetchCountryOverviewStatusCompleted, status: resp.data})
   })
 }
 
