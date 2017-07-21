@@ -84,7 +84,7 @@ const NationalDataItem = ({path, countryIso, pathTemplate = '/tbd', status = {co
   </Link>
 }
 
-const SecondaryItem = ({path, countryIso, order, pathTemplate = '/tbd', label, status = [], statusDescription = 'Not started'}) => {
+const SecondaryItem = ({path, countryIso, order, pathTemplate = '/tbd', label, status = []}) => {
   const route = new Route(pathTemplate)
   const linkTo = route.reverse({countryIso})
   const isTodoItem = pathTemplate.indexOf('/todo') !== -1
@@ -96,7 +96,6 @@ const SecondaryItem = ({path, countryIso, order, pathTemplate = '/tbd', label, s
     <span className={`nav__secondary-order ${secondaryTextClass}`}>{order}</span>
     <div>
       <span className={`nav__secondary-label ${secondaryTextClass}`}>{label}</span>
-      <span className={`nav__secondary-status ${secondaryTextClass}`}>{statusDescription}</span>
     </div>
     <div className='nav__secondary-status-content'>
       { hasOpenIssues ? <div className='nav__secondary-has-open-issue'></div> : null }
