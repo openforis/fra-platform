@@ -57,10 +57,12 @@ const CountryList = ({isOpen, countries, currentCountry}) => {
   </div>
 }
 
-const PrimaryItem = ({label, link}) =>
+const PrimaryItem = ({label, assessmentType}) =>
   <div className="nav__primary-item">
     <span className="nav__primary-label">{label}</span>
-    <Link className="nav__primary-link" to="/">{link}</Link>
+    <a className="nav__primary-assessment-action"
+       href="#"
+       onClick={(evt) => {evt.preventDefault(); console.log(assessmentType)}}>Send to review</a>
   </div>
 
 const NationalDataItem = ({path, countryIso, pathTemplate = '/tbd', status = {count: 0}, label}) => {
@@ -114,14 +116,14 @@ const Nav = ({path, country, countries, follow, getCountryList, status = {}, use
                           countryIso={country}
                           status={R.merge({issues: R.filter(R.pipe(R.prop('section'), R.equals('NDP')))(status.reviewStatus || [])}, status.odpStatus)}
                           path={path} pathTemplate="/country/:countryIso/odps" />
-        <PrimaryItem label="Annually reported"/>
+        <PrimaryItem label="Annually reported" assessmentType="annuallyReported"/>
         {
           annualItems.map(v => <SecondaryItem path={path} key={v.label} goTo={follow}
                                               countryIso={country}
                                               status={R.filter(R.pipe(R.prop('section'), R.equals(R.defaultTo('', v.section))))(status.reviewStatus || [])}
                                               {...v} />)
         }
-        <PrimaryItem label="Five-year Cycle"/>
+        <PrimaryItem label="Five-year Cycle" assessmentType="fiveYearCycle"/>
         {
           fiveYearItems.map(v => <SecondaryItem path={path} key={v.label} goTo={follow} countryIso={country} {...v} />)
         }
