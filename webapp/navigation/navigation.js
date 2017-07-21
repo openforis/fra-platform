@@ -6,7 +6,7 @@ import I18n from 'i18n-iso-countries'
 
 import { Link } from './../link'
 import { follow } from './../router/actions'
-import { getCountryList, fetchNavStatus } from './actions'
+import { getCountryList, fetchNavStatus, changeAssessmentStatus } from './actions'
 import { annualItems, fiveYearItems } from './items'
 import { mostPowerfulRole } from '../../common/countryRole'
 
@@ -57,12 +57,15 @@ const CountryList = ({isOpen, countries, currentCountry}) => {
   </div>
 }
 
-const PrimaryItem = ({label, assessmentType}) =>
+const PrimaryItem = ({label, countryIso, assessmentType, changeAssessmentStatus}) =>
   <div className="nav__primary-item">
     <span className="nav__primary-label">{label}</span>
     <a className="nav__primary-assessment-action"
        href="#"
-       onClick={(evt) => {evt.preventDefault(); console.log(assessmentType)}}>Send to review</a>
+       onClick={(evt) => {
+         evt.preventDefault()
+         changeAssessmentStatus(countryIso, assessmentType, 'review')
+       }}>Send to review</a>
   </div>
 
 const NationalDataItem = ({path, countryIso, pathTemplate = '/tbd', status = {count: 0}, label}) => {
@@ -107,7 +110,7 @@ const SecondaryItem = ({path, countryIso, order, pathTemplate = '/tbd', label, s
 
 const roleLabel = (countryIso, userInfo) => mostPowerfulRole(countryIso, userInfo).label
 
-const Nav = ({path, country, countries, follow, getCountryList, status = {}, userInfo}) => {
+const Nav = ({path, country, countries, follow, getCountryList, changeAssessmentStatus, status = {}, userInfo}) => {
   return <div className="main__nav-wrapper">
     <div className="main__nav">
       <CountryItem name={country} countries={countries} listCountries={getCountryList} role={ roleLabel(country, userInfo) }/>
@@ -116,14 +119,14 @@ const Nav = ({path, country, countries, follow, getCountryList, status = {}, use
                           countryIso={country}
                           status={R.merge({issues: R.filter(R.pipe(R.prop('section'), R.equals('NDP')))(status.reviewStatus || [])}, status.odpStatus)}
                           path={path} pathTemplate="/country/:countryIso/odps" />
-        <PrimaryItem label="Annually reported" assessmentType="annuallyReported"/>
+        <PrimaryItem label="Annually reported" countryIso={country} assessmentType="annuallyReported" changeAssessmentStatus={changeAssessmentStatus}/>
         {
           annualItems.map(v => <SecondaryItem path={path} key={v.label} goTo={follow}
                                               countryIso={country}
                                               status={R.filter(R.pipe(R.prop('section'), R.equals(R.defaultTo('', v.section))))(status.reviewStatus || [])}
                                               {...v} />)
         }
-        <PrimaryItem label="Five-year Cycle" assessmentType="fiveYearCycle"/>
+        <PrimaryItem label="Five-year Cycle" countryIso={country} assessmentType="fiveYearCycle" changeAssessmentStatus={changeAssessmentStatus}/>
         {
           fiveYearItems.map(v => <SecondaryItem path={path} key={v.label} goTo={follow} countryIso={country} {...v} />)
         }
@@ -151,4 +154,4 @@ class NavigationSync extends React.Component {
 
 const mapStateToProps = state => R.pipe(R.merge(state.navigation), R.merge(state.router))(state.user)
 
-export default connect(mapStateToProps, {follow, getCountryList, fetchNavStatus})(NavigationSync)
+export default connect(mapStateToProps, {follow, getCountryList, fetchNavStatus, changeAssessmentStatus})(NavigationSync)
