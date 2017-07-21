@@ -6,7 +6,7 @@ import I18n from 'i18n-iso-countries'
 
 import { Link } from './../link'
 import { follow } from './../router/actions'
-import { getCountryList, fetchNavStatus, changeAssessmentStatus } from './actions'
+import { getCountryList, fetchCountryOverviewStatus, changeAssessmentStatus } from './actions'
 import { annualItems, fiveYearItems } from './items'
 import { mostPowerfulRole } from '../../common/countryRole'
 
@@ -138,12 +138,12 @@ const Nav = ({path, country, countries, follow, getCountryList, changeAssessment
 class NavigationSync extends React.Component {
 
   componentWillMount() {
-    this.props.fetchNavStatus(this.props.country)
+    this.props.fetchCountryOverviewStatus(this.props.country)
   }
 
   componentWillReceiveProps(next) {
     if (!R.equals(this.props.country, next.country)) {
-      this.props.fetchNavStatus(next.country)
+      this.props.fetchCountryOverviewStatus(next.country)
     }
   }
 
@@ -154,4 +154,4 @@ class NavigationSync extends React.Component {
 
 const mapStateToProps = state => R.pipe(R.merge(state.navigation), R.merge(state.router))(state.user)
 
-export default connect(mapStateToProps, {follow, getCountryList, fetchNavStatus, changeAssessmentStatus})(NavigationSync)
+export default connect(mapStateToProps, {follow, getCountryList, fetchCountryOverviewStatus, changeAssessmentStatus})(NavigationSync)

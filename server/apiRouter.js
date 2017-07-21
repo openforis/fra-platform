@@ -8,6 +8,7 @@ const traditionalTableApi = require('./traditionalTable/api')
 const descriptionsApi = require('./descriptions/api')
 const reviewApi = require('./review/api')
 const countryApi = require('./country/api')
+const countryOverviewStatusApi = require('./country/countryOverviewStatusApi')
 const assessmentApi = require('./assessment/api')
 
 const apiRouter = express.Router()
@@ -27,6 +28,7 @@ apiRouter.use((req, res, next) => {
 
 userApi.init(apiRouter)
 countryApi.init(apiRouter)
+countryOverviewStatusApi.init(apiRouter)
 odpApi.init(apiRouter)
 eofApi.init(apiRouter)
 traditionalTableApi.init(apiRouter)
