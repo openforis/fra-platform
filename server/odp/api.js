@@ -66,7 +66,6 @@ module.exports.init = app => {
   })
 
   app.delete('/odp/draft', (req, res) => {
-    checkCountryAccessFromReqParams(req)
     db.transaction(odpRepository.deleteDraft, [req.query.odpId, req.session.passport.user])
         .then(() => res.json({}))
         .catch(err => sendErr(res, err))
