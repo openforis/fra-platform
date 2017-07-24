@@ -63,9 +63,9 @@ const CountryList = ({isOpen, countries, currentCountry}) => {
 
 const changeAssessmentStatusLabels =
   {
-    'review': 'Accept',
-    'accepted': 'Change back to editing',
-    'editing': 'Send to review'
+    'review': 'Send to review',
+    'accepted': 'Accept',
+    'editing': 'Change back to editing'
   }
 
 const changeAssessmentStatusLabel = currentAssessmentStatus => {
