@@ -92,7 +92,7 @@ const changeStateLink = (countryIso,
                          currentStatus,
                          targetStatus,
                          changeAssessmentStatus,
-                         direction) => console.log('changeStateLink', direction, currentStatus, targetStatus) ||
+                         direction) =>
   <a className={targetStatus ? 'nav__primary-assessment-action' : 'nav__primary-assessment-action--disabled'}
      href="#"
      onClick={(evt) => {
