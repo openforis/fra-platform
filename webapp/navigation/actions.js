@@ -3,6 +3,7 @@ import { applicationError } from '../applicationError/actions'
 
 export const listCountries = 'navigation/country/list'
 export const fetchCountryOverviewStatusCompleted = 'navigation/status/completed'
+export const changeAssessmentStatusInitiated = 'navigation/changeAssessmentStatusInitiated'
 
 export const getCountryList = () => dispatch => {
   axios.get('/api/country/all').then(resp => {
@@ -17,6 +18,7 @@ export const fetchCountryOverviewStatus = countryIso => dispatch => {
 }
 
 export const changeAssessmentStatus = (countryIso, assessmentType, status) => dispatch => {
+  dispatch({type: changeAssessmentStatusInitiated, assessmentType})
   axios.post(`/api/assessment/status/${countryIso}?assessmentType=${assessmentType}&status=${status}`)
     .then(() => {
       fetchCountryOverviewStatus(countryIso)(dispatch)

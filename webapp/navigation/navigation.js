@@ -9,7 +9,7 @@ import { follow } from './../router/actions'
 import { getCountryList, fetchCountryOverviewStatus, changeAssessmentStatus } from './actions'
 import { annualItems, fiveYearItems } from './items'
 import { mostPowerfulRole } from '../../common/countryRole'
-import { nextAssessmentState } from '../../common/assessment'
+import { getNextAssessmentStatus } from '../../common/assessment'
 
 import './style.less'
 
@@ -68,22 +68,23 @@ const changeAssessmentStatusLabels =
     'editing': 'Send to review'
   }
 
-const changeAssessmentStatusLabel = nextStatus => {
-  const label = changeAssessmentStatusLabels[nextStatus]
+const changeAssessmentStatusLabel = currentAssessmentStatus => {
+  if (currentAssessmentStatus === 'changing') return 'Changing...'
+  const label = changeAssessmentStatusLabels[getNextAssessmentStatus(currentAssessmentStatus)]
   return label ? label : 'Send to review'  // If nothing's stored yet, editing is considered the default
 }
 
 const PrimaryItem = ({label, countryIso, assessmentType, assessmentStatuses, changeAssessmentStatus}) => {
   const currentAssessmentStatus = R.path([assessmentType], assessmentStatuses)
-  const nextAssessmentStatus = nextAssessmentState(currentAssessmentStatus)
+  const nextAssessmentStatus = getNextAssessmentStatus(currentAssessmentStatus)
   return <div className="nav__primary-item">
     <span className="nav__primary-label">{label}</span>
-    <a className="nav__primary-assessment-action"
+    <a className={nextAssessmentStatus ? 'nav__primary-assessment-action' : 'nav__primary-assessment-action--disabled'}
        href="#"
        onClick={(evt) => {
          evt.preventDefault()
-         changeAssessmentStatus(countryIso, assessmentType, nextAssessmentStatus)
-       }}>{changeAssessmentStatusLabel(nextAssessmentStatus)}</a>
+         if (nextAssessmentStatus) changeAssessmentStatus(countryIso, assessmentType, nextAssessmentStatus)
+       }}>{changeAssessmentStatusLabel(currentAssessmentStatus)}</a>
   </div>
 }
 

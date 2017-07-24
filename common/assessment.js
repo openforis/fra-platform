@@ -1,4 +1,4 @@
-export const nextAssessmentState = currentState => {
+export const getNextAssessmentStatus = currentState => {
   switch (currentState) {
     case 'editing':
       return 'review'
@@ -6,6 +6,8 @@ export const nextAssessmentState = currentState => {
       return 'accepted'
     case 'accepted':
       return 'editing'
+    case 'changing': //System's in the middle of changing the state
+      return null
     default:
       return 'review'
   }
