@@ -61,42 +61,76 @@ const CountryList = ({isOpen, countries, currentCountry}) => {
   </div>
 }
 
-const changeAssessmentStatusLabels =
-  {
-    'review': 'Send to review',
-    'accepted': 'Accept',
-    'editing': 'Change back to editing'
-  }
-
 const assessmentStatusLabels = {
   'review': 'In Review',
   'accepted': 'Accepted',
   'editing': null //Currently we do not wish to show the default state at all
 }
 
-const changeAssessmentStatusLabel = currentAssessmentStatus => {
+const changeAssessmentStatusLabel = (currentAssessmentStatus, direction) => {
+  const changeAssessmentStatusLabels =
+    {
+      'review-next': 'Send to review',
+      'accepted-next': 'Accept',
+      'editing-next': 'Start over (to editing)',
+      'review-previous': 'Back to review',
+      'accepted-previous': null,
+      'editing-previous': 'remove'
+    }
   if (currentAssessmentStatus === 'changing') return 'Changing...'
-  const label = changeAssessmentStatusLabels[getAllowedStatusTransitions(currentAssessmentStatus).next]
-  return label ? label : 'Send to review'  // If nothing's stored yet, editing is considered the default
+  const transition = getAllowedStatusTransitions(currentAssessmentStatus)[direction]
+  const label = changeAssessmentStatusLabels[`${transition}-${direction}`]
+  if (label)
+    return label
+  else if (direction === 'next')
+    return 'Send to review'  // If nothing's stored yet, editing is considered the default
+  else
+  return null
 }
+
+const changeStateLink = (countryIso,
+                         assessmentType,
+                         currentStatus,
+                         targetStatus,
+                         changeAssessmentStatus,
+                         direction) =>
+  <a className={targetStatus ? 'nav__primary-assessment-action' : 'nav__primary-assessment-action--disabled'}
+     href="#"
+     onClick={(evt) => {
+       evt.preventDefault()
+       if (targetStatus) changeAssessmentStatus(countryIso, assessmentType, targetStatus)
+     }}>{changeAssessmentStatusLabel(currentStatus, direction)}</a>
 
 const PrimaryItem = ({label, countryIso, assessmentType, assessmentStatuses, changeAssessmentStatus}) => {
   const currentAssessmentStatus = R.path([assessmentType], assessmentStatuses)
   const currentAssessmentStatusLabel = assessmentStatusLabels[currentAssessmentStatus]
   const nextAssessmentStatus = getAllowedStatusTransitions(currentAssessmentStatus).next
+  const previousAssessmentStatus = getAllowedStatusTransitions(currentAssessmentStatus).previous
   return <div className="nav__primary-item">
     <span className="nav__primary-label">{label}</span>
     {
       currentAssessmentStatusLabel
-      ? <span className="nav__assessment-status">{currentAssessmentStatusLabel}</span>
-      : null
+        ? <span className="nav__assessment-status">{currentAssessmentStatusLabel}</span>
+        : null
     }
-    <a className={nextAssessmentStatus ? 'nav__primary-assessment-action' : 'nav__primary-assessment-action--disabled'}
-       href="#"
-       onClick={(evt) => {
-         evt.preventDefault()
-         if (nextAssessmentStatus) changeAssessmentStatus(countryIso, assessmentType, nextAssessmentStatus)
-       }}>{changeAssessmentStatusLabel(currentAssessmentStatus)}</a>
+    {
+      previousAssessmentStatus
+        ? <span className="nav__to-previous-assessment-status">(
+          {
+            changeStateLink(
+              countryIso,
+              assessmentType,
+              currentAssessmentStatus,
+              previousAssessmentStatus,
+              changeAssessmentStatus,
+              'previous')
+          }
+          )</span>
+        : null
+    }
+    {
+      changeStateLink(countryIso, assessmentType, currentAssessmentStatus, nextAssessmentStatus, changeAssessmentStatus, 'next')
+    }
   </div>
 }
 
