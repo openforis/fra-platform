@@ -15,7 +15,6 @@ module.exports.init = app => {
     const reviewStatus = reviewRepository.getIssuesByCountry(req.params.countryIso)
     const assessmentStatuses = assessmentRepository.getAssessmentStatuses(req.params.countryIso)
 
-    // in future we certainly will need the Promise.all here wink wink
     Promise.all(
       [
         odpData,
