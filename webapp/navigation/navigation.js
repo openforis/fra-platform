@@ -99,7 +99,6 @@ const PrimaryItem = ({label, countryIso, assessmentType, assessmentStatuses, cha
   const currentAssessmentStatus = R.path([assessmentType], assessmentStatuses)
   const currentAssessmentStatusLabel = assessmentStatusLabels[currentAssessmentStatus]
   const allowedTransitions = getAllowedStatusTransitions(mostPowerfulRole(countryIso, userInfo), currentAssessmentStatus)
-  console.log('allowed transitions for ', assessmentType, allowedTransitions)
   const nextAssessmentStatus = allowedTransitions.next
   const previousAssessmentStatus = allowedTransitions.previous
   return <div className="nav__primary-item">
