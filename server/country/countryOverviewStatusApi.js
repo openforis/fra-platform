@@ -29,7 +29,6 @@ module.exports.init = app => {
         count: odps.length,
         errors: R.filter(o => !o.validationStatus.valid, odps).length !== 0,
       }
-      console.log(simplifyAssessmentStatuses(assessmentStatusResult))
       res.json(
         {
           odpStatus,
