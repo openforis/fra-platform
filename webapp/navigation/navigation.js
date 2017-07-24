@@ -9,6 +9,7 @@ import { follow } from './../router/actions'
 import { getCountryList, fetchCountryOverviewStatus, changeAssessmentStatus } from './actions'
 import { annualItems, fiveYearItems } from './items'
 import { mostPowerfulRole } from '../../common/countryRole'
+import { nextAssessmentState } from '../../common/assessment'
 
 import './style.less'
 
@@ -27,17 +28,19 @@ class CountryItem extends React.Component {
       backgroundImage: `url('/img/flags/${(I18n.alpha3ToAlpha2(name) || '').toLowerCase()}.svg'`
     }
     return <div className="nav__country-item" onClick={() => {
-        this.setState({isOpen: R.not(this.state.isOpen)})
-        if (R.isEmpty(countries)) {
-          this.props.listCountries()
-        }
-      }}>
+      this.setState({isOpen: R.not(this.state.isOpen)})
+      if (R.isEmpty(countries)) {
+        this.props.listCountries()
+      }
+    }}>
       <div className="nav__country-flag" style={style}></div>
       <div className="nav__country-info">
         <span className="nav__country-name">{I18n.getName(name, 'en')}</span>
         <span className="nav__country-role">{role}</span>
       </div>
-      <svg className="icon"><use xlinkHref="img/icon.svg#icon-small-down"/></svg>
+      <svg className="icon">
+        <use xlinkHref="img/icon.svg#icon-small-down"/>
+      </svg>
       <CountryList isOpen={this.state.isOpen} countries={countries} currentCountry={name}/>
     </div>
   }
@@ -48,25 +51,41 @@ const CountryList = ({isOpen, countries, currentCountry}) => {
   return <div className="nav__country-list">
     <div className="nav__country-list-content">
       {
-        countries.map(c => <Link className={`nav__country-list-item ${R.equals(currentCountry, c.countryIso) ? 'selected' : ''}`}
-                                 to={`/country/${c.countryIso}`}
-                                 key={c.countryIso}>{c.name}
-                                 </Link>)
+        countries.map(c => <Link
+          className={`nav__country-list-item ${R.equals(currentCountry, c.countryIso) ? 'selected' : ''}`}
+          to={`/country/${c.countryIso}`}
+          key={c.countryIso}>{c.name}
+        </Link>)
       }
     </div>
   </div>
 }
 
-const PrimaryItem = ({label, countryIso, assessmentType, changeAssessmentStatus}) =>
-  <div className="nav__primary-item">
+const changeAssessmentStatusLabels =
+  {
+    'review': 'Accept',
+    'accepted': 'Change back to editing',
+    'editing': 'Send to review'
+  }
+
+const changeAssessmentStatusLabel = nextStatus => {
+  const label = changeAssessmentStatusLabels[nextStatus]
+  return label ? label : 'Send to review'  // If nothing's stored yet, editing is considered the default
+}
+
+const PrimaryItem = ({label, countryIso, assessmentType, assessmentStatuses, changeAssessmentStatus}) => {
+  const currentAssessmentStatus = R.path([assessmentType], assessmentStatuses)
+  const nextAssessmentStatus = nextAssessmentState(currentAssessmentStatus)
+  return <div className="nav__primary-item">
     <span className="nav__primary-label">{label}</span>
     <a className="nav__primary-assessment-action"
        href="#"
        onClick={(evt) => {
          evt.preventDefault()
-         changeAssessmentStatus(countryIso, assessmentType, 'review')
-       }}>Send to review</a>
+         changeAssessmentStatus(countryIso, assessmentType, nextAssessmentStatus)
+       }}>{changeAssessmentStatusLabel(nextAssessmentStatus)}</a>
   </div>
+}
 
 const NationalDataItem = ({path, countryIso, pathTemplate = '/tbd', status = {count: 0}, label}) => {
   const route = new Route(pathTemplate)
@@ -110,23 +129,41 @@ const SecondaryItem = ({path, countryIso, order, pathTemplate = '/tbd', label, s
 
 const roleLabel = (countryIso, userInfo) => mostPowerfulRole(countryIso, userInfo).label
 
-const Nav = ({path, country, countries, follow, getCountryList, changeAssessmentStatus, status = {}, userInfo}) => {
+const Nav = ({
+               path,
+               country,
+               countries,
+               follow,
+               getCountryList,
+               changeAssessmentStatus,
+               status = {},
+               userInfo
+             }) => {
   return <div className="main__nav-wrapper">
     <div className="main__nav">
-      <CountryItem name={country} countries={countries} listCountries={getCountryList} role={ roleLabel(country, userInfo) }/>
+      <CountryItem name={country} countries={countries} listCountries={getCountryList}
+                   role={ roleLabel(country, userInfo) }/>
       <div className="nav__link-list">
         <NationalDataItem label="National Data"
                           countryIso={country}
                           status={R.merge({issues: R.filter(R.pipe(R.prop('section'), R.equals('NDP')))(status.reviewStatus || [])}, status.odpStatus)}
-                          path={path} pathTemplate="/country/:countryIso/odps" />
-        <PrimaryItem label="Annually reported" countryIso={country} assessmentType="annuallyReported" changeAssessmentStatus={changeAssessmentStatus}/>
+                          path={path} pathTemplate="/country/:countryIso/odps"/>
+        <PrimaryItem label="Annually reported"
+                     countryIso={country}
+                     assessmentType="annuallyReported"
+                     assessmentStatuses={status.assessmentStatuses}
+                     changeAssessmentStatus={changeAssessmentStatus}/>
         {
           annualItems.map(v => <SecondaryItem path={path} key={v.label} goTo={follow}
                                               countryIso={country}
                                               status={R.filter(R.pipe(R.prop('section'), R.equals(R.defaultTo('', v.section))))(status.reviewStatus || [])}
                                               {...v} />)
         }
-        <PrimaryItem label="Five-year Cycle" countryIso={country} assessmentType="fiveYearCycle" changeAssessmentStatus={changeAssessmentStatus}/>
+        <PrimaryItem label="Five-year Cycle"
+                     countryIso={country}
+                     assessmentType="fiveYearCycle"
+                     assessmentStatuses={status.assessmentStatuses}
+                     changeAssessmentStatus={changeAssessmentStatus}/>
         {
           fiveYearItems.map(v => <SecondaryItem path={path} key={v.label} goTo={follow} countryIso={country} {...v} />)
         }
@@ -137,21 +174,26 @@ const Nav = ({path, country, countries, follow, getCountryList, changeAssessment
 
 class NavigationSync extends React.Component {
 
-  componentWillMount() {
+  componentWillMount () {
     this.props.fetchCountryOverviewStatus(this.props.country)
   }
 
-  componentWillReceiveProps(next) {
+  componentWillReceiveProps (next) {
     if (!R.equals(this.props.country, next.country)) {
       this.props.fetchCountryOverviewStatus(next.country)
     }
   }
 
-  render() {
+  render () {
     return <Nav {...this.props} />
   }
 }
 
 const mapStateToProps = state => R.pipe(R.merge(state.navigation), R.merge(state.router))(state.user)
 
-export default connect(mapStateToProps, {follow, getCountryList, fetchCountryOverviewStatus, changeAssessmentStatus})(NavigationSync)
+export default connect(mapStateToProps, {
+  follow,
+  getCountryList,
+  fetchCountryOverviewStatus,
+  changeAssessmentStatus
+})(NavigationSync)

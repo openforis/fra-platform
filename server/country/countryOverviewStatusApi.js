@@ -7,6 +7,9 @@ const reviewRepository = require('../review/reviewRepository')
 const odpRepository = require('../odp/odpRepository')
 const assessmentRepository = require('../assessment/assessmentRepository')
 
+const simplifyAssessmentStatuses = statuses =>
+  R.reduce((resultObj, status) => R.assoc(status.assessmentType, status.status, resultObj), {}, statuses)
+
 module.exports.init = app => {
 
   app.get('/country/overviewStatus/:countryIso', (req, res) => {
@@ -21,12 +24,18 @@ module.exports.init = app => {
         reviewStatus,
         assessmentStatuses
       ]
-    ).then(([odps, reviewStatus, assessmentStatuses]) => {
+    ).then(([odps, reviewStatus, assessmentStatusResult]) => {
       const odpStatus = {
         count: odps.length,
         errors: R.filter(o => !o.validationStatus.valid, odps).length !== 0,
       }
-      res.json({odpStatus, reviewStatus, assessmentStatuses})
+      console.log(simplifyAssessmentStatuses(assessmentStatusResult))
+      res.json(
+        {
+          odpStatus,
+          reviewStatus,
+          assessmentStatuses: simplifyAssessmentStatuses(assessmentStatusResult)
+        })
     })
       .catch(err => sendErr(res, err))
   })
