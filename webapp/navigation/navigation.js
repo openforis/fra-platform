@@ -67,7 +67,7 @@ const assessmentStatusLabels = {
   'editing': null //Currently we do not wish to show the default state at all
 }
 
-const changeAssessmentStatusLabel = (currentAssessmentStatus, direction) => {
+const changeAssessmentStatusLabel = (currentStatus, targetStatus, direction) => {
   const changeAssessmentStatusLabels =
     {
       'review-next': 'Send to review',
@@ -77,9 +77,8 @@ const changeAssessmentStatusLabel = (currentAssessmentStatus, direction) => {
       'accepted-previous': null,
       'editing-previous': 'remove'
     }
-  if (currentAssessmentStatus === 'changing') return 'Changing...'
-  const transition = getAllowedStatusTransitions(currentAssessmentStatus)[direction]
-  const label = changeAssessmentStatusLabels[`${transition}-${direction}`]
+  if (currentStatus === 'changing') return 'Changing...'
+  const label = changeAssessmentStatusLabels[`${targetStatus}-${direction}`]
   if (label)
     return label
   else if (direction === 'next')
@@ -93,19 +92,21 @@ const changeStateLink = (countryIso,
                          currentStatus,
                          targetStatus,
                          changeAssessmentStatus,
-                         direction) =>
+                         direction) => console.log('changeStateLink', direction, currentStatus, targetStatus) ||
   <a className={targetStatus ? 'nav__primary-assessment-action' : 'nav__primary-assessment-action--disabled'}
      href="#"
      onClick={(evt) => {
        evt.preventDefault()
        if (targetStatus) changeAssessmentStatus(countryIso, assessmentType, targetStatus)
-     }}>{changeAssessmentStatusLabel(currentStatus, direction)}</a>
+     }}>{changeAssessmentStatusLabel(currentStatus, targetStatus, direction)}</a>
 
-const PrimaryItem = ({label, countryIso, assessmentType, assessmentStatuses, changeAssessmentStatus}) => {
+const PrimaryItem = ({label, countryIso, assessmentType, assessmentStatuses, changeAssessmentStatus, userInfo}) => {
+  if (!countryIso || !userInfo) return <noscript/>
   const currentAssessmentStatus = R.path([assessmentType], assessmentStatuses)
   const currentAssessmentStatusLabel = assessmentStatusLabels[currentAssessmentStatus]
-  const nextAssessmentStatus = getAllowedStatusTransitions(currentAssessmentStatus).next
-  const previousAssessmentStatus = getAllowedStatusTransitions(currentAssessmentStatus).previous
+  const allowedTransitions = getAllowedStatusTransitions(mostPowerfulRole(countryIso, userInfo), currentAssessmentStatus)
+  const nextAssessmentStatus = allowedTransitions.next
+  const previousAssessmentStatus = allowedTransitions.previous
   return <div className="nav__primary-item">
     <span className="nav__primary-label">{label}</span>
     {
@@ -199,7 +200,8 @@ const Nav = ({
                      countryIso={country}
                      assessmentType="annuallyReported"
                      assessmentStatuses={status.assessmentStatuses}
-                     changeAssessmentStatus={changeAssessmentStatus}/>
+                     changeAssessmentStatus={changeAssessmentStatus}
+                     userInfo={userInfo}/>
         {
           annualItems.map(v => <SecondaryItem path={path} key={v.label} goTo={follow}
                                               countryIso={country}
@@ -210,7 +212,8 @@ const Nav = ({
                      countryIso={country}
                      assessmentType="fiveYearCycle"
                      assessmentStatuses={status.assessmentStatuses}
-                     changeAssessmentStatus={changeAssessmentStatus}/>
+                     changeAssessmentStatus={changeAssessmentStatus}
+                     userInfo={userInfo}/>
         {
           fiveYearItems.map(v => <SecondaryItem path={path} key={v.label} goTo={follow} countryIso={country} {...v} />)
         }
