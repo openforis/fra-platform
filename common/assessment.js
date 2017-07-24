@@ -1,4 +1,4 @@
-export const getAllowedStatusTransitions = (mostPowerfulRole, currentState) => {
+module.exports.getAllowedStatusTransitions = (mostPowerfulRole, currentState) => {
   if (!mostPowerfulRole) return {}
   const isReviewer = mostPowerfulRole.role === 'REVIEWER'
   switch (currentState) {
