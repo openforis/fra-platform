@@ -78,13 +78,7 @@ const changeAssessmentStatusLabel = (currentStatus, targetStatus, direction) => 
       'editing-previous': 'remove'
     }
   if (currentStatus === 'changing') return 'Changing...'
-  const label = changeAssessmentStatusLabels[`${targetStatus}-${direction}`]
-  if (label)
-    return label
-  else if (direction === 'next')
-    return 'Send to review'  // If nothing's stored yet, editing is considered the default
-  else
-  return null
+  return changeAssessmentStatusLabels[`${targetStatus}-${direction}`]
 }
 
 const changeStateLink = (countryIso,
@@ -105,6 +99,7 @@ const PrimaryItem = ({label, countryIso, assessmentType, assessmentStatuses, cha
   const currentAssessmentStatus = R.path([assessmentType], assessmentStatuses)
   const currentAssessmentStatusLabel = assessmentStatusLabels[currentAssessmentStatus]
   const allowedTransitions = getAllowedStatusTransitions(mostPowerfulRole(countryIso, userInfo), currentAssessmentStatus)
+  console.log('allowed transitions for ', assessmentType, allowedTransitions)
   const nextAssessmentStatus = allowedTransitions.next
   const previousAssessmentStatus = allowedTransitions.previous
   return <div className="nav__primary-item">
