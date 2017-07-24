@@ -92,7 +92,9 @@ const changeStateLink = (countryIso,
      onClick={(evt) => {
        evt.preventDefault()
        if (targetStatus) changeAssessmentStatus(countryIso, assessmentType, targetStatus)
-     }}>{changeAssessmentStatusLabel(currentStatus, targetStatus, direction)}</a>
+     }}>
+    {changeAssessmentStatusLabel(currentStatus, targetStatus, direction)}
+  </a>
 
 const PrimaryItem = ({label, countryIso, assessmentType, assessmentStatuses, changeAssessmentStatus, userInfo}) => {
   if (!countryIso || !userInfo) return <noscript/>
@@ -124,7 +126,13 @@ const PrimaryItem = ({label, countryIso, assessmentType, assessmentStatuses, cha
         : null
     }
     {
-      changeStateLink(countryIso, assessmentType, currentAssessmentStatus, nextAssessmentStatus, changeAssessmentStatus, 'next')
+      changeStateLink(
+        countryIso,
+        assessmentType,
+        currentAssessmentStatus,
+        nextAssessmentStatus,
+        changeAssessmentStatus,
+        'next')
     }
   </div>
 }
