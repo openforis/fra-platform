@@ -8,17 +8,25 @@ import {
   issueRetrieveCommentsCompleted,
   issueOpenCommentThread,
   issueCloseCommentThread,
-  reviewGetCommentCountCompleted
+  issueGetSummaryCompleted
 } from './actions'
 
 const actionHandlers = {
   [issuePostCommentCompleted]: (state, action) => ({...state, 'status': action.status}),
   [issueRetrieveCommentsStarted]: (state, action) => ({...state, 'status': action.status}),
-  [issueRetrieveCommentsCompleted]: (state, action) => {
-    return {...state, [action.target]: R.merge(state[action.target], {issue: action.issue})}
-  },
-  [reviewGetCommentCountCompleted]: (state, action) =>
-    ({...state, [action.target]: R.merge(state[action.target], {count: action.count})})
+  [issueRetrieveCommentsCompleted]: (state, action) => ({
+    ...state,
+    [action.target]: R.merge(state[action.target], {issue: action.issue})
+  }),
+  [issueGetSummaryCompleted]: (state, action) =>
+    ({
+      ...state,
+      [action.target]: R.merge(state[action.target], {
+        count: action.count,
+        lastCommentUserId: action.lastCommentUserId,
+        issueStatus: action.issueStatus
+      })
+    })
   ,
   [issueOpenCommentThread]: (state, action) => ({
     ...state,
