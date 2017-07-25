@@ -15,6 +15,7 @@ export const fetchCountryOverviewStatus = countryIso => dispatch => {
   axios.get(`/api/country/overviewStatus/${countryIso}`).then(resp => {
     dispatch({type: fetchCountryOverviewStatusCompleted, status: resp.data})
   })
+  .catch((err) => dispatch(applicationError(err)))
 }
 
 export const changeAssessmentStatus = (countryIso, assessmentType, status) => dispatch => {
