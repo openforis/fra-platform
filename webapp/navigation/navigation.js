@@ -53,7 +53,13 @@ const CountryRow = ({selectedCountry, country}) =>
     <div className="nav__country-list-item-name">
       {country.name}
     </div>
-    <span className="nav__country-list-item-assessment-status">In Review</span>
+    {
+      // Editing is not shown at all, let's not take space from the narrow dropdown in that case
+      country.assessmentStatus !== 'editing'
+        ? <span className="nav__country-list-item-assessment-status">{assessmentStatusLabels[country.assessmentStatus]}</span>
+        : null
+    }
+
   </Link>
 
 const CountryList = ({isOpen, countries, currentCountry}) => {
