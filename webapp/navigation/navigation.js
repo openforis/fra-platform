@@ -13,7 +13,7 @@ import { getAllowedStatusTransitions } from '../../common/assessment'
 
 import './style.less'
 
-class CountryItem extends React.Component {
+class CountrySelectionItem extends React.Component {
 
   constructor (props) {
     super(props)
@@ -46,16 +46,19 @@ class CountryItem extends React.Component {
   }
 }
 
+const CountryRow = ({selectedCountry, country}) =>
+  <Link
+    className={`nav__country-list-item ${R.equals(selectedCountry, country.countryIso) ? 'selected' : ''}`}
+    to={`/country/${country.countryIso}`}>
+    {country.name}
+  </Link>
+
 const CountryList = ({isOpen, countries, currentCountry}) => {
   if (!isOpen) return <noscript/>
   return <div className="nav__country-list">
     <div className="nav__country-list-content">
       {
-        countries.map(c => <Link
-          className={`nav__country-list-item ${R.equals(currentCountry, c.countryIso) ? 'selected' : ''}`}
-          to={`/country/${c.countryIso}`}
-          key={c.countryIso}>{c.name}
-        </Link>)
+        countries.map(c => <CountryRow key={c.countryIso} selectedCountry={currentCountry} country={c}/>)
       }
     </div>
   </div>
@@ -191,8 +194,8 @@ const Nav = ({
              }) => {
   return <div className="main__nav-wrapper">
     <div className="main__nav">
-      <CountryItem name={country} countries={countries} listCountries={getCountryList}
-                   role={ roleLabel(country, userInfo) }/>
+      <CountrySelectionItem name={country} countries={countries} listCountries={getCountryList}
+                            role={ roleLabel(country, userInfo) }/>
       <div className="nav__link-list">
         <NationalDataItem label="National Data"
                           countryIso={country}
