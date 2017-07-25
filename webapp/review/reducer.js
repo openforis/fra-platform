@@ -8,7 +8,7 @@ import {
   issueRetrieveCommentsCompleted,
   issueOpenCommentThread,
   issueCloseCommentThread,
-  reviewGetCommentCountCompleted
+  issueGetSummaryCompleted
 } from './actions'
 
 const actionHandlers = {
@@ -17,7 +17,7 @@ const actionHandlers = {
   [issueRetrieveCommentsCompleted]: (state, action) => {
     return {...state, [action.target]: R.merge(state[action.target], {issue: action.issue})}
   },
-  [reviewGetCommentCountCompleted]: (state, action) =>
+  [issueGetSummaryCompleted]: (state, action) =>
     ({...state, [action.target]: R.merge(state[action.target], {count: action.count})})
   ,
   [issueOpenCommentThread]: (state, action) => ({

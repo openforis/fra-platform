@@ -3,7 +3,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import '../issue/style.less'
-import { getCommentCount, openCommentThread, closeCommentThread } from './actions'
+import { getIssueSummary, openCommentThread, closeCommentThread } from './actions'
 
 const CommentStatus = ({count, active, ...props}) =>
   <div {...props} className={`fra-review__issue-status ${active ? 'active' : ''}`}>
@@ -20,13 +20,13 @@ class ReviewIndicator extends React.Component {
   }
 
   componentDidMount () {
-    this.props.getCommentCount(this.props.countryIso, this.props.section, this.props.target)
+    this.props.getIssueSummary(this.props.countryIso, this.props.section, this.props.target)
   }
 
   componentWillReceiveProps (next) {
     // changing country or target
     if (next.countryIso !== this.props.countryIso || !R.equals(next.target, this.props.target)) {
-      this.props.getCommentCount(next.countryIso, next.section, next.target)
+      this.props.getIssueSummary(next.countryIso, next.section, next.target)
     }
   }
 
@@ -47,5 +47,5 @@ const mapStateToProps = state => R.merge(state.review, state.user)
 export default connect(mapStateToProps, {
   openCommentThread,
   closeCommentThread,
-  getCommentCount
+  getIssueSummary
 })(ReviewIndicator)

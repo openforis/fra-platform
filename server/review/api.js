@@ -15,7 +15,7 @@ module.exports.init = app => {
       .catch(err => sendErr(res, err))
   })
 
-  app.get('/review/:countryIso/:section/count', (req, res) => {
+  app.get('/review/:countryIso/:section/summary', (req, res) => {
     checkCountryAccessFromReqParams(req)
     reviewRepository.getIssueComments(req.params.countryIso, req.params.section)
       .then(result => {
