@@ -23,7 +23,7 @@ export const postComment = (issueId, countryIso, section, target, userId, msg) =
   const api = issueId ? `api/review/${issueId}` : `api/review/${countryIso}/${section}?target=${target}`
   axios.post(api, {msg}).then(() => {
       dispatch({target: target, type: issuePostCommentCompleted, status: 'completed'})
-    getIssueSummary(countryIso, section, target)(dispatch)
+      getIssueSummary(countryIso, section, target)(dispatch)
       fetchCountryOverviewStatus(countryIso)(dispatch)
       axios.get(`api/review/${countryIso}/${section}?target=${target}`)
         .then(sectionCommentsReceived(section, target, dispatch))
