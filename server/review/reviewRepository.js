@@ -33,22 +33,6 @@ const getIssueComments = (countryIso, section) =>
 
 module.exports.getIssueComments = getIssueComments
 
-module.exports.getIssuesByCountry = countryIso => {
-  return db.query(`
-    SELECT 
-      i.id as issue_id, i.section as section, i.target as target, i.status as status
-    FROM 
-      issue i
-    WHERE 
-      i.country_iso = $1
-    AND
-      i.id in (SELECT DISTINCT c.issue_id FROM fra_comment c WHERE c.deleted = false)  
-  `, [countryIso]).then(res => {
-      return camelize(res.rows)
-    }
-  )
-}
-
 module.exports.getIssuesSummary = (countryIso, section, targetParam) =>
   getIssueComments(countryIso, section)
     .then(issueComments => {
