@@ -34,7 +34,6 @@ const handleCountryResult = result => {
       }
     },
     R.toPairs(grouped))
-  console.log(withOverallAssessments)
   return withOverallAssessments
 }
 
