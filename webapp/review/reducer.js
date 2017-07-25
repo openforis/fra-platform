@@ -14,11 +14,15 @@ import {
 const actionHandlers = {
   [issuePostCommentCompleted]: (state, action) => ({...state, 'status': action.status}),
   [issueRetrieveCommentsStarted]: (state, action) => ({...state, 'status': action.status}),
-  [issueRetrieveCommentsCompleted]: (state, action) => {
-    return {...state, [action.target]: R.merge(state[action.target], {issue: action.issue})}
-  },
+  [issueRetrieveCommentsCompleted]: (state, action) => ({
+    ...state,
+    [action.target]: R.merge(state[action.target], {issue: action.issue})
+  }),
   [issueGetSummaryCompleted]: (state, action) =>
-    ({...state, [action.target]: R.merge(state[action.target], {count: action.count})})
+    ({
+      ...state,
+      [action.target]: R.merge(state[action.target], {count: action.count, lastCommentUserId: action.lastCommentUserId})
+    })
   ,
   [issueOpenCommentThread]: (state, action) => ({
     ...state,

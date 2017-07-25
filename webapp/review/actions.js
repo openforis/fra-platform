@@ -40,7 +40,13 @@ export const retrieveComments = (countryIso, section, target) => dispatch => {
 export const getIssueSummary = (countryIso, section, target) => dispatch => {
   axios.get(`api/review/${countryIso}/${section}/summary?target=${target}`)
     .then(resp => {
-      dispatch({type: issueGetSummaryCompleted, section, target, count: resp.data.count})
+      dispatch({
+        type: issueGetSummaryCompleted,
+        section,
+        target,
+        count: resp.data.count,
+        lastCommentUserId: resp.data.lastCommentUserId
+      })
     })
 }
 
