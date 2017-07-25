@@ -9,8 +9,8 @@ const CommentStatus = ({count, active, lastCommentUserId, issueStatus, userInfo,
   const getIssueStatusCssClass = () =>
     issueStatus === 'resolved'
       ? 'issue-resolved'
-      : userInfo.id === lastCommentUserId
-      ? 'issue-last-comment-current-user'
+      : userInfo.id !== lastCommentUserId
+      ? 'issue-last-comment-other-user'
       : ''
 
   return <div {...props} className={`fra-review__issue-status ${active ? 'active' : ''}`}>
