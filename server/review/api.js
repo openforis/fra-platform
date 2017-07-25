@@ -24,11 +24,18 @@ module.exports.init = app => {
           const diff = R.pipe(R.path(['target', 'params']), R.difference(target))(issue)
           return R.isEmpty(diff) ? issue : []
         }, result)
+
+        const activeComments = R.pipe(
+          R.filter(i => !i.deleted),
+          R.reject(R.isEmpty)
+        )(issueComments)
+
         res.json({
-          count: R.pipe(
-            R.filter(i => !i.deleted),
-            R.reject(R.isEmpty),
-            R.length)(issueComments)
+          count: activeComments.length,
+          lastCommentUserId: R.pipe(
+            R.last,
+            R.defaultTo({})
+          )(activeComments).userId
         })
       })
       .catch(err => sendErr(res, err))
