@@ -51,7 +51,7 @@ module.exports.getIssuesSummary = (countryIso, section, targetParam) =>
       )(activeComments)
 
       return {
-        count: activeComments.length,
+        issuesCount: activeComments.length,
         lastCommentUserId: lastActiveComment.userId,
         issueStatus: lastActiveComment.issueStatus
       }

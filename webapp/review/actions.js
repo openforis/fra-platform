@@ -44,7 +44,7 @@ export const getIssueSummary = (countryIso, section, target) => dispatch => {
         type: issueGetSummaryCompleted,
         section,
         target,
-        count: resp.data.count,
+        issuesCount: resp.data.issuesCount,
         lastCommentUserId: resp.data.lastCommentUserId,
         issueStatus: resp.data.issueStatus
       })

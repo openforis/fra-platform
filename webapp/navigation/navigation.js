@@ -56,7 +56,8 @@ const CountryRow = ({selectedCountry, country}) =>
     {
       // Editing is not shown at all, let's not take space from the narrow dropdown in that case
       country.assessmentStatus !== 'editing'
-        ? <span className="nav__country-list-item-assessment-status">{assessmentStatusLabels[country.assessmentStatus]}</span>
+        ? <span
+          className="nav__country-list-item-assessment-status">{assessmentStatusLabels[country.assessmentStatus]}</span>
         : null
     }
 
@@ -149,21 +150,21 @@ const PrimaryItem = ({label, countryIso, assessmentType, assessmentStatuses, cha
   </div>
 }
 
-const NationalDataItem = ({path, countryIso, pathTemplate = '/tbd', status = {count: 0}, label}) => {
+const NationalDataItem = ({path, countryIso, pathTemplate = '/tbd', status = {count: 0, issuesCount: 0}, label}) => {
   const route = new Route(pathTemplate)
   const linkTo = route.reverse({countryIso})
 
   return <Link className={`nav__link-item ${R.equals(path, linkTo) ? 'selected' : ''}`}
-               to={ linkTo }>
+               to={linkTo}>
     <span className="nav__link-label">{label}</span>
     <span className="nav__link-item-status">{status.count}</span>
     <span className="nav__link-review-status">
-      { R.isEmpty(status.issues) ? null : <div className='nav__secondary-has-open-issue'></div> }
+      {status.issuesCount > 0 ? <div className='nav__secondary-has-open-issue'></div> : null}
     </span>
     <span className="nav__link-error-status">
-      { status.errors ? <svg className="icon icon-middle icon-red">
-        <use xlinkHref="img/icon.svg#icon-alert"/>
-      </svg>
+      {status.errors ? <svg className="icon icon-middle icon-red">
+          <use xlinkHref="img/icon.svg#icon-alert"/>
+        </svg>
         : null
       }
     </span>
@@ -178,13 +179,13 @@ const SecondaryItem = ({path, countryIso, order, pathTemplate = '/tbd', label, s
 
   const hasOpenIssues = R.pipe(R.filter(R.pipe(R.prop('status'), R.equals('open'))), R.isEmpty, R.not)(status)
   return <Link className={`nav__secondary-item ${R.equals(path, linkTo) ? 'selected' : ''}`}
-               to={ linkTo }>
+               to={linkTo}>
     <span className={`nav__secondary-order ${secondaryTextClass}`}>{order}</span>
     <div>
       <span className={`nav__secondary-label ${secondaryTextClass}`}>{label}</span>
     </div>
     <div className='nav__secondary-status-content'>
-      { hasOpenIssues ? <div className='nav__secondary-has-open-issue'></div> : null }
+      {hasOpenIssues ? <div className='nav__secondary-has-open-issue'></div> : null}
     </div>
   </Link>
 }
@@ -204,11 +205,11 @@ const Nav = ({
   return <div className="main__nav-wrapper">
     <div className="main__nav">
       <CountrySelectionItem name={country} countries={countries} listCountries={getCountryList}
-                            role={ roleLabel(country, userInfo) }/>
+                            role={roleLabel(country, userInfo)}/>
       <div className="nav__link-list">
         <NationalDataItem label="National Data"
                           countryIso={country}
-                          status={R.merge({issues: R.filter(R.pipe(R.prop('section'), R.equals('NDP')))(status.reviewStatus || [])}, status.odpStatus)}
+                          status={R.merge(status.reviewStatus, status.odpStatus)}
                           path={path} pathTemplate="/country/:countryIso/odps"/>
         <PrimaryItem label="Annually reported"
                      countryIso={country}
