@@ -70,7 +70,7 @@ module.exports.createIssueWithComment = (client, countryIso, section, target, us
       VALUES ($1, $2, $3, 'opened');
   `, [res.rows[0].last_value, userId, msg]))
 
-module.exports.createComment = (client, issueId, user, msg, status_changed) =>
+const createComment = (client, issueId, user, msg, status_changed) =>
   client.query('SELECT country_iso FROM issue WHERE id = $1', [issueId])
     .then(res => {
       const countryIso = res.rows[0].country_iso
@@ -80,6 +80,7 @@ module.exports.createComment = (client, issueId, user, msg, status_changed) =>
       INSERT INTO fra_comment (issue_id, user_id, message, status_changed)
       VALUES ($1, $2, $3, $4);
      `, [issueId, user.id, msg, status_changed]))
+    .then(() => client.query('UPDATE issue SET status = $1 WHERE id = $2', ['opened', issueId]))
 
 module.exports.createComment = createComment
 
@@ -106,7 +107,7 @@ module.exports.deleteIssues = (client, countryIso, section, paramPosition, param
 module.exports.markCommentAsDeleted = (client, commentId) =>
   client.query('UPDATE fra_comment SET deleted = $1 WHERE id = $2', [true, commentId])
 
-module.exports.markIssueAsResolved = (client, issueId, userId) =>
-  createComment(client, issueId, userId, 'Marked as resolved', 'resolved')
+module.exports.markIssueAsResolved = (client, issueId, user) =>
+  createComment(client, issueId, user, 'Marked as resolved', 'resolved')
     .then(() => client.query('UPDATE issue SET status = $1 WHERE id = $2', ['resolved', issueId]))
 
