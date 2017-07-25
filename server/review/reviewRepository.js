@@ -2,7 +2,7 @@ const camelize = require('camelize')
 const db = require('../db/db')
 const R = require('ramda')
 const Promise = require('bluebird')
-const {checkCountryAccess} = require('../utils/accessControl')
+const {checkCountryAccess, checkReviewerCountryAccess} = require('../utils/accessControl')
 
 module.exports.getIssueComments = (countryIso, section) =>
   db.query(`
@@ -108,6 +108,9 @@ module.exports.markCommentAsDeleted = (client, commentId) =>
   client.query('UPDATE fra_comment SET deleted = $1 WHERE id = $2', [true, commentId])
 
 module.exports.markIssueAsResolved = (client, issueId, user) =>
-  createComment(client, issueId, user, 'Marked as resolved', 'resolved')
+  client
+    .query('SELECT country_iso FROM issue WHERE id = $1', [issueId])
+    .then(res => checkReviewerCountryAccess(res.rows[0].country_iso, user))
+    .then(() => createComment(client, issueId, user, 'Marked as resolved', 'resolved'))
     .then(() => client.query('UPDATE issue SET status = $1 WHERE id = $2', ['resolved', issueId]))
 
