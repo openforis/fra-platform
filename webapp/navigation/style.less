@@ -1,4 +1,4 @@
-@import "../app-styles/config";
+@import (reference) "../app-styles/config";
 
 .main__nav-wrapper {
   position: relative;
@@ -156,11 +156,35 @@
   line-height: 20px;
 }
 
-.nav__primary-link {
-  font-size: @font-s;
+.nav__primary-assessment-action {
+  font-size: @font-xs;
+  color: @ui-accent;
+  text-decoration: none;
   display: inline-block;
   margin-top: 4px;
   line-height: 20px;
+}
+
+.nav__primary-assessment-action--disabled {
+  .nav__primary-assessment-action;
+  color: @text-disabled;
+  font-style: italic;
+  &:hover {
+    color: @text-disabled;
+    cursor: default;
+  }
+}
+
+.nav__to-previous-assessment-status {
+  margin-right: 4px;
+}
+
+.nav__assessment-status {
+  display: inline-block;
+  font-size: @font-xs;
+  color: @text-mute;
+  line-height: 20px;
+  margin-right: 4px;
 }
 
 .nav__secondary-item {
@@ -208,13 +232,6 @@
   color: white;
   border-radius: 100%;
   text-align: center;
-}
-
-.nav__secondary-status {
-  display: block;
-  font-size: @font-xs;
-  color: @text-mute;
-  line-height: 20px;
 }
 
 .nav__secondary-status.nav__disabled-menu-item-text,

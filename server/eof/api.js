@@ -1,6 +1,5 @@
 const fraRepository = require('./fraRepository')
 const odpRepository = require('../odp/odpRepository')
-const reviewRepository = require('../review/reviewRepository')
 const db = require('../db/db')
 const os = require('os')
 const Promise = require('bluebird')
@@ -63,21 +62,5 @@ module.exports.init = app => {
       .catch(err => sendErr(res, err))
   })
 
-  app.get('/nav/status/:countryIso', (req, res) => {
-    checkCountryAccessFromReqParams(req)
-    const odpData = odpRepository.listAndValidateOriginalDataPoints(req.params.countryIso)
-    const reviewStatus = reviewRepository.getIssuesByCountry(req.params.countryIso)
-
-    // in future we certainly will need the Promise.all here wink wink
-    Promise.all([odpData, reviewStatus]).then(([odps, reviewResult]) => {
-      const odpStatus = {
-        count: odps.length,
-        errors: R.filter(o => !o.validationStatus.valid, odps).length !== 0,
-      }
-
-      res.json(R.merge({reviewStatus: reviewResult}, {odpStatus}))
-    })
-      .catch(err => sendErr(res, err))
-  })
 
 }
