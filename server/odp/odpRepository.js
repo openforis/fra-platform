@@ -5,6 +5,7 @@ const camelize = require('camelize')
 const {toNumberOrNull} = require('../utils/databaseConversions')
 const {validateDataPoint} = require('../../common/originalDataPointCommon')
 const {deleteIssuesByIds, deleteIssues} = require('../review/reviewRepository')
+const {checkCountryAccess} = require('../utils/accessControl')
 
 module.exports.saveDraft = (client, countryIso, draft) =>
   !draft.odpId ? createOdp(client, countryIso)
@@ -73,17 +74,18 @@ const updateDraft = (client, draft) =>
       [draft.year, draft.description, draftId])
   )
 
-module.exports.deleteDraft = (client, odpId, countryIso) =>
-  client.query('SELECT actual_id FROM odp WHERE id = $1', [odpId])
-    .then(res => res.rows[0].actual_id)
-    .then(actualId =>
-      actualId
+module.exports.deleteDraft = (client, odpId, user) =>
+  getAndCheckOdpCountryId(client, odpId, user)
+    .then(countryIso => Promise.all([client.query('SELECT actual_id FROM odp WHERE id = $1', [odpId]), countryIso]))
+    .then(([actualRes, countryIso]) => {
+      const actualId = actualRes.rows[0].actual_id
+      return actualId
         ? client.query('UPDATE odp SET draft_id = null WHERE id = $1', [odpId])
           .then(() => getOdpVersionId(client, odpId))
           .then(odpVersionId => getOdpNationalClasses(client, odpVersionId))
           .then(odpClasses => wipeNationalClassIssues(client, odpId, countryIso, odpClasses))
-        : deleteOdp(client, odpId, countryIso)
-    )
+        : deleteOdp(client, odpId, user)
+    })
 
 const wipeClassData = (client, odpVersionId) =>
   client.query('DELETE FROM odp_class WHERE odp_version_id = $1', [odpVersionId])
@@ -116,12 +118,13 @@ const addClassData = (client, odpVersionId, odp) => {
   return Promise.all(nationalInserts)
 }
 
-module.exports.markAsActual = (client, odpId) => {
+module.exports.markAsActual = (client, odpId, user) => {
   const currentOdpPromise = client.query('SELECT actual_id, draft_id FROM odp WHERE id = $1', [odpId])
+  const checkCountryAccess = getAndCheckOdpCountryId(client, odpId, user)
   const updateOdpPromise = client.query(
     'UPDATE odp SET actual_id = draft_id, draft_id = null WHERE id = $1 AND draft_id IS NOT NULL', [odpId]
   )
-  return Promise.join(currentOdpPromise, updateOdpPromise, (oldActualResult, _) => {
+  return Promise.join(currentOdpPromise, checkCountryAccess, updateOdpPromise, (oldActualResult) => {
     if (oldActualResult.rowCount > 0 && oldActualResult.rows[0].draft_id) {
       return oldActualResult.rows[0].actual_id
     }
@@ -136,24 +139,35 @@ module.exports.markAsActual = (client, odpId) => {
   })
 }
 
-const deleteOdp = (client, odpId, countryIso) => {
-  return client.query(
-    'SELECT actual_id, draft_id FROM odp WHERE id = $1'
-    , [odpId]
-  ).then(selectResult =>
-    client.query('DELETE FROM odp WHERE id = $1', [odpId])
-      .then(() => [selectResult.rows[0].draft_id, selectResult.rows[0].actual_id])
-  ).then(([draftId, actualId]) => {
-    return Promise.all([
-      draftId
-        ? wipeClassData(client, draftId)
-          .then(() => client.query('DELETE FROM odp_version WHERE id = $1', [draftId]))
-        : Promise.resolve(),
-      actualId
-        ? wipeClassData(client, actualId)
-          .then(() => client.query('DELETE FROM odp_version WHERE id = $1', [actualId]))
-        : Promise.resolve(),
-      deleteIssues(client, countryIso, 'NDP', 0, odpId)
+const getAndCheckOdpCountryId = (client, odpId, user) =>
+  client.query('SELECT country_iso FROM odp WHERE id = $1', [odpId])
+    .then(res => {
+      const countryIso = res.rows[0].country_iso
+      checkCountryAccess(countryIso, user)
+      return countryIso
+    })
+
+const deleteOdp = (client, odpId, user) => {
+
+  return getAndCheckOdpCountryId(client, odpId, user)
+    .then(countryIso =>
+      Promise.all([
+        client.query('SELECT actual_id, draft_id FROM odp WHERE id = $1', [odpId]),
+        countryIso])
+    ).then(([selectResult, countryIso]) =>
+      client.query('DELETE FROM odp WHERE id = $1', [odpId])
+      .then(() => [selectResult.rows[0].draft_id, selectResult.rows[0].actual_id, countryIso])
+    ).then(([draftId, actualId, countryIso]) => {
+      return Promise.all([
+        draftId
+          ? wipeClassData(client, draftId)
+            .then(() => client.query('DELETE FROM odp_version WHERE id = $1', [draftId]))
+          : Promise.resolve(),
+        actualId
+          ? wipeClassData(client, actualId)
+            .then(() => client.query('DELETE FROM odp_version WHERE id = $1', [actualId]))
+          : Promise.resolve(),
+        deleteIssues(client, countryIso, 'NDP', 0, odpId)
     ])
   })
 }

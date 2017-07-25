@@ -11,8 +11,7 @@ AccessControlException.prototype.constructor = AccessControlException;
 
 // Checks whether user should have access to the specified country
 // Throws a custom Error user has no access (handled in sendErr)
-const checkCountryAccess = (countryIso, req) => {
-  const user = req.session.passport.user
+const checkCountryAccess = (countryIso, user) => {
   const role = mostPowerfulRole(countryIso, user)
   if (role.role === 'NONE') {
     const errMsg = `User ${user.name} tried to access ${countryIso} but no role has been specified`
@@ -24,8 +23,8 @@ const checkCountryAccess = (countryIso, req) => {
 // WARNING: the param name needs to be exactly 'countryIso'
 // If it's not, use checkCountryAccess instead
 const checkCountryAccessFromReqParams = (req) => {
-  if (req.params.countryIso) checkCountryAccess(req.params.countryIso, req)
-  if (req.query.countryIso) checkCountryAccess(req.query.countryIso, req)
+  if (req.params.countryIso) checkCountryAccess(req.params.countryIso, req.session.passport.user)
+  if (req.query.countryIso) checkCountryAccess(req.query.countryIso, req.session.passport.user)
 }
 
 module.exports.checkCountryAccess = checkCountryAccess
