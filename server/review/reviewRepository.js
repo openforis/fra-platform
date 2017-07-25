@@ -33,16 +33,19 @@ const getIssueComments = (countryIso, section) =>
 
 module.exports.getIssueComments = getIssueComments
 
-module.exports.getIssuesSummary = (countryIso, section, targetParam) =>
+module.exports.getIssuesSummary = (countryIso, section, targetParam, excludeResolvedIssues) =>
   getIssueComments(countryIso, section)
     .then(issueComments => {
       const target = targetParam && targetParam.split(',')
 
       const activeComments = R.pipe(
+        R.reject(i => i.deleted),
         R.filter(i => target
           ? R.pathEq(['target', 'params'], target, i)
           : true),
-        R.reject(i => i.deleted)
+        R.filter(i => excludeResolvedIssues
+          ? i.issueStatus !== 'resolved'
+          : true)
       )(issueComments)
 
       const lastActiveComment = R.pipe(

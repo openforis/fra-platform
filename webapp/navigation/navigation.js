@@ -150,7 +150,7 @@ const PrimaryItem = ({label, countryIso, assessmentType, assessmentStatuses, cha
   </div>
 }
 
-const NationalDataItem = ({path, countryIso, pathTemplate = '/tbd', status = {count: 0, issuesCount: 0}, label}) => {
+const NationalDataItem = ({path, countryIso, pathTemplate = '/tbd', status = {count: 0, issuesCount: 0}, label, userInfo}) => {
   const route = new Route(pathTemplate)
   const linkTo = route.reverse({countryIso})
 
@@ -159,7 +159,9 @@ const NationalDataItem = ({path, countryIso, pathTemplate = '/tbd', status = {co
     <span className="nav__link-label">{label}</span>
     <span className="nav__link-item-status">{status.count}</span>
     <span className="nav__link-review-status">
-      {status.issuesCount > 0 ? <div className='nav__secondary-has-open-issue'></div> : null}
+      {status.issuesCount > 0 && userInfo.id !== status.lastCommentUserId
+        ? <div className='nav__secondary-has-open-issue'></div>
+        : null}
     </span>
     <span className="nav__link-error-status">
       {status.errors ? <svg className="icon icon-middle icon-red">
@@ -210,7 +212,8 @@ const Nav = ({
         <NationalDataItem label="National Data"
                           countryIso={country}
                           status={R.merge(status.reviewStatus, status.odpStatus)}
-                          path={path} pathTemplate="/country/:countryIso/odps"/>
+                          path={path} pathTemplate="/country/:countryIso/odps"
+                          userInfo={userInfo}/>
         <PrimaryItem label="Annually reported"
                      countryIso={country}
                      assessmentType="annuallyReported"

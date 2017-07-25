@@ -71,6 +71,6 @@ export const markIssueAsResolved = (countryIso, section, target, issueId) => dis
     .then(() => {
       retrieveComments(countryIso, section, target)(dispatch)
       getIssueSummary(countryIso, section, target)(dispatch)
-      fetchNavStatus(countryIso)(dispatch)
+      fetchCountryOverviewStatus(countryIso)(dispatch)
     })
 }
