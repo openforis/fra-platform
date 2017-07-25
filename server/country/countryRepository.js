@@ -5,9 +5,9 @@ const camelize = require('camelize')
 /*
  * Determine the "overall status" from multiple statuses.
  * For example, one review is enough to determine that overall
- * the whlole country is in review
+ * the whole country is in review.
  * If all statuses are in accepted, we determine that country is in
- * accepted status
+ * accepted status.
  */
 const determineCountryAssessmentStatus = (statuses) => {
   if (R.isEmpty(statuses)) return 'editing' //Initially, there are no rows for country's assessment,
@@ -25,7 +25,7 @@ const getStatuses = groupedRows =>
 
 const handleCountryResult = result => {
   const grouped = R.groupBy(row => row.countryIso, camelize(result.rows))
-  const withOverallAssessments = R.map(
+  return R.map(
     ([countryIso, vals]) => {
       return {
         countryIso,
@@ -34,7 +34,6 @@ const handleCountryResult = result => {
       }
     },
     R.toPairs(grouped))
-  return withOverallAssessments
 }
 
 const getAllCountries = () =>
