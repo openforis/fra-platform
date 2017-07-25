@@ -5,11 +5,12 @@ import { connect } from 'react-redux'
 import '../issue/style.less'
 import { getIssueSummary, openCommentThread, closeCommentThread } from './actions'
 
-const CommentStatus = ({count, active, ...props}) =>
+const CommentStatus = ({count, active, lastCommentUserId, ...props}) =>
   <div {...props} className={`fra-review__issue-status ${active ? 'active' : ''}`}>
     {
-      count > 0 ? <div className="fra-review__issue-status-count">{count}</div> :
-        <svg className="icon"><use xlinkHref="img/icon.svg#icon-circle-add"/></svg>
+      count > 0 ? <div className="fra-review__issue-status-count">{count}</div> : <svg className="icon">
+        <use xlinkHref="img/icon.svg#icon-circle-add"/>
+      </svg>
     }
   </div>
 
@@ -32,12 +33,18 @@ class ReviewIndicator extends React.Component {
 
   render () {
     const targetProps = this.props[this.props.target] || {}
-    const count = R.isNil(targetProps) ? 0 : targetProps.count // comments ? comments.length  : 0
+    const count = R.isNil(targetProps) ? 0 : targetProps.count
+    const lastCommentUserId = R.isNil(targetProps) ? null : targetProps.lastCommentUserId
     const active = this.props.openThread && this.props.section == this.props.openThread.section && R.equals(this.props.target, this.props.openThread.target) ? true : false
+
     return <div className="fra-review__add-issue">
-      <CommentStatus count={count} active={active} onClick={() => {
-        this.props.openCommentThread(this.props.countryIso, this.props.section, this.props.target, this.props.name)
-      }}/>
+      <CommentStatus
+        count={count}
+        active={active}
+        lastCommentUserId={lastCommentUserId}
+        onClick={() => {
+          this.props.openCommentThread(this.props.countryIso, this.props.section, this.props.target, this.props.name)
+        }}/>
     </div>
   }
 }
