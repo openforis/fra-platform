@@ -5,7 +5,7 @@ const Promise = require('bluebird')
 const {checkCountryAccess, checkReviewerCountryAccess, AccessControlException} = require('../utils/accessControl')
 const {isReviewer} = require('../../common/countryRole')
 
-module.exports.getIssueComments = (countryIso, section) =>
+const getIssueComments = (countryIso, section) =>
   db.query(`
     SELECT 
       i.id as issue_id, i.target, i.status as issue_status,
@@ -31,6 +31,8 @@ module.exports.getIssueComments = (countryIso, section) =>
   `, [countryIso, section])
     .then(res => camelize(res.rows))
 
+module.exports.getIssueComments = getIssueComments
+
 module.exports.getIssuesByCountry = countryIso => {
   return db.query(`
     SELECT 
@@ -46,6 +48,33 @@ module.exports.getIssuesByCountry = countryIso => {
     }
   )
 }
+
+module.exports.getIssuesSummary = (countryIso, section, targetParam) =>
+  getIssueComments(countryIso, section)
+    .then(result => {
+      const target = targetParam && targetParam.split(',')
+
+      const issueComments = R.map(issue => {
+        const diff = R.pipe(R.path(['target', 'params']), R.difference(target))(issue)
+        return R.isEmpty(diff) ? issue : []
+      }, result)
+
+      const activeComments = R.pipe(
+        R.filter(i => !i.deleted),
+        R.reject(R.isEmpty)
+      )(issueComments)
+
+      const lastActiveComment = R.pipe(
+        R.last,
+        R.defaultTo({})
+      )(activeComments)
+
+      return {
+        count: activeComments.length,
+        lastCommentUserId: lastActiveComment.userId,
+        issueStatus: lastActiveComment.issueStatus
+      }
+    })
 
 const getIssuesByParam = (countryIso, section, paramPosition, paramValue) =>
   db.query(`
