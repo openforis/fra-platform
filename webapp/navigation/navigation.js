@@ -47,11 +47,14 @@ class CountrySelectionItem extends React.Component {
 }
 
 const CountryRow = ({selectedCountry, country}) =>
-  <Link
-    className={`nav__country-list-item ${R.equals(selectedCountry, country.countryIso) ? 'selected' : ''}`}
-    to={`/country/${country.countryIso}`}>
-    {country.name}
-  </Link>
+  <div className={`nav__country-list-item ${R.equals(selectedCountry, country.countryIso) ? 'selected' : ''}`}>
+    <Link
+      className="nav__country-list-item-name"
+      to={`/country/${country.countryIso}`}>
+      {country.name}
+    </Link>
+    <span className="nav__country-list-item-assessment-status">In Review</span>
+  </div>
 
 const CountryList = ({isOpen, countries, currentCountry}) => {
   if (!isOpen) return <noscript/>
