@@ -23,7 +23,7 @@ const authenticationSuccessful = (req, user, next, res) => {
     } else {
       countryRepository.getAllowedCountries(user.roles).then(result => {
         setLoggedInCookie(res, true)
-        res.redirect(`/#/country/${result.rows[0].countryIso}`)
+        res.redirect(`/#/country/${result[0].countryIso}`)
       }).catch(err => sendErr(res, err))
     }
   })
