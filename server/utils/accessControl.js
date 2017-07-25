@@ -37,6 +37,6 @@ const checkCountryAccessFromReqParams = (req) => {
 }
 
 module.exports.checkCountryAccess = checkCountryAccess
-module.exports.checkReviewerCountryAccess = checkCountryAccess
+module.exports.checkReviewerCountryAccess = checkReviewerCountryAccess
 module.exports.checkCountryAccessFromReqParams = checkCountryAccessFromReqParams
 module.exports.AccessControlException = AccessControlException
