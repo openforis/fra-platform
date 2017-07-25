@@ -30,12 +30,15 @@ module.exports.init = app => {
           R.reject(R.isEmpty)
         )(issueComments)
 
+        const lastActiveComment = R.pipe(
+          R.last,
+          R.defaultTo({})
+        )(activeComments)
+
         res.json({
           count: activeComments.length,
-          lastCommentUserId: R.pipe(
-            R.last,
-            R.defaultTo({})
-          )(activeComments).userId
+          lastCommentUserId: lastActiveComment.userId,
+          issueStatus: lastActiveComment.issueStatus
         })
       })
       .catch(err => sendErr(res, err))

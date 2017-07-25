@@ -21,7 +21,11 @@ const actionHandlers = {
   [issueGetSummaryCompleted]: (state, action) =>
     ({
       ...state,
-      [action.target]: R.merge(state[action.target], {count: action.count, lastCommentUserId: action.lastCommentUserId})
+      [action.target]: R.merge(state[action.target], {
+        count: action.count,
+        lastCommentUserId: action.lastCommentUserId,
+        issueStatus: action.issueStatus
+      })
     })
   ,
   [issueOpenCommentThread]: (state, action) => ({
