@@ -55,7 +55,7 @@ export const clearActive = () => ({type: odpClearActiveAction})
 // Delete
 
 export const remove = (countryIso, odpId) => dispatch => {
-  axios.delete(`/api/odp/?odpId=${odpId}&countryIso=${countryIso}`)
+  axios.delete(`/api/odp/?odpId=${odpId}`)
     .then(() => {
       dispatch({type: odpClearActiveAction})
       fetchCountryOverviewStatus(countryIso)(dispatch)
@@ -121,7 +121,7 @@ export const copyPreviousNationalClasses = (countryIso, odp) => dispatch => {
 
 export const cancelDraft = (countryIso, odpId) => dispatch => {
   if (odpId)
-    axios.delete(`/api/odp/draft/?odpId=${odpId}&countryIso=${countryIso}`)
+    axios.delete(`/api/odp/draft/?odpId=${odpId}`)
       .then(() => window.location = `#/country/${countryIso}`)
       .catch((err) => dispatch(applicationError(err)))
   else

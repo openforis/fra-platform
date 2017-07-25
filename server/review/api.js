@@ -9,9 +9,8 @@ const reviewRepository = require('./reviewRepository')
 module.exports.init = app => {
 
   app.post('/review/:issueId', (req, res) => {
-    //TODO access control check based on issueId! (can't do it with plain countryIso here)
-    const userId = req.session.passport.user.id
-    db.transaction(reviewRepository.createComment, [req.params.issueId, userId, req.body.msg, ''])
+    const user = req.session.passport.user
+    db.transaction(reviewRepository.createComment, [req.params.issueId, user, req.body.msg, 'opened'])
       .then(result => res.json({}))
       .catch(err => sendErr(res, err))
   })
@@ -80,4 +79,11 @@ module.exports.init = app => {
       .then(() => res.json({}))
       .catch(err => sendErr(res, err))
   )
+
+  app.post('/issue/markAsResolved', (req, res) => {
+    const user = req.session.passport.user
+    db.transaction(reviewRepository.markIssueAsResolved, [req.query.issueId, user])
+      .then(() => res.json({}))
+      .catch(err => sendErr(res, err))
+  })
 }

@@ -2,15 +2,19 @@ import './style.less'
 import * as R from 'ramda'
 import React from 'react'
 import { connect } from 'react-redux'
-import { postComment, retrieveComments, closeCommentThread, markCommentAsDeleted } from './actions'
+import { postComment, retrieveComments, closeCommentThread, markCommentAsDeleted, markIssueAsResolved } from './actions'
 import { parse, differenceInMonths, differenceInWeeks, differenceInDays, differenceInHours, format } from 'date-fns'
+import { isReviewer } from '../../common/countryRole'
 
 const mapIndexed = R.addIndex(R.map)
 
-const AddComment = ({issueId, countryIso, section, target, postComment, onCancel, isFirst, userInfo}) =>
-  <div className="fra-review__add-comment">
+const AddComment = ({issueId, countryIso, section, target, postComment, onCancel, isFirst, userInfo, issueStatus}) => {
+  const canAddComment = () => issueStatus !== 'resolved' || isReviewer(countryIso, userInfo)
+
+  return <div className="fra-review__add-comment">
     <div className="fra-review__issue-comment-input-border">
       <textarea
+        disabled={!canAddComment()}
         rows="1"
         onInput={() => {
           const elem = document.getElementById(`fra-review__comment-input-${target}`)
@@ -19,25 +23,29 @@ const AddComment = ({issueId, countryIso, section, target, postComment, onCancel
         }}
         id={`fra-review__comment-input-${target}`}
         className="fra-review__issue-comment-input"
-        placeholder="Write a comment…"/>
+        placeholder={`${canAddComment() ? 'Write a comment…' : 'Commenting closed'}`}/>
     </div>
     <div className="fra-review__comment-buttons">
       <button className="fra-review__comment-add-btn btn btn-primary btn-s"
+              disabled={!canAddComment()}
               onClick={() => {
                 postComment(issueId, countryIso, section, target, null, document.getElementById(`fra-review__comment-input-${target}`).value)
                 document.getElementById(`fra-review__comment-input-${target}`).value = ''
               }}>Add
       </button>
-      <button className="btn btn-s btn-secondary" onClick={() => {
-        onCancel()
-      }}>Cancel
+      <button className="btn btn-s btn-secondary"
+              disabled={!canAddComment()}
+              onClick={() => onCancel()}>
+        Cancel
       </button>
     </div>
   </div>
+}
 
-const CommentThread = ({comments, userInfo = {}, countryIso, section, target, markCommentAsDeleted}) => {
+const CommentThread = ({comments, userInfo = {}, countryIso, section, target, issueStatus, markCommentAsDeleted}) => {
   const isThisMe = R.pipe(R.prop('userId'), R.equals(userInfo.id))
   const isCommentDeleted = R.propEq('deleted', true)
+  const isCommentStatusResolved = R.propEq('statusChanged', 'resolved')
   const getCommentTimestamp = c => {
     const commentTimestamp = parse(c.addedTime)
     const now = new Date()
@@ -76,7 +84,7 @@ const CommentThread = ({comments, userInfo = {}, countryIso, section, target, ma
                     <div
                       className={`fra-review__comment-author ${ isCommentDeleted(c) ? 'fra-review__comment-deleted' : isThisMe(c) ? 'author-me' : ''}`}>
                       <div>{c.username}</div>
-                      {isThisMe && !isCommentDeleted(c)
+                      {isThisMe(c) && !isCommentDeleted(c) && !isCommentStatusResolved(c) && issueStatus !== 'resolved'
                         ? <button className="btn fra-review__comment-delete-button"
                                   onClick={() => markCommentAsDeleted(countryIso, section, target, c.commentId)}>
                           Delete</button>
@@ -105,7 +113,7 @@ const CommentThread = ({comments, userInfo = {}, countryIso, section, target, ma
   </div>
 }
 
-const ReviewHeader = ({name, close}) =>
+const ReviewHeader = ({name, close, userInfo, countryIso, section, target, issueId, issueStatus, markIssueAsResolved}) =>
   <div className="fra-review__header">
     <h2 className="fra-review__header-title subhead">Comments</h2>
     <div className="fra-review__header-close-btn" onClick={e => close(e)}>
@@ -114,6 +122,15 @@ const ReviewHeader = ({name, close}) =>
       </svg>
     </div>
     {name ? <div className="fra-review__header-target">{name}</div> : null}
+    {issueId && isReviewer(countryIso, userInfo) && issueStatus !== 'resolved'
+      ? <div className="fra-review__header-target">
+        <button
+          className="btn btn-primary btn-s"
+          onClick={() => markIssueAsResolved(countryIso, section, target, issueId, userInfo.id)}>
+          Resolve
+        </button>
+      </div>
+      : null}
   </div>
 
 class ReviewPanel extends React.Component {
@@ -130,12 +147,23 @@ class ReviewPanel extends React.Component {
     const name = R.isNil(this.props.openThread) ? '' : this.props.openThread.name
     const comments = R.defaultTo([], target ? this.props[target].issue : [])
     const issueId = comments && comments.length > 0 ? comments[0].issueId : null
+    const issueStatus = comments && comments.length > 0 ? comments[0].issueStatus : null
     const close = R.partial(ctx => {
       ctx.props.closeCommentThread()
     }, [this])
 
     return <div className={`fra-review-${isActive ? 'active' : 'hidden'}`}>
-      <ReviewHeader name={name} close={close}/>
+      <ReviewHeader
+        name={name}
+        close={close}
+        userInfo={this.props.userInfo}
+        countryIso={this.props.country}
+        section={section}
+        target={target}
+        issueId={issueId}
+        issueStatus={issueStatus}
+        markIssueAsResolved={this.props.markIssueAsResolved}
+      />
       <CommentThread
         comments={comments}
         userInfo={this.props.userInfo}
@@ -143,6 +171,7 @@ class ReviewPanel extends React.Component {
         section={section}
         target={target}
         markCommentAsDeleted={this.props.markCommentAsDeleted}
+        issueStatus={issueStatus}
       />
       <AddComment
         issueId={issueId}
@@ -153,6 +182,7 @@ class ReviewPanel extends React.Component {
         onCancel={close}
         isFirst={comments.length === 0}
         userInfo={this.props.userInfo}
+        issueStatus={issueStatus}
       />
     </div>
   }
@@ -164,6 +194,7 @@ export default connect(mapSateToProps, {
   postComment,
   retrieveComments,
   closeCommentThread,
-  markCommentAsDeleted
+  markCommentAsDeleted,
+  markIssueAsResolved
 })(ReviewPanel)
 

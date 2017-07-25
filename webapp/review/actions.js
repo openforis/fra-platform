@@ -24,7 +24,7 @@ export const postComment = (issueId, countryIso, section, target, userId, msg) =
   axios.post(api, {msg}).then(() => {
       dispatch({target: target, type: issuePostCommentCompleted, status: 'completed'})
       getCommentCount(countryIso, section, target)(dispatch)
-    fetchCountryOverviewStatus(countryIso)(dispatch)
+      fetchCountryOverviewStatus(countryIso)(dispatch)
       axios.get(`api/review/${countryIso}/${section}?target=${target}`)
         .then(sectionCommentsReceived(section, target, dispatch))
     }
@@ -58,3 +58,12 @@ export const markCommentAsDeleted = (countryIso, section, target, commentId) => 
       getCommentCount(countryIso, section, target)(dispatch)
       fetchCountryOverviewStatus(countryIso)(dispatch)
     })
+
+export const markIssueAsResolved = (countryIso, section, target, issueId, userId) => dispatch => {
+  axios.post(`api/issue/markAsResolved?issueId=${issueId}`)
+    .then(() => {
+      retrieveComments(countryIso, section, target)(dispatch)
+      getCommentCount(countryIso, section, target)(dispatch)
+      fetchNavStatus(countryIso)(dispatch)
+    })
+}

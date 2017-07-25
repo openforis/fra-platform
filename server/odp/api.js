@@ -51,9 +51,7 @@ module.exports.init = app => {
   )
 
   app.delete('/odp', (req, res) => {
-      checkCountryAccessFromReqParams(req)
-      //TODO access control! we have to check that odpId is attached to the correct country!
-    db.transaction(odpRepository.deleteOdp, [req.query.odpId, req.query.countryIso])
+    db.transaction(odpRepository.deleteOdp, [req.query.odpId, req.session.passport.user])
       .then(() => res.json({}))
         .catch(err => sendErr(res, err))
     }
@@ -68,9 +66,7 @@ module.exports.init = app => {
   })
 
   app.delete('/odp/draft', (req, res) => {
-      //TODO access control! We have to check that odpId is attached to the correct country!
-    checkCountryAccessFromReqParams(req)
-    db.transaction(odpRepository.deleteDraft, [req.query.odpId, req.query.countryIso])
+    db.transaction(odpRepository.deleteDraft, [req.query.odpId, req.session.passport.user])
         .then(() => res.json({}))
         .catch(err => sendErr(res, err))
     }
@@ -94,8 +90,7 @@ module.exports.init = app => {
   })
 
   app.post('/odp/markAsActual', (req, res) =>
-    //TODO access control! request doesn't contain countryIso
-    db.transaction(odpRepository.markAsActual, [req.query.odpId])
+    db.transaction(odpRepository.markAsActual, [req.query.odpId, req.session.passport.user])
       .then(() => res.json({})
       ).catch(err => sendErr(res, err))
   )
