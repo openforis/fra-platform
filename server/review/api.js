@@ -20,7 +20,7 @@ module.exports.init = app => {
     reviewRepository.getIssueComments(req.params.countryIso, req.params.section)
       .then(result => {
         const target = req.query.target && req.query.target.split(',')
-        const issues = R.map(issue => {
+        const issueComments = R.map(issue => {
           const diff = R.pipe(R.path(['target', 'params']), R.difference(target))(issue)
           return R.isEmpty(diff) ? issue : []
         }, result)
@@ -28,7 +28,7 @@ module.exports.init = app => {
           count: R.pipe(
             R.filter(i => !i.deleted),
             R.reject(R.isEmpty),
-            R.length)(issues)
+            R.length)(issueComments)
         })
       })
       .catch(err => sendErr(res, err))
