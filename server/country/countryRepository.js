@@ -37,7 +37,7 @@ const handleCountryResult = result => {
   return withOverallAssessments
 }
 
-const getAllCountries = () => console.log('getAllCountries') ||
+const getAllCountries = () =>
   db.query(`SELECT c.country_iso, c.name, a.status
             FROM country c
             LEFT OUTER JOIN assessment a ON c.country_iso = a.country_iso 
