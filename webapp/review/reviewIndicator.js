@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import '../issue/style.less'
 import { getIssueSummary, openCommentThread, closeCommentThread } from './actions'
 
-const CommentStatus = ({count, active, lastCommentUserId, ...props}) =>
+const CommentStatus = ({count, active, lastCommentUserId, issueStatus, ...props}) =>
   <div {...props} className={`fra-review__issue-status ${active ? 'active' : ''}`}>
     {
       count > 0 ? <div className="fra-review__issue-status-count">{count}</div> : <svg className="icon">
@@ -35,6 +35,7 @@ class ReviewIndicator extends React.Component {
     const targetProps = this.props[this.props.target] || {}
     const count = R.isNil(targetProps) ? 0 : targetProps.count
     const lastCommentUserId = R.isNil(targetProps) ? null : targetProps.lastCommentUserId
+    const issueStatus = R.isNil(targetProps) ? null : targetProps.issueStatus
     const active = this.props.openThread && this.props.section == this.props.openThread.section && R.equals(this.props.target, this.props.openThread.target) ? true : false
 
     return <div className="fra-review__add-issue">
@@ -42,6 +43,7 @@ class ReviewIndicator extends React.Component {
         count={count}
         active={active}
         lastCommentUserId={lastCommentUserId}
+        issueStatus={issueStatus}
         onClick={() => {
           this.props.openCommentThread(this.props.countryIso, this.props.section, this.props.target, this.props.name)
         }}/>
