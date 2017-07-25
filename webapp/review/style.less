@@ -186,6 +186,13 @@
   cursor: pointer;
   font-size: @font-xxs;
   transition: @ease-out;
+
+  &.issue-resolved {
+    background-color: @text-mute;
+  }
+  &.issue-last-comment-current-user {
+    background-color: #ef7523;
+  }
 }
 
 .fra-review__issue-status {

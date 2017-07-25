@@ -5,14 +5,24 @@ import { connect } from 'react-redux'
 import '../issue/style.less'
 import { getIssueSummary, openCommentThread, closeCommentThread } from './actions'
 
-const CommentStatus = ({count, active, lastCommentUserId, issueStatus, ...props}) =>
-  <div {...props} className={`fra-review__issue-status ${active ? 'active' : ''}`}>
+const CommentStatus = ({count, active, lastCommentUserId, issueStatus, userInfo, ...props}) => {
+  const getIssueStatusCssClass = () =>
+    issueStatus === 'resolved'
+      ? 'issue-resolved'
+      : userInfo.id === lastCommentUserId
+      ? 'issue-last-comment-current-user'
+      : ''
+
+  return <div {...props} className={`fra-review__issue-status ${active ? 'active' : ''}`}>
     {
-      count > 0 ? <div className="fra-review__issue-status-count">{count}</div> : <svg className="icon">
-        <use xlinkHref="img/icon.svg#icon-circle-add"/>
-      </svg>
+      count > 0
+        ? <div className={`fra-review__issue-status-count ${getIssueStatusCssClass()}`}>{count}</div>
+        : <svg className="icon">
+          <use xlinkHref="img/icon.svg#icon-circle-add"/>
+        </svg>
     }
   </div>
+}
 
 class ReviewIndicator extends React.Component {
 
@@ -44,6 +54,7 @@ class ReviewIndicator extends React.Component {
         active={active}
         lastCommentUserId={lastCommentUserId}
         issueStatus={issueStatus}
+        userInfo={this.props.userInfo}
         onClick={() => {
           this.props.openCommentThread(this.props.countryIso, this.props.section, this.props.target, this.props.name)
         }}/>

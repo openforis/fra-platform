@@ -66,7 +66,7 @@ export const markCommentAsDeleted = (countryIso, section, target, commentId) => 
       fetchCountryOverviewStatus(countryIso)(dispatch)
     })
 
-export const markIssueAsResolved = (countryIso, section, target, issueId, userId) => dispatch => {
+export const markIssueAsResolved = (countryIso, section, target, issueId) => dispatch => {
   axios.post(`api/issue/markAsResolved?issueId=${issueId}`)
     .then(() => {
       retrieveComments(countryIso, section, target)(dispatch)
