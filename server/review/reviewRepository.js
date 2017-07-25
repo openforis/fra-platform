@@ -51,17 +51,14 @@ module.exports.getIssuesByCountry = countryIso => {
 
 module.exports.getIssuesSummary = (countryIso, section, targetParam) =>
   getIssueComments(countryIso, section)
-    .then(result => {
+    .then(issueComments => {
       const target = targetParam && targetParam.split(',')
 
-      const issueComments = R.map(issue => {
-        const diff = R.pipe(R.path(['target', 'params']), R.difference(target))(issue)
-        return R.isEmpty(diff) ? issue : []
-      }, result)
-
       const activeComments = R.pipe(
-        R.filter(i => !i.deleted),
-        R.reject(R.isEmpty)
+        R.filter(i => target
+          ? R.pathEq(['target', 'params'], target, i)
+          : true),
+        R.reject(i => i.deleted)
       )(issueComments)
 
       const lastActiveComment = R.pipe(
