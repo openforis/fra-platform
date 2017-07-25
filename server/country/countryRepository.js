@@ -53,11 +53,12 @@ module.exports.getAllowedCountries = (roles) => {
   } else {
     const allowedCountryIsos = R.pipe(R.map(R.prop('countryIso')), R.reject(R.isNil))(roles)
     const allowedIsoQueryPlaceholders = R.range(1, allowedCountryIsos.length +1).map(i => '$'+i).join(',')
-    return db.query(`SELECT country_iso, name 
-                     FROM country
-                     WHERE country_iso in (${allowedIsoQueryPlaceholders})
+    return db.query(`SELECT c.country_iso, c.name, a.status 
+                     FROM country c
+                     LEFT OUTER JOIN assessment a ON c.country_iso = a.country_iso
+                     WHERE c.country_iso in (${allowedIsoQueryPlaceholders})
                      ORDER BY name ASC`,
                     allowedCountryIsos)
-      .then(res => camelize(res.rows))
+      .then(handleCountryResult)
   }
 }
