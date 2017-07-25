@@ -83,16 +83,29 @@
 }
 
 .nav__country-list-item {
-  display: block;
-  color: @text-body;
-  text-decoration: none;
+  display: flex;
+  justify-content: space-between;
   padding: 6px 12px;
+  text-decoration: none;
 
   &:hover,
   &.selected {
     background-color: darken(@ui-bg, 4%);
     color: inherit;
   }
+}
+
+.nav__country-list-item-name {
+  color: @text-body;
+}
+
+.nav__country-list-item-assessment-status {
+  color: @text-mute;
+  font-size: @font-xs;
+  font-style: italic;
+  display: inline-block;
+  min-width: 52px;
+  margin-left: 3px;
 }
 
 // Questionare
