@@ -58,3 +58,12 @@ export const markCommentAsDeleted = (countryIso, section, target, commentId) => 
       getCommentCount(countryIso, section, target)(dispatch)
       fetchNavStatus(countryIso)(dispatch)
     })
+
+export const markIssueAsResolved = (countryIso, section, target, issueId, userId) => dispatch => {
+  axios.post(`api/issue/markAsResolved?issueId=${issueId}`)
+    .then(() => {
+      retrieveComments(countryIso, section, target)(dispatch)
+      getCommentCount(countryIso, section, target)(dispatch)
+      fetchNavStatus(countryIso)(dispatch)
+    })
+}

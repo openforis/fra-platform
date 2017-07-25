@@ -10,7 +10,7 @@ module.exports.init = app => {
 
   app.post('/review/:issueId', (req, res) => {
     const user = req.session.passport.user
-    db.transaction(reviewRepository.createComment, [req.params.issueId, user, req.body.msg, ''])
+    db.transaction(reviewRepository.createComment, [req.params.issueId, user, req.body.msg, 'opened'])
       .then(result => res.json({}))
       .catch(err => sendErr(res, err))
   })
@@ -79,4 +79,11 @@ module.exports.init = app => {
       .then(() => res.json({}))
       .catch(err => sendErr(res, err))
   )
+
+  app.post('/issue/markAsResolved', (req, res) => {
+    const user = req.session.passport.user
+    db.transaction(reviewRepository.markIssueAsResolved, [req.query.issueId, user])
+      .then(() => res.json({}))
+      .catch(err => sendErr(res, err))
+  })
 }
