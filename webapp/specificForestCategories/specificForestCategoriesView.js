@@ -11,7 +11,7 @@ const SpecificForestCategoriesView = props =>
       <h2 className="headline tv__page-header">Specific forest categories</h2>
       <TraditionalTable tableSpec={tableSpec} countryIso={props.match.params.countryIso}/>
       <CommentableDescription
-        section="specificForestCategories"
+        section={tableSpec.name}
         descriptionName="specificForestCategories"
         descriptionTitle="Description"
         countryIso={props.match.params.countryIso}
