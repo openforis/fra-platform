@@ -1,12 +1,23 @@
 const camelize = require('camelize')
 const db = require('../db/db')
+const R = require('ramda')
+const Promise = require('bluebird')
+const {checkCountryAccess, checkReviewerCountryAccess, AccessControlException} = require('../utils/accessControl')
+const {isReviewer} = require('../../common/countryRole')
 
-module.exports.getIssues = (countryIso, section) =>
+module.exports.getIssueComments = (countryIso, section) =>
   db.query(`
     SELECT 
-      i.id as issue_id, i.target as target, c.id as comment_id,
-      c.user_id as user_id, u.email as email, u.name as username,
-      c.message as message, c.status_changed as status_changed 
+      i.id as issue_id, i.target, i.status as issue_status,
+      u.email, u.name as username,
+      c.id as comment_id, c.user_id,
+      CASE 
+        WHEN c.deleted = true THEN ''
+        ELSE c.message 
+      END as message, 
+      c.status_changed,
+      c.deleted,
+      to_char(c.added_time,'YYYY-MM-DD"T"HH24:MI:ssZ') as added_time
     FROM 
       issue i
     JOIN fra_comment c 
@@ -14,45 +25,99 @@ module.exports.getIssues = (countryIso, section) =>
     JOIN fra_user u 
       ON (u.id = c.user_id)
     WHERE 
-      i.country_iso = $1 AND i.section = $2;
+      i.country_iso = $1 AND i.section = $2
+    ORDER BY
+      c.id  
   `, [countryIso, section])
     .then(res => camelize(res.rows))
 
-module.exports.allIssues = countryIso => {
+module.exports.getIssuesByCountry = countryIso => {
   return db.query(`
-    SELECT i.id as issue_id, i.section as section, i.target as target, i.status as status
-    FROM issue i
-    WHERE i.country_iso = $1;
+    SELECT 
+      i.id as issue_id, i.section as section, i.target as target, i.status as status
+    FROM 
+      issue i
+    WHERE 
+      i.country_iso = $1
+    AND
+      i.id in (SELECT DISTINCT c.issue_id FROM fra_comment c WHERE c.deleted = false)  
   `, [countryIso]).then(res => {
       return camelize(res.rows)
     }
   )
 }
 
-module.exports.getIssuesByTargets = (countryIso, section, targets) =>
+const getIssuesByParam = (countryIso, section, paramPosition, paramValue) =>
   db.query(`
     SELECT 
       i.id as issue_id, i.section, i.target, i.status
     FROM issue i
     WHERE i.country_iso = $1
     AND i.section = $2
-    AND i.target in (${targets.join(',')})`
+    AND i.target #> '{params,${paramPosition}}' = '"${paramValue}"'
+    AND i.id in (SELECT DISTINCT c.issue_id FROM fra_comment c WHERE c.deleted = false)`
     , [countryIso, section])
     .then(res => camelize(res.rows))
+
+module.exports.getIssuesByParam = getIssuesByParam
 
 module.exports.createIssueWithComment = (client, countryIso, section, target, userId, msg) =>
   client.query(`
     INSERT INTO issue (country_iso, section, target, status) VALUES ($1, $2, $3, $4);
-  `, [countryIso, section, target, 'open'])
+  `, [countryIso, section, target, 'opened'])
     .then(res => client.query(`SELECT last_value FROM issue_id_seq`))
     .then(res => client.query(`
       INSERT INTO fra_comment (issue_id, user_id, message, status_changed)
       VALUES ($1, $2, $3, 'opened');
   `, [res.rows[0].last_value, userId, msg]))
 
-module.exports.createComment = (client, issueId, userId, msg, status_changed) =>
-  client.query(`
-    INSERT INTO fra_comment (issue_id, user_id, message, status_changed)
-    VALUES ($1, $2, $3, $4);
- `, [issueId, userId, msg, status_changed])
+const checkIssueOpenedOrReviewer = (countryIso, status, user) => {
+  if (status === 'resolved' && !isReviewer(countryIso, user))
+    throw new AccessControlException(`User ${user.name} tried to enter a comment for a resolved issue`)
+}
 
+const createComment = (client, issueId, user, msg, statusChanged) =>
+  client
+    .query('SELECT country_iso, status FROM issue WHERE id = $1', [issueId])
+    .then(res => {
+      const countryIso = res.rows[0].country_iso
+      checkCountryAccess(countryIso, user)
+      checkIssueOpenedOrReviewer(countryIso, res.rows[0].status, user)
+    })
+    .then(() => client.query(`
+      INSERT INTO fra_comment (issue_id, user_id, message, status_changed)
+      VALUES ($1, $2, $3, $4);
+     `, [issueId, user.id, msg, statusChanged]))
+    .then(() => client.query('UPDATE issue SET status = $1 WHERE id = $2', ['opened', issueId]))
+
+module.exports.createComment = createComment
+
+const deleteIssuesByIds = (client, issueIds) => {
+  if (issueIds.length > 0) {
+    const issueIdQueryPlaceholders = R.range(1, issueIds.length + 1).map(i => '$' + i).join(',')
+
+    return client
+      .query(`DELETE from fra_comment WHERE issue_id IN (${issueIdQueryPlaceholders})`, issueIds)
+      .then(() =>
+        client.query(`DELETE from issue WHERE id IN (${issueIdQueryPlaceholders})`, issueIds)
+      )
+  } else
+    return Promise.resolve()
+}
+
+module.exports.deleteIssuesByIds = deleteIssuesByIds
+
+module.exports.deleteIssues = (client, countryIso, section, paramPosition, paramValue) =>
+  getIssuesByParam(countryIso, section, paramPosition, paramValue)
+    .then(res => res.map(r => r.issueId))
+    .then(issueIds => deleteIssuesByIds(client, issueIds))
+
+module.exports.markCommentAsDeleted = (client, commentId) =>
+  client.query('UPDATE fra_comment SET deleted = $1 WHERE id = $2', [true, commentId])
+
+module.exports.markIssueAsResolved = (client, issueId, user) =>
+  client
+    .query('SELECT country_iso FROM issue WHERE id = $1', [issueId])
+    .then(res => checkReviewerCountryAccess(res.rows[0].country_iso, user))
+    .then(() => createComment(client, issueId, user, 'Marked as resolved', 'resolved'))
+    .then(() => client.query('UPDATE issue SET status = $1 WHERE id = $2', ['resolved', issueId]))

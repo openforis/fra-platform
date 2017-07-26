@@ -22,6 +22,7 @@
   visibility: hidden;
   width: 0;
   opacity: 0;
+  overflow: hidden;
 
   .fra-review__issue-comment-input {
     display: none;
@@ -64,7 +65,7 @@
 }
 
 .fra-review__comment-placeholder-icon {
-  fill: rgba(0,0,0,.3)
+  fill: rgba(0, 0, 0, .3)
 }
 
 .fra-review__comment-placeholder-text {
@@ -86,7 +87,6 @@
 .fra-review__issue-comment-input {
   border: none;
   display: block;
-  font-family: inherit;
   font-size: @font-s;
   line-height: 18px;
   max-height: 400px;
@@ -153,6 +153,20 @@
   line-height: 18px;
 }
 
+.fra-review__comment-header {
+  display: flex;
+  align-items: center;
+}
+
+.fra-review__avatar {
+  width: 48px;
+  min-width: 48px;
+  height: 48px;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+  border-radius: 100%;
+  margin-right: 8px;
+}
+
 .fra-review__comment-edit-author {
   font-size: @font-s;
   font-weight: bold;
@@ -172,6 +186,13 @@
   cursor: pointer;
   font-size: @font-xxs;
   transition: @ease-out;
+
+  &.issue-resolved {
+    background-color: @text-mute;
+  }
+  &.issue-last-comment-current-user {
+    background-color: #ef7523;
+  }
 }
 
 .fra-review__issue-status {
@@ -189,7 +210,7 @@
   &.active,
   &:hover {
     .icon {
-      fill: rgba(0,0,0,.75);
+      fill: rgba(0, 0, 0, .75);
       width: 20px;
       height: 20px;
     }
@@ -200,13 +221,28 @@
   margin-right: 8px;
 }
 
+.fra-review__comment-author-section {
+  flex-grow: 2;
+}
+
 .fra-review__comment-author {
   font-size: @font-s;
   font-weight: bold;
+  display: flex;
+  justify-content: space-between;
 
   &.author-me {
     color: darken(@ui-accent, 2%);
   }
+}
+
+.fra-review__comment-delete-button {
+  border: none;
+  background-color: transparent;
+  font-weight: 400;
+  color: @text-mute;
+  font-size: @font-xs;
+  padding: 0px;
 }
 
 .fra-review__comment-time {
@@ -217,8 +253,17 @@
 
 .fra-review__comment-text {
   font-size: @font-s;
-  margin-top: 4px;
+  margin-top: 8px;
   overflow-wrap: break-word;
+}
+
+.fra-review__comment-deleted {
+  color: @text-disabled;
+}
+
+.fra-review__comment-deleted-text {
+  .fra-review__comment-deleted;
+  font-style: italic;
 }
 
 tr.fra-row-comments__open,

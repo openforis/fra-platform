@@ -1,0 +1,24 @@
+@import (reference) "../app-styles/fraTable";
+
+.vgtf__container {
+  position: relative;
+}
+
+.vgtf__textarea {
+  .fra-table__input;
+  resize: none;
+  outline: none;
+  display: block;
+  overflow: hidden;  // Removes scrollbar
+}
+
+.vgtf__textarea--ghost {
+  padding: 10px;
+  opacity: 0.3;
+  display: block;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  visibility: hidden;
+  position: absolute;
+  top: 0;
+}

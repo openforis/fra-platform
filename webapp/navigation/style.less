@@ -1,4 +1,4 @@
-@import "../app-styles/config";
+@import (reference) "../app-styles/config";
 
 .main__nav-wrapper {
   position: relative;
@@ -83,16 +83,29 @@
 }
 
 .nav__country-list-item {
-  display: block;
-  color: @text-body;
-  text-decoration: none;
+  display: flex;
+  justify-content: space-between;
   padding: 6px 12px;
+  text-decoration: none;
 
   &:hover,
   &.selected {
     background-color: darken(@ui-bg, 4%);
     color: inherit;
   }
+}
+
+.nav__country-list-item-name {
+  color: @text-body;
+}
+
+.nav__country-list-item-assessment-status {
+  color: @text-mute;
+  font-size: @font-xs;
+  font-style: italic;
+  display: inline-block;
+  min-width: 52px;
+  margin-left: 3px;
 }
 
 // Questionare
@@ -156,11 +169,35 @@
   line-height: 20px;
 }
 
-.nav__primary-link {
-  font-size: @font-s;
+.nav__primary-assessment-action {
+  font-size: @font-xs;
+  color: @ui-accent;
+  text-decoration: none;
   display: inline-block;
   margin-top: 4px;
   line-height: 20px;
+}
+
+.nav__primary-assessment-action--disabled {
+  .nav__primary-assessment-action;
+  color: @text-disabled;
+  font-style: italic;
+  &:hover {
+    color: @text-disabled;
+    cursor: default;
+  }
+}
+
+.nav__to-previous-assessment-status {
+  margin-right: 4px;
+}
+
+.nav__assessment-status {
+  display: inline-block;
+  font-size: @font-xs;
+  color: @text-mute;
+  line-height: 20px;
+  margin-right: 4px;
 }
 
 .nav__secondary-item {
@@ -208,13 +245,6 @@
   color: white;
   border-radius: 100%;
   text-align: center;
-}
-
-.nav__secondary-status {
-  display: block;
-  font-size: @font-xs;
-  color: @text-mute;
-  line-height: 20px;
 }
 
 .nav__secondary-status.nav__disabled-menu-item-text,
