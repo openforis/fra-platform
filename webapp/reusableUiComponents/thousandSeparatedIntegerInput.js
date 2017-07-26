@@ -60,10 +60,7 @@ export class ThousandSeparatedIntegerInput extends React.Component {
             }
           }
           onBlur={
-            () => {
-              this.setState({hasFocus: false})
-              this.refs.inputField.value = separateThousandsWithSpaces(integerValue)
-            }
+            () => { this.setState({hasFocus: false}) }
           }
         />
       </div>
