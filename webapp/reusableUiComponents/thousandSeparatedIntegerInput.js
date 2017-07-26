@@ -15,6 +15,12 @@ export class ThousandSeparatedIntegerInput extends React.Component {
   }
 
   componentDidMount() {
+    /*
+     * This has to be done to adjust the size via getWidthForReadonly()
+     * AFTER the first render. On first render, the ref "wrapper" will not
+     * contain anything yet, but on second, it will and we can get the
+     * width from it.
+     */
     if (this.props.integerValue) {
       this.forceUpdate()
     }
