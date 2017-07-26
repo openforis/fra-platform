@@ -15,14 +15,14 @@ export class ThousandSeparatedIntegerInput extends React.Component {
   }
 
   componentDidUpdate() {
-    if (!this.widthSet) {
+    if (this.refs.wrapper && !this.widthSet && this.props.integerValue) {
+      this.widthSet = true
       this.forceUpdate()
     }
   }
 
   getWidthForReadonly() {
     if (this.refs.wrapper) {
-      this.widthSet = true
       return this.refs.wrapper.getBoundingClientRect().width -8
     }
     return null
