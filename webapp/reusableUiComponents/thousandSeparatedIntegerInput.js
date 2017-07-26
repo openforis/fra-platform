@@ -13,7 +13,6 @@ export class ThousandSeparatedIntegerInput extends React.Component {
     this.state = {hasFocus: false}
   }
   render () {
-    console.log('hasFocus', this.state.hasFocus)
     const {integerValue, onChange, onPaste, className} = this.props
     return <div style={{position: 'relative'}}>
       <div style={{position: 'absolute', right: '5px', top: '9px', display: this.state.hasFocus ? 'none' : 'inline-block'}}> {integerValue} </div>
