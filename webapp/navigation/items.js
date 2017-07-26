@@ -37,7 +37,7 @@ export const fiveYearItems = [
     order: 6,
     label: 'Forest area loss, gain and net change',
     pathTemplate: '/country/:countryIso/forestAreaChange',
-    section: `traditionalTable-${forestAreaChangeTableSpec.name}`
+    section: forestAreaChangeTableSpec.name
   },
   {
     order: 7,
@@ -48,7 +48,7 @@ export const fiveYearItems = [
     order: 8,
     label: 'Specific forest categories',
     pathTemplate: '/country/:countryIso/specificForestCategories',
-    section: `traditionalTable-${specificForestCategoriesTableSpec.name}`
+    section: specificForestCategoriesTableSpec.name
   },
   {
     order: 9,
@@ -64,7 +64,7 @@ export const fiveYearItems = [
     order: 11,
     label: 'Primary designated management objective',
     pathTemplate: '/country/:countryIso/primaryDesignatedManagementObjectiveView',
-    section: `traditionalTable-${primaryDesignatedManagementObjectiveTableSpec.name}`
+    section: primaryDesignatedManagementObjectiveTableSpec.name
   },
   {
     order: 12,
@@ -80,7 +80,7 @@ export const fiveYearItems = [
     order: 14,
     label: 'Area affected by fire',
     pathTemplate: '/country/:countryIso/areaAffectedByFire',
-    section: `traditionalTable-${areaAffectedByFireTableSpec.name}`
+    section: areaAffectedByFireTableSpec.name
   },
   {
     order: 15,
