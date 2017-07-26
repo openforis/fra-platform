@@ -10,20 +10,38 @@ const renderUnfocusedIntegerValue = integerValue =>
 export class ThousandSeparatedIntegerInput extends React.Component {
   constructor () {
     super()
+    this.widthSet = false
     this.state = {hasFocus: false}
   }
+
+  componentDidUpdate() {
+    if (!this.widthSet) {
+      this.forceUpdate()
+    }
+  }
+
+  getWidthForReadonly() {
+    if (this.refs.wrapper) {
+      this.widthSet = true
+      return this.refs.wrapper.getBoundingClientRect().width -8
+    }
+    return null
+  }
+
   render () {
     const {integerValue, onChange, onPaste, className} = this.props
+    const widthForReadonly = this.getWidthForReadonly()
     return <div style={{position: 'relative'}} ref="wrapper">
       <div style={{
         position: 'absolute',
         right: '5px',
         top: '9px',
         height: '17px',
-        width: this.refs.wrapper ? `${this.refs.wrapper.getBoundingClientRect().width -8}px` : null,
+        width: widthForReadonly ? `${widthForReadonly}px` : null,
         display: this.state.hasFocus ? 'none' : 'inline-block',
         overflow: 'hidden',
         textOverflow: 'ellipsis',
+        textAlign: 'right',
         whiteSpace: 'nowrap'
       }}>
         {renderUnfocusedIntegerValue(integerValue)}
