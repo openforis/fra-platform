@@ -10,13 +10,11 @@ const renderUnfocusedIntegerValue = integerValue =>
 export class ThousandSeparatedIntegerInput extends React.Component {
   constructor () {
     super()
-    this.widthSet = false
     this.state = {hasFocus: false}
   }
 
-  componentDidUpdate() {
-    if (this.refs.wrapper && !this.widthSet && this.props.integerValue) {
-      this.widthSet = true
+  componentDidMount() {
+    if (this.props.integerValue) {
       this.forceUpdate()
     }
   }
