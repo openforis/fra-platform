@@ -159,7 +159,7 @@ const NationalDataItem = ({path, countryIso, pathTemplate = '/tbd', status = {co
     <span className="nav__link-label">{label}</span>
     <span className="nav__link-item-status">{status.count}</span>
     <span className="nav__link-review-status">
-      {status.issuesCount > 0 && userInfo.id !== status.lastCommentUserId
+      {status.issuesCount > 0 //&& userInfo.id !== status.lastCommentUserId
         ? <div className='nav__secondary-has-open-issue'></div>
         : null}
     </span>
@@ -173,13 +173,12 @@ const NationalDataItem = ({path, countryIso, pathTemplate = '/tbd', status = {co
   </Link>
 }
 
-const SecondaryItem = ({path, countryIso, order, pathTemplate = '/tbd', label, status = []}) => {
+const SecondaryItem = ({path, countryIso, order, pathTemplate = '/tbd', label, status}) => {
   const route = new Route(pathTemplate)
   const linkTo = route.reverse({countryIso})
   const isTodoItem = pathTemplate.indexOf('/todo') !== -1
   const secondaryTextClass = isTodoItem ? 'nav__disabled-menu-item-text' : ''
 
-  const hasOpenIssues = R.pipe(R.filter(R.pipe(R.prop('status'), R.equals('open'))), R.isEmpty, R.not)(status)
   return <Link className={`nav__secondary-item ${R.equals(path, linkTo) ? 'selected' : ''}`}
                to={linkTo}>
     <span className={`nav__secondary-order ${secondaryTextClass}`}>{order}</span>
@@ -187,7 +186,7 @@ const SecondaryItem = ({path, countryIso, order, pathTemplate = '/tbd', label, s
       <span className={`nav__secondary-label ${secondaryTextClass}`}>{label}</span>
     </div>
     <div className='nav__secondary-status-content'>
-      {hasOpenIssues ? <div className='nav__secondary-has-open-issue'></div> : null}
+      {status.issuesCount > 0 ? <div className='nav__secondary-has-open-issue'></div> : null}
     </div>
   </Link>
 }
@@ -204,6 +203,7 @@ const Nav = ({
                status = {},
                userInfo
              }) => {
+
   const getReviewStatus = section => R.pipe(
     R.defaultTo({}),
     R.prop(section),
@@ -229,7 +229,7 @@ const Nav = ({
         {
           annualItems.map(v => <SecondaryItem path={path} key={v.label} goTo={follow}
                                               countryIso={country}
-                                              status={R.filter(R.pipe(R.prop('section'), R.equals(R.defaultTo('', v.section))))(status.reviewStatus || [])}
+                                              status={getReviewStatus(v.section)}
                                               {...v} />)
         }
         <PrimaryItem label="Five-year Cycle"
@@ -239,7 +239,10 @@ const Nav = ({
                      changeAssessmentStatus={changeAssessmentStatus}
                      userInfo={userInfo}/>
         {
-          fiveYearItems.map(v => <SecondaryItem path={path} key={v.label} goTo={follow} countryIso={country} {...v} />)
+          fiveYearItems.map(v => <SecondaryItem path={path} key={v.label} goTo={follow}
+                                                status={getReviewStatus(v.section)}
+                                                countryIso={country}
+                                                {...v} />)
         }
       </div>
     </div>

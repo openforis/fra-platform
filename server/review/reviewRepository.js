@@ -33,15 +33,15 @@ const getIssueComments = (countryIso, section) =>
 
 module.exports.getIssueComments = getIssueComments
 
-const getIssuesSummary = issues => R.pipe(
+const getIssuesSummary = issueComments => R.pipe(
   R.last,
   R.defaultTo({}),
   last => ({
-    issuesCount: issues.length,
+    issuesCount: issueComments.length,
     lastCommentUserId: last.userId,
     issueStatus: last.issueStatus
   })
-)(issues)
+)(issueComments)
 
 module.exports.getIssuesSummary = (countryIso, section, targetParam) =>
   getIssueComments(countryIso, section)
