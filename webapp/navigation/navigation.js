@@ -151,8 +151,9 @@ const PrimaryItem = ({label, countryIso, assessmentType, assessmentStatuses, cha
 }
 
 const ReviewStatus = ({status, userInfo}) =>
-  status.issuesCount > 0 //&& userInfo.id !== status.lastCommentUserId
-    ? <div className='nav__secondary-has-open-issue'></div>
+  status.issuesCount > 0
+    ? <div
+      className={`nav__secondary-has-open-issue ${userInfo.id !== status.lastCommentUserId ? 'issue-last-comment-other-user' : ''}`}/>
     : null
 
 const NationalDataItem = ({path, countryIso, pathTemplate = '/tbd', status = {count: 0}, label, userInfo}) => {
