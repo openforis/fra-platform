@@ -36,7 +36,7 @@ export class ThousandSeparatedIntegerInput extends React.Component {
   render () {
     const {integerValue, onChange, onPaste, className} = this.props
     const widthForReadonly = this.getWidthForReadonly()
-    return <div style={{position: 'relative'}} ref="wrapper">
+    return <div className="tsii__field" style={{position: 'relative'}} ref="wrapper">
       <div className="tsii__readonly-view"
            style={{
               width: widthForReadonly ? `${widthForReadonly}px` : null,
