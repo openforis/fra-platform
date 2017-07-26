@@ -150,7 +150,7 @@ const PrimaryItem = ({label, countryIso, assessmentType, assessmentStatuses, cha
   </div>
 }
 
-const NationalDataItem = ({path, countryIso, pathTemplate = '/tbd', status = {count: 0, issuesCount: 0}, label, userInfo}) => {
+const NationalDataItem = ({path, countryIso, pathTemplate = '/tbd', status = {count: 0}, label, userInfo}) => {
   const route = new Route(pathTemplate)
   const linkTo = route.reverse({countryIso})
 
@@ -204,6 +204,12 @@ const Nav = ({
                status = {},
                userInfo
              }) => {
+  const getReviewStatus = section => R.pipe(
+    R.defaultTo({}),
+    R.prop(section),
+    R.defaultTo({issuesCount: 0})
+  )(status.reviewStatus)
+
   return <div className="main__nav-wrapper">
     <div className="main__nav">
       <CountrySelectionItem name={country} countries={countries} listCountries={getCountryList}
@@ -211,7 +217,7 @@ const Nav = ({
       <div className="nav__link-list">
         <NationalDataItem label="National Data"
                           countryIso={country}
-                          status={R.merge(status.reviewStatus, status.odpStatus)}
+                          status={R.merge(getReviewStatus('NDP'), status.odpStatus)}
                           path={path} pathTemplate="/country/:countryIso/odps"
                           userInfo={userInfo}/>
         <PrimaryItem label="Annually reported"
