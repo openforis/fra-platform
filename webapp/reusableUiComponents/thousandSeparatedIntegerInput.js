@@ -1,4 +1,5 @@
 import React from 'react'
+import './thousandSeparatedIntegerInput.less'
 import { separateThousandsWithSpaces } from '../utils/numberFormat'
 
 const renderFocusedIntegerValue = integerValue =>
@@ -30,18 +31,12 @@ export class ThousandSeparatedIntegerInput extends React.Component {
     const {integerValue, onChange, onPaste, className} = this.props
     const widthForReadonly = this.getWidthForReadonly()
     return <div style={{position: 'relative'}} ref="wrapper">
-      <div style={{
-        position: 'absolute',
-        right: '5px',
-        top: '9px',
-        height: '17px',
-        width: widthForReadonly ? `${widthForReadonly}px` : null,
-        display: this.state.hasFocus ? 'none' : 'inline-block',
-        overflow: 'hidden',
-        textOverflow: 'ellipsis',
-        textAlign: 'right',
-        whiteSpace: 'nowrap'
-      }}>
+      <div className="tsii__readonly-view"
+           style={{
+              width: widthForReadonly ? `${widthForReadonly}px` : null,
+              display: this.state.hasFocus ? 'none' : 'inline-block',
+           }}
+      >
         {renderUnfocusedIntegerValue(integerValue)}
       </div>
       <div style={{opacity: this.state.hasFocus ? '1' : '0'}}>
