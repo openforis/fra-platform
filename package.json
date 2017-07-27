@@ -13,7 +13,7 @@
     "watch:server": "NODE_ENV=development nodemon -e js --watch server server/server.js",
     "livereload:app": "node --eval \"require('livereload').createServer().watch('./')\"",
     "create-migration": "./server/db/migration/create-migration.sh",
-    "test": "mocha --compilers js:babel-core/register -R spec test/unit"
+    "test": "mocha-webpack --webpack-config webpack.config-test.js -R spec test/unit"
   },
   "devDependencies": {
     "babel-core": "^6.24.1",
@@ -52,6 +52,7 @@
     "express-session": "^1.15.3",
     "i18n-iso-countries": "^1.11.0",
     "js-cookie": "^2.1.4",
+    "mocha-webpack": "^0.7.0",
     "partial.lenses": "^11.9.0",
     "passport": "^0.3.2",
     "passport-google-oauth": "^1.0.0",
@@ -66,7 +67,8 @@
     "redux-thunk": "^2.2.0",
     "route-parser": "^0.0.5",
     "to-snake-case": "^1.0.0",
-    "uuid": "^3.1.0"
+    "uuid": "^3.1.0",
+    "webpack-node-externals": "^1.6.0"
   },
   "browserslist": [
     "last 2 versions"
