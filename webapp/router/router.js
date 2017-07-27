@@ -36,6 +36,7 @@ class Router extends React.Component {
         ? React.createElement(route.component, {match: {params: route.route.match(this.props.path)}})
         : null
       : <Notfound/>
+
   }
 }
 
