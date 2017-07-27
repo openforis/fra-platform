@@ -2358,7 +2358,7 @@ hoek@2.x.x:
   version "2.16.3"
   resolved "https://registry.yarnpkg.com/hoek/-/hoek-2.16.3.tgz#20bb7403d3cea398e91dc4710a8ff1b8274a25ed"
 
-hoist-non-react-statics@^1.0.3:
+hoist-non-react-statics@1.2.0, hoist-non-react-statics@^1.0.3:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-1.2.0.tgz#aa448cf0986d55cc40773b17174b7dd066cb7cfb"
 
@@ -4111,6 +4111,12 @@ react-dom@^15.5.4:
     loose-envify "^1.1.0"
     object-assign "^4.1.0"
     prop-types "^15.5.10"
+
+react-i18next@^4.7.0:
+  version "4.7.0"
+  resolved "https://registry.yarnpkg.com/react-i18next/-/react-i18next-4.7.0.tgz#1ba1ac72c7438ff0eba23d5c11616eb4d0b23e87"
+  dependencies:
+    hoist-non-react-statics "1.2.0"
 
 react-redux@^5.0.4:
   version "5.0.5"

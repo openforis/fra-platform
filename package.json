@@ -60,6 +60,7 @@
     "ramda": "^0.24.1",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
+    "react-i18next": "^4.7.0",
     "react-redux": "^5.0.4",
     "redux": "^3.6.0",
     "redux-debounced": "^0.4.0",
