@@ -24,7 +24,7 @@ module.exports.init = app => {
   app.get('/country/overviewStatus/:countryIso', (req, res) => {
     checkCountryAccessFromReqParams(req)
     const odpData = odpRepository.listAndValidateOriginalDataPoints(req.params.countryIso)
-    const reviewStatus = reviewRepository.getIssuesByCountry(req.params.countryIso)
+    const reviewStatus = reviewRepository.getCountryIssuesSummary(req.params.countryIso)
     const assessmentStatuses = assessmentRepository.getAssessmentStatuses(req.params.countryIso)
 
     Promise.all(

@@ -5,10 +5,10 @@ const Promise = require('bluebird')
 const {checkCountryAccess, checkReviewerCountryAccess, AccessControlException} = require('../utils/accessControl')
 const {isReviewer} = require('../../common/countryRole')
 
-module.exports.getIssueComments = (countryIso, section) =>
+const getIssueComments = (countryIso, section) =>
   db.query(`
     SELECT 
-      i.id as issue_id, i.target, i.status as issue_status,
+      i.id as issue_id, i.target, i.status as issue_status, i.section,
       u.email, u.name as username,
       c.id as comment_id, c.user_id,
       CASE 
@@ -25,27 +25,52 @@ module.exports.getIssueComments = (countryIso, section) =>
     JOIN fra_user u 
       ON (u.id = c.user_id)
     WHERE 
-      i.country_iso = $1 AND i.section = $2
+      i.country_iso = $1 ${section ? 'AND i.section = $2 ' : ''}
     ORDER BY
       c.id  
-  `, [countryIso, section])
+  `, section ? [countryIso, section] : [countryIso])
     .then(res => camelize(res.rows))
 
-module.exports.getIssuesByCountry = countryIso => {
-  return db.query(`
-    SELECT 
-      i.id as issue_id, i.section as section, i.target as target, i.status as status
-    FROM 
-      issue i
-    WHERE 
-      i.country_iso = $1
-    AND
-      i.id in (SELECT DISTINCT c.issue_id FROM fra_comment c WHERE c.deleted = false)  
-  `, [countryIso]).then(res => {
-      return camelize(res.rows)
-    }
-  )
-}
+module.exports.getIssueComments = getIssueComments
+
+const getIssuesSummary = issueComments => R.pipe(
+  R.last,
+  R.defaultTo({}),
+  last => ({
+    issuesCount: issueComments.length,
+    lastCommentUserId: last.userId,
+    issueStatus: last.issueStatus
+  })
+)(issueComments)
+
+module.exports.getIssuesSummary = (countryIso, section, targetParam) =>
+  getIssueComments(countryIso, section)
+    .then(issueComments => {
+      const target = targetParam && targetParam.split(',')
+
+      const summary = R.pipe(
+        R.reject(i => i.deleted),
+        R.filter(i => target
+          ? R.pathEq(['target', 'params'], target, i)
+          : true),
+        getIssuesSummary
+      )(issueComments)
+
+      return summary
+    })
+
+module.exports.getCountryIssuesSummary = countryIso =>
+  getIssueComments(countryIso)
+    .then(issueComments => {
+      const summaries = R.pipe(
+        R.reject(i => i.deleted),
+        R.reject(i => i.issueStatus === 'resolved'),
+        R.groupBy(i => i.section),
+        R.map(getIssuesSummary)
+      )(issueComments)
+
+      return summaries
+    })
 
 const getIssuesByParam = (countryIso, section, paramPosition, paramValue) =>
   db.query(`

@@ -12,7 +12,7 @@ const areaAffectedByFire = ({match}) =>
       <h2 className="headline tv__page-header">Area affected by fire</h2>
       <TraditionalTable tableSpec={tableSpec} countryIso={match.params.countryIso}/>
       <CommentableDescription
-        section="areaAffectedByFire"
+        section={tableSpec.name}
         descriptionName="areaAffectedByFire"
         descriptionTitle="Description"
         countryIso={match.params.countryIso}

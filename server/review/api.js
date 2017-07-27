@@ -17,30 +17,9 @@ module.exports.init = app => {
 
   app.get('/review/:countryIso/:section/summary', (req, res) => {
     checkCountryAccessFromReqParams(req)
-    reviewRepository.getIssueComments(req.params.countryIso, req.params.section)
-      .then(result => {
-        const target = req.query.target && req.query.target.split(',')
-        const issueComments = R.map(issue => {
-          const diff = R.pipe(R.path(['target', 'params']), R.difference(target))(issue)
-          return R.isEmpty(diff) ? issue : []
-        }, result)
-
-        const activeComments = R.pipe(
-          R.filter(i => !i.deleted),
-          R.reject(R.isEmpty)
-        )(issueComments)
-
-        const lastActiveComment = R.pipe(
-          R.last,
-          R.defaultTo({})
-        )(activeComments)
-
-        res.json({
-          count: activeComments.length,
-          lastCommentUserId: lastActiveComment.userId,
-          issueStatus: lastActiveComment.issueStatus
-        })
-      })
+    reviewRepository
+      .getIssuesSummary(req.params.countryIso, req.params.section, req.query.target)
+      .then(result => res.json(result))
       .catch(err => sendErr(res, err))
   })
 

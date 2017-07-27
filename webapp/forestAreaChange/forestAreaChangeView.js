@@ -11,7 +11,7 @@ const ForestAreaChangeView = (props) =>
         <h2 className="headline tv__page-header">Forest area loss, gain and net change</h2>
         <TraditionalTable tableSpec={tableSpec} countryIso={props.match.params.countryIso}/>
         <CommentableDescription
-          section="forestAreaChange"
+          section={tableSpec.name}
           descriptionName="forestAreaChange"
           descriptionTitle="Description"
           countryIso={props.match.params.countryIso}

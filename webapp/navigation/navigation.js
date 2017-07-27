@@ -56,7 +56,8 @@ const CountryRow = ({selectedCountry, country}) =>
     {
       // Editing is not shown at all, let's not take space from the narrow dropdown in that case
       country.assessmentStatus !== 'editing'
-        ? <span className="nav__country-list-item-assessment-status">{assessmentStatusLabels[country.assessmentStatus]}</span>
+        ? <span
+          className="nav__country-list-item-assessment-status">{assessmentStatusLabels[country.assessmentStatus]}</span>
         : null
     }
 
@@ -149,42 +150,47 @@ const PrimaryItem = ({label, countryIso, assessmentType, assessmentStatuses, cha
   </div>
 }
 
-const NationalDataItem = ({path, countryIso, pathTemplate = '/tbd', status = {count: 0}, label}) => {
+const ReviewStatus = ({status, userInfo}) =>
+  status.issuesCount > 0
+    ? <div
+      className={`nav__secondary-has-open-issue ${userInfo.id !== status.lastCommentUserId ? 'issue-last-comment-other-user' : ''}`}/>
+    : null
+
+const NationalDataItem = ({path, countryIso, pathTemplate = '/tbd', status = {count: 0}, label, userInfo}) => {
   const route = new Route(pathTemplate)
   const linkTo = route.reverse({countryIso})
 
   return <Link className={`nav__link-item ${R.equals(path, linkTo) ? 'selected' : ''}`}
-               to={ linkTo }>
+               to={linkTo}>
     <span className="nav__link-label">{label}</span>
     <span className="nav__link-item-status">{status.count}</span>
     <span className="nav__link-review-status">
-      { R.isEmpty(status.issues) ? null : <div className='nav__secondary-has-open-issue'></div> }
+      <ReviewStatus status={status} userInfo={userInfo}/>
     </span>
     <span className="nav__link-error-status">
-      { status.errors ? <svg className="icon icon-middle icon-red">
-        <use xlinkHref="img/icon.svg#icon-alert"/>
-      </svg>
+      {status.errors ? <svg className="icon icon-middle icon-red">
+          <use xlinkHref="img/icon.svg#icon-alert"/>
+        </svg>
         : null
       }
     </span>
   </Link>
 }
 
-const SecondaryItem = ({path, countryIso, order, pathTemplate = '/tbd', label, status = []}) => {
+const SecondaryItem = ({path, countryIso, order, pathTemplate = '/tbd', label, status, userInfo}) => {
   const route = new Route(pathTemplate)
   const linkTo = route.reverse({countryIso})
   const isTodoItem = pathTemplate.indexOf('/todo') !== -1
   const secondaryTextClass = isTodoItem ? 'nav__disabled-menu-item-text' : ''
 
-  const hasOpenIssues = R.pipe(R.filter(R.pipe(R.prop('status'), R.equals('open'))), R.isEmpty, R.not)(status)
   return <Link className={`nav__secondary-item ${R.equals(path, linkTo) ? 'selected' : ''}`}
-               to={ linkTo }>
+               to={linkTo}>
     <span className={`nav__secondary-order ${secondaryTextClass}`}>{order}</span>
     <div>
       <span className={`nav__secondary-label ${secondaryTextClass}`}>{label}</span>
     </div>
     <div className='nav__secondary-status-content'>
-      { hasOpenIssues ? <div className='nav__secondary-has-open-issue'></div> : null }
+      <ReviewStatus status={status} userInfo={userInfo}/>
     </div>
   </Link>
 }
@@ -201,15 +207,24 @@ const Nav = ({
                status = {},
                userInfo
              }) => {
+
+  const getReviewStatus = section => R.pipe(
+    R.defaultTo({}),
+    R.prop(section),
+    R.defaultTo({issuesCount: 0})
+  )(status.reviewStatus)
+
   return <div className="main__nav-wrapper">
     <div className="main__nav">
       <CountrySelectionItem name={country} countries={countries} listCountries={getCountryList}
-                            role={ roleLabel(country, userInfo) }/>
+                            role={roleLabel(country, userInfo)}/>
       <div className="nav__link-list">
         <NationalDataItem label="National Data"
                           countryIso={country}
-                          status={R.merge({issues: R.filter(R.pipe(R.prop('section'), R.equals('NDP')))(status.reviewStatus || [])}, status.odpStatus)}
-                          path={path} pathTemplate="/country/:countryIso/odps"/>
+                          status={R.merge(getReviewStatus('NDP'), status.odpStatus)}
+                          path={path}
+                          pathTemplate="/country/:countryIso/odps"
+                          userInfo={userInfo}/>
         <PrimaryItem label="Annually reported"
                      countryIso={country}
                      assessmentType="annuallyReported"
@@ -219,7 +234,8 @@ const Nav = ({
         {
           annualItems.map(v => <SecondaryItem path={path} key={v.label} goTo={follow}
                                               countryIso={country}
-                                              status={R.filter(R.pipe(R.prop('section'), R.equals(R.defaultTo('', v.section))))(status.reviewStatus || [])}
+                                              status={getReviewStatus(v.section)}
+                                              userInfo={userInfo}
                                               {...v} />)
         }
         <PrimaryItem label="Five-year Cycle"
@@ -229,7 +245,11 @@ const Nav = ({
                      changeAssessmentStatus={changeAssessmentStatus}
                      userInfo={userInfo}/>
         {
-          fiveYearItems.map(v => <SecondaryItem path={path} key={v.label} goTo={follow} countryIso={country} {...v} />)
+          fiveYearItems.map(v => <SecondaryItem path={path} key={v.label} goTo={follow}
+                                                countryIso={country}
+                                                status={getReviewStatus(v.section)}
+                                                userInfo={userInfo}
+                                                {...v} />)
         }
       </div>
     </div>

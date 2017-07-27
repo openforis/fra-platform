@@ -11,7 +11,7 @@ const PrimaryDesignatedManagementObjectiveView = props =>
       <h2 className="headline tv__page-header">Primary designated management objective</h2>
       <TraditionalTable tableSpec={tableSpec} countryIso={props.match.params.countryIso}/>
       <CommentableDescription
-        section="primaryDesignatedManagementObjective"
+        section={tableSpec.name}
         descriptionName="primaryDesignatedManagementObjective"
         descriptionTitle="Description"
         countryIso={props.match.params.countryIso}

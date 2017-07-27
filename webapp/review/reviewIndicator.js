@@ -9,8 +9,8 @@ const CommentStatus = ({count, active, lastCommentUserId, issueStatus, userInfo,
   const getIssueStatusCssClass = () =>
     issueStatus === 'resolved'
       ? 'issue-resolved'
-      : userInfo.id === lastCommentUserId
-      ? 'issue-last-comment-current-user'
+      : userInfo.id !== lastCommentUserId
+      ? 'issue-last-comment-other-user'
       : ''
 
   return <div {...props} className={`fra-review__issue-status ${active ? 'active' : ''}`}>
@@ -43,7 +43,7 @@ class ReviewIndicator extends React.Component {
 
   render () {
     const targetProps = this.props[this.props.target] || {}
-    const count = R.isNil(targetProps) ? 0 : targetProps.count
+    const count = R.isNil(targetProps) ? 0 : targetProps.issuesCount
     const lastCommentUserId = R.isNil(targetProps) ? null : targetProps.lastCommentUserId
     const issueStatus = R.isNil(targetProps) ? null : targetProps.issueStatus
     const active = this.props.openThread && this.props.section == this.props.openThread.section && R.equals(this.props.target, this.props.openThread.target) ? true : false
