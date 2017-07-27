@@ -9,7 +9,7 @@ const CommentStatus = ({count, active, lastCommentUserId, issueStatus, userInfo,
   const getIssueStatusCssClass = () =>
     issueStatus === 'resolved'
       ? 'issue-resolved'
-      : userInfo.id !== lastCommentUserId
+      : R.propOr(null, 'id', userInfo) !== lastCommentUserId
       ? 'issue-last-comment-other-user'
       : ''
 
