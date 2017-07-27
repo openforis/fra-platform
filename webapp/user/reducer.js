@@ -8,7 +8,7 @@ const actionHandlers = {
   [userInfo]: (state, action) => {
     const userInfo = action.userInfo
 
-    if (R.isNil(state.userInfo) || !userInfo.lang !== i18n.language)
+    if (R.isNil(state.userInfo) || userInfo.lang !== i18n.language)
       i18n.changeLanguage(userInfo.lang)
 
     return {...state, userInfo}
