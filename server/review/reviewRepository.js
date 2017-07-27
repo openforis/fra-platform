@@ -137,8 +137,15 @@ module.exports.deleteIssues = (client, countryIso, section, paramPosition, param
     .then(res => res.map(r => r.issueId))
     .then(issueIds => deleteIssuesByIds(client, issueIds))
 
-module.exports.markCommentAsDeleted = (client, commentId) =>
-  client.query('UPDATE fra_comment SET deleted = $1 WHERE id = $2', [true, commentId])
+module.exports.markCommentAsDeleted = (client, commentId, user) =>
+  client
+    .query('SELECT user_id FROM fra_comment WHERE id = $1', [commentId])
+    .then(res => res.rows[0].user_id)
+    .then(userId => {
+      if (userId !== user.id)
+        throw new AccessControlException(`User ${user.name} tried to delete a comment that doesn't own`)
+    })
+    .then(() => client.query('UPDATE fra_comment SET deleted = $1 WHERE id = $2', [true, commentId]))
 
 module.exports.markIssueAsResolved = (client, issueId, user) =>
   client
