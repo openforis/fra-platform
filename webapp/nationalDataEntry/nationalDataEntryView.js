@@ -13,7 +13,6 @@ import Description from '../description/description'
 import { readPasteClipboard } from '../utils/copyPasteUtil'
 import {acceptNextInteger} from '../utils/numberInput'
 import UpdateOnResizeReactComponent from '../reusableUiComponents/updateOnResizeReactComponent'
-import i18n from '../i18n/i18n'
 
 const mapIndexed = R.addIndex(R.map)
 
@@ -26,6 +25,7 @@ const OdpHeading = ({countryIso, odpValue}) =>
 class DataTable extends React.Component {
 
   render () {
+    const i18n = this.props.i18n
     return <div className="nde__data-table-container">
       <div className="nde__data-table-scroll-content">
       <table className="fra-table">
@@ -166,6 +166,7 @@ const NationalDataEntry = (props) => {
   const sourceTarget = ['data_sources']
   const originalDataTarget = ['original_data']
   const classificationTarget = ['national_classifications']
+  const i18n = props.i18n
 
   return <div className='nde__data-input-component'>
     <div className="nde__data-page-header">
@@ -240,6 +241,10 @@ class DataFetchingComponent extends React.Component {
   }
 }
 
-const mapStateToProps = state => R.merge(state.nationalDataEntry, {'openCommentThread': state.review.openThread})
+const mapStateToProps = state =>
+  ({...state.nationalDataEntry,
+    'openCommentThread': state.review.openThread,
+    i18n: state.user.i18n
+  })
 
 export default connect(mapStateToProps, {save, saveMany, fetch, generateFraValues})(DataFetchingComponent)
