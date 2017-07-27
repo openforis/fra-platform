@@ -62,11 +62,12 @@ module.exports.init = app => {
       .catch(err => sendErr(res, err))
   })
 
-  app.delete('/review/:countryIso/comments/:commentId', (req, res) =>
-    db
-      .transaction(reviewRepository.markCommentAsDeleted, [req.params.commentId])
-      .then(() => res.json({}))
-      .catch(err => sendErr(res, err))
+  app.delete('/review/:countryIso/comments/:commentId', (req, res) => {
+      const user = req.session.passport.user
+      db.transaction(reviewRepository.markCommentAsDeleted, [req.params.commentId, user])
+        .then(() => res.json({}))
+        .catch(err => sendErr(res, err))
+    }
   )
 
   app.post('/issue/markAsResolved', (req, res) => {
