@@ -2,6 +2,7 @@ import axios from 'axios'
 import { applicationError } from '../applicationError/actions'
 
 export const userInfo = 'login/userInfo'
+export const switchLanguageAction = 'user/switchLanguage'
 
 export const getLoggedinUserInfo = () => dispatch => {
   axios.get(`/api/loggedInUser/`)
@@ -12,6 +13,8 @@ export const getLoggedinUserInfo = () => dispatch => {
       dispatch(applicationError(err))
     })
 }
+
+export const switchLanguage = lang => ({type: switchLanguageAction, lang})
 
 export const logout = () => dispatch => {
   axios.post(`/auth/logout`)

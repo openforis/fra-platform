@@ -3,7 +3,7 @@ import * as R from 'ramda'
 
 import React from 'react'
 import { connect } from 'react-redux'
-import { logout } from '../user/actions'
+import { logout, switchLanguage } from '../user/actions'
 
 class FooterSelectionControl extends React.Component {
   componentWillMount () {
@@ -38,7 +38,7 @@ const LanguageSelection = props =>
   <FooterSelectionControl label={props.currentLanguage} {...props}>
     <div className="footer__language-control-opened">
       {R.map(
-        ([lang, label]) => <div key={lang} className="footer__selection-control-item" onClick={() => console.log(lang)}>
+        ([lang, label]) => <div key={lang} className="footer__selection-control-item" onClick={() => props.switchLanguage(lang)}>
                               {label}
                             </div>,
         R.toPairs(langs))
@@ -69,4 +69,4 @@ const mapStateToProps = state =>
     R.merge(state.autoSave),
     R.merge(state.user))(state.router)
 
-export default connect(mapStateToProps, {logout})(Footer)
+export default connect(mapStateToProps, {logout, switchLanguage})(Footer)
