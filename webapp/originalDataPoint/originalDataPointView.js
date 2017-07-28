@@ -268,16 +268,12 @@ const ExtentOfForestRow = ({
                                      onChange={ numberUpdated('area', area) }
                                      onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 0, 'integer') }/>
     </td>
-    <td className={`odp__eof-percent-cell ${validationStatusPercentage()}`}>
-      <input
-        className="validation-error-sensitive-field"
-        type="text"
-        maxLength="3"
+    <td className={`${validationStatusPercentage()}`}>
+      <PercentInput
         value={forestPercent || ''}
         onChange={ numberUpdated('forestPercent', forestPercent) }
         onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 1, 'integer') }
       />
-      % &nbsp;
     </td>
     <td className={`${validationStatusPercentage()}`}>
       <PercentInput
@@ -286,16 +282,12 @@ const ExtentOfForestRow = ({
         onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 3, 'integer') }
       />
     </td>
-    <td className={`odp__eof-percent-cell ${validationStatusPercentage()}`}>
-      <input
-        className="validation-error-sensitive-field"
-        type="text"
-        maxLength="3"
+    <td className={`${validationStatusPercentage()}`}>
+      <PercentInput
         value={otherLandPercent || ''}
         onChange={ numberUpdated('otherLandPercent', otherLandPercent) }
         onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 3, 'integer') }
       />
-      % &nbsp;
     </td>
     <td className="odp__col-review">
       {odp.odpId
