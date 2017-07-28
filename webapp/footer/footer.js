@@ -37,19 +37,20 @@ const UserInfo = props =>
 const LanguageSelection = props =>
   <FooterSelectionControl label={props.currentLanguage} {...props}>
     <div className="footer__language-control-opened">
-      {R.map(
-        ([lang, label]) => <div key={lang} className="footer__selection-control-item" onClick={() => props.switchLanguage(lang)}>
-                              {label}
-                            </div>,
-        R.toPairs(langs))
+      {
+        R.map(
+          lang => <div key={lang} className="footer__selection-control-item" onClick={() => props.switchLanguage(lang)}>
+                  {props.i18n.t(`language.${lang}`)}
+                </div>,
+          supportedLangs)
       }
     </div>
   </FooterSelectionControl>
 
-const langs = {
-  'en': 'English',
-  'fr': 'French'
-}
+const supportedLangs = [
+  'en',
+  'fr'
+]
 
 const Footer = ({status, userInfo, path, width, i18n, ...props}) => {
   const style = {width: `calc(100vw - ${width}px)`}
@@ -58,8 +59,12 @@ const Footer = ({status, userInfo, path, width, i18n, ...props}) => {
     <div/>
     <div className="footer__item footer__autosave-status">{status}</div>
     <div>
-      <div className="footer__item">{userInfo ? <LanguageSelection currentLanguage={langs[i18n.language]} {...props}/> : ''}</div>
-      <div className="footer__item">{userInfo ? <UserInfo userName={userInfo.name} {...props}/> : ''}</div>
+      <div className="footer__item">
+        <LanguageSelection currentLanguage={i18n.t(`language.${i18n.language}`)} i18n={i18n} {...props}/>
+      </div>
+      <div className="footer__item">
+        <UserInfo userName={userInfo.name} {...props}/>
+      </div>
     </div>
   </div>
 }

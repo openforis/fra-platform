@@ -1,5 +1,10 @@
 export const translation = {
 
+  language: {
+    en: 'English',
+    fr: 'French'
+  },
+
   extentOfForest: {
     extentOfForest: 'Extent of forest',
     generateFraValues: 'Generate FRA values',
