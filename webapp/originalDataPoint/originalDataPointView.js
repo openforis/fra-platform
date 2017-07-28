@@ -40,7 +40,7 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
       <div className={`${yearValidationStatusClass()}`}>
         <h3 className="subhead">Year</h3>
         <select
-          className="select"
+          className="select validation-error-sensitive-field"
           value={active.year || ''}
           onChange={
             (e) => saveDraft(countryIso, R.assoc('year', R.isEmpty(e.target.value) ? null : Number(e.target.value), active)) }>
@@ -196,7 +196,7 @@ const NationalClassRow = ({odp, index, saveDraft, countryIso, className, definit
             </svg>
           </div>
         }
-        <input className="odp__national-class-row-class-name-input"
+        <input className="odp__national-class-row-class-name-input validation-error-sensitive-field"
                type="text"
                placeholder={ placeHolder && index === 0 ? 'Enter or copy and paste national classes' : ''}
                value={className || ''}
@@ -270,6 +270,7 @@ const ExtentOfForestRow = ({
     </td>
     <td className={`odp__eof-percent-cell ${validationStatusPercentage()}`}>
       <input
+        className="validation-error-sensitive-field"
         type="text"
         maxLength="3"
         value={forestPercent || ''}
@@ -287,6 +288,7 @@ const ExtentOfForestRow = ({
     </td>
     <td className={`odp__eof-percent-cell ${validationStatusPercentage()}`}>
       <input
+        className="validation-error-sensitive-field"
         type="text"
         maxLength="3"
         value={otherLandPercent || ''}

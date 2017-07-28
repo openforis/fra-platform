@@ -27,7 +27,7 @@ export class PercentInput extends React.Component {
   }
 
   render () {
-    return <div className="percent__field" ref="wrapper">
+    return <div className="percent__field validation-error-sensitive-field" ref="wrapper">
       <div className="percent__readonly-view percent__value-container"
            style={{
              width: width ? `${width}px` : null,
