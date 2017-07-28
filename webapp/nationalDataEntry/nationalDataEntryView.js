@@ -25,6 +25,7 @@ const OdpHeading = ({countryIso, odpValue}) =>
 class DataTable extends React.Component {
 
   render () {
+    const i18n = this.props.i18n
     return <div className="nde__data-table-container">
       <div className="nde__data-table-scroll-content">
       <table className="fra-table">
@@ -43,26 +44,26 @@ class DataTable extends React.Component {
           </tr>
         </thead>
         <tbody>
-        { fraValueRow('Forest area', 'forest', this.props.countryIso, 'forestArea',
+        { fraValueRow(i18n.t('extentOfForest.forestArea'), 'forest', this.props.countryIso, 'forestArea',
           this.props.fra, this.props.save, this.props.saveMany, 0, this.props.openCommentThread) }
-        { fraValueRow('Other wooded land', 'otherWoodedLand', this.props.countryIso, 'otherWoodedLand',
+        { fraValueRow(i18n.t('extentOfForest.otherWoodedLand'), 'otherWoodedLand', this.props.countryIso, 'otherWoodedLand',
           this.props.fra, this.props.save, this.props.saveMany, 1, this.props.openCommentThread) }
-        { fraValueRow('Other land', 'otherLand', this.props.countryIso, 'otherLand',
+        { fraValueRow(i18n.t('extentOfForest.otherLand'), 'otherLand', this.props.countryIso, 'otherLand',
           this.props.fra, this.props.save, this.props.saveMany, 2, this.props.openCommentThread) }
           </tbody>
       </table>
       </div>
       <div className="nde__comment-column">
         <ReviewIndicator target={['forest']}
-                    name="Forest"
+                    name={i18n.t('extentOfForest.forestArea')}
                     countryIso={this.props.countryIso}
                     section='EOF'/>
         <ReviewIndicator section='EOF'
-                    name="Other wooded land"
+                    name={i18n.t('extentOfForest.otherWoodedLand')}
                     target={['otherWoodedLand']}
                     countryIso={this.props.countryIso}/>
         <ReviewIndicator section='EOF'
-                    name="Other land"
+                    name={i18n.t('extentOfForest.otherLand')}
                     target={['otherLand']}
                     countryIso={this.props.countryIso}/>
       </div>
@@ -165,10 +166,11 @@ const NationalDataEntry = (props) => {
   const sourceTarget = ['data_sources']
   const originalDataTarget = ['original_data']
   const classificationTarget = ['national_classifications']
+  const i18n = props.i18n
 
   return <div className='nde__data-input-component'>
     <div className="nde__data-page-header">
-      <h2 className="headline">Extent of forest</h2>
+      <h2 className="headline">{i18n.t('extentOfForest.extentOfForest')}</h2>
     </div>
     <div className='nde__comment-transition'>
       <div className="nde__data-input-header">
@@ -176,12 +178,12 @@ const NationalDataEntry = (props) => {
           <svg className="icon icon-middle icon-white">
             <use xlinkHref="img/icon.svg#icon-small-add"/>
           </svg>
-          Add national data point
+          {i18n.t('nationalDataPoint.addNationalDataPoint')}
         </Link>
       </div>
       <ChartWrapper/>
       <div className="nde__data-table-header">
-        <h3 className="subhead">Extent of forest values</h3>
+        <h3 className="subhead">{i18n.t('extentOfForest.extentOfForestValues')}</h3>
         <button disabled={ disableGenerateFRAValues() } className="btn btn-primary"
                 onClick={() => props.generateFraValues(props.countryIso)}>Generate FRA values
         </button>
@@ -189,29 +191,29 @@ const NationalDataEntry = (props) => {
     </div>
     <DataTable {...props} />
     <div className="nde__description-field nde__comment-transition">
-      <Description title="Data Sources" name="dataSources" classes={`${props.openCommentThread &&
+      <Description title={i18n.t('extentOfForest.dataSources')} name="dataSources" classes={`${props.openCommentThread &&
         R.isEmpty(R.difference(props.openCommentThread.target, sourceTarget)) ? 'fra-row-comments__open' : ''}`}
                    countryIso={props.match.params.countryIso}/>
       <ReviewIndicator section='EOF'
-                       name="Data Sources"
+                       name={i18n.t('extentOfForest.dataSources')}
                        target={sourceTarget}
                        countryIso={props.match.params.countryIso}/>
     </div>
     <div className="nde__description-field nde__comment-transition">
-      <Description title="National classification and definitions" name="nationalClassification" classes={`${props.openCommentThread &&
+      <Description title={i18n.t('extentOfForest.nationalClassificationAndDefinitions')} name="nationalClassification" classes={`${props.openCommentThread &&
         R.isEmpty(R.difference(props.openCommentThread.target, classificationTarget)) ? 'fra-row-comments__open' : ''}`}
                    countryIso={props.match.params.countryIso}/>
       <ReviewIndicator section='EOF'
-                       name="National classification and definitions"
+                       name={i18n.t('extentOfForest.nationalClassificationAndDefinitions')}
                        target={classificationTarget}
                        countryIso={props.match.params.countryIso}/>
     </div>
     <div className="nde__description-field nde__comment-transition">
-      <Description title="Original data" name="originalData" classes={`${props.openCommentThread &&
+      <Description title={i18n.t('extentOfForest.originalData')} name="originalData" classes={`${props.openCommentThread &&
         R.isEmpty(R.difference(props.openCommentThread.target, originalDataTarget)) ? 'fra-row-comments__open' : ''}`}
                    countryIso={props.match.params.countryIso}/>
       <ReviewIndicator section='EOF'
-                       name="Original data"
+                       name={i18n.t('extentOfForest.originalData')}
                        target={originalDataTarget}
                        countryIso={props.match.params.countryIso}/>
     </div>
@@ -239,6 +241,10 @@ class DataFetchingComponent extends React.Component {
   }
 }
 
-const mapStateToProps = state => R.merge(state.nationalDataEntry, {'openCommentThread': state.review.openThread})
+const mapStateToProps = state =>
+  ({...state.nationalDataEntry,
+    'openCommentThread': state.review.openThread,
+    i18n: state.user.i18n
+  })
 
 export default connect(mapStateToProps, {save, saveMany, fetch, generateFraValues})(DataFetchingComponent)

@@ -3,7 +3,7 @@ const camelize = require('camelize')
 const R = require('ramda')
 
 const getUserInfo = email =>
-  db.query('SELECT id, name FROM fra_user WHERE email = $1', [email])
+  db.query('SELECT id, name ,lang FROM fra_user WHERE email = $1', [email])
     .then(res => {
       if (res.rows.length > 0) {
         const resultUser = res.rows[0]

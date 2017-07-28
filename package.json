@@ -51,6 +51,7 @@
     "express": "^4.15.2",
     "express-session": "^1.15.3",
     "i18n-iso-countries": "^1.11.0",
+    "i18next": "^8.4.3",
     "js-cookie": "^2.1.4",
     "mocha-webpack": "^0.7.0",
     "partial.lenses": "^11.9.0",
