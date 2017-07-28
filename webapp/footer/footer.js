@@ -37,28 +37,36 @@ const UserInfo = props =>
 const LanguageSelection = props =>
   <FooterSelectionControl label={props.currentLanguage} {...props}>
     <div className="footer__language-control-opened">
-      <div className="footer__selection-control-item" onClick={() => console.log('a')}>
-        English
-      </div>
-      <div className="footer__selection-control-item" onClick={() => console.log('b')}>
-        French
-      </div>
+      {R.map(
+        ([lang, label]) => <div key={lang} className="footer__selection-control-item" onClick={() => console.log(lang)}>
+                              {label}
+                            </div>,
+        R.toPairs(langs))
+      }
     </div>
   </FooterSelectionControl>
 
+const langs = {
+  'en': 'English',
+  'fr': 'French'
+}
 
-const Footer = ({status, userInfo, path, width, ...props}) => {
+const Footer = ({status, userInfo, path, width, i18n, ...props}) => {
   const style = {width: `calc(100vw - ${width}px)`}
   return <div className="footer__container" style={style}>
     {/* Placeholder for space-between flexbox alignment */}
     <div/>
     <div className="footer__item footer__autosave-status">{status}</div>
     <div>
-      <div className="footer__item">{userInfo ? <LanguageSelection currentLanguage={'English'} {...props}/> : ''}</div>
+      <div className="footer__item">{userInfo ? <LanguageSelection currentLanguage={langs[i18n.language]} {...props}/> : ''}</div>
       <div className="footer__item">{userInfo ? <UserInfo userName={userInfo.name} {...props}/> : ''}</div>
     </div>
   </div>
 }
-const mapStateToProps = state => R.pipe(R.merge(state.autoSave), R.merge(state.user))(state.router)
+
+const mapStateToProps = state =>
+  R.pipe(
+    R.merge(state.autoSave),
+    R.merge(state.user))(state.router)
 
 export default connect(mapStateToProps, {logout})(Footer)
