@@ -205,9 +205,9 @@ const getOdpNationalClasses = (queryProvider, odpVersionId) =>
       className: row.name,
       definition: row.definition,
       area: toNumberOrNull(row.area),
-      forestPercent: row.forest_percent,
-      otherWoodedLandPercent: row.other_wooded_land_percent,
-      otherLandPercent: row.other_land_percent,
+      forestPercent: toNumberOrNull(row.forest_percent),
+      otherWoodedLandPercent: toNumberOrNull(row.other_wooded_land_percent),
+      otherLandPercent: toNumberOrNull(row.other_land_percent),
       uuid: row.uuid
     }), result.rows))
 

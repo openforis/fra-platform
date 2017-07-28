@@ -17,6 +17,7 @@ import { acceptNextInteger } from '../utils/numberInput'
 import { readPasteClipboard } from '../utils/copyPasteUtil'
 import { separateThousandsWithSpaces } from '../utils/numberFormat'
 import { ThousandSeparatedIntegerInput } from '../reusableUiComponents/thousandSeparatedIntegerInput'
+import { PercentInput } from '../reusableUiComponents/percentInput'
 import VerticallyGrowingTextField from '../reusableUiComponents/verticallyGrowingTextField'
 import LoggedInPageTemplate from '../loggedInPageTemplate'
 import R from 'ramda'
@@ -39,7 +40,7 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
       <div className={`${yearValidationStatusClass()}`}>
         <h3 className="subhead">Year</h3>
         <select
-          className="select"
+          className="select validation-error-sensitive-field"
           value={active.year || ''}
           onChange={
             (e) => saveDraft(countryIso, R.assoc('year', R.isEmpty(e.target.value) ? null : Number(e.target.value), active)) }>
@@ -195,7 +196,7 @@ const NationalClassRow = ({odp, index, saveDraft, countryIso, className, definit
             </svg>
           </div>
         }
-        <input className="odp__national-class-row-class-name-input"
+        <input className="odp__national-class-row-class-name-input validation-error-sensitive-field"
                type="text"
                placeholder={ placeHolder && index === 0 ? 'Enter or copy and paste national classes' : ''}
                value={className || ''}
@@ -267,35 +268,26 @@ const ExtentOfForestRow = ({
                                      onChange={ numberUpdated('area', area) }
                                      onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 0, 'integer') }/>
     </td>
-    <td className={`odp__eof-percent-cell ${validationStatusPercentage()}`}>
-      <input
-        type="text"
-        maxLength="3"
+    <td className={`${validationStatusPercentage()}`}>
+      <PercentInput
         value={forestPercent || ''}
         onChange={ numberUpdated('forestPercent', forestPercent) }
         onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 1, 'integer') }
       />
-      % &nbsp;
     </td>
-    <td className={`odp__eof-percent-cell ${validationStatusPercentage()}`}>
-      <input
-        type="text"
-        maxLength="3"
+    <td className={`${validationStatusPercentage()}`}>
+      <PercentInput
         value={otherWoodedLandPercent || ''}
         onChange={ numberUpdated('otherWoodedLandPercent', otherWoodedLandPercent) }
-        onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 2, 'integer') }
+        onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 3, 'integer') }
       />
-      % &nbsp;
     </td>
-    <td className={`odp__eof-percent-cell ${validationStatusPercentage()}`}>
-      <input
-        type="text"
-        maxLength="3"
+    <td className={`${validationStatusPercentage()}`}>
+      <PercentInput
         value={otherLandPercent || ''}
         onChange={ numberUpdated('otherLandPercent', otherLandPercent) }
         onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 3, 'integer') }
       />
-      % &nbsp;
     </td>
     <td className="odp__col-review">
       {odp.odpId
