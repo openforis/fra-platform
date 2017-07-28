@@ -254,7 +254,7 @@ const ExtentOfForestRow = ({
                              ...props
                            }) => {
 
-  const numberUpdated = (fieldName, currentValue) => evt => console.log('numberUpdated', typeof currentValue,fieldName, currentValue, evt.target.value) ||
+  const numberUpdated = (fieldName, currentValue) => evt =>
     saveDraft(countryIso, originalDataPoint.updateNationalClass(odp, index, fieldName, acceptNextInteger(evt.target.value, currentValue)))
 
   const validationStatus = getValidationStatusRow(odp, index)
