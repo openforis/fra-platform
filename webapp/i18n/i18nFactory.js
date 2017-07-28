@@ -23,6 +23,4 @@ export const createI18nInstance = (lang, callback) =>
         }
       }
     },
-    (err, t) => {
-      callback({language: lang, t})
-    })
+    (err, t) => callback({language: lang, t}))
