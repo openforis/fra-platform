@@ -27,7 +27,6 @@ export class PercentInput extends React.Component {
   }
 
   render () {
-    const width = this.getWidth()
     return <div className="percent__field" ref="wrapper">
       <div className="percent__readonly-view percent__value-container"
            style={{
@@ -37,7 +36,7 @@ export class PercentInput extends React.Component {
       >
         {renderValue(this.props.value)}
       </div>
-      <div style={{display: 'inline-block', opacity: this.state.hasFocus ? '1' : '0'}}>
+      <div className="percent__input-field-wrapper" style={{opacity: this.state.hasFocus ? '1' : '0'}}>
         <input
           className="percent__input-field percent__value-container"
           type="text"
@@ -51,5 +50,6 @@ export class PercentInput extends React.Component {
       </div>
       % &nbsp;
     </div>
+    const width = this.getWidth()
   }
 }
