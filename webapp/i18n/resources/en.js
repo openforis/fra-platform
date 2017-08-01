@@ -20,7 +20,12 @@ export const translation = {
 
   nationalDataPoint: {
     nationalDataPoint: 'National data point',
-    addNationalDataPoint: 'Add national data point'
+    addNationalDataPoint: 'Add national data point',
+    nationalData: 'National data',
+    year: 'Year',
+    methods: 'Methods',
+    edit: 'Edit',
+
   }
 
 }
