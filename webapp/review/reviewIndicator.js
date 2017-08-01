@@ -2,7 +2,6 @@ import * as R from 'ramda'
 import React from 'react'
 import { connect } from 'react-redux'
 
-import '../issue/style.less'
 import { getIssueSummary, openCommentThread, closeCommentThread } from './actions'
 
 const CommentStatus = ({count, active, lastCommentUserId, issueStatus, userInfo, ...props}) => {
