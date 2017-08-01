@@ -8,9 +8,9 @@ const R = require('ramda')
 // <ROLE>_ALL roles are changed to their corresponding "normal" roles, e.g.
 // REVIEWER_ALL will be REVIEWER for the country we are interested in
 
-const reviewer = {role: 'REVIEWER', label: 'Reviewer'}
-const nationalCorrespondent = {role: 'NATIONAL_CORRESPONDENT', label: 'National Correspondent'}
-const noRole = {role: 'NONE', label: 'N/A'}
+const reviewer = {role: 'REVIEWER', labelKey: 'user.roles.reviewer'}
+const nationalCorrespondent = {role: 'NATIONAL_CORRESPONDENT', labelKey: 'user.roles.nationalCorrespondent'}
+const noRole = {role: 'NONE', labelKey: 'user.roles.noRole'}
 
 const mostPowerfulRole = (countryIso, userInfo) => {
   if (!userInfo) return noRole
