@@ -2,7 +2,7 @@ import * as R from 'ramda'
 import React from 'react'
 import { connect } from 'react-redux'
 import Route from 'route-parser'
-import I18n from 'i18n-iso-countries'
+import { alpha3ToAlpha2, getName as getCountryName } from 'i18n-iso-countries'
 
 import { Link } from './../link'
 import { follow } from './../router/actions'
@@ -25,7 +25,7 @@ class CountrySelectionItem extends React.Component {
     const role = this.props.role
     const countries = this.props.countries || []
     const style = {
-      backgroundImage: `url('/img/flags/${(I18n.alpha3ToAlpha2(name) || '').toLowerCase()}.svg'`
+      backgroundImage: `url('/img/flags/${(alpha3ToAlpha2(name) || '').toLowerCase()}.svg'`
     }
     return <div className="nav__country-item" onClick={() => {
       this.setState({isOpen: R.not(this.state.isOpen)})
@@ -35,7 +35,7 @@ class CountrySelectionItem extends React.Component {
     }}>
       <div className="nav__country-flag" style={style}></div>
       <div className="nav__country-info">
-        <span className="nav__country-name">{I18n.getName(name, 'en')}</span>
+        <span className="nav__country-name">{getCountryName(name, 'en')}</span>
         <span className="nav__country-role">{role}</span>
       </div>
       <svg className="icon">
