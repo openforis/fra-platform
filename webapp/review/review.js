@@ -8,7 +8,7 @@ import { isReviewer } from '../../common/countryRole'
 
 const mapIndexed = R.addIndex(R.map)
 
-const AddComment = ({issueId, countryIso, section, target, postComment, onCancel, isFirst, userInfo, issueStatus}) => {
+const AddComment = ({issueId, countryIso, section, target, postComment, onCancel, isFirst, userInfo, issueStatus, i18n}) => {
   const canAddComment = () => issueStatus !== 'resolved' || isReviewer(countryIso, userInfo)
 
   return <div className="fra-review__add-comment">
@@ -23,7 +23,7 @@ const AddComment = ({issueId, countryIso, section, target, postComment, onCancel
         }}
         id={`fra-review__comment-input-${target}`}
         className="fra-review__issue-comment-input"
-        placeholder={`${canAddComment() ? 'Write a comment…' : 'Commenting closed'}`}/>
+        placeholder={`${canAddComment() ? i18n.t('review.writeComment') : i18n.t('review.commentingClosed')}`}/>
     </div>
     <div className="fra-review__comment-buttons">
       <button className="fra-review__comment-add-btn btn btn-primary btn-s"
@@ -31,12 +31,13 @@ const AddComment = ({issueId, countryIso, section, target, postComment, onCancel
               onClick={() => {
                 postComment(issueId, countryIso, section, target, null, document.getElementById(`fra-review__comment-input-${target}`).value)
                 document.getElementById(`fra-review__comment-input-${target}`).value = ''
-              }}>Add
+              }}>
+        {i18n.t('review.add')}
       </button>
       <button className="btn btn-s btn-secondary"
               disabled={!canAddComment()}
               onClick={() => onCancel()}>
-        Cancel
+        {i18n.t('review.cancel')}
       </button>
     </div>
   </div>
@@ -44,17 +45,17 @@ const AddComment = ({issueId, countryIso, section, target, postComment, onCancel
 
 class CommentThread extends React.Component {
 
-  scrollToBottom() {
+  scrollToBottom () {
     if (this.refs.commentScroller) {
       this.refs.commentScroller.scrollTop = this.refs.commentScroller.scrollHeight
     }
   }
 
-  componentDidMount() {
+  componentDidMount () {
     this.scrollToBottom()
   }
 
-  componentDidUpdate() {
+  componentDidUpdate () {
     this.scrollToBottom()
   }
 
@@ -66,7 +67,8 @@ class CommentThread extends React.Component {
       section,
       target,
       issueStatus,
-      markCommentAsDeleted
+      markCommentAsDeleted,
+      i18n
     } = this.props
 
     const isThisMe = R.pipe(R.prop('userId'), R.equals(userInfo.id))
@@ -76,10 +78,7 @@ class CommentThread extends React.Component {
       const commentTimestamp = parse(c.addedTime)
       const now = new Date()
 
-      const formatDiff = (fn, unit) => {
-        const diff = fn(now, commentTimestamp)
-        return `${diff} ${unit}${diff > 1 ? 's' : ''} ago`
-      }
+      const formatDiff = (fn, unit) => i18n.t('review.commentTime', {count: fn(now, commentTimestamp), unit: unit})
 
       if (differenceInMonths(now, commentTimestamp) > 0)
         return format(commentTimestamp, 'DD MMMM YYYY')
@@ -93,14 +92,15 @@ class CommentThread extends React.Component {
       if (differenceInHours(now, commentTimestamp) > 0)
         return formatDiff(differenceInHours, 'hour')
 
-      return 'A moment ago'
+      return i18n.t('review.commentTimeAMomentAgo')
     }
 
     return <div className={`fra-review__comment-widget-visible`}>
       <div ref="commentScroller" className={`fra-review__issue fra-review__issue-visible`}>
         <div className='fra-review__comments'>
           {
-            comments && R.not(R.isEmpty(comments)) ? mapIndexed((c, i) =>
+            comments && R.not(R.isEmpty(comments))
+              ? mapIndexed((c, i) =>
                 <div key={i} className="fra-review__comment">
                   <div className="fra-review__comment-header">
                     <div>
@@ -113,7 +113,8 @@ class CommentThread extends React.Component {
                         {isThisMe(c) && !isCommentDeleted(c) && !isCommentStatusResolved(c) && issueStatus !== 'resolved'
                           ? <button className="btn fra-review__comment-delete-button"
                                     onClick={() => markCommentAsDeleted(countryIso, section, target, c.commentId)}>
-                            Delete</button>
+                            {i18n.t('review.delete')}
+                          </button>
                           : null}
                       </div>
                       <div
@@ -124,15 +125,20 @@ class CommentThread extends React.Component {
                   </div>
                   <div
                     className={`fra-review__comment-text ${isCommentDeleted(c) ? 'fra-review__comment-deleted-text' : ''}`}>
-                    {isCommentDeleted(c) ? 'Comment deleted' : c.message}
+                    {isCommentDeleted(c)
+                      ? i18n.t('review.commentDeleted')
+                      : isCommentStatusResolved(c)
+                        ? i18n.t('review.commentMarkedAsResolved')
+                        : c.message}
                   </div>
                 </div>,
-              comments) : <div className='fra-review__comment-placeholder'>
-              <svg className="fra-review__comment-placeholder-icon icon-24">
-                <use xlinkHref="img/icon.svg#icon-chat-46"/>
-              </svg>
-              <span className="fra-review__comment-placeholder-text">No comments</span>
-            </div>
+              comments)
+              : <div className='fra-review__comment-placeholder'>
+                <svg className="fra-review__comment-placeholder-icon icon-24">
+                  <use xlinkHref="img/icon.svg#icon-chat-46"/>
+                </svg>
+                <span className="fra-review__comment-placeholder-text">No comments</span>
+              </div>
           }
         </div>
       </div>
@@ -141,9 +147,9 @@ class CommentThread extends React.Component {
   }
 }
 
-const ReviewHeader = ({name, close, userInfo, countryIso, section, target, issueId, issueStatus, markIssueAsResolved}) =>
+const ReviewHeader = ({name, close, userInfo, countryIso, section, target, issueId, issueStatus, markIssueAsResolved, i18n}) =>
   <div className="fra-review__header">
-    <h2 className="fra-review__header-title subhead">Comments</h2>
+    <h2 className="fra-review__header-title subhead">{i18n.t('review.comments')}</h2>
     <div className="fra-review__header-close-btn" onClick={e => close(e)}>
       <svg className="icon icon-24">
         <use xlinkHref="img/icon.svg#icon-small-remove"/>
@@ -155,7 +161,7 @@ const ReviewHeader = ({name, close, userInfo, countryIso, section, target, issue
         <button
           className="btn btn-primary btn-s"
           onClick={() => markIssueAsResolved(countryIso, section, target, issueId, userInfo.id)}>
-          Resolve
+          {i18n.t('review.resolve')}
         </button>
       </div>
       : null}
@@ -179,6 +185,7 @@ class ReviewPanel extends React.Component {
     const close = R.partial(ctx => {
       ctx.props.closeCommentThread()
     }, [this])
+    const i18n = this.props.i18n
 
     return <div className={`fra-review-${isActive ? 'active' : 'hidden'}`}>
       <ReviewHeader
@@ -191,6 +198,7 @@ class ReviewPanel extends React.Component {
         issueId={issueId}
         issueStatus={issueStatus}
         markIssueAsResolved={this.props.markIssueAsResolved}
+        i18n={i18n}
       />
       <CommentThread
         comments={comments}
@@ -200,6 +208,7 @@ class ReviewPanel extends React.Component {
         target={target}
         markCommentAsDeleted={this.props.markCommentAsDeleted}
         issueStatus={issueStatus}
+        i18n={i18n}
       />
       <AddComment
         issueId={issueId}
@@ -211,6 +220,7 @@ class ReviewPanel extends React.Component {
         isFirst={comments.length === 0}
         userInfo={this.props.userInfo}
         issueStatus={issueStatus}
+        i18n={i18n}
       />
     </div>
   }

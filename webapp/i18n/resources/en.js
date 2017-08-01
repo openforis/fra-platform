@@ -54,6 +54,15 @@ export const translation = {
 
   review: {
     comments: 'Comments',
+    resolve: 'Resolve',
+    commentTime: '{{count}} {{unit}} ago',
+    commentTime_plural: '{{count}} {{unit}}s ago',
+    commentTimeAMomentAgo: 'A moment ago',
+    commentDeleted: 'Comment deleted',
+    commentMarkedAsResolved: 'Marked as resolved',
+    delete: 'Delete',
+    writeComment: 'Write a comment…',
+    commentingClosed: 'Commenting closed',
     add: 'Add',
     cancel: 'Cancel'
   },
