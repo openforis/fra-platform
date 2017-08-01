@@ -1,23 +1,29 @@
 import './style.less'
 import React from 'react'
-import CommentableDescription from '../description/commentableDescription'
+import { connect } from 'react-redux'
 
+import CommentableDescription from '../description/commentableDescription'
 import LoggedInPageTemplate from '../loggedInPageTemplate'
 import TraditionalTable from '../traditionalTable/traditionalTable'
 import tableSpec from './tableSpec'
 
-const areaAffectedByFire = ({match}) =>
-  <LoggedInPageTemplate>
+const AreaAffectedByFire = ({match, i18n}) => {
+  const tableProps = tableSpec(i18n)
+
+  return <LoggedInPageTemplate>
     <div className="tv__container aabf__container">
-      <h2 className="headline tv__page-header">Area affected by fire</h2>
-      <TraditionalTable tableSpec={tableSpec} countryIso={match.params.countryIso}/>
+      <h2 className="headline tv__page-header">{i18n.t('areaAffectedByFire.areaAffectedByFire')}</h2>
+      <TraditionalTable tableSpec={tableProps} countryIso={match.params.countryIso}/>
       <CommentableDescription
-        section={tableSpec.name}
+        section={tableProps.name}
         descriptionName="areaAffectedByFire"
-        descriptionTitle="Description"
+        descriptionTitle={i18n.t('description.description')}
         countryIso={match.params.countryIso}
       />
     </div>
   </LoggedInPageTemplate>
+}
 
-export default areaAffectedByFire
+const mapStateToProps = state => ({i18n: state.user.i18n})
+
+export default connect(mapStateToProps)(AreaAffectedByFire)
