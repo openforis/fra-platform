@@ -25,20 +25,6 @@ export const translation = {
     description: 'Description'
   },
 
-  extentOfForest: {
-    extentOfForest: 'Extent of forest',
-    generateFraValues: 'Generate FRA values',
-    extentOfForestValues: 'Extent of forest values',
-    forestArea: 'Forest area',
-    dataSources: 'Data Sources',
-    nationalClassificationAndDefinitions: 'National classification and definitions',
-    originalData: 'Original data',
-    chart: {
-      noDataPlaceholderLine1: 'To get started, add new national data points and use',
-      noDataPlaceholderLine2: 'them to generate FRA values automatically.'
-    }
-  },
-
   nationalDataPoint: {
     nationalDataPoint: 'National data point',
     addNationalDataPoint: 'Add national data point',
@@ -58,6 +44,36 @@ export const translation = {
     cancel: 'Cancel',
     saveData: 'Save data',
     enterOrCopyPasteNationalClasses: 'Enter or copy and paste national classes'
+  },
+
+  extentOfForest: {
+    extentOfForest: 'Extent of forest',
+    generateFraValues: 'Generate FRA values',
+    extentOfForestValues: 'Extent of forest values',
+    forestArea: 'Forest area',
+    dataSources: 'Data Sources',
+    nationalClassificationAndDefinitions: 'National classification and definitions',
+    originalData: 'Original data',
+    chart: {
+      noDataPlaceholderLine1: 'To get started, add new national data points and use',
+      noDataPlaceholderLine2: 'them to generate FRA values automatically.'
+    }
+  },
+
+  growingStock: {
+    growingStock: 'Growing stock'
+  },
+
+  biomassStock: {
+    biomassStock: 'Biomass stock'
+  },
+
+  carbonStock: {
+    carbonStock: 'Carbon stock'
+  },
+
+  protectedAreas: {
+    protectedAreasLongTermMgmtPlans: 'Protected areas and long-term management plans'
   },
 
   forestAreaChange: {
