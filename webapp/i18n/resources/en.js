@@ -7,13 +7,46 @@ export const translation = {
     ru: 'Russian'
   },
 
+  user: {
+    roles: {
+      reviewer: 'Reviewer',
+      nationalCorrespondent: 'National Correspondent',
+      noRole: 'N/A'
+    }
+  },
+
   fraClass: {
     forest: 'Forest',
     otherWoodedLand: 'Other wooded land',
     otherLand: 'Other land'
   },
 
-  navigation: {},
+  // components
+
+  navigation: {
+    annuallyReported: 'Annually reported',
+    fiveYearCycle: 'Five-year Cycle',
+    assessmentStatus: {
+      changing: {
+        label: 'Changing...'
+      },
+      review: {
+        label: 'In Review',
+        next: 'Send to review',
+        previous: 'Back to review'
+      },
+      accepted: {
+        label: 'Accepted',
+        next: 'Accept',
+        previous: ''
+      },
+      editing: {
+        label: '', //Currently we do not wish to show the default state at all
+        next: 'Start over (to editing)',
+        previous: 'remove'
+      }
+    }
+  },
 
   review: {
     comments: 'Comments',
@@ -46,7 +79,7 @@ export const translation = {
     enterOrCopyPasteNationalClasses: 'Enter or copy and paste national classes'
   },
 
-  // annually reported assessments
+  // annually reported assessment components
 
   extentOfForest: {
     extentOfForest: 'Extent of forest',
@@ -78,7 +111,7 @@ export const translation = {
     protectedAreasLongTermMgmtPlans: 'Protected areas and long-term management plans'
   },
 
-  // five year cycle assessments
+  // five year cycle assessment components
 
   forestAreaChange: {
     forestAreaLossGainChange: 'Forest area loss, gain and net change',
