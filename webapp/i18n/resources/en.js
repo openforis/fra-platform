@@ -13,6 +13,8 @@ export const translation = {
     otherLand: 'Other land'
   },
 
+  navigation: {},
+
   review: {
     comments: 'Comments',
     add: 'Add',
@@ -26,7 +28,11 @@ export const translation = {
     forestArea: 'Forest area',
     dataSources: 'Data Sources',
     nationalClassificationAndDefinitions: 'National classification and definitions',
-    originalData: 'Original data'
+    originalData: 'Original data',
+    chart: {
+      noDataPlaceholderLine1: 'To get started, add new national data points and use',
+      noDataPlaceholderLine2: 'them to generate FRA values automatically.'
+    }
   },
 
   nationalDataPoint: {
