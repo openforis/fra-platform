@@ -5,14 +5,14 @@ const Text = ({text, width, y}) =>
     <text style={{fontSize: '14px', color: '#999999'}} x="0" y="0">{text}</text>
   </foreignObject>
 
-const NoDataPlaceholder = ({data, wrapperWidth}) =>
+const NoDataPlaceholder = ({data, wrapperWidth, i18n}) =>
   data.forestArea.length <= 0 && data.otherWoodedLand.length <= 0
     ? <g className="noDataPlaceholder">
     <image href="/img/tucan.svg"
            width="62" height="87"
            x={((wrapperWidth - 62) / 2)} y="14"></image>
-    <Text text="To get started, add new national data points and use" width={wrapperWidth} y="136"/>
-    <Text text="them to generate FRA values automatically." width={wrapperWidth} y="156"/>
+    <Text text={i18n.t('extentOfForest.chart.noDataPlaceholderLine1')} width={wrapperWidth} y="136"/>
+    <Text text={i18n.t('extentOfForest.chart.noDataPlaceholderLine2')} width={wrapperWidth} y="156"/>
   </g>
     : null
 

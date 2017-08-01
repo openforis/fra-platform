@@ -45,7 +45,7 @@ const mapStateToProps = (state, props) => {
     const xScale = getXScale(props)
     const yScale = getYScale(data)
 
-    return {data, xScale, yScale}
+    return {data, xScale, yScale, i18n: state.user.i18n}
   }
   return {}
 }
