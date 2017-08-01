@@ -37,7 +37,7 @@ class CountrySelectionItem extends React.Component {
     }}>
       <div className="nav__country-flag" style={style}></div>
       <div className="nav__country-info">
-        <span className="nav__country-name">{getCountryName(name, 'en')}</span>
+        <span className="nav__country-name">{getCountryName(name, i18n.language)}</span>
         <span className="nav__country-role">{role}</span>
       </div>
       <svg className="icon">
@@ -64,7 +64,7 @@ const CountryRow = ({selectedCountry, country, i18n}) =>
     to={`/country/${country.countryIso}`}
     className={`nav__country-list-item ${R.equals(selectedCountry, country.countryIso) ? 'selected' : ''}`}>
     <div className="nav__country-list-item-name">
-      {country.name}
+      {getCountryName(country.countryIso, i18n.language)}
     </div>
     {
       // Editing is not shown at all, let's not take space from the narrow dropdown in that case
