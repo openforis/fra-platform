@@ -86,6 +86,12 @@ export const translation = {
     other: 'Other',
     unknown: 'No/unknown',
     totalForestArea: 'Total forest area'
+  },
+
+  areaAffectedByFire: {
+    areaAffectedByFire: 'Area affected by fire',
+    totalLandAreaAffectedByFire: 'Total land area affected by fire',
+    ofWhichForest: '...of which on forest'
   }
 
 }
