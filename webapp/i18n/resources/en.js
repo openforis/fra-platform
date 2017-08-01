@@ -67,6 +67,13 @@ export const translation = {
     ofWhichNaturalExpansion: '...of which natural expansion',
     deforestation: 'Deforestation (b)',
     forestAreaNetChange: 'Forest area net change'
+  },
+
+  specificForestCategories: {
+    specificForestCategories: 'Specific forest categories',
+    bamboo: 'Bamboo',
+    mangroves: 'Mangroves',
+    rubberPlantations: 'Rubber plantations'
   }
 
 }
