@@ -1,10 +1,10 @@
 import i18next from 'i18next'
 
 import { translation as enTranslation } from './resources/en'
+import { translation as frTranslation } from './resources/fr'
 
-export const createI18nInstance = (lang) =>
-  i18next
-    .init({
+export const createI18nInstance = (lang, callback) =>
+  i18next.createInstance({
       fallbackLng: 'en',
       debug: false,
 
@@ -17,6 +17,10 @@ export const createI18nInstance = (lang) =>
       resources: {
         en: {
           translation: enTranslation
+        },
+        fr: {
+          translation: frTranslation
         }
       }
-    })
+    },
+    (err, t) => callback({language: lang, t}))

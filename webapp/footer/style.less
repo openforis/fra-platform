@@ -12,6 +12,7 @@
 }
 
 .footer__item {
+  display: inline-block;
   color: @text-mute;
 }
 
@@ -24,22 +25,42 @@
   cursor: pointer;
 }
 
-.footer__user-control-opened {
+.footer__user-control:first-of-type {
+  margin-right: 8px;
+}
+
+.footer__selection-control-opened {
   width: 114px;
   position: absolute;
-  top: -48px;
-  text-align: right;
-  right: -1px;
   background-color: white;
-  padding: 10px;
   border-radius: 2px;
   border: 1px solid #d5d5d5;
   box-shadow: @shadow-2;
+}
+
+.footer__selection-control-item {
+  padding: 10px;
   &:hover {
     background-color: darken(@ui-bg, 4%);
     cursor: pointer;
     transition: @ease-out;
   }
+}
+
+.footer__user-control-opened {
+  .footer__selection-control-opened;
+  .footer__selection-control-item;
+  position: absolute;
+  top: -48px;
+  text-align: right;
+  right: -1px;
+}
+
+.footer__language-control-opened {
+  .footer__selection-control-opened;
+  top: -88px;
+  text-align: right;
+  right: 0px;
 }
 
 .footer__user-control-caret {
