@@ -21,6 +21,10 @@ export const translation = {
     cancel: 'Cancel'
   },
 
+  description: {
+    description: 'Description'
+  },
+
   extentOfForest: {
     extentOfForest: 'Extent of forest',
     generateFraValues: 'Generate FRA values',
@@ -54,6 +58,15 @@ export const translation = {
     cancel: 'Cancel',
     saveData: 'Save data',
     enterOrCopyPasteNationalClasses: 'Enter or copy and paste national classes'
+  },
+
+  forestAreaChange: {
+    forestAreaLossGainChange: 'Forest area loss, gain and net change',
+    forestExpansion: 'Forest expansion (a)',
+    ofWhichAfforestation: '...of which afforestation',
+    ofWhichNaturalExpansion: '...of which natural expansion',
+    deforestation: 'Deforestation (b)',
+    forestAreaNetChange: 'Forest area net change'
   }
 
 }

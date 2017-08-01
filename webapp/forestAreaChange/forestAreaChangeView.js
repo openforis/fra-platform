@@ -1,22 +1,28 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
 import LoggedInPageTemplate from '../loggedInPageTemplate'
 import TraditionalTable from '../traditionalTable/traditionalTable'
 import tableSpec from './tableSpec'
 import CommentableDescription from '../description/commentableDescription'
 
-const ForestAreaChangeView = (props) =>
-    <LoggedInPageTemplate>
-      <div className="tv__container">
-        <h2 className="headline tv__page-header">Forest area loss, gain and net change</h2>
-        <TraditionalTable tableSpec={tableSpec} countryIso={props.match.params.countryIso}/>
-        <CommentableDescription
-          section={tableSpec.name}
-          descriptionName="forestAreaChange"
-          descriptionTitle="Description"
-          countryIso={props.match.params.countryIso}
-        />
-      </div>
-    </LoggedInPageTemplate>
+const ForestAreaChangeView = ({match, i18n}) => {
+  const tableProps = tableSpec(i18n)
 
-export default ForestAreaChangeView
+  return <LoggedInPageTemplate>
+    <div className="tv__container">
+      <h2 className="headline tv__page-header">{i18n.t('forestAreaChange.forestAreaLossGainChange')}</h2>
+      <TraditionalTable tableSpec={tableProps} countryIso={match.params.countryIso}/>
+      <CommentableDescription
+        section={tableProps.name}
+        descriptionName="forestAreaChange"
+        descriptionTitle={i18n.t('description.description')}
+        countryIso={match.params.countryIso}
+      />
+    </div>
+  </LoggedInPageTemplate>
+}
+
+const mapStateToProps = state => ({i18n: state.user.i18n})
+
+export default connect(mapStateToProps)(ForestAreaChangeView)

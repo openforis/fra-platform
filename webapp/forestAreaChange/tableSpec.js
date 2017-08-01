@@ -11,7 +11,7 @@ const netChangeCell = (column) => (props) =>
     {netChange(props.tableData[0][column], props.tableData[3][column])}
   </td>
 
-export default {
+export default i18n => ({
   name: 'forestAreaChange', // used to uniquely identify table
   header: <thead>
   <tr>
@@ -23,23 +23,23 @@ export default {
   </tr>
   </thead>,
   rows: [
-    [{type: 'readOnly', jsx: <td key="expansion" className="fra-table__header-cell">Forest expansion (a)</td>},
+    [{type: 'readOnly', jsx: <td key="expansion" className="fra-table__header-cell">{i18n.t('forestAreaChange.forestExpansion')}</td>},
       ...integerInputColumns
     ],
     [
-      {type: 'readOnly', jsx: <td key="" className="fra-table__text-readonly-cell">...of which afforestation</td>},
+      {type: 'readOnly', jsx: <td key="" className="fra-table__text-readonly-cell">{i18n.t('forestAreaChange.ofWhichAfforestation')}</td>},
       ...integerInputColumns
     ],
     [
-      {type: 'readOnly', jsx: <td key="" className="fra-table__text-readonly-cell">...of which natural expansion</td>},
+      {type: 'readOnly', jsx: <td key="" className="fra-table__text-readonly-cell">{i18n.t('forestAreaChange.ofWhichNaturalExpansion')}</td>},
       ...integerInputColumns
     ],
     [
-      {type: 'readOnly', jsx: <td key="" className="fra-table__header-cell">Deforestation (b)</td>},
+      {type: 'readOnly', jsx: <td key="" className="fra-table__header-cell">{i18n.t('forestAreaChange.deforestation')}</td>},
       ...integerInputColumns
     ],
     [
-      {type: 'readOnly', jsx: <td key="" className="fra-table__header-cell">Forest area net change</td>},
+      {type: 'readOnly', jsx: <td key="" className="fra-table__header-cell">{i18n.t('forestAreaChange.forestAreaNetChange')}</td>},
       {type: 'custom', render: netChangeCell(1)},
       {type: 'custom', render: netChangeCell(2)},
       {type: 'custom', render: netChangeCell(3)},
@@ -52,4 +52,4 @@ export default {
     columnStart: 1,
     columnEnd: undefined
   }
-}
+})
