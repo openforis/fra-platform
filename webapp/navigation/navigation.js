@@ -205,7 +205,8 @@ const Nav = ({
                getCountryList,
                changeAssessmentStatus,
                status = {},
-               userInfo
+               userInfo,
+               i18n
              }) => {
 
   const getReviewStatus = section => R.pipe(
@@ -232,7 +233,7 @@ const Nav = ({
                      changeAssessmentStatus={changeAssessmentStatus}
                      userInfo={userInfo}/>
         {
-          annualItems.map(v => <SecondaryItem path={path} key={v.label} goTo={follow}
+          annualItems(i18n).map(v => <SecondaryItem path={path} key={v.label} goTo={follow}
                                               countryIso={country}
                                               status={getReviewStatus(v.section)}
                                               userInfo={userInfo}
@@ -245,7 +246,7 @@ const Nav = ({
                      changeAssessmentStatus={changeAssessmentStatus}
                      userInfo={userInfo}/>
         {
-          fiveYearItems.map(v => <SecondaryItem path={path} key={v.label} goTo={follow}
+          fiveYearItems(i18n).map(v => <SecondaryItem path={path} key={v.label} goTo={follow}
                                                 countryIso={country}
                                                 status={getReviewStatus(v.section)}
                                                 userInfo={userInfo}
