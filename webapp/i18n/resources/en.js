@@ -48,6 +48,10 @@ export const translation = {
     }
   },
 
+  footer: {
+    logout: 'Logout'
+  },
+
   review: {
     comments: 'Comments',
     add: 'Add',
