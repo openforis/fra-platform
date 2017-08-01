@@ -3,7 +3,7 @@ import R from 'ramda'
 
 const integerInputColumns = R.times(() => ({type: 'integerInput'}), 18)
 
-export default {
+export default i18n => ({
   name: 'areaAffectedByFire', // used to uniquely identify table
   header: <thead>
   <tr>
@@ -29,16 +29,18 @@ export default {
   </tr>
   </thead>,
   rows: [
-    [{type: 'readOnly',
-      jsx: <td key="expansion" className="fra-table__header-cell">Total land area affected by
-        fire</td>
+    [{
+      type: 'readOnly',
+      jsx: <td key="expansion" className="fra-table__header-cell">
+        {i18n.t('areaAffectedByFire.totalLandAreaAffectedByFire')}
+      </td>
     },
       ...integerInputColumns
     ],
     [
       {
         type: 'readOnly',
-        jsx: <td key="" className="fra-table__text-readonly-cell">...of which on forest</td>
+        jsx: <td key="" className="fra-table__text-readonly-cell">{i18n.t('areaAffectedByFire.ofWhichForest')}</td>
       },
       ...integerInputColumns
     ]
@@ -49,4 +51,4 @@ export default {
     columnStart: 1,
     columnEnd: undefined
   }
-}
+})
