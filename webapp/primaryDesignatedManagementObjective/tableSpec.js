@@ -8,11 +8,11 @@ const createPdmoInputRow = (rowHeader) => [
 
 const totalForestArea = (tableData, columnIdx) =>
   R.reduce((sum, rowIdx) => {
-    const value = tableData[rowIdx][columnIdx]
-    if (!R.isNil(value))
-      return sum + value
-    else
-      return sum
+      const value = tableData[rowIdx][columnIdx]
+      if (!R.isNil(value))
+        return sum + value
+      else
+        return sum
     },
     0,
     R.range(0, 7)
@@ -23,7 +23,7 @@ const totalForestAreaCell = (column) => (props) =>
     {totalForestArea(props.tableData, column)}
   </td>
 
-export default {
+export default i18n => ({
   name: 'primaryDesignatedManagementObjective',
   header: <thead>
   <tr>
@@ -36,22 +36,25 @@ export default {
   </tr>
   </thead>,
   rows: [
-    createPdmoInputRow('Production'),
-    createPdmoInputRow('Protection of soil and water'),
-    createPdmoInputRow('Conservation of biodiversity'),
-    createPdmoInputRow('Social Services'),
-    createPdmoInputRow('Multiple use'),
-    createPdmoInputRow('Other'),
-    createPdmoInputRow('No/unknown'),
-    [{type: 'readOnly', jsx: <td key="" className="fra-table__header-cell">Total forest area</td>},
-     {type: 'custom', render: totalForestAreaCell(1)},
-     {type: 'custom', render: totalForestAreaCell(2)},
-     {type: 'custom', render: totalForestAreaCell(3)},
-     {type: 'custom', render: totalForestAreaCell(4)},
-     {type: 'custom', render: totalForestAreaCell(5)}]
+    createPdmoInputRow(i18n.t('primaryDesignatedManagementObjective.production')),
+    createPdmoInputRow(i18n.t('primaryDesignatedManagementObjective.soilWaterProtection')),
+    createPdmoInputRow(i18n.t('primaryDesignatedManagementObjective.biodiversityConservation')),
+    createPdmoInputRow(i18n.t('primaryDesignatedManagementObjective.socialServices')),
+    createPdmoInputRow(i18n.t('primaryDesignatedManagementObjective.multipleUse')),
+    createPdmoInputRow(i18n.t('primaryDesignatedManagementObjective.other')),
+    createPdmoInputRow(i18n.t('primaryDesignatedManagementObjective.unknown')),
+    [{type: 'readOnly',
+      jsx: <td key=""
+               className="fra-table__header-cell">{i18n.t('primaryDesignatedManagementObjective.totalForestArea')}</td>
+    },
+      {type: 'custom', render: totalForestAreaCell(1)},
+      {type: 'custom', render: totalForestAreaCell(2)},
+      {type: 'custom', render: totalForestAreaCell(3)},
+      {type: 'custom', render: totalForestAreaCell(4)},
+      {type: 'custom', render: totalForestAreaCell(5)}]
   ],
   valueSlice: {
     columnStart: 1,
     rowEnd: -1
   }
-}
+})
