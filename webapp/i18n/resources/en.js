@@ -46,6 +46,8 @@ export const translation = {
     enterOrCopyPasteNationalClasses: 'Enter or copy and paste national classes'
   },
 
+  // annually reported assessments
+
   extentOfForest: {
     extentOfForest: 'Extent of forest',
     generateFraValues: 'Generate FRA values',
@@ -76,6 +78,8 @@ export const translation = {
     protectedAreasLongTermMgmtPlans: 'Protected areas and long-term management plans'
   },
 
+  // five year cycle assessments
+
   forestAreaChange: {
     forestAreaLossGainChange: 'Forest area loss, gain and net change',
     forestExpansion: 'Forest expansion (a)',
@@ -85,11 +89,23 @@ export const translation = {
     forestAreaNetChange: 'Forest area net change'
   },
 
+  forestCharacteristics: {
+    forestCharacteristics: 'Forest characteristics'
+  },
+
   specificForestCategories: {
     specificForestCategories: 'Specific forest categories',
     bamboo: 'Bamboo',
     mangroves: 'Mangroves',
     rubberPlantations: 'Rubber plantations'
+  },
+
+  growingStockComposition: {
+    growingStockComposition: 'Growing stock composition'
+  },
+
+  nonWoodForestProducts: {
+    nonWoodForestProducts: 'Non wood forest products'
   },
 
   primaryDesignatedManagementObjective: {
@@ -104,10 +120,34 @@ export const translation = {
     totalForestArea: 'Total forest area'
   },
 
+  forestOwnershipManagementRights: {
+    forestOwnershipManagementRights: 'Forest ownership and management rights'
+  },
+
+  disturbances: {
+    disturbances: 'Disturbances'
+  },
+
   areaAffectedByFire: {
     areaAffectedByFire: 'Area affected by fire',
     totalLandAreaAffectedByFire: 'Total land area affected by fire',
     ofWhichForest: '...of which on forest'
+  },
+
+  employment: {
+    employment: 'Employment'
+  },
+
+  graduationOfStudents: {
+    graduationOfStudents: 'Graduation of students'
+  },
+
+  policiesAndLegislation: {
+    policiesAndLegislation: 'Policies and legislation'
+  },
+
+  areaOfPermanentForestEstate: {
+    areaOfPermanentForestEstate: 'Area of permanent forest estate'
   }
 
 }
