@@ -2,7 +2,21 @@ export const translation = {
 
   language: {
     en: 'English',
-    fr: 'French'
+    es: 'Spanish',
+    fr: 'French',
+    ru: 'Russian'
+  },
+
+  fraClass: {
+    forest: 'Forest',
+    otherWoodedLand: 'Other wooded land',
+    otherLand: 'Other land'
+  },
+
+  review: {
+    comments: 'Comments',
+    add: 'Add',
+    cancel: 'Cancel'
   },
 
   extentOfForest: {
@@ -10,12 +24,9 @@ export const translation = {
     generateFraValues: 'Generate FRA values',
     extentOfForestValues: 'Extent of forest values',
     forestArea: 'Forest area',
-    otherWoodedLand: 'Other wooded land',
-    otherLand: 'Other land',
     dataSources: 'Data Sources',
     nationalClassificationAndDefinitions: 'National classification and definitions',
-    originalData: 'Original data',
-
+    originalData: 'Original data'
   },
 
   nationalDataPoint: {
@@ -25,7 +36,18 @@ export const translation = {
     year: 'Year',
     methods: 'Methods',
     edit: 'Edit',
-
+    copyPreviousValues: 'Copy previous values',
+    nationalClass: 'National class',
+    nationalClasses: 'National classes',
+    definition: 'Definition',
+    fraClasses: 'FRA classes',
+    class: 'Class',
+    area: 'Area',
+    total: 'Total',
+    delete: 'Delete',
+    cancel: 'Cancel',
+    saveData: 'Save data',
+    enterOrCopyPasteNationalClasses: 'Enter or copy and paste national classes'
   }
 
 }
