@@ -3,41 +3,41 @@ import specificForestCategoriesTableSpec from '../specificForestCategories/table
 import primaryDesignatedManagementObjectiveTableSpec from '../primaryDesignatedManagementObjective/tableSpec'
 import areaAffectedByFireTableSpec from '../areaAffectedByFire/tableSpec'
 
-export const annualItems = [
+export const annualItems = i18n => [
   {
     order: 1,
-    label: 'Extent of forest',
+    label: i18n.t('extentOfForest.extentOfForest'),
     section: 'EOF',
     pathTemplate: '/country/:countryIso'
   },
   {
     order: 2,
-    label: 'Growing stock',
+    label: i18n.t('growingStock.growingStock'),
     pathTemplate: '/todo'
   },
   {
     order: 3,
-    label: 'Biomass stock',
+    label: i18n.t('biomassStock.biomassStock'),
     pathTemplate: '#/todo'
   },
   {
     order: 4,
-    label: 'Carbon stock',
+    label: i18n.t('carbonStock.carbonStock'),
     pathTemplate: '#/todo'
   },
   {
     order: 5,
-    label: 'Protected areas and long-term management plans',
+    label: i18n.t('protectedAreas.protectedAreasLongTermMgmtPlans'),
     pathTemplate: '#/todo'
   }
 ]
 
-export const fiveYearItems = [
+export const fiveYearItems = i18n => [
   {
     order: 6,
     label: 'Forest area loss, gain and net change',
     pathTemplate: '/country/:countryIso/forestAreaChange',
-    section: forestAreaChangeTableSpec.name
+    section: forestAreaChangeTableSpec(i18n).name
   },
   {
     order: 7,
@@ -48,7 +48,7 @@ export const fiveYearItems = [
     order: 8,
     label: 'Specific forest categories',
     pathTemplate: '/country/:countryIso/specificForestCategories',
-    section: specificForestCategoriesTableSpec.name
+    section: specificForestCategoriesTableSpec(i18n).name
   },
   {
     order: 9,
@@ -64,7 +64,7 @@ export const fiveYearItems = [
     order: 11,
     label: 'Primary designated management objective',
     pathTemplate: '/country/:countryIso/primaryDesignatedManagementObjectiveView',
-    section: primaryDesignatedManagementObjectiveTableSpec.name
+    section: primaryDesignatedManagementObjectiveTableSpec(i18n).name
   },
   {
     order: 12,
@@ -80,7 +80,7 @@ export const fiveYearItems = [
     order: 14,
     label: 'Area affected by fire',
     pathTemplate: '/country/:countryIso/areaAffectedByFire',
-    section: areaAffectedByFireTableSpec.name
+    section: areaAffectedByFireTableSpec(i18n).name
   },
   {
     order: 15,
