@@ -74,6 +74,18 @@ export const translation = {
     bamboo: 'Bamboo',
     mangroves: 'Mangroves',
     rubberPlantations: 'Rubber plantations'
+  },
+
+  primaryDesignatedManagementObjective: {
+    primaryDesignatedManagementObjective: 'Primary designated management objective',
+    production: 'Production',
+    soilWaterProtection: 'Protection of soil and water',
+    biodiversityConservation: 'Conservation of biodiversity',
+    socialServices: 'Social Services',
+    multipleUse: 'Multiple use',
+    other: 'Other',
+    unknown: 'No/unknown',
+    totalForestArea: 'Total forest area'
   }
 
 }
