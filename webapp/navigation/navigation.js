@@ -95,7 +95,6 @@ const PrimaryItem = ({label, countryIso, assessmentType, assessmentStatuses, cha
     return <noscript/>
 
   const currentAssessmentStatus = R.path([assessmentType], assessmentStatuses)
-  const currentAssessmentStatusLabel = i18n.t(`navigation.assessmentStatus.${currentAssessmentStatus}.label`)
   const allowedTransitions = getAllowedStatusTransitions(mostPowerfulRole(countryIso, userInfo), currentAssessmentStatus)
   const nextAssessmentStatus = allowedTransitions.next
   const previousAssessmentStatus = allowedTransitions.previous
@@ -103,8 +102,8 @@ const PrimaryItem = ({label, countryIso, assessmentType, assessmentStatuses, cha
   return <div className="nav__primary-item">
     <span className="nav__primary-label">{label}</span>
     {
-      currentAssessmentStatusLabel
-        ? <span className="nav__assessment-status">{currentAssessmentStatusLabel}</span>
+      currentAssessmentStatus
+        ? <span className="nav__assessment-status">{i18n.t(`navigation.assessmentStatus.${currentAssessmentStatus}.label`)}</span>
         : null
     }
     {
