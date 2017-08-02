@@ -15,13 +15,13 @@ class FooterSelectionControl extends React.Component {
     const children = this.props.children
     return <span
       className="footer__user-control"
-      onClick={ evt => this.setState({opened: !this.state.opened}) }>
+      onClick={evt => this.setState({opened: !this.state.opened})}>
       {this.props.label + ' '}
       <svg className="icon icon-sub">
         <use xlinkHref={`img/icon.svg#icon-small-${iconRefSuffix}`}/>
       </svg>
       {
-       this.state.opened ? children : null
+        this.state.opened ? children : null
       }
     </span>
   }
@@ -42,8 +42,8 @@ const LanguageSelection = props =>
       {
         R.map(
           lang => <div key={lang} className="footer__selection-control-item" onClick={() => props.switchLanguage(lang)}>
-                  {props.i18n.t(`language.${lang}`)}
-                </div>,
+            {props.i18n.t(`language.${lang}`)}
+          </div>,
           supportedLangs)
       }
     </div>
@@ -60,7 +60,10 @@ const Footer = ({status, userInfo, path, width, i18n, ...props}) => {
     {/* Placeholder for space-between flexbox alignment */}
     <div/>
     <div className="footer__item">
-      <span className="footer__autosave-status">{status}</span>
+      {status
+        ? <span className="footer__autosave-status">{i18n.t(`footer.autoSave.${status}`)}</span>
+        : null
+      }
     </div>
     <div>
       <div className="footer__item">
