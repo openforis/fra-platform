@@ -187,7 +187,7 @@ export const translation = {
 
   areaAffectedByFire: {
     areaAffectedByFire: 'Superficie brûlée',
-    totalLandAreaAffectedByFire: 'Superficie brûlée totale',
+    totalLandAreaAffectedByFire: 'Superficie totale brûlée',
     ofWhichForest: '... dont forestière'
   },
 
