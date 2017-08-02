@@ -94,7 +94,7 @@ export const translation = {
     definition: 'Définition',
     fraClasses: 'Classes de FRA',
     class: 'Classe',
-    area: 'Area',
+    area: 'Superficie',
     total: 'Total',
     delete: 'Effacez',
     cancel: 'Annulez',
@@ -119,11 +119,11 @@ export const translation = {
   },
 
   growingStock: {
-    growingStock: 'Growing stock'
+    growingStock: 'Matériel sur pied'
   },
 
   biomassStock: {
-    biomassStock: 'Biomass stock'
+    biomassStock: 'Biomasse stock'
   },
 
   carbonStock: {
