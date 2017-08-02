@@ -16,6 +16,10 @@
   color: @text-mute;
 }
 
+.footer__item:first-of-type {
+  margin-right: 20px;
+}
+
 .footer__autosave-status {
   font-style: italic;
 }
@@ -23,10 +27,6 @@
 .footer__user-control {
   position: relative;
   cursor: pointer;
-}
-
-.footer__user-control:first-of-type {
-  margin-right: 8px;
 }
 
 .footer__selection-control-opened {
@@ -37,6 +37,8 @@
   border: 1px solid #d5d5d5;
   box-shadow: @shadow-2;
   bottom: 21px;
+  right: -1px;
+  text-align: right;
 }
 
 .footer__selection-control-item {
@@ -51,15 +53,10 @@
 .footer__user-control-opened {
   .footer__selection-control-opened;
   .footer__selection-control-item;
-  position: absolute;
-  text-align: right;
-  right: -1px;
 }
 
 .footer__language-control-opened {
   .footer__selection-control-opened;
-  text-align: right;
-  right: 5px;
 }
 
 .footer__user-control-caret {
