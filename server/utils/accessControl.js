@@ -32,8 +32,8 @@ const checkReviewerCountryAccess = (countryIso, user) => {
 // WARNING: the param name needs to be exactly 'countryIso'
 // If it's not, use checkCountryAccess instead
 const checkCountryAccessFromReqParams = (req) => {
-  if (req.params.countryIso) checkCountryAccess(req.params.countryIso, req.session.passport.user)
-  if (req.query.countryIso) checkCountryAccess(req.query.countryIso, req.session.passport.user)
+  if (req.params.countryIso) checkCountryAccess(req.params.countryIso, req.user)
+  if (req.query.countryIso) checkCountryAccess(req.query.countryIso, req.user)
 }
 
 module.exports.checkCountryAccess = checkCountryAccess
