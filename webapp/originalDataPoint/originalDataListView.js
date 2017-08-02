@@ -38,7 +38,7 @@ const ODPListing = ({countryIso, odps = [], i18n}) => <div className="odp-list__
         </Link>
       </td>
     </tr>) : <tr className="odp-list__list-row">
-      <td className="odp_list__empty-column" colSpan="4">No national data added</td>
+      <td className="odp_list__empty-column" colSpan="4">{i18n.t('nationalDataPoint.noNationalDataAdded')}</td>
     </tr>}
     </tbody>
   </table>

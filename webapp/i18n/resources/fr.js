@@ -49,14 +49,14 @@ export const translation = {
   },
 
   footer: {
-    logout: 'Logout',
+    logout: 'Se déconnecter',
     autoSave: {
-      saving: 'Saving...'
+      saving: 'En train de enregistrer...'
     }
   },
 
   review: {
-    comments: 'Comments',
+    comments: 'Commentaires',
     resolve: 'Resolve',
     commentTime: {
       hour: '{{count}} hour ago',
@@ -83,22 +83,23 @@ export const translation = {
   nationalDataPoint: {
     nationalDataPoint: 'Point national des données',
     addNationalDataPoint: 'Ajoutez un point nationl des données',
-    nationalData: 'National data',
-    year: 'Year',
-    methods: 'Methods',
-    edit: 'Edit',
-    copyPreviousValues: 'Copy previous values',
-    nationalClass: 'National class',
-    nationalClasses: 'National classes',
-    definition: 'Definition',
-    fraClasses: 'FRA classes',
-    class: 'Class',
+    noNationalDataAdded: 'Aucune donnée nationale ajoutée',
+    nationalData: 'Données nationales',
+    year: 'Année',
+    methods: 'Méthodes',
+    edit: 'Editez',
+    copyPreviousValues: 'Copiez les valeurs précédentes',
+    nationalClass: 'Classe nationale',
+    nationalClasses: 'Classes nationales',
+    definition: 'Définition',
+    fraClasses: 'Classes de FRA',
+    class: 'Classe',
     area: 'Area',
     total: 'Total',
-    delete: 'Delete',
-    cancel: 'Cancel',
-    saveData: 'Save data',
-    enterOrCopyPasteNationalClasses: 'Enter or copy and paste national classes'
+    delete: 'Effacez',
+    cancel: 'Annulez',
+    saveData: 'Enregistrez les données',
+    enterOrCopyPasteNationalClasses: 'Entrez ou copiez et collez les classes nationales'
   },
 
   // annually reported assessment components

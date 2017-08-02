@@ -83,6 +83,7 @@ export const translation = {
   nationalDataPoint: {
     nationalDataPoint: 'National data point',
     addNationalDataPoint: 'Add national data point',
+    noNationalDataAdded: 'No national data added',
     nationalData: 'National data',
     year: 'Year',
     methods: 'Methods',
