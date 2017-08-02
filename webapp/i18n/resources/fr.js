@@ -114,7 +114,7 @@ export const translation = {
     originalData: 'Données de base',
     chart: {
       noDataPlaceholderLine1: 'Pour commencer, ajoutez des nouveaux points nationaux des données',
-      noDataPlaceholderLine2: 'et utilisez-les pour générer les valeurs de FRA automatiquement.'
+      noDataPlaceholderLine2: 'et utilisez-les pour générer automatiquement les valeurs de FRA.'
     }
   },
 
@@ -138,11 +138,11 @@ export const translation = {
 
   forestAreaChange: {
     forestAreaLossGainChange: 'Perte, augmentation et variation nette de la superficie forestière',
-    forestExpansion: 'Forest expansion (a)',
-    ofWhichAfforestation: '...of which afforestation',
-    ofWhichNaturalExpansion: '...of which natural expansion',
-    deforestation: 'Deforestation (b)',
-    forestAreaNetChange: 'Forest area net change'
+    forestExpansion: 'Expansion de la forêt (a)',
+    ofWhichAfforestation: '... dont boisement',
+    ofWhichNaturalExpansion: '... dont expansion naturelle',
+    deforestation: 'Déforestation (b)',
+    forestAreaNetChange: 'Variation nette de la superficie forestière'
   },
 
   forestCharacteristics: {
