@@ -49,7 +49,10 @@ export const translation = {
   },
 
   footer: {
-    logout: 'Logout'
+    logout: 'Logout',
+    autoSave:{
+      saving :'Saving...'
+    }
   },
 
   review: {
