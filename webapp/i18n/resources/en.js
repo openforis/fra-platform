@@ -50,17 +50,23 @@ export const translation = {
 
   footer: {
     logout: 'Logout',
-    autoSave:{
-      saving :'Saving...'
+    autoSave: {
+      saving: 'Saving...'
     }
   },
 
   review: {
     comments: 'Comments',
     resolve: 'Resolve',
-    commentTime: '{{count}} {{unit}} ago',
-    commentTime_plural: '{{count}} {{unit}}s ago',
-    commentTimeAMomentAgo: 'A moment ago',
+    commentTime: {
+      hour: '{{count}} hour ago',
+      hour_plural: '{{count}} hours ago',
+      day: '{{count}} day ago',
+      day_plural: '{{count}} days ago',
+      week: '{{count}} week ago',
+      week_plural: '{{count}} weeks ago',
+      aMomentAgo: 'A moment ago'
+    },
     commentDeleted: 'Comment deleted',
     commentMarkedAsResolved: 'Marked as resolved',
     delete: 'Delete',
