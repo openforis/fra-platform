@@ -4,13 +4,12 @@ const {sendErr} = require('../utils/requestUtils')
 
 module.exports.init = app => {
 
-  app.get('/loggedInUser/', (req, res) => {
-    const userInfo = req.user
-    res.json({userInfo})
-  })
+  app.get('/loggedInUser/', (req, res) =>
+    res.json({userInfo: req.user})
+  )
 
   app.post('/user/lang', (req, res) => {
-    db.transaction(userRepository.updateLanguage, [req.query.lang, req.session.passport.user])
+    db.transaction(userRepository.updateLanguage, [req.query.lang, req.user])
       .then(() => res.json({}))
       .catch(err => sendErr(res, err))
   })

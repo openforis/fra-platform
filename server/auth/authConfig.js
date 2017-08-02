@@ -1,6 +1,7 @@
 const passport = require('passport')
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy
 const cookieParser = require('cookie-parser')
+const userRepository = require('../user/userRepository')
 
 module.exports.init = (app, verifyCallback) => {
 
@@ -16,8 +17,11 @@ module.exports.init = (app, verifyCallback) => {
     verifyCallback
   ))
 
-  passport.serializeUser((user, done) => done(null, user))
+  passport.serializeUser((user, done) => done(null, user.id))
 
-  passport.deserializeUser((user, done) => done(null, user))
+  passport.deserializeUser((userId, done) =>
+    userRepository.findUserById(userId)
+      .then(user => done(null, user))
+  )
 
 }

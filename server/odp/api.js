@@ -51,7 +51,7 @@ module.exports.init = app => {
   )
 
   app.delete('/odp', (req, res) => {
-    db.transaction(odpRepository.deleteOdp, [req.query.odpId, req.session.passport.user])
+    db.transaction(odpRepository.deleteOdp, [req.query.odpId, req.user])
       .then(() => res.json({}))
         .catch(err => sendErr(res, err))
     }
@@ -66,7 +66,7 @@ module.exports.init = app => {
   })
 
   app.delete('/odp/draft', (req, res) => {
-    db.transaction(odpRepository.deleteDraft, [req.query.odpId, req.session.passport.user])
+    db.transaction(odpRepository.deleteDraft, [req.query.odpId, req.user])
         .then(() => res.json({}))
         .catch(err => sendErr(res, err))
     }
@@ -90,7 +90,7 @@ module.exports.init = app => {
   })
 
   app.post('/odp/markAsActual', (req, res) =>
-    db.transaction(odpRepository.markAsActual, [req.query.odpId, req.session.passport.user])
+    db.transaction(odpRepository.markAsActual, [req.query.odpId, req.user])
       .then(() => res.json({})
       ).catch(err => sendErr(res, err))
   )

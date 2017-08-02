@@ -9,8 +9,7 @@ const reviewRepository = require('./reviewRepository')
 module.exports.init = app => {
 
   app.post('/review/:issueId', (req, res) => {
-    const user = req.session.passport.user
-    db.transaction(reviewRepository.createComment, [req.params.issueId, user, req.body.msg, 'opened'])
+    db.transaction(reviewRepository.createComment, [req.params.issueId, req.user, req.body.msg, 'opened'])
       .then(result => res.json({}))
       .catch(err => sendErr(res, err))
   })
@@ -25,11 +24,10 @@ module.exports.init = app => {
 
   app.post('/review/:countryIso/:section', (req, res) => {
     checkCountryAccessFromReqParams(req)
-    const userId = req.session.passport.user.id
     const target = req.query.target ? req.query.target.split(',') : []
     db.transaction(
       reviewRepository.createIssueWithComment,
-      [req.params.countryIso, req.params.section, {params: target}, userId, req.body.msg])
+      [req.params.countryIso, req.params.section, {params: target}, req.user.id, req.body.msg])
       .then(result => res.json({}))
       .catch(err => sendErr(res, err))
   })
@@ -63,16 +61,14 @@ module.exports.init = app => {
   })
 
   app.delete('/review/:countryIso/comments/:commentId', (req, res) => {
-      const user = req.session.passport.user
-      db.transaction(reviewRepository.markCommentAsDeleted, [req.params.commentId, user])
+      db.transaction(reviewRepository.markCommentAsDeleted, [req.params.commentId, req.user])
         .then(() => res.json({}))
         .catch(err => sendErr(res, err))
     }
   )
 
   app.post('/issue/markAsResolved', (req, res) => {
-    const user = req.session.passport.user
-    db.transaction(reviewRepository.markIssueAsResolved, [req.query.issueId, user])
+    db.transaction(reviewRepository.markIssueAsResolved, [req.query.issueId, req.user])
       .then(() => res.json({}))
       .catch(err => sendErr(res, err))
   })
