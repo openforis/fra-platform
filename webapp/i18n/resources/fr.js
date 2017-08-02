@@ -167,13 +167,13 @@ export const translation = {
   primaryDesignatedManagementObjective: {
     primaryDesignatedManagementObjective: 'Principaux objectifs de gestion désignés',
     production: 'Production',
-    soilWaterProtection: 'Protection of soil and water',
-    biodiversityConservation: 'Conservation of biodiversity',
-    socialServices: 'Social Services',
-    multipleUse: 'Multiple use',
-    other: 'Other',
-    unknown: 'No/unknown',
-    totalForestArea: 'Total forest area'
+    soilWaterProtection: 'Protection des sols et de l\'eau',
+    biodiversityConservation: 'Conservation de la biodiversité',
+    socialServices: 'Services sociaux',
+    multipleUse: 'Usages multiples',
+    other: 'Autres',
+    unknown: 'Inconnue',
+    totalForestArea: 'Superficie forestière totale'
   },
 
   forestOwnershipManagementRights: {
@@ -181,7 +181,7 @@ export const translation = {
   },
 
   disturbances: {
-    disturbances: 'Dérèglement'
+    disturbances: 'Perturbation'
   },
 
   areaAffectedByFire: {
