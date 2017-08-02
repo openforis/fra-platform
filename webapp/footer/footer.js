@@ -39,20 +39,15 @@ const LanguageSelection = ({i18n, switchLanguage, ...props}) =>
     <div className="footer__language-control-opened">
       {
         R.map(
-          lang => lang !== i18n.language
-            ? <div key={lang} className="footer__selection-control-item" onClick={() => switchLanguage(lang)}>
-              {i18n.t(`language.${lang}`)}
-            </div>
-            : null,
-          supportedLangs)
+          lang => <div key={lang} className="footer__selection-control-item" onClick={() => switchLanguage(lang)}>
+            {i18n.t(`language.${lang}`)}
+          </div>,
+          R.reject(l => l === i18n.language, supportedLangs))
       }
     </div>
   </FooterSelectionControl>
 
-const supportedLangs = [
-  'en',
-  'fr'
-]
+const supportedLangs = ['en', 'fr']
 
 const Footer = ({status, userInfo, path, width, i18n, ...props}) => {
   const style = {width: `calc(100vw - ${width}px)`}
