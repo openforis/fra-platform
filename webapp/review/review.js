@@ -137,7 +137,7 @@ class CommentThread extends React.Component {
                 <svg className="fra-review__comment-placeholder-icon icon-24">
                   <use xlinkHref="img/icon.svg#icon-chat-46"/>
                 </svg>
-                <span className="fra-review__comment-placeholder-text">No comments</span>
+                <span className="fra-review__comment-placeholder-text">{i18n.t('review.noComments')}</span>
               </div>
           }
         </div>

@@ -57,6 +57,7 @@ export const translation = {
 
   review: {
     comments: 'Comments',
+    noComments: 'No comments',
     resolve: 'Resolve',
     commentTime: {
       hour: '{{count}} hour ago',
