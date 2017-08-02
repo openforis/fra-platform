@@ -78,7 +78,7 @@ class CommentThread extends React.Component {
       const commentTimestamp = parse(c.addedTime)
       const now = new Date()
 
-      const formatDiff = (fn, unit) => i18n.t('review.commentTime', {count: fn(now, commentTimestamp), unit: unit})
+      const formatDiff = (fn, unit) => i18n.t(`review.commentTime.${unit}`, {count: fn(now, commentTimestamp)})
 
       if (differenceInMonths(now, commentTimestamp) > 0)
         return format(commentTimestamp, 'DD MMMM YYYY')
@@ -92,7 +92,7 @@ class CommentThread extends React.Component {
       if (differenceInHours(now, commentTimestamp) > 0)
         return formatDiff(differenceInHours, 'hour')
 
-      return i18n.t('review.commentTimeAMomentAgo')
+      return i18n.t('review.commentTime.aMomentAgo')
     }
 
     return <div className={`fra-review__comment-widget-visible`}>
