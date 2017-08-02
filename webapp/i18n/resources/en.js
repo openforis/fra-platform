@@ -2,9 +2,9 @@ export const translation = {
 
   language: {
     en: 'English',
-    es: 'Spanish',
-    fr: 'French',
-    ru: 'Russian'
+    es: 'Español',
+    fr: 'Français',
+    ru: 'Русский'
   },
 
   user: {
