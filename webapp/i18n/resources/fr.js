@@ -123,21 +123,21 @@ export const translation = {
   },
 
   biomassStock: {
-    biomassStock: 'Biomasse stock'
+    biomassStock: 'Stock de biomasse'
   },
 
   carbonStock: {
-    carbonStock: 'Carbon stock'
+    carbonStock: 'Stock de carbone'
   },
 
   protectedAreas: {
-    protectedAreasLongTermMgmtPlans: 'Protected areas and long-term management plans'
+    protectedAreasLongTermMgmtPlans: 'Aires protégées et plans de gestion à long terme'
   },
 
   // five year cycle assessment components
 
   forestAreaChange: {
-    forestAreaLossGainChange: 'Forest area loss, gain and net change',
+    forestAreaLossGainChange: 'Perte, augmentation et variation nette de la superficie forestière',
     forestExpansion: 'Forest expansion (a)',
     ofWhichAfforestation: '...of which afforestation',
     ofWhichNaturalExpansion: '...of which natural expansion',
@@ -146,26 +146,26 @@ export const translation = {
   },
 
   forestCharacteristics: {
-    forestCharacteristics: 'Forest characteristics'
+    forestCharacteristics: 'Caractéristiques des forêts'
   },
 
   specificForestCategories: {
-    specificForestCategories: 'Specific forest categories',
+    specificForestCategories: 'Catégories forestières spécifiques',
     bamboo: 'Bamboo',
     mangroves: 'Mangroves',
     rubberPlantations: 'Rubber plantations'
   },
 
   growingStockComposition: {
-    growingStockComposition: 'Growing stock composition'
+    growingStockComposition: 'Composition du matériel sur pied'
   },
 
   nonWoodForestProducts: {
-    nonWoodForestProducts: 'Non wood forest products'
+    nonWoodForestProducts: 'Produit forestier non ligneux'
   },
 
   primaryDesignatedManagementObjective: {
-    primaryDesignatedManagementObjective: 'Primary designated management objective',
+    primaryDesignatedManagementObjective: 'Principaux objectifs de gestion désignés',
     production: 'Production',
     soilWaterProtection: 'Protection of soil and water',
     biodiversityConservation: 'Conservation of biodiversity',
@@ -177,33 +177,33 @@ export const translation = {
   },
 
   forestOwnershipManagementRights: {
-    forestOwnershipManagementRights: 'Forest ownership and management rights'
+    forestOwnershipManagementRights: 'Propriété des forêts et droits de gestion'
   },
 
   disturbances: {
-    disturbances: 'Disturbances'
+    disturbances: 'Dérèglement'
   },
 
   areaAffectedByFire: {
-    areaAffectedByFire: 'Area affected by fire',
+    areaAffectedByFire: 'Superficie brûlée',
     totalLandAreaAffectedByFire: 'Total land area affected by fire',
     ofWhichForest: '...of which on forest'
   },
 
   employment: {
-    employment: 'Employment'
+    employment: 'Emploi'
   },
 
   graduationOfStudents: {
-    graduationOfStudents: 'Graduation of students'
+    graduationOfStudents: 'Diplômes d\'étudiants'
   },
 
   policiesAndLegislation: {
-    policiesAndLegislation: 'Policies and legislation'
+    policiesAndLegislation: 'Politiques et législation'
   },
 
   areaOfPermanentForestEstate: {
-    areaOfPermanentForestEstate: 'Area of permanent forest estate'
+    areaOfPermanentForestEstate: 'Superficie forestière destinée à rester forêt permanente'
   }
 
 }
