@@ -78,7 +78,7 @@ export const translation = {
   },
 
   description: {
-    description: 'Description'
+    description: 'Descripción'
   },
 
   nationalDataPoint: {
@@ -152,9 +152,9 @@ export const translation = {
 
   specificForestCategories: {
     specificForestCategories: 'Categorías forestales específicas',
-    bamboo: 'Bamboo',
-    mangroves: 'Mangroves',
-    rubberPlantations: 'Rubber plantations'
+    bamboo: 'Bambú',
+    mangroves: 'Manglares',
+    rubberPlantations: 'Plantaciones de caucho'
   },
 
   growingStockComposition: {
