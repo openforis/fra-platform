@@ -139,11 +139,11 @@ export const translation = {
 
   forestAreaChange: {
     forestAreaLossGainChange: 'Pérdida, ganancia y variación neta de la superficie forestal',
-    forestExpansion: 'Forest expansion (a)',
-    ofWhichAfforestation: '...of which afforestation',
-    ofWhichNaturalExpansion: '...of which natural expansion',
-    deforestation: 'Deforestation (b)',
-    forestAreaNetChange: 'Forest area net change'
+    forestExpansion: 'Expansión del bosque (a)',
+    ofWhichAfforestation: '... de las cuales forestación',
+    ofWhichNaturalExpansion: '... de las cuales expansión natural',
+    deforestation: 'Deforestación (b)',
+    forestAreaNetChange: 'Variación neta de la superficie forestal'
   },
 
   forestCharacteristics: {
