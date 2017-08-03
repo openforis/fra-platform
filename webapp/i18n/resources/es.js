@@ -106,16 +106,16 @@ export const translation = {
   // annually reported assessment components
 
   extentOfForest: {
-    extentOfForest: 'Extent of forest',
-    generateFraValues: 'Generate FRA values',
-    extentOfForestValues: 'Extent of forest values',
-    forestArea: 'Forest area',
-    dataSources: 'Data Sources',
-    nationalClassificationAndDefinitions: 'National classification and definitions',
-    originalData: 'Original data',
+    extentOfForest: 'Extensión de los bosques',
+    generateFraValues: 'Generar valores de FRA',
+    extentOfForestValues: 'Extensión de valores de los bosques',
+    forestArea: 'Área de los bosques',
+    dataSources: 'Fuente de datos',
+    nationalClassificationAndDefinitions: 'Clasificación y definiciones nationales',
+    originalData: 'Datos originales',
     chart: {
-      noDataPlaceholderLine1: 'To get started, add new national data points and use',
-      noDataPlaceholderLine2: 'them to generate FRA values automatically.'
+      noDataPlaceholderLine1: 'Para empezar, añada nuevos puntos de datos nacionales',
+      noDataPlaceholderLine2: 'y utilícelos para generar automáticamente los valores de FRA.'
     }
   },
 
