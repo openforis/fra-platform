@@ -49,9 +49,9 @@ export const translation = {
   },
 
   footer: {
-    logout: 'Logout',
+    logout: 'Desconectarse',
     autoSave: {
-      saving: 'Saving...'
+      saving: 'Guardando ...'
     }
   },
 
