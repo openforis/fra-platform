@@ -51,7 +51,7 @@ export const translation = {
   footer: {
     logout: 'Se déconnecter',
     autoSave: {
-      saving: 'En train de enregistrer...'
+      saving: 'En train d\'enregistrer...'
     }
   },
 
