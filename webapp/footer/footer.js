@@ -47,7 +47,7 @@ const LanguageSelection = ({i18n, switchLanguage, ...props}) =>
     </div>
   </FooterSelectionControl>
 
-const supportedLangs = ['en', 'fr']
+const supportedLangs = ['en', 'fr', 'es']
 
 const Footer = ({status, userInfo, path, width, i18n, ...props}) => {
   const style = {width: `calc(100vw - ${width}px)`}
