@@ -120,25 +120,25 @@ export const translation = {
   },
 
   growingStock: {
-    growingStock: 'Growing stock'
+    growingStock: 'Existencias en formación'
   },
 
   biomassStock: {
-    biomassStock: 'Biomass stock'
+    biomassStock: 'Existencias en biomasa'
   },
 
   carbonStock: {
-    carbonStock: 'Carbon stock'
+    carbonStock: 'Existencias en carbono'
   },
 
   protectedAreas: {
-    protectedAreasLongTermMgmtPlans: 'Protected areas and long-term management plans'
+    protectedAreasLongTermMgmtPlans: 'Zonas protegidas y planes de gestión a largo plazo'
   },
 
   // five year cycle assessment components
 
   forestAreaChange: {
-    forestAreaLossGainChange: 'Forest area loss, gain and net change',
+    forestAreaLossGainChange: 'Pérdida, ganancia y variación neta de la superficie forestal',
     forestExpansion: 'Forest expansion (a)',
     ofWhichAfforestation: '...of which afforestation',
     ofWhichNaturalExpansion: '...of which natural expansion',
@@ -147,26 +147,26 @@ export const translation = {
   },
 
   forestCharacteristics: {
-    forestCharacteristics: 'Forest characteristics'
+    forestCharacteristics: 'Características de los bosques'
   },
 
   specificForestCategories: {
-    specificForestCategories: 'Specific forest categories',
+    specificForestCategories: 'Categorías forestales específicas',
     bamboo: 'Bamboo',
     mangroves: 'Mangroves',
     rubberPlantations: 'Rubber plantations'
   },
 
   growingStockComposition: {
-    growingStockComposition: 'Growing stock composition'
+    growingStockComposition: 'Composición de las existencias en formación'
   },
 
   nonWoodForestProducts: {
-    nonWoodForestProducts: 'Non wood forest products'
+    nonWoodForestProducts: 'Productos forestales no madereros '
   },
 
   primaryDesignatedManagementObjective: {
-    primaryDesignatedManagementObjective: 'Primary designated management objective',
+    primaryDesignatedManagementObjective: 'Objetivo de ordenación principal designado',
     production: 'Production',
     soilWaterProtection: 'Protection of soil and water',
     biodiversityConservation: 'Conservation of biodiversity',
@@ -178,33 +178,33 @@ export const translation = {
   },
 
   forestOwnershipManagementRights: {
-    forestOwnershipManagementRights: 'Forest ownership and management rights'
+    forestOwnershipManagementRights: 'Propiedad de los bosques y derechos de gestión'
   },
 
   disturbances: {
-    disturbances: 'Disturbances'
+    disturbances: 'Perturbaciones'
   },
 
   areaAffectedByFire: {
-    areaAffectedByFire: 'Area affected by fire',
-    totalLandAreaAffectedByFire: 'Total land area affected by fire',
-    ofWhichForest: '...of which on forest'
+    areaAffectedByFire: 'Área quemada',
+    totalLandAreaAffectedByFire: 'Área total de tierra quemada',
+    ofWhichForest: '... de la cual área de bosque quemado'
   },
 
   employment: {
-    employment: 'Employment'
+    employment: 'Empleo'
   },
 
   graduationOfStudents: {
-    graduationOfStudents: 'Graduation of students'
+    graduationOfStudents: 'Graduación de estudiantes'
   },
 
   policiesAndLegislation: {
-    policiesAndLegislation: 'Policies and legislation'
+    policiesAndLegislation: 'Políticas y legislación'
   },
 
   areaOfPermanentForestEstate: {
-    areaOfPermanentForestEstate: 'Area of permanent forest estate'
+    areaOfPermanentForestEstate: 'Área de zona forestal permanente'
   }
 
 }
