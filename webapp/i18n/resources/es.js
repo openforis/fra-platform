@@ -57,24 +57,24 @@ export const translation = {
 
   review: {
     comments: 'Comentarios',
-    noComments: 'No comments',
-    resolve: 'Resolve',
+    noComments: 'Nigun comentario',
+    resolve: 'Resolver',
     commentTime: {
-      hour: '{{count}} hour ago',
-      hour_plural: '{{count}} hours ago',
-      day: '{{count}} day ago',
-      day_plural: '{{count}} days ago',
-      week: '{{count}} week ago',
-      week_plural: '{{count}} weeks ago',
-      aMomentAgo: 'A moment ago'
+      hour: 'Hace {{count}} hora',
+      hour_plural: 'Hace {{count}} horas',
+      day: 'Hace {{count}} día',
+      day_plural: 'Hace {{count}} días',
+      week: 'Hace {{count}} semana',
+      week_plural: 'Hace {{count}} semanas',
+      aMomentAgo: 'Hace unos momentos'
     },
-    commentDeleted: 'Comment deleted',
-    commentMarkedAsResolved: 'Marked as resolved',
+    commentDeleted: 'Comentario borrado',
+    commentMarkedAsResolved: 'Marcado como resuelto',
     delete: 'Borrar',
-    writeComment: 'Write a comment…',
-    commentingClosed: 'Commenting closed',
-    add: 'Add',
-    cancel: 'Cancel'
+    writeComment: 'Escriba un comentario …',
+    commentingClosed: 'Comentarios cerrados',
+    add: 'Añadir',
+    cancel: 'Cancelar'
   },
 
   description: {
