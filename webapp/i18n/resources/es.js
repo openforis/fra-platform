@@ -9,8 +9,8 @@ export const translation = {
 
   user: {
     roles: {
-      reviewer: 'Reviewer',
-      nationalCorrespondent: 'National Correspondent',
+      reviewer: 'Revisor',
+      nationalCorrespondent: 'Corresponsal Nacional',
       noRole: 'N/A'
     }
   },
