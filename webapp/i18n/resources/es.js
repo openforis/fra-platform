@@ -16,9 +16,9 @@ export const translation = {
   },
 
   fraClass: {
-    forest: 'Forest',
-    otherWoodedLand: 'Other wooded land',
-    otherLand: 'Other land'
+    forest: 'Bosque',
+    otherWoodedLand: 'Otras tierras boscosas (OTB)',
+    otherLand: 'Otras tierras'
   },
 
   // components
@@ -56,7 +56,7 @@ export const translation = {
   },
 
   review: {
-    comments: 'Comments',
+    comments: 'Comentarios',
     noComments: 'No comments',
     resolve: 'Resolve',
     commentTime: {
@@ -70,7 +70,7 @@ export const translation = {
     },
     commentDeleted: 'Comment deleted',
     commentMarkedAsResolved: 'Marked as resolved',
-    delete: 'Delete',
+    delete: 'Borrar',
     writeComment: 'Write a comment…',
     commentingClosed: 'Commenting closed',
     add: 'Add',
@@ -82,25 +82,25 @@ export const translation = {
   },
 
   nationalDataPoint: {
-    nationalDataPoint: 'National data point',
-    addNationalDataPoint: 'Add national data point',
-    noNationalDataAdded: 'No national data added',
-    nationalData: 'National data',
-    year: 'Year',
-    methods: 'Methods',
-    edit: 'Edit',
-    copyPreviousValues: 'Copy previous values',
-    nationalClass: 'National class',
-    nationalClasses: 'National classes',
-    definition: 'Definition',
-    fraClasses: 'FRA classes',
-    class: 'Class',
-    area: 'Area',
+    nationalDataPoint: 'Punto de los datos nacionales',
+    addNationalDataPoint: 'Añadir un punto de los datos nacionales',
+    noNationalDataAdded: 'Nigun dato nacional añadido',
+    nationalData: 'Datos nacionales',
+    year: 'Año',
+    methods: 'Métodos',
+    edit: 'Editar',
+    copyPreviousValues: 'Copiar valores anteriores',
+    nationalClass: 'Clase nacional',
+    nationalClasses: 'Clases nacionales',
+    definition: 'Definicion',
+    fraClasses: 'Clases de FRA',
+    class: 'Clase',
+    area: 'Área',
     total: 'Total',
-    delete: 'Delete',
-    cancel: 'Cancel',
-    saveData: 'Save data',
-    enterOrCopyPasteNationalClasses: 'Enter or copy and paste national classes'
+    delete: 'Borrar',
+    cancel: 'Cancelar',
+    saveData: 'Guardar los datos',
+    enterOrCopyPasteNationalClasses: ' Entrar o copiar y pegar las clases nacionales'
   },
 
   // annually reported assessment components
