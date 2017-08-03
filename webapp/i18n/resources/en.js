@@ -43,7 +43,7 @@ export const translation = {
       editing: {
         label: '', //Currently we do not wish to show the default state at all
         next: 'Start over (to editing)',
-        previous: 'remove'
+        previous: 'Reject'
       }
     }
   },
