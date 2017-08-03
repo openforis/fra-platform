@@ -24,26 +24,26 @@ export const translation = {
   // components
 
   navigation: {
-    annuallyReported: 'Annually reported',
-    fiveYearCycle: 'Five-year Cycle',
+    annuallyReported: 'Informes anuales',
+    fiveYearCycle: 'Ciclos quinquenales',
     assessmentStatus: {
       changing: {
-        label: 'Changing...'
+        label: 'Cambiando...'
       },
       review: {
-        label: 'In Review',
-        next: 'Send to review',
-        previous: 'Back to review'
+        label: 'En revisión',
+        next: 'Enviar en revisión',
+        previous: 'Retroceder en revisión'
       },
       accepted: {
-        label: 'Accepted',
-        next: 'Accept',
+        label: 'Aceptado',
+        next: 'Aceptar',
         previous: ''
       },
       editing: {
         label: '', //Currently we do not wish to show the default state at all
-        next: 'Start over (to editing)',
-        previous: 'remove'
+        next: 'Empezar nuevamente (para editar)',
+        previous: 'eliminar'
       }
     }
   },
