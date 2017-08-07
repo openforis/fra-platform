@@ -104,7 +104,7 @@ class CommentThread extends React.Component {
                 <div key={i} className="fra-review__comment">
                   <div className="fra-review__comment-header">
                     <div>
-                      <img className="fra-review__avatar" src={`https://www.gravatar.com/avatar/${c.hash}?d=mm`}/>
+                      <img className="fra-review__avatar" src={`https://www.gravatar.com/avatar/${c.hash}?default=mm`}/>
                     </div>
                     <div className="fra-review__comment-author-section">
                       <div
