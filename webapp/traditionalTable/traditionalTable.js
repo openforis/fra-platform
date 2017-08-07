@@ -26,7 +26,7 @@ class ReviewWrapper extends React.Component {
     const top = this.refs.rowAnchor && this.props.tableTop
       ? this.refs.rowAnchor.getBoundingClientRect().top - this.props.tableTop
       : 0
-    return <td ref="rowAnchor">
+    return <td ref="rowAnchor" className="fra-table__row-anchor-cell">
       <div className="traditional-table__review-indicator-row-anchor" style={{top: top}}>
         <ReviewIndicator section={this.props.tableSpec.name}
                          name=""
