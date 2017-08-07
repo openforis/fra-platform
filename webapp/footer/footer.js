@@ -17,7 +17,7 @@ class FooterSelectionControl extends React.Component {
       className="footer__user-control"
       onClick={ evt => this.setState({opened: !this.state.opened}) }>
       {this.props.label + ' '}
-      <svg className="icon footer__user-control-caret">
+      <svg className="icon icon-sub">
         <use xlinkHref={`img/icon.svg#icon-small-${iconRefSuffix}`}/>
       </svg>
       {
@@ -29,14 +29,16 @@ class FooterSelectionControl extends React.Component {
 
 const UserInfo = props =>
   <FooterSelectionControl label={props.userName} {...props}>
-    <div onClick={() => props.logout()} className="footer__user-control-opened">
-      Logout
+    <div className="footer__selection-control-opened">
+      <div onClick={() => props.logout()} className="footer__selection-control-item">
+        Logout
+      </div>
     </div>
   </FooterSelectionControl>
 
 const LanguageSelection = props =>
   <FooterSelectionControl label={props.currentLanguage} {...props}>
-    <div className="footer__language-control-opened">
+    <div className="footer__selection-control-opened">
       {
         R.map(
           lang => <div key={lang} className="footer__selection-control-item" onClick={() => props.switchLanguage(lang)}>
@@ -57,7 +59,9 @@ const Footer = ({status, userInfo, path, width, i18n, ...props}) => {
   return <div className="footer__container" style={style}>
     {/* Placeholder for space-between flexbox alignment */}
     <div/>
-    <div className="footer__item footer__autosave-status">{status}</div>
+    <div className="footer__item">
+      <span className="footer__autosave-status">{status}</span>
+    </div>
     <div>
       <div className="footer__item">
         <LanguageSelection currentLanguage={i18n.t(`language.${i18n.language}`)} i18n={i18n} {...props}/>
