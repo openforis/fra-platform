@@ -2,7 +2,7 @@ import * as R from 'ramda'
 import React from 'react'
 import { connect } from 'react-redux'
 import Route from 'route-parser'
-import I18n from 'i18n-iso-countries'
+import { alpha3ToAlpha2, getName as getCountryName } from 'i18n-iso-countries'
 
 import { Link } from './../link'
 import { follow } from './../router/actions'
@@ -24,9 +24,11 @@ class CountrySelectionItem extends React.Component {
     const name = this.props.name
     const role = this.props.role
     const countries = this.props.countries || []
+    const i18n = this.props.i18n
     const style = {
-      backgroundImage: `url('/img/flags/${(I18n.alpha3ToAlpha2(name) || '').toLowerCase()}.svg'`
+      backgroundImage: `url('/img/flags/${(alpha3ToAlpha2(name) || '').toLowerCase()}.svg'`
     }
+
     return <div className="nav__country-item" onClick={() => {
       this.setState({isOpen: R.not(this.state.isOpen)})
       if (R.isEmpty(countries)) {
@@ -35,117 +37,86 @@ class CountrySelectionItem extends React.Component {
     }}>
       <div className="nav__country-flag" style={style}></div>
       <div className="nav__country-info">
-        <span className="nav__country-name">{I18n.getName(name, 'en')}</span>
+        <span className="nav__country-name">{getCountryName(name, i18n.language)}</span>
         <span className="nav__country-role">{role}</span>
       </div>
       <svg className="icon">
         <use xlinkHref="img/icon.svg#icon-small-down"/>
       </svg>
-      <CountryList isOpen={this.state.isOpen} countries={countries} currentCountry={name}/>
+      <CountryList isOpen={this.state.isOpen} countries={countries} currentCountry={name} i18n={i18n}/>
     </div>
   }
 }
 
-const CountryRow = ({selectedCountry, country}) =>
-  <Link
-    to={`/country/${country.countryIso}`}
-    className={`nav__country-list-item ${R.equals(selectedCountry, country.countryIso) ? 'selected' : ''}`}>
-    <div className="nav__country-list-item-name">
-      {country.name}
-    </div>
-    {
-      // Editing is not shown at all, let's not take space from the narrow dropdown in that case
-      country.assessmentStatus !== 'editing'
-        ? <span
-          className="nav__country-list-item-assessment-status">{assessmentStatusLabels[country.assessmentStatus]}</span>
-        : null
-    }
-
-  </Link>
-
-const CountryList = ({isOpen, countries, currentCountry}) => {
+const CountryList = ({isOpen, countries, currentCountry, i18n}) => {
   if (!isOpen) return <noscript/>
   return <div className="nav__country-list">
     <div className="nav__country-list-content">
       {
-        countries.map(c => <CountryRow key={c.countryIso} selectedCountry={currentCountry} country={c}/>)
+        countries.map(c => <CountryRow key={c.countryIso} selectedCountry={currentCountry} country={c} i18n={i18n}/>)
       }
     </div>
   </div>
 }
 
-const assessmentStatusLabels = {
-  'review': 'In Review',
-  'accepted': 'Accepted',
-  'editing': null //Currently we do not wish to show the default state at all
-}
-
-const changeAssessmentStatusLabel = (currentStatus, targetStatus, direction) => {
-  const changeAssessmentStatusLabels =
+const CountryRow = ({selectedCountry, country, i18n}) =>
+  <Link
+    to={`/country/${country.countryIso}`}
+    className={`nav__country-list-item ${R.equals(selectedCountry, country.countryIso) ? 'selected' : ''}`}>
+    <div className="nav__country-list-item-name">
+      {getCountryName(country.countryIso, i18n.language)}
+    </div>
     {
-      'review-next': 'Send to review',
-      'accepted-next': 'Accept',
-      'editing-next': 'Start over (to editing)',
-      'review-previous': 'Back to review',
-      'accepted-previous': null,
-      'editing-previous': 'remove'
+      // Editing is not shown at all, let's not take space from the narrow dropdown in that case
+      country.assessmentStatus !== 'editing'
+        ? <span
+          className="nav__country-list-item-assessment-status">{i18n.t(`navigation.assessmentStatus.${country.assessmentStatus}.label`)}</span>
+        : null
     }
-  if (currentStatus === 'changing') return 'Changing...'
-  return changeAssessmentStatusLabels[`${targetStatus}-${direction}`]
+
+  </Link>
+
+const changeStateLink = (countryIso, assessmentType, currentStatus, targetStatus, changeAssessmentStatus, direction, i18n) => {
+
+  const label = currentStatus === 'changing'
+    ? i18n.t('navigation.assessmentStatus.changing.label')
+    : i18n.t(`navigation.assessmentStatus.${targetStatus}.${direction}`)
+
+  return <a className={targetStatus ? 'nav__primary-assessment-action' : 'nav__primary-assessment-action--disabled'}
+            href="#"
+            onClick={(evt) => {
+              evt.preventDefault()
+              if (targetStatus) changeAssessmentStatus(countryIso, assessmentType, targetStatus)
+            }}>{label}</a>
 }
 
-const changeStateLink = (countryIso,
-                         assessmentType,
-                         currentStatus,
-                         targetStatus,
-                         changeAssessmentStatus,
-                         direction) =>
-  <a className={targetStatus ? 'nav__primary-assessment-action' : 'nav__primary-assessment-action--disabled'}
-     href="#"
-     onClick={(evt) => {
-       evt.preventDefault()
-       if (targetStatus) changeAssessmentStatus(countryIso, assessmentType, targetStatus)
-     }}>
-    {changeAssessmentStatusLabel(currentStatus, targetStatus, direction)}
-  </a>
+const PrimaryItem = ({label, countryIso, assessmentType, assessmentStatuses, changeAssessmentStatus, userInfo, i18n}) => {
+  if (!countryIso || !userInfo)
+    return <noscript/>
 
-const PrimaryItem = ({label, countryIso, assessmentType, assessmentStatuses, changeAssessmentStatus, userInfo}) => {
-  if (!countryIso || !userInfo) return <noscript/>
   const currentAssessmentStatus = R.path([assessmentType], assessmentStatuses)
-  const currentAssessmentStatusLabel = assessmentStatusLabels[currentAssessmentStatus]
   const allowedTransitions = getAllowedStatusTransitions(mostPowerfulRole(countryIso, userInfo), currentAssessmentStatus)
   const nextAssessmentStatus = allowedTransitions.next
   const previousAssessmentStatus = allowedTransitions.previous
+
   return <div className="nav__primary-item">
     <span className="nav__primary-label">{label}</span>
     {
-      currentAssessmentStatusLabel
-        ? <span className="nav__assessment-status">{currentAssessmentStatusLabel}</span>
+      currentAssessmentStatus
+        ? <span className="nav__assessment-status">{i18n.t(`navigation.assessmentStatus.${currentAssessmentStatus}.label`)}</span>
         : null
     }
     {
       previousAssessmentStatus
         ? <span className="nav__to-previous-assessment-status">(
           {
-            changeStateLink(
-              countryIso,
-              assessmentType,
-              currentAssessmentStatus,
-              previousAssessmentStatus,
-              changeAssessmentStatus,
-              'previous')
+            changeStateLink(countryIso, assessmentType, currentAssessmentStatus, previousAssessmentStatus, changeAssessmentStatus, 'previous', i18n)
           }
           )</span>
         : null
     }
     {
-      changeStateLink(
-        countryIso,
-        assessmentType,
-        currentAssessmentStatus,
-        nextAssessmentStatus,
-        changeAssessmentStatus,
-        'next')
+      changeStateLink(countryIso, assessmentType, currentAssessmentStatus, nextAssessmentStatus, changeAssessmentStatus, 'next', i18n)
     }
   </div>
 }
@@ -195,7 +166,7 @@ const SecondaryItem = ({path, countryIso, order, pathTemplate = '/tbd', label, s
   </Link>
 }
 
-const roleLabel = (countryIso, userInfo) => mostPowerfulRole(countryIso, userInfo).label
+const roleLabel = (countryIso, userInfo, i18n) => i18n.t(mostPowerfulRole(countryIso, userInfo).labelKey)
 
 const Nav = ({
                path,
@@ -205,7 +176,8 @@ const Nav = ({
                getCountryList,
                changeAssessmentStatus,
                status = {},
-               userInfo
+               userInfo,
+               i18n
              }) => {
 
   const getReviewStatus = section => R.pipe(
@@ -216,40 +188,45 @@ const Nav = ({
 
   return <div className="main__nav-wrapper">
     <div className="main__nav">
-      <CountrySelectionItem name={country} countries={countries} listCountries={getCountryList}
-                            role={roleLabel(country, userInfo)}/>
+      <CountrySelectionItem name={country}
+                            countries={countries}
+                            listCountries={getCountryList}
+                            role={roleLabel(country, userInfo, i18n)}
+                            i18n={i18n}/>
       <div className="nav__link-list">
-        <NationalDataItem label="National Data"
+        <NationalDataItem label={i18n.t('nationalDataPoint.nationalData')}
                           countryIso={country}
                           status={R.merge(getReviewStatus('NDP'), status.odpStatus)}
                           path={path}
                           pathTemplate="/country/:countryIso/odps"
                           userInfo={userInfo}/>
-        <PrimaryItem label="Annually reported"
+        <PrimaryItem label={i18n.t('navigation.annuallyReported')}
                      countryIso={country}
                      assessmentType="annuallyReported"
                      assessmentStatuses={status.assessmentStatuses}
                      changeAssessmentStatus={changeAssessmentStatus}
-                     userInfo={userInfo}/>
+                     userInfo={userInfo}
+                     i18n={i18n}/>
         {
-          annualItems.map(v => <SecondaryItem path={path} key={v.label} goTo={follow}
-                                              countryIso={country}
-                                              status={getReviewStatus(v.section)}
-                                              userInfo={userInfo}
-                                              {...v} />)
+          annualItems(i18n).map(v => <SecondaryItem path={path} key={v.label} goTo={follow}
+                                                    countryIso={country}
+                                                    status={getReviewStatus(v.section)}
+                                                    userInfo={userInfo}
+                                                    {...v} />)
         }
-        <PrimaryItem label="Five-year Cycle"
+        <PrimaryItem label={i18n.t('navigation.fiveYearCycle')}
                      countryIso={country}
                      assessmentType="fiveYearCycle"
                      assessmentStatuses={status.assessmentStatuses}
                      changeAssessmentStatus={changeAssessmentStatus}
-                     userInfo={userInfo}/>
+                     userInfo={userInfo}
+                     i18n={i18n}/>
         {
-          fiveYearItems.map(v => <SecondaryItem path={path} key={v.label} goTo={follow}
-                                                countryIso={country}
-                                                status={getReviewStatus(v.section)}
-                                                userInfo={userInfo}
-                                                {...v} />)
+          fiveYearItems(i18n).map(v => <SecondaryItem path={path} key={v.label} goTo={follow}
+                                                      countryIso={country}
+                                                      status={getReviewStatus(v.section)}
+                                                      userInfo={userInfo}
+                                                      {...v} />)
         }
       </div>
     </div>

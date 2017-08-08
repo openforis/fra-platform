@@ -10,7 +10,7 @@ module.exports.init = app => {
         repository.changeAssessmentStatus,
         [
           req.params.countryIso,
-          req.session.passport.user,
+          req.user,
           req.query.assessmentType,
           req.query.status
         ]

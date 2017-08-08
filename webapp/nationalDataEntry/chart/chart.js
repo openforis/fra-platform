@@ -15,19 +15,20 @@ class Chart extends Component {
   shouldComponentUpdate (nextProps) {
     const isDataEqual = R.equals(this.props.data, nextProps.data)
     const isWidthTheSame = this.props.wrapperWidth === nextProps.wrapperWidth
-    return !isDataEqual || !isWidthTheSame
+    const languageChanged = this.props.i18n ? this.props.i18n.language !== nextProps.i18n.language : false
+    return !isDataEqual || !isWidthTheSame || languageChanged
   }
 
   render () {
     return <div ref="chartContainer">
-      { this.props.data ? <svg width={this.props.wrapperWidth} height={styles.height}>
-        <YAxis {...this.props} {...styles} />
-        <XAxis {...this.props} {...styles} />
-        <DataCircles {...this.props} data={this.props.data.forestArea} {...styles} />
-        <DataCircles {...this.props} data={this.props.data.otherWoodedLand} {...styles} />
-        <NoDataPlaceholder {...this.props} {...styles} />
-      </svg>
-        : null }
+      {this.props.data ? <svg width={this.props.wrapperWidth} height={styles.height}>
+          <YAxis {...this.props} {...styles} />
+          <XAxis {...this.props} {...styles} />
+          <DataCircles {...this.props} data={this.props.data.forestArea} {...styles} />
+          <DataCircles {...this.props} data={this.props.data.otherWoodedLand} {...styles} />
+          <NoDataPlaceholder {...this.props} {...styles} />
+        </svg>
+        : null}
     </div>
   }
 }
@@ -45,7 +46,7 @@ const mapStateToProps = (state, props) => {
     const xScale = getXScale(props)
     const yScale = getYScale(data)
 
-    return {data, xScale, yScale}
+    return {data, xScale, yScale, i18n: state.user.i18n}
   }
   return {}
 }

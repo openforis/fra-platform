@@ -19,6 +19,10 @@ export const getLoggedinUserInfo = () => dispatch => {
 }
 
 export const switchLanguage = lang => dispatch => {
+  axios
+    .post(`/api/user/lang?lang=${lang}`)
+    .catch(err => dispatch(applicationError(err)))
+
   createI18nInstance(
     lang,
     i18n => dispatch({type: switchLanguageAction, i18n})

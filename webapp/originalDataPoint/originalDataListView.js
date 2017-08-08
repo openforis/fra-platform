@@ -7,14 +7,14 @@ import { fetchOdps } from './actions'
 import { Link } from './../link'
 import LoggedInPageTemplate from '../loggedInPageTemplate'
 
-const ODPListing = ({countryIso, odps = []}) => <div className="odp-list__container">
-  <h2>National data</h2>
+const ODPListing = ({countryIso, odps = [], i18n}) => <div className="odp-list__container">
+  <h2>{i18n.t('nationalDataPoint.nationalData')}</h2>
   <table className="odp-list__list-table">
     <thead>
     <tr className='odp-list__list-row'>
-      <th>Year</th>
+      <th>{i18n.t('nationalDataPoint.year')}</th>
       <th>{/* notification icons */}</th>
-      <th>Methods</th>
+      <th>{i18n.t('nationalDataPoint.methods')}</th>
       <th></th>
     </tr>
     </thead>
@@ -33,10 +33,12 @@ const ODPListing = ({countryIso, odps = []}) => <div className="odp-list__contai
       </td>
       <td>-</td>
       <td className='odp-list__edit-column'>
-        <Link className="link" to={`/country/${countryIso}/odp/${odp.odpId}`}>Edit</Link>
+        <Link className="link" to={`/country/${countryIso}/odp/${odp.odpId}`}>
+          {i18n.t('nationalDataPoint.edit')}
+        </Link>
       </td>
     </tr>) : <tr className="odp-list__list-row">
-      <td className="odp_list__empty-column" colSpan="4">No national data added</td>
+      <td className="odp_list__empty-column" colSpan="4">{i18n.t('nationalDataPoint.noNationalDataAdded')}</td>
     </tr>}
     </tbody>
   </table>
@@ -44,7 +46,7 @@ const ODPListing = ({countryIso, odps = []}) => <div className="odp-list__contai
     <svg className="icon icon-middle icon-white">
       <use xlinkHref="img/icon.svg#icon-small-add"/>
     </svg>
-    Add national data point
+    {i18n.t('nationalDataPoint.addNationalDataPoint')}
   </Link>
 </div>
 
@@ -69,8 +71,6 @@ class DataFetchingComponent extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  return state.originalDataPoint
-}
+const mapStateToProps = state => ({...state.originalDataPoint, i18n: state.user.i18n})
 
 export default connect(mapStateToProps, {fetchOdps})(DataFetchingComponent)

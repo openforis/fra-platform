@@ -15,8 +15,7 @@ const simplifyAssessmentStatuses = statuses =>
 module.exports.init = app => {
 
   app.get('/country/all', (req, res) => {
-    const user = req.session.passport.user
-    countryRepository.getAllowedCountries(user.roles).then(result => {
+    countryRepository.getAllowedCountries(req.user.roles).then(result => {
       res.json(result)
     }).catch(err => sendErr(res, err))
   })

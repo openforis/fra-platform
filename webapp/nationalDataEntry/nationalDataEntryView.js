@@ -46,9 +46,9 @@ class DataTable extends React.Component {
         <tbody>
         { fraValueRow(i18n.t('extentOfForest.forestArea'), 'forest', this.props.countryIso, 'forestArea',
           this.props.fra, this.props.save, this.props.saveMany, 0, this.props.openCommentThread) }
-        { fraValueRow(i18n.t('extentOfForest.otherWoodedLand'), 'otherWoodedLand', this.props.countryIso, 'otherWoodedLand',
+        { fraValueRow(i18n.t('fraClass.otherWoodedLand'), 'otherWoodedLand', this.props.countryIso, 'otherWoodedLand',
           this.props.fra, this.props.save, this.props.saveMany, 1, this.props.openCommentThread) }
-        { fraValueRow(i18n.t('extentOfForest.otherLand'), 'otherLand', this.props.countryIso, 'otherLand',
+        { fraValueRow(i18n.t('fraClass.otherLand'), 'otherLand', this.props.countryIso, 'otherLand',
           this.props.fra, this.props.save, this.props.saveMany, 2, this.props.openCommentThread) }
           </tbody>
       </table>
@@ -59,11 +59,11 @@ class DataTable extends React.Component {
                     countryIso={this.props.countryIso}
                     section='EOF'/>
         <ReviewIndicator section='EOF'
-                    name={i18n.t('extentOfForest.otherWoodedLand')}
+                    name={i18n.t('fraClass.otherWoodedLand')}
                     target={['otherWoodedLand']}
                     countryIso={this.props.countryIso}/>
         <ReviewIndicator section='EOF'
-                    name={i18n.t('extentOfForest.otherLand')}
+                    name={i18n.t('fraClass.otherLand')}
                     target={['otherLand']}
                     countryIso={this.props.countryIso}/>
       </div>
@@ -185,7 +185,8 @@ const NationalDataEntry = (props) => {
       <div className="nde__data-table-header">
         <h3 className="subhead">{i18n.t('extentOfForest.extentOfForestValues')}</h3>
         <button disabled={ disableGenerateFRAValues() } className="btn btn-primary"
-                onClick={() => props.generateFraValues(props.countryIso)}>Generate FRA values
+                onClick={() => props.generateFraValues(props.countryIso)}>
+          {i18n.t('extentOfForest.generateFraValues')}
         </button>
       </div>
     </div>

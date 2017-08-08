@@ -26,9 +26,9 @@ import ReviewIndicator from '../review/reviewIndicator'
 
 const years = ['', ...R.range(1990, 2021)]
 
-const isCommentsOpen =  (target, openThread = {}) => R.equals('NDP', openThread.section) && R.isEmpty(R.difference(openThread.target, target))
+const isCommentsOpen = (target, openThread = {}) => R.equals('NDP', openThread.section) && R.isEmpty(R.difference(openThread.target, target))
 
-const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, cancelDraft, copyPreviousNationalClasses, copyDisabled, openThread}) => {
+const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, cancelDraft, copyPreviousNationalClasses, copyDisabled, openThread, i18n}) => {
   const countryIso = match.params.countryIso
   const saveControlsDisabled = () => !active.odpId || autoSaving
   const copyPreviousClassesDisabled = () => active.year && !autoSaving ? false : true
@@ -38,12 +38,12 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
   return <div className="odp__data-input-component odp_validate-form">
     <div className="odp_data-input-row">
       <div className={`${yearValidationStatusClass()}`}>
-        <h3 className="subhead">Year</h3>
+        <h3 className="subhead">{i18n.t('nationalDataPoint.year')}</h3>
         <select
           className="select validation-error-sensitive-field"
           value={active.year || ''}
           onChange={
-            (e) => saveDraft(countryIso, R.assoc('year', R.isEmpty(e.target.value) ? null : Number(e.target.value), active)) }>
+            (e) => saveDraft(countryIso, R.assoc('year', R.isEmpty(e.target.value) ? null : Number(e.target.value), active))}>
           {
             years.map(
               year =>
@@ -58,88 +58,91 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
     </div>
     <div>
       <h3 className="subhead odp__section">
-        National classes
+        {i18n.t('nationalDataPoint.nationalClasses')}
         <button disabled={copyDisabled || copyPreviousClassesDisabled()}
                 className="btn btn-primary btn-copy-prev-values"
                 onClick={() => copyPreviousNationalClasses(countryIso, active)}>
-          Copy previous values
+          {i18n.t('nationalDataPoint.copyPreviousValues')}
         </button>
       </h3>
       <table className="odp__input-table odp__national-class-table">
         <thead>
         <tr>
-          <th className="odp__national-class-table-national-class-column">National class</th>
-          <th>Definition</th>
+          <th
+            className="odp__national-class-table-national-class-column">{i18n.t('nationalDataPoint.nationalClass')}</th>
+          <th>{i18n.t('nationalDataPoint.definition')}</th>
         </tr>
         </thead>
         <tbody>
         {
-          nationalClassRows(countryIso, active, saveDraft, openThread)
+          nationalClassRows(countryIso, active, saveDraft, openThread, i18n)
         }
         </tbody>
       </table>
     </div>
     <div>
-      <h3 className="subhead odp__section">Extent of forest</h3>
+      <h3 className="subhead odp__section">{i18n.t('extentOfForest.extentOfForest')}</h3>
       <table className="odp__input-table odp__eof-table">
         <thead>
         <tr>
-          <th className="odp__eof-header-left odp__eof-divide-after-cell" colSpan="2">National classes</th>
-          <th className="odp__eof-header-left" colSpan="3">FRA classes</th>
+          <th className="odp__eof-header-left odp__eof-divide-after-cell"
+              colSpan="2">{i18n.t('nationalDataPoint.nationalClasses')}</th>
+          <th className="odp__eof-header-left" colSpan="3">{i18n.t('nationalDataPoint.fraClasses')}</th>
         </tr>
         <tr>
-          <th className="odp__eof-header-left">Class</th>
-          <th className="odp__eof-divide-after-cell odp__eof-header-right">Area</th>
-          <th className="odp__eof-header-right">Forest</th>
-          <th className="odp__eof-header-right">Other wooded land</th>
-          <th className="odp__eof-header-right">Other land</th>
+          <th className="odp__eof-header-left">{i18n.t('nationalDataPoint.class')}</th>
+          <th className="odp__eof-divide-after-cell odp__eof-header-right">{i18n.t('nationalDataPoint.area')}</th>
+          <th className="odp__eof-header-right">{i18n.t('fraClass.forest')}</th>
+          <th className="odp__eof-header-right">{i18n.t('fraClass.otherWoodedLand')}</th>
+          <th className="odp__eof-header-right">{i18n.t('fraClass.otherLand')}</th>
         </tr>
         </thead>
         <tbody>
         {
-          extentOfForestRows(countryIso, active, saveDraft, openThread)
+          extentOfForestRows(countryIso, active, saveDraft, openThread, i18n)
         }
         <tr>
-          <td className="fra-table__header-cell">Total</td>
+          <td className="fra-table__header-cell">{i18n.t('nationalDataPoint.total')}</td>
           <td className="odp__national-class-total-cell odp__eof-divide-after-cell"></td>
           <td
-            className="odp__national-class-total-cell">{ separateThousandsWithSpaces(Number(originalDataPoint.totalForest(active, 'forestPercent'))) }</td>
+            className="odp__national-class-total-cell">{separateThousandsWithSpaces(Number(originalDataPoint.totalForest(active, 'forestPercent')))}</td>
           <td
-            className="odp__national-class-total-cell">{ separateThousandsWithSpaces(Number(originalDataPoint.totalForest(active, 'otherWoodedLandPercent'))) }</td>
+            className="odp__national-class-total-cell">{separateThousandsWithSpaces(Number(originalDataPoint.totalForest(active, 'otherWoodedLandPercent')))}</td>
           <td
-            className="odp__national-class-total-cell">{ separateThousandsWithSpaces(Number(originalDataPoint.totalForest(active, 'otherLandPercent'))) }</td>
+            className="odp__national-class-total-cell">{separateThousandsWithSpaces(Number(originalDataPoint.totalForest(active, 'otherLandPercent')))}</td>
         </tr>
         </tbody>
       </table>
     </div>
 
-    <h3 className="subhead odp__section">Comments</h3>
-    <div className={`odp__cke_wrapper ${isCommentsOpen([`${active.odpId}`, 'comments'], openThread) ? 'fra-row-comments__open' : '' }`}>
-    <div className="cke_wrapper">
-      <CommentsEditor active={active} match={match} saveDraft={saveDraft}/>
-    </div>
-      { active.odpId
+    <h3 className="subhead odp__section">{i18n.t('review.comments')}</h3>
+    <div
+      className={`odp__cke_wrapper ${isCommentsOpen([`${active.odpId}`, 'comments'], openThread) ? 'fra-row-comments__open' : '' }`}>
+      <div className="cke_wrapper">
+        <CommentsEditor active={active} match={match} saveDraft={saveDraft}/>
+      </div>
+      {active.odpId
         ? <ReviewIndicator section='NDP'
-                           name="National data point"
+                           name={i18n.t('nationalDataPoint.nationalDataPoint')}
                            target={[`${active.odpId}`, 'comments']}
                            countryIso={countryIso}/>
         : null}
     </div>
 
     <div className="odp__bottom-buttons">
-      <span className={ saveControlsDisabled() ? 'btn btn-destructive disabled' : 'btn btn-destructive' }
-            onClick={ () => saveControlsDisabled() ? null : remove(countryIso, active.odpId) }>
-         Delete
+      <span className={saveControlsDisabled() ? 'btn btn-destructive disabled' : 'btn btn-destructive'}
+            onClick={() => saveControlsDisabled() ? null : remove(countryIso, active.odpId)}>
+         {i18n.t('nationalDataPoint.delete')}
       </span>
       <div>
         <a className="btn btn-secondary odp__cancel-button"
            onClick={() => cancelDraft(countryIso, active.odpId)}>
-          Cancel
+          {i18n.t('nationalDataPoint.cancel')}
         </a>
-        <button disabled={ saveControlsDisabled() }
+        <button disabled={saveControlsDisabled()}
                 className="btn btn-primary"
-                onClick={() => markAsActual(countryIso, active) }>
-          Save data
+                onClick={() => markAsActual(countryIso, active)}>
+          {i18n.t('nationalDataPoint.saveData')}
         </button>
       </div>
     </div>
@@ -153,10 +156,10 @@ const updatePastedValues = (odp, rowIndex, saveDraft, countryIso, dataCols, colI
     odp = originalDataPoint.updateNationalClass(odp, rowNo, dataCols[colNo], value)
   }
   const rowCount = R.filter(v => !v.placeHolder, odp.nationalClasses).length
-  const pastedData  = allowGrow ? readPasteClipboard(evt, type) : R.take(rowCount - rowIndex, readPasteClipboard(evt, type))
+  const pastedData = allowGrow ? readPasteClipboard(evt, type) : R.take(rowCount - rowIndex, readPasteClipboard(evt, type))
 
   mapIndexed((r, i) => {
-    const row = rowIndex+ i
+    const row = rowIndex + i
     mapIndexed((c, j) => {
       const col = colIndex + j
       updateOdp(row, col, c)
@@ -170,7 +173,7 @@ const getValidationStatusRow = (odp, index) => odp.validationStatus
   : {}
 
 const nationalClassCols = ['className', 'definition']
-const nationalClassRows = (countryIso, odp, saveDraft, openThread) => {
+const nationalClassRows = (countryIso, odp, saveDraft, openThread, i18n) => {
   return mapIndexed((nationalClass, index) => <NationalClassRow
     key={index}
     index={index}
@@ -178,15 +181,17 @@ const nationalClassRows = (countryIso, odp, saveDraft, openThread) => {
     saveDraft={saveDraft}
     countryIso={countryIso}
     openThread={openThread}
+    i18n={i18n}
     {...nationalClass}/>, odp.nationalClasses)
 }
 
-const NationalClassRow = ({odp, index, saveDraft, countryIso, className, definition, placeHolder, openThread}) =>
-    <tr className={`${isCommentsOpen([odp.nationalClasses[index].uuid, 'class_definition'], openThread) ? 'fra-row-comments__open' : ''}`}>
+const NationalClassRow = ({odp, index, saveDraft, countryIso, className, definition, placeHolder, openThread, i18n}) =>
+  <tr
+    className={`${isCommentsOpen([odp.nationalClasses[index].uuid, 'class_definition'], openThread) ? 'fra-row-comments__open' : ''}`}>
     <td
       className={getValidationStatusRow(odp, index).validClassName === false ? 'error' : ''}>
       <div className="odp__national-class-remove-anchor">
-        { placeHolder
+        {placeHolder
           ? null //placeHolder-rows can't be removed
           : <div
             className="odp__national-class-remove"
@@ -198,20 +203,20 @@ const NationalClassRow = ({odp, index, saveDraft, countryIso, className, definit
         }
         <input className="odp__national-class-row-class-name-input validation-error-sensitive-field"
                type="text"
-               placeholder={ placeHolder && index === 0 ? 'Enter or copy and paste national classes' : ''}
+               placeholder={placeHolder && index === 0 ? i18n.t('nationalDataPoint.enterOrCopyPasteNationalClasses') : ''}
                value={className || ''}
                onChange={(evt) =>
                  saveDraft(countryIso, originalDataPoint.updateNationalClass(odp, index, 'className', evt.target.value))}
-               onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, nationalClassCols, 0, 'text', true )}
+               onPaste={updatePastedValues(odp, index, saveDraft, countryIso, nationalClassCols, 0, 'text', true)}
         />
       </div>
     </td>
     <td>
       <VerticallyGrowingTextField
-          value={definition || '' }
-          onChange={(evt) =>
-            saveDraft(countryIso, originalDataPoint.updateNationalClass(odp, index, 'definition', evt.target.value))}
-          onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, nationalClassCols, 1, 'text', true) }
+        value={definition || ''}
+        onChange={(evt) =>
+          saveDraft(countryIso, originalDataPoint.updateNationalClass(odp, index, 'definition', evt.target.value))}
+        onPaste={updatePastedValues(odp, index, saveDraft, countryIso, nationalClassCols, 1, 'text', true)}
       />
 
     </td>
@@ -219,7 +224,7 @@ const NationalClassRow = ({odp, index, saveDraft, countryIso, className, definit
       {placeHolder || !odp.odpId
         ? null
         : <ReviewIndicator section='NDP'
-                           name="National data point"
+                           name={i18n.t('nationalDataPoint.nationalDataPoint')}
                            target={[odp.odpId, 'class_definition', `${odp.nationalClasses[index].uuid}`]}
                            countryIso={countryIso}/>
       }
@@ -227,7 +232,7 @@ const NationalClassRow = ({odp, index, saveDraft, countryIso, className, definit
   </tr>
 
 const extentOfForestCols = ['area', 'forestPercent', 'otherWoodedLandPercent', 'otherLandPercent']
-const extentOfForestRows = (countryIso, odp, saveDraft, openThread) =>
+const extentOfForestRows = (countryIso, odp, saveDraft, openThread, i18n) =>
   R.pipe(
     R.filter(nationalClass => !nationalClass.placeHolder),
     mapIndexed((nationalClass, index) => <ExtentOfForestRow
@@ -237,6 +242,7 @@ const extentOfForestRows = (countryIso, odp, saveDraft, openThread) =>
       saveDraft={saveDraft}
       countryIso={countryIso}
       openThread={openThread}
+      i18n={i18n}
       {...nationalClass}/>)
   )(odp.nationalClasses)
 
@@ -251,6 +257,7 @@ const ExtentOfForestRow = ({
                              otherWoodedLandPercent,
                              otherLandPercent,
                              openThread,
+                             i18n,
                              ...props
                            }) => {
 
@@ -260,42 +267,43 @@ const ExtentOfForestRow = ({
   const validationStatus = getValidationStatusRow(odp, index)
   const validationStatusPercentage = () => validationStatus.validPercentage === false ? 'error' : ''
 
-  return <tr className={isCommentsOpen([odp.nationalClasses[index].uuid, 'ndp_class_value'], openThread) ? 'fra-row-comments__open' : ''}>
+  return <tr
+    className={isCommentsOpen([odp.nationalClasses[index].uuid, 'ndp_class_value'], openThread) ? 'fra-row-comments__open' : ''}>
     <td className="odp__eof-class-name"><span>{className}</span></td>
     <td
       className={`odp__eof-area-cell odp__eof-divide-after-cell ${validationStatus.validArea === false ? 'error' : ''}`}>
-      <ThousandSeparatedIntegerInput integerValue={ area }
-                                     onChange={ numberUpdated('area', area) }
-                                     onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 0, 'integer') }/>
+      <ThousandSeparatedIntegerInput integerValue={area}
+                                     onChange={numberUpdated('area', area)}
+                                     onPaste={updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 0, 'integer')}/>
     </td>
     <td className={`${validationStatusPercentage()}`}>
       <PercentInput
         value={forestPercent || ''}
-        onChange={ numberUpdated('forestPercent', forestPercent) }
-        onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 1, 'integer') }
+        onChange={numberUpdated('forestPercent', forestPercent)}
+        onPaste={updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 1, 'integer')}
       />
     </td>
     <td className={`${validationStatusPercentage()}`}>
       <PercentInput
         value={otherWoodedLandPercent || ''}
-        onChange={ numberUpdated('otherWoodedLandPercent', otherWoodedLandPercent) }
-        onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 3, 'integer') }
+        onChange={numberUpdated('otherWoodedLandPercent', otherWoodedLandPercent)}
+        onPaste={updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 3, 'integer')}
       />
     </td>
     <td className={`${validationStatusPercentage()}`}>
       <PercentInput
         value={otherLandPercent || ''}
-        onChange={ numberUpdated('otherLandPercent', otherLandPercent) }
-        onPaste={ updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 3, 'integer') }
+        onChange={numberUpdated('otherLandPercent', otherLandPercent)}
+        onPaste={updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 3, 'integer')}
       />
     </td>
     <td className="odp__col-review">
       {odp.odpId
         ? <ReviewIndicator section='NDP'
-                           name="National data point"
+                           name={i18n.t('nationalDataPoint.nationalDataPoint')}
                            target={[odp.odpId, 'class_value', `${odp.nationalClasses[index].uuid}`]}
                            countryIso={countryIso}/>
-        : null }
+        : null}
     </td>
   </tr>
 }
@@ -355,7 +363,7 @@ class OriginalDataPointView extends React.Component {
     return <LoggedInPageTemplate>
       <div className="odp__container">
         <div className="odp_data-page-header">
-          <h2 className="headline">National data point</h2>
+          <h2 className="headline">{this.props.i18n.t('nationalDataPoint.nationalDataPoint')}</h2>
         </div>
         {
           this.props.active
@@ -375,7 +383,7 @@ const mapStateToProps = state => {
   const autoSaving = !!state.autoSave.status
   const active = odp.active
   const openThread = R.defaultTo({target: [], section: ''}, R.path(['review', 'openThread'], state))
-  return {...odp, active, autoSaving, openThread}
+  return {...odp, active, autoSaving, openThread, i18n: state.user.i18n}
 }
 
 export default connect(mapStateToProps, {
