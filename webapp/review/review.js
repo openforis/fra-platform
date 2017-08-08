@@ -157,7 +157,7 @@ const ReviewHeader = ({name, close, userInfo, countryIso, section, target, issue
     </div>
     {name ? <div className="fra-review__header-target">{name}</div> : null}
     {issueId && isReviewer(countryIso, userInfo) && issueStatus !== 'resolved'
-      ? <div className="fra-review__header-target">
+      ? <div className="fra-review__header-button">
         <button
           className="btn btn-primary btn-s"
           onClick={() => markIssueAsResolved(countryIso, section, target, issueId, userInfo.id)}>
