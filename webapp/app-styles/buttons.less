@@ -46,6 +46,10 @@ button:hover {
     background-color: darken(@ui-accent, 4%);
     color: white;
   }
+
+  &:active {
+    box-shadow: inset @shadow-1;
+  }
 }
 
 .btn-secondary {
@@ -56,6 +60,10 @@ button:hover {
   &:hover {
     background-color: darken(@ui-bg, 4%);
     color: @text-mute;
+  }
+
+  &:active {
+    box-shadow: inset @shadow-1;
   }
 }
 
@@ -70,7 +78,7 @@ button:hover {
   font-weight: 400;
 
   &:hover {
-    color: darken(@ui-destructive, 4%);
+    color: darken(@ui-destructive, 6%);
     text-decoration: underline;
   }
 }
