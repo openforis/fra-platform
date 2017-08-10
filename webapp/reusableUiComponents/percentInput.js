@@ -20,13 +20,15 @@ export class PercentInput extends React.Component {
   }
 
   getWidth () {
+    // Do we need this? Works fine without calculated widht
     if (this.refs.wrapper) {
-      return this.refs.wrapper.getBoundingClientRect().width - 8
+      return this.refs.wrapper.getBoundingClientRect().width - 40
     }
     return null
   }
 
   render () {
+    const width = this.getWidth()
     return <div className="percent__field validation-error-sensitive-field" ref="wrapper">
       <div className="percent__readonly-view percent__value-container"
            style={{
@@ -48,8 +50,7 @@ export class PercentInput extends React.Component {
           onBlur={ () => { this.setState({hasFocus: false}) } }
         />
       </div>
-      % &nbsp;
+      <div className="percent__sign">%</div>
     </div>
-    const width = this.getWidth()
   }
 }

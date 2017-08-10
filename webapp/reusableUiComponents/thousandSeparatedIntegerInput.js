@@ -27,8 +27,9 @@ export class ThousandSeparatedIntegerInput extends React.Component {
   }
 
   getWidthForReadonly() {
+    // Do we need this? Works fine without calculated widht
     if (this.refs.wrapper) {
-      return this.refs.wrapper.getBoundingClientRect().width -8
+      return this.refs.wrapper.getBoundingClientRect().width - 20
     }
     return null
   }
