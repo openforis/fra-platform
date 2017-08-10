@@ -1,38 +1,29 @@
 .percent__field {
   position: relative;
   text-align: right;
-  white-space: nowrap
+  white-space: nowrap;
+
+  /* This selector is here to defeat defaults from originalDataPointView :( */
+  .percent__input-field {
+    padding-right: 30px;
+  }
 }
 
 .percent__readonly-view {
   position: absolute;
-  right: 5px;
+  right: 30px;
   top: 10px;
-  height: 17px;
+  height: 20px;
   overflow: hidden;
   text-overflow: ellipsis;
   text-align: right;
   white-space: nowrap;
 }
 
-.percent__input-field-wrapper {
-  display: inline-block;
-  width: 100%;
-  margin-right: -24px;
-  /*
-   For some reason, setting the above negative margin moves
-   this wrapper slightly to the right. We correct that with these:
-  */
-  position: relative;
-  left: -4px;
-}
-
-/* This longer selector is here to defeat defaults from originalDataPointView :( */
-.percent__field input.percent__value-container {
-  padding-right: 28px;
-}
-.percent__value-container {
-  display: inline-block;
-  padding-right: 46px;
-  margin-right: -24px;
+.percent__sign {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: 20px;
+  height: 20px;
 }
