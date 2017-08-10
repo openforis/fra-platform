@@ -25,13 +25,13 @@ export const translation = {
 
   navigation: {
     annuallyReported: 'Annually reported',
-    fiveYearCycle: 'Five-year Cycle',
+    fiveYearCycle: 'Five-year cycle',
     assessmentStatus: {
       changing: {
-        label: 'Changing...'
+        label: 'Changing…'
       },
       review: {
-        label: 'In Review',
+        label: 'In review',
         next: 'Send to review',
         previous: 'Back to review'
       },
@@ -51,7 +51,7 @@ export const translation = {
   footer: {
     logout: 'Logout',
     autoSave: {
-      saving: 'Saving...'
+      saving: 'Saving…'
     }
   },
 
@@ -140,8 +140,8 @@ export const translation = {
   forestAreaChange: {
     forestAreaLossGainChange: 'Forest area loss, gain and net change',
     forestExpansion: 'Forest expansion (a)',
-    ofWhichAfforestation: '...of which afforestation',
-    ofWhichNaturalExpansion: '...of which natural expansion',
+    ofWhichAfforestation: '…of which afforestation',
+    ofWhichNaturalExpansion: '…of which natural expansion',
     deforestation: 'Deforestation (b)',
     forestAreaNetChange: 'Forest area net change'
   },
@@ -188,7 +188,7 @@ export const translation = {
   areaAffectedByFire: {
     areaAffectedByFire: 'Area affected by fire',
     totalLandAreaAffectedByFire: 'Total land area affected by fire',
-    ofWhichForest: '...of which on forest'
+    ofWhichForest: '…of which on forest'
   },
 
   employment: {
