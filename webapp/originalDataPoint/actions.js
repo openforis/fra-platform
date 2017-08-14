@@ -3,7 +3,7 @@ import * as R from 'ramda'
 
 import { applicationError } from '../applicationError/actions'
 import * as autosave from '../autosave/actions'
-import { removeClassPlaceholder, addNationalClassPlaceHolder, copyNationalClasses } from './originalDataPoint'
+import { removeClassPlaceholder, addNationalClassPlaceHolder, copyNationalClassDefinitions } from './originalDataPoint'
 import {validateDataPoint} from '../../common/originalDataPointCommon'
 import { fetchCountryOverviewStatus } from '../navigation/actions'
 
@@ -112,8 +112,9 @@ export const fetchOdps = countryIso => dispatch =>
 export const copyPreviousNationalClasses = (countryIso, odp) => dispatch => {
   axios.get(`/api/prevOdp/${countryIso}/${odp.year}`).then(resp => {
     const prevOdp = resp.data
-    if (prevOdp.nationalClasses)
-      saveDraft(countryIso, copyNationalClasses(odp, prevOdp))(dispatch)
+    if (prevOdp.nationalClasses) {
+      saveDraft(countryIso, copyNationalClassDefinitions(odp, prevOdp))(dispatch)
+    }
     else
       dispatch(applicationError(`Unable to find any National data point prior to ${odp.year}`))
   })

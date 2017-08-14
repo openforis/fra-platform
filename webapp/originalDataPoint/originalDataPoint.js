@@ -55,7 +55,9 @@ export const totalForest = (odp, percentFieldName) => {
   return (R.reduce(reduceTotal, 0, odp.nationalClasses)).toFixed(0)
 }
 
-export const copyNationalClasses = (odpTarget, odpSource) => ({
+export const copyNationalClassDefinitions = (odpTarget, odpSource) => ({
   ...odpTarget,
-  nationalClasses: [...odpSource.nationalClasses.map(c => defaultNationalClass(c.className, c.definition)), nationalClassPlaceHolder()]
+  nationalClasses: [...odpSource.nationalClasses.map(c => R.merge(defaultNationalClass(c.className, c.definition), R.pick(['forestPercent',
+      'otherWoodedLandPercent',
+      'otherLandPercent'], c))), nationalClassPlaceHolder()]
 })
