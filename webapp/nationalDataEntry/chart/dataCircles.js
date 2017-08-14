@@ -7,15 +7,15 @@ const renderPoints = ({xScale, yScale}) => (d, index) => {
   const circleProps = {
     cx: xScale(d.year),
     cy: yScale(d.value),
-    r: d.type === 'odp' ? 4 : 6,
+    r: d.type === 'odp' ? 4.5 : 6.5,
     key: index
   }
 
   return (circleProps.cx && circleProps.cy)
     ? <circle {...circleProps}
               fill={d.type === 'fra' ? '#ffffff' : '#0098a6' }
-              stroke={d.type === 'fra' ? '#333333' : 'none'  }
-              strokeWidth={d.type === 'fra' ? 1.5 : 0 }/>
+              stroke={d.type === 'fra' ? '#333333' : '#ffffff'  }
+              strokeWidth='1.5' />
     : null
 }
 
