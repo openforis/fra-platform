@@ -9,22 +9,13 @@ const camelize = require('camelize')
  * If all statuses are in accepted, we determine that country is in
  * accepted status.
  */
-const determineCountryAssessmentStatus = (type, statuses) => {
-  if (R.isEmpty(statuses)) return 'editing' //Initially, there are no rows for country's assessment,
-                                            //this is also considered to be 'editing' status
-  // else if (R.all(R.equals('accepted'), statuses)) return 'accepted'
-  // else if (R.any(R.equals('review'), statuses)) return 'review'
-  // else return 'editing'
-
-
-  return R.pipe(
+const determineCountryAssessmentStatus = (type, statuses) => R.pipe(
     R.filter(R.propEq('type', type)),
     R.head,
     R.defaultTo({status: 'editing'}), //Initially, there are no rows for country's assessment,
                                       //this is also considered to be 'editing' status
     R.prop('status')
   )(statuses)
-}
 
 const determineRole = (countryIso, role) =>
   R.pipe(R.filter(R.propEq('countryIso', countryIso)), R.head, R.prop('role'))(role)
@@ -37,17 +28,20 @@ const getStatuses = groupedRows =>
 
 const handleCountryResult = roles => result => {
   const grouped = R.groupBy(row => row.countryIso, camelize(result.rows))
-  return R.map(
-    ([countryIso, vals]) => {
-      return {
-        countryIso,
-        name: vals[0].name,
-        annualAssesment: determineCountryAssessmentStatus('annuallyReported', getStatuses(vals)),
-        fiveYearAssesment: determineCountryAssessmentStatus('fiveYearCycle', getStatuses(vals)),
-        role : determineRole(countryIso, roles)
-      }
-    },
-    R.toPairs(grouped))
+  return R.pipe(
+    R.toPairs,
+    R.map(
+      ([countryIso, vals]) => {
+        return {
+          countryIso,
+          name: vals[0].name,
+          annualAssesment: determineCountryAssessmentStatus('annuallyReported', getStatuses(vals)),
+          fiveYearAssesment: determineCountryAssessmentStatus('fiveYearCycle', getStatuses(vals)),
+          role: determineRole(countryIso, roles)
+        }
+      }),
+    R.groupBy(R.prop('role'))
+  )(grouped)
 }
 
 const getAllCountries = () =>
