@@ -5,43 +5,55 @@ import { connect } from 'react-redux'
 import { postComment, retrieveComments, closeCommentThread, markCommentAsDeleted, markIssueAsResolved } from './actions'
 import { parse, differenceInMonths, differenceInWeeks, differenceInDays, differenceInHours, format } from 'date-fns'
 import { isReviewer } from '../../common/countryRole'
+import VerticallyGrowingTextField from '../reusableUiComponents/verticallyGrowingTextField'
 
 const mapIndexed = R.addIndex(R.map)
 
-const AddComment = ({issueId, countryIso, section, target, postComment, onCancel, isFirst, userInfo, issueStatus, i18n}) => {
-  const canAddComment = () => issueStatus !== 'resolved' || isReviewer(countryIso, userInfo)
+class AddComment extends React.Component {
 
-  return <div className="fra-review__add-comment">
-    <div className="fra-review__issue-comment-input-border">
-      <textarea
-        disabled={!canAddComment()}
-        rows="1"
-        onInput={() => {
-          const elem = document.getElementById(`fra-review__comment-input-${target}`)
-          elem.style.height = 'auto'
-          elem.style.height = `${elem.scrollHeight}px`
-        }}
-        id={`fra-review__comment-input-${target}`}
-        className="fra-review__issue-comment-input"
-        placeholder={`${canAddComment() ? i18n.t('review.writeComment') : i18n.t('review.commentingClosed')}`}/>
-    </div>
-    <div className="fra-review__comment-buttons">
-      <button className="fra-review__comment-add-btn btn btn-primary btn-s"
+  constructor() {
+    super()
+    this.state = {}
+  }
+
+  updateMessage (event) {
+    this.setState({
+      message: event.target.value
+    })
+  }
+
+  render () {
+    const canAddComment = () => this.props.issueStatus !== 'resolved' || isReviewer(this.props.countryIso, this.props.userInfo)
+    return <div className="fra-review__add-comment">
+      <div className="fra-review__issue-comment-input-border">
+        <VerticallyGrowingTextField
               disabled={!canAddComment()}
-              onClick={() => {
-                postComment(issueId, countryIso, section, target, null, document.getElementById(`fra-review__comment-input-${target}`).value)
-                document.getElementById(`fra-review__comment-input-${target}`).value = ''
-              }}>
-        {i18n.t('review.add')}
-      </button>
-      <button className="btn btn-s btn-secondary"
-              disabled={!canAddComment()}
-              onClick={() => onCancel()}>
-        {i18n.t('review.cancel')}
-      </button>
+              id={`fra-review__comment-input-${this.props.target}`}
+              onChange={(event) => this.updateMessage(event)}
+              value={this.state.message || ''}
+              className="fra-review__issue-comment-input"
+              placeholder={`${canAddComment() ? this.props.i18n.t('review.writeComment') : this.props.i18n.t('review.commentingClosed')}`}
+              />
+      </div>
+      <div className="fra-review__comment-buttons">
+        <button className="fra-review__comment-add-btn btn btn-primary btn-s"
+                disabled={!canAddComment()}
+                onClick={() => {
+                  this.props.postComment(this.props.issueId, this.props.countryIso, this.props.section, this.props.target, null, this.state.message)
+                  document.getElementById(`fra-review__comment-input-${this.props.target}`).value = ''
+                }}>
+          {this.props.i18n.t('review.add')}
+        </button>
+        <button className="btn btn-s btn-secondary"
+                disabled={!canAddComment()}
+                onClick={() => this.props.onCancel()}>
+          {this.props.i18n.t('review.cancel')}
+        </button>
+      </div>
     </div>
-  </div>
+  }
 }
+
 
 class CommentThread extends React.Component {
 
