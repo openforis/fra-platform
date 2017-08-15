@@ -1,64 +1,31 @@
 import React from 'react'
+import * as R from 'ramda'
 import './verticallyGrowingTextField.less'
-
-// Based on http://dev.edenspiekermann.com/2016/08/26/react-textarea-auto-resize/
 
 class VerticallyGrowingTextField extends React.Component {
 
-  constructor (props) {
-    super(props)
-    this.state = {}
+  componentDidMount() {
+    this.resizeTextArea()
   }
 
-  componentDidMount () {
-    this.setFilledTextareaHeight()
+  componentDidUpdate(prev) {
+    if(!R.equals(this.props.value, prev.value)) {
+      this.resizeTextArea()
+    }
   }
 
-  setFilledTextareaHeight () {
-    this.setState({
-      height: this.ghost.clientHeight,
-    })
-  }
-
-  expandableField () {
-    const {height} = this.state
-
-    return (
-      <div>
-        <textarea
-          className="vgtf__textarea"
-          value={this.props.value}
-          style={{height}}
-          onChange={this.props.onChange}
-          onPaste={this.props.onPaste}
-          onKeyUp={() => this.setFilledTextareaHeight()}
-        />
-      </div>
-    )
-  }
-
-  ghostField () {
-    return (
-      <div
-        className="vgtf__textarea--ghost"
-        ref={(c) => this.ghost = c}
-        aria-hidden="true"
-      >
-        {/*
-          Use 'x' as a placeholder to keep ghost field in right height even when
-          there's no input or plain newline before any text in new row
-         */}
-        { this.props.value ? this.props.value.replace(/\n/g, '\nx') : 'x' }
-      </div>
-    )
+  resizeTextArea() {
+    const elem = document.getElementById(this.props.id)
+    elem.style.height = 'auto'
+    elem.style.height = `${elem.scrollHeight}px`
   }
 
   render () {
     return (
-      <div className="vgtf__container">
-        {this.expandableField()}
-        {this.ghostField()}
-      </div>
+      <textarea
+        rows="1"
+        className="vgtf__textarea"
+        {...this.props} />
     )
   }
 }
