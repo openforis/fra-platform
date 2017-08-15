@@ -104,7 +104,7 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
         <tr>
           <td className="fra-table__header-cell">{i18n.t('nationalDataPoint.total')}</td>
           <td
-            className="odp__national-class-total-cell">{separateThousandsWithSpaces(Number(originalDataPoint.totalArea(active)))}</td>
+            className="odp__national-class-total-cell odp__eof-divide-after-cell">{separateThousandsWithSpaces(Number(originalDataPoint.totalArea(active)))}</td>
           <td
             className="odp__national-class-total-cell">{separateThousandsWithSpaces(Number(originalDataPoint.totalForest(active, 'forestPercent')))}</td>
           <td
