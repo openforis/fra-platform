@@ -10,27 +10,10 @@ export class PercentInput extends React.Component {
     this.state = {hasFocus: false}
   }
 
-  componentDidMount () {
-    /*
-     * For adjusting size
-     */
-    if (this.props.value) {
-      this.forceUpdate()
-    }
-  }
-
-  getWidth () {
-    if (this.refs.wrapper) {
-      return this.refs.wrapper.getBoundingClientRect().width - 8
-    }
-    return null
-  }
-
   render () {
     return <div className="percent__field validation-error-sensitive-field" ref="wrapper">
       <div className="percent__readonly-view percent__value-container"
            style={{
-             width: width ? `${width}px` : null,
              display: this.state.hasFocus ? 'none' : 'inline-block',
            }}
       >
@@ -48,8 +31,7 @@ export class PercentInput extends React.Component {
           onBlur={ () => { this.setState({hasFocus: false}) } }
         />
       </div>
-      % &nbsp;
+      <div className="percent__sign">%</div>
     </div>
-    const width = this.getWidth()
   }
 }
