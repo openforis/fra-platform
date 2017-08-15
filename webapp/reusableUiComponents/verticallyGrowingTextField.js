@@ -22,10 +22,12 @@ class VerticallyGrowingTextField extends React.Component {
 
   render () {
     return (
-      <textarea
-        rows="1"
-        className="vgtf__textarea"
-        {...this.props} />
+      <div className="vgtf__container">
+        <textarea
+          rows="1"
+          className="vgtf__textarea"
+          {...this.props} />
+      </div>
     )
   }
 }
