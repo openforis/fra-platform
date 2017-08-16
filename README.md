@@ -56,25 +56,23 @@ add the corresponding `drop table` to `<timestamp>-kuikka-down.sql` if we ever w
 
 ## Icons
 
-https://nucleoapp.com
+Download the desktop app  at https://nucleoapp.com
 
 ### Add icon to set
 
-Video: https://fraplatform.slack.com/files/mlindholm/F5M13AE7L/add-icon-to-set.mov
-
-* Select the icon you like, making sure it's from the 16px set
-* Add to Projects
+* Select the icon you like
+* Add to Project
 * Select `FRA Platform`
 
 ### Export icon set
 
-Video: https://fraplatform.slack.com/files/mlindholm/F5MQSQ0JJ/export-icon-set.mov
-
 * Go to Projects > FRA Platform
-* Select all & Download
-* Settings: https://fraplatform.slack.com/files/mlindholm/F5LUBPDPD/export-icon-set-settings.png
-* Download & Unzip
-* Move `icon.svg, demo.svg` to `/img`
+* Select all
+* Export
+    * Settings: SVG, SVG <symbols>
+    * https://files.slack.com/files-tmb/T4FG1BM7G-F6Q547Y3G-a26d73a50d/artboard_480.png
+* Download & unzip
+* Move `icons.svg`, `demo.svg` to `/img`
 * Run `update-icons.sh`
 
 ## Using the traditional table framework
