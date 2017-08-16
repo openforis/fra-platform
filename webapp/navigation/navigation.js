@@ -41,7 +41,7 @@ class CountrySelectionItem extends React.Component {
         <span className="nav__country-role">{role}</span>
       </div>
       <svg className="icon">
-        <use xlinkHref="img/icon.svg#icon-small-down"/>
+        <use href="img/icons.svg#small-down"/>
       </svg>
       <CountryList isOpen={this.state.isOpen} countries={countries} currentCountry={name} i18n={i18n}/>
     </div>
@@ -140,7 +140,7 @@ const NationalDataItem = ({path, countryIso, pathTemplate = '/tbd', status = {co
     </span>
     <span className="nav__link-error-status">
       {status.errors ? <svg className="icon icon-middle icon-red">
-          <use xlinkHref="img/icon.svg#icon-alert"/>
+          <use href="img/icons.svg#alert"/>
         </svg>
         : null
       }
