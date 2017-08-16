@@ -64,8 +64,8 @@ const CountryList = ({isOpen, countries, currentCountry, i18n}) => {
 }
 
 const CountryRole = ({role, roleCountries, currentCountry, i18n}) =>
-<div>
-  <div><span>{i18n.t(`user.roles.${role.toLowerCase()}`)}</span> <span>{i18n.t('countryListing.annuallyReported')}</span><span>{i18n.t('countryListing.fiveYearCycle')}</span></div>
+<div className="nav__country-list-role-countries">
+  <div className="nav__country-list-role-header"><span>{i18n.t(`user.roles.${role.toLowerCase()}`)}</span> <span>{i18n.t('countryListing.annuallyReported')}</span><span>{i18n.t('countryListing.fiveYearCycle')}</span></div>
   {
     roleCountries.map(c =>
       <CountryRow key={c.countryIso} selectedCountry={currentCountry} country={c} i18n={i18n}/>

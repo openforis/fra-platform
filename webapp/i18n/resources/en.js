@@ -11,6 +11,7 @@ export const translation = {
     roles: {
       reviewer: 'Reviewer',
       nationalCorrespondent: 'National Correspondent',
+      national_correspondent: 'National Correspondent',
       noRole: 'N/A'
     }
   },

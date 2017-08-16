@@ -64,10 +64,10 @@
 }
 
 .nav__country-list {
-  position: absolute;
+  position: fixed;
   top: 68px;
   left: 16px;
-  width: 224px;
+  width: 496px;
   background: white;
   border-radius: 2px;
   border: 1px solid @ui-border;
@@ -77,9 +77,17 @@
 
 .nav__country-list-content {
   max-height: 560px;
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
   padding: 4px 0;
+  font-size: @font-s;
+}
+
+.nav__country-list-role-header {
+  line-height: 24px;
+  padding: 8px 15px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .nav__country-list-item {
