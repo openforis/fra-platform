@@ -68,7 +68,7 @@ export const translation = {
       week_plural: '{{count}} weeks ago',
       aMomentAgo: 'A moment ago'
     },
-    confirmDelete: 'Are you sure you want to delete this comment? This action cannot be undone.',
+    confirmDelete: 'Are you sure you want to delete this comment? This cannot be undone.',
     commentDeleted: 'Comment deleted',
     commentMarkedAsResolved: 'Marked as resolved',
     delete: 'Delete',
