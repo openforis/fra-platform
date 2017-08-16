@@ -55,7 +55,7 @@ const CountryList = ({isOpen, countries, currentCountry, i18n}) => {
       {
         R.pipe(
           R.toPairs,
-          R.map(pair => <CountryRole role={pair[0]} roleCountries={pair[1]} currentCountry={currentCountry} i18n={i18n}  />
+          R.map(pair => <CountryRole key={pair[0]} role={pair[0]} roleCountries={pair[1]} currentCountry={currentCountry} i18n={i18n}  />
           )
         )(countries)
       }
@@ -144,7 +144,13 @@ const PrimaryItem = ({label, countryIso, assessmentType, assessmentStatuses, cha
         : null
     }
     {
-      changeStateLink(countryIso, assessmentType, currentAssessmentStatus, nextAssessmentStatus, changeAssessmentStatus, 'next', i18n)
+      nextAssessmentStatus
+      ? <span className="nan__to_next-assessment-status">(
+        {
+          changeStateLink(countryIso, assessmentType, currentAssessmentStatus, nextAssessmentStatus, changeAssessmentStatus, 'next', i18n)
+        }
+        )</span>
+        : null
     }
   </div>
 }
