@@ -147,7 +147,7 @@ class CommentThread extends React.Component {
               comments)
               : <div className='fra-review__comment-placeholder'>
                 <svg className="fra-review__comment-placeholder-icon icon-24">
-                  <use xlinkHref="img/icon.svg#icon-chat-46"/>
+                  <use href="img/icons.svg#chat-46"/>
                 </svg>
                 <span className="fra-review__comment-placeholder-text">{i18n.t('review.noComments')}</span>
               </div>
@@ -164,7 +164,7 @@ const ReviewHeader = ({name, close, userInfo, countryIso, section, target, issue
     <h2 className="fra-review__header-title subhead">{i18n.t('review.comments')}</h2>
     <div className="fra-review__header-close-btn" onClick={e => close(e)}>
       <svg className="icon icon-24">
-        <use xlinkHref="img/icon.svg#icon-small-remove"/>
+        <use href="img/icons.svg#small-remove"/>
       </svg>
     </div>
     {name ? <div className="fra-review__header-target">{name}</div> : null}

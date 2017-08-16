@@ -44,7 +44,7 @@ const ODPListing = ({countryIso, odps = [], i18n}) => <div className="odp-list__
   </table>
   <Link className="btn btn-primary" to={`/country/${countryIso}/odp`}>
     <svg className="icon icon-middle icon-white">
-      <use xlinkHref="img/icon.svg#icon-small-add"/>
+      <use href="img/icons.svg#small-add"/>
     </svg>
     {i18n.t('nationalDataPoint.addNationalDataPoint')}
   </Link>
