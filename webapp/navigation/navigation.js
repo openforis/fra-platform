@@ -63,15 +63,20 @@ const CountryList = ({isOpen, countries, currentCountry, i18n}) => {
   </div>
 }
 
+const AssessmentStatus = ({status}) => <div className={`status-${status}`} />
+
 const CountryRole = ({role, roleCountries, currentCountry, i18n}) =>
 <div className="nav__country-list-role-countries">
-  <div className="nav__country-list-role-header"><span>{i18n.t(`user.roles.${role.toLowerCase()}`)}</span> <span>{i18n.t('countryListing.annuallyReported')}</span><span>{i18n.t('countryListing.fiveYearCycle')}</span></div>
+  <div className="nav__country-list-role-header"><span
+    className="nav__country-list-role-label">{i18n.t(`user.roles.${role.toLowerCase()}`)}</span><span
+    className="nav__country-list-assessment-label">{i18n.t('countryListing.annuallyReported')}</span><span
+    className="nav__country-list-assessment-label">{i18n.t('countryListing.fiveYearCycle')}</span>
+  </div>
   {
     roleCountries.map(c =>
       <CountryRow key={c.countryIso} selectedCountry={currentCountry} country={c} i18n={i18n}/>
     )
   }
-
 </div>
 
 const CountryRow = ({selectedCountry, country, i18n}) => {
@@ -84,13 +89,15 @@ const CountryRow = ({selectedCountry, country, i18n}) => {
     {
       country.annualAssesment
         ? <span
-        className="nav__country-list-item-assessment-status">{i18n.t(`navigation.assessmentStatus.${country.annualAssesment}.label`)}</span>
+        className="nav__country-list-item-assessment-status"><AssessmentStatus
+        status={country.annualAssesment}/> {i18n.t(`navigation.assessmentStatus.${country.annualAssesment}.label`)}</span>
         : null
     }
     {
       country.fiveYearAssesment
         ? <span
-        className="nav__country-list-item-assessment-status">{i18n.t(`navigation.assessmentStatus.${country.fiveYearAssesment}.label`)}</span>
+        className="nav__country-list-item-assessment-status"><AssessmentStatus
+        status={country.fiveYearAssesment}/>{i18n.t(`navigation.assessmentStatus.${country.fiveYearAssesment}.label`)}</span>
         : null
     }
 
