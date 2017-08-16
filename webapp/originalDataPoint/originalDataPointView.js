@@ -220,7 +220,6 @@ const NationalClassRow = ({odp, index, saveDraft, countryIso, className, definit
           saveDraft(countryIso, originalDataPoint.updateNationalClass(odp, index, 'definition', evt.target.value))}
         onPaste={updatePastedValues(odp, index, saveDraft, countryIso, nationalClassCols, 1, 'text', true)}
       />
-
     </td>
     <td className="odp__col-review">
       {placeHolder || !odp.odpId
