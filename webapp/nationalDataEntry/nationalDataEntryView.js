@@ -18,7 +18,7 @@ const mapIndexed = R.addIndex(R.map)
 
 const OdpHeading = ({countryIso, odpValue}) =>
     <Link className="link" to={`/country/${countryIso}/odp/${odpValue.odpId}`}>
-      {odpValue.draft ? <svg className="icon icon-sub icon-red icon-margin"><use xlinkHref="img/icon.svg#icon-alert"/></svg> : ''}
+      {odpValue.draft ? <svg className="icon icon-sub icon-red icon-margin"><use href="img/icons.svg#alert"/></svg> : ''}
       {odpValue.name}
     </Link>
 
@@ -176,7 +176,7 @@ const NationalDataEntry = (props) => {
       <div className="nde__data-input-header">
         <Link className="btn btn-primary" to={`/country/${props.countryIso}/odp`}>
           <svg className="icon icon-middle icon-white">
-            <use xlinkHref="img/icon.svg#icon-small-add"/>
+            <use href="img/icons.svg#small-add"/>
           </svg>
           {i18n.t('nationalDataPoint.addNationalDataPoint')}
         </Link>
