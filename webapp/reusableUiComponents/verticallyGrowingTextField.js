@@ -16,6 +16,7 @@ class VerticallyGrowingTextField extends React.Component {
 
   resizeTextArea() {
     const elem = document.getElementById(this.props.id)
+    elem.style.height = 'auto'
     elem.style.height = `${elem.scrollHeight}px`
   }
 
