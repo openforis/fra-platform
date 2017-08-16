@@ -369,7 +369,9 @@ class OriginalDataPointView extends React.Component {
         {
           this.props.active
             ? <DataInput years={years}
-                         copyDisabled={R.not(R.isNil(R.path(['match', 'params', 'odpId'], this.props)))}
+                         copyDisabled={R.or(
+                           R.not(originalDataPoint.allowCopyingOfPreviousValues(this.props.active)),
+                           R.not(R.isNil(R.path(['match', 'params', 'odpId'], this.props))))}
                          {...this.props}/>
             : null
 

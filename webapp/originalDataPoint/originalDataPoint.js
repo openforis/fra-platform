@@ -55,6 +55,9 @@ export const totalForest = (odp, percentFieldName) => {
   return (R.reduce(reduceTotal, 0, odp.nationalClasses)).toFixed(0)
 }
 
+export const allowCopyingOfPreviousValues =
+  R.pipe(R.path(['nationalClasses', 0, 'className']), R.defaultTo(''), R.isEmpty)
+
 export const totalArea = odp =>
   R.reduce((total, nationalClass) => isNaN(nationalClass.area) ? 0 : total + Number(nationalClass.area), 0, odp.nationalClasses).toFixed(0)
 
