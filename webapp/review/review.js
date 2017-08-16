@@ -151,8 +151,8 @@ const ReviewHeader = ({name, close, userInfo, countryIso, section, target, issue
   <div className="fra-review__header">
     <h2 className="fra-review__header-title subhead">{i18n.t('review.comments')}</h2>
     <div className="fra-review__header-close-btn" onClick={e => close(e)}>
-      <svg className="icon icon-24">
-        <use href="img/icons.svg#small-remove"/>
+      <svg className="icon">
+        <use href="img/icons.svg#remove"/>
       </svg>
     </div>
     {name ? <div className="fra-review__header-target">{name}</div> : null}
