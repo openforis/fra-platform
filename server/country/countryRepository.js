@@ -17,8 +17,8 @@ const determineCountryAssessmentStatus = (type, statuses) => R.pipe(
     R.prop('status')
   )(statuses)
 
-const determineRole = (countryIso, role) =>
-  R.pipe(R.filter(R.propEq('countryIso', countryIso)), R.head, R.prop('role'))(role)
+const determineRole = roles => countryIso =>
+  R.pipe(R.filter(R.propEq('countryIso', countryIso)), R.head, R.prop('role'))(roles)
 
 const getStatuses = groupedRows =>
   R.pipe(
@@ -26,7 +26,7 @@ const getStatuses = groupedRows =>
     R.filter(R.identity)
   )(groupedRows)
 
-const handleCountryResult = roles => result => {
+const handleCountryResult = resolveRole => result => {
   const grouped = R.groupBy(row => row.countryIso, camelize(result.rows))
   return R.pipe(
     R.toPairs,
@@ -37,26 +37,27 @@ const handleCountryResult = roles => result => {
           name: vals[0].name,
           annualAssesment: determineCountryAssessmentStatus('annuallyReported', getStatuses(vals)),
           fiveYearAssesment: determineCountryAssessmentStatus('fiveYearCycle', getStatuses(vals)),
-          role: determineRole(countryIso, roles)
+          role: resolveRole(countryIso)
         }
       }),
     R.groupBy(R.prop('role'))
   )(grouped)
 }
 
-const getAllCountries = () =>
+const getAllCountries = role =>
   db.query(`SELECT c.country_iso, c.name, a.type, a.status
             FROM country c
             LEFT OUTER JOIN assessment a ON c.country_iso = a.country_iso 
             ORDER BY name ASC`)
-    .then(handleCountryResult([]))
+    .then(handleCountryResult(() => role))
 
 module.exports.getAllowedCountries = (roles) => {
-      console.log('roles', roles)
   const hasRole = (role) => R.find(R.propEq('role', role), roles)
-  // Either of these give access to full country list
-  if (hasRole('REVIEWER_ALL') || hasRole('NATIONAL_CORRESPONDENT_ALL')) {
-    return getAllCountries()
+  if (hasRole('REVIEWER_ALL')) {
+    return getAllCountries('REVIEWER_ALL')
+  }
+  if(hasRole('NATIONAL_CORRESPONDENT_ALL')) {
+    return getAllCountries('NATIONAL_CORRESPONDENT_ALL')
   } else {
     const allowedCountryIsos = R.pipe(R.map(R.prop('countryIso')), R.reject(R.isNil))(roles)
     const allowedIsoQueryPlaceholders = R.range(1, allowedCountryIsos.length + 1).map(i => '$' + i).join(',')
@@ -66,6 +67,6 @@ module.exports.getAllowedCountries = (roles) => {
                      WHERE c.country_iso in (${allowedIsoQueryPlaceholders})
                      ORDER BY name ASC`,
       allowedCountryIsos)
-      .then(handleCountryResult(roles))
+      .then(handleCountryResult(determineRole(roles)))
   }
 }

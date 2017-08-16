@@ -12,6 +12,8 @@ export const translation = {
       reviewer: 'Reviewer',
       nationalCorrespondent: 'National Correspondent',
       national_correspondent: 'National Correspondent',
+      reviewer_all: 'Reviewer',
+      national_correspondent_all: 'National Correspondent',
       noRole: 'N/A'
     }
   },
