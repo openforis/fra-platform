@@ -23,6 +23,11 @@ export const translation = {
 
   // components
 
+  countryListing: {
+    annuallyReported: 'Annually',
+    fiveYearCycle: 'Five-year'
+  },
+
   navigation: {
     annuallyReported: 'Annually reported',
     fiveYearCycle: 'Five-year cycle',
@@ -41,7 +46,7 @@ export const translation = {
         previous: ''
       },
       editing: {
-        label: '', //Currently we do not wish to show the default state at all
+        label: 'Editing',
         next: 'Start over (to editing)',
         previous: 'Reject'
       }

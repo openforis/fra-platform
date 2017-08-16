@@ -53,28 +53,49 @@ const CountryList = ({isOpen, countries, currentCountry, i18n}) => {
   return <div className="nav__country-list">
     <div className="nav__country-list-content">
       {
-        countries.map(c => <CountryRow key={c.countryIso} selectedCountry={currentCountry} country={c} i18n={i18n}/>)
+        R.pipe(
+          R.toPairs,
+          R.map(pair => <CountryRole role={pair[0]} roleCountries={pair[1]} currentCountry={currentCountry} i18n={i18n}  />
+          )
+        )(countries)
       }
     </div>
   </div>
 }
 
-const CountryRow = ({selectedCountry, country, i18n}) =>
-  <Link
+const CountryRole = ({role, roleCountries, currentCountry, i18n}) =>
+<div>
+  <div><span>{i18n.t(`user.roles.${role.toLowerCase()}`)}</span> <span>{i18n.t('countryListing.annuallyReported')}</span><span>{i18n.t('countryListing.fiveYearCycle')}</span></div>
+  {
+    roleCountries.map(c =>
+      <CountryRow key={c.countryIso} selectedCountry={currentCountry} country={c} i18n={i18n}/>
+    )
+  }
+
+</div>
+
+const CountryRow = ({selectedCountry, country, i18n}) => {
+  return <Link
     to={`/country/${country.countryIso}`}
     className={`nav__country-list-item ${R.equals(selectedCountry, country.countryIso) ? 'selected' : ''}`}>
     <div className="nav__country-list-item-name">
       {getCountryName(country.countryIso, i18n.language)}
     </div>
     {
-      // Editing is not shown at all, let's not take space from the narrow dropdown in that case
-      country.assessmentStatus !== 'editing'
+      country.annualAssesment
         ? <span
-          className="nav__country-list-item-assessment-status">{i18n.t(`navigation.assessmentStatus.${country.assessmentStatus}.label`)}</span>
+        className="nav__country-list-item-assessment-status">{i18n.t(`navigation.assessmentStatus.${country.annualAssesment}.label`)}</span>
+        : null
+    }
+    {
+      country.fiveYearAssesment
+        ? <span
+        className="nav__country-list-item-assessment-status">{i18n.t(`navigation.assessmentStatus.${country.fiveYearAssesment}.label`)}</span>
         : null
     }
 
   </Link>
+}
 
 const changeStateLink = (countryIso, assessmentType, currentStatus, targetStatus, changeAssessmentStatus, direction, i18n) => {
 
