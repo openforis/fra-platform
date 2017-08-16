@@ -38,9 +38,9 @@ class AddComment extends React.Component {
       <div className="fra-review__comment-buttons">
         <button className="fra-review__comment-add-btn btn btn-primary btn-s"
                 disabled={!canAddComment()}
-                onClick={() => {
+                onClick={(event) => {
                   this.props.postComment(this.props.issueId, this.props.countryIso, this.props.section, this.props.target, null, this.state.message)
-                  document.getElementById(`fra-review__comment-input-${this.props.target}`).value = ''
+                  this.updateMessage(event)
                 }}>
           {this.props.i18n.t('review.add')}
         </button>
