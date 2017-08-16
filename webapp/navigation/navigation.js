@@ -66,18 +66,18 @@ const CountryList = ({isOpen, countries, currentCountry, i18n}) => {
 const AssessmentStatus = ({status}) => <div className={`status-${status}`} />
 
 const CountryRole = ({role, roleCountries, currentCountry, i18n}) =>
-<div className="nav__country-list-role-countries">
-  <div className="nav__country-list-role-header"><span
-    className="nav__country-list-role-label">{i18n.t(`user.roles.${role.toLowerCase()}`)}</span><span
-    className="nav__country-list-assessment-label">{i18n.t('countryListing.annuallyReported')}</span><span
-    className="nav__country-list-assessment-label">{i18n.t('countryListing.fiveYearCycle')}</span>
+  <div className="nav__country-list-role-countries">
+    <div className="nav__country-list-role-header"><span
+      className="nav__country-list-role-label">{i18n.t(`user.roles.${role.toLowerCase()}`)}</span><span
+      className="nav__country-list-assessment-label">{i18n.t('countryListing.annuallyReported')}</span><span
+      className="nav__country-list-assessment-label">{i18n.t('countryListing.fiveYearCycle')}</span>
+    </div>
+    {
+      roleCountries.map(c =>
+        <CountryRow key={c.countryIso} selectedCountry={currentCountry} country={c} i18n={i18n}/>
+      )
+    }
   </div>
-  {
-    roleCountries.map(c =>
-      <CountryRow key={c.countryIso} selectedCountry={currentCountry} country={c} i18n={i18n}/>
-    )
-  }
-</div>
 
 const CountryRow = ({selectedCountry, country, i18n}) => {
   return <Link
@@ -145,7 +145,7 @@ const PrimaryItem = ({label, countryIso, assessmentType, assessmentStatuses, cha
     }
     {
       nextAssessmentStatus
-      ? <span className="nan__to_next-assessment-status">(
+        ? <span className="nan__to_next-assessment-status">(
         {
           changeStateLink(countryIso, assessmentType, currentAssessmentStatus, nextAssessmentStatus, changeAssessmentStatus, 'next', i18n)
         }
