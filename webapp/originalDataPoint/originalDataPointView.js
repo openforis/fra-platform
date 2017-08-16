@@ -198,7 +198,7 @@ const NationalClassRow = ({odp, index, saveDraft, countryIso, className, definit
             className="odp__national-class-remove"
             onClick={(evt) => saveDraft(countryIso, originalDataPoint.removeNationalClass(odp, index))}>
             <svg className="icon">
-              <use href="img/icons.svg#small-remove"/>
+              <use href="img/icons.svg#remove"/>
             </svg>
           </div>
         }

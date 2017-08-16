@@ -11,7 +11,7 @@ const ErrorBox = ({msg, clearApplicationError}) => {
       </div>
       <div className="alert-message">{msg}</div>
       <div className="alert-dismiss" onClick={() => clearApplicationError()}>
-        <svg className="icon"><use href="img/icons.svg#small-remove"/></svg>
+        <svg className="icon"><use href="img/icons.svg#remove"/></svg>
       </div>
     </div>
   </div>

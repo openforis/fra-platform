@@ -18,7 +18,7 @@ class FooterSelectionControl extends React.Component {
       onClick={evt => this.setState({opened: !this.state.opened})}>
       {this.props.label}
       <svg className="icon icon-sub">
-        <use xlinkHref={`img/icon.svg#icon-small-${iconRefSuffix}`}/>
+        <use href={`img/icons.svg#small-${iconRefSuffix}`}/>
       </svg>
       {
         this.state.opened ? children : null
