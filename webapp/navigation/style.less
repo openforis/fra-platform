@@ -80,7 +80,6 @@
   max-height: 560px;
   overflow-y: auto;
   overflow-x: hidden;
-  padding: 4px 0;
   font-size: @font-s;
 }
 .nav__country-list-role-countries {
@@ -93,7 +92,7 @@
 
 
 .nav__country-list-role-header {
-  line-height: 24px;
+  line-height: 16px;
   padding: 8px 15px;
   display: flex;
   justify-content: flex-start;
@@ -141,11 +140,21 @@
   line-height: 16px;
 
   .status-editing {
+    .mixin-status-base(@ui-status-editing);
+  }
+  .status-review {
+    .mixin-status-base(@ui-status-review);
+  }
+  .status-accepted {
+    .mixin-status-base(@ui-status-accepted);
+  }
+
+  .mixin-status-base(@color) {
     width: 10px;
     min-width: 10px;
     height: 10px;
     margin: 2px 5px 4px 0;
-    background-color: #0098a6;
+    background-color: @color;
     color: white;
     border-radius: 100%;
     text-align: center;
