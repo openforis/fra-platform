@@ -37,6 +37,11 @@ class AddComment extends React.Component {
               disabled={!canAddComment()}
               id={`fra-review__comment-input-${this.props.target}`}
               onChange={(evt) => this.updateMessage(evt)}
+              onKeyDown={(evt) => {
+                if (evt.keyCode === 13 && evt.metaKey) {
+                  this.sendMessage(this.props.issueId, this.props.countryIso, this.props.section, this.props.target, null, this.state.message)
+                }
+              }}
               value={this.state.message || ''}
               className="fra-review__issue-comment-input"
               placeholder={`${canAddComment() ? this.props.i18n.t('review.writeComment') : this.props.i18n.t('review.commentingClosed')}`}
