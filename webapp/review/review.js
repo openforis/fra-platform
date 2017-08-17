@@ -13,19 +13,17 @@ class AddComment extends React.Component {
 
   constructor() {
     super()
-    this.state = {}
+    this.state = { message: '' }
   }
 
-  updateMessage (event) {
-    this.setState({
-      message: event.target.value
-    })
+  updateMessage (evt) {
+    this.setState({ message: evt.target.value })
   }
 
   sendMessage (issueId, countryIso, section, target, userId, msg) {
-    if (!R.isNil(msg)) {
+    if (!R.isEmpty(R.trim(msg))) {
       this.props.postComment(issueId, countryIso, section, target, null, msg)
-      this.state.message = null
+      this.setState({ message: '' })
     }
   }
 
