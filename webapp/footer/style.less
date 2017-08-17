@@ -28,9 +28,18 @@
   padding: 12px;
   position: relative;
   cursor: pointer;
+  transition: @ease-out;
 
   .icon {
     margin-left: 4px;
+  }
+
+  &:hover {
+    color: @text-body;
+
+    .icon {
+      color: @text-body;
+    }
   }
 }
 
