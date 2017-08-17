@@ -22,6 +22,13 @@ class AddComment extends React.Component {
     })
   }
 
+  sendMessage (issueId, countryIso, section, target, userId, msg) {
+    if (!R.isNil(msg)) {
+      this.props.postComment(issueId, countryIso, section, target, null, msg)
+      this.state.message = null
+    }
+  }
+
   render () {
     const canAddComment = () => this.props.issueStatus !== 'resolved' || isReviewer(this.props.countryIso, this.props.userInfo)
     return <div className="fra-review__add-comment">
@@ -29,7 +36,7 @@ class AddComment extends React.Component {
         <VerticallyGrowingTextField
               disabled={!canAddComment()}
               id={`fra-review__comment-input-${this.props.target}`}
-              onChange={(event) => this.updateMessage(event)}
+              onChange={(evt) => this.updateMessage(evt)}
               value={this.state.message || ''}
               className="fra-review__issue-comment-input"
               placeholder={`${canAddComment() ? this.props.i18n.t('review.writeComment') : this.props.i18n.t('review.commentingClosed')}`}
@@ -38,10 +45,7 @@ class AddComment extends React.Component {
       <div className="fra-review__comment-buttons">
         <button className="fra-review__comment-add-btn btn btn-primary btn-s"
                 disabled={!canAddComment()}
-                onClick={(event) => {
-                  this.props.postComment(this.props.issueId, this.props.countryIso, this.props.section, this.props.target, null, this.state.message)
-                  this.updateMessage(event)
-                }}>
+                onClick={() => this.sendMessage(this.props.issueId, this.props.countryIso, this.props.section, this.props.target, null, this.state.message)}>
           {this.props.i18n.t('review.add')}
         </button>
         <button className="btn btn-s btn-secondary"
