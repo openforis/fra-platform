@@ -16,11 +16,17 @@ class AddComment extends React.Component {
     this.state = { message: '' }
   }
 
-  updateMessage (evt) {
+  handleInputChange (evt) {
     this.setState({ message: evt.target.value })
   }
 
-  sendMessage (issueId, countryIso, section, target, userId, msg) {
+  handleKeyDown (evt) {
+    if (evt.keyCode === 13 && evt.metaKey) {
+      this.handleAddComment(this.props.issueId, this.props.countryIso, this.props.section, this.props.target, null, this.state.message)
+    }
+  }
+
+  handleAddComment (issueId, countryIso, section, target, userId, msg) {
     if (!R.isEmpty(R.trim(msg))) {
       this.props.postComment(issueId, countryIso, section, target, null, msg)
       this.setState({ message: '' })
@@ -34,21 +40,16 @@ class AddComment extends React.Component {
         <VerticallyGrowingTextField
               disabled={!canAddComment()}
               id={`fra-review__comment-input-${this.props.target}`}
-              onChange={(evt) => this.updateMessage(evt)}
-              onKeyDown={(evt) => {
-                if (evt.keyCode === 13 && evt.metaKey) {
-                  this.sendMessage(this.props.issueId, this.props.countryIso, this.props.section, this.props.target, null, this.state.message)
-                }
-              }}
-              value={this.state.message || ''}
+              onChange={(evt) => this.handleInputChange(evt)}
+              onKeyDown={(evt) => this.handleKeyDown(evt)}
+              value={this.state.message}
               className="fra-review__issue-comment-input"
-              placeholder={`${canAddComment() ? this.props.i18n.t('review.writeComment') : this.props.i18n.t('review.commentingClosed')}`}
-              />
+              placeholder={`${canAddComment() ? this.props.i18n.t('review.writeComment') : this.props.i18n.t('review.commentingClosed')}`}/>
       </div>
       <div className="fra-review__comment-buttons">
         <button className="fra-review__comment-add-btn btn btn-primary btn-s"
                 disabled={!canAddComment()}
-                onClick={() => this.sendMessage(this.props.issueId, this.props.countryIso, this.props.section, this.props.target, null, this.state.message)}>
+                onClick={() => this.handleAddComment(this.props.issueId, this.props.countryIso, this.props.section, this.props.target, null, this.state.message)}>
           {this.props.i18n.t('review.add')}
         </button>
         <button className="btn btn-s btn-secondary"
