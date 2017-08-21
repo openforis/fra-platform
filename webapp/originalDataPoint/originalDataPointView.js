@@ -114,6 +114,40 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
         </tr>
         </tbody>
       </table>
+
+      <h3 className="subhead odp__section">{i18n.t('forestCharacteristics.forestCharacteristics')}</h3>
+      <table className="odp__input-table odp__eof-table">
+        <thead>
+        <tr>
+          <th className="odp__eof-header-left odp__eof-divide-after-cell"
+              colSpan="2">{i18n.t('nationalDataPoint.nationalClasses')}</th>
+          <th className="odp__eof-header-left" colSpan="3">{i18n.t('nationalDataPoint.fraClasses')}</th>
+        </tr>
+        <tr>
+          <th className="odp__eof-header-left">{i18n.t('nationalDataPoint.class')}</th>
+          <th className="odp__eof-divide-after-cell odp__eof-header-right">{i18n.t('nationalDataPoint.area')}</th>
+          <th className="odp__eof-header-right">{i18n.t('fraForestCharacteristicsClass.naturallyGenerated')}</th>
+          <th className="odp__eof-header-right">{i18n.t('fraForestCharacteristicsClass.plantationForest')}</th>
+          <th className="odp__eof-header-right">{i18n.t('fraForestCharacteristicsClass.otherPlantedForest')}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {
+          extentOfForestRows(countryIso, active, saveDraft, openThread, i18n)
+        }
+        <tr>
+          <td className="fra-table__header-cell">{i18n.t('nationalDataPoint.total')}</td>
+          <td
+            className="odp__national-class-total-cell">{separateThousandsWithSpaces(Number(originalDataPoint.totalArea(active)))}</td>
+          <td
+            className="odp__national-class-total-cell">{separateThousandsWithSpaces(Number(originalDataPoint.totalForest(active, 'forestPercent')))}</td>
+          <td
+            className="odp__national-class-total-cell">{separateThousandsWithSpaces(Number(originalDataPoint.totalForest(active, 'otherWoodedLandPercent')))}</td>
+          <td
+            className="odp__national-class-total-cell">{separateThousandsWithSpaces(Number(originalDataPoint.totalForest(active, 'otherLandPercent')))}</td>
+        </tr>
+        </tbody>
+      </table>
     </div>
 
     <h3 className="subhead odp__section">{i18n.t('review.comments')}</h3>
