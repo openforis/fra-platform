@@ -79,7 +79,10 @@ export const translation = {
   },
 
   description: {
-    description: 'Description'
+    description: 'Description',
+    dataSources: 'Data Sources',
+    originalData: 'Original data',
+    nationalClassificationAndDefinitions: 'National classification and definitions',
   },
 
   nationalDataPoint: {

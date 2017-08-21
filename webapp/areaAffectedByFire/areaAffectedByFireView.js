@@ -16,9 +16,9 @@ const AreaAffectedByFire = ({match, i18n}) => {
       <TraditionalTable tableSpec={tableProps} countryIso={match.params.countryIso}/>
       <CommentableDescription
         section={tableProps.name}
-        descriptionName="areaAffectedByFire"
-        descriptionTitle={i18n.t('description.description')}
+        name="areaAffectedByFire"
         countryIso={match.params.countryIso}
+        i18n={i18n}
       />
     </div>
   </LoggedInPageTemplate>
