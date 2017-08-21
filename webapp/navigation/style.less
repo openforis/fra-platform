@@ -12,6 +12,29 @@
   border-right: @ui-thin-border;
   position: fixed;
   width: 256px;
+
+
+  .status-editing {
+    .mixin-status-base(@ui-status-editing);
+  }
+  .status-review {
+    .mixin-status-base(@ui-status-review);
+  }
+  .status-accepted {
+    .mixin-status-base(@ui-status-accepted);
+  }
+
+  .mixin-status-base(@color) {
+    width: 10px;
+    min-width: 10px;
+    height: 10px;
+    margin: 2px 5px 4px 0;
+    background-color: @color;
+    color: white;
+    border-radius: 100%;
+    text-align: center;
+    float: left;
+  }
 }
 
 // Current country
@@ -113,6 +136,10 @@
   margin-right: 16px;
 }
 
+.nav__assessment-status-indicator {
+  margin-top: 6px;
+}
+
 .nav__country-list-item {
   display: flex;
   justify-content: flex-start;
@@ -138,27 +165,6 @@
   min-width: 52px;
   line-height: 16px;
 
-  .status-editing {
-    .mixin-status-base(@ui-status-editing);
-  }
-  .status-review {
-    .mixin-status-base(@ui-status-review);
-  }
-  .status-accepted {
-    .mixin-status-base(@ui-status-accepted);
-  }
-
-  .mixin-status-base(@color) {
-    width: 10px;
-    min-width: 10px;
-    height: 10px;
-    margin: 2px 5px 4px 0;
-    background-color: @color;
-    color: white;
-    border-radius: 100%;
-    text-align: center;
-    float: left;
-  }
 }
 
 // Questionare
@@ -248,11 +254,14 @@
 }
 
 .nav__assessment-status {
-  display: inline-block;
   font-size: @font-s;
   color: @text-mute;
-  line-height: 20px;
+  line-height: 16px;
   margin-right: 4px;
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid @ui-border;
+  padding: 5px;
 }
 
 .nav__secondary-item {
