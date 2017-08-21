@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import LoggedInPageTemplate from '../loggedInPageTemplate'
 import TraditionalTable from '../traditionalTable/traditionalTable'
 import tableSpec from './tableSpec'
-import CommentableDescription from '../description/commentableDescription'
+import CommentableDescriptions from '../description/commentableDescription'
 
 const ForestAreaChangeView = ({match, i18n}) => {
   const tableProps = tableSpec(i18n)
@@ -13,11 +13,11 @@ const ForestAreaChangeView = ({match, i18n}) => {
     <div className="tv__container">
       <h2 className="headline tv__page-header">{i18n.t('forestAreaChange.forestAreaLossGainChange')}</h2>
       <TraditionalTable tableSpec={tableProps} countryIso={match.params.countryIso}/>
-      <CommentableDescription
+      <CommentableDescriptions
         section={tableProps.name}
-        descriptionName="forestAreaChange"
-        descriptionTitle={i18n.t('description.description')}
+        name="forestAreaChange"
         countryIso={match.params.countryIso}
+        i18n={i18n}
       />
     </div>
   </LoggedInPageTemplate>
