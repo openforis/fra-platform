@@ -18,6 +18,7 @@ const assertDescriptionProps = props =>
   assert(
     props.descriptionTitle &&
     props.descriptionName &&
+    props.commentTarget &&
     props.countryIso &&
     props.section,
     'Some property is missing for CommentableDescription'
@@ -26,10 +27,9 @@ const assertDescriptionProps = props =>
 class CommentableReviewDescription extends React.Component {
   render() {
     assertDescriptionProps(this.props)
-    const reviewIndicatorTarget = [this.props.descriptionName]
     return <div className="commentable-description">
       <div className={
-        R.equals(this.props.openCommentThreadTarget, reviewIndicatorTarget)
+        R.equals(this.props.openCommentThreadTarget, this.props.commentTarget)
           ? 'commentable-description__description-wrapper fra-row-comments__open'
           : 'commentable-description__description-wrapper'
       }>
@@ -40,7 +40,7 @@ class CommentableReviewDescription extends React.Component {
       <div className="commentable-description__review-indicator-wrapper">
         <ReviewIndicator section={this.props.section}
                          name={this.props.descriptionTitle}
-                         target={reviewIndicatorTarget}
+                         target={this.props.commentTarget}
                          countryIso={this.props.countryIso}/>
       </div>
     </div>
@@ -57,16 +57,19 @@ class CommentableReviewDescriptions extends React.Component {
     return <div>
       <CommentableReviewDescription
         descriptionName={`${this.props.name}_datasources`}
+        commentTarget={['dataSources']}
         descriptionTitle={sourcesTitle}
         {...this.props}
       />
       <CommentableReviewDescription
         descriptionName={`${this.props.name}_originaldata`}
+        commentTarget={['originalData']}
         descriptionTitle={originalDatatitle}
         {...this.props}
       />
       <CommentableReviewDescription
         descriptionName={`${this.props.name}_nationalClassification`}
+        commentTarget={['nationalClassification']}
         descriptionTitle={nationalClassificationTitle}
         {...this.props}
       />
