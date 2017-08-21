@@ -23,7 +23,8 @@ export const translation = {
   fraForestCharacteristicsClass: {
     naturallyGenerated: 'Naturally regenerated',
     plantationForest: 'Plantation forest',
-    otherPlantedForest: 'Other planted forest'
+    otherPlantedForest: 'Other planted forest',
+    introduced: '...of which introduces species'
   },
 
   // components
