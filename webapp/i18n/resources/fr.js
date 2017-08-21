@@ -50,7 +50,6 @@ export const translation = {
       },
       editing: {
         label: '', //Currently we do not wish to show the default state at all
-        next: 'Recommencez (au stade de modification)',
         previous: 'Rejetez'
       }
     }

@@ -50,7 +50,6 @@ export const translation = {
       },
       editing: {
         label: 'Editing',
-        next: 'Start over (to editing)',
         previous: 'Reject'
       }
     }
