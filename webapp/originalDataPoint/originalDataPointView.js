@@ -347,7 +347,7 @@ const ExtentOfForestRow = ({
   </tr>
 }
 
-const forestCharacteristicsCols = ['area', 'naturalForestPercent', 'plantationForestPercent', 'otherPlantedForestPercent']
+const forestCharacteristicsCols = ['area', 'naturalForestPercent', 'naturalForestPrimaryPercent', 'plantationForestPercent', 'otherPlantedForestPercent']
 const foresCharaceristicsRows = (countryIso, odp, saveDraft, openThread, i18n) =>
   R.pipe(
     R.filter(nationalClass => !nationalClass.placeHolder),
@@ -371,7 +371,7 @@ const ForestCharacteristicsRow =
      className,
      area,
      naturalForestPercent,
-     naturallyRegeneratedPrimaryPercent,
+     naturalForestPrimaryPercent,
      plantationPercent,
      plantationForestIntroducedSpeciesPercent,
      otherPlantedPercent,
@@ -393,6 +393,12 @@ const ForestCharacteristicsRow =
       <PercentInput
         value={naturalForestPercent || ''}
         onChange={numberUpdated(countryIso, odp, index, 'naturalForestPercent', naturalForestPercent)}
+        onPaste={updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 1, 'integer')}
+      />
+      <PercentInput
+        prefix="Primary"
+        value={naturalForestPrimaryPercent || ''}
+        onChange={numberUpdated(countryIso, odp, index, 'naturalForestPrimaryPercent', naturalForestPrimaryPercent)}
         onPaste={updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 1, 'integer')}
       />
     </td>
