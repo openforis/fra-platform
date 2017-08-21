@@ -387,39 +387,34 @@ const ForestCharacteristicsRow =
       className={`odp__eof-area-cell odp__eof-divide-after-cell`}>
       <ThousandSeparatedIntegerInput integerValue={area}
                                      onChange={numberUpdated(countryIso, odp, index, 'area', area)}
-                                     onPaste={updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 0, 'integer')}/>
+                                    />
     </td>
     <td>
       <PercentInput
         value={naturalForestPercent || ''}
         onChange={numberUpdated(countryIso, odp, index, 'naturalForestPercent', naturalForestPercent)}
-        onPaste={updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 1, 'integer')}
       />
       <PercentInput
         prefix="Primary"
         value={naturalForestPrimaryPercent || ''}
         onChange={numberUpdated(countryIso, odp, index, 'naturalForestPrimaryPercent', naturalForestPrimaryPercent)}
-        onPaste={updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 1, 'integer')}
       />
     </td>
     <td>
       <PercentInput
         value={plantationPercent || ''}
         onChange={numberUpdated(countryIso, odp, index, 'plantationPercent', plantationPercent)}
-        onPaste={updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 3, 'integer')}
       />
       <PercentInput
         prefix="Introduced"
         value={plantationIntroducedPercent || ''}
         onChange={numberUpdated(countryIso, odp, index, 'plantationIntroducedPercent', plantationIntroducedPercent)}
-        onPaste={updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 1, 'integer')}
       />
     </td>
     <td>
       <PercentInput
         value={otherPlantedPercent || ''}
         onChange={numberUpdated(countryIso, odp, index, 'otherPlantedPercent', otherPlantedPercent)}
-        onPaste={updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 3, 'integer')}
       />
     </td>
     <td className="odp__col-review">
