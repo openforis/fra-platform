@@ -140,11 +140,11 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
           <td
             className="odp__national-class-total-cell">{separateThousandsWithSpaces(Number(originalDataPoint.totalArea(active)))}</td>
           <td
-            className="odp__national-class-total-cell">{separateThousandsWithSpaces(Number(originalDataPoint.totalForest(active, 'forestPercent')))}</td>
+            className="odp__national-class-total-cell">{separateThousandsWithSpaces(Number(originalDataPoint.totalForest(active, 'naturalForestPercent')))}</td>
           <td
-            className="odp__national-class-total-cell">{separateThousandsWithSpaces(Number(originalDataPoint.totalForest(active, 'otherWoodedLandPercent')))}</td>
+            className="odp__national-class-total-cell">{separateThousandsWithSpaces(Number(originalDataPoint.totalForest(active, 'plantationPercent')))}</td>
           <td
-            className="odp__national-class-total-cell">{separateThousandsWithSpaces(Number(originalDataPoint.totalForest(active, 'otherLandPercent')))}</td>
+            className="odp__national-class-total-cell">{separateThousandsWithSpaces(Number(originalDataPoint.totalForest(active, 'otherPlantedPercent')))}</td>
         </tr>
         </tbody>
       </table>

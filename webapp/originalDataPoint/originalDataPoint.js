@@ -33,9 +33,9 @@ export const defaultNationalClass = (className = '', definition = '') => ({
   otherLandPercent: null,
   naturalForestPercent: null,
   naturallyRegeneratedPrimaryPercent: null,
-  plantationForestPercent: null,
+  plantationPercent: null,
   plantationForestIntroducedSpeciesPercent: null,
-  otherPlantedForestPercent: null,
+  otherPlantedPercent: null,
   uuid: uuidv4()
 })
 
