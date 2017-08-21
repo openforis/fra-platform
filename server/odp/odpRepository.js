@@ -104,10 +104,11 @@ const addClassData = (client, odpVersionId, odp) => {
         forest_natural_percent,
         forest_natural_primary_percent,
         forest_plantation_percent,
+        forest_plantation_introduced_percent,
         other_planted_forest_percent,
         uuid)
         VALUES
-        ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12);`,
+        ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, );`,
       [
         odpVersionId,
         nationalClass.className,
@@ -119,6 +120,7 @@ const addClassData = (client, odpVersionId, odp) => {
         nationalClass.naturalForestPercent,
         nationalClass.naturalForestPrimaryPercent,
         nationalClass.plantationPercent,
+        nationalClass.plantationIntroducedPercent,
         nationalClass.otherPlantedPercent,
         nationalClass.uuid
       ]),
@@ -207,6 +209,7 @@ const getOdpNationalClasses = (queryProvider, odpVersionId) =>
       forest_natural_percent,
       forest_natural_primary_percent,
       forest_plantation_percent,
+      forest_plantation_introduced_percent,
       other_planted_forest_percent,
       uuid
      FROM odp_class
@@ -223,6 +226,7 @@ const getOdpNationalClasses = (queryProvider, odpVersionId) =>
       naturalForestPercent: toNumberOrNull(row.forest_natural_percent),
       naturalForestPrimaryPercent: toNumberOrNull(row.forest_natural_primary_percent),
       plantationPercent: toNumberOrNull(row.forest_plantation_percent),
+      plantationIntroducedPercent: toNumberOrNull(row.forest_plantation_introduced_percent),
       otherPlantedPercent: toNumberOrNull(row.other_planted_forest_percent),
       uuid: row.uuid
     }), result.rows))

@@ -373,7 +373,7 @@ const ForestCharacteristicsRow =
      naturalForestPercent,
      naturalForestPrimaryPercent,
      plantationPercent,
-     plantationForestIntroducedSpeciesPercent,
+     plantationIntroducedPercent,
      otherPlantedPercent,
      openThread,
      i18n,
@@ -407,6 +407,12 @@ const ForestCharacteristicsRow =
         value={plantationPercent || ''}
         onChange={numberUpdated(countryIso, odp, index, 'plantationPercent', plantationPercent)}
         onPaste={updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 3, 'integer')}
+      />
+      <PercentInput
+        prefix="Introduced"
+        value={plantationIntroducedPercent || ''}
+        onChange={numberUpdated(countryIso, odp, index, 'plantationIntroducedPercent', plantationIntroducedPercent)}
+        onPaste={updatePastedValues(odp, index, saveDraft, countryIso, extentOfForestCols, 1, 'integer')}
       />
     </td>
     <td>
