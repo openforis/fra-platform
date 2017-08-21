@@ -426,7 +426,7 @@ const ForestCharacteristicsRow =
       {odp.odpId
         ? <ReviewIndicator section='NDP'
                            name={i18n.t('nationalDataPoint.nationalDataPoint')}
-                           target={[odp.odpId, 'class_value', `${odp.nationalClasses[index].uuid}`]}
+                           target={[odp.odpId, 'class_value', 'forest_charasteristics', `${odp.nationalClasses[index].uuid}`]}
                            countryIso={countryIso}/>
         : null}
     </td>
