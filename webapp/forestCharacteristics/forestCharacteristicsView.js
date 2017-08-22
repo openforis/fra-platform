@@ -8,7 +8,7 @@ import LoggedInPageTemplate from '../loggedInPageTemplate'
 import { DataTable } from '../originalDataPoint/commentableDatatable'
 
 
-const ForestCharacteristics = () => {
+const ForestCharacteristics = props => {
   return <div>
     <DataTable {...props} />
   </div>
@@ -30,7 +30,7 @@ class DataFetchingComponent extends React.Component {
 
   render () {
     return <LoggedInPageTemplate commentsOpen={this.props.openCommentThread}>
-      <div>hello</div>
+      <ForestCharacteristics {...this.props} />
     </LoggedInPageTemplate>
   }
 }

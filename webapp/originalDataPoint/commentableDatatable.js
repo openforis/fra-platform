@@ -21,6 +21,20 @@ export class DataTable extends React.Component {
 
   render () {
     const i18n = this.props.i18n
+    const rows = [
+      {
+        field: 'forestArea',
+        localizedName: i18n.t('extentOfForest.forestArea')
+      },
+      {
+        field: 'otherWoodedLand',
+        localizedName: i18n.t('fraClass.otherWoodedLand')
+      },
+      {
+        field: 'otherLand',
+        localizedName: i18n.t('fraClass.otherLand')
+      }
+    ]
     return <div className="nde__data-table-container">
       <div className="nde__data-table-scroll-content">
         <table className="fra-table">
@@ -39,12 +53,7 @@ export class DataTable extends React.Component {
           </tr>
           </thead>
           <tbody>
-          { fraValueRow(i18n.t('extentOfForest.forestArea'), 'forest', this.props.countryIso, 'forestArea',
-            this.props.fra, this.props.save, this.props.saveMany, 0, this.props.openCommentThread) }
-          { fraValueRow(i18n.t('fraClass.otherWoodedLand'), 'otherWoodedLand', this.props.countryIso, 'otherWoodedLand',
-            this.props.fra, this.props.save, this.props.saveMany, 1, this.props.openCommentThread) }
-          { fraValueRow(i18n.t('fraClass.otherLand'), 'otherLand', this.props.countryIso, 'otherLand',
-            this.props.fra, this.props.save, this.props.saveMany, 2, this.props.openCommentThread) }
+          {buildRows(rows, this.props)}
           </tbody>
         </table>
       </div>
@@ -66,6 +75,9 @@ export class DataTable extends React.Component {
   }
 }
 
+const buildRows = (rows, props) => mapIndexed((row, i) => fraValueRow(row.localizedName, row.field, props.countryIso,
+    props.fra, props.save, props.saveMany, i, props.openCommentThread), rows)
+
 const OdpHeading = ({countryIso, odpValue}) =>
   <Link className="link" to={`/country/${countryIso}/odp/${odpValue.odpId}`}>
     {odpValue.draft ? <svg className="icon icon-sub icon-red icon-margin"><use href="img/icons.svg#alert"/></svg> : ''}
@@ -84,7 +96,8 @@ const odpCell = (odpValue, field) =>
     {separateThousandsWithSpaces(Math.round(odpValue[field]))}
   </span>
 
-const fraValueRow = (rowHeading, target, countryIso, field, fra, save, saveMany, colId, openThread) => {
+const fraValueRow = (rowHeading, field, countryIso, fra, save, saveMany, colId, openThread) => {
+  const target = [field]
   return <tr
     className={`${openThread && R.isEmpty(R.difference(openThread.target, target)) ? 'fra-row-comments__open' : ''}`}>
     <td className="fra-table__header-cell">{ rowHeading }</td>
