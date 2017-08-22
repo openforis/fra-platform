@@ -5,6 +5,14 @@ import * as R from 'ramda'
 
 import { fetchItem } from '../originalDataPoint/actions'
 import LoggedInPageTemplate from '../loggedInPageTemplate'
+import { DataTable } from '../originalDataPoint/commentableDatatable'
+
+
+const ForestCharacteristics = () => {
+  return <div>
+    <DataTable {...props} />
+  </div>
+}
 
 class DataFetchingComponent extends React.Component {
   componentWillMount () {

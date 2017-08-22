@@ -10,6 +10,7 @@ const estimationEngine = require('./estimationEngine')
 const { checkCountryAccessFromReqParams } = require('../utils/accessControl')
 
 const forestAreaTableResponse = require('./forestAreaTableResponse')
+const focTableResponse = require('./focTableResponse')
 
 module.exports.init = app => {
   app.post('/eof/:countryIso', (req, res) => {
@@ -57,7 +58,7 @@ module.exports.init = app => {
     Promise.all([fra, odp])
       .then(result => {
         const focs = R.pipe(
-          R.merge(forestAreaTableResponse.fra),
+          R.merge(focTableResponse.buildDefaultResponse(focTableResponse.defaultYears)),
           R.merge(result[1]),
           R.values,
           R.sort((a, b) => a.year === b.year ? (a.type < b.type ? -1 : 1) : a.year - b.year)
