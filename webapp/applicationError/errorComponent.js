@@ -4,7 +4,7 @@ import { clearApplicationError } from './actions'
 import * as R from 'ramda'
 
 const ErrorBox = ({applicationError, i18n, clearApplicationError}) => {
-  console.error(applicationError.msg)
+
   return <div className="alert-container">
     <div className="alert-error">
       <div className="alert-icon">
@@ -12,7 +12,11 @@ const ErrorBox = ({applicationError, i18n, clearApplicationError}) => {
           <use href="img/icons.svg#alert"/>
         </svg>
       </div>
-      <div className="alert-message">{applicationError.msg}</div>
+      <div className="alert-message">{
+        applicationError.error.key
+          ? i18n.t(applicationError.error.key, applicationError.error.values)
+          : applicationError.error + ''
+      }</div>
       <div className="alert-dismiss" onClick={() => clearApplicationError()}>
         <svg className="icon">
           <use href="img/icons.svg#remove"/>
@@ -22,7 +26,7 @@ const ErrorBox = ({applicationError, i18n, clearApplicationError}) => {
   </div>
 }
 
-const ErrorComponent = (props) => R.path(['applicationError', 'msg'], props) ? <ErrorBox {...props}/> : null
+const ErrorComponent = (props) => R.path(['applicationError', 'error'], props) ? <ErrorBox {...props}/> : null
 
 const mapStateToProps = state => ({applicationError: state.applicationError, i18n: state.user.i18n})
 

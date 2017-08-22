@@ -5,16 +5,16 @@ export const clearApplicationErrorType = 'applicationError/clear'
 
 export const applicationError = error => {
   console.error(error)
-  // If error is a  Fra-platform custom error json object from server
-  // we can extract an error message
-  // from it
-  const detailedErrorMessage = R.path(['response', 'data', 'error'], error)
-  const errorMessage = detailedErrorMessage
-    ? `${error}: ${detailedErrorMessage}`
-    : error
+
+  //extract custom Fra-platform error
+  const respError = R.pipe(
+    R.path(['response', 'data', 'error']),
+    R.defaultTo(error)
+  )(error)
+
   return {
     type: applicationErrorType,
-    error: errorMessage
+    error: respError
   }
 }
 
