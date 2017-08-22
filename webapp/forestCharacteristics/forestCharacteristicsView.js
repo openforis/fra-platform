@@ -3,20 +3,21 @@ import React from 'react'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
 
+import { fetchItem } from '../originalDataPoint/actions'
 import LoggedInPageTemplate from '../loggedInPageTemplate'
 
 class DataFetchingComponent extends React.Component {
   componentWillMount () {
-    // this.fetch(this.props.match.params.countryIso)
+    this.fetch(this.props.match.params.countryIso)
   }
 
   componentWillReceiveProps (next) {
-    // if (!R.equals(this.props.match.params.countryIso, next.match.params.countryIso))
-      // this.fetch(next.match.params.countryIso)
+    if (!R.equals(this.props.match.params.countryIso, next.match.params.countryIso))
+      this.fetch(next.match.params.countryIso)
   }
 
   fetch (countryIso) {
-    // this.props.fetch(countryIso)
+    this.props.fetchItem('foc', countryIso)
   }
 
   render () {
@@ -32,4 +33,4 @@ const mapStateToProps = state =>
     i18n: state.user.i18n
   })
 
-export default connect(mapStateToProps, {})(DataFetchingComponent)
+export default connect(mapStateToProps, {fetchItem})(DataFetchingComponent)

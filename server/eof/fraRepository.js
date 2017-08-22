@@ -61,9 +61,33 @@ const forestAreaReducer = (results, row, type = 'fra') => R.assoc(`fra_${row.yea
   },
   results)
 
+const forestCharacteristicsReducer = (results, row, type = 'fra') => R.assoc(`fra_${row.year}`,
+  {
+    naturalForestArea: toNumberOrNull(row.natural_forest_area),
+    naturalForestPrimaryArea: toNumberOrNull(row.natural_forest_primary_area),
+    plantationForestArea: toNumberOrNull(row.plantation_forest_area),
+    plantationForestIntroducedArea: toNumberOrNull(row.platation_forest_introduced_area),
+    otherPlantedForestArea: toNumberOrNull(row.other_planted_forest_area),
+    name: row.year + '',
+    type: 'fra',
+    year: Number(row.year),
+    naturalForestAreaEstimatedEstimated: row.natural_forest_area_estimated || false,
+    naturalForestAreaPrimaryEstimatedEstimated: row.natural_forest_primary_area_estimated || false,
+    plantationForestAreaEstimated: row.plantation_forest_area_estimated || false,
+    plantationForestIntroducedAreaEstimated: row.platation_forest_introduced_area_estimated || false,
+    otherPlantedForestAreaEstimated: row.other_planted_forest_area_estimated || false
+  },
+  results)
+
 module.exports.readFraForestAreas = (countryIso) =>
   db.query(
     'SELECT year, forest_area, other_wooded_land, other_land, forest_area_estimated, other_wooded_land_estimated , other_land_estimated from eof_fra_values WHERE country_iso = $1',
     [countryIso]
   ).then((result) => R.reduce(forestAreaReducer, {}, result.rows))
+
+module.exports.readFraForestCharacteristics = countryIso =>
+  db.query(
+    'SELECT * from foc_fra_values WHERE country_iso = $1',
+    [countryIso]
+  ).then((result) => R.reduce(forestCharacteristicsReducer, {}, result.rows))
 

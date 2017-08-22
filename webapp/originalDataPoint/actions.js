@@ -140,7 +140,7 @@ const fetched = (itemName, countryIso, data) => ({
 })
 
 export const fetchItem = (itemName, countryIso) => dispatch => {
-  axios.get(`/api/country/${countryIso}/${itemName}`).then(resp => {
+  axios.get(`/api/${itemName}/${countryIso}`).then(resp => {
     dispatch(fetched(itemName, countryIso, resp.data))
   }).catch(err => dispatch(applicationError(err)))
 }

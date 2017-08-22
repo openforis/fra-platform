@@ -31,10 +31,10 @@ module.exports.init = app => {
       .catch(err => sendErr(res, err))
   })
 
-  app.get('/country/:countryIso/eof', (req, res) => {
+  app.get('/eof/:countryIso', (req, res) => {
     checkCountryAccessFromReqParams(req)
     const fra = fraRepository.readFraForestAreas(req.params.countryIso)
-    const odp = odpRepository.readOriginalDataPoints(req.params.countryIso)
+    const odp = odpRepository.readEofOdps(req.params.countryIso)
 
     Promise.all([fra, odp])
       .then(result => {
@@ -49,8 +49,28 @@ module.exports.init = app => {
       .catch(err => sendErr(res, err))
   })
 
+  app.get('/foc/:countryIso', (req, res) => {
+    checkCountryAccessFromReqParams(req)
+    const fra = fraRepository.readFraForestCharacteristics(req.params.countryIso)
+    const odp = odpRepository.readFocOdps(req.params.countryIso)
+
+    Promise.all([fra, odp])
+      .then(result => {
+        const focs = R.pipe(
+          R.merge(forestAreaTableResponse.fra),
+          R.merge(result[1]),
+          R.values,
+          R.sort((a, b) => a.year === b.year ? (a.type < b.type ? -1 : 1) : a.year - b.year)
+        )(result[0])
+        return res.json({fra: focs})
+      })
+      .catch(err => sendErr(res, err))
+  })
+
   app.post('/country/estimation/generateFraValues/:countryIso', (req, res) => {
     checkCountryAccessFromReqParams(req)
+    const fra = fraRepository.readFraForestAreas(req.params.countryIso)
+    const odp = odpRepository.readEofOdps(req.params.countryIso)
     const years = R.pipe(
       R.values,
       R.map((v) => v.year)

@@ -257,7 +257,7 @@ const getOdp = odpId =>
 
 module.exports.getOdp = getOdp
 
-const odpReducer = (results, row, type = 'fra') => R.assoc(`odp_${row.year}`,
+const eofReducer = (results, row, type = 'fra') => R.assoc(`odp_${row.year}`,
   {
     odpId: row.odp_id,
     forestArea: Number(row.forest_area),
@@ -270,7 +270,20 @@ const odpReducer = (results, row, type = 'fra') => R.assoc(`odp_${row.year}`,
   },
   results)
 
-module.exports.readOriginalDataPoints = (countryIso) =>
+const focReducer = (results, row, type = 'fra') => R.assoc(`odp_${row.year}`,
+  {
+    odpId: row.odp_id,
+    naturalForest: Number(row.natural_forest_area),
+    // otherWoodedLand: Number(row.other_wooded_land_area),
+    // otherLand: Number(row.other_land_area),
+    name: row.year + '',
+    type: 'odp',
+    year: Number(row.year),
+    draft: row.draft
+  },
+  results)
+
+module.exports.readEofOdps = (countryIso) =>
   db.query(`
         SELECT
           p.id as odp_id,
@@ -295,7 +308,36 @@ module.exports.readOriginalDataPoints = (countryIso) =>
         WHERE p.country_iso = $1 AND year IS NOT NULL
         GROUP BY odp_id, v.year, draft
         `
-    , [countryIso]).then(result => R.reduce(odpReducer, {}, result.rows))
+    , [countryIso]).then(result => R.reduce(eofReducer, {}, result.rows))
+
+module.exports.readFocOdps = (countryIso) =>
+  db.query(`
+        SELECT
+          p.id as odp_id,
+          v.year,
+          SUM(c.area * (c.forest_natural_percent/100.0)) AS natural_forest_area,
+          SUM(c.area * (c.forest_natural_primary_percent/100.0)) AS natural_forest_primary_area,
+          SUM(c.area * (c.forest_plantation_percent/100.0)) AS forest_plantation_area,
+          SUM(c.area * (c.forest_plantation_introduced_percent/100.0)) AS forest_plantation_introduced_area,
+          SUM(c.area * (c.other_planted_forest_percent/100.0)) AS other_planted_forest_area,
+        CASE 
+          WHEN p.draft_id IS NULL
+          THEN FALSE
+          ELSE TRUE
+        END AS draft
+        FROM odp p
+        JOIN odp_version v
+        ON v.id =
+          CASE WHEN p.draft_id IS NULL
+          THEN p.actual_id
+          ELSE p.draft_id
+        END
+        LEFT OUTER JOIN odp_class c
+          ON c.odp_version_id = v.id
+        WHERE p.country_iso = $1 AND year IS NOT NULL
+        GROUP BY odp_id, v.year, draft
+        `
+    , [countryIso]).then(result => R.reduce(focReducer, {}, result.rows))
 
 const listOriginalDataPoints = countryIso =>
   db.query(`SELECT p.id as odp_id FROM odp p WHERE country_iso = $1`, [countryIso])
