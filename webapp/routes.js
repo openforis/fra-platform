@@ -10,6 +10,7 @@ import PrimaryDesignatedManagementObjectiveView from './primaryDesignatedManagem
 import OriginalDataListView from './originalDataPoint/originalDataListView'
 import ForestAreaChangeView from './forestAreaChange/forestAreaChangeView'
 import AreaAffecteByFireView from './areaAffectedByFire/areaAffectedByFireView'
+import ForestCharacteristicsView from './forestCharacteristics/forestCharacteristicsView'
 
 const routes = {
   '/': LoginView,
@@ -19,6 +20,7 @@ const routes = {
   '/country/:countryIso/odp/:odpId': OriginalDataPointView,
   '/country/:countryIso/specificForestCategories': SpecificForestCategoriesView,
   '/country/:countryIso/forestAreaChange': ForestAreaChangeView,
+  '/country/:countryIso/forestCharacteristics': ForestCharacteristicsView,
   '/country/:countryIso/primaryDesignatedManagementObjectiveView': PrimaryDesignatedManagementObjectiveView,
   '/country/:countryIso/areaAffectedByFire': AreaAffecteByFireView
 }

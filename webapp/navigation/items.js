@@ -42,7 +42,7 @@ export const fiveYearItems = i18n => [
   {
     order: 7,
     label: i18n.t('forestCharacteristics.forestCharacteristics'),
-    pathTemplate: '#/todo'
+    pathTemplate: '/country/:countryIso/forestCharacteristics'
   },
   {
     order: 8,
