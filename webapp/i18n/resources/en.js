@@ -26,7 +26,6 @@ export const translation = {
     otherPlantedForest: 'Other planted forest',
     introduced: '...of which introduces species'
   },
-
   // components
 
   navigation: {
@@ -125,9 +124,7 @@ export const translation = {
       noDataPlaceholderLine2: 'them to generate FRA values automatically.'
     }
   },
-  forestCharacteristics: {
-    forestCharacteristics: 'Forest Characteristics'
-  },
+
 
   growingStock: {
     growingStock: 'Growing stock'
@@ -157,7 +154,12 @@ export const translation = {
   },
 
   forestCharacteristics: {
-    forestCharacteristics: 'Forest characteristics'
+    forestCharacteristics: 'Forest Characteristics',
+    naturalForestArea: 'Naturally regenerated forest',
+    naturalForestPrimaryArea: '…of which primary',
+    plantationForestArea: 'Plantation forest',
+    plantationForestIntroducedArea: '…of which introduced species',
+    otherPlantedForestArea: 'Other planted forest'
   },
 
   specificForestCategories: {

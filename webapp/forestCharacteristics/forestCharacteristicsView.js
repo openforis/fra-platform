@@ -9,8 +9,30 @@ import { DataTable } from '../originalDataPoint/commentableDatatable'
 
 
 const ForestCharacteristics = props => {
+  const rows = [
+    {
+      field: 'naturalForestArea',
+      localizedName: props.i18n.t('forestCharacteristics.naturalForestArea')
+    },
+    {
+      field: 'naturalForestPrimaryArea',
+      localizedName: props.i18n.t('forestCharacteristics.naturalForestPrimaryArea')
+    },
+    {
+      field: 'plantationForestArea',
+      localizedName: props.i18n.t('forestCharacteristics.plantationForestArea')
+    },
+    {
+      field: 'plantationForestIntroducedArea',
+      localizedName: props.i18n.t('forestCharacteristics.plantationForestIntroducedArea')
+    },
+    {
+      field: 'otherPlantedForestArea',
+      localizedName: props.i18n.t('forestCharacteristics.otherPlantedForestArea')
+    }
+  ]
   return <div>
-    <DataTable {...props} />
+    <DataTable rows={rows} {...props} />
   </div>
 }
 
@@ -35,10 +57,13 @@ class DataFetchingComponent extends React.Component {
   }
 }
 
-const mapStateToProps = state =>
-  ({...state.forestCharacteristics,
+const mapStateToProps = state => {
+  console.log('state', state)
+  return ({
+    ...state.forestCharacteristics,
     'openCommentThread': state.review.openThread,
     i18n: state.user.i18n
   })
+}
 
 export default connect(mapStateToProps, {fetchItem})(DataFetchingComponent)

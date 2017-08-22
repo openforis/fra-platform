@@ -3,8 +3,12 @@ import * as R from 'ramda'
 
 import { applicationError } from '../applicationError/actions'
 import * as autosave from '../autosave/actions'
-import { removeClassPlaceholder, addNationalClassPlaceHolder, copyNationalClassDefinitions } from './originalDataPoint'
-import {validateDataPoint} from '../../common/originalDataPointCommon'
+import {
+  removeClassPlaceholder,
+  addNationalClassPlaceHolder,
+  copyNationalClassDefinitions
+} from './originalDataPoint'
+import { validateDataPoint } from '../../common/originalDataPointCommon'
 import { fetchCountryOverviewStatus } from '../navigation/actions'
 
 // Validation

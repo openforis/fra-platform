@@ -36,6 +36,20 @@ const NationalDataEntry = (props) => {
   const originalDataTarget = ['original_data']
   const classificationTarget = ['national_classifications']
   const i18n = props.i18n
+  const rows = [
+    {
+      field: 'forestArea',
+      localizedName: i18n.t('extentOfForest.forestArea')
+    },
+    {
+      field: 'otherWoodedLand',
+      localizedName: i18n.t('fraClass.otherWoodedLand')
+    },
+    {
+      field: 'otherLand',
+      localizedName: i18n.t('fraClass.otherLand')
+    }
+  ]
 
   return <div className='nde__data-input-component'>
     <div className="nde__data-page-header">
@@ -59,7 +73,7 @@ const NationalDataEntry = (props) => {
         </button>
       </div>
     </div>
-    <DataTable {...props} />
+    <DataTable rows={rows} {...props} />
     <div className="nde__description-field nde__comment-transition">
       <Description title={i18n.t('extentOfForest.dataSources')} name="dataSources" classes={`${props.openCommentThread &&
         R.isEmpty(R.difference(props.openCommentThread.target, sourceTarget)) ? 'fra-row-comments__open' : ''}`}

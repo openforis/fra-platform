@@ -21,20 +21,8 @@ export class DataTable extends React.Component {
 
   render () {
     const i18n = this.props.i18n
-    const rows = [
-      {
-        field: 'forestArea',
-        localizedName: i18n.t('extentOfForest.forestArea')
-      },
-      {
-        field: 'otherWoodedLand',
-        localizedName: i18n.t('fraClass.otherWoodedLand')
-      },
-      {
-        field: 'otherLand',
-        localizedName: i18n.t('fraClass.otherLand')
-      }
-    ]
+    const rows = this.props.rows
+
     return <div className="nde__data-table-container">
       <div className="nde__data-table-scroll-content">
         <table className="fra-table">
