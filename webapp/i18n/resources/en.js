@@ -21,7 +21,7 @@ export const translation = {
     otherLand: 'Other land'
   },
 
-  // server side error messages
+  // error messages
   error: {
     access: {
       countryRoleNotSpecified: 'Error: User {{user}} tried to access {{countryIso}} but no role has been specified',
