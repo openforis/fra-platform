@@ -31,7 +31,10 @@ const ForestCharacteristics = props => {
       localizedName: props.i18n.t('forestCharacteristics.otherPlantedForestArea')
     }
   ]
-  return <div>
+  return <div className='nde__data-input-component'>
+    <div className="nde__data-page-header">
+      <h2 className="headline">{props.i18n.t('forestCharacteristics.forestCharacteristics')}</h2>
+    </div>
     <DataTable rows={rows} {...props} />
   </div>
 }
@@ -52,7 +55,8 @@ class DataFetchingComponent extends React.Component {
 
   render () {
     return <LoggedInPageTemplate commentsOpen={this.props.openCommentThread}>
-      <ForestCharacteristics {...this.props} />
+      <ForestCharacteristics {...this.props} countryIso={this.props.match.params.countryIso}
+        />
     </LoggedInPageTemplate>
   }
 }
