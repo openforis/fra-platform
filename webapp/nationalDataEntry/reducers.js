@@ -1,6 +1,7 @@
 import * as R from 'ramda'
 
 import * as types from './actions'
+import * as odpTypes from '../originalDataPoint/actions'
 import { applyReducerFunction } from '../utils/reduxUtils'
 
 const updateValue = (state, action) => {
@@ -19,7 +20,7 @@ const updateValues = (state, action) => {
 
 const actionHandlers = {
   [types.valueChangeStart]: (state, action) => updateValue(state, action),
-  [types.valuesFetched]: (state, action) => action.data,
+  [odpTypes.valuesFetched('eof')]: (state, action) => action.data,
   [types.generateFraValuesStart]: (state, action) => R.assoc('generatingFraValues', true)(state),
   [types.pasteChangeStart]: (state, action) => updateValues(state, action)
 }

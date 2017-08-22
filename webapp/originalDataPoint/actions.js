@@ -129,3 +129,19 @@ export const cancelDraft = (countryIso, odpId) => dispatch => {
     window.location = `#/country/${countryIso}`
 }
 
+
+// fetching odp based assesment item
+
+export const valuesFetched = name => `${name}/value/fetch/completed`
+
+const fetched = (itemName, countryIso, data) => ({
+  type: valuesFetched(itemName),
+  countryIso, data
+})
+
+export const fetchItem = (itemName, countryIso) => dispatch => {
+  axios.get(`/api/country/${countryIso}/${itemName}`).then(resp => {
+    dispatch(fetched(itemName, countryIso, resp.data))
+  }).catch(err => dispatch(applicationError(err)))
+}
+

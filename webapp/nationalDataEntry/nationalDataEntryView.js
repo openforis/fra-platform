@@ -2,7 +2,8 @@ import './style.less'
 import React from 'react'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
-import { save, saveMany, fetch, generateFraValues } from './actions'
+import { save, saveMany, generateFraValues } from './actions'
+import { fetchItem } from '../originalDataPoint/actions'
 import { Link } from './../link'
 import Chart from './chart/chart'
 import ReviewIndicator from '../review/reviewIndicator'
@@ -231,8 +232,8 @@ class DataFetchingComponent extends React.Component {
       this.fetch(next.match.params.countryIso)
   }
 
-  fetch (countryIso) {
-    this.props.fetch(countryIso)
+  fetch(countryIso) {
+    this.props.fetchItem('eof', countryIso)
   }
 
   render () {
@@ -248,4 +249,4 @@ const mapStateToProps = state =>
     i18n: state.user.i18n
   })
 
-export default connect(mapStateToProps, {save, saveMany, fetch, generateFraValues})(DataFetchingComponent)
+export default connect(mapStateToProps, {save, saveMany, fetchItem, generateFraValues})(DataFetchingComponent)

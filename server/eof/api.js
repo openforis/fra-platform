@@ -31,7 +31,7 @@ module.exports.init = app => {
       .catch(err => sendErr(res, err))
   })
 
-  app.get('/country/:countryIso', (req, res) => {
+  app.get('/country/:countryIso/eof', (req, res) => {
     checkCountryAccessFromReqParams(req)
     const fra = fraRepository.readFraForestAreas(req.params.countryIso)
     const odp = odpRepository.readOriginalDataPoints(req.params.countryIso)

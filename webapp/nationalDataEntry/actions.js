@@ -4,14 +4,14 @@ import { applicationError } from '../applicationError/actions'
 import * as autosave from '../autosave/actions'
 
 export const valueChangeStart = 'nationalDataEntry/value/change/start'
-export const valuesFetched = 'nationalDataEntry/value/fetch/completed'
+// export const valuesFetched = 'nationalDataEntry/value/fetch/completed'
 
 export const pasteChangeStart = 'nationalDataEntry/value/paste/start'
 
-const fetched = (countryIso, data) => ({
-  type: valuesFetched,
-  countryIso, data
-})
+// const fetched = (countryIso, data) => ({
+//   type: valuesFetched,
+//   countryIso, data
+// })
 
 const change = ({countryIso, name, value}) => {
   const dispatched = dispatch => {
@@ -57,11 +57,11 @@ export const saveMany = (countryIso, columnData) => dispatch => {
   dispatch(changeMany({countryIso, columnData}))
 }
 
-export const fetch = (countryIso) => dispatch => {
-  axios.get(`/api/country/${countryIso}`).then(resp => {
-    dispatch(fetched(countryIso, resp.data))
-  }).catch(err => dispatch(applicationError(err)))
-}
+// export const fetch = (countryIso) => dispatch => {
+//   axios.get(`/api/country/${countryIso}`).then(resp => {
+//     dispatch(fetched(countryIso, resp.data))
+//   }).catch(err => dispatch(applicationError(err)))
+// }
 
 export const generateFraValuesStart = 'nationalDataEntry/generateFraValues/start'
 
