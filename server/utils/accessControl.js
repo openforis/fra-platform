@@ -22,8 +22,7 @@ const checkCountryAccess = (countryIso, user) => {
 // Throws a custom Error user has no access (handled in sendErr)
 const checkReviewerCountryAccess = (countryIso, user) => {
   if (!isReviewer(countryIso, user)) {
-    const errMsg = `User ${user.name} tried to access ${countryIso} of which is not reviewer`
-    throw new AccessControlException(errMsg)
+    throw new AccessControlException('error.access.countryUserNotReviewer', {user: user.name, countryIso})
   }
 }
 
