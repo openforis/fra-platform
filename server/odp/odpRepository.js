@@ -101,9 +101,14 @@ const addClassData = (client, odpVersionId, odp) => {
         forest_percent,
         other_wooded_land_percent,
         other_land_percent,
+        forest_natural_percent,
+        forest_natural_primary_percent,
+        forest_plantation_percent,
+        forest_plantation_introduced_percent,
+        other_planted_forest_percent,
         uuid)
         VALUES
-        ($1, $2, $3, $4, $5, $6, $7, $8);`,
+        ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13);`,
       [
         odpVersionId,
         nationalClass.className,
@@ -112,6 +117,11 @@ const addClassData = (client, odpVersionId, odp) => {
         nationalClass.forestPercent,
         nationalClass.otherWoodedLandPercent,
         nationalClass.otherLandPercent,
+        nationalClass.naturalForestPercent,
+        nationalClass.naturalForestPrimaryPercent,
+        nationalClass.plantationPercent,
+        nationalClass.plantationIntroducedPercent,
+        nationalClass.otherPlantedPercent,
         nationalClass.uuid
       ]),
     odp.nationalClasses)
@@ -196,6 +206,11 @@ const getOdpNationalClasses = (queryProvider, odpVersionId) =>
       forest_percent,
       other_wooded_land_percent,
       other_land_percent,
+      forest_natural_percent,
+      forest_natural_primary_percent,
+      forest_plantation_percent,
+      forest_plantation_introduced_percent,
+      other_planted_forest_percent,
       uuid
      FROM odp_class
      WHERE odp_version_id = $1`
@@ -208,6 +223,11 @@ const getOdpNationalClasses = (queryProvider, odpVersionId) =>
       forestPercent: toNumberOrNull(row.forest_percent),
       otherWoodedLandPercent: toNumberOrNull(row.other_wooded_land_percent),
       otherLandPercent: toNumberOrNull(row.other_land_percent),
+      naturalForestPercent: toNumberOrNull(row.forest_natural_percent),
+      naturalForestPrimaryPercent: toNumberOrNull(row.forest_natural_primary_percent),
+      plantationPercent: toNumberOrNull(row.forest_plantation_percent),
+      plantationIntroducedPercent: toNumberOrNull(row.forest_plantation_introduced_percent),
+      otherPlantedPercent: toNumberOrNull(row.other_planted_forest_percent),
       uuid: row.uuid
     }), result.rows))
 
