@@ -58,18 +58,7 @@ export class DataTable extends React.Component {
         </table>
       </div>
       <div className="nde__comment-column">
-        <ReviewIndicator target={['forest']}
-                         name={i18n.t('extentOfForest.forestArea')}
-                         countryIso={this.props.countryIso}
-                         section='EOF'/>
-        <ReviewIndicator section='EOF'
-                         name={i18n.t('fraClass.otherWoodedLand')}
-                         target={['otherWoodedLand']}
-                         countryIso={this.props.countryIso}/>
-        <ReviewIndicator section='EOF'
-                         name={i18n.t('fraClass.otherLand')}
-                         target={['otherLand']}
-                         countryIso={this.props.countryIso}/>
+        { buildIndicators('EOF', rows, this.props) }
       </div>
     </div>
   }
@@ -77,6 +66,13 @@ export class DataTable extends React.Component {
 
 const buildRows = (rows, props) => mapIndexed((row, i) => fraValueRow(row.localizedName, row.field, props.countryIso,
     props.fra, props.save, props.saveMany, i, props.openCommentThread), rows)
+
+const buildIndicators = (section, rows, props) => mapIndexed((row, i) =>  <ReviewIndicator
+  section={section}
+  name={row.localizedName}
+  target={[row.field]}
+  countryIso={props.countryIso}
+/>, rows)
 
 const OdpHeading = ({countryIso, odpValue}) =>
   <Link className="link" to={`/country/${countryIso}/odp/${odpValue.odpId}`}>
