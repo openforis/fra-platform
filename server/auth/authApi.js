@@ -1,3 +1,4 @@
+const R = require('ramda')
 const passport = require('passport')
 const userRepository = require('../user/userRepository')
 const authConfig = require('./authConfig')
@@ -22,8 +23,9 @@ const authenticationSuccessful = (req, user, next, res) => {
       next(err)
     } else {
       countryRepository.getAllowedCountries(user.roles).then(result => {
+        const defaultCountry = R.pipe(R.values, R.head, R.head)(result)
         setLoggedInCookie(res, true)
-        res.redirect(`/#/country/${result[0].countryIso}`)
+        res.redirect(`/#/country/${defaultCountry.countryIso}`)
       }).catch(err => sendErr(res, err))
     }
   })
