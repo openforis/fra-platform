@@ -11,6 +11,9 @@ export const translation = {
     roles: {
       reviewer: 'Reviewer',
       nationalCorrespondent: 'National Correspondent',
+      national_correspondent: 'National Correspondent',
+      reviewer_all: 'Reviewer',
+      national_correspondent_all: 'National Correspondent',
       noRole: 'N/A'
     }
   },
@@ -27,6 +30,11 @@ export const translation = {
     introduced: '...of which introduces species'
   },
   // components
+
+  countryListing: {
+    annuallyReported: 'Annually',
+    fiveYearCycle: 'Five-year'
+  },
 
   navigation: {
     annuallyReported: 'Annually reported',
@@ -46,7 +54,7 @@ export const translation = {
         previous: ''
       },
       editing: {
-        label: '', //Currently we do not wish to show the default state at all
+        label: 'Editing',
         next: 'Start over (to editing)',
         previous: 'Reject'
       }

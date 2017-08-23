@@ -9,54 +9,64 @@ const camelize = require('camelize')
  * If all statuses are in accepted, we determine that country is in
  * accepted status.
  */
-const determineCountryAssessmentStatus = (statuses) => {
-  if (R.isEmpty(statuses)) return 'editing' //Initially, there are no rows for country's assessment,
-                                            //this is also considered to be 'editing' status
-  else if (R.all(R.equals('accepted'), statuses)) return 'accepted'
-  else if (R.any(R.equals('review'), statuses)) return 'review'
-  else return 'editing'
-}
+const determineCountryAssessmentStatus = (type, statuses) => R.pipe(
+    R.filter(R.propEq('type', type)),
+    R.head,
+    R.defaultTo({status: 'editing'}), //Initially, there are no rows for country's assessment,
+                                      //this is also considered to be 'editing' status
+    R.prop('status')
+  )(statuses)
+
+const determineRole = roles => countryIso =>
+  R.pipe(R.filter(R.propEq('countryIso', countryIso)), R.head, R.prop('role'))(roles)
 
 const getStatuses = groupedRows =>
   R.pipe(
-    R.map(R.prop('status')),
+    R.map(R.pick(['type', 'status'])),
     R.filter(R.identity)
   )(groupedRows)
 
-const handleCountryResult = result => {
+const handleCountryResult = resolveRole => result => {
   const grouped = R.groupBy(row => row.countryIso, camelize(result.rows))
-  return R.map(
-    ([countryIso, vals]) => {
-      return {
-        countryIso,
-        name: vals[0].name,
-        assessmentStatus: determineCountryAssessmentStatus(getStatuses(vals))
-      }
-    },
-    R.toPairs(grouped))
+  return R.pipe(
+    R.toPairs,
+    R.map(
+      ([countryIso, vals]) => {
+        return {
+          countryIso,
+          name: vals[0].name,
+          annualAssesment: determineCountryAssessmentStatus('annuallyReported', getStatuses(vals)),
+          fiveYearAssesment: determineCountryAssessmentStatus('fiveYearCycle', getStatuses(vals)),
+          role: resolveRole(countryIso)
+        }
+      }),
+    R.groupBy(R.prop('role'))
+  )(grouped)
 }
 
-const getAllCountries = () =>
-  db.query(`SELECT c.country_iso, c.name, a.status
+const getAllCountries = role =>
+  db.query(`SELECT c.country_iso, c.name, a.type, a.status
             FROM country c
             LEFT OUTER JOIN assessment a ON c.country_iso = a.country_iso 
             ORDER BY name ASC`)
-    .then(handleCountryResult)
+    .then(handleCountryResult(() => role))
 
 module.exports.getAllowedCountries = (roles) => {
   const hasRole = (role) => R.find(R.propEq('role', role), roles)
-  // Either of these give access to full country list
-  if (hasRole('REVIEWER_ALL') || hasRole('NATIONAL_CORRESPONDENT_ALL')) {
-    return getAllCountries()
+  if (hasRole('REVIEWER_ALL')) {
+    return getAllCountries('REVIEWER_ALL')
+  }
+  if(hasRole('NATIONAL_CORRESPONDENT_ALL')) {
+    return getAllCountries('NATIONAL_CORRESPONDENT_ALL')
   } else {
     const allowedCountryIsos = R.pipe(R.map(R.prop('countryIso')), R.reject(R.isNil))(roles)
-    const allowedIsoQueryPlaceholders = R.range(1, allowedCountryIsos.length +1).map(i => '$'+i).join(',')
-    return db.query(`SELECT c.country_iso, c.name, a.status 
+    const allowedIsoQueryPlaceholders = R.range(1, allowedCountryIsos.length + 1).map(i => '$' + i).join(',')
+    return db.query(`SELECT c.country_iso, c.name, a.type, a.status 
                      FROM country c
                      LEFT OUTER JOIN assessment a ON c.country_iso = a.country_iso
                      WHERE c.country_iso in (${allowedIsoQueryPlaceholders})
                      ORDER BY name ASC`,
-                    allowedCountryIsos)
-      .then(handleCountryResult)
+      allowedCountryIsos)
+      .then(handleCountryResult(determineRole(roles)))
   }
 }
