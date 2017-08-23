@@ -28,9 +28,18 @@
   padding: 12px;
   position: relative;
   cursor: pointer;
+  transition: @ease-out;
 
   .icon {
     margin-left: 4px;
+  }
+
+  &:hover {
+    color: @text-body;
+
+    .icon {
+      color: @text-body;
+    }
   }
 }
 
@@ -48,7 +57,7 @@
 }
 
 .footer__selection-control-item {
-  padding: 8px 15px;
+  padding: 8px 16px;
   line-height: 16px;
   color: @text-body;
 

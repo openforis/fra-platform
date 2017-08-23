@@ -1,3 +1,5 @@
+@import (reference) "../app-styles/config";
+
 .percent__field {
   position: relative;
   text-align: right;
@@ -27,4 +29,13 @@
   top: 10px;
   width: 20px;
   height: 20px;
+}
+
+.percent__prefix {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  height: 20px;
+  font-size: @font-xxs;
+  color: @text-disabled;
 }

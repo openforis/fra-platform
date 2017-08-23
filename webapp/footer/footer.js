@@ -11,14 +11,13 @@ class FooterSelectionControl extends React.Component {
   }
 
   render () {
-    const iconRefSuffix = this.state.opened ? 'down' : 'up'
     const children = this.props.children
     return <span
       className="footer__user-control"
       onClick={evt => this.setState({opened: !this.state.opened})}>
       {this.props.label}
       <svg className="icon icon-sub">
-        <use xlinkHref={`img/icon.svg#icon-small-${iconRefSuffix}`}/>
+        <use href="img/icons.svg#small-up"/>
       </svg>
       {
         this.state.opened ? children : null

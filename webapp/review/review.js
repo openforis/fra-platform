@@ -112,7 +112,11 @@ class CommentThread extends React.Component {
                         <div>{c.username}</div>
                         {isThisMe(c) && !isCommentDeleted(c) && !isCommentStatusResolved(c) && issueStatus !== 'resolved'
                           ? <button className="btn fra-review__comment-delete-button"
-                                    onClick={() => markCommentAsDeleted(countryIso, section, target, c.commentId)}>
+                                    onClick={() => {
+                                      if(window.confirm(i18n.t('review.confirmDelete'))) {
+                                        markCommentAsDeleted(countryIso, section, target, c.commentId)
+                                      }
+                                    } }>
                             {i18n.t('review.delete')}
                           </button>
                           : null}
@@ -135,7 +139,7 @@ class CommentThread extends React.Component {
               comments)
               : <div className='fra-review__comment-placeholder'>
                 <svg className="fra-review__comment-placeholder-icon icon-24">
-                  <use xlinkHref="img/icon.svg#icon-chat-46"/>
+                  <use href="img/icons.svg#chat-46"/>
                 </svg>
                 <span className="fra-review__comment-placeholder-text">{i18n.t('review.noComments')}</span>
               </div>
@@ -151,8 +155,8 @@ const ReviewHeader = ({name, close, userInfo, countryIso, section, target, issue
   <div className="fra-review__header">
     <h2 className="fra-review__header-title subhead">{i18n.t('review.comments')}</h2>
     <div className="fra-review__header-close-btn" onClick={e => close(e)}>
-      <svg className="icon icon-24">
-        <use xlinkHref="img/icon.svg#icon-small-remove"/>
+      <svg className="icon">
+        <use href="img/icons.svg#remove"/>
       </svg>
     </div>
     {name ? <div className="fra-review__header-target">{name}</div> : null}
