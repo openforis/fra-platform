@@ -1,7 +1,7 @@
 const {mostPowerfulRole, isReviewer} = require('../../common/countryRole')
 
-function AccessControlException (message) {
-  this.message = message
+function AccessControlException (key, values) {
+  this.error = {key, values}
   Error.captureStackTrace(this, AccessControlException)
 }
 
@@ -14,8 +14,7 @@ AccessControlException.prototype.constructor = AccessControlException
 const checkCountryAccess = (countryIso, user) => {
   const role = mostPowerfulRole(countryIso, user)
   if (role.role === 'NONE') {
-    const errMsg = `User ${user.name} tried to access ${countryIso} but no role has been specified`
-    throw new AccessControlException(errMsg)
+    throw new AccessControlException('error.access.countryRoleNotSpecified', {user: user.name, countryIso})
   }
 }
 
@@ -23,8 +22,7 @@ const checkCountryAccess = (countryIso, user) => {
 // Throws a custom Error user has no access (handled in sendErr)
 const checkReviewerCountryAccess = (countryIso, user) => {
   if (!isReviewer(countryIso, user)) {
-    const errMsg = `User ${user.name} tried to access ${countryIso} of which is not reviewer`
-    throw new AccessControlException(errMsg)
+    throw new AccessControlException('error.access.countryUserNotReviewer', {user: user.name, countryIso})
   }
 }
 

@@ -139,26 +139,29 @@ const PrimaryItem = ({label, countryIso, assessmentType, assessmentStatuses, cha
     <span className="nav__primary-label">{label}</span>
     {
       currentAssessmentStatus
-        ? <span
-        className="nav__assessment-status">{i18n.t(`navigation.assessmentStatus.${currentAssessmentStatus}.label`)}</span>
+        ? <div className="nav__assessment-status-indicator">
+        <div className="nav__assessment-status">
+          <div className={`status-${currentAssessmentStatus}`}></div>
+          {i18n.t(`navigation.assessmentStatus.${currentAssessmentStatus}.label`)}</div>
+      </div>
         : null
     }
     {
       previousAssessmentStatus
-        ? <span className="nav__to-previous-assessment-status">(
-        {
-          changeStateLink(countryIso, assessmentType, currentAssessmentStatus, previousAssessmentStatus, changeAssessmentStatus, 'previous', i18n)
-        }
-        )</span>
+        ? <span className="nav__to-previous-assessment-status">
+          {
+            changeStateLink(countryIso, assessmentType, currentAssessmentStatus, previousAssessmentStatus, changeAssessmentStatus, 'previous', i18n)
+          }
+          </span>
         : null
     }
     {
       nextAssessmentStatus
-        ? <span className="nan__to_next-assessment-status">(
+        ? <span className="nan__to_next-assessment-status">
         {
           changeStateLink(countryIso, assessmentType, currentAssessmentStatus, nextAssessmentStatus, changeAssessmentStatus, 'next', i18n)
         }
-        )</span>
+        </span>
         : null
     }
   </div>
