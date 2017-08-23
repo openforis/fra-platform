@@ -4,6 +4,7 @@
   position: relative;
   width: 256px;
   min-width: 256px;
+  z-index: 1;
 }
 
 .main__nav {
@@ -11,7 +12,6 @@
   border-right: @ui-thin-border;
   position: fixed;
   width: 256px;
-  overflow: hidden;
 }
 
 // Current country
@@ -64,10 +64,11 @@
 }
 
 .nav__country-list {
+  display: block;
   position: absolute;
   top: 68px;
   left: 16px;
-  width: 224px;
+  width: 496px;
   background: white;
   border-radius: 2px;
   border: 1px solid @ui-border;
@@ -77,15 +78,45 @@
 
 .nav__country-list-content {
   max-height: 560px;
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
-  padding: 4px 0;
+  font-size: @font-s;
+}
+.nav__country-list-role-countries {
+  border-bottom: @ui-thin-border;
+  padding: 8px 0;
+  &:last-of-type {
+    border: none;
+  }
+}
+
+.nav__country-list-role-header {
+  line-height: 16px;
+  padding: 8px 15px;
+  display: flex;
+  justify-content: flex-start;
+}
+.nav__country-list-item-name,
+.nav__country-list-role-label {
+  width: 240px;
+  margin-right: 16px;
+}
+
+.nav__country-list-role-label,
+.nav__country-list-assessment-label {
+  color: @text-mute;
+}
+
+.nav__country-list-item-assessment-status,
+.nav__country-list-assessment-label {
+  width: 96px;
+  margin-right: 16px;
 }
 
 .nav__country-list-item {
   display: flex;
-  justify-content: space-between;
-  padding: 8px 16px;
+  justify-content: flex-start;
+  padding: 8px 15px;
   text-decoration: none;
   line-height: 16px;
 
@@ -101,12 +132,33 @@
 }
 
 .nav__country-list-item-assessment-status {
-  color: @text-mute;
-  font-size: @font-xs;
-  font-style: italic;
+  font-size: @font-s;
+  color: @text-body;
   display: inline-block;
   min-width: 52px;
-  margin-left: 3px;
+  line-height: 16px;
+
+  .status-editing {
+    .mixin-status-base(@ui-status-editing);
+  }
+  .status-review {
+    .mixin-status-base(@ui-status-review);
+  }
+  .status-accepted {
+    .mixin-status-base(@ui-status-accepted);
+  }
+
+  .mixin-status-base(@color) {
+    width: 10px;
+    min-width: 10px;
+    height: 10px;
+    margin: 2px 5px 4px 0;
+    background-color: @color;
+    color: white;
+    border-radius: 100%;
+    text-align: center;
+    float: left;
+  }
 }
 
 // Questionare

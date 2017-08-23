@@ -11,6 +11,9 @@ export const translation = {
     roles: {
       reviewer: 'Revisor',
       nationalCorrespondent: 'Corresponsal Nacional',
+      national_correspondent: 'Corresponsal Nacional',
+      reviewer_all: 'Revisor',
+      national_correspondent_all: 'Corresponsal Nacional',
       noRole: 'N/A'
     }
   },
@@ -22,6 +25,11 @@ export const translation = {
   },
 
   // components
+
+  countryListing: {
+    annuallyReported: 'Anuales',
+    fiveYearCycle: 'Quinquenales'
+  },
 
   navigation: {
     annuallyReported: 'Informes anuales',
