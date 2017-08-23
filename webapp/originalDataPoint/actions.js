@@ -8,6 +8,7 @@ import {
   addNationalClassPlaceHolder,
   copyNationalClassDefinitions
 } from './originalDataPoint'
+import {acceptNextInteger} from '../utils/numberInput'
 import { validateDataPoint } from '../../common/originalDataPointCommon'
 import { fetchCountryOverviewStatus } from '../navigation/actions'
 
@@ -137,6 +138,7 @@ export const cancelDraft = (countryIso, odpId) => dispatch => {
 // fetching odp based assesment item
 
 export const valuesFetched = name => `${name}/value/fetch/completed`
+export const valueChangeStart = name => `${name}/value/change/start`
 
 const fetched = (itemName, countryIso, data) => ({
   type: valuesFetched(itemName),
@@ -149,3 +151,29 @@ export const fetchItem = (itemName, countryIso) => dispatch => {
   }).catch(err => dispatch(applicationError(err)))
 }
 
+const change = ({section, countryIso, name, value}) => {
+  const dispatched = dispatch => {
+    return axios.post(`/api/${section}/country/${countryIso}/${name}`, value).then(() => {
+      dispatch(autosave.complete)
+    }).catch((err) => {
+      dispatch(applicationError(err))
+    })
+  }
+  dispatched.meta = {
+    debounce: {
+      time: 800,
+      key: `valueChangeStart_${name}`
+    }
+  }
+  return dispatched
+}
+const start = ({section, name, value}) => ({type: valueChangeStart(section), name, value})
+
+export const save = (section, countryIso, name, newValue, fraValue, field) => dispatch => {
+  console.log('save section', section)
+  const sanitizedValue = acceptNextInteger(newValue, fraValue[field])
+  const newFraValue = {...fraValue, [field]: sanitizedValue, [`${field}Estimated`]: false}
+  dispatch(start({section, name, value: newFraValue}))
+  dispatch(autosave.start)
+  dispatch(change({section, countryIso, name, value: newFraValue}))
+}

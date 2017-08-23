@@ -46,17 +46,20 @@ export class DataTable extends React.Component {
         </table>
       </div>
       <div className="nde__comment-column">
-        { buildIndicators('EOF', rows, this.props) }
+        { buildIndicators(rows, this.props) }
       </div>
     </div>
   }
 }
 
-const buildRows = (rows, props) => mapIndexed((row, i) => fraValueRow(row.localizedName, row.field, props.countryIso,
-    props.fra, props.save, props.saveMany, i, props.openCommentThread), rows)
+const buildRows = (rows, props) => {
+  console.log('props', props)
+  return mapIndexed((row, i) => fraValueRow(row.localizedName, row.field, props.countryIso,
+    props.fra, R.partial(props.save, [props.section]), props.saveMany, i, props.openCommentThread), rows)
+}
 
-const buildIndicators = (section, rows, props) => mapIndexed((row, i) =>  <ReviewIndicator
-  section={section}
+const buildIndicators = (rows, props) => mapIndexed((row, i) =>  <ReviewIndicator
+  section={props.section}
   name={row.localizedName}
   target={[row.field]}
   countryIso={props.countryIso}
@@ -82,6 +85,7 @@ const odpCell = (odpValue, field) =>
 
 const fraValueRow = (rowHeading, field, countryIso, fra, save, saveMany, colId, openThread) => {
   const target = [field]
+  console.log('partial', save, fra)
   return <tr
     className={`${openThread && R.isEmpty(R.difference(openThread.target, target)) ? 'fra-row-comments__open' : ''}`}>
     <td className="fra-table__header-cell">{ rowHeading }</td>

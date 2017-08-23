@@ -25,7 +25,7 @@ module.exports.init = app => {
       .catch(err => sendErr(res, err))
   })
 
-  app.post('/country/:countryIso/:year', (req, res) => {
+  app.post('/eof/country/:countryIso/:year', (req, res) => {
     checkCountryAccessFromReqParams(req)
     fraRepository.persistFraValues(req.params.countryIso, req.params.year, req.body)
       .then(() => res.json({}))

@@ -5,6 +5,7 @@ import * as odpTypes from '../originalDataPoint/actions'
 import { applyReducerFunction } from '../utils/reduxUtils'
 
 const updateValue = (state, action) => {
+  console.log('updating value')
   const idx = R.findIndex(R.propEq('name', action.name), state.fra)
   return {...state, fra: R.update(idx, {...action.value}, state.fra)}
 }
@@ -19,7 +20,7 @@ const updateValues = (state, action) => {
 }
 
 const actionHandlers = {
-  [types.valueChangeStart]: (state, action) => updateValue(state, action),
+  [odpTypes.valueChangeStart('eof')]: (state, action) => updateValue(state, action),
   [odpTypes.valuesFetched('eof')]: (state, action) => action.data,
   [types.generateFraValuesStart]: (state, action) => R.assoc('generatingFraValues', true)(state),
   [types.pasteChangeStart]: (state, action) => updateValues(state, action)

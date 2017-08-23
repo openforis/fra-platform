@@ -2,8 +2,8 @@ import './style.less'
 import React from 'react'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
-import { save, saveMany, generateFraValues } from './actions'
-import { fetchItem } from '../originalDataPoint/actions'
+import { saveMany, generateFraValues } from './actions'
+import { fetchItem, save } from '../originalDataPoint/actions'
 import { Link } from './../link'
 import Chart from './chart/chart'
 import ReviewIndicator from '../review/reviewIndicator'
@@ -73,7 +73,7 @@ const NationalDataEntry = (props) => {
         </button>
       </div>
     </div>
-    <DataTable rows={rows} {...props} />
+    <DataTable section='eof' rows={rows} {...props} />
     <div className="nde__description-field nde__comment-transition">
       <Description title={i18n.t('extentOfForest.dataSources')} name="dataSources" classes={`${props.openCommentThread &&
         R.isEmpty(R.difference(props.openCommentThread.target, sourceTarget)) ? 'fra-row-comments__open' : ''}`}
