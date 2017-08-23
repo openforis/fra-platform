@@ -203,7 +203,7 @@ class Nav extends React.Component {
       <div className="main__nav">
         <CountrySelectionItem name={this.props.country}
                               countries={this.props.countries}
-                              listCountries={getCountryList}
+                              listCountries={this.props.getCountryList}
                               role={roleLabel(this.props.country, this.props.userInfo, this.props.i18n)}
                               i18n={this.props.i18n}/>
         <div className="nav__link-list" ref="scroll_content" onScroll={() => {
