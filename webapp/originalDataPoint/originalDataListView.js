@@ -24,7 +24,7 @@ const ODPListing = ({countryIso, odps = [], i18n}) => <div className="odp-list__
       <td className='odp-list__notification-column'>
         {!odp.validationStatus.valid ? <div>
           <svg className='icon icon-red'>
-            <use xlinkHref='img/icon.svg#icon-alert'/>
+            <use href='img/icons.svg#alert'/>
           </svg>
         </div> : null}
         {R.isEmpty(odp.issues) ? null : <div>
@@ -44,7 +44,7 @@ const ODPListing = ({countryIso, odps = [], i18n}) => <div className="odp-list__
   </table>
   <Link className="btn btn-primary" to={`/country/${countryIso}/odp`}>
     <svg className="icon icon-middle icon-white">
-      <use xlinkHref="img/icon.svg#icon-small-add"/>
+      <use href="img/icons.svg#small-add"/>
     </svg>
     {i18n.t('nationalDataPoint.addNationalDataPoint')}
   </Link>
