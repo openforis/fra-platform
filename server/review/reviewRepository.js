@@ -98,7 +98,7 @@ module.exports.createIssueWithComment = (client, countryIso, section, target, us
 
 const checkIssueOpenedOrReviewer = (countryIso, status, user) => {
   if (status === 'resolved' && !isReviewer(countryIso, user))
-    throw new AccessControlException(`User ${user.name} tried to enter a comment for a resolved issue`)
+    throw new AccessControlException('error.review.commentEnterResolvedIssue', {user: user.name})
 }
 
 const createComment = (client, issueId, user, msg, statusChanged) =>
@@ -143,7 +143,7 @@ module.exports.markCommentAsDeleted = (client, commentId, user) =>
     .then(res => res.rows[0].user_id)
     .then(userId => {
       if (userId !== user.id)
-        throw new AccessControlException(`User ${user.name} tried to delete a comment that doesn't own`)
+        throw new AccessControlException('error.review.commentDeleteNotOwner', {user: user.name})
     })
     .then(() => client.query('UPDATE fra_comment SET deleted = $1 WHERE id = $2', [true, commentId]))
 

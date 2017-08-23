@@ -30,6 +30,20 @@ export const translation = {
     introduced: '...of which introduces species'
   },
 
+  // error messages
+  error: {
+    access: {
+      countryRoleNotSpecified: 'Error: User {{user}} tried to access {{countryIso}} but no role has been specified',
+      countryUserNotReviewer: 'Error: User {{user}} tried to access {{countryIso}} of which is not reviewer'
+    },
+    assessment: {
+      transitionNotAllowed: 'Error: Transition from {{currentStatus}} to {{status}} is not allowed for role {{role}}'
+    },
+    review: {
+      commentDeleteNotOwner: 'Error: User {{user}} tried to delete a comment that doesn\'t own',
+      commentEnterResolvedIssue: 'Error: User {{user}} tried to enter a comment for a resolved issue'
+    }
+  },
   // components
 
   countryListing: {
