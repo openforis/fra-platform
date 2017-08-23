@@ -47,7 +47,7 @@ class CountrySelectionItem extends React.Component {
         <span className="nav__country-role">{role}</span>
       </div>
       <svg className="icon">
-        <use xlinkHref="img/icon.svg#icon-small-down"/>
+        <use href="img/icons.svg#small-down"/>
       </svg>
       <CountryList isOpen={this.state.isOpen} countries={countries} currentCountry={name}
                    i18n={i18n}/>
@@ -134,7 +134,7 @@ const PrimaryItem = ({label, countryIso, assessmentType, assessmentStatuses, cha
 const ReviewStatus = ({status, userInfo}) =>
   status.issuesCount > 0
     ? <div
-    className={`nav__secondary-has-open-issue ${R.propOr(null, 'id', userInfo) !== status.lastCommentUserId ? 'issue-last-comment-other-user' : ''}`}/>
+      className={`nav__has-open-issue ${R.propOr(null, 'id', userInfo) !== status.lastCommentUserId ? 'issue-last-comment-other-user' : ''}`}/>
     : null
 
 const NationalDataItem = ({path, countryIso, pathTemplate = '/tbd', status = {count: 0}, label, userInfo}) => {
@@ -144,17 +144,17 @@ const NationalDataItem = ({path, countryIso, pathTemplate = '/tbd', status = {co
   return <Link className={`nav__link-item ${R.equals(path, linkTo) ? 'selected' : ''}`}
                to={linkTo}>
     <span className="nav__link-label">{label}</span>
-    <span className="nav__link-item-status">{status.count}</span>
-    <span className="nav__link-review-status">
+    <span className="nav__link-item-count">{status.count}</span>
+    <div className="nav__link-status-content">
       <ReviewStatus status={status} userInfo={userInfo}/>
-    </span>
-    <span className="nav__link-error-status">
-      {status.errors ? <svg className="icon icon-middle icon-red">
-        <use xlinkHref="img/icon.svg#icon-alert"/>
-      </svg>
-        : null
-      }
-    </span>
+      <div className="nav__link-error-status">
+        {status.errors ? <svg className="icon icon-middle icon-red">
+            <use href="img/icons.svg#alert"/>
+          </svg>
+          : null
+        }
+      </div>
+    </div>
   </Link>
 }
 

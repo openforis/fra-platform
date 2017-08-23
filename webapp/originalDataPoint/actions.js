@@ -38,7 +38,7 @@ const persistDraft = (countryIso, odp) => {
 
   dispatched.meta = {
     debounce: {
-      time: 800,
+      time: 400,
       key: odpSaveDraftStart
     }
   }

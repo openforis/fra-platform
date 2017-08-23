@@ -1,32 +1,48 @@
 @import (reference) "./config";
 
-.alert {
-  text-align: left;
-  border-radius: 2px;
-  padding: 9px;
-  border: 1px solid rgba(0,0,0,.15);
-  line-height: 20px;
-
-  svg {
-    .icon-sub;
-    .icon-margin;
-  }
+.alert-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
 }
 
 .alert-error {
-  .mixin-alert(@ui-destructive);
+  .mixin-alert-base;
+  background-color: @ui-destructive;
+}
+
+.alert-warning {
+  .mixin-alert-base;
+  background-color: @ui-alert;
 }
 
 .alert-info {
-  .mixin-alert(@ui-accent);
+  .mixin-alert-base;
+  background-color: @ui-accent;
 }
 
-.mixin-alert(@color) {
-  color: fade(black, 75%);
-  background-color: fade(@color, 10%);
-  border-color: fade(darken(@color, 30%), 15%);
+.mixin-alert-base {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+  padding: 16px;
+  line-height: 16px;
 
   svg {
-    fill: darken(@color, 5%);
+    color: white
+  }
+
+  .alert-icon {
+    margin-right: 8px;
+    flex-shrink: 0;
+  }
+
+  .alert-dismiss {
+    cursor: pointer;
+    margin-left: 16px;
+    flex-shrink: 0;
   }
 }

@@ -1,17 +1,13 @@
 @import (reference) "./config";
 
 .icon {
-    display: inline-block;
-    fill: rgba(0,0,0,.5);
-    stroke: none;
+    .mixin-icon-base;
     height: 16px;
     width: 16px;
 }
 
 .icon-24 {
-    display: inline-block;
-    fill: rgba(0,0,0,.5);
-    stroke: none;
+    .mixin-icon-base;
     height: 24px;
     width: 24px;
 }
@@ -32,13 +28,20 @@
 }
 
 .icon-white {
-    fill: white;
+    color: white;
 }
 
 .icon-red {
-    fill: @ui-destructive;
+    color: @ui-destructive;
 }
 
-.icon-accent {
-    fill: @ui-accent;
+.mixin-icon-base {
+    display: inline-block;
+    color: rgba(0,0,0,.5);
+    fill: currentColor;
+    stroke: none;
+
+    use {
+        fill: inherit;
+    }
 }

@@ -14,32 +14,11 @@ export class ThousandSeparatedIntegerInput extends React.Component {
     this.state = {hasFocus: false}
   }
 
-  componentDidMount() {
-    /*
-     * This has to be done to adjust the size via getWidthForReadonly()
-     * AFTER the first render. On first render, the ref "wrapper" will not
-     * contain anything yet, but on second, it will and we can get the
-     * width from it.
-     */
-    if (this.props.integerValue) {
-      this.forceUpdate()
-    }
-  }
-
-  getWidthForReadonly() {
-    if (this.refs.wrapper) {
-      return this.refs.wrapper.getBoundingClientRect().width -8
-    }
-    return null
-  }
-
   render () {
     const {integerValue, onChange, onPaste, className} = this.props
-    const widthForReadonly = this.getWidthForReadonly()
     return <div className="tsii__field validation-error-sensitive-field" style={{position: 'relative'}} ref="wrapper">
       <div className="tsii__readonly-view"
            style={{
-              width: widthForReadonly ? `${widthForReadonly}px` : null,
               display: this.state.hasFocus ? 'none' : 'inline-block',
            }}
       >

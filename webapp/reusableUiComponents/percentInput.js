@@ -10,32 +10,17 @@ export class PercentInput extends React.Component {
     this.state = {hasFocus: false}
   }
 
-  componentDidMount () {
-    /*
-     * For adjusting size
-     */
-    if (this.props.value) {
-      this.forceUpdate()
-    }
-  }
-
-  getWidth () {
-    if (this.refs.wrapper) {
-      return this.refs.wrapper.getBoundingClientRect().width - 8
-    }
-    return null
-  }
-
   render () {
-    return <div className="percent__field validation-error-sensitive-field" ref="wrapper">
+    const Prefix = ({text}) => text ? <div className="percent__prefix">{text.toUpperCase()}</div> : null
+    return <div className={`percent__field validation-error-sensitive-field ${this.props.prefix ? 'prefixed' : ''}`} ref="wrapper">
       <div className="percent__readonly-view percent__value-container"
            style={{
-             width: width ? `${width}px` : null,
              display: this.state.hasFocus ? 'none' : 'inline-block',
            }}
       >
         {renderValue(this.props.value)}
       </div>
+      <Prefix text={this.props.prefix} />
       <div className="percent__input-field-wrapper" style={{opacity: this.state.hasFocus ? '1' : '0'}}>
         <input
           className="percent__input-field percent__value-container"
@@ -48,8 +33,7 @@ export class PercentInput extends React.Component {
           onBlur={ () => { this.setState({hasFocus: false}) } }
         />
       </div>
-      % &nbsp;
+      <div className="percent__sign">%</div>
     </div>
-    const width = this.getWidth()
   }
 }

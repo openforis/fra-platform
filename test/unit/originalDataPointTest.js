@@ -31,4 +31,11 @@ describe('originalDataPoint', () => {
 
     assert.equal(-1, String(originalDataPoint.totalForest(odpWithNationalClasses2, 'forestPercent')).indexOf('.'))
   })
+
+  it('allows copying values only for empty odp', () => {
+    assert.equal(true, originalDataPoint.allowCopyingOfPreviousValues({'naionalClasses': [{'className': ''}]}))
+  })
+  it('disallows copying of values if odp has named national classes', () => {
+    assert.equal(true, originalDataPoint.allowCopyingOfPreviousValues({'naionalClasses': [{'className': 'national class 1'}]}))
+  })
 })

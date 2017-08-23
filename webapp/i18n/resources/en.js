@@ -20,6 +20,12 @@ export const translation = {
     otherWoodedLand: 'Other wooded land',
     otherLand: 'Other land'
   },
+  fraForestCharacteristicsClass: {
+    naturallyGenerated: 'Naturally regenerated',
+    plantationForest: 'Plantation forest',
+    otherPlantedForest: 'Other planted forest',
+    introduced: '...of which introduces species'
+  },
 
   // components
 
@@ -68,6 +74,7 @@ export const translation = {
       week_plural: '{{count}} weeks ago',
       aMomentAgo: 'A moment ago'
     },
+    confirmDelete: 'Are you sure you want to delete this comment? This cannot be undone.',
     commentDeleted: 'Comment deleted',
     commentMarkedAsResolved: 'Marked as resolved',
     delete: 'Delete',
@@ -117,6 +124,9 @@ export const translation = {
       noDataPlaceholderLine1: 'To get started, add new national data points and use',
       noDataPlaceholderLine2: 'them to generate FRA values automatically.'
     }
+  },
+  forestCharacteristics: {
+    forestCharacteristics: 'Forest Characteristics'
   },
 
   growingStock: {

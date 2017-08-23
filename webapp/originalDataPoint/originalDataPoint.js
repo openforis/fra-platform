@@ -31,6 +31,11 @@ export const defaultNationalClass = (className = '', definition = '') => ({
   forestPercent: null,
   otherWoodedLandPercent: null,
   otherLandPercent: null,
+  naturalForestPercent: null,
+  naturalForestPrimaryPercent: null,
+  plantationPercent: null,
+  plantationIntroducedPercent: null,
+  otherPlantedPercent: null,
   uuid: uuidv4()
 })
 
@@ -54,6 +59,12 @@ export const totalForest = (odp, percentFieldName) => {
       : total + (Number(nationalClass.area) * (Number(nationalClass[percentFieldName]) / 100.0))
   return (R.reduce(reduceTotal, 0, odp.nationalClasses)).toFixed(0)
 }
+
+export const allowCopyingOfPreviousValues =
+  R.pipe(R.path(['nationalClasses', 0, 'className']), R.defaultTo(''), R.isEmpty)
+
+export const totalArea = odp =>
+  R.reduce((total, nationalClass) => isNaN(nationalClass.area) ? 0 : total + Number(nationalClass.area), 0, odp.nationalClasses).toFixed(0)
 
 export const copyNationalClassDefinitions = (odpTarget, odpSource) => ({
   ...odpTarget,
