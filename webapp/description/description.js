@@ -29,14 +29,12 @@ class Description extends Component {
   componentWillReceiveProps (nextProps) {
     if (!R.equals(this.props.countryIso, nextProps.countryIso))
       this.fetchData(nextProps.countryIso)
-    else if (nextProps.fetched && R.not(R.equals(this.props.content, nextProps.content)))
+    else if (nextProps.fetched)// && R.not(R.equals(this.props.content, nextProps.content)))
       this.setEditorContent(nextProps.content)
   }
 
   componentDidMount () {
     const domNode = ReactDOM.findDOMNode(this.refs[this.props.name])
-    domNode.style.display = 'block'
-    domNode.style.visibility = ''
     this.editor = CKEDITOR.replace(domNode, ckEditorConfig)
     // Data fetching is necessary when CKEDITOR instances are ready
     this.editor.on('instanceReady', () => {
