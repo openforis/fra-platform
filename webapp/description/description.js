@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
 import R from 'ramda'
 import ckEditorConfig from '../ckEditor/ckEditorConfig'
@@ -16,26 +17,32 @@ class Description extends Component {
     )
   }
 
+  setEditorContent (content) {
+    this.editor.setData(content, {
+      callback: () => {
+        if (!this.editor.hasListeners('change'))
+          this.initCkeditorChangeListener()
+      }
+    })
+  }
+
   componentWillReceiveProps (nextProps) {
     if (!R.equals(this.props.countryIso, nextProps.countryIso))
       this.fetchData(nextProps.countryIso)
-    else if (nextProps.fetched && R.not(R.equals(this.props.content, nextProps.content))) {
-      this.editor.setData(
-        nextProps.content
-        , {
-          callback: () => {
-            if (!this.editor.hasListeners('change'))
-              this.initCkeditorChangeListener()
-          }
-        }
-      )
-    }
+    else if (nextProps.fetched)// && R.not(R.equals(this.props.content, nextProps.content)))
+      this.setEditorContent(nextProps.content)
   }
 
   componentDidMount () {
-    this.editor = CKEDITOR.replace(document.getElementById(this.props.name), ckEditorConfig)
+    const domNode = ReactDOM.findDOMNode(this.refs[this.props.name])
+    this.editor = CKEDITOR.replace(domNode, ckEditorConfig)
     // Data fetching is necessary when CKEDITOR instances are ready
-    this.editor.on('instanceReady', () => this.fetchData(this.props.countryIso))
+    this.editor.on('instanceReady', () => {
+      if (this.props.content)
+        this.setEditorContent(this.props.content)
+      else
+        this.fetchData(this.props.countryIso)
+    })
   }
 
   componentWillUnmount () {
@@ -47,7 +54,7 @@ class Description extends Component {
     return <div className={this.props.classes || ''}>
       <h3 className="subhead nde__description-header">{this.props.title}</h3>
       <div className="cke_wrapper">
-        <textarea id={this.props.name}/>
+        <textarea id={this.props.name} ref={this.props.name}/>
       </div>
     </div>
   }
