@@ -6,18 +6,7 @@ import * as R from 'ramda'
 import { fetchItem, save, saveMany } from '../originalDataPoint/actions'
 import LoggedInPageTemplate from '../loggedInPageTemplate'
 import { DataTable } from '../originalDataPoint/commentableDatatable'
-import UpdateOnResizeReactComponent from '../reusableUiComponents/updateOnResizeReactComponent'
-import Chart from '../nationalDataEntry/chart/chart'
-
-class ChartWrapper extends UpdateOnResizeReactComponent {
-  render () {
-    const defaultWidth = 913
-    const width = this.refs.chartWrapper ? this.refs.chartWrapper.getBoundingClientRect().width : defaultWidth
-    return <div ref="chartWrapper" className="nde__data-chart">
-      <Chart wrapperWidth={width} stateName="forestCharacteristics" trends={['naturalForestArea']}/>
-    </div>
-  }
-}
+import ChartWrapper from '../nationalDataEntry/chart/chartWrapper'
 
 const ForestCharacteristics = props => {
   const rows = [
@@ -46,7 +35,7 @@ const ForestCharacteristics = props => {
     <div className="nde__data-page-header">
       <h2 className="headline">{props.i18n.t('forestCharacteristics.forestCharacteristics')}</h2>
     </div>
-    <ChartWrapper/>
+    <ChartWrapper stateName="forestCharacteristics" trends={['naturalForestArea']}/>
     <DataTable section='foc' rows={rows} {...props} />
   </div>
 }
