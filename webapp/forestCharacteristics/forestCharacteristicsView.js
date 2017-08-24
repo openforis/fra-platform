@@ -60,13 +60,10 @@ class DataFetchingComponent extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  console.log('state', state)
-  return ({
+const mapStateToProps = state =>  ({
     ...state.forestCharacteristics,
     'openCommentThread': state.review.openThread,
     i18n: state.user.i18n
   })
-}
 
 export default connect(mapStateToProps, {fetchItem, save, saveMany})(DataFetchingComponent)

@@ -171,7 +171,6 @@ const change = ({section, countryIso, name, value}) => {
 const start = ({section, name, value}) => ({type: valueChangeStart(section), name, value})
 
 export const save = (section, countryIso, name, newValue, fraValue, field) => dispatch => {
-  console.log('save section', section)
   const sanitizedValue = acceptNextInteger(newValue, fraValue[field])
   const newFraValue = {...fraValue, [field]: sanitizedValue, [`${field}Estimated`]: false}
   dispatch(start({section, name, value: newFraValue}))

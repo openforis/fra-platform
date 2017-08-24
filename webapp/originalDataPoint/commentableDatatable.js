@@ -53,7 +53,6 @@ export class DataTable extends React.Component {
 }
 
 const buildRows = (rows, props) => {
-  console.log('props', props)
   return mapIndexed((row, i) => fraValueRow(row.localizedName, row.field, props.countryIso,
     props.fra, R.partial(props.save, [props.section]), R.partial(props.saveMany, [props.section]), i, props.openCommentThread), rows)
 }
@@ -85,7 +84,6 @@ const odpCell = (odpValue, field) =>
 
 const fraValueRow = (rowHeading, field, countryIso, fra, save, saveMany, colId, openThread) => {
   const target = [field]
-  console.log('partial', save, fra)
   return <tr
     className={`${openThread && R.isEmpty(R.difference(openThread.target, target)) ? 'fra-row-comments__open' : ''}`}>
     <td className="fra-table__header-cell">{ rowHeading }</td>
