@@ -106,14 +106,10 @@ const fraValueRow = (rowHeading, field, countryIso, fra, save, saveMany, pasteUp
 }
 
 const updatePastedValues = (rowNames, evt, rowIdx, colIdx, fra) => {
-  console.log('row names', rowNames)
-  console.log('fra', fra)
-  console.log('rowidx,colidx', rowIdx, colIdx)
   // Pasted values are not to be consumed if column is odp -- i.e. odp columns are to be skipped.
   // This is achieved by constructing correct 'view' on the fra data in two steps.
   // First odp values values that appear after where paste begins are filtered out.
   const fraOnly =  R.filter(R.pipe(R.prop('type'), R.equals('fra')))(R.drop(colIdx, fra))
-  console.log('fraonly', fraOnly)
   // Second both fra and odp columns before where paste begins are concatenated together
   // with the filtered part to preserve correct index.
   const readFrom = R.concat(R.take(colIdx, fra), fraOnly)
@@ -127,7 +123,6 @@ const updatePastedValues = (rowNames, evt, rowIdx, colIdx, fra) => {
       toPaste = R.mergeDeepRight({[readFrom[col].year]: {[rowNames[row]]: c}}, toPaste)
     }, r)
   }, readPasteClipboard(evt))
-  console.log('topaste', toPaste)
 
   const pasted = R.pipe(
     R.map(fra => {
@@ -145,6 +140,5 @@ const updatePastedValues = (rowNames, evt, rowIdx, colIdx, fra) => {
     }),
     R.reject(R.isNil))(fra)
 
-  console.log('pasted', pasted)
   return pasted
 }
