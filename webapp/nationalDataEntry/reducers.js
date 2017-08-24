@@ -4,11 +4,7 @@ import * as types from './actions'
 import * as odpTypes from '../originalDataPoint/actions'
 import { applyReducerFunction } from '../utils/reduxUtils'
 
-const updateValue = (state, action) => {
-  console.log('updating value')
-  const idx = R.findIndex(R.propEq('name', action.name), state.fra)
-  return {...state, fra: R.update(idx, {...action.value}, state.fra)}
-}
+
 
 const updateValues = (state, action) => {
   const newfra = R.map(fra => {

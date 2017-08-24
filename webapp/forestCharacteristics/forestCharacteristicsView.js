@@ -3,7 +3,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
 
-import { fetchItem } from '../originalDataPoint/actions'
+import { fetchItem, save } from '../originalDataPoint/actions'
 import LoggedInPageTemplate from '../loggedInPageTemplate'
 import { DataTable } from '../originalDataPoint/commentableDatatable'
 
@@ -35,7 +35,7 @@ const ForestCharacteristics = props => {
     <div className="nde__data-page-header">
       <h2 className="headline">{props.i18n.t('forestCharacteristics.forestCharacteristics')}</h2>
     </div>
-    <DataTable rows={rows} {...props} />
+    <DataTable section='foc' rows={rows} {...props} />
   </div>
 }
 
@@ -70,4 +70,4 @@ const mapStateToProps = state => {
   })
 }
 
-export default connect(mapStateToProps, {fetchItem})(DataFetchingComponent)
+export default connect(mapStateToProps, {fetchItem, save})(DataFetchingComponent)

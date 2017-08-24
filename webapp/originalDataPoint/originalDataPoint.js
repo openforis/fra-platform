@@ -72,3 +72,8 @@ export const copyNationalClassDefinitions = (odpTarget, odpSource) => ({
       'otherWoodedLandPercent',
       'otherLandPercent'], c))), nationalClassPlaceHolder()]
 })
+
+export const updateValueReducer = (state, action) => {
+  const idx = R.findIndex(R.propEq('name', action.name), state.fra)
+  return {...state, fra: R.update(idx, {...action.value}, state.fra)}
+}

@@ -27,7 +27,14 @@ module.exports.init = app => {
 
   app.post('/eof/country/:countryIso/:year', (req, res) => {
     checkCountryAccessFromReqParams(req)
-    fraRepository.persistFraValues(req.params.countryIso, req.params.year, req.body)
+    fraRepository.persistEofValues(req.params.countryIso, req.params.year, req.body)
+      .then(() => res.json({}))
+      .catch(err => sendErr(res, err))
+  })
+
+  app.post('/foc/country/:countryIso/:year', (req, res) => {
+    checkCountryAccessFromReqParams(req)
+    fraRepository.persistFocValues(req.params.countryIso, req.params.year, req.body)
       .then(() => res.json({}))
       .catch(err => sendErr(res, err))
   })
