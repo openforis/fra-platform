@@ -1,8 +1,9 @@
 import * as odpTypes from '../originalDataPoint/actions'
+import * as ODP from '../originalDataPoint/originalDataPoint'
 import { applyReducerFunction } from '../utils/reduxUtils'
 
 const actionHandlers = {
-  [odpTypes.valueChangeStart('eof')]: (state, action) => updateValue(state, action),
+  [odpTypes.valueChangeStart('foc')]: (state, action) => ODP.updateValueReducer(state, action),
   [odpTypes.valuesFetched('foc')]: (state, action) => action.data
 }
 
