@@ -1,5 +1,13 @@
 DELETE
 FROM
-  issue
+  fra_comment c
 WHERE
-  section = 'NDP';
+  c.issue_id IN (SELECT id
+                 FROM issue i
+                 WHERE section = 'NDP');
+
+DELETE
+FROM
+  issue i
+WHERE
+  i.section = 'NDP';
