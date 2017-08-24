@@ -261,7 +261,7 @@ const NationalClassRow = ({odp, index, saveDraft, countryIso, className, definit
         ? null
         : <ReviewIndicator section='NDP'
                            name={i18n.t('nationalDataPoint.nationalDataPoint')}
-                           target={[odp.odpId, 'class_definition', `${odp.nationalClasses[index].uuid}`]}
+                           target={[odp.odpId, 'class', `${odp.nationalClasses[index].uuid}`, 'definition']}
                            countryIso={countryIso}/>
       }
     </td>
@@ -340,7 +340,7 @@ const ExtentOfForestRow = ({
       {odp.odpId
         ? <ReviewIndicator section='NDP'
                            name={i18n.t('nationalDataPoint.nationalDataPoint')}
-                           target={[odp.odpId, 'class_value', `${odp.nationalClasses[index].uuid}`]}
+                           target={[odp.odpId, 'class', `${odp.nationalClasses[index].uuid}`, 'value']}
                            countryIso={countryIso}/>
         : null}
     </td>
@@ -421,7 +421,7 @@ const ForestCharacteristicsRow =
       {odp.odpId
         ? <ReviewIndicator section='NDP'
                            name={i18n.t('nationalDataPoint.nationalDataPoint')}
-                           target={[odp.odpId, 'class_value', 'forest_charasteristics', `${odp.nationalClasses[index].uuid}`]}
+                           target={[odp.odpId, 'class', `${odp.nationalClasses[index].uuid}`, 'forest_charasteristics']}
                            countryIso={countryIso}/>
         : null}
     </td>
