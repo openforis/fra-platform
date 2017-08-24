@@ -6,6 +6,18 @@ import * as R from 'ramda'
 import { fetchItem, save, saveMany } from '../originalDataPoint/actions'
 import LoggedInPageTemplate from '../loggedInPageTemplate'
 import { DataTable } from '../originalDataPoint/commentableDatatable'
+import UpdateOnResizeReactComponent from '../reusableUiComponents/updateOnResizeReactComponent'
+import Chart from '../nationalDataEntry/chart/chart'
+
+class ChartWrapper extends UpdateOnResizeReactComponent {
+  render () {
+    const defaultWidth = 913
+    const width = this.refs.chartWrapper ? this.refs.chartWrapper.getBoundingClientRect().width : defaultWidth
+    return <div ref="chartWrapper" className="nde__data-chart">
+      <Chart wrapperWidth={width} stateName="forestCharacteristics" trends={['naturalForestArea']}/>
+    </div>
+  }
+}
 
 const ForestCharacteristics = props => {
   const rows = [
@@ -34,6 +46,7 @@ const ForestCharacteristics = props => {
     <div className="nde__data-page-header">
       <h2 className="headline">{props.i18n.t('forestCharacteristics.forestCharacteristics')}</h2>
     </div>
+    <ChartWrapper/>
     <DataTable section='foc' rows={rows} {...props} />
   </div>
 }
@@ -55,15 +68,15 @@ class DataFetchingComponent extends React.Component {
   render () {
     return <LoggedInPageTemplate commentsOpen={this.props.openCommentThread}>
       <ForestCharacteristics {...this.props} countryIso={this.props.match.params.countryIso}
-        />
+      />
     </LoggedInPageTemplate>
   }
 }
 
-const mapStateToProps = state =>  ({
-    ...state.forestCharacteristics,
-    'openCommentThread': state.review.openThread,
-    i18n: state.user.i18n
-  })
+const mapStateToProps = state => ({
+  ...state.forestCharacteristics,
+  'openCommentThread': state.review.openThread,
+  i18n: state.user.i18n
+})
 
 export default connect(mapStateToProps, {fetchItem, save, saveMany})(DataFetchingComponent)
