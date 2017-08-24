@@ -6,14 +6,16 @@ const Text = ({text, width, y}) =>
     <text style={{fontSize: '14px', color: '#999999'}} x="0" y="0">{text}</text>
   </foreignObject>
 
-const NoDataPlaceholder = ({data, wrapperWidth, i18n}) =>
+const NoDataPlaceholder = ({data, wrapperWidth, i18n, showNoDataText}) =>
   !hasData(data)
     ? <g className="noDataPlaceholder">
       <image href="/img/tucan.svg"
              width="62" height="87"
              x={((wrapperWidth - 62) / 2)} y="14"></image>
-      <Text text={i18n.t('extentOfForest.chart.noDataPlaceholderLine1')} width={wrapperWidth} y="136"/>
-      <Text text={i18n.t('extentOfForest.chart.noDataPlaceholderLine2')} width={wrapperWidth} y="156"/>
+      {showNoDataText ?
+        <Text text={i18n.t('extentOfForest.chart.noDataPlaceholderLine1')} width={wrapperWidth} y="136"/> : null}
+      {showNoDataText ?
+        <Text text={i18n.t('extentOfForest.chart.noDataPlaceholderLine2')} width={wrapperWidth} y="156"/> : null}
     </g>
     : null
 
