@@ -20,9 +20,6 @@ const NationalDataEntry = (props) => {
     return props.generatingFraValues || odps.length < 2
   }
 
-  const sourceTarget = ['data_sources']
-  const originalDataTarget = ['original_data']
-  const classificationTarget = ['national_classifications']
   const i18n = props.i18n
   const rows = [
     {
@@ -38,6 +35,11 @@ const NationalDataEntry = (props) => {
       localizedName: i18n.t('fraClass.otherLand')
     }
   ]
+  const rowNames = {
+  0: 'forestArea',
+  1: 'otherWoodedLand',
+  2: 'otherLand'
+  }
 
   return <div className='nde__data-input-component'>
     <div className="nde__data-page-header">
@@ -61,7 +63,7 @@ const NationalDataEntry = (props) => {
         </button>
       </div>
     </div>
-    <DataTable section='eof' rows={rows} {...props} />
+    <DataTable section='eof' rows={rows} rowNames={rowNames} {...props} />
     <CommentableDescriptions
       section='EOF'
       name="extentOfForest"

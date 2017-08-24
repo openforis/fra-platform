@@ -2,6 +2,7 @@ const R = require('ramda')
 
 const buildDefault = year => ({
   year,
+  type: 'fra',
   name: year.toString(),
   naturalForestArea: null,
   naturalForestPrimaryArea: null,

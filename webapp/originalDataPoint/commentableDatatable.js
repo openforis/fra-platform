@@ -10,19 +10,10 @@ import {acceptNextInteger} from '../utils/numberInput'
 
 const mapIndexed = R.addIndex(R.map)
 
-// props:
-// countryIso
-// i18n
-// fra
-// actions: save, saveMany, openCommentThread
-// rows:
-//  localizedName, name,
 export class DataTable extends React.Component {
 
   render () {
-    const i18n = this.props.i18n
     const rows = this.props.rows
-
     return <div className="nde__data-table-container">
       <div className="nde__data-table-scroll-content">
         <table className="fra-table">
@@ -54,10 +45,13 @@ export class DataTable extends React.Component {
 
 const buildRows = (rows, props) => {
   return mapIndexed((row, i) => fraValueRow(row.localizedName, row.field, props.countryIso,
-    props.fra, R.partial(props.save, [props.section]), R.partial(props.saveMany, [props.section]), i, props.openCommentThread), rows)
+    props.fra, R.partial(props.save, [props.section]), R.partial(props.saveMany, [props.section]),
+    R.partial(updatePastedValues, [props.rowNames]),
+    i, props.openCommentThread), rows)
 }
 
 const buildIndicators = (rows, props) => mapIndexed((row, i) =>  <ReviewIndicator
+  key={`${row.field}_ri`}
   section={props.section}
   name={row.localizedName}
   target={[row.field]}
@@ -70,11 +64,11 @@ const OdpHeading = ({countryIso, odpValue}) =>
     {odpValue.name}
   </Link>
 
-const fraValueCell = (fraValue, fra, countryIso, save, saveMany, field, colIdx, rowIdx) =>
+const fraValueCell = (fraValue, fra, countryIso, save, saveMany, pasteUpdate, field, colIdx, rowIdx) =>
   <ThousandSeparatedIntegerInput
     className="fra-table__integer-input"
     integerValue={ fraValue[field] }
-    onPaste={ e => saveMany(countryIso, updatePastedValues(e, colIdx, rowIdx, fra)) }
+    onPaste={ e => saveMany(countryIso, pasteUpdate(e, colIdx, rowIdx, fra)) }
     onChange={ e => { save(countryIso, fraValue.name, e.target.value, fraValue, field) } }/>
 
 const odpCell = (odpValue, field) =>
@@ -82,9 +76,10 @@ const odpCell = (odpValue, field) =>
     {separateThousandsWithSpaces(Math.round(odpValue[field]))}
   </span>
 
-const fraValueRow = (rowHeading, field, countryIso, fra, save, saveMany, colId, openThread) => {
+const fraValueRow = (rowHeading, field, countryIso, fra, save, saveMany, pasteUpdate, colId, openThread) => {
   const target = [field]
   return <tr
+    key={field}
     className={`${openThread && R.isEmpty(R.difference(openThread.target, target)) ? 'fra-row-comments__open' : ''}`}>
     <td className="fra-table__header-cell">{ rowHeading }</td>
     {
@@ -93,7 +88,7 @@ const fraValueRow = (rowHeading, field, countryIso, fra, save, saveMany, colId, 
             {
               v.type === 'odp'
                 ? odpCell(v, field)
-                : fraValueCell(v, fra, countryIso, save, saveMany, field, colId, i)
+                : fraValueCell(v, fra, countryIso, save, saveMany, pasteUpdate, field, colId, i)
             }
           </td>
         , R.values(fra))
@@ -101,11 +96,7 @@ const fraValueRow = (rowHeading, field, countryIso, fra, save, saveMany, colId, 
   </tr>
 }
 
-const updatePastedValues = (evt, rowIdx, colIdx, fra, rowNames = {
-  0: 'forestArea',
-  1: 'otherWoodedLand',
-  2: 'otherLand'
-}) => {
+const updatePastedValues = (rowNames, evt, rowIdx, colIdx, fra) => {
   // Pasted values are not to be consumed if column is odp -- i.e. odp columns are to be skipped.
   // This is achieved by constructing correct 'view' on the fra data in two steps.
   // First odp values values that appear after where paste begins are filtered out.
