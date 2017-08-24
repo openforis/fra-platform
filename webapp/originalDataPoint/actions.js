@@ -121,7 +121,7 @@ export const copyPreviousNationalClasses = (countryIso, odp) => dispatch => {
       saveDraft(countryIso, copyNationalClassDefinitions(odp, prevOdp))(dispatch)
     }
     else
-      dispatch(applicationError(`Unable to find any National data point prior to ${odp.year}`))
+      dispatch(applicationError({key: 'error.ndp.previousNdpNotFound', values: {year: odp.year}}))
   })
 }
 

@@ -6,11 +6,10 @@ import { generateFraValues } from './actions'
 import { fetchItem, save, saveMany } from '../originalDataPoint/actions'
 import { Link } from './../link'
 import Chart from './chart/chart'
-import ReviewIndicator from '../review/reviewIndicator'
 import LoggedInPageTemplate from '../loggedInPageTemplate'
-import Description from '../description/description'
 import UpdateOnResizeReactComponent from '../reusableUiComponents/updateOnResizeReactComponent'
 import { DataTable } from '../originalDataPoint/commentableDatatable'
+import CommentableDescriptions from '../description/commentableDescription'
 
 class ChartWrapper extends UpdateOnResizeReactComponent {
   render () {
@@ -74,33 +73,12 @@ const NationalDataEntry = (props) => {
       </div>
     </div>
     <DataTable section='eof' rows={rows} {...props} />
-    <div className="nde__description-field nde__comment-transition">
-      <Description title={i18n.t('extentOfForest.dataSources')} name="dataSources" classes={`${props.openCommentThread &&
-        R.isEmpty(R.difference(props.openCommentThread.target, sourceTarget)) ? 'fra-row-comments__open' : ''}`}
-                   countryIso={props.match.params.countryIso}/>
-      <ReviewIndicator section='EOF'
-                       name={i18n.t('extentOfForest.dataSources')}
-                       target={sourceTarget}
-                       countryIso={props.match.params.countryIso}/>
-    </div>
-    <div className="nde__description-field nde__comment-transition">
-      <Description title={i18n.t('extentOfForest.nationalClassificationAndDefinitions')} name="nationalClassification" classes={`${props.openCommentThread &&
-        R.isEmpty(R.difference(props.openCommentThread.target, classificationTarget)) ? 'fra-row-comments__open' : ''}`}
-                   countryIso={props.match.params.countryIso}/>
-      <ReviewIndicator section='EOF'
-                       name={i18n.t('extentOfForest.nationalClassificationAndDefinitions')}
-                       target={classificationTarget}
-                       countryIso={props.match.params.countryIso}/>
-    </div>
-    <div className="nde__description-field nde__comment-transition">
-      <Description title={i18n.t('extentOfForest.originalData')} name="originalData" classes={`${props.openCommentThread &&
-        R.isEmpty(R.difference(props.openCommentThread.target, originalDataTarget)) ? 'fra-row-comments__open' : ''}`}
-                   countryIso={props.match.params.countryIso}/>
-      <ReviewIndicator section='EOF'
-                       name={i18n.t('extentOfForest.originalData')}
-                       target={originalDataTarget}
-                       countryIso={props.match.params.countryIso}/>
-    </div>
+    <CommentableDescriptions
+      section='EOF'
+      name="extentOfForest"
+      countryIso={props.match.params.countryIso}
+      i18n={i18n}
+    />
   </div>
 }
 

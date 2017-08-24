@@ -42,6 +42,9 @@ export const translation = {
     review: {
       commentDeleteNotOwner: 'Error: User {{user}} tried to delete a comment that doesn\'t own',
       commentEnterResolvedIssue: 'Error: User {{user}} tried to enter a comment for a resolved issue'
+    },
+    ndp: {
+      previousNdpNotFound: 'Unable to find any National data point prior to {{year}}'
     }
   },
   // components
@@ -106,7 +109,10 @@ export const translation = {
   },
 
   description: {
-    description: 'Description'
+    description: 'Description',
+    dataSources: 'Data Sources',
+    originalData: 'Original data',
+    nationalClassificationAndDefinitions: 'National classification and definitions',
   },
 
   nationalDataPoint: {
@@ -138,9 +144,6 @@ export const translation = {
     generateFraValues: 'Generate FRA values',
     extentOfForestValues: 'Extent of forest values',
     forestArea: 'Forest area',
-    dataSources: 'Data Sources',
-    nationalClassificationAndDefinitions: 'National classification and definitions',
-    originalData: 'Original data',
     chart: {
       noDataPlaceholderLine1: 'To get started, add new national data points and use',
       noDataPlaceholderLine2: 'them to generate FRA values automatically.'
