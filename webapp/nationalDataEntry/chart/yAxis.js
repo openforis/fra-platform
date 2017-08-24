@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import * as d3 from 'd3'
-import * as R from 'ramda'
+import { hasData } from './chartData'
 
 class YAxis extends Component {
   componentDidMount () {
@@ -9,15 +9,6 @@ class YAxis extends Component {
 
   componentDidUpdate () {
     this.renderAxis()
-  }
-
-  hasData () {
-    const hasData = R.pipe(
-      R.map(d => d.length),
-      R.values,
-      R.any(v => v > 0)
-    )(this.props.data)
-    return hasData
   }
 
   renderAxis () {
@@ -34,14 +25,15 @@ class YAxis extends Component {
     d3.select(node).call(axis)
       .selectAll('text').style('fill', '#666666').style('font-size', '11px')
 
-    if (!this.hasData())
+    if (!hasData(this.props.data))
       d3.select(node).selectAll('text').remove()
 
     d3.select(node).selectAll('line').style('stroke', (val, i) => i == 0 ? '#cccccc' : 'rgba(0,0,0,.08)')
   }
 
   render () {
-    return <g className="axis" ref="axis" transform={`translate(${this.hasData() ? this.props.left : '0'}, 0)`}></g>
+    return <g className="axis" ref="axis"
+              transform={`translate(${hasData(this.props.data) ? this.props.left : '0'}, 0)`}></g>
   }
 }
 

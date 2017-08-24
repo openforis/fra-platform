@@ -36,3 +36,9 @@ export const getChartData = (fra, property) => {
     R.map((v) => { return {year: v.year, value: v[property], type: v.type, estimated: v[`${property}Estimated`]} })
   )(fra)
 }
+
+export const hasData = data => R.pipe(
+  R.map(d => d.length),
+  R.values,
+  R.any(v => v > 0)
+)(data)
