@@ -13,7 +13,7 @@ const forestAreaTableResponse = require('./forestAreaTableResponse')
 const focTableResponse = require('./focTableResponse')
 
 module.exports.init = app => {
-  app.post('/:section/:countryIso', (req, res) => {
+  app.post('/nde/:section/:countryIso', (req, res) => {
     checkCountryAccessFromReqParams(req)
     const section = req.params.section
     const updates = []
@@ -21,6 +21,7 @@ module.exports.init = app => {
       'eof': fraRepository.persistEofValues,
       'foc': fraRepository.persistFocValues
     }[section]
+
     R.map(c => {
       updates.push(persist(req.params.countryIso, c.year, c))
     }, req.body.columns)
@@ -31,7 +32,7 @@ module.exports.init = app => {
   })
 
   // persists section fra values
-  app.post('/:section/country/:countryIso/:year', (req, res) => {
+  app.post('/nde/:section/country/:countryIso/:year', (req, res) => {
     const section = req.params.section
     checkCountryAccessFromReqParams(req)
 
@@ -45,7 +46,7 @@ module.exports.init = app => {
       .catch(err => sendErr(res, err))
   })
 
-  app.get('/:section/:countryIso', (req, res) => {
+  app.get('/nde/:section/:countryIso', (req, res) => {
     checkCountryAccessFromReqParams(req)
 
     const section = req.params.section

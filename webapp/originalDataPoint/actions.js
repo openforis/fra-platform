@@ -147,14 +147,14 @@ const fetched = (itemName, countryIso, data) => ({
 })
 
 export const fetchItem = (itemName, countryIso) => dispatch => {
-  axios.get(`/api/${itemName}/${countryIso}`).then(resp => {
+  axios.get(`/api/nde/${itemName}/${countryIso}`).then(resp => {
     dispatch(fetched(itemName, countryIso, resp.data))
   }).catch(err => dispatch(applicationError(err)))
 }
 
 const change = ({section, countryIso, name, value}) => {
   const dispatched = dispatch => {
-    return axios.post(`/api/${section}/country/${countryIso}/${name}`, value).then(() => {
+    return axios.post(`/api/nde/${section}/country/${countryIso}/${name}`, value).then(() => {
       dispatch(autosave.complete)
     }).catch((err) => {
       dispatch(applicationError(err))
@@ -180,7 +180,7 @@ export const save = (section, countryIso, name, newValue, fraValue, field) => di
 
 const changeMany = ({section, countryIso, columnData}) => {
   const dispatched = dispatch => {
-    return axios.post(`/api/${section}/${countryIso}`, {columns: columnData}).then(() => {
+    return axios.post(`/api/nde/${section}/${countryIso}`, {columns: columnData}).then(() => {
       dispatch(autosave.complete)
     }).catch((err) => {
       dispatch(applicationError(err))
