@@ -9,8 +9,16 @@ import Description from '../description/description'
 
 const assertProps = props =>
   assert(
+    props.name &&
+    props.countryIso &&
+    props.section,
+    'Some property is missing for CommentableDescriptions'
+  )
+const assertDescriptionProps = props =>
+  assert(
     props.descriptionTitle &&
     props.descriptionName &&
+    props.commentTarget &&
     props.countryIso &&
     props.section,
     'Some property is missing for CommentableDescription'
@@ -18,13 +26,12 @@ const assertProps = props =>
 
 class CommentableReviewDescription extends React.Component {
   render() {
-    assertProps(this.props)
-    const reviewIndicatorTarget = [this.props.descriptionName]
+    assertDescriptionProps(this.props)
     return <div className="commentable-description">
       <div className={
-        R.equals(this.props.openCommentThreadTarget, reviewIndicatorTarget)
-        ? 'commentable-description__description-wrapper fra-row-comments__open'
-        : 'commentable-description__description-wrapper'
+        R.equals(this.props.openCommentThreadTarget, this.props.commentTarget)
+          ? 'commentable-description__description-wrapper fra-row-comments__open'
+          : 'commentable-description__description-wrapper'
       }>
         <Description title={this.props.descriptionTitle}
                      name={this.props.descriptionName}
@@ -33,9 +40,39 @@ class CommentableReviewDescription extends React.Component {
       <div className="commentable-description__review-indicator-wrapper">
         <ReviewIndicator section={this.props.section}
                          name={this.props.descriptionTitle}
-                         target={reviewIndicatorTarget}
+                         target={this.props.commentTarget}
                          countryIso={this.props.countryIso}/>
       </div>
+    </div>
+  }
+}
+
+class CommentableReviewDescriptions extends React.Component {
+
+  render() {
+    const sourcesTitle = this.props.i18n.t('description.dataSources')
+    const originalDatatitle = this.props.i18n.t('description.originalData')
+    const nationalClassificationTitle = this.props.i18n.t('description.nationalClassificationAndDefinitions')
+    assertProps(this.props)
+    return <div>
+      <CommentableReviewDescription
+        descriptionName={`${this.props.name}_datasources`}
+        commentTarget={['dataSources']}
+        descriptionTitle={sourcesTitle}
+        {...this.props}
+      />
+      <CommentableReviewDescription
+        descriptionName={`${this.props.name}_originaldata`}
+        commentTarget={['originalData']}
+        descriptionTitle={originalDatatitle}
+        {...this.props}
+      />
+      <CommentableReviewDescription
+        descriptionName={`${this.props.name}_nationalClassification`}
+        commentTarget={['nationalClassification']}
+        descriptionTitle={nationalClassificationTitle}
+        {...this.props}
+      />
     </div>
   }
 }
@@ -47,4 +84,4 @@ const mapStateToProps = (state, props) => {
   }
 }
 
-export default connect(mapStateToProps, {})(CommentableReviewDescription)
+export default connect(mapStateToProps, {})(CommentableReviewDescriptions)
