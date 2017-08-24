@@ -4,7 +4,7 @@ import * as R from 'ramda'
 import { applicationError } from '../applicationError/actions'
 import * as autosave from '../autosave/actions'
 import { removeClassPlaceholder, addNationalClassPlaceHolder, copyNationalClassDefinitions } from './originalDataPoint'
-import {validateDataPoint} from '../../common/originalDataPointCommon'
+import { validateDataPoint } from '../../common/originalDataPointCommon'
 import { fetchCountryOverviewStatus } from '../navigation/actions'
 
 // Validation
@@ -116,7 +116,7 @@ export const copyPreviousNationalClasses = (countryIso, odp) => dispatch => {
       saveDraft(countryIso, copyNationalClassDefinitions(odp, prevOdp))(dispatch)
     }
     else
-      dispatch(applicationError(`Unable to find any National data point prior to ${odp.year}`))
+      dispatch(applicationError({key: 'error.ndp.previousNdpNotFound', values: {year: odp.year}}))
   })
 }
 

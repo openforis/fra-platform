@@ -42,6 +42,9 @@ export const translation = {
     review: {
       commentDeleteNotOwner: 'Error: User {{user}} tried to delete a comment that doesn\'t own',
       commentEnterResolvedIssue: 'Error: User {{user}} tried to enter a comment for a resolved issue'
+    },
+    ndp: {
+      previousNdpNotFound: 'Unable to find any National data point prior to {{year}}'
     }
   },
   // components

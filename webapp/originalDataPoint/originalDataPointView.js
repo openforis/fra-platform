@@ -283,7 +283,6 @@ const extentOfForestRows = (countryIso, odp, saveDraft, openThread, i18n) =>
   )(odp.nationalClasses)
 
 const numberUpdateCreator = saveDraft => (countryIso, odp, index, fieldName, currentValue) => evt => {
-      console.log('jeeeee')
   saveDraft(countryIso, originalDataPoint.updateNationalClass(odp, index, fieldName, acceptNextInteger(evt.target.value, currentValue)))
 }
 
