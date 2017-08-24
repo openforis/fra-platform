@@ -55,7 +55,7 @@ export class DataTable extends React.Component {
 const buildRows = (rows, props) => {
   console.log('props', props)
   return mapIndexed((row, i) => fraValueRow(row.localizedName, row.field, props.countryIso,
-    props.fra, R.partial(props.save, [props.section]), props.saveMany, i, props.openCommentThread), rows)
+    props.fra, R.partial(props.save, [props.section]), R.partial(props.saveMany, [props.section]), i, props.openCommentThread), rows)
 }
 
 const buildIndicators = (rows, props) => mapIndexed((row, i) =>  <ReviewIndicator

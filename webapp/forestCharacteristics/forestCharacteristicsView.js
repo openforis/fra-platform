@@ -3,10 +3,9 @@ import React from 'react'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
 
-import { fetchItem, save } from '../originalDataPoint/actions'
+import { fetchItem, save, saveMany } from '../originalDataPoint/actions'
 import LoggedInPageTemplate from '../loggedInPageTemplate'
 import { DataTable } from '../originalDataPoint/commentableDatatable'
-
 
 const ForestCharacteristics = props => {
   const rows = [
@@ -70,4 +69,4 @@ const mapStateToProps = state => {
   })
 }
 
-export default connect(mapStateToProps, {fetchItem, save})(DataFetchingComponent)
+export default connect(mapStateToProps, {fetchItem, save, saveMany})(DataFetchingComponent)

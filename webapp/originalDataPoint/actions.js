@@ -139,6 +139,7 @@ export const cancelDraft = (countryIso, odpId) => dispatch => {
 
 export const valuesFetched = name => `${name}/value/fetch/completed`
 export const valueChangeStart = name => `${name}/value/change/start`
+export const pasteChangeStart = name => `${name}/value/paste/start`
 
 const fetched = (itemName, countryIso, data) => ({
   type: valuesFetched(itemName),
@@ -176,4 +177,21 @@ export const save = (section, countryIso, name, newValue, fraValue, field) => di
   dispatch(start({section, name, value: newFraValue}))
   dispatch(autosave.start)
   dispatch(change({section, countryIso, name, value: newFraValue}))
+}
+
+const changeMany = ({section, countryIso, columnData}) => {
+  const dispatched = dispatch => {
+    return axios.post(`/api/${section}/${countryIso}`, {columns: columnData}).then(() => {
+      dispatch(autosave.complete)
+    }).catch((err) => {
+      dispatch(applicationError(err))
+    })
+  }
+  return dispatched
+}
+
+export const saveMany = (section, countryIso, columnData) => dispatch => {
+  dispatch({type: pasteChangeStart(section), columnData})
+  dispatch(autosave.start)
+  dispatch(changeMany({section, countryIso, columnData}))
 }
