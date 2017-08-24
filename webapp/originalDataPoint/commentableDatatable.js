@@ -10,19 +10,10 @@ import {acceptNextInteger} from '../utils/numberInput'
 
 const mapIndexed = R.addIndex(R.map)
 
-// props:
-// countryIso
-// i18n
-// fra
-// actions: save, saveMany, openCommentThread
-// rows:
-//  localizedName, name,
 export class DataTable extends React.Component {
 
   render () {
-    const i18n = this.props.i18n
     const rows = this.props.rows
-
     return <div className="nde__data-table-container">
       <div className="nde__data-table-scroll-content">
         <table className="fra-table">

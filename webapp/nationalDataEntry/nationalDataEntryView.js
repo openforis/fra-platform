@@ -31,9 +31,6 @@ const NationalDataEntry = (props) => {
     return props.generatingFraValues || odps.length < 2
   }
 
-  const sourceTarget = ['data_sources']
-  const originalDataTarget = ['original_data']
-  const classificationTarget = ['national_classifications']
   const i18n = props.i18n
   const rows = [
     {
