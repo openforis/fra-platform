@@ -30,11 +30,18 @@ const ForestCharacteristics = props => {
       localizedName: props.i18n.t('forestCharacteristics.otherPlantedForestArea')
     }
   ]
+  const rowNames = {
+    0: 'naturalForestArea',
+    1: 'naturalForestPrimaryArea',
+    2: 'plantationForestArea',
+    3: 'plantationForestIntroducedArea',
+    4: 'otherPlantedForestArea'
+  }
   return <div className='nde__data-input-component'>
     <div className="nde__data-page-header">
       <h2 className="headline">{props.i18n.t('forestCharacteristics.forestCharacteristics')}</h2>
     </div>
-    <DataTable section='foc' rows={rows} {...props} />
+    <DataTable section='foc' rows={rows} rowNames={rowNames} {...props} />
   </div>
 }
 
