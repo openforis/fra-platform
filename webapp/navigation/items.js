@@ -7,7 +7,7 @@ export const annualItems = i18n => [
   {
     order: 1,
     label: i18n.t('extentOfForest.extentOfForest'),
-    section: 'EOF',
+    section: 'eof',
     pathTemplate: '/country/:countryIso'
   },
   {
@@ -42,7 +42,7 @@ export const fiveYearItems = i18n => [
   {
     order: 7,
     label: i18n.t('forestCharacteristics.forestCharacteristics'),
-    pathTemplate: '#/todo'
+    pathTemplate: '/country/:countryIso/forestCharacteristics'
   },
   {
     order: 8,

@@ -3,7 +3,12 @@ import * as R from 'ramda'
 
 import { applicationError } from '../applicationError/actions'
 import * as autosave from '../autosave/actions'
-import { removeClassPlaceholder, addNationalClassPlaceHolder, copyNationalClassDefinitions } from './originalDataPoint'
+import {
+  removeClassPlaceholder,
+  addNationalClassPlaceHolder,
+  copyNationalClassDefinitions
+} from './originalDataPoint'
+import {acceptNextInteger} from '../utils/numberInput'
 import { validateDataPoint } from '../../common/originalDataPointCommon'
 import { fetchCountryOverviewStatus } from '../navigation/actions'
 
@@ -129,3 +134,63 @@ export const cancelDraft = (countryIso, odpId) => dispatch => {
     window.location = `#/country/${countryIso}`
 }
 
+
+// fetching odp based assesment item
+
+export const valuesFetched = name => `${name}/value/fetch/completed`
+export const valueChangeStart = name => `${name}/value/change/start`
+export const pasteChangeStart = name => `${name}/value/paste/start`
+
+const fetched = (itemName, countryIso, data) => ({
+  type: valuesFetched(itemName),
+  countryIso, data
+})
+
+export const fetchItem = (itemName, countryIso) => dispatch => {
+  axios.get(`/api/nde/${itemName}/${countryIso}`).then(resp => {
+    dispatch(fetched(itemName, countryIso, resp.data))
+  }).catch(err => dispatch(applicationError(err)))
+}
+
+const change = ({section, countryIso, name, value}) => {
+  const dispatched = dispatch => {
+    return axios.post(`/api/nde/${section}/country/${countryIso}/${name}`, value).then(() => {
+      dispatch(autosave.complete)
+    }).catch((err) => {
+      dispatch(applicationError(err))
+    })
+  }
+  dispatched.meta = {
+    debounce: {
+      time: 800,
+      key: `valueChangeStart_${name}`
+    }
+  }
+  return dispatched
+}
+const start = ({section, name, value}) => ({type: valueChangeStart(section), name, value})
+
+export const save = (section, countryIso, name, newValue, fraValue, field) => dispatch => {
+  const sanitizedValue = acceptNextInteger(newValue, fraValue[field])
+  const newFraValue = {...fraValue, [field]: sanitizedValue, [`${field}Estimated`]: false}
+  dispatch(start({section, name, value: newFraValue}))
+  dispatch(autosave.start)
+  dispatch(change({section, countryIso, name, value: newFraValue}))
+}
+
+const changeMany = ({section, countryIso, columnData}) => {
+  const dispatched = dispatch => {
+    return axios.post(`/api/nde/${section}/${countryIso}`, {columns: columnData}).then(() => {
+      dispatch(autosave.complete)
+    }).catch((err) => {
+      dispatch(applicationError(err))
+    })
+  }
+  return dispatched
+}
+
+export const saveMany = (section, countryIso, columnData) => dispatch => {
+  dispatch({type: pasteChangeStart(section), columnData})
+  dispatch(autosave.start)
+  dispatch(changeMany({section, countryIso, columnData}))
+}

@@ -10,13 +10,20 @@ const estimationEngine = require('./estimationEngine')
 const { checkCountryAccessFromReqParams } = require('../utils/accessControl')
 
 const forestAreaTableResponse = require('./forestAreaTableResponse')
+const focTableResponse = require('./focTableResponse')
 
 module.exports.init = app => {
-  app.post('/eof/:countryIso', (req, res) => {
+  app.post('/nde/:section/:countryIso', (req, res) => {
     checkCountryAccessFromReqParams(req)
+    const section = req.params.section
     const updates = []
+    const persist = {
+      'eof': fraRepository.persistEofValues,
+      'foc': fraRepository.persistFocValues
+    }[section]
+
     R.map(c => {
-      updates.push(fraRepository.persistFraValues(req.params.countryIso, c.year, c))
+      updates.push(persist(req.params.countryIso, c.year, c))
     }, req.body.columns)
 
     Promise.all(updates)
@@ -24,22 +31,46 @@ module.exports.init = app => {
       .catch(err => sendErr(res, err))
   })
 
-  app.post('/country/:countryIso/:year', (req, res) => {
+  // persists section fra values
+  app.post('/nde/:section/country/:countryIso/:year', (req, res) => {
+    const section = req.params.section
     checkCountryAccessFromReqParams(req)
-    fraRepository.persistFraValues(req.params.countryIso, req.params.year, req.body)
+
+    const persist = {
+          'eof': fraRepository.persistEofValues,
+          'foc': fraRepository.persistFocValues
+    }[section]
+
+    persist(req.params.countryIso, req.params.year, req.body)
       .then(() => res.json({}))
       .catch(err => sendErr(res, err))
   })
 
-  app.get('/country/:countryIso', (req, res) => {
+  app.get('/nde/:section/:countryIso', (req, res) => {
     checkCountryAccessFromReqParams(req)
-    const fra = fraRepository.readFraForestAreas(req.params.countryIso)
-    const odp = odpRepository.readOriginalDataPoints(req.params.countryIso)
+
+    const section = req.params.section
+    const readFra = {
+      'eof': fraRepository.readFraForestAreas,
+      'foc': fraRepository.readFraForestCharacteristics
+    }[section]
+    const readOdp = {
+      'eof': odpRepository.readEofOdps,
+      'foc': odpRepository.readFocOdps
+    }[section]
+
+    const fra = readFra(req.params.countryIso)
+    const odp = readOdp(req.params.countryIso)
+
+    const defaultResponse = {
+      'eof': () => forestAreaTableResponse.fra,
+      'foc': () => focTableResponse.buildDefaultResponse(focTableResponse.defaultYears)
+    }[section]
 
     Promise.all([fra, odp])
       .then(result => {
         const forestAreas = R.pipe(
-          R.merge(forestAreaTableResponse.fra),
+          R.merge(defaultResponse()),
           R.merge(result[1]),
           R.values,
           R.sort((a, b) => a.year === b.year ? (a.type < b.type ? -1 : 1) : a.year - b.year)
@@ -51,6 +82,8 @@ module.exports.init = app => {
 
   app.post('/country/estimation/generateFraValues/:countryIso', (req, res) => {
     checkCountryAccessFromReqParams(req)
+    const fra = fraRepository.readFraForestAreas(req.params.countryIso)
+    const odp = odpRepository.readEofOdps(req.params.countryIso)
     const years = R.pipe(
       R.values,
       R.map((v) => v.year)
@@ -61,6 +94,4 @@ module.exports.init = app => {
       .then(() => res.json({}))
       .catch(err => sendErr(res, err))
   })
-
-
 }

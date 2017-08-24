@@ -87,12 +87,12 @@ module.exports.estimateFraValues = estimateFraValues
 
 module.exports.estimateAndPersistFraValues = (countryIso, years) => {
   return odpRepository
-    .readOriginalDataPoints(countryIso)
+    .readEofOdps(countryIso)
     .then(values => {
       const estimated = estimateFraValues(years, R.values(values))
       return Promise.all(
         R.map(
-          estimatedValues => eofRepository.persistFraValues(countryIso, estimatedValues.year, estimatedValues, true),
+          estimatedValues => eofRepository.persistEofValues(countryIso, estimatedValues.year, estimatedValues, true),
           estimated))
     })
 }
