@@ -42,7 +42,7 @@ const mapStateToProps = (state, props) => {
     )(props.trends)
 
     const xScale = getXScale(props.wrapperWidth)
-    const yScale = getYScale(data, props.trends)
+    const yScale = getYScale(data)
 
     return {data, xScale, yScale, i18n: state.user.i18n}
   }

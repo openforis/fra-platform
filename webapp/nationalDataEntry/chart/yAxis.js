@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import * as d3 from 'd3'
+import * as R from 'ramda'
 
 class YAxis extends Component {
   componentDidMount () {
@@ -11,7 +12,12 @@ class YAxis extends Component {
   }
 
   hasData () {
-    return this.props.data.forestArea.length > 0 || this.props.data.otherWoodedLand.length > 0
+    const hasData = R.pipe(
+      R.map(d => d.length),
+      R.values,
+      R.any(v => v > 0)
+    )(this.props.data)
+    return hasData
   }
 
   renderAxis () {
@@ -26,7 +32,7 @@ class YAxis extends Component {
       .selectAll('path').style('stroke', '#cccccc')
 
     d3.select(node).call(axis)
-          .selectAll('text').style('fill', '#666666').style('font-size', '11px')
+      .selectAll('text').style('fill', '#666666').style('font-size', '11px')
 
     if (!this.hasData())
       d3.select(node).selectAll('text').remove()

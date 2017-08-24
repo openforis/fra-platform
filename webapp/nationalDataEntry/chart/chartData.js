@@ -16,10 +16,10 @@ export const getXScale = width => {
 }
 
 // Returns a function that "scales" Y coordinates from the data to fit the chart
-export const getYScale = (data, trends) => {
+export const getYScale = data => {
   const max = R.pipe(
     R.map(o => d3.max(o, d => d.value)),
-    d => trends.map(t => d[t]),
+    R.values,
     o => d3.max(o, d => d),
     v => v ? v : 98765
   )(data)
