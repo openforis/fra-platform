@@ -27,7 +27,7 @@ const wipeNationalClassIssues = (client, odpId, countryIso, nationalClasses) => 
       AND i.target #> '{params,0}' = '"${odpId}"'
       ${ hasClasses
       ? `AND i.target #> '{params,2}' NOT IN (${classQueryPlaceholders})`
-      : `AND i.target #> '{params,1}' IN ('"class_definition"','"class_value"')`}
+      : `AND i.target #> '{params,1}' = '"class"'`}
     `
     , hasClasses ? [countryIso, 'NDP', ...classUuids] : [countryIso, 'NDP'])
     .then(res => res.rows.map(r => r.issue_id))
