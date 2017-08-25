@@ -411,7 +411,7 @@ const ExtentOfForestRow = ({
   </tr>
 }
 
-const forestCharacteristicsCols = ['area', 'naturalForestPercent', 'plantationForestPercent', 'otherPlantedForestPercent']
+const forestCharacteristicsCols = ['area', 'naturalForestPercent', 'plantationPercent', 'otherPlantedPercent']
 const foresCharaceristicsRows = (countryIso, odp, saveDraft, openThread, i18n) =>
   R.pipe(
     R.filter(nationalClass => !nationalClass.placeHolder),
