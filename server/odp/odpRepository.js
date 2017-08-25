@@ -13,18 +13,23 @@ module.exports.saveDraft = (client, countryIso, draft) =>
     : updateOrInsertDraft(client, draft.odpId, countryIso, draft)
 
 const wipeNationalClassIssues = (client, odpId, countryIso, nationalClasses) => {
+  const hasClasses = nationalClasses.length > 0
   const classUuids = nationalClasses.map(c => `"${c.uuid}"`)
   const classQueryPlaceholders = R.range(3, nationalClasses.length + 3).map(i => '$' + i).join(',')
 
-  return client.query(`
-                  SELECT 
-                    i.id as issue_id
-                  FROM issue i
-                  WHERE i.country_iso = $1
-                  AND i.section = $2
-                  AND i.target #> '{params,0}' = '"${odpId}"'
-                  AND i.target #> '{params,2}' NOT IN (${classQueryPlaceholders})`
-    , [countryIso, 'NDP', ...classUuids])
+  return client.query(
+    `
+      SELECT 
+        i.id as issue_id
+      FROM issue i
+      WHERE i.country_iso = $1
+      AND i.section = $2
+      AND i.target #> '{params,0}' = '"${odpId}"'
+      ${ hasClasses
+      ? `AND i.target #> '{params,2}' NOT IN (${classQueryPlaceholders})`
+      : `AND i.target #> '{params,1}' = '"class"'`}
+    `
+    , hasClasses ? [countryIso, 'NDP', ...classUuids] : [countryIso, 'NDP'])
     .then(res => res.rows.map(r => r.issue_id))
     .then(issueIds => deleteIssuesByIds(client, issueIds))
     .then(() => ({odpId}))
@@ -166,7 +171,7 @@ const deleteOdp = (client, odpId, user) => {
         countryIso])
     ).then(([selectResult, countryIso]) =>
       client.query('DELETE FROM odp WHERE id = $1', [odpId])
-      .then(() => [selectResult.rows[0].draft_id, selectResult.rows[0].actual_id, countryIso])
+        .then(() => [selectResult.rows[0].draft_id, selectResult.rows[0].actual_id, countryIso])
     ).then(([draftId, actualId, countryIso]) => {
       return Promise.all([
         draftId
@@ -178,8 +183,8 @@ const deleteOdp = (client, odpId, user) => {
             .then(() => client.query('DELETE FROM odp_version WHERE id = $1', [actualId]))
           : Promise.resolve(),
         deleteIssues(client, countryIso, 'NDP', 0, odpId)
-    ])
-  })
+      ])
+    })
 }
 module.exports.deleteOdp = deleteOdp
 

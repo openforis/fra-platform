@@ -7,6 +7,7 @@ import { fetchItem, save, saveMany } from '../originalDataPoint/actions'
 import LoggedInPageTemplate from '../loggedInPageTemplate'
 import { DataTable } from '../originalDataPoint/commentableDatatable'
 import ChartWrapper from '../nationalDataEntry/chart/chartWrapper'
+import CommentableDescriptions from '../description/commentableDescription'
 
 const ForestCharacteristics = props => {
   const rows = [
@@ -38,12 +39,18 @@ const ForestCharacteristics = props => {
     3: 'plantationForestIntroducedArea',
     4: 'otherPlantedForestArea'
   }
-  return <div className='nde__data-input-component'>
+  return <div className='nde__data-input-component foc-view'>
     <div className="nde__data-page-header">
       <h2 className="headline">{props.i18n.t('forestCharacteristics.forestCharacteristics')}</h2>
     </div>
     <ChartWrapper stateName="forestCharacteristics" trends={['naturalForestArea']}/>
     <DataTable section='foc' rows={rows} rowNames={rowNames} {...props} />
+    <CommentableDescriptions
+      section='foc'
+      name="forestCharacteristics"
+      countryIso={props.countryIso}
+      i18n={props.i18n}
+    />
   </div>
 }
 
