@@ -24,7 +24,7 @@ import R from 'ramda'
 import ckEditorConfig from '../ckEditor/ckEditorConfig'
 import ReviewIndicator from '../review/reviewIndicator'
 
-const years = ['', ...R.range(1990, 2021)]
+const years = ['', ...R.pipe(R.range(1990), R.reverse)(2021)]
 
 const isCommentsOpen = (target, openThread = {}) => R.equals('NDP', openThread.section) && R.isEmpty(R.difference(openThread.target, target))
 
