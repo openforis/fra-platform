@@ -38,7 +38,7 @@ const ForestCharacteristics = props => {
     3: 'plantationForestIntroducedArea',
     4: 'otherPlantedForestArea'
   }
-  return <div className='nde__data-input-component'>
+  return <div className='nde__data-input-component foc-view'>
     <div className="nde__data-page-header">
       <h2 className="headline">{props.i18n.t('forestCharacteristics.forestCharacteristics')}</h2>
     </div>
