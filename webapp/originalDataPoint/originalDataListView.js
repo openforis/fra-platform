@@ -22,6 +22,7 @@ const ODPListing = ({countryIso, odps = [], i18n}) => <div className="odp-list__
     {odps.length > 0 ? odps.map(odp => <tr className='odp-list__list-row' key={odp.odpId}>
       <td className='odp-list__year-column'>{odp.year == 0 ? '-' : odp.year}</td>
       <td className='odp-list__notification-column'>
+        <div className="odp-list__notification-column-content">
         {!odp.validationStatus.valid ? <div>
           <svg className='icon icon-red'>
             <use href='img/icons.svg#alert'/>
@@ -30,6 +31,7 @@ const ODPListing = ({countryIso, odps = [], i18n}) => <div className="odp-list__
         {R.isEmpty(odp.issues) ? null : <div>
           <div className='issue-open'></div>
         </div>}
+        </div>
       </td>
       <td>-</td>
       <td className='odp-list__edit-column'>
