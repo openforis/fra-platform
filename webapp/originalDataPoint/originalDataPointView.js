@@ -338,7 +338,7 @@ const ExtentOfForestRow = ({
                            }) => {
 
   const validationStatus = getValidationStatusRow(odp, index)
-  const validationStatusPercentage = () => validationStatus.validPercentage === false ? 'error' : ''
+  const eofStatusPercentage = () => validationStatus.validEofPercentage === false ? 'error' : ''
 
   const numberUpdated = numberUpdateCreator(saveDraft)
 
@@ -358,7 +358,7 @@ const ExtentOfForestRow = ({
                                        saveDraft
                                      })}/>
     </td>
-    <td className={`${validationStatusPercentage()}`}>
+    <td className={`${eofStatusPercentage()}`}>
       <PercentInput
         value={forestPercent || ''}
         onChange={numberUpdated(countryIso, odp, index, 'forestPercent', forestPercent)}
@@ -372,7 +372,7 @@ const ExtentOfForestRow = ({
         })}
       />
     </td>
-    <td className={`${validationStatusPercentage()}`}>
+    <td className={`${eofStatusPercentage()}`}>
       <PercentInput
         value={otherWoodedLandPercent || ''}
         onChange={numberUpdated(countryIso, odp, index, 'otherWoodedLandPercent', otherWoodedLandPercent)}
@@ -386,7 +386,7 @@ const ExtentOfForestRow = ({
         })}
       />
     </td>
-    <td className={`${validationStatusPercentage()}`}>
+    <td className={`${eofStatusPercentage()}`}>
       <PercentInput
         value={otherLandPercent || ''}
         onChange={numberUpdated(countryIso, odp, index, 'otherLandPercent', otherLandPercent)}
@@ -444,6 +444,8 @@ const ForestCharacteristicsRow =
      ...props
    }) => {
     const numberUpdated = numberUpdateCreator(saveDraft)
+    const validationStatus = getValidationStatusRow(odp, index)
+    const focStatusPercentage = () => validationStatus.validFocPercentage === false ? 'error' : ''
     return <tr
       className={isCommentsOpen([odp.nationalClasses[index].uuid, 'ndp_class_value'], openThread) ? 'fra-row-comments__open' : ''}>
       <td className="odp__eof-class-name"><span>{className}</span></td>
@@ -461,7 +463,7 @@ const ForestCharacteristicsRow =
                                        })}
         />
       </td>
-      <td>
+      <td className={`${focStatusPercentage()}`}>
         <PercentInput
           value={naturalForestPercent || ''}
           onChange={numberUpdated(countryIso, odp, index, 'naturalForestPercent', naturalForestPercent)}
@@ -480,7 +482,7 @@ const ForestCharacteristicsRow =
           onChange={numberUpdated(countryIso, odp, index, 'naturalForestPrimaryPercent', naturalForestPrimaryPercent)}
         />
       </td>
-      <td>
+      <td className={`${focStatusPercentage()}`}>
         <PercentInput
           value={plantationPercent || ''}
           onChange={numberUpdated(countryIso, odp, index, 'plantationPercent', plantationPercent)}
@@ -499,7 +501,7 @@ const ForestCharacteristicsRow =
           onChange={numberUpdated(countryIso, odp, index, 'plantationIntroducedPercent', plantationIntroducedPercent)}
         />
       </td>
-      <td>
+      <td className={`${focStatusPercentage()}`}>
         <PercentInput
           value={otherPlantedPercent || ''}
           onChange={numberUpdated(countryIso, odp, index, 'otherPlantedPercent', otherPlantedPercent)}
