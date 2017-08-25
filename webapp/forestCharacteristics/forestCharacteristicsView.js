@@ -6,6 +6,7 @@ import * as R from 'ramda'
 import { fetchItem, save, saveMany } from '../originalDataPoint/actions'
 import LoggedInPageTemplate from '../loggedInPageTemplate'
 import { DataTable } from '../originalDataPoint/commentableDatatable'
+import ChartWrapper from '../nationalDataEntry/chart/chartWrapper'
 import CommentableDescriptions from '../description/commentableDescription'
 
 const ForestCharacteristics = props => {
@@ -42,6 +43,7 @@ const ForestCharacteristics = props => {
     <div className="nde__data-page-header">
       <h2 className="headline">{props.i18n.t('forestCharacteristics.forestCharacteristics')}</h2>
     </div>
+    <ChartWrapper stateName="forestCharacteristics" trends={['naturalForestArea']}/>
     <DataTable section='foc' rows={rows} rowNames={rowNames} {...props} />
     <CommentableDescriptions
       section='foc'
@@ -69,15 +71,15 @@ class DataFetchingComponent extends React.Component {
   render () {
     return <LoggedInPageTemplate commentsOpen={this.props.openCommentThread}>
       <ForestCharacteristics {...this.props} countryIso={this.props.match.params.countryIso}
-        />
+      />
     </LoggedInPageTemplate>
   }
 }
 
-const mapStateToProps = state =>  ({
-    ...state.forestCharacteristics,
-    'openCommentThread': state.review.openThread,
-    i18n: state.user.i18n
-  })
+const mapStateToProps = state => ({
+  ...state.forestCharacteristics,
+  'openCommentThread': state.review.openThread,
+  i18n: state.user.i18n
+})
 
 export default connect(mapStateToProps, {fetchItem, save, saveMany})(DataFetchingComponent)

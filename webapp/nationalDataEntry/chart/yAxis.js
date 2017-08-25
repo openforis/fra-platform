@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import * as d3 from 'd3'
+import { hasData } from './chartData'
 
 class YAxis extends Component {
   componentDidMount () {
@@ -8,10 +9,6 @@ class YAxis extends Component {
 
   componentDidUpdate () {
     this.renderAxis()
-  }
-
-  hasData () {
-    return this.props.data.forestArea.length > 0 || this.props.data.otherWoodedLand.length > 0
   }
 
   renderAxis () {
@@ -26,16 +23,17 @@ class YAxis extends Component {
       .selectAll('path').style('stroke', '#cccccc')
 
     d3.select(node).call(axis)
-          .selectAll('text').style('fill', '#666666').style('font-size', '11px')
+      .selectAll('text').style('fill', '#666666').style('font-size', '11px')
 
-    if (!this.hasData())
+    if (!hasData(this.props.data))
       d3.select(node).selectAll('text').remove()
 
     d3.select(node).selectAll('line').style('stroke', (val, i) => i == 0 ? '#cccccc' : 'rgba(0,0,0,.08)')
   }
 
   render () {
-    return <g className="axis" ref="axis" transform={`translate(${this.hasData() ? this.props.left : '0'}, 0)`}></g>
+    return <g className="axis" ref="axis"
+              transform={`translate(${hasData(this.props.data) ? this.props.left : '0'}, 0)`}></g>
   }
 }
 

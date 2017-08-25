@@ -24,8 +24,7 @@ class Chart extends Component {
       {this.props.data ? <svg width={this.props.wrapperWidth} height={styles.height}>
           <YAxis {...this.props} {...styles} />
           <XAxis {...this.props} {...styles} />
-          <DataCircles {...this.props} data={this.props.data.forestArea} {...styles} />
-          <DataCircles {...this.props} data={this.props.data.otherWoodedLand} {...styles} />
+          {this.props.trends.map(t => <DataCircles key={t} {...this.props} data={this.props.data[t]} {...styles} />)}
           <NoDataPlaceholder {...this.props} {...styles} />
         </svg>
         : null}
@@ -34,16 +33,15 @@ class Chart extends Component {
 }
 
 const mapStateToProps = (state, props) => {
-
-  const nde = state['nationalDataEntry']
+  const nde = state[props.stateName]
   if (nde && nde.fra) {
 
-    const data = {
-      forestArea: getChartData(nde.fra, 'forestArea'),
-      otherWoodedLand: getChartData(nde.fra, 'otherWoodedLand')
-    }
+    const data = R.pipe(
+      R.map(t => ({[t]: getChartData(nde.fra, t)})),
+      R.mergeAll
+    )(props.trends)
 
-    const xScale = getXScale(props)
+    const xScale = getXScale(props.wrapperWidth)
     const yScale = getYScale(data)
 
     return {data, xScale, yScale, i18n: state.user.i18n}
