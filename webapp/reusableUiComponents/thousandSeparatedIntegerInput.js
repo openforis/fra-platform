@@ -28,6 +28,7 @@ export class ThousandSeparatedIntegerInput extends React.Component {
         <input
           type="text"
           maxLength="100"
+          disabled={this.props.disabled}
           ref="inputField"
           className={className}
           value={renderFocusedIntegerValue(integerValue)}

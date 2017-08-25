@@ -450,8 +450,9 @@ const ForestCharacteristicsRow =
       className={isCommentsOpen([odp.nationalClasses[index].uuid, 'ndp_class_value'], openThread) ? 'fra-row-comments__open' : ''}>
       <td className="odp__eof-class-name"><span>{className}</span></td>
       <td
-        className={`odp__eof-area-cell odp__eof-divide-after-cell`}>
+        className={`odp__eof-area-cell odp__eof-divide-after-cell odp__eof-disabled-cell`}>
         <ThousandSeparatedIntegerInput integerValue={area}
+                                       disabled={true}
                                        onChange={numberUpdated(countryIso, odp, index, 'area', area)}
                                        onPaste={updatePastedValues({
                                          odp,
