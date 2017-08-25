@@ -25,7 +25,7 @@ module.exports.validateDataPoint = odp => {
       v => R.assoc('validArea', c.placeHolder || !v.validClassName ? true : !isNaN(parseFloat(c.area)), v),
       v => R.assoc('validEofPercentage', c.placeHolder || !v.validArea || !v.validClassName ? true : validateEofPercentage(c), v),
       v => R.assoc('validFocPercentage', c.placeHolder || !v.validArea || !v.validClassName ? true : validateFocPercentage(c), v),
-      v => R.assoc('valid', v.validClassName && v.validArea && v.validPercentage, v)
+      v => R.assoc('valid', v.validClassName && v.validArea && v.validEofPercentage && v.validFocPercentage, v)
     )({})
     , odp.nationalClasses.length === 1 ? odp.nationalClasses : R.filter(c => !c.placeHolder, odp.nationalClasses))
 
