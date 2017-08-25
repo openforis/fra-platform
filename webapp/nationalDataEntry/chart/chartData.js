@@ -15,13 +15,14 @@ export const getXScale = width => {
     .range([styles.left, width])
 }
 
+const defaultToYMaxValue = R.defaultTo(98765)
 // Returns a function that "scales" Y coordinates from the data to fit the chart
 export const getYScale = data => {
   const max = R.pipe(
     R.map(o => d3.max(o, d => d.value)),
     R.values,
     o => d3.max(o, d => d),
-    v => v ? v : 98765
+    defaultToYMaxValue
   )(data)
 
   return d3.scaleLinear()
