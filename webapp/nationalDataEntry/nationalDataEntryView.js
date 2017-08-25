@@ -2,8 +2,7 @@ import './style.less'
 import React from 'react'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
-import { generateFraValues } from './actions'
-import { fetchItem, save, saveMany } from '../originalDataPoint/actions'
+import { fetchItem, save, saveMany, generateFraValues} from '../originalDataPoint/actions'
 import { Link } from './../link'
 import ChartWrapper from './chart/chartWrapper'
 import LoggedInPageTemplate from '../loggedInPageTemplate'
@@ -58,7 +57,7 @@ const NationalDataEntry = (props) => {
       <div className="nde__data-table-header">
         <h3 className="subhead">{i18n.t('extentOfForest.extentOfForestValues')}</h3>
         <button disabled={disableGenerateFRAValues()} className="btn btn-primary"
-                onClick={() => props.generateFraValues(props.countryIso)}>
+                onClick={() => props.generateFraValues('eof', props.countryIso)}>
           {i18n.t('extentOfForest.generateFraValues')}
         </button>
       </div>

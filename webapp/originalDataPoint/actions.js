@@ -140,6 +140,7 @@ export const cancelDraft = (countryIso, odpId) => dispatch => {
 export const valuesFetched = name => `${name}/value/fetch/completed`
 export const valueChangeStart = name => `${name}/value/change/start`
 export const pasteChangeStart = name => `${name}/value/paste/start`
+export const generateFraValuesStart =  name => `${name}/generateFraValues/start`
 
 const fetched = (itemName, countryIso, data) => ({
   type: valuesFetched(itemName),
@@ -193,4 +194,13 @@ export const saveMany = (section, countryIso, columnData) => dispatch => {
   dispatch({type: pasteChangeStart(section), columnData})
   dispatch(autosave.start)
   dispatch(changeMany({section, countryIso, columnData}))
+}
+
+
+export const generateFraValues = (section, countryIso) => dispatch => {
+  dispatch({type: generateFraValuesStart(section)})
+
+  axios.post(`/api/nde/${section}/generateFraValues/${countryIso}`).then(resp => {
+    dispatch(fetchItem(section, countryIso))
+  })
 }

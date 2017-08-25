@@ -3,13 +3,20 @@ import React from 'react'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
 
-import { fetchItem, save, saveMany } from '../originalDataPoint/actions'
+import { fetchItem, save, saveMany, generateFraValues } from '../originalDataPoint/actions'
 import LoggedInPageTemplate from '../loggedInPageTemplate'
 import { DataTable } from '../originalDataPoint/commentableDatatable'
 import ChartWrapper from '../nationalDataEntry/chart/chartWrapper'
 import CommentableDescriptions from '../description/commentableDescription'
 
 const ForestCharacteristics = props => {
+  const disableGenerateFRAValues = () => {
+    const odps = R.pipe(
+      R.values,
+      R.filter(v => v.type === 'odp')
+    )(props.fra)
+    return props.generatingFraValues || odps.length < 2
+  }
   const rows = [
     {
       field: 'naturalForestArea',
@@ -44,6 +51,10 @@ const ForestCharacteristics = props => {
       <h2 className="headline">{props.i18n.t('forestCharacteristics.forestCharacteristics')}</h2>
     </div>
     <ChartWrapper stateName="forestCharacteristics" trends={['naturalForestArea']}/>
+    <button disabled={disableGenerateFRAValues()} className="btn btn-primary"
+            onClick={() => props.generateFraValues('foc', props.countryIso)}>
+      {props.i18n.t('extentOfForest.generateFraValues')}
+    </button>
     <DataTable section='foc' rows={rows} rowNames={rowNames} {...props} />
     <CommentableDescriptions
       section='foc'
@@ -82,4 +93,4 @@ const mapStateToProps = state => ({
   i18n: state.user.i18n
 })
 
-export default connect(mapStateToProps, {fetchItem, save, saveMany})(DataFetchingComponent)
+export default connect(mapStateToProps, {fetchItem, save, saveMany, generateFraValues})(DataFetchingComponent)
