@@ -108,7 +108,7 @@ describe('validateOriginalDataPoint', () => {
     }
     const validation = validateDataPoint(odp)
 
-    assert.equal(false, validation.nationalClasses[0].validPercentage)
+    assert.equal(false, validation.nationalClasses[0].validEofPercentage)
     assert.equal(false, validation.nationalClasses[0].valid)
     assert.equal(false, validation.valid)
   })
