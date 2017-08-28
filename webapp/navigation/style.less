@@ -12,29 +12,6 @@
   border-right: @ui-thin-border;
   position: fixed;
   width: 256px;
-
-
-  .status-editing {
-    .mixin-status-base(@ui-status-editing);
-  }
-  .status-review {
-    .mixin-status-base(@ui-status-review);
-  }
-  .status-accepted {
-    .mixin-status-base(@ui-status-accepted);
-  }
-
-  .mixin-status-base(@color) {
-    width: 10px;
-    min-width: 10px;
-    height: 10px;
-    margin: 2px 5px 4px 0;
-    background-color: @color;
-    color: white;
-    border-radius: 100%;
-    text-align: center;
-    float: left;
-  }
 }
 
 // Current country
@@ -136,10 +113,6 @@
   margin-right: 16px;
 }
 
-.nav__assessment-status-indicator {
-  margin: 6px 0;
-}
-
 .nav__country-list-item {
   display: flex;
   justify-content: flex-start;
@@ -156,6 +129,7 @@
 
 .nav__country-list-item-name {
   color: @text-body;
+  font-size: @font-m;
 }
 
 .nav__country-list-item-assessment-status {
@@ -165,6 +139,17 @@
   min-width: 52px;
   line-height: 16px;
 
+  .status-editing {
+    .mixin-status-base(@ui-status-editing, 8px);
+  }
+
+  .status-review {
+    .mixin-status-base(@ui-status-review, 8px);
+  }
+
+  .status-accepted {
+    .mixin-status-base(@ui-status-accepted, 8px);
+  }
 }
 
 // Questionare
@@ -195,7 +180,7 @@
 }
 
 .nav__link-label {
-  font-weight: bold;
+  font-weight: 700;
   line-height: 20px;
 }
 
@@ -222,18 +207,46 @@
 }
 
 .nav__primary-label {
-  display: block;
-  font-weight: bold;
+  font-weight: 700;
   line-height: 20px;
+}
+
+.nav__assessment-status-indicator {
+  margin-top: 6px;
+}
+
+.nav__assessment-status {
+  display: inline-block;
+  border-radius: 2px;
+  font-size: @font-s;
+  color: @text-body;
+  line-height: 16px;
+  border: 1px solid @text-disabled;
+  padding: 2px 5px;
+
+  .status-editing {
+    .mixin-status-base(@ui-status-editing, 4px);
+  }
+
+  .status-review {
+    .mixin-status-base(@ui-status-review, 4px);
+  }
+
+  .status-accepted {
+    .mixin-status-base(@ui-status-accepted, 4px);
+  }
+}
+
+.nav__assessment-status-actions {
+  margin-top: 6px;
 }
 
 .nav__primary-assessment-action {
   font-size: @font-s;
-  color: @ui-accent;
+  line-height: 20px;
   text-decoration: none;
   display: inline-block;
-  margin-top: 4px;
-  line-height: 20px;
+  margin-right: 8px;
 }
 
 .nav__primary-assessment-action--disabled {
@@ -244,21 +257,6 @@
     color: @text-disabled;
     cursor: default;
   }
-}
-
-.nav__to-previous-assessment-status {
-  margin-right: 4px;
-}
-
-.nav__assessment-status {
-  font-size: @font-s;
-  color: @text-mute;
-  line-height: 16px;
-  margin-right: 4px;
-  display: inline-flex;
-  align-items: center;
-  border: 1px solid @text-disabled;
-  padding: 5px;
 }
 
 .nav__secondary-item {
@@ -298,4 +296,17 @@
 .nav__secondary-status.nav__disabled-menu-item-text,
 .nav__disabled-menu-item-text {
   color: lighten(@text-mute, 30%);
+}
+
+
+// Mixins
+
+.mixin-status-base(@color, @margin-right) {
+  float: left;
+  margin: 3px 0;
+  margin-right: @margin-right;
+  width: 10px;
+  height: 10px;
+  background-color: @color;
+  border-radius: 100%;
 }

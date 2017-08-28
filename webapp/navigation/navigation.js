@@ -136,7 +136,7 @@ const PrimaryItem = ({label, countryIso, assessmentType, assessmentStatuses, cha
   const previousAssessmentStatus = allowedTransitions.previous
 
   return <div className="nav__primary-item">
-    <span className="nav__primary-label">{label}</span>
+    <div className="nav__primary-label">{label}</div>
     {
       currentAssessmentStatus
         ? <div className="nav__assessment-status-indicator">
@@ -146,24 +146,10 @@ const PrimaryItem = ({label, countryIso, assessmentType, assessmentStatuses, cha
       </div>
         : null
     }
-    {
-      previousAssessmentStatus
-        ? <span className="nav__to-previous-assessment-status">
-          {
-            changeStateLink(countryIso, assessmentType, currentAssessmentStatus, previousAssessmentStatus, changeAssessmentStatus, 'previous', i18n)
-          }
-          </span>
-        : null
-    }
-    {
-      nextAssessmentStatus
-        ? <span className="nan__to_next-assessment-status">
-        {
-          changeStateLink(countryIso, assessmentType, currentAssessmentStatus, nextAssessmentStatus, changeAssessmentStatus, 'next', i18n)
-        }
-        </span>
-        : null
-    }
+    <div className="nav__assessment-status-actions">
+      { previousAssessmentStatus ? changeStateLink(countryIso, assessmentType, currentAssessmentStatus, previousAssessmentStatus, changeAssessmentStatus, 'previous', i18n) : null }
+      { nextAssessmentStatus ? changeStateLink(countryIso, assessmentType, currentAssessmentStatus, nextAssessmentStatus, changeAssessmentStatus, 'next', i18n) : null }
+    </div>
   </div>
 }
 
