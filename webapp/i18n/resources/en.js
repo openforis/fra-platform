@@ -64,7 +64,7 @@ export const translation = {
       review: {
         label: 'In review',
         next: 'Send to review',
-        previous: 'Back to review'
+        previous: 'Return to review'
       },
       accepted: {
         label: 'Accepted',
@@ -73,7 +73,7 @@ export const translation = {
       },
       editing: {
         label: 'Editing',
-        previous: 'Reject'
+        previous: 'Return to editing'
       }
     }
   },

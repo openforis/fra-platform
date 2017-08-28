@@ -212,11 +212,7 @@
   line-height: 20px;
 }
 
-.nav__assessment-status-indicator {
-  margin-top: 6px;
-}
-
-.nav__assessment-status {
+.nav__primary-assessment-status {
   display: inline-block;
   border-radius: 2px;
   font-size: @font-s;
@@ -224,6 +220,7 @@
   line-height: 16px;
   border: 1px solid @text-disabled;
   padding: 2px 5px;
+  margin-top: 6px;
 
   .status-editing {
     .mixin-status-base(@ui-status-editing, 4px);
@@ -238,22 +235,19 @@
   }
 }
 
-.nav__assessment-status-actions {
-  margin-top: 6px;
-}
-
 .nav__primary-assessment-action {
   font-size: @font-s;
   line-height: 20px;
   text-decoration: none;
-  display: inline-block;
-  margin-right: 8px;
+  display: block;
+  margin-top: 6px;
 }
 
 .nav__primary-assessment-action--disabled {
   .nav__primary-assessment-action;
   color: @text-disabled;
   font-style: italic;
+
   &:hover {
     color: @text-disabled;
     cursor: default;
