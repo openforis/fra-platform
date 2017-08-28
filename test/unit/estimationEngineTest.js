@@ -117,7 +117,9 @@ describe('estimationEngine', () => {
   it('Interpolates and extrapolates as expected', () => {
     const estimated = estimationEngine.estimateFraValues(
       fraYears,
-      testOdpSet1)
+      testOdpSet1,
+      estimationEngine.eofFields
+    )
     assert(
       R.equals(expectedEstimations1, estimated),
       `Estimated values were not as expected ${JSON.stringify(jsonDiff.diff(expectedEstimations1, estimated))}`)
