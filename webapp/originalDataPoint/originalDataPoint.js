@@ -69,8 +69,14 @@ export const totalArea = odp =>
 export const copyNationalClassDefinitions = (odpTarget, odpSource) => ({
   ...odpTarget,
   nationalClasses: [...odpSource.nationalClasses.map(c => R.merge(defaultNationalClass(c.className, c.definition), R.pick(['forestPercent',
-      'otherWoodedLandPercent',
-      'otherLandPercent'], c))), nationalClassPlaceHolder()]
+    'otherWoodedLandPercent',
+    'otherLandPercent',
+    'naturalForestPercent',
+    'naturalForestPrimaryPercent',
+    'plantationPercent',
+    'plantationIntroducedPercent',
+    'otherPlantedPercent'
+  ], c))), nationalClassPlaceHolder()]
 })
 
 export const updateValueReducer = (state, action) => {
