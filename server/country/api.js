@@ -9,6 +9,11 @@ const reviewRepository = require('../review/reviewRepository')
 const odpRepository = require('../odp/odpRepository')
 const assessmentRepository = require('../assessment/assessmentRepository')
 
+const defaultStatuses = {
+  'annuallyReported': 'editing',
+  'fiveYearCycle': 'editing'
+}
+
 const simplifyAssessmentStatuses = statuses =>
   R.reduce((resultObj, status) => R.assoc(status.assessmentType, status.status, resultObj), {}, statuses)
 
@@ -41,7 +46,10 @@ module.exports.init = app => {
           {
             odpStatus,
             reviewStatus,
-            assessmentStatuses: simplifyAssessmentStatuses(assessmentStatusResult)
+            assessmentStatuses: R.merge(
+              defaultStatuses,
+              simplifyAssessmentStatuses(assessmentStatusResult)
+            )
           })
       }
     ).catch(err => sendErr(res, err))
