@@ -180,6 +180,7 @@ export const translation = {
 
   forestCharacteristics: {
     forestCharacteristics: 'Forest Characteristics',
+    forestCharacteristicsValues: 'Forest Characteristics values',
     naturalForestArea: 'Naturally regenerated forest',
     naturalForestPrimaryArea: '…of which primary',
     plantationForestArea: 'Plantation forest',
