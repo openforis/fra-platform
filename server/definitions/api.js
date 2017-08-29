@@ -1,13 +1,24 @@
-
 const marked = require('marked')
 
-const enTexts = require('./en')
+const en = require('./en')
+const fr = require('./fr')
+const es = require('./es')
+
+const definitions = {
+  'en': en,
+  'fr': fr,
+  'es': es
+}
+
+const getDefition = (name, lang) => {
+  const defs = definitions[lang]
+  return defs ? defs[name] : null
+}
 
 module.exports.init = app => {
 
   app.get('/definitions/:lang/:name', (req, res) => {
-    console.log('api', marked(enTexts[req.params.name]))
-    const content = marked(enTexts[req.params.name])
+    const content = marked(getDefition(req.params.name, req.params.lang))
     res.send(`<html lang="fi">
     <head>
       <link rel="stylesheet" href="/css/definition.css"/>
@@ -15,5 +26,6 @@ module.exports.init = app => {
     <body>
     ${content}
     </body>
-    </html>`)})
+    </html>`)
+  })
 }
