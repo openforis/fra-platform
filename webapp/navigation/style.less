@@ -120,9 +120,13 @@
   text-decoration: none;
   line-height: 16px;
 
-  &:hover,
-  &.selected {
+  &:hover {
     background-color: darken(@ui-bg, 4%);
+    color: inherit;
+  }
+
+  &.selected {
+    background-color: @ui-accent-light;
     color: inherit;
   }
 }
