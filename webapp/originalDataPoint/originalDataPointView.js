@@ -175,7 +175,11 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
     <div className="odp__bottom-buttons">
       <span
         className={saveControlsDisabled() ? 'btn btn-destructive disabled' : 'btn btn-destructive'}
-        onClick={() => saveControlsDisabled() ? null : remove(countryIso, active.odpId)}>
+        onClick={() => {
+          if(window.confirm(i18n.t('nationalDataPoint.confirmDelete'))) {
+            saveControlsDisabled() ? null : remove(countryIso, active.odpId)
+          }
+        }}>
          {i18n.t('nationalDataPoint.delete')}
       </span>
       <div>

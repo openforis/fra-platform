@@ -132,6 +132,7 @@ export const translation = {
     area: 'Area',
     total: 'Total',
     delete: 'Delete',
+    confirmDelete: 'Are you sure you want to delete this data point? This cannot be undone.',
     cancel: 'Cancel',
     saveData: 'Save data',
     enterOrCopyPasteNationalClasses: 'Enter or copy and paste national classes'
