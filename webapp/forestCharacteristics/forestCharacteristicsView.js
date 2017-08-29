@@ -2,6 +2,7 @@ import './style.less'
 import React from 'react'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
+import { Link } from './../link'
 
 import { fetchItem, save, saveMany, generateFraValues } from '../originalDataPoint/actions'
 import LoggedInPageTemplate from '../loggedInPageTemplate'
@@ -49,6 +50,14 @@ const ForestCharacteristics = props => {
   return <div className='nde__data-input-component foc-view'>
     <div className="nde__data-page-header">
       <h2 className="headline">{props.i18n.t('forestCharacteristics.forestCharacteristics')}</h2>
+    </div>
+    <div className="nde__data-input-header">
+      <Link className="btn btn-primary" to={`/country/${props.countryIso}/odp`}>
+        <svg className="icon icon-middle icon-white">
+          <use href="img/icons.svg#small-add"/>
+        </svg>
+        {props.i18n.t('nationalDataPoint.addNationalDataPoint')}
+      </Link>
     </div>
     <ChartWrapper stateName="forestCharacteristics" trends={['naturalForestArea']} />
     <div className="nde__data-table-header">
