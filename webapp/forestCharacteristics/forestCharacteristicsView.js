@@ -50,7 +50,7 @@ const ForestCharacteristics = props => {
     <div className="nde__data-page-header">
       <h2 className="headline">{props.i18n.t('forestCharacteristics.forestCharacteristics')}</h2>
     </div>
-    <ChartWrapper stateName="forestCharacteristics" trends={['naturalForestArea']}/>
+    <ChartWrapper stateName="forestCharacteristics" trends={['naturalForestArea']} showPlaceholder={true} />
     <div className="nde__data-table-header">
       <h3 className="subhead">{props.i18n.t('forestCharacteristics.forestCharacteristicsValues')}</h3>
     <button disabled={disableGenerateFRAValues()} className="btn btn-primary"

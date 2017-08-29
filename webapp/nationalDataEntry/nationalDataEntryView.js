@@ -53,7 +53,7 @@ const NationalDataEntry = (props) => {
           {i18n.t('nationalDataPoint.addNationalDataPoint')}
         </Link>
       </div>
-      <ChartWrapper stateName="nationalDataEntry" trends={['forestArea', 'otherWoodedLand']} showNoDataText={true}/>
+      <ChartWrapper stateName="nationalDataEntry" trends={['forestArea', 'otherWoodedLand']} showPlaceholder={true}/>
       <div className="nde__data-table-header">
         <h3 className="subhead">{i18n.t('extentOfForest.extentOfForestValues')}</h3>
         <button disabled={disableGenerateFRAValues()} className="btn btn-primary"

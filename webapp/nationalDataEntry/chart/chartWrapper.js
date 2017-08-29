@@ -10,7 +10,7 @@ class ChartWrapper extends UpdateOnResizeReactComponent {
       <Chart wrapperWidth={width}
              stateName={this.props.stateName}
              trends={this.props.trends}
-             showNoDataText={this.props.showNoDataText}/>
+             showPlaceholder={this.props.showPlaceholder}/>
     </div>
   }
 }
