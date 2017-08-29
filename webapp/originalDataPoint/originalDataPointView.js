@@ -244,7 +244,7 @@ const nationalClassRows = (countryIso, odp, saveDraft, openThread, i18n) => {
 
 const NationalClassRow = ({odp, index, saveDraft, countryIso, className, definition, placeHolder, openThread, i18n}) =>
   <tr
-    className={`${isCommentsOpen([odp.nationalClasses[index].uuid, 'class_definition'], openThread) ? 'fra-row-comments__open' : ''}`}>
+    className={`${isCommentsOpen([odp.odpId, 'class', `${odp.nationalClasses[index].uuid}`, 'definition'], openThread) ? 'fra-row-comments__open' : ''}`}>
     <td
       className={getValidationStatusRow(odp, index).validClassName === false ? 'error' : ''}>
       <div className="odp__national-class-remove-anchor">
@@ -347,7 +347,7 @@ const ExtentOfForestRow = ({
   const numberUpdated = numberUpdateCreator(saveDraft)
 
   return <tr
-    className={isCommentsOpen([odp.nationalClasses[index].uuid, 'ndp_class_value'], openThread) ? 'fra-row-comments__open' : ''}>
+    className={isCommentsOpen([odp.odpId, 'class', `${odp.nationalClasses[index].uuid}`, 'value'], openThread) ? 'fra-row-comments__open' : ''}>
     <td className="odp__eof-class-name"><span>{className}</span></td>
     <td
       className={`odp__eof-area-cell odp__eof-divide-after-cell ${validationStatus.validArea === false ? 'error' : ''}`}>
@@ -451,7 +451,7 @@ const ForestCharacteristicsRow =
     const validationStatus = getValidationStatusRow(odp, index)
     const focStatusPercentage = () => validationStatus.validFocPercentage === false ? 'error' : ''
     return <tr
-      className={isCommentsOpen([odp.nationalClasses[index].uuid, 'ndp_class_value'], openThread) ? 'fra-row-comments__open' : ''}>
+      className={isCommentsOpen([odp.odpId, 'class', `${odp.nationalClasses[index].uuid}`, 'forest_charasteristics'], openThread) ? 'fra-row-comments__open' : ''}>
       <td className="odp__eof-class-name"><span>{className}</span></td>
       <td
         className={`odp__eof-area-cell odp__eof-divide-after-cell odp__eof-disabled-cell`}>
