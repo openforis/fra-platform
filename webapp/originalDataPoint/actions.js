@@ -64,7 +64,7 @@ export const remove = (countryIso, odpId) => dispatch => {
     .then(() => {
       dispatch({type: odpClearActiveAction})
       fetchCountryOverviewStatus(countryIso)(dispatch)
-      window.location = `#/country/${countryIso}`
+      window.history.back()
     }).catch(err => dispatch(applicationError(err))
   )
 }
@@ -81,7 +81,7 @@ export const markAsActual = (countryIso, odp) => dispatch => {
       dispatch(autosave.complete)
       dispatch({type: odpClearActiveAction})
       fetchCountryOverviewStatus(countryIso)(dispatch)
-      window.location = `#/country/${countryIso}`
+      window.history.back()
     }).catch(err =>
       dispatch(applicationError(err))
     )
@@ -128,7 +128,7 @@ export const copyPreviousNationalClasses = (countryIso, odp) => dispatch => {
 export const cancelDraft = (countryIso, odpId) => dispatch => {
   if (odpId)
     axios.delete(`/api/odp/draft/?odpId=${odpId}`)
-      .then(() => window.location = `#/country/${countryIso}`)
+      .then(() => window.history.back())
       .catch((err) => dispatch(applicationError(err)))
   else
     window.location = `#/country/${countryIso}`
