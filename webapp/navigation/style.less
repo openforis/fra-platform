@@ -216,22 +216,21 @@
   display: inline-block;
   border-radius: 2px;
   font-size: @font-s;
-  color: @text-body;
-  line-height: 16px;
-  border: 1px solid @text-disabled;
-  padding: 2px 5px;
+  color: white;
+  line-height: 23px;
+  padding: 0 8px;
   margin-top: 6px;
 
-  .status-editing {
-    .mixin-status-base(@ui-status-editing, 4px);
+  &.status-editing {
+    background-color: @ui-status-editing;
   }
 
-  .status-review {
-    .mixin-status-base(@ui-status-review, 4px);
+  &.status-review {
+    background-color: @ui-status-review;
   }
 
-  .status-accepted {
-    .mixin-status-base(@ui-status-accepted, 4px);
+  &.status-accepted {
+    background-color: @ui-status-accepted;
   }
 }
 

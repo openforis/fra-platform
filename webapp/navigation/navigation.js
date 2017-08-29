@@ -139,8 +139,7 @@ const PrimaryItem = ({label, countryIso, assessmentType, assessmentStatuses, cha
     <div className="nav__primary-label">{label}</div>
     {
       currentAssessmentStatus
-        ? <div className="nav__primary-assessment-status">
-            <div className={`status-${currentAssessmentStatus}`}></div>
+        ? <div className={`nav__primary-assessment-status status-${currentAssessmentStatus}`}>
             {i18n.t(`navigation.assessmentStatus.${currentAssessmentStatus}.label`)}
           </div>
         : null
