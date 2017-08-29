@@ -1,4 +1,5 @@
 module.exports = {
+  'nodata': 'No definitions found',
   'eof': `
 | Name    | Definition | 
 | --------|---------|

@@ -8,6 +8,7 @@ const sessionInit = require('./sessionInit')
 const apiRouter = require('./apiRouter')
 const authApi = require('./auth/authApi')
 const authMiddleware = require('./auth/authMiddleware')
+const definitionsApi = require('./definitions/api')
 const resourceCacheControl = require('./resourceCacheControl')
 const { sendErr } = require('./utils/requestUtils')
 
@@ -30,6 +31,8 @@ app.use(bodyParser.json({limit: '5000kb'}))
 authApi.init(app)
 
 app.use('/api', apiRouter.router)
+
+definitionsApi.init(app)
 
 // Custom error-handling for handling custom exceptions and
 // sending the uncaught errors as json instead of HTML

@@ -10,15 +10,18 @@ const definitions = {
   'es': es
 }
 
-const getDefition = (name, lang) => {
+const getDefinition = (name, lang) => {
   const defs = definitions[lang]
-  return defs ? defs[name] : null
+  return defs ?
+    defs[name] ? defs[name] : defs.nodata
+    : null
 }
 
 module.exports.init = app => {
 
   app.get('/definitions/:lang/:name', (req, res) => {
-    const content = marked(getDefition(req.params.name, req.params.lang))
+    const markdown = getDefinition(req.params.name, req.params.lang)
+    const content =  markdown ? marked(markdown) : ''
     res.send(`<html lang="fi">
     <head>
       <link rel="stylesheet" href="/css/definition.css"/>
