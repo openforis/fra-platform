@@ -24,6 +24,17 @@ class CountrySelectionItem extends React.Component {
   constructor (props) {
     super(props)
     this.state = {isOpen: false}
+    this.outsideClick = this.outsideClick.bind(this)
+    window.addEventListener('click', this.outsideClick)
+  }
+
+  outsideClick (evt) {
+    if (!this.refs.navCountryItem.contains(evt.target))
+      this.setState({isOpen: false})
+  }
+
+  componentWillUnmount () {
+    window.removeEventListener('click', this.outsideClick)
   }
 
   render () {
@@ -35,7 +46,7 @@ class CountrySelectionItem extends React.Component {
       backgroundImage: `url('/img/flags/${(alpha3ToAlpha2(name) || '').toLowerCase()}.svg'`
     }
 
-    return <div className="nav__country-item" onClick={() => {
+    return <div className="nav__country-item" ref="navCountryItem" onClick={() => {
       this.setState({isOpen: R.not(this.state.isOpen)})
       if (R.isEmpty(countries)) {
         this.props.listCountries()

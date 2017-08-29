@@ -9,11 +9,11 @@ class FooterSelectionControl extends React.Component {
 
   constructor (props) {
     super(props)
-    this.onClick = this.onClick.bind(this)
-    window.addEventListener('click', this.onClick)
+    this.outsideClick = this.outsideClick.bind(this)
+    window.addEventListener('click', this.outsideClick)
   }
 
-  onClick (evt) {
+  outsideClick (evt) {
     if (!this.refs.userControl.contains(evt.target))
       this.setState({opened: false})
   }
@@ -23,7 +23,7 @@ class FooterSelectionControl extends React.Component {
   }
 
   componentWillUnmount () {
-    window.removeEventListener('click', this.onClick)
+    window.removeEventListener('click', this.outsideClick)
   }
 
   render () {
