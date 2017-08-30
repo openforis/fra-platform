@@ -1,183 +1,9 @@
 @import "../app-styles/config";
 
+// Add button + indicator
+
 .fra-review__add-issue {
   margin-right: -32px;
-}
-
-.fra-review-active {
-  position: fixed;
-  right: 0;
-  height: 100%;
-  width: 288px;
-  visibility: visible;
-  transition: visibility 0.1s, opacity 0.1s ease-out, width 0.1s ease-out;
-  opacity: 1;
-  border-left: @ui-thin-border;
-  background: white;
-  display: flex;
-  flex-flow: column nowrap;
-}
-
-.fra-review-hidden {
-  visibility: hidden;
-  width: 0;
-  opacity: 0;
-  overflow: hidden;
-
-  .fra-review__issue-comment-input {
-    display: none;
-  }
-
-  .fra-review__comment-buttons {
-    display: none;
-  }
-
-  .fra-review__header {
-    display: none;
-  }
-}
-
-.fra-review__header {
-  background-color: @ui-bg;
-  padding: 16px;
-  border-bottom: @ui-thin-border;
-}
-
-.fra-review__header-close-btn {
-  position: absolute;
-  cursor: pointer;
-  right: 16px;
-  top: 18px;
-}
-
-.fra-review__header-target {
-  margin-top: 4px;
-  line-height: 20px;
-}
-
-.fra-review__header-button {
-  margin-top: 8px;
-}
-
-.fra-review__comment-placeholder {
-  position: absolute;
-  top: 50%;
-  left: calc(~"50% - 75px");
-  width: 150px;
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: center;
-}
-
-.fra-review__comment-placeholder-icon {
-  color: rgba(0, 0, 0, .3)
-}
-
-.fra-review__comment-placeholder-text {
-  display: block;
-  color: @text-disabled;
-  margin-top: 8px;
-}
-
-.fra-review__add-comment {
-  padding: 8px 16px 12px;
-}
-
-.fra-review__issue-comment-input-border {
-  border-radius: 2px;
-  border: @ui-thin-border;
-  overflow: hidden;
-}
-
-.fra-review__issue-comment-input {
-  border: none;
-  display: block;
-  font-size: @font-s;
-  line-height: 18px;
-  max-height: 400px;
-  min-height: 34px;
-  overflow: auto;
-  padding: 8px;
-  padding-right: 32px;
-  resize: none;
-  width: 278px;
-
-  &::placeholder {
-    color: @text-disabled;
-  }
-
-  &:focus {
-    outline: none;
-  }
-}
-
-.fra-review__comment-buttons {
-  padding-top: 8px;
-}
-
-.fra-review__comment-edit-author-empty {
-  padding-bottom: 8px;
-}
-
-.fra-review__issue {
-  position: absolute;
-  overflow-y: auto;
-  height: 100%;
-  width: 100%;
-  z-index: 1;
-  background: white;
-  padding: 8px 0;
-}
-
-.fra-review__comment-widget-visible {
-  position: relative;
-  height: calc(~"100% - 98px");
-  visibility: visible;
-  opacity: 1;
-  transition: visibility 0.1s, opacity 0.1s ease-out, width 0.1s ease-out;
-}
-
-.fra-review__comment-widget-hidden {
-  position: relative;
-  width: 0;
-  visibility: hidden;
-  opacity: 0;
-  overflow: hidden;
-  transition: visibility 0s, width 0.1s ease-out, width 0.1s ease-out;
-}
-
-.fra-review__comment-widget-other-target {
-  position: relative;
-  width: 260px;
-  visibility: hidden;
-  overflow: hidden;
-  transition: visibility 0s, width 0s;
-}
-
-.fra-review__comment {
-  padding: 8px 16px;
-  line-height: 18px;
-}
-
-.fra-review__comment-header {
-  display: flex;
-  align-items: center;
-}
-
-.fra-review__avatar {
-  width: 32px;
-  min-width: 32px;
-  height: 32px;
-  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
-  border-radius: 100%;
-  margin-right: 8px;
-}
-
-.fra-review__comment-edit-author {
-  font-size: @font-s;
-  font-weight: bold;
-  padding: 8px 16px 16px;
-  border-bottom: @ui-thin-border;
 }
 
 .fra-review__issue-status-count {
@@ -196,6 +22,7 @@
   &.issue-resolved {
     background-color: @text-mute;
   }
+
   &.issue-last-comment-other-user {
     background-color: @ui-alert;
   }
@@ -223,7 +50,153 @@
   }
 }
 
-.fra-review__comment-add-btn {
+// Commenting panel
+
+.fra-review-active {
+  position: fixed;
+  right: 0;
+  height: 100%;
+  width: 288px;
+  visibility: visible;
+  transition: visibility 0.1s, opacity 0.1s ease-out, width 0.1s ease-out;
+  opacity: 1;
+  border-left: @ui-thin-border;
+  background: white;
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.fra-review-hidden {
+  visibility: hidden;
+  width: 0;
+  opacity: 0;
+  overflow: hidden;
+
+  .fra-review__footer-input {
+    display: none;
+  }
+
+  .fra-review__footer-buttons {
+    display: none;
+  }
+
+  .fra-review__header {
+    display: none;
+  }
+}
+
+.fra-review__comment-thread {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding: 8px 0;
+}
+
+// Header
+
+.fra-review__header {
+  background-color: @ui-bg;
+  padding: 16px;
+  border-bottom: @ui-thin-border;
+}
+
+.fra-review__header-close-btn {
+  position: absolute;
+  cursor: pointer;
+  right: 16px;
+  top: 18px;
+}
+
+.fra-review__header-target {
+  margin-top: 4px;
+  line-height: 20px;
+}
+
+.fra-review__header-button {
+  margin-top: 8px;
+}
+
+// Footer
+
+.fra-review__footer {
+  padding: 8px 16px 12px;
+}
+
+.fra-review__footer-input-wrapper {
+  border-radius: 2px;
+  border: @ui-thin-border;
+  overflow: hidden;
+}
+
+.fra-review__footer-input {
+  border: none;
+  display: block;
+  font-size: @font-s;
+  line-height: 18px;
+  max-height: 400px;
+  min-height: 34px;
+  overflow: auto;
+  padding: 8px;
+  padding-right: 32px;
+  resize: none;
+  width: calc(~"100% + 24px");
+
+  &::placeholder {
+    color: @text-disabled;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.fra-review__footer-buttons {
+  padding-top: 8px;
+}
+
+.fra-review__footer-add-btn {
+  margin-right: 8px;
+}
+
+// Placeholder
+
+.fra-review__comment-placeholder {
+  position: absolute;
+  top: 50%;
+  left: calc(~"50% - 75px");
+  width: 150px;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+
+.fra-review__comment-placeholder-icon {
+  color: rgba(0, 0, 0, .3)
+}
+
+.fra-review__comment-placeholder-text {
+  display: block;
+  color: @text-disabled;
+  margin-top: 8px;
+}
+
+// Comment
+
+.fra-review__comment {
+  padding: 8px 16px;
+  line-height: 18px;
+}
+
+.fra-review__comment-header {
+  display: flex;
+  align-items: center;
+}
+
+.fra-review__comment-avatar {
+  width: 32px;
+  min-width: 32px;
+  height: 32px;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+  border-radius: 100%;
   margin-right: 8px;
 }
 
@@ -270,6 +243,8 @@
   .fra-review__comment-deleted;
   font-style: italic;
 }
+
+// Active issue
 
 tr.fra-row-comments__open,
 div.fra-row-comments__open .cke_wrapper {
