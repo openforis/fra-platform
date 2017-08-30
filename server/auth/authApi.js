@@ -14,7 +14,7 @@ const verifyCallback = (accessToken, refreshToken, profile, done) =>
 const authenticationFailed = (req, res) => {
   req.logout()
   setLoggedInCookie(res, false)
-  res.redirect('/?u=1')
+  res.redirect('/')
 }
 
 const authenticationSuccessful = (req, user, next, res) => {
@@ -25,7 +25,9 @@ const authenticationSuccessful = (req, user, next, res) => {
       countryRepository.getAllowedCountries(user.roles).then(result => {
         const defaultCountry = R.pipe(R.values, R.head, R.head)(result)
         setLoggedInCookie(res, true)
-        res.redirect(`/#/country/${defaultCountry.countryIso}`)
+        // Hack to make it less probable, that there are other ongoing requests lasting
+        // longer and producing contradicting the loggedInCookie value we set above
+        setTimeout(() => res.redirect(`/#/country/${defaultCountry.countryIso}`), 200)
       }).catch(err => sendErr(res, err))
     }
   })
