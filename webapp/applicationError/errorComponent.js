@@ -8,7 +8,7 @@ const ErrorBox = ({error, i18n, clearApplicationError}) =>
     <div className="alert-error">
       <div className="alert-icon">
         <svg className="icon">
-          <use href="img/icons.svg#alert"/>
+          <use xlinkHref="img/icons.svg#alert"/>
         </svg>
       </div>
       <div className="alert-message">{
@@ -18,7 +18,7 @@ const ErrorBox = ({error, i18n, clearApplicationError}) =>
       }</div>
       <div className="alert-dismiss" onClick={() => clearApplicationError()}>
         <svg className="icon">
-          <use href="img/icons.svg#remove"/>
+          <use xlinkHref="img/icons.svg#remove"/>
         </svg>
       </div>
     </div>

@@ -10,7 +10,7 @@ const LoginView = ({requestLogin}) =>
       <div className="alert-container">
           <div className="alert-error">
             <div className="alert-icon">
-              <svg className="icon"><use href="img/icons.svg#alert"/></svg>
+              <svg className="icon"><use xlinkHref="img/icons.svg#alert"/></svg>
             </div>
             <div className="alert-message">User not authorized</div>
           </div>
