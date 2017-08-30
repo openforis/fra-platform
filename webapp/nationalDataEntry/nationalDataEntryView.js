@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import * as R from 'ramda'
 import { fetchItem, save, saveMany, generateFraValues} from '../originalDataPoint/actions'
 import { Link } from './../link'
+import DefinitionLink from './../reusableUiComponents/definitionLink'
 import ChartWrapper from './chart/chartWrapper'
 import LoggedInPageTemplate from '../loggedInPageTemplate'
 import { DataTable } from '../originalDataPoint/commentableDatatable'
@@ -55,7 +56,10 @@ const NationalDataEntry = (props) => {
       </div>
       <ChartWrapper stateName="nationalDataEntry" trends={['forestArea', 'otherWoodedLand']} showNoDataText={true}/>
       <div className="nde__data-table-header">
+        <div>
         <h3 className="subhead">{i18n.t('extentOfForest.extentOfForestValues')}</h3>
+        <DefinitionLink name="eof" i18n={i18n}/>
+        </div>
         <button disabled={disableGenerateFRAValues()} className="btn btn-primary"
                 onClick={() => props.generateFraValues('eof', props.countryIso)}>
           {i18n.t('extentOfForest.generateFraValues')}
