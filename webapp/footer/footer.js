@@ -34,7 +34,7 @@ class FooterSelectionControl extends React.Component {
       ref="userControl">
       {this.props.label}
       <svg className="icon icon-sub">
-        <use href="img/icons.svg#small-up"/>
+        <use xlinkHref="img/icons.svg#small-up"/>
       </svg>
       {
         this.state.opened ? children : null
