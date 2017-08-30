@@ -36,8 +36,8 @@ module.exports.init = app => {
         .then(odps => {
           const issues = odps.map(odp =>
             reviewRepository
-              .getIssuesByParam(req.params.countryIso, 'NDP', 0, odp.odpId)
-              .then(issues => R.assoc('issues', issues, odp))
+              .getIssuesSummary(req.params.countryIso, 'NDP', odp.odpId, true)
+              .then(issues => R.assoc('issuesSummary', issues, odp))
           )
           Promise
             .all(issues)
@@ -51,8 +51,8 @@ module.exports.init = app => {
   )
 
   app.delete('/odp', (req, res) => {
-    db.transaction(odpRepository.deleteOdp, [req.query.odpId, req.user])
-      .then(() => res.json({}))
+      db.transaction(odpRepository.deleteOdp, [req.query.odpId, req.user])
+        .then(() => res.json({}))
         .catch(err => sendErr(res, err))
     }
   )
@@ -66,7 +66,7 @@ module.exports.init = app => {
   })
 
   app.delete('/odp/draft', (req, res) => {
-    db.transaction(odpRepository.deleteDraft, [req.query.odpId, req.user])
+      db.transaction(odpRepository.deleteDraft, [req.query.odpId, req.user])
         .then(() => res.json({}))
         .catch(err => sendErr(res, err))
     }
