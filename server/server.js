@@ -17,6 +17,8 @@ migrations()
 
 resourceCacheControl.init(app)
 sessionInit.init(app)
+//Not part of apiRouter because of special urls (starting from root)
+authApi.init(app)
 authMiddleware.init(app)
 
 app.use(compression({threshold: 512}))
@@ -25,9 +27,6 @@ app.use('/img/', express.static(`${__dirname}/../web-resources/img`))
 app.use('/css/', express.static(`${__dirname}/../web-resources/css`))
 app.use('/ckeditor/', express.static(`${__dirname}/../web-resources/ckeditor`))
 app.use(bodyParser.json({limit: '5000kb'}))
-
-//Not part of apiRouter because of special urls (starting from root)
-authApi.init(app)
 
 app.use('/api', apiRouter.router)
 
