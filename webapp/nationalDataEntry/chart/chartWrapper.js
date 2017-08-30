@@ -9,8 +9,7 @@ class ChartWrapper extends UpdateOnResizeReactComponent {
     return <div ref="chartWrapper" className="nde__data-chart">
       <Chart wrapperWidth={width}
              stateName={this.props.stateName}
-             trends={this.props.trends}
-             showPlaceholder={this.props.showPlaceholder}/>
+             trends={this.props.trends}/>
     </div>
   }
 }
