@@ -7,50 +7,54 @@ import { fetchOdps } from './actions'
 import { Link } from './../link'
 import LoggedInPageTemplate from '../loggedInPageTemplate'
 
-const ODPListing = ({countryIso, odps = [], i18n}) => <div className="odp-list__container">
-  <h2>{i18n.t('nationalDataPoint.nationalData')}</h2>
-  <table className="odp-list__list-table">
-    <thead>
-    <tr className='odp-list__list-row'>
-      <th>{i18n.t('nationalDataPoint.year')}</th>
-      <th>{/* notification icons */}</th>
-      <th>{i18n.t('nationalDataPoint.methods')}</th>
-      <th></th>
-    </tr>
-    </thead>
-    <tbody>
-    {odps.length > 0 ? odps.map(odp => <tr className='odp-list__list-row' key={odp.odpId}>
-      <td className='odp-list__year-column'>{odp.year == 0 ? '-' : odp.year}</td>
-      <td className='odp-list__notification-column'>
-        <div className="odp-list__notification-column-content">
-        {!odp.validationStatus.valid ? <div>
-          <svg className='icon icon-red'>
-            <use xlinkHref='img/icons.svg#alert'/>
-          </svg>
-        </div> : null}
-        {R.isEmpty(odp.issues) ? null : <div>
-          <div className='issue-open'></div>
-        </div>}
-        </div>
-      </td>
-      <td>-</td>
-      <td className='odp-list__edit-column'>
-        <Link className="link" to={`/country/${countryIso}/odp/${odp.odpId}`}>
-          {i18n.t('nationalDataPoint.edit')}
-        </Link>
-      </td>
-    </tr>) : <tr className="odp-list__list-row">
-      <td className="odp_list__empty-column" colSpan="4">{i18n.t('nationalDataPoint.noNationalDataAdded')}</td>
-    </tr>}
-    </tbody>
-  </table>
-  <Link className="btn btn-primary" to={`/country/${countryIso}/odp`}>
-    <svg className="icon icon-middle icon-white">
-      <use xlinkHref="img/icons.svg#small-add"/>
-    </svg>
-    {i18n.t('nationalDataPoint.addNationalDataPoint')}
-  </Link>
-</div>
+const ODPListing = ({countryIso, odps = [], i18n, userInfo}) =>
+  <div className="odp-list__container">
+    <h2>{i18n.t('nationalDataPoint.nationalData')}</h2>
+    <table className="odp-list__list-table">
+      <thead>
+      <tr className='odp-list__list-row'>
+        <th>{i18n.t('nationalDataPoint.year')}</th>
+        <th>{/* notification icons */}</th>
+        <th>{i18n.t('nationalDataPoint.methods')}</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      {odps.length > 0 ? odps.map(odp => <tr className='odp-list__list-row' key={odp.odpId}>
+        <td className='odp-list__year-column'>{odp.year == 0 ? '-' : odp.year}</td>
+        <td className='odp-list__notification-column'>
+          <div className="odp-list__notification-column-content">
+            {!odp.validationStatus.valid ? <div>
+              <svg className='icon icon-red'>
+                <use href='img/icons.svg#alert'/>
+              </svg>
+            </div> : null}
+            {odp.issuesSummary.issuesCount > 0
+              ? <div>
+                <div className={`issue-open ${userInfo.id !== odp.issuesSummary.lastCommentUserId ? 'issue-last-comment-other-user' : ''}`}></div>
+              </div>
+              : null
+            }
+          </div>
+        </td>
+        <td>-</td>
+        <td className='odp-list__edit-column'>
+          <Link className="link" to={`/country/${countryIso}/odp/${odp.odpId}`}>
+            {i18n.t('nationalDataPoint.edit')}
+          </Link>
+        </td>
+      </tr>) : <tr className="odp-list__list-row">
+        <td className="odp_list__empty-column" colSpan="4">{i18n.t('nationalDataPoint.noNationalDataAdded')}</td>
+      </tr>}
+      </tbody>
+    </table>
+    <Link className="btn btn-primary" to={`/country/${countryIso}/odp`}>
+      <svg className="icon icon-middle icon-white">
+        <use href="img/icons.svg#small-add"/>
+      </svg>
+      {i18n.t('nationalDataPoint.addNationalDataPoint')}
+    </Link>
+  </div>
 
 class DataFetchingComponent extends React.Component {
   componentWillMount () {
@@ -73,6 +77,10 @@ class DataFetchingComponent extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({...state.originalDataPoint, i18n: state.user.i18n})
+const mapStateToProps = state => ({
+  ...state.originalDataPoint,
+  i18n: state.user.i18n,
+  userInfo: state.user.userInfo
+})
 
 export default connect(mapStateToProps, {fetchOdps})(DataFetchingComponent)
