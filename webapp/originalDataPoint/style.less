@@ -20,126 +20,17 @@
 
 .odp__section {
   margin-top: 24px;
-  margin-bottom: 16px;
+  margin-bottom: 24px;
 }
 
-.odp__cke_wrapper {
+.odp__section-header {
   display: flex;
-  .cke_wrapper {
-    flex-grow: 1;
-  }
-}
-
-.odp__input-table {
-  .fra-table;
+  align-items: center;
   margin-bottom: 16px;
 
-  th {
-    .fra-table__header-cell;
-    min-width: 100px;
+  > * {
+    margin-right: 24px;
   }
-
-  td {
-    .fra-table__cell;
-  }
-
-  input {
-    .fra-table__input;
-  }
-}
-
-.odp__national-class-table {
-  width: 100%;
-
-  th {
-    text-align: left;
-  }
-
-  input {
-    .fra-table__input;
-  }
-}
-
-.odp__eof-table {
-  width: 100%;
-
-  // Override padding: 0 from ".odp__input-table td" -selector :(
-  .fra-table__header-cell {
-    padding: 10px;
-  }
-
-  .odp__eof-class-name {
-    background-color: @ui-bg;
-    padding: 10px;
-    max-width: 300px;
-  }
-
-  .odp__national-class-total-cell {
-    font-weight: bold;
-    text-align: right;
-    padding: 10px;
-  }
-
-  input {
-    .fra-table__integer-input;
-  }
-}
-
-.odp__eof-header-left {
-  text-align: left;
-}
-
-.odp__eof-header-right {
-  text-align: right;
-}
-
-.odp__eof-table.odp__input-table {
-  margin-bottom: 40px;
-}
-
-.odp__national-class-table-national-class-column {
-  width: 30%;
-}
-
-.odp__eof-percent-cell {
-  white-space: nowrap;
-
-  input {
-    padding-right: 28px;
-    margin-right: -24px;
-  }
-}
-
-.odp__eof-disabled-cell {
-  background-color: @ui-bg;
-}
-
-.odp__eof-table th.odp__eof-divide-after-cell,
-.odp__eof-table td.odp__eof-divide-after-cell {
-  border-right: 3px double @ui-border;
-}
-
-.odp__national-class-remove-anchor {
-  position: relative;
-}
-
-.odp__national-class-remove {
-  position: absolute;
-  top: 12px;
-  left: 4px;
-  cursor: pointer;
-}
-
-.odp__input-table input.odp__national-class-row-class-name-input {
-  padding-left: 24px;
-}
-
-.odp__col-review {
-  border: none !important;
-}
-
-.odp__cancel-button {
-  margin-right: 16px;
 }
 
 .odp__bottom-buttons {
@@ -148,6 +39,109 @@
   justify-content: space-between;
   align-items: center;
 }
+
+.odp__cancel-button {
+  margin-right: 16px;
+}
+
+.odp__cke_wrapper {
+  display: flex;
+
+  .cke_wrapper {
+    flex-grow: 1;
+  }
+}
+
+// General odp table style
+
+.odp__input-table {
+  .fra-table;
+
+  th,
+  .odp__input-table__header-cell {
+    .fra-table__header-cell;
+    min-width: auto;
+  }
+
+  .odp__input-table__header-cell-align-right {
+    .fra-table__header-cell;
+    text-align: right;
+    min-width: auto;
+  }
+
+  .odp__input-table__class-name {
+    .fra-table__header-cell;
+    font-weight: 400;
+    min-width: auto;
+  }
+
+  td,
+  .odp__input-table__cell {
+    .fra-table__cell;
+    min-width: auto;
+  }
+
+  .odp__input-table__class-total-cell {
+    .odp__input-table__header-cell-align-right;
+    background-color: white;
+  }
+
+  input {
+    .fra-table__input;
+  }
+
+  .odp__col-review {
+    border: none !important;
+    min-width: auto;
+    padding: 0;
+  }
+
+  .odp__input-table__divde-after-cell {
+    border-right: 3px double @ui-border;
+  }
+
+  .odp__input-table__disabled-cell {
+    background-color: @ui-bg;
+  }
+}
+
+// Custom table styles
+
+.odp__national-class-table {
+  td {
+    position: relative;
+  }
+
+  .odp__national-class-name {
+    width: 28.5%;
+  }
+
+  .odp__national-class-input {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding-left: 24px;
+  }
+}
+
+.odp__national-class-remove {
+  display: inline-block;
+  position: relative;
+  left: 4px;
+  cursor: pointer;
+}
+
+.odp__eof-table {}
+
+.odp__foc-table {
+  .percent__field:first-of-type:not(:only-of-type) {
+    border-bottom: 1px solid @ui-border;
+  }
+}
+
+// List view
 
 .odp-list__container {
   padding: 32px 32px 64px;
@@ -220,20 +214,6 @@
   }
 }
 
-.btn-copy-prev-values {
-  margin-left: 30px;
-}
-
-.odp__data-input-component .cke_wrapper .fra-review__add-issue {
-  padding: 0 !important;
-}
-
-.percent__field {
-  &.prefixed {
-    border-top: @ui-thin-border;
-  }
-}
-
 // Validation
 
 .odp_validate-form {
@@ -246,3 +226,8 @@
     }
   }
 }
+
+// Seems hacky, remove?
+// .odp__data-input-component .cke_wrapper .fra-review__add-issue {
+//   padding: 0 !important;
+// }
