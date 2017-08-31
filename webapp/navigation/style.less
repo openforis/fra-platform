@@ -224,7 +224,9 @@
   line-height: 23px;
   padding: 0 8px;
   margin-top: 6px;
+  transition: @ease-out;
 
+  &.status-changing,
   &.status-editing {
     background-color: @ui-status-editing;
   }
@@ -238,12 +240,19 @@
   }
 }
 
+.nav__primary-assessment-actions {
+  margin-top: 6px;
+  height: 20px;
+}
+
 .nav__primary-assessment-action {
   font-size: @font-s;
-  line-height: 20px;
   text-decoration: none;
-  display: block;
-  margin-top: 6px;
+  outline: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 .nav__primary-assessment-action--disabled {
