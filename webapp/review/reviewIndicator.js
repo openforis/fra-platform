@@ -17,7 +17,7 @@ const CommentStatus = ({count, active, lastCommentUserId, issueStatus, userInfo,
       count > 0
         ? <div className={`fra-review__issue-status-count ${getIssueStatusCssClass()}`}>{count}</div>
         : <svg className="icon">
-          <use href="img/icons.svg#circle-add"/>
+          <use xlinkHref="img/icons.svg#circle-add"/>
         </svg>
     }
   </div>

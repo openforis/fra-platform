@@ -58,7 +58,7 @@ class CountrySelectionItem extends React.Component {
         <span className="nav__country-role">{role}</span>
       </div>
       <svg className="icon">
-        <use href="img/icons.svg#small-down"/>
+        <use xlinkHref="img/icons.svg#small-down"/>
       </svg>
       <CountryList isOpen={this.state.isOpen} countries={countries} currentCountry={name}
                    i18n={i18n}/>
@@ -85,10 +85,10 @@ const AssessmentStatus = ({status}) => <div className={`status-${status}`} />
 
 const CountryRole = ({role, roleCountries, currentCountry, i18n}) =>
   <div className="nav__country-list-role-countries">
-    <div className="nav__country-list-role-header"><span
-      className="nav__country-list-role-label">{i18n.t(`user.roles.${role.toLowerCase()}`)}</span><span
-      className="nav__country-list-assessment-label">{i18n.t('countryListing.annuallyReported')}</span><span
-      className="nav__country-list-assessment-label">{i18n.t('countryListing.fiveYearCycle')}</span>
+    <div className="nav__country-list-role-header">
+      <span className="nav__country-list-role-label">{i18n.t(`user.roles.${role.toLowerCase()}`)}</span>
+      <span className="nav__country-list-assessment-label">{i18n.t('countryListing.annuallyReported')}</span>
+      <span className="nav__country-list-assessment-label">{i18n.t('countryListing.fiveYearCycle')}</span>
     </div>
     {
       roleCountries.map(c =>
@@ -178,7 +178,7 @@ const NationalDataItem = ({path, countryIso, pathTemplate = '/tbd', status = {co
       <ReviewStatus status={status} userInfo={userInfo}/>
       <div className="nav__link-error-status">
         {status.errors ? <svg className="icon icon-middle icon-red">
-            <use href="img/icons.svg#alert"/>
+            <use xlinkHref="img/icons.svg#alert"/>
           </svg>
           : null
         }
