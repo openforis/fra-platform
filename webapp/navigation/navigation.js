@@ -148,15 +148,13 @@ const PrimaryItem = ({label, countryIso, assessmentType, assessmentStatuses, cha
 
   return <div className="nav__primary-item">
     <div className="nav__primary-label">{label}</div>
-    {
-      currentAssessmentStatus
-        ? <div className={`nav__primary-assessment-status status-${currentAssessmentStatus}`}>
-            {i18n.t(`navigation.assessmentStatus.${currentAssessmentStatus}.label`)}
-          </div>
-        : null
-    }
-    { previousAssessmentStatus ? changeStateLink(countryIso, assessmentType, currentAssessmentStatus, previousAssessmentStatus, changeAssessmentStatus, 'previous', i18n) : null }
-    { nextAssessmentStatus ? changeStateLink(countryIso, assessmentType, currentAssessmentStatus, nextAssessmentStatus, changeAssessmentStatus, 'next', i18n) : null }
+    <div className={`nav__primary-assessment-status status-${currentAssessmentStatus}`}>
+      {i18n.t(`navigation.assessmentStatus.${currentAssessmentStatus}.label`)}
+    </div>
+    <div className="nav__primary-assessment-actions">
+      { previousAssessmentStatus ? changeStateLink(countryIso, assessmentType, currentAssessmentStatus, previousAssessmentStatus, changeAssessmentStatus, 'previous', i18n) : null }
+      { nextAssessmentStatus ? changeStateLink(countryIso, assessmentType, currentAssessmentStatus, nextAssessmentStatus, changeAssessmentStatus, 'next', i18n) : null }
+    </div>
   </div>
 }
 
