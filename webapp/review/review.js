@@ -119,37 +119,40 @@ class CommentThread extends React.Component {
       {
         comments && R.not(R.isEmpty(comments))
           ? mapIndexed((c, i) =>
-            <div key={i} className="fra-review__comment">
+            <div key={i} className={`fra-review__comment ${ isCommentDeleted(c) ? 'fra-review__comment-deleted' : ''}`}>
               <div className="fra-review__comment-header">
                 <img className="fra-review__comment-avatar" src={`https://www.gravatar.com/avatar/${c.hash}?default=mm`}/>
                 <div className="fra-review__comment-author-section">
-                  <div
-                    className={`fra-review__comment-author ${ isCommentDeleted(c) ? 'fra-review__comment-deleted' : isThisMe(c) ? 'author-me' : ''}`}>
-                    <div>{c.username}</div>
-                    {isThisMe(c) && !isCommentDeleted(c) && !isCommentStatusResolved(c) && issueStatus !== 'resolved'
-                      ? <button className="btn fra-review__comment-delete-button"
-                                onClick={() => {
-                                  if(window.confirm(i18n.t('review.confirmDelete'))) {
-                                    markCommentAsDeleted(countryIso, section, target, c.commentId)
-                                  }
-                                } }>
+                  <div className={`fra-review__comment-author ${isThisMe(c) ? 'author-me' : ''}`}>
+                    {c.username}
+                  </div>
+                  {
+                    isThisMe(c) && !isCommentDeleted(c) && !isCommentStatusResolved(c) && issueStatus !== 'resolved'
+                    ? <button className="btn fra-review__comment-delete-button"
+                              onClick={() => {
+                                if(window.confirm(i18n.t('review.confirmDelete'))) {
+                                  markCommentAsDeleted(countryIso, section, target, c.commentId)
+                                }
+                              } }>
                         {i18n.t('review.delete')}
                       </button>
-                      : null}
-                  </div>
-                  <div
-                    className={`fra-review__comment-time ${isCommentDeleted(c) ? 'fra-review__comment-deleted' : ''}`}>
-                    {getCommentTimestamp(c)}
+                    : null
+                  }
+                  <div className="fra-review__comment-time">
+                    {
+                      isCommentDeleted(c)
+                      ? i18n.t('review.commentDeleted')
+                      : getCommentTimestamp(c)
+                    }
                   </div>
                 </div>
               </div>
-              <div
-                className={`fra-review__comment-text ${isCommentDeleted(c) ? 'fra-review__comment-deleted-text' : ''}`}>
-                {isCommentDeleted(c)
-                  ? i18n.t('review.commentDeleted')
-                  : isCommentStatusResolved(c)
-                    ? i18n.t('review.commentMarkedAsResolved')
-                    : c.message}
+              <div className="fra-review__comment-text">
+                {
+                  isCommentStatusResolved(c)
+                  ? i18n.t('review.commentMarkedAsResolved')
+                  : c.message
+                }
               </div>
             </div>,
           comments)

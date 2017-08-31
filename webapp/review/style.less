@@ -192,8 +192,8 @@
 }
 
 .fra-review__comment-avatar {
+  flex: 0 0 auto;
   width: 32px;
-  min-width: 32px;
   height: 32px;
   box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
   border-radius: 100%;
@@ -201,14 +201,14 @@
 }
 
 .fra-review__comment-author-section {
-  flex-grow: 2;
+  flex: 1 1 auto;
 }
 
 .fra-review__comment-author {
+  display: inline-block;
   font-size: @font-s;
   font-weight: bold;
-  display: flex;
-  justify-content: space-between;
+  line-height: 20px;
 
   &.author-me {
     color: darken(@ui-accent, 2%);
@@ -216,6 +216,8 @@
 }
 
 .fra-review__comment-delete-button {
+  display: inline-block;
+  float: right;
   border: none;
   background-color: transparent;
   font-weight: 400;
@@ -235,13 +237,21 @@
   overflow-wrap: break-word;
 }
 
-.fra-review__comment-deleted {
-  color: @text-disabled;
-}
+// Deleted comment
 
-.fra-review__comment-deleted-text {
-  .fra-review__comment-deleted;
-  font-style: italic;
+.fra-review__comment-deleted {
+  .fra-review__comment-avatar {
+    filter: grayscale(100%);
+  }
+
+  .fra-review__comment-author {
+    color: @text-disabled;
+  }
+
+  .fra-review__comment-time {
+    color: @text-disabled;
+    font-style: italic;
+  }
 }
 
 // Active issue
