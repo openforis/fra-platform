@@ -7,7 +7,7 @@ import { fetchOdps } from './actions'
 import { Link } from './../link'
 import LoggedInPageTemplate from '../loggedInPageTemplate'
 
-const ODPListing = ({countryIso, odps = [], i18n}) => <div className="odp-list__container">
+const ODPListing = ({countryIso, odps = [], i18n, userInfo}) => <div className="odp-list__container">
   <h2>{i18n.t('nationalDataPoint.nationalData')}</h2>
   <table className="odp-list__list-table">
     <thead>
@@ -28,9 +28,12 @@ const ODPListing = ({countryIso, odps = [], i18n}) => <div className="odp-list__
             <use xlinkHref='img/icons.svg#alert'/>
           </svg>
         </div> : null}
-        {R.isEmpty(odp.issues) ? null : <div>
-          <div className='issue-open'></div>
-        </div>}
+          {odp.issuesSummary.issuesCount > 0
+            ? <div>
+              <div className={`issue-open ${userInfo.id !== odp.issuesSummary.lastCommentUserId ? 'issue-last-comment-other-user' : ''}`}></div>
+            </div>
+            : null
+          }
         </div>
       </td>
       <td>-</td>
@@ -73,6 +76,10 @@ class DataFetchingComponent extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({...state.originalDataPoint, i18n: state.user.i18n})
+const mapStateToProps = state => ({
+  ...state.originalDataPoint,
+  i18n: state.user.i18n,
+  userInfo: state.user.userInfo
+})
 
 export default connect(mapStateToProps, {fetchOdps})(DataFetchingComponent)
