@@ -20,6 +20,11 @@ export const saveDescriptions = (countryIso, name, content) => dispatch => {
 
 const startSaveDescriptions = (name, content) => ({type: descriptionsChangeStart, name, content})
 
+export const openEditorStart = 'nationalDataEntry/descriptions/editor/open'
+export const closeEditorStart = 'nationalDataEntry/descriptions/editor/close'
+export const openEditor = (name) => ({type: openEditorStart, name})
+export const closeEditor = (name) => ({type: closeEditorStart, name})
+
 const changeDescriptions = (countryIso, name, content) => {
   const dispatched = dispatch => {
     return axios.post(`/api/country/descriptions/${countryIso}/${name}`, {content}).then(() => {

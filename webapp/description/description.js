@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
 import R from 'ramda'
 import ckEditorConfig from '../ckEditor/ckEditorConfig'
-import { saveDescriptions, fetchDescriptions } from './actions'
+import { saveDescriptions, fetchDescriptions, openEditor, closeEditor } from './actions'
 
 class Description extends Component {
   constructor() {
@@ -28,15 +28,33 @@ class Description extends Component {
   render() {
     return <div>
       <h3 className="subhead nde__description-header">{this.props.title}</h3>
-      <div onClick={() => this.setState({editor: true})} onBlur={() => this.setState({editor: false})} tabIndex="0">
-      {this.state.editor ? <DescriptionEditor {...this.props} /> : <div dangerouslySetInnerHTML={{__html: this.props.content}} />}
+      <div ref="editorContent" onClick={e => {
+        this.props.openEditor(this.props.name)
+        e.stopPropagation()
+      }}>
+      { this.props.editing === this.props.name ? <DescriptionEditor {...this.props} /> : <div dangerouslySetInnerHTML={{__html: this.props.content}} />}
       </div>
     </div>
-
   }
 }
 
 class DescriptionEditor extends Component {
+
+  constructor () {
+    super()
+    this.onClick = this.onClick.bind(this)
+    window.addEventListener('click', this.onClick)
+  }
+
+  onClick (evt) {
+    if (!R.startsWith('cke', evt.target.className) && !this.refs[this.props.name].contains(evt.target)) {
+      this.props.closeEditor(this.props.name)
+    }
+  }
+
+  componentWillUnmount () {
+    window.removeEventListener('click', this.onClick)
+  }
 
   initCkeditorChangeListener () {
     this.editor.on('change', (evt) =>
@@ -69,12 +87,13 @@ class DescriptionEditor extends Component {
   }
 
   componentWillUnmount () {
+    window.removeEventListener('click', this.onClick)
     this.editor.destroy(false)
     this.editor = null
   }
 
   render () {
-    return <div className={this.props.classes || ''}>
+    return <div className={this.props.classes || ''} onClick={() => console.log('jei')}>
       <div className="cke_wrapper">
         <textarea id={this.props.name} ref={this.props.name}/>
       </div>
@@ -83,7 +102,8 @@ class DescriptionEditor extends Component {
 }
 
 const mapStateToProps = (state, props) => {
-  return R.defaultTo({}, state.descriptions[props.name])
+  console.log('desc mapped props', R.defaultTo({}, state.descriptions[props.name]))
+  return R.defaultTo({}, R.merge({editing: state.descriptions.editing}, state.descriptions[props.name]))
 }
 
-export default connect(mapStateToProps, {fetchDescriptions, saveDescriptions})(Description)
+export default connect(mapStateToProps, {fetchDescriptions, saveDescriptions, openEditor, closeEditor})(Description)
