@@ -2,7 +2,6 @@ const R = require('ramda')
 const passport = require('passport')
 const userRepository = require('../user/userRepository')
 const authConfig = require('./authConfig')
-const { setLoggedInCookie } = require('./loggedInCookie')
 const {sendErr} = require('../utils/requestUtils')
 const countryRepository = require('../country/countryRepository')
 
@@ -13,7 +12,6 @@ const verifyCallback = (accessToken, refreshToken, profile, done) =>
 
 const authenticationFailed = (req, res) => {
   req.logout()
-  setLoggedInCookie(res, false)
   res.redirect('/login?loginFailed=true')
 }
 
@@ -24,7 +22,6 @@ const authenticationSuccessful = (req, user, next, res) => {
     } else {
       countryRepository.getAllowedCountries(user.roles).then(result => {
         const defaultCountry = R.pipe(R.values, R.head, R.head)(result)
-        setLoggedInCookie(res, true)
         // Hack to make it less probable, that there are other ongoing requests lasting
         // longer and producing contradicting the loggedInCookie value we set above
         setTimeout(() => res.redirect(`/#/country/${defaultCountry.countryIso}`), 200)
@@ -54,7 +51,6 @@ module.exports.init = app => {
 
   app.post('/auth/logout', (req, res) => {
     req.logout()
-    setLoggedInCookie(res, false)
     res.json({})
   })
 }
