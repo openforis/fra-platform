@@ -32,7 +32,7 @@ export const switchLanguage = lang => dispatch => {
 export const logout = () => dispatch => {
   axios.post(`/auth/logout`)
     .then(() => {
-      window.location.hash = ''
+      window.location = '/login'
     })
     .catch((err) => {
       dispatch(applicationError(err))
