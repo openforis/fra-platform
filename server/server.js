@@ -7,7 +7,6 @@ const migrations = require('./db/migration/execMigrations')
 const sessionInit = require('./sessionInit')
 const apiRouter = require('./apiRouter')
 const authApi = require('./auth/authApi')
-const authMiddleware = require('./auth/authMiddleware')
 const resourceCacheControl = require('./resourceCacheControl')
 const accessControl = require('./auth/accessControl')
 const { sendErr } = require('./utils/requestUtils')
@@ -21,11 +20,18 @@ resourceCacheControl.init(app)
 sessionInit.init(app)
 authApi.init(app)
 accessControl.init(app)
-authMiddleware.init(app)
 
 app.use(compression({threshold: 512}))
 app.use('/', express.static(`${__dirname}/../dist`))
-app.use('/login.html', express.static(`${__dirname}/../web-resources/login.html`))
+app.use('/login', (req, res, next) => {
+  if (req.user) {
+    res.redirect(`/#/country/AFG`)
+    //res.redirect(`/#/country/${defaultCountry.countryIso}`)
+  } else {
+    express.static(`${__dirname}/../web-resources/login.html`)(req, res, next)
+  }
+})
+
 app.use('/img/', express.static(`${__dirname}/../web-resources/img`))
 app.use('/css/', express.static(`${__dirname}/../web-resources/css`))
 app.use('/ckeditor/', express.static(`${__dirname}/../web-resources/ckeditor`))
