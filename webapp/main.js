@@ -24,4 +24,4 @@ function renderApp () {
 }
 
 renderApp()
-loginStatusChecker.startPeriodicCheck(1000)
+loginStatusChecker.startPeriodicCheck(60*1000)
