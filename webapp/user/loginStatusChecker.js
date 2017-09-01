@@ -2,18 +2,14 @@ import axios from 'axios'
 
 const noop = function() {}
 
-const loginPage = ''
-
-const goToLoginPageIfNotThereYet = () => {
-  if (window.location.hash !== loginPage) window.location.hash = loginPage
-}
+const loginPage = '/login'
 
 const check = () => {
   axios.get(`/api/loggedInUser/`)
     .then(noop)
     .catch(err => {
       if (err.response.status === 401) {
-        goToLoginPageIfNotThereYet()
+        window.location = loginPage
       } else {
         console.log('Error occurred while polling logged-in state', err)
       }
