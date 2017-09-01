@@ -1,3 +1,4 @@
+@import "../app-styles/config";
 
 .commentable-description {
   display: flex;
@@ -10,4 +11,15 @@
 
 .commentable-description__review-indicator-wrapper {
   padding-top: 60px;
+}
+
+.commentable-description__preview {
+  border: @ui-thin-border;
+  padding: 6px 10px;
+}
+
+div.fra-row-comments__open .commentable-description__preview {
+  outline: 1px solid @ui-accent;
+  outline-offset: -1px;
+  box-shadow: 0 0 4px fade(@ui-accent, 50%);
 }
