@@ -8,7 +8,12 @@ const allowedPaths = [
 
 const checkAuth = (req, res, next) => {
   if (!req.user) {
-    res.status(401).json({error: 'Not logged in'})
+    const acceptHeader = req.header('Accept')
+    if (acceptHeader && acceptHeader.indexOf('application/json') !== -1) {
+      res.status(401).json({error: 'Not logged in'})
+    } else {
+      res.redirect('/login')
+    }
   } else {
     next()
   }
