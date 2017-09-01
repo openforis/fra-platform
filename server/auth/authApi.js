@@ -24,7 +24,9 @@ const authenticationSuccessful = (req, user, next, res) => {
         const defaultCountry = R.pipe(R.values, R.head, R.head)(result)
         // Hack to make it less probable, that there are other ongoing requests lasting
         // longer and producing contradicting the loggedInCookie value we set above
-        setTimeout(() => res.redirect(`/#/country/${defaultCountry.countryIso}`), 200)
+        req.session.save(() => {
+          res.redirect(`/#/country/${defaultCountry.countryIso}`)
+        })
       }).catch(err => sendErr(res, err))
     }
   })
