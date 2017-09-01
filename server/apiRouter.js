@@ -17,8 +17,7 @@ apiRouter.use((req, res, next) => {
   next()
 })
 apiRouter.use((req, res, next) => {
-  const user = R.path(['session', 'passport', 'user'], req)
-  if (!user) {
+  if (!req.user) {
     res.status(401).json({error: 'Not logged in'})
   } else {
     next()
