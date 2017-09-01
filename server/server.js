@@ -9,6 +9,7 @@ const apiRouter = require('./apiRouter')
 const authApi = require('./auth/authApi')
 const resourceCacheControl = require('./resourceCacheControl')
 const accessControl = require('./auth/accessControl')
+const loginHandler = require('./auth/loginHandler')
 const { sendErr } = require('./utils/requestUtils')
 
 const app = express()
@@ -23,14 +24,7 @@ accessControl.init(app)
 
 app.use(compression({threshold: 512}))
 app.use('/', express.static(`${__dirname}/../dist`))
-app.use('/login', (req, res, next) => {
-  if (req.user) {
-    res.redirect(`/#/country/AFG`)
-    //res.redirect(`/#/country/${defaultCountry.countryIso}`)
-  } else {
-    express.static(`${__dirname}/../web-resources/login.html`)(req, res, next)
-  }
-})
+loginHandler.init(app)
 
 app.use('/img/', express.static(`${__dirname}/../web-resources/img`))
 app.use('/css/', express.static(`${__dirname}/../web-resources/css`))
