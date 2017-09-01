@@ -14,7 +14,7 @@ const verifyCallback = (accessToken, refreshToken, profile, done) =>
 const authenticationFailed = (req, res) => {
   req.logout()
   setLoggedInCookie(res, false)
-  res.redirect('/')
+  res.redirect('/login.html?loginFailed=true')
 }
 
 const authenticationSuccessful = (req, user, next, res) => {

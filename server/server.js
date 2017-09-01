@@ -23,6 +23,7 @@ authMiddleware.init(app)
 
 app.use(compression({threshold: 512}))
 app.use('/', express.static(`${__dirname}/../dist`))
+app.use('/login.html', express.static(`${__dirname}/../web-resources/login.html`))
 app.use('/img/', express.static(`${__dirname}/../web-resources/img`))
 app.use('/css/', express.static(`${__dirname}/../web-resources/css`))
 app.use('/ckeditor/', express.static(`${__dirname}/../web-resources/ckeditor`))
