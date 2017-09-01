@@ -6,10 +6,37 @@ import ckEditorConfig from '../ckEditor/ckEditorConfig'
 import { saveDescriptions, fetchDescriptions } from './actions'
 
 class Description extends Component {
+  constructor() {
+    super()
+    this.state = {editor: false}
+  }
 
   fetchData (countryIso) {
     this.props.fetchDescriptions(countryIso, this.props.name)
   }
+
+  componentDidMount () {
+    if (!this.props.content)
+      this.fetchData(this.props.countryIso)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (!R.equals(this.props.countryIso, nextProps.countryIso))
+      this.fetchData(nextProps.countryIso)
+  }
+
+  render() {
+    return <div>
+      <h3 className="subhead nde__description-header">{this.props.title}</h3>
+      <div onClick={() => this.setState({editor: true})} onBlur={() => this.setState({editor: false})} tabIndex="0">
+      {this.state.editor ? <DescriptionEditor {...this.props} /> : <div dangerouslySetInnerHTML={{__html: this.props.content}} />}
+      </div>
+    </div>
+
+  }
+}
+
+class DescriptionEditor extends Component {
 
   initCkeditorChangeListener () {
     this.editor.on('change', (evt) =>
@@ -27,9 +54,7 @@ class Description extends Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    if (!R.equals(this.props.countryIso, nextProps.countryIso))
-      this.fetchData(nextProps.countryIso)
-    else if (nextProps.fetched)// && R.not(R.equals(this.props.content, nextProps.content)))
+    if (nextProps.fetched)// && R.not(R.equals(this.props.content, nextProps.content)))
       this.setEditorContent(nextProps.content)
   }
 
@@ -40,8 +65,6 @@ class Description extends Component {
     this.editor.on('instanceReady', () => {
       if (this.props.content)
         this.setEditorContent(this.props.content)
-      else
-        this.fetchData(this.props.countryIso)
     })
   }
 
@@ -52,7 +75,6 @@ class Description extends Component {
 
   render () {
     return <div className={this.props.classes || ''}>
-      <h3 className="subhead nde__description-header">{this.props.title}</h3>
       <div className="cke_wrapper">
         <textarea id={this.props.name} ref={this.props.name}/>
       </div>
