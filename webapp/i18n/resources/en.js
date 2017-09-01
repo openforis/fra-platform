@@ -109,6 +109,7 @@ export const translation = {
   },
 
   description: {
+    emptyLabel: 'No content. Click to edit.',
     description: 'Description',
     dataSources: 'Data Sources',
     originalData: 'Original data',

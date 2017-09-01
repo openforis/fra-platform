@@ -26,13 +26,14 @@ class Description extends Component {
   }
 
   render() {
+    const content = this.props.content || this.props.i18n.t('description.emptyLabel')
     return <div>
       <h3 className="subhead nde__description-header">{this.props.title}</h3>
       <div ref="editorContent" onClick={e => {
         this.props.openEditor(this.props.name)
         e.stopPropagation()
       }}>
-      { this.props.editing === this.props.name ? <DescriptionEditor {...this.props} /> : <div dangerouslySetInnerHTML={{__html: this.props.content}} />}
+      { this.props.editing === this.props.name ? <DescriptionEditor {...this.props} /> : <div dangerouslySetInnerHTML={{__html: content}} />}
       </div>
     </div>
   }
@@ -93,7 +94,7 @@ class DescriptionEditor extends Component {
   }
 
   render () {
-    return <div className={this.props.classes || ''} onClick={() => console.log('jei')}>
+    return <div className={this.props.classes || ''}>
       <div className="cke_wrapper">
         <textarea id={this.props.name} ref={this.props.name}/>
       </div>
@@ -102,8 +103,7 @@ class DescriptionEditor extends Component {
 }
 
 const mapStateToProps = (state, props) => {
-  console.log('desc mapped props', R.defaultTo({}, state.descriptions[props.name]))
-  return R.defaultTo({}, R.merge({editing: state.descriptions.editing}, state.descriptions[props.name]))
+  return R.pipe(R.defaultTo({}), R.merge({editing: state.descriptions.editing}), R.merge(state.user))(state.descriptions[props.name])
 }
 
 export default connect(mapStateToProps, {fetchDescriptions, saveDescriptions, openEditor, closeEditor})(Description)
