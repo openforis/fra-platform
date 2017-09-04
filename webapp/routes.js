@@ -12,6 +12,7 @@ import AreaAffecteByFireView from './areaAffectedByFire/areaAffectedByFireView'
 import ForestCharacteristicsView from './forestCharacteristics/forestCharacteristicsView'
 
 const routes = {
+  '/': () => <noscript/>, //This will get rendered first (it flashes), before we redirect to logged-in page or login page
   '/country/:countryIso/odps': OriginalDataListView,
   '/country/:countryIso': NationalDataEntryView,
   '/country/:countryIso/odp': OriginalDataPointView,
