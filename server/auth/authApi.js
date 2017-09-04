@@ -20,10 +20,11 @@ const authenticationSuccessful = (req, user, next, res) => {
     if (err) {
       next(err)
     } else {
-      countryRepository.getAllowedCountries(user.roles).then(result => {
-        const defaultCountry = R.pipe(R.values, R.head, R.head)(result)
-        // Hack to make it less probable, that there are other ongoing requests lasting
-        // longer and producing contradicting the loggedInCookie value we set above
+      countryRepository.getFirstAllowedCountry(user.roles).then(defaultCountry => {
+        // We have to explicitly save session and wait for saving to complete
+        // because of the way chrome handles redirects (it doesn't read the whole response)
+        // More here:
+        // https://github.com/voxpelli/node-connect-pg-simple/issues/31#issuecomment-230596077
         req.session.save(() => {
           res.redirect(`/#/country/${defaultCountry.countryIso}`)
         })
