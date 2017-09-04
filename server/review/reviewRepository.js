@@ -43,15 +43,18 @@ const getIssuesSummary = issueComments => R.pipe(
   })
 )(issueComments)
 
-module.exports.getIssuesSummary = (countryIso, section, targetParam) =>
+module.exports.getIssuesSummary = (countryIso, section, targetParam, rejectResolved = false) =>
   getIssueComments(countryIso, section)
     .then(issueComments => {
       const target = targetParam && targetParam.split(',')
 
+      const paramsMatch = params => target.every((el, i) => el === params[i])
+
       const summary = R.pipe(
         R.reject(i => i.deleted),
+        R.reject(i => rejectResolved ? i.issueStatus === 'resolved' : false),
         R.filter(i => target
-          ? R.pathEq(['target', 'params'], target, i)
+          ? paramsMatch(R.path(['target', 'params'], i))
           : true),
         getIssuesSummary
       )(issueComments)
