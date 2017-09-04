@@ -12,16 +12,8 @@ const actionHandlers = {
     const data = {[action.name]: R.pipe(R.assoc('content', action.content), R.dissoc('fetched'))(state[action.name])}
     return R.merge(state, data)
   },
-  [types.openEditorStart]: (state, action) => {
-    console.log('open reducer', action)
-    const newstate = ({...state, 'editing': action.name})
-    console.log('reducer state', newstate)
-    return newstate
-  },
-  [types.closeEditorStart]: state => {
-    console.log('close reducer')
-    return R.omit(['editing'], state)
-  }
+  [types.openEditorStart]: (state, action) => ({...state, 'editing': action.name}),
+  [types.closeEditorStart]: state => R.omit(['editing'], state)
 }
 
 export default (state = {}, action) => applyReducerFunction(actionHandlers, state, action)

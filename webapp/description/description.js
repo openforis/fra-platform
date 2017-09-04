@@ -6,10 +6,6 @@ import ckEditorConfig from '../ckEditor/ckEditorConfig'
 import { saveDescriptions, fetchDescriptions, openEditor, closeEditor } from './actions'
 
 class Description extends Component {
-  constructor() {
-    super()
-    this.state = {editor: false}
-  }
 
   fetchData (countryIso) {
     this.props.fetchDescriptions(countryIso, this.props.name)
