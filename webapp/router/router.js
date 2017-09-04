@@ -1,7 +1,6 @@
 import * as R from 'ramda'
 import React from 'react'
 import { connect } from 'react-redux'
-import * as Cookies from 'js-cookie'
 
 import { follow } from './actions'
 import Notfound from '../notfound'
@@ -10,10 +9,8 @@ import { getLoggedinUserInfo } from '../user/actions'
 class Router extends React.Component {
 
   follow () {
-    const loggedInCookie = R.defaultTo('false')(Cookies.get('loggedIn'))
-    if (loggedInCookie === 'false' && location.hash !== '') {
-      // "redirecting" user when user has not authenticated or session has ran out
-      window.location.hash = ''
+    if (window.location.hash === '') {
+      window.location = '/login'
     } else if (!this.props.loggedInUserInfoLoaded) {
       this.props.getLoggedinUserInfo()
     }

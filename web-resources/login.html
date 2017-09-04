@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>FRA platform</title>
+    <link href="css/login.css" rel="stylesheet" type="text/css">
+    <script language="JavaScript">
+        document.addEventListener("DOMContentLoaded", function() {
+          if (location.search.indexOf('loginFailed') !== -1) {
+            document.getElementById('login-failed-indicator').style.display = "block";
+          }
+        })
+    </script>
+</head>
+<body>
+    <div class="login__root">
+        <div style="display:none" id="login-failed-indicator" class="alert-container">
+            <div class="alert-error">
+                <div class="alert-icon">
+                    <svg class="icon"><use href="img/icons.svg#alert"></svg>
+                </div>
+                <div class="alert-message">User not authorized</div>
+            </div>
+        </div>
+        <div class="login__wrapper">
+            <img src="img/fao_logo.svg" class="login__logo" height="60" />
+            <div class="login__box">
+                <img src="img/tucan.svg" class="login__tucan"/>
+                <h2 class="login__header">Login to FRA Platform</h2>
+                <a class="login__btn" href="/auth/google">
+                    Sign in with Google
+                </a>
+            </div>
+            <p class="login__legal">&copy; FAO, 2017</p>
+        </div>
+    </div>
+</body>
+</html>
