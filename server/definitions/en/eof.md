@@ -1,6 +1,3 @@
-module.exports = {
-  'nodata': 'No definitions found',
-  'eof': `
 ## FOREST
 
 >Land spanning more than 0.5 hectares with trees higher than 5 meters and a canopy
@@ -62,6 +59,3 @@ criteria are met.
 4. Includes agricultural land, meadows and pastures, built-up areas, barren land, land under
 permanent ice, etc.
 5. Includes all areas classified under the sub-category “Other land with tree cover”.
-
-  `
-}
