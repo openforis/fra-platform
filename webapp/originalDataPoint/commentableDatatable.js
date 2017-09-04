@@ -74,7 +74,7 @@ const fraValueCell = (fraValue, fra, countryIso, save, saveMany, pasteUpdate, fi
 const odpCell = (odpValue, field) =>
   <ThousandSeparatedIntegerInput
     className="fra-table__integer-input"
-    integerValue={odpValue[field]}
+    integerValue={Math.round(odpValue[field])}
     disabled={true} />
 
 const fraValueRow = (rowHeading, field, countryIso, fra, save, saveMany, pasteUpdate, colId, openThread) => {
