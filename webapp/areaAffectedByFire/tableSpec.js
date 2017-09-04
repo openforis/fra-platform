@@ -40,7 +40,7 @@ export default i18n => ({
     [
       {
         type: 'readOnly',
-        jsx: <td key="" className="fra-table__text-readonly-cell">{i18n.t('areaAffectedByFire.ofWhichForest')}</td>
+        jsx: <td key="" className="fra-table__text-readonly-cell-padded">{i18n.t('areaAffectedByFire.ofWhichForest')}</td>
       },
       ...integerInputColumns
     ]

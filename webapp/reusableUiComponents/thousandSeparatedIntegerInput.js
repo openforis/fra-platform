@@ -16,7 +16,7 @@ export class ThousandSeparatedIntegerInput extends React.Component {
 
   render () {
     const {integerValue, onChange, onPaste, className} = this.props
-    return <div className="tsii__field validation-error-sensitive-field" style={{position: 'relative'}} ref="wrapper">
+    return <div className="tsii__field validation-error-sensitive-field" ref="wrapper">
       <div className="tsii__readonly-view"
            style={{
               display: this.state.hasFocus ? 'none' : 'inline-block',

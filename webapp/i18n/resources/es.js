@@ -121,8 +121,8 @@ export const translation = {
     nationalClassificationAndDefinitions: 'Clasificación y definiciones nationales',
     originalData: 'Datos originales',
     chart: {
-      noDataPlaceholderLine1: 'Para empezar, añada nuevos puntos de datos nacionales',
-      noDataPlaceholderLine2: 'y utilícelos para generar automáticamente los valores de FRA.'
+      placeholderLine1: 'Para empezar, añada nuevos puntos de datos nacionales',
+      placeholderLine2: 'y utilícelos para generar automáticamente los valores de FRA.'
     }
   },
 

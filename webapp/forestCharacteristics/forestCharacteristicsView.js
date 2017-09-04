@@ -1,7 +1,7 @@
-import './style.less'
 import React from 'react'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
+import { Link } from './../link'
 
 import { fetchItem, save, saveMany, generateFraValues } from '../originalDataPoint/actions'
 import LoggedInPageTemplate from '../loggedInPageTemplate'
@@ -50,7 +50,15 @@ const ForestCharacteristics = props => {
     <div className="nde__data-page-header">
       <h2 className="headline">{props.i18n.t('forestCharacteristics.forestCharacteristics')}</h2>
     </div>
-    <ChartWrapper stateName="forestCharacteristics" trends={['naturalForestArea']}/>
+    <div className="nde__data-input-header">
+      <Link className="btn btn-primary" to={`/country/${props.countryIso}/odp`}>
+        <svg className="icon icon-middle icon-white">
+          <use xlinkHref="img/icons.svg#small-add"/>
+        </svg>
+        {props.i18n.t('nationalDataPoint.addNationalDataPoint')}
+      </Link>
+    </div>
+    <ChartWrapper stateName="forestCharacteristics" trends={['naturalForestArea']} />
     <div className="nde__data-table-header">
       <h3 className="subhead">{props.i18n.t('forestCharacteristics.forestCharacteristicsValues')}</h3>
     <button disabled={disableGenerateFRAValues()} className="btn btn-primary"

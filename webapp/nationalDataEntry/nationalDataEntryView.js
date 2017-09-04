@@ -49,12 +49,12 @@ const NationalDataEntry = (props) => {
       <div className="nde__data-input-header">
         <Link className="btn btn-primary" to={`/country/${props.countryIso}/odp`}>
           <svg className="icon icon-middle icon-white">
-            <use href="img/icons.svg#small-add"/>
+            <use xlinkHref="img/icons.svg#small-add"/>
           </svg>
           {i18n.t('nationalDataPoint.addNationalDataPoint')}
         </Link>
       </div>
-      <ChartWrapper stateName="nationalDataEntry" trends={['forestArea', 'otherWoodedLand']} showNoDataText={true}/>
+      <ChartWrapper stateName="nationalDataEntry" trends={['forestArea', 'otherWoodedLand']} />
       <div className="nde__data-table-header">
         <h3 className="subhead">{i18n.t('extentOfForest.extentOfForestValues')}</h3>
         <DefinitionLink name="eof" i18n={i18n}/>

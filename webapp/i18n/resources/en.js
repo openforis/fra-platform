@@ -135,6 +135,7 @@ export const translation = {
     area: 'Area',
     total: 'Total',
     delete: 'Delete',
+    confirmDelete: 'Are you sure you want to delete this data point? This cannot be undone.',
     cancel: 'Cancel',
     saveData: 'Save data',
     enterOrCopyPasteNationalClasses: 'Enter or copy and paste national classes'
@@ -148,8 +149,8 @@ export const translation = {
     extentOfForestValues: 'Extent of forest values',
     forestArea: 'Forest area',
     chart: {
-      noDataPlaceholderLine1: 'To get started, add new national data points and use',
-      noDataPlaceholderLine2: 'them to generate FRA values automatically.'
+      placeholderLine1: 'To get started, add new national data points and use',
+      placeholderLine2: 'them to generate FRA values automatically.'
     }
   },
 

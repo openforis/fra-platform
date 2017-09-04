@@ -24,6 +24,17 @@ class CountrySelectionItem extends React.Component {
   constructor (props) {
     super(props)
     this.state = {isOpen: false}
+    this.outsideClick = this.outsideClick.bind(this)
+    window.addEventListener('click', this.outsideClick)
+  }
+
+  outsideClick (evt) {
+    if (!this.refs.navCountryItem.contains(evt.target))
+      this.setState({isOpen: false})
+  }
+
+  componentWillUnmount () {
+    window.removeEventListener('click', this.outsideClick)
   }
 
   render () {
@@ -35,7 +46,7 @@ class CountrySelectionItem extends React.Component {
       backgroundImage: `url('/img/flags/${(alpha3ToAlpha2(name) || '').toLowerCase()}.svg'`
     }
 
-    return <div className="nav__country-item" onClick={() => {
+    return <div className="nav__country-item" ref="navCountryItem" onClick={() => {
       this.setState({isOpen: R.not(this.state.isOpen)})
       if (R.isEmpty(countries)) {
         this.props.listCountries()
@@ -47,7 +58,7 @@ class CountrySelectionItem extends React.Component {
         <span className="nav__country-role">{role}</span>
       </div>
       <svg className="icon">
-        <use href="img/icons.svg#small-down"/>
+        <use xlinkHref="img/icons.svg#small-down"/>
       </svg>
       <CountryList isOpen={this.state.isOpen} countries={countries} currentCountry={name}
                    i18n={i18n}/>
@@ -74,10 +85,10 @@ const AssessmentStatus = ({status}) => <div className={`status-${status}`} />
 
 const CountryRole = ({role, roleCountries, currentCountry, i18n}) =>
   <div className="nav__country-list-role-countries">
-    <div className="nav__country-list-role-header"><span
-      className="nav__country-list-role-label">{i18n.t(`user.roles.${role.toLowerCase()}`)}</span><span
-      className="nav__country-list-assessment-label">{i18n.t('countryListing.annuallyReported')}</span><span
-      className="nav__country-list-assessment-label">{i18n.t('countryListing.fiveYearCycle')}</span>
+    <div className="nav__country-list-role-header">
+      <span className="nav__country-list-role-label">{i18n.t(`user.roles.${role.toLowerCase()}`)}</span>
+      <span className="nav__country-list-assessment-label">{i18n.t('countryListing.annuallyReported')}</span>
+      <span className="nav__country-list-assessment-label">{i18n.t('countryListing.fiveYearCycle')}</span>
     </div>
     {
       roleCountries.map(c =>
@@ -137,16 +148,13 @@ const PrimaryItem = ({label, countryIso, assessmentType, assessmentStatuses, cha
 
   return <div className="nav__primary-item">
     <div className="nav__primary-label">{label}</div>
-    {
-      currentAssessmentStatus
-        ? <div className="nav__primary-assessment-status">
-            <div className={`status-${currentAssessmentStatus}`}></div>
-            {i18n.t(`navigation.assessmentStatus.${currentAssessmentStatus}.label`)}
-          </div>
-        : null
-    }
-    { previousAssessmentStatus ? changeStateLink(countryIso, assessmentType, currentAssessmentStatus, previousAssessmentStatus, changeAssessmentStatus, 'previous', i18n) : null }
-    { nextAssessmentStatus ? changeStateLink(countryIso, assessmentType, currentAssessmentStatus, nextAssessmentStatus, changeAssessmentStatus, 'next', i18n) : null }
+    <div className={`nav__primary-assessment-status status-${currentAssessmentStatus}`}>
+      {i18n.t(`navigation.assessmentStatus.${currentAssessmentStatus}.label`)}
+    </div>
+    <div className="nav__primary-assessment-actions">
+      { previousAssessmentStatus ? changeStateLink(countryIso, assessmentType, currentAssessmentStatus, previousAssessmentStatus, changeAssessmentStatus, 'previous', i18n) : null }
+      { nextAssessmentStatus ? changeStateLink(countryIso, assessmentType, currentAssessmentStatus, nextAssessmentStatus, changeAssessmentStatus, 'next', i18n) : null }
+    </div>
   </div>
 }
 
@@ -168,7 +176,7 @@ const NationalDataItem = ({path, countryIso, pathTemplate = '/tbd', status = {co
       <ReviewStatus status={status} userInfo={userInfo}/>
       <div className="nav__link-error-status">
         {status.errors ? <svg className="icon icon-middle icon-red">
-            <use href="img/icons.svg#alert"/>
+            <use xlinkHref="img/icons.svg#alert"/>
           </svg>
           : null
         }

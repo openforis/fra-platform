@@ -6,18 +6,35 @@ import { connect } from 'react-redux'
 import { logout, switchLanguage } from '../user/actions'
 
 class FooterSelectionControl extends React.Component {
+
+  constructor (props) {
+    super(props)
+    this.outsideClick = this.outsideClick.bind(this)
+    window.addEventListener('click', this.outsideClick)
+  }
+
+  outsideClick (evt) {
+    if (!this.refs.userControl.contains(evt.target))
+      this.setState({opened: false})
+  }
+
   componentWillMount () {
     this.setState({opened: false})
+  }
+
+  componentWillUnmount () {
+    window.removeEventListener('click', this.outsideClick)
   }
 
   render () {
     const children = this.props.children
     return <span
       className="footer__user-control"
-      onClick={evt => this.setState({opened: !this.state.opened})}>
+      onClick={evt => this.setState({opened: !this.state.opened})}
+      ref="userControl">
       {this.props.label}
       <svg className="icon icon-sub">
-        <use href="img/icons.svg#small-up"/>
+        <use xlinkHref="img/icons.svg#small-up"/>
       </svg>
       {
         this.state.opened ? children : null

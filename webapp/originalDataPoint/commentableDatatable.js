@@ -60,7 +60,7 @@ const buildIndicators = (rows, props) => mapIndexed((row, i) =>  <ReviewIndicato
 
 const OdpHeading = ({countryIso, odpValue}) =>
   <Link className="link" to={`/country/${countryIso}/odp/${odpValue.odpId}`}>
-    {odpValue.draft ? <svg className="icon icon-sub icon-red icon-margin"><use href="img/icons.svg#alert"/></svg> : ''}
+    {odpValue.draft ? <svg className="icon icon-sub icon-red icon-margin"><use xlinkHref="img/icons.svg#alert"/></svg> : ''}
     {odpValue.name}
   </Link>
 
@@ -72,9 +72,10 @@ const fraValueCell = (fraValue, fra, countryIso, save, saveMany, pasteUpdate, fi
     onChange={ e => { save(countryIso, fraValue.name, e.target.value, fraValue, field) } }/>
 
 const odpCell = (odpValue, field) =>
-  <span>
-    {separateThousandsWithSpaces(Math.round(odpValue[field]))}
-  </span>
+  <ThousandSeparatedIntegerInput
+    className="fra-table__integer-input"
+    integerValue={odpValue[field]}
+    disabled={true} />
 
 const fraValueRow = (rowHeading, field, countryIso, fra, save, saveMany, pasteUpdate, colId, openThread) => {
   const target = [field]
