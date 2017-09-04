@@ -5,6 +5,7 @@ const db = require('../db/db')
 const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
 const {sendErr} = require('../utils/requestUtils')
 const reviewRepository = require('./reviewRepository')
+const auditRepository = require('./../audit/auditRepository')
 
 module.exports.init = app => {
 
@@ -25,6 +26,8 @@ module.exports.init = app => {
   app.post('/review/:countryIso/:section', (req, res) => {
     checkCountryAccessFromReqParams(req)
     const target = req.query.target ? req.query.target.split(',') : []
+    db.transaction(auditRepository.insertAudit,
+      [req.user.id, 'create_issue', req.params.countryIso, req.params.section, {params: target}])
     db.transaction(
       reviewRepository.createIssueWithComment,
       [req.params.countryIso, req.params.section, {params: target}, req.user.id, req.body.msg])
