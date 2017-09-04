@@ -13,35 +13,42 @@
   border: 1px solid @ui-border;
   padding: 10px;
   font-weight: bold;
+  white-space: nowrap;
+  min-width: 180px;
+  text-align: left;
 }
 
 .fra-table__header-cell-align-right {
   .fra-table__header-cell;
   text-align: right;
+  min-width: 120px;
 }
 
 .fra-table__cell {
   padding: 0;
   border: 1px solid @ui-border;
+  white-space: nowrap;
+  min-width: 120px;
 }
 
 .fra-table__text-readonly-cell {
+  .fra-table__cell;
+}
+
+.fra-table__text-readonly-cell-padded {
+  .fra-table__cell;
   padding: 10px;
-  border: 1px solid @ui-border;
+}
+
+.fra-table__aggregate-cell {
+  .fra-table__text-readonly-cell;
+  text-align: right;
+  font-weight: bold;
+  padding: 10px;
 }
 
 .fra-table__row-anchor-cell {
   padding: 0;
-}
-
-.fra-table__text-readonly-cell-align-right {
-  .fra-table__text-readonly-cell;
-  text-align: right;
-}
-
-.fra-table__aggregate-cell {
-  .fra-table__text-readonly-cell-align-right;
-  font-weight: bold;
 }
 
 .fra-table__input {

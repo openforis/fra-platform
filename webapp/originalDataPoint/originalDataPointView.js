@@ -56,20 +56,21 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
         </select>
       </div>
     </div>
-    <div>
-      <h3 className="subhead odp__section">
-        {i18n.t('nationalDataPoint.nationalClasses')}
+    <div className="odp__section">
+      <div className="odp__section-header">
+        <h3 className="subhead">
+          {i18n.t('nationalDataPoint.nationalClasses')}
+        </h3>
         <button disabled={copyDisabled || copyPreviousClassesDisabled()}
                 className="btn btn-primary btn-copy-prev-values"
                 onClick={() => copyPreviousNationalClasses(countryIso, active)}>
           {i18n.t('nationalDataPoint.copyPreviousValues')}
         </button>
-      </h3>
+      </div>
       <table className="odp__input-table odp__national-class-table">
         <thead>
         <tr>
-          <th
-            className="odp__national-class-table-national-class-column">{i18n.t('nationalDataPoint.nationalClass')}</th>
+          <th>{i18n.t('nationalDataPoint.nationalClass')}</th>
           <th>{i18n.t('nationalDataPoint.definition')}</th>
         </tr>
         </thead>
@@ -80,23 +81,25 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
         </tbody>
       </table>
     </div>
-    <div>
-      <h3 className="subhead odp__section">{i18n.t('extentOfForest.extentOfForest')}</h3>
+
+    <div className="odp__section">
+      <div className="odp__section-header">
+        <h3 className="subhead">{i18n.t('extentOfForest.extentOfForest')}</h3>
+      </div>
       <table className="odp__input-table odp__eof-table">
         <thead>
         <tr>
-          <th className="odp__eof-header-left odp__eof-divide-after-cell"
+          <th className="odp__input-table__header-cell odp__input-table__divde-after-cell"
               colSpan="2">{i18n.t('nationalDataPoint.nationalClasses')}</th>
-          <th className="odp__eof-header-left"
+          <th className="odp__input-table__header-cell"
               colSpan="3">{i18n.t('nationalDataPoint.fraClasses')}</th>
         </tr>
         <tr>
-          <th className="odp__eof-header-left">{i18n.t('nationalDataPoint.class')}</th>
-          <th
-            className="odp__eof-divide-after-cell odp__eof-header-right">{i18n.t('nationalDataPoint.area')}</th>
-          <th className="odp__eof-header-right">{i18n.t('fraClass.forest')}</th>
-          <th className="odp__eof-header-right">{i18n.t('fraClass.otherWoodedLand')}</th>
-          <th className="odp__eof-header-right">{i18n.t('fraClass.otherLand')}</th>
+          <th className="odp__input-table__header-cell">{i18n.t('nationalDataPoint.class')}</th>
+          <th className="odp__input-table__header-cell-align-right odp__input-table__divde-after-cell">{i18n.t('nationalDataPoint.area')}</th>
+          <th className="odp__input-table__header-cell-align-right">{i18n.t('fraClass.forest')}</th>
+          <th className="odp__input-table__header-cell-align-right">{i18n.t('fraClass.otherWoodedLand')}</th>
+          <th className="odp__input-table__header-cell-align-right">{i18n.t('fraClass.otherLand')}</th>
         </tr>
         </thead>
         <tbody>
@@ -104,39 +107,38 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
           extentOfForestRows(countryIso, active, saveDraft, openThread, i18n)
         }
         <tr>
-          <td className="fra-table__header-cell">{i18n.t('nationalDataPoint.total')}</td>
+          <td className="odp__input-table__header-cell">{i18n.t('nationalDataPoint.total')}</td>
           <td
-            className="odp__national-class-total-cell odp__eof-divide-after-cell">{separateThousandsWithSpaces(Number(originalDataPoint.totalArea(active)))}</td>
+            className="odp__input-table__class-total-cell odp__input-table__divde-after-cell">{separateThousandsWithSpaces(Number(originalDataPoint.totalArea(active)))}</td>
           <td
-            className="odp__national-class-total-cell">{separateThousandsWithSpaces(Number(originalDataPoint.totalForest(active, 'forestPercent')))}</td>
+            className="odp__input-table__class-total-cell">{separateThousandsWithSpaces(Number(originalDataPoint.totalForest(active, 'forestPercent')))}</td>
           <td
-            className="odp__national-class-total-cell">{separateThousandsWithSpaces(Number(originalDataPoint.totalForest(active, 'otherWoodedLandPercent')))}</td>
+            className="odp__input-table__class-total-cell">{separateThousandsWithSpaces(Number(originalDataPoint.totalForest(active, 'otherWoodedLandPercent')))}</td>
           <td
-            className="odp__national-class-total-cell">{separateThousandsWithSpaces(Number(originalDataPoint.totalForest(active, 'otherLandPercent')))}</td>
+            className="odp__input-table__class-total-cell">{separateThousandsWithSpaces(Number(originalDataPoint.totalForest(active, 'otherLandPercent')))}</td>
         </tr>
         </tbody>
       </table>
+    </div>
 
-      <h3
-        className="subhead odp__section">{i18n.t('forestCharacteristics.forestCharacteristics')}</h3>
-      <table className="odp__input-table odp__eof-table">
+    <div className="odp__section">
+      <div className="odp__section-header">
+        <h3 className="subhead">{i18n.t('forestCharacteristics.forestCharacteristics')}</h3>
+      </div>
+      <table className="odp__input-table odp__foc-table">
         <thead>
         <tr>
-          <th className="odp__eof-header-left odp__eof-divide-after-cell"
+          <th className="odp__input-table__header-cell odp__input-table__divde-after-cell"
               colSpan="2">{i18n.t('nationalDataPoint.nationalClasses')}</th>
-          <th className="odp__eof-header-left"
+          <th className="odp__input-table__header-cell"
               colSpan="3">{i18n.t('nationalDataPoint.fraClasses')}</th>
         </tr>
         <tr>
-          <th className="odp__eof-header-left">{i18n.t('nationalDataPoint.class')}</th>
-          <th
-            className="odp__eof-divide-after-cell odp__eof-header-right">{i18n.t('nationalDataPoint.area')}</th>
-          <th
-            className="odp__eof-header-right">{i18n.t('fraForestCharacteristicsClass.naturallyGenerated')}</th>
-          <th
-            className="odp__eof-header-right">{i18n.t('fraForestCharacteristicsClass.plantationForest')}</th>
-          <th
-            className="odp__eof-header-right">{i18n.t('fraForestCharacteristicsClass.otherPlantedForest')}</th>
+          <th className="odp__input-table__header-cell">{i18n.t('nationalDataPoint.class')}</th>
+          <th className="odp__input-table__header-cell-align-right odp__input-table__divde-after-cell">{i18n.t('nationalDataPoint.area')}</th>
+          <th className="odp__input-table__header-cell-align-right">{i18n.t('fraForestCharacteristicsClass.naturallyGenerated')}</th>
+          <th className="odp__input-table__header-cell-align-right">{i18n.t('fraForestCharacteristicsClass.plantationForest')}</th>
+          <th className="odp__input-table__header-cell-align-right">{i18n.t('fraForestCharacteristicsClass.otherPlantedForest')}</th>
         </tr>
         </thead>
         <tbody>
@@ -144,32 +146,32 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
           foresCharaceristicsRows(countryIso, active, saveDraft, openThread, i18n)
         }
         <tr>
-          <td className="fra-table__header-cell">{i18n.t('nationalDataPoint.total')}</td>
-          <td
-            className="odp__national-class-total-cell odp__eof-divide-after-cell">{separateThousandsWithSpaces(Number(originalDataPoint.totalArea(active)))}</td>
-          <td
-            className="odp__national-class-total-cell">{separateThousandsWithSpaces(Number(originalDataPoint.totalForest(active, 'naturalForestPercent')))}</td>
-          <td
-            className="odp__national-class-total-cell">{separateThousandsWithSpaces(Number(originalDataPoint.totalForest(active, 'plantationPercent')))}</td>
-          <td
-            className="odp__national-class-total-cell">{separateThousandsWithSpaces(Number(originalDataPoint.totalForest(active, 'otherPlantedPercent')))}</td>
+          <td className="odp__input-table__header-cell">{i18n.t('nationalDataPoint.total')}</td>
+          <td className="odp__input-table__header-cell-align-right odp__input-table__divde-after-cell">{separateThousandsWithSpaces(Number(originalDataPoint.totalArea(active)))}</td>
+          <td className="odp__input-table__class-total-cell">{separateThousandsWithSpaces(Number(originalDataPoint.totalForest(active, 'naturalForestPercent')))}</td>
+          <td className="odp__input-table__class-total-cell">{separateThousandsWithSpaces(Number(originalDataPoint.totalForest(active, 'plantationPercent')))}</td>
+          <td className="odp__input-table__class-total-cell">{separateThousandsWithSpaces(Number(originalDataPoint.totalForest(active, 'otherPlantedPercent')))}</td>
         </tr>
         </tbody>
       </table>
     </div>
 
-    <h3 className="subhead odp__section">{i18n.t('review.comments')}</h3>
-    <div
-      className={`odp__cke_wrapper ${isCommentsOpen([`${active.odpId}`, 'comments'], openThread) ? 'fra-row-comments__open' : '' }`}>
-      <div className="cke_wrapper">
-        <CommentsEditor active={active} match={match} saveDraft={saveDraft}/>
+    <div className="odp__section">
+      <div className="odp__section-header">
+        <h3 className="subhead">{i18n.t('review.comments')}</h3>
       </div>
-      {active.odpId
-        ? <ReviewIndicator section='NDP'
-                           name={i18n.t('nationalDataPoint.nationalDataPoint')}
-                           target={[`${active.odpId}`, 'comments']}
-                           countryIso={countryIso}/>
-        : null}
+      <div
+        className={`odp__cke_wrapper ${isCommentsOpen([`${active.odpId}`, 'comments'], openThread) ? 'fra-row-comments__open' : '' }`}>
+        <div className="cke_wrapper">
+          <CommentsEditor active={active} match={match} saveDraft={saveDraft}/>
+        </div>
+        {active.odpId
+          ? <ReviewIndicator section='NDP'
+                             name={i18n.t('nationalDataPoint.nationalDataPoint')}
+                             target={[`${active.odpId}`, 'comments']}
+                             countryIso={countryIso}/>
+          : null}
+      </div>
     </div>
 
     <div className="odp__bottom-buttons">
@@ -246,19 +248,8 @@ const NationalClassRow = ({odp, index, saveDraft, countryIso, className, definit
   <tr
     className={`${isCommentsOpen([odp.odpId, 'class', `${odp.nationalClasses[index].uuid}`, 'definition'], openThread) ? 'fra-row-comments__open' : ''}`}>
     <td
-      className={getValidationStatusRow(odp, index).validClassName === false ? 'error' : ''}>
-      <div className="odp__national-class-remove-anchor">
-        {placeHolder
-          ? null //placeHolder-rows can't be removed
-          : <div
-            className="odp__national-class-remove"
-            onClick={(evt) => saveDraft(countryIso, originalDataPoint.removeNationalClass(odp, index))}>
-            <svg className="icon">
-              <use xlinkHref="img/icons.svg#remove"/>
-            </svg>
-          </div>
-        }
-        <input className="odp__national-class-row-class-name-input validation-error-sensitive-field"
+      className={`odp__national-class-name ${getValidationStatusRow(odp, index).validClassName === false ? 'error' : ''}`}>
+        <input className="odp__national-class-input validation-error-sensitive-field"
                type="text"
                placeholder={placeHolder && index === 0 ? i18n.t('nationalDataPoint.enterOrCopyPasteNationalClasses') : ''}
                value={className || ''}
@@ -275,7 +266,17 @@ const NationalClassRow = ({odp, index, saveDraft, countryIso, className, definit
                  allowGrow: true
                })}
         />
-      </div>
+        {
+          placeHolder
+          ? null //placeHolder-rows can't be removed
+          : <div
+            className="odp__national-class-remove"
+            onClick={(evt) => saveDraft(countryIso, originalDataPoint.removeNationalClass(odp, index))}>
+            <svg className="icon">
+              <use xlinkHref="img/icons.svg#remove"/>
+            </svg>
+          </div>
+        }
     </td>
     <td>
       <VerticallyGrowingTextField
@@ -299,10 +300,12 @@ const NationalClassRow = ({odp, index, saveDraft, countryIso, className, definit
     <td className="odp__col-review">
       {placeHolder || !odp.odpId
         ? null
-        : <ReviewIndicator section='NDP'
-                           name={i18n.t('nationalDataPoint.nationalDataPoint')}
-                           target={[odp.odpId, 'class', `${odp.nationalClasses[index].uuid}`, 'definition']}
-                           countryIso={countryIso}/>
+        : <div className="odp__review-indicator-row-anchor">
+            <ReviewIndicator section='NDP'
+                             name={i18n.t('nationalDataPoint.nationalDataPoint')}
+                             target={[odp.odpId, 'class', `${odp.nationalClasses[index].uuid}`, 'definition']}
+                             countryIso={countryIso}/>
+          </div>
       }
     </td>
   </tr>
@@ -348,9 +351,9 @@ const ExtentOfForestRow = ({
 
   return <tr
     className={isCommentsOpen([odp.odpId, 'class', `${odp.nationalClasses[index].uuid}`, 'value'], openThread) ? 'fra-row-comments__open' : ''}>
-    <td className="odp__eof-class-name"><span>{className}</span></td>
+    <td className="odp__input-table__class-name"><span>{className}</span></td>
     <td
-      className={`odp__eof-area-cell odp__eof-divide-after-cell ${validationStatus.validArea === false ? 'error' : ''}`}>
+      className={`odp__input-table__divde-after-cell ${validationStatus.validArea === false ? 'error' : ''}`}>
       <ThousandSeparatedIntegerInput integerValue={area}
                                      onChange={numberUpdated(countryIso, odp, index, 'area', area)}
                                      onPaste={updatePastedValues({
@@ -406,10 +409,12 @@ const ExtentOfForestRow = ({
     </td>
     <td className="odp__col-review">
       {odp.odpId
-        ? <ReviewIndicator section='NDP'
-                           name={i18n.t('nationalDataPoint.nationalDataPoint')}
-                           target={[odp.odpId, 'class', `${odp.nationalClasses[index].uuid}`, 'value']}
-                           countryIso={countryIso}/>
+        ? <div className="odp__review-indicator-row-anchor">
+            <ReviewIndicator section='NDP'
+                             name={i18n.t('nationalDataPoint.nationalDataPoint')}
+                             target={[odp.odpId, 'class', `${odp.nationalClasses[index].uuid}`, 'value']}
+                             countryIso={countryIso}/>
+          </div>
         : null}
     </td>
   </tr>
@@ -452,9 +457,9 @@ const ForestCharacteristicsRow =
     const focStatusPercentage = () => validationStatus.validFocPercentage === false ? 'error' : ''
     return <tr
       className={isCommentsOpen([odp.odpId, 'class', `${odp.nationalClasses[index].uuid}`, 'forest_charasteristics'], openThread) ? 'fra-row-comments__open' : ''}>
-      <td className="odp__eof-class-name"><span>{className}</span></td>
+      <td className="odp__input-table__class-name"><span>{className}</span></td>
       <td
-        className={`odp__eof-area-cell odp__eof-divide-after-cell odp__eof-disabled-cell`}>
+        className={`odp__input-table__disabled-cell odp__input-table__divde-after-cell`}>
         <ThousandSeparatedIntegerInput integerValue={area}
                                        disabled={true}
                                        onChange={numberUpdated(countryIso, odp, index, 'area', area)}
@@ -522,10 +527,12 @@ const ForestCharacteristicsRow =
       </td>
       <td className="odp__col-review">
         {odp.odpId
-          ? <ReviewIndicator section='NDP'
-                             name={i18n.t('nationalDataPoint.nationalDataPoint')}
-                             target={[odp.odpId, 'class', `${odp.nationalClasses[index].uuid}`, 'forest_charasteristics']}
-                             countryIso={countryIso}/>
+          ? <div className="odp__review-indicator-row-anchor">
+              <ReviewIndicator section='NDP'
+                               name={i18n.t('nationalDataPoint.nationalDataPoint')}
+                               target={[odp.odpId, 'class', `${odp.nationalClasses[index].uuid}`, 'forest_charasteristics']}
+                               countryIso={countryIso}/>
+            </div>
           : null}
       </td>
     </tr>
