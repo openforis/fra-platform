@@ -1,3 +1,13 @@
+body {
+    color: #333;
+    font-family: 'HelveticaNeue', 'Helvetica Neue', Helvetica, "Arial", sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 0;
+    text-rendering: optimizeLegibility;
+}
+
 .login__root {
     position: absolute;
     top: 0;
@@ -9,21 +19,14 @@
 
 .login__wrapper {
     margin: 0 auto;
-    max-width: 480px;
+    width: 480px;
     position: relative;
     top: 40%;
     transform: translateY(-40%);
-}
-
-.login__fao-logo {
-    display: block;
-    width: auto;
-    height: 60px;
-    margin: 0 auto;
+    text-align: center;
 }
 
 .login__legal {
-    text-align: center;
     color: #999;
     font-size: 13px;
 }
@@ -34,10 +37,6 @@
     top: 23px;
 }
 
-.login__fail {
-    margin-bottom: 16px;
-}
-
 .login__box {
     margin-top: 24px;
     padding: 64px 32px;
@@ -45,53 +44,42 @@
     background-color: white;
     box-shadow: 0 0 4px rgba(0, 0, 0, .2);
     border: 1px solid #d5d5d5;
-    text-align: center;
 }
 
 .login__header {
+    color: #111;
+    font-size: 20px;
+    line-height: 1.25;
+    margin-top: 0;
     margin-bottom: 24px;
 }
 
-.login__input-group {
-    margin-bottom: 16px;
-}
-
 .login__btn {
+    background-color: #0098a6;
     border-radius: 2px;
-    border: solid 1px transparent;
+    color: white;
     cursor: pointer;
+    display: inline-block;
     font-family: inherit;
-    font-size: 14px;
     font-weight: 700;
     line-height: 20px;
-    padding: 7px 15px;
+    margin-bottom: 16px;
+    outline: none;
+    padding: 8px 16px;
     text-align: center;
     text-decoration: none;
     transition: all .1s ease-out;
     vertical-align: middle;
     white-space: nowrap;
-    outline: none;
-    background-color: #0098a6;
-    color: white;
 }
 
 .login__btn:hover {
-   background-color: darken(#0098a6, 4%);
+   background-color: #008592;
    color: white;
 }
 
 .login__btn:active {
    box-shadow: inset 0 0 4px rgba(0, 0, 0, .2);
-}
-
-body {
-    color: #333333;
-    font-family: 'HelveticaNeue', 'Helvetica Neue', Helvetica, "Arial", sans-serif;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 1.5;
-    margin: 0;
-    text-rendering: optimizeLegibility;
 }
 
 .alert-container {
@@ -106,10 +94,8 @@ body {
     align-items: center;
     justify-content: center;
     color: white;
-    text-align: center;
     padding: 16px;
     line-height: 16px;
-
     background-color: #d0021b;
 }
 
