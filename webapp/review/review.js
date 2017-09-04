@@ -35,19 +35,19 @@ class AddComment extends React.Component {
 
   render () {
     const canAddComment = () => this.props.issueStatus !== 'resolved' || isReviewer(this.props.countryIso, this.props.userInfo)
-    return <div className="fra-review__add-comment">
-      <div className="fra-review__issue-comment-input-border">
+    return <div className="fra-review__footer">
+      <div className="fra-review__footer-input-wrapper">
         <VerticallyGrowingTextField
               disabled={!canAddComment()}
-              id={`fra-review__comment-input-${this.props.target}`}
+              id={`fra-review__footer-input-${this.props.target}`}
               onChange={(evt) => this.handleInputChange(evt)}
               onKeyDown={(evt) => this.handleKeyDown(evt)}
               value={this.state.message}
-              className="fra-review__issue-comment-input"
+              className="fra-review__footer-input"
               placeholder={`${canAddComment() ? this.props.i18n.t('review.writeComment') : this.props.i18n.t('review.commentingClosed')}`}/>
       </div>
-      <div className="fra-review__comment-buttons">
-        <button className="fra-review__comment-add-btn btn btn-primary btn-s"
+      <div className="fra-review__footer-buttons">
+        <button className="fra-review__footer-add-btn btn btn-primary btn-s"
                 disabled={!canAddComment()}
                 onClick={() => this.handleAddComment(this.props.issueId, this.props.countryIso, this.props.section, this.props.target, null, this.state.message)}>
           {this.props.i18n.t('review.add')}
@@ -115,57 +115,54 @@ class CommentThread extends React.Component {
       return i18n.t('review.commentTime.aMomentAgo')
     }
 
-    return <div className={`fra-review__comment-widget-visible`}>
-      <div ref="commentScroller" className={`fra-review__issue fra-review__issue-visible`}>
-        <div className='fra-review__comments'>
-          {
-            comments && R.not(R.isEmpty(comments))
-              ? mapIndexed((c, i) =>
-                <div key={i} className="fra-review__comment">
-                  <div className="fra-review__comment-header">
-                    <div>
-                      <img className="fra-review__avatar" src={`https://www.gravatar.com/avatar/${c.hash}?default=mm`}/>
-                    </div>
-                    <div className="fra-review__comment-author-section">
-                      <div
-                        className={`fra-review__comment-author ${ isCommentDeleted(c) ? 'fra-review__comment-deleted' : isThisMe(c) ? 'author-me' : ''}`}>
-                        <div>{c.username}</div>
-                        {isThisMe(c) && !isCommentDeleted(c) && !isCommentStatusResolved(c) && issueStatus !== 'resolved'
-                          ? <button className="btn fra-review__comment-delete-button"
-                                    onClick={() => {
-                                      if(window.confirm(i18n.t('review.confirmDelete'))) {
-                                        markCommentAsDeleted(countryIso, section, target, c.commentId)
-                                      }
-                                    } }>
-                            {i18n.t('review.delete')}
-                          </button>
-                          : null}
-                      </div>
-                      <div
-                        className={`fra-review__comment-time ${isCommentDeleted(c) ? 'fra-review__comment-deleted' : ''}`}>
-                        {getCommentTimestamp(c)}
-                      </div>
-                    </div>
+    return <div ref="commentScroller" className="fra-review__comment-thread">
+      {
+        comments && R.not(R.isEmpty(comments))
+          ? mapIndexed((c, i) =>
+            <div key={i} className={`fra-review__comment ${ isCommentDeleted(c) ? 'fra-review__comment-deleted' : ''}`}>
+              <div className="fra-review__comment-header">
+                <img className="fra-review__comment-avatar" src={`https://www.gravatar.com/avatar/${c.hash}?default=mm`}/>
+                <div className="fra-review__comment-author-section">
+                  <div className={`fra-review__comment-author ${isThisMe(c) ? 'author-me' : ''}`}>
+                    {c.username}
                   </div>
-                  <div
-                    className={`fra-review__comment-text ${isCommentDeleted(c) ? 'fra-review__comment-deleted-text' : ''}`}>
-                    {isCommentDeleted(c)
+                  {
+                    isThisMe(c) && !isCommentDeleted(c) && !isCommentStatusResolved(c) && issueStatus !== 'resolved'
+                    ? <button className="btn fra-review__comment-delete-button"
+                              onClick={() => {
+                                if(window.confirm(i18n.t('review.confirmDelete'))) {
+                                  markCommentAsDeleted(countryIso, section, target, c.commentId)
+                                }
+                              } }>
+                        {i18n.t('review.delete')}
+                      </button>
+                    : null
+                  }
+                  <div className="fra-review__comment-time">
+                    {
+                      isCommentDeleted(c)
                       ? i18n.t('review.commentDeleted')
-                      : isCommentStatusResolved(c)
-                        ? i18n.t('review.commentMarkedAsResolved')
-                        : c.message}
+                      : getCommentTimestamp(c)
+                    }
                   </div>
-                </div>,
-              comments)
-              : <div className='fra-review__comment-placeholder'>
-                <svg className="fra-review__comment-placeholder-icon icon-24">
-                  <use href="img/icons.svg#chat-46"/>
-                </svg>
-                <span className="fra-review__comment-placeholder-text">{i18n.t('review.noComments')}</span>
+                </div>
               </div>
-          }
-        </div>
-      </div>
+              <div className="fra-review__comment-text">
+                {
+                  isCommentStatusResolved(c)
+                  ? i18n.t('review.commentMarkedAsResolved')
+                  : c.message
+                }
+              </div>
+            </div>,
+          comments)
+          : <div className='fra-review__comment-placeholder'>
+            <svg className="fra-review__comment-placeholder-icon icon-24">
+              <use xlinkHref="img/icons.svg#chat-46"/>
+            </svg>
+            <span className="fra-review__comment-placeholder-text">{i18n.t('review.noComments')}</span>
+          </div>
+      }
     </div>
 
   }
@@ -176,7 +173,7 @@ const ReviewHeader = ({name, close, userInfo, countryIso, section, target, issue
     <h2 className="fra-review__header-title subhead">{i18n.t('review.comments')}</h2>
     <div className="fra-review__header-close-btn" onClick={e => close(e)}>
       <svg className="icon">
-        <use href="img/icons.svg#remove"/>
+        <use xlinkHref="img/icons.svg#remove"/>
       </svg>
     </div>
     {name ? <div className="fra-review__header-target">{name}</div> : null}
