@@ -109,6 +109,8 @@ export const translation = {
   },
 
   description: {
+    edit: 'Edit',
+    done: 'Done',
     emptyLabel: 'No content. Click to edit.',
     loading: 'Loading content.',
     description: 'Description',

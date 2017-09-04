@@ -23,15 +23,22 @@ class Description extends Component {
 
   render() {
     const content = this.props.content || this.props.i18n.t('description.emptyLabel')
+    const isActive = this.props.editing === this.props.name
     return <div>
-      <h3 className="subhead nde__description-header">{this.props.title}</h3>
-      <div ref="editorContent" onClick={e => {
-        this.props.openEditor(this.props.name)
-        e.stopPropagation()
-      }}>
+      <div className="commentable-description__header-row">
+        <h3 className="subhead commentable-description__header">{this.props.title}</h3>
+        <button className={`btn btn-s ${isActive ? 'btn-primary' : 'btn-secondary'}`} onClick={
+          e => {
+            isActive ? this.props.closeEditor() : this.props.openEditor(this.props.name)
+            e.stopPropagation()
+          }
+        }>{ isActive ? this.props.i18n.t('description.done') : this.props.i18n.t('description.edit')}
+        </button>
+      </div>
+      <div ref="editorContent">
       { R.isNil(this.props.content) ?
         <div className="commentable-description__loading">{this.props.i18n.t('description.loading')}</div> :
-        this.props.editing === this.props.name ?
+        isActive ?
         <DescriptionEditor {...this.props} /> : <div className="commentable-description__preview"
                                                      dangerouslySetInnerHTML={{__html: content}}/>
       }
@@ -41,22 +48,6 @@ class Description extends Component {
 }
 
 class DescriptionEditor extends Component {
-
-  constructor () {
-    super()
-    this.onClick = this.onClick.bind(this)
-    window.addEventListener('click', this.onClick)
-  }
-
-  onClick (evt) {
-    if (!R.startsWith('cke', evt.target.className) && !this.refs[this.props.name].contains(evt.target)) {
-      this.props.closeEditor(this.props.name)
-    }
-  }
-
-  componentWillUnmount () {
-    window.removeEventListener('click', this.onClick)
-  }
 
   initCkeditorChangeListener () {
     this.editor.on('change', (evt) =>
@@ -83,7 +74,6 @@ class DescriptionEditor extends Component {
   }
 
   componentWillUnmount () {
-    window.removeEventListener('click', this.onClick)
     this.editor.destroy(false)
     this.editor = null
   }
