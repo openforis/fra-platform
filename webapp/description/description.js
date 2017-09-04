@@ -29,11 +29,11 @@ class Description extends Component {
         this.props.openEditor(this.props.name)
         e.stopPropagation()
       }}>
-      { this.props.fetched ?
+      { R.isNil(this.props.content) ?
+        <div className="commentable-description__loading">{this.props.i18n.t('description.loading')}</div> :
         this.props.editing === this.props.name ?
         <DescriptionEditor {...this.props} /> : <div className="commentable-description__preview"
                                                      dangerouslySetInnerHTML={{__html: content}}/>
-        : null
       }
       </div>
     </div>

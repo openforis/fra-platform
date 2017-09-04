@@ -5,7 +5,7 @@ import { applyReducerFunction } from '../utils/reduxUtils'
 
 const actionHandlers = {
   [types.descriptionsFetched]: (state, action) => {
-    const data = {[action.name]: R.assoc('fetched', true)(action.data[action.name])}
+    const data = {[action.name]: action.data[action.name]}
     return R.merge(state, data)
   },
   [types.descriptionsChangeStart]: (state, action) => {
