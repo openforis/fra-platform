@@ -2,7 +2,6 @@ import * as R from 'ramda'
 import React from 'react'
 import Route from 'route-parser'
 import Router from './router/router'
-import LoginView from './user/login'
 import NationalDataEntryView from './nationalDataEntry/nationalDataEntryView'
 import OriginalDataPointView from './originalDataPoint/originalDataPointView'
 import SpecificForestCategoriesView from './specificForestCategories/specificForestCategoriesView'
@@ -13,7 +12,6 @@ import AreaAffecteByFireView from './areaAffectedByFire/areaAffectedByFireView'
 import ForestCharacteristicsView from './forestCharacteristics/forestCharacteristicsView'
 
 const routes = {
-  '/': LoginView,
   '/country/:countryIso/odps': OriginalDataListView,
   '/country/:countryIso': NationalDataEntryView,
   '/country/:countryIso/odp': OriginalDataPointView,
