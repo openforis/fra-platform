@@ -4,7 +4,7 @@
     "node": "6.10.2"
   },
   "scripts": {
-    "build": "webpack --config webpack.config.js",
+    "build": "webpack -p --config webpack.config.js",
     "build:watch": "webpack --config webpack.config.js --watch",
     "clean": "rm -rf dist/",
     "start": "node server/server.js",
@@ -53,7 +53,7 @@
     "i18n-iso-countries": "^1.11.0",
     "i18next": "^8.4.3",
     "mocha-webpack": "^0.7.0",
-    "partial.lenses": "^11.9.0",
+    "partial.lenses": "^9.8.0",
     "passport": "^0.3.2",
     "passport-google-oauth": "^1.0.0",
     "pg": "^6.1.5",
