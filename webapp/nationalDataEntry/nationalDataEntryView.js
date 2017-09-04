@@ -64,7 +64,7 @@ const NationalDataEntry = (props) => {
     </div>
     <DataTable section='eof' rows={rows} rowNames={rowNames} {...props} />
     <CommentableDescriptions
-      section='EOF'
+      section='eof'
       name="extentOfForest"
       countryIso={props.match.params.countryIso}
       i18n={i18n}
