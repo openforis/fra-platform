@@ -29,7 +29,12 @@ class Description extends Component {
         this.props.openEditor(this.props.name)
         e.stopPropagation()
       }}>
-      { this.props.editing === this.props.name ? <DescriptionEditor {...this.props} /> : <div className="commentable-description__preview" dangerouslySetInnerHTML={{__html: content}} />}
+      { this.props.fetched ?
+        this.props.editing === this.props.name ?
+        <DescriptionEditor {...this.props} /> : <div className="commentable-description__preview"
+                                                     dangerouslySetInnerHTML={{__html: content}}/>
+        : null
+      }
       </div>
     </div>
   }
@@ -66,11 +71,6 @@ class DescriptionEditor extends Component {
           this.initCkeditorChangeListener()
       }
     })
-  }
-
-  componentWillReceiveProps (nextProps) {
-    if (nextProps.fetched)// && R.not(R.equals(this.props.content, nextProps.content)))
-      this.setEditorContent(nextProps.content)
   }
 
   componentDidMount () {
