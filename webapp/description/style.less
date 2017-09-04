@@ -12,7 +12,8 @@
 }
 
 .commentable-description__review-indicator-wrapper {
-  padding-top: 30px;
+  align-self: center;
+  padding-top: 29px;
 }
 
 .commentable-description__header-row {
@@ -27,7 +28,7 @@
 }
 
 .commentable-description__preview {
-  min-height: 41px;
+  line-height: 20px;
 
   > *:first-child {
     margin-top: 0;
@@ -35,6 +36,33 @@
 
   > *:last-child {
     margin-bottom: 0;
+  }
+
+  ol, ul, dl {
+    padding: 0 24px;
+  }
+
+  hr {
+    border: 0px;
+    border-top: 1px solid #ccc;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  table {
+    border-collapse: collapse;
+    font-size: @font-s;
+  }
+
+  table, th, td {
+    border: 1px solid @text-disabled;
+  }
+
+  td, th {
+    padding: 6px;
   }
 }
 
