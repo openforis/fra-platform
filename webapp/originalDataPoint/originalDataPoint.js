@@ -6,6 +6,8 @@ import R from 'ramda'
 
 const uuidv4 = require('uuid/v4')
 
+const defaultTo0 = R.defaultTo(0)
+
 export const updateNationalClass = (odp, index, field, value) => {
   const nationalClassToUpdate = odp.nationalClasses[index]
   const wasPlaceHolder = nationalClassToUpdate.placeHolder
@@ -67,7 +69,11 @@ export const totalArea = odp =>
   R.reduce((total, nationalClass) => isNaN(nationalClass.area) ? 0 : total + Number(nationalClass.area), 0, odp.nationalClasses).toFixed(0)
 
 export const otherLandTotalArea = odp =>
-  R.reduce((total, nationalClass) => isNaN(nationalClass.area) ? 0 : total + Number(nationalClass.area * nationalClass.otherLandPercent / 100), 0, odp.nationalClasses).toFixed(0)
+  R.reduce((total, nationalClass) => total + defaultTo0(nationalClass.area) * defaultTo0(nationalClass.otherLandPercent) / 100, 0, odp.nationalClasses).toFixed(0)
+
+export const otherLandClassTotalArea = (odp, percentFieldName) =>
+  R.reduce((total, nationalClass) => total + defaultTo0(nationalClass.area) * defaultTo0(nationalClass.otherLandPercent) * defaultTo0(nationalClass[percentFieldName]) / 10000,
+    0, odp.nationalClasses).toFixed(0)
 
 export const copyNationalClassDefinitions = (odpTarget, odpSource) => ({
   ...odpTarget,

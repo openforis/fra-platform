@@ -156,10 +156,10 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
         <tr>
           <td className="odp__input-table__header-cell">{i18n.t('nationalDataPoint.total')}</td>
           <td className="odp__input-table__header-cell-align-right odp__input-table__divde-after-cell">{separateThousandsWithSpaces(Number(originalDataPoint.otherLandTotalArea(active)))}</td>
-          <td className="odp__input-table__class-total-cell">{separateThousandsWithSpaces(Number(originalDataPoint.totalForest(active, 'otherLandPalmsPercent')))}</td>
-          <td className="odp__input-table__class-total-cell">{separateThousandsWithSpaces(Number(originalDataPoint.totalForest(active, 'otherLandTreeOrchardsPercent')))}</td>
-          <td className="odp__input-table__class-total-cell">{separateThousandsWithSpaces(Number(originalDataPoint.totalForest(active, 'otherLandagroForestryPercent')))}</td>
-          <td className="odp__input-table__class-total-cell">{separateThousandsWithSpaces(Number(originalDataPoint.totalForest(active, 'otherLandTreesUrbanSettingsPercent')))}</td>
+          <td className="odp__input-table__class-total-cell">{separateThousandsWithSpaces(Number(originalDataPoint.otherLandClassTotalArea(active, 'otherLandPalmsPercent')))}</td>
+          <td className="odp__input-table__class-total-cell">{separateThousandsWithSpaces(Number(originalDataPoint.otherLandClassTotalArea(active, 'otherLandTreeOrchardsPercent')))}</td>
+          <td className="odp__input-table__class-total-cell">{separateThousandsWithSpaces(Number(originalDataPoint.otherLandClassTotalArea(active, 'otherLandAgroforestryPercent')))}</td>
+          <td className="odp__input-table__class-total-cell">{separateThousandsWithSpaces(Number(originalDataPoint.otherLandClassTotalArea(active, 'otherLandTreesUrbanSettingsPercent')))}</td>
         </tr>
         </tbody>
       </table>
