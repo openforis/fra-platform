@@ -1,3 +1,4 @@
+const R = require('ramda')
 const {mostPowerfulRole, isReviewer} = require('../../common/countryRole')
 
 function AccessControlException (key, values) {
@@ -34,7 +35,25 @@ const checkCountryAccessFromReqParams = (req) => {
   if (req.query.countryIso) checkCountryAccess(req.query.countryIso, req.user)
 }
 
+const checkParamAllowedValue = (req, paramName, values) => {
+  if(R.isNil(req.params[paramName]))
+    throw new AccessControlException('error.request.invalidValue', {params: req.params})
+  if(!R.contains(req.params[paramName], values))
+    throw new AccessControlException('error.request.invalidValue', {params: req.params})
+  return req.params[paramName]
+}
+
+const checkParamValue = (req, paramName, allowFn) => {
+  if(R.isNil(req.params[paramName]))
+    throw new AccessControlException('error.request.invalidValue', {params: req.params})
+  if(!allowFn(req.params[paramName]))
+    throw new AccessControlException('error.request.invalidValue', {params: req.params})
+  return req.params[paramName]
+}
+
 module.exports.checkCountryAccess = checkCountryAccess
 module.exports.checkReviewerCountryAccess = checkReviewerCountryAccess
 module.exports.checkCountryAccessFromReqParams = checkCountryAccessFromReqParams
 module.exports.AccessControlException = AccessControlException
+module.exports.checkParamHasAllowedValues = checkParamAllowedValue
+module.exports.checkParamValueIsAllowed = checkParamValue
