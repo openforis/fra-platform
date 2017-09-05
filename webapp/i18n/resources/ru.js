@@ -141,12 +141,12 @@ export const translation = {
   // annually reported assessment components
 
   extentOfForest: {
-    extentOfForest: 'Объем леса',
+    extentOfForest: 'Протяженность леса',
     generateFraValues: 'Сгенерировать значения FRA',
-    extentOfForestValues: 'Объем лесных значений',
+    extentOfForestValues: 'Протяженность лесных значений',
     forestArea: 'Покрытая лесом площадь',
     chart: {
-      placeholderLine1: 'Чтобы начать, добавьте национальные моменты сбора данных используйте',
+      placeholderLine1: 'Чтобы начать, добавьте национальные моменты сбора данных и используйте',
       placeholderLine2: 'их чтобы сгенерировать значения FRA автоматически'
     }
   },
@@ -175,7 +175,7 @@ export const translation = {
     forestExpansion: 'Распространение леса (a)',
     ofWhichAfforestation: '…в том числе лесоразведение',
     ofWhichNaturalExpansion: '…в том числе естесственное распространение',
-    deforestation: 'Вырубки (b)',
+    deforestation: 'Обезлесение (b)',
     forestAreaNetChange: 'Чистое изменение лесной площади'
   },
 
