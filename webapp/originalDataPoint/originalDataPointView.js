@@ -508,7 +508,7 @@ const OtherLandCharacteristicsRow =
       <td className="odp__input-table__class-name"><span>{className}</span></td>
       <td
         className={`odp__input-table__disabled-cell odp__input-table__divde-after-cell`}>
-        <ThousandSeparatedIntegerInput integerValue={area * nationalClass.otherLandPercent / 100}
+        <ThousandSeparatedIntegerInput integerValue={area ? area * nationalClass.otherLandPercent / 100 : null}
                                        disabled={true}
                                        onChange={numberUpdated(countryIso, odp, index, 'area', area)}
                                        onPaste={updatePastedValues({
