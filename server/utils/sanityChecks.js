@@ -1,27 +1,27 @@
 const R = require('ramda')
 
-function ParameterInvalidException (key, values) {
+function InvalidParameterException (key, values) {
   this.error = {key, values}
-  Error.captureStackTrace(this, ParameterInvalidException)
+  Error.captureStackTrace(this, InvalidParameterException)
 }
 
-ParameterInvalidException.prototype = Object.create(Error.prototype)
-ParameterInvalidException.prototype.name = 'ParameterInvalidException'
-ParameterInvalidException.prototype.constructor = ParameterInvalidException
+InvalidParameterException.prototype = Object.create(Error.prototype)
+InvalidParameterException.prototype.name = 'InvalidParameterException'
+InvalidParameterException.prototype.constructor = InvalidParameterException
 
 const checkParamAllowedValue = (req, paramName, values) => {
   if(R.isNil(req.params[paramName]))
-    throw new AccessControlException('error.request.invalidValue', {params: req.params})
+    throw new InvalidParameterException('error.request.invalidValue', {params: req.params})
   if(!R.contains(req.params[paramName], values))
-    throw new AccessControlException('error.request.invalidValue', {params: req.params})
+    throw new InvalidParameterException('error.request.invalidValue', {params: req.params})
   return req.params[paramName]
 }
 
 const checkParamValue = (req, paramName, allowFn) => {
   if(R.isNil(req.params[paramName]))
-    throw new AccessControlException('error.request.invalidValue', {params: req.params})
+    throw new InvalidParameterException('error.request.invalidValue', {params: req.params})
   if(!allowFn(req.params[paramName]))
-    throw new AccessControlException('error.request.invalidValue', {params: req.params})
+    throw new InvalidParameterException('error.request.invalidValue', {params: req.params})
   return req.params[paramName]
 }
 
