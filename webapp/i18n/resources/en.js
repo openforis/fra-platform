@@ -155,7 +155,7 @@ export const translation = {
     cancel: 'Cancel',
     saveData: 'Save data',
     enterOrCopyPasteNationalClasses: 'Enter or copy and paste national classes',
-    otherLandCharacteristics: 'Other land Characteristics'
+    otherLandCharacteristics: 'Other land characteristics'
   },
 
   // annually reported assessment components

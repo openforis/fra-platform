@@ -133,7 +133,7 @@ const addClassData = (client, odpVersionId, odp) => {
         nationalClass.otherPlantedPercent,
         nationalClass.otherLandPalmsPercent,
         nationalClass.otherLandTreeOrchardsPercent,
-        nationalClass.otherLandagroForestryPercent,
+        nationalClass.otherLandAgroforestryPercent,
         nationalClass.otherLandTreesUrbanSettingsPercent,
         nationalClass.uuid
       ]),
@@ -247,7 +247,7 @@ const getOdpNationalClasses = (queryProvider, odpVersionId) =>
       otherPlantedPercent: toNumberOrNull(row.other_planted_forest_percent),
       otherLandPalmsPercent: toNumberOrNull(row.other_land_palms_percent),
       otherLandTreeOrchardsPercent: toNumberOrNull(row.other_land_tree_orchards_percent),
-      otherLandagroForestryPercent: toNumberOrNull(row.other_land_agroforestry_percent),
+      otherLandAgroforestryPercent: toNumberOrNull(row.other_land_agroforestry_percent),
       otherLandTreesUrbanSettingsPercent: toNumberOrNull(row.other_land_trees_urban_settings_percent),
       uuid: row.uuid
     }), result.rows))
