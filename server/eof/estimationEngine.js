@@ -39,7 +39,6 @@ const extrapolate = (year, values, fieldsToExtrapolate) => {
 }
 
 const estimateFraValue = (year, values, fieldsToEstimate) => {
-  console.log('estimating for year', year, 'values', values)
   const odp = R.find(R.propEq('year', year))(values)
   if (odp) {
     return R.assoc('store', true, odp)
@@ -75,7 +74,6 @@ const estimateFraValues = (years, odpValues, fieldstoEstimate) => {
       years)
 
   const addEstimatedFlags = fieldsToFlag => x => {
-    console.log("flagging fields", x)
     R.forEach(fraField => x = R.assoc(`${fraField}Estimated`, true, x), fieldsToFlag)
     return x
   }
