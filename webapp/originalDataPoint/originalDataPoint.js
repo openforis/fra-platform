@@ -66,6 +66,9 @@ export const allowCopyingOfPreviousValues =
 export const totalArea = odp =>
   R.reduce((total, nationalClass) => isNaN(nationalClass.area) ? 0 : total + Number(nationalClass.area), 0, odp.nationalClasses).toFixed(0)
 
+export const otherLandTotalArea = odp =>
+  R.reduce((total, nationalClass) => isNaN(nationalClass.area) ? 0 : total + Number(nationalClass.area * nationalClass.otherLandPercent / 100), 0, odp.nationalClasses).toFixed(0)
+
 export const copyNationalClassDefinitions = (odpTarget, odpSource) => ({
   ...odpTarget,
   nationalClasses: [...odpSource.nationalClasses.map(c => R.merge(defaultNationalClass(c.className, c.definition), R.pick(['forestPercent',
