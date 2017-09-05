@@ -3,6 +3,7 @@ import i18next from 'i18next'
 import { translation as enTranslation } from './resources/en'
 import { translation as frTranslation } from './resources/fr'
 import { translation as esTranslation } from './resources/es'
+import { translation as ruTranslation } from './resources/ru'
 
 export const createI18nInstance = (lang, callback) =>
   i18next.createInstance({
@@ -24,6 +25,9 @@ export const createI18nInstance = (lang, callback) =>
         },
         es: {
           translation: esTranslation
+        },
+        ru: {
+          translation: ruTranslation
         }
       }
     },
