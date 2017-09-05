@@ -9,6 +9,7 @@ import { createStore, applyMiddleware } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import createDebounce from 'redux-debounced'
 import reducer from './rootReducer'
+import * as loginStatusChecker from './user/loginStatusChecker'
 
 const store = createStore(reducer, applyMiddleware(createDebounce(), thunkMiddleware))
 
@@ -23,3 +24,4 @@ function renderApp () {
 }
 
 renderApp()
+loginStatusChecker.startPeriodicCheck(60*1000)

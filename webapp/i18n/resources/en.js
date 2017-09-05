@@ -6,6 +6,9 @@ export const translation = {
     fr: 'Français',
     ru: 'Русский'
   },
+  definition: {
+    linkLabel: 'See definitions'
+  },
 
   user: {
     roles: {
@@ -14,6 +17,7 @@ export const translation = {
       national_correspondent: 'National Correspondent',
       reviewer_all: 'Reviewer',
       national_correspondent_all: 'National Correspondent',
+      collaborator: 'Collaborator',
       noRole: 'N/A'
     }
   },

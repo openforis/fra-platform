@@ -151,10 +151,22 @@ const PrimaryItem = ({label, countryIso, assessmentType, assessmentStatuses, cha
     <div className={`nav__primary-assessment-status status-${currentAssessmentStatus}`}>
       {i18n.t(`navigation.assessmentStatus.${currentAssessmentStatus}.label`)}
     </div>
-    <div className="nav__primary-assessment-actions">
-      { previousAssessmentStatus ? changeStateLink(countryIso, assessmentType, currentAssessmentStatus, previousAssessmentStatus, changeAssessmentStatus, 'previous', i18n) : null }
-      { nextAssessmentStatus ? changeStateLink(countryIso, assessmentType, currentAssessmentStatus, nextAssessmentStatus, changeAssessmentStatus, 'next', i18n) : null }
-    </div>
+    {
+      previousAssessmentStatus || nextAssessmentStatus
+      ? <div className="nav__primary-assessment-actions">
+        {
+          previousAssessmentStatus
+          ? changeStateLink(countryIso, assessmentType, currentAssessmentStatus, previousAssessmentStatus, changeAssessmentStatus, 'previous', i18n)
+          : null
+        }
+        {
+          nextAssessmentStatus
+          ? changeStateLink(countryIso, assessmentType, currentAssessmentStatus, nextAssessmentStatus, changeAssessmentStatus, 'next', i18n)
+          : null
+        }
+      </div>
+      : null
+    }
   </div>
 }
 
@@ -164,11 +176,12 @@ const ReviewStatus = ({status, userInfo}) =>
       className={`nav__has-open-issue ${R.propOr(null, 'id', userInfo) !== status.lastCommentUserId ? 'issue-last-comment-other-user' : ''}`}/>
     : null
 
-const NationalDataItem = ({path, countryIso, pathTemplate = '/tbd', status = {count: 0}, label, userInfo}) => {
+const NationalDataItem = ({path, countryIso, pathTemplate, secondaryPathTemplate, status, label, userInfo}) => {
   const route = new Route(pathTemplate)
   const linkTo = route.reverse({countryIso})
+  const secondaryLinkTo = new Route(secondaryPathTemplate).reverse({countryIso})
 
-  return <Link className={`nav__link-item ${R.equals(path, linkTo) ? 'selected' : ''}`}
+  return <Link className={`nav__link-item ${R.any(linkTo => R.startsWith(linkTo, path), [linkTo, secondaryLinkTo]) ? 'selected' : ''}`}
                to={linkTo}>
     <span className="nav__link-label">{label}</span>
     <span className="nav__link-item-count">{status.count}</span>
@@ -243,6 +256,7 @@ class Nav extends React.Component {
                               status={R.merge(getReviewStatus('NDP'), status.odpStatus)}
                               path={this.props.path}
                               pathTemplate="/country/:countryIso/odps"
+                              secondaryPathTemplate="/country/:countryIso/odp"
                               userInfo={this.props.userInfo}/>
             <PrimaryItem label={this.props.i18n.t('navigation.annuallyReported')}
                          countryIso={this.props.country}

@@ -34,6 +34,7 @@ const checkCountryAccessFromReqParams = (req) => {
   if (req.query.countryIso) checkCountryAccess(req.query.countryIso, req.user)
 }
 
+
 module.exports.checkCountryAccess = checkCountryAccess
 module.exports.checkReviewerCountryAccess = checkReviewerCountryAccess
 module.exports.checkCountryAccessFromReqParams = checkCountryAccessFromReqParams

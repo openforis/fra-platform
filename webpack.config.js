@@ -30,6 +30,11 @@ const webPackConfig = {
     module: {
         rules: [
             {
+              test: /partial\.lenses\.es\.js$/,
+              loader: 'babel-loader',
+              query: {plugins: ["transform-es2015-modules-commonjs"]}
+            },
+            {
                 test: /\.(js|jsx)$/,
                 exclude: /(node_modules|bower_components)/,
                 use: {

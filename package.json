@@ -4,7 +4,7 @@
     "node": "6.10.2"
   },
   "scripts": {
-    "build": "webpack --config webpack.config.js",
+    "build": "webpack -p --config webpack.config.js",
     "build:watch": "webpack --config webpack.config.js --watch",
     "clean": "rm -rf dist/",
     "start": "node server/server.js",
@@ -37,6 +37,7 @@
   "dependencies": {
     "assert": "^1.4.1",
     "axios": "^0.16.1",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
     "bluebird": "^3.5.0",
     "body-parser": "^1.17.2",
     "camelize": "^1.0.0",
@@ -52,7 +53,7 @@
     "express-session": "^1.15.3",
     "i18n-iso-countries": "^1.11.0",
     "i18next": "^8.4.3",
-    "js-cookie": "^2.1.4",
+    "marked": "^0.3.6",
     "mocha-webpack": "^0.7.0",
     "partial.lenses": "^11.9.0",
     "passport": "^0.3.2",

@@ -51,7 +51,7 @@ const getAllCountries = role =>
             ORDER BY name ASC`)
     .then(handleCountryResult(() => role))
 
-module.exports.getAllowedCountries = (roles) => {
+const getAllowedCountries = roles => {
   const hasRole = (role) => R.find(R.propEq('role', role), roles)
   if (hasRole('REVIEWER_ALL')) {
     return getAllCountries('REVIEWER_ALL')
@@ -70,3 +70,8 @@ module.exports.getAllowedCountries = (roles) => {
       .then(handleCountryResult(determineRole(roles)))
   }
 }
+
+module.exports.getAllowedCountries = getAllowedCountries
+
+module.exports.getFirstAllowedCountry = roles =>
+  getAllowedCountries(roles).then(result => R.pipe(R.values, R.head, R.head)(result))

@@ -2,7 +2,6 @@ const R = require('ramda')
 const passport = require('passport')
 const userRepository = require('../user/userRepository')
 const authConfig = require('./authConfig')
-const { setLoggedInCookie } = require('./loggedInCookie')
 const {sendErr} = require('../utils/requestUtils')
 const countryRepository = require('../country/countryRepository')
 
@@ -13,8 +12,7 @@ const verifyCallback = (accessToken, refreshToken, profile, done) =>
 
 const authenticationFailed = (req, res) => {
   req.logout()
-  setLoggedInCookie(res, false)
-  res.redirect('/?u=1')
+  res.redirect('/login?loginFailed=true')
 }
 
 const authenticationSuccessful = (req, user, next, res) => {
@@ -22,10 +20,14 @@ const authenticationSuccessful = (req, user, next, res) => {
     if (err) {
       next(err)
     } else {
-      countryRepository.getAllowedCountries(user.roles).then(result => {
-        const defaultCountry = R.pipe(R.values, R.head, R.head)(result)
-        setLoggedInCookie(res, true)
-        res.redirect(`/#/country/${defaultCountry.countryIso}`)
+      countryRepository.getFirstAllowedCountry(user.roles).then(defaultCountry => {
+        // We have to explicitly save session and wait for saving to complete
+        // because of the way chrome handles redirects (it doesn't read the whole response)
+        // More here:
+        // https://github.com/voxpelli/node-connect-pg-simple/issues/31#issuecomment-230596077
+        req.session.save(() => {
+          res.redirect(`/#/country/${defaultCountry.countryIso}`)
+        })
       }).catch(err => sendErr(res, err))
     }
   })
@@ -52,7 +54,6 @@ module.exports.init = app => {
 
   app.post('/auth/logout', (req, res) => {
     req.logout()
-    setLoggedInCookie(res, false)
     res.json({})
   })
 }
