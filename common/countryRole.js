@@ -10,6 +10,7 @@ const R = require('ramda')
 
 const reviewer = {role: 'REVIEWER', labelKey: 'user.roles.reviewer'}
 const nationalCorrespondent = {role: 'NATIONAL_CORRESPONDENT', labelKey: 'user.roles.nationalCorrespondent'}
+const collaborator = {role: 'COLLABORATOR', labelKey: 'user.roles.collaborator'}
 const noRole = {role: 'NONE', labelKey: 'user.roles.noRole'}
 
 const mostPowerfulRole = (countryIso, userInfo) => {
@@ -21,6 +22,7 @@ const mostPowerfulRole = (countryIso, userInfo) => {
   if (hasRole('REVIEWER', rolesForCountry)) return reviewer
   if (hasRole('NATIONAL_CORRESPONDENT_ALL', userInfo.roles)) return nationalCorrespondent
   if (hasRole('NATIONAL_CORRESPONDENT', rolesForCountry)) return nationalCorrespondent
+  if (hasRole('COLLABORATOR', rolesForCountry)) return collaborator
   return noRole //Return null-object for undefined/null-safe access. Shouldn't happen in practice
 }
 

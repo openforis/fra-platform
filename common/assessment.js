@@ -1,5 +1,9 @@
+const R = require('ramda')
+
+const assessmentStatusChangerRoles = ['REVIEWER', 'NATIONAL_CORRESPONDENT']
+
 module.exports.getAllowedStatusTransitions = (mostPowerfulRole, currentState) => {
-  if (!mostPowerfulRole) return {}
+  if (!mostPowerfulRole || !R.contains(mostPowerfulRole.role, assessmentStatusChangerRoles)) return {}
   const isReviewer = mostPowerfulRole.role === 'REVIEWER'
   switch (currentState) {
     case 'editing':
