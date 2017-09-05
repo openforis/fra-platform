@@ -500,14 +500,15 @@ const OtherLandCharacteristicsRow =
     const numberUpdated = numberUpdateCreator(saveDraft)
     const validationStatus = getValidationStatusRow(odp, index)
     const otherLandStatusPercentage = () => validationStatus.validOtherLandPercentage === false ? 'error' : ''
-    return odp.nationalClasses[index].otherLandPercent <= 0
+    const nationalClass = odp.nationalClasses[index]
+    return nationalClass.otherLandPercent <= 0
       ? null
       : <tr
       className={isCommentsOpen([odp.odpId, 'class', `${odp.nationalClasses[index].uuid}`, 'other_land_charasteristics'], openThread) ? 'fra-row-comments__open' : ''}>
       <td className="odp__input-table__class-name"><span>{className}</span></td>
       <td
         className={`odp__input-table__disabled-cell odp__input-table__divde-after-cell`}>
-        <ThousandSeparatedIntegerInput integerValue={area}
+        <ThousandSeparatedIntegerInput integerValue={area * nationalClass.otherLandPercent / 100}
                                        disabled={true}
                                        onChange={numberUpdated(countryIso, odp, index, 'area', area)}
                                        onPaste={updatePastedValues({
