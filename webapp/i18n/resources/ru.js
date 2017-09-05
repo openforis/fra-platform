@@ -174,7 +174,7 @@ export const translation = {
     forestAreaLossGainChange: 'Прирост, убыль и чистое изменение лесных площадей',
     forestExpansion: 'Распространение леса (a)',
     ofWhichAfforestation: '…в том числе лесоразведение',
-    ofWhichNaturalExpansion: '…в том числе естесственное распространение',
+    ofWhichNaturalExpansion: '…в том числе естественное распространение',
     deforestation: 'Обезлесение (b)',
     forestAreaNetChange: 'Чистое изменение лесной площади'
   },
@@ -182,7 +182,7 @@ export const translation = {
   forestCharacteristics: {
     forestCharacteristics: 'Характеристики леса',
     forestCharacteristicsValues: 'Значения характеристик леса',
-    naturalForestArea: 'Естесственно возобновленный лес',
+    naturalForestArea: 'Естественно возобновленный лес',
     naturalForestPrimaryArea: '…в том числе коренной',
     plantationForestArea: 'Лесные культуры',
     plantationForestIntroducedArea: '…в том числе интродуцированные породы',
