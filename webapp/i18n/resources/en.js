@@ -6,6 +6,9 @@ export const translation = {
     fr: 'Français',
     ru: 'Русский'
   },
+  definition: {
+    linkLabel: 'See definitions'
+  },
 
   user: {
     roles: {

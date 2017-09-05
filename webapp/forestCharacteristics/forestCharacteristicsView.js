@@ -61,10 +61,10 @@ const ForestCharacteristics = props => {
     <ChartWrapper stateName="forestCharacteristics" trends={['naturalForestArea']} />
     <div className="nde__data-table-header">
       <h3 className="subhead">{props.i18n.t('forestCharacteristics.forestCharacteristicsValues')}</h3>
-    <button disabled={disableGenerateFRAValues()} className="btn btn-primary"
-            onClick={() => props.generateFraValues('foc', props.countryIso)}>
-      {props.i18n.t('extentOfForest.generateFraValues')}
-    </button>
+      <button disabled={disableGenerateFRAValues()} className="btn btn-primary"
+              onClick={() => props.generateFraValues('foc', props.countryIso)}>
+        {props.i18n.t('extentOfForest.generateFraValues')}
+      </button>
     </div>
     <DataTable section='foc' rows={rows} rowNames={rowNames} {...props} />
     <CommentableDescriptions
