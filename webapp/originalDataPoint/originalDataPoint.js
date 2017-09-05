@@ -84,7 +84,11 @@ export const copyNationalClassDefinitions = (odpTarget, odpSource) => ({
     'naturalForestPrimaryPercent',
     'plantationPercent',
     'plantationIntroducedPercent',
-    'otherPlantedPercent'
+    'otherPlantedPercent',
+    'otherLandPalmsPercent',
+    'otherLandTreeOrchardsPercent',
+    'otherLandAgroforestryPercent',
+    'otherLandTreesUrbanSettingsPercent'
   ], c))), nationalClassPlaceHolder()]
 })
 
