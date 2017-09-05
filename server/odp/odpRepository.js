@@ -216,6 +216,10 @@ const getOdpNationalClasses = (queryProvider, odpVersionId) =>
       forest_plantation_percent,
       forest_plantation_introduced_percent,
       other_planted_forest_percent,
+      other_land_palms_percent,
+      other_land_tree_orchards_percent,
+      other_land_agroforestry_percent,
+      other_land_trees_urban_settings_percent,
       uuid
      FROM odp_class
      WHERE odp_version_id = $1`
@@ -233,6 +237,10 @@ const getOdpNationalClasses = (queryProvider, odpVersionId) =>
       plantationPercent: toNumberOrNull(row.forest_plantation_percent),
       plantationIntroducedPercent: toNumberOrNull(row.forest_plantation_introduced_percent),
       otherPlantedPercent: toNumberOrNull(row.other_planted_forest_percent),
+      otherLandPalmsPercent: toNumberOrNull(row.other_land_palms_percent),
+      otherLandTreeOrchardsPercent: toNumberOrNull(row.other_land_tree_orchards_percent),
+      otherLandagroForestryPercent: toNumberOrNull(row.other_land_agroforestry_percent),
+      otherLandTreesUrbanSettingsPercent: toNumberOrNull(row.other_land_trees_urban_settings_percent),
       uuid: row.uuid
     }), result.rows))
 
