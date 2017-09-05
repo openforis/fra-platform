@@ -499,7 +499,7 @@ const OtherLandCharacteristicsRow =
    }) => {
     const numberUpdated = numberUpdateCreator(saveDraft)
     const validationStatus = getValidationStatusRow(odp, index)
-    const focStatusPercentage = () => validationStatus.validFocPercentage === false ? 'error' : ''
+    const otherLandStatusPercentage = () => validationStatus.validOtherLandPercentage === false ? 'error' : ''
     return odp.nationalClasses[index].otherLandPercent <= 0
       ? null
       : <tr
@@ -520,7 +520,7 @@ const OtherLandCharacteristicsRow =
                                        })}
         />
       </td>
-      <td className={`${focStatusPercentage()}`}>
+      <td className={`${otherLandStatusPercentage()}`}>
         <PercentInput
           value={otherLandPalmsPercent || ''}
           onChange={numberUpdated(countryIso, odp, index, 'otherLandPalmsPercent', otherLandPalmsPercent)}
@@ -534,7 +534,7 @@ const OtherLandCharacteristicsRow =
           })}
         />
       </td>
-      <td className={`${focStatusPercentage()}`}>
+      <td className={`${otherLandStatusPercentage()}`}>
         <PercentInput
           value={otherLandTreeOrchardsPercent || ''}
           onChange={numberUpdated(countryIso, odp, index, 'otherLandTreeOrchardsPercent', otherLandTreeOrchardsPercent)}
@@ -548,7 +548,7 @@ const OtherLandCharacteristicsRow =
           })}
         />
       </td>
-      <td className={`${focStatusPercentage()}`}>
+      <td className={`${otherLandStatusPercentage()}`}>
         <PercentInput
           value={otherLandAgroforestryPercent || ''}
           onChange={numberUpdated(countryIso, odp, index, 'otherLandAgroforestryPercent', otherLandAgroforestryPercent)}
@@ -562,7 +562,7 @@ const OtherLandCharacteristicsRow =
           })}
         />
       </td>
-      <td className={`${focStatusPercentage()}`}>
+      <td className={`${otherLandStatusPercentage()}`}>
         <PercentInput
           value={otherLandTreesUrbanSettingsPercent || ''}
           onChange={numberUpdated(countryIso, odp, index, 'otherLandTreesUrbanSettingsPercent', otherLandTreesUrbanSettingsPercent)}
