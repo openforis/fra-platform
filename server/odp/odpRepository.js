@@ -111,9 +111,13 @@ const addClassData = (client, odpVersionId, odp) => {
         forest_plantation_percent,
         forest_plantation_introduced_percent,
         other_planted_forest_percent,
+        other_land_palms_percent,
+        other_land_tree_orchards_percent,
+        other_land_agroforestry_percent,
+        other_land_trees_urban_settings_percent,
         uuid)
         VALUES
-        ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13);`,
+        ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17);`,
       [
         odpVersionId,
         nationalClass.className,
@@ -127,6 +131,10 @@ const addClassData = (client, odpVersionId, odp) => {
         nationalClass.plantationPercent,
         nationalClass.plantationIntroducedPercent,
         nationalClass.otherPlantedPercent,
+        nationalClass.otherLandPalmsPercent,
+        nationalClass.otherLandTreeOrchardsPercent,
+        nationalClass.otherLandagroForestryPercent,
+        nationalClass.otherLandTreesUrbanSettingsPercent,
         nationalClass.uuid
       ]),
     odp.nationalClasses)
