@@ -3,13 +3,51 @@ import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
 import R from 'ramda'
 import ckEditorConfig from '../ckEditor/ckEditorConfig'
-import { saveDescriptions, fetchDescriptions } from './actions'
+import { saveDescriptions, fetchDescriptions, openEditor, closeEditor } from './actions'
 
 class Description extends Component {
 
   fetchData (countryIso) {
     this.props.fetchDescriptions(countryIso, this.props.name)
   }
+
+  componentDidMount () {
+    if (!this.props.content)
+      this.fetchData(this.props.countryIso)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (!R.equals(this.props.countryIso, nextProps.countryIso))
+      this.fetchData(nextProps.countryIso)
+  }
+
+  render() {
+    const content = this.props.content || this.props.i18n.t('description.emptyLabel')
+    const isActive = this.props.editing === this.props.name
+    return <div>
+      <div className="commentable-description__header-row">
+        <h3 className="subhead commentable-description__header">{this.props.title}</h3>
+        <button className={`btn btn-s ${isActive ? 'btn-primary' : 'btn-secondary'}`} onClick={
+          e => {
+            isActive ? this.props.closeEditor() : this.props.openEditor(this.props.name)
+            e.stopPropagation()
+          }
+        }>{ isActive ? this.props.i18n.t('description.done') : this.props.i18n.t('description.edit')}
+        </button>
+      </div>
+      <div ref="editorContent">
+      { R.isNil(this.props.content) ?
+        <div className="commentable-description__loading">{this.props.i18n.t('description.loading')}</div> :
+        isActive ?
+        <DescriptionEditor {...this.props} /> : <div className="commentable-description__preview"
+                                                     dangerouslySetInnerHTML={{__html: content}}/>
+      }
+      </div>
+    </div>
+  }
+}
+
+class DescriptionEditor extends Component {
 
   initCkeditorChangeListener () {
     this.editor.on('change', (evt) =>
@@ -26,22 +64,12 @@ class Description extends Component {
     })
   }
 
-  componentWillReceiveProps (nextProps) {
-    if (!R.equals(this.props.countryIso, nextProps.countryIso))
-      this.fetchData(nextProps.countryIso)
-    else if (nextProps.fetched)// && R.not(R.equals(this.props.content, nextProps.content)))
-      this.setEditorContent(nextProps.content)
-  }
-
   componentDidMount () {
     const domNode = ReactDOM.findDOMNode(this.refs[this.props.name])
     this.editor = CKEDITOR.replace(domNode, ckEditorConfig)
     // Data fetching is necessary when CKEDITOR instances are ready
     this.editor.on('instanceReady', () => {
-      if (this.props.content)
         this.setEditorContent(this.props.content)
-      else
-        this.fetchData(this.props.countryIso)
     })
   }
 
@@ -52,7 +80,6 @@ class Description extends Component {
 
   render () {
     return <div className={this.props.classes || ''}>
-      <h3 className="subhead nde__description-header">{this.props.title}</h3>
       <div className="cke_wrapper">
         <textarea id={this.props.name} ref={this.props.name}/>
       </div>
@@ -61,7 +88,7 @@ class Description extends Component {
 }
 
 const mapStateToProps = (state, props) => {
-  return R.defaultTo({}, state.descriptions[props.name])
+  return R.pipe(R.defaultTo({}), R.merge({editing: state.descriptions.editing}), R.merge(state.user))(state.descriptions[props.name])
 }
 
-export default connect(mapStateToProps, {fetchDescriptions, saveDescriptions})(Description)
+export default connect(mapStateToProps, {fetchDescriptions, saveDescriptions, openEditor, closeEditor})(Description)

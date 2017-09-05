@@ -61,12 +61,14 @@ class CommentableReviewDescriptions extends React.Component {
         descriptionTitle={sourcesTitle}
         {...this.props}
       />
+      <hr/>
       <CommentableReviewDescription
         descriptionName={`${this.props.name}_originaldata`}
         commentTarget={['originalData']}
         descriptionTitle={originalDatatitle}
         {...this.props}
       />
+      <hr/>
       <CommentableReviewDescription
         descriptionName={`${this.props.name}_nationalClassification`}
         commentTarget={['nationalClassification']}
