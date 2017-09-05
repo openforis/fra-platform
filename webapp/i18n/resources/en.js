@@ -27,11 +27,22 @@ export const translation = {
     otherWoodedLand: 'Other wooded land',
     otherLand: 'Other land'
   },
+
   fraForestCharacteristicsClass: {
     naturallyGenerated: 'Naturally regenerated',
     plantationForest: 'Plantation forest',
     otherPlantedForest: 'Other planted forest',
     introduced: '...of which introduces species'
+  },
+
+  fraOtherLandClass: {
+    palms: 'Palms',
+    palmsClasses: 'Oil, coconut, dates, etc.',
+    treeOrchards: 'Tree orchards',
+    treeOrchardsClasses: 'Fruit, nuts, olive, etc.',
+    agroforestry: 'Agroforestry',
+    treesUrbanSettings: 'Tree in urban settings'
+
   },
 
   // error messages
@@ -143,7 +154,8 @@ export const translation = {
     confirmDelete: 'Are you sure you want to delete this data point? This cannot be undone.',
     cancel: 'Cancel',
     saveData: 'Save data',
-    enterOrCopyPasteNationalClasses: 'Enter or copy and paste national classes'
+    enterOrCopyPasteNationalClasses: 'Enter or copy and paste national classes',
+    otherLandCharacteristics: 'Other land Characteristics'
   },
 
   // annually reported assessment components
@@ -158,7 +170,6 @@ export const translation = {
       placeholderLine2: 'them to generate FRA values automatically.'
     }
   },
-
 
   growingStock: {
     growingStock: 'Growing stock'

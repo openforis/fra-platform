@@ -121,6 +121,51 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
       </table>
     </div>
 
+
+    <div className="odp__section">
+      <div className="odp__section-header">
+        <h3 className="subhead">{i18n.t('nationalDataPoint.otherLandCharacteristics')}</h3>
+      </div>
+      <table className="odp__input-table odp__foc-table">
+        <thead>
+        <tr>
+          <th className="odp__input-table__header-cell odp__input-table__divde-after-cell"
+              colSpan="2">{i18n.t('nationalDataPoint.nationalClasses')}</th>
+          <th className="odp__input-table__header-cell"
+              colSpan="4">{i18n.t('nationalDataPoint.fraClasses')}</th>
+        </tr>
+        <tr>
+          <th className="odp__input-table__header-cell">{i18n.t('nationalDataPoint.class')}</th>
+          <th className="odp__input-table__header-cell-align-right odp__input-table__divde-after-cell">{i18n.t('nationalDataPoint.area')}</th>
+          <th className="odp__input-table__header-cell-align-right">
+            <div>{i18n.t('fraOtherLandClass.palms')}</div>
+            <div className="odp__input-table__sub-header">{i18n.t('fraOtherLandClass.palmsClasses')}</div>
+          </th>
+          <th className="odp__input-table__header-cell-align-right">
+            <div>{i18n.t('fraOtherLandClass.treeOrchards')}</div>
+            <div className="odp__input-table__sub-header">{i18n.t('fraOtherLandClass.treeOrchardsClasses')}</div>
+          </th>
+          <th className="odp__input-table__header-cell-align-right">{i18n.t('fraOtherLandClass.agroforestry')}</th>
+          <th className="odp__input-table__header-cell-align-right">{i18n.t('fraOtherLandClass.treesUrbanSettings')}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {
+          // foresCharaceristicsRows(countryIso, active, saveDraft, openThread, i18n)
+        }
+        <tr>
+          <td className="odp__input-table__header-cell">{i18n.t('nationalDataPoint.total')}</td>
+          <td className="odp__input-table__header-cell-align-right odp__input-table__divde-after-cell">{separateThousandsWithSpaces(Number(originalDataPoint.totalArea(active)))}</td>
+          <td className="odp__input-table__class-total-cell">{separateThousandsWithSpaces(Number(originalDataPoint.totalForest(active, 'otherLandPalmsPercent')))}</td>
+          <td className="odp__input-table__class-total-cell">{separateThousandsWithSpaces(Number(originalDataPoint.totalForest(active, 'otherLandTreeOrchardsPercent')))}</td>
+          <td className="odp__input-table__class-total-cell">{separateThousandsWithSpaces(Number(originalDataPoint.totalForest(active, 'otherLandagroForestryPercent')))}</td>
+          <td className="odp__input-table__class-total-cell">{separateThousandsWithSpaces(Number(originalDataPoint.totalForest(active, 'otherLandTreesUrbanSettingsPercent')))}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+
     <div className="odp__section">
       <div className="odp__section-header">
         <h3 className="subhead">{i18n.t('forestCharacteristics.forestCharacteristics')}</h3>
