@@ -2,6 +2,7 @@ const R = require('ramda')
 const db = require('../db/db')
 const odpRepository = require('./odpRepository')
 const reviewRepository = require('../review/reviewRepository')
+const auditRepository = require('../audit/auditRepository')
 const {sendErr} = require('../utils/requestUtils')
 const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
 
@@ -51,15 +52,20 @@ module.exports.init = app => {
   )
 
   app.delete('/odp', (req, res) => {
+    db.transaction(odpRepository.getAndCheckOdpCountryId, [req.query.odpId, req.user]).then(countryIso => {
+      db.transaction(auditRepository.insertAudit,
+        [req.user.id, 'deleteOdp', countryIso, 'odp', {odpId: req.query.odpId}])
       db.transaction(odpRepository.deleteOdp, [req.query.odpId, req.user])
         .then(() => res.json({}))
         .catch(err => sendErr(res, err))
-    }
-  )
+    })
+  })
 
   app.post('/odp/draft', (req, res) => {
     checkCountryAccessFromReqParams(req)
     const countryIso = req.query.countryIso
+    db.transaction(auditRepository.insertAudit,
+      [req.user.id, 'safeDraft', countryIso, 'odp', {odpId: req.body.odpId}])
     return db.transaction(odpRepository.saveDraft, [countryIso, req.body])
       .then(result => res.json(result))
       .catch(err => sendErr(res, err))
@@ -89,10 +95,14 @@ module.exports.init = app => {
       .catch(err => sendErr(res, err))
   })
 
-  app.post('/odp/markAsActual', (req, res) =>
-    db.transaction(odpRepository.markAsActual, [req.query.odpId, req.user])
-      .then(() => res.json({})
-      ).catch(err => sendErr(res, err))
-  )
+  app.post('/odp/markAsActual', (req, res) => {
+    db.transaction(odpRepository.getAndCheckOdpCountryId, [req.query.odpId, req.user]).then(countryIso => {
+      db.transaction(auditRepository.insertAudit,
+        [req.user.id, 'markAsActual', countryIso, 'odp', {odpId: req.query.odpId}])
+      db.transaction(odpRepository.markAsActual, [req.query.odpId, req.user])
+        .then(() => res.json({})
+        ).catch(err => sendErr(res, err))
+    })
+  })
 
 }

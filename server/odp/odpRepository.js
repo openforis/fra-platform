@@ -161,6 +161,7 @@ const getAndCheckOdpCountryId = (client, odpId, user) =>
       checkCountryAccess(countryIso, user)
       return countryIso
     })
+module.exports.getAndCheckOdpCountryId = getAndCheckOdpCountryId
 
 const deleteOdp = (client, odpId, user) => {
 
@@ -186,6 +187,7 @@ const deleteOdp = (client, odpId, user) => {
       ])
     })
 }
+
 module.exports.deleteOdp = deleteOdp
 
 const getOdpVersionId = (queryProvider, odpId) =>
