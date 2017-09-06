@@ -33,6 +33,22 @@ const getIssueComments = (countryIso, section) =>
 
 module.exports.getIssueComments = getIssueComments
 
+const getIssueCountryAndSection = (client, issueId) => {
+  return client.query(`
+    SELECT i.country_iso, i.section FROM issue i 
+    WHERE i.id = $1
+  `, [issueId]).then(res => camelize(res.rows[0]))
+}
+module.exports.getIssueCountryAndSection = getIssueCountryAndSection
+
+const getCommentCountryAndSection = (client, commentId) => {
+  return client.query(`
+    SELECT i.country_iso, i.section FROM fra_comment c JOIN issue i ON (c.issue_id = i.id)
+    WHERE c.id = $1
+  `, [commentId]).then(res => camelize(res.rows[0]))
+}
+module.exports.getCommentCountryAndSection = getCommentCountryAndSection
+
 const getIssuesSummary = issueComments => R.pipe(
   R.last,
   R.defaultTo({}),
