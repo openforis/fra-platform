@@ -27,11 +27,11 @@ export default i18n => ({
       ...integerInputColumns
     ],
     [
-      {type: 'readOnly', jsx: <td key="" className="fra-table__text-readonly-cell">{i18n.t('forestAreaChange.ofWhichAfforestation')}</td>},
+      {type: 'readOnly', jsx: <td key="" className="fra-table__header-cell-sub">{i18n.t('forestAreaChange.ofWhichAfforestation')}</td>},
       ...integerInputColumns
     ],
     [
-      {type: 'readOnly', jsx: <td key="" className="fra-table__text-readonly-cell">{i18n.t('forestAreaChange.ofWhichNaturalExpansion')}</td>},
+      {type: 'readOnly', jsx: <td key="" className="fra-table__header-cell-sub">{i18n.t('forestAreaChange.ofWhichNaturalExpansion')}</td>},
       ...integerInputColumns
     ],
     [

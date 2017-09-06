@@ -24,6 +24,7 @@ const ForestCharacteristics = props => {
     },
     {
       field: 'naturalForestPrimaryArea',
+      className: 'fra-table__header-cell-sub',
       localizedName: props.i18n.t('forestCharacteristics.naturalForestPrimaryArea')
     },
     {
@@ -32,6 +33,7 @@ const ForestCharacteristics = props => {
     },
     {
       field: 'plantationForestIntroducedArea',
+      className: 'fra-table__header-cell-sub',
       localizedName: props.i18n.t('forestCharacteristics.plantationForestIntroducedArea')
     },
     {
