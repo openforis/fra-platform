@@ -13,10 +13,10 @@ export const translation = {
   user: {
     roles: {
       reviewer: 'Reviewer',
-      nationalCorrespondent: 'National Correspondent',
-      national_correspondent: 'National Correspondent',
+      nationalCorrespondent: 'National correspondent',
+      national_correspondent: 'National correspondent',
       reviewer_all: 'Reviewer',
-      national_correspondent_all: 'National Correspondent',
+      national_correspondent_all: 'National correspondent',
       collaborator: 'Collaborator',
       noRole: 'N/A'
     }
@@ -31,7 +31,7 @@ export const translation = {
     naturallyGenerated: 'Naturally regenerated',
     plantationForest: 'Plantation forest',
     otherPlantedForest: 'Other planted forest',
-    introduced: '...of which introduces species'
+    introduced: '…of which introduces species'
   },
 
   // error messages
@@ -118,7 +118,7 @@ export const translation = {
     emptyLabel: 'No content',
     loading: 'Loading content…',
     description: 'Description',
-    dataSources: 'Data Sources',
+    dataSources: 'Data sources',
     originalData: 'Original data',
     nationalClassificationAndDefinitions: 'National classification and definitions',
   },
@@ -143,7 +143,9 @@ export const translation = {
     confirmDelete: 'Are you sure you want to delete this data point? This cannot be undone.',
     cancel: 'Cancel',
     saveData: 'Save data',
-    enterOrCopyPasteNationalClasses: 'Enter or copy and paste national classes'
+    enterOrCopyPasteNationalClasses: 'Enter or copy and paste national classes',
+    prefixPrimary: 'Primary',
+    prefixIntroduced: 'Introduced'
   },
 
   // annually reported assessment components
@@ -188,8 +190,8 @@ export const translation = {
   },
 
   forestCharacteristics: {
-    forestCharacteristics: 'Forest Characteristics',
-    forestCharacteristicsValues: 'Forest Characteristics values',
+    forestCharacteristics: 'Forest characteristics',
+    forestCharacteristicsValues: 'Forest characteristics values',
     naturalForestArea: 'Naturally regenerated forest',
     naturalForestPrimaryArea: '…of which primary',
     plantationForestArea: 'Plantation forest',
@@ -213,7 +215,7 @@ export const translation = {
   },
 
   primaryDesignatedManagementObjective: {
-    primaryDesignatedManagementObjective: 'Primary designated management objective',
+    primaryDesignatedManagementObjective: 'Designated management objective',
     production: 'Production',
     soilWaterProtection: 'Protection of soil and water',
     biodiversityConservation: 'Conservation of biodiversity',

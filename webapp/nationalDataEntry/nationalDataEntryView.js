@@ -56,7 +56,7 @@ const NationalDataEntry = (props) => {
       </div>
       <ChartWrapper stateName="nationalDataEntry" trends={['forestArea', 'otherWoodedLand']} />
       <div className="nde__data-table-header">
-        <h3 className="subhead">{i18n.t('extentOfForest.extentOfForestValues')}</h3>
+        <h3 className="subhead">{i18n.t('extentOfForest.extentOfForest')}</h3>
         <DefinitionLink className="align-left" name="eof" i18n={i18n}/>
         <button disabled={disableGenerateFRAValues()} className="btn btn-primary"
                 onClick={() => props.generateFraValues('eof', props.countryIso)}>

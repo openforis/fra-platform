@@ -487,7 +487,7 @@ const ForestCharacteristicsRow =
           })}
         />
         <PercentInput
-          prefix="Primary"
+          prefix={i18n.t('nationalDataPoint.prefixPrimary')}
           value={naturalForestPrimaryPercent || ''}
           onChange={numberUpdated(countryIso, odp, index, 'naturalForestPrimaryPercent', naturalForestPrimaryPercent)}
         />
@@ -506,7 +506,7 @@ const ForestCharacteristicsRow =
           })}
         />
         <PercentInput
-          prefix="Introduced"
+          prefix={i18n.t('nationalDataPoint.prefixIntroduced')}
           value={plantationIntroducedPercent || ''}
           onChange={numberUpdated(countryIso, odp, index, 'plantationIntroducedPercent', plantationIntroducedPercent)}
         />
