@@ -15,9 +15,11 @@ module.exports.persistEofValues = (countryIso, year, values) =>
 const insertEof = (countryIso, year, fraValues) =>
   db.query(`INSERT INTO 
              eof_fra_values 
-             (country_iso, year, forest_area, other_wooded_land, other_land, forest_area_estimated, other_wooded_land_estimated, other_land_estimated) 
+             (country_iso, year, forest_area, other_wooded_land, other_land, forest_area_estimated, other_wooded_land_estimated, other_land_estimated,
+              other_land_palms, other_land_tree_orchards, other_land_agroforestry, other_land_trees_urban_settings,
+              other_land_palms_estimated, other_land_tree_orchards_estimated, other_land_agroforestry_estimated, other_land_trees_urban_settings_estimated) 
              VALUES 
-             ($1, $2, $3, $4, $5, $6, $7, $8)`,
+             ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16)`,
     [countryIso,
       year,
       fraValues.forestArea,
@@ -25,7 +27,15 @@ const insertEof = (countryIso, year, fraValues) =>
       fraValues.otherLand,
       fraValues.forestAreaEstimated,
       fraValues.otherWoodedLandEstimated,
-      fraValues.otherLandEstimated])
+      fraValues.otherLandEstimated,
+      fraValues.otherLandPalms,
+      fraValues.otherLandTreeOrchards,
+      fraValues.otherLandAgroforestry,
+      fraValues.otherLandTreesUrbanSettings,
+      fraValues.otherLandPalmsEstimated,
+      fraValues.otherLandTreeOrchardsEstimated,
+      fraValues.otherLandAgroforestryEstimated,
+      fraValues.otherLandTreesUrbanSettingsEstimated])
 
 const updateEof = (countryIso, year, fraValues) =>
   db.query(`UPDATE 
@@ -36,7 +46,15 @@ const updateEof = (countryIso, year, fraValues) =>
              other_land = $5,
              forest_area_estimated = $6, 
              other_wooded_land_estimated = $7, 
-             other_land_estimated = $8
+             other_land_estimated = $8,
+             other_land_palms = $9,
+             other_land_tree_orchards = $10,
+             other_land_agroforestry = $11,
+             other_land_trees_urban_settings = $12,
+             other_land_palms_estimated = $13,
+             other_land_tree_orchards_estimated = $14,
+             other_land_agroforestry_estimated = $15,
+             other_land_trees_urban_settings_estimated = $16
             WHERE country_iso = $1 AND year = $2`,
     [countryIso,
       year,
@@ -45,7 +63,15 @@ const updateEof = (countryIso, year, fraValues) =>
       fraValues.otherLand,
       fraValues.forestAreaEstimated,
       fraValues.otherWoodedLandEstimated,
-      fraValues.otherLandEstimated])
+      fraValues.otherLandEstimated,
+      fraValues.otherLandPalms,
+      fraValues.otherLandTreeOrchards,
+      fraValues.otherLandAgroforestry,
+      fraValues.otherLandTreesUrbanSettings,
+      fraValues.otherLandPalmsEstimated,
+      fraValues.otherLandTreeOrchardsEstimated,
+      fraValues.otherLandAgroforestryEstimated,
+      fraValues.otherLandTreesUrbanSettingsEstimated])
 
 const emptyFoc = (countryIso, year) =>
   db.query('SELECT id FROM foc_fra_values WHERE country_iso = $1 and year = $2', [countryIso, year])
