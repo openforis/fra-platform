@@ -41,7 +41,7 @@ export const translation = {
     treeOrchards: 'Tree orchards',
     treeOrchardsClasses: 'Fruit, nuts, olive, etc.',
     agroforestry: 'Agroforestry',
-    treesUrbanSettings: 'Tree in urban settings'
+    treesUrbanSettings: 'Trees in urban settings'
 
   },
 
