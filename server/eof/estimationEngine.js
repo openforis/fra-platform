@@ -8,7 +8,7 @@ const linearExtrapolation = (x, xa, ya, xb, yb) => ya + (x - xa) / (xb - xa) * (
 
 const linearExtrapolationBackwards = (x, xa, ya, xb, yb) => yb + (xb - x) / (xb - xa) * (ya - yb)
 
-const eofFields = ['forestArea', 'otherWoodedLand', 'otherLand']
+const eofFields = ['forestArea', 'otherWoodedLand', 'otherLand', 'otherLandPalms', 'otherLandTreeOrchards', 'otherLandAgroforestry', 'otherLandTreesUrbanSettings']
 const focFields = ['naturalForestArea', 'naturalForestPrimaryArea', 'plantationForestArea', 'plantationForestIntroducedArea', 'otherPlantedForestArea']
 
 const estimate = (year, pointA, pointB, fieldsToEstimate, estFunction) => {
@@ -91,10 +91,10 @@ module.exports.estimateFraValues = estimateFraValues
 
 module.exports.estimateAndWrite = (odpReader, fraWriter, fieldsToEstimate, countryIso, years) => {
   return odpReader(countryIso).then(values => {
-      const estimated = estimateFraValues(years, R.values(values), fieldsToEstimate)
-      return Promise.all(
-        R.map(
-          estimatedValues => fraWriter(countryIso, estimatedValues.year, estimatedValues, true),
-          estimated))
-    })
+    const estimated = estimateFraValues(years, R.values(values), fieldsToEstimate)
+    return Promise.all(
+      R.map(
+        estimatedValues => fraWriter(countryIso, estimatedValues.year, estimatedValues, true),
+        estimated))
+  })
 }
