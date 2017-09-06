@@ -168,7 +168,12 @@ export const translation = {
     chart: {
       placeholderLine1: 'To get started, add new national data points and use',
       placeholderLine2: 'them to generate FRA values automatically.'
-    }
+    },
+    otherLandCategories: 'Other land categories',
+    ofWhichPalms: '...of which palms (oil, coconut, dates, etc.)',
+    ofWhichTreeOrchards: '...of which trees orchards (includes fruit, nuts, olive, etc.)',
+    ofWhichAgroforestry: '...of which agroforestry',
+    ofWhichTreesUrbanSettings: '...of which trees in urban settings'
   },
 
   growingStock: {
