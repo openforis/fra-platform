@@ -8,6 +8,7 @@ const {sendErr} = require('../utils/requestUtils')
 const R = require('ramda')
 const estimationEngine = require('./estimationEngine')
 const { checkCountryAccessFromReqParams } = require('../utils/accessControl')
+const auditRepository = require('./../audit/auditRepository')
 
 const forestAreaTableResponse = require('./forestAreaTableResponse')
 const focTableResponse = require('./focTableResponse')
@@ -32,6 +33,8 @@ const defaultResponses = {
 module.exports.init = app => {
   app.post('/nde/:section/:countryIso', (req, res) => {
     checkCountryAccessFromReqParams(req)
+    db.transaction(auditRepository.insertAudit,
+      [req.user.id, 'save_fra_values', req.params.countryIso, req.params.section])
     const section = req.params.section
     const updates = []
     const writer = fraWriters[section]
@@ -49,6 +52,8 @@ module.exports.init = app => {
   app.post('/nde/:section/country/:countryIso/:year', (req, res) => {
     const section = req.params.section
     checkCountryAccessFromReqParams(req)
+    db.transaction(auditRepository.insertAudit,
+      [req.user.id, 'save_fra_value', req.params.countryIso, section])
 
     const writer = fraWriters[section]
 
@@ -83,6 +88,8 @@ module.exports.init = app => {
 
   app.post('/nde/:section/generateFraValues/:countryIso', (req, res) => {
     checkCountryAccessFromReqParams(req)
+    db.transaction(auditRepository.insertAudit,
+      [req.user.id, 'generate_fra_values', req.params.countryIso, req.params.section])
     const section = req.params.section
     const readOdp = odpReaders[section]
     const writer = fraWriters[section]
