@@ -16,10 +16,10 @@ export default i18n => ({
   header: <thead>
   <tr>
     <td className="fra-table__header-cell"/>
-    <td className="fra-table__header-cell-align-right">1990-2000</td>
-    <td className="fra-table__header-cell-align-right">2000-2010</td>
-    <td className="fra-table__header-cell-align-right">2010-2015</td>
-    <td className="fra-table__header-cell-align-right">2015-2020</td>
+    <td className="fra-table__header-cell-right">1990-2000</td>
+    <td className="fra-table__header-cell-right">2000-2010</td>
+    <td className="fra-table__header-cell-right">2010-2015</td>
+    <td className="fra-table__header-cell-right">2015-2020</td>
   </tr>
   </thead>,
   rows: [

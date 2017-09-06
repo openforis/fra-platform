@@ -22,7 +22,7 @@ export class DataTable extends React.Component {
             <th className="fra-table__header-cell"></th>
             {
               R.values(this.props.fra).map(v =>
-                <th className={`fra-table__header-cell-align-right ${v.type === 'odp' ? 'odp-header-cell' : ''}`} key={`${v.type}_${v.name}`}>
+                <th className={`fra-table__header-cell-right ${v.type === 'odp' ? 'odp-header-cell' : ''}`} key={`${v.type}_${v.name}`}>
                   { v.type === 'odp' ? <OdpHeading countryIso={this.props.countryIso} odpValue={v}/>
                     : v.name
                   }
