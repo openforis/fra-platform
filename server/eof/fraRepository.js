@@ -1,6 +1,6 @@
 const db = require('../db/db')
 const R = require('ramda')
-const { toNumberOrNull  } = require('../utils/databaseConversions')
+const {toNumberOrNull} = require('../utils/databaseConversions')
 
 const emptyEof = (countryIso, year) =>
   db.query('SELECT id FROM eof_fra_values WHERE country_iso = $1 and year = $2', [countryIso, year])
@@ -128,7 +128,15 @@ const forestAreaReducer = (results, row, type = 'fra') => R.assoc(`fra_${row.yea
     year: Number(row.year),
     forestAreaEstimated: row.forest_area_estimated || false,
     otherWoodedLandEstimated: row.other_wooded_land_estimated || false,
-    otherLandEstimated: row.other_land_estimated || false
+    otherLandEstimated: row.other_land_estimated || false,
+    otherLandPalms: toNumberOrNull(row.other_land_palms),
+    otherLandTreeOrchards: toNumberOrNull(row.other_land_tree_orchards),
+    otherLandAgroforestry: toNumberOrNull(row.other_land_agroforestry),
+    otherLandTreesUrbanSettings: toNumberOrNull(row.other_land_trees_urban_settings),
+    otherLandPalmsEstimated: row.other_land_palms_estimated || false,
+    otherLandTreeOrchardsEstimated: row.other_land_tree_orchards_estimated || false,
+    otherLandAgroforestryEstimated: row.other_land_agroforestry_estimated || false,
+    otherLandTreesUrbanSettingsEstimated: row.other_land_trees_urban_settings_estimated || false
   },
   results)
 
@@ -151,8 +159,14 @@ const forestCharacteristicsReducer = (results, row, type = 'fra') => R.assoc(`fr
   results)
 
 module.exports.readFraForestAreas = (countryIso) =>
-  db.query(
-    'SELECT year, forest_area, other_wooded_land, other_land, forest_area_estimated, other_wooded_land_estimated , other_land_estimated from eof_fra_values WHERE country_iso = $1',
+  db.query(`
+    SELECT 
+      year, forest_area, other_wooded_land, other_land, 
+      forest_area_estimated, other_wooded_land_estimated , other_land_estimated,
+      other_land_palms, other_land_tree_orchards, other_land_agroforestry, other_land_trees_urban_settings,
+      other_land_palms_estimated, other_land_tree_orchards_estimated, other_land_agroforestry_estimated, other_land_trees_urban_settings_estimated
+    FROM 
+      eof_fra_values WHERE country_iso = $1`,
     [countryIso]
   ).then((result) => R.reduce(forestAreaReducer, {}, result.rows))
 

@@ -284,6 +284,10 @@ const eofReducer = (results, row, type = 'fra') => R.assoc(`odp_${row.year}`,
     forestArea: Number(row.forest_area),
     otherWoodedLand: Number(row.other_wooded_land_area),
     otherLand: Number(row.other_land_area),
+    otherLandPalms: toNumberOrNull(row.other_land_palms),
+    otherLandTreeOrchards: toNumberOrNull(row.other_land_tree_orchards),
+    otherLandAgroforestry: toNumberOrNull(row.other_land_agroforestry),
+    otherLandTreesUrbanSettings: toNumberOrNull(row.other_land_trees_urban_settings),
     name: row.year + '',
     type: 'odp',
     year: Number(row.year),
@@ -314,11 +318,15 @@ module.exports.readEofOdps = (countryIso) =>
           SUM(c.area * (c.forest_percent/100.0)) AS forest_area,
           SUM(c.area * (c.other_wooded_land_percent/100.0)) AS other_wooded_land_area,
           SUM(c.area * (c.other_land_percent/100.0)) AS other_land_area,
-        CASE 
-          WHEN p.draft_id IS NULL
-          THEN FALSE
-          ELSE TRUE
-        END AS draft
+          SUM(c.area * c.other_land_palms_percent * c.other_land_percent / 10000.0) AS other_land_palms,
+          SUM(c.area * c.other_land_tree_orchards_percent * c.other_land_percent / 10000.0) AS other_land_tree_orchards,
+          SUM(c.area * c.other_land_agroforestry_percent * c.other_land_percent / 10000.0) AS other_land_agroforestry,
+          SUM(c.area * c.other_land_trees_urban_settings_percent * c.other_land_percent / 10000.0) AS other_land_trees_urban_settings,
+          CASE 
+            WHEN p.draft_id IS NULL
+            THEN FALSE
+            ELSE TRUE
+          END AS draft
         FROM odp p
         JOIN odp_version v
         ON v.id =

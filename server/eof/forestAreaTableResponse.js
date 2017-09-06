@@ -6,7 +6,11 @@ module.exports = {
       type: 'fra',
       forestArea: null,
       otherWoodedLand: null,
-      otherLand: null
+      otherLand: null,
+      otherLandPalms: null,
+      otherLandTreeOrchards: null,
+      otherLandAgroforestry: null,
+      otherLandTreesUrbanSettings: null
     },
     'fra_2000': {
       name: '2000',
@@ -14,7 +18,11 @@ module.exports = {
       type: 'fra',
       forestArea: null,
       otherWoodedLand: null,
-      otherLand: null
+      otherLand: null,
+      otherLandPalms: null,
+      otherLandTreeOrchards: null,
+      otherLandAgroforestry: null,
+      otherLandTreesUrbanSettings: null
     },
     'fra_2010': {
       name: '2010',
@@ -22,7 +30,11 @@ module.exports = {
       type: 'fra',
       forestArea: null,
       otherWoodedLand: null,
-      otherLand: null
+      otherLand: null,
+      otherLandPalms: null,
+      otherLandTreeOrchards: null,
+      otherLandAgroforestry: null,
+      otherLandTreesUrbanSettings: null
     },
     'fra_2015': {
       name: '2015',
@@ -30,7 +42,11 @@ module.exports = {
       type: 'fra',
       forestArea: null,
       otherWoodedLand: null,
-      otherLand: null
+      otherLand: null,
+      otherLandPalms: null,
+      otherLandTreeOrchards: null,
+      otherLandAgroforestry: null,
+      otherLandTreesUrbanSettings: null
     },
     'fra_2016': {
       name: '2016',
@@ -38,7 +54,11 @@ module.exports = {
       type: 'fra',
       forestArea: null,
       otherWoodedLand: null,
-      otherLand: null
+      otherLand: null,
+      otherLandPalms: null,
+      otherLandTreeOrchards: null,
+      otherLandAgroforestry: null,
+      otherLandTreesUrbanSettings: null
     },
     'fra_2017': {
       name: '2017',
@@ -46,7 +66,11 @@ module.exports = {
       type: 'fra',
       forestArea: null,
       otherWoodedLand: null,
-      otherLand: null
+      otherLand: null,
+      otherLandPalms: null,
+      otherLandTreeOrchards: null,
+      otherLandAgroforestry: null,
+      otherLandTreesUrbanSettings: null
     },
     'fra_2018': {
       name: '2018',
@@ -54,7 +78,11 @@ module.exports = {
       type: 'fra',
       forestArea: null,
       otherWoodedLand: null,
-      otherLand: null
+      otherLand: null,
+      otherLandPalms: null,
+      otherLandTreeOrchards: null,
+      otherLandAgroforestry: null,
+      otherLandTreesUrbanSettings: null
     },
     'fra_2019': {
       name: '2019',
@@ -62,7 +90,11 @@ module.exports = {
       type: 'fra',
       forestArea: null,
       otherWoodedLand: null,
-      otherLand: null
+      otherLand: null,
+      otherLandPalms: null,
+      otherLandTreeOrchards: null,
+      otherLandAgroforestry: null,
+      otherLandTreesUrbanSettings: null
     },
     'fra_2020': {
       name: '2020',
@@ -70,7 +102,11 @@ module.exports = {
       type: 'fra',
       forestArea: null,
       otherWoodedLand: null,
-      otherLand: null
+      otherLand: null,
+      otherLandPalms: null,
+      otherLandTreeOrchards: null,
+      otherLandAgroforestry: null,
+      otherLandTreesUrbanSettings: null
     }
   }
 }
