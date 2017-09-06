@@ -17,7 +17,7 @@ module.exports.init = app => {
   app.post('/country/descriptions/:countryIso/:name', (req, res) => {
       checkCountryAccessFromReqParams(req)
       db.transaction(auditRepository.insertAudit,
-        [req.user.id, 'persist_descriptions', req.params.countryIso, req.params.name])
+        [req.user.id, 'saveDescriptions', req.params.countryIso, req.params.name])
       db.transaction(repository.persistDescriptions, [req.params.countryIso, req.params.name, req.body.content])
         .then(result => res.json({}))
         .catch(err => sendErr(res, err))
