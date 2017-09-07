@@ -5,8 +5,9 @@ const Promise = require('bluebird')
 const auditRepository = require('./../audit/auditRepository')
 const {checkCountryAccess, checkReviewerCountryAccess, AccessControlException} = require('../utils/accessControl')
 const {isReviewer} = require('../../common/countryRole')
+const {parse, isBefore} = require('date-fns')
 
-const getIssueComments = (countryIso, section) =>
+const getIssueComments = (countryIso, section, user) =>
   db.query(`
     SELECT 
       i.id as issue_id, i.target, i.status as issue_status, i.section,
@@ -18,21 +19,29 @@ const getIssueComments = (countryIso, section) =>
       END as message, 
       c.status_changed,
       c.deleted,
-      to_char(c.added_time,'YYYY-MM-DD"T"HH24:MI:ssZ') as added_time
+      to_char(c.added_time,'YYYY-MM-DD"T"HH24:MI:ssZ') as added_time,
+      CASE
+        WHEN ui.read_time IS NOT NULL THEN to_char(ui.read_time,'YYYY-MM-DD"T"HH24:MI:ssZ') 
+        ELSE null
+      END as issue_read_time  
     FROM 
       issue i
     JOIN fra_comment c 
       ON (c.issue_id = i.id)
     JOIN fra_user u 
       ON (u.id = c.user_id)
+    LEFT OUTER JOIN user_issue ui
+      ON ui.user_id = $1
+      AND ui.issue_id = i.id      
     WHERE 
-      i.country_iso = $1 ${section ? 'AND i.section = $2 ' : ''}
+      i.country_iso = $2 ${section ? 'AND i.section = $3 ' : ''}
     ORDER BY
       c.id  
-  `, section ? [countryIso, section] : [countryIso])
+  `, section ? [user.id, countryIso, section] : [user.id, countryIso])
     .then(res => camelize(res.rows))
 
 module.exports.getIssueComments = getIssueComments
+
 
 const getIssueCountryAndSection = (issueId) => {
   return db.query(`
@@ -50,18 +59,33 @@ const getCommentCountryAndSection = commentId => {
 }
 module.exports.getCommentCountryAndSection = getCommentCountryAndSection
 
-const getIssuesSummary = issueComments => R.pipe(
+
+const hasUnreadIssues = (user, issueComments) => R.pipe(
+  R.groupBy(comment => comment.issueId),
+  R.map(comments => {
+    const commentsByOthers = R.reject(c => c.userId === user.id, comments)
+    const last = R.last(commentsByOthers)
+    const hasUnreadComments = last ? (last.issueReadTime ? isBefore(parse(last.issueReadTime), parse(last.addedTime)) : true) : false
+    return {hasUnreadComments}
+  }),
+  R.filter(issue => issue.hasUnreadComments),
+  R.isEmpty,
+  R.not
+)(issueComments)
+
+const getIssuesSummary = (user, issueComments) => R.pipe(
   R.last,
   R.defaultTo({}),
   last => ({
     issuesCount: issueComments.length,
     lastCommentUserId: last.userId,
-    issueStatus: last.issueStatus
+    issueStatus: last.issueStatus,
+    hasUnreadIssues: hasUnreadIssues(user, issueComments)
   })
 )(issueComments)
 
-module.exports.getIssuesSummary = (countryIso, section, targetParam, rejectResolved = false) =>
-  getIssueComments(countryIso, section)
+module.exports.getIssuesSummary = (countryIso, section, targetParam, user, rejectResolved = false) =>
+  getIssueComments(countryIso, section, user)
     .then(issueComments => {
       const target = targetParam && targetParam.split(',')
 
@@ -73,20 +97,20 @@ module.exports.getIssuesSummary = (countryIso, section, targetParam, rejectResol
         R.filter(i => target
           ? paramsMatch(R.path(['target', 'params'], i))
           : true),
-        getIssuesSummary
+        R.partial(getIssuesSummary, [user])
       )(issueComments)
 
       return summary
     })
 
-module.exports.getCountryIssuesSummary = countryIso =>
-  getIssueComments(countryIso)
+module.exports.getCountryIssuesSummary = (countryIso, user) =>
+  getIssueComments(countryIso, null, user)
     .then(issueComments => {
       const summaries = R.pipe(
         R.reject(i => i.deleted),
         R.reject(i => i.issueStatus === 'resolved'),
         R.groupBy(i => i.section),
-        R.map(getIssuesSummary)
+        R.map(R.partial(getIssuesSummary, [user]))
       )(issueComments)
 
       return summaries
