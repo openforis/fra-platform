@@ -187,6 +187,7 @@ module.exports.deleteIssues = (client, countryIso, section, paramPosition, param
     .then(res => res.map(r => r.issueId))
     .then(issueIds => deleteIssuesByIds(client, issueIds))
 
+
 module.exports.markCommentAsDeleted = (client, countryIso, section, commentId, user) =>
   auditRepository.insertAudit(client, user.id, 'deleteComment', countryIso, section, {commentId})
     .then(() =>
@@ -208,27 +209,8 @@ module.exports.markIssueAsResolved = (client, countryIso, section, issueId, user
         checkReviewerCountryAccess(res.rows[0].country_iso, user)
       )
       .then(() => createComment(client, issueId, user, countryIso, section, 'Marked as resolved', 'resolved'))
-      .then(() =>
-        client.query('UPDATE issue SET status = $1 WHERE id = $2', ['resolved', issueId])
-      )
+      .then(() => client.query('UPDATE issue SET status = $1 WHERE id = $2', ['resolved', issueId]))
     )
-
-module.exports.markCommentAsDeleted = (client, commentId, user) =>
-  client
-    .query('SELECT user_id FROM fra_comment WHERE id = $1', [commentId])
-    .then(res => res.rows[0].user_id)
-    .then(userId => {
-      if (userId !== user.id)
-        throw new AccessControlException('error.review.commentDeleteNotOwner', {user: user.name})
-    })
-    .then(() => client.query('UPDATE fra_comment SET deleted = $1 WHERE id = $2', [true, commentId]))
-
-module.exports.markIssueAsResolved = (client, issueId, user) =>
-  client
-    .query('SELECT country_iso FROM issue WHERE id = $1', [issueId])
-    .then(res => checkReviewerCountryAccess(res.rows[0].country_iso, user))
-    .then(() => createComment(client, issueId, user, 'Marked as resolved', 'resolved'))
-    .then(() => client.query('UPDATE issue SET status = $1 WHERE id = $2', ['resolved', issueId]))
 
 module.exports.updateIssueReadTime = (issueId, user) =>
   db
