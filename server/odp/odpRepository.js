@@ -6,6 +6,7 @@ const {toNumberOrNull} = require('../utils/databaseConversions')
 const {validateDataPoint} = require('../../common/originalDataPointCommon')
 const {deleteIssuesByIds, deleteIssues} = require('../review/reviewRepository')
 const {checkCountryAccess} = require('../utils/accessControl')
+const auditRepository = require('./../audit/auditRepository')
 
 module.exports.saveDraft = (client, countryIso, draft) =>
   !draft.odpId ? createOdp(client, countryIso)
@@ -171,30 +172,31 @@ const getAndCheckOdpCountryId = (client, odpId, user) =>
     })
 module.exports.getAndCheckOdpCountryId = getAndCheckOdpCountryId
 
-const deleteOdp = (client, odpId, user) => {
-
-  return getAndCheckOdpCountryId(client, odpId, user)
-    .then(countryIso =>
-      Promise.all([
-        client.query('SELECT actual_id, draft_id FROM odp WHERE id = $1', [odpId]),
-        countryIso])
-    ).then(([selectResult, countryIso]) =>
-      client.query('DELETE FROM odp WHERE id = $1', [odpId])
-        .then(() => [selectResult.rows[0].draft_id, selectResult.rows[0].actual_id, countryIso])
-    ).then(([draftId, actualId, countryIso]) => {
-      return Promise.all([
-        draftId
-          ? wipeClassData(client, draftId)
+const deleteOdp = (client, countryIso, odpId, user) =>
+  auditRepository.insertAudit(client, user.id, 'deleteOdp', countryIso, 'odp', {odpId})
+    .then(() =>
+      getAndCheckOdpCountryId(client, odpId, user)
+        .then(countryIso =>
+          Promise.all([
+            client.query('SELECT actual_id, draft_id FROM odp WHERE id = $1', [odpId]),
+            countryIso])
+        ).then(([selectResult, countryIso]) =>
+        client.query('DELETE FROM odp WHERE id = $1', [odpId])
+          .then(() => [selectResult.rows[0].draft_id, selectResult.rows[0].actual_id, countryIso])
+      ).then(([draftId, actualId, countryIso]) => {
+        return Promise.all([
+          draftId
+            ? wipeClassData(client, draftId)
             .then(() => client.query('DELETE FROM odp_version WHERE id = $1', [draftId]))
-          : Promise.resolve(),
-        actualId
-          ? wipeClassData(client, actualId)
+            : Promise.resolve(),
+          actualId
+            ? wipeClassData(client, actualId)
             .then(() => client.query('DELETE FROM odp_version WHERE id = $1', [actualId]))
-          : Promise.resolve(),
-        deleteIssues(client, countryIso, 'NDP', 0, odpId)
-      ])
-    })
-}
+            : Promise.resolve(),
+          deleteIssues(client, countryIso, 'NDP', 0, odpId)
+        ])
+      })
+    )
 
 module.exports.deleteOdp = deleteOdp
 

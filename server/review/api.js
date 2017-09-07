@@ -5,7 +5,6 @@ const db = require('../db/db')
 const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
 const {sendErr} = require('../utils/requestUtils')
 const reviewRepository = require('./reviewRepository')
-const auditRepository = require('./../audit/auditRepository')
 
 module.exports.init = app => {
 
