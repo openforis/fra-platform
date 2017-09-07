@@ -50,13 +50,11 @@ module.exports.init = app => {
     }
   )
 
-  app.delete('/odp', (req, res) => {
-    odpRepository.getAndCheckOdpCountryId(db, req.query.odpId, req.user).then(countryIso =>
-      db.transaction(odpRepository.deleteOdp, [countryIso, req.query.odpId, req.user])
-        .then(() => res.json({}))
-        .catch(err => sendErr(res, err))
-    )
-  })
+  app.delete('/odp', (req, res) =>
+    db.transaction(odpRepository.deleteOdp, [req.query.odpId, req.user])
+      .then(() => res.json({}))
+      .catch(err => sendErr(res, err))
+  )
 
   app.post('/odp/draft', (req, res) => {
     checkCountryAccessFromReqParams(req)

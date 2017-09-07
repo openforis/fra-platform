@@ -181,11 +181,12 @@ const getAndCheckOdpCountryId = (client, odpId, user) =>
     })
 module.exports.getAndCheckOdpCountryId = getAndCheckOdpCountryId
 
-const deleteOdp = (client, countryIso, odpId, user) =>
-  auditRepository.insertAudit(client, user.id, 'deleteOdp', countryIso, 'odp', {odpId})
-    .then(() =>
+const deleteOdp = (client, odpId, user) =>
       getAndCheckOdpCountryId(client, odpId, user)
-        .then(countryIso =>
+        .then( countryIso =>
+         Promise.all([countryIso, auditRepository.insertAudit(client, user.id, 'deleteOdp', countryIso, 'odp', {odpId})])
+        )
+        .then(([countryIso, _]) =>
           Promise.all([
             client.query('SELECT actual_id, draft_id FROM odp WHERE id = $1', [odpId]),
             countryIso])
@@ -205,7 +206,6 @@ const deleteOdp = (client, countryIso, odpId, user) =>
           deleteIssues(client, countryIso, 'NDP', 0, odpId)
         ])
       })
-    )
 
 module.exports.deleteOdp = deleteOdp
 
