@@ -82,4 +82,15 @@ hr {
   width: 500px;
   text-align: center;
   margin: 0 auto;
+
+  img {
+    animation: wobble 0.4s ease-in-out;
+  }
+}
+
+@keyframes wobble {
+  0%   { transform: rotate(0deg) }
+  25%  { transform: rotate(5deg) }
+  75% { transform: rotate(-5deg) }
+  100% { transform: rotate(0deg) }
 }
