@@ -626,7 +626,10 @@ const ForestCharacteristicsRow =
     const numberUpdated = numberUpdateCreator(saveDraft)
     const validationStatus = getValidationStatusRow(odp, index)
     const focStatusPercentage = () => validationStatus.validFocPercentage === false ? 'error' : ''
-    return <tr
+    const nationalClass = odp.nationalClasses[index]
+    return nationalClass.forestPercent <= 0
+      ? null
+      : <tr
       className={isCommentsOpen([odp.odpId, 'class', `${odp.nationalClasses[index].uuid}`, 'forest_charasteristics'], openThread) ? 'fra-row-comments__open' : ''}>
       <td className="odp__input-table__class-name"><span>{className}</span></td>
       <td

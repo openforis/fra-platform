@@ -157,7 +157,7 @@ export const translation = {
     enterOrCopyPasteNationalClasses: 'Enter or copy and paste national classes',
     prefixPrimary: 'Primary',
     prefixIntroduced: 'Introduced',
-    otherLandCharacteristics: 'Other land Characteristics'
+    otherLandCharacteristics: 'Other land characteristics'
   },
 
   // annually reported assessment components
