@@ -58,10 +58,9 @@ const getDraftId = (client, odpId) =>
 const createOdp = (client, countryIso, user) =>
   client.query('INSERT INTO odp (country_iso ) VALUES ($1)', [countryIso]).then(resp =>
     client.query('SELECT last_value FROM odp_id_seq').then(resp => resp.rows[0].last_value)
-  ).then(odpId => {
-      auditRepository.insertAudit(client, user.id, 'createOdp', countryIso, 'odp', {odpId})
-      return odpId
-  })
+  ).then(odpId =>
+      Promise.all([odpId, auditRepository.insertAudit(client, user.id, 'createOdp', countryIso, 'odp', {odpId})])
+  ).then(([odpId, _]) => odpId)
 
 const insertDraft = (client, countryIso, user, odpId, draft) =>
   client.query(
