@@ -24,7 +24,8 @@ const actionHandlers = {
       [action.target]: R.merge(state[action.target], {
         issuesCount: action.issuesCount,
         lastCommentUserId: action.lastCommentUserId,
-        issueStatus: action.issueStatus
+        issueStatus: action.issueStatus,
+        hasUnreadIssues: action.hasUnreadIssues
       })
     })
   ,
