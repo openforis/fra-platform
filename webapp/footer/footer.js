@@ -4,68 +4,47 @@ import * as R from 'ramda'
 import React from 'react'
 import { connect } from 'react-redux'
 import { logout, switchLanguage } from '../user/actions'
+import { PopoverControl } from './../reusableUiComponents/popoverControl'
 
-class FooterSelectionControl extends React.Component {
+const UserInfo = props => {
+  const taulu = [{
+    label: props.i18n.t('footer.logout'),
+    onClick: () => props.logout()
+  }]
 
-  constructor (props) {
-    super(props)
-    this.outsideClick = this.outsideClick.bind(this)
-    window.addEventListener('click', this.outsideClick)
-  }
-
-  outsideClick (evt) {
-    if (!this.refs.userControl.contains(evt.target))
-      this.setState({opened: false})
-  }
-
-  componentWillMount () {
-    this.setState({opened: false})
-  }
-
-  componentWillUnmount () {
-    window.removeEventListener('click', this.outsideClick)
-  }
-
-  render () {
-    const children = this.props.children
-    return <span
-      className="footer__user-control"
-      onClick={evt => this.setState({opened: !this.state.opened})}
-      ref="userControl">
-      {this.props.label}
-      <svg className="icon icon-sub">
-        <use xlinkHref="img/icons.svg#small-up"/>
-      </svg>
-      {
-        this.state.opened ? children : null
-      }
-    </span>
-  }
+  return <div className="footer__item">
+    <PopoverControl items={taulu}>
+      <span className="footer__user-control">
+        {props.userName}
+        <svg className="icon icon-sub">
+          <use xlinkHref="img/icons.svg#small-up"/>
+        </svg>
+      </span>
+    </PopoverControl>
+  </div>
 }
 
-const UserInfo = props =>
-  <FooterSelectionControl label={props.userName} {...props}>
-    <div className="footer__selection-control-opened">
-      <div onClick={() => props.logout()} className="footer__selection-control-item">
-        {props.i18n.t('footer.logout')}
-      </div>
-    </div>
-  </FooterSelectionControl>
+const LanguageSelection = ({i18n, switchLanguage, ...props}) => {
+  const supportedLangs = ['en', 'fr', 'es', 'ru']
+  const selectableLangs = R.reject(l => l === i18n.language, supportedLangs)
+  const taulu = R.map(lang =>
+    ({
+      label: i18n.t(`language.${lang}`),
+      onClick: () => switchLanguage(lang)
+    }), selectableLangs
+  )
 
-const LanguageSelection = ({i18n, switchLanguage, ...props}) =>
-  <FooterSelectionControl label={i18n.t(`language.${i18n.language}`)} {...props}>
-    <div className="footer__selection-control-opened">
-      {
-        R.map(
-          lang => <div key={lang} className="footer__selection-control-item" onClick={() => switchLanguage(lang)}>
-            {i18n.t(`language.${lang}`)}
-          </div>,
-          R.reject(l => l === i18n.language, supportedLangs))
-      }
-    </div>
-  </FooterSelectionControl>
-
-const supportedLangs = ['en', 'fr', 'es', 'ru']
+  return <div className="footer__item">
+    <PopoverControl items={taulu}>
+      <span className="footer__user-control">
+        {i18n.t(`language.${i18n.language}`)}
+        <svg className="icon icon-sub">
+          <use xlinkHref="img/icons.svg#small-up"/>
+        </svg>
+      </span>
+    </PopoverControl>
+  </div>
+}
 
 const Footer = ({status, userInfo, path, width, i18n, ...props}) => {
   const style = {width: `calc(100vw - ${width}px)`}
@@ -79,12 +58,8 @@ const Footer = ({status, userInfo, path, width, i18n, ...props}) => {
       }
     </div>
     <div>
-      <div className="footer__item">
-        <LanguageSelection i18n={i18n} {...props}/>
-      </div>
-      <div className="footer__item">
-        <UserInfo userName={userInfo.name} i18n={i18n} {...props}/>
-      </div>
+      <LanguageSelection i18n={i18n} {...props}/>
+      <UserInfo userName={userInfo.name} i18n={i18n} {...props}/>
     </div>
   </div>
 }

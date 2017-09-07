@@ -15,6 +15,12 @@
   color: @text-mute;
   display: inline-block;
   line-height: 16px;
+
+  .popover-control__menu {
+    bottom: 38px;
+    right: 12px;
+    text-align: right;
+  }
 }
 
 .footer__autosave-status {
@@ -26,7 +32,6 @@
 .footer__user-control {
   display: inline-block;
   padding: 12px;
-  position: relative;
   cursor: pointer;
   transition: @ease-out;
 
@@ -34,35 +39,12 @@
     margin-left: 4px;
   }
 
-  &:hover {
+  &:hover,
+  &.active {
     color: @text-body;
 
     .icon {
       color: @text-body;
     }
-  }
-}
-
-.footer__selection-control-opened {
-  width: 144px;
-  position: absolute;
-  bottom: 38px;
-  right: 12px;
-  padding: 4px 0;
-  background-color: white;
-  border-radius: 2px;
-  border: @ui-thin-border;
-  box-shadow: @shadow-2;
-  text-align: right;
-}
-
-.footer__selection-control-item {
-  padding: 8px 16px;
-  line-height: 16px;
-  color: @text-body;
-
-  &:hover {
-    background-color: darken(@ui-bg, 4%);
-    cursor: pointer;
   }
 }
