@@ -62,9 +62,7 @@ module.exports.init = app => {
   app.post('/odp/draft', (req, res) => {
     checkCountryAccessFromReqParams(req)
     const countryIso = req.query.countryIso
-    db.transaction(auditRepository.insertAudit,
-      [req.user.id, 'safeDraft', countryIso, 'odp', {odpId: req.body.odpId}])
-    return db.transaction(odpRepository.saveDraft, [countryIso, req.body])
+    return db.transaction(odpRepository.saveDraft, [countryIso, req.user, req.body])
       .then(result => res.json(result))
       .catch(err => sendErr(res, err))
   })

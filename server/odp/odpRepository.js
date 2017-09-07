@@ -8,10 +8,10 @@ const {deleteIssuesByIds, deleteIssues} = require('../review/reviewRepository')
 const {checkCountryAccess} = require('../utils/accessControl')
 const auditRepository = require('./../audit/auditRepository')
 
-module.exports.saveDraft = (client, countryIso, draft) =>
-  !draft.odpId ? createOdp(client, countryIso)
-      .then(newOdpId => updateOrInsertDraft(client, newOdpId, countryIso, draft))
-    : updateOrInsertDraft(client, draft.odpId, countryIso, draft)
+module.exports.saveDraft = (client, countryIso, user, draft) =>
+  !draft.odpId ? createOdp(client, countryIso, user)
+      .then(newOdpId => updateOrInsertDraft(client, user, newOdpId, countryIso, draft))
+    : updateOrInsertDraft(client, user, draft.odpId, countryIso, draft)
 
 const wipeNationalClassIssues = (client, odpId, countryIso, nationalClasses) => {
   const hasClasses = nationalClasses.length > 0
@@ -36,29 +36,34 @@ const wipeNationalClassIssues = (client, odpId, countryIso, nationalClasses) => 
     .then(() => ({odpId}))
 }
 
-const updateOrInsertDraft = (client, odpId, countryIso, draft) =>
-  getDraftId(client, odpId)
-    .then(draftId => {
-      if (!draftId)
-        return insertDraft(client, odpId, countryIso, draft)
-          .then(() => ({odpId}))
-      else
-        return updateDraft(client, draft)
-          .then(() => wipeNationalClassIssues(client, odpId, countryIso, draft.nationalClasses))
-
-    })
+const updateOrInsertDraft = (client, user, odpId, countryIso, draft) =>
+  auditRepository.insertAudit(client, user.id, 'updateOrInsertDraft', countryIso, 'odp', {odpId})
+    .then(() =>
+      getDraftId(client, odpId)
+        .then(draftId => {
+          if (!draftId)
+            return insertDraft(client, countryIso, user, odpId, draft)
+              .then(() => ({odpId}))
+          else
+            return updateDraft(client, draft)
+              .then(() => wipeNationalClassIssues(client, odpId, countryIso, draft.nationalClasses))
+        })
+    )
 
 const getDraftId = (client, odpId) =>
   client.query(
     'SELECT draft_id FROM odp WHERE id = $1', [odpId]
   ).then(resp => resp.rows[0].draft_id)
 
-const createOdp = (client, countryIso) =>
+const createOdp = (client, countryIso, user) =>
   client.query('INSERT INTO odp (country_iso ) VALUES ($1)', [countryIso]).then(resp =>
     client.query('SELECT last_value FROM odp_id_seq').then(resp => resp.rows[0].last_value)
-  )
+  ).then(odpId => {
+      auditRepository.insertAudit(client, user.id, 'createOdp', countryIso, 'odp', {odpId})
+      return odpId
+  })
 
-const insertDraft = (client, odpId, iso, draft) =>
+const insertDraft = (client, countryIso, user, odpId, draft) =>
   client.query(
     'INSERT INTO odp_version (year, description) VALUES ($1, $2);',
     [draft.year, draft.description]
@@ -90,7 +95,7 @@ module.exports.deleteDraft = (client, odpId, user) =>
           .then(() => getOdpVersionId(client, odpId))
           .then(odpVersionId => getOdpNationalClasses(client, odpVersionId))
           .then(odpClasses => wipeNationalClassIssues(client, odpId, countryIso, odpClasses))
-        : deleteOdp(client, odpId, user)
+        : deleteOdp(client, countryIso, odpId, user)
     })
 
 const wipeClassData = (client, odpVersionId) =>
