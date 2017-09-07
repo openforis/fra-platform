@@ -56,7 +56,10 @@ export const openCommentThread = (countryIso, section, target, name) => dispatch
   retrieveComments(countryIso, section, target)(dispatch)
   dispatch({type: issueOpenCommentThread, target, section, name})
 }
-export const closeCommentThread = () => ({type: issueCloseCommentThread})
+export const closeCommentThread = (countryIso, section, target) => dispatch => {
+  getIssueSummary(countryIso, section, target)(dispatch)
+  dispatch({type: issueCloseCommentThread})
+}
 
 export const markCommentAsDeleted = (countryIso, section, target, commentId) => dispatch =>
   axios
