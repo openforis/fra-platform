@@ -163,6 +163,7 @@ module.exports.deleteIssues = (client, countryIso, section, paramPosition, param
     .then(res => res.map(r => r.issueId))
     .then(issueIds => deleteIssuesByIds(client, issueIds))
 
+
 module.exports.markCommentAsDeleted = (client, countryIso, section, commentId, user) =>
   auditRepository.insertAudit(client, user.id, 'deleteComment', countryIso, section, {commentId})
     .then(() =>
@@ -184,7 +185,13 @@ module.exports.markIssueAsResolved = (client, countryIso, section, issueId, user
         checkReviewerCountryAccess(res.rows[0].country_iso, user)
       )
       .then(() => createComment(client, issueId, user, countryIso, section, 'Marked as resolved', 'resolved'))
-      .then(() =>
-        client.query('UPDATE issue SET status = $1 WHERE id = $2', ['resolved', issueId])
-      )
+      .then(() => client.query('UPDATE issue SET status = $1 WHERE id = $2', ['resolved', issueId]))
     )
+
+module.exports.updateIssueReadTime = (issueId, user) =>
+  db
+    .query(`SELECT id FROM user_issue WHERE user_id = $1 AND issue_id = $2`, [user.id, issueId])
+    .then(res => res.rows.length > 0
+      ? db.query(`UPDATE user_issue SET read_time = $1 WHERE id = $2`, [new Date().toISOString(), res.rows[0].id])
+      : db.query(`INSERT INTO user_issue (user_id, issue_id, read_time) VALUES ($1,$2,$3)`, [user.id, issueId, new Date().toISOString()]))
+
