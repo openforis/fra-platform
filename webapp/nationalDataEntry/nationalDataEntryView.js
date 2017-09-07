@@ -48,18 +48,22 @@ const NationalDataEntry = (props) => {
     },
     {
       field: 'otherLandPalms',
+      className: 'fra-table__header-cell-sub',
       localizedName: i18n.t('extentOfForest.ofWhichPalms')
     },
     {
       field: 'otherLandTreeOrchards',
+      className: 'fra-table__header-cell-sub',
       localizedName: i18n.t('extentOfForest.ofWhichTreeOrchards')
     },
     {
       field: 'otherLandAgroforestry',
+      className: 'fra-table__header-cell-sub',
       localizedName: i18n.t('extentOfForest.ofWhichAgroforestry')
     },
     {
       field: 'otherLandTreesUrbanSettings',
+      className: 'fra-table__header-cell-sub',
       localizedName: i18n.t('extentOfForest.ofWhichTreesUrbanSettings')
     }
   ]
