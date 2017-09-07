@@ -16,6 +16,7 @@ import {
 import { annualItems, fiveYearItems } from './items'
 import { mostPowerfulRole } from '../../common/countryRole'
 import { getAllowedStatusTransitions } from '../../common/assessment'
+import { PopoverControl } from './../reusableUiComponents/popoverControl'
 
 import './style.less'
 
@@ -145,28 +146,23 @@ const PrimaryItem = ({label, countryIso, assessmentType, assessmentStatuses, cha
   const allowedTransitions = getAllowedStatusTransitions(mostPowerfulRole(countryIso, userInfo), currentAssessmentStatus)
   const nextAssessmentStatus = allowedTransitions.next
   const previousAssessmentStatus = allowedTransitions.previous
+  const possibleAssesmentStatuses = [
+    {direction: 'next', transition: allowedTransitions.next},
+    {direction: 'previous', transition: allowedTransitions.previous}
+  ]
+  const allowedAssesmentStatuses = R.filter(R.prop('transition'), possibleAssesmentStatuses)
+  const assessmentStatusItems = R.map(targetStatus => ({
+    label: i18n.t(`navigation.assessmentStatus.${targetStatus.transition}.${targetStatus.direction}`),
+    onClick: () => changeAssessmentStatus(countryIso, assessmentType, targetStatus.transition)
+  }), allowedAssesmentStatuses)
 
   return <div className="nav__primary-item">
     <div className="nav__primary-label">{label}</div>
-    <div className={`nav__primary-assessment-status status-${currentAssessmentStatus}`}>
-      {i18n.t(`navigation.assessmentStatus.${currentAssessmentStatus}.label`)}
-    </div>
-    {
-      previousAssessmentStatus || nextAssessmentStatus
-      ? <div className="nav__primary-assessment-actions">
-        {
-          previousAssessmentStatus
-          ? changeStateLink(countryIso, assessmentType, currentAssessmentStatus, previousAssessmentStatus, changeAssessmentStatus, 'previous', i18n)
-          : null
-        }
-        {
-          nextAssessmentStatus
-          ? changeStateLink(countryIso, assessmentType, currentAssessmentStatus, nextAssessmentStatus, changeAssessmentStatus, 'next', i18n)
-          : null
-        }
+    <PopoverControl items={assessmentStatusItems}>
+      <div className={`nav__primary-assessment-status status-${currentAssessmentStatus}`}>
+        {i18n.t(`navigation.assessmentStatus.${currentAssessmentStatus}.label`)}
       </div>
-      : null
-    }
+    </PopoverControl>
   </div>
 }
 
