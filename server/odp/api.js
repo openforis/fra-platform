@@ -2,7 +2,6 @@ const R = require('ramda')
 const db = require('../db/db')
 const odpRepository = require('./odpRepository')
 const reviewRepository = require('../review/reviewRepository')
-const auditRepository = require('../audit/auditRepository')
 const {sendErr} = require('../utils/requestUtils')
 const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
 
@@ -52,7 +51,7 @@ module.exports.init = app => {
   )
 
   app.delete('/odp', (req, res) => {
-    db.transaction(odpRepository.getAndCheckOdpCountryId, [req.query.odpId, req.user]).then(countryIso =>
+    odpRepository.getAndCheckOdpCountryId(db, req.query.odpId, req.user).then(countryIso =>
       db.transaction(odpRepository.deleteOdp, [countryIso, req.query.odpId, req.user])
         .then(() => res.json({}))
         .catch(err => sendErr(res, err))
@@ -92,10 +91,8 @@ module.exports.init = app => {
   })
 
   app.post('/odp/markAsActual', (req, res) => {
-    db.transaction(odpRepository.getAndCheckOdpCountryId, [req.query.odpId, req.user]).then(countryIso => {
-      db.transaction(auditRepository.insertAudit,
-        [req.user.id, 'markAsActual', countryIso, 'odp', {odpId: req.query.odpId}])
-      db.transaction(odpRepository.markAsActual, [req.query.odpId, req.user])
+    odpRepository.getAndCheckOdpCountryId(db, req.query.odpId, req.user).then(countryIso => {
+      db.transaction(odpRepository.markAsActual, [countryIso, req.query.odpId, req.user])
         .then(() => res.json({})
         ).catch(err => sendErr(res, err))
     })

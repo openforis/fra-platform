@@ -147,7 +147,7 @@ const addClassData = (client, odpVersionId, odp) => {
   return Promise.all(nationalInserts)
 }
 
-module.exports.markAsActual = (client, odpId, user) => {
+module.exports.markAsActual = (client, countryIso, odpId, user) => {
   const currentOdpPromise = client.query('SELECT actual_id, draft_id FROM odp WHERE id = $1', [odpId])
   const checkCountryAccess = getAndCheckOdpCountryId(client, odpId, user)
   const updateOdpPromise = client.query(
@@ -165,7 +165,9 @@ module.exports.markAsActual = (client, odpId, user) => {
         client.query('DELETE FROM odp_version WHERE id = $1', [oldActualId])])
     }
     return null
-  })
+  }).then(() =>
+    auditRepository.insertAudit(client, user.id, 'markAsActual', countryIso, 'odp', {odpId})
+  )
 }
 
 const getAndCheckOdpCountryId = (client, odpId, user) =>
