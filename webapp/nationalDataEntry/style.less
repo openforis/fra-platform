@@ -39,20 +39,26 @@
 .nde__data-table-header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding-bottom: 16px;
-
-  .subhead {
-    flex-grow: 1;
-  }
 
   > *:nth-child(n + 2) {
     margin-left: 16px;
+  }
+
+  .align-left {
+    margin-right: auto;
+  }
+
+  .aling-right {
+    margin-left: auto;
   }
 }
 
 .nde__data-table-container {
   display: flex;
-  padding-bottom: 32px;
+  align-items: flex-start;
+  margin-bottom: 32px;
 
   .odp-header-cell {
     background-color: #e5f4f6;

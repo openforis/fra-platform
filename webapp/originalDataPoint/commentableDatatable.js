@@ -22,7 +22,7 @@ export class DataTable extends React.Component {
             <th className="fra-table__header-cell"></th>
             {
               R.values(this.props.fra).map(v =>
-                <th className={`fra-table__header-cell-align-right ${v.type === 'odp' ? 'odp-header-cell' : ''}`} key={`${v.type}_${v.name}`}>
+                <th className={`fra-table__header-cell-right ${v.type === 'odp' ? 'odp-header-cell' : ''}`} key={`${v.type}_${v.name}`}>
                   { v.type === 'odp' ? <OdpHeading countryIso={this.props.countryIso} odpValue={v}/>
                     : v.name
                   }
@@ -44,7 +44,7 @@ export class DataTable extends React.Component {
 }
 
 const buildRows = (rows, props) => {
-  return mapIndexed((row, i) => fraValueRow(row.localizedName, row.field, props.countryIso,
+  return mapIndexed((row, i) => fraValueRow(row.localizedName, row.field, row.className, props.countryIso,
     props.fra, R.partial(props.save, [props.section]), R.partial(props.saveMany, [props.section]),
     R.partial(updatePastedValues, [props.rowNames]),
     i, props.openCommentThread), rows)
@@ -74,15 +74,15 @@ const fraValueCell = (fraValue, fra, countryIso, save, saveMany, pasteUpdate, fi
 const odpCell = (odpValue, field) =>
   <ThousandSeparatedIntegerInput
     className="fra-table__integer-input"
-    integerValue={odpValue[field]}
+    integerValue={Math.round(odpValue[field])}
     disabled={true} />
 
-const fraValueRow = (rowHeading, field, countryIso, fra, save, saveMany, pasteUpdate, colId, openThread) => {
+const fraValueRow = (rowHeading, field, className, countryIso, fra, save, saveMany, pasteUpdate, colId, openThread) => {
   const target = [field]
   return <tr
     key={field}
     className={`${openThread && R.isEmpty(R.difference(openThread.target, target)) ? 'fra-row-comments__open' : ''}`}>
-    <td className="fra-table__header-cell">{ rowHeading }</td>
+    <td className={className ? className : 'fra-table__header-cell'}>{ rowHeading }</td>
     {
       mapIndexed((v, i) =>
           <td className={`fra-table__${v.type === 'odp' ? 'text-readonly-cell' : 'cell'}`} key={`${v.type}_${v.name}`}>

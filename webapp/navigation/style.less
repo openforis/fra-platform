@@ -68,10 +68,9 @@
   position: absolute;
   top: 68px;
   left: 16px;
-  width: 496px;
   background: white;
   border-radius: 2px;
-  border: 1px solid @ui-border;
+  border: @ui-thin-border;
   box-shadow: @shadow-2;
   z-index: 10;
 }
@@ -92,14 +91,13 @@
 
 .nav__country-list-role-header {
   line-height: 16px;
-  padding: 8px 15px;
+  padding: 8px 16px;
   display: flex;
   justify-content: flex-start;
 }
 .nav__country-list-item-name,
 .nav__country-list-role-label {
-  width: 240px;
-  margin-right: 16px;
+  width: 224px;
 }
 
 .nav__country-list-role-label,
@@ -109,14 +107,14 @@
 
 .nav__country-list-item-assessment-status,
 .nav__country-list-assessment-label {
-  width: 96px;
-  margin-right: 16px;
+  width: 136px;
+  margin-left: 16px;
 }
 
 .nav__country-list-item {
   display: flex;
-  justify-content: flex-start;
-  padding: 8px 15px;
+  justify-content: space-between;
+  padding: 8px 16px;
   text-decoration: none;
   line-height: 16px;
 
@@ -140,8 +138,8 @@
   font-size: @font-s;
   color: @text-body;
   display: inline-block;
-  min-width: 52px;
   line-height: 16px;
+  white-space: nowrap;
 
   .status-editing {
     .mixin-status-base(@ui-status-editing, 8px);

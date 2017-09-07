@@ -13,10 +13,17 @@ module.exports.validateDataPoint = odp => {
     R.equals(100)
   )(cls)
 
-  const validateFocPercentage = cls => R.pipe(
-    c => R.sum([defaultTo0(c.naturalForestPercent), defaultTo0(c.plantationPercent), defaultTo0(c.otherPlantedPercent)]),
-    R.gte(100)
-  )(cls)
+  const validateFocPercentage = cls =>
+    cls.forestPercent <= 0 ? true : R.pipe(
+      c => R.sum([defaultTo0(c.naturalForestPercent), defaultTo0(c.plantationPercent), defaultTo0(c.otherPlantedPercent)]),
+      R.equals(100)
+    )(cls)
+
+  const validateOtherLandPercentage = cls =>
+    cls.otherLandPercent <= 0 ? true : R.pipe(
+      c => R.sum([defaultTo0(c.otherLandPalmsPercent), defaultTo0(c.otherLandTreeOrchardsPercent), defaultTo0(c.otherLandAgroforestryPercent), defaultTo0(c.otherLandTreesUrbanSettingsPercent)]),
+      R.equals(100)
+    )(cls)
 
   const nationalClasses = R.map(
     c => R.pipe(
@@ -25,7 +32,8 @@ module.exports.validateDataPoint = odp => {
       v => R.assoc('validArea', c.placeHolder || !v.validClassName ? true : !isNaN(parseFloat(c.area)), v),
       v => R.assoc('validEofPercentage', c.placeHolder || !v.validArea || !v.validClassName ? true : validateEofPercentage(c), v),
       v => R.assoc('validFocPercentage', c.placeHolder || !v.validArea || !v.validClassName ? true : validateFocPercentage(c), v),
-      v => R.assoc('valid', v.validClassName && v.validArea && v.validEofPercentage && v.validFocPercentage, v)
+      v => R.assoc('validOtherLandPercentage', c.placeHolder || !v.validArea || !v.validClassName ? true : validateOtherLandPercentage(c), v),
+      v => R.assoc('valid', v.validClassName && v.validArea && v.validEofPercentage && v.validFocPercentage && v.validOtherLandPercentage, v)
     )({})
     , odp.nationalClasses.length === 1 ? odp.nationalClasses : R.filter(c => !c.placeHolder, odp.nationalClasses))
 

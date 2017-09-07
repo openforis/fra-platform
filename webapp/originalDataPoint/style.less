@@ -75,6 +75,12 @@
     min-width: auto;
   }
 
+  .odp__input-table__sub-header {
+    color: @text-mute;
+    font-size: @font-xs;
+    font-weight: 400;
+  }
+
   td,
   .odp__input-table__cell {
     .fra-table__cell;
@@ -133,7 +139,11 @@
   cursor: pointer;
 }
 
-.odp__eof-table {}
+.odp__eof-table {
+  input {
+    text-align: right;
+  }
+}
 
 .odp__foc-table {
   .percent__field:first-of-type:not(:only-of-type) {

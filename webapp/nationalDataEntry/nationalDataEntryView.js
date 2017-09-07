@@ -2,8 +2,9 @@ import './style.less'
 import React from 'react'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
-import { fetchItem, save, saveMany, generateFraValues} from '../originalDataPoint/actions'
+import { fetchItem, save, saveMany, generateFraValues } from '../originalDataPoint/actions'
 import { Link } from './../link'
+import DefinitionLink from './../reusableUiComponents/definitionLink'
 import ChartWrapper from './chart/chartWrapper'
 import LoggedInPageTemplate from '../loggedInPageTemplate'
 import { DataTable } from '../originalDataPoint/commentableDatatable'
@@ -20,7 +21,7 @@ const NationalDataEntry = (props) => {
   }
 
   const i18n = props.i18n
-  const rows = [
+  const eofRows = [
     {
       field: 'forestArea',
       localizedName: i18n.t('extentOfForest.forestArea')
@@ -34,16 +35,51 @@ const NationalDataEntry = (props) => {
       localizedName: i18n.t('fraClass.otherLand')
     }
   ]
-  const rowNames = {
-  0: 'forestArea',
-  1: 'otherWoodedLand',
-  2: 'otherLand'
+  const eofRowNames = {
+    0: 'forestArea',
+    1: 'otherWoodedLand',
+    2: 'otherLand'
+  }
+
+  const otherLandRows = [
+    {
+      field: 'otherLand',
+      localizedName: i18n.t('fraClass.otherLand')
+    },
+    {
+      field: 'otherLandPalms',
+      className: 'fra-table__header-cell-sub',
+      localizedName: i18n.t('extentOfForest.ofWhichPalms')
+    },
+    {
+      field: 'otherLandTreeOrchards',
+      className: 'fra-table__header-cell-sub',
+      localizedName: i18n.t('extentOfForest.ofWhichTreeOrchards')
+    },
+    {
+      field: 'otherLandAgroforestry',
+      className: 'fra-table__header-cell-sub',
+      localizedName: i18n.t('extentOfForest.ofWhichAgroforestry')
+    },
+    {
+      field: 'otherLandTreesUrbanSettings',
+      className: 'fra-table__header-cell-sub',
+      localizedName: i18n.t('extentOfForest.ofWhichTreesUrbanSettings')
+    }
+  ]
+  const otherLandRowNames = {
+    0: 'otherLand',
+    1: 'otherLandPalms',
+    2: 'otherLandTreeOrchards',
+    3: 'otherLandAgroforestry',
+    4: 'otherLandTreesUrbanSettings'
   }
 
   return <div className='nde__data-input-component'>
     <div className="nde__data-page-header">
       <h2 className="headline">{i18n.t('extentOfForest.extentOfForest')}</h2>
     </div>
+
     <div className='nde__comment-transition'>
       <div className="nde__data-input-header">
         <Link className="btn btn-primary" to={`/country/${props.countryIso}/odp`}>
@@ -53,16 +89,24 @@ const NationalDataEntry = (props) => {
           {i18n.t('nationalDataPoint.addNationalDataPoint')}
         </Link>
       </div>
-      <ChartWrapper stateName="nationalDataEntry" trends={['forestArea', 'otherWoodedLand']} />
-      <div className="nde__data-table-header">
-        <h3 className="subhead">{i18n.t('extentOfForest.extentOfForestValues')}</h3>
-        <button disabled={disableGenerateFRAValues()} className="btn btn-primary"
-                onClick={() => props.generateFraValues('eof', props.countryIso)}>
-          {i18n.t('extentOfForest.generateFraValues')}
-        </button>
-      </div>
+      <ChartWrapper stateName="nationalDataEntry" trends={['forestArea', 'otherWoodedLand']}/>
     </div>
-    <DataTable section='eof' rows={rows} rowNames={rowNames} {...props} />
+
+    <div className="nde__data-table-header">
+      <h3 className="subhead">{i18n.t('extentOfForest.extentOfForestValues')}</h3>
+      <DefinitionLink className="align-left" name="eof" i18n={i18n}/>
+      <button disabled={disableGenerateFRAValues()} className="btn btn-primary"
+              onClick={() => props.generateFraValues('eof', props.countryIso)}>
+        {i18n.t('extentOfForest.generateFraValues')}
+      </button>
+    </div>
+    <DataTable section='eof' rows={eofRows} rowNames={eofRowNames} {...props} />
+
+    <div className="nde__data-table-header">
+      <h3 className="subhead">{i18n.t('extentOfForest.otherLandCategories')}</h3>
+    </div>
+    <DataTable section='eof' rows={otherLandRows} rowNames={otherLandRowNames} {...props} />
+
     <CommentableDescriptions
       section='eof'
       name="extentOfForest"

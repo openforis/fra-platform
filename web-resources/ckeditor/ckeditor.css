@@ -83,6 +83,11 @@ pre {
     tab-size: 4;
 }
 
+img {
+    max-width: 100%;
+    height: auto;
+}
+
 .marker {
     background-color: Yellow;
 }
@@ -123,6 +128,7 @@ table, th, td {
 
 td, th {
     padding: 4px;
+    text-align: left;
 }
 
 

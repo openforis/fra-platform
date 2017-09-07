@@ -15,6 +15,9 @@ describe('validateOriginalDataPoint', () => {
         'forestPercent': '100',
         'otherWoodedLandPercent': null,
         'otherLandPercent': null,
+        'naturalForestPercent': '80',
+        'plantationPercent': '20',
+        'otherPlantedPercent': null,
         'uuid': '0d1e9964-d1be-4daf-826a-6a39e8eb5d5e'
       }, {
         'className': 'owl',
@@ -23,6 +26,9 @@ describe('validateOriginalDataPoint', () => {
         'forestPercent': '80',
         'otherWoodedLandPercent': '20',
         'otherLandPercent': null,
+        'naturalForestPercent': '70',
+        'plantationPercent': '30',
+        'otherPlantedPercent': null,
         'uuid': '024791ec-be91-41ca-b862-fe45bb9c5772'
       }]
     }

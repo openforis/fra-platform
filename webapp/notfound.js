@@ -2,12 +2,10 @@ import React from 'react'
 import { Link } from './link'
 
 const Notfound = () => (
-  <div>
-    Not found
-    <hr />
-    <ul>
-      <li><Link to="/">Back to main page</Link></li>
-    </ul>
+  <div className="notfound">
+    <img src="/img/tucan.svg" alt="tucan"/>
+    <p className="subhead"><strong>Page not found</strong></p>
+    <a href="/" className="link">Back to main page</a>
   </div>
 )
 

@@ -8,6 +8,7 @@ const sessionInit = require('./sessionInit')
 const apiRouter = require('./apiRouter')
 const authApi = require('./auth/authApi')
 const resourceCacheControl = require('./resourceCacheControl')
+const definitionsApi = require('./definitions/api')
 const accessControl = require('./auth/accessControl')
 const loginHandler = require('./auth/loginHandler')
 const { sendErr } = require('./utils/requestUtils')
@@ -32,6 +33,8 @@ app.use('/ckeditor/', express.static(`${__dirname}/../web-resources/ckeditor`))
 app.use(bodyParser.json({limit: '5000kb'}))
 
 app.use('/api', apiRouter.router)
+
+definitionsApi.init(app)
 
 // Custom error-handling for handling custom exceptions and
 // sending the uncaught errors as json instead of HTML

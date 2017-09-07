@@ -6,14 +6,18 @@ export const translation = {
     fr: 'Français',
     ru: 'Русский'
   },
+  definition: {
+    linkLabel: 'See definitions'
+  },
 
   user: {
     roles: {
       reviewer: 'Reviewer',
-      nationalCorrespondent: 'National Correspondent',
-      national_correspondent: 'National Correspondent',
+      nationalCorrespondent: 'National correspondent',
+      national_correspondent: 'National correspondent',
       reviewer_all: 'Reviewer',
-      national_correspondent_all: 'National Correspondent',
+      national_correspondent_all: 'National correspondent',
+      collaborator: 'Collaborator',
       noRole: 'N/A'
     }
   },
@@ -23,11 +27,22 @@ export const translation = {
     otherWoodedLand: 'Other wooded land',
     otherLand: 'Other land'
   },
+
   fraForestCharacteristicsClass: {
     naturallyGenerated: 'Naturally regenerated',
     plantationForest: 'Plantation forest',
     otherPlantedForest: 'Other planted forest',
-    introduced: '...of which introduces species'
+    introduced: '…of which introduces species'
+  },
+
+  fraOtherLandClass: {
+    palms: 'Palms',
+    palmsClasses: 'Oil, coconut, dates, etc.',
+    treeOrchards: 'Tree orchards',
+    treeOrchardsClasses: 'Fruit, nuts, olive, etc.',
+    agroforestry: 'Agroforestry',
+    treesUrbanSettings: 'Trees in urban settings'
+
   },
 
   // error messages
@@ -109,8 +124,12 @@ export const translation = {
   },
 
   description: {
+    edit: 'Edit',
+    done: 'Done',
+    emptyLabel: 'No content',
+    loading: 'Loading content…',
     description: 'Description',
-    dataSources: 'Data Sources',
+    dataSources: 'Data sources',
     originalData: 'Original data',
     nationalClassificationAndDefinitions: 'National classification and definitions',
   },
@@ -135,7 +154,10 @@ export const translation = {
     confirmDelete: 'Are you sure you want to delete this data point? This cannot be undone.',
     cancel: 'Cancel',
     saveData: 'Save data',
-    enterOrCopyPasteNationalClasses: 'Enter or copy and paste national classes'
+    enterOrCopyPasteNationalClasses: 'Enter or copy and paste national classes',
+    prefixPrimary: 'Primary',
+    prefixIntroduced: 'Introduced',
+    otherLandCharacteristics: 'Other land characteristics'
   },
 
   // annually reported assessment components
@@ -148,9 +170,13 @@ export const translation = {
     chart: {
       placeholderLine1: 'To get started, add new national data points and use',
       placeholderLine2: 'them to generate FRA values automatically.'
-    }
+    },
+    otherLandCategories: 'Other land categories',
+    ofWhichPalms: '...of which palms (oil, coconut, dates, etc.)',
+    ofWhichTreeOrchards: '...of which trees orchards (includes fruit, nuts, olive, etc.)',
+    ofWhichAgroforestry: '...of which agroforestry',
+    ofWhichTreesUrbanSettings: '...of which trees in urban settings'
   },
-
 
   growingStock: {
     growingStock: 'Growing stock'
@@ -180,8 +206,8 @@ export const translation = {
   },
 
   forestCharacteristics: {
-    forestCharacteristics: 'Forest Characteristics',
-    forestCharacteristicsValues: 'Forest Characteristics values',
+    forestCharacteristics: 'Forest characteristics',
+    forestCharacteristicsValues: 'Forest characteristics values',
     naturalForestArea: 'Naturally regenerated forest',
     naturalForestPrimaryArea: '…of which primary',
     plantationForestArea: 'Plantation forest',
@@ -205,7 +231,7 @@ export const translation = {
   },
 
   primaryDesignatedManagementObjective: {
-    primaryDesignatedManagementObjective: 'Primary designated management objective',
+    primaryDesignatedManagementObjective: 'Designated management objective',
     production: 'Production',
     soilWaterProtection: 'Protection of soil and water',
     biodiversityConservation: 'Conservation of biodiversity',
