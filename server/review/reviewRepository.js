@@ -2,6 +2,7 @@ const camelize = require('camelize')
 const db = require('../db/db')
 const R = require('ramda')
 const Promise = require('bluebird')
+const auditRepository = require('./../audit/auditRepository')
 const {checkCountryAccess, checkReviewerCountryAccess, AccessControlException} = require('../utils/accessControl')
 const {isReviewer} = require('../../common/countryRole')
 
@@ -33,16 +34,16 @@ const getIssueComments = (countryIso, section) =>
 
 module.exports.getIssueComments = getIssueComments
 
-const getIssueCountryAndSection = (client, issueId) => {
-  return client.query(`
+const getIssueCountryAndSection = (issueId) => {
+  return db.query(`
     SELECT i.country_iso, i.section FROM issue i 
     WHERE i.id = $1
   `, [issueId]).then(res => camelize(res.rows[0]))
 }
 module.exports.getIssueCountryAndSection = getIssueCountryAndSection
 
-const getCommentCountryAndSection = (client, commentId) => {
-  return client.query(`
+const getCommentCountryAndSection = commentId => {
+  return db.query(`
     SELECT i.country_iso, i.section FROM fra_comment c JOIN issue i ON (c.issue_id = i.id)
     WHERE c.id = $1
   `, [commentId]).then(res => camelize(res.rows[0]))
@@ -106,33 +107,39 @@ const getIssuesByParam = (countryIso, section, paramPosition, paramValue) =>
 module.exports.getIssuesByParam = getIssuesByParam
 
 module.exports.createIssueWithComment = (client, countryIso, section, target, userId, msg) =>
-  client.query(`
+  auditRepository.insertAudit(client, userId, 'createIssue', countryIso, section, {target})
+    .then(() =>
+      client.query(`
     INSERT INTO issue (country_iso, section, target, status) VALUES ($1, $2, $3, $4);
   `, [countryIso, section, target, 'opened'])
-    .then(res => client.query(`SELECT last_value FROM issue_id_seq`))
-    .then(res => client.query(`
+        .then(res => client.query(`SELECT last_value FROM issue_id_seq`))
+        .then(res => client.query(`
       INSERT INTO fra_comment (issue_id, user_id, message, status_changed)
       VALUES ($1, $2, $3, 'opened');
   `, [res.rows[0].last_value, userId, msg]))
+    )
 
 const checkIssueOpenedOrReviewer = (countryIso, status, user) => {
   if (status === 'resolved' && !isReviewer(countryIso, user))
     throw new AccessControlException('error.review.commentEnterResolvedIssue', {user: user.name})
 }
 
-const createComment = (client, issueId, user, msg, statusChanged) =>
-  client
-    .query('SELECT country_iso, status FROM issue WHERE id = $1', [issueId])
-    .then(res => {
-      const countryIso = res.rows[0].country_iso
-      checkCountryAccess(countryIso, user)
-      checkIssueOpenedOrReviewer(countryIso, res.rows[0].status, user)
-    })
-    .then(() => client.query(`
+const createComment = (client, issueId, user, countryIso, section, msg, statusChanged) =>
+  auditRepository.insertAudit(client, user.id, 'createComment', countryIso, section, {issueId})
+    .then(() =>
+      client
+        .query('SELECT country_iso, status FROM issue WHERE id = $1', [issueId])
+        .then(res => {
+          const countryIso = res.rows[0].country_iso
+          checkCountryAccess(countryIso, user)
+          checkIssueOpenedOrReviewer(countryIso, res.rows[0].status, user)
+        })
+        .then(() => client.query(`
       INSERT INTO fra_comment (issue_id, user_id, message, status_changed)
       VALUES ($1, $2, $3, $4);
      `, [issueId, user.id, msg, statusChanged]))
-    .then(() => client.query('UPDATE issue SET status = $1 WHERE id = $2', ['opened', issueId]))
+        .then(() => client.query('UPDATE issue SET status = $1 WHERE id = $2', ['opened', issueId]))
+    )
 
 module.exports.createComment = createComment
 
@@ -156,19 +163,28 @@ module.exports.deleteIssues = (client, countryIso, section, paramPosition, param
     .then(res => res.map(r => r.issueId))
     .then(issueIds => deleteIssuesByIds(client, issueIds))
 
-module.exports.markCommentAsDeleted = (client, commentId, user) =>
-  client
-    .query('SELECT user_id FROM fra_comment WHERE id = $1', [commentId])
-    .then(res => res.rows[0].user_id)
-    .then(userId => {
-      if (userId !== user.id)
-        throw new AccessControlException('error.review.commentDeleteNotOwner', {user: user.name})
-    })
-    .then(() => client.query('UPDATE fra_comment SET deleted = $1 WHERE id = $2', [true, commentId]))
+module.exports.markCommentAsDeleted = (client, countryIso, section, commentId, user) =>
+  auditRepository.insertAudit(client, user.id, 'deleteComment', countryIso, section, {commentId})
+    .then(() =>
+      client
+        .query('SELECT user_id FROM fra_comment WHERE id = $1', [commentId])
+        .then(res => res.rows[0].user_id)
+        .then(userId => {
+          if (userId !== user.id)
+            throw new AccessControlException('error.review.commentDeleteNotOwner', {user: user.name})
+        })
+        .then(() => client.query('UPDATE fra_comment SET deleted = $1 WHERE id = $2', [true, commentId]))
+    )
 
-module.exports.markIssueAsResolved = (client, issueId, user) =>
-  client
-    .query('SELECT country_iso FROM issue WHERE id = $1', [issueId])
-    .then(res => checkReviewerCountryAccess(res.rows[0].country_iso, user))
-    .then(() => createComment(client, issueId, user, 'Marked as resolved', 'resolved'))
-    .then(() => client.query('UPDATE issue SET status = $1 WHERE id = $2', ['resolved', issueId]))
+module.exports.markIssueAsResolved = (client, countryIso, section, issueId, user) =>
+  auditRepository.insertAudit(client, user.id, 'markAsResolved', countryIso, section, {issueId})
+    .then(() => client
+      .query('SELECT country_iso FROM issue WHERE id = $1', [issueId])
+      .then(res =>
+        checkReviewerCountryAccess(res.rows[0].country_iso, user)
+      )
+      .then(() => createComment(client, issueId, user, countryIso, section, 'Marked as resolved', 'resolved'))
+      .then(() =>
+        client.query('UPDATE issue SET status = $1 WHERE id = $2', ['resolved', issueId])
+      )
+    )

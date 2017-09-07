@@ -1,0 +1,3 @@
+ALTER TABLE fra_audit ADD COLUMN id BIGSERIAL;
+ALTER TABLE fra_audit DROP CONSTRAINT fra_audit_pkey;
+ALTER TABLE fra_audit ADD PRIMARY KEY (id);
