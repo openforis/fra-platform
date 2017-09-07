@@ -7,13 +7,13 @@ import { logout, switchLanguage } from '../user/actions'
 import { PopoverControl } from './../reusableUiComponents/popoverControl'
 
 const UserInfo = props => {
-  const taulu = [{
+  const userInfoItems = [{
     label: props.i18n.t('footer.logout'),
     onClick: () => props.logout()
   }]
 
   return <div className="footer__item">
-    <PopoverControl items={taulu}>
+    <PopoverControl items={userInfoItems}>
       <span className="footer__user-control">
         {props.userName}
         <svg className="icon icon-sub">
@@ -27,7 +27,7 @@ const UserInfo = props => {
 const LanguageSelection = ({i18n, switchLanguage, ...props}) => {
   const supportedLangs = ['en', 'fr', 'es', 'ru']
   const selectableLangs = R.reject(l => l === i18n.language, supportedLangs)
-  const taulu = R.map(lang =>
+  const languageSelectionItems = R.map(lang =>
     ({
       label: i18n.t(`language.${lang}`),
       onClick: () => switchLanguage(lang)
@@ -35,7 +35,7 @@ const LanguageSelection = ({i18n, switchLanguage, ...props}) => {
   )
 
   return <div className="footer__item">
-    <PopoverControl items={taulu}>
+    <PopoverControl items={languageSelectionItems}>
       <span className="footer__user-control">
         {i18n.t(`language.${i18n.language}`)}
         <svg className="icon icon-sub">

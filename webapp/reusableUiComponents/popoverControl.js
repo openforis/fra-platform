@@ -2,9 +2,6 @@ import React from 'react'
 import * as R from 'ramda'
 import './popoverControl.less'
 
-const renderValue = value =>
-  typeof value === 'number' ? value : ''
-
 export class PopoverControl extends React.Component {
   constructor (props) {
     super(props)
