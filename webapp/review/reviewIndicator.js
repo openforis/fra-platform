@@ -4,12 +4,12 @@ import { connect } from 'react-redux'
 
 import { getIssueSummary, openCommentThread, closeCommentThread } from './actions'
 
-const CommentStatus = ({count, active, lastCommentUserId, issueStatus, userInfo, ...props}) => {
+const CommentStatus = ({count, active, issueStatus, hasUnreadIssues, ...props}) => {
   const getIssueStatusCssClass = () =>
     issueStatus === 'resolved'
       ? 'issue-resolved'
-      : R.propOr(null, 'id', userInfo) !== lastCommentUserId
-      ? 'issue-last-comment-other-user'
+      : hasUnreadIssues
+      ? 'unread-issue'
       : ''
 
   return <div {...props} className={`fra-review__issue-status ${active ? 'active' : ''}`}>
@@ -43,17 +43,16 @@ class ReviewIndicator extends React.Component {
   render () {
     const targetProps = this.props[this.props.target] || {}
     const count = R.isNil(targetProps) ? 0 : targetProps.issuesCount
-    const lastCommentUserId = R.isNil(targetProps) ? null : targetProps.lastCommentUserId
     const issueStatus = R.isNil(targetProps) ? null : targetProps.issueStatus
+    const hasUnreadIssues = R.isNil(targetProps) ? false : targetProps.hasUnreadIssues
     const active = this.props.openThread && this.props.section == this.props.openThread.section && R.equals(this.props.target, this.props.openThread.target) ? true : false
 
     return <div className="fra-review__add-issue">
       <CommentStatus
         count={count}
         active={active}
-        lastCommentUserId={lastCommentUserId}
         issueStatus={issueStatus}
-        userInfo={this.props.userInfo}
+        hasUnreadIssues={hasUnreadIssues}
         onClick={() => {
           this.props.openCommentThread(this.props.countryIso, this.props.section, this.props.target, this.props.name)
         }}/>
