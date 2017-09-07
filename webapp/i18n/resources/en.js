@@ -45,6 +45,16 @@ export const translation = {
 
   },
 
+  fraOtherLandClass: {
+    palms: 'Palms',
+    palmsClasses: 'Oil, coconut, dates, etc.',
+    treeOrchards: 'Tree orchards',
+    treeOrchardsClasses: 'Fruit, nuts, olive, etc.',
+    agroforestry: 'Agroforestry',
+    treesUrbanSettings: 'Trees in urban settings'
+
+  },
+
   // error messages
   error: {
     access: {
