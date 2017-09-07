@@ -17,7 +17,7 @@ module.exports.init = app => {
   app.get('/review/:countryIso/:section/summary', (req, res) => {
     checkCountryAccessFromReqParams(req)
     reviewRepository
-      .getIssuesSummary(req.params.countryIso, req.params.section, req.query.target)
+      .getIssuesSummary(req.params.countryIso, req.params.section, req.query.target, req.user)
       .then(result => res.json(result))
       .catch(err => sendErr(res, err))
   })
@@ -34,23 +34,21 @@ module.exports.init = app => {
 
   app.get('/review/:countryIso/:section', (req, res) => {
     checkCountryAccessFromReqParams(req)
-    reviewRepository.getIssueComments(req.params.countryIso, req.params.section)
+    reviewRepository.getIssueComments(req.params.countryIso, req.params.section, req.user)
       .then(result => {
         const target = req.query.target && req.query.target.split(',')
         const issues = R.filter(comment => R.pathEq(['target', 'params'], target, comment), result)
 
-        const sendResponse = () => res.json(
-          R.map(
-            comment =>
-              R.merge(R.omit('email', comment), // leave out email
-                R.pipe( // calculate email hash for gravatar
-                  R.prop('email'),
-                  v => crypto.createHash('md5').update(v).digest('hex'),
-                  h => ({hash: h})
-                )(comment)
-              )
-            , issues)
-        )
+        const sendResponse = () => res.json(R.map(
+          comment =>
+            R.merge(R.omit('email', comment), // leave out email
+              R.pipe( // calculate email hash for gravatar
+                R.prop('email'),
+                v => crypto.createHash('md5').update(v).digest('hex'),
+                h => ({hash: h})
+              )(comment)
+            )
+          , issues))
 
         issues.length > 0
           ? reviewRepository.updateIssueReadTime(issues[0].issueId, req.user).then(() => sendResponse())
