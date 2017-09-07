@@ -156,3 +156,10 @@ module.exports.markIssueAsResolved = (client, issueId, user) =>
     .then(res => checkReviewerCountryAccess(res.rows[0].country_iso, user))
     .then(() => createComment(client, issueId, user, 'Marked as resolved', 'resolved'))
     .then(() => client.query('UPDATE issue SET status = $1 WHERE id = $2', ['resolved', issueId]))
+
+module.exports.updateIssueReadTime = (issueId, user) =>
+  db
+    .query(`SELECT id FROM user_issue WHERE user_id = $1 AND issue_id = $2`, [user.id, issueId])
+    .then(res => res.rows.length > 0
+      ? db.query(`UPDATE user_issue SET read_time = $1 WHERE id = $2`, [new Date().toISOString(), res.rows[0].id])
+      : db.query(`INSERT INTO user_issue (user_id, issue_id, read_time) VALUES ($1,$2,$3)`, [user.id, issueId, new Date().toISOString()]))

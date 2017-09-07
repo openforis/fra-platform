@@ -37,25 +37,25 @@ module.exports.init = app => {
     reviewRepository.getIssueComments(req.params.countryIso, req.params.section)
       .then(result => {
         const target = req.query.target && req.query.target.split(',')
-        const issues = R.map(issue => {
-          const diff = R.pipe(R.path(['target', 'params']), R.difference(target))(issue)
-          return R.isEmpty(diff) ? issue : []
-        }, result)
-        res.json(
-          R.pipe(
-            R.reject(R.isEmpty),
-            R.map(
-              comment =>
-                R.merge(R.omit('email', comment), // leave out email
-                  R.pipe( // calculate email hash for gravatar
-                    R.prop('email'),
-                    v => crypto.createHash('md5').update(v).digest('hex'),
-                    h => ({hash: h})
-                  )(comment)
-                )
-            )
-          )(issues)
+        const issues = R.filter(comment => R.pathEq(['target', 'params'], target, comment), result)
+
+        const sendResponse = () => res.json(
+          R.map(
+            comment =>
+              R.merge(R.omit('email', comment), // leave out email
+                R.pipe( // calculate email hash for gravatar
+                  R.prop('email'),
+                  v => crypto.createHash('md5').update(v).digest('hex'),
+                  h => ({hash: h})
+                )(comment)
+              )
+            , issues)
         )
+
+        issues.length > 0
+          ? reviewRepository.updateIssueReadTime(issues[0].issueId, req.user).then(() => sendResponse())
+          : sendResponse()
+
       })
       .catch(err => sendErr(res, err))
   })
