@@ -52,6 +52,7 @@ module.exports.init = app => {
               )(comment)
             )
           , issues))
+
         issues.length > 0
           ? reviewRepository.updateIssueReadTime(issues[0].issueId, req.user).then(() => sendResponse())
           : sendResponse()
