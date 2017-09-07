@@ -159,8 +159,12 @@ const PrimaryItem = ({label, countryIso, assessmentType, assessmentStatuses, cha
   return <div className="nav__primary-item">
     <div className="nav__primary-label">{label}</div>
     <PopoverControl items={assessmentStatusItems}>
-      <div className={`nav__primary-assessment-status status-${currentAssessmentStatus}`}>
-        {i18n.t(`navigation.assessmentStatus.${currentAssessmentStatus}.label`)}
+      <div className={`nav__primary-assessment-status status-${currentAssessmentStatus} actionable-${!R.isEmpty(assessmentStatusItems)}`}>
+        <span>{i18n.t(`navigation.assessmentStatus.${currentAssessmentStatus}.label`)}</span>
+        {!R.isEmpty(assessmentStatusItems)
+          ? <svg className="icon icon-white icon-middle"><use xlinkHref="img/icons.svg#small-down"/></svg>
+          : null
+        }
       </div>
     </PopoverControl>
   </div>
