@@ -58,6 +58,7 @@ export const openCommentThread = (countryIso, section, target, name) => dispatch
 }
 export const closeCommentThread = (countryIso, section, target) => dispatch => {
   getIssueSummary(countryIso, section, target)(dispatch)
+  fetchCountryOverviewStatus(countryIso)(dispatch)
   dispatch({type: issueCloseCommentThread})
 }
 
