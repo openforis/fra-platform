@@ -90,12 +90,10 @@ module.exports.init = app => {
       .catch(err => sendErr(res, err))
   })
 
-  app.post('/odp/markAsActual', (req, res) => {
-    odpRepository.getAndCheckOdpCountryId(db, req.query.odpId, req.user).then(countryIso => {
-      db.transaction(odpRepository.markAsActual, [countryIso, req.query.odpId, req.user])
-        .then(() => res.json({})
-        ).catch(err => sendErr(res, err))
-    })
-  })
+  app.post('/odp/markAsActual', (req, res) =>
+    db.transaction(odpRepository.markAsActual, [req.query.odpId, req.user])
+      .then(() => res.json({})
+      ).catch(err => sendErr(res, err))
+  )
 
 }

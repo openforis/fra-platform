@@ -147,27 +147,30 @@ const addClassData = (client, odpVersionId, odp) => {
   return Promise.all(nationalInserts)
 }
 
-module.exports.markAsActual = (client, countryIso, odpId, user) => {
+module.exports.markAsActual = (client, odpId, user) => {
   const currentOdpPromise = client.query('SELECT actual_id, draft_id FROM odp WHERE id = $1', [odpId])
   const checkCountryAccess = getAndCheckOdpCountryId(client, odpId, user)
   const updateOdpPromise = client.query(
     'UPDATE odp SET actual_id = draft_id, draft_id = null WHERE id = $1 AND draft_id IS NOT NULL', [odpId]
   )
-  return Promise.join(currentOdpPromise, checkCountryAccess, updateOdpPromise, (oldActualResult) => {
+  return Promise.join(currentOdpPromise, checkCountryAccess, updateOdpPromise, (oldActualResult, countryIso) => {
     if (oldActualResult.rowCount > 0 && oldActualResult.rows[0].draft_id) {
-      return oldActualResult.rows[0].actual_id
+      return ({oldActualId: oldActualResult.rows[0].actual_id, countryIso})
     }
-    return null
-  }).then((oldActualId) => {
-    if (oldActualId) {
-      return Promise.all([
-        wipeClassData(client, oldActualId),
-        client.query('DELETE FROM odp_version WHERE id = $1', [oldActualId])])
-    }
-    return null
-  }).then(() =>
-    auditRepository.insertAudit(client, user.id, 'markAsActual', countryIso, 'odp', {odpId})
-  )
+    return ({countryIso})
+  })
+    .then(({countryIso, oldActualId}) => {
+      const audit = auditRepository.insertAudit(client, user.id, 'markAsActual', countryIso, 'odp', {odpId})
+      return Promise.all([audit, oldActualId])
+    })
+    .then(([_, oldActualId]) => {
+      if (oldActualId) {
+        return Promise.all([
+          wipeClassData(client, oldActualId),
+          client.query('DELETE FROM odp_version WHERE id = $1', [oldActualId])])
+      }
+      return null
+    })
 }
 
 const getAndCheckOdpCountryId = (client, odpId, user) =>
