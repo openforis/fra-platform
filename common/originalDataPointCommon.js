@@ -13,10 +13,11 @@ module.exports.validateDataPoint = odp => {
     R.equals(100)
   )(cls)
 
-  const validateFocPercentage = cls => R.pipe(
-    c => R.sum([defaultTo0(c.naturalForestPercent), defaultTo0(c.plantationPercent), defaultTo0(c.otherPlantedPercent)]),
-    R.equals(100)
-  )(cls)
+  const validateFocPercentage = cls =>
+    cls.forestPercent <= 0 ? true : R.pipe(
+      c => R.sum([defaultTo0(c.naturalForestPercent), defaultTo0(c.plantationPercent), defaultTo0(c.otherPlantedPercent)]),
+      R.equals(100)
+    )(cls)
 
   const validateOtherLandPercentage = cls =>
     cls.otherLandPercent <= 0 ? true : R.pipe(
