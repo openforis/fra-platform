@@ -2,19 +2,21 @@ const db = require('../db/db')
 const R = require('ramda')
 const sqlCreator = require('./traditionalTableSqlCreator')
 const tableMappings = require('./tableMappings')
+const auditRepository = require('./../audit/auditRepository')
 const { toNumberOrNull  } = require('../utils/databaseConversions')
 
-module.exports.save = (client, countryIso, tableSpecName, tableData) => {
+module.exports.save = (client, userId, countryIso, tableSpecName, tableData) => {
   const [deleteQuery, deleteQyeryParams] = sqlCreator.createDelete(countryIso, tableSpecName)
   const insertQueries = sqlCreator.createInserts(countryIso, tableSpecName, tableData)
+  const insertAudit = auditRepository.insertAudit(client, userId, 'saveTraditionalTable', countryIso, tableSpecName)
 
-  return client.query(
+  return insertAudit.then(() => client.query(
     deleteQuery, deleteQyeryParams
   ).then(() =>
     Promise.all(R.map(
       ([queryString, params]) => client.query(queryString, params),
       insertQueries))
-  )
+  ))
 }
 
 const createTableData = (cols, rows) =>

@@ -7,9 +7,7 @@ const auditRepository = require('./../audit/auditRepository')
 module.exports.init = app => {
   app.post('/traditionalTable/:countryIso/:tableSpecName', (req, res) => {
     checkCountryAccessFromReqParams(req)
-    db.transaction(auditRepository.insertAudit,
-      [req.user.id, 'saveTradionalTable', req.params.countryIso, req.params.tableSpecName])
-    db.transaction(repository.save, [req.params.countryIso, req.params.tableSpecName, req.body])
+    db.transaction(repository.save, [req.user.id, req.params.countryIso, req.params.tableSpecName, req.body])
       .then(result => res.json({}))
       .catch(err => sendErr(res, err))
   })
