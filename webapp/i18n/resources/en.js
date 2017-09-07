@@ -27,11 +27,22 @@ export const translation = {
     otherWoodedLand: 'Other wooded land',
     otherLand: 'Other land'
   },
+
   fraForestCharacteristicsClass: {
     naturallyGenerated: 'Naturally regenerated',
     plantationForest: 'Plantation forest',
     otherPlantedForest: 'Other planted forest',
     introduced: '…of which introduces species'
+  },
+
+  fraOtherLandClass: {
+    palms: 'Palms',
+    palmsClasses: 'Oil, coconut, dates, etc.',
+    treeOrchards: 'Tree orchards',
+    treeOrchardsClasses: 'Fruit, nuts, olive, etc.',
+    agroforestry: 'Agroforestry',
+    treesUrbanSettings: 'Trees in urban settings'
+
   },
 
   // error messages
@@ -145,7 +156,8 @@ export const translation = {
     saveData: 'Save data',
     enterOrCopyPasteNationalClasses: 'Enter or copy and paste national classes',
     prefixPrimary: 'Primary',
-    prefixIntroduced: 'Introduced'
+    prefixIntroduced: 'Introduced',
+    otherLandCharacteristics: 'Other land characteristics'
   },
 
   // annually reported assessment components
@@ -158,9 +170,13 @@ export const translation = {
     chart: {
       placeholderLine1: 'To get started, add new national data points and use',
       placeholderLine2: 'them to generate FRA values automatically.'
-    }
+    },
+    otherLandCategories: 'Other land categories',
+    ofWhichPalms: '...of which palms (oil, coconut, dates, etc.)',
+    ofWhichTreeOrchards: '...of which trees orchards (includes fruit, nuts, olive, etc.)',
+    ofWhichAgroforestry: '...of which agroforestry',
+    ofWhichTreesUrbanSettings: '...of which trees in urban settings'
   },
-
 
   growingStock: {
     growingStock: 'Growing stock'

@@ -121,6 +121,51 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
       </table>
     </div>
 
+
+    <div className="odp__section">
+      <div className="odp__section-header">
+        <h3 className="subhead">{i18n.t('nationalDataPoint.otherLandCharacteristics')}</h3>
+      </div>
+      <table className="odp__input-table odp__foc-table">
+        <thead>
+        <tr>
+          <th className="odp__input-table__header-cell odp__input-table__divde-after-cell"
+              colSpan="2">{i18n.t('nationalDataPoint.nationalClasses')}</th>
+          <th className="odp__input-table__header-cell"
+              colSpan="4">{i18n.t('nationalDataPoint.fraClasses')}</th>
+        </tr>
+        <tr>
+          <th className="odp__input-table__header-cell">{i18n.t('nationalDataPoint.class')}</th>
+          <th className="odp__input-table__header-cell-align-right odp__input-table__divde-after-cell">{i18n.t('nationalDataPoint.area')}</th>
+          <th className="odp__input-table__header-cell-align-right">
+            <div>{i18n.t('fraOtherLandClass.palms')}</div>
+            <div className="odp__input-table__sub-header">{i18n.t('fraOtherLandClass.palmsClasses')}</div>
+          </th>
+          <th className="odp__input-table__header-cell-align-right">
+            <div>{i18n.t('fraOtherLandClass.treeOrchards')}</div>
+            <div className="odp__input-table__sub-header">{i18n.t('fraOtherLandClass.treeOrchardsClasses')}</div>
+          </th>
+          <th className="odp__input-table__header-cell-align-right">{i18n.t('fraOtherLandClass.agroforestry')}</th>
+          <th className="odp__input-table__header-cell-align-right">{i18n.t('fraOtherLandClass.treesUrbanSettings')}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {
+          otherLandCharacteristicsRows(countryIso, active, saveDraft, openThread, i18n)
+        }
+        <tr>
+          <td className="odp__input-table__header-cell">{i18n.t('nationalDataPoint.total')}</td>
+          <td className="odp__input-table__header-cell-align-right odp__input-table__divde-after-cell">{separateThousandsWithSpaces(Number(originalDataPoint.otherLandTotalArea(active)))}</td>
+          <td className="odp__input-table__class-total-cell">{separateThousandsWithSpaces(Number(originalDataPoint.otherLandClassTotalArea(active, 'otherLandPalmsPercent')))}</td>
+          <td className="odp__input-table__class-total-cell">{separateThousandsWithSpaces(Number(originalDataPoint.otherLandClassTotalArea(active, 'otherLandTreeOrchardsPercent')))}</td>
+          <td className="odp__input-table__class-total-cell">{separateThousandsWithSpaces(Number(originalDataPoint.otherLandClassTotalArea(active, 'otherLandAgroforestryPercent')))}</td>
+          <td className="odp__input-table__class-total-cell">{separateThousandsWithSpaces(Number(originalDataPoint.otherLandClassTotalArea(active, 'otherLandTreesUrbanSettingsPercent')))}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+
     <div className="odp__section">
       <div className="odp__section-header">
         <h3 className="subhead">{i18n.t('forestCharacteristics.forestCharacteristics')}</h3>
@@ -420,6 +465,132 @@ const ExtentOfForestRow = ({
   </tr>
 }
 
+
+const otherLandCharacteristicsCols = ['area', 'otherLandPalmsPercent', 'otherLandTreeOrchardsPercent', 'otherLandAgroforestryPercent', 'otherLandTreesUrbanSettingsPercent']
+const otherLandCharacteristicsRows = (countryIso, odp, saveDraft, openThread, i18n) =>
+  R.pipe(
+    R.filter(nationalClass => !nationalClass.placeHolder),
+    mapIndexed((nationalClass, index) => <OtherLandCharacteristicsRow
+      key={index}
+      index={index}
+      odp={odp}
+      saveDraft={saveDraft}
+      countryIso={countryIso}
+      openThread={openThread}
+      i18n={i18n}
+      {...nationalClass}/>)
+  )(odp.nationalClasses)
+
+const OtherLandCharacteristicsRow =
+  ({
+     odp,
+     index,
+     saveDraft,
+     countryIso,
+     className,
+     area,
+     otherLandPalmsPercent,
+     otherLandTreeOrchardsPercent,
+     otherLandAgroforestryPercent,
+     otherLandTreesUrbanSettingsPercent,
+     openThread,
+     i18n,
+     ...props
+   }) => {
+    const numberUpdated = numberUpdateCreator(saveDraft)
+    const validationStatus = getValidationStatusRow(odp, index)
+    const otherLandStatusPercentage = () => validationStatus.validOtherLandPercentage === false ? 'error' : ''
+    const nationalClass = odp.nationalClasses[index]
+    return nationalClass.otherLandPercent <= 0
+      ? null
+      : <tr
+      className={isCommentsOpen([odp.odpId, 'class', `${odp.nationalClasses[index].uuid}`, 'other_land_charasteristics'], openThread) ? 'fra-row-comments__open' : ''}>
+      <td className="odp__input-table__class-name"><span>{className}</span></td>
+      <td
+        className={`odp__input-table__disabled-cell odp__input-table__divde-after-cell`}>
+        <ThousandSeparatedIntegerInput integerValue={area ? area * nationalClass.otherLandPercent / 100 : null}
+                                       disabled={true}
+                                       onChange={numberUpdated(countryIso, odp, index, 'area', area)}
+                                       onPaste={updatePastedValues({
+                                         odp,
+                                         countryIso,
+                                         rowIndex: index,
+                                         colIndex: 0,
+                                         columnNames: otherLandCharacteristicsCols,
+                                         saveDraft
+                                       })}
+        />
+      </td>
+      <td className={`${otherLandStatusPercentage()}`}>
+        <PercentInput
+          value={otherLandPalmsPercent || ''}
+          onChange={numberUpdated(countryIso, odp, index, 'otherLandPalmsPercent', otherLandPalmsPercent)}
+          onPaste={updatePastedValues({
+            odp,
+            countryIso,
+            rowIndex: index,
+            colIndex: 1,
+            columnNames: otherLandCharacteristicsCols,
+            saveDraft
+          })}
+        />
+      </td>
+      <td className={`${otherLandStatusPercentage()}`}>
+        <PercentInput
+          value={otherLandTreeOrchardsPercent || ''}
+          onChange={numberUpdated(countryIso, odp, index, 'otherLandTreeOrchardsPercent', otherLandTreeOrchardsPercent)}
+          onPaste={updatePastedValues({
+            odp,
+            countryIso,
+            rowIndex: index,
+            colIndex: 2,
+            columnNames: otherLandCharacteristicsCols,
+            saveDraft
+          })}
+        />
+      </td>
+      <td className={`${otherLandStatusPercentage()}`}>
+        <PercentInput
+          value={otherLandAgroforestryPercent || ''}
+          onChange={numberUpdated(countryIso, odp, index, 'otherLandAgroforestryPercent', otherLandAgroforestryPercent)}
+          onPaste={updatePastedValues({
+            odp,
+            countryIso,
+            rowIndex: index,
+            colIndex: 3,
+            columnNames: otherLandCharacteristicsCols,
+            saveDraft
+          })}
+        />
+      </td>
+      <td className={`${otherLandStatusPercentage()}`}>
+        <PercentInput
+          value={otherLandTreesUrbanSettingsPercent || ''}
+          onChange={numberUpdated(countryIso, odp, index, 'otherLandTreesUrbanSettingsPercent', otherLandTreesUrbanSettingsPercent)}
+          onPaste={updatePastedValues({
+            odp,
+            countryIso,
+            rowIndex: index,
+            colIndex: 4,
+            columnNames: otherLandCharacteristicsCols,
+            saveDraft
+          })}
+        />
+      </td>
+      <td className="odp__col-review">
+        {odp.odpId
+          ? <div className="odp__review-indicator-row-anchor">
+            <ReviewIndicator section='NDP'
+                             name={i18n.t('nationalDataPoint.nationalDataPoint')}
+                             target={[odp.odpId, 'class', `${odp.nationalClasses[index].uuid}`, 'other_land_charasteristics']}
+                             countryIso={countryIso}/>
+          </div>
+          : null}
+      </td>
+    </tr>
+  }
+
+
 const forestCharacteristicsCols = ['area', 'naturalForestPercent', 'plantationPercent', 'otherPlantedPercent']
 const foresCharaceristicsRows = (countryIso, odp, saveDraft, openThread, i18n) =>
   R.pipe(
@@ -455,7 +626,10 @@ const ForestCharacteristicsRow =
     const numberUpdated = numberUpdateCreator(saveDraft)
     const validationStatus = getValidationStatusRow(odp, index)
     const focStatusPercentage = () => validationStatus.validFocPercentage === false ? 'error' : ''
-    return <tr
+    const nationalClass = odp.nationalClasses[index]
+    return nationalClass.forestPercent <= 0
+      ? null
+      : <tr
       className={isCommentsOpen([odp.odpId, 'class', `${odp.nationalClasses[index].uuid}`, 'forest_charasteristics'], openThread) ? 'fra-row-comments__open' : ''}>
       <td className="odp__input-table__class-name"><span>{className}</span></td>
       <td

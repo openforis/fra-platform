@@ -20,7 +20,7 @@ export const translation = {
 
   fraClass: {
     forest: 'Лесные земли',
-    otherWoodedLand: 'Другие покрытые лесом земли',
+    otherWoodedLand: 'Другие лесные земли',
     otherLand: 'Прочие земли'
   },
   fraForestCharacteristicsClass: {
@@ -55,7 +55,7 @@ export const translation = {
   },
 
   navigation: {
-    annuallyReported: 'Ежегодно докладывается',
+    annuallyReported: 'Ежегодные данные',
     fiveYearCycle: 'Пятилетний цикл',
     assessmentStatus: {
       changing: {
@@ -141,9 +141,9 @@ export const translation = {
   // annually reported assessment components
 
   extentOfForest: {
-    extentOfForest: 'Протяженность леса',
+    extentOfForest: 'Площадь леса',
     generateFraValues: 'Сгенерировать значения FRA',
-    extentOfForestValues: 'Протяженность лесных значений',
+    extentOfForestValues: 'Показатели площади лесов',
     forestArea: 'Покрытая лесом площадь',
     chart: {
       placeholderLine1: 'Чтобы начать, добавьте национальные моменты сбора данных и используйте',
@@ -157,11 +157,11 @@ export const translation = {
   },
 
   biomassStock: {
-    biomassStock: 'Сток биомассы'
+    biomassStock: 'Запас биомассы'
   },
 
   carbonStock: {
-    carbonStock: 'Сток углерода'
+    carbonStock: 'Запас углерода'
   },
 
   protectedAreas: {
