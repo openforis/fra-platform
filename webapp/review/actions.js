@@ -46,7 +46,8 @@ export const getIssueSummary = (countryIso, section, target) => dispatch => {
         target,
         issuesCount: resp.data.issuesCount,
         lastCommentUserId: resp.data.lastCommentUserId,
-        issueStatus: resp.data.issueStatus
+        issueStatus: resp.data.issueStatus,
+        hasUnreadIssues: resp.data.hasUnreadIssues
       })
     })
 }
