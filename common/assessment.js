@@ -9,7 +9,11 @@ module.exports.getAllowedStatusTransitions = (mostPowerfulRole, currentState) =>
     case 'editing':
       return {next: 'review'}
     case 'review':
-      return {previous: 'editing', next: isReviewer ? 'accepted' : null}
+      if (isReviewer) {
+        return {previous: 'editing', next: 'accepted'}
+      } else {
+        return {previous: 'editing'}
+      }
     case 'accepted': //In this state, only reviewer can do transition
       return isReviewer ? {previous: 'review'} : {}
     case 'changing': //System's in the middle of changing the state

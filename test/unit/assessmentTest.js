@@ -12,8 +12,8 @@ describe('assessment', () => {
   it('Returns review when in editing', () => {
     assert.deepEqual({next: 'review'}, assessment.getAllowedStatusTransitions({role: 'NATIONAL_CORRESPONDENT'}, 'editing'))
   })
-  it('Returns accepted as next when user is reviewer and state is editing', () => {
-    assert.deepEqual({next: 'accepted'}, assessment.getAllowedStatusTransitions({role: 'REVIEWER'}, 'review'))
+  it('Returns accepted as next and editing as previous when user is reviewer and state is review', () => {
+    assert.deepEqual({next: 'accepted', previous: 'editing'}, assessment.getAllowedStatusTransitions({role: 'REVIEWER'}, 'review'))
   })
   it('Returns editing as previous when user is NATIONAL_CORRESPONDENT and state is review', () => {
     assert.deepEqual({previous: 'editing'}, assessment.getAllowedStatusTransitions({role: 'NATIONAL_CORRESPONDENT'}, 'review'))
