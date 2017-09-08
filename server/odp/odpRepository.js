@@ -38,17 +38,15 @@ const wipeNationalClassIssues = (client, odpId, countryIso, nationalClasses) => 
 
 const updateOrInsertDraft = (client, user, odpId, countryIso, draft) =>
   auditRepository.insertAudit(client, user.id, 'updateOrInsertDraft', countryIso, 'odp', {odpId})
-    .then(() =>
-      getDraftId(client, odpId)
-        .then(draftId => {
-          if (!draftId)
-            return insertDraft(client, countryIso, user, odpId, draft)
-              .then(() => ({odpId}))
-          else
-            return updateDraft(client, draft)
-              .then(() => wipeNationalClassIssues(client, odpId, countryIso, draft.nationalClasses))
-        })
-    )
+    .then(() => getDraftId(client, odpId))
+    .then(draftId => {
+      if (!draftId)
+        return insertDraft(client, countryIso, user, odpId, draft)
+          .then(() => ({odpId}))
+      else
+        return updateDraft(client, draft)
+          .then(() => wipeNationalClassIssues(client, odpId, countryIso, draft.nationalClasses))
+    })
 
 const getDraftId = (client, odpId) =>
   client.query(
