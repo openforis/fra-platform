@@ -24,6 +24,8 @@ module.exports.getAuditSummary = (countryIso, prefixes) => {
             AND NOT (message in ($3))
       GROUP BY split_part(section, '_', 1)
     `, [countryIso, toMatch, excludedMsgs]
-  ).then(res => camelize(res.rows))
+  ).then(res => camelize(res.rows)).then( res =>
+    R.pipe(R.map(as  => R.pair(as.sectionName, as.latestEdit)), R.fromPairs)(res)
+  )
 }
 
