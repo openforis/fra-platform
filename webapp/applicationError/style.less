@@ -1,10 +1,11 @@
-@import (reference) "./config";
+@import (reference) "../app-styles/config";
 
 .alert-container {
   position: fixed;
   top: 0;
   right: 0;
   left: 0;
+  z-index: 10;
 }
 
 .alert-error {
@@ -28,7 +29,7 @@
   justify-content: center;
   color: white;
   text-align: center;
-  padding: 16px;
+  padding: 12px;
   line-height: 16px;
 
   svg {

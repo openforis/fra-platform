@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { clearApplicationError } from './actions'
 import * as R from 'ramda'
+import './style.less'
 
 const ErrorBox = ({error, i18n, clearApplicationError}) =>
   <div className="alert-container">
