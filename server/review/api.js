@@ -9,9 +9,12 @@ const reviewRepository = require('./reviewRepository')
 module.exports.init = app => {
 
   app.post('/review/:issueId', (req, res) => {
-    db.transaction(reviewRepository.createComment, [req.params.issueId, req.user, req.body.msg, 'opened'])
-      .then(result => res.json({}))
-      .catch(err => sendErr(res, err))
+    reviewRepository.getIssueCountryAndSection(req.params.issueId).then(commentInfo => {
+      db.transaction(reviewRepository.createComment, [req.params.issueId, req.user,
+        commentInfo.countryIso, commentInfo.section, req.body.msg, 'opened'])
+        .then(result => res.json({}))
+        .catch(err => sendErr(res, err))
+    })
   })
 
   app.get('/review/:countryIso/:section/summary', (req, res) => {
@@ -61,15 +64,18 @@ module.exports.init = app => {
   })
 
   app.delete('/review/:countryIso/comments/:commentId', (req, res) => {
-      db.transaction(reviewRepository.markCommentAsDeleted, [req.params.commentId, req.user])
+    reviewRepository.getCommentCountryAndSection(req.params.commentId).then(commentInfo => {
+      db.transaction(reviewRepository.markCommentAsDeleted, [commentInfo.countryIso, commentInfo.section, req.params.commentId, req.user])
         .then(() => res.json({}))
         .catch(err => sendErr(res, err))
-    }
-  )
+    })
+  })
 
   app.post('/issue/markAsResolved', (req, res) => {
-    db.transaction(reviewRepository.markIssueAsResolved, [req.query.issueId, req.user])
-      .then(() => res.json({}))
-      .catch(err => sendErr(res, err))
+    reviewRepository.getIssueCountryAndSection(req.query.issueId).then(commentInfo => {
+      db.transaction(reviewRepository.markIssueAsResolved, [commentInfo.countryIso, commentInfo.section, req.query.issueId, req.user])
+        .then(() => res.json({}))
+        .catch(err => sendErr(res, err))
+    })
   })
 }
