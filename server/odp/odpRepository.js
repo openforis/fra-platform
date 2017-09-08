@@ -92,7 +92,7 @@ module.exports.deleteDraft = (client, odpId, user) =>
           .then(() => getOdpVersionId(client, odpId))
           .then(odpVersionId => getOdpNationalClasses(client, odpVersionId))
           .then(odpClasses => wipeNationalClassIssues(client, odpId, countryIso, odpClasses))
-        : deleteOdp(client, countryIso, odpId, user)
+        : deleteOdp(client, odpId, user)
     })
 
 const wipeClassData = (client, odpVersionId) =>
