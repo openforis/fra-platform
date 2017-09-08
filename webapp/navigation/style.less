@@ -207,11 +207,16 @@
   border-top: @ui-thin-border;
   margin-top: 8px;
   padding: 20px 16px 12px 20px;
+
+  .popover-control__menu {
+    top: 31px;
+  }
 }
 
 .nav__primary-label {
   font-weight: 700;
   line-height: 20px;
+  margin-bottom: 8px;
 }
 
 .nav__primary-assessment-status {
@@ -219,10 +224,26 @@
   border-radius: 2px;
   font-size: @font-s;
   color: white;
-  line-height: 23px;
-  padding: 0 8px;
-  margin-top: 6px;
+  line-height: 20px;
+  padding: 4px 10px;
   transition: @ease-out;
+
+  &.actionable-true {
+    cursor: pointer;
+
+    &:hover,
+    &.active {
+      box-shadow: inset 0 0 0 100px rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  .icon {
+    margin-left: 4px;
+  }
+
+  &.status-undefined {
+    visibility: hidden;
+  }
 
   &.status-changing,
   &.status-editing {
