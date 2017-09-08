@@ -52,38 +52,30 @@
 
 // Commenting panel
 
-.fra-review-active {
+.mixin-review-base() {
   position: fixed;
-  right: 0;
-  height: 100%;
   width: 288px;
-  visibility: visible;
-  transition: visibility 0.1s, opacity 0.1s ease-out, width 0.1s ease-out;
-  opacity: 1;
-  border-left: @ui-thin-border;
-  background: white;
+  height: 100%;
   display: flex;
   flex-flow: column nowrap;
+  background: white;
+  border-left: @ui-thin-border;
+}
+
+.fra-review-active {
+  .mixin-review-base;
+  right: 0;
+  visibility: visible;
+  opacity: 1;
+  transition: @ease-out;
 }
 
 .fra-review-hidden {
-  visibility: hidden;
-  width: 0;
-  opacity: 0;
-  overflow: hidden;
-  transition: @ease-out;
-
-  .fra-review__footer-input {
-    display: none;
-  }
-
-  .fra-review__footer-buttons {
-    display: none;
-  }
-
-  .fra-review__header {
-    display: none;
-  }
+ .mixin-review-base;
+ right: -288px;
+ visibility: hidden;
+ opacity: 0;
+ transition: @ease-out;
 }
 
 .fra-review__comment-thread {
