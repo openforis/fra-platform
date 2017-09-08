@@ -8,11 +8,21 @@ const countryRepository = require('./countryRepository')
 const reviewRepository = require('../review/reviewRepository')
 const odpRepository = require('../odp/odpRepository')
 const assessmentRepository = require('../assessment/assessmentRepository')
+const auditRepository = require('../audit/auditRepository')
 
 const defaultStatuses = {
   'annuallyReported': 'editing',
   'fiveYearCycle': 'editing'
 }
+
+const prefixes = [
+  'extentOfForest',
+  'forestAreaChange',
+  'forestCharacteristic',
+  'specificForestCategories',
+  'primaryDesignatedManagementObjective',
+  'areaAffectedByFire'
+]
 
 const simplifyAssessmentStatuses = statuses =>
   R.reduce((resultObj, status) => R.assoc(status.assessmentType, status.status, resultObj), {}, statuses)
@@ -30,14 +40,19 @@ module.exports.init = app => {
     const odpData = odpRepository.listAndValidateOriginalDataPoints(req.params.countryIso)
     const reviewStatus = reviewRepository.getCountryIssuesSummary(req.params.countryIso)
     const assessmentStatuses = assessmentRepository.getAssessmentStatuses(req.params.countryIso)
+    const auditSummary = auditRepository.getAuditSummary(req.params.countryIso, prefixes)
+
+    // Promise.all(auditSummary).then(res => console.log('audit summary: ', JSON.stringify(res, null, 2)))
 
     Promise.all(
       [
         odpData,
         reviewStatus,
-        assessmentStatuses
+        assessmentStatuses,
+        auditSummary
       ]
-    ).then(([odps, reviewStatus, assessmentStatusResult]) => {
+    ).then(([odps, reviewStatus, assessmentStatusResult, auditSummary]) => {
+      console.log('audit', auditSummary)
         const odpStatus = {
           count: odps.length,
           errors: R.filter(o => !o.validationStatus.valid, odps).length !== 0,
@@ -49,7 +64,8 @@ module.exports.init = app => {
             assessmentStatuses: R.merge(
               defaultStatuses,
               simplifyAssessmentStatuses(assessmentStatusResult)
-            )
+            ),
+            auditSummary
           })
       }
     ).catch(err => sendErr(res, err))
