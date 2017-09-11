@@ -8,8 +8,8 @@ import {
   format
 } from 'date-fns'
 
-export const getRelativeDate = (c, i18n, noDifferenceText) => {
-  const timestamp = parse(c)
+export const getRelativeDate = (rawDate, i18n, noDifferenceText) => {
+  const timestamp = parse(rawDate)
   const now = new Date()
   const formatDiff = (fn, unit) => i18n.t(`time.${unit}`, {count: fn(now, timestamp)})
 
