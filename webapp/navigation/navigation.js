@@ -214,20 +214,17 @@ const SecondaryItem = ({path, countryIso, order, pathTemplate = '/tbd', label, e
   const route = new Route(pathTemplate)
   const linkTo = route.reverse({countryIso})
   const isTodoItem = pathTemplate.indexOf('/todo') !== -1
-  const secondaryTextClass = isTodoItem ? 'nav__disabled-menu-item-text' : ''
+  const secondaryTextClass = isTodoItem ? 'nav__disabled-item' : ''
 
-  return <Link className={`nav__secondary-item ${R.equals(path, linkTo) ? 'selected' : ''}`}
+  return <Link
+    className={`nav__secondary-item ${secondaryTextClass} ${R.equals(path, linkTo) ? 'selected' : ''}`}
                to={linkTo}>
-    <div className='nav__secondary-item-header'>
-      <span className={`nav__secondary-order ${secondaryTextClass}`}>{order}</span>
-      <div>
-        <span className={`nav__secondary-label ${secondaryTextClass}`}>{label}</span>
-      </div>
-      <div className='nav__secondary-status-content'>
-        <ReviewStatus status={status} userInfo={userInfo}/>
-      </div>
+    <span className='nav__secondary-order'>{order}</span>
+    <div className='nav__seoncdary-item-texts'>
+      <span className='nav__secondary-label'>{label}</span>
+      <EditStatus msg={editted}/>
     </div>
-    <EditStatus msg={editted}/>
+    <ReviewStatus status={status} userInfo={userInfo}/>
   </Link>
 }
 

@@ -266,19 +266,13 @@
   .nav__link-visual;
   display: flex;
   align-items: stretch;
-  flex-flow: column nowrap;
+  flex-flow: row nowrap;
 }
-.nav__secondary-item-header {
-  .nav__link-item;
-  padding: 0 0 4px 0;
-  &:hover {
-    color: inherit;
-  }
-}
+
+
 .nav__secondary-edited {
-  font-size: @font-xs;
+  font-size: @font-xxs;
   color: @text-mute;
-  margin-left: 26px;
 }
 
 .nav__secondary-order {
@@ -305,15 +299,18 @@
   color: white;
   border-radius: 100%;
   text-align: center;
+  margin-left: auto;
+  align-self: center;
 
   &.issue-last-comment-other-user {
     background-color: @ui-alert;
   }
 }
 
-.nav__secondary-status.nav__disabled-menu-item-text,
-.nav__disabled-menu-item-text {
-  color: lighten(@text-mute, 30%);
+.nav__disabled-item {
+ * {
+   color: lighten(@text-mute, 30%);
+ }
 }
 
 
