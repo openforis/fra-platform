@@ -259,8 +259,6 @@ class Nav extends React.Component {
 
       const formatDiff = (fn, unit) => this.props.i18n.t(`review.commentTime.${unit}`, {count: fn(now, commentTimestamp)})
 
-      console.log(now, commentTimestamp, c)
-
       if (differenceInMonths(now, commentTimestamp) > 0)
         return format(commentTimestamp, 'DD MMMM YYYY')
 
@@ -277,8 +275,6 @@ class Nav extends React.Component {
 
       return this.props.i18n.t('audit.notStarted')
     }
-
-    console.log('audit ', auditStatus)
 
     return <div className="main__nav-wrapper">
       <div className="main__nav">
@@ -359,10 +355,7 @@ class NavigationSync extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  console.log('nav', state.navigation)
-return  R.pipe(R.merge(state.navigation), R.merge(state.router))(state.user)
-}
+const mapStateToProps = state => R.pipe(R.merge(state.navigation), R.merge(state.router))(state.user)
 
 export default connect(mapStateToProps, {
   follow,

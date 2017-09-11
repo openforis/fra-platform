@@ -52,7 +52,6 @@ module.exports.init = app => {
         auditSummary
       ]
     ).then(([odps, reviewStatus, assessmentStatusResult, auditSummary]) => {
-      console.log('audit', auditSummary)
         const odpStatus = {
           count: odps.length,
           errors: R.filter(o => !o.validationStatus.valid, odps).length !== 0,

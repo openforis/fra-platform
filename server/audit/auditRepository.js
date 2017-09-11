@@ -9,13 +9,11 @@ module.exports.insertAudit = (client, userId, message, countryIso, section, targ
   )
 }
 
-
 module.exports.getAuditSummary = (countryIso, prefixes) => {
   const toMatch = R.map(p => `${p}%`, prefixes)
   const excludedMsgs = ['createIssue', 'createComment', 'deleteComment']
   return db.query(
-    `
-      SELECT
+    ` SELECT
         split_part(section, '_', 1) as section_name,
         to_char(max(time), 'YYYY-MM-DD"T"HH24:MI:ssZ') as latest_edit
       FROM fra_audit
