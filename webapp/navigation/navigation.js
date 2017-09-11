@@ -252,10 +252,7 @@ class Nav extends React.Component {
     )(status.reviewStatus)
 
     const auditStatus = R.defaultTo({}, R.path(['status', 'auditSummary'], this.props))
-    const getAuditStatus = section =>  {
-        console.log(section, auditStatus, 'stuff')
-        return R.defaultTo('', R.prop(section, auditStatus))
-      }
+    const getAuditStatus = section => R.defaultTo('', R.prop(section, auditStatus))
     const getAuditTimestamp = c => {
       const commentTimestamp = parse(c)
       const now = new Date()
