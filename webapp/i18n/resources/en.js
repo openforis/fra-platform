@@ -9,6 +9,10 @@ export const translation = {
   definition: {
     linkLabel: 'See definitions'
   },
+  audit: {
+    notStarted: 'Not started',
+    edited: 'Edited'
+  },
 
   user: {
     roles: {

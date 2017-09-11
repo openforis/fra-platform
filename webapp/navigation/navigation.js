@@ -4,6 +4,15 @@ import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
 import Route from 'route-parser'
 import { alpha3ToAlpha2, getName as getCountryName } from 'i18n-iso-countries'
+import {
+  parse,
+  differenceInMonths,
+  differenceInWeeks,
+  differenceInDays,
+  differenceInHours,
+  differenceInMilliseconds,
+  format
+} from 'date-fns'
 
 import { Link } from './../link'
 import { follow } from './../router/actions'
@@ -198,7 +207,10 @@ const NationalDataItem = ({path, countryIso, pathTemplate, secondaryPathTemplate
   </Link>
 }
 
-const SecondaryItem = ({path, countryIso, order, pathTemplate = '/tbd', label, status, userInfo}) => {
+
+const EditStatus = ({msg}) => msg ? <div className="nav__secondary-edited">{msg}</div> : null
+
+const SecondaryItem = ({path, countryIso, order, pathTemplate = '/tbd', label, editted, status, userInfo}) => {
   const route = new Route(pathTemplate)
   const linkTo = route.reverse({countryIso})
   const isTodoItem = pathTemplate.indexOf('/todo') !== -1
@@ -206,13 +218,16 @@ const SecondaryItem = ({path, countryIso, order, pathTemplate = '/tbd', label, s
 
   return <Link className={`nav__secondary-item ${R.equals(path, linkTo) ? 'selected' : ''}`}
                to={linkTo}>
-    <span className={`nav__secondary-order ${secondaryTextClass}`}>{order}</span>
-    <div>
-      <span className={`nav__secondary-label ${secondaryTextClass}`}>{label}</span>
+    <div className='nav__secondary-item-header'>
+      <span className={`nav__secondary-order ${secondaryTextClass}`}>{order}</span>
+      <div>
+        <span className={`nav__secondary-label ${secondaryTextClass}`}>{label}</span>
+      </div>
+      <div className='nav__secondary-status-content'>
+        <ReviewStatus status={status} userInfo={userInfo}/>
+      </div>
     </div>
-    <div className='nav__secondary-status-content'>
-      <ReviewStatus status={status} userInfo={userInfo}/>
-    </div>
+    <EditStatus msg={editted}/>
   </Link>
 }
 
@@ -238,6 +253,38 @@ class Nav extends React.Component {
       R.prop(section),
       R.defaultTo({issuesCount: 0})
     )(status.reviewStatus)
+
+    const auditStatus = R.defaultTo({}, R.path(['status', 'auditSummary'], this.props))
+    const getAuditStatus = section =>  {
+        console.log(section, auditStatus, 'stuff')
+        return R.defaultTo('', R.prop(section, auditStatus))
+      }
+    const getAuditTimestamp = c => {
+      const commentTimestamp = parse(c)
+      const now = new Date()
+
+      const formatDiff = (fn, unit) => this.props.i18n.t(`review.commentTime.${unit}`, {count: fn(now, commentTimestamp)})
+
+      console.log(now, commentTimestamp, c)
+
+      if (differenceInMonths(now, commentTimestamp) > 0)
+        return format(commentTimestamp, 'DD MMMM YYYY')
+
+      if (differenceInWeeks(now, commentTimestamp) > 0)
+        return formatDiff(differenceInWeeks, 'week')
+
+      if (differenceInDays(now, commentTimestamp) > 0)
+        return formatDiff(differenceInDays, 'day')
+
+      if (differenceInHours(now, commentTimestamp) > 0)
+        return formatDiff(differenceInHours, 'hour')
+      if(differenceInMilliseconds(now, commentTimestamp) > 0)
+        return this.props.i18n.t('review.commentTime.aMomentAgo')
+
+      return this.props.i18n.t('audit.notStarted')
+    }
+
+    console.log('audit ', auditStatus)
 
     return <div className="main__nav-wrapper">
       <div className="main__nav">
@@ -271,6 +318,7 @@ class Nav extends React.Component {
                                                                    goTo={this.props.follow}
                                                                    countryIso={this.props.country}
                                                                    status={getReviewStatus(v.section)}
+                                                                   editted={getAuditTimestamp(getAuditStatus(v.section))}
                                                                    userInfo={this.props.userInfo}
                                                                    {...v} />
               )
@@ -288,6 +336,7 @@ class Nav extends React.Component {
                                                                      goTo={this.props.follow}
                                                                      countryIso={this.props.country}
                                                                      status={getReviewStatus(v.section)}
+                                                                     editted={getAuditTimestamp(getAuditStatus(v.section))}
                                                                      userInfo={this.props.userInfo}
                                                                      {...v} />
               )
@@ -316,7 +365,10 @@ class NavigationSync extends React.Component {
   }
 }
 
-const mapStateToProps = state => R.pipe(R.merge(state.navigation), R.merge(state.router))(state.user)
+const mapStateToProps = state => {
+  console.log('nav', state.navigation)
+return  R.pipe(R.merge(state.navigation), R.merge(state.router))(state.user)
+}
 
 export default connect(mapStateToProps, {
   follow,

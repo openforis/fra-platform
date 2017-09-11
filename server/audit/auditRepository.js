@@ -17,7 +17,7 @@ module.exports.getAuditSummary = (countryIso, prefixes) => {
     `
       SELECT
         split_part(section, '_', 1) as section_name,
-        max(time) as latest_edit
+        to_char(max(time), 'YYYY-MM-DD"T"HH24:MI:ssZ') as latest_edit
       FROM fra_audit
       WHERE country_iso = $1
             AND section like any ($2)

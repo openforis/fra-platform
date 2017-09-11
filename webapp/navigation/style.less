@@ -26,12 +26,6 @@
   border-bottom: 1px solid @ui-border;
   background-color: @ui-bg;
 
-  &:hover {
-    background-color: darken(@ui-bg, 4%);
-    color: inherit;
-    cursor: pointer;
-    transition: @ease-out;
-  }
 }
 
 .nav__country-flag {
@@ -163,11 +157,8 @@
   padding-bottom: 8px;
 }
 
-.nav__link-item {
+.nav__link-visual {
   padding: 12px 16px 12px 20px;
-  display: flex;
-  align-items: stretch;
-  flex-flow: row nowrap;
   text-decoration: none;
   color: @text-body;
 
@@ -180,6 +171,13 @@
   &.selected {
     background-color: @ui-accent-light;
   }
+}
+
+.nav__link-item {
+  .nav__link-visual;
+  display: flex;
+  align-items: stretch;
+  flex-flow: row nowrap;
 }
 
 .nav__link-label {
@@ -265,7 +263,22 @@
 }
 
 .nav__secondary-item {
+  .nav__link-visual;
+  display: flex;
+  align-items: stretch;
+  flex-flow: column nowrap;
+}
+.nav__secondary-item-header {
   .nav__link-item;
+  padding: 0 0 4px 0;
+  &:hover {
+    color: inherit;
+  }
+}
+.nav__secondary-edited {
+  font-size: @font-xs;
+  color: @text-mute;
+  margin-left: 26px;
 }
 
 .nav__secondary-order {
