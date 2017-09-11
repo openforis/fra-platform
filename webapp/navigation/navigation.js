@@ -109,7 +109,7 @@ const CountryRow = ({selectedCountry, country, i18n}) => {
       country.annualAssesment
         ? <span
         className="nav__country-list-item-assessment-status"><AssessmentStatus
-        status={country.annualAssesment}/> {i18n.t(`navigation.assessmentStatus.${country.annualAssesment}.label`)}</span>
+        status={country.annualAssesment}/>{i18n.t(`navigation.assessmentStatus.${country.annualAssesment}.label`)}</span>
         : null
     }
     {

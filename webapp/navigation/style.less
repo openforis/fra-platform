@@ -63,6 +63,8 @@
   line-height: 20px;
 }
 
+// Country list popover
+
 .nav__country-list {
   display: block;
   position: absolute;
@@ -80,42 +82,45 @@
   overflow-x: hidden;
   font-size: @font-s;
 }
+
 .nav__country-list-role-countries {
   border-bottom: @ui-thin-border;
   padding: 8px 0;
+
   &:last-of-type {
     border: none;
   }
 }
 
 .nav__country-list-role-header {
-  line-height: 16px;
-  padding: 8px 16px;
+  color: @text-mute;
   display: flex;
   justify-content: flex-start;
-}
-.nav__country-list-item-name,
-.nav__country-list-role-label {
-  width: 224px;
+  line-height: 16px;
+  padding: 8px 16px;
 }
 
-.nav__country-list-role-label,
-.nav__country-list-assessment-label {
-  color: @text-mute;
+.nav__country-list-item-name,
+.nav__country-list-role-label {
+  min-width: 192px;
+  width: 100%;
 }
 
 .nav__country-list-item-assessment-status,
 .nav__country-list-assessment-label {
-  width: 136px;
   margin-left: 16px;
+  min-width: 128px;
+  width: 100%;
 }
 
 .nav__country-list-item {
+  color: @text-body;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
+  align-items: center;
+  line-height: 16px;
   padding: 8px 16px;
   text-decoration: none;
-  line-height: 16px;
 
   &:hover {
     background-color: darken(@ui-bg, 4%);
@@ -129,15 +134,10 @@
 }
 
 .nav__country-list-item-name {
-  color: @text-body;
   font-size: @font-m;
 }
 
 .nav__country-list-item-assessment-status {
-  font-size: @font-s;
-  color: @text-body;
-  display: inline-block;
-  line-height: 16px;
   white-space: nowrap;
 
   .status-editing {
@@ -327,8 +327,7 @@
 // Mixins
 
 .mixin-status-base(@color, @margin-right) {
-  float: left;
-  margin: 3px 0;
+  display: inline-block;
   margin-right: @margin-right;
   width: 10px;
   height: 10px;
