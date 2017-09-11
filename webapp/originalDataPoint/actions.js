@@ -8,6 +8,7 @@ import {
   addNationalClassPlaceHolder,
   copyNationalClassDefinitions
 } from './originalDataPoint'
+import {sectionStatusUpdate} from '../navigation/actions'
 import {acceptNextInteger} from '../utils/numberInput'
 import { validateDataPoint } from '../../common/originalDataPointCommon'
 import { fetchCountryOverviewStatus } from '../navigation/actions'
@@ -157,6 +158,7 @@ const change = ({section, countryIso, name, value}) => {
   const dispatched = dispatch => {
     return axios.post(`/api/nde/${section}/country/${countryIso}/${name}`, value).then(() => {
       dispatch(autosave.complete)
+      dispatch(sectionStatusUpdate(countryIso, section))
     }).catch((err) => {
       dispatch(applicationError(err))
     })
@@ -183,6 +185,7 @@ const changeMany = ({section, countryIso, columnData}) => {
   const dispatched = dispatch => {
     return axios.post(`/api/nde/${section}/${countryIso}`, {columns: columnData}).then(() => {
       dispatch(autosave.complete)
+      dispatch(sectionStatusUpdate(countryIso, section))
     }).catch((err) => {
       dispatch(applicationError(err))
     })
