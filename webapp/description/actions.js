@@ -1,6 +1,7 @@
 import axios from 'axios'
 import * as autosave from '../autosave/actions'
 import { applicationError } from '../applicationError/actions'
+import {sectionStatusUpdate} from '../navigation/actions'
 
 export const descriptionsFetched = 'nationalDataEntry/descriptions/fetched'
 
@@ -29,6 +30,8 @@ const changeDescriptions = (countryIso, name, content) => {
   const dispatched = dispatch => {
     return axios.post(`/api/country/descriptions/${countryIso}/${name}`, {content}).then(() => {
       dispatch(autosave.complete)
+      const section = name.split('_')[0]
+      dispatch(sectionStatusUpdate(countryIso, section))
     }).catch((err) => {
       dispatch(applicationError(err))
     })

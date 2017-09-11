@@ -4,6 +4,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { postComment, retrieveComments, closeCommentThread, markCommentAsDeleted, markIssueAsResolved } from './actions'
 import { parse, differenceInMonths, differenceInWeeks, differenceInDays, differenceInHours, format } from 'date-fns'
+import {getRelativeDate} from '../utils/relativeDate'
 import { isReviewer } from '../../common/countryRole'
 import VerticallyGrowingTextField from '../reusableUiComponents/verticallyGrowingTextField'
 
@@ -94,26 +95,6 @@ class CommentThread extends React.Component {
     const isThisMe = R.pipe(R.prop('userId'), R.equals(userInfo.id))
     const isCommentDeleted = R.propEq('deleted', true)
     const isCommentStatusResolved = R.propEq('statusChanged', 'resolved')
-    const getCommentTimestamp = c => {
-      const commentTimestamp = parse(c.addedTime)
-      const now = new Date()
-
-      const formatDiff = (fn, unit) => i18n.t(`review.commentTime.${unit}`, {count: fn(now, commentTimestamp)})
-
-      if (differenceInMonths(now, commentTimestamp) > 0)
-        return format(commentTimestamp, 'DD MMMM YYYY')
-
-      if (differenceInWeeks(now, commentTimestamp) > 0)
-        return formatDiff(differenceInWeeks, 'week')
-
-      if (differenceInDays(now, commentTimestamp) > 0)
-        return formatDiff(differenceInDays, 'day')
-
-      if (differenceInHours(now, commentTimestamp) > 0)
-        return formatDiff(differenceInHours, 'hour')
-
-      return i18n.t('review.commentTime.aMomentAgo')
-    }
 
     return <div ref="commentScroller" className="fra-review__comment-thread">
       {
@@ -142,7 +123,7 @@ class CommentThread extends React.Component {
                     {
                       isCommentDeleted(c)
                       ? i18n.t('review.commentDeleted')
-                      : getCommentTimestamp(c)
+                      : getRelativeDate(c.addedTime, i18n, i18n.t('time.aMomentAgo'))
                     }
                   </div>
                 </div>

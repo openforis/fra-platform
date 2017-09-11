@@ -26,12 +26,6 @@
   border-bottom: 1px solid @ui-border;
   background-color: @ui-bg;
 
-  &:hover {
-    background-color: darken(@ui-bg, 4%);
-    color: inherit;
-    cursor: pointer;
-    transition: @ease-out;
-  }
 }
 
 .nav__country-flag {
@@ -162,11 +156,13 @@
   padding-bottom: 8px;
 }
 
+
 .nav__link-item {
-  padding: 12px 16px 12px 20px;
+
   display: flex;
   align-items: stretch;
   flex-flow: row nowrap;
+  padding: 12px 16px 12px 20px;
   text-decoration: none;
   color: @text-body;
 
@@ -286,6 +282,15 @@
 
 .nav__secondary-item {
   .nav__link-item;
+  display: flex;
+  align-items: stretch;
+  flex-flow: row nowrap;
+}
+
+
+.nav__secondary-edited {
+  font-size: @font-xxs;
+  color: @text-mute;
 }
 
 .nav__secondary-order {
@@ -312,15 +317,18 @@
   color: white;
   border-radius: 100%;
   text-align: center;
+  margin-left: auto;
+  align-self: center;
 
   &.issue-last-comment-other-user {
     background-color: @ui-alert;
   }
 }
 
-.nav__secondary-status.nav__disabled-menu-item-text,
-.nav__disabled-menu-item-text {
-  color: lighten(@text-mute, 30%);
+.nav__disabled-item {
+ * {
+   color: lighten(@text-mute, 30%);
+ }
 }
 
 

@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
 import Route from 'route-parser'
 import { alpha3ToAlpha2, getName as getCountryName } from 'i18n-iso-countries'
+import { getRelativeDate } from '../utils/relativeDate'
 
 import { Link } from './../link'
 import { follow } from './../router/actions'
@@ -198,21 +199,23 @@ const NationalDataItem = ({path, countryIso, pathTemplate, secondaryPathTemplate
   </Link>
 }
 
-const SecondaryItem = ({path, countryIso, order, pathTemplate = '/tbd', label, status, userInfo}) => {
+const EditStatus = ({msg}) => msg ? <div className="nav__secondary-edited">{msg}</div> : null
+
+const SecondaryItem = ({path, countryIso, order, pathTemplate = '/tbd', label, edited, status, userInfo}) => {
   const route = new Route(pathTemplate)
   const linkTo = route.reverse({countryIso})
   const isTodoItem = pathTemplate.indexOf('/todo') !== -1
-  const secondaryTextClass = isTodoItem ? 'nav__disabled-menu-item-text' : ''
+  const secondaryTextClass = isTodoItem ? 'nav__disabled-item' : ''
 
-  return <Link className={`nav__secondary-item ${R.equals(path, linkTo) ? 'selected' : ''}`}
+  return <Link
+    className={`nav__secondary-item ${secondaryTextClass} ${R.equals(path, linkTo) ? 'selected' : ''}`}
                to={linkTo}>
-    <span className={`nav__secondary-order ${secondaryTextClass}`}>{order}</span>
-    <div>
-      <span className={`nav__secondary-label ${secondaryTextClass}`}>{label}</span>
+    <span className='nav__secondary-order'>{order}</span>
+    <div className='nav__seoncdary-item-texts'>
+      <span className='nav__secondary-label'>{label}</span>
+      <EditStatus msg={edited}/>
     </div>
-    <div className='nav__secondary-status-content'>
-      <ReviewStatus status={status} userInfo={userInfo}/>
-    </div>
+    <ReviewStatus status={status} userInfo={userInfo}/>
   </Link>
 }
 
@@ -238,6 +241,9 @@ class Nav extends React.Component {
       R.prop(section),
       R.defaultTo({issuesCount: 0})
     )(status.reviewStatus)
+
+    const auditStatus = R.defaultTo({}, R.path(['status', 'auditSummary'], this.props))
+    const getAuditStatus = section => R.defaultTo('', R.prop(section, auditStatus))
 
     return <div className="main__nav-wrapper">
       <div className="main__nav">
@@ -271,6 +277,12 @@ class Nav extends React.Component {
                                                                    goTo={this.props.follow}
                                                                    countryIso={this.props.country}
                                                                    status={getReviewStatus(v.section)}
+                                                                   edited={
+                                                                     getRelativeDate(
+                                                                       getAuditStatus(v.section),
+                                                                       this.props.i18n,
+                                                                       this.props.i18n.t('audit.notStarted')
+                                                                     )}
                                                                    userInfo={this.props.userInfo}
                                                                    {...v} />
               )
@@ -288,6 +300,12 @@ class Nav extends React.Component {
                                                                      goTo={this.props.follow}
                                                                      countryIso={this.props.country}
                                                                      status={getReviewStatus(v.section)}
+                                                                     edited={
+                                                                       getRelativeDate(
+                                                                         getAuditStatus(v.section),
+                                                                         this.props.i18n,
+                                                                         this.props.i18n.t('audit.notStarted')
+                                                                       )}
                                                                      userInfo={this.props.userInfo}
                                                                      {...v} />
               )
