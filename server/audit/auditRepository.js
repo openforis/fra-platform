@@ -23,7 +23,7 @@ module.exports.getAuditSummary = (countryIso, prefixes) => {
       GROUP BY split_part(section, '_', 1)
     `, [countryIso, toMatch, excludedMsgs]
   ).then(res => camelize(res.rows)).then( res =>
-    R.pipe(R.map(as  => R.pair(as.sectionName, as.latestEdit)), R.fromPairs)(res)
+    R.pipe(R.map(as  => [as.sectionName, as.latestEdit]), R.fromPairs)(res)
   )
 }
 
