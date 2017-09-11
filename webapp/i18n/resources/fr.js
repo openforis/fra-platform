@@ -61,20 +61,19 @@ export const translation = {
       saving: 'En train d\'enregistrer...'
     }
   },
-
+  time: {
+    hour: 'Il y a {{count}} heure',
+    hour_plural: 'Il y a {{count}} heures',
+    day: 'Il y a {{count}} jour',
+    day_plural: 'Il y a {{count}} jours',
+    week: 'Il y a {{count}} semaine',
+    week_plural: 'Il y a {{count}} semaines',
+    aMomentAgo: 'Il y a quelques instants'
+  },
   review: {
     comments: 'Commentaires',
     noComments: 'Aucun commentaire',
     resolve: 'Résolvez',
-    commentTime: {
-      hour: 'Il y a {{count}} heure',
-      hour_plural: 'Il y a {{count}} heures',
-      day: 'Il y a {{count}} jour',
-      day_plural: 'Il y a {{count}} jours',
-      week: 'Il y a {{count}} semaine',
-      week_plural: 'Il y a {{count}} semaines',
-      aMomentAgo: 'Il y a quelques instants'
-    },
     commentDeleted: 'Commentaire effacé',
     commentMarkedAsResolved: 'Marqué comme résolu',
     delete: 'Effacez',

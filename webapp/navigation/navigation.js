@@ -254,24 +254,24 @@ class Nav extends React.Component {
     const auditStatus = R.defaultTo({}, R.path(['status', 'auditSummary'], this.props))
     const getAuditStatus = section => R.defaultTo('', R.prop(section, auditStatus))
     const getAuditTimestamp = c => {
-      const commentTimestamp = parse(c)
+      const timestamp = parse(c)
       const now = new Date()
 
-      const formatDiff = (fn, unit) => this.props.i18n.t(`review.commentTime.${unit}`, {count: fn(now, commentTimestamp)})
+      const formatDiff = (fn, unit) => this.props.i18n.t(`time.${unit}`, {count: fn(now, timestamp)})
 
-      if (differenceInMonths(now, commentTimestamp) > 0)
-        return format(commentTimestamp, 'DD MMMM YYYY')
+      if (differenceInMonths(now, timestamp) > 0)
+        return format(timestamp, 'DD MMMM YYYY')
 
-      if (differenceInWeeks(now, commentTimestamp) > 0)
+      if (differenceInWeeks(now, timestamp) > 0)
         return formatDiff(differenceInWeeks, 'week')
 
-      if (differenceInDays(now, commentTimestamp) > 0)
+      if (differenceInDays(now, timestamp) > 0)
         return formatDiff(differenceInDays, 'day')
 
-      if (differenceInHours(now, commentTimestamp) > 0)
+      if (differenceInHours(now, timestamp) > 0)
         return formatDiff(differenceInHours, 'hour')
-      if(differenceInMilliseconds(now, commentTimestamp) > 0)
-        return this.props.i18n.t('review.commentTime.aMomentAgo')
+      if(differenceInMilliseconds(now, timestamp) > 0)
+        return this.props.i18n.t('time.aMomentAgo')
 
       return this.props.i18n.t('audit.notStarted')
     }

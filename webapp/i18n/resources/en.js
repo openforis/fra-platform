@@ -104,19 +104,20 @@ export const translation = {
     }
   },
 
+  time: {
+    hour: '{{count}} hour ago',
+    hour_plural: '{{count}} hours ago',
+    day: '{{count}} day ago',
+    day_plural: '{{count}} days ago',
+    week: '{{count}} week ago',
+    week_plural: '{{count}} weeks ago',
+    aMomentAgo: 'A moment ago'
+  },
+
   review: {
     comments: 'Comments',
     noComments: 'No comments',
     resolve: 'Resolve',
-    commentTime: {
-      hour: '{{count}} hour ago',
-      hour_plural: '{{count}} hours ago',
-      day: '{{count}} day ago',
-      day_plural: '{{count}} days ago',
-      week: '{{count}} week ago',
-      week_plural: '{{count}} weeks ago',
-      aMomentAgo: 'A moment ago'
-    },
     confirmDelete: 'Are you sure you want to delete this comment? This cannot be undone.',
     commentDeleted: 'Comment deleted',
     commentMarkedAsResolved: 'Marked as resolved',

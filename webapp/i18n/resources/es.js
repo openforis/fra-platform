@@ -62,19 +62,20 @@ export const translation = {
     }
   },
 
+  time: {
+    hour: 'Hace {{count}} hora',
+    hour_plural: 'Hace {{count}} horas',
+    day: 'Hace {{count}} día',
+    day_plural: 'Hace {{count}} días',
+    week: 'Hace {{count}} semana',
+    week_plural: 'Hace {{count}} semanas',
+    aMomentAgo: 'Hace unos momentos'
+  },
+
   review: {
     comments: 'Comentarios',
     noComments: 'Nigun comentario',
     resolve: 'Resolver',
-    commentTime: {
-      hour: 'Hace {{count}} hora',
-      hour_plural: 'Hace {{count}} horas',
-      day: 'Hace {{count}} día',
-      day_plural: 'Hace {{count}} días',
-      week: 'Hace {{count}} semana',
-      week_plural: 'Hace {{count}} semanas',
-      aMomentAgo: 'Hace unos momentos'
-    },
     commentDeleted: 'Comentario borrado',
     commentMarkedAsResolved: 'Marcado como resuelto',
     delete: 'Borrar',

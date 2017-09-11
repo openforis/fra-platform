@@ -42,8 +42,6 @@ module.exports.init = app => {
     const assessmentStatuses = assessmentRepository.getAssessmentStatuses(req.params.countryIso)
     const auditSummary = auditRepository.getAuditSummary(req.params.countryIso, prefixes)
 
-    // Promise.all(auditSummary).then(res => console.log('audit summary: ', JSON.stringify(res, null, 2)))
-
     Promise.all(
       [
         odpData,
