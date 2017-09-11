@@ -4,15 +4,7 @@ import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
 import Route from 'route-parser'
 import { alpha3ToAlpha2, getName as getCountryName } from 'i18n-iso-countries'
-import {
-  parse,
-  differenceInMonths,
-  differenceInWeeks,
-  differenceInDays,
-  differenceInHours,
-  differenceInMilliseconds,
-  format
-} from 'date-fns'
+import {getTimeDifference} from '../utils/dateUtils'
 
 import { Link } from './../link'
 import { follow } from './../router/actions'
@@ -253,28 +245,7 @@ class Nav extends React.Component {
 
     const auditStatus = R.defaultTo({}, R.path(['status', 'auditSummary'], this.props))
     const getAuditStatus = section => R.defaultTo('', R.prop(section, auditStatus))
-    const getAuditTimestamp = c => {
-      const timestamp = parse(c)
-      const now = new Date()
-
-      const formatDiff = (fn, unit) => this.props.i18n.t(`time.${unit}`, {count: fn(now, timestamp)})
-
-      if (differenceInMonths(now, timestamp) > 0)
-        return format(timestamp, 'DD MMMM YYYY')
-
-      if (differenceInWeeks(now, timestamp) > 0)
-        return formatDiff(differenceInWeeks, 'week')
-
-      if (differenceInDays(now, timestamp) > 0)
-        return formatDiff(differenceInDays, 'day')
-
-      if (differenceInHours(now, timestamp) > 0)
-        return formatDiff(differenceInHours, 'hour')
-      if(differenceInMilliseconds(now, timestamp) > 0)
-        return this.props.i18n.t('time.aMomentAgo')
-
-      return this.props.i18n.t('audit.notStarted')
-    }
+    const getAuditTimestamp = c => getTimeDifference(c, this.props.i18n) || this.props.i18n.t('audit.notStarted')
 
     return <div className="main__nav-wrapper">
       <div className="main__nav">
