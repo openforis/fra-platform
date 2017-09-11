@@ -8,11 +8,9 @@ import {
   format
 } from 'date-fns'
 
-export const getTimeDifference = (c, i18n) => {
-
+export const getRelativeDate = (c, i18n, noDifferenceText) => {
   const timestamp = parse(c)
   const now = new Date()
-
   const formatDiff = (fn, unit) => i18n.t(`time.${unit}`, {count: fn(now, timestamp)})
 
   if (differenceInMonths(now, timestamp) > 0)
@@ -25,5 +23,5 @@ export const getTimeDifference = (c, i18n) => {
     return formatDiff(differenceInHours, 'hour')
   if (differenceInMilliseconds(now, timestamp) > 0)
     return i18n.t('time.aMomentAgo')
-
+  return noDifferenceText
 }

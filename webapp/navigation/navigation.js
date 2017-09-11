@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
 import Route from 'route-parser'
 import { alpha3ToAlpha2, getName as getCountryName } from 'i18n-iso-countries'
-import {getTimeDifference} from '../utils/dateUtils'
+import { getRelativeDate } from '../utils/relativeDate'
 
 import { Link } from './../link'
 import { follow } from './../router/actions'
@@ -245,7 +245,6 @@ class Nav extends React.Component {
 
     const auditStatus = R.defaultTo({}, R.path(['status', 'auditSummary'], this.props))
     const getAuditStatus = section => R.defaultTo('', R.prop(section, auditStatus))
-    const getAuditTimestamp = c => getTimeDifference(c, this.props.i18n) || this.props.i18n.t('audit.notStarted')
 
     return <div className="main__nav-wrapper">
       <div className="main__nav">
@@ -279,7 +278,12 @@ class Nav extends React.Component {
                                                                    goTo={this.props.follow}
                                                                    countryIso={this.props.country}
                                                                    status={getReviewStatus(v.section)}
-                                                                   editted={getAuditTimestamp(getAuditStatus(v.section))}
+                                                                   editted={
+                                                                     getRelativeDate(
+                                                                       getAuditStatus(v.section),
+                                                                       this.props.i18n,
+                                                                       this.props.i18n.t('audit.notStarted')
+                                                                     )}
                                                                    userInfo={this.props.userInfo}
                                                                    {...v} />
               )
@@ -297,7 +301,12 @@ class Nav extends React.Component {
                                                                      goTo={this.props.follow}
                                                                      countryIso={this.props.country}
                                                                      status={getReviewStatus(v.section)}
-                                                                     editted={getAuditTimestamp(getAuditStatus(v.section))}
+                                                                     editted={
+                                                                       getRelativeDate(
+                                                                         getAuditStatus(v.section),
+                                                                         this.props.i18n,
+                                                                         this.props.i18n.t('audit.notStarted')
+                                                                       )}
                                                                      userInfo={this.props.userInfo}
                                                                      {...v} />
               )
