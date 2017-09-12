@@ -71,6 +71,7 @@ const getFraValues = (section, countryIso) => {
         R.values,
         R.sort((a, b) => a.year === b.year ? (a.type < b.type ? -1 : 1) : a.year - b.year)
       )(result[0])
+
       return {fra}
     })
 }
