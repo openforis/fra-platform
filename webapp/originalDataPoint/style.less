@@ -181,11 +181,15 @@
     }
   }
 
-  .unread-issues {
+  .open-issues {
     width: 10px;
     height: 10px;
-    background-color: @ui-alert;
+    background-color: @ui-accent;
     border-radius: 100%;
+
+    &.unread-issues {
+      background-color: @ui-alert;
+    }
   }
 }
 
