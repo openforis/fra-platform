@@ -47,14 +47,17 @@ const handleCountryResult = resolveRole => result => {
 
 const getAllCountries = role => {
   const excludedMsgs = ['createIssue', 'createComment', 'deleteComment']
-  return db.query(`SELECT c.country_iso, c.name, a.type, a.status, fa.last_edited
+  return db.query(`
+       WITH fa AS (
+       SELECT country_iso, to_char(max(time), 'YYYY-MM-DD"T"HH24:MI:ssZ') as last_edited
+           FROM fra_audit
+           WHERE NOT (message in ($1))
+           GROUP BY country_iso
+       ) 
+       SELECT c.country_iso, c.name, a.type, a.status, fa.last_edited
             FROM country c
             LEFT OUTER JOIN assessment a ON c.country_iso = a.country_iso 
-             LEFT OUTER JOIN ( SELECT country_iso, to_char(max(time), 'YYYY-MM-DD"T"HH24:MI:ssZ') as last_edited
-               FROM fra_audit
-               WHERE NOT (message in ($1))
-               GROUP BY country_iso
-             ) fa on fa.country_iso = c.country_iso
+            LEFT OUTER JOIN fa on fa.country_iso = c.country_iso
             ORDER BY name ASC`, [excludedMsgs])
     .then(handleCountryResult(() => role))
 }
@@ -70,16 +73,19 @@ const getAllowedCountries = roles => {
     const excludedMsgs = ['createIssue', 'createComment', 'deleteComment']
     const allowedCountryIsos = R.pipe(R.map(R.prop('countryIso')), R.reject(R.isNil))(roles)
     const allowedIsoQueryPlaceholders = R.range(2, allowedCountryIsos.length + 2).map(i => '$' + i).join(',')
-    return db.query(`SELECT c.country_iso, c.name, a.type, a.status, fa.last_edited
+    return db.query(`
+     WITH fa AS (
+      SELECT country_iso, to_char(max(time), 'YYYY-MM-DD"T"HH24:MI:ssZ') as last_edited
+         FROM fra_audit
+         WHERE country_iso in (${allowedIsoQueryPlaceholders})
+         AND NOT (message in ($1))
+         GROUP BY country_iso
+     ) 
+    SELECT c.country_iso, c.name, a.type, a.status, fa.last_edited
                      FROM country c
                      LEFT OUTER JOIN assessment a ON c.country_iso = a.country_iso
-                     LEFT OUTER JOIN ( SELECT DISTINCT country_iso, to_char(max(time), 'YYYY-MM-DD"T"HH24:MI:ssZ') as last_edited
-                       FROM fra_audit
-                       WHERE country_iso in (${allowedIsoQueryPlaceholders})
-                       AND NOT (message in ($1))
-                       GROUP BY country_iso
-                     ) fa
-                       on fa.country_iso = c.country_iso
+                     LEFT OUTER JOIN fa
+                       ON fa.country_iso = c.country_iso
                      WHERE c.country_iso in (${allowedIsoQueryPlaceholders})
                      ORDER BY name ASC`,
       [excludedMsgs, ...allowedCountryIsos])
