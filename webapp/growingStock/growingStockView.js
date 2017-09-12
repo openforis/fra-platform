@@ -35,7 +35,12 @@ const GrowingStock = ({i18n, countryIso, fra, ...props}) => {
     <div className="nde__data-page-header">
       <h2 className="headline">{i18n.t('growingStock.growingStock')}</h2>
     </div>
-    <MirrorTable section="growingStock" fra={fra} header={i18n.t('growingStock.fra2020Categories')} rows={rows} {...props}/>
+    <MirrorTable section="growingStock"
+                 fra={fra}
+                 header={i18n.t('growingStock.fra2020Categories')}
+                 avgTableHeader={i18n.t('growingStock.avgTableHeader')}
+                 totalTableHeader={i18n.t('growingStock.totalTableHeader')}
+                 rows={rows} {...props}/>
   </div>
 
 }
@@ -56,9 +61,12 @@ class GrowingStockView extends Component {
   }
 
   render () {
-    return <LoggedInPageTemplate commentsOpen={this.props.openCommentThread}>
-      <GrowingStock fra={this.props.growingStock.fra} countryIso={this.props.match.params.countryIso} {...this.props}/>
-    </LoggedInPageTemplate>
+    return R.isEmpty(this.props.growingStock)
+      ? null
+      : <LoggedInPageTemplate commentsOpen={this.props.openCommentThread}>
+        <GrowingStock fra={this.props.growingStock.fra}
+                      countryIso={this.props.match.params.countryIso} {...this.props}/>
+      </LoggedInPageTemplate>
   }
 
 }
