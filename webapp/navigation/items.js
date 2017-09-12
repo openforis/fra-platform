@@ -7,7 +7,7 @@ export const annualItems = i18n => [
   {
     order: 1,
     label: i18n.t('extentOfForest.extentOfForest'),
-    section: 'extentOfForest',
+    section: 'eof',
     pathTemplate: '/country/:countryIso'
   },
   {

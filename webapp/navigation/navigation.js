@@ -235,7 +235,6 @@ class Nav extends React.Component {
 
   render () {
     const status = R.defaultTo({}, this.props.status)
-    console.log('--- status ', status)
     const getReviewStatus = section => R.pipe(
       R.defaultTo({}),
       R.prop(section),
