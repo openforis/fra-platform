@@ -37,9 +37,9 @@ export const translation = {
     plantationForest: 'Plantation forest',
     otherPlantedForest: 'Other planted forest',
     introduced: '…of which introduces species',
-    naturallyRegeneratingForest:'Naturally regenerating forest',
-    plantedForest:'Planted forest',
-    totalForest:'Total forest'
+    naturallyRegeneratingForest: 'Naturally regenerating forest',
+    plantedForest: 'Planted forest',
+    totalForest: 'Total forest'
   },
 
   fraOtherLandClass: {
@@ -193,7 +193,9 @@ export const translation = {
 
   growingStock: {
     growingStock: 'Growing stock',
-    fra2020Categories:'FRA 2020 categories'
+    fra2020Categories: 'FRA 2020 categories',
+    avgTableHeader: 'Average growing stock (m3/ha)',
+    totalTableHeader: 'Total growing stock (million m3)'
   },
 
   biomassStock: {

@@ -5,27 +5,53 @@ class MirrorTable extends Component {
 
   render () {
     const rows = this.props.rows
-    const header = this.props.header
+    const colsData = R.filter(v => v.type !== 'odp', R.values(this.props.fra))
 
-    return <div className="nde__data-table-container">
-      <div className="nde__data-table-scroll-content">
-        <table className="fra-table">
-          <thead>
-          <tr>
-            <th className="fra-table__header-cell">{header}</th>
-            {
-              R.values(this.props.fra).map(v =>
-                v.type !== 'odp'
-                  ? <th className="fra-table__header-cell-right" key={`${v.name}`}>
+    return <div>
+      <div className="nde__data-table-container">
+        <div className="nde__data-table-scroll-content">
+          <table className="fra-table">
+            <thead>
+            <tr>
+              <th rowSpan="2" className="fra-table__header-cell">{this.props.header}</th>
+              <th colSpan={colsData.length} className="fra-table__header-cell">{this.props.avgTableHeader}</th>
+            </tr>
+            <tr>
+              {
+                colsData.map(v =>
+                  <th className="fra-table__header-cell-right" key={`${v.name}`}>
                     {v.name}
                   </th>
-                  : null
-              )
-            }
-          </tr>
-          </thead>
-        </table>
+                )
+              }
+            </tr>
+            </thead>
+          </table>
+        </div>
       </div>
+
+      <div className="nde__data-table-container">
+        <div className="nde__data-table-scroll-content">
+          <table className="fra-table">
+            <thead>
+            <tr>
+              <th rowSpan="2" className="fra-table__header-cell">{this.props.header}</th>
+              <th colSpan={colsData.length} className="fra-table__header-cell">{this.props.totalTableHeader}</th>
+            </tr>
+            <tr>
+              {
+                colsData.map(v =>
+                  <th className="fra-table__header-cell-right" key={`${v.name}`}>
+                    {v.name}
+                  </th>
+                )
+              }
+            </tr>
+            </thead>
+          </table>
+        </div>
+      </div>
+
     </div>
   }
 
