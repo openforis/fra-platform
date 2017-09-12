@@ -7,28 +7,51 @@ const fs = Promise.promisifyAll(require('fs'))
 const {sendErr} = require('../utils/requestUtils')
 const R = require('ramda')
 const estimationEngine = require('./estimationEngine')
-const { checkCountryAccessFromReqParams } = require('../utils/accessControl')
+const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
 const auditRepository = require('./../audit/auditRepository')
 
 const forestAreaTableResponse = require('./forestAreaTableResponse')
 const focTableResponse = require('./focTableResponse')
 
 const fraReaders = {
-      'extentOfForest': fraRepository.readFraForestAreas,
-      'forestCharacteristics': fraRepository.readFraForestCharacteristics
-    }
+  'eof': fraRepository.readFraForestAreas,
+  'foc': fraRepository.readFraForestCharacteristics
+}
 const odpReaders = {
-      'extentOfForest': odpRepository.readEofOdps,
-      'forestCharacteristics': odpRepository.readFocOdps
-    }
+  'eof': odpRepository.readEofOdps,
+  'foc': odpRepository.readFocOdps
+}
 const fraWriters = {
-      'extentOfForest': fraRepository.persistEofValues,
-      'forestCharacteristics': fraRepository.persistFocValues
-    }
+  'eof': fraRepository.persistEofValues,
+  'foc': fraRepository.persistFocValues
+}
 const defaultResponses = {
-      'extentOfForest': () => forestAreaTableResponse.fra,
-      'forestCharacteristics': () => focTableResponse.buildDefaultResponse(focTableResponse.defaultYears)
-    }
+  'eof': () => forestAreaTableResponse.fra,
+  'foc': () => focTableResponse.buildDefaultResponse(focTableResponse.defaultYears)
+}
+
+const getFraValues = (section, countryIso) => {
+  const readFra = fraReaders[section]
+
+  const readOdp = odpReaders[section]
+  const defaultResponse = defaultResponses[section]
+
+  const fra = readFra(countryIso)
+  const odp = readOdp(countryIso)
+
+  return Promise.all([fra, odp])
+    .then(result => {
+      const fra = R.pipe(
+        R.merge(defaultResponse()),
+        R.merge(result[1]),
+        R.values,
+        R.sort((a, b) => a.year === b.year ? (a.type < b.type ? -1 : 1) : a.year - b.year)
+      )(result[0])
+      return {fra}
+    })
+}
+
+module.exports.getFraValues = getFraValues
 
 module.exports.init = app => {
   app.post('/nde/:section/:countryIso', (req, res) => {
@@ -65,24 +88,8 @@ module.exports.init = app => {
   app.get('/nde/:section/:countryIso', (req, res) => {
     checkCountryAccessFromReqParams(req)
 
-    const section = req.params.section
-    const readFra = fraReaders[section]
-    const readOdp = odpReaders[section]
-    const defaultResponse = defaultResponses[section]
-
-    const fra = readFra(req.params.countryIso)
-    const odp = readOdp(req.params.countryIso)
-
-    Promise.all([fra, odp])
-      .then(result => {
-        const forestAreas = R.pipe(
-          R.merge(defaultResponse()),
-          R.merge(result[1]),
-          R.values,
-          R.sort((a, b) => a.year === b.year ? (a.type < b.type ? -1 : 1) : a.year - b.year)
-        )(result[0])
-        return res.json({fra: forestAreas})
-      })
+    getFraValues(req.params.section, req.params.countryIso)
+      .then(fra => res.json(fra))
       .catch(err => sendErr(res, err))
   })
 
