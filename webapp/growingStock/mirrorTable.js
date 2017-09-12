@@ -5,56 +5,46 @@ class MirrorTable extends Component {
 
   render () {
     const rows = this.props.rows
-    const colsData = R.filter(v => v.type !== 'odp', R.values(this.props.fra))
+    const cols = R.filter(v => v.type !== 'odp', R.values(this.props.fra))
 
     return <div>
-      <div className="nde__data-table-container">
-        <div className="nde__data-table-scroll-content">
-          <table className="fra-table">
-            <thead>
-            <tr>
-              <th rowSpan="2" className="fra-table__header-cell">{this.props.header}</th>
-              <th colSpan={colsData.length} className="fra-table__header-cell">{this.props.avgTableHeader}</th>
-            </tr>
-            <tr>
-              {
-                colsData.map(v =>
-                  <th className="fra-table__header-cell-right" key={`${v.name}`}>
-                    {v.name}
-                  </th>
-                )
-              }
-            </tr>
-            </thead>
-          </table>
-        </div>
-      </div>
+      <Table categoriesHeader={this.props.header}
+             colsHeader={this.props.avgTableHeader}
+             rows={rows}
+             cols={cols}
+             type='avg'/>
 
-      <div className="nde__data-table-container">
-        <div className="nde__data-table-scroll-content">
-          <table className="fra-table">
-            <thead>
-            <tr>
-              <th rowSpan="2" className="fra-table__header-cell">{this.props.header}</th>
-              <th colSpan={colsData.length} className="fra-table__header-cell">{this.props.totalTableHeader}</th>
-            </tr>
-            <tr>
-              {
-                colsData.map(v =>
-                  <th className="fra-table__header-cell-right" key={`${v.name}`}>
-                    {v.name}
-                  </th>
-                )
-              }
-            </tr>
-            </thead>
-          </table>
-        </div>
-      </div>
-
+      <Table categoriesHeader={this.props.header}
+             colsHeader={this.props.totalTableHeader}
+             rows={rows}
+             cols={cols}
+             type='total'/>
     </div>
   }
 
 }
+
+const Table = ({categoriesHeader, colsHeader, cols, rows, type}) =>
+  <div className="nde__data-table-container">
+    <div className="nde__data-table-scroll-content">
+      <table className="fra-table">
+        <thead>
+        <tr>
+          <th rowSpan="2" className="fra-table__header-cell">{categoriesHeader}</th>
+          <th colSpan={cols.length} className="fra-table__header-cell">{colsHeader}</th>
+        </tr>
+        <tr>
+          {
+            cols.map(v =>
+              <th className="fra-table__header-cell-right" key={`${v.name}`}>
+                {v.name}
+              </th>
+            )
+          }
+        </tr>
+        </thead>
+      </table>
+    </div>
+  </div>
 
 export default MirrorTable
