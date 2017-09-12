@@ -42,7 +42,6 @@ const getIssueComments = (countryIso, section, user) =>
 
 module.exports.getIssueComments = getIssueComments
 
-
 const getIssueCountryAndSection = (issueId) => {
   return db.query(`
     SELECT i.country_iso, i.section FROM issue i 
@@ -58,7 +57,6 @@ const getCommentCountryAndSection = commentId => {
   `, [commentId]).then(res => camelize(res.rows[0]))
 }
 module.exports.getCommentCountryAndSection = getCommentCountryAndSection
-
 
 const hasUnreadIssues = (user, issueComments) => R.pipe(
   R.groupBy(comment => comment.issueId),
@@ -218,4 +216,3 @@ module.exports.updateIssueReadTime = (issueId, user) =>
     .then(res => res.rows.length > 0
       ? db.query(`UPDATE user_issue SET read_time = $1 WHERE id = $2`, [new Date().toISOString(), res.rows[0].id])
       : db.query(`INSERT INTO user_issue (user_id, issue_id, read_time) VALUES ($1,$2,$3)`, [user.id, issueId, new Date().toISOString()]))
-

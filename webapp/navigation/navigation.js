@@ -213,8 +213,8 @@ const SecondaryItem = ({path, countryIso, order, pathTemplate = '/tbd', label, e
     <div className='nav__seoncdary-item-texts'>
       <span className='nav__secondary-label'>{label}</span>
       <EditStatus msg={edited}/>
+      <ReviewStatus status={status} />
     </div>
-    <ReviewStatus status={status} />
   </Link>
 }
 
