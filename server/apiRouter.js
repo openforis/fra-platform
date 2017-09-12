@@ -9,6 +9,7 @@ const descriptionsApi = require('./descriptions/api')
 const reviewApi = require('./review/api')
 const countryApi = require('./country/api')
 const assessmentApi = require('./assessment/api')
+const growingStockApi = require('./growingStock/growingStockApi')
 
 const apiRouter = express.Router()
 //Nothing should be cached by default with the APIs
@@ -25,5 +26,6 @@ traditionalTableApi.init(apiRouter)
 descriptionsApi.init(apiRouter)
 reviewApi.init(apiRouter)
 assessmentApi.init(apiRouter)
+growingStockApi.init(apiRouter)
 
 module.exports.router = apiRouter
