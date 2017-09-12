@@ -213,8 +213,8 @@ const SecondaryItem = ({path, countryIso, order, pathTemplate = '/tbd', label, e
     <div className='nav__seoncdary-item-texts'>
       <span className='nav__secondary-label'>{label}</span>
       <EditStatus msg={edited}/>
-      <ReviewStatus status={status} />
     </div>
+    <ReviewStatus status={status} />
   </Link>
 }
 
@@ -235,7 +235,6 @@ class Nav extends React.Component {
 
   render () {
     const status = R.defaultTo({}, this.props.status)
-    console.log('--- status ', status)
     const getReviewStatus = section => R.pipe(
       R.defaultTo({}),
       R.prop(section),
