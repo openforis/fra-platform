@@ -1,10 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import * as R from 'ramda'
 
 import LoggedInPageTemplate from '../loggedInPageTemplate'
-import MirrorTable from './MirrorTable'
+import MirrorTable from './mirrorTable'
 
-const GrowingStock = ({i18n, countryIso, ...props}) => {
+import { fetch } from './actions'
+
+const GrowingStock = ({i18n, countryIso, fra, ...props}) => {
   const rows = [
     {
       field: 'naturallyRegeneratingForest',
@@ -31,21 +34,34 @@ const GrowingStock = ({i18n, countryIso, ...props}) => {
     <div className="nde__data-page-header">
       <h2 className="headline">{i18n.t('growingStock.growingStock')}</h2>
     </div>
-    <MirrorTable section="growingStock" header={i18n.t('growingStock.fra2020Categories')} rows={rows} {...props}/>
+    <MirrorTable section="growingStock" fra={fra} header={i18n.t('growingStock.fra2020Categories')} rows={rows} {...props}/>
   </div>
 
 }
 
 class GrowingStockView extends Component {
 
+  componentWillMount () {
+    this.fetch(this.props.match.params.countryIso)
+  }
+
+  componentWillReceiveProps (next) {
+    if (!R.equals(this.props.match.params.countryIso, next.match.params.countryIso))
+      this.fetch(next.match.params.countryIso)
+  }
+
+  fetch (countryIso) {
+    this.props.fetch(countryIso)
+  }
+
   render () {
     return <LoggedInPageTemplate commentsOpen={this.props.openCommentThread}>
-      <GrowingStock {...this.props} countryIso={this.props.match.params.countryIso}/>
+      <GrowingStock fra={this.props.growingStock.fra} countryIso={this.props.match.params.countryIso} {...this.props}/>
     </LoggedInPageTemplate>
   }
 
 }
 
-const mapStateToProps = state => ({i18n: state.user.i18n})
+const mapStateToProps = state => ({i18n: state.user.i18n, growingStock: state.growingStock})
 
-export default connect(mapStateToProps)(GrowingStockView)
+export default connect(mapStateToProps, {fetch})(GrowingStockView)
