@@ -172,8 +172,8 @@ const PrimaryItem = ({label, countryIso, assessmentType, assessmentStatuses, cha
 }
 
 const ReviewStatus = ({status}) =>
-  status.hasUnreadIssues
-    ? <div className="nav__has-open-issue"/>
+  status.issueStatus === 'opened'
+    ? <div className={`nav__has-open-issue${status.hasUnreadIssues ? ' has-unread-issue' : ''}`}/>
     : null
 
 const NationalDataItem = ({path, countryIso, pathTemplate, secondaryPathTemplate, status, label, userInfo}) => {
@@ -235,6 +235,7 @@ class Nav extends React.Component {
 
   render () {
     const status = R.defaultTo({}, this.props.status)
+    console.log('--- status ', status)
     const getReviewStatus = section => R.pipe(
       R.defaultTo({}),
       R.prop(section),
