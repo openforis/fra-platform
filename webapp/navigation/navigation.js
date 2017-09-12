@@ -91,6 +91,7 @@ const CountryRole = ({role, roleCountries, currentCountry, i18n}) =>
       <span className="nav__country-list-role-label">{i18n.t(`user.roles.${role.toLowerCase()}`)}</span>
       <span className="nav__country-list-assessment-label">{i18n.t('countryListing.annuallyReported')}</span>
       <span className="nav__country-list-assessment-label">{i18n.t('countryListing.fiveYearCycle')}</span>
+      <span className="nav__country-list-assessment-label">{i18n.t('audit.edited')}</span>
     </div>
     {
       roleCountries.map(c =>
@@ -120,7 +121,7 @@ const CountryRow = ({selectedCountry, country, i18n}) => {
         status={country.fiveYearAssesment}/>{i18n.t(`navigation.assessmentStatus.${country.fiveYearAssesment}.label`)}</span>
         : null
     }
-
+<span className="nav__country-list-item-assessment-status">{getRelativeDate(country.lastEdit, i18n, i18n.t('audit.notStarted'))}</span>
   </Link>
 }
 
