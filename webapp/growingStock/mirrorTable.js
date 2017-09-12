@@ -14,7 +14,13 @@ class MirrorTable extends Component {
           <tr>
             <th className="fra-table__header-cell">{header}</th>
             {
-
+              R.values(this.props.fra).map(v =>
+                v.type !== 'odp'
+                  ? <th className="fra-table__header-cell-right" key={`${v.name}`}>
+                    {v.name}
+                  </th>
+                  : null
+              )
             }
           </tr>
           </thead>
