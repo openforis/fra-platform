@@ -13,7 +13,8 @@ export const annualItems = i18n => [
   {
     order: 2,
     label: i18n.t('growingStock.growingStock'),
-    pathTemplate: '/todo'
+    section: 'growingStock',
+    pathTemplate: '/country/:countryIso/growingStock'
   },
   {
     order: 3,

@@ -3,6 +3,7 @@ import React from 'react'
 import Route from 'route-parser'
 import Router from './router/router'
 import NationalDataEntryView from './nationalDataEntry/nationalDataEntryView'
+import GrowingStockView from './growingStock/growingStockView'
 import OriginalDataPointView from './originalDataPoint/originalDataPointView'
 import SpecificForestCategoriesView from './specificForestCategories/specificForestCategoriesView'
 import PrimaryDesignatedManagementObjectiveView from './primaryDesignatedManagementObjective/primaryDesignatedManagementObjectiveView'
@@ -14,9 +15,10 @@ import ForestCharacteristicsView from './forestCharacteristics/forestCharacteris
 const routes = {
   '/': () => <noscript/>, //This will get rendered first (it flashes), before we redirect to logged-in page or login page
   '/country/:countryIso/odps': OriginalDataListView,
-  '/country/:countryIso': NationalDataEntryView,
   '/country/:countryIso/odp': OriginalDataPointView,
   '/country/:countryIso/odp/:odpId': OriginalDataPointView,
+  '/country/:countryIso': NationalDataEntryView,
+  '/country/:countryIso/growingStock': GrowingStockView,
   '/country/:countryIso/specificForestCategories': SpecificForestCategoriesView,
   '/country/:countryIso/forestAreaChange': ForestAreaChangeView,
   '/country/:countryIso/forestCharacteristics': ForestCharacteristicsView,
