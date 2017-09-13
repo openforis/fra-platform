@@ -83,6 +83,7 @@ const Row = ({countryIso, row, cols, type, fra, values, updateValues}) =>
           col={col}
           type={type}
           field={row.field}
+          areaFields={row.areaFields}
           calculated={row.calculated}
           values={values}
           updateValues={updateValues}
@@ -91,7 +92,7 @@ const Row = ({countryIso, row, cols, type, fra, values, updateValues}) =>
     }
   </tr>
 
-const Cell = ({countryIso, col, type, field, fra, values, calculated, updateValues}) => {
+const Cell = ({countryIso, col, type, field, areaFields, fra, values, calculated, updateValues}) => {
   const value = R.pipe(
     R.find(R.propEq('year', col.year)),
     R.defaultTo({}),
@@ -105,7 +106,7 @@ const Cell = ({countryIso, col, type, field, fra, values, calculated, updateValu
       : <ThousandSeparatedIntegerInput
         className="fra-table__integer-input"
         integerValue={value}
-        onChange={e => updateValues(fra, values, countryIso, col.year, field, type, e.target.value)}
+        onChange={e => updateValues(fra, values, countryIso, col.year, field, areaFields, type, e.target.value)}
       />}
   </td>
 }
