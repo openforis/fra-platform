@@ -14,24 +14,28 @@ class MirrorTable extends Component {
              colsHeader={this.props.avgTableHeader}
              rows={rows}
              cols={cols}
+             fra={this.props.fra}
              values={this.props.values}
              type='avg'
-             updateValue={this.props.updateValue}/>
+             updateValues={this.props.updateValues}
+      />
 
       <Table countryIso={this.props.countryIso}
              categoriesHeader={this.props.header}
              colsHeader={this.props.totalTableHeader}
              rows={rows}
              cols={cols}
+             fra={this.props.fra}
              values={this.props.values}
              type='total'
-             updateValue={this.props.updateValue}/>
+             updateValues={this.props.updateValues}
+      />
     </div>
   }
 
 }
 
-const Table = ({countryIso, categoriesHeader, colsHeader, cols, rows, type, values, updateValue}) =>
+const Table = ({countryIso, categoriesHeader, colsHeader, cols, rows, type, fra, values, updateValues}) =>
   <div className="nde__data-table-container">
     <div className="nde__data-table-scroll-content">
       <table className="fra-table">
@@ -58,8 +62,9 @@ const Table = ({countryIso, categoriesHeader, colsHeader, cols, rows, type, valu
               row={row}
               cols={cols}
               type={type}
+              fra={fra}
               values={values}
-              updateValue={updateValue}
+              updateValues={updateValues}
             />)
         }
         </tbody>
@@ -67,7 +72,7 @@ const Table = ({countryIso, categoriesHeader, colsHeader, cols, rows, type, valu
     </div>
   </div>
 
-const Row = ({countryIso, row, cols, type, values, updateValue}) =>
+const Row = ({countryIso, row, cols, type, fra, values, updateValues}) =>
   <tr>
     <td className="fra-table__header-cell">{row.localizedName}</td>
     {
@@ -80,12 +85,13 @@ const Row = ({countryIso, row, cols, type, values, updateValue}) =>
           field={row.field}
           calculated={row.calculated}
           values={values}
-          updateValue={updateValue}
+          updateValues={updateValues}
+          fra={fra}
         />)
     }
   </tr>
 
-const Cell = ({countryIso, col, type, field, values, calculated, updateValue}) => {
+const Cell = ({countryIso, col, type, field, fra, values, calculated, updateValues}) => {
   const value = R.pipe(
     R.find(R.propEq('year', col.year)),
     R.defaultTo({}),
@@ -98,7 +104,7 @@ const Cell = ({countryIso, col, type, field, values, calculated, updateValue}) =
       className="fra-table__integer-input"
       integerValue={value}
       disabled={calculated}
-      onChange={e => updateValue(countryIso, col.year, field, type, e.target.value)}
+      onChange={e => updateValues(fra, values, countryIso, col.year, field, type, e.target.value)}
     />
   </td>
 }
