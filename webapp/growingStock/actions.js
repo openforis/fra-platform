@@ -42,8 +42,12 @@ export const updateValues = (fra, values, countryIso, year, field, type, value) 
 
 export const persistUpdatedValues = (countryIso, values) => {
   const dispatched = dispatch => {
-    dispatch(autosave.complete)
-    dispatch({type: growingStockUpdateCompleted})
+    axios
+      .post(`/api/growingStock/${countryIso}`, values)
+      .then(() => {
+        dispatch(autosave.complete)
+        dispatch({type: growingStockUpdateCompleted})
+      })
   }
 
   dispatched.meta = {
