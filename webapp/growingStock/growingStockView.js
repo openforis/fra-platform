@@ -6,9 +6,9 @@ import * as R from 'ramda'
 import LoggedInPageTemplate from '../loggedInPageTemplate'
 import MirrorTable from './mirrorTable'
 
-import { fetch } from './actions'
+import { fetch, updateValue } from './actions'
 
-const GrowingStock = ({i18n, countryIso, fra, values, ...props}) => {
+const GrowingStock = ({i18n, countryIso, fra, values, updateValue}) => {
   const rows = [
     {
       field: 'naturallyRegeneratingForest',
@@ -37,14 +37,17 @@ const GrowingStock = ({i18n, countryIso, fra, values, ...props}) => {
     <div className="nde__data-page-header">
       <h2 className="headline">{i18n.t('growingStock.growingStock')}</h2>
     </div>
-    <MirrorTable section="growingStock"
-                 fra={fra}
-                 header={i18n.t('growingStock.fra2020Categories')}
-                 avgTableHeader={i18n.t('growingStock.avgTableHeader')}
-                 totalTableHeader={i18n.t('growingStock.totalTableHeader')}
-                 rows={rows}
-                 values={values}
-                 {...props}/>
+    <MirrorTable
+      section="growingStock"
+      countryIso={countryIso}
+      fra={fra}
+      header={i18n.t('growingStock.fra2020Categories')}
+      avgTableHeader={i18n.t('growingStock.avgTableHeader')}
+      totalTableHeader={i18n.t('growingStock.totalTableHeader')}
+      rows={rows}
+      values={values}
+      updateValue={updateValue}
+    />
   </div>
 
 }
@@ -68,9 +71,12 @@ class GrowingStockView extends Component {
     return R.isEmpty(this.props.growingStock)
       ? null
       : <LoggedInPageTemplate commentsOpen={this.props.openCommentThread}>
-        <GrowingStock fra={this.props.growingStock.fra}
-                      values={this.props.growingStock.values}
-                      countryIso={this.props.match.params.countryIso} {...this.props}/>
+        <GrowingStock
+          fra={this.props.growingStock.fra}
+          countryIso={this.props.match.params.countryIso}
+          values={this.props.growingStock.values}
+          updateValue={this.props.updateValue}
+          {...this.props}/>
       </LoggedInPageTemplate>
   }
 
@@ -78,4 +84,4 @@ class GrowingStockView extends Component {
 
 const mapStateToProps = state => ({i18n: state.user.i18n, growingStock: state.growingStock})
 
-export default connect(mapStateToProps, {fetch})(GrowingStockView)
+export default connect(mapStateToProps, {fetch, updateValue})(GrowingStockView)

@@ -11,3 +11,12 @@ export const fetch = countryIso => dispatch =>
     .get(`/api/growingStock/${countryIso}`)
     .then(resp => dispatch({type: growingStockFetchCompleted, data: resp.data}))
     .catch(err => dispatch(applicationError(err)))
+
+
+export const growingStockUpdateCompleted = 'growingStock/update/completed'
+
+export const updateValue = (countryIso, year, field, type, value) => dispatch => {
+  dispatch({type: growingStockUpdateCompleted})
+  console.log(countryIso, year, field, type, value)
+
+}
