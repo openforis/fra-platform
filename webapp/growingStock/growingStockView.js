@@ -12,19 +12,24 @@ const GrowingStock = ({i18n, countryIso, fra, values, updateValues}) => {
   const rows = [
     {
       field: 'naturallyRegeneratingForest',
+      areaFields: ['naturalForestArea'],
       localizedName: i18n.t('fraForestCharacteristicsClass.naturallyRegeneratingForest')
     }, {
       field: 'plantedForest',
+      areaFields: ['plantationForestArea', 'otherPlantedForestArea'],
       calculated: true,
       localizedName: i18n.t('fraForestCharacteristicsClass.plantedForest')
     }, {
       field: 'plantationForest',
+      areaFields: ['plantationForestArea'],
       localizedName: i18n.t('fraForestCharacteristicsClass.plantationForest')
     }, {
       field: 'otherPlantedForest',
+      areaFields: ['otherPlantedForestArea'],
       localizedName: i18n.t('fraForestCharacteristicsClass.otherPlantedForest')
     }, {
       field: 'totalForest',
+      areaFields: ['naturalForestArea', 'plantationForestArea', 'otherPlantedForestArea'],
       calculated: true,
       localizedName: i18n.t('fraForestCharacteristicsClass.totalForest')
     }, {
