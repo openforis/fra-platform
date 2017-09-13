@@ -99,13 +99,14 @@ const Cell = ({countryIso, col, type, field, fra, values, calculated, updateValu
     R.defaultTo(null),
   )(values)
 
-  return <td className="fra-table__cell">
-    <ThousandSeparatedIntegerInput
-      className="fra-table__integer-input"
-      integerValue={value}
-      disabled={calculated}
-      onChange={e => updateValues(fra, values, countryIso, col.year, field, type, e.target.value)}
-    />
+  return <td className={`gs-fra-table__${calculated ? 'text-readonly-cell' : 'cell'}`}>
+    {calculated
+      ? <div>{value}</div>
+      : <ThousandSeparatedIntegerInput
+        className="fra-table__integer-input"
+        integerValue={value}
+        onChange={e => updateValues(fra, values, countryIso, col.year, field, type, e.target.value)}
+      />}
   </td>
 }
 
