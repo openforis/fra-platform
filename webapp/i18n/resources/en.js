@@ -33,7 +33,7 @@ export const translation = {
   },
 
   fraForestCharacteristicsClass: {
-    naturallyGenerated: 'Naturally regenerated',
+    naturallyGenerated: 'Naturally regenerating forest',
     plantationForest: 'Plantation forest',
     otherPlantedForest: 'Other planted forest',
     introduced: '…of which introduces species'
@@ -144,6 +144,8 @@ export const translation = {
     addNationalDataPoint: 'Add national data point',
     noNationalDataAdded: 'No national data added',
     nationalData: 'National data',
+    reclassificationLabel: 'Reclassification',
+    forestCategoriesLabel: 'Forest, Other wooded land and other land',
     year: 'Year',
     methods: 'Methods',
     edit: 'Edit',
@@ -152,6 +154,7 @@ export const translation = {
     nationalClasses: 'National classes',
     definition: 'Definition',
     fraClasses: 'FRA classes',
+    fraClassesOfWhich: 'FRA classes (…of which)',
     class: 'Class',
     area: 'Area',
     total: 'Total',
@@ -162,7 +165,7 @@ export const translation = {
     enterOrCopyPasteNationalClasses: 'Enter or copy and paste national classes',
     prefixPrimary: 'Primary',
     prefixIntroduced: 'Introduced',
-    otherLandCharacteristics: 'Other land characteristics'
+    otherLandCharacteristics: 'Other land with tree cover'
   },
 
   // annually reported assessment components
@@ -177,10 +180,10 @@ export const translation = {
       placeholderLine2: 'them to generate FRA values automatically.'
     },
     otherLandCategories: 'Other land categories',
-    ofWhichPalms: '...of which palms (oil, coconut, dates, etc.)',
-    ofWhichTreeOrchards: '...of which trees orchards (includes fruit, nuts, olive, etc.)',
-    ofWhichAgroforestry: '...of which agroforestry',
-    ofWhichTreesUrbanSettings: '...of which trees in urban settings'
+    ofWhichPalms: '…of which palms (oil, coconut, dates, etc.)',
+    ofWhichTreeOrchards: '…of which trees orchards (includes fruit, nuts, olive, etc.)',
+    ofWhichAgroforestry: '…of which agroforestry',
+    ofWhichTreesUrbanSettings: '…of which trees in urban settings'
   },
 
   growingStock: {
