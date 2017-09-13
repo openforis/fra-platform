@@ -174,14 +174,14 @@ export const translation = {
     extentOfForest: 'Extent of forest',
     generateFraValues: 'Generate FRA values',
     extentOfForestValues: 'Extent of forest values',
-    forestArea: 'Forest area',
+    forestArea: 'Forest',
     chart: {
       placeholderLine1: 'To get started, add new national data points and use',
       placeholderLine2: 'them to generate FRA values automatically.'
     },
     otherLandCategories: 'Other land categories',
     ofWhichPalms: '…of which palms (oil, coconut, dates, etc.)',
-    ofWhichTreeOrchards: '…of which trees orchards (includes fruit, nuts, olive, etc.)',
+    ofWhichTreeOrchards: '…of which tree orchards (includes fruit, nuts, olive, etc.)',
     ofWhichAgroforestry: '…of which agroforestry',
     ofWhichTreesUrbanSettings: '…of which trees in urban settings'
   },
@@ -205,18 +205,18 @@ export const translation = {
   // five year cycle assessment components
 
   forestAreaChange: {
-    forestAreaLossGainChange: 'Forest area loss, gain and net change',
-    forestExpansion: 'Forest expansion (a)',
+    forestAreaLossGainChange: 'Annual forest area loss, gain and net change',
+    forestExpansion: 'Forest expansion',
     ofWhichAfforestation: '…of which afforestation',
     ofWhichNaturalExpansion: '…of which natural expansion',
-    deforestation: 'Deforestation (b)',
+    deforestation: 'Deforestation',
     forestAreaNetChange: 'Forest area net change'
   },
 
   forestCharacteristics: {
     forestCharacteristics: 'Forest characteristics',
     forestCharacteristicsValues: 'Forest characteristics values',
-    naturalForestArea: 'Naturally regenerated forest',
+    naturalForestArea: 'Naturally regenerating forest',
     naturalForestPrimaryArea: '…of which primary',
     plantationForestArea: 'Plantation forest',
     plantationForestIntroducedArea: '…of which introduced species',
@@ -225,7 +225,7 @@ export const translation = {
 
   specificForestCategories: {
     specificForestCategories: 'Specific forest categories',
-    bamboo: 'Bamboo',
+    bamboo: 'Bamboos',
     mangroves: 'Mangroves',
     rubberPlantations: 'Rubber plantations'
   },
@@ -235,7 +235,7 @@ export const translation = {
   },
 
   nonWoodForestProducts: {
-    nonWoodForestProducts: 'Non wood forest products'
+    nonWoodForestProducts: 'Non wood forest products removals 2015'
   },
 
   primaryDesignatedManagementObjective: {
@@ -251,7 +251,7 @@ export const translation = {
   },
 
   forestOwnershipManagementRights: {
-    forestOwnershipManagementRights: 'Forest ownership and management rights'
+    forestOwnershipManagementRights: 'Forest ownership'
   },
 
   disturbances: {
