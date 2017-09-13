@@ -6,9 +6,9 @@ import * as R from 'ramda'
 import LoggedInPageTemplate from '../loggedInPageTemplate'
 import MirrorTable from './mirrorTable'
 
-import { fetch, updateValue } from './actions'
+import { fetch, updateValues } from './actions'
 
-const GrowingStock = ({i18n, countryIso, fra, values, updateValue}) => {
+const GrowingStock = ({i18n, countryIso, fra, values, updateValues}) => {
   const rows = [
     {
       field: 'naturallyRegeneratingForest',
@@ -46,7 +46,7 @@ const GrowingStock = ({i18n, countryIso, fra, values, updateValue}) => {
       totalTableHeader={i18n.t('growingStock.totalTableHeader')}
       rows={rows}
       values={values}
-      updateValue={updateValue}
+      updateValues={updateValues}
     />
   </div>
 
@@ -75,7 +75,7 @@ class GrowingStockView extends Component {
           fra={this.props.growingStock.fra}
           countryIso={this.props.match.params.countryIso}
           values={this.props.growingStock.values}
-          updateValue={this.props.updateValue}
+          updateValues={this.props.updateValues}
           {...this.props}/>
       </LoggedInPageTemplate>
   }
@@ -84,4 +84,4 @@ class GrowingStockView extends Component {
 
 const mapStateToProps = state => ({i18n: state.user.i18n, growingStock: state.growingStock})
 
-export default connect(mapStateToProps, {fetch, updateValue})(GrowingStockView)
+export default connect(mapStateToProps, {fetch, updateValues})(GrowingStockView)
