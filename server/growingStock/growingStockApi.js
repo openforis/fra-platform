@@ -1,4 +1,5 @@
 const Promise = require('bluebird')
+const db = require('../db/db')
 const {sendErr} = require('../utils/requestUtils')
 const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
 const {getFraValues} = require('../eof/api')
@@ -17,4 +18,12 @@ module.exports.init = app => {
       .catch(err => sendErr(res, err))
   })
 
+  app.post('/growingStock/:countryIso', (req, res) => {
+    checkCountryAccessFromReqParams(req)
+
+    db
+      .transaction(repository.persistGrowingStock, [req.user, req.params.countryIso, req.body])
+      .then(() => res.json({}))
+      .catch(err => sendErr(res, err))
+  })
 }
