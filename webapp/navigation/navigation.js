@@ -86,12 +86,12 @@ const CountryList = ({isOpen, countries, currentCountry, i18n}) => {
 const AssessmentStatus = ({status}) => <div className={`status-${status}`} />
 
 const CountryRole = ({role, roleCountries, currentCountry, i18n}) =>
-  <div className="nav__country-list-role-countries">
-    <div className="nav__country-list-role-header">
-      <span className="nav__country-list-role-label">{i18n.t(`user.roles.${role.toLowerCase()}`)}</span>
-      <span className="nav__country-list-assessment-label">{i18n.t('countryListing.annuallyReported')}</span>
-      <span className="nav__country-list-assessment-label">{i18n.t('countryListing.fiveYearCycle')}</span>
-      <span className="nav__country-list-assessment-label">{i18n.t('audit.edited')}</span>
+  <div className="nav__country-list-section">
+    <div className="nav__country-list-header">
+      <span className="nav__country-list-header-primary">{i18n.t(`user.roles.${role.toLowerCase()}`)}</span>
+      <span className="nav__country-list-header-secondary">{i18n.t('countryListing.annuallyReported')}</span>
+      <span className="nav__country-list-header-secondary">{i18n.t('countryListing.fiveYearCycle')}</span>
+      <span className="nav__country-list-header-secondary">{i18n.t('audit.edited')}</span>
     </div>
     {
       roleCountries.map(c =>
@@ -104,24 +104,24 @@ const CountryRow = ({selectedCountry, country, i18n}) => {
   return <Link
     to={`/country/${country.countryIso}`}
     className={`nav__country-list-item ${R.equals(selectedCountry, country.countryIso) ? 'selected' : ''}`}>
-    <div className="nav__country-list-item-name">
+    <div className="nav__country-list-item-primary">
       {getCountryName(country.countryIso, i18n.language)}
     </div>
     {
       country.annualAssesment
         ? <span
-        className="nav__country-list-item-assessment-status"><AssessmentStatus
+        className="nav__country-list-item-secondary"><AssessmentStatus
         status={country.annualAssesment}/>{i18n.t(`navigation.assessmentStatus.${country.annualAssesment}.label`)}</span>
         : null
     }
     {
       country.fiveYearAssesment
         ? <span
-        className="nav__country-list-item-assessment-status"><AssessmentStatus
+        className="nav__country-list-item-secondary"><AssessmentStatus
         status={country.fiveYearAssesment}/>{i18n.t(`navigation.assessmentStatus.${country.fiveYearAssesment}.label`)}</span>
         : null
     }
-<span className="nav__country-list-item-assessment-status">{getRelativeDate(country.lastEdit, i18n, i18n.t('audit.notStarted'))}</span>
+<span className="nav__country-list-item-secondary">{getRelativeDate(country.lastEdit, i18n, i18n.t('audit.notStarted'))}</span>
   </Link>
 }
 

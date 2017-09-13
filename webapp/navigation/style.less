@@ -77,7 +77,7 @@
   font-size: @font-s;
 }
 
-.nav__country-list-role-countries {
+.nav__country-list-section {
   border-bottom: @ui-thin-border;
   padding: 8px 0;
 
@@ -86,34 +86,21 @@
   }
 }
 
-.nav__country-list-role-header {
-  color: @text-mute;
-  display: flex;
-  justify-content: flex-start;
-  line-height: 16px;
-  padding: 8px 16px;
-}
-
-.nav__country-list-item-name,
-.nav__country-list-role-label {
-  min-width: 192px;
-  width: 100%;
-}
-
-.nav__country-list-item-assessment-status,
-.nav__country-list-assessment-label {
-  margin-left: 16px;
-  min-width: 128px;
-  width: 100%;
-}
-
+.nav__country-list-header,
 .nav__country-list-item {
-  color: @text-body;
   display: flex;
   justify-content: flex-start;
   align-items: center;
   line-height: 16px;
   padding: 8px 16px;
+}
+
+.nav__country-list-header {
+  color: @text-mute;
+}
+
+.nav__country-list-item {
+  color: @text-body;
   text-decoration: none;
 
   &:hover {
@@ -127,11 +114,24 @@
   }
 }
 
-.nav__country-list-item-name {
+.nav__country-list-item-primary,
+.nav__country-list-header-primary {
+  min-width: 192px;
+  width: 100%;
+}
+
+.nav__country-list-item-secondary,
+.nav__country-list-header-secondary {
+  margin-left: 16px;
+  min-width: 128px;
+  width: 100%;
+}
+
+.nav__country-list-item-primary {
   font-size: @font-m;
 }
 
-.nav__country-list-item-assessment-status {
+.nav__country-list-item-secondary {
   white-space: nowrap;
 
   .status-editing {
