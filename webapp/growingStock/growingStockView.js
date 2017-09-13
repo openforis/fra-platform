@@ -7,13 +7,14 @@ import MirrorTable from './mirrorTable'
 
 import { fetch } from './actions'
 
-const GrowingStock = ({i18n, countryIso, fra, ...props}) => {
+const GrowingStock = ({i18n, countryIso, fra, values, ...props}) => {
   const rows = [
     {
       field: 'naturallyRegeneratingForest',
       localizedName: i18n.t('fraForestCharacteristicsClass.naturallyRegeneratingForest')
     }, {
       field: 'plantedForest',
+      calculated: true,
       localizedName: i18n.t('fraForestCharacteristicsClass.plantedForest')
     }, {
       field: 'plantationForest',
@@ -23,6 +24,7 @@ const GrowingStock = ({i18n, countryIso, fra, ...props}) => {
       localizedName: i18n.t('fraForestCharacteristicsClass.otherPlantedForest')
     }, {
       field: 'totalForest',
+      calculated: true,
       localizedName: i18n.t('fraForestCharacteristicsClass.totalForest')
     }, {
       field: 'otherWoodedLand',
@@ -39,7 +41,9 @@ const GrowingStock = ({i18n, countryIso, fra, ...props}) => {
                  header={i18n.t('growingStock.fra2020Categories')}
                  avgTableHeader={i18n.t('growingStock.avgTableHeader')}
                  totalTableHeader={i18n.t('growingStock.totalTableHeader')}
-                 rows={rows} {...props}/>
+                 rows={rows}
+                 values={values}
+                 {...props}/>
   </div>
 
 }
@@ -64,6 +68,7 @@ class GrowingStockView extends Component {
       ? null
       : <LoggedInPageTemplate commentsOpen={this.props.openCommentThread}>
         <GrowingStock fra={this.props.growingStock.fra}
+                      values={this.props.growingStock.values}
                       countryIso={this.props.match.params.countryIso} {...this.props}/>
       </LoggedInPageTemplate>
   }
