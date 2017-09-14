@@ -239,7 +239,13 @@ export const translation = {
   },
 
   growingStockComposition: {
-    growingStockComposition: 'Growing stock composition'
+    growingStockComposition: 'Growing stock composition',
+    fra2020categories: 'FRA 2020 Categories',
+    nativeTreeSpecies: 'Native tree species',
+    areaUnitLabel: 'Growing stock in forest (million m3 o.b.)',
+    scientificName: 'Scientific name',
+    commonName: 'Common name',
+    rank: 'Ranked in terms of volume'
   },
 
   nonWoodForestProducts: {
@@ -291,5 +297,4 @@ export const translation = {
   areaOfPermanentForestEstate: {
     areaOfPermanentForestEstate: 'Area of permanent forest estate'
   },
-
 }
