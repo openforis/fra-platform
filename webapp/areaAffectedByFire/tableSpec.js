@@ -7,7 +7,10 @@ export default i18n => ({
   name: 'areaAffectedByFire', // used to uniquely identify table
   header: <thead>
   <tr>
-    <td className="fra-table__header-cell"/>
+    <th className="fra-table__header-cell" rowSpan="2">{i18n.t('areaAffectedByFire.categoryHeader')}</th>
+    <th className="fra-table__header-cell-middle" colSpan="18">{i18n.t('areaAffectedByFire.areaUnitLabel')}</th>
+  </tr>
+  <tr>
     <td className="fra-table__header-cell-right">2000</td>
     <td className="fra-table__header-cell-right">2001</td>
     <td className="fra-table__header-cell-right">2002</td>

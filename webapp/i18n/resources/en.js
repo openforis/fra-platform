@@ -156,7 +156,7 @@ export const translation = {
     fraClasses: 'FRA classes',
     fraClassesOfWhich: 'FRA classes (…of which)',
     class: 'Class',
-    area: 'Area',
+    area: 'Area (1000 ha)',
     total: 'Total',
     delete: 'Delete',
     confirmDelete: 'Are you sure you want to delete this data point? This cannot be undone.',
@@ -171,7 +171,9 @@ export const translation = {
   // annually reported assessment components
 
   extentOfForest: {
+    categoryHeader: 'FRA categories',
     extentOfForest: 'Extent of forest',
+    areaUnitLabel: 'Area (1000 ha)',
     generateFraValues: 'Generate FRA values',
     extentOfForestValues: 'Extent of forest values',
     forestArea: 'Forest',
@@ -205,6 +207,8 @@ export const translation = {
   // five year cycle assessment components
 
   forestAreaChange: {
+    categoryHeader: 'FRA categories',
+    areaUnitLabel: 'Area (1000 ha/year)',
     forestAreaLossGainChange: 'Annual forest area loss, gain and net change',
     forestExpansion: 'Forest expansion',
     ofWhichAfforestation: '…of which afforestation',
@@ -214,7 +218,9 @@ export const translation = {
   },
 
   forestCharacteristics: {
+    categoryHeader: 'FRA categories',
     forestCharacteristics: 'Forest characteristics',
+    areaUnitLabel: 'Forest area (1000 ha)',
     forestCharacteristicsValues: 'Forest characteristics values',
     naturalForestArea: 'Naturally regenerating forest',
     naturalForestPrimaryArea: '…of which primary',
@@ -224,7 +230,9 @@ export const translation = {
   },
 
   specificForestCategories: {
+    categoryHeader: 'FRA categories',
     specificForestCategories: 'Specific forest categories',
+    areaUnitLabel: 'Area (1000 ha)',
     bamboo: 'Bamboos',
     mangroves: 'Mangroves',
     rubberPlantations: 'Rubber plantations'
@@ -239,7 +247,9 @@ export const translation = {
   },
 
   primaryDesignatedManagementObjective: {
+    categoryHeader: 'FRA categories',
     primaryDesignatedManagementObjective: 'Designated management objective',
+    areaUnitLabel: 'Forest area (1000 ha)',
     production: 'Production',
     soilWaterProtection: 'Protection of soil and water',
     biodiversityConservation: 'Conservation of biodiversity',
@@ -259,7 +269,9 @@ export const translation = {
   },
 
   areaAffectedByFire: {
+    categoryHeader: 'FRA categories',
     areaAffectedByFire: 'Area affected by fire',
+    areaUnitLabel: 'Area (1000 ha)',
     totalLandAreaAffectedByFire: 'Total land area affected by fire',
     ofWhichForest: '…of which on forest'
   },
@@ -278,6 +290,6 @@ export const translation = {
 
   areaOfPermanentForestEstate: {
     areaOfPermanentForestEstate: 'Area of permanent forest estate'
-  }
+  },
 
 }

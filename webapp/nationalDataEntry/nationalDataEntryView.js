@@ -100,13 +100,11 @@ const NationalDataEntry = (props) => {
         {i18n.t('extentOfForest.generateFraValues')}
       </button>
     </div>
-    <DataTable section='extentOfForest' rows={eofRows} rowNames={eofRowNames} {...props} />
-
+    <DataTable section='extentOfForest' rows={eofRows} rowNames={eofRowNames} {...props} areaUnitLabel={props.i18n.t('extentOfForest.areaUnitLabel')} categoryHeader={props.i18n.t('extentOfForest.categoryHeader')} />
     <div className="nde__data-table-header">
       <h3 className="subhead">{i18n.t('extentOfForest.otherLandCategories')}</h3>
     </div>
-    <DataTable section='extentOfForest' rows={otherLandRows} rowNames={otherLandRowNames} {...props} />
-
+    <DataTable section='extentOfForest' rows={otherLandRows} rowNames={otherLandRowNames} {...props}  areaUnitLabel={props.i18n.t('extentOfForest.areaUnitLabel')} categoryHeader={props.i18n.t('extentOfForest.categoryHeader')} />
     <CommentableDescriptions
       section='extentOfForest'
       name="extentOfForest"

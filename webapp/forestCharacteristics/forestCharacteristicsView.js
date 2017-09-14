@@ -68,7 +68,7 @@ const ForestCharacteristics = props => {
         {props.i18n.t('extentOfForest.generateFraValues')}
       </button>
     </div>
-    <DataTable section='forestCharacteristics' rows={rows} rowNames={rowNames} {...props} />
+    <DataTable section='forestCharacteristics' rows={rows} rowNames={rowNames} {...props} areaUnitLabel={props.i18n.t('forestCharacteristics.areaUnitLabel')} categoryHeader={props.i18n.t('forestCharacteristics.categoryHeader')}/>
     <CommentableDescriptions
       section='forestCharacteristics'
       name="forestCharacteristics"
