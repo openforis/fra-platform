@@ -14,25 +14,33 @@
     </script>
 </head>
 <body>
-    <div class="login__root">
-        <div style="display:none" id="login-failed-indicator" class="alert-container">
-            <div class="alert-error">
-                <div class="alert-icon">
-                    <svg class="icon"><use href="img/icons.svg#alert"></svg>
-                </div>
-                <div class="alert-message">User not authorized</div>
+    <div style="display:none" id="login-failed-indicator" class="alert-container">
+        <div class="alert-error">
+            <div class="alert-icon">
+                <svg class="icon"><use href="img/icons.svg#alert"></svg>
             </div>
+            <div class="alert-message">User not authorized</div>
         </div>
-        <div class="login__wrapper">
-            <img src="img/fao_logo.svg" class="login__logo" height="60" />
-            <div class="login__box">
-                <img src="img/tucan.svg" class="login__tucan"/>
-                <h2 class="login__header">Login to FRA Platform</h2>
-                <a class="login__btn" href="/auth/google">
+    </div>
+    <div class="login__wrapper">
+        <img src="img/fao_logo.svg" class="login__logo" height="60" />
+        <img src="img/tucan.svg" class="login__tucan"/>
+        <div class="login__box">
+            <div class="login__top">
+                <h2>Login to FRA Platform</h2>
+                <a class="btn" href="/auth/google">
                     Sign in with Google
                 </a>
             </div>
-            <p class="login__legal">&copy; FAO, 2017</p>
+            <div class="login__bottom">
+                <h3>CFRQ</h3>
+                <p>Collaborative Forest Resources Questionnaire</p>
+                <img src="img/cfrq_logos.png">
+            </div>
+        </div>
+        <div class="login__legal">
+            <p>All rights reserved. FAO encourages the reproduction and dissemination of material published on this Web site. Non-commercial uses will be authorized free of charge, upon request. Reproduction for resale or other commercial purposes, including educational purposes, may incur fees. Applications for permission to reproduce or disseminate FAO copyright material, and all queries concerning rights and licences, should be addressed by e-mail to <a href="mailto:copyright@fao.org">copyright@fao.org</a>. If you need help, send an e-mail to the <a href="mailto:fra@fao.org">fra@fao.org</a>.</p>
+            <p>This website was produced with partial funding by the <a href="http://ec.europa.eu/europeaid/">European Union</a>.</p>
         </div>
     </div>
 </body>
