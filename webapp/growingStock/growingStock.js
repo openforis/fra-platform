@@ -27,6 +27,7 @@ export const rows = [
     labelKey: 'fraForestCharacteristicsClass.totalForest'
   }, {
     field: 'otherWoodedLand',
+    areaFields: ['otherWoodedLand'],
     labelKey: 'fraClass.otherWoodedLand',
   }
 ]
@@ -51,16 +52,12 @@ const getArea = (fra, year, areaFields) => R.pipe(
 )(fra)
 
 const updateMirrorValue = (fra, year, field, type, obj) => {
-  const areaFields = getAreaFields(field)
-  if (areaFields) {
-    const area = getArea(fra, year, areaFields)
-    return area > 0
-      ? type === 'avg'
-        ? R.assoc(field, R.prop(`${field}Avg`, obj) * area)(obj)
-        : R.assoc(`${field}Avg`, R.prop(field, obj) / area)(obj)
-      : obj
-  }
-  return obj
+  const area = getArea(fra, year, getAreaFields(field))
+  return area > 0
+    ? type === 'avg'
+      ? R.assoc(field, R.prop(`${field}Avg`, obj) * area)(obj)
+      : R.assoc(`${field}Avg`, R.prop(field, obj) / area)(obj)
+    : obj
 }
 
 const getFieldValue = field => R.pipe(
