@@ -1,7 +1,7 @@
 import React from 'react'
 import assert from 'assert'
 import IntegerCellType from './integerCellType'
-import StringCellType from './integerCellType'
+import StringCellType from './stringCellType'
 
 const cellTypeCreators = {
   'integerInput': IntegerCellType,

@@ -1,3 +1,4 @@
+import React from 'react'
 
 const StringInput = ({countryIso, tableSpec, tableData, rowIdx, colIdx, tableValueChanged, tableChanged}) => {
   const currentValue = tableData[rowIdx][colIdx]
