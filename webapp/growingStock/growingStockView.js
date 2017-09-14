@@ -5,38 +5,11 @@ import * as R from 'ramda'
 
 import LoggedInPageTemplate from '../loggedInPageTemplate'
 import MirrorTable from './mirrorTable'
+import { rows } from './growingStock'
 
 import { fetch, updateValues } from './actions'
 
 const GrowingStock = ({i18n, countryIso, fra, values, updateValues}) => {
-  const rows = [
-    {
-      field: 'naturallyRegeneratingForest',
-      areaFields: ['naturalForestArea'],
-      localizedName: i18n.t('fraForestCharacteristicsClass.naturallyRegeneratingForest')
-    }, {
-      field: 'plantedForest',
-      areaFields: ['plantationForestArea', 'otherPlantedForestArea'],
-      calculated: true,
-      localizedName: i18n.t('fraForestCharacteristicsClass.plantedForest')
-    }, {
-      field: 'plantationForest',
-      areaFields: ['plantationForestArea'],
-      localizedName: i18n.t('fraForestCharacteristicsClass.plantationForest')
-    }, {
-      field: 'otherPlantedForest',
-      areaFields: ['otherPlantedForestArea'],
-      localizedName: i18n.t('fraForestCharacteristicsClass.otherPlantedForest')
-    }, {
-      field: 'totalForest',
-      areaFields: ['naturalForestArea', 'plantationForestArea', 'otherPlantedForestArea'],
-      calculated: true,
-      localizedName: i18n.t('fraForestCharacteristicsClass.totalForest')
-    }, {
-      field: 'otherWoodedLand',
-      localizedName: i18n.t('fraClass.otherWoodedLand')
-    },
-  ]
 
   return <div className='nde__data-input-component'>
     <div className="nde__data-page-header">
@@ -49,6 +22,7 @@ const GrowingStock = ({i18n, countryIso, fra, values, updateValues}) => {
       header={i18n.t('growingStock.fra2020Categories')}
       avgTableHeader={i18n.t('growingStock.avgTableHeader')}
       totalTableHeader={i18n.t('growingStock.totalTableHeader')}
+      i18n={i18n}
       rows={rows}
       values={values}
       updateValues={updateValues}
