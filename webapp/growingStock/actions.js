@@ -3,7 +3,7 @@ import axios from 'axios'
 import { applicationError } from '../applicationError/actions'
 import * as autosave from '../autosave/actions'
 
-import { updateGrowingStockValues } from './growingStock'
+import { updateGrowingStockValue, updateGrowingStockValues } from './growingStock'
 
 export const growingStockFetchCompleted = 'growingStock/fetch/completed'
 export const growingStockUpdateStart = 'growingStock/update/start'
@@ -15,9 +15,16 @@ export const fetch = countryIso => dispatch =>
     .then(resp => dispatch({type: growingStockFetchCompleted, data: resp.data}))
     .catch(err => dispatch(applicationError(err)))
 
-export const updateValues = (fra, values, countryIso, year, field, type, value) => dispatch => {
+export const updateValue = (countryIso, fra, values, year, field, type, value) => dispatch => {
   dispatch(autosave.start)
-  const updatedValues = updateGrowingStockValues(fra, values, countryIso, year, field, type, value)
+  const updatedValues = updateGrowingStockValue(fra, values, year, field, type, value)
+  dispatch({type: growingStockUpdateStart, data: updatedValues})
+  dispatch(persistUpdatedValues(countryIso, updatedValues))
+}
+
+export const updateValues = (countryIso, fra, growingStockValues, data, type, cols, rowIdx, colIdx) => dispatch => {
+  dispatch(autosave.start)
+  const updatedValues = updateGrowingStockValues(fra, growingStockValues, data, type, cols, rowIdx, colIdx)
   dispatch({type: growingStockUpdateStart, data: updatedValues})
   dispatch(persistUpdatedValues(countryIso, updatedValues))
 }
