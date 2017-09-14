@@ -262,6 +262,7 @@ export const translation = {
 
   areaAffectedByFire: {
     areaAffectedByFire: 'Area affected by fire',
+    areaUnitLabel: 'Area (1000 ha)',
     totalLandAreaAffectedByFire: 'Total land area affected by fire',
     ofWhichForest: '…of which on forest'
   },
