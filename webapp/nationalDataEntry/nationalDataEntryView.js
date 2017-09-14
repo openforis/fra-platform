@@ -105,7 +105,7 @@ const NationalDataEntry = (props) => {
     <div className="nde__data-table-header">
       <h3 className="subhead">{i18n.t('extentOfForest.otherLandCategories')}</h3>
     </div>
-    <DataTable section='eof' rows={otherLandRows} rowNames={otherLandRowNames} {...props} />
+    <DataTable section='eof' rows={otherLandRows} rowNames={otherLandRowNames} {...props}  areaUnitLabel={props.i18n.t('extentOfForest.areaUnitLabel')}/>
 
     <CommentableDescriptions
       section='eof'
