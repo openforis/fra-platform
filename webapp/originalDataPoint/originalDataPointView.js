@@ -36,9 +36,9 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
   const unselectable = R.defaultTo([], active.reservedYears)
 
   return <div className="odp__data-input-component odp_validate-form">
-    <div className="odp_data-input-row">
+    <div className="odp__section">
+      <h3 className="subhead">{i18n.t('nationalDataPoint.year')}</h3>
       <div className={`${yearValidationStatusClass()}`}>
-        <h3 className="subhead">{i18n.t('nationalDataPoint.year')}</h3>
         <select
           className="select validation-error-sensitive-field"
           value={active.year || ''}
@@ -81,12 +81,9 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
         </tbody>
       </table>
     </div>
-
     <div className="odp__section">
       <h2 className="headline">{i18n.t('nationalDataPoint.reclassificationLabel')}</h2>
-      <div className="odp__section-header">
-        <h3 className="subhead">{i18n.t('nationalDataPoint.forestCategoriesLabel')}</h3>
-      </div>
+      <h3 className="subhead">{i18n.t('nationalDataPoint.forestCategoriesLabel')}</h3>
       <table className="odp__input-table odp__eof-table">
         <thead>
         <tr>
@@ -124,9 +121,7 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
 
 
     <div className="odp__section">
-      <div className="odp__section-header">
-        <h3 className="subhead">{i18n.t('nationalDataPoint.otherLandCharacteristics')}</h3>
-      </div>
+      <h3 className="subhead">{i18n.t('nationalDataPoint.otherLandCharacteristics')}</h3>
       <table className="odp__input-table odp__foc-table">
         <thead>
         <tr>
@@ -168,9 +163,7 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
 
 
     <div className="odp__section">
-      <div className="odp__section-header">
-        <h3 className="subhead">{i18n.t('forestCharacteristics.forestCharacteristics')}</h3>
-      </div>
+      <h3 className="subhead">{i18n.t('forestCharacteristics.forestCharacteristics')}</h3>
       <table className="odp__input-table odp__foc-table">
         <thead>
         <tr>
@@ -203,9 +196,7 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
     </div>
 
     <div className="odp__section">
-      <div className="odp__section-header">
-        <h3 className="subhead">{i18n.t('review.comments')}</h3>
-      </div>
+      <h3 className="subhead">{i18n.t('review.comments')}</h3>
       <div
         className={`odp__cke_wrapper ${isCommentsOpen([`${active.odpId}`, 'comments'], openThread) ? 'fra-row-comments__open' : '' }`}>
         <div className="cke_wrapper">
@@ -768,7 +759,7 @@ class OriginalDataPointView extends React.Component {
     return <LoggedInPageTemplate>
       <div className="odp__container">
         <div className="odp_data-page-header">
-          <h2 className="headline">{this.props.i18n.t('nationalDataPoint.nationalDataPoint')}</h2>
+          <h1 className="title">{this.props.i18n.t('nationalDataPoint.nationalDataPoint')}</h1>
         </div>
         {
           this.props.active

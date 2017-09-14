@@ -77,7 +77,7 @@ const NationalDataEntry = (props) => {
 
   return <div className='nde__data-input-component'>
     <div className="nde__data-page-header">
-      <h2 className="headline">{i18n.t('extentOfForest.extentOfForest')}</h2>
+      <h1 className="title">{i18n.t('extentOfForest.extentOfForest')}</h1>
     </div>
 
     <div className='nde__comment-transition'>

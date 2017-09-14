@@ -50,7 +50,7 @@ const ForestCharacteristics = props => {
   }
   return <div className='nde__data-input-component foc-view'>
     <div className="nde__data-page-header">
-      <h2 className="headline">{props.i18n.t('forestCharacteristics.forestCharacteristics')}</h2>
+      <h1 className="title">{props.i18n.t('forestCharacteristics.forestCharacteristics')}</h1>
     </div>
     <div className="nde__data-input-header">
       <Link className="btn btn-primary" to={`/country/${props.countryIso}/odp`}>
