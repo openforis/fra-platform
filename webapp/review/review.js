@@ -172,7 +172,7 @@ const ReviewHeader = ({name, close, userInfo, countryIso, section, target, issue
 class ReviewPanel extends React.Component {
   componentWillReceiveProps (next) {
     if (!R.equals(this.props.country, next.country)) {
-      this.props.closeCommentThread()
+      this.props.closeCommentThread(next.country)
     }
   }
 
@@ -185,7 +185,7 @@ class ReviewPanel extends React.Component {
     const issueId = comments && comments.length > 0 ? comments[0].issueId : null
     const issueStatus = comments && comments.length > 0 ? comments[0].issueStatus : null
     const close = R.partial(ctx => {
-      ctx.props.closeCommentThread()
+      ctx.props.closeCommentThread(this.props.country, section, target)
     }, [this])
     const i18n = this.props.i18n
 

@@ -23,14 +23,14 @@ const ODPListing = ({countryIso, odps = [], i18n, userInfo}) => <div className="
       <td className='odp-list__year-column'>{odp.year == 0 ? '-' : odp.year}</td>
       <td className='odp-list__notification-column'>
         <div className="odp-list__notification-column-content">
-        {!odp.validationStatus.valid ? <div>
-          <svg className='icon icon-red'>
-            <use xlinkHref='img/icons.svg#alert'/>
-          </svg>
-        </div> : null}
-          {odp.issuesSummary.issuesCount > 0
+          {!odp.validationStatus.valid ? <div>
+            <svg className='icon icon-red'>
+              <use xlinkHref='img/icons.svg#alert'/>
+            </svg>
+          </div> : null}
+          {odp.issuesSummary.issueStatus === "opened"
             ? <div>
-              <div className={`issue-open ${userInfo.id !== odp.issuesSummary.lastCommentUserId ? 'issue-last-comment-other-user' : ''}`}></div>
+              <div className={`open-issues${odp.issuesSummary.hasUnreadIssues ? ' unread-issues' :''}`}></div>
             </div>
             : null
           }

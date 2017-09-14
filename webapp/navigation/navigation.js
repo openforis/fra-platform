@@ -171,10 +171,9 @@ const PrimaryItem = ({label, countryIso, assessmentType, assessmentStatuses, cha
   </div>
 }
 
-const ReviewStatus = ({status, userInfo}) =>
-  status.issuesCount > 0
-    ? <div
-      className={`nav__has-open-issue ${R.propOr(null, 'id', userInfo) !== status.lastCommentUserId ? 'issue-last-comment-other-user' : ''}`}/>
+const ReviewStatus = ({status}) =>
+  status.issueStatus === 'opened'
+    ? <div className={`nav__has-open-issue${status.hasUnreadIssues ? ' has-unread-issue' : ''}`}/>
     : null
 
 const NationalDataItem = ({path, countryIso, pathTemplate, secondaryPathTemplate, status, label, userInfo}) => {
@@ -187,7 +186,7 @@ const NationalDataItem = ({path, countryIso, pathTemplate, secondaryPathTemplate
     <span className="nav__link-label">{label}</span>
     <span className="nav__link-item-count">{status.count}</span>
     <div className="nav__link-status-content">
-      <ReviewStatus status={status} userInfo={userInfo}/>
+      <ReviewStatus status={status} />
       <div className="nav__link-error-status">
         {status.errors ? <svg className="icon icon-middle icon-red">
             <use xlinkHref="img/icons.svg#alert"/>
@@ -215,7 +214,7 @@ const SecondaryItem = ({path, countryIso, order, pathTemplate = '/tbd', label, e
       <span className='nav__secondary-label'>{label}</span>
       <EditStatus msg={edited}/>
     </div>
-    <ReviewStatus status={status} userInfo={userInfo}/>
+    <ReviewStatus status={status} />
   </Link>
 }
 

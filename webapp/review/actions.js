@@ -46,7 +46,8 @@ export const getIssueSummary = (countryIso, section, target) => dispatch => {
         target,
         issuesCount: resp.data.issuesCount,
         lastCommentUserId: resp.data.lastCommentUserId,
-        issueStatus: resp.data.issueStatus
+        issueStatus: resp.data.issueStatus,
+        hasUnreadIssues: resp.data.hasUnreadIssues
       })
     })
 }
@@ -55,7 +56,11 @@ export const openCommentThread = (countryIso, section, target, name) => dispatch
   retrieveComments(countryIso, section, target)(dispatch)
   dispatch({type: issueOpenCommentThread, target, section, name})
 }
-export const closeCommentThread = () => ({type: issueCloseCommentThread})
+export const closeCommentThread = (countryIso, section, target) => dispatch => {
+  getIssueSummary(countryIso, section, target)(dispatch)
+  fetchCountryOverviewStatus(countryIso)(dispatch)
+  dispatch({type: issueCloseCommentThread})
+}
 
 export const markCommentAsDeleted = (countryIso, section, target, commentId) => dispatch =>
   axios
