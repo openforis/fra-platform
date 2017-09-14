@@ -33,7 +33,7 @@ export const translation = {
   },
 
   fraForestCharacteristicsClass: {
-    naturallyGenerated: 'Naturally regenerated',
+    naturallyGenerated: 'Naturally regenerating forest',
     plantationForest: 'Plantation forest',
     otherPlantedForest: 'Other planted forest',
     introduced: '…of which introduces species'
@@ -144,6 +144,8 @@ export const translation = {
     addNationalDataPoint: 'Add national data point',
     noNationalDataAdded: 'No national data added',
     nationalData: 'National data',
+    reclassificationLabel: 'Reclassification',
+    forestCategoriesLabel: 'Forest, Other wooded land and other land',
     year: 'Year',
     methods: 'Methods',
     edit: 'Edit',
@@ -152,6 +154,7 @@ export const translation = {
     nationalClasses: 'National classes',
     definition: 'Definition',
     fraClasses: 'FRA classes',
+    fraClassesOfWhich: 'FRA classes (…of which)',
     class: 'Class',
     area: 'Area (1000 ha)',
     total: 'Total',
@@ -162,7 +165,7 @@ export const translation = {
     enterOrCopyPasteNationalClasses: 'Enter or copy and paste national classes',
     prefixPrimary: 'Primary',
     prefixIntroduced: 'Introduced',
-    otherLandCharacteristics: 'Other land characteristics'
+    otherLandCharacteristics: 'Other land with tree cover'
   },
 
   // annually reported assessment components
@@ -173,16 +176,16 @@ export const translation = {
     areaUnitLabel: 'Area (1000 ha)',
     generateFraValues: 'Generate FRA values',
     extentOfForestValues: 'Extent of forest values',
-    forestArea: 'Forest area',
+    forestArea: 'Forest',
     chart: {
       placeholderLine1: 'To get started, add new national data points and use',
       placeholderLine2: 'them to generate FRA values automatically.'
     },
     otherLandCategories: 'Other land categories',
-    ofWhichPalms: '...of which palms (oil, coconut, dates, etc.)',
-    ofWhichTreeOrchards: '...of which trees orchards (includes fruit, nuts, olive, etc.)',
-    ofWhichAgroforestry: '...of which agroforestry',
-    ofWhichTreesUrbanSettings: '...of which trees in urban settings'
+    ofWhichPalms: '…of which palms (oil, coconut, dates, etc.)',
+    ofWhichTreeOrchards: '…of which tree orchards (includes fruit, nuts, olive, etc.)',
+    ofWhichAgroforestry: '…of which agroforestry',
+    ofWhichTreesUrbanSettings: '…of which trees in urban settings'
   },
 
   growingStock: {
@@ -205,13 +208,13 @@ export const translation = {
 
   forestAreaChange: {
     categoryHeader: 'FRA categories',
-    forestAreaLossGainChange: 'Forest area loss, gain and net change',
-    forestExpansion: 'Forest expansion (a)',
+    areaUnitLabel: 'Area (1000 ha/year)',
+    forestAreaLossGainChange: 'Annual forest area loss, gain and net change',
+    forestExpansion: 'Forest expansion',
     ofWhichAfforestation: '…of which afforestation',
     ofWhichNaturalExpansion: '…of which natural expansion',
-    deforestation: 'Deforestation (b)',
-    forestAreaNetChange: 'Forest area net change',
-    areaUnitLabel: 'Area (1000 ha/year)'
+    deforestation: 'Deforestation',
+    forestAreaNetChange: 'Forest area net change'
   },
 
   forestCharacteristics: {
@@ -219,7 +222,7 @@ export const translation = {
     forestCharacteristics: 'Forest characteristics',
     areaUnitLabel: 'Forest area (1000 ha)',
     forestCharacteristicsValues: 'Forest characteristics values',
-    naturalForestArea: 'Naturally regenerated forest',
+    naturalForestArea: 'Naturally regenerating forest',
     naturalForestPrimaryArea: '…of which primary',
     plantationForestArea: 'Plantation forest',
     plantationForestIntroducedArea: '…of which introduced species',
@@ -230,7 +233,7 @@ export const translation = {
     categoryHeader: 'FRA categories',
     specificForestCategories: 'Specific forest categories',
     areaUnitLabel: 'Area (1000 ha)',
-    bamboo: 'Bamboo',
+    bamboo: 'Bamboos',
     mangroves: 'Mangroves',
     rubberPlantations: 'Rubber plantations'
   },
@@ -240,7 +243,7 @@ export const translation = {
   },
 
   nonWoodForestProducts: {
-    nonWoodForestProducts: 'Non wood forest products'
+    nonWoodForestProducts: 'Non wood forest products removals 2015'
   },
 
   primaryDesignatedManagementObjective: {
@@ -258,7 +261,7 @@ export const translation = {
   },
 
   forestOwnershipManagementRights: {
-    forestOwnershipManagementRights: 'Forest ownership and management rights'
+    forestOwnershipManagementRights: 'Forest ownership'
   },
 
   disturbances: {

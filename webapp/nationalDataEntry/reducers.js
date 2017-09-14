@@ -5,10 +5,10 @@ import * as ODP from '../originalDataPoint/originalDataPoint'
 import { applyReducerFunction } from '../utils/reduxUtils'
 
 const actionHandlers = {
-  [odpTypes.valueChangeStart('eof')]: (state, action) => ODP.updateValueReducer(state, action),
-  [odpTypes.valuesFetched('eof')]: (state, action) => action.data,
-  [odpTypes.generateFraValuesStart('eof')]: (state, action) => R.assoc('generatingFraValues', true)(state),
-  [odpTypes.pasteChangeStart('eof')]: (state, action) => ODP.updateValuesReducer(state, action)
+  [odpTypes.valueChangeStart('extentOfForest')]: (state, action) => ODP.updateValueReducer(state, action),
+  [odpTypes.valuesFetched('extentOfForest')]: (state, action) => action.data,
+  [odpTypes.generateFraValuesStart('extentOfForest')]: (state, action) => R.assoc('generatingFraValues', true)(state),
+  [odpTypes.pasteChangeStart('extentOfForest')]: (state, action) => ODP.updateValuesReducer(state, action)
 }
 
 export default (state = {}, action) => applyReducerFunction(actionHandlers, state, action)

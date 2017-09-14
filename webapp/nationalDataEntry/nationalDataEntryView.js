@@ -96,19 +96,17 @@ const NationalDataEntry = (props) => {
       <h3 className="subhead">{i18n.t('extentOfForest.extentOfForestValues')}</h3>
       <DefinitionLink className="align-left" name="eof" i18n={i18n}/>
       <button disabled={disableGenerateFRAValues()} className="btn btn-primary"
-              onClick={() => props.generateFraValues('eof', props.countryIso)}>
+              onClick={() => props.generateFraValues('extentOfForest', props.countryIso)}>
         {i18n.t('extentOfForest.generateFraValues')}
       </button>
     </div>
-    <DataTable section='eof' rows={eofRows} rowNames={eofRowNames} {...props} areaUnitLabel={props.i18n.t('extentOfForest.areaUnitLabel')} categoryHeader={props.i18n.t('extentOfForest.categoryHeader')} />
-
+    <DataTable section='extentOfForest' rows={eofRows} rowNames={eofRowNames} {...props} areaUnitLabel={props.i18n.t('extentOfForest.areaUnitLabel')} categoryHeader={props.i18n.t('extentOfForest.categoryHeader')} />
     <div className="nde__data-table-header">
       <h3 className="subhead">{i18n.t('extentOfForest.otherLandCategories')}</h3>
     </div>
-    <DataTable section='eof' rows={otherLandRows} rowNames={otherLandRowNames} {...props}  areaUnitLabel={props.i18n.t('extentOfForest.areaUnitLabel')} categoryHeader={props.i18n.t('extentOfForest.categoryHeader')} />
-
+    <DataTable section='extentOfForest' rows={otherLandRows} rowNames={otherLandRowNames} {...props}  areaUnitLabel={props.i18n.t('extentOfForest.areaUnitLabel')} categoryHeader={props.i18n.t('extentOfForest.categoryHeader')} />
     <CommentableDescriptions
-      section='eof'
+      section='extentOfForest'
       name="extentOfForest"
       countryIso={props.match.params.countryIso}
       i18n={i18n}
@@ -127,7 +125,7 @@ class DataFetchingComponent extends React.Component {
   }
 
   fetch (countryIso) {
-    this.props.fetchItem('eof', countryIso)
+    this.props.fetchItem('extentOfForest', countryIso)
   }
 
   render () {
