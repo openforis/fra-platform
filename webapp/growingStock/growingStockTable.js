@@ -76,7 +76,7 @@ const Row = (props) => {
 
   return <tr
     className={`${openCommentThread && R.isEmpty(R.difference(openCommentThread.target, [row.field, type])) ? 'fra-row-comments__open' : ''}`}>
-    <td className="fra-table__header-cell">{i18n.t(row.labelKey)}</td>
+    <td className={`fra-table__header-cell${row.calculated ?' odp-header-cell' :''}`}>{i18n.t(row.labelKey)}</td>
     {
       cols.map((col, i) =>
         <Cell
@@ -100,7 +100,7 @@ const Cell = (props) => {
     R.defaultTo(null),
   )(values)
 
-  return <td className={`gs-fra-table__${calculated ? 'text-readonly-cell' : 'cell'}`}>
+  return <td className={`fra-table__${calculated ?'text-readonly-' :''}cell`}>
     <ThousandSeparatedIntegerInput
       className="fra-table__integer-input"
       integerValue={value}
