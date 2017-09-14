@@ -153,7 +153,7 @@ export const translation = {
     definition: 'Definition',
     fraClasses: 'FRA classes',
     class: 'Class',
-    area: 'Area',
+    area: 'Area (1000 ha)',
     total: 'Total',
     delete: 'Delete',
     confirmDelete: 'Are you sure you want to delete this data point? This cannot be undone.',
