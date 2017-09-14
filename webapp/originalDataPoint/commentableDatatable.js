@@ -19,7 +19,7 @@ export class DataTable extends React.Component {
         <table className="fra-table">
           <thead>
           <tr>
-            <th className="fra-table__header-cell" rowSpan="2"/>
+            <th className="fra-table__header-cell" rowSpan="2">{this.props.categoryHeader}</th>
             <th className="fra-table__header-cell-middle" colSpan={R.values(this.props.fra).length}>{this.props.areaUnitLabel}</th>
           </tr>
           <tr>

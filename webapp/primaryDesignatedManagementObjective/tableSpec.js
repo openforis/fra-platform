@@ -27,7 +27,7 @@ export default i18n => ({
   name: 'primaryDesignatedManagementObjective',
   header: <thead>
   <tr>
-    <th className="fra-table__header-cell" rowSpan="2"/>
+    <th className="fra-table__header-cell" rowSpan="2">{i18n.t('primaryDesignatedManagementObjective.categoryHeader')}</th>
     <th className="fra-table__header-cell-middle" colSpan="5">{i18n.t('primaryDesignatedManagementObjective.areaUnitLabel')}</th>
   </tr>
   <tr>

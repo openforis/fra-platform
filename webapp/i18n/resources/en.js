@@ -168,6 +168,7 @@ export const translation = {
   // annually reported assessment components
 
   extentOfForest: {
+    categoryHeader: 'FRA categories',
     extentOfForest: 'Extent of forest',
     areaUnitLabel: 'Area (1000 ha)',
     generateFraValues: 'Generate FRA values',
@@ -203,6 +204,7 @@ export const translation = {
   // five year cycle assessment components
 
   forestAreaChange: {
+    categoryHeader: 'FRA categories',
     forestAreaLossGainChange: 'Forest area loss, gain and net change',
     forestExpansion: 'Forest expansion (a)',
     ofWhichAfforestation: '…of which afforestation',
@@ -213,6 +215,7 @@ export const translation = {
   },
 
   forestCharacteristics: {
+    categoryHeader: 'FRA categories',
     forestCharacteristics: 'Forest characteristics',
     areaUnitLabel: 'Forest area (1000 ha)',
     forestCharacteristicsValues: 'Forest characteristics values',
@@ -224,6 +227,7 @@ export const translation = {
   },
 
   specificForestCategories: {
+    categoryHeader: 'FRA categories',
     specificForestCategories: 'Specific forest categories',
     areaUnitLabel: 'Area (1000 ha)',
     bamboo: 'Bamboo',
@@ -240,6 +244,7 @@ export const translation = {
   },
 
   primaryDesignatedManagementObjective: {
+    categoryHeader: 'FRA categories',
     primaryDesignatedManagementObjective: 'Designated management objective',
     areaUnitLabel: 'Forest area (1000 ha)',
     production: 'Production',
@@ -261,6 +266,7 @@ export const translation = {
   },
 
   areaAffectedByFire: {
+    categoryHeader: 'FRA categories',
     areaAffectedByFire: 'Area affected by fire',
     areaUnitLabel: 'Area (1000 ha)',
     totalLandAreaAffectedByFire: 'Total land area affected by fire',
