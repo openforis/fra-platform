@@ -15,7 +15,10 @@ export default i18n => ({
   name: 'forestAreaChange', // used to uniquely identify table
   header: <thead>
   <tr>
-    <td className="fra-table__header-cell"/>
+    <th className="fra-table__header-cell" rowSpan="2"/>
+    <th className="fra-table__header-cell-middle" colSpan="4">{i18n.t('forestAreaChange.areaUnitLabel')}</th>
+  </tr>
+  <tr>
     <td className="fra-table__header-cell-right">1990-2000</td>
     <td className="fra-table__header-cell-right">2000-2010</td>
     <td className="fra-table__header-cell-right">2010-2015</td>

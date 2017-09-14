@@ -208,7 +208,8 @@ export const translation = {
     ofWhichAfforestation: '…of which afforestation',
     ofWhichNaturalExpansion: '…of which natural expansion',
     deforestation: 'Deforestation (b)',
-    forestAreaNetChange: 'Forest area net change'
+    forestAreaNetChange: 'Forest area net change',
+    areaUnitLabel: 'Area (1000 ha/year)'
   },
 
   forestCharacteristics: {
