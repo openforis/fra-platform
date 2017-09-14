@@ -334,7 +334,7 @@ const NationalClassRow = ({odp, index, saveDraft, countryIso, className, definit
       />
 
     </td>
-    <td className="odp__col-review">
+    <td className="fra-table__row-anchor-cell">
       {placeHolder || !odp.odpId
         ? null
         : <div className="odp__review-indicator-row-anchor">
@@ -445,7 +445,7 @@ const ExtentOfForestRow = ({
         })}
       />
     </td>
-    <td className="odp__col-review">
+    <td className="fra-table__row-anchor-cell">
       {odp.odpId
         ? <div className="odp__review-indicator-row-anchor">
             <ReviewIndicator section='NDP'
@@ -571,7 +571,7 @@ const OtherLandCharacteristicsRow =
           })}
         />
       </td>
-      <td className="odp__col-review">
+      <td className="fra-table__row-anchor-cell">
         {odp.odpId
           ? <div className="odp__review-indicator-row-anchor">
             <ReviewIndicator section='NDP'
@@ -694,7 +694,7 @@ const ForestCharacteristicsRow =
           })}
         />
       </td>
-      <td className="odp__col-review">
+      <td className="fra-table__row-anchor-cell">
         {odp.odpId
           ? <div className="odp__review-indicator-row-anchor">
               <ReviewIndicator section='NDP'
