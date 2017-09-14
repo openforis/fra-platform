@@ -172,8 +172,8 @@ const PrimaryItem = ({label, countryIso, assessmentType, assessmentStatuses, cha
 }
 
 const ReviewStatus = ({status}) =>
-  status.hasUnreadIssues
-    ? <div className="nav__has-open-issue"/>
+  status.issueStatus === 'opened'
+    ? <div className={`nav__has-open-issue${status.hasUnreadIssues ? ' has-unread-issue' : ''}`}/>
     : null
 
 const NationalDataItem = ({path, countryIso, pathTemplate, secondaryPathTemplate, status, label, userInfo}) => {

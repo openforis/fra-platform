@@ -28,9 +28,9 @@ const ODPListing = ({countryIso, odps = [], i18n, userInfo}) => <div className="
               <use xlinkHref='img/icons.svg#alert'/>
             </svg>
           </div> : null}
-          {odp.issuesSummary.hasUnreadIssues > 0
+          {odp.issuesSummary.issueStatus === "opened"
             ? <div>
-              <div className="unread-issues"></div>
+              <div className={`open-issues${odp.issuesSummary.hasUnreadIssues ? ' unread-issues' :''}`}></div>
             </div>
             : null
           }

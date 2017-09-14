@@ -59,7 +59,6 @@ const getCommentCountryAndSection = commentId => {
 }
 module.exports.getCommentCountryAndSection = getCommentCountryAndSection
 
-
 const hasUnreadIssues = (user, issueComments) => R.pipe(
   R.groupBy(comment => comment.issueId),
   R.map(comments => {
@@ -218,4 +217,3 @@ module.exports.updateIssueReadTime = (issueId, user) =>
     .then(res => res.rows.length > 0
       ? db.query(`UPDATE user_issue SET read_time = $1 WHERE id = $2`, [new Date().toISOString(), res.rows[0].id])
       : db.query(`INSERT INTO user_issue (user_id, issue_id, read_time) VALUES ($1,$2,$3)`, [user.id, issueId, new Date().toISOString()]))
-

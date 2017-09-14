@@ -313,12 +313,16 @@
   width: 10px;
   min-width: 10px;
   height: 10px;
-  background-color: @ui-alert;
   color: white;
   border-radius: 100%;
   text-align: center;
   margin-left: auto;
   align-self: center;
+  background-color: @ui-accent;
+
+  &.has-unread-issue {
+    background-color: @ui-alert;
+  }
 }
 
 .nav__disabled-item {
