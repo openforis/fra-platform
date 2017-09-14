@@ -4,36 +4,35 @@ import { ThousandSeparatedIntegerInput } from '../reusableUiComponents/thousandS
 import ReviewIndicator from '../review/reviewIndicator'
 import { readPasteClipboard } from '../utils/copyPasteUtil'
 
-class MirrorTable extends Component {
+const MirrorTable = (props) => {
+  const cols = R.filter(v => v.type !== 'odp', R.values(props.fra))
 
-  render () {
-    const cols = R.filter(v => v.type !== 'odp', R.values(this.props.fra))
-
-    return <div>
-      <Table
-        categoriesHeader={this.props.header}
-        colsHeader={this.props.avgTableHeader}
-        cols={cols}
-        type='avg'
-        {...this.props} />
-      <Table
-        categoriesHeader={this.props.header}
-        colsHeader={this.props.totalTableHeader}
-        cols={cols}
-        type='total'
-        {...this.props} />
-    </div>
-  }
+  return <div>
+    <Table
+      categoriesHeader={props.header}
+      colsHeader={props.avgTableHeader}
+      cols={cols}
+      type='avg'
+      {...props} />
+    <Table
+      categoriesHeader={props.header}
+      colsHeader={props.totalTableHeader}
+      cols={cols}
+      type='total'
+      {...props} />
+  </div>
 }
 
-const Table = ({i18n, openCommentThread, section, countryIso, categoriesHeader, colsHeader, cols, rows, type, fra, values, updateValue, updateValues}) =>
-  <div className="nde__data-table-container">
+const Table = (props) => {
+  const {cols, rows} = props
+
+  return <div className="nde__data-table-container">
     <div className="nde__data-table-scroll-content">
       <table className="fra-table">
         <thead>
         <tr>
-          <th rowSpan="2" className="fra-table__header-cell">{categoriesHeader}</th>
-          <th colSpan={cols.length} className="fra-table__header-cell-middle">{colsHeader}</th>
+          <th rowSpan="2" className="fra-table__header-cell">{props.categoriesHeader}</th>
+          <th colSpan={cols.length} className="fra-table__header-cell-middle">{props.colsHeader}</th>
         </tr>
         <tr>
           {
@@ -50,16 +49,8 @@ const Table = ({i18n, openCommentThread, section, countryIso, categoriesHeader, 
             <Row
               key={i}
               rowIdx={i}
-              openCommentThread={openCommentThread}
-              i18n={i18n}
-              countryIso={countryIso}
               row={row}
-              cols={cols}
-              type={type}
-              fra={fra}
-              values={values}
-              updateValue={updateValue}
-              updateValues={updateValues}
+              {...props}
             />)
         }
         </tbody>
@@ -70,17 +61,18 @@ const Table = ({i18n, openCommentThread, section, countryIso, categoriesHeader, 
         rows.map((row, i) =>
           <ReviewIndicator
             key={`${row.field}_ri`}
-            section={section}
-            name={i18n.t(row.labelKey)}
-            target={[row.field, type]}
-            countryIso={countryIso}
+            section={props.section}
+            name={props.i18n.t(row.labelKey)}
+            target={[row.field, props.type]}
+            countryIso={props.countryIso}
           />)
       }
     </div>
   </div>
+}
 
 const Row = (props) => {
-  const {openCommentThread, i18n, countryIso, row, cols, type, fra, values, updateValue, updateValues, rowIdx} = props
+  const {openCommentThread, i18n, row, cols, type} = props
 
   return <tr
     className={`${openCommentThread && R.isEmpty(R.difference(openCommentThread.target, [row.field, type])) ? 'fra-row-comments__open' : ''}`}>
@@ -91,16 +83,9 @@ const Row = (props) => {
           key={i}
           field={row.field}
           calculated={row.calculated}
-          cols={cols}
           colIdx={i}
-          rowIdx={rowIdx}
-          countryIso={countryIso}
           col={col}
-          type={type}
-          values={values}
-          updateValue={updateValue}
-          updateValues={updateValues}
-          fra={fra}
+          {...props}
         />)
     }
   </tr>
