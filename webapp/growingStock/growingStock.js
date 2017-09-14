@@ -96,5 +96,3 @@ export const updateGrowingStockValues = (fra, growingStockValues, countryIso, ye
 
   return updatedValues
 }
-
-

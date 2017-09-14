@@ -10,7 +10,7 @@ module.exports.init = app => {
   app.get('/growingStock/:countryIso', (req, res) => {
     checkCountryAccessFromReqParams(req)
 
-    const fraValues = getFraValues('foc', req.params.countryIso)
+    const fraValues = getFraValues('forestCharacteristics', req.params.countryIso)
     const growingStock = repository.readGrowingStock(req.params.countryIso)
 
     Promise.all([fraValues, growingStock])
