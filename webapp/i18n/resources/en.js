@@ -169,6 +169,7 @@ export const translation = {
 
   extentOfForest: {
     extentOfForest: 'Extent of forest',
+    areaUnitLabel: 'Area (1000 ha)',
     generateFraValues: 'Generate FRA values',
     extentOfForestValues: 'Extent of forest values',
     forestArea: 'Forest area',
@@ -212,6 +213,7 @@ export const translation = {
 
   forestCharacteristics: {
     forestCharacteristics: 'Forest characteristics',
+    areaUnitLabel: 'Forest area (1000 ha)',
     forestCharacteristicsValues: 'Forest characteristics values',
     naturalForestArea: 'Naturally regenerated forest',
     naturalForestPrimaryArea: '…of which primary',
@@ -275,6 +277,6 @@ export const translation = {
 
   areaOfPermanentForestEstate: {
     areaOfPermanentForestEstate: 'Area of permanent forest estate'
-  }
+  },
 
 }

@@ -19,7 +19,10 @@ export class DataTable extends React.Component {
         <table className="fra-table">
           <thead>
           <tr>
-            <th className="fra-table__header-cell"></th>
+            <th className="fra-table__header-cell" rowSpan="2"/>
+            <th className="fra-table__header-cell-middle" colSpan={R.values(this.props.fra).length}>{this.props.areaUnitLabel}</th>
+          </tr>
+          <tr>
             {
               R.values(this.props.fra).map(v =>
                 <th className={`fra-table__header-cell-right ${v.type === 'odp' ? 'odp-header-cell' : ''}`} key={`${v.type}_${v.name}`}>
