@@ -9,7 +9,7 @@ import { rows } from './growingStock'
 
 import { fetch, updateValues } from './actions'
 
-const GrowingStock = ({i18n, countryIso, fra, values, updateValues}) => {
+const GrowingStock = ({i18n, ...props}) => {
 
   return <div className='nde__data-input-component'>
     <div className="nde__data-page-header">
@@ -17,15 +17,13 @@ const GrowingStock = ({i18n, countryIso, fra, values, updateValues}) => {
     </div>
     <MirrorTable
       section="growingStock"
-      countryIso={countryIso}
-      fra={fra}
       header={i18n.t('growingStock.fra2020Categories')}
       avgTableHeader={i18n.t('growingStock.avgTableHeader')}
       totalTableHeader={i18n.t('growingStock.totalTableHeader')}
       i18n={i18n}
       rows={rows}
-      values={values}
       updateValues={updateValues}
+      {...props}
     />
   </div>
 
@@ -54,13 +52,16 @@ class GrowingStockView extends Component {
           fra={this.props.growingStock.fra}
           countryIso={this.props.match.params.countryIso}
           values={this.props.growingStock.values}
-          updateValues={this.props.updateValues}
           {...this.props}/>
       </LoggedInPageTemplate>
   }
 
 }
 
-const mapStateToProps = state => ({i18n: state.user.i18n, growingStock: state.growingStock})
+const mapStateToProps = state => ({
+  i18n: state.user.i18n,
+  growingStock: state.growingStock,
+  'openCommentThread': state.review.openThread
+})
 
 export default connect(mapStateToProps, {fetch, updateValues})(GrowingStockView)

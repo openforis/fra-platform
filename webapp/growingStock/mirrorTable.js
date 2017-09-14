@@ -1,50 +1,39 @@
 import React, { Component } from 'react'
 import * as R from 'ramda'
 import { ThousandSeparatedIntegerInput } from '../reusableUiComponents/thousandSeparatedIntegerInput'
+import ReviewIndicator from '../review/reviewIndicator'
 
 class MirrorTable extends Component {
 
   render () {
-    const rows = this.props.rows
     const cols = R.filter(v => v.type !== 'odp', R.values(this.props.fra))
 
     return <div>
-      <Table countryIso={this.props.countryIso}
-             categoriesHeader={this.props.header}
-             colsHeader={this.props.avgTableHeader}
-             rows={rows}
-             cols={cols}
-             fra={this.props.fra}
-             values={this.props.values}
-             type='avg'
-             updateValues={this.props.updateValues}
-             i18n={this.props.i18n}
-      />
-
-      <Table countryIso={this.props.countryIso}
-             categoriesHeader={this.props.header}
-             colsHeader={this.props.totalTableHeader}
-             rows={rows}
-             cols={cols}
-             fra={this.props.fra}
-             values={this.props.values}
-             type='total'
-             updateValues={this.props.updateValues}
-             i18n={this.props.i18n}
-      />
+      <Table
+        categoriesHeader={this.props.header}
+        colsHeader={this.props.avgTableHeader}
+        cols={cols}
+        type='avg'
+        {...this.props} />
+      <Table
+        categoriesHeader={this.props.header}
+        colsHeader={this.props.totalTableHeader}
+        cols={cols}
+        type='total'
+        {...this.props} />
     </div>
   }
 
 }
 
-const Table = ({i18n, countryIso, categoriesHeader, colsHeader, cols, rows, type, fra, values, updateValues}) =>
+const Table = ({i18n, openCommentThread, section, countryIso, categoriesHeader, colsHeader, cols, rows, type, fra, values, updateValues}) =>
   <div className="nde__data-table-container">
     <div className="nde__data-table-scroll-content">
       <table className="fra-table">
         <thead>
         <tr>
           <th rowSpan="2" className="fra-table__header-cell">{categoriesHeader}</th>
-          <th colSpan={cols.length} className="fra-table__header-cell">{colsHeader}</th>
+          <th colSpan={cols.length} className="fra-table__header-cell-middle">{colsHeader}</th>
         </tr>
         <tr>
           {
@@ -59,6 +48,7 @@ const Table = ({i18n, countryIso, categoriesHeader, colsHeader, cols, rows, type
         {
           rows.map((row, i) =>
             <Row
+              openCommentThread={openCommentThread}
               i18n={i18n}
               countryIso={countryIso}
               key={i}
@@ -73,10 +63,23 @@ const Table = ({i18n, countryIso, categoriesHeader, colsHeader, cols, rows, type
         </tbody>
       </table>
     </div>
+    <div className="nde__comment-column">
+      {
+        rows.map((row, i) =>
+          <ReviewIndicator
+            key={`${row.field}_ri`}
+            section={section}
+            name={i18n.t(row.labelKey)}
+            target={[row.field, type]}
+            countryIso={countryIso}
+          />)
+      }
+    </div>
   </div>
 
-const Row = ({i18n, countryIso, row, cols, type, fra, values, updateValues}) =>
-  <tr>
+const Row = ({openCommentThread, i18n, countryIso, row, cols, type, fra, values, updateValues}) =>
+  <tr
+    className={`${openCommentThread && R.isEmpty(R.difference(openCommentThread.target, [row.field, type])) ? 'fra-row-comments__open' : ''}`}>
     <td className="fra-table__header-cell">{i18n.t(row.labelKey)}</td>
     {
       cols.map((col, i) =>
