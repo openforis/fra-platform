@@ -167,9 +167,9 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
       <table className="fra-table odp__foc-table">
         <thead>
         <tr>
-          <th className="fra-table__header-cell odp__input-table__divde-after-cell"
+          <th className="fra-table__header-cell-middle odp__input-table__divde-after-cell"
               colSpan="2">{i18n.t('nationalDataPoint.nationalClasses')}</th>
-          <th className="fra-table__header-cell"
+          <th className="fra-table__header-cell-middle"
               colSpan="3">{i18n.t('nationalDataPoint.fraClasses')}</th>
         </tr>
         <tr>
@@ -187,9 +187,9 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
         <tr>
           <td className="fra-table__header-cell">{i18n.t('nationalDataPoint.total')}</td>
           <td className="fra-table__header-cell-right odp__input-table__divde-after-cell">{separateThousandsWithSpaces(Number(originalDataPoint.totalArea(active)))}</td>
-          <td className="odp__input-table__class-total-cell">{separateThousandsWithSpaces(Number(originalDataPoint.totalForest(active, 'naturalForestPercent')))}</td>
-          <td className="odp__input-table__class-total-cell">{separateThousandsWithSpaces(Number(originalDataPoint.totalForest(active, 'plantationPercent')))}</td>
-          <td className="odp__input-table__class-total-cell">{separateThousandsWithSpaces(Number(originalDataPoint.totalForest(active, 'otherPlantedPercent')))}</td>
+          <td className="fra-table__aggregate-cell">{separateThousandsWithSpaces(Number(originalDataPoint.totalForest(active, 'naturalForestPercent')))}</td>
+          <td className="fra-table__aggregate-cell">{separateThousandsWithSpaces(Number(originalDataPoint.totalForest(active, 'plantationPercent')))}</td>
+          <td className="fra-table__aggregate-cell">{separateThousandsWithSpaces(Number(originalDataPoint.totalForest(active, 'otherPlantedPercent')))}</td>
         </tr>
         </tbody>
       </table>
@@ -627,8 +627,9 @@ const ForestCharacteristicsRow =
       className={isCommentsOpen([odp.odpId, 'class', `${odp.nationalClasses[index].uuid}`, 'forest_charasteristics'], openThread) ? 'fra-row-comments__open' : ''}>
       <td className="fra-table__header-cell-sub"><span>{className}</span></td>
       <td
-        className={`odp__input-table__disabled-cell odp__input-table__divde-after-cell`}>
+        className={`fra-table__cell-mute odp__input-table__divde-after-cell`}>
         <ThousandSeparatedIntegerInput integerValue={area}
+                                       className="fra-table__integer-input"
                                        disabled={true}
                                        onChange={numberUpdated(countryIso, odp, index, 'area', area)}
                                        onPaste={updatePastedValues({
@@ -641,7 +642,7 @@ const ForestCharacteristicsRow =
                                        })}
         />
       </td>
-      <td className={`${focStatusPercentage()}`}>
+      <td className={`fra-table__cell ${focStatusPercentage()}`}>
         <PercentInput
           value={naturalForestPercent || ''}
           onChange={numberUpdated(countryIso, odp, index, 'naturalForestPercent', naturalForestPercent)}
@@ -660,7 +661,7 @@ const ForestCharacteristicsRow =
           onChange={numberUpdated(countryIso, odp, index, 'naturalForestPrimaryPercent', naturalForestPrimaryPercent)}
         />
       </td>
-      <td className={`${focStatusPercentage()}`}>
+      <td className={`fra-table__cell ${focStatusPercentage()}`}>
         <PercentInput
           value={plantationPercent || ''}
           onChange={numberUpdated(countryIso, odp, index, 'plantationPercent', plantationPercent)}
@@ -679,7 +680,7 @@ const ForestCharacteristicsRow =
           onChange={numberUpdated(countryIso, odp, index, 'plantationIntroducedPercent', plantationIntroducedPercent)}
         />
       </td>
-      <td className={`${focStatusPercentage()}`}>
+      <td className={`fra-table__cell ${focStatusPercentage()}`}>
         <PercentInput
           value={otherPlantedPercent || ''}
           onChange={numberUpdated(countryIso, odp, index, 'otherPlantedPercent', otherPlantedPercent)}
