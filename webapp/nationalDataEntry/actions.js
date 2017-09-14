@@ -8,6 +8,6 @@ export const generateFraValues = (countryIso) => dispatch => {
   dispatch({type: generateFraValuesStart})
 
   axios.post(`/api/country/estimation/generateFraValues/${countryIso}`).then(resp => {
-    dispatch(fetchItem('eof', countryIso))
+    dispatch(fetchItem('extentOfForest', countryIso))
   })
 }

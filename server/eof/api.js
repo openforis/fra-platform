@@ -14,20 +14,20 @@ const forestAreaTableResponse = require('./forestAreaTableResponse')
 const focTableResponse = require('./focTableResponse')
 
 const fraReaders = {
-      'eof': fraRepository.readFraForestAreas,
-      'foc': fraRepository.readFraForestCharacteristics
+      'extentOfForest': fraRepository.readFraForestAreas,
+      'forestCharacteristics': fraRepository.readFraForestCharacteristics
     }
 const odpReaders = {
-      'eof': odpRepository.readEofOdps,
-      'foc': odpRepository.readFocOdps
+      'extentOfForest': odpRepository.readEofOdps,
+      'forestCharacteristics': odpRepository.readFocOdps
     }
 const fraWriters = {
-      'eof': fraRepository.persistEofValues,
-      'foc': fraRepository.persistFocValues
+      'extentOfForest': fraRepository.persistEofValues,
+      'forestCharacteristics': fraRepository.persistFocValues
     }
 const defaultResponses = {
-      'eof': () => forestAreaTableResponse.fra,
-      'foc': () => focTableResponse.buildDefaultResponse(focTableResponse.defaultYears)
+      'extentOfForest': () => forestAreaTableResponse.fra,
+      'forestCharacteristics': () => focTableResponse.buildDefaultResponse(focTableResponse.defaultYears)
     }
 
 module.exports.init = app => {
@@ -95,8 +95,8 @@ module.exports.init = app => {
     const writer = fraWriters[section]
     const defaultResponse = defaultResponses[section]
     const fieldsToEstimate = {
-      'eof': estimationEngine.eofFields,
-      'foc': estimationEngine.focFields
+      'extentOfForest': estimationEngine.eofFields,
+      'forestCharacteristics': estimationEngine.focFields
     }[section]
 
     const years = R.pipe(

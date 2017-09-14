@@ -64,13 +64,13 @@ const ForestCharacteristics = props => {
     <div className="nde__data-table-header">
       <h3 className="subhead">{props.i18n.t('forestCharacteristics.forestCharacteristics')}</h3>
       <button disabled={disableGenerateFRAValues()} className="btn btn-primary"
-              onClick={() => props.generateFraValues('foc', props.countryIso)}>
+              onClick={() => props.generateFraValues('forestCharacteristics', props.countryIso)}>
         {props.i18n.t('extentOfForest.generateFraValues')}
       </button>
     </div>
-    <DataTable section='foc' rows={rows} rowNames={rowNames} {...props} />
+    <DataTable section='forestCharacteristics' rows={rows} rowNames={rowNames} {...props} />
     <CommentableDescriptions
-      section='foc'
+      section='forestCharacteristics'
       name="forestCharacteristics"
       countryIso={props.countryIso}
       i18n={props.i18n}
@@ -89,7 +89,7 @@ class DataFetchingComponent extends React.Component {
   }
 
   fetch (countryIso) {
-    this.props.fetchItem('foc', countryIso)
+    this.props.fetchItem('forestCharacteristics', countryIso)
   }
 
   render () {
