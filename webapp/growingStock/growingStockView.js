@@ -7,27 +7,22 @@ import LoggedInPageTemplate from '../loggedInPageTemplate'
 import MirrorTable from './mirrorTable'
 import { rows } from './growingStock'
 
-import { fetch, updateValues } from './actions'
+import { fetch, updateValue, updateValues } from './actions'
 
-const GrowingStock = ({i18n, ...props}) => {
-
-  return <div className='nde__data-input-component'>
+const GrowingStock = (props) =>
+  <div className='nde__data-input-component'>
     <div className="nde__data-page-header">
-      <h2 className="headline">{i18n.t('growingStock.growingStock')}</h2>
+      <h2 className="headline">{props.i18n.t('growingStock.growingStock')}</h2>
     </div>
     <MirrorTable
       section="growingStock"
-      header={i18n.t('growingStock.fra2020Categories')}
-      avgTableHeader={i18n.t('growingStock.avgTableHeader')}
-      totalTableHeader={i18n.t('growingStock.totalTableHeader')}
-      i18n={i18n}
+      header={props.i18n.t('growingStock.fra2020Categories')}
+      avgTableHeader={props.i18n.t('growingStock.avgTableHeader')}
+      totalTableHeader={props.i18n.t('growingStock.totalTableHeader')}
       rows={rows}
-      updateValues={updateValues}
       {...props}
     />
   </div>
-
-}
 
 class GrowingStockView extends Component {
 
@@ -64,4 +59,4 @@ const mapStateToProps = state => ({
   'openCommentThread': state.review.openThread
 })
 
-export default connect(mapStateToProps, {fetch, updateValues})(GrowingStockView)
+export default connect(mapStateToProps, {fetch, updateValue, updateValues})(GrowingStockView)

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import * as R from 'ramda'
 import { ThousandSeparatedIntegerInput } from '../reusableUiComponents/thousandSeparatedIntegerInput'
 import ReviewIndicator from '../review/reviewIndicator'
+import { readPasteClipboard } from '../utils/copyPasteUtil'
 
 class MirrorTable extends Component {
 
@@ -23,10 +24,9 @@ class MirrorTable extends Component {
         {...this.props} />
     </div>
   }
-
 }
 
-const Table = ({i18n, openCommentThread, section, countryIso, categoriesHeader, colsHeader, cols, rows, type, fra, values, updateValues}) =>
+const Table = ({i18n, openCommentThread, section, countryIso, categoriesHeader, colsHeader, cols, rows, type, fra, values, updateValue, updateValues}) =>
   <div className="nde__data-table-container">
     <div className="nde__data-table-scroll-content">
       <table className="fra-table">
@@ -48,15 +48,17 @@ const Table = ({i18n, openCommentThread, section, countryIso, categoriesHeader, 
         {
           rows.map((row, i) =>
             <Row
+              key={i}
+              rowIdx={i}
               openCommentThread={openCommentThread}
               i18n={i18n}
               countryIso={countryIso}
-              key={i}
               row={row}
               cols={cols}
               type={type}
               fra={fra}
               values={values}
+              updateValue={updateValue}
               updateValues={updateValues}
             />)
         }
@@ -77,27 +79,35 @@ const Table = ({i18n, openCommentThread, section, countryIso, categoriesHeader, 
     </div>
   </div>
 
-const Row = ({openCommentThread, i18n, countryIso, row, cols, type, fra, values, updateValues}) =>
-  <tr
+const Row = (props) => {
+  const {openCommentThread, i18n, countryIso, row, cols, type, fra, values, updateValue, updateValues, rowIdx} = props
+
+  return <tr
     className={`${openCommentThread && R.isEmpty(R.difference(openCommentThread.target, [row.field, type])) ? 'fra-row-comments__open' : ''}`}>
     <td className="fra-table__header-cell">{i18n.t(row.labelKey)}</td>
     {
       cols.map((col, i) =>
         <Cell
-          countryIso={countryIso}
           key={i}
-          col={col}
-          type={type}
           field={row.field}
           calculated={row.calculated}
+          cols={cols}
+          colIdx={i}
+          rowIdx={rowIdx}
+          countryIso={countryIso}
+          col={col}
+          type={type}
           values={values}
+          updateValue={updateValue}
           updateValues={updateValues}
           fra={fra}
         />)
     }
   </tr>
+}
 
-const Cell = ({countryIso, col, type, field, fra, values, calculated, updateValues}) => {
+const Cell = (props) => {
+  const {countryIso, cols, col, type, field, fra, values, calculated, updateValue, updateValues, rowIdx, colIdx} = props
   const value = R.pipe(
     R.find(R.propEq('year', col.year)),
     R.defaultTo({}),
@@ -106,13 +116,13 @@ const Cell = ({countryIso, col, type, field, fra, values, calculated, updateValu
   )(values)
 
   return <td className={`gs-fra-table__${calculated ? 'text-readonly-cell' : 'cell'}`}>
-    {calculated
-      ? <div>{value}</div>
-      : <ThousandSeparatedIntegerInput
-        className="fra-table__integer-input"
-        integerValue={value}
-        onChange={e => updateValues(fra, values, countryIso, col.year, field, type, e.target.value)}
-      />}
+    <ThousandSeparatedIntegerInput
+      className="fra-table__integer-input"
+      integerValue={value}
+      disabled={calculated}
+      onChange={e => updateValue(countryIso, fra, values, col.year, field, type, e.target.value)}
+      onPaste={e => updateValues(countryIso, fra, values, readPasteClipboard(e), type, cols, rowIdx, colIdx)}
+    />
   </td>
 }
 

@@ -4,21 +4,21 @@ export const rows = [
   {
     field: 'naturallyRegeneratingForest',
     areaFields: ['naturalForestArea'],
-    labelKey: 'fraForestCharacteristicsClass.naturallyRegeneratingForest'
+    labelKey: 'fraForestCharacteristicsClass.naturallyRegeneratingForest',
   }, {
     field: 'plantedForest',
     areaFields: ['plantationForestArea', 'otherPlantedForestArea'],
     calculated: true,
     sumFields: ['plantationForest', 'otherPlantedForest'],
-    labelKey: 'fraForestCharacteristicsClass.plantedForest'
+    labelKey: 'fraForestCharacteristicsClass.plantedForest',
   }, {
     field: 'plantationForest',
     areaFields: ['plantationForestArea'],
-    labelKey: 'fraForestCharacteristicsClass.plantationForest'
+    labelKey: 'fraForestCharacteristicsClass.plantationForest',
   }, {
     field: 'otherPlantedForest',
     areaFields: ['otherPlantedForestArea'],
-    labelKey: 'fraForestCharacteristicsClass.otherPlantedForest'
+    labelKey: 'fraForestCharacteristicsClass.otherPlantedForest',
   }, {
     field: 'totalForest',
     areaFields: ['naturalForestArea', 'plantationForestArea', 'otherPlantedForestArea'],
@@ -27,7 +27,7 @@ export const rows = [
     labelKey: 'fraForestCharacteristicsClass.totalForest'
   }, {
     field: 'otherWoodedLand',
-    labelKey: 'fraClass.otherWoodedLand'
+    labelKey: 'fraClass.otherWoodedLand',
   }
 ]
 
@@ -80,7 +80,7 @@ const updateTotals = (fra, year) => R.pipe(
   R.partial(updateMirrorValue, [fra, year, 'totalForest', 'total'])
 )
 
-export const updateGrowingStockValues = (fra, growingStockValues, countryIso, year, field, type, value) => {
+export const updateGrowingStockValue = (fra, growingStockValues, year, field, type, value) => {
   const updatedValue = R.pipe(
     R.find(R.propEq('year', year)),
     R.defaultTo({year}),
@@ -93,6 +93,28 @@ export const updateGrowingStockValues = (fra, growingStockValues, countryIso, ye
   const updatedValues = index >= 0
     ? R.update(index, updatedValue, growingStockValues)
     : R.append(updatedValue, growingStockValues)
+
+  return updatedValues
+}
+
+export const updateGrowingStockValues = (fra, growingStockValues, data, type, cols, rowIdx, colIdx) => {
+  const updatableRows = rows.filter(r => !r.calculated)
+  let updatedValues = R.clone(growingStockValues)
+
+  const rowStart = rowIdx > 4
+    ? rowIdx - 2
+    : rowIdx > 1
+      ? rowIdx - 1 : rowIdx
+
+  data.map((r, i) => {
+    const item = updatableRows[rowStart + i]
+    if (R.isNil(item)) return
+    r.map((c, j) => {
+      const col = colIdx + j
+      if (R.isNil(cols[col])) return
+      updatedValues = updateGrowingStockValue(fra, updatedValues, cols[col].year, item.field, type, c)
+    })
+  })
 
   return updatedValues
 }
