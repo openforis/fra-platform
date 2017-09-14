@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import * as R from 'ramda'
 
 import LoggedInPageTemplate from '../loggedInPageTemplate'
-import MirrorTable from './mirrorTable'
+import GrowingStockTable from './growingStockTable'
 import { rows } from './growingStock'
 
 import { fetch, updateValue, updateValues } from './actions'
@@ -14,7 +14,7 @@ const GrowingStock = (props) =>
     <div className="nde__data-page-header">
       <h2 className="headline">{props.i18n.t('growingStock.growingStock')}</h2>
     </div>
-    <MirrorTable
+    <GrowingStockTable
       section="growingStock"
       header={props.i18n.t('growingStock.fra2020Categories')}
       avgTableHeader={props.i18n.t('growingStock.avgTableHeader')}

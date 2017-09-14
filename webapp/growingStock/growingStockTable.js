@@ -4,7 +4,7 @@ import { ThousandSeparatedIntegerInput } from '../reusableUiComponents/thousandS
 import ReviewIndicator from '../review/reviewIndicator'
 import { readPasteClipboard } from '../utils/copyPasteUtil'
 
-const MirrorTable = (props) => {
+const GrowingStockTable = (props) => {
   const cols = R.filter(v => v.type !== 'odp', R.values(props.fra))
 
   return <div>
@@ -111,4 +111,4 @@ const Cell = (props) => {
   </td>
 }
 
-export default MirrorTable
+export default GrowingStockTable
