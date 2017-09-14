@@ -121,7 +121,7 @@ const CountryRow = ({selectedCountry, country, i18n}) => {
         status={country.fiveYearAssesment}/>{i18n.t(`navigation.assessmentStatus.${country.fiveYearAssesment}.label`)}</span>
         : null
     }
-<span className="nav__country-list-item-secondary">{getRelativeDate(country.lastEdit, i18n, i18n.t('audit.notStarted'))}</span>
+<span className="nav__country-list-item-secondary">{getRelativeDate(country.lastEdit, i18n) || i18n.t('audit.notStarted')}</span>
   </Link>
 }
 
@@ -244,7 +244,7 @@ class Nav extends React.Component {
     )(status.reviewStatus)
 
     const auditStatus = R.defaultTo({}, R.path(['status', 'auditSummary'], this.props))
-    const getAuditStatus = section => R.defaultTo('', R.prop(section, auditStatus))
+    const getAuditStatus = section => R.defaultTo(null, R.prop(section, auditStatus))
 
     return <div className="main__nav-wrapper">
       <div className="main__nav">
@@ -281,9 +281,10 @@ class Nav extends React.Component {
                                                                    edited={
                                                                      getRelativeDate(
                                                                        getAuditStatus(v.section),
-                                                                       this.props.i18n,
+                                                                       this.props.i18n
+                                                                     ) ||
                                                                        this.props.i18n.t('audit.notStarted')
-                                                                     )}
+                                                                     }
                                                                    userInfo={this.props.userInfo}
                                                                    {...v} />
               )
@@ -304,9 +305,10 @@ class Nav extends React.Component {
                                                                      edited={
                                                                        getRelativeDate(
                                                                          getAuditStatus(v.section),
-                                                                         this.props.i18n,
+                                                                         this.props.i18n
+                                                                       ) ||
                                                                          this.props.i18n.t('audit.notStarted')
-                                                                       )}
+                                                                       }
                                                                      userInfo={this.props.userInfo}
                                                                      {...v} />
               )

@@ -123,7 +123,7 @@ class CommentThread extends React.Component {
                     {
                       isCommentDeleted(c)
                       ? i18n.t('review.commentDeleted')
-                      : getRelativeDate(c.addedTime, i18n, i18n.t('time.aMomentAgo'))
+                      : (getRelativeDate(c.addedTime, i18n) || i18n.t('time.aMomentAgo'))
                     }
                   </div>
                 </div>

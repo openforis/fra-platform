@@ -38,7 +38,7 @@ const handleCountryResult = resolveRole => result => {
           annualAssesment: determineCountryAssessmentStatus('annuallyReported', getStatuses(vals)),
           fiveYearAssesment: determineCountryAssessmentStatus('fiveYearCycle', getStatuses(vals)),
           role: resolveRole(countryIso),
-          lastEdit:  vals[0].lastEdited || ''
+          lastEdit:  vals[0].lastEdited
         }
       }),
     R.groupBy(R.prop('role'))
