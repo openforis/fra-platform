@@ -1,5 +1,43 @@
 import * as R from 'ramda'
 
+export const rows = [
+  {
+    field: 'naturallyRegeneratingForest',
+    areaFields: ['naturalForestArea'],
+    labelKey: 'fraForestCharacteristicsClass.naturallyRegeneratingForest'
+  }, {
+    field: 'plantedForest',
+    areaFields: ['plantationForestArea', 'otherPlantedForestArea'],
+    calculated: true,
+    sumFields: ['plantationForest', 'otherPlantedForest'],
+    labelKey: 'fraForestCharacteristicsClass.plantedForest'
+  }, {
+    field: 'plantationForest',
+    areaFields: ['plantationForestArea'],
+    labelKey: 'fraForestCharacteristicsClass.plantationForest'
+  }, {
+    field: 'otherPlantedForest',
+    areaFields: ['otherPlantedForestArea'],
+    labelKey: 'fraForestCharacteristicsClass.otherPlantedForest'
+  }, {
+    field: 'totalForest',
+    areaFields: ['naturalForestArea', 'plantationForestArea', 'otherPlantedForestArea'],
+    calculated: true,
+    sumFields: ['naturallyRegeneratingForest', 'plantationForest', 'otherPlantedForest'],
+    labelKey: 'fraForestCharacteristicsClass.totalForest'
+  }, {
+    field: 'otherWoodedLand',
+    labelKey: 'fraClass.otherWoodedLand'
+  }
+]
+
+const getFields = (field, fieldsProperty) => R.pipe(
+  R.find(R.propEq('field', field)),
+  R.prop(fieldsProperty)
+)(rows)
+
+const getAreaFields = field => getFields(field, 'areaFields')
+
 const getTypeArea = (year, areaFields, type) => R.pipe(
   R.find(v => R.propEq('year', year, v) && R.propEq('type', type, v)),
   R.defaultTo({}),
@@ -12,13 +50,17 @@ const getArea = (fra, year, areaFields) => R.pipe(
   area => area > 0 ? area : getTypeArea(year, areaFields, 'odp')(fra)
 )(fra)
 
-const updateMirrorValue = (fra, year, field, areaFields, type, obj) => {
-  const area = getArea(fra, year, areaFields)
-  return area > 0
-    ? type === 'avg'
-      ? R.assoc(field, R.prop(`${field}Avg`, obj) * area)(obj)
-      : R.assoc(`${field}Avg`, R.prop(field, obj) / area)(obj)
-    : obj
+const updateMirrorValue = (fra, year, field, type, obj) => {
+  const areaFields = getAreaFields(field)
+  if (areaFields) {
+    const area = getArea(fra, year, areaFields)
+    return area > 0
+      ? type === 'avg'
+        ? R.assoc(field, R.prop(`${field}Avg`, obj) * area)(obj)
+        : R.assoc(`${field}Avg`, R.prop(field, obj) / area)(obj)
+      : obj
+  }
+  return obj
 }
 
 const getFieldValue = field => R.pipe(
@@ -26,33 +68,33 @@ const getFieldValue = field => R.pipe(
   R.defaultTo(0)
 )
 
-const calculateTotal = (obj, fields) =>
-  R.reduce((total, field) => total + getFieldValue(field)(obj), 0, fields)
+const getSumFields = field => getFields(field, 'sumFields')
+
+const calculateTotal = (obj, field) =>
+  R.reduce((total, f) => total + getFieldValue(f)(obj), 0, getSumFields(field))
 
 const updateTotals = (fra, year) => R.pipe(
-  obj => R.assoc('plantedForest', calculateTotal(obj, ['plantationForest', 'otherPlantedForest']), obj),
-  obj => R.assoc('totalForest', calculateTotal(obj, ['naturallyRegeneratingForest', 'plantationForest', 'otherPlantedForest']), obj),
-  R.partial(updateMirrorValue, [fra, year, 'plantedForest', ['plantationForestArea', 'otherPlantedForestArea'], 'total']),
-  R.partial(updateMirrorValue, [fra, year, 'totalForest', ['naturalForestArea', 'plantationForestArea', 'otherPlantedForestArea'], 'total'])
+  obj => R.assoc('plantedForest', calculateTotal(obj, 'plantedForest'), obj),
+  obj => R.assoc('totalForest', calculateTotal(obj, 'totalForest'), obj),
+  R.partial(updateMirrorValue, [fra, year, 'plantedForest', 'total']),
+  R.partial(updateMirrorValue, [fra, year, 'totalForest', 'total'])
 )
 
-export const updateGrowingStockValues = (fra, values, countryIso, year, field, areaFields, type, value) => {
-
+export const updateGrowingStockValues = (fra, growingStockValues, countryIso, year, field, type, value) => {
   const updatedValue = R.pipe(
     R.find(R.propEq('year', year)),
     R.defaultTo({year}),
     R.assoc(`${field}${type === 'avg' ? 'Avg' : ''}`, Number(value)),
-    obj => areaFields
-      ? updateMirrorValue(fra, year, field, areaFields, type, obj)
-      : obj,
+    R.partial(updateMirrorValue, [fra, year, field, type]),
     updateTotals(fra, year)
-  )(values)
+  )(growingStockValues)
 
-  const index = R.findIndex(R.propEq('year', year), values)
+  const index = R.findIndex(R.propEq('year', year), growingStockValues)
   const updatedValues = index >= 0
-    ? R.update(index, updatedValue, values)
-    : R.append(updatedValue, values)
+    ? R.update(index, updatedValue, growingStockValues)
+    : R.append(updatedValue, growingStockValues)
 
   return updatedValues
 }
+
 
