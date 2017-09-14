@@ -47,7 +47,7 @@ const Table = (props) => {
         {
           rows.map((row, i) =>
             <Row
-              key={i}
+              key={row.field}
               rowIdx={i}
               row={row}
               {...props}
@@ -75,12 +75,12 @@ const Row = (props) => {
   const {openCommentThread, i18n, row, cols, type} = props
 
   return <tr
-    className={`${openCommentThread && R.isEmpty(R.difference(openCommentThread.target, [row.field, type])) ? 'fra-row-comments__open' : ''}`}>
+    className={`${openCommentThread && R.equals(openCommentThread.target, [row.field, type]) ? 'fra-row-comments__open' : ''}`}>
     <td className={`fra-table__header-cell${row.calculated ?' odp-header-cell' :''}`}>{i18n.t(row.labelKey)}</td>
     {
       cols.map((col, i) =>
         <Cell
-          key={i}
+          key={`${row.field}${col.name}`}
           field={row.field}
           calculated={row.calculated}
           colIdx={i}
