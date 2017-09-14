@@ -67,11 +67,11 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
           {i18n.t('nationalDataPoint.copyPreviousValues')}
         </button>
       </div>
-      <table className="odp__input-table odp__national-class-table">
+      <table className="fra-table odp__national-class-table">
         <thead>
         <tr>
-          <th>{i18n.t('nationalDataPoint.nationalClass')}</th>
-          <th>{i18n.t('nationalDataPoint.definition')}</th>
+          <th className="fra-table__header-cell">{i18n.t('nationalDataPoint.nationalClass')}</th>
+          <th className="fra-table__header-cell">{i18n.t('nationalDataPoint.definition')}</th>
         </tr>
         </thead>
         <tbody>
@@ -285,8 +285,8 @@ const NationalClassRow = ({odp, index, saveDraft, countryIso, className, definit
   <tr
     className={`${isCommentsOpen([odp.odpId, 'class', `${odp.nationalClasses[index].uuid}`, 'definition'], openThread) ? 'fra-row-comments__open' : ''}`}>
     <td
-      className={`odp__national-class-name ${getValidationStatusRow(odp, index).validClassName === false ? 'error' : ''}`}>
-        <input className="odp__national-class-input validation-error-sensitive-field"
+      className={`fra-table__cell odp__national-class-name ${getValidationStatusRow(odp, index).validClassName === false ? 'error' : ''}`}>
+        <input className="fra-table__input odp__national-class-input validation-error-sensitive-field"
                type="text"
                placeholder={placeHolder && index === 0 ? i18n.t('nationalDataPoint.enterOrCopyPasteNationalClasses') : ''}
                value={className || ''}
@@ -315,7 +315,7 @@ const NationalClassRow = ({odp, index, saveDraft, countryIso, className, definit
           </div>
         }
     </td>
-    <td>
+    <td className="fra-table__cell">
       <VerticallyGrowingTextField
         id={`odp-description-field-${index}`}
         value={definition || ''}
