@@ -241,6 +241,7 @@ export const translation = {
 
   primaryDesignatedManagementObjective: {
     primaryDesignatedManagementObjective: 'Designated management objective',
+    areaUnitLabel: 'Forest area (1000 ha)',
     production: 'Production',
     soilWaterProtection: 'Protection of soil and water',
     biodiversityConservation: 'Conservation of biodiversity',
