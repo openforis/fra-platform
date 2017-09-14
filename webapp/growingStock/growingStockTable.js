@@ -56,7 +56,7 @@ const Table = (props) => {
         </tbody>
       </table>
     </div>
-    <div className="nde__comment-column">
+    <div className="nde__comment-column header-span-2">
       {
         rows.map((row, i) =>
           <ReviewIndicator

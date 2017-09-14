@@ -39,7 +39,7 @@ export class DataTable extends React.Component {
           </tbody>
         </table>
       </div>
-      <div className="nde__comment-column">
+      <div className="nde__comment-column header-span-2">
         { buildIndicators(rows, this.props) }
       </div>
     </div>
