@@ -83,8 +83,9 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
     </div>
 
     <div className="odp__section">
+      <h2 className="headline">{i18n.t('nationalDataPoint.reclassificationLabel')}</h2>
       <div className="odp__section-header">
-        <h3 className="subhead">{i18n.t('extentOfForest.extentOfForest')}</h3>
+        <h3 className="subhead">{i18n.t('nationalDataPoint.forestCategoriesLabel')}</h3>
       </div>
       <table className="odp__input-table odp__eof-table">
         <thead>
@@ -132,7 +133,7 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
           <th className="odp__input-table__header-cell odp__input-table__divde-after-cell"
               colSpan="2">{i18n.t('nationalDataPoint.nationalClasses')}</th>
           <th className="odp__input-table__header-cell"
-              colSpan="4">{i18n.t('nationalDataPoint.fraClasses')}</th>
+              colSpan="4">{i18n.t('nationalDataPoint.fraClassesOfWhich')}</th>
         </tr>
         <tr>
           <th className="odp__input-table__header-cell">{i18n.t('nationalDataPoint.class')}</th>
