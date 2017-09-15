@@ -35,6 +35,7 @@ class CommentableReviewDescription extends React.Component {
       }>
         <Description title={this.props.descriptionTitle}
                      name={this.props.descriptionName}
+                     template={this.props.editorTemplate}
                      countryIso={this.props.countryIso}/>
       </div>
       <div className="commentable-description__review-indicator-wrapper">
@@ -50,29 +51,34 @@ class CommentableReviewDescription extends React.Component {
 class CommentableReviewDescriptions extends React.Component {
 
   render() {
-    const sourcesTitle = this.props.i18n.t('description.dataSources')
-    const originalDatatitle = this.props.i18n.t('description.originalData')
-    const nationalClassificationTitle = this.props.i18n.t('description.nationalClassificationAndDefinitions')
+    const sourcesTitle = this.props.i18n.t('description.dataSourcesTitle')
+    const commentsTitle = this.props.i18n.t('description.generalCommentsTitle')
     assertProps(this.props)
     return <div>
       <CommentableReviewDescription
         descriptionName={`${this.props.name}_datasources`}
         commentTarget={['dataSources']}
+        editorTemplate={
+          `
+          <h2>${this.props.i18n.t('description.dataSources.label')}</h2>
+          <table>
+          <thead><tr><th>${this.props.i18n.t('description.dataSources.sourceOfInformation')}</th><th>${this.props.i18n.t('description.dataSources.variables')}</th><th>${this.props.i18n.t('description.dataSources.years')}</th><th>${this.props.i18n.t('description.dataSources.additionalComments')}</th></tr> </thead>
+          <tbody>
+          <tr><td></td><td></td><td></td><td></td></tr>
+          </tbody>
+          </table>
+          <h2>Original data</h2>
+          <h2>National classification and definitions</h2>
+          `
+        }
         descriptionTitle={sourcesTitle}
         {...this.props}
       />
       <hr/>
       <CommentableReviewDescription
-        descriptionName={`${this.props.name}_originaldata`}
-        commentTarget={['originalData']}
-        descriptionTitle={originalDatatitle}
-        {...this.props}
-      />
-      <hr/>
-      <CommentableReviewDescription
-        descriptionName={`${this.props.name}_nationalClassification`}
-        commentTarget={['nationalClassification']}
-        descriptionTitle={nationalClassificationTitle}
+        descriptionName={`${this.props.name}_generalComments`}
+        commentTarget={['generalComments']}
+        descriptionTitle={commentsTitle}
         {...this.props}
       />
     </div>

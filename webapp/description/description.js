@@ -69,7 +69,8 @@ class DescriptionEditor extends Component {
     this.editor = CKEDITOR.replace(domNode, ckEditorConfig)
     // Data fetching is necessary when CKEDITOR instances are ready
     this.editor.on('instanceReady', () => {
-        this.setEditorContent(this.props.content)
+      console.log('setting content', this.props)
+        this.setEditorContent(this.props.content || this.props.template)
     })
   }
 
