@@ -3,7 +3,7 @@ CREATE TABLE
 (
   id bigserial NOT NULL,
   country_iso CHARACTER VARYING(3) NOT NULL,
-  YEAR NUMERIC(4),
+  year NUMERIC(4),
   naturally_regenerating_forest NUMERIC,
   naturally_regenerating_forest_avg NUMERIC,
   plantation_forest NUMERIC,
