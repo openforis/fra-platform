@@ -24,7 +24,7 @@ const assertDescriptionProps = props =>
     'Some property is missing for CommentableDescription'
   )
 
-class CommentableReviewDescription extends React.Component {
+export class CommentableReviewDescription extends React.Component {
   render() {
     assertDescriptionProps(this.props)
     return <div className="commentable-description">
@@ -60,15 +60,16 @@ class CommentableReviewDescriptions extends React.Component {
         commentTarget={['dataSources']}
         editorTemplate={
           `
-          <h2>${this.props.i18n.t('description.dataSources.label')}</h2>
+          <b>${this.props.i18n.t('description.dataSources.label')}</b>
           <table>
           <thead><tr><th>${this.props.i18n.t('description.dataSources.sourceOfInformation')}</th><th>${this.props.i18n.t('description.dataSources.variables')}</th><th>${this.props.i18n.t('description.dataSources.years')}</th><th>${this.props.i18n.t('description.dataSources.additionalComments')}</th></tr> </thead>
           <tbody>
           <tr><td></td><td></td><td></td><td></td></tr>
           </tbody>
           </table>
-          <h2>Original data</h2>
-          <h2>National classification and definitions</h2>
+          <b>Original data</b>
+          <p></p>
+          <b>National classification and definitions</b>
           `
         }
         descriptionTitle={sourcesTitle}
@@ -92,4 +93,4 @@ const mapStateToProps = (state, props) => {
   }
 }
 
-export default connect(mapStateToProps, {})(CommentableReviewDescriptions)
+export const CommentableDescriptions = connect(mapStateToProps, {})(CommentableReviewDescriptions)

@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import CommentableDescriptions from '../description/commentableDescription'
+import { CommentableDescriptions } from '../description/commentableDescription'
 import LoggedInPageTemplate from '../loggedInPageTemplate'
 import TraditionalTable from '../traditionalTable/traditionalTable'
 import tableSpec from './tableSpec'

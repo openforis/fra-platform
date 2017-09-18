@@ -8,7 +8,7 @@ import DefinitionLink from './../reusableUiComponents/definitionLink'
 import ChartWrapper from './chart/chartWrapper'
 import LoggedInPageTemplate from '../loggedInPageTemplate'
 import { DataTable } from '../originalDataPoint/commentableDatatable'
-import CommentableDescriptions from '../description/commentableDescription'
+import { CommentableReviewDescription } from '../description/commentableDescription'
 
 const NationalDataEntry = (props) => {
 
@@ -105,10 +105,13 @@ const NationalDataEntry = (props) => {
       <h3 className="subhead">{i18n.t('extentOfForest.otherLandCategories')}</h3>
     </div>
     <DataTable section='extentOfForest' rows={otherLandRows} rowNames={otherLandRowNames} {...props}  areaUnitLabel={props.i18n.t('extentOfForest.areaUnitLabel')} categoryHeader={props.i18n.t('extentOfForest.categoryHeader')} />
-    <CommentableDescriptions
+    <CommentableReviewDescription
       section='extentOfForest'
       name="extentOfForest"
       countryIso={props.match.params.countryIso}
+      descriptionName={`extentOfForest_generalComments`}
+      commentTarget={['generalComments']}
+      descriptionTitle={i18n.t('description.generalCommentsTitle')}
       i18n={i18n}
     />
   </div>

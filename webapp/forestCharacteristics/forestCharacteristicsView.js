@@ -7,7 +7,7 @@ import { fetchItem, save, saveMany, generateFraValues } from '../originalDataPoi
 import LoggedInPageTemplate from '../loggedInPageTemplate'
 import { DataTable } from '../originalDataPoint/commentableDatatable'
 import ChartWrapper from '../nationalDataEntry/chart/chartWrapper'
-import CommentableDescriptions from '../description/commentableDescription'
+import { CommentableDescriptions } from '../description/commentableDescription'
 
 const ForestCharacteristics = props => {
   const disableGenerateFRAValues = () => {
