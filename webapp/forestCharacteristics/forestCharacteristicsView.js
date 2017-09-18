@@ -71,7 +71,6 @@ const ForestCharacteristics = props => {
     <DataTable section='forestCharacteristics' rows={rows} rowNames={rowNames} {...props} areaUnitLabel={props.i18n.t('forestCharacteristics.areaUnitLabel')} categoryHeader={props.i18n.t('forestCharacteristics.categoryHeader')}/>
     <CommentableReviewDescription
       section='forestCharacteristics'
-      name="forestCharacteristics"
       countryIso={props.countryIso}
       descriptionName={`forestCharacterstics_generalComments`}
       commentTarget={['generalComments']}

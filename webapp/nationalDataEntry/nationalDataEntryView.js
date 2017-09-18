@@ -107,7 +107,6 @@ const NationalDataEntry = (props) => {
     <DataTable section='extentOfForest' rows={otherLandRows} rowNames={otherLandRowNames} {...props}  areaUnitLabel={props.i18n.t('extentOfForest.areaUnitLabel')} categoryHeader={props.i18n.t('extentOfForest.categoryHeader')} />
     <CommentableReviewDescription
       section='extentOfForest'
-      name="extentOfForest"
       countryIso={props.match.params.countryIso}
       descriptionName={`extentOfForest_generalComments`}
       commentTarget={['generalComments']}
