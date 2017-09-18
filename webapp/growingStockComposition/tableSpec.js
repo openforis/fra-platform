@@ -33,7 +33,20 @@ export default i18n => ({
   </tr>
   </thead>,
   rows:
-    R.map(rankRow(i18n), R.range(1, 11)),
+  [
+    ...R.map(rankRow(i18n), R.range(1, 11)),
+    [
+      {
+        type: 'readOnly',
+        jsx: <td className="fra-table__header-cell">{i18n.t('growingStockComposition.remainingNative')}</td>
+      },
+      {
+        type: 'readOnly',
+        jsx: <td className="fra-table__header-cell"/>
+      }
+    ],
+    ...R.map(rankRow(i18n), R.range(1, 6))],
+
   valueSlice: {
     rowStart: 0,
     rowEnd: undefined,

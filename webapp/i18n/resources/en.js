@@ -245,7 +245,8 @@ export const translation = {
     areaUnitLabel: 'Growing stock in forest (million m3 o.b.)',
     scientificName: 'Scientific name',
     commonName: 'Common name',
-    rank: 'Ranked in terms of volume'
+    rank: 'Ranked in terms of volume',
+    remainingNative: 'Remaining native tree species'
   },
 
   nonWoodForestProducts: {
