@@ -1,5 +1,10 @@
 @import (reference) "./config";
 
+.fra-table__scroll-wrapper {
+  overflow-x: auto;
+  width: 100%;
+}
+
 .fra-table {
   width: 100%;
   border-collapse: collapse;
@@ -14,7 +19,7 @@
   padding: 10px;
   font-weight: bold;
   white-space: nowrap;
-  min-width: 180px;
+  min-width: 120px;
   text-align: left;
 }
 
@@ -26,13 +31,11 @@
 .fra-table__header-cell-right {
   .fra-table__header-cell;
   text-align: right;
-  min-width: 120px;
 }
 
 .fra-table__header-cell-middle {
   .fra-table__header-cell;
   text-align: center;
-  min-width: 120px;
 }
 
 .fra-table__cell {
@@ -46,15 +49,17 @@
   .fra-table__cell;
 }
 
+.fra-table__cell-mute {
+  .fra-table__cell;
+  background-color: @ui-bg;
+  background-color: fade(black, 4%);
+}
+
 .fra-table__aggregate-cell {
   .fra-table__text-readonly-cell;
   text-align: right;
   font-weight: bold;
   padding: 10px;
-}
-
-.fra-table__row-anchor-cell {
-  padding: 0;
 }
 
 .fra-table__input {
@@ -91,4 +96,13 @@
   padding: 10px;
   width: 100%;
   margin: 0;
+}
+
+.fra-table__row-anchor-cell {
+  padding: 0;
+  width: 1px;
+}
+
+.fra-table__divider {
+  border-right: 3px double @ui-border;
 }

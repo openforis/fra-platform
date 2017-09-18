@@ -15,7 +15,7 @@ export class DataTable extends React.Component {
   render () {
     const rows = this.props.rows
     return <div className="nde__data-table-container">
-      <div className="nde__data-table-scroll-content">
+      <div className="fra-table__scroll-wrapper">
         <table className="fra-table">
           <thead>
           <tr>
