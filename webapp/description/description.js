@@ -12,7 +12,6 @@ class Description extends Component {
   }
 
   componentDidMount () {
-    if (!this.props.content)
       this.fetchData(this.props.countryIso)
   }
 
