@@ -19,9 +19,9 @@ export default class TextInput extends React.Component {
         <input
           type="text"
           className="fra-table__input"
-          value={ this.props.value }
+          value={ this.props.value || '' }
           onChange={ this.props.onChange }
-          onPaste={ this.props.onPaste}
+          onPaste={ this.props.onPaste }
           onFocus={ () => { this.setState({hasFocus: true}) } }
           onBlur={ () => { this.setState({hasFocus: false}) } }
         />

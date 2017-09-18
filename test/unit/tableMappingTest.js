@@ -5,9 +5,7 @@ const exampleData = {
   rows: {
     names: ['bamboo', 'mangroves', 'rubber_plantations']
   },
-  columns: {
-    names: ['1990', '2000']
-  }
+  columns: [{name: '1990', type: 'numeric'}, {name: '2000', type: 'numeric'}]
 }
 
 describe('tableMappings', () => {

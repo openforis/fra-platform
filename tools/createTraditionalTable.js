@@ -11,5 +11,5 @@ if (process.argv.length < 3) {
   console.log(`Usage: ${process.argv[0]} <name of the table spec>`)
   process.exit()
 }
-const createSql = sqlCreator.createTableDefinition(process.argv[2], 'NUMERIC')
+const createSql = sqlCreator.createTableDefinition(process.argv[2])
 console.log(createSql)
