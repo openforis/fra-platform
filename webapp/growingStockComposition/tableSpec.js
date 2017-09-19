@@ -70,16 +70,25 @@ const remainingNativeRow = i18n => [
   ...R.map(remainingNativeCell, R.range(3, 9))
 ]
 
+const introducedHeaderRow = i18n => [
+  {
+    type: 'readOnly',
+    jsx: <td className="fra-table__header-cell">{i18n.t('growingStockComposition.introducedTreeSpecies')}</td>
+  },
+  ...R.map(() => fillerCell, R.range(1, 9))
+]
+
 export default i18n => ({
   name: 'growingStockComposition',
   header: <thead>
   <tr>
-    <th rowSpan="2" className="fra-table__header-cell">{i18n.t('growingStockComposition.fra2020categories')}</th>
+    <th className="fra-table__header-cell">{i18n.t('growingStockComposition.fra2020categories')}</th>
     <th rowSpan="2" className="fra-table__header-cell">{i18n.t('growingStockComposition.scientificName')}</th>
     <th rowSpan="2" className="fra-table__header-cell">{i18n.t('growingStockComposition.commonName')}</th>
     <th className="fra-table__header-cell-middle" colSpan="6">{i18n.t('growingStockComposition.areaUnitLabel')}</th>
   </tr>
   <tr>
+    <td className="fra-table__header-cell">{i18n.t('growingStockComposition.nativeTreeSpecies')}</td>
     <td className="fra-table__header-cell-right">1990</td>
     <td className="fra-table__header-cell-right">1995</td>
     <td className="fra-table__header-cell-right">2000</td>
@@ -90,9 +99,9 @@ export default i18n => ({
   </thead>,
   rows:
   [
-    speciesRow(i18n),
     ...R.map(rankRow(i18n), R.range(1, 11)),
     remainingNativeRow(i18n),
+    introducedHeaderRow(i18n),
     ...R.map(rankRow(i18n), R.range(1, 6))],
 
   valueSlice: {
