@@ -177,6 +177,7 @@ export const translation = {
     generateFraValues: 'Generate FRA values',
     extentOfForestValues: 'Extent of forest values',
     forestArea: 'Forest',
+    ofWhichUnstocked: '…of which temporarily unstocked and/or recently regenerated',
     chart: {
       placeholderLine1: 'To get started, add new national data points and use',
       placeholderLine2: 'them to generate FRA values automatically.'
