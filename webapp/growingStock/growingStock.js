@@ -53,10 +53,10 @@ const getArea = (areaValues, year, areaFields) => R.pipe(
 
 const updateMirrorValue = (areaValues, year, field, type, obj) => {
   const area = getArea(areaValues, year, getAreaFields(field))
-  return area > 0
+  return area >= 0
     ? type === 'avg'
       ? R.assoc(field, R.prop(`${field}Avg`, obj) * area)(obj)
-      : R.assoc(`${field}Avg`, R.prop(field, obj) / area)(obj)
+      : R.assoc(`${field}Avg`, area == 0 ? 0 : R.prop(field, obj) / area)(obj)
     : obj
 }
 
