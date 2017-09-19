@@ -163,8 +163,8 @@ export const translation = {
     cancel: 'Cancel',
     saveData: 'Save data',
     enterOrCopyPasteNationalClasses: 'Enter or copy and paste national classes',
-    prefixPrimary: 'Primary',
-    prefixIntroduced: 'Introduced',
+    prefixPrimary: '…of which primary',
+    prefixIntroduced: '…of which introduced',
     otherLandCharacteristics: 'Other land with tree cover'
   },
 
