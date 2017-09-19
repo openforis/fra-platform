@@ -13,7 +13,7 @@ const yearlyVolumeInputsForRow = () =>
 
 const fillerCell = {
   type: 'readOnly',
-  jsx: <td className="fra-table__header-cell"/>
+  jsx: <td className="growing-stock__filler-cell"/>
 }
 
 const rankRow = i18n => idx => [
@@ -56,7 +56,7 @@ const aggregateCell = aggregateFunction => column =>
 const remainingNativeRow = i18n => [
   {
     type: 'readOnly',
-    jsx: <td className="fra-table__header-cell">{i18n.t('growingStockComposition.remainingNative')}</td>
+    jsx: <td className="growing-stock__row-header-continued-with-fillers">{i18n.t('growingStockComposition.remainingNative')}</td>
   },
   fillerCell,
   fillerCell,
@@ -66,7 +66,7 @@ const remainingNativeRow = i18n => [
 const remainingIntroducedRow = i18n => [
   {
     type: 'readOnly',
-    jsx: <td className="fra-table__header-cell">{i18n.t('growingStockComposition.remainingIntroduced')}</td>
+    jsx: <td className="growing-stock__row-header-continued-with-fillers">{i18n.t('growingStockComposition.remainingIntroduced')}</td>
   },
   fillerCell,
   fillerCell,
@@ -76,7 +76,7 @@ const remainingIntroducedRow = i18n => [
 const totalRow = (i18n, rowHeaderKey, aggregateFunction) => [
   {
     type: 'readOnly',
-    jsx: <td className="fra-table__header-cell">{i18n.t(rowHeaderKey)}</td>
+    jsx: <td className="growing-stock__row-header-continued-with-fillers">{i18n.t(rowHeaderKey)}</td>
   },
   fillerCell,
   fillerCell,
@@ -92,9 +92,13 @@ const totalGrowingStockRow = i18n => totalRow(i18n, 'growingStockComposition.tot
 const introducedHeaderRow = i18n => [
   {
     type: 'readOnly',
-    jsx: <td className="fra-table__header-cell">{i18n.t('growingStockComposition.introducedTreeSpecies')}</td>
+    jsx: <td className="growing-stock__row-header-continued-with-fillers">{i18n.t('growingStockComposition.introducedTreeSpecies')}</td>
   },
-  ...R.map(() => fillerCell, R.range(1, 9))
+  ...R.map(() => fillerCell, R.range(1, 8)),
+  {
+    type: 'readOnly',
+    jsx: <td className="growing-stock__filler-cell" style={{borderRight: '1px solid #d5d5d5'}}/>
+  }
 ]
 
 export default i18n => ({
