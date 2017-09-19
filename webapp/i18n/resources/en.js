@@ -250,7 +250,8 @@ export const translation = {
     remainingNative: 'Remaining native tree species',
     remainingIntroduced: 'Remaining introduced tree species',
     totalNative: 'Total volume of native tree species',
-    totalIntroduced: 'Total volume of introduced tree species'
+    totalIntroduced: 'Total volume of introduced tree species',
+    totalGrowingStock: 'Total growing stock'
   },
 
   nonWoodForestProducts: {

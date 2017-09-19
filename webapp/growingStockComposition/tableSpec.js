@@ -16,13 +16,6 @@ const fillerCell = {
   jsx: <td className="fra-table__header-cell"/>
 }
 
-const speciesRow = i18n => [
-  {type: 'readOnly', jsx: <td className="fra-table__header-cell">{i18n.t('growingStockComposition.nativeTreeSpecies')}</td>},
-  fillerCell,
-  fillerCell,
-  ...yearlyVolumeInputsForRow()
-]
-
 const rankRow = i18n => idx => [
   {type: 'readOnly', jsx: <td key={`rank${idx}`} className="fra-table__header-cell">#{idx} {i18n.t('growingStockComposition.rank')}</td>},
   {type: 'stringInput'},
@@ -45,6 +38,9 @@ const total = (tableData, column, range) =>
 const totalNative = (tableData, column) => total(tableData, column, R.range(0, 11))
 
 const totalIntroduced = (tableData, column) => total(tableData, column, R.range(13, 19))
+
+const totalGrowingStock = (tableData, column) =>
+  totalNative(tableData, column) + totalIntroduced(tableData, column)
 
 const renderAggregate = (aggregateFunction, column) => ({tableData}) =>
   <td key="" className="fra-table__aggregate-cell">
@@ -77,25 +73,21 @@ const remainingIntroducedRow = i18n => [
   ...yearlyVolumeInputsForRow()
 ]
 
-const totalNativeRow = i18n => [
+const totalRow = (i18n, rowHeaderKey, aggregateFunction) => [
   {
     type: 'readOnly',
-    jsx: <td className="fra-table__header-cell">{i18n.t('growingStockComposition.totalNative')}</td>
+    jsx: <td className="fra-table__header-cell">{i18n.t(rowHeaderKey)}</td>
   },
   fillerCell,
   fillerCell,
-  ...R.map(aggregateCell(totalNative), R.range(3, 9))
+  ...R.map(aggregateCell(aggregateFunction), R.range(3, 9))
 ]
 
-const totalIntroducedRow = i18n => [
-  {
-    type: 'readOnly',
-    jsx: <td className="fra-table__header-cell">{i18n.t('growingStockComposition.totalIntroduced')}</td>
-  },
-  fillerCell,
-  fillerCell,
-  ...R.map(aggregateCell(totalIntroduced), R.range(3, 9))
-]
+const totalNativeRow = i18n => totalRow(i18n, 'growingStockComposition.totalNative', totalNative)
+
+const totalIntroducedRow = i18n => totalRow(i18n, 'growingStockComposition.totalIntroduced', totalIntroduced)
+
+const totalGrowingStockRow = i18n => totalRow(i18n, 'growingStockComposition.totalGrowingStock', totalGrowingStock)
 
 const introducedHeaderRow = i18n => [
   {
@@ -132,7 +124,8 @@ export default i18n => ({
     introducedHeaderRow(i18n),
     ...R.map(rankRow(i18n), R.range(1, 6)),
     remainingIntroducedRow(i18n),
-    totalIntroducedRow(i18n)
+    totalIntroducedRow(i18n),
+    totalGrowingStockRow(i18n)
   ],
   valueSlice: {
     rowStart: 0,
