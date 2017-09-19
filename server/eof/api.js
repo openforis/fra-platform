@@ -78,6 +78,30 @@ const getFraValues = (section, countryIso) => {
 
 module.exports.getFraValues = getFraValues
 
+const getFraValues = (section, countryIso) => {
+  const readFra = fraReaders[section]
+
+  const readOdp = odpReaders[section]
+  const defaultResponse = defaultResponses[section]
+
+  const fra = readFra(countryIso)
+  const odp = readOdp(countryIso)
+
+  return Promise.all([fra, odp])
+    .then(result => {
+      const fra = R.pipe(
+        R.merge(defaultResponse()),
+        R.merge(result[1]),
+        R.values,
+        R.sort((a, b) => a.year === b.year ? (a.type < b.type ? -1 : 1) : a.year - b.year)
+      )(result[0])
+
+      return {fra}
+    })
+}
+
+module.exports.getFraValues = getFraValues
+
 module.exports.init = app => {
   app.post('/nde/:section/:countryIso', (req, res) => {
     checkCountryAccessFromReqParams(req)
