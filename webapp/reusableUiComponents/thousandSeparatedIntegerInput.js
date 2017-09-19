@@ -1,12 +1,11 @@
 import React from 'react'
 import './thousandSeparatedIntegerInput.less'
-import { separateThousandsWithSpaces } from '../utils/numberFormat'
+import { separateDecimalThousandsWithSpaces } from '../utils/numberFormat'
 
 const renderFocusedIntegerValue = integerValue =>
-  typeof integerValue === 'number' ? integerValue : ''
+  typeof integerValue === 'number' ? integerValue.toString() : integerValue
 
-const renderUnfocusedIntegerValue = integerValue =>
-  typeof integerValue === 'number' ? separateThousandsWithSpaces(integerValue) : ''
+const renderUnfocusedIntegerValue = integerValue => separateDecimalThousandsWithSpaces(integerValue)
 
 export class ThousandSeparatedIntegerInput extends React.Component {
   constructor () {

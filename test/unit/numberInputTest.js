@@ -1,6 +1,6 @@
 const assert = require('chai').assert
-const R = require('ramda')
 const acceptNextInteger = require('../../webapp/utils/numberInput').acceptNextInteger
+const acceptNextDecimal = require('../../webapp/utils/numberInput').acceptNextDecimal
 
 describe("Number input", () => {
   it("accepts an integer", () => {
@@ -16,5 +16,20 @@ describe("Number input", () => {
   it('does not accept scientific notation', () => {
     const actual = acceptNextInteger('1e3', '1')
     assert.equal('1', actual)
+  })
+
+  it('accepts decimal with two places', () => {
+    const actual = acceptNextDecimal('1.03', '1.00')
+    assert.equal('1.03', actual)
+  })
+
+  it('accepts decimal with no decimal part', () => {
+    const actual = acceptNextDecimal('2.', '1.00')
+    assert.equal('2.', actual)
+  })
+
+  it('does not accept decimal with three places', () => {
+    const actual = acceptNextDecimal('1.888', '1.00')
+    assert.equal('1.00', actual)
   })
 })
