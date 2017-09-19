@@ -116,7 +116,7 @@ export default i18n => ({
   name: 'growingStockComposition',
   header: <thead>
   <tr>
-    <th className="fra-table__header-cell">{i18n.t('growingStockComposition.fra2020categories')}</th>
+    <th className="fra-table__header-cell">{i18n.t('growingStockComposition.categoryHeader')}</th>
     <th rowSpan="2" className="fra-table__header-cell">{i18n.t('growingStockComposition.scientificName')}</th>
     <th rowSpan="2" className="fra-table__header-cell">{i18n.t('growingStockComposition.commonName')}</th>
     <th className="fra-table__header-cell-middle" colSpan="6">{i18n.t('growingStockComposition.areaUnitLabel')}</th>
