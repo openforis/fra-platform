@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import * as R from 'ramda'
 
 import LoggedInPageTemplate from '../loggedInPageTemplate'
+import CommentableDescriptions from '../description/commentableDescription'
 import GrowingStockTable from './growingStockTable'
 import { rows } from './growingStock'
 
@@ -20,6 +21,12 @@ const GrowingStock = (props) =>
       totalTableHeader={props.i18n.t('growingStock.totalTableHeader')}
       rows={rows}
       {...props}
+    />
+    <CommentableDescriptions
+      section='growingStock'
+      name="growingStock"
+      countryIso={props.countryIso}
+      i18n={props.i18n}
     />
   </div>
 
