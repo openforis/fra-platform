@@ -42,7 +42,7 @@ const handleRow = mapping => (tableData, row) => {
   const values = R.omit(R.pluck('name', sqlCreator.fixedFraTableColumns), row)
   const rowIdx = mapping.getRowIndex(row.row_name)
   return R.reduce(
-    (tableDataAccu, [column, fieldValue]) => console.log('column', column) || update(mapping, tableDataAccu, rowIdx, mapping.getColumnIndex(column), fieldValue),
+    (tableDataAccu, [column, fieldValue]) => update(mapping, tableDataAccu, rowIdx, mapping.getColumnIndex(column), fieldValue),
     tableData,
     R.toPairs(values)
   )
