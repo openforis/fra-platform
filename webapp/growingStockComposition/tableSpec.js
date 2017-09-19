@@ -30,17 +30,21 @@ const rankRow = i18n => idx => [
   ...yearlyVolumeInputsForRow()
 ]
 
-const totalNative = (tableData, column) =>
+const total = (tableData, column, range) =>
   R.reduce((sum, row) => {
-    const value = tableData[row][column]
-    if (!R.isNil(value))
-      return sum + value
-    else
-      return sum
+      const value = tableData[row][column]
+      if (!R.isNil(value))
+        return sum + value
+      else
+        return sum
     },
     0,
-    R.range(0, 11)
+    range
   )
+
+const totalNative = (tableData, column) => total(tableData, column, R.range(0, 11))
+
+const totalIntroduced = (tableData, column) => total(tableData, column, R.range(13, 19))
 
 const renderAggregate = (aggregateFunction, column) => ({tableData}) =>
   <td key="" className="fra-table__aggregate-cell">
@@ -63,6 +67,16 @@ const remainingNativeRow = i18n => [
   ...yearlyVolumeInputsForRow()
 ]
 
+const remainingIntroducedRow = i18n => [
+  {
+    type: 'readOnly',
+    jsx: <td className="fra-table__header-cell">{i18n.t('growingStockComposition.remainingIntroduced')}</td>
+  },
+  fillerCell,
+  fillerCell,
+  ...yearlyVolumeInputsForRow()
+]
+
 const totalNativeRow = i18n => [
   {
     type: 'readOnly',
@@ -71,6 +85,16 @@ const totalNativeRow = i18n => [
   fillerCell,
   fillerCell,
   ...R.map(aggregateCell(totalNative), R.range(3, 9))
+]
+
+const totalIntroducedRow = i18n => [
+  {
+    type: 'readOnly',
+    jsx: <td className="fra-table__header-cell">{i18n.t('growingStockComposition.totalIntroduced')}</td>
+  },
+  fillerCell,
+  fillerCell,
+  ...R.map(aggregateCell(totalIntroduced), R.range(3, 9))
 ]
 
 const introducedHeaderRow = i18n => [
@@ -106,8 +130,10 @@ export default i18n => ({
     remainingNativeRow(i18n),
     totalNativeRow(i18n),
     introducedHeaderRow(i18n),
-    ...R.map(rankRow(i18n), R.range(1, 6))],
-
+    ...R.map(rankRow(i18n), R.range(1, 6)),
+    remainingIntroducedRow(i18n),
+    totalIntroducedRow(i18n)
+  ],
   valueSlice: {
     rowStart: 0,
     rowEnd: undefined,

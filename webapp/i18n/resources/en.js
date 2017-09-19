@@ -248,7 +248,9 @@ export const translation = {
     commonName: 'Common name',
     rank: 'Ranked in terms of volume',
     remainingNative: 'Remaining native tree species',
-    totalNative: 'Total volume of native tree species'
+    remainingIntroduced: 'Remaining introduced tree species',
+    totalNative: 'Total volume of native tree species',
+    totalIntroduced: 'Total volume of introduced tree species'
   },
 
   nonWoodForestProducts: {
