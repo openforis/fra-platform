@@ -17,9 +17,12 @@ const fillerCell = {
 }
 
 const rankRow = i18n => idx => [
-  {type: 'readOnly', jsx: <td key={`rank${idx}`} className="fra-table__header-cell">#{idx} {i18n.t('growingStockComposition.rank')}</td>},
-  {type: 'stringInput'},
-  {type: 'stringInput'},
+  {
+    type: 'readOnly',
+    jsx: <td key={`rank${idx}`} className="fra-table__header-cell">#{idx} {i18n.t('growingStockComposition.rank')}</td>
+  },
+  {type: 'textInput'},
+  {type: 'textInput'},
   ...yearlyVolumeInputsForRow()
 ]
 

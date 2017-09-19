@@ -1,11 +1,11 @@
 import React from 'react'
 import assert from 'assert'
 import IntegerCellType from './integerCellType'
-import StringCellType from './stringCellType'
+import TextCellType from './textCellType'
 
 const cellTypeCreators = {
   'integerInput': IntegerCellType,
-  'stringInput': StringCellType,
+  'textInput': TextCellType,
   'readOnly': (cellSpec) => ({render: (props) => cellSpec.jsx}),
   'custom': (cellSpec) => ({render: (props) => cellSpec.render(props)})
 }
