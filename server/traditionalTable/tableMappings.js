@@ -14,26 +14,26 @@ const mappings = {
   growingStockComposition
 }
 
-const getIndexInNameArray = (name, names) => {
+const getRowIndex = (name, names) => {
   const idx = R.findIndex((x) => x === name, names)
   return idx === -1 ? -1 : idx
 }
 
-const getNameForIndexInNameArray = (idx, names) => names[idx]
+const getRowName = (idx, names) => names[idx]
 
-const getNameFromObjectArray = (idx, objects) => R.path([idx, 'name'], objects)
+const getColumnName = (idx, columns) => R.path([idx, 'name'], columns)
 
-const getIndexFromObjectArray = (name, objects) => R.findIndex((x) => x.name === name, objects)
+const getColumnIndex = (name, columns) => R.findIndex((x) => x.name === name, columns)
 
 const Mapping = (mapping) =>
   R.merge(mapping,
     {
-      getRowName: (idx) => getNameForIndexInNameArray(idx, mapping.rows.names),
-      getRowIndex: (name) => getIndexInNameArray(name, mapping.rows.names),
+      getRowName: (idx) => getRowName(idx, mapping.rows.names),
+      getRowIndex: (name) => getRowIndex(name, mapping.rows.names),
       getFullRowCount: () => mapping.rows.names.length,
       getColumn: (idx) => mapping.columns[idx],
-      getColumnName: (idx) => getNameFromObjectArray(idx, mapping.columns),
-      getColumnIndex: (name) => getIndexFromObjectArray(name, mapping.columns),
+      getColumnName: (idx) => getColumnName(idx, mapping.columns),
+      getColumnIndex: (name) => getColumnIndex(name, mapping.columns),
       getFullColumnCount: () => mapping.columns.length
     })
 
