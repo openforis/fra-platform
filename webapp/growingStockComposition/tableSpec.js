@@ -30,6 +30,33 @@ const rankRow = i18n => idx => [
   ...yearlyVolumeInputsForRow()
 ]
 
+const remainingNative = (tableData, column) => {
+  const sumOfRanks =
+    R.reduce((sum, row) => {
+      const value = tableData[row][column]
+      if (!R.isNil(value))
+        return sum + value
+      else
+        return sum
+    },
+    0,
+    R.range(1, 11)
+  )
+  const allNative = tableData[0][column] || 0
+  return allNative - sumOfRanks
+}
+
+const renderRemainingNative = column => ({tableData}) =>
+  <td key="" className="fra-table__aggregate-cell">
+    {remainingNative(tableData, column)}
+  </td>
+
+const remainingNativeCell = column =>
+  ({
+    type: 'custom',
+    render: renderRemainingNative(column)
+  })
+
 const remainingNativeRow = i18n => [
   {
     type: 'readOnly',
@@ -40,7 +67,7 @@ const remainingNativeRow = i18n => [
     type: 'readOnly',
     jsx: <td className="fra-table__header-cell"/>
   },
-  ...yearlyVolumeInputsForRow()
+  ...R.map(remainingNativeCell, R.range(3, 9))
 ]
 
 export default i18n => ({
