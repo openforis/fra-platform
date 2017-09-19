@@ -26,9 +26,8 @@ const createTableData = (cols, rows) =>
 
 const convertValueFromDb = (colIdx, value, mapping) => {
   const type = mapping.getColumn(colIdx).type
-  switch (type) {
-    case 'numeric': // Just in case, support both cases
-    case 'NUMERIC':
+  switch (type.toLowerCase()) {
+    case 'numeric':
       return toNumberOrNull(value)
     default:
       return value
