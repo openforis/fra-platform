@@ -50,7 +50,7 @@ class GrowingStockView extends Component {
       ? null
       : <LoggedInPageTemplate commentsOpen={this.props.openCommentThread}>
         <GrowingStock
-          fra={this.props.growingStock.fra}
+          areaValues={this.props.growingStock.areaValues}
           countryIso={this.props.match.params.countryIso}
           values={this.props.growingStock.values}
           {...this.props}/>

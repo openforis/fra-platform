@@ -46,13 +46,13 @@ const getTypeArea = (year, areaFields, type) => R.pipe(
   R.sum
 )
 
-const getArea = (fra, year, areaFields) => R.pipe(
+const getArea = (areaValues, year, areaFields) => R.pipe(
   getTypeArea(year, areaFields, 'fra'),
-  area => area > 0 ? area : getTypeArea(year, areaFields, 'odp')(fra)
-)(fra)
+  area => area > 0 ? area : getTypeArea(year, areaFields, 'odp')(areaValues)
+)(areaValues)
 
-const updateMirrorValue = (fra, year, field, type, obj) => {
-  const area = getArea(fra, year, getAreaFields(field))
+const updateMirrorValue = (areaValues, year, field, type, obj) => {
+  const area = getArea(areaValues, year, getAreaFields(field))
   return area > 0
     ? type === 'avg'
       ? R.assoc(field, R.prop(`${field}Avg`, obj) * area)(obj)
@@ -70,20 +70,20 @@ const getSumFields = field => getFields(field, 'sumFields')
 const calculateTotal = (obj, field) =>
   R.reduce((total, f) => total + getFieldValue(f)(obj), 0, getSumFields(field))
 
-const updateTotals = (fra, year) => R.pipe(
+const updateTotals = (areaValues, year) => R.pipe(
   obj => R.assoc('plantedForest', calculateTotal(obj, 'plantedForest'), obj),
   obj => R.assoc('totalForest', calculateTotal(obj, 'totalForest'), obj),
-  R.partial(updateMirrorValue, [fra, year, 'plantedForest', 'total']),
-  R.partial(updateMirrorValue, [fra, year, 'totalForest', 'total'])
+  R.partial(updateMirrorValue, [areaValues, year, 'plantedForest', 'total']),
+  R.partial(updateMirrorValue, [areaValues, year, 'totalForest', 'total'])
 )
 
-export const updateGrowingStockValue = (fra, growingStockValues, year, field, type, value) => {
+export const updateGrowingStockValue = (areaValues, growingStockValues, year, field, type, value) => {
   const updatedValue = R.pipe(
     R.find(R.propEq('year', year)),
     R.defaultTo({year}),
     R.assoc(`${field}${type === 'avg' ? 'Avg' : ''}`, R.isEmpty(value) ?null :Number(value)),
-    R.partial(updateMirrorValue, [fra, year, field, type]),
-    updateTotals(fra, year)
+    R.partial(updateMirrorValue, [areaValues, year, field, type]),
+    updateTotals(areaValues, year)
   )(growingStockValues)
 
   const index = R.findIndex(R.propEq('year', year), growingStockValues)
@@ -94,7 +94,7 @@ export const updateGrowingStockValue = (fra, growingStockValues, year, field, ty
   return updatedValues
 }
 
-export const updateGrowingStockValues = (fra, growingStockValues, data, type, cols, rowIdx, colIdx) => {
+export const updateGrowingStockValues = (areaValues, growingStockValues, data, type, cols, rowIdx, colIdx) => {
   const updatableRows = rows.filter(r => !r.calculated)
   let updatedValues = R.clone(growingStockValues)
 
@@ -109,7 +109,7 @@ export const updateGrowingStockValues = (fra, growingStockValues, data, type, co
     r.map((c, j) => {
       const col = colIdx + j
       if (R.isNil(cols[col])) return
-      updatedValues = updateGrowingStockValue(fra, updatedValues, cols[col].year, item.field, type, c)
+      updatedValues = updateGrowingStockValue(areaValues, updatedValues, cols[col].year, item.field, type, c)
     })
   })
 

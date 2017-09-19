@@ -5,7 +5,7 @@ import ReviewIndicator from '../review/reviewIndicator'
 import { readPasteClipboard } from '../utils/copyPasteUtil'
 
 const GrowingStockTable = (props) => {
-  const cols = R.filter(v => v.type !== 'odp', R.values(props.fra))
+  const cols = R.filter(v => v.type !== 'odp', R.values(props.areaValues))
 
   return <div>
     <Table
@@ -76,7 +76,7 @@ const Row = (props) => {
 
   return <tr
     className={`${openCommentThread && R.equals(openCommentThread.target, [row.field, type]) ? 'fra-row-comments__open' : ''}`}>
-    <td className={`fra-table__header-cell${row.calculated ?' odp-header-cell' :''}`}>{i18n.t(row.labelKey)}</td>
+    <td className={`fra-table__header-cell${row.calculated ? ' odp-header-cell' : ''}`}>{i18n.t(row.labelKey)}</td>
     {
       cols.map((col, i) =>
         <Cell
@@ -92,7 +92,7 @@ const Row = (props) => {
 }
 
 const Cell = (props) => {
-  const {countryIso, cols, col, type, field, fra, values, calculated, updateValue, updateValues, rowIdx, colIdx} = props
+  const {countryIso, col, type, field, areaValues, values, calculated} = props
   const value = R.pipe(
     R.find(R.propEq('year', col.year)),
     R.defaultTo({}),
@@ -100,13 +100,13 @@ const Cell = (props) => {
     R.defaultTo(null),
   )(values)
 
-  return <td className={`fra-table__${calculated ?'text-readonly-' :''}cell`}>
+  return <td className={`fra-table__${calculated ? 'text-readonly-' : ''}cell`}>
     <ThousandSeparatedIntegerInput
       className="fra-table__integer-input"
       integerValue={value}
       disabled={calculated}
-      onChange={e => updateValue(countryIso, fra, values, col.year, field, type, e.target.value)}
-      onPaste={e => updateValues(countryIso, fra, values, readPasteClipboard(e), type, cols, rowIdx, colIdx)}
+      onChange={e => props.updateValue(countryIso, areaValues, values, col.year, field, type, e.target.value)}
+      onPaste={e => props.updateValues(countryIso, areaValues, values, readPasteClipboard(e), type, props.cols, props.rowIdx, props.colIdx)}
     />
   </td>
 }

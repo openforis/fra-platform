@@ -15,16 +15,16 @@ export const fetch = countryIso => dispatch =>
     .then(resp => dispatch({type: growingStockFetchCompleted, data: resp.data}))
     .catch(err => dispatch(applicationError(err)))
 
-export const updateValue = (countryIso, fra, values, year, field, type, value) => dispatch => {
+export const updateValue = (countryIso, areaValues, values, year, field, type, value) => dispatch => {
   dispatch(autosave.start)
-  const updatedValues = updateGrowingStockValue(fra, values, year, field, type, value)
+  const updatedValues = updateGrowingStockValue(areaValues, values, year, field, type, value)
   dispatch({type: growingStockUpdateStart, data: updatedValues})
   dispatch(persistUpdatedValues(countryIso, updatedValues))
 }
 
-export const updateValues = (countryIso, fra, growingStockValues, data, type, cols, rowIdx, colIdx) => dispatch => {
+export const updateValues = (countryIso, areaValues, growingStockValues, data, type, cols, rowIdx, colIdx) => dispatch => {
   dispatch(autosave.start)
-  const updatedValues = updateGrowingStockValues(fra, growingStockValues, data, type, cols, rowIdx, colIdx)
+  const updatedValues = updateGrowingStockValues(areaValues, growingStockValues, data, type, cols, rowIdx, colIdx)
   dispatch({type: growingStockUpdateStart, data: updatedValues})
   dispatch(persistUpdatedValues(countryIso, updatedValues))
 }
