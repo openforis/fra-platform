@@ -134,7 +134,15 @@ export const translation = {
     emptyLabel: 'No content',
     loading: 'Loading content…',
     description: 'Description',
-    dataSources: 'Data sources',
+    dataSourcesTitle: 'Data sources, original data & national classification and definitions',
+    generalCommentsTitle: 'Comments',
+    dataSources: {
+      label: 'Data sources',
+      sourceOfInformation: 'Reference to source of information',
+      variables: 'Variable(s)',
+      years: 'Year(s)',
+      additionalComments: 'Additional comments'
+    },
     originalData: 'Original data',
     nationalClassificationAndDefinitions: 'National classification and definitions',
   },
