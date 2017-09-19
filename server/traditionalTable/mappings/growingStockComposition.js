@@ -2,6 +2,7 @@ module.exports = {
   tableName: 'growing_stock_composition',
   rows: {
     names: [
+      'native_tree_species',
       'native_rank1',
       'native_rank2',
       'native_rank3',

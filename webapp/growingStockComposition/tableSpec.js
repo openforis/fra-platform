@@ -11,6 +11,18 @@ const yearlyVolumeInputsForRow = () =>
     {type: 'integerInput'}
   ]
 
+const fillerCell = {
+  type: 'readOnly',
+  jsx: <td className="fra-table__header-cell"/>
+}
+
+const speciesRow = i18n => [
+  {type: 'readOnly', jsx: <td className="fra-table__header-cell">{i18n.t('growingStockComposition.nativeTreeSpecies')}</td>},
+  fillerCell,
+  fillerCell,
+  ...yearlyVolumeInputsForRow()
+]
+
 const rankRow = i18n => idx => [
   {type: 'readOnly', jsx: <td key={`rank${idx}`} className="fra-table__header-cell">#{idx} {i18n.t('growingStockComposition.rank')}</td>},
   {type: 'stringInput'},
@@ -18,17 +30,17 @@ const rankRow = i18n => idx => [
   ...yearlyVolumeInputsForRow()
 ]
 
+
 export default i18n => ({
   name: 'growingStockComposition',
   header: <thead>
   <tr>
-    <th className="fra-table__header-cell">{i18n.t('growingStockComposition.fra2020categories')}</th>
+    <th rowSpan="2" className="fra-table__header-cell">{i18n.t('growingStockComposition.fra2020categories')}</th>
     <th rowSpan="2" className="fra-table__header-cell">{i18n.t('growingStockComposition.scientificName')}</th>
     <th rowSpan="2" className="fra-table__header-cell">{i18n.t('growingStockComposition.commonName')}</th>
     <th className="fra-table__header-cell-middle" colSpan="6">{i18n.t('growingStockComposition.areaUnitLabel')}</th>
   </tr>
   <tr>
-    <td className="fra-table__header-cell">{i18n.t('growingStockComposition.nativeTreeSpecies')}</td>
     <td className="fra-table__header-cell-right">1990</td>
     <td className="fra-table__header-cell-right">1995</td>
     <td className="fra-table__header-cell-right">2000</td>
@@ -39,16 +51,14 @@ export default i18n => ({
   </thead>,
   rows:
   [
+    speciesRow(i18n),
     ...R.map(rankRow(i18n), R.range(1, 11)),
     [
       {
         type: 'readOnly',
         jsx: <td className="fra-table__header-cell">{i18n.t('growingStockComposition.remainingNative')}</td>
       },
-      {
-        type: 'readOnly',
-        jsx: <td className="fra-table__header-cell"/>
-      },
+      fillerCell,
       {
         type: 'readOnly',
         jsx: <td className="fra-table__header-cell"/>
