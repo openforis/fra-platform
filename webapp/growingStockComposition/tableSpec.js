@@ -30,6 +30,18 @@ const rankRow = i18n => idx => [
   ...yearlyVolumeInputsForRow()
 ]
 
+const remainingNativeRow = i18n => [
+  {
+    type: 'readOnly',
+    jsx: <td className="fra-table__header-cell">{i18n.t('growingStockComposition.remainingNative')}</td>
+  },
+  fillerCell,
+  {
+    type: 'readOnly',
+    jsx: <td className="fra-table__header-cell"/>
+  },
+  ...yearlyVolumeInputsForRow()
+]
 
 export default i18n => ({
   name: 'growingStockComposition',
@@ -53,18 +65,7 @@ export default i18n => ({
   [
     speciesRow(i18n),
     ...R.map(rankRow(i18n), R.range(1, 11)),
-    [
-      {
-        type: 'readOnly',
-        jsx: <td className="fra-table__header-cell">{i18n.t('growingStockComposition.remainingNative')}</td>
-      },
-      fillerCell,
-      {
-        type: 'readOnly',
-        jsx: <td className="fra-table__header-cell"/>
-      },
-      ...yearlyVolumeInputsForRow()
-    ],
+    remainingNativeRow(i18n),
     ...R.map(rankRow(i18n), R.range(1, 6))],
 
   valueSlice: {
