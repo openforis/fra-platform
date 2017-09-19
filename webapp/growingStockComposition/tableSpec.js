@@ -1,16 +1,21 @@
 import React from 'react'
 import R from 'ramda'
 
+const yearlyVolumeInputsForRow = () =>
+  [
+    {type: 'integerInput'},
+    {type: 'integerInput'},
+    {type: 'integerInput'},
+    {type: 'integerInput'},
+    {type: 'integerInput'},
+    {type: 'integerInput'}
+  ]
+
 const rankRow = i18n => idx => [
   {type: 'readOnly', jsx: <td key={`rank${idx}`} className="fra-table__header-cell">#{idx} {i18n.t('growingStockComposition.rank')}</td>},
   {type: 'stringInput'},
   {type: 'stringInput'},
-  {type: 'integerInput'},
-  {type: 'integerInput'},
-  {type: 'integerInput'},
-  {type: 'integerInput'},
-  {type: 'integerInput'},
-  {type: 'integerInput'}
+  ...yearlyVolumeInputsForRow()
 ]
 
 export default i18n => ({
@@ -43,7 +48,12 @@ export default i18n => ({
       {
         type: 'readOnly',
         jsx: <td className="fra-table__header-cell"/>
-      }
+      },
+      {
+        type: 'readOnly',
+        jsx: <td className="fra-table__header-cell"/>
+      },
+      ...yearlyVolumeInputsForRow()
     ],
     ...R.map(rankRow(i18n), R.range(1, 6))],
 

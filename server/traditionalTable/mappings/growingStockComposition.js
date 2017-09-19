@@ -12,7 +12,7 @@ module.exports = {
       'native_rank8',
       'native_rank9',
       'native_rank10',
-      "remaining_sum_row", //Dummy row, will not contain data
+      "remaining_native",
       'introduced_rank1',
       'introduced_rank2',
       'introduced_rank3',
