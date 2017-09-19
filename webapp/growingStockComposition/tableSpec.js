@@ -19,7 +19,9 @@ const fillerCell = {
 const rankRow = i18n => idx => [
   {
     type: 'readOnly',
-    jsx: <td key={`rank${idx}`} className="fra-table__header-cell-sub">#{idx} {i18n.t('growingStockComposition.rank')}</td>
+    jsx: <td key={`rank${idx}`} className="fra-table__header-cell-sub">
+           #{idx} {i18n.t('growingStockComposition.rank')}
+         </td>
   },
   {type: 'textInput'},
   {type: 'textInput'},
@@ -59,7 +61,9 @@ const aggregateCell = aggregateFunction => column =>
 const remainingNativeRow = i18n => [
   {
     type: 'readOnly',
-    jsx: <td className="growing-stock__row-header-continued-with-fillers">{i18n.t('growingStockComposition.remainingNative')}</td>
+    jsx: <td className="growing-stock__row-header-continued-with-fillers">
+           {i18n.t('growingStockComposition.remainingNative')}
+         </td>
   },
   fillerCell,
   fillerCell,
@@ -69,7 +73,9 @@ const remainingNativeRow = i18n => [
 const remainingIntroducedRow = i18n => [
   {
     type: 'readOnly',
-    jsx: <td className="growing-stock__row-header-continued-with-fillers">{i18n.t('growingStockComposition.remainingIntroduced')}</td>
+    jsx: <td className="growing-stock__row-header-continued-with-fillers">
+          {i18n.t('growingStockComposition.remainingIntroduced')}
+         </td>
   },
   fillerCell,
   fillerCell,
@@ -95,7 +101,9 @@ const totalGrowingStockRow = i18n => totalRow(i18n, 'growingStockComposition.tot
 const introducedHeaderRow = i18n => [
   {
     type: 'readOnly',
-    jsx: <td className="growing-stock__row-header-continued-with-fillers">{i18n.t('growingStockComposition.introducedTreeSpecies')}</td>
+    jsx: <td className="growing-stock__row-header-continued-with-fillers">
+          {i18n.t('growingStockComposition.introducedTreeSpecies')}
+         </td>
   },
   ...R.map(() => fillerCell, R.range(1, 8)),
   {
