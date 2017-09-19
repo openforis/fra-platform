@@ -27,7 +27,7 @@ const Table = (props) => {
   const {cols, rows} = props
 
   return <div className="nde__data-table-container">
-    <div className="nde__data-table-scroll-content">
+    <div className="fra-table__scroll-wrapper">
       <table className="fra-table">
         <thead>
         <tr>
