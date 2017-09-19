@@ -129,7 +129,7 @@ export default i18n => ({
   ],
   valueSlice: {
     rowStart: 0,
-    rowEnd: undefined,
+    rowEnd: -2,
     columnStart: 1,
     columnEnd: undefined
   }
