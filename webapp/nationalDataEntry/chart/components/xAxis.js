@@ -12,13 +12,20 @@ class XAxis extends Component {
 
   renderAxis (props) {
     const tickValues = R.filter(v => v % 5 === 0, R.range(1990, 2021))
-    var axis = d3.axisBottom(props.xScale).tickValues(tickValues).tickFormat(d3.format('0000')).tickSize(0).tickPadding(16)
 
-    const node = this.refs.axis
-    d3.select(node).call(axis)
-      .selectAll('text').style('fill', '#666666').style('font-size', '11px')
+    const axis = d3.axisBottom(props.xScale)
+      .tickValues(tickValues)
+      .tickFormat(d3.format('0000'))
+      .tickSize(0)
+      .tickPadding(16)
 
-    d3.select(node).select('path').remove()
+    const node = d3.select(this.refs.axis)
+    node.call(axis)
+      .selectAll('text')
+      .style('fill', '#666666')
+      .style('font-size', '11px')
+
+    node.select('path').remove()
   }
 
   render () {

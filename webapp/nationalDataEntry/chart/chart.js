@@ -1,52 +1,46 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-
+import * as d3 from 'd3'
 import R from 'ramda'
 
-import NoDataPlaceholder from './noDataPlaceholder'
-import DataCircles from './dataCircles'
-import XAxis from './xAxis'
-import YAxis from './yAxis'
-
-import { getChartData, getXScale, getYScale, styles } from './chartData'
-
-class Chart extends Component {
-
-  shouldComponentUpdate (nextProps) {
-    const isDataEqual = R.equals(this.props.data, nextProps.data)
-    const isWidthTheSame = this.props.wrapperWidth === nextProps.wrapperWidth
-    const languageChanged = this.props.i18n ? this.props.i18n.language !== nextProps.i18n.language : false
-    return !isDataEqual || !isWidthTheSame || languageChanged
-  }
-
-  render () {
-    return <div ref="chartContainer">
-      {this.props.data ? <svg width={this.props.wrapperWidth} height={styles.height}>
-          <YAxis {...this.props} {...styles} />
-          <XAxis {...this.props} {...styles} />
-          {this.props.trends.map(t => <DataCircles key={t} {...this.props} data={this.props.data[t]} {...styles} />)}
-          <NoDataPlaceholder {...this.props} {...styles} />
-        </svg>
-        : null}
-    </div>
-  }
+export const styles = {
+  height: 320,
+  top: 24,
+  left: 64,
+  bottom: 32
 }
 
-const mapStateToProps = (state, props) => {
-  const nde = state[props.stateName]
-  if (nde && nde.fra) {
-
-    const data = R.pipe(
-      R.map(t => ({[t]: getChartData(nde.fra, t)})),
-      R.mergeAll
-    )(props.trends)
-
-    const xScale = getXScale(props.wrapperWidth)
-    const yScale = getYScale(data)
-
-    return {data, xScale, yScale, i18n: state.user.i18n}
-  }
-  return {}
+// Returns a function that "scales" X coordinates from the data to fit the chart
+export const getXScale = width => {
+  return d3.scaleLinear()
+    .domain([1989, 2021])
+    .range([styles.left, width])
 }
 
-export default connect(mapStateToProps)(Chart)
+const yMaxValue = 98765
+// Returns a function that "scales" Y coordinates from the data to fit the chart
+export const getYScale = data => {
+  const max = R.pipe(
+    R.map(o => d3.max(o, d => d.value)),
+    R.values,
+    o => d3.max(o, d => d),
+    R.defaultTo(yMaxValue),
+    v => v > 0 ? v : yMaxValue
+  )(data)
+
+  return d3.scaleLinear()
+    .domain([0, max])
+    .range([styles.height - styles.bottom, styles.top])
+}
+
+export const getChartData = (fra, property) => {
+  return R.pipe(
+    R.values,
+    R.filter(v => typeof v[property] === 'number'),
+    R.map((v) => { return {year: v.year, value: v[property], type: v.type, estimated: v[`${property}Estimated`]} })
+  )(fra)
+}
+
+export const hasData = data => R.pipe(
+  R.map(d => d.length),
+  R.values,
+  R.any(v => v > 0)
+)(data)
