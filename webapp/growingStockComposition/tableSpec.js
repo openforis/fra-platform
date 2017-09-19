@@ -30,21 +30,17 @@ const rankRow = i18n => idx => [
   ...yearlyVolumeInputsForRow()
 ]
 
-const remainingNative = (tableData, column) => {
-  const sumOfRanks =
-    R.reduce((sum, row) => {
-      const value = tableData[row][column]
-      if (!R.isNil(value))
-        return sum + value
-      else
-        return sum
+const remainingNative = (tableData, column) =>
+  R.reduce((sum, row) => {
+    const value = tableData[row][column]
+    if (!R.isNil(value))
+      return sum + value
+    else
+      return sum
     },
     0,
-    R.range(1, 11)
+    R.range(0, 10)
   )
-  const allNative = tableData[0][column] || 0
-  return allNative - sumOfRanks
-}
 
 const renderRemainingNative = column => ({tableData}) =>
   <td key="" className="fra-table__aggregate-cell">
