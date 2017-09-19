@@ -153,7 +153,7 @@ export const translation = {
     noNationalDataAdded: 'No national data added',
     nationalData: 'National data',
     reclassificationLabel: 'Reclassification',
-    forestCategoriesLabel: 'Forest, Other wooded land and other land',
+    forestCategoriesLabel: 'Forest, other wooded land and other land',
     year: 'Year',
     methods: 'Methods',
     edit: 'Edit',
@@ -263,7 +263,7 @@ export const translation = {
     biodiversityConservation: 'Conservation of biodiversity',
     socialServices: 'Social Services',
     multipleUse: 'Multiple use',
-    other: 'Other',
+    other: 'Other (specify)',
     unknown: 'No/unknown',
     totalForestArea: 'Total forest area'
   },
