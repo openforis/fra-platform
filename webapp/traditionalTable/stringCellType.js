@@ -1,5 +1,6 @@
 import React from 'react'
 import TextInput from '../reusableUiComponents/textInput'
+import { handlePaste } from './paste'
 
 const StringInput = ({countryIso, tableSpec, tableData, rowIdx, colIdx, tableValueChanged, tableChanged}) => {
   const currentValue = tableData[rowIdx][colIdx]
@@ -10,6 +11,16 @@ const StringInput = ({countryIso, tableSpec, tableData, rowIdx, colIdx, tableVal
         (evt) => {
           tableValueChanged(countryIso, tableSpec, rowIdx, colIdx, evt.target.value)
         }
+      }
+      onPaste={
+        handlePaste(
+          countryIso,
+          rowIdx,
+          colIdx,
+          tableSpec,
+          tableData,
+          tableChanged,
+          tableValueChanged)
       }/>
   </td>
 }
