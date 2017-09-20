@@ -264,6 +264,10 @@ export const translation = {
     forestOwnershipManagementRights: 'Forest ownership'
   },
 
+  holderOfManagementRights: {
+    holderOfManagementRights: 'Holder of management rights of public forests'
+  },
+
   disturbances: {
     disturbances: 'Disturbances'
   },
