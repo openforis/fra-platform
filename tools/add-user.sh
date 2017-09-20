@@ -2,7 +2,7 @@
 
 set -e
 
-USAGE="USAGE:\nadd-user.sh -l <LOGIN EMAIL> -n \"<USER'S NAME>\" -c <COUNTRY> -r <ROLE> [-e <OTHER EMAIL>] [-c <COUNTRY> -r <ROLE>...]\n"
+USAGE="USAGE:\nadd-user.sh -l <LOGIN EMAIL> -n \"<USER'S NAME>\" -c <COUNTRY ISO> -r <ROLE> [-e <OTHER EMAIL>] [-c <COUNTRY ISO> -r <ROLE>...]\n"
 
 COUNTRIES=()
 ROLES=()
@@ -90,9 +90,19 @@ VALUES ('$OTHER_EMAIL', '$USERS_NAME', '$LOGIN_EMAIL', 'en');
 
 EOF
 
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
 I=0
 for COUNTRY in "${COUNTRIES[@]}"
 do
+    set +e
+    cat "$DIR/../node_modules/i18n-iso-countries/codes.json" | grep "\"$COUNTRY\""
+    if [[ $? != 0 ]]; then
+        echo "ERROR: $COUNTRY is not a valid ISO 3166-1 alpha-3 code (https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3"
+        exit 1
+    fi
+    set -e
+
     ROLE=`echo ${ROLES[$I]}`
     echo "Adding role $ROLE for country $COUNTRY"
     cat << EOF >> "$MIGRATION_SQL_FILE"
