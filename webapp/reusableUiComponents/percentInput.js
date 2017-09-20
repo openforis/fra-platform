@@ -11,7 +11,7 @@ export class PercentInput extends React.Component {
   }
 
   render () {
-    const Prefix = ({text}) => text ? <div className="percent__prefix">{text.toUpperCase()}</div> : null
+    const Prefix = ({text}) => text ? <div className="percent__prefix">{text}</div> : null
     return <div className={`percent__field validation-error-sensitive-field ${this.props.prefix ? 'prefixed' : ''}`} ref="wrapper">
       <div className="percent__readonly-view"
            style={{

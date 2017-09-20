@@ -25,7 +25,12 @@
   height: 72px;
   border-bottom: 1px solid @ui-border;
   background-color: @ui-bg;
+  transition: @ease-out;
 
+  &:hover {
+    background-color: darken(@ui-bg, 4%);
+    cursor: pointer;
+  }
 }
 
 .nav__country-flag {
