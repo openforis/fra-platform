@@ -14,7 +14,7 @@ import {
   changeAssessmentStatus,
   navigationScroll
 } from './actions'
-import { annualItems, fiveYearItems } from './items'
+import { annualItems, fra2020Items } from './items'
 import { mostPowerfulRole } from '../../common/countryRole'
 import { getAllowedStatusTransitions } from '../../common/assessment'
 import { PopoverControl } from './../reusableUiComponents/popoverControl'
@@ -108,17 +108,17 @@ const CountryRow = ({selectedCountry, country, i18n}) => {
       {getCountryName(country.countryIso, i18n.language)}
     </div>
     {
-      country.annualAssesment
+      country.annualAssessment
         ? <span
         className="nav__country-list-item-secondary"><AssessmentStatus
-        status={country.annualAssesment}/>{i18n.t(`navigation.assessmentStatus.${country.annualAssesment}.label`)}</span>
+        status={country.annualAssessment}/>{i18n.t(`navigation.assessmentStatus.${country.annualAssessment}.label`)}</span>
         : null
     }
     {
-      country.fiveYearAssesment
+      country.fra2020Assessment
         ? <span
         className="nav__country-list-item-secondary"><AssessmentStatus
-        status={country.fiveYearAssesment}/>{i18n.t(`navigation.assessmentStatus.${country.fiveYearAssesment}.label`)}</span>
+        status={country.fra2020Assessment}/>{i18n.t(`navigation.assessmentStatus.${country.fra2020Assessment}.label`)}</span>
         : null
     }
 <span className="nav__country-list-item-secondary">{getRelativeDate(country.lastEdit, i18n) || i18n.t('audit.notStarted')}</span>
@@ -296,20 +296,20 @@ class Nav extends React.Component {
                          userInfo={this.props.userInfo}
                          i18n={this.props.i18n}/>
             {
-              fiveYearItems(this.props.i18n).map(v => <SecondaryItem path={this.props.path}
-                                                                     key={v.label}
-                                                                     goTo={this.props.follow}
-                                                                     countryIso={this.props.country}
-                                                                     status={getReviewStatus(v.section)}
-                                                                     edited={
+              fra2020Items(this.props.i18n).map(v => <SecondaryItem path={this.props.path}
+                                                                    key={v.label}
+                                                                    goTo={this.props.follow}
+                                                                    countryIso={this.props.country}
+                                                                    status={getReviewStatus(v.section)}
+                                                                    edited={
                                                                        getRelativeDate(
                                                                          getAuditStatus(v.section),
                                                                          this.props.i18n
                                                                        ) ||
                                                                          this.props.i18n.t('audit.notStarted')
                                                                        }
-                                                                     userInfo={this.props.userInfo}
-                                                                     {...v} />
+                                                                    userInfo={this.props.userInfo}
+                                                                    {...v} />
               )
             }
           </div>

@@ -32,7 +32,7 @@ export const annualItems = i18n => [
   }
 ]
 
-export const fiveYearItems = i18n => [
+export const fra2020Items = i18n => [
   {
     order: 6,
     label: i18n.t('extentOfForest.extentOfForest'),
