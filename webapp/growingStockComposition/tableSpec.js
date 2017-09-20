@@ -23,8 +23,8 @@ const rankRow = i18n => idx => [
            #{idx} {i18n.t('growingStockComposition.rank')}
          </td>
   },
-  {type: 'textInput'},
-  {type: 'textInput'},
+  {type: 'textInput', minWidth: 240},
+  {type: 'textInput', minWidth: 240},
   ...yearlyVolumeInputsForRow()
 ]
 

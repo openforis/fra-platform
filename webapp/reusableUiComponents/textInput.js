@@ -8,6 +8,7 @@ export default class TextInput extends React.Component {
   }
 
   render() {
+    const minWidthStyleAttr = this.props.minWidth ? `${this.props.minWidth}px` : null
     return <div className="text-field">
       <div className="text-field__readonly-view"
            style={{
@@ -15,9 +16,10 @@ export default class TextInput extends React.Component {
            }}>
         { this.props.value }
       </div>
-      <div style={ {opacity: this.state.hasFocus ? '1' : '0'} }>
+      <div style={{opacity: this.state.hasFocus ? '1' : '0'}}>
         <input
           type="text"
+          style={{minWidth: minWidthStyleAttr}}
           className="fra-table__input"
           value={ this.props.value || '' }
           onChange={ this.props.onChange }
