@@ -35,71 +35,97 @@ export const annualItems = i18n => [
 export const fiveYearItems = i18n => [
   {
     order: 6,
+    label: i18n.t('extentOfForest.extentOfForest'),
+    section: 'extentOfForest',
+    pathTemplate: '/country/:countryIso'
+  },
+  {
+    order: 7,
     label: i18n.t('forestAreaChange.forestAreaLossGainChange'),
     pathTemplate: '/country/:countryIso/forestAreaChange',
     section: forestAreaChangeTableSpec(i18n).name
   },
   {
-    order: 7,
+    order: 8,
     label: i18n.t('forestCharacteristics.forestCharacteristics'),
     pathTemplate: '/country/:countryIso/forestCharacteristics',
     section: 'forestCharacteristics'
   },
   {
-    order: 8,
+    order: 9,
     label: i18n.t('specificForestCategories.specificForestCategories'),
     pathTemplate: '/country/:countryIso/specificForestCategories',
     section: specificForestCategoriesTableSpec(i18n).name
   },
   {
-    order: 9,
+    order: 10,
+    label: i18n.t('growingStock.growingStock'),
+    pathTemplate: '/todo'
+  },
+  {
+    order: 11,
     label: i18n.t('growingStockComposition.growingStockComposition'),
     pathTemplate: '#/todo'
   },
   {
-    order: 10,
+    order: 12,
+    label: i18n.t('biomassStock.biomassStock'),
+    pathTemplate: '#/todo'
+  },
+  {
+    order: 13,
+    label: i18n.t('carbonStock.carbonStock'),
+    pathTemplate: '#/todo'
+  },
+  {
+    order: 14,
     label: i18n.t('nonWoodForestProducts.nonWoodForestProducts'),
     pathTemplate: '#/todo'
   },
   {
-    order: 11,
+    order: 15,
     label: i18n.t('primaryDesignatedManagementObjective.primaryDesignatedManagementObjective'),
     pathTemplate: '/country/:countryIso/primaryDesignatedManagementObjectiveView',
     section: primaryDesignatedManagementObjectiveTableSpec(i18n).name
   },
   {
-    order: 12,
+    order: 16,
+    label: i18n.t('protectedAreas.protectedAreasLongTermMgmtPlans'),
+    pathTemplate: '#/todo'
+  },
+  {
+    order: 17,
     label: i18n.t('forestOwnershipManagementRights.forestOwnershipManagementRights'),
     pathTemplate: '#/todo'
   },
   {
-    order: 13,
+    order: 18,
     label: i18n.t('disturbances.disturbances'),
     pathTemplate: '#/todo'
   },
   {
-    order: 14,
+    order: 19,
     label: i18n.t('areaAffectedByFire.areaAffectedByFire'),
     pathTemplate: '/country/:countryIso/areaAffectedByFire',
     section: areaAffectedByFireTableSpec(i18n).name
   },
   {
-    order: 15,
+    order: 20,
     label: i18n.t('employment.employment'),
     pathTemplate: '#/todo'
   },
   {
-    order: 16,
+    order: 21,
     label: i18n.t('graduationOfStudents.graduationOfStudents'),
     pathTemplate: '#/todo'
   },
   {
-    order: 17,
+    order: 22,
     label: i18n.t('policiesAndLegislation.policiesAndLegislation'),
     pathTemplate: '#/todo'
   },
   {
-    order: 18,
+    order: 23,
     label: i18n.t('areaOfPermanentForestEstate.areaOfPermanentForestEstate'),
     pathTemplate: '#/todo'
   }

@@ -89,8 +89,8 @@ const CountryRole = ({role, roleCountries, currentCountry, i18n}) =>
   <div className="nav__country-list-section">
     <div className="nav__country-list-header">
       <span className="nav__country-list-header-primary">{i18n.t(`user.roles.${role.toLowerCase()}`)}</span>
-      <span className="nav__country-list-header-secondary">{i18n.t('countryListing.annuallyReported')}</span>
-      <span className="nav__country-list-header-secondary">{i18n.t('countryListing.fiveYearCycle')}</span>
+      <span className="nav__country-list-header-secondary">{i18n.t('countryListing.annuallyUpdated')}</span>
+      <span className="nav__country-list-header-secondary">{i18n.t('countryListing.fra2020')}</span>
       <span className="nav__country-list-header-secondary">{i18n.t('audit.edited')}</span>
     </div>
     {
@@ -201,7 +201,7 @@ const NationalDataItem = ({path, countryIso, pathTemplate, secondaryPathTemplate
 
 const EditStatus = ({msg}) => msg ? <div className="nav__secondary-edited">{msg}</div> : null
 
-const SecondaryItem = ({path, countryIso, order, pathTemplate = '/tbd', label, edited, status, userInfo}) => {
+const SecondaryItem = ({path, countryIso, order, pathTemplate = '/tbd', label, edited, status}) => {
   const route = new Route(pathTemplate)
   const linkTo = route.reverse({countryIso})
   const isTodoItem = pathTemplate.indexOf('/todo') !== -1
@@ -209,7 +209,7 @@ const SecondaryItem = ({path, countryIso, order, pathTemplate = '/tbd', label, e
 
   return <Link
     className={`nav__secondary-item ${secondaryTextClass} ${R.equals(path, linkTo) ? 'selected' : ''}`}
-               to={linkTo}>
+              to={linkTo}>
     <span className='nav__secondary-order'>{order}</span>
     <div className='nav__seoncdary-item-texts'>
       <span className='nav__secondary-label'>{label}</span>
@@ -264,9 +264,9 @@ class Nav extends React.Component {
                               pathTemplate="/country/:countryIso/odps"
                               secondaryPathTemplate="/country/:countryIso/odp"
                               userInfo={this.props.userInfo}/>
-            <PrimaryItem label={this.props.i18n.t('navigation.annuallyReported')}
+            <PrimaryItem label={this.props.i18n.t('navigation.annuallyUpdated')}
                          countryIso={this.props.country}
-                         assessmentType="annuallyReported"
+                         assessmentType="annuallyUpdated"
                          assessmentStatuses={status.assessmentStatuses}
                          changeAssessmentStatus={this.props.changeAssessmentStatus}
                          userInfo={this.props.userInfo}
@@ -288,9 +288,9 @@ class Nav extends React.Component {
                                                                    {...v} />
               )
             }
-            <PrimaryItem label={this.props.i18n.t('navigation.fiveYearCycle')}
+            <PrimaryItem label={this.props.i18n.t('navigation.fra2020')}
                          countryIso={this.props.country}
-                         assessmentType="fiveYearCycle"
+                         assessmentType="fra2020"
                          assessmentStatuses={status.assessmentStatuses}
                          changeAssessmentStatus={this.props.changeAssessmentStatus}
                          userInfo={this.props.userInfo}
