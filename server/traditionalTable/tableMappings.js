@@ -4,30 +4,37 @@ const specificForestCategories = require('./mappings/specificForestCategories')
 const forestAreaChange = require('./mappings/forestAreaChange')
 const primaryDesignatedManagementObjective = require('./mappings/primaryDesignatedManagementObjective')
 const areaAffectedByFire = require('./mappings/areaAffectedByFire')
+const growingStockComposition = require('./mappings/growingStockComposition')
 
 const mappings = {
   specificForestCategories,
   forestAreaChange,
   primaryDesignatedManagementObjective,
-  areaAffectedByFire
+  areaAffectedByFire,
+  growingStockComposition
 }
 
-const getIndex = (name, names) => {
+const getRowIndex = (name, names) => {
   const idx = R.findIndex((x) => x === name, names)
   return idx === -1 ? -1 : idx
 }
 
-const getName = (idx, names) => names[idx]
+const getRowName = (idx, names) => names[idx]
+
+const getColumnName = (idx, columns) => R.path([idx, 'name'], columns)
+
+const getColumnIndex = (name, columns) => R.findIndex((x) => x.name === name, columns)
 
 const Mapping = (mapping) =>
   R.merge(mapping,
     {
-      getRowName: (idx) => getName(idx, mapping.rows.names),
-      getRowIndex: (name) => getIndex(name, mapping.rows.names),
+      getRowName: (idx) => getRowName(idx, mapping.rows.names),
+      getRowIndex: (name) => getRowIndex(name, mapping.rows.names),
       getFullRowCount: () => mapping.rows.names.length,
-      getColumnName: (idx) => getName(idx, mapping.columns.names),
-      getColumnIndex: (name) => getIndex(name, mapping.columns.names),
-      getFullColumnCount: () => mapping.columns.names.length
+      getColumn: (idx) => mapping.columns[idx],
+      getColumnName: (idx) => getColumnName(idx, mapping.columns),
+      getColumnIndex: (name) => getColumnIndex(name, mapping.columns),
+      getFullColumnCount: () => mapping.columns.length
     })
 
 const assertSanity = (mappingObj) => {
@@ -36,7 +43,7 @@ const assertSanity = (mappingObj) => {
   assert(mappingObj.getFullColumnCount() > 0, errMsg)
   assert(mappingObj, errMsg)
   assert(mappingObj.rows.names.length > 0, errMsg)
-  assert(mappingObj.columns.names.length > 0, errMsg)
+  assert(mappingObj.columns.length > 0, errMsg)
 }
 
 const getMapping = (tableSpecName) => {

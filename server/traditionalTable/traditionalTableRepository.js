@@ -24,16 +24,24 @@ const createTableData = (cols, rows) =>
     (rowIdx) => new Array(cols),
     R.range(0, rows))
 
-// Now assumes that values are numbers, we might have to add types to
-// mapping later in addition to row and column names
-const update = (tableValues, rowIdx, colIdx, newValue) =>
-  R.update(rowIdx, R.update(colIdx, toNumberOrNull(newValue), tableValues[rowIdx]), tableValues)
+const convertValueFromDb = (colIdx, value, mapping) => {
+  const type = mapping.getColumn(colIdx).type
+  switch (type.toLowerCase()) {
+    case 'numeric':
+      return toNumberOrNull(value)
+    default:
+      return value
+  }
+}
+
+const update = (mapping, tableValues, rowIdx, colIdx, newValue) =>
+  R.update(rowIdx, R.update(colIdx, convertValueFromDb(colIdx, newValue, mapping), tableValues[rowIdx]), tableValues)
 
 const handleRow = mapping => (tableData, row) => {
-  const values = R.omit(sqlCreator.fixedFraTableColumns, row)
+  const values = R.omit(R.pluck('name', sqlCreator.fixedFraTableColumns), row)
   const rowIdx = mapping.getRowIndex(row.row_name)
   return R.reduce(
-    (tableDataAccu, [column, fieldValue]) => update(tableDataAccu, rowIdx, mapping.getColumnIndex(column), fieldValue),
+    (tableDataAccu, [column, fieldValue]) => update(mapping, tableDataAccu, rowIdx, mapping.getColumnIndex(column), fieldValue),
     tableData,
     R.toPairs(values)
   )

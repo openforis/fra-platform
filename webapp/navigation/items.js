@@ -2,6 +2,7 @@ import forestAreaChangeTableSpec from '../forestAreaChange/tableSpec'
 import specificForestCategoriesTableSpec from '../specificForestCategories/tableSpec'
 import primaryDesignatedManagementObjectiveTableSpec from '../primaryDesignatedManagementObjective/tableSpec'
 import areaAffectedByFireTableSpec from '../areaAffectedByFire/tableSpec'
+import growingStockCompositionTableSpec from '../growingStockComposition/tableSpec'
 
 export const annualItems = i18n => [
   {
@@ -54,7 +55,8 @@ export const fiveYearItems = i18n => [
   {
     order: 9,
     label: i18n.t('growingStockComposition.growingStockComposition'),
-    pathTemplate: '#/todo'
+    pathTemplate: '/country/:countryIso/growingStockComposition',
+    section: growingStockCompositionTableSpec(i18n).name
   },
   {
     order: 10,
