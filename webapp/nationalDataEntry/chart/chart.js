@@ -44,3 +44,5 @@ export const hasData = data => R.pipe(
   R.values,
   R.any(v => v > 0)
 )(data)
+
+export const getTrendOdps = trend => R.filter(v => v.type === 'odp', trend)

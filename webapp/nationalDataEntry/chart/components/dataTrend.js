@@ -1,12 +1,11 @@
 import React from 'react'
 import R from 'ramda'
 import DataPath from './dataPath'
-import DataPoints from "./dataPoints";
-import OdpTicks from './odpTicks'
+import DataPoints from './dataPoints'
+
+import { getTrendOdps } from '../chart'
 
 const dataTrend = (props) => {
-  const odps = R.filter(v => v.type === 'odp', props.data)
-
   const prev = v => R.pipe(R.filter(d => d.year <= v.year && d.type === 'fra'), R.prepend({}), R.last)(props.data)
   const next = v => R.pipe(R.filter(d => d.year >= v.year && d.type === 'fra'), R.head, x => x ? x : {})(props.data)
   const fra = R.filter(v => (v.type === 'odp') ? prev(v).estimated && next(v).estimated : true, props.data)
@@ -27,7 +26,7 @@ const dataTrend = (props) => {
     <DataPath
       {...props}
       key="odps-path"
-      data={odps}
+      data={getTrendOdps(props.data)}
       style={{
         fill: 'none',
         stroke: 'rgba(0,152,166,.5)',
@@ -35,8 +34,8 @@ const dataTrend = (props) => {
         shapeRendering: 'geometricPrecision'
       }}
     ></DataPath>
+
     <DataPoints {...props}/>
-    <OdpTicks {...props} data={odps}/>
   </g>
 }
 

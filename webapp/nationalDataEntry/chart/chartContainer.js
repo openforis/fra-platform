@@ -1,5 +1,5 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
 import R from 'ramda'
 
@@ -7,27 +7,35 @@ import NoDataPlaceholder from './components/noDataPlaceholder'
 import DataTrend from './components/dataTrend'
 import XAxis from './components/xAxis'
 import YAxis from './components/yAxis'
+import OdpTicks from './components/odpTicks'
 
-import {getChartData, getXScale, getYScale, styles} from './chart'
+import { getChartData, getXScale, getYScale, styles, getTrendOdps } from './chart'
 
 class Chart extends Component {
 
-  shouldComponentUpdate(nextProps) {
+  shouldComponentUpdate (nextProps) {
     const isDataEqual = R.equals(this.props.data, nextProps.data)
     const isWidthTheSame = this.props.wrapperWidth === nextProps.wrapperWidth
     const languageChanged = this.props.i18n ? this.props.i18n.language !== nextProps.i18n.language : false
     return !isDataEqual || !isWidthTheSame || languageChanged
   }
 
-  render() {
+  render () {
     return <div ref="chartContainer">
       {this.props.data
         ? <svg width={this.props.wrapperWidth} height={styles.height}>
           <YAxis {...this.props} {...styles} />
           <XAxis {...this.props} {...styles} />
+          {/*odp ticks must be visible behind all data points*/}
+          {this.props.trends.map(t =>
+            <OdpTicks
+              key={`odp-ticks-${t}`}
+              {...this.props}
+              data={getTrendOdps(this.props.data[t])}/>
+          )}
           {this.props.trends.map(t =>
             <DataTrend
-              key={t}
+              key={`data-trend-${t}`}
               {...this.props}
               {...styles}
               data={this.props.data[t]}
