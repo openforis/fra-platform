@@ -51,3 +51,15 @@ blockquote > p {
 a {
   color: #008f9c;
 }
+
+.anchor-link:focus {
+  outline: none;
+}
+
+.anchor-link:before {
+  content: "";
+  display: block;
+  margin-top: -16px;
+  padding-bottom: 16px;
+}
+
