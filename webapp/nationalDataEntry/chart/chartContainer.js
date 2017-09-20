@@ -26,19 +26,21 @@ class Chart extends Component {
         ? <svg width={this.props.wrapperWidth} height={styles.height}>
           <YAxis {...this.props} {...styles} />
           <XAxis {...this.props} {...styles} />
-          {/*odp ticks must be visible behind all data points*/}
-          {this.props.trends.map(t =>
+          {/*odp ticks must be positioned behind all data points*/}
+          {this.props.trends.map(t => console.log(t , this.props.data) ||
             <OdpTicks
-              key={`odp-ticks-${t}`}
+              key={`odp-ticks-${t.name}`}
               {...this.props}
-              data={getTrendOdps(this.props.data[t])}/>
+              {...t}
+              data={getTrendOdps(this.props.data[t.name])}/>
           )}
           {this.props.trends.map(t =>
             <DataTrend
-              key={`data-trend-${t}`}
+              key={`data-trend-${t.name}`}
               {...this.props}
               {...styles}
-              data={this.props.data[t]}
+              {...t}
+              data={this.props.data[t.name]}
             />
           )}
           <NoDataPlaceholder {...this.props} {...styles} />
@@ -53,7 +55,7 @@ const mapStateToProps = (state, props) => {
   if (nde && nde.fra) {
 
     const data = R.pipe(
-      R.map(t => ({[t]: getChartData(nde.fra, t)})),
+      R.map(t => ({[t.name]: getChartData(nde.fra, t.name)})),
       R.mergeAll
     )(props.trends)
 

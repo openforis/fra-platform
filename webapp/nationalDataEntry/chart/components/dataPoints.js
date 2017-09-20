@@ -1,15 +1,15 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import * as d3 from 'd3'
 
 class DataPoint extends Component {
 
-  update(props) {
-    const {xScale, yScale, data} = props
+  update (props) {
+    const {xScale, yScale, data, odpColor} = props
 
     if (data) {
       const circle = d3.select(ReactDOM.findDOMNode(this.refs.circles))
-        .selectAll("circle")
+        .selectAll('circle')
         .data(data)
 
       //update
@@ -20,7 +20,7 @@ class DataPoint extends Component {
         .attr('cx', d => xScale(d.year))
         .attr('cy', d => yScale(d.value))
         .attr('r', d => d.type === 'odp' ? 4.5 : 6.5)
-        .style('fill', d => d.type === 'fra' ? '#ffffff' : '#0098a6')
+        .style('fill', d => d.type === 'fra' ? '#ffffff' : odpColor)
         .style('stroke', d => d.type === 'fra' ? '#333333' : '#ffffff')
         .style('stroke-width', '1.5')
         .style('opacity', '1')
@@ -35,8 +35,8 @@ class DataPoint extends Component {
         .remove()
 
       //enter
-      circle.enter().append("circle")
-        .attr("r", 0)
+      circle.enter().append('circle')
+        .attr('r', 0)
         .attr('cx', d => xScale(1990))
         .attr('cy', d => yScale(0))
         .style('fill', '#ffffff')
@@ -47,22 +47,22 @@ class DataPoint extends Component {
         .attr('cx', d => xScale(d.year))
         .attr('cy', d => yScale(d.value))
         .attr('r', d => d.type === 'odp' ? 4.5 : 6.5)
-        .style('fill', d => d.type === 'fra' ? '#ffffff' : '#0098a6')
+        .style('fill', d => d.type === 'fra' ? '#ffffff' : odpColor)
         .style('stroke', d => d.type === 'fra' ? '#333333' : '#ffffff')
         .style('stroke-width', '1.5')
         .style('opacity', '1')
     }
   }
 
-  componentDidMount() {
+  componentDidMount () {
     this.update(this.props)
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps (nextProps) {
     this.update(nextProps)
   }
 
-  render() {
+  render () {
     return <g ref="circles"></g>
   }
 

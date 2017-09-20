@@ -29,7 +29,7 @@ const dataTrend = (props) => {
       data={getTrendOdps(props.data)}
       style={{
         fill: 'none',
-        stroke: 'rgba(0,152,166,.5)',
+        stroke: props.odpPathStroke,
         strokeWidth: 2,
         shapeRendering: 'geometricPrecision'
       }}
