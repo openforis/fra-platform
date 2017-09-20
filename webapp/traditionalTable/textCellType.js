@@ -2,7 +2,14 @@ import React from 'react'
 import TextInput from '../reusableUiComponents/textInput'
 import { handlePaste } from './paste'
 
-const TextInputTableCell = ({countryIso, tableSpec, tableData, rowIdx, colIdx, tableValueChanged, tableChanged}) => {
+const TextInputTableCell = ({countryIso,
+                             tableSpec,
+                             tableData,
+                             rowIdx,
+                             colIdx,
+                             tableValueChanged,
+                             tableChanged,
+                             minWidth}) => {
   const currentValue = tableData[rowIdx][colIdx]
   return <td className="fra-table__cell">
     <TextInput
@@ -21,11 +28,12 @@ const TextInputTableCell = ({countryIso, tableSpec, tableData, rowIdx, colIdx, t
           tableData,
           tableChanged,
           tableValueChanged)
-      }/>
+      }
+      minWidth={minWidth}/>
   </td>
 }
 
 export default (cellSpec) => ({
-  render: (props) => <TextInputTableCell {...props}/>,
+  render: (props) => <TextInputTableCell {...props} minWidth={cellSpec.minWidth}/>,
   acceptValue: (newValue, _) => newValue
 })
