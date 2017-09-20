@@ -76,7 +76,7 @@ const Row = (props) => {
 
   return <tr
     className={`${openCommentThread && R.equals(openCommentThread.target, [row.field, type]) ? 'fra-row-comments__open' : ''}`}>
-    <td className={`fra-table__header-cell${row.calculated ? ' odp-header-cell' : ''}`}>{i18n.t(row.labelKey)}</td>
+    <td className="fra-table__header-cell">{i18n.t(row.labelKey)}</td>
     {
       cols.map((col, i) =>
         <Cell
@@ -100,15 +100,17 @@ const Cell = (props) => {
     R.defaultTo(null),
   )(values)
 
-  return <td className={`fra-table__${calculated ? 'text-readonly-' : ''}cell`}>
-    <ThousandSeparatedIntegerInput
-      className="fra-table__integer-input"
-      integerValue={value}
-      disabled={calculated}
-      onChange={e => props.updateValue(countryIso, areaValues, values, col.year, field, type, e.target.value)}
-      onPaste={e => props.updateValues(countryIso, areaValues, values, readPasteClipboard(e), type, props.cols, props.rowIdx, props.colIdx)}
-    />
-  </td>
+  return calculated
+    ? <td className="fra-table__aggregate-cell">{value}</td>
+    : <td className="fra-table__cell">
+      <ThousandSeparatedIntegerInput
+        className="fra-table__integer-input"
+        integerValue={value}
+        disabled={calculated}
+        onChange={e => props.updateValue(countryIso, areaValues, values, col.year, field, type, e.target.value)}
+        onPaste={e => props.updateValues(countryIso, areaValues, values, readPasteClipboard(e), type, props.cols, props.rowIdx, props.colIdx)}
+      />
+    </td>
 }
 
 export default GrowingStockTable
