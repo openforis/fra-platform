@@ -33,18 +33,6 @@ const NationalDataEntry = (props) => {
     {
       field: 'otherLand',
       localizedName: i18n.t('fraClass.otherLand')
-    }
-  ]
-  const eofRowNames = {
-    0: 'forestArea',
-    1: 'otherWoodedLand',
-    2: 'otherLand'
-  }
-
-  const otherLandRows = [
-    {
-      field: 'otherLand',
-      localizedName: i18n.t('fraClass.otherLand')
     },
     {
       field: 'otherLandPalms',
@@ -67,12 +55,15 @@ const NationalDataEntry = (props) => {
       localizedName: i18n.t('extentOfForest.ofWhichTreesUrbanSettings')
     }
   ]
-  const otherLandRowNames = {
-    0: 'otherLand',
-    1: 'otherLandPalms',
-    2: 'otherLandTreeOrchards',
-    3: 'otherLandAgroforestry',
-    4: 'otherLandTreesUrbanSettings'
+
+  const eofRowNames = {
+    0: 'forestArea',
+    1: 'otherWoodedLand',
+    2: 'otherLand',
+    3: 'otherLandPalms',
+    4: 'otherLandTreeOrchards',
+    5: 'otherLandAgroforestry',
+    6: 'otherLandTreesUrbanSettings'
   }
 
   return <div className='nde__data-input-component'>
@@ -101,10 +92,6 @@ const NationalDataEntry = (props) => {
       </button>
     </div>
     <DataTable section='extentOfForest' rows={eofRows} rowNames={eofRowNames} {...props} areaUnitLabel={props.i18n.t('extentOfForest.areaUnitLabel')} categoryHeader={props.i18n.t('extentOfForest.categoryHeader')} />
-    <div className="nde__data-table-header">
-      <h3 className="subhead">{i18n.t('extentOfForest.otherLandCategories')}</h3>
-    </div>
-    <DataTable section='extentOfForest' rows={otherLandRows} rowNames={otherLandRowNames} {...props}  areaUnitLabel={props.i18n.t('extentOfForest.areaUnitLabel')} categoryHeader={props.i18n.t('extentOfForest.categoryHeader')} />
     <CommentableReviewDescription
       section='extentOfForest'
       countryIso={props.match.params.countryIso}
