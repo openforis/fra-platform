@@ -242,8 +242,7 @@ export const translation = {
     specificForestCategories: 'Specific forest categories',
     areaUnitLabel: 'Area (1000 ha)',
     bamboo: 'Bamboos',
-    mangroves: 'Mangroves',
-    rubberPlantations: 'Rubber plantations'
+    mangroves: 'Mangroves'
   },
 
   growingStockComposition: {

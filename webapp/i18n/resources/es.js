@@ -161,8 +161,7 @@ export const translation = {
   specificForestCategories: {
     specificForestCategories: 'Categorías forestales específicas',
     bamboo: 'Bambú',
-    mangroves: 'Manglares',
-    rubberPlantations: 'Plantaciones de caucho'
+    mangroves: 'Manglares'
   },
 
   growingStockComposition: {
