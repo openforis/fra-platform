@@ -6,6 +6,7 @@ import NationalDataEntryView from './nationalDataEntry/nationalDataEntryView'
 import GrowingStockView from './growingStock/growingStockView'
 import OriginalDataPointView from './originalDataPoint/originalDataPointView'
 import SpecificForestCategoriesView from './specificForestCategories/specificForestCategoriesView'
+import GrowingStockCompositionView from './growingStockComposition/growingStockCompositionView'
 import PrimaryDesignatedManagementObjectiveView from './primaryDesignatedManagementObjective/primaryDesignatedManagementObjectiveView'
 import OriginalDataListView from './originalDataPoint/originalDataListView'
 import ForestAreaChangeView from './forestAreaChange/forestAreaChangeView'
@@ -20,6 +21,7 @@ const routes = {
   '/country/:countryIso': NationalDataEntryView,
   '/country/:countryIso/growingStock': GrowingStockView,
   '/country/:countryIso/specificForestCategories': SpecificForestCategoriesView,
+  '/country/:countryIso/growingStockComposition': GrowingStockCompositionView,
   '/country/:countryIso/forestAreaChange': ForestAreaChangeView,
   '/country/:countryIso/forestCharacteristics': ForestCharacteristicsView,
   '/country/:countryIso/primaryDesignatedManagementObjectiveView': PrimaryDesignatedManagementObjectiveView,

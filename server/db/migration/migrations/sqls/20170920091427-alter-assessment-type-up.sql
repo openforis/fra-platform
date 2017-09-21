@@ -1,0 +1,13 @@
+TRUNCATE TABLE assessment;
+
+ALTER TABLE
+assessment
+  DROP COLUMN "type";
+
+DROP TYPE ASSESSMENT_TYPE;
+
+CREATE TYPE ASSESSMENT_TYPE AS ENUM ('annuallyUpdated', 'fra2020');
+
+ALTER TABLE
+assessment
+  ADD COLUMN type ASSESSMENT_TYPE;

@@ -11,8 +11,8 @@ const assessmentRepository = require('../assessment/assessmentRepository')
 const auditRepository = require('../audit/auditRepository')
 
 const defaultStatuses = {
-  'annuallyReported': 'editing',
-  'fiveYearCycle': 'editing'
+  'annuallyUpdated': 'editing',
+  'fra2020': 'editing'
 }
 
 const prefixes = [

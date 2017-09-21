@@ -7,7 +7,7 @@ import { fetchItem, save, saveMany, generateFraValues } from '../originalDataPoi
 import LoggedInPageTemplate from '../loggedInPageTemplate'
 import { DataTable } from '../originalDataPoint/commentableDatatable'
 import ChartWrapper from '../nationalDataEntry/chart/chartWrapper'
-import CommentableDescriptions from '../description/commentableDescription'
+import { CommentableReviewDescription } from '../description/commentableDescription'
 
 const ForestCharacteristics = props => {
   const disableGenerateFRAValues = () => {
@@ -69,10 +69,12 @@ const ForestCharacteristics = props => {
       </button>
     </div>
     <DataTable section='forestCharacteristics' rows={rows} rowNames={rowNames} {...props} areaUnitLabel={props.i18n.t('forestCharacteristics.areaUnitLabel')} categoryHeader={props.i18n.t('forestCharacteristics.categoryHeader')}/>
-    <CommentableDescriptions
+    <CommentableReviewDescription
       section='forestCharacteristics'
-      name="forestCharacteristics"
       countryIso={props.countryIso}
+      descriptionName={`forestCharacterstics_generalComments`}
+      commentTarget={['generalComments']}
+      descriptionTitle={props.i18n.t('description.generalCommentsTitle')}
       i18n={props.i18n}
     />
   </div>

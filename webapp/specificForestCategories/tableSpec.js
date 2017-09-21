@@ -36,18 +36,6 @@ export default i18n => ({
       {type: 'integerInput'},
       {type: 'integerInput'},
       {type: 'integerInput'}
-    ],
-    [
-      {
-        type: 'readOnly',
-        jsx: <td key="rubberPlantations"
-                 className="fra-table__header-cell">{i18n.t('specificForestCategories.rubberPlantations')}</td>
-      },
-      {type: 'integerInput'},
-      {type: 'integerInput'},
-      {type: 'integerInput'},
-      {type: 'integerInput'},
-      {type: 'integerInput'}
     ]
   ],
   valueSlice: {columnStart: 1}
