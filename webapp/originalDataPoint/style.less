@@ -82,11 +82,6 @@
 
 .odp-list__container {
   padding: 32px 32px 64px;
-
-  table {
-    margin-top: 24px;
-    margin-bottom: 32px;
-  }
 }
 
 .odp-list__list-table {
@@ -94,19 +89,15 @@
   font-size: @font-m;
   line-height: 20px;
   border-collapse: collapse;
-}
-
-.odp-list__year-column {
-  width: 60px;
+  margin-top: 24px;
+  margin-bottom: 32px;
 }
 
 .odp-list__notification-column {
-  .odp-list__notification-column-content {
-    display: flex;
-    align-items: center;
-    > div {
-      padding: 0 4px;
-    }
+  > div {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 0 4px;
   }
 
   .open-issues {
@@ -124,7 +115,6 @@
 .odp-list__edit-column {
   text-align: right;
 
-
   .link {
     line-height: 20px;
     padding: 12px;
@@ -133,6 +123,15 @@
 
 .odp_list__empty-column {
   color: @text-disabled;
+}
+
+.odp-list__header-row {
+  border-bottom: @ui-thin-border;
+  text-align: left;
+
+  th {
+    padding: 12px;
+  }
 }
 
 .odp-list__list-row {
@@ -144,7 +143,7 @@
     background: lighten(@ui-bg, 2%);
   }
 
-  td, th {
+  td {
     padding: 12px;
   }
 
