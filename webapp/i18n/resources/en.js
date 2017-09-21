@@ -154,7 +154,7 @@ export const translation = {
     nationalData: 'National data',
     reclassificationLabel: 'Reclassification',
     forestCategoriesLabel: 'Forest, other wooded land and other land',
-    year: 'Year',
+    year: 'Reference year for the data',
     methods: 'Methods',
     edit: 'Edit',
     copyPreviousValues: 'Copy previous values',
