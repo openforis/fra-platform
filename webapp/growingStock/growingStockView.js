@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import * as R from 'ramda'
 
 import LoggedInPageTemplate from '../loggedInPageTemplate'
-import CommentableDescriptions from '../description/commentableDescription'
+import { CommentableDescriptions } from '../description/commentableDescription'
 import GrowingStockTable from './growingStockTable'
 import { rows } from './growingStock'
 
