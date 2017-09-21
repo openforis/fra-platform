@@ -12,26 +12,20 @@
   border-radius: 3px;
   pointer-events: none;
   font-size: 13px;
-  color: rgba(230, 230, 230, 0.9);
+  color: #fff;
+  opacity: 0;
+  transition: opacity .25s cubic-bezier(0.785, 0.135, 0.150, 0.860);
 }
 
 .chart__data-points-tooltip:after {
-  box-sizing: border-box;
-  display: inline;
-  font-size: 10px;
-  width: 100%;
-  min-height: 60px;
-  height: auto;
-  line-height: 1;
-  color: @bgColorTooltip;
+  content: "";
   position: absolute;
-  pointer-events: none;
-
-  content: "\25BC";
-  margin: -3px 0 0 0;
   top: 100%;
-  left: 0;
-  text-align: center;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: @bgColorTooltip transparent transparent transparent;
 }
 
 .chart__data-points-tooltip-year {
@@ -39,7 +33,7 @@
   margin-bottom: 10px;
   width: 100%;
   text-align: center;
-  color: rgba(230, 230, 230, 0.7);
+  opacity: .8;
 }
 
 .chart__data-points-tooltip-value {

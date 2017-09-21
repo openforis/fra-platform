@@ -60,7 +60,8 @@ class Legend extends Component {
                  justifyContent: 'flex-start',
                  alignItems: 'center',
                  opacity: '0',
-                 paddingRight: '15px'
+                 paddingLeft: '5px',
+                 paddingRight: '10px'
                }}>
             {/*legend color*/}
             <div style={{
