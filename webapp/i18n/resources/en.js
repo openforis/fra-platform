@@ -69,13 +69,13 @@ export const translation = {
   // components
 
   countryListing: {
-    annuallyReported: 'Annually',
-    fiveYearCycle: 'Five-year'
+    annuallyUpdated: 'Annually updated',
+    fra2020: 'FRA 2020'
   },
 
   navigation: {
-    annuallyReported: 'Annually reported',
-    fiveYearCycle: 'Five-year cycle',
+    annuallyUpdated: 'Annually updated',
+    fra2020: 'FRA 2020',
     assessmentStatus: {
       changing: {
         label: 'Changing…'
@@ -281,6 +281,10 @@ export const translation = {
 
   forestOwnershipManagementRights: {
     forestOwnershipManagementRights: 'Forest ownership'
+  },
+
+  holderOfManagementRights: {
+    holderOfManagementRights: 'Holder of management rights of public forests'
   },
 
   disturbances: {
