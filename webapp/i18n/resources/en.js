@@ -6,9 +6,12 @@ export const translation = {
     fr: 'Français',
     ru: 'Русский'
   },
+
   definition: {
-    linkLabel: 'See definitions'
+    definitionLabel: 'See definitions',
+    faqLabel: 'FAQ'
   },
+
   audit: {
     notStarted: 'Not started',
     edited: 'Edited'
