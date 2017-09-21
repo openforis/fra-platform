@@ -5,13 +5,15 @@ const forestAreaChange = require('./mappings/forestAreaChange')
 const primaryDesignatedManagementObjective = require('./mappings/primaryDesignatedManagementObjective')
 const areaAffectedByFire = require('./mappings/areaAffectedByFire')
 const growingStockComposition = require('./mappings/growingStockComposition')
+const nonWoodForestProductsRemovals = require('./mappings/nonWoodForestProductsRemovals')
 
 const mappings = {
   specificForestCategories,
   forestAreaChange,
   primaryDesignatedManagementObjective,
   areaAffectedByFire,
-  growingStockComposition
+  growingStockComposition,
+  nonWoodForestProductsRemovals
 }
 
 const getRowIndex = (name, names) => {

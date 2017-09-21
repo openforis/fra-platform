@@ -261,8 +261,14 @@ export const translation = {
     totalGrowingStock: 'Total growing stock'
   },
 
-  nonWoodForestProducts: {
-    nonWoodForestProducts: 'Non wood forest products removals 2015'
+  nonWoodForestProductsRemovals: {
+    nonWoodForestProducts: 'Non wood forest products removals 2015',
+    nameOfProduct: 'Name of NWFP product',
+    keySpecies: 'Key species',
+    quantity: 'Quantity',
+    unit: 'Unit',
+    value: 'Value (1000 currency)',
+    category: 'NWFP category'
   },
 
   primaryDesignatedManagementObjective: {
