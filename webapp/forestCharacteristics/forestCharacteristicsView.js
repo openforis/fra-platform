@@ -60,7 +60,9 @@ const ForestCharacteristics = props => {
         {props.i18n.t('nationalDataPoint.addNationalDataPoint')}
       </Link>
     </div>
-    <ChartWrapper stateName="forestCharacteristics" trends={['naturalForestArea']} />
+    <ChartWrapper stateName="forestCharacteristics" trends={[
+      {name:'naturalForestArea', label:props.i18n.t('fraClass.forest'), odpColor:'#0098a6', fraPathStroke:'rgba(0,152,166,.35)', odpPathStroke:'rgba(0,152,166,.5)'}
+      ]} />
     <div className="nde__data-table-header">
       <h3 className="subhead">{props.i18n.t('forestCharacteristics.forestCharacteristics')}</h3>
       <button disabled={disableGenerateFRAValues()} className="btn btn-primary"
