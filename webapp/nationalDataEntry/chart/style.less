@@ -1,0 +1,60 @@
+@bgColorTooltip : rgba(17, 17, 17, 0.9);
+
+.chart__data-points circle:hover {
+  cursor: pointer;
+}
+
+.chart__data-points-tooltip {
+  line-height: 1;
+  font-weight: 400;
+  padding: 20px 15px;
+  background: @bgColorTooltip;
+  border-radius: 3px;
+  pointer-events: none;
+  font-size: 13px;
+  color: rgba(204, 204, 204, 0.9);
+}
+
+.chart__data-points-tooltip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 10px;
+  width: 100%;
+  min-height: 60px;
+  height: auto;
+  line-height: 1;
+  color: @bgColorTooltip;
+  position: absolute;
+  pointer-events: none;
+
+  content: "\25BC";
+  margin: -2px 0 0 0;
+  top: 100%;
+  left: 0;
+  text-align: center;
+}
+
+.chart__data-points-tooltip-year {
+  font-size: 11px;
+  margin-bottom: 10px;
+  width: 100%;
+  text-align: center;
+  color: rgba(204, 204, 204, 0.7);
+}
+
+.chart__data-points-tooltip-value {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .unit {
+    font-size: 11px;
+  }
+}
+
+.chart__data-points-tooltip-value-marker {
+  width: 10px;
+  height: 10px;
+  margin-right: 5px;
+  border-radius: 20%;
+}

@@ -1,17 +1,16 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import * as d3 from 'd3'
-import {hasData} from '../chart'
+import { hasData, formatNumber, defaultTransitionDuration } from '../chart'
 
 class YAxis extends Component {
 
-  domAxis(props) {
-    const formatLabel = v => d3.format(',')(v).replace(/,/g, ' ')
+  domAxis (props) {
 
     const axis = d3.axisLeft(props.yScale)
       .ticks(5)
       .tickSizeInner(-props.wrapperWidth)
       .tickSizeOuter(0)
-      .tickFormat(formatLabel)
+      .tickFormat(formatNumber)
       .tickPadding(8)
 
     const domAxis = d3.select(this.refs.axis).call(axis)
@@ -25,15 +24,14 @@ class YAxis extends Component {
     return domAxis
   }
 
-
-  componentDidMount() {
+  componentDidMount () {
     const propsHasData = hasData(this.props.data)
     const domAxis = this.domAxis(this.props)
 
     domAxis.selectAll('text')
       .transition()
       .ease(d3.easeBackOut)
-      .duration(500)
+      .duration(defaultTransitionDuration)
       .attrTween('fill', () =>
         // enter
         propsHasData
@@ -44,11 +42,11 @@ class YAxis extends Component {
     domAxis
       .transition()
       .ease(d3.easePolyOut)
-      .duration(500)
+      .duration(defaultTransitionDuration)
       .attr('transform', d => `translate(${propsHasData ? this.props.left : '0'}, 0)`)
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps (nextProps) {
     const propsHasData = hasData(this.props.data)
     const nextPropsHasData = nextProps ? hasData(nextProps.data) : false
     const domAxis = nextProps ? this.domAxis(nextProps) : this.domAxis(this.props)
@@ -56,7 +54,7 @@ class YAxis extends Component {
     domAxis.selectAll('text')
       .transition()
       .ease(d3.easeBackIn)
-      .duration(500)
+      .duration(defaultTransitionDuration)
       .attrTween('fill', () =>
         !propsHasData && nextPropsHasData
           // enter
@@ -72,12 +70,12 @@ class YAxis extends Component {
     domAxis
       .transition()
       .ease(d3.easePolyOut)
-      .duration(500)
+      .duration(defaultTransitionDuration)
       .attr('transform', d => `translate(${nextPropsHasData ? nextProps.left : '0'}, 0)`)
 
   }
 
-  render() {
+  render () {
     return <g className="axis" ref="axis"></g>
   }
 }

@@ -17,8 +17,8 @@ const dataTrend = (props) => {
       data={fra}
       style={{
         fill: 'none',
-        stroke: 'rgba(0,0,0,.2)',
-        strokeWidth: 2,
+        stroke: props.fraPathStroke,
+        strokeWidth: 1.5,
         shapeRendering: 'geometricPrecision',
         strokeDasharray: '5,4'
       }}

@@ -1,12 +1,14 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
-import {interpolatePath} from 'd3-interpolate-path'
+import { interpolatePath } from 'd3-interpolate-path'
 import * as d3 from 'd3'
 import R from 'ramda'
 
+import { defaultTransitionDuration } from '../chart'
+
 class DataPath extends Component {
 
-  getPath({xScale, yScale, data}) {
+  getPath ({xScale, yScale, data}) {
     return d3.line()
       .x((d) => xScale(d.year))
       .y((d) => yScale(d.value))
@@ -14,14 +16,15 @@ class DataPath extends Component {
       (data)
   }
 
-  interpolatePath(previous, current) {
+  interpolatePath (previous, current) {
     return d3.select(ReactDOM.findDOMNode(this))
       .transition()
       .ease(d3.easeCircleOut)
-      .duration(500).attrTween('d', d => interpolatePath(previous, current))
+      .duration(defaultTransitionDuration)
+      .attrTween('d', d => interpolatePath(previous, current))
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps (nextProps) {
     const {xScale, yScale, data} = this.props
     const nextData = nextProps.data
     // enter
@@ -56,7 +59,7 @@ class DataPath extends Component {
     }
   }
 
-  componentDidMount() {
+  componentDidMount () {
     const {xScale, yScale, data} = this.props
     if (data.length > 1) {
       const current = this.getPath({...this.props})
@@ -69,7 +72,7 @@ class DataPath extends Component {
     }
   }
 
-  render() {
+  render () {
     return <path style={{...this.props.style, opacity: 0}}></path>
   }
 }

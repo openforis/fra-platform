@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import * as d3 from 'd3'
+import d3Tip from 'd3-tip'
+
+import { formatNumber, defaultTransitionDuration } from '../chart'
 
 class DataPoint extends Component {
 
@@ -15,7 +18,7 @@ class DataPoint extends Component {
       //update
       circle
         .transition()
-        .duration(500)
+        .duration(defaultTransitionDuration)
         .ease(d3.easeCircleOut)
         .attr('cx', d => xScale(d.year))
         .attr('cy', d => yScale(d.value))
@@ -28,7 +31,7 @@ class DataPoint extends Component {
       //exit
       circle.exit()
         .transition()
-        .duration(500)
+        .duration(defaultTransitionDuration)
         .ease(d3.easeCircleOut)
         .attr('cy', d => yScale(0))
         .style('opacity', '0')
@@ -36,13 +39,15 @@ class DataPoint extends Component {
 
       //enter
       circle.enter().append('circle')
+        .on('mouseover', this.toolTip.show)
+        .on('mouseout', this.toolTip.hide)
         .attr('r', 0)
         .attr('cx', d => xScale(1990))
         .attr('cy', d => yScale(0))
         .style('fill', '#ffffff')
         .attr('cx', d => xScale(d.year))
         .transition()
-        .duration(500)
+        .duration(defaultTransitionDuration)
         .ease(d3.easeCubicOut)
         .attr('cx', d => xScale(d.year))
         .attr('cy', d => yScale(d.value))
@@ -51,10 +56,29 @@ class DataPoint extends Component {
         .style('stroke', d => d.type === 'fra' ? '#333333' : '#ffffff')
         .style('stroke-width', '1.5')
         .style('opacity', '1')
+
     }
   }
 
+  htmlTooltip (d) {
+    return `
+        <div class="chart__data-points-tooltip-year">${d.year}</div>
+        <div class="chart__data-points-tooltip-value">
+            <div class="chart__data-points-tooltip-value-marker" style="background-color: ${d.type === 'fra' ? '#ffffff' : this.props.odpColor}"></div>
+            <div>${formatNumber(d.value)} <span class="unit"> (1000 ha)</span></div>
+        </div>
+    `
+  }
+
   componentDidMount () {
+    this.toolTip = d3Tip()
+      .attr('class', 'chart__data-points-tooltip')
+      .offset([-10, 0])
+      .html(this.htmlTooltip.bind(this))
+
+    d3.select(this.refs.circles)
+      .call(this.toolTip)
+
     this.update(this.props)
   }
 
@@ -63,7 +87,7 @@ class DataPoint extends Component {
   }
 
   render () {
-    return <g ref="circles"></g>
+    return <g ref="circles" className="chart__data-points"></g>
   }
 
 }
