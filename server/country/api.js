@@ -17,6 +17,7 @@ const defaultStatuses = {
 
 const prefixes = [
   'extentOfForest',
+  'growingStock',
   'forestAreaChange',
   'forestCharacteristic',
   'specificForestCategories',

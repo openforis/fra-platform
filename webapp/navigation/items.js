@@ -14,7 +14,8 @@ export const annualItems = i18n => [
   {
     tableNo: '3a',
     label: i18n.t('growingStock.growingStock'),
-    pathTemplate: '/todo'
+    section: 'growingStock',
+    pathTemplate: '/country/:countryIso/growingStock'
   },
   {
     tableNo: '3c',
