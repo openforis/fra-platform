@@ -62,7 +62,7 @@ table {
 
 table td,
 table th {
-  padding: 1px 16px 1px 0;
+  padding: 2px 4px;
 }
 
 pre {
@@ -88,7 +88,7 @@ a {
 .anchor-link:before {
   content: "";
   display: block;
-  margin-top: -16px;
-  padding-bottom: 16px;
+  margin-top: -32px;
+  padding-bottom: 32px;
 }
 

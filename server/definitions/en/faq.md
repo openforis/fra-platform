@@ -159,32 +159,44 @@ A: A disturbed forests with no visible human impact and with a species compositi
 
 A: FRA uses the definition of mangroves as of Tomlinson’s Botany of Mangroves, where the following are listed as “true mangrove species”:
 
-|                              |                              |                              |
-|------------------------------|------------------------------|------------------------------|
-| Acanthus ebracteatus         | Bruguiera sexangula          | Pemphis acidula              |
-| Acanthus ilicifolius         | Camptostemon philippinensis  | Rhizophora x annamalayana    |
-| Acanthus xiamenensis         | Camptostemon schultzii       | Rhizophora apiculata         |
-| Acrostichum aureum           | Ceriops australis            | Rhizophora harrisonii        |
-| Acrostichum speciosum        | Ceriops decandra             | Rhizophora x lamarckii       |
-| Aegialitis annulata          | Ceriops somalensis           | Rhizophora mangle            |
-| Aegialitis rotundifolia      | Ceriops tagal                | Rhizophora mucronata         |
-| Aegiceras corniculatum       | Conocarpus erectus           | Rhizophora racemosa          |
-| Aegiceras floridum           | Cynometra iripa              | Rhizophora samoensis         |
-| Avicennia alba               | Cynometra ramiflora          | Rhizophora x selala          |
-| Avicennia bicolor            | Excoecaria agallocha         | Rhizophora stylosa           |
-| Avicennia eucalyptifolia     | Excoecaria indica            | Scyphiphora hydrophyllacea   |
-| Avicennia germinans          | Heritiera fomes              | Sonneratia alba              |
-| Avicennia integra            | Heritiera globosa            | Sonneratia apetala           |
-| Avicennia lanata             | Heritiera kanikensis         | Sonneratia caseolaris        |
-| Avicennia marina             | Heritiera littoralis         | Sonneratia griffithii        |
-| Avicennia officinalis        | Kandelia candel              | Sonneratia x gulngai         |
-| Avicennia rumphiana          | Laguncularia racemosa        | Sonneratia hainanensis       |
-| Avicennia schaueriana        | Lumnitzera littorea          | Sonneratia ovata             |
-| Bruguiera cylindrica         | Lumnitzera racemosa          | Sonneratia x urama           |
-| Bruguiera exaristata         | Lumnitzera x rosea           | Xylocarpus granatum          |
-| Bruguiera gymnorrhiza        | Nypa fruticans               | Xylocarpus mekongensis       |
-| Bruguiera hainesii           | Osbornia octodonta           | Xylocarpus rumphii           |
-| Bruguiera parviflora         | Pelliciera rhizophorae       |                              |
+|                              |                              |
+|------------------------------|------------------------------|
+| Acanthus ebracteatus         | Pemphis acidula              |
+| Acanthus ilicifolius         | Rhizophora x annamalayana    |
+| Acanthus xiamenensis         | Rhizophora apiculata         |
+| Acrostichum aureum           | Rhizophora harrisonii        |
+| Acrostichum speciosum        | Rhizophora x lamarckii       |
+| Aegialitis annulata          | Rhizophora mangle            |
+| Aegialitis rotundifolia      | Rhizophora mucronata         |
+| Aegiceras corniculatum       | Rhizophora racemosa          |
+| Aegiceras floridum           | Rhizophora samoensis         |
+| Avicennia alba               | Rhizophora x selala          |
+| Avicennia bicolor            | Rhizophora stylosa           |
+| Avicennia eucalyptifolia     | Scyphiphora hydrophyllacea   |
+| Avicennia germinans          | Sonneratia alba              |
+| Avicennia integra            | Sonneratia apetala           |
+| Avicennia lanata             | Sonneratia caseolaris        |
+| Avicennia marina             | Sonneratia griffithii        |
+| Avicennia officinalis        | Sonneratia x gulngai         |
+| Avicennia rumphiana          | Sonneratia hainanensis       |
+| Avicennia schaueriana        | Sonneratia ovata             |
+| Bruguiera cylindrica         | Sonneratia x urama           |
+| Bruguiera exaristata         | Xylocarpus granatum          |
+| Bruguiera gymnorrhiza        | Xylocarpus mekongensis       |
+| Bruguiera hainesii           | Xylocarpus rumphii           |
+| Bruguiera parviflora         | Heritiera fomes              | 
+| Bruguiera sexangula          | Heritiera globosa            |       
+| Camptostemon philippinensis  | Heritiera kanikensis         |       
+| Camptostemon schultzii       | Heritiera littoralis         |       
+| Ceriops australis            | Kandelia candel              |       
+| Ceriops decandra             | Laguncularia racemosa        |       
+| Ceriops somalensis           | Lumnitzera littorea          |       
+| Ceriops tagal                | Lumnitzera racemosa          |       
+| Conocarpus erectus           | Lumnitzera x rosea           |       
+| Cynometra iripa              | Nypa fruticans               |       
+| Cynometra ramiflora          | Osbornia octodonta           |       
+| Excoecaria agallocha         | Pelliciera rhizophorae       |       
+| Excoecaria indica            |                              |
 
 ---
 
