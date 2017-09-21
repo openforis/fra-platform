@@ -2,8 +2,8 @@ import * as d3 from 'd3'
 import R from 'ramda'
 
 export const styles = {
-  height: 340,
-  top: 35,
+  height: 330,
+  top: 30,
   left: 65,
   bottom: 30
 }

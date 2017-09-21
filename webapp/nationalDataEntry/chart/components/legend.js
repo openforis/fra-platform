@@ -44,9 +44,9 @@ class Legend extends Component {
 
   render () {
     return <foreignObject
-      x={styles.left * 2}
+      x={styles.left * 1.5}
       y="0"
-      width={this.props.wrapperWidth - styles.left - 2}
+      width={this.props.wrapperWidth - styles.left * 1.5 - 2}
       height="20px"
       className="chart__legend">
 

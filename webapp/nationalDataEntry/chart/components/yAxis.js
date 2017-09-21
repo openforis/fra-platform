@@ -1,10 +1,10 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import * as d3 from 'd3'
-import { hasData, formatNumber, defaultTransitionDuration, styles } from '../chart'
+import {hasData, formatNumber, defaultTransitionDuration, styles} from '../chart'
 
 class YAxis extends Component {
 
-  domAxis (props) {
+  domAxis(props) {
 
     const axis = d3.axisLeft(props.yScale)
       .ticks(5)
@@ -24,7 +24,7 @@ class YAxis extends Component {
     return domAxis
   }
 
-  componentDidMount () {
+  componentDidMount() {
     const propsHasData = hasData(this.props.data)
     const domAxis = this.domAxis(this.props)
 
@@ -53,7 +53,7 @@ class YAxis extends Component {
       .style('opacity', () => propsHasData ? 1 : 0)
   }
 
-  componentWillReceiveProps (nextProps) {
+  componentWillReceiveProps(nextProps) {
     const propsHasData = hasData(this.props.data)
     const nextPropsHasData = nextProps ? hasData(nextProps.data) : false
     const domAxis = nextProps ? this.domAxis(nextProps) : this.domAxis(this.props)
@@ -89,25 +89,20 @@ class YAxis extends Component {
 
   }
 
-  render () {
+  render() {
 
     return <g className="chart__y-axis">
-      <g ref="unitLabel" opacity="0">
-        <rect x="1"
-              y="0"
-              height="20px"
-              width={styles.left}
-              fill="rgba(17, 17, 17, .05)"
-        ></rect>
-        <text x="12"
-              y="14"
-              style={{
-                fontSize: '10px',
-                fill: 'rgb(102, 102, 102)'
-              }}>
-          1 000 ha
-        </text>
-      </g>
+      <text
+        ref="unitLabel"
+        x="12"
+        y={styles.top}
+        style={{
+          fontSize: '10px',
+          fill: 'rgba(102, 102, 102, .5)',
+          opacity: 0
+        }}>
+        1 000 ha
+      </text>
       <g ref="axis"></g>
     </g>
   }
