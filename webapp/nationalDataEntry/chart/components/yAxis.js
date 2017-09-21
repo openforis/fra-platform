@@ -95,7 +95,7 @@ class YAxis extends Component {
       <text
         ref="unitLabel"
         x="12"
-        y={styles.top}
+        y={(styles.top / 2)}
         style={{
           fontSize: '10px',
           fill: 'rgba(102, 102, 102, .5)',
