@@ -91,8 +91,8 @@ const NationalDataEntry = (props) => {
       </div>
       <ChartWrapper stateName="nationalDataEntry"
                     trends={[
-                      {name:'forestArea', odpColor:'#0098a6', odpPathStroke:'rgba(0,152,166,.5)'},
-                      {name:'otherWoodedLand', odpColor:'#bd19ad', odpPathStroke:'rgba(189,25,173,.5)'}
+                      {name:'forestArea', label:i18n.t('fraClass.forest'), odpColor:'#0098a6', odpPathStroke:'rgba(0,152,166,.5)'},
+                      {name:'otherWoodedLand', label:i18n.t('fraClass.otherWoodedLand'), odpColor:'#bd19ad', odpPathStroke:'rgba(189,25,173,.5)'}
                       ]}/>
     </div>
 

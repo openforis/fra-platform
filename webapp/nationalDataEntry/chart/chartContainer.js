@@ -8,6 +8,7 @@ import DataTrend from './components/dataTrend'
 import XAxis from './components/xAxis'
 import YAxis from './components/yAxis'
 import OdpTicks from './components/odpTicks'
+import Legend from './components/legend'
 
 import { getChartData, getXScale, getYScale, styles, getTrendOdps } from './chart'
 
@@ -24,10 +25,11 @@ class Chart extends Component {
     return <div ref="chartContainer">
       {this.props.data
         ? <svg width={this.props.wrapperWidth} height={styles.height}>
+          <Legend {...this.props} />
           <YAxis {...this.props} {...styles} />
           <XAxis {...this.props} {...styles} />
           {/*odp ticks must be positioned behind all data points*/}
-          {this.props.trends.map(t => console.log(t , this.props.data) ||
+          {this.props.trends.map(t =>
             <OdpTicks
               key={`odp-ticks-${t.name}`}
               {...this.props}

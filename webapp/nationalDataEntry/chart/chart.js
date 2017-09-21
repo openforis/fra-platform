@@ -2,10 +2,10 @@ import * as d3 from 'd3'
 import R from 'ramda'
 
 export const styles = {
-  height: 320,
-  top: 24,
-  left: 64,
-  bottom: 32
+  height: 340,
+  top: 30,
+  left: 65,
+  bottom: 30
 }
 
 // Returns a function that "scales" X coordinates from the data to fit the chart
