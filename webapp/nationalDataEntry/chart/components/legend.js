@@ -26,7 +26,7 @@ class Legend extends Component {
       const elemOpacity = elem.style.opacity
 
       const {ease, opacity, width} = data.length >= 1
-        ? {ease: d3.easeBackIn, opacity: 1, width: state[key].offsetWidth + 15}
+        ? {ease: d3.easeBackIn, opacity: 1, width: state[key].offsetWidth}
         : {ease: d3.easeBackOut, opacity: 0, width: 0}
 
       d3.select(elem)
@@ -43,8 +43,15 @@ class Legend extends Component {
   }
 
   render () {
-    return <foreignObject x={styles.left + 2} y="0" width={this.props.wrapperWidth - styles.left - 2} height="20px">
+    return <foreignObject
+      x={styles.left * 2}
+      y="0"
+      width={this.props.wrapperWidth - styles.left - 2}
+      height="20px"
+      className="chart__legend">
+
       <div style={{display: 'flex', justifyContent: 'flex-start', height: '20px'}}>
+
         {this.props.trends.map(t =>
           <div key={`legend-${t.name}`}
                ref={t.name}
@@ -52,7 +59,8 @@ class Legend extends Component {
                  display: 'flex',
                  justifyContent: 'flex-start',
                  alignItems: 'center',
-                 opacity: '0'
+                 opacity: '0',
+                 paddingRight: '15px'
                }}>
             {/*legend color*/}
             <div style={{
@@ -74,6 +82,7 @@ class Legend extends Component {
 
           </div>
         )}
+
       </div>
     </foreignObject>
   }

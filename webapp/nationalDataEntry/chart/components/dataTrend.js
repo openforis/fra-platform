@@ -10,7 +10,7 @@ const dataTrend = (props) => {
   const next = v => R.pipe(R.filter(d => d.year >= v.year && d.type === 'fra'), R.head, x => x ? x : {})(props.data)
   const fra = R.filter(v => (v.type === 'odp') ? prev(v).estimated && next(v).estimated : true, props.data)
 
-  return <g>
+  return <g className={props.className}>
     <DataPath
       {...props}
       key="fra-path"

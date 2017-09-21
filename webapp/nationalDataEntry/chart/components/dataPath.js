@@ -73,7 +73,7 @@ class DataPath extends Component {
   }
 
   render () {
-    return <path style={{...this.props.style, opacity: 0}}></path>
+    return <path style={{...this.props.style, opacity: 0}} className="chart__data-path"></path>
   }
 }
 

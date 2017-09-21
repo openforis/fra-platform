@@ -16,7 +16,7 @@ class NoDataPlaceholder extends React.Component {
   }
 
   getTucanY() {
-    return 14
+    return 27
   }
 
   getTucanWidth() {
@@ -59,7 +59,7 @@ class NoDataPlaceholder extends React.Component {
       .transition()
       .duration(250)
       .ease(d3.easeBackOut)
-      .attr('y', '14')
+      .attr('y', this.getTucanY())
       .style('opacity', '1')
 
     let delay = 250
@@ -145,7 +145,7 @@ class NoDataPlaceholder extends React.Component {
   render() {
     const {wrapperWidth, i18n} = this.props
 
-    return <g className="noDataPlaceholder" ref="container">
+    return <g className="chart__no-data-placeholder" ref="container">
       <image ref="tucan" href="/img/tucan.svg"
              width={this.getTucanWidth()} height={this.getTucanHeight()}
              x={this.getTucanX()} y={-100}
@@ -153,8 +153,8 @@ class NoDataPlaceholder extends React.Component {
                opacity: 0
              }}
       />
-      <Text text={i18n.t('extentOfForest.chart.placeholderLine1')} width={wrapperWidth} y="136"/>
-      <Text text={i18n.t('extentOfForest.chart.placeholderLine2')} width={wrapperWidth} y="156"/>
+      <Text text={i18n.t('extentOfForest.chart.placeholderLine1')} width={wrapperWidth} y="150"/>
+      <Text text={i18n.t('extentOfForest.chart.placeholderLine2')} width={wrapperWidth} y="170"/>
     </g>
   }
 

@@ -3,7 +3,7 @@ import R from 'ramda'
 
 export const styles = {
   height: 340,
-  top: 30,
+  top: 35,
   left: 65,
   bottom: 30
 }

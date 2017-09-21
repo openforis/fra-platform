@@ -29,7 +29,7 @@ class XAxis extends Component {
   }
 
   render () {
-    return <g className="axis" ref="axis" transform={`translate(0, ${this.props.height - this.props.bottom})`}/>
+    return <g className="chart__x-axis" ref="axis" transform={`translate(0, ${this.props.height - this.props.bottom})`}/>
   }
 }
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import * as d3 from 'd3'
-import { hasData, formatNumber, defaultTransitionDuration } from '../chart'
+import { hasData, formatNumber, defaultTransitionDuration, styles } from '../chart'
 
 class YAxis extends Component {
 
@@ -44,6 +44,13 @@ class YAxis extends Component {
       .ease(d3.easePolyOut)
       .duration(defaultTransitionDuration)
       .attr('transform', d => `translate(${propsHasData ? this.props.left : '0'}, 0)`)
+
+    d3.select(this.refs.unitLabel)
+      .transition()
+      .ease(d3.easeBackOut)
+      .duration(defaultTransitionDuration)
+      .delay(propsHasData ? defaultTransitionDuration : 0)
+      .style('opacity', () => propsHasData ? 1 : 0)
   }
 
   componentWillReceiveProps (nextProps) {
@@ -73,10 +80,36 @@ class YAxis extends Component {
       .duration(defaultTransitionDuration)
       .attr('transform', d => `translate(${nextPropsHasData ? nextProps.left : '0'}, 0)`)
 
+    d3.select(this.refs.unitLabel)
+      .transition()
+      .ease(d3.easeBackOut)
+      .duration(defaultTransitionDuration)
+      .delay(nextPropsHasData ? defaultTransitionDuration : 0)
+      .style('opacity', () => nextPropsHasData ? 1 : 0)
+
   }
 
   render () {
-    return <g className="axis" ref="axis"></g>
+
+    return <g className="chart__y-axis">
+      <g ref="unitLabel" opacity="0">
+        <rect x="1"
+              y="0"
+              height="20px"
+              width={styles.left}
+              fill="rgba(17, 17, 17, .05)"
+        ></rect>
+        <text x="12"
+              y="14"
+              style={{
+                fontSize: '10px',
+                fill: 'rgb(102, 102, 102)'
+              }}>
+          1 000 ha
+        </text>
+      </g>
+      <g ref="axis"></g>
+    </g>
   }
 }
 

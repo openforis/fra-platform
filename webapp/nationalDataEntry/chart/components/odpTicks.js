@@ -60,7 +60,7 @@ class OdpTicks extends React.Component {
   }
 
   render () {
-    return <g ref="lines"></g>
+    return <g ref="lines" className={this.props.className}></g>
   }
 }
 

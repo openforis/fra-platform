@@ -34,6 +34,7 @@ class Chart extends Component {
           {this.props.trends.map(t =>
             <OdpTicks
               key={`odp-ticks-${t.name}`}
+              className={`chart__odp-ticks-${t.name}`}
               {...this.props}
               {...t}
               data={getTrendOdps(this.props.data[t.name])}/>
@@ -41,6 +42,7 @@ class Chart extends Component {
           {this.props.trends.map(t =>
             <DataTrend
               key={`data-trend-${t.name}`}
+              className={`chart__data-trend-${t.name}`}
               {...this.props}
               {...styles}
               {...t}
