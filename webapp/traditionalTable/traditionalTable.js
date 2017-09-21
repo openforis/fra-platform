@@ -89,7 +89,8 @@ const mapStateToProps = (state, props) => {
   return {
     ...props,
     tableData: state.traditionalTable[props.tableSpec.name] || table.createTableData(props.tableSpec),
-    openCommentThreadTarget: state.review.openThread ? state.review.openThread.target : null
+    openCommentThreadTarget: state.review.openThread ? state.review.openThread.target : null,
+    i18n: state.user.i18n
   }
 }
 

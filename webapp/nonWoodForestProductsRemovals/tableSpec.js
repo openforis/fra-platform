@@ -13,7 +13,7 @@ const productRow = idx => [
   {type: 'integerInput'},
   {type: 'textInput'},
   {type: 'integerInput'},
-  {type: 'textInput'},
+  {type: 'textSelect', localizationPrefix: 'nonWoodForestProductsRemovals', options: ['a', 'b']},
 ]
 
 export default i18n => ({
