@@ -31,11 +31,12 @@ export default i18n => ({
   </thead>,
   rows: [
     ...R.map(productRow,R.range(1, 11)),
+    productRow(11), //TODO make this the "all other" row, just temporary placeholder
     [{type: 'readOnly', jsx: <td className="fra-table__header-cell"/>}],
     [{type: 'readOnly', jsx: <td className="fra-table__header-cell"/>}]
   ],
   valueSlice: {
     columnStart: 1,
-    rowEnd: -1
+    rowEnd: -2
   }
 })
