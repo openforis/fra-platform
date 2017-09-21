@@ -20,7 +20,7 @@ For more details on FRA Programme, please see: http://www.fao.org/forest-resourc
 
 # 1 Forest extent and changes
 
-## 1a   Extent of forest and other wooded land
+## 1a Extent of forest and other wooded land
 
 ### FOREST
 
@@ -108,7 +108,7 @@ Explanatory notes
 
 > **Other land with tree cover** such as: urban parks, alleys and gardens.
 
-## 1b   Annual forest area loss, gain and net change
+## 1b Annual forest area loss, gain and net change
 
 ### FOREST EXPANSION
 
@@ -143,7 +143,7 @@ Explanatory note
 
 # 2 Forest characteristics and specific categories
 
-## 2a   Forest characteristics
+## 2a Forest characteristics
 
 ### NATURALLY REGENERATING FOREST
 
@@ -193,7 +193,7 @@ Explanatory notes
 
 > **Planted forest** which is not classified as **plantation forest**.
 
-## 2b   Specific forest categories
+## 2b Specific forest categories
 
 ### BAMBOOS
 
@@ -211,7 +211,7 @@ Explanatory note
 
 # 3 Forest growing stock, biomass and carbon
 
-## 3a   Forest growing stock
+## 3a Forest growing stock
 
 ### GROWING STOCK
 
@@ -227,7 +227,7 @@ Explanatory notes
 
 **Growing stock** divided by the area on where it grows.
 
-## 3b   Forest growing stock composition
+## 3b Forest growing stock composition
 
 ### NATIVE TREE SPECIES (Supplementary term)
 
@@ -246,7 +246,7 @@ Explanatory notes
 1. If the species occurs naturally within the country borders it is considered native for the entire country. 
 2. Naturally regenerated forest of introduced tree species should be considered as *introduced* up to 250 years from the date of original introduction. Beyond 250 years, the species can be considered naturalized.
 
-## 3c   Biomass stock
+## 3c Biomass stock
 
 ### ABOVE-GROUND BIOMASS
 
@@ -265,7 +265,7 @@ Explanatory notes
 1. Includes the below-ground part of the stump.
 2. The country may use another threshold value than 2 mm for fine roots, but in such a case the threshold value used must be documented. 
 
-## 3d   Carbon stock
+## 3d Carbon stock
 
 ### CARBON IN ABOVE-GROUND BIOMASS
 
@@ -341,7 +341,7 @@ Explanatory notes
 
 # 5 Forest designation and management
 
-## 5a   Primary management objective
+## 5a Primary management objective
 
 ### FOREST AREA WITH MANAGEMENT OBJECTIVE (Supplementary term)
 
@@ -419,7 +419,7 @@ Explanatory note
 
 Forest with no or unknown primary management objective.
 
-## 5b   Protected areas and management plans
+## 5b Protected areas and management plans
 
 ### FOREST AREA WITHIN PROTECTED AREAS
 
@@ -450,7 +450,7 @@ Explanatory notes
 
 # 6 Forest ownership and management rights
 
-## 6a   Forest ownership
+## 6a Forest ownership
 
 ### FOREST OWNERSHIP (Supplementary term)
 
@@ -505,7 +505,7 @@ Explanatory note
 
 1. Includes areas where ownership is unclear or disputed.
 
-## 6b   Holder of management rights of public forests
+## 6b Holder of management rights of public forests
 
 ### MANAGEMENT RIGHTS OF PUBLIC FORESTS (Supplementary term)
 
@@ -540,7 +540,7 @@ Explanatory notes
 
 # 7 Forest disturbances
 
-## 7a   Disturbances
+## 7a Disturbances
 
 ### OUTBREAKS OF INSECTS
 
@@ -554,7 +554,7 @@ Explanatory notes
 
 > Damage caused by severe weather events, such as snow, storm, drought, etc.
 
-## 7b   Area affected by fire
+## 7b Area affected by fire
 
 ### BURNED AREA
 
@@ -564,7 +564,7 @@ Explanatory notes
 
 > **Forest** area affected by fire.
 
-## 7c   Degraded forest
+## 7c Degraded forest
 
 ### DEGRADED FOREST
 
