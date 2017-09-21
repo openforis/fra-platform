@@ -1,14 +1,29 @@
 @import (reference) "../app-styles/config";
+@import (reference) "../app-styles/fraTable.less";
 
 .percent__field {
   position: relative;
   text-align: right;
   white-space: nowrap;
+}
 
-  /* This selector is here to defeat defaults from originalDataPointView :( */
-  .percent__input-field {
-    padding-right: 30px;
-    text-align: right;
+.percent__input-field {
+  text-align: right;
+  background: transparent;
+  color: inherit;
+  font-size: inherit;
+  border: none;
+  line-height: inherit;
+  padding: 10px 30px 10px;
+  margin: 0;
+  width: 100%;
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 1px @text-body;
+  }
+  &::placeholder {
+    color: @text-mute;
   }
 }
 
@@ -20,7 +35,6 @@
   height: 20px;
   overflow: hidden;
   text-overflow: ellipsis;
-  text-align: right;
   white-space: nowrap;
 }
 
@@ -37,6 +51,5 @@
   left: 10px;
   top: 10px;
   height: 20px;
-  font-size: @font-xxs;
-  color: @text-disabled;
+  font-size: @font-xs;
 }

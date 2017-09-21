@@ -10,7 +10,11 @@ module.exports = {
       'other',
       'no_unknown']
   },
-  columns: {
-    names: ['1990', '2000', '2010', '2015', '2020']
-  }
+  columns: [
+    {name: '1990', type: 'numeric'},
+    {name: '2000', type: 'numeric'},
+    {name: '2010', type: 'numeric'},
+    {name: '2015', type: 'numeric'},
+    {name: '2020', type: 'numeric'}
+  ]
 }

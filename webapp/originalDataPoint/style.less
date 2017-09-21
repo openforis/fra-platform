@@ -43,74 +43,12 @@
   }
 }
 
-// General odp table style
-
-.odp__input-table {
-  .fra-table;
-
-  th,
-  .odp__input-table__header-cell {
-    .fra-table__header-cell;
-    min-width: auto;
-  }
-
-  .odp__input-table__header-cell-align-right {
-    .fra-table__header-cell;
-    text-align: right;
-    min-width: auto;
-  }
-
-  .odp__input-table__class-name {
-    .fra-table__header-cell;
-    font-weight: 400;
-    min-width: auto;
-  }
-
-  .odp__input-table__sub-header {
-    color: @text-mute;
-    font-size: @font-xs;
-    font-weight: 400;
-  }
-
-  td,
-  .odp__input-table__cell {
-    .fra-table__cell;
-    min-width: auto;
-  }
-
-  .odp__input-table__class-total-cell {
-    .odp__input-table__header-cell-align-right;
-    background-color: white;
-  }
-
-  input {
-    .fra-table__input;
-  }
-
-  .odp__col-review {
-    border: none !important;
-    min-width: auto;
-    padding: 0;
-  }
-
-  .odp__input-table__divde-after-cell {
-    border-right: 3px double @ui-border;
-  }
-
-  .odp__input-table__disabled-cell {
-    background-color: @ui-bg;
-  }
-}
-
 // Custom table styles
 
 .odp__national-class-table {
-  td {
-    position: relative;
-  }
-
   .odp__national-class-name {
-    width: 28.5%;
+    position: relative;
+    width: 30%;
   }
 
   .odp__national-class-input {
@@ -121,22 +59,20 @@
     left: 0;
     padding-left: 24px;
   }
-}
 
-.odp__national-class-remove {
-  display: inline-block;
-  position: relative;
-  left: 4px;
-  cursor: pointer;
-}
-
-.odp__eof-table {
-  input {
-    text-align: right;
+  .odp__national-class-remove {
+    display: inline-block;
+    position: relative;
+    left: 4px;
+    cursor: pointer;
   }
 }
 
 .odp__foc-table {
+  .fra-table__cell {
+    min-width: 200px;
+  }
+
   .percent__field:first-of-type:not(:only-of-type) {
     border-bottom: 1px solid @ui-border;
   }
@@ -146,11 +82,6 @@
 
 .odp-list__container {
   padding: 32px 32px 64px;
-
-  table {
-    margin-top: 24px;
-    margin-bottom: 32px;
-  }
 }
 
 .odp-list__list-table {
@@ -158,19 +89,15 @@
   font-size: @font-m;
   line-height: 20px;
   border-collapse: collapse;
-}
-
-.odp-list__year-column {
-  width: 60px;
+  margin-top: 24px;
+  margin-bottom: 32px;
 }
 
 .odp-list__notification-column {
-  .odp-list__notification-column-content {
-    display: flex;
-    align-items: center;
-    > div {
-      padding: 0 4px;
-    }
+  > div {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 0 4px;
   }
 
   .open-issues {
@@ -188,7 +115,6 @@
 .odp-list__edit-column {
   text-align: right;
 
-
   .link {
     line-height: 20px;
     padding: 12px;
@@ -197,6 +123,15 @@
 
 .odp_list__empty-column {
   color: @text-disabled;
+}
+
+.odp-list__header-row {
+  border-bottom: @ui-thin-border;
+  text-align: left;
+
+  th {
+    padding: 12px;
+  }
 }
 
 .odp-list__list-row {
@@ -208,7 +143,7 @@
     background: lighten(@ui-bg, 2%);
   }
 
-  td, th {
+  td {
     padding: 12px;
   }
 

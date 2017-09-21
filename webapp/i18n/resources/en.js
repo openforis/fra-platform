@@ -36,7 +36,10 @@ export const translation = {
     naturallyGenerated: 'Naturally regenerating forest',
     plantationForest: 'Plantation forest',
     otherPlantedForest: 'Other planted forest',
-    introduced: '…of which introduces species'
+    introduced: '…of which introduces species',
+    naturallyRegeneratingForest: 'Naturally regenerating forest',
+    plantedForest: 'Planted forest',
+    totalForest: 'Total forest'
   },
 
   fraOtherLandClass: {
@@ -69,13 +72,13 @@ export const translation = {
   // components
 
   countryListing: {
-    annuallyReported: 'Annually',
-    fiveYearCycle: 'Five-year'
+    annuallyUpdated: 'Annually updated',
+    fra2020: 'FRA 2020'
   },
 
   navigation: {
-    annuallyReported: 'Annually reported',
-    fiveYearCycle: 'Five-year cycle',
+    annuallyUpdated: 'Annually updated',
+    fra2020: 'FRA 2020',
     assessmentStatus: {
       changing: {
         label: 'Changing…'
@@ -134,7 +137,15 @@ export const translation = {
     emptyLabel: 'No content',
     loading: 'Loading content…',
     description: 'Description',
-    dataSources: 'Data sources',
+    dataSourcesTitle: 'Data sources, original data & national classification and definitions',
+    generalCommentsTitle: 'Comments',
+    dataSources: {
+      label: 'Data sources',
+      sourceOfInformation: 'Reference to source of information',
+      variables: 'Variable(s)',
+      years: 'Year(s)',
+      additionalComments: 'Additional comments'
+    },
     originalData: 'Original data',
     nationalClassificationAndDefinitions: 'National classification and definitions',
   },
@@ -145,8 +156,8 @@ export const translation = {
     noNationalDataAdded: 'No national data added',
     nationalData: 'National data',
     reclassificationLabel: 'Reclassification',
-    forestCategoriesLabel: 'Forest, Other wooded land and other land',
-    year: 'Year',
+    forestCategoriesLabel: 'Forest, other wooded land and other land',
+    year: 'Reference year for the data',
     methods: 'Methods',
     edit: 'Edit',
     copyPreviousValues: 'Copy previous values',
@@ -163,8 +174,8 @@ export const translation = {
     cancel: 'Cancel',
     saveData: 'Save data',
     enterOrCopyPasteNationalClasses: 'Enter or copy and paste national classes',
-    prefixPrimary: 'Primary',
-    prefixIntroduced: 'Introduced',
+    prefixPrimary: '…of which primary',
+    prefixIntroduced: '…of which introduced',
     otherLandCharacteristics: 'Other land with tree cover'
   },
 
@@ -189,7 +200,10 @@ export const translation = {
   },
 
   growingStock: {
-    growingStock: 'Growing stock'
+    growingStock: 'Growing stock',
+    fra2020Categories: 'FRA 2020 categories',
+    avgTableHeader: 'Average growing stock (m3/ha)',
+    totalTableHeader: 'Total growing stock (million m3)'
   },
 
   biomassStock: {
@@ -234,12 +248,23 @@ export const translation = {
     specificForestCategories: 'Specific forest categories',
     areaUnitLabel: 'Area (1000 ha)',
     bamboo: 'Bamboos',
-    mangroves: 'Mangroves',
-    rubberPlantations: 'Rubber plantations'
+    mangroves: 'Mangroves'
   },
 
   growingStockComposition: {
-    growingStockComposition: 'Growing stock composition'
+    categoryHeader: 'FRA categories',
+    growingStockComposition: 'Growing stock composition',
+    nativeTreeSpecies: 'Native tree species',
+    introducedTreeSpecies: 'Introduced tree species',
+    areaUnitLabel: 'Growing stock in forest (million m3 o.b.)',
+    scientificName: 'Scientific name',
+    commonName: 'Common name',
+    rank: 'Ranked in terms of volume',
+    remainingNative: 'Remaining native tree species',
+    remainingIntroduced: 'Remaining introduced tree species',
+    totalNative: 'Total volume of native tree species',
+    totalIntroduced: 'Total volume of introduced tree species',
+    totalGrowingStock: 'Total growing stock'
   },
 
   nonWoodForestProducts: {
@@ -255,13 +280,17 @@ export const translation = {
     biodiversityConservation: 'Conservation of biodiversity',
     socialServices: 'Social Services',
     multipleUse: 'Multiple use',
-    other: 'Other',
+    other: 'Other (specify)',
     unknown: 'No/unknown',
     totalForestArea: 'Total forest area'
   },
 
   forestOwnershipManagementRights: {
     forestOwnershipManagementRights: 'Forest ownership'
+  },
+
+  holderOfManagementRights: {
+    holderOfManagementRights: 'Holder of management rights of public forests'
   },
 
   disturbances: {
@@ -291,5 +320,4 @@ export const translation = {
   areaOfPermanentForestEstate: {
     areaOfPermanentForestEstate: 'Area of permanent forest estate'
   },
-
 }
