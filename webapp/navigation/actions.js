@@ -5,7 +5,6 @@ export const listCountries = 'navigation/country/list'
 export const fetchCountryOverviewStatusCompleted = 'navigation/status/completed'
 export const changeAssessmentStatusInitiated = 'navigation/changeAssessmentStatusInitiated'
 export const navigationScrolled = 'navigation/scroll/end'
-export const navigateToItemUpdate = 'navigation/navigate/update'
 
 export const getCountryList = () => dispatch => {
   axios.get('/api/country/all').then(resp => {
@@ -31,10 +30,6 @@ export const changeAssessmentStatus = (countryIso, assessmentType, status) => di
       fetchCountryOverviewStatus(countryIso)(dispatch)
     })
     .catch((err) => dispatch(applicationError(err)))
-}
-
-export const navigateToItem = (order, prevOrder) => dispatch => {
-    dispatch({type: navigateToItemUpdate, itemOrder: order})
 }
 
 export const sectionUpdate = '/navigation/section/update'
