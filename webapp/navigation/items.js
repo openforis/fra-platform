@@ -94,8 +94,13 @@ export const fra2020Items = i18n => [
     pathTemplate: '#/todo'
   },
   {
-    tableNo: '6a - 6b',
+    tableNo: '6a',
     label: i18n.t('forestOwnershipManagementRights.forestOwnershipManagementRights'),
+    pathTemplate: '#/todo'
+  },
+  {
+    tableNo: '6b',
+    label: i18n.t('holderOfManagementRights.holderOfManagementRights'),
     pathTemplate: '#/todo'
   },
   {
