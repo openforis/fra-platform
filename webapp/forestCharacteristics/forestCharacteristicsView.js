@@ -8,6 +8,7 @@ import LoggedInPageTemplate from '../loggedInPageTemplate'
 import { DataTable } from '../originalDataPoint/commentableDatatable'
 import ChartWrapper from '../nationalDataEntry/chart/chartWrapper'
 import { CommentableReviewDescription } from '../description/commentableDescription'
+import DefinitionLink from './../reusableUiComponents/definitionLink'
 
 const ForestCharacteristics = props => {
   const disableGenerateFRAValues = () => {
@@ -17,28 +18,29 @@ const ForestCharacteristics = props => {
     )(props.fra)
     return props.generatingFraValues || odps.length < 2
   }
+  const i18n = props.i18n
   const rows = [
     {
       field: 'naturalForestArea',
-      localizedName: props.i18n.t('forestCharacteristics.naturalForestArea')
+      localizedName: i18n.t('forestCharacteristics.naturalForestArea')
     },
     {
       field: 'naturalForestPrimaryArea',
       className: 'fra-table__header-cell-sub',
-      localizedName: props.i18n.t('forestCharacteristics.naturalForestPrimaryArea')
+      localizedName: i18n.t('forestCharacteristics.naturalForestPrimaryArea')
     },
     {
       field: 'plantationForestArea',
-      localizedName: props.i18n.t('forestCharacteristics.plantationForestArea')
+      localizedName: i18n.t('forestCharacteristics.plantationForestArea')
     },
     {
       field: 'plantationForestIntroducedArea',
       className: 'fra-table__header-cell-sub',
-      localizedName: props.i18n.t('forestCharacteristics.plantationForestIntroducedArea')
+      localizedName: i18n.t('forestCharacteristics.plantationForestIntroducedArea')
     },
     {
       field: 'otherPlantedForestArea',
-      localizedName: props.i18n.t('forestCharacteristics.otherPlantedForestArea')
+      localizedName: i18n.t('forestCharacteristics.otherPlantedForestArea')
     }
   ]
   const rowNames = {
@@ -50,32 +52,34 @@ const ForestCharacteristics = props => {
   }
   return <div className='nde__data-input-component foc-view'>
     <div className="nde__data-page-header">
-      <h1 className="title">{props.i18n.t('forestCharacteristics.forestCharacteristics')}</h1>
+      <h1 className="title">{i18n.t('forestCharacteristics.forestCharacteristics')}</h1>
     </div>
     <div className="nde__data-input-header">
       <Link className="btn btn-primary" to={`/country/${props.countryIso}/odp`}>
         <svg className="icon icon-middle icon-white">
           <use xlinkHref="img/icons.svg#small-add"/>
         </svg>
-        {props.i18n.t('nationalDataPoint.addNationalDataPoint')}
+        {i18n.t('nationalDataPoint.addNationalDataPoint')}
       </Link>
     </div>
     <ChartWrapper stateName="forestCharacteristics" trends={['naturalForestArea']} />
     <div className="nde__data-table-header">
-      <h3 className="subhead">{props.i18n.t('forestCharacteristics.forestCharacteristics')}</h3>
+      <h3 className="subhead">{i18n.t('forestCharacteristics.forestCharacteristics')}</h3>
+      <DefinitionLink document="tad" section="2a" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
+      <DefinitionLink document="faq" section="2a" title={i18n.t('definition.faqLabel')} lang={i18n.language} className="align-left"/>
       <button disabled={disableGenerateFRAValues()} className="btn btn-primary"
               onClick={() => props.generateFraValues('forestCharacteristics', props.countryIso)}>
-        {props.i18n.t('extentOfForest.generateFraValues')}
+        {i18n.t('extentOfForest.generateFraValues')}
       </button>
     </div>
-    <DataTable section='forestCharacteristics' rows={rows} rowNames={rowNames} {...props} areaUnitLabel={props.i18n.t('forestCharacteristics.areaUnitLabel')} categoryHeader={props.i18n.t('forestCharacteristics.categoryHeader')}/>
+    <DataTable section='forestCharacteristics' rows={rows} rowNames={rowNames} {...props} areaUnitLabel={i18n.t('forestCharacteristics.areaUnitLabel')} categoryHeader={i18n.t('forestCharacteristics.categoryHeader')}/>
     <CommentableReviewDescription
       section='forestCharacteristics'
       countryIso={props.countryIso}
       descriptionName={`forestCharacterstics_generalComments`}
       commentTarget={['generalComments']}
-      descriptionTitle={props.i18n.t('description.generalCommentsTitle')}
-      i18n={props.i18n}
+      descriptionTitle={i18n.t('description.generalCommentsTitle')}
+      i18n={i18n}
     />
   </div>
 }
