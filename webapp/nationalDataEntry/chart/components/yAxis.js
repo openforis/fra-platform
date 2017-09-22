@@ -21,6 +21,10 @@ class YAxis extends Component {
     domAxis.selectAll('line')
       .style('stroke', (val, i) => i == 0 ? '#cccccc' : 'rgba(0,0,0,.08)')
 
+    domAxis.selectAll('text')
+      .style('fill', '#666666')
+      .style('font-size', '11px')
+
     return domAxis
   }
 
@@ -94,15 +98,13 @@ class YAxis extends Component {
     return <g className="chart__y-axis">
       <text
         ref="unitLabel"
-        x="12"
-        y={(styles.top / 2)}
+        x="17"
+        y="14"
         style={{
-          fontSize: '10px',
-          fill: 'rgba(102, 102, 102, .5)',
+          fontSize: '11px',
+          fill: '#666666',
           opacity: 0
-        }}>
-        1 000 ha
-      </text>
+        }}>1000 ha</text>
       <g ref="axis"></g>
     </g>
   }

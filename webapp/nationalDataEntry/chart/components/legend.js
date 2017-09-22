@@ -44,31 +44,29 @@ class Legend extends Component {
 
   render () {
     return <foreignObject
-      x={styles.left * 1.5}
+      x={styles.left + 8}
       y="0"
-      width={this.props.wrapperWidth - styles.left * 1.5 - 2}
+      width={this.props.wrapperWidth - styles.left - 8}
       height="20px"
       className="chart__legend">
 
-      <div style={{display: 'flex', justifyContent: 'flex-start', height: '20px'}}>
+      <div style={{display: 'flex', height: '20px'}}>
 
         {this.props.trends.map(t =>
           <div key={`legend-${t.name}`}
                ref={t.name}
                style={{
                  display: 'flex',
-                 justifyContent: 'flex-start',
                  alignItems: 'center',
                  opacity: '0',
-                 paddingLeft: '5px',
-                 paddingRight: '10px'
+                 marginRight: '16px'
                }}>
             {/*legend color*/}
             <div style={{
-              width: '10px',
-              height: '10px',
-              marginRight: '5px',
-              borderRadius: '20%',
+              width: '12px',
+              height: '12px',
+              marginRight: '4px',
+              borderRadius: '2px',
               backgroundColor: t.odpColor
             }}></div>
             {/*label*/}
