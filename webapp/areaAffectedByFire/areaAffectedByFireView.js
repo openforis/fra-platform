@@ -12,7 +12,7 @@ const AreaAffectedByFire = ({match, i18n}) => {
 
   return <LoggedInPageTemplate>
     <div className="tv__container aabf__container">
-      <div className="tv__header-row">
+      <div className="tv__page-header">
         <h1 className="title">{i18n.t('areaAffectedByFire.areaAffectedByFire')}</h1>
         <DefinitionLink document="tad" section="7b" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
         <DefinitionLink document="faq" section="7b" title={i18n.t('definition.faqLabel')} lang={i18n.language} className="align-left"/>
