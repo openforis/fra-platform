@@ -26,7 +26,7 @@ const TextSelectType = ({countryIso,
               value={option}
               key={option}>{i18n.t(localizationPrefix + '.' + option)}
               </option>
-          ,[...options, 'notSelected'])
+          ,[...R.pluck('name', options), 'notSelected'])
       }
     </select>
   </td>
@@ -38,5 +38,5 @@ export default (cellSpec) => ({
       {...props}
       options={cellSpec.options}
       localizationPrefix={cellSpec.localizationPrefix}/>,
-  acceptValue: (newValue, oldValue) => R.contains(newValue, cellSpec.options) ? newValue : oldValue
+  acceptValue: (newValue, oldValue) => R.contains(newValue, R.pluck('name', cellSpec.options)) ? newValue : oldValue
 })

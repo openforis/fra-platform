@@ -21,23 +21,23 @@ const productRow = idx => [
   {
     type: 'textSelect',
     localizationPrefix: 'nonWoodForestProductsRemovals',
-    options: [
-      'food',
-      'fodder',
-      'rawMaterialForMedicine',
-      'rawMaterialForColorants',
-      'rawMaterialForUtensils',
-      'ornamentalPlants',
-      'exudates',
-      'otherPlantProducts',
-      'livingAnimals',
-      'hidesSkins',
-      'wildHoney',
-      'wildMeat',
-      'animalRawMaterialForMedicine',
-      'animalRawMaterialForColorants',
-      'otherEdibleAnimalProducts',
-      'otherNonEdibleAnimalProducts'
+      options: [
+          {name: 'food'},
+          {name: 'fodder'},
+          {name: 'rawMaterialForMedicine'},
+          {name: 'rawMaterialForColorants'},
+          {name: 'rawMaterialForUtensils'},
+          {name: 'ornamentalPlants'},
+          {name: 'exudates'},
+          {name: 'otherPlantProducts'},
+          {name: 'livingAnimals'},
+          {name: 'hidesSkins'},
+          {name: 'wildHoney'},
+          {name: 'wildMeat'},
+          {name: 'animalRawMaterialForMedicine'},
+          {name: 'animalRawMaterialForColorants'},
+          {name: 'otherEdibleAnimalProducts'},
+          {name: 'otherNonEdibleAnimalProducts'}
     ]
   },
 ]
