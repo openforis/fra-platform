@@ -13,7 +13,7 @@ const yearlyVolumeInputsForRow = () =>
 
 const fillerCell = {
   type: 'readOnly',
-  jsx: <td className="growing-stock__filler-cell"/>
+  jsx: <td className="fra-table__filler-cell"/>
 }
 
 const rankRow = i18n => idx => [
@@ -108,7 +108,7 @@ const introducedHeaderRow = i18n => [
   ...R.map(() => fillerCell, R.range(1, 8)),
   {
     type: 'readOnly',
-    jsx: <td className="growing-stock__filler-cell" style={{borderRight: '1px solid #d5d5d5'}}/>
+    jsx: <td className="fra-table__filler-cell" style={{borderRight: '1px solid #d5d5d5'}}/>
   }
 ]
 
