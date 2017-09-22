@@ -6,19 +6,24 @@ import LoggedInPageTemplate from '../loggedInPageTemplate'
 import { CommentableDescriptions } from '../description/commentableDescription'
 import GrowingStockTable from './growingStockTable'
 import { rows } from './growingStock'
+import DefinitionLink from './../reusableUiComponents/definitionLink'
 
 import { fetch, updateValue, updateValues } from './actions'
 
-const GrowingStock = (props) =>
-  <div className='nde__data-input-component'>
+const GrowingStock = (props) => {
+  const i18n = props.i18n
+
+  return <div className='nde__data-input-component'>
     <div className="nde__data-page-header">
-      <h2 className="headline">{props.i18n.t('growingStock.growingStock')}</h2>
+      <h1 className="title">{i18n.t('growingStock.growingStock')}</h1>
+      <DefinitionLink document="tad" section="3a" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
+      <DefinitionLink document="faq" section="3a" title={i18n.t('definition.faqLabel')} lang={i18n.language} className="align-left"/>
     </div>
     <GrowingStockTable
       section="growingStock"
-      header={props.i18n.t('growingStock.fra2020Categories')}
-      avgTableHeader={props.i18n.t('growingStock.avgTableHeader')}
-      totalTableHeader={props.i18n.t('growingStock.totalTableHeader')}
+      header={i18n.t('growingStock.fra2020Categories')}
+      avgTableHeader={i18n.t('growingStock.avgTableHeader')}
+      totalTableHeader={i18n.t('growingStock.totalTableHeader')}
       rows={rows}
       {...props}
     />
@@ -26,10 +31,10 @@ const GrowingStock = (props) =>
       section='growingStock'
       name="growingStock"
       countryIso={props.countryIso}
-      i18n={props.i18n}
+      i18n={i18n}
     />
   </div>
-
+}
 class GrowingStockView extends Component {
 
   componentWillMount () {
