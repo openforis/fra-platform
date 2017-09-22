@@ -23,10 +23,11 @@ const TextSelectType = ({countryIso,
       {
         R.map(option =>
             <option
-              value={option}
-              key={option}>{i18n.t(localizationPrefix + '.' + option)}
+              value={option.name}
+              disabled={option.type === 'heading'}
+              key={option.name}>{i18n.t(localizationPrefix + '.' + option.name)}
               </option>
-          ,[...R.pluck('name', options), 'notSelected'])
+          ,[...options, {name: 'notSelected'}])
       }
     </select>
   </td>

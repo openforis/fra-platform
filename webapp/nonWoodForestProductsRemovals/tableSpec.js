@@ -22,6 +22,7 @@ const productRow = idx => [
     type: 'textSelect',
     localizationPrefix: 'nonWoodForestProductsRemovals',
       options: [
+          {name: 'plantProductsSelectHeading', type: 'heading'},
           {name: 'food'},
           {name: 'fodder'},
           {name: 'rawMaterialForMedicine'},
@@ -30,6 +31,7 @@ const productRow = idx => [
           {name: 'ornamentalPlants'},
           {name: 'exudates'},
           {name: 'otherPlantProducts'},
+          {name: 'animalProductsSelectHeading', type: 'heading'},
           {name: 'livingAnimals'},
           {name: 'hidesSkins'},
           {name: 'wildHoney'},

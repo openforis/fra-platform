@@ -270,7 +270,7 @@ export const translation = {
     unit: 'Unit',
     value: 'Value (1000 currency)',
     category: 'NWFP category',
-    //Plant products / raw material
+    plantProductsSelectHeading: 'Plant products / raw material',
     food: '1 Food',
     fodder: '2 Fodder',
     rawMaterialForMedicine: '3 Raw material for medicine and aromatic products',
@@ -279,7 +279,7 @@ export const translation = {
     ornamentalPlants: '6 Ornamental plants',
     exudates: '7 Exudates',
     otherPlantProducts: '8 Other plant products',
-    //Animal products / raw material
+    animalProductsSelectHeading: 'Animal products / raw material',
     livingAnimals: '9 Living animals',
     hidesSkins: '10 Hides skins and trophies',
     wildHoney: '11 Wild honey and bee wax',
