@@ -13,6 +13,7 @@ const TextSelectType = ({countryIso,
   const currentValue = tableData[rowIdx][colIdx]
   return <td className="fra-table__cell">
     <select
+      className="select traditional-table__text-select"
       value={currentValue || 'notSelected'}
       onChange={
         (evt) => {
