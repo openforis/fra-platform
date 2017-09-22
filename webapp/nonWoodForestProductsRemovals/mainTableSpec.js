@@ -6,6 +6,11 @@ const fillerCell = () => ({
   jsx: <td className="fra-table__filler-cell"/>
 })
 
+const lastFillerOrRow = () => ({
+  type: 'readOnly',
+  jsx: <td className="fra-table__filler-cell" style={{borderRight: '1px solid #d5d5d5'}}/>
+})
+
 const productRow = idx => [
   {
     type: 'readOnly',
@@ -47,13 +52,13 @@ const productRow = idx => [
 const otherProductsRow = (heading) => [
   {
     type: 'readOnly',
-    jsx: <td className="fra-table__header-cell">
+    jsx: <td className="fra-table__row-header-continued-with-fillers">
       {heading}
     </td>
   },
   ...R.times(fillerCell,4),
   {type: 'integerInput'},
-  fillerCell()
+  lastFillerOrRow()
 ]
 
 const totalRow = i18n => {
@@ -76,7 +81,7 @@ const totalRow = i18n => {
   return [
     {
       type: 'readOnly',
-      jsx: <td className="fra-table__header-cell">
+      jsx: <td className="fra-table__row-header-continued-with-fillers">
         {i18n.t('nonWoodForestProductsRemovals.total')}
       </td>
     },
@@ -85,7 +90,7 @@ const totalRow = i18n => {
       type: 'custom',
       render: renderSum
     },
-    fillerCell()
+    lastFillerOrRow()
   ]
 }
 
