@@ -2,12 +2,12 @@
 
 set -e
 
-USAGE="USAGE:\nadd-user.sh -l <LOGIN_EMAIL> -n \"<USER'S NAME>\" -c <COUNTRY> -r <ROLE> [-c <COUNTRY> -r <ROLE>...]\n"
+USAGE="USAGE:\nadd-user.sh -l <LOGIN EMAIL> -n \"<USER'S NAME>\" -c <COUNTRY ISO> -r <ROLE> [-e <OTHER EMAIL>] [-c <COUNTRY ISO> -r <ROLE>...]\n"
 
 COUNTRIES=()
 ROLES=()
 
-while getopts ":l::c::r::n:" opt; do
+while getopts ":l::c::r::n::e:" opt; do
   case $opt in
     l)
         LOGIN_EMAIL="$OPTARG"
@@ -16,11 +16,14 @@ while getopts ":l::c::r::n:" opt; do
         USERS_NAME="$OPTARG"
         ;;
     c)
-      COUNTRIES+=("$OPTARG")
-      ;;
+        COUNTRIES+=("$OPTARG")
+        ;;
     r)
-      ROLES+=("$OPTARG")
-      ;;
+        ROLES+=("$OPTARG")
+        ;;
+    e)
+        OTHER_EMAIL="$OPTARG"
+        ;;
     \?)
       echo "Invalid option: -$OPTARG" >&2
       exit 1
@@ -56,6 +59,10 @@ if [ -z "$USERS_NAME" ]; then
     exit 1
 fi
 
+if [ -z "$OTHER_EMAIL" ]; then
+    OTHER_EMAIL="$LOGIN_EMAIL"
+fi
+
 for ROLE in "${ROLES[@]}"
 do
     case "$ROLE" in
@@ -79,13 +86,23 @@ echo "Adding user $LOGIN_EMAIL to Migration file $MIGRATION_SQL_FILE"
 
 cat << EOF > "$MIGRATION_SQL_FILE"
 INSERT INTO fra_user (email, name, login_email, lang)
-VALUES ('$LOGIN_EMAIL', '$USERS_NAME', '$LOGIN_EMAIL', 'en');
+VALUES ('$OTHER_EMAIL', '$USERS_NAME', '$LOGIN_EMAIL', 'en');
 
 EOF
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 I=0
 for COUNTRY in "${COUNTRIES[@]}"
 do
+    set +e
+    cat "$DIR/../node_modules/i18n-iso-countries/codes.json" | grep "\"$COUNTRY\""
+    if [[ $? != 0 ]]; then
+        echo "ERROR: $COUNTRY is not a valid ISO 3166-1 alpha-3 code (https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3"
+        exit 1
+    fi
+    set -e
+
     ROLE=`echo ${ROLES[$I]}`
     echo "Adding role $ROLE for country $COUNTRY"
     cat << EOF >> "$MIGRATION_SQL_FILE"

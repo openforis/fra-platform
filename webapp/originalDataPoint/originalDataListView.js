@@ -11,40 +11,41 @@ const ODPListing = ({countryIso, odps = [], i18n, userInfo}) => <div className="
   <h1 className="title">{i18n.t('nationalDataPoint.nationalData')}</h1>
   <table className="odp-list__list-table">
     <thead>
-    <tr className='odp-list__list-row'>
+    <tr className='odp-list__header-row'>
       <th>{i18n.t('nationalDataPoint.year')}</th>
-      <th>{/* notification icons */}</th>
+      <th></th>
       <th>{i18n.t('nationalDataPoint.methods')}</th>
       <th></th>
     </tr>
     </thead>
     <tbody>
-    {odps.length > 0 ? odps.map(odp => <tr className='odp-list__list-row' key={odp.odpId}>
-      <td className='odp-list__year-column'>{odp.year == 0 ? '-' : odp.year}</td>
-      <td className='odp-list__notification-column'>
-        <div className="odp-list__notification-column-content">
-          {!odp.validationStatus.valid ? <div>
-            <svg className='icon icon-red'>
-              <use xlinkHref='img/icons.svg#alert'/>
-            </svg>
-          </div> : null}
+    {odps.length > 0
+      ? odps.map(odp => <tr className='odp-list__list-row' key={odp.odpId}>
+        <td className='odp-list__year-column'>{odp.year == 0 ? '-' : odp.year}</td>
+        <td className='odp-list__notification-column'>
+          {!odp.validationStatus.valid
+            ? <div>
+                <svg className='icon icon-red'>
+                  <use xlinkHref='img/icons.svg#alert'/>
+                </svg>
+              </div>
+            : null}
           {odp.issuesSummary.issueStatus === "opened"
             ? <div>
-              <div className={`open-issues${odp.issuesSummary.hasUnreadIssues ? ' unread-issues' :''}`}></div>
-            </div>
-            : null
-          }
-        </div>
-      </td>
-      <td>-</td>
-      <td className='odp-list__edit-column'>
-        <Link className="link" to={`/country/${countryIso}/odp/${odp.odpId}`}>
-          {i18n.t('nationalDataPoint.edit')}
-        </Link>
-      </td>
-    </tr>) : <tr className="odp-list__list-row">
-      <td className="odp_list__empty-column" colSpan="4">{i18n.t('nationalDataPoint.noNationalDataAdded')}</td>
-    </tr>}
+                <div className={`open-issues ${odp.issuesSummary.hasUnreadIssues ? 'unread-issues' :''}`}></div>
+              </div>
+            : null}
+        </td>
+        <td>-</td>
+        <td className='odp-list__edit-column'>
+          <Link className="link" to={`/country/${countryIso}/odp/${odp.odpId}`}>
+            {i18n.t('nationalDataPoint.edit')}
+          </Link>
+        </td>
+      </tr>)
+    : <tr className="odp-list__list-row">
+        <td className="odp_list__empty-column" colSpan="4">{i18n.t('nationalDataPoint.noNationalDataAdded')}</td>
+      </tr>}
     </tbody>
   </table>
   <Link className="btn btn-primary" to={`/country/${countryIso}/odp`}>
