@@ -65,7 +65,7 @@ class DataPoint extends Component {
         <div class="chart__data-points-tooltip-year">${d.year}</div>
         <div class="chart__data-points-tooltip-value">
             <div class="chart__data-points-tooltip-value-marker" style="background-color: ${d.type === 'fra' ? '#ffffff' : this.props.odpColor}"></div>
-            <div>${formatNumber(d.value)} <span class="unit"> (1000 ha)</span></div>
+            <div>${formatNumber(d.value)}<span class="unit">(1000 ha)</span></div>
         </div>
     `
   }
