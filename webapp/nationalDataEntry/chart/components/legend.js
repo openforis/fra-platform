@@ -32,10 +32,10 @@ class Legend extends Component {
       d3.select(elem)
         .style('height', '20')
         .transition()
-        .ease(ease)
-        .duration(defaultTransitionDuration)
-        .styleTween('height', d => d3.interpolate(20, 20))
-        .styleTween('opacity', d => d3.interpolate(elemOpacity, opacity))
+          .ease(ease)
+          .duration(defaultTransitionDuration)
+          .styleTween('height', d => d3.interpolate(20, 20))
+          .styleTween('opacity', d => d3.interpolate(elemOpacity, opacity))
 
     }, props.data)
 

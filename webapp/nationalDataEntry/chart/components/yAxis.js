@@ -34,27 +34,27 @@ class YAxis extends Component {
 
     domAxis.selectAll('text')
       .transition()
-      .ease(d3.easeBackOut)
-      .duration(defaultTransitionDuration)
-      .attrTween('fill', () =>
-        // enter
-        propsHasData
-          ? d3.interpolateRgb('#ffffff', '#666666')
-          : d3.interpolateRgb('#ffffff', '#ffffff')
+        .ease(d3.easeBackOut)
+        .duration(defaultTransitionDuration)
+        .attrTween('fill', () =>
+          // enter
+          propsHasData
+            ? d3.interpolateRgb('#ffffff', '#666666')
+            : d3.interpolateRgb('#ffffff', '#ffffff')
       )
 
     domAxis
       .transition()
-      .ease(d3.easePolyOut)
-      .duration(defaultTransitionDuration)
-      .attr('transform', d => `translate(${propsHasData ? this.props.left : '0'}, 0)`)
+        .ease(d3.easePolyOut)
+        .duration(defaultTransitionDuration)
+        .attr('transform', d => `translate(${propsHasData ? this.props.left : '0'}, 0)`)
 
     d3.select(this.refs.unitLabel)
       .transition()
-      .ease(d3.easeBackOut)
-      .duration(defaultTransitionDuration)
-      .delay(propsHasData ? defaultTransitionDuration : 0)
-      .style('opacity', () => propsHasData ? 1 : 0)
+        .ease(d3.easeBackOut)
+        .duration(defaultTransitionDuration)
+        .delay(propsHasData ? defaultTransitionDuration : 0)
+        .style('opacity', () => propsHasData ? 1 : 0)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -64,14 +64,14 @@ class YAxis extends Component {
 
     domAxis.selectAll('text')
       .transition()
-      .ease(d3.easeBackIn)
-      .duration(defaultTransitionDuration)
-      .attrTween('fill', () =>
-        !propsHasData && nextPropsHasData
-          // enter
-          ? d3.interpolateRgb('#ffffff', '#666666')
-          // update
-          : d3.interpolateRgb('#666666', '#666666')
+        .ease(d3.easeBackIn)
+        .duration(defaultTransitionDuration)
+        .attrTween('fill', () =>
+          !propsHasData && nextPropsHasData
+            // enter
+            ? d3.interpolateRgb('#ffffff', '#666666')
+            // update
+            : d3.interpolateRgb('#666666', '#666666')
       )
 
     //exit
@@ -80,16 +80,16 @@ class YAxis extends Component {
 
     domAxis
       .transition()
-      .ease(d3.easePolyOut)
-      .duration(defaultTransitionDuration)
-      .attr('transform', d => `translate(${nextPropsHasData ? nextProps.left : '0'}, 0)`)
+        .ease(d3.easePolyOut)
+        .duration(defaultTransitionDuration)
+        .attr('transform', d => `translate(${nextPropsHasData ? nextProps.left : '0'}, 0)`)
 
     d3.select(this.refs.unitLabel)
       .transition()
-      .ease(d3.easeBackOut)
-      .duration(defaultTransitionDuration)
-      .delay(nextPropsHasData ? defaultTransitionDuration : 0)
-      .style('opacity', () => nextPropsHasData ? 1 : 0)
+        .ease(d3.easeBackOut)
+        .duration(defaultTransitionDuration)
+        .delay(nextPropsHasData ? defaultTransitionDuration : 0)
+        .style('opacity', () => nextPropsHasData ? 1 : 0)
 
   }
 

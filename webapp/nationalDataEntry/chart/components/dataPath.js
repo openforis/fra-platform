@@ -19,9 +19,9 @@ class DataPath extends Component {
   interpolatePath (previous, current) {
     return d3.select(ReactDOM.findDOMNode(this))
       .transition()
-      .ease(d3.easeCircleOut)
-      .duration(defaultTransitionDuration)
-      .attrTween('d', d => interpolatePath(previous, current))
+        .ease(d3.easeCircleOut)
+        .duration(defaultTransitionDuration)
+        .attrTween('d', d => interpolatePath(previous, current))
   }
 
   componentWillReceiveProps (nextProps) {

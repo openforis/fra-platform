@@ -18,21 +18,21 @@ class OdpTicks extends React.Component {
       //update
       line
         .transition()
-        .duration(defaultTransitionDuration)
-        .ease(d3.easeCircleOut)
-        .attr('x1', d => xScale(d.year))
-        .attr('y1', d => yScale(0))
-        .attr('x2', d => xScale(d.year))
-        .attr('y2', d => yScale(d.value))
+          .duration(defaultTransitionDuration)
+          .ease(d3.easeCircleOut)
+          .attr('x1', d => xScale(d.year))
+          .attr('y1', d => yScale(0))
+          .attr('x2', d => xScale(d.year))
+          .attr('y2', d => yScale(d.value))
 
       //exit
       line.exit()
         .transition()
-        .duration(defaultTransitionDuration)
-        .ease(d3.easeCircleOut)
-        .attr('y2', d => yScale(0))
-        .style('opacity', '0')
-        .remove()
+          .duration(defaultTransitionDuration)
+          .ease(d3.easeCircleOut)
+          .attr('y2', d => yScale(0))
+          .style('opacity', '0')
+          .remove()
 
       //enter
       line.enter().append('line')
