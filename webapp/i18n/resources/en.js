@@ -290,7 +290,8 @@ export const translation = {
     otherNonEdibleAnimalProducts: '16 Other non-edible animal products',
     allOtherPlantProducts: 'All other plant product',
     allOtherAnimalProducts: 'All other animal products',
-    total: 'Total'
+    total: 'Total',
+    currency: 'Name of currency'
   },
 
   primaryDesignatedManagementObjective: {
