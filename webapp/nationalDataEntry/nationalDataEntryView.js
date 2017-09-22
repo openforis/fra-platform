@@ -94,8 +94,8 @@ const NationalDataEntry = (props) => {
 
     <div className="nde__data-table-header">
       <h3 className="subhead">{i18n.t('extentOfForest.extentOfForestValues')}</h3>
-      <DefinitionLink document="tad" section="1a" title={i18n.t('definition.definitionLabel')}/>
-      <DefinitionLink document="faq" section="1a" title={i18n.t('definition.faqLabel')} className="align-left"/>
+      <DefinitionLink document="tad" section="1a" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
+      <DefinitionLink document="faq" section="1a" title={i18n.t('definition.faqLabel')} lang={i18n.language} className="align-left"/>
       <button disabled={disableGenerateFRAValues()} className="btn btn-primary"
               onClick={() => props.generateFraValues('extentOfForest', props.countryIso)}>
         {i18n.t('extentOfForest.generateFraValues')}
