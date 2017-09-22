@@ -6,7 +6,7 @@ import { separateThousandsWithSpaces } from '../utils/numberFormat'
 import { ThousandSeparatedIntegerInput } from '../reusableUiComponents/thousandSeparatedIntegerInput'
 import ReviewIndicator from '../review/reviewIndicator'
 import { readPasteClipboard } from '../utils/copyPasteUtil'
-import {acceptNextInteger} from '../utils/numberInput'
+import {acceptNextInteger, acceptNextDecimal} from '../utils/numberInput'
 
 const mapIndexed = R.addIndex(R.map)
 
@@ -71,13 +71,15 @@ const fraValueCell = (fraValue, fra, countryIso, save, saveMany, pasteUpdate, fi
   <ThousandSeparatedIntegerInput
     className="fra-table__integer-input"
     integerValue={ fraValue[field] }
+    precision={2}
     onPaste={ e => saveMany(countryIso, pasteUpdate(e, colIdx, rowIdx, fra)) }
-    onChange={ e => { save(countryIso, fraValue.name, e.target.value, fraValue, field) } }/>
+    onChange={ e => { save(countryIso, fraValue.name, e.target.value, fraValue, field, acceptNextDecimal) } }/>
 
 const odpCell = (odpValue, field) =>
   <ThousandSeparatedIntegerInput
     className="fra-table__integer-input"
     integerValue={Math.round(odpValue[field])}
+    precision={3}
     disabled={true} />
 
 const fraValueRow = (rowHeading, field, className, countryIso, fra, save, saveMany, pasteUpdate, colId, openThread) => {
