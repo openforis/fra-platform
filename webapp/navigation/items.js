@@ -3,6 +3,7 @@ import specificForestCategoriesTableSpec from '../specificForestCategories/table
 import primaryDesignatedManagementObjectiveTableSpec from '../primaryDesignatedManagementObjective/tableSpec'
 import areaAffectedByFireTableSpec from '../areaAffectedByFire/tableSpec'
 import growingStockCompositionTableSpec from '../growingStockComposition/tableSpec'
+import nonWoodForestProductsRemovalsMainSpec from '../nonWoodForestProductsRemovals/mainTableSpec'
 
 export const annualItems = i18n => [
   {
@@ -61,7 +62,8 @@ export const fiveYearItems = i18n => [
   {
     order: 10,
     label: i18n.t('nonWoodForestProducts.nonWoodForestProducts'),
-    pathTemplate: '#/todo'
+    pathTemplate: '/country/:countryIso/nonWoodForestProductsRemovals',
+    section: nonWoodForestProductsRemovalsMainSpec(i18n).name
   },
   {
     order: 11,
