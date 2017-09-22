@@ -41,7 +41,11 @@ module.exports.init = app => {
       }).error(err => {
         console.error(err)
         if (err.code === 'ENOENT') {
-          res.status(404).send('404 / Page not found')
+          if (lang !== 'en') {
+            res.redirect(`/definitions/en/${name}`)
+          } else {
+            res.status(404).send('404 / Page not found')
+          }
         }
         else {
           res.status(500).send('An error occured')
