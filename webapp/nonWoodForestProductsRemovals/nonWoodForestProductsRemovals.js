@@ -34,7 +34,6 @@ const NonWoodForestProductsRemovalsView = ({match, i18n}) => {
     <div className="tv__container growing-stock__container">
       <h1 className="title tv__page-header">{i18n.t('nonWoodForestProductsRemovals.nonWoodForestProductsRemovals')}</h1>
       <TraditionalTable tableSpec={mainTableSpecInstance} countryIso={match.params.countryIso}/>
-      <br/>
       <div className="nwfpr__currency-table-wrapper">
         <TraditionalTable tableSpec={currencyNameTableSpec(i18n)} countryIso={match.params.countryIso}/>
       </div>
