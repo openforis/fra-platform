@@ -49,4 +49,4 @@ export const getTrendOdps = trend => R.filter(v => v.type === 'odp', trend)
 
 export const formatNumber = v => d3.format(',')(v).replace(/,/g, ' ')
 
-export const defaultTransitionDuration = 500
+export const defaultTransitionDuration = 400
