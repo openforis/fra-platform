@@ -13,7 +13,28 @@ const productRow = idx => [
   {type: 'integerInput'},
   {type: 'textInput'},
   {type: 'integerInput'},
-  {type: 'textSelect', localizationPrefix: 'nonWoodForestProductsRemovals', options: ['a', 'b']},
+  {
+    type: 'textSelect',
+    localizationPrefix: 'nonWoodForestProductsRemovals',
+    options: [
+      'food',
+      'fodder',
+      'rawMaterialForMedicine',
+      'rawMaterialForColorants',
+      'rawMaterialForUtensils',
+      'ornamentalPlants',
+      'exudates',
+      'otherPlantProducts',
+      'livingAnimals',
+      'hidesSkins',
+      'wildHoney',
+      'wildMeat',
+      'animalRawMaterialForMedicine',
+      'animalRawMaterialForColorants',
+      'otherEdibleAnimalProducts',
+      'otherNonEdibleAnimalProducts'
+    ]
+  },
 ]
 
 export default i18n => ({

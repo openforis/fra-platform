@@ -262,13 +262,32 @@ export const translation = {
   },
 
   nonWoodForestProductsRemovals: {
+    notSelected: 'Choose',
     nonWoodForestProducts: 'Non wood forest products removals 2015',
     nameOfProduct: 'Name of NWFP product',
     keySpecies: 'Key species',
     quantity: 'Quantity',
     unit: 'Unit',
     value: 'Value (1000 currency)',
-    category: 'NWFP category'
+    category: 'NWFP category',
+    //Plant products / raw material
+    food: '1 Food',
+    fodder: '2 Fodder',
+    rawMaterialForMedicine: '3 Raw material for medicine and aromatic products',
+    rawMaterialForColorants:  '4 Raw material for colorants and dyes',
+    rawMaterialForUtensils: '5 Raw material for utensils handicrafts construction',
+    ornamentalPlants: '6 Ornamental plants',
+    exudates: '7 Exudates',
+    otherPlantProducts: '8 Other plant products',
+    //Animal products / raw material
+    livingAnimals: '9 Living animals',
+    hidesSkins: '10 Hides skins and trophies',
+    wildHoney: '11 Wild honey and bee wax',
+    wildMeat: '12 Wild meat',
+    animalRawMaterialForMedicine: '13 Raw material for medicine',
+    animalRawMaterialForColorants: '14 Raw material for colorants',
+    otherEdibleAnimalProducts: '15 Other edible animal products',
+    otherNonEdibleAnimalProducts: '16 Other non-edible animal products'
   },
 
   primaryDesignatedManagementObjective: {
