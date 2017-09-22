@@ -288,7 +288,7 @@ export const translation = {
     animalRawMaterialForColorants: '14 Raw material for colorants',
     otherEdibleAnimalProducts: '15 Other edible animal products',
     otherNonEdibleAnimalProducts: '16 Other non-edible animal products',
-    allOtherPlantProducts: 'All other plant product',
+    allOtherPlantProducts: 'All other plant products',
     allOtherAnimalProducts: 'All other animal products',
     total: 'Total',
     currency: 'Name of currency'
