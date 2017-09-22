@@ -1,6 +1,11 @@
 import React from 'react'
 import R from 'ramda'
 
+const fillerCell = () => ({
+  type: 'readOnly',
+  jsx: <td className="fra-table__filler-cell"/>
+})
+
 const productRow = idx => [
   {
     type: 'readOnly',
@@ -37,6 +42,51 @@ const productRow = idx => [
   },
 ]
 
+const otherProductsRow = (heading) => [
+  {
+    type: 'readOnly',
+    jsx: <td className="fra-table__header-cell">
+      {heading}
+    </td>
+  },
+  ...R.times(fillerCell,4),
+  {type: 'integerInput'},
+  fillerCell()
+]
+
+const totalRow = i18n => {
+  const total = tableData =>
+    R.reduce((sum, row) => {
+        const value = tableData[row][5]
+        if (!R.isNil(value))
+          return sum + value
+        else
+          return sum
+      },
+      0,
+      R.range(0, 13)
+    )
+  const renderSum = ({tableData}) =>
+    <td key="" className="fra-table__aggregate-cell">
+      {total(tableData)}
+    </td>
+
+  return [
+    {
+      type: 'readOnly',
+      jsx: <td className="fra-table__header-cell">
+        {i18n.t('nonWoodForestProductsRemovals.total')}
+      </td>
+    },
+    ...R.times(fillerCell, 4),
+    {
+      type: 'custom',
+      render: renderSum
+    },
+    fillerCell()
+  ]
+}
+
 export default i18n => ({
   name: 'nonWoodForestProductsRemovals',
   header: <thead>
@@ -52,12 +102,12 @@ export default i18n => ({
   </thead>,
   rows: [
     ...R.map(productRow,R.range(1, 11)),
-    productRow(11), //TODO make this the "all other" row, just temporary placeholder
-    [{type: 'readOnly', jsx: <td className="fra-table__header-cell"/>}],
-    [{type: 'readOnly', jsx: <td className="fra-table__header-cell"/>}]
+    otherProductsRow(i18n.t('nonWoodForestProductsRemovals.allOtherPlantProducts')),
+    otherProductsRow(i18n.t('nonWoodForestProductsRemovals.allOtherAnimalProducts')),
+    totalRow(i18n)
   ],
   valueSlice: {
     columnStart: 1,
-    rowEnd: -2
+    rowEnd: -1
   }
 })

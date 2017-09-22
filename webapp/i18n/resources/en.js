@@ -262,7 +262,7 @@ export const translation = {
   },
 
   nonWoodForestProductsRemovals: {
-    notSelected: 'Choose',
+    notSelected: '',
     nonWoodForestProducts: 'Non wood forest products removals 2015',
     nameOfProduct: 'Name of NWFP product',
     keySpecies: 'Key species',
@@ -287,7 +287,10 @@ export const translation = {
     animalRawMaterialForMedicine: '13 Raw material for medicine',
     animalRawMaterialForColorants: '14 Raw material for colorants',
     otherEdibleAnimalProducts: '15 Other edible animal products',
-    otherNonEdibleAnimalProducts: '16 Other non-edible animal products'
+    otherNonEdibleAnimalProducts: '16 Other non-edible animal products',
+    allOtherPlantProducts: 'All other plant product',
+    allOtherAnimalProducts: 'All other animal products',
+    total: 'Total'
   },
 
   primaryDesignatedManagementObjective: {
