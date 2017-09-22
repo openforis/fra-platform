@@ -1,3 +1,4 @@
+import './style.less'
 import React from 'react'
 import { connect } from 'react-redux'
 
@@ -14,7 +15,7 @@ const currencyNameTableSpec = i18n => ({
     [
       {
         type: 'readOnly',
-        jsx: <td className="fra-table__header-cell">
+        jsx: <td className="fra-table__cell nwfpr__currency-heading-cell ">
           {i18n.t('nonWoodForestProductsRemovals.currency')}
         </td>
       },
@@ -34,7 +35,7 @@ const NonWoodForestProductsRemovalsView = ({match, i18n}) => {
       <h1 className="title tv__page-header">{i18n.t('nonWoodForestProductsRemovals.nonWoodForestProductsRemovals')}</h1>
       <TraditionalTable tableSpec={mainTableSpecInstance} countryIso={match.params.countryIso}/>
       <br/>
-      <div style={{width: '50%'}}>
+      <div className="nwfpr__currency-table-wrapper">
         <TraditionalTable tableSpec={currencyNameTableSpec(i18n)} countryIso={match.params.countryIso}/>
       </div>
       <CommentableDescriptions
