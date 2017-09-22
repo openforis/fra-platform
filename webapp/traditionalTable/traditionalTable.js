@@ -51,7 +51,11 @@ const tableRows = (props) => {
             rowSpec
           )
         }
-        <ReviewWrapper {...props} rowIdx={rowIdx}/>
+        {
+          !props.tableSpec.disableReviewComments
+            ? <ReviewWrapper {...props} rowIdx={rowIdx}/>
+            : null
+        }
       </tr>,
     props.tableSpec.rows)
 }

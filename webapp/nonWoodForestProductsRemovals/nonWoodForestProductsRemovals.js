@@ -9,6 +9,7 @@ import { CommentableDescriptions } from '../description/commentableDescription'
 const currencyNameTableSpec = i18n => ({
   name: 'nonWoodForestProductsRemovalsCurrency',
   header: <thead/>,
+  disableReviewComments: true,
   rows: [
     [
       {
@@ -33,7 +34,9 @@ const NonWoodForestProductsRemovalsView = ({match, i18n}) => {
       <h1 className="title tv__page-header">{i18n.t('nonWoodForestProductsRemovals.nonWoodForestProductsRemovals')}</h1>
       <TraditionalTable tableSpec={mainTableSpecInstance} countryIso={match.params.countryIso}/>
       <br/>
-      <TraditionalTable tableSpec={currencyNameTableSpec(i18n)} countryIso={match.params.countryIso}/>
+      <div style={{width: '50%'}}>
+        <TraditionalTable tableSpec={currencyNameTableSpec(i18n)} countryIso={match.params.countryIso}/>
+      </div>
       <CommentableDescriptions
         section={mainTableSpecInstance.name}
         name="nonWoodForestProductsRemovals"
