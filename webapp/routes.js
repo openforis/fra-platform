@@ -12,6 +12,7 @@ import OriginalDataListView from './originalDataPoint/originalDataListView'
 import ForestAreaChangeView from './forestAreaChange/forestAreaChangeView'
 import AreaAffecteByFireView from './areaAffectedByFire/areaAffectedByFireView'
 import ForestCharacteristicsView from './forestCharacteristics/forestCharacteristicsView'
+import NonWoodForestProductsRemovalsView from './nonWoodForestProductsRemovals/nonWoodForestProductsRemovals'
 
 const routes = {
   '/': () => <noscript/>, //This will get rendered first (it flashes), before we redirect to logged-in page or login page
@@ -25,7 +26,8 @@ const routes = {
   '/country/:countryIso/forestAreaChange': ForestAreaChangeView,
   '/country/:countryIso/forestCharacteristics': ForestCharacteristicsView,
   '/country/:countryIso/primaryDesignatedManagementObjectiveView': PrimaryDesignatedManagementObjectiveView,
-  '/country/:countryIso/areaAffectedByFire': AreaAffecteByFireView
+  '/country/:countryIso/areaAffectedByFire': AreaAffecteByFireView,
+  '/country/:countryIso/nonWoodForestProductsRemovals': NonWoodForestProductsRemovalsView,
 }
 
 const routeConfig = R.pipe(

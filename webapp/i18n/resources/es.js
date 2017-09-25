@@ -168,8 +168,8 @@ export const translation = {
     growingStockComposition: 'Composición de las existencias en formación'
   },
 
-  nonWoodForestProducts: {
-    nonWoodForestProducts: 'Productos forestales no madereros '
+  nonWoodForestProductsRemovals: {
+    nonWoodForestProductsRemovals: 'Productos forestales no madereros '
   },
 
   primaryDesignatedManagementObjective: {
