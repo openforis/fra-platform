@@ -210,6 +210,10 @@ export const translation = {
     forestAreaNetChange: 'Forest area net change'
   },
 
+  annualReforestation: {
+    annualReforestation: 'Annual reforestation'
+  },
+
   forestCharacteristics: {
     forestCharacteristics: 'Forest characteristics',
     categoryHeader: 'FRA categories',

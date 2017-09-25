@@ -49,6 +49,11 @@ export const fra2020Items = i18n => [
     section: forestAreaChangeTableSpec(i18n).name
   },
   {
+    tableNo: '1c',
+    label: i18n.t('annualReforestation.annualReforestation'),
+    pathTemplate: '#/todo'
+  },
+  {
     tableNo: '2a',
     label: i18n.t('forestCharacteristics.forestCharacteristics'),
     pathTemplate: '/country/:countryIso/forestCharacteristics',
