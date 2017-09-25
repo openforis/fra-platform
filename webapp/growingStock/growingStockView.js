@@ -16,7 +16,7 @@ const GrowingStock = (props) =>
     </div>
     <GrowingStockTable
       section="growingStock"
-      header={props.i18n.t('growingStock.fra2020Categories')}
+      header={props.i18n.t('growingStock.categoryHeader')}
       avgTableHeader={props.i18n.t('growingStock.avgTableHeader')}
       totalTableHeader={props.i18n.t('growingStock.totalTableHeader')}
       rows={rows}

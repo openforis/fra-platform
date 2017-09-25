@@ -49,7 +49,7 @@ export const translation = {
         previous: ''
       },
       editing: {
-        label: '', //Currently we do not wish to show the default state at all
+        label: 'Edición',
         previous: 'Rechazar'
       }
     }
@@ -111,12 +111,11 @@ export const translation = {
     enterOrCopyPasteNationalClasses: ' Entrar o copiar y pegar las clases nacionales'
   },
 
-  // annually reported assessment components
+  // FRA 2020 questionare
 
   extentOfForest: {
     extentOfForest: 'Extensión de los bosques',
     generateFraValues: 'Generar valores de FRA',
-    extentOfForestValues: 'Extensión de valores de los bosques',
     forestArea: 'Área de los bosques',
     dataSources: 'Fuente de datos',
     nationalClassificationAndDefinitions: 'Clasificación y definiciones nationales',
@@ -126,24 +125,6 @@ export const translation = {
       placeholderLine2: 'y utilícelos para generar automáticamente los valores de FRA.'
     }
   },
-
-  growingStock: {
-    growingStock: 'Existencias en formación'
-  },
-
-  biomassStock: {
-    biomassStock: 'Existencias en biomasa'
-  },
-
-  carbonStock: {
-    carbonStock: 'Existencias en carbono'
-  },
-
-  protectedAreas: {
-    protectedAreasLongTermMgmtPlans: 'Zonas protegidas y planes de gestión a largo plazo'
-  },
-
-  // five year cycle assessment components
 
   forestAreaChange: {
     forestAreaLossGainChange: 'Pérdida, ganancia y variación neta de la superficie forestal',
@@ -164,16 +145,28 @@ export const translation = {
     mangroves: 'Manglares'
   },
 
+  growingStock: {
+    growingStock: 'Existencias en formación'
+  },
+
   growingStockComposition: {
     growingStockComposition: 'Composición de las existencias en formación'
+  },
+
+  biomassStock: {
+    biomassStock: 'Existencias en biomasa'
+  },
+
+  carbonStock: {
+    carbonStock: 'Existencias en carbono'
   },
 
   nonWoodForestProductsRemovals: {
     nonWoodForestProductsRemovals: 'Productos forestales no madereros '
   },
 
-  primaryDesignatedManagementObjective: {
-    primaryDesignatedManagementObjective: 'Objetivo de ordenación principal designado',
+  designatedManagementObjective: {
+    designatedManagementObjective: 'Objetivo de ordenación principal designado',
     production: 'Producción',
     soilWaterProtection: 'Protección de suelos y de recursos hídricos',
     biodiversityConservation: 'Conservación de la biodiversidad',
@@ -182,6 +175,10 @@ export const translation = {
     other: 'Otro',
     unknown: 'Desconocido',
     totalForestArea: 'Área total de los bosques'
+  },
+
+  protectedAreas: {
+    protectedAreasLongTermMgmtPlans: 'Zonas protegidas y planes de gestión a largo plazo'
   },
 
   forestOwnershipManagementRights: {
