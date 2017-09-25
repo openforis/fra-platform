@@ -94,8 +94,8 @@ export const fra2020Items = i18n => [
   },
   {
     tableNo: '5a',
-    pathTemplate: '/country/:countryIso/primaryDesignatedManagementObjectiveView',
     label: i18n.t('designatedManagementObjective.designatedManagementObjective'),
+    pathTemplate: '/country/:countryIso/designatedManagementObjective',
     section: primaryDesignatedManagementObjectiveTableSpec(i18n).name
   },
   {
