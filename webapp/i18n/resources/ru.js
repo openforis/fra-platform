@@ -199,8 +199,8 @@ export const translation = {
     growingStockComposition: 'Состав насаждений'
   },
 
-  nonWoodForestProducts: {
-    nonWoodForestProducts: 'Недревесная продукция леса'
+  nonWoodForestProductsRemovals: {
+    nonWoodForestProductsRemovals: 'Недревесная продукция леса'
   },
 
   primaryDesignatedManagementObjective: {

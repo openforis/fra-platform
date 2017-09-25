@@ -61,7 +61,7 @@ export const fiveYearItems = i18n => [
   },
   {
     order: 10,
-    label: i18n.t('nonWoodForestProducts.nonWoodForestProducts'),
+    label: i18n.t('nonWoodForestProductsRemovals.nonWoodForestProductsRemovals'),
     pathTemplate: '/country/:countryIso/nonWoodForestProductsRemovals',
     section: nonWoodForestProductsRemovalsMainSpec(i18n).name
   },

@@ -263,7 +263,7 @@ export const translation = {
 
   nonWoodForestProductsRemovals: {
     notSelected: '',
-    nonWoodForestProducts: 'Non wood forest products removals 2015',
+    nonWoodForestProductsRemovals: 'Non wood forest products removals 2015',
     nameOfProduct: 'Name of NWFP product',
     keySpecies: 'Key species',
     quantity: 'Quantity',
