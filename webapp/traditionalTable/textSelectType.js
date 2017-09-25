@@ -22,7 +22,7 @@ const TextSelectType = ({countryIso,
   const currentValue = tableData[rowIdx][colIdx]
   return <td className="fra-table__cell">
     <select
-      className="select fra-table__select"
+      className="fra-table__select"
       value={currentValue || 'notSelected'}
       onChange={
         (evt) => {
@@ -36,7 +36,7 @@ const TextSelectType = ({countryIso,
               disabled={isHeadingOption(option)}
               key={option.name}>{optionLabel(option, i18n, localizationPrefix)}
               </option>
-          ,[...options, notSelectedOption])
+          ,[notSelectedOption, ...options])
       }
     </select>
   </td>
