@@ -5,10 +5,10 @@ import './thousandSeparatedIntegerInput.less'
 import { separateDecimalThousandsWithSpaces } from '../utils/numberFormat'
 import { acceptableAsDecimal } from '../utils/numberInput'
 
-const renderFocusedIntegerValue = integerValue =>
-  typeof integerValue === 'number' ? integerValue.toString() : integerValue
+const renderFocusedNumberValue = numberValue =>
+  typeof numberValue === 'number' ? numberValue.toFixed(2) : numberValue
 
-const renderUnfocusedIntegerValue = (integerValue, prec) => separateDecimalThousandsWithSpaces(integerValue, prec)
+const renderUnfocusedNumberValue = (numberValue, prec) => separateDecimalThousandsWithSpaces(numberValue, prec)
 
 export class ThousandSeparatedDecimalInput extends React.Component {
   constructor () {
@@ -17,15 +17,15 @@ export class ThousandSeparatedDecimalInput extends React.Component {
   }
 
   render () {
-    const {integerValue, onChange, onPaste, className, precision = 0} = this.props
-    const value = renderFocusedIntegerValue(this.state.inputValue || integerValue)
+    const {numberValue, onChange, onPaste, className, precision = 0} = this.props
+    const value = renderFocusedNumberValue(this.state.inputValue || numberValue)
     return <div className="tsii__field validation-error-sensitive-field" ref="wrapper">
       <div className="tsii__readonly-view"
            style={{
              display: this.state.hasFocus ? 'none' : 'inline-block',
            }}
       >
-        {renderUnfocusedIntegerValue(integerValue, precision)}
+        {renderUnfocusedNumberValue(numberValue, precision)}
       </div>
       <div style={{opacity: this.state.hasFocus ? '1' : '0'}}>
         <input
@@ -47,7 +47,7 @@ export class ThousandSeparatedDecimalInput extends React.Component {
           onFocus={
             () => {
               this.setState({hasFocus: true})
-              this.setState({inputValue: integerValue || null})
+              this.setState({inputValue: numberValue || null})
             }
           }
           onBlur={

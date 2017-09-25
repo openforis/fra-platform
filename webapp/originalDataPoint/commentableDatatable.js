@@ -71,7 +71,7 @@ const OdpHeading = ({countryIso, odpValue}) =>
 const fraValueCell = (fraValue, fra, countryIso, save, saveMany, pasteUpdate, field, colIdx, rowIdx) =>
   <ThousandSeparatedDecimalInput
     className="fra-table__integer-input"
-    integerValue={ fraValue[field] }
+    numberValue={ fraValue[field] }
     precision={2}
     onPaste={ e => saveMany(countryIso, pasteUpdate(e, colIdx, rowIdx, fra)) }
     onChange={ e => { save(countryIso, fraValue.name, e.target.value, fraValue, field, acceptNextDecimal) } }/>
