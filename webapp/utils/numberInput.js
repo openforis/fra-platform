@@ -32,6 +32,7 @@ export const acceptableAsDecimal = (newValue) => {
   const newValueTrimmed = trim(newValue)
   if (newValueTrimmed === '') return true
   if (R.contains('e', newValueTrimmed)) return false
+  if(!R.test(/^(-)?[0-9]+(\.{1}[0-9]*)?$/)) return false
   return !isNaN(newValueTrimmed) &&
     isValidDecimalPart(newValueTrimmed) &&
     isFinite(newValueTrimmed)
@@ -44,5 +45,5 @@ export const acceptNextDecimal = (newValue, currentValue) => {
   if (newValueTrimmed === '') return null
   if (!acceptableAsDecimal(newValue)) return currentValue
   if (newValueTrimmed.length > 20) return currentValue
-  return newValueTrimmed
+  return Number(parseFloat(newValueTrimmed).toFixed(2))
 }

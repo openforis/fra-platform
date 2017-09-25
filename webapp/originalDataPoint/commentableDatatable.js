@@ -4,6 +4,7 @@ import * as R from 'ramda'
 import { Link } from './../link'
 import { separateThousandsWithSpaces } from '../utils/numberFormat'
 import { ThousandSeparatedIntegerInput } from '../reusableUiComponents/thousandSeparatedIntegerInput'
+import { ThousandSeparatedDecimalInput } from '../reusableUiComponents/thousandSeparatedDecimalInput'
 import ReviewIndicator from '../review/reviewIndicator'
 import { readPasteClipboard } from '../utils/copyPasteUtil'
 import {acceptNextInteger, acceptNextDecimal} from '../utils/numberInput'
@@ -68,7 +69,7 @@ const OdpHeading = ({countryIso, odpValue}) =>
   </Link>
 
 const fraValueCell = (fraValue, fra, countryIso, save, saveMany, pasteUpdate, field, colIdx, rowIdx) =>
-  <ThousandSeparatedIntegerInput
+  <ThousandSeparatedDecimalInput
     className="fra-table__integer-input"
     integerValue={ fraValue[field] }
     precision={2}
