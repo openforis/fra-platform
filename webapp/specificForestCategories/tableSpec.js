@@ -16,10 +16,11 @@ export default i18n => ({
   </tr>
   </thead>,
   rows: [
-    [{
-      type: 'readOnly',
-      jsx: <td key="bamboo" className="fra-table__header-cell">{i18n.t('specificForestCategories.bamboo')}</td>
-    },
+    [
+      {
+        type: 'readOnly',
+        jsx: <td key="bamboo" className="fra-table__header-cell">{i18n.t('specificForestCategories.bamboo')}</td>
+      },
       {type: 'integerInput'},
       {type: 'integerInput'},
       {type: 'integerInput'},
@@ -30,6 +31,18 @@ export default i18n => ({
       {
         type: 'readOnly',
         jsx: <td key="mangroves" className="fra-table__header-cell">{i18n.t('specificForestCategories.mangroves')}</td>
+      },
+      {type: 'integerInput'},
+      {type: 'integerInput'},
+      {type: 'integerInput'},
+      {type: 'integerInput'},
+      {type: 'integerInput'}
+    ],
+    [
+      {
+        type: 'readOnly',
+        jsx: <td key="rubberPlantations"
+                className="fra-table__header-cell">{i18n.t('specificForestCategories.temporarilyUnstocked')}</td>
       },
       {type: 'integerInput'},
       {type: 'integerInput'},
