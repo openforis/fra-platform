@@ -1,11 +1,11 @@
 import React from 'react'
 import './thousandSeparatedIntegerInput.less'
-import { separateDecimalThousandsWithSpaces } from '../utils/numberFormat'
+import { separateThousandsWithSpaces } from '../utils/numberFormat'
 
 const renderFocusedIntegerValue = integerValue =>
   typeof integerValue === 'number' ? integerValue.toString() : integerValue
 
-const renderUnfocusedIntegerValue = (integerValue, prec) => separateDecimalThousandsWithSpaces(integerValue, prec)
+const renderUnfocusedIntegerValue = integerValue => separateThousandsWithSpaces(integerValue)
 
 export class ThousandSeparatedIntegerInput extends React.Component {
   constructor () {
@@ -14,14 +14,14 @@ export class ThousandSeparatedIntegerInput extends React.Component {
   }
 
   render () {
-    const {integerValue, onChange, onPaste, className, precision = 0} = this.props
+    const {integerValue, onChange, onPaste, className} = this.props
     return <div className="tsii__field validation-error-sensitive-field" ref="wrapper">
       <div className="tsii__readonly-view"
            style={{
               display: this.state.hasFocus ? 'none' : 'inline-block',
            }}
       >
-        {renderUnfocusedIntegerValue(integerValue, precision)}
+        {renderUnfocusedIntegerValue(integerValue)}
       </div>
       <div style={{opacity: this.state.hasFocus ? '1' : '0'}}>
         <input

@@ -7,7 +7,7 @@ export const acceptableAsInteger = (newValue) => {
   if (newValueTrimmed === '') return true
   if (R.contains('e', newValueTrimmed)) return false
   return !isNaN(newValueTrimmed) &&
-          isValidDecimalPart(newValueTrimmed) &&
+          newValueTrimmed.indexOf('.') === -1 &&
           isFinite(newValueTrimmed)
 }
 
@@ -17,10 +17,8 @@ export const acceptNextInteger = (newValue, currentValue) => {
   const newValueTrimmed = trim(newValue)
   if (newValueTrimmed === '') return null
   if (!acceptableAsInteger(newValue)) return currentValue
-  console.log('accepted integer')
   if (newValueTrimmed.length > 20) return currentValue
-  // Number(parseFloat(newValueTrimmed).toFixed(2))
-  return newValueTrimmed
+  return Math.round(Number(newValueTrimmed))
 }
 
 const isValidDecimalPart = d => {
