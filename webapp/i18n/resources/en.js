@@ -36,7 +36,10 @@ export const translation = {
     naturallyGenerated: 'Naturally regenerating forest',
     plantationForest: 'Plantation forest',
     otherPlantedForest: 'Other planted forest',
-    introduced: '…of which introduces species'
+    introduced: '…of which introduces species',
+    naturallyRegeneratingForest: 'Naturally regenerating forest',
+    plantedForest: 'Planted forest',
+    totalForest: 'Total forest'
   },
 
   fraOtherLandClass: {
@@ -69,13 +72,13 @@ export const translation = {
   // components
 
   countryListing: {
-    annuallyReported: 'Annually',
-    fiveYearCycle: 'Five-year'
+    annuallyUpdated: 'Annually updated',
+    fra2020: 'FRA 2020'
   },
 
   navigation: {
-    annuallyReported: 'Annually reported',
-    fiveYearCycle: 'Five-year cycle',
+    annuallyUpdated: 'Annually updated',
+    fra2020: 'FRA 2020',
     assessmentStatus: {
       changing: {
         label: 'Changing…'
@@ -154,7 +157,7 @@ export const translation = {
     nationalData: 'National data',
     reclassificationLabel: 'Reclassification',
     forestCategoriesLabel: 'Forest, other wooded land and other land',
-    year: 'Year',
+    year: 'Reference year for the data',
     methods: 'Methods',
     edit: 'Edit',
     copyPreviousValues: 'Copy previous values',
@@ -197,7 +200,10 @@ export const translation = {
   },
 
   growingStock: {
-    growingStock: 'Growing stock'
+    growingStock: 'Growing stock',
+    fra2020Categories: 'FRA 2020 categories',
+    avgTableHeader: 'Average growing stock (m3/ha)',
+    totalTableHeader: 'Total growing stock (million m3)'
   },
 
   biomassStock: {
@@ -310,6 +316,10 @@ export const translation = {
 
   forestOwnershipManagementRights: {
     forestOwnershipManagementRights: 'Forest ownership'
+  },
+
+  holderOfManagementRights: {
+    holderOfManagementRights: 'Holder of management rights of public forests'
   },
 
   disturbances: {

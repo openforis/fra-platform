@@ -80,7 +80,11 @@ const NationalDataEntry = (props) => {
           {i18n.t('nationalDataPoint.addNationalDataPoint')}
         </Link>
       </div>
-      <ChartWrapper stateName="nationalDataEntry" trends={['forestArea', 'otherWoodedLand']}/>
+      <ChartWrapper stateName="nationalDataEntry"
+                    trends={[
+                      {name:'forestArea', label:i18n.t('fraClass.forest'), odpColor:'#0098a6', fraPathStroke:'rgba(0,152,166,.35)', odpPathStroke:'rgba(0,152,166,.5)'},
+                      {name:'otherWoodedLand', label:i18n.t('fraClass.otherWoodedLand'), odpColor:'#bd19ad', fraPathStroke:'rgba(189,25,173,.35)', odpPathStroke:'rgba(189,25,173,.5)'}
+                      ]}/>
     </div>
 
     <div className="nde__data-table-header">

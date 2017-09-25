@@ -35,8 +35,8 @@ const handleCountryResult = resolveRole => result => {
         return {
           countryIso,
           name: vals[0].name,
-          annualAssesment: determineCountryAssessmentStatus('annuallyReported', getStatuses(vals)),
-          fiveYearAssesment: determineCountryAssessmentStatus('fiveYearCycle', getStatuses(vals)),
+          annualAssessment: determineCountryAssessmentStatus('annuallyUpdated', getStatuses(vals)),
+          fra2020Assessment: determineCountryAssessmentStatus('fra2020', getStatuses(vals)),
           role: resolveRole(countryIso),
           lastEdit:  vals[0].lastEdited
         }

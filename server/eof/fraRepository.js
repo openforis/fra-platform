@@ -173,6 +173,7 @@ const forestCharacteristicsReducer = (results, row, type = 'fra') => R.assoc(`fr
     plantationForestArea: toNumberOrNull(row.plantation_forest_area),
     plantationForestIntroducedArea: toNumberOrNull(row.platation_forest_introduced_area),
     otherPlantedForestArea: toNumberOrNull(row.other_planted_forest_area),
+    otherWoodedLand: toNumberOrNull(row.other_wooded_land),
     name: row.year + '',
     type: 'fra',
     year: Number(row.year),
@@ -198,7 +199,12 @@ module.exports.readFraForestAreas = (countryIso) =>
 
 module.exports.readFraForestCharacteristics = countryIso =>
   db.query(
-    'SELECT * from foc_fra_values WHERE country_iso = $1',
+    `SELECT c.*, f.other_wooded_land 
+      FROM foc_fra_values c 
+      LEFT OUTER JOIN eof_fra_values f
+        ON c.country_iso = f.country_iso
+        AND c.year = f.year
+      WHERE c.country_iso = $1`,
     [countryIso]
   ).then((result) => R.reduce(forestCharacteristicsReducer, {}, result.rows))
 
