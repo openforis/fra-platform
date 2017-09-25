@@ -17,7 +17,7 @@ export class ThousandSeparatedDecimalInput extends React.Component {
   }
 
   render () {
-    const {numberValue, onChange, onPaste, className, precision = 0} = this.props
+    const {numberValue, onChange, onPaste, className, precision = 2} = this.props
     const value = renderFocusedNumberValue(this.state.inputValue || numberValue)
     return <div className="tsii__field validation-error-sensitive-field" ref="wrapper">
       <div className="tsii__readonly-view"

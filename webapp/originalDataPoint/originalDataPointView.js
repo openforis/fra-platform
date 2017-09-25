@@ -13,10 +13,11 @@ import {
   cancelDraft
 } from './actions'
 import { fetchCountryOverviewStatus } from '../navigation/actions'
-import { acceptNextInteger } from '../utils/numberInput'
+import { acceptNextInteger, acceptNextDecimal } from '../utils/numberInput'
 import { readPasteClipboard } from '../utils/copyPasteUtil'
 import { separateThousandsWithSpaces } from '../utils/numberFormat'
 import { ThousandSeparatedIntegerInput } from '../reusableUiComponents/thousandSeparatedIntegerInput'
+import { ThousandSeparatedDecimalInput } from '../reusableUiComponents/thousandSeparatedDecimalInput'
 import { PercentInput } from '../reusableUiComponents/percentInput'
 import VerticallyGrowingTextField from '../reusableUiComponents/verticallyGrowingTextField'
 import LoggedInPageTemplate from '../loggedInPageTemplate'
@@ -362,8 +363,10 @@ const extentOfForestRows = (countryIso, odp, saveDraft, openThread, i18n) =>
       {...nationalClass}/>)
   )(odp.nationalClasses)
 
-const numberUpdateCreator = saveDraft => (countryIso, odp, index, fieldName, currentValue) => evt => {
-  saveDraft(countryIso, originalDataPoint.updateNationalClass(odp, index, fieldName, acceptNextInteger(evt.target.value, currentValue)))
+const numberUpdateCreator = (saveDraft, type = 'integer') => (countryIso, odp, index, fieldName, currentValue) => evt => {
+  saveDraft(countryIso, originalDataPoint.updateNationalClass(odp, index, fieldName, type === 'integer' ?
+    acceptNextInteger(evt.target.value, currentValue) : acceptNextDecimal(evt.target.value, currentValue)
+  ))
 }
 
 const ExtentOfForestRow = ({
@@ -385,15 +388,16 @@ const ExtentOfForestRow = ({
   const eofStatusPercentage = () => validationStatus.validEofPercentage === false ? 'error' : ''
 
   const numberUpdated = numberUpdateCreator(saveDraft)
+  const decimalUpdated = numberUpdateCreator(saveDraft, 'decimal')
 
   return <tr
     className={isCommentsOpen([odp.odpId, 'class', `${odp.nationalClasses[index].uuid}`, 'value'], openThread) ? 'fra-row-comments__open' : ''}>
     <td className="fra-table__header-cell-sub"><span>{className}</span></td>
     <td
       className={`fra-table__cell fra-table__divider ${validationStatus.validArea === false ? 'error' : ''}`}>
-      <ThousandSeparatedIntegerInput integerValue={area}
+      <ThousandSeparatedDecimalInput numberValue={area}
                                      className="fra-table__integer-input"
-                                     onChange={numberUpdated(countryIso, odp, index, 'area', area)}
+                                     onChange={decimalUpdated(countryIso, odp, index, 'area', area)}
                                      onPaste={updatePastedValues({
                                        odp,
                                        countryIso,
@@ -628,7 +632,7 @@ const ForestCharacteristicsRow =
       <td className="fra-table__header-cell-sub"><span>{className}</span></td>
       <td
         className={`fra-table__cell-mute fra-table__divider`}>
-        <ThousandSeparatedIntegerInput integerValue={area}
+        <ThousandSeparatedDecimalInput numberValue={area}
                                        className="fra-table__integer-input"
                                        disabled={true}
                                        onChange={numberUpdated(countryIso, odp, index, 'area', area)}

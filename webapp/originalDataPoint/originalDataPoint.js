@@ -59,21 +59,23 @@ export const totalForest = (odp, percentFieldName) => {
     isNaN(nationalClass.area) || isNaN(nationalClass[percentFieldName]) // isNaN actually tests whether something can be converted to a number, not whether it's NaN
       ? 0
       : total + (Number(nationalClass.area) * (Number(nationalClass[percentFieldName]) / 100.0))
-  return (R.reduce(reduceTotal, 0, odp.nationalClasses)).toFixed(0)
+  return (R.reduce(reduceTotal, 0, odp.nationalClasses)).toFixed(calculationPrecision)
 }
+
+const calculationPrecision = 2
 
 export const allowCopyingOfPreviousValues =
   R.pipe(R.path(['nationalClasses', 0, 'className']), R.defaultTo(''), R.isEmpty)
 
 export const totalArea = odp =>
-  R.reduce((total, nationalClass) => isNaN(nationalClass.area) ? 0 : total + Number(nationalClass.area), 0, odp.nationalClasses).toFixed(0)
+  R.reduce((total, nationalClass) => isNaN(nationalClass.area) ? 0 : total + Number(nationalClass.area), 0, odp.nationalClasses).toFixed(calculationPrecision)
 
 export const otherLandTotalArea = odp =>
-  R.reduce((total, nationalClass) => total + defaultTo0(nationalClass.area) * defaultTo0(nationalClass.otherLandPercent) / 100, 0, odp.nationalClasses).toFixed(0)
+  R.reduce((total, nationalClass) => total + defaultTo0(nationalClass.area) * defaultTo0(nationalClass.otherLandPercent) / 100, 0, odp.nationalClasses).toFixed(calculationPrecision)
 
 export const otherLandClassTotalArea = (odp, percentFieldName) =>
   R.reduce((total, nationalClass) => total + defaultTo0(nationalClass.area) * defaultTo0(nationalClass.otherLandPercent) * defaultTo0(nationalClass[percentFieldName]) / 10000,
-    0, odp.nationalClasses).toFixed(0)
+    0, odp.nationalClasses).toFixed(calculationPrecision)
 
 export const copyNationalClassDefinitions = (odpTarget, odpSource) => ({
   ...odpTarget,
