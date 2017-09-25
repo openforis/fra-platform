@@ -3,11 +3,13 @@ import assert from 'assert'
 import IntegerCellType from './integerCellType'
 import TextCellType from './textCellType'
 import TextSelectType from './textSelectType'
+import VerticallyGrowingTextCell from './verticallyGrowingTextCellType'
 
 const cellTypeCreators = {
   'integerInput': IntegerCellType,
   'textInput': TextCellType,
   'textSelect': TextSelectType,
+  'verticallyGrowingTextInput': VerticallyGrowingTextCell,
   'readOnly': (cellSpec) => ({render: (props) => cellSpec.jsx}),
   'custom': (cellSpec) => ({render: (props) => cellSpec.render(props)})
 }
