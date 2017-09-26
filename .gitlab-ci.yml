@@ -7,9 +7,6 @@ stages:
 build:
   stage: build
   script:
-  - apt-get update
-  - apt-get install --assume-yes rubygems
-  - gem install dpl
   - yarn install
   - yarn test
   - yarn build
@@ -17,6 +14,9 @@ build:
 deploy_staging:
   stage: deploy
   script:
+  - apt-get update
+  - apt-get install --assume-yes rubygems
+  - gem install dpl
   - dpl --provider=heroku --app=$HEROKU_STAGING_APP_NAME --api-key=$HEROKU_STAGING_API_KEY
   only:
   - master
@@ -27,6 +27,9 @@ deploy_staging:
 deploy_production:
   stage: deploy
   script:
+  - apt-get update
+  - apt-get install --assume-yes rubygems
+  - gem install dpl
   - dpl --provider=heroku --app=$HEROKU_PRODUCTION_APP_NAME --api-key=$HEROKU_PRODUCTION_API_KEY
   only:
   - master
