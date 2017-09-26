@@ -1,17 +1,11 @@
-export const separateThousandsWithSpaces = num => {
-  if (typeof num === 'number')
-    return (num.toFixed(2)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
-  if (typeof num === 'string') {
-    return Number(num).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
-  }
-  return ''
-}
+import * as R from 'ramda'
+
+export const separateThousandsWithSpaces = num =>
+  typeof num === 'number'
+    ? num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
+    : ''
 
 export const separateDecimalThousandsWithSpaces = (num, prec = 0) => {
-  if (typeof num === 'number')
-    return (num.toFixed(prec)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
-  if (typeof num === 'string') {
-    return Number(num).toFixed(prec).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
-  }
-  return ''
+  const toFormat = typeof num === 'string' ? Number(num) : num
+  return R.isNil(toFormat) ? '' : toFormat.toFixed(prec).replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
 }
