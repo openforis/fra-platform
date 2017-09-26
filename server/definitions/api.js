@@ -25,9 +25,9 @@ module.exports.init = app => {
               anchor: anchor,
               text: text
             })
-            return '<h' + level + ' id="' + anchor + '" class="anchor-link">' + text + '</h' + level + '>'
+            return `<h${level} id="${anchor}" class="anchor-link">${text}</h${level}>`
           } else {
-            return '<h' + level + '>' + text + '</h' + level + '>'
+            return `<h${level}>${text}</h${level}>`
           }
         }
         marked.setOptions({
@@ -39,7 +39,7 @@ module.exports.init = app => {
         var tocHTML = '<ul class="toc">'
         toc.forEach((entry, index) => {
           if (index > 0) {
-            tocHTML += '<li><a href="#' + entry.anchor + '">' + entry.text + '</a></li>'
+            tocHTML += `<li><a href="#${entry.anchor}">${entry.text}</a></li>`
           }
         })
         tocHTML += '</ul><hr/>'
