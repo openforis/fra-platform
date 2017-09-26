@@ -9,6 +9,7 @@
 }
 
 .nde__data-page-header {
+  .mixin-flex-header-row;
   padding-bottom: 24px;
 }
 
@@ -23,22 +24,8 @@
 }
 
 .nde__data-table-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-bottom: 16px;
-
-  > *:nth-child(n + 2) {
-    margin-left: 16px;
-  }
-
-  .align-left {
-    margin-right: auto;
-  }
-
-  .aling-right {
-    margin-left: auto;
-  }
+  .mixin-flex-header-row;
+  margin-bottom: 16px;
 }
 
 .nde__data-table-container {
@@ -66,5 +53,23 @@
 .nde__comment-column {
   .fra-review__add-issue:first-of-type {
     margin-top: 83px;
+  }
+}
+
+.mixin-flex-header-row() {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  > *:nth-child(n + 2) {
+    margin-left: 16px;
+  }
+
+  .align-left {
+    margin-right: auto;
+  }
+
+  .aling-right {
+    margin-left: auto;
   }
 }
