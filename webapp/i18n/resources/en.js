@@ -6,9 +6,12 @@ export const translation = {
     fr: 'Français',
     ru: 'Русский'
   },
+
   definition: {
-    linkLabel: 'See definitions'
+    definitionLabel: 'See definitions',
+    faqLabel: 'FAQ'
   },
+
   audit: {
     notStarted: 'Not started',
     edited: 'Edited'
@@ -179,11 +182,11 @@ export const translation = {
     otherLandCharacteristics: 'Other land with tree cover'
   },
 
-  // annually reported assessment components
+  // FRA 2020 questionare
 
   extentOfForest: {
+    extentOfForest: 'Extent of forest, other wooded land and other land',
     categoryHeader: 'FRA categories',
-    extentOfForest: 'Extent of forest',
     areaUnitLabel: 'Area (1000 ha)',
     generateFraValues: 'Generate FRA values',
     extentOfForestValues: 'Extent of forest values',
@@ -199,31 +202,10 @@ export const translation = {
     ofWhichTreesUrbanSettings: '…of which trees in urban settings'
   },
 
-  growingStock: {
-    growingStock: 'Growing stock',
-    fra2020Categories: 'FRA 2020 categories',
-    avgTableHeader: 'Average growing stock (m3/ha)',
-    totalTableHeader: 'Total growing stock (million m3)'
-  },
-
-  biomassStock: {
-    biomassStock: 'Biomass stock'
-  },
-
-  carbonStock: {
-    carbonStock: 'Carbon stock'
-  },
-
-  protectedAreas: {
-    protectedAreasLongTermMgmtPlans: 'Protected areas and long-term management plans'
-  },
-
-  // five year cycle assessment components
-
   forestAreaChange: {
+    forestAreaLossGainChange: 'Annual forest area loss, gain and net change',
     categoryHeader: 'FRA categories',
     areaUnitLabel: 'Area (1000 ha/year)',
-    forestAreaLossGainChange: 'Annual forest area loss, gain and net change',
     forestExpansion: 'Forest expansion',
     ofWhichAfforestation: '…of which afforestation',
     ofWhichNaturalExpansion: '…of which natural expansion',
@@ -231,11 +213,14 @@ export const translation = {
     forestAreaNetChange: 'Forest area net change'
   },
 
+  annualReforestation: {
+    annualReforestation: 'Annual reforestation'
+  },
+
   forestCharacteristics: {
-    categoryHeader: 'FRA categories',
     forestCharacteristics: 'Forest characteristics',
+    categoryHeader: 'FRA categories',
     areaUnitLabel: 'Forest area (1000 ha)',
-    forestCharacteristicsValues: 'Forest characteristics values',
     naturalForestArea: 'Naturally regenerating forest',
     naturalForestPrimaryArea: '…of which primary',
     plantationForestArea: 'Plantation forest',
@@ -244,11 +229,18 @@ export const translation = {
   },
 
   specificForestCategories: {
-    categoryHeader: 'FRA categories',
     specificForestCategories: 'Specific forest categories',
+    categoryHeader: 'FRA categories',
     areaUnitLabel: 'Area (1000 ha)',
     bamboo: 'Bamboos',
     mangroves: 'Mangroves'
+  },
+
+  growingStock: {
+    growingStock: 'Growing stock',
+    categoryHeader: 'FRA categories',
+    avgTableHeader: 'Average growing stock (m3/ha)',
+    totalTableHeader: 'Total growing stock (million m3)'
   },
 
   growingStockComposition: {
@@ -265,6 +257,14 @@ export const translation = {
     totalNative: 'Total volume of native tree species',
     totalIntroduced: 'Total volume of introduced tree species',
     totalGrowingStock: 'Total growing stock'
+  },
+
+  biomassStock: {
+    biomassStock: 'Biomass stock'
+  },
+
+  carbonStock: {
+    carbonStock: 'Carbon stock'
   },
 
   nonWoodForestProductsRemovals: {
@@ -300,9 +300,9 @@ export const translation = {
     currency: 'Name of currency'
   },
 
-  primaryDesignatedManagementObjective: {
+  designatedManagementObjective: {
+    designatedManagementObjective: 'Designated management objective',
     categoryHeader: 'FRA categories',
-    primaryDesignatedManagementObjective: 'Designated management objective',
     areaUnitLabel: 'Forest area (1000 ha)',
     production: 'Production',
     soilWaterProtection: 'Protection of soil and water',
@@ -312,6 +312,10 @@ export const translation = {
     other: 'Other (specify)',
     unknown: 'No/unknown',
     totalForestArea: 'Total forest area'
+  },
+
+  protectedAreas: {
+    protectedAreasLongTermMgmtPlans: 'Forest area within protected areas and forest area with long-term management plans'
   },
 
   forestOwnershipManagementRights: {
@@ -327,8 +331,8 @@ export const translation = {
   },
 
   areaAffectedByFire: {
-    categoryHeader: 'FRA categories',
     areaAffectedByFire: 'Area affected by fire',
+    categoryHeader: 'FRA categories',
     areaUnitLabel: 'Area (1000 ha)',
     totalLandAreaAffectedByFire: 'Total land area affected by fire',
     ofWhichForest: '…of which on forest'
@@ -347,11 +351,11 @@ export const translation = {
   },
 
   graduationOfStudents: {
-    graduationOfStudents: 'Graduation of students'
+    graduationOfStudents: 'Graduation of students in forest-related education'
   },
 
   policiesAndLegislation: {
-    policiesAndLegislation: 'Policies and legislation'
+    policiesAndLegislation: 'Policies, legislation and national platform for stakeholder participation in forest policy'
   },
 
   areaOfPermanentForestEstate: {

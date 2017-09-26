@@ -1,8 +1,8 @@
 {
   "name": "frap",
   "engines": {
-    "node": "6.10.2",
-    "yarn": "0.27.5"
+    "node": "6.11.3",
+    "yarn": "1.1.0"
   },
   "scripts": {
     "build": "webpack -p --config webpack.config.js",

@@ -26,7 +26,7 @@ const routes = {
   '/country/:countryIso/growingStockComposition': GrowingStockCompositionView,
   '/country/:countryIso/forestAreaChange': ForestAreaChangeView,
   '/country/:countryIso/forestCharacteristics': ForestCharacteristicsView,
-  '/country/:countryIso/primaryDesignatedManagementObjectiveView': PrimaryDesignatedManagementObjectiveView,
+  '/country/:countryIso/designatedManagementObjective': PrimaryDesignatedManagementObjectiveView,
   '/country/:countryIso/areaAffectedByFire': AreaAffecteByFireView,
   '/country/:countryIso/degradedForest': DegradedForestView,
   '/country/:countryIso/nonWoodForestProductsRemovals': NonWoodForestProductsRemovalsView,
