@@ -6,9 +6,12 @@ export const translation = {
     fr: 'Français',
     ru: 'Русский'
   },
+
   definition: {
-    linkLabel: 'See definitions'
+    definitionLabel: 'See definitions',
+    faqLabel: 'FAQ'
   },
+
   audit: {
     notStarted: 'Not started',
     edited: 'Edited'
@@ -341,6 +344,14 @@ export const translation = {
     ofWhichForest: '…of which on forest'
   },
 
+  degradedForest: {
+    degradedForest: 'Degraded forest',
+    doesYourCountryMonitor: 'Does your country monitor area of degraded forest',
+    ifYes: 'If "yes"',
+    whatIsDefinition: 'What is the national definition of "Degraded forest"?',
+    howMonitored: 'How is it being monitored?',
+  },
+
   employment: {
     employment: 'Employment'
   },
@@ -356,4 +367,10 @@ export const translation = {
   areaOfPermanentForestEstate: {
     areaOfPermanentForestEstate: 'Area of permanent forest estate'
   },
+
+  yesNoTextSelect: {
+    yes: 'Yes',
+    no: 'No',
+    notSelected: '',
+  }
 }

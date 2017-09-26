@@ -11,6 +11,7 @@ import PrimaryDesignatedManagementObjectiveView from './primaryDesignatedManagem
 import OriginalDataListView from './originalDataPoint/originalDataListView'
 import ForestAreaChangeView from './forestAreaChange/forestAreaChangeView'
 import AreaAffecteByFireView from './areaAffectedByFire/areaAffectedByFireView'
+import DegradedForestView from './degradedForest/degradedForestView'
 import ForestCharacteristicsView from './forestCharacteristics/forestCharacteristicsView'
 import NonWoodForestProductsRemovalsView from './nonWoodForestProductsRemovals/nonWoodForestProductsRemovals'
 import BiomassStockView from './biomassStock/biomassStockView'
@@ -28,6 +29,7 @@ const routes = {
   '/country/:countryIso/forestCharacteristics': ForestCharacteristicsView,
   '/country/:countryIso/designatedManagementObjective': PrimaryDesignatedManagementObjectiveView,
   '/country/:countryIso/areaAffectedByFire': AreaAffecteByFireView,
+  '/country/:countryIso/degradedForest': DegradedForestView,
   '/country/:countryIso/nonWoodForestProductsRemovals': NonWoodForestProductsRemovalsView,
   '/country/:countryIso/biomassStock': BiomassStockView
 }

@@ -15,18 +15,23 @@ class VerticallyGrowingTextField extends React.Component {
   }
 
   resizeTextArea() {
-    const elem = document.getElementById(this.props.id)
-    elem.style.height = 'auto'
-    elem.style.height = `${elem.scrollHeight}px`
+    const textArea = this.refs.textArea
+    if (textArea) {
+      textArea.style.height = 'auto'
+      textArea.style.height = `${textArea.scrollHeight}px`
+    }
   }
 
   render () {
+    const minWidthStyleAttr = this.props.minWidth ? `${this.props.minWidth}px` : null
     return (
       <div className="vgtf__container">
         <textarea
+          ref="textArea"
           rows="1"
           className="vgtf__textarea"
-          {...this.props} />
+          style={{minWidth: minWidthStyleAttr}}
+          {...R.dissoc('minWidth', this.props)} />
       </div>
     )
   }

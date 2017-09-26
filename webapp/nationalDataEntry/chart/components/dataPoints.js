@@ -8,7 +8,7 @@ import { formatNumber, defaultTransitionDuration } from '../chart'
 class DataPoint extends Component {
 
   update (props) {
-    const {xScale, yScale, data, odpColor} = props
+    const {xScale, yScale, data, color} = props
 
     if (data) {
       const circle = d3.select(ReactDOM.findDOMNode(this.refs.circles))
@@ -23,7 +23,7 @@ class DataPoint extends Component {
           .attr('cx', d => xScale(d.year))
           .attr('cy', d => yScale(d.value))
           .attr('r', d => d.type === 'odp' ? 4.5 : 6.5)
-          .style('fill', d => d.type === 'fra' ? '#ffffff' : odpColor)
+          .style('fill', d => d.type === 'fra' ? '#ffffff' : color)
           .style('stroke', d => d.type === 'fra' ? '#333333' : '#ffffff')
           .style('stroke-width', '1.5')
           .style('opacity', '1')
@@ -52,7 +52,7 @@ class DataPoint extends Component {
           .attr('cx', d => xScale(d.year))
           .attr('cy', d => yScale(d.value))
           .attr('r', d => d.type === 'odp' ? 4.5 : 6.5)
-          .style('fill', d => d.type === 'fra' ? '#ffffff' : odpColor)
+          .style('fill', d => d.type === 'fra' ? '#ffffff' : color)
           .style('stroke', d => d.type === 'fra' ? '#333333' : '#ffffff')
           .style('stroke-width', '1.5')
           .style('opacity', '1')
@@ -64,7 +64,7 @@ class DataPoint extends Component {
     return `
         <div class="chart__data-points-tooltip-year">${d.year}</div>
         <div class="chart__data-points-tooltip-value">
-            <div class="chart__data-points-tooltip-value-marker" style="background-color: ${d.type === 'fra' ? '#ffffff' : this.props.odpColor}"></div>
+            <div class="chart__data-points-tooltip-value-marker" style="background-color: ${d.type === 'fra' ? '#ffffff' : this.props.color}"></div>
             <div>${formatNumber(d.value)}<span class="unit">(1000 ha)</span></div>
         </div>
     `
