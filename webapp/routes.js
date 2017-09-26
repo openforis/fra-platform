@@ -13,6 +13,7 @@ import ForestAreaChangeView from './forestAreaChange/forestAreaChangeView'
 import AreaAffecteByFireView from './areaAffectedByFire/areaAffectedByFireView'
 import ForestCharacteristicsView from './forestCharacteristics/forestCharacteristicsView'
 import NonWoodForestProductsRemovalsView from './nonWoodForestProductsRemovals/nonWoodForestProductsRemovals'
+import BiomassStockView from './biomassStock/biomassStockView'
 
 const routes = {
   '/': () => <noscript/>, //This will get rendered first (it flashes), before we redirect to logged-in page or login page
@@ -28,6 +29,7 @@ const routes = {
   '/country/:countryIso/designatedManagementObjective': PrimaryDesignatedManagementObjectiveView,
   '/country/:countryIso/areaAffectedByFire': AreaAffecteByFireView,
   '/country/:countryIso/nonWoodForestProductsRemovals': NonWoodForestProductsRemovalsView,
+  '/country/:countryIso/biomassStock': BiomassStockView
 }
 
 const routeConfig = R.pipe(
