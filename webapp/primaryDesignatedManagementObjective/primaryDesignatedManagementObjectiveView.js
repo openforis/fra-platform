@@ -11,7 +11,7 @@ const PrimaryDesignatedManagementObjectiveView = ({match, i18n}) => {
 
   return <LoggedInPageTemplate>
     <div className="tv__container">
-      <h1 className="title tv__page-header">{i18n.t('primaryDesignatedManagementObjective.primaryDesignatedManagementObjective')}</h1>
+      <h1 className="title tv__page-header">{i18n.t('designatedManagementObjective.designatedManagementObjective')}</h1>
       <TraditionalTable tableSpec={tableProps} countryIso={match.params.countryIso}/>
       <CommentableDescriptions
         section={tableProps.name}

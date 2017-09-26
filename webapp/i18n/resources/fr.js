@@ -49,7 +49,7 @@ export const translation = {
         previous: ''
       },
       editing: {
-        label: '', //Currently we do not wish to show the default state at all
+        label: 'Édition',
         previous: 'Rejetez'
       }
     }
@@ -109,12 +109,11 @@ export const translation = {
     enterOrCopyPasteNationalClasses: 'Entrez ou copiez et collez les classes nationales'
   },
 
-  // annually reported assessment components
+  // FRA 2020 questionare
 
   extentOfForest: {
     extentOfForest: 'Étendue de la forêt',
     generateFraValues: 'Générer les valeurs de FRA',
-    extentOfForestValues: 'Étendue de valeurs de la forêt',
     forestArea: 'Superficie forestière',
     dataSources: 'Sources des données',
     nationalClassificationAndDefinitions: 'Classement et définitions nationals',
@@ -124,24 +123,6 @@ export const translation = {
       placeholderLine2: 'et utilisez-les pour générer automatiquement les valeurs de FRA.'
     }
   },
-
-  growingStock: {
-    growingStock: 'Matériel sur pied'
-  },
-
-  biomassStock: {
-    biomassStock: 'Stock de biomasse'
-  },
-
-  carbonStock: {
-    carbonStock: 'Stock de carbone'
-  },
-
-  protectedAreas: {
-    protectedAreasLongTermMgmtPlans: 'Aires protégées et plans de gestion à long terme'
-  },
-
-  // five year cycle assessment components
 
   forestAreaChange: {
     forestAreaLossGainChange: 'Perte, augmentation et variation nette de la superficie forestière',
@@ -162,16 +143,33 @@ export const translation = {
     mangroves: 'Mangroves'
   },
 
+  growingStock: {
+    growingStock: 'Matériel sur pied'
+  },
+
   growingStockComposition: {
     growingStockComposition: 'Composition du matériel sur pied'
   },
+
+  biomassStock: {
+    biomassStock: 'Stock de biomasse'
+  },
+
+  carbonStock: {
+    carbonStock: 'Stock de carbone'
+  },
+
+  protectedAreas: {
+    protectedAreasLongTermMgmtPlans: 'Aires protégées et plans de gestion à long terme'
+  },
+
 
   nonWoodForestProductsRemovals: {
     nonWoodForestProductsRemovals: 'Produit forestier non ligneux'
   },
 
-  primaryDesignatedManagementObjective: {
-    primaryDesignatedManagementObjective: 'Principaux objectifs de gestion désignés',
+  designatedManagementObjective: {
+    designatedManagementObjective: 'Principaux objectifs de gestion désignés',
     production: 'Production',
     soilWaterProtection: 'Protection des sols et de l\'eau',
     biodiversityConservation: 'Conservation de la biodiversité',

@@ -49,6 +49,11 @@ export const fra2020Items = i18n => [
     section: forestAreaChangeTableSpec(i18n).name
   },
   {
+    tableNo: '1c',
+    label: i18n.t('annualReforestation.annualReforestation'),
+    pathTemplate: '#/todo'
+  },
+  {
     tableNo: '2a',
     label: i18n.t('forestCharacteristics.forestCharacteristics'),
     pathTemplate: '/country/:countryIso/forestCharacteristics',
@@ -89,8 +94,8 @@ export const fra2020Items = i18n => [
   },
   {
     tableNo: '5a',
-    label: i18n.t('primaryDesignatedManagementObjective.primaryDesignatedManagementObjective'),
-    pathTemplate: '/country/:countryIso/primaryDesignatedManagementObjectiveView',
+    label: i18n.t('designatedManagementObjective.designatedManagementObjective'),
+    pathTemplate: '/country/:countryIso/designatedManagementObjective',
     section: primaryDesignatedManagementObjectiveTableSpec(i18n).name
   },
   {
