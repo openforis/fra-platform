@@ -143,32 +143,12 @@ export const translation = {
   extentOfForest: {
     extentOfForest: 'Площадь леса',
     generateFraValues: 'Сгенерировать значения FRA',
-    extentOfForestValues: 'Показатели площади лесов',
     forestArea: 'Покрытая лесом площадь',
     chart: {
       placeholderLine1: 'Чтобы начать, добавьте национальные моменты сбора данных и используйте',
       placeholderLine2: 'их чтобы сгенерировать значения FRA автоматически'
     }
   },
-
-
-  growingStock: {
-    growingStock: 'Запас насаждения'
-  },
-
-  biomassStock: {
-    biomassStock: 'Запас биомассы'
-  },
-
-  carbonStock: {
-    carbonStock: 'Запас углерода'
-  },
-
-  protectedAreas: {
-    protectedAreasLongTermMgmtPlans: 'Природоохранные зоны и долгосрочные планы управления'
-  },
-
-  // five year cycle assessment components
 
   forestAreaChange: {
     forestAreaLossGainChange: 'Прирост, убыль и чистое изменение лесных площадей',
@@ -181,7 +161,6 @@ export const translation = {
 
   forestCharacteristics: {
     forestCharacteristics: 'Характеристики леса',
-    forestCharacteristicsValues: 'Значения характеристик леса',
     naturalForestArea: 'Естественно возобновленный лес',
     naturalForestPrimaryArea: '…в том числе коренной',
     plantationForestArea: 'Лесные культуры',
@@ -195,16 +174,28 @@ export const translation = {
     mangroves: 'Мангры'
   },
 
+  growingStock: {
+    growingStock: 'Запас насаждения'
+  },
+
   growingStockComposition: {
     growingStockComposition: 'Состав насаждений'
   },
 
-  nonWoodForestProducts: {
-    nonWoodForestProducts: 'Недревесная продукция леса'
+  biomassStock: {
+    biomassStock: 'Запас биомассы'
   },
 
-  primaryDesignatedManagementObjective: {
-    primaryDesignatedManagementObjective: 'Изначально назначенная цель управления',
+  carbonStock: {
+    carbonStock: 'Запас углерода'
+  },
+
+  nonWoodForestProductsRemovals: {
+    nonWoodForestProductsRemovals: 'Недревесная продукция леса'
+  },
+
+  designatedManagementObjective: {
+    designatedManagementObjective: 'Изначально назначенная цель управления',
     production: 'Производство',
     soilWaterProtection: 'Охрана почв и водных ресурсов',
     biodiversityConservation: 'Сохранение биоразнообразия',
@@ -213,6 +204,10 @@ export const translation = {
     other: 'Прочее',
     unknown: 'Нет/неизвестно',
     totalForestArea: 'Общая площадь покрытая лесом'
+  },
+
+  protectedAreas: {
+    protectedAreasLongTermMgmtPlans: 'Природоохранные зоны и долгосрочные планы управления'
   },
 
   forestOwnershipManagementRights: {

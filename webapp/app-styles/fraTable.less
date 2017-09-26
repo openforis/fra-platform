@@ -1,4 +1,5 @@
 @import (reference) "./config";
+@import (reference) "./form";
 
 .fra-table__scroll-wrapper {
   overflow-x: auto;
@@ -38,6 +39,11 @@
   text-align: center;
 }
 
+.fra-table__row-header-continued-with-fillers {
+  .fra-table__header-cell;
+  border-right: none;
+}
+
 .fra-table__cell {
   padding: 0;
   border: 1px solid @ui-border;
@@ -60,6 +66,25 @@
   text-align: right;
   font-weight: bold;
   padding: 10px;
+}
+
+.fra-table__filler-cell {
+  border: none;
+  border-bottom: 1px solid @ui-border;
+  background-color: @ui-bg;
+}
+
+.fra-table__select {
+  .select;
+  height: 40px;
+  border: none;
+  width: 100%;
+  border-radius: 0;
+
+  &:focus {
+    outline: 1px solid @text-body;
+    outline-offset: 0px;
+  }
 }
 
 .fra-table__input {

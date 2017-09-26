@@ -182,11 +182,11 @@ export const translation = {
     otherLandCharacteristics: 'Other land with tree cover'
   },
 
-  // annually reported assessment components
+  // FRA 2020 questionare
 
   extentOfForest: {
+    extentOfForest: 'Extent of forest, other wooded land and other land',
     categoryHeader: 'FRA categories',
-    extentOfForest: 'Extent of forest',
     areaUnitLabel: 'Area (1000 ha)',
     generateFraValues: 'Generate FRA values',
     extentOfForestValues: 'Extent of forest values',
@@ -202,31 +202,10 @@ export const translation = {
     ofWhichTreesUrbanSettings: '…of which trees in urban settings'
   },
 
-  growingStock: {
-    growingStock: 'Growing stock',
-    fra2020Categories: 'FRA 2020 categories',
-    avgTableHeader: 'Average growing stock (m3/ha)',
-    totalTableHeader: 'Total growing stock (million m3)'
-  },
-
-  biomassStock: {
-    biomassStock: 'Biomass stock'
-  },
-
-  carbonStock: {
-    carbonStock: 'Carbon stock'
-  },
-
-  protectedAreas: {
-    protectedAreasLongTermMgmtPlans: 'Protected areas and long-term management plans'
-  },
-
-  // five year cycle assessment components
-
   forestAreaChange: {
+    forestAreaLossGainChange: 'Annual forest area loss, gain and net change',
     categoryHeader: 'FRA categories',
     areaUnitLabel: 'Area (1000 ha/year)',
-    forestAreaLossGainChange: 'Annual forest area loss, gain and net change',
     forestExpansion: 'Forest expansion',
     ofWhichAfforestation: '…of which afforestation',
     ofWhichNaturalExpansion: '…of which natural expansion',
@@ -234,11 +213,14 @@ export const translation = {
     forestAreaNetChange: 'Forest area net change'
   },
 
+  annualReforestation: {
+    annualReforestation: 'Annual reforestation'
+  },
+
   forestCharacteristics: {
-    categoryHeader: 'FRA categories',
     forestCharacteristics: 'Forest characteristics',
+    categoryHeader: 'FRA categories',
     areaUnitLabel: 'Forest area (1000 ha)',
-    forestCharacteristicsValues: 'Forest characteristics values',
     naturalForestArea: 'Naturally regenerating forest',
     naturalForestPrimaryArea: '…of which primary',
     plantationForestArea: 'Plantation forest',
@@ -247,11 +229,18 @@ export const translation = {
   },
 
   specificForestCategories: {
-    categoryHeader: 'FRA categories',
     specificForestCategories: 'Specific forest categories',
+    categoryHeader: 'FRA categories',
     areaUnitLabel: 'Area (1000 ha)',
     bamboo: 'Bamboos',
     mangroves: 'Mangroves'
+  },
+
+  growingStock: {
+    growingStock: 'Growing stock',
+    categoryHeader: 'FRA categories',
+    avgTableHeader: 'Average growing stock (m3/ha)',
+    totalTableHeader: 'Total growing stock (million m3)'
   },
 
   growingStockComposition: {
@@ -270,13 +259,50 @@ export const translation = {
     totalGrowingStock: 'Total growing stock'
   },
 
-  nonWoodForestProducts: {
-    nonWoodForestProducts: 'Non wood forest products removals 2015'
+  biomassStock: {
+    biomassStock: 'Biomass stock'
   },
 
-  primaryDesignatedManagementObjective: {
+  carbonStock: {
+    carbonStock: 'Carbon stock'
+  },
+
+  nonWoodForestProductsRemovals: {
+    notSelected: '',
+    nonWoodForestProductsRemovals: 'Non wood forest products removals 2015',
+    nameOfProduct: 'Name of NWFP product',
+    keySpecies: 'Key species',
+    quantity: 'Quantity',
+    unit: 'Unit',
+    value: 'Value (1000 currency)',
+    category: 'NWFP category',
+    plantProductsSelectHeading: 'Plant products / raw material',
+    food: '1 Food',
+    fodder: '2 Fodder',
+    rawMaterialForMedicine: '3 Raw material for medicine and aromatic products',
+    rawMaterialForColorants:  '4 Raw material for colorants and dyes',
+    rawMaterialForUtensils: '5 Raw material for utensils handicrafts construction',
+    ornamentalPlants: '6 Ornamental plants',
+    exudates: '7 Exudates',
+    otherPlantProducts: '8 Other plant products',
+    animalProductsSelectHeading: 'Animal products / raw material',
+    livingAnimals: '9 Living animals',
+    hidesSkins: '10 Hides skins and trophies',
+    wildHoney: '11 Wild honey and bee wax',
+    wildMeat: '12 Wild meat',
+    animalRawMaterialForMedicine: '13 Raw material for medicine',
+    animalRawMaterialForColorants: '14 Raw material for colorants',
+    otherEdibleAnimalProducts: '15 Other edible animal products',
+    otherNonEdibleAnimalProducts: '16 Other non-edible animal products',
+    allOtherPlantProducts: 'All other plant products',
+    allOtherAnimalProducts: 'All other animal products',
+    total: 'Total',
+    currency: 'Name of currency'
+  },
+
+  designatedManagementObjective: {
+    designatedManagementObjective: 'Designated management objective',
     categoryHeader: 'FRA categories',
-    primaryDesignatedManagementObjective: 'Designated management objective',
     areaUnitLabel: 'Forest area (1000 ha)',
     production: 'Production',
     soilWaterProtection: 'Protection of soil and water',
@@ -286,6 +312,10 @@ export const translation = {
     other: 'Other (specify)',
     unknown: 'No/unknown',
     totalForestArea: 'Total forest area'
+  },
+
+  protectedAreas: {
+    protectedAreasLongTermMgmtPlans: 'Forest area within protected areas and forest area with long-term management plans'
   },
 
   forestOwnershipManagementRights: {
@@ -301,8 +331,8 @@ export const translation = {
   },
 
   areaAffectedByFire: {
-    categoryHeader: 'FRA categories',
     areaAffectedByFire: 'Area affected by fire',
+    categoryHeader: 'FRA categories',
     areaUnitLabel: 'Area (1000 ha)',
     totalLandAreaAffectedByFire: 'Total land area affected by fire',
     ofWhichForest: '…of which on forest'
@@ -313,11 +343,11 @@ export const translation = {
   },
 
   graduationOfStudents: {
-    graduationOfStudents: 'Graduation of students'
+    graduationOfStudents: 'Graduation of students in forest-related education'
   },
 
   policiesAndLegislation: {
-    policiesAndLegislation: 'Policies and legislation'
+    policiesAndLegislation: 'Policies, legislation and national platform for stakeholder participation in forest policy'
   },
 
   areaOfPermanentForestEstate: {
