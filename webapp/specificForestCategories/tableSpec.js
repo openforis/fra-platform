@@ -31,11 +31,11 @@ export default i18n => ({
         type: 'readOnly',
         jsx: <td key="mangroves" className="fra-table__header-cell">{i18n.t('specificForestCategories.mangroves')}</td>
       },
-      {type: 'integerInput'},
-      {type: 'integerInput'},
-      {type: 'integerInput'},
-      {type: 'integerInput'},
-      {type: 'integerInput'}
+      {type: 'decimalInput'},
+      {type: 'decimalInput'},
+      {type: 'decimalInput'},
+      {type: 'decimalInput'},
+      {type: 'decimalInput'}
     ],
     [
       {
@@ -43,11 +43,11 @@ export default i18n => ({
         jsx: <td key="rubberPlantations"
                  className="fra-table__header-cell">{i18n.t('specificForestCategories.rubberPlantations')}</td>
       },
-      {type: 'integerInput'},
-      {type: 'integerInput'},
-      {type: 'integerInput'},
-      {type: 'integerInput'},
-      {type: 'integerInput'}
+      {type: 'decimalInput'},
+      {type: 'decimalInput'},
+      {type: 'decimalInput'},
+      {type: 'decimalInput'},
+      {type: 'decimalInput'}
     ]
   ],
   valueSlice: {columnStart: 1}

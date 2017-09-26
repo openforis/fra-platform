@@ -1,7 +1,7 @@
 import React from 'react'
 import R from 'ramda'
 
-const integerInputColumns = R.times(() => ({type: 'integerInput'}), 18)
+const integerInputColumns = R.times(() => ({type: 'decimalInput'}), 18)
 
 export default i18n => ({
   name: 'areaAffectedByFire', // used to uniquely identify table
