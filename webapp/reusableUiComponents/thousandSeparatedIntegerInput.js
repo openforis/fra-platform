@@ -3,9 +3,10 @@ import './thousandSeparatedIntegerInput.less'
 import { separateThousandsWithSpaces } from '../utils/numberFormat'
 
 const renderFocusedIntegerValue = integerValue =>
-  typeof integerValue === 'number' ? integerValue.toString() : integerValue
+  typeof integerValue === 'number' ? integerValue : ''
 
-const renderUnfocusedIntegerValue = integerValue => separateThousandsWithSpaces(integerValue)
+const renderUnfocusedIntegerValue = integerValue =>
+  typeof integerValue === 'number' ? separateThousandsWithSpaces(integerValue) : ''
 
 export class ThousandSeparatedIntegerInput extends React.Component {
   constructor () {
