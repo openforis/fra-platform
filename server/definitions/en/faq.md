@@ -352,6 +352,10 @@ To be developed
 
 To be developed
 
+# 7c Degraded forest
+
+To be developed
+
 ---
 
 # 8 Employment in forestry and logging

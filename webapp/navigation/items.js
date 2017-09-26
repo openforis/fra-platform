@@ -126,6 +126,12 @@ export const fra2020Items = i18n => [
     section: areaAffectedByFireTableSpec(i18n).name
   },
   {
+    tableNo: '7c',
+    label: i18n.t('degradedForest.degradedForest'),
+    pathTemplate: '/country/:countryIso/degradedForest',
+    section: 'degradedForest'
+  },
+  {
     tableNo: '8',
     label: i18n.t('employment.employment'),
     pathTemplate: '#/todo'

@@ -40,7 +40,6 @@ class AddComment extends React.Component {
       <div className="fra-review__footer-input-wrapper">
         <VerticallyGrowingTextField
               disabled={!canAddComment()}
-              id={`fra-review__footer-input-${this.props.target}`}
               onChange={(evt) => this.handleInputChange(evt)}
               onKeyDown={(evt) => this.handleKeyDown(evt)}
               value={this.state.message}
