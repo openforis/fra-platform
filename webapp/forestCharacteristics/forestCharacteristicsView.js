@@ -63,7 +63,7 @@ const ForestCharacteristics = props => {
       </Link>
     </div>
     <ChartWrapper stateName="forestCharacteristics" trends={[
-      {name:'naturalForestArea', label:props.i18n.t('forestCharacteristics.naturalForestArea'), odpColor:'#0098a6', fraPathStroke:'rgba(0,152,166,.35)', odpPathStroke:'rgba(0,152,166,.5)'}
+      {name:'naturalForestArea', label:props.i18n.t('forestCharacteristics.naturalForestArea'), color:'#0098a6'}
       ]} />
     <div className="nde__data-table-header">
       <h3 className="subhead">{i18n.t('forestCharacteristics.forestCharacteristics')}</h3>
