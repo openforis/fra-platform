@@ -34,6 +34,8 @@ module.exports.init = app => {
           renderer: renderer,
           smartypants: true
         })
+        const content = markdown ? marked(markdown) : ''
+
         var tocHTML = '<ul class="toc">'
         toc.forEach((entry, index) => {
           if (index > 0) {
@@ -41,8 +43,8 @@ module.exports.init = app => {
           }
         })
         tocHTML += '</ul><hr/>'
-        const content = markdown ? marked(markdown) : ''
-        res.send(`<html lang="fi">
+
+        res.send(`<html>
           <head>
             <title>${toc[0].text}</title>
             <link rel="stylesheet" href="/css/definition.css"/>
