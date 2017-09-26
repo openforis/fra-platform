@@ -66,7 +66,7 @@ class Legend extends Component {
               height: '12px',
               marginRight: '4px',
               borderRadius: '2px',
-              backgroundColor: t.odpColor
+              backgroundColor: t.color
             }}></div>
             {/*label*/}
             <div style={{
