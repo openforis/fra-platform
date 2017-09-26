@@ -339,7 +339,10 @@ export const translation = {
     doesYourCountryMonitor: 'Does your country monitor area of degraded forest',
     ifYes: 'If "yes"',
     whatIsDefinition: 'What is the national definition of "Degraded forest"?',
-    howMonitored: 'How is it being monitored?'
+    howMonitored: 'How is it being monitored?',
+    yes: 'Yes',
+    no: 'No',
+    notSelected: '',
   },
 
   employment: {

@@ -11,7 +11,14 @@ export default i18n => ({
           {i18n.t('degradedForest.doesYourCountryMonitor')}
         </td>
       },
-      {type: 'verticallyGrowingTextInput'}
+      {
+        type: 'textSelect',
+        localizationPrefix: 'degradedForest',
+        options: [
+          {name: 'yes'},
+          {name: 'no'}
+        ]
+      }
     ],
     [
       {type: 'readOnly', jsx: <td className="fra-table__header-cell" rowSpan="2">{i18n.t('degradedForest.ifYes')}</td>},
