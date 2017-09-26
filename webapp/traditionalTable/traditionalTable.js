@@ -51,7 +51,11 @@ const tableRows = (props) => {
             rowSpec
           )
         }
-        <ReviewWrapper {...props} rowIdx={rowIdx}/>
+        {
+          !props.tableSpec.disableReviewComments
+            ? <ReviewWrapper {...props} rowIdx={rowIdx}/>
+            : null
+        }
       </tr>,
     props.tableSpec.rows)
 }
@@ -89,7 +93,8 @@ const mapStateToProps = (state, props) => {
   return {
     ...props,
     tableData: state.traditionalTable[props.tableSpec.name] || table.createTableData(props.tableSpec),
-    openCommentThreadTarget: state.review.openThread ? state.review.openThread.target : null
+    openCommentThreadTarget: state.review.openThread ? state.review.openThread.target : null,
+    i18n: state.user.i18n
   }
 }
 

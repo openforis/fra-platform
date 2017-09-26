@@ -36,7 +36,10 @@ export const translation = {
     naturallyGenerated: 'Naturally regenerating forest',
     plantationForest: 'Plantation forest',
     otherPlantedForest: 'Other planted forest',
-    introduced: '…of which introduces species'
+    introduced: '…of which introduces species',
+    naturallyRegeneratingForest: 'Naturally regenerating forest',
+    plantedForest: 'Planted forest',
+    totalForest: 'Total forest'
   },
 
   fraOtherLandClass: {
@@ -69,13 +72,13 @@ export const translation = {
   // components
 
   countryListing: {
-    annuallyReported: 'Annually',
-    fiveYearCycle: 'Five-year'
+    annuallyUpdated: 'Annually updated',
+    fra2020: 'FRA 2020'
   },
 
   navigation: {
-    annuallyReported: 'Annually reported',
-    fiveYearCycle: 'Five-year cycle',
+    annuallyUpdated: 'Annually updated',
+    fra2020: 'FRA 2020',
     assessmentStatus: {
       changing: {
         label: 'Changing…'
@@ -134,7 +137,15 @@ export const translation = {
     emptyLabel: 'No content',
     loading: 'Loading content…',
     description: 'Description',
-    dataSources: 'Data sources',
+    dataSourcesTitle: 'Data sources, original data & national classification and definitions',
+    generalCommentsTitle: 'Comments',
+    dataSources: {
+      label: 'Data sources',
+      sourceOfInformation: 'Reference to source of information',
+      variables: 'Variable(s)',
+      years: 'Year(s)',
+      additionalComments: 'Additional comments'
+    },
     originalData: 'Original data',
     nationalClassificationAndDefinitions: 'National classification and definitions',
   },
@@ -145,8 +156,8 @@ export const translation = {
     noNationalDataAdded: 'No national data added',
     nationalData: 'National data',
     reclassificationLabel: 'Reclassification',
-    forestCategoriesLabel: 'Forest, Other wooded land and other land',
-    year: 'Year',
+    forestCategoriesLabel: 'Forest, other wooded land and other land',
+    year: 'Reference year for the data',
     methods: 'Methods',
     edit: 'Edit',
     copyPreviousValues: 'Copy previous values',
@@ -163,16 +174,16 @@ export const translation = {
     cancel: 'Cancel',
     saveData: 'Save data',
     enterOrCopyPasteNationalClasses: 'Enter or copy and paste national classes',
-    prefixPrimary: 'Primary',
-    prefixIntroduced: 'Introduced',
+    prefixPrimary: '…of which primary',
+    prefixIntroduced: '…of which introduced',
     otherLandCharacteristics: 'Other land with tree cover'
   },
 
-  // annually reported assessment components
+  // FRA 2020 questionare
 
   extentOfForest: {
+    extentOfForest: 'Extent of forest, other wooded land and other land',
     categoryHeader: 'FRA categories',
-    extentOfForest: 'Extent of forest',
     areaUnitLabel: 'Area (1000 ha)',
     generateFraValues: 'Generate FRA values',
     extentOfForestValues: 'Extent of forest values',
@@ -188,8 +199,61 @@ export const translation = {
     ofWhichTreesUrbanSettings: '…of which trees in urban settings'
   },
 
+  forestAreaChange: {
+    forestAreaLossGainChange: 'Annual forest area loss, gain and net change',
+    categoryHeader: 'FRA categories',
+    areaUnitLabel: 'Area (1000 ha/year)',
+    forestExpansion: 'Forest expansion',
+    ofWhichAfforestation: '…of which afforestation',
+    ofWhichNaturalExpansion: '…of which natural expansion',
+    deforestation: 'Deforestation',
+    forestAreaNetChange: 'Forest area net change'
+  },
+
+  annualReforestation: {
+    annualReforestation: 'Annual reforestation'
+  },
+
+  forestCharacteristics: {
+    forestCharacteristics: 'Forest characteristics',
+    categoryHeader: 'FRA categories',
+    areaUnitLabel: 'Forest area (1000 ha)',
+    naturalForestArea: 'Naturally regenerating forest',
+    naturalForestPrimaryArea: '…of which primary',
+    plantationForestArea: 'Plantation forest',
+    plantationForestIntroducedArea: '…of which introduced species',
+    otherPlantedForestArea: 'Other planted forest'
+  },
+
+  specificForestCategories: {
+    specificForestCategories: 'Specific forest categories',
+    categoryHeader: 'FRA categories',
+    areaUnitLabel: 'Area (1000 ha)',
+    bamboo: 'Bamboos',
+    mangroves: 'Mangroves'
+  },
+
   growingStock: {
-    growingStock: 'Growing stock'
+    growingStock: 'Growing stock',
+    categoryHeader: 'FRA categories',
+    avgTableHeader: 'Average growing stock (m3/ha)',
+    totalTableHeader: 'Total growing stock (million m3)'
+  },
+
+  growingStockComposition: {
+    categoryHeader: 'FRA categories',
+    growingStockComposition: 'Growing stock composition',
+    nativeTreeSpecies: 'Native tree species',
+    introducedTreeSpecies: 'Introduced tree species',
+    areaUnitLabel: 'Growing stock in forest (million m3 o.b.)',
+    scientificName: 'Scientific name',
+    commonName: 'Common name',
+    rank: 'Ranked in terms of volume',
+    remainingNative: 'Remaining native tree species',
+    remainingIntroduced: 'Remaining introduced tree species',
+    totalNative: 'Total volume of native tree species',
+    totalIntroduced: 'Total volume of introduced tree species',
+    totalGrowingStock: 'Total growing stock'
   },
 
   biomassStock: {
@@ -200,68 +264,63 @@ export const translation = {
     carbonStock: 'Carbon stock'
   },
 
-  protectedAreas: {
-    protectedAreasLongTermMgmtPlans: 'Protected areas and long-term management plans'
+  nonWoodForestProductsRemovals: {
+    notSelected: '',
+    nonWoodForestProductsRemovals: 'Non wood forest products removals 2015',
+    nameOfProduct: 'Name of NWFP product',
+    keySpecies: 'Key species',
+    quantity: 'Quantity',
+    unit: 'Unit',
+    value: 'Value (1000 currency)',
+    category: 'NWFP category',
+    plantProductsSelectHeading: 'Plant products / raw material',
+    food: '1 Food',
+    fodder: '2 Fodder',
+    rawMaterialForMedicine: '3 Raw material for medicine and aromatic products',
+    rawMaterialForColorants:  '4 Raw material for colorants and dyes',
+    rawMaterialForUtensils: '5 Raw material for utensils handicrafts construction',
+    ornamentalPlants: '6 Ornamental plants',
+    exudates: '7 Exudates',
+    otherPlantProducts: '8 Other plant products',
+    animalProductsSelectHeading: 'Animal products / raw material',
+    livingAnimals: '9 Living animals',
+    hidesSkins: '10 Hides skins and trophies',
+    wildHoney: '11 Wild honey and bee wax',
+    wildMeat: '12 Wild meat',
+    animalRawMaterialForMedicine: '13 Raw material for medicine',
+    animalRawMaterialForColorants: '14 Raw material for colorants',
+    otherEdibleAnimalProducts: '15 Other edible animal products',
+    otherNonEdibleAnimalProducts: '16 Other non-edible animal products',
+    allOtherPlantProducts: 'All other plant products',
+    allOtherAnimalProducts: 'All other animal products',
+    total: 'Total',
+    currency: 'Name of currency'
   },
 
-  // five year cycle assessment components
-
-  forestAreaChange: {
+  designatedManagementObjective: {
+    designatedManagementObjective: 'Designated management objective',
     categoryHeader: 'FRA categories',
-    areaUnitLabel: 'Area (1000 ha/year)',
-    forestAreaLossGainChange: 'Annual forest area loss, gain and net change',
-    forestExpansion: 'Forest expansion',
-    ofWhichAfforestation: '…of which afforestation',
-    ofWhichNaturalExpansion: '…of which natural expansion',
-    deforestation: 'Deforestation',
-    forestAreaNetChange: 'Forest area net change'
-  },
-
-  forestCharacteristics: {
-    categoryHeader: 'FRA categories',
-    forestCharacteristics: 'Forest characteristics',
-    areaUnitLabel: 'Forest area (1000 ha)',
-    forestCharacteristicsValues: 'Forest characteristics values',
-    naturalForestArea: 'Naturally regenerating forest',
-    naturalForestPrimaryArea: '…of which primary',
-    plantationForestArea: 'Plantation forest',
-    plantationForestIntroducedArea: '…of which introduced species',
-    otherPlantedForestArea: 'Other planted forest'
-  },
-
-  specificForestCategories: {
-    categoryHeader: 'FRA categories',
-    specificForestCategories: 'Specific forest categories',
-    areaUnitLabel: 'Area (1000 ha)',
-    bamboo: 'Bamboos',
-    mangroves: 'Mangroves',
-    rubberPlantations: 'Rubber plantations'
-  },
-
-  growingStockComposition: {
-    growingStockComposition: 'Growing stock composition'
-  },
-
-  nonWoodForestProducts: {
-    nonWoodForestProducts: 'Non wood forest products removals 2015'
-  },
-
-  primaryDesignatedManagementObjective: {
-    categoryHeader: 'FRA categories',
-    primaryDesignatedManagementObjective: 'Designated management objective',
     areaUnitLabel: 'Forest area (1000 ha)',
     production: 'Production',
     soilWaterProtection: 'Protection of soil and water',
     biodiversityConservation: 'Conservation of biodiversity',
     socialServices: 'Social Services',
     multipleUse: 'Multiple use',
-    other: 'Other',
+    other: 'Other (specify)',
     unknown: 'No/unknown',
     totalForestArea: 'Total forest area'
   },
 
+  protectedAreas: {
+    protectedAreasLongTermMgmtPlans: 'Forest area within protected areas and forest area with long-term management plans'
+  },
+
   forestOwnershipManagementRights: {
     forestOwnershipManagementRights: 'Forest ownership'
+  },
+
+  holderOfManagementRights: {
+    holderOfManagementRights: 'Holder of management rights of public forests'
   },
 
   disturbances: {
@@ -269,8 +328,8 @@ export const translation = {
   },
 
   areaAffectedByFire: {
-    categoryHeader: 'FRA categories',
     areaAffectedByFire: 'Area affected by fire',
+    categoryHeader: 'FRA categories',
     areaUnitLabel: 'Area (1000 ha)',
     totalLandAreaAffectedByFire: 'Total land area affected by fire',
     ofWhichForest: '…of which on forest'
@@ -281,15 +340,14 @@ export const translation = {
   },
 
   graduationOfStudents: {
-    graduationOfStudents: 'Graduation of students'
+    graduationOfStudents: 'Graduation of students in forest-related education'
   },
 
   policiesAndLegislation: {
-    policiesAndLegislation: 'Policies and legislation'
+    policiesAndLegislation: 'Policies, legislation and national platform for stakeholder participation in forest policy'
   },
 
   areaOfPermanentForestEstate: {
     areaOfPermanentForestEstate: 'Area of permanent forest estate'
   },
-
 }

@@ -2,13 +2,17 @@ const R = require('ramda')
 const tableMappings = require('./tableMappings')
 const assert = require('assert')
 
-const fixedFraTableColumns = ['country_iso', 'row_name']
-const fixedFraTableColumnDataTypes = ['VARCHAR', 'VARCHAR']
+const fixedFraTableColumns = [{name: 'country_iso', type: 'varchar'}, {name: 'row_name', type: 'varchar'}]
+
+const columnNames = (columns) => R.pluck('name', columns)
 
 const createInsert = (tableName, columnNamesStr, valuePlaceholdersStr, row) =>
   [`INSERT INTO ${tableName} (${columnNamesStr}) VALUES (${valuePlaceholdersStr})`, row]
 
-const createColumnNames = (mapping) => R.map((columnName) => `"${columnName}"`,[...fixedFraTableColumns, ...mapping.columns.names])
+const createColumnNames = (mapping) =>
+  R.map(
+    (columnName) => `"${columnName}"`,
+    [...columnNames(fixedFraTableColumns), ...columnNames(mapping.columns)])
 
 const createRowData = (countryIso, mapping, rowIndex, rawRow) => {
   //These values are there for all fra tables
@@ -45,11 +49,10 @@ const createInserts = (countryIso, tableSpecName, tableData) => {
 }
 
 // Currently assumes all dynamic columns are of the same type (might have to change that later)
-const createTableDefinition = (tableSpecName, columnDataType) => {
+const createTableDefinition = (tableSpecName) => {
   const mapping = getMapping(tableSpecName)
   const columnNames = createColumnNames(mapping)
-  const dynamicDataDataTypeArray = R.map(()=> columnDataType, mapping.columns.names)
-  const dataTypes = [...fixedFraTableColumnDataTypes, ...dynamicDataDataTypeArray]
+  const dataTypes = [...R.pluck('type', fixedFraTableColumns), ...R.pluck('type', mapping.columns)]
   assert(dataTypes.length === columnNames.length, 'Data types and column names arrays should be of the same length! Check your mapping')
   const columns = R.zip(columnNames, dataTypes)
   const columnsStr = R.join(', ', R.map(([name, dataType]) => `${name} ${dataType}`, columns))

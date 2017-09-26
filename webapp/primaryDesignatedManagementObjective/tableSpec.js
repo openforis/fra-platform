@@ -27,8 +27,8 @@ export default i18n => ({
   name: 'primaryDesignatedManagementObjective',
   header: <thead>
   <tr>
-    <th className="fra-table__header-cell" rowSpan="2">{i18n.t('primaryDesignatedManagementObjective.categoryHeader')}</th>
-    <th className="fra-table__header-cell-middle" colSpan="5">{i18n.t('primaryDesignatedManagementObjective.areaUnitLabel')}</th>
+    <th className="fra-table__header-cell" rowSpan="2">{i18n.t('designatedManagementObjective.categoryHeader')}</th>
+    <th className="fra-table__header-cell-middle" colSpan="5">{i18n.t('designatedManagementObjective.areaUnitLabel')}</th>
   </tr>
   <tr>
     <td className="fra-table__header-cell-right">1990</td>
@@ -39,16 +39,16 @@ export default i18n => ({
   </tr>
   </thead>,
   rows: [
-    createPdmoInputRow(i18n.t('primaryDesignatedManagementObjective.production')),
-    createPdmoInputRow(i18n.t('primaryDesignatedManagementObjective.soilWaterProtection')),
-    createPdmoInputRow(i18n.t('primaryDesignatedManagementObjective.biodiversityConservation')),
-    createPdmoInputRow(i18n.t('primaryDesignatedManagementObjective.socialServices')),
-    createPdmoInputRow(i18n.t('primaryDesignatedManagementObjective.multipleUse')),
-    createPdmoInputRow(i18n.t('primaryDesignatedManagementObjective.other')),
-    createPdmoInputRow(i18n.t('primaryDesignatedManagementObjective.unknown')),
+    createPdmoInputRow(i18n.t('designatedManagementObjective.production')),
+    createPdmoInputRow(i18n.t('designatedManagementObjective.soilWaterProtection')),
+    createPdmoInputRow(i18n.t('designatedManagementObjective.biodiversityConservation')),
+    createPdmoInputRow(i18n.t('designatedManagementObjective.socialServices')),
+    createPdmoInputRow(i18n.t('designatedManagementObjective.multipleUse')),
+    createPdmoInputRow(i18n.t('designatedManagementObjective.other')),
+    createPdmoInputRow(i18n.t('designatedManagementObjective.unknown')),
     [{type: 'readOnly',
       jsx: <td key=""
-               className="fra-table__header-cell">{i18n.t('primaryDesignatedManagementObjective.totalForestArea')}</td>
+               className="fra-table__header-cell">{i18n.t('designatedManagementObjective.totalForestArea')}</td>
     },
       {type: 'custom', render: totalForestAreaCell(1)},
       {type: 'custom', render: totalForestAreaCell(2)},

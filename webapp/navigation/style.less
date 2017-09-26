@@ -21,11 +21,16 @@
   position: relative;
   flex-flow: row nowrap;
   align-items: center;
-  padding: 0 16px 0 20px;
-  height: 72px;
+  padding: 8px 16px 8px 20px;
+  min-height: 72px;
   border-bottom: 1px solid @ui-border;
   background-color: @ui-bg;
+  transition: @ease-out;
 
+  &:hover {
+    background-color: darken(@ui-bg, 4%);
+    cursor: pointer;
+  }
 }
 
 .nav__country-flag {
@@ -47,14 +52,15 @@
   color: @text-body;
   display: block;
   font-weight: 700;
-  line-height: 20px;
+  line-height: 16px;
+  margin-bottom: 4px;
 }
 
 .nav__country-role {
   color: @text-mute;
   display: block;
   font-size: @font-s;
-  line-height: 20px;
+  line-height: 16px;
 }
 
 // Country list popover
@@ -296,6 +302,7 @@
 .nav__secondary-order {
   flex: 0 0 auto;
   width: 24px;
+  margin-right: 4px;
   font-size: @font-s;
 }
 

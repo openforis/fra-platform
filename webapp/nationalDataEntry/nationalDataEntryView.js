@@ -8,7 +8,7 @@ import DefinitionLink from './../reusableUiComponents/definitionLink'
 import ChartWrapper from './chart/chartWrapper'
 import LoggedInPageTemplate from '../loggedInPageTemplate'
 import { DataTable } from '../originalDataPoint/commentableDatatable'
-import CommentableDescriptions from '../description/commentableDescription'
+import { CommentableReviewDescription } from '../description/commentableDescription'
 
 const NationalDataEntry = (props) => {
 
@@ -30,18 +30,6 @@ const NationalDataEntry = (props) => {
       field: 'otherWoodedLand',
       localizedName: i18n.t('fraClass.otherWoodedLand')
     },
-    {
-      field: 'otherLand',
-      localizedName: i18n.t('fraClass.otherLand')
-    }
-  ]
-  const eofRowNames = {
-    0: 'forestArea',
-    1: 'otherWoodedLand',
-    2: 'otherLand'
-  }
-
-  const otherLandRows = [
     {
       field: 'otherLand',
       localizedName: i18n.t('fraClass.otherLand')
@@ -67,12 +55,15 @@ const NationalDataEntry = (props) => {
       localizedName: i18n.t('extentOfForest.ofWhichTreesUrbanSettings')
     }
   ]
-  const otherLandRowNames = {
-    0: 'otherLand',
-    1: 'otherLandPalms',
-    2: 'otherLandTreeOrchards',
-    3: 'otherLandAgroforestry',
-    4: 'otherLandTreesUrbanSettings'
+
+  const eofRowNames = {
+    0: 'forestArea',
+    1: 'otherWoodedLand',
+    2: 'otherLand',
+    3: 'otherLandPalms',
+    4: 'otherLandTreeOrchards',
+    5: 'otherLandAgroforestry',
+    6: 'otherLandTreesUrbanSettings'
   }
 
   return <div className='nde__data-input-component'>
@@ -89,11 +80,15 @@ const NationalDataEntry = (props) => {
           {i18n.t('nationalDataPoint.addNationalDataPoint')}
         </Link>
       </div>
-      <ChartWrapper stateName="nationalDataEntry" trends={['forestArea', 'otherWoodedLand']}/>
+      <ChartWrapper stateName="nationalDataEntry"
+                    trends={[
+                      {name:'forestArea', label:i18n.t('fraClass.forest'), odpColor:'#0098a6', fraPathStroke:'rgba(0,152,166,.35)', odpPathStroke:'rgba(0,152,166,.5)'},
+                      {name:'otherWoodedLand', label:i18n.t('fraClass.otherWoodedLand'), odpColor:'#bd19ad', fraPathStroke:'rgba(189,25,173,.35)', odpPathStroke:'rgba(189,25,173,.5)'}
+                      ]}/>
     </div>
 
     <div className="nde__data-table-header">
-      <h3 className="subhead">{i18n.t('extentOfForest.extentOfForestValues')}</h3>
+      <h3 className="subhead">{i18n.t('extentOfForest.extentOfForest')}</h3>
       <DefinitionLink className="align-left" name="eof" i18n={i18n}/>
       <button disabled={disableGenerateFRAValues()} className="btn btn-primary"
               onClick={() => props.generateFraValues('extentOfForest', props.countryIso)}>
@@ -101,14 +96,12 @@ const NationalDataEntry = (props) => {
       </button>
     </div>
     <DataTable section='extentOfForest' rows={eofRows} rowNames={eofRowNames} {...props} areaUnitLabel={props.i18n.t('extentOfForest.areaUnitLabel')} categoryHeader={props.i18n.t('extentOfForest.categoryHeader')} />
-    <div className="nde__data-table-header">
-      <h3 className="subhead">{i18n.t('extentOfForest.otherLandCategories')}</h3>
-    </div>
-    <DataTable section='extentOfForest' rows={otherLandRows} rowNames={otherLandRowNames} {...props}  areaUnitLabel={props.i18n.t('extentOfForest.areaUnitLabel')} categoryHeader={props.i18n.t('extentOfForest.categoryHeader')} />
-    <CommentableDescriptions
+    <CommentableReviewDescription
       section='extentOfForest'
-      name="extentOfForest"
       countryIso={props.match.params.countryIso}
+      descriptionName={`extentOfForest_generalComments`}
+      commentTarget={['generalComments']}
+      descriptionTitle={i18n.t('description.generalCommentsTitle')}
       i18n={i18n}
     />
   </div>

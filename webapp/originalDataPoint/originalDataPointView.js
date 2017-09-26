@@ -136,11 +136,11 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
           <th className="fra-table__header-cell-right fra-table__divider">{i18n.t('nationalDataPoint.area')}</th>
           <th className="fra-table__header-cell-right">
             <div>{i18n.t('fraOtherLandClass.palms')}</div>
-            <div className="odp__input-table__sub-header">{i18n.t('fraOtherLandClass.palmsClasses')}</div>
+            <div className="fra-table__secondary-text">{i18n.t('fraOtherLandClass.palmsClasses')}</div>
           </th>
           <th className="fra-table__header-cell-right">
             <div>{i18n.t('fraOtherLandClass.treeOrchards')}</div>
-            <div className="odp__input-table__sub-header">{i18n.t('fraOtherLandClass.treeOrchardsClasses')}</div>
+            <div className="fra-table__secondary-text">{i18n.t('fraOtherLandClass.treeOrchardsClasses')}</div>
           </th>
           <th className="fra-table__header-cell-right">{i18n.t('fraOtherLandClass.agroforestry')}</th>
           <th className="fra-table__header-cell-right">{i18n.t('fraOtherLandClass.treesUrbanSettings')}</th>

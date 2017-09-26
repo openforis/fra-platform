@@ -7,7 +7,7 @@ import { fetchItem, save, saveMany, generateFraValues } from '../originalDataPoi
 import LoggedInPageTemplate from '../loggedInPageTemplate'
 import { DataTable } from '../originalDataPoint/commentableDatatable'
 import ChartWrapper from '../nationalDataEntry/chart/chartWrapper'
-import CommentableDescriptions from '../description/commentableDescription'
+import { CommentableReviewDescription } from '../description/commentableDescription'
 
 const ForestCharacteristics = props => {
   const disableGenerateFRAValues = () => {
@@ -60,7 +60,9 @@ const ForestCharacteristics = props => {
         {props.i18n.t('nationalDataPoint.addNationalDataPoint')}
       </Link>
     </div>
-    <ChartWrapper stateName="forestCharacteristics" trends={['naturalForestArea']} />
+    <ChartWrapper stateName="forestCharacteristics" trends={[
+      {name:'naturalForestArea', label:props.i18n.t('fraClass.forest'), odpColor:'#0098a6', fraPathStroke:'rgba(0,152,166,.35)', odpPathStroke:'rgba(0,152,166,.5)'}
+      ]} />
     <div className="nde__data-table-header">
       <h3 className="subhead">{props.i18n.t('forestCharacteristics.forestCharacteristics')}</h3>
       <button disabled={disableGenerateFRAValues()} className="btn btn-primary"
@@ -69,10 +71,12 @@ const ForestCharacteristics = props => {
       </button>
     </div>
     <DataTable section='forestCharacteristics' rows={rows} rowNames={rowNames} {...props} areaUnitLabel={props.i18n.t('forestCharacteristics.areaUnitLabel')} categoryHeader={props.i18n.t('forestCharacteristics.categoryHeader')}/>
-    <CommentableDescriptions
+    <CommentableReviewDescription
       section='forestCharacteristics'
-      name="forestCharacteristics"
       countryIso={props.countryIso}
+      descriptionName={`forestCharacterstics_generalComments`}
+      commentTarget={['generalComments']}
+      descriptionTitle={props.i18n.t('description.generalCommentsTitle')}
       i18n={props.i18n}
     />
   </div>
