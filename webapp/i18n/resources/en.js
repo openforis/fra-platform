@@ -334,6 +334,14 @@ export const translation = {
     ofWhichForest: '…of which on forest'
   },
 
+  degradedForest: {
+    degradedForest: 'Degraded forest',
+    doesYourCountryMonitor: 'Does your country monitor area of degraded forest',
+    ifYes: 'If "yes"',
+    whatIsDefinition: 'What is the national definition of "Degraded forest"?',
+    howMonitored: 'How is it being monitored?'
+  },
+
   employment: {
     employment: 'Employment'
   },
