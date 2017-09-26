@@ -7,14 +7,14 @@ export default i18n => ({
     [
       {
         type: 'readOnly',
-        jsx: <td className="fra-table__header-cell">
+        jsx: <td className="fra-table__header-cell" colSpan="2">
           {i18n.t('degradedForest.doesYourCountryMonitor')}
         </td>
       },
       {type: 'yesNoSelect'},
       {
         type: 'readOnly',
-        jsx: <td className="fra-table__header-cell"/>
+        jsx: <td className="fra-table__hidden-cell"/>
       }
     ],
     [
