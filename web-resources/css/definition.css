@@ -92,3 +92,21 @@ a {
   padding-bottom: 32px;
 }
 
+.toc {
+  list-style: none;
+  padding: 0;
+}
+
+.toc li {
+  margin: 0;
+}
+
+.toc li a {
+  text-decoration: none;
+}
+
+.toc li a:hover {
+  text-decoration: underline;
+}
+
+

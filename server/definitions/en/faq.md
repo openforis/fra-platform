@@ -403,17 +403,17 @@ A: If possible, his time should be split on the two activities, so that if he/sh
 
 ---
 
-# 9
+# 9 Graduation of students in forest-related education
 
 To be developed
 
 ---
 
-# 10a
+# 10a Policies, Legislation and national platform for stakeholder participation in forest policy
 
 To be developed
 
-# 10b
+# 10b Area of permanent forest estate
 
 ### Q: The concept of Permanent Forest Estate (PFE) does not fit into the national context. How should I report?
 

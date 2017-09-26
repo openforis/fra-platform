@@ -16,11 +16,16 @@ module.exports.init = app => {
       const name = readAllowedParameter(req, 'name', R.match(/^[a-z0-9]+$/i))
       const mdRes = getDefinition(name, lang)
       mdRes.then(markdown => {
+        var toc = []
         var renderer = new marked.Renderer()
         renderer.heading = function(text, level) {
           if (level < 3) {
-            var escapedText = text.toLowerCase().substr(0, text.indexOf(' '))
-            return '<h' + level + ' id="' + escapedText + '" class="anchor-link">' + text + '</h' + level + '>'
+            var anchor = text.toLowerCase().substr(0, text.indexOf(' '))
+            toc.push({
+              anchor: anchor,
+              text: text
+            })
+            return '<h' + level + ' id="' + anchor + '" class="anchor-link">' + text + '</h' + level + '>'
           } else {
             return '<h' + level + '>' + text + '</h' + level + '>'
           }
@@ -29,12 +34,21 @@ module.exports.init = app => {
           renderer: renderer,
           smartypants: true
         })
+        var tocHTML = '<ul class="toc">'
+        toc.forEach((entry, index) => {
+          if (index > 0) {
+            tocHTML += '<li><a href="#' + entry.anchor + '">' + entry.text + '</a></li>'
+          }
+        })
+        tocHTML += '</ul><hr/>'
         const content = markdown ? marked(markdown) : ''
         res.send(`<html lang="fi">
           <head>
+            <title>${toc[0].text}</title>
             <link rel="stylesheet" href="/css/definition.css"/>
           </head>
           <body>
+          ${tocHTML}
           ${content}
           </body>
           </html>`)
