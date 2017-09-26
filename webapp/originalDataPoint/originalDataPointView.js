@@ -317,7 +317,6 @@ const NationalClassRow = ({odp, index, saveDraft, countryIso, className, definit
     </td>
     <td className="fra-table__cell">
       <VerticallyGrowingTextField
-        id={`odp-description-field-${index}`}
         value={definition || ''}
         onChange={(evt) =>
           saveDraft(countryIso, originalDataPoint.updateNationalClass(odp, index, 'definition', evt.target.value))}
