@@ -4,6 +4,7 @@ import tableSpec from './tableSpec'
 import LoggedInPageTemplate from '../loggedInPageTemplate'
 import TraditionalTable from '../traditionalTable/traditionalTable'
 import { CommentableDescriptions } from '../description/commentableDescription'
+import DefinitionLink from './../reusableUiComponents/definitionLink'
 
 const DegradedForestView = ({match, i18n}) => {
   const tableSpecInstance = tableSpec(i18n)
@@ -11,7 +12,11 @@ const DegradedForestView = ({match, i18n}) => {
 
   return <LoggedInPageTemplate>
     <div className="tv__container">
-      <h1 className="title tv__page-header">{i18n.t('degradedForest.degradedForest')}</h1>
+      <div className="tv__page-header">
+        <h1 className="title">{i18n.t('degradedForest.degradedForest')}</h1>
+        <DefinitionLink document="tad" section="7c" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
+        <DefinitionLink document="faq" section="7c" title={i18n.t('definition.faqLabel')} lang={i18n.language} className="align-left"/>
+      </div>
       <TraditionalTable tableSpec={tableSpecInstance} countryIso={match.params.countryIso}/>
       <CommentableDescriptions
         section={tableSpecInstance.name}
