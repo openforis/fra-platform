@@ -120,16 +120,16 @@ export const fra2020Items = i18n => [
     pathTemplate: '#/todo'
   },
   {
-    tableNo: '7c',
-    label: i18n.t('degradedForest.degradedForest'),
-    pathTemplate: '/country/:countryIso/degradedForest',
-    section: 'degradedForest'
-  },
-  {
     tableNo: '7b',
     label: i18n.t('areaAffectedByFire.areaAffectedByFire'),
     pathTemplate: '/country/:countryIso/areaAffectedByFire',
     section: areaAffectedByFireTableSpec(i18n).name
+  },
+  {
+    tableNo: '7c',
+    label: i18n.t('degradedForest.degradedForest'),
+    pathTemplate: '/country/:countryIso/degradedForest',
+    section: 'degradedForest'
   },
   {
     tableNo: '8',
