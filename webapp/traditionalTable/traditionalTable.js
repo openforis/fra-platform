@@ -11,9 +11,9 @@ import ReviewIndicator from '../review/reviewIndicator'
 import UpdateOnResizeReactComponent from '../reusableUiComponents/updateOnResizeReactComponent'
 
 const mapIndexed = R.addIndex(R.map)
-const commentTarget = (rowIdx) => ['row', `${rowIdx}`]
-const rowShouldBeHighlighted = (rowIdx, openCommentThreadTarget) =>
-  R.equals(commentTarget(rowIdx), openCommentThreadTarget)
+const commentTarget = (tableName, rowIdx) => [tableName, 'row', `${rowIdx}`]
+const rowShouldBeHighlighted = (tableName, rowIdx, openCommentThreadTarget) =>
+  R.equals(commentTarget(tableName, rowIdx), openCommentThreadTarget)
 
 const Cell = (props) => {
   const {tableSpec, rowIdx, colIdx} = props
@@ -30,7 +30,7 @@ class ReviewWrapper extends React.Component {
       <div className="traditional-table__review-indicator-row-anchor" style={{top: top}}>
         <ReviewIndicator section={this.props.tableSpec.name}
                          name=""
-                         target={commentTarget(this.props.rowIdx)}
+                         target={commentTarget(this.props.tableSpec.name, this.props.rowIdx)}
                          countryIso={this.props.countryIso}/>
       </div>
     </td>
@@ -41,7 +41,7 @@ const tableRows = (props) => {
   return mapIndexed(
     (rowSpec, rowIdx) =>
       <tr key={rowIdx}
-          className={rowShouldBeHighlighted(rowIdx, props.openCommentThreadTarget) ? 'fra-row-comments__open' : ''}>
+          className={rowShouldBeHighlighted(props.tableSpec.name, rowIdx, props.openCommentThreadTarget) ? 'fra-row-comments__open' : ''}>
         {
           mapIndexed(
             (cellSpec, colIdx) => <Cell key={`${rowIdx}-${colIdx}`}
