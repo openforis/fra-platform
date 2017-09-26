@@ -7,7 +7,7 @@ export default i18n => ({
     [
       {
         type: 'readOnly',
-        jsx: <td className="fra-table__header-cell" colSpan="2">
+        jsx: <td className="fra-table__header-cell">
           {i18n.t('degradedForest.doesYourCountryMonitor')}
         </td>
       },
@@ -18,6 +18,10 @@ export default i18n => ({
           {name: 'yes'},
           {name: 'no'}
         ]
+      },
+      {
+        type: 'readOnly',
+        jsx: <td className="fra-table__header-cell"/>
       }
     ],
     [
@@ -29,5 +33,8 @@ export default i18n => ({
       {type: 'readOnly', jsx: <td className="fra-table__header-cell">{i18n.t('degradedForest.howMonitored')}</td>},
       {type: 'verticallyGrowingTextInput'},
     ]
-  ]
+  ],
+  valueSlice: {
+    columnStart: 1
+  }
 })
