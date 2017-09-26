@@ -340,9 +340,6 @@ export const translation = {
     ifYes: 'If "yes"',
     whatIsDefinition: 'What is the national definition of "Degraded forest"?',
     howMonitored: 'How is it being monitored?',
-    yes: 'Yes',
-    no: 'No',
-    notSelected: '',
   },
 
   employment: {
@@ -360,4 +357,10 @@ export const translation = {
   areaOfPermanentForestEstate: {
     areaOfPermanentForestEstate: 'Area of permanent forest estate'
   },
+
+  yesNoTextSelect: {
+    yes: 'Yes',
+    no: 'No',
+    notSelected: '',
+  }
 }

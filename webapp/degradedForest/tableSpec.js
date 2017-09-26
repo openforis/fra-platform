@@ -11,14 +11,7 @@ export default i18n => ({
           {i18n.t('degradedForest.doesYourCountryMonitor')}
         </td>
       },
-      {
-        type: 'textSelect',
-        localizationPrefix: 'degradedForest',
-        options: [
-          {name: 'yes'},
-          {name: 'no'}
-        ]
-      },
+      {type: 'yesNoSelect'},
       {
         type: 'readOnly',
         jsx: <td className="fra-table__header-cell"/>
