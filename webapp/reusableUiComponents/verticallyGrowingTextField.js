@@ -23,13 +23,15 @@ class VerticallyGrowingTextField extends React.Component {
   }
 
   render () {
+    const minWidthStyleAttr = this.props.minWidth ? `${this.props.minWidth}px` : null
     return (
       <div className="vgtf__container">
         <textarea
           ref="textArea"
           rows="1"
           className="vgtf__textarea"
-          {...this.props} />
+          style={{minWidth: minWidthStyleAttr}}
+          {...R.dissoc('minWidth', this.props)} />
       </div>
     )
   }

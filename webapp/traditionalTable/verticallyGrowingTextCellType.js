@@ -8,7 +8,8 @@ const VerticallyGrowingTextCell = ({countryIso,
                                      rowIdx,
                                      colIdx,
                                      tableValueChanged,
-                                     tableChanged}) => {
+                                     tableChanged,
+                                     minWidth}) => {
   const currentValue = tableData[rowIdx][colIdx]
   return <td className="fra-table__cell">
     <VerticallyGrowingTextField
@@ -28,11 +29,12 @@ const VerticallyGrowingTextCell = ({countryIso,
           tableChanged,
           tableValueChanged)
       }
+      minWidth={minWidth}
     />
   </td>
 }
 
 export default cellSpec => ({
-  render: props => <VerticallyGrowingTextCell {...props}/>,
+  render: props => <VerticallyGrowingTextCell {...props} minWidth={cellSpec.minWidth}/>,
   acceptValue: (newValue, _) => newValue
 })
