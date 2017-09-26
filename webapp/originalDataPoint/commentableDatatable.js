@@ -77,10 +77,10 @@ const fraValueCell = (fraValue, fra, countryIso, save, saveMany, pasteUpdate, fi
     onChange={ e => { save(countryIso, fraValue.name, e.target.value, fraValue, field, acceptNextDecimal) } }/>
 
 const odpCell = (odpValue, field) =>
-  <ThousandSeparatedIntegerInput
+  <ThousandSeparatedDecimalInput
     className="fra-table__integer-input"
-    integerValue={Math.round(odpValue[field])}
-    precision={3}
+    numberValue={odpValue[field]}
+    precision={2}
     disabled={true} />
 
 const fraValueRow = (rowHeading, field, className, countryIso, fra, save, saveMany, pasteUpdate, colId, openThread) => {

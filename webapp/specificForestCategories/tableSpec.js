@@ -20,11 +20,11 @@ export default i18n => ({
       type: 'readOnly',
       jsx: <td key="bamboo" className="fra-table__header-cell">{i18n.t('specificForestCategories.bamboo')}</td>
     },
-      {type: 'integerInput'},
-      {type: 'integerInput'},
-      {type: 'integerInput'},
-      {type: 'integerInput'},
-      {type: 'integerInput'}
+      {type: 'decimalInput'},
+      {type: 'decimalInput'},
+      {type: 'decimalInput'},
+      {type: 'decimalInput'},
+      {type: 'decimalInput'}
     ],
     [
       {
