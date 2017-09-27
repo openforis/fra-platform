@@ -35,8 +35,7 @@ deploy_production:
     - dpl --provider=heroku --app=$HEROKU_PRODUCTION_APP_NAME --api-key=$HEROKU_PRODUCTION_API_KEY
   only:
     - master
-  when:
-    - manual
+  when: manual
   environment:
     name: production
     url: https://fra-platform.herokuapp.com/
