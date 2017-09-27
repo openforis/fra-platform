@@ -4,21 +4,23 @@ export const rows = [
   {
     field: 'naturallyRegeneratingForest',
     areaFields: ['naturalForestArea'],
-    labelKey: 'fraForestCharacteristicsClass.naturallyRegeneratingForest',
+    labelKey: 'fraForestCharacteristicsClass.naturallyRegeneratingForest'
   }, {
     field: 'plantedForest',
     areaFields: ['plantationForestArea', 'otherPlantedForestArea'],
     calculated: true,
     sumFields: ['plantationForest', 'otherPlantedForest'],
-    labelKey: 'fraForestCharacteristicsClass.plantedForest',
+    labelKey: 'fraForestCharacteristicsClass.plantedForest'
   }, {
     field: 'plantationForest',
     areaFields: ['plantationForestArea'],
-    labelKey: 'fraForestCharacteristicsClass.plantationForest',
+    labelKey: 'growingStock.ofWhichPlantationForest',
+    subCategory: true
   }, {
     field: 'otherPlantedForest',
     areaFields: ['otherPlantedForestArea'],
-    labelKey: 'fraForestCharacteristicsClass.otherPlantedForest',
+    labelKey: 'growingStock.ofWhichOtherPlantedForest',
+    subCategory: true
   }, {
     field: 'totalForest',
     areaFields: ['naturalForestArea', 'plantationForestArea', 'otherPlantedForestArea'],
@@ -28,7 +30,7 @@ export const rows = [
   }, {
     field: 'otherWoodedLand',
     areaFields: ['otherWoodedLand'],
-    labelKey: 'fraClass.otherWoodedLand',
+    labelKey: 'fraClass.otherWoodedLand'
   }
 ]
 
@@ -81,7 +83,7 @@ export const updateGrowingStockValue = (areaValues, growingStockValues, year, fi
   const updatedValue = R.pipe(
     R.find(R.propEq('year', year)),
     R.defaultTo({year}),
-    R.assoc(`${field}${type === 'avg' ? 'Avg' : ''}`, R.isEmpty(value) ?null :Number(value)),
+    R.assoc(`${field}${type === 'avg' ? 'Avg' : ''}`, R.isEmpty(value) ? null : Number(value)),
     R.partial(updateMirrorValue, [areaValues, year, field, type]),
     updateTotals(areaValues, year)
   )(growingStockValues)
