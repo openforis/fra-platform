@@ -3,7 +3,7 @@ import R from 'ramda'
 
 const createPdmoInputRow = (rowHeader) => [
   {type: 'readOnly', jsx: <td key="protection" className="fra-table__header-cell">{rowHeader}</td>},
-  ...(R.times(() => ({type: 'integerInput'}), 5))
+  ...(R.times(() => ({type: 'decimalInput'}), 5))
 ]
 
 const totalForestArea = (tableData, columnIdx) =>

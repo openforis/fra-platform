@@ -12,7 +12,8 @@ describe('originalDataPoint', () => {
     assert.equal(200.00, originalDataPoint.totalForest(odpWithNationalClasses, 'forestPercent'))
   })
 
-  it('rounds decimals to nearest integer', () => {
+  // Temporarily disabled, ODP code should no longer round to integer
+  xit('rounds decimals to nearest integer', () => {
     const odpWithNationalClasses = {
       nationalClasses: [{area: 200, forestPercent: 50},
         {area: 1002, forestPercent: 10},

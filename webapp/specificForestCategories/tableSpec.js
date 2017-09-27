@@ -21,34 +21,34 @@ export default i18n => ({
         type: 'readOnly',
         jsx: <td key="bamboo" className="fra-table__header-cell">{i18n.t('specificForestCategories.bamboo')}</td>
       },
-      {type: 'integerInput'},
-      {type: 'integerInput'},
-      {type: 'integerInput'},
-      {type: 'integerInput'},
-      {type: 'integerInput'}
+      {type: 'decimalInput'},
+      {type: 'decimalInput'},
+      {type: 'decimalInput'},
+      {type: 'decimalInput'},
+      {type: 'decimalInput'}
     ],
     [
       {
         type: 'readOnly',
         jsx: <td key="mangroves" className="fra-table__header-cell">{i18n.t('specificForestCategories.mangroves')}</td>
       },
-      {type: 'integerInput'},
-      {type: 'integerInput'},
-      {type: 'integerInput'},
-      {type: 'integerInput'},
-      {type: 'integerInput'}
+      {type: 'decimalInput'},
+      {type: 'decimalInput'},
+      {type: 'decimalInput'},
+      {type: 'decimalInput'},
+      {type: 'decimalInput'}
     ],
     [
       {
         type: 'readOnly',
-        jsx: <td key="rubberPlantations"
+        jsx: <td key="temporarilyUnstocked"
                 className="fra-table__header-cell">{i18n.t('specificForestCategories.temporarilyUnstocked')}</td>
       },
-      {type: 'integerInput'},
-      {type: 'integerInput'},
-      {type: 'integerInput'},
-      {type: 'integerInput'},
-      {type: 'integerInput'}
+      {type: 'decimalInput'},
+      {type: 'decimalInput'},
+      {type: 'decimalInput'},
+      {type: 'decimalInput'},
+      {type: 'decimalInput'}
     ]
   ],
   valueSlice: {columnStart: 1}
