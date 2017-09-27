@@ -28,7 +28,6 @@ export default i18n => ({
     </tr>
   </thead>,
   rows: [
-    //[{type: 'readOnly', jsx: <td className="fra-table__header-cell">Placeholder</td>}]
     inputRow(heading(i18n, 'graduationOfStudents.doctoralDegree')),
     inputRow(subHeading(i18n, 'graduationOfStudents.ofWhichFemale')),
     inputRow(heading(i18n, 'graduationOfStudents.mastersDegree')),
