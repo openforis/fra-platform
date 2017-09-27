@@ -14,8 +14,8 @@ const PrimaryDesignatedManagementObjectiveView = ({match, i18n}) => {
     <div className="tv__container">
       <div className="tv__page-header">
         <h1 className="title tv__page-header">{i18n.t('designatedManagementObjective.designatedManagementObjective')}</h1>
-        <DefinitionLink document="tad" section="5a" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
-        <DefinitionLink document="faq" section="5a" title={i18n.t('definition.faqLabel')} lang={i18n.language} className="align-left"/>
+        <DefinitionLink document="tad" anchor="5a" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
+        <DefinitionLink document="faq" anchor="5a" title={i18n.t('definition.faqLabel')} lang={i18n.language} className="align-left"/>
       </div>
       <TraditionalTable tableSpec={tableProps} countryIso={match.params.countryIso}/>
       <CommentableDescriptions
