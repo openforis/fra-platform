@@ -242,7 +242,9 @@ export const translation = {
     growingStock: 'Growing stock',
     categoryHeader: 'FRA categories',
     avgTableHeader: 'Average growing stock (m³/ha)',
-    totalTableHeader: 'Total growing stock (million m³)'
+    totalTableHeader: 'Total growing stock (million m³)',
+    ofWhichPlantationForest: '…of which plantation forest',
+    ofWhichOtherPlantedForest: '…of which other planted forest'
   },
 
   growingStockComposition: {
@@ -282,7 +284,7 @@ export const translation = {
     food: '1 Food',
     fodder: '2 Fodder',
     rawMaterialForMedicine: '3 Raw material for medicine and aromatic products',
-    rawMaterialForColorants:  '4 Raw material for colorants and dyes',
+    rawMaterialForColorants: '4 Raw material for colorants and dyes',
     rawMaterialForUtensils: '5 Raw material for utensils handicrafts construction',
     ornamentalPlants: '6 Ornamental plants',
     exudates: '7 Exudates',
