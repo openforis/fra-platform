@@ -234,7 +234,8 @@ export const translation = {
     categoryHeader: 'FRA categories',
     areaUnitLabel: 'Area (1000 ha)',
     bamboo: 'Bamboos',
-    mangroves: 'Mangroves'
+    mangroves: 'Mangroves',
+    temporarilyUnstocked: 'Temporarily unstocked and/or recently regenerated'
   },
 
   growingStock: {
