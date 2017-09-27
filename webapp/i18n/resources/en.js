@@ -252,7 +252,7 @@ export const translation = {
     growingStockComposition: 'Growing stock composition',
     nativeTreeSpecies: 'Native tree species',
     introducedTreeSpecies: 'Introduced tree species',
-    areaUnitLabel: 'Growing stock in forest (million m3 o.b.)',
+    areaUnitLabel: 'Growing stock in forest (million m³ o.b.)',
     scientificName: 'Scientific name',
     commonName: 'Common name',
     rank: 'Ranked in terms of volume',
