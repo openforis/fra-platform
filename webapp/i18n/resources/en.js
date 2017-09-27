@@ -241,8 +241,8 @@ export const translation = {
   growingStock: {
     growingStock: 'Growing stock',
     categoryHeader: 'FRA categories',
-    avgTableHeader: 'Average growing stock (m3/ha)',
-    totalTableHeader: 'Total growing stock (million m3)'
+    avgTableHeader: 'Average growing stock (m³/ha)',
+    totalTableHeader: 'Total growing stock (million m³)'
   },
 
   growingStockComposition: {
