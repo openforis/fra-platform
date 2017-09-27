@@ -262,8 +262,8 @@ export const translation = {
   biomassStock: {
     biomassStock: 'Biomass stock',
     categoryHeader: 'FRA categories',
-    totalTableHeader: 'Biomass (million tonnes)',
-    avgTableHeader: 'Biomass (tonnes/ha)',
+    avgTableHeader: 'Forest biomass (tonnes/ha)',
+    totalTableHeader: 'Forest biomass (million tonnes)',
     aboveGround: 'Above-ground biomass',
     belowGround: 'Below-ground biomass',
     deadWood: 'Dead wood'
