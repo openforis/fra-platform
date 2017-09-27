@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import * as R from 'ramda'
-import { ThousandSeparatedIntegerInput } from '../reusableUiComponents/thousandSeparatedIntegerInput'
 import ReviewIndicator from '../review/reviewIndicator'
 import { readPasteClipboard } from '../utils/copyPasteUtil'
+import { ThousandSeparatedDecimalInput } from '../reusableUiComponents/thousandSeparatedDecimalInput'
+import { separateDecimalThousandsWithSpaces } from '../utils/numberFormat'
 
 const GrowingStockTable = (props) => {
   const cols = R.filter(v => v.type !== 'odp', R.values(props.areaValues))
@@ -101,16 +102,16 @@ const Cell = (props) => {
   )(values)
 
   return calculated
-    ? <td className="fra-table__aggregate-cell">{value}</td>
+    ? <td className="fra-table__aggregate-cell">{separateDecimalThousandsWithSpaces(value)}</td>
     : <td className="fra-table__cell">
-      <ThousandSeparatedIntegerInput
-        className="fra-table__integer-input"
-        integerValue={value}
-        disabled={calculated}
-        onChange={e => props.updateValue(countryIso, areaValues, values, col.year, field, type, e.target.value)}
-        onPaste={e => props.updateValues(countryIso, areaValues, values, readPasteClipboard(e), type, props.cols, props.rowIdx, props.colIdx)}
-      />
-    </td>
+        <ThousandSeparatedDecimalInput
+          className="fra-table__integer-input"
+          numberValue={value}
+          precision={2}
+          onChange={e => props.updateValue(countryIso, areaValues, values, col.year, field, type, e.target.value)}
+          onPaste={e => props.updateValues(countryIso, areaValues, values, readPasteClipboard(e), type, props.cols, props.rowIdx, props.colIdx)}
+        />
+      </td>
 }
 
 export default GrowingStockTable
