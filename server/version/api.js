@@ -9,7 +9,6 @@ module.exports.init = app => {
   app.get('/version', (req, res) => {
     const shaRes = getSha()
     shaRes.then(sha => {
-
       res.send(`<html>
         <head>
           <link rel="stylesheet" href="/css/definition.css"/>
