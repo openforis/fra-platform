@@ -266,7 +266,7 @@ export const translation = {
     avgTableHeader: 'Biomass (tonnes/ha)',
     aboveGround: 'Above-ground biomass',
     belowGround: 'Below-ground biomass',
-    deadWood: 'Deadwood'
+    deadWood: 'Dead wood'
   },
 
   carbonStock: {
