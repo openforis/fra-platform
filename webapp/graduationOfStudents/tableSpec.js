@@ -23,7 +23,7 @@ export default i18n => ({
     </tr>
     <tr>
       {
-        R.map(year => <th className="fra-table__header-cell">{year}</th>, yearRange)
+        R.map(year => <th key={year} className="fra-table__header-cell">{year}</th>, yearRange)
       }
     </tr>
   </thead>,
