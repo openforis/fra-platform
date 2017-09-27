@@ -4,9 +4,10 @@ import * as R from 'ramda'
 import { Link } from './../link'
 import { separateThousandsWithSpaces } from '../utils/numberFormat'
 import { ThousandSeparatedIntegerInput } from '../reusableUiComponents/thousandSeparatedIntegerInput'
+import { ThousandSeparatedDecimalInput } from '../reusableUiComponents/thousandSeparatedDecimalInput'
 import ReviewIndicator from '../review/reviewIndicator'
 import { readPasteClipboard } from '../utils/copyPasteUtil'
-import {acceptNextInteger} from '../utils/numberInput'
+import {acceptNextInteger, acceptNextDecimal} from '../utils/numberInput'
 
 const mapIndexed = R.addIndex(R.map)
 
@@ -68,16 +69,18 @@ const OdpHeading = ({countryIso, odpValue}) =>
   </Link>
 
 const fraValueCell = (fraValue, fra, countryIso, save, saveMany, pasteUpdate, field, colIdx, rowIdx) =>
-  <ThousandSeparatedIntegerInput
+  <ThousandSeparatedDecimalInput
     className="fra-table__integer-input"
-    integerValue={ fraValue[field] }
+    numberValue={ fraValue[field] }
+    precision={2}
     onPaste={ e => saveMany(countryIso, pasteUpdate(e, colIdx, rowIdx, fra)) }
-    onChange={ e => { save(countryIso, fraValue.name, e.target.value, fraValue, field) } }/>
+    onChange={ e => { save(countryIso, fraValue.name, e.target.value, fraValue, field, acceptNextDecimal) } }/>
 
 const odpCell = (odpValue, field) =>
-  <ThousandSeparatedIntegerInput
+  <ThousandSeparatedDecimalInput
     className="fra-table__integer-input"
-    integerValue={Math.round(odpValue[field])}
+    numberValue={odpValue[field]}
+    precision={2}
     disabled={true} />
 
 const fraValueRow = (rowHeading, field, className, countryIso, fra, save, saveMany, pasteUpdate, colId, openThread) => {

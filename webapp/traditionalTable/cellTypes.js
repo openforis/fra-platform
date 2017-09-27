@@ -1,12 +1,14 @@
 import React from 'react'
 import assert from 'assert'
 import IntegerCellType from './integerCellType'
+import DecimalCellType from './decimalCellType'
 import TextCellType from './textCellType'
 import TextSelectType from './textSelectType'
 import YesNoSelectType from './yesNoSelectType'
 import VerticallyGrowingTextCell from './verticallyGrowingTextCellType'
 
 const cellTypeCreators = {
+  'decimalInput': DecimalCellType,
   'integerInput': IntegerCellType,
   'textInput': TextCellType,
   'textSelect': TextSelectType,

@@ -1,7 +1,7 @@
 import React from 'react'
 import R from 'ramda'
 
-const integerInputColumns = R.times(() => ({type: 'integerInput'}), 4)
+const integerInputColumns = R.times(() => ({type: 'decimalInput'}), 4)
 
 const netChange = (expansion, deforestation) =>
   !R.isNil(expansion) && !R.isNil(deforestation) ? expansion - deforestation : null

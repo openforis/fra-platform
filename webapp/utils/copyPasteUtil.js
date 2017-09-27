@@ -1,10 +1,13 @@
 import * as R from 'ramda'
 
-import {acceptNextInteger} from './numberInput'
+import {acceptNextInteger, acceptNextDecimal} from './numberInput'
 
 const parseValue = (raw, type) => {
   if(R.equals('integer', type)) {
     return acceptNextInteger(raw, null)
+  }
+  if(R.equals('decimal', type)) {
+    return acceptNextDecimal(raw, null)
   }
   return raw
 }
