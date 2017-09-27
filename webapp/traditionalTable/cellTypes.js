@@ -4,12 +4,16 @@ import IntegerCellType from './integerCellType'
 import DecimalCellType from './decimalCellType'
 import TextCellType from './textCellType'
 import TextSelectType from './textSelectType'
+import YesNoSelectType from './yesNoSelectType'
+import VerticallyGrowingTextCell from './verticallyGrowingTextCellType'
 
 const cellTypeCreators = {
   'decimalInput': DecimalCellType,
   'integerInput': IntegerCellType,
   'textInput': TextCellType,
   'textSelect': TextSelectType,
+  'yesNoSelect': YesNoSelectType,
+  'verticallyGrowingTextInput': VerticallyGrowingTextCell,
   'readOnly': (cellSpec) => ({render: (props) => cellSpec.jsx}),
   'custom': (cellSpec) => ({render: (props) => cellSpec.render(props)})
 }

@@ -68,7 +68,8 @@ export const fra2020Items = i18n => [
   {
     tableNo: '3a',
     label: i18n.t('growingStock.growingStock'),
-    pathTemplate: '/todo'
+    section: 'growingStock',
+    pathTemplate: '/country/:countryIso/growingStock'
   },
   {
     tableNo: '3b',
@@ -123,6 +124,12 @@ export const fra2020Items = i18n => [
     label: i18n.t('areaAffectedByFire.areaAffectedByFire'),
     pathTemplate: '/country/:countryIso/areaAffectedByFire',
     section: areaAffectedByFireTableSpec(i18n).name
+  },
+  {
+    tableNo: '7c',
+    label: i18n.t('degradedForest.degradedForest'),
+    pathTemplate: '/country/:countryIso/degradedForest',
+    section: 'degradedForest'
   },
   {
     tableNo: '8',

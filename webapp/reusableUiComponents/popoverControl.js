@@ -42,9 +42,12 @@ export class PopoverControl extends React.Component {
     return <div className="popover-control__menu">
       {
         R.map(item =>
-          <div className="popover-control__item" key={item.label} onClick={item.onClick}>
-            {item.label}
-          </div>, items)
+          item.divider
+          ? <div className="popover-control__divider" key="divider"></div>
+          : <div className="popover-control__item" key={item.label} onClick={item.onClick}>
+              {item.label}
+            </div>
+          , items)
       }
     </div>
   }
