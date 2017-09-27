@@ -11,9 +11,9 @@ const renderFocusedNumberValue = numberValue =>
 const renderUnfocusedNumberValue = (numberValue, prec) => separateDecimalThousandsWithSpaces(numberValue, prec)
 
 export class ThousandSeparatedDecimalInput extends React.Component {
-  constructor () {
-    super()
-    this.state = {hasFocus: false, inputValue: null}
+  constructor (props) {
+    super(props)
+    this.state = {hasFocus: false, inputValue: props.numberValue}
   }
 
   render () {
@@ -43,7 +43,11 @@ export class ThousandSeparatedDecimalInput extends React.Component {
               onChange(e)
           }
           }
-          onPaste={ onPaste }
+          onPaste={ e => {
+              const pastedValue = onPaste(e)
+              this.setState({inputValue: pastedValue})
+            }
+          }
           onFocus={
             () => {
               this.setState({hasFocus: true})

@@ -15,8 +15,10 @@ import {
 import { fetchCountryOverviewStatus } from '../navigation/actions'
 import { acceptNextInteger, acceptNextDecimal } from '../utils/numberInput'
 import { readPasteClipboard } from '../utils/copyPasteUtil'
-import { separateThousandsWithSpaces } from '../utils/numberFormat'
-import { ThousandSeparatedIntegerInput } from '../reusableUiComponents/thousandSeparatedIntegerInput'
+import {
+  separateThousandsWithSpaces,
+  separateDecimalThousandsWithSpaces
+} from '../utils/numberFormat'
 import { ThousandSeparatedDecimalInput } from '../reusableUiComponents/thousandSeparatedDecimalInput'
 import { PercentInput } from '../reusableUiComponents/percentInput'
 import VerticallyGrowingTextField from '../reusableUiComponents/verticallyGrowingTextField'
@@ -108,7 +110,7 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
         <tr>
           <td className="fra-table__header-cell">{i18n.t('nationalDataPoint.total')}</td>
           <td
-            className="fra-table__aggregate-cell fra-table__divider">{separateThousandsWithSpaces(Number(originalDataPoint.totalArea(active)))}</td>
+            className="fra-table__aggregate-cell fra-table__divider">{separateDecimalThousandsWithSpaces(Number(originalDataPoint.totalArea(active)))}</td>
           <td
             className="fra-table__aggregate-cell">{separateThousandsWithSpaces(Number(originalDataPoint.totalForest(active, 'forestPercent')))}</td>
           <td
@@ -152,7 +154,7 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
         }
         <tr>
           <td className="fra-table__header-cell">{i18n.t('nationalDataPoint.total')}</td>
-          <td className="fra-table__header-cell-right fra-table__divider">{separateThousandsWithSpaces(Number(originalDataPoint.otherLandTotalArea(active)))}</td>
+          <td className="fra-table__header-cell-right fra-table__divider">{separateDecimalThousandsWithSpaces(Number(originalDataPoint.otherLandTotalArea(active)))}</td>
           <td className="fra-table__aggregate-cell">{separateThousandsWithSpaces(Number(originalDataPoint.otherLandClassTotalArea(active, 'otherLandPalmsPercent')))}</td>
           <td className="fra-table__aggregate-cell">{separateThousandsWithSpaces(Number(originalDataPoint.otherLandClassTotalArea(active, 'otherLandTreeOrchardsPercent')))}</td>
           <td className="fra-table__aggregate-cell">{separateThousandsWithSpaces(Number(originalDataPoint.otherLandClassTotalArea(active, 'otherLandAgroforestryPercent')))}</td>
@@ -239,30 +241,41 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
 
 const mapIndexed = R.addIndex(R.map)
 
+const sanitizerFor = type =>
+  type === 'decimal' ?
+    acceptNextDecimal
+    : (type === 'integer' ? acceptNextInteger : R.identity)
+
 const updatePastedValues = ({
                               odp,
                               countryIso,
                               rowIndex,
                               colIndex,
-                              columnNames,
+                              columns,
                               saveDraft,
                               type = 'integer',
                               allowGrow = false,
                             }) => evt => {
-  const updateOdp = (rowNo, colNo, value) => {
-    odp = originalDataPoint.updateNationalClass(odp, rowNo, columnNames[colNo], value)
+  const updateOdp = (odp, rowNo, colNo, rawValue) => {
+    if (R.isNil(columns[colNo]))
+      return R.clone(odp)
+    const value = sanitizerFor(columns[colNo].type)(rawValue, null)
+   return originalDataPoint.updateNationalClass(odp, rowNo, columns[colNo].name, value)
   }
   const rowCount = R.filter(v => !v.placeHolder, odp.nationalClasses).length
-  const pastedData = allowGrow ? readPasteClipboard(evt, type) : R.take(rowCount - rowIndex, readPasteClipboard(evt, type))
+  const pastedData = allowGrow ? readPasteClipboard(evt, 'string')
+    : R.take(rowCount - rowIndex, readPasteClipboard(evt, 'string'))
 
+  var tempOdp = R.clone(odp)
   mapIndexed((r, i) => {
     const row = rowIndex + i
     mapIndexed((c, j) => {
       const col = colIndex + j
-      updateOdp(row, col, c)
+      tempOdp = updateOdp(tempOdp, row, col, c)
     }, r)
   }, pastedData)
-  saveDraft(countryIso, odp)
+  saveDraft(countryIso, tempOdp)
+  return sanitizerFor(columns[colIndex].type)(pastedData[0][0])
 }
 
 const getValidationStatusRow = (odp, index) => odp.validationStatus
@@ -298,7 +311,7 @@ const NationalClassRow = ({odp, index, saveDraft, countryIso, className, definit
                  countryIso,
                  rowIndex: index,
                  colIndex: 0,
-                 columnNames: nationalClassCols,
+                 columns: nationalClassCols,
                  saveDraft,
                  type: 'text',
                  allowGrow: true
@@ -327,7 +340,7 @@ const NationalClassRow = ({odp, index, saveDraft, countryIso, className, definit
           countryIso,
           rowIndex: index,
           colIndex: 1,
-          columnNames: nationalClassCols,
+          columns: nationalClassCols,
           saveDraft,
           type: 'text',
           allowGrow: true
@@ -348,7 +361,12 @@ const NationalClassRow = ({odp, index, saveDraft, countryIso, className, definit
     </td>
   </tr>
 
-const extentOfForestCols = ['area', 'forestPercent', 'otherWoodedLandPercent', 'otherLandPercent']
+const extentOfForestCols = [
+  {name: 'area', type: 'decimal'},
+  {name: 'forestPercent', type: 'integer'},
+  {name: 'otherWoodedLandPercent', type: 'integer'},
+  {name: 'otherLandPercent', type: 'integer'}]
+
 const extentOfForestRows = (countryIso, odp, saveDraft, openThread, i18n) =>
   R.pipe(
     R.filter(nationalClass => !nationalClass.placeHolder),
@@ -403,7 +421,7 @@ const ExtentOfForestRow = ({
                                        countryIso,
                                        rowIndex: index,
                                        colIndex: 0,
-                                       columnNames: extentOfForestCols,
+                                       columns: extentOfForestCols,
                                        saveDraft
                                      })}/>
     </td>
@@ -416,7 +434,7 @@ const ExtentOfForestRow = ({
           countryIso,
           rowIndex: index,
           colIndex: 1,
-          columnNames: extentOfForestCols,
+          columns: extentOfForestCols,
           saveDraft
         })}
       />
@@ -430,7 +448,7 @@ const ExtentOfForestRow = ({
           countryIso,
           rowIndex: index,
           colIndex: 2,
-          columnNames: extentOfForestCols,
+          columns: extentOfForestCols,
           saveDraft
         })}
       />
@@ -444,7 +462,7 @@ const ExtentOfForestRow = ({
           countryIso,
           rowIndex: index,
           colIndex: 3,
-          columnNames: extentOfForestCols,
+          columns: extentOfForestCols,
           saveDraft
         })}
       />
@@ -462,8 +480,13 @@ const ExtentOfForestRow = ({
   </tr>
 }
 
-
-const otherLandCharacteristicsCols = ['area', 'otherLandPalmsPercent', 'otherLandTreeOrchardsPercent', 'otherLandAgroforestryPercent', 'otherLandTreesUrbanSettingsPercent']
+const otherLandCharacteristicsCols = [
+  {name: 'area', type: 'decimal'},
+  {name: 'otherLandPalmsPercent', type: 'integer'},
+  {name: 'otherLandTreeOrchardsPercent', type: 'integer'},
+  {name: 'otherLandAgroforestryPercent', type: 'integer'},
+  {name: 'otherLandTreesUrbanSettingsPercent', type: 'integer'}
+]
 const otherLandCharacteristicsRows = (countryIso, odp, saveDraft, openThread, i18n) =>
   R.pipe(
     R.filter(nationalClass => !nationalClass.placeHolder),
@@ -505,7 +528,7 @@ const OtherLandCharacteristicsRow =
       <td className="fra-table__header-cell-sub"><span>{className}</span></td>
       <td
         className={`fra-table__cell-mute fra-table__divider`}>
-        <ThousandSeparatedIntegerInput integerValue={area ? area * nationalClass.otherLandPercent / 100 : null}
+        <ThousandSeparatedDecimalInput numberValue={area ? area * nationalClass.otherLandPercent / 100 : null}
                                        className="fra-table__integer-input"
                                        disabled={true}
                                        onChange={numberUpdated(countryIso, odp, index, 'area', area)}
@@ -514,7 +537,7 @@ const OtherLandCharacteristicsRow =
                                          countryIso,
                                          rowIndex: index,
                                          colIndex: 0,
-                                         columnNames: otherLandCharacteristicsCols,
+                                         columns: otherLandCharacteristicsCols,
                                          saveDraft
                                        })}
         />
@@ -528,7 +551,7 @@ const OtherLandCharacteristicsRow =
             countryIso,
             rowIndex: index,
             colIndex: 1,
-            columnNames: otherLandCharacteristicsCols,
+            columns: otherLandCharacteristicsCols,
             saveDraft
           })}
         />
@@ -542,7 +565,7 @@ const OtherLandCharacteristicsRow =
             countryIso,
             rowIndex: index,
             colIndex: 2,
-            columnNames: otherLandCharacteristicsCols,
+            columns: otherLandCharacteristicsCols,
             saveDraft
           })}
         />
@@ -556,7 +579,7 @@ const OtherLandCharacteristicsRow =
             countryIso,
             rowIndex: index,
             colIndex: 3,
-            columnNames: otherLandCharacteristicsCols,
+            columns: otherLandCharacteristicsCols,
             saveDraft
           })}
         />
@@ -570,7 +593,7 @@ const OtherLandCharacteristicsRow =
             countryIso,
             rowIndex: index,
             colIndex: 4,
-            columnNames: otherLandCharacteristicsCols,
+            columns: otherLandCharacteristicsCols,
             saveDraft
           })}
         />
@@ -589,7 +612,12 @@ const OtherLandCharacteristicsRow =
   }
 
 
-const forestCharacteristicsCols = ['area', 'naturalForestPercent', 'plantationPercent', 'otherPlantedPercent']
+const forestCharacteristicsCols = [
+  {name: 'area', type: 'decimal'},
+  {name: 'naturalForestPercent', type: 'integer'},
+  {name: 'plantationPercent', type: 'integer'},
+  {name: 'otherPlantedPercent', type: 'integer'}
+  ]
 const foresCharaceristicsRows = (countryIso, odp, saveDraft, openThread, i18n) =>
   R.pipe(
     R.filter(nationalClass => !nationalClass.placeHolder),
@@ -641,7 +669,7 @@ const ForestCharacteristicsRow =
                                          countryIso,
                                          rowIndex: index,
                                          colIndex: 0,
-                                         columnNames: forestCharacteristicsCols,
+                                         columns: forestCharacteristicsCols,
                                          saveDraft
                                        })}
         />
@@ -655,7 +683,7 @@ const ForestCharacteristicsRow =
             countryIso,
             rowIndex: index,
             colIndex: 1,
-            columnNames: forestCharacteristicsCols,
+            columns: forestCharacteristicsCols,
             saveDraft
           })}
         />
@@ -674,7 +702,7 @@ const ForestCharacteristicsRow =
             countryIso,
             rowIndex: index,
             colIndex: 2,
-            columnNames: forestCharacteristicsCols,
+            columns: forestCharacteristicsCols,
             saveDraft
           })}
         />
@@ -693,7 +721,7 @@ const ForestCharacteristicsRow =
             countryIso,
             rowIndex: index,
             colIndex: 3,
-            columnNames: forestCharacteristicsCols,
+            columns: forestCharacteristicsCols,
             saveDraft
           })}
         />
