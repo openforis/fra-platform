@@ -36,5 +36,8 @@ export default i18n => ({
     inputRow(subHeading(i18n, 'graduationOfStudents.ofWhichFemale')),
     inputRow(heading(i18n, 'graduationOfStudents.technicianCertificate')),
     inputRow(subHeading(i18n, 'graduationOfStudents.ofWhichFemale')),
-  ]
+  ],
+  valueSlice: {
+    columnStart: 1
+  }
 })
