@@ -104,6 +104,7 @@ export const translation = {
   },
 
   footer: {
+    profilePicture: 'Edit profile picture',
     logout: 'Logout',
     autoSave: {
       saving: 'Saving…'
