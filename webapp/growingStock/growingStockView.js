@@ -16,8 +16,8 @@ const GrowingStock = (props) => {
   return <div className='nde__data-input-component'>
     <div className="nde__data-page-header">
       <h1 className="title">{i18n.t('growingStock.growingStock')}</h1>
-      <DefinitionLink document="tad" section="3a" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
-      <DefinitionLink document="faq" section="3a" title={i18n.t('definition.faqLabel')} lang={i18n.language} className="align-left"/>
+      <DefinitionLink document="tad" anchor="3a" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
+      <DefinitionLink document="faq" anchor="3a" title={i18n.t('definition.faqLabel')} lang={i18n.language} className="align-left"/>
     </div>
     <GrowingStockTable
       section="growingStock"
