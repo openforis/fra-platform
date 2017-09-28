@@ -18,7 +18,7 @@ const designatedManagementObjectiveView = ({match, i18n}) => {
   return <LoggedInPageTemplate>
     <div className="tv__container">
       <div className="tv__page-header">
-        <h1 className="title tv__page-header">
+        <h1 className="title">
           {i18n.t('designatedManagementObjective.designatedManagementObjective')}
         </h1>
         <DefinitionLink document="tad" anchor="5a" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
@@ -32,7 +32,7 @@ const designatedManagementObjectiveView = ({match, i18n}) => {
         countryIso={match.params.countryIso}
         section="designatedManagementObjective"
         reviewTargetPrefix="primaryDesignatedManagementObjective"/>
-      <h3 className="subhead dmo__table-header" style={{marginTop: '24px'}}>
+      <h3 className="subhead dmo__table-header">
         {i18n.t('designatedManagementObjective.totalAreaDesignatedManagementObjective')}
       </h3>
       <TraditionalTable
