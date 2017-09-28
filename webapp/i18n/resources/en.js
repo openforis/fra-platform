@@ -255,11 +255,11 @@ export const translation = {
     categoryHeader: 'FRA categories',
     areaUnitLabel: 'Forest area (1000 ha)',
     privateOwnership: 'Private ownership',
-    ofWhichIndividuals: '... of which owned by individuals',
-    ofWhichPrivateBusinesses: '... of which owned by private business entities and institutions',
-    ofWhichCommunities: '... of which owned by local, tribal and indigenous communities',
+    ofWhichIndividuals: '…of which owned by individuals',
+    ofWhichPrivateBusinesses: '…of which owned by private business entities and institutions',
+    ofWhichCommunities: '…of which owned by local, tribal and indigenous communities',
     publicOwnership: 'Public ownership',
-    otherOrUnknown: 'Other (specify)/unknown ',
+    otherOrUnknown: 'Other/unknown (specify)',
     totalForestArea: 'Total forest area'
   },
 
