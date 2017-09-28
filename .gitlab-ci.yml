@@ -48,7 +48,6 @@ deploy_production_scheduled:
     - gem install dpl
     - dpl --provider=heroku --app=$HEROKU_PRODUCTION_APP_NAME --api-key=$HEROKU_PRODUCTION_API_KEY
   only:
-    - master
     - schedules
   except:
     - branches
