@@ -1,7 +1,7 @@
 import React from 'react'
 import * as R from 'ramda'
 
-const integerInputColumns = R.times(() => ({type: 'integerInput'}), 9)
+const decimalInputColumns = R.times(() => ({type: 'decimalInput'}), 9)
 
 const fillerCell = {
   type: 'readOnly',
@@ -47,21 +47,21 @@ export const rows = (i18n, type) => [
     jsx: <td key={`forest_above_ground_${type}`}
              className="fra-table__header-cell-sub">{i18n.t('biomassStock.aboveGround')}</td>
   },
-    ...integerInputColumns
+    ...decimalInputColumns
   ],
   [{
     type: 'readOnly',
     jsx: <td key={`forest_below_ground_${type}`}
              className="fra-table__header-cell-sub">{i18n.t('biomassStock.belowGround')}</td>
   },
-    ...integerInputColumns
+    ...decimalInputColumns
   ],
   [{
     type: 'readOnly',
     jsx: <td key={`forest_deadwood_${type}`}
              className="fra-table__header-cell-sub">{i18n.t('biomassStock.deadWood')}</td>
   },
-    ...integerInputColumns
+    ...decimalInputColumns
   ],
   [{
     type: 'readOnly',
@@ -75,21 +75,21 @@ export const rows = (i18n, type) => [
     jsx: <td key={`other_wooded_land_above_ground_${type}`}
              className="fra-table__header-cell-sub">{i18n.t('biomassStock.aboveGround')}</td>
   },
-    ...integerInputColumns
+    ...decimalInputColumns
   ],
   [{
     type: 'readOnly',
     jsx: <td key={`other_wooded_land_below_ground_${type}`}
              className="fra-table__header-cell-sub">{i18n.t('biomassStock.belowGround')}</td>
   },
-    ...integerInputColumns
+    ...decimalInputColumns
   ],
   [{
     type: 'readOnly',
     jsx: <td key={`other_wooded_land_deadwood_${type}`}
              className="fra-table__header-cell-sub">{i18n.t('biomassStock.deadWood')}</td>
   },
-    ...integerInputColumns
+    ...decimalInputColumns
   ],
 ]
 
