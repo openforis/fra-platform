@@ -23,7 +23,6 @@ const mappings = {
   degradedForest,
   graduationOfStudents,
   annualReforestation,
-  graduationOfStudents,
   forestAreaWithinProtectedAreas
 }
 
