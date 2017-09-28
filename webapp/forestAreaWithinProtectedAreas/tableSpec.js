@@ -34,7 +34,14 @@ export default i18n => ({
     [
       {
         type: 'readOnly',
-        jsx: <td key="" className="fra-table__header-cell-sub">{i18n.t('forestAreaWithinProtectedAreas.forestAreaWithinProtectedAreas')}</td>
+        jsx: <td key="" className="fra-table__header-cell">{i18n.t('forestAreaWithinProtectedAreas.forestAreaWithLongTermManagementPlan')}</td>
+      },
+      ...integerInputColumns
+    ],
+    [
+      {
+        type: 'readOnly',
+        jsx: <td key="" className="fra-table__header-cell-sub">{i18n.t('forestAreaWithinProtectedAreas.ofWhichInProtectedAreas')}</td>
       },
       ...integerInputColumns
     ]

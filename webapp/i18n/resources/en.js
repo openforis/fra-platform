@@ -256,7 +256,7 @@ export const translation = {
     areaUnitLabel: 'Area (1000 ha)',
     forestAreaWithinProtectedAreas: 'Forest area within protected areas',
     forestAreaWithLongTermManagementPlan: 'Forest area with long-term management plan',
-    ofWhichInProtectedAreas: '...of which in protected areas'
+    ofWhichInProtectedAreas: '…of which in protected areas'
   },
 
   growingStockComposition: {

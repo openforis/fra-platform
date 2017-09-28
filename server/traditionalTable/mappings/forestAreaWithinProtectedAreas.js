@@ -4,6 +4,7 @@ module.exports = {
     names: [
       'forest_area_within_protected_areas',
       'forest_area_with_long_term_management_plan',
+      'of_which_in_protected_areas'
       ]
   },
   columns: [
