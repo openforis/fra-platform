@@ -10,6 +10,7 @@ const nonWoodForestProductsRemovalsCurrency = require('./mappings/nonWoodForestP
 const degradedForest = require('./mappings/degradedForest')
 const graduationOfStudents = require('./mappings/graduationOfStudents')
 const annualReforestation = require('./mappings/annualReforestation')
+const forestOwnership = require('./mappings/forestOwnership')
 
 const mappings = {
   specificForestCategories,
@@ -21,7 +22,8 @@ const mappings = {
   nonWoodForestProductsRemovalsCurrency,
   degradedForest,
   graduationOfStudents,
-  annualReforestation
+  annualReforestation,
+  forestOwnership
 }
 
 const getRowIndex = (name, names) => {

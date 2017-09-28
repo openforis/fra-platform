@@ -16,6 +16,7 @@ import GraduationOfStudentsView from './graduationOfStudents/graduationOfStudent
 import ForestCharacteristicsView from './forestCharacteristics/forestCharacteristicsView'
 import NonWoodForestProductsRemovalsView from './nonWoodForestProductsRemovals/nonWoodForestProductsRemovals'
 import AnnualReforestationView from './annualReforestation/annualReforestationView'
+import ForestOwnershipView from './forestOwnership/forestOwnershipView'
 
 const routes = {
   '/': () => <noscript/>, //This will get rendered first (it flashes), before we redirect to logged-in page or login page
@@ -33,7 +34,8 @@ const routes = {
   '/country/:countryIso/degradedForest': DegradedForestView,
   '/country/:countryIso/graduationOfStudents': GraduationOfStudentsView,
   '/country/:countryIso/nonWoodForestProductsRemovals': NonWoodForestProductsRemovalsView,
-  '/country/:countryIso/annualReforestation': AnnualReforestationView
+  '/country/:countryIso/annualReforestation': AnnualReforestationView,
+  '/country/:countryIso/forestOwnership': ForestOwnershipView
 }
 
 const routeConfig = R.pipe(

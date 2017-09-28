@@ -5,6 +5,7 @@ import areaAffectedByFireTableSpec from '../areaAffectedByFire/tableSpec'
 import growingStockCompositionTableSpec from '../growingStockComposition/tableSpec'
 import nonWoodForestProductsRemovalsMainSpec from '../nonWoodForestProductsRemovals/mainTableSpec'
 import annualReforestationTableSpec from '../annualReforestation/tableSpec'
+import forestOwnerhsipTableSpec from '../forestOwnership/tableSpec'
 
 export const annualItems = i18n => [
   {
@@ -109,7 +110,8 @@ export const fra2020Items = i18n => [
   {
     tableNo: '6a',
     label: i18n.t('forestOwnershipManagementRights.forestOwnershipManagementRights'),
-    pathTemplate: '#/todo'
+    pathTemplate: '/country/:countryIso/forestOwnership',
+    section: forestOwnerhsipTableSpec(i18n).name
   },
   {
     tableNo: '6b',
