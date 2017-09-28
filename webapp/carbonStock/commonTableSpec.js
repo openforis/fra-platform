@@ -72,7 +72,7 @@ export const rows = (i18n, type) => [
   ],
   [{
     type: 'readOnly',
-    jsx: <td key={`soil_carbon_forest_${type}`}
+    jsx: <td key={`carbon_forest_soil_${type}`}
              className="fra-table__header-cell-sub">{i18n.t('biomassStock.deadWood')}</td>
   },
     ...decimalInputColumns
@@ -114,7 +114,7 @@ export const rows = (i18n, type) => [
   ],
   [{
     type: 'readOnly',
-    jsx: <td key={`soil_carbon_other_wooded_land_${type}`}
+    jsx: <td key={`carbon_other_wooded_land_soil_${type}`}
              className="fra-table__header-cell-sub">{i18n.t('biomassStock.deadWood')}</td>
   },
     ...decimalInputColumns
