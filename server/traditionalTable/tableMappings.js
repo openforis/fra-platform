@@ -11,6 +11,7 @@ const degradedForest = require('./mappings/degradedForest')
 const graduationOfStudents = require('./mappings/graduationOfStudents')
 const totalAreaWithDesignatedManagementObjective = require('./mappings/totalAreaWithDesignatedManagementObjective')
 const annualReforestation = require('./mappings/annualReforestation')
+const disturbances = require('./mappings/disturbances')
 
 const mappings = {
   specificForestCategories,
@@ -23,7 +24,8 @@ const mappings = {
   degradedForest,
   graduationOfStudents,
   totalAreaWithDesignatedManagementObjective,
-  annualReforestation
+  annualReforestation,
+  disturbances
 }
 
 const getRowIndex = (name, names) => {
