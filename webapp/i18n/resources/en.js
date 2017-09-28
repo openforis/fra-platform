@@ -354,7 +354,15 @@ export const translation = {
   },
 
   holderOfManagementRights: {
-    holderOfManagementRights: 'Holder of management rights of public forests'
+    holderOfManagementRights: 'Holder of management rights of public forests',
+    categoryHeader: 'FRA categories',
+    areaUnitLabel: 'Forest area (1000 ha)',
+    publicAdministration: 'Public Administration',
+    individuals: 'Individuals',
+    privateBusinesses: 'Private business entities and institutions',
+    communities: 'Local, tribal and indigenous communities',
+    other: 'Other',
+    totalPublicOwnership: 'Total public ownership'
   },
 
   disturbances: {
