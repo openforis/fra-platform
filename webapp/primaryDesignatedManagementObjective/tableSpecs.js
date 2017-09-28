@@ -50,8 +50,11 @@ export const primaryDesignatedManagementObjectiveTableSpec = i18n => ({
     createDmoInputRow(i18n.t('designatedManagementObjective.other')),
     createDmoInputRow(i18n.t('designatedManagementObjective.unknown')),
     [{type: 'readOnly',
-      jsx: <td key=""
-               className="fra-table__header-cell">{i18n.t('designatedManagementObjective.totalForestArea')}</td>
+      jsx:
+        <td key=""
+            className="fra-table__header-cell">
+          {i18n.t('designatedManagementObjective.totalForestArea')}
+        </td>
     },
       {type: 'custom', render: totalForestAreaCell(1)},
       {type: 'custom', render: totalForestAreaCell(2)},
