@@ -14,6 +14,7 @@ const graduationOfStudents = require('./mappings/graduationOfStudents')
 const forestAreaWithinProtectedAreas = require('./mappings/forestAreaWithinProtectedAreas')
 const totalAreaWithDesignatedManagementObjective = require('./mappings/totalAreaWithDesignatedManagementObjective')
 const annualReforestation = require('./mappings/annualReforestation')
+const forestOwnership = require('./mappings/forestOwnership')
 const disturbances = require('./mappings/disturbances')
 
 const mappings = {
@@ -26,6 +27,8 @@ const mappings = {
   nonWoodForestProductsRemovalsCurrency,
   degradedForest,
   graduationOfStudents,
+  annualReforestation,
+  forestOwnership,
   forestAreaWithinProtectedAreas,
   totalAreaWithDesignatedManagementObjective,
   annualReforestation,
