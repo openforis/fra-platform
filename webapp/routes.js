@@ -7,7 +7,7 @@ import GrowingStockView from './growingStock/growingStockView'
 import OriginalDataPointView from './originalDataPoint/originalDataPointView'
 import SpecificForestCategoriesView from './specificForestCategories/specificForestCategoriesView'
 import GrowingStockCompositionView from './growingStockComposition/growingStockCompositionView'
-import PrimaryDesignatedManagementObjectiveView from './primaryDesignatedManagementObjective/primaryDesignatedManagementObjectiveView'
+import designatedManagementObjectiveView from './designatedManagementObjective/designatedManagementObjectiveView'
 import OriginalDataListView from './originalDataPoint/originalDataListView'
 import ForestAreaChangeView from './forestAreaChange/forestAreaChangeView'
 import AreaAffecteByFireView from './areaAffectedByFire/areaAffectedByFireView'
@@ -17,6 +17,8 @@ import ForestCharacteristicsView from './forestCharacteristics/forestCharacteris
 import NonWoodForestProductsRemovalsView from './nonWoodForestProductsRemovals/nonWoodForestProductsRemovals'
 import AnnualReforestationView from './annualReforestation/annualReforestationView'
 import ForestOwnershipView from './forestOwnership/forestOwnershipView'
+import ForestAreaWithinProtectedAreasView from './forestAreaWithinProtectedAreas/forestAreaWithinprotectedAreasView'
+import DisturbancesView from './disturbances/disturbancesView'
 
 const routes = {
   '/': () => <noscript/>, //This will get rendered first (it flashes), before we redirect to logged-in page or login page
@@ -29,13 +31,15 @@ const routes = {
   '/country/:countryIso/growingStockComposition': GrowingStockCompositionView,
   '/country/:countryIso/forestAreaChange': ForestAreaChangeView,
   '/country/:countryIso/forestCharacteristics': ForestCharacteristicsView,
-  '/country/:countryIso/designatedManagementObjective': PrimaryDesignatedManagementObjectiveView,
+  '/country/:countryIso/designatedManagementObjective': designatedManagementObjectiveView,
   '/country/:countryIso/areaAffectedByFire': AreaAffecteByFireView,
   '/country/:countryIso/degradedForest': DegradedForestView,
   '/country/:countryIso/graduationOfStudents': GraduationOfStudentsView,
   '/country/:countryIso/nonWoodForestProductsRemovals': NonWoodForestProductsRemovalsView,
   '/country/:countryIso/annualReforestation': AnnualReforestationView,
-  '/country/:countryIso/forestOwnership': ForestOwnershipView
+  '/country/:countryIso/forestOwnership': ForestOwnershipView,
+  '/country/:countryIso/forestAreaWithinProtectedAreas': ForestAreaWithinProtectedAreasView,
+  '/country/:countryIso/disturbances': DisturbancesView
 }
 
 const routeConfig = R.pipe(

@@ -263,6 +263,15 @@ export const translation = {
     totalForestArea: 'Total forest area'
   },
 
+  forestAreaWithinProtectedAreas: {
+    header: 'Forest area within protected areas and forest area with long-term management plans',
+    categoryHeader: 'FRA categories',
+    areaUnitLabel: 'Area (1000 ha)',
+    forestAreaWithinProtectedAreas: 'Forest area within protected areas',
+    forestAreaWithLongTermManagementPlan: 'Forest area with long-term management plan',
+    ofWhichInProtectedAreas: '…of which in protected areas'
+  },
+
   growingStockComposition: {
     categoryHeader: 'FRA categories',
     growingStockComposition: 'Growing stock composition',
@@ -322,7 +331,9 @@ export const translation = {
 
   designatedManagementObjective: {
     designatedManagementObjective: 'Designated management objective',
-    categoryHeader: 'FRA categories',
+    primaryDesignatedManagementObjective: 'Primary designated management objective',
+    totalAreaDesignatedManagementObjective: 'Total area with designated management objective',
+    categoryHeader: 'FRA 2020 categories',
     areaUnitLabel: 'Forest area (1000 ha)',
     production: 'Production',
     soilWaterProtection: 'Protection of soil and water',
@@ -347,7 +358,14 @@ export const translation = {
   },
 
   disturbances: {
-    disturbances: 'Disturbances'
+    disturbances: 'Disturbances',
+    categoryHeader: 'FRA categories',
+    areaUnitLabel: 'Area (1000 ha)',
+    insects: 'Insects',
+    diseases: 'Diseases',
+    severeWeatherEvents: 'Severe weather events',
+    other: 'Other',
+    total: 'Total'
   },
 
   areaAffectedByFire: {
