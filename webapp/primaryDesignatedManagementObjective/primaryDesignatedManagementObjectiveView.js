@@ -1,3 +1,4 @@
+import './style.less'
 import React from 'react'
 import { connect } from 'react-redux'
 
@@ -18,13 +19,13 @@ const designatedManagementObjectiveView = ({match, i18n}) => {
         <DefinitionLink document="tad" anchor="5a" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
         <DefinitionLink document="faq" anchor="5a" title={i18n.t('definition.faqLabel')} lang={i18n.language} className="align-left"/>
       </div>
-      <h3 className="subhead">{i18n.t('designatedManagementObjective.primaryDesignatedManagementObjective')}</h3>
+      <h3 className="subhead dmo__table-header">{i18n.t('designatedManagementObjective.primaryDesignatedManagementObjective')}</h3>
       <TraditionalTable
         tableSpec={primaryDmoTableSpec}
         countryIso={match.params.countryIso}
         section="designatedManagementObjective"
         reviewTargetPrefix="primaryDesignatedManagementObjective"/>
-      <h3 className="subhead">{i18n.t('designatedManagementObjective.totalAreaDesignatedManagementObjective')}</h3>
+      <h3 className="subhead dmo__table-header" style={{marginTop: '24px'}}>{i18n.t('designatedManagementObjective.totalAreaDesignatedManagementObjective')}</h3>
       <TraditionalTable
         tableSpec={totalDmoTableSpec}
         countryIso={match.params.countryIso}
