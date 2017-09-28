@@ -3,6 +3,23 @@ import R from 'ramda'
 
 const integerInputColumns = R.times(() => ({type: 'decimalInput'}), 18)
 
+const totalDisturbance = (tableData, columnIdx) =>
+  R.reduce((sum, rowIdx) => {
+      const value = tableData[rowIdx][columnIdx]
+      if (!R.isNil(value))
+        return sum + value
+      else
+        return sum
+    },
+    0,
+    R.range(0, 4)
+  )
+
+const totalDisturbanceCell = (column) => (props) =>
+  <td key="" className="fra-table__aggregate-cell">
+    {totalDisturbance(props.tableData, column)}
+  </td>
+
 export default i18n => ({
   name: 'disturbances', // used to uniquely identify table
   header: <thead>
@@ -65,7 +82,23 @@ export default i18n => ({
         type: 'readOnly',
         jsx: <td key="expansion" className="fra-table__header-cell">{i18n.t('disturbances.total')}</td>
       },
-    ...integerInputColumns
+      {type: 'custom', render: totalDisturbanceCell(1)},
+      {type: 'custom', render: totalDisturbanceCell(2)},
+      {type: 'custom', render: totalDisturbanceCell(3)},
+      {type: 'custom', render: totalDisturbanceCell(4)},
+      {type: 'custom', render: totalDisturbanceCell(5)},
+      {type: 'custom', render: totalDisturbanceCell(6)},
+      {type: 'custom', render: totalDisturbanceCell(7)},
+      {type: 'custom', render: totalDisturbanceCell(9)},
+      {type: 'custom', render: totalDisturbanceCell(10)},
+      {type: 'custom', render: totalDisturbanceCell(11)},
+      {type: 'custom', render: totalDisturbanceCell(12)},
+      {type: 'custom', render: totalDisturbanceCell(13)},
+      {type: 'custom', render: totalDisturbanceCell(14)},
+      {type: 'custom', render: totalDisturbanceCell(15)},
+      {type: 'custom', render: totalDisturbanceCell(16)},
+      {type: 'custom', render: totalDisturbanceCell(17)},
+      {type: 'custom', render: totalDisturbanceCell(18)}
     ]
   ],
   valueSlice: {
