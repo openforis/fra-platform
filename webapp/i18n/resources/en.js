@@ -355,7 +355,14 @@ export const translation = {
   },
 
   graduationOfStudents: {
-    graduationOfStudents: 'Graduation of students in forest-related education'
+    graduationOfStudents: 'Graduation of students in forest-related education',
+    numberOfStudents: 'Number of graduated students',
+    fra2020Categories: 'FRA 2020 categories',
+    doctoralDegree: 'Doctoral degree (Ph. D.)',
+    ofWhichFemale: '...of which female',
+    mastersDegree: 'Master\'s degree (MSc)',
+    bachelorsDegree: 'Bachelor\'s degree (BSc)',
+    technicianCertificate: 'Technician certificate / diploma'
   },
 
   policiesAndLegislation: {

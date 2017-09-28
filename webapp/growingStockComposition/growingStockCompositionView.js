@@ -15,8 +15,8 @@ const GrowingStockCompositionView = ({match, i18n}) => {
     <div className="tv__container growing-stock__container">
       <div className="tv__page-header">
         <h1 className="title">{i18n.t('growingStockComposition.growingStockComposition')}</h1>
-        <DefinitionLink document="tad" section="3b" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
-        <DefinitionLink document="faq" section="3b" title={i18n.t('definition.faqLabel')} lang={i18n.language} className="align-left"/>
+        <DefinitionLink document="tad" anchor="3b" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
+        <DefinitionLink document="faq" anchor="3b" title={i18n.t('definition.faqLabel')} lang={i18n.language} className="align-left"/>
       </div>
       <TraditionalTable tableSpec={tableProps} countryIso={match.params.countryIso}/>
       <CommentableDescriptions
