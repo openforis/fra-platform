@@ -9,6 +9,7 @@ const nonWoodForestProductsRemovals = require('./mappings/nonWoodForestProductsR
 const nonWoodForestProductsRemovalsCurrency = require('./mappings/nonWoodForestProductsRemovalsCurrency')
 const degradedForest = require('./mappings/degradedForest')
 const graduationOfStudents = require('./mappings/graduationOfStudents')
+const annualReforestation = require('./mappings/annualReforestation')
 const disturbances = require('./mappings/disturbances')
 
 const mappings = {
@@ -21,6 +22,7 @@ const mappings = {
   nonWoodForestProductsRemovalsCurrency,
   degradedForest,
   graduationOfStudents,
+  annualReforestation,
   disturbances
 }
 
