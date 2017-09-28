@@ -11,7 +11,14 @@ import ReviewIndicator from '../review/reviewIndicator'
 import UpdateOnResizeReactComponent from '../reusableUiComponents/updateOnResizeReactComponent'
 
 const mapIndexed = R.addIndex(R.map)
-const commentTarget = (rowIdx) => ['row', `${rowIdx}`]
+const commentTarget = (reviewTargetPrefix, rowIdx) => {
+  const lastPart = ['row', `${rowIdx}`]
+  if (reviewTargetPrefix)
+    return [reviewTargetPrefix, ...lastPart]
+  else
+    return lastPart
+}
+
 const rowShouldBeHighlighted = (rowIdx, openCommentThreadTarget) =>
   R.equals(commentTarget(rowIdx), openCommentThreadTarget)
 
@@ -28,9 +35,9 @@ class ReviewWrapper extends React.Component {
       : 0
     return <td ref="rowAnchor" className="fra-table__row-anchor-cell">
       <div className="traditional-table__review-indicator-row-anchor" style={{top: top}}>
-        <ReviewIndicator section={this.props.tableSpec.name}
+        <ReviewIndicator section={this.props.section || this.props.tableSpec.name}
                          name=""
-                         target={commentTarget(this.props.rowIdx)}
+                         target={commentTarget(this.props.reviewTargetPrefix, this.props.rowIdx)}
                          countryIso={this.props.countryIso}/>
       </div>
     </td>

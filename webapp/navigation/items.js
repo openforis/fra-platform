@@ -1,6 +1,5 @@
 import forestAreaChangeTableSpec from '../forestAreaChange/tableSpec'
 import specificForestCategoriesTableSpec from '../specificForestCategories/tableSpec'
-import primaryDesignatedManagementObjectiveTableSpec from '../primaryDesignatedManagementObjective/tableSpec'
 import areaAffectedByFireTableSpec from '../areaAffectedByFire/tableSpec'
 import growingStockCompositionTableSpec from '../growingStockComposition/tableSpec'
 import nonWoodForestProductsRemovalsMainSpec from '../nonWoodForestProductsRemovals/mainTableSpec'
@@ -102,7 +101,7 @@ export const fra2020Items = i18n => [
     tableNo: '5a',
     label: i18n.t('designatedManagementObjective.designatedManagementObjective'),
     pathTemplate: '/country/:countryIso/designatedManagementObjective',
-    section: primaryDesignatedManagementObjectiveTableSpec(i18n).name
+    section: 'designatedManagementObjective'
   },
   {
     tableNo: '5b',
