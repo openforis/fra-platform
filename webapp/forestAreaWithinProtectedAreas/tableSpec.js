@@ -1,7 +1,7 @@
 import React from 'react'
 import R from 'ramda'
 
-const integerInputColumns = R.times(() => ({type: 'decimalInput'}), 9)
+const inputColumns = R.times(() => ({type: 'decimalInput'}), 9)
 
 export default i18n => ({
   name: 'forestAreaWithinProtectedAreas',
@@ -29,21 +29,21 @@ export default i18n => ({
         {i18n.t('forestAreaWithinProtectedAreas.forestAreaWithinProtectedAreas')}
       </td>
     },
-      ...integerInputColumns
+      ...inputColumns
     ],
     [
       {
         type: 'readOnly',
         jsx: <td key="" className="fra-table__header-cell">{i18n.t('forestAreaWithinProtectedAreas.forestAreaWithLongTermManagementPlan')}</td>
       },
-      ...integerInputColumns
+      ...inputColumns
     ],
     [
       {
         type: 'readOnly',
         jsx: <td key="" className="fra-table__header-cell-sub">{i18n.t('forestAreaWithinProtectedAreas.ofWhichInProtectedAreas')}</td>
       },
-      ...integerInputColumns
+      ...inputColumns
     ]
   ],
   valueSlice: {
