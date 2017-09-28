@@ -139,7 +139,8 @@ export const fra2020Items = i18n => [
   {
     tableNo: '9',
     label: i18n.t('graduationOfStudents.graduationOfStudents'),
-    pathTemplate: '#/todo'
+    pathTemplate: '/country/:countryIso/graduationOfStudents',
+    section: 'graduationOfStudents'
   },
   {
     tableNo: '10a',

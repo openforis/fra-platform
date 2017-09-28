@@ -9,7 +9,6 @@ import {
   copyNationalClassDefinitions
 } from './originalDataPoint'
 import {sectionStatusUpdate} from '../navigation/actions'
-import {acceptNextInteger} from '../utils/numberInput'
 import { validateDataPoint } from '../../common/originalDataPointCommon'
 import { fetchCountryOverviewStatus } from '../navigation/actions'
 
@@ -173,8 +172,8 @@ const change = ({section, countryIso, name, value}) => {
 }
 const start = ({section, name, value}) => ({type: valueChangeStart(section), name, value})
 
-export const save = (section, countryIso, name, newValue, fraValue, field) => dispatch => {
-  const sanitizedValue = acceptNextInteger(newValue, fraValue[field])
+export const save = (section, countryIso, name, newValue, fraValue, field, sanitizer) => dispatch => {
+  const sanitizedValue = sanitizer(newValue, fraValue[field])
   const newFraValue = {...fraValue, [field]: sanitizedValue, [`${field}Estimated`]: false}
   dispatch(start({section, name, value: newFraValue}))
   dispatch(autosave.start)

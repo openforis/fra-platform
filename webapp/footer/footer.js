@@ -10,6 +10,11 @@ const UserInfo = props => {
   const userInfoItems = [{
     label: props.i18n.t('footer.logout'),
     onClick: () => props.logout()
+  }, {
+    divider: true
+  }, {
+    label: props.i18n.t('footer.profilePicture'),
+    onClick: () => window.open('https://gravatar.com', '_blank')
   }]
 
   return <div className="footer__item">

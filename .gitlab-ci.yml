@@ -13,13 +13,15 @@ build:
 
 deploy_staging:
   stage: deploy
+  except:
+    - schedules
   script:
-  - apt-get update
-  - apt-get install --assume-yes rubygems
-  - gem install dpl
-  - dpl --provider=heroku --app=$HEROKU_STAGING_APP_NAME --api-key=$HEROKU_STAGING_API_KEY
+    - apt-get update
+    - apt-get install --assume-yes rubygems
+    - gem install dpl
+    - dpl --provider=heroku --app=$HEROKU_STAGING_APP_NAME --api-key=$HEROKU_STAGING_API_KEY
   only:
-  - master
+    - master
   environment:
     name: staging
     url: https://dev-fra-platform.herokuapp.com/
@@ -27,14 +29,28 @@ deploy_staging:
 deploy_production:
   stage: deploy
   script:
-  - apt-get update
-  - apt-get install --assume-yes rubygems
-  - gem install dpl
-  - dpl --provider=heroku --app=$HEROKU_PRODUCTION_APP_NAME --api-key=$HEROKU_PRODUCTION_API_KEY
+    - apt-get update
+    - apt-get install --assume-yes rubygems
+    - gem install dpl
+    - dpl --provider=heroku --app=$HEROKU_PRODUCTION_APP_NAME --api-key=$HEROKU_PRODUCTION_API_KEY
   only:
-  - master
+    - master
   when: manual
   environment:
     name: production
     url: https://fra-platform.herokuapp.com/
 
+deploy_production_scheduled:
+  stage: deploy
+  script:
+    - apt-get update
+    - apt-get install --assume-yes rubygems
+    - gem install dpl
+    - dpl --provider=heroku --app=$HEROKU_PRODUCTION_APP_NAME --api-key=$HEROKU_PRODUCTION_API_KEY
+  only:
+    - schedules
+  except:
+    - branches
+  environment:
+    name: production
+    url: https://fra-platform.herokuapp.com/

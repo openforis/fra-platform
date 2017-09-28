@@ -104,6 +104,7 @@ export const translation = {
   },
 
   footer: {
+    profilePicture: 'Edit profile picture',
     logout: 'Logout',
     autoSave: {
       saving: 'Saving…'
@@ -233,14 +234,17 @@ export const translation = {
     categoryHeader: 'FRA categories',
     areaUnitLabel: 'Area (1000 ha)',
     bamboo: 'Bamboos',
-    mangroves: 'Mangroves'
+    mangroves: 'Mangroves',
+    temporarilyUnstocked: 'Temporarily unstocked and/or recently regenerated'
   },
 
   growingStock: {
     growingStock: 'Growing stock',
     categoryHeader: 'FRA categories',
-    avgTableHeader: 'Average growing stock (m3/ha)',
-    totalTableHeader: 'Total growing stock (million m3)'
+    avgTableHeader: 'Average growing stock (m³/ha)',
+    totalTableHeader: 'Total growing stock (million m³)',
+    ofWhichPlantationForest: '…of which plantation forest',
+    ofWhichOtherPlantedForest: '…of which other planted forest'
   },
 
   growingStockComposition: {
@@ -248,7 +252,7 @@ export const translation = {
     growingStockComposition: 'Growing stock composition',
     nativeTreeSpecies: 'Native tree species',
     introducedTreeSpecies: 'Introduced tree species',
-    areaUnitLabel: 'Growing stock in forest (million m3 o.b.)',
+    areaUnitLabel: 'Growing stock in forest (million m³ o.b.)',
     scientificName: 'Scientific name',
     commonName: 'Common name',
     rank: 'Ranked in terms of volume',
@@ -286,7 +290,7 @@ export const translation = {
     food: '1 Food',
     fodder: '2 Fodder',
     rawMaterialForMedicine: '3 Raw material for medicine and aromatic products',
-    rawMaterialForColorants:  '4 Raw material for colorants and dyes',
+    rawMaterialForColorants: '4 Raw material for colorants and dyes',
     rawMaterialForUtensils: '5 Raw material for utensils handicrafts construction',
     ornamentalPlants: '6 Ornamental plants',
     exudates: '7 Exudates',
@@ -357,7 +361,14 @@ export const translation = {
   },
 
   graduationOfStudents: {
-    graduationOfStudents: 'Graduation of students in forest-related education'
+    graduationOfStudents: 'Graduation of students in forest-related education',
+    numberOfStudents: 'Number of graduated students',
+    fra2020Categories: 'FRA 2020 categories',
+    doctoralDegree: 'Doctoral degree (Ph. D.)',
+    ofWhichFemale: '...of which female',
+    mastersDegree: 'Master\'s degree (MSc)',
+    bachelorsDegree: 'Bachelor\'s degree (BSc)',
+    technicianCertificate: 'Technician certificate / diploma'
   },
 
   policiesAndLegislation: {
