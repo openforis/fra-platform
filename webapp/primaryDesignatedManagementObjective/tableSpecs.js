@@ -23,21 +23,24 @@ const totalForestAreaCell = (column) => (props) =>
     {totalForestArea(props.tableData, column)}
   </td>
 
-export default i18n => ({
+const thead = i18n =>
+  <thead>
+    <tr>
+      <th className="fra-table__header-cell" rowSpan="2">{i18n.t('designatedManagementObjective.categoryHeader')}</th>
+      <th className="fra-table__header-cell-middle" colSpan="5">{i18n.t('designatedManagementObjective.areaUnitLabel')}</th>
+    </tr>
+    <tr>
+      <td className="fra-table__header-cell-right">1990</td>
+      <td className="fra-table__header-cell-right">2000</td>
+      <td className="fra-table__header-cell-right">2010</td>
+      <td className="fra-table__header-cell-right">2015</td>
+      <td className="fra-table__header-cell-right">2020</td>
+    </tr>
+  </thead>
+
+export const primaryDesignatedManagementObjectiveTableSpec = i18n => ({
   name: 'primaryDesignatedManagementObjective',
-  header: <thead>
-  <tr>
-    <th className="fra-table__header-cell" rowSpan="2">{i18n.t('designatedManagementObjective.categoryHeader')}</th>
-    <th className="fra-table__header-cell-middle" colSpan="5">{i18n.t('designatedManagementObjective.areaUnitLabel')}</th>
-  </tr>
-  <tr>
-    <td className="fra-table__header-cell-right">1990</td>
-    <td className="fra-table__header-cell-right">2000</td>
-    <td className="fra-table__header-cell-right">2010</td>
-    <td className="fra-table__header-cell-right">2015</td>
-    <td className="fra-table__header-cell-right">2020</td>
-  </tr>
-  </thead>,
+  header: thead(i18n),
   rows: [
     createPdmoInputRow(i18n.t('designatedManagementObjective.production')),
     createPdmoInputRow(i18n.t('designatedManagementObjective.soilWaterProtection')),
@@ -60,4 +63,16 @@ export default i18n => ({
     columnStart: 1,
     rowEnd: -1
   }
+})
+
+export const totalAreaWithDesignatedManagementObjectiveTableSpec = i18n => ({
+  name: 'totalDesignatedManagementObjective',
+  header: thead(i18n),
+  rows: [
+    createPdmoInputRow(i18n.t('designatedManagementObjective.production')),
+    createPdmoInputRow(i18n.t('designatedManagementObjective.soilWaterProtection')),
+    createPdmoInputRow(i18n.t('designatedManagementObjective.biodiversityConservation')),
+    createPdmoInputRow(i18n.t('designatedManagementObjective.socialServices')),
+    createPdmoInputRow(i18n.t('designatedManagementObjective.other'))
+  ]
 })
