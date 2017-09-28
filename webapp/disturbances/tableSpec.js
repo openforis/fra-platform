@@ -1,7 +1,7 @@
 import React from 'react'
 import R from 'ramda'
 
-const integerInputColumns = R.times(() => ({type: 'decimalInput'}), 18)
+const inputColumns = R.times(() => ({type: 'decimalInput'}), 18)
 
 const totalDisturbance = (tableData, columnIdx) =>
   R.reduce((sum, rowIdx) => {
@@ -54,28 +54,28 @@ export default i18n => ({
         type: 'readOnly',
         jsx: <td key="expansion" className="fra-table__header-cell">{i18n.t('disturbances.insects')}</td>
       },
-    ...integerInputColumns
+    ...inputColumns
     ],
     [
       {
         type: 'readOnly',
         jsx: <td key="expansion" className="fra-table__header-cell">{i18n.t('disturbances.diseases')}</td>
       },
-    ...integerInputColumns
+    ...inputColumns
     ],
     [
       {
         type: 'readOnly',
         jsx: <td key="expansion" className="fra-table__header-cell">{i18n.t('disturbances.severeWeatherEvents')}</td>
       },
-    ...integerInputColumns
+    ...inputColumns
     ],
     [
       {
         type: 'readOnly',
         jsx: <td key="expansion" className="fra-table__header-cell">{i18n.t('disturbances.other')}</td>
       },
-    ...integerInputColumns
+    ...inputColumns
     ],
     [
       {

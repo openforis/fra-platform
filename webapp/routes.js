@@ -16,6 +16,7 @@ import GraduationOfStudentsView from './graduationOfStudents/graduationOfStudent
 import ForestCharacteristicsView from './forestCharacteristics/forestCharacteristicsView'
 import NonWoodForestProductsRemovalsView from './nonWoodForestProductsRemovals/nonWoodForestProductsRemovals'
 import AnnualReforestationView from './annualReforestation/annualReforestationView'
+import ForestAreaWithinProtectedAreasView from './forestAreaWithinProtectedAreas/forestAreaWithinprotectedAreasView'
 import DisturbancesView from './disturbances/disturbancesView'
 
 const routes = {
@@ -35,6 +36,7 @@ const routes = {
   '/country/:countryIso/graduationOfStudents': GraduationOfStudentsView,
   '/country/:countryIso/nonWoodForestProductsRemovals': NonWoodForestProductsRemovalsView,
   '/country/:countryIso/annualReforestation': AnnualReforestationView,
+  '/country/:countryIso/forestAreaWithinProtectedAreas': ForestAreaWithinProtectedAreasView,
   '/country/:countryIso/disturbances': DisturbancesView
 }
 

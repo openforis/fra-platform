@@ -250,6 +250,15 @@ export const translation = {
     ofWhichOtherPlantedForest: '…of which other planted forest'
   },
 
+  forestAreaWithinProtectedAreas: {
+    header: 'Forest area within protected areas and forest area with long-term management plans',
+    categoryHeader: 'FRA categories',
+    areaUnitLabel: 'Area (1000 ha)',
+    forestAreaWithinProtectedAreas: 'Forest area within protected areas',
+    forestAreaWithLongTermManagementPlan: 'Forest area with long-term management plan',
+    ofWhichInProtectedAreas: '…of which in protected areas'
+  },
+
   growingStockComposition: {
     categoryHeader: 'FRA categories',
     growingStockComposition: 'Growing stock composition',
