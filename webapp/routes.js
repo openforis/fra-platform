@@ -7,7 +7,7 @@ import GrowingStockView from './growingStock/growingStockView'
 import OriginalDataPointView from './originalDataPoint/originalDataPointView'
 import SpecificForestCategoriesView from './specificForestCategories/specificForestCategoriesView'
 import GrowingStockCompositionView from './growingStockComposition/growingStockCompositionView'
-import PrimaryDesignatedManagementObjectiveView from './primaryDesignatedManagementObjective/primaryDesignatedManagementObjectiveView'
+import designatedManagementObjectiveView from './designatedManagementObjective/designatedManagementObjectiveView'
 import OriginalDataListView from './originalDataPoint/originalDataListView'
 import ForestAreaChangeView from './forestAreaChange/forestAreaChangeView'
 import AreaAffecteByFireView from './areaAffectedByFire/areaAffectedByFireView'
@@ -29,7 +29,7 @@ const routes = {
   '/country/:countryIso/growingStockComposition': GrowingStockCompositionView,
   '/country/:countryIso/forestAreaChange': ForestAreaChangeView,
   '/country/:countryIso/forestCharacteristics': ForestCharacteristicsView,
-  '/country/:countryIso/designatedManagementObjective': PrimaryDesignatedManagementObjectiveView,
+  '/country/:countryIso/designatedManagementObjective': designatedManagementObjectiveView,
   '/country/:countryIso/areaAffectedByFire': AreaAffecteByFireView,
   '/country/:countryIso/degradedForest': DegradedForestView,
   '/country/:countryIso/graduationOfStudents': GraduationOfStudentsView,
