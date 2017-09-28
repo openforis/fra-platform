@@ -21,6 +21,7 @@ export const annualItems = i18n => [
   {
     tableNo: '3c',
     label: i18n.t('biomassStock.biomassStock'),
+    section: 'biomassStock',
     pathTemplate: '/country/:countryIso/biomassStock'
   },
   {
@@ -80,6 +81,7 @@ export const fra2020Items = i18n => [
   {
     tableNo: '3c',
     label: i18n.t('biomassStock.biomassStock'),
+    section: 'biomassStock',
     pathTemplate: '/country/:countryIso/biomassStock'
   },
   {

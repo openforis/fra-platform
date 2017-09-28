@@ -22,7 +22,8 @@ const prefixes = [
   'forestCharacteristic',
   'specificForestCategories',
   'primaryDesignatedManagementObjective',
-  'areaAffectedByFire'
+  'areaAffectedByFire',
+  'biomassStock'
 ]
 
 const simplifyAssessmentStatuses = statuses =>

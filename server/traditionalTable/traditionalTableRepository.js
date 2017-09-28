@@ -6,9 +6,12 @@ const auditRepository = require('./../audit/auditRepository')
 const { toNumberOrNull  } = require('../utils/databaseConversions')
 
 module.exports.save = (client, userId, countryIso, tableSpecName, tableData) => {
+  const mapping = tableMappings.getMapping(tableSpecName)
+  const section = mapping.section ? mapping.section : tableSpecName
+
   const [deleteQuery, deleteQyeryParams] = sqlCreator.createDelete(countryIso, tableSpecName)
   const insertQueries = sqlCreator.createInserts(countryIso, tableSpecName, tableData)
-  const insertAudit = auditRepository.insertAudit(client, userId, 'saveTraditionalTable', countryIso, tableSpecName)
+  const insertAudit = auditRepository.insertAudit(client, userId, 'saveTraditionalTable', countryIso, section)
 
   return insertAudit.then(() => client.query(
     deleteQuery, deleteQyeryParams

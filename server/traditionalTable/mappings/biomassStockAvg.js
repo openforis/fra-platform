@@ -1,5 +1,6 @@
 module.exports = {
   tableName: 'biomass_stock_avg',
+  section: 'biomassStock',
   rows: {
     names: [
       'forest', // Won't contain data
