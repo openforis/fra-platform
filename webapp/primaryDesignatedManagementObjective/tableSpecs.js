@@ -69,7 +69,7 @@ export const primaryDesignatedManagementObjectiveTableSpec = i18n => ({
 })
 
 export const totalAreaWithDesignatedManagementObjectiveTableSpec = i18n => ({
-  name: 'totalDesignatedManagementObjective',
+  name: 'totalAreaWithDesignatedManagementObjective',
   header: thead(i18n),
   rows: [
     createDmoInputRow(i18n.t('designatedManagementObjective.production')),
@@ -77,5 +77,6 @@ export const totalAreaWithDesignatedManagementObjectiveTableSpec = i18n => ({
     createDmoInputRow(i18n.t('designatedManagementObjective.biodiversityConservation')),
     createDmoInputRow(i18n.t('designatedManagementObjective.socialServices')),
     createDmoInputRow(i18n.t('designatedManagementObjective.other'))
-  ]
+  ],
+  valueSlice: {columnStart: 1}
 })
