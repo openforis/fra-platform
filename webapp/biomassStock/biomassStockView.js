@@ -21,12 +21,11 @@ const BiomassStockView = ({match, i18n}) => {
       <div className="tv__page-header">
         <h1 className="title">{i18n.t('biomassStock.biomassStock')}</h1>
         <DefinitionLink document="tad" section="3c" title={i18n.t('definition.definitionLabel')} lang={lang}/>
-        <DefinitionLink document="faq" section="3c" title={i18n.t('definition.faqLabel')} lang={lang}
-                        className="align-left"/>
-      </div>
-
-      <div className="nde__data-input-header">
-        <a className="btn btn-primary" href={calculatorFilePath}>{i18n.t('biomassStock.downloadExcel')}</a>
+        <DefinitionLink document="faq" section="3c" title={i18n.t('definition.faqLabel')} lang={lang} className="align-left"/>
+        <a className="btn btn-primary" href={calculatorFilePath}>
+          <svg className="icon icon-sub icon-white"><use href="img/icons.svg#hit-down"/></svg>
+          {i18n.t('biomassStock.downloadExcel')}
+        </a>
       </div>
 
       <div className="biomass-stock__data-table-container">
