@@ -270,7 +270,8 @@ export const translation = {
     totalTableHeader: 'Forest biomass (million tonnes)',
     aboveGround: 'Above-ground biomass',
     belowGround: 'Below-ground biomass',
-    deadWood: 'Dead wood'
+    deadWood: 'Dead wood',
+    downloadExcel: 'Download excel calculator',
   },
 
   carbonStock: {
