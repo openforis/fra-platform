@@ -215,7 +215,10 @@ export const translation = {
   },
 
   annualReforestation: {
-    annualReforestation: 'Annual reforestation'
+    annualReforestation: 'Annual reforestation',
+    categoryHeader: 'FRA categories',
+    areaUnitLabel: 'Area (1000 ha/year)',
+    reforestation: 'Reforestation'
   },
 
   forestCharacteristics: {

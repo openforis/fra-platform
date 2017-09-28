@@ -11,6 +11,7 @@ const biomassStockTotal = require('./mappings/biomassStockTotal')
 const biomassStockAvg = require('./mappings/biomassStockAvg')
 const degradedForest = require('./mappings/degradedForest')
 const graduationOfStudents = require('./mappings/graduationOfStudents')
+const annualReforestation = require('./mappings/annualReforestation')
 
 const mappings = {
   specificForestCategories,
@@ -22,6 +23,7 @@ const mappings = {
   nonWoodForestProductsRemovalsCurrency,
   degradedForest,
   graduationOfStudents,
+  annualReforestation,
   biomassStockTotal,
   biomassStockAvg
 }

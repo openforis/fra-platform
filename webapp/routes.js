@@ -15,6 +15,7 @@ import DegradedForestView from './degradedForest/degradedForestView'
 import GraduationOfStudentsView from './graduationOfStudents/graduationOfStudentsView'
 import ForestCharacteristicsView from './forestCharacteristics/forestCharacteristicsView'
 import NonWoodForestProductsRemovalsView from './nonWoodForestProductsRemovals/nonWoodForestProductsRemovals'
+import AnnualReforestationView from './annualReforestation/annualReforestationView'
 import BiomassStockView from './biomassStock/biomassStockView'
 
 const routes = {
@@ -33,6 +34,7 @@ const routes = {
   '/country/:countryIso/degradedForest': DegradedForestView,
   '/country/:countryIso/graduationOfStudents': GraduationOfStudentsView,
   '/country/:countryIso/nonWoodForestProductsRemovals': NonWoodForestProductsRemovalsView,
+  '/country/:countryIso/annualReforestation': AnnualReforestationView,
   '/country/:countryIso/biomassStock': BiomassStockView
 }
 
