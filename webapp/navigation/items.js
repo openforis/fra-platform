@@ -1,10 +1,11 @@
 import forestAreaChangeTableSpec from '../forestAreaChange/tableSpec'
 import specificForestCategoriesTableSpec from '../specificForestCategories/tableSpec'
-import primaryDesignatedManagementObjectiveTableSpec from '../primaryDesignatedManagementObjective/tableSpec'
 import areaAffectedByFireTableSpec from '../areaAffectedByFire/tableSpec'
 import growingStockCompositionTableSpec from '../growingStockComposition/tableSpec'
 import nonWoodForestProductsRemovalsMainSpec from '../nonWoodForestProductsRemovals/mainTableSpec'
 import annualReforestationTableSpec from '../annualReforestation/tableSpec'
+import forestAreaWithinProtectedAreasTableSpec from '../forestAreaWithinProtectedAreas/tableSpec'
+import disturbancesTableSpec from '../disturbances/tableSpec'
 
 export const annualItems = i18n => [
   {
@@ -33,7 +34,8 @@ export const annualItems = i18n => [
   {
     tableNo: '5b',
     label: i18n.t('protectedAreas.protectedAreasLongTermMgmtPlans'),
-    pathTemplate: '#/todo'
+    pathTemplate: '/country/:countryIso/forestAreaWithinProtectedAreas',
+    section: forestAreaWithinProtectedAreasTableSpec(i18n).name
   }
 ]
 
@@ -101,12 +103,13 @@ export const fra2020Items = i18n => [
     tableNo: '5a',
     label: i18n.t('designatedManagementObjective.designatedManagementObjective'),
     pathTemplate: '/country/:countryIso/designatedManagementObjective',
-    section: primaryDesignatedManagementObjectiveTableSpec(i18n).name
+    section: 'designatedManagementObjective'
   },
   {
     tableNo: '5b',
     label: i18n.t('protectedAreas.protectedAreasLongTermMgmtPlans'),
-    pathTemplate: '#/todo'
+    pathTemplate: '/country/:countryIso/forestAreaWithinProtectedAreas',
+    section: forestAreaWithinProtectedAreasTableSpec(i18n).name
   },
   {
     tableNo: '6a',
@@ -121,7 +124,8 @@ export const fra2020Items = i18n => [
   {
     tableNo: '7a',
     label: i18n.t('disturbances.disturbances'),
-    pathTemplate: '#/todo'
+    pathTemplate: '/country/:countryIso/disturbances',
+    section: disturbancesTableSpec(i18n).name
   },
   {
     tableNo: '7b',
