@@ -1,7 +1,7 @@
 import React from 'react'
 import R from 'ramda'
 
-const createPdmoInputRow = (rowHeader) => [
+const createDmoInputRow = (rowHeader) => [
   {type: 'readOnly', jsx: <td key="protection" className="fra-table__header-cell">{rowHeader}</td>},
   ...(R.times(() => ({type: 'decimalInput'}), 5))
 ]
@@ -42,13 +42,13 @@ export const primaryDesignatedManagementObjectiveTableSpec = i18n => ({
   name: 'primaryDesignatedManagementObjective',
   header: thead(i18n),
   rows: [
-    createPdmoInputRow(i18n.t('designatedManagementObjective.production')),
-    createPdmoInputRow(i18n.t('designatedManagementObjective.soilWaterProtection')),
-    createPdmoInputRow(i18n.t('designatedManagementObjective.biodiversityConservation')),
-    createPdmoInputRow(i18n.t('designatedManagementObjective.socialServices')),
-    createPdmoInputRow(i18n.t('designatedManagementObjective.multipleUse')),
-    createPdmoInputRow(i18n.t('designatedManagementObjective.other')),
-    createPdmoInputRow(i18n.t('designatedManagementObjective.unknown')),
+    createDmoInputRow(i18n.t('designatedManagementObjective.production')),
+    createDmoInputRow(i18n.t('designatedManagementObjective.soilWaterProtection')),
+    createDmoInputRow(i18n.t('designatedManagementObjective.biodiversityConservation')),
+    createDmoInputRow(i18n.t('designatedManagementObjective.socialServices')),
+    createDmoInputRow(i18n.t('designatedManagementObjective.multipleUse')),
+    createDmoInputRow(i18n.t('designatedManagementObjective.other')),
+    createDmoInputRow(i18n.t('designatedManagementObjective.unknown')),
     [{type: 'readOnly',
       jsx: <td key=""
                className="fra-table__header-cell">{i18n.t('designatedManagementObjective.totalForestArea')}</td>
@@ -69,10 +69,10 @@ export const totalAreaWithDesignatedManagementObjectiveTableSpec = i18n => ({
   name: 'totalDesignatedManagementObjective',
   header: thead(i18n),
   rows: [
-    createPdmoInputRow(i18n.t('designatedManagementObjective.production')),
-    createPdmoInputRow(i18n.t('designatedManagementObjective.soilWaterProtection')),
-    createPdmoInputRow(i18n.t('designatedManagementObjective.biodiversityConservation')),
-    createPdmoInputRow(i18n.t('designatedManagementObjective.socialServices')),
-    createPdmoInputRow(i18n.t('designatedManagementObjective.other'))
+    createDmoInputRow(i18n.t('designatedManagementObjective.production')),
+    createDmoInputRow(i18n.t('designatedManagementObjective.soilWaterProtection')),
+    createDmoInputRow(i18n.t('designatedManagementObjective.biodiversityConservation')),
+    createDmoInputRow(i18n.t('designatedManagementObjective.socialServices')),
+    createDmoInputRow(i18n.t('designatedManagementObjective.other'))
   ]
 })
