@@ -18,8 +18,8 @@ const CarbonStockView = ({match, i18n}) => {
     <div className="tv__container">
       <div className="tv__page-header">
         <h1 className="title">{i18n.t('carbonStock.carbonStock')}</h1>
-        <DefinitionLink document="tad" section="3d" title={i18n.t('definition.definitionLabel')} lang={lang}/>
-        <DefinitionLink document="faq" section="3d" title={i18n.t('definition.faqLabel')} lang={lang} className="align-left"/>
+        <DefinitionLink document="tad" anchor="3d" title={i18n.t('definition.definitionLabel')} lang={lang}/>
+        <DefinitionLink document="faq" anchor="3d" title={i18n.t('definition.faqLabel')} lang={lang} className="align-left"/>
       </div>
 
       <div className="traditional-table-outer-container">
