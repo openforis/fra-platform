@@ -331,7 +331,14 @@ export const translation = {
   },
 
   disturbances: {
-    disturbances: 'Disturbances'
+    disturbances: 'Disturbances',
+    categoryHeader: 'FRA categories',
+    areaUnitLabel: 'Area (1000 ha)',
+    insects: 'Insects',
+    diseases: 'Diseases',
+    severeWeatherEvents: 'Severe weather events',
+    other: 'Other',
+    total: 'Total'
   },
 
   areaAffectedByFire: {

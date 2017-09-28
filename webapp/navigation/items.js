@@ -4,6 +4,7 @@ import primaryDesignatedManagementObjectiveTableSpec from '../primaryDesignatedM
 import areaAffectedByFireTableSpec from '../areaAffectedByFire/tableSpec'
 import growingStockCompositionTableSpec from '../growingStockComposition/tableSpec'
 import nonWoodForestProductsRemovalsMainSpec from '../nonWoodForestProductsRemovals/mainTableSpec'
+import disturbancesTableSpec from '../disturbances/tableSpec'
 
 export const annualItems = i18n => [
   {
@@ -117,7 +118,8 @@ export const fra2020Items = i18n => [
   {
     tableNo: '7a',
     label: i18n.t('disturbances.disturbances'),
-    pathTemplate: '#/todo'
+    pathTemplate: '/country/:countryIso/disturbances',
+    section: disturbancesTableSpec(i18n).name
   },
   {
     tableNo: '7b',
