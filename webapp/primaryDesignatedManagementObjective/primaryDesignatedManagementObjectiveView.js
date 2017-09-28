@@ -18,13 +18,13 @@ const designatedManagementObjectiveView = ({match, i18n}) => {
         <DefinitionLink document="tad" anchor="5a" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
         <DefinitionLink document="faq" anchor="5a" title={i18n.t('definition.faqLabel')} lang={i18n.language} className="align-left"/>
       </div>
-      <h2>{i18n.t('designatedManagementObjective.primaryDesignatedManagementObjective')}</h2>
+      <h3 className="subhead">{i18n.t('designatedManagementObjective.primaryDesignatedManagementObjective')}</h3>
       <TraditionalTable
         tableSpec={primaryDmoTableSpec}
         countryIso={match.params.countryIso}
         section="designatedManagementObjective"
         reviewTargetPrefix="primaryDesignatedManagementObjective"/>
-      <h2>{i18n.t('designatedManagementObjective.totalAreaDesignatedManagementObjective')}</h2>
+      <h3 className="subhead">{i18n.t('designatedManagementObjective.totalAreaDesignatedManagementObjective')}</h3>
       <TraditionalTable
         tableSpec={totalDmoTableSpec}
         countryIso={match.params.countryIso}
