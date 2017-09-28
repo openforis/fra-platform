@@ -1,33 +1,10 @@
 import React from 'react'
-import { connect } from 'react-redux'
-
-import LoggedInPageTemplate from '../loggedInPageTemplate'
-import TraditionalTable from '../traditionalTable/traditionalTable'
 import tableSpec from './tableSpec'
-import { CommentableDescriptions } from '../description/commentableDescription'
-import DefinitionLink from './../reusableUiComponents/definitionLink'
+import SingleTraditionalTableView from '../traditionalTable/singleTraditionalTableView'
 
-const ForestAreaChangeView = ({match, i18n}) => {
-  const tableProps = tableSpec(i18n)
-
-  return <LoggedInPageTemplate>
-    <div className="tv__container">
-      <div className="tv__page-header">
-        <h1 className="title">{i18n.t('forestAreaChange.forestAreaLossGainChange')}</h1>
-        <DefinitionLink document="tad" anchor="1b" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
-        <DefinitionLink document="faq" anchor="1b" title={i18n.t('definition.faqLabel')} lang={i18n.language} className="align-left"/>
-      </div>
-      <TraditionalTable tableSpec={tableProps} countryIso={match.params.countryIso}/>
-      <CommentableDescriptions
-        section={tableProps.name}
-        name="forestAreaChange"
-        countryIso={match.params.countryIso}
-        i18n={i18n}
-      />
-    </div>
-  </LoggedInPageTemplate>
-}
-
-const mapStateToProps = state => ({i18n: state.user.i18n})
-
-export default connect(mapStateToProps)(ForestAreaChangeView)
+export default props =>
+  <SingleTraditionalTableView
+    {...props}
+    headingLocalizationKey="forestAreaChange.forestAreaLossGainChange"
+    sectionAnchor="1b"
+    tableSpec={tableSpec}/>
