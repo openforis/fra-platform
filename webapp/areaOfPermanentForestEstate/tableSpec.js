@@ -16,7 +16,7 @@ export default i18n => ({
     <td className="fra-table__header-cell-right">2010</td>
     <td className="fra-table__header-cell-right">2015</td>
     <td className="fra-table__header-cell-right">2020</td>
-    <td className="fra-table__header-cell-right">Not applicable?</td>
+    <td className="fra-table__header-cell-right">{i18n.t('areaOfPermanentForestEstate.notApplicable')}</td>
   </tr>
   </thead>,
 
