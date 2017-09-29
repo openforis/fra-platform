@@ -8,7 +8,7 @@ export default i18n => ({
   header: <thead>
   <tr>
     <th className="fra-table__header-cell" rowSpan="2">{i18n.t('areaOfPermanentForestEstate.categoryHeader')}</th>
-    <th className="fra-table__header-cell-middle" colSpan="6">{i18n.t('disturbances.areaUnitLabel')}</th>
+    <th className="fra-table__header-cell-middle" colSpan="6">{i18n.t('areaOfPermanentForestEstate.areaUnitLabel')}</th>
   </tr>
   <tr>
     <td className="fra-table__header-cell-right">1990</td>
