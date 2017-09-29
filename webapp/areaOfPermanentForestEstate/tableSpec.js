@@ -4,7 +4,7 @@ import React from 'react'
 const inputColumns = R.times(() => ({type: 'decimalInput'}), 5)
 
 export default i18n => ({
-  name: 'areaOfPermanentForestEstateView',
+  name: 'areaOfPermanentForestEstate',
   header: <thead>
   <tr>
     <th className="fra-table__header-cell" rowSpan="2">{i18n.t('areaOfPermanentForestEstate.categoryHeader')}</th>
