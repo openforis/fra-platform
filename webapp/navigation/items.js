@@ -162,6 +162,6 @@ export const fra2020Items = i18n => [
     tableNo: '10b',
     label: i18n.t('areaOfPermanentForestEstate.areaOfPermanentForestEstate'),
     pathTemplate: '/country/:countryIso/areaOfPermanentForestEstateView',
-    section: areaOfPermanentForestEstateTableSpec.name
+    section: areaOfPermanentForestEstateTableSpec(i18n).name
   }
 ]
