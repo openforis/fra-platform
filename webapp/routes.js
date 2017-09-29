@@ -20,6 +20,7 @@ import ForestOwnershipView from './forestOwnership/forestOwnershipView'
 import ForestAreaWithinProtectedAreasView from './forestAreaWithinProtectedAreas/forestAreaWithinprotectedAreasView'
 import HolderOfManagementRightsView from './holderOfManagementRights/holderOfManagementRightsView'
 import DisturbancesView from './disturbances/disturbancesView'
+import ForestPolicyView from './forestPolicy/forestPolicyView'
 
 const routes = {
   '/': () => <noscript/>, //This will get rendered first (it flashes), before we redirect to logged-in page or login page
@@ -41,7 +42,8 @@ const routes = {
   '/country/:countryIso/forestOwnership': ForestOwnershipView,
   '/country/:countryIso/forestAreaWithinProtectedAreas': ForestAreaWithinProtectedAreasView,
   '/country/:countryIso/holderOfManagementRights': HolderOfManagementRightsView,
-  '/country/:countryIso/disturbances': DisturbancesView
+  '/country/:countryIso/disturbances': DisturbancesView,
+  '/country/:countryIso/forestPolicy': ForestPolicyView
 }
 
 const routeConfig = R.pipe(
