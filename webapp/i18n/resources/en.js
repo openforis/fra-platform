@@ -376,6 +376,18 @@ export const translation = {
     total: 'Total'
   },
 
+  forestPolicy: {
+    header: 'Policies, Legislation and national platform for stakeholder participation in forest policy',
+    categoryHeader: 'FRA categories',
+    areaUnitLabel: 'Boolean (Yes/No)',
+    national: 'National',
+    subnational: 'Sub-national',
+    policies_SFM: 'Policies supporting SFM',
+    legislations_SFM: 'Legislations and regulations supporting SFM',
+    stakeholder_participation: 'Is there a national platform that promotes or allows for stakeholder participation in forest policy development?',
+    existence_of_traceability_system: 'Existence of a traceability system for wood products'
+  },
+
   areaAffectedByFire: {
     areaAffectedByFire: 'Area affected by fire',
     categoryHeader: 'FRA categories',
