@@ -16,6 +16,7 @@ const annualReforestation = require('./mappings/annualReforestation')
 const forestOwnership = require('./mappings/forestOwnership')
 const disturbances = require('./mappings/disturbances')
 const areaOfPermanentForestEstate = require('./mappings/areaOfPermanentForestEstate')
+const forestPolicy = require('./mappings/forestPolicy')
 
 const mappings = {
   specificForestCategories,
@@ -34,7 +35,8 @@ const mappings = {
   totalAreaWithDesignatedManagementObjective,
   annualReforestation,
   disturbances,
-  areaOfPermanentForestEstate
+  areaOfPermanentForestEstate,
+  forestPolicy
 }
 
 const getRowIndex = (name, names) => {

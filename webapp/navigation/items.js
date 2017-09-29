@@ -9,6 +9,7 @@ import forestAreaWithinProtectedAreasTableSpec from '../forestAreaWithinProtecte
 import holderOfManagementRightsTableSpec from '../holderOfManagementRights/tableSpec'
 import disturbancesTableSpec from '../disturbances/tableSpec'
 import areaOfPermanentForestEstateTableSpec from '../areaOfPermanentForestEstate/tableSpec'
+import forestPolicyTableSpec from '../forestPolicy/tableSpec'
 
 export const annualItems = i18n => [
   {
@@ -156,7 +157,8 @@ export const fra2020Items = i18n => [
   {
     tableNo: '10a',
     label: i18n.t('policiesAndLegislation.policiesAndLegislation'),
-    pathTemplate: '#/todo'
+    pathTemplate: '/country/:countryIso/forestPolicy',
+    section: forestPolicyTableSpec(i18n).name
   },
   {
     tableNo: '10b',
