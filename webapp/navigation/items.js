@@ -6,6 +6,7 @@ import nonWoodForestProductsRemovalsMainSpec from '../nonWoodForestProductsRemov
 import annualReforestationTableSpec from '../annualReforestation/tableSpec'
 import forestOwnerhsipTableSpec from '../forestOwnership/tableSpec'
 import forestAreaWithinProtectedAreasTableSpec from '../forestAreaWithinProtectedAreas/tableSpec'
+import holderOfManagementRightsTableSpec from '../holderOfManagementRights/tableSpec'
 import disturbancesTableSpec from '../disturbances/tableSpec'
 
 export const annualItems = i18n => [
@@ -119,7 +120,8 @@ export const fra2020Items = i18n => [
   {
     tableNo: '6b',
     label: i18n.t('holderOfManagementRights.holderOfManagementRights'),
-    pathTemplate: '#/todo'
+    pathTemplate: '/country/:countryIso/holderOfManagementRights',
+    section: holderOfManagementRightsTableSpec(i18n).name
   },
   {
     tableNo: '7a',

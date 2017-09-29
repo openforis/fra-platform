@@ -18,6 +18,7 @@ import NonWoodForestProductsRemovalsView from './nonWoodForestProductsRemovals/n
 import AnnualReforestationView from './annualReforestation/annualReforestationView'
 import ForestOwnershipView from './forestOwnership/forestOwnershipView'
 import ForestAreaWithinProtectedAreasView from './forestAreaWithinProtectedAreas/forestAreaWithinprotectedAreasView'
+import HolderOfManagementRightsView from './holderOfManagementRights/holderOfManagementRightsView'
 import DisturbancesView from './disturbances/disturbancesView'
 
 const routes = {
@@ -39,6 +40,7 @@ const routes = {
   '/country/:countryIso/annualReforestation': AnnualReforestationView,
   '/country/:countryIso/forestOwnership': ForestOwnershipView,
   '/country/:countryIso/forestAreaWithinProtectedAreas': ForestAreaWithinProtectedAreasView,
+  '/country/:countryIso/holderOfManagementRights': HolderOfManagementRightsView,
   '/country/:countryIso/disturbances': DisturbancesView
 }
 

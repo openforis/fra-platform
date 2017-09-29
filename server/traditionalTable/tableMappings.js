@@ -2,6 +2,7 @@ const R = require('ramda')
 const assert = require('assert')
 const specificForestCategories = require('./mappings/specificForestCategories')
 const forestAreaChange = require('./mappings/forestAreaChange')
+const holderOfManagementRights = require('./mappings/holderOfManagementRights')
 const primaryDesignatedManagementObjective = require('./mappings/primaryDesignatedManagementObjective')
 const areaAffectedByFire = require('./mappings/areaAffectedByFire')
 const growingStockComposition = require('./mappings/growingStockComposition')
@@ -21,6 +22,7 @@ const mappings = {
   primaryDesignatedManagementObjective,
   areaAffectedByFire,
   growingStockComposition,
+  holderOfManagementRights,
   nonWoodForestProductsRemovals,
   nonWoodForestProductsRemovalsCurrency,
   degradedForest,
