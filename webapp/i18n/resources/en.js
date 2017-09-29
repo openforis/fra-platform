@@ -414,9 +414,7 @@ export const translation = {
   areaOfPermanentForestEstate: {
     areaOfPermanentForestEstate: 'Area of permanent forest estate',
     categoryHeader: 'FRA 2020 categories',
-    areaUnitLabel: 'Forest area (1000 ha)',
-
-
+    areaUnitLabel: 'Forest area (1000 ha)'
   },
 
   yesNoTextSelect: {
