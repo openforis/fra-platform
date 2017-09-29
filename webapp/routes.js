@@ -20,6 +20,7 @@ import ForestOwnershipView from './forestOwnership/forestOwnershipView'
 import ForestAreaWithinProtectedAreasView from './forestAreaWithinProtectedAreas/forestAreaWithinprotectedAreasView'
 import HolderOfManagementRightsView from './holderOfManagementRights/holderOfManagementRightsView'
 import DisturbancesView from './disturbances/disturbancesView'
+import AreaOfPermanentForestEstateView from './areaOfPermanentForestEstate/areaOfPermanentForestEstateView'
 import ForestPolicyView from './forestPolicy/forestPolicyView'
 
 const routes = {
@@ -43,6 +44,7 @@ const routes = {
   '/country/:countryIso/forestAreaWithinProtectedAreas': ForestAreaWithinProtectedAreasView,
   '/country/:countryIso/holderOfManagementRights': HolderOfManagementRightsView,
   '/country/:countryIso/disturbances': DisturbancesView,
+  '/country/:countryIso/areaOfPermanentForestEstateView': AreaOfPermanentForestEstateView,
   '/country/:countryIso/forestPolicy': ForestPolicyView
 }
 

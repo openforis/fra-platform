@@ -15,6 +15,7 @@ const totalAreaWithDesignatedManagementObjective = require('./mappings/totalArea
 const annualReforestation = require('./mappings/annualReforestation')
 const forestOwnership = require('./mappings/forestOwnership')
 const disturbances = require('./mappings/disturbances')
+const areaOfPermanentForestEstate = require('./mappings/areaOfPermanentForestEstate')
 const forestPolicy = require('./mappings/forestPolicy')
 
 const mappings = {
@@ -34,6 +35,7 @@ const mappings = {
   totalAreaWithDesignatedManagementObjective,
   annualReforestation,
   disturbances,
+  areaOfPermanentForestEstate,
   forestPolicy
 }
 

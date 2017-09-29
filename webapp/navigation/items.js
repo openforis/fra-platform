@@ -8,6 +8,7 @@ import forestOwnerhsipTableSpec from '../forestOwnership/tableSpec'
 import forestAreaWithinProtectedAreasTableSpec from '../forestAreaWithinProtectedAreas/tableSpec'
 import holderOfManagementRightsTableSpec from '../holderOfManagementRights/tableSpec'
 import disturbancesTableSpec from '../disturbances/tableSpec'
+import areaOfPermanentForestEstateTableSpec from '../areaOfPermanentForestEstate/tableSpec'
 import forestPolicyTableSpec from '../forestPolicy/tableSpec'
 
 export const annualItems = i18n => [
@@ -162,6 +163,7 @@ export const fra2020Items = i18n => [
   {
     tableNo: '10b',
     label: i18n.t('areaOfPermanentForestEstate.areaOfPermanentForestEstate'),
-    pathTemplate: '#/todo'
+    pathTemplate: '/country/:countryIso/areaOfPermanentForestEstateView',
+    section: areaOfPermanentForestEstateTableSpec(i18n).name
   }
 ]
