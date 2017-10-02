@@ -3,7 +3,7 @@ import R from 'ramda'
 
 const inputRow = rowHeaderCell => [
   rowHeaderCell,
-  ...R.map(() => ({type: 'integerInput'}), yearRange)
+  ...R.times(() => ({type: 'integerInput'}), 4)
 ]
 
 const heading = (i18n, localizationKey) =>
@@ -16,12 +16,9 @@ export default i18n => ({
   name: 'employment',
   header: <thead>
   <tr>
-    <th className="fra-table__header-cell" rowSpan="2">{i18n.t('employment.categoryHeader')}</th>
-    <th className="fra-table__header-cell" colSpan={yearRange.length}>{i18n.t('employment.numberOfStudents')}</th>
-  </tr>
-  <tr>
+    <th className="fra-table__header-cell" >{i18n.t('employment.categoryHeader')}</th>
     {
-      R.map(year => <th key={year} className="fra-table__header-cell">{year}</th>, yearRange)
+      R.map(year => <th key={year} className="fra-table__header-cell">{year}</th>, [1990, 2000, 2010, 2015])
     }
   </tr>
   </thead>,
