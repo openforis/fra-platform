@@ -13,7 +13,7 @@ const rowSubHeading = (i18n, localizationKey) =>
   ({type: 'readOnly', jsx: <td className="fra-table__header-cell-sub">{i18n.t(localizationKey)}</td>})
 
 const ofWhichFemaleHeading = i18n =>
-  <th className="fra-table__header-cell-right" style={{fontWeight: 400}}>
+  <th className="fra-table__header-cell-sub">
     {i18n.t('employment.ofWhichFemale')}
   </th>
 
