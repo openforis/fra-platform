@@ -407,7 +407,12 @@ export const translation = {
   employment: {
     employment: 'Employment',
     categoryHeader: 'FRA 2020 categories',
-
+    inForestryAndLogging: 'Employment in forestry and logging',
+    ofWhichFemale: '…of which female',
+    ofWhichSilviculture: '…of which silviculture and other forestry activities',
+    ofWhichLogging: '…of which logging',
+    ofWhichGathering: '…of which gathering of non wood forest products',
+    ofWhichSupport: '…of which support services to forestry'
   },
 
   graduationOfStudents: {
