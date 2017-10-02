@@ -12,6 +12,7 @@ import OriginalDataListView from './originalDataPoint/originalDataListView'
 import ForestAreaChangeView from './forestAreaChange/forestAreaChangeView'
 import AreaAffecteByFireView from './areaAffectedByFire/areaAffectedByFireView'
 import DegradedForestView from './degradedForest/degradedForestView'
+import EmploymentView from './employment/employmentView'
 import GraduationOfStudentsView from './graduationOfStudents/graduationOfStudentsView'
 import ForestCharacteristicsView from './forestCharacteristics/forestCharacteristicsView'
 import NonWoodForestProductsRemovalsView from './nonWoodForestProductsRemovals/nonWoodForestProductsRemovals'
@@ -37,6 +38,7 @@ const routes = {
   '/country/:countryIso/designatedManagementObjective': designatedManagementObjectiveView,
   '/country/:countryIso/areaAffectedByFire': AreaAffecteByFireView,
   '/country/:countryIso/degradedForest': DegradedForestView,
+  '/country/:countryIso/employment': EmploymentView,
   '/country/:countryIso/graduationOfStudents': GraduationOfStudentsView,
   '/country/:countryIso/nonWoodForestProductsRemovals': NonWoodForestProductsRemovalsView,
   '/country/:countryIso/annualReforestation': AnnualReforestationView,

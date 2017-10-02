@@ -405,7 +405,9 @@ export const translation = {
   },
 
   employment: {
-    employment: 'Employment'
+    employment: 'Employment',
+    categoryHeader: 'FRA 2020 categories',
+
   },
 
   graduationOfStudents: {
