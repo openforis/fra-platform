@@ -12,28 +12,25 @@ const rowHeading = (i18n, localizationKey) =>
 const rowSubHeading = (i18n, localizationKey) =>
   ({type: 'readOnly', jsx: <td className="fra-table__header-cell-sub">{i18n.t(localizationKey)}</td>})
 
+const ofWhichFemaleHeading = i18n =>
+  <th className="fra-table__header-cell-right" style={{fontWeight: 400}}>
+    {i18n.t('employment.ofWhichFemale')}
+  </th>
+
 export default i18n => ({
   name: 'employment',
   header: <thead>
-  <tr>
-    <th className="fra-table__header-cell" >{i18n.t('employment.categoryHeader')}</th>
-    {
-      R.addIndex(R.map)(
-        (text, idx) => <td key={idx} className="fra-table__header-cell-right">{text}</td>,
-        //year => <th key={year} className="fra-table__header-cell">{year}</th>,
-        [
-          "1990",
-          i18n.t('employment.ofWhichFemale'),
-          "2000",
-          i18n.t('employment.ofWhichFemale'),
-          "2010",
-          i18n.t('employment.ofWhichFemale'),
-          "2015",
-          i18n.t('employment.ofWhichFemale')
-         ]
-      )
-    }
-  </tr>
+    <tr>
+      <th className="fra-table__header-cell" >{i18n.t('employment.categoryHeader')}</th>
+      <th className="fra-table__header-cell-right">1990</th>
+      {ofWhichFemaleHeading(i18n)}
+      <th className="fra-table__header-cell-right">2000</th>
+      {ofWhichFemaleHeading(i18n)}
+      <th className="fra-table__header-cell-right">2010</th>
+      {ofWhichFemaleHeading(i18n)}
+      <th className="fra-table__header-cell-right">2015</th>
+      {ofWhichFemaleHeading(i18n)}
+    </tr>
   </thead>,
   rows: [
     inputRow(rowHeading(i18n, 'employment.inForestryAndLogging')),
