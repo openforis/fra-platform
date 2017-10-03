@@ -1,6 +1,7 @@
 import React from 'react'
 import R from 'ramda'
 import { separateDecimalThousandsWithSpaces } from '../utils/numberFormat'
+import { sum } from '../../common/bignumberUtils'
 
 const yearlyVolumeInputsForRow = () =>
   [
@@ -21,8 +22,8 @@ const rankRow = i18n => idx => [
   {
     type: 'readOnly',
     jsx: <td key={`rank${idx}`} className="fra-table__header-cell-sub">
-           #{idx} {i18n.t('growingStockComposition.rank')}
-         </td>
+      #{idx} {i18n.t('growingStockComposition.rank')}
+    </td>
   },
   {type: 'textInput', minWidth: 240},
   {type: 'textInput', minWidth: 240},
@@ -30,23 +31,17 @@ const rankRow = i18n => idx => [
 ]
 
 const total = (tableData, column, range) =>
-  R.reduce((sum, row) => {
-      const value = tableData[row][column]
-      if (!R.isNil(value))
-        return sum + value
-      else
-        return sum
-    },
-    0,
-    range
-  )
+  sum(R.pipe(
+    R.map(r => tableData[r][column]),
+    R.reject(v => !v)
+  )(range))
 
 const totalNative = (tableData, column) => total(tableData, column, R.range(0, 11))
 
 const totalIntroduced = (tableData, column) => total(tableData, column, R.range(13, 19))
 
 const totalGrowingStock = (tableData, column) =>
-  totalNative(tableData, column) + totalIntroduced(tableData, column)
+  sum([totalNative(tableData, column), totalIntroduced(tableData, column)])
 
 const renderAggregate = (aggregateFunction, column) => ({tableData}) =>
   <td key="" className="fra-table__aggregate-cell">
@@ -63,8 +58,8 @@ const remainingNativeRow = i18n => [
   {
     type: 'readOnly',
     jsx: <td className="fra-table__row-header-continued-with-fillers">
-           {i18n.t('growingStockComposition.remainingNative')}
-         </td>
+      {i18n.t('growingStockComposition.remainingNative')}
+    </td>
   },
   fillerCell,
   fillerCell,
@@ -75,8 +70,8 @@ const remainingIntroducedRow = i18n => [
   {
     type: 'readOnly',
     jsx: <td className="fra-table__row-header-continued-with-fillers">
-          {i18n.t('growingStockComposition.remainingIntroduced')}
-         </td>
+      {i18n.t('growingStockComposition.remainingIntroduced')}
+    </td>
   },
   fillerCell,
   fillerCell,
@@ -103,8 +98,8 @@ const introducedHeaderRow = i18n => [
   {
     type: 'readOnly',
     jsx: <td className="fra-table__row-header-continued-with-fillers">
-          {i18n.t('growingStockComposition.introducedTreeSpecies')}
-         </td>
+      {i18n.t('growingStockComposition.introducedTreeSpecies')}
+    </td>
   },
   ...R.map(() => fillerCell, R.range(1, 8)),
   {
@@ -133,16 +128,16 @@ export default i18n => ({
   </tr>
   </thead>,
   rows:
-  [
-    ...R.map(rankRow(i18n), R.range(1, 11)),
-    remainingNativeRow(i18n),
-    totalNativeRow(i18n),
-    introducedHeaderRow(i18n),
-    ...R.map(rankRow(i18n), R.range(1, 6)),
-    remainingIntroducedRow(i18n),
-    totalIntroducedRow(i18n),
-    totalGrowingStockRow(i18n)
-  ],
+    [
+      ...R.map(rankRow(i18n), R.range(1, 11)),
+      remainingNativeRow(i18n),
+      totalNativeRow(i18n),
+      introducedHeaderRow(i18n),
+      ...R.map(rankRow(i18n), R.range(1, 6)),
+      remainingIntroducedRow(i18n),
+      totalIntroducedRow(i18n),
+      totalGrowingStockRow(i18n)
+    ],
   valueSlice: {
     rowStart: 0,
     rowEnd: -2,
