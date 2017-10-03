@@ -1,14 +1,15 @@
 import React from 'react'
 import R from 'ramda'
+import { separateDecimalThousandsWithSpaces } from '../utils/numberFormat'
 
 const yearlyVolumeInputsForRow = () =>
   [
-    {type: 'integerInput'},
-    {type: 'integerInput'},
-    {type: 'integerInput'},
-    {type: 'integerInput'},
-    {type: 'integerInput'},
-    {type: 'integerInput'}
+    {type: 'decimalInput'},
+    {type: 'decimalInput'},
+    {type: 'decimalInput'},
+    {type: 'decimalInput'},
+    {type: 'decimalInput'},
+    {type: 'decimalInput'}
   ]
 
 const fillerCell = {
@@ -49,7 +50,7 @@ const totalGrowingStock = (tableData, column) =>
 
 const renderAggregate = (aggregateFunction, column) => ({tableData}) =>
   <td key="" className="fra-table__aggregate-cell">
-    {aggregateFunction(tableData, column)}
+    {separateDecimalThousandsWithSpaces(aggregateFunction(tableData, column))}
   </td>
 
 const aggregateCell = aggregateFunction => column =>
