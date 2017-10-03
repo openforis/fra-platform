@@ -1,6 +1,7 @@
 import React from 'react'
 import R from 'ramda'
 import { separateDecimalThousandsWithSpaces } from '../utils/numberFormat'
+import { totalSum } from '../traditionalTable/aggregate'
 import { sum } from '../../common/bignumberUtils'
 
 const yearlyVolumeInputsForRow = () =>
@@ -30,15 +31,9 @@ const rankRow = i18n => idx => [
   ...yearlyVolumeInputsForRow()
 ]
 
-const total = (tableData, column, range) =>
-  sum(R.pipe(
-    R.map(r => tableData[r][column]),
-    R.reject(v => !v)
-  )(range))
+const totalNative = (tableData, column) => totalSum(tableData, column, R.range(0, 11))
 
-const totalNative = (tableData, column) => total(tableData, column, R.range(0, 11))
-
-const totalIntroduced = (tableData, column) => total(tableData, column, R.range(13, 19))
+const totalIntroduced = (tableData, column) => totalSum(tableData, column, R.range(13, 19))
 
 const totalGrowingStock = (tableData, column) =>
   sum([totalNative(tableData, column), totalIntroduced(tableData, column)])

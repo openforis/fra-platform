@@ -1,6 +1,6 @@
 import React from 'react'
 import R from 'ramda'
-import { sum } from '../../common/bignumberUtils'
+import { totalSum } from '../traditionalTable/aggregate'
 
 const fillerCell = () => ({
   type: 'readOnly',
@@ -63,15 +63,10 @@ const otherProductsRow = (heading) => [
 ]
 
 const totalRow = i18n => {
-  const total = tableData =>
-    sum(R.pipe(
-      R.map(r => tableData[r][5]),
-      R.reject(v => !v)
-    )(R.range(0, 13)))
 
   const renderSum = ({tableData}) =>
     <td key="" className="fra-table__aggregate-cell">
-      {total(tableData)}
+      {totalSum(tableData, 5, R.range(0, 13))}
     </td>
 
   return [

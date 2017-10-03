@@ -4,12 +4,9 @@ const R = require('ramda')
 //disabling BigNumber Error: new BigNumber() number type has more than 15 significant digits
 BigNumber.config({ERRORS: false})
 
-const sum = array => {
-  console.log('adding, ', array)
-  const a = R.reduce((total, f) => console.log('* ', total, f) || add(total, f), 0, array)
-  console.log('result ', a)
-  return a
-}
+const sum = array => R.isEmpty(array)
+  ? null
+  : R.reduce((total, f) => add(total, f), 0, array)
 
 const add = (x, y) => new BigNumber(x).add(new BigNumber(y)).toFixed(2)
 
