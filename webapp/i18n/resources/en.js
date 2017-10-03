@@ -296,11 +296,19 @@ export const translation = {
     aboveGround: 'Above-ground biomass',
     belowGround: 'Below-ground biomass',
     deadWood: 'Dead wood',
-    downloadExcel: 'Download excel calculator',
+    downloadExcel: 'Download excel calculator'
   },
 
   carbonStock: {
-    carbonStock: 'Carbon stock'
+    carbonStock: 'Carbon stock',
+    categoryHeader: 'FRA categories',
+    avgTableHeader: 'Forest carbon (tonnes/ha)',
+    totalTableHeader: 'Forest carbon (million tonnes)',
+    carbonAboveGroundBiomass: 'Carbon in above-ground biomass',
+    carbonBelowGroundBiomass: 'Carbon in below-ground biomass',
+    carbonDeadwood: 'Carbon in dead wood',
+    carbonLitter: 'Carbon in litter',
+    carbonSoil: 'Soil carbon'
   },
 
   nonWoodForestProductsRemovals: {

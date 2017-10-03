@@ -11,7 +11,9 @@ const ckEditorConfig = {
     {name: 'insert'},
     {name: 'about'}
   ],
-  removeButtons: 'HorizontalRule,SpecialChar,Scayt,Cut,Copy,Paste,Anchor,Maximize,Source,Strike,Outdent,Indent,Blockquote,Styles,Format',
+  removePlugins: 'horizontalrule,specialchar,blockquote,stylescombo,format',
+  removeButtons: 'Scayt,Cut,Copy,Paste,Anchor,Maximize,Source,Strike,Outdent,Indent',
+  allowedContent: 'p em strong u sub sup ul ol li table thead tbody tr; th[colspan,rowspan]; td[colspan,rowspan]; a[!href]; img[!src,alt,width,height]',
   contentsCss: '/ckeditor/ckeditor.css',
   height: 200,
   extraPlugins: 'autogrow',

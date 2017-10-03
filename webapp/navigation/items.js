@@ -33,7 +33,8 @@ export const annualItems = i18n => [
   {
     tableNo: '3d',
     label: i18n.t('carbonStock.carbonStock'),
-    pathTemplate: '#/todo'
+    section: 'carbonStock',
+    pathTemplate: '/country/:countryIso/carbonStock'
   },
   {
     tableNo: '5b',
@@ -95,7 +96,8 @@ export const fra2020Items = i18n => [
   {
     tableNo: '3d',
     label: i18n.t('carbonStock.carbonStock'),
-    pathTemplate: '#/todo'
+    section: 'carbonStock',
+    pathTemplate: '/country/:countryIso/carbonStock'
   },
   {
     tableNo: '4',
