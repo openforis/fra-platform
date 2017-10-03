@@ -45,7 +45,7 @@ class CountrySelectionItem extends React.Component {
     const countries = this.props.countries || []
     const i18n = this.props.i18n
     const style = {
-      backgroundImage: `url('/img/flags/${(alpha3ToAlpha2(name) || '').toLowerCase()}.svg'`
+      backgroundImage: `url('/img/flags/1x1/${(alpha3ToAlpha2(name) || '').toLowerCase()}.svg'`
     }
 
     return <div className="nav__country-item" ref="navCountryItem" onClick={() => {

@@ -420,7 +420,15 @@ export const translation = {
   },
 
   employment: {
-    employment: 'Employment'
+    employment: 'Employment',
+    categoryHeader: 'FRA 2020 categories',
+    unitHeader: 'Full-time equivalents (FTE)',
+    inForestryAndLogging: 'Employment in forestry and logging',
+    ofWhichFemale: '…of which female',
+    ofWhichSilviculture: '…of which silviculture and other forestry activities',
+    ofWhichLogging: '…of which logging',
+    ofWhichGathering: '…of which gathering of non wood forest products',
+    ofWhichSupport: '…of which support services to forestry'
   },
 
   graduationOfStudents: {

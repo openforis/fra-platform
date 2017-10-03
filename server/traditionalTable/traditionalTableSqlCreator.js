@@ -2,7 +2,10 @@ const R = require('ramda')
 const tableMappings = require('./tableMappings')
 const assert = require('assert')
 
-const fixedFraTableColumns = [{name: 'country_iso', type: 'varchar'}, {name: 'row_name', type: 'varchar'}]
+const fixedFraTableColumns = [
+  {name: 'country_iso', type: 'varchar(3) REFERENCES country(country_iso) NOT NULL'},
+  {name: 'row_name', type: 'text'}
+]
 
 const columnNames = (columns) => R.pluck('name', columns)
 
@@ -55,8 +58,8 @@ const createTableDefinition = (tableSpecName) => {
   const dataTypes = [...R.pluck('type', fixedFraTableColumns), ...R.pluck('type', mapping.columns)]
   assert(dataTypes.length === columnNames.length, 'Data types and column names arrays should be of the same length! Check your mapping')
   const columns = R.zip(columnNames, dataTypes)
-  const columnsStr = R.join(', ', R.map(([name, dataType]) => `${name} ${dataType}`, columns))
-  return `CREATE TABLE ${mapping.tableName} (${columnsStr}, PRIMARY KEY (country_iso, row_name));`
+  const columnsStr = R.join(',\n', R.map(([name, dataType]) => `${name} ${dataType}`, columns))
+  return `CREATE TABLE ${mapping.tableName} (\n${columnsStr}, \nPRIMARY KEY (country_iso, row_name));`
 }
 
 module.exports.createInserts = createInserts
