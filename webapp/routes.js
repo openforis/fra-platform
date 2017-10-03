@@ -16,6 +16,7 @@ import GraduationOfStudentsView from './graduationOfStudents/graduationOfStudent
 import ForestCharacteristicsView from './forestCharacteristics/forestCharacteristicsView'
 import NonWoodForestProductsRemovalsView from './nonWoodForestProductsRemovals/nonWoodForestProductsRemovals'
 import AnnualReforestationView from './annualReforestation/annualReforestationView'
+import BiomassStockView from './biomassStock/biomassStockView'
 import ForestOwnershipView from './forestOwnership/forestOwnershipView'
 import ForestAreaWithinProtectedAreasView from './forestAreaWithinProtectedAreas/forestAreaWithinprotectedAreasView'
 import HolderOfManagementRightsView from './holderOfManagementRights/holderOfManagementRightsView'
@@ -40,6 +41,7 @@ const routes = {
   '/country/:countryIso/graduationOfStudents': GraduationOfStudentsView,
   '/country/:countryIso/nonWoodForestProductsRemovals': NonWoodForestProductsRemovalsView,
   '/country/:countryIso/annualReforestation': AnnualReforestationView,
+  '/country/:countryIso/biomassStock': BiomassStockView,
   '/country/:countryIso/forestOwnership': ForestOwnershipView,
   '/country/:countryIso/forestAreaWithinProtectedAreas': ForestAreaWithinProtectedAreasView,
   '/country/:countryIso/holderOfManagementRights': HolderOfManagementRightsView,

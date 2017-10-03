@@ -10,6 +10,7 @@ const reviewApi = require('./review/api')
 const countryApi = require('./country/api')
 const assessmentApi = require('./assessment/api')
 const growingStockApi = require('./growingStock/growingStockApi')
+const biomassStockApi = require('./biomassStock/biomassStockApi')
 
 const apiRouter = express.Router()
 //Nothing should be cached by default with the APIs
@@ -27,5 +28,6 @@ descriptionsApi.init(apiRouter)
 reviewApi.init(apiRouter)
 assessmentApi.init(apiRouter)
 growingStockApi.init(apiRouter)
+biomassStockApi.init(apiRouter)
 
 module.exports.router = apiRouter

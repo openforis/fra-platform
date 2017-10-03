@@ -30,16 +30,14 @@ const designatedManagementObjectiveView = ({match, i18n}) => {
       <TraditionalTable
         tableSpec={primaryDmoTableSpec}
         countryIso={match.params.countryIso}
-        section="designatedManagementObjective"
-        reviewTargetPrefix="primaryDesignatedManagementObjective"/>
+        section="designatedManagementObjective"/>
       <h3 className="subhead dmo__table-header">
         {i18n.t('designatedManagementObjective.totalAreaDesignatedManagementObjective')}
       </h3>
       <TraditionalTable
         tableSpec={totalDmoTableSpec}
         countryIso={match.params.countryIso}
-        section="designatedManagementObjective"
-        reviewTargetPrefix="totalAreaDesignatedManagementObjective"/>
+        section="designatedManagementObjective"/>
       <CommentableDescriptions
         section={primaryDmoTableSpec.name}
         name="designatedManagementObjective"

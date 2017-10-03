@@ -74,7 +74,7 @@ const NationalDataEntry = (props) => {
     <div className='nde__comment-transition'>
       <div className="nde__data-input-header">
         <Link className="btn btn-primary" to={`/country/${props.countryIso}/odp`}>
-          <svg className="icon icon-middle icon-white">
+          <svg className="icon icon-sub icon-white">
             <use xlinkHref="img/icons.svg#small-add"/>
           </svg>
           {i18n.t('nationalDataPoint.addNationalDataPoint')}
