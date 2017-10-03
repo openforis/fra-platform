@@ -1,5 +1,6 @@
 import React from 'react'
 import R from 'ramda'
+import { separateDecimalThousandsWithSpaces } from '../utils/numberFormat'
 
 const createInputRow = (rowHeader, cname = 'fra-table__header-cell') => [
   {type: 'readOnly', jsx: <td key="protection" className={`${cname}`}>{rowHeader}</td>},
@@ -7,11 +8,20 @@ const createInputRow = (rowHeader, cname = 'fra-table__header-cell') => [
 ]
 
 const totalForestArea = (tableData, columnIdx) =>
-    R.pipe(R.map(x => tableData[x][columnIdx]), R.sum)([0,4,5])
+  R.reduce((sum, rowIdx) => {
+      const value = tableData[rowIdx][columnIdx]
+      if (!R.isNil(value))
+        return sum + value
+      else
+        return sum
+    },
+    0,
+    [0,4,5]
+  )
 
 const totalForestAreaCell = (column) => (props) =>
   <td key="" className="fra-table__aggregate-cell">
-    {totalForestArea(props.tableData, column)}
+    {separateDecimalThousandsWithSpaces(totalForestArea(props.tableData, column))}
   </td>
 
 export default i18n => ({

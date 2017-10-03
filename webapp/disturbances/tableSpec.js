@@ -1,5 +1,6 @@
 import React from 'react'
 import R from 'ramda'
+import { separateDecimalThousandsWithSpaces } from '../utils/numberFormat'
 
 const inputColumns = R.times(() => ({type: 'decimalInput'}), 18)
 
@@ -17,7 +18,7 @@ const totalDisturbance = (tableData, columnIdx) =>
 
 const totalDisturbanceCell = (column) => (props) =>
   <td key="" className="fra-table__aggregate-cell">
-    {totalDisturbance(props.tableData, column)}
+    {separateDecimalThousandsWithSpaces(totalDisturbance(props.tableData, column))}
   </td>
 
 export default i18n => ({

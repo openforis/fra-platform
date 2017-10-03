@@ -1,5 +1,6 @@
 import React from 'react'
 import R from 'ramda'
+import { separateDecimalThousandsWithSpaces } from '../utils/numberFormat'
 
 const createDmoInputRow = (rowHeader) => [
   {type: 'readOnly', jsx: <td key="protection" className="fra-table__header-cell">{rowHeader}</td>},
@@ -20,7 +21,7 @@ const totalForestArea = (tableData, columnIdx) =>
 
 const totalForestAreaCell = (column) => (props) =>
   <td key="" className="fra-table__aggregate-cell">
-    {totalForestArea(props.tableData, column)}
+    {separateDecimalThousandsWithSpaces(totalForestArea(props.tableData, column))}
   </td>
 
 const thead = i18n =>

@@ -1,5 +1,6 @@
 import React from 'react'
 import R from 'ramda'
+import { separateDecimalThousandsWithSpaces } from '../utils/numberFormat'
 
 const createInputRow = (rowHeader, cname = 'fra-table__header-cell') => [
   {type: 'readOnly', jsx: <td key="protection" className={`${cname}`}>{rowHeader}</td>},
@@ -20,7 +21,7 @@ const totalOwnership = (tableData, columnIdx) =>
 
 const totalOwnershipCell = (column) => (props) =>
   <td key="" className="fra-table__aggregate-cell">
-    {totalOwnership(props.tableData, column)}
+    {separateDecimalThousandsWithSpaces(totalOwnership(props.tableData, column))}
   </td>
 
 export default i18n => ({
