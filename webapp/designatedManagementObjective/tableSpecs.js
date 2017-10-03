@@ -1,27 +1,19 @@
 import React from 'react'
 import R from 'ramda'
+import { separateDecimalThousandsWithSpaces } from '../utils/numberFormat'
+import { totalSum } from '../traditionalTable/aggregate'
 
 const createDmoInputRow = (rowHeader) => [
   {type: 'readOnly', jsx: <td key="protection" className="fra-table__header-cell">{rowHeader}</td>},
   ...(R.times(() => ({type: 'decimalInput'}), 5))
 ]
 
-const totalForestArea = (tableData, columnIdx) =>
-  R.reduce((sum, rowIdx) => {
-      const value = tableData[rowIdx][columnIdx]
-      if (!R.isNil(value))
-        return sum + value
-      else
-        return sum
-    },
-    0,
-    R.range(0, 7)
-  )
-
-const totalForestAreaCell = (column) => (props) =>
-  <td key="" className="fra-table__aggregate-cell">
-    {totalForestArea(props.tableData, column)}
+const totalForestAreaCell = (column) => (props) => {
+  const totalArea = totalSum(props.tableData, column, R.range(0, 7))
+  return <td key="" className="fra-table__aggregate-cell">
+    {separateDecimalThousandsWithSpaces(totalArea)}
   </td>
+}
 
 const thead = i18n =>
   <thead>
