@@ -1,3 +1,1 @@
-const {toFixed} = require('../../common/bignumberUtils')
-
-module.exports.toNumberOrNull = value => toFixed(value)
+module.exports.toNumberOrNull = value => value === null ? null : Number(value)
