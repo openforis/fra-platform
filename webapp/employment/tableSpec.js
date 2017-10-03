@@ -4,9 +4,10 @@ import R from 'ramda'
 const sumOfGenders = (tableData, rowIdx, yearIdx) => {
   const female = tableData[rowIdx][yearIdx*3+2]
   const male = tableData[rowIdx][yearIdx*3+3]
-  if (!R.isNil(female) && !R.isNil(male))
+  if (R.isNil(female) && R.isNil(male))
+    return null
+  else
     return female + male
-  return null
 }
 
 const yearFields = rowIdx => yearIdx => [
