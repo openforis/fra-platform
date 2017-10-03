@@ -4,12 +4,12 @@ import { separateDecimalThousandsWithSpaces } from '../utils/numberFormat'
 
 const yearlyVolumeInputsForRow = () =>
   [
-    {type: 'integerInput'},
-    {type: 'integerInput'},
-    {type: 'integerInput'},
-    {type: 'integerInput'},
-    {type: 'integerInput'},
-    {type: 'integerInput'}
+    {type: 'decimalInput'},
+    {type: 'decimalInput'},
+    {type: 'decimalInput'},
+    {type: 'decimalInput'},
+    {type: 'decimalInput'},
+    {type: 'decimalInput'}
   ]
 
 const fillerCell = {
