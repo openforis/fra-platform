@@ -1,4 +1,5 @@
 import * as R from 'ramda'
+import { toFixed } from '../../common/bignumberUtils'
 
 export const separateThousandsWithSpaces = num =>
   typeof num === 'number'
@@ -6,6 +7,6 @@ export const separateThousandsWithSpaces = num =>
     : ''
 
 export const separateDecimalThousandsWithSpaces = (num, prec = 2) => {
-  const toFormat = typeof num === 'string' ? Number(num) : num
-  return R.isNil(toFormat) ? '' : toFormat.toFixed(prec).replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
+  const toFormat = toFixed(num, prec)
+  return R.isNil(toFormat) ? '' : toFormat.replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
 }

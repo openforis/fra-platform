@@ -1,4 +1,5 @@
 import * as R from 'ramda'
+import { sum, mul, div } from '../../common/bignumberUtils'
 
 export const rows = [
   {
@@ -45,7 +46,7 @@ const getTypeArea = (year, areaFields, type) => R.pipe(
   R.find(v => R.propEq('year', year, v) && R.propEq('type', type, v)),
   R.defaultTo({}),
   R.props(areaFields),
-  R.sum
+  sum
 )
 
 const getArea = (areaValues, year, areaFields) => R.pipe(
@@ -57,8 +58,8 @@ const updateMirrorValue = (areaValues, year, field, type, obj) => {
   const area = getArea(areaValues, year, getAreaFields(field))
   return area >= 0
     ? type === 'avg'
-      ? R.assoc(field, R.prop(`${field}Avg`, obj) * area)(obj)
-      : R.assoc(`${field}Avg`, area == 0 ? 0 : R.prop(field, obj) / area)(obj)
+      ? R.assoc(field, mul(R.prop(`${field}Avg`, obj), area))(obj)
+      : R.assoc(`${field}Avg`, area == 0 ? 0 : div(R.prop(field, obj), area))(obj)
     : obj
 }
 
@@ -67,10 +68,7 @@ const getFieldValue = field => R.pipe(
   R.defaultTo(0)
 )
 
-const getSumFields = field => getFields(field, 'sumFields')
-
-const calculateTotal = (obj, field) =>
-  R.reduce((total, f) => total + getFieldValue(f)(obj), 0, getSumFields(field))
+const calculateTotal = (obj, field) => sum(R.map(f => getFieldValue(f)(obj), getFields(field, 'sumFields')))
 
 const updateTotals = (areaValues, year) => R.pipe(
   obj => R.assoc('plantedForest', calculateTotal(obj, 'plantedForest'), obj),
