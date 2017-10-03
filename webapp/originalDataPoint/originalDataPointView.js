@@ -260,7 +260,8 @@ const updatePastedValues = ({
     if (R.isNil(columns[colNo]))
       return R.clone(odp)
     const value = sanitizerFor(columns[colNo].type)(rawValue, null)
-   return originalDataPoint.updateNationalClass(odp, rowNo, columns[colNo].name, value)
+    const fieldName = R.isNil(columns[colNo].name) ? columns[colNo] : columns[colNo].name
+    return originalDataPoint.updateNationalClass(odp, rowNo, fieldName, value)
   }
   const rowCount = R.filter(v => !v.placeHolder, odp.nationalClasses).length
   const pastedData = allowGrow ? readPasteClipboard(evt, 'string')

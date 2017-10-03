@@ -369,7 +369,15 @@ export const translation = {
   },
 
   holderOfManagementRights: {
-    holderOfManagementRights: 'Holder of management rights of public forests'
+    holderOfManagementRights: 'Holder of management rights of public forests',
+    categoryHeader: 'FRA categories',
+    areaUnitLabel: 'Forest area (1000 ha)',
+    publicAdministration: 'Public Administration',
+    individuals: 'Individuals',
+    privateBusinesses: 'Private business entities and institutions',
+    communities: 'Local, tribal and indigenous communities',
+    other: 'Other',
+    totalPublicOwnership: 'Total public ownership'
   },
 
   disturbances: {
@@ -381,6 +389,18 @@ export const translation = {
     severeWeatherEvents: 'Severe weather events',
     other: 'Other',
     total: 'Total'
+  },
+
+  forestPolicy: {
+    header: 'Policies, Legislation and national platform for stakeholder participation in forest policy',
+    categoryHeader: 'FRA categories',
+    areaUnitLabel: 'Boolean (Yes/No)',
+    national: 'National',
+    subnational: 'Sub-national',
+    policiesSFM: 'Policies supporting SFM',
+    legislationsSFM: 'Legislations and regulations supporting SFM',
+    stakeholderParticipation: 'Is there a national platform that promotes or allows for stakeholder participation in forest policy development?',
+    existenceOfTraceabilitySystem: 'Existence of a traceability system for wood products'
   },
 
   areaAffectedByFire: {
@@ -419,7 +439,10 @@ export const translation = {
   },
 
   areaOfPermanentForestEstate: {
-    areaOfPermanentForestEstate: 'Area of permanent forest estate'
+    areaOfPermanentForestEstate: 'Area of permanent forest estate',
+    categoryHeader: 'FRA 2020 categories',
+    areaUnitLabel: 'Forest area (1000 ha)',
+    applicable: 'Applicable?'
   },
 
   yesNoTextSelect: {

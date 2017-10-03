@@ -2,6 +2,7 @@ const R = require('ramda')
 const assert = require('assert')
 const specificForestCategories = require('./mappings/specificForestCategories')
 const forestAreaChange = require('./mappings/forestAreaChange')
+const holderOfManagementRights = require('./mappings/holderOfManagementRights')
 const primaryDesignatedManagementObjective = require('./mappings/primaryDesignatedManagementObjective')
 const areaAffectedByFire = require('./mappings/areaAffectedByFire')
 const growingStockComposition = require('./mappings/growingStockComposition')
@@ -18,6 +19,8 @@ const totalAreaWithDesignatedManagementObjective = require('./mappings/totalArea
 const annualReforestation = require('./mappings/annualReforestation')
 const forestOwnership = require('./mappings/forestOwnership')
 const disturbances = require('./mappings/disturbances')
+const areaOfPermanentForestEstate = require('./mappings/areaOfPermanentForestEstate')
+const forestPolicy = require('./mappings/forestPolicy')
 
 const mappings = {
   specificForestCategories,
@@ -25,6 +28,7 @@ const mappings = {
   primaryDesignatedManagementObjective,
   areaAffectedByFire,
   growingStockComposition,
+  holderOfManagementRights,
   nonWoodForestProductsRemovals,
   nonWoodForestProductsRemovalsCurrency,
   degradedForest,
@@ -37,7 +41,9 @@ const mappings = {
   biomassStockTotal,
   biomassStockAvg,
   carbonStockTotal,
-  carbonStockAvg
+  carbonStockAvg,
+  areaOfPermanentForestEstate,
+  forestPolicy
 }
 
 const getRowIndex = (name, names) => {

@@ -20,7 +20,10 @@ import BiomassStockView from './biomassStock/biomassStockView'
 import CarbonStockView from './carbonStock/carbonStockView'
 import ForestOwnershipView from './forestOwnership/forestOwnershipView'
 import ForestAreaWithinProtectedAreasView from './forestAreaWithinProtectedAreas/forestAreaWithinprotectedAreasView'
+import HolderOfManagementRightsView from './holderOfManagementRights/holderOfManagementRightsView'
 import DisturbancesView from './disturbances/disturbancesView'
+import AreaOfPermanentForestEstateView from './areaOfPermanentForestEstate/areaOfPermanentForestEstateView'
+import ForestPolicyView from './forestPolicy/forestPolicyView'
 
 const routes = {
   '/': () => <noscript/>, //This will get rendered first (it flashes), before we redirect to logged-in page or login page
@@ -43,7 +46,10 @@ const routes = {
   '/country/:countryIso/carbonStock': CarbonStockView,
   '/country/:countryIso/forestOwnership': ForestOwnershipView,
   '/country/:countryIso/forestAreaWithinProtectedAreas': ForestAreaWithinProtectedAreasView,
-  '/country/:countryIso/disturbances': DisturbancesView
+  '/country/:countryIso/holderOfManagementRights': HolderOfManagementRightsView,
+  '/country/:countryIso/disturbances': DisturbancesView,
+  '/country/:countryIso/areaOfPermanentForestEstateView': AreaOfPermanentForestEstateView,
+  '/country/:countryIso/forestPolicy': ForestPolicyView
 }
 
 const routeConfig = R.pipe(
