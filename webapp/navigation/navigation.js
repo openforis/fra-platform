@@ -199,23 +199,24 @@ const NationalDataItem = ({path, countryIso, pathTemplate, secondaryPathTemplate
   </Link>
 }
 
-const EditStatus = ({msg}) => msg ? <div className="nav__secondary-edited">{msg}</div> : null
+const EditStatus = ({msg}) => msg ? <span className="nav__secondary-edited">{msg}</span> : null
 
 const SecondaryItem = ({path, countryIso, tableNo, pathTemplate = '/tbd', label, edited, status}) => {
   const route = new Route(pathTemplate)
   const linkTo = route.reverse({countryIso})
   const isTodoItem = pathTemplate.indexOf('/todo') !== -1
-  const secondaryTextClass = isTodoItem ? 'nav__disabled-item' : ''
 
   return <Link
-    className={`nav__secondary-item ${secondaryTextClass} ${R.equals(path, linkTo) ? 'selected' : ''}`}
+    className={`nav__secondary-item ${R.equals(path, linkTo) ? 'selected' : ''}`}
               to={linkTo}>
-    <span className='nav__secondary-order'>{tableNo}</span>
-    <div className='nav__seoncdary-item-texts'>
+    <div className='nav__secondary-order'>{tableNo}</div>
+    <div className='nav__seoncdary-text-content'>
       <span className='nav__secondary-label'>{label}</span>
       <EditStatus msg={edited}/>
     </div>
-    <ReviewStatus status={status} />
+    <div className="nav__secondary-status-content">
+      <ReviewStatus status={status} />
+    </div>
   </Link>
 }
 

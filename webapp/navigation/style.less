@@ -141,19 +141,22 @@
   white-space: nowrap;
 
   .status-editing {
-    .mixin-status-base(@ui-status-editing, 8px);
+    .mixin-status-base(@ui-status-editing);
+    margin-right: 8px;
   }
 
   .status-review {
-    .mixin-status-base(@ui-status-review, 8px);
+    .mixin-status-base(@ui-status-review);
+    margin-right: 8px;
   }
 
   .status-accepted {
-    .mixin-status-base(@ui-status-accepted, 8px);
+    .mixin-status-base(@ui-status-accepted);
+    margin-right: 8px;
   }
 }
 
-// Questionare
+// NDP
 
 .nav__link-list {
   overflow-y: auto;
@@ -162,15 +165,14 @@
   padding-bottom: 8px;
 }
 
-
 .nav__link-item {
-
   display: flex;
   align-items: stretch;
   flex-flow: row nowrap;
   padding: 12px 16px 12px 20px;
   text-decoration: none;
   color: @text-body;
+  line-height: 20px;
 
   &:hover {
     color: inherit;
@@ -194,20 +196,23 @@
 }
 
 .nav__link-status-content {
-  flex-grow: 2;
   display: flex;
   flex-flow: row-reverse nowrap;
   align-items: center;
+  margin-left: auto;
 
   div {
     margin-left: 4px;
   }
 }
 
+// Primary
+
 .nav__primary-item {
   border-top: @ui-thin-border;
   margin-top: 8px;
   padding: 20px 16px 12px 20px;
+  line-height: 20px;
 
   .popover-control__menu {
     top: 31px;
@@ -216,7 +221,6 @@
 
 .nav__primary-label {
   font-weight: 700;
-  line-height: 20px;
   margin-bottom: 8px;
 }
 
@@ -225,7 +229,6 @@
   border-radius: 2px;
   font-size: @font-s;
   color: white;
-  line-height: 20px;
   padding: 4px 10px;
   transition: @ease-out;
 
@@ -286,17 +289,11 @@
   }
 }
 
+// Secondary
+
 .nav__secondary-item {
   .nav__link-item;
-  display: flex;
-  align-items: stretch;
-  flex-flow: row nowrap;
-}
-
-
-.nav__secondary-edited {
-  font-size: @font-xxs;
-  color: @text-mute;
+  line-height: 18px;
 }
 
 .nav__secondary-order {
@@ -308,8 +305,13 @@
 
 .nav__secondary-label {
   display: block;
+  margin-bottom: 4px;
   font-size: @font-s;
-  line-height: 20px;
+}
+
+.nav__secondary-edited {
+  font-size: @font-xs;
+  color: @text-mute;
 }
 
 .nav__secondary-status-content {
@@ -317,35 +319,22 @@
 }
 
 .nav__has-open-issue {
-  width: 10px;
-  min-width: 10px;
-  height: 10px;
-  color: white;
-  border-radius: 100%;
-  text-align: center;
+  .mixin-status-base(@ui-accent);
   margin-left: auto;
   align-self: center;
-  background-color: @ui-accent;
 
   &.has-unread-issue {
     background-color: @ui-alert;
   }
 }
 
-.nav__disabled-item {
- * {
-   color: lighten(@text-mute, 30%);
- }
-}
-
-
 // Mixins
 
-.mixin-status-base(@color, @margin-right) {
+.mixin-status-base(@color) {
   display: inline-block;
-  margin-right: @margin-right;
   width: 10px;
   height: 10px;
   background-color: @color;
   border-radius: 100%;
+  flex: 0 0 auto;
 }
