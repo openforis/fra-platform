@@ -1,28 +1,19 @@
 import React from 'react'
 import R from 'ramda'
 import { separateDecimalThousandsWithSpaces } from '../utils/numberFormat'
+import { totalSum } from '../traditionalTable/aggregate'
 
 const createInputRow = (rowHeader, cname = 'fra-table__header-cell') => [
   {type: 'readOnly', jsx: <td key="protection" className={`${cname}`}>{rowHeader}</td>},
   ...(R.times(() => ({type: 'decimalInput'}), 5))
 ]
 
-const totalForestArea = (tableData, columnIdx) =>
-  R.reduce((sum, rowIdx) => {
-      const value = tableData[rowIdx][columnIdx]
-      if (!R.isNil(value))
-        return sum + value
-      else
-        return sum
-    },
-    0,
-    [0,4,5]
-  )
-
-const totalForestAreaCell = (column) => (props) =>
-  <td key="" className="fra-table__aggregate-cell">
-    {separateDecimalThousandsWithSpaces(totalForestArea(props.tableData, column))}
+const totalForestAreaCell = (column) => (props) => {
+  const totalForestArea = totalSum(props.tableData, column, [0,4,5])
+  return <td key="" className="fra-table__aggregate-cell">
+    {separateDecimalThousandsWithSpaces(totalForestArea)}
   </td>
+}
 
 export default i18n => ({
   name: 'forestOwnership',
