@@ -32,9 +32,9 @@ const rowSubHeading = (i18n, localizationKey) =>
 
 const yearSubHeadings = i18n =>
   [
-    <th key="total" className="fra-table__header-cell">Total</th>,
-    <th key="female" className="fra-table__header-cell">Female</th>,
-    <th key="male" className="fra-table__header-cell">Male</th>
+    <th key="total" className="fra-table__header-cell-right">Total</th>,
+    <th key="female" className="fra-table__header-cell-right">Female</th>,
+    <th key="male" className="fra-table__header-cell-right">Male</th>
   ]
 
 export default i18n => ({
@@ -42,13 +42,13 @@ export default i18n => ({
   header: <thead>
     <tr>
       <th className="fra-table__header-cell" rowSpan="3">{i18n.t('employment.categoryHeader')}</th>
-      <th className="fra-table__header-cell" colSpan="12">{i18n.t('employment.unitHeader')}</th>
+      <th className="fra-table__header-cell-middle" colSpan="12">{i18n.t('employment.unitHeader')}</th>
     </tr>
     <tr>
-      <th colSpan="3" className="fra-table__header-cell-right">1990</th>
-      <th colSpan="3" className="fra-table__header-cell-right">2000</th>
-      <th colSpan="3" className="fra-table__header-cell-right">2010</th>
-      <th colSpan="3" className="fra-table__header-cell-right">2015</th>
+      <th colSpan="3" className="fra-table__header-cell-middle">1990</th>
+      <th colSpan="3" className="fra-table__header-cell-middle">2000</th>
+      <th colSpan="3" className="fra-table__header-cell-middle">2010</th>
+      <th colSpan="3" className="fra-table__header-cell-middle">2015</th>
     </tr>
     <tr>
       {yearSubHeadings(i18n)}
