@@ -407,6 +407,7 @@ export const translation = {
   employment: {
     employment: 'Employment',
     categoryHeader: 'FRA 2020 categories',
+    unitHeader: 'FULL-TIME EQUIVALENTS (FTE)',
     inForestryAndLogging: 'Employment in forestry and logging',
     ofWhichFemale: '…of which female',
     ofWhichSilviculture: '…of which silviculture and other forestry activities',
