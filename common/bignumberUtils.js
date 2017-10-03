@@ -1,6 +1,7 @@
 const BigNumber = require('bignumber.js')
 const R = require('ramda')
 
+//disabling BigNumber Error: new BigNumber() number type has more than 15 significant digits
 BigNumber.config({ERRORS: false})
 
 const sum = array => {
@@ -21,7 +22,7 @@ const toFixed = (value, precision = 2) => value
   : null
 
 module.exports.sum = sum
-module.exports.add = add
+// module.exports.add = add
 module.exports.mul = mul
 module.exports.div = div
 module.exports.toFixed = toFixed
