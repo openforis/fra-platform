@@ -35,7 +35,7 @@ export const getChartData = (fra, property) => {
   return R.pipe(
     R.values,
     R.reject(v => R.isNil(v[property])),
-    R.map((v) => { return {year: v.year, value: Number(v[property]), type: v.type, estimated: v[`${property}Estimated`]} })
+    R.map((v) => { return {year: Number(v.year), value: Number(v[property]), type: v.type, estimated: v[`${property}Estimated`]} })
   )(fra)
 }
 
