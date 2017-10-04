@@ -81,7 +81,7 @@ export const updateGrowingStockValue = (areaValues, growingStockValues, year, fi
   const updatedValue = R.pipe(
     R.find(R.propEq('year', year)),
     R.defaultTo({year}),
-    R.assoc(`${field}${type === 'avg' ? 'Avg' : ''}`, R.isEmpty(value) ? null : Number(value)),
+    R.assoc(`${field}${type === 'avg' ? 'Avg' : ''}`, R.isEmpty(value) ? null : value),
     R.partial(updateMirrorValue, [areaValues, year, field, type]),
     updateTotals(areaValues, year)
   )(growingStockValues)

@@ -1,4 +1,5 @@
 import * as R from 'ramda'
+import { toFixed } from '../../common/bignumberUtils'
 
 const trim = (value) => value.replace(/\s/g, '')
 
@@ -43,5 +44,5 @@ export const acceptNextDecimal = (newValue, currentValue) => {
   if (newValueTrimmed === '') return null
   if (!acceptableAsDecimal(newValue)) return currentValue
   if (newValueTrimmed.length > 20) return currentValue
-  return Number(parseFloat(newValueTrimmed).toFixed(2))
+  return toFixed(newValueTrimmed)
 }

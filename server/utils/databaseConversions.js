@@ -1,1 +1,1 @@
-module.exports.toNumberOrNull = value => value === null ? null : Number(value)
+module.exports.toNumberOrNull = value => value === null ? null : String(value)
