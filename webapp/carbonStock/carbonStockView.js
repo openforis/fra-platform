@@ -10,6 +10,7 @@ import DefinitionLink from './../reusableUiComponents/definitionLink'
 const CarbonStockView = ({match, i18n}) => {
   const countryIso = match.params.countryIso
   const lang = i18n.language
+  const calculatorFilePath = `/api/biomassStock/${countryIso}/${lang}/download`
 
   const avgTableProps = avgTableSpec(i18n)
   const totalTableProps = totalTableSpec(i18n)
@@ -20,6 +21,10 @@ const CarbonStockView = ({match, i18n}) => {
         <h1 className="title">{i18n.t('carbonStock.carbonStock')}</h1>
         <DefinitionLink document="tad" anchor="3d" title={i18n.t('definition.definitionLabel')} lang={lang}/>
         <DefinitionLink document="faq" anchor="3c" title={i18n.t('definition.faqLabel')} lang={lang} className="align-left"/>
+        <a className="btn btn-primary" href={calculatorFilePath}>
+          <svg className="icon icon-sub icon-white"><use xlinkHref="img/icons.svg#hit-down"/></svg>
+          {i18n.t('biomassStock.downloadExcel')}
+        </a>
       </div>
 
       <div className="traditional-table-outer-container">
