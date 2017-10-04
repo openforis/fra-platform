@@ -34,8 +34,8 @@ const rowSubHeading = (i18n, localizationKey) =>
 const yearSubHeadings = i18n =>
   [
     <th key="total" className="fra-table__header-cell-right">Total</th>,
-    <th key="female" className="fra-table__header-cell-right">Female</th>,
-    <th key="male" className="fra-table__header-cell-right">Male</th>
+    <th key="female" className="fra-table__header-cell-sub-right">Female</th>,
+    <th key="male" className="fra-table__header-cell-sub-right">Male</th>
   ]
 
 export default i18n => ({
