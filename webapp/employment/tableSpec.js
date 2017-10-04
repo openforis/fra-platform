@@ -7,6 +7,10 @@ const sumOfGenders = (tableData, rowIdx, yearIdx) => {
   const male = tableData[rowIdx][yearIdx * 3 + 3]
   if (R.isNil(female) && R.isNil(male))
     return null
+  else if (R.isNil(female))
+    return male
+  else if (R.isNil(male))
+    return female
   else
     return add(female, male).toFixed(0)
 }
