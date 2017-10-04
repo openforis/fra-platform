@@ -1,4 +1,5 @@
 {
+  "license": "UNLICENSED",
   "name": "frap",
   "engines": {
     "node": "8.6.0",
