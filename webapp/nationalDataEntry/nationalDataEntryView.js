@@ -9,6 +9,7 @@ import ChartWrapper from './chart/chartWrapper'
 import LoggedInPageTemplate from '../loggedInPageTemplate'
 import { DataTable } from '../originalDataPoint/commentableDatatable'
 import { CommentableReviewDescription } from '../description/commentableDescription'
+import { sum } from '../../common/bignumberUtils'
 
 const NationalDataEntry = (props) => {
 
@@ -53,6 +54,13 @@ const NationalDataEntry = (props) => {
       field: 'otherLandTreesUrbanSettings',
       className: 'fra-table__header-cell-sub',
       localizedName: i18n.t('extentOfForest.ofWhichTreesUrbanSettings')
+    },
+    {
+      field: 'totalLandArea',
+      localizedName: i18n.t('extentOfForest.totalLandArea'),
+      customRender: data => R.values(data).map(v =>
+          <td key={`tot_area_${v.year}`} className="fra-table__aggregate-cell">{sum([v.forestArea, v.otherWoodedLand, v.otherLand])}</td>
+      )
     }
   ]
 
@@ -81,21 +89,24 @@ const NationalDataEntry = (props) => {
         </Link>
       </div>
       <ChartWrapper stateName="nationalDataEntry" trends={[
-        {name:'forestArea', label:i18n.t('fraClass.forest'), color:'#0098a6'},
-        {name:'otherWoodedLand', label:i18n.t('fraClass.otherWoodedLand'), color:'#bf00af'}
-        ]}/>
+        {name: 'forestArea', label: i18n.t('fraClass.forest'), color: '#0098a6'},
+        {name: 'otherWoodedLand', label: i18n.t('fraClass.otherWoodedLand'), color: '#bf00af'}
+      ]}/>
     </div>
 
     <div className="nde__data-table-header">
       <h3 className="subhead">{i18n.t('extentOfForest.extentOfForest')}</h3>
       <DefinitionLink document="tad" anchor="1a" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
-      <DefinitionLink document="faq" anchor="1a" title={i18n.t('definition.faqLabel')} lang={i18n.language} className="align-left"/>
+      <DefinitionLink document="faq" anchor="1a" title={i18n.t('definition.faqLabel')} lang={i18n.language}
+                      className="align-left"/>
       <button disabled={disableGenerateFRAValues()} className="btn btn-primary"
               onClick={() => props.generateFraValues('extentOfForest', props.countryIso)}>
         {i18n.t('extentOfForest.generateFraValues')}
       </button>
     </div>
-    <DataTable section='extentOfForest' rows={eofRows} rowNames={eofRowNames} {...props} areaUnitLabel={props.i18n.t('extentOfForest.areaUnitLabel')} categoryHeader={props.i18n.t('extentOfForest.categoryHeader')} />
+    <DataTable section='extentOfForest' rows={eofRows} rowNames={eofRowNames} {...props}
+               areaUnitLabel={props.i18n.t('extentOfForest.areaUnitLabel')}
+               categoryHeader={props.i18n.t('extentOfForest.categoryHeader')}/>
     <CommentableReviewDescription
       section='extentOfForest'
       countryIso={props.match.params.countryIso}
