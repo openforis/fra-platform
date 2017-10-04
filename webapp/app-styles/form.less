@@ -6,6 +6,20 @@ input, select, textarea {
 }
 
 .select {
+  .mixin-select-base;
+  font-size: @font-m;
+  height: 32px;
+  min-width: 120px;
+}
+
+.select-small {
+  .mixin-select-base;
+  font-size: @font-xs;
+  height: 24px;
+  min-width: 80px;
+}
+
+.mixin-select-base() {
   background-color: white;
   background-position: right 8px top 50%;
   background-repeat: no-repeat;
@@ -14,19 +28,9 @@ input, select, textarea {
   border-radius: 3px;
   color: @text-body;
   display: inline-block;
-  font-size: @font-m;
-  height: 32px;
-  min-width: 96px;
   padding: 0 8px;
   vertical-align: middle;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
 }
-
-.select-small {
-  font-size: @font-xs;
-  height: 24px;
-  min-width: 80px;
-}
-
