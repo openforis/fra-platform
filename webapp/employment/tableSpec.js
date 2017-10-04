@@ -1,13 +1,14 @@
 import React from 'react'
 import R from 'ramda'
+import { add } from '../../common/bignumberUtils'
 
 const sumOfGenders = (tableData, rowIdx, yearIdx) => {
-  const female = tableData[rowIdx][yearIdx*3+2]
-  const male = tableData[rowIdx][yearIdx*3+3]
+  const female = tableData[rowIdx][yearIdx * 3 + 2]
+  const male = tableData[rowIdx][yearIdx * 3 + 3]
   if (R.isNil(female) && R.isNil(male))
     return null
   else
-    return female + male
+    return add(female, male).toFixed(0)
 }
 
 const yearFields = rowIdx => yearIdx => [
@@ -41,22 +42,22 @@ const yearSubHeadings = i18n =>
 export default i18n => ({
   name: 'employment',
   header: <thead>
-    <tr>
-      <th className="fra-table__header-cell" rowSpan="3">{i18n.t('employment.categoryHeader')}</th>
-      <th className="fra-table__header-cell-middle" colSpan="12">{i18n.t('employment.unitHeader')}</th>
-    </tr>
-    <tr>
-      <th colSpan="3" className="fra-table__header-cell-middle">1990</th>
-      <th colSpan="3" className="fra-table__header-cell-middle">2000</th>
-      <th colSpan="3" className="fra-table__header-cell-middle">2010</th>
-      <th colSpan="3" className="fra-table__header-cell-middle">2015</th>
-    </tr>
-    <tr>
-      {yearSubHeadings(i18n)}
-      {yearSubHeadings(i18n)}
-      {yearSubHeadings(i18n)}
-      {yearSubHeadings(i18n)}
-    </tr>
+  <tr>
+    <th className="fra-table__header-cell" rowSpan="3">{i18n.t('employment.categoryHeader')}</th>
+    <th className="fra-table__header-cell-middle" colSpan="12">{i18n.t('employment.unitHeader')}</th>
+  </tr>
+  <tr>
+    <th colSpan="3" className="fra-table__header-cell-middle">1990</th>
+    <th colSpan="3" className="fra-table__header-cell-middle">2000</th>
+    <th colSpan="3" className="fra-table__header-cell-middle">2010</th>
+    <th colSpan="3" className="fra-table__header-cell-middle">2015</th>
+  </tr>
+  <tr>
+    {yearSubHeadings(i18n)}
+    {yearSubHeadings(i18n)}
+    {yearSubHeadings(i18n)}
+    {yearSubHeadings(i18n)}
+  </tr>
   </thead>,
   rows: [
     inputRow(0, rowHeading(i18n, 'employment.inForestryAndLogging')),

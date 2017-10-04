@@ -2,11 +2,7 @@ import React from 'react'
 import './thousandSeparatedIntegerInput.less'
 import { separateThousandsWithSpaces } from '../utils/numberFormat'
 
-const renderFocusedIntegerValue = integerValue =>
-  typeof integerValue === 'number' ? integerValue : ''
-
-const renderUnfocusedIntegerValue = integerValue =>
-  typeof integerValue === 'number' ? separateThousandsWithSpaces(integerValue) : ''
+const renderUnfocusedIntegerValue = integerValue => separateThousandsWithSpaces(integerValue)
 
 export class ThousandSeparatedIntegerInput extends React.Component {
   constructor () {
@@ -31,7 +27,7 @@ export class ThousandSeparatedIntegerInput extends React.Component {
           disabled={this.props.disabled}
           ref="inputField"
           className={className}
-          value={renderFocusedIntegerValue(integerValue)}
+          value={integerValue || ''}
           onChange={ onChange }
           onPaste={ onPaste }
           onFocus={
