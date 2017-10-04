@@ -1,16 +1,11 @@
 module.exports = {
-  tableName: 'biomass_stock_total',
+  tableName: 'biomass_stock',
   section: 'biomassStock',
   rows: {
     names: [
-      'forest', // Won't contain data
-      'forest_above_ground_total',
-      'forest_below_ground_total',
-      'forest_deadwood_total',
-      'other_wooded_land', // Won't contain data
-      'other_wooded_land_above_ground_total',
-      'other_wooded_land_below_ground_total',
-      'other_wooded_land_deadwood_total'
+      'forest_above_ground',
+      'forest_below_ground',
+      'forest_deadwood'
     ]
   },
   columns: [

@@ -12,6 +12,7 @@ import areaOfPermanentForestEstateTableSpec from '../areaOfPermanentForestEstate
 import employmentTableSpec from '../employment/tableSpec'
 import forestPolicyTableSpec from '../forestPolicy/tableSpec'
 import carbonStockTableSpec from '../carbonStock/tableSpec'
+import biomassStockTableSpec from '../biomassStock/tableSpec'
 
 export const annualItems = i18n => [
   {
@@ -29,7 +30,7 @@ export const annualItems = i18n => [
   {
     tableNo: '3c',
     label: i18n.t('biomassStock.biomassStock'),
-    section: 'biomassStock',
+    section: biomassStockTableSpec(i18n).name,
     pathTemplate: '/country/:countryIso/biomassStock'
   },
   {
@@ -92,7 +93,7 @@ export const fra2020Items = i18n => [
   {
     tableNo: '3c',
     label: i18n.t('biomassStock.biomassStock'),
-    section: 'biomassStock',
+    section: biomassStockTableSpec(i18n).name,
     pathTemplate: '/country/:countryIso/biomassStock'
   },
   {

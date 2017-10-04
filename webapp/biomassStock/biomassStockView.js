@@ -3,17 +3,15 @@ import { connect } from 'react-redux'
 
 import LoggedInPageTemplate from '../loggedInPageTemplate'
 import TraditionalTable from '../traditionalTable/traditionalTable'
-import { avgTableSpec, totalTableSpec } from './tablesSpec'
+import tableSpec from './tableSpec'
 import { CommentableDescriptions } from '../description/commentableDescription'
 import DefinitionLink from './../reusableUiComponents/definitionLink'
 
 const BiomassStockView = ({match, i18n}) => {
+  const tableProps = tableSpec(i18n)
   const countryIso = match.params.countryIso
   const lang = i18n.language
   const calculatorFilePath = `/api/biomassStock/${countryIso}/${lang}/download`
-
-  const avgTableProps = avgTableSpec(i18n)
-  const totalTableProps = totalTableSpec(i18n)
 
   return <LoggedInPageTemplate>
     <div className="tv__container">
@@ -28,10 +26,7 @@ const BiomassStockView = ({match, i18n}) => {
       </div>
 
       <div className="traditional-table-outer-container">
-        <TraditionalTable tableSpec={avgTableProps} countryIso={countryIso}/>
-      </div>
-      <div className="traditional-table-outer-container">
-        <TraditionalTable tableSpec={totalTableProps} countryIso={countryIso}/>
+        <TraditionalTable tableSpec={tableProps} countryIso={countryIso}/>
       </div>
 
       <CommentableDescriptions
