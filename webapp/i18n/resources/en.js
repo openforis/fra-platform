@@ -289,7 +289,7 @@ export const translation = {
   },
 
   biomassStock: {
-    biomassStock: 'Biomass stock',
+    biomassStock: 'Biomass stock in forest',
     categoryHeader: 'FRA categories',
     avgTableHeader: 'Forest biomass (tonnes/ha)',
     totalTableHeader: 'Forest biomass (million tonnes)',
@@ -300,7 +300,7 @@ export const translation = {
   },
 
   carbonStock: {
-    carbonStock: 'Carbon stock',
+    carbonStock: 'Carbon stock in forest',
     categoryHeader: 'FRA categories',
     avgTableHeader: 'Forest carbon (tonnes/ha)',
     totalTableHeader: 'Forest carbon (million tonnes)',
