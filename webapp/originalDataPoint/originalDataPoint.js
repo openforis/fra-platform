@@ -3,6 +3,7 @@
  */
 
 import R from 'ramda'
+import { sum, mul, div } from '../../common/bignumberUtils'
 
 const uuidv4 = require('uuid/v4')
 
@@ -54,28 +55,33 @@ export const addNationalClassPlaceHolder = (odp) => ({
   nationalClasses: [...odp.nationalClasses, nationalClassPlaceHolder()]
 })
 
-export const totalForest = (odp, percentFieldName) => {
-  const reduceTotal = (total, nationalClass) =>
-    isNaN(nationalClass.area) || isNaN(nationalClass[percentFieldName]) // isNaN actually tests whether something can be converted to a number, not whether it's NaN
-      ? 0
-      : total + (Number(nationalClass.area) * (Number(nationalClass[percentFieldName]) / 100.0))
-  return (R.reduce(reduceTotal, 0, odp.nationalClasses)).toFixed(calculationPrecision)
-}
+export const totalArea = odp => R.pipe(
+  R.map(nationalClass => nationalClass.area),
+  R.reject(v => !v),
+  sum
+)(odp.nationalClasses)
 
-const calculationPrecision = 2
+export const classTotalArea = (odp, percentFieldName) => R.pipe(
+  R.filter(nationalClass => nationalClass.area && nationalClass[percentFieldName]),
+  R.map(nationalClass => mul(nationalClass.area, nationalClass[percentFieldName]).div(100.0)),
+  sum
+)(odp.nationalClasses)
+
+export const subClassTotalArea = (odp, percentFieldName, subClassPercentFieldName) =>
+  R.pipe(
+    R.filter(nationalClass => nationalClass.area && nationalClass[percentFieldName] && nationalClass[subClassPercentFieldName]),
+    R.map(nationalClass => mul(nationalClass.area, nationalClass[percentFieldName]).mul(nationalClass[subClassPercentFieldName]).div(10000.0)),
+    sum
+  )(odp.nationalClasses)
+
+export const otherLandTotalArea = odp => classTotalArea(odp, 'otherLandPercent')
+
+export const otherLandClassTotalArea = (odp, percentFieldName) => subClassTotalArea(odp, 'otherLandPercent', percentFieldName)
+
+export const forestClassTotalArea = (odp, percentFieldName) => subClassTotalArea(odp, 'forestPercent', percentFieldName)
 
 export const allowCopyingOfPreviousValues =
   R.pipe(R.path(['nationalClasses', 0, 'className']), R.defaultTo(''), R.isEmpty)
-
-export const totalArea = odp =>
-  R.reduce((total, nationalClass) => isNaN(nationalClass.area) ? 0 : total + Number(nationalClass.area), 0, odp.nationalClasses).toFixed(calculationPrecision)
-
-export const otherLandTotalArea = odp =>
-  R.reduce((total, nationalClass) => total + defaultTo0(nationalClass.area) * defaultTo0(nationalClass.otherLandPercent) / 100, 0, odp.nationalClasses).toFixed(calculationPrecision)
-
-export const otherLandClassTotalArea = (odp, percentFieldName) =>
-  R.reduce((total, nationalClass) => total + defaultTo0(nationalClass.area) * defaultTo0(nationalClass.otherLandPercent) * defaultTo0(nationalClass[percentFieldName]) / 10000,
-    0, odp.nationalClasses).toFixed(calculationPrecision)
 
 export const copyNationalClassDefinitions = (odpTarget, odpSource) => ({
   ...odpTarget,

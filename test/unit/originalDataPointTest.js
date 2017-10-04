@@ -9,7 +9,7 @@ describe('originalDataPoint', () => {
         {area: null, forestPercent: 5},
         {area: 400, forestPercent: null}]
     }
-    assert.equal(200.00, originalDataPoint.totalForest(odpWithNationalClasses, 'forestPercent'))
+    assert.equal(200.00, originalDataPoint.classTotalArea(odpWithNationalClasses, 'forestPercent'))
   })
 
   // Temporarily disabled, ODP code should no longer round to integer
@@ -20,7 +20,7 @@ describe('originalDataPoint', () => {
         {area: null, forestPercent: 5},
         {area: 400, forestPercent: null}]
     }
-    assert.equal(200, originalDataPoint.totalForest(odpWithNationalClasses, 'forestPercent'))
+    assert.equal(200, originalDataPoint.classTotalArea(odpWithNationalClasses, 'forestPercent'))
 
     const odpWithNationalClasses2 = {
       nationalClasses: [{area: 200, forestPercent: 50},
@@ -28,9 +28,9 @@ describe('originalDataPoint', () => {
         {area: null, forestPercent: 5},
         {area: 400, forestPercent: null}]
     }
-    assert.equal(201, originalDataPoint.totalForest(odpWithNationalClasses2, 'forestPercent'))
+    assert.equal(201, originalDataPoint.classTotalArea(odpWithNationalClasses2, 'forestPercent'))
 
-    assert.equal(-1, String(originalDataPoint.totalForest(odpWithNationalClasses2, 'forestPercent')).indexOf('.'))
+    assert.equal(-1, String(originalDataPoint.classTotalArea(odpWithNationalClasses2, 'forestPercent')).indexOf('.'))
   })
 
   it('allows copying values only for empty odp', () => {
