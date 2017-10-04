@@ -8,7 +8,7 @@ const defaultTo0 = R.defaultTo(0)
 
 const toBigNumber = value => new BigNumber(value)
 
-const sum = array => R.isEmpty(array)
+const sum = array => R.isEmpty(array) || array.every(v => !v)
   ? null
   : R.reduce((total, f) => add(total, defaultTo0(f)), 0, array).toFixed(2)
 
