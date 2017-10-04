@@ -34,8 +34,8 @@ export const getYScale = data => {
 export const getChartData = (fra, property) => {
   return R.pipe(
     R.values,
-    R.filter(v => typeof v[property] === 'number'),
-    R.map((v) => { return {year: v.year, value: v[property], type: v.type, estimated: v[`${property}Estimated`]} })
+    R.reject(v => R.isNil(v[property])),
+    R.map((v) => { return {year: v.year, value: Number(v[property]), type: v.type, estimated: v[`${property}Estimated`]} })
   )(fra)
 }
 
