@@ -2,7 +2,6 @@ const db = require('../db/db')
 const R = require('ramda')
 const Promise = require('bluebird')
 const camelize = require('camelize')
-const {toNumberOrNull} = require('../utils/databaseConversions')
 const {validateDataPoint} = require('../../common/originalDataPointCommon')
 const {deleteIssuesByIds, deleteIssues} = require('../review/reviewRepository')
 const {checkCountryAccess} = require('../utils/accessControl')
@@ -247,19 +246,19 @@ const getOdpNationalClasses = (queryProvider, odpVersionId) =>
     .then(result => R.map(row => ({
       className: row.name,
       definition: row.definition,
-      area: toNumberOrNull(row.area),
-      forestPercent: toNumberOrNull(row.forest_percent),
-      otherWoodedLandPercent: toNumberOrNull(row.other_wooded_land_percent),
-      otherLandPercent: toNumberOrNull(row.other_land_percent),
-      naturalForestPercent: toNumberOrNull(row.forest_natural_percent),
-      naturalForestPrimaryPercent: toNumberOrNull(row.forest_natural_primary_percent),
-      plantationPercent: toNumberOrNull(row.forest_plantation_percent),
-      plantationIntroducedPercent: toNumberOrNull(row.forest_plantation_introduced_percent),
-      otherPlantedPercent: toNumberOrNull(row.other_planted_forest_percent),
-      otherLandPalmsPercent: toNumberOrNull(row.other_land_palms_percent),
-      otherLandTreeOrchardsPercent: toNumberOrNull(row.other_land_tree_orchards_percent),
-      otherLandAgroforestryPercent: toNumberOrNull(row.other_land_agroforestry_percent),
-      otherLandTreesUrbanSettingsPercent: toNumberOrNull(row.other_land_trees_urban_settings_percent),
+      area: row.area,
+      forestPercent: row.forest_percent,
+      otherWoodedLandPercent: row.other_wooded_land_percent,
+      otherLandPercent: row.other_land_percent,
+      naturalForestPercent: row.forest_natural_percent,
+      naturalForestPrimaryPercent: row.forest_natural_primary_percent,
+      plantationPercent: row.forest_plantation_percent,
+      plantationIntroducedPercent: row.forest_plantation_introduced_percent,
+      otherPlantedPercent: row.other_planted_forest_percent,
+      otherLandPalmsPercent: row.other_land_palms_percent,
+      otherLandTreeOrchardsPercent: row.other_land_tree_orchards_percent,
+      otherLandAgroforestryPercent: row.other_land_agroforestry_percent,
+      otherLandTreesUrbanSettingsPercent: row.other_land_trees_urban_settings_percent,
       uuid: row.uuid
     }), result.rows))
 
@@ -284,7 +283,7 @@ const getOdp = odpId =>
     ).then(([result, nationalClasses]) =>
     R.pipe(
       R.assoc('nationalClasses', nationalClasses),
-      R.assoc('year', toNumberOrNull(result.rows[0].year)))
+      R.assoc('year', result.rows[0].year))
     (camelize(result.rows[0])))
 
 module.exports.getOdp = getOdp
@@ -292,13 +291,13 @@ module.exports.getOdp = getOdp
 const eofReducer = (results, row, type = 'fra') => R.assoc(`odp_${row.year}`,
   {
     odpId: row.odp_id,
-    forestArea: Number(row.forest_area),
-    otherWoodedLand: Number(row.other_wooded_land_area),
-    otherLand: Number(row.other_land_area),
-    otherLandPalms: toNumberOrNull(row.other_land_palms),
-    otherLandTreeOrchards: toNumberOrNull(row.other_land_tree_orchards),
-    otherLandAgroforestry: toNumberOrNull(row.other_land_agroforestry),
-    otherLandTreesUrbanSettings: toNumberOrNull(row.other_land_trees_urban_settings),
+    forestArea: row.forest_area,
+    otherWoodedLand: row.other_wooded_land_area,
+    otherLand: row.other_land_area,
+    otherLandPalms: row.other_land_palms,
+    otherLandTreeOrchards: row.other_land_tree_orchards,
+    otherLandAgroforestry: row.other_land_agroforestry,
+    otherLandTreesUrbanSettings: row.other_land_trees_urban_settings,
     name: row.year + '',
     type: 'odp',
     year: Number(row.year),

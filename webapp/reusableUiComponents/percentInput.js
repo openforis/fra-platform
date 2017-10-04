@@ -1,9 +1,6 @@
 import React from 'react'
 import './percentInput.less'
 
-const renderValue = value =>
-  typeof value === 'number' ? value : ''
-
 export class PercentInput extends React.Component {
   constructor () {
     super()
@@ -18,7 +15,7 @@ export class PercentInput extends React.Component {
              display: this.state.hasFocus ? 'none' : 'inline-block',
            }}
       >
-        {renderValue(this.props.value)}
+        {this.props.value}
       </div>
       <Prefix text={this.props.prefix} />
       <div className="percent__input-field-wrapper" style={{opacity: this.state.hasFocus ? '1' : '0'}}>
@@ -26,7 +23,7 @@ export class PercentInput extends React.Component {
           className="percent__input-field"
           type="text"
           maxLength="3"
-          value={ renderValue(this.props.value) }
+          value={ this.props.value }
           onChange={ this.props.onChange }
           onPaste={ this.props.onPaste }
           onFocus={ () => { this.setState({hasFocus: true}) } }

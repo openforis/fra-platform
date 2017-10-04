@@ -1,6 +1,5 @@
 const db = require('../db/db')
 const R = require('ramda')
-const {toNumberOrNull} = require('../utils/databaseConversions')
 
 const emptyEof = (countryIso, year) =>
   db.query('SELECT id FROM eof_fra_values WHERE country_iso = $1 and year = $2', [countryIso, year])
@@ -146,19 +145,19 @@ const updateFoc = (countryIso, year, fraValues) =>
 
 const forestAreaReducer = (results, row, type = 'fra') => R.assoc(`fra_${row.year}`,
   {
-    forestArea: toNumberOrNull(row.forest_area),
-    otherWoodedLand: toNumberOrNull(row.other_wooded_land),
-    otherLand: toNumberOrNull(row.other_land),
+    forestArea: row.forest_area,
+    otherWoodedLand: row.other_wooded_land,
+    otherLand: row.other_land,
     name: row.year + '',
     type: 'fra',
-    year: Number(row.year),
+    year: row.year,
     forestAreaEstimated: row.forest_area_estimated || false,
     otherWoodedLandEstimated: row.other_wooded_land_estimated || false,
     otherLandEstimated: row.other_land_estimated || false,
-    otherLandPalms: toNumberOrNull(row.other_land_palms),
-    otherLandTreeOrchards: toNumberOrNull(row.other_land_tree_orchards),
-    otherLandAgroforestry: toNumberOrNull(row.other_land_agroforestry),
-    otherLandTreesUrbanSettings: toNumberOrNull(row.other_land_trees_urban_settings),
+    otherLandPalms: row.other_land_palms,
+    otherLandTreeOrchards: row.other_land_tree_orchards,
+    otherLandAgroforestry: row.other_land_agroforestry,
+    otherLandTreesUrbanSettings: row.other_land_trees_urban_settings,
     otherLandPalmsEstimated: row.other_land_palms_estimated || false,
     otherLandTreeOrchardsEstimated: row.other_land_tree_orchards_estimated || false,
     otherLandAgroforestryEstimated: row.other_land_agroforestry_estimated || false,
@@ -168,15 +167,15 @@ const forestAreaReducer = (results, row, type = 'fra') => R.assoc(`fra_${row.yea
 
 const forestCharacteristicsReducer = (results, row, type = 'fra') => R.assoc(`fra_${row.year}`,
   {
-    naturalForestArea: toNumberOrNull(row.natural_forest_area),
-    naturalForestPrimaryArea: toNumberOrNull(row.natural_forest_primary_area),
-    plantationForestArea: toNumberOrNull(row.plantation_forest_area),
-    plantationForestIntroducedArea: toNumberOrNull(row.platation_forest_introduced_area),
-    otherPlantedForestArea: toNumberOrNull(row.other_planted_forest_area),
-    otherWoodedLand: toNumberOrNull(row.other_wooded_land),
+    naturalForestArea: row.natural_forest_area,
+    naturalForestPrimaryArea: row.natural_forest_primary_area,
+    plantationForestArea: row.plantation_forest_area,
+    plantationForestIntroducedArea: row.platation_forest_introduced_area,
+    otherPlantedForestArea: row.other_planted_forest_area,
+    otherWoodedLand: row.other_wooded_land,
     name: row.year + '',
     type: 'fra',
-    year: Number(row.year),
+    year: row.year,
     naturalForestAreaEstimated: row.natural_forest_area_estimated || false,
     naturalForestAreaPrimaryEstimated: row.natural_forest_primary_area_estimated || false,
     plantationForestAreaEstimated: row.plantation_forest_area_estimated || false,
