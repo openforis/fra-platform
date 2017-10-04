@@ -8,10 +8,8 @@ const areaAffectedByFire = require('./mappings/areaAffectedByFire')
 const growingStockComposition = require('./mappings/growingStockComposition')
 const nonWoodForestProductsRemovals = require('./mappings/nonWoodForestProductsRemovals')
 const nonWoodForestProductsRemovalsCurrency = require('./mappings/nonWoodForestProductsRemovalsCurrency')
-const biomassStockTotal = require('./mappings/biomassStockTotal')
-const biomassStockAvg = require('./mappings/biomassStockAvg')
-const carbonStockTotal = require('./mappings/carbonStockTotal')
-const carbonStockAvg = require('./mappings/carbonStockAvg')
+const biomassStock = require('./mappings/biomassStock')
+const carbonStock = require('./mappings/carbonStock')
 const degradedForest = require('./mappings/degradedForest')
 const employment = require('./mappings/employment')
 const graduationOfStudents = require('./mappings/graduationOfStudents')
@@ -40,10 +38,8 @@ const mappings = {
   totalAreaWithDesignatedManagementObjective,
   annualReforestation,
   disturbances,
-  biomassStockTotal,
-  biomassStockAvg,
-  carbonStockTotal,
-  carbonStockAvg,
+  biomassStock,
+  carbonStock,
   areaOfPermanentForestEstate,
   forestPolicy
 }

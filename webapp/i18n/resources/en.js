@@ -289,10 +289,9 @@ export const translation = {
   },
 
   biomassStock: {
-    biomassStock: 'Biomass stock',
+    biomassStock: 'Biomass stock in forest',
     categoryHeader: 'FRA categories',
-    avgTableHeader: 'Forest biomass (tonnes/ha)',
-    totalTableHeader: 'Forest biomass (million tonnes)',
+    tableHeader: 'Forest biomass (tonnes/ha)',
     aboveGround: 'Above-ground biomass',
     belowGround: 'Below-ground biomass',
     deadWood: 'Dead wood',
@@ -300,10 +299,9 @@ export const translation = {
   },
 
   carbonStock: {
-    carbonStock: 'Carbon stock',
+    carbonStock: 'Carbon stock in forest',
     categoryHeader: 'FRA categories',
-    avgTableHeader: 'Forest carbon (tonnes/ha)',
-    totalTableHeader: 'Forest carbon (million tonnes)',
+    tableHeader: 'Forest carbon (tonnes/ha)',
     carbonAboveGroundBiomass: 'Carbon in above-ground biomass',
     carbonBelowGroundBiomass: 'Carbon in below-ground biomass',
     carbonDeadwood: 'Carbon in dead wood',
