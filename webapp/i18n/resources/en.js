@@ -102,8 +102,10 @@ export const translation = {
       }
     },
     sendFeedback: 'Send Feedback',
-    feedbackEmailSubject: 'Feedback from FRA Platform',
-    lastCommit: 'Last commit'
+    feedbackEmailSubject: 'FRA Platform Feedback',
+    lastCommit: 'Last commit',
+    userAgent: 'User agent',
+    user: 'User'
   },
 
   footer: {

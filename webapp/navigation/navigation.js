@@ -222,6 +222,32 @@ const SecondaryItem = ({path, countryIso, tableNo, pathTemplate = '/tbd', label,
 
 const roleLabel = (countryIso, userInfo, i18n) => i18n.t(mostPowerfulRole(countryIso, userInfo).labelKey)
 
+const FeedbackLink = ({i18n, userInfo}) => {
+  const newLine = `%0D%0A`
+
+  const subject = i18n.t('navigation.feedbackEmailSubject')
+
+  const body = `
+${newLine}${newLine}${newLine}${newLine}
+------------------------------------------------------------------
+${newLine}
+${i18n.t('navigation.user')}: ${userInfo.name} (${userInfo.id})
+${newLine}
+${i18n.t('navigation.lastCommit')}: ${__LAST_COMMIT__}
+${newLine}
+${i18n.t('navigation.userAgent')}: ${navigator.userAgent}
+`
+  return <div className="nav__primary-item">
+    <a
+      className="nav__feedback-link"
+      target="_top"
+      href={`mailto:fra@fao.org?Subject=${subject}&body=${body}`}>
+      {i18n.t('navigation.sendFeedback')}
+    </a>
+  </div>
+
+}
+
 class Nav extends React.Component {
 
   constructor () {
@@ -314,15 +340,7 @@ class Nav extends React.Component {
               )
             }
 
-            <div className="nav__primary-item">
-              <a
-                className="nav__feedback-link"
-                target="_top"
-                href={`mailto:fra@fao.org?Subject=${this.props.i18n.t('navigation.feedbackEmailSubject')}&body=%0D%0A%0D%0A%0D%0A%0D%0A---------------------------------%0D%0A${this.props.i18n.t('navigation.lastCommit')}: ${__LAST_COMMIT__}`}
-              >
-                {this.props.i18n.t('navigation.sendFeedback')}
-                </a>
-            </div>
+            <FeedbackLink {...this.props} />
 
           </div>
         </div>
