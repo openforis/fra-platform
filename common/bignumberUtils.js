@@ -6,7 +6,10 @@ BigNumber.config({ERRORS: false})
 
 const defaultTo0 = R.defaultTo(0)
 
-const toBigNumber = value => new BigNumber(value)
+const toBigNumber = value => {
+  if (value instanceof BigNumber) return value //Do not wrap unnecessarily
+  return new BigNumber(value)
+}
 
 const sum = array => R.isEmpty(array) || array.every(v => !v)
   ? null
