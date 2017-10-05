@@ -1,11 +1,11 @@
 const R = require('ramda')
-const {add, mul, div, sub} = require('../../common/bignumberUtils')
+const {add, mul, div, sub, toFixed} = require('../../common/bignumberUtils')
 
-const linearInterpolation = (x, xa, ya, xb, yb) => add(ya, sub(yb, ya).mul(sub(x, xa)).div(sub(xb, xa))).toFixed(2)
+const linearInterpolation = (x, xa, ya, xb, yb) => toFixed(add(ya, sub(yb, ya).mul(sub(x, xa)).div(sub(xb, xa))))
 
-const linearExtrapolation = (x, xa, ya, xb, yb) => add(ya, sub(x, xa).div(sub(xb, xa)).mul(sub(yb, ya))).toFixed(2)
+const linearExtrapolation = (x, xa, ya, xb, yb) => toFixed(add(ya, sub(x, xa).div(sub(xb, xa)).mul(sub(yb, ya))))
 
-const linearExtrapolationBackwards = (x, xa, ya, xb, yb) =>add(yb, sub(xb, x).div(sub(xb, xa)).mul(sub(ya, yb))).toFixed(2)
+const linearExtrapolationBackwards = (x, xa, ya, xb, yb) => toFixed(add(yb, sub(xb, x).div(sub(xb, xa)).mul(sub(ya, yb))))
 
 const eofFields = ['forestArea', 'otherWoodedLand', 'otherLand', 'otherLandPalms', 'otherLandTreeOrchards', 'otherLandAgroforestry', 'otherLandTreesUrbanSettings']
 const focFields = ['naturalForestArea', 'naturalForestPrimaryArea', 'plantationForestArea', 'plantationForestIntroducedArea', 'otherPlantedForestArea']
