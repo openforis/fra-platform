@@ -4,9 +4,19 @@ import { ThousandSeparatedDecimalInput } from '../reusableUiComponents/thousandS
 import { acceptNextDecimal, acceptableAsDecimal } from '../utils/numberInput'
 import { handlePaste } from './paste'
 
-const DecimalCellType = ({countryIso, tableSpec, tableData, rowIdx, colIdx, tableValueChanged, tableChanged}) => {
+const DecimalCellType = ({
+                           countryIso,
+                           tableSpec,
+                           tableData,
+                           rowIdx,
+                           colIdx,
+                           tableValueChanged,
+                           tableChanged,
+                           validator
+                         }) => {
   const currentValue = tableData[rowIdx][colIdx]
-  return <td className="fra-table__cell">
+  const valid = validator ? validator(tableData, rowIdx, colIdx) : true
+  return <td className={`fra-table__cell ${valid ? '' : 'error'}`}>
     <ThousandSeparatedDecimalInput numberValue={ currentValue }
                                    className="fra-table__integer-input"
                                    onChange={
@@ -33,6 +43,9 @@ const DecimalCellType = ({countryIso, tableSpec, tableData, rowIdx, colIdx, tabl
 }
 
 export default (cellSpec) => ({
-  render: (props) => <DecimalCellType {...props}/>,
+  render: (props) => <DecimalCellType
+    {...props}
+    validator={cellSpec.validator}
+  />,
   acceptValue: acceptNextDecimal
 })

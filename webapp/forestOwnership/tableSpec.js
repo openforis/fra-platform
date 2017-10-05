@@ -3,9 +3,20 @@ import R from 'ramda'
 import { separateDecimalThousandsWithSpaces } from '../utils/numberFormat'
 import { totalSum } from '../traditionalTable/aggregate'
 
-const createInputRow = (rowHeader, cname = 'fra-table__header-cell') => [
+const ofWhichValidator = (tableData, rowIdx, colIdx) => {
+  const privateOwnerShipValue = tableData[0][colIdx]
+  const sumOfParts = totalSum(tableData, colIdx, R.range(1, 4))
+  const value = tableData[rowIdx][colIdx]
+  if (R.isNil(value) || R.isNil(sumOfParts) || R.isNil(privateOwnerShipValue)) return true
+  return privateOwnerShipValue >= sumOfParts
+}
+
+const createInputRow = (rowHeader, cname = 'fra-table__header-cell', validator) => [
   {type: 'readOnly', jsx: <td key="protection" className={`${cname}`}>{rowHeader}</td>},
-  ...(R.times(() => ({type: 'decimalInput'}), 5))
+  ...(R.times(() => ({
+    type: 'decimalInput',
+    validator: validator
+  }), 5))
 ]
 
 const totalForestAreaCell = (column) => (props) => {
@@ -32,7 +43,7 @@ export default i18n => ({
   </thead>,
   rows: [
     createInputRow(i18n.t('forestOwnership.privateOwnership')),
-    createInputRow(i18n.t('forestOwnership.ofWhichIndividuals'), 'fra-table__header-cell-sub'),
+    createInputRow(i18n.t('forestOwnership.ofWhichIndividuals'), 'fra-table__header-cell-sub', ofWhichValidator),
     createInputRow(i18n.t('forestOwnership.ofWhichPrivateBusinesses'), 'fra-table__header-cell-sub'),
     createInputRow(i18n.t('forestOwnership.ofWhichCommunities'), 'fra-table__header-cell-sub'),
     createInputRow(i18n.t('forestOwnership.publicOwnership')),
