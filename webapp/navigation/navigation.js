@@ -313,6 +313,17 @@ class Nav extends React.Component {
                                                                     {...v} />
               )
             }
+
+            <div className="nav__primary-item">
+              <a
+                className="nav__feedback-link"
+                target="_top"
+                href={`mailto:fra@fao.org?Subject=${this.props.i18n.t('navigation.feedbackEmailSubject')}&body=%0D%0A%0D%0A%0D%0A%0D%0A---------------------------------%0D%0A${this.props.i18n.t('navigation.lastCommit')}: ${__LAST_COMMIT__}`}
+              >
+                {this.props.i18n.t('navigation.sendFeedback')}
+                </a>
+            </div>
+
           </div>
         </div>
       </div>

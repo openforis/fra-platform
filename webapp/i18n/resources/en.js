@@ -100,7 +100,10 @@ export const translation = {
         label: 'Editing',
         previous: 'Return to editing'
       }
-    }
+    },
+    sendFeedback: 'Send Feedback',
+    feedbackEmailSubject: 'Feedback from FRA Platform',
+    lastCommit: 'Last commit'
   },
 
   footer: {
