@@ -25,7 +25,7 @@ describe("Number input", () => {
 
   it('accepts decimal with no decimal part', () => {
     const actual = acceptNextDecimal('2.', '1.00')
-    assert.equal('2.', actual)
+    assert.equal('2.00', actual)
   })
 
   it('does not accept decimal with three places', () => {

@@ -1,12 +1,11 @@
-const eofRepository = require('./fraRepository')
-const odpRepository = require('../odp/odpRepository')
 const R = require('ramda')
+const {add, mul, div, sub} = require('../../common/bignumberUtils')
 
-const linearInterpolation = (x, xa, ya, xb, yb) => ya + ( yb - ya) * (x - xa) / (xb - xa)
+const linearInterpolation = (x, xa, ya, xb, yb) => add(ya, sub(yb, ya).mul(sub(x, xa)).div(sub(xb, xa))).toFixed(2)
 
-const linearExtrapolation = (x, xa, ya, xb, yb) => ya + (x - xa) / (xb - xa) * (yb - ya)
+const linearExtrapolation = (x, xa, ya, xb, yb) => add(ya, sub(x, xa).div(sub(xb, xa)).mul(sub(yb, ya))).toFixed(2)
 
-const linearExtrapolationBackwards = (x, xa, ya, xb, yb) => yb + (xb - x) / (xb - xa) * (ya - yb)
+const linearExtrapolationBackwards = (x, xa, ya, xb, yb) =>add(yb, sub(xb, x).div(sub(xb, xa)).mul(sub(ya, yb))).toFixed(2)
 
 const eofFields = ['forestArea', 'otherWoodedLand', 'otherLand', 'otherLandPalms', 'otherLandTreeOrchards', 'otherLandAgroforestry', 'otherLandTreesUrbanSettings']
 const focFields = ['naturalForestArea', 'naturalForestPrimaryArea', 'plantationForestArea', 'plantationForestIntroducedArea', 'otherPlantedForestArea']

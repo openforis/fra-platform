@@ -1,7 +1,6 @@
 const db = require('../db/db')
 const R = require('ramda')
 const camelize = require('camelize')
-const {toNumberOrNull} = require('../utils/databaseConversions')
 const auditRepository = require('./../audit/auditRepository')
 const Promise = require('bluebird')
 
@@ -29,19 +28,19 @@ module.exports.readGrowingStock = countryIso =>
       ORDER BY year`, [countryIso])
     .then(result => result.rows.map(
       row => ({
-        year: Number(row.year),
-        naturallyRegeneratingForest: toNumberOrNull(row.naturally_regenerating_forest),
-        naturallyRegeneratingForestAvg: toNumberOrNull(row.naturally_regenerating_forest_avg),
-        plantationForest: toNumberOrNull(row.plantation_forest),
-        plantationForestAvg: toNumberOrNull(row.plantation_forest_avg),
-        otherPlantedForest: toNumberOrNull(row.other_planted_forest),
-        otherPlantedForestAvg: toNumberOrNull(row.other_planted_forest_avg),
-        otherWoodedLand: toNumberOrNull(row.other_wooded_land),
-        otherWoodedLandAvg: toNumberOrNull(row.other_wooded_land_avg),
-        plantedForest: toNumberOrNull(row.planted_forest),
-        plantedForestAvg: toNumberOrNull(row.planted_forest_avg),
-        totalForest: toNumberOrNull(row.total_forest),
-        totalForestAvg: toNumberOrNull(row.total_forest_avg)
+        year: row.year,
+        naturallyRegeneratingForest: row.naturally_regenerating_forest,
+        naturallyRegeneratingForestAvg: row.naturally_regenerating_forest_avg,
+        plantationForest: row.plantation_forest,
+        plantationForestAvg: row.plantation_forest_avg,
+        otherPlantedForest: row.other_planted_forest,
+        otherPlantedForestAvg: row.other_planted_forest_avg,
+        otherWoodedLand: row.other_wooded_land,
+        otherWoodedLandAvg: row.other_wooded_land_avg,
+        plantedForest: row.planted_forest,
+        plantedForestAvg: row.planted_forest_avg,
+        totalForest: row.total_forest,
+        totalForestAvg: row.total_forest_avg
       })
     ))
 

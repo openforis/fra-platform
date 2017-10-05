@@ -1,5 +1,6 @@
 import React from 'react'
 import R from 'ramda'
+import { totalSum } from '../traditionalTable/aggregate'
 
 const fillerCell = () => ({
   type: 'readOnly',
@@ -26,25 +27,25 @@ const productRow = idx => [
   {
     type: 'textSelect',
     localizationPrefix: 'nonWoodForestProductsRemovals',
-      options: [
-          {name: 'plantProductsSelectHeading', type: 'heading'},
-          {name: 'food'},
-          {name: 'fodder'},
-          {name: 'rawMaterialForMedicine'},
-          {name: 'rawMaterialForColorants'},
-          {name: 'rawMaterialForUtensils'},
-          {name: 'ornamentalPlants'},
-          {name: 'exudates'},
-          {name: 'otherPlantProducts'},
-          {name: 'animalProductsSelectHeading', type: 'heading'},
-          {name: 'livingAnimals'},
-          {name: 'hidesSkins'},
-          {name: 'wildHoney'},
-          {name: 'wildMeat'},
-          {name: 'animalRawMaterialForMedicine'},
-          {name: 'animalRawMaterialForColorants'},
-          {name: 'otherEdibleAnimalProducts'},
-          {name: 'otherNonEdibleAnimalProducts'}
+    options: [
+      {name: 'plantProductsSelectHeading', type: 'heading'},
+      {name: 'food'},
+      {name: 'fodder'},
+      {name: 'rawMaterialForMedicine'},
+      {name: 'rawMaterialForColorants'},
+      {name: 'rawMaterialForUtensils'},
+      {name: 'ornamentalPlants'},
+      {name: 'exudates'},
+      {name: 'otherPlantProducts'},
+      {name: 'animalProductsSelectHeading', type: 'heading'},
+      {name: 'livingAnimals'},
+      {name: 'hidesSkins'},
+      {name: 'wildHoney'},
+      {name: 'wildMeat'},
+      {name: 'animalRawMaterialForMedicine'},
+      {name: 'animalRawMaterialForColorants'},
+      {name: 'otherEdibleAnimalProducts'},
+      {name: 'otherNonEdibleAnimalProducts'}
     ]
   },
 ]
@@ -56,26 +57,16 @@ const otherProductsRow = (heading) => [
       {heading}
     </td>
   },
-  ...R.times(fillerCell,4),
+  ...R.times(fillerCell, 4),
   {type: 'integerInput'},
   lastFillerOrRow()
 ]
 
 const totalRow = i18n => {
-  const total = tableData =>
-    R.reduce((sum, row) => {
-        const value = tableData[row][5]
-        if (!R.isNil(value))
-          return sum + value
-        else
-          return sum
-      },
-      0,
-      R.range(0, 13)
-    )
+
   const renderSum = ({tableData}) =>
     <td key="" className="fra-table__aggregate-cell">
-      {total(tableData)}
+      {totalSum(tableData, 5, R.range(0, 13))}
     </td>
 
   return [
@@ -108,7 +99,7 @@ export default i18n => ({
   </tr>
   </thead>,
   rows: [
-    ...R.map(productRow,R.range(1, 11)),
+    ...R.map(productRow, R.range(1, 11)),
     otherProductsRow(i18n.t('nonWoodForestProductsRemovals.allOtherPlantProducts')),
     otherProductsRow(i18n.t('nonWoodForestProductsRemovals.allOtherAnimalProducts')),
     totalRow(i18n)
