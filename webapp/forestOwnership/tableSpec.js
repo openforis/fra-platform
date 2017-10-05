@@ -8,7 +8,7 @@ const ofWhichValidator = (tableData, rowIdx, colIdx) => {
   const sumOfParts = totalSum(tableData, colIdx, R.range(1, 4))
   const value = tableData[rowIdx][colIdx]
   if (R.isNil(value) || R.isNil(sumOfParts) || R.isNil(privateOwnerShipValue)) return true
-  return privateOwnerShipValue >= sumOfParts
+  return Number(privateOwnerShipValue) >= Number(sumOfParts)
 }
 
 const createInputRow = (rowHeader, cname = 'fra-table__header-cell', validator) => [
@@ -44,8 +44,8 @@ export default i18n => ({
   rows: [
     createInputRow(i18n.t('forestOwnership.privateOwnership')),
     createInputRow(i18n.t('forestOwnership.ofWhichIndividuals'), 'fra-table__header-cell-sub', ofWhichValidator),
-    createInputRow(i18n.t('forestOwnership.ofWhichPrivateBusinesses'), 'fra-table__header-cell-sub'),
-    createInputRow(i18n.t('forestOwnership.ofWhichCommunities'), 'fra-table__header-cell-sub'),
+    createInputRow(i18n.t('forestOwnership.ofWhichPrivateBusinesses'), 'fra-table__header-cell-sub', ofWhichValidator),
+    createInputRow(i18n.t('forestOwnership.ofWhichCommunities'), 'fra-table__header-cell-sub', ofWhichValidator),
     createInputRow(i18n.t('forestOwnership.publicOwnership')),
     createInputRow(i18n.t('forestOwnership.otherOrUnknown')),
     [{type: 'readOnly',
