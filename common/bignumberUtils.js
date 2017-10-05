@@ -2,7 +2,14 @@ const BigNumber = require('bignumber.js')
 const R = require('ramda')
 
 //disabling BigNumber Error: new BigNumber() number type has more than 15 significant digits
-BigNumber.config({ERRORS: false})
+BigNumber.config({
+  ERRORS: false,
+  FORMAT: {
+    decimalSeparator: '.',
+    groupSeparator: ' ',
+    groupSize: 3
+  }
+})
 
 const defaultTo0 = R.defaultTo(0)
 
@@ -11,21 +18,30 @@ const toBigNumber = value => {
   return new BigNumber(value)
 }
 
+const applyOp = (x, y, op) => {
+  const res = toBigNumber(x)[op](toBigNumber(y))
+  return res.isFinite() ? res : null
+}
+
 const sum = array => R.isEmpty(array) || array.every(v => !v)
   ? null
-  : R.reduce((total, f) => add(total, defaultTo0(f)), 0, array).toFixed(2)
+  : R.reduce((total, f) => add(total, defaultTo0(f)), 0, array)
 
-const add = (x, y) => toBigNumber(x).add(toBigNumber(y))
+const add = (x, y) => applyOp(x, y, 'add')
 
-const sub = (x, y) => toBigNumber(x).sub(toBigNumber(y))
+const sub = (x, y) => applyOp(x, y, 'sub')
 
-const mul = (x, y) => toBigNumber(x).mul(toBigNumber(y))
+const mul = (x, y) => applyOp(x, y, 'mul')
 
-const div = (x, y) => toBigNumber(x).div(toBigNumber(y))
+const div = (x, y) => applyOp(x, y, 'div')
 
-const toFixed = (value, precision = 2) => value
-  ? toBigNumber(value).toFixed(precision)
-  : null
+const toFixed = (value, precision = 2) => R.isNil(value)
+  ? null
+  : toBigNumber(value).toFixed(precision)
+
+const formatNumber = (value, precision = 2) => R.isNil(value)
+  ? null
+  : toBigNumber(value).toFormat(precision)
 
 module.exports.sum = sum
 module.exports.add = add
@@ -33,3 +49,4 @@ module.exports.sub = sub
 module.exports.mul = mul
 module.exports.div = div
 module.exports.toFixed = toFixed
+module.exports.formatNumber = formatNumber

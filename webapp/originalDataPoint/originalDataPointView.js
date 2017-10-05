@@ -15,7 +15,7 @@ import {
 import { fetchCountryOverviewStatus } from '../navigation/actions'
 import { acceptNextInteger, acceptNextDecimal } from '../utils/numberInput'
 import { readPasteClipboard } from '../utils/copyPasteUtil'
-import { separateDecimalThousandsWithSpaces } from '../utils/numberFormat'
+import { formatDecimal } from '../utils/numberFormat'
 import { ThousandSeparatedDecimalInput } from '../reusableUiComponents/thousandSeparatedDecimalInput'
 import { PercentInput } from '../reusableUiComponents/percentInput'
 import VerticallyGrowingTextField from '../reusableUiComponents/verticallyGrowingTextField'
@@ -107,13 +107,13 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
         <tr>
           <td className="fra-table__header-cell">{i18n.t('nationalDataPoint.total')}</td>
           <td
-            className="fra-table__aggregate-cell fra-table__divider">{separateDecimalThousandsWithSpaces(originalDataPoint.totalArea(active))}</td>
+            className="fra-table__aggregate-cell fra-table__divider">{formatDecimal(originalDataPoint.totalArea(active))}</td>
           <td
-            className="fra-table__aggregate-cell">{separateDecimalThousandsWithSpaces(originalDataPoint.classTotalArea(active, 'forestPercent'))}</td>
+            className="fra-table__aggregate-cell">{formatDecimal(originalDataPoint.classTotalArea(active, 'forestPercent'))}</td>
           <td
-            className="fra-table__aggregate-cell">{separateDecimalThousandsWithSpaces(originalDataPoint.classTotalArea(active, 'otherWoodedLandPercent'))}</td>
+            className="fra-table__aggregate-cell">{formatDecimal(originalDataPoint.classTotalArea(active, 'otherWoodedLandPercent'))}</td>
           <td
-            className="fra-table__aggregate-cell">{separateDecimalThousandsWithSpaces(originalDataPoint.classTotalArea(active, 'otherLandPercent'))}</td>
+            className="fra-table__aggregate-cell">{formatDecimal(originalDataPoint.classTotalArea(active, 'otherLandPercent'))}</td>
         </tr>
         </tbody>
       </table>
@@ -151,11 +151,11 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
         }
         <tr>
           <td className="fra-table__header-cell">{i18n.t('nationalDataPoint.total')}</td>
-          <td className="fra-table__header-cell-right fra-table__divider">{separateDecimalThousandsWithSpaces(originalDataPoint.otherLandTotalArea(active))}</td>
-          <td className="fra-table__aggregate-cell">{separateDecimalThousandsWithSpaces(originalDataPoint.otherLandClassTotalArea(active, 'otherLandPalmsPercent'))}</td>
-          <td className="fra-table__aggregate-cell">{separateDecimalThousandsWithSpaces(originalDataPoint.otherLandClassTotalArea(active, 'otherLandTreeOrchardsPercent'))}</td>
-          <td className="fra-table__aggregate-cell">{separateDecimalThousandsWithSpaces(originalDataPoint.otherLandClassTotalArea(active, 'otherLandAgroforestryPercent'))}</td>
-          <td className="fra-table__aggregate-cell">{separateDecimalThousandsWithSpaces(originalDataPoint.otherLandClassTotalArea(active, 'otherLandTreesUrbanSettingsPercent'))}</td>
+          <td className="fra-table__header-cell-right fra-table__divider">{formatDecimal(originalDataPoint.otherLandTotalArea(active))}</td>
+          <td className="fra-table__aggregate-cell">{formatDecimal(originalDataPoint.otherLandClassTotalArea(active, 'otherLandPalmsPercent'))}</td>
+          <td className="fra-table__aggregate-cell">{formatDecimal(originalDataPoint.otherLandClassTotalArea(active, 'otherLandTreeOrchardsPercent'))}</td>
+          <td className="fra-table__aggregate-cell">{formatDecimal(originalDataPoint.otherLandClassTotalArea(active, 'otherLandAgroforestryPercent'))}</td>
+          <td className="fra-table__aggregate-cell">{formatDecimal(originalDataPoint.otherLandClassTotalArea(active, 'otherLandTreesUrbanSettingsPercent'))}</td>
         </tr>
         </tbody>
       </table>
@@ -186,10 +186,10 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
         }
         <tr>
           <td className="fra-table__header-cell">{i18n.t('nationalDataPoint.total')}</td>
-          <td className="fra-table__header-cell-right fra-table__divider">{separateDecimalThousandsWithSpaces(originalDataPoint.classTotalArea(active, 'forestPercent'))}</td>
-          <td className="fra-table__aggregate-cell">{separateDecimalThousandsWithSpaces(originalDataPoint.forestClassTotalArea(active, 'naturalForestPercent'))}</td>
-          <td className="fra-table__aggregate-cell">{separateDecimalThousandsWithSpaces(originalDataPoint.forestClassTotalArea(active, 'plantationPercent'))}</td>
-          <td className="fra-table__aggregate-cell">{separateDecimalThousandsWithSpaces(originalDataPoint.forestClassTotalArea(active, 'otherPlantedPercent'))}</td>
+          <td className="fra-table__header-cell-right fra-table__divider">{formatDecimal(originalDataPoint.classTotalArea(active, 'forestPercent'))}</td>
+          <td className="fra-table__aggregate-cell">{formatDecimal(originalDataPoint.forestClassTotalArea(active, 'naturalForestPercent'))}</td>
+          <td className="fra-table__aggregate-cell">{formatDecimal(originalDataPoint.forestClassTotalArea(active, 'plantationPercent'))}</td>
+          <td className="fra-table__aggregate-cell">{formatDecimal(originalDataPoint.forestClassTotalArea(active, 'otherPlantedPercent'))}</td>
         </tr>
         </tbody>
       </table>

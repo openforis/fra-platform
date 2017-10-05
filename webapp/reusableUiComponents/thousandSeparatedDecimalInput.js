@@ -2,10 +2,8 @@ import React from 'react'
 import * as R from 'ramda'
 
 import './thousandSeparatedIntegerInput.less'
-import { separateDecimalThousandsWithSpaces } from '../utils/numberFormat'
+import { formatDecimal } from '../utils/numberFormat'
 import { acceptableAsDecimal } from '../utils/numberInput'
-
-const renderUnfocusedNumberValue = (numberValue, prec) => separateDecimalThousandsWithSpaces(numberValue, prec)
 
 export class ThousandSeparatedDecimalInput extends React.Component {
   constructor (props) {
@@ -23,7 +21,7 @@ export class ThousandSeparatedDecimalInput extends React.Component {
         style={{
           display: this.state.hasFocus ? 'none' : 'inline-block',
         }}>
-        {renderUnfocusedNumberValue(numberValue, precision)}
+        {formatDecimal(numberValue, precision)}
       </div>
       <div style={{opacity: this.state.hasFocus ? '1' : '0'}}>
         <input

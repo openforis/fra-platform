@@ -2,8 +2,6 @@ import React from 'react'
 import * as R from 'ramda'
 
 import { Link } from './../link'
-import { separateThousandsWithSpaces } from '../utils/numberFormat'
-import { ThousandSeparatedIntegerInput } from '../reusableUiComponents/thousandSeparatedIntegerInput'
 import { ThousandSeparatedDecimalInput } from '../reusableUiComponents/thousandSeparatedDecimalInput'
 import ReviewIndicator from '../review/reviewIndicator'
 import { readPasteClipboard } from '../utils/copyPasteUtil'

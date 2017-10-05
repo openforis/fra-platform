@@ -1,8 +1,6 @@
 import React from 'react'
 import './thousandSeparatedIntegerInput.less'
-import { separateThousandsWithSpaces } from '../utils/numberFormat'
-
-const renderUnfocusedIntegerValue = integerValue => separateThousandsWithSpaces(integerValue)
+import { formatInteger } from '../utils/numberFormat'
 
 export class ThousandSeparatedIntegerInput extends React.Component {
   constructor () {
@@ -18,7 +16,7 @@ export class ThousandSeparatedIntegerInput extends React.Component {
               display: this.state.hasFocus ? 'none' : 'inline-block',
            }}
       >
-        {renderUnfocusedIntegerValue(integerValue)}
+        {formatInteger(integerValue)}
       </div>
       <div style={{opacity: this.state.hasFocus ? '1' : '0'}}>
         <input

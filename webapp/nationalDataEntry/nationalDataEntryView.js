@@ -10,7 +10,7 @@ import LoggedInPageTemplate from '../loggedInPageTemplate'
 import { DataTable } from '../originalDataPoint/commentableDatatable'
 import { CommentableReviewDescription } from '../description/commentableDescription'
 import { sum } from '../../common/bignumberUtils'
-import { separateDecimalThousandsWithSpaces } from '../utils/numberFormat'
+import { formatDecimal } from '../utils/numberFormat'
 
 const NationalDataEntry = (props) => {
 
@@ -60,7 +60,11 @@ const NationalDataEntry = (props) => {
       field: 'totalLandArea',
       localizedName: i18n.t('extentOfForest.totalLandArea'),
       customRender: data => R.values(data).map(v =>
-          <td key={`tot_area_${v.year}`} className="fra-table__aggregate-cell">{separateDecimalThousandsWithSpaces(sum([v.forestArea, v.otherWoodedLand, v.otherLand]))}</td>
+        <td key={`tot_area_${v.year}`} className="fra-table__aggregate-cell">{R.pipe(
+          sum,
+          formatDecimal
+        )([v.forestArea, v.otherWoodedLand, v.otherLand])
+        }</td>
       )
     }
   ]

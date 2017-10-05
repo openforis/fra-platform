@@ -1,6 +1,6 @@
 import React from 'react'
 import R from 'ramda'
-import { separateDecimalThousandsWithSpaces } from '../utils/numberFormat'
+import { formatDecimal } from '../utils/numberFormat'
 import { totalSum } from '../traditionalTable/aggregate'
 
 const yearlyVolumeInputsForRow = () =>
@@ -40,7 +40,7 @@ const totalGrowingStock = (tableData, column) => totalSum(tableData, column, R.c
 
 const renderAggregate = (aggregateFunction, column) => ({tableData}) =>
   <td key="" className="fra-table__aggregate-cell">
-    {separateDecimalThousandsWithSpaces(aggregateFunction(tableData, column))}
+    {formatDecimal(aggregateFunction(tableData, column))}
   </td>
 
 const aggregateCell = aggregateFunction => column =>
