@@ -11,9 +11,9 @@ const toBigNumber = value => {
   return new BigNumber(value)
 }
 
-const sum = array => R.isEmpty(array) || array.every(v => !v)
+const sum = (array, decimalDigits = 2) => R.isEmpty(array) || array.every(v => !v)
   ? null
-  : R.reduce((total, f) => add(total, defaultTo0(f)), 0, array).toFixed(2)
+  : R.reduce((total, f) => add(total, defaultTo0(f)), 0, array).toFixed(decimalDigits)
 
 const add = (x, y) => toBigNumber(x).add(toBigNumber(y))
 
