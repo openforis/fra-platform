@@ -1,6 +1,5 @@
 import React from 'react'
 import R from 'ramda'
-import { formatDecimal } from '../utils/numberFormat'
 import { totalSum } from '../traditionalTable/aggregate'
 
 const createInputRow = (rowHeader, cname = 'fra-table__header-cell') => [
@@ -8,12 +7,10 @@ const createInputRow = (rowHeader, cname = 'fra-table__header-cell') => [
   ...(R.times(() => ({type: 'decimalInput'}), 5))
 ]
 
-const totalForestAreaCell = (column) => (props) => {
-  const totalForestArea = totalSum(props.tableData, column, [0,4,5])
-  return <td key="" className="fra-table__aggregate-cell">
-    {formatDecimal(totalForestArea)}
+const totalForestAreaCell = (column) => (props) =>
+  <td key="" className="fra-table__aggregate-cell">
+    {totalSum(props.tableData, column, [0,4,5])}
   </td>
-}
 
 export default i18n => ({
   name: 'forestOwnership',
