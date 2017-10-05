@@ -1,12 +1,12 @@
 import React from 'react'
 import R from 'ramda'
-import { totalSum } from '../traditionalTable/aggregate'
+import { totalSumFormatted } from '../traditionalTable/aggregate'
 
 const inputColumns = R.times(() => ({type: 'decimalInput'}), 18)
 
 const totalDisturbanceCell = (column) => (props) =>
   <td key="" className="fra-table__aggregate-cell">
-    {totalSum(props.tableData, column, R.range(0,4))}
+    {totalSumFormatted(props.tableData, column, R.range(0,4))}
   </td>
 
 export default i18n => ({

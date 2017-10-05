@@ -1,6 +1,6 @@
 import React from 'react'
 import R from 'ramda'
-import { totalSum } from '../traditionalTable/aggregate'
+import { totalSumFormatted } from '../traditionalTable/aggregate'
 
 const createInputRow = (rowHeader, cname = 'fra-table__header-cell') => [
   {type: 'readOnly', jsx: <td key="protection" className={`${cname}`}>{rowHeader}</td>},
@@ -9,7 +9,7 @@ const createInputRow = (rowHeader, cname = 'fra-table__header-cell') => [
 
 const totalForestAreaCell = (column) => (props) =>
   <td key="" className="fra-table__aggregate-cell">
-    {totalSum(props.tableData, column, [0,4,5])}
+    {totalSumFormatted(props.tableData, column, [0,4,5])}
   </td>
 
 export default i18n => ({
