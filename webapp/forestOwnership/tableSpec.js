@@ -2,13 +2,14 @@ import React from 'react'
 import R from 'ramda'
 import { separateDecimalThousandsWithSpaces } from '../utils/numberFormat'
 import { totalSum } from '../traditionalTable/aggregate'
+import BigNumber from 'bignumber.js'
 
 const ofWhichValidator = (tableData, rowIdx, colIdx) => {
   const privateOwnerShipValue = tableData[0][colIdx]
   const sumOfParts = totalSum(tableData, colIdx, R.range(1, 4))
   const value = tableData[rowIdx][colIdx]
   if (R.isNil(value) || R.isNil(sumOfParts) || R.isNil(privateOwnerShipValue)) return true
-  return Number(privateOwnerShipValue) >= Number(sumOfParts)
+  return BigNumber(privateOwnerShipValue).greaterThanOrEqualTo(BigNumber(sumOfParts))
 }
 
 const createInputRow = (rowHeader, cname = 'fra-table__header-cell', validator) => [
