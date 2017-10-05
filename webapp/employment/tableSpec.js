@@ -1,12 +1,13 @@
 import React from 'react'
 import R from 'ramda'
 import { sum } from '../../common/bignumberUtils'
+import { separateThousandsWithSpaces } from '../utils/numberFormat'
 
 const sumOfGenders = (tableData, rowIdx, yearIdx) => {
   const female = tableData[rowIdx][yearIdx * 3 + 2]
   const male = tableData[rowIdx][yearIdx * 3 + 3]
 
-  return sum([female, male], 0)
+  return separateThousandsWithSpaces(sum([female, male]))
 }
 
 const yearFields = rowIdx => yearIdx => [
