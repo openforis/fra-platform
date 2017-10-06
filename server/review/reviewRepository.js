@@ -166,9 +166,21 @@ const createComment = (client, issueId, user, countryIso, section, msg, statusCh
 
 module.exports.createComment = createComment
 
+const createIssueQueryPlaceholders = issueIds => R.range(1, issueIds.length + 1).map(i => '$' + i).join(',')
+
+const deleteUserIssues = (client, issueIds) => {
+  if (issueIds.length > 0) {
+    return client.query(
+      `DELETE from user_issue WHERE issue_id IN (${createIssueQueryPlaceholders(issueIds)})`,
+      issueIds
+    )
+  } else
+    return Promise.resolve()
+}
+
 const deleteIssuesByIds = (client, issueIds) => {
   if (issueIds.length > 0) {
-    const issueIdQueryPlaceholders = R.range(1, issueIds.length + 1).map(i => '$' + i).join(',')
+    const issueIdQueryPlaceholders = createIssueQueryPlaceholders(issueIds)
 
     return client
       .query(`DELETE from fra_comment WHERE issue_id IN (${issueIdQueryPlaceholders})`, issueIds)
@@ -184,7 +196,12 @@ module.exports.deleteIssuesByIds = deleteIssuesByIds
 module.exports.deleteIssues = (client, countryIso, section, paramPosition, paramValue) =>
   getIssuesByParam(countryIso, section, paramPosition, paramValue)
     .then(res => res.map(r => r.issueId))
-    .then(issueIds => deleteIssuesByIds(client, issueIds))
+    .then(issueIds =>
+      Promise.all([
+        deleteUserIssues(client, issueIds),
+        deleteIssuesByIds(client, issueIds)
+        ])
+    )
 
 
 module.exports.markCommentAsDeleted = (client, countryIso, section, commentId, user) =>
