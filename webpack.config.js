@@ -14,7 +14,7 @@ const lastCommit = childProcess.execSync('git log -1 --pretty=format:"%h"')
 const alwaysInUseplugins = [
   new ExtractTextPlugin({filename: cssBundleName}),
   new HtmlWebpackPlugin({template: './web-resources/index.html'}),
-  new webpack.DefinePlugin({__LAST_COMMIT__: `"${lastCommit}"`})
+  new webpack.DefinePlugin({__PLATFORM_VERSION__: `"${platformVersion}"`})
 ]
 
 const uglifyPlugin = new webpack.optimize.UglifyJsPlugin({

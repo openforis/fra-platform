@@ -222,7 +222,7 @@ const SecondaryItem = ({path, countryIso, tableNo, pathTemplate = '/tbd', label,
 
 const roleLabel = (countryIso, userInfo, i18n) => i18n.t(mostPowerfulRole(countryIso, userInfo).labelKey)
 
-const FeedbackLink = ({i18n, userInfo}) => {
+const SuppportItems = ({i18n, userInfo}) => {
   const newLine = `%0D%0A`
 
   const subject = i18n.t('navigation.feedbackEmailSubject')
@@ -237,9 +237,9 @@ ${i18n.t('navigation.lastCommit')}: ${__LAST_COMMIT__}
 ${newLine}
 ${i18n.t('navigation.userAgent')}: ${navigator.userAgent}
 `
-  return <div className="nav__primary-item">
+  return <div className="nav__support-item">
     <a
-      className="nav__feedback-link"
+      className="nav__support-link"
       target="_top"
       href={`mailto:fra@fao.org?Subject=${subject}&body=${body}`}>
       {i18n.t('navigation.sendFeedback')}
@@ -340,7 +340,7 @@ class Nav extends React.Component {
               )
             }
 
-            <FeedbackLink {...this.props} />
+            <SuppportItems {...this.props} />
 
           </div>
         </div>
