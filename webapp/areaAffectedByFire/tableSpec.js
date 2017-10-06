@@ -1,5 +1,6 @@
 import React from 'react'
 import R from 'ramda'
+import { ofWhichValidator } from '../traditionalTable/validators'
 
 const integerInputColumns = R.times(() => ({type: 'decimalInput'}), 18)
 
@@ -45,7 +46,7 @@ export default i18n => ({
         type: 'readOnly',
         jsx: <td key="" className="fra-table__header-cell-sub">{i18n.t('areaAffectedByFire.ofWhichForest')}</td>
       },
-      ...integerInputColumns
+      ...R.times(() => ({type: 'decimalInput', validator: ofWhichValidator(0, [1])}), 18)
     ]
   ],
   valueSlice: {
