@@ -4,9 +4,19 @@ import { ThousandSeparatedIntegerInput } from '../reusableUiComponents/thousandS
 import { acceptNextInteger, acceptableAsInteger } from '../utils/numberInput'
 import { handlePaste } from './paste'
 
-const IntegerInput = ({countryIso, tableSpec, tableData, rowIdx, colIdx, tableValueChanged, tableChanged}) => {
+const IntegerInput = ({
+                        countryIso,
+                        tableSpec,
+                        tableData,
+                        rowIdx,
+                        colIdx,
+                        tableValueChanged,
+                        tableChanged,
+                        validator
+                      }) => {
   const currentValue = tableData[rowIdx][colIdx]
-  return <td className="fra-table__cell">
+  const valid = validator ? validator(tableData, rowIdx, colIdx) : true
+  return <td className={`fra-table__cell ${valid ? '' : 'error'}`}>
     <ThousandSeparatedIntegerInput integerValue={ currentValue }
                                    className="fra-table__integer-input"
                                    onChange={
@@ -33,6 +43,9 @@ const IntegerInput = ({countryIso, tableSpec, tableData, rowIdx, colIdx, tableVa
 }
 
 export default (cellSpec) => ({
-  render: (props) => <IntegerInput {...props}/>,
+  render: (props) => <IntegerInput
+    {...props}
+    validator={cellSpec.validator}
+  />,
   acceptValue: acceptNextInteger
 })

@@ -1,16 +1,22 @@
 import React from 'react'
 import R from 'ramda'
 import { totalSumFormatted } from '../traditionalTable/aggregate'
+import { ofWhichValidator } from '../traditionalTable/validators'
 
-const createInputRow = (rowHeader, cname = 'fra-table__header-cell') => [
+const createInputRow = (rowHeader, cname = 'fra-table__header-cell', validator) => [
   {type: 'readOnly', jsx: <td key="protection" className={`${cname}`}>{rowHeader}</td>},
-  ...(R.times(() => ({type: 'decimalInput'}), 5))
+  ...(R.times(() => ({
+    type: 'decimalInput',
+    validator: validator
+  }), 5))
 ]
 
 const totalForestAreaCell = (column) => (props) =>
   <td key="" className="fra-table__aggregate-cell">
     {totalSumFormatted(props.tableData, column, [0,4,5])}
   </td>
+
+const privateOwnershipValidator = ofWhichValidator(0, R.range(1, 4))
 
 export default i18n => ({
   name: 'forestOwnership',
@@ -29,9 +35,9 @@ export default i18n => ({
   </thead>,
   rows: [
     createInputRow(i18n.t('forestOwnership.privateOwnership')),
-    createInputRow(i18n.t('forestOwnership.ofWhichIndividuals'), 'fra-table__header-cell-sub'),
-    createInputRow(i18n.t('forestOwnership.ofWhichPrivateBusinesses'), 'fra-table__header-cell-sub'),
-    createInputRow(i18n.t('forestOwnership.ofWhichCommunities'), 'fra-table__header-cell-sub'),
+    createInputRow(i18n.t('forestOwnership.ofWhichIndividuals'), 'fra-table__header-cell-sub', privateOwnershipValidator),
+    createInputRow(i18n.t('forestOwnership.ofWhichPrivateBusinesses'), 'fra-table__header-cell-sub', privateOwnershipValidator),
+    createInputRow(i18n.t('forestOwnership.ofWhichCommunities'), 'fra-table__header-cell-sub', privateOwnershipValidator),
     createInputRow(i18n.t('forestOwnership.publicOwnership')),
     createInputRow(i18n.t('forestOwnership.otherOrUnknown')),
     [{type: 'readOnly',
