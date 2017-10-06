@@ -1,6 +1,7 @@
 import React from 'react'
 import R from 'ramda'
-import { separateDecimalThousandsWithSpaces } from '../utils/numberFormat'
+import { formatDecimal } from '../utils/numberFormat'
+import { sub } from '../../common/bignumberUtils'
 import { ofWhichValidator } from '../traditionalTable/validators'
 
 const expansionValidator = ofWhichValidator(0, R.range(1, 3))
@@ -8,8 +9,7 @@ const expansionValidator = ofWhichValidator(0, R.range(1, 3))
 const integerInputColumns = R.times(() => ({type: 'decimalInput'}), 4)
 const ofWhichColumns = R.times(() => ({type: 'decimalInput', validator: expansionValidator}), 4)
 
-const netChange = (expansion, deforestation) =>
-  !R.isNil(expansion) && !R.isNil(deforestation) ? separateDecimalThousandsWithSpaces(expansion - deforestation) : null
+const netChange = (expansion, deforestation) => formatDecimal(sub(expansion, deforestation))
 
 const netChangeCell = (column) => (props) =>
   <td key="" className="fra-table__aggregate-cell">

@@ -1,19 +1,17 @@
 import React from 'react'
 import R from 'ramda'
-import { separateDecimalThousandsWithSpaces } from '../utils/numberFormat'
-import { totalSum } from '../traditionalTable/aggregate'
+import { totalSumFormatted } from '../traditionalTable/aggregate'
 
 const createInputRow = (rowHeader, cname = 'fra-table__header-cell') => [
   {type: 'readOnly', jsx: <td key="protection" className={`${cname}`}>{rowHeader}</td>},
   ...(R.times(() => ({type: 'decimalInput'}), 4))
 ]
 
-const totalOwnershipCell = (column) => (props) => {
-  const totalOwnership = totalSum(props.tableData, column, R.range(0,5))
-  return <td key="" className="fra-table__aggregate-cell">
-    {separateDecimalThousandsWithSpaces(totalOwnership)}
+const totalOwnershipCell = (column) => (props) =>
+  <td key="" className="fra-table__aggregate-cell">
+    {totalSumFormatted(props.tableData, column, R.range(0, 5))}
   </td>
-}
+
 
 export default i18n => ({
   name: 'holderOfManagementRights',

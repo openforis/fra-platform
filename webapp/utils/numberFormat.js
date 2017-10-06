@@ -1,12 +1,5 @@
-import * as R from 'ramda'
-import { toFixed } from '../../common/bignumberUtils'
+import { formatNumber } from '../../common/bignumberUtils'
 
-export const separateThousandsWithSpaces = num => {
-  const toFormat = toFixed(num, 0)
-  return R.isNil(toFormat) ? '' : toFormat.replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
-}
+export const formatInteger = num => formatNumber(num, 0)
 
-export const separateDecimalThousandsWithSpaces = (num, prec = 2) => {
-  const toFormat = toFixed(num, prec)
-  return R.isNil(toFormat) ? '' : toFormat.replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
-}
+export const formatDecimal = (num, precision = 2) => formatNumber(num, precision)

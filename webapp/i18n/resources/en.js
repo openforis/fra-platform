@@ -200,7 +200,8 @@ export const translation = {
     ofWhichPalms: '…of which palms (oil, coconut, dates, etc.)',
     ofWhichTreeOrchards: '…of which tree orchards (includes fruit, nuts, olive, etc.)',
     ofWhichAgroforestry: '…of which agroforestry',
-    ofWhichTreesUrbanSettings: '…of which trees in urban settings'
+    ofWhichTreesUrbanSettings: '…of which trees in urban settings',
+    totalLandArea: 'Total land area'
   },
 
   forestAreaChange: {

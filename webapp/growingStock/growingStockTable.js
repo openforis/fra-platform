@@ -3,7 +3,7 @@ import * as R from 'ramda'
 import ReviewIndicator from '../review/reviewIndicator'
 import { readPasteClipboard } from '../utils/copyPasteUtil'
 import { ThousandSeparatedDecimalInput } from '../reusableUiComponents/thousandSeparatedDecimalInput'
-import { separateDecimalThousandsWithSpaces } from '../utils/numberFormat'
+import { formatDecimal } from '../utils/numberFormat'
 
 const GrowingStockTable = (props) => {
   const cols = R.filter(v => v.type !== 'odp', R.values(props.areaValues))
@@ -102,7 +102,7 @@ const Cell = (props) => {
   )(values)
 
   return calculated
-    ? <td className="fra-table__aggregate-cell">{separateDecimalThousandsWithSpaces(value)}</td>
+    ? <td className="fra-table__aggregate-cell">{formatDecimal(value)}</td>
     : <td className="fra-table__cell">
         <ThousandSeparatedDecimalInput
           className="fra-table__integer-input"

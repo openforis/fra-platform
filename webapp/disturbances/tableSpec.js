@@ -1,16 +1,13 @@
 import React from 'react'
 import R from 'ramda'
-import { separateDecimalThousandsWithSpaces } from '../utils/numberFormat'
-import { totalSum } from '../traditionalTable/aggregate'
+import { totalSumFormatted } from '../traditionalTable/aggregate'
 
 const inputColumns = R.times(() => ({type: 'decimalInput'}), 18)
 
-const totalDisturbanceCell = (column) => (props) => {
-  const totalDisturbance = totalSum(props.tableData, column, R.range(0,4))
-  return <td key="" className="fra-table__aggregate-cell">
-    {separateDecimalThousandsWithSpaces(totalDisturbance)}
+const totalDisturbanceCell = (column) => (props) =>
+  <td key="" className="fra-table__aggregate-cell">
+    {totalSumFormatted(props.tableData, column, R.range(0,4))}
   </td>
-}
 
 export default i18n => ({
   name: 'disturbances', // used to uniquely identify table

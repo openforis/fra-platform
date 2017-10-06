@@ -1,7 +1,6 @@
 import React from 'react'
 import R from 'ramda'
-import { separateDecimalThousandsWithSpaces } from '../utils/numberFormat'
-import { totalSum } from '../traditionalTable/aggregate'
+import { totalSumFormatted } from '../traditionalTable/aggregate'
 import { ofWhichValidator } from '../traditionalTable/validators'
 
 const createInputRow = (rowHeader, cname = 'fra-table__header-cell', validator) => [
@@ -12,12 +11,10 @@ const createInputRow = (rowHeader, cname = 'fra-table__header-cell', validator) 
   }), 5))
 ]
 
-const totalForestAreaCell = (column) => (props) => {
-  const totalForestArea = totalSum(props.tableData, column, [0,4,5])
-  return <td key="" className="fra-table__aggregate-cell">
-    {separateDecimalThousandsWithSpaces(totalForestArea)}
+const totalForestAreaCell = (column) => (props) =>
+  <td key="" className="fra-table__aggregate-cell">
+    {totalSumFormatted(props.tableData, column, [0,4,5])}
   </td>
-}
 
 const privateOwnershipValidator = ofWhichValidator(0, R.range(1, 4))
 

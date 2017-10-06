@@ -1,19 +1,17 @@
 import React from 'react'
 import R from 'ramda'
-import { add } from '../../common/bignumberUtils'
+import { sum } from '../../common/bignumberUtils'
+import { formatInteger } from '../utils/numberFormat'
 import { ofWhichValidator } from '../traditionalTable/validators'
 
 const sumOfGenders = (tableData, rowIdx, yearIdx) => {
   const female = tableData[rowIdx][yearIdx * 3 + 2]
   const male = tableData[rowIdx][yearIdx * 3 + 3]
-  if (R.isNil(female) && R.isNil(male))
-    return null
-  else if (R.isNil(female))
-    return male
-  else if (R.isNil(male))
-    return female
-  else
-    return add(female, male).toFixed(0)
+
+  return R.pipe(
+    sum,
+    formatInteger
+  )([female, male])
 }
 
 const genderOfWhichValitor = ofWhichValidator(0, R.range(1, 5))

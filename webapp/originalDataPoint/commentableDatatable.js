@@ -2,8 +2,6 @@ import React from 'react'
 import * as R from 'ramda'
 
 import { Link } from './../link'
-import { separateThousandsWithSpaces } from '../utils/numberFormat'
-import { ThousandSeparatedIntegerInput } from '../reusableUiComponents/thousandSeparatedIntegerInput'
 import { ThousandSeparatedDecimalInput } from '../reusableUiComponents/thousandSeparatedDecimalInput'
 import ReviewIndicator from '../review/reviewIndicator'
 import { readPasteClipboard } from '../utils/copyPasteUtil'
@@ -48,10 +46,13 @@ export class DataTable extends React.Component {
 }
 
 const buildRows = (rows, props) => {
-  return mapIndexed((row, i) => fraValueRow(row.localizedName, row.field, row.className, props.countryIso,
-    props.fra, R.partial(props.save, [props.section]), R.partial(props.saveMany, [props.section]),
-    R.partial(updatePastedValues, [props.rowNames]),
-    i, props.openCommentThread), rows)
+  const save = R.partial(props.save, [props.section])
+  const saveMany = R.partial(props.saveMany, [props.section])
+  const paste = R.partial(updatePastedValues, [props.rowNames])
+
+  return mapIndexed((row, i) =>
+      fraValueRow(row, props.countryIso, props.fra, save, saveMany, paste, i, props.openCommentThread)
+    , rows)
 }
 
 const buildIndicators = (rows, props) => mapIndexed((row, i) =>  <ReviewIndicator
@@ -83,14 +84,17 @@ const odpCell = (odpValue, field) =>
     precision={2}
     disabled={true} />
 
-const fraValueRow = (rowHeading, field, className, countryIso, fra, save, saveMany, pasteUpdate, colId, openThread) => {
-  const target = [field]
+const fraValueRow = (row, countryIso, fra, save, saveMany, pasteUpdate, colId, openThread) => {
+  const {localizedName, field, className, customRender} = row
+
   return <tr
     key={field}
-    className={`${openThread && R.isEmpty(R.difference(openThread.target, target)) ? 'fra-row-comments__open' : ''}`}>
-    <td className={className ? className : 'fra-table__header-cell'}>{ rowHeading }</td>
+    className={`${openThread && R.isEmpty(R.difference(openThread.target, [field])) ? 'fra-row-comments__open' : ''}`}>
+    <td className={className ? className : 'fra-table__header-cell'}>{ localizedName }</td>
     {
-      mapIndexed((v, i) =>
+      customRender
+      ? customRender(fra)
+      : mapIndexed((v, i) =>
           <td className={`fra-table__${v.type === 'odp' ? 'text-readonly-cell' : 'cell'}`} key={`${v.type}_${v.name}`}>
             {
               v.type === 'odp'

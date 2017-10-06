@@ -1,7 +1,6 @@
 import React from 'react'
 import R from 'ramda'
-import { separateDecimalThousandsWithSpaces } from '../utils/numberFormat'
-import { totalSum } from '../traditionalTable/aggregate'
+import { totalSumFormatted } from '../traditionalTable/aggregate'
 
 const yearlyVolumeInputsForRow = () =>
   [
@@ -31,16 +30,16 @@ const rankRow = i18n => idx => [
 ]
 
 const totalNativeRows = R.range(0, 11)
-const totalNative = (tableData, column) => totalSum(tableData, column, totalNativeRows)
+const totalNative = (tableData, column) => totalSumFormatted(tableData, column, totalNativeRows)
 
 const totalIntroducedRows = R.range(13, 19)
-const totalIntroduced = (tableData, column) => totalSum(tableData, column, totalIntroducedRows)
+const totalIntroduced = (tableData, column) => totalSumFormatted(tableData, column, totalIntroducedRows)
 
-const totalGrowingStock = (tableData, column) => totalSum(tableData, column, R.concat(totalNativeRows, totalIntroducedRows))
+const totalGrowingStock = (tableData, column) => totalSumFormatted(tableData, column, R.concat(totalNativeRows, totalIntroducedRows))
 
 const renderAggregate = (aggregateFunction, column) => ({tableData}) =>
   <td key="" className="fra-table__aggregate-cell">
-    {separateDecimalThousandsWithSpaces(aggregateFunction(tableData, column))}
+    {aggregateFunction(tableData, column)}
   </td>
 
 const aggregateCell = aggregateFunction => column =>
