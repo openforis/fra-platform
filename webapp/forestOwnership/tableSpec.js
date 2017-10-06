@@ -2,15 +2,7 @@ import React from 'react'
 import R from 'ramda'
 import { separateDecimalThousandsWithSpaces } from '../utils/numberFormat'
 import { totalSum } from '../traditionalTable/aggregate'
-import BigNumber from 'bignumber.js'
-
-const ofWhichValidator = (tableData, rowIdx, colIdx) => {
-  const privateOwnerShipValue = tableData[0][colIdx]
-  const sumOfParts = totalSum(tableData, colIdx, R.range(1, 4))
-  const value = tableData[rowIdx][colIdx]
-  if (R.isNil(value) || R.isNil(sumOfParts) || R.isNil(privateOwnerShipValue)) return true
-  return BigNumber(privateOwnerShipValue).greaterThanOrEqualTo(BigNumber(sumOfParts))
-}
+import { ofWhichValidator } from '../traditionalTable/validators'
 
 const createInputRow = (rowHeader, cname = 'fra-table__header-cell', validator) => [
   {type: 'readOnly', jsx: <td key="protection" className={`${cname}`}>{rowHeader}</td>},
@@ -26,6 +18,8 @@ const totalForestAreaCell = (column) => (props) => {
     {separateDecimalThousandsWithSpaces(totalForestArea)}
   </td>
 }
+
+const privateOwnershipValidator = ofWhichValidator(0, R.range(1, 4))
 
 export default i18n => ({
   name: 'forestOwnership',
@@ -44,9 +38,9 @@ export default i18n => ({
   </thead>,
   rows: [
     createInputRow(i18n.t('forestOwnership.privateOwnership')),
-    createInputRow(i18n.t('forestOwnership.ofWhichIndividuals'), 'fra-table__header-cell-sub', ofWhichValidator),
-    createInputRow(i18n.t('forestOwnership.ofWhichPrivateBusinesses'), 'fra-table__header-cell-sub', ofWhichValidator),
-    createInputRow(i18n.t('forestOwnership.ofWhichCommunities'), 'fra-table__header-cell-sub', ofWhichValidator),
+    createInputRow(i18n.t('forestOwnership.ofWhichIndividuals'), 'fra-table__header-cell-sub', privateOwnershipValidator),
+    createInputRow(i18n.t('forestOwnership.ofWhichPrivateBusinesses'), 'fra-table__header-cell-sub', privateOwnershipValidator),
+    createInputRow(i18n.t('forestOwnership.ofWhichCommunities'), 'fra-table__header-cell-sub', privateOwnershipValidator),
     createInputRow(i18n.t('forestOwnership.publicOwnership')),
     createInputRow(i18n.t('forestOwnership.otherOrUnknown')),
     [{type: 'readOnly',
