@@ -8,13 +8,9 @@ const prodBuild = process.env.NODE_ENV === 'production'
 const jsBundleName = 'bundle-[hash].js'
 const cssBundleName = 'styles-[hash].css'
 
-const childProcess = require('child_process')
-const platformVersion = childProcess.execSync('git log -1 --date=short --pretty=format:"%h/%cd"')
-
 const alwaysInUseplugins = [
   new ExtractTextPlugin({filename: cssBundleName}),
   new HtmlWebpackPlugin({template: './web-resources/index.html'}),
-  new webpack.DefinePlugin({__PLATFORM_VERSION__: `"${platformVersion}"`})
 ]
 
 const uglifyPlugin = new webpack.optimize.UglifyJsPlugin({
