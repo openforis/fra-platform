@@ -1,8 +1,12 @@
 import React from 'react'
 import R from 'ramda'
 import { separateDecimalThousandsWithSpaces } from '../utils/numberFormat'
+import { ofWhichValidator } from '../traditionalTable/validators'
+
+const expansionValidator = ofWhichValidator(0, R.range(1, 3))
 
 const integerInputColumns = R.times(() => ({type: 'decimalInput'}), 4)
+const ofWhichColumns = R.times(() => ({type: 'decimalInput', validator: expansionValidator}), 4)
 
 const netChange = (expansion, deforestation) =>
   !R.isNil(expansion) && !R.isNil(deforestation) ? separateDecimalThousandsWithSpaces(expansion - deforestation) : null
@@ -32,11 +36,11 @@ export default i18n => ({
     ],
     [
       {type: 'readOnly', jsx: <td key="" className="fra-table__header-cell-sub">{i18n.t('forestAreaChange.ofWhichAfforestation')}</td>},
-      ...integerInputColumns
+      ...ofWhichColumns
     ],
     [
       {type: 'readOnly', jsx: <td key="" className="fra-table__header-cell-sub">{i18n.t('forestAreaChange.ofWhichNaturalExpansion')}</td>},
-      ...integerInputColumns
+      ...ofWhichColumns
     ],
     [
       {type: 'readOnly', jsx: <td key="" className="fra-table__header-cell">{i18n.t('forestAreaChange.deforestation')}</td>},
