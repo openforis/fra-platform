@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import * as d3 from 'd3'
 import d3Tip from 'd3-tip'
-
-import { formatNumber, defaultTransitionDuration } from '../chart'
+import { formatNumber } from '../../../../common/bignumberUtils'
+import { defaultTransitionDuration } from '../chart'
 
 class DataPoint extends Component {
 
@@ -61,11 +61,12 @@ class DataPoint extends Component {
   }
 
   htmlTooltip (d) {
+    const precision = Number.isInteger(d.value) ? 0 : 2
     return `
         <div class="chart__data-points-tooltip-year">${d.year}</div>
         <div class="chart__data-points-tooltip-value">
             <div class="chart__data-points-tooltip-value-marker" style="background-color: ${d.type === 'fra' ? '#ffffff' : this.props.color}"></div>
-            <div>${formatNumber(d.value)}<span class="unit">(1000 ha)</span></div>
+            <div>${formatNumber(d.value, precision)}<span class="unit">(1000 ha)</span></div>
         </div>
     `
   }

@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 import * as d3 from 'd3'
-import {hasData, formatNumber, defaultTransitionDuration, styles} from '../chart'
+import {hasData, defaultTransitionDuration, styles} from '../chart'
+
+const replaceCommasWithSpaces = v => d3.format(',')(v).replace(/,/g, ' ')
 
 class YAxis extends Component {
 
@@ -10,7 +12,7 @@ class YAxis extends Component {
       .ticks(5)
       .tickSizeInner(-props.wrapperWidth)
       .tickSizeOuter(0)
-      .tickFormat(formatNumber)
+      .tickFormat(replaceCommasWithSpaces)
       .tickPadding(8)
 
     const domAxis = d3.select(this.refs.axis).call(axis)
