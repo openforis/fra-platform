@@ -9,7 +9,7 @@ const jsBundleName = 'bundle-[hash].js'
 const cssBundleName = 'styles-[hash].css'
 
 const childProcess = require('child_process')
-const platformVersion = childProcess.execSync('git log -1 --date=format:"%Y.%m.%d-%H:%M" --pretty=format:"%h/%cd"')
+const platformVersion = childProcess.execSync('git log -1 --date=short --pretty=format:"%h/%cd"')
 
 const alwaysInUseplugins = [
   new ExtractTextPlugin({filename: cssBundleName}),
