@@ -328,18 +328,30 @@
   }
 }
 
-.nav__feedback-link {
-  //.nav__link-item;
-  padding: 12px 16px 12px 28px;
-  font-weight: bold;
+// Support links
+
+.nav__support-item {
+  .nav__primary-item;
+  font-size: @font-s;
+}
+
+.nav__support-link {
   color: @text-mute;
-  font-size: 13px;
+  display: inline-block;
+  font-weight: bold;
+  padding: 1px 8px 1px 0;
   text-decoration: none;
 
   &:hover {
     color: @text-body;
-    cursor: pointer;
   }
+}
+
+.nav__copyright-item {
+  display: block;
+  color: @text-mute;
+  font-size: @font-xs;
+  margin-top: 16px;
 }
 
 // Mixins
