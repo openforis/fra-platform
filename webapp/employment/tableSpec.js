@@ -18,19 +18,19 @@ const sumOfGenders = (tableData, rowIdx, yearIdx) => {
 
 const genderOfWhichValitor = ofWhichValidator(0, R.range(1, 5))
 
-const yearFields = rowIdx => yearIdx => [
+const yearFields = (rowIdx, validator) => yearIdx => [
   {
     type: 'custom',
     render: props =>
       <td className="fra-table__aggregate-cell">{sumOfGenders(props.tableData, rowIdx, yearIdx)}</td>
   },
-  {type: 'integerInput', validator: genderOfWhichValitor},
-  {type: 'integerInput', validator: genderOfWhichValitor}
+  {type: 'integerInput', validator: validator},
+  {type: 'integerInput', validator: validator}
 ]
 
-const inputRow = (rowIdx, rowHeaderCell) => [
+const inputRow = (rowIdx, rowHeaderCell, validator) => [
   rowHeaderCell,
-  ...R.flatten(R.map(yearFields(rowIdx), R.range(0, 4)))
+  ...R.flatten(R.map(yearFields(rowIdx, validator), R.range(0, 4)))
 ]
 
 const rowHeading = (i18n, localizationKey) =>
@@ -68,10 +68,10 @@ export default i18n => ({
   </thead>,
   rows: [
     inputRow(0, rowHeading(i18n, 'employment.inForestryAndLogging')),
-    inputRow(1, rowSubHeading(i18n, 'employment.ofWhichSilviculture')),
-    inputRow(2, rowSubHeading(i18n, 'employment.ofWhichLogging')),
-    inputRow(3, rowSubHeading(i18n, 'employment.ofWhichGathering')),
-    inputRow(4, rowSubHeading(i18n, 'employment.ofWhichSupport'))
+    inputRow(1, rowSubHeading(i18n, 'employment.ofWhichSilviculture'), genderOfWhichValitor),
+    inputRow(2, rowSubHeading(i18n, 'employment.ofWhichLogging'), genderOfWhichValitor),
+    inputRow(3, rowSubHeading(i18n, 'employment.ofWhichGathering'), genderOfWhichValitor),
+    inputRow(4, rowSubHeading(i18n, 'employment.ofWhichSupport'), genderOfWhichValitor)
   ],
   valueSlice: {
     columnStart: 1
