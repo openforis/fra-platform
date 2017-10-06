@@ -101,12 +101,16 @@ export const translation = {
         previous: 'Return to editing'
       }
     },
-    sendFeedback: 'Send Feedback',
-    feedbackEmailSubject: 'FRA Platform Feedback',
-    lastCommit: 'Last commit',
-    userAgent: 'User agent',
-    user: 'User'
+    support: {
+      dontDelete: 'System information, please don’t delete',
+      sendFeedback: 'Send feedback',
+      feedbackEmailSubject: 'FRA Platform Feedback',
+      platformVersion: 'Platform version',
+      userAgent: 'User agent',
+      user: 'User'
+    },
   },
+
 
   footer: {
     profilePicture: 'Edit profile picture',

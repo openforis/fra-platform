@@ -224,25 +224,23 @@ const roleLabel = (countryIso, userInfo, i18n) => i18n.t(mostPowerfulRole(countr
 
 const SuppportItems = ({i18n, userInfo}) => {
   const newLine = `%0D%0A`
-
-  const subject = i18n.t('navigation.feedbackEmailSubject')
-
+  const subject = i18n.t('navigation.support.feedbackEmailSubject')
   const body = `
-${newLine}${newLine}${newLine}${newLine}
-------------------------------------------------------------------
+${newLine}${newLine}
+*** ${i18n.t('navigation.support.dontDelete')} ***
+${newLine}${newLine}
+${i18n.t('navigation.support.user')}: ${userInfo.name} (${userInfo.id})
 ${newLine}
-${i18n.t('navigation.user')}: ${userInfo.name} (${userInfo.id})
+${i18n.t('navigation.support.platformVersion')}: ${__PLATFORM_VERSION__}
 ${newLine}
-${i18n.t('navigation.lastCommit')}: ${__LAST_COMMIT__}
-${newLine}
-${i18n.t('navigation.userAgent')}: ${navigator.userAgent}
+${i18n.t('navigation.support.userAgent')}: ${navigator.userAgent}
 `
   return <div className="nav__support-item">
     <a
       className="nav__support-link"
       target="_top"
-      href={`mailto:fra@fao.org?Subject=${subject}&body=${body}`}>
-      {i18n.t('navigation.sendFeedback')}
+      href={`mailto:fra@fao.org?subject=${subject}&body=${body}`}>
+      {i18n.t('navigation.support.sendFeedback')}
     </a>
   </div>
 
