@@ -63,17 +63,18 @@ class DataPoint extends Component {
   htmlTooltip (d) {
     const precision = Number.isInteger(d.value) ? 0 : 2
     return `
-        <div class="chart__data-points-tooltip-year">${d.year}</div>
-        <div class="chart__data-points-tooltip-value">
-            <div class="chart__data-points-tooltip-value-marker" style="background-color: ${d.type === 'fra' ? '#ffffff' : this.props.color}"></div>
-            <div>${formatNumber(d.value, precision)}<span class="unit">(1000 ha)</span></div>
+        <div class="chart__tooltip-year">${d.year}</div>
+        <div class="chart__tooltip-value-container">
+            <div class="chart__tooltip-marker" style="background-color: ${d.type === 'fra' ? '#ffffff' : this.props.color}"></div>
+            <div class="chart__tooltip-value">${formatNumber(d.value, precision)}</div>
+            <div class="chart__tooltip-unit">(1000 ha)</div>
         </div>
     `
   }
 
   componentDidMount () {
     this.toolTip = d3Tip()
-      .attr('class', 'chart__data-points-tooltip')
+      .attr('class', 'chart__tooltip')
       .offset([-10, 0])
       .html(this.htmlTooltip.bind(this))
 
