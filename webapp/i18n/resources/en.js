@@ -102,7 +102,7 @@ export const translation = {
       }
     },
     support: {
-      dontDelete: 'System information, please don’t delete',
+      dontDelete: 'System information please don’t delete',
       sendFeedback: 'Send feedback',
       feedbackEmailSubject: 'FRA Platform Feedback',
       platformVersion: 'Platform version',
