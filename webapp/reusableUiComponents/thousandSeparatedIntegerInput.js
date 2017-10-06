@@ -1,4 +1,5 @@
 import React from 'react'
+import R from 'ramda'
 import './thousandSeparatedIntegerInput.less'
 import { formatInteger } from '../utils/numberFormat'
 
@@ -31,7 +32,7 @@ export class ThousandSeparatedIntegerInput extends React.Component {
           onFocus={
             () => {
               this.setState({hasFocus: true})
-              this.refs.inputField.value = integerValue || null //prevent text "undefined" from rendering
+              this.refs.inputField.value = R.isNil(integerValue) ? null : integerValue //prevent text "undefined" from rendering
             }
           }
           onBlur={
