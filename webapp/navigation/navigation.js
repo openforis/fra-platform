@@ -223,6 +223,7 @@ const SecondaryItem = ({path, countryIso, tableNo, pathTemplate = '/tbd', label,
 const roleLabel = (countryIso, userInfo, i18n) => i18n.t(mostPowerfulRole(countryIso, userInfo).labelKey)
 
 const SuppportItems = ({i18n, userInfo}) => {
+  const currentYear = new Date().getFullYear()
   const newLine = `%0D%0A`
   const subject = i18n.t('navigation.support.feedbackEmailSubject')
   const body = `
@@ -242,6 +243,7 @@ ${i18n.t('navigation.support.userAgent')}: ${navigator.userAgent}
       href={`mailto:fra@fao.org?subject=${subject}&body=${body}`}>
       {i18n.t('navigation.support.sendFeedback')}
     </a>
+    <span className="nav__copyright-item">&copy; {currentYear} FAO</span>
   </div>
 
 }
