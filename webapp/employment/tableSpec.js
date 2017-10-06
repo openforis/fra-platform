@@ -1,6 +1,7 @@
 import React from 'react'
 import R from 'ramda'
 import { add } from '../../common/bignumberUtils'
+import { ofWhichValidator } from '../traditionalTable/validators'
 
 const sumOfGenders = (tableData, rowIdx, yearIdx) => {
   const female = tableData[rowIdx][yearIdx * 3 + 2]
@@ -15,14 +16,16 @@ const sumOfGenders = (tableData, rowIdx, yearIdx) => {
     return add(female, male).toFixed(0)
 }
 
+const genderOfWhichValitor = ofWhichValidator(0, R.range(1, 5))
+
 const yearFields = rowIdx => yearIdx => [
   {
     type: 'custom',
     render: props =>
       <td className="fra-table__aggregate-cell">{sumOfGenders(props.tableData, rowIdx, yearIdx)}</td>
   },
-  {type: 'integerInput'},
-  {type: 'integerInput'}
+  {type: 'integerInput', validator: genderOfWhichValitor},
+  {type: 'integerInput', validator: genderOfWhichValitor}
 ]
 
 const inputRow = (rowIdx, rowHeaderCell) => [
