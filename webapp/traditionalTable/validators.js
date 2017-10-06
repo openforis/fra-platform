@@ -8,9 +8,9 @@ import { totalSum } from '../traditionalTable/aggregate'
 
 export const ofWhichValidator =
   (totalRowIndex, rowIndexes) => (tableData, currentFieldRowIdx, currentFieldColumnIdx) => {
-    const privateOwnerShipValue = tableData[totalRowIndex][currentFieldColumnIdx]
+    const totalVAlue = tableData[totalRowIndex][currentFieldColumnIdx]
     const sumOfParts = totalSum(tableData, currentFieldColumnIdx, rowIndexes)
     const value = tableData[currentFieldRowIdx][currentFieldColumnIdx]
-    if (R.isNil(value) || R.isNil(sumOfParts) || R.isNil(privateOwnerShipValue)) return true
-    return BigNumber(privateOwnerShipValue).greaterThanOrEqualTo(BigNumber(sumOfParts))
+    if (R.isNil(value) || R.isNil(sumOfParts) || R.isNil(totalVAlue)) return true
+    return BigNumber(totalVAlue).greaterThanOrEqualTo(BigNumber(sumOfParts))
   }
