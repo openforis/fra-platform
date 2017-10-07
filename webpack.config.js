@@ -8,9 +8,13 @@ const prodBuild = process.env.NODE_ENV === 'production'
 const jsBundleName = 'bundle-[hash].js'
 const cssBundleName = 'styles-[hash].css'
 
+const lastCommit = process.env.SOURCE_VERSION || "N/A"
+const platformVersion = lastCommit + '_' + new Date().toISOString()
+
 const alwaysInUseplugins = [
   new ExtractTextPlugin({filename: cssBundleName}),
   new HtmlWebpackPlugin({template: './web-resources/index.html'}),
+  new webpack.DefinePlugin({__PLATFORM_VERSION__: `"${platformVersion}"`})
 ]
 
 const uglifyPlugin = new webpack.optimize.UglifyJsPlugin({

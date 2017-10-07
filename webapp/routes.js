@@ -28,6 +28,7 @@ import ForestPolicyView from './forestPolicy/forestPolicyView'
 
 const routes = {
   '/': () => <noscript/>, //This will get rendered first (it flashes), before we redirect to logged-in page or login page
+  '/version': () => <span>{__PLATFORM_VERSION__}</span>,
   '/country/:countryIso/odps': OriginalDataListView,
   '/country/:countryIso/odp': OriginalDataPointView,
   '/country/:countryIso/odp/:odpId': OriginalDataPointView,

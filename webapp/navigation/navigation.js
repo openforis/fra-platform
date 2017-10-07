@@ -232,6 +232,8 @@ ${newLine}${newLine}
 ${newLine}${newLine}
 ${i18n.t('navigation.support.user')}: ${userInfo.name} (${userInfo.id})
 ${newLine}
+${i18n.t('navigation.support.platformVersion')}: ${__PLATFORM_VERSION__}
+${newLine}
 ${i18n.t('navigation.support.userAgent')}: ${navigator.userAgent}
 `
   return <div className="nav__support-item">
