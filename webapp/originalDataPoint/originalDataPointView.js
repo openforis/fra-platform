@@ -257,7 +257,7 @@ const updatePastedValues = ({
     if (R.isNil(columns[colNo]))
       return R.clone(odp)
     const value = sanitizerFor(columns[colNo].type)(rawValue, null)
-    const fieldName = R.isNil(columns[colNo].name) ? columns[colNo] : columns[colNo].name
+    const fieldName = columns[colNo].name
     return originalDataPoint.updateNationalClass(odp, rowNo, fieldName, value)
   }
   const rowCount = R.filter(v => !v.placeHolder, odp.nationalClasses).length
@@ -280,7 +280,7 @@ const getValidationStatusRow = (odp, index) => odp.validationStatus
   ? R.defaultTo({}, R.find(R.propEq('uuid', odp.nationalClasses[index].uuid), odp.validationStatus.nationalClasses))
   : {}
 
-const nationalClassCols = ['className', 'definition']
+const nationalClassCols = [{name: 'className', type: 'text'}, {name: 'definition', type: 'text'}]
 const nationalClassRows = (countryIso, odp, saveDraft, openThread, i18n) => {
   return mapIndexed((nationalClass, index) => <NationalClassRow
     key={index}
@@ -311,7 +311,6 @@ const NationalClassRow = ({odp, index, saveDraft, countryIso, className, definit
                  colIndex: 0,
                  columns: nationalClassCols,
                  saveDraft,
-                 type: 'text',
                  allowGrow: true
                })}
         />
@@ -339,7 +338,6 @@ const NationalClassRow = ({odp, index, saveDraft, countryIso, className, definit
           colIndex: 1,
           columns: nationalClassCols,
           saveDraft,
-          type: 'text',
           allowGrow: true
         })}
       />
