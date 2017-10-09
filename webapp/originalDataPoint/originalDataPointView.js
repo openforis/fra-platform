@@ -23,6 +23,7 @@ import LoggedInPageTemplate from '../loggedInPageTemplate'
 import R from 'ramda'
 import ckEditorConfig from '../ckEditor/ckEditorConfig'
 import ReviewIndicator from '../review/reviewIndicator'
+import DefinitionLink from './../reusableUiComponents/definitionLink'
 
 const years = ['', ...R.pipe(R.range(1990), R.reverse)(2021)]
 
@@ -83,7 +84,10 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
     </div>
     <div className="odp__section">
       <h2 className="headline">{i18n.t('nationalDataPoint.reclassificationLabel')}</h2>
-      <h3 className="subhead">{i18n.t('nationalDataPoint.forestCategoriesLabel')}</h3>
+      <div className="odp__section-header">
+        <h3 className="subhead">{i18n.t('nationalDataPoint.forestCategoriesLabel')}</h3>
+        <DefinitionLink document="tad" anchor="1a" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
+      </div>
       <table className="fra-table odp__eof-table">
         <thead>
         <tr>
@@ -150,7 +154,10 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
 
 
     <div className="odp__section">
-      <h3 className="subhead">{i18n.t('nationalDataPoint.forestCharacteristics')}</h3>
+      <div className="odp__section-header">
+        <h3 className="subhead">{i18n.t('nationalDataPoint.forestCharacteristics')}</h3>
+        <DefinitionLink document="tad" anchor="2a" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
+      </div>
       <table className="fra-table odp__foc-table">
         <thead>
         <tr>
