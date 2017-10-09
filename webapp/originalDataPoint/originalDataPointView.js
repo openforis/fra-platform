@@ -250,7 +250,6 @@ const updatePastedValues = ({
                               colIndex,
                               columns,
                               saveDraft,
-                              type = 'integer',
                               allowGrow = false,
                             }) => evt => {
   const updateOdp = (odp, rowNo, colNo, rawValue) => {
