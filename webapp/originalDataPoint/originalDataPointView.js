@@ -565,7 +565,7 @@ const OtherLandCharacteristicsRow =
     const validationStatus = getValidationStatusRow(odp, index)
     const otherLandStatusPercentage = () => validationStatus.validOtherLandPercentage === false ? 'error' : ''
     const nationalClass = odp.nationalClasses[index]
-    const allowedClassFunction = (nc) => nc.otherLandPercent > 0
+    const allowedClass = (nc) => nc.otherLandPercent > 0
     return nationalClass.otherLandPercent <= 0
       ? null
       : <tr
@@ -583,7 +583,7 @@ const OtherLandCharacteristicsRow =
             colIndex: 0,
             columns: otherLandCharacteristicsCols,
             saveDraft,
-            allowedClass: allowedClassFunction
+            allowedClass
           })}
         />
       </td>
@@ -598,7 +598,7 @@ const OtherLandCharacteristicsRow =
             colIndex: 1,
             columns: otherLandCharacteristicsCols,
             saveDraft,
-            allowedClass: allowedClassFunction
+            allowedClass
           })}
         />
       </td>
@@ -613,7 +613,7 @@ const OtherLandCharacteristicsRow =
             colIndex: 2,
             columns: otherLandCharacteristicsCols,
             saveDraft,
-            allowedClass: allowedClassFunction
+            allowedClass
           })}
         />
       </td>
@@ -628,7 +628,7 @@ const OtherLandCharacteristicsRow =
             colIndex: 3,
             columns: otherLandCharacteristicsCols,
             saveDraft,
-            allowedClass: allowedClassFunction
+            allowedClass
           })}
         />
       </td>
