@@ -557,22 +557,7 @@ const OtherLandCharacteristicsRow =
       : <tr
       className={isCommentsOpen([odp.odpId, 'class', `${odp.nationalClasses[index].uuid}`, 'other_land_charasteristics'], openThread) ? 'fra-row-comments__open' : ''}>
       <td className="fra-table__header-cell-sub"><span>{className}</span></td>
-      <td
-        className={`fra-table__cell-mute fra-table__divider`}>
-        <ThousandSeparatedDecimalInput numberValue={area ? area * nationalClass.otherLandPercent / 100 : null}
-                                       className="fra-table__integer-input"
-                                       disabled={true}
-                                       onChange={numberUpdated(countryIso, odp, index, 'area', area)}
-                                       onPaste={updatePastedValues({
-                                         odp,
-                                         countryIso,
-                                         rowIndex: index,
-                                         colIndex: 0,
-                                         columns: otherLandCharacteristicsCols,
-                                         saveDraft
-                                       })}
-        />
-      </td>
+      <td className={`fra-table__header-cell-sub-right fra-table__divider`}>{formatDecimal(area ? area * nationalClass.otherLandPercent / 100 : null)}</td>
       <td className={`fra-table__cell ${otherLandStatusPercentage()}`}>
         <PercentInput
           value={otherLandPalmsPercent || ''}
@@ -687,22 +672,7 @@ const ForestCharacteristicsRow =
       : <tr
       className={isCommentsOpen([odp.odpId, 'class', `${odp.nationalClasses[index].uuid}`, 'forest_charasteristics'], openThread) ? 'fra-row-comments__open' : ''}>
       <td className="fra-table__header-cell-sub"><span>{className}</span></td>
-      <td
-        className={`fra-table__cell-mute fra-table__divider`}>
-        <ThousandSeparatedDecimalInput numberValue={area}
-                                       className="fra-table__integer-input"
-                                       disabled={true}
-                                       onChange={numberUpdated(countryIso, odp, index, 'area', area)}
-                                       onPaste={updatePastedValues({
-                                         odp,
-                                         countryIso,
-                                         rowIndex: index,
-                                         colIndex: 0,
-                                         columns: forestCharacteristicsCols,
-                                         saveDraft
-                                       })}
-        />
-      </td>
+      <td className={`fra-table__header-cell-sub-right fra-table__divider`}>{formatDecimal(area ? area * nationalClass.forestPercent / 100 : null)}</td>
       <td className={`fra-table__cell ${focStatusPercentage()}`}>
         <PercentInput
           value={naturalForestPercent || ''}
@@ -799,22 +769,7 @@ const NaturalForestPrimaryRow =
       : <tr
       className={isCommentsOpen([odp.odpId, 'class', `${odp.nationalClasses[index].uuid}`, 'natural_forest_primary'], openThread) ? 'fra-row-comments__open' : ''}>
       <td className="fra-table__header-cell-sub"><span>{className}</span></td>
-      <td
-        className={`fra-table__cell-mute fra-table__divider`}>
-        <ThousandSeparatedDecimalInput numberValue={area ? area * nationalClass.naturalForestPercent / 100 : null}
-                                       className="fra-table__integer-input"
-                                       disabled={true}
-                                       onChange={numberUpdated(countryIso, odp, index, 'area', area)}
-                                       onPaste={updatePastedValues({
-                                         odp,
-                                         countryIso,
-                                         rowIndex: index,
-                                         colIndex: 0,
-                                         columns: naturalForestPrimaryCols,
-                                         saveDraft
-                                       })}
-        />
-      </td>
+      <td className={`fra-table__header-cell-sub-right fra-table__divider`}>{formatDecimal(area ? area * nationalClass.naturalForestPercent / 100 : null)}</td>
       <td className={`fra-table__cell ${naturalForestPrimaryStatusPercentage()}`}>
         <PercentInput
           value={naturalForestPrimaryPercent || ''}
@@ -883,22 +838,7 @@ const PlantationIntroducedRow =
       : <tr
       className={isCommentsOpen([odp.odpId, 'class', `${odp.nationalClasses[index].uuid}`, 'natural_forest_primary'], openThread) ? 'fra-row-comments__open' : ''}>
       <td className="fra-table__header-cell-sub"><span>{className}</span></td>
-      <td
-        className={`fra-table__cell-mute fra-table__divider`}>
-        <ThousandSeparatedDecimalInput numberValue={area ? area * nationalClass.plantationPercent / 100 : null}
-                                       className="fra-table__integer-input"
-                                       disabled={true}
-                                       onChange={numberUpdated(countryIso, odp, index, 'area', area)}
-                                       onPaste={updatePastedValues({
-                                         odp,
-                                         countryIso,
-                                         rowIndex: index,
-                                         colIndex: 0,
-                                         columns: plantationIntroducedCols,
-                                         saveDraft
-                                       })}
-        />
-      </td>
+      <td className={`fra-table__header-cell-sub-right fra-table__divider`}>{formatDecimal(area ? area * nationalClass.plantationPercent / 100 : null)}</td>
       <td className={`fra-table__cell ${plantationIntroducedStatusPercentage()}`}>
         <PercentInput
           value={plantationIntroducedPercent || ''}
