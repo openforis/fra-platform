@@ -11,7 +11,7 @@ export const rows = [
     areaFields: ['plantationForestArea', 'otherPlantedForestArea'],
     calculated: true,
     sumFields: ['plantationForest', 'otherPlantedForest'],
-    labelKey: 'fraForestCharacteristicsClass.plantedForest'
+    labelKey: 'fraForestCharacteristicsClass.plantationForest'
   }, {
     field: 'plantationForest',
     areaFields: ['plantationForestArea'],

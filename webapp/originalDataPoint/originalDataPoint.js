@@ -80,6 +80,10 @@ export const otherLandClassTotalArea = (odp, percentFieldName) => subClassTotalA
 
 export const forestClassTotalArea = (odp, percentFieldName) => subClassTotalArea(odp, 'forestPercent', percentFieldName)
 
+export const naturalForestTotalArea = (odp, percentFieldName) => subClassTotalArea(odp, 'naturalForestPercent', percentFieldName)
+
+export const plantationForestTotalArea = (odp, percentFieldName) => subClassTotalArea(odp, 'plantationPercent', percentFieldName)
+
 export const allowCopyingOfPreviousValues =
   R.pipe(R.path(['nationalClasses', 0, 'className']), R.defaultTo(''), R.isEmpty)
 
