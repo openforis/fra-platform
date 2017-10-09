@@ -302,17 +302,25 @@ const updatePastedValues = ({
     mapIndexed((nc, i) => ({...nc, rowIndex: i}) ,odp.nationalClasses)
   )
   const rowCount = allowedClasses.length
-  const pastedData = allowGrow ? readPasteClipboard(evt, 'string')
-    : R.take(rowCount - rowIndex, readPasteClipboard(evt, 'string'))
+  const rawPastedData = readPasteClipboard(evt, 'string')
 
   const allowedIndexes = allowGrow
-    ? R.range(0, pastedData.length)
+    ? R.range(0, rawPastedData.length)
     : R.pluck('rowIndex', allowedClasses)
+
+  const rowOffset = R.findIndex(i => i === rowIndex, allowedIndexes)
+
+  const pastedData = allowGrow
+    ? rawPastedData
+    : R.take(rowCount - rowOffset, rawPastedData)
 
   const handleRow = (pastedRowIndex, pastedRow, odp) =>
     R.reduce(
       (accu, pastedColumnValue) =>
-        ({odp: updateOdp(accu.odp, allowedIndexes[pastedRowIndex]+rowIndex, accu.colIndex+colIndex, pastedColumnValue), colIndex: accu.colIndex + 1}),
+        ({
+          odp: updateOdp(accu.odp, allowedIndexes[pastedRowIndex]+rowOffset, accu.colIndex+colIndex, pastedColumnValue),
+          colIndex: accu.colIndex + 1
+        }),
       {odp: odp, colIndex: 0},
     pastedRow).odp
 
