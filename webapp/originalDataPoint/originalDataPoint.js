@@ -7,8 +7,6 @@ import { sum, mul, div } from '../../common/bignumberUtils'
 
 const uuidv4 = require('uuid/v4')
 
-const defaultTo0 = R.defaultTo(0)
-
 export const updateNationalClass = (odp, index, field, value) => {
   const nationalClassToUpdate = odp.nationalClasses[index]
   const wasPlaceHolder = nationalClassToUpdate.placeHolder
