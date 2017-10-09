@@ -289,27 +289,41 @@ const updatePastedValues = ({
                               columns,
                               saveDraft,
                               allowGrow = false,
+                              allowedClass = (nc) => true
                             }) => evt => {
   const updateOdp = (odp, rowNo, colNo, rawValue) => {
-    if (R.isNil(columns[colNo]))
-      return R.clone(odp)
+    if (R.isNil(columns[colNo])) return odp
     const value = sanitizerFor(columns[colNo].type)(rawValue, null)
     const fieldName = columns[colNo].name
     return originalDataPoint.updateNationalClass(odp, rowNo, fieldName, value)
   }
-  const rowCount = R.filter(v => !v.placeHolder, odp.nationalClasses).length
+  const allowedClasses = R.filter(
+    nc => !nc.placeHolder && allowedClass(nc),
+    mapIndexed((nc, i) => ({...nc, rowIndex: i}) ,odp.nationalClasses)
+  )
+  const rowCount = allowedClasses.length
   const pastedData = allowGrow ? readPasteClipboard(evt, 'string')
     : R.take(rowCount - rowIndex, readPasteClipboard(evt, 'string'))
 
-  var tempOdp = R.clone(odp)
-  mapIndexed((r, i) => {
-    const row = rowIndex + i
-    mapIndexed((c, j) => {
-      const col = colIndex + j
-      tempOdp = updateOdp(tempOdp, row, col, c)
-    }, r)
-  }, pastedData)
-  saveDraft(countryIso, tempOdp)
+  const allowedIndexes = allowGrow
+    ? R.range(0, pastedData.length)
+    : R.pluck('rowIndex', allowedClasses)
+
+  const handleRow = (pastedRowIndex, pastedRow, odp) =>
+    R.reduce(
+      (accu, pastedColumnValue) =>
+        ({odp: updateOdp(accu.odp, allowedIndexes[pastedRowIndex]+rowIndex, accu.colIndex+colIndex, pastedColumnValue), colIndex: accu.colIndex + 1}),
+      {odp: odp, colIndex: 0},
+    pastedRow).odp
+
+  const updatedOdp =
+    R.reduce(
+      (accu, pastedRow) =>
+        ({odp: handleRow(accu.pastedRowIndex, pastedRow, accu.odp), pastedRowIndex: accu.pastedRowIndex + 1}),
+      {odp: odp, pastedRowIndex: 0},
+      pastedData
+    ).odp
+  saveDraft(countryIso, updatedOdp)
   return sanitizerFor(columns[colIndex].type)(pastedData[0][0])
 }
 
@@ -513,7 +527,6 @@ const ExtentOfForestRow = ({
 }
 
 const otherLandCharacteristicsCols = [
-  {name: 'area', type: 'decimal'},
   {name: 'otherLandPalmsPercent', type: 'integer'},
   {name: 'otherLandTreeOrchardsPercent', type: 'integer'},
   {name: 'otherLandAgroforestryPercent', type: 'integer'},
@@ -552,6 +565,7 @@ const OtherLandCharacteristicsRow =
     const validationStatus = getValidationStatusRow(odp, index)
     const otherLandStatusPercentage = () => validationStatus.validOtherLandPercentage === false ? 'error' : ''
     const nationalClass = odp.nationalClasses[index]
+    const allowedClassFunction = (nc) => nc.otherLandPercent > 0
     return nationalClass.otherLandPercent <= 0
       ? null
       : <tr
@@ -566,9 +580,10 @@ const OtherLandCharacteristicsRow =
             odp,
             countryIso,
             rowIndex: index,
-            colIndex: 1,
+            colIndex: 0,
             columns: otherLandCharacteristicsCols,
-            saveDraft
+            saveDraft,
+            allowedClass: allowedClassFunction
           })}
         />
       </td>
@@ -580,9 +595,10 @@ const OtherLandCharacteristicsRow =
             odp,
             countryIso,
             rowIndex: index,
-            colIndex: 2,
+            colIndex: 1,
             columns: otherLandCharacteristicsCols,
-            saveDraft
+            saveDraft,
+            allowedClass: allowedClassFunction
           })}
         />
       </td>
@@ -594,9 +610,10 @@ const OtherLandCharacteristicsRow =
             odp,
             countryIso,
             rowIndex: index,
-            colIndex: 3,
+            colIndex: 2,
             columns: otherLandCharacteristicsCols,
-            saveDraft
+            saveDraft,
+            allowedClass: allowedClassFunction
           })}
         />
       </td>
@@ -608,9 +625,10 @@ const OtherLandCharacteristicsRow =
             odp,
             countryIso,
             rowIndex: index,
-            colIndex: 4,
+            colIndex: 3,
             columns: otherLandCharacteristicsCols,
-            saveDraft
+            saveDraft,
+            allowedClass: allowedClassFunction
           })}
         />
       </td>
