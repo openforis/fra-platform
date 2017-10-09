@@ -509,8 +509,7 @@ const OtherLandCharacteristicsRow =
      otherLandAgroforestryPercent,
      otherLandTreesUrbanSettingsPercent,
      openThread,
-     i18n,
-     ...props
+     i18n
    }) => {
     const numberUpdated = numberUpdateCreator(saveDraft)
     const validationStatus = getValidationStatusRow(odp, index)
