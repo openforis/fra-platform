@@ -864,7 +864,7 @@ const PlantationIntroducedRow =
    }) => {
     const numberUpdated = numberUpdateCreator(saveDraft)
     const validationStatus = getValidationStatusRow(odp, index)
-    const plantationIntroducedStatusPercentage = () => validationStatus.validplantationIntroducedPercentage === false ? 'error' : ''
+    const plantationIntroducedStatusPercentage = () => validationStatus.validPlantationIntroducedPercentage === false ? 'error' : ''
     const nationalClass = odp.nationalClasses[index]
     return nationalClass.plantationPercent <= 0
       ? null
