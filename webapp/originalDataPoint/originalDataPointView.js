@@ -686,14 +686,14 @@ const ForestCharacteristicsRow =
      plantationPercent,
      otherPlantedPercent,
      openThread,
-     i18n,
-     ...props
+     i18n
    }) => {
     const numberUpdated = numberUpdateCreator(saveDraft)
     const validationStatus = getValidationStatusRow(odp, index)
     const focStatusPercentage = () => validationStatus.validFocPercentage === false ? 'error' : ''
     const nationalClass = odp.nationalClasses[index]
-    return nationalClass.forestPercent <= 0
+    const allowedClass = (nc) => nc.forestPercent > 0
+    return !allowedClass(nationalClass)
       ? null
       : <tr
       className={isCommentsOpen([odp.odpId, 'class', `${odp.nationalClasses[index].uuid}`, 'forest_charasteristics'], openThread) ? 'fra-row-comments__open' : ''}>
@@ -709,7 +709,8 @@ const ForestCharacteristicsRow =
             rowIndex: index,
             colIndex: 1,
             columns: forestCharacteristicsCols,
-            saveDraft
+            saveDraft,
+            allowedClass
           })}
         />
       </td>
@@ -723,7 +724,8 @@ const ForestCharacteristicsRow =
             rowIndex: index,
             colIndex: 2,
             columns: forestCharacteristicsCols,
-            saveDraft
+            saveDraft,
+            allowedClass
           })}
         />
       </td>
@@ -737,7 +739,8 @@ const ForestCharacteristicsRow =
             rowIndex: index,
             colIndex: 3,
             columns: forestCharacteristicsCols,
-            saveDraft
+            saveDraft,
+            allowedClass
           })}
         />
       </td>
