@@ -45,6 +45,24 @@
 
 // Custom table styles
 
+.odp__sub-table {
+  .fra-table;
+  line-height: 16px;
+
+  .fra-table__header-cell,
+  .fra-table__header-cell-right,
+  .fra-table__header-cell-middle,
+  .fra-table__header-cell-sub,
+  .fra-table__header-cell-sub-right {
+    background: transparent;
+  }
+
+  .fra-review__issue-status {
+    height: 37px;
+  }
+}
+
+
 .odp__national-class-table {
   .odp__national-class-name {
     position: relative;
@@ -65,16 +83,6 @@
     position: relative;
     left: 4px;
     cursor: pointer;
-  }
-}
-
-.odp__foc-table {
-  .fra-table__cell {
-    min-width: 200px;
-  }
-
-  .percent__field:first-of-type:not(:only-of-type) {
-    border-bottom: 1px solid @ui-border;
   }
 }
 

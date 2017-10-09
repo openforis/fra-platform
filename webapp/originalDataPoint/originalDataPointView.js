@@ -88,7 +88,7 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
         <h3 className="subhead">{i18n.t('nationalDataPoint.forestCategoriesLabel')}</h3>
         <DefinitionLink document="tad" anchor="1a" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
       </div>
-      <table className="fra-table odp__eof-table">
+      <table className="fra-table">
         <thead>
         <tr>
           <th className="fra-table__header-cell-middle fra-table__divider"
@@ -125,7 +125,7 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
 
 
     <div className="odp__section">
-      <table className="fra-table odp__ol-table">
+      <table className="odp__sub-table">
         <thead>
         <tr>
           <th className="fra-table__header-cell">{i18n.t('nationalDataPoint.otherLandCharacteristics')}</th>
@@ -158,7 +158,7 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
         <h3 className="subhead">{i18n.t('nationalDataPoint.forestCharacteristics')}</h3>
         <DefinitionLink document="tad" anchor="2a" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
       </div>
-      <table className="fra-table odp__foc-table">
+      <table className="fra-table">
         <thead>
         <tr>
           <th className="fra-table__header-cell-middle fra-table__divider"
@@ -190,7 +190,7 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
     </div>
 
     <div className="odp__section">
-      <table className="fra-table odp__foc-sub-table">
+      <table className="odp__sub-table">
         <thead>
           <tr>
             <th className="fra-table__header-cell">{i18n.t('fraForestCharacteristicsClass.naturallyRegeneratingForest')}</th>
@@ -212,7 +212,7 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
     </div>
 
     <div className="odp__section">
-      <table className="fra-table odp__foc-sub-table">
+      <table className="odp__sub-table">
         <thead>
           <tr>
             <th className="fra-table__header-cell">{i18n.t('fraForestCharacteristicsClass.plantationForest')}</th>
