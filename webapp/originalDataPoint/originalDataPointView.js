@@ -57,6 +57,7 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
         </select>
       </div>
     </div>
+
     <div className="odp__section">
       <div className="odp__section-header">
         <h3 className="subhead">
@@ -82,6 +83,7 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
         </tbody>
       </table>
     </div>
+
     <div className="odp__section">
       <h2 className="headline">{i18n.t('nationalDataPoint.reclassificationLabel')}</h2>
       <div className="odp__section-header">
@@ -121,10 +123,6 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
         </tr>
         </tbody>
       </table>
-    </div>
-
-
-    <div className="odp__section">
       <table className="odp__sub-table">
         <thead>
         <tr>
@@ -187,9 +185,6 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
         </tr>
         </tbody>
       </table>
-    </div>
-
-    <div className="odp__section">
       <table className="odp__sub-table">
         <thead>
           <tr>
@@ -209,9 +204,6 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
           </tr>
         </tbody>
       </table>
-    </div>
-
-    <div className="odp__section">
       <table className="odp__sub-table">
         <thead>
           <tr>
