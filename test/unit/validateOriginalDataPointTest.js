@@ -1,5 +1,5 @@
 const assert = require('chai').assert
-const {validateDataPoint} = require('../../common/originalDataPointCommon')
+const {validateDataPoint} = require('../../common/validateOriginalDataPoint')
 
 describe('validateOriginalDataPoint', () => {
 

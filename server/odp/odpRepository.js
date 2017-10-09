@@ -2,7 +2,7 @@ const db = require('../db/db')
 const R = require('ramda')
 const Promise = require('bluebird')
 const camelize = require('camelize')
-const {validateDataPoint} = require('../../common/originalDataPointCommon')
+const {validateDataPoint} = require('../../common/validateOriginalDataPoint')
 const {deleteIssuesByIds, deleteIssues} = require('../review/reviewRepository')
 const {checkCountryAccess} = require('../utils/accessControl')
 const auditRepository = require('./../audit/auditRepository')
@@ -19,7 +19,7 @@ const wipeNationalClassIssues = (client, odpId, countryIso, nationalClasses) => 
 
   return client.query(
     `
-      SELECT 
+      SELECT
         i.id as issue_id
       FROM issue i
       WHERE i.country_iso = $1
@@ -222,7 +222,7 @@ const getOdpVersionId = (queryProvider, odpId) =>
 
 const getOdpNationalClasses = (queryProvider, odpVersionId) =>
   queryProvider.query(
-    `SELECT 
+    `SELECT
       name,
       definition,
       area,
@@ -332,7 +332,7 @@ module.exports.readEofOdps = (countryIso) =>
           SUM(c.area * c.other_land_tree_orchards_percent * c.other_land_percent / 10000.0) AS other_land_tree_orchards,
           SUM(c.area * c.other_land_agroforestry_percent * c.other_land_percent / 10000.0) AS other_land_agroforestry,
           SUM(c.area * c.other_land_trees_urban_settings_percent * c.other_land_percent / 10000.0) AS other_land_trees_urban_settings,
-          CASE 
+          CASE
             WHEN p.draft_id IS NULL
             THEN FALSE
             ELSE TRUE
@@ -361,7 +361,7 @@ module.exports.readFocOdps = (countryIso) =>
           SUM(c.area * (c.forest_plantation_percent/100.0)) AS plantation_forest_area,
           SUM(c.area * (c.forest_plantation_introduced_percent/100.0)) AS plantation_forest_introduced_area,
           SUM(c.area * (c.other_planted_forest_percent/100.0)) AS other_planted_forest_area,
-        CASE 
+        CASE
           WHEN p.draft_id IS NULL
           THEN FALSE
           ELSE TRUE
