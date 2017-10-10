@@ -1,7 +1,7 @@
 const R = require('ramda')
 const {add, mul, div, sub, toFixed} = require('../../common/bignumberUtils')
 
-const linearInterpolation = (x, xa, ya, xb, yb) => toFixed(
+const linearInterpolation = (x, xa, ya, xb, yb) =>
   add(ya,
     div(
       mul(
@@ -11,9 +11,8 @@ const linearInterpolation = (x, xa, ya, xb, yb) => toFixed(
       sub(xb, xa)
     )
   )
-)
 
-const linearExtrapolation = (x, xa, ya, xb, yb) => toFixed(
+const linearExtrapolation = (x, xa, ya, xb, yb) =>
   add(ya,
     mul(
       div(
@@ -23,9 +22,8 @@ const linearExtrapolation = (x, xa, ya, xb, yb) => toFixed(
       sub(yb, ya)
     )
   )
-)
 
-const linearExtrapolationBackwards = (x, xa, ya, xb, yb) => toFixed(
+const linearExtrapolationBackwards = (x, xa, ya, xb, yb) =>
   add(yb,
     mul(
       div(
@@ -35,7 +33,6 @@ const linearExtrapolationBackwards = (x, xa, ya, xb, yb) => toFixed(
       sub(ya, yb)
     )
   )
-)
 
 const eofFields = ['forestArea', 'otherWoodedLand', 'otherLand', 'otherLandPalms', 'otherLandTreeOrchards', 'otherLandAgroforestry', 'otherLandTreesUrbanSettings']
 const focFields = ['naturalForestArea', 'naturalForestPrimaryArea', 'plantationForestArea', 'plantationForestIntroducedArea', 'otherPlantedForestArea']
@@ -98,7 +95,7 @@ const estimateFraValue2 = (year, values, fieldsToEstimate) => {
     const estValue = estimateField(fieldValues, field, year)
 
     return R.pipe(
-      R.assoc([field], estValue),
+      R.assoc([field], toFixed(estValue)),
       R.assoc(`${field}Estimated`, true)
     )(newFraObj)
   }
@@ -118,12 +115,13 @@ const estimateFraValues = (years, odpValues, fieldstoEstimate) => {
     return [...values, newValue]
   }
 
-  return R.pipe(
+  const estimatedValues = R.pipe(
     R.partial(R.reduce, [estimateFraValuesReducer, odpValues]),
     R.filter(v => v.store),
     R.map(v => R.dissoc('store', v))
   )(years)
 
+  return estimatedValues
 }
 
 module.exports.eofFields = eofFields
