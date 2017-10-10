@@ -251,8 +251,12 @@ export const translation = {
     categoryHeader: 'FRA categories',
     avgTableHeader: 'Average growing stock (m³/ha)',
     totalTableHeader: 'Total growing stock (million m³)',
+    naturallyRegeneratingForest: 'Naturally regenerating forest',
+    plantedForest: 'Planted forest',
     ofWhichPlantationForest: '…of which plantation forest',
-    ofWhichOtherPlantedForest: '…of which other planted forest'
+    ofWhichOtherPlantedForest: '…of which other planted forest',
+    totalForest: 'Total forest',
+    otherWoodedLand: 'Other wooded land'
   },
 
   forestOwnership: {
