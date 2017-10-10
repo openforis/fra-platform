@@ -148,19 +148,29 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
                   <th className="fra-table__header-cell-right">{i18n.t('fraOtherLandClass.treesUrbanSettings')}</th>
                 </tr>
                 </thead>
-                <tbody>
-                {
-                  otherLandCharacteristicsRows(countryIso, active, saveDraft, openThread, i18n)
-                }
-                <tr>
-                  <td className="fra-table__header-cell">{i18n.t('nationalDataPoint.total')}</td>
-                  <td className="fra-table__header-cell-right fra-table__divider">{formatDecimal(originalDataPoint.otherLandTotalArea(active))}</td>
-                  <td className="fra-table__aggregate-cell">{formatDecimal(originalDataPoint.otherLandClassTotalArea(active, 'otherLandPalmsPercent'))}</td>
-                  <td className="fra-table__aggregate-cell">{formatDecimal(originalDataPoint.otherLandClassTotalArea(active, 'otherLandTreeOrchardsPercent'))}</td>
-                  <td className="fra-table__aggregate-cell">{formatDecimal(originalDataPoint.otherLandClassTotalArea(active, 'otherLandAgroforestryPercent'))}</td>
-                  <td className="fra-table__aggregate-cell">{formatDecimal(originalDataPoint.otherLandClassTotalArea(active, 'otherLandTreesUrbanSettingsPercent'))}</td>
-                </tr>
-                </tbody>
+                <SubcategoryTableBody
+                  odp={active}
+                  countryIso={countryIso}
+                  saveDraft={saveDraft}
+                  openThread={openThread}
+                  subCategory="otherLandCharacteristics"
+                  parentCategory="otherLandPercent"
+                  categoryColumns={[{name: 'otherLandPalmsPercent', type: 'integer'},
+                                    {name: 'otherLandTreeOrchardsPercent', type: 'integer'},
+                                    {name: 'otherLandAgroforestryPercent', type: 'integer'},
+                                    {name: 'otherLandTreesUrbanSettingsPercent', type: 'integer'}]}
+                  targetSuffix="other_land_charasteristics"
+                  i18n={i18n} />
+                <tfoot>
+                  <tr>
+                    <td className="fra-table__header-cell">{i18n.t('nationalDataPoint.total')}</td>
+                    <td className="fra-table__header-cell-right fra-table__divider">{formatDecimal(originalDataPoint.otherLandTotalArea(active))}</td>
+                    <td className="fra-table__aggregate-cell">{formatDecimal(originalDataPoint.otherLandClassTotalArea(active, 'otherLandPalmsPercent'))}</td>
+                    <td className="fra-table__aggregate-cell">{formatDecimal(originalDataPoint.otherLandClassTotalArea(active, 'otherLandTreeOrchardsPercent'))}</td>
+                    <td className="fra-table__aggregate-cell">{formatDecimal(originalDataPoint.otherLandClassTotalArea(active, 'otherLandAgroforestryPercent'))}</td>
+                    <td className="fra-table__aggregate-cell">{formatDecimal(originalDataPoint.otherLandClassTotalArea(active, 'otherLandTreesUrbanSettingsPercent'))}</td>
+                  </tr>
+                </tfoot>
               </table>
             </div>
         </div>
@@ -783,7 +793,6 @@ const SubcategoryRow =
     i18n,
     ...props
   }) => {
-    console.log("index?", index)
     const nationalClass = odp.nationalClasses[index]
     const numberUpdated = numberUpdateCreator(saveDraft)
     const validationStatus = () => getValidationStatusRow(odp, index).validPlantationIntroducedPercentage === false ? 'error' : ''
@@ -797,10 +806,11 @@ const SubcategoryRow =
       <td className={`fra-table__header-cell-sub-right fra-table__divider`}>{formatDecimal(categoryArea)}</td>
       {
         mapIndexed((col, colIndex) => {
+          const currentCol = categoryColumns[colIndex].name
           return <td key={colIndex} className={`fra-table__cell ${validationStatus()}`}>
             <PercentInput
-              value={nationalClass[subCategory] || ''}
-              onChange={numberUpdated(countryIso, odp, index, subCategory, nationalClass[subCategory])}
+              value={nationalClass[currentCol] || ''}
+              onChange={numberUpdated(countryIso, odp, index, currentCol, nationalClass[currentCol])}
               onPaste={updatePastedValues({
                 odp,
                 countryIso,
