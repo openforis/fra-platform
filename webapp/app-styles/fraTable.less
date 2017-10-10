@@ -1,6 +1,10 @@
 @import (reference) "./config";
 @import (reference) "./form";
 
+.fra-table__container {
+  position: relative;
+}
+
 .fra-table__scroll-wrapper {
   overflow-x: auto;
   width: 100%;
@@ -107,9 +111,18 @@
   margin: 0;
 }
 
+// Misc
+
 .fra-table__row-anchor-cell {
   padding: 0;
   width: 1px;
+  vertical-align: top;
+}
+
+.fra-table__filler-cell {
+  border: none;
+  border-bottom: 1px solid @ui-border;
+  background-color: @ui-bg;
 }
 
 .fra-table__hidden-cell {
