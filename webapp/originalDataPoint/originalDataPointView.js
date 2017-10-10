@@ -246,16 +246,23 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
                     <th className="fra-table__header-cell-right">{i18n.t('fraForestCharacteristicsClass.ofWhichIntroduced')}</th>
                   </tr>
                 </thead>
-                <tbody>
-                  {
-                    subcategoryRows(countryIso, active, saveDraft, openThread, i18n, 'plantationIntroducedPercent', 'plantationPercent', [{name: 'plantationIntroducedPercent', type: 'integer'}], 'natural_forest_primary')
-                  }
+                <SubcategoryTableBody
+                  odp={active}
+                  countryIso={countryIso}
+                  saveDraft={saveDraft}
+                  openThread={openThread}
+                  subCategory="plantationIntroducedPercent"
+                  parentCategory="plantationPercent"
+                  categoryColumns={[{name: 'plantationIntroducedPercent', type: 'integer'}]}
+                  targetSuffix="natural_forest_primary"
+                  i18n={i18n} />
+                <tfoot>
                   <tr>
                     <td className="fra-table__header-cell">{i18n.t('nationalDataPoint.total')}</td>
                     <td className="fra-table__header-cell-right fra-table__divider">{formatDecimal(originalDataPoint.classTotalArea(active, 'plantationPercent'))}</td>
                     <td className="fra-table__aggregate-cell">{formatDecimal(originalDataPoint.plantationForestTotalArea(active, 'plantationIntroducedPercent'))}</td>
                   </tr>
-                </tbody>
+                </tfoot>
               </table>
             </div>
           </div>
@@ -883,23 +890,15 @@ const PlantationIntroducedRow =
     </tr>
   }
 
-const subcategoryRows = (countryIso, odp, saveDraft, openThread, i18n, subCategory, parentCategory, categoryColumns, targetSuffix) =>
+const SubcategoryTableBody = props => <tbody>{
   R.pipe(
     R.filter(nationalClass => !nationalClass.placeHolder),
     mapIndexed((nationalClass, index) => <SubcategoryRow
-      key={index}
-      index={index}
-      odp={odp}
-      saveDraft={saveDraft}
-      countryIso={countryIso}
-      openThread={openThread}
-      subCategory={subCategory}
-      parentCategory={parentCategory}
-      categoryColumns={categoryColumns}
-      targetSuffix={targetSuffix}
-      i18n={i18n}
+      index = {index}
+      {...props}
       {...nationalClass}/>)
-    )(odp.nationalClasses)
+    )(props.odp.nationalClasses)
+}</tbody>
 
 const SubcategoryRow =
   ({
