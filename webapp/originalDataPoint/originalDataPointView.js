@@ -24,6 +24,7 @@ import R from 'ramda'
 import ckEditorConfig from '../ckEditor/ckEditorConfig'
 import ReviewIndicator from '../review/reviewIndicator'
 import DefinitionLink from './../reusableUiComponents/definitionLink'
+import handlePaste from './paste'
 
 const years = ['', ...R.pipe(R.range(1990), R.reverse)(2021)]
 
@@ -280,10 +281,6 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
 
 const mapIndexed = R.addIndex(R.map)
 
-const sanitizerFor = type =>
-  type === 'decimal' ?
-    acceptNextDecimal
-    : (type === 'integer' ? acceptNextInteger : R.identity)
 
 const updatePastedValues = ({
                               odp,
@@ -295,48 +292,11 @@ const updatePastedValues = ({
                               allowGrow = false,
                               allowedClass = (nc) => true
                             }) => evt => {
-  const updateOdp = (odp, rowNo, colNo, rawValue) => {
-    if (R.isNil(columns[colNo])) return odp
-    const value = sanitizerFor(columns[colNo].type)(rawValue, null)
-    const fieldName = columns[colNo].name
-    return originalDataPoint.updateNationalClass(odp, rowNo, fieldName, value)
-  }
-  const allowedClasses = R.filter(
-    nc => !nc.placeHolder && allowedClass(nc),
-    mapIndexed((nc, i) => ({...nc, rowIndex: i}) ,odp.nationalClasses)
-  )
-  const rowCount = allowedClasses.length
+
   const rawPastedData = readPasteClipboard(evt, 'string')
-
-  const allowedIndexes = allowGrow
-    ? R.range(0, rawPastedData.length)
-    : R.pluck('rowIndex', allowedClasses)
-
-  const rowOffset = R.findIndex(i => i === rowIndex, allowedIndexes)
-
-  const pastedData = allowGrow
-    ? rawPastedData
-    : R.take(rowCount - rowOffset, rawPastedData)
-
-  const handleRow = (pastedRowIndex, pastedRow, odp) =>
-    R.reduce(
-      (accu, pastedColumnValue) =>
-        ({
-          odp: updateOdp(accu.odp, allowedIndexes[pastedRowIndex]+rowOffset, accu.colIndex+colIndex, pastedColumnValue),
-          colIndex: accu.colIndex + 1
-        }),
-      {odp: odp, colIndex: 0},
-    pastedRow).odp
-
-  const updatedOdp =
-    R.reduce(
-      (accu, pastedRow) =>
-        ({odp: handleRow(accu.pastedRowIndex, pastedRow, accu.odp), pastedRowIndex: accu.pastedRowIndex + 1}),
-      {odp: odp, pastedRowIndex: 0},
-      pastedData
-    ).odp
+  const {updatedOdp, firstPastedCellData} = handlePaste(columns, allowedClass, odp, allowGrow, rawPastedData, rowIndex, colIndex)
   saveDraft(countryIso, updatedOdp)
-  return sanitizerFor(columns[colIndex].type)(pastedData[0][0])
+  return firstPastedCellData
 }
 
 const getValidationStatusRow = (odp, index) => odp.validationStatus
