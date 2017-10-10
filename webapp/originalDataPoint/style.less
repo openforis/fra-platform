@@ -6,8 +6,12 @@
 }
 
 .odp__section {
-  margin-top: 24px;
+  margin-top: 32px;
   margin-bottom: 24px;
+
+  &:first-of-type {
+    margin-top: 24px;
+  }
 
   > .subhead, > .headline {
     margin-bottom: 16px;
@@ -45,6 +49,26 @@
 
 // Custom table styles
 
+.odp__sub-table {
+  .fra-table;
+  color: lighten(@text-body, 10%);
+  line-height: 16px;
+  margin-top: 24px;
+
+  .fra-table__header-cell,
+  .fra-table__header-cell-right,
+  .fra-table__header-cell-middle,
+  .fra-table__header-cell-sub,
+  .fra-table__header-cell-sub-right {
+    background: transparent;
+  }
+
+  .fra-review__issue-status {
+    height: 37px;
+  }
+}
+
+
 .odp__national-class-table {
   .odp__national-class-name {
     position: relative;
@@ -65,16 +89,6 @@
     position: relative;
     left: 4px;
     cursor: pointer;
-  }
-}
-
-.odp__foc-table {
-  .fra-table__cell {
-    min-width: 200px;
-  }
-
-  .percent__field:first-of-type:not(:only-of-type) {
-    border-bottom: 1px solid @ui-border;
   }
 }
 
