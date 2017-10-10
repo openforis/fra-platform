@@ -416,8 +416,7 @@ const ExtentOfForestRow = ({
                              otherWoodedLandPercent,
                              otherLandPercent,
                              openThread,
-                             i18n,
-                             ...props
+                             i18n
                            }) => {
 
   const validationStatus = getValidationStatusRow(odp, index)
