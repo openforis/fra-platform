@@ -78,6 +78,7 @@ export default i18n => ({
       {type: 'custom', render: totalDisturbanceCell(5)},
       {type: 'custom', render: totalDisturbanceCell(6)},
       {type: 'custom', render: totalDisturbanceCell(7)},
+      {type: 'custom', render: totalDisturbanceCell(8)},
       {type: 'custom', render: totalDisturbanceCell(9)},
       {type: 'custom', render: totalDisturbanceCell(10)},
       {type: 'custom', render: totalDisturbanceCell(11)},
