@@ -790,14 +790,14 @@ const NaturalForestPrimaryRow =
      area,
      naturalForestPrimaryPercent,
      openThread,
-     i18n,
-     ...props
+     i18n
    }) => {
     const numberUpdated = numberUpdateCreator(saveDraft)
     const validationStatus = getValidationStatusRow(odp, index)
     const naturalForestPrimaryStatusPercentage = () => validationStatus.validNaturalForestPrimaryPercentage === false ? 'error' : ''
     const nationalClass = odp.nationalClasses[index]
-    return nationalClass.naturalForestPercent <= 0
+    const allowedClass = nc => nc.naturalForestPercent > 0
+    return !allowedClass(nationalClass)
       ? null
       : <tr
       className={isCommentsOpen([odp.odpId, 'class', `${odp.nationalClasses[index].uuid}`, 'natural_forest_primary'], openThread) ? 'fra-row-comments__open' : ''}>
@@ -813,7 +813,8 @@ const NaturalForestPrimaryRow =
             rowIndex: index,
             colIndex: 1,
             columns: naturalForestPrimaryCols,
-            saveDraft
+            saveDraft,
+            allowedClass
           })}
         />
       </td>
