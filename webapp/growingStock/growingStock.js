@@ -5,13 +5,13 @@ export const rows = [
   {
     field: 'naturallyRegeneratingForest',
     areaFields: ['naturalForestArea'],
-    labelKey: 'fraForestCharacteristicsClass.naturallyRegeneratingForest'
+    labelKey: 'growingStock.naturallyRegeneratingForest'
   }, {
     field: 'plantedForest',
     areaFields: ['plantationForestArea', 'otherPlantedForestArea'],
     calculated: true,
     sumFields: ['plantationForest', 'otherPlantedForest'],
-    labelKey: 'fraForestCharacteristicsClass.plantedForest'
+    labelKey: 'growingStock.plantedForest'
   }, {
     field: 'plantationForest',
     areaFields: ['plantationForestArea'],
@@ -27,11 +27,11 @@ export const rows = [
     areaFields: ['naturalForestArea', 'plantationForestArea', 'otherPlantedForestArea'],
     calculated: true,
     sumFields: ['naturallyRegeneratingForest', 'plantationForest', 'otherPlantedForest'],
-    labelKey: 'fraForestCharacteristicsClass.totalForest'
+    labelKey: 'growingStock.totalForest'
   }, {
     field: 'otherWoodedLand',
     areaFields: ['otherWoodedLand'],
-    labelKey: 'fraClass.otherWoodedLand'
+    labelKey: 'growingStock.otherWoodedLand'
   }
 ]
 

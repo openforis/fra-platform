@@ -7,8 +7,6 @@ import { sum, mul, div } from '../../common/bignumberUtils'
 
 const uuidv4 = require('uuid/v4')
 
-const defaultTo0 = R.defaultTo(0)
-
 export const updateNationalClass = (odp, index, field, value) => {
   const nationalClassToUpdate = odp.nationalClasses[index]
   const wasPlaceHolder = nationalClassToUpdate.placeHolder
@@ -79,6 +77,10 @@ export const otherLandTotalArea = odp => classTotalArea(odp, 'otherLandPercent')
 export const otherLandClassTotalArea = (odp, percentFieldName) => subClassTotalArea(odp, 'otherLandPercent', percentFieldName)
 
 export const forestClassTotalArea = (odp, percentFieldName) => subClassTotalArea(odp, 'forestPercent', percentFieldName)
+
+export const naturalForestTotalArea = (odp, percentFieldName) => subClassTotalArea(odp, 'naturalForestPercent', percentFieldName)
+
+export const plantationForestTotalArea = (odp, percentFieldName) => subClassTotalArea(odp, 'plantationPercent', percentFieldName)
 
 export const allowCopyingOfPreviousValues =
   R.pipe(R.path(['nationalClasses', 0, 'className']), R.defaultTo(''), R.isEmpty)

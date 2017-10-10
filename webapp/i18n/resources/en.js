@@ -36,23 +36,19 @@ export const translation = {
   },
 
   fraForestCharacteristicsClass: {
-    naturallyGenerated: 'Naturally regenerating forest',
-    plantationForest: 'Plantation forest',
-    otherPlantedForest: 'Other planted forest',
-    introduced: '…of which introduces species',
     naturallyRegeneratingForest: 'Naturally regenerating forest',
-    plantedForest: 'Planted forest',
+    ofWhichPrimary: '…of which primary',
+    plantationForest: 'Plantation forest',
+    ofWhichIntroduced: '…of which introduced',
+    otherPlantedForest: 'Other planted forest',
     totalForest: 'Total forest'
   },
 
   fraOtherLandClass: {
-    palms: 'Palms',
-    palmsClasses: 'Oil, coconut, dates, etc.',
-    treeOrchards: 'Tree orchards',
-    treeOrchardsClasses: 'Fruit, nuts, olive, etc.',
-    agroforestry: 'Agroforestry',
-    treesUrbanSettings: 'Trees in urban settings'
-
+    palms: '…of which palms (oil, coconut, dates, etc)',
+    treeOrchards: '…of which tree orchards (Includes fruit, nuts, olive, etc)',
+    agroforestry: '…of which agroforestry',
+    treesUrbanSettings: '…of which trees in urban settings'
   },
 
   // error messages
@@ -187,8 +183,7 @@ export const translation = {
     cancel: 'Cancel',
     saveData: 'Save data',
     enterOrCopyPasteNationalClasses: 'Enter or copy and paste national classes',
-    prefixPrimary: '…of which primary',
-    prefixIntroduced: '…of which introduced',
+    forestCharacteristics: 'Forest characteristics',
     otherLandCharacteristics: 'Other land with tree cover'
   },
 
@@ -256,8 +251,12 @@ export const translation = {
     categoryHeader: 'FRA categories',
     avgTableHeader: 'Average growing stock (m³/ha)',
     totalTableHeader: 'Total growing stock (million m³)',
+    naturallyRegeneratingForest: 'Naturally regenerating forest',
+    plantedForest: 'Planted forest',
     ofWhichPlantationForest: '…of which plantation forest',
-    ofWhichOtherPlantedForest: '…of which other planted forest'
+    ofWhichOtherPlantedForest: '…of which other planted forest',
+    totalForest: 'Total forest',
+    otherWoodedLand: 'Other wooded land'
   },
 
   forestOwnership: {

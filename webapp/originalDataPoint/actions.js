@@ -9,7 +9,7 @@ import {
   copyNationalClassDefinitions
 } from './originalDataPoint'
 import {sectionStatusUpdate} from '../navigation/actions'
-import { validateDataPoint } from '../../common/originalDataPointCommon'
+import { validateDataPoint } from '../../common/validateOriginalDataPoint'
 import { fetchCountryOverviewStatus } from '../navigation/actions'
 
 // Validation
