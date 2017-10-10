@@ -90,7 +90,7 @@ const estimateFraValues = (years, odpValues, fieldstoEstimate) => {
     R.pipe(
       R.pick([...fieldstoEstimate, 'year']),
       R.toPairs,
-      R.map(([name, value]) => R.contains(name, fieldstoEstimate) ? [name, Math.round(value)] : [name, value]),
+      R.map(([name, value]) => R.contains(name, fieldstoEstimate) ? [name, toFixed(value)] : [name, value]),
       R.fromPairs)(estimatedValues)
 
   const allEstimatedValues =
