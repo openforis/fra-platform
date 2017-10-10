@@ -860,14 +860,14 @@ const PlantationIntroducedRow =
      area,
      plantationIntroducedPercent,
      openThread,
-     i18n,
-     ...props
+     i18n
    }) => {
     const numberUpdated = numberUpdateCreator(saveDraft)
     const validationStatus = getValidationStatusRow(odp, index)
     const plantationIntroducedStatusPercentage = () => validationStatus.validPlantationIntroducedPercentage === false ? 'error' : ''
     const nationalClass = odp.nationalClasses[index]
-    return nationalClass.plantationPercent <= 0
+    const allowedClass = nc => nc.plantationPercent > 0
+    return !allowedClass(nationalClass)
       ? null
       : <tr
       className={isCommentsOpen([odp.odpId, 'class', `${odp.nationalClasses[index].uuid}`, 'natural_forest_primary'], openThread) ? 'fra-row-comments__open' : ''}>
@@ -883,7 +883,8 @@ const PlantationIntroducedRow =
             rowIndex: index,
             colIndex: 1,
             columns: plantationIntroducedCols,
-            saveDraft
+            saveDraft,
+            allowedClass
           })}
         />
       </td>
