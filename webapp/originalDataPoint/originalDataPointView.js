@@ -248,7 +248,7 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
                 </thead>
                 <tbody>
                   {
-                    plantationIntroducedRows(countryIso, active, saveDraft, openThread, i18n)
+                    subcategoryRows(countryIso, active, saveDraft, openThread, i18n, 'plantationIntroducedPercent', 'plantationPercent', [{name: 'plantationIntroducedPercent', type: 'integer'}], 'natural_forest_primary')
                   }
                   <tr>
                     <td className="fra-table__header-cell">{i18n.t('nationalDataPoint.total')}</td>
@@ -876,6 +876,84 @@ const PlantationIntroducedRow =
             <ReviewIndicator section='NDP'
                              name={i18n.t('nationalDataPoint.nationalDataPoint')}
                              target={[odp.odpId, 'class', `${odp.nationalClasses[index].uuid}`, 'natural_forest_primary']}
+                             countryIso={countryIso}/>
+          </div>
+          : null}
+      </td>
+    </tr>
+  }
+
+const subcategoryRows = (countryIso, odp, saveDraft, openThread, i18n, subCategory, parentCategory, categoryColumns, targetSuffix) =>
+  R.pipe(
+    R.filter(nationalClass => !nationalClass.placeHolder),
+    mapIndexed((nationalClass, index) => <SubcategoryRow
+      key={index}
+      index={index}
+      odp={odp}
+      saveDraft={saveDraft}
+      countryIso={countryIso}
+      openThread={openThread}
+      subCategory={subCategory}
+      parentCategory={parentCategory}
+      categoryColumns={categoryColumns}
+      targetSuffix={targetSuffix}
+      i18n={i18n}
+      {...nationalClass}/>)
+    )(odp.nationalClasses)
+
+const SubcategoryRow =
+  ({
+    odp,
+    index,
+    saveDraft,
+    countryIso,
+    className,
+    area,
+    openThread,
+    subCategory,
+    parentCategory,
+    categoryColumns,
+    targetSuffix,
+    i18n,
+    ...props
+  }) => {
+    console.log("index?", index)
+    const nationalClass = odp.nationalClasses[index]
+    const numberUpdated = numberUpdateCreator(saveDraft)
+    const validationStatus = () => getValidationStatusRow(odp, index).validPlantationIntroducedPercentage === false ? 'error' : ''
+    const commentTarget = [odp.odpId, 'class', `${odp.nationalClasses[index].uuid}`, targetSuffix]
+    const categoryArea = area ? area * nationalClass[parentCategory] / 100 : null
+    const allowedClass = nc => nc[parentCategory] > 0
+    return !allowedClass(nationalClass)
+      ? null
+      : <tr className={isCommentsOpen(commentTarget, openThread) ? 'fra-row-comments__open' : ''}>
+      <td className="fra-table__header-cell-sub"><span>{className}</span></td>
+      <td className={`fra-table__header-cell-sub-right fra-table__divider`}>{formatDecimal(categoryArea)}</td>
+      {
+        mapIndexed((col, colIndex) => {
+          return <td key={colIndex} className={`fra-table__cell ${validationStatus()}`}>
+            <PercentInput
+              value={nationalClass[subCategory] || ''}
+              onChange={numberUpdated(countryIso, odp, index, subCategory, nationalClass[subCategory])}
+              onPaste={updatePastedValues({
+                odp,
+                countryIso,
+                rowIndex: index,
+                colIndex: colIndex,
+                columns: categoryColumns,
+                saveDraft,
+                allowedClass
+              })}
+            />
+          </td>
+        }, categoryColumns)
+      }
+      <td className="fra-table__row-anchor-cell">
+        {odp.odpId
+          ? <div className="odp__review-indicator-row-anchor">
+            <ReviewIndicator section='NDP'
+                             name={i18n.t('nationalDataPoint.nationalDataPoint')}
+                             target={commentTarget}
                              countryIso={countryIso}/>
           </div>
           : null}
