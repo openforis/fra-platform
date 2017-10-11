@@ -70,19 +70,23 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
           {i18n.t('nationalDataPoint.copyPreviousValues')}
         </button>
       </div>
-      <table className="fra-table odp__national-class-table">
-        <thead>
-        <tr>
-          <th className="fra-table__header-cell">{i18n.t('nationalDataPoint.nationalClass')}</th>
-          <th className="fra-table__header-cell">{i18n.t('nationalDataPoint.definition')}</th>
-        </tr>
-        </thead>
-        <tbody>
-        {
-          nationalClassRows(countryIso, active, saveDraft, openThread, i18n)
-        }
-        </tbody>
-      </table>
+      <div className="fra-table__container">
+        <div className="fra-table__scroll-wrapper">
+          <table className="fra-table odp__national-class-table">
+            <thead>
+            <tr>
+              <th className="fra-table__header-cell">{i18n.t('nationalDataPoint.nationalClass')}</th>
+              <th className="fra-table__header-cell">{i18n.t('nationalDataPoint.definition')}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {
+              nationalClassRows(countryIso, active, saveDraft, openThread, i18n)
+            }
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
 
     <div className="odp__section">
@@ -91,67 +95,86 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
         <h3 className="subhead">{i18n.t('nationalDataPoint.forestCategoriesLabel')}</h3>
         <DefinitionLink document="tad" anchor="1a" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
       </div>
-      <table className="fra-table">
-        <thead>
-        <tr>
-          <th className="fra-table__header-cell-middle fra-table__divider"
-              colSpan="2">{i18n.t('nationalDataPoint.nationalClasses')}</th>
-          <th className="fra-table__header-cell-middle"
-              colSpan="3">{i18n.t('nationalDataPoint.fraClasses')}</th>
-        </tr>
-        <tr>
-          <th className="fra-table__header-cell">{i18n.t('nationalDataPoint.class')}</th>
-          <th className="fra-table__header-cell-right fra-table__divider">{i18n.t('nationalDataPoint.area')}</th>
-          <th className="fra-table__header-cell-right">{i18n.t('fraClass.forest')}</th>
-          <th className="fra-table__header-cell-right">{i18n.t('fraClass.otherWoodedLand')}</th>
-          <th className="fra-table__header-cell-right">{i18n.t('fraClass.otherLand')}</th>
-        </tr>
-        </thead>
-        <tbody>
-        {
-          extentOfForestRows(countryIso, active, saveDraft, openThread, i18n)
-        }
-        <tr>
-          <td className="fra-table__header-cell">{i18n.t('nationalDataPoint.total')}</td>
-          <td
-            className="fra-table__aggregate-cell fra-table__divider">{formatDecimal(originalDataPoint.totalArea(active))}</td>
-          <td
-            className="fra-table__aggregate-cell">{formatDecimal(originalDataPoint.classTotalArea(active, 'forestPercent'))}</td>
-          <td
-            className="fra-table__aggregate-cell">{formatDecimal(originalDataPoint.classTotalArea(active, 'otherWoodedLandPercent'))}</td>
-          <td
-            className="fra-table__aggregate-cell">{formatDecimal(originalDataPoint.classTotalArea(active, 'otherLandPercent'))}</td>
-        </tr>
-        </tbody>
-      </table>
-      {
-        originalDataPoint.classTotalArea(active, 'otherLandPercent') <= 0
-        ? null
-        : <table className="odp__sub-table">
+      <div className="fra-table__container">
+        <div className="fra-table__scroll-wrapper">
+          <table className="fra-table">
             <thead>
             <tr>
-              <th className="fra-table__header-cell">{i18n.t('nationalDataPoint.otherLandCharacteristics')}</th>
+              <th className="fra-table__header-cell-middle fra-table__divider"
+                  colSpan="2">{i18n.t('nationalDataPoint.nationalClasses')}</th>
+              <th className="fra-table__header-cell-middle"
+                  colSpan="3">{i18n.t('nationalDataPoint.fraClasses')}</th>
+            </tr>
+            <tr>
+              <th className="fra-table__header-cell">{i18n.t('nationalDataPoint.class')}</th>
               <th className="fra-table__header-cell-right fra-table__divider">{i18n.t('nationalDataPoint.area')}</th>
-              <th className="fra-table__header-cell-right">{i18n.t('fraOtherLandClass.palms')}</th>
-              <th className="fra-table__header-cell-right">{i18n.t('fraOtherLandClass.treeOrchards')}</th>
-              <th className="fra-table__header-cell-right">{i18n.t('fraOtherLandClass.agroforestry')}</th>
-              <th className="fra-table__header-cell-right">{i18n.t('fraOtherLandClass.treesUrbanSettings')}</th>
+              <th className="fra-table__header-cell-right">{i18n.t('fraClass.forest')}</th>
+              <th className="fra-table__header-cell-right">{i18n.t('fraClass.otherWoodedLand')}</th>
+              <th className="fra-table__header-cell-right">{i18n.t('fraClass.otherLand')}</th>
             </tr>
             </thead>
             <tbody>
             {
-              otherLandCharacteristicsRows(countryIso, active, saveDraft, openThread, i18n)
+              extentOfForestRows(countryIso, active, saveDraft, openThread, i18n)
             }
             <tr>
               <td className="fra-table__header-cell">{i18n.t('nationalDataPoint.total')}</td>
-              <td className="fra-table__header-cell-right fra-table__divider">{formatDecimal(originalDataPoint.otherLandTotalArea(active))}</td>
-              <td className="fra-table__aggregate-cell">{formatDecimal(originalDataPoint.otherLandClassTotalArea(active, 'otherLandPalmsPercent'))}</td>
-              <td className="fra-table__aggregate-cell">{formatDecimal(originalDataPoint.otherLandClassTotalArea(active, 'otherLandTreeOrchardsPercent'))}</td>
-              <td className="fra-table__aggregate-cell">{formatDecimal(originalDataPoint.otherLandClassTotalArea(active, 'otherLandAgroforestryPercent'))}</td>
-              <td className="fra-table__aggregate-cell">{formatDecimal(originalDataPoint.otherLandClassTotalArea(active, 'otherLandTreesUrbanSettingsPercent'))}</td>
+              <td
+                className="fra-table__aggregate-cell fra-table__divider">{formatDecimal(originalDataPoint.totalArea(active))}</td>
+              <td
+                className="fra-table__aggregate-cell">{formatDecimal(originalDataPoint.classTotalArea(active, 'forestPercent'))}</td>
+              <td
+                className="fra-table__aggregate-cell">{formatDecimal(originalDataPoint.classTotalArea(active, 'otherWoodedLandPercent'))}</td>
+              <td
+                className="fra-table__aggregate-cell">{formatDecimal(originalDataPoint.classTotalArea(active, 'otherLandPercent'))}</td>
             </tr>
             </tbody>
           </table>
+        </div>
+      </div>
+      {
+        originalDataPoint.classTotalArea(active, 'otherLandPercent') <= 0
+        ? null
+        : <div className="fra-table__container">
+            <div className="fra-table__scroll-wrapper">
+              <table className="odp__sub-table">
+                <thead>
+                <tr>
+                  <th className="fra-table__header-cell">{i18n.t('nationalDataPoint.otherLandCharacteristics')}</th>
+                  <th className="fra-table__header-cell-right fra-table__divider">{i18n.t('nationalDataPoint.area')}</th>
+                  <th className="fra-table__header-cell-right">{i18n.t('fraOtherLandClass.palms')}</th>
+                  <th className="fra-table__header-cell-right">{i18n.t('fraOtherLandClass.treeOrchards')}</th>
+                  <th className="fra-table__header-cell-right">{i18n.t('fraOtherLandClass.agroforestry')}</th>
+                  <th className="fra-table__header-cell-right">{i18n.t('fraOtherLandClass.treesUrbanSettings')}</th>
+                </tr>
+                </thead>
+                <SubcategoryTableBody
+                  odp={active}
+                  countryIso={countryIso}
+                  saveDraft={saveDraft}
+                  openThread={openThread}
+                  subCategory="otherLandCharacteristics"
+                  parentCategory="otherLandPercent"
+                  categoryColumns={[{name: 'otherLandPalmsPercent', type: 'integer'},
+                                    {name: 'otherLandTreeOrchardsPercent', type: 'integer'},
+                                    {name: 'otherLandAgroforestryPercent', type: 'integer'},
+                                    {name: 'otherLandTreesUrbanSettingsPercent', type: 'integer'}]}
+                  targetSuffix="other_land_charasteristics"
+                  validationResultField="validOtherLandPercentage"
+                  i18n={i18n} />
+                <tfoot>
+                  <tr>
+                    <td className="fra-table__header-cell">{i18n.t('nationalDataPoint.total')}</td>
+                    <td className="fra-table__header-cell-right fra-table__divider">{formatDecimal(originalDataPoint.otherLandTotalArea(active))}</td>
+                    <td className="fra-table__aggregate-cell">{formatDecimal(originalDataPoint.otherLandClassTotalArea(active, 'otherLandPalmsPercent'))}</td>
+                    <td className="fra-table__aggregate-cell">{formatDecimal(originalDataPoint.otherLandClassTotalArea(active, 'otherLandTreeOrchardsPercent'))}</td>
+                    <td className="fra-table__aggregate-cell">{formatDecimal(originalDataPoint.otherLandClassTotalArea(active, 'otherLandAgroforestryPercent'))}</td>
+                    <td className="fra-table__aggregate-cell">{formatDecimal(originalDataPoint.otherLandClassTotalArea(active, 'otherLandTreesUrbanSettingsPercent'))}</td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+        </div>
       }
     </div>
 
@@ -161,80 +184,108 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
         <h3 className="subhead">{i18n.t('nationalDataPoint.forestCharacteristics')}</h3>
         <DefinitionLink document="tad" anchor="2a" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
       </div>
-      <table className="fra-table">
-        <thead>
-        <tr>
-          <th className="fra-table__header-cell-middle fra-table__divider"
-              colSpan="2">{i18n.t('nationalDataPoint.nationalClasses')}</th>
-          <th className="fra-table__header-cell-middle"
-              colSpan="3">{i18n.t('nationalDataPoint.fraClasses')}</th>
-        </tr>
-        <tr>
-          <th className="fra-table__header-cell">{i18n.t('nationalDataPoint.class')}</th>
-          <th className="fra-table__header-cell-right fra-table__divider">{i18n.t('nationalDataPoint.area')}</th>
-          <th className="fra-table__header-cell-right">{i18n.t('fraForestCharacteristicsClass.naturallyRegeneratingForest')}</th>
-          <th className="fra-table__header-cell-right">{i18n.t('fraForestCharacteristicsClass.plantationForest')}</th>
-          <th className="fra-table__header-cell-right">{i18n.t('fraForestCharacteristicsClass.otherPlantedForest')}</th>
-        </tr>
-        </thead>
-        <tbody>
-        {
-          foresCharaceristicsRows(countryIso, active, saveDraft, openThread, i18n)
-        }
-        <tr>
-          <td className="fra-table__header-cell">{i18n.t('nationalDataPoint.total')}</td>
-          <td className="fra-table__header-cell-right fra-table__divider">{formatDecimal(originalDataPoint.classTotalArea(active, 'forestPercent'))}</td>
-          <td className="fra-table__aggregate-cell">{formatDecimal(originalDataPoint.forestClassTotalArea(active, 'naturalForestPercent'))}</td>
-          <td className="fra-table__aggregate-cell">{formatDecimal(originalDataPoint.forestClassTotalArea(active, 'plantationPercent'))}</td>
-          <td className="fra-table__aggregate-cell">{formatDecimal(originalDataPoint.forestClassTotalArea(active, 'otherPlantedPercent'))}</td>
-        </tr>
-        </tbody>
-      </table>
+      <div className="fra-table__container">
+        <div className="fra-table__scroll-wrapper">
+          <table className="fra-table">
+            <thead>
+            <tr>
+              <th className="fra-table__header-cell-middle fra-table__divider"
+                  colSpan="2">{i18n.t('nationalDataPoint.nationalClasses')}</th>
+              <th className="fra-table__header-cell-middle"
+                  colSpan="3">{i18n.t('nationalDataPoint.fraClasses')}</th>
+            </tr>
+            <tr>
+              <th className="fra-table__header-cell">{i18n.t('nationalDataPoint.class')}</th>
+              <th className="fra-table__header-cell-right fra-table__divider">{i18n.t('nationalDataPoint.area')}</th>
+              <th className="fra-table__header-cell-right">{i18n.t('fraForestCharacteristicsClass.naturallyRegeneratingForest')}</th>
+              <th className="fra-table__header-cell-right">{i18n.t('fraForestCharacteristicsClass.plantationForest')}</th>
+              <th className="fra-table__header-cell-right">{i18n.t('fraForestCharacteristicsClass.otherPlantedForest')}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {
+              foresCharaceristicsRows(countryIso, active, saveDraft, openThread, i18n)
+            }
+            <tr>
+              <td className="fra-table__header-cell">{i18n.t('nationalDataPoint.total')}</td>
+              <td className="fra-table__header-cell-right fra-table__divider">{formatDecimal(originalDataPoint.classTotalArea(active, 'forestPercent'))}</td>
+              <td className="fra-table__aggregate-cell">{formatDecimal(originalDataPoint.forestClassTotalArea(active, 'naturalForestPercent'))}</td>
+              <td className="fra-table__aggregate-cell">{formatDecimal(originalDataPoint.forestClassTotalArea(active, 'plantationPercent'))}</td>
+              <td className="fra-table__aggregate-cell">{formatDecimal(originalDataPoint.forestClassTotalArea(active, 'otherPlantedPercent'))}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
       {
         originalDataPoint.forestClassTotalArea(active, 'naturalForestPercent') <= 0
         ? null
-        : <table className="odp__sub-table">
-            <thead>
-              <tr>
-                <th className="fra-table__header-cell">{i18n.t('fraForestCharacteristicsClass.naturallyRegeneratingForest')}</th>
-                <th className="fra-table__header-cell-right fra-table__divider">{i18n.t('nationalDataPoint.area')}</th>
-                <th className="fra-table__header-cell-right">{i18n.t('fraForestCharacteristicsClass.ofWhichPrimary')}</th>
-              </tr>
-            </thead>
-            <tbody>
-              {
-                naturalForestPrimaryRows(countryIso, active, saveDraft, openThread, i18n)
-              }
-              <tr>
-                <td className="fra-table__header-cell">{i18n.t('nationalDataPoint.total')}</td>
-                <td className="fra-table__header-cell-right fra-table__divider">{formatDecimal(originalDataPoint.classTotalArea(active, 'naturalForestPercent'))}</td>
-                <td className="fra-table__aggregate-cell">{formatDecimal(originalDataPoint.naturalForestTotalArea(active, 'naturalForestPrimaryPercent'))}</td>
-              </tr>
-            </tbody>
-          </table>
+        : <div className="fra-table__container">
+            <div className="fra-table__scroll-wrapper">
+              <table className="odp__sub-table">
+                <thead>
+                  <tr>
+                    <th className="fra-table__header-cell">{i18n.t('fraForestCharacteristicsClass.naturallyRegeneratingForest')}</th>
+                    <th className="fra-table__header-cell-right fra-table__divider">{i18n.t('nationalDataPoint.area')}</th>
+                    <th className="fra-table__header-cell-right">{i18n.t('fraForestCharacteristicsClass.ofWhichPrimary')}</th>
+                  </tr>
+                </thead>
+                <SubcategoryTableBody
+                  odp={active}
+                  countryIso={countryIso}
+                  saveDraft={saveDraft}
+                  openThread={openThread}
+                  subCategory="naturalForestPrimaryPercent"
+                  parentCategory="naturalForestPercent"
+                  categoryColumns={[{name: 'naturalForestPrimaryPercent', type: 'integer'}]}
+                  targetSuffix="natural_forest_primary"
+                  validationResultField="validNaturalForestPrimaryPercentage"
+                  i18n={i18n} />
+                <tfoot>
+                  <tr>
+                    <td className="fra-table__header-cell">{i18n.t('nationalDataPoint.total')}</td>
+                    <td className="fra-table__header-cell-right fra-table__divider">{formatDecimal(originalDataPoint.classTotalArea(active, 'naturalForestPercent'))}</td>
+                    <td className="fra-table__aggregate-cell">{formatDecimal(originalDataPoint.naturalForestTotalArea(active, 'naturalForestPrimaryPercent'))}</td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
       }
       {
         originalDataPoint.forestClassTotalArea(active, 'plantationPercent') <= 0
         ? null
-        : <table className="odp__sub-table">
-          <thead>
-            <tr>
-              <th className="fra-table__header-cell">{i18n.t('fraForestCharacteristicsClass.plantationForest')}</th>
-              <th className="fra-table__header-cell-right fra-table__divider">{i18n.t('nationalDataPoint.area')}</th>
-              <th className="fra-table__header-cell-right">{i18n.t('fraForestCharacteristicsClass.ofWhichIntroduced')}</th>
-            </tr>
-          </thead>
-          <tbody>
-            {
-              plantationIntroducedRows(countryIso, active, saveDraft, openThread, i18n)
-            }
-            <tr>
-              <td className="fra-table__header-cell">{i18n.t('nationalDataPoint.total')}</td>
-              <td className="fra-table__header-cell-right fra-table__divider">{formatDecimal(originalDataPoint.classTotalArea(active, 'plantationPercent'))}</td>
-              <td className="fra-table__aggregate-cell">{formatDecimal(originalDataPoint.plantationForestTotalArea(active, 'plantationIntroducedPercent'))}</td>
-            </tr>
-          </tbody>
-        </table>
+        : <div className="fra-table__container">
+            <div className="fra-table__scroll-wrapper">
+              <table className="odp__sub-table">
+                <thead>
+                  <tr>
+                    <th className="fra-table__header-cell">{i18n.t('fraForestCharacteristicsClass.plantationForest')}</th>
+                    <th className="fra-table__header-cell-right fra-table__divider">{i18n.t('nationalDataPoint.area')}</th>
+                    <th className="fra-table__header-cell-right">{i18n.t('fraForestCharacteristicsClass.ofWhichIntroduced')}</th>
+                  </tr>
+                </thead>
+                <SubcategoryTableBody
+                  odp={active}
+                  countryIso={countryIso}
+                  saveDraft={saveDraft}
+                  openThread={openThread}
+                  subCategory="plantationIntroducedPercent"
+                  parentCategory="plantationPercent"
+                  categoryColumns={[{name: 'plantationIntroducedPercent', type: 'integer'}]}
+                  targetSuffix="plantation_forest_introduced"
+                  validationResultField="validPlantationIntroducedPercentage"
+                  i18n={i18n} />
+                <tfoot>
+                  <tr>
+                    <td className="fra-table__header-cell">{i18n.t('nationalDataPoint.total')}</td>
+                    <td className="fra-table__header-cell-right fra-table__divider">{formatDecimal(originalDataPoint.classTotalArea(active, 'plantationPercent'))}</td>
+                    <td className="fra-table__aggregate-cell">{formatDecimal(originalDataPoint.plantationForestTotalArea(active, 'plantationIntroducedPercent'))}</td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
       }
     </div>
 
@@ -364,7 +415,6 @@ const NationalClassRow = ({odp, index, saveDraft, countryIso, className, definit
           allowGrow: true
         })}
       />
-
     </td>
     <td className="fra-table__row-anchor-cell">
       {placeHolder || !odp.odpId
@@ -416,8 +466,7 @@ const ExtentOfForestRow = ({
                              otherWoodedLandPercent,
                              otherLandPercent,
                              openThread,
-                             i18n,
-                             ...props
+                             i18n
                            }) => {
 
   const validationStatus = getValidationStatusRow(odp, index)
@@ -498,132 +547,13 @@ const ExtentOfForestRow = ({
   </tr>
 }
 
-const otherLandCharacteristicsCols = [
-  {name: 'otherLandPalmsPercent', type: 'integer'},
-  {name: 'otherLandTreeOrchardsPercent', type: 'integer'},
-  {name: 'otherLandAgroforestryPercent', type: 'integer'},
-  {name: 'otherLandTreesUrbanSettingsPercent', type: 'integer'}
-]
-const otherLandCharacteristicsRows = (countryIso, odp, saveDraft, openThread, i18n) =>
-  R.pipe(
-    R.filter(nationalClass => !nationalClass.placeHolder),
-    mapIndexed((nationalClass, index) => <OtherLandCharacteristicsRow
-      key={index}
-      index={index}
-      odp={odp}
-      saveDraft={saveDraft}
-      countryIso={countryIso}
-      openThread={openThread}
-      i18n={i18n}
-      {...nationalClass}/>)
-  )(odp.nationalClasses)
-
-const OtherLandCharacteristicsRow =
-  ({
-     odp,
-     index,
-     saveDraft,
-     countryIso,
-     className,
-     area,
-     otherLandPalmsPercent,
-     otherLandTreeOrchardsPercent,
-     otherLandAgroforestryPercent,
-     otherLandTreesUrbanSettingsPercent,
-     openThread,
-     i18n
-   }) => {
-    const numberUpdated = numberUpdateCreator(saveDraft)
-    const validationStatus = getValidationStatusRow(odp, index)
-    const otherLandStatusPercentage = () => validationStatus.validOtherLandPercentage === false ? 'error' : ''
-    const nationalClass = odp.nationalClasses[index]
-    const allowedClass = (nc) => nc.otherLandPercent > 0
-    return nationalClass.otherLandPercent <= 0
-      ? null
-      : <tr
-      className={isCommentsOpen([odp.odpId, 'class', `${odp.nationalClasses[index].uuid}`, 'other_land_charasteristics'], openThread) ? 'fra-row-comments__open' : ''}>
-      <td className="fra-table__header-cell-sub"><span>{className}</span></td>
-      <td className={`fra-table__header-cell-sub-right fra-table__divider`}>{formatDecimal(area ? area * nationalClass.otherLandPercent / 100 : null)}</td>
-      <td className={`fra-table__cell ${otherLandStatusPercentage()}`}>
-        <PercentInput
-          value={otherLandPalmsPercent || ''}
-          onChange={numberUpdated(countryIso, odp, index, 'otherLandPalmsPercent', otherLandPalmsPercent)}
-          onPaste={updatePastedValues({
-            odp,
-            countryIso,
-            rowIndex: index,
-            colIndex: 0,
-            columns: otherLandCharacteristicsCols,
-            saveDraft,
-            allowedClass
-          })}
-        />
-      </td>
-      <td className={`fra-table__cell ${otherLandStatusPercentage()}`}>
-        <PercentInput
-          value={otherLandTreeOrchardsPercent || ''}
-          onChange={numberUpdated(countryIso, odp, index, 'otherLandTreeOrchardsPercent', otherLandTreeOrchardsPercent)}
-          onPaste={updatePastedValues({
-            odp,
-            countryIso,
-            rowIndex: index,
-            colIndex: 1,
-            columns: otherLandCharacteristicsCols,
-            saveDraft,
-            allowedClass
-          })}
-        />
-      </td>
-      <td className={`fra-table__cell ${otherLandStatusPercentage()}`}>
-        <PercentInput
-          value={otherLandAgroforestryPercent || ''}
-          onChange={numberUpdated(countryIso, odp, index, 'otherLandAgroforestryPercent', otherLandAgroforestryPercent)}
-          onPaste={updatePastedValues({
-            odp,
-            countryIso,
-            rowIndex: index,
-            colIndex: 2,
-            columns: otherLandCharacteristicsCols,
-            saveDraft,
-            allowedClass
-          })}
-        />
-      </td>
-      <td className={`fra-table__cell ${otherLandStatusPercentage()}`}>
-        <PercentInput
-          value={otherLandTreesUrbanSettingsPercent || ''}
-          onChange={numberUpdated(countryIso, odp, index, 'otherLandTreesUrbanSettingsPercent', otherLandTreesUrbanSettingsPercent)}
-          onPaste={updatePastedValues({
-            odp,
-            countryIso,
-            rowIndex: index,
-            colIndex: 3,
-            columns: otherLandCharacteristicsCols,
-            saveDraft,
-            allowedClass
-          })}
-        />
-      </td>
-      <td className="fra-table__row-anchor-cell">
-        {odp.odpId
-          ? <div className="odp__review-indicator-row-anchor">
-            <ReviewIndicator section='NDP'
-                             name={i18n.t('nationalDataPoint.nationalDataPoint')}
-                             target={[odp.odpId, 'class', `${odp.nationalClasses[index].uuid}`, 'other_land_charasteristics']}
-                             countryIso={countryIso}/>
-          </div>
-          : null}
-      </td>
-    </tr>
-  }
-
-
 const forestCharacteristicsCols = [
   {name: 'area', type: 'decimal'},
   {name: 'naturalForestPercent', type: 'integer'},
   {name: 'plantationPercent', type: 'integer'},
   {name: 'otherPlantedPercent', type: 'integer'}
   ]
+
 const foresCharaceristicsRows = (countryIso, odp, saveDraft, openThread, i18n) =>
   R.pipe(
     R.filter(nationalClass => !nationalClass.placeHolder),
@@ -721,139 +651,71 @@ const ForestCharacteristicsRow =
     </tr>
   }
 
-const naturalForestPrimaryCols = [
-  {name: 'area', type: 'decimal'},
-  {name: 'naturalForestPrimaryPercent', type: 'integer'}
-  ]
-
-const naturalForestPrimaryRows = (countryIso, odp, saveDraft, openThread, i18n) =>
+const SubcategoryTableBody = props => <tbody>{
   R.pipe(
     R.filter(nationalClass => !nationalClass.placeHolder),
-    mapIndexed((nationalClass, index) => <NaturalForestPrimaryRow
-      key={index}
-      index={index}
-      odp={odp}
-      saveDraft={saveDraft}
-      countryIso={countryIso}
-      openThread={openThread}
-      i18n={i18n}
+    mapIndexed((nationalClass, index) => <SubcategoryRow
+      index = {index}
+      {...props}
       {...nationalClass}/>)
-  )(odp.nationalClasses)
+    )(props.odp.nationalClasses)
+}</tbody>
 
-const NaturalForestPrimaryRow =
+const SubcategoryRow =
   ({
-     odp,
-     index,
-     saveDraft,
-     countryIso,
-     className,
-     area,
-     naturalForestPrimaryPercent,
-     openThread,
-     i18n
-   }) => {
-    const numberUpdated = numberUpdateCreator(saveDraft)
-    const validationStatus = getValidationStatusRow(odp, index)
-    const naturalForestPrimaryStatusPercentage = () => validationStatus.validNaturalForestPrimaryPercentage === false ? 'error' : ''
+    odp,
+    index,
+    saveDraft,
+    countryIso,
+    className,
+    area,
+    openThread,
+    subCategory,
+    parentCategory,
+    categoryColumns,
+    targetSuffix,
+    validationResultField,
+    i18n,
+    ...props
+  }) => {
     const nationalClass = odp.nationalClasses[index]
-    const allowedClass = nc => nc.naturalForestPercent > 0
+    const numberUpdated = numberUpdateCreator(saveDraft)
+    const validationStatus = getValidationStatusRow(odp, index)[validationResultField]
+    const displayError = () => validationStatus === false ? 'error' : ''
+    const commentTarget = [odp.odpId, 'class', `${odp.nationalClasses[index].uuid}`, targetSuffix]
+    const categoryArea = area ? area * nationalClass[parentCategory] / 100 : null
+    const allowedClass = nc => nc[parentCategory] > 0
     return !allowedClass(nationalClass)
       ? null
-      : <tr
-      className={isCommentsOpen([odp.odpId, 'class', `${odp.nationalClasses[index].uuid}`, 'natural_forest_primary'], openThread) ? 'fra-row-comments__open' : ''}>
+      : <tr className={isCommentsOpen(commentTarget, openThread) ? 'fra-row-comments__open' : ''}>
       <td className="fra-table__header-cell-sub"><span>{className}</span></td>
-      <td className={`fra-table__header-cell-sub-right fra-table__divider`}>{formatDecimal(area ? area * nationalClass.naturalForestPercent / 100 : null)}</td>
-      <td className={`fra-table__cell ${naturalForestPrimaryStatusPercentage()}`}>
-        <PercentInput
-          value={naturalForestPrimaryPercent || ''}
-          onChange={numberUpdated(countryIso, odp, index, 'naturalForestPrimaryPercent', naturalForestPrimaryPercent)}
-          onPaste={updatePastedValues({
-            odp,
-            countryIso,
-            rowIndex: index,
-            colIndex: 1,
-            columns: naturalForestPrimaryCols,
-            saveDraft,
-            allowedClass
-          })}
-        />
-      </td>
+      <td className={`fra-table__header-cell-sub-right fra-table__divider`}>{formatDecimal(categoryArea)}</td>
+      {
+        mapIndexed((col, colIndex) => {
+          const currentCol = categoryColumns[colIndex].name
+          return <td key={colIndex} className={`fra-table__cell ${displayError()}`}>
+            <PercentInput
+              value={nationalClass[currentCol] || ''}
+              onChange={numberUpdated(countryIso, odp, index, currentCol, nationalClass[currentCol])}
+              onPaste={updatePastedValues({
+                odp,
+                countryIso,
+                rowIndex: index,
+                colIndex: colIndex,
+                columns: categoryColumns,
+                saveDraft,
+                allowedClass
+              })}
+            />
+          </td>
+        }, categoryColumns)
+      }
       <td className="fra-table__row-anchor-cell">
         {odp.odpId
           ? <div className="odp__review-indicator-row-anchor">
             <ReviewIndicator section='NDP'
                              name={i18n.t('nationalDataPoint.nationalDataPoint')}
-                             target={[odp.odpId, 'class', `${odp.nationalClasses[index].uuid}`, 'natural_forest_primary']}
-                             countryIso={countryIso}/>
-          </div>
-          : null}
-      </td>
-    </tr>
-  }
-
-const plantationIntroducedCols = [
-  {name: 'area', type: 'decimal'},
-  {name: 'plantationIntroducedPercent', type: 'integer'}
-  ]
-
-const plantationIntroducedRows = (countryIso, odp, saveDraft, openThread, i18n) =>
-  R.pipe(
-    R.filter(nationalClass => !nationalClass.placeHolder),
-    mapIndexed((nationalClass, index) => <PlantationIntroducedRow
-      key={index}
-      index={index}
-      odp={odp}
-      saveDraft={saveDraft}
-      countryIso={countryIso}
-      openThread={openThread}
-      i18n={i18n}
-      {...nationalClass}/>)
-  )(odp.nationalClasses)
-
-const PlantationIntroducedRow =
-  ({
-     odp,
-     index,
-     saveDraft,
-     countryIso,
-     className,
-     area,
-     plantationIntroducedPercent,
-     openThread,
-     i18n
-   }) => {
-    const numberUpdated = numberUpdateCreator(saveDraft)
-    const validationStatus = getValidationStatusRow(odp, index)
-    const plantationIntroducedStatusPercentage = () => validationStatus.validPlantationIntroducedPercentage === false ? 'error' : ''
-    const nationalClass = odp.nationalClasses[index]
-    const allowedClass = nc => nc.plantationPercent > 0
-    return !allowedClass(nationalClass)
-      ? null
-      : <tr
-      className={isCommentsOpen([odp.odpId, 'class', `${odp.nationalClasses[index].uuid}`, 'natural_forest_primary'], openThread) ? 'fra-row-comments__open' : ''}>
-      <td className="fra-table__header-cell-sub"><span>{className}</span></td>
-      <td className={`fra-table__header-cell-sub-right fra-table__divider`}>{formatDecimal(area ? area * nationalClass.plantationPercent / 100 : null)}</td>
-      <td className={`fra-table__cell ${plantationIntroducedStatusPercentage()}`}>
-        <PercentInput
-          value={plantationIntroducedPercent || ''}
-          onChange={numberUpdated(countryIso, odp, index, 'plantationIntroducedPercent', plantationIntroducedPercent)}
-          onPaste={updatePastedValues({
-            odp,
-            countryIso,
-            rowIndex: index,
-            colIndex: 1,
-            columns: plantationIntroducedCols,
-            saveDraft,
-            allowedClass
-          })}
-        />
-      </td>
-      <td className="fra-table__row-anchor-cell">
-        {odp.odpId
-          ? <div className="odp__review-indicator-row-anchor">
-            <ReviewIndicator section='NDP'
-                             name={i18n.t('nationalDataPoint.nationalDataPoint')}
-                             target={[odp.odpId, 'class', `${odp.nationalClasses[index].uuid}`, 'natural_forest_primary']}
+                             target={commentTarget}
                              countryIso={countryIso}/>
           </div>
           : null}

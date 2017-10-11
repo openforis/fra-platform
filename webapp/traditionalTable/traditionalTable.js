@@ -23,11 +23,8 @@ const Cell = (props) => {
 
 class ReviewWrapper extends React.Component {
   render () {
-    const top = this.refs.rowAnchor && this.props.tableTop
-      ? this.refs.rowAnchor.getBoundingClientRect().top - this.props.tableTop
-      : 0
     return <td ref="rowAnchor" className="fra-table__row-anchor-cell">
-      <div className="traditional-table__review-indicator-row-anchor" style={{top: top}}>
+      <div className="traditional-table__review-indicator-row-anchor">
         <ReviewIndicator section={this.props.section || this.props.tableSpec.name}
                          name=""
                          target={commentTarget(this.props.tableSpec.name, this.props.rowIdx)}
@@ -76,12 +73,7 @@ class FraTable extends UpdateOnResizeReactComponent {
       <div className="traditional-table__scroll-wrapper">
         <table className="fra-table">
           {this.props.tableSpec.header}
-          <TableBody {...this.props}
-                     tableTop={
-                       this.refs.traditionalTable
-                         ? this.refs.traditionalTable.getBoundingClientRect().top
-                         : null
-                     }/>
+          <TableBody {...this.props} />
         </table>
       </div>
     </div>
