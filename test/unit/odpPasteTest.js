@@ -13,11 +13,14 @@ const odpWithExistingClasses = {
 const ncColumns = [{name: 'className', type: 'text'}, {name: 'definition', type: 'text'}]
 const pasteDataForClasses = [['Closed forest', 'Closed def'], ['Open forest', 'Open def']]
 
-const digOnlyClassDataOutOfOdp = (rowCount, odp) => R.map(
-  nc => R.pick(['className', 'definition'], nc),
-  R.take(rowCount, odp.nationalClasses)
-)
+const digOnlyCertainFieldsOutOfOdp = (rowCount, odp, fields) =>
+  R.map(
+    nc => R.pick(fields, nc),
+    R.take(rowCount, odp.nationalClasses)
+  )
 
+const digOnlyClassDataOutOfOdp = (rowCount, odp) =>
+  digOnlyCertainFieldsOutOfOdp(rowCount, odp, ['className', 'definition'])
 
 describe('odp paste', () => {
   it('Pastes national classes and definitions', () => {
@@ -40,5 +43,47 @@ describe('odp paste', () => {
         { className: '', definition: 'Pasted def 2' }
       ]
     assert.deepEqual(expected, digOnlyClassDataOutOfOdp(3, result.updatedOdp))
+  })
+
+  it('Skips rows which are not valid for certain table (and are not visible either in the UI', () => {
+    const otherLandCharacteristicsCols = [
+      {name: 'otherLandPalmsPercent', type: 'integer'},
+      {name: 'otherLandTreeOrchardsPercent', type: 'integer'},
+      {name: 'otherLandAgroforestryPercent', type: 'integer'},
+      {name: 'otherLandTreesUrbanSettingsPercent', type: 'integer'}
+    ]
+    const originalOdp = {
+      nationalClasses: [
+        {className: 'Closed forest'},
+        {className: 'Open forest', otherLandPercent: 10},
+        {className: 'Hardwood plantations'},
+        {className: 'Coconut plantations', otherLandPercent: 25},
+        {className: '', placeHolder: true}
+      ]
+    }
+    const expected =
+      [
+        {className: 'Closed forest'},
+        {className: 'Open forest', otherLandPercent: 10, otherLandPalmsPercent: 10, otherLandTreeOrchardsPercent: 20},
+        {className: 'Hardwood plantations'},
+        {className: 'Coconut plantations', otherLandPercent: 25, otherLandPalmsPercent: 30, otherLandTreeOrchardsPercent: 40}
+      ]
+    const result = handlePaste(
+      otherLandCharacteristicsCols,
+      (nc) => nc.otherLandPercent > 0,
+      originalOdp,
+      false,
+      [['10', '20'], ['30', '40']],
+      1, //Note: this is the index of the visible row in UI (first which matches otherLandPercent > 0)
+      0
+    )
+    assert.deepEqual(
+      digOnlyCertainFieldsOutOfOdp(
+        4,
+        result.updatedOdp,
+        ['className', 'otherLandPercent', 'otherLandPalmsPercent', 'otherLandTreeOrchardsPercent']
+      ),
+      expected
+    )
   })
 })
