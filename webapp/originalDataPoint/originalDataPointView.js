@@ -480,17 +480,18 @@ const ExtentOfForestRow = ({
     <td className="fra-table__header-cell-sub"><span>{className}</span></td>
     <td
       className={`fra-table__cell fra-table__divider ${validationStatus.validArea === false ? 'error' : ''}`}>
-      <ThousandSeparatedDecimalInput numberValue={area}
-                                     className="fra-table__integer-input"
-                                     onChange={decimalUpdated(countryIso, odp, index, 'area', area)}
-                                     onPaste={updatePastedValues({
-                                       odp,
-                                       countryIso,
-                                       rowIndex: index,
-                                       colIndex: 0,
-                                       columns: extentOfForestCols,
-                                       saveDraft
-                                     })}/>
+      <ThousandSeparatedDecimalInput
+        className="fra-table__integer-input"
+        numberValue={area}
+        onChange={decimalUpdated(countryIso, odp, index, 'area', area)}
+        onPaste={updatePastedValues({
+          odp,
+          countryIso,
+          rowIndex: index,
+          colIndex: 0,
+          columns: extentOfForestCols,
+          saveDraft
+        })}/>
     </td>
     <td className={`fra-table__cell ${eofStatusPercentage()}`}>
       <PercentInput

@@ -76,39 +76,13 @@
 }
 
 .fra-table__input {
-  background: transparent;
-  color: inherit;
-  font-size: inherit;
-  border: none;
-  line-height: inherit;
-  padding: 10px;
-  margin: 0;
-  width: 100%;
-
-  &:focus {
-    outline: none;
-    box-shadow: 0 0 0 1px @text-body;
-  }
-  &::placeholder {
-    color: @text-mute;
-  }
+  .mixin-input-base;
 }
 
 .fra-table__integer-input {
-  .fra-table__input;
   text-align: right;
   text-overflow: ellipsis;
-}
-
-.fra-table__cell-input {
-  color: inherit;
-  font-size: inherit;
-  border: none;
-  text-align: right;
-  line-height: inherit;
-  padding: 10px;
-  width: 100%;
-  margin: 0;
+  .mixin-input-base;
 }
 
 // Misc
@@ -137,11 +111,12 @@
 
 .mixin-table-cell-base(@align, @weight, @padding) {
   border: @ui-thin-border;
-  padding: @padding;
   font-weight: @weight;
-  white-space: nowrap;
+  height: 36px;
   min-width: 120px;
+  padding: @padding;
   text-align: @align;
+  white-space: nowrap;
 }
 
 .mixin-table-header-cell-base(@align, @weight) {
@@ -149,4 +124,24 @@
   background-color: fade(black, 4%);
   .mixin-table-cell-base(@align, @weight, 10px);
 
+.mixin-input-base() {
+  background: transparent;
+  border: none;
+  color: inherit;
+  font-size: inherit;
+  height: 100%;
+  line-height: inherit;
+  text-align: inherit;
+  margin: 0;
+  padding: 10px;
+  width: 100%;
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 1px @text-body;
+  }
+
+  &::placeholder {
+    color: @text-mute;
+  }
 }
