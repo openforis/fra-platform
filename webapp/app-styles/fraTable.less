@@ -60,6 +60,17 @@
   .mixin-table-cell-base(right, 700, 10px);
 }
 
+// Header override when in tbody
+
+tbody {
+  .fra-table__header-cell,
+  .fra-table__header-cell-sub,
+  .fra-table__header-cell-sub-right,
+  .fra-table__header-cell-right {
+    min-width: 200px;
+  }
+}
+
 // Select
 
 .fra-table__select {
@@ -122,7 +133,11 @@
 .mixin-table-header-cell-base(@align, @weight) {
   background-color: @ui-bg;
   background-color: fade(black, 4%);
-  .mixin-table-cell-base(@align, @weight, 10px);
+  border: @ui-thin-border;
+  font-weight: @weight;
+  padding: 10px;
+  text-align: @align;
+}
 
 .mixin-input-base() {
   background: transparent;
