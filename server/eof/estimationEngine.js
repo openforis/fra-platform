@@ -1,7 +1,7 @@
 const R = require('ramda')
 const {add, mul, div, sub, toFixed} = require('../../common/bignumberUtils')
 
-const linearInterpolation = (x, xa, ya, xb, yb) => toFixed(
+const linearInterpolation = (x, xa, ya, xb, yb) =>
   add(ya,
     div(
       mul(
@@ -11,9 +11,8 @@ const linearInterpolation = (x, xa, ya, xb, yb) => toFixed(
       sub(xb, xa)
     )
   )
-)
 
-const linearExtrapolation = (x, xa, ya, xb, yb) => toFixed(
+const linearExtrapolation = (x, xa, ya, xb, yb) =>
   add(ya,
     mul(
       div(
@@ -23,9 +22,8 @@ const linearExtrapolation = (x, xa, ya, xb, yb) => toFixed(
       sub(yb, ya)
     )
   )
-)
 
-const linearExtrapolationBackwards = (x, xa, ya, xb, yb) => toFixed(
+const linearExtrapolationBackwards = (x, xa, ya, xb, yb) =>
   add(yb,
     mul(
       div(
@@ -35,82 +33,96 @@ const linearExtrapolationBackwards = (x, xa, ya, xb, yb) => toFixed(
       sub(ya, yb)
     )
   )
-)
 
 const eofFields = ['forestArea', 'otherWoodedLand', 'otherLand', 'otherLandPalms', 'otherLandTreeOrchards', 'otherLandAgroforestry', 'otherLandTreesUrbanSettings']
 const focFields = ['naturalForestArea', 'naturalForestPrimaryArea', 'plantationForestArea', 'plantationForestIntroducedArea', 'otherPlantedForestArea']
 
-const estimate = (year, pointA, pointB, fieldsToEstimate, estFunction) => {
-  const estimateField = (field) => {
-    let estimated = estFunction(year, pointA.year, pointA[field], pointB.year, pointB[field])
-    return estimated < 0 ? 0 : Number(estimated)
+const getNextValues = year => R.pipe(
+  R.filter(v => v.year > year),
+  R.sort((a, b) => a.year - b.year)
+)
+
+const getPreviousValues = year => R.pipe(
+  R.filter(v => v.year < year),
+  R.sort((a, b) => b.year - a.year)
+)
+
+const estimateField = (values = [], field, year) => {
+  const odp = R.find(R.propEq('year', year))(values)
+  const previousValue = getPreviousValues(year)(values)[0]
+  const nextValue = getNextValues(year)(values)[0]
+
+  if (odp) {
+    return odp[field]
+  } else if (values.length < 2) {
+    return null
+  } else if (previousValue && nextValue) {
+    return applyEstimationFunction(year, previousValue, nextValue, field, linearInterpolation)
+  } else {
+    return extrapolate(year, values, field)
   }
-  const newFraValues = R.reduce(
-    (newFraObj, field) => R.assoc([field], estimateField(field), newFraObj),
-    {},
-    fieldsToEstimate)
-  return R.pipe(
-    R.assoc('year', year),
-    R.assoc('store', true))
-  (newFraValues)
 }
 
-const extrapolate = (year, values, fieldsToExtrapolate) => {
-  const previous2Values = R.pipe(R.filter(v => v.year < year), R.sort((a, b) => b.year - a.year))(values).slice(0, 2)
-  if (previous2Values.length === 2) {
-    return estimate(year, previous2Values[1], previous2Values[0], fieldsToExtrapolate, linearExtrapolation)
-  } else {
-    const next2Values = R.pipe(R.filter(v => v.year > year), R.sort((a, b) => a.year - b.year))(values).slice(0, 2)
-    if (next2Values.length === 2)
-      return estimate(year, next2Values[0], next2Values[1], fieldsToExtrapolate, linearExtrapolationBackwards)
-    else return null
-  }
+const applyEstimationFunction = (year, pointA, pointB, field, estFunction) => {
+  const estimated = estFunction(year, pointA.year, pointA[field], pointB.year, pointB[field])
+  return estimated < 0 ? '0' : estimated
+}
+
+const extrapolate = (year, values, field) => {
+  const previous2Values = getPreviousValues(year)(values).slice(0, 2)
+  const next2Values = getNextValues(year)(values).slice(0, 2)
+
+  if (previous2Values.length === 2)
+    return applyEstimationFunction(year, previous2Values[1], previous2Values[0], field, linearExtrapolation)
+  else if (next2Values.length === 2)
+    return applyEstimationFunction(year, next2Values[0], next2Values[1], field, linearExtrapolationBackwards)
+  else
+    return null
 }
 
 const estimateFraValue = (year, values, fieldsToEstimate) => {
-  const odp = R.find(R.propEq('year', year))(values)
-  if (odp) {
-    return R.assoc('store', true, odp)
-  } else {
-    // Filter out duplicate values generated because FRA year and ODP year both exist:
-    const valuesWithoutOdpFraDuplicates = R.reject(val => val.store && val.type === 'odp', values)
-    const previousValue = R.pipe(R.filter(v => v.year < year), R.sort((a, b) => b.year - a.year))(valuesWithoutOdpFraDuplicates)[0]
-    const nextValue = R.pipe(R.filter(v => v.year > year), R.sort((a, b) => a.year - b.year))(valuesWithoutOdpFraDuplicates)[0]
-    if (previousValue && nextValue) {
-      return estimate(year, previousValue, nextValue, fieldsToEstimate, linearInterpolation)
-    } else {
-      return extrapolate(year, valuesWithoutOdpFraDuplicates, fieldsToEstimate)
-    }
+
+  const estimateFieldReducer = (newFraObj, field) => {
+    const fraEstimatedYears = R.pipe(
+      R.filter(v => v.store),
+      R.map(v => v.year)
+    )(values)
+
+    const isEstimatedOdp = v => v.type === 'odp' && R.contains(v.year, fraEstimatedYears)
+
+    //Filtering out objects with field value null or already estimated
+    const fieldValues = R.reject(v => !v[field] || isEstimatedOdp(v), values)
+
+    const estValue = estimateField(fieldValues, field, year)
+
+    return R.pipe(
+      R.assoc([field], toFixed(estValue)),
+      R.assoc(`${field}Estimated`, true)
+    )(newFraObj)
   }
+
+  return R.pipe(
+    R.partial(R.reduce, [estimateFieldReducer, {}]),
+    R.assoc('year', year),
+    R.assoc('store', true)
+  )(fieldsToEstimate)
 }
 
 // Pure function, no side-effects
 const estimateFraValues = (years, odpValues, fieldstoEstimate) => {
-  const pickFieldsAndRoundEstimates = (estimatedValues) =>
-    R.pipe(
-      R.pick([...fieldstoEstimate, 'year']),
-      R.toPairs,
-      R.map(([name, value]) => R.contains(name, fieldstoEstimate) ? [name, Math.round(value)] : [name, value]),
-      R.fromPairs)(estimatedValues)
 
-  const allEstimatedValues =
-    R.reduce(
-      (values, year) => {
-        const newValue = estimateFraValue(year, values, fieldstoEstimate)
-        return newValue ? [...values, newValue] : values
-      },
-      odpValues,
-      years)
-
-  const addEstimatedFlags = fieldsToFlag => x => {
-    R.forEach(fraField => x = R.assoc(`${fraField}Estimated`, true, x), fieldsToFlag)
-    return x
+  const estimateFraValuesReducer = (values, year) => {
+    const newValue = estimateFraValue(year, values, fieldstoEstimate)
+    return [...values, newValue]
   }
 
-  return R.pipe(
-    R.filter(estimatedValues => estimatedValues.store),
-    R.map(pickFieldsAndRoundEstimates),
-    R.map(addEstimatedFlags(fieldstoEstimate)))(allEstimatedValues)
+  const estimatedValues = R.pipe(
+    R.partial(R.reduce, [estimateFraValuesReducer, odpValues]),
+    R.filter(v => v.store),
+    R.map(v => R.dissoc('store', v))
+  )(years)
+
+  return estimatedValues
 }
 
 module.exports.eofFields = eofFields
