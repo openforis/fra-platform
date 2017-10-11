@@ -160,6 +160,7 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
                                     {name: 'otherLandAgroforestryPercent', type: 'integer'},
                                     {name: 'otherLandTreesUrbanSettingsPercent', type: 'integer'}]}
                   targetSuffix="other_land_charasteristics"
+                  validationResultField="validOtherLandPercentage"
                   i18n={i18n} />
                 <tfoot>
                   <tr>
@@ -238,6 +239,7 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
                   parentCategory="naturalForestPercent"
                   categoryColumns={[{name: 'naturalForestPrimaryPercent', type: 'integer'}]}
                   targetSuffix="natural_forest_primary"
+                  validationResultField="validNaturalForestPrimaryPercentage"
                   i18n={i18n} />
                 <tfoot>
                   <tr>
@@ -272,6 +274,7 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
                   parentCategory="plantationPercent"
                   categoryColumns={[{name: 'plantationIntroducedPercent', type: 'integer'}]}
                   targetSuffix="plantation_forest_introduced"
+                  validationResultField="validPlantationIntroducedPercentage"
                   i18n={i18n} />
                 <tfoot>
                   <tr>
@@ -671,13 +674,14 @@ const SubcategoryRow =
     parentCategory,
     categoryColumns,
     targetSuffix,
+    validationResultField,
     i18n,
     ...props
   }) => {
     const nationalClass = odp.nationalClasses[index]
     const numberUpdated = numberUpdateCreator(saveDraft)
-    // TODO: Refactor validation to work with this method
-    const validationStatus = () => getValidationStatusRow(odp, index).validPlantationIntroducedPercentage === false ? 'error' : ''
+    const validationStatus = getValidationStatusRow(odp, index)[validationResultField]
+    const displayError = () => validationStatus === false ? 'error' : ''
     const commentTarget = [odp.odpId, 'class', `${odp.nationalClasses[index].uuid}`, targetSuffix]
     const categoryArea = area ? area * nationalClass[parentCategory] / 100 : null
     const allowedClass = nc => nc[parentCategory] > 0
@@ -689,7 +693,7 @@ const SubcategoryRow =
       {
         mapIndexed((col, colIndex) => {
           const currentCol = categoryColumns[colIndex].name
-          return <td key={colIndex} className={`fra-table__cell ${validationStatus()}`}>
+          return <td key={colIndex} className={`fra-table__cell ${displayError()}`}>
             <PercentInput
               value={nationalClass[currentCol] || ''}
               onChange={numberUpdated(countryIso, odp, index, currentCol, nationalClass[currentCol])}
