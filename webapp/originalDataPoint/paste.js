@@ -6,7 +6,8 @@ const mapIndexed = R.addIndex(R.map)
 
 export default (columns, allowedClass, odp, allowGrow, rawPastedData, rowIndex, colIndex) => {
   const sanitizerFor = type =>
-    type === 'decimal' ? acceptNextDecimal
+    type === 'decimal'
+      ? acceptNextDecimal
       : (type === 'integer' ? acceptNextInteger : R.identity)
 
   const updateOdp = (odp, rowNo, colNo, rawValue) => {
