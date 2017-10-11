@@ -655,7 +655,8 @@ const SubcategoryTableBody = props => <tbody>{
   R.pipe(
     R.filter(nationalClass => !nationalClass.placeHolder),
     mapIndexed((nationalClass, index) => <SubcategoryRow
-      index = {index}
+      key={index}
+      index={index}
       {...props}
       {...nationalClass}/>)
     )(props.odp.nationalClasses)
