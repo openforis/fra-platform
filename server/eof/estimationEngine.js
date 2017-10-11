@@ -65,9 +65,7 @@ const estimateField = (values = [], field, year) => {
 
 const applyEstimationFunction = (year, pointA, pointB, field, estFunction) => {
   const estimated = estFunction(year, pointA.year, pointA[field], pointB.year, pointB[field])
-  return estimated < 0
-    ? '0'
-    : estimated
+  return estimated < 0 ? '0' : estimated
 }
 
 const extrapolate = (year, values, field) => {
@@ -82,15 +80,18 @@ const extrapolate = (year, values, field) => {
     return null
 }
 
-const estimateFraValue2 = (year, values, fieldsToEstimate) => {
+const estimateFraValue = (year, values, fieldsToEstimate) => {
 
   const estimateFieldReducer = (newFraObj, field) => {
     const fraEstimatedYears = R.pipe(
       R.filter(v => v.store),
       R.map(v => v.year)
     )(values)
+
+    const isEstimatedOdp = v => v.type === 'odp' && R.contains(v.year, fraEstimatedYears)
+
     //Filtering out objects with field value null or already estimated
-    const fieldValues = R.reject(v => !v[field] || (v.type === 'odp' && R.contains(v.year, fraEstimatedYears)), values)
+    const fieldValues = R.reject(v => !v[field] || isEstimatedOdp(v), values)
 
     const estValue = estimateField(fieldValues, field, year)
 
@@ -111,7 +112,7 @@ const estimateFraValue2 = (year, values, fieldsToEstimate) => {
 const estimateFraValues = (years, odpValues, fieldstoEstimate) => {
 
   const estimateFraValuesReducer = (values, year) => {
-    const newValue = estimateFraValue2(year, values, fieldstoEstimate)
+    const newValue = estimateFraValue(year, values, fieldstoEstimate)
     return [...values, newValue]
   }
 
