@@ -1,5 +1,5 @@
 import * as R from 'ramda'
-import { sum, mul, div, eq } from '../../common/bignumberUtils'
+import { sum, mul, div, eq, toFixed } from '../../common/bignumberUtils'
 
 export const rows = [
   {
@@ -58,8 +58,8 @@ const updateMirrorValue = (areaValues, year, field, type, obj) => {
   const area = getArea(areaValues, year, getAreaFields(field))
   return area >= 0
     ? type === 'avg'
-      ? R.assoc(field, mul(R.prop(`${field}Avg`, obj), area))(obj)
-      : R.assoc(`${field}Avg`, area == 0 ? 0 : div(R.prop(field, obj), area))(obj)
+      ? R.assoc(field, toFixed(mul(R.prop(`${field}Avg`, obj), area)))(obj)
+      : R.assoc(`${field}Avg`, area === 0 ? 0 : toFixed(div(R.prop(field, obj), area)))(obj)
     : obj
 }
 
