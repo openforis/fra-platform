@@ -14,39 +14,6 @@ import forestPolicyTableSpec from '../forestPolicy/tableSpec'
 import carbonStockTableSpec from '../carbonStock/tableSpec'
 import biomassStockTableSpec from '../biomassStock/tableSpec'
 
-export const annualItems = i18n => [
-  {
-    tableNo: '1a',
-    label: i18n.t('extentOfForest.extentOfForest'),
-    section: 'extentOfForest',
-    pathTemplate: '/country/:countryIso'
-  },
-  {
-    tableNo: '3a',
-    label: i18n.t('growingStock.growingStock'),
-    section: 'growingStock',
-    pathTemplate: '/country/:countryIso/growingStock'
-  },
-  {
-    tableNo: '3c',
-    label: i18n.t('biomassStock.biomassStock'),
-    section: biomassStockTableSpec(i18n).name,
-    pathTemplate: '/country/:countryIso/biomassStock'
-  },
-  {
-    tableNo: '3d',
-    label: i18n.t('carbonStock.carbonStock'),
-    section: carbonStockTableSpec(i18n).name,
-    pathTemplate: '/country/:countryIso/carbonStock'
-  },
-  {
-    tableNo: '5b',
-    label: i18n.t('protectedAreas.protectedAreasLongTermMgmtPlans'),
-    pathTemplate: '/country/:countryIso/forestAreaWithinProtectedAreas',
-    section: forestAreaWithinProtectedAreasTableSpec(i18n).name
-  }
-]
-
 export const fra2020Items = i18n => [
   {
     tableNo: '1a',

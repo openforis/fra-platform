@@ -14,7 +14,7 @@ import {
   changeAssessmentStatus,
   navigationScroll
 } from './actions'
-import { annualItems, fra2020Items } from './items'
+import { fra2020Items } from './items'
 import { mostPowerfulRole } from '../../common/countryRole'
 import { getAllowedStatusTransitions } from '../../common/assessment'
 import { PopoverControl } from './../reusableUiComponents/popoverControl'
@@ -89,7 +89,6 @@ const CountryRole = ({role, roleCountries, currentCountry, i18n}) =>
   <div className="nav__country-list-section">
     <div className="nav__country-list-header">
       <span className="nav__country-list-header-primary">{i18n.t(`user.roles.${role.toLowerCase()}`)}</span>
-      <span className="nav__country-list-header-secondary">{i18n.t('countryListing.annuallyUpdated')}</span>
       <span className="nav__country-list-header-secondary">{i18n.t('countryListing.fra2020')}</span>
       <span className="nav__country-list-header-secondary">{i18n.t('audit.edited')}</span>
     </div>
@@ -108,20 +107,13 @@ const CountryRow = ({selectedCountry, country, i18n}) => {
       {getCountryName(country.countryIso, i18n.language)}
     </div>
     {
-      country.annualAssessment
-        ? <span
-        className="nav__country-list-item-secondary"><AssessmentStatus
-        status={country.annualAssessment}/>{i18n.t(`navigation.assessmentStatus.${country.annualAssessment}.label`)}</span>
-        : null
-    }
-    {
       country.fra2020Assessment
         ? <span
         className="nav__country-list-item-secondary"><AssessmentStatus
         status={country.fra2020Assessment}/>{i18n.t(`navigation.assessmentStatus.${country.fra2020Assessment}.label`)}</span>
         : null
     }
-<span className="nav__country-list-item-secondary">{getRelativeDate(country.lastEdit, i18n) || i18n.t('audit.notStarted')}</span>
+    <span className="nav__country-list-item-secondary">{getRelativeDate(country.lastEdit, i18n) || i18n.t('audit.notStarted')}</span>
   </Link>
 }
 
@@ -291,30 +283,6 @@ class Nav extends React.Component {
                               pathTemplate="/country/:countryIso/odps"
                               secondaryPathTemplate="/country/:countryIso/odp"
                               userInfo={this.props.userInfo}/>
-            <PrimaryItem label={this.props.i18n.t('navigation.annuallyUpdated')}
-                         countryIso={this.props.country}
-                         assessmentType="annuallyUpdated"
-                         assessmentStatuses={status.assessmentStatuses}
-                         changeAssessmentStatus={this.props.changeAssessmentStatus}
-                         userInfo={this.props.userInfo}
-                         i18n={this.props.i18n}/>
-            {
-              annualItems(this.props.i18n).map(v => <SecondaryItem path={this.props.path}
-                                                                   key={v.label}
-                                                                   goTo={this.props.follow}
-                                                                   countryIso={this.props.country}
-                                                                   status={getReviewStatus(v.section)}
-                                                                   edited={
-                                                                     getRelativeDate(
-                                                                       getAuditStatus(v.section),
-                                                                       this.props.i18n
-                                                                     ) ||
-                                                                       this.props.i18n.t('audit.notStarted')
-                                                                     }
-                                                                   userInfo={this.props.userInfo}
-                                                                   {...v} />
-              )
-            }
             <PrimaryItem label={this.props.i18n.t('navigation.fra2020')}
                          countryIso={this.props.country}
                          assessmentType="fra2020"
