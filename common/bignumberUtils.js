@@ -38,9 +38,7 @@ const div = (x, y) => applyOp(x, y, 'div')
 const eq = (x, y) => {
   const xNum = toBigNumber(x)
   const yNum = toBigNumber(y)
-  return xNum.isFinite() && yNum.isFinite()
-    ? xNum.eq(yNum)
-    : false
+  return xNum.isFinite() && yNum.isFinite() && xNum.eq(yNum)
 }
 
 const toFixed = (value, precision = 2) => R.isNil(value)
