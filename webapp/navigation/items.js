@@ -23,21 +23,21 @@ export const fra2020Items = i18n => [
   },
   {
     tableNo: '1b',
+    label: i18n.t('forestCharacteristics.forestCharacteristics'),
+    pathTemplate: '/country/:countryIso/forestCharacteristics',
+    section: 'forestCharacteristics'
+  },
+  {
+    tableNo: '1c',
     label: i18n.t('forestAreaChange.forestAreaLossGainChange'),
     pathTemplate: '/country/:countryIso/forestAreaChange',
     section: forestAreaChangeTableSpec(i18n).name
   },
   {
-    tableNo: '1c',
+    tableNo: '1d',
     label: i18n.t('annualReforestation.annualReforestation'),
     pathTemplate: '/country/:countryIso/annualReforestation',
     section: annualReforestationTableSpec(i18n).name
-  },
-  {
-    tableNo: '1d',
-    label: i18n.t('forestCharacteristics.forestCharacteristics'),
-    pathTemplate: '/country/:countryIso/forestCharacteristics',
-    section: 'forestCharacteristics'
   },
   {
     tableNo: '1e',

@@ -389,7 +389,7 @@ export const translation = {
   },
 
   disturbances: {
-    disturbances: 'Major out breaks and severe weather events',
+    disturbances: 'Disturbances',
     categoryHeader: 'FRA categories',
     areaUnitLabel: 'Area (1000 ha)',
     insects: 'Insects',
@@ -428,9 +428,10 @@ export const translation = {
   },
 
   employment: {
-    employment: 'Employment in forestry and logging',
+    employment: 'Employment',
     categoryHeader: 'FRA 2020 categories',
     unitHeader: 'Full-time equivalents (FTE)',
+    inForestry: 'Employment in forestry and logging',
     ofWhichFemale: '…of which female',
     ofWhichSilviculture: '…of which silviculture and other forestry activities',
     ofWhichLogging: '…of which logging',
