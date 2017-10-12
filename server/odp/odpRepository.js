@@ -59,10 +59,18 @@ const createOdp = (client, countryIso, user) =>
       Promise.all([odpId, auditRepository.insertAudit(client, user.id, 'createOdp', countryIso, 'odp', {odpId})])
   ).then(([odpId, _]) => odpId)
 
-const insertDraft = (client, countryIso, user, odpId, draft) =>
+const insertDraft = (client, countryIso, user, odpId, draft) => console.log('draft', draft) ||
   client.query(
-    'INSERT INTO odp_version (year, description) VALUES ($1, $2);',
-    [draft.year, draft.description]
+    `INSERT INTO 
+     odp_version 
+     (year, 
+     description,
+     data_source_references,
+     data_source_years,
+     data_source_additional_comments)
+     VALUES
+     ($1, $2, $3, $4, $5);`,
+    [draft.year, draft.description, draft.dataSourceReferences, draft.dataSourceYears, draft.dataSourceAdditionalComments]
   ).then(() => client.query('SELECT last_value AS odp_version_id FROM odp_version_id_seq')
   ).then(result => addClassData(client, result.rows[0].odp_version_id, draft)
   ).then(() =>
@@ -77,8 +85,24 @@ const updateDraft = (client, draft) =>
       return [draftId, wipeClassData(client, draftId), addClassData(client, draftId, draft)]
     }
   ).then(([draftId, ..._]) =>
-    client.query('UPDATE odp_version SET year = $1, description = $2 WHERE id = $3;',
-      [draft.year, draft.description, draftId])
+    client.query(`
+    UPDATE 
+    odp_version 
+    SET year = $2, 
+    description = $3,
+    data_source_references = $4,
+    data_source_years  = $5,
+    data_source_additional_comments = $6
+    WHERE id = $1;
+    `,
+      [
+        draftId,
+        draft.year,
+        draft.description,
+        draft.dataSourceReferences,
+        draft.dataSourceYears,
+        draft.dataSourceAdditionalComments
+      ])
   )
 
 module.exports.deleteDraft = (client, odpId, user) =>
@@ -176,6 +200,7 @@ const getAndCheckOdpCountryId = (client, odpId, user) =>
       checkCountryAccess(countryIso, user)
       return countryIso
     })
+
 module.exports.getAndCheckOdpCountryId = getAndCheckOdpCountryId
 
 const deleteOdp = (client, odpId, user) =>
@@ -273,7 +298,10 @@ const getOdp = odpId =>
           p.id AS odp_id,
           p.country_iso,
           v.year,
-          v.description
+          v.description,
+          v.data_source_references,
+          v.data_source_years,
+          v.data_source_additional_comments
         FROM odp p
         JOIN odp_version v
         ON v.id = $2
