@@ -24,6 +24,7 @@ import R from 'ramda'
 import ckEditorConfig from '../ckEditor/ckEditorConfig'
 import ReviewIndicator from '../review/reviewIndicator'
 import DefinitionLink from './../reusableUiComponents/definitionLink'
+import TextInput from '../reusableUiComponents/textInput'
 import handlePaste from './paste'
 
 const years = ['', ...R.pipe(R.range(1990), R.reverse)(2021)]
@@ -56,6 +57,30 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
             )
           }
         </select>
+      </div>
+    </div>
+
+    <div className="fra-table__container">
+      <div className="fra-table__scroll-wrapper">
+        <table className="fra-table">
+          <thead>
+          <tr>
+            <th className="fra-table__header-cell">{i18n.t('nationalDataPoint.dataSource')}</th>
+            <th className="fra-table__header-cell">{i18n.t('nationalDataPoint.methodsUsed')}</th>
+            <th className="fra-table__header-cell">{i18n.t('nationalDataPoint.years')}</th>
+            <th className="fra-table__header-cell">{i18n.t('nationalDataPoint.years')}</th>
+            <th className="fra-table__header-cell">{i18n.t('nationalDataPoint.additionalComments')}</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td><TextInput/></td>
+            <td>x</td>
+            <td>y</td>
+            <td>z</td>
+          </tr>
+          </tbody>
+        </table>
       </div>
     </div>
 
