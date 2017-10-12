@@ -35,6 +35,14 @@ const mul = (x, y) => applyOp(x, y, 'mul')
 
 const div = (x, y) => applyOp(x, y, 'div')
 
+const eq = (x, y) => {
+  const xNum = toBigNumber(x)
+  const yNum = toBigNumber(y)
+  return xNum.isFinite() && yNum.isFinite()
+    ? xNum.eq(yNum)
+    : false
+}
+
 const toFixed = (value, precision = 2) => R.isNil(value)
   ? null
   : toBigNumber(value).toFixed(precision)
@@ -48,5 +56,6 @@ module.exports.add = add
 module.exports.sub = sub
 module.exports.mul = mul
 module.exports.div = div
+module.exports.eq = eq
 module.exports.toFixed = toFixed
 module.exports.formatNumber = formatNumber

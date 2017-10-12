@@ -1,5 +1,5 @@
 import * as R from 'ramda'
-import { sum, mul, div } from '../../common/bignumberUtils'
+import { sum, mul, div, eq } from '../../common/bignumberUtils'
 
 export const rows = [
   {
@@ -43,7 +43,7 @@ const getFields = (field, fieldsProperty) => R.pipe(
 const getAreaFields = field => getFields(field, 'areaFields')
 
 const getTypeArea = (year, areaFields, type) => R.pipe(
-  R.find(v => R.propEq('year', year, v) && R.propEq('type', type, v)),
+  R.find(v => eq(v.year, year) && R.propEq('type', type, v)),
   R.defaultTo({}),
   R.props(areaFields),
   sum
