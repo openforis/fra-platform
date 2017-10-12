@@ -5,6 +5,6 @@ import tableSpec from './tableSpec'
 export default props =>
   <SingleTraditionalTableView
     {...props}
-    headingLocalizationKey="forestAreaWithinProtectedAreas.header"
+    headingLocalizationKey="forestAreaWithinProtectedAreas.forestAreaWithinProtectedAreas"
     sectionAnchor="5b"
     tableSpec={tableSpec}/>

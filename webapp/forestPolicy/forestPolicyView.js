@@ -5,6 +5,6 @@ import tableSpec from './tableSpec'
 export default props =>
   <SingleTraditionalTableView
     {...props}
-    headingLocalizationKey="forestPolicy.header"
+    headingLocalizationKey="forestPolicy.forestPolicy"
     sectionAnchor="10a"
     tableSpec={tableSpec}/>

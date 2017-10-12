@@ -17,6 +17,12 @@ export const translation = {
     edited: 'Edited'
   },
 
+  yesNoTextSelect: {
+    yes: 'Yes',
+    no: 'No',
+    notSelected: '',
+  },
+
   user: {
     roles: {
       reviewer: 'Reviewer',
@@ -190,11 +196,10 @@ export const translation = {
   // FRA 2020 questionare
 
   extentOfForest: {
-    extentOfForest: 'Extent of forest, other wooded land and other land',
+    extentOfForest: 'Extent of forest and other wooded land',
     categoryHeader: 'FRA categories',
     areaUnitLabel: 'Area (1000 ha)',
     generateFraValues: 'Generate FRA values',
-    extentOfForestValues: 'Extent of forest values',
     forestArea: 'Forest',
     chart: {
       placeholderLine1: 'To get started, add new national data points and use',
@@ -247,7 +252,7 @@ export const translation = {
   },
 
   growingStock: {
-    growingStock: 'Growing stock',
+    growingStock: 'Forest growing stock',
     categoryHeader: 'FRA categories',
     avgTableHeader: 'Average growing stock (m³/ha)',
     totalTableHeader: 'Total growing stock (million m³)',
@@ -273,17 +278,17 @@ export const translation = {
   },
 
   forestAreaWithinProtectedAreas: {
-    header: 'Forest area within protected areas and forest area with long-term management plans',
+    forestAreaWithinProtectedAreas: 'Forest area within protected areas and forest area with long-term management plans',
     categoryHeader: 'FRA categories',
     areaUnitLabel: 'Area (1000 ha)',
-    forestAreaWithinProtectedAreas: 'Forest area within protected areas',
+    header: 'Forest area within protected areas',
     forestAreaWithLongTermManagementPlan: 'Forest area with long-term management plan',
     ofWhichInProtectedAreas: '…of which in protected areas'
   },
 
   growingStockComposition: {
+    growingStockComposition: 'Forest growing stock composition',
     categoryHeader: 'FRA categories',
-    growingStockComposition: 'Growing stock composition',
     nativeTreeSpecies: 'Native tree species',
     introducedTreeSpecies: 'Introduced tree species',
     areaUnitLabel: 'Growing stock in forest (million m³ o.b.)',
@@ -298,7 +303,7 @@ export const translation = {
   },
 
   biomassStock: {
-    biomassStock: 'Biomass stock in forest',
+    biomassStock: 'Forest biomass stock',
     categoryHeader: 'FRA categories',
     tableHeader: 'Forest biomass (tonnes/ha)',
     aboveGround: 'Above-ground biomass',
@@ -308,7 +313,7 @@ export const translation = {
   },
 
   carbonStock: {
-    carbonStock: 'Carbon stock in forest',
+    carbonStock: 'Forest carbon stock',
     categoryHeader: 'FRA categories',
     tableHeader: 'Forest carbon (tonnes/ha)',
     carbonAboveGroundBiomass: 'Carbon in above-ground biomass',
@@ -371,12 +376,8 @@ export const translation = {
     protectedAreasLongTermMgmtPlans: 'Forest area within protected areas and forest area with long-term management plans'
   },
 
-  forestOwnershipManagementRights: {
-    forestOwnershipManagementRights: 'Forest ownership'
-  },
-
   holderOfManagementRights: {
-    holderOfManagementRights: 'Holder of management rights of public forests',
+    holderOfManagementRights: 'Management rights of public forests',
     categoryHeader: 'FRA categories',
     areaUnitLabel: 'Forest area (1000 ha)',
     publicAdministration: 'Public Administration',
@@ -388,7 +389,7 @@ export const translation = {
   },
 
   disturbances: {
-    disturbances: 'Disturbances',
+    disturbances: 'Major out breaks and severe weather events',
     categoryHeader: 'FRA categories',
     areaUnitLabel: 'Area (1000 ha)',
     insects: 'Insects',
@@ -399,7 +400,7 @@ export const translation = {
   },
 
   forestPolicy: {
-    header: 'Policies, Legislation and national platform for stakeholder participation in forest policy',
+    forestPolicy: 'Policies, Legislation and national platform for stakeholder participation in forest policy',
     categoryHeader: 'FRA categories',
     areaUnitLabel: 'Boolean (Yes/No)',
     national: 'National',
@@ -427,10 +428,9 @@ export const translation = {
   },
 
   employment: {
-    employment: 'Employment',
+    employment: 'Employment in forestry and logging',
     categoryHeader: 'FRA 2020 categories',
     unitHeader: 'Full-time equivalents (FTE)',
-    inForestryAndLogging: 'Employment in forestry and logging',
     ofWhichFemale: '…of which female',
     ofWhichSilviculture: '…of which silviculture and other forestry activities',
     ofWhichLogging: '…of which logging',
@@ -449,20 +449,10 @@ export const translation = {
     technicianCertificate: 'Technician certificate / diploma'
   },
 
-  policiesAndLegislation: {
-    policiesAndLegislation: 'Policies, legislation and national platform for stakeholder participation in forest policy'
-  },
-
   areaOfPermanentForestEstate: {
     areaOfPermanentForestEstate: 'Area of permanent forest estate',
     categoryHeader: 'FRA 2020 categories',
     areaUnitLabel: 'Forest area (1000 ha)',
     applicable: 'Applicable?'
-  },
-
-  yesNoTextSelect: {
-    yes: 'Yes',
-    no: 'No',
-    notSelected: '',
   }
 }
