@@ -17,6 +17,7 @@ import biomassStockTableSpec from '../biomassStock/tableSpec'
 export const fra2020Items = i18n => [
   {
     type: 'header',
+    sectionNo: '1',
     label: i18n.t('navigation.sectionHeaders.forestExtentCharacteristicsAndChanges')
   },
   {
@@ -51,6 +52,7 @@ export const fra2020Items = i18n => [
   },
   {
     type: 'header',
+    sectionNo: '2',
     label: i18n.t('navigation.sectionHeaders.forestGrowingStockBiomassAndCarbon')
   },
   {
@@ -79,6 +81,7 @@ export const fra2020Items = i18n => [
   },
   {
     type: 'header',
+    sectionNo: '3',
     label: i18n.t('navigation.sectionHeaders.forestDesignationAndManagement')
   },
   {
@@ -95,6 +98,7 @@ export const fra2020Items = i18n => [
   },
   {
     type: 'header',
+    sectionNo: '4',
     label: i18n.t('navigation.sectionHeaders.forestOwnershipAndManagementRights')
   },
   {
@@ -111,6 +115,7 @@ export const fra2020Items = i18n => [
   },
   {
     type: 'header',
+    sectionNo: '5',
     label: i18n.t('navigation.sectionHeaders.forestDisturbances')
   },
   {
@@ -133,6 +138,7 @@ export const fra2020Items = i18n => [
   },
   {
     type: 'header',
+    sectionNo: '6',
     label: i18n.t('navigation.sectionHeaders.forestPolicyAndLegislation')
   },
   {
@@ -149,6 +155,7 @@ export const fra2020Items = i18n => [
   },
   {
     type: 'header',
+    sectionNo: '7',
     label: i18n.t('navigation.sectionHeaders.employmentEducationAndNwfp')
   },
   {

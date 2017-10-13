@@ -191,8 +191,9 @@ const NationalDataItem = ({path, countryIso, pathTemplate, secondaryPathTemplate
   </Link>
 }
 
-const SecondaryItemHeader = ({label}) => {
+const SecondaryItemHeader = ({sectionNo, label}) => {
   return <div className="nav__secondary-item-header">
+    <div className="nav__secondary-order">{sectionNo}</div>
     <div className="nav__secondary-label">{label}</div>
   </div>
 }
@@ -295,7 +296,8 @@ class Nav extends React.Component {
                 item.type == 'header'
                 ? <SecondaryItemHeader
                     key={item.label}
-                    label={item.label} />
+                    label={item.label}
+                    sectionNo={item.sectionNo} />
                 : <SecondaryItem
                     path={this.props.path}
                     key={item.label}
