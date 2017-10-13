@@ -6,5 +6,5 @@ export default props =>
   <SingleTraditionalTableView
     {...props}
     headingLocalizationKey="disturbances.disturbances"
-    sectionAnchor="7a"
+    sectionAnchor="5a"
     tableSpec={tableSpec}/>

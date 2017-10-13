@@ -7,11 +7,10 @@ export default i18n => ({
   name: 'carbonStock', // used to uniquely identify table
   header: <thead>
   <tr>
-    <th className="fra-table__header-cell">{i18n.t('carbonStock.categoryHeader')}</th>
+    <th className="fra-table__header-cell" rowSpan="2">{i18n.t('carbonStock.categoryHeader')}</th>
     <th className="fra-table__header-cell-middle" colSpan="9">{i18n.t(`carbonStock.tableHeader`)}</th>
   </tr>
   <tr>
-    <td className="fra-table__header-cell">{i18n.t('fraClass.forest')}</td>
     <td className="fra-table__header-cell-right">1990</td>
     <td className="fra-table__header-cell-right">2000</td>
     <td className="fra-table__header-cell-right">2010</td>
