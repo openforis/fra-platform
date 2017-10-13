@@ -68,45 +68,40 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
     </div>
 
     <table className="fra-table">
-      <thead><tr></tr></thead>
       <tbody>
       <tr>
         <td className="fra-table__header-cell">{i18n.t('nationalDataPoint.references')}</td>
-        <td className="fra-table__cell">
+        <td className="fra-table__cell odp__data-source-input-column">
           <TextInput
             value={active.dataSourceReferences || ''}
             onChange={ (e) => saveDraft(countryIso, R.assoc('dataSourceReferences', e.target.value, active)) }
           />
         </td>
       </tr>
-
       <tr>
         <td className="fra-table__header-cell">{i18n.t('nationalDataPoint.methodsUsed')}</td>
-        <td className="fra-table__cell">
+        <td className="fra-table__cell odp__data-source-input-column">
           <MultiSelect/>
         </td>
       </tr>
-
       <tr>
         <td className="fra-table__header-cell">{i18n.t('nationalDataPoint.years')}</td>
-        <td className="fra-table__cell">
+        <td className="fra-table__cell odp__data-source-input-column">
           <TextInput
             value={active.dataSourceYears || ''}
             onChange={ (e) => saveDraft(countryIso, R.assoc('dataSourceYears', e.target.value, active)) }
           />
         </td>
       </tr>
-
       <tr>
         <td className="fra-table__header-cell">{i18n.t('nationalDataPoint.appliesToVariables')}</td>
-        <td className="fra-table__cell">
+        <td className="fra-table__cell odp__data-source-input-column">
           <MultiSelect/>
         </td>
       </tr>
-
       <tr>
         <th className="fra-table__header-cell">{i18n.t('nationalDataPoint.additionalComments')}</th>
-        <td className="fra-table__cell">
+        <td className="fra-table__cell odp__data-source-input-column">
           <TextInput
             value={active.dataSourceAdditionalComments || ''}
             onChange={ (e) => saveDraft(countryIso, R.assoc('dataSourceAdditionalComments', e.target.value, active)) }
