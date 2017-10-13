@@ -82,9 +82,10 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
         <td className="fra-table__cell odp__data-source-input-column">
           <MultiSelect
             i18n={i18n}
-            localizationPrefix="nationalDataPoint.dataSourceMethods"
+            localizationPrefix="nationalDataPoint.dataSourceMethodsOptions"
             values={active.dataSourceMethods}
-            options={['nationalForestInventory',
+            options={[
+              'nationalForestInventory',
               'sampleBasedRemoteSensingAssessment',
               'fullCoverMaps',
               'registersQuestionnaires',
@@ -109,7 +110,21 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
       <tr>
         <td className="fra-table__header-cell">{i18n.t('nationalDataPoint.appliesToVariables')}</td>
         <td className="fra-table__cell odp__data-source-input-column">
-          <MultiSelect i18n={i18n}/>
+          <MultiSelect
+            i18n={i18n}
+            localizationPrefix="nationalDataPoint.appliesToVariablesOptions"
+            values={active.dataSourceAppliesToVariables}
+            options={[
+              'forest',
+              'otherWoodedLand',
+              'otherLand'
+            ]}
+            onChange={
+              (values) =>
+                saveDraft(countryIso, R.assoc('dataSourceAppliesToVariables', values, active))
+            }
+            openedListWidth="300px"
+          />
         </td>
       </tr>
       <tr>

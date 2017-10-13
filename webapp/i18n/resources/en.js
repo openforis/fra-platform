@@ -192,12 +192,17 @@ export const translation = {
     enterOrCopyPasteNationalClasses: 'Enter or copy and paste national classes',
     forestCharacteristics: 'Forest characteristics',
     otherLandCharacteristics: 'Other land with tree cover',
-    dataSourceMethods: {
+    dataSourceMethodsOptions: {
       nationalForestInventory: 'National Forest Inventory',
       sampleBasedRemoteSensingAssessment: 'Sample-based remote sensing assessment',
       fullCoverMaps: 'Full-cover forest/vegetation maps',
       registersQuestionnaires: 'Registers/questionnaires',
       other: 'Other (specify)'
+    },
+    appliesToVariablesOptions: {
+      forest: 'Forest',
+      otherWoodedLand: 'Other wooded land',
+      otherLand: 'Other land'
     }
   },
 
