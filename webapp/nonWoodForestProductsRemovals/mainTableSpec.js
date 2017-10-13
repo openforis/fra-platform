@@ -21,7 +21,7 @@ const productRow = idx => [
     </td>
   },
   {type: 'textInput', minWidth: 240},
-  {type: 'textInput'},
+  {type: 'textInput', minWidth: 240},
   {type: 'integerInput'},
   {type: 'textInput'},
   {type: 'integerInput'},

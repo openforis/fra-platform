@@ -52,7 +52,7 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
               year =>
                 <option key={year}
                         value={year}
-                        disabled={R.contains(year, unselectable)}>
+                        disabled={R.contains(year.toString(), unselectable)}>
                   {year}</option>
             )
           }
@@ -544,17 +544,18 @@ const ExtentOfForestRow = ({
     <td className="fra-table__header-cell-sub"><span>{className}</span></td>
     <td
       className={`fra-table__cell fra-table__divider ${validationStatus.validArea === false ? 'error' : ''}`}>
-      <ThousandSeparatedDecimalInput numberValue={area}
-                                     className="fra-table__integer-input"
-                                     onChange={decimalUpdated(countryIso, odp, index, 'area', area)}
-                                     onPaste={updatePastedValues({
-                                       odp,
-                                       countryIso,
-                                       rowIndex: index,
-                                       colIndex: 0,
-                                       columns: extentOfForestCols,
-                                       saveDraft
-                                     })}/>
+      <ThousandSeparatedDecimalInput
+        className="fra-table__integer-input"
+        numberValue={area}
+        onChange={decimalUpdated(countryIso, odp, index, 'area', area)}
+        onPaste={updatePastedValues({
+          odp,
+          countryIso,
+          rowIndex: index,
+          colIndex: 0,
+          columns: extentOfForestCols,
+          saveDraft
+        })}/>
     </td>
     <td className={`fra-table__cell ${eofStatusPercentage()}`}>
       <PercentInput
@@ -719,7 +720,8 @@ const SubcategoryTableBody = props => <tbody>{
   R.pipe(
     R.filter(nationalClass => !nationalClass.placeHolder),
     mapIndexed((nationalClass, index) => <SubcategoryRow
-      index = {index}
+      key={index}
+      index={index}
       {...props}
       {...nationalClass}/>)
     )(props.odp.nationalClasses)
