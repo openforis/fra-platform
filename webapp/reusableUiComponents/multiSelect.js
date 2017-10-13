@@ -37,9 +37,11 @@ export default class MultiSelect extends React.Component {
           )(values)
         }
       </div>
-      <svg className="icon icon-sub">
-        <use xlinkHref="img/icons.svg#small-down"/>
-      </svg>
+      <div className="multi-select__arrow">
+        <svg className="icon icon-sub">
+          <use xlinkHref="img/icons.svg#small-down"/>
+        </svg>
+      </div>
       {
         this.state.open
           ? <div className="multi-select__opened">
