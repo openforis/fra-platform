@@ -16,6 +16,10 @@ import biomassStockTableSpec from '../biomassStock/tableSpec'
 
 export const fra2020Items = i18n => [
   {
+    type: 'header',
+    label: i18n.t('navigation.sectionHeaders.forestExtentCharacteristicsAndChanges')
+  },
+  {
     tableNo: '1a',
     label: i18n.t('extentOfForest.extentOfForest'),
     section: 'extentOfForest',
@@ -46,6 +50,10 @@ export const fra2020Items = i18n => [
     section: specificForestCategoriesTableSpec(i18n).name
   },
   {
+    type: 'header',
+    label: i18n.t('navigation.sectionHeaders.forestGrowingStockBiomassAndCarbon')
+  },
+  {
     tableNo: '2a',
     label: i18n.t('growingStock.growingStock'),
     section: 'growingStock',
@@ -70,6 +78,10 @@ export const fra2020Items = i18n => [
     pathTemplate: '/country/:countryIso/carbonStock'
   },
   {
+    type: 'header',
+    label: i18n.t('navigation.sectionHeaders.forestDesignationAndManagement')
+  },
+  {
     tableNo: '3a',
     label: i18n.t('designatedManagementObjective.designatedManagementObjective'),
     pathTemplate: '/country/:countryIso/designatedManagementObjective',
@@ -82,6 +94,10 @@ export const fra2020Items = i18n => [
     section: forestAreaWithinProtectedAreasTableSpec(i18n).name
   },
   {
+    type: 'header',
+    label: i18n.t('navigation.sectionHeaders.forestOwnershipAndManagementRights')
+  },
+  {
     tableNo: '4a',
     label: i18n.t('forestOwnership.forestOwnership'),
     pathTemplate: '/country/:countryIso/forestOwnership',
@@ -92,6 +108,10 @@ export const fra2020Items = i18n => [
     label: i18n.t('holderOfManagementRights.holderOfManagementRights'),
     pathTemplate: '/country/:countryIso/holderOfManagementRights',
     section: holderOfManagementRightsTableSpec(i18n).name
+  },
+  {
+    type: 'header',
+    label: i18n.t('navigation.sectionHeaders.forestDisturbances')
   },
   {
     tableNo: '5a',
@@ -112,6 +132,10 @@ export const fra2020Items = i18n => [
     section: 'degradedForest'
   },
   {
+    type: 'header',
+    label: i18n.t('navigation.sectionHeaders.forestPolicyAndLegislation')
+  },
+  {
     tableNo: '6a',
     label: i18n.t('forestPolicy.forestPolicy'),
     pathTemplate: '/country/:countryIso/forestPolicy',
@@ -122,6 +146,10 @@ export const fra2020Items = i18n => [
     label: i18n.t('areaOfPermanentForestEstate.areaOfPermanentForestEstate'),
     pathTemplate: '/country/:countryIso/areaOfPermanentForestEstateView',
     section: areaOfPermanentForestEstateTableSpec(i18n).name
+  },
+  {
+    type: 'header',
+    label: i18n.t('navigation.sectionHeaders.employmentEducationAndNwfp')
   },
   {
     tableNo: '7a',

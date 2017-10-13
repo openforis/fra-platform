@@ -111,6 +111,15 @@ export const translation = {
       userAgent: 'User agent',
       user: 'User'
     },
+    sectionHeaders: {
+      forestExtentCharacteristicsAndChanges: 'Forest extent, characteristics and changes',
+      forestGrowingStockBiomassAndCarbon: 'Forest growing stock, biomass and carbon',
+      forestDesignationAndManagement: 'Forest designation and management',
+      forestOwnershipAndManagementRights: 'Forest ownership and management rights',
+      forestDisturbances: 'Forest disturbances',
+      forestPolicyAndLegislation: 'Forest policy and legislation',
+      employmentEducationAndNwfp: 'Employment, education and NWFP'
+    }
   },
 
 

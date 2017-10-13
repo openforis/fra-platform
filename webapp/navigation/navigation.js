@@ -191,6 +191,11 @@ const NationalDataItem = ({path, countryIso, pathTemplate, secondaryPathTemplate
   </Link>
 }
 
+const SecondaryItemHeader = ({label}) => {
+  return <div className="nav__secondary-item-header">
+    <div className="nav__secondary-label">{label}</div>
+  </div>
+}
 
 const SecondaryItem = ({path, countryIso, status, pathTemplate, tableNo, label}) => {
   const route = new Route(pathTemplate)
@@ -286,20 +291,17 @@ class Nav extends React.Component {
                          userInfo={this.props.userInfo}
                          i18n={this.props.i18n}/>
             {
-              fra2020Items(this.props.i18n).map(v => <SecondaryItem path={this.props.path}
-                                                                    key={v.label}
-                                                                    goTo={this.props.follow}
-                                                                    countryIso={this.props.country}
-                                                                    status={getReviewStatus(v.section)}
-                                                                    edited={
-                                                                       getRelativeDate(
-                                                                         getAuditStatus(v.section),
-                                                                         this.props.i18n
-                                                                       ) ||
-                                                                         this.props.i18n.t('audit.notStarted')
-                                                                       }
-                                                                    userInfo={this.props.userInfo}
-                                                                    {...v} />
+              fra2020Items(this.props.i18n).map(item =>
+                item.type == 'header'
+                ? <SecondaryItemHeader
+                    key={item.label}
+                    label={item.label} />
+                : <SecondaryItem
+                    path={this.props.path}
+                    key={item.label}
+                    countryIso={this.props.country}
+                    status={getReviewStatus(item.section)}
+                    {...item} />
               )
             }
 
