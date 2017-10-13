@@ -93,6 +93,7 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
             onChange={ (values) =>
               saveDraft(countryIso, R.assoc('dataSourceMethods', values, active))
             }
+            openedListWidth="350px"
           />
         </td>
       </tr>
