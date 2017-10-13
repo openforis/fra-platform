@@ -61,34 +61,51 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
       </div>
     </div>
 
+    <div className="odp__section-header">
+      <h3 className="subhead">
+        {i18n.t('nationalDataPoint.dataSources')}
+      </h3>
+    </div>
+
     <table className="fra-table">
-      <thead>
-      <tr>
-        <th className="fra-table__header-cell">{i18n.t('nationalDataPoint.references')}</th>
-        <th className="fra-table__header-cell">{i18n.t('nationalDataPoint.methodsUsed')}</th>
-        <th className="fra-table__header-cell">{i18n.t('nationalDataPoint.years')}</th>
-        <th className="fra-table__header-cell">{i18n.t('nationalDataPoint.appliesToVariables')}</th>
-        <th className="fra-table__header-cell">{i18n.t('nationalDataPoint.additionalComments')}</th>
-      </tr>
-      </thead>
+      <thead><tr></tr></thead>
       <tbody>
       <tr>
+        <td className="fra-table__header-cell">{i18n.t('nationalDataPoint.references')}</td>
         <td className="fra-table__cell">
           <TextInput
             value={active.dataSourceReferences || ''}
             onChange={ (e) => saveDraft(countryIso, R.assoc('dataSourceReferences', e.target.value, active)) }
           />
         </td>
+      </tr>
+
+      <tr>
+        <td className="fra-table__header-cell">{i18n.t('nationalDataPoint.methodsUsed')}</td>
         <td className="fra-table__cell">
           <MultiSelect/>
         </td>
+      </tr>
+
+      <tr>
+        <td className="fra-table__header-cell">{i18n.t('nationalDataPoint.years')}</td>
         <td className="fra-table__cell">
           <TextInput
             value={active.dataSourceYears || ''}
             onChange={ (e) => saveDraft(countryIso, R.assoc('dataSourceYears', e.target.value, active)) }
           />
         </td>
-        <td className="fra-table__cell">Applies to variables</td>
+      </tr>
+
+      <tr>
+        <td className="fra-table__header-cell">{i18n.t('nationalDataPoint.appliesToVariables')}</td>
+        <td className="fra-table__cell">
+          <MultiSelect/>
+        </td>
+      </tr>
+
+      <tr>
+        <th className="fra-table__header-cell">{i18n.t('nationalDataPoint.additionalComments')}</th>
         <td className="fra-table__cell">
           <TextInput
             value={active.dataSourceAdditionalComments || ''}

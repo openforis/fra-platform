@@ -171,6 +171,7 @@ export const translation = {
     methods: 'Methods',
     methodsUsed: 'Methods used',
     dataSource: 'Data source',
+    dataSources: 'Data sources',
     years: 'Years',
     appliesToVariables: 'Applies to variables',
     additionalComments: 'Additional comments',
