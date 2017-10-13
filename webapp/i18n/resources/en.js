@@ -192,11 +192,13 @@ export const translation = {
     enterOrCopyPasteNationalClasses: 'Enter or copy and paste national classes',
     forestCharacteristics: 'Forest characteristics',
     otherLandCharacteristics: 'Other land with tree cover',
-    nationalForestInventory: 'National Forest Inventory',
-    sampleBasedRemoteSensingAssessment: 'Sample-based remote sensing assessment',
-    fullCoverMaps: 'Full-cover forest/vegetation maps',
-    registersQuestionnaires: 'Registers/questionnaires',
-    other: 'Other (specify)'
+    dataSourceMethods: {
+      nationalForestInventory: 'National Forest Inventory',
+      sampleBasedRemoteSensingAssessment: 'Sample-based remote sensing assessment',
+      fullCoverMaps: 'Full-cover forest/vegetation maps',
+      registersQuestionnaires: 'Registers/questionnaires',
+      other: 'Other (specify)'
+    }
   },
 
   // FRA 2020 questionare

@@ -24,7 +24,6 @@ import R from 'ramda'
 import ckEditorConfig from '../ckEditor/ckEditorConfig'
 import ReviewIndicator from '../review/reviewIndicator'
 import DefinitionLink from './../reusableUiComponents/definitionLink'
-import TextInput from '../reusableUiComponents/textInput'
 import MultiSelect from '../reusableUiComponents/multiSelect'
 import handlePaste from './paste'
 
@@ -83,13 +82,17 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
         <td className="fra-table__cell odp__data-source-input-column">
           <MultiSelect
             i18n={i18n}
-            localizationPrefix="nationalDataPoint"
+            localizationPrefix="nationalDataPoint.dataSourceMethods"
+            values={active.dataSourceMethods}
             options={['nationalForestInventory',
               'sampleBasedRemoteSensingAssessment',
               'fullCoverMaps',
               'registersQuestionnaires',
               'other'
             ]}
+            onChange={ (values) =>
+              saveDraft(countryIso, R.assoc('dataSourceMethods', values, active))
+            }
           />
         </td>
       </tr>

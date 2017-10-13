@@ -13,6 +13,7 @@ export default class MultiSelect extends React.Component {
   }
 
   render () {
+    const values = this.props.values || []
     return <div
       onClick={this.toggleOpen.bind(this)}
       className="multi-select">
@@ -30,8 +31,15 @@ export default class MultiSelect extends React.Component {
           {
             R.map(
               option =>
-                <div key={option}>
-                  {this.props.i18n.t(this.props.localizationPrefix + '.' + option)}
+                <div
+                  key={option}
+                  onClick={
+                    () => {
+                      this.props.onChange([option])
+                    }
+                  }>
+                    {this.props.i18n.t(this.props.localizationPrefix + '.' + option)}
+                    <input type="checkbox" readOnly="true" name={option} value={option} checked={R.contains(option, values)}/>
                   </div>,
               this.props.options
             )
