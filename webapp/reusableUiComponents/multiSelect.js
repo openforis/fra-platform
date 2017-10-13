@@ -2,6 +2,14 @@ import './multiSelect.less'
 import React from 'react'
 import R from 'ramda'
 
+const optionClick = (currentValues, onChange, option) => () => {
+  if (R.contains(option, currentValues)) {
+    onChange(R.filter(R.equals(option),  currentValues))
+  } else {
+    onChange([...currentValues, option])
+  }
+}
+
 export default class MultiSelect extends React.Component {
   constructor (props) {
     super(props)
@@ -12,15 +20,22 @@ export default class MultiSelect extends React.Component {
     this.setState({open: !this.state.open})
   }
 
+  localizeOption(option) {
+    return this.props.i18n.t(this.props.localizationPrefix + '.' + option)
+  }
+
   render () {
     const values = this.props.values || []
     return <div
       onClick={this.toggleOpen.bind(this)}
       className="multi-select">
       <div className="multi-select__closed-content">
-        <div>first</div>
-        <div>second</div>
-        <div>third</div>
+        {
+          R.pipe(
+            R.map(option => this.localizeOption(option)),
+            R.join(', ')
+          )(values)
+        }
       </div>
       <svg className="icon icon-sub">
         <use xlinkHref="img/icons.svg#small-down"/>
@@ -33,14 +48,10 @@ export default class MultiSelect extends React.Component {
               option =>
                 <div
                   key={option}
-                  onClick={
-                    () => {
-                      this.props.onChange([option])
-                    }
-                  }>
-                    <input type="checkbox" readOnly="true" name={option} value={option} checked={R.contains(option, values)}/>
-                    {this.props.i18n.t(this.props.localizationPrefix + '.' + option)}
-                  </div>,
+                  onClick={optionClick(values, this.props.onChange, option)}>
+                  <input type="checkbox" readOnly="true" name={option} value={option} checked={R.contains(option, values)}/>
+                  {this.localizeOption(option)}
+                </div>,
               this.props.options
             )
           }
