@@ -15,20 +15,27 @@
   justify-content: center;
 }
 
+.multi-select__opened-content-anchor {
+  position: relative;
+  height: 0;
+  width: 0;
+}
+
 .multi-select__closed-content {
- margin-left: 10px;
   word-wrap: break-word;
+  padding: 10px;
 }
 
 .multi-select__opened {
   position: absolute;
-  right: 0;
-  top: 22px;
+  right: -26px;
+  top: 10px;
   cursor: pointer;
   z-index: 1000;
   background-color: white;
   border-radius: 2px;
   box-shadow: @shadow-3;
+  padding: 8px 0;
 }
 
 .multi-select__opened-item {

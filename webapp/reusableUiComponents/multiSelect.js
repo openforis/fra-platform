@@ -55,25 +55,27 @@ export default class MultiSelect extends React.Component {
         <svg className="icon icon-sub">
           <use xlinkHref="img/icons.svg#small-down"/>
         </svg>
-      </div>
-      {
-        this.state.open
-          ? <div className="multi-select__opened" style={{width: this.props.openedListWidth}}>
-          {
-            R.map(
-              option =>
-                <div className="multi-select__opened-item"
-                  key={option}
-                  onClick={optionClick(values, this.props.onChange, option)}>
-                  <input type="checkbox" readOnly="true" name={option} value={option} checked={R.contains(option, values)}/>
-                  <span className="multi-select__opened-option-text">{this.localizeOption(option)}</span>
-                </div>,
-              this.props.options
-            )
-          }
+        {
+          this.state.open
+            ? <div className="multi-select__opened-content-anchor">
+            <div className="multi-select__opened" style={{width: this.props.openedListWidth}}>
+              {
+                R.map(
+                  option =>
+                    <div className="multi-select__opened-item"
+                         key={option}
+                         onClick={optionClick(values, this.props.onChange, option)}>
+                      <input type="checkbox" readOnly="true" name={option} value={option} checked={R.contains(option, values)}/>
+                      <span className="multi-select__opened-option-text">{this.localizeOption(option)}</span>
+                    </div>,
+                  this.props.options
+                )
+              }
+            </div>
           </div>
-          : null
-      }
+            : null
+        }
+      </div>
     </div>
   }
 }
