@@ -166,7 +166,7 @@
 }
 
 .nav__link-item {
-  .mixin-nav-item-base(12px, 20px, true);
+  .mixin-nav-secondary-base(12px, true);
 }
 
 .nav__link-label {
@@ -186,10 +186,7 @@
 // Primary
 
 .nav__primary-item {
-  border-top: @ui-thin-border;
-  margin-top: 8px;
-  padding: 20px 16px 12px 20px;
-  line-height: 20px;
+  .mixin-nav-primary-base;
 
   .popover-control__menu {
     top: 31px;
@@ -269,12 +266,12 @@
 // Secondary
 
 .nav__secondary-item-header {
-  .mixin-nav-item-base(9px, 18px);
+  .mixin-nav-secondary-base(8px);
   font-weight: 700;
 }
 
 .nav__secondary-item {
-  .mixin-nav-item-base(9px, 18px, true);
+  .mixin-nav-secondary-base(8px, true);
 }
 
 .nav__secondary-order {
@@ -305,7 +302,7 @@
 // Support links
 
 .nav__support-item {
-  .nav__primary-item;
+  .mixin-nav-primary-base;
   font-size: @font-s;
 }
 
@@ -330,23 +327,21 @@
 
 // Mixins
 
-.mixin-status-base(@color) {
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-  background-color: @color;
-  border-radius: 100%;
-  flex: 0 0 auto;
+.mixin-nav-primary-base() {
+  border-top: @ui-thin-border;
+  margin-top: 8px;
+  padding: 16px 16px 12px 20px;
+  line-height: 20px;
 }
 
-.mixin-nav-item-base(@padding, @line, @hover: false) {
+.mixin-nav-secondary-base(@padding, @hover: false) {
   display: flex;
   align-items: stretch;
   flex-flow: row nowrap;
   padding: @padding 16px @padding 20px;
   text-decoration: none;
   color: @text-body;
-  line-height: @line;
+  line-height: 20px;
 
   & when (@hover=true) {
     &:hover {
@@ -370,4 +365,13 @@
   div {
     margin-left: 4px;
   }
+}
+
+.mixin-status-base(@color) {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background-color: @color;
+  border-radius: 100%;
+  flex: 0 0 auto;
 }
