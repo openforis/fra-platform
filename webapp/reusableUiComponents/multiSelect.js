@@ -4,7 +4,7 @@ import R from 'ramda'
 
 const optionClick = (currentValues, onChange, option) => () => {
   if (R.contains(option, currentValues)) {
-    onChange(R.filter(R.equals(option),  currentValues))
+    onChange(R.reject(R.equals(option),  currentValues))
   } else {
     onChange([...currentValues, option])
   }
