@@ -222,6 +222,17 @@ export const translation = {
     totalLandArea: 'Total land area'
   },
 
+  forestCharacteristics: {
+    forestCharacteristics: 'Forest characteristics',
+    categoryHeader: 'FRA categories',
+    areaUnitLabel: 'Forest area (1000 ha)',
+    naturalForestArea: 'Naturally regenerating forest',
+    naturalForestPrimaryArea: '…of which primary',
+    plantationForestArea: 'Plantation forest',
+    plantationForestIntroducedArea: '…of which introduced species',
+    otherPlantedForestArea: 'Other planted forest'
+  },
+
   forestAreaChange: {
     forestAreaLossGainChange: 'Annual forest area loss, gain and net change',
     categoryHeader: 'FRA categories',
@@ -240,17 +251,6 @@ export const translation = {
     reforestation: 'Reforestation'
   },
 
-  forestCharacteristics: {
-    forestCharacteristics: 'Forest characteristics',
-    categoryHeader: 'FRA categories',
-    areaUnitLabel: 'Forest area (1000 ha)',
-    naturalForestArea: 'Naturally regenerating forest',
-    naturalForestPrimaryArea: '…of which primary',
-    plantationForestArea: 'Plantation forest',
-    plantationForestIntroducedArea: '…of which introduced species',
-    otherPlantedForestArea: 'Other planted forest'
-  },
-
   specificForestCategories: {
     specificForestCategories: 'Specific forest categories',
     categoryHeader: 'FRA categories',
@@ -261,7 +261,7 @@ export const translation = {
   },
 
   growingStock: {
-    growingStock: 'Forest growing stock',
+    growingStock: 'Growing stock',
     categoryHeader: 'FRA categories',
     avgTableHeader: 'Average growing stock (m³/ha)',
     totalTableHeader: 'Total growing stock (million m³)',
@@ -273,30 +273,8 @@ export const translation = {
     otherWoodedLand: 'Other wooded land'
   },
 
-  forestOwnership: {
-    forestOwnership: 'Forest ownership',
-    categoryHeader: 'FRA categories',
-    areaUnitLabel: 'Forest area (1000 ha)',
-    privateOwnership: 'Private ownership',
-    ofWhichIndividuals: '…of which owned by individuals',
-    ofWhichPrivateBusinesses: '…of which owned by private business entities and institutions',
-    ofWhichCommunities: '…of which owned by local, tribal and indigenous communities',
-    publicOwnership: 'Public ownership',
-    otherOrUnknown: 'Other/unknown (specify)',
-    totalForestArea: 'Total forest area'
-  },
-
-  forestAreaWithinProtectedAreas: {
-    forestAreaWithinProtectedAreas: 'Forest area within protected areas and forest area with long-term management plans',
-    categoryHeader: 'FRA categories',
-    areaUnitLabel: 'Area (1000 ha)',
-    header: 'Forest area within protected areas',
-    forestAreaWithLongTermManagementPlan: 'Forest area with long-term management plan',
-    ofWhichInProtectedAreas: '…of which in protected areas'
-  },
-
   growingStockComposition: {
-    growingStockComposition: 'Forest growing stock composition',
+    growingStockComposition: 'Growing stock composition',
     categoryHeader: 'FRA categories',
     nativeTreeSpecies: 'Native tree species',
     introducedTreeSpecies: 'Introduced tree species',
@@ -312,7 +290,7 @@ export const translation = {
   },
 
   biomassStock: {
-    biomassStock: 'Forest biomass stock',
+    biomassStock: 'Biomass stock',
     categoryHeader: 'FRA categories',
     tableHeader: 'Forest biomass (tonnes/ha)',
     aboveGround: 'Above-ground biomass',
@@ -322,7 +300,7 @@ export const translation = {
   },
 
   carbonStock: {
-    carbonStock: 'Forest carbon stock',
+    carbonStock: 'Carbon stock',
     categoryHeader: 'FRA categories',
     tableHeader: 'Forest carbon (tonnes/ha)',
     carbonAboveGroundBiomass: 'Carbon in above-ground biomass',
@@ -332,9 +310,128 @@ export const translation = {
     carbonSoil: 'Soil carbon'
   },
 
+  designatedManagementObjective: {
+    designatedManagementObjective: 'Designated management objective',
+    primaryDesignatedManagementObjective: 'Primary designated management objective',
+    totalAreaDesignatedManagementObjective: 'Total area with designated management objective',
+    categoryHeader: 'FRA 2020 categories',
+    areaUnitLabel: 'Forest area (1000 ha)',
+    production: 'Production',
+    soilWaterProtection: 'Protection of soil and water',
+    biodiversityConservation: 'Conservation of biodiversity',
+    socialServices: 'Social Services',
+    multipleUse: 'Multiple use',
+    other: 'Other (specify)',
+    unknown: 'No/unknown',
+    totalForestArea: 'Total forest area'
+  },
+
+  forestAreaWithinProtectedAreas: {
+    forestAreaWithinProtectedAreas: 'Forest area within protected areas and forest area with long-term management plans',
+    categoryHeader: 'FRA categories',
+    areaUnitLabel: 'Area (1000 ha)',
+    header: 'Forest area within protected areas',
+    forestAreaWithLongTermManagementPlan: 'Forest area with long-term management plan',
+    ofWhichInProtectedAreas: '…of which in protected areas'
+  },
+
+  forestOwnership: {
+    forestOwnership: 'Forest ownership',
+    categoryHeader: 'FRA categories',
+    areaUnitLabel: 'Forest area (1000 ha)',
+    privateOwnership: 'Private ownership',
+    ofWhichIndividuals: '…of which owned by individuals',
+    ofWhichPrivateBusinesses: '…of which owned by private business entities and institutions',
+    ofWhichCommunities: '…of which owned by local, tribal and indigenous communities',
+    publicOwnership: 'Public ownership',
+    otherOrUnknown: 'Other/unknown (specify)',
+    totalForestArea: 'Total forest area'
+  },
+
+  holderOfManagementRights: {
+    holderOfManagementRights: 'Holder of management rights of public forests',
+    categoryHeader: 'FRA categories',
+    areaUnitLabel: 'Forest area (1000 ha)',
+    publicAdministration: 'Public Administration',
+    individuals: 'Individuals',
+    privateBusinesses: 'Private business entities and institutions',
+    communities: 'Local, tribal and indigenous communities',
+    other: 'Other',
+    totalPublicOwnership: 'Total public ownership'
+  },
+
+  disturbances: {
+    disturbances: 'Disturbances',
+    categoryHeader: 'FRA categories',
+    areaUnitLabel: 'Area (1000 ha)',
+    insects: 'Insects',
+    diseases: 'Diseases',
+    severeWeatherEvents: 'Severe weather events',
+    other: 'Other',
+    total: 'Total'
+  },
+
+  areaAffectedByFire: {
+    areaAffectedByFire: 'Area affected by fire',
+    categoryHeader: 'FRA categories',
+    areaUnitLabel: 'Area (1000 ha)',
+    totalLandAreaAffectedByFire: 'Total land area affected by fire',
+    ofWhichForest: '…of which on forest'
+  },
+
+  degradedForest: {
+    degradedForest: 'Degraded forest',
+    doesYourCountryMonitor: 'Does your country monitor area of degraded forest',
+    ifYes: 'If "yes"',
+    whatIsDefinition: 'What is the national definition of "Degraded forest"?',
+    howMonitored: 'How is it being monitored?',
+  },
+
+  forestPolicy: {
+    forestPolicy: 'Policies, Legislation and national platform for stakeholder participation in forest policy',
+    categoryHeader: 'FRA categories',
+    areaUnitLabel: 'Boolean (Yes/No)',
+    national: 'National',
+    subnational: 'Sub-national',
+    policiesSFM: 'Policies supporting SFM',
+    legislationsSFM: 'Legislations and regulations supporting SFM',
+    stakeholderParticipation: 'Is there a national platform that promotes or allows for stakeholder participation in forest policy development?',
+    existenceOfTraceabilitySystem: 'Existence of a traceability system for wood products'
+  },
+
+  areaOfPermanentForestEstate: {
+    areaOfPermanentForestEstate: 'Area of permanent forest estate',
+    categoryHeader: 'FRA 2020 categories',
+    areaUnitLabel: 'Forest area (1000 ha)',
+    applicable: 'Applicable?'
+  },
+
+  employment: {
+    employment: 'Employment in forestry and logging',
+    categoryHeader: 'FRA 2020 categories',
+    unitHeader: 'Full-time equivalents (FTE)',
+    inForestry: 'Employment in forestry and logging',
+    ofWhichFemale: '…of which female',
+    ofWhichSilviculture: '…of which silviculture and other forestry activities',
+    ofWhichLogging: '…of which logging',
+    ofWhichGathering: '…of which gathering of non wood forest products',
+    ofWhichSupport: '…of which support services to forestry'
+  },
+
+  graduationOfStudents: {
+    graduationOfStudents: 'Graduation of students in forest-related education',
+    numberOfStudents: 'Number of graduated students',
+    fra2020Categories: 'FRA 2020 categories',
+    doctoralDegree: 'Doctoral degree (Ph. D.)',
+    ofWhichFemale: '...of which female',
+    mastersDegree: 'Master\'s degree (MSc)',
+    bachelorsDegree: 'Bachelor\'s degree (BSc)',
+    technicianCertificate: 'Technician certificate / diploma'
+  },
+
   nonWoodForestProductsRemovals: {
     notSelected: '',
-    nonWoodForestProductsRemovals: 'Non wood forest products removals 2015',
+    nonWoodForestProductsRemovals: 'Non wood forest products',
     nameOfProduct: 'Name of NWFP product',
     keySpecies: 'Key species',
     quantity: 'Quantity',
@@ -363,106 +460,5 @@ export const translation = {
     allOtherAnimalProducts: 'All other animal products',
     total: 'Total',
     currency: 'Name of currency'
-  },
-
-  designatedManagementObjective: {
-    designatedManagementObjective: 'Designated management objective',
-    primaryDesignatedManagementObjective: 'Primary designated management objective',
-    totalAreaDesignatedManagementObjective: 'Total area with designated management objective',
-    categoryHeader: 'FRA 2020 categories',
-    areaUnitLabel: 'Forest area (1000 ha)',
-    production: 'Production',
-    soilWaterProtection: 'Protection of soil and water',
-    biodiversityConservation: 'Conservation of biodiversity',
-    socialServices: 'Social Services',
-    multipleUse: 'Multiple use',
-    other: 'Other (specify)',
-    unknown: 'No/unknown',
-    totalForestArea: 'Total forest area'
-  },
-
-  protectedAreas: {
-    protectedAreasLongTermMgmtPlans: 'Forest area within protected areas and forest area with long-term management plans'
-  },
-
-  holderOfManagementRights: {
-    holderOfManagementRights: 'Management rights of public forests',
-    categoryHeader: 'FRA categories',
-    areaUnitLabel: 'Forest area (1000 ha)',
-    publicAdministration: 'Public Administration',
-    individuals: 'Individuals',
-    privateBusinesses: 'Private business entities and institutions',
-    communities: 'Local, tribal and indigenous communities',
-    other: 'Other',
-    totalPublicOwnership: 'Total public ownership'
-  },
-
-  disturbances: {
-    disturbances: 'Disturbances',
-    categoryHeader: 'FRA categories',
-    areaUnitLabel: 'Area (1000 ha)',
-    insects: 'Insects',
-    diseases: 'Diseases',
-    severeWeatherEvents: 'Severe weather events',
-    other: 'Other',
-    total: 'Total'
-  },
-
-  forestPolicy: {
-    forestPolicy: 'Policies, Legislation and national platform for stakeholder participation in forest policy',
-    categoryHeader: 'FRA categories',
-    areaUnitLabel: 'Boolean (Yes/No)',
-    national: 'National',
-    subnational: 'Sub-national',
-    policiesSFM: 'Policies supporting SFM',
-    legislationsSFM: 'Legislations and regulations supporting SFM',
-    stakeholderParticipation: 'Is there a national platform that promotes or allows for stakeholder participation in forest policy development?',
-    existenceOfTraceabilitySystem: 'Existence of a traceability system for wood products'
-  },
-
-  areaAffectedByFire: {
-    areaAffectedByFire: 'Area affected by fire',
-    categoryHeader: 'FRA categories',
-    areaUnitLabel: 'Area (1000 ha)',
-    totalLandAreaAffectedByFire: 'Total land area affected by fire',
-    ofWhichForest: '…of which on forest'
-  },
-
-  degradedForest: {
-    degradedForest: 'Degraded forest',
-    doesYourCountryMonitor: 'Does your country monitor area of degraded forest',
-    ifYes: 'If "yes"',
-    whatIsDefinition: 'What is the national definition of "Degraded forest"?',
-    howMonitored: 'How is it being monitored?',
-  },
-
-  employment: {
-    employment: 'Employment',
-    categoryHeader: 'FRA 2020 categories',
-    unitHeader: 'Full-time equivalents (FTE)',
-    inForestry: 'Employment in forestry and logging',
-    ofWhichFemale: '…of which female',
-    ofWhichSilviculture: '…of which silviculture and other forestry activities',
-    ofWhichLogging: '…of which logging',
-    ofWhichGathering: '…of which gathering of non wood forest products',
-    ofWhichSupport: '…of which support services to forestry'
-  },
-
-  graduationOfStudents: {
-    graduationOfStudents: 'Graduation of students in forest-related education',
-    numberOfStudents: 'Number of graduated students',
-    fra2020Categories: 'FRA 2020 categories',
-    doctoralDegree: 'Doctoral degree (Ph. D.)',
-    ofWhichFemale: '...of which female',
-    mastersDegree: 'Master\'s degree (MSc)',
-    bachelorsDegree: 'Bachelor\'s degree (BSc)',
-    technicianCertificate: 'Technician certificate / diploma'
-  },
-
-  areaOfPermanentForestEstate: {
-    areaOfPermanentForestEstate: 'Area of permanent forest estate',
-    categoryHeader: 'FRA 2020 categories',
-    areaUnitLabel: 'Forest area (1000 ha)',
-    applicable: 'Applicable?'
   }
 }

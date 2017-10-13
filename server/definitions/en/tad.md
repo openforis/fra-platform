@@ -18,7 +18,7 @@ For more details on FRA Programme, please see: http://www.fao.org/forest-resourc
 
 ---
 
-# 1 Forest extent and changes
+# 1 Forest extent, characteristics and changes
 
 ## 1a Extent of forest and other wooded land
 
@@ -38,16 +38,6 @@ Explanatory notes
 8. Includes areas with bamboo and palms provided that land use, height and canopy cover criteria are met.
 9. Includes areas outside the legally designated forest land which meet the definition of "forest".
 10. **Excludes** tree stands in agricultural production systems, such as fruit tree plantations, oil palm plantations, olive orchards and agroforestry systems when crops are grown under tree cover.  **Note:** Some agroforestry systems such as the "Taungya" system where crops are grown only during the first years of the forest rotation should be classified as forest.
-
-### TEMPORARILY UNSTOCKED and/or seedlings (Sub-category of FOREST)
-
-> Forest area which is temporarily unstocked or with trees shorter than 1.3 meters that have not yet reached but are expected to reach a canopy cover of at least 10 percent and tree height of at least 5 meters.
-
-Explanatory notes
-
-1. Includes forest areas that are temporarily unstocked due to clear-cutting as part of forest management practice or natural disasters, and which are expected to be regenerated within 5 years. Local conditions may, in exceptional cases, justify that a longer time frame is used.
-2. Includes areas converted from other land use and with trees shorter than 1.3 meters.
-3. Includes failed plantations.
 
 ### OTHER WOODED LAND
 
@@ -71,7 +61,7 @@ Explanatory notes
 2. Includes agricultural land, meadows and pastures, built-up areas, barren land, land under permanent ice, etc. 
 3. Includes all areas classified under the sub-category "Other land with tree cover".
 
-### OTHER LAND WITH TREE COVER (Supplementary term)
+### OTHER LAND WITH TREE COVER _(Supplementary term)_
 
 > Land classified as **other land**, spanning more than 0.5 hectares with a **canopy cover** of more than 10 percent of **trees** able to reach a height of 5 meters at maturity. 
 
@@ -85,17 +75,15 @@ Explanatory notes
 6. The different sub-categories of other land with tree *cover* are exclusive and area reported under one sub-category should not be reported for any other sub-categories.
 7. Excludes scattered trees with a canopy cover less than 10 percent, small groups of trees covering less than 0.5 hectares and tree lines less than 20 meters wide. 
 
-### Sub-categories of OTHER LAND
-
-### PALMS
+### PALMS _(Sub-category of OTHER LAND)_
 
 > **Other land tree cover** predominantly composed of palms for production of oil, coconuts or dates.
 
-### TREE ORCHARDS
+### TREE ORCHARDS _(Sub-category of OTHER LAND)_
 
 > **Other land with tree cover** predominantly composed of trees for production of fruits, nuts, or olives.
 
-### AGROFORESTRY
+### AGROFORESTRY _(Sub-category of OTHER LAND)_
 
 > **Other land with tree cover** with agricultural crops and/or pastures/animals.
 
@@ -104,46 +92,11 @@ Explanatory notes
 1. Includes areas with bamboo and palms provided that land use, height and canopy cover criteria are met.
 2. Includes agrisilviculturural, silvopastoral and agrosilvopastoral systems.
 
-### TREES IN URBAN SETTINGS
+### TREES IN URBAN SETTINGS _(Sub-category of OTHER LAND)_
 
 > **Other land with tree cover** such as: urban parks, alleys and gardens.
 
-## 1b Annual forest area loss, gain and net change
-
-### FOREST EXPANSION
-
-> Expansion of **forest** on land that, until then, was under a different land use, implies a transformation of land use from non-forest to forest.
-
-### AFFORESTATION (Sub-category of FOREST EXPANSION)
-
-> Establishment of **forest** through planting and/or deliberate seeding on land that, until then, was under a different land use, implies a transformation of land use form non-forest to forest. 
- 
-### NATURAL EXPANSION OF FOREST (Sub-category of FOREST EXPANSION)
-
-> Expansion of **forest** through natural succession on land that, until then, was under a different land use, implies a transformation of land use form non-forest to forest (e.g. forest succession on land previously used for agriculture).
-
-### DEFORESTATION
-
-> The conversion of **forest** to other land use independently whether human-induced or not.
-
-Explanatory notes
-
-1. Includes permanent reduction of the **tree** **canopy cover** below the minimum 10 percent threshold.
-2. It includes areas of forest converted to agriculture, pasture, water reservoirs, mining and urban areas. 
-3. The term specifically excludes areas where the trees have been removed as a result of harvesting or logging, and where the forest is expected to regenerate naturally or with the aid of silvicultural measures.
-4. The term also includes areas where, for example, the impact of disturbance, over-utilization or changing environmental conditions affects the forest to an extent that it cannot sustain a canopy cover above the 10 percent threshold.
-
-### NET CHANGE (forest area)
-
-Explanatory note
-
-1. The Forest area net *change* is the difference in forest area between two FRA reference years. The net change can be either positive (gain), negative (loss) or zero (no change).
-
----
-
-# 2 Forest characteristics and specific categories
-
-## 2a Forest characteristics
+## 1b Forest characteristics
 
 ### NATURALLY REGENERATING FOREST
 
@@ -155,20 +108,6 @@ Explanatory notes
 2. Includes forests with a mix of naturally regenerated native tree species and planted/seeded trees, and where the naturally regenerated trees are expected to constitute the major part of the growing stock at stand maturity.
 3. Includes coppice from trees originally established through natural regeneration.
 4. Includes naturally regenerated trees of introduced species.
-
-### PRIMARY FOREST (Sub-category of NATURALLY REGENERATED FOREST)
-
-> **Naturally regenerated forest** of **native tree species**, where there are no clearly visible indications of human activities and the ecological processes are not significantly disturbed.
-
-Explanatory notes
-
-1. Includes both pristine and managed forests that meet the definition.
-2. Includes forests where indigenous peoples engage in traditional forest stewardship activities that meet the definition.
-3. Excludes forests where hunting, poaching, trapping or gathering have caused significant native species loss or disturbance to ecological processes.
-4. Some key characteristics of primary forests are:
-    - they show natural forest dynamics, such as natural tree species composition, occurrence of dead wood, natural age structure and natural regeneration processes; 
-    - the area is large enough to maintain its natural ecological processes; 
-    - there has been no known significant human intervention or the last significant human intervention was long enough ago to have allowed the natural species composition and processes to have become re-established.
 
 ### PLANTED FOREST
 
@@ -193,7 +132,51 @@ Explanatory notes
 
 > **Planted forest** which is not classified as **plantation forest**.
 
-## 2b Specific forest categories
+## 1c Annual forest area loss, gain and net change
+
+### FOREST EXPANSION
+
+> Expansion of **forest** on land that, until then, was under a different land use, implies a transformation of land use from non-forest to forest.
+
+### AFFORESTATION _(Sub-category of FOREST EXPANSION)_
+
+> Establishment of **forest** through planting and/or deliberate seeding on land that, until then, was under a different land use, implies a transformation of land use form non-forest to forest. 
+ 
+### NATURAL EXPANSION OF FOREST _(Sub-category of FOREST EXPANSION)_
+
+> Expansion of **forest** through natural succession on land that, until then, was under a different land use, implies a transformation of land use form non-forest to forest (e.g. forest succession on land previously used for agriculture).
+
+### DEFORESTATION
+
+> The conversion of **forest** to other land use independently whether human-induced or not.
+
+Explanatory notes
+
+1. Includes permanent reduction of the **tree** **canopy cover** below the minimum 10 percent threshold.
+2. It includes areas of forest converted to agriculture, pasture, water reservoirs, mining and urban areas. 
+3. The term specifically excludes areas where the trees have been removed as a result of harvesting or logging, and where the forest is expected to regenerate naturally or with the aid of silvicultural measures.
+4. The term also includes areas where, for example, the impact of disturbance, over-utilization or changing environmental conditions affects the forest to an extent that it cannot sustain a canopy cover above the 10 percent threshold.
+
+### NET CHANGE (forest area)
+
+Explanatory note
+
+1. The Forest area net *change* is the difference in forest area between two FRA reference years. The net change can be either positive (gain), negative (loss) or zero (no change).
+
+## 1d Annual reforestation
+
+### REFORESTATION
+
+Re-establishment of forest through planting and/or deliberate seeding on land classified as forest.
+
+Explanatory notes
+
+1. Implies no change of land use.
+2. Includes planting/seeding of temporarily unstocked forest areas as well as planting/seeding of areas with forest cover.
+3. Includes coppice from trees that were originally planted or seeded.
+4. Excludes natural regeneration of forest.
+
+## 1e Specific forest categories
 
 ### BAMBOOS
 
@@ -207,11 +190,35 @@ Explanatory note
 
 > **Forest** and **other wooded land** with mangrove vegetation.
 
+### TEMPORARILY UNSTOCKED AND/OR RECENTLY REGENERATED
+
+> Forest area which is temporarily unstocked or with trees shorter than 1.3 meters that have not yet reached but are expected to reach a canopy cover of at least 10 percent and tree height of at least 5 meters.
+
+Explanatory notes
+
+1. Includes forest areas that are temporarily unstocked due to clear-cutting as part of forest management practice or natural disasters, and which are expected to be regenerated within 5 years. Local conditions may, in exceptional cases, justify that a longer time frame is used.
+2. Includes areas converted from other land use and with trees shorter than 1.3 meters.
+3. Includes failed plantations.
+
+### PRIMARY FOREST
+
+> **Naturally regenerated forest** of **native tree species**, where there are no clearly visible indications of human activities and the ecological processes are not significantly disturbed.
+
+Explanatory notes
+
+1. Includes both pristine and managed forests that meet the definition.
+2. Includes forests where indigenous peoples engage in traditional forest stewardship activities that meet the definition.
+3. Excludes forests where hunting, poaching, trapping or gathering have caused significant native species loss or disturbance to ecological processes.
+4. Some key characteristics of primary forests are:
+    - they show natural forest dynamics, such as natural tree species composition, occurrence of dead wood, natural age structure and natural regeneration processes; 
+    - the area is large enough to maintain its natural ecological processes; 
+    - there has been no known significant human intervention or the last significant human intervention was long enough ago to have allowed the natural species composition and processes to have become re-established.
+
 ---
 
-# 3 Forest growing stock, biomass and carbon
+# 2 Forest growing stock, biomass and carbon
 
-## 3a Forest growing stock
+## 2a Growing stock
 
 ### GROWING STOCK
 
@@ -227,9 +234,9 @@ Explanatory notes
 
 **Growing stock** divided by the area on where it grows.
 
-## 3b Forest growing stock composition
+## 2b Growing stock composition
 
-### NATIVE TREE SPECIES (Supplementary term)
+### NATIVE TREE SPECIES _(Supplementary term)_
 
 > A **tree** species occurring within its natural range (past or present) and dispersal potential (i.e. within the range it occupies naturally or could occupy without direct or indirect introduction or care by humans).
 
@@ -237,7 +244,7 @@ Explanatory note
 
 1. If the species occurs naturally within the country borders it is considered native for the entire country. 
 
-### INTRODUCED TREE SPECIES (Supplementary term)
+### INTRODUCED TREE SPECIES _(Supplementary term)_
 
 > A **tree** species occurring outside its natural range (past or present) and dispersal potential (i.e. outside the range it occupies naturally or could occupy without direct or indirect introduction or care by humans).
 
@@ -246,7 +253,7 @@ Explanatory notes
 1. If the species occurs naturally within the country borders it is considered native for the entire country. 
 2. Naturally regenerated forest of introduced tree species should be considered as *introduced* up to 250 years from the date of original introduction. Beyond 250 years, the species can be considered naturalized.
 
-## 3c Biomass stock
+## 2c Biomass stock
 
 ### ABOVE-GROUND BIOMASS
 
@@ -265,7 +272,7 @@ Explanatory notes
 1. Includes the below-ground part of the stump.
 2. The country may use another threshold value than 2 mm for fine roots, but in such a case the threshold value used must be documented. 
 
-## 3d Carbon stock
+## 2d Carbon stock
 
 ### CARBON IN ABOVE-GROUND BIOMASS
 
@@ -310,40 +317,11 @@ Explanatory note
 
 ---
 
-# 4 Non wood forest products
+# 3 Forest designation and management
 
-### NON WOOD FOREST PRODUCT
+## 3a Designated management objective
 
-> Goods derived from **forest**s that are tangible and physical objects of biological origin other than wood.
-
-Explanatory notes
-
-1. Generally includes non-wood plant and animal products collected from areas defined as forest (see definition of forest). 
-2. Specifically includes the following regardless of whether from natural forests or plantations:
-- gum arabic, rubber/latex and resin;
-- Christmas trees, cork, bamboo and rattan.
-3. Generally **excludes** products collected in tree stands in agricultural production systems, such as fruit tree plantations, oil palm plantations and agroforestry systems when crops are grown under tree cover.
-4. Specifically **excludes** the following:
-- woody raw materials and products, such as  chips, charcoal, fuelwood and wood used for tools, household equipment and carvings;
-- grazing in the forest;
-- fish and shellfish.
-
-### COMMERCIAL VALUE OF NON WOOD FOREST PRODUCTS
-
-> For the purpose of reporting on this variable, value is defined as the commercial market value at the **forest** gate.
-
-Explanatory notes
-
-1. If values are obtained from a point further down the production chain, transport costs and possible handling and/or processing costs should be subtracted whenever possible.
-2. Commercial value refers to actual market value and potential value of both marketed and non-marketed products.
-
----
-
-# 5 Forest designation and management
-
-## 5a Primary management objective
-
-### FOREST AREA WITH MANAGEMENT OBJECTIVE (Supplementary term)
+### FOREST AREA WITH MANAGEMENT OBJECTIVE _(Supplementary term)_
 
 > The total area managed for a specific objective.
 
@@ -353,7 +331,7 @@ Explanatory notes
     1. Areas where the management objective is multiple use should be counted once for each specific management objective included in the multiple use.  
     2. Areas with primary management objective can be counted more than once if other management objectives have been considered.
 
-### PRIMARY MANAGEMENT OBJECTIVE (Supplementary term)
+### PRIMARY MANAGEMENT OBJECTIVE _(Supplementary term)_
 
 > The primary management objective assigned to a management unit. 
 
@@ -419,7 +397,7 @@ Explanatory note
 
 Forest with no or unknown primary management objective.
 
-## 5b Protected areas and management plans
+## 3b Forest area within protected areas and forest area with long-term management plans
 
 ### FOREST AREA WITHIN PROTECTED AREAS
 
@@ -442,17 +420,17 @@ Explanatory notes
 4. Includes continuously updated management plans.
 
 
-### PROTECTED AREAS (Sub-category of FOREST AREA WITH LONG-TERM MANAGEMENT PLAN)
+### PROTECTED AREAS _(Sub-category of FOREST AREA WITH LONG-TERM MANAGEMENT PLAN)_
 
 > **Forest** area within protected areas that has a long-term (ten years or more) documented management plan, aiming at defined management goals, and which is periodically revised.
 
 ---
 
-# 6 Forest ownership and management rights
+# 4 Forest ownership and management rights
 
-## 6a Forest ownership
+## 4a Forest ownership
 
-### FOREST OWNERSHIP (Supplementary term)
+### FOREST OWNERSHIP _(Supplementary term)_
 
 > Generally refers to the legal right to freely and exclusively use, control, transfer, or otherwise benefit from a **forest**. Ownership can be acquired through transfers such as sales, donations, and inheritance.
 
@@ -464,13 +442,11 @@ Explanatory note
 
 > **Forest** owned by individuals, families, communities, private co-operatives, corporations and other business entities, religious and private educational institutions, pension or investment funds, NGOs, nature conservation associations and other private institutions.
 
-### Sub-categories of PRIVATE OWNERSHIP
-
-### INDIVIDUALS
+### INDIVIDUALS _(Sub-category of PRIVATE OWNERSHIP)_
 
 > **Forest** owned by individuals and families.
 
-### PRIVATE BUSINESS ENTITIES AND INSTITUTIONS
+### PRIVATE BUSINESS ENTITIES AND INSTITUTIONS _(Sub-category of PRIVATE OWNERSHIP)_
 
 > **Forest** owned by private corporations, co-operatives, companies and other business entities, as well as private organizations such as NGOs, nature conservation associations, and private religious and educational institutions, etc. 
 
@@ -478,7 +454,7 @@ Explanatory note
 
 1. Includes both profit and non-profit entities and institutions.
 
-### LOCAL, TRIBAL AND INDIGENOUS COMMUNITIES
+### LOCAL, TRIBAL AND INDIGENOUS COMMUNITIES 
 
 > **Forest** owned by a group of individuals belonging to the same community residing within or in the vicinity of a forest area or forest owned by communities of indigenous or tribal people. The community members are co-owners that share exclusive rights and duties and benefits contribute to the community development.
 
@@ -505,9 +481,9 @@ Explanatory note
 
 1. Includes areas where ownership is unclear or disputed.
 
-## 6b Holder of management rights of public forests
+## 4b Holder of management rights of public forests
 
-### MANAGEMENT RIGHTS OF PUBLIC FORESTS (Supplementary term)
+### MANAGEMENT RIGHTS OF PUBLIC FORESTS _(Supplementary term)_
 
 > Refers to the right to manage and use **publicly owned forests** for a specific period of time.
 
@@ -538,9 +514,9 @@ Explanatory notes
 
 ---
 
-# 7 Forest disturbances
+# 5 Forest disturbances
 
-## 7a Disturbances
+## 5a Disturbances
 
 ### OUTBREAKS OF INSECTS
 
@@ -554,17 +530,17 @@ Explanatory notes
 
 > Damage caused by severe weather events, such as snow, storm, drought, etc.
 
-## 7b Area affected by fire
+## 5b Area affected by fire
 
 ### BURNED AREA
 
 > Land area affected by fire.
 
-### FOREST (Sub-category of LAND AREA AFFECTED BY FIRE)
+### FOREST _(Sub-category of LAND AREA AFFECTED BY FIRE)_
 
 > **Forest** area affected by fire.
 
-## 7c Degraded forest
+## 5c Degraded forest
 
 ### DEGRADED FOREST
 
@@ -576,9 +552,43 @@ Explanatory note
 
 ---
 
-# 8 Employment in forestry and logging
+# 6 Forest policy and legislation
 
-### FULL-TIME EQUIVALENTS (FTE) (Supplementary term)
+## 6a  Policies, Legislation and national platform for stakeholder participation in forest policy
+
+### POLICIES SUPPORTING SUSTAINABLE FOREST MANAGEMENT
+
+> Policies or strategies that explicitly encourage sustainable forest management.
+
+### LEGISLATION AND REGULATIONS SUPPORTING SUSTAINABLE FOREST MANAGEMENT
+
+> Legislation and regulations that govern and guide sustainable forest management, operations and use.
+
+### NATIONAL STAKEHOLDER PLATFORM
+
+> A recognized procedure that a broad range of stakeholders can use to provide opinions, suggestions, analysis, recommendations and other input into the development of national forest policy.
+
+### TRACEABILITY SYSTEM FOR WOOD PRODUCTS
+
+> A system that provides the ability to trace the origin, location and movement of wood products by means of recorded identifications. This involves two main aspects: (1) identification of the product by marking, and (2) the recording of data on movement and location of the product all the way along the production, processing and distribution chain.
+
+## 6b Area of permanent forest estate
+
+### PERMANENT FOREST ESTATE
+
+> Land, whether public or private, secured by law and kept under permanent forest cover. This includes land for the production of timber and other forest products, for the protection of soil and water, and for the conservation of biodiversity, as well as land intended to fulfil a combination of these functions. The main categories of the permanent forest estate are protection and production.
+
+Explanatory note
+
+1. If the PFE contains both forest and non-forest areas, the reporting should refer only to the forest area within the PFE.
+
+---
+
+# 7 Employment, education and NWFP
+
+## 7a Employment in forestry and logging
+
+### FULL-TIME EQUIVALENTS (FTE) _(Supplementary term)_
 
 > A measurement equal to one person working full-time during a specified reference period.
 
@@ -594,7 +604,7 @@ Explanatory note
 
 1. The detailed structure and explanatory notes of activity A02 can be found at: http://unstats.un.org/unsd/cr/registry/isic-4.asp .
 
-### SILVICULTURE AND OTHER FORESTRY ACTIVITIES (Sub-category of EMPLOYMENT IN FORESTRY AND LOGGING)
+### SILVICULTURE AND OTHER FORESTRY ACTIVITIES _(Sub-category of EMPLOYMENT IN FORESTRY AND LOGGING)_
 
 > This class includes employment in silviculture and other forestry activities.
 
@@ -610,7 +620,7 @@ Explanatory notes
     - gathering of wild growing non wood forest products
     - production of wood chips and particles
 
-### LOGGING (Sub-category of EMPLOYMENT IN FORESTRY AND LOGGING)
+### LOGGING _(Sub-category of EMPLOYMENT IN FORESTRY AND LOGGING)_
 
 > This class includes employment in logging and the output of this activity can take the form of logs, chips or fire wood.
 
@@ -625,7 +635,7 @@ Explanatory notes
 The class excludes:
     - growing of Christmas trees
 
-### GATHERING OF NON WOOD FOREST PRODUCTS (Sub-category of EMPLOYMENT IN FORESTRY AND LOGGING)
+### GATHERING OF NON WOOD FOREST PRODUCTS _(Sub-category of EMPLOYMENT IN FORESTRY AND LOGGING)_
 
 > This class includes employment in the gathering of non wood forest products.
 
@@ -650,7 +660,7 @@ Gathering of wild growing materials such as
     - growing of berries or nuts
     - gathering of fire wood
 
-### EMPLOYMENT IN SUPPORT SERVICES TO FORESTRY (Sub-category of EMPLOYMENT IN FORSTRY AND LOGGING)
+### EMPLOYMENT IN SUPPORT SERVICES TO FORESTRY _(Sub-category of EMPLOYMENT IN FORSTRY AND LOGGING)_
 
 > This class includes employment in carrying out part of the forestry operation on a free or contract basis.
 
@@ -668,11 +678,9 @@ Forestry service activities such as
 2. The class excludes:
     - operation of forest tree nurseries
 
----
+## 7b Graduation of students in forest-related education
 
-# 9 Graduation of students in forest-related education
-
-### FOREST-RELATED EDUCATION (Supplementary term)
+### FOREST-RELATED EDUCATION _(Supplementary term)_
 
 > Post-secondary education programme with focus on **forest**s and related subjects.
 
@@ -707,37 +715,36 @@ Explanatory note
 
 > Qualification issued from a technical education institution consisting of 1 to 3 years post-secondary education.
 
+## 7c Non wood forest products
+
+### NON WOOD FOREST PRODUCT
+
+> Goods derived from **forest**s that are tangible and physical objects of biological origin other than wood.
+
+Explanatory notes
+
+1. Generally includes non-wood plant and animal products collected from areas defined as forest (see definition of forest). 
+2. Specifically includes the following regardless of whether from natural forests or plantations:
+- gum arabic, rubber/latex and resin;
+- Christmas trees, cork, bamboo and rattan.
+3. Generally **excludes** products collected in tree stands in agricultural production systems, such as fruit tree plantations, oil palm plantations and agroforestry systems when crops are grown under tree cover.
+4. Specifically **excludes** the following:
+- woody raw materials and products, such as  chips, charcoal, fuelwood and wood used for tools, household equipment and carvings;
+- grazing in the forest;
+- fish and shellfish.
+
+### COMMERCIAL VALUE OF NON WOOD FOREST PRODUCTS
+
+> For the purpose of reporting on this variable, value is defined as the commercial market value at the **forest** gate.
+
+Explanatory notes
+
+1. If values are obtained from a point further down the production chain, transport costs and possible handling and/or processing costs should be subtracted whenever possible.
+2. Commercial value refers to actual market value and potential value of both marketed and non-marketed products.
+
 ---
 
-# 10 Forest policy and legislation
-
-## 10a  Policies, Legislation and national platform for stakeholder participation in forest policy
-
-### POLICIES SUPPORTING SUSTAINABLE FOREST MANAGEMENT
-
-> Policies or strategies that explicitly encourage sustainable forest management.
-
-### LEGISLATION AND REGULATIONS SUPPORTING SUSTAINABLE FOREST MANAGEMENT
-
-> Legislation and regulations that govern and guide sustainable forest management, operations and use.
-
-### NATIONAL STAKEHOLDER PLATFORM
-
-> A recognized procedure that a broad range of stakeholders can use to provide opinions, suggestions, analysis, recommendations and other input into the development of national forest policy.
-
-### TRACEABILITY SYSTEM FOR WOOD PRODUCTS
-
-> A system that provides the ability to trace the origin, location and movement of wood products by means of recorded identifications. This involves two main aspects: (1) identification of the product by marking, and (2) the recording of data on movement and location of the product all the way along the production, processing and distribution chain.
-
-### PERMANENT FOREST ESTATE
-
-> Land, whether public or private, secured by law and kept under permanent forest cover. This includes land for the production of timber and other forest products, for the protection of soil and water, and for the conservation of biodiversity, as well as land intended to fulfil a combination of these functions. The main categories of the permanent forest estate are protection and production.
-
-Explanatory note
-
-1. If the PFE contains both forest and non-forest areas, the reporting should refer only to the forest area within the PFE.
-
-# 11 Additional terms and definitions
+# 8 Additional terms and definitions
 
 ### CANOPY COVER
 
