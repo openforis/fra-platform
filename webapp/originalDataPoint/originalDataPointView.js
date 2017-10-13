@@ -25,6 +25,7 @@ import ckEditorConfig from '../ckEditor/ckEditorConfig'
 import ReviewIndicator from '../review/reviewIndicator'
 import DefinitionLink from './../reusableUiComponents/definitionLink'
 import TextInput from '../reusableUiComponents/textInput'
+import MultiSelect from '../reusableUiComponents/multiSelect'
 import handlePaste from './paste'
 
 const years = ['', ...R.pipe(R.range(1990), R.reverse)(2021)]
@@ -60,45 +61,43 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
       </div>
     </div>
 
-    <div className="fra-table__container">
-      <div className="fra-table__scroll-wrapper">
-        <table className="fra-table">
-          <thead>
-          <tr>
-            <th className="fra-table__header-cell">{i18n.t('nationalDataPoint.references')}</th>
-            <th className="fra-table__header-cell">{i18n.t('nationalDataPoint.methodsUsed')}</th>
-            <th className="fra-table__header-cell">{i18n.t('nationalDataPoint.years')}</th>
-            <th className="fra-table__header-cell">{i18n.t('nationalDataPoint.appliesToVariables')}</th>
-            <th className="fra-table__header-cell">{i18n.t('nationalDataPoint.additionalComments')}</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr>
-            <td className="fra-table__cell">
-              <TextInput
-                value={active.dataSourceReferences || ''}
-                onChange={ (e) => saveDraft(countryIso, R.assoc('dataSourceReferences', e.target.value, active)) }
-              />
-            </td>
-            <td className="fra-table__cell">methods used</td>
-            <td className="fra-table__cell">
-              <TextInput
-                value={active.dataSourceYears || ''}
-                onChange={ (e) => saveDraft(countryIso, R.assoc('dataSourceYears', e.target.value, active)) }
-              />
-            </td>
-            <td className="fra-table__cell">Applies to variables</td>
-            <td className="fra-table__cell">
-              <TextInput
-                value={active.dataSourceAdditionalComments || ''}
-                onChange={ (e) => saveDraft(countryIso, R.assoc('dataSourceAdditionalComments', e.target.value, active)) }
-              />
-            </td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+    <table className="fra-table">
+      <thead>
+      <tr>
+        <th className="fra-table__header-cell">{i18n.t('nationalDataPoint.references')}</th>
+        <th className="fra-table__header-cell">{i18n.t('nationalDataPoint.methodsUsed')}</th>
+        <th className="fra-table__header-cell">{i18n.t('nationalDataPoint.years')}</th>
+        <th className="fra-table__header-cell">{i18n.t('nationalDataPoint.appliesToVariables')}</th>
+        <th className="fra-table__header-cell">{i18n.t('nationalDataPoint.additionalComments')}</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td className="fra-table__cell">
+          <TextInput
+            value={active.dataSourceReferences || ''}
+            onChange={ (e) => saveDraft(countryIso, R.assoc('dataSourceReferences', e.target.value, active)) }
+          />
+        </td>
+        <td className="fra-table__cell">
+          <MultiSelect/>
+        </td>
+        <td className="fra-table__cell">
+          <TextInput
+            value={active.dataSourceYears || ''}
+            onChange={ (e) => saveDraft(countryIso, R.assoc('dataSourceYears', e.target.value, active)) }
+          />
+        </td>
+        <td className="fra-table__cell">Applies to variables</td>
+        <td className="fra-table__cell">
+          <TextInput
+            value={active.dataSourceAdditionalComments || ''}
+            onChange={ (e) => saveDraft(countryIso, R.assoc('dataSourceAdditionalComments', e.target.value, active)) }
+          />
+        </td>
+      </tr>
+      </tbody>
+    </table>
 
     <div className="odp__section">
       <div className="odp__section-header">

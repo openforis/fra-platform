@@ -1,0 +1,28 @@
+@import (reference) "../app-styles/config";
+
+.multi-select {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+  .icon-sub {
+    margin-right: 5px;
+  }
+}
+
+.multi-select__closed-content {
+ margin-left: 10px;
+  word-wrap: break-word;
+  max-width: 100px;
+}
+
+.multi-select__opened {
+  position: absolute;
+  left: 0;
+  top: 0;
+  cursor: pointer;
+  z-index: 1000;
+  background-color: white;
+  border-radius: 2px;
+  box-shadow: @shadow-3;
+}
