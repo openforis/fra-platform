@@ -112,7 +112,8 @@ export const translation = {
     profilePicture: 'Edit profile picture',
     logout: 'Logout',
     autoSave: {
-      saving: 'Saving…'
+      saving: 'Saving…',
+      complete: 'All changes saved'
     }
   },
 
