@@ -72,7 +72,7 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
       <tr>
         <td className="fra-table__header-cell">{i18n.t('nationalDataPoint.references')}</td>
         <td className="fra-table__cell odp__data-source-input-column">
-          <TextInput
+          <VerticallyGrowingTextField
             value={active.dataSourceReferences || ''}
             onChange={ (e) => saveDraft(countryIso, R.assoc('dataSourceReferences', e.target.value, active)) }
           />
@@ -87,7 +87,7 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
       <tr>
         <td className="fra-table__header-cell">{i18n.t('nationalDataPoint.years')}</td>
         <td className="fra-table__cell odp__data-source-input-column">
-          <TextInput
+          <VerticallyGrowingTextField
             value={active.dataSourceYears || ''}
             onChange={ (e) => saveDraft(countryIso, R.assoc('dataSourceYears', e.target.value, active)) }
           />
@@ -102,7 +102,7 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
       <tr>
         <th className="fra-table__header-cell">{i18n.t('nationalDataPoint.additionalComments')}</th>
         <td className="fra-table__cell odp__data-source-input-column">
-          <TextInput
+          <VerticallyGrowingTextField
             value={active.dataSourceAdditionalComments || ''}
             onChange={ (e) => saveDraft(countryIso, R.assoc('dataSourceAdditionalComments', e.target.value, active)) }
           />
