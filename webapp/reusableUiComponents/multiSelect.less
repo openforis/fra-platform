@@ -7,12 +7,17 @@
   cursor: pointer;
 }
 
-.multi-select__arrow {
+.multi-select__right-column {
   width: 20px;
   margin-right: 5px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
+}
+
+.multi-select__right-column-filler {
+  height: 0;
+  width: 0;
 }
 
 .multi-select__opened-content-anchor {
@@ -29,7 +34,7 @@
 .multi-select__opened {
   position: absolute;
   right: -26px;
-  top: 10px;
+  top: 0;
   cursor: pointer;
   z-index: 1000;
   background-color: white;
