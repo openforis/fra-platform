@@ -1,38 +1,24 @@
-@import (reference) "../app-styles/config";
 @import (reference) "../app-styles/fraTable.less";
 
 .percent__field {
   position: relative;
+  height: 100%;
+  line-height: 20px;
   text-align: right;
-  white-space: nowrap;
 }
 
 .percent__input-field {
-  text-align: right;
-  background: transparent;
-  color: inherit;
-  font-size: inherit;
-  border: none;
-  line-height: inherit;
-  padding: 10px 30px 10px;
-  margin: 0;
-  width: 100%;
-
-  &:focus {
-    outline: none;
-    box-shadow: 0 0 0 1px @text-body;
-  }
-  &::placeholder {
-    color: @text-mute;
-  }
+  .mixin-input-base();
+  padding-right: 30px;
 }
 
 .percent__readonly-view {
   position: absolute;
-  top: 10px;
+  top: 50%;
   right: 30px;
   left: 10px;
   height: 20px;
+  margin-top: -10px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -40,8 +26,9 @@
 
 .percent__sign {
   position: absolute;
+  top: 50%;
   right: 10px;
-  top: 10px;
-  width: 20px;
+  width: 15px;
   height: 20px;
+  margin-top: -10px;
 }

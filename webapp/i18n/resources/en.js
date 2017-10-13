@@ -127,7 +127,8 @@ export const translation = {
     profilePicture: 'Edit profile picture',
     logout: 'Logout',
     autoSave: {
-      saving: 'Saving…'
+      saving: 'Saving…',
+      complete: 'All changes saved'
     }
   },
 
@@ -262,6 +263,7 @@ export const translation = {
 
   growingStock: {
     growingStock: 'Growing stock',
+    supportText: 'Please make sure you have entered data in tables 1a & 1b before editing this table',
     categoryHeader: 'FRA categories',
     avgTableHeader: 'Average growing stock (m³/ha)',
     totalTableHeader: 'Total growing stock (million m³)',

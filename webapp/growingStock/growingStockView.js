@@ -18,6 +18,7 @@ const GrowingStock = (props) => {
       <h1 className="title">{i18n.t('growingStock.growingStock')}</h1>
       <DefinitionLink document="tad" anchor="2a" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
       <DefinitionLink document="faq" anchor="2a" title={i18n.t('definition.faqLabel')} lang={i18n.language} className="align-left"/>
+      <div className="support-text">{i18n.t('growingStock.supportText')}</div>
     </div>
     <GrowingStockTable
       section="growingStock"
