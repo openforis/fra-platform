@@ -478,5 +478,9 @@ export const translation = {
     yes: 'Yes',
     no: 'No',
     notSelected: '',
+  },
+
+  multiSelect: {
+    placeHolderWhenEmpty: 'Choose'
   }
 }
