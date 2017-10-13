@@ -2,7 +2,8 @@ import './multiSelect.less'
 import React from 'react'
 import R from 'ramda'
 
-const optionClick = (currentValues, onChange, option) => () => {
+const optionClick = (currentValues, onChange, option) => (evt) => {
+  evt.stopPropagation()
   if (R.contains(option, currentValues)) {
     onChange(R.reject(R.equals(option),  currentValues))
   } else {
