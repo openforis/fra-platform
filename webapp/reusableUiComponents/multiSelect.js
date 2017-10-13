@@ -38,8 +38,8 @@ export default class MultiSelect extends React.Component {
                       this.props.onChange([option])
                     }
                   }>
-                    {this.props.i18n.t(this.props.localizationPrefix + '.' + option)}
                     <input type="checkbox" readOnly="true" name={option} value={option} checked={R.contains(option, values)}/>
+                    {this.props.i18n.t(this.props.localizationPrefix + '.' + option)}
                   </div>,
               this.props.options
             )
