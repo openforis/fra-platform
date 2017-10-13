@@ -11,10 +11,22 @@ const optionClick = (currentValues, onChange, option) => (evt) => {
   }
 }
 
+const outsideClick = that => evt => {
+  if (!that.refs.multiSelect.contains(evt.target)) {
+    that.setState({open: false})
+  }
+}
+
 export default class MultiSelect extends React.Component {
   constructor (props) {
     super(props)
     this.state = {open: false}
+    this.outsideClick = outsideClick(this)
+    window.addEventListener('click', this.outsideClick)
+  }
+
+  componentWillUnmount () {
+    window.removeEventListener('click', this.outsideClick)
   }
 
   toggleOpen() {
@@ -28,6 +40,7 @@ export default class MultiSelect extends React.Component {
   render () {
     const values = this.props.values || []
     return <div
+      ref="multiSelect"
       onClick={this.toggleOpen.bind(this)}
       className="multi-select">
       <div className="multi-select__closed-content">
