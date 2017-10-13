@@ -1,5 +1,6 @@
 import './multiSelect.less'
 import React from 'react'
+import R from 'ramda'
 
 export default class MultiSelect extends React.Component {
   constructor (props) {
@@ -10,6 +11,7 @@ export default class MultiSelect extends React.Component {
   toggleOpen() {
     this.setState({open: !this.state.open})
   }
+
   render () {
     return <div
       onClick={this.toggleOpen.bind(this)}
@@ -25,7 +27,15 @@ export default class MultiSelect extends React.Component {
       {
         this.state.open
           ? <div className="multi-select__opened">
-            Opened content placeholder
+          {
+            R.map(
+              option =>
+                <div key={option}>
+                  {this.props.i18n.t(this.props.localizationPrefix + '.' + option)}
+                  </div>,
+              this.props.options
+            )
+          }
           </div>
           : null
       }

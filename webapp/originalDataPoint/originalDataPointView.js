@@ -81,7 +81,16 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
       <tr>
         <td className="fra-table__header-cell">{i18n.t('nationalDataPoint.methodsUsed')}</td>
         <td className="fra-table__cell odp__data-source-input-column">
-          <MultiSelect/>
+          <MultiSelect
+            i18n={i18n}
+            localizationPrefix="nationalDataPoint"
+            options={['nationalForestInventory',
+              'sampleBasedRemoteSensingAssessment',
+              'fullCoverMaps',
+              'registersQuestionnaires',
+              'other'
+            ]}
+          />
         </td>
       </tr>
       <tr>
