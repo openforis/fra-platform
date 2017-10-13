@@ -4,6 +4,7 @@ import ReviewIndicator from '../review/reviewIndicator'
 import { readPasteClipboard } from '../utils/copyPasteUtil'
 import { ThousandSeparatedDecimalInput } from '../reusableUiComponents/thousandSeparatedDecimalInput'
 import { formatDecimal } from '../utils/numberFormat'
+import { eq } from '../../common/bignumberUtils'
 
 const GrowingStockTable = (props) => {
   const cols = R.filter(v => v.type !== 'odp', R.values(props.areaValues))
@@ -95,7 +96,7 @@ const Row = (props) => {
 const Cell = (props) => {
   const {countryIso, col, type, field, areaValues, values, calculated} = props
   const value = R.pipe(
-    R.find(R.propEq('year', col.year)),
+    R.find(v => eq(v.year, col.year)),
     R.defaultTo({}),
     R.prop(`${field}${type === 'avg' ? 'Avg' : ''}`),
     R.defaultTo(null),

@@ -103,7 +103,7 @@ export const copyNationalClassDefinitions = (odpTarget, odpSource) => ({
 })
 
 export const updateValueReducer = (state, action) => {
-  const idx = R.findIndex(R.propEq('name', action.name), state.fra)
+  const idx = R.findIndex( v => v.name === action.name && v.type === 'fra', state.fra)
   return {...state, fra: R.update(idx, {...action.value}, state.fra)}
 }
 

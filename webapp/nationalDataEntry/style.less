@@ -10,7 +10,7 @@
 
 .nde__data-page-header {
   .mixin-flex-header-row;
-  padding-bottom: 24px;
+  margin-bottom: 24px;
 }
 
 .nde__data-input-header {
@@ -58,6 +58,7 @@
 
 .mixin-flex-header-row() {
   display: flex;
+  flex-flow: row wrap;
   align-items: baseline;
   justify-content: space-between;
 
@@ -71,5 +72,11 @@
 
   .aling-right {
     margin-left: auto;
+  }
+
+  .support-text {
+    color: @text-mute;
+    margin: 8px 0 0 0;
+    width: 100%;
   }
 }
