@@ -42,7 +42,7 @@ export default class MultiSelect extends React.Component {
     return <div
       ref="multiSelect"
       onClick={this.toggleOpen.bind(this)}
-      className="multi-select">
+      className={`multi-select ${this.state.open ? 'has-focus' : ''}`}>
       <div className="multi-select__closed-content">
         {
           R.isEmpty(values)
@@ -53,32 +53,29 @@ export default class MultiSelect extends React.Component {
           )(values)
         }
       </div>
-      <div className="multi-select__right-column">
-        <div className=".multi-select__right-column-filler"/>
-        <svg className="icon icon-sub">
-          <use xlinkHref="img/icons.svg#small-down"/>
-        </svg>
-        <div className="multi-select__opened-content-anchor">
-          {
-            this.state.open
-              ? <div className="multi-select__opened" style={{width: this.props.openedListWidth}}>
-                  {
-                    R.map(
-                      option =>
-                        <div className="multi-select__opened-item"
-                             key={option}
-                             onClick={optionClick(values, this.props.onChange, option)}>
-                          <input type="checkbox" readOnly="true" name={option} value={option}
-                                 checked={R.contains(option, values)}/>
-                          <span className="multi-select__opened-option-text">{this.localizeOption(option)}</span>
-                        </div>,
-                      this.props.options
-                    )
-                  }
-                </div>
-              : null
-          }
-        </div>
+      <div className="multi-select__opened-content-anchor">
+        {
+          this.state.open
+            ? <div className="multi-select__opened">
+              {
+                R.map(
+                  option =>
+                    <div className="multi-select__opened-item"
+                         key={option}
+                         onClick={optionClick(values, this.props.onChange, option)}>
+                      <input type="checkbox"
+                             readOnly="true"
+                             name={option}
+                             value={option}
+                             checked={R.contains(option, values)}/>
+                      <label className="multi-select__opened-item-label">{this.localizeOption(option)}</label>
+                    </div>,
+                    this.props.options
+                  )
+              }
+              </div>
+          : null
+        }
       </div>
     </div>
   }
