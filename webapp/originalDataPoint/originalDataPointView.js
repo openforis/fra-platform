@@ -800,7 +800,7 @@ class OriginalDataPointView extends React.Component {
 
 const mapStateToProps = state => {
   const odp = state.originalDataPoint
-  const autoSaving = !!state.autoSave.status
+  const autoSaving = state.autoSave.status === 'saving' ? true : false
   const active = odp.active
   const openThread = R.defaultTo({target: [], section: ''}, R.path(['review', 'openThread'], state))
   return {...odp, active, autoSaving, openThread, i18n: state.user.i18n}
