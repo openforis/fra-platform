@@ -51,7 +51,8 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
               year =>
                 <option key={year}
                         value={year}
-                        disabled={R.contains(year.toString(), unselectable)}>
+                        disabled={R.contains(year.toString(), unselectable)}
+                        hidden={year ? false : true}>
                   {year}</option>
             )
           }

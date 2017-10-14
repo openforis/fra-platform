@@ -1,7 +1,7 @@
 import React from 'react'
 import R from 'ramda'
 
-const notSelectedOption = {name: 'notSelected'}
+const notSelectedOption = {name: 'notSelected', hidden: true}
 
 const isHeadingOption = option => option.type === 'heading'
 
@@ -34,6 +34,7 @@ const TextSelectType = ({countryIso,
             <option
               value={option.name}
               disabled={isHeadingOption(option)}
+              hidden={option.hidden ? true : false}
               key={option.name}>{optionLabel(option, i18n, localizationPrefix)}
               </option>
           ,[notSelectedOption, ...options])
