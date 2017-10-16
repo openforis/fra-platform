@@ -483,6 +483,6 @@ export const translation = {
   },
 
   multiSelect: {
-    placeHolderWhenEmpty: 'Choose…'
+    placeholder: 'Choose…'
   }
 }
