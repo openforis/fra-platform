@@ -123,7 +123,7 @@ tbody {
 .mixin-table-cell-base(@align, @weight, @padding) {
   border: @ui-thin-border;
   font-weight: @weight;
-  height: 36px;
+  height: 1px;
   min-width: 120px;
   padding: @padding;
   text-align: @align;
@@ -139,7 +139,7 @@ tbody {
   text-align: @align;
 }
 
-.mixin-input-base() {
+.mixin-input-base(@padding-right: 10px) {
   background: transparent;
   border: none;
   color: inherit;
@@ -148,7 +148,7 @@ tbody {
   line-height: inherit;
   text-align: inherit;
   margin: 0;
-  padding: 10px;
+  padding: 10px @padding-right 10px 10px;
   width: 100%;
 
   &:focus {
