@@ -106,7 +106,6 @@ const Cell = (props) => {
     ? <td className="fra-table__aggregate-cell">{formatDecimal(value)}</td>
     : <td className="fra-table__cell">
         <ThousandSeparatedDecimalInput
-          className="fra-table__integer-input"
           numberValue={value}
           precision={2}
           onChange={e => props.updateValue(countryIso, areaValues, values, col.year, field, type, e.target.value)}

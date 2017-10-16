@@ -1,6 +1,6 @@
 import React from 'react'
 import R from 'ramda'
-import './thousandSeparatedIntegerInput.less'
+import './thousandSeparatedInput.less'
 import { formatInteger } from '../utils/numberFormat'
 
 export class ThousandSeparatedIntegerInput extends React.Component {
@@ -10,9 +10,9 @@ export class ThousandSeparatedIntegerInput extends React.Component {
   }
 
   render () {
-    const {integerValue, onChange, onPaste, className} = this.props
-    return <div className="tsii__field validation-error-sensitive-field" ref="wrapper">
-      <div className="tsii__readonly-view"
+    const {integerValue, onChange, onPaste} = this.props
+    return <div className="tsi__field validation-error-sensitive-field" ref="wrapper">
+      <div className="tsi__readonly-view"
            style={{display: this.state.hasFocus ? 'none' : 'inline-block'}}>
         {formatInteger(integerValue)}
       </div>
@@ -21,7 +21,7 @@ export class ThousandSeparatedIntegerInput extends React.Component {
         maxLength="100"
         disabled={this.props.disabled}
         ref="inputField"
-        className={className}
+        className="tsi__input-field"
         value={integerValue || ''}
         style={{opacity: this.state.hasFocus ? '1' : '0'}}
         onChange={ onChange }

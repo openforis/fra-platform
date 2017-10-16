@@ -18,7 +18,6 @@ const IntegerInput = ({
   const valid = validator ? validator(tableData, rowIdx, colIdx) : true
   return <td className={`fra-table__cell ${valid ? '' : 'error'}`}>
     <ThousandSeparatedIntegerInput integerValue={ currentValue }
-                                   className="fra-table__integer-input"
                                    onChange={
                                      (evt) => {
                                        const newValue = evt.target.value

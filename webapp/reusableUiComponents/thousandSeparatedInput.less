@@ -1,11 +1,18 @@
-.tsii__field {
+@import (reference) "../app-styles/fraTable.less";
+
+.tsi__field {
   position: relative;
   height: 100%;
   line-height: 20px;
   text-align: right;
 }
 
-.tsii__readonly-view {
+.tsi__input-field {
+  text-overflow: ellipsis;
+  .mixin-input-base;
+}
+
+.tsi__readonly-view {
   position: absolute;
   top: 50%;
   right: 10px;

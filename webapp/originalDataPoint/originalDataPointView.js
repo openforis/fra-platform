@@ -490,7 +490,6 @@ const ExtentOfForestRow =
     <td
       className={`fra-table__cell fra-table__divider ${validationStatus.validArea === false ? 'error' : ''}`}>
       <ThousandSeparatedDecimalInput
-        className="fra-table__integer-input"
         numberValue={area}
         onChange={decimalUpdated(countryIso, odp, index, 'area', area)}
         onPaste={updatePastedValues({
