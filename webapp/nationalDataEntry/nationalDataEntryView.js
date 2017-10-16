@@ -10,7 +10,7 @@ import LoggedInPageTemplate from '../loggedInPageTemplate'
 import { DataTable } from '../originalDataPoint/commentableDatatable'
 import { CommentableReviewDescription } from '../description/commentableDescription'
 
-const NationalDataEntry = (props) => {
+const ExtentOfForest = (props) => {
 
   const disableGenerateFRAValues = () => {
     const odps = R.pipe(
@@ -80,7 +80,7 @@ const NationalDataEntry = (props) => {
           {i18n.t('nationalDataPoint.addNationalDataPoint')}
         </Link>
       </div>
-      <ChartWrapper stateName="nationalDataEntry" trends={[
+      <ChartWrapper stateName="extentOfForest" trends={[
         {name: 'forestArea', label: i18n.t('fraClass.forest'), color: '#0098a6'},
         {name: 'otherWoodedLand', label: i18n.t('fraClass.otherWoodedLand'), color: '#bf00af'}
       ]}/>
@@ -126,14 +126,14 @@ class DataFetchingComponent extends React.Component {
 
   render () {
     return <LoggedInPageTemplate commentsOpen={this.props.openCommentThread}>
-      <NationalDataEntry {...this.props} countryIso={this.props.match.params.countryIso}/>
+      <ExtentOfForest {...this.props} countryIso={this.props.match.params.countryIso}/>
     </LoggedInPageTemplate>
   }
 }
 
 const mapStateToProps = state =>
   ({
-    ...state.nationalDataEntry,
+    ...state.extentOfForest,
     'openCommentThread': state.review.openThread,
     i18n: state.user.i18n
   })

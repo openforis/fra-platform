@@ -6,7 +6,7 @@ import { Link } from './../link'
 import { fetchItem, save, saveMany, generateFraValues } from '../originalDataPoint/actions'
 import LoggedInPageTemplate from '../loggedInPageTemplate'
 import { DataTable } from '../originalDataPoint/commentableDatatable'
-import ChartWrapper from '../nationalDataEntry/chart/chartWrapper'
+import ChartWrapper from '../extentOfForest/chart/chartWrapper'
 import { CommentableReviewDescription } from '../description/commentableDescription'
 import DefinitionLink from './../reusableUiComponents/definitionLink'
 
