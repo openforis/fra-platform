@@ -325,9 +325,9 @@ module.exports.readEofOdps = (countryIso) =>
         SELECT
           p.id as odp_id,
           v.year,
-          SUM(c.area * (c.forest_percent/100.0)) AS forest_area,
-          SUM(c.area * (c.other_wooded_land_percent/100.0)) AS other_wooded_land_area,
-          SUM(c.area * (c.other_land_percent/100.0)) AS other_land_area,
+          SUM(c.area * c.forest_percent / 100.0) AS forest_area,
+          SUM(c.area * c.other_wooded_land_percent / 100.0) AS other_wooded_land_area,
+          SUM(c.area * c.other_land_percent / 100.0) AS other_land_area,
           SUM(c.area * c.other_land_palms_percent * c.other_land_percent / 10000.0) AS other_land_palms,
           SUM(c.area * c.other_land_tree_orchards_percent * c.other_land_percent / 10000.0) AS other_land_tree_orchards,
           SUM(c.area * c.other_land_agroforestry_percent * c.other_land_percent / 10000.0) AS other_land_agroforestry,
@@ -356,11 +356,11 @@ module.exports.readFocOdps = (countryIso) =>
         SELECT
           p.id as odp_id,
           v.year,
-          SUM(c.area * (c.forest_natural_percent/100.0)) AS natural_forest_area,
-          SUM(c.area * (c.forest_natural_primary_percent/100.0)) AS natural_forest_primary_area,
-          SUM(c.area * (c.forest_plantation_percent/100.0)) AS plantation_forest_area,
-          SUM(c.area * (c.forest_plantation_introduced_percent/100.0)) AS plantation_forest_introduced_area,
-          SUM(c.area * (c.other_planted_forest_percent/100.0)) AS other_planted_forest_area,
+          SUM(c.area * c.forest_percent * c.forest_natural_percent / 10000.0) AS natural_forest_area,
+          SUM(c.area * c.forest_percent * c.forest_natural_percent * c.forest_natural_primary_percent / 1000000.0) AS natural_forest_primary_area,
+          SUM(c.area * c.forest_percent * c.forest_plantation_percent / 10000.0) AS plantation_forest_area,
+          SUM(c.area * c.forest_percent * c.forest_plantation_percent * c.forest_plantation_introduced_percent / 1000000.0) AS plantation_forest_introduced_area,
+          SUM(c.area * c.forest_percent * c.other_planted_forest_percent / 10000.0) AS other_planted_forest_area,
         CASE
           WHEN p.draft_id IS NULL
           THEN FALSE
