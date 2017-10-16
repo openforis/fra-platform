@@ -3,7 +3,6 @@ import assert from 'assert'
 import axios from 'axios'
 import * as autosave from '../autosave/actions'
 import { applicationError } from '../applicationError/actions'
-import { sectionStatusUpdate } from '../navigation/actions'
 
 export const tableValueChangedAction = 'traditionalTable/tableValueChanged'
 
@@ -21,7 +20,6 @@ const saveChanges = (countryIso, tableSpec, tableData) => {
       table.getValueSliceFromTableData(tableSpec, tableData)
     ).then(() => {
       dispatch(autosave.complete)
-      dispatch(sectionStatusUpdate(countryIso, tableSpec.section ? tableSpec.section : tableSpec.name))
     }).catch((err) => {
       dispatch(applicationError(err))
       dispatch(autosave.complete)
