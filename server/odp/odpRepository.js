@@ -68,15 +68,17 @@ const insertDraft = (client, countryIso, user, odpId, draft) =>
      data_source_references,
      data_source_methods,
      data_source_years,
+     data_source_applies_to_variables,
      data_source_additional_comments)
      VALUES
-     ($1, $2, $3, $4, $5, $6);`,
+     ($1, $2, $3, $4, $5, $6, $7);`,
     [
       draft.year,
       draft.description,
       draft.dataSourceReferences,
       {methods: draft.dataSourceMethods},
       draft.dataSourceYears,
+      {variables: draft.dataSourceAppliesToVariables},
       draft.dataSourceAdditionalComments
     ]
   ).then(() => client.query('SELECT last_value AS odp_version_id FROM odp_version_id_seq')
@@ -101,7 +103,8 @@ const updateDraft = (client, draft) =>
     data_source_references = $4,
     data_source_methods = $5,
     data_source_years  = $6,
-    data_source_additional_comments = $7
+    data_source_applies_to_variables = $7,
+    data_source_additional_comments = $8
     WHERE id = $1;
     `,
       [
@@ -111,6 +114,7 @@ const updateDraft = (client, draft) =>
         draft.dataSourceReferences,
         {methods: draft.dataSourceMethods},
         draft.dataSourceYears,
+        {variables: draft.dataSourceAppliesToVariables},
         draft.dataSourceAdditionalComments
       ])
   )
@@ -312,6 +316,7 @@ const getOdp = odpId =>
           v.data_source_references,
           v.data_source_methods,
           v.data_source_years,
+          v.data_source_applies_to_variables,
           v.data_source_additional_comments
         FROM odp p
         JOIN odp_version v
@@ -322,8 +327,14 @@ const getOdp = odpId =>
     ).then(([result, nationalClasses]) => {
         const camelizedResult = camelize(result.rows[0])
         const dataSourceMethods =
-          camelizedResult.dataSourceMethods ? camelizedResult.dataSourceMethods.methods : null
-        return {...camelizedResult, nationalClasses, dataSourceMethods}
+          camelizedResult.dataSourceMethods
+            ? camelizedResult.dataSourceMethods.methods
+            : null
+        const dataSourceAppliesToVariables =
+          camelizedResult.dataSourceAppliesToVariables
+            ? camelizedResult.dataSourceAppliesToVariables.variables
+            : null
+        return {...camelizedResult, nationalClasses, dataSourceMethods, dataSourceAppliesToVariables}
       }
     )
 
