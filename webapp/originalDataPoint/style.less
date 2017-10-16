@@ -57,6 +57,12 @@
   width: 75%;
 }
 
+// This is a workaround for MultiSelect problem (multiselect increases vertical scroll
+// instead of popping out of the wrapper
+.fra-table__scroll-wrapper.odp__data-source-table-wrapper {
+  overflow-x: visible;
+}
+
 .fra-table__cell.odp__data-source-input-column {
   white-space: normal;
 }

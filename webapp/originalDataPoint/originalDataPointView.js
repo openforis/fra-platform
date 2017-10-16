@@ -135,6 +135,93 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
       </table>
     </div>
 
+    <div className="fra-table__container">
+      <div className="fra-table__scroll-wrapper odp__data-source-table-wrapper">
+        <table className="fra-table">
+          <tbody>
+          <tr>
+            <td className="fra-table__header-cell">{i18n.t('nationalDataPoint.references')}</td>
+            <td className="fra-table__cell odp__data-source-input-column">
+              <VerticallyGrowingTextField
+                value={active.dataSourceReferences || ''}
+                onChange={ (e) => saveDraft(countryIso, R.assoc('dataSourceReferences', e.target.value, active)) }
+              />
+            </td>
+            <td className="fra-table__row-anchor-cell">
+              {
+                active.odpId
+                ? <div className="odp__review-indicator-row-anchor">
+                    <ReviewIndicator section='NDP'
+                                     name={i18n.t('nationalDataPoint.nationalDataPoint')}
+                                     target={[active.odpId, 'dataSourceReferences']}
+                                     countryIso={countryIso}/>
+                  </div>
+                : null
+              }
+            </td>
+          </tr>
+          <tr>
+            <td className="fra-table__header-cell">{i18n.t('nationalDataPoint.methodsUsed')}</td>
+            <td className="fra-table__cell odp__data-source-input-column">
+              <MultiSelect
+                i18n={i18n}
+                localizationPrefix="nationalDataPoint.dataSourceMethodsOptions"
+                values={active.dataSourceMethods}
+                options={[
+                  'nationalForestInventory',
+                  'sampleBasedRemoteSensingAssessment',
+                  'fullCoverMaps',
+                  'registersQuestionnaires',
+                  'other'
+                ]}
+                onChange={ (values) =>
+                  saveDraft(countryIso, R.assoc('dataSourceMethods', values, active))
+                }
+              />
+            </td>
+          </tr>
+          <tr>
+            <td className="fra-table__header-cell">{i18n.t('nationalDataPoint.years')}</td>
+            <td className="fra-table__cell odp__data-source-input-column">
+              <VerticallyGrowingTextField
+                value={active.dataSourceYears || ''}
+                onChange={ (e) => saveDraft(countryIso, R.assoc('dataSourceYears', e.target.value, active)) }
+              />
+            </td>
+          </tr>
+          <tr>
+            <td className="fra-table__header-cell">{i18n.t('nationalDataPoint.appliesToVariables')}</td>
+            <td className="fra-table__cell odp__data-source-input-column">
+              <MultiSelect
+                i18n={i18n}
+                localizationPrefix="nationalDataPoint.appliesToVariablesOptions"
+                values={active.dataSourceAppliesToVariables}
+                options={[
+                  'forest',
+                  'otherWoodedLand',
+                  'otherLand'
+                ]}
+                onChange={
+                  (values) =>
+                    saveDraft(countryIso, R.assoc('dataSourceAppliesToVariables', values, active))
+                }
+                openedListWidth="300px"
+              />
+            </td>
+          </tr>
+          <tr>
+            <th className="fra-table__header-cell">{i18n.t('nationalDataPoint.additionalComments')}</th>
+            <td className="fra-table__cell odp__data-source-input-column">
+              <VerticallyGrowingTextField
+                value={active.dataSourceAdditionalComments || ''}
+                onChange={ (e) => saveDraft(countryIso, R.assoc('dataSourceAdditionalComments', e.target.value, active)) }
+              />
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
     <div className="odp__section">
       <div className="odp__section-header">
         <h3 className="subhead">
