@@ -59,7 +59,7 @@ const createOdp = (client, countryIso, user) =>
       Promise.all([odpId, auditRepository.insertAudit(client, user.id, 'createOdp', countryIso, 'odp', {odpId})])
   ).then(([odpId, _]) => odpId)
 
-const insertDraft = (client, countryIso, user, odpId, draft) => console.log('draft', draft) ||
+const insertDraft = (client, countryIso, user, odpId, draft) =>
   client.query(
     `INSERT INTO 
      odp_version 
