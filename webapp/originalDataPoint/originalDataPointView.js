@@ -363,8 +363,20 @@ const nationalClassRows = (countryIso, odp, saveDraft, openThread, i18n) => {
     {...nationalClass}/>, odp.nationalClasses)
 }
 
-const NationalClassRow = ({odp, index, saveDraft, countryIso, className, definition, placeHolder, openThread, i18n}) =>
-  <tr
+const NationalClassRow =
+  ({
+    odp,
+    index,
+    saveDraft,
+    countryIso,
+    className,
+    definition,
+    placeHolder,
+    openThread,
+    i18n
+  }) => {
+
+  return <tr
     className={`${isCommentsOpen([odp.odpId, 'class', `${odp.nationalClasses[index].uuid}`, 'definition'], openThread) ? 'fra-row-comments__open' : ''}`}>
     <td
       className={`fra-table__cell odp__national-class-name ${getValidationStatusRow(odp, index).validClassName === false ? 'error' : ''}`}>
@@ -424,6 +436,7 @@ const NationalClassRow = ({odp, index, saveDraft, countryIso, className, definit
       }
     </td>
   </tr>
+}
 
 const extentOfForestCols = [
   {name: 'area', type: 'decimal'},
@@ -451,23 +464,23 @@ const numberUpdateCreator = (saveDraft, type = 'integer') => (countryIso, odp, i
   ))
 }
 
-const ExtentOfForestRow = ({
-                             odp,
-                             index,
-                             saveDraft,
-                             countryIso,
-                             className,
-                             area,
-                             forestPercent,
-                             otherWoodedLandPercent,
-                             otherLandPercent,
-                             openThread,
-                             i18n
-                           }) => {
+const ExtentOfForestRow =
+  ({
+   odp,
+   index,
+   saveDraft,
+   countryIso,
+   className,
+   area,
+   forestPercent,
+   otherWoodedLandPercent,
+   otherLandPercent,
+   openThread,
+   i18n
+  }) => {
 
   const validationStatus = getValidationStatusRow(odp, index)
   const eofStatusPercentage = () => validationStatus.validEofPercentage === false ? 'error' : ''
-
   const numberUpdated = numberUpdateCreator(saveDraft)
   const decimalUpdated = numberUpdateCreator(saveDraft, 'decimal')
 
@@ -584,6 +597,7 @@ const ForestCharacteristicsRow =
     const focStatusPercentage = () => validationStatus.validFocPercentage === false ? 'error' : ''
     const nationalClass = odp.nationalClasses[index]
     const allowedClass = (nc) => nc.forestPercent > 0
+
     return !allowedClass(nationalClass)
       ? null
       : <tr
@@ -797,7 +811,7 @@ class OriginalDataPointView extends React.Component {
 
 const mapStateToProps = state => {
   const odp = state.originalDataPoint
-  const autoSaving = state.autoSave.status === 'saving' ? true : false
+  const autoSaving = state.autoSave.status === 'saving'
   const active = odp.active
   const openThread = R.defaultTo({target: [], section: ''}, R.path(['review', 'openThread'], state))
   return {...odp, active, autoSaving, openThread, i18n: state.user.i18n}
