@@ -9,8 +9,12 @@
 
   &:focus,
   &.has-focus {
-    outline: 1px solid @text-body;
-    outline-offset: 0px;
+    outline: none;
+
+    .multi-select__closed-content {
+      outline: 1px solid @text-body;
+      outline-offset: 0px;
+    }
   }
 }
 
