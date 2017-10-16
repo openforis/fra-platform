@@ -166,23 +166,7 @@
 }
 
 .nav__link-item {
-  display: flex;
-  align-items: stretch;
-  flex-flow: row nowrap;
-  padding: 12px 16px 12px 20px;
-  text-decoration: none;
-  color: @text-body;
-  line-height: 20px;
-
-  &:hover {
-    color: inherit;
-    background-color: darken(@ui-bg, 4%);
-    transition: @ease-out;
-  }
-
-  &.selected {
-    background-color: @ui-accent-light;
-  }
+  .mixin-nav-secondary-base(12px, true);
 }
 
 .nav__link-label {
@@ -196,23 +180,13 @@
 }
 
 .nav__link-status-content {
-  display: flex;
-  flex-flow: row-reverse nowrap;
-  align-items: center;
-  margin-left: auto;
-
-  div {
-    margin-left: 4px;
-  }
+  .mixin-status-content-base;
 }
 
 // Primary
 
 .nav__primary-item {
-  border-top: @ui-thin-border;
-  margin-top: 8px;
-  padding: 20px 16px 12px 20px;
-  line-height: 20px;
+  .mixin-nav-primary-base;
 
   .popover-control__menu {
     top: 31px;
@@ -291,31 +265,28 @@
 
 // Secondary
 
+.nav__secondary-item-header {
+  .mixin-nav-secondary-base(8px);
+  font-weight: 700;
+}
+
 .nav__secondary-item {
-  .nav__link-item;
-  line-height: 18px;
+  .mixin-nav-secondary-base(8px, true);
 }
 
 .nav__secondary-order {
   flex: 0 0 auto;
-  width: 24px;
+  width: 20px;
   margin-right: 4px;
   font-size: @font-s;
 }
 
 .nav__secondary-label {
-  display: block;
-  margin-bottom: 4px;
   font-size: @font-s;
 }
 
-.nav__secondary-edited {
-  font-size: @font-xs;
-  color: @text-mute;
-}
-
 .nav__secondary-status-content {
-  .nav__link-status-content;
+  .mixin-status-content-base;
 }
 
 .nav__has-open-issue {
@@ -331,7 +302,7 @@
 // Support links
 
 .nav__support-item {
-  .nav__primary-item;
+  .mixin-nav-primary-base;
   font-size: @font-s;
 }
 
@@ -351,10 +322,50 @@
   display: block;
   color: @text-mute;
   font-size: @font-xs;
-  margin-top: 16px;
+  margin-top: 8px;
 }
 
 // Mixins
+
+.mixin-nav-primary-base() {
+  border-top: @ui-thin-border;
+  margin-top: 8px;
+  padding: 16px 16px 12px 20px;
+  line-height: 20px;
+}
+
+.mixin-nav-secondary-base(@padding, @hover: false) {
+  display: flex;
+  align-items: stretch;
+  flex-flow: row nowrap;
+  padding: @padding 16px @padding 20px;
+  text-decoration: none;
+  color: @text-body;
+  line-height: 20px;
+
+  & when (@hover=true) {
+    &:hover {
+      color: inherit;
+      background-color: darken(@ui-bg, 4%);
+      transition: @ease-out;
+    }
+
+    &.selected {
+      background-color: @ui-accent-light;
+    }
+  }
+}
+
+.mixin-status-content-base() {
+  display: flex;
+  flex-flow: row-reverse nowrap;
+  align-items: center;
+  margin-left: auto;
+
+  div {
+    margin-left: 4px;
+  }
+}
 
 .mixin-status-base(@color) {
   display: inline-block;

@@ -65,7 +65,7 @@ export default i18n => ({
   </tr>
   </thead>,
   rows: [
-    inputRow(0, rowHeading(i18n, 'employment.inForestryAndLogging')),
+    inputRow(0, rowHeading(i18n, 'employment.inForestry')),
     inputRow(1, rowSubHeading(i18n, 'employment.ofWhichSilviculture'), genderOfWhichValitor),
     inputRow(2, rowSubHeading(i18n, 'employment.ofWhichLogging'), genderOfWhichValitor),
     inputRow(3, rowSubHeading(i18n, 'employment.ofWhichGathering'), genderOfWhichValitor),

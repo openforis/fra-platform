@@ -72,15 +72,12 @@ export const subClassTotalArea = (odp, percentFieldName, subClassPercentFieldNam
     sum
   )(odp.nationalClasses)
 
-export const otherLandTotalArea = odp => classTotalArea(odp, 'otherLandPercent')
-
-export const otherLandClassTotalArea = (odp, percentFieldName) => subClassTotalArea(odp, 'otherLandPercent', percentFieldName)
-
-export const forestClassTotalArea = (odp, percentFieldName) => subClassTotalArea(odp, 'forestPercent', percentFieldName)
-
-export const naturalForestTotalArea = (odp, percentFieldName) => subClassTotalArea(odp, 'naturalForestPercent', percentFieldName)
-
-export const plantationForestTotalArea = (odp, percentFieldName) => subClassTotalArea(odp, 'plantationPercent', percentFieldName)
+export const subSubClassTotalArea = (odp, percentFieldName, subClassPercentFieldName, subSubClassPercentFieldName) =>
+  R.pipe(
+    R.filter(nationalClass => nationalClass.area && nationalClass[percentFieldName] && nationalClass[subClassPercentFieldName] && nationalClass[subSubClassPercentFieldName]),
+    R.map(nationalClass => mul(nationalClass.area, nationalClass[percentFieldName]).mul(nationalClass[subClassPercentFieldName]).mul(nationalClass[subSubClassPercentFieldName]).div(1000000.0)),
+    sum
+  )(odp.nationalClasses)
 
 export const allowCopyingOfPreviousValues =
   R.pipe(R.path(['nationalClasses', 0, 'className']), R.defaultTo(''), R.isEmpty)
@@ -103,7 +100,7 @@ export const copyNationalClassDefinitions = (odpTarget, odpSource) => ({
 })
 
 export const updateValueReducer = (state, action) => {
-  const idx = R.findIndex(R.propEq('name', action.name), state.fra)
+  const idx = R.findIndex( v => v.name === action.name && v.type === 'fra', state.fra)
   return {...state, fra: R.update(idx, {...action.value}, state.fra)}
 }
 

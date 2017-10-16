@@ -57,9 +57,9 @@ const Footer = ({status, userInfo, path, width, i18n, ...props}) => {
     {/* Placeholder for space-between flexbox alignment */}
     <div/>
     <div className="footer__item">
-      {status
-        ? <span className="footer__autosave-status">{i18n.t(`footer.autoSave.${status}`)}</span>
-        : null
+      {R.isNil(status)
+        ? null
+        : <span className={`footer__autosave-status ${status}`}>{i18n.t(`footer.autoSave.${status}`)}</span>
       }
     </div>
     <div>

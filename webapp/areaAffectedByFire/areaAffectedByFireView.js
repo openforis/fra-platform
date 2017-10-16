@@ -6,5 +6,5 @@ export default props =>
   <SingleTraditionalTableView
     {...props}
     headingLocalizationKey="areaAffectedByFire.areaAffectedByFire"
-    sectionAnchor="7b"
+    sectionAnchor="5b"
     tableSpec={tableSpec}/>

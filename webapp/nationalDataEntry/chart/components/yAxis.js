@@ -36,7 +36,7 @@ class YAxis extends Component {
 
     domAxis.selectAll('text')
       .transition()
-        .ease(d3.easeBackOut)
+        .ease(d3.easePolyOut)
         .duration(defaultTransitionDuration)
         .attrTween('fill', () =>
           // enter
@@ -53,9 +53,9 @@ class YAxis extends Component {
 
     d3.select(this.refs.unitLabel)
       .transition()
-        .ease(d3.easeBackOut)
+        .ease(d3.easePolyOut)
+        .delay(100)
         .duration(defaultTransitionDuration)
-        .delay(propsHasData ? defaultTransitionDuration : 0)
         .style('opacity', () => propsHasData ? 1 : 0)
   }
 
@@ -66,7 +66,7 @@ class YAxis extends Component {
 
     domAxis.selectAll('text')
       .transition()
-        .ease(d3.easeBackIn)
+        .ease(d3.easePolyOut)
         .duration(defaultTransitionDuration)
         .attrTween('fill', () =>
           !propsHasData && nextPropsHasData
@@ -88,9 +88,9 @@ class YAxis extends Component {
 
     d3.select(this.refs.unitLabel)
       .transition()
-        .ease(d3.easeBackOut)
+        .ease(d3.easePolyOut)
+        .delay(100)
         .duration(defaultTransitionDuration)
-        .delay(nextPropsHasData ? defaultTransitionDuration : 0)
         .style('opacity', () => nextPropsHasData ? 1 : 0)
 
   }

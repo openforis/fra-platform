@@ -1,7 +1,7 @@
 import React from 'react'
 import * as d3 from 'd3'
 import * as R from 'ramda'
-import {hasData} from '../chart'
+import {hasData, defaultTransitionDuration} from '../chart'
 
 const Text = ({text, width, y}) =>
   <foreignObject data-y={y} width={width} y={y} style={{textAlign: 'center'}}>
@@ -30,7 +30,7 @@ class NoDataPlaceholder extends React.Component {
   hidePlaceholderAnimated() {
     this.tucan()
       .transition()
-        .duration(400)
+        .duration(defaultTransitionDuration)
         .delay(100)
         .ease(d3.easeBackInOut)
         .attr('y', -tucanHeight)
@@ -39,9 +39,9 @@ class NoDataPlaceholder extends React.Component {
         .style('visibility', 'hidden')
     this.texts()
       .transition()
-        .duration(400)
-        .delay(200)
-        .ease(d3.easeExpOut)
+        .duration(defaultTransitionDuration)
+        .delay(100)
+        .ease(d3.easePolyOut)
         .style('opacity', '0')
       .transition()
         .style('visibility', 'hidden')

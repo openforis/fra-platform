@@ -27,7 +27,7 @@ export default i18n => ({
     [{
       type: 'readOnly',
       jsx: <td key="expansion" className="fra-table__header-cell">
-        {i18n.t('forestAreaWithinProtectedAreas.forestAreaWithinProtectedAreas')}
+        {i18n.t('forestAreaWithinProtectedAreas.header')}
       </td>
     },
       ...inputColumns
