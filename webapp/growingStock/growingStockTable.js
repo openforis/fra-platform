@@ -28,7 +28,7 @@ const GrowingStockTable = (props) => {
 const Table = (props) => {
   const {cols, rows} = props
 
-  return <div className="eof__data-table-container">
+  return <div className="gs-table__container">
     <div className="fra-table__scroll-wrapper">
       <table className="fra-table">
         <thead>
@@ -58,7 +58,7 @@ const Table = (props) => {
         </tbody>
       </table>
     </div>
-    <div className="eof__comment-column">
+    <div className="gs-table__comment-column">
       {
         rows.map((row, i) =>
           <ReviewIndicator
