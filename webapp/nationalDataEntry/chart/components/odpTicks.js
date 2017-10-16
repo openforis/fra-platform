@@ -19,7 +19,7 @@ class OdpTicks extends React.Component {
       line
         .transition()
           .duration(defaultTransitionDuration)
-          .ease(d3.easeCircleOut)
+          .ease(d3.easePolyOut)
           .attr('x1', d => xScale(d.year))
           .attr('y1', d => yScale(0))
           .attr('x2', d => xScale(d.year))
@@ -29,7 +29,7 @@ class OdpTicks extends React.Component {
       line.exit()
         .transition()
           .duration(defaultTransitionDuration)
-          .ease(d3.easeCircleOut)
+          .ease(d3.easePolyOut)
           .attr('y2', d => yScale(0))
           .style('opacity', '0')
           .remove()
@@ -44,10 +44,10 @@ class OdpTicks extends React.Component {
         .style('stroke', '#cccccc')
         .style('stroke-width', 1)
         .transition()
-        .duration(defaultTransitionDuration)
-        .ease(d3.easeCubicOut)
-        .attr('y2', d => yScale(d.value))
-        .style('opacity', '1')
+          .duration(defaultTransitionDuration)
+          .ease(d3.easePolyOut)
+          .attr('y2', d => yScale(d.value))
+          .style('opacity', '1')
     }
   }
 
