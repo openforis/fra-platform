@@ -11,34 +11,39 @@ class Legend extends Component {
   }
 
   componentDidMount () {
-    const state = R.mapObjIndexed((data, key) => ({offsetWidth: this.refs[key].offsetWidth}), this.props.data)
-    this.setState(state)
-
-    this.update(this.props, state)
+    this.enter(this.props)
   }
 
-  update (props, state = this.state) {
-
+  enter(props) {
     R.forEachObjIndexed((data, key) => {
-
       const elem = this.refs[key]
-      const elemWidth = elem.offsetWidth
-      const elemOpacity = elem.style.opacity
-
-      const {ease, opacity, width} = data.length >= 1
-        ? {ease: d3.easeBackIn, opacity: 1, width: state[key].offsetWidth}
-        : {ease: d3.easeBackOut, opacity: 0, width: 0}
-
+      const hasData = data.length > 0 ? true : false
       d3.select(elem)
-        .style('height', '20')
+        .style('width', hasData ? 'auto' : '0')
+        .style('margin-right', hasData ? '16px': '0')
         .transition()
-          .ease(ease)
+          .ease(d3.easePolyOut)
+          .delay(100)
           .duration(defaultTransitionDuration)
-          .styleTween('height', d => d3.interpolate(20, 20))
-          .styleTween('opacity', d => d3.interpolate(elemOpacity, opacity))
-
+          .style('opacity', hasData ? '1' : '0')
     }, props.data)
+  }
 
+  update(props) {
+    R.forEachObjIndexed((data, key) => {
+      const elem = this.refs[key]
+      const hasData = data.length > 0 ? true : false
+      d3.select(elem)
+        .transition()
+          .ease(d3.easePolyOut)
+          .duration(defaultTransitionDuration/2)
+          .style('width', hasData ? 'auto' : '0')
+          .style('margin-right', hasData ? '16px': '0')
+        .transition()
+          .ease(d3.easePolyOut)
+          .duration(defaultTransitionDuration)
+          .style('opacity', hasData ? '1' : '0')
+    }, props.data)
   }
 
   render () {
@@ -46,45 +51,20 @@ class Legend extends Component {
       x={styles.left + 8}
       y="0"
       width={this.props.wrapperWidth - styles.left - 8}
-      height="20px"
-      className="chart__legend">
-
-      <div style={{display: 'flex', height: '20px'}}>
-
-        {this.props.trends.map(t =>
-          <div key={`legend-${t.name}`}
-               ref={t.name}
-               style={{
-                 display: 'flex',
-                 alignItems: 'center',
-                 opacity: '0',
-                 marginRight: '16px'
-               }}>
-            {/*legend color*/}
-            <div style={{
-              width: '12px',
-              height: '12px',
-              marginRight: '4px',
-              borderRadius: '2px',
-              backgroundColor: t.color
-            }}></div>
-            {/*label*/}
-            <div style={{
-              fontSize: '12px',
-              color: '#666666',
-              whiteSpace: 'nowrap',
-              overflow: 'hidden'
-            }}>
-              {t.label}
+      height="20px">
+      <div className="chart__legend-wrapper">
+        {
+          this.props.trends.map(trend => {
+            return <div className="chart__legend-item" key={trend.name} ref={trend.name}>
+              <div className="chart__legend-item-color" style={{backgroundColor: trend.color}}></div>
+              <div className="chart__legend-item-label">{trend.label}</div>
             </div>
-
-          </div>
-        )}
-
+            }
+          )
+        }
       </div>
     </foreignObject>
   }
-
 }
 
 export default Legend

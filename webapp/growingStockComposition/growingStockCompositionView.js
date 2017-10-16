@@ -15,8 +15,8 @@ const GrowingStockCompositionView = ({match, i18n}) => {
     <div className="fra-view__content gsc__view">
       <div className="fra-view__page-header">
         <h1 className="title">{i18n.t('growingStockComposition.growingStockComposition')}</h1>
-        <DefinitionLink document="tad" anchor="3b" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
-        <DefinitionLink document="faq" anchor="3b" title={i18n.t('definition.faqLabel')} lang={i18n.language} className="align-left"/>
+        <DefinitionLink document="tad" anchor="2b" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
+        <DefinitionLink document="faq" anchor="2b" title={i18n.t('definition.faqLabel')} lang={i18n.language} className="align-left"/>
       </div>
       <TraditionalTable tableSpec={tableProps} countryIso={match.params.countryIso}/>
       <CommentableDescriptions

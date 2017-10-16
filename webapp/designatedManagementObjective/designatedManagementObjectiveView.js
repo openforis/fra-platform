@@ -21,8 +21,8 @@ const designatedManagementObjectiveView = ({match, i18n}) => {
         <h1 className="title">
           {i18n.t('designatedManagementObjective.designatedManagementObjective')}
         </h1>
-        <DefinitionLink document="tad" anchor="5a" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
-        <DefinitionLink document="faq" anchor="5a" title={i18n.t('definition.faqLabel')} lang={i18n.language} className="align-left"/>
+        <DefinitionLink document="tad" anchor="3a" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
+        <DefinitionLink document="faq" anchor="3a" title={i18n.t('definition.faqLabel')} lang={i18n.language} className="align-left"/>
       </div>
       <h3 className="subhead dmo__table-header">
         {i18n.t('designatedManagementObjective.primaryDesignatedManagementObjective')}

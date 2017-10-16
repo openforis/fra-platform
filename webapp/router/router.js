@@ -28,12 +28,11 @@ class Router extends React.Component {
 
   render () {
     const route = R.find(route => route.route.match(this.props.path))(this.props.routes)
-    return route
-      ? this.props.loggedInUserInfoLoaded || this.props.path === '/'
+    return this.props.loggedInUserInfoLoaded
+      ? route
         ? React.createElement(route.component, {match: {params: route.route.match(this.props.path)}})
-        : null
-      : <Notfound/>
-
+        : <Notfound/>
+      : null
   }
 }
 

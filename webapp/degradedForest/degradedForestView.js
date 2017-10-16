@@ -6,5 +6,5 @@ export default props =>
   <SingleTraditionalTableView
     {...props}
     headingLocalizationKey="degradedForest.degradedForest"
-    sectionAnchor="7c"
+    sectionAnchor="5c"
     tableSpec={tableSpec}/>

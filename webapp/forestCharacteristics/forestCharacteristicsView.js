@@ -69,8 +69,8 @@ const ForestCharacteristics = props => {
       ]} />
     <div className="fra-view__section-header">
       <h3 className="subhead">{i18n.t('forestCharacteristics.forestCharacteristics')}</h3>
-      <DefinitionLink document="tad" anchor="2a" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
-      <DefinitionLink document="faq" anchor="2a" title={i18n.t('definition.faqLabel')} lang={i18n.language} className="align-left"/>
+      <DefinitionLink document="tad" anchor="1b" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
+      <DefinitionLink document="faq" anchor="1b" title={i18n.t('definition.faqLabel')} lang={i18n.language} className="align-left"/>
       <button disabled={disableGenerateFRAValues()} className="btn btn-primary"
               onClick={() => props.generateFraValues('forestCharacteristics', props.countryIso)}>
         {i18n.t('extentOfForest.generateFraValues')}

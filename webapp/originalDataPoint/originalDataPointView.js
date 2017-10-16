@@ -120,23 +120,18 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
             }
             <tr>
               <td className="fra-table__header-cell">{i18n.t('nationalDataPoint.total')}</td>
-              <td
-                className="fra-table__aggregate-cell fra-table__divider">{formatDecimal(originalDataPoint.totalArea(active))}</td>
-              <td
-                className="fra-table__aggregate-cell">{formatDecimal(originalDataPoint.classTotalArea(active, 'forestPercent'))}</td>
-              <td
-                className="fra-table__aggregate-cell">{formatDecimal(originalDataPoint.classTotalArea(active, 'otherWoodedLandPercent'))}</td>
-              <td
-                className="fra-table__aggregate-cell">{formatDecimal(originalDataPoint.classTotalArea(active, 'otherLandPercent'))}</td>
+              <td className="fra-table__aggregate-cell fra-table__divider">{formatDecimal(originalDataPoint.totalArea(active))}</td>
+              <td className="fra-table__aggregate-cell">{formatDecimal(originalDataPoint.classTotalArea(active, 'forestPercent'))}</td>
+              <td className="fra-table__aggregate-cell">{formatDecimal(originalDataPoint.classTotalArea(active, 'otherWoodedLandPercent'))}</td>
+              <td className="fra-table__aggregate-cell">{formatDecimal(originalDataPoint.classTotalArea(active, 'otherLandPercent'))}</td>
             </tr>
             </tbody>
           </table>
         </div>
       </div>
       {
-        originalDataPoint.classTotalArea(active, 'otherLandPercent') <= 0
-        ? null
-        : <div className="fra-table__container">
+        originalDataPoint.classTotalArea(active, 'otherLandPercent')
+        ? <div className="fra-table__container">
             <div className="fra-table__scroll-wrapper">
               <table className="odp__sub-table">
                 <thead>
@@ -154,7 +149,6 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
                   countryIso={countryIso}
                   saveDraft={saveDraft}
                   openThread={openThread}
-                  subCategory="otherLandCharacteristics"
                   parentCategory="otherLandPercent"
                   categoryColumns={[{name: 'otherLandPalmsPercent', type: 'integer'},
                                     {name: 'otherLandTreeOrchardsPercent', type: 'integer'},
@@ -166,16 +160,17 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
                 <tfoot>
                   <tr>
                     <td className="fra-table__header-cell">{i18n.t('nationalDataPoint.total')}</td>
-                    <td className="fra-table__header-cell-right fra-table__divider">{formatDecimal(originalDataPoint.otherLandTotalArea(active))}</td>
-                    <td className="fra-table__aggregate-cell">{formatDecimal(originalDataPoint.otherLandClassTotalArea(active, 'otherLandPalmsPercent'))}</td>
-                    <td className="fra-table__aggregate-cell">{formatDecimal(originalDataPoint.otherLandClassTotalArea(active, 'otherLandTreeOrchardsPercent'))}</td>
-                    <td className="fra-table__aggregate-cell">{formatDecimal(originalDataPoint.otherLandClassTotalArea(active, 'otherLandAgroforestryPercent'))}</td>
-                    <td className="fra-table__aggregate-cell">{formatDecimal(originalDataPoint.otherLandClassTotalArea(active, 'otherLandTreesUrbanSettingsPercent'))}</td>
+                    <td className="fra-table__header-cell-right fra-table__divider">{formatDecimal(originalDataPoint.classTotalArea(active, 'otherLandPercent'))}</td>
+                    <td className="fra-table__aggregate-cell">{formatDecimal(originalDataPoint.subClassTotalArea(active, 'otherLandPercent', 'otherLandPalmsPercent'))}</td>
+                    <td className="fra-table__aggregate-cell">{formatDecimal(originalDataPoint.subClassTotalArea(active, 'otherLandPercent', 'otherLandTreeOrchardsPercent'))}</td>
+                    <td className="fra-table__aggregate-cell">{formatDecimal(originalDataPoint.subClassTotalArea(active, 'otherLandPercent', 'otherLandAgroforestryPercent'))}</td>
+                    <td className="fra-table__aggregate-cell">{formatDecimal(originalDataPoint.subClassTotalArea(active, 'otherLandPercent', 'otherLandTreesUrbanSettingsPercent'))}</td>
                   </tr>
                 </tfoot>
               </table>
             </div>
         </div>
+      : null
       }
     </div>
 
@@ -210,18 +205,17 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
             <tr>
               <td className="fra-table__header-cell">{i18n.t('nationalDataPoint.total')}</td>
               <td className="fra-table__header-cell-right fra-table__divider">{formatDecimal(originalDataPoint.classTotalArea(active, 'forestPercent'))}</td>
-              <td className="fra-table__aggregate-cell">{formatDecimal(originalDataPoint.forestClassTotalArea(active, 'naturalForestPercent'))}</td>
-              <td className="fra-table__aggregate-cell">{formatDecimal(originalDataPoint.forestClassTotalArea(active, 'plantationPercent'))}</td>
-              <td className="fra-table__aggregate-cell">{formatDecimal(originalDataPoint.forestClassTotalArea(active, 'otherPlantedPercent'))}</td>
+              <td className="fra-table__aggregate-cell">{formatDecimal(originalDataPoint.subClassTotalArea(active, 'forestPercent', 'naturalForestPercent'))}</td>
+              <td className="fra-table__aggregate-cell">{formatDecimal(originalDataPoint.subClassTotalArea(active, 'forestPercent', 'plantationPercent'))}</td>
+              <td className="fra-table__aggregate-cell">{formatDecimal(originalDataPoint.subClassTotalArea(active, 'forestPercent', 'otherPlantedPercent'))}</td>
             </tr>
             </tbody>
           </table>
         </div>
       </div>
       {
-        originalDataPoint.forestClassTotalArea(active, 'naturalForestPercent') <= 0
-        ? null
-        : <div className="fra-table__container">
+        originalDataPoint.subClassTotalArea(active, 'forestPercent', 'naturalForestPercent')
+        ? <div className="fra-table__container">
             <div className="fra-table__scroll-wrapper">
               <table className="odp__sub-table">
                 <thead>
@@ -236,8 +230,8 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
                   countryIso={countryIso}
                   saveDraft={saveDraft}
                   openThread={openThread}
-                  subCategory="naturalForestPrimaryPercent"
                   parentCategory="naturalForestPercent"
+                  ancestorCategory="forestPercent"
                   categoryColumns={[{name: 'naturalForestPrimaryPercent', type: 'integer'}]}
                   targetSuffix="natural_forest_primary"
                   validationResultField="validNaturalForestPrimaryPercentage"
@@ -245,18 +239,18 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
                 <tfoot>
                   <tr>
                     <td className="fra-table__header-cell">{i18n.t('nationalDataPoint.total')}</td>
-                    <td className="fra-table__header-cell-right fra-table__divider">{formatDecimal(originalDataPoint.classTotalArea(active, 'naturalForestPercent'))}</td>
-                    <td className="fra-table__aggregate-cell">{formatDecimal(originalDataPoint.naturalForestTotalArea(active, 'naturalForestPrimaryPercent'))}</td>
+                    <td className="fra-table__header-cell-right fra-table__divider">{formatDecimal(originalDataPoint.subClassTotalArea(active, 'forestPercent', 'naturalForestPercent'))}</td>
+                    <td className="fra-table__aggregate-cell">{formatDecimal(originalDataPoint.subSubClassTotalArea(active, 'forestPercent', 'naturalForestPercent', 'naturalForestPrimaryPercent'))}</td>
                   </tr>
                 </tfoot>
               </table>
             </div>
           </div>
+        : null
       }
       {
-        originalDataPoint.forestClassTotalArea(active, 'plantationPercent') <= 0
-        ? null
-        : <div className="fra-table__container">
+        originalDataPoint.subClassTotalArea(active, 'forestPercent', 'plantationPercent')
+        ? <div className="fra-table__container">
             <div className="fra-table__scroll-wrapper">
               <table className="odp__sub-table">
                 <thead>
@@ -271,8 +265,8 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
                   countryIso={countryIso}
                   saveDraft={saveDraft}
                   openThread={openThread}
-                  subCategory="plantationIntroducedPercent"
                   parentCategory="plantationPercent"
+                  ancestorCategory="forestPercent"
                   categoryColumns={[{name: 'plantationIntroducedPercent', type: 'integer'}]}
                   targetSuffix="plantation_forest_introduced"
                   validationResultField="validPlantationIntroducedPercentage"
@@ -280,13 +274,14 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
                 <tfoot>
                   <tr>
                     <td className="fra-table__header-cell">{i18n.t('nationalDataPoint.total')}</td>
-                    <td className="fra-table__header-cell-right fra-table__divider">{formatDecimal(originalDataPoint.classTotalArea(active, 'plantationPercent'))}</td>
-                    <td className="fra-table__aggregate-cell">{formatDecimal(originalDataPoint.plantationForestTotalArea(active, 'plantationIntroducedPercent'))}</td>
+                    <td className="fra-table__header-cell-right fra-table__divider">{formatDecimal(originalDataPoint.subClassTotalArea(active, 'forestPercent', 'plantationPercent'))}</td>
+                    <td className="fra-table__aggregate-cell">{formatDecimal(originalDataPoint.subSubClassTotalArea(active, 'forestPercent', 'plantationPercent', 'plantationIntroducedPercent'))}</td>
                   </tr>
                 </tfoot>
               </table>
             </div>
           </div>
+        : null
       }
     </div>
 
@@ -368,8 +363,20 @@ const nationalClassRows = (countryIso, odp, saveDraft, openThread, i18n) => {
     {...nationalClass}/>, odp.nationalClasses)
 }
 
-const NationalClassRow = ({odp, index, saveDraft, countryIso, className, definition, placeHolder, openThread, i18n}) =>
-  <tr
+const NationalClassRow =
+  ({
+    odp,
+    index,
+    saveDraft,
+    countryIso,
+    className,
+    definition,
+    placeHolder,
+    openThread,
+    i18n
+  }) => {
+
+  return <tr
     className={`${isCommentsOpen([odp.odpId, 'class', `${odp.nationalClasses[index].uuid}`, 'definition'], openThread) ? 'fra-row-comments__open' : ''}`}>
     <td
       className={`fra-table__cell odp__national-class-name ${getValidationStatusRow(odp, index).validClassName === false ? 'error' : ''}`}>
@@ -429,6 +436,7 @@ const NationalClassRow = ({odp, index, saveDraft, countryIso, className, definit
       }
     </td>
   </tr>
+}
 
 const extentOfForestCols = [
   {name: 'area', type: 'decimal'},
@@ -456,23 +464,23 @@ const numberUpdateCreator = (saveDraft, type = 'integer') => (countryIso, odp, i
   ))
 }
 
-const ExtentOfForestRow = ({
-                             odp,
-                             index,
-                             saveDraft,
-                             countryIso,
-                             className,
-                             area,
-                             forestPercent,
-                             otherWoodedLandPercent,
-                             otherLandPercent,
-                             openThread,
-                             i18n
-                           }) => {
+const ExtentOfForestRow =
+  ({
+   odp,
+   index,
+   saveDraft,
+   countryIso,
+   className,
+   area,
+   forestPercent,
+   otherWoodedLandPercent,
+   otherLandPercent,
+   openThread,
+   i18n
+  }) => {
 
   const validationStatus = getValidationStatusRow(odp, index)
   const eofStatusPercentage = () => validationStatus.validEofPercentage === false ? 'error' : ''
-
   const numberUpdated = numberUpdateCreator(saveDraft)
   const decimalUpdated = numberUpdateCreator(saveDraft, 'decimal')
 
@@ -589,6 +597,7 @@ const ForestCharacteristicsRow =
     const focStatusPercentage = () => validationStatus.validFocPercentage === false ? 'error' : ''
     const nationalClass = odp.nationalClasses[index]
     const allowedClass = (nc) => nc.forestPercent > 0
+
     return !allowedClass(nationalClass)
       ? null
       : <tr
@@ -673,8 +682,8 @@ const SubcategoryRow =
     className,
     area,
     openThread,
-    subCategory,
     parentCategory,
+    ancestorCategory = null,
     categoryColumns,
     targetSuffix,
     validationResultField,
@@ -686,8 +695,10 @@ const SubcategoryRow =
     const validationStatus = getValidationStatusRow(odp, index)[validationResultField]
     const displayError = () => validationStatus === false ? 'error' : ''
     const commentTarget = [odp.odpId, 'class', `${odp.nationalClasses[index].uuid}`, targetSuffix]
-    const categoryArea = area ? area * nationalClass[parentCategory] / 100 : null
-    const allowedClass = nc => nc[parentCategory] > 0
+    const areaMultiplier = ancestorCategory ? nationalClass[parentCategory] * nationalClass[ancestorCategory] / 10000 : nationalClass[parentCategory] / 100
+    const categoryArea = area ? area * areaMultiplier : null
+    const allowedClass = nc => ancestorCategory ? nc[parentCategory] && nc[ancestorCategory] > 0 : nc[parentCategory] > 0
+
     return !allowedClass(nationalClass)
       ? null
       : <tr className={isCommentsOpen(commentTarget, openThread) ? 'fra-row-comments__open' : ''}>
@@ -800,7 +811,7 @@ class OriginalDataPointView extends React.Component {
 
 const mapStateToProps = state => {
   const odp = state.originalDataPoint
-  const autoSaving = state.autoSave.status === 'saving' ? true : false
+  const autoSaving = state.autoSave.status === 'saving'
   const active = odp.active
   const openThread = R.defaultTo({target: [], section: ''}, R.path(['review', 'openThread'], state))
   return {...odp, active, autoSaving, openThread, i18n: state.user.i18n}

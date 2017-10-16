@@ -11,7 +11,7 @@ import TraditionalTable from '../traditionalTable/traditionalTable'
 import { CommentableDescriptions } from '../description/commentableDescription'
 import DefinitionLink from './../reusableUiComponents/definitionLink'
 
-const SingleTraditionalTableView = ({match, i18n, tableSpec, headingLocalizationKey, sectionAnchor}) => {
+const SingleTraditionalTableView = ({match, i18n, tableSpec, headingLocalizationKey, sectionAnchor, tadAnchor, faqAnchor}) => {
   const tableSpecInstance = tableSpec(i18n)
   const countryIso = match.params.countryIso
 
@@ -19,8 +19,8 @@ const SingleTraditionalTableView = ({match, i18n, tableSpec, headingLocalization
     <div className="fra-view__content">
       <div className="fra-view__page-header">
         <h1 className="title">{i18n.t(headingLocalizationKey)}</h1>
-        <DefinitionLink document="tad" anchor={sectionAnchor} title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
-        <DefinitionLink document="faq" anchor={sectionAnchor} title={i18n.t('definition.faqLabel')} lang={i18n.language} className="align-left"/>
+        <DefinitionLink document="tad" anchor={sectionAnchor ? sectionAnchor : tadAnchor} title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
+        <DefinitionLink document="faq" anchor={sectionAnchor ? sectionAnchor : faqAnchor} title={i18n.t('definition.faqLabel')} lang={i18n.language} className="align-left"/>
       </div>
       <TraditionalTable tableSpec={tableSpecInstance} countryIso={match.params.countryIso}/>
       <CommentableDescriptions
