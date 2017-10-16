@@ -7,7 +7,7 @@ import { Link } from './../link'
 import DefinitionLink from './../reusableUiComponents/definitionLink'
 import ChartWrapper from './chart/chartWrapper'
 import LoggedInPageTemplate from '../loggedInPageTemplate'
-import { DataTable } from '../originalDataPoint/commentableDatatable'
+import { TableWithOdp } from '../originalDataPoint/tableWithOdp'
 import { CommentableReviewDescription } from '../description/commentableDescription'
 
 const ExtentOfForest = (props) => {
@@ -96,7 +96,7 @@ const ExtentOfForest = (props) => {
         {i18n.t('extentOfForest.generateFraValues')}
       </button>
     </div>
-    <DataTable section='extentOfForest' rows={eofRows} rowNames={eofRowNames} {...props}
+    <TableWithOdp section='extentOfForest' rows={eofRows} rowNames={eofRowNames} {...props}
                areaUnitLabel={props.i18n.t('extentOfForest.areaUnitLabel')}
                categoryHeader={props.i18n.t('extentOfForest.categoryHeader')}/>
     <CommentableReviewDescription
