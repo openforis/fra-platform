@@ -32,7 +32,7 @@ const NonWoodForestProductsRemovalsView = ({match, i18n}) => {
 
   return <LoggedInPageTemplate>
     <div className="fra-view__content">
-      <h1 className="title tv__page-header">{i18n.t('nonWoodForestProductsRemovals.nonWoodForestProductsRemovals')}</h1>
+      <h1 className="title fra-view__page-header">{i18n.t('nonWoodForestProductsRemovals.nonWoodForestProductsRemovals')}</h1>
       <TraditionalTable tableSpec={mainTableSpecInstance} countryIso={match.params.countryIso}/>
       <div className="nwfpr__currency-table-wrapper">
         <TraditionalTable tableSpec={currencyNameTableSpec(i18n)} countryIso={match.params.countryIso}/>

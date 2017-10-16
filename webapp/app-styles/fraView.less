@@ -13,3 +13,37 @@
 .fra-view__content {
   padding: 32px 32px 64px 32px;
 }
+
+.fra-view__page-header {
+  .mixin-flex-header-row(24px)
+}
+
+.fra-view__section-header {
+  .mixin-flex-header-row(16px)
+}
+
+.mixin-flex-header-row(@margin) {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: @margin;
+
+  > *:nth-child(n + 2) {
+    margin-left: 16px;
+  }
+
+  .align-left {
+    margin-right: auto;
+  }
+
+  .align-right {
+    margin-left: auto;
+  }
+
+  .support-text {
+    color: @text-mute;
+    margin: 8px 0 0 0;
+    width: 100%;
+  }
+}
