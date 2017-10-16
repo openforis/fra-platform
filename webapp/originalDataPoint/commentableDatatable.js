@@ -13,7 +13,7 @@ export class DataTable extends React.Component {
 
   render () {
     const rows = this.props.rows
-    return <div className="nde__data-table-container">
+    return <div className="eof__data-table-container">
       <div className="fra-table__scroll-wrapper">
         <table className="fra-table">
           <thead>
@@ -38,7 +38,7 @@ export class DataTable extends React.Component {
           </tbody>
         </table>
       </div>
-      <div className="nde__comment-column">
+      <div className="eof__comment-column">
         { buildIndicators(rows, this.props) }
       </div>
     </div>

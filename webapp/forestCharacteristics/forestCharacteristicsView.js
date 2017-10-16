@@ -50,11 +50,11 @@ const ForestCharacteristics = props => {
     3: 'plantationForestIntroducedArea',
     4: 'otherPlantedForestArea'
   }
-  return <div className='nde__data-input-component foc-view'>
-    <div className="nde__data-page-header">
+  return <div className='eof__data-input-component foc-view'>
+    <div className="eof__data-page-header">
       <h1 className="title">{i18n.t('forestCharacteristics.forestCharacteristics')}</h1>
     </div>
-    <div className="nde__data-input-header">
+    <div className="eof__data-input-header">
       <Link className="btn btn-primary" to={`/country/${props.countryIso}/odp`}>
         <svg className="icon icon-sub icon-white">
           <use xlinkHref="img/icons.svg#small-add"/>
@@ -67,7 +67,7 @@ const ForestCharacteristics = props => {
       {name:'plantationForestArea', label:props.i18n.t('forestCharacteristics.plantationForestArea'), color:'#bf00af'},
       {name:'otherPlantedForestArea', label:props.i18n.t('forestCharacteristics.otherPlantedForestArea'), color:'#f28130'}
       ]} />
-    <div className="nde__data-table-header">
+    <div className="eof__data-table-header">
       <h3 className="subhead">{i18n.t('forestCharacteristics.forestCharacteristics')}</h3>
       <DefinitionLink document="tad" anchor="2a" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
       <DefinitionLink document="faq" anchor="2a" title={i18n.t('definition.faqLabel')} lang={i18n.language} className="align-left"/>

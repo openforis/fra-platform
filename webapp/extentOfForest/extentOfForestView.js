@@ -66,13 +66,13 @@ const ExtentOfForest = (props) => {
     6: 'otherLandTreesUrbanSettings'
   }
 
-  return <div className='nde__data-input-component'>
-    <div className="nde__data-page-header">
+  return <div className='eof__data-input-component'>
+    <div className="eof__data-page-header">
       <h1 className="title">{i18n.t('extentOfForest.extentOfForest')}</h1>
     </div>
 
-    <div className='nde__comment-transition'>
-      <div className="nde__data-input-header">
+    <div className='eof__comment-transition'>
+      <div className="eof__data-input-header">
         <Link className="btn btn-primary" to={`/country/${props.countryIso}/odp`}>
           <svg className="icon icon-sub icon-white">
             <use xlinkHref="img/icons.svg#small-add"/>
@@ -86,7 +86,7 @@ const ExtentOfForest = (props) => {
       ]}/>
     </div>
 
-    <div className="nde__data-table-header">
+    <div className="eof__data-table-header">
       <h3 className="subhead">{i18n.t('extentOfForest.extentOfForest')}</h3>
       <DefinitionLink document="tad" anchor="1a" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
       <DefinitionLink document="faq" anchor="1a" title={i18n.t('definition.faqLabel')} lang={i18n.language}
