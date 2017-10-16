@@ -12,7 +12,7 @@ const GrowingStockCompositionView = ({match, i18n}) => {
   const tableProps = tableSpec(i18n)
 
   return <LoggedInPageTemplate>
-    <div className="tv__container growing-stock__container">
+    <div className="fra-view__content growing-stock__container">
       <div className="tv__page-header">
         <h1 className="title">{i18n.t('growingStockComposition.growingStockComposition')}</h1>
         <DefinitionLink document="tad" anchor="3b" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>

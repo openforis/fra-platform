@@ -14,7 +14,7 @@ import { fetch, updateValue, updateValues } from './actions'
 const GrowingStock = (props) => {
   const i18n = props.i18n
 
-  return <div className='eof__data-input-component'>
+  return <div className='fra-view__content'>
     <div className="eof__data-page-header">
       <h1 className="title">{i18n.t('growingStock.growingStock')}</h1>
       <DefinitionLink document="tad" anchor="3a" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>

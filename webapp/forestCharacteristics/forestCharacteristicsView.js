@@ -50,7 +50,7 @@ const ForestCharacteristics = props => {
     3: 'plantationForestIntroducedArea',
     4: 'otherPlantedForestArea'
   }
-  return <div className='eof__data-input-component foc-view'>
+  return <div className='fra-view__content'>
     <div className="eof__data-page-header">
       <h1 className="title">{i18n.t('forestCharacteristics.forestCharacteristics')}</h1>
     </div>

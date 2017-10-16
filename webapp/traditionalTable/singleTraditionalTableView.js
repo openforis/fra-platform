@@ -16,7 +16,7 @@ const SingleTraditionalTableView = ({match, i18n, tableSpec, headingLocalization
   const countryIso = match.params.countryIso
 
   return <LoggedInPageTemplate>
-    <div className="tv__container">
+    <div className="fra-view__content">
       <div className="tv__page-header">
         <h1 className="title">{i18n.t(headingLocalizationKey)}</h1>
         <DefinitionLink document="tad" anchor={sectionAnchor} title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>

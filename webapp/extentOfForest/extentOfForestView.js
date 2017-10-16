@@ -66,7 +66,7 @@ const ExtentOfForest = (props) => {
     6: 'otherLandTreesUrbanSettings'
   }
 
-  return <div className='eof__data-input-component'>
+  return <div className='fra-view__content'>
     <div className="eof__data-page-header">
       <h1 className="title">{i18n.t('extentOfForest.extentOfForest')}</h1>
     </div>

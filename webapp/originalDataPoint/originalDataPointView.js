@@ -779,7 +779,7 @@ class OriginalDataPointView extends React.Component {
 
   render () {
     return <LoggedInPageTemplate>
-      <div className="odp__container">
+      <div className="fra-view__content">
         <div className="odp_data-page-header">
           <h1 className="title">{this.props.i18n.t('nationalDataPoint.nationalDataPoint')}</h1>
         </div>
