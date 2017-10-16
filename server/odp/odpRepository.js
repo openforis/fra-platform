@@ -326,14 +326,8 @@ const getOdp = odpId =>
         nationalClasses])
     ).then(([result, nationalClasses]) => {
         const camelizedResult = camelize(result.rows[0])
-        const dataSourceMethods =
-          camelizedResult.dataSourceMethods
-            ? camelizedResult.dataSourceMethods.methods
-            : null
-        const dataSourceAppliesToVariables =
-          camelizedResult.dataSourceAppliesToVariables
-            ? camelizedResult.dataSourceAppliesToVariables.variables
-            : null
+        const dataSourceMethods = R.path(['dataSourceMethods', 'methods'], camelizedResult)
+        const dataSourceAppliesToVariables = R.path(['dataSourceAppliesToVariables', 'variables'], camelizedResult)
         return {...camelizedResult, nationalClasses, dataSourceMethods, dataSourceAppliesToVariables}
       }
     )
