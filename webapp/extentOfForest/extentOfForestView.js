@@ -70,22 +70,18 @@ const ExtentOfForest = (props) => {
     <div className="eof__data-page-header">
       <h1 className="title">{i18n.t('extentOfForest.extentOfForest')}</h1>
     </div>
-
-    <div className='eof__comment-transition'>
-      <div className="eof__data-input-header">
-        <Link className="btn btn-primary" to={`/country/${props.countryIso}/odp`}>
-          <svg className="icon icon-sub icon-white">
-            <use xlinkHref="img/icons.svg#small-add"/>
-          </svg>
-          {i18n.t('nationalDataPoint.addNationalDataPoint')}
-        </Link>
-      </div>
-      <ChartWrapper stateName="extentOfForest" trends={[
-        {name: 'forestArea', label: i18n.t('fraClass.forest'), color: '#0098a6'},
-        {name: 'otherWoodedLand', label: i18n.t('fraClass.otherWoodedLand'), color: '#bf00af'}
-      ]}/>
+    <div className="eof__data-input-header">
+      <Link className="btn btn-primary" to={`/country/${props.countryIso}/odp`}>
+        <svg className="icon icon-sub icon-white">
+          <use xlinkHref="img/icons.svg#small-add"/>
+        </svg>
+        {i18n.t('nationalDataPoint.addNationalDataPoint')}
+      </Link>
     </div>
-
+    <ChartWrapper stateName="extentOfForest" trends={[
+      {name: 'forestArea', label: i18n.t('fraClass.forest'), color: '#0098a6'},
+      {name: 'otherWoodedLand', label: i18n.t('fraClass.otherWoodedLand'), color: '#bf00af'}
+    ]}/>
     <div className="eof__data-table-header">
       <h3 className="subhead">{i18n.t('extentOfForest.extentOfForest')}</h3>
       <DefinitionLink document="tad" anchor="1a" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
