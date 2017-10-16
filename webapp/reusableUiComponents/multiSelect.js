@@ -41,7 +41,10 @@ export default class MultiSelect extends React.Component {
     const values = this.props.values || []
     return <div
       ref="multiSelect"
+      tabIndex="0"
+      onFocus={this.toggleOpen.bind(this)}
       onClick={this.toggleOpen.bind(this)}
+      onBlur={() => this.setState({open: false})}
       className={`multi-select ${this.state.open ? 'has-focus' : ''}`}>
       <div className="multi-select__closed-content">
         {
@@ -67,6 +70,7 @@ export default class MultiSelect extends React.Component {
                              readOnly="true"
                              name={option}
                              value={option}
+                             tabIndex="-1"
                              checked={R.contains(option, values)}/>
                       <label className="multi-select__opened-item-label">{this.localizeOption(option)}</label>
                     </div>,
