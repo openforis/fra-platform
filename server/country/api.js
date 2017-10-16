@@ -43,16 +43,14 @@ module.exports.init = app => {
     const odpData = odpRepository.listAndValidateOriginalDataPoints(req.params.countryIso)
     const reviewStatus = reviewRepository.getCountryIssuesSummary(req.params.countryIso, req.user)
     const assessmentStatuses = assessmentRepository.getAssessmentStatuses(req.params.countryIso)
-    const auditSummary = auditRepository.getAuditSummary(req.params.countryIso, prefixes)
 
     Promise.all(
       [
         odpData,
         reviewStatus,
-        assessmentStatuses,
-        auditSummary
+        assessmentStatuses
       ]
-    ).then(([odps, reviewStatus, assessmentStatusResult, auditSummary]) => {
+    ).then(([odps, reviewStatus, assessmentStatusResult]) => {
         const odpStatus = {
           count: odps.length,
           errors: R.filter(o => !o.validationStatus.valid, odps).length !== 0,
@@ -64,8 +62,7 @@ module.exports.init = app => {
             assessmentStatuses: R.merge(
               defaultStatuses,
               simplifyAssessmentStatuses(assessmentStatusResult)
-            ),
-            auditSummary
+            )
           })
       }
     ).catch(err => sendErr(res, err))
