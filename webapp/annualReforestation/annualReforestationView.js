@@ -6,5 +6,5 @@ export default props =>
   <SingleTraditionalTableView
     {...props}
     headingLocalizationKey="annualReforestation.annualReforestation"
-    sectionAnchor="1b"
+    sectionAnchor="1d"
     tableSpec={tableSpec}/>

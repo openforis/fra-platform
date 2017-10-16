@@ -80,34 +80,7 @@ The thresholds should be selected by the country at the first national communica
 
 Power and telephone lines less than 20 m wide and crossing through forest areas should be classified as "forest". In all other cases they should be classified as "other land".
 
-# 1b Annual forest area loss, gain and net change
-
-### What is the difference between afforestation and reforestation?
-
-Afforestation is the planting/seeding of trees on areas that previously were either other wooded land or other land. Reforestation on the other hand takes place in areas that already are classified as forest and does not imply any change of land use from a non-forest use to forest.
-
-### Are the FRA definitions of afforestation and reforestation the same as is used in the IPCC guidelines for greenhouse gas reporting?
-
-No, the terminology on afforestation and reforestation is different. In the IPCC guidelines, both afforestation and reforestation imply a land use change and correspond to the FRA term afforestation, while the IPCC term revegetation corresponds approximately to the FRA term reforestation.
-
-### How should I report areas where enrichment planting has been carried out?
-
-If it is expected that the planted trees will dominate the future stand, then it should be considered as reforestation; if the intensity is so low that the planted or seeded trees  will have only a minor share of the future growing stock, it should not be considered as reforestation.
-
-### When do I consider that abandoned land has reverted to forest and therefore should be included under "natural expansion of forest"?
-
-It should fulfil the following:
-
-- having been abandoned from previous land use for a period of time and be expected to revert to forest. There should not be any indications that it will go back to previous land use. The period of time may be chosen by the country and should be documented in a note in appropriate comment field.
-- have  regeneration of trees that are expected to comply to the definitions of forest
-
-# 1c Annual reforestation
-
-To be developed
-
----
-
-# 2a Forest characteristics
+# 1b Forest characteristics
 
 ### How should I interpret "clearly visible indication of human activities" in order to distinguish between "primary forest" and "other naturally regenerated forest"?
 
@@ -148,8 +121,33 @@ _Forest in which sustainable timber and non-wood harvesting (eg through integrat
 ### Some forests are regularly affected by severe disturbances (such as hurricanes) and will never reach a "stable" climax state, but still there are substantial areas with no visible human impact.  Should these be classified as primary forest (despite the visible hurricane impact)?  
 
 A disturbed forests with no visible human impact and with a species composition and structure that resembles a mature or close-to-mature forest should be classified as "primary", while a severely damaged forest with an age structure and species composition which is significantly different from a mature forest should be classified as a "naturally regenerating forest". See also Explanatory note 1 to the definition of Primary Forest.
- 
-# 2b Specific forest categories
+
+# 1c Annual forest area loss, gain and net change
+
+### What is the difference between afforestation and reforestation?
+
+Afforestation is the planting/seeding of trees on areas that previously were either other wooded land or other land. Reforestation on the other hand takes place in areas that already are classified as forest and does not imply any change of land use from a non-forest use to forest.
+
+### Are the FRA definitions of afforestation and reforestation the same as is used in the IPCC guidelines for greenhouse gas reporting?
+
+No, the terminology on afforestation and reforestation is different. In the IPCC guidelines, both afforestation and reforestation imply a land use change and correspond to the FRA term afforestation, while the IPCC term revegetation corresponds approximately to the FRA term reforestation.
+
+### How should I report areas where enrichment planting has been carried out?
+
+If it is expected that the planted trees will dominate the future stand, then it should be considered as reforestation; if the intensity is so low that the planted or seeded trees  will have only a minor share of the future growing stock, it should not be considered as reforestation.
+
+### When do I consider that abandoned land has reverted to forest and therefore should be included under "natural expansion of forest"?
+
+It should fulfil the following:
+
+- having been abandoned from previous land use for a period of time and be expected to revert to forest. There should not be any indications that it will go back to previous land use. The period of time may be chosen by the country and should be documented in a note in appropriate comment field.
+- have  regeneration of trees that are expected to comply to the definitions of forest
+
+# 1d Annual reforestation
+
+To be developed
+
+# 1e Specific forest categories
 
 ### What species should be considered as mangroves?
 
@@ -196,15 +194,15 @@ FRA uses the definition of mangroves as of Tomlinson's Botany of Mangroves, wher
 
 ---
 
-# 3a Forest growing stock
+# 2a Growing stock
 
 ### Is it possible to estimate growing stock from biomass stock using the conversion factors?
 
 It is possible, but should be done with much caution; particularly the conversion and expansion factors need a growing stock per hectare as part of the input, so here some assumptions need to be made. Using wood density and biomass expansion factors is more straightforward.
 
-# 3b Forest growing stock composition
+# 2b Growing stock composition
 
-### Does Table 3b on growing stock composition refer to natural forests only?
+### Does Table 2b on growing stock composition refer to natural forests only?
 
 No. All the table refer to both natural and planted forests of both native and introduced species.
 
@@ -212,15 +210,15 @@ No. All the table refer to both natural and planted forests of both native and i
 
 The ranking of species is according to volume for the year 2015.
 
-### In table 3b, should the ranking of species be by volume, area or number of trees?
+### In table 2b, should the ranking of species be by volume, area or number of trees?
 
 By volume (growing stock).
 
-### In table 3b, is it possible to provide information by groups of species when the number of species is too large?
+### In table 2b, is it possible to provide information by groups of species when the number of species is too large?
 
 Yes, if national data do not allow the distinction of individual species within certain species groups, countries may report on genera (or groups) instead of species, and make a note in relevant comment field to the table.
 
-# 3c Biomass stock & 3d Carbon stock
+# 2c Biomass stock & 2d Carbon stock
 
 **General methodological aspects**
 
@@ -248,55 +246,19 @@ Generally, biomass equations are considered to give better estimates than defaul
 
 ---
 
-# 4 Non wood forest products
-
-### Can we include services, such as water, ecotourism, recreation, hunting, carbon, etc., in the NWFP table?  In other contexts we report on non-wood goods and services where these are included.
-
-No, NWFPs are limited to **goods** only, defined as "tangible and physical objects of biological origin other than wood".
-
-### How should we report on production of ornamental plants and crops growing under tree cover?
-
-They should be included if collected in the wild. If planted and managed they should not be included as in such case they are not derived from forest but from an agricultural production system.
-
-### How to we report on Christmas trees?
-
-In FRA Christmas tree plantations are always considered as forests, consequently Christmas trees should be considered as NWFP (ornamental plants).
-
-###  What about products from multi-purpose trees often growing in agroforestry systems – should they be included as NWFPs?
-
-The specifications and the definition of NWFP states that only non-wood products derived from forests should be included. So if the particular agroforestry system is considered to be "forest", the non-wood products derived from multi-purpose trees are NWFPs and should be included in the reporting.
-
-### We only have a commercial value of processed products. How should we then report on value?
-
-In general, the value should refer to the commercial value of the raw material. However, sometimes raw material value is not available and in such cases you may report on the value of a processed or semi-processed product and clearly note this in the respective comment field.
-
-### Are animals which are produced inside the forest considered NWFP?
-
-Yes, bush meat species production should be considered NWFP.  Domesticated animals  should not be included as NWFP.
-
-### If traditional measuring units are used and these are incompatible with units as requested by FRA, what can be done?
-
-Use the best conversion factor available to convert the traditional measurement to the one requested in the table, and specify it in the comments section.
-
-### Can grazing be considered as fodder and therefore as a NWFP.
-
-No, grazing is a service while fodder is a tangible good. So include fodder collected from the forest, but exclude grazing.
-
----
-
-# 5a Primary management objective
+# 3a Designated management objective
 
 ### If the national legislation states that all forests should be managed for production, conservation of biodiversity and protection of soil and water, should I then report all forest area as having "multiple use" as primary designated function?
 
 The definition of primary designation function, explanatory note 2, says that "Nation-wide function established in general clauses of national legislation or policies should not be considered as designations". So you must instead look into what functions have been designated at **management unit level**.
 
-# 5b Protected areas and management plans
+# 3b Forest area within protected areas and forest area with long-term management plans
 
 To be developed
 
 ---
 
-# 6a Forest ownership & 6b Holder of management rights of public forests
+# 4a Forest ownership & 4b Holder of management rights of public forests
 
 ### How should I report on ownership where indigenous land overlaps protected areas?
 
@@ -320,11 +282,11 @@ It depends on the legal status of the ownership of the forest. You may have fore
 
 ### How to report on forest areas with concession rights?
 
-Concession rights are not full ownership rights – they usually only refer to the right to harvest and responsibility to manage the forests. Forest concessions are almost always on State land and ownership is therefore "public" and management rights is "private corporations". In the rare case when a private owner gives a concession, it should be reported on under private ownership in table 6a..
+Concession rights are not full ownership rights – they usually only refer to the right to harvest and responsibility to manage the forests. Forest concessions are almost always on State land and ownership is therefore "public" and management rights is "private corporations". In the rare case when a private owner gives a concession, it should be reported on under private ownership in table 4a.
 
 ### How to report on concessions of only commercial species?
 
-To be classified as a concession in the table 6b on management rights, the concession should not only give the right to harvest but also the responsibility to manage the forest for long-term benefits. As long at these criteria are fulfilled, it doesn't matter if the harvesting rights only cover a few commercial species, all species or just some NWFPs. If the concession is only a short-term harvesting right, it should be reported under "public administration" in table 18b.
+To be classified as a concession in the table 4b on management rights, the concession should not only give the right to harvest but also the responsibility to manage the forest for long-term benefits. As long at these criteria are fulfilled, it doesn't matter if the harvesting rights only cover a few commercial species, all species or just some NWFPs. If the concession is only a short-term harvesting right, it should be reported under "public administration" in table 4b.
 
 ### How to report when the ownership status is ambiguous (e.g. communities claiming ownership, disputed ownership, etc.)?
 
@@ -332,7 +294,7 @@ The current legal status should be the guiding principle. If legally clear that 
 
 ### Does public lands include leased lands?
 
-They should be reported as "public" ownership in table 6a. What category to assign in table 6b depends on the length and other characteristics of the lease.
+They should be reported as "public" ownership in table 4a. What category to assign in table 4b depends on the length and other characteristics of the lease.
 
 ### Should indigenous territories be considered private (indigenous) or public with community user rights?
 
@@ -340,25 +302,37 @@ It depends on the national legislation and to what extent it grants legal rights
 
 ### How to report public forests that are under co-management agreements (public administration + NGO or Community)?
 
-In table 6a, report them as "Public".  In 6b, report them under "Other" and explain in "comments to data" how this co-management agreement is set up.
+In table 4a, report them as "Public".  In 4b, report them under "Other" and explain in "comments to data" how this co-management agreement is set up.
 
 ---
 
-# 7a Disturbances
+# 5a Disturbances
 
 To be developed
 
-# 7b Area affected by fire
+# 5b Area affected by fire
 
 To be developed
 
-# 7c Degraded forest
+# 5c Degraded forest
 
 To be developed
 
 ---
 
-# 8 Employment in forestry and logging
+# 6a Policies, Legislation and national platform for stakeholder participation in forest policy
+
+To be developed
+
+# 6b Area of permanent forest estate
+
+### The concept of Permanent Forest Estate (PFE) does not fit into the national context. How should I report?
+
+If the concept of Permanent Forest Estate does not fit in the national context then select "Not applicable".
+
+---
+
+# 7a Employment in forestry and logging
 
 ### What does the unit FTE stand for?
 
@@ -392,20 +366,40 @@ No, only employment directly related to the primary production of goods and to t
 
 If possible, his time should be split on the two activities, so that if he/she works 50% with each it should count as 0.5 year FTE for each activity. If not possible to do the split, note the time under the activity on which he/she spends most of the time.
 
----
-
-# 9 Graduation of students in forest-related education
+# 7b Graduation of students in forest-related education
 
 To be developed
 
----
+# 7c Non wood forest products
 
-# 10a Policies, Legislation and national platform for stakeholder participation in forest policy
+### Can we include services, such as water, ecotourism, recreation, hunting, carbon, etc., in the NWFP table?  In other contexts we report on non-wood goods and services where these are included.
 
-To be developed
+No, NWFPs are limited to **goods** only, defined as "tangible and physical objects of biological origin other than wood".
 
-# 10b Area of permanent forest estate
+### How should we report on production of ornamental plants and crops growing under tree cover?
 
-### The concept of Permanent Forest Estate (PFE) does not fit into the national context. How should I report?
+They should be included if collected in the wild. If planted and managed they should not be included as in such case they are not derived from forest but from an agricultural production system.
 
-If the concept of Permanent Forest Estate does not fit in the national context then select "Not applicable".
+### How to we report on Christmas trees?
+
+In FRA Christmas tree plantations are always considered as forests, consequently Christmas trees should be considered as NWFP (ornamental plants).
+
+###  What about products from multi-purpose trees often growing in agroforestry systems – should they be included as NWFPs?
+
+The specifications and the definition of NWFP states that only non-wood products derived from forests should be included. So if the particular agroforestry system is considered to be "forest", the non-wood products derived from multi-purpose trees are NWFPs and should be included in the reporting.
+
+### We only have a commercial value of processed products. How should we then report on value?
+
+In general, the value should refer to the commercial value of the raw material. However, sometimes raw material value is not available and in such cases you may report on the value of a processed or semi-processed product and clearly note this in the respective comment field.
+
+### Are animals which are produced inside the forest considered NWFP?
+
+Yes, bush meat species production should be considered NWFP.  Domesticated animals  should not be included as NWFP.
+
+### If traditional measuring units are used and these are incompatible with units as requested by FRA, what can be done?
+
+Use the best conversion factor available to convert the traditional measurement to the one requested in the table, and specify it in the comments section.
+
+### Can grazing be considered as fodder and therefore as a NWFP.
+
+No, grazing is a service while fodder is a tangible good. So include fodder collected from the forest, but exclude grazing.
