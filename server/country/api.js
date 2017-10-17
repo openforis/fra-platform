@@ -15,18 +15,6 @@ const defaultStatuses = {
   'fra2020': 'editing'
 }
 
-const prefixes = [
-  'extentOfForest',
-  'growingStock',
-  'forestAreaChange',
-  'forestCharacteristic',
-  'specificForestCategories',
-  'primaryDesignatedManagementObjective',
-  'areaAffectedByFire',
-  'biomassStock',
-  'carbonStock'
-]
-
 const simplifyAssessmentStatuses = statuses =>
   R.reduce((resultObj, status) => R.assoc(status.assessmentType, status.status, resultObj), {}, statuses)
 
