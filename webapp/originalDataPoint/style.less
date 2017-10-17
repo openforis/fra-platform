@@ -73,26 +73,27 @@
   }
 }
 
-
-.odp__national-class-table {
-  .odp__national-class-name {
-    position: relative;
+.odp__nc-table {
+  .odp__nc-table__name {
     width: 30%;
   }
 
-  .odp__national-class-input {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
+  .odp__nc-table__input-container {
+    .mixin-input-container(left);
+  }
+
+  .odp__nc-table__input {
+    .mixin-input-field;
     padding-left: 24px;
   }
 
-  .odp__national-class-remove {
-    display: inline-block;
-    position: relative;
+  .odp__nc-table__remove {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 50%;
     left: 4px;
+    margin-top: -8px;
     cursor: pointer;
   }
 }
