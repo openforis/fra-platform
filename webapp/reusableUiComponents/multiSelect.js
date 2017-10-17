@@ -65,6 +65,7 @@ export default class MultiSelect extends React.Component {
                   option =>
                     <div className="multi-select__opened-item"
                          key={option}
+                         onMouseDown={(e) => e.stopPropagation() }
                          onClick={optionClick(values, this.props.onChange, option)}>
                       <input type="checkbox"
                              readOnly="true"
