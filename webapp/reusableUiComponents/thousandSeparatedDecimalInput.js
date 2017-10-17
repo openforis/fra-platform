@@ -1,7 +1,7 @@
 import React from 'react'
 import * as R from 'ramda'
 
-import './thousandSeparatedInput.less'
+import './numberInput.less'
 import { formatDecimal } from '../utils/numberFormat'
 import { acceptableAsDecimal } from '../utils/numberInput'
 
@@ -15,8 +15,8 @@ export class ThousandSeparatedDecimalInput extends React.Component {
     const {numberValue, onChange, onPaste, precision = 2} = this.props
     const value = this.state.inputValue || numberValue
 
-    return <div className="tsi__field validation-error-sensitive-field" ref="wrapper">
-      <div className="tsi__readonly-view"
+    return <div className="number-input__container validation-error-sensitive-field" ref="wrapper">
+      <div className="number-input__readonly-view"
            style={{display: this.state.hasFocus ? 'none' : 'inline-block'}}>
         {formatDecimal(numberValue, precision)}
       </div>
@@ -24,7 +24,7 @@ export class ThousandSeparatedDecimalInput extends React.Component {
         type="text"
         maxLength="100"
         disabled={this.props.disabled}
-        className="tsi__input-field"
+        className="number-input__input-field"
         value={value || ''}
         style={{opacity: this.state.hasFocus ? '1' : '0'}}
         onChange={e => {

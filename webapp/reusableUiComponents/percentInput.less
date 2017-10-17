@@ -1,29 +1,18 @@
-@import (reference) "../app-styles/fraTable.less";
+@import (reference) "./inputMixins";
 
-.percent__field {
-  position: relative;
-  height: 100%;
-  line-height: 20px;
-  text-align: right;
+.percent-input__container {
+  .mixin-input-container(right);
 }
 
-.percent__input-field {
-  .mixin-input-base(30px);
+.percent-input__input-field {
+  .mixin-input-field(30px);
 }
 
-.percent__readonly-view {
-  position: absolute;
-  top: 50%;
-  right: 30px;
-  left: 10px;
-  height: 20px;
-  margin-top: -10px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+.percent-input__readonly-view {
+  .mixin-readonly-view(30px);
 }
 
-.percent__sign {
+.percent-input__sign {
   position: absolute;
   top: 50%;
   right: 10px;
