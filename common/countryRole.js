@@ -26,10 +26,13 @@ const mostPowerfulRole = (countryIso, userInfo) => {
   return noRole //Return null-object for undefined/null-safe access. Shouldn't happen in practice
 }
 
-const isReviewer = (countryIso, userInfo) => mostPowerfulRole(countryIso, userInfo).role === reviewer.role
+const hasUserRole = (countryIso, userInfo, roleObj) => mostPowerfulRole(countryIso, userInfo).role === roleObj.role
+const isReviewer = (countryIso, userInfo) => hasUserRole(countryIso, userInfo, reviewer)
+const isNationalCorrespondent = (countryIso, userInfo) => hasUserRole(countryIso, userInfo, nationalCorrespondent)
 
 module.exports.mostPowerfulRole = mostPowerfulRole
 module.exports.isReviewer = isReviewer
+module.exports.isNationalCorrespondent = isNationalCorrespondent
 module.exports.reviewer = reviewer
 module.exports.nationalCorrespondent = nationalCorrespondent
 module.exports.noRole = noRole

@@ -15,7 +15,7 @@ import {
   navigationScroll
 } from './actions'
 import { fra2020Items } from './items'
-import { mostPowerfulRole } from '../../common/countryRole'
+import { mostPowerfulRole, isReviewer, isNationalCorrespondent } from '../../common/countryRole'
 import { getAllowedStatusTransitions } from '../../common/assessment'
 import { PopoverControl } from './../reusableUiComponents/popoverControl'
 
@@ -243,7 +243,11 @@ ${newLine}
 ${i18n.t('navigation.support.userAgent')}: ${navigator.userAgent}
 `
   return <div className="nav__support-item">
-    <UsersManagementLink countryIso={countryIso} i18n={i18n} path={path}/>
+    {
+      isReviewer(countryIso, userInfo) || isNationalCorrespondent(countryIso, userInfo)
+        ? <UsersManagementLink countryIso={countryIso} i18n={i18n} path={path}/>
+        : null
+    }
     <a
       className="nav__support-link"
       target="_top"
@@ -252,7 +256,6 @@ ${i18n.t('navigation.support.userAgent')}: ${navigator.userAgent}
     </a>
     <span className="nav__copyright-item">&copy; {currentYear} FAO</span>
   </div>
-
 }
 
 
