@@ -42,7 +42,8 @@ export default class MultiSelect extends React.Component {
     return <div
       ref="multiSelect"
       tabIndex="0"
-      onFocus={this.toggleOpen.bind(this)}
+      onMouseDown={this.toggleOpen.bind(this)}
+      onFocus={() => this.setState({open: true})}
       onBlur={() => this.setState({open: false})}
       className={`multi-select ${this.state.open ? 'has-focus' : ''}`}>
       <div className="multi-select__closed-content">
