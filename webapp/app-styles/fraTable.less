@@ -86,15 +86,6 @@ tbody {
   }
 }
 
-.fra-table__input {
-  .mixin-input-base;
-}
-
-.fra-table__integer-input {
-  text-align: right;
-  .mixin-input-base;
-}
-
 // Misc
 
 .fra-table__row-anchor-cell {
@@ -136,26 +127,4 @@ tbody {
   font-weight: @weight;
   padding: 10px;
   text-align: @align;
-}
-
-.mixin-input-base(@padding: 10px) {
-  background: transparent;
-  border: none;
-  color: inherit;
-  font-size: inherit;
-  height: 100%;
-  line-height: inherit;
-  text-align: inherit;
-  margin: 0;
-  padding: 10px @padding 10px 10px;
-  width: 100%;
-
-  &:focus {
-    outline: none;
-    box-shadow: 0 0 0 1px @text-body;
-  }
-
-  &::placeholder {
-    color: @text-mute;
-  }
 }
