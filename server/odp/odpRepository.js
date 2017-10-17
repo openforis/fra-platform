@@ -61,8 +61,26 @@ const createOdp = (client, countryIso, user) =>
 
 const insertDraft = (client, countryIso, user, odpId, draft) =>
   client.query(
-    'INSERT INTO odp_version (year, description) VALUES ($1, $2);',
-    [draft.year, draft.description]
+    `INSERT INTO 
+     odp_version 
+     (year, 
+     description,
+     data_source_references,
+     data_source_methods,
+     data_source_years,
+     data_source_applies_to_variables,
+     data_source_additional_comments)
+     VALUES
+     ($1, $2, $3, $4, $5, $6, $7);`,
+    [
+      draft.year,
+      draft.description,
+      draft.dataSourceReferences,
+      {methods: draft.dataSourceMethods},
+      draft.dataSourceYears,
+      {variables: draft.dataSourceAppliesToVariables},
+      draft.dataSourceAdditionalComments
+    ]
   ).then(() => client.query('SELECT last_value AS odp_version_id FROM odp_version_id_seq')
   ).then(result => addClassData(client, result.rows[0].odp_version_id, draft)
   ).then(() =>
@@ -77,8 +95,28 @@ const updateDraft = (client, draft) =>
       return [draftId, wipeClassData(client, draftId), addClassData(client, draftId, draft)]
     }
   ).then(([draftId, ..._]) =>
-    client.query('UPDATE odp_version SET year = $1, description = $2 WHERE id = $3;',
-      [draft.year, draft.description, draftId])
+    client.query(`
+    UPDATE 
+    odp_version 
+    SET year = $2, 
+    description = $3,
+    data_source_references = $4,
+    data_source_methods = $5,
+    data_source_years  = $6,
+    data_source_applies_to_variables = $7,
+    data_source_additional_comments = $8
+    WHERE id = $1;
+    `,
+      [
+        draftId,
+        draft.year,
+        draft.description,
+        draft.dataSourceReferences,
+        {methods: draft.dataSourceMethods},
+        draft.dataSourceYears,
+        {variables: draft.dataSourceAppliesToVariables},
+        draft.dataSourceAdditionalComments
+      ])
   )
 
 module.exports.deleteDraft = (client, odpId, user) =>
@@ -176,6 +214,7 @@ const getAndCheckOdpCountryId = (client, odpId, user) =>
       checkCountryAccess(countryIso, user)
       return countryIso
     })
+
 module.exports.getAndCheckOdpCountryId = getAndCheckOdpCountryId
 
 const deleteOdp = (client, odpId, user) =>
@@ -273,18 +312,25 @@ const getOdp = odpId =>
           p.id AS odp_id,
           p.country_iso,
           v.year,
-          v.description
+          v.description,
+          v.data_source_references,
+          v.data_source_methods,
+          v.data_source_years,
+          v.data_source_applies_to_variables,
+          v.data_source_additional_comments
         FROM odp p
         JOIN odp_version v
         ON v.id = $2
         WHERE p.id = $1
         `, [odpId, versionId]),
         nationalClasses])
-    ).then(([result, nationalClasses]) =>
-    R.pipe(
-      R.assoc('nationalClasses', nationalClasses),
-      R.assoc('year', result.rows[0].year))
-    (camelize(result.rows[0])))
+    ).then(([result, nationalClasses]) => {
+        const camelizedResult = camelize(result.rows[0])
+        const dataSourceMethods = R.path(['dataSourceMethods', 'methods'], camelizedResult)
+        const dataSourceAppliesToVariables = R.path(['dataSourceAppliesToVariables', 'variables'], camelizedResult)
+        return {...camelizedResult, nationalClasses, dataSourceMethods, dataSourceAppliesToVariables}
+      }
+    )
 
 module.exports.getOdp = getOdp
 

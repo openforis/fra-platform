@@ -183,7 +183,14 @@ export const translation = {
     reclassificationLabel: 'Reclassification',
     forestCategoriesLabel: 'Forest, other wooded land and other land',
     year: 'Reference year for the data',
+    references: 'References',
     methods: 'Methods',
+    methodsUsed: 'Methods used',
+    dataSource: 'Data source',
+    dataSources: 'Data sources',
+    years: 'Years',
+    appliesToVariables: 'Applies to variables',
+    additionalComments: 'Additional comments',
     edit: 'Edit',
     copyPreviousValues: 'Copy previous values',
     nationalClass: 'National class',
@@ -200,7 +207,19 @@ export const translation = {
     saveData: 'Save data',
     enterOrCopyPasteNationalClasses: 'Enter or copy and paste national classes',
     forestCharacteristics: 'Forest characteristics',
-    otherLandCharacteristics: 'Other land with tree cover'
+    otherLandCharacteristics: 'Other land with tree cover',
+    dataSourceMethodsOptions: {
+      nationalForestInventory: 'National Forest Inventory',
+      sampleBasedRemoteSensingAssessment: 'Sample-based remote sensing assessment',
+      fullCoverMaps: 'Full-cover forest/vegetation maps',
+      registersQuestionnaires: 'Registers/questionnaires',
+      other: 'Other (specify)'
+    },
+    appliesToVariablesOptions: {
+      forest: 'Forest',
+      otherWoodedLand: 'Other wooded land',
+      otherLand: 'Other land'
+    }
   },
 
   // FRA 2020 questionare
@@ -432,7 +451,6 @@ export const translation = {
   },
 
   nonWoodForestProductsRemovals: {
-    notSelected: '',
     nonWoodForestProductsRemovals: 'Non wood forest products removals 2015',
     nameOfProduct: 'Name of NWFP product',
     keySpecies: 'Key species',
@@ -462,5 +480,9 @@ export const translation = {
     allOtherAnimalProducts: 'All other animal products',
     total: 'Total',
     currency: 'Name of currency'
+  },
+
+  multiSelect: {
+    placeholder: 'Choose…'
   }
 }

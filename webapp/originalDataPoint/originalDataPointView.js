@@ -24,6 +24,7 @@ import R from 'ramda'
 import ckEditorConfig from '../ckEditor/ckEditorConfig'
 import ReviewIndicator from '../review/reviewIndicator'
 import DefinitionLink from './../reusableUiComponents/definitionLink'
+import MultiSelect from '../reusableUiComponents/multiSelect'
 import handlePaste from './paste'
 
 const years = ['', ...R.pipe(R.range(1990), R.reverse)(2021)]
@@ -40,7 +41,7 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
   return <div className="odp__data-input-component odp_validate-form">
     <div className="odp__section">
       <h3 className="subhead">{i18n.t('nationalDataPoint.year')}</h3>
-      <div className={`${yearValidationStatusClass()}`}>
+      <div className={`odp__year-selection ${yearValidationStatusClass()}`}>
         <select
           className="select validation-error-sensitive-field"
           value={active.year || ''}
@@ -57,6 +58,142 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
             )
           }
         </select>
+      </div>
+      <h3 className="subhead">
+        {i18n.t('nationalDataPoint.dataSources')}
+      </h3>
+      <div className="fra-table__container">
+        <div className="fra-table__scroll-wrapper odp__data-source-table-wrapper">
+          <table className="fra-table">
+            <tbody>
+            <tr>
+              <td className="fra-table__header-cell">{i18n.t('nationalDataPoint.references')}</td>
+              <td className="fra-table__cell odp__data-source-input-column">
+                <VerticallyGrowingTextField
+                  value={active.dataSourceReferences || ''}
+                  onChange={ (e) => saveDraft(countryIso, R.assoc('dataSourceReferences', e.target.value, active)) }
+                />
+              </td>
+              <td className="fra-table__row-anchor-cell">
+                {
+                  active.odpId
+                    ? <div className="odp__review-indicator-row-anchor">
+                    <ReviewIndicator section='NDP'
+                                     name={i18n.t('nationalDataPoint.nationalDataPoint')}
+                                     target={[active.odpId, 'dataSourceReferences']}
+                                     countryIso={countryIso}/>
+                  </div>
+                    : null
+                }
+              </td>
+            </tr>
+            <tr>
+              <td className="fra-table__header-cell">{i18n.t('nationalDataPoint.methodsUsed')}</td>
+              <td className="fra-table__cell odp__data-source-input-column">
+                <MultiSelect
+                  i18n={i18n}
+                  localizationPrefix="nationalDataPoint.dataSourceMethodsOptions"
+                  values={active.dataSourceMethods}
+                  options={[
+                    'nationalForestInventory',
+                    'sampleBasedRemoteSensingAssessment',
+                    'fullCoverMaps',
+                    'registersQuestionnaires',
+                    'other'
+                  ]}
+                  onChange={ (values) =>
+                    saveDraft(countryIso, R.assoc('dataSourceMethods', values, active))
+                  }
+                />
+              </td>
+              <td className="fra-table__row-anchor-cell">
+                {
+                  active.odpId
+                    ? <div className="odp__review-indicator-row-anchor">
+                    <ReviewIndicator section='NDP'
+                                     name={i18n.t('nationalDataPoint.nationalDataPoint')}
+                                     target={[active.odpId, 'dataSourceMethods']}
+                                     countryIso={countryIso}/>
+                  </div>
+                    : null
+                }
+              </td>
+            </tr>
+            <tr>
+              <td className="fra-table__header-cell">{i18n.t('nationalDataPoint.years')}</td>
+              <td className="fra-table__cell odp__data-source-input-column">
+                <VerticallyGrowingTextField
+                  value={active.dataSourceYears || ''}
+                  onChange={ (e) => saveDraft(countryIso, R.assoc('dataSourceYears', e.target.value, active)) }
+                />
+              </td>
+              <td className="fra-table__row-anchor-cell">
+                {
+                  active.odpId
+                    ? <div className="odp__review-indicator-row-anchor">
+                    <ReviewIndicator section='NDP'
+                                     name={i18n.t('nationalDataPoint.nationalDataPoint')}
+                                     target={[active.odpId, 'dataSourceYears']}
+                                     countryIso={countryIso}/>
+                  </div>
+                    : null
+                }
+              </td>
+            </tr>
+            <tr>
+              <td className="fra-table__header-cell">{i18n.t('nationalDataPoint.appliesToVariables')}</td>
+              <td className="fra-table__cell odp__data-source-input-column">
+                <MultiSelect
+                  i18n={i18n}
+                  localizationPrefix="nationalDataPoint.appliesToVariablesOptions"
+                  values={active.dataSourceAppliesToVariables}
+                  options={[
+                    'forest',
+                    'otherWoodedLand',
+                    'otherLand'
+                  ]}
+                  onChange={
+                    (values) =>
+                      saveDraft(countryIso, R.assoc('dataSourceAppliesToVariables', values, active))
+                  }
+                  openedListWidth="300px"
+                />
+              </td>
+              <td className="fra-table__row-anchor-cell">
+                {
+                  active.odpId
+                    ? <div className="odp__review-indicator-row-anchor">
+                    <ReviewIndicator section='NDP'
+                                     name={i18n.t('nationalDataPoint.nationalDataPoint')}
+                                     target={[active.odpId, 'dataSourceAppliesToVariables']}
+                                     countryIso={countryIso}/>
+                  </div>
+                    : null
+                }
+              </td>
+            </tr>
+            <tr>
+              <th className="fra-table__header-cell">{i18n.t('nationalDataPoint.additionalComments')}</th>
+              <td className="fra-table__cell odp__data-source-input-column">
+                <VerticallyGrowingTextField
+                  value={active.dataSourceAdditionalComments || ''}
+                  onChange={ (e) => saveDraft(countryIso, R.assoc('dataSourceAdditionalComments', e.target.value, active)) }
+                />
+              </td>
+              {
+                active.odpId
+                  ? <div className="odp__review-indicator-row-anchor">
+                  <ReviewIndicator section='NDP'
+                                   name={i18n.t('nationalDataPoint.nationalDataPoint')}
+                                   target={[active.odpId, 'dataSourceAdditionalComments']}
+                                   countryIso={countryIso}/>
+                </div>
+                  : null
+              }
+            </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
 
