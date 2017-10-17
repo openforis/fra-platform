@@ -179,6 +179,18 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
                 }
               />
             </td>
+            <td className="fra-table__row-anchor-cell">
+              {
+                active.odpId
+                  ? <div className="odp__review-indicator-row-anchor">
+                      <ReviewIndicator section='NDP'
+                                       name={i18n.t('nationalDataPoint.nationalDataPoint')}
+                                       target={[active.odpId, 'dataSourceMethods']}
+                                       countryIso={countryIso}/>
+                    </div>
+                  : null
+              }
+            </td>
           </tr>
           <tr>
             <td className="fra-table__header-cell">{i18n.t('nationalDataPoint.years')}</td>
@@ -187,6 +199,18 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
                 value={active.dataSourceYears || ''}
                 onChange={ (e) => saveDraft(countryIso, R.assoc('dataSourceYears', e.target.value, active)) }
               />
+            </td>
+            <td className="fra-table__row-anchor-cell">
+              {
+                active.odpId
+                  ? <div className="odp__review-indicator-row-anchor">
+                      <ReviewIndicator section='NDP'
+                                       name={i18n.t('nationalDataPoint.nationalDataPoint')}
+                                       target={[active.odpId, 'dataSourceYears']}
+                                       countryIso={countryIso}/>
+                    </div>
+                  : null
+              }
             </td>
           </tr>
           <tr>
@@ -208,6 +232,18 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
                 openedListWidth="300px"
               />
             </td>
+            <td className="fra-table__row-anchor-cell">
+              {
+                active.odpId
+                  ? <div className="odp__review-indicator-row-anchor">
+                      <ReviewIndicator section='NDP'
+                                       name={i18n.t('nationalDataPoint.nationalDataPoint')}
+                                       target={[active.odpId, 'dataSourceAppliesToVariables']}
+                                       countryIso={countryIso}/>
+                    </div>
+                  : null
+              }
+            </td>
           </tr>
           <tr>
             <th className="fra-table__header-cell">{i18n.t('nationalDataPoint.additionalComments')}</th>
@@ -217,6 +253,16 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
                 onChange={ (e) => saveDraft(countryIso, R.assoc('dataSourceAdditionalComments', e.target.value, active)) }
               />
             </td>
+            {
+              active.odpId
+                ? <div className="odp__review-indicator-row-anchor">
+                    <ReviewIndicator section='NDP'
+                                     name={i18n.t('nationalDataPoint.nationalDataPoint')}
+                                     target={[active.odpId, 'dataSourceAdditionalComments']}
+                                     countryIso={countryIso}/>
+                  </div>
+                : null
+            }
           </tr>
           </tbody>
         </table>
