@@ -17,12 +17,55 @@ const findUserById = userId =>
       }
     ).then(res => res ? R.assoc('roles', camelize(res[1].rows), res[0]) : null)
 
-module.exports.findUserById = findUserById
-
-module.exports.findUserByLoginEmails = emails =>
+const findUserByLoginEmails = emails =>
   db.query('SELECT id from fra_user WHERE login_email in ($1)', [emails.join(',')])
     .then(res => res.rows.length > 0 ? findUserById(res.rows[0].id) : null)
 
-module.exports.updateLanguage = (client, lang, userInfo) =>
+const updateLanguage = (client, lang, userInfo) =>
   client
     .query('UPDATE fra_user SET lang = $1 WHERE id = $2', [lang, userInfo.id])
+
+const fetchCountryUsers = countryIso =>
+  db.query(`
+    SELECT
+      u.id,            
+      u.email,
+      u.name,
+      u.login_email,
+      u.lang,
+      cr.role
+    FROM
+      fra_user u
+    JOIN 
+      user_country_role cr
+      ON 
+        u.id = cr.user_id
+      AND 
+        cr.country_iso = $1
+    UNION    
+    SELECT
+      u.id,            
+      u.email,
+      u.name,
+      u.login_email,
+      u.lang,
+      cr.role
+    FROM
+      fra_user u
+    JOIN 
+      user_country_role cr
+      ON 
+        u.id = cr.user_id
+      AND 
+        cr.role in ('REVIEWER_ALL', 'NATIONAL_CORRESPONDENT_ALL')
+    ORDER BY id
+  `, [countryIso])
+    .then(res => camelize(res.rows))
+
+
+module.exports = {
+  findUserById,
+  findUserByLoginEmails,
+  updateLanguage,
+  fetchCountryUsers
+}
