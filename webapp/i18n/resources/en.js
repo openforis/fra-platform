@@ -109,7 +109,8 @@ export const translation = {
       feedbackEmailSubject: 'FRA Platform Feedback',
       platformVersion: 'Platform version',
       userAgent: 'User agent',
-      user: 'User'
+      user: 'User',
+      manageUsers: 'Manage users'
     },
     sectionHeaders: {
       forestExtentCharacteristicsAndChanges: 'Forest extent, characteristics and changes',
@@ -121,7 +122,6 @@ export const translation = {
       employmentEducationAndNwfp: 'Employment, education and NWFP'
     }
   },
-
 
   footer: {
     profilePicture: 'Edit profile picture',
@@ -220,6 +220,10 @@ export const translation = {
       otherWoodedLand: 'Other wooded land',
       otherLand: 'Other land'
     }
+  },
+
+  users : {
+    manageUsers: 'Manage users'
   },
 
   // FRA 2020 questionare

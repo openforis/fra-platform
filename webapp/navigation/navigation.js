@@ -215,7 +215,20 @@ const SecondaryItem = ({path, countryIso, status, pathTemplate, tableNo, label})
 
 const roleLabel = (countryIso, userInfo, i18n) => i18n.t(mostPowerfulRole(countryIso, userInfo).labelKey)
 
-const SuppportItems = ({i18n, userInfo}) => {
+const UsersManagementLink = ({i18n, countryIso, path}) => {
+  const route = new Route('/country/:countryIso/users')
+  const linkTo = route.reverse({countryIso})
+
+  return <div>
+    <Link
+      className={`nav__secondary-item ${R.equals(path, linkTo) ? 'selected' : ''}`}
+      to={linkTo}>
+      {i18n.t('navigation.support.manageUsers')}
+    </Link>
+  </div>
+}
+
+const SuppportItems = ({i18n, userInfo, countryIso, path}) => {
   const currentYear = new Date().getFullYear()
   const newLine = `%0D%0A`
   const subject = i18n.t('navigation.support.feedbackEmailSubject')
@@ -230,6 +243,7 @@ ${newLine}
 ${i18n.t('navigation.support.userAgent')}: ${navigator.userAgent}
 `
   return <div className="nav__support-item">
+    <UsersManagementLink countryIso={countryIso} i18n={i18n} path={path}/>
     <a
       className="nav__support-link"
       target="_top"
@@ -240,6 +254,8 @@ ${i18n.t('navigation.support.userAgent')}: ${navigator.userAgent}
   </div>
 
 }
+
+
 
 class Nav extends React.Component {
 
@@ -307,7 +323,7 @@ class Nav extends React.Component {
               )
             }
 
-            <SuppportItems {...this.props} />
+            <SuppportItems countryIso={this.props.country} {...this.props} />
 
           </div>
         </div>
