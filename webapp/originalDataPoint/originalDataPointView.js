@@ -180,6 +180,7 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
                   onChange={ (e) => saveDraft(countryIso, R.assoc('dataSourceAdditionalComments', e.target.value, active)) }
                 />
               </td>
+              <td className="fra-table__row-anchor-cell">
               {
                 active.odpId
                   ? <div className="odp__review-indicator-row-anchor">
@@ -190,6 +191,7 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
                 </div>
                   : null
               }
+              </td>
             </tr>
             </tbody>
           </table>
