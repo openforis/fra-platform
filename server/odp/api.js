@@ -36,7 +36,7 @@ module.exports.init = app => {
         .then(odps => {
           const issues = odps.map(odp =>
             reviewRepository
-              .getIssuesSummary(req.params.countryIso, 'NDP', odp.odpId, req.user, true)
+              .getIssuesSummary(req.params.countryIso, 'odp', odp.odpId, req.user, true)
               .then(issues => R.assoc('issuesSummary', issues, odp))
           )
           Promise

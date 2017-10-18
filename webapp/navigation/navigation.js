@@ -276,7 +276,7 @@ class Nav extends React.Component {
           <div>
             <NationalDataItem label={this.props.i18n.t('nationalDataPoint.nationalData')}
                               countryIso={this.props.country}
-                              status={R.merge(getReviewStatus('NDP'), status.odpStatus)}
+                              status={R.merge(getReviewStatus('odp'), status.odpStatus)}
                               path={this.props.path}
                               pathTemplate="/country/:countryIso/odps"
                               secondaryPathTemplate="/country/:countryIso/odp"

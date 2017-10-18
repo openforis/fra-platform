@@ -29,7 +29,7 @@ import handlePaste from './paste'
 
 const years = ['', ...R.pipe(R.range(1990), R.reverse)(2021)]
 
-const isCommentsOpen = (target, openThread = {}) => R.equals('NDP', openThread.section) && R.isEmpty(R.difference(openThread.target, target))
+const isCommentsOpen = (target, openThread = {}) => R.equals('odp', openThread.section) && R.isEmpty(R.difference(openThread.target, target))
 
 const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, cancelDraft, copyPreviousNationalClasses, copyDisabled, openThread, i18n}) => {
   const countryIso = match.params.countryIso
@@ -78,7 +78,7 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
                 {
                   active.odpId
                     ? <div className="odp__review-indicator-row-anchor">
-                    <ReviewIndicator section='NDP'
+                    <ReviewIndicator section='odp'
                                      name={i18n.t('nationalDataPoint.nationalDataPoint')}
                                      target={[active.odpId, 'dataSourceReferences']}
                                      countryIso={countryIso}/>
@@ -110,7 +110,7 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
                 {
                   active.odpId
                     ? <div className="odp__review-indicator-row-anchor">
-                    <ReviewIndicator section='NDP'
+                    <ReviewIndicator section='odp'
                                      name={i18n.t('nationalDataPoint.nationalDataPoint')}
                                      target={[active.odpId, 'dataSourceMethods']}
                                      countryIso={countryIso}/>
@@ -131,7 +131,7 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
                 {
                   active.odpId
                     ? <div className="odp__review-indicator-row-anchor">
-                    <ReviewIndicator section='NDP'
+                    <ReviewIndicator section='odp'
                                      name={i18n.t('nationalDataPoint.nationalDataPoint')}
                                      target={[active.odpId, 'dataSourceYears']}
                                      countryIso={countryIso}/>
@@ -163,7 +163,7 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
                 {
                   active.odpId
                     ? <div className="odp__review-indicator-row-anchor">
-                    <ReviewIndicator section='NDP'
+                    <ReviewIndicator section='odp'
                                      name={i18n.t('nationalDataPoint.nationalDataPoint')}
                                      target={[active.odpId, 'dataSourceAppliesToVariables']}
                                      countryIso={countryIso}/>
@@ -184,7 +184,7 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
               {
                 active.odpId
                   ? <div className="odp__review-indicator-row-anchor">
-                  <ReviewIndicator section='NDP'
+                  <ReviewIndicator section='odp'
                                    name={i18n.t('nationalDataPoint.nationalDataPoint')}
                                    target={[active.odpId, 'dataSourceAdditionalComments']}
                                    countryIso={countryIso}/>
@@ -432,7 +432,7 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
           <CommentsEditor active={active} match={match} saveDraft={saveDraft}/>
         </div>
         {active.odpId
-          ? <ReviewIndicator section='NDP'
+          ? <ReviewIndicator section='odp'
                              name={i18n.t('nationalDataPoint.nationalDataPoint')}
                              target={[`${active.odpId}`, 'comments']}
                              countryIso={countryIso}/>
@@ -569,7 +569,7 @@ const NationalClassRow =
       {placeHolder || !odp.odpId
         ? null
         : <div className="odp__review-indicator-row-anchor">
-            <ReviewIndicator section='NDP'
+            <ReviewIndicator section='odp'
                              name={i18n.t('nationalDataPoint.nationalDataPoint')}
                              target={[odp.odpId, 'class', `${odp.nationalClasses[index].uuid}`, 'definition']}
                              countryIso={countryIso}/>
@@ -687,7 +687,7 @@ const ExtentOfForestRow =
     <td className="fra-table__row-anchor-cell">
       {odp.odpId
         ? <div className="odp__review-indicator-row-anchor">
-            <ReviewIndicator section='NDP'
+            <ReviewIndicator section='odp'
                              name={i18n.t('nationalDataPoint.nationalDataPoint')}
                              target={[odp.odpId, 'class', `${odp.nationalClasses[index].uuid}`, 'value']}
                              countryIso={countryIso}/>
@@ -792,7 +792,7 @@ const ForestCharacteristicsRow =
       <td className="fra-table__row-anchor-cell">
         {odp.odpId
           ? <div className="odp__review-indicator-row-anchor">
-              <ReviewIndicator section='NDP'
+              <ReviewIndicator section='odp'
                                name={i18n.t('nationalDataPoint.nationalDataPoint')}
                                target={[odp.odpId, 'class', `${odp.nationalClasses[index].uuid}`, 'forest_charasteristics']}
                                countryIso={countryIso}/>
@@ -867,7 +867,7 @@ const SubcategoryRow =
       <td className="fra-table__row-anchor-cell">
         {odp.odpId
           ? <div className="odp__review-indicator-row-anchor">
-            <ReviewIndicator section='NDP'
+            <ReviewIndicator section='odp'
                              name={i18n.t('nationalDataPoint.nationalDataPoint')}
                              target={commentTarget}
                              countryIso={countryIso}/>
