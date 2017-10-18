@@ -227,7 +227,7 @@ export const translation = {
     name: 'Name',
     role: 'Role',
     email: 'Email',
-    login: 'Login',
+    loginEmail: 'Login email',
     noUsers: 'No users added',
   },
 

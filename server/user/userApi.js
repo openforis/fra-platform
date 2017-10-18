@@ -24,4 +24,16 @@ module.exports.init = app => {
       .catch(err => sendErr(res, err))
   })
 
+  app.post('/users/:countryIso', (req, res) => {
+    checkCountryAccessFromReqParams(req)
+    const user = req.body
+
+    if (user.id) {
+      db.transaction(userRepository.updateUser, [req.params.countryIso, user])
+        .then(res.json({}))
+        .catch(err => sendErr(res, err))
+    }
+
+  })
+
 }

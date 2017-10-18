@@ -62,10 +62,34 @@ const fetchCountryUsers = countryIso =>
   `, [countryIso])
     .then(res => camelize(res.rows))
 
+const updateUser = (client, countryIso, user) =>
+  client.query(`
+    UPDATE 
+      fra_user
+    SET 
+      name = $1,
+      email = $2
+    WHERE 
+      id = $3  
+  `, [user.name, user.email, user.id])
+    .then( () =>
+      client.query(`
+        UPDATE 
+          user_country_role
+        SET 
+          role = $1
+        WHERE 
+          user_id = $2
+        AND 
+          country_iso = $3    
+      `, [user.role, user.id, countryIso])
+    )
+
 
 module.exports = {
   findUserById,
   findUserByLoginEmails,
   updateLanguage,
-  fetchCountryUsers
+  fetchCountryUsers,
+  updateUser
 }
