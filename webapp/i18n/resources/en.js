@@ -237,6 +237,7 @@ export const translation = {
   },
 
   // FRA 2020 questionare
+  // Object name and title should have allways the same name
 
   extentOfForest: {
     extentOfForest: 'Extent of forest and other wooded land',
@@ -268,7 +269,7 @@ export const translation = {
   },
 
   forestAreaChange: {
-    forestAreaLossGainChange: 'Annual forest area loss, gain and net change',
+    forestAreaChange: 'Annual forest area loss, gain and net change',
     categoryHeader: 'FRA categories',
     areaUnitLabel: 'Area (1000 ha/year)',
     forestExpansion: 'Forest expansion',

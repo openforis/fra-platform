@@ -5,6 +5,6 @@ import SingleTraditionalTableView from '../traditionalTable/singleTraditionalTab
 export default props =>
   <SingleTraditionalTableView
     {...props}
-    headingLocalizationKey="forestAreaChange.forestAreaLossGainChange"
+    headingLocalizationKey="forestAreaChange.forestAreaChange"
     sectionAnchor="1c"
     tableSpec={tableSpec}/>

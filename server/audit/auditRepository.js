@@ -29,6 +29,7 @@ module.exports.getAuditFeed = (countryIso) => {
     ` WITH unique_feed AS (
         SELECT DISTINCT ON (name, message, section_name)
           fu.name,
+          fu.email,
           message,
           split_part(section, '_', 1) AS section_name,
           time,
@@ -39,6 +40,7 @@ module.exports.getAuditFeed = (countryIso) => {
       )
       SELECT
         name AS full_name,
+        email,
         message,
         section_name,
         to_char(time, 'YYYY-MM-DD"T"HH24:MI:ssZ') AS edit_time,
