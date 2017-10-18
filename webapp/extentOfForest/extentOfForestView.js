@@ -1,4 +1,3 @@
-import './style.less'
 import React from 'react'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
@@ -7,10 +6,10 @@ import { Link } from './../link'
 import DefinitionLink from './../reusableUiComponents/definitionLink'
 import ChartWrapper from './chart/chartWrapper'
 import LoggedInPageTemplate from '../loggedInPageTemplate'
-import { DataTable } from '../originalDataPoint/commentableDatatable'
+import { TableWithOdp } from '../originalDataPoint/tableWithOdp'
 import { CommentableReviewDescription } from '../description/commentableDescription'
 
-const NationalDataEntry = (props) => {
+const ExtentOfForest = (props) => {
 
   const disableGenerateFRAValues = () => {
     const odps = R.pipe(
@@ -66,27 +65,23 @@ const NationalDataEntry = (props) => {
     6: 'otherLandTreesUrbanSettings'
   }
 
-  return <div className='nde__data-input-component'>
-    <div className="nde__data-page-header">
+  return <div className='fra-view__content'>
+    <div className="fra-view__page-header">
       <h1 className="title">{i18n.t('extentOfForest.extentOfForest')}</h1>
     </div>
-
-    <div className='nde__comment-transition'>
-      <div className="nde__data-input-header">
-        <Link className="btn btn-primary" to={`/country/${props.countryIso}/odp`}>
-          <svg className="icon icon-sub icon-white">
-            <use xlinkHref="img/icons.svg#small-add"/>
-          </svg>
-          {i18n.t('nationalDataPoint.addNationalDataPoint')}
-        </Link>
-      </div>
-      <ChartWrapper stateName="nationalDataEntry" trends={[
-        {name: 'forestArea', label: i18n.t('fraClass.forest'), color: '#0098a6'},
-        {name: 'otherWoodedLand', label: i18n.t('fraClass.otherWoodedLand'), color: '#bf00af'}
-      ]}/>
+    <div className="fra-view__section-header">
+      <Link className="btn btn-primary align-right" to={`/country/${props.countryIso}/odp`}>
+        <svg className="icon icon-sub icon-white">
+          <use xlinkHref="img/icons.svg#small-add"/>
+        </svg>
+        {i18n.t('nationalDataPoint.addNationalDataPoint')}
+      </Link>
     </div>
-
-    <div className="nde__data-table-header">
+    <ChartWrapper stateName="extentOfForest" trends={[
+      {name: 'forestArea', label: i18n.t('fraClass.forest'), color: '#0098a6'},
+      {name: 'otherWoodedLand', label: i18n.t('fraClass.otherWoodedLand'), color: '#bf00af'}
+    ]}/>
+    <div className="fra-view__section-header">
       <h3 className="subhead">{i18n.t('extentOfForest.extentOfForest')}</h3>
       <DefinitionLink document="tad" anchor="1a" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
       <DefinitionLink document="faq" anchor="1a" title={i18n.t('definition.faqLabel')} lang={i18n.language}
@@ -96,7 +91,7 @@ const NationalDataEntry = (props) => {
         {i18n.t('extentOfForest.generateFraValues')}
       </button>
     </div>
-    <DataTable section='extentOfForest' rows={eofRows} rowNames={eofRowNames} {...props}
+    <TableWithOdp section='extentOfForest' rows={eofRows} rowNames={eofRowNames} {...props}
                areaUnitLabel={props.i18n.t('extentOfForest.areaUnitLabel')}
                categoryHeader={props.i18n.t('extentOfForest.categoryHeader')}/>
     <CommentableReviewDescription
@@ -126,14 +121,14 @@ class DataFetchingComponent extends React.Component {
 
   render () {
     return <LoggedInPageTemplate commentsOpen={this.props.openCommentThread}>
-      <NationalDataEntry {...this.props} countryIso={this.props.match.params.countryIso}/>
+      <ExtentOfForest {...this.props} countryIso={this.props.match.params.countryIso}/>
     </LoggedInPageTemplate>
   }
 }
 
 const mapStateToProps = state =>
   ({
-    ...state.nationalDataEntry,
+    ...state.extentOfForest,
     'openCommentThread': state.review.openThread,
     i18n: state.user.i18n
   })

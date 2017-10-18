@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 
 import applicationError from './applicationError/reducer'
-import nationalDataEntry from './nationalDataEntry/reducers'
+import extentOfForest from './extentOfForest/reducers'
 import forestCharacteristics from './forestCharacteristics/reducer'
 import originalDataPoint from './originalDataPoint/reducers'
 import autoSave from './autosave/reducer'
@@ -15,7 +15,7 @@ import growingStock from './growingStock/reducer'
 
 export default combineReducers({
   applicationError,
-  nationalDataEntry,
+  extentOfForest,
   forestCharacteristics,
   descriptions,
   originalDataPoint,

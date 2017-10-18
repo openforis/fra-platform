@@ -14,8 +14,8 @@ const CarbonStockView = ({match, i18n}) => {
   const calculatorFilePath = `/api/biomassStock/${countryIso}/${lang}/download`
 
   return <LoggedInPageTemplate>
-    <div className="tv__container">
-      <div className="tv__page-header">
+    <div className="fra-view__content">
+      <div className="fra-view__page-header">
         <h1 className="title">{i18n.t('carbonStock.carbonStock')}</h1>
         <DefinitionLink document="tad" anchor="2d" title={i18n.t('definition.definitionLabel')} lang={lang}/>
         <DefinitionLink document="faq" anchor="2c" title={i18n.t('definition.faqLabel')} lang={lang} className="align-left"/>

@@ -2,7 +2,7 @@ import * as R from 'ramda'
 import React from 'react'
 import Route from 'route-parser'
 import Router from './router/router'
-import NationalDataEntryView from './nationalDataEntry/nationalDataEntryView'
+import ExtentOfForestView from './extentOfForest/extentOfForestView'
 import GrowingStockView from './growingStock/growingStockView'
 import OriginalDataPointView from './originalDataPoint/originalDataPointView'
 import SpecificForestCategoriesView from './specificForestCategories/specificForestCategoriesView'
@@ -33,7 +33,7 @@ const routes = {
   '/country/:countryIso/odps': OriginalDataListView,
   '/country/:countryIso/odp': OriginalDataPointView,
   '/country/:countryIso/odp/:odpId': OriginalDataPointView,
-  '/country/:countryIso': NationalDataEntryView,
+  '/country/:countryIso': ExtentOfForestView,
   '/country/:countryIso/growingStock': GrowingStockView,
   '/country/:countryIso/specificForestCategories': SpecificForestCategoriesView,
   '/country/:countryIso/growingStockComposition': GrowingStockCompositionView,
