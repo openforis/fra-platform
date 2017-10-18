@@ -26,28 +26,28 @@ module.exports.getLastAuditTimeStampForSection = (countryIso, section) => {
 
 module.exports.getAuditFeed = (countryIso) => {
   return db.query(
-    ` WITH unique_feed AS (
-        SELECT DISTINCT ON (name, message, section_name)
-          fu.name,
-          fu.email,
-          message,
-          split_part(section, '_', 1) AS section_name,
-          time,
-          target
-        FROM fra_audit fa
-        JOIN fra_user fu ON fa.user_id=fu.id
-        WHERE country_iso = $1 AND message != 'deleteComment'
-      )
-      SELECT
-        name AS full_name,
-        email,
+    ` SELECT
+        fu.name AS full_name,
+        fu.email,
         message,
-        section_name,
-        to_char(time, 'YYYY-MM-DD"T"HH24:MI:ssZ') AS edit_time,
-        target
-      FROM unique_feed
-      ORDER BY edit_time DESC
-      LIMIT 20
+        split_part(section, '_', 1) AS section_name,
+        target,
+        to_char(time, 'YYYY-MM-DD"T"HH24:MI:ssZ') AS edit_time
+      FROM (
+        SELECT
+          user_id,
+          message,
+          section,
+          target,
+          time,
+          rank() OVER (PARTITION BY user_id, message, section ORDER BY time DESC) as rank
+        FROM fra_audit
+        WHERE country_iso = $1
+        AND message != 'deleteComment'
+      ) AS fa
+      JOIN fra_user fu ON fa.user_id = fu.id
+      WHERE rank = 1
+      ORDER BY time DESC
     `, [countryIso]
   ).then(res => R.map(camelize, res.rows))
 }
