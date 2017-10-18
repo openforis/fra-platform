@@ -352,7 +352,7 @@ export const translation = {
   designatedManagementObjective: {
     designatedManagementObjective: 'Designated management objective',
     primaryDesignatedManagementObjective: 'Primary designated management objective',
-    totalAreaDesignatedManagementObjective: 'Total area with designated management objective',
+    totalAreaWithDesignatedManagementObjective: 'Total area with designated management objective',
     categoryHeader: 'FRA 2020 categories',
     areaUnitLabel: 'Forest area (1000 ha)',
     production: 'Production',
