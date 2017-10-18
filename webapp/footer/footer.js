@@ -4,6 +4,7 @@ import * as R from 'ramda'
 import React from 'react'
 import { connect } from 'react-redux'
 import { logout, switchLanguage } from '../user/actions'
+import { getRelativeDate } from '../utils/relativeDate'
 import { PopoverControl } from './../reusableUiComponents/popoverControl'
 
 const UserInfo = props => {
@@ -54,7 +55,7 @@ const LanguageSelection = ({i18n, switchLanguage, ...props}) => {
 const autosaveStatusText = (i18n, status, lastSaveTimeStamp) => {
   const statusTextTranslation = i18n.t(`footer.autoSave.${status}`)
   return status === 'lastSaveTimestampReceived'
-    ? statusTextTranslation + lastSaveTimeStamp
+    ? statusTextTranslation + getRelativeDate(lastSaveTimeStamp, i18n).toLowerCase()
     : statusTextTranslation
 }
 
