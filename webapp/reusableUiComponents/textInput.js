@@ -9,8 +9,8 @@ export default class TextInput extends React.Component {
 
   render() {
     const minWidthStyleAttr = this.props.minWidth ? `${this.props.minWidth}px` : null
-    return <div className="text-field">
-      <div className="text-field__readonly-view"
+    return <div className="text-input__container">
+      <div className="text-input__readonly-view"
            style={{display: this.state.hasFocus ? 'none' : 'inline-block'}}>
         { this.props.value }
       </div>
@@ -18,7 +18,7 @@ export default class TextInput extends React.Component {
         type="text"
         style={{opacity: this.state.hasFocus ? '1' : '0',
                 minWidth: minWidthStyleAttr}}
-        className="fra-table__input"
+        className="text-input__input-field"
         value={ this.props.value || '' }
         onChange={ this.props.onChange }
         onPaste={ this.props.onPaste }
