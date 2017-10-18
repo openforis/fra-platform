@@ -295,6 +295,7 @@ class Nav extends React.Component {
                               pathTemplate="/country/:countryIso/odps"
                               secondaryPathTemplate="/country/:countryIso/odp"
                               userInfo={this.props.userInfo}/>
+            <div className="nav__divider"></div>
             <PrimaryItem label={this.props.i18n.t('navigation.fra2020')}
                          countryIso={this.props.country}
                          assessmentType="fra2020"
@@ -317,9 +318,8 @@ class Nav extends React.Component {
                     {...item} />
               )
             }
-
+            <div className="nav__divider"></div>
             <SuppportItems {...this.props} />
-
           </div>
         </div>
       </div>
