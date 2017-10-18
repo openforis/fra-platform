@@ -24,6 +24,10 @@
   }
 }
 
+.odp__year-selection {
+  margin-bottom: 16px;
+}
+
 .odp__bottom-buttons {
   margin-top: 24px;
   display: flex;
@@ -44,6 +48,20 @@
 }
 
 // Custom table styles
+
+.odp__data-source-input-column {
+  width: 75%;
+}
+
+// This is a workaround for MultiSelect problem (multiselect increases vertical scroll
+// instead of popping out of the wrapper
+.fra-table__scroll-wrapper.odp__data-source-table-wrapper {
+  overflow-x: visible;
+}
+
+.fra-table__cell.odp__data-source-input-column {
+  white-space: normal;
+}
 
 .odp__review-indicator-row-anchor {
   position: absolute;

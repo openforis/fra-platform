@@ -11,6 +11,11 @@ input, select, textarea {
   font-size: @font-m;
   height: 32px;
   min-width: 120px;
+
+  &:focus {
+    outline: none;
+    border-color: @text-body;
+  }
 }
 
 .select-small {
@@ -18,6 +23,11 @@ input, select, textarea {
   font-size: @font-xs;
   height: 24px;
   min-width: 80px;
+
+  &:focus {
+    outline: none;
+    border-color: @text-body;
+  }
 }
 
 .mixin-select-base(@padding) {
