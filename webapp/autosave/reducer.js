@@ -7,7 +7,8 @@ const actionHandlers = {
   [autoSaveStart]: (state) => ({...state, status: 'saving'}),
   [autoSaveComplete]: (state) => ({...state, status: 'complete'}),
   [routerFollowLink]: (state) => ({...state, status: null}),
-  [lastSectionUpdateTimestampReceived]: (state, action) => ({...state, status: action.timeStamp})
+  [lastSectionUpdateTimestampReceived]: (state, action) =>
+    ({...state, status: 'lastSaveTimestampReceived', lastSaveTimeStamp: action.timeStamp})
 }
 
 export default (state = {}, action) => applyReducerFunction(actionHandlers, state, action)
