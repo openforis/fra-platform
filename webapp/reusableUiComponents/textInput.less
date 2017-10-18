@@ -1,17 +1,13 @@
-.text-field {
-  position: relative;
-  height: 100%;
-  line-height: 20px;
+@import (reference) "../app-styles/inputMixins";
+
+.text-input__container {
+  .mixin-input-container(left);
 }
 
-.text-field__readonly-view {
-  position: absolute;
-  top: 50%;
-  right: 10px;
-  left: 10px;
-  height: 20px;
-  margin-top: -10px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+.text-input__input-field {
+  .mixin-input-field;
+}
+
+.text-input__readonly-view {
+  .mixin-readonly-view;
 }

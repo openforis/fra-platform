@@ -137,7 +137,8 @@ export const translation = {
     logout: 'Logout',
     autoSave: {
       saving: 'Saving…',
-      complete: 'All changes saved'
+      complete: 'All changes saved',
+      lastSaveTimestampReceived: 'Last edit '
     }
   },
 

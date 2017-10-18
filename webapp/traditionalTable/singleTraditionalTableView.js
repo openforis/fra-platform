@@ -9,31 +9,41 @@ import { connect } from 'react-redux'
 import LoggedInPageTemplate from '../loggedInPageTemplate'
 import TraditionalTable from '../traditionalTable/traditionalTable'
 import { CommentableDescriptions } from '../description/commentableDescription'
-import DefinitionLink from './../reusableUiComponents/definitionLink'
+import { fetchLastSectionUpdateTimestamp } from '../audit/actions'
+import DefinitionLink from '../reusableUiComponents/definitionLink'
+import LastSectionUpdateFetchingView from '../reusableUiComponents/lastSectionUpdateFetchingView'
 
-const SingleTraditionalTableView = ({match, i18n, tableSpec, headingLocalizationKey, sectionAnchor, tadAnchor, faqAnchor}) => {
-  const tableSpecInstance = tableSpec(i18n)
-  const countryIso = match.params.countryIso
+class SingleTraditionalTableView extends LastSectionUpdateFetchingView {
 
-  return <LoggedInPageTemplate>
-    <div className="fra-view__content">
-      <div className="fra-view__page-header">
-        <h1 className="title">{i18n.t(headingLocalizationKey)}</h1>
-        <DefinitionLink document="tad" anchor={sectionAnchor ? sectionAnchor : tadAnchor} title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
-        <DefinitionLink document="faq" anchor={sectionAnchor ? sectionAnchor : faqAnchor} title={i18n.t('definition.faqLabel')} lang={i18n.language} className="align-left"/>
-      </div>
+  constructor(props) {
+    super(props, props.tableSpec(props.i18n).name)
+  }
+
+  render() {
+    const {match, i18n, headingLocalizationKey, sectionAnchor, tadAnchor, faqAnchor} = this.props
+    const countryIso = match.params.countryIso
+    const tableSpecInstance = this.props.tableSpec(this.props.i18n)
+
+    return <LoggedInPageTemplate>
+      <div className="fra-view__content">
+        <div className="fra-view__page-header">
+          <h1 className="title">{i18n.t(headingLocalizationKey)}</h1>
+          <DefinitionLink document="tad" anchor={sectionAnchor ? sectionAnchor : tadAnchor} title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
+          <DefinitionLink document="faq" anchor={sectionAnchor ? sectionAnchor : faqAnchor} title={i18n.t('definition.faqLabel')} lang={i18n.language} className="align-left"/>
+        </div>
       <TraditionalTable tableSpec={tableSpecInstance} countryIso={match.params.countryIso}/>
-      <CommentableDescriptions
-        section={tableSpecInstance.name}
-        name={tableSpecInstance.name}
-        countryIso={countryIso}
-        i18n={i18n}
-      />
-    </div>
-  </LoggedInPageTemplate>
+        <CommentableDescriptions
+          section={tableSpecInstance.name}
+          name={tableSpecInstance.name}
+          countryIso={countryIso}
+          i18n={i18n}
+        />
+      </div>
+    </LoggedInPageTemplate>
 
+  }
 }
 
 const mapStateToProps = state => ({i18n: state.user.i18n})
 
-export default connect(mapStateToProps)(SingleTraditionalTableView)
+export default connect(mapStateToProps, {fetchLastSectionUpdateTimestamp})(SingleTraditionalTableView)

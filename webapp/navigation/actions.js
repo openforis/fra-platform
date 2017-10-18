@@ -31,6 +31,3 @@ export const changeAssessmentStatus = (countryIso, assessmentType, status) => di
     })
     .catch((err) => dispatch(applicationError(err)))
 }
-
-export const sectionUpdate = '/navigation/section/update'
-export const sectionStatusUpdate = (countryIso, section) => ({type: sectionUpdate, countryIso, section})
