@@ -66,9 +66,10 @@ export const translation = {
       unfcccReportedData: 'UNFCCC reported data'
     },
     actions: {
+      added: 'added',
       commented: 'commented on',
-      edited: 'edited',
-      deleted: 'deleted'
+      deleted: 'deleted',
+      edited: 'edited'
     }
   },
 

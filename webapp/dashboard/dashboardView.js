@@ -10,6 +10,36 @@ import { Link } from './../link'
 
 const mapIndexed = R.addIndex(R.map)
 
+const getActionLocalizationKey = (key) => {
+  if (R.contains(key, ['createIssue', 'createComment'])) {
+    return 'dashboard.actions.commented'
+  } else if (R.contains(key, 'deleteOdp')) {
+    return 'dashboard.actions.deleted'
+  } else if (R.contains(key, 'createOdp')) {
+    return 'dashboard.actions.added'
+  } else {
+    return 'dashboard.actions.edited'
+  }
+}
+
+const getSectionLocalizationKey = (section) => {
+  if (R.contains(section, 'odp')) {
+    return 'nationalDataPoint.nationalDataPoint'
+  } else if (R.contains(section, ['primaryDesignatedManagementObjective', 'totalAreaWithDesignatedManagementObjective'])) {
+    return 'designatedManagementObjective.' + section
+  } else {
+    return section + '.' + section
+  }
+}
+
+const getSectionUrl = (item) => {
+  const odpId = R.path(['target', 'odpId'], item)
+  if (odpId) {
+    return item.sectionName + '/' + odpId
+  }
+  return item.sectionName
+}
+
 const LinkList = ({title, links}) => {
   return <ul className="link-list__container">
     <li className="link-list__heading">
@@ -26,26 +56,17 @@ const LinkList = ({title, links}) => {
 }
 
 const ActivityItem = ({i18n, countryIso, item}) => {
-  const odpId = R.path(['target', 'odpId'], item)
-  const sectionUrl = odpId ? item.sectionName+'/'+odpId : item.sectionName
-  const sectionLocalizationKey = R.contains(item.sectionName, 'odp') ? 'nationalDataPoint.nationalDataPoint' : item.sectionName+'.'+item.sectionName
-  const actionLocalizationKey = () => {
-    if (R.contains(item.message, ['createComment', 'deleteComment'])) {
-      return 'dashboard.actions.commented'
-    } else if (R.contains(item.message, 'deleteOdp')) {
-      return 'dashboard.actions.deleted'
-    } else {
-      return 'dashboard.actions.edited'
-    }
-  }
+  const sectionUrl = getSectionUrl(item)
+  const sectionLocalizationKey = getSectionLocalizationKey(item.sectionName)
+  const actionLocalizationKey = getActionLocalizationKey(item.message)
 
   return <div className="dashboard__activity-item">
     <img className="dashboard__activity-avatar" src={`https://www.gravatar.com/avatar/${item.hash}?default=mm`} />
     <div className="dashboard__activity-name">
       <strong>{item.fullName}</strong>
-      <span>{i18n.t(actionLocalizationKey())}</span>
+      <span>{i18n.t(actionLocalizationKey)}</span>
       {
-        sectionUrl === 'odp' || actionLocalizationKey() === 'dashboard.actions.deleted'
+        sectionUrl === 'odp' || actionLocalizationKey === 'dashboard.actions.deleted'
           ? <span className="dashboard__activity-deleted">{i18n.t(sectionLocalizationKey)}</span>
           : <Link className="link" to={`/country/${countryIso}/${sectionUrl}`}>{i18n.t(sectionLocalizationKey)}</Link>
       }
