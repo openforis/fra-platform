@@ -63,6 +63,10 @@ export const translation = {
       title: 'External links',
       nationalFocalPoints: 'National focal points',
       unfcccReportedData: 'UNFCCC reported data'
+    },
+    actions: {
+      commented: 'commented on',
+      edited: 'edited'
     }
   },
 
@@ -149,7 +153,7 @@ export const translation = {
     day_plural: '{{count}} days ago',
     week: '{{count}} week ago',
     week_plural: '{{count}} weeks ago',
-    aMomentAgo: 'A moment ago'
+    aMomentAgo: 'a moment ago'
   },
 
   review: {
