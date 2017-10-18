@@ -69,7 +69,9 @@ export const translation = {
       added: 'added',
       commented: 'commented on',
       deleted: 'deleted',
-      edited: 'edited'
+      edited: 'edited',
+      resolved: 'resolved issue in',
+      status: 'changed status to'
     }
   },
 

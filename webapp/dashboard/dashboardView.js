@@ -13,6 +13,8 @@ const mapIndexed = R.addIndex(R.map)
 const getActionLocalizationKey = (key) => {
   if (R.contains(key, ['createIssue', 'createComment'])) {
     return 'dashboard.actions.commented'
+  } else if (R.contains(key, 'markAsResolved')) {
+    return 'dashboard.actions.resolved'
   } else if (R.contains(key, 'deleteOdp')) {
     return 'dashboard.actions.deleted'
   } else if (R.contains(key, 'createOdp')) {

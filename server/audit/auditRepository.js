@@ -48,6 +48,7 @@ module.exports.getAuditFeed = (countryIso) => {
       JOIN fra_user fu ON fa.user_id = fu.id
       WHERE rank = 1
       ORDER BY time DESC
+      LIMIT 20
     `, [countryIso]
   ).then(res => R.map(camelize, res.rows))
 }
