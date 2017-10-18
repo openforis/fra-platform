@@ -1,0 +1,74 @@
+@import (reference) "../app-styles/config";
+
+.dashboard__page-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 32px;
+
+  .flag {
+    margin-right: 16px;
+    border-radius: 2px;
+  }
+}
+
+.dashboard__container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.dashboard__activity {
+  padding-right: 32px;
+  width: 70%;
+}
+
+.dashboard__sidebar {
+  padding-left: 32px;
+  width: 30%;
+}
+
+.dashboard__activity-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #eee;
+  padding: 12px 0;
+}
+
+.dashboard__activity-avatar {
+  border-radius: 100%;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+  height: 32px;
+  margin-right: 16px;
+}
+
+.dashboard__activity-name {
+  span, strong {
+    margin-right: 4px;
+  }
+}
+
+.dashboard__activity-time {
+  color: @text-mute;
+  font-size: @font-s;
+  margin-left: auto;
+}
+
+.link-list__container {
+  list-style: none;
+  margin: 0 0 24px 0;
+  padding: 0;
+}
+
+.link-list__heading {
+  margin-bottom: 8px;
+}
+
+.link-list__item {
+  margin: 2px 0;
+}
+
+.dashboard__version {
+  color: @text-disabled;
+  font-size: @font-xs;
+  margin-top: 8px;
+}

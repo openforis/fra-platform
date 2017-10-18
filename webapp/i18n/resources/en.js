@@ -57,6 +57,15 @@ export const translation = {
     treesUrbanSettings: '…of which trees in urban settings'
   },
 
+  dashboard: {
+    recentActivity: 'Recent activity',
+    externalLinks: {
+      title: 'External links',
+      nationalFocalPoints: 'National focal points',
+      unfcccReportedData: 'UNFCCC reported data'
+    }
+  },
+
   // error messages
   error: {
     access: {
