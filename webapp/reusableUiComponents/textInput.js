@@ -18,7 +18,7 @@ export default class TextInput extends React.Component {
         type="text"
         style={{opacity: this.state.hasFocus ? '1' : '0',
                 minWidth: minWidthStyleAttr}}
-        className="text-input____input-field"
+        className="text-input__input-field"
         value={ this.props.value || '' }
         onChange={ this.props.onChange }
         onPaste={ this.props.onPaste }
