@@ -259,7 +259,6 @@ ${i18n.t('navigation.support.userAgent')}: ${navigator.userAgent}
 }
 
 
-
 class Nav extends React.Component {
 
   constructor () {

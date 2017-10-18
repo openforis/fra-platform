@@ -12,6 +12,7 @@ import traditionalTable from './traditionalTable/reducer'
 import descriptions from './description/reducers'
 import review from './review/reducer'
 import growingStock from './growingStock/reducer'
+import users from './users/reducer'
 
 export default combineReducers({
   applicationError,
@@ -25,5 +26,6 @@ export default combineReducers({
   user,
   review,
   traditionalTable,
-  growingStock
+  growingStock,
+  users
 })

@@ -222,8 +222,13 @@ export const translation = {
     }
   },
 
-  users : {
-    manageUsers: 'Manage users'
+  users: {
+    manageUsers: 'Manage users',
+    name: 'Name',
+    role: 'Role',
+    email: 'Email',
+    login: 'Login',
+    noUsers: 'No users added',
   },
 
   // FRA 2020 questionare
