@@ -212,7 +212,7 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
       </div>
       <div className="fra-table__container">
         <div className="fra-table__scroll-wrapper">
-          <table className="fra-table odp__national-class-table">
+          <table className="fra-table odp__nc-table">
             <thead>
             <tr>
               <th className="fra-table__header-cell">{i18n.t('nationalDataPoint.nationalClass')}</th>
@@ -518,34 +518,36 @@ const NationalClassRow =
   return <tr
     className={`${isCommentsOpen([odp.odpId, 'class', `${odp.nationalClasses[index].uuid}`, 'definition'], openThread) ? 'fra-row-comments__open' : ''}`}>
     <td
-      className={`fra-table__cell odp__national-class-name ${getValidationStatusRow(odp, index).validClassName === false ? 'error' : ''}`}>
-        <input className="fra-table__input odp__national-class-input validation-error-sensitive-field"
-               type="text"
-               placeholder={placeHolder && index === 0 ? i18n.t('nationalDataPoint.enterOrCopyPasteNationalClasses') : ''}
-               value={className || ''}
-               onChange={(evt) =>
-                 saveDraft(countryIso, originalDataPoint.updateNationalClass(odp, index, 'className', evt.target.value))}
-               onPaste={updatePastedValues({
-                 odp,
-                 countryIso,
-                 rowIndex: index,
-                 colIndex: 0,
-                 columns: nationalClassCols,
-                 saveDraft,
-                 allowGrow: true
-               })}
-        />
-        {
-          placeHolder
-          ? null //placeHolder-rows can't be removed
-          : <div
-            className="odp__national-class-remove"
-            onClick={(evt) => saveDraft(countryIso, originalDataPoint.removeNationalClass(odp, index))}>
-            <svg className="icon">
-              <use xlinkHref="img/icons.svg#remove"/>
-            </svg>
+      className={`fra-table__cell odp__nc-table__name ${getValidationStatusRow(odp, index).validClassName === false ? 'error' : ''}`}>
+        <div className="odp__nc-table__input-container">
+          <input className="odp__nc-table__input validation-error-sensitive-field"
+                   type="text"
+                   placeholder={placeHolder && index === 0 ? i18n.t('nationalDataPoint.enterOrCopyPasteNationalClasses') : ''}
+                   value={className || ''}
+                   onChange={(evt) =>
+                     saveDraft(countryIso, originalDataPoint.updateNationalClass(odp, index, 'className', evt.target.value))}
+                   onPaste={updatePastedValues({
+                     odp,
+                     countryIso,
+                     rowIndex: index,
+                     colIndex: 0,
+                     columns: nationalClassCols,
+                     saveDraft,
+                     allowGrow: true
+                   })}
+            />
+            {
+              placeHolder
+              ? null //placeHolder-rows can't be removed
+              : <div
+                className="odp__nc-table__remove"
+                onClick={(evt) => saveDraft(countryIso, originalDataPoint.removeNationalClass(odp, index))}>
+                <svg className="icon">
+                  <use xlinkHref="img/icons.svg#remove"/>
+                </svg>
+              </div>
+            }
           </div>
-        }
     </td>
     <td className="fra-table__cell">
       <VerticallyGrowingTextField
@@ -629,7 +631,6 @@ const ExtentOfForestRow =
     <td
       className={`fra-table__cell fra-table__divider ${validationStatus.validArea === false ? 'error' : ''}`}>
       <ThousandSeparatedDecimalInput
-        className="fra-table__integer-input"
         numberValue={area}
         onChange={decimalUpdated(countryIso, odp, index, 'area', area)}
         onPaste={updatePastedValues({
@@ -929,7 +930,7 @@ class OriginalDataPointView extends React.Component {
 
   render () {
     return <LoggedInPageTemplate>
-      <div className="odp__container">
+      <div className="fra-view__content">
         <div className="odp_data-page-header">
           <h1 className="title">{this.props.i18n.t('nationalDataPoint.nationalDataPoint')}</h1>
         </div>

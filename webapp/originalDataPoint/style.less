@@ -1,9 +1,6 @@
 @import (reference) "../app-styles/config";
 @import (reference) "../app-styles/fraTable";
-
-.odp__container {
-  padding: 32px 32px 64px;
-}
+@import (reference) "../app-styles/inputMixins";
 
 .odp__section {
   margin-top: 32px;
@@ -91,35 +88,34 @@
   }
 }
 
-
-.odp__national-class-table {
-  .odp__national-class-name {
-    position: relative;
-    width: 30%;
+.odp__nc-table {
+  .odp__nc-table__name {
+    width: 40%;
+    min-width: 240px;
   }
 
-  .odp__national-class-input {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
+  .odp__nc-table__input-container {
+    .mixin-input-container(left);
+  }
+
+  .odp__nc-table__input {
+    .mixin-input-field;
     padding-left: 24px;
+    text-overflow: ellipsis;
   }
 
-  .odp__national-class-remove {
-    display: inline-block;
-    position: relative;
+  .odp__nc-table__remove {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 50%;
     left: 4px;
+    margin-top: -8px;
     cursor: pointer;
   }
 }
 
 // List view
-
-.odp-list__container {
-  padding: 32px 32px 64px;
-}
 
 .odp-list__list-table {
   width: 100%;
@@ -193,5 +189,30 @@
 .error {
   .validation-error-sensitive-field {
     background-color: fade(@ui-destructive, 10%);
+  }
+}
+
+// Table
+
+.table-with-odp__container {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 32px;
+
+  .odp-header-cell {
+    background-color: #e5f4f6;
+    background-color: fade(@ui-accent, 10%);
+  }
+
+  .odp-value-cell {
+    text-align: right;
+    background-color: #f2fafa;
+    background-color: fade(@ui-accent, 5%);
+  }
+}
+
+.table-with-odp__comment-column {
+  .fra-review__add-issue:first-of-type {
+    margin-top: 83px;
   }
 }

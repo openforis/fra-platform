@@ -2,7 +2,7 @@ import axios from 'axios'
 import * as autosave from '../autosave/actions'
 import { applicationError } from '../applicationError/actions'
 
-export const descriptionsFetched = 'nationalDataEntry/descriptions/fetched'
+export const descriptionsFetched = 'extentOfForest/descriptions/fetched'
 
 export const fetchDescriptions = (countryIso, name) => dispatch => {
   axios.get(`/api/country/descriptions/${countryIso}/${name}`)
@@ -10,7 +10,7 @@ export const fetchDescriptions = (countryIso, name) => dispatch => {
     .catch(err => dispatch(applicationError(err)))
 }
 
-export const descriptionsChangeStart = 'nationalDataEntry/descriptions/change/start'
+export const descriptionsChangeStart = 'extentOfForest/descriptions/change/start'
 
 export const saveDescriptions = (countryIso, name, content) => dispatch => {
   dispatch(startSaveDescriptions(name, content))
@@ -20,8 +20,8 @@ export const saveDescriptions = (countryIso, name, content) => dispatch => {
 
 const startSaveDescriptions = (name, content) => ({type: descriptionsChangeStart, name, content})
 
-export const openEditorStart = 'nationalDataEntry/descriptions/editor/open'
-export const closeEditorStart = 'nationalDataEntry/descriptions/editor/close'
+export const openEditorStart = 'extentOfForest/descriptions/editor/open'
+export const closeEditorStart = 'extentOfForest/descriptions/editor/close'
 export const openEditor = (name) => ({type: openEditorStart, name})
 export const closeEditor = (name) => ({type: closeEditorStart, name})
 

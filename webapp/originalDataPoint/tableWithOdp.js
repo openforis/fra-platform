@@ -9,11 +9,11 @@ import {acceptNextInteger, acceptNextDecimal} from '../utils/numberInput'
 
 const mapIndexed = R.addIndex(R.map)
 
-export class DataTable extends React.Component {
+export class TableWithOdp extends React.Component {
 
   render () {
     const rows = this.props.rows
-    return <div className="nde__data-table-container">
+    return <div className="table-with-odp__container">
       <div className="fra-table__scroll-wrapper">
         <table className="fra-table">
           <thead>
@@ -38,7 +38,7 @@ export class DataTable extends React.Component {
           </tbody>
         </table>
       </div>
-      <div className="nde__comment-column">
+      <div className="table-with-odp__comment-column">
         { buildIndicators(rows, this.props) }
       </div>
     </div>
@@ -71,7 +71,6 @@ const OdpHeading = ({countryIso, odpValue}) =>
 
 const fraValueCell = (fraValue, fra, countryIso, save, saveMany, pasteUpdate, field, colIdx, rowIdx) =>
   <ThousandSeparatedDecimalInput
-    className="fra-table__integer-input"
     numberValue={ fraValue[field] }
     precision={2}
     onPaste={ e => saveMany(countryIso, pasteUpdate(e, colIdx, rowIdx, fra)) }
@@ -79,7 +78,6 @@ const fraValueCell = (fraValue, fra, countryIso, save, saveMany, pasteUpdate, fi
 
 const odpCell = (odpValue, field) =>
   <ThousandSeparatedDecimalInput
-    className="fra-table__integer-input"
     numberValue={odpValue[field]}
     precision={2}
     disabled={true} />
@@ -95,7 +93,7 @@ const fraValueRow = (row, countryIso, fra, save, saveMany, pasteUpdate, colId, o
       customRender
       ? customRender(fra)
       : mapIndexed((v, i) =>
-          <td className={`fra-table__${v.type === 'odp' ? 'text-readonly-cell' : 'cell'}`} key={`${v.type}_${v.name}`}>
+          <td className={`fra-table__cell ${v.type === 'odp' ? 'odp-value-cell' : ''}`} key={`${v.type}_${v.name}`}>
             {
               v.type === 'odp'
                 ? odpCell(v, field)

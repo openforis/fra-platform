@@ -16,8 +16,8 @@ const designatedManagementObjectiveView = ({match, i18n}) => {
   const totalDmoTableSpec = totalAreaWithDesignatedManagementObjectiveTableSpec(i18n)
 
   return <LoggedInPageTemplate>
-    <div className="tv__container">
-      <div className="tv__page-header">
+    <div className="fra-view__content">
+      <div className="fra-view__page-header">
         <h1 className="title">
           {i18n.t('designatedManagementObjective.designatedManagementObjective')}
         </h1>

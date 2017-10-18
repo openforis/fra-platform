@@ -2,7 +2,7 @@ import axios from 'axios'
 
 import {fetchItem} from '../originalDataPoint/actions'
 
-export const generateFraValuesStart = 'nationalDataEntry/generateFraValues/start'
+export const generateFraValuesStart = 'extentOfForest/generateFraValues/start'
 
 export const generateFraValues = (countryIso) => dispatch => {
   dispatch({type: generateFraValuesStart})
