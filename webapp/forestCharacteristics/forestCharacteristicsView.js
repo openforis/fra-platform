@@ -5,8 +5,8 @@ import { Link } from './../link'
 
 import { fetchItem, save, saveMany, generateFraValues } from '../originalDataPoint/actions'
 import LoggedInPageTemplate from '../loggedInPageTemplate'
-import { DataTable } from '../originalDataPoint/commentableDatatable'
-import ChartWrapper from '../nationalDataEntry/chart/chartWrapper'
+import { TableWithOdp } from '../originalDataPoint/tableWithOdp'
+import ChartWrapper from '../extentOfForest/chart/chartWrapper'
 import { CommentableReviewDescription } from '../description/commentableDescription'
 import DefinitionLink from './../reusableUiComponents/definitionLink'
 
@@ -50,12 +50,12 @@ const ForestCharacteristics = props => {
     3: 'plantationForestIntroducedArea',
     4: 'otherPlantedForestArea'
   }
-  return <div className='nde__data-input-component foc-view'>
-    <div className="nde__data-page-header">
+  return <div className='fra-view__content'>
+    <div className="fra-view__page-header">
       <h1 className="title">{i18n.t('forestCharacteristics.forestCharacteristics')}</h1>
     </div>
-    <div className="nde__data-input-header">
-      <Link className="btn btn-primary" to={`/country/${props.countryIso}/odp`}>
+    <div className="fra-view__section-header">
+      <Link className="btn btn-primary align-right" to={`/country/${props.countryIso}/odp`}>
         <svg className="icon icon-sub icon-white">
           <use xlinkHref="img/icons.svg#small-add"/>
         </svg>
@@ -67,7 +67,7 @@ const ForestCharacteristics = props => {
       {name:'plantationForestArea', label:props.i18n.t('forestCharacteristics.plantationForestArea'), color:'#bf00af'},
       {name:'otherPlantedForestArea', label:props.i18n.t('forestCharacteristics.otherPlantedForestArea'), color:'#f28130'}
       ]} />
-    <div className="nde__data-table-header">
+    <div className="fra-view__section-header">
       <h3 className="subhead">{i18n.t('forestCharacteristics.forestCharacteristics')}</h3>
       <DefinitionLink document="tad" anchor="1b" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
       <DefinitionLink document="faq" anchor="1b" title={i18n.t('definition.faqLabel')} lang={i18n.language} className="align-left"/>
@@ -76,7 +76,7 @@ const ForestCharacteristics = props => {
         {i18n.t('extentOfForest.generateFraValues')}
       </button>
     </div>
-    <DataTable section='forestCharacteristics' rows={rows} rowNames={rowNames} {...props} areaUnitLabel={i18n.t('forestCharacteristics.areaUnitLabel')} categoryHeader={i18n.t('forestCharacteristics.categoryHeader')}/>
+    <TableWithOdp section='forestCharacteristics' rows={rows} rowNames={rowNames} {...props} areaUnitLabel={i18n.t('forestCharacteristics.areaUnitLabel')} categoryHeader={i18n.t('forestCharacteristics.categoryHeader')}/>
     <CommentableReviewDescription
       section='forestCharacteristics'
       countryIso={props.countryIso}

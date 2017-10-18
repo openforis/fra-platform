@@ -7,7 +7,7 @@ import { fetchOdps } from './actions'
 import { Link } from './../link'
 import LoggedInPageTemplate from '../loggedInPageTemplate'
 
-const ODPListing = ({countryIso, odps = [], i18n, userInfo}) => <div className="odp-list__container">
+const ODPListing = ({countryIso, odps = [], i18n, userInfo}) => <div className="fra-view__content">
   <h1 className="title">{i18n.t('nationalDataPoint.nationalData')}</h1>
   <table className="odp-list__list-table">
     <thead>

@@ -32,8 +32,8 @@ const NonWoodForestProductsRemovalsView = ({match, i18n}) => {
   const mainTableSpecInstance = mainTableSpec(i18n)
 
   return <LoggedInPageTemplate>
-    <div className="tv__container growing-stock__container">
-      <div className="tv__page-header">
+    <div className="fra-view__content">
+      <div className="fra-view__page-header">
         <h1 className="title">{i18n.t('nonWoodForestProductsRemovals.nonWoodForestProductsRemovals')}</h1>
         <DefinitionLink document="tad" anchor="7c" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
         <DefinitionLink document="faq" anchor="7c" title={i18n.t('definition.faqLabel')} lang={i18n.language} className="align-left"/>
