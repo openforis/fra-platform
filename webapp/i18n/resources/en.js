@@ -58,6 +58,7 @@ export const translation = {
   },
 
   dashboard: {
+    dashboard: 'Dashboard',
     recentActivity: 'Recent activity',
     externalLinks: {
       title: 'External links',
@@ -66,7 +67,8 @@ export const translation = {
     },
     actions: {
       commented: 'commented on',
-      edited: 'edited'
+      edited: 'edited',
+      deleted: 'deleted'
     }
   },
 

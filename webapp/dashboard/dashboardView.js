@@ -26,19 +26,29 @@ const LinkList = ({title, links}) => {
 }
 
 const ActivityItem = ({i18n, countryIso, item}) => {
-  const isOdp = R.contains(item.sectionName, ['odp','NDP']) ? 'nationalDataPoint' : item.sectionName
-  const sectionName = isOdp+'.'+isOdp
-  const localizedSectionName = i18n.t(sectionName) !== sectionName ? i18n.t(sectionName) : item.sectionName
   const odpId = R.path(['target', 'odpId'], item)
   const sectionUrl = odpId ? item.sectionName+'/'+odpId : item.sectionName
-  const message = R.contains(item.message, ['createComment', 'deleteComment']) ? 'dashboard.actions.commented' : 'dashboard.actions.edited'
+  const sectionLocalizationKey = R.contains(item.sectionName, 'odp') ? 'nationalDataPoint.nationalDataPoint' : item.sectionName+'.'+item.sectionName
+  const actionLocalizationKey = () => {
+    if (R.contains(item.message, ['createComment', 'deleteComment'])) {
+      return 'dashboard.actions.commented'
+    } else if (R.contains(item.message, 'deleteOdp')) {
+      return 'dashboard.actions.deleted'
+    } else {
+      return 'dashboard.actions.edited'
+    }
+  }
 
   return <div className="dashboard__activity-item">
     <img className="dashboard__activity-avatar" src={`https://www.gravatar.com/avatar/${item.hash}?default=mm`} />
     <div className="dashboard__activity-name">
       <strong>{item.fullName}</strong>
-      <span>{i18n.t(message)}</span>
-      <Link className="link" to={`/country/${countryIso}/${sectionUrl}`}>{localizedSectionName}</Link>
+      <span>{i18n.t(actionLocalizationKey())}</span>
+      {
+        sectionUrl === 'odp' || actionLocalizationKey() === 'dashboard.actions.deleted'
+          ? <span className="dashboard__activity-deleted">{i18n.t(sectionLocalizationKey)}</span>
+          : <Link className="link" to={`/country/${countryIso}/${sectionUrl}`}>{i18n.t(sectionLocalizationKey)}</Link>
+      }
     </div>
     <div className="dashboard__activity-time">{getRelativeDate(item.editTime, i18n)}</div>
   </div>
