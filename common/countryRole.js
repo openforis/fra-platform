@@ -35,4 +35,5 @@ module.exports.isReviewer = isReviewer
 module.exports.isNationalCorrespondent = isNationalCorrespondent
 module.exports.reviewer = reviewer
 module.exports.nationalCorrespondent = nationalCorrespondent
+module.exports.collaborator = collaborator
 module.exports.noRole = noRole

@@ -1,0 +1,40 @@
+@import (reference) "../app-styles/config";
+@import (reference) "../app-styles/fraTable";
+@import (reference) "../app-styles/inputMixins";
+@import (reference) "../originalDataPoint/style";
+
+.users__list-table {
+  .odp-list__list-table;
+}
+
+.users__list-table-header-row {
+  .odp-list__header-row;
+
+  th {
+    padding: 12px 22px;
+  }
+}
+
+.users__list-table-empty {
+  .odp_list__empty-column;
+}
+
+.users__list-table-row {
+  border-bottom: @ui-thin-border;
+  text-align: left;
+  transition: @ease-out;
+  height: 45px;
+
+  &.read-only {
+    background: @ui-bg;
+  }
+
+  td {
+    padding: 0px 12px;
+    height: 1px;
+  }
+}
+
+.users__list-table-read-only-cell {
+  padding: 0 10px;
+}
