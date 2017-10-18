@@ -169,6 +169,16 @@ const ReviewStatus = ({status}) =>
     ? <div className={`nav__has-open-issue${status.hasUnreadIssues ? ' has-unread-issue' : ''}`}/>
     : null
 
+const DashboardItem = ({path, countryIso, pathTemplate, label}) => {
+  const route = new Route(pathTemplate)
+  const linkTo = route.reverse({countryIso})
+
+  return <Link className={`nav__link-item ${R.equals(path, linkTo) ? 'selected' : ''}`}
+               to={linkTo}>
+    <div className='nav__link-label'>{label}</div>
+  </Link>
+}
+
 const NationalDataItem = ({path, countryIso, pathTemplate, secondaryPathTemplate, status, label, userInfo}) => {
   const route = new Route(pathTemplate)
   const linkTo = route.reverse({countryIso})
@@ -274,6 +284,10 @@ class Nav extends React.Component {
           this.props.navigationScroll(content.scrollTop)
         }}>
           <div>
+            <DashboardItem label={this.props.i18n.t('dashboard.dashboard')}
+                           countryIso={this.props.country}
+                           path={this.props.path}
+                           pathTemplate="/country/:countryIso"/>
             <NationalDataItem label={this.props.i18n.t('nationalDataPoint.nationalData')}
                               countryIso={this.props.country}
                               status={R.merge(getReviewStatus('odp'), status.odpStatus)}

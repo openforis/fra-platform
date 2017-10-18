@@ -24,7 +24,7 @@ export const fra2020Items = i18n => [
     tableNo: '1a',
     label: i18n.t('extentOfForest.extentOfForest'),
     section: 'extentOfForest',
-    pathTemplate: '/country/:countryIso'
+    pathTemplate: '/country/:countryIso/extentOfForest'
   },
   {
     tableNo: '1b',
