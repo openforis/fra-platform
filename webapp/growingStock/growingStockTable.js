@@ -58,18 +58,6 @@ const Table = (props) => {
         </tbody>
       </table>
     </div>
-    <div className="gs-table__comment-column">
-      {
-        rows.map((row, i) =>
-          <ReviewIndicator
-            key={`${row.field}_ri`}
-            section={props.section}
-            name={props.i18n.t(row.labelKey)}
-            target={[row.field, props.type]}
-            countryIso={props.countryIso}
-          />)
-      }
-    </div>
   </div>
 }
 
@@ -90,6 +78,16 @@ const Row = (props) => {
           {...props}
         />)
     }
+    <td className="fra-table__row-anchor-cell">
+      <div className="fra-table__review-indicator-anchor">
+        <ReviewIndicator
+          key={`${row.field}_ri`}
+          section={props.section}
+          name={props.i18n.t(row.labelKey)}
+          target={[row.field, props.type]}
+          countryIso={props.countryIso} />
+      </div>
+    </td>
   </tr>
 }
 
