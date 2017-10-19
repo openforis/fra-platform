@@ -11,33 +11,26 @@ import { Link } from './../link'
 const mapIndexed = R.addIndex(R.map)
 
 const getActionLocalizationKey = (message) => {
-  var aKey = 'dashboard.actions.'
+  var key = 'dashboard.actions.'
   if (R.contains(message, ['createIssue', 'createComment'])) {
-    aKey += 'commented'
+    key += 'commented'
   } else if (R.contains(message, 'markAsResolved')) {
-    aKey += 'resolved'
+    key += 'resolved'
   } else if (R.contains(message, 'deleteOdp')) {
-    aKey += 'deleted'
+    key += 'deleted'
   } else if (R.contains(message, 'createOdp')) {
-    aKey += 'added'
+    key += 'added'
   } else {
-    aKey += 'edited'
+    key += 'edited'
   }
-  return aKey
+  return key
 }
 
 const getSectionLocalizationKey = (section) => {
-  var sKey = ''
   if (R.contains(section, 'odp')) {
-    sKey = 'nationalDataPoint'
-  } else if (R.contains(section, ['primaryDesignatedManagementObjective', 'totalAreaWithDesignatedManagementObjective'])) {
-    sKey = 'designatedManagementObjective'
-  } else if (R.contains(section, 'nonWoodForestProductsRemovalsCurrency')) {
-    sKey = 'nonWoodForestProductsRemovals'
-  } else {
-    sKey = section
+    return 'nationalDataPoint.nationalDataPoint'
   }
-  return [sKey, sKey]
+  return section + '.' + section
 }
 
 const getSectionUrl = (item) => {
@@ -45,7 +38,7 @@ const getSectionUrl = (item) => {
   if (odpId) {
     return 'odp/' + odpId
   }
-  return getSectionLocalizationKey(item.sectionName)[0]
+  return item.sectionName
 }
 
 const LinkList = ({title, links}) => {
@@ -65,7 +58,7 @@ const LinkList = ({title, links}) => {
 
 const ActivityItem = ({i18n, countryIso, item}) => {
   const sectionUrl = getSectionUrl(item)
-  const sectionLocalizationKey = getSectionLocalizationKey(item.sectionName).join('.')
+  const sectionLocalizationKey = getSectionLocalizationKey(item.sectionName)
   const actionLocalizationKey = getActionLocalizationKey(item.message)
 
   return <div className="dashboard__activity-item">
