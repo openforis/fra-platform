@@ -20,22 +20,32 @@ const ODPListing = ({countryIso, odps = [], i18n, userInfo}) => {
     </div>
     <table className="odp-list__list-table">
       <thead>
-      <tr className='odp-list__header-row'>
-        <th>{i18n.t('nationalDataPoint.year')}</th>
-        <th></th>
-        <th>{i18n.t('nationalDataPoint.methods')}</th>
-        <th></th>
+      <tr>
+        <th className="odp-list__header-cell">{i18n.t('nationalDataPoint.year')}</th>
+        <th className="odp-list__header-cell">{i18n.t('nationalDataPoint.methods')}</th>
+        <th className="odp-list__header-cell"></th>
+        <th className="odp-list__header-cell"></th>
       </tr>
       </thead>
       <tbody>
       {odps.length > 0
-        ? odps.map(odp => <tr className='odp-list__list-row' key={odp.odpId}>
-          <td className='odp-list__year-column'>{odp.year == 0 ? '-' : odp.year}</td>
-          <td className='odp-list__notification-column'>
+        ? odps.map(odp => <tr className="odp-list__list-row" key={odp.odpId}>
+          <td className="odp-list__cell odp-list__year-column">
+            {odp.year == 0 ? '-' : odp.year}
+          </td>
+          <td className="odp-list__cell odp-list__method-column">
+            {odp.dataSourceMethods
+              ? R.join(', ',
+                  R.map(key => i18n.t(`nationalDataPoint.dataSourceMethodsOptions.${key}`), odp.dataSourceMethods)
+                )
+              : null
+            }
+          </td>
+          <td className="odp-list__cell odp-list__notification-column">
             {!odp.validationStatus.valid
               ? <div>
-                  <svg className='icon icon-red'>
-                    <use xlinkHref='img/icons.svg#alert'/>
+                  <svg className="icon icon-red">
+                    <use xlinkHref="img/icons.svg#alert"/>
                   </svg>
                 </div>
               : null}
@@ -45,15 +55,14 @@ const ODPListing = ({countryIso, odps = [], i18n, userInfo}) => {
                 </div>
               : null}
           </td>
-          <td>-</td>
-          <td className='odp-list__edit-column'>
+          <td className="odp-list__cell odp-list__edit-column">
             <Link className="link" to={`/country/${countryIso}/odp/${odp.odpId}`}>
               {i18n.t('nationalDataPoint.edit')}
             </Link>
           </td>
         </tr>)
       : <tr className="odp-list__list-row">
-          <td className="odp_list__empty-column" colSpan="4">{i18n.t('nationalDataPoint.noNationalDataAdded')}</td>
+          <td className="odp-list__cell odp_list__empty-column" colSpan="4">{i18n.t('nationalDataPoint.noNationalDataAdded')}</td>
         </tr>}
       </tbody>
     </table>
