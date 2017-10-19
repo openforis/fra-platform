@@ -57,6 +57,25 @@ export const translation = {
     treesUrbanSettings: '…of which trees in urban settings'
   },
 
+  dashboard: {
+    dashboard: 'Dashboard',
+    recentActivity: 'Recent activity',
+    externalLinks: {
+      title: 'External links',
+      nationalFocalPoints: 'National focal points',
+      unFcccReportedData: 'UNFCCC reported data',
+      unReddPlatform: 'UN-REDD platform'
+    },
+    actions: {
+      added: 'added',
+      commented: 'commented on',
+      deleted: 'deleted',
+      edited: 'edited',
+      resolved: 'resolved issue in',
+      status: 'changed status to'
+    }
+  },
+
   // error messages
   error: {
     access: {
@@ -128,7 +147,8 @@ export const translation = {
     logout: 'Logout',
     autoSave: {
       saving: 'Saving…',
-      complete: 'All changes saved'
+      complete: 'All changes saved',
+      lastSaveTimestampReceived: 'Last edited '
     }
   },
 
@@ -139,7 +159,7 @@ export const translation = {
     day_plural: '{{count}} days ago',
     week: '{{count}} week ago',
     week_plural: '{{count}} weeks ago',
-    aMomentAgo: 'A moment ago'
+    aMomentAgo: 'a moment ago'
   },
 
   review: {
@@ -235,6 +255,7 @@ export const translation = {
   },
 
   // FRA 2020 questionare
+  // Object name and title should have allways the same name
 
   extentOfForest: {
     extentOfForest: 'Extent of forest and other wooded land',
@@ -266,7 +287,7 @@ export const translation = {
   },
 
   forestAreaChange: {
-    forestAreaLossGainChange: 'Annual forest area loss, gain and net change',
+    forestAreaChange: 'Annual forest area loss, gain and net change',
     categoryHeader: 'FRA categories',
     areaUnitLabel: 'Area (1000 ha/year)',
     forestExpansion: 'Forest expansion',
@@ -346,7 +367,7 @@ export const translation = {
   designatedManagementObjective: {
     designatedManagementObjective: 'Designated management objective',
     primaryDesignatedManagementObjective: 'Primary designated management objective',
-    totalAreaDesignatedManagementObjective: 'Total area with designated management objective',
+    totalAreaWithDesignatedManagementObjective: 'Total area with designated management objective',
     categoryHeader: 'FRA 2020 categories',
     areaUnitLabel: 'Forest area (1000 ha)',
     production: 'Production',
@@ -491,7 +512,8 @@ export const translation = {
     allOtherPlantProducts: 'All other plant products',
     allOtherAnimalProducts: 'All other animal products',
     total: 'Total',
-    currency: 'Name of currency'
+    currency: 'Name of currency',
+    notSelected: ''
   },
 
   multiSelect: {

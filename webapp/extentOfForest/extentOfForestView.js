@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
 import { fetchItem, save, saveMany, generateFraValues } from '../originalDataPoint/actions'
+import { fetchLastSectionUpdateTimestamp } from '../audit/actions'
 import { Link } from './../link'
 import DefinitionLink from './../reusableUiComponents/definitionLink'
 import ChartWrapper from './chart/chartWrapper'
@@ -107,7 +108,9 @@ const ExtentOfForest = (props) => {
 
 class DataFetchingComponent extends React.Component {
   componentWillMount () {
-    this.fetch(this.props.match.params.countryIso)
+    const countryIso = this.props.match.params.countryIso
+    this.fetch(countryIso)
+    this.props.fetchLastSectionUpdateTimestamp(countryIso, 'extentOfForest')
   }
 
   componentWillReceiveProps (next) {
@@ -133,4 +136,13 @@ const mapStateToProps = state =>
     i18n: state.user.i18n
   })
 
-export default connect(mapStateToProps, {save, saveMany, fetchItem, generateFraValues})(DataFetchingComponent)
+export default connect(
+    mapStateToProps,
+    {
+      save,
+      saveMany,
+      fetchItem,
+      generateFraValues,
+      fetchLastSectionUpdateTimestamp
+    }
+  )(DataFetchingComponent)

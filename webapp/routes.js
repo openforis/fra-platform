@@ -2,6 +2,7 @@ import * as R from 'ramda'
 import React from 'react'
 import Route from 'route-parser'
 import Router from './router/router'
+import DashboardView from './dashboard/dashboardView'
 import ExtentOfForestView from './extentOfForest/extentOfForestView'
 import GrowingStockView from './growingStock/growingStockView'
 import OriginalDataPointView from './originalDataPoint/originalDataPointView'
@@ -30,10 +31,11 @@ import UsersView from './users/usersView'
 const routes = {
   '/': () => <noscript/>, //This will get rendered first (it flashes), before we redirect to logged-in page or login page
   '/version': () => <span>{__PLATFORM_VERSION__}</span>,
+  '/country/:countryIso': DashboardView,
   '/country/:countryIso/odps': OriginalDataListView,
   '/country/:countryIso/odp': OriginalDataPointView,
   '/country/:countryIso/odp/:odpId': OriginalDataPointView,
-  '/country/:countryIso': ExtentOfForestView,
+  '/country/:countryIso/extentOfForest': ExtentOfForestView,
   '/country/:countryIso/growingStock': GrowingStockView,
   '/country/:countryIso/specificForestCategories': SpecificForestCategoriesView,
   '/country/:countryIso/growingStockComposition': GrowingStockCompositionView,

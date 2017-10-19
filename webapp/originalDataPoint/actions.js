@@ -8,7 +8,6 @@ import {
   addNationalClassPlaceHolder,
   copyNationalClassDefinitions
 } from './originalDataPoint'
-import {sectionStatusUpdate} from '../navigation/actions'
 import { validateDataPoint } from '../../common/validateOriginalDataPoint'
 import { fetchCountryOverviewStatus } from '../navigation/actions'
 
@@ -157,7 +156,6 @@ const change = ({section, countryIso, name, value}) => {
   const dispatched = dispatch => {
     return axios.post(`/api/nde/${section}/country/${countryIso}/${name}`, value).then(() => {
       dispatch(autosave.complete)
-      dispatch(sectionStatusUpdate(countryIso, section))
     }).catch((err) => {
       dispatch(applicationError(err))
     })

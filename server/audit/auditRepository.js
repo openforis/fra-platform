@@ -1,6 +1,6 @@
-const camelize = require('camelize')
 const db = require('../db/db')
 const R = require('ramda')
+const camelize = require('camelize')
 
 module.exports.insertAudit = (client, userId, message, countryIso, section, target = null) => {
   return client.query(
@@ -9,8 +9,7 @@ module.exports.insertAudit = (client, userId, message, countryIso, section, targ
   )
 }
 
-module.exports.getAuditSummary = (countryIso, prefixes) => {
-  const toMatch = R.map(p => `${p}%`, prefixes)
+module.exports.getLastAuditTimeStampForSection = (countryIso, section) => {
   const excludedMsgs = ['createIssue', 'createComment', 'deleteComment']
   return db.query(
     ` SELECT
@@ -18,12 +17,38 @@ module.exports.getAuditSummary = (countryIso, prefixes) => {
         to_char(max(time), 'YYYY-MM-DD"T"HH24:MI:ssZ') as latest_edit
       FROM fra_audit
       WHERE country_iso = $1
-            AND section like any ($2)
+            AND section = $2
             AND NOT (message in ($3))
-      GROUP BY split_part(section, '_', 1)
-    `, [countryIso, toMatch, excludedMsgs]
-  ).then(res => camelize(res.rows)).then( res =>
-    R.pipe(R.map(as  => [as.sectionName, as.latestEdit]), R.fromPairs)(res)
-  )
+      GROUP BY section_name
+    `, [countryIso, section, excludedMsgs]
+  ).then(res => R.path(['rows', 0, 'latest_edit'], res))
 }
 
+module.exports.getAuditFeed = (countryIso) => {
+  return db.query(
+    ` SELECT
+        fu.name AS full_name,
+        fu.email,
+        message,
+        split_part(section, '_', 1) AS section_name,
+        target,
+        to_char(time, 'YYYY-MM-DD"T"HH24:MI:ssZ') AS edit_time
+      FROM (
+        SELECT
+          user_id,
+          message,
+          section,
+          target,
+          time,
+          rank() OVER (PARTITION BY user_id, message, section ORDER BY time DESC) as rank
+        FROM fra_audit
+        WHERE country_iso = $1
+        AND message != 'deleteComment'
+      ) AS fa
+      JOIN fra_user fu ON fa.user_id = fu.id
+      WHERE rank = 1
+      ORDER BY time DESC
+      LIMIT 20
+    `, [countryIso]
+  ).then(res => R.map(camelize, res.rows))
+}

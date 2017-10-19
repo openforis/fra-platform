@@ -14,6 +14,12 @@
   width: 256px;
 }
 
+.nav__divider {
+  height: 1px;
+  background-color: @ui-border;
+  margin: 8px 0;
+}
+
 // Current country
 
 .nav__country-item {
@@ -156,7 +162,7 @@
   }
 }
 
-// NDP
+// odp
 
 .nav__link-list {
   overflow-y: auto;
@@ -328,9 +334,7 @@
 // Mixins
 
 .mixin-nav-primary-base() {
-  border-top: @ui-thin-border;
-  margin-top: 8px;
-  padding: 16px 16px 12px 20px;
+  padding: 8px 16px 12px 20px;
   line-height: 20px;
 }
 
