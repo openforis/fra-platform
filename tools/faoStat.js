@@ -22,7 +22,7 @@ const getFaostatValues = (fileName) =>
         parsedData
       )
       const groupedByCountry = R.reduce(
-        (result, row) => R.assocPath([row.countryIso, row.year], row.area, result),
+        (result, row) => R.assocPath([row.countryIso, 'faoStat', row.year], row.area, result),
         {},
         rowObjects
       )
