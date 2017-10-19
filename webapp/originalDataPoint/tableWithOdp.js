@@ -34,12 +34,9 @@ export class TableWithOdp extends React.Component {
           </tr>
           </thead>
           <tbody>
-          {buildRows(rows, this.props)}
+            {buildRows(rows, this.props)}
           </tbody>
         </table>
-      </div>
-      <div className="table-with-odp__comment-column">
-        { buildIndicators(rows, this.props) }
       </div>
     </div>
   }
@@ -51,17 +48,9 @@ const buildRows = (rows, props) => {
   const paste = R.partial(updatePastedValues, [props.rowNames])
 
   return mapIndexed((row, i) =>
-      fraValueRow(row, props.countryIso, props.fra, save, saveMany, paste, i, props.openCommentThread)
+      tableRow(row, props.countryIso, props.fra, save, saveMany, paste, i, props.openCommentThread, props.section)
     , rows)
 }
-
-const buildIndicators = (rows, props) => mapIndexed((row, i) =>  <ReviewIndicator
-  key={`${row.field}_ri`}
-  section={props.section}
-  name={row.localizedName}
-  target={[row.field]}
-  countryIso={props.countryIso}
-/>, rows)
 
 const OdpHeading = ({countryIso, odpValue}) =>
   <Link className="link" to={`/country/${countryIso}/odp/${odpValue.odpId}`}>
@@ -82,7 +71,7 @@ const odpCell = (odpValue, field) =>
     precision={2}
     disabled={true} />
 
-const fraValueRow = (row, countryIso, fra, save, saveMany, pasteUpdate, colId, openThread) => {
+const tableRow = (row, countryIso, fra, save, saveMany, pasteUpdate, colId, openThread, section) => {
   const {localizedName, field, className, customRender} = row
 
   return <tr
@@ -102,6 +91,16 @@ const fraValueRow = (row, countryIso, fra, save, saveMany, pasteUpdate, colId, o
           </td>
         , R.values(fra))
     }
+    <td className="fra-table__row-anchor-cell">
+      <div className="fra-table__review-indicator-anchor">
+        <ReviewIndicator
+          key={`${field}_ri`}
+          section={section}
+          name={localizedName}
+          target={[field]}
+          countryIso={countryIso} />
+      </div>
+    </td>
   </tr>
 }
 
