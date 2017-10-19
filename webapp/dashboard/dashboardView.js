@@ -92,7 +92,6 @@ class DashboardView extends React.Component {
   render() {
     const {match, i18n, feed} = this.props
     const countryIso = match.params.countryIso
-    const countryFlagUrl = `/img/flags/4x3/${(alpha3ToAlpha2(countryIso)).toLowerCase()}.svg`
     const externalLinks = [{
       name: 'FRIMS',
       url: 'http://fenix.fao.org/fra2015'
@@ -100,20 +99,22 @@ class DashboardView extends React.Component {
       name: 'SEPAL',
       url: 'https://sepal.io/'
     },{
-      name: i18n.t('dashboard.externalLinks.unfcccReportedData'),
-      url: 'http://unfccc.int/national_reports/annex_i_ghg_inventories/national_inventories_submissions/items/9492.p'
+      name: i18n.t('dashboard.externalLinks.unFcccReportedData'),
+      url: 'http://unfccc.int/national_reports/annex_i_ghg_inventories/national_inventories_submissions/items/9492.php'
     },{
       name: 'FAOSTAT',
-      url: 'http://www.fao.org/faostat/en/'
+      url: 'http://www.fao.org/faostat/'
     },{
       name: i18n.t('dashboard.externalLinks.nationalFocalPoints'),
       url: 'http://unfccc.int/parties_observers/parties/national_focal_points/items/9336.php'
+    },{
+      name: i18n.t('dashboard.externalLinks.unReddPlatform'),
+      url: 'http://redd.unfccc.int/submissions.html'
     }]
 
     return <LoggedInPageTemplate>
       <div className="fra-view__content">
         <div className="dashboard__page-header">
-          {countryFlagUrl ? <img className="flag" src={countryFlagUrl} alt={countryIso} height="32" /> : null}
           <h1 className="title">{getCountryName(countryIso, i18n.language)}</h1>
         </div>
         <div className="dashboard__container">

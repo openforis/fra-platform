@@ -63,7 +63,8 @@ export const translation = {
     externalLinks: {
       title: 'External links',
       nationalFocalPoints: 'National focal points',
-      unfcccReportedData: 'UNFCCC reported data'
+      unFcccReportedData: 'UNFCCC reported data',
+      unReddPlatform: 'UN-REDD platform'
     },
     actions: {
       added: 'added',
