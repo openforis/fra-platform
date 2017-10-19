@@ -10,36 +10,42 @@ import { Link } from './../link'
 
 const mapIndexed = R.addIndex(R.map)
 
-const getActionLocalizationKey = (key) => {
-  if (R.contains(key, ['createIssue', 'createComment'])) {
-    return 'dashboard.actions.commented'
-  } else if (R.contains(key, 'markAsResolved')) {
-    return 'dashboard.actions.resolved'
-  } else if (R.contains(key, 'deleteOdp')) {
-    return 'dashboard.actions.deleted'
-  } else if (R.contains(key, 'createOdp')) {
-    return 'dashboard.actions.added'
+const getActionLocalizationKey = (message) => {
+  var aKey = 'dashboard.actions.'
+  if (R.contains(message, ['createIssue', 'createComment'])) {
+    aKey += 'commented'
+  } else if (R.contains(message, 'markAsResolved')) {
+    aKey += 'resolved'
+  } else if (R.contains(message, 'deleteOdp')) {
+    aKey += 'deleted'
+  } else if (R.contains(message, 'createOdp')) {
+    aKey += 'added'
   } else {
-    return 'dashboard.actions.edited'
+    aKey += 'edited'
   }
+  return aKey
 }
 
 const getSectionLocalizationKey = (section) => {
+  var sKey = ''
   if (R.contains(section, 'odp')) {
-    return 'nationalDataPoint.nationalDataPoint'
+    sKey = 'nationalDataPoint'
   } else if (R.contains(section, ['primaryDesignatedManagementObjective', 'totalAreaWithDesignatedManagementObjective'])) {
-    return 'designatedManagementObjective.' + section
+    sKey = 'designatedManagementObjective'
+  } else if (R.contains(section, 'nonWoodForestProductsRemovalsCurrency')) {
+    sKey = 'nonWoodForestProductsRemovals'
   } else {
-    return section + '.' + section
+    sKey = section
   }
+  return [sKey, sKey]
 }
 
 const getSectionUrl = (item) => {
   const odpId = R.path(['target', 'odpId'], item)
   if (odpId) {
-    return item.sectionName + '/' + odpId
+    return 'odp/' + odpId
   }
-  return item.sectionName
+  return getSectionLocalizationKey(item.sectionName)[0]
 }
 
 const LinkList = ({title, links}) => {
@@ -59,7 +65,7 @@ const LinkList = ({title, links}) => {
 
 const ActivityItem = ({i18n, countryIso, item}) => {
   const sectionUrl = getSectionUrl(item)
-  const sectionLocalizationKey = getSectionLocalizationKey(item.sectionName)
+  const sectionLocalizationKey = getSectionLocalizationKey(item.sectionName).join('.')
   const actionLocalizationKey = getActionLocalizationKey(item.message)
 
   return <div className="dashboard__activity-item">
