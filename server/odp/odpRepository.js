@@ -29,7 +29,7 @@ const wipeNationalClassIssues = (client, odpId, countryIso, nationalClasses) => 
       ? `AND i.target #> '{params,2}' NOT IN (${classQueryPlaceholders})`
       : `AND i.target #> '{params,1}' = '"class"'`}
     `
-    , hasClasses ? [countryIso, 'NDP', ...classUuids] : [countryIso, 'NDP'])
+    , hasClasses ? [countryIso, 'odp', ...classUuids] : [countryIso, 'odp'])
     .then(res => res.rows.map(r => r.issue_id))
     .then(issueIds => deleteIssuesByIds(client, issueIds))
     .then(() => ({odpId}))
@@ -61,9 +61,9 @@ const createOdp = (client, countryIso, user) =>
 
 const insertDraft = (client, countryIso, user, odpId, draft) =>
   client.query(
-    `INSERT INTO 
-     odp_version 
-     (year, 
+    `INSERT INTO
+     odp_version
+     (year,
      description,
      data_source_references,
      data_source_methods,
@@ -96,9 +96,9 @@ const updateDraft = (client, draft) =>
     }
   ).then(([draftId, ..._]) =>
     client.query(`
-    UPDATE 
-    odp_version 
-    SET year = $2, 
+    UPDATE
+    odp_version
+    SET year = $2,
     description = $3,
     data_source_references = $4,
     data_source_methods = $5,
@@ -239,7 +239,7 @@ const deleteOdp = (client, odpId, user) =>
             ? wipeClassData(client, actualId)
             .then(() => client.query('DELETE FROM odp_version WHERE id = $1', [actualId]))
             : Promise.resolve(),
-          deleteIssues(client, countryIso, 'NDP', 0, odpId)
+          deleteIssues(client, countryIso, 'odp', 0, odpId)
         ])
       })
 

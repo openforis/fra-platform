@@ -46,7 +46,7 @@ class designatedManagementObjectiveView extends React.Component {
           countryIso={match.params.countryIso}
           section={sectionName}/>
         <h3 className="subhead dmo__table-header">
-          {i18n.t('designatedManagementObjective.totalAreaDesignatedManagementObjective')}
+          {i18n.t('designatedManagementObjective.totalAreaWithDesignatedManagementObjective')}
         </h3>
         <TraditionalTable
           tableSpec={totalDmoTableSpec}
