@@ -36,4 +36,11 @@ module.exports.init = app => {
 
   })
 
+  app.delete('/users/:countryIso/:userId', (req, res) => {
+    checkCountryAccessFromReqParams(req)
+
+    db.transaction(userRepository.removeUser, [req.params.countryIso, req.params.userId])
+      .then(res.json({}))
+      .catch(err => sendErr(res, err))
+  })
 }

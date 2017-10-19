@@ -72,7 +72,7 @@ const updateUser = (client, countryIso, user) =>
     WHERE 
       id = $3  
   `, [user.name, user.email, user.id])
-    .then( () =>
+    .then(() =>
       client.query(`
         UPDATE 
           user_country_role
@@ -85,11 +85,21 @@ const updateUser = (client, countryIso, user) =>
       `, [user.role, user.id, countryIso])
     )
 
+const removeUser = (client, countryIso, userId) =>
+  client.query(`
+    DELETE FROM
+      user_country_role
+    WHERE 
+      user_id = $1
+    AND
+      country_iso = $2
+  `, [userId, countryIso])
 
 module.exports = {
   findUserById,
   findUserByLoginEmails,
   updateLanguage,
   fetchCountryUsers,
-  updateUser
+  updateUser,
+  removeUser
 }

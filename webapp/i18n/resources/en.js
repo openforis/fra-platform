@@ -229,6 +229,7 @@ export const translation = {
     email: 'Email',
     loginEmail: 'Login email',
     noUsers: 'No users added',
+    remove: 'Remove'
   },
 
   // FRA 2020 questionare

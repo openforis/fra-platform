@@ -6,7 +6,7 @@ import * as autosave from '../autosave/actions'
 
 export const usersFetchCompleted = 'users/fetch/completed'
 export const usersUpdateUserStarted = 'users/updateUser/started'
-export const usersUpdateUserCompleted = 'users/updateUser/completed'
+export const usersRemoveUserStarted = 'users/removeUser/started'
 
 export const fetchUsers = countryIso => dispatch =>
   axios.get(`/api/users/${countryIso}`)
@@ -20,7 +20,7 @@ export const updateUser = (countryIso, userId, field, value) => (dispatch, getSt
   const user = R.pipe(
     R.find(R.propEq('id', userId)),
     R.assoc(field, value)
-  )(getState().users)
+  )(getState().users.list)
 
   dispatch({type: usersUpdateUserStarted, user})
   dispatch(persistUser(countryIso, user))
@@ -29,9 +29,8 @@ export const updateUser = (countryIso, userId, field, value) => (dispatch, getSt
 export const persistUser = (countryIso, user) => {
   const dispatched = dispatch => {
     axios.post(`/api/users/${countryIso}`, user)
-      .then((resp) => {
+      .then(() => {
         dispatch(autosave.complete)
-        dispatch(dispatch({type: usersUpdateUserCompleted}))
       }).catch((err) => {
       dispatch(applicationError(err))
     })
@@ -44,4 +43,16 @@ export const persistUser = (countryIso, user) => {
     }
   }
   return dispatched
+}
+
+export const removeUser = (countryIso, userId) => dispatch => {
+  dispatch(autosave.start)
+  dispatch({type: usersRemoveUserStarted, userId})
+
+  axios.delete(`/api/users/${countryIso}/${userId}`)
+    .then(() => {
+      dispatch(autosave.complete)
+    }).catch((err) => {
+    dispatch(applicationError(err))
+  })
 }

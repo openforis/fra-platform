@@ -8,9 +8,9 @@ import LoggedInPageTemplate from '../loggedInPageTemplate'
 import TextInput from '../reusableUiComponents/textInput'
 import { reviewer, nationalCorrespondent, collaborator } from '../../common/countryRole'
 
-import { fetchUsers, updateUser } from './actions'
+import { fetchUsers, updateUser, removeUser } from './actions'
 
-const UsersTable = ({updateUser, countryIso, i18n, users}) =>
+const UsersTable = ({countryIso, i18n, users, updateUser, removeUser}) =>
   <table className="users__list-table">
     <thead>
     <tr className='users__list-table-header-row'>
@@ -25,43 +25,54 @@ const UsersTable = ({updateUser, countryIso, i18n, users}) =>
     {
       users.length > 0
         ? users.map(user =>
-          <UserRow key={user.id} updateUser={updateUser} countryIso={countryIso} i18n={i18n} user={user}/>
+          <UserRow key={user.id} countryIso={countryIso} i18n={i18n} user={user}
+                   updateUser={updateUser} removeUser={removeUser}/>
         )
         : <tr className="users__list-table-row">
-          <td className="users__list-table-empty" colSpan="4">{i18n.t('users.noUsers')}</td>
+          <td className="users__list-table-empty" colSpan="5">{i18n.t('users.noUsers')}</td>
         </tr>
     }
     </tbody>
   </table>
 
-const UserRow = ({updateUser, countryIso, i18n, user}) => {
+const UserRow = ({countryIso, i18n, user, updateUser, removeUser}) => {
   const readOnly = R.endsWith('ALL', user.role)
 
   return <tr className={`users__list-table-row${readOnly ? ' read-only' : ''}`}>
     <td>
-      <UserTextField updateUser={updateUser} countryIso={countryIso} i18n={i18n} user={user} field="name" readOnly={readOnly}/>
+      <UserTextField
+        countryIso={countryIso} i18n={i18n} user={user} field="name" readOnly={readOnly} updateUser={updateUser}/>
     </td>
     <td>{
       readOnly
         ? <div className="users__list-table-read-only-cell">{i18n.t(`user.roles.${R.toLower(user.role)}`)}</div>
-        : <UserRoleSelect updateUser={updateUser} countryIso={countryIso} i18n={i18n} user={user}/>
+        : <UserRoleSelect countryIso={countryIso} i18n={i18n} user={user} updateUser={updateUser}/>
     }</td>
     <td>
-      <UserTextField updateUser={updateUser} countryIso={countryIso} i18n={i18n} user={user} field="email" readOnly={readOnly}/>
+      <UserTextField
+        countryIso={countryIso} i18n={i18n} user={user} field="email" readOnly={readOnly} updateUser={updateUser}/>
     </td>
     <td>
       <div className="users__list-table-read-only-cell">{user.loginEmail}</div>
     </td>
-    <td></td>
+    <td>
+      {
+        readOnly
+          ? null
+          : <span className="btn btn-destructive" onClick={e => removeUser(countryIso, user.id)}>
+              {i18n.t('users.remove')}
+            </span>
+      }
+    </td>
   </tr>
 }
 
-const UserTextField = ({updateUser, countryIso, i18n, user, field, readOnly}) =>
+const UserTextField = ({countryIso, i18n, user, field, readOnly, updateUser}) =>
   readOnly
     ? <div className="users__list-table-read-only-cell">{user[field]}</div>
     : <TextInput value={user[field]} onChange={e => updateUser(countryIso, user.id, field, e.target.value)}/>
 
-const UserRoleSelect = ({updateUser, countryIso, i18n, user}) =>
+const UserRoleSelect = ({countryIso, i18n, user, updateUser}) =>
   <select
     className="fra-table__select"
     value={user.role}
@@ -87,21 +98,23 @@ class UsersView extends React.Component {
   }
 
   render () {
-    const {i18n, match} = this.props
+    const {i18n, match, users} = this.props
 
-    return <LoggedInPageTemplate>
-      <div className="fra-view__content">
-        <h1 className="title">{i18n.t('users.manageUsers')}</h1>
-        <UsersTable {...this.props} countryIso={match.params.countryIso}/>
-      </div>
-    </LoggedInPageTemplate>
+    return users
+      ? <LoggedInPageTemplate>
+        <div className="fra-view__content">
+          <h1 className="title">{i18n.t('users.manageUsers')}</h1>
+          <UsersTable {...this.props} countryIso={match.params.countryIso}/>
+        </div>
+      </LoggedInPageTemplate>
+      : null
   }
 }
 
 const mapStateToProps = state =>
   ({
     i18n: state.user.i18n,
-    users: state.users
+    users: state.users.list
   })
 
-export default connect(mapStateToProps, {fetchUsers, updateUser})(UsersView)
+export default connect(mapStateToProps, {fetchUsers, updateUser, removeUser})(UsersView)
