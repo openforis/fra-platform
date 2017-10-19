@@ -499,7 +499,8 @@ export const translation = {
     allOtherPlantProducts: 'All other plant products',
     allOtherAnimalProducts: 'All other animal products',
     total: 'Total',
-    currency: 'Name of currency'
+    currency: 'Name of currency',
+    notSelected: ''
   },
 
   multiSelect: {
