@@ -39,11 +39,7 @@ class BiomassStockView extends React.Component {
             {i18n.t('biomassStock.downloadExcel')}
           </a>
         </div>
-
-        <div className="traditional-table-outer-container">
-          <TraditionalTable tableSpec={this.tableSpecInstance} countryIso={countryIso}/>
-        </div>
-
+        <TraditionalTable tableSpec={this.tableSpecInstance} countryIso={countryIso}/>
         <CommentableDescriptions
           section="biomassStock"
           name="biomassStock"
