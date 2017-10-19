@@ -9,6 +9,7 @@ import ChartWrapper from './chart/chartWrapper'
 import LoggedInPageTemplate from '../loggedInPageTemplate'
 import { TableWithOdp } from '../originalDataPoint/tableWithOdp'
 import { CommentableReviewDescription } from '../description/commentableDescription'
+const countryConfig = require('../../common/countryConfig')
 
 const ExtentOfForest = (props) => {
 
@@ -90,9 +91,17 @@ const ExtentOfForest = (props) => {
         {i18n.t('extentOfForest.generateFraValues')}
       </button>
     </div>
-    <TableWithOdp section='extentOfForest' rows={eofRows} rowNames={eofRowNames} {...props}
+    <TableWithOdp
+               section='extentOfForest'
+               rows={eofRows}
+               rowNames={eofRowNames}
+               footerRow={{
+                 localizedName: props.i18n.t('extentOfForest.faoStatLandArea'),
+                 yearValues: countryConfig[props.countryIso].faoStat
+               }}
                areaUnitLabel={props.i18n.t('extentOfForest.areaUnitLabel')}
-               categoryHeader={props.i18n.t('extentOfForest.categoryHeader')}/>
+               categoryHeader={props.i18n.t('extentOfForest.categoryHeader')}
+               {...props}/>
     <CommentableReviewDescription
       section='extentOfForest'
       countryIso={props.match.params.countryIso}

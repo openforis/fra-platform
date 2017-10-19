@@ -36,6 +36,13 @@ export class TableWithOdp extends React.Component {
           <tbody>
             {buildRows(rows, this.props)}
           </tbody>
+          <tfoot>
+            {
+              this.props.footerRow
+                ?  buildFooterRow(this.props)
+                : null
+            }
+          </tfoot>
         </table>
       </div>
     </div>
@@ -50,6 +57,18 @@ const buildRows = (rows, props) => {
   return mapIndexed((row, i) =>
       tableRow(row, props.countryIso, props.fra, save, saveMany, paste, i, props.openCommentThread, props.section)
     , rows)
+}
+
+const buildFooterRow = (props) => {
+  const {localizedName, yearValues} = props.footerRow
+  return <tr>
+    <td>{localizedName}</td>
+    {
+      mapIndexed((value, i) =>
+        <td key={i}>{yearValues[value.name]}</td>,
+        R.values(props.fra))
+    }
+  </tr>
 }
 
 const OdpHeading = ({countryIso, odpValue}) =>
