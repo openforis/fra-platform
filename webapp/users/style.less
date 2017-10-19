@@ -30,6 +30,10 @@
     color: @text-disabled;
   }
 
+  &:hover {
+    background: lighten(@ui-bg, 2%);
+  }
+
   td {
     padding: 0px;
     height: 1px;
@@ -38,4 +42,36 @@
 
 .users__list-table-read-only-cell {
   padding: 0 10px;
+}
+
+.users__add-user-container {
+  padding: 25px 20px;
+  margin: 25px 10px 0px 10px;
+  //border: @ui-thin-border;
+  border-radius: 2px;
+  background: @ui-bg;
+}
+
+.users__add-user-table {
+  .fra-table;
+}
+
+//.users__add-user-table-header-row {
+//  text-align: left;
+//  th {
+//    padding: 12px 20px;
+//  }
+//}
+
+.users__add-user-table-row {
+  text-align: center;
+
+  td {
+    padding: 0px 5px;
+    height: 1px;
+
+    input, select, div {
+      background-color: white;
+    }
+  }
 }

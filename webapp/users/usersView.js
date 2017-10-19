@@ -10,6 +10,38 @@ import { reviewer, nationalCorrespondent, collaborator } from '../../common/coun
 
 import { fetchUsers, updateUser, removeUser } from './actions'
 
+const AddUserForm = ({countryIso, i18n, user}) =>
+  <div className="users__add-user-container">
+    <table className="users__add-user-table">
+      {/*<thead>*/}
+      {/*<tr className="users__add-user-table-header-row">*/}
+      {/*<th colSpan="4">{i18n.t('users.addNewUser')}</th>*/}
+      {/*</tr>*/}
+      {/*</thead>*/}
+      <tbody>
+      <tr className="users__add-user-table-row">
+        <td>
+          <UserTextField countryIso={countryIso} i18n={i18n} user={user} field="name"/>
+        </td>
+        <td>
+          <UserRoleSelect countryIso={countryIso} i18n={i18n} user={user}/>
+        </td>
+        <td>
+          <UserTextField countryIso={countryIso} i18n={i18n} user={user} field="email"/>
+        </td>
+        <td>
+          <button className="btn btn-primary" onClick={() => null}>
+            <svg className="icon icon-sub icon-white">
+              <use xlinkHref="img/icons.svg#small-add"/>
+            </svg>
+            {i18n.t('users.addUser')}
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
 const UsersTable = ({countryIso, i18n, users, updateUser, removeUser}) =>
   <table className="users__list-table">
     <thead>
@@ -77,6 +109,7 @@ const UserRoleSelect = ({countryIso, i18n, user, updateUser}) =>
     className="fra-table__select"
     value={user.role}
     onChange={e => updateUser(countryIso, user.id, 'role', e.target.value)}>
+    {user.role === '' ? <option value="">{i18n.t('users.role')}</option> : null}
     <option value={reviewer.role}>{i18n.t(reviewer.labelKey)}</option>
     <option value={nationalCorrespondent.role}>{i18n.t(nationalCorrespondent.labelKey)}</option>
     <option value={collaborator.role}>{i18n.t(collaborator.labelKey)}</option>
@@ -104,6 +137,7 @@ class UsersView extends React.Component {
       ? <LoggedInPageTemplate>
         <div className="fra-view__content">
           <h1 className="title">{i18n.t('users.manageUsers')}</h1>
+          <AddUserForm {...this.props} user={{name: '', email: '', role: ''}}/>
           <UsersTable {...this.props} countryIso={match.params.countryIso}/>
         </div>
       </LoggedInPageTemplate>

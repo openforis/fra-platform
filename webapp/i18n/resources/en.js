@@ -110,7 +110,7 @@ export const translation = {
       platformVersion: 'Platform version',
       userAgent: 'User agent',
       user: 'User',
-      manageUsers: 'Manage users'
+      manageCollaborators: 'Manage collaborators'
     },
     sectionHeaders: {
       forestExtentCharacteristicsAndChanges: 'Forest extent, characteristics and changes',
@@ -229,7 +229,9 @@ export const translation = {
     email: 'Email',
     loginEmail: 'Login email',
     noUsers: 'No users added',
-    remove: 'Remove'
+    remove: 'Remove',
+    addNewUser:'Add new User',
+    addUser:'Add User',
   },
 
   // FRA 2020 questionare

@@ -223,7 +223,7 @@ const UsersManagementLink = ({i18n, countryIso, path}) => {
     <Link
       className={`nav__secondary-item ${R.equals(path, linkTo) ? 'selected' : ''}`}
       to={linkTo}>
-      {i18n.t('navigation.support.manageUsers')}
+      {i18n.t('navigation.support.manageCollaborators')}
     </Link>
   </div>
 }
