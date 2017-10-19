@@ -11,26 +11,31 @@ if (process.argv.length < 3) {
   process.exit()
 }
 
-console.log('reading file', process.argv[2])
+const getFaostatValues = (fileName) =>
+  fs.readFileAsync(process.argv[2], {encoding: 'utf-8'})
+    .then(data => {
+      //slice removes first header line (-1) and some crap in the end (-2)
+      //^ these might change when source-data changes
+      const lines = R.slice(1, -2, data.split('\n'))
+      const parsedData = R.map(line => line.split(','), lines)
+      const rowObjects = R.map(
+        row => ({
+          countryIso: row[countryIsoCol],
+          year: row[yearCol],
+          area: row[areaCol]
+        }),
+        parsedData
+      )
+      const groupedByCountry = R.reduce(
+        (result, row) => R.assocPath([row.countryIso, row.year], row.area, result),
+        {},
+        rowObjects
+      )
+      return groupedByCountry
+    })
 
-fs.readFileAsync(process.argv[2], {encoding: 'utf-8'})
-  .then(data => {
-    //slice removes first header line (-1) and some crap in the end (-2)
-    //^ these might change when source-data changes
-    const lines = R.slice(1, -2, data.split('\n'))
-    const parsedData = R.map(line => line.split(','), lines)
-    const rowObjects = R.map(
-      row => ({
-        countryIso: row[countryIsoCol],
-        year: row[yearCol],
-        area: row[areaCol]
-      }),
-      parsedData
-    )
-    const groupedByCountry = R.reduce(
-      (result, row) => R.assocPath([row.countryIso, row.year], row.area, result),
-      {},
-      rowObjects
-    )
-    console.log(groupedByCountry)
-  }).catch(err => console.log('Error: ', err))
+const fileName  = process.argv[2]
+console.log('reading file', fileName)
+getFaostatValues(fileName)
+  .then(values=> console.log(values))
+  .catch(err => console.log('Error: ', err))
