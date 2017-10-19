@@ -922,10 +922,9 @@ class OriginalDataPointView extends React.Component {
   componentDidMount () {
     const odpId = R.defaultTo(null, this.props.match.params.odpId)
     this.props.fetch(odpId, this.props.match.params.countryIso)
-    this.props.fetchLastSectionUpdateTimestamp(
-      this.props.match.params.countryIso,
-      'odp'
-    )
+    // TODO this requires passing in target array containing odpId as well
+    // also requires server-side support in the API to handle the target-array
+    // this.props.fetchLastSectionUpdateTimestamp(this.props.match.params.countryIso, 'odp')
   }
 
   componentWillUnmount () {
