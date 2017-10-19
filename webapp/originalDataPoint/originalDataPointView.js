@@ -26,6 +26,7 @@ import ReviewIndicator from '../review/reviewIndicator'
 import DefinitionLink from './../reusableUiComponents/definitionLink'
 import MultiSelect from '../reusableUiComponents/multiSelect'
 import handlePaste from './paste'
+import { fetchLastSectionUpdateTimestamp } from '../audit/actions'
 
 const years = ['', ...R.pipe(R.range(1990), R.reverse)(2021)]
 
@@ -921,6 +922,9 @@ class OriginalDataPointView extends React.Component {
   componentDidMount () {
     const odpId = R.defaultTo(null, this.props.match.params.odpId)
     this.props.fetch(odpId, this.props.match.params.countryIso)
+    // TODO this requires passing in target array containing odpId as well
+    // also requires server-side support in the API to handle the target-array
+    // this.props.fetchLastSectionUpdateTimestamp(this.props.match.params.countryIso, 'odp')
   }
 
   componentWillUnmount () {
@@ -965,5 +969,6 @@ export default connect(mapStateToProps, {
   clearActive,
   copyPreviousNationalClasses,
   cancelDraft,
-  fetchCountryOverviewStatus
+  fetchCountryOverviewStatus,
+  fetchLastSectionUpdateTimestamp
 })(OriginalDataPointView)

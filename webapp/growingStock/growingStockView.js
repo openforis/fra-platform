@@ -8,8 +8,10 @@ import { CommentableDescriptions } from '../description/commentableDescription'
 import GrowingStockTable from './growingStockTable'
 import { rows } from './growingStock'
 import DefinitionLink from './../reusableUiComponents/definitionLink'
-
+import { fetchLastSectionUpdateTimestamp } from '../audit/actions'
 import { fetch, updateValue, updateValues } from './actions'
+
+const sectionName = 'growingStock'
 
 const GrowingStock = (props) => {
   const i18n = props.i18n
@@ -22,7 +24,7 @@ const GrowingStock = (props) => {
       <div className="support-text">{i18n.t('growingStock.supportText')}</div>
     </div>
     <GrowingStockTable
-      section="growingStock"
+      section={sectionName}
       header={props.i18n.t('growingStock.categoryHeader')}
       avgTableHeader={props.i18n.t('growingStock.avgTableHeader')}
       totalTableHeader={props.i18n.t('growingStock.totalTableHeader')}
@@ -30,8 +32,8 @@ const GrowingStock = (props) => {
       {...props}
     />
     <CommentableDescriptions
-      section='growingStock'
-      name="growingStock"
+      section={sectionName}
+      name={sectionName}
       countryIso={props.countryIso}
       i18n={i18n}
     />
@@ -41,6 +43,10 @@ class GrowingStockView extends Component {
 
   componentWillMount () {
     this.fetch(this.props.match.params.countryIso)
+    this.props.fetchLastSectionUpdateTimestamp(
+      this.props.match.params.countryIso,
+      sectionName
+    )
   }
 
   componentWillReceiveProps (next) {
@@ -72,4 +78,12 @@ const mapStateToProps = state => ({
   'openCommentThread': state.review.openThread
 })
 
-export default connect(mapStateToProps, {fetch, updateValue, updateValues})(GrowingStockView)
+export default connect(
+  mapStateToProps,
+  {
+    fetch,
+    updateValue,
+    updateValues,
+    fetchLastSectionUpdateTimestamp
+  }
+)(GrowingStockView)

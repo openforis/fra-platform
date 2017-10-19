@@ -1,5 +1,6 @@
 module.exports = {
   tableName: 'primary_designated_management_objective',
+  section: 'designatedManagementObjective',
   rows: {
     names: [
       'production',

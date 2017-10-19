@@ -148,7 +148,7 @@ export const translation = {
     autoSave: {
       saving: 'Saving…',
       complete: 'All changes saved',
-      lastSaveTimestampReceived: 'Last edit '
+      lastSaveTimestampReceived: 'Last edited '
     }
   },
 
