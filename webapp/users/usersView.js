@@ -8,29 +8,22 @@ import LoggedInPageTemplate from '../loggedInPageTemplate'
 import TextInput from '../reusableUiComponents/textInput'
 import { reviewer, nationalCorrespondent, collaborator } from '../../common/countryRole'
 
-import { fetchUsers, updateUser, removeUser } from './actions'
+import { fetchUsers, updateUser, removeUser, updateNewUser, addNewUser } from './actions'
+import { validationField } from './users'
 
-const AddUserForm = ({countryIso, i18n, user}) =>
+const AddUserForm = ({countryIso, i18n, user, updateNewUser, addNewUser}) =>
   <div className="users__add-user-container">
     <table className="users__add-user-table">
-      {/*<thead>*/}
-      {/*<tr className="users__add-user-table-header-row">*/}
-      {/*<th colSpan="4">{i18n.t('users.addNewUser')}</th>*/}
-      {/*</tr>*/}
-      {/*</thead>*/}
       <tbody>
       <tr className="users__add-user-table-row">
+        <UserTextFieldCol
+          countryIso={countryIso} i18n={i18n} user={user} field="name" updateUser={updateNewUser}/>
+        <UserRoleSelectCol
+          countryIso={countryIso} i18n={i18n} user={user} updateUser={updateNewUser}/>
+        <UserTextFieldCol
+          countryIso={countryIso} i18n={i18n} user={user} field="email" updateUser={updateNewUser}/>
         <td>
-          <UserTextField countryIso={countryIso} i18n={i18n} user={user} field="name"/>
-        </td>
-        <td>
-          <UserRoleSelect countryIso={countryIso} i18n={i18n} user={user}/>
-        </td>
-        <td>
-          <UserTextField countryIso={countryIso} i18n={i18n} user={user} field="email"/>
-        </td>
-        <td>
-          <button className="btn btn-primary" onClick={() => null}>
+          <button className="btn btn-primary" onClick={() => addNewUser(countryIso)}>
             <svg className="icon icon-sub icon-white">
               <use xlinkHref="img/icons.svg#small-add"/>
             </svg>
@@ -71,49 +64,50 @@ const UserRow = ({countryIso, i18n, user, updateUser, removeUser}) => {
   const readOnly = R.endsWith('ALL', user.role)
 
   return <tr className={`users__list-table-row${readOnly ? ' read-only' : ''}`}>
-    <td>
-      <UserTextField
-        countryIso={countryIso} i18n={i18n} user={user} field="name" readOnly={readOnly} updateUser={updateUser}/>
-    </td>
+    <UserTextFieldCol
+      countryIso={countryIso} i18n={i18n} user={user} field="name" readOnly={readOnly} updateUser={updateUser}/>
+    <UserRoleSelectCol
+      countryIso={countryIso} i18n={i18n} user={user} readOnly={readOnly} updateUser={updateUser}/>
+    <UserTextFieldCol
+      countryIso={countryIso} i18n={i18n} user={user} field="email" readOnly={readOnly} updateUser={updateUser}/>
+    <UserTextFieldCol
+      countryIso={countryIso} i18n={i18n} user={user} field="loginEmail" readOnly={true} updateUser={updateUser}/>
     <td>{
       readOnly
-        ? <div className="users__list-table-read-only-cell">{i18n.t(`user.roles.${R.toLower(user.role)}`)}</div>
-        : <UserRoleSelect countryIso={countryIso} i18n={i18n} user={user} updateUser={updateUser}/>
-    }</td>
-    <td>
-      <UserTextField
-        countryIso={countryIso} i18n={i18n} user={user} field="email" readOnly={readOnly} updateUser={updateUser}/>
-    </td>
-    <td>
-      <div className="users__list-table-read-only-cell">{user.loginEmail}</div>
-    </td>
-    <td>
-      {
-        readOnly
-          ? null
-          : <span className="btn btn-destructive" onClick={e => removeUser(countryIso, user.id)}>
+        ? null
+        : <span className="btn btn-destructive" onClick={e => removeUser(countryIso, user.id)}>
               {i18n.t('users.remove')}
             </span>
-      }
-    </td>
+    }</td>
   </tr>
 }
 
-const UserTextField = ({countryIso, i18n, user, field, readOnly, updateUser}) =>
-  readOnly
-    ? <div className="users__list-table-read-only-cell">{user[field]}</div>
-    : <TextInput placeholder={i18n.t(`users.${field}`)} value={user[field]} onChange={e => updateUser(countryIso, user.id, field, e.target.value)}/>
+const UserTextFieldCol = ({countryIso, i18n, user, field, readOnly, updateUser}) =>
+  <td className={user[validationField(field)] === false ? 'error' : ''}>{
+    readOnly
+      ? <div className="users__list-table-read-only-cell">{user[field]}</div>
+      : <div className="text-input__container validation-error-sensitive-field">
+        <TextInput placeholder={i18n.t(`users.${field}`)} value={user[field]}
+                   onChange={e => updateUser(countryIso, user.id, field, e.target.value)}/>
+      </div>
+  }</td>
 
-const UserRoleSelect = ({countryIso, i18n, user, updateUser}) =>
-  <select required
-    className="fra-table__select"
-    value={user.role}
-    onChange={e => updateUser(countryIso, user.id, 'role', e.target.value)}>
-    {user.role === '' ? <option value="">{i18n.t('users.role')}</option> : null}
-    <option value={reviewer.role}>{i18n.t(reviewer.labelKey)}</option>
-    <option value={nationalCorrespondent.role}>{i18n.t(nationalCorrespondent.labelKey)}</option>
-    <option value={collaborator.role}>{i18n.t(collaborator.labelKey)}</option>
-  </select>
+const UserRoleSelectCol = ({countryIso, i18n, user, readOnly, updateUser}) =>
+  <td className={user[validationField('role')] === false ? 'error' : ''}>{
+    readOnly
+      ? <div className="users__list-table-read-only-cell">{i18n.t(`user.roles.${R.toLower(user.role)}`)}</div>
+      : <div className="text-input__container validation-error-sensitive-field">
+        <select required
+                className="fra-table__select"
+                value={user.role}
+                onChange={e => updateUser(countryIso, user.id, 'role', e.target.value)}>
+          {user.role === '' ? <option value="">{i18n.t('users.role')}</option> : null}
+          <option value={reviewer.role}>{i18n.t(reviewer.labelKey)}</option>
+          <option value={nationalCorrespondent.role}>{i18n.t(nationalCorrespondent.labelKey)}</option>
+          <option value={collaborator.role}>{i18n.t(collaborator.labelKey)}</option>
+        </select>
+      </div>
+  }</td>
 
 class UsersView extends React.Component {
 
@@ -131,13 +125,13 @@ class UsersView extends React.Component {
   }
 
   render () {
-    const {i18n, match, users} = this.props
+    const {i18n, match, users, newUser} = this.props
 
     return users
       ? <LoggedInPageTemplate>
         <div className="fra-view__content">
           <h1 className="title">{i18n.t('users.manageUsers')}</h1>
-          <AddUserForm {...this.props} user={{name: '', email: '', role: ''}}/>
+          <AddUserForm {...this.props} user={newUser}/>
           <UsersTable {...this.props} countryIso={match.params.countryIso}/>
         </div>
       </LoggedInPageTemplate>
@@ -148,7 +142,8 @@ class UsersView extends React.Component {
 const mapStateToProps = state =>
   ({
     i18n: state.user.i18n,
-    users: state.users.list
+    users: state.users.list,
+    newUser: state.users.newUser
   })
 
-export default connect(mapStateToProps, {fetchUsers, updateUser, removeUser})(UsersView)
+export default connect(mapStateToProps, {fetchUsers, updateUser, removeUser, updateNewUser, addNewUser})(UsersView)

@@ -45,9 +45,8 @@
 }
 
 .users__add-user-container {
-  padding: 25px 20px;
+  padding: 15px 10px;
   margin: 25px 10px 0px 10px;
-  //border: @ui-thin-border;
   border-radius: 2px;
   background: @ui-bg;
 }
@@ -56,22 +55,21 @@
   .fra-table;
 }
 
-//.users__add-user-table-header-row {
-//  text-align: left;
-//  th {
-//    padding: 12px 20px;
-//  }
-//}
-
 .users__add-user-table-row {
   text-align: center;
 
   td {
     padding: 0px 5px;
     height: 1px;
+  }
 
-    input, select, div {
-      background-color: white;
+  .validation-error-sensitive-field {
+    background-color: white;
+  }
+
+  .error {
+    .validation-error-sensitive-field {
+      background-color: fade(@ui-destructive, 10%);
     }
   }
 }

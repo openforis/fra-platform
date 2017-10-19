@@ -4,26 +4,27 @@ import * as R from 'ramda'
 import { applicationError } from '../applicationError/actions'
 import * as autosave from '../autosave/actions'
 
-export const usersFetchCompleted = 'users/fetch/completed'
-export const usersUpdateUserStarted = 'users/updateUser/started'
-export const usersRemoveUserStarted = 'users/removeUser/started'
+import { newUser, updateUserField, updateListUserField, validateUser } from './users'
 
+export const usersFetch = 'users/fetch'
+export const usersListUserUpdate = 'users/list/user/update'
+export const usersListUserRemove = 'users/list/user/remove'
+export const usersNewUserUpdate = 'users/new/user/update'
+
+// list action creators
 export const fetchUsers = countryIso => dispatch =>
   axios.get(`/api/users/${countryIso}`)
-    .then(resp => dispatch({type: usersFetchCompleted, users: resp.data}))
+    .then(resp => dispatch({type: usersFetch, users: resp.data, newUser: newUser()}))
     .catch(err => dispatch(applicationError(err)))
 
-// const update
 export const updateUser = (countryIso, userId, field, value) => (dispatch, getState) => {
-  dispatch(autosave.start)
+  const user = updateListUserField(userId, field, value)(getState().users.list)
+  dispatch({type: usersListUserUpdate, user})
 
-  const user = R.pipe(
-    R.find(R.propEq('id', userId)),
-    R.assoc(field, value)
-  )(getState().users.list)
-
-  dispatch({type: usersUpdateUserStarted, user})
-  dispatch(persistUser(countryIso, user))
+  if (user.valid) {
+    dispatch(autosave.start)
+    dispatch(persistUser(countryIso, user))
+  }
 }
 
 export const persistUser = (countryIso, user) => {
@@ -39,7 +40,7 @@ export const persistUser = (countryIso, user) => {
   dispatched.meta = {
     debounce: {
       time: 400,
-      key: usersUpdateUserStarted
+      key: usersListUserUpdate
     }
   }
   return dispatched
@@ -47,7 +48,7 @@ export const persistUser = (countryIso, user) => {
 
 export const removeUser = (countryIso, userId) => dispatch => {
   dispatch(autosave.start)
-  dispatch({type: usersRemoveUserStarted, userId})
+  dispatch({type: usersListUserRemove, userId})
 
   axios.delete(`/api/users/${countryIso}/${userId}`)
     .then(() => {
@@ -55,4 +56,20 @@ export const removeUser = (countryIso, userId) => dispatch => {
     }).catch((err) => {
     dispatch(applicationError(err))
   })
+}
+
+// new user action creators
+
+export const updateNewUser = (countryIso, userId, field, value) => (dispatch, getState) => {
+  const user = updateUserField(field, value)(getState().users.newUser)
+  dispatch({type: usersNewUserUpdate, user})
+}
+
+export const addNewUser = countryIso => (dispatch, getState) => {
+  const user = validateUser(getState().users.newUser)
+  if (user.valid) {
+  // TODO invite and save
+  } else {
+    dispatch({type: usersNewUserUpdate, user})
+  }
 }
