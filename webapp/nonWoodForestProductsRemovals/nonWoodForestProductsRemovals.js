@@ -7,6 +7,7 @@ import TraditionalTable from '../traditionalTable/traditionalTable'
 import mainTableSpec from './mainTableSpec'
 import { CommentableDescriptions } from '../description/commentableDescription'
 import DefinitionLink from './../reusableUiComponents/definitionLink'
+import { fetchLastSectionUpdateTimestamp } from '../audit/actions'
 
 const currencyNameTableSpec = i18n => ({
   name: 'nonWoodForestProductsRemovalsCurrency',
@@ -28,30 +29,41 @@ const currencyNameTableSpec = i18n => ({
   }
 })
 
-const NonWoodForestProductsRemovalsView = ({match, i18n}) => {
-  const mainTableSpecInstance = mainTableSpec(i18n)
+class NonWoodForestProductsRemovalsView extends React.Component {
+  componentWillMount() {
+    this.props.fetchLastSectionUpdateTimestamp(
+      this.props.match.params.countryIso,
+      'nonWoodForestProductsRemovals'
+    )
+  }
 
-  return <LoggedInPageTemplate>
-    <div className="fra-view__content">
-      <div className="fra-view__page-header">
-        <h1 className="title">{i18n.t('nonWoodForestProductsRemovals.nonWoodForestProductsRemovals')}</h1>
-        <DefinitionLink document="tad" anchor="7c" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
-        <DefinitionLink document="faq" anchor="7c" title={i18n.t('definition.faqLabel')} lang={i18n.language} className="align-left"/>
+  render() {
+    const {match, i18n} = this.props
+    const mainTableSpecInstance = mainTableSpec(i18n)
+
+    return <LoggedInPageTemplate>
+      <div className="fra-view__content">
+        <div className="fra-view__page-header">
+          <h1 className="title">{i18n.t('nonWoodForestProductsRemovals.nonWoodForestProductsRemovals')}</h1>
+          <DefinitionLink document="tad" anchor="7c" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
+          <DefinitionLink document="faq" anchor="7c" title={i18n.t('definition.faqLabel')} lang={i18n.language}
+                          className="align-left"/>
+        </div>
+        <TraditionalTable tableSpec={mainTableSpecInstance} countryIso={match.params.countryIso}/>
+        <div className="nwfpr__currency-table-wrapper">
+          <TraditionalTable tableSpec={currencyNameTableSpec(i18n)} countryIso={match.params.countryIso}/>
+        </div>
+        <CommentableDescriptions
+          section={mainTableSpecInstance.name}
+          name="nonWoodForestProductsRemovals"
+          countryIso={match.params.countryIso}
+          i18n={i18n}
+        />
       </div>
-      <TraditionalTable tableSpec={mainTableSpecInstance} countryIso={match.params.countryIso}/>
-      <div className="nwfpr__currency-table-wrapper">
-        <TraditionalTable tableSpec={currencyNameTableSpec(i18n)} countryIso={match.params.countryIso}/>
-      </div>
-      <CommentableDescriptions
-        section={mainTableSpecInstance.name}
-        name="nonWoodForestProductsRemovals"
-        countryIso={match.params.countryIso}
-        i18n={i18n}
-      />
-    </div>
-  </LoggedInPageTemplate>
+    </LoggedInPageTemplate>
+  }
 }
 
 const mapStateToProps = state => ({i18n: state.user.i18n})
 
-export default connect(mapStateToProps)(NonWoodForestProductsRemovalsView)
+export default connect(mapStateToProps, {fetchLastSectionUpdateTimestamp})(NonWoodForestProductsRemovalsView)

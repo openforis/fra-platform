@@ -262,9 +262,6 @@ class Nav extends React.Component {
       R.defaultTo({issuesCount: 0})
     )(status.reviewStatus)
 
-    const auditStatus = R.defaultTo({}, R.path(['status', 'auditSummary'], this.props))
-    const getAuditStatus = section => R.defaultTo(null, R.prop(section, auditStatus))
-
     return <div className="main__nav-wrapper">
       <div className="main__nav">
         <CountrySelectionItem name={this.props.country}

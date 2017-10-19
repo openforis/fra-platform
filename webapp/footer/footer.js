@@ -4,6 +4,7 @@ import * as R from 'ramda'
 import React from 'react'
 import { connect } from 'react-redux'
 import { logout, switchLanguage } from '../user/actions'
+import { getRelativeDate } from '../utils/relativeDate'
 import { PopoverControl } from './../reusableUiComponents/popoverControl'
 
 const UserInfo = props => {
@@ -51,7 +52,14 @@ const LanguageSelection = ({i18n, switchLanguage, ...props}) => {
   </div>
 }
 
-const Footer = ({status, userInfo, path, width, i18n, ...props}) => {
+const autosaveStatusText = (i18n, status, lastSaveTimeStamp) => {
+  const statusTextTranslation = i18n.t(`footer.autoSave.${status}`)
+  return status === 'lastSaveTimestampReceived'
+    ? statusTextTranslation + getRelativeDate(lastSaveTimeStamp, i18n).toLowerCase()
+    : statusTextTranslation
+}
+
+const Footer = ({status, userInfo, lastSaveTimeStamp, width, i18n, ...props}) => {
   const style = {width: `calc(100vw - ${width}px)`}
   return <div className="footer__container" style={style}>
     {/* Placeholder for space-between flexbox alignment */}
@@ -59,7 +67,9 @@ const Footer = ({status, userInfo, path, width, i18n, ...props}) => {
     <div className="footer__item">
       {R.isNil(status)
         ? null
-        : <span className={`footer__autosave-status ${status}`}>{i18n.t(`footer.autoSave.${status}`)}</span>
+        : <span className={`footer__autosave-status ${status}`}>
+            {autosaveStatusText(i18n, status, lastSaveTimeStamp)}
+          </span>
       }
     </div>
     <div>

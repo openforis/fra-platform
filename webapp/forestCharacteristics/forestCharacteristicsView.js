@@ -8,7 +8,10 @@ import LoggedInPageTemplate from '../loggedInPageTemplate'
 import { TableWithOdp } from '../originalDataPoint/tableWithOdp'
 import ChartWrapper from '../extentOfForest/chart/chartWrapper'
 import { CommentableReviewDescription } from '../description/commentableDescription'
+import { fetchLastSectionUpdateTimestamp } from '../audit/actions'
 import DefinitionLink from './../reusableUiComponents/definitionLink'
+
+const sectionName = 'forestCharacteristics'
 
 const ForestCharacteristics = props => {
   const disableGenerateFRAValues = () => {
@@ -72,13 +75,13 @@ const ForestCharacteristics = props => {
       <DefinitionLink document="tad" anchor="1b" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
       <DefinitionLink document="faq" anchor="1b" title={i18n.t('definition.faqLabel')} lang={i18n.language} className="align-left"/>
       <button disabled={disableGenerateFRAValues()} className="btn btn-primary"
-              onClick={() => props.generateFraValues('forestCharacteristics', props.countryIso)}>
+              onClick={() => props.generateFraValues(sectionName, props.countryIso)}>
         {i18n.t('extentOfForest.generateFraValues')}
       </button>
     </div>
-    <TableWithOdp section='forestCharacteristics' rows={rows} rowNames={rowNames} {...props} areaUnitLabel={i18n.t('forestCharacteristics.areaUnitLabel')} categoryHeader={i18n.t('forestCharacteristics.categoryHeader')}/>
+    <TableWithOdp section={sectionName} rows={rows} rowNames={rowNames} {...props} areaUnitLabel={i18n.t('forestCharacteristics.areaUnitLabel')} categoryHeader={i18n.t('forestCharacteristics.categoryHeader')}/>
     <CommentableReviewDescription
-      section='forestCharacteristics'
+      section={sectionName}
       countryIso={props.countryIso}
       descriptionName={`forestCharacterstics_generalComments`}
       commentTarget={['generalComments']}
@@ -91,6 +94,10 @@ const ForestCharacteristics = props => {
 class DataFetchingComponent extends React.Component {
   componentWillMount () {
     this.fetch(this.props.match.params.countryIso)
+    this.props.fetchLastSectionUpdateTimestamp(
+      this.props.match.params.countryIso,
+      sectionName
+    )
   }
 
   componentWillReceiveProps (next) {
@@ -99,7 +106,7 @@ class DataFetchingComponent extends React.Component {
   }
 
   fetch (countryIso) {
-    this.props.fetchItem('forestCharacteristics', countryIso)
+    this.props.fetchItem(sectionName, countryIso)
   }
 
   render () {
@@ -116,4 +123,13 @@ const mapStateToProps = state => ({
   i18n: state.user.i18n
 })
 
-export default connect(mapStateToProps, {fetchItem, save, saveMany, generateFraValues})(DataFetchingComponent)
+export default connect(
+    mapStateToProps,
+    {
+      fetchItem,
+      save,
+      saveMany,
+      generateFraValues,
+      fetchLastSectionUpdateTimestamp
+    }
+  )(DataFetchingComponent)
