@@ -16,7 +16,7 @@ const sectionName = 'growingStock'
 const GrowingStock = (props) => {
   const i18n = props.i18n
 
-  return <div className='fra-view__content'>
+  return <div className='fra-view__content growing-stock-view'>
     <div className="fra-view__page-header">
       <h1 className="title">{i18n.t('growingStock.growingStock')}</h1>
       <DefinitionLink document="tad" anchor="2a" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>

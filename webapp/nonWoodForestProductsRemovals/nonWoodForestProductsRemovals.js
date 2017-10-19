@@ -17,7 +17,7 @@ const currencyNameTableSpec = i18n => ({
     [
       {
         type: 'readOnly',
-        jsx: <td className="fra-table__cell nwfpr__currency-heading-cell ">
+        jsx: <td className="nwfpr__currency-heading-cell ">
           {i18n.t('nonWoodForestProductsRemovals.currency')}
         </td>
       },

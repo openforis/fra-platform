@@ -13,7 +13,7 @@ export class TableWithOdp extends React.Component {
 
   render () {
     const rows = this.props.rows
-    return <div className="table-with-odp__container">
+    return <div className="fra-table__container table-with-odp">
       <div className="fra-table__scroll-wrapper">
         <table className="fra-table">
           <thead>

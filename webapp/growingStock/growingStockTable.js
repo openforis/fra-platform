@@ -28,7 +28,7 @@ const GrowingStockTable = (props) => {
 const Table = (props) => {
   const {cols, rows} = props
 
-  return <div className="gs-table__container">
+  return <div className="fra-table__container">
     <div className="fra-table__scroll-wrapper">
       <table className="fra-table">
         <thead>
