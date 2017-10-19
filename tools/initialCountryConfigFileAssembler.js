@@ -1,14 +1,16 @@
 const R = require('ramda')
 const faoStat = require('./faoStat')
 const domainMapping = require('../server/biomassStock/countriesDomainMapping')
+const fs = require('fs')
 
 if (process.argv.length < 4) {
   console.log(`Usage: ${process.argv[0]} <path of the faostat csv file> <path of the output file>`)
   process.exit()
 }
 
-const fileName  = process.argv[2]
-console.log('reading file', fileName)
+const faoStatCsvFile = process.argv[2]
+console.log('reading file', faoStatCsvFile)
+const outputFile = process.argv[3]
 
 const domains = R.reduce(
   (result, row) => R.assocPath([row.countryIso, 'domain'], row.domain, result),
@@ -18,10 +20,11 @@ const domains = R.reduce(
 
 const handleFaoStatValues = faoStatValues => {
   const merged = R.mergeDeepLeft(faoStatValues, domains)
-  console.log(merged)
+  fs.writeFileSync(outputFile, JSON.stringify(merged), 'utf8')
+  console.log('Wrote merged faostat and domain mappings to', outputFile)
 }
 
-faoStat.getFaostatValues(fileName)
+faoStat.getFaostatValues(faoStatCsvFile)
   .then(handleFaoStatValues)
   .catch(err => console.log('Error: ', err))
 
