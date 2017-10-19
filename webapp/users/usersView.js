@@ -102,10 +102,10 @@ const UserRow = ({countryIso, i18n, user, updateUser, removeUser}) => {
 const UserTextField = ({countryIso, i18n, user, field, readOnly, updateUser}) =>
   readOnly
     ? <div className="users__list-table-read-only-cell">{user[field]}</div>
-    : <TextInput value={user[field]} onChange={e => updateUser(countryIso, user.id, field, e.target.value)}/>
+    : <TextInput placeholder={i18n.t(`users.${field}`)} value={user[field]} onChange={e => updateUser(countryIso, user.id, field, e.target.value)}/>
 
 const UserRoleSelect = ({countryIso, i18n, user, updateUser}) =>
-  <select
+  <select required
     className="fra-table__select"
     value={user.role}
     onChange={e => updateUser(countryIso, user.id, 'role', e.target.value)}>
