@@ -69,8 +69,6 @@ const ExtentOfForest = (props) => {
   return <div className='fra-view__content'>
     <div className="fra-view__page-header">
       <h1 className="title">{i18n.t('extentOfForest.extentOfForest')}</h1>
-    </div>
-    <div className="fra-view__section-header">
       <Link className="btn btn-primary align-right" to={`/country/${props.countryIso}/odp`}>
         <svg className="icon icon-sub icon-white">
           <use xlinkHref="img/icons.svg#small-add"/>
