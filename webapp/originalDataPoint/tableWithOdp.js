@@ -91,24 +91,22 @@ const odpCell = (odpValue, field) =>
     disabled={true} />
 
 const tableRow = (row, countryIso, fra, save, saveMany, pasteUpdate, colId, openThread, section) => {
-  const {localizedName, field, className, customRender} = row
+  const {localizedName, field, className} = row
 
   return <tr
     key={field}
     className={`${openThread && R.isEmpty(R.difference(openThread.target, [field])) ? 'fra-row-comments__open' : ''}`}>
     <td className={className ? className : 'fra-table__header-cell'}>{ localizedName }</td>
     {
-      customRender
-      ? customRender(fra)
-      : mapIndexed((v, i) =>
-          <td className={`fra-table__cell ${v.type === 'odp' ? 'odp-value-cell' : ''}`} key={`${v.type}_${v.name}`}>
-            {
-              v.type === 'odp'
-                ? odpCell(v, field)
-                : fraValueCell(v, fra, countryIso, save, saveMany, pasteUpdate, field, colId, i)
-            }
-          </td>
-        , R.values(fra))
+      mapIndexed((v, i) =>
+        <td className={`fra-table__cell ${v.type === 'odp' ? 'odp-value-cell' : ''}`} key={`${v.type}_${v.name}`}>
+          {
+            v.type === 'odp'
+              ? odpCell(v, field)
+              : fraValueCell(v, fra, countryIso, save, saveMany, pasteUpdate, field, colId, i)
+          }
+        </td>
+      , R.values(fra))
     }
     <td className="fra-table__row-anchor-cell">
       <div className="fra-table__review-indicator-anchor">
