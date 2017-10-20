@@ -185,8 +185,12 @@
 // Validation
 .error {
   .validation-error-sensitive-field {
-    background-color: fade(@ui-destructive, 10%);
+    .validation-error;
   }
+}
+
+.validation-error {
+  background-color: fade(@ui-destructive, 10%);
 }
 
 // Table with odp
