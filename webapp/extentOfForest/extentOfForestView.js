@@ -9,7 +9,8 @@ import ChartWrapper from './chart/chartWrapper'
 import LoggedInPageTemplate from '../loggedInPageTemplate'
 import { TableWithOdp } from '../originalDataPoint/tableWithOdp'
 import { CommentableReviewDescription } from '../description/commentableDescription'
-const countryConfig = require('../../common/countryConfig')
+import countryConfig from '../../common/countryConfig'
+import { add, formatNumber } from '../../common/bignumberUtils'
 
 const ExtentOfForest = (props) => {
 
@@ -54,6 +55,9 @@ const ExtentOfForest = (props) => {
       field: 'otherLandTreesUrbanSettings',
       className: 'fra-table__header-cell-sub',
       localizedName: i18n.t('extentOfForest.ofWhichTreesUrbanSettings')
+    },
+    {
+      customRenderRow: totalAreaRow
     }
   ]
 
@@ -101,6 +105,16 @@ const ExtentOfForest = (props) => {
     />
   </div>
 }
+
+const totalAreaRow = fra => <tr>
+  <td>Total land area</td>
+  {
+    R.map(
+      fraColumn => <td>{formatNumber(add(fraColumn.forestArea, add(fraColumn.otherWoodedLand, fraColumn.otherLand)))}</td>,
+      R.values(fra)
+    )
+  }
+  </tr>
 
 class DataFetchingComponent extends React.Component {
   componentWillMount () {
