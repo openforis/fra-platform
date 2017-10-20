@@ -11,7 +11,7 @@ import LoggedInPageTemplate from '../loggedInPageTemplate'
 import { TableWithOdp } from '../originalDataPoint/tableWithOdp'
 import { CommentableReviewDescription } from '../description/commentableDescription'
 import countryConfig from '../../common/countryConfig'
-import { add, formatNumber } from '../../common/bignumberUtils'
+import { add, formatNumber, eq } from '../../common/bignumberUtils'
 
 const ExtentOfForest = (props) => {
 
@@ -25,20 +25,34 @@ const ExtentOfForest = (props) => {
 
   const i18n = props.i18n
 
-  const totalAreaRow = fra => <tr>
-    <td className="fra-table__header-cell">
-      Total land area
-    </td>
-    {
-      R.map(
-        fraColumn =>
-          <td className="fra-table__aggregate-cell">
-            {formatNumber(add(fraColumn.forestArea, add(fraColumn.otherWoodedLand, fraColumn.otherLand)))}
-          </td>,
-        R.values(fra)
-      )
-    }
-  </tr>
+  const totalAreaNotEqualToFaoStat = (fraColumn, totalArea) => {
+    const faoStatValue = R.path([props.countryIso, 'faoStat', fraColumn.name], countryConfig)
+    if (!faoStatValue) return false // It's normal that we don't have faoStat-values for years
+    if (R.isNil(totalArea)) return false
+    return !eq(faoStatValue, totalArea)
+  }
+
+  const totalAreaValidationClass = (fraColumn, totalArea) =>
+    totalAreaNotEqualToFaoStat(fraColumn, totalArea) ? 'validation-error' : ''
+
+  const totalAreaRow = fra => {
+    return <tr>
+      <td className="fra-table__header-cell">
+        Total land area
+      </td>
+      {
+        R.map(
+          fraColumn => {
+            const totalLandArea = add(fraColumn.forestArea, add(fraColumn.otherWoodedLand, fraColumn.otherLand))
+            return <td className={`fra-table__aggregate-cell ${totalAreaValidationClass(fraColumn, totalLandArea)}`}>
+              {formatNumber(totalLandArea)}
+            </td>
+          },
+          R.values(fra)
+        )
+      }
+    </tr>
+  }
 
   const faoStatRow = fra => <tr>
     <td className="eof-table__faostat-header">{props.i18n.t('extentOfForest.faoStatLandArea')}</td>
