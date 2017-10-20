@@ -3,7 +3,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
 import Route from 'route-parser'
-import { alpha3ToAlpha2, getName as getCountryName } from 'i18n-iso-countries'
+import { getCountryName, getCountryAlpha2 } from './../country'
 import { getRelativeDate } from '../utils/relativeDate'
 
 import { Link } from './../link'
@@ -40,12 +40,12 @@ class CountrySelectionItem extends React.Component {
   }
 
   render () {
-    const name = this.props.name
+    const countryIso = this.props.name
     const role = this.props.role
     const countries = this.props.countries || []
     const i18n = this.props.i18n
     const style = {
-      backgroundImage: `url('/img/flags/1x1/${(alpha3ToAlpha2(name) || '').toLowerCase()}.svg'`
+      backgroundImage: `url('/img/flags/1x1/${getCountryAlpha2(countryIso).toLowerCase()}.svg'`
     }
 
     return <div className="nav__country-item" ref="navCountryItem" onClick={() => {
@@ -56,13 +56,13 @@ class CountrySelectionItem extends React.Component {
     }}>
       <div className="nav__country-flag" style={style}></div>
       <div className="nav__country-info">
-        <span className="nav__country-name">{getCountryName(name, i18n.language)}</span>
+        <span className="nav__country-name">{getCountryName(countryIso, i18n.language)}</span>
         <span className="nav__country-role">{role}</span>
       </div>
       <svg className="icon">
         <use xlinkHref="img/icons.svg#small-down"/>
       </svg>
-      <CountryList isOpen={this.state.isOpen} countries={countries} currentCountry={name}
+      <CountryList isOpen={this.state.isOpen} countries={countries} currentCountry={countryIso}
                    i18n={i18n}/>
     </div>
   }
