@@ -71,7 +71,13 @@ const ForestCharacteristics = props => {
         {i18n.t('extentOfForest.generateFraValues')}
       </button>
     </div>
-    <TableWithOdp section={sectionName} rows={rows} {...props} areaUnitLabel={i18n.t('forestCharacteristics.areaUnitLabel')} categoryHeader={i18n.t('forestCharacteristics.categoryHeader')}/>
+    <TableWithOdp
+      section={sectionName}
+      rows={rows}
+      areaUnitLabel={i18n.t('forestCharacteristics.areaUnitLabel')}
+      categoryHeader={i18n.t('forestCharacteristics.categoryHeader')}
+      {...props}
+    />
     <CommentableReviewDescription
       section={sectionName}
       countryIso={props.countryIso}
