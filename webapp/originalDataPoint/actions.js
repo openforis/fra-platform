@@ -182,7 +182,6 @@ const changeMany = ({section, countryIso, columnData}) => {
   const dispatched = dispatch => {
     return axios.post(`/api/nde/${section}/${countryIso}`, {columns: columnData}).then(() => {
       dispatch(autosave.complete)
-      dispatch(sectionStatusUpdate(countryIso, section))
     }).catch((err) => {
       dispatch(applicationError(err))
     })
