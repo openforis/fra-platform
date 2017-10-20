@@ -91,7 +91,7 @@ const odpCell = (odpValue, field) =>
     disabled={true} />
 
 const tableRow = (row, countryIso, fra, save, saveMany, pasteUpdate, rowIdx, openThread, section) => {
-  const {localizedName, field, className, customRenderRow} = row
+  const {localizedName, field, className} = row
 
   return <tr
     key={field}
