@@ -147,7 +147,6 @@ const addClassData = (client, odpVersionId, odp) => {
         other_wooded_land_percent,
         other_land_percent,
         forest_natural_percent,
-        forest_natural_primary_percent,
         forest_plantation_percent,
         forest_plantation_introduced_percent,
         other_planted_forest_percent,
@@ -157,7 +156,7 @@ const addClassData = (client, odpVersionId, odp) => {
         other_land_trees_urban_settings_percent,
         uuid)
         VALUES
-        ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17);`,
+        ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16);`,
       [
         odpVersionId,
         nationalClass.className,
@@ -167,7 +166,6 @@ const addClassData = (client, odpVersionId, odp) => {
         nationalClass.otherWoodedLandPercent,
         nationalClass.otherLandPercent,
         nationalClass.naturalForestPercent,
-        nationalClass.naturalForestPrimaryPercent,
         nationalClass.plantationPercent,
         nationalClass.plantationIntroducedPercent,
         nationalClass.otherPlantedPercent,
@@ -269,7 +267,6 @@ const getOdpNationalClasses = (queryProvider, odpVersionId) =>
       other_wooded_land_percent,
       other_land_percent,
       forest_natural_percent,
-      forest_natural_primary_percent,
       forest_plantation_percent,
       forest_plantation_introduced_percent,
       other_planted_forest_percent,
@@ -290,7 +287,6 @@ const getOdpNationalClasses = (queryProvider, odpVersionId) =>
       otherWoodedLandPercent: row.other_wooded_land_percent,
       otherLandPercent: row.other_land_percent,
       naturalForestPercent: row.forest_natural_percent,
-      naturalForestPrimaryPercent: row.forest_natural_primary_percent,
       plantationPercent: row.forest_plantation_percent,
       plantationIntroducedPercent: row.forest_plantation_introduced_percent,
       otherPlantedPercent: row.other_planted_forest_percent,
@@ -403,7 +399,6 @@ module.exports.readFocOdps = (countryIso) =>
           p.id as odp_id,
           v.year,
           SUM(c.area * c.forest_percent * c.forest_natural_percent / 10000.0) AS natural_forest_area,
-          SUM(c.area * c.forest_percent * c.forest_natural_percent * c.forest_natural_primary_percent / 1000000.0) AS natural_forest_primary_area,
           SUM(c.area * c.forest_percent * c.forest_plantation_percent / 10000.0) AS plantation_forest_area,
           SUM(c.area * c.forest_percent * c.forest_plantation_percent * c.forest_plantation_introduced_percent / 1000000.0) AS plantation_forest_introduced_area,
           SUM(c.area * c.forest_percent * c.other_planted_forest_percent / 10000.0) AS other_planted_forest_area,
