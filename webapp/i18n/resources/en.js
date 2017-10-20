@@ -298,7 +298,8 @@ export const translation = {
     areaUnitLabel: 'Area (1000 ha)',
     bamboo: 'Bamboos',
     mangroves: 'Mangroves',
-    temporarilyUnstocked: 'Temporarily unstocked and/or recently regenerated'
+    temporarilyUnstocked: 'Temporarily unstocked and/or recently regenerated',
+    primaryForest: 'Primary forest'
   },
 
   growingStock: {
