@@ -9,21 +9,21 @@ import { PopoverControl } from './../reusableUiComponents/popoverControl'
 
 const UserInfo = props => {
   const userInfoItems = [{
-    label: props.i18n.t('footer.logout'),
+    label: props.i18n.t('header.logout'),
     onClick: () => props.logout()
   }, {
     divider: true
   }, {
-    label: props.i18n.t('footer.profilePicture'),
+    label: props.i18n.t('header.profilePicture'),
     onClick: () => window.open('https://gravatar.com', '_blank')
   }]
 
-  return <div className="footer__item">
+  return <div className="header__item">
     <PopoverControl items={userInfoItems}>
-      <span className="footer__user-control">
+      <span className="header__user-control">
         {props.userName}
-        <svg className="icon icon-sub">
-          <use xlinkHref="img/icons.svg#small-up"/>
+        <svg className="icon icon-middle">
+          <use xlinkHref="img/icons.svg#small-down"/>
         </svg>
       </span>
     </PopoverControl>
@@ -40,12 +40,12 @@ const LanguageSelection = ({i18n, switchLanguage, ...props}) => {
     }), selectableLangs
   )
 
-  return <div className="footer__item">
+  return <div className="header__item">
     <PopoverControl items={languageSelectionItems}>
-      <span className="footer__user-control">
+      <span className="header__user-control">
         {i18n.t(`language.${i18n.language}`)}
-        <svg className="icon icon-sub">
-          <use xlinkHref="img/icons.svg#small-up"/>
+        <svg className="icon icon-middle">
+          <use xlinkHref="img/icons.svg#small-down"/>
         </svg>
       </span>
     </PopoverControl>
@@ -53,21 +53,21 @@ const LanguageSelection = ({i18n, switchLanguage, ...props}) => {
 }
 
 const autosaveStatusText = (i18n, status, lastSaveTimeStamp) => {
-  const statusTextTranslation = i18n.t(`footer.autoSave.${status}`)
+  const statusTextTranslation = i18n.t(`header.autoSave.${status}`)
   return status === 'lastSaveTimestampReceived'
     ? statusTextTranslation + getRelativeDate(lastSaveTimeStamp, i18n).toLowerCase()
     : statusTextTranslation
 }
 
-const Footer = ({status, userInfo, lastSaveTimeStamp, width, i18n, ...props}) => {
+const Header = ({status, userInfo, lastSaveTimeStamp, width, i18n, ...props}) => {
   const style = {width: `calc(100vw - ${width}px)`}
-  return <div className="footer__container" style={style}>
+  return <div className="header__container" style={style}>
     {/* Placeholder for space-between flexbox alignment */}
     <div/>
-    <div className="footer__item">
+    <div className="header__item">
       {R.isNil(status)
         ? null
-        : <span className={`footer__autosave-status ${status}`}>
+        : <span className={`header__autosave-status ${status}`}>
             {autosaveStatusText(i18n, status, lastSaveTimeStamp)}
           </span>
       }
@@ -84,4 +84,4 @@ const mapStateToProps = state =>
     R.merge(state.autoSave),
     R.merge(state.user))(state.router)
 
-export default connect(mapStateToProps, {logout, switchLanguage})(Footer)
+export default connect(mapStateToProps, {logout, switchLanguage})(Header)

@@ -1,32 +1,35 @@
 @import (reference) "../app-styles/config";
 
-.footer__container {
-  background: white;
+.header__container {
   position: fixed;
-  bottom: 0;
+  top: 0;
   left: 256px;
   display: flex;
+  align-items: center;
   justify-content: space-between;
+  background: white;
+  border-bottom: @ui-thin-border;
+  height: 64px;
+  overflow: hidden;
   padding: 0 20px;
-  border-top: @ui-thin-border;
 }
 
-.footer__item {
+.header__item {
   color: @text-mute;
   display: inline-block;
-  line-height: 16px;
+  line-height: 20px;
 
   .popover-control__menu {
-    bottom: 38px;
+    top: 60px;
     right: 12px;
     text-align: right;
     width: 160px;
   }
 }
 
-.footer__autosave-status {
+.header__autosave-status {
   display: inline-block;
-  padding: 12px;
+  padding: 20px 12px;
   position: relative;
 
   &.saving {
@@ -49,9 +52,9 @@
   }
 }
 
-.footer__user-control {
+.header__user-control {
   display: inline-block;
-  padding: 12px;
+  padding: 20px 12px;
   cursor: pointer;
   transition: @ease-out;
 
