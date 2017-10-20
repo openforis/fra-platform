@@ -351,7 +351,6 @@ const focReducer = (results, row, type = 'fra') => R.assoc(`odp_${row.year}`,
   {
     odpId: row.odp_id,
     naturalForestArea: row.natural_forest_area,
-    naturalForestPrimaryArea: row.natural_forest_primary_area,
     plantationForestArea: row.plantation_forest_area,
     plantationForestIntroducedArea: row.plantation_forest_introduced_area,
     otherPlantedForestArea: row.other_planted_forest_area,
