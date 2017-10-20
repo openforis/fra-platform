@@ -54,8 +54,8 @@ const buildRows = (rows, props) => {
   const saveMany = R.partial(props.saveMany, [props.section])
   const paste = R.partial(updatePastedValues, [R.pluck('field', rows)])
 
-  return mapIndexed((row, i) =>
-      tableRow(row, props.countryIso, props.fra, save, saveMany, paste, i, props.openCommentThread, props.section)
+  return mapIndexed((row, rowIdx) =>
+      tableRow(row, props.countryIso, props.fra, save, saveMany, paste, rowIdx, props.openCommentThread, props.section)
     , rows)
 }
 
@@ -77,11 +77,11 @@ const OdpHeading = ({countryIso, odpValue}) =>
     {odpValue.name}
   </Link>
 
-const fraValueCell = (fraValue, fra, countryIso, save, saveMany, pasteUpdate, field, colIdx, rowIdx) =>
+const fraValueCell = (fraValue, fra, countryIso, save, saveMany, pasteUpdate, field, rowIdx, colIdx) =>
   <ThousandSeparatedDecimalInput
     numberValue={ fraValue[field] }
     precision={2}
-    onPaste={ e => saveMany(countryIso, pasteUpdate(e, colIdx, rowIdx, fra)) }
+    onPaste={ e => saveMany(countryIso, pasteUpdate(e, rowIdx, colIdx, fra)) }
     onChange={ e => { save(countryIso, fraValue.name, e.target.value, fraValue, field, acceptNextDecimal) } }/>
 
 const odpCell = (odpValue, field) =>
@@ -90,20 +90,20 @@ const odpCell = (odpValue, field) =>
     precision={2}
     disabled={true} />
 
-const tableRow = (row, countryIso, fra, save, saveMany, pasteUpdate, colId, openThread, section) => {
-  const {localizedName, field, className} = row
+const tableRow = (row, countryIso, fra, save, saveMany, pasteUpdate, rowIdx, openThread, section) => {
+  const {localizedName, field, className, customRenderRow} = row
 
   return <tr
     key={field}
     className={`${openThread && R.isEmpty(R.difference(openThread.target, [field])) ? 'fra-row-comments__open' : ''}`}>
     <td className={className ? className : 'fra-table__header-cell'}>{ localizedName }</td>
     {
-      mapIndexed((v, i) =>
+      mapIndexed((v, colIdx) =>
         <td className={`fra-table__cell ${v.type === 'odp' ? 'odp-value-cell' : ''}`} key={`${v.type}_${v.name}`}>
           {
             v.type === 'odp'
               ? odpCell(v, field)
-              : fraValueCell(v, fra, countryIso, save, saveMany, pasteUpdate, field, colId, i)
+              : fraValueCell(v, fra, countryIso, save, saveMany, pasteUpdate, field, rowIdx, colIdx)
           }
         </td>
       , R.values(fra))
