@@ -1,3 +1,4 @@
+import './style.less'
 import React from 'react'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
@@ -40,10 +41,12 @@ const ExtentOfForest = (props) => {
   </tr>
 
   const faoStatRow = fra => <tr>
-    <td>{props.i18n.t('extentOfForest.faoStatLandArea')}</td>
+    <td className="eof-table__faostat-header">{props.i18n.t('extentOfForest.faoStatLandArea')}</td>
     {
       R.addIndex(R.map)((value, i) =>
-          <td key={i}>{R.path([props.countryIso, 'faoStat', value.name], countryConfig)}</td>,
+          <td className="eof-table__faostat-cell" key={i}>
+            {R.path([props.countryIso, 'faoStat', value.name], countryConfig)}
+          </td>,
         R.values(props.fra))
     }
   </tr>
