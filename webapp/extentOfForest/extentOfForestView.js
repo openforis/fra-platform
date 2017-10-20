@@ -23,6 +23,31 @@ const ExtentOfForest = (props) => {
   }
 
   const i18n = props.i18n
+
+  const totalAreaRow = fra => <tr>
+    <td className="fra-table__header-cell">
+      Total land area
+    </td>
+    {
+      R.map(
+        fraColumn =>
+          <td className="fra-table__aggregate-cell">
+            {formatNumber(add(fraColumn.forestArea, add(fraColumn.otherWoodedLand, fraColumn.otherLand)))}
+          </td>,
+        R.values(fra)
+      )
+    }
+  </tr>
+
+  const faoStatRow = fra => <tr>
+    <td>{props.i18n.t('extentOfForest.faoStatLandArea')}</td>
+    {
+      R.addIndex(R.map)((value, i) =>
+          <td key={i}>{R.path([props.countryIso, 'faoStat', value.name], countryConfig)}</td>,
+        R.values(props.fra))
+    }
+  </tr>
+
   const eofRows = [
     {
       field: 'forestArea',
@@ -58,6 +83,9 @@ const ExtentOfForest = (props) => {
     },
     {
       customRenderRow: totalAreaRow
+    },
+    {
+      customRenderRow: faoStatRow
     }
   ]
 
@@ -88,10 +116,6 @@ const ExtentOfForest = (props) => {
     <TableWithOdp
                section='extentOfForest'
                rows={eofRows}
-               footerRow={{
-                 localizedName: props.i18n.t('extentOfForest.faoStatLandArea'),
-                 yearValues: countryConfig[props.countryIso].faoStat
-               }}
                areaUnitLabel={props.i18n.t('extentOfForest.areaUnitLabel')}
                categoryHeader={props.i18n.t('extentOfForest.categoryHeader')}
                {...props}/>
@@ -105,21 +129,6 @@ const ExtentOfForest = (props) => {
     />
   </div>
 }
-
-const totalAreaRow = fra => <tr>
-  <td className="fra-table__header-cell">
-    Total land area
-  </td>
-  {
-    R.map(
-      fraColumn =>
-        <td className="fra-table__aggregate-cell">
-          {formatNumber(add(fraColumn.forestArea, add(fraColumn.otherWoodedLand, fraColumn.otherLand)))}
-        </td>,
-      R.values(fra)
-    )
-  }
-  </tr>
 
 class DataFetchingComponent extends React.Component {
   componentWillMount () {
