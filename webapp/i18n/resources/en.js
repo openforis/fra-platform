@@ -43,7 +43,6 @@ export const translation = {
 
   fraForestCharacteristicsClass: {
     naturallyRegeneratingForest: 'Naturally regenerating forest',
-    ofWhichPrimary: '…of which primary',
     plantationForest: 'Plantation forest',
     ofWhichIntroduced: '…of which introduced',
     otherPlantedForest: 'Other planted forest',
@@ -268,7 +267,6 @@ export const translation = {
     categoryHeader: 'FRA categories',
     areaUnitLabel: 'Forest area (1000 ha)',
     naturalForestArea: 'Naturally regenerating forest',
-    naturalForestPrimaryArea: '…of which primary',
     plantationForestArea: 'Plantation forest',
     plantationForestIntroducedArea: '…of which introduced species',
     otherPlantedForestArea: 'Other planted forest'
