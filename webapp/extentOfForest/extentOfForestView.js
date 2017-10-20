@@ -107,10 +107,15 @@ const ExtentOfForest = (props) => {
 }
 
 const totalAreaRow = fra => <tr>
-  <td>Total land area</td>
+  <td className="fra-table__header-cell">
+    Total land area
+  </td>
   {
     R.map(
-      fraColumn => <td>{formatNumber(add(fraColumn.forestArea, add(fraColumn.otherWoodedLand, fraColumn.otherLand)))}</td>,
+      fraColumn =>
+        <td className="fra-table__aggregate-cell">
+          {formatNumber(add(fraColumn.forestArea, add(fraColumn.otherWoodedLand, fraColumn.otherLand)))}
+        </td>,
       R.values(fra)
     )
   }
