@@ -9,40 +9,28 @@
   justify-content: space-between;
   background: white;
   border-bottom: @ui-thin-border;
+  color: @text-mute;
   height: 64px;
-  overflow: hidden;
   padding: 0 20px;
 }
 
-.header__item {
-  color: @text-mute;
+.header__autosave {
   display: inline-block;
-  line-height: 20px;
-
-  .popover-control__menu {
-    top: 60px;
-    right: 12px;
-    text-align: right;
-    width: 160px;
-  }
-}
-
-.header__autosave-status {
-  display: inline-block;
-  padding: 20px 12px;
+  line-height: 16px;
+  padding: 16px;
   position: relative;
 
-  &.saving {
+  &.status-saving {
     font-style: italic;
   }
 
-  &.complete {
+  &.status-complete {
     animation: 2s ease-out successText;
 
     &::before {
+      content: '';
       position: absolute;
       left: -8px;
-      content: '';
       width: 16px;
       height: 16px;
       opacity: 0;
@@ -52,15 +40,23 @@
   }
 }
 
-.header__user-control {
-  display: inline-block;
+.header__menu {
+  display: flex;
+  align-items: center;
+
+  .popover-control__menu {
+    top: 60px;
+    right: 12px;
+    text-align: right;
+    width: 160px;
+  }
+}
+
+.header__menu-item {
   padding: 20px 12px;
+  line-height: 20px;
   cursor: pointer;
   transition: @ease-out;
-
-  .icon {
-    margin-left: 4px;
-  }
 
   &:hover,
   &.active {
@@ -69,6 +65,10 @@
     .icon {
       color: @text-body;
     }
+  }
+
+  .icon {
+    margin-left: 4px;
   }
 }
 
