@@ -57,16 +57,6 @@ const ExtentOfForest = (props) => {
     }
   ]
 
-  const eofRowNames = {
-    0: 'forestArea',
-    1: 'otherWoodedLand',
-    2: 'otherLand',
-    3: 'otherLandPalms',
-    4: 'otherLandTreeOrchards',
-    5: 'otherLandAgroforestry',
-    6: 'otherLandTreesUrbanSettings'
-  }
-
   return <div className='fra-view__content'>
     <div className="fra-view__page-header">
       <h1 className="title">{i18n.t('extentOfForest.extentOfForest')}</h1>
@@ -94,7 +84,6 @@ const ExtentOfForest = (props) => {
     <TableWithOdp
                section='extentOfForest'
                rows={eofRows}
-               rowNames={eofRowNames}
                footerRow={{
                  localizedName: props.i18n.t('extentOfForest.faoStatLandArea'),
                  yearValues: countryConfig[props.countryIso].faoStat

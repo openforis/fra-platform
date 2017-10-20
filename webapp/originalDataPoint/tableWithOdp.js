@@ -52,7 +52,7 @@ export class TableWithOdp extends React.Component {
 const buildRows = (rows, props) => {
   const save = R.partial(props.save, [props.section])
   const saveMany = R.partial(props.saveMany, [props.section])
-  const paste = R.partial(updatePastedValues, [props.rowNames])
+  const paste = R.partial(updatePastedValues, [R.pluck('field', rows)])
 
   return mapIndexed((row, i) =>
       tableRow(row, props.countryIso, props.fra, save, saveMany, paste, i, props.openCommentThread, props.section)
