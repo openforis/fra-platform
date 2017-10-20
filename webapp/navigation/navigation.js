@@ -6,7 +6,7 @@ import Route from 'route-parser'
 import { getCountryName, getCountryAlpha2 } from './../country'
 import { getRelativeDate } from '../utils/relativeDate'
 
-import { Link } from './../link'
+import { Link } from './../reusableUiComponents/link'
 import { follow } from './../router/actions'
 import {
   getCountryList,

@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import * as R from 'ramda'
 import { fetchOdps } from './actions'
 
-import { Link } from './../link'
+import { Link } from './../reusableUiComponents/link'
 import LoggedInPageTemplate from '../loggedInPageTemplate'
 
 const ODPListing = ({countryIso, odps = [], i18n, userInfo}) => {

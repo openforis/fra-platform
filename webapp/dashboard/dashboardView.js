@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import { getCountryName } from './../country'
 import { getRelativeDate } from '../utils/relativeDate'
 import { fetchAuditFeed } from '../audit/actions'
-import { Link } from './../link'
+import { Link } from './../reusableUiComponents/link'
 
 const mapIndexed = R.addIndex(R.map)
 
