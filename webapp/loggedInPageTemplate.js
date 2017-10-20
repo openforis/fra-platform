@@ -8,7 +8,7 @@ import { connect } from 'react-redux'
 import ErrorComponent from './applicationError/errorComponent'
 
 const template = ({children, commentsOpen}) => {
-  const containerClass = R.isNil(commentsOpen) ? 'fra-view__container' : 'fra-view__container-commenting'
+  const containerClass = R.isNil(commentsOpen) ? 'fra-view__container' : 'fra-view__container commenting-visible'
   const headerWidth = R.isNil(commentsOpen) ? 256: 544
   return <div className="app__root">
     <Navigation/>
