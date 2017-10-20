@@ -36,15 +36,15 @@ const ExtentOfForest = (props) => {
     totalAreaNotEqualToFaoStat(fraColumn, totalArea) ? 'validation-error' : ''
 
   const totalAreaRow = fra => {
-    return <tr>
+    return <tr key="totalArea">
       <td className="fra-table__header-cell">
         {props.i18n.t('extentOfForest.totalLandArea')}
       </td>
       {
-        R.map(
-          fraColumn => {
+        R.addIndex(R.map)(
+          (fraColumn, i) => {
             const totalLandArea = add(fraColumn.forestArea, add(fraColumn.otherWoodedLand, fraColumn.otherLand))
-            return <td className={`fra-table__aggregate-cell ${totalAreaValidationClass(fraColumn, totalLandArea)}`}>
+            return <td className={`fra-table__aggregate-cell ${totalAreaValidationClass(fraColumn, totalLandArea)}`} key={i}>
               {formatNumber(totalLandArea)}
             </td>
           },
@@ -54,7 +54,7 @@ const ExtentOfForest = (props) => {
     </tr>
   }
 
-  const faoStatRow = fra => <tr>
+  const faoStatRow = fra => <tr key="faoStat">
     <td className="eof-table__faostat-header">{props.i18n.t('extentOfForest.faoStatLandArea')}</td>
     {
       R.addIndex(R.map)((value, i) =>
