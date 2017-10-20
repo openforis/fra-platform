@@ -34,7 +34,7 @@ class SingleTraditionalTableView extends React.Component {
           <DefinitionLink document="tad" anchor={sectionAnchor ? sectionAnchor : tadAnchor} title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
           <DefinitionLink document="faq" anchor={sectionAnchor ? sectionAnchor : faqAnchor} title={i18n.t('definition.faqLabel')} lang={i18n.language} className="align-left"/>
         </div>
-      <TraditionalTable tableSpec={this.tableSpecInstance} countryIso={match.params.countryIso}/>
+        <TraditionalTable tableSpec={this.tableSpecInstance} countryIso={match.params.countryIso}/>
         <CommentableDescriptions
           section={this.tableSpecInstance.name}
           name={this.tableSpecInstance.name}
