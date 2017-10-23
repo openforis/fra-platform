@@ -1,7 +1,7 @@
 import React from 'react'
 import * as R from 'ramda'
 
-import { Link } from './../reusableUiComponents/link'
+import { Link } from '../reusableUiComponents/link'
 import { ThousandSeparatedDecimalInput } from '../reusableUiComponents/thousandSeparatedDecimalInput'
 import ReviewIndicator from '../review/reviewIndicator'
 import { readPasteClipboard } from '../utils/copyPasteUtil'
