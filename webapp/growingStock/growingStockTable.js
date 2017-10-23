@@ -9,56 +9,54 @@ import { eq } from '../../common/bignumberUtils'
 const GrowingStockTable = (props) => {
   const cols = R.filter(v => v.type !== 'odp', R.values(props.areaValues))
 
-  return <div>
-    <Table
-      categoriesHeader={props.header}
-      colsHeader={props.avgTableHeader}
-      cols={cols}
-      type='avg'
-      {...props} />
-    <Table
-      categoriesHeader={props.header}
-      colsHeader={props.totalTableHeader}
-      cols={cols}
-      type='total'
-      {...props} />
+  return <div className="fra-table__container">
+    <div className="fra-table__scroll-wrapper">
+      <Table
+        categoriesHeader={props.header}
+        colsHeader={props.avgTableHeader}
+        cols={cols}
+        type='avg'
+        {...props} />
+      <Table
+        categoriesHeader={props.header}
+        colsHeader={props.totalTableHeader}
+        cols={cols}
+        type='total'
+        {...props} />
+    </div>
   </div>
 }
 
 const Table = (props) => {
   const {cols, rows} = props
 
-  return <div className="fra-table__container">
-    <div className="fra-table__scroll-wrapper">
-      <table className="fra-table">
-        <thead>
-        <tr>
-          <th rowSpan="2" className="fra-table__header-cell">{props.categoriesHeader}</th>
-          <th colSpan={cols.length} className="fra-table__header-cell-middle">{props.colsHeader}</th>
-        </tr>
-        <tr>
-          {
-            cols.map(v =>
-              <th className="fra-table__header-cell-right" key={`${v.name}`}>
-                {v.name}
-              </th>)
-          }
-        </tr>
-        </thead>
-        <tbody>
-        {
-          rows.map((row, i) =>
-            <Row
-              key={row.field}
-              rowIdx={i}
-              row={row}
-              {...props}
-            />)
-        }
-        </tbody>
-      </table>
-    </div>
-  </div>
+  return <table className="fra-table">
+    <thead>
+    <tr>
+      <th rowSpan="2" className="fra-table__header-cell">{props.categoriesHeader}</th>
+      <th colSpan={cols.length} className="fra-table__header-cell-middle">{props.colsHeader}</th>
+    </tr>
+    <tr>
+      {
+        cols.map(v =>
+          <th className="fra-table__header-cell-right" key={`${v.name}`}>
+            {v.name}
+          </th>)
+      }
+    </tr>
+    </thead>
+    <tbody>
+    {
+      rows.map((row, i) =>
+        <Row
+          key={row.field}
+          rowIdx={i}
+          row={row}
+          {...props}
+        />)
+    }
+    </tbody>
+  </table>
 }
 
 const Row = (props) => {

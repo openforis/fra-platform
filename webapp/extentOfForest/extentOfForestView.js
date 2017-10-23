@@ -111,11 +111,6 @@ class DataFetchingComponent extends React.Component {
     this.props.fetchLastSectionUpdateTimestamp(countryIso, 'extentOfForest')
   }
 
-  componentWillReceiveProps (next) {
-    if (!R.equals(this.props.match.params.countryIso, next.match.params.countryIso))
-      this.fetch(next.match.params.countryIso)
-  }
-
   fetch (countryIso) {
     this.props.fetchItem('extentOfForest', countryIso)
   }

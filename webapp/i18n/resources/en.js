@@ -60,6 +60,7 @@ export const translation = {
   dashboard: {
     dashboard: 'Dashboard',
     recentActivity: 'Recent activity',
+    noRecentActivity: 'No recent activity',
     externalLinks: {
       title: 'External links',
       nationalFocalPoints: 'National focal points',

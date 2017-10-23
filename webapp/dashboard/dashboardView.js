@@ -78,8 +78,12 @@ const ActivityItem = ({i18n, countryIso, item}) => {
 
 class DashboardView extends React.Component {
   componentWillMount() {
-    const countryIso = this.props.match.params.countryIso
-    this.props.fetchAuditFeed(countryIso)
+    this.props.fetchAuditFeed(this.props.match.params.countryIso)
+  }
+
+  componentWillReceiveProps (next) {
+    if (!R.equals(this.props.match.params.countryIso, next.match.params.countryIso))
+      this.props.fetchAuditFeed(countryIso)
   }
 
   render() {
@@ -114,7 +118,7 @@ class DashboardView extends React.Component {
           <div className="dashboard__activity">
             <h3 className="subhead">{i18n.t('dashboard.recentActivity')}</h3>
             {
-              feed
+              feed && feed.length > 0
               ? mapIndexed((item, index) =>
                 <ActivityItem
                   key={index}
@@ -122,7 +126,9 @@ class DashboardView extends React.Component {
                   countryIso={countryIso}
                   item={item}
                 />, feed)
-              : null
+              : <div className="dashboard__activity-item">
+                  <span className="dashboard__activity-deleted">{i18n.t('dashboard.noRecentActivity')}</span>
+                </div>
             }
           </div>
           <div className="dashboard__sidebar">
