@@ -97,7 +97,7 @@ const insertFoc = (countryIso, year, fraValues) =>
              platation_forest_introduced_area_estimated,
              other_planted_forest_area_estimated)
              VALUES
-             ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)`,
+             ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`,
     [countryIso,
       year,
       fraValues.naturalForestArea,
