@@ -225,7 +225,7 @@ export const translation = {
     delete: 'Delete',
     confirmDelete: 'Are you sure you want to delete this data point? This cannot be undone.',
     newDraft: 'Draft',
-    editedDraft: 'Edited',
+    editedDraft: 'Modified',
     discardDraft: 'Discard draft',
     discardChanges: 'Discard changes',
     saveData: 'Done editing',
