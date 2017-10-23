@@ -443,17 +443,6 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
     </div>
 
     <div className="odp__bottom-buttons">
-      <div>
-        <a className="btn btn-secondary odp__cancel-button"
-           onClick={() => cancelDraft(countryIso, active.odpId)}>
-          {i18n.t('nationalDataPoint.cancel')}
-        </a>
-        <button disabled={saveControlsDisabled()}
-                className="btn btn-primary"
-                onClick={() => markAsActual(countryIso, active)}>
-          {i18n.t('nationalDataPoint.saveData')}
-        </button>
-      </div>
       {
         active.editStatus && active.editStatus !== 'newDraft'
           ? <button className="btn btn-destructive"
@@ -463,6 +452,16 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
             </button>
           : null
       }
+      <button className="btn btn-secondary align-right" onClick={() => cancelDraft(countryIso, active.odpId)}>
+        {
+          !active.editStatus || active.editStatus === 'newDraft'
+            ? i18n.t('nationalDataPoint.discardDraft')
+            : i18n.t('nationalDataPoint.discardChanges')
+        }
+      </button>
+      <button className="btn btn-primary margin-left" disabled={saveControlsDisabled()} onClick={() => markAsActual(countryIso, active)}>
+        {i18n.t('nationalDataPoint.saveData')}
+      </button>
     </div>
   </div>
 }
