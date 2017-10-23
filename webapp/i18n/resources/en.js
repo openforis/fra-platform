@@ -226,6 +226,8 @@ export const translation = {
     confirmDelete: 'Are you sure you want to delete this data point? This cannot be undone.',
     cancel: 'Cancel',
     saveData: 'Save data',
+    newDraft: 'Draft',
+    editedDraft: 'Edited',
     enterOrCopyPasteNationalClasses: 'Enter or copy and paste national classes',
     forestCharacteristics: 'Forest characteristics',
     otherLandCharacteristics: 'Other land with tree cover',

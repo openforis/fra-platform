@@ -32,6 +32,10 @@ const ODPListing = ({countryIso, odps = [], i18n, userInfo}) => {
         ? odps.map(odp => <tr className="odp-list__list-row" key={odp.odpId}>
           <td className="odp-list__cell odp-list__year-column">
             {odp.year == 0 ? '-' : odp.year}
+            {odp.editStatus !== 'noChanges'
+              ? <span className="odp-list__draft-indicator">{i18n.t(`nationalDataPoint.${odp.editStatus}`)}</span>
+              : null
+            }
           </td>
           <td className="odp-list__cell odp-list__method-column">
             {odp.dataSourceMethods
