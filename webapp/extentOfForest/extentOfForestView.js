@@ -11,7 +11,7 @@ import LoggedInPageTemplate from '../loggedInPageTemplate'
 import { TableWithOdp } from '../originalDataPoint/tableWithOdp'
 import { CommentableReviewDescription } from '../description/commentableDescription'
 import countryConfig from '../../common/countryConfig'
-import { add, formatNumber, eq } from '../../common/bignumberUtils'
+import { sum, formatNumber, eq } from '../../common/bignumberUtils'
 
 const ExtentOfForest = (props) => {
 
@@ -43,7 +43,7 @@ const ExtentOfForest = (props) => {
       {
         R.addIndex(R.map)(
           (fraColumn, i) => {
-            const totalLandArea = add(fraColumn.forestArea, add(fraColumn.otherWoodedLand, fraColumn.otherLand))
+            const totalLandArea = sum([fraColumn.forestArea, fraColumn.otherWoodedLand, fraColumn.otherLand])
             return <td className={`fra-table__aggregate-cell ${totalAreaValidationClass(fraColumn, totalLandArea)}`} key={i}>
               {formatNumber(totalLandArea)}
             </td>
