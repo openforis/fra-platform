@@ -21,7 +21,7 @@ const ODPListing = ({countryIso, odps = [], i18n, userInfo}) => {
     <table className="odp-list__list-table">
       <thead>
       <tr>
-        <th className="odp-list__header-cell">{i18n.t('nationalDataPoint.year')}</th>
+        <th className="odp-list__header-cell" colSpan="2">{i18n.t('nationalDataPoint.year')}</th>
         <th className="odp-list__header-cell">{i18n.t('nationalDataPoint.methods')}</th>
         <th className="odp-list__header-cell"></th>
         <th className="odp-list__header-cell"></th>
@@ -31,11 +31,7 @@ const ODPListing = ({countryIso, odps = [], i18n, userInfo}) => {
       {odps.length > 0
         ? odps.map(odp => <tr className="odp-list__list-row" key={odp.odpId}>
           <td className="odp-list__cell odp-list__year-column">
-            {odp.year == 0 ? '-' : odp.year}
-            {odp.editStatus !== 'noChanges'
-              ? <span className="odp-list__draft-indicator">{i18n.t(`nationalDataPoint.${odp.editStatus}`)}</span>
-              : null
-            }
+            {odp.year == 0 ? '–' : odp.year}
           </td>
           <td className="odp-list__cell odp-list__method-column">
             {odp.dataSourceMethods
@@ -44,6 +40,9 @@ const ODPListing = ({countryIso, odps = [], i18n, userInfo}) => {
                 )
               : null
             }
+          </td>
+          <td className="odp-list__cell odp-list__edit-status-column">
+            {odp.editStatus !== 'noChanges' ? i18n.t(`nationalDataPoint.${odp.editStatus}`) : null}
           </td>
           <td className="odp-list__cell">
             <div className="odp-list__notification-column">
