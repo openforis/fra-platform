@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
-import { Link } from './../link'
+import { Link } from './../reusableUiComponents/link'
 
 import { fetchItem, save, saveMany, generateFraValues } from '../originalDataPoint/actions'
 import LoggedInPageTemplate from '../loggedInPageTemplate'
@@ -41,12 +41,7 @@ const ForestCharacteristics = props => {
       localizedName: i18n.t('forestCharacteristics.otherPlantedForestArea')
     }
   ]
-  const rowNames = {
-    0: 'naturalForestArea',
-    2: 'plantationForestArea',
-    3: 'plantationForestIntroducedArea',
-    4: 'otherPlantedForestArea'
-  }
+
   return <div className='fra-view__content'>
     <div className="fra-view__page-header">
       <h1 className="title">{i18n.t('forestCharacteristics.forestCharacteristics')}</h1>
@@ -71,7 +66,13 @@ const ForestCharacteristics = props => {
         {i18n.t('extentOfForest.generateFraValues')}
       </button>
     </div>
-    <TableWithOdp section={sectionName} rows={rows} rowNames={rowNames} {...props} areaUnitLabel={i18n.t('forestCharacteristics.areaUnitLabel')} categoryHeader={i18n.t('forestCharacteristics.categoryHeader')}/>
+    <TableWithOdp
+      section={sectionName}
+      rows={rows}
+      areaUnitLabel={i18n.t('forestCharacteristics.areaUnitLabel')}
+      categoryHeader={i18n.t('forestCharacteristics.categoryHeader')}
+      {...props}
+    />
     <CommentableReviewDescription
       section={sectionName}
       countryIso={props.countryIso}

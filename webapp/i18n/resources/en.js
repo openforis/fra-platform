@@ -59,6 +59,7 @@ export const translation = {
   dashboard: {
     dashboard: 'Dashboard',
     recentActivity: 'Recent activity',
+    noRecentActivity: 'No recent activity',
     externalLinks: {
       title: 'External links',
       nationalFocalPoints: 'National focal points',
@@ -259,7 +260,8 @@ export const translation = {
     ofWhichTreeOrchards: '…of which tree orchards (includes fruit, nuts, olive, etc.)',
     ofWhichAgroforestry: '…of which agroforestry',
     ofWhichTreesUrbanSettings: '…of which trees in urban settings',
-    totalLandArea: 'Total land area'
+    totalLandArea: 'Total land area',
+    faoStatLandArea: 'FAOSTAT land area'
   },
 
   forestCharacteristics: {
