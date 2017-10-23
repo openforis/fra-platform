@@ -38,6 +38,7 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
   const copyPreviousClassesDisabled = () => active.year && !autoSaving ? false : true
   const yearValidationStatusClass = () => active.validationStatus && !active.validationStatus.year.valid ? 'error' : ''
   const unselectable = R.defaultTo([], active.reservedYears)
+  const confirmAlert = (message, action) => window.confirm(message) ? action : null
 
   return <div className="odp__data-input-component odp_validate-form">
     <div className="odp__section">
@@ -442,15 +443,6 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
     </div>
 
     <div className="odp__bottom-buttons">
-      <span
-        className={saveControlsDisabled() ? 'btn btn-destructive disabled' : 'btn btn-destructive'}
-        onClick={() => {
-          if(window.confirm(i18n.t('nationalDataPoint.confirmDelete'))) {
-            saveControlsDisabled() ? null : remove(countryIso, active.odpId)
-          }
-        }}>
-         {i18n.t('nationalDataPoint.delete')}
-      </span>
       <div>
         <a className="btn btn-secondary odp__cancel-button"
            onClick={() => cancelDraft(countryIso, active.odpId)}>
@@ -462,6 +454,15 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
           {i18n.t('nationalDataPoint.saveData')}
         </button>
       </div>
+      {
+        active.editStatus && active.editStatus !== 'newDraft'
+          ? <button className="btn btn-destructive"
+              disabled={saveControlsDisabled()}
+              onClick={() => confirmAlert(i18n.t('nationalDataPoint.confirmDelete'), saveControlsDisabled() ? null : remove(countryIso, active.odpId))}>
+               {i18n.t('nationalDataPoint.delete')}
+            </button>
+          : null
+      }
     </div>
   </div>
 }
