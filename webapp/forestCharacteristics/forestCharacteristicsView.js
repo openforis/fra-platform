@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
-import { Link } from './../link'
+import { Link } from './../reusableUiComponents/link'
 
 import { fetchItem, save, saveMany, generateFraValues } from '../originalDataPoint/actions'
 import LoggedInPageTemplate from '../loggedInPageTemplate'
