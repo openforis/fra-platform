@@ -49,6 +49,18 @@ export default i18n => ({
       {type: 'decimalInput'},
       {type: 'decimalInput'},
       {type: 'decimalInput'}
+    ],
+    [
+      {
+        type: 'readOnly',
+        jsx: <td key="primaryForest"
+                className="fra-table__header-cell">{i18n.t('specificForestCategories.primaryForest')}</td>
+      },
+      {type: 'decimalInput'},
+      {type: 'decimalInput'},
+      {type: 'decimalInput'},
+      {type: 'decimalInput'},
+      {type: 'decimalInput'}
     ]
   ],
   valueSlice: {columnStart: 1}
