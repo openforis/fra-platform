@@ -83,7 +83,7 @@ class DashboardView extends React.Component {
 
   componentWillReceiveProps (next) {
     if (!R.equals(this.props.match.params.countryIso, next.match.params.countryIso))
-      this.props.fetchAuditFeed(countryIso)
+      this.props.fetchAuditFeed(this.props.match.params.countryIso)
   }
 
   render() {
