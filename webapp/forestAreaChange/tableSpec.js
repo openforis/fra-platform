@@ -11,7 +11,7 @@ const ofWhichColumns = R.times(() => ({type: 'decimalInput', validator: expansio
 
 const netChange = (expansion, deforestation) => formatDecimal(sub(expansion, deforestation))
 
-const netChangeCell = (column) => (props) =>
+const netChangeCell = (column, extentOfForest) => (props) => console.log('## netChangeCell eof', extentOfForest) ||
   <td key="" className="fra-table__aggregate-cell">
     {netChange(props.tableData[0][column], props.tableData[3][column])}
   </td>
@@ -49,10 +49,10 @@ export default (i18n, extentOfForest) => {
       ],
       [
         {type: 'readOnly', jsx: <td key="" className="fra-table__header-cell">{i18n.t('forestAreaChange.forestAreaNetChange')}</td>},
-        {type: 'custom', render: netChangeCell(1)},
-        {type: 'custom', render: netChangeCell(2)},
-        {type: 'custom', render: netChangeCell(3)},
-        {type: 'custom', render: netChangeCell(4)}
+        {type: 'custom', render: netChangeCell(1, extentOfForest)},
+        {type: 'custom', render: netChangeCell(2, extentOfForest)},
+        {type: 'custom', render: netChangeCell(3, extentOfForest)},
+        {type: 'custom', render: netChangeCell(4, extentOfForest)}
       ]
     ],
     valueSlice: {
