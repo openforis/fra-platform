@@ -24,7 +24,7 @@ class GrowingStockCompositionView extends React.Component {
     const {match, i18n} = this.props
 
     return <LoggedInPageTemplate>
-      <div className="fra-view__content gsc__view">
+      <div className="fra-view__content growing-stock-composition-view">
         <div className="fra-view__page-header">
           <h1 className="title">{i18n.t('growingStockComposition.growingStockComposition')}</h1>
           <DefinitionLink document="tad" anchor="2b" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>

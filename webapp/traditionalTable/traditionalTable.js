@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import R from 'ramda'
 import assert from 'assert'
 
-import './style.less'
 import * as table from './table'
 import * as cellTypes from './cellTypes'
 import { tableValueChanged, tableChanged, fetchTableData } from './actions'
@@ -24,7 +23,7 @@ const Cell = (props) => {
 class ReviewWrapper extends React.Component {
   render () {
     return <td ref="rowAnchor" className="fra-table__row-anchor-cell">
-      <div className="traditional-table__review-indicator-row-anchor">
+      <div className="fra-table__review-indicator-anchor">
         <ReviewIndicator section={this.props.section || this.props.tableSpec.name}
                          name=""
                          target={commentTarget(this.props.tableSpec.name, this.props.rowIdx)}
@@ -69,8 +68,8 @@ class FraTable extends UpdateOnResizeReactComponent {
   }
 
   render () {
-    return <div ref="traditionalTable" className="traditional-table">
-      <div className="traditional-table__scroll-wrapper">
+    return <div ref="traditionalTable" className="fra-table__container">
+      <div className="fra-table__scroll-wrapper">
         <table className="fra-table">
           {this.props.tableSpec.header}
           <TableBody {...this.props} />

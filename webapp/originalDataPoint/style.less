@@ -118,26 +118,50 @@
 // List view
 
 .odp-list__list-table {
-  width: 100%;
-  font-size: @font-m;
-  line-height: 20px;
   border-collapse: collapse;
-  margin-top: 24px;
-  margin-bottom: 32px;
+  line-height: 20px;
+  width: 100%;
+}
+
+.odp-list__list-row {
+  transition: @ease-out;
+
+  &:hover {
+    background: lighten(@ui-bg, 2%);
+  }
+}
+
+.odp-list__header-cell {
+  border-bottom: @ui-thin-border;
+  font-size: @font-m;
+  min-width: 80px;
+  padding: 12px;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.odp-list__cell {
+  border-bottom: @ui-thin-border;
+  font-size: @font-s;
+  padding: 12px;
+  text-align: left;
 }
 
 .odp-list__notification-column {
-  > div {
-    display: inline-block;
-    vertical-align: middle;
-    padding: 0 4px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  .icon,
+  .open-issues {
+    margin: 4px;
   }
 
   .open-issues {
-    width: 10px;
-    height: 10px;
     background-color: @ui-accent;
     border-radius: 100%;
+    height: 10px;
+    width: 10px;
 
     &.unread-issues {
       background-color: @ui-alert;
@@ -146,10 +170,10 @@
 }
 
 .odp-list__edit-column {
+  padding: 0;
   text-align: right;
 
   .link {
-    line-height: 20px;
     padding: 12px;
   }
 }
@@ -158,47 +182,20 @@
   color: @text-disabled;
 }
 
-.odp-list__header-row {
-  border-bottom: @ui-thin-border;
-  text-align: left;
-
-  th {
-    padding: 12px;
-  }
-}
-
-.odp-list__list-row {
-  border-bottom: @ui-thin-border;
-  text-align: left;
-  transition: @ease-out;
-
-  &:hover {
-    background: lighten(@ui-bg, 2%);
-  }
-
-  td {
-    padding: 12px;
-  }
-
-  .odp-list__edit-column {
-    padding: 0;
-  }
-}
-
 // Validation
 .error {
   .validation-error-sensitive-field {
-    background-color: fade(@ui-destructive, 10%);
+    .validation-error;
   }
 }
 
-// Table
+.validation-error {
+  background-color: fade(@ui-destructive, 10%);
+}
 
-.table-with-odp__container {
-  display: flex;
-  align-items: flex-start;
-  margin-bottom: 32px;
+// Table with odp
 
+.table-with-odp {
   .odp-header-cell {
     background-color: #e5f4f6;
     background-color: fade(@ui-accent, 10%);
@@ -208,11 +205,5 @@
     text-align: right;
     background-color: #f2fafa;
     background-color: fade(@ui-accent, 5%);
-  }
-}
-
-.table-with-odp__comment-column {
-  .fra-review__add-issue:first-of-type {
-    margin-top: 83px;
   }
 }

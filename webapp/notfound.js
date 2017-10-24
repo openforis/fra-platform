@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from './link'
 
 const Notfound = () => (
   <div className="notfound">

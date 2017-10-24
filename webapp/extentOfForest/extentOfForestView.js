@@ -1,14 +1,17 @@
+import './style.less'
 import React from 'react'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
 import { fetchItem, save, saveMany, generateFraValues } from '../originalDataPoint/actions'
 import { fetchLastSectionUpdateTimestamp } from '../audit/actions'
-import { Link } from './../link'
+import { Link } from './../reusableUiComponents/link'
 import DefinitionLink from './../reusableUiComponents/definitionLink'
 import ChartWrapper from './chart/chartWrapper'
 import LoggedInPageTemplate from '../loggedInPageTemplate'
 import { TableWithOdp } from '../originalDataPoint/tableWithOdp'
 import { CommentableReviewDescription } from '../description/commentableDescription'
+import countryConfig from '../../common/countryConfig'
+import { sum, formatNumber, eq } from '../../common/bignumberUtils'
 
 const ExtentOfForest = (props) => {
 
@@ -21,6 +24,47 @@ const ExtentOfForest = (props) => {
   }
 
   const i18n = props.i18n
+
+  const totalAreaNotEqualToFaoStat = (fraColumn, totalArea) => {
+    const faoStatValue = R.path([props.countryIso, 'faoStat', fraColumn.name], countryConfig)
+    if (!faoStatValue) return false // It's normal that we don't have faoStat-values for years
+    if (R.isNil(totalArea)) return false
+    return !eq(faoStatValue, totalArea)
+  }
+
+  const totalAreaValidationClass = (fraColumn, totalArea) =>
+    totalAreaNotEqualToFaoStat(fraColumn, totalArea) ? 'validation-error' : ''
+
+  const totalAreaRow = fra => {
+    return <tr key="totalArea">
+      <td className="fra-table__header-cell">
+        {props.i18n.t('extentOfForest.totalLandArea')}
+      </td>
+      {
+        R.addIndex(R.map)(
+          (fraColumn, i) => {
+            const totalLandArea = sum([fraColumn.forestArea, fraColumn.otherWoodedLand, fraColumn.otherLand])
+            return <td className={`fra-table__aggregate-cell ${totalAreaValidationClass(fraColumn, totalLandArea)}`} key={i}>
+              {formatNumber(totalLandArea)}
+            </td>
+          },
+          R.values(fra)
+        )
+      }
+    </tr>
+  }
+
+  const faoStatRow = fra => <tr key="faoStat">
+    <td className="eof-table__faostat-header">{props.i18n.t('extentOfForest.faoStatLandArea')}</td>
+    {
+      R.addIndex(R.map)((value, i) =>
+          <td className="eof-table__faostat-cell" key={i}>
+            {R.path([props.countryIso, 'faoStat', value.name], countryConfig)}
+          </td>,
+        R.values(props.fra))
+    }
+  </tr>
+
   const eofRows = [
     {
       field: 'forestArea',
@@ -53,24 +97,18 @@ const ExtentOfForest = (props) => {
       field: 'otherLandTreesUrbanSettings',
       className: 'fra-table__header-cell-sub',
       localizedName: i18n.t('extentOfForest.ofWhichTreesUrbanSettings')
+    },
+    {
+      customRenderRow: totalAreaRow
+    },
+    {
+      customRenderRow: faoStatRow
     }
   ]
-
-  const eofRowNames = {
-    0: 'forestArea',
-    1: 'otherWoodedLand',
-    2: 'otherLand',
-    3: 'otherLandPalms',
-    4: 'otherLandTreeOrchards',
-    5: 'otherLandAgroforestry',
-    6: 'otherLandTreesUrbanSettings'
-  }
 
   return <div className='fra-view__content'>
     <div className="fra-view__page-header">
       <h1 className="title">{i18n.t('extentOfForest.extentOfForest')}</h1>
-    </div>
-    <div className="fra-view__section-header">
       <Link className="btn btn-primary align-right" to={`/country/${props.countryIso}/odp`}>
         <svg className="icon icon-sub icon-white">
           <use xlinkHref="img/icons.svg#small-add"/>
@@ -92,9 +130,12 @@ const ExtentOfForest = (props) => {
         {i18n.t('extentOfForest.generateFraValues')}
       </button>
     </div>
-    <TableWithOdp section='extentOfForest' rows={eofRows} rowNames={eofRowNames} {...props}
+    <TableWithOdp
+               section='extentOfForest'
+               rows={eofRows}
                areaUnitLabel={props.i18n.t('extentOfForest.areaUnitLabel')}
-               categoryHeader={props.i18n.t('extentOfForest.categoryHeader')}/>
+               categoryHeader={props.i18n.t('extentOfForest.categoryHeader')}
+               {...props}/>
     <CommentableReviewDescription
       section='extentOfForest'
       countryIso={props.match.params.countryIso}
@@ -111,11 +152,6 @@ class DataFetchingComponent extends React.Component {
     const countryIso = this.props.match.params.countryIso
     this.fetch(countryIso)
     this.props.fetchLastSectionUpdateTimestamp(countryIso, 'extentOfForest')
-  }
-
-  componentWillReceiveProps (next) {
-    if (!R.equals(this.props.match.params.countryIso, next.match.params.countryIso))
-      this.fetch(next.match.params.countryIso)
   }
 
   fetch (countryIso) {

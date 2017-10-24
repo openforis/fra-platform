@@ -1,7 +1,7 @@
 import React from 'react'
 import * as R from 'ramda'
 
-import { Link } from './../link'
+import { Link } from './../reusableUiComponents/link'
 import { ThousandSeparatedDecimalInput } from '../reusableUiComponents/thousandSeparatedDecimalInput'
 import ReviewIndicator from '../review/reviewIndicator'
 import { readPasteClipboard } from '../utils/copyPasteUtil'
@@ -13,7 +13,7 @@ export class TableWithOdp extends React.Component {
 
   render () {
     const rows = this.props.rows
-    return <div className="table-with-odp__container">
+    return <div className="fra-table__container table-with-odp">
       <div className="fra-table__scroll-wrapper">
         <table className="fra-table">
           <thead>
@@ -34,12 +34,9 @@ export class TableWithOdp extends React.Component {
           </tr>
           </thead>
           <tbody>
-          {buildRows(rows, this.props)}
+            {buildRows(rows, this.props)}
           </tbody>
         </table>
-      </div>
-      <div className="table-with-odp__comment-column">
-        { buildIndicators(rows, this.props) }
       </div>
     </div>
   }
@@ -48,20 +45,12 @@ export class TableWithOdp extends React.Component {
 const buildRows = (rows, props) => {
   const save = R.partial(props.save, [props.section])
   const saveMany = R.partial(props.saveMany, [props.section])
-  const paste = R.partial(updatePastedValues, [props.rowNames])
+  const paste = R.partial(updatePastedValues, [R.pluck('field', rows)])
 
-  return mapIndexed((row, i) =>
-      fraValueRow(row, props.countryIso, props.fra, save, saveMany, paste, i, props.openCommentThread)
+  return mapIndexed((row, rowIdx) =>
+      tableRow(row, props.countryIso, props.fra, save, saveMany, paste, rowIdx, props.openCommentThread, props.section)
     , rows)
 }
-
-const buildIndicators = (rows, props) => mapIndexed((row, i) =>  <ReviewIndicator
-  key={`${row.field}_ri`}
-  section={props.section}
-  name={row.localizedName}
-  target={[row.field]}
-  countryIso={props.countryIso}
-/>, rows)
 
 const OdpHeading = ({countryIso, odpValue}) =>
   <Link className="link" to={`/country/${countryIso}/odp/${odpValue.odpId}`}>
@@ -69,11 +58,11 @@ const OdpHeading = ({countryIso, odpValue}) =>
     {odpValue.name}
   </Link>
 
-const fraValueCell = (fraValue, fra, countryIso, save, saveMany, pasteUpdate, field, colIdx, rowIdx) =>
+const fraValueCell = (fraValue, fra, countryIso, save, saveMany, pasteUpdate, field, rowIdx, colIdx) =>
   <ThousandSeparatedDecimalInput
     numberValue={ fraValue[field] }
     precision={2}
-    onPaste={ e => saveMany(countryIso, pasteUpdate(e, colIdx, rowIdx, fra)) }
+    onPaste={ e => saveMany(countryIso, pasteUpdate(e, rowIdx, colIdx, fra)) }
     onChange={ e => { save(countryIso, fraValue.name, e.target.value, fraValue, field, acceptNextDecimal) } }/>
 
 const odpCell = (odpValue, field) =>
@@ -82,26 +71,36 @@ const odpCell = (odpValue, field) =>
     precision={2}
     disabled={true} />
 
-const fraValueRow = (row, countryIso, fra, save, saveMany, pasteUpdate, colId, openThread) => {
-  const {localizedName, field, className, customRender} = row
+const tableRow = (row, countryIso, fra, save, saveMany, pasteUpdate, rowIdx, openThread, section) => {
+  const {localizedName, field, className, customRenderRow} = row
+
+  if (customRenderRow) return customRenderRow(fra)
 
   return <tr
     key={field}
     className={`${openThread && R.isEmpty(R.difference(openThread.target, [field])) ? 'fra-row-comments__open' : ''}`}>
     <td className={className ? className : 'fra-table__header-cell'}>{ localizedName }</td>
     {
-      customRender
-      ? customRender(fra)
-      : mapIndexed((v, i) =>
-          <td className={`fra-table__cell ${v.type === 'odp' ? 'odp-value-cell' : ''}`} key={`${v.type}_${v.name}`}>
-            {
-              v.type === 'odp'
-                ? odpCell(v, field)
-                : fraValueCell(v, fra, countryIso, save, saveMany, pasteUpdate, field, colId, i)
-            }
-          </td>
-        , R.values(fra))
+      mapIndexed((v, colIdx) =>
+        <td className={`fra-table__cell ${v.type === 'odp' ? 'odp-value-cell' : ''}`} key={`${v.type}_${v.name}`}>
+          {
+            v.type === 'odp'
+              ? odpCell(v, field)
+              : fraValueCell(v, fra, countryIso, save, saveMany, pasteUpdate, field, rowIdx, colIdx)
+          }
+        </td>
+      , R.values(fra))
     }
+    <td className="fra-table__row-anchor-cell">
+      <div className="fra-table__review-indicator-anchor">
+        <ReviewIndicator
+          key={`${field}_ri`}
+          section={section}
+          name={localizedName}
+          target={[field]}
+          countryIso={countryIso} />
+      </div>
+    </td>
   </tr>
 }
 
