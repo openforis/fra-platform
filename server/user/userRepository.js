@@ -91,7 +91,7 @@ const updateUser = (client, countryIso, user) =>
       `, [user.role, user.id, countryIso])
     )
 
-const removeUser = (client, countryIso, userId) =>
+const removeCountryUser = (client, countryIso, userId) =>
   client.query(`
     DELETE FROM
       user_country_role
@@ -107,5 +107,5 @@ module.exports = {
   updateLanguage,
   fetchCountryUsers,
   updateUser,
-  removeUser
+  removeCountryUser
 }

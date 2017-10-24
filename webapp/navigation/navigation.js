@@ -225,17 +225,15 @@ const SecondaryItem = ({path, countryIso, status, pathTemplate, tableNo, label})
 
 const roleLabel = (countryIso, userInfo, i18n) => i18n.t(mostPowerfulRole(countryIso, userInfo).labelKey)
 
-const UsersManagementLink = ({i18n, countryIso, path}) => {
+const UsersManagementItem = ({i18n, countryIso, path}) => {
   const route = new Route('/country/:countryIso/users')
   const linkTo = route.reverse({countryIso})
 
-  return <div>
-    <Link
-      className={`nav__secondary-item ${R.equals(path, linkTo) ? 'selected' : ''}`}
+  return <Link
+      className={`nav__link-item ${R.equals(path, linkTo) ? 'selected' : ''}`}
       to={linkTo}>
-      {i18n.t('navigation.support.manageCollaborators')}
+      <div className='nav__link-label'>{i18n.t('navigation.support.manageCollaborators')}</div>
     </Link>
-  </div>
 }
 
 const SuppportItems = ({i18n, userInfo, countryIso, path}) => {
@@ -253,11 +251,6 @@ ${newLine}
 ${i18n.t('navigation.support.userAgent')}: ${navigator.userAgent}
 `
   return <div className="nav__support-item">
-    {
-      isReviewer(countryIso, userInfo) || isNationalCorrespondent(countryIso, userInfo)
-        ? <UsersManagementLink countryIso={countryIso} i18n={i18n} path={path}/>
-        : null
-    }
     <a
       className="nav__support-link"
       target="_top"
@@ -267,7 +260,6 @@ ${i18n.t('navigation.support.userAgent')}: ${navigator.userAgent}
     <span className="nav__copyright-item">&copy; {currentYear} FAO</span>
   </div>
 }
-
 
 class Nav extends React.Component {
 
@@ -290,55 +282,63 @@ class Nav extends React.Component {
       R.defaultTo({issuesCount: 0})
     )(status.reviewStatus)
 
+    const {userInfo, i18n, path, countries, country, changeAssessmentStatus, getCountryList} = this.props
+
     return <div className="main__nav-wrapper">
       <div className="main__nav">
-        <CountrySelectionItem name={this.props.country}
-                              countries={this.props.countries}
-                              listCountries={this.props.getCountryList}
-                              role={roleLabel(this.props.country, this.props.userInfo, this.props.i18n)}
-                              i18n={this.props.i18n}/>
+        <CountrySelectionItem name={country}
+                              countries={countries}
+                              listCountries={getCountryList}
+                              role={roleLabel(country, userInfo, i18n)}
+                              i18n={i18n}/>
         <div className="nav__link-list" ref="scroll_content" onScroll={() => {
           const content = ReactDOM.findDOMNode(this.refs.scroll_content)
           this.props.navigationScroll(content.scrollTop)
         }}>
           <div>
-            <DashboardItem label={this.props.i18n.t('dashboard.dashboard')}
-                           countryIso={this.props.country}
-                           path={this.props.path}
+            <DashboardItem label={i18n.t('dashboard.dashboard')}
+                           countryIso={country}
+                           path={path}
                            pathTemplate="/country/:countryIso"/>
-            <NationalDataItem label={this.props.i18n.t('nationalDataPoint.nationalData')}
-                              countryIso={this.props.country}
+            <NationalDataItem label={i18n.t('nationalDataPoint.nationalData')}
+                              countryIso={country}
                               status={R.merge(getReviewStatus('odp'), status.odpStatus)}
-                              path={this.props.path}
+                              path={path}
                               pathTemplate="/country/:countryIso/odps"
                               secondaryPathTemplate="/country/:countryIso/odp"
-                              userInfo={this.props.userInfo}/>
+                              userInfo={userInfo}/>
+
             <div className="nav__divider"></div>
-            <PrimaryItem label={this.props.i18n.t('navigation.fra2020')}
-                         countryIso={this.props.country}
+
+            <PrimaryItem label={i18n.t('navigation.fra2020')}
+                         countryIso={country}
                          assessmentType="fra2020"
                          assessmentStatuses={status.assessmentStatuses}
-                         changeAssessmentStatus={this.props.changeAssessmentStatus}
-                         userInfo={this.props.userInfo}
-                         i18n={this.props.i18n}/>
+                         changeAssessmentStatus={changeAssessmentStatus}
+                         userInfo={userInfo}
+                         i18n={i18n}/>
             {
-              fra2020Items(this.props.i18n).map(item =>
-                item.type == 'header'
-                ? <SecondaryItemHeader
-                    key={item.label}
-                    label={item.label}
-                    sectionNo={item.sectionNo} />
-                : <SecondaryItem
-                    path={this.props.path}
-                    key={item.label}
-                    countryIso={this.props.country}
-                    status={getReviewStatus(item.section)}
-                    {...item} />
+              fra2020Items(i18n).map(item =>
+                item.type === 'header'
+                  ? <SecondaryItemHeader key={item.label}
+                                         label={item.label}
+                                         sectionNo={item.sectionNo}/>
+                  : <SecondaryItem path={path}
+                                   key={item.label}
+                                   countryIso={country}
+                                   status={getReviewStatus(item.section)}
+                                   {...item} />
               )
             }
 
             <div className="nav__divider"></div>
-            <SuppportItems countryIso={this.props.country} {...this.props} />
+
+            {
+              isReviewer(country, userInfo) || isNationalCorrespondent(country, userInfo)
+                ? <UsersManagementItem countryIso={country} i18n={i18n} path={path}/>
+                : null
+            }
+            <SuppportItems countryIso={country} {...this.props} />
           </div>
         </div>
       </div>
