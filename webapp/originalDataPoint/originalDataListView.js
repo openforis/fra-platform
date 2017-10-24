@@ -14,9 +14,11 @@ const TableRow = ({odp, i18n, countryIso}) => {
   return <tr className="odp-list__link-row" onClick={() => navigateTo(odpUrl)}>
     <td className="odp-list__year-column">
       {odp.year == 0 ? '–' : odp.year}
+    </td>
+    <td className="odp-list__editstatus-column">
       {
         odp.editStatus !== 'noChanges'
-          ? <span className="odp-list__dirty-odp">*</span>
+          ? <svg className="icon"><use xlinkHref="img/icons.svg#pencil"/></svg>
           : null
       }
     </td>
@@ -68,7 +70,7 @@ const ODPListing = ({countryIso, odps = [], i18n, userInfo}) => {
     <table className="odp-list__list-table">
       <thead>
       <tr>
-        <th className="odp-list__header-cell">{i18n.t('nationalDataPoint.referenceYear')}</th>
+        <th className="odp-list__header-cell" colSpan="2">{i18n.t('nationalDataPoint.referenceYear')}</th>
         <th className="odp-list__header-cell">{i18n.t('nationalDataPoint.methods')}</th>
         <th className="odp-list__header-cell" colSpan="2"></th>
       </tr>
@@ -80,7 +82,7 @@ const ODPListing = ({countryIso, odps = [], i18n, userInfo}) => {
           <TableRow key={odp.odpId} odp={odp} i18n={i18n} countryIso={countryIso} />
           , odps)
         : <tr>
-            <td className="odp-list__empty-column" colSpan="4">
+            <td className="odp-list__empty-column" colSpan="5">
               {i18n.t('nationalDataPoint.noNationalDataAdded')}
             </td>
           </tr>
@@ -88,8 +90,8 @@ const ODPListing = ({countryIso, odps = [], i18n, userInfo}) => {
       </tbody>
       <tfoot>
         <tr>
-          <td className="odp-list__footnotes" colSpan="4">
-            <span className="odp-list__dirty-odp">*</span>
+          <td className="odp-list__footnotes" colSpan="5">
+            <svg className="icon icon-sub icon-margin"><use xlinkHref="img/icons.svg#pencil"/></svg>
             {i18n.t('nationalDataPoint.modifiedExplanation')}
           </td>
         </tr>
