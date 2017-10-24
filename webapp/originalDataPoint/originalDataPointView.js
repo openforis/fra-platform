@@ -38,11 +38,10 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
   const copyPreviousClassesDisabled = () => active.year && !autoSaving ? false : true
   const yearValidationStatusClass = () => active.validationStatus && !active.validationStatus.year.valid ? 'error' : ''
   const unselectable = R.defaultTo([], active.reservedYears)
-  const confirmAlert = (message, action) => window.confirm(message) ? action : null
 
   return <div className="odp__data-input-component odp_validate-form">
     <div className="odp__section">
-      <h3 className="subhead">{i18n.t('nationalDataPoint.year')}</h3>
+      <h3 className="subhead">{i18n.t('nationalDataPoint.referenceYearData')}</h3>
       <div className={`odp__year-selection ${yearValidationStatusClass()}`}>
         <select
           className="select validation-error-sensitive-field"
@@ -443,24 +442,24 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
     </div>
 
     <div className="odp__bottom-buttons">
+      <button className="btn btn-destructive"
+        disabled={saveControlsDisabled()}
+        onClick ={() => window.confirm(i18n.t('nationalDataPoint.confirmDelete')) ? remove(countryIso, active.odpId) : null}>
+        {i18n.t('nationalDataPoint.delete')}
+      </button>
       {
         active.editStatus && active.editStatus !== 'newDraft'
-          ? <button className="btn btn-destructive"
+          ? <button className="btn btn-secondary"
               disabled={saveControlsDisabled()}
-              onClick={() => confirmAlert(i18n.t('nationalDataPoint.confirmDelete'), saveControlsDisabled() ? null : remove(countryIso, active.odpId))}>
-               {i18n.t('nationalDataPoint.delete')}
+              onClick={() => cancelDraft(countryIso, active.odpId)}>
+              {i18n.t('nationalDataPoint.discardChanges')}
             </button>
           : null
       }
-      <button className="btn btn-secondary align-right" onClick={() => cancelDraft(countryIso, active.odpId)}>
-        {
-          !active.editStatus || active.editStatus === 'newDraft'
-            ? i18n.t('nationalDataPoint.discardDraft')
-            : i18n.t('nationalDataPoint.discardChanges')
-        }
-      </button>
-      <button className="btn btn-primary margin-left" disabled={saveControlsDisabled()} onClick={() => markAsActual(countryIso, active)}>
-        {i18n.t('nationalDataPoint.saveData')}
+      <button className="btn btn-primary"
+        disabled={saveControlsDisabled()}
+        onClick={() => markAsActual(countryIso, active)}>
+        {i18n.t('nationalDataPoint.doneEditing')}
       </button>
     </div>
   </div>
