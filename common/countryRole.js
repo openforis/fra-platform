@@ -13,9 +13,10 @@ const nationalCorrespondent = {role: 'NATIONAL_CORRESPONDENT', labelKey: 'user.r
 const collaborator = {role: 'COLLABORATOR', labelKey: 'user.roles.collaborator'}
 const noRole = {role: 'NONE', labelKey: 'user.roles.noRole'}
 
+const hasRole = (role, roles) => R.find(R.propEq('role', role))(roles)
+
 const mostPowerfulRole = (countryIso, userInfo) => {
   if (!userInfo) return noRole
-  const hasRole = (role, roles) => R.find(R.propEq('role', role))(roles)
   if (hasRole('REVIEWER_ALL', userInfo.roles)) return reviewer
   const rolesForCountry = R.filter(R.propEq('countryIso', countryIso))(userInfo.roles)
   //If user has both roles for country, the stronger (Reviewer) "wins"
@@ -26,6 +27,8 @@ const mostPowerfulRole = (countryIso, userInfo) => {
   return noRole //Return null-object for undefined/null-safe access. Shouldn't happen in practice
 }
 
+const isSuperUser = userInfo => hasRole('NATIONAL_CORRESPONDENT_ALL', userInfo.roles) || hasRole('REVIEWER_ALL', userInfo.roles)
+
 const hasUserRole = (countryIso, userInfo, roleObj) => mostPowerfulRole(countryIso, userInfo).role === roleObj.role
 const isReviewer = (countryIso, userInfo) => hasUserRole(countryIso, userInfo, reviewer)
 const isNationalCorrespondent = (countryIso, userInfo) => hasUserRole(countryIso, userInfo, nationalCorrespondent)
@@ -33,6 +36,7 @@ const isNationalCorrespondent = (countryIso, userInfo) => hasUserRole(countryIso
 module.exports.mostPowerfulRole = mostPowerfulRole
 module.exports.isReviewer = isReviewer
 module.exports.isNationalCorrespondent = isNationalCorrespondent
+module.exports.isSuperUser = isSuperUser
 module.exports.reviewer = reviewer
 module.exports.nationalCorrespondent = nationalCorrespondent
 module.exports.collaborator = collaborator

@@ -1,6 +1,7 @@
 const db = require('../db/db')
 const camelize = require('camelize')
 const R = require('ramda')
+const {isSuperUser} = require('../../common/countryRole')
 
 const findUserById = userId =>
   db.query('SELECT id, name ,lang FROM fra_user WHERE id = $1', [userId])
@@ -25,7 +26,7 @@ const updateLanguage = (client, lang, userInfo) =>
   client
     .query('UPDATE fra_user SET lang = $1 WHERE id = $2', [lang, userInfo.id])
 
-const fetchCountryUsers = countryIso =>
+const fetchCountryUsers = (countryIso, user) =>
   db.query(`
     SELECT
       u.id,            
@@ -42,6 +43,8 @@ const fetchCountryUsers = countryIso =>
         u.id = cr.user_id
       AND 
         cr.country_iso = $1
+  ${isSuperUser(user)
+    ? `
     UNION    
     SELECT
       u.id,            
@@ -58,7 +61,10 @@ const fetchCountryUsers = countryIso =>
         u.id = cr.user_id
       AND 
         cr.role in ('REVIEWER_ALL', 'NATIONAL_CORRESPONDENT_ALL')
-    ORDER BY id
+    `
+    : ''
+    }
+  ORDER BY id
   `, [countryIso])
     .then(res => camelize(res.rows))
 
