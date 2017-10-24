@@ -21,7 +21,12 @@ export class PercentInput extends React.Component {
         style={{opacity: this.state.hasFocus ? '1' : '0'}}
         onChange={this.props.onChange}
         onPaste={this.props.onPaste}
-        onFocus={() => {this.setState({hasFocus: true})}}
+        onFocus={
+          () => {
+            this.select()
+            this.setState({hasFocus: true})
+          }
+        }
         onBlur={() => {this.setState({hasFocus: false})}}
       />
       <div className="percent-input__sign">%</div>

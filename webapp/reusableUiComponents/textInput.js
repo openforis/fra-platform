@@ -22,7 +22,12 @@ export default class TextInput extends React.Component {
         value={ this.props.value || '' }
         onChange={ this.props.onChange }
         onPaste={ this.props.onPaste }
-        onFocus={ () => { this.setState({hasFocus: true}) } }
+        onFocus={
+          () => {
+            this.select()
+            this.setState({hasFocus: true})
+          }
+        }
         onBlur={ () => { this.setState({hasFocus: false}) } }
       />
     </div>

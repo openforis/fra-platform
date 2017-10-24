@@ -43,6 +43,7 @@ export class ThousandSeparatedDecimalInput extends React.Component {
         }
         onFocus={
           () => {
+            this.select()
             this.setState({hasFocus: true})
             this.setState({inputValue: numberValue || null})
           }

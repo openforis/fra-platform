@@ -28,6 +28,7 @@ export class ThousandSeparatedIntegerInput extends React.Component {
         onPaste={ onPaste }
         onFocus={
           () => {
+            this.select()
             this.setState({hasFocus: true})
             this.refs.inputField.value = R.isNil(integerValue) ? null : integerValue //prevent text "undefined" from rendering
           }
