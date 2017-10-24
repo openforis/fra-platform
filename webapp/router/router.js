@@ -11,7 +11,7 @@ class Router extends React.Component {
   follow () {
     if (window.location.hash === '') {
       window.location = '/login'
-    } else if (!this.props.loggedInUserInfoLoaded) {
+    } else if (!this.props.initialDataLoaded) {
       this.props.getLoggedinUserInfo()
     }
     this.props.follow(location.hash)
@@ -28,7 +28,7 @@ class Router extends React.Component {
 
   render () {
     const route = R.find(route => route.route.match(this.props.path))(this.props.routes)
-    return this.props.loggedInUserInfoLoaded
+    return this.props.initialDataLoaded
       ? route
         ? React.createElement(route.component, {match: {params: route.route.match(this.props.path)}})
         : <Notfound/>
@@ -40,8 +40,9 @@ const mapStateToProps = state => {
   const path = state.router.path
     ? state.router.path
     : (window.location.hash || window.location.pathname)
-  const loggedInUserInfoLoaded = !!state.user.userInfo
-  return {path, loggedInUserInfoLoaded}
+  // We use userInfo as the test to see if initial data is loaded already because it's so essential
+  const initialDataLoaded = !!state.user.userInfo
+  return {path, initialDataLoaded}
 }
 
 export default connect(mapStateToProps, {follow, getLoggedinUserInfo})(Router)
