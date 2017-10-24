@@ -64,6 +64,14 @@ const ODPListing = ({countryIso, odps = [], i18n, userInfo}) => {
           <td className="odp-list__cell odp_list__empty-column" colSpan="4">{i18n.t('nationalDataPoint.noNationalDataAdded')}</td>
         </tr>}
       </tbody>
+      <tfoot>
+        <tr>
+          <td className="odp-list__footnotes" colSpan="4">
+            <span className="odp-list__dirty-odp">*</span>
+            {i18n.t('nationalDataPoint.modifiedExplanation')}
+          </td>
+        </tr>
+      </tfoot>
     </table>
   </div>
 }

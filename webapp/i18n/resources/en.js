@@ -223,6 +223,7 @@ export const translation = {
     area: 'Area (1000 ha)',
     total: 'Total',
     delete: 'Delete',
+    modifiedExplanation: 'National data point with modifications',
     confirmDelete: 'Are you sure you want to delete this data point? This cannot be undone.',
     discardChanges: 'Discard changes',
     doneEditing: 'Done editing',
