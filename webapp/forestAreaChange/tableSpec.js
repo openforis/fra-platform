@@ -16,7 +16,7 @@ const netChangeCell = (column) => (props) =>
     {netChange(props.tableData[0][column], props.tableData[3][column])}
   </td>
 
-export default i18n => ({
+export default (i18n, extentOfForest) => console.log('fac change eof', extentOfForest) || ({
   name: 'forestAreaChange', // used to uniquely identify table
   header: <thead>
   <tr>

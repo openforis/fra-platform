@@ -16,7 +16,7 @@ class SingleTraditionalTableView extends React.Component {
 
   constructor(props) {
     super(props)
-    this.tableSpecInstance = this.props.tableSpec(this.props.i18n)
+    this.tableSpecInstance = this.props.tableSpecInstance || this.props.tableSpec(this.props.i18n)
   }
 
   componentDidMount() {
