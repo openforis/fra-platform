@@ -5,7 +5,7 @@ import * as R from 'ramda'
 import { fetchOdps } from './actions'
 
 import { Link } from './../reusableUiComponents/link'
-import LoggedInPageTemplate from '../loggedInPageTemplate'
+import LoggedInPageTemplate from '../app/loggedInPageTemplate'
 
 const ODPListing = ({countryIso, odps = [], i18n, userInfo}) => {
   return <div className="fra-view__content">

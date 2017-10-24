@@ -3,7 +3,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import { follow } from './actions'
-import Notfound from '../notfound'
+import Notfound from '../app/notfound'
 import { getLoggedinUserInfo } from '../user/actions'
 
 class Router extends React.Component {
