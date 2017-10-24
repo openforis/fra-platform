@@ -4,7 +4,13 @@ import { connect } from 'react-redux'
 
 import { follow } from './actions'
 import Notfound from '../app/notfound'
-import { getLoggedinUserInfo } from '../user/actions'
+import { fetchInitialData } from '../app/actions'
+import Route from 'route-parser'
+
+const getCountryIsoFromPath = (path) => {
+  const match = new Route('/country/:countryIso/*whatever').match(path.replace('#', ''))
+  return match ? match.countryIso : null
+}
 
 class Router extends React.Component {
 
@@ -12,7 +18,7 @@ class Router extends React.Component {
     if (window.location.hash === '') {
       window.location = '/login'
     } else if (!this.props.initialDataLoaded) {
-      this.props.getLoggedinUserInfo()
+      this.props.fetchInitialData(getCountryIsoFromPath(this.props.path))
     }
     this.props.follow(location.hash)
   }
@@ -45,4 +51,4 @@ const mapStateToProps = state => {
   return {path, initialDataLoaded}
 }
 
-export default connect(mapStateToProps, {follow, getLoggedinUserInfo})(Router)
+export default connect(mapStateToProps, {follow, fetchInitialData})(Router)
