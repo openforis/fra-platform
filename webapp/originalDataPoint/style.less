@@ -123,16 +123,13 @@
 
 .odp-list__list-table {
   border-collapse: collapse;
+  color: @text-body;
   line-height: 20px;
   width: 100%;
 }
 
-.odp-list__list-row {
-  transition: @ease-out;
-
-  &:hover {
-    background: lighten(@ui-bg, 2%);
-  }
+.odp-list__link-row {
+  cursor: pointer;
 }
 
 .odp-list__header-cell {
@@ -144,37 +141,43 @@
   white-space: nowrap;
 }
 
-.odp-list__cell {
-  border-bottom: @ui-thin-border;
-  font-size: @font-s;
-  padding: 12px;
-  text-align: left;
-}
-
 .odp-list__year-column {
-  .dirty-odp {
-    font-size: 18px;
-    margin-left: 2px;
-    vertical-align: sub;
-    line-height: 1;
-  }
+  .mixin-odp-list-cell;
 }
 
 .odp-list__method-column {
+  .mixin-odp-list-cell(8px 12px);
   width: 80%;
 }
 
+.odp-list__notification-column {
+  .mixin-odp-list-cell;
+}
+
 .odp-list__edit-column {
-  padding: 0;
-  text-align: right;
+  .mixin-odp-list-cell(0, right);
 
   .link {
     padding: 12px;
   }
 }
 
-.odp_list__empty-column {
+.odp-list__empty-column {
+  .mixin-odp-list-cell;
   color: @text-disabled;
+}
+
+.odp-list__footnotes {
+  .mixin-odp-list-cell;
+  color: @text-disabled;
+  border: none;
+}
+
+.odp-list__dirty-odp {
+  font-size: 18px;
+  margin: 0 2px;
+  vertical-align: sub;
+  line-height: 1;
 }
 
 .odp-list__notification-container {
@@ -196,6 +199,13 @@
       background-color: @ui-alert;
     }
   }
+}
+
+.mixin-odp-list-cell(@padding: 12px, @align: left) {
+  border-bottom: @ui-thin-border;
+  font-size: @font-s;
+  padding: @padding;
+  text-align: @align;
 }
 
 // Validation

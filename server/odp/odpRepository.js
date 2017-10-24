@@ -319,7 +319,7 @@ const getOdp = odpId =>
           v.data_source_applies_to_variables,
           v.data_source_additional_comments,
           CASE
-            WHEN (p.draft_id IS NOT NULL) AND (p.actual_id IS NOT NULL) THEN 'editedDraft'
+            WHEN (p.draft_id IS NOT NULL) AND (p.actual_id IS NOT NULL) THEN 'actualDraft'
             WHEN (p.draft_id IS NOT NULL) AND (p.actual_id IS NULL) THEN 'newDraft'
             WHEN (p.draft_id IS NULL) AND (p.actual_id IS NOT NULL) THEN 'noChanges'
             ELSE 'unknown' -- Should never happen
