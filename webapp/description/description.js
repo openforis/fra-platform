@@ -26,20 +26,23 @@ class Description extends Component {
     return <div>
       <div className="commentable-description__header-row">
         <h3 className="subhead commentable-description__header">{this.props.title}</h3>
-        <button className={`btn btn-s ${isActive ? 'btn-primary' : 'btn-secondary'}`} onClick={
-          e => {
-            isActive ? this.props.closeEditor() : this.props.openEditor(this.props.name)
+        <button className={`btn btn-s ${isActive ? 'btn-primary' : 'btn-secondary'}`} onClick={e => {
+            isActive
+              ? this.props.closeEditor()
+              : this.props.openEditor(this.props.name)
             e.stopPropagation()
           }
-        }>{ isActive ? this.props.i18n.t('description.done') : this.props.i18n.t('description.edit')}
+        }>
+        {isActive ? this.props.i18n.t('description.done') : this.props.i18n.t('description.edit')}
         </button>
       </div>
       <div ref="editorContent">
-      { R.isNil(this.props.content) ?
-        <div className="commentable-description__loading">{this.props.i18n.t('description.loading')}</div> :
-        isActive ?
-        <DescriptionEditor {...this.props} /> : <div className="commentable-description__preview"
-                                                     dangerouslySetInnerHTML={{__html: content}}/>
+      {
+        R.isNil(this.props.content)
+          ? <div className="commentable-description__loading">{this.props.i18n.t('description.loading')}</div>
+          : isActive
+            ? <DescriptionEditor {...this.props} />
+            : <div className="commentable-description__preview" dangerouslySetInnerHTML={{__html: content}}/>
       }
       </div>
     </div>
