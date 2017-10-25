@@ -59,14 +59,12 @@ class CommentableReviewDescriptions extends React.Component {
         descriptionName={`${this.props.name}_datasources`}
         commentTarget={['dataSources']}
         editorTemplate={
-          `<strong>${this.props.i18n.t('description.dataSources.label')}</strong>
-          <table>
-          <thead><tr><th>${this.props.i18n.t('description.dataSources.sourceOfInformation')}</th><th>${this.props.i18n.t('description.dataSources.variables')}</th><th>${this.props.i18n.t('description.dataSources.years')}</th><th>${this.props.i18n.t('description.dataSources.additionalComments')}</th></tr> </thead>
-          <tbody><tr><td></td><td></td><td></td><td></td></tr></tbody>
-          </table>
+          `<strong>${this.props.i18n.t('description.dataSources')}</strong>
+          <p></p>
           <strong>${this.props.i18n.t('description.originalData')}</strong>
           <p></p>
-          <strong>${this.props.i18n.t('description.nationalClassificationAndDefinitions')}</strong>`
+          <strong>${this.props.i18n.t('description.nationalClassificationAndDefinitions')}</strong>
+          <p></p>`
         }
         descriptionTitle={sourcesTitle}
         {...this.props}

@@ -184,13 +184,7 @@ export const translation = {
     description: 'Description',
     dataSourcesTitle: 'Data sources, original data & national classification and definitions',
     generalCommentsTitle: 'Comments',
-    dataSources: {
-      label: 'Data sources',
-      sourceOfInformation: 'Reference to source of information',
-      variables: 'Variable(s)',
-      years: 'Year(s)',
-      additionalComments: 'Additional comments'
-    },
+    dataSources: 'Data sources',
     originalData: 'Original data',
     nationalClassificationAndDefinitions: 'National classification and definitions',
   },
