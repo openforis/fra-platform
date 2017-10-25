@@ -263,10 +263,6 @@ ${i18n.t('navigation.support.userAgent')}: ${navigator.userAgent}
 
 class Nav extends React.Component {
 
-  constructor () {
-    super()
-  }
-
   componentDidMount () {
     const content = ReactDOM.findDOMNode(this.refs.scroll_content)
     if (this.props.scrollPosition) {

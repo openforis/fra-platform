@@ -70,6 +70,7 @@ export const updateNewUser = (countryIso, userId, field, value) => (dispatch, ge
 export const addNewUser = countryIso => (dispatch, getState) => {
   const user = validateUser(getState().users.newUser)
   if (user.valid) {
+    dispatch({type: usersNewUserUpdate, user: R.assoc('saving', true, user)})
     dispatch(autosave.start)
     dispatch(persistUser(countryIso, user, true))
   } else {

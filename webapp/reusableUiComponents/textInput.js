@@ -12,6 +12,7 @@ export default class TextInput extends React.Component {
   render () {
     const minWidthStyleAttr = this.props.minWidth ? `${this.props.minWidth}px` : null
     const isValueEmpty = isEmpty(this.props.value)
+    const disabled = this.props.disabled
 
     return <div className="text-input__container">
       <div
@@ -33,6 +34,7 @@ export default class TextInput extends React.Component {
         onFocus={() => { this.setState({hasFocus: true}) }}
         onBlur={() => { this.setState({hasFocus: false}) }}
         placeholder={this.state.placeholder}
+        disabled={disabled}
       />
     </div>
   }

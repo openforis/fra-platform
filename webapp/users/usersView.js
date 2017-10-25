@@ -88,7 +88,8 @@ const UserTextFieldCol = ({countryIso, i18n, user, field, readOnly, updateUser})
       ? <div className="users__list-table-read-only-cell">{user[field]}</div>
       : <div className="text-input__container validation-error-sensitive-field">
         <TextInput placeholder={i18n.t(`users.${field}`)} value={user[field]}
-                   onChange={e => updateUser(countryIso, user.id, field, e.target.value)}/>
+                   onChange={e => updateUser(countryIso, user.id, field, e.target.value)}
+                   disabled={user.saving}/>
       </div>
   }</td>
 
@@ -100,7 +101,8 @@ const UserRoleSelectCol = ({countryIso, i18n, user, readOnly, updateUser}) =>
         <select required
                 className="fra-table__select"
                 value={user.role}
-                onChange={e => updateUser(countryIso, user.id, 'role', e.target.value)}>
+                onChange={e => updateUser(countryIso, user.id, 'role', e.target.value)}
+                disabled={user.saving}>
           {user.role === '' ? <option value="">{i18n.t('users.role')}</option> : null}
           <option value={reviewer.role}>{i18n.t(reviewer.labelKey)}</option>
           <option value={nationalCorrespondent.role}>{i18n.t(nationalCorrespondent.labelKey)}</option>
@@ -131,7 +133,7 @@ class UsersView extends React.Component {
       ? <LoggedInPageTemplate>
         <div className="fra-view__content">
           <h1 className="title">{i18n.t('users.manageUsers')}</h1>
-          <AddUserForm {...this.props} user={newUser} countryIso={match.params.countryIso} />
+          <AddUserForm {...this.props} user={newUser} countryIso={match.params.countryIso}/>
           <UsersTable {...this.props} countryIso={match.params.countryIso}/>
         </div>
       </LoggedInPageTemplate>
