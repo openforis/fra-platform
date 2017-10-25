@@ -4,6 +4,7 @@ import { formatDecimal } from '../utils/numberFormat'
 import { sub, div, eq } from '../../common/bignumberUtils'
 import { ofWhichValidator } from '../traditionalTable/validators'
 
+const mapIndexed = R.addIndex(R.map)
 const expansionValidator = ofWhichValidator(0, R.range(1, 3))
 
 const integerInputColumns = R.times(() => ({type: 'decimalInput'}), 4)
@@ -63,9 +64,9 @@ export default (i18n, extentOfForest) => {
     </tr>
     <tr>
       {
-        R.addIndex(R.map)(
-          ([_, start, end], i) =>  <td key={i} className="fra-table__header-cell-right">
-              {`${start}-${end}`}
+        mapIndexed(
+          ([_, startYear, endYear], i) =>  <td key={i} className="fra-table__header-cell-right">
+              {`${startYear}-${endYear}`}
           </td>,
           yearIntervals
         )
@@ -90,10 +91,10 @@ export default (i18n, extentOfForest) => {
       ],
       [
         {type: 'readOnly', jsx: <td key="" className="fra-table__header-cell">{i18n.t('forestAreaChange.forestAreaNetChange')}</td>},
-        {type: 'custom', render: netChangeCell(1, extentOfForest, 1990, 2000)},
-        {type: 'custom', render: netChangeCell(2, extentOfForest, 2000, 2010)},
-        {type: 'custom', render: netChangeCell(3, extentOfForest, 2010, 2015)},
-        {type: 'custom', render: netChangeCell(4, extentOfForest, 2015, 2020)}
+        ...mapIndexed(
+          ([column, startYear, endYear]) => ({type: 'custom', render: netChangeCell(column, extentOfForest, startYear, endYear)}),
+          yearIntervals
+        )
       ]
     ],
     validationErrors: validationErrors(extentOfForest),
