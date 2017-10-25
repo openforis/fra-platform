@@ -33,13 +33,14 @@ const netChangeCell = (column, extentOfForest, startYear, endYear) => (props) =>
   </td>
 }
 
+const yearIntervals = [
+  [1, 1990, 2000],
+  [2, 2000, 2010],
+  [3, 2010, 2015],
+  [4, 2015, 2020]
+]
+
 const validationErrors = extentOfForest => props => {
-  const yearIntervals = [
-    [1, 1990, 2000],
-    [2, 2000, 2010],
-    [3, 2010, 2015],
-    [4, 2015, 2020]
-  ]
   const validationResults = R.map(([column, startYear, endYear]) => {
       if (netChangeNotValid(props.tableData, column, extentOfForest, startYear, endYear)) {
         return "Net change doesn't match"
@@ -61,10 +62,14 @@ export default (i18n, extentOfForest) => {
       <th className="fra-table__header-cell-middle" colSpan="4">{i18n.t('forestAreaChange.areaUnitLabel')}</th>
     </tr>
     <tr>
-      <td className="fra-table__header-cell-right">1990-2000</td>
-      <td className="fra-table__header-cell-right">2000-2010</td>
-      <td className="fra-table__header-cell-right">2010-2015</td>
-      <td className="fra-table__header-cell-right">2015-2020</td>
+      {
+        R.addIndex(R.map)(
+          ([_, start, end], i) =>  <td key={i} className="fra-table__header-cell-right">
+              {`${start}-${end}`}
+          </td>,
+          yearIntervals
+        )
+      }
     </tr>
     </thead>,
     rows: [
