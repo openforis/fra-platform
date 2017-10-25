@@ -19,13 +19,14 @@ export default class TextInput extends React.Component {
         style={{opacity: this.state.hasFocus ? '1' : '0',
                 minWidth: minWidthStyleAttr}}
         className="text-input__input-field"
+        ref="textInputField"
         value={ this.props.value || '' }
         onChange={ this.props.onChange }
         onPaste={ this.props.onPaste }
         onFocus={
           () => {
-            this.select()
             this.setState({hasFocus: true})
+            this.refs.textInputField.select()
           }
         }
         onBlur={ () => { this.setState({hasFocus: false}) } }
