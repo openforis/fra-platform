@@ -5,7 +5,6 @@ const buildDefault = year => ({
   type: 'fra',
   name: year.toString(),
   naturalForestArea: null,
-  naturalForestPrimaryArea: null,
   plantationForestArea: null,
   plantationForestIntroducedArea: null,
   otherPlantedForestArea: null

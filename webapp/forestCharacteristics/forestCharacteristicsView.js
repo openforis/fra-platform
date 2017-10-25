@@ -1,11 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
-import { Link } from './../link'
+import { Link } from './../reusableUiComponents/link'
 
-import { fetchItem, save, saveMany, generateFraValues } from '../originalDataPoint/actions'
+import { fetchItem, save, saveMany, generateFraValues } from '../tableWithOdp/actions'
 import LoggedInPageTemplate from '../loggedInPageTemplate'
-import { TableWithOdp } from '../originalDataPoint/tableWithOdp'
+import { TableWithOdp } from '../tableWithOdp/tableWithOdp'
 import ChartWrapper from '../extentOfForest/chart/chartWrapper'
 import { CommentableReviewDescription } from '../description/commentableDescription'
 import { fetchLastSectionUpdateTimestamp } from '../audit/actions'
@@ -28,11 +28,6 @@ const ForestCharacteristics = props => {
       localizedName: i18n.t('forestCharacteristics.naturalForestArea')
     },
     {
-      field: 'naturalForestPrimaryArea',
-      className: 'fra-table__header-cell-sub',
-      localizedName: i18n.t('forestCharacteristics.naturalForestPrimaryArea')
-    },
-    {
       field: 'plantationForestArea',
       localizedName: i18n.t('forestCharacteristics.plantationForestArea')
     },
@@ -46,13 +41,7 @@ const ForestCharacteristics = props => {
       localizedName: i18n.t('forestCharacteristics.otherPlantedForestArea')
     }
   ]
-  const rowNames = {
-    0: 'naturalForestArea',
-    1: 'naturalForestPrimaryArea',
-    2: 'plantationForestArea',
-    3: 'plantationForestIntroducedArea',
-    4: 'otherPlantedForestArea'
-  }
+
   return <div className='fra-view__content'>
     <div className="fra-view__page-header">
       <h1 className="title">{i18n.t('forestCharacteristics.forestCharacteristics')}</h1>
@@ -77,7 +66,13 @@ const ForestCharacteristics = props => {
         {i18n.t('extentOfForest.generateFraValues')}
       </button>
     </div>
-    <TableWithOdp section={sectionName} rows={rows} rowNames={rowNames} {...props} areaUnitLabel={i18n.t('forestCharacteristics.areaUnitLabel')} categoryHeader={i18n.t('forestCharacteristics.categoryHeader')}/>
+    <TableWithOdp
+      section={sectionName}
+      rows={rows}
+      areaUnitLabel={i18n.t('forestCharacteristics.areaUnitLabel')}
+      categoryHeader={i18n.t('forestCharacteristics.categoryHeader')}
+      {...props}
+    />
     <CommentableReviewDescription
       section={sectionName}
       countryIso={props.countryIso}

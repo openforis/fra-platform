@@ -43,7 +43,6 @@ export const translation = {
 
   fraForestCharacteristicsClass: {
     naturallyRegeneratingForest: 'Naturally regenerating forest',
-    ofWhichPrimary: '…of which primary',
     plantationForest: 'Plantation forest',
     ofWhichIntroduced: '…of which introduced',
     otherPlantedForest: 'Other planted forest',
@@ -261,7 +260,8 @@ export const translation = {
     ofWhichTreeOrchards: '…of which tree orchards (includes fruit, nuts, olive, etc.)',
     ofWhichAgroforestry: '…of which agroforestry',
     ofWhichTreesUrbanSettings: '…of which trees in urban settings',
-    totalLandArea: 'Total land area'
+    totalLandArea: 'Total land area',
+    faoStatLandArea: 'FAOSTAT land area'
   },
 
   forestCharacteristics: {
@@ -269,7 +269,6 @@ export const translation = {
     categoryHeader: 'FRA categories',
     areaUnitLabel: 'Forest area (1000 ha)',
     naturalForestArea: 'Naturally regenerating forest',
-    naturalForestPrimaryArea: '…of which primary',
     plantationForestArea: 'Plantation forest',
     plantationForestIntroducedArea: '…of which introduced species',
     otherPlantedForestArea: 'Other planted forest'
@@ -299,7 +298,8 @@ export const translation = {
     areaUnitLabel: 'Area (1000 ha)',
     bamboo: 'Bamboos',
     mangroves: 'Mangroves',
-    temporarilyUnstocked: 'Temporarily unstocked and/or recently regenerated'
+    temporarilyUnstocked: 'Temporarily unstocked and/or recently regenerated',
+    primaryForest: 'Primary forest'
   },
 
   growingStock: {

@@ -3,10 +3,10 @@ import R from 'ramda'
 import React from 'react'
 import LoggedInPageTemplate from '../loggedInPageTemplate'
 import { connect } from 'react-redux'
-import { alpha3ToAlpha2, getName as getCountryName } from 'i18n-iso-countries'
+import { getCountryName } from './../country'
 import { getRelativeDate } from '../utils/relativeDate'
 import { fetchAuditFeed } from '../audit/actions'
-import { Link } from './../link'
+import { Link } from './../reusableUiComponents/link'
 
 const mapIndexed = R.addIndex(R.map)
 
@@ -78,8 +78,12 @@ const ActivityItem = ({i18n, countryIso, item}) => {
 
 class DashboardView extends React.Component {
   componentWillMount() {
-    const countryIso = this.props.match.params.countryIso
-    this.props.fetchAuditFeed(countryIso)
+    this.props.fetchAuditFeed(this.props.match.params.countryIso)
+  }
+
+  componentWillReceiveProps (next) {
+    if (!R.equals(this.props.match.params.countryIso, next.match.params.countryIso))
+      this.props.fetchAuditFeed(this.props.match.params.countryIso)
   }
 
   render() {
