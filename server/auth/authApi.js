@@ -36,12 +36,17 @@ const authenticationSuccessful = (req, user, next, res) => {
 module.exports.init = app => {
   authConfig.init(app, verifyCallback)
 
-  app.get('/auth/google',
-    passport.authenticate('google', {scope: ['https://www.googleapis.com/auth/plus.login', 'profile', 'email']}))
+  app.get('/auth/google', (req, res) =>
+    passport.authenticate('google',
+      {scope: ['https://www.googleapis.com/auth/plus.login', 'profile', 'email'], state: req.query.i}
+    )(req, res)
+  )
 
   app.get('/auth/google/callback',
     (req, res, next) => {
       passport.authenticate('google', (err, user) => {
+        const invitationUUID = req.query.state
+        console.log('==== invitationUUID', invitationUUID)
         if (err) {
           next(err)
         } else if (!user) {

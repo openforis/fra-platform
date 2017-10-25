@@ -14,7 +14,7 @@ const transporter = nodemailer.createTransport({
 const createMailOptions = (countryIso, user, url, invitationUUID) => {
   const textNewLine = `%0D%0A`
   const htmlNewLine = `<br/>`
-  const link = `${url}${invitationUUID ? `i=${invitationUUID}` : ''}`
+  const link = `${url}/login${invitationUUID ? `?i=${invitationUUID}` : ''}`
 
   const mailOptions = {
     from: '"FRA Platform" <fra@fao.org>',

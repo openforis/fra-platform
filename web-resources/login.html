@@ -26,11 +26,8 @@
         <img src="img/fao_logo.svg" class="login__logo" height="60" />
         <img src="img/tucan.svg" class="login__tucan"/>
         <div class="login__box">
-            <div class="login__top">
+            <div class="login__top" id="loginForm">
                 <h2>Login to FRA Platform</h2>
-                <a class="btn" href="/auth/google">
-                    Sign in with Google
-                </a>
             </div>
             <div class="login__bottom">
                 <h3>CFRQ</h3>
@@ -45,4 +42,29 @@
         </div>
     </div>
 </body>
+
+<script language="JavaScript">
+
+  getParameterByName = (name, url) => {
+    if (!url) url = window.location.href
+    name = name.replace(/[\[\]]/g, '\\$&')
+    const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)')
+    const results = regex.exec(url)
+    if (!results) return null
+    if (!results[2]) return ''
+    return decodeURIComponent(results[2].replace(/\+/g, ' '))
+  }
+
+  const invitationUUID = getParameterByName('i')
+
+  const a = document.createElement('a')
+  const linkText = document.createTextNode('Sign in with Google')
+  a.appendChild(linkText)
+  a.title = 'Sign in with Google'
+  a.className = 'btn'
+  a.href = `/auth/google${invitationUUID ? `?i=${invitationUUID}` : ''}`
+  document.getElementById('loginForm').appendChild(a)
+
+</script>
+
 </html>
