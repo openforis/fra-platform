@@ -22,6 +22,10 @@ const findUserByLoginEmails = emails =>
   db.query('SELECT id from fra_user WHERE login_email in ($1)', [emails.join(',')])
     .then(res => res.rows.length > 0 ? findUserById(res.rows[0].id) : null)
 
+const findUserByEmail = email =>
+  db.query('SELECT id from fra_user WHERE LOWER(email) = $1', [email.toLowerCase()])
+    .then(res => res.rows.length > 0 ? findUserById(res.rows[0].id) : null)
+
 const updateLanguage = (client, lang, userInfo) =>
   client
     .query('UPDATE fra_user SET lang = $1 WHERE id = $2', [lang, userInfo.id])
@@ -68,6 +72,22 @@ const fetchCountryUsers = (countryIso, user) =>
   `, [countryIso])
     .then(res => camelize(res.rows))
 
+const addUser = (client, countryIso, user, invitationUUID) => {
+  return client.query(`
+    INSERT INTO
+      fra_user(email, name, invitation_uuid)
+    VALUES ($1, $2, $3)
+  `, [user.email, user.name, invitationUUID])
+    .then(() =>
+      client.query(`
+        INSERT INTO
+          user_country_role(user_id, country_iso, role)
+        VALUES 
+          ((SELECT last_value FROM fra_user_id_seq), $1, $2)
+      `, [countryIso, user.role])
+    )
+}
+
 const updateUser = (client, countryIso, user) =>
   client.query(`
     UPDATE 
@@ -104,8 +124,10 @@ const removeCountryUser = (client, countryIso, userId) =>
 module.exports = {
   findUserById,
   findUserByLoginEmails,
+  findUserByEmail,
   updateLanguage,
   fetchCountryUsers,
+  addUser,
   updateUser,
   removeCountryUser
 }

@@ -27,10 +27,12 @@ export const updateUser = (countryIso, userId, field, value) => (dispatch, getSt
   }
 }
 
-export const persistUser = (countryIso, user) => {
+export const persistUser = (countryIso, user, fetch = false) => {
   const dispatched = dispatch => {
     axios.post(`/api/users/${countryIso}`, user)
       .then(() => {
+        if (fetch)
+          dispatch(fetchUsers(countryIso))
         dispatch(autosave.complete)
       }).catch((err) => {
       dispatch(applicationError(err))
@@ -68,7 +70,8 @@ export const updateNewUser = (countryIso, userId, field, value) => (dispatch, ge
 export const addNewUser = countryIso => (dispatch, getState) => {
   const user = validateUser(getState().users.newUser)
   if (user.valid) {
-  // TODO invite and save
+    dispatch(autosave.start)
+    dispatch(persistUser(countryIso, user, true))
   } else {
     dispatch({type: usersNewUserUpdate, user})
   }

@@ -1,3 +1,5 @@
+const uuidv4 = require('uuid/v4')
+
 const db = require('../db/db')
 const userRepository = require('./userRepository')
 const {sendErr} = require('../utils/requestUtils')
@@ -26,12 +28,31 @@ module.exports.init = app => {
 
   app.post('/users/:countryIso', (req, res) => {
     checkCountryAccessFromReqParams(req)
-    const user = req.body
+    const userRequest = req.body
 
-    if (user.id) {
-      db.transaction(userRepository.updateUser, [req.params.countryIso, user])
+    if (userRequest.id) {
+
+      db.transaction(userRepository.updateUser, [req.params.countryIso, userRequest])
         .then(res.json({}))
         .catch(err => sendErr(res, err))
+
+    } else {
+
+      userRepository.findUserByEmail(userRequest.email)
+        .then(user => {
+          if (user) {
+            // send email
+            res.json({})
+
+          } else {
+
+            db.transaction(userRepository.addUser, [req.params.countryIso, userRequest, uuidv4()])
+              .then(res.json({}))
+              .catch(err => sendErr(res, err))
+
+          }
+
+        })
     }
 
   })

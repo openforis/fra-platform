@@ -131,7 +131,7 @@ class UsersView extends React.Component {
       ? <LoggedInPageTemplate>
         <div className="fra-view__content">
           <h1 className="title">{i18n.t('users.manageUsers')}</h1>
-          <AddUserForm {...this.props} user={newUser}/>
+          <AddUserForm {...this.props} user={newUser} countryIso={match.params.countryIso} />
           <UsersTable {...this.props} countryIso={match.params.countryIso}/>
         </div>
       </LoggedInPageTemplate>
