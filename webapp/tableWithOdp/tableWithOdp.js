@@ -54,7 +54,7 @@ const buildRows = (rows, props) => {
 
 const OdpHeading = ({countryIso, odpValue}) =>
   <Link className="link" to={`/country/${countryIso}/odp/${odpValue.odpId}`}>
-    {odpValue.draft ? <svg className="icon icon-sub icon-red icon-margin"><use xlinkHref="img/icons.svg#alert"/></svg> : ''}
+    {odpValue.draft ? <svg className="icon icon-sub icon-margin"><use xlinkHref="img/icons.svg#pencil"/></svg> : ''}
     {odpValue.name}
   </Link>
 
