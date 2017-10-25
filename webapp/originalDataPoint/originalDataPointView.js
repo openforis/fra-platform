@@ -426,18 +426,24 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
     </div>
 
     <div className="odp__section">
-      <h3 className="subhead">{i18n.t('review.comments')}</h3>
-      <div
-        className={`odp__cke_wrapper ${isCommentsOpen([`${active.odpId}`, 'comments'], openThread) ? 'fra-row-comments__open' : '' }`}>
-        <div className="cke_wrapper">
-          <CommentsEditor active={active} match={match} saveDraft={saveDraft}/>
+      <div className="commentable-description">
+        <div className={
+          isCommentsOpen([`${active.odpId}`, 'comments'], openThread)
+            ? 'commentable-description__description-wrapper fra-row-comments__open'
+            : 'commentable-description__description-wrapper'
+        }>
+          <CommentsEditor active={active} match={match} saveDraft={saveDraft} i18n={i18n} title={i18n.t('review.comments')} />
         </div>
-        {active.odpId
-          ? <ReviewIndicator section='odp'
-                             name={i18n.t('nationalDataPoint.nationalDataPoint')}
-                             target={[`${active.odpId}`, 'comments']}
-                             countryIso={countryIso}/>
-          : null}
+        <div className="commentable-description__review-indicator-wrapper">
+        {
+          active.odpId
+            ? <ReviewIndicator section='odp'
+                name={i18n.t('nationalDataPoint.nationalDataPoint')}
+                target={[`${active.odpId}`, 'comments']}
+                countryIso={countryIso}/>
+            : null
+        }
+        </div>
       </div>
     </div>
 
@@ -879,13 +885,19 @@ const SubcategoryRow =
 
 class CommentsEditor extends React.Component {
 
+  constructor (props) {
+    super(props)
+    this.state = {open: false}
+  }
+
   initCKeditor () {
-    if (this.props.match.params.odpId)
+    if (this.props.match.params.odpId) {
       this.descriptionEditor.setData(
         this.props.active.description,
         {callback: () => this.initCkeditorChangeListener()})
-    else
+    } else {
       this.initCkeditorChangeListener()
+    }
   }
 
   initCkeditorChangeListener () {
@@ -903,15 +915,41 @@ class CommentsEditor extends React.Component {
   }
 
   componentDidMount () {
-    this.descriptionEditor = CKEDITOR.replace(document.getElementById('originalDataPointDescription'), ckEditorConfig)
+    this.descriptionEditor = CKEDITOR.replace(this.refs.originalDataPointDescription, ckEditorConfig)
     // We need to fetch the data only after CKEDITOR instance is ready :(
     // Otherwise there is no guarantee that the setData()-method succeeds in
     // setting pre-existing html-content
     this.descriptionEditor.on('instanceReady', () => this.initCKeditor())
   }
 
+  componentDidUpdate () {
+    if (this.state.open && this.state.shouldStealFocus) {
+      this.descriptionEditor.focus()
+      this.setState({...this.state, shouldStealFocus: false})
+    }
+  }
+
   render () {
-    return <textarea id="originalDataPointDescription"/>
+    return <div>
+      <div className="commentable-description__header-row">
+        <h3 className="subhead commentable-description__header">{this.props.title}</h3>
+        <button className={`btn btn-s ${this.state.open ? 'btn-primary' : 'btn-secondary'}`} onClick={(e) => {
+            this.state.open
+              ? this.setState({open: false})
+              : this.setState({open: true, shouldStealFocus: true})
+            e.stopPropagation()
+          }
+        }>
+        { this.state.open ? this.props.i18n.t('description.done') : this.props.i18n.t('description.edit')}
+        </button>
+      </div>
+      <div ref="editorContent">
+        <div className="cke_wrapper" style={{display: this.state.open ? 'block' : 'none'}}>
+          <textarea ref="originalDataPointDescription"/>
+        </div>
+        <div className="commentable-description__preview" style={{display: this.state.open ? 'none' : 'block'}} dangerouslySetInnerHTML={{__html: this.props.active.description}}/>
+      </div>
+    </div>
   }
 
 }
