@@ -33,6 +33,25 @@ const netChangeCell = (column, extentOfForest, startYear, endYear) => (props) =>
   </td>
 }
 
+const validationErrors = extentOfForest => props => {
+  const yearIntervals = [
+    [1, 1990, 2000],
+    [2, 2000, 2010],
+    [3, 2010, 2015],
+    [4, 2015, 2020]
+  ]
+  const validationResults = R.map(([column, startYear, endYear]) => {
+      if (netChangeNotValid(props.tableData, column, extentOfForest, startYear, endYear)) {
+        return "Net change doesn't match"
+      } else {
+        return null
+      }
+    },
+    yearIntervals
+  )
+  return R.reject(R.isNil, validationResults)
+}
+
 export default (i18n, extentOfForest) => {
   return {
     name: 'forestAreaChange', // used to uniquely identify table
@@ -72,6 +91,7 @@ export default (i18n, extentOfForest) => {
         {type: 'custom', render: netChangeCell(4, extentOfForest, 2015, 2020)}
       ]
     ],
+    validationErrors: validationErrors(extentOfForest),
     valueSlice: {
       rowStart: 0,
       rowEnd: -1,
