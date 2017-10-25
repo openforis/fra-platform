@@ -354,41 +354,6 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
         </div>
       </div>
       {
-        originalDataPoint.subClassTotalArea(active, 'forestPercent', 'naturalForestPercent')
-        ? <div className="fra-table__container">
-            <div className="fra-table__scroll-wrapper">
-              <table className="odp__sub-table">
-                <thead>
-                  <tr>
-                    <th className="fra-table__header-cell">{i18n.t('fraForestCharacteristicsClass.naturallyRegeneratingForest')}</th>
-                    <th className="fra-table__header-cell-right fra-table__divider">{i18n.t('nationalDataPoint.area')}</th>
-                    <th className="fra-table__header-cell-right">{i18n.t('fraForestCharacteristicsClass.ofWhichPrimary')}</th>
-                  </tr>
-                </thead>
-                <SubcategoryTableBody
-                  odp={active}
-                  countryIso={countryIso}
-                  saveDraft={saveDraft}
-                  openThread={openThread}
-                  parentCategory="naturalForestPercent"
-                  ancestorCategory="forestPercent"
-                  categoryColumns={[{name: 'naturalForestPrimaryPercent', type: 'integer'}]}
-                  targetSuffix="natural_forest_primary"
-                  validationResultField="validNaturalForestPrimaryPercentage"
-                  i18n={i18n} />
-                <tfoot>
-                  <tr>
-                    <td className="fra-table__header-cell">{i18n.t('nationalDataPoint.total')}</td>
-                    <td className="fra-table__header-cell-right fra-table__divider">{formatDecimal(originalDataPoint.subClassTotalArea(active, 'forestPercent', 'naturalForestPercent'))}</td>
-                    <td className="fra-table__aggregate-cell">{formatDecimal(originalDataPoint.subSubClassTotalArea(active, 'forestPercent', 'naturalForestPercent', 'naturalForestPrimaryPercent'))}</td>
-                  </tr>
-                </tfoot>
-              </table>
-            </div>
-          </div>
-        : null
-      }
-      {
         originalDataPoint.subClassTotalArea(active, 'forestPercent', 'plantationPercent')
         ? <div className="fra-table__container">
             <div className="fra-table__scroll-wrapper">
