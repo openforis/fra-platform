@@ -1,7 +1,7 @@
 import React from 'react'
 import R from 'ramda'
 import { formatDecimal } from '../utils/numberFormat'
-import { sub } from '../../common/bignumberUtils'
+import { sub, div, eq } from '../../common/bignumberUtils'
 import { ofWhichValidator } from '../traditionalTable/validators'
 
 const expansionValidator = ofWhichValidator(0, R.range(1, 3))
@@ -9,12 +9,29 @@ const expansionValidator = ofWhichValidator(0, R.range(1, 3))
 const integerInputColumns = R.times(() => ({type: 'decimalInput'}), 4)
 const ofWhichColumns = R.times(() => ({type: 'decimalInput', validator: expansionValidator}), 4)
 
-const netChange = (expansion, deforestation) => formatDecimal(sub(expansion, deforestation))
+const netChange = (tableData, column) => sub(tableData[0][column], tableData[3][column])
+const netChangeFormatted = (tableData, column) => formatDecimal(netChange(tableData, column))
 
-const netChangeCell = (column, extentOfForest) => (props) => console.log('## netChangeCell eof', extentOfForest) ||
-  <td key="" className="fra-table__aggregate-cell">
-    {netChange(props.tableData[0][column], props.tableData[3][column])}
+const netChangeNotValid = (tableData, column, extentOfForest, startYear, endYear) => {
+  if (!extentOfForest || R.isEmpty(extentOfForest)) return false
+  const groupedByYear = R.groupBy(R.prop('name'), extentOfForest.fra)
+  const startYearEofArea = R.path([startYear, 0, 'forestArea'], groupedByYear)
+  const endYearEofArea = R.path([endYear, 0, 'forestArea'], groupedByYear)
+  const netChangeFromExtentOfForest = div(sub(endYearEofArea, startYearEofArea), "10")
+  const netChangeFromThisTable = netChange(tableData, column)
+  if (!netChangeFromExtentOfForest || ! netChangeFromThisTable) return false
+  return !eq(netChangeFromExtentOfForest, netChangeFromThisTable)
+}
+
+const netChangeCell = (column, extentOfForest, startYear, endYear) => (props) => {
+  const validationClass =
+    netChangeNotValid(props.tableData, column, extentOfForest, startYear, endYear)
+      ? 'validation-error'
+      : ''
+  return <td key="" className={`fra-table__aggregate-cell ${validationClass}`}>
+    {netChangeFormatted(props.tableData, column)}
   </td>
+}
 
 export default (i18n, extentOfForest) => {
   return {
@@ -49,10 +66,10 @@ export default (i18n, extentOfForest) => {
       ],
       [
         {type: 'readOnly', jsx: <td key="" className="fra-table__header-cell">{i18n.t('forestAreaChange.forestAreaNetChange')}</td>},
-        {type: 'custom', render: netChangeCell(1, extentOfForest)},
-        {type: 'custom', render: netChangeCell(2, extentOfForest)},
-        {type: 'custom', render: netChangeCell(3, extentOfForest)},
-        {type: 'custom', render: netChangeCell(4, extentOfForest)}
+        {type: 'custom', render: netChangeCell(1, extentOfForest, 1990, 2000)},
+        {type: 'custom', render: netChangeCell(2, extentOfForest, 2000, 2010)},
+        {type: 'custom', render: netChangeCell(3, extentOfForest, 2010, 2015)},
+        {type: 'custom', render: netChangeCell(4, extentOfForest, 2015, 2020)}
       ]
     ],
     valueSlice: {
