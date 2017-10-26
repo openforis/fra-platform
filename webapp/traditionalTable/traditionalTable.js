@@ -62,7 +62,10 @@ const validationErrorColumns = props => {
     const fillerColumns = R.times(i => <td key={`filler${i}`}/>, amountOfFillerColumns)
     const errorColumns =
       mapIndexed(
-        (errorMsg, i) => <td key={`errorColumn${i}`}>{errorMsg}</td>,
+        (errorMsg, i) =>
+          <td key={`errorColumn${i}`} style={{padding: '12px 10px'}}>
+            {errorMsg}
+          </td>,
         props.tableSpec.columnValidationErrors(props)
       )
     return [...fillerColumns, ...errorColumns]
