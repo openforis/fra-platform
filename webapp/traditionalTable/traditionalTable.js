@@ -57,18 +57,24 @@ const tableRows = (props) => {
 }
 
 const validationErrorColumns = props => {
-  if (props.tableSpec.columnValidationErrors) {
-    const amountOfFillerColumns = R.path(['tableSpec', 'valueSlice', 'columnStart'], props) || 0
-    const fillerColumns = R.times(i => <td key={`filler${i}`}/>, amountOfFillerColumns)
+  if (props.validationStatus) {
+    const validationErrorColumnMessages =
+      R.pipe(
+        R.transpose,
+        R.map(R.reject(R.isNil)),
+        R.map(R.reject(v => v.valid)),
+        R.map(R.pluck('message')),
+        R.map(R.uniq)
+      )(props.validationStatus)
     const errorColumns =
       mapIndexed(
         (columnErrorMsgs, i) =>
           <td key={`errorColumn${i}`} style={{padding: '12px 10px'}}>
             {mapIndexed((errorMsg, j) => <div key={j}>{errorMsg}</div>, columnErrorMsgs)}
           </td>,
-        props.tableSpec.columnValidationErrors(props)
+        validationErrorColumnMessages
       )
-    return [...fillerColumns, ...errorColumns]
+    return errorColumns
   } else {
     return null
   }
@@ -109,9 +115,11 @@ class FraTable extends UpdateOnResizeReactComponent {
 
 const mapStateToProps = (state, props) => {
   assert(props.tableSpec.name, 'tableSpec is missing name')
+  console.log(R.path(['traditionalTable', props.tableSpec.name, 'validationStatus'], state))
   return {
     ...props,
-    tableData: state.traditionalTable[props.tableSpec.name] || table.createTableData(props.tableSpec),
+    tableData: R.path(['traditionalTable', props.tableSpec.name, 'tableData'], state)|| table.createTableData(props.tableSpec),
+    validationStatus: R.path(['traditionalTable', props.tableSpec.name, 'validationStatus'], state),
     openCommentThreadTarget: state.review.openThread ? state.review.openThread.target : null,
     i18n: state.user.i18n
   }

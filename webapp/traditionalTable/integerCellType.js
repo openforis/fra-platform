@@ -15,7 +15,7 @@ const IntegerInput = ({
                         validator
                       }) => {
   const currentValue = tableData[rowIdx][colIdx]
-  const valid = validator ? validator(tableData, rowIdx, colIdx) : true
+  const valid = validator ? validator(tableData, rowIdx, colIdx).valid : true
   return <td className={`fra-table__cell ${valid ? '' : 'error'}`}>
     <ThousandSeparatedIntegerInput integerValue={ currentValue }
                                    onChange={

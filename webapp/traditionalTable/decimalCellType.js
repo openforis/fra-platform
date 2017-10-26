@@ -15,7 +15,7 @@ const DecimalCellType = ({
                            validator
                          }) => {
   const currentValue = tableData[rowIdx][colIdx]
-  const valid = validator ? validator(tableData, rowIdx, colIdx) : true
+  const valid = validator ? validator(tableData, rowIdx, colIdx).valid : true
   return <td className={`fra-table__cell ${valid ? '' : 'error'}`}>
     <ThousandSeparatedDecimalInput numberValue={ currentValue }
                                    onChange={

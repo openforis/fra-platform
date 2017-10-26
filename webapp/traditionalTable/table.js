@@ -1,11 +1,17 @@
 import R from 'ramda'
 import * as L from "partial.lenses"
 import * as cellTypes from './cellTypes'
+import assert from 'assert'
+
+const mapIndexed = R.addIndex(R.map)
 
 export const createTableData = (tableSpec) =>
   R.map(
     (rowIdx) => new Array(tableSpec.rows[0].length),
     R.range(0, tableSpec.rows.length))
+
+const update = (tableValues, rowIdx, colIdx, newValue) =>
+  R.update(rowIdx, R.update(colIdx, newValue, tableValues[rowIdx]), tableValues)
 
 const getSliceLenses = (tableSpec) => {
   const valueSlice = tableSpec.valueSlice || {} //Lenses work with undefined as default values nicely
@@ -15,8 +21,23 @@ const getSliceLenses = (tableSpec) => {
   ]
 }
 
-const update = (tableValues, rowIdx, colIdx, newValue) =>
-  R.update(rowIdx, R.update(colIdx, newValue, tableValues[rowIdx]), tableValues)
+export const updateValidationStatus = (tableSpec, tableData) => {
+  const handleRow = (row, rowIdx) =>
+    mapIndexed(
+      (value, colIdx) => {
+        const cellSpec = tableSpec.rows[rowIdx][colIdx]
+        assert(cellSpec, `No cellspec for ${rowIdx} ${colIdx}`)
+        return cellSpec.validator
+          ? cellSpec.validator(tableData, rowIdx, colIdx)
+          : null
+      },
+      row
+    )
+  return mapIndexed(
+    handleRow,
+    tableData
+  )
+}
 
 export const updateCellValue = (tableSpec, tableValues, rowIdx, colIdx, newValue) => {
   const currentValue = tableValues[rowIdx][colIdx]
