@@ -1,4 +1,4 @@
-module.exports.esTranslation = {
+module.exports.translation = {
 
   language: {
     en: 'English',

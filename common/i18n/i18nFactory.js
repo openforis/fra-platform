@@ -1,9 +1,9 @@
 const i18next = require('i18next')
 
-const {enTranslation} = require('./resources/en')
-const {frTranslation} = require('./resources/fr')
-const {esTranslation} = require('./resources/es')
-const {ruTranslation} = require('./resources/ru')
+const enTranslation = require('./resources/en').translation
+const frTranslation = require('./resources/fr').translation
+const esTranslation = require('./resources/es').translation
+const ruTranslation = require('./resources/ru').translation
 
 const createI18nInstance = (lang, callback) =>
   i18next.createInstance({

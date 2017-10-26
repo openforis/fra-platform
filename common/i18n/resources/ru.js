@@ -1,4 +1,4 @@
-module.exports.ruTranslation =  {
+module.exports.translation =  {
 
   language: {
     en: 'English',
