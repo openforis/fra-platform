@@ -1,6 +1,6 @@
 import React from 'react'
 import * as R from 'ramda'
-
+import './style.less'
 import { Link } from '../reusableUiComponents/link'
 import { ThousandSeparatedDecimalInput } from '../reusableUiComponents/thousandSeparatedDecimalInput'
 import ReviewIndicator from '../review/reviewIndicator'
