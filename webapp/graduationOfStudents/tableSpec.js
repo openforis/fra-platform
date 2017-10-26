@@ -13,7 +13,7 @@ const heading = (i18n, localizationKey) =>
   ({type: 'readOnly', jsx: <td className="fra-table__header-cell">{i18n.t(localizationKey)}</td>})
 
 const subHeading = (i18n, localizationKey) =>
-  ({type: 'readOnly', jsx: <td className="fra-table__header-cell-sub">{i18n.t(localizationKey)}</td>})
+  ({type: 'readOnly', jsx: <td className="fra-table__subcategory-cell">{i18n.t(localizationKey)}</td>})
 
 export default i18n => ({
   name: 'graduationOfStudents',

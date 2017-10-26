@@ -35,13 +35,13 @@ const rowHeading = (i18n, localizationKey) =>
   ({type: 'readOnly', jsx: <td className="fra-table__header-cell">{i18n.t(localizationKey)}</td>})
 
 const rowSubHeading = (i18n, localizationKey) =>
-  ({type: 'readOnly', jsx: <td className="fra-table__header-cell-sub">{i18n.t(localizationKey)}</td>})
+  ({type: 'readOnly', jsx: <td className="fra-table__subcategory-cell">{i18n.t(localizationKey)}</td>})
 
 const yearSubHeadings = i18n =>
   [
     <th key="total" className="fra-table__header-cell-right">Total</th>,
-    <th key="female" className="fra-table__header-cell-sub-right">Female</th>,
-    <th key="male" className="fra-table__header-cell-sub-right">Male</th>
+    <th key="female" className="fra-table__subcategory-cell-right">Female</th>,
+    <th key="male" className="fra-table__subcategory-cell-right">Male</th>
   ]
 
 export default i18n => ({

@@ -63,8 +63,8 @@ const Row = (props) => {
   const {openCommentThread, i18n, row, cols, type} = props
 
   return <tr
-    className={`${openCommentThread && R.equals(openCommentThread.target, [row.field, type]) ? 'fra-row-comments__open' : ''}`}>
-    <td className={`fra-table__header-cell${row.subCategory?'-sub':''}`}>{i18n.t(row.labelKey)}</td>
+    className={openCommentThread && R.equals(openCommentThread.target, [row.field, type]) ? 'fra-row-comments__open' : ''}>
+    <td className={row.subCategory ? 'fra-table__subcategory-cell' : 'fra-table__header-cell'}>{i18n.t(row.labelKey)}</td>
     {
       cols.map((col, i) =>
         <Cell

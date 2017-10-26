@@ -16,7 +16,7 @@ const lastFillerOrRow = () => ({
 const productRow = idx => [
   {
     type: 'readOnly',
-    jsx: <td key={idx} className="fra-table__header-cell-sub">
+    jsx: <td key={idx} className="fra-table__subcategory-cell">
       #{idx}
     </td>
   },

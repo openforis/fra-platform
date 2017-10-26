@@ -35,9 +35,9 @@ export default i18n => ({
   </thead>,
   rows: [
     createInputRow(i18n.t('forestOwnership.privateOwnership')),
-    createInputRow(i18n.t('forestOwnership.ofWhichIndividuals'), 'fra-table__header-cell-sub', privateOwnershipValidator),
-    createInputRow(i18n.t('forestOwnership.ofWhichPrivateBusinesses'), 'fra-table__header-cell-sub', privateOwnershipValidator),
-    createInputRow(i18n.t('forestOwnership.ofWhichCommunities'), 'fra-table__header-cell-sub', privateOwnershipValidator),
+    createInputRow(i18n.t('forestOwnership.ofWhichIndividuals'), 'fra-table__subcategory-cell', privateOwnershipValidator),
+    createInputRow(i18n.t('forestOwnership.ofWhichPrivateBusinesses'), 'fra-table__subcategory-cell', privateOwnershipValidator),
+    createInputRow(i18n.t('forestOwnership.ofWhichCommunities'), 'fra-table__subcategory-cell', privateOwnershipValidator),
     createInputRow(i18n.t('forestOwnership.publicOwnership')),
     createInputRow(i18n.t('forestOwnership.otherOrUnknown')),
     [{type: 'readOnly',

@@ -44,7 +44,7 @@ export default i18n => ({
     [
       {
         type: 'readOnly',
-        jsx: <td key="" className="fra-table__header-cell-sub">{i18n.t('areaAffectedByFire.ofWhichForest')}</td>
+        jsx: <td key="" className="fra-table__subcategory-cell">{i18n.t('areaAffectedByFire.ofWhichForest')}</td>
       },
       ...R.times(() => ({type: 'decimalInput', validator: ofWhichValidator(0, [1])}), 18)
     ]

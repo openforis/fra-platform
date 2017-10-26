@@ -598,7 +598,7 @@ const ExtentOfForestRow =
 
   return <tr
     className={isCommentsOpen([odp.odpId, 'class', `${odp.nationalClasses[index].uuid}`, 'value'], openThread) ? 'fra-row-comments__open' : ''}>
-    <td className="fra-table__header-cell-sub"><span>{className}</span></td>
+    <td className="fra-table__subcategory-cell"><span>{className}</span></td>
     <td
       className={`fra-table__cell fra-table__divider ${validationStatus.validArea === false ? 'error' : ''}`}>
       <ThousandSeparatedDecimalInput
@@ -713,8 +713,8 @@ const ForestCharacteristicsRow =
       ? null
       : <tr
       className={isCommentsOpen([odp.odpId, 'class', `${odp.nationalClasses[index].uuid}`, 'forest_charasteristics'], openThread) ? 'fra-row-comments__open' : ''}>
-      <td className="fra-table__header-cell-sub"><span>{className}</span></td>
-      <td className={`fra-table__header-cell-sub-right fra-table__divider`}>{formatDecimal(area ? area * nationalClass.forestPercent / 100 : null)}</td>
+      <td className="fra-table__subcategory-cell"><span>{className}</span></td>
+      <td className={`fra-table__subcategory-cell-right fra-table__divider`}>{formatDecimal(area ? area * nationalClass.forestPercent / 100 : null)}</td>
       <td className={`fra-table__cell ${focStatusPercentage()}`}>
         <PercentInput
           value={naturalForestPercent || ''}
@@ -813,8 +813,8 @@ const SubcategoryRow =
     return !allowedClass(nationalClass)
       ? null
       : <tr className={isCommentsOpen(commentTarget, openThread) ? 'fra-row-comments__open' : ''}>
-      <td className="fra-table__header-cell-sub"><span>{className}</span></td>
-      <td className={`fra-table__header-cell-sub-right fra-table__divider`}>{formatDecimal(categoryArea)}</td>
+      <td className="fra-table__subcategory-cell"><span>{className}</span></td>
+      <td className={`fra-table__subcategory-cell-right fra-table__divider`}>{formatDecimal(categoryArea)}</td>
       {
         mapIndexed((col, colIndex) => {
           const currentCol = categoryColumns[colIndex].name

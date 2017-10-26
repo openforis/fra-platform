@@ -25,31 +25,31 @@ export default i18n => ({
   rows:[
     [{
       type: 'readOnly',
-      jsx: <td key="carbon_forest_above_ground" className="fra-table__header-cell-sub">{i18n.t('carbonStock.carbonAboveGroundBiomass')}</td>
+      jsx: <td key="carbon_forest_above_ground" className="fra-table__subcategory-cell">{i18n.t('carbonStock.carbonAboveGroundBiomass')}</td>
     },
     ...inputColumns
     ],
     [{
       type: 'readOnly',
-      jsx: <td key="carbon_forest_below_ground" className="fra-table__header-cell-sub">{i18n.t('carbonStock.carbonBelowGroundBiomass')}</td>
+      jsx: <td key="carbon_forest_below_ground" className="fra-table__subcategory-cell">{i18n.t('carbonStock.carbonBelowGroundBiomass')}</td>
     },
     ...inputColumns
     ],
     [{
       type: 'readOnly',
-      jsx: <td key="carbon_forest_deadwood" className="fra-table__header-cell-sub">{i18n.t('carbonStock.carbonDeadwood')}</td>
+      jsx: <td key="carbon_forest_deadwood" className="fra-table__subcategory-cell">{i18n.t('carbonStock.carbonDeadwood')}</td>
     },
     ...inputColumns
     ],
     [{
       type: 'readOnly',
-      jsx: <td key="carbon_forest_litter" className="fra-table__header-cell-sub">{i18n.t('carbonStock.carbonLitter')}</td>
+      jsx: <td key="carbon_forest_litter" className="fra-table__subcategory-cell">{i18n.t('carbonStock.carbonLitter')}</td>
     },
     ...inputColumns
     ],
     [{
       type: 'readOnly',
-      jsx: <td key="carbon_forest_soil" className="fra-table__header-cell-sub">{i18n.t('carbonStock.carbonSoil')}</td>
+      jsx: <td key="carbon_forest_soil" className="fra-table__subcategory-cell">{i18n.t('carbonStock.carbonSoil')}</td>
     },
     ...inputColumns
     ]

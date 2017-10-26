@@ -25,19 +25,19 @@ export default i18n => ({
   rows:[
     [{
       type: 'readOnly',
-      jsx: <td key="forest_above_ground_" className="fra-table__header-cell-sub">{i18n.t('biomassStock.aboveGround')}</td>
+      jsx: <td key="forest_above_ground_" className="fra-table__subcategory-cell">{i18n.t('biomassStock.aboveGround')}</td>
     },
     ...inputColumns
     ],
     [{
       type: 'readOnly',
-      jsx: <td key="forest_below_ground" className="fra-table__header-cell-sub">{i18n.t('biomassStock.belowGround')}</td>
+      jsx: <td key="forest_below_ground" className="fra-table__subcategory-cell">{i18n.t('biomassStock.belowGround')}</td>
     },
     ...inputColumns
     ],
     [{
       type: 'readOnly',
-      jsx: <td key="forest_deadwood" className="fra-table__header-cell-sub">{i18n.t('biomassStock.deadWood')}</td>
+      jsx: <td key="forest_deadwood" className="fra-table__subcategory-cell">{i18n.t('biomassStock.deadWood')}</td>
     },
     ...inputColumns
     ]

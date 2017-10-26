@@ -20,7 +20,7 @@ const fillerCell = {
 const rankRow = i18n => idx => [
   {
     type: 'readOnly',
-    jsx: <td key={`rank${idx}`} className="fra-table__header-cell-sub">
+    jsx: <td key={`rank${idx}`} className="fra-table__subcategory-cell">
       #{idx} {i18n.t('growingStockComposition.rank')}
     </td>
   },
