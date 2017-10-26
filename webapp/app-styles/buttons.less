@@ -48,7 +48,7 @@ button:hover {
   }
 
   &:active {
-    box-shadow: inset @shadow-1;
+    box-shadow: inset 0 0 4px rgba(0, 0, 0, .1);
   }
 }
 
@@ -59,23 +59,20 @@ button:hover {
 
   &:hover {
     background-color: darken(@ui-bg, 4%);
+    border-color: darken(@ui-border, 4%);
     color: @text-mute;
   }
 
   &:active {
-    box-shadow: inset @shadow-1;
+    box-shadow: inset 0 0 4px rgba(0, 0, 0, .1);
   }
-}
-
-.btn-icon {
-  background: transparent;
-  padding: 4px;
 }
 
 .btn-destructive {
   background: transparent;
   color: @ui-destructive;
   font-weight: 400;
+  padding: 7px;
 
   &:hover {
     color: darken(@ui-destructive, 6%);
