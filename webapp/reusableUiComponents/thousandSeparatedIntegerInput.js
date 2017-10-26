@@ -20,7 +20,7 @@ export class ThousandSeparatedIntegerInput extends React.Component {
         type="text"
         maxLength="100"
         disabled={this.props.disabled}
-        ref="decimalInputField"
+        ref="integerInputField"
         className="number-input__input-field"
         value={integerValue || ''}
         style={{opacity: this.state.hasFocus ? '1' : '0'}}
@@ -28,8 +28,8 @@ export class ThousandSeparatedIntegerInput extends React.Component {
         onPaste={onPaste}
         onFocus={() => {
             this.setState({hasFocus: true})
-            this.refs.decimalInputField.value = R.isNil(integerValue) ? null : integerValue //prevent text "undefined" from rendering
-            this.refs.decimalInputField.select()
+            this.refs.integerInputField.value = R.isNil(integerValue) ? null : integerValue //prevent text "undefined" from rendering
+            this.refs.integerInputField.select()
         }}
         onBlur={() => { this.setState({hasFocus: false})}} />
     </div>

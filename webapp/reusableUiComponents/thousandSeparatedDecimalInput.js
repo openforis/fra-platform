@@ -25,7 +25,7 @@ export class ThousandSeparatedDecimalInput extends React.Component {
         maxLength="100"
         disabled={this.props.disabled}
         className="number-input__input-field"
-        ref="integerinputField"
+        ref="decimalInputField"
         value={value || ''}
         style={{opacity: this.state.hasFocus ? '1' : '0'}}
         onChange={e => {
@@ -43,7 +43,7 @@ export class ThousandSeparatedDecimalInput extends React.Component {
         onFocus={() => {
           this.setState({hasFocus: true})
           this.setState({inputValue: numberValue || null})
-          this.refs.integerinputField.select()
+          this.refs.decimalInputField.select()
         }}
         onBlur={() => { this.setState({hasFocus: false})}} />
     </div>
