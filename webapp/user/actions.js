@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { applicationError } from '../applicationError/actions'
-import { createI18nInstance } from '../i18n/i18nFactory'
+import { createI18nInstance } from '../../common/i18n/i18nFactory'
 
 export const userInfo = 'login/userInfo'
 export const switchLanguageAction = 'user/switchLanguage'

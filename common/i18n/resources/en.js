@@ -1,4 +1,4 @@
-export const translation = {
+module.exports.enTranslation = {
 
   language: {
     en: 'English',
@@ -252,7 +252,30 @@ export const translation = {
     remove: 'Remove',
     addNewUser: 'Add new User',
     addUser: 'Add User',
-    confirmDelete: 'Are you sure {{user}} should not be allowed to access {{country}} anymore?'
+    confirmDelete: 'Are you sure {{user}} should not be allowed to access {{country}} anymore?',
+    invitationEmail:{
+      subject:'FRA Platform - Access granted to {{country}}',
+      textMessage:`Dear {{user}},
+%0D%0A%0D%0A
+You have been granted access to {{country}} as {{role}}
+%0D%0A%0D%0A
+To access the platform, please follow the link {{link}}
+%0D%0A%0D%0A
+Thank you,
+%0D%0A
+The FRA team
+    `,
+      htmlMessage:`Dear {{user}},
+<br/><br/>
+You have been granted access to {{country}} as {{role}}
+<br/><br/>
+To access the platform, please follow the link <a href="{{link}}">{{link}}</a>
+<br/><br/>
+Thank you,
+<br/>
+The FRA team
+    `
+    }
   },
 
   // FRA 2020 questionare

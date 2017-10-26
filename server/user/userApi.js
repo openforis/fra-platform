@@ -43,10 +43,12 @@ module.exports.init = app => {
       const url = req.protocol + '://' + req.get('host')
 
       db.transaction(userRepository.addCountryUser, [req.user, countryIso, userRequest])
-        .then(invitationUUID =>
-          sendMail(countryIso, userRequest, url, invitationUUID)
+        .then(user =>
+          user
+          ? sendMail(countryIso, user, url)
             .then(() => res.json({}))
             .catch(err => sendErr(res, err))
+          : res.json({})
         )
     }
 

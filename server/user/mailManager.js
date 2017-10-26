@@ -1,6 +1,10 @@
 const nodemailer = require('nodemailer')
 const Promise = require('bluebird')
 
+const {getCountryName} = require('../../common/country')
+const {getCountryRole} = require('../../common/countryRole')
+const {createI18nInstance} = require('../../common/i18n/i18nFactory')
+
 const transporter = nodemailer.createTransport({
   host: process.env.FRA_MAIL_HOST,
   port: Number(process.env.FRA_MAIL_PORT),
@@ -11,51 +15,36 @@ const transporter = nodemailer.createTransport({
   }
 })
 
-const createMailOptions = (countryIso, user, url, invitationUUID) => {
-  const textNewLine = `%0D%0A`
-  const htmlNewLine = `<br/>`
-  const link = `${url}/login${invitationUUID ? `?i=${invitationUUID}` : ''}`
+const createMailOptions = (countryIso, user, url, i18n) => {
 
-  const mailOptions = {
+  const link = `${url}/login${user.invitationUUID ? `?i=${user.invitationUUID}` : ''}`
+  const country = getCountryName(countryIso, i18n.language)
+  const role = getCountryRole(countryIso, user).role.toLowerCase()
+
+  return {
     from: '"FRA Platform" <fra@fao.org>',
     to: user.email,
-    subject: `FRA Platform - Access granted to ${countryIso}`,
-
-    text: `Dear ${user.name},
-${textNewLine}${textNewLine}
-You have been granted access to ${countryIso} as ${user.role}
-${textNewLine}${textNewLine}
-To access the platform, please follow the link ${link}
-${textNewLine}${textNewLine}
-Thank you,
-${textNewLine}
-The FRA team
-    `,
-
-    html: `Dear ${user.name},
-${htmlNewLine}${htmlNewLine}
-You have been granted access to ${countryIso} as ${user.role}
-${htmlNewLine}${htmlNewLine}
-To access the platform, please follow the link <a href="${link}">${link}</a>
-${htmlNewLine}${htmlNewLine}
-Thank you,
-${htmlNewLine}
-The FRA team
-    `
+    subject: i18n.t('users.invitationEmail.subject', {country}),
+    text: i18n.t('users.invitationEmail.textMessage', {country, user: user.name, role: `$t(user.roles.${role})`, link}),
+    html: i18n.t('users.invitationEmail.htmlMessage', {country, user: user.name, role: `$t(user.roles.${role})`, link})
   }
 
-  return mailOptions
 }
 
-const sendMail = (countryIso, user, url, invitationUUID) => new Promise((resolve, reject) => {
-  const mailOptions = createMailOptions(countryIso, user, url, invitationUUID)
+const sendMail = (countryIso, user, url) => new Promise((resolve, reject) => {
+  createI18nInstance(
+    user.lang,
+    i18n => {
 
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error)
-      reject(error)
+      const mailOptions = createMailOptions(countryIso, user, url, i18n)
 
-    resolve(info)
-  })
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error)
+          reject(error)
+
+        resolve(info)
+      })
+    })
 
 })
 

@@ -15,10 +15,13 @@ const noRole = {role: 'NONE', labelKey: 'user.roles.noRole'}
 
 const hasRole = (role, roles) => R.find(R.propEq('role', role))(roles)
 
+const getCountryRoles = (countryIso, userInfo) => R.filter(R.propEq('countryIso', countryIso))(userInfo.roles)
+const getCountryRole = (countryIso, userInfo) => getCountryRoles(countryIso, userInfo)[0]
+
 const mostPowerfulRole = (countryIso, userInfo) => {
   if (!userInfo) return noRole
   if (hasRole('REVIEWER_ALL', userInfo.roles)) return reviewer
-  const rolesForCountry = R.filter(R.propEq('countryIso', countryIso))(userInfo.roles)
+  const rolesForCountry = getCountryRoles(countryIso, userInfo)
   //If user has both roles for country, the stronger (Reviewer) "wins"
   if (hasRole('REVIEWER', rolesForCountry)) return reviewer
   if (hasRole('NATIONAL_CORRESPONDENT_ALL', userInfo.roles)) return nationalCorrespondent
@@ -35,6 +38,7 @@ const hasNoRole = (countryIso, userInfo) => hasUserRole(countryIso, userInfo, no
 
 const isSuperUser = userInfo => hasRole('NATIONAL_CORRESPONDENT_ALL', userInfo.roles) || hasRole('REVIEWER_ALL', userInfo.roles)
 
+module.exports.getCountryRole = getCountryRole
 module.exports.mostPowerfulRole = mostPowerfulRole
 module.exports.isReviewer = isReviewer
 module.exports.isNationalCorrespondent = isNationalCorrespondent

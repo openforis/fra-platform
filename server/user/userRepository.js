@@ -8,7 +8,7 @@ const auditRepository = require('./../audit/auditRepository')
 const {isSuperUser, hasNoRole} = require('../../common/countryRole')
 
 const findUserById = (userId, client = db) =>
-  client.query('SELECT id, name ,lang FROM fra_user WHERE id = $1', [userId])
+  client.query('SELECT id, name, email, lang FROM fra_user WHERE id = $1', [userId])
     .then(res => {
         if (res.rows.length > 0) {
           const resultUser = res.rows[0]
@@ -106,17 +106,18 @@ const addCountryUser = (client, user, countryIso, userToAdd) =>
         if (hasNoRole(countryIso, userDb))
         // existing user has not been authorized to country
           return authorizeUser(client, user, countryIso, userDb.id, userToAdd.role, userDb.name)
-            .then(() => null)
+            .then(() => findUserById(userDb.id, client))
         else
-          // existing user has already been authorized to country
+        // existing user has already been authorized to country
           return Promise.resolve()
       } else {
         // creating new user
         const invitationUUID = uuidv4()
         return insertUser(client, userToAdd.email, userToAdd.name, invitationUUID)
           .then(() => client.query(`SELECT last_value as user_id FROM fra_user_id_seq`))
-          .then(res => authorizeUser(client, user, countryIso, res.rows[0].user_id, userToAdd.role, userToAdd.name))
-          .then(() => invitationUUID)
+          .then(res => Promise.all([res.rows[0].user_id, authorizeUser(client, user, countryIso, res.rows[0].user_id, userToAdd.role, userToAdd.name)]))
+          .then(([userId, _]) => findUserById(userId, client))
+          .then(user => R.assoc('invitationUUID', invitationUUID, user))
       }
 
     })

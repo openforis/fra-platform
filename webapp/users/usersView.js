@@ -7,7 +7,7 @@ import * as R from 'ramda'
 import LoggedInPageTemplate from '../loggedInPageTemplate'
 import TextInput from '../reusableUiComponents/textInput'
 import { reviewer, nationalCorrespondent, collaborator } from '../../common/countryRole'
-import { getCountryName } from './../country'
+import { getCountryName } from '../../common/country'
 
 import { fetchUsers, updateUser, removeUser, updateNewUser, addNewUser } from './actions'
 import { validationField } from './users'

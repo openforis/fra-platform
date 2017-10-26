@@ -1,11 +1,11 @@
-import i18next from 'i18next'
+const i18next = require('i18next')
 
-import { translation as enTranslation } from './resources/en'
-import { translation as frTranslation } from './resources/fr'
-import { translation as esTranslation } from './resources/es'
-import { translation as ruTranslation } from './resources/ru'
+const {enTranslation} = require('./resources/en')
+const {frTranslation} = require('./resources/fr')
+const {esTranslation} = require('./resources/es')
+const {ruTranslation} = require('./resources/ru')
 
-export const createI18nInstance = (lang, callback) =>
+const createI18nInstance = (lang, callback) =>
   i18next.createInstance({
       fallbackLng: 'en',
       debug: false,
@@ -32,3 +32,5 @@ export const createI18nInstance = (lang, callback) =>
       }
     },
     (err, t) => callback({language: lang, t}))
+
+module.exports.createI18nInstance = createI18nInstance
