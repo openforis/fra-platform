@@ -18,9 +18,9 @@ const netChangeValid = (tableData, column, extentOfForest, startYear, endYear) =
   const groupedByYear = R.groupBy(R.prop('name'), extentOfForest.fra)
   const startYearEofArea = R.path([startYear, 0, 'forestArea'], groupedByYear)
   const endYearEofArea = R.path([endYear, 0, 'forestArea'], groupedByYear)
-  const netChangeFromExtentOfForest = div(sub(endYearEofArea, startYearEofArea), "10")
+  const netChangeFromExtentOfForest = div(sub(endYearEofArea, startYearEofArea), '10')
   const netChangeFromThisTable = netChange(tableData, column)
-  if (!netChangeFromExtentOfForest || ! netChangeFromThisTable) return {valid: true}
+  if (!netChangeFromExtentOfForest || !netChangeFromThisTable) return {valid: true}
   return {
     valid: eq(netChangeFromExtentOfForest, netChangeFromThisTable),
     eofNetChange: netChangeFromExtentOfForest
@@ -47,12 +47,19 @@ const yearIntervals = [
 
 const validationErrors = (i18n, extentOfForest) => props => {
   return R.map(([column, startYear, endYear]) => {
-      const {valid, eofNetChange} = netChangeValid(props.tableData, column, extentOfForest, startYear, endYear)
-      if (!valid) {
-        return [i18n.t('forestAreaChange.netChangeDoesNotMatch', {eofNetChange: formatDecimal(eofNetChange)})]
-      } else {
-        return []
-      }
+      const expansionValid = R.pipe(
+        R.map(row => expansionValidator(props.tableData, row, column)),
+        R.all(R.identity))(R.range(1, 3))
+      const netChangeResult = netChangeValid(props.tableData, column, extentOfForest, startYear, endYear)
+      return R.reject(
+        R.isNil,
+        [
+          expansionValid ? null : i18n.t('generalValidation.subCategoryExceedsParent'),
+          netChangeResult.valid
+            ? null
+            : i18n.t('forestAreaChange.netChangeDoesNotMatch', {eofNetChange: formatDecimal(netChangeResult.eofNetChange)}),
+        ]
+      )
     },
     yearIntervals
   )
@@ -69,8 +76,8 @@ export default (i18n, extentOfForest) => {
     <tr>
       {
         mapIndexed(
-          ([_, startYear, endYear], i) =>  <td key={i} className="fra-table__header-cell-right">
-              {`${startYear}-${endYear}`}
+          ([_, startYear, endYear], i) => <td key={i} className="fra-table__header-cell-right">
+            {`${startYear}-${endYear}`}
           </td>,
           yearIntervals
         )
@@ -78,25 +85,45 @@ export default (i18n, extentOfForest) => {
     </tr>
     </thead>,
     rows: [
-      [{type: 'readOnly', jsx: <td key="expansion" className="fra-table__header-cell">{i18n.t('forestAreaChange.forestExpansion')}</td>},
+      [
+        {
+          type: 'readOnly',
+          jsx: <td key="expansion" className="fra-table__header-cell">{i18n.t('forestAreaChange.forestExpansion')}</td>
+        },
         ...integerInputColumns
       ],
       [
-        {type: 'readOnly', jsx: <td key="" className="fra-table__header-cell-sub">{i18n.t('forestAreaChange.ofWhichAfforestation')}</td>},
+        {
+          type: 'readOnly',
+          jsx: <td key="" className="fra-table__header-cell-sub">{i18n.t('forestAreaChange.ofWhichAfforestation')}</td>
+        },
         ...ofWhichColumns
       ],
       [
-        {type: 'readOnly', jsx: <td key="" className="fra-table__header-cell-sub">{i18n.t('forestAreaChange.ofWhichNaturalExpansion')}</td>},
+        {
+          type: 'readOnly',
+          jsx: <td key=""
+                   className="fra-table__header-cell-sub">{i18n.t('forestAreaChange.ofWhichNaturalExpansion')}</td>
+        },
         ...ofWhichColumns
       ],
       [
-        {type: 'readOnly', jsx: <td key="" className="fra-table__header-cell">{i18n.t('forestAreaChange.deforestation')}</td>},
+        {
+          type: 'readOnly',
+          jsx: <td key="" className="fra-table__header-cell">{i18n.t('forestAreaChange.deforestation')}</td>
+        },
         ...integerInputColumns
       ],
       [
-        {type: 'readOnly', jsx: <td key="" className="fra-table__header-cell">{i18n.t('forestAreaChange.forestAreaNetChange')}</td>},
+        {
+          type: 'readOnly',
+          jsx: <td key="" className="fra-table__header-cell">{i18n.t('forestAreaChange.forestAreaNetChange')}</td>
+        },
         ...mapIndexed(
-          ([column, startYear, endYear]) => ({type: 'custom', render: netChangeCell(column, extentOfForest, startYear, endYear)}),
+          ([column, startYear, endYear]) => ({
+            type: 'custom',
+            render: netChangeCell(column, extentOfForest, startYear, endYear)
+          }),
           yearIntervals
         )
       ]

@@ -508,5 +508,11 @@ export const translation = {
 
   multiSelect: {
     placeholder: 'Choose…'
+  },
+
+  generalValidation: {
+    subCategoryExceedsParent: 'Subcategory exceeds parent'
   }
+
+
 }
