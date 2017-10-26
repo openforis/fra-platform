@@ -247,6 +247,7 @@ export const translation = {
     remove: 'Remove',
     addNewUser:'Add new User',
     addUser:'Add User',
+    confirmDelete: 'Are you sure {{user}} should not be allowed to access {{country}} anymore?'
   },
 
   // FRA 2020 questionare

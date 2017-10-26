@@ -7,6 +7,7 @@ import * as R from 'ramda'
 import LoggedInPageTemplate from '../loggedInPageTemplate'
 import TextInput from '../reusableUiComponents/textInput'
 import { reviewer, nationalCorrespondent, collaborator } from '../../common/countryRole'
+import { getCountryName } from './../country'
 
 import { fetchUsers, updateUser, removeUser, updateNewUser, addNewUser } from './actions'
 import { validationField } from './users'
@@ -75,7 +76,8 @@ const UserRow = ({countryIso, i18n, user, updateUser, removeUser}) => {
     <td>{
       readOnly
         ? null
-        : <span className="btn btn-destructive" onClick={e => removeUser(countryIso, user.id)}>
+        : <span className="btn btn-destructive"
+                onClick={() => window.confirm(i18n.t('users.confirmDelete', {user: user.name, country:getCountryName(countryIso, i18n.language)})) ? removeUser(countryIso, user.id) : null}>
               {i18n.t('users.remove')}
             </span>
     }</td>
