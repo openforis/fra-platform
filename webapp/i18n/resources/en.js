@@ -142,7 +142,7 @@ export const translation = {
   },
 
 
-  footer: {
+  header: {
     profilePicture: 'Edit profile picture',
     logout: 'Logout',
     autoSave: {
