@@ -5,10 +5,21 @@ const authConfig = require('./authConfig')
 const {sendErr} = require('../utils/requestUtils')
 const countryRepository = require('../country/countryRepository')
 
-const verifyCallback = (accessToken, refreshToken, profile, done) =>
-  userRepository
-    .findUserByLoginEmails(profile.emails.map(e => e.value))
-    .then(user => user ? done(null, user) : done(null, false, {message: 'User not authorized'}))
+const verifyCallback = (req, accessToken, refreshToken, profile, done) => {
+
+  const findUserByLoginEmails = () =>
+    userRepository
+      .findUserByLoginEmails(profile.emails.map(e => e.value.toLowerCase()))
+      .then(user => user ? done(null, user) : done(null, false, {message: 'User not authorized'}))
+
+  const invitationUUID = req.query.state
+
+  if (invitationUUID)
+    userRepository.authorizeUser(invitationUUID, profile.emails[0].value)
+      .then(() => findUserByLoginEmails())
+  else
+    findUserByLoginEmails()
+}
 
 const authenticationFailed = (req, res) => {
   req.logout()
@@ -42,23 +53,21 @@ module.exports.init = app => {
     )(req, res)
   )
 
-  app.get('/auth/google/callback',
-    (req, res, next) => {
-      passport.authenticate('google', (err, user) => {
-        const invitationUUID = req.query.state
-        console.log('==== invitationUUID', invitationUUID)
-        if (err) {
-          next(err)
-        } else if (!user) {
-          authenticationFailed(req, res)
-        } else {
-          authenticationSuccessful(req, user, next, res)
-        }
-      })(req, res, next)
-    })
+  app.get('/auth/google/callback', (req, res, next) => {
+    passport.authenticate('google', (err, user) => {
+      if (err) {
+        next(err)
+      } else if (!user) {
+        authenticationFailed(req, res)
+      } else {
+        authenticationSuccessful(req, user, next, res)
+      }
+    })(req, res, next)
+  })
 
   app.post('/auth/logout', (req, res) => {
     req.logout()
     res.json({})
   })
+
 }

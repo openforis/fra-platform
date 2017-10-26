@@ -19,7 +19,7 @@ const findUserById = userId =>
     ).then(res => res ? R.assoc('roles', camelize(res[1].rows), res[0]) : null)
 
 const findUserByLoginEmails = emails =>
-  db.query('SELECT id from fra_user WHERE login_email in ($1)', [emails.join(',')])
+  db.query('SELECT id from fra_user WHERE LOWER(login_email) in ($1)', [emails.join(',')])
     .then(res => res.rows.length > 0 ? findUserById(res.rows[0].id) : null)
 
 const findUserByEmail = email =>
@@ -121,6 +121,13 @@ const removeCountryUser = (client, countryIso, userId) =>
       country_iso = $2
   `, [userId, countryIso])
 
+const authorizeUser = (invitationUUID, loginEmail) =>
+  db.query(`
+    UPDATE fra_user
+    SET login_email = $1, invitation_uuid = null
+    WHERE invitation_uuid = $2
+  `, [loginEmail, invitationUUID])
+
 module.exports = {
   findUserById,
   findUserByLoginEmails,
@@ -129,5 +136,6 @@ module.exports = {
   fetchCountryUsers,
   addUser,
   updateUser,
-  removeCountryUser
+  removeCountryUser,
+  authorizeUser
 }
