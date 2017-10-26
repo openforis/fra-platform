@@ -1,11 +1,12 @@
 import React from 'react'
 import R from 'ramda'
 import { formatDecimal } from '../utils/numberFormat'
-import { sub, div, eq } from '../../common/bignumberUtils'
+import { sub, div, eq, toFixed } from '../../common/bignumberUtils'
 import { ofWhichValidator } from '../traditionalTable/validators'
 
 const mapIndexed = R.addIndex(R.map)
-const expansionValidator = ofWhichValidator(0, R.range(1, 3))
+const ofWhichRows = R.range(1, 3)
+const expansionValidator = ofWhichValidator(0, ofWhichRows)
 
 const integerInputColumns = R.times(() => ({type: 'decimalInput'}), 4)
 const ofWhichColumns = R.times(() => ({type: 'decimalInput', validator: expansionValidator}), 4)
@@ -18,8 +19,8 @@ const netChangeValid = (tableData, column, extentOfForest, startYear, endYear) =
   const groupedByYear = R.groupBy(R.prop('name'), extentOfForest.fra)
   const startYearEofArea = R.path([startYear, 0, 'forestArea'], groupedByYear)
   const endYearEofArea = R.path([endYear, 0, 'forestArea'], groupedByYear)
-  const netChangeFromExtentOfForest = div(sub(endYearEofArea, startYearEofArea), '10')
-  const netChangeFromThisTable = netChange(tableData, column)
+  const netChangeFromExtentOfForest = toFixed(div(sub(endYearEofArea, startYearEofArea), '10'))
+  const netChangeFromThisTable = toFixed(netChange(tableData, column))
   if (!netChangeFromExtentOfForest || !netChangeFromThisTable) return {valid: true}
   return {
     valid: eq(netChangeFromExtentOfForest, netChangeFromThisTable),
@@ -49,7 +50,7 @@ const validationErrors = (i18n, extentOfForest) => props => {
   return R.map(([column, startYear, endYear]) => {
       const expansionValid = R.pipe(
         R.map(row => expansionValidator(props.tableData, row, column)),
-        R.all(R.identity))(R.range(1, 3))
+        R.all(R.identity))(ofWhichRows)
       const netChangeResult = netChangeValid(props.tableData, column, extentOfForest, startYear, endYear)
       return R.reject(
         R.isNil,
