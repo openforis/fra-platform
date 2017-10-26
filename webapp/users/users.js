@@ -40,13 +40,11 @@ export const validateUser = user => R.pipe(
   R.assoc('valid', validUser(user))
 )(user)
 
-export const updateUserField = (field, value) => R.pipe(
-  R.assoc(field, value),
-  R.partialRight(validateField, [field]),
-  user => R.assoc('valid', validUser(user))(user)
-)
+export const updateUserField = (field, value) => R.assoc(field, value)
 
 export const updateListUserField = (userId, field, value) => R.pipe(
   R.find(R.propEq('id', userId)),
-  updateUserField(field, value)
+  updateUserField(field, value),
+  R.partialRight(validateField, [field]),
+  user => R.assoc('valid', validUser(user))(user)
 )
