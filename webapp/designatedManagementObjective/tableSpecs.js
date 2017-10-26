@@ -8,7 +8,7 @@ const createDmoInputRow = (rowHeader) => [
 ]
 
 const totalForestAreaCell = (column) => (props) =>
-  <td key="" className="fra-table__aggregate-cell">
+  <td key="" className="fra-table__calculated-cell">
     {totalSumFormatted(props.tableData, column, R.range(0, 7))}
   </td>
 

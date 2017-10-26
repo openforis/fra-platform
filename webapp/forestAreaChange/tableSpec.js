@@ -12,7 +12,7 @@ const ofWhichColumns = R.times(() => ({type: 'decimalInput', validator: expansio
 const netChange = (expansion, deforestation) => formatDecimal(sub(expansion, deforestation))
 
 const netChangeCell = (column) => (props) =>
-  <td key="" className="fra-table__aggregate-cell">
+  <td key="" className="fra-table__calculated-cell">
     {netChange(props.tableData[0][column], props.tableData[3][column])}
   </td>
 

@@ -20,7 +20,7 @@ const yearFields = (rowIdx, validator) => yearIdx => [
   {
     type: 'custom',
     render: props =>
-      <td className="fra-table__aggregate-cell">{sumOfGenders(props.tableData, rowIdx, yearIdx)}</td>
+      <td className="fra-table__calculated-cell">{sumOfGenders(props.tableData, rowIdx, yearIdx)}</td>
   },
   {type: 'integerInput', validator: validator},
   {type: 'integerInput', validator: validator}

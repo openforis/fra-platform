@@ -12,7 +12,7 @@ const createInputRow = (rowHeader, cname = 'fra-table__header-cell', validator) 
 ]
 
 const totalForestAreaCell = (column) => (props) =>
-  <td key="" className="fra-table__aggregate-cell">
+  <td key="" className="fra-table__calculated-cell">
     {totalSumFormatted(props.tableData, column, [0,4,5])}
   </td>
 

@@ -44,7 +44,7 @@ const ExtentOfForest = (props) => {
         R.addIndex(R.map)(
           (fraColumn, i) => {
             const totalLandArea = sum([fraColumn.forestArea, fraColumn.otherWoodedLand, fraColumn.otherLand])
-            return <td className={`fra-table__aggregate-cell ${totalAreaValidationClass(fraColumn, totalLandArea)}`} key={i}>
+            return <td className={`fra-table__calculated-cell ${totalAreaValidationClass(fraColumn, totalLandArea)}`} key={i}>
               {formatNumber(totalLandArea)}
             </td>
           },

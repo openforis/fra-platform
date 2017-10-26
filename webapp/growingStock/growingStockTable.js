@@ -99,7 +99,7 @@ const Cell = (props) => {
   )(values)
 
   return calculated
-    ? <td className="fra-table__aggregate-cell">{formatDecimal(value)}</td>
+    ? <td className="fra-table__calculated-cell">{formatDecimal(value)}</td>
     : <td className="fra-table__cell">
         <ThousandSeparatedDecimalInput
           numberValue={value}

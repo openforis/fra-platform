@@ -8,7 +8,7 @@ const createInputRow = (rowHeader, cname = 'fra-table__header-cell') => [
 ]
 
 const totalOwnershipCell = (column) => (props) =>
-  <td key="" className="fra-table__aggregate-cell">
+  <td key="" className="fra-table__calculated-cell">
     {totalSumFormatted(props.tableData, column, R.range(0, 5))}
   </td>
 
