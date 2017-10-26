@@ -59,12 +59,18 @@ const tableRows = (props) => {
 const validationErrorColumns = props => {
   if (props.tableSpec.columnValidationErrors) {
     const amountOfFillerColumns = R.path(['tableSpec', 'valueSlice', 'columnStart'], props) || 0
-    const fillerColumns = R.times(i => <td key={`filler${i}`}/>, amountOfFillerColumns)
+    const fillerColumns = R.times(i => <td key={`filler${i}`} style={{padding: '0'}}/>, amountOfFillerColumns)
     const errorColumns =
       mapIndexed(
         (columnErrorMsgs, i) =>
-          <td key={`errorColumn${i}`} style={{padding: '12px 10px'}}>
-            {mapIndexed((errorMsg, j) => <div key={j}>{errorMsg}</div>, columnErrorMsgs)}
+          //TODO: move inlined styles to fraTable.less after "clarify-calc-rows" branch is merged!
+          <td key={`errorColumn${i}`} className="fra-table__validation-error-cell" style={{padding: '0', color: '#d0021b', verticalAlign: 'top', width: '1px'}}>
+            {
+              mapIndexed((errorMsg, j) =>
+                <div key={j} className="fra-table__validation-error-item" style={{margin: '10px', fontSize: '12px'}}>
+                  {errorMsg}
+                </div>, columnErrorMsgs)
+            }
           </td>,
         props.tableSpec.columnValidationErrors(props)
       )
