@@ -13,22 +13,26 @@ const ofWhichColumns = R.times(() => ({type: 'decimalInput', validator: expansio
 const netChange = (tableData, column) => sub(tableData[0][column], tableData[3][column])
 const netChangeFormatted = (tableData, column) => formatDecimal(netChange(tableData, column))
 
-const netChangeNotValid = (tableData, column, extentOfForest, startYear, endYear) => {
-  if (!extentOfForest || R.isEmpty(extentOfForest)) return false
+const netChangeValid = (tableData, column, extentOfForest, startYear, endYear) => {
+  if (!extentOfForest || R.isEmpty(extentOfForest)) return {valid: true}
   const groupedByYear = R.groupBy(R.prop('name'), extentOfForest.fra)
   const startYearEofArea = R.path([startYear, 0, 'forestArea'], groupedByYear)
   const endYearEofArea = R.path([endYear, 0, 'forestArea'], groupedByYear)
   const netChangeFromExtentOfForest = div(sub(endYearEofArea, startYearEofArea), "10")
   const netChangeFromThisTable = netChange(tableData, column)
-  if (!netChangeFromExtentOfForest || ! netChangeFromThisTable) return false
-  return !eq(netChangeFromExtentOfForest, netChangeFromThisTable)
+  if (!netChangeFromExtentOfForest || ! netChangeFromThisTable) return {valid: true}
+  return {
+    valid: eq(netChangeFromExtentOfForest, netChangeFromThisTable),
+    eofNetChange: netChangeFromExtentOfForest
+  }
 }
 
 const netChangeCell = (column, extentOfForest, startYear, endYear) => (props) => {
+  const {valid} = netChangeValid(props.tableData, column, extentOfForest, startYear, endYear)
   const validationClass =
-    netChangeNotValid(props.tableData, column, extentOfForest, startYear, endYear)
-      ? 'validation-error'
-      : ''
+    valid
+      ? ''
+      : 'validation-error'
   return <td key="" className={`fra-table__aggregate-cell ${validationClass}`}>
     {netChangeFormatted(props.tableData, column)}
   </td>
@@ -43,8 +47,9 @@ const yearIntervals = [
 
 const validationErrors = extentOfForest => props => {
   const validationResults = R.map(([column, startYear, endYear]) => {
-      if (netChangeNotValid(props.tableData, column, extentOfForest, startYear, endYear)) {
-        return "Net change doesn't match"
+      const {valid, eofNetChange} = netChangeValid(props.tableData, column, extentOfForest, startYear, endYear)
+      if (!valid) {
+        return `Net change doesn't match table 1a: ${formatDecimal(eofNetChange)}`
       } else {
         return null
       }
