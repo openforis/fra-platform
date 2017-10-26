@@ -56,23 +56,35 @@ const tableRows = (props) => {
     props.tableSpec.rows)
 }
 
-const TableBody = props =>
-  <tbody>
-  {tableRows(props)}
-  </tbody>
-
-const validationErrors = props => {
-  if (props.tableSpec.validationErrors) {
-    return mapIndexed((errorMsg, i) => <li key={i}>{errorMsg}</li>, props.tableSpec.validationErrors(props))
+const validationErrorColumns = props => {
+  if (props.tableSpec.columnValidationErrors) {
+    const amountOfFillerColumns = R.path(['tableSpec', 'valueSlice', 'columnStart'], props) || 0
+    const fillerColumns = R.times(i => <td key={`filler${i}`}/>, amountOfFillerColumns)
+    const errorColumns =
+      mapIndexed(
+        (errorMsg, i) => <td key={`errorColumn${i}`}>{errorMsg}</td>,
+        props.tableSpec.columnValidationErrors(props)
+      )
+    return [...fillerColumns, ...errorColumns]
   } else {
-    return []
+    return null
   }
 }
 
-const ValidationErrorDisplay = props =>
-  <ul>
-    {validationErrors(props)}
-  </ul>
+const validationErrorRow = props => {
+  const columns = validationErrorColumns(props)
+  if (!columns) return null
+  return <tr>
+    {columns}
+  </tr>
+}
+
+const TableBody = props =>
+  <tbody>
+  {tableRows(props)}
+  {validationErrorRow(props)}
+  </tbody>
+
 
 class FraTable extends UpdateOnResizeReactComponent {
 
@@ -87,7 +99,6 @@ class FraTable extends UpdateOnResizeReactComponent {
           {this.props.tableSpec.header}
           <TableBody {...this.props} />
         </table>
-        <ValidationErrorDisplay {...this.props} />
       </div>
     </div>
   }

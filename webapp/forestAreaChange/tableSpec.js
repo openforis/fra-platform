@@ -51,7 +51,7 @@ const validationErrors = extentOfForest => props => {
     },
     yearIntervals
   )
-  return R.reject(R.isNil, validationResults)
+  return validationResults
 }
 
 export default (i18n, extentOfForest) => {
@@ -97,7 +97,7 @@ export default (i18n, extentOfForest) => {
         )
       ]
     ],
-    validationErrors: validationErrors(extentOfForest),
+    columnValidationErrors: validationErrors(extentOfForest),
     valueSlice: {
       rowStart: 0,
       rowEnd: -1,
