@@ -28,7 +28,7 @@
   flex-flow: row nowrap;
   align-items: center;
   padding: 8px 16px 8px 20px;
-  min-height: 72px;
+  min-height: 64px;
   border-bottom: 1px solid @ui-border;
   background-color: @ui-bg;
   transition: @ease-out;
@@ -74,7 +74,7 @@
 .nav__country-list {
   display: block;
   position: absolute;
-  top: 68px;
+  top: 60px;
   left: 16px;
   background: white;
   border-radius: 2px;
@@ -165,6 +165,7 @@
 // odp
 
 .nav__link-list {
+  overflow-x: hidden;
   overflow-y: auto;
   height: calc(~"100vh - 72px");
   padding-top: 8px;

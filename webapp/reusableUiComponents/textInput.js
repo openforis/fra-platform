@@ -28,10 +28,16 @@ export default class TextInput extends React.Component {
           minWidth: minWidthStyleAttr
         }}
         className="text-input__input-field"
+        ref="textInputField"
         value={this.props.value || ''}
         onChange={this.props.onChange}
         onPaste={this.props.onPaste}
-        onFocus={() => { this.setState({hasFocus: true}) }}
+        onFocus={
+          () => {
+            this.setState({hasFocus: true})
+            this.refs.textInputField.select()
+          }
+        }
         onBlur={() => { this.setState({hasFocus: false}) }}
         placeholder={this.state.placeholder}
         disabled={disabled}

@@ -17,11 +17,16 @@ export class PercentInput extends React.Component {
         className="percent-input__input-field"
         type="text"
         maxLength="3"
+        ref="percentInputField"
         value={this.props.value}
         style={{opacity: this.state.hasFocus ? '1' : '0'}}
         onChange={this.props.onChange}
         onPaste={this.props.onPaste}
-        onFocus={() => {this.setState({hasFocus: true})}}
+        onClick={() => {this.focus()}}
+        onFocus={() => {
+          this.setState({hasFocus: true})
+          this.refs.percentInputField.select()
+        }}
         onBlur={() => {this.setState({hasFocus: false})}}
       />
       <div className="percent-input__sign">%</div>
