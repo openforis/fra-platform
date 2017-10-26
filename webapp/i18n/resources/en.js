@@ -282,7 +282,8 @@ export const translation = {
     ofWhichAfforestation: '…of which afforestation',
     ofWhichNaturalExpansion: '…of which natural expansion',
     deforestation: 'Deforestation',
-    forestAreaNetChange: 'Forest area net change'
+    forestAreaNetChange: 'Forest area net change',
+    netChangeDoesNotMatch: "Net change doesn't match table 1a: {{eofNetChange}}"
   },
 
   annualReforestation: {

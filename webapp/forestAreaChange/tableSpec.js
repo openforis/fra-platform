@@ -45,11 +45,11 @@ const yearIntervals = [
   [4, 2015, 2020]
 ]
 
-const validationErrors = extentOfForest => props => {
+const validationErrors = (i18n, extentOfForest) => props => {
   return R.map(([column, startYear, endYear]) => {
       const {valid, eofNetChange} = netChangeValid(props.tableData, column, extentOfForest, startYear, endYear)
       if (!valid) {
-        return `Net change doesn't match table 1a: ${formatDecimal(eofNetChange)}`
+        return i18n.t('forestAreaChange.netChangeDoesNotMatch', {eofNetChange: formatDecimal(eofNetChange)})
       } else {
         return null
       }
@@ -101,7 +101,7 @@ export default (i18n, extentOfForest) => {
         )
       ]
     ],
-    columnValidationErrors: validationErrors(extentOfForest),
+    columnValidationErrors: validationErrors(i18n, extentOfForest),
     valueSlice: {
       rowStart: 0,
       rowEnd: -1,
