@@ -12,7 +12,7 @@ const verifyCallback = (req, accessToken, refreshToken, profile, done) => {
 
   const invitationUUID = req.query.state
   if (invitationUUID)
-    db.transaction(userRepository.authorizeUser, [invitationUUID, profile.emails[0].value])
+    db.transaction(userRepository.acceptInvitation, [invitationUUID, profile.emails[0].value])
       .then(userFetchCallback)
   else
     userRepository.findUserByLoginEmails(profile.emails.map(e => e.value.toLowerCase()))

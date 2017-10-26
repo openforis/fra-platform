@@ -1,8 +1,11 @@
-const db = require('../db/db')
-const camelize = require('camelize')
+const Promise = require('bluebird')
+const uuidv4 = require('uuid/v4')
 const R = require('ramda')
+const camelize = require('camelize')
+
+const db = require('../db/db')
 const auditRepository = require('./../audit/auditRepository')
-const {isSuperUser} = require('../../common/countryRole')
+const {isSuperUser, hasNoRole} = require('../../common/countryRole')
 
 const findUserById = (userId, client = db) =>
   client.query('SELECT id, name ,lang FROM fra_user WHERE id = $1', [userId])
@@ -23,9 +26,9 @@ const findUserByLoginEmails = (emails, client = db) =>
   client.query('SELECT id from fra_user WHERE LOWER(login_email) in ($1)', [emails.join(',')])
     .then(res => res.rows.length > 0 ? findUserById(res.rows[0].id, client) : null)
 
-const findUserByEmail = email =>
-  db.query('SELECT id from fra_user WHERE LOWER(email) = $1', [email.toLowerCase()])
-    .then(res => res.rows.length > 0 ? findUserById(res.rows[0].id) : null)
+const findUserByEmail = (email, client = db) =>
+  client.query('SELECT id from fra_user WHERE LOWER(email) = $1', [email.toLowerCase()])
+    .then(res => res.rows.length > 0 ? findUserById(res.rows[0].id, client) : null)
 
 const updateLanguage = (client, lang, userInfo) =>
   client
@@ -73,25 +76,50 @@ const fetchCountryUsers = (countryIso, user) =>
   `, [countryIso])
     .then(res => camelize(res.rows))
 
-const addUser = (client, user, countryIso, userToAdd, invitationUUID) =>
+const insertUser = (client, email, name, invitationUUID) =>
   client.query(`
     INSERT INTO
       fra_user(email, name, invitation_uuid)
     VALUES ($1, $2, $3)
-  `, [userToAdd.email, userToAdd.name, invitationUUID])
-    .then(() =>
-      client.query(`
+  `, [email, name, invitationUUID])
+
+const authorizeUser = (client, userAction, countryIso, userId, role, userName) =>
+  client.query(`
         INSERT INTO
           user_country_role(user_id, country_iso, role)
         VALUES 
-          ((SELECT last_value FROM fra_user_id_seq), $1, $2)
-      `, [countryIso, userToAdd.role])
-    )
-    .then(() => client.query('SELECT last_value as user_id FROM fra_user_id_seq'))
-    .then(res =>
+          ($1, $2, $3)
+      `, [userId, countryIso, role])
+    .then(() =>
       auditRepository
-        .insertAudit(client, user.id, 'add', countryIso, 'users', {userId: res.rows[0].user_id, role: userToAdd.role})
+        .insertAudit(client, userAction.id, 'addUser', countryIso, 'users', {
+          user: userName,
+          role: `$t(user.roles.${role.toLowerCase()})`
+        })
     )
+
+const addCountryUser = (client, user, countryIso, userToAdd) =>
+  findUserByEmail(userToAdd.email, client)
+    .then(userDb => {
+
+      if (userDb) {
+        if (hasNoRole(countryIso, userDb))
+        // existing user has not been authorized to country
+          return authorizeUser(client, user, countryIso, userDb.id, userToAdd.role, userDb.name)
+            .then(() => null)
+        else
+          // existing user has already been authorized to country
+          return Promise.resolve()
+      } else {
+        // creating new user
+        const invitationUUID = uuidv4()
+        return insertUser(client, userToAdd.email, userToAdd.name, invitationUUID)
+          .then(() => client.query(`SELECT last_value as user_id FROM fra_user_id_seq`))
+          .then(res => authorizeUser(client, user, countryIso, res.rows[0].user_id, userToAdd.role, userToAdd.name))
+          .then(() => invitationUUID)
+      }
+
+    })
 
 const updateUser = (client, user, countryIso, userToUpdate) =>
   client.query(`
@@ -116,23 +144,26 @@ const updateUser = (client, user, countryIso, userToUpdate) =>
       `, [userToUpdate.role, userToUpdate.id, countryIso])
     )
     .then(() =>
-      auditRepository.insertAudit(client, user.id, 'update', countryIso, 'users', {userId: userToUpdate.id})
+      auditRepository.insertAudit(client, user.id, 'updateUser', countryIso, 'users', {user: userToUpdate.name})
     )
 
 const removeCountryUser = (client, user, countryIso, userId) =>
-  client.query(`
-    DELETE FROM
-      user_country_role
-    WHERE 
-      user_id = $1
-    AND
-      country_iso = $2
-  `, [userId, countryIso])
+  findUserById(userId, client)
+    .then(userToRemove =>
+      auditRepository.insertAudit(client, user.id, 'removeUser', countryIso, 'users', {user: userToRemove.name})
+    )
     .then(() =>
-      auditRepository.insertAudit(client, user.id, 'remove', countryIso, 'users', {userId})
+      client.query(`
+        DELETE FROM
+          user_country_role
+        WHERE 
+          user_id = $1
+        AND
+          country_iso = $2
+  `, [userId, countryIso])
     )
 
-const authorizeUser = (client, invitationUUID, loginEmail) =>
+const acceptInvitation = (client, invitationUUID, loginEmail) =>
   client.query(`
       UPDATE fra_user
       SET login_email = $1, invitation_uuid = null
@@ -141,19 +172,18 @@ const authorizeUser = (client, invitationUUID, loginEmail) =>
     .then(() => findUserByLoginEmails([loginEmail], client))
     .then(user =>
       auditRepository.insertAudit(client, user.id, 'acceptInvitation', user.roles[0].countryIso, 'users', {
-        userId: user.id,
-        role: user.roles[0].role
+        user: user.name,
+        role: `$t(user.roles.${user.roles[0].role.toLowerCase()})`
       }).then(() => user)
     )
 
 module.exports = {
   findUserById,
   findUserByLoginEmails,
-  findUserByEmail,
   updateLanguage,
   fetchCountryUsers,
-  addUser,
+  addCountryUser,
   updateUser,
   removeCountryUser,
-  authorizeUser
+  acceptInvitation
 }

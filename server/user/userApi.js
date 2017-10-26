@@ -42,27 +42,12 @@ module.exports.init = app => {
     } else {
       const url = req.protocol + '://' + req.get('host')
 
-      userRepository.findUserByEmail(userRequest.email)
-        .then(user => {
-          if (user) {
-            // granting access to a country for an existing user
-            sendMail(countryIso, userRequest, url)
-              .then(() => res.json({}))
-              .catch(err => sendErr(res, err))
-
-          } else {
-            // creating new user and granting access to a country
-            const invitationUUID = uuidv4()
-            db.transaction(userRepository.addUser, [req.user, countryIso, userRequest, invitationUUID])
-              .then(() => {
-                sendMail(countryIso, userRequest, url, invitationUUID)
-                  .then(() => res.json({}))
-                  .catch(err => sendErr(res, err))
-              })
-              .catch(err => sendErr(res, err))
-
-          }
-        })
+      db.transaction(userRepository.addCountryUser, [req.user, countryIso, userRequest])
+        .then(invitationUUID =>
+          sendMail(countryIso, userRequest, url, invitationUUID)
+            .then(() => res.json({}))
+            .catch(err => sendErr(res, err))
+        )
     }
 
   })

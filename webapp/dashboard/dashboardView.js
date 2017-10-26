@@ -20,6 +20,14 @@ const getActionLocalizationKey = (message) => {
     key += 'deleted'
   } else if (R.contains(message, 'createOdp')) {
     key += 'added'
+  } else if (R.contains(message, 'addUser')) {
+    key += 'addUser'
+  } else if (R.contains(message, 'updateUser')) {
+    key += 'updateUser'
+  } else if (R.contains(message, 'removeUser')) {
+    key += 'removeUser'
+  } else if (R.contains(message, 'acceptInvitation')) {
+    key += 'acceptInvitation'
   } else {
     key += 'edited'
   }
@@ -48,9 +56,9 @@ const LinkList = ({title, links}) => {
     </li>
     {
       links.map(link =>
-      <li className="link-list__item" key={link.url}>
-        <a href={link.url} className="link" target="_blank">{link.name}</a>
-      </li>
+        <li className="link-list__item" key={link.url}>
+          <a href={link.url} className="link" target="_blank">{link.name}</a>
+        </li>
       )
     }
   </ul>
@@ -62,10 +70,10 @@ const ActivityItem = ({i18n, countryIso, item}) => {
   const actionLocalizationKey = getActionLocalizationKey(item.message)
 
   return <div className="dashboard__activity-item">
-    <img className="dashboard__activity-avatar" src={`https://www.gravatar.com/avatar/${item.hash}?default=mm`} />
+    <img className="dashboard__activity-avatar" src={`https://www.gravatar.com/avatar/${item.hash}?default=mm`}/>
     <div className="dashboard__activity-name">
       <strong>{item.fullName}</strong>
-      <span>{i18n.t(actionLocalizationKey)}</span>
+      <span>{item.target ? i18n.t(actionLocalizationKey, item.target) : i18n.t(actionLocalizationKey)}</span>
       {
         sectionUrl === 'odp' || actionLocalizationKey === 'dashboard.actions.deleted'
           ? <span className="dashboard__activity-deleted">{i18n.t(sectionLocalizationKey)}</span>
@@ -77,7 +85,7 @@ const ActivityItem = ({i18n, countryIso, item}) => {
 }
 
 class DashboardView extends React.Component {
-  componentWillMount() {
+  componentWillMount () {
     this.props.fetchAuditFeed(this.props.match.params.countryIso)
   }
 
@@ -86,25 +94,25 @@ class DashboardView extends React.Component {
       this.props.fetchAuditFeed(this.props.match.params.countryIso)
   }
 
-  render() {
+  render () {
     const {match, i18n, feed} = this.props
     const countryIso = match.params.countryIso
     const externalLinks = [{
       name: 'FRIMS',
       url: 'http://fenix.fao.org/fra2015'
-    },{
+    }, {
       name: 'SEPAL',
       url: 'https://sepal.io/'
-    },{
+    }, {
       name: i18n.t('dashboard.externalLinks.unFcccReportedData'),
       url: 'http://unfccc.int/national_reports/annex_i_ghg_inventories/national_inventories_submissions/items/9492.php'
-    },{
+    }, {
       name: 'FAOSTAT',
       url: 'http://www.fao.org/faostat/'
-    },{
+    }, {
       name: i18n.t('dashboard.externalLinks.nationalFocalPoints'),
       url: 'http://unfccc.int/parties_observers/parties/national_focal_points/items/9336.php'
-    },{
+    }, {
       name: i18n.t('dashboard.externalLinks.unReddPlatform'),
       url: 'http://redd.unfccc.int/submissions.html'
     }]
@@ -119,14 +127,14 @@ class DashboardView extends React.Component {
             <h3 className="subhead">{i18n.t('dashboard.recentActivity')}</h3>
             {
               feed && feed.length > 0
-              ? mapIndexed((item, index) =>
-                <ActivityItem
-                  key={index}
-                  i18n={i18n}
-                  countryIso={countryIso}
-                  item={item}
-                />, feed)
-              : <div className="dashboard__activity-item">
+                ? mapIndexed((item, index) =>
+                  <ActivityItem
+                    key={index}
+                    i18n={i18n}
+                    countryIso={countryIso}
+                    item={item}
+                  />, feed)
+                : <div className="dashboard__activity-item">
                   <span className="dashboard__activity-deleted">{i18n.t('dashboard.noRecentActivity')}</span>
                 </div>
             }

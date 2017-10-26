@@ -72,7 +72,11 @@ export const translation = {
       deleted: 'deleted',
       edited: 'edited',
       resolved: 'resolved issue in',
-      status: 'changed status to'
+      status: 'changed status to',
+      addUser:'added {{user}} as {{role}}',
+      updateUser:'updated {{user}} details',
+      removeUser:'removed access to {{user}}',
+      acceptInvitation: 'joined the platform as {{role}}'
     }
   },
 
@@ -238,6 +242,7 @@ export const translation = {
   },
 
   users: {
+    users: 'Users management',
     manageUsers: 'Manage users',
     name: 'Name',
     role: 'Role',
@@ -245,8 +250,8 @@ export const translation = {
     loginEmail: 'Login email',
     noUsers: 'No users added',
     remove: 'Remove',
-    addNewUser:'Add new User',
-    addUser:'Add User',
+    addNewUser: 'Add new User',
+    addUser: 'Add User',
     confirmDelete: 'Are you sure {{user}} should not be allowed to access {{country}} anymore?'
   },
 
