@@ -20,9 +20,9 @@ const fillerCell = {
 const rankRow = i18n => idx => [
   {
     type: 'readOnly',
-    jsx: <td key={`rank${idx}`} className="fra-table__subcategory-cell">
+    jsx: <th key={`rank${idx}`} className="fra-table__category-cell">
       #{idx} {i18n.t('growingStockComposition.rank')}
-    </td>
+    </th>
   },
   {type: 'textInput', minWidth: 240},
   {type: 'textInput', minWidth: 240},
@@ -51,9 +51,9 @@ const aggregateCell = aggregateFunction => column =>
 const remainingNativeRow = i18n => [
   {
     type: 'readOnly',
-    jsx: <td className="fra-table__row-header-continued-with-fillers">
+    jsx: <th className="fra-table__row-header-continued-with-fillers">
       {i18n.t('growingStockComposition.remainingNative')}
-    </td>
+    </th>
   },
   fillerCell,
   fillerCell,
@@ -63,9 +63,9 @@ const remainingNativeRow = i18n => [
 const remainingIntroducedRow = i18n => [
   {
     type: 'readOnly',
-    jsx: <td className="fra-table__row-header-continued-with-fillers">
+    jsx: <th className="fra-table__row-header-continued-with-fillers">
       {i18n.t('growingStockComposition.remainingIntroduced')}
-    </td>
+    </th>
   },
   fillerCell,
   fillerCell,
@@ -75,7 +75,7 @@ const remainingIntroducedRow = i18n => [
 const totalRow = (i18n, rowHeaderKey, aggregateFunction) => [
   {
     type: 'readOnly',
-    jsx: <td className="fra-table__row-header-continued-with-fillers">{i18n.t(rowHeaderKey)}</td>
+    jsx: <th className="fra-table__row-header-continued-with-fillers">{i18n.t(rowHeaderKey)}</th>
   },
   fillerCell,
   fillerCell,
@@ -91,14 +91,14 @@ const totalGrowingStockRow = i18n => totalRow(i18n, 'growingStockComposition.tot
 const introducedHeaderRow = i18n => [
   {
     type: 'readOnly',
-    jsx: <td className="fra-table__row-header-continued-with-fillers">
+    jsx: <th className="fra-table__row-header-continued-with-fillers">
       {i18n.t('growingStockComposition.introducedTreeSpecies')}
-    </td>
+    </th>
   },
   ...R.map(() => fillerCell, R.range(1, 8)),
   {
     type: 'readOnly',
-    jsx: <td className="fra-table__filler-cell" style={{borderRight: '1px solid #d5d5d5'}}/>
+    jsx: <th className="fra-table__filler-cell" style={{borderRight: '1px solid #d5d5d5'}}/>
   }
 ]
 
@@ -112,13 +112,13 @@ export default i18n => ({
     <th className="fra-table__header-cell-middle" colSpan="6">{i18n.t('growingStockComposition.areaUnitLabel')}</th>
   </tr>
   <tr>
-    <td className="fra-table__header-cell">{i18n.t('growingStockComposition.nativeTreeSpecies')}</td>
-    <td className="fra-table__header-cell-right">1990</td>
-    <td className="fra-table__header-cell-right">1995</td>
-    <td className="fra-table__header-cell-right">2000</td>
-    <td className="fra-table__header-cell-right">2005</td>
-    <td className="fra-table__header-cell-right">2010</td>
-    <td className="fra-table__header-cell-right">2015</td>
+    <th className="fra-table__header-cell">{i18n.t('growingStockComposition.nativeTreeSpecies')}</th>
+    <th className="fra-table__header-cell-right">1990</th>
+    <th className="fra-table__header-cell-right">1995</th>
+    <th className="fra-table__header-cell-right">2000</th>
+    <th className="fra-table__header-cell-right">2005</th>
+    <th className="fra-table__header-cell-right">2010</th>
+    <th className="fra-table__header-cell-right">2015</th>
   </tr>
   </thead>,
   rows:

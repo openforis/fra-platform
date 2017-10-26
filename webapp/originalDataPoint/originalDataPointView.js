@@ -714,7 +714,7 @@ const ForestCharacteristicsRow =
       : <tr
       className={isCommentsOpen([odp.odpId, 'class', `${odp.nationalClasses[index].uuid}`, 'forest_charasteristics'], openThread) ? 'fra-row-comments__open' : ''}>
       <td className="fra-table__subcategory-cell"><span>{className}</span></td>
-      <td className={`fra-table__subcategory-cell-right fra-table__divider`}>{formatDecimal(area ? area * nationalClass.forestPercent / 100 : null)}</td>
+      <td className={`fra-table__category-cell-right fra-table__divider`}>{formatDecimal(area ? area * nationalClass.forestPercent / 100 : null)}</td>
       <td className={`fra-table__cell ${focStatusPercentage()}`}>
         <PercentInput
           value={naturalForestPercent || ''}
@@ -814,7 +814,7 @@ const SubcategoryRow =
       ? null
       : <tr className={isCommentsOpen(commentTarget, openThread) ? 'fra-row-comments__open' : ''}>
       <td className="fra-table__subcategory-cell"><span>{className}</span></td>
-      <td className={`fra-table__subcategory-cell-right fra-table__divider`}>{formatDecimal(categoryArea)}</td>
+      <td className={`fra-table__category-cell-right fra-table__divider`}>{formatDecimal(categoryArea)}</td>
       {
         mapIndexed((col, colIndex) => {
           const currentCol = categoryColumns[colIndex].name

@@ -37,9 +37,9 @@ const ExtentOfForest = (props) => {
 
   const totalAreaRow = fra => {
     return <tr key="totalArea">
-      <td className="fra-table__header-cell">
+      <th className="fra-table__header-cell">
         {props.i18n.t('extentOfForest.totalLandArea')}
-      </td>
+      </th>
       {
         R.addIndex(R.map)(
           (fraColumn, i) => {

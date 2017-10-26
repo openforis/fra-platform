@@ -11,12 +11,12 @@ export default i18n => ({
     <th className="fra-table__header-cell-middle" colSpan="6">{i18n.t('areaOfPermanentForestEstate.areaUnitLabel')}</th>
   </tr>
   <tr>
-    <td className="fra-table__header-cell-right">{i18n.t('areaOfPermanentForestEstate.applicable')}</td>
-    <td className="fra-table__header-cell-right">1990</td>
-    <td className="fra-table__header-cell-right">2000</td>
-    <td className="fra-table__header-cell-right">2010</td>
-    <td className="fra-table__header-cell-right">2015</td>
-    <td className="fra-table__header-cell-right">2020</td>
+    <th className="fra-table__header-cell-right">{i18n.t('areaOfPermanentForestEstate.applicable')}</th>
+    <th className="fra-table__header-cell-right">1990</th>
+    <th className="fra-table__header-cell-right">2000</th>
+    <th className="fra-table__header-cell-right">2010</th>
+    <th className="fra-table__header-cell-right">2015</th>
+    <th className="fra-table__header-cell-right">2020</th>
   </tr>
   </thead>,
 
@@ -24,9 +24,9 @@ export default i18n => ({
     [
       {
         type: 'readOnly',
-        jsx: <td className="fra-table__header-cell">
+        jsx: <th className="fra-table__category-cell">
           {i18n.t('areaOfPermanentForestEstate.areaOfPermanentForestEstate')}
-        </td>
+        </th>
       },
       {type: 'yesNoSelect'},
       ...inputColumns

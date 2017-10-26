@@ -17,59 +17,59 @@ export default i18n => ({
     <th className="fra-table__header-cell-middle" colSpan="18">{i18n.t('disturbances.areaUnitLabel')}</th>
   </tr>
   <tr>
-    <td className="fra-table__header-cell-right">2000</td>
-    <td className="fra-table__header-cell-right">2001</td>
-    <td className="fra-table__header-cell-right">2002</td>
-    <td className="fra-table__header-cell-right">2003</td>
-    <td className="fra-table__header-cell-right">2004</td>
-    <td className="fra-table__header-cell-right">2005</td>
-    <td className="fra-table__header-cell-right">2006</td>
-    <td className="fra-table__header-cell-right">2007</td>
-    <td className="fra-table__header-cell-right">2008</td>
-    <td className="fra-table__header-cell-right">2009</td>
-    <td className="fra-table__header-cell-right">2010</td>
-    <td className="fra-table__header-cell-right">2011</td>
-    <td className="fra-table__header-cell-right">2012</td>
-    <td className="fra-table__header-cell-right">2013</td>
-    <td className="fra-table__header-cell-right">2014</td>
-    <td className="fra-table__header-cell-right">2015</td>
-    <td className="fra-table__header-cell-right">2016</td>
-    <td className="fra-table__header-cell-right">2017</td>
+    <th className="fra-table__header-cell-right">2000</th>
+    <th className="fra-table__header-cell-right">2001</th>
+    <th className="fra-table__header-cell-right">2002</th>
+    <th className="fra-table__header-cell-right">2003</th>
+    <th className="fra-table__header-cell-right">2004</th>
+    <th className="fra-table__header-cell-right">2005</th>
+    <th className="fra-table__header-cell-right">2006</th>
+    <th className="fra-table__header-cell-right">2007</th>
+    <th className="fra-table__header-cell-right">2008</th>
+    <th className="fra-table__header-cell-right">2009</th>
+    <th className="fra-table__header-cell-right">2010</th>
+    <th className="fra-table__header-cell-right">2011</th>
+    <th className="fra-table__header-cell-right">2012</th>
+    <th className="fra-table__header-cell-right">2013</th>
+    <th className="fra-table__header-cell-right">2014</th>
+    <th className="fra-table__header-cell-right">2015</th>
+    <th className="fra-table__header-cell-right">2016</th>
+    <th className="fra-table__header-cell-right">2017</th>
   </tr>
   </thead>,
   rows: [
     [
       {
         type: 'readOnly',
-        jsx: <td key="expansion" className="fra-table__header-cell">{i18n.t('disturbances.insects')}</td>
+        jsx: <th key="expansion" className="fra-table__category-cell">{i18n.t('disturbances.insects')}</th>
       },
     ...inputColumns
     ],
     [
       {
         type: 'readOnly',
-        jsx: <td key="expansion" className="fra-table__header-cell">{i18n.t('disturbances.diseases')}</td>
+        jsx: <th key="expansion" className="fra-table__category-cell">{i18n.t('disturbances.diseases')}</th>
       },
     ...inputColumns
     ],
     [
       {
         type: 'readOnly',
-        jsx: <td key="expansion" className="fra-table__header-cell">{i18n.t('disturbances.severeWeatherEvents')}</td>
+        jsx: <th key="expansion" className="fra-table__category-cell">{i18n.t('disturbances.severeWeatherEvents')}</th>
       },
     ...inputColumns
     ],
     [
       {
         type: 'readOnly',
-        jsx: <td key="expansion" className="fra-table__header-cell">{i18n.t('disturbances.other')}</td>
+        jsx: <th key="expansion" className="fra-table__category-cell">{i18n.t('disturbances.other')}</th>
       },
     ...inputColumns
     ],
     [
       {
         type: 'readOnly',
-        jsx: <td key="expansion" className="fra-table__header-cell">{i18n.t('disturbances.total')}</td>
+        jsx: <th key="expansion" className="fra-table__header-cell">{i18n.t('disturbances.total')}</th>
       },
       {type: 'custom', render: totalDisturbanceCell(1)},
       {type: 'custom', render: totalDisturbanceCell(2)},

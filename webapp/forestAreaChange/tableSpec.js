@@ -24,30 +24,30 @@ export default i18n => ({
     <th className="fra-table__header-cell-middle" colSpan="4">{i18n.t('forestAreaChange.areaUnitLabel')}</th>
   </tr>
   <tr>
-    <td className="fra-table__header-cell-right">1990-2000</td>
-    <td className="fra-table__header-cell-right">2000-2010</td>
-    <td className="fra-table__header-cell-right">2010-2015</td>
-    <td className="fra-table__header-cell-right">2015-2020</td>
+    <th className="fra-table__header-cell-right">1990-2000</th>
+    <th className="fra-table__header-cell-right">2000-2010</th>
+    <th className="fra-table__header-cell-right">2010-2015</th>
+    <th className="fra-table__header-cell-right">2015-2020</th>
   </tr>
   </thead>,
   rows: [
-    [{type: 'readOnly', jsx: <td key="expansion" className="fra-table__header-cell">{i18n.t('forestAreaChange.forestExpansion')}</td>},
+    [{type: 'readOnly', jsx: <th key="expansion" className="fra-table__category-cell">{i18n.t('forestAreaChange.forestExpansion')}</th>},
       ...integerInputColumns
     ],
     [
-      {type: 'readOnly', jsx: <td key="" className="fra-table__subcategory-cell">{i18n.t('forestAreaChange.ofWhichAfforestation')}</td>},
+      {type: 'readOnly', jsx: <th key="" className="fra-table__subcategory-cell">{i18n.t('forestAreaChange.ofWhichAfforestation')}</th>},
       ...ofWhichColumns
     ],
     [
-      {type: 'readOnly', jsx: <td key="" className="fra-table__subcategory-cell">{i18n.t('forestAreaChange.ofWhichNaturalExpansion')}</td>},
+      {type: 'readOnly', jsx: <th key="" className="fra-table__subcategory-cell">{i18n.t('forestAreaChange.ofWhichNaturalExpansion')}</th>},
       ...ofWhichColumns
     ],
     [
-      {type: 'readOnly', jsx: <td key="" className="fra-table__header-cell">{i18n.t('forestAreaChange.deforestation')}</td>},
+      {type: 'readOnly', jsx: <th key="" className="fra-table__category-cell">{i18n.t('forestAreaChange.deforestation')}</th>},
       ...integerInputColumns
     ],
     [
-      {type: 'readOnly', jsx: <td key="" className="fra-table__header-cell">{i18n.t('forestAreaChange.forestAreaNetChange')}</td>},
+      {type: 'readOnly', jsx: <th key="" className="fra-table__header-cell">{i18n.t('forestAreaChange.forestAreaNetChange')}</th>},
       {type: 'custom', render: netChangeCell(1)},
       {type: 'custom', render: netChangeCell(2)},
       {type: 'custom', render: netChangeCell(3)},
