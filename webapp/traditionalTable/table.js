@@ -21,7 +21,8 @@ const getSliceLenses = (tableSpec) => {
   ]
 }
 
-export const updateValidationStatus = (tableSpec, tableData) => {
+export const createValidationStatus = (tableSpec, tableData) => {
+  console.log('update validation status', tableData)
   const handleRow = (row, rowIdx) =>
     mapIndexed(
       (value, colIdx) => {
@@ -33,6 +34,7 @@ export const updateValidationStatus = (tableSpec, tableData) => {
       },
       row
     )
+  console.log('validation status returning', mapIndexed(handleRow, tableData))
   return mapIndexed(
     handleRow,
     tableData
