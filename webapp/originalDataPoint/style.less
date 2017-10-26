@@ -74,17 +74,15 @@
 }
 
 .odp__sub-table {
-  .fra-table;
+  border-collapse: collapse;
   color: lighten(@text-body, 10%);
+  font-size: @font-s;
   line-height: 16px;
   margin-top: 24px;
+  width: 100%;
 
-  .fra-table__header-cell,
-  .fra-table__header-cell-right,
-  .fra-table__header-cell-middle,
-  .fra-table__subcategory-cell,
-  .fra-table__category-cell-right {
-    background: transparent;
+  th {
+    background: none;
   }
 
   .fra-review__issue-status {
