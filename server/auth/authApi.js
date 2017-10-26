@@ -1,24 +1,22 @@
-const R = require('ramda')
 const passport = require('passport')
-const userRepository = require('../user/userRepository')
 const authConfig = require('./authConfig')
-const {sendErr} = require('../utils/requestUtils')
+const db = require('../db/db')
+const userRepository = require('../user/userRepository')
 const countryRepository = require('../country/countryRepository')
+const {sendErr} = require('../utils/requestUtils')
 
 const verifyCallback = (req, accessToken, refreshToken, profile, done) => {
 
-  const findUserByLoginEmails = () =>
-    userRepository
-      .findUserByLoginEmails(profile.emails.map(e => e.value.toLowerCase()))
-      .then(user => user ? done(null, user) : done(null, false, {message: 'User not authorized'}))
+  const userFetchCallback = user =>
+    user ? done(null, user) : done(null, false, {message: 'User not authorized'})
 
   const invitationUUID = req.query.state
-
   if (invitationUUID)
-    userRepository.authorizeUser(invitationUUID, profile.emails[0].value)
-      .then(() => findUserByLoginEmails())
+    db.transaction(userRepository.authorizeUser, [invitationUUID, profile.emails[0].value])
+      .then(userFetchCallback)
   else
-    findUserByLoginEmails()
+    userRepository.findUserByLoginEmails(profile.emails.map(e => e.value.toLowerCase()))
+      .then(userFetchCallback)
 }
 
 const authenticationFailed = (req, res) => {

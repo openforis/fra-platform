@@ -35,7 +35,7 @@ module.exports.init = app => {
 
     if (userRequest.id) {
       // update existing user
-      db.transaction(userRepository.updateUser, [countryIso, userRequest])
+      db.transaction(userRepository.updateUser, [req.user, countryIso, userRequest])
         .then(res.json({}))
         .catch(err => sendErr(res, err))
 
@@ -53,7 +53,7 @@ module.exports.init = app => {
           } else {
             // creating new user and granting access to a country
             const invitationUUID = uuidv4()
-            db.transaction(userRepository.addUser, [countryIso, userRequest, invitationUUID])
+            db.transaction(userRepository.addUser, [req.user, countryIso, userRequest, invitationUUID])
               .then(() => {
                 sendMail(countryIso, userRequest, url, invitationUUID)
                   .then(() => res.json({}))
@@ -70,7 +70,7 @@ module.exports.init = app => {
   app.delete('/users/:countryIso/:userId', (req, res) => {
     checkCountryAccessFromReqParams(req)
 
-    db.transaction(userRepository.removeCountryUser, [req.params.countryIso, req.params.userId])
+    db.transaction(userRepository.removeCountryUser, [req.user, req.params.countryIso, req.params.userId])
       .then(res.json({}))
       .catch(err => sendErr(res, err))
   })
