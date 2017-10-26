@@ -46,7 +46,7 @@ const yearIntervals = [
 ]
 
 const validationErrors = extentOfForest => props => {
-  const validationResults = R.map(([column, startYear, endYear]) => {
+  return R.map(([column, startYear, endYear]) => {
       const {valid, eofNetChange} = netChangeValid(props.tableData, column, extentOfForest, startYear, endYear)
       if (!valid) {
         return `Net change doesn't match table 1a: ${formatDecimal(eofNetChange)}`
@@ -56,7 +56,6 @@ const validationErrors = extentOfForest => props => {
     },
     yearIntervals
   )
-  return validationResults
 }
 
 export default (i18n, extentOfForest) => {
