@@ -256,7 +256,8 @@ export const translation = {
     ofWhichAgroforestry: '…of which agroforestry',
     ofWhichTreesUrbanSettings: '…of which trees in urban settings',
     totalLandArea: 'Total land area',
-    faoStatLandArea: 'FAOSTAT land area'
+    faoStatLandArea: 'FAOSTAT land area',
+    faoStatMismatch: "Total land area doesn't match FAOSTAT"
   },
 
   forestCharacteristics: {

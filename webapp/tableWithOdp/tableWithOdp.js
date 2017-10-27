@@ -121,7 +121,7 @@ const updatePastedValues = (rowNames, evt, rowIdx, colIdx, fra) => {
       if (R.isNil(readFrom[col])) return
       toPaste = R.mergeDeepRight({[readFrom[col].year]: {[rowNames[row]]: c}}, toPaste)
     }, r)
-  }, readPasteClipboard(evt))
+  }, readPasteClipboard(evt, 'decimal'))
 
   const pasted = R.pipe(
     R.map(fra => {
@@ -130,7 +130,7 @@ const updatePastedValues = (rowNames, evt, rowIdx, colIdx, fra) => {
       const acceptedValues = R.pipe(
         R.keys,
         R.map(k => {
-          return {[k]: acceptNextInteger(String(toPaste[fra.year][k]), fra[k])}
+          return {[k]: acceptNextDecimal(String(toPaste[fra.year][k]), fra[k])}
         }),
         R.reduce(R.merge, {})
       )(R.defaultTo({}, toPaste[fra.year]))
