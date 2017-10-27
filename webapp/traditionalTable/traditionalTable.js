@@ -61,8 +61,7 @@ const validationErrorColumns = props => {
     const amountOfFillerColumns = R.path(['tableSpec', 'valueSlice', 'columnStart'], props) || 0
     const fillerColumns = R.times(i => <td key={`filler${i}`} style={{padding: '0'}}/>, amountOfFillerColumns)
     const errorColumns =
-      mapIndexed(
-        (columnErrorMsgs, i) =>
+      mapIndexed((columnErrorMsgs, i) =>
           <td key={`errorColumn${i}`} className="fra-table__validation-cell">
             {
               mapIndexed((errorMsg, j) =>
@@ -70,8 +69,7 @@ const validationErrorColumns = props => {
                   {errorMsg}
                 </div>, columnErrorMsgs)
             }
-          </td>,
-        props.tableSpec.columnValidationErrors(props)
+          </td>, props.tableSpec.columnValidationErrors(props)
       )
     return [...fillerColumns, ...errorColumns]
   } else {
