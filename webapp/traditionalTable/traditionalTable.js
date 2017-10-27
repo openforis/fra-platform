@@ -63,11 +63,10 @@ const validationErrorColumns = props => {
     const errorColumns =
       mapIndexed(
         (columnErrorMsgs, i) =>
-          //TODO: move inlined styles to fraTable.less after "clarify-calc-rows" branch is merged!
-          <td key={`errorColumn${i}`} className="fra-table__validation-error-cell" style={{padding: '0', color: '#d0021b', verticalAlign: 'top', width: '1px'}}>
+          <td key={`errorColumn${i}`} className="fra-table__validation-cell">
             {
               mapIndexed((errorMsg, j) =>
-                <div key={j} className="fra-table__validation-error-item" style={{margin: '10px', fontSize: '12px'}}>
+                <div key={j} className="fra-table__validation-error">
                   {errorMsg}
                 </div>, columnErrorMsgs)
             }
