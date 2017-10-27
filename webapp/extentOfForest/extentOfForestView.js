@@ -65,23 +65,26 @@ const ExtentOfForest = (props) => {
       }
     </tr>
 
-  const validationErrorRow = fra =>
-    <tr key="validationError">
+  const validationErrorRow = fra => {
+    const columnErrorMsgs = R.map(fraColumn => {
+      const totalLandArea = sum([fraColumn.forestArea, fraColumn.otherWoodedLand, fraColumn.otherLand])
+      return totalAreaNotEqualToFaoStat(fraColumn, totalLandArea)
+        ? props.i18n.t('extentOfForest.faoStatMismatch')
+        : null
+    },R.values(fra))
+
+    if (R.all(R.isNil, columnErrorMsgs)) return null
+    return <tr key="validationError">
       <td style={{padding: '0'}}></td>
       {
-        mapIndexed((fraColumn, i) => {
-          const totalLandArea = sum([fraColumn.forestArea, fraColumn.otherWoodedLand, fraColumn.otherLand])
+        mapIndexed((errorMsg, i) => {
           return <td className="fra-table__validation-cell" key={i}>
-          {
-            totalAreaNotEqualToFaoStat(fraColumn, totalLandArea)
-              ? <div className="fra-table__validation-error">{props.i18n.t('extentOfForest.faoStatMismatch')}</div>
-              : null
-          }
+            <div className="fra-table__validation-error">{errorMsg}</div>
           </td>
-        },R.values(fra))
+        }, columnErrorMsgs)
       }
     </tr>
-
+  }
 
   const eofRows = [
     {
