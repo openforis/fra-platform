@@ -65,15 +65,15 @@ const validationErrorColumns = props => {
       R.map(R.pluck('message')),
       R.map(R.uniq)
     )(table.createValidationStatus(props.tableSpec, props.tableData))
-  const errorColumns =
-    mapIndexed(
-      (columnErrorMsgs, i) =>
-        <td key={`errorColumn${i}`} className="fra-table__validation-cell">
-          {mapIndexed((errorMsg, j) => <div key={j} className="fra-table__validation-error">{errorMsg}</div>, columnErrorMsgs)}
-        </td>,
-      validationErrorColumnMessages
-    )
-  return errorColumns
+  if (R.all(R.isEmpty, validationErrorColumnMessages)) return null
+  return mapIndexed(
+    (columnErrorMsgs, i) =>
+      <td key={`errorColumn${i}`} className="fra-table__validation-cell">
+        {mapIndexed((errorMsg, j) => <div key={j}
+                                          className="fra-table__validation-error">{errorMsg}</div>, columnErrorMsgs)}
+      </td>,
+    validationErrorColumnMessages
+  )
 }
 
 const validationErrorRow = props => {
