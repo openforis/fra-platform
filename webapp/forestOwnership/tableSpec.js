@@ -1,7 +1,7 @@
 import React from 'react'
 import R from 'ramda'
 import { totalSumFormatted } from '../traditionalTable/aggregate'
-import { ofWhichValidator } from '../traditionalTable/validators'
+import { subCategoryValidator } from '../traditionalTable/validators'
 
 const createInputRow = (rowHeader, cname = 'fra-table__category-cell', validator) => [
   {type: 'readOnly', jsx: <th key="protection" className={`${cname}`}>{rowHeader}</th>},
@@ -16,7 +16,7 @@ const totalForestAreaCell = (column) => (props) =>
     {totalSumFormatted(props.tableData, column, [0,4,5])}
   </td>
 
-const privateOwnershipValidator = ofWhichValidator(0, R.range(1, 4))
+const privateOwnershipValidator = subCategoryValidator(0, R.range(1, 4))
 
 export default i18n => ({
   name: 'forestOwnership',

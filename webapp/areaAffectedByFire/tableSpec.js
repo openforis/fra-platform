@@ -1,6 +1,6 @@
 import React from 'react'
 import R from 'ramda'
-import { ofWhichValidator } from '../traditionalTable/validators'
+import { subCategoryValidator } from '../traditionalTable/validators'
 
 const integerInputColumns = R.times(() => ({type: 'decimalInput'}), 18)
 
@@ -46,7 +46,7 @@ export default i18n => ({
         type: 'readOnly',
         jsx: <th key="" className="fra-table__subcategory-cell">{i18n.t('areaAffectedByFire.ofWhichForest')}</th>
       },
-      ...R.times(() => ({type: 'decimalInput', validator: ofWhichValidator(0, [1])}), 18)
+      ...R.times(() => ({type: 'decimalInput', validator: subCategoryValidator(0, [1])}), 18)
     ]
   ],
   valueSlice: {

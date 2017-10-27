@@ -2,14 +2,14 @@ import React from 'react'
 import R from 'ramda'
 import { formatDecimal } from '../utils/numberFormat'
 import { sub, div, eq, toFixed } from '../../common/bignumberUtils'
-import { ofWhichValidator } from '../traditionalTable/validators'
+import { subCategoryValidator } from '../traditionalTable/validators'
 
 const mapIndexed = R.addIndex(R.map)
 const ofWhichRows = R.range(1, 3)
-const expansionValidator = ofWhichValidator(0, ofWhichRows)
+const expansionValidator = subCategoryValidator(0, ofWhichRows)
+const ofWhichColumns = R.times(() => ({type: 'decimalInput', validator: expansionValidator}), 4)
 
 const integerInputColumns = R.times(() => ({type: 'decimalInput'}), 4)
-const ofWhichColumns = R.times(() => ({type: 'decimalInput', validator: expansionValidator}), 4)
 
 const netChange = (tableData, column) => sub(tableData[0][column], tableData[3][column])
 const netChangeFormatted = (tableData, column) => formatDecimal(netChange(tableData, column))
@@ -46,24 +46,15 @@ const yearIntervals = [
   [4, 2015, 2020]
 ]
 
-const validationErrors = (i18n, extentOfForest) => props => {
-  return R.map(([column, startYear, endYear]) => {
-      const expansionValid = R.pipe(
-        R.map(row => expansionValidator(props.tableData, row, column)),
-        R.all(R.identity))(ofWhichRows)
-      const netChangeResult = netChangeValid(props.tableData, column, extentOfForest, startYear, endYear)
-      return R.reject(
-        R.isNil,
-        [
-          expansionValid ? null : i18n.t('generalValidation.subCategoryExceedsParent'),
-          netChangeResult.valid
-            ? null
-            : i18n.t('forestAreaChange.netChangeDoesNotMatch', {eofNetChange: formatDecimal(netChangeResult.eofNetChange)}),
-        ]
-      )
-    },
-    yearIntervals
-  )
+const netChangeValidator =
+  (i18n, extentOfForest, startYear, endYear) =>  (props, row, column) => {
+    const {valid, eofNetChange} = netChangeValid(props.tableData, column, extentOfForest, startYear, endYear)
+    return {
+      valid,
+      message: valid
+        ? null
+        : i18n.t('forestAreaChange.netChangeDoesNotMatch', {eofNetChange: formatDecimal(eofNetChange)})
+    }
 }
 
 export default (i18n, extentOfForest) => {
@@ -122,13 +113,13 @@ export default (i18n, extentOfForest) => {
         ...mapIndexed(
           ([column, startYear, endYear]) => ({
             type: 'custom',
-            render: netChangeCell(column, extentOfForest, startYear, endYear)
+            render: netChangeCell(column, extentOfForest, startYear, endYear),
+            validator: netChangeValidator(i18n, extentOfForest, startYear, endYear)
           }),
           yearIntervals
         )
       ]
     ],
-    columnValidationErrors: validationErrors(i18n, extentOfForest),
     valueSlice: {
       rowStart: 0,
       rowEnd: -1,

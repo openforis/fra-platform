@@ -3,7 +3,10 @@ import { applyReducerFunction } from '../utils/reduxUtils'
 
 const actionHandlers = {
   [actions.tableValueChangedAction]: (state, action) => {
-    return {...state, [action.tableSpec.name]: action.newTableState}
+    return {
+      ...state,
+      [action.tableSpec.name]: {tableData: action.newTableState}
+    }
   }
 }
 
