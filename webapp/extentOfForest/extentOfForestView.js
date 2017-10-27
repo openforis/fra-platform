@@ -13,6 +13,8 @@ import { CommentableReviewDescription } from '../description/commentableDescript
 import countryConfig from '../../common/countryConfig'
 import { sum, formatNumber, eq } from '../../common/bignumberUtils'
 
+const mapIndexed = R.addIndex(R.map)
+
 const ExtentOfForest = (props) => {
 
   const disableGenerateFRAValues = () => {
@@ -35,35 +37,51 @@ const ExtentOfForest = (props) => {
   const totalAreaValidationClass = (fraColumn, totalArea) =>
     totalAreaNotEqualToFaoStat(fraColumn, totalArea) ? 'validation-error' : ''
 
-  const totalAreaRow = fra => {
-    return <tr key="totalArea">
+  const totalAreaRow = fra =>
+    <tr key="totalArea">
       <th className="fra-table__header-cell">
         {props.i18n.t('extentOfForest.totalLandArea')}
       </th>
       {
-        R.addIndex(R.map)(
-          (fraColumn, i) => {
-            const totalLandArea = sum([fraColumn.forestArea, fraColumn.otherWoodedLand, fraColumn.otherLand])
-            return <td className={`fra-table__calculated-cell ${totalAreaValidationClass(fraColumn, totalLandArea)}`} key={i}>
-              {formatNumber(totalLandArea)}
-            </td>
-          },
-          R.values(fra)
-        )
+        mapIndexed((fraColumn, i) => {
+          const totalLandArea = sum([fraColumn.forestArea, fraColumn.otherWoodedLand, fraColumn.otherLand])
+          return <td className={`fra-table__calculated-cell ${totalAreaValidationClass(fraColumn, totalLandArea)}`} key={i}>
+            {formatNumber(totalLandArea)}
+          </td>
+        }, R.values(fra))
       }
     </tr>
-  }
 
-  const faoStatRow = fra => <tr key="faoStat">
-    <td className="eof-table__faostat-header">{props.i18n.t('extentOfForest.faoStatLandArea')}</td>
-    {
-      R.addIndex(R.map)((value, i) =>
-          <td className="eof-table__faostat-cell" key={i}>
-            {R.path([props.countryIso, 'faoStat', value.name], countryConfig)}
-          </td>,
-        R.values(props.fra))
-    }
-  </tr>
+  const faoStatRow = fra =>
+    <tr key="faoStat">
+      <th className="fra-table__header-cell">{props.i18n.t('extentOfForest.faoStatLandArea')}</th>
+      {
+        mapIndexed((faoStatColumn, i) => {
+          const faoStatLandArea = R.path([props.countryIso, 'faoStat', faoStatColumn.name], countryConfig)
+          return <td className="fra-table__calculated-cell" key={i}>
+            {formatNumber(faoStatLandArea)}
+          </td>
+        }, R.values(fra))
+      }
+    </tr>
+
+  const validationErrorRow = fra =>
+    <tr key="validationError">
+      <td style={{padding: '0'}}></td>
+      {
+        mapIndexed((fraColumn, i) => {
+          const totalLandArea = sum([fraColumn.forestArea, fraColumn.otherWoodedLand, fraColumn.otherLand])
+          return <td className="fra-table__validation-cell" key={i}>
+          {
+            totalAreaNotEqualToFaoStat(fraColumn, totalLandArea)
+              ? <div className="fra-table__validation-error">{props.i18n.t('extentOfForest.faoStatMismatch')}</div>
+              : null
+          }
+          </td>
+        },R.values(fra))
+      }
+    </tr>
+
 
   const eofRows = [
     {
@@ -103,6 +121,9 @@ const ExtentOfForest = (props) => {
     },
     {
       customRenderRow: faoStatRow
+    },
+    {
+      customRenderRow: validationErrorRow
     }
   ]
 
