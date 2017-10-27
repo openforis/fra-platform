@@ -78,7 +78,7 @@ export const translation = {
     }
   },
 
-  footer: {
+  header: {
     logout: 'Выход',
     autoSave: {
       saving: 'Сохранение…'

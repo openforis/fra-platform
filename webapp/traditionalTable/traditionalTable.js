@@ -68,8 +68,8 @@ const validationErrorColumns = props => {
   const errorColumns =
     mapIndexed(
       (columnErrorMsgs, i) =>
-        <td key={`errorColumn${i}`} style={{padding: '12px 10px'}}>
-          {mapIndexed((errorMsg, j) => <div key={j}>{errorMsg}</div>, columnErrorMsgs)}
+        <td key={`errorColumn${i}`} className="fra-table__validation-cell">
+          {mapIndexed((errorMsg, j) => <div key={j} className="fra-table__validation-error">{errorMsg}</div>, columnErrorMsgs)}
         </td>,
       validationErrorColumnMessages
     )

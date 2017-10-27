@@ -20,7 +20,7 @@ const yearFields = (rowIdx, validator) => yearIdx => [
   {
     type: 'custom',
     render: props =>
-      <td className="fra-table__aggregate-cell">{sumOfGenders(props.tableData, rowIdx, yearIdx)}</td>
+      <td className="fra-table__calculated-cell">{sumOfGenders(props.tableData, rowIdx, yearIdx)}</td>
   },
   {type: 'integerInput', validator: validator},
   {type: 'integerInput', validator: validator}
@@ -32,16 +32,16 @@ const inputRow = (rowIdx, rowHeaderCell, validator) => [
 ]
 
 const rowHeading = (i18n, localizationKey) =>
-  ({type: 'readOnly', jsx: <td className="fra-table__header-cell">{i18n.t(localizationKey)}</td>})
+  ({type: 'readOnly', jsx: <th className="fra-table__category-cell">{i18n.t(localizationKey)}</th>})
 
 const rowSubHeading = (i18n, localizationKey) =>
-  ({type: 'readOnly', jsx: <td className="fra-table__header-cell-sub">{i18n.t(localizationKey)}</td>})
+  ({type: 'readOnly', jsx: <th className="fra-table__subcategory-cell">{i18n.t(localizationKey)}</th>})
 
 const yearSubHeadings = i18n =>
   [
     <th key="total" className="fra-table__header-cell-right">Total</th>,
-    <th key="female" className="fra-table__header-cell-sub-right">Female</th>,
-    <th key="male" className="fra-table__header-cell-sub-right">Male</th>
+    <th key="female" className="fra-table__category-cell-right">Female</th>,
+    <th key="male" className="fra-table__category-cell-right">Male</th>
   ]
 
 export default i18n => ({

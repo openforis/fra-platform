@@ -142,7 +142,7 @@ export const translation = {
   },
 
 
-  footer: {
+  header: {
     profilePicture: 'Edit profile picture',
     logout: 'Logout',
     autoSave: {
@@ -184,13 +184,7 @@ export const translation = {
     description: 'Description',
     dataSourcesTitle: 'Data sources, original data & national classification and definitions',
     generalCommentsTitle: 'Comments',
-    dataSources: {
-      label: 'Data sources',
-      sourceOfInformation: 'Reference to source of information',
-      variables: 'Variable(s)',
-      years: 'Year(s)',
-      additionalComments: 'Additional comments'
-    },
+    dataSources: 'Data sources',
     originalData: 'Original data',
     nationalClassificationAndDefinitions: 'National classification and definitions',
   },
@@ -202,7 +196,8 @@ export const translation = {
     nationalData: 'National data',
     reclassificationLabel: 'Reclassification',
     forestCategoriesLabel: 'Forest, other wooded land and other land',
-    year: 'Reference year for the data',
+    referenceYearData: 'Reference year for the data',
+    referenceYear: 'Reference year',
     references: 'References',
     methods: 'Methods',
     methodsUsed: 'Methods used',
@@ -217,14 +212,14 @@ export const translation = {
     nationalClasses: 'National classes',
     definition: 'Definition',
     fraClasses: 'FRA classes',
-    fraClassesOfWhich: 'FRA classes (…of which)',
     class: 'Class',
     area: 'Area (1000 ha)',
     total: 'Total',
     delete: 'Delete',
+    modifiedExplanation: 'National data point with modifications',
     confirmDelete: 'Are you sure you want to delete this data point? This cannot be undone.',
-    cancel: 'Cancel',
-    saveData: 'Save data',
+    discardChanges: 'Discard changes',
+    doneEditing: 'Done editing',
     enterOrCopyPasteNationalClasses: 'Enter or copy and paste national classes',
     forestCharacteristics: 'Forest characteristics',
     otherLandCharacteristics: 'Other land with tree cover',

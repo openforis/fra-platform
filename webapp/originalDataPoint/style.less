@@ -34,10 +34,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
 
-.odp__cancel-button {
-  margin-right: 16px;
+  .btn-destructive {
+    margin-right: auto;
+  }
+
+  .btn-primary {
+    margin-left: 16px;
+  }
 }
 
 .odp__cke_wrapper {
@@ -70,17 +74,15 @@
 }
 
 .odp__sub-table {
-  .fra-table;
+  border-collapse: collapse;
   color: lighten(@text-body, 10%);
+  font-size: @font-s;
   line-height: 16px;
   margin-top: 24px;
+  width: 100%;
 
-  .fra-table__header-cell,
-  .fra-table__header-cell-right,
-  .fra-table__header-cell-middle,
-  .fra-table__header-cell-sub,
-  .fra-table__header-cell-sub-right {
-    background: transparent;
+  th {
+    background: none;
   }
 
   .fra-review__issue-status {
@@ -119,16 +121,13 @@
 
 .odp-list__list-table {
   border-collapse: collapse;
+  color: @text-body;
   line-height: 20px;
   width: 100%;
 }
 
-.odp-list__list-row {
-  transition: @ease-out;
-
-  &:hover {
-    background: lighten(@ui-bg, 2%);
-  }
+.odp-list__link-row {
+  cursor: pointer;
 }
 
 .odp-list__header-cell {
@@ -140,21 +139,57 @@
   white-space: nowrap;
 }
 
-.odp-list__cell {
+.odp-list__year-column {
+  .mixin-odp-list-cell;
+  width: 48px;
+}
+
+.odp-list__editstatus-column {
   border-bottom: @ui-thin-border;
-  font-size: @font-s;
-  padding: 12px;
-  text-align: left;
+}
+
+.odp-list__method-column {
+  .mixin-odp-list-cell(8px 12px);
+  width: 80%;
 }
 
 .odp-list__notification-column {
+  .mixin-odp-list-cell;
+}
+
+.odp-list__edit-column {
+  .mixin-odp-list-cell(0, right);
+
+  .link {
+    padding: 12px;
+  }
+}
+
+.odp-list__empty-column {
+  .mixin-odp-list-cell;
+  color: @text-disabled;
+}
+
+.odp-list__footnotes {
+  .mixin-odp-list-cell;
+  color: @text-disabled;
+  border: none;
+}
+
+.odp-list__dirty-odp {
+  font-size: 18px;
+  margin: 0 2px;
+  vertical-align: sub;
+  line-height: 1;
+}
+
+.odp-list__notification-container {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
 
   .icon,
   .open-issues {
-    margin: 4px;
+    margin: 0 4px;
   }
 
   .open-issues {
@@ -169,17 +204,11 @@
   }
 }
 
-.odp-list__edit-column {
-  padding: 0;
-  text-align: right;
-
-  .link {
-    padding: 12px;
-  }
-}
-
-.odp_list__empty-column {
-  color: @text-disabled;
+.mixin-odp-list-cell(@padding: 12px, @align: left) {
+  border-bottom: @ui-thin-border;
+  font-size: @font-s;
+  padding: @padding;
+  text-align: @align;
 }
 
 // Validation
@@ -191,19 +220,4 @@
 
 .validation-error {
   background-color: fade(@ui-destructive, 10%);
-}
-
-// Table with odp
-
-.table-with-odp {
-  .odp-header-cell {
-    background-color: #e5f4f6;
-    background-color: fade(@ui-accent, 10%);
-  }
-
-  .odp-value-cell {
-    text-align: right;
-    background-color: #f2fafa;
-    background-color: fade(@ui-accent, 5%);
-  }
 }

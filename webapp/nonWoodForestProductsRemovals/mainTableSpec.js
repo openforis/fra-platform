@@ -16,9 +16,9 @@ const lastFillerOrRow = () => ({
 const productRow = idx => [
   {
     type: 'readOnly',
-    jsx: <td key={idx} className="fra-table__header-cell-sub">
+    jsx: <th key={idx} className="fra-table__category-cell">
       #{idx}
-    </td>
+    </th>
   },
   {type: 'textInput', minWidth: 240},
   {type: 'textInput', minWidth: 240},
@@ -66,7 +66,7 @@ const otherProductsRow = (heading) => [
 const totalRow = i18n => {
 
   const renderSum = ({tableData}) =>
-    <td key="" className="fra-table__aggregate-cell">
+    <td key="" className="fra-table__calculated-cell">
       {totalSumFormatted(tableData, 5, R.range(0, 13), formatInteger)}
     </td>
 
@@ -90,13 +90,13 @@ export default i18n => ({
   name: 'nonWoodForestProductsRemovals',
   header: <thead>
   <tr>
-    <td className="fra-table__header-cell"/>
-    <td className="fra-table__header-cell">{i18n.t('nonWoodForestProductsRemovals.nameOfProduct')}</td>
-    <td className="fra-table__header-cell">{i18n.t('nonWoodForestProductsRemovals.keySpecies')}</td>
-    <td className="fra-table__header-cell-right">{i18n.t('nonWoodForestProductsRemovals.quantity')}</td>
-    <td className="fra-table__header-cell">{i18n.t('nonWoodForestProductsRemovals.unit')}</td>
-    <td className="fra-table__header-cell-right">{i18n.t('nonWoodForestProductsRemovals.value')}</td>
-    <td className="fra-table__header-cell">{i18n.t('nonWoodForestProductsRemovals.category')}</td>
+    <th className="fra-table__header-cell"/>
+    <th className="fra-table__header-cell">{i18n.t('nonWoodForestProductsRemovals.nameOfProduct')}</th>
+    <th className="fra-table__header-cell">{i18n.t('nonWoodForestProductsRemovals.keySpecies')}</th>
+    <th className="fra-table__header-cell-right">{i18n.t('nonWoodForestProductsRemovals.quantity')}</th>
+    <th className="fra-table__header-cell">{i18n.t('nonWoodForestProductsRemovals.unit')}</th>
+    <th className="fra-table__header-cell-right">{i18n.t('nonWoodForestProductsRemovals.value')}</th>
+    <th className="fra-table__header-cell">{i18n.t('nonWoodForestProductsRemovals.category')}</th>
   </tr>
   </thead>,
   rows: [

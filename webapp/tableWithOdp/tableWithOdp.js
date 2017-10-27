@@ -1,6 +1,6 @@
 import React from 'react'
 import * as R from 'ramda'
-
+import './style.less'
 import { Link } from '../reusableUiComponents/link'
 import { ThousandSeparatedDecimalInput } from '../reusableUiComponents/thousandSeparatedDecimalInput'
 import ReviewIndicator from '../review/reviewIndicator'
@@ -54,7 +54,7 @@ const buildRows = (rows, props) => {
 
 const OdpHeading = ({countryIso, odpValue}) =>
   <Link className="link" to={`/country/${countryIso}/odp/${odpValue.odpId}`}>
-    {odpValue.draft ? <svg className="icon icon-sub icon-red icon-margin"><use xlinkHref="img/icons.svg#alert"/></svg> : ''}
+    {odpValue.draft ? <svg className="icon icon-sub icon-margin"><use xlinkHref="img/icons.svg#pencil"/></svg> : ''}
     {odpValue.name}
   </Link>
 
@@ -79,7 +79,7 @@ const tableRow = (row, countryIso, fra, save, saveMany, pasteUpdate, rowIdx, ope
   return <tr
     key={field}
     className={`${openThread && R.isEmpty(R.difference(openThread.target, [field])) ? 'fra-row-comments__open' : ''}`}>
-    <td className={className ? className : 'fra-table__header-cell'}>{ localizedName }</td>
+    <th className={className ? className : 'fra-table__category-cell'}>{ localizedName }</th>
     {
       mapIndexed((v, colIdx) =>
         <td className={`fra-table__cell ${v.type === 'odp' ? 'odp-value-cell' : ''}`} key={`${v.type}_${v.name}`}>

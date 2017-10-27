@@ -51,9 +51,9 @@ export default class MultiSelect extends React.Component {
           R.isEmpty(values)
             ? <span className="multi-select__placeholder">{this.props.i18n.t('multiSelect.placeholder')}</span>
             : R.pipe(
-            R.map(option => this.localizeOption(option)),
-            R.join(', ')
-          )(values)
+                R.map(option => this.localizeOption(option)),
+                R.join(', ')
+              )(values)
         }
       </div>
       <div className="multi-select__opened-content-anchor">
