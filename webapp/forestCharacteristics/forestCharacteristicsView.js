@@ -4,7 +4,7 @@ import * as R from 'ramda'
 import { Link } from './../reusableUiComponents/link'
 
 import { fetchItem, save, saveMany, generateFraValues } from '../tableWithOdp/actions'
-import LoggedInPageTemplate from '../loggedInPageTemplate'
+import LoggedInPageTemplate from '../app/loggedInPageTemplate'
 import { TableWithOdp } from '../tableWithOdp/tableWithOdp'
 import ChartWrapper from '../extentOfForest/chart/chartWrapper'
 import { CommentableReviewDescription } from '../description/commentableDescription'

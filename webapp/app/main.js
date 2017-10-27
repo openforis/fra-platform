@@ -1,5 +1,5 @@
-import './app-styles/style.less'
-import './ckEditor/style.less'
+import '../app-styles/style.less'
+import '../ckEditor/style.less'
 
 import React from 'react'
 import ReactDOM from 'react-dom'
@@ -9,7 +9,7 @@ import { createStore, applyMiddleware } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import createDebounce from 'redux-debounced'
 import reducer from './rootReducer'
-import * as loginStatusChecker from './user/loginStatusChecker'
+import * as loginStatusChecker from '../user/loginStatusChecker'
 
 const store = createStore(reducer, applyMiddleware(createDebounce(), thunkMiddleware))
 

@@ -3,7 +3,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
 import Route from 'route-parser'
-import { getCountryName, getCountryAlpha2 } from './../country'
+import { getCountryName, getCountryAlpha2 } from '../app/country'
 import { getRelativeDate } from '../utils/relativeDate'
 
 import { Link } from './../reusableUiComponents/link'

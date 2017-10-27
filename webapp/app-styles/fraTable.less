@@ -131,6 +131,29 @@
   }
 }
 
+// Validation
+
+.fra-table__validation-cell {
+  padding: 0;
+  vertical-align: top;
+  width: 1px;
+
+  div:first-child {
+    margin-top: 10px;
+  }
+
+  div:last-child {
+    margin-bottom: 10px;
+  }
+}
+
+.fra-table__validation-error {
+  color: @ui-destructive;
+  margin: 10px;
+  margin: 4px 10px;
+  font-size: @font-xs;
+}
+
 // Mixins
 
 .mixin-table-cell(@fontWeight, @align, @padding, @cell: false) {

@@ -1,63 +1,139 @@
 import React from 'react'
 import R from 'ramda'
 import { formatDecimal } from '../utils/numberFormat'
-import { sub } from '../../common/bignumberUtils'
+import { sub, div, eq, toFixed } from '../../common/bignumberUtils'
 import { ofWhichValidator } from '../traditionalTable/validators'
 
-const expansionValidator = ofWhichValidator(0, R.range(1, 3))
+const mapIndexed = R.addIndex(R.map)
+const ofWhichRows = R.range(1, 3)
+const expansionValidator = ofWhichValidator(0, ofWhichRows)
 
 const integerInputColumns = R.times(() => ({type: 'decimalInput'}), 4)
 const ofWhichColumns = R.times(() => ({type: 'decimalInput', validator: expansionValidator}), 4)
 
-const netChange = (expansion, deforestation) => formatDecimal(sub(expansion, deforestation))
+const netChange = (tableData, column) => sub(tableData[0][column], tableData[3][column])
+const netChangeFormatted = (tableData, column) => formatDecimal(netChange(tableData, column))
 
-const netChangeCell = (column) => (props) =>
-  <td key="" className="fra-table__calculated-cell">
-    {netChange(props.tableData[0][column], props.tableData[3][column])}
-  </td>
-
-export default i18n => ({
-  name: 'forestAreaChange', // used to uniquely identify table
-  header: <thead>
-  <tr>
-    <th className="fra-table__header-cell" rowSpan="2">{i18n.t('forestAreaChange.categoryHeader')}</th>
-    <th className="fra-table__header-cell-middle" colSpan="4">{i18n.t('forestAreaChange.areaUnitLabel')}</th>
-  </tr>
-  <tr>
-    <th className="fra-table__header-cell-right">1990-2000</th>
-    <th className="fra-table__header-cell-right">2000-2010</th>
-    <th className="fra-table__header-cell-right">2010-2015</th>
-    <th className="fra-table__header-cell-right">2015-2020</th>
-  </tr>
-  </thead>,
-  rows: [
-    [{type: 'readOnly', jsx: <th key="expansion" className="fra-table__category-cell">{i18n.t('forestAreaChange.forestExpansion')}</th>},
-      ...integerInputColumns
-    ],
-    [
-      {type: 'readOnly', jsx: <th key="" className="fra-table__subcategory-cell">{i18n.t('forestAreaChange.ofWhichAfforestation')}</th>},
-      ...ofWhichColumns
-    ],
-    [
-      {type: 'readOnly', jsx: <th key="" className="fra-table__subcategory-cell">{i18n.t('forestAreaChange.ofWhichNaturalExpansion')}</th>},
-      ...ofWhichColumns
-    ],
-    [
-      {type: 'readOnly', jsx: <th key="" className="fra-table__category-cell">{i18n.t('forestAreaChange.deforestation')}</th>},
-      ...integerInputColumns
-    ],
-    [
-      {type: 'readOnly', jsx: <th key="" className="fra-table__header-cell">{i18n.t('forestAreaChange.forestAreaNetChange')}</th>},
-      {type: 'custom', render: netChangeCell(1)},
-      {type: 'custom', render: netChangeCell(2)},
-      {type: 'custom', render: netChangeCell(3)},
-      {type: 'custom', render: netChangeCell(4)}
-    ]
-  ],
-  valueSlice: {
-    rowStart: 0,
-    rowEnd: -1,
-    columnStart: 1,
-    columnEnd: undefined
+const netChangeValid = (tableData, column, extentOfForest, startYear, endYear) => {
+  if (!extentOfForest || R.isEmpty(extentOfForest)) return {valid: true}
+  const groupedByYear = R.groupBy(R.prop('name'), extentOfForest.fra)
+  const startYearEofArea = R.path([startYear, 0, 'forestArea'], groupedByYear)
+  const endYearEofArea = R.path([endYear, 0, 'forestArea'], groupedByYear)
+  const netChangeFromExtentOfForest = toFixed(div(sub(endYearEofArea, startYearEofArea), '10'))
+  const netChangeFromThisTable = toFixed(netChange(tableData, column))
+  if (!netChangeFromExtentOfForest || !netChangeFromThisTable) return {valid: true}
+  return {
+    valid: eq(netChangeFromExtentOfForest, netChangeFromThisTable),
+    eofNetChange: netChangeFromExtentOfForest
   }
-})
+}
+
+const netChangeCell = (column, extentOfForest, startYear, endYear) => (props) => {
+  const {valid} = netChangeValid(props.tableData, column, extentOfForest, startYear, endYear)
+  const validationClass =
+    valid
+      ? ''
+      : 'validation-error'
+  return <td className={`fra-table__calculated-cell ${validationClass}`}>
+    {netChangeFormatted(props.tableData, column)}
+  </td>
+}
+
+const yearIntervals = [
+  [1, 1990, 2000],
+  [2, 2000, 2010],
+  [3, 2010, 2015],
+  [4, 2015, 2020]
+]
+
+const validationErrors = (i18n, extentOfForest) => props => {
+  return R.map(([column, startYear, endYear]) => {
+      const expansionValid = R.pipe(
+        R.map(row => expansionValidator(props.tableData, row, column)),
+        R.all(R.identity))(ofWhichRows)
+      const netChangeResult = netChangeValid(props.tableData, column, extentOfForest, startYear, endYear)
+      return R.reject(
+        R.isNil,
+        [
+          expansionValid ? null : i18n.t('generalValidation.subCategoryExceedsParent'),
+          netChangeResult.valid
+            ? null
+            : i18n.t('forestAreaChange.netChangeDoesNotMatch', {eofNetChange: formatDecimal(netChangeResult.eofNetChange)}),
+        ]
+      )
+    },
+    yearIntervals
+  )
+}
+
+export default (i18n, extentOfForest) => {
+  return {
+    name: 'forestAreaChange', // used to uniquely identify table
+    header: <thead>
+    <tr>
+      <th className="fra-table__header-cell" rowSpan="2">{i18n.t('forestAreaChange.categoryHeader')}</th>
+      <th className="fra-table__header-cell-middle" colSpan="4">{i18n.t('forestAreaChange.areaUnitLabel')}</th>
+    </tr>
+    <tr>
+      {
+        mapIndexed(
+          ([_, startYear, endYear], i) => <td key={i} className="fra-table__header-cell-right">
+            {`${startYear}-${endYear}`}
+          </td>,
+          yearIntervals
+        )
+      }
+    </tr>
+    </thead>,
+    rows: [
+      [
+        {
+          type: 'readOnly',
+          jsx: <th className="fra-table__category-cell">{i18n.t('forestAreaChange.forestExpansion')}</th>
+        },
+        ...integerInputColumns
+      ],
+      [
+        {
+          type: 'readOnly',
+          jsx: <th className="fra-table__subcategory-cell">{i18n.t('forestAreaChange.ofWhichAfforestation')}</th>
+        },
+        ...ofWhichColumns
+      ],
+      [
+        {
+          type: 'readOnly',
+          jsx: <th className="fra-table__subcategory-cell">{i18n.t('forestAreaChange.ofWhichNaturalExpansion')}</th>
+        },
+        ...ofWhichColumns
+      ],
+      [
+        {
+          type: 'readOnly',
+          jsx: <th className="fra-table__category-cell">{i18n.t('forestAreaChange.deforestation')}</th>
+        },
+        ...integerInputColumns
+      ],
+      [
+        {
+          type: 'readOnly',
+          jsx: <th className="fra-table__header-cell">{i18n.t('forestAreaChange.forestAreaNetChange')}</th>
+        },
+        ...mapIndexed(
+          ([column, startYear, endYear]) => ({
+            type: 'custom',
+            render: netChangeCell(column, extentOfForest, startYear, endYear)
+          }),
+          yearIntervals
+        )
+      ]
+    ],
+    columnValidationErrors: validationErrors(i18n, extentOfForest),
+    valueSlice: {
+      rowStart: 0,
+      rowEnd: -1,
+      columnStart: 1,
+      columnEnd: undefined
+    }
+  }
+}
