@@ -3,6 +3,7 @@ import R from 'ramda'
 import { formatDecimal } from '../utils/numberFormat'
 import { totalSum } from '../traditionalTable/aggregate'
 import { eq } from '../../common/bignumberUtils'
+import { getForestAreaForYear } from '../extentOfForest/extentOfForestHelper'
 
 const mapIndexed = R.addIndex(R.map)
 
@@ -14,9 +15,7 @@ const createDmoInputRow = (rowHeader) => [
 const totalForestArea = (tableData, column) => totalSum(tableData, column, R.range(0, 7))
 
 const totalForestAreaValid = (year, extentOfForest) => (props, _, column) => {
-  if (!extentOfForest || R.isEmpty(extentOfForest)) return {valid: true}
-  const groupedByYear = R.groupBy(R.prop('name'), extentOfForest.fra)
-  const eofForestArea = R.path([year, 0, 'forestArea'], groupedByYear)
+  const eofForestArea = getForestAreaForYear(extentOfForest, year)
   const forestArea = totalForestArea(props.tableData, column)
   if (!eofForestArea || !forestArea) return {valid: true}
   const result = eq(eofForestArea, forestArea)
