@@ -2,13 +2,13 @@ import React from 'react'
 import R from 'ramda'
 import { totalSumFormatted } from '../traditionalTable/aggregate'
 
-const createInputRow = (rowHeader, cname = 'fra-table__header-cell') => [
-  {type: 'readOnly', jsx: <td key="protection" className={`${cname}`}>{rowHeader}</td>},
+const createInputRow = (rowHeader, cname = 'fra-table__category-cell') => [
+  {type: 'readOnly', jsx: <th key="protection" className={`${cname}`}>{rowHeader}</th>},
   ...(R.times(() => ({type: 'decimalInput'}), 4))
 ]
 
 const totalOwnershipCell = (column) => (props) =>
-  <td key="" className="fra-table__aggregate-cell">
+  <td key="" className="fra-table__calculated-cell">
     {totalSumFormatted(props.tableData, column, R.range(0, 5))}
   </td>
 
@@ -21,10 +21,10 @@ export default i18n => ({
     <th className="fra-table__header-cell-middle" colSpan="4">{i18n.t('holderOfManagementRights.areaUnitLabel')}</th>
   </tr>
   <tr>
-    <td className="fra-table__header-cell-right">1990</td>
-    <td className="fra-table__header-cell-right">2000</td>
-    <td className="fra-table__header-cell-right">2010</td>
-    <td className="fra-table__header-cell-right">2015</td>
+    <th className="fra-table__header-cell-right">1990</th>
+    <th className="fra-table__header-cell-right">2000</th>
+    <th className="fra-table__header-cell-right">2010</th>
+    <th className="fra-table__header-cell-right">2015</th>
   </tr>
   </thead>,
   rows: [
@@ -35,8 +35,7 @@ export default i18n => ({
     createInputRow(i18n.t('holderOfManagementRights.other')),
     [{
       type: 'readOnly',
-      jsx: <td key=""
-               className="fra-table__header-cell">{i18n.t('holderOfManagementRights.totalPublicOwnership')}</td>
+      jsx: <th key="total_public_ownership" className="fra-table__header-cell">{i18n.t('holderOfManagementRights.totalPublicOwnership')}</th>
     },
       {type: 'custom', render: totalOwnershipCell(1)},
       {type: 'custom', render: totalOwnershipCell(2)},

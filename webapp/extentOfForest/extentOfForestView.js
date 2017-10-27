@@ -37,14 +37,14 @@ const ExtentOfForest = (props) => {
 
   const totalAreaRow = fra => {
     return <tr key="totalArea">
-      <td className="fra-table__header-cell">
+      <th className="fra-table__header-cell">
         {props.i18n.t('extentOfForest.totalLandArea')}
-      </td>
+      </th>
       {
         R.addIndex(R.map)(
           (fraColumn, i) => {
             const totalLandArea = sum([fraColumn.forestArea, fraColumn.otherWoodedLand, fraColumn.otherLand])
-            return <td className={`fra-table__aggregate-cell ${totalAreaValidationClass(fraColumn, totalLandArea)}`} key={i}>
+            return <td className={`fra-table__calculated-cell ${totalAreaValidationClass(fraColumn, totalLandArea)}`} key={i}>
               {formatNumber(totalLandArea)}
             </td>
           },
@@ -80,22 +80,22 @@ const ExtentOfForest = (props) => {
     },
     {
       field: 'otherLandPalms',
-      className: 'fra-table__header-cell-sub',
+      className: 'fra-table__subcategory-cell',
       localizedName: i18n.t('extentOfForest.ofWhichPalms')
     },
     {
       field: 'otherLandTreeOrchards',
-      className: 'fra-table__header-cell-sub',
+      className: 'fra-table__subcategory-cell',
       localizedName: i18n.t('extentOfForest.ofWhichTreeOrchards')
     },
     {
       field: 'otherLandAgroforestry',
-      className: 'fra-table__header-cell-sub',
+      className: 'fra-table__subcategory-cell',
       localizedName: i18n.t('extentOfForest.ofWhichAgroforestry')
     },
     {
       field: 'otherLandTreesUrbanSettings',
-      className: 'fra-table__header-cell-sub',
+      className: 'fra-table__subcategory-cell',
       localizedName: i18n.t('extentOfForest.ofWhichTreesUrbanSettings')
     },
     {

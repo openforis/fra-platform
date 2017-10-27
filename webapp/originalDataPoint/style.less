@@ -74,17 +74,15 @@
 }
 
 .odp__sub-table {
-  .fra-table;
+  border-collapse: collapse;
   color: lighten(@text-body, 10%);
+  font-size: @font-s;
   line-height: 16px;
   margin-top: 24px;
+  width: 100%;
 
-  .fra-table__header-cell,
-  .fra-table__header-cell-right,
-  .fra-table__header-cell-middle,
-  .fra-table__header-cell-sub,
-  .fra-table__header-cell-sub-right {
-    background: transparent;
+  th {
+    background: none;
   }
 
   .fra-review__issue-status {
@@ -222,19 +220,4 @@
 
 .validation-error {
   background-color: fade(@ui-destructive, 10%);
-}
-
-// Table with odp
-
-.table-with-odp {
-  .odp-header-cell {
-    background-color: #e5f4f6;
-    background-color: fade(@ui-accent, 10%);
-  }
-
-  .odp-value-cell {
-    text-align: right;
-    background-color: #f2fafa;
-    background-color: fade(@ui-accent, 5%);
-  }
 }

@@ -3,8 +3,8 @@ import R from 'ramda'
 import { totalSumFormatted } from '../traditionalTable/aggregate'
 import { ofWhichValidator } from '../traditionalTable/validators'
 
-const createInputRow = (rowHeader, cname = 'fra-table__header-cell', validator) => [
-  {type: 'readOnly', jsx: <td key="protection" className={`${cname}`}>{rowHeader}</td>},
+const createInputRow = (rowHeader, cname = 'fra-table__category-cell', validator) => [
+  {type: 'readOnly', jsx: <th key="protection" className={`${cname}`}>{rowHeader}</th>},
   ...(R.times(() => ({
     type: 'decimalInput',
     validator: validator
@@ -12,7 +12,7 @@ const createInputRow = (rowHeader, cname = 'fra-table__header-cell', validator) 
 ]
 
 const totalForestAreaCell = (column) => (props) =>
-  <td key="" className="fra-table__aggregate-cell">
+  <td key="" className="fra-table__calculated-cell">
     {totalSumFormatted(props.tableData, column, [0,4,5])}
   </td>
 
@@ -26,23 +26,22 @@ export default i18n => ({
     <th className="fra-table__header-cell-middle" colSpan="5">{i18n.t('forestOwnership.areaUnitLabel')}</th>
   </tr>
   <tr>
-    <td className="fra-table__header-cell-right">1990</td>
-    <td className="fra-table__header-cell-right">2000</td>
-    <td className="fra-table__header-cell-right">2010</td>
-    <td className="fra-table__header-cell-right">2015</td>
-    <td className="fra-table__header-cell-right">2020</td>
+    <th className="fra-table__header-cell-right">1990</th>
+    <th className="fra-table__header-cell-right">2000</th>
+    <th className="fra-table__header-cell-right">2010</th>
+    <th className="fra-table__header-cell-right">2015</th>
+    <th className="fra-table__header-cell-right">2020</th>
   </tr>
   </thead>,
   rows: [
     createInputRow(i18n.t('forestOwnership.privateOwnership')),
-    createInputRow(i18n.t('forestOwnership.ofWhichIndividuals'), 'fra-table__header-cell-sub', privateOwnershipValidator),
-    createInputRow(i18n.t('forestOwnership.ofWhichPrivateBusinesses'), 'fra-table__header-cell-sub', privateOwnershipValidator),
-    createInputRow(i18n.t('forestOwnership.ofWhichCommunities'), 'fra-table__header-cell-sub', privateOwnershipValidator),
+    createInputRow(i18n.t('forestOwnership.ofWhichIndividuals'), 'fra-table__subcategory-cell', privateOwnershipValidator),
+    createInputRow(i18n.t('forestOwnership.ofWhichPrivateBusinesses'), 'fra-table__subcategory-cell', privateOwnershipValidator),
+    createInputRow(i18n.t('forestOwnership.ofWhichCommunities'), 'fra-table__subcategory-cell', privateOwnershipValidator),
     createInputRow(i18n.t('forestOwnership.publicOwnership')),
     createInputRow(i18n.t('forestOwnership.otherOrUnknown')),
     [{type: 'readOnly',
-      jsx: <td key=""
-               className="fra-table__header-cell">{i18n.t('forestOwnership.totalForestArea')}</td>
+      jsx: <th key="total_forest_area" className="fra-table__header-cell">{i18n.t('forestOwnership.totalForestArea')}</th>
     },
       {type: 'custom', render: totalForestAreaCell(1)},
       {type: 'custom', render: totalForestAreaCell(2)},

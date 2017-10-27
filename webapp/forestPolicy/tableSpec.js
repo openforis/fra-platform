@@ -16,9 +16,9 @@ export default i18n => ({
     [
       {
         type: 'readOnly',
-        jsx: <td className="fra-table__header-cell">
+        jsx: <th className="fra-table__category-cell">
           {i18n.t('forestPolicy.policiesSFM')}
-        </td>
+        </th>
       },
       {type: 'yesNoSelect'},
       {type: 'yesNoSelect'}
@@ -26,9 +26,9 @@ export default i18n => ({
     [
       {
         type: 'readOnly',
-        jsx: <td className="fra-table__header-cell">
+        jsx: <th className="fra-table__category-cell">
           {i18n.t('forestPolicy.legislationsSFM')}
-        </td>
+        </th>
       },
       {type: 'yesNoSelect'},
       {type: 'yesNoSelect'}
@@ -36,9 +36,9 @@ export default i18n => ({
     [
       {
         type: 'readOnly',
-        jsx: <td className="fra-table__header-cell">
+        jsx: <th className="fra-table__category-cell">
           {i18n.t('forestPolicy.stakeholderParticipation')}
-        </td>
+        </th>
       },
       {type: 'yesNoSelect'},
       {type: 'yesNoSelect'}
@@ -46,9 +46,9 @@ export default i18n => ({
     [
       {
         type: 'readOnly',
-        jsx: <td className="fra-table__header-cell">
+        jsx: <th className="fra-table__category-cell">
           {i18n.t('forestPolicy.existenceOfTraceabilitySystem')}
-        </td>
+        </th>
       },
       {type: 'yesNoSelect'},
       {type: 'yesNoSelect'}
