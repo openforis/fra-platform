@@ -6,15 +6,6 @@ import R from 'ramda'
 import BigNumber from 'bignumber.js'
 import { totalSum } from '../traditionalTable/aggregate'
 
-export const ofWhichValidator =
-  (totalRowIndex, rowIndexes) => (tableData, currentFieldRowIdx, currentFieldColumnIdx) => {
-    const totalVAlue = tableData[totalRowIndex][currentFieldColumnIdx]
-    const sumOfParts = totalSum(tableData, currentFieldColumnIdx, rowIndexes)
-    const value = tableData[currentFieldRowIdx][currentFieldColumnIdx]
-    if (R.isNil(value) || R.isNil(sumOfParts) || R.isNil(totalVAlue)) return true
-    return BigNumber(totalVAlue).greaterThanOrEqualTo(BigNumber(sumOfParts))
-  }
-
 export const subCategoryValidator =
   (totalRowIndex, rowIndexes) => (props, currentFieldRowIdx, currentFieldColumnIdx) => {
   const totalVAlue = props.tableData[totalRowIndex][currentFieldColumnIdx]
