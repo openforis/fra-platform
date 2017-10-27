@@ -7,9 +7,9 @@ export default i18n => ({
     [
       {
         type: 'readOnly',
-        jsx: <td className="fra-table__header-cell" colSpan="2">
+        jsx: <th className="fra-table__header-cell" colSpan="2">
           {i18n.t('degradedForest.doesYourCountryMonitor')}
-        </td>
+        </th>
       },
       {type: 'yesNoSelect'},
       {
@@ -18,12 +18,12 @@ export default i18n => ({
       }
     ],
     [
-      {type: 'readOnly', jsx: <td className="fra-table__header-cell" rowSpan="2">{i18n.t('degradedForest.ifYes')}</td>},
-      {type: 'readOnly', jsx: <td className="fra-table__header-cell">{i18n.t('degradedForest.whatIsDefinition')}</td>},
+      {type: 'readOnly', jsx: <th className="fra-table__category-cell" rowSpan="2">{i18n.t('degradedForest.ifYes')}</th>},
+      {type: 'readOnly', jsx: <th className="fra-table__category-cell">{i18n.t('degradedForest.whatIsDefinition')}</th>},
       {type: 'verticallyGrowingTextInput', minWidth: 350},
     ],
     [
-      {type: 'readOnly', jsx: <td className="fra-table__header-cell">{i18n.t('degradedForest.howMonitored')}</td>},
+      {type: 'readOnly', jsx: <th className="fra-table__category-cell">{i18n.t('degradedForest.howMonitored')}</th>},
       {type: 'verticallyGrowingTextInput', minWidth: 350},
     ]
   ],

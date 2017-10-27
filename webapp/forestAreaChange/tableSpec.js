@@ -34,7 +34,7 @@ const netChangeCell = (column, extentOfForest, startYear, endYear) => (props) =>
     valid
       ? ''
       : 'validation-error'
-  return <td key="" className={`fra-table__aggregate-cell ${validationClass}`}>
+  return <td className={`fra-table__calculated-cell ${validationClass}`}>
     {netChangeFormatted(props.tableData, column)}
   </td>
 }
@@ -89,36 +89,35 @@ export default (i18n, extentOfForest) => {
       [
         {
           type: 'readOnly',
-          jsx: <td key="expansion" className="fra-table__header-cell">{i18n.t('forestAreaChange.forestExpansion')}</td>
+          jsx: <th className="fra-table__category-cell">{i18n.t('forestAreaChange.forestExpansion')}</th>
         },
         ...integerInputColumns
       ],
       [
         {
           type: 'readOnly',
-          jsx: <td key="" className="fra-table__header-cell-sub">{i18n.t('forestAreaChange.ofWhichAfforestation')}</td>
+          jsx: <th className="fra-table__subcategory-cell">{i18n.t('forestAreaChange.ofWhichAfforestation')}</th>
         },
         ...ofWhichColumns
       ],
       [
         {
           type: 'readOnly',
-          jsx: <td key=""
-                   className="fra-table__header-cell-sub">{i18n.t('forestAreaChange.ofWhichNaturalExpansion')}</td>
+          jsx: <th className="fra-table__subcategory-cell">{i18n.t('forestAreaChange.ofWhichNaturalExpansion')}</th>
         },
         ...ofWhichColumns
       ],
       [
         {
           type: 'readOnly',
-          jsx: <td key="" className="fra-table__header-cell">{i18n.t('forestAreaChange.deforestation')}</td>
+          jsx: <th className="fra-table__category-cell">{i18n.t('forestAreaChange.deforestation')}</th>
         },
         ...integerInputColumns
       ],
       [
         {
           type: 'readOnly',
-          jsx: <td key="" className="fra-table__header-cell">{i18n.t('forestAreaChange.forestAreaNetChange')}</td>
+          jsx: <th className="fra-table__header-cell">{i18n.t('forestAreaChange.forestAreaNetChange')}</th>
         },
         ...mapIndexed(
           ([column, startYear, endYear]) => ({
