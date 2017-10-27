@@ -21,24 +21,6 @@ const getSliceLenses = (tableSpec) => {
   ]
 }
 
-export const createValidationStatus = (tableSpec, tableData) => {
-  const handleRow = (row, rowIdx) =>
-    mapIndexed(
-      (value, colIdx) => {
-        const cellSpec = tableSpec.rows[rowIdx][colIdx]
-        assert(cellSpec, `No cellspec for ${rowIdx} ${colIdx}`)
-        return cellSpec.validator
-          ? cellSpec.validator(tableData, rowIdx, colIdx)
-          : null
-      },
-      row
-    )
-  return mapIndexed(
-    handleRow,
-    tableData
-  )
-}
-
 export const updateCellValue = (tableSpec, tableValues, rowIdx, colIdx, newValue) => {
   const currentValue = tableValues[rowIdx][colIdx]
   const cellType = cellTypes.getCellType(tableSpec, rowIdx, colIdx)

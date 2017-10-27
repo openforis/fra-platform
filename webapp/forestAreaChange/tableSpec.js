@@ -6,6 +6,8 @@ import { subCategoryValidator } from '../traditionalTable/validators'
 
 const mapIndexed = R.addIndex(R.map)
 const ofWhichRows = R.range(1, 3)
+const expansionValidator = subCategoryValidator(0, ofWhichRows)
+const ofWhichColumns = R.times(() => ({type: 'decimalInput', validator: expansionValidator}), 4)
 
 const integerInputColumns = R.times(() => ({type: 'decimalInput'}), 4)
 
@@ -45,8 +47,8 @@ const yearIntervals = [
 ]
 
 const netChangeValidator =
-  (i18n, extentOfForest, startYear, endYear) =>  (tableData, row, column) => {
-    const {valid, eofNetChange} = netChangeValid(tableData, column, extentOfForest, startYear, endYear)
+  (i18n, extentOfForest, startYear, endYear) =>  (props, row, column) => {
+    const {valid, eofNetChange} = netChangeValid(props.tableData, column, extentOfForest, startYear, endYear)
     return {
       valid,
       message: valid
@@ -56,9 +58,6 @@ const netChangeValidator =
 }
 
 export default (i18n, extentOfForest) => {
-  const expansionValidator = subCategoryValidator(i18n, 0, ofWhichRows)
-  const ofWhichColumns = R.times(() => ({type: 'decimalInput', validator: expansionValidator}), 4)
-
   return {
     name: 'forestAreaChange', // used to uniquely identify table
     header: <thead>
