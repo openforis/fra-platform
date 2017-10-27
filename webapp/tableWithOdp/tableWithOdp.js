@@ -1,6 +1,6 @@
 import React from 'react'
 import * as R from 'ramda'
-
+import './style.less'
 import { Link } from '../reusableUiComponents/link'
 import { ThousandSeparatedDecimalInput } from '../reusableUiComponents/thousandSeparatedDecimalInput'
 import ReviewIndicator from '../review/reviewIndicator'
@@ -79,7 +79,7 @@ const tableRow = (row, countryIso, fra, save, saveMany, pasteUpdate, rowIdx, ope
   return <tr
     key={field}
     className={`${openThread && R.isEmpty(R.difference(openThread.target, [field])) ? 'fra-row-comments__open' : ''}`}>
-    <td className={className ? className : 'fra-table__header-cell'}>{ localizedName }</td>
+    <th className={className ? className : 'fra-table__category-cell'}>{ localizedName }</th>
     {
       mapIndexed((v, colIdx) =>
         <td className={`fra-table__cell ${v.type === 'odp' ? 'odp-value-cell' : ''}`} key={`${v.type}_${v.name}`}>
@@ -121,7 +121,7 @@ const updatePastedValues = (rowNames, evt, rowIdx, colIdx, fra) => {
       if (R.isNil(readFrom[col])) return
       toPaste = R.mergeDeepRight({[readFrom[col].year]: {[rowNames[row]]: c}}, toPaste)
     }, r)
-  }, readPasteClipboard(evt))
+  }, readPasteClipboard(evt, 'decimal'))
 
   const pasted = R.pipe(
     R.map(fra => {
@@ -130,7 +130,7 @@ const updatePastedValues = (rowNames, evt, rowIdx, colIdx, fra) => {
       const acceptedValues = R.pipe(
         R.keys,
         R.map(k => {
-          return {[k]: acceptNextInteger(String(toPaste[fra.year][k]), fra[k])}
+          return {[k]: acceptNextDecimal(String(toPaste[fra.year][k]), fra[k])}
         }),
         R.reduce(R.merge, {})
       )(R.defaultTo({}, toPaste[fra.year]))

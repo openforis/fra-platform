@@ -297,7 +297,8 @@ The FRA team
     ofWhichAgroforestry: '…of which agroforestry',
     ofWhichTreesUrbanSettings: '…of which trees in urban settings',
     totalLandArea: 'Total land area',
-    faoStatLandArea: 'FAOSTAT land area'
+    faoStatLandArea: 'FAOSTAT land area',
+    faoStatMismatch: "Total land area doesn't match FAOSTAT"
   },
 
   forestCharacteristics: {
@@ -318,7 +319,8 @@ The FRA team
     ofWhichAfforestation: '…of which afforestation',
     ofWhichNaturalExpansion: '…of which natural expansion',
     deforestation: 'Deforestation',
-    forestAreaNetChange: 'Forest area net change'
+    forestAreaNetChange: 'Forest area net change',
+    netChangeDoesNotMatch: "Net change doesn't match table 1a: {{eofNetChange}}"
   },
 
   annualReforestation: {
@@ -543,5 +545,11 @@ The FRA team
 
   multiSelect: {
     placeholder: 'Choose…'
+  },
+
+  generalValidation: {
+    subCategoryExceedsParent: 'Subcategory exceeds parent'
   }
+
+
 }

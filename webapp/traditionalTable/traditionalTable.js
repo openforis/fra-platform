@@ -56,10 +56,59 @@ const tableRows = (props) => {
     props.tableSpec.rows)
 }
 
-const TableBody = (props) =>
+const createValidationStatus = (props) => {
+  const handleRow = (row, rowIdx) =>
+    mapIndexed(
+      (value, colIdx) => {
+        const cellSpec = props.tableSpec.rows[rowIdx][colIdx]
+        assert(cellSpec, `No cellspec for ${rowIdx} ${colIdx}`)
+        return cellSpec.validator
+          ? cellSpec.validator(props, rowIdx, colIdx)
+          : null
+      },
+      row
+    )
+  return mapIndexed(
+    handleRow,
+    props.tableData
+  )
+}
+
+const validationErrorColumns = props => {
+  const validationErrorColumnMessages =
+    R.pipe(
+      R.transpose,
+      R.map(R.reject(R.isNil)),
+      R.map(R.reject(v => v.valid)),
+      R.map(R.pluck('message')),
+      R.map(R.uniq)
+    )(createValidationStatus(props))
+  if (R.all(R.isEmpty, validationErrorColumnMessages)) return null
+  return mapIndexed(
+    (columnErrorMsgs, i) =>
+      <td key={`errorColumn${i}`} className="fra-table__validation-cell">
+        {mapIndexed((errorMsg, j) =>
+          <div key={j} className="fra-table__validation-error">{errorMsg}</div>
+        , columnErrorMsgs)}
+      </td>,
+    validationErrorColumnMessages
+  )
+}
+
+const validationErrorRow = props => {
+  const columns = validationErrorColumns(props)
+  if (!columns) return null
+  return <tr>
+    {columns}
+  </tr>
+}
+
+const TableBody = props =>
   <tbody>
   {tableRows(props)}
+  {validationErrorRow(props)}
   </tbody>
+
 
 class FraTable extends UpdateOnResizeReactComponent {
 
@@ -83,7 +132,7 @@ const mapStateToProps = (state, props) => {
   assert(props.tableSpec.name, 'tableSpec is missing name')
   return {
     ...props,
-    tableData: state.traditionalTable[props.tableSpec.name] || table.createTableData(props.tableSpec),
+    tableData: R.path(['traditionalTable', props.tableSpec.name, 'tableData'], state)|| table.createTableData(props.tableSpec),
     openCommentThreadTarget: state.review.openThread ? state.review.openThread.target : null,
     i18n: state.user.i18n
   }

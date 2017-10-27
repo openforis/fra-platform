@@ -1,6 +1,6 @@
 import React from 'react'
 import R from 'ramda'
-import { ofWhichValidator } from '../traditionalTable/validators'
+import { subCategoryValidator } from '../traditionalTable/validators'
 
 const inputColumns = R.times(() => ({type: 'decimalInput'}), 9)
 
@@ -26,25 +26,25 @@ export default i18n => ({
   rows: [
     [{
       type: 'readOnly',
-      jsx: <td key="expansion" className="fra-table__header-cell">
+      jsx: <th key="expansion" className="fra-table__category-cell">
         {i18n.t('forestAreaWithinProtectedAreas.header')}
-      </td>
+      </th>
     },
       ...inputColumns
     ],
     [
       {
         type: 'readOnly',
-        jsx: <td key="" className="fra-table__header-cell">{i18n.t('forestAreaWithinProtectedAreas.forestAreaWithLongTermManagementPlan')}</td>
+        jsx: <th key="" className="fra-table__category-cell">{i18n.t('forestAreaWithinProtectedAreas.forestAreaWithLongTermManagementPlan')}</th>
       },
       ...inputColumns
     ],
     [
       {
         type: 'readOnly',
-        jsx: <td key="" className="fra-table__header-cell-sub">{i18n.t('forestAreaWithinProtectedAreas.ofWhichInProtectedAreas')}</td>
+        jsx: <th key="" className="fra-table__subcategory-cell">{i18n.t('forestAreaWithinProtectedAreas.ofWhichInProtectedAreas')}</th>
       },
-      ...R.times(() => ({type: 'decimalInput', validator: ofWhichValidator(1, [2])}), 9)
+      ...R.times(() => ({type: 'decimalInput', validator: subCategoryValidator(1, [2])}), 9)
     ]
   ],
   valueSlice: {

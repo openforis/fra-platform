@@ -8,18 +8,18 @@ export default i18n => ({
     <th className="fra-table__header-cell-middle" colSpan="5">{i18n.t('specificForestCategories.areaUnitLabel')}</th>
   </tr>
   <tr>
-    <td className="fra-table__header-cell-right">1990</td>
-    <td className="fra-table__header-cell-right">2000</td>
-    <td className="fra-table__header-cell-right">2010</td>
-    <td className="fra-table__header-cell-right">2015</td>
-    <td className="fra-table__header-cell-right">2020</td>
+    <th className="fra-table__header-cell-right">1990</th>
+    <th className="fra-table__header-cell-right">2000</th>
+    <th className="fra-table__header-cell-right">2010</th>
+    <th className="fra-table__header-cell-right">2015</th>
+    <th className="fra-table__header-cell-right">2020</th>
   </tr>
   </thead>,
   rows: [
     [
       {
         type: 'readOnly',
-        jsx: <td key="bamboo" className="fra-table__header-cell">{i18n.t('specificForestCategories.bamboo')}</td>
+        jsx: <th key="bamboo" className="fra-table__category-cell">{i18n.t('specificForestCategories.bamboo')}</th>
       },
       {type: 'decimalInput'},
       {type: 'decimalInput'},
@@ -30,7 +30,7 @@ export default i18n => ({
     [
       {
         type: 'readOnly',
-        jsx: <td key="mangroves" className="fra-table__header-cell">{i18n.t('specificForestCategories.mangroves')}</td>
+        jsx: <th key="mangroves" className="fra-table__category-cell">{i18n.t('specificForestCategories.mangroves')}</th>
       },
       {type: 'decimalInput'},
       {type: 'decimalInput'},
@@ -41,8 +41,7 @@ export default i18n => ({
     [
       {
         type: 'readOnly',
-        jsx: <td key="temporarilyUnstocked"
-                className="fra-table__header-cell">{i18n.t('specificForestCategories.temporarilyUnstocked')}</td>
+        jsx: <th key="temporarilyUnstocked" className="fra-table__category-cell">{i18n.t('specificForestCategories.temporarilyUnstocked')}</th>
       },
       {type: 'decimalInput'},
       {type: 'decimalInput'},
@@ -53,8 +52,7 @@ export default i18n => ({
     [
       {
         type: 'readOnly',
-        jsx: <td key="primaryForest"
-                className="fra-table__header-cell">{i18n.t('specificForestCategories.primaryForest')}</td>
+        jsx: <th key="primaryForest" className="fra-table__category-cell">{i18n.t('specificForestCategories.primaryForest')}</th>
       },
       {type: 'decimalInput'},
       {type: 'decimalInput'},

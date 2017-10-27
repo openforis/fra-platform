@@ -1,7 +1,7 @@
 import './style.less'
 import R from 'ramda'
 import React from 'react'
-import LoggedInPageTemplate from '../loggedInPageTemplate'
+import LoggedInPageTemplate from '../app/loggedInPageTemplate'
 import { connect } from 'react-redux'
 import { getCountryName } from '../../common/country'
 import { getRelativeDate } from '../utils/relativeDate'

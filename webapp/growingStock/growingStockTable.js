@@ -63,8 +63,16 @@ const Row = (props) => {
   const {openCommentThread, i18n, row, cols, type} = props
 
   return <tr
-    className={`${openCommentThread && R.equals(openCommentThread.target, [row.field, type]) ? 'fra-row-comments__open' : ''}`}>
-    <td className={`fra-table__header-cell${row.subCategory?'-sub':''}`}>{i18n.t(row.labelKey)}</td>
+    className={openCommentThread && R.equals(openCommentThread.target, [row.field, type]) ? 'fra-row-comments__open' : ''}>
+    <th className={
+      row.subCategory
+      ? 'fra-table__subcategory-cell'
+      : row.calculated
+        ? 'fra-table__header-cell'
+        : 'fra-table__category-cell'
+    }>
+      {i18n.t(row.labelKey) }
+    </th>
     {
       cols.map((col, i) =>
         <Cell
@@ -99,7 +107,7 @@ const Cell = (props) => {
   )(values)
 
   return calculated
-    ? <td className="fra-table__aggregate-cell">{formatDecimal(value)}</td>
+    ? <td className="fra-table__calculated-cell">{formatDecimal(value)}</td>
     : <td className="fra-table__cell">
         <ThousandSeparatedDecimalInput
           numberValue={value}

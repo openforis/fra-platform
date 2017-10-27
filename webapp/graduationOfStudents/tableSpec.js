@@ -1,6 +1,6 @@
 import React from 'react'
 import R from 'ramda'
-import { ofWhichValidator } from '../traditionalTable/validators'
+import { subCategoryValidator } from '../traditionalTable/validators'
 
 const yearRange = R.range(2000, 2018)
 
@@ -10,10 +10,10 @@ const inputRow = (rowHeaderCell, validator) => [
 ]
 
 const heading = (i18n, localizationKey) =>
-  ({type: 'readOnly', jsx: <td className="fra-table__header-cell">{i18n.t(localizationKey)}</td>})
+  ({type: 'readOnly', jsx: <th className="fra-table__category-cell">{i18n.t(localizationKey)}</th>})
 
 const subHeading = (i18n, localizationKey) =>
-  ({type: 'readOnly', jsx: <td className="fra-table__header-cell-sub">{i18n.t(localizationKey)}</td>})
+  ({type: 'readOnly', jsx: <th className="fra-table__subcategory-cell">{i18n.t(localizationKey)}</th>})
 
 export default i18n => ({
   name: 'graduationOfStudents',
@@ -30,13 +30,13 @@ export default i18n => ({
   </thead>,
   rows: [
     inputRow(heading(i18n, 'graduationOfStudents.doctoralDegree')),
-    inputRow(subHeading(i18n, 'graduationOfStudents.ofWhichFemale'), ofWhichValidator(0, [1])),
+    inputRow(subHeading(i18n, 'graduationOfStudents.ofWhichFemale'), subCategoryValidator(0, [1])),
     inputRow(heading(i18n, 'graduationOfStudents.mastersDegree')),
-    inputRow(subHeading(i18n, 'graduationOfStudents.ofWhichFemale'), ofWhichValidator(2, [3])),
+    inputRow(subHeading(i18n, 'graduationOfStudents.ofWhichFemale'), subCategoryValidator(2, [3])),
     inputRow(heading(i18n, 'graduationOfStudents.bachelorsDegree')),
-    inputRow(subHeading(i18n, 'graduationOfStudents.ofWhichFemale'), ofWhichValidator(4, [5])),
+    inputRow(subHeading(i18n, 'graduationOfStudents.ofWhichFemale'), subCategoryValidator(4, [5])),
     inputRow(heading(i18n, 'graduationOfStudents.technicianCertificate')),
-    inputRow(subHeading(i18n, 'graduationOfStudents.ofWhichFemale'), ofWhichValidator(6, [7])),
+    inputRow(subHeading(i18n, 'graduationOfStudents.ofWhichFemale'), subCategoryValidator(6, [7])),
   ],
   valueSlice: {
     columnStart: 1

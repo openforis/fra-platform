@@ -4,18 +4,19 @@ import { ThousandSeparatedDecimalInput } from '../reusableUiComponents/thousandS
 import { acceptNextDecimal, acceptableAsDecimal } from '../utils/numberInput'
 import { handlePaste } from './paste'
 
-const DecimalCellType = ({
-                           countryIso,
-                           tableSpec,
-                           tableData,
-                           rowIdx,
-                           colIdx,
-                           tableValueChanged,
-                           tableChanged,
-                           validator
-                         }) => {
+const DecimalCellType = props => {
+  const {
+    countryIso,
+    tableSpec,
+    tableData,
+    rowIdx,
+    colIdx,
+    tableValueChanged,
+    tableChanged,
+    validator
+  } = props
   const currentValue = tableData[rowIdx][colIdx]
-  const valid = validator ? validator(tableData, rowIdx, colIdx) : true
+  const valid = validator ? validator(props, rowIdx, colIdx).valid : true
   return <td className={`fra-table__cell ${valid ? '' : 'error'}`}>
     <ThousandSeparatedDecimalInput numberValue={ currentValue }
                                    onChange={

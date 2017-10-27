@@ -1,4 +1,5 @@
 import * as table from './table'
+import R from 'ramda'
 import assert from 'assert'
 import axios from 'axios'
 import * as autosave from '../autosave/actions'
@@ -9,7 +10,7 @@ export const tableValueChangedAction = 'traditionalTable/tableValueChanged'
 const createNewTableState = (tableSpec, rowIdx, colIdx, newValue, getState) => {
   const traditionalTableState = getState().traditionalTable
   assert(tableSpec.name, 'tableSpec is missing name')
-  const tableValues = traditionalTableState[tableSpec.name] || table.createTableData(tableSpec)
+  const tableValues = R.path([tableSpec.name, 'tableData'], traditionalTableState) || table.createTableData(tableSpec)
   return table.updateCellValue(tableSpec, tableValues, rowIdx, colIdx, newValue)
 }
 

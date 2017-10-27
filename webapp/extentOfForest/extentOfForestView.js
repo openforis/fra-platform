@@ -7,11 +7,13 @@ import { fetchLastSectionUpdateTimestamp } from '../audit/actions'
 import { Link } from './../reusableUiComponents/link'
 import DefinitionLink from './../reusableUiComponents/definitionLink'
 import ChartWrapper from './chart/chartWrapper'
-import LoggedInPageTemplate from '../loggedInPageTemplate'
+import LoggedInPageTemplate from '../app/loggedInPageTemplate'
 import { TableWithOdp } from '../tableWithOdp/tableWithOdp'
 import { CommentableReviewDescription } from '../description/commentableDescription'
 import countryConfig from '../../common/countryConfig'
 import { sum, formatNumber, eq } from '../../common/bignumberUtils'
+
+const mapIndexed = R.addIndex(R.map)
 
 const ExtentOfForest = (props) => {
 
@@ -35,35 +37,54 @@ const ExtentOfForest = (props) => {
   const totalAreaValidationClass = (fraColumn, totalArea) =>
     totalAreaNotEqualToFaoStat(fraColumn, totalArea) ? 'validation-error' : ''
 
-  const totalAreaRow = fra => {
-    return <tr key="totalArea">
-      <td className="fra-table__header-cell">
+  const totalAreaRow = fra =>
+    <tr key="totalArea">
+      <th className="fra-table__header-cell">
         {props.i18n.t('extentOfForest.totalLandArea')}
-      </td>
+      </th>
       {
-        R.addIndex(R.map)(
-          (fraColumn, i) => {
-            const totalLandArea = sum([fraColumn.forestArea, fraColumn.otherWoodedLand, fraColumn.otherLand])
-            return <td className={`fra-table__aggregate-cell ${totalAreaValidationClass(fraColumn, totalLandArea)}`} key={i}>
-              {formatNumber(totalLandArea)}
-            </td>
-          },
-          R.values(fra)
-        )
+        mapIndexed((fraColumn, i) => {
+          const totalLandArea = sum([fraColumn.forestArea, fraColumn.otherWoodedLand, fraColumn.otherLand])
+          return <td className={`fra-table__calculated-cell ${totalAreaValidationClass(fraColumn, totalLandArea)}`} key={i}>
+            {formatNumber(totalLandArea)}
+          </td>
+        }, R.values(fra))
+      }
+    </tr>
+
+  const faoStatRow = fra =>
+    <tr key="faoStat">
+      <th className="fra-table__header-cell">{props.i18n.t('extentOfForest.faoStatLandArea')}</th>
+      {
+        mapIndexed((faoStatColumn, i) => {
+          const faoStatLandArea = R.path([props.countryIso, 'faoStat', faoStatColumn.name], countryConfig)
+          return <td className="fra-table__calculated-cell" key={i}>
+            {formatNumber(faoStatLandArea)}
+          </td>
+        }, R.values(fra))
+      }
+    </tr>
+
+  const validationErrorRow = fra => {
+    const columnErrorMsgs = R.map(fraColumn => {
+      const totalLandArea = sum([fraColumn.forestArea, fraColumn.otherWoodedLand, fraColumn.otherLand])
+      return totalAreaNotEqualToFaoStat(fraColumn, totalLandArea)
+        ? props.i18n.t('extentOfForest.faoStatMismatch')
+        : null
+    },R.values(fra))
+
+    if (R.all(R.isNil, columnErrorMsgs)) return null
+    return <tr key="validationError">
+      <td style={{padding: '0'}}></td>
+      {
+        mapIndexed((errorMsg, i) => {
+          return <td className="fra-table__validation-cell" key={i}>
+            <div className="fra-table__validation-error">{errorMsg}</div>
+          </td>
+        }, columnErrorMsgs)
       }
     </tr>
   }
-
-  const faoStatRow = fra => <tr key="faoStat">
-    <td className="eof-table__faostat-header">{props.i18n.t('extentOfForest.faoStatLandArea')}</td>
-    {
-      R.addIndex(R.map)((value, i) =>
-          <td className="eof-table__faostat-cell" key={i}>
-            {R.path([props.countryIso, 'faoStat', value.name], countryConfig)}
-          </td>,
-        R.values(props.fra))
-    }
-  </tr>
 
   const eofRows = [
     {
@@ -80,22 +101,22 @@ const ExtentOfForest = (props) => {
     },
     {
       field: 'otherLandPalms',
-      className: 'fra-table__header-cell-sub',
+      className: 'fra-table__subcategory-cell',
       localizedName: i18n.t('extentOfForest.ofWhichPalms')
     },
     {
       field: 'otherLandTreeOrchards',
-      className: 'fra-table__header-cell-sub',
+      className: 'fra-table__subcategory-cell',
       localizedName: i18n.t('extentOfForest.ofWhichTreeOrchards')
     },
     {
       field: 'otherLandAgroforestry',
-      className: 'fra-table__header-cell-sub',
+      className: 'fra-table__subcategory-cell',
       localizedName: i18n.t('extentOfForest.ofWhichAgroforestry')
     },
     {
       field: 'otherLandTreesUrbanSettings',
-      className: 'fra-table__header-cell-sub',
+      className: 'fra-table__subcategory-cell',
       localizedName: i18n.t('extentOfForest.ofWhichTreesUrbanSettings')
     },
     {
@@ -103,6 +124,9 @@ const ExtentOfForest = (props) => {
     },
     {
       customRenderRow: faoStatRow
+    },
+    {
+      customRenderRow: validationErrorRow
     }
   ]
 

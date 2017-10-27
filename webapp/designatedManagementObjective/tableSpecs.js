@@ -3,12 +3,12 @@ import R from 'ramda'
 import { totalSumFormatted } from '../traditionalTable/aggregate'
 
 const createDmoInputRow = (rowHeader) => [
-  {type: 'readOnly', jsx: <td key="protection" className="fra-table__header-cell">{rowHeader}</td>},
+  {type: 'readOnly', jsx: <th key="protection" className="fra-table__category-cell">{rowHeader}</th>},
   ...(R.times(() => ({type: 'decimalInput'}), 5))
 ]
 
 const totalForestAreaCell = (column) => (props) =>
-  <td key="" className="fra-table__aggregate-cell">
+  <td key="" className="fra-table__calculated-cell">
     {totalSumFormatted(props.tableData, column, R.range(0, 7))}
   </td>
 
@@ -19,11 +19,11 @@ const thead = i18n =>
       <th className="fra-table__header-cell-middle" colSpan="5">{i18n.t('designatedManagementObjective.areaUnitLabel')}</th>
     </tr>
     <tr>
-      <td className="fra-table__header-cell-right">1990</td>
-      <td className="fra-table__header-cell-right">2000</td>
-      <td className="fra-table__header-cell-right">2010</td>
-      <td className="fra-table__header-cell-right">2015</td>
-      <td className="fra-table__header-cell-right">2020</td>
+      <th className="fra-table__header-cell-right">1990</th>
+      <th className="fra-table__header-cell-right">2000</th>
+      <th className="fra-table__header-cell-right">2010</th>
+      <th className="fra-table__header-cell-right">2015</th>
+      <th className="fra-table__header-cell-right">2020</th>
     </tr>
   </thead>
 
@@ -40,10 +40,9 @@ export const primaryDesignatedManagementObjectiveTableSpec = i18n => ({
     createDmoInputRow(i18n.t('designatedManagementObjective.unknown')),
     [{type: 'readOnly',
       jsx:
-        <td key=""
-            className="fra-table__header-cell">
+        <th key="total_forest_area" className="fra-table__header-cell">
           {i18n.t('designatedManagementObjective.totalForestArea')}
-        </td>
+        </th>
     },
       {type: 'custom', render: totalForestAreaCell(1)},
       {type: 'custom', render: totalForestAreaCell(2)},
