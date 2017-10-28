@@ -37,9 +37,11 @@ export const forestAreaSameAsExtentOfForestValidator =
   }
 
   export const forestAreaLessThanOrEqualToExtentOfForestValidator =
-    (year, extentOfForest) => (props, row, column) => {
+    (year, extentOfForest, rowIndexes) => (props, row, column) => {
     const eofForestArea = getForestAreaForYear(extentOfForest, year)
-    const forestAreaValue = props.tableData[row][column]
+    const forestAreaValue = rowIndexes
+      ? totalSum(props.tableData, column, rowIndexes)
+      : props.tableData[row][column]
     if (!eofForestArea || !forestAreaValue) return {valid: true}
     const result = greaterThanOrEqualTo(eofForestArea, forestAreaValue)
     return {
