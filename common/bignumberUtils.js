@@ -35,7 +35,11 @@ const mul = (x, y) => applyOp(x, y, 'mul')
 
 const div = (x, y) => applyOp(x, y, 'div')
 
-const greaterThanOrEqualTo = (x, y) => applyOp(x, y, 'greaterThanOrEqualTo')
+const greaterThanOrEqualTo = (x, y) => {
+  const xNum = toBigNumber(x)
+  const yNum = toBigNumber(y)
+  return xNum.isFinite() && yNum.isFinite() && xNum.greaterThanOrEqualTo(yNum)
+}
 
 const eq = (x, y) => {
   const xNum = toBigNumber(x)
