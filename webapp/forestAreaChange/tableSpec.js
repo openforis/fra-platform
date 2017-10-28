@@ -13,7 +13,6 @@ const ofWhichColumns = R.times(() => ({type: 'decimalInput', validator: expansio
 const integerInputColumns = R.times(() => ({type: 'decimalInput'}), 4)
 
 const netChange = (tableData, column) => sub(tableData[0][column], tableData[3][column])
-const netChangeFormatted = (tableData, column) => formatDecimal(netChange(tableData, column))
 
 const netChangeValid = (tableData, column, extentOfForest, startYear, endYear) => {
   const startYearEofArea = getForestAreaForYear(extentOfForest, startYear)
@@ -25,17 +24,6 @@ const netChangeValid = (tableData, column, extentOfForest, startYear, endYear) =
     valid: eq(netChangeFromExtentOfForest, netChangeFromThisTable),
     eofNetChange: netChangeFromExtentOfForest
   }
-}
-
-const netChangeCell = (column, extentOfForest, startYear, endYear) => (props) => {
-  const {valid} = netChangeValid(props.tableData, column, extentOfForest, startYear, endYear)
-  const validationClass =
-    valid
-      ? ''
-      : 'validation-error'
-  return <td className={`fra-table__calculated-cell ${validationClass}`}>
-    {netChangeFormatted(props.tableData, column)}
-  </td>
 }
 
 const yearIntervals = [
@@ -111,12 +99,14 @@ export default (i18n, extentOfForest) => {
         },
         ...mapIndexed(
           ([column, startYear, endYear]) => ({
-            type: 'custom',
-            render: netChangeCell(column, extentOfForest, startYear, endYear),
+            type: 'calculated',
+            calculateValue: props => netChange(props.tableData, column),
+            valueFormatter: formatDecimal,
             validator: netChangeValidator(i18n, extentOfForest, startYear, endYear)
           }),
           yearIntervals
         )
+
       ]
     ],
     valueSlice: {
