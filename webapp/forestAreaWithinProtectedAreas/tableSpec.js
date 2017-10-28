@@ -1,31 +1,20 @@
 import React from 'react'
 import R from 'ramda'
-import { subCategoryValidator } from '../traditionalTable/validators'
-import { greaterThanOrEqualTo } from '../../common/bignumberUtils'
-import { getForestAreaForYear } from '../extentOfForest/extentOfForestHelper'
-import { formatDecimal } from '../utils/numberFormat'
+import {
+  subCategoryValidator,
+  forestAreaLessThanOrEqualToExtentOfForestValidator
+} from '../traditionalTable/validators'
 
 const mapIndexed = R.addIndex(R.map)
 
 const years = [1990, 2000, 2010, 2015, 2016, 2017, 2018, 2019, 2020]
 
-const forestAreaValueValid = (year, extentOfForest) => (props, row, column) => {
-  const eofForestArea = getForestAreaForYear(extentOfForest, year)
-  const forestAreaValue = props.tableData[row][column]
-  if (!eofForestArea || !forestAreaValue) return {valid: true}
-  const result = greaterThanOrEqualTo(eofForestArea, forestAreaValue)
-  return {
-    valid: result,
-    message: result
-      ? null
-      : props.i18n.t('generalValidation.forestAreaExceedsExtentOfForest', {eofForestArea: formatDecimal(eofForestArea)})
-  }
-}
-
-
 export default (i18n, extentOfForest) => {
   const inputColumns = R.map(
-    year => ({type: 'decimalInput', validator: forestAreaValueValid(year, extentOfForest)}),
+    year => ({
+      type: 'decimalInput',
+      validator: forestAreaLessThanOrEqualToExtentOfForestValidator(year, extentOfForest)
+    }),
     years
   )
   return {

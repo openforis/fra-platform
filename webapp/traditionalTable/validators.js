@@ -3,8 +3,7 @@
  * Don't put your verySpecificValidatorUsedInOnePlace here, leave it in tableSpec instead
  */
 import R from 'ramda'
-import BigNumber from 'bignumber.js'
-import { eq } from '../../common/bignumberUtils'
+import { eq, greaterThanOrEqualTo } from '../../common/bignumberUtils'
 import { totalSum } from '../traditionalTable/aggregate'
 import { getForestAreaForYear } from '../extentOfForest/extentOfForestHelper'
 import { formatDecimal } from '../utils/numberFormat'
@@ -15,7 +14,7 @@ export const subCategoryValidator =
   const sumOfParts = totalSum(props.tableData, currentFieldColumnIdx, rowIndexes)
   const value = props.tableData[currentFieldRowIdx][currentFieldColumnIdx]
   if (R.isNil(value) || R.isNil(sumOfParts) || R.isNil(totalValue)) return {valid: true}
-  const valid = BigNumber(totalValue).greaterThanOrEqualTo(BigNumber(sumOfParts))
+  const valid = greaterThanOrEqualTo(totalValue, sumOfParts)
   return {
     valid: valid,
     message: valid ? null : props.i18n.t('generalValidation.subCategoryExceedsParent')
@@ -35,4 +34,18 @@ export const forestAreaSameAsExtentOfForestValidator =
         : props.i18n.t('generalValidation.forestAreaDoesNotMatchExtentOfForest', {eofForestArea: formatDecimal(eofForestArea)})
     }
 
+  }
+
+  export const forestAreaLessThanOrEqualToExtentOfForestValidator =
+    (year, extentOfForest) => (props, row, column) => {
+    const eofForestArea = getForestAreaForYear(extentOfForest, year)
+    const forestAreaValue = props.tableData[row][column]
+    if (!eofForestArea || !forestAreaValue) return {valid: true}
+    const result = greaterThanOrEqualTo(eofForestArea, forestAreaValue)
+    return {
+      valid: result,
+      message: result
+        ? null
+        : props.i18n.t('generalValidation.forestAreaExceedsExtentOfForest', {eofForestArea: formatDecimal(eofForestArea)})
+    }
   }
