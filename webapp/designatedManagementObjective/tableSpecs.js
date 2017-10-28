@@ -2,8 +2,7 @@ import React from 'react'
 import R from 'ramda'
 import { formatDecimal } from '../utils/numberFormat'
 import { totalSum } from '../traditionalTable/aggregate'
-import { eq } from '../../common/bignumberUtils'
-import { getForestAreaForYear } from '../extentOfForest/extentOfForestHelper'
+import { forestAreaSameAsExtentOfForestValidator } from '../traditionalTable/validators'
 
 const mapIndexed = R.addIndex(R.map)
 
@@ -13,19 +12,6 @@ const createDmoInputRow = (rowHeader) => [
 ]
 
 const totalForestArea = (tableData, column) => totalSum(tableData, column, R.range(0, 7))
-
-const totalForestAreaValid = (year, extentOfForest) => (props, _, column) => {
-  const eofForestArea = getForestAreaForYear(extentOfForest, year)
-  const forestArea = totalForestArea(props.tableData, column)
-  if (!eofForestArea || !forestArea) return {valid: true}
-  const result = eq(eofForestArea, forestArea)
-  return {
-    valid: result,
-    message: result
-      ? null
-      : props.i18n.t('generalValidation.forestAreaDoesNotMatchExtentOfForest', {eofForestArea: formatDecimal(eofForestArea)})
-  }
-}
 
 const years = [1990, 2000, 2010, 2015, 2020]
 
@@ -66,7 +52,7 @@ export const primaryDesignatedManagementObjectiveTableSpec = (i18n, extentOfFore
           type: 'calculated',
           calculateValue: props => totalForestArea(props.tableData, i+1),
           valueFormatter: formatDecimal,
-          validator: totalForestAreaValid(year, extentOfForest)
+          validator: forestAreaSameAsExtentOfForestValidator(year, extentOfForest, R.range(0, 7))  //totalForestAreaValid(year, extentOfForest)
         }), years)
     ]
   ],
