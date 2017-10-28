@@ -11,9 +11,9 @@ const createDmoInputRow = (rowHeader) => [
   ...(R.times(() => ({type: 'decimalInput'}), 5))
 ]
 
-const totalForestArea = (tableData, column) => totalSum(tableData, column, R.range(0, 7))
-
 const years = [1990, 2000, 2010, 2015, 2020]
+const sumRows = R.range(0, 7)
+const totalForestArea = (tableData, column) => totalSum(tableData, column, sumRows)
 
 const thead = i18n =>
   <thead>
@@ -52,7 +52,7 @@ export const primaryDesignatedManagementObjectiveTableSpec = (i18n, extentOfFore
           type: 'calculated',
           calculateValue: props => totalForestArea(props.tableData, i+1),
           valueFormatter: formatDecimal,
-          validator: forestAreaSameAsExtentOfForestValidator(year, extentOfForest, R.range(0, 7))  //totalForestAreaValid(year, extentOfForest)
+          validator: forestAreaSameAsExtentOfForestValidator(year, extentOfForest, sumRows)
         }), years)
     ]
   ],
