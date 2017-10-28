@@ -29,17 +29,6 @@ const totalForestAreaValid = (year, extentOfForest) => (props, _, column) => {
 
 const years = [1990, 2000, 2010, 2015, 2020]
 
-const totalForestAreaCell = (column, year, extentOfForest) => (props) => {
-  const {valid} = totalForestAreaValid(year, extentOfForest)(props, null, column)
-  const validationClass =
-    valid
-      ? ''
-      : 'validation-error'
-  return <td key="" className={`fra-table__calculated-cell ${validationClass}`}>
-    {formatDecimal(totalForestArea(props.tableData, column))}
-  </td>
-}
-
 const thead = i18n =>
   <thead>
     <tr>
@@ -74,8 +63,9 @@ export const primaryDesignatedManagementObjectiveTableSpec = (i18n, extentOfFore
       },
       ...mapIndexed((year, i) =>
         ({
-          type: 'custom',
-          render: totalForestAreaCell(i+1, year, extentOfForest),
+          type: 'calculated',
+          calculateValue: props => totalForestArea(props.tableData, i+1),
+          valueFormatter: formatDecimal,
           validator: totalForestAreaValid(year, extentOfForest)
         }), years)
     ]
