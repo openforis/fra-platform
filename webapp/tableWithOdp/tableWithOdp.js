@@ -71,10 +71,31 @@ const odpCell = (odpValue, field) =>
     precision={2}
     disabled={true} />
 
+const validationErrorRow = columnErrorMsgs => {
+  if (R.all(R.isNil, columnErrorMsgs)) return null
+  return <tr key="validationError">
+    <td style={{padding: '0'}}/>
+    {
+      mapIndexed((errorMsg, i) => {
+        return <td className="fra-table__validation-cell" key={i}>
+          <div className="fra-table__validation-error">{errorMsg}</div>
+        </td>
+      }, columnErrorMsgs)
+    }
+  </tr>
+}
+
 const tableRow = (row, countryIso, fra, save, saveMany, pasteUpdate, rowIdx, openThread, section) => {
-  const {localizedName, field, className, customRenderRow} = row
+  const {
+    localizedName,
+    field,
+    className,
+    customRenderRow,
+    validationErrorMessages
+  } = row
 
   if (customRenderRow) return customRenderRow(fra)
+  if (validationErrorMessages) return validationErrorRow(validationErrorMessages(fra))
 
   return <tr
     key={field}

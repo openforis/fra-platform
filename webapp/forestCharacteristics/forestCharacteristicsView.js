@@ -68,27 +68,14 @@ const ForestCharacteristics = props => {
     </tr>
   }
 
-  const validationErrorRow = fra => {
-    const columnErrorMsgs = R.map(fraColumn => {
+  const validationErrorMessages = fra =>
+    R.map(fraColumn => {
       const forestArea = totalForestArea(fraColumn)
       const eofForestArea = getForestAreaForYear(props.extentOfForest, fraColumn.name)
       return totalForestAreaNotEqualToExtentOfForest(eofForestArea, forestArea)
         ? props.i18n.t('generalValidation.forestAreaDoesNotMatchExtentOfForest', {eofForestArea})
         : null
     },R.values(fra))
-
-    if (R.all(R.isNil, columnErrorMsgs)) return null
-    return <tr key="validationError">
-      <td style={{padding: '0'}}/>
-      {
-        mapIndexed((errorMsg, i) => {
-          return <td className="fra-table__validation-cell" key={i}>
-            <div className="fra-table__validation-error">{errorMsg}</div>
-          </td>
-        }, columnErrorMsgs)
-      }
-    </tr>
-  }
 
   const disableGenerateFRAValues = () => {
     const odps = R.pipe(
@@ -118,7 +105,7 @@ const ForestCharacteristics = props => {
       localizedName: i18n.t('forestCharacteristics.otherPlantedForestArea')
     },
     { customRenderRow: totalForestAreaRow },
-    { customRenderRow: validationErrorRow }
+    { validationErrorMessages }
   ]
 
   return <div className='fra-view__content'>
