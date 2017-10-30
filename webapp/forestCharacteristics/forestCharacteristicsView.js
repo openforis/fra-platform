@@ -10,7 +10,8 @@ import ChartWrapper from '../extentOfForest/chart/chartWrapper'
 import { CommentableReviewDescription } from '../description/commentableDescription'
 import { fetchLastSectionUpdateTimestamp } from '../audit/actions'
 import DefinitionLink from './../reusableUiComponents/definitionLink'
-import { sum, formatNumber } from '../../common/bignumberUtils'
+import { sum, formatNumber, eq } from '../../common/bignumberUtils'
+import { getForestAreaForYear } from '../extentOfForest/extentOfForestHelper'
 
 const mapIndexed = R.addIndex(R.map)
 const sectionName = 'forestCharacteristics'
@@ -33,6 +34,13 @@ const ForestCharacteristics = props => {
     </tr>
   }
 
+  const totalForestAreaNotEqualToExtentOfForest = (fraColumn, totalForestArea) => {
+    const eofForestArea = getForestAreaForYear(props.extentOfForest, fraColumn.name)
+    if (R.isNil(eofForestArea)) return false
+    if (R.isNil(totalForestArea)) return false
+    return !eq(eofForestArea, totalForestArea)
+  }
+
   const totalForestAreaRow = fra => {
     return <tr key="totalForestArea">
       <th className="fra-table__header-cell">
@@ -45,7 +53,11 @@ const ForestCharacteristics = props => {
             fraColumn.otherPlantedForestArea,
             fraColumn.naturalForestArea
           ])
-          return <td className="fra-table__calculated-cell" key={i}>
+          const validationErrorClass =
+            totalForestAreaNotEqualToExtentOfForest(fraColumn, totalForestArea)
+              ? 'validation-error'
+              : ''
+          return <td className={`fra-table__calculated-cell ${validationErrorClass}`} key={i}>
             {formatNumber(totalForestArea)}
           </td>
         }, R.values(fra))
@@ -153,8 +165,9 @@ class DataFetchingComponent extends React.Component {
 
 const mapStateToProps = state => ({
   ...state.forestCharacteristics,
-  'openCommentThread': state.review.openThread,
-  i18n: state.user.i18n
+  openCommentThread: state.review.openThread,
+  i18n: state.user.i18n,
+  extentOfForest: state.extentOfForest
 })
 
 export default connect(
