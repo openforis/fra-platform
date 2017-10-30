@@ -50,9 +50,10 @@ const UsersTable = ({countryIso, i18n, users, updateUser, removeUser}) =>
     <tbody>
     {
       users.length > 0
-        ? users.map(user =>
-            <UserRow key={user.id} countryIso={countryIso} i18n={i18n} user={user} updateUser={updateUser} removeUser={removeUser}/>
-          )
+        ? R.pipe(
+            R.sortBy(R.compose(R.toLower, R.prop('name'))),
+            R.map(user => <UserRow key={user.id} countryIso={countryIso} i18n={i18n} user={user} updateUser={updateUser} removeUser={removeUser}/>)
+          )(users)
         : <tr>
             <td className="users-list__read-only-cell" colSpan="5">
               {i18n.t('users.noUsers')}
@@ -75,7 +76,7 @@ const UserRow = ({countryIso, i18n, user, updateUser, removeUser}) => {
       readOnly
         ? null
         : <button className="btn btn-s btn-destructive" onClick={() =>
-            window.confirm(i18n.t('users.confirmDelete', {user: user.name, country:getCountryName(countryIso, i18n.language)}))
+            window.confirm(i18n.t('users.confirmDelete', {user: user.name, country: getCountryName(countryIso, i18n.language)}))
               ? removeUser(countryIso, user.id)
               : null
           }>
