@@ -10,10 +10,29 @@ import ChartWrapper from '../extentOfForest/chart/chartWrapper'
 import { CommentableReviewDescription } from '../description/commentableDescription'
 import { fetchLastSectionUpdateTimestamp } from '../audit/actions'
 import DefinitionLink from './../reusableUiComponents/definitionLink'
+import { sum, formatNumber } from '../../common/bignumberUtils'
 
+const mapIndexed = R.addIndex(R.map)
 const sectionName = 'forestCharacteristics'
 
 const ForestCharacteristics = props => {
+
+  const plantedForestRow = fra => {
+    return <tr key="plantedForest">
+      <th className="fra-table__header-cell">
+        {props.i18n.t('forestCharacteristics.plantedForest')}
+      </th>
+      {
+        mapIndexed((fraColumn, i) => {
+          const plantedForestArea = sum([fraColumn.plantationForestArea, fraColumn.otherPlantedForestArea])
+          return <td className="fra-table__calculated-cell" key={i}>
+            {formatNumber(plantedForestArea)}
+          </td>
+        }, R.values(fra))
+      }
+    </tr>
+  }
+
   const disableGenerateFRAValues = () => {
     const odps = R.pipe(
       R.values,
@@ -27,6 +46,7 @@ const ForestCharacteristics = props => {
       field: 'naturalForestArea',
       localizedName: i18n.t('forestCharacteristics.naturalForestArea')
     },
+    { customRenderRow: plantedForestRow },
     {
       field: 'plantationForestArea',
       localizedName: i18n.t('forestCharacteristics.plantationForestArea')
