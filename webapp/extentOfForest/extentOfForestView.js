@@ -75,7 +75,7 @@ const ExtentOfForest = (props) => {
 
     if (R.all(R.isNil, columnErrorMsgs)) return null
     return <tr key="validationError">
-      <td style={{padding: '0'}}></td>
+      <td style={{padding: '0'}}/>
       {
         mapIndexed((errorMsg, i) => {
           return <td className="fra-table__validation-cell" key={i}>
