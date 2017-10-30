@@ -1,10 +1,15 @@
 import React from 'react'
 import SingleTraditionalTableView from '../traditionalTable/singleTraditionalTableView'
+import { connect } from 'react-redux'
 import tableSpec from './tableSpec'
 
-export default props =>
+const ForestAreaWithinProtectedAreasView = props =>
   <SingleTraditionalTableView
     {...props}
     headingLocalizationKey="forestAreaWithinProtectedAreas.forestAreaWithinProtectedAreas"
     sectionAnchor="3b"
-    tableSpec={tableSpec}/>
+    tableSpecInstance={tableSpec(props.i18n, props.extentOfForest)}/>
+
+const mapStateToProps = state => ({i18n: state.user.i18n, extentOfForest: state.extentOfForest})
+
+export default connect(mapStateToProps)(ForestAreaWithinProtectedAreasView)

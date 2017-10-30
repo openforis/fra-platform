@@ -6,7 +6,7 @@ BigNumber.config({
   ERRORS: false,
   FORMAT: {
     decimalSeparator: '.',
-    groupSeparator: ' ',
+    groupSeparator: '\xA0', // non-breaking space
     groupSize: 3
   }
 })
@@ -35,6 +35,12 @@ const mul = (x, y) => applyOp(x, y, 'mul')
 
 const div = (x, y) => applyOp(x, y, 'div')
 
+const greaterThanOrEqualTo = (x, y) => {
+  const xNum = toBigNumber(x)
+  const yNum = toBigNumber(y)
+  return xNum.isFinite() && yNum.isFinite() && xNum.greaterThanOrEqualTo(yNum)
+}
+
 const eq = (x, y) => {
   const xNum = toBigNumber(x)
   const yNum = toBigNumber(y)
@@ -55,5 +61,6 @@ module.exports.sub = sub
 module.exports.mul = mul
 module.exports.div = div
 module.exports.eq = eq
+module.exports.greaterThanOrEqualTo = greaterThanOrEqualTo
 module.exports.toFixed = toFixed
 module.exports.formatNumber = formatNumber

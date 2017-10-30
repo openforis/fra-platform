@@ -113,7 +113,7 @@ const Cell = (props) => {
           numberValue={value}
           precision={2}
           onChange={e => props.updateValue(countryIso, areaValues, values, col.year, field, type, e.target.value)}
-          onPaste={e => props.updateValues(countryIso, areaValues, values, readPasteClipboard(e), type, props.cols, props.rowIdx, props.colIdx)}
+          onPaste={e => props.updateValues(countryIso, areaValues, values, readPasteClipboard(e, 'decimal'), type, props.cols, props.rowIdx, props.colIdx)}
         />
       </td>
 }

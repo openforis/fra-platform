@@ -548,8 +548,8 @@ The FRA team
   },
 
   generalValidation: {
-    subCategoryExceedsParent: 'Subcategory exceeds parent'
+    subCategoryExceedsParent: 'Subcategory exceeds parent',
+    forestAreaDoesNotMatchExtentOfForest: 'Forest area does not match table 1a: {{eofForestArea}}',
+    forestAreaExceedsExtentOfForest: 'Forest area exceeds table 1a: {{eofForestArea}}'
   }
-
-
 }

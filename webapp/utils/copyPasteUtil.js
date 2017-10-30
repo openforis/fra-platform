@@ -13,16 +13,12 @@ const parseValue = (raw, type) => {
 }
 
 const readHtmlElem = (elem, type) => {
-  const data = []
   const rows = elem.getElementsByTagName('tr')
-  R.map(row => {
-    const rdata = []
-    R.map(cell => {
-      rdata.push(parseValue(cell.innerText, type))
+  return R.map(row => {
+    return R.map(cell => {
+      return parseValue(cell.innerText, type)
     }, row.getElementsByTagName('td'))
-    data.push(rdata)
   }, rows)
-  return data
 }
 
 const readExcelClipboard = (evt, type = 'integer') => {
