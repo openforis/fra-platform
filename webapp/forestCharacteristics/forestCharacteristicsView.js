@@ -33,6 +33,26 @@ const ForestCharacteristics = props => {
     </tr>
   }
 
+  const totalForestAreaRow = fra => {
+    return <tr key="totalForestArea">
+      <th className="fra-table__header-cell">
+        {props.i18n.t('forestCharacteristics.totalForestArea')}
+      </th>
+      {
+        mapIndexed((fraColumn, i) => {
+          const totalForestArea = sum([
+            fraColumn.plantationForestArea,
+            fraColumn.otherPlantedForestArea,
+            fraColumn.naturalForestArea
+          ])
+          return <td className="fra-table__calculated-cell" key={i}>
+            {formatNumber(totalForestArea)}
+          </td>
+        }, R.values(fra))
+      }
+    </tr>
+  }
+
   const disableGenerateFRAValues = () => {
     const odps = R.pipe(
       R.values,
@@ -59,7 +79,8 @@ const ForestCharacteristics = props => {
     {
       field: 'otherPlantedForestArea',
       localizedName: i18n.t('forestCharacteristics.otherPlantedForestArea')
-    }
+    },
+    { customRenderRow: totalForestAreaRow }
   ]
 
   return <div className='fra-view__content'>

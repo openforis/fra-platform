@@ -268,7 +268,8 @@ export const translation = {
     plantationForestArea: 'Plantation forest',
     plantationForestIntroducedArea: '…of which introduced species',
     otherPlantedForestArea: 'Other planted forest',
-    plantedForest: 'Planted forest'
+    plantedForest: 'Planted forest',
+    totalForestArea: 'Total forest area'
   },
 
   forestAreaChange: {
