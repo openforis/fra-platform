@@ -24,8 +24,8 @@ class designatedManagementObjectiveView extends React.Component {
   }
 
   render() {
-    const {match, i18n} = this.props
-    const primaryDmoTableSpec = primaryDesignatedManagementObjectiveTableSpec(i18n)
+    const {match, i18n, extentOfForest} = this.props
+    const primaryDmoTableSpec = primaryDesignatedManagementObjectiveTableSpec(i18n, extentOfForest)
     const totalDmoTableSpec = totalAreaWithDesignatedManagementObjectiveTableSpec(i18n)
 
     return <LoggedInPageTemplate>
@@ -63,6 +63,6 @@ class designatedManagementObjectiveView extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({i18n: state.user.i18n})
+const mapStateToProps = state => ({i18n: state.user.i18n, extentOfForest: state.extentOfForest})
 
 export default connect(mapStateToProps, {fetchLastSectionUpdateTimestamp})(designatedManagementObjectiveView)

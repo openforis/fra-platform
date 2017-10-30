@@ -1,9 +1,6 @@
 import R from 'ramda'
 import * as L from "partial.lenses"
 import * as cellTypes from './cellTypes'
-import assert from 'assert'
-
-const mapIndexed = R.addIndex(R.map)
 
 export const createTableData = (tableSpec) =>
   R.map(

@@ -1,10 +1,15 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import tableSpec from './tableSpec'
 import SingleTraditionalTableView from '../traditionalTable/singleTraditionalTableView'
 
-export default props =>
+const DisturbancesView = props =>
   <SingleTraditionalTableView
     {...props}
     headingLocalizationKey="disturbances.disturbances"
     sectionAnchor="5a"
-    tableSpec={tableSpec}/>
+    tableSpecInstance={tableSpec(props.i18n, props.extentOfForest)}/>
+
+const mapStateToProps = state => ({i18n: state.user.i18n, extentOfForest: state.extentOfForest})
+
+export default connect(mapStateToProps)(DisturbancesView)
