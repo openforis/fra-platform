@@ -6,7 +6,7 @@ BigNumber.config({
   ERRORS: false,
   FORMAT: {
     decimalSeparator: '.',
-    groupSeparator: ' ',
+    groupSeparator: '\xA0', // non-breaking space
     groupSize: 3
   }
 })

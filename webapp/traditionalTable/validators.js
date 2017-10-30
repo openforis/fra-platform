@@ -33,7 +33,6 @@ export const forestAreaSameAsExtentOfForestValidator =
         ? null
         : props.i18n.t('generalValidation.forestAreaDoesNotMatchExtentOfForest', {eofForestArea: formatDecimal(eofForestArea)})
     }
-
   }
 
   export const forestAreaLessThanOrEqualToExtentOfForestValidator =
