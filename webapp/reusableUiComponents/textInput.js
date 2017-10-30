@@ -14,9 +14,9 @@ export default class TextInput extends React.Component {
     const isValueEmpty = isEmpty(this.props.value)
     const disabled = this.props.disabled
 
-    return <div className="text-input__container">
+    return <div className="text-input__container validation-error-sensitive-field">
       <div
-        className={`text-input__readonly-view${isValueEmpty ? ' placeholder' : ''}`}
+        className={`text-input__readonly-view ${isValueEmpty ? 'placeholder' : ''}`}
         style={{display: this.state.hasFocus ? 'none' : 'inline-block'}}>
         {isValueEmpty ? this.state.placeholder : this.props.value}
       </div>
