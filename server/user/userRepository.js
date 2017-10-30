@@ -37,7 +37,7 @@ const updateLanguage = (client, lang, userInfo) =>
 const fetchCountryUsers = (countryIso, user) =>
   db.query(`
     SELECT
-      u.id,            
+      u.id,
       u.email,
       u.name,
       u.login_email,
@@ -45,17 +45,17 @@ const fetchCountryUsers = (countryIso, user) =>
       cr.role
     FROM
       fra_user u
-    JOIN 
+    JOIN
       user_country_role cr
-      ON 
+      ON
         u.id = cr.user_id
-      AND 
+      AND
         cr.country_iso = $1
   ${isSuperUser(user)
     ? `
-    UNION    
+    UNION
     SELECT
-      u.id,            
+      u.id,
       u.email,
       u.name,
       u.login_email,
@@ -63,11 +63,11 @@ const fetchCountryUsers = (countryIso, user) =>
       cr.role
     FROM
       fra_user u
-    JOIN 
+    JOIN
       user_country_role cr
-      ON 
+      ON
         u.id = cr.user_id
-      AND 
+      AND
         cr.role in ('REVIEWER_ALL', 'NATIONAL_CORRESPONDENT_ALL')
     `
     : ''
@@ -87,14 +87,14 @@ const authorizeUser = (client, userAction, countryIso, userId, role, userName) =
   client.query(`
         INSERT INTO
           user_country_role(user_id, country_iso, role)
-        VALUES 
+        VALUES
           ($1, $2, $3)
       `, [userId, countryIso, role])
     .then(() =>
       auditRepository
         .insertAudit(client, userAction.id, 'addUser', countryIso, 'users', {
           user: userName,
-          role: `$t(user.roles.${role.toLowerCase()})`
+          role: role.toLowerCase()
         })
     )
 
@@ -124,24 +124,24 @@ const addCountryUser = (client, user, countryIso, userToAdd) =>
 
 const updateUser = (client, user, countryIso, userToUpdate) =>
   client.query(`
-    UPDATE 
+    UPDATE
       fra_user
-    SET 
+    SET
       name = $1,
       email = $2
-    WHERE 
-      id = $3  
+    WHERE
+      id = $3
   `, [userToUpdate.name, userToUpdate.email, userToUpdate.id])
     .then(() =>
       client.query(`
-        UPDATE 
+        UPDATE
           user_country_role
-        SET 
+        SET
           role = $1
-        WHERE 
+        WHERE
           user_id = $2
-        AND 
-          country_iso = $3    
+        AND
+          country_iso = $3
       `, [userToUpdate.role, userToUpdate.id, countryIso])
     )
     .then(() =>
@@ -157,7 +157,7 @@ const removeCountryUser = (client, user, countryIso, userId) =>
       client.query(`
         DELETE FROM
           user_country_role
-        WHERE 
+        WHERE
           user_id = $1
         AND
           country_iso = $2
@@ -174,7 +174,7 @@ const acceptInvitation = (client, invitationUUID, loginEmail) =>
     .then(user =>
       auditRepository.insertAudit(client, user.id, 'acceptInvitation', user.roles[0].countryIso, 'users', {
         user: user.name,
-        role: `$t(user.roles.${user.roles[0].role.toLowerCase()})`
+        role: user.roles[0].role.toLowerCase()
       }).then(() => user)
     )
 
