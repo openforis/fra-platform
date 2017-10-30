@@ -65,8 +65,6 @@ const ActivityItem = ({i18n, countryIso, item}) => {
   const actionLocalizationKey = getActionLocalizationKey(item.message)
   const usersManagementLocalaizationParameters = item.target ? {user: item.target.user, role: i18n.t('user.roles.' + item.target.role)} : null
 
-  console.log(item.target)
-
   return <div className="dashboard__activity-item">
     <img className="dashboard__activity-avatar" src={`https://www.gravatar.com/avatar/${item.hash}?default=mm`}/>
     <div className="dashboard__activity-name">
