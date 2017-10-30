@@ -1,11 +1,12 @@
 import React from 'react'
 import * as R from 'ramda'
 import './style.less'
+import assert from 'assert'
 import { Link } from '../reusableUiComponents/link'
 import { ThousandSeparatedDecimalInput } from '../reusableUiComponents/thousandSeparatedDecimalInput'
 import ReviewIndicator from '../review/reviewIndicator'
 import { readPasteClipboard } from '../utils/copyPasteUtil'
-import {acceptNextInteger, acceptNextDecimal} from '../utils/numberInput'
+import { acceptNextDecimal} from '../utils/numberInput'
 
 const mapIndexed = R.addIndex(R.map)
 
@@ -45,10 +46,10 @@ export class TableWithOdp extends React.Component {
 const buildRows = (rows, props) => {
   const save = R.partial(props.save, [props.section])
   const saveMany = R.partial(props.saveMany, [props.section])
-  const paste = R.partial(updatePastedValues, [R.pluck('field', rows)])
+  const pasteUpdate = R.partial(updatePastedValues, [R.pluck('field', rows)])
 
   return mapIndexed((row, rowIdx) =>
-      tableRow(row, props.countryIso, props.fra, save, saveMany, paste, rowIdx, props.openCommentThread, props.section)
+      <TableRow {...props} key={rowIdx} row={row} save={save} saveMany={saveMany} pasteUpdate={pasteUpdate} rowIdx={rowIdx}/>
     , rows)
 }
 
@@ -85,32 +86,26 @@ const validationErrorRow = columnErrorMsgs => {
   </tr>
 }
 
-const tableRow = (row, countryIso, fra, save, saveMany, pasteUpdate, rowIdx, openThread, section) => {
+const renderFieldRow = ({row, countryIso, fra, save, saveMany, pasteUpdate, rowIdx, openCommentThread, section}) => {
   const {
     localizedName,
     field,
-    className,
-    customRenderRow,
-    validationErrorMessages
+    className
   } = row
-
-  if (customRenderRow) return customRenderRow(fra)
-  if (validationErrorMessages) return validationErrorRow(validationErrorMessages(fra))
-
   return <tr
     key={field}
-    className={`${openThread && R.isEmpty(R.difference(openThread.target, [field])) ? 'fra-row-comments__open' : ''}`}>
+    className={`${openCommentThread && R.isEmpty(R.difference(openCommentThread.target, [field])) ? 'fra-row-comments__open' : ''}`}>
     <th className={className ? className : 'fra-table__category-cell'}>{ localizedName }</th>
     {
       mapIndexed((v, colIdx) =>
-        <td className={`fra-table__cell ${v.type === 'odp' ? 'odp-value-cell' : ''}`} key={`${v.type}_${v.name}`}>
-          {
-            v.type === 'odp'
-              ? odpCell(v, field)
-              : fraValueCell(v, fra, countryIso, save, saveMany, pasteUpdate, field, rowIdx, colIdx)
-          }
-        </td>
-      , R.values(fra))
+          <td className={`fra-table__cell ${v.type === 'odp' ? 'odp-value-cell' : ''}`} key={`${v.type}_${v.name}`}>
+            {
+              v.type === 'odp'
+                ? odpCell(v, field)
+                : fraValueCell(v, fra, countryIso, save, saveMany, pasteUpdate, field, rowIdx, colIdx)
+            }
+          </td>
+        , R.values(fra))
     }
     <td className="fra-table__row-anchor-cell">
       <div className="fra-table__review-indicator-anchor">
@@ -123,6 +118,19 @@ const tableRow = (row, countryIso, fra, save, saveMany, pasteUpdate, rowIdx, ope
       </div>
     </td>
   </tr>
+}
+
+const rowRenderers = {
+  field: renderFieldRow,
+  custom: ({row, fra}) => row.render(fra),
+  validationErrors: ({row, fra}) => validationErrorRow(row.validationErrorMessages(fra))
+}
+
+const TableRow = props /*(row, countryIso, fra, save, saveMany, pasteUpdate, rowIdx, openThread, section)*/ => {
+  const rowType = props.row.type
+  const renderer = rowRenderers[rowType]
+  assert(renderer, `No renderer found for row type ${rowType}`)
+  return renderer(props)
 }
 
 const updatePastedValues = (rowNames, evt, rowIdx, colIdx, fra) => {
@@ -146,8 +154,7 @@ const updatePastedValues = (rowNames, evt, rowIdx, colIdx, fra) => {
 
   const pasted = R.pipe(
     R.map(fra => {
-      // Validates pasted values and filters out values that are not accepted by
-      // acceptNextInteger-function.
+      // Validates pasted values and filters out values that are not accepted
       const acceptedValues = R.pipe(
         R.keys,
         R.map(k => {

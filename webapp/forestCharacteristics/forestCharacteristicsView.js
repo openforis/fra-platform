@@ -87,25 +87,38 @@ const ForestCharacteristics = props => {
   const i18n = props.i18n
   const rows = [
     {
+      type: 'field',
       field: 'naturalForestArea',
       localizedName: i18n.t('forestCharacteristics.naturalForestArea')
     },
-    { customRenderRow: plantedForestRow },
     {
+      type: 'custom',
+      render: plantedForestRow
+    },
+    {
+      type: 'field',
       field: 'plantationForestArea',
       localizedName: i18n.t('forestCharacteristics.plantationForestArea')
     },
     {
+      type: 'field',
       field: 'plantationForestIntroducedArea',
       className: 'fra-table__subcategory-cell',
       localizedName: i18n.t('forestCharacteristics.plantationForestIntroducedArea')
     },
     {
+      type: 'field',
       field: 'otherPlantedForestArea',
       localizedName: i18n.t('forestCharacteristics.otherPlantedForestArea')
     },
-    { customRenderRow: totalForestAreaRow },
-    { validationErrorMessages }
+    {
+      type: 'custom',
+      render: totalForestAreaRow
+    },
+    {
+      type: 'validationErrors',
+      validationErrorMessages
+    }
   ]
 
   return <div className='fra-view__content'>

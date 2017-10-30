@@ -75,44 +75,54 @@ const ExtentOfForest = (props) => {
 
   const eofRows = [
     {
+      type: 'field',
       field: 'forestArea',
       localizedName: i18n.t('extentOfForest.forestArea')
     },
     {
+      type: 'field',
       field: 'otherWoodedLand',
       localizedName: i18n.t('fraClass.otherWoodedLand')
     },
     {
+      type: 'field',
       field: 'otherLand',
       localizedName: i18n.t('fraClass.otherLand')
     },
     {
+      type: 'field',
       field: 'otherLandPalms',
       className: 'fra-table__subcategory-cell',
       localizedName: i18n.t('extentOfForest.ofWhichPalms')
     },
     {
+      type: 'field',
       field: 'otherLandTreeOrchards',
       className: 'fra-table__subcategory-cell',
       localizedName: i18n.t('extentOfForest.ofWhichTreeOrchards')
     },
     {
+      type: 'field',
       field: 'otherLandAgroforestry',
       className: 'fra-table__subcategory-cell',
       localizedName: i18n.t('extentOfForest.ofWhichAgroforestry')
     },
     {
+      type: 'field',
       field: 'otherLandTreesUrbanSettings',
       className: 'fra-table__subcategory-cell',
       localizedName: i18n.t('extentOfForest.ofWhichTreesUrbanSettings')
     },
     {
-      customRenderRow: totalAreaRow
+      type: 'custom',
+      render: totalAreaRow
     },
     {
-      customRenderRow: faoStatRow
+      type: 'custom',
+      render: faoStatRow
     },
     {
+      type: 'validationErrors',
       validationErrorMessages
     }
   ]
