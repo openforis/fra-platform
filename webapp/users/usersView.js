@@ -109,7 +109,7 @@ const UserRoleSelectCol = ({countryIso, i18n, user, readOnly, updateUser}) =>
                   value={user.role}
                   onChange={e => updateUser(countryIso, user.id, 'role', e.target.value)}
                   disabled={user.saving}>
-            {user.role === '' ? <option value="">{i18n.t('users.role')}</option> : null}
+            {user.role === '' ? <option value="" hidden>{i18n.t('users.role')}</option> : null}
             <option value={reviewer.role}>{i18n.t(reviewer.labelKey)}</option>
             <option value={nationalCorrespondent.role}>{i18n.t(nationalCorrespondent.labelKey)}</option>
             <option value={collaborator.role}>{i18n.t(collaborator.labelKey)}</option>

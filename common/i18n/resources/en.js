@@ -203,6 +203,7 @@ module.exports.translation = {
     referenceYearData: 'Reference year for the data',
     referenceYear: 'Reference year',
     references: 'References',
+    selectYear: 'Select…',
     methods: 'Methods',
     methodsUsed: 'Methods used',
     dataSource: 'Data source',

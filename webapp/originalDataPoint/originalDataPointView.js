@@ -44,6 +44,7 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
       <h3 className="subhead">{i18n.t('nationalDataPoint.referenceYearData')}</h3>
       <div className={`odp__year-selection ${yearValidationStatusClass()}`}>
         <select
+          required
           className="select validation-error-sensitive-field"
           value={active.year || ''}
           onChange={
@@ -55,7 +56,7 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
                         value={year}
                         disabled={R.contains(year.toString(), unselectable)}
                         hidden={year ? false : true}>
-                  {year}</option>
+                  {year ? year : i18n.t('nationalDataPoint.selectYear')}</option>
             )
           }
         </select>
