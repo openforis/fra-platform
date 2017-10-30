@@ -1,78 +1,67 @@
 @import (reference) "../app-styles/config";
-@import (reference) "../app-styles/fraTable";
 @import (reference) "../app-styles/inputMixins";
-@import (reference) "../originalDataPoint/style";
 
-.users__list-table {
+.users-list__table {
   border-collapse: collapse;
   font-size: @font-s;
   line-height: 20px;
   width: 100%;
 }
 
-.users__list-table-header-row {
-  .odp-list__header-cell;
-
-  th {
-    padding: 12px 20px;
-  }
-}
-
-.users__list-table-empty {
-  .odp-list__empty-column;
-}
-
-.users__list-table-row {
+.users-list__header-cell {
   border-bottom: @ui-thin-border;
+  font-size: @font-m;
+  padding: 10px;
   text-align: left;
-  transition: @ease-out;
-  height: 45px;
+  white-space: nowrap;
+}
 
-  &.read-only {
-    background: @ui-bg;
-    color: @text-disabled;
-  }
+.users-list__cell {
+  border-bottom: @ui-thin-border;
+  padding: 0;
+  height: 1px;
+  text-align: left;
+}
 
-  &:hover {
-    background: lighten(@ui-bg, 2%);
-  }
+.users-list__read-only-cell {
+  color: @text-disabled;
+  cursor: default;
+  padding: 10px;
+  word-break: break-word;
+}
 
-  td {
-    padding: 0px;
-    height: 1px;
+.users-list__input-container {
+  .mixin-input-container(left);
+
+  .fra-table__select {
+    width: 100%;
   }
 }
 
-.users__list-table-read-only-cell {
-  padding: 0 10px;
-}
-
-.users__add-user-container {
-  padding: 15px 10px;
-  margin: 25px 10px 0px 10px;
+.add-user__container {
+  background-color: @ui-bg;
+  padding: 20px 8px;
+  margin-bottom: 24px;
   border-radius: 2px;
-  background: @ui-bg;
 }
 
-.users__add-user-table {
-  .fra-table;
-}
+.add-user__table {
+  border-collapse: separate;
+  border-spacing: 10px 0;
+  font-size: @font-s;
+  line-height: 20px;
+  width: 100%;
 
-.users__add-user-table-row {
-  text-align: center;
-
-  td {
-    padding: 0px 5px;
+  .users-list__cell {
+    background-color: white;
+    border: @ui-thin-border;
+    padding: 0;
     height: 1px;
   }
 
-  .validation-error-sensitive-field {
-    background-color: white;
-  }
-
-  .error {
-    .validation-error-sensitive-field {
-      background-color: fade(@ui-destructive, 10%);
-    }
+  .btn {
+    width: 100%;
+    height: 100%;
+    text-align: center;
   }
 }
