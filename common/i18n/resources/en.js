@@ -74,9 +74,9 @@ module.exports.translation = {
       resolved: 'resolved issue in',
       status: 'changed status to',
       addUser:'added {{user}} as {{role}}',
-      updateUser:'updated {{user}} details',
-      removeUser:'removed access to {{user}}',
-      acceptInvitation: 'joined the platform as {{role}}'
+      updateUser:'edited {{user}}',
+      removeUser:'removed {{user}}',
+      acceptInvitation: 'joined as {{role}}'
     }
   },
 
@@ -133,7 +133,7 @@ module.exports.translation = {
       platformVersion: 'Platform version',
       userAgent: 'User agent',
       user: 'User',
-      manageCollaborators: 'Manage collaborators'
+      manageUsers: 'Manage users'
     },
     sectionHeaders: {
       forestExtentCharacteristicsAndChanges: 'Forest extent, characteristics and changes',
@@ -242,7 +242,6 @@ module.exports.translation = {
   },
 
   users: {
-    users: 'Users management',
     manageUsers: 'Manage users',
     name: 'Name',
     role: 'Role',
@@ -252,7 +251,7 @@ module.exports.translation = {
     remove: 'Remove',
     addNewUser: 'Add new User',
     addUser: 'Add User',
-    confirmDelete: 'Are you sure {{user}} should not be allowed to access {{country}} anymore?',
+    confirmDelete: 'Remove {{user}} from {{country}}?',
     invitationEmail:{
       subject:'FRA Platform - Access granted to {{country}}',
       textMessage:`Dear {{user}},

@@ -11,27 +11,22 @@ import { Link } from './../reusableUiComponents/link'
 const mapIndexed = R.addIndex(R.map)
 
 const getActionLocalizationKey = (message) => {
-  var key = 'dashboard.actions.'
-  if (R.contains(message, ['createIssue', 'createComment'])) {
-    key += 'commented'
-  } else if (R.contains(message, 'markAsResolved')) {
-    key += 'resolved'
-  } else if (R.contains(message, 'deleteOdp')) {
-    key += 'deleted'
-  } else if (R.contains(message, 'createOdp')) {
-    key += 'added'
-  } else if (R.contains(message, 'addUser')) {
-    key += 'addUser'
-  } else if (R.contains(message, 'updateUser')) {
-    key += 'updateUser'
-  } else if (R.contains(message, 'removeUser')) {
-    key += 'removeUser'
-  } else if (R.contains(message, 'acceptInvitation')) {
-    key += 'acceptInvitation'
-  } else {
-    key += 'edited'
+  const messageToKey = {
+    createIssue: 'commented',
+    createComment: 'commented',
+    markAsResolved: 'resolved',
+    deleteOdp: 'deleted',
+    createOdp: 'added',
+    addUser: 'addUser',
+    updateUser: 'updateUser',
+    removeUser: 'removeUser',
+    acceptInvitation: 'acceptInvitation'
   }
-  return key
+  const key = messageToKey[message]
+  if (key) {
+    return 'dashboard.actions.' + key
+  }
+  return 'dashboard.actions.edited'
 }
 
 const getSectionLocalizationKey = (section) => {
@@ -68,16 +63,21 @@ const ActivityItem = ({i18n, countryIso, item}) => {
   const sectionUrl = getSectionUrl(item)
   const sectionLocalizationKey = getSectionLocalizationKey(item.sectionName)
   const actionLocalizationKey = getActionLocalizationKey(item.message)
+  const usersManagementLocalaizationParameters = item.target ? {user: item.target.user, role: i18n.t('user.roles.' + item.target.role)} : null
+
+  console.log(item.target)
 
   return <div className="dashboard__activity-item">
     <img className="dashboard__activity-avatar" src={`https://www.gravatar.com/avatar/${item.hash}?default=mm`}/>
     <div className="dashboard__activity-name">
       <strong>{item.fullName}</strong>
-      <span>{item.target ? i18n.t(actionLocalizationKey, item.target) : i18n.t(actionLocalizationKey)}</span>
+      <span>{item.target ? i18n.t(actionLocalizationKey, usersManagementLocalaizationParameters) : i18n.t(actionLocalizationKey)}</span>
       {
-        sectionUrl === 'odp' || actionLocalizationKey === 'dashboard.actions.deleted'
-          ? <span className="dashboard__activity-deleted">{i18n.t(sectionLocalizationKey)}</span>
-          : <Link className="link" to={`/country/${countryIso}/${sectionUrl}`}>{i18n.t(sectionLocalizationKey)}</Link>
+        sectionUrl === 'users'
+          ? null
+          : sectionUrl === 'odp' || actionLocalizationKey === 'dashboard.actions.deleted'
+            ? <span>{i18n.t(sectionLocalizationKey)}</span>
+            : <Link className="link" to={`/country/${countryIso}/${sectionUrl}`}>{i18n.t(sectionLocalizationKey)}</Link>
       }
     </div>
     <div className="dashboard__activity-time">{getRelativeDate(item.editTime, i18n)}</div>
