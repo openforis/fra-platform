@@ -329,11 +329,7 @@ class Nav extends React.Component {
 
             <div className="nav__divider"></div>
 
-            {
-              isReviewer(country, userInfo) || isNationalCorrespondent(country, userInfo)
-                ? <UsersManagementItem countryIso={country} i18n={i18n} path={path}/>
-                : null
-            }
+            <UsersManagementItem countryIso={country} i18n={i18n} path={path}/>
             <SuppportItems countryIso={country} {...this.props} />
           </div>
         </div>

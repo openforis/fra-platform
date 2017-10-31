@@ -122,7 +122,7 @@ class DashboardView extends React.Component {
         </div>
         <div className="dashboard__container">
           <div className="dashboard__activity">
-            <h3 className="subhead">{i18n.t('dashboard.recentActivity')}</h3>
+            <h3 className="subhead dashboard__activity-title">{i18n.t('dashboard.recentActivity')}</h3>
             {
               feed && feed.length > 0
                 ? mapIndexed((item, index) =>
@@ -133,8 +133,8 @@ class DashboardView extends React.Component {
                     item={item}
                   />, feed)
                 : <div className="dashboard__activity-item">
-                  <span className="dashboard__activity-deleted">{i18n.t('dashboard.noRecentActivity')}</span>
-                </div>
+                    <span className="dashboard__activity-placeholder">{i18n.t('dashboard.noRecentActivity')}</span>
+                  </div>
             }
           </div>
           <div className="dashboard__sidebar">
