@@ -90,11 +90,11 @@ const insertFoc = (countryIso, year, fraValues) =>
              year,
              natural_forest_area,
              plantation_forest_area,
-             platation_forest_introduced_area,
+             plantation_forest_introduced_area,
              other_planted_forest_area,
              natural_forest_area_estimated,
              plantation_forest_area_estimated,
-             platation_forest_introduced_area_estimated,
+             plantation_forest_introduced_area_estimated,
              other_planted_forest_area_estimated)
              VALUES
              ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`,
@@ -116,11 +116,11 @@ const updateFoc = (countryIso, year, fraValues) =>
             SET
              natural_forest_area = $3,
              plantation_forest_area = $4,
-             platation_forest_introduced_area = $5,
+             plantation_forest_introduced_area = $5,
              other_planted_forest_area = $6,
              natural_forest_area_estimated = $7,
              plantation_forest_area_estimated = $8,
-             platation_forest_introduced_area_estimated = $9,
+             plantation_forest_introduced_area_estimated = $9,
              other_planted_forest_area_estimated = $10
             WHERE country_iso = $1 AND year = $2`,
     [countryIso,
@@ -161,14 +161,14 @@ const forestCharacteristicsReducer = (results, row, type = 'fra') => R.assoc(`fr
   {
     naturalForestArea: row.natural_forest_area,
     plantationForestArea: row.plantation_forest_area,
-    plantationForestIntroducedArea: row.platation_forest_introduced_area,
+    plantationForestIntroducedArea: row.plantation_forest_introduced_area,
     otherPlantedForestArea: row.other_planted_forest_area,
     name: row.year + '',
     type: 'fra',
     year: row.year,
     naturalForestAreaEstimated: row.natural_forest_area_estimated || false,
     plantationForestAreaEstimated: row.plantation_forest_area_estimated || false,
-    plantationForestIntroducedAreaEstimated: row.platation_forest_introduced_area_estimated || false,
+    plantationForestIntroducedAreaEstimated: row.plantation_forest_introduced_area_estimated || false,
     otherPlantedForestAreaEstimated: row.other_planted_forest_area_estimated || false
   },
   results)
@@ -191,11 +191,11 @@ module.exports.readFraForestCharacteristics = countryIso =>
         year,
         natural_forest_area,
         plantation_forest_area,
-        platation_forest_introduced_area,
+        plantation_forest_introduced_area,
         other_planted_forest_area,
         natural_forest_area_estimated,
         plantation_forest_area_estimated,
-        platation_forest_introduced_area_estimated,
+        plantation_forest_introduced_area_estimated,
         other_planted_forest_area_estimated    
       FROM foc_fra_values
       WHERE country_iso = $1`,
