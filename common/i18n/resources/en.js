@@ -247,7 +247,7 @@ module.exports.translation = {
     name: 'Name',
     role: 'Role',
     email: 'Email',
-    loginEmail: 'Login email',
+    loginEmail: 'Login',
     noUsers: 'No users added',
     remove: 'Remove',
     addNewUser: 'Add new User',

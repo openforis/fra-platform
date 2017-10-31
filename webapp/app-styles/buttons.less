@@ -5,6 +5,7 @@ button:hover {
 }
 
 .btn {
+  background-color: transparent;
   border-radius: 2px;
   border: solid 1px transparent;
   cursor: pointer;
@@ -76,6 +77,18 @@ button:hover {
 
   &:hover {
     color: darken(@ui-destructive, 6%);
+    text-decoration: underline;
+  }
+}
+
+.btn-link {
+  background: transparent;
+  color: darken(@ui-accent, 2%);
+  font-weight: 400;
+  padding: 7px;
+
+  &:hover {
+    color: darken(@ui-accent, 4%);
     text-decoration: underline;
   }
 }

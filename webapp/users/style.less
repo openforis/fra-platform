@@ -6,6 +6,7 @@
   font-size: @font-s;
   line-height: 20px;
   width: 100%;
+  table-layout: fixed;
 }
 
 .users-list__header-cell {
@@ -17,17 +18,33 @@
 }
 
 .users-list__cell {
-  border-bottom: @ui-thin-border;
+  border: 1px solid transparent;
+  border-bottom-color: @ui-border;
   padding: 0;
   height: 1px;
   text-align: left;
+
+  &.editing {
+    border-color: @ui-border;
+  }
 }
 
-.users-list__read-only-cell {
+.users-list__cell--read-only {
   color: @text-disabled;
   cursor: default;
   padding: 10px;
   word-break: break-word;
+}
+
+.users-list__cell--editable {
+  cursor: default;
+  padding: 10px;
+  word-break: break-word;
+}
+
+.user-list__edit-column {
+  width: 120px;
+  text-align: right;
 }
 
 .users-list__input-container {

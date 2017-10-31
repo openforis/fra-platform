@@ -1,17 +1,11 @@
 import * as R from 'ramda'
 
+const validName = user => !R.isEmpty(user.name)
+const validRole = user => R.contains(user.role, ['REVIEWER', 'NATIONAL_CORRESPONDENT', 'COLLABORATOR'])
 const validEmail = user => {
   const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
   return re.test(user.email)
 }
-
-const validString = value => R.pipe(
-  R.isEmpty,
-  R.not
-)(value)
-
-const validRole = user => validString(user.role)
-const validName = user => validString(user.name)
 
 export const newUser = () => ({
   id: null,
@@ -20,31 +14,18 @@ export const newUser = () => ({
   email: ''
 })
 
-export const validationField = field => `${field}Valid`
+export const validUser = user => validName(user) && validRole(user) && validEmail(user)
 
-const validUser = user => validName(user) && validRole(user) && validEmail(user)
-
-const validField = (user, field) =>
+export const validField = (user, field) =>
   field === 'name'
     ? validName(user)
     : field === 'role'
-    ? validRole(user)
-    : validEmail(user)
-
-const validateField = (user, field) => R.assoc(validationField(field), validField(user, field))(user)
-
-export const validateUser = user => R.pipe(
-  R.partialRight(validateField, ['name']),
-  R.partialRight(validateField, ['role']),
-  R.partialRight(validateField, ['email']),
-  R.assoc('valid', validUser(user))
-)(user)
+      ? validRole(user)
+      : validEmail(user)
 
 export const updateUserField = (field, value) => R.assoc(field, value)
 
 export const updateListUserField = (userId, field, value) => R.pipe(
   R.find(R.propEq('id', userId)),
-  updateUserField(field, value),
-  R.partialRight(validateField, [field]),
-  user => R.assoc('valid', validUser(user))(user)
+  updateUserField(field, value)
 )

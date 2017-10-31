@@ -9,34 +9,10 @@ import TextInput from '../reusableUiComponents/textInput'
 import { reviewer, nationalCorrespondent, collaborator } from '../../common/countryRole'
 import { getCountryName } from '../../common/country'
 
-import { fetchUsers, updateUser, removeUser, updateNewUser, addNewUser } from './actions'
-import { validationField } from './users'
+import { fetchUsers, updateUser, removeUser, persistUser, updateNewUser, addNewUser } from './actions'
+import { validField } from './users'
 
-const AddUserForm = ({countryIso, i18n, user, updateNewUser, addNewUser}) =>
-  <div className="add-user__container">
-    <table className="add-user__table">
-      <tbody>
-      <tr>
-        <UserTextFieldCol
-          countryIso={countryIso} i18n={i18n} user={user} field="name" updateUser={updateNewUser}/>
-        <UserRoleSelectCol
-          countryIso={countryIso} i18n={i18n} user={user} updateUser={updateNewUser}/>
-        <UserTextFieldCol
-          countryIso={countryIso} i18n={i18n} user={user} field="email" updateUser={updateNewUser}/>
-        <td>
-          <button className="btn btn-primary" onClick={() => addNewUser(countryIso)}>
-            <svg className="icon icon-sub icon-white">
-              <use xlinkHref="img/icons.svg#small-add"/>
-            </svg>
-            {i18n.t('users.addUser')}
-          </button>
-        </td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
-
-const UsersTable = ({countryIso, i18n, users, updateUser, removeUser}) =>
+const UsersTable = ({users, i18n, ...props}) =>
   <table className="users-list__table">
     <thead>
       <tr>
@@ -44,16 +20,13 @@ const UsersTable = ({countryIso, i18n, users, updateUser, removeUser}) =>
         <th className="users-list__header-cell">{i18n.t('users.role')}</th>
         <th className="users-list__header-cell">{i18n.t('users.email')}</th>
         <th className="users-list__header-cell">{i18n.t('users.loginEmail')}</th>
-        <th className="users-list__header-cell"></th>
+        <th className="users-list__header-cell user-list__edit-column"></th>
       </tr>
     </thead>
     <tbody>
     {
       users.length > 0
-        ? R.pipe(
-            R.sortBy(R.compose(R.toLower, R.prop('name'))),
-            R.map(user => <UserRow key={user.id} countryIso={countryIso} i18n={i18n} user={user} updateUser={updateUser} removeUser={removeUser}/>)
-          )(users)
+        ? R.map(user => <UserRow key={user.id} i18n={i18n} user={user} {...props}/> , users)
         : <tr>
             <td className="users-list__read-only-cell" colSpan="5">
               {i18n.t('users.noUsers')}
@@ -63,47 +36,24 @@ const UsersTable = ({countryIso, i18n, users, updateUser, removeUser}) =>
     </tbody>
   </table>
 
-const UserRow = ({countryIso, i18n, user, updateUser, removeUser}) => {
-  const readOnly = R.endsWith('ALL', user.role)
-
-  return <tr>
-    <UserTextFieldCol countryIso={countryIso} i18n={i18n} user={user} field="name" readOnly={readOnly} updateUser={updateUser}/>
-    <UserRoleSelectCol countryIso={countryIso} i18n={i18n} user={user} readOnly={readOnly} updateUser={updateUser}/>
-    <UserTextFieldCol countryIso={countryIso} i18n={i18n} user={user} field="email" readOnly={readOnly} updateUser={updateUser}/>
-    <UserTextFieldCol countryIso={countryIso} i18n={i18n} user={user} field="loginEmail" readOnly={true} updateUser={updateUser}/>
-    <td className="users-list__cell">
-    {
-      readOnly
-        ? null
-        : <button className="btn btn-s btn-destructive" onClick={() =>
-            window.confirm(i18n.t('users.confirmDelete', {user: user.name, country: getCountryName(countryIso, i18n.language)}))
-              ? removeUser(countryIso, user.id)
-              : null
-          }>
-            {i18n.t('users.remove')}
-          </button>
-    }
-    </td>
-  </tr>
-}
-
-const UserTextFieldCol = ({countryIso, i18n, user, field, readOnly, updateUser}) =>
-  <td className={`users-list__cell ${user[validationField(field)] === false ? 'error' : ''}`}>
+const UserTextFieldCol = ({countryIso, i18n, user, field, editing, readOnly, updateUser, validate}) =>
+  <td className={`users-list__cell ${validate ? '' : 'error'} ${editing ? 'editing' : ''}`}>
   {
-    readOnly
-      ? <div className="users-list__read-only-cell">{user[field]}</div>
-      : <TextInput placeholder={i18n.t(`users.${field}`)} value={user[field]}
+    editing
+      ? <TextInput placeholder={i18n.t(`users.${field}`)} value={user[field]}
                    onChange={e => updateUser(countryIso, user.id, field, e.target.value)}
                    disabled={user.saving}/>
+      : readOnly
+        ? <div className="users-list__cell--read-only">{user[field] ? user[field] : '\xA0' }</div>
+        : <div className="users-list__cell--editable">{user[field]}</div>
   }
   </td>
 
-const UserRoleSelectCol = ({countryIso, i18n, user, readOnly, updateUser}) =>
-  <td className={`users-list__cell ${user[validationField('role')] === false ? 'error' : ''}`}>
+const UserRoleSelectCol = ({countryIso, i18n, user, editing, readOnly, updateUser, validate}) =>
+  <td className={`users-list__cell ${validate ? '' : 'error'} ${editing ? 'editing' : ''}`}>
   {
-    readOnly
-      ? <div className="users-list__read-only-cell">{i18n.t(`user.roles.${R.toLower(user.role)}`)}</div>
-      : <div className="users-list__input-container validation-error-sensitive-field">
+    editing
+      ? <div className="users-list__input-container validation-error-sensitive-field">
           <select required
                   className="fra-table__select"
                   value={user.role}
@@ -114,9 +64,95 @@ const UserRoleSelectCol = ({countryIso, i18n, user, readOnly, updateUser}) =>
             <option value={nationalCorrespondent.role}>{i18n.t(nationalCorrespondent.labelKey)}</option>
             <option value={collaborator.role}>{i18n.t(collaborator.labelKey)}</option>
           </select>
-      </div>
+        </div>
+      : readOnly
+        ? <div className="users-list__cell--read-only">{i18n.t(`user.roles.${R.toLower(user.role)}`)}</div>
+        : <div className="users-list__cell--editable">{i18n.t(`user.roles.${R.toLower(user.role)}`)}</div>
   }
   </td>
+
+
+
+class AddUserForm extends React.Component {
+  constructor (props) {
+    super(props)
+    this.state = {adding: false}
+  }
+
+  render () {
+    const {countryIso, i18n, user, updateNewUser, addNewUser} = this.props
+    const validateFunc = (user, field) => this.state.adding ? validField(user, field) : () => true
+    return <div className="add-user__container">
+      <table className="add-user__table">
+        <tbody>
+        <tr>
+          <UserTextFieldCol countryIso={countryIso} i18n={i18n} user={user} field="name" editing={true} readOnly={false} updateUser={updateNewUser} validate={validateFunc(user, 'name')}/>
+          <UserRoleSelectCol countryIso={countryIso} i18n={i18n} user={user} field="role" editing={true} readOnly={false} updateUser={updateNewUser} validate={validateFunc(user, 'role')}/>
+          <UserTextFieldCol countryIso={countryIso} i18n={i18n} user={user} field="email" editing={true} readOnly={false} updateUser={updateNewUser} validate={validateFunc(user, 'email')}/>
+          <td>
+            <button className="btn btn-primary" onClick={() => {
+              this.setState({adding: true})
+              addNewUser(countryIso)
+              this.setState({adding: false})
+            }}>
+              <svg className="icon icon-sub icon-white">
+                <use xlinkHref="img/icons.svg#small-add"/>
+              </svg>
+              {i18n.t('users.addUser')}
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  }
+}
+
+class UserRow extends React.Component {
+  constructor (props) {
+    super(props)
+    this.state = {editing: false}
+  }
+
+  toggleOpen () {
+    this.setState({editing: !this.state.editing})
+  }
+
+  render () {
+    const {countryIso, i18n, user, updateUser, removeUser, persistUser} = this.props
+    const readOnly = R.endsWith('ALL', user.role)
+    const editing = this.state.editing && !readOnly
+    return <tr>
+      <UserTextFieldCol countryIso={countryIso} i18n={i18n} user={user} field="name" editing={editing} readOnly={readOnly} updateUser={updateUser} validate={validField(user, 'name')}/>
+      <UserRoleSelectCol countryIso={countryIso} i18n={i18n} user={user} field="role" editing={editing} readOnly={readOnly} updateUser={updateUser} validate={validField(user, 'role')}/>
+      <UserTextFieldCol countryIso={countryIso} i18n={i18n} user={user} field="email" editing={editing} readOnly={readOnly} updateUser={updateUser} validate={validField(user, 'email')}/>
+      <UserTextFieldCol countryIso={countryIso} i18n={i18n} user={user} field="loginEmail" editing={false} readOnly={true} updateUser={updateUser}/>
+      <td className="users-list__cell user-list__edit-column">
+        {
+          readOnly
+            ? null
+            : <div>
+                <button className="btn btn-s btn-link" onClick={() => {
+                  if (this.state.editing) {
+                    persistUser(countryIso, user, true)
+                  }
+                  this.toggleOpen()
+                }}>
+                  {this.state.editing ? 'Done' : 'Edit'}
+                </button>
+                <button className="btn btn-s btn-destructive" onClick={() =>
+                  window.confirm(i18n.t('users.confirmDelete', {user: user.name, country: getCountryName(countryIso, i18n.language)}))
+                    ? removeUser(countryIso, user.id)
+                    : null
+                }>
+                  Delete
+                </button>
+              </div>
+        }
+        </td>
+    </tr>
+  }
+}
 
 class UsersView extends React.Component {
 
@@ -157,4 +193,4 @@ const mapStateToProps = state =>
     newUser: state.users.newUser
   })
 
-export default connect(mapStateToProps, {fetchUsers, updateUser, removeUser, updateNewUser, addNewUser})(UsersView)
+export default connect(mapStateToProps, {fetchUsers, updateUser, removeUser, persistUser, updateNewUser, addNewUser})(UsersView)
