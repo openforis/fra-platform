@@ -126,7 +126,7 @@ const rowRenderers = {
   validationErrors: ({row, fra}) => validationErrorRow(row.validationErrorMessages(fra))
 }
 
-const TableRow = props /*(row, countryIso, fra, save, saveMany, pasteUpdate, rowIdx, openThread, section)*/ => {
+const TableRow = props => {
   const rowType = props.row.type
   const renderer = rowRenderers[rowType]
   assert(renderer, `No renderer found for row type ${rowType}`)
