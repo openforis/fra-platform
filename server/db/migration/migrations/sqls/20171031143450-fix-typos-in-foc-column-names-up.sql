@@ -1,0 +1,3 @@
+ALTER TABLE foc_fra_values RENAME COLUMN platation_forest_introduced_area TO plantation_forest_introduced_area;
+
+ALTER TABLE foc_fra_values RENAME COLUMN platation_forest_introduced_area_estimated TO plantation_forest_introduced_area_estimated;
