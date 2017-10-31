@@ -22,7 +22,6 @@ export class PercentInput extends React.Component {
         style={{opacity: this.state.hasFocus ? '1' : '0'}}
         onChange={this.props.onChange}
         onPaste={this.props.onPaste}
-        onClick={() => {this.focus()}}
         onFocus={() => {
           this.setState({hasFocus: true})
           this.refs.percentInputField.select()
