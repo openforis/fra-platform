@@ -15,6 +15,7 @@ import { getForestAreaForYear } from '../extentOfForest/extentOfForestHelper'
 
 const mapIndexed = R.addIndex(R.map)
 const sectionName = 'forestCharacteristics'
+const odpValueCellClass = (fraColumn) => fraColumn.type === 'odp' ? 'odp-value-cell' : ''
 
 const ForestCharacteristics = props => {
 
@@ -26,7 +27,7 @@ const ForestCharacteristics = props => {
       {
         mapIndexed((fraColumn, i) => {
           const plantedForestArea = sum([fraColumn.plantationForestArea, fraColumn.otherPlantedForestArea])
-          return <td className="fra-table__calculated-cell" key={i}>
+          return <td className={`fra-table__calculated-cell ${odpValueCellClass(fraColumn)}`} key={i}>
             {formatNumber(plantedForestArea)}
           </td>
         }, R.values(fra))
@@ -60,7 +61,7 @@ const ForestCharacteristics = props => {
             totalForestAreaNotEqualToExtentOfForest(eofForestArea, forestArea)
               ? 'validation-error'
               : ''
-          return <td className={`fra-table__calculated-cell ${validationErrorClass}`} key={i}>
+          return <td className={`fra-table__calculated-cell ${validationErrorClass} ${odpValueCellClass(fraColumn)}`} key={i}>
             {formatNumber(forestArea)}
           </td>
         }, R.values(fra))
@@ -73,7 +74,7 @@ const ForestCharacteristics = props => {
       const forestArea = totalForestArea(fraColumn)
       const eofForestArea = getForestAreaForYear(props.extentOfForest, fraColumn.name)
       return totalForestAreaNotEqualToExtentOfForest(eofForestArea, forestArea)
-        ? props.i18n.t('generalValidation.forestAreaDoesNotMatchExtentOfForest', {eofForestArea})
+        ? props.i18n.t('generalValidation.forestAreaDoesNotMatchExtentOfForest', {eofForestArea: formatNumber(eofForestArea)})
         : null
     },R.values(fra))
 
