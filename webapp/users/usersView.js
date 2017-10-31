@@ -28,15 +28,15 @@ const UsersTable = ({users, i18n, ...props}) =>
       users.length > 0
         ? R.map(user => <UserRow key={user.id} i18n={i18n} user={user} {...props}/> , users)
         : <tr>
-            <td className="users-list__read-only-cell" colSpan="5">
-              {i18n.t('users.noUsers')}
+            <td className="users-list__cell" colSpan="5">
+              <div className="users-list__cell--read-only">{i18n.t('users.noUsers')}</div>
             </td>
           </tr>
     }
     </tbody>
   </table>
 
-const UserTextFieldCol = ({countryIso, i18n, user, field, editing, readOnly, updateUser, validate}) =>
+const UserTextFieldCol = ({countryIso, i18n, user, field, editing = false, readOnly = false, updateUser, validate}) =>
   <td className={`users-list__cell ${validate ? '' : 'error'} ${editing ? 'editing' : ''}`}>
   {
     editing
@@ -49,7 +49,7 @@ const UserTextFieldCol = ({countryIso, i18n, user, field, editing, readOnly, upd
   }
   </td>
 
-const UserRoleSelectCol = ({countryIso, i18n, user, editing, readOnly, updateUser, validate}) =>
+const UserRoleSelectCol = ({countryIso, i18n, user, editing = false, readOnly = false, updateUser, validate}) =>
   <td className={`users-list__cell ${validate ? '' : 'error'} ${editing ? 'editing' : ''}`}>
   {
     editing
@@ -71,8 +71,6 @@ const UserRoleSelectCol = ({countryIso, i18n, user, editing, readOnly, updateUse
   }
   </td>
 
-
-
 class AddUserForm extends React.Component {
   constructor (props) {
     super(props)
@@ -86,9 +84,9 @@ class AddUserForm extends React.Component {
       <table className="add-user__table">
         <tbody>
         <tr>
-          <UserTextFieldCol countryIso={countryIso} i18n={i18n} user={user} field="name" editing={true} readOnly={false} updateUser={updateNewUser} validate={validateFunc(user, 'name')}/>
-          <UserRoleSelectCol countryIso={countryIso} i18n={i18n} user={user} field="role" editing={true} readOnly={false} updateUser={updateNewUser} validate={validateFunc(user, 'role')}/>
-          <UserTextFieldCol countryIso={countryIso} i18n={i18n} user={user} field="email" editing={true} readOnly={false} updateUser={updateNewUser} validate={validateFunc(user, 'email')}/>
+          <UserTextFieldCol countryIso={countryIso} i18n={i18n} user={user} field="name" editing={true} updateUser={updateNewUser} validate={validateFunc(user, 'name')}/>
+          <UserRoleSelectCol countryIso={countryIso} i18n={i18n} user={user} field="role" editing={true} updateUser={updateNewUser} validate={validateFunc(user, 'role')}/>
+          <UserTextFieldCol countryIso={countryIso} i18n={i18n} user={user} field="email" editing={true} updateUser={updateNewUser} validate={validateFunc(user, 'email')}/>
           <td>
             <button className="btn btn-primary" onClick={() => {
               this.setState({adding: true})
@@ -120,36 +118,30 @@ class UserRow extends React.Component {
 
   render () {
     const {countryIso, i18n, user, updateUser, removeUser, persistUser} = this.props
-    const readOnly = R.endsWith('ALL', user.role)
-    const editing = this.state.editing && !readOnly
+    const editing = this.state.editing
+
     return <tr>
-      <UserTextFieldCol countryIso={countryIso} i18n={i18n} user={user} field="name" editing={editing} readOnly={readOnly} updateUser={updateUser} validate={validField(user, 'name')}/>
-      <UserRoleSelectCol countryIso={countryIso} i18n={i18n} user={user} field="role" editing={editing} readOnly={readOnly} updateUser={updateUser} validate={validField(user, 'role')}/>
-      <UserTextFieldCol countryIso={countryIso} i18n={i18n} user={user} field="email" editing={editing} readOnly={readOnly} updateUser={updateUser} validate={validField(user, 'email')}/>
-      <UserTextFieldCol countryIso={countryIso} i18n={i18n} user={user} field="loginEmail" editing={false} readOnly={true} updateUser={updateUser}/>
+      <UserTextFieldCol countryIso={countryIso} i18n={i18n} user={user} field="name" editing={editing} updateUser={updateUser} validate={validField(user, 'name')}/>
+      <UserRoleSelectCol countryIso={countryIso} i18n={i18n} user={user} field="role" editing={editing} updateUser={updateUser} validate={validField(user, 'role')}/>
+      <UserTextFieldCol countryIso={countryIso} i18n={i18n} user={user} field="email" editing={editing} updateUser={updateUser} validate={validField(user, 'email')}/>
+      <UserTextFieldCol countryIso={countryIso} i18n={i18n} user={user} field="loginEmail" readOnly={true} updateUser={updateUser}/>
       <td className="users-list__cell user-list__edit-column">
-        {
-          readOnly
-            ? null
-            : <div>
-                <button className="btn btn-s btn-link" onClick={() => {
-                  if (this.state.editing) {
-                    persistUser(countryIso, user, true)
-                  }
-                  this.toggleOpen()
-                }}>
-                  {this.state.editing ? 'Done' : 'Edit'}
-                </button>
-                <button className="btn btn-s btn-destructive" onClick={() =>
-                  window.confirm(i18n.t('users.confirmDelete', {user: user.name, country: getCountryName(countryIso, i18n.language)}))
-                    ? removeUser(countryIso, user.id)
-                    : null
-                }>
-                  Delete
-                </button>
-              </div>
-        }
-        </td>
+        <button className="btn btn-s btn-link" onClick={() => {
+          if (this.state.editing) {
+            persistUser(countryIso, user, true)
+          }
+          this.toggleOpen()
+        }}>
+          {this.state.editing ? i18n.t('users.done') : i18n.t('users.edit')}
+        </button>
+        <button className="btn btn-s btn-destructive" onClick={() =>
+          window.confirm(i18n.t('users.confirmDelete', {user: user.name, country: getCountryName(countryIso, i18n.language)}))
+            ? removeUser(countryIso, user.id)
+            : null
+        }>
+          {i18n.t('users.remove')}
+        </button>
+      </td>
     </tr>
   }
 }

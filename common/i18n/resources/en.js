@@ -250,6 +250,8 @@ module.exports.translation = {
     loginEmail: 'Login',
     noUsers: 'No users added',
     remove: 'Remove',
+    done: 'Done',
+    edit: 'Edit',
     addNewUser: 'Add new User',
     addUser: 'Add User',
     confirmDelete: 'Remove {{user}} from {{country}}?',

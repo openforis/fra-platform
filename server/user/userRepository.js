@@ -51,28 +51,7 @@ const fetchCountryUsers = (countryIso, user) =>
         u.id = cr.user_id
       AND
         cr.country_iso = $1
-  ${isSuperUser(user)
-    ? `
-    UNION
-    SELECT
-      u.id,
-      u.email,
-      u.name,
-      u.login_email,
-      u.lang,
-      cr.role
-    FROM
-      fra_user u
-    JOIN
-      user_country_role cr
-      ON
-        u.id = cr.user_id
-      AND
-        cr.role in ('REVIEWER_ALL', 'NATIONAL_CORRESPONDENT_ALL')
-    `
-    : ''
-    }
-  ORDER BY id
+    ORDER BY id
   `, [countryIso])
     .then(res => camelize(res.rows))
 
