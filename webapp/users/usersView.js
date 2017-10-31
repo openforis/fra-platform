@@ -72,6 +72,7 @@ const UserRoleSelectCol = ({countryIso, i18n, user, editing = false, readOnly = 
   </td>
 
 class AddUserForm extends React.Component {
+
   constructor (props) {
     super(props)
     this.state = {adding: false}
@@ -79,14 +80,29 @@ class AddUserForm extends React.Component {
 
   render () {
     const {countryIso, i18n, user, updateNewUser, addNewUser} = this.props
-    const validateFunc = (user, field) => this.state.adding ? validField(user, field) : () => true
+
     return <div className="add-user__container">
       <table className="add-user__table">
         <tbody>
         <tr>
-          <UserTextFieldCol countryIso={countryIso} i18n={i18n} user={user} field="name" editing={true} updateUser={updateNewUser} validate={validateFunc(user, 'name')}/>
-          <UserRoleSelectCol countryIso={countryIso} i18n={i18n} user={user} field="role" editing={true} updateUser={updateNewUser} validate={validateFunc(user, 'role')}/>
-          <UserTextFieldCol countryIso={countryIso} i18n={i18n} user={user} field="email" editing={true} updateUser={updateNewUser} validate={validateFunc(user, 'email')}/>
+          <UserTextFieldCol countryIso={countryIso}
+            i18n={i18n}
+            user={user}
+            field="name" editing={true}
+            updateUser={updateNewUser}
+            validate={this.state.adding ? validField(user, 'name') : true}/>
+          <UserRoleSelectCol countryIso={countryIso}
+            i18n={i18n}
+            user={user}
+            field="role" editing={true}
+            updateUser={updateNewUser}
+            validate={this.state.adding ? validField(user, 'role') : true}/>
+          <UserTextFieldCol countryIso={countryIso}
+            i18n={i18n}
+            user={user}
+            field="email" editing={true}
+            updateUser={updateNewUser}
+            validate={this.state.adding ? validField(user, 'email') : true}/>
           <td>
             <button className="btn btn-primary" onClick={() => {
               this.setState({adding: true})
@@ -107,6 +123,7 @@ class AddUserForm extends React.Component {
 }
 
 class UserRow extends React.Component {
+
   constructor (props) {
     super(props)
     this.state = {editing: false}
@@ -118,13 +135,36 @@ class UserRow extends React.Component {
 
   render () {
     const {countryIso, i18n, user, updateUser, removeUser, persistUser} = this.props
-    const editing = this.state.editing
 
     return <tr>
-      <UserTextFieldCol countryIso={countryIso} i18n={i18n} user={user} field="name" editing={editing} updateUser={updateUser} validate={validField(user, 'name')}/>
-      <UserRoleSelectCol countryIso={countryIso} i18n={i18n} user={user} field="role" editing={editing} updateUser={updateUser} validate={validField(user, 'role')}/>
-      <UserTextFieldCol countryIso={countryIso} i18n={i18n} user={user} field="email" editing={editing} updateUser={updateUser} validate={validField(user, 'email')}/>
-      <UserTextFieldCol countryIso={countryIso} i18n={i18n} user={user} field="loginEmail" readOnly={true} updateUser={updateUser}/>
+      <UserTextFieldCol
+        countryIso={countryIso}
+        i18n={i18n}
+        user={user}
+        field="name"
+        editing={this.state.editing}
+        updateUser={updateUser}
+        validate={validField(user, 'name')}/>
+      <UserRoleSelectCol
+        countryIso={countryIso}
+        i18n={i18n}
+        user={user}
+        field="role"
+        editing={this.state.editing}
+        updateUser={updateUser}
+        validate={validField(user, 'role')}/>
+      <UserTextFieldCol
+        countryIso={countryIso}
+        i18n={i18n}
+        user={user}
+        field="email" editing={this.state.editing}
+        updateUser={updateUser}
+        validate={validField(user, 'email')}/>
+      <UserTextFieldCol countryIso={countryIso}
+        i18n={i18n}
+        user={user}
+        field="loginEmail" readOnly={true}
+        updateUser={updateUser} validate={true}/>
       <td className="users-list__cell user-list__edit-column">
         <button className="btn btn-s btn-link" onClick={() => {
           if (this.state.editing) {
@@ -134,7 +174,7 @@ class UserRow extends React.Component {
         }}>
           {this.state.editing ? i18n.t('users.done') : i18n.t('users.edit')}
         </button>
-        <button className="btn btn-s btn-destructive" onClick={() =>
+        <button className="btn btn-s btn-destructive" disabled={this.state.editing} onClick={() =>
           window.confirm(i18n.t('users.confirmDelete', {user: user.name, country: getCountryName(countryIso, i18n.language)}))
             ? removeUser(countryIso, user.id)
             : null
