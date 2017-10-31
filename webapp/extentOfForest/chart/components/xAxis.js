@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import * as d3 from 'd3'
 import R from 'ramda'
+import {getChartYears} from '../chart'
+
 class XAxis extends Component {
   componentDidMount () {
     this.renderAxis(this.props)
@@ -11,7 +13,8 @@ class XAxis extends Component {
   }
 
   renderAxis (props) {
-    const tickValues = R.filter(v => v % 5 === 0, R.range(1990, 2021))
+    const chartYears = getChartYears(props.data)
+    const tickValues = R.filter(v => v % 5 === 0, R.range(chartYears.min, chartYears.max))
 
     const axis = d3.axisBottom(props.xScale)
       .tickValues(tickValues)

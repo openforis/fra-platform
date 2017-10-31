@@ -65,7 +65,7 @@ const mapStateToProps = (state, props) => {
       R.mergeAll
     )(props.trends)
 
-    const xScale = getXScale(props.wrapperWidth)
+    const xScale = getXScale(props.wrapperWidth, data)
     const yScale = getYScale(data)
 
     return {data, xScale, yScale, i18n: state.user.i18n}
