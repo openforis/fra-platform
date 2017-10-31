@@ -10,10 +10,74 @@ import ChartWrapper from '../extentOfForest/chart/chartWrapper'
 import { CommentableReviewDescription } from '../description/commentableDescription'
 import { fetchLastSectionUpdateTimestamp } from '../audit/actions'
 import DefinitionLink from './../reusableUiComponents/definitionLink'
+import { sum, formatNumber, eq } from '../../common/bignumberUtils'
+import { getForestAreaForYear } from '../extentOfForest/extentOfForestHelper'
 
+const mapIndexed = R.addIndex(R.map)
 const sectionName = 'forestCharacteristics'
+const odpValueCellClass = (fraColumn) => fraColumn.type === 'odp' ? 'odp-value-cell' : ''
 
 const ForestCharacteristics = props => {
+
+  const plantedForestRow = fra => {
+    return <tr key="plantedForest">
+      <th className="fra-table__header-cell">
+        {props.i18n.t('forestCharacteristics.plantedForest')}
+      </th>
+      {
+        mapIndexed((fraColumn, i) => {
+          const plantedForestArea = sum([fraColumn.plantationForestArea, fraColumn.otherPlantedForestArea])
+          return <td className={`fra-table__calculated-cell ${odpValueCellClass(fraColumn)}`} key={i}>
+            {formatNumber(plantedForestArea)}
+          </td>
+        }, R.values(fra))
+      }
+    </tr>
+  }
+
+  const totalForestArea = (fraColumn) =>
+    sum([
+      fraColumn.plantationForestArea,
+      fraColumn.otherPlantedForestArea,
+      fraColumn.naturalForestArea
+    ])
+
+  const totalForestAreaNotEqualToExtentOfForest = (eofForestArea, totalForestArea) => {
+    if (R.isNil(eofForestArea)) return false
+    if (R.isNil(totalForestArea)) return false
+    return !eq(eofForestArea, totalForestArea)
+  }
+
+  const totalForestAreaRow = fra => {
+    return <tr key="totalForestArea">
+      <th className="fra-table__header-cell">
+        {props.i18n.t('forestCharacteristics.totalForestArea')}
+      </th>
+      {
+        mapIndexed((fraColumn, i) => {
+          const forestArea = totalForestArea(fraColumn)
+          const eofForestArea = getForestAreaForYear(props.extentOfForest, fraColumn.name)
+          const validationErrorClass =
+            totalForestAreaNotEqualToExtentOfForest(eofForestArea, forestArea)
+              ? 'validation-error'
+              : ''
+          return <td className={`fra-table__calculated-cell ${validationErrorClass} ${odpValueCellClass(fraColumn)}`} key={i}>
+            {formatNumber(forestArea)}
+          </td>
+        }, R.values(fra))
+      }
+    </tr>
+  }
+
+  const validationErrorMessages = fra =>
+    R.map(fraColumn => {
+      const forestArea = totalForestArea(fraColumn)
+      const eofForestArea = getForestAreaForYear(props.extentOfForest, fraColumn.name)
+      return totalForestAreaNotEqualToExtentOfForest(eofForestArea, forestArea)
+        ? props.i18n.t('generalValidation.forestAreaDoesNotMatchExtentOfForest', {eofForestArea: formatNumber(eofForestArea)})
+        : null
+    },R.values(fra))
+
   const disableGenerateFRAValues = () => {
     const odps = R.pipe(
       R.values,
@@ -24,21 +88,37 @@ const ForestCharacteristics = props => {
   const i18n = props.i18n
   const rows = [
     {
+      type: 'field',
       field: 'naturalForestArea',
       localizedName: i18n.t('forestCharacteristics.naturalForestArea')
     },
     {
+      type: 'custom',
+      render: plantedForestRow
+    },
+    {
+      type: 'field',
       field: 'plantationForestArea',
       localizedName: i18n.t('forestCharacteristics.plantationForestArea')
     },
     {
+      type: 'field',
       field: 'plantationForestIntroducedArea',
       className: 'fra-table__subcategory-cell',
       localizedName: i18n.t('forestCharacteristics.plantationForestIntroducedArea')
     },
     {
+      type: 'field',
       field: 'otherPlantedForestArea',
       localizedName: i18n.t('forestCharacteristics.otherPlantedForestArea')
+    },
+    {
+      type: 'custom',
+      render: totalForestAreaRow
+    },
+    {
+      type: 'validationErrors',
+      validationErrorMessages
     }
   ]
 
@@ -112,8 +192,9 @@ class DataFetchingComponent extends React.Component {
 
 const mapStateToProps = state => ({
   ...state.forestCharacteristics,
-  'openCommentThread': state.review.openThread,
-  i18n: state.user.i18n
+  openCommentThread: state.review.openThread,
+  i18n: state.user.i18n,
+  extentOfForest: state.extentOfForest
 })
 
 export default connect(
