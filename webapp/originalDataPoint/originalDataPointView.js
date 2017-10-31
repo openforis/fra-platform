@@ -28,7 +28,7 @@ import MultiSelect from '../reusableUiComponents/multiSelect'
 import handlePaste from './paste'
 import { fetchLastSectionUpdateTimestamp } from '../audit/actions'
 
-const years = ['', ...R.pipe(R.range(1990), R.reverse)(2021)]
+const years = ['', ...R.pipe(R.range(1980), R.reverse)(2021)]
 
 const isCommentsOpen = (target, openThread = {}) => R.equals('odp', openThread.section) && R.isEmpty(R.difference(openThread.target, target))
 

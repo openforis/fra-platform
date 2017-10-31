@@ -310,7 +310,9 @@ The FRA team
     naturalForestArea: 'Naturally regenerating forest',
     plantationForestArea: 'Plantation forest',
     plantationForestIntroducedArea: '…of which introduced species',
-    otherPlantedForestArea: 'Other planted forest'
+    otherPlantedForestArea: 'Other planted forest',
+    plantedForest: 'Planted forest',
+    totalForestArea: 'Total forest area'
   },
 
   forestAreaChange: {

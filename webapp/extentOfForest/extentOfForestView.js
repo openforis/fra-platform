@@ -14,6 +14,7 @@ import countryConfig from '../../common/countryConfig'
 import { sum, formatNumber, eq } from '../../common/bignumberUtils'
 
 const mapIndexed = R.addIndex(R.map)
+const odpValueCellClass = (fraColumn) => fraColumn.type === 'odp' ? 'odp-value-cell' : ''
 
 const ExtentOfForest = (props) => {
 
@@ -45,7 +46,7 @@ const ExtentOfForest = (props) => {
       {
         mapIndexed((fraColumn, i) => {
           const totalLandArea = sum([fraColumn.forestArea, fraColumn.otherWoodedLand, fraColumn.otherLand])
-          return <td className={`fra-table__calculated-cell ${totalAreaValidationClass(fraColumn, totalLandArea)}`} key={i}>
+          return <td className={`fra-table__calculated-cell ${totalAreaValidationClass(fraColumn, totalLandArea)} ${odpValueCellClass(fraColumn)}`} key={i}>
             {formatNumber(totalLandArea)}
           </td>
         }, R.values(fra))
@@ -58,75 +59,72 @@ const ExtentOfForest = (props) => {
       {
         mapIndexed((faoStatColumn, i) => {
           const faoStatLandArea = R.path([props.countryIso, 'faoStat', faoStatColumn.name], countryConfig)
-          return <td className="fra-table__calculated-cell" key={i}>
+          return <td className={`fra-table__calculated-cell ${odpValueCellClass(faoStatColumn)}`} key={i}>
             {formatNumber(faoStatLandArea)}
           </td>
         }, R.values(fra))
       }
     </tr>
 
-  const validationErrorRow = fra => {
-    const columnErrorMsgs = R.map(fraColumn => {
+  const validationErrorMessages = fra =>
+    R.map(fraColumn => {
       const totalLandArea = sum([fraColumn.forestArea, fraColumn.otherWoodedLand, fraColumn.otherLand])
       return totalAreaNotEqualToFaoStat(fraColumn, totalLandArea)
         ? props.i18n.t('extentOfForest.faoStatMismatch')
         : null
     },R.values(fra))
 
-    if (R.all(R.isNil, columnErrorMsgs)) return null
-    return <tr key="validationError">
-      <td style={{padding: '0'}}></td>
-      {
-        mapIndexed((errorMsg, i) => {
-          return <td className="fra-table__validation-cell" key={i}>
-            <div className="fra-table__validation-error">{errorMsg}</div>
-          </td>
-        }, columnErrorMsgs)
-      }
-    </tr>
-  }
-
   const eofRows = [
     {
+      type: 'field',
       field: 'forestArea',
       localizedName: i18n.t('extentOfForest.forestArea')
     },
     {
+      type: 'field',
       field: 'otherWoodedLand',
       localizedName: i18n.t('fraClass.otherWoodedLand')
     },
     {
+      type: 'field',
       field: 'otherLand',
       localizedName: i18n.t('fraClass.otherLand')
     },
     {
+      type: 'field',
       field: 'otherLandPalms',
       className: 'fra-table__subcategory-cell',
       localizedName: i18n.t('extentOfForest.ofWhichPalms')
     },
     {
+      type: 'field',
       field: 'otherLandTreeOrchards',
       className: 'fra-table__subcategory-cell',
       localizedName: i18n.t('extentOfForest.ofWhichTreeOrchards')
     },
     {
+      type: 'field',
       field: 'otherLandAgroforestry',
       className: 'fra-table__subcategory-cell',
       localizedName: i18n.t('extentOfForest.ofWhichAgroforestry')
     },
     {
+      type: 'field',
       field: 'otherLandTreesUrbanSettings',
       className: 'fra-table__subcategory-cell',
       localizedName: i18n.t('extentOfForest.ofWhichTreesUrbanSettings')
     },
     {
-      customRenderRow: totalAreaRow
+      type: 'custom',
+      render: totalAreaRow
     },
     {
-      customRenderRow: faoStatRow
+      type: 'custom',
+      render: faoStatRow
     },
     {
-      customRenderRow: validationErrorRow
+      type: 'validationErrors',
+      validationErrorMessages
     }
   ]
 
