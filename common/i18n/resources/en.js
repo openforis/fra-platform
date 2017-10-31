@@ -133,7 +133,7 @@ module.exports.translation = {
       platformVersion: 'Platform version',
       userAgent: 'User agent',
       user: 'User',
-      manageUsers: 'Manage users'
+      manageCollaborators: 'Manage collaborators'
     },
     sectionHeaders: {
       forestExtentCharacteristicsAndChanges: 'Forest extent, characteristics and changes',
@@ -243,17 +243,16 @@ module.exports.translation = {
   },
 
   users: {
-    manageUsers: 'Manage users',
+    manageCollaborators: 'Manage collaborators',
     name: 'Name',
     role: 'Role',
     email: 'Email',
     loginEmail: 'Login',
-    noUsers: 'No users added',
+    noUsers: 'No collaborators added',
     remove: 'Remove',
     done: 'Done',
     edit: 'Edit',
-    addNewUser: 'Add new User',
-    addUser: 'Add User',
+    addUser: 'Add collaborator',
     confirmDelete: 'Remove {{user}} from {{country}}?',
     invitationEmail:{
       subject:'FRA Platform - Access granted to {{country}}',

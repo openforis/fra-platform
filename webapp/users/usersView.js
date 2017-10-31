@@ -208,7 +208,7 @@ class UsersView extends React.Component {
       ? <LoggedInPageTemplate>
           <div className="fra-view__content">
             <div className="fra-view__page-header">
-              <h1 className="title">{i18n.t('users.manageUsers')}</h1>
+              <h1 className="title">{i18n.t('users.manageCollaborators')}</h1>
             </div>
             <AddUserForm {...this.props} user={newUser} countryIso={match.params.countryIso}/>
             <UsersTable {...this.props} countryIso={match.params.countryIso}/>
