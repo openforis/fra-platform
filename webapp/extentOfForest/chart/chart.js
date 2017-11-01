@@ -8,10 +8,30 @@ export const styles = {
   bottom: 30
 }
 
+export const getChartYears = (data) => {
+  const min = R.pipe(
+    R.map(o => d3.min(o, d => d.year)),
+    R.values,
+    o => d3.min(o, d => d),
+    R.subtract(R.__, 1)
+  )(data)
+
+  const max = R.pipe(
+    R.map(o => d3.max(o, d => d.year)),
+    R.values,
+    o => d3.max(o, d => d),
+    R.add(R.__, 1)
+  )(data)
+
+  return {min: min, max: max}
+}
+
 // Returns a function that "scales" X coordinates from the data to fit the chart
-export const getXScale = width => {
+export const getXScale = (width, data) => {
+  const chartYears = getChartYears(data)
+
   return d3.scaleLinear()
-    .domain([1989, 2021])
+    .domain([chartYears.min, chartYears.max])
     .range([styles.left, width])
 }
 
