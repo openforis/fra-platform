@@ -25,6 +25,10 @@ export default i18n => ({
     [
       {type: 'readOnly', jsx: <th className="fra-table__category-cell">{i18n.t('degradedForest.howMonitored')}</th>},
       {type: 'verticallyGrowingTextInput', minWidth: 350},
+      {
+        type: 'readOnly',
+        jsx: <td className="fra-table__hidden-cell"/>
+      }
     ]
   ],
   valueSlice: {
