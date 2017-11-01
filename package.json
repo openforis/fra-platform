@@ -11,9 +11,8 @@
     "clean": "rm -rf dist/",
     "start": "node server/server.js",
     "postinstall": "webpack --config webpack.config.js",
-    "watch": "yarn build:watch & yarn watch:server & yarn livereload:app",
+    "watch": "yarn build:watch & yarn watch:server",
     "watch:server": "NODE_ENV=development nodemon -e js --watch server server/server.js",
-    "livereload:app": "node --eval \"require('livereload').createServer().watch('./')\"",
     "create-migration": "./server/db/migration/create-migration.sh",
     "test": "mocha-webpack --webpack-config webpack.config-test.js -R spec test/unit"
   },
@@ -30,7 +29,6 @@
     "jsondiffpatch": "^0.2.4",
     "less": "^2.7.2",
     "less-loader": "^4.0.3",
-    "livereload": "^0.6.2",
     "mocha": "^3.4.2",
     "nodemon": "^1.11.0",
     "style-loader": "^0.16.1",
