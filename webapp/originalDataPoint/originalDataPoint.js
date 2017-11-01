@@ -9,13 +9,13 @@ const uuidv4 = require('uuid/v4')
 
 export const updateNationalClass = (odp, index, field, value) => {
   const nationalClassToUpdate = odp.nationalClasses[index]
-  const wasPlaceHolder = nationalClassToUpdate.placeHolder
+  const wasPlaceHolder = !R.isNil(R.path(['placeHolder'], nationalClassToUpdate))
   const updatedNationalClass = R.dissoc('placeHolder', {...nationalClassToUpdate, [field]: value})
   const classesWithValueUpdated = R.update(index, updatedNationalClass, odp.nationalClasses)
-  const updatedClasses = wasPlaceHolder
-    ? [...classesWithValueUpdated, nationalClassPlaceHolder()]
-    : classesWithValueUpdated
-  return {...odp, nationalClasses: updatedClasses}
+
+  return wasPlaceHolder
+    ? {...odp, nationalClasses: [...classesWithValueUpdated, nationalClassPlaceHolder()]}
+    : {...odp, nationalClasses: classesWithValueUpdated}
 }
 
 export const removeNationalClass = (odp, index) => ({...odp, nationalClasses: R.remove(index, 1, odp.nationalClasses)})
