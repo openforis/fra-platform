@@ -1,6 +1,6 @@
 import React from 'react'
 import R from 'ramda'
-import { subCategoryValidator } from '../traditionalTable/validators'
+import { subCategoryValidator } from '../../traditionalTable/validators'
 
 const yearRange = R.range(2000, 2018)
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import UpdateOnResizeReactComponent from '../../reusableUiComponents/updateOnResizeReactComponent'
+import UpdateOnResizeReactComponent from '../../../reusableUiComponents/updateOnResizeReactComponent'
 import ChartContainer from './chartContainer'
 
 class ChartWrapper extends UpdateOnResizeReactComponent {

@@ -1,9 +1,9 @@
 import React from 'react'
 import R from 'ramda'
-import { formatDecimal } from '../utils/numberFormat'
-import { totalSum } from '../traditionalTable/aggregate'
-import { subCategoryValidator } from '../traditionalTable/validators'
-import { forestAreaSameAsExtentOfForestValidator } from '../traditionalTable/validators'
+import { formatDecimal } from '../../utils/numberFormat'
+import { totalSum } from '../../traditionalTable/aggregate'
+import { subCategoryValidator } from '../../traditionalTable/validators'
+import { forestAreaSameAsExtentOfForestValidator } from '../../traditionalTable/validators'
 
 const mapIndexed = R.addIndex(R.map)
 

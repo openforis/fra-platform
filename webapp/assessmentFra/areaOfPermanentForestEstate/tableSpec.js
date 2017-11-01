@@ -1,6 +1,6 @@
 import R from 'ramda'
 import React from 'react'
-import { forestAreaLessThanOrEqualToExtentOfForestValidator } from '../traditionalTable/validators'
+import { forestAreaLessThanOrEqualToExtentOfForestValidator } from '../../traditionalTable/validators'
 
 const mapIndexed = R.addIndex(R.map)
 

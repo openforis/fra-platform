@@ -2,15 +2,15 @@ import './style.less'
 import React from 'react'
 import { connect } from 'react-redux'
 
-import LoggedInPageTemplate from '../app/loggedInPageTemplate'
-import TraditionalTable from '../traditionalTable/traditionalTable'
+import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
+import TraditionalTable from '../../traditionalTable/traditionalTable'
 import {
   primaryDesignatedManagementObjectiveTableSpec,
   totalAreaWithDesignatedManagementObjectiveTableSpec
 } from './tableSpecs'
-import { CommentableDescriptions } from '../description/commentableDescription'
-import DefinitionLink from './../reusableUiComponents/definitionLink'
-import { fetchLastSectionUpdateTimestamp } from '../audit/actions'
+import { CommentableDescriptions } from '../../description/commentableDescription'
+import DefinitionLink from '../../reusableUiComponents/definitionLink'
+import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
 
 const sectionName = 'designatedManagementObjective'
 

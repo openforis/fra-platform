@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import * as R from 'ramda'
-import ReviewIndicator from '../review/reviewIndicator'
-import { readPasteClipboard } from '../utils/copyPasteUtil'
-import { ThousandSeparatedDecimalInput } from '../reusableUiComponents/thousandSeparatedDecimalInput'
-import { formatDecimal } from '../utils/numberFormat'
-import { eq } from '../../common/bignumberUtils'
+import ReviewIndicator from '../../review/reviewIndicator'
+import { readPasteClipboard } from '../../utils/copyPasteUtil'
+import { ThousandSeparatedDecimalInput } from '../../reusableUiComponents/thousandSeparatedDecimalInput'
+import { formatDecimal } from '../../utils/numberFormat'
+import { eq } from '../../../common/bignumberUtils'
 
 const GrowingStockTable = (props) => {
   const cols = R.filter(v => v.type !== 'odp', R.values(props.areaValues))

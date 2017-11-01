@@ -5,7 +5,7 @@
 import R from 'ramda'
 import { eq, greaterThanOrEqualTo } from '../../common/bignumberUtils'
 import { totalSum } from '../traditionalTable/aggregate'
-import { getForestAreaForYear } from '../extentOfForest/extentOfForestHelper'
+import { getForestAreaForYear } from '../assessmentFra/extentOfForest/extentOfForestHelper'
 import { formatDecimal } from '../utils/numberFormat'
 
 export const subCategoryValidator =

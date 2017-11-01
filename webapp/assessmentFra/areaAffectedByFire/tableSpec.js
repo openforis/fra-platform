@@ -1,6 +1,6 @@
 import React from 'react'
 import R from 'ramda'
-import { subCategoryValidator } from '../traditionalTable/validators'
+import { subCategoryValidator } from '../../traditionalTable/validators'
 
 const integerInputColumns = R.times(() => ({type: 'decimalInput'}), 18)
 

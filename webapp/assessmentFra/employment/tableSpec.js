@@ -1,8 +1,8 @@
 import React from 'react'
 import R from 'ramda'
-import { sum } from '../../common/bignumberUtils'
-import { formatInteger } from '../utils/numberFormat'
-import { subCategoryValidator } from '../traditionalTable/validators'
+import { sum } from '../../../common/bignumberUtils'
+import { formatInteger } from '../../utils/numberFormat'
+import { subCategoryValidator } from '../../traditionalTable/validators'
 
 const sumOfGenders = (tableData, rowIdx, yearIdx) => {
   const female = tableData[rowIdx][yearIdx * 3 + 2]

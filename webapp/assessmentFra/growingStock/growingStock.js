@@ -1,5 +1,5 @@
 import * as R from 'ramda'
-import { sum, mul, div, eq, toFixed } from '../../common/bignumberUtils'
+import { sum, mul, div, eq, toFixed } from '../../../common/bignumberUtils'
 
 export const rows = [
   {

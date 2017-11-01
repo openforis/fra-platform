@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-import { applicationError } from '../applicationError/actions'
-import * as autosave from '../autosave/actions'
+import { applicationError } from '../../applicationError/actions'
+import * as autosave from '../../autosave/actions'
 
 import { updateGrowingStockValue, updateGrowingStockValues } from './growingStock'
 

@@ -1,8 +1,8 @@
 import React from 'react'
 import R from 'ramda'
-import { formatDecimal } from '../utils/numberFormat'
-import { sub, div, eq, toFixed } from '../../common/bignumberUtils'
-import { subCategoryValidator } from '../traditionalTable/validators'
+import { formatDecimal } from '../../utils/numberFormat'
+import { sub, div, eq, toFixed } from '../../../common/bignumberUtils'
+import { subCategoryValidator } from '../../traditionalTable/validators'
 import { getForestAreaForYear } from '../extentOfForest/extentOfForestHelper'
 
 const mapIndexed = R.addIndex(R.map)

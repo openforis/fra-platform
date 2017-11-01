@@ -3,7 +3,7 @@ import R from 'ramda'
 import {
   subCategoryValidator,
   forestAreaLessThanOrEqualToExtentOfForestValidator
-} from '../traditionalTable/validators'
+} from '../../traditionalTable/validators'
 
 const mapIndexed = R.addIndex(R.map)
 

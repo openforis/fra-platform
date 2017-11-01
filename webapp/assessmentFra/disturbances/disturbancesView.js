@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import tableSpec from './tableSpec'
-import SingleTraditionalTableView from '../traditionalTable/singleTraditionalTableView'
+import SingleTraditionalTableView from '../../traditionalTable/singleTraditionalTableView'
 
 const DisturbancesView = props =>
   <SingleTraditionalTableView

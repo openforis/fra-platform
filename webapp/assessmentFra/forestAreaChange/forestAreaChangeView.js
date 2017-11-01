@@ -1,7 +1,7 @@
 import React from 'react'
 import tableSpec from './tableSpec'
 import { connect } from 'react-redux'
-import SingleTraditionalTableView from '../traditionalTable/singleTraditionalTableView'
+import SingleTraditionalTableView from '../../traditionalTable/singleTraditionalTableView'
 
 const ForestAreaChangeView = props =>
   <SingleTraditionalTableView

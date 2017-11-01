@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import SingleTraditionalTableView from '../traditionalTable/singleTraditionalTableView'
+import SingleTraditionalTableView from '../../traditionalTable/singleTraditionalTableView'
 import tableSpec from './tableSpec'
 
 const ForestOwnershipView = props =>

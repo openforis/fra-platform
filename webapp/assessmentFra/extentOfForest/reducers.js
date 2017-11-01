@@ -1,8 +1,8 @@
 import * as R from 'ramda'
 
-import * as odpTypes from '../tableWithOdp/actions'
-import { updateValueReducer, updateValuesReducer } from '../tableWithOdp/reducerFunctions'
-import { applyReducerFunction } from '../utils/reduxUtils'
+import * as odpTypes from '../../tableWithOdp/actions'
+import { updateValueReducer, updateValuesReducer } from '../../tableWithOdp/reducerFunctions'
+import { applyReducerFunction } from '../../utils/reduxUtils'
 
 const actionHandlers = {
   [odpTypes.valueChangeStart('extentOfForest')]: (state, action) => updateValueReducer(state, action),

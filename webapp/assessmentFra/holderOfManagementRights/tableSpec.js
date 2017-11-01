@@ -1,6 +1,6 @@
 import React from 'react'
 import R from 'ramda'
-import { totalSumFormatted } from '../traditionalTable/aggregate'
+import { totalSumFormatted } from '../../traditionalTable/aggregate'
 
 const createInputRow = (rowHeader, cname = 'fra-table__category-cell') => [
   {type: 'readOnly', jsx: <th key="protection" className={`${cname}`}>{rowHeader}</th>},

@@ -1,16 +1,16 @@
 import React from 'react'
 import R from 'ramda'
-import { totalSumFormatted } from '../traditionalTable/aggregate'
-import { formatInteger } from '../utils/numberFormat'
+import { totalSumFormatted } from '../../traditionalTable/aggregate'
+import { formatInteger } from '../../utils/numberFormat'
 
 const fillerCell = () => ({
   type: 'readOnly',
-  jsx: <td className="fra-table__filler-cell"/>
+  jsx: <td className="fra-table__filler"/>
 })
 
 const lastFillerOrRow = () => ({
   type: 'readOnly',
-  jsx: <td className="fra-table__filler-cell" style={{borderRight: '1px solid #d5d5d5'}}/>
+  jsx: <td className="fra-table__filler-last"/>
 })
 
 const productRow = idx => [
