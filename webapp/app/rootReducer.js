@@ -13,7 +13,7 @@ import traditionalTable from '../traditionalTable/reducer'
 import descriptions from '../description/reducers'
 import review from '../review/reducer'
 import dashboard from '../dashboard/reducer'
-import users from '../users/reducer'
+import userManagement from '../userManagement/reducer'
 
 export default combineReducers({
   applicationError,
@@ -29,5 +29,5 @@ export default combineReducers({
   traditionalTable,
   growingStock,
   dashboard,
-  users
+  userManagement
 })
