@@ -1,0 +1,84 @@
+@import (reference) "../app-styles/config";
+@import (reference) "../app-styles/inputMixins";
+
+.users-list__table {
+  border-collapse: collapse;
+  font-size: @font-s;
+  line-height: 20px;
+  width: 100%;
+  table-layout: fixed;
+}
+
+.users-list__header-cell {
+  border-bottom: @ui-thin-border;
+  font-size: @font-m;
+  padding: 12px 10px;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.users-list__cell {
+  border: 1px solid transparent;
+  border-bottom-color: @ui-border;
+  padding: 0;
+  height: 1px;
+  text-align: left;
+
+  &.editing {
+    border-color: @ui-border;
+  }
+}
+
+.users-list__cell--read-only {
+  color: @text-disabled;
+  cursor: default;
+  padding: 12px 10px;
+  word-break: break-word;
+}
+
+.users-list__cell--editable {
+  cursor: default;
+  padding: 12px 10px;
+  word-break: break-word;
+}
+
+.user-list__edit-column {
+  width: 120px;
+  text-align: right;
+}
+
+.users-list__input-container {
+  .mixin-input-container(left);
+
+  .fra-table__select {
+    width: 100%;
+  }
+}
+
+.add-user__container {
+  background-color: @ui-bg;
+  padding: 20px 8px;
+  margin-bottom: 24px;
+  border-radius: 2px;
+}
+
+.add-user__table {
+  border-collapse: separate;
+  border-spacing: 10px 0;
+  font-size: @font-s;
+  line-height: 20px;
+  width: 100%;
+
+  .users-list__cell {
+    background-color: white;
+    border: @ui-thin-border;
+    padding: 0;
+    height: 1px;
+  }
+
+  .btn {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+  }
+}

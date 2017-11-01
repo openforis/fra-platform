@@ -119,15 +119,14 @@
 // Select cell
 
 .fra-table__select {
-  .mixin-select-base(10px);
+  .mixin-select-base(10px, none, 0);
   font-size: @font-s;
-  border: none;
   height: 100%;
   min-width: 100%;
 
   &:focus {
-    outline: 1px solid @text-body;
-    outline-offset: 0px;
+    outline: none;
+    box-shadow: 0 0 0 1px @text-body;
   }
 }
 

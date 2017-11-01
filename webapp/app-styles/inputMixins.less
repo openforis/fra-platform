@@ -25,7 +25,7 @@
   }
 
   &::placeholder {
-    color: @text-mute;
+    color: @text-disabled;
   }
 }
 
@@ -39,4 +39,8 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+
+  &.placeholder {
+    color: @text-disabled;
+  }
 }

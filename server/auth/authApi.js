@@ -1,14 +1,23 @@
-const R = require('ramda')
 const passport = require('passport')
-const userRepository = require('../user/userRepository')
 const authConfig = require('./authConfig')
-const {sendErr} = require('../utils/requestUtils')
+const db = require('../db/db')
+const userRepository = require('../user/userRepository')
 const countryRepository = require('../country/countryRepository')
+const {sendErr} = require('../utils/requestUtils')
 
-const verifyCallback = (accessToken, refreshToken, profile, done) =>
-  userRepository
-    .findUserByLoginEmails(profile.emails.map(e => e.value))
-    .then(user => user ? done(null, user) : done(null, false, {message: 'User not authorized'}))
+const verifyCallback = (req, accessToken, refreshToken, profile, done) => {
+
+  const userFetchCallback = user =>
+    user ? done(null, user) : done(null, false, {message: 'User not authorized'})
+
+  const invitationUUID = req.query.state
+  if (invitationUUID)
+    db.transaction(userRepository.acceptInvitation, [invitationUUID, profile.emails[0].value])
+      .then(userFetchCallback)
+  else
+    userRepository.findUserByLoginEmails(profile.emails.map(e => e.value.toLowerCase()))
+      .then(userFetchCallback)
+}
 
 const authenticationFailed = (req, res) => {
   req.logout()
@@ -36,24 +45,27 @@ const authenticationSuccessful = (req, user, next, res) => {
 module.exports.init = app => {
   authConfig.init(app, verifyCallback)
 
-  app.get('/auth/google',
-    passport.authenticate('google', {scope: ['https://www.googleapis.com/auth/plus.login', 'profile', 'email']}))
+  app.get('/auth/google', (req, res) =>
+    passport.authenticate('google',
+      {scope: ['https://www.googleapis.com/auth/plus.login', 'profile', 'email'], state: req.query.i}
+    )(req, res)
+  )
 
-  app.get('/auth/google/callback',
-    (req, res, next) => {
-      passport.authenticate('google', (err, user) => {
-        if (err) {
-          next(err)
-        } else if (!user) {
-          authenticationFailed(req, res)
-        } else {
-          authenticationSuccessful(req, user, next, res)
-        }
-      })(req, res, next)
-    })
+  app.get('/auth/google/callback', (req, res, next) => {
+    passport.authenticate('google', (err, user) => {
+      if (err) {
+        next(err)
+      } else if (!user) {
+        authenticationFailed(req, res)
+      } else {
+        authenticationSuccessful(req, user, next, res)
+      }
+    })(req, res, next)
+  })
 
   app.post('/auth/logout', (req, res) => {
     req.logout()
     res.json({})
   })
+
 }

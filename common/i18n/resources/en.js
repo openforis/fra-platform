@@ -1,4 +1,4 @@
-export const translation = {
+module.exports.translation = {
 
   language: {
     en: 'English',
@@ -72,7 +72,11 @@ export const translation = {
       deleted: 'deleted',
       edited: 'edited',
       resolved: 'resolved issue in',
-      status: 'changed status to'
+      status: 'changed status to',
+      addUser:'added {{user}} as {{role}}',
+      updateUser:'edited {{user}}',
+      removeUser:'removed {{user}}',
+      acceptInvitation: 'joined as {{role}}'
     }
   },
 
@@ -128,7 +132,8 @@ export const translation = {
       feedbackEmailSubject: 'FRA Platform Feedback',
       platformVersion: 'Platform version',
       userAgent: 'User agent',
-      user: 'User'
+      user: 'User',
+      manageCollaborators: 'Manage collaborators'
     },
     sectionHeaders: {
       forestExtentCharacteristicsAndChanges: 'Forest extent, characteristics and changes',
@@ -140,7 +145,6 @@ export const translation = {
       employmentEducationAndNwfp: 'Employment, education and NWFP'
     }
   },
-
 
   header: {
     profilePicture: 'Edit profile picture',
@@ -199,6 +203,7 @@ export const translation = {
     referenceYearData: 'Reference year for the data',
     referenceYear: 'Reference year',
     references: 'References',
+    selectYear: 'Select…',
     methods: 'Methods',
     methodsUsed: 'Methods used',
     dataSource: 'Data source',
@@ -234,6 +239,43 @@ export const translation = {
       forest: 'Forest',
       otherWoodedLand: 'Other wooded land',
       otherLand: 'Other land'
+    }
+  },
+
+  users: {
+    manageCollaborators: 'Manage collaborators',
+    name: 'Name',
+    role: 'Role',
+    email: 'Email',
+    loginEmail: 'Login',
+    noUsers: 'No collaborators added',
+    remove: 'Remove',
+    done: 'Done',
+    edit: 'Edit',
+    addUser: 'Add collaborator',
+    confirmDelete: 'Remove {{user}} from {{country}}?',
+    invitationEmail:{
+      subject:'FRA Platform - Access granted to {{country}}',
+      textMessage:`Dear {{user}},
+%0D%0A%0D%0A
+You have been granted access to {{country}} as {{role}}
+%0D%0A%0D%0A
+To access the platform, please follow the link {{link}}
+%0D%0A%0D%0A
+Thank you,
+%0D%0A
+The FRA team
+    `,
+      htmlMessage:`Dear {{user}},
+<br/><br/>
+You have been granted access to {{country}} as {{role}}
+<br/><br/>
+To access the platform, please follow the link <a href="{{link}}">{{link}}</a>
+<br/><br/>
+Thank you,
+<br/>
+The FRA team
+    `
     }
   },
 

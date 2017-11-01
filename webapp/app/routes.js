@@ -1,6 +1,7 @@
 import * as R from 'ramda'
 import React from 'react'
 import Route from 'route-parser'
+
 import Router from '../router/router'
 import DashboardView from '../dashboard/dashboardView'
 import ExtentOfForestView from '../extentOfForest/extentOfForestView'
@@ -26,6 +27,7 @@ import HolderOfManagementRightsView from '../holderOfManagementRights/holderOfMa
 import DisturbancesView from '../disturbances/disturbancesView'
 import AreaOfPermanentForestEstateView from '../areaOfPermanentForestEstate/areaOfPermanentForestEstateView'
 import ForestPolicyView from '../forestPolicy/forestPolicyView'
+import UsersView from '../users/usersView'
 
 const routes = {
   '/': () => <noscript/>, //This will get rendered first (it flashes), before we redirect to logged-in page or login page
@@ -54,7 +56,8 @@ const routes = {
   '/country/:countryIso/holderOfManagementRights': HolderOfManagementRightsView,
   '/country/:countryIso/disturbances': DisturbancesView,
   '/country/:countryIso/areaOfPermanentForestEstateView': AreaOfPermanentForestEstateView,
-  '/country/:countryIso/forestPolicy': ForestPolicyView
+  '/country/:countryIso/forestPolicy': ForestPolicyView,
+  '/country/:countryIso/users': UsersView
 }
 
 const routeConfig = R.pipe(

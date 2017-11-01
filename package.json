@@ -60,6 +60,7 @@
     "i18next": "^8.4.3",
     "marked": "^0.3.6",
     "mocha-webpack": "^0.7.0",
+    "nodemailer": "^4.3.1",
     "partial.lenses": "^11.9.0",
     "passport": "^0.3.2",
     "passport-google-oauth": "^1.0.0",

@@ -1,4 +1,4 @@
-export const translation = {
+module.exports.translation =  {
 
   language: {
     en: 'English',

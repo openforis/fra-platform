@@ -12,7 +12,8 @@ module.exports.init = (app, verifyCallback) => {
   passport.use(new GoogleStrategy({
       clientID: process.env.FRA_GOOGLE_CLIENT_ID,
       clientSecret: process.env.FRA_GOOGLE_CLIENT_SECRET,
-      callbackURL: '/auth/google/callback'
+      callbackURL: '/auth/google/callback',
+      passReqToCallback: true
     },
     verifyCallback
   ))

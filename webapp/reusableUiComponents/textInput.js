@@ -1,35 +1,46 @@
 import React from 'react'
 import './textInput.less'
+import { isEmpty } from 'ramda'
 
 export default class TextInput extends React.Component {
-  constructor () {
-    super()
-    this.state = {hasFocus: false}
+  constructor (props) {
+    super(props)
+    const placeholder = this.props.placeholder ? this.props.placeholder : ''
+    this.state = {hasFocus: false, placeholder}
   }
 
-  render() {
+  render () {
     const minWidthStyleAttr = this.props.minWidth ? `${this.props.minWidth}px` : null
-    return <div className="text-input__container">
-      <div className="text-input__readonly-view"
-           style={{display: this.state.hasFocus ? 'none' : 'inline-block'}}>
-        { this.props.value }
+    const isValueEmpty = isEmpty(this.props.value)
+    const disabled = this.props.disabled
+
+    return <div className="text-input__container validation-error-sensitive-field">
+      <div
+        className={`text-input__readonly-view ${isValueEmpty ? 'placeholder' : ''}`}
+        style={{display: this.state.hasFocus ? 'none' : 'inline-block'}}>
+        {isValueEmpty ? this.state.placeholder : this.props.value}
       </div>
+
       <input
         type="text"
-        style={{opacity: this.state.hasFocus ? '1' : '0',
-                minWidth: minWidthStyleAttr}}
+        style={{
+          opacity: this.state.hasFocus ? '1' : '0',
+          minWidth: minWidthStyleAttr
+        }}
         className="text-input__input-field"
         ref="textInputField"
-        value={ this.props.value || '' }
-        onChange={ this.props.onChange }
-        onPaste={ this.props.onPaste }
+        value={this.props.value || ''}
+        onChange={this.props.onChange}
+        onPaste={this.props.onPaste}
         onFocus={
           () => {
             this.setState({hasFocus: true})
             this.refs.textInputField.select()
           }
         }
-        onBlur={ () => { this.setState({hasFocus: false}) } }
+        onBlur={() => { this.setState({hasFocus: false}) }}
+        placeholder={this.state.placeholder}
+        disabled={disabled}
       />
     </div>
   }

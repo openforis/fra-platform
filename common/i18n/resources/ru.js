@@ -1,4 +1,4 @@
-export const translation = {
+module.exports.translation = {
 
   language: {
     en: 'English',
@@ -19,12 +19,12 @@ export const translation = {
   },
 
   fraClass: {
-    forest: 'Лесные земли',
-    otherWoodedLand: 'Другие лесные земли',
-    otherLand: 'Прочие земли'
+    forest: 'Леса',
+    otherWoodedLand: 'Другая лесистая местность',
+    otherLand: 'Другая земельная площадь'
   },
   fraForestCharacteristicsClass: {
-    naturallyGenerated: 'Естественно возобновленный лес',
+    naturallyGenerated: 'Естественно возобновленные леса',
     plantationForest: 'Лесные культуры',
     otherPlantedForest: 'Другие лесонасаждения',
     introduced: '...в том числе интродуцированные породы'
@@ -116,23 +116,23 @@ export const translation = {
   },
 
   nationalDataPoint: {
-    nationalDataPoint: 'Национальный момент сбора данных',
-    addNationalDataPoint: 'Добавить национальный момент сбора данных',
+    nationalDataPoint: 'Национальный отчетный год',
+    addNationalDataPoint: 'Добавить национальный отчетный год',
     noNationalDataAdded: 'Нет добавленных национальных данных',
     nationalData: 'Национальные данные',
     year: 'Год',
     methods: 'Методы',
     edit: 'Редактировать',
     copyPreviousValues: 'Копировать предыдущие значения',
-    nationalClass: 'Национальный класс',
-    nationalClasses: 'Национальные классы',
+    nationalClass: 'Национальная категория',
+    nationalClasses: 'Национальные категории',
     definition: 'Определения',
-    fraClasses: 'Класс FRA',
-    class: 'Класс',
+    fraClasses: 'Категории ОЛР',
+    class: 'Категория',
     area: 'Площадь',
-    total: 'Итог',
+    total: 'Всего',
     delete: 'Удалить',
-    confirmDelete: 'Вы действительно хотите удалить этот момент сбора данных? Его будет невозможно восстановить.',
+    confirmDelete: 'Вы действительно хотите удалить этот отчетный год? Его будет невозможно восстановить.',
     cancel: 'Отменить',
     saveData: 'Сохранить данные',
     enterOrCopyPasteNationalClasses: 'Введите либо скопируйте национальные классы'
@@ -141,26 +141,46 @@ export const translation = {
   // annually reported assessment components
 
   extentOfForest: {
-    extentOfForest: 'Площадь леса',
-    generateFraValues: 'Сгенерировать значения FRA',
+    extentOfForest: 'Площадь лесов',
+    generateFraValues: 'Сгенерировать значения ОЛР',
+    extentOfForestValues: 'Показатели площади лесов',
     forestArea: 'Покрытая лесом площадь',
     chart: {
       placeholderLine1: 'Чтобы начать, добавьте национальные моменты сбора данных и используйте',
-      placeholderLine2: 'их чтобы сгенерировать значения FRA автоматически'
+      placeholderLine2: 'их чтобы сгенерировать значения ОЛР автоматически'
     }
   },
 
+  growingStock: {
+    growingStock: 'Запасы леса на корню'
+  },
+
+  biomassStock: {
+    biomassStock: 'Запасы биомассы'
+  },
+
+  carbonStock: {
+    carbonStock: 'Запасы углерода'
+  },
+
+  protectedAreas: {
+    protectedAreasLongTermMgmtPlans: 'Охраняемые территории и долгосрочные планы управления'
+  },
+
+  // five year cycle assessment components
+
   forestAreaChange: {
     forestAreaLossGainChange: 'Прирост, убыль и чистое изменение лесных площадей',
-    forestExpansion: 'Распространение леса (a)',
+    forestExpansion: 'Расширение леса (a)',
     ofWhichAfforestation: '…в том числе лесоразведение',
-    ofWhichNaturalExpansion: '…в том числе естественное распространение',
+    ofWhichNaturalExpansion: '…в том числе естественное расширение',
     deforestation: 'Обезлесение (b)',
     forestAreaNetChange: 'Чистое изменение лесной площади'
   },
 
   forestCharacteristics: {
     forestCharacteristics: 'Характеристики леса',
+    forestCharacteristicsValues: 'Значения характеристик леса',
     naturalForestArea: 'Естественно возобновленный лес',
     naturalForestPrimaryArea: '…в том числе коренной',
     plantationForestArea: 'Лесные культуры',
@@ -169,49 +189,34 @@ export const translation = {
   },
 
   specificForestCategories: {
-    specificForestCategories: 'Определенные категории леса',
+    specificForestCategories: 'Специальные категории леса',
     bamboo: 'Бамбук',
-    mangroves: 'Мангры'
-  },
-
-  growingStock: {
-    growingStock: 'Запас насаждения'
+    mangroves: 'Мангры',
+    rubberPlantations: 'Каучуковые плантации'
   },
 
   growingStockComposition: {
     growingStockComposition: 'Состав насаждений'
   },
 
-  biomassStock: {
-    biomassStock: 'Запас биомассы'
+  nonWoodForestProducts: {
+    nonWoodForestProducts: 'Недревесные лесные товары'
   },
 
-  carbonStock: {
-    carbonStock: 'Запас углерода'
-  },
-
-  nonWoodForestProductsRemovals: {
-    nonWoodForestProductsRemovals: 'Недревесная продукция леса'
-  },
-
-  designatedManagementObjective: {
-    designatedManagementObjective: 'Изначально назначенная цель управления',
+  primaryDesignatedManagementObjective: {
+    primaryDesignatedManagementObjective: 'Главная назначенная функция',
     production: 'Производство',
-    soilWaterProtection: 'Охрана почв и водных ресурсов',
+    soilWaterProtection: 'Защита почв и охрана вод',
     biodiversityConservation: 'Сохранение биоразнообразия',
-    socialServices: 'Общественные услуги',
-    multipleUse: 'Многосторонее использование',
-    other: 'Прочее',
-    unknown: 'Нет/неизвестно',
+    socialServices: 'Услуги в социальной области',
+    multipleUse: 'Многоцелевое использование',
+    other: 'Другие виды',
+    unknown: 'Отсутствует/неизвестно',
     totalForestArea: 'Общая площадь покрытая лесом'
   },
 
-  protectedAreas: {
-    protectedAreasLongTermMgmtPlans: 'Природоохранные зоны и долгосрочные планы управления'
-  },
-
   forestOwnershipManagementRights: {
-    forestOwnershipManagementRights: 'Право владения и управления лесом'
+    forestOwnershipManagementRights: 'Права собственности на леса и управление лесами'
   },
 
   disturbances: {
@@ -219,8 +224,8 @@ export const translation = {
   },
 
   areaAffectedByFire: {
-    areaAffectedByFire: 'Площадь пораженная пожарами',
-    totalLandAreaAffectedByFire: 'Общая площадь земель пораженных пожарами',
+    areaAffectedByFire: 'Площадь, пострадавшая от пожара',
+    totalLandAreaAffectedByFire: 'Общая площадь земель, пострадавших от пожара',
     ofWhichForest: '…в том числе лесов'
   },
 
@@ -229,11 +234,11 @@ export const translation = {
   },
 
   graduationOfStudents: {
-    graduationOfStudents: 'Окончание высшего учебного заведения студентами'
+    graduationOfStudents: 'Университетский диплом'
   },
 
   policiesAndLegislation: {
-    policiesAndLegislation: 'Политика и законодательство'
+    policiesAndLegislation: 'Политика и нормативно-правовая база'
   },
 
   areaOfPermanentForestEstate: {

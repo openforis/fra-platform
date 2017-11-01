@@ -19,16 +19,16 @@
   width: 30%;
 }
 
+.dashboard__activity-title {
+  margin-bottom: 12px;
+}
+
 .dashboard__activity-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid #eee;
+  border-top: 1px solid #eee;
   padding: 12px 0;
-
-  &:only-of-type {
-    border-color: transparent;
-  }
 }
 
 .dashboard__activity-avatar {
@@ -44,15 +44,15 @@
   }
 }
 
-.dashboard__activity-deleted {
-  color: @text-disabled;
-}
-
 .dashboard__activity-time {
   color: @text-mute;
   font-size: @font-s;
   margin-left: auto;
   white-space: nowrap;
+}
+
+.dashboard__activity-placeholder {
+  color: @text-disabled;
 }
 
 .link-list__container {
@@ -62,7 +62,7 @@
 }
 
 .link-list__heading {
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .link-list__item {
