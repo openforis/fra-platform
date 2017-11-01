@@ -24,9 +24,9 @@ const createMailOptions = (countryIso, user, url, i18n) => {
   return {
     from: '"FRA Platform" <fra@fao.org>',
     to: user.email,
-    subject: i18n.t('users.invitationEmail.subject', {country}),
-    text: i18n.t('users.invitationEmail.textMessage', {country, user: user.name, role: `$t(user.roles.${role})`, link}),
-    html: i18n.t('users.invitationEmail.htmlMessage', {country, user: user.name, role: `$t(user.roles.${role})`, link})
+    subject: i18n.t('userManagement.invitationEmail.subject', {country}),
+    text: i18n.t('userManagement.invitationEmail.textMessage', {country, user: user.name, role: `$t(user.roles.${role})`, link}),
+    html: i18n.t('userManagement.invitationEmail.htmlMessage', {country, user: user.name, role: `$t(user.roles.${role})`, link})
   }
 
 }

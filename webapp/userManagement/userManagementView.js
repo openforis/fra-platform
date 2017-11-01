@@ -12,24 +12,24 @@ import { getCountryName } from '../../common/country'
 import { fetchUsers, updateUser, removeUser, persistUser, updateNewUser, addNewUser } from './actions'
 import { validField } from './users'
 
-const UsersTable = ({users, i18n, ...props}) =>
-  <table className="users-list__table">
+const UserTable = ({userList, i18n, ...props}) =>
+  <table className="user-list__table">
     <thead>
       <tr>
-        <th className="users-list__header-cell">{i18n.t('users.name')}</th>
-        <th className="users-list__header-cell">{i18n.t('users.role')}</th>
-        <th className="users-list__header-cell">{i18n.t('users.email')}</th>
-        <th className="users-list__header-cell">{i18n.t('users.loginEmail')}</th>
-        <th className="users-list__header-cell user-list__edit-column"></th>
+        <th className="user-list__header-cell">{i18n.t('userManagement.name')}</th>
+        <th className="user-list__header-cell">{i18n.t('userManagement.role')}</th>
+        <th className="user-list__header-cell">{i18n.t('userManagement.email')}</th>
+        <th className="user-list__header-cell">{i18n.t('userManagement.loginEmail')}</th>
+        <th className="user-list__header-cell user-list__edit-column"></th>
       </tr>
     </thead>
     <tbody>
     {
-      users.length > 0
-        ? R.map(user => <UserRow key={user.id} i18n={i18n} user={user} {...props}/> , users)
+      userList.length > 0
+        ? R.map(user => <UserRow key={user.id} i18n={i18n} user={user} {...props}/> , userList)
         : <tr>
-            <td className="users-list__cell" colSpan="5">
-              <div className="users-list__cell--read-only">{i18n.t('users.noUsers')}</div>
+            <td className="user-list__cell" colSpan="5">
+              <div className="user-list__cell--read-only">{i18n.t('userManagement.noUsers')}</div>
             </td>
           </tr>
     }
@@ -37,37 +37,37 @@ const UsersTable = ({users, i18n, ...props}) =>
   </table>
 
 const UserTextFieldCol = ({countryIso, i18n, user, field, editing = false, readOnly = false, updateUser, validate}) =>
-  <td className={`users-list__cell ${validate ? '' : 'error'} ${editing ? 'editing' : ''}`}>
+  <td className={`user-list__cell ${validate ? '' : 'error'} ${editing ? 'editing' : ''}`}>
   {
     editing
-      ? <TextInput placeholder={i18n.t(`users.${field}`)} value={user[field]}
+      ? <TextInput placeholder={i18n.t(`userManagement.${field}`)} value={user[field]}
                    onChange={e => updateUser(countryIso, user.id, field, e.target.value)}
                    disabled={user.saving}/>
       : readOnly
-        ? <div className="users-list__cell--read-only">{user[field] ? user[field] : '\xA0' }</div>
-        : <div className="users-list__cell--editable">{user[field]}</div>
+        ? <div className="user-list__cell--read-only">{user[field] ? user[field] : '\xA0' }</div>
+        : <div className="user-list__cell--editable">{user[field]}</div>
   }
   </td>
 
 const UserRoleSelectCol = ({countryIso, i18n, user, editing = false, readOnly = false, updateUser, validate}) =>
-  <td className={`users-list__cell ${validate ? '' : 'error'} ${editing ? 'editing' : ''}`}>
+  <td className={`user-list__cell ${validate ? '' : 'error'} ${editing ? 'editing' : ''}`}>
   {
     editing
-      ? <div className="users-list__input-container validation-error-sensitive-field">
+      ? <div className="user-list__input-container validation-error-sensitive-field">
           <select required
                   className="fra-table__select"
                   value={user.role}
                   onChange={e => updateUser(countryIso, user.id, 'role', e.target.value)}
                   disabled={user.saving}>
-            {user.role === '' ? <option value="" hidden>{i18n.t('users.role')}</option> : null}
+            {user.role === '' ? <option value="" hidden>{i18n.t('userManagement.role')}</option> : null}
             <option value={reviewer.role}>{i18n.t(reviewer.labelKey)}</option>
             <option value={nationalCorrespondent.role}>{i18n.t(nationalCorrespondent.labelKey)}</option>
             <option value={collaborator.role}>{i18n.t(collaborator.labelKey)}</option>
           </select>
         </div>
       : readOnly
-        ? <div className="users-list__cell--read-only">{i18n.t(`user.roles.${R.toLower(user.role)}`)}</div>
-        : <div className="users-list__cell--editable">{i18n.t(`user.roles.${R.toLower(user.role)}`)}</div>
+        ? <div className="user-list__cell--read-only">{i18n.t(`user.roles.${R.toLower(user.role)}`)}</div>
+        : <div className="user-list__cell--editable">{i18n.t(`user.roles.${R.toLower(user.role)}`)}</div>
   }
   </td>
 
@@ -112,7 +112,7 @@ class AddUserForm extends React.Component {
               <svg className="icon icon-sub icon-white">
                 <use xlinkHref="img/icons.svg#small-add"/>
               </svg>
-              {i18n.t('users.addUser')}
+              {i18n.t('userManagement.addUser')}
             </button>
           </td>
         </tr>
@@ -165,21 +165,21 @@ class UserRow extends React.Component {
         user={user}
         field="loginEmail" readOnly={true}
         updateUser={updateUser} validate={true}/>
-      <td className="users-list__cell user-list__edit-column">
+      <td className="user-list__cell user-list__edit-column">
         <button className="btn btn-s btn-link" onClick={() => {
           if (this.state.editing) {
             persistUser(countryIso, user, true)
           }
           this.toggleOpen()
         }}>
-          {this.state.editing ? i18n.t('users.done') : i18n.t('users.edit')}
+          {this.state.editing ? i18n.t('userManagement.done') : i18n.t('userManagement.edit')}
         </button>
         <button className="btn btn-s btn-destructive" disabled={this.state.editing} onClick={() =>
-          window.confirm(i18n.t('users.confirmDelete', {user: user.name, country: getCountryName(countryIso, i18n.language)}))
+          window.confirm(i18n.t('userManagement.confirmDelete', {user: user.name, country: getCountryName(countryIso, i18n.language)}))
             ? removeUser(countryIso, user.id)
             : null
         }>
-          {i18n.t('users.remove')}
+          {i18n.t('userManagement.remove')}
         </button>
       </td>
     </tr>
@@ -202,16 +202,16 @@ class UsersView extends React.Component {
   }
 
   render () {
-    const {i18n, match, users, newUser} = this.props
+    const {i18n, match, userList, newUser} = this.props
 
-    return users
+    return userList
       ? <LoggedInPageTemplate>
           <div className="fra-view__content">
             <div className="fra-view__page-header">
-              <h1 className="title">{i18n.t('users.manageCollaborators')}</h1>
+              <h1 className="title">{i18n.t('userManagement.manageCollaborators')}</h1>
             </div>
             <AddUserForm {...this.props} user={newUser} countryIso={match.params.countryIso}/>
-            <UsersTable {...this.props} countryIso={match.params.countryIso}/>
+            <UserTable {...this.props} countryIso={match.params.countryIso}/>
           </div>
         </LoggedInPageTemplate>
       : null
@@ -221,8 +221,8 @@ class UsersView extends React.Component {
 const mapStateToProps = state =>
   ({
     i18n: state.user.i18n,
-    users: state.users.list,
-    newUser: state.users.newUser
+    userList: state.userManagement.list,
+    newUser: state.userManagement.newUser
   })
 
 export default connect(mapStateToProps, {fetchUsers, updateUser, removeUser, persistUser, updateNewUser, addNewUser})(UsersView)

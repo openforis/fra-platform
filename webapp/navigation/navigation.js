@@ -223,8 +223,8 @@ const SecondaryItem = ({path, countryIso, status, pathTemplate, tableNo, label})
 
 const roleLabel = (countryIso, userInfo, i18n) => i18n.t(roleForCountry(countryIso, userInfo).labelKey)
 
-const UsersManagementItem = ({i18n, countryIso, path}) => {
-  const route = new Route('/country/:countryIso/users')
+const UsersManagementItem = ({i18n, countryIso, path, pathTemplate}) => {
+  const route = new Route(pathTemplate)
   const linkTo = route.reverse({countryIso})
 
   return <Link
@@ -327,7 +327,11 @@ class Nav extends React.Component {
 
             <div className="nav__divider"></div>
 
-            <UsersManagementItem countryIso={country} i18n={i18n} path={path}/>
+            <UsersManagementItem
+              countryIso={country}
+              i18n={i18n}
+              path={path}
+              pathTemplate="/country/:countryIso/users"/>
             <SuppportItems countryIso={country} {...this.props} />
           </div>
         </div>

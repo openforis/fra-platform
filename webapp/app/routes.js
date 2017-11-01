@@ -3,8 +3,8 @@ import React from 'react'
 import Route from 'route-parser'
 
 import Router from '../router/router'
-import UsersView from '../users/usersView'
 import DashboardView from '../dashboard/dashboardView'
+import UserManagementView from '../userManagement/userManagementView'
 import OriginalDataPointView from '../originalDataPoint/originalDataPointView'
 import OriginalDataListView from '../originalDataPoint/originalDataListView'
 import ExtentOfForestView from '../assessmentFra/extentOfForest/extentOfForestView'
@@ -34,7 +34,7 @@ const routes = {
   '/': () => <noscript/>, //This will get rendered first (it flashes), before we redirect to logged-in page or login page
   '/version': () => <span>{__PLATFORM_VERSION__}</span>,
   '/country/:countryIso': DashboardView,
-  '/country/:countryIso/users': UsersView,
+  '/country/:countryIso/users': UserManagementView,
   '/country/:countryIso/odps': OriginalDataListView,
   '/country/:countryIso/odp': OriginalDataPointView,
   '/country/:countryIso/odp/:odpId': OriginalDataPointView,
