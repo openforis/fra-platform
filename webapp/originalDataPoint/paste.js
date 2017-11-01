@@ -23,7 +23,7 @@ export default (columns, allowedClass, odp, allowGrow, rawPastedData, rowIndex, 
   const rowCount = allowedClasses.length
 
   const allowedIndexes = allowGrow
-    ? R.range(0, rawPastedData.length)
+    ? R.range(0, R.max(rawPastedData.length, allowedClasses.length + 1))
     : R.pluck('rowIndex', allowedClasses)
 
   const rowOffset = R.findIndex(i => i === rowIndex, allowedIndexes)
