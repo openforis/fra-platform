@@ -1,3 +1,5 @@
+DELETE FROM fra_comment WHERE user_id IN (SELECT id FROM fra_user WHERE login_email IS NULL);
+
 DELETE FROM user_country_role WHERE user_id IN (SELECT id FROM fra_user WHERE login_email IS NULL);
 
 DELETE FROM fra_user WHERE login_email IS NULL;
