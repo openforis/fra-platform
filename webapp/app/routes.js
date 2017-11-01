@@ -18,7 +18,7 @@ import DegradedForestView from '../assessmentFra/degradedForest/degradedForestVi
 import EmploymentView from '../assessmentFra/employment/employmentView'
 import GraduationOfStudentsView from '../assessmentFra/graduationOfStudents/graduationOfStudentsView'
 import ForestCharacteristicsView from '../assessmentFra/forestCharacteristics/forestCharacteristicsView'
-import NonWoodForestProductsRemovalsView from '../assessmentFra/nonWoodForestProductsRemovals/nonWoodForestProductsRemovals'
+import NonWoodForestProductsRemovalsView from '../assessmentFra/nonWoodForestProductsRemovals/nonWoodForestProductsRemovalsView'
 import AnnualReforestationView from '../assessmentFra/annualReforestation/annualReforestationView'
 import BiomassStockView from '../assessmentFra/biomassStock/biomassStockView'
 import CarbonStockView from '../assessmentFra/carbonStock/carbonStockView'
@@ -34,6 +34,7 @@ const routes = {
   '/': () => <noscript/>, //This will get rendered first (it flashes), before we redirect to logged-in page or login page
   '/version': () => <span>{__PLATFORM_VERSION__}</span>,
   '/country/:countryIso': DashboardView,
+  '/country/:countryIso/users': UsersView,
   '/country/:countryIso/odps': OriginalDataListView,
   '/country/:countryIso/odp': OriginalDataPointView,
   '/country/:countryIso/odp/:odpId': OriginalDataPointView,
@@ -57,8 +58,7 @@ const routes = {
   '/country/:countryIso/holderOfManagementRights': HolderOfManagementRightsView,
   '/country/:countryIso/disturbances': DisturbancesView,
   '/country/:countryIso/areaOfPermanentForestEstateView': AreaOfPermanentForestEstateView,
-  '/country/:countryIso/forestPolicy': ForestPolicyView,
-  '/country/:countryIso/users': UsersView
+  '/country/:countryIso/forestPolicy': ForestPolicyView
 }
 
 const routeConfig = R.pipe(
