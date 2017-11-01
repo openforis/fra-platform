@@ -243,7 +243,7 @@ module.exports.translation = {
     }
   },
 
-  users: {
+  userManagement: {
     manageCollaborators: 'Manage collaborators',
     name: 'Name',
     role: 'Role',

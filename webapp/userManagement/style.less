@@ -1,7 +1,7 @@
 @import (reference) "../app-styles/config";
 @import (reference) "../app-styles/inputMixins";
 
-.users-list__table {
+.user-list__table {
   border-collapse: collapse;
   font-size: @font-s;
   line-height: 20px;
@@ -9,7 +9,7 @@
   table-layout: fixed;
 }
 
-.users-list__header-cell {
+.user-list__header-cell {
   border-bottom: @ui-thin-border;
   font-size: @font-m;
   padding: 12px 10px;
@@ -17,7 +17,7 @@
   white-space: nowrap;
 }
 
-.users-list__cell {
+.user-list__cell {
   border: 1px solid transparent;
   border-bottom-color: @ui-border;
   padding: 0;
@@ -29,14 +29,14 @@
   }
 }
 
-.users-list__cell--read-only {
+.user-list__cell--read-only {
   color: @text-disabled;
   cursor: default;
   padding: 12px 10px;
   word-break: break-word;
 }
 
-.users-list__cell--editable {
+.user-list__cell--editable {
   cursor: default;
   padding: 12px 10px;
   word-break: break-word;
@@ -47,7 +47,7 @@
   text-align: right;
 }
 
-.users-list__input-container {
+.user-list__input-container {
   .mixin-input-container(left);
 
   .fra-table__select {
@@ -69,7 +69,7 @@
   line-height: 20px;
   width: 100%;
 
-  .users-list__cell {
+  .user-list__cell {
     background-color: white;
     border: @ui-thin-border;
     padding: 0;
