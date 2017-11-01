@@ -5,10 +5,10 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>FRA platform</title>
     <link href="css/login.css" rel="stylesheet" type="text/css">
-    <script language="JavaScript">
+    <script type="text/javascript">
         document.addEventListener("DOMContentLoaded", function() {
           if (location.search.indexOf('loginFailed') !== -1) {
-            document.getElementById('login-failed-indicator').style.display = "block";
+            document.getElementById('login-failed-indicator').style.display = "block"
           }
         })
     </script>
@@ -42,29 +42,25 @@
         </div>
     </div>
 </body>
-
-<script language="JavaScript">
-
-  getParameterByName = (name, url) => {
-    if (!url) url = window.location.href
+<script type="text/javascript">
+  function getParameterByName(name, url) {
+    if (!url) {
+      url = window.location.href
+    }
     name = name.replace(/[\[\]]/g, '\\$&')
-    const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)')
-    const results = regex.exec(url)
-    if (!results) return null
-    if (!results[2]) return ''
+    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)')
+    var results = regex.exec(url)
+    if (!results) {
+      return null
+    }
+    if (!results[2]) {
+      return ''
+    }
     return decodeURIComponent(results[2].replace(/\+/g, ' '))
   }
-
-  const invitationUUID = getParameterByName('i')
-
-  const a = document.createElement('a')
-  const linkText = document.createTextNode('Sign in with Google')
-  a.appendChild(linkText)
-  a.title = 'Sign in with Google'
-  a.className = 'btn'
-  a.href = `/auth/google${invitationUUID ? `?i=${invitationUUID}` : ''}`
-  document.getElementById('loginForm').appendChild(a)
-
+  var invitationUUID = getParameterByName('i')
+  var loginUrl = invitationUUID ? '/auth/google?i=' + invitationUUID : '/auth/google'
+  var loginBtn = '<a href="' + loginUrl + '" class="btn">Sign in with Google</a>'
+  document.getElementById('loginForm').innerHTML += loginBtn
 </script>
-
 </html>
