@@ -274,7 +274,7 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
         originalDataPoint.classTotalArea(active, 'otherLandPercent')
         ? <div className="fra-table__container">
             <div className="fra-table__scroll-wrapper">
-              <table className="odp__sub-table">
+              <table className="fra-table odp__sub-table">
                 <thead>
                 <tr>
                   <th className="fra-table__header-cell">{i18n.t('nationalDataPoint.otherLandCharacteristics')}</th>
@@ -358,7 +358,7 @@ const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, 
         originalDataPoint.subClassTotalArea(active, 'forestPercent', 'plantationPercent')
         ? <div className="fra-table__container">
             <div className="fra-table__scroll-wrapper">
-              <table className="odp__sub-table">
+              <table className="fra-table odp__sub-table">
                 <thead>
                   <tr>
                     <th className="fra-table__header-cell">{i18n.t('fraForestCharacteristicsClass.plantationForest')}</th>
