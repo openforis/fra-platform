@@ -54,9 +54,9 @@ const productRow = idx => [
 const otherProductsRow = (heading) => [
   {
     type: 'readOnly',
-    jsx: <td className="fra-table__row-header-continued-with-fillers">
+    jsx: <th className="fra-table__header-cell fra-table__filler-first">
       {heading}
-    </td>
+    </th>
   },
   ...R.times(fillerCell, 4),
   {type: 'integerInput'},
@@ -73,7 +73,7 @@ const totalRow = i18n => {
   return [
     {
       type: 'readOnly',
-      jsx: <td className="fra-table__row-header-continued-with-fillers">
+      jsx: <td className="fra-table__header-cell fra-table__filler-first">
         {i18n.t('nonWoodForestProductsRemovals.total')}
       </td>
     },
