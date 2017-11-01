@@ -85,15 +85,21 @@
 
 // Helper cells
 
-.fra-table__row-header-continued-with-fillers {
-  .mixin-table-cell(700, left, 10px);
-  background-color: @ui-bg;
+.fra-table__filler-first {
   border-right: none;
+  border-bottom: 1px solid @ui-border;
+  background-color: @ui-bg;
 }
 
-.fra-table__filler-cell {
-  border: none;
+.fra-table__filler {
+  border-right: none;
   border-bottom: 1px solid @ui-border;
+  background-color: @ui-bg;
+}
+
+.fra-table__filler-last {
+  border-bottom: 1px solid @ui-border;
+  border-right: 1px solid @ui-border;
   background-color: @ui-bg;
 }
 

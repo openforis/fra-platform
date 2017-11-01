@@ -3,36 +3,38 @@ import React from 'react'
 import Route from 'route-parser'
 
 import Router from '../router/router'
-import DashboardView from '../dashboard/dashboardView'
-import ExtentOfForestView from '../extentOfForest/extentOfForestView'
-import GrowingStockView from '../growingStock/growingStockView'
-import OriginalDataPointView from '../originalDataPoint/originalDataPointView'
-import SpecificForestCategoriesView from '../specificForestCategories/specificForestCategoriesView'
-import GrowingStockCompositionView from '../growingStockComposition/growingStockCompositionView'
-import designatedManagementObjectiveView from '../designatedManagementObjective/designatedManagementObjectiveView'
-import OriginalDataListView from '../originalDataPoint/originalDataListView'
-import ForestAreaChangeView from '../forestAreaChange/forestAreaChangeView'
-import AreaAffecteByFireView from '../areaAffectedByFire/areaAffectedByFireView'
-import DegradedForestView from '../degradedForest/degradedForestView'
-import EmploymentView from '../employment/employmentView'
-import GraduationOfStudentsView from '../graduationOfStudents/graduationOfStudentsView'
-import ForestCharacteristicsView from '../forestCharacteristics/forestCharacteristicsView'
-import NonWoodForestProductsRemovalsView from '../nonWoodForestProductsRemovals/nonWoodForestProductsRemovals'
-import AnnualReforestationView from '../annualReforestation/annualReforestationView'
-import BiomassStockView from '../biomassStock/biomassStockView'
-import CarbonStockView from '../carbonStock/carbonStockView'
-import ForestOwnershipView from '../forestOwnership/forestOwnershipView'
-import ForestAreaWithinProtectedAreasView from '../forestAreaWithinProtectedAreas/forestAreaWithinprotectedAreasView'
-import HolderOfManagementRightsView from '../holderOfManagementRights/holderOfManagementRightsView'
-import DisturbancesView from '../disturbances/disturbancesView'
-import AreaOfPermanentForestEstateView from '../areaOfPermanentForestEstate/areaOfPermanentForestEstateView'
-import ForestPolicyView from '../forestPolicy/forestPolicyView'
 import UsersView from '../users/usersView'
+import DashboardView from '../dashboard/dashboardView'
+import OriginalDataPointView from '../originalDataPoint/originalDataPointView'
+import OriginalDataListView from '../originalDataPoint/originalDataListView'
+import ExtentOfForestView from '../assessmentFra/extentOfForest/extentOfForestView'
+import GrowingStockView from '../assessmentFra/growingStock/growingStockView'
+import SpecificForestCategoriesView from '../assessmentFra/specificForestCategories/specificForestCategoriesView'
+import GrowingStockCompositionView from '../assessmentFra/growingStockComposition/growingStockCompositionView'
+import designatedManagementObjectiveView from '../assessmentFra/designatedManagementObjective/designatedManagementObjectiveView'
+import ForestAreaChangeView from '../assessmentFra/forestAreaChange/forestAreaChangeView'
+import AreaAffecteByFireView from '../assessmentFra/areaAffectedByFire/areaAffectedByFireView'
+import DegradedForestView from '../assessmentFra/degradedForest/degradedForestView'
+import EmploymentView from '../assessmentFra/employment/employmentView'
+import GraduationOfStudentsView from '../assessmentFra/graduationOfStudents/graduationOfStudentsView'
+import ForestCharacteristicsView from '../assessmentFra/forestCharacteristics/forestCharacteristicsView'
+import NonWoodForestProductsRemovalsView from '../assessmentFra/nonWoodForestProductsRemovals/nonWoodForestProductsRemovalsView'
+import AnnualReforestationView from '../assessmentFra/annualReforestation/annualReforestationView'
+import BiomassStockView from '../assessmentFra/biomassStock/biomassStockView'
+import CarbonStockView from '../assessmentFra/carbonStock/carbonStockView'
+import ForestOwnershipView from '../assessmentFra/forestOwnership/forestOwnershipView'
+import ForestAreaWithinProtectedAreasView from '../assessmentFra/forestAreaWithinProtectedAreas/forestAreaWithinprotectedAreasView'
+import HolderOfManagementRightsView from '../assessmentFra/holderOfManagementRights/holderOfManagementRightsView'
+import DisturbancesView from '../assessmentFra/disturbances/disturbancesView'
+import AreaOfPermanentForestEstateView from '../assessmentFra/areaOfPermanentForestEstate/areaOfPermanentForestEstateView'
+import ForestPolicyView from '../assessmentFra/forestPolicy/forestPolicyView'
+
 
 const routes = {
   '/': () => <noscript/>, //This will get rendered first (it flashes), before we redirect to logged-in page or login page
   '/version': () => <span>{__PLATFORM_VERSION__}</span>,
   '/country/:countryIso': DashboardView,
+  '/country/:countryIso/users': UsersView,
   '/country/:countryIso/odps': OriginalDataListView,
   '/country/:countryIso/odp': OriginalDataPointView,
   '/country/:countryIso/odp/:odpId': OriginalDataPointView,
@@ -56,8 +58,7 @@ const routes = {
   '/country/:countryIso/holderOfManagementRights': HolderOfManagementRightsView,
   '/country/:countryIso/disturbances': DisturbancesView,
   '/country/:countryIso/areaOfPermanentForestEstateView': AreaOfPermanentForestEstateView,
-  '/country/:countryIso/forestPolicy': ForestPolicyView,
-  '/country/:countryIso/users': UsersView
+  '/country/:countryIso/forestPolicy': ForestPolicyView
 }
 
 const routeConfig = R.pipe(
