@@ -1,4 +1,4 @@
-const {mostPowerfulRole, isReviewer} = require('../../common/countryRole')
+const {roleForCountry, isReviewer} = require('../../common/countryRole')
 
 function AccessControlException (key, values) {
   this.error = {key, values}
@@ -12,7 +12,7 @@ AccessControlException.prototype.constructor = AccessControlException
 // Checks whether user should have access to the specified country
 // Throws a custom Error user has no access (handled in sendErr)
 const checkCountryAccess = (countryIso, user) => {
-  const role = mostPowerfulRole(countryIso, user)
+  const role = roleForCountry(countryIso, user)
   if (role.role === 'NONE') {
     throw new AccessControlException('error.access.countryRoleNotSpecified', {user: user.name, countryIso})
   }

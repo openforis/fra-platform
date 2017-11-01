@@ -1,10 +1,7 @@
 const R = require('ramda')
-
-// Returns the most powerful role that the user has
-// for a certain country (REVIEWER > NATIONAL_CORRESPONDENT)
+const assert = require('assert')
 // The returned value is of the form:
 // {role: <ROLE>, label: <LABEL>}
-// where ROLE is currently either REVIEWER or NATIONAL_CORRESPONDENT
 
 const administrator = {role: 'ADMINISTRATOR', labelKey: 'user.roles.administrator'}
 const reviewer = {role: 'REVIEWER', labelKey: 'user.roles.reviewer'}
@@ -17,18 +14,17 @@ const hasRole = (role, roles) => R.find(R.propEq('role', role))(roles)
 const getCountryRoles = (countryIso, userInfo) => R.filter(R.propEq('countryIso', countryIso))(userInfo.roles)
 const getCountryRole = (countryIso, userInfo) => getCountryRoles(countryIso, userInfo)[0]
 
-const mostPowerfulRole = (countryIso, userInfo) => {
+const roleForCountry= (countryIso, userInfo) => {
   if (!userInfo) return noRole
   if (hasRole('ADMINISTRATOR', userInfo.roles)) return administrator
   const rolesForCountry = getCountryRoles(countryIso, userInfo)
-  //If user has both roles for country, the stronger (Reviewer) "wins"
-  if (hasRole('REVIEWER', rolesForCountry)) return reviewer
-  if (hasRole('NATIONAL_CORRESPONDENT', rolesForCountry)) return nationalCorrespondent
-  if (hasRole('COLLABORATOR', rolesForCountry)) return collaborator
-  return noRole //Return null-object for undefined/null-safe access. Shouldn't happen in practice
+  assert(rolesForCountry.length < 2, `Ambiguous roles found for user ${userInfo} and country ${countryIso}`)
+  //Return null-object for undefined/null-safe access. Shouldn't happen in practice
+  if (rolesForCountry.length === 0) return noRole
+  return rolesForCountry[0]
 }
 
-const hasUserRole = (countryIso, userInfo, roleObj) => mostPowerfulRole(countryIso, userInfo).role === roleObj.role
+const hasUserRole = (countryIso, userInfo, roleObj) => roleForCountry(countryIso, userInfo).role === roleObj.role
 
 const isReviewer = (countryIso, userInfo) => hasUserRole(countryIso, userInfo, reviewer)
 const isNationalCorrespondent = (countryIso, userInfo) => hasUserRole(countryIso, userInfo, nationalCorrespondent)
@@ -37,7 +33,7 @@ const hasNoRole = (countryIso, userInfo) => hasUserRole(countryIso, userInfo, no
 const isSuperUser = userInfo => hasRole('ADMINISTRATOR', userInfo.roles)
 
 module.exports.getCountryRole = getCountryRole
-module.exports.mostPowerfulRole = mostPowerfulRole
+module.exports.roleForCountry = roleForCountry
 module.exports.isReviewer = isReviewer
 module.exports.isNationalCorrespondent = isNationalCorrespondent
 module.exports.hasNoRole = hasNoRole
