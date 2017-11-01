@@ -15,7 +15,7 @@ import {
   navigationScroll
 } from './actions'
 import { fra2020Items } from './items'
-import { mostPowerfulRole, isReviewer, isNationalCorrespondent } from '../../common/countryRole'
+import { roleForCountry } from '../../common/countryRole'
 import { getAllowedStatusTransitions } from '../../common/assessment'
 import { PopoverControl } from './../reusableUiComponents/popoverControl'
 
@@ -137,9 +137,7 @@ const PrimaryItem = ({label, countryIso, assessmentType, assessmentStatuses, cha
     return <noscript/>
 
   const currentAssessmentStatus = R.path([assessmentType], assessmentStatuses)
-  const allowedTransitions = getAllowedStatusTransitions(mostPowerfulRole(countryIso, userInfo), currentAssessmentStatus)
-  const nextAssessmentStatus = allowedTransitions.next
-  const previousAssessmentStatus = allowedTransitions.previous
+  const allowedTransitions = getAllowedStatusTransitions(roleForCountry(countryIso, userInfo), currentAssessmentStatus)
   const possibleAssesmentStatuses = [
     {direction: 'next', transition: allowedTransitions.next},
     {direction: 'previous', transition: allowedTransitions.previous}
@@ -223,7 +221,7 @@ const SecondaryItem = ({path, countryIso, status, pathTemplate, tableNo, label})
   </Link>
 }
 
-const roleLabel = (countryIso, userInfo, i18n) => i18n.t(mostPowerfulRole(countryIso, userInfo).labelKey)
+const roleLabel = (countryIso, userInfo, i18n) => i18n.t(roleForCountry(countryIso, userInfo).labelKey)
 
 const UsersManagementItem = ({i18n, countryIso, path}) => {
   const route = new Route('/country/:countryIso/users')

@@ -2,7 +2,7 @@ const db = require('../db/db')
 const camelize = require('camelize')
 const R = require('ramda')
 
-const {mostPowerfulRole} = require('../../common/countryRole')
+const {roleForCountry} = require('../../common/countryRole')
 const {getAllowedStatusTransitions} = require('../../common/assessment')
 const {AccessControlException} = require('../utils/accessControl')
 
@@ -19,7 +19,7 @@ module.exports.changeAssessmentStatus =
     ).then(result => {
         const noStatusYet = result.rows.length === 0
         const currentStatusForAccessControlCheck = noStatusYet ? 'editing' : result.rows[0].status
-        const role = mostPowerfulRole(countryIso, user)
+        const role = roleForCountry(countryIso, user)
         const allowed = getAllowedStatusTransitions(role, currentStatusForAccessControlCheck)
 
         if (!R.contains(status, R.values(allowed))) {
