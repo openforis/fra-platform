@@ -64,11 +64,8 @@ const getAllCountries = role => {
 
 const getAllowedCountries = roles => {
   const hasRole = (role) => R.find(R.propEq('role', role), roles)
-  if (hasRole('REVIEWER_ALL')) {
-    return getAllCountries('REVIEWER_ALL')
-  }
-  if(hasRole('NATIONAL_CORRESPONDENT_ALL')) {
-    return getAllCountries('NATIONAL_CORRESPONDENT_ALL')
+  if (hasRole('ADMINISTRATOR'))  {
+    return getAllCountries('ADMINISTRATOR')
   } else {
     const excludedMsgs = ['createIssue', 'createComment', 'deleteComment']
     const allowedCountryIsos = R.pipe(R.map(R.prop('countryIso')), R.reject(R.isNil))(roles)
