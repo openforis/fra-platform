@@ -85,7 +85,8 @@ module.exports.translation = {
   error: {
     access: {
       countryRoleNotSpecified: 'Error: User {{user}} tried to access {{countryIso}} but no role has been specified',
-      countryUserNotReviewer: 'Error: User {{user}} tried to access {{countryIso}} of which is not reviewer'
+      countryUserNotReviewer: 'Error: User {{user}} tried to access {{countryIso}} of which is not reviewer',
+      roleChangeNotAllowed: 'Error: User {{user}} tried to set another user\'s role to {{role}} which is not allowed for the logged in user'
     },
     assessment: {
       transitionNotAllowed: 'Error: Transition from {{currentStatus}} to {{status}} is not allowed for role {{role}}'
@@ -254,6 +255,7 @@ module.exports.translation = {
     done: 'Done',
     edit: 'Edit',
     addUser: 'Add collaborator',
+    insufficientPrivileges: 'Insufficient privileges',
     confirmDelete: 'Remove {{user}} from {{country}}?',
     invitationEmail:{
       subject:'FRA Platform - Access granted to {{country}}',
