@@ -15,7 +15,7 @@ export const fetchUsers = countryIso => dispatch =>
     .catch(err => dispatch(applicationError(err)))
 
 export const updateUser = (countryIso, userId, field, value) => (dispatch, getState) => {
-  const user = updateListUserField(userId, field, value)(getState().users.list)
+  const user = updateListUserField(userId, field, value)(getState().userManagement.list)
   dispatch({type: usersListUserUpdate, user})
 }
 
@@ -42,11 +42,11 @@ export const removeUser = (countryIso, userId) => dispatch => {
 // new user action creators
 
 export const updateNewUser = (countryIso, userId, field, value) => (dispatch, getState) => {
-  const user = updateUserField(field, value)(getState().users.newUser)
+  const user = updateUserField(field, value)(getState().userManagement.newUser)
   dispatch({type: usersNewUserUpdate, user})
 }
 
 export const addNewUser = countryIso => (dispatch, getState) => {
-  const user = getState().users.newUser
+  const user = getState().userManagement.newUser
   dispatch(persistUser(countryIso, user, true))
 }
