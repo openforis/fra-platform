@@ -1,3 +1,4 @@
+const R = require('ramda')
 const uuidv4 = require('uuid/v4')
 
 const db = require('../db/db')
@@ -5,6 +6,12 @@ const userRepository = require('./userRepository')
 const {sendErr} = require('../utils/requestUtils')
 const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
 const {sendMail} = require('./mailManager')
+const { allowedToChangeRoles } = require('../../common/userManagementAccessControl')
+
+const filterAllowedUsers = (countryIso, user, users) => {
+  const allowedRoles = allowedToChangeRoles(countryIso, user)
+  return R.filter(userInList => R.contains(userInList.role, allowedRoles), users)
+}
 
 module.exports.init = app => {
 
@@ -20,10 +27,10 @@ module.exports.init = app => {
 
   app.get('/users/:countryIso', (req, res) => {
     checkCountryAccessFromReqParams(req)
-
+    const countryIso = req.params.countryIso
     userRepository
-      .fetchCountryUsers(req.params.countryIso, req.user)
-      .then(users => res.json(users))
+      .fetchCountryUsers(countryIso, req.user)
+      .then(users => res.json(filterAllowedUsers(countryIso, req.user, users)))
       .catch(err => sendErr(res, err))
   })
 
