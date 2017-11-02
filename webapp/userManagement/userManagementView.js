@@ -6,7 +6,7 @@ import * as R from 'ramda'
 
 import LoggedInPageTemplate from '../app/loggedInPageTemplate'
 import TextInput from '../reusableUiComponents/textInput'
-import { reviewer, nationalCorrespondent, collaborator } from '../../common/countryRole'
+import { roles } from '../../common/countryRole'
 import { getCountryName } from '../../common/country'
 import { allowedToChangeRoles } from '../../common/userManagementAccessControl'
 
@@ -50,7 +50,22 @@ const UserTextFieldCol = ({countryIso, i18n, user, field, editing = false, readO
   }
   </td>
 
-const UserRoleSelectCol = ({countryIso, i18n, user, editing = false, readOnly = false, updateUser, validate}) =>
+const roleOptions = (allowedRoles, i18n) =>
+  R.pipe(
+    R.filter(role => R.contains(role.role, allowedRoles)),
+    R.map(role => <option key={role.role} value={role.role}>{i18n.t(role.labelKey)}</option>)
+  )(roles)
+
+const UserRoleSelectCol = ({
+                             countryIso,
+                             i18n,
+                             user,
+                             editing = false,
+                             readOnly = false,
+                             updateUser,
+                             validate,
+                             allowedRoles
+                            }) =>
   <td className={`user-list__cell ${validate ? '' : 'error'} ${editing ? 'editing' : ''}`}>
   {
     editing
@@ -61,9 +76,7 @@ const UserRoleSelectCol = ({countryIso, i18n, user, editing = false, readOnly = 
                   onChange={e => updateUser(countryIso, user.id, 'role', e.target.value)}
                   disabled={user.saving}>
             {user.role === '' ? <option value="" hidden>{i18n.t('userManagement.role')}</option> : null}
-            <option value={reviewer.role}>{i18n.t(reviewer.labelKey)}</option>
-            <option value={nationalCorrespondent.role}>{i18n.t(nationalCorrespondent.labelKey)}</option>
-            <option value={collaborator.role}>{i18n.t(collaborator.labelKey)}</option>
+            { roleOptions(allowedRoles, i18n) }
           </select>
         </div>
       : readOnly
@@ -92,10 +105,10 @@ class AddUserForm extends React.Component {
             field="name" editing={true}
             updateUser={updateNewUser}
             validate={this.state.adding ? validField(user, 'name') : true}/>
-          <UserRoleSelectCol countryIso={countryIso}
-            i18n={i18n}
-            user={user}
-            field="role" editing={true}
+          <UserRoleSelectCol
+            {...this.props}
+            field="role"
+            editing={true}
             updateUser={updateNewUser}
             validate={this.state.adding ? validField(user, 'role') : true}/>
           <UserTextFieldCol countryIso={countryIso}
@@ -147,12 +160,9 @@ class UserRow extends React.Component {
         updateUser={updateUser}
         validate={validField(user, 'name')}/>
       <UserRoleSelectCol
-        countryIso={countryIso}
-        i18n={i18n}
-        user={user}
+        {...this.props}
         field="role"
         editing={this.state.editing}
-        updateUser={updateUser}
         validate={validField(user, 'role')}/>
       <UserTextFieldCol
         countryIso={countryIso}

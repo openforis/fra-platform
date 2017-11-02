@@ -50,3 +50,4 @@ module.exports.reviewer = reviewer
 module.exports.nationalCorrespondent = nationalCorrespondent
 module.exports.collaborator = collaborator
 module.exports.noRole = noRole
+module.exports.roles = R.values(roles)
