@@ -16,6 +16,7 @@ import {
 } from './actions'
 import { fra2020Items } from './items'
 import { roleForCountry } from '../../common/countryRole'
+import { allowedToChangeRoles } from '../../common/userManagementAccessControl'
 import { getAllowedStatusTransitions } from '../../common/assessment'
 import { PopoverControl } from './../reusableUiComponents/popoverControl'
 
@@ -325,13 +326,16 @@ class Nav extends React.Component {
               )
             }
 
-            <div className="nav__divider"></div>
-
-            <UsersManagementItem
-              countryIso={country}
-              i18n={i18n}
-              path={path}
-              pathTemplate="/country/:countryIso/users"/>
+            <div className="nav__divider"/>
+            {
+              !R.isEmpty(allowedToChangeRoles(country, userInfo))
+                  ? <UsersManagementItem
+                      countryIso={country}
+                      i18n={i18n}
+                      path={path}
+                      pathTemplate="/country/:countryIso/users"/>
+                  : null
+            }
             <SuppportItems countryIso={country} {...this.props} />
           </div>
         </div>
