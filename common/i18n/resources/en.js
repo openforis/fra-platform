@@ -254,6 +254,7 @@ module.exports.translation = {
     done: 'Done',
     edit: 'Edit',
     addUser: 'Add collaborator',
+    insufficientPrivileges: 'Insufficient privileges',
     confirmDelete: 'Remove {{user}} from {{country}}?',
     invitationEmail:{
       subject:'FRA Platform - Access granted to {{country}}',

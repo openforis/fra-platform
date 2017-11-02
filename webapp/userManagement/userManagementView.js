@@ -8,6 +8,7 @@ import LoggedInPageTemplate from '../app/loggedInPageTemplate'
 import TextInput from '../reusableUiComponents/textInput'
 import { reviewer, nationalCorrespondent, collaborator } from '../../common/countryRole'
 import { getCountryName } from '../../common/country'
+import { allowedToChangeRoles } from '../../common/userManagementAccessControl'
 
 import { fetchUsers, updateUser, removeUser, persistUser, updateNewUser, addNewUser } from './actions'
 import { validField } from './users'
@@ -20,7 +21,7 @@ const UserTable = ({userList, i18n, ...props}) =>
         <th className="user-list__header-cell">{i18n.t('userManagement.role')}</th>
         <th className="user-list__header-cell">{i18n.t('userManagement.email')}</th>
         <th className="user-list__header-cell">{i18n.t('userManagement.loginEmail')}</th>
-        <th className="user-list__header-cell user-list__edit-column"></th>
+        <th className="user-list__header-cell user-list__edit-column"/>
       </tr>
     </thead>
     <tbody>
@@ -202,26 +203,32 @@ class UsersView extends React.Component {
   }
 
   render () {
-    const {i18n, match, userList, newUser} = this.props
-
+    const {i18n, match, userList, newUser, allowedRoles} = this.props
     return userList
       ? <LoggedInPageTemplate>
           <div className="fra-view__content">
             <div className="fra-view__page-header">
               <h1 className="title">{i18n.t('userManagement.manageCollaborators')}</h1>
             </div>
-            <AddUserForm {...this.props} user={newUser} countryIso={match.params.countryIso}/>
-            <UserTable {...this.props} countryIso={match.params.countryIso}/>
+            {
+              !R.isEmpty(allowedRoles)
+                ? <div>
+                    <AddUserForm {...this.props} user={newUser} countryIso={match.params.countryIso}/>
+                    <UserTable {...this.props} countryIso={match.params.countryIso}/>
+                  </div>
+                : <div>{i18n.t('userManagement.insufficientPrivileges')}</div>
+            }
           </div>
         </LoggedInPageTemplate>
       : null
   }
 }
 
-const mapStateToProps = state =>
+const mapStateToProps = (state, props) =>// console.log(props.match.params.countryIso, R.path(['user', 'userInfo'], state)) ||
   ({
     i18n: state.user.i18n,
     userList: state.userManagement.list,
+    allowedRoles:  allowedToChangeRoles(props.match.params.countryIso, R.path(['user', 'userInfo'], state)),
     newUser: state.userManagement.newUser
   })
 
