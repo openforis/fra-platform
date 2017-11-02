@@ -287,6 +287,7 @@ The FRA team
 
   extentOfForest: {
     extentOfForest: 'Extent of forest and other wooded land',
+    estimationAndForecasting: 'Estimation and forecasting',
     categoryHeader: 'FRA categories',
     areaUnitLabel: 'Area (1000 ha)',
     generateFraValues: 'Generate FRA values',
@@ -307,6 +308,7 @@ The FRA team
 
   forestCharacteristics: {
     forestCharacteristics: 'Forest characteristics',
+    estimationAndForecasting: 'Estimation and forecasting',
     categoryHeader: 'FRA categories',
     areaUnitLabel: 'Forest area (1000 ha)',
     naturalForestArea: 'Naturally regenerating forest',
@@ -443,7 +445,7 @@ The FRA team
     individuals: 'Individuals',
     privateBusinesses: 'Private business entities and institutions',
     communities: 'Local, tribal and indigenous communities',
-    other: 'Other',
+    other: 'Other (specify)',
     totalPublicOwnership: 'Total public ownership'
   },
 
