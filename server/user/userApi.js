@@ -3,9 +3,10 @@ const uuidv4 = require('uuid/v4')
 
 const db = require('../db/db')
 const userRepository = require('./userRepository')
-const {sendErr} = require('../utils/requestUtils')
-const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
-const {sendMail} = require('./mailManager')
+const { sendErr } = require('../utils/requestUtils')
+const { AccessControlException } = require('../utils/accessControl')
+const { checkCountryAccessFromReqParams } = require('../utils/accessControl')
+const { sendMail } = require('./mailManager')
 const { allowedToChangeRoles } = require('../../common/userManagementAccessControl')
 
 const filterAllowedUsers = (countryIso, user, users) => {
@@ -36,20 +37,24 @@ module.exports.init = app => {
 
   app.post('/users/:countryIso', (req, res) => {
     checkCountryAccessFromReqParams(req)
-
-    const userRequest = req.body
+    const userToBeChangedOrAdded = req.body
     const countryIso = req.params.countryIso
 
-    if (userRequest.id) {
+    const allowedRoles = allowedToChangeRoles(countryIso, req.user)
+    if (!R.contains(userToBeChangedOrAdded.role, allowedRoles)) {
+      throw new AccessControlException('error.access.roleChangeNotAllowed', {user: req.user.name, role: userToBeChangedOrAdded.role})
+    }
+
+    if (userToBeChangedOrAdded.id) {
       // update existing user
-      db.transaction(userRepository.updateUser, [req.user, countryIso, userRequest])
+      db.transaction(userRepository.updateUser, [req.user, countryIso, userToBeChangedOrAdded])
         .then(res.json({}))
         .catch(err => sendErr(res, err))
 
     } else {
       const url = req.protocol + '://' + req.get('host')
 
-      db.transaction(userRepository.addCountryUser, [req.user, countryIso, userRequest])
+      db.transaction(userRepository.addCountryUser, [req.user, countryIso, userToBeChangedOrAdded])
         .then(user =>
           user
           ? sendMail(countryIso, user, url)
