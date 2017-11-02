@@ -32,14 +32,31 @@ const years = ['', ...R.pipe(R.range(1980), R.reverse)(2021)]
 
 const isCommentsOpen = (target, openThread = {}) => R.equals('odp', openThread.section) && R.isEmpty(R.difference(openThread.target, target))
 
-const DataInput = ({match, saveDraft, markAsActual, remove, active, autoSaving, cancelDraft, copyPreviousNationalClasses, copyDisabled, openThread, i18n}) => {
+const OdpViewContent = ({match, saveDraft, markAsActual, remove, active, autoSaving, cancelDraft, copyPreviousNationalClasses, copyDisabled, openThread, i18n}) => {
   const countryIso = match.params.countryIso
   const saveControlsDisabled = () => !active.odpId || autoSaving
   const copyPreviousClassesDisabled = () => active.year && !autoSaving ? false : true
   const yearValidationStatusClass = () => active.validationStatus && !active.validationStatus.year.valid ? 'error' : ''
   const unselectable = R.defaultTo([], active.reservedYears)
 
-  return <div className="odp__data-input-component odp_validate-form">
+  return <div className="fra-view__content">
+    <div className="fra-view__page-header">
+      <h1 className="title align-left">{i18n.t('nationalDataPoint.nationalDataPoint')}</h1>
+      {
+        active.editStatus && active.editStatus !== 'newDraft'
+        ? <button className="btn btn-secondary"
+            disabled={saveControlsDisabled()}
+            onClick={() => cancelDraft(countryIso, active.odpId)}>
+              {i18n.t('nationalDataPoint.discardChanges')}
+          </button>
+        : null
+      }
+      <button className="btn btn-primary"
+        disabled={saveControlsDisabled()}
+        onClick={() => markAsActual(countryIso, active)}>
+         {i18n.t('nationalDataPoint.doneEditing')}
+      </button>
+    </div>
     <div className="odp__section">
       <h3 className="subhead">{i18n.t('nationalDataPoint.referenceYearData')}</h3>
       <div className={`odp__year-selection ${yearValidationStatusClass()}`}>
@@ -934,21 +951,16 @@ class OriginalDataPointView extends React.Component {
 
   render () {
     return <LoggedInPageTemplate>
-      <div className="fra-view__content">
-        <div className="odp_data-page-header">
-          <h1 className="title">{this.props.i18n.t('nationalDataPoint.nationalDataPoint')}</h1>
-        </div>
-        {
-          this.props.active
-            ? <DataInput years={years}
-                         copyDisabled={R.or(
-                           R.not(originalDataPoint.allowCopyingOfPreviousValues(this.props.active)),
-                           R.not(R.isNil(R.path(['match', 'params', 'odpId'], this.props))))}
-                         {...this.props}/>
-            : null
+      {
+        this.props.active
+          ? <OdpViewContent years={years}
+                       copyDisabled={R.or(
+                         R.not(originalDataPoint.allowCopyingOfPreviousValues(this.props.active)),
+                         R.not(R.isNil(R.path(['match', 'params', 'odpId'], this.props))))}
+                       {...this.props}/>
+          : null
 
-        }
-      </div>
+      }
     </LoggedInPageTemplate>
   }
 }
