@@ -235,7 +235,7 @@ module.exports.translation = {
       sampleBasedRemoteSensingAssessment: 'Sample-based remote sensing assessment',
       fullCoverMaps: 'Full-cover forest/vegetation maps',
       registersQuestionnaires: 'Registers/questionnaires',
-      other: 'Other (specify)'
+      other: 'Other (specify in comments)'
     },
     appliesToVariablesOptions: {
       forest: 'Forest',
@@ -412,7 +412,7 @@ The FRA team
     biodiversityConservation: 'Conservation of biodiversity',
     socialServices: 'Social Services',
     multipleUse: 'Multiple use',
-    other: 'Other (specify)',
+    other: 'Other (specify in comments)',
     unknown: 'No/unknown',
     totalForestArea: 'Total forest area'
   },
@@ -435,7 +435,7 @@ The FRA team
     ofWhichPrivateBusinesses: '…of which owned by private business entities and institutions',
     ofWhichCommunities: '…of which owned by local, tribal and indigenous communities',
     publicOwnership: 'Public ownership',
-    otherOrUnknown: 'Other/unknown (specify)',
+    otherOrUnknown: 'Other/unknown (specify in comments)',
     totalForestArea: 'Total forest area'
   },
 
@@ -447,7 +447,7 @@ The FRA team
     individuals: 'Individuals',
     privateBusinesses: 'Private business entities and institutions',
     communities: 'Local, tribal and indigenous communities',
-    other: 'Other (specify)',
+    other: 'Other (specify in comments)',
     totalPublicOwnership: 'Total public ownership'
   },
 
