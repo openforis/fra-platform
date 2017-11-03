@@ -10,7 +10,7 @@ const TextInputTableCell = ({countryIso,
                              tableValueChanged,
                              tableChanged}) => {
   const currentValue = tableData[rowIdx][colIdx]
-  return <td className="fra-table__cell">
+  return <td className="fra-table__cell-left">
     <TextInput
       value={currentValue}
       onChange={

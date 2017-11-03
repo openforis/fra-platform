@@ -87,7 +87,7 @@ const OdpViewContent = ({match, saveDraft, markAsActual, remove, active, autoSav
             <tbody>
             <tr>
               <th className="fra-table__header-cell-left">{i18n.t('nationalDataPoint.references')}</th>
-              <td className="fra-table__cell odp__data-source-input-column">
+              <td className="fra-table__cell-left odp__data-source-input-column">
                 <VerticallyGrowingTextField
                   value={active.dataSourceReferences || ''}
                   onChange={ (e) => saveDraft(countryIso, R.assoc('dataSourceReferences', e.target.value, active)) }
@@ -108,7 +108,7 @@ const OdpViewContent = ({match, saveDraft, markAsActual, remove, active, autoSav
             </tr>
             <tr>
               <th className="fra-table__header-cell-left">{i18n.t('nationalDataPoint.methodsUsed')}</th>
-              <td className="fra-table__cell odp__data-source-input-column">
+              <td className="fra-table__cell-left odp__data-source-input-column">
                 <MultiSelect
                   i18n={i18n}
                   localizationPrefix="nationalDataPoint.dataSourceMethodsOptions"
@@ -140,7 +140,7 @@ const OdpViewContent = ({match, saveDraft, markAsActual, remove, active, autoSav
             </tr>
             <tr>
               <th className="fra-table__header-cell-left">{i18n.t('nationalDataPoint.years')}</th>
-              <td className="fra-table__cell odp__data-source-input-column">
+              <td className="fra-table__cell-left odp__data-source-input-column">
                 <VerticallyGrowingTextField
                   value={active.dataSourceYears || ''}
                   onChange={ (e) => saveDraft(countryIso, R.assoc('dataSourceYears', e.target.value, active)) }
@@ -161,7 +161,7 @@ const OdpViewContent = ({match, saveDraft, markAsActual, remove, active, autoSav
             </tr>
             <tr>
               <th className="fra-table__header-cell-left">{i18n.t('nationalDataPoint.appliesToVariables')}</th>
-              <td className="fra-table__cell odp__data-source-input-column">
+              <td className="fra-table__cell-left odp__data-source-input-column">
                 <MultiSelect
                   i18n={i18n}
                   localizationPrefix="nationalDataPoint.appliesToVariablesOptions"
@@ -193,7 +193,7 @@ const OdpViewContent = ({match, saveDraft, markAsActual, remove, active, autoSav
             </tr>
             <tr>
               <th className="fra-table__header-cell-left">{i18n.t('nationalDataPoint.additionalComments')}</th>
-              <td className="fra-table__cell odp__data-source-input-column">
+              <td className="fra-table__cell-left odp__data-source-input-column">
                 <VerticallyGrowingTextField
                   value={active.dataSourceAdditionalComments || ''}
                   onChange={ (e) => saveDraft(countryIso, R.assoc('dataSourceAdditionalComments', e.target.value, active)) }
@@ -505,7 +505,7 @@ const NationalClassRow =
   }) => {
 
   return <tr className={`${isCommentsOpen([odp.odpId, 'class', `${odp.nationalClasses[index].uuid}`, 'definition'], openThread) ? 'fra-row-comments__open' : ''}`}>
-    <td className={`fra-table__cell odp__nc-table__name ${getValidationStatusRow(odp, index).validClassName === false ? 'error' : ''}`}>
+    <td className={`fra-table__cell-left odp__nc-table__name ${getValidationStatusRow(odp, index).validClassName === false ? 'error' : ''}`}>
       <div className="odp__nc-table__input-container">
         <input className="odp__nc-table__input validation-error-sensitive-field"
                  type="text"
@@ -536,7 +536,7 @@ const NationalClassRow =
           }
         </div>
     </td>
-    <td className="fra-table__cell">
+    <td className="fra-table__cell-left">
       <VerticallyGrowingTextField
         value={definition || ''}
         onChange={(evt) =>

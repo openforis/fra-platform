@@ -11,7 +11,7 @@ const VerticallyGrowingTextCell = ({countryIso,
                                      tableChanged,
                                      minWidth}) => {
   const currentValue = tableData[rowIdx][colIdx]
-  return <td className="fra-table__cell">
+  return <td className="fra-table__cell-left">
     <VerticallyGrowingTextField
       value={currentValue || ''}
       onChange={
