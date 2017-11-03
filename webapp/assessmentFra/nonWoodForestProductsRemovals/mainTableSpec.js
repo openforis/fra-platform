@@ -20,8 +20,8 @@ const productRow = idx => [
       #{idx}
     </th>
   },
-  {type: 'textInput', minWidth: 240},
-  {type: 'textInput', minWidth: 240},
+  {type: 'textInput'},
+  {type: 'textInput'},
   {type: 'integerInput'},
   {type: 'textInput'},
   {type: 'integerInput'},
