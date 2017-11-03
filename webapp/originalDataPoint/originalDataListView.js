@@ -10,18 +10,16 @@ const TableRow = ({odp, i18n, countryIso, removeFromList}) => {
   const odpUrl = `/country/${countryIso}/odp/${odp.odpId}`
   const navigateTo = (url) => window.location.href = '#' + url
 
-  return <tr className="odp-list__link-row" onClick={() => navigateTo(odpUrl)}>
-    <td className="odp-list__year-column">
-      {odp.year == 0 ? '–' : odp.year}
-    </td>
-    <td className="odp-list__editstatus-column">
+  return <tr className="odp-list__link-row">
+    <td className="odp-list__year-cell" onClick={() => navigateTo(odpUrl)}>
+      {odp.year ? odp.year : null}
       {
         odp.editStatus !== 'noChanges'
-          ? <svg className="icon"><use xlinkHref="img/icons.svg#pencil"/></svg>
+          ? <svg className="icon icon-margin icon-sub"><use xlinkHref="img/icons.svg#pencil"/></svg>
           : null
       }
     </td>
-    <td className="odp-list__method-column">
+    <td className="odp-list__method-cell" onClick={() => navigateTo(odpUrl)}>
       {
         odp.dataSourceMethods
           ? R.pipe(
@@ -31,7 +29,7 @@ const TableRow = ({odp, i18n, countryIso, removeFromList}) => {
           : null
       }
     </td>
-    <td className="odp-list__notification-column">
+    <td className="odp-list__notification-cell" onClick={() => navigateTo(odpUrl)}>
       <div className="odp-list__notification-container">
         {
           !odp.validationStatus.valid
@@ -47,8 +45,8 @@ const TableRow = ({odp, i18n, countryIso, removeFromList}) => {
         }
       </div>
     </td>
-    <td className="odp-list__edit-column">
-      <Link className="link" to={odpUrl}>
+    <td className="odp-list__edit-cell">
+      <Link className="btn btn-s btn-link" to={odpUrl}>
         {i18n.t('nationalDataPoint.edit')}
       </Link>
       <button className="btn btn-s btn-link-destructive" onClick ={() => window.confirm(i18n.t('nationalDataPoint.confirmDelete')) ? removeFromList(countryIso, odp.odpId) : null}>
@@ -72,9 +70,10 @@ const ODPListing = ({countryIso, odps = [], i18n, userInfo, removeFromList}) => 
     <table className="odp-list__list-table">
       <thead>
       <tr>
-        <th className="odp-list__header-cell" colSpan="2">{i18n.t('nationalDataPoint.referenceYear')}</th>
+        <th className="odp-list__header-cell odp-list__year-column">{i18n.t('nationalDataPoint.referenceYear')}</th>
         <th className="odp-list__header-cell">{i18n.t('nationalDataPoint.methods')}</th>
-        <th className="odp-list__header-cell" colSpan="2"></th>
+        <th className="odp-list__header-cell odp-list__notification-column"/>
+        <th className="odp-list__header-cell odp-list__edit-column"/>
       </tr>
       </thead>
       <tbody>
@@ -84,7 +83,7 @@ const ODPListing = ({countryIso, odps = [], i18n, userInfo, removeFromList}) => 
           <TableRow key={odp.odpId} odp={odp} i18n={i18n} countryIso={countryIso} removeFromList={removeFromList} />
           , odps)
         : <tr>
-            <td className="odp-list__empty-column" colSpan="5">
+            <td className="odp-list__empty-cell" colSpan="4">
               {i18n.t('nationalDataPoint.noNationalDataAdded')}
             </td>
           </tr>
@@ -92,7 +91,7 @@ const ODPListing = ({countryIso, odps = [], i18n, userInfo, removeFromList}) => 
       </tbody>
       <tfoot>
         <tr>
-          <td className="odp-list__footnotes" colSpan="5">
+          <td className="odp-list__footnotes" colSpan="4">
             <svg className="icon icon-sub icon-margin"><use xlinkHref="img/icons.svg#pencil"/></svg>
             {i18n.t('nationalDataPoint.modifiedExplanation')}
           </td>

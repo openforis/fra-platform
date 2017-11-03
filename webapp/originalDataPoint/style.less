@@ -108,6 +108,7 @@
 // List view
 
 .odp-list__list-table {
+  table-layout: fixed;
   border-collapse: collapse;
   color: @text-body;
   line-height: 19px;
@@ -121,39 +122,41 @@
 .odp-list__header-cell {
   border-bottom: @ui-thin-border;
   font-size: @font-m;
-  min-width: 80px;
   padding: 12px;
   text-align: left;
   white-space: nowrap;
 }
 
 .odp-list__year-column {
+  width: 160px;
+}
+
+.odp-list__notification-column {
+  width: 80px;
+}
+
+.odp-list__edit-column {
+  width: 120px;
+}
+
+.odp-list__year-cell {
   .mixin-odp-list-cell;
   width: 48px;
 }
 
-.odp-list__editstatus-column {
-  border-bottom: @ui-thin-border;
-}
-
-.odp-list__method-column {
+.odp-list__method-cell {
   .mixin-odp-list-cell(8px 12px);
-  width: 80%;
 }
 
-.odp-list__notification-column {
+.odp-list__notification-cell {
   .mixin-odp-list-cell;
 }
 
-.odp-list__edit-column {
+.odp-list__edit-cell {
   .mixin-odp-list-cell(0, right);
-
-  .link {
-    padding: 12px;
-  }
 }
 
-.odp-list__empty-column {
+.odp-list__empty-cell {
   .mixin-odp-list-cell;
   color: @text-disabled;
 }
