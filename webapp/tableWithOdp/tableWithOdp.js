@@ -7,6 +7,7 @@ import { ThousandSeparatedDecimalInput } from '../reusableUiComponents/thousandS
 import ReviewIndicator from '../review/reviewIndicator'
 import { readPasteClipboard } from '../utils/copyPasteUtil'
 import { acceptNextDecimal} from '../utils/numberInput'
+import { formatNumber } from '../../common/bignumberUtils'
 
 const mapIndexed = R.addIndex(R.map)
 
@@ -25,9 +26,11 @@ export class TableWithOdp extends React.Component {
           <tr>
             {
               R.values(this.props.fra).map(v =>
-                <th className={`fra-table__header-cell ${v.type === 'odp' ? 'odp-header-cell' : ''}`} key={`${v.type}_${v.name}`}>
-                  { v.type === 'odp' ? <OdpHeading countryIso={this.props.countryIso} odpValue={v}/>
-                    : v.name
+                <th className={v.type === 'odp' ? 'odp-header-cell' : 'fra-table__header-cell'} key={`${v.type}_${v.name}`}>
+                  {
+                    v.type === 'odp'
+                      ? <OdpHeading countryIso={this.props.countryIso} odpValue={v}/>
+                      : v.name
                   }
                 </th>
               )
@@ -66,12 +69,6 @@ const fraValueCell = (fraValue, fra, countryIso, save, saveMany, pasteUpdate, fi
     onPaste={ e => saveMany(countryIso, pasteUpdate(e, rowIdx, colIdx, fra)) }
     onChange={ e => { save(countryIso, fraValue.name, e.target.value, fraValue, field, acceptNextDecimal) } }/>
 
-const odpCell = (odpValue, field) =>
-  <ThousandSeparatedDecimalInput
-    numberValue={odpValue[field]}
-    precision={2}
-    disabled={true} />
-
 const validationErrorRow = columnErrorMsgs => {
   if (R.all(R.isNil, columnErrorMsgs)) return null
   return <tr key="validationError">
@@ -98,14 +95,14 @@ const renderFieldRow = ({row, countryIso, fra, save, saveMany, pasteUpdate, rowI
     <th className={className ? className : 'fra-table__category-cell'}>{ localizedName }</th>
     {
       mapIndexed((v, colIdx) =>
-          <td className={`fra-table__cell ${v.type === 'odp' ? 'odp-value-cell' : ''}`} key={`${v.type}_${v.name}`}>
-            {
-              v.type === 'odp'
-                ? odpCell(v, field)
-                : fraValueCell(v, fra, countryIso, save, saveMany, pasteUpdate, field, rowIdx, colIdx)
-            }
-          </td>
-        , R.values(fra))
+        <td className={v.type === 'odp' ? 'odp-value-cell' : 'fra-table__cell'} key={`${v.type}_${v.name}`}>
+          {
+            v.type === 'odp'
+              ? formatNumber(v[field])
+              : fraValueCell(v, fra, countryIso, save, saveMany, pasteUpdate, field, rowIdx, colIdx)
+          }
+        </td>
+      , R.values(fra))
     }
     <td className="fra-table__row-anchor-cell">
       <div className="fra-table__review-indicator-anchor">

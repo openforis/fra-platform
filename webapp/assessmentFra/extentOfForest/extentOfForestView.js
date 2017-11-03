@@ -14,7 +14,7 @@ import countryConfig from '../../../common/countryConfig'
 import { sum, formatNumber, eq } from '../../../common/bignumberUtils'
 
 const mapIndexed = R.addIndex(R.map)
-const odpValueCellClass = (fraColumn) => fraColumn.type === 'odp' ? 'odp-value-cell' : ''
+const odpValueCellClass = (fraColumn) => fraColumn.type === 'odp' ? 'odp-value-cell-total' : 'fra-table__calculated-cell'
 
 const ExtentOfForest = (props) => {
 
@@ -46,7 +46,7 @@ const ExtentOfForest = (props) => {
       {
         mapIndexed((fraColumn, i) => {
           const totalLandArea = sum([fraColumn.forestArea, fraColumn.otherWoodedLand, fraColumn.otherLand])
-          return <td className={`fra-table__calculated-cell ${totalAreaValidationClass(fraColumn, totalLandArea)} ${odpValueCellClass(fraColumn)}`} key={i}>
+          return <td className={`${odpValueCellClass(fraColumn)} ${totalAreaValidationClass(fraColumn, totalLandArea)}`} key={i}>
             {formatNumber(totalLandArea)}
           </td>
         }, R.values(fra))
