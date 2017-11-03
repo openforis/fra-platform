@@ -59,7 +59,7 @@ const ExtentOfForest = (props) => {
       {
         mapIndexed((faoStatColumn, i) => {
           const faoStatLandArea = R.path([props.countryIso, 'faoStat', faoStatColumn.name], countryConfig)
-          return <td className={`fra-table__calculated-cell ${odpValueCellClass(faoStatColumn)}`} key={i}>
+          return <td className={odpValueCellClass(faoStatColumn)} key={i}>
             {formatNumber(faoStatLandArea)}
           </td>
         }, R.values(fra))
