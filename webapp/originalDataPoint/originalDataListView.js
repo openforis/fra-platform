@@ -2,12 +2,11 @@ import './style.less'
 import React from 'react'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
-import { fetchOdps } from './actions'
-
+import { fetchOdps, removeFromList } from './actions'
 import { Link } from './../reusableUiComponents/link'
 import LoggedInPageTemplate from '../app/loggedInPageTemplate'
 
-const TableRow = ({odp, i18n, countryIso}) => {
+const TableRow = ({odp, i18n, countryIso, removeFromList}) => {
   const odpUrl = `/country/${countryIso}/odp/${odp.odpId}`
   const navigateTo = (url) => window.location.href = '#' + url
 
@@ -52,11 +51,14 @@ const TableRow = ({odp, i18n, countryIso}) => {
       <Link className="link" to={odpUrl}>
         {i18n.t('nationalDataPoint.edit')}
       </Link>
+      <button className="btn btn-s btn-link-destructive" onClick ={() => window.confirm(i18n.t('nationalDataPoint.confirmDelete')) ? removeFromList(countryIso, odp.odpId) : null}>
+        {i18n.t('nationalDataPoint.delete')}
+      </button>
     </td>
   </tr>
 }
 
-const ODPListing = ({countryIso, odps = [], i18n, userInfo}) => {
+const ODPListing = ({countryIso, odps = [], i18n, userInfo, removeFromList}) => {
   return <div className="fra-view__content">
     <div className="fra-view__page-header">
       <h1 className="title">{i18n.t('nationalDataPoint.nationalData')}</h1>
@@ -79,7 +81,7 @@ const ODPListing = ({countryIso, odps = [], i18n, userInfo}) => {
       {
         odps.length > 0
         ? R.map(odp =>
-          <TableRow key={odp.odpId} odp={odp} i18n={i18n} countryIso={countryIso} />
+          <TableRow key={odp.odpId} odp={odp} i18n={i18n} countryIso={countryIso} removeFromList={removeFromList} />
           , odps)
         : <tr>
             <td className="odp-list__empty-column" colSpan="5">
@@ -127,4 +129,4 @@ const mapStateToProps = state => ({
   userInfo: state.user.userInfo
 })
 
-export default connect(mapStateToProps, {fetchOdps})(DataFetchingComponent)
+export default connect(mapStateToProps, {fetchOdps, removeFromList})(DataFetchingComponent)
