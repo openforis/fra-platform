@@ -12,8 +12,7 @@ export class ThousandSeparatedIntegerInput extends React.Component {
   render () {
     const {integerValue, onChange, onPaste} = this.props
     return <div className="number-input__container validation-error-sensitive-field" ref="wrapper">
-      <div className="number-input__readonly-view"
-           style={{display: this.state.hasFocus ? 'none' : 'inline-block'}}>
+      <div className="number-input__readonly-view" style={{visibility: this.state.hasFocus ? 'hidden' : 'visible'}}>
         {formatInteger(integerValue)}
       </div>
       <input

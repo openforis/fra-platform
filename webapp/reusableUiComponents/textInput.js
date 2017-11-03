@@ -10,23 +10,18 @@ export default class TextInput extends React.Component {
   }
 
   render () {
-    const minWidthStyleAttr = this.props.minWidth ? `${this.props.minWidth}px` : null
     const isValueEmpty = isEmpty(this.props.value)
     const disabled = this.props.disabled
 
     return <div className="text-input__container validation-error-sensitive-field">
       <div
         className={`text-input__readonly-view ${isValueEmpty ? 'placeholder' : ''}`}
-        style={{display: this.state.hasFocus ? 'none' : 'inline-block'}}>
+        style={{visibility: this.state.hasFocus ? 'hidden' : 'visible'}}>
         {isValueEmpty ? this.state.placeholder : this.props.value}
       </div>
-
       <input
         type="text"
-        style={{
-          opacity: this.state.hasFocus ? '1' : '0',
-          minWidth: minWidthStyleAttr
-        }}
+        style={{opacity: this.state.hasFocus ? '1' : '0'}}
         className="text-input__input-field"
         ref="textInputField"
         value={this.props.value || ''}
