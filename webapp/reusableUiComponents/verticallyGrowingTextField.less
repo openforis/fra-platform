@@ -1,8 +1,8 @@
-@import (reference) "../app-styles/fraTable";
-@import (reference) "../app-styles/inputMixins";
+@import (reference) "../app-styles/config";
 
 .vgtf__container {
   position: relative;
+  height: 100%;
 }
 
 .vgtf__textarea {
@@ -10,5 +10,23 @@
   outline: none;
   display: block;
   overflow: hidden;  // Removes scrollbar
-  .mixin-input-field;
+
+  width: 100%;
+  min-height: 100%;
+  background: transparent;
+  border: none;
+  color: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  text-align: inherit;
+  padding: 10px;
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 1px @text-body;
+  }
+
+  &::placeholder {
+    color: @text-disabled;
+  }
 }
