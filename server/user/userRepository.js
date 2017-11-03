@@ -22,8 +22,8 @@ const findUserById = (userId, client = db) =>
       }
     ).then(res => res ? R.assoc('roles', camelize(res[1].rows), res[0]) : null)
 
-const findUserByLoginEmails = (emails, client = db) =>
-  client.query('SELECT id from fra_user WHERE LOWER(login_email) in ($1)', [emails.join(',')])
+const findUserByLoginEmail = (loginEmail, client = db) =>
+  client.query('SELECT id from fra_user WHERE LOWER(login_email) in ($1)', [loginEmail])
     .then(res => res.rows.length > 0 ? findUserById(res.rows[0].id, client) : null)
 
 const findUserByEmail = (email, client = db) =>
@@ -143,23 +143,58 @@ const removeCountryUser = (client, user, countryIso, userId) =>
   `, [userId, countryIso])
     )
 
-const acceptInvitation = (client, invitationUUID, loginEmail) =>
+const updateInvitedNewUser = (client, invitationUUID, loginEmail) =>
   client.query(`
       UPDATE fra_user
       SET login_email = $1, invitation_uuid = null
       WHERE invitation_uuid = $2
-      `, [loginEmail.toLowerCase(), invitationUUID])
-    .then(() => findUserByLoginEmails([loginEmail], client))
-    .then(user =>
-      auditRepository.insertAudit(client, user.id, 'acceptInvitation', user.roles[0].countryIso, 'users', {
-        user: user.name,
-        role: user.roles[0].role.toLowerCase()
-      }).then(() => user)
-    )
+      `,
+    [loginEmail.toLowerCase(), invitationUUID]
+  )
+
+const addUserRole = async (client, user, invitationUUID) => {
+  const result = await client.query('SELECT country_iso, role, accepted FROM fra_user_invitation WHERE invitation_uuid = $1', [invitationUUID])
+  console.log('invitaatio:')
+  console.log(result.rows.length)
+  if (result.rows.length !== 1) throw new Error('Invalid invitation uuid', invitationUUID)
+  const accepted = !!result.rows[0].accepted
+  console.log('accepted', accepted)
+  if (accepted) return //Invitation is already accepted
+
+  const countryIso = result.rows[0].country_iso
+  const role = result.rows[0].role
+  console.log('countryIso and role')
+  console.log(countryIso)
+  console.log(role)
+}
+
+const acceptInvitation = async (client, invitationUUID, loginEmail) => {
+  const user = await findUserByLoginEmail(loginEmail, client)
+  console.log('accept invitation user', user, loginEmail)
+  if (user) {
+    console.log('found user for email', loginEmail)
+    //await addUserRoleForCountry(client, user, invitationUUID)
+    //const number = await client.query('SELECT 11 as x')
+    //console.log('NUMBER', number.rows[0].x)
+//    const result = await client.query('SELECT country_iso, role FROM fra_user_invitation WHERE invitation_uuid = $1 AND accepted IS NULL', [invitationUUID])
+    await addUserRole(client, user, invitationUUID)
+    //console.log(result.rows[0])
+    console.log('returning user')
+    return user
+  } else {
+    await updateInvitedNewUser(client, invitationUUID, loginEmail)
+    const user = await findUserByEmail(loginEmail, client)
+    await auditRepository.insertAudit(client, user.id, 'acceptInvitation', user.roles[0].countryIso, 'users', {
+      user: user.name,
+      role: user.roles[0].role.toLowerCase()
+    })
+    return user
+  }
+}
 
 module.exports = {
   findUserById,
-  findUserByLoginEmails,
+  findUserByLoginEmail,
   updateLanguage,
   fetchCountryUsers,
   addCountryUser,
