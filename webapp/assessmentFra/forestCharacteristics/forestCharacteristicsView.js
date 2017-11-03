@@ -21,7 +21,7 @@ const ForestCharacteristics = props => {
 
   const plantedForestRow = fra => {
     return <tr key="plantedForest">
-      <th className="fra-table__header-cell">
+      <th className="fra-table__header-cell-left">
         {props.i18n.t('forestCharacteristics.plantedForest')}
       </th>
       {
@@ -50,7 +50,7 @@ const ForestCharacteristics = props => {
 
   const totalForestAreaRow = fra => {
     return <tr key="totalForestArea">
-      <th className="fra-table__header-cell">
+      <th className="fra-table__header-cell-left">
         {props.i18n.t('forestCharacteristics.totalForestArea')}
       </th>
       {

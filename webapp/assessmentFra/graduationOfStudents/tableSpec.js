@@ -19,12 +19,12 @@ export default i18n => ({
   name: 'graduationOfStudents',
   header: <thead>
     <tr>
-      <th className="fra-table__header-cell" rowSpan="2">{i18n.t('graduationOfStudents.fra2020Categories')}</th>
-      <th className="fra-table__header-cell" colSpan={yearRange.length}>{i18n.t('graduationOfStudents.numberOfStudents')}</th>
+      <th className="fra-table__header-cell-left" rowSpan="2">{i18n.t('graduationOfStudents.fra2020Categories')}</th>
+      <th className="fra-table__header-cell-left" colSpan={yearRange.length}>{i18n.t('graduationOfStudents.numberOfStudents')}</th>
     </tr>
     <tr>
       {
-        R.map(year => <th key={year} className="fra-table__header-cell">{year}</th>, yearRange)
+        R.map(year => <th key={year} className="fra-table__header-cell-left">{year}</th>, yearRange)
       }
     </tr>
   </thead>,

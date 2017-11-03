@@ -27,21 +27,18 @@
 
   tbody {
     th {
-      min-width: 200px;
+      min-width: 160px;
+      max-width: 240px;
     }
   }
 }
 
 .fra-table__header-cell {
-  .mixin-table-cell(700, left, 10px);
-}
-
-.fra-table__header-cell-right {
-  .mixin-table-cell(700, right, 10px);
-}
-
-.fra-table__header-cell-middle {
   .mixin-table-cell(700, center, 10px);
+}
+
+.fra-table__header-cell-left {
+  .mixin-table-cell(700, left, 10px);
 }
 
 .fra-table__category-cell {
@@ -59,11 +56,11 @@
 }
 
 .fra-table__cell {
-  .mixin-table-cell(400, left, 0, true);
+  .mixin-table-cell(400, right, 0, true);
 }
 
-.fra-table__cell-right {
-  .mixin-table-cell(400, right, 0, true);
+.fra-table__cell-left {
+  .mixin-table-cell(400, lef, 0, true);
 }
 
 .fra-table__calculated-cell {

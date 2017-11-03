@@ -17,14 +17,14 @@ export default i18n => ({
   name: 'holderOfManagementRights',
   header: <thead>
   <tr>
-    <th className="fra-table__header-cell" rowSpan="2">{i18n.t('holderOfManagementRights.categoryHeader')}</th>
-    <th className="fra-table__header-cell-middle" colSpan="4">{i18n.t('holderOfManagementRights.areaUnitLabel')}</th>
+    <th className="fra-table__header-cell-left" rowSpan="2">{i18n.t('holderOfManagementRights.categoryHeader')}</th>
+    <th className="fra-table__header-cell" colSpan="4">{i18n.t('holderOfManagementRights.areaUnitLabel')}</th>
   </tr>
   <tr>
-    <th className="fra-table__header-cell-right">1990</th>
-    <th className="fra-table__header-cell-right">2000</th>
-    <th className="fra-table__header-cell-right">2010</th>
-    <th className="fra-table__header-cell-right">2015</th>
+    <th className="fra-table__header-cell">1990</th>
+    <th className="fra-table__header-cell">2000</th>
+    <th className="fra-table__header-cell">2010</th>
+    <th className="fra-table__header-cell">2015</th>
   </tr>
   </thead>,
   rows: [
@@ -35,7 +35,7 @@ export default i18n => ({
     createInputRow(i18n.t('holderOfManagementRights.other')),
     [{
       type: 'readOnly',
-      jsx: <th key="total_public_ownership" className="fra-table__header-cell">{i18n.t('holderOfManagementRights.totalPublicOwnership')}</th>
+      jsx: <th key="total_public_ownership" className="fra-table__header-cell-left">{i18n.t('holderOfManagementRights.totalPublicOwnership')}</th>
     },
       {type: 'custom', render: totalOwnershipCell(1)},
       {type: 'custom', render: totalOwnershipCell(2)},

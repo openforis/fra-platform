@@ -40,7 +40,7 @@ const ExtentOfForest = (props) => {
 
   const totalAreaRow = fra =>
     <tr key="totalArea">
-      <th className="fra-table__header-cell">
+      <th className="fra-table__header-cell-left">
         {props.i18n.t('extentOfForest.totalLandArea')}
       </th>
       {
@@ -55,7 +55,7 @@ const ExtentOfForest = (props) => {
 
   const faoStatRow = fra =>
     <tr key="faoStat">
-      <th className="fra-table__header-cell">{props.i18n.t('extentOfForest.faoStatLandArea')}</th>
+      <th className="fra-table__header-cell-left">{props.i18n.t('extentOfForest.faoStatLandArea')}</th>
       {
         mapIndexed((faoStatColumn, i) => {
           const faoStatLandArea = R.path([props.countryIso, 'faoStat', faoStatColumn.name], countryConfig)
