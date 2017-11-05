@@ -153,33 +153,44 @@ const updateInvitedNewUser = (client, invitationUUID, loginEmail) =>
   )
 
 const addUserRole = async (client, user, invitationUUID) => {
-  const result = await client.query('SELECT country_iso, role, accepted FROM fra_user_invitation WHERE invitation_uuid = $1', [invitationUUID])
-  console.log('invitaatio:')
-  console.log(result.rows.length)
-  if (result.rows.length !== 1) throw new Error('Invalid invitation uuid', invitationUUID)
-  const accepted = !!result.rows[0].accepted
-  console.log('accepted', accepted)
+  const invitationInfo = await client.query(
+    'SELECT country_iso, role, accepted FROM fra_user_invitation WHERE invitation_uuid = $1',
+    [invitationUUID]
+  )
+  console.log('invitation rows lengt:')
+  console.log(invitationInfo.rows.length)
+  if (invitationInfo.rows.length !== 1) throw new Error('Invalid invitation uuid', invitationUUID)
+  const accepted = !!invitationInfo.rows[0].accepted
+  console.log('already accepted?', accepted)
   if (accepted) return //Invitation is already accepted
 
-  const countryIso = result.rows[0].country_iso
-  const role = result.rows[0].role
-  console.log('countryIso and role')
+  const countryIso = invitationInfo.rows[0].country_iso
+  const role = invitationInfo.rows[0].role
+
+
+  await client.query(
+    `INSERT INTO user_country_role 
+      (user_id, country_iso, role) 
+      VALUES 
+      ($1, $2, $3)`,
+    [user.id, countryIso, role]
+  )
+
+  console.log('added countryIso and role from invitation ', invitationUUID)
   console.log(countryIso)
   console.log(role)
+  console.log('for user ', user)
+
+  //TODO add accepted timestamp
 }
 
 const acceptInvitation = async (client, invitationUUID, loginEmail) => {
   const user = await findUserByLoginEmail(loginEmail, client)
   console.log('accept invitation user', user, loginEmail)
   if (user) {
-    console.log('found user for email', loginEmail)
-    //await addUserRoleForCountry(client, user, invitationUUID)
-    //const number = await client.query('SELECT 11 as x')
-    //console.log('NUMBER', number.rows[0].x)
-//    const result = await client.query('SELECT country_iso, role FROM fra_user_invitation WHERE invitation_uuid = $1 AND accepted IS NULL', [invitationUUID])
+    console.log('found existing user for email', loginEmail)
     await addUserRole(client, user, invitationUUID)
-    //console.log(result.rows[0])
-    console.log('returning user')
+    console.log('added user role for ', loginEmail)
     return user
   } else {
     await updateInvitedNewUser(client, invitationUUID, loginEmail)
