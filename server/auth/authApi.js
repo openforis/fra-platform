@@ -22,6 +22,7 @@ const verifyCallback = async (req, accessToken, refreshToken, profile, done) => 
       userFetchCallback(user)
     }
   } catch (e) {
+    console.log('Error occurred while authenticating', e)
     done(null, false, {message: 'Error occurred: ' + e})
   }
 }
