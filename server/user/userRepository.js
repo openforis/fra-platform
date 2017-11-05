@@ -143,7 +143,25 @@ const removeCountryUser = (client, user, countryIso, userId) =>
   `, [userId, countryIso])
     )
 
-const updateInvitedNewUser = (client, invitationUUID, loginEmail) =>
+const getInvitationInfo = async (client, invitationUUID) => {
+  const invitationInfo = await client.query(
+    'SELECT country_iso, role, accepted FROM fra_user_invitation WHERE invitation_uuid = $1',
+    [invitationUUID]
+  )
+  console.log('invitation rows lengt:')
+  console.log(invitationInfo.rows.length)
+  if (invitationInfo.rows.length !== 1) throw new Error('Invalid invitation uuid', invitationUUID)
+  return camelize(invitationInfo.rows[0])
+}
+
+const setInvitationAccepted = (client, invitationUUID) => client.query(
+  `UPDATE fra_user_invitation
+      SET accepted = now()
+     WHERE invitation_uuid = $1`,
+  [invitationUUID]
+)
+
+const addNewUserBasedOnInvitation = (client, invitationUUID, loginEmail) =>
   client.query(`
       UPDATE fra_user
       SET login_email = $1, invitation_uuid = null
@@ -152,43 +170,20 @@ const updateInvitedNewUser = (client, invitationUUID, loginEmail) =>
     [loginEmail.toLowerCase(), invitationUUID]
   )
 
-const addUserRole = async (client, user, invitationUUID) => {
-  const invitationInfo = await client.query(
-    'SELECT country_iso, role, accepted FROM fra_user_invitation WHERE invitation_uuid = $1',
-    [invitationUUID]
-  )
-  console.log('invitation rows lengt:')
-  console.log(invitationInfo.rows.length)
-  if (invitationInfo.rows.length !== 1) throw new Error('Invalid invitation uuid', invitationUUID)
-  const accepted = !!invitationInfo.rows[0].accepted
-  console.log('already accepted?', accepted)
-  if (accepted) return //Invitation is already accepted
-
-  const countryIso = invitationInfo.rows[0].country_iso
-  const role = invitationInfo.rows[0].role
-
+const addCountryRoleForExistingUserBasedOnInvitation = async (client, user, invitationUUID) => {
+  const invitationInfo = await getInvitationInfo(client, invitationUUID)
+  if (!!invitationInfo.accepted) return //Invitation is already accepted
 
   await client.query(
     `INSERT INTO user_country_role 
       (user_id, country_iso, role) 
       VALUES 
       ($1, $2, $3)`,
-    [user.id, countryIso, role]
+    [user.id, invitationInfo.countryIso, invitationInfo.role]
   )
 
-  await client.query(
-    `UPDATE fra_user_invitation
-      SET accepted = now()
-     WHERE invitation_uuid = $1`,
-    [invitationUUID]
-  )
-
+  await setInvitationAccepted(client, invitationUUID)
   console.log('added countryIso and role from invitation ', invitationUUID)
-  console.log(countryIso)
-  console.log(role)
-  console.log('for user ', user)
-
-  //TODO add accepted timestamp
 }
 
 const acceptInvitation = async (client, invitationUUID, loginEmail) => {
@@ -196,11 +191,11 @@ const acceptInvitation = async (client, invitationUUID, loginEmail) => {
   console.log('accept invitation user', user, loginEmail)
   if (user) {
     console.log('found existing user for email', loginEmail)
-    await addUserRole(client, user, invitationUUID)
+    await addCountryRoleForExistingUserBasedOnInvitation(client, user, invitationUUID)
     console.log('added user role for ', loginEmail)
     return user
   } else {
-    await updateInvitedNewUser(client, invitationUUID, loginEmail)
+    await addNewUserBasedOnInvitation(client, invitationUUID, loginEmail)
     const user = await findUserByEmail(loginEmail, client)
     await auditRepository.insertAudit(client, user.id, 'acceptInvitation', user.roles[0].countryIso, 'users', {
       user: user.name,
