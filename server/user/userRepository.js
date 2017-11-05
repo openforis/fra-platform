@@ -55,12 +55,15 @@ const fetchCountryUsers = (countryIso, user) =>
   `, [countryIso])
     .then(res => camelize(res.rows))
 
-const insertUser = (client, email, name, invitationUUID) =>
+const insertUser = (client, email, name, loginEmail) =>
   client.query(`
     INSERT INTO
-      fra_user(email, name, invitation_uuid)
+      fra_user(email, name, login_email)
     VALUES ($1, $2, $3)
-  `, [email, name, invitationUUID])
+  `, [email, name, loginEmail])
+
+const getIdOfJustAddedUser = client =>
+  client.query(`SELECT last_value as user_id FROM fra_user_id_seq`)
 
 const authorizeUser = (client, userAction, countryIso, userId, role, userName) =>
   client.query(`
@@ -76,6 +79,8 @@ const authorizeUser = (client, userAction, countryIso, userId, role, userName) =
           role: role.toLowerCase()
         })
     )
+
+
 
 const addCountryUser = (client, user, countryIso, userToAdd) =>
   findUserByEmail(userToAdd.email, client)
@@ -145,11 +150,11 @@ const removeCountryUser = (client, user, countryIso, userId) =>
 
 const getInvitationInfo = async (client, invitationUUID) => {
   const invitationInfo = await client.query(
-    'SELECT country_iso, role, accepted FROM fra_user_invitation WHERE invitation_uuid = $1',
+    `SELECT country_iso, name, role, accepted, email 
+      FROM fra_user_invitation 
+      WHERE invitation_uuid = $1`,
     [invitationUUID]
   )
-  console.log('invitation rows lengt:')
-  console.log(invitationInfo.rows.length)
   if (invitationInfo.rows.length !== 1) throw new Error('Invalid invitation uuid', invitationUUID)
   return camelize(invitationInfo.rows[0])
 }
@@ -161,46 +166,53 @@ const setInvitationAccepted = (client, invitationUUID) => client.query(
   [invitationUUID]
 )
 
-const addNewUserBasedOnInvitation = (client, invitationUUID, loginEmail) =>
-  client.query(`
-      UPDATE fra_user
-      SET login_email = $1, invitation_uuid = null
-      WHERE invitation_uuid = $2
-      `,
-    [loginEmail.toLowerCase(), invitationUUID]
-  )
+const addUserCountryRole = (client, userId, countryIso, role) =>
+  client.query(
+  `INSERT INTO user_country_role 
+      (user_id, country_iso, role) 
+      VALUES 
+      ($1, $2, $3)`,
+  [userId, countryIso, role]
+)
+
+const addNewUserBasedOnInvitation = async (client, invitationUUID, loginEmail) => {
+  const invitationInfo = await getInvitationInfo(client, invitationUUID)
+  await insertUser(client, invitationInfo.email, invitationInfo.name, loginEmail)
+  const userIdResult = await getIdOfJustAddedUser(client)
+  const userId = userIdResult.rows[0].user_id
+  await addUserCountryRole(client, userId, invitationInfo.countryIso, invitationInfo.role)
+  await setInvitationAccepted(client, invitationUUID)
+  await addAcceptToAudit(client, userId, invitationInfo)
+}
+
+const addAcceptToAudit = (client, userId, invitationInfo) =>
+  auditRepository.insertAudit(
+    client,
+    userId,
+    'acceptInvitation',
+    invitationInfo.countryIso,
+    'users',
+    {
+      user: invitationInfo.name,
+      role: invitationInfo.role.toLowerCase()
+    })
 
 const addCountryRoleForExistingUserBasedOnInvitation = async (client, user, invitationUUID) => {
   const invitationInfo = await getInvitationInfo(client, invitationUUID)
   if (!!invitationInfo.accepted) return //Invitation is already accepted
-
-  await client.query(
-    `INSERT INTO user_country_role 
-      (user_id, country_iso, role) 
-      VALUES 
-      ($1, $2, $3)`,
-    [user.id, invitationInfo.countryIso, invitationInfo.role]
-  )
-
+  await addUserCountryRole(client, user.id, invitationInfo.countryIso, invitationInfo.role)
   await setInvitationAccepted(client, invitationUUID)
-  console.log('added countryIso and role from invitation ', invitationUUID)
+  await addAcceptToAudit(client, user.id, invitationInfo)
 }
 
 const acceptInvitation = async (client, invitationUUID, loginEmail) => {
   const user = await findUserByLoginEmail(loginEmail, client)
-  console.log('accept invitation user', user, loginEmail)
   if (user) {
-    console.log('found existing user for email', loginEmail)
     await addCountryRoleForExistingUserBasedOnInvitation(client, user, invitationUUID)
-    console.log('added user role for ', loginEmail)
     return user
   } else {
     await addNewUserBasedOnInvitation(client, invitationUUID, loginEmail)
-    const user = await findUserByEmail(loginEmail, client)
-    await auditRepository.insertAudit(client, user.id, 'acceptInvitation', user.roles[0].countryIso, 'users', {
-      user: user.name,
-      role: user.roles[0].role.toLowerCase()
-    })
+    const user = await findUserByLoginEmail(loginEmail, client)
     return user
   }
 }
