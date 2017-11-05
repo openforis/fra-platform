@@ -176,6 +176,13 @@ const addUserRole = async (client, user, invitationUUID) => {
     [user.id, countryIso, role]
   )
 
+  await client.query(
+    `UPDATE fra_user_invitation
+      SET accepted = now()
+     WHERE invitation_uuid = $1`,
+    [invitationUUID]
+  )
+
   console.log('added countryIso and role from invitation ', invitationUUID)
   console.log(countryIso)
   console.log(role)
