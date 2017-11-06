@@ -89,7 +89,7 @@ const Row = (props) => {
         <ReviewIndicator
           key={`${row.field}_ri`}
           section={props.section}
-          name={props.i18n.t(row.labelKey)}
+          title={props.i18n.t(row.labelKey)}
           target={[row.field, props.type]}
           countryIso={props.countryIso} />
       </div>

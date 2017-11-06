@@ -24,10 +24,11 @@ class ReviewWrapper extends React.Component {
   render () {
     return <td ref="rowAnchor" className="fra-table__row-anchor-cell">
       <div className="fra-table__review-indicator-anchor">
-        <ReviewIndicator section={this.props.section || this.props.tableSpec.name}
-                         name=""
-                         target={commentTarget(this.props.tableSpec.name, this.props.rowIdx)}
-                         countryIso={this.props.countryIso}/>
+        <ReviewIndicator
+          section={this.props.section || this.props.tableSpec.name}
+          title=""
+          target={commentTarget(this.props.tableSpec.name, this.props.rowIdx)}
+          countryIso={this.props.countryIso}/>
       </div>
     </td>
   }

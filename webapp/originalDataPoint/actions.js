@@ -68,6 +68,14 @@ export const remove = (countryIso, odpId) => dispatch => {
   )
 }
 
+export const removeFromList = (countryIso, odpId) => dispatch => {
+  axios.delete(`/api/odp/?odpId=${odpId}`)
+    .then(() => {
+      fetchOdps(countryIso)(dispatch)
+    }).catch(err => dispatch(applicationError(err))
+  )
+}
+
 // Marking drafts
 
 export const markAsActual = (countryIso, odp) => dispatch => {
