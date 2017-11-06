@@ -145,6 +145,14 @@ const removeCountryUser = async (client, user, countryIso, userId) => {
         AND
           country_iso = $2
   `, [userId, countryIso])
+  const roleCountInOtherCountriesResult = await client.query(
+    'SELECT COUNT(*) AS role_count FROM user_country_role WHERE user_id = $1',
+    [userId]
+  )
+  const roleCountInOtherCountries = roleCountInOtherCountriesResult.rows[0].role_count
+  if (Number(roleCountInOtherCountries) === 0) {
+    await client.query(`DELETE FROM fra_user WHERE id = $1`, [userId])
+  }
   await auditRepository.insertAudit(client, user.id, 'removeUser', countryIso, 'users', {user: userToRemove.name})
 }
 
