@@ -103,8 +103,8 @@ const updateInvitation = async (client, user, countryIso, userToUpdate) => {
   return userToUpdate.invitationUuid
 }
 
-const updateUser = async (client, user, countryIso, userToUpdate) => {
-  await client.query(
+const updateUserFields = (client, userToUpdate) =>
+  client.query(
     `
       UPDATE
         fra_user
@@ -114,8 +114,11 @@ const updateUser = async (client, user, countryIso, userToUpdate) => {
       WHERE
         id = $3
     `,
-    [userToUpdate.name, userToUpdate.email, userToUpdate.id]
-  )
+  [userToUpdate.name, userToUpdate.email, userToUpdate.id]
+)
+
+const updateUser = async (client, user, countryIso, userToUpdate) => {
+  await updateUserFields(client, userToUpdate)
   await client.query(
       `
       UPDATE
@@ -197,7 +200,8 @@ const addAcceptToAudit = (client, userId, invitationInfo) =>
 
 const addCountryRoleAndUpdateUserBasedOnInvitation = async (client, user, invitationUuid) => {
   const invitationInfo = await getInvitationInfo(client, invitationUuid)
-  if (!!invitationInfo.accepted) return //Invitation is already accepted
+  if (!!invitationInfo.accepted) return //Invitation is already accepted, just allow the user to log in normally
+  await updateUserFields(client, {...invitationInfo, id: user.id})
   await addUserCountryRole(client, user.id, invitationInfo.countryIso, invitationInfo.role)
   await setInvitationAccepted(client, invitationUuid)
   await addAcceptToAudit(client, user.id, invitationInfo)
