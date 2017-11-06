@@ -5,7 +5,6 @@ const camelize = require('camelize')
 
 const db = require('../db/db')
 const auditRepository = require('./../audit/auditRepository')
-const {hasNoRole} = require('../../common/countryRole')
 
 const findUserById = (userId, client = db) =>
   client.query('SELECT id, name, email, lang FROM fra_user WHERE id = $1', [userId])
