@@ -6,7 +6,7 @@ module.exports.insertAudit = async (client, userId, message, countryIso, section
   const userResult = await client.query('SELECT name, email, login_email FROM fra_user WHERE id = $1', [userId])
   if (userResult.rows.length !== 1) throw new Error(`User ID query resulted in ${userResult.rows.length} rows`)
   const user = camelize(userResult.rows[0])
-  return client.query(
+  await client.query(
     `INSERT INTO 
       fra_audit 
       (user_email, user_login_email, user_name, message, country_iso, section, target) 
