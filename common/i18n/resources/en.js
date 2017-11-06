@@ -210,8 +210,6 @@ module.exports.translation = {
     methodsUsed: 'Methods used',
     dataSource: 'Data source',
     dataSources: 'Data sources',
-    years: 'Years',
-    appliesToVariables: 'Applies to variables',
     additionalComments: 'Additional comments',
     edit: 'Edit',
     copyPreviousValues: 'Copy previous values',
@@ -230,6 +228,7 @@ module.exports.translation = {
     enterOrCopyPasteNationalClasses: 'Enter or copy and paste national classes',
     forestCharacteristics: 'Forest characteristics',
     otherLandCharacteristics: 'Other land with tree cover',
+    plantationForest: 'Plantation forest',
     dataSourceMethodsOptions: {
       nationalForestInventory: 'National Forest Inventory',
       sampleBasedRemoteSensingAssessment: 'Sample-based remote sensing assessment',

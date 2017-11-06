@@ -54,7 +54,7 @@ class ReviewIndicator extends React.Component {
         issueStatus={issueStatus}
         hasUnreadIssues={hasUnreadIssues}
         onClick={() => {
-          this.props.openCommentThread(this.props.countryIso, this.props.section, this.props.target, this.props.name)
+          this.props.openCommentThread(this.props.countryIso, this.props.section, this.props.target, this.props.title)
         }}/>
     </div>
   }
