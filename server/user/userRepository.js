@@ -95,7 +95,7 @@ const addInvitation = async (client, user, countryIso, userToInvite) => {
   )
   await auditRepository
     .insertAudit(client, user.id, 'addInvitation', countryIso, 'users', {
-      userToInvite: userToInvite.name,
+      user: userToInvite.name,
       role: userToInvite.role.toLowerCase()
     })
   return invitationUuid
