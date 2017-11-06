@@ -114,9 +114,7 @@ export default i18n => ({
   <tr>
     <th className="fra-table__header-cell">{i18n.t('growingStockComposition.nativeTreeSpecies')}</th>
     <th className="fra-table__header-cell-right">1990</th>
-    <th className="fra-table__header-cell-right">1995</th>
     <th className="fra-table__header-cell-right">2000</th>
-    <th className="fra-table__header-cell-right">2005</th>
     <th className="fra-table__header-cell-right">2010</th>
     <th className="fra-table__header-cell-right">2015</th>
   </tr>
