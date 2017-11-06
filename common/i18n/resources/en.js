@@ -210,8 +210,6 @@ module.exports.translation = {
     methodsUsed: 'Methods used',
     dataSource: 'Data source',
     dataSources: 'Data sources',
-    years: 'Years',
-    appliesToVariables: 'Applies to variables',
     additionalComments: 'Additional comments',
     edit: 'Edit',
     copyPreviousValues: 'Copy previous values',

@@ -139,59 +139,6 @@ const OdpViewContent = ({match, saveDraft, markAsActual, remove, active, autoSav
               </td>
             </tr>
             <tr>
-              <th className="fra-table__header-cell">{i18n.t('nationalDataPoint.years')}</th>
-              <td className="fra-table__cell odp__data-source-input-column">
-                <VerticallyGrowingTextField
-                  value={active.dataSourceYears || ''}
-                  onChange={ (e) => saveDraft(countryIso, R.assoc('dataSourceYears', e.target.value, active)) }
-                />
-              </td>
-              <td className="fra-table__row-anchor-cell">
-                {
-                  active.odpId
-                    ? <div className="odp__review-indicator-row-anchor">
-                    <ReviewIndicator section='odp'
-                                     name={i18n.t('nationalDataPoint.nationalDataPoint')}
-                                     target={[active.odpId, 'dataSourceYears']}
-                                     countryIso={countryIso}/>
-                  </div>
-                    : null
-                }
-              </td>
-            </tr>
-            <tr>
-              <th className="fra-table__header-cell">{i18n.t('nationalDataPoint.appliesToVariables')}</th>
-              <td className="fra-table__cell odp__data-source-input-column">
-                <MultiSelect
-                  i18n={i18n}
-                  localizationPrefix="nationalDataPoint.appliesToVariablesOptions"
-                  values={active.dataSourceAppliesToVariables}
-                  options={[
-                    'forest',
-                    'otherWoodedLand',
-                    'otherLand'
-                  ]}
-                  onChange={
-                    (values) =>
-                      saveDraft(countryIso, R.assoc('dataSourceAppliesToVariables', values, active))
-                  }
-                  openedListWidth="300px"
-                />
-              </td>
-              <td className="fra-table__row-anchor-cell">
-                {
-                  active.odpId
-                    ? <div className="odp__review-indicator-row-anchor">
-                    <ReviewIndicator section='odp'
-                                     name={i18n.t('nationalDataPoint.nationalDataPoint')}
-                                     target={[active.odpId, 'dataSourceAppliesToVariables']}
-                                     countryIso={countryIso}/>
-                  </div>
-                    : null
-                }
-              </td>
-            </tr>
-            <tr>
               <th className="fra-table__header-cell">{i18n.t('nationalDataPoint.additionalComments')}</th>
               <td className="fra-table__cell odp__data-source-input-column">
                 <VerticallyGrowingTextField
