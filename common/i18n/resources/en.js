@@ -86,7 +86,8 @@ module.exports.translation = {
     access: {
       countryRoleNotSpecified: 'Error: User {{user}} tried to access {{countryIso}} but no role has been specified',
       countryUserNotReviewer: 'Error: User {{user}} tried to access {{countryIso}} of which is not reviewer',
-      roleChangeNotAllowed: 'Error: User {{user}} tried to set another user\'s role to {{role}} which is not allowed for the logged in user'
+      roleChangeNotAllowed: 'Error: User {{user}} tried to set another user\'s role to {{role}} which is not allowed for the logged in user',
+      invitationAlreadyUsed: 'Error: invitation {{invitationUuid}} has already been used, hijacking by {{loginEmail}} not allowed!'
     },
     assessment: {
       transitionNotAllowed: 'Error: Transition from {{currentStatus}} to {{status}} is not allowed for role {{role}}'

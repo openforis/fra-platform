@@ -3,6 +3,7 @@ const camelize = require('camelize')
 
 const db = require('../db/db')
 const auditRepository = require('./../audit/auditRepository')
+const { AccessControlException } = require('../utils/accessControl')
 
 const findUserById = async (userId, client = db) => {
   const res = await client.query('SELECT id, name, email, lang FROM fra_user WHERE id = $1', [userId])
@@ -173,6 +174,7 @@ const addUserCountryRole = (client, userId, countryIso, role) =>
 
 const addNewUserBasedOnInvitation = async (client, invitationUuid, loginEmail) => {
   const invitationInfo = await getInvitationInfo(client, invitationUuid)
+  if (!!invitationInfo.accepted) throw new AccessControlException('error.access.invitationAlreadyUsed', {loginEmail, invitationUuid})
   await insertUser(client, invitationInfo.email, invitationInfo.name, loginEmail)
   const userIdResult = await getIdOfJustAddedUser(client)
   const userId = userIdResult.rows[0].user_id
@@ -193,7 +195,7 @@ const addAcceptToAudit = (client, userId, invitationInfo) =>
       role: invitationInfo.role.toLowerCase()
     })
 
-const addCountryRoleForExistingUserBasedOnInvitation = async (client, user, invitationUuid) => {
+const addCountryRoleAndUpdateUserBasedOnInvitation = async (client, user, invitationUuid) => {
   const invitationInfo = await getInvitationInfo(client, invitationUuid)
   if (!!invitationInfo.accepted) return //Invitation is already accepted
   await addUserCountryRole(client, user.id, invitationInfo.countryIso, invitationInfo.role)
@@ -204,7 +206,7 @@ const addCountryRoleForExistingUserBasedOnInvitation = async (client, user, invi
 const acceptInvitation = async (client, invitationUuid, loginEmail) => {
   const user = await findUserByLoginEmail(loginEmail, client)
   if (user) {
-    await addCountryRoleForExistingUserBasedOnInvitation(client, user, invitationUuid)
+    await addCountryRoleAndUpdateUserBasedOnInvitation(client, user, invitationUuid)
     return user
   } else {
     await addNewUserBasedOnInvitation(client, invitationUuid, loginEmail)
