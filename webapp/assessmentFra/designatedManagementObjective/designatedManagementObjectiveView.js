@@ -41,6 +41,7 @@ class designatedManagementObjectiveView extends React.Component {
         <h3 className="subhead dmo__table-header">
           {i18n.t('designatedManagementObjective.primaryDesignatedManagementObjective')}
         </h3>
+        <p className="dmo__support-text">{i18n.t('designatedManagementObjective.primaryDesignatedManagementObjectiveSupport')}</p>
         <TraditionalTable
           tableSpec={primaryDmoTableSpec}
           countryIso={match.params.countryIso}
@@ -48,6 +49,7 @@ class designatedManagementObjectiveView extends React.Component {
         <h3 className="subhead dmo__table-header">
           {i18n.t('designatedManagementObjective.totalAreaWithDesignatedManagementObjective')}
         </h3>
+        <p className="dmo__support-text">{i18n.t('designatedManagementObjective.totalAreaWithDesignatedManagementObjectiveSupport')}</p>
         <TraditionalTable
           tableSpec={totalDmoTableSpec}
           countryIso={match.params.countryIso}

@@ -215,8 +215,6 @@ module.exports.translation = {
     methodsUsed: 'Methods used',
     dataSource: 'Data source',
     dataSources: 'Data sources',
-    years: 'Years',
-    appliesToVariables: 'Applies to variables',
     additionalComments: 'Additional comments',
     edit: 'Edit',
     copyPreviousValues: 'Copy previous values',
@@ -235,12 +233,13 @@ module.exports.translation = {
     enterOrCopyPasteNationalClasses: 'Enter or copy and paste national classes',
     forestCharacteristics: 'Forest characteristics',
     otherLandCharacteristics: 'Other land with tree cover',
+    plantationForest: 'Plantation forest',
     dataSourceMethodsOptions: {
       nationalForestInventory: 'National Forest Inventory',
       sampleBasedRemoteSensingAssessment: 'Sample-based remote sensing assessment',
       fullCoverMaps: 'Full-cover forest/vegetation maps',
       registersQuestionnaires: 'Registers/questionnaires',
-      other: 'Other (specify)'
+      other: 'Other (specify in comments)'
     },
     appliesToVariablesOptions: {
       forest: 'Forest',
@@ -407,7 +406,9 @@ The FRA team
   designatedManagementObjective: {
     designatedManagementObjective: 'Designated management objective',
     primaryDesignatedManagementObjective: 'Primary designated management objective',
+    primaryDesignatedManagementObjectiveSupport: 'Primary designated management objective is significantly more important than other management objectives. The different primary management objectives are *exclusive* and areas reported under one primary management objective should not be reported for any other primary management objectives. The sum of the different management objectives should add up to the forest area.',
     totalAreaWithDesignatedManagementObjective: 'Total area with designated management objective',
+    totalAreaWithDesignatedManagementObjectiveSupport: 'Designated management objective, regardless whether it is primary or not. The different designation categories are *not exclusive*. Hence, areas can be reported more than once e.g. Forest area reported as primary management objective "Multiple use" should be reported on for each management objectives. Thus the sum of the different management objectives can be larger than the total forest area.',
     categoryHeader: 'FRA 2020 categories',
     areaUnitLabel: 'Forest area (1000 ha)',
     production: 'Production',
@@ -415,7 +416,7 @@ The FRA team
     biodiversityConservation: 'Conservation of biodiversity',
     socialServices: 'Social Services',
     multipleUse: 'Multiple use',
-    other: 'Other (specify)',
+    other: 'Other (specify in comments)',
     unknown: 'No/unknown',
     totalForestArea: 'Total forest area'
   },
@@ -438,7 +439,7 @@ The FRA team
     ofWhichPrivateBusinesses: '…of which owned by private business entities and institutions',
     ofWhichCommunities: '…of which owned by local, tribal and indigenous communities',
     publicOwnership: 'Public ownership',
-    otherOrUnknown: 'Other/unknown (specify)',
+    otherOrUnknown: 'Other/unknown (specify in comments)',
     totalForestArea: 'Total forest area'
   },
 
@@ -450,7 +451,7 @@ The FRA team
     individuals: 'Individuals',
     privateBusinesses: 'Private business entities and institutions',
     communities: 'Local, tribal and indigenous communities',
-    other: 'Other (specify)',
+    other: 'Other (specify in comments)',
     totalPublicOwnership: 'Total public ownership'
   },
 

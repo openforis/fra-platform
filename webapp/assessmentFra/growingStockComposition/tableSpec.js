@@ -24,8 +24,8 @@ const rankRow = i18n => idx => [
       #{idx} {i18n.t('growingStockComposition.rank')}
     </th>
   },
-  {type: 'textInput', minWidth: 240},
-  {type: 'textInput', minWidth: 240},
+  {type: 'textInput'},
+  {type: 'textInput'},
   ...yearlyVolumeInputsForRow()
 ]
 
@@ -51,7 +51,7 @@ const aggregateCell = aggregateFunction => column =>
 const remainingNativeRow = i18n => [
   {
     type: 'readOnly',
-    jsx: <th className="fra-table__header-cell fra-table__filler-first">
+    jsx: <th className="fra-table__header-cell-left fra-table__filler-first">
       {i18n.t('growingStockComposition.remainingNative')}
     </th>
   },
@@ -63,7 +63,7 @@ const remainingNativeRow = i18n => [
 const remainingIntroducedRow = i18n => [
   {
     type: 'readOnly',
-    jsx: <th className="fra-table__header-cell fra-table__filler-first">
+    jsx: <th className="fra-table__header-cell-left fra-table__filler-first">
       {i18n.t('growingStockComposition.remainingIntroduced')}
     </th>
   },
@@ -75,7 +75,7 @@ const remainingIntroducedRow = i18n => [
 const totalRow = (i18n, rowHeaderKey, aggregateFunction) => [
   {
     type: 'readOnly',
-    jsx: <th className="fra-table__header-cell fra-table__filler-first">{i18n.t(rowHeaderKey)}</th>
+    jsx: <th className="fra-table__header-cell-left fra-table__filler-first">{i18n.t(rowHeaderKey)}</th>
   },
   fillerCell,
   fillerCell,
@@ -91,7 +91,7 @@ const totalGrowingStockRow = i18n => totalRow(i18n, 'growingStockComposition.tot
 const introducedHeaderRow = i18n => [
   {
     type: 'readOnly',
-    jsx: <th className="fra-table__header-cell fra-table__filler-first">
+    jsx: <th className="fra-table__header-cell-left fra-table__filler-first">
       {i18n.t('growingStockComposition.introducedTreeSpecies')}
     </th>
   },
@@ -106,19 +106,19 @@ export default i18n => ({
   name: 'growingStockComposition',
   header: <thead>
   <tr>
-    <th className="fra-table__header-cell">{i18n.t('growingStockComposition.categoryHeader')}</th>
-    <th rowSpan="2" className="fra-table__header-cell">{i18n.t('growingStockComposition.scientificName')}</th>
-    <th rowSpan="2" className="fra-table__header-cell">{i18n.t('growingStockComposition.commonName')}</th>
-    <th className="fra-table__header-cell-middle" colSpan="6">{i18n.t('growingStockComposition.areaUnitLabel')}</th>
+    <th className="fra-table__header-cell-left">{i18n.t('growingStockComposition.categoryHeader')}</th>
+    <th rowSpan="2" className="fra-table__header-cell-left">{i18n.t('growingStockComposition.scientificName')}</th>
+    <th rowSpan="2" className="fra-table__header-cell-left">{i18n.t('growingStockComposition.commonName')}</th>
+    <th className="fra-table__header-cell" colSpan="6">{i18n.t('growingStockComposition.areaUnitLabel')}</th>
   </tr>
   <tr>
-    <th className="fra-table__header-cell">{i18n.t('growingStockComposition.nativeTreeSpecies')}</th>
-    <th className="fra-table__header-cell-right">1990</th>
-    <th className="fra-table__header-cell-right">1995</th>
-    <th className="fra-table__header-cell-right">2000</th>
-    <th className="fra-table__header-cell-right">2005</th>
-    <th className="fra-table__header-cell-right">2010</th>
-    <th className="fra-table__header-cell-right">2015</th>
+    <th className="fra-table__header-cell-left">{i18n.t('growingStockComposition.nativeTreeSpecies')}</th>
+    <th className="fra-table__header-cell">1990</th>
+    <th className="fra-table__header-cell">1995</th>
+    <th className="fra-table__header-cell">2000</th>
+    <th className="fra-table__header-cell">2005</th>
+    <th className="fra-table__header-cell">2010</th>
+    <th className="fra-table__header-cell">2015</th>
   </tr>
   </thead>,
   rows:

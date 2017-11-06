@@ -1,34 +1,36 @@
 @import (reference) "../app-styles/config";
 
-.commentable-description {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 24px;
-  margin-bottom: 24px;
+.fra-description__container {
+  margin-top: 32px;
 }
 
-.commentable-description__description-wrapper {
+.fra-description {
+  display: flex;
+  justify-content: space-between;
+}
+
+.fra-description__description-wrapper {
   flex-grow: 2;
 }
 
-.commentable-description__review-indicator-wrapper {
+.fra-description__review-indicator-wrapper {
   .fra-review__issue-status {
     padding-bottom: 11px;
   }
 }
 
-.commentable-description__header-row {
+.fra-description__header-row {
   display: flex;
   align-items: center;
   margin-bottom: 10px;
 }
 
-.commentable-description__header {
+.fra-description__header {
   display: inline-block;
   margin-right: 16px;
 }
 
-.commentable-description__preview {
+.fra-description__preview {
   line-height: 20px;
 
   > *:first-child {
@@ -68,11 +70,11 @@
   }
 }
 
-.commentable-description__loading {
+.fra-description__placeholder {
   color: @text-disabled;
 }
 
-div.fra-row-comments__open .commentable-description__preview {
+div.fra-row-comments__open .fra-description__preview {
   outline: 1px solid @ui-accent;
   outline-offset: -1px;
   box-shadow: 0 0 4px fade(@ui-accent, 50%);

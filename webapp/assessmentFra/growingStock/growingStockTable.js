@@ -33,13 +33,13 @@ const Table = (props) => {
   return <table className="fra-table">
     <thead>
     <tr>
-      <th rowSpan="2" className="fra-table__header-cell">{props.categoriesHeader}</th>
-      <th colSpan={cols.length} className="fra-table__header-cell-middle">{props.colsHeader}</th>
+      <th rowSpan="2" className="fra-table__header-cell-left">{props.categoriesHeader}</th>
+      <th colSpan={cols.length} className="fra-table__header-cell">{props.colsHeader}</th>
     </tr>
     <tr>
       {
         cols.map(v =>
-          <th className="fra-table__header-cell-right" key={`${v.name}`}>
+          <th className="fra-table__header-cell" key={`${v.name}`}>
             {v.name}
           </th>)
       }
@@ -68,7 +68,7 @@ const Row = (props) => {
       row.subCategory
       ? 'fra-table__subcategory-cell'
       : row.calculated
-        ? 'fra-table__header-cell'
+        ? 'fra-table__header-cell-left'
         : 'fra-table__category-cell'
     }>
       {i18n.t(row.labelKey) }
@@ -89,7 +89,7 @@ const Row = (props) => {
         <ReviewIndicator
           key={`${row.field}_ri`}
           section={props.section}
-          name={props.i18n.t(row.labelKey)}
+          title={props.i18n.t(row.labelKey)}
           target={[row.field, props.type]}
           countryIso={props.countryIso} />
       </div>

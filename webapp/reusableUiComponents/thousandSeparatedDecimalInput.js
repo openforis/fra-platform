@@ -16,8 +16,7 @@ export class ThousandSeparatedDecimalInput extends React.Component {
     const value = this.state.inputValue || numberValue
 
     return <div className="number-input__container validation-error-sensitive-field" ref="wrapper">
-      <div className="number-input__readonly-view"
-           style={{display: this.state.hasFocus ? 'none' : 'inline-block'}}>
+      <div className="number-input__readonly-view" style={{visibility: this.state.hasFocus ? 'hidden' : 'visible'}}>
         {formatDecimal(numberValue, precision)}
       </div>
       <input

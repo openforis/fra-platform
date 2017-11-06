@@ -20,8 +20,8 @@ const productRow = idx => [
       #{idx}
     </th>
   },
-  {type: 'textInput', minWidth: 240},
-  {type: 'textInput', minWidth: 240},
+  {type: 'textInput'},
+  {type: 'textInput'},
   {type: 'integerInput'},
   {type: 'textInput'},
   {type: 'integerInput'},
@@ -54,7 +54,7 @@ const productRow = idx => [
 const otherProductsRow = (heading) => [
   {
     type: 'readOnly',
-    jsx: <th className="fra-table__header-cell fra-table__filler-first">
+    jsx: <th className="fra-table__header-cell-left fra-table__filler-first">
       {heading}
     </th>
   },
@@ -73,7 +73,7 @@ const totalRow = i18n => {
   return [
     {
       type: 'readOnly',
-      jsx: <td className="fra-table__header-cell fra-table__filler-first">
+      jsx: <td className="fra-table__header-cell-left fra-table__filler-first">
         {i18n.t('nonWoodForestProductsRemovals.total')}
       </td>
     },
@@ -93,9 +93,9 @@ export default i18n => ({
     <th className="fra-table__header-cell"/>
     <th className="fra-table__header-cell">{i18n.t('nonWoodForestProductsRemovals.nameOfProduct')}</th>
     <th className="fra-table__header-cell">{i18n.t('nonWoodForestProductsRemovals.keySpecies')}</th>
-    <th className="fra-table__header-cell-right">{i18n.t('nonWoodForestProductsRemovals.quantity')}</th>
+    <th className="fra-table__header-cell">{i18n.t('nonWoodForestProductsRemovals.quantity')}</th>
     <th className="fra-table__header-cell">{i18n.t('nonWoodForestProductsRemovals.unit')}</th>
-    <th className="fra-table__header-cell-right">{i18n.t('nonWoodForestProductsRemovals.value')}</th>
+    <th className="fra-table__header-cell">{i18n.t('nonWoodForestProductsRemovals.value')}</th>
     <th className="fra-table__header-cell">{i18n.t('nonWoodForestProductsRemovals.category')}</th>
   </tr>
   </thead>,

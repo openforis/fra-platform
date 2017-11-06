@@ -1,12 +1,25 @@
 @import (reference) "../app-styles/config";
+@import (reference) "../app-styles/fraTable";
 
 .table-with-odp {
   .odp-header-cell {
+    .mixin-table-cell(700, center, 0);
     background-color: #e7f4f6;
     background-color: fade(@ui-accent, 10%);
+
+    .link {
+      padding: 8px;
+    }
   }
 
   .odp-value-cell {
+    .mixin-table-cell(400, right, 10px, true);
+    background-color: #f3fafa;
+    background-color: fade(@ui-accent, 5%);
+  }
+
+  .odp-value-cell-total {
+    .mixin-table-cell(700, right, 10px, true);
     background-color: #f3fafa;
     background-color: fade(@ui-accent, 5%);
   }

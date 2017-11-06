@@ -125,9 +125,6 @@ class AddUserForm extends React.Component {
               addNewUser(countryIso)
               this.setState({adding: false})
             }}>
-              <svg className="icon icon-sub icon-white">
-                <use xlinkHref="img/icons.svg#small-add"/>
-              </svg>
               {i18n.t('userManagement.addUser')}
             </button>
           </td>
@@ -187,7 +184,7 @@ class UserRow extends React.Component {
         }}>
           {this.state.editing ? i18n.t('userManagement.done') : i18n.t('userManagement.edit')}
         </button>
-        <button className="btn btn-s btn-destructive" disabled={this.state.editing} onClick={() =>
+        <button className="btn btn-s btn-link-destructive" disabled={this.state.editing} onClick={() =>
           window.confirm(i18n.t('userManagement.confirmDelete', {user: user.name, country: getCountryName(countryIso, i18n.language)}))
             ? removeUser(countryIso, user)
             : null

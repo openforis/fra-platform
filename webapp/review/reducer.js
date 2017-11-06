@@ -31,7 +31,7 @@ const actionHandlers = {
   ,
   [issueOpenCommentThread]: (state, action) => ({
     ...state,
-    'openThread': {target: action.target, section: action.section, name: action.name}
+    'openThread': {target: action.target, section: action.section, name: action.title}
   }),
   [issueCloseCommentThread]: state =>
     R.omit(['openThread'], state),

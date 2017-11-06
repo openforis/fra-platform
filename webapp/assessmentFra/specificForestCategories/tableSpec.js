@@ -4,15 +4,15 @@ export default i18n => ({
   name: 'specificForestCategories', // used to uniquely identify table
   header: <thead>
   <tr>
-    <th className="fra-table__header-cell" rowSpan="2">{i18n.t('specificForestCategories.categoryHeader')}</th>
-    <th className="fra-table__header-cell-middle" colSpan="5">{i18n.t('specificForestCategories.areaUnitLabel')}</th>
+    <th className="fra-table__header-cell-left" rowSpan="2">{i18n.t('specificForestCategories.categoryHeader')}</th>
+    <th className="fra-table__header-cell" colSpan="5">{i18n.t('specificForestCategories.areaUnitLabel')}</th>
   </tr>
   <tr>
-    <th className="fra-table__header-cell-right">1990</th>
-    <th className="fra-table__header-cell-right">2000</th>
-    <th className="fra-table__header-cell-right">2010</th>
-    <th className="fra-table__header-cell-right">2015</th>
-    <th className="fra-table__header-cell-right">2020</th>
+    <th className="fra-table__header-cell">1990</th>
+    <th className="fra-table__header-cell">2000</th>
+    <th className="fra-table__header-cell">2010</th>
+    <th className="fra-table__header-cell">2015</th>
+    <th className="fra-table__header-cell">2020</th>
   </tr>
   </thead>,
   rows: [

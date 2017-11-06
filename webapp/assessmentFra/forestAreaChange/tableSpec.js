@@ -49,15 +49,16 @@ export default (i18n, extentOfForest) => {
     name: 'forestAreaChange', // used to uniquely identify table
     header: <thead>
     <tr>
-      <th className="fra-table__header-cell" rowSpan="2">{i18n.t('forestAreaChange.categoryHeader')}</th>
-      <th className="fra-table__header-cell-middle" colSpan="4">{i18n.t('forestAreaChange.areaUnitLabel')}</th>
+      <th className="fra-table__header-cell-left" rowSpan="2">{i18n.t('forestAreaChange.categoryHeader')}</th>
+      <th className="fra-table__header-cell" colSpan="4">{i18n.t('forestAreaChange.areaUnitLabel')}</th>
     </tr>
     <tr>
       {
         mapIndexed(
-          ([_, startYear, endYear], i) => <td key={i} className="fra-table__header-cell-right">
-            {`${startYear}-${endYear}`}
-          </td>,
+          ([_, startYear, endYear], i) =>
+            <th key={i} className="fra-table__header-cell">
+              {`${startYear}-${endYear}`}
+            </th>,
           yearIntervals
         )
       }
@@ -95,7 +96,7 @@ export default (i18n, extentOfForest) => {
       [
         {
           type: 'readOnly',
-          jsx: <th className="fra-table__header-cell">{i18n.t('forestAreaChange.forestAreaNetChange')}</th>
+          jsx: <th className="fra-table__header-cell-left">{i18n.t('forestAreaChange.forestAreaNetChange')}</th>
         },
         ...mapIndexed(
           ([column, startYear, endYear]) => ({
