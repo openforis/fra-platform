@@ -14,68 +14,64 @@ const assertProps = props =>
     props.section,
     'Some property is missing for CommentableDescriptions'
   )
-const assertDescriptionProps = props =>
-  assert(
-    props.descriptionTitle &&
-    props.descriptionName &&
-    props.commentTarget &&
-    props.countryIso &&
-    props.section,
-    'Some property is missing for CommentableDescription'
-  )
 
-class CommentableReviewDescription extends React.Component {
-  render() {
-    assertDescriptionProps(this.props)
-    return <div className="commentable-description">
-      <div className={
-        R.equals(this.props.openCommentThreadTarget, this.props.commentTarget)
-          ? 'commentable-description__description-wrapper fra-row-comments__open'
-          : 'commentable-description__description-wrapper'
-      }>
-        <Description title={this.props.descriptionTitle}
-                     name={this.props.descriptionName}
-                     template={this.props.editorTemplate}
-                     countryIso={this.props.countryIso}/>
-      </div>
-      <div className="commentable-description__review-indicator-wrapper">
-        <ReviewIndicator section={this.props.section}
-                         name={this.props.descriptionTitle}
-                         target={this.props.commentTarget}
-                         countryIso={this.props.countryIso}/>
-      </div>
-    </div>
-  }
-}
+const dataSourcesEditorTemplate = (i18n) =>
+  `<strong>${i18n.t('description.dataSources')}</strong>
+  <p></p>
+  <strong>${i18n.t('description.originalData')}</strong>
+  <p></p>
+  <strong>${i18n.t('description.nationalClassificationAndDefinitions')}</strong>
+  <p></p>`
 
 class CommentableReviewDescriptions extends React.Component {
-
   render() {
-    const sourcesTitle = this.props.i18n.t('description.dataSourcesTitle')
-    const commentsTitle = this.props.i18n.t('description.generalCommentsTitle')
+    const dataSources = 'dataSources'
+    const dataSourcesTarget = [dataSources]
+    const generalComments = 'generalComments'
+    const generalCommentsTarget = [generalComments]
     assertProps(this.props)
-    return <div>
-      <CommentableReviewDescription
-        descriptionName={`${this.props.name}_datasources`}
-        commentTarget={['dataSources']}
-        editorTemplate={
-          `<strong>${this.props.i18n.t('description.dataSources')}</strong>
-          <p></p>
-          <strong>${this.props.i18n.t('description.originalData')}</strong>
-          <p></p>
-          <strong>${this.props.i18n.t('description.nationalClassificationAndDefinitions')}</strong>
-          <p></p>`
-        }
-        descriptionTitle={sourcesTitle}
-        {...this.props}
-      />
+
+    return <div className="fra-description__container">
+      <div className="fra-description">
+        <div className={
+          R.equals(this.props.openCommentThreadTarget, dataSourcesTarget)
+            ? 'fra-description__description-wrapper fra-row-comments__open'
+            : 'fra-description__description-wrapper'
+        }>
+          <Description
+            title={this.props.i18n.t('description.dataSourcesTitle')}
+            name={this.props.name + '_' + dataSources}
+            template={dataSourcesEditorTemplate(this.props.i18n)}
+            countryIso={this.props.countryIso}/>
+        </div>
+        <div className="fra-description__review-indicator-wrapper">
+          <ReviewIndicator
+            section={this.props.section}
+            name={this.props.i18n.t('description.dataSourcesTitle')}
+            target={dataSourcesTarget}
+            countryIso={this.props.countryIso}/>
+        </div>
+      </div>
       <hr/>
-      <CommentableReviewDescription
-        descriptionName={`${this.props.name}_generalComments`}
-        commentTarget={['generalComments']}
-        descriptionTitle={commentsTitle}
-        {...this.props}
-      />
+      <div className="fra-description">
+        <div className={
+          R.equals(this.props.openCommentThreadTarget, generalCommentsTarget)
+            ? 'fra-description__description-wrapper fra-row-comments__open'
+            : 'fra-description__description-wrapper'
+        }>
+          <Description
+            title={this.props.i18n.t('description.generalCommentsTitle')}
+            name={this.props.name + '_' + generalComments}
+            countryIso={this.props.countryIso}/>
+        </div>
+        <div className="fra-description__review-indicator-wrapper">
+          <ReviewIndicator
+            section={this.props.section}
+            name={this.props.i18n.t('description.generalCommentsTitle')}
+            target={generalCommentsTarget}
+            countryIso={this.props.countryIso}/>
+        </div>
+      </div>
     </div>
   }
 }

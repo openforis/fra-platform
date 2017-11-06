@@ -356,15 +356,15 @@ const OdpViewContent = ({match, saveDraft, markAsActual, remove, active, autoSav
     </div>
 
     <div className="odp__section">
-      <div className="commentable-description">
+      <div className="fra-description">
         <div className={
           isCommentsOpen([`${active.odpId}`, 'comments'], openThread)
-            ? 'commentable-description__description-wrapper fra-row-comments__open'
-            : 'commentable-description__description-wrapper'
+            ? 'fra-description__description-wrapper fra-row-comments__open'
+            : 'fra-description__description-wrapper'
         }>
           <CommentsEditor active={active} match={match} saveDraft={saveDraft} i18n={i18n} title={i18n.t('review.comments')} />
         </div>
-        <div className="commentable-description__review-indicator-wrapper">
+        <div className="fra-description__review-indicator-wrapper">
         {
           active.odpId
             ? <ReviewIndicator section='odp'
@@ -858,8 +858,8 @@ class CommentsEditor extends React.Component {
 
   render () {
     return <div>
-      <div className="commentable-description__header-row">
-        <h3 className="subhead commentable-description__header">{this.props.title}</h3>
+      <div className="fra-description__header-row">
+        <h3 className="subhead fra-description__header">{this.props.title}</h3>
         <button className={`btn btn-s ${this.state.open ? 'btn-primary' : 'btn-secondary'}`} onClick={e => {
             this.state.open
               ? this.setState({open: false})
@@ -874,7 +874,7 @@ class CommentsEditor extends React.Component {
         <div className="cke_wrapper" style={{display: this.state.open ? 'block' : 'none'}}>
           <textarea ref="originalDataPointDescription"/>
         </div>
-        <div className="commentable-description__preview" style={{display: this.state.open ? 'none' : 'block'}} dangerouslySetInnerHTML={{__html: this.props.active.description}}/>
+        <div className="fra-description__preview" style={{display: this.state.open ? 'none' : 'block'}} dangerouslySetInnerHTML={{__html: this.props.active.description}}/>
       </div>
     </div>
   }
