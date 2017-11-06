@@ -13,7 +13,7 @@ import {
   cancelDraft
 } from './actions'
 import { fetchCountryOverviewStatus } from '../navigation/actions'
-import { acceptNextInteger, acceptNextDecimal } from '../utils/numberInput'
+import { acceptNextDecimal } from '../utils/numberInput'
 import { readPasteClipboard } from '../utils/copyPasteUtil'
 import { formatDecimal } from '../utils/numberFormat'
 import { ThousandSeparatedDecimalInput } from '../reusableUiComponents/thousandSeparatedDecimalInput'
