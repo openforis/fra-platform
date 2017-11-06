@@ -101,7 +101,20 @@ const addInvitation = async (client, user, countryIso, userToInvite) => {
   return invitationUuid
 }
 
-const updateInvitation = () => null
+const updateInvitation = async (client, user, countryIso, userToUpdate) => {
+  await client.query(
+    `UPDATE fra_user_invitation
+      SET email = $2, name = $3, role = $4, country_iso = $5
+      WHERE invitation_uuid = $1`,
+    [userToUpdate.invitationUuid, userToUpdate.email, userToUpdate.name, userToUpdate.role, countryIso]
+  )
+  await auditRepository
+    .insertAudit(client, user.id, 'updateInvitation', countryIso, 'users', {
+      user: userToUpdate.name,
+      role: userToUpdate.role.toLowerCase()
+    })
+  return userToUpdate.invitationUuid
+}
 
 const updateUser = (client, user, countryIso, userToUpdate) =>
   client.query(`

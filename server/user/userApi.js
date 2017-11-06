@@ -44,7 +44,7 @@ module.exports.init = app => {
     if (!R.contains(userToBeChangedOrAdded.role, allowedRoles)) {
       throw new AccessControlException('error.access.roleChangeNotAllowed', {user: req.user.name, role: userToBeChangedOrAdded.role})
     }
-
+    const url = req.protocol + '://' + req.get('host')
     if (userToBeChangedOrAdded.id) {
       // update existing user
       db.transaction(userRepository.updateUser, [req.user, countryIso, userToBeChangedOrAdded])
@@ -52,10 +52,10 @@ module.exports.init = app => {
         .catch(err => sendErr(res, err))
     } else if (userToBeChangedOrAdded.invitationUuid) {
       db.transaction(userRepository.updateInvitation, [req.user, countryIso, userToBeChangedOrAdded])
+        .then(invitationUuid => sendMail(countryIso, {...userToBeChangedOrAdded, invitationUuid}, url))
         .then(() => res.json({}))
         .catch(err => sendErr(res, err))
     } else {
-      const url = req.protocol + '://' + req.get('host')
       db.transaction(userRepository.addInvitation, [req.user, countryIso, userToBeChangedOrAdded])
         .then(invitationUuid => sendMail(countryIso, {...userToBeChangedOrAdded, invitationUuid}, url))
         .then(() => res.json({}))
