@@ -13,6 +13,8 @@ import { allowedToChangeRoles } from '../../common/userManagementAccessControl'
 import { fetchUsers, updateUser, removeUser, persistUser, updateNewUser, addNewUser } from './actions'
 import { validField } from './users'
 
+const mapIndexed = R.addIndex(R.map)
+
 const UserTable = ({userList, i18n, ...props}) =>
   <table className="user-list__table">
     <thead>
@@ -27,7 +29,7 @@ const UserTable = ({userList, i18n, ...props}) =>
     <tbody>
     {
       userList.length > 0
-        ? R.map(user => <UserRow key={user.id} i18n={i18n} user={user} {...props}/> , userList)
+        ? mapIndexed((user, i) => <UserRow key={i} i18n={i18n} user={user} {...props}/> , userList)
         : <tr>
             <td className="user-list__cell" colSpan="5">
               <div className="user-list__cell--read-only">{i18n.t('userManagement.noUsers')}</div>

@@ -34,7 +34,7 @@ const updateLanguage = (client, lang, userInfo) =>
   client
     .query('UPDATE fra_user SET lang = $1 WHERE id = $2', [lang, userInfo.id])
 
-const fetchCountryUsers = (countryIso, user) =>
+const fetchCountryUsers = (countryIso) =>
   db.query(`
     SELECT
       u.id,
@@ -51,9 +51,27 @@ const fetchCountryUsers = (countryIso, user) =>
         u.id = cr.user_id
       AND
         cr.country_iso = $1
-    ORDER BY id
   `, [countryIso])
     .then(res => camelize(res.rows))
+
+const fetchInvitations = (countryIso) =>
+  db.query(
+    `SELECT 
+       invitation_uuid,
+       email,
+       name,
+       role
+     FROM fra_user_invitation
+     WHERE country_iso = $1
+     AND accepted IS NULL`,
+    [countryIso])
+    .then(res => camelize(res.rows))
+
+const fetchUsersAndInvitations = async (countryIso) => {
+  const users = await fetchCountryUsers(countryIso)
+  const invitations = await fetchInvitations(countryIso)
+  return [...users, ...invitations]
+}
 
 const insertUser = (client, email, name, loginEmail) =>
   client.query(`
@@ -225,5 +243,6 @@ module.exports = {
   addCountryUser,
   updateUser,
   removeCountryUser,
-  acceptInvitation
+  acceptInvitation,
+  fetchUsersAndInvitations
 }

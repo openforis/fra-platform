@@ -30,7 +30,7 @@ module.exports.init = app => {
     checkCountryAccessFromReqParams(req)
     const countryIso = req.params.countryIso
     userRepository
-      .fetchCountryUsers(countryIso, req.user)
+      .fetchUsersAndInvitations(countryIso, req.user)
       .then(users => res.json(filterAllowedUsers(countryIso, req.user, users)))
       .catch(err => sendErr(res, err))
   })
