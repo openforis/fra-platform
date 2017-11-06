@@ -26,10 +26,6 @@ const findUserByLoginEmail = (loginEmail, client = db) =>
   client.query('SELECT id from fra_user WHERE LOWER(login_email) in ($1)', [loginEmail])
     .then(res => res.rows.length > 0 ? findUserById(res.rows[0].id, client) : null)
 
-const findUserByEmail = (email, client = db) =>
-  client.query('SELECT id from fra_user WHERE LOWER(email) = $1', [email.toLowerCase()])
-    .then(res => res.rows.length > 0 ? findUserById(res.rows[0].id, client) : null)
-
 const updateLanguage = (client, lang, userInfo) =>
   client
     .query('UPDATE fra_user SET lang = $1 WHERE id = $2', [lang, userInfo.id])
