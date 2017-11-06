@@ -97,10 +97,11 @@ const OdpViewContent = ({match, saveDraft, markAsActual, remove, active, autoSav
                 {
                   active.odpId
                     ? <div className="odp__review-indicator-row-anchor">
-                    <ReviewIndicator section='odp'
-                                     name={i18n.t('nationalDataPoint.nationalDataPoint')}
-                                     target={[active.odpId, 'dataSourceReferences']}
-                                     countryIso={countryIso}/>
+                    <ReviewIndicator
+                      section='odp'
+                      title={i18n.t('nationalDataPoint.dataSources')}
+                      target={[active.odpId, 'dataSourceReferences']}
+                      countryIso={countryIso}/>
                   </div>
                     : null
                 }
@@ -129,10 +130,11 @@ const OdpViewContent = ({match, saveDraft, markAsActual, remove, active, autoSav
                 {
                   active.odpId
                     ? <div className="odp__review-indicator-row-anchor">
-                    <ReviewIndicator section='odp'
-                                     name={i18n.t('nationalDataPoint.nationalDataPoint')}
-                                     target={[active.odpId, 'dataSourceMethods']}
-                                     countryIso={countryIso}/>
+                    <ReviewIndicator
+                      section='odp'
+                      title={i18n.t('nationalDataPoint.dataSources')}
+                      target={[active.odpId, 'dataSourceMethods']}
+                      countryIso={countryIso}/>
                   </div>
                     : null
                 }
@@ -150,10 +152,11 @@ const OdpViewContent = ({match, saveDraft, markAsActual, remove, active, autoSav
               {
                 active.odpId
                   ? <div className="odp__review-indicator-row-anchor">
-                  <ReviewIndicator section='odp'
-                                   name={i18n.t('nationalDataPoint.nationalDataPoint')}
-                                   target={[active.odpId, 'dataSourceAdditionalComments']}
-                                   countryIso={countryIso}/>
+                  <ReviewIndicator
+                    section='odp'
+                    title={i18n.t('nationalDataPoint.dataSources')}
+                    target={[active.odpId, 'dataSourceAdditionalComments']}
+                    countryIso={countryIso}/>
                 </div>
                   : null
               }
@@ -261,6 +264,7 @@ const OdpViewContent = ({match, saveDraft, markAsActual, remove, active, autoSav
                                     {name: 'otherLandTreesUrbanSettingsPercent', type: 'integer'}]}
                   targetSuffix="other_land_charasteristics"
                   validationResultField="validOtherLandPercentage"
+                  reviewTitleKey="otherLandCharacteristics"
                   i18n={i18n} />
                 <tfoot>
                   <tr>
@@ -340,6 +344,7 @@ const OdpViewContent = ({match, saveDraft, markAsActual, remove, active, autoSav
                   categoryColumns={[{name: 'plantationIntroducedPercent', type: 'integer'}]}
                   targetSuffix="plantation_forest_introduced"
                   validationResultField="validPlantationIntroducedPercentage"
+                  reviewTitleKey="plantationForest"
                   i18n={i18n} />
                 <tfoot>
                   <tr>
@@ -367,8 +372,9 @@ const OdpViewContent = ({match, saveDraft, markAsActual, remove, active, autoSav
         <div className="fra-description__review-indicator-wrapper">
         {
           active.odpId
-            ? <ReviewIndicator section='odp'
-                name={i18n.t('nationalDataPoint.nationalDataPoint')}
+            ? <ReviewIndicator
+                section='odp'
+                title={i18n.t('nationalDataPoint.nationalDataPoint')}
                 target={[`${active.odpId}`, 'comments']}
                 countryIso={countryIso}/>
             : null
@@ -503,10 +509,11 @@ const NationalClassRow =
       {placeHolder || !odp.odpId
         ? null
         : <div className="odp__review-indicator-row-anchor">
-            <ReviewIndicator section='odp'
-                             name={i18n.t('nationalDataPoint.nationalDataPoint')}
-                             target={[odp.odpId, 'class', `${odp.nationalClasses[index].uuid}`, 'definition']}
-                             countryIso={countryIso}/>
+            <ReviewIndicator
+              section='odp'
+              title={i18n.t('nationalDataPoint.nationalClasses')}
+              target={[odp.odpId, 'class', `${odp.nationalClasses[index].uuid}`, 'definition']}
+              countryIso={countryIso}/>
           </div>
       }
     </td>
@@ -621,10 +628,11 @@ const ExtentOfForestRow =
     <td className="fra-table__row-anchor-cell">
       {odp.odpId
         ? <div className="odp__review-indicator-row-anchor">
-            <ReviewIndicator section='odp'
-                             name={i18n.t('nationalDataPoint.nationalDataPoint')}
-                             target={[odp.odpId, 'class', `${odp.nationalClasses[index].uuid}`, 'value']}
-                             countryIso={countryIso}/>
+            <ReviewIndicator
+              section='odp'
+              title={i18n.t('nationalDataPoint.forestCategoriesLabel')}
+              target={[odp.odpId, 'class', `${odp.nationalClasses[index].uuid}`, 'value']}
+              countryIso={countryIso}/>
           </div>
         : null}
     </td>
@@ -725,10 +733,11 @@ const ForestCharacteristicsRow =
           <td className="fra-table__row-anchor-cell">
             {odp.odpId
               ? <div className="odp__review-indicator-row-anchor">
-                  <ReviewIndicator section='odp'
-                                   name={i18n.t('nationalDataPoint.nationalDataPoint')}
-                                   target={[odp.odpId, 'class', `${odp.nationalClasses[index].uuid}`, 'forest_charasteristics']}
-                                   countryIso={countryIso}/>
+                  <ReviewIndicator
+                    section='odp'
+                    title={i18n.t('nationalDataPoint.forestCharacteristics')}
+                    target={[odp.odpId, 'class', `${odp.nationalClasses[index].uuid}`, 'forest_charasteristics']}
+                    countryIso={countryIso}/>
                 </div>
               : null}
           </td>
@@ -760,6 +769,7 @@ const SubcategoryRow =
     categoryColumns,
     targetSuffix,
     validationResultField,
+    reviewTitleKey,
     i18n,
     ...props
   }) => {
@@ -800,10 +810,11 @@ const SubcategoryRow =
           <td className="fra-table__row-anchor-cell">
             {odp.odpId
               ? <div className="odp__review-indicator-row-anchor">
-                <ReviewIndicator section='odp'
-                                 name={i18n.t('nationalDataPoint.nationalDataPoint')}
-                                 target={commentTarget}
-                                 countryIso={countryIso}/>
+                <ReviewIndicator
+                  section='odp'
+                  title={i18n.t('nationalDataPoint.' + reviewTitleKey)}
+                  target={commentTarget}
+                  countryIso={countryIso}/>
               </div>
               : null}
           </td>

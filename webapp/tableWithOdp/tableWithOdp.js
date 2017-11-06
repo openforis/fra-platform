@@ -112,7 +112,7 @@ const renderFieldRow = ({row, countryIso, fra, save, saveMany, pasteUpdate, rowI
         <ReviewIndicator
           key={`${field}_ri`}
           section={section}
-          name={localizedName}
+          title={localizedName}
           target={[field]}
           countryIso={countryIso} />
       </div>
