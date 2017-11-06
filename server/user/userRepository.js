@@ -102,31 +102,34 @@ const updateInvitation = async (client, user, countryIso, userToUpdate) => {
   return userToUpdate.invitationUuid
 }
 
-const updateUser = (client, user, countryIso, userToUpdate) =>
-  client.query(`
-    UPDATE
-      fra_user
-    SET
-      name = $1,
-      email = $2
-    WHERE
-      id = $3
-  `, [userToUpdate.name, userToUpdate.email, userToUpdate.id])
-    .then(() =>
-      client.query(`
-        UPDATE
-          user_country_role
-        SET
-          role = $1
-        WHERE
-          user_id = $2
-        AND
-          country_iso = $3
-      `, [userToUpdate.role, userToUpdate.id, countryIso])
-    )
-    .then(() =>
-      auditRepository.insertAudit(client, user.id, 'updateUser', countryIso, 'users', {user: userToUpdate.name})
-    )
+const updateUser = async (client, user, countryIso, userToUpdate) => {
+  await client.query(
+    `
+      UPDATE
+        fra_user
+      SET
+        name = $1,
+        email = $2
+      WHERE
+        id = $3
+    `,
+    [userToUpdate.name, userToUpdate.email, userToUpdate.id]
+  )
+  await client.query(
+      `
+      UPDATE
+        user_country_role
+      SET
+        role = $1
+      WHERE
+        user_id = $2
+      AND
+        country_iso = $3
+      `,
+    [userToUpdate.role, userToUpdate.id, countryIso]
+  )
+  await auditRepository.insertAudit(client, user.id, 'updateUser', countryIso, 'users', {user: userToUpdate.name})
+}
 
 const removeCountryUser = (client, user, countryIso, userId) =>
   findUserById(userId, client)
