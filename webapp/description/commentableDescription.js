@@ -24,7 +24,7 @@ const assertDescriptionProps = props =>
     'Some property is missing for CommentableDescription'
   )
 
-export class CommentableReviewDescription extends React.Component {
+class CommentableReviewDescription extends React.Component {
   render() {
     assertDescriptionProps(this.props)
     return <div className="commentable-description">

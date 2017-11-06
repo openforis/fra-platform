@@ -7,7 +7,7 @@ import { fetchItem, save, saveMany, generateFraValues } from '../../tableWithOdp
 import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
 import { TableWithOdp } from '../../tableWithOdp/tableWithOdp'
 import ChartWrapper from '../extentOfForest/chart/chartWrapper'
-import { CommentableReviewDescription } from '../../description/commentableDescription'
+import { CommentableDescriptions } from '../../description/commentableDescription'
 import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
 import DefinitionLink from '../../reusableUiComponents/definitionLink'
 import { sum, formatNumber, eq } from '../../../common/bignumberUtils'
@@ -153,12 +153,10 @@ const ForestCharacteristics = props => {
       categoryHeader={i18n.t('forestCharacteristics.categoryHeader')}
       {...props}
     />
-    <CommentableReviewDescription
+    <CommentableDescriptions
       section={sectionName}
+      name={sectionName}
       countryIso={props.countryIso}
-      descriptionName={`forestCharacterstics_generalComments`}
-      commentTarget={['generalComments']}
-      descriptionTitle={i18n.t('description.generalCommentsTitle')}
       i18n={i18n}
     />
   </div>
