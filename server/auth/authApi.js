@@ -11,11 +11,11 @@ const verifyCallback = async (req, accessToken, refreshToken, profile, done) => 
     user ? done(null, user) : done(null, false, {message: 'User not authorized'})
 
   try {
-    const invitationUUID = req.query.state
+    const invitationUuid = req.query.state
     const loginEmail = profile.emails[0].value.toLowerCase()
 
-    if (invitationUUID) {
-      const user = await db.transaction(userRepository.acceptInvitation, [invitationUUID, loginEmail])
+    if (invitationUuid) {
+      const user = await db.transaction(userRepository.acceptInvitation, [invitationUuid, loginEmail])
       userFetchCallback(user)
     } else {
       const user = await userRepository.findUserByLoginEmail(loginEmail)

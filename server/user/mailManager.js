@@ -17,7 +17,7 @@ const transporter = nodemailer.createTransport({
 
 const createMailOptions = (countryIso, user, url, i18n) => {
 
-  const link = `${url}/login${user.invitationUUID ? `?i=${user.invitationUUID}` : ''}`
+  const link = `${url}/login${user.invitationUuid ? `?i=${user.invitationUuid}` : ''}`
   const country = getCountryName(countryIso, i18n.language)
   const role = getCountryRole(countryIso, user).role.toLowerCase()
 

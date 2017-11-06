@@ -48,13 +48,15 @@ module.exports.init = app => {
     if (userToBeChangedOrAdded.id) {
       // update existing user
       db.transaction(userRepository.updateUser, [req.user, countryIso, userToBeChangedOrAdded])
-        .then(res.json({}))
+        .then(() => res.json({}))
         .catch(err => sendErr(res, err))
-
+    } else if (userToBeChangedOrAdded.invitationUuid) {
+      db.transaction(userRepository.updateInvitation, [req.user, countryIso, userToBeChangedOrAdded])
+        .then(() => res.json({}))
+        .catch(err => sendErr(res, err))
     } else {
       const url = req.protocol + '://' + req.get('host')
-
-      db.transaction(userRepository.addCountryUser, [req.user, countryIso, userToBeChangedOrAdded])
+      db.transaction(userRepository.addInvitation, [req.user, countryIso, userToBeChangedOrAdded])
         .then(user =>
           user
           ? sendMail(countryIso, user, url)
@@ -62,8 +64,8 @@ module.exports.init = app => {
             .catch(err => sendErr(res, err))
           : res.json({})
         )
+      .catch(err => sendErr(res, err))
     }
-
   })
 
   app.delete('/users/:countryIso/:userId', (req, res) => {

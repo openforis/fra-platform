@@ -83,46 +83,24 @@ const insertUser = (client, email, name, loginEmail) =>
 const getIdOfJustAddedUser = client =>
   client.query(`SELECT last_value as user_id FROM fra_user_id_seq`)
 
-const authorizeUser = (client, userAction, countryIso, userId, role, userName) =>
-  client.query(`
-        INSERT INTO
-          user_country_role(user_id, country_iso, role)
-        VALUES
-          ($1, $2, $3)
-      `, [userId, countryIso, role])
-    .then(() =>
-      auditRepository
-        .insertAudit(client, userAction.id, 'addUser', countryIso, 'users', {
-          user: userName,
-          role: role.toLowerCase()
-        })
-    )
-
-
-
-const addCountryUser = (client, user, countryIso, userToAdd) =>
-  findUserByEmail(userToAdd.email, client)
-    .then(userDb => {
-
-      if (userDb) {
-        if (hasNoRole(countryIso, userDb))
-        // existing user has not been authorized to country
-          return authorizeUser(client, user, countryIso, userDb.id, userToAdd.role, userDb.name)
-            .then(() => findUserById(userDb.id, client))
-        else
-        // existing user has already been authorized to country
-          return Promise.resolve()
-      } else {
-        // creating new user
-        const invitationUUID = uuidv4()
-        return insertUser(client, userToAdd.email, userToAdd.name, invitationUUID)
-          .then(() => client.query(`SELECT last_value as user_id FROM fra_user_id_seq`))
-          .then(res => Promise.all([res.rows[0].user_id, authorizeUser(client, user, countryIso, res.rows[0].user_id, userToAdd.role, userToAdd.name)]))
-          .then(([userId, _]) => findUserById(userId, client))
-          .then(user => R.assoc('invitationUUID', invitationUUID, user))
-      }
-
+const addInvitation = async (client, user, countryIso, userToInvite) => {
+  const invitationUuid = uuidv4()
+  await client.query(
+    `INSERT INTO 
+      fra_user_invitation 
+      (invitation_uuid, email, name, role, country_iso)
+     VALUES 
+     ($1, $2, $3, $4, $5)`,
+    [invitationUuid, userToInvite.email, userToInvite.name, userToInvite.role, countryIso]
+  )
+  await auditRepository
+    .insertAudit(client, user.id, 'addInvitation', countryIso, 'users', {
+      userToInvite: userToInvite.name,
+      role: userToInvite.role.toLowerCase()
     })
+}
+
+const updateInvitation = () => null
 
 const updateUser = (client, user, countryIso, userToUpdate) =>
   client.query(`
@@ -166,22 +144,22 @@ const removeCountryUser = (client, user, countryIso, userId) =>
   `, [userId, countryIso])
     )
 
-const getInvitationInfo = async (client, invitationUUID) => {
+const getInvitationInfo = async (client, invitationUuid) => {
   const invitationInfo = await client.query(
     `SELECT country_iso, name, role, accepted, email 
       FROM fra_user_invitation 
       WHERE invitation_uuid = $1`,
-    [invitationUUID]
+    [invitationUuid]
   )
-  if (invitationInfo.rows.length !== 1) throw new Error('Invalid invitation uuid', invitationUUID)
+  if (invitationInfo.rows.length !== 1) throw new Error('Invalid invitation uuid', invitationUuid)
   return camelize(invitationInfo.rows[0])
 }
 
-const setInvitationAccepted = (client, invitationUUID) => client.query(
+const setInvitationAccepted = (client, invitationUuid) => client.query(
   `UPDATE fra_user_invitation
       SET accepted = now()
      WHERE invitation_uuid = $1`,
-  [invitationUUID]
+  [invitationUuid]
 )
 
 const addUserCountryRole = (client, userId, countryIso, role) =>
@@ -193,13 +171,13 @@ const addUserCountryRole = (client, userId, countryIso, role) =>
   [userId, countryIso, role]
 )
 
-const addNewUserBasedOnInvitation = async (client, invitationUUID, loginEmail) => {
-  const invitationInfo = await getInvitationInfo(client, invitationUUID)
+const addNewUserBasedOnInvitation = async (client, invitationUuid, loginEmail) => {
+  const invitationInfo = await getInvitationInfo(client, invitationUuid)
   await insertUser(client, invitationInfo.email, invitationInfo.name, loginEmail)
   const userIdResult = await getIdOfJustAddedUser(client)
   const userId = userIdResult.rows[0].user_id
   await addUserCountryRole(client, userId, invitationInfo.countryIso, invitationInfo.role)
-  await setInvitationAccepted(client, invitationUUID)
+  await setInvitationAccepted(client, invitationUuid)
   await addAcceptToAudit(client, userId, invitationInfo)
 }
 
@@ -215,21 +193,21 @@ const addAcceptToAudit = (client, userId, invitationInfo) =>
       role: invitationInfo.role.toLowerCase()
     })
 
-const addCountryRoleForExistingUserBasedOnInvitation = async (client, user, invitationUUID) => {
-  const invitationInfo = await getInvitationInfo(client, invitationUUID)
+const addCountryRoleForExistingUserBasedOnInvitation = async (client, user, invitationUuid) => {
+  const invitationInfo = await getInvitationInfo(client, invitationUuid)
   if (!!invitationInfo.accepted) return //Invitation is already accepted
   await addUserCountryRole(client, user.id, invitationInfo.countryIso, invitationInfo.role)
-  await setInvitationAccepted(client, invitationUUID)
+  await setInvitationAccepted(client, invitationUuid)
   await addAcceptToAudit(client, user.id, invitationInfo)
 }
 
-const acceptInvitation = async (client, invitationUUID, loginEmail) => {
+const acceptInvitation = async (client, invitationUuid, loginEmail) => {
   const user = await findUserByLoginEmail(loginEmail, client)
   if (user) {
-    await addCountryRoleForExistingUserBasedOnInvitation(client, user, invitationUUID)
+    await addCountryRoleForExistingUserBasedOnInvitation(client, user, invitationUuid)
     return user
   } else {
-    await addNewUserBasedOnInvitation(client, invitationUUID, loginEmail)
+    await addNewUserBasedOnInvitation(client, invitationUuid, loginEmail)
     const user = await findUserByLoginEmail(loginEmail, client)
     return user
   }
@@ -240,7 +218,8 @@ module.exports = {
   findUserByLoginEmail,
   updateLanguage,
   fetchCountryUsers,
-  addCountryUser,
+  addInvitation,
+  updateInvitation,
   updateUser,
   removeCountryUser,
   acceptInvitation,
