@@ -61,7 +61,6 @@ export const saveMany = (section, countryIso, columnData) => dispatch => {
   dispatch(changeMany({section, countryIso, columnData}))
 }
 
-
 export const generateFraValues = (section, countryIso) => dispatch => {
   dispatch({type: generateFraValuesStart(section)})
 
