@@ -7,8 +7,6 @@ const yearlyVolumeInputsForRow = () =>
     {type: 'decimalInput'},
     {type: 'decimalInput'},
     {type: 'decimalInput'},
-    {type: 'decimalInput'},
-    {type: 'decimalInput'},
     {type: 'decimalInput'}
   ]
 
@@ -79,7 +77,7 @@ const totalRow = (i18n, rowHeaderKey, aggregateFunction) => [
   },
   fillerCell,
   fillerCell,
-  ...R.map(aggregateCell(aggregateFunction), R.range(3, 9))
+  ...R.map(aggregateCell(aggregateFunction), R.range(3, 7))
 ]
 
 const totalNativeRow = i18n => totalRow(i18n, 'growingStockComposition.totalNative', totalNative)
@@ -95,7 +93,7 @@ const introducedHeaderRow = i18n => [
       {i18n.t('growingStockComposition.introducedTreeSpecies')}
     </th>
   },
-  ...R.map(() => fillerCell, R.range(1, 8)),
+  ...R.map(() => fillerCell, R.range(1, 6)),
   {
     type: 'readOnly',
     jsx: <td className="fra-table__filler-last"/>
@@ -109,14 +107,14 @@ export default i18n => ({
     <th className="fra-table__header-cell-left">{i18n.t('growingStockComposition.categoryHeader')}</th>
     <th rowSpan="2" className="fra-table__header-cell-left">{i18n.t('growingStockComposition.scientificName')}</th>
     <th rowSpan="2" className="fra-table__header-cell-left">{i18n.t('growingStockComposition.commonName')}</th>
-    <th className="fra-table__header-cell" colSpan="6">{i18n.t('growingStockComposition.areaUnitLabel')}</th>
+    <th className="fra-table__header-cell" colSpan="4">{i18n.t('growingStockComposition.areaUnitLabel')}</th>
   </tr>
   <tr>
     <th className="fra-table__header-cell">{i18n.t('growingStockComposition.nativeTreeSpecies')}</th>
-    <th className="fra-table__header-cell-right">1990</th>
-    <th className="fra-table__header-cell-right">2000</th>
-    <th className="fra-table__header-cell-right">2010</th>
-    <th className="fra-table__header-cell-right">2015</th>
+    <th className="fra-table__header-cell">1990</th>
+    <th className="fra-table__header-cell">2000</th>
+    <th className="fra-table__header-cell">2010</th>
+    <th className="fra-table__header-cell">2015</th>
   </tr>
   </thead>,
   rows:
