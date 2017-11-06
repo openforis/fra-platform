@@ -79,6 +79,7 @@ module.exports.translation = {
       removeUser:'removed {{user}}',
       acceptInvitation: 'joined as {{role}}',
       addInvitation: 'Invited {{user}} as {{role}}',
+      removeInvitation: 'Removed invitation of {{user}} as {{role}}',
       updateInvitation: 'Invite updated for {{user}} as {{role}}'
     }
   },

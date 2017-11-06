@@ -22,6 +22,7 @@ const getActionLocalizationKey = (message) => {
     removeUser: 'removeUser',
     acceptInvitation: 'acceptInvitation',
     addInvitation: 'addInvitation',
+    removeInvitation: 'removeInvitation',
     updateInvitation: 'updateInvitation'
   }
   const key = messageToKey[message]

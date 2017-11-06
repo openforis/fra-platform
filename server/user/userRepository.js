@@ -150,8 +150,6 @@ const updateUser = async (client, user, countryIso, userToUpdate) => {
 }
 
 const removeCountryUser = async (client, user, countryIso, userId) => {
-  console.log('## userId in removeCountryUser', userId)
-
   const userToRemove = await findUserById(userId, client)
   await client.query(`
         DELETE FROM
