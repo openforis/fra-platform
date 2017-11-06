@@ -11,12 +11,12 @@ export class PercentInput extends React.Component {
   }
 
   render () {
-    const {numberValue, onChange, onPaste, precision = 2} = this.props
+    const {numberValue, onChange, onPaste} = this.props
     const value = this.state.inputValue || numberValue
 
     return <div className="percent-input__container validation-error-sensitive-field" ref="wrapper">
       <div className="percent-input__readonly-view" style={{visibility: this.state.hasFocus ? 'hidden' : 'visible'}}>
-        {formatDecimal(numberValue, precision)}
+        {formatDecimal(numberValue)}
       </div>
       <input
         type="text"
