@@ -5,18 +5,26 @@ const userRepository = require('../user/userRepository')
 const countryRepository = require('../country/countryRepository')
 const {sendErr} = require('../utils/requestUtils')
 
-const verifyCallback = (req, accessToken, refreshToken, profile, done) => {
+const verifyCallback = async (req, accessToken, refreshToken, profile, done) => {
 
   const userFetchCallback = user =>
     user ? done(null, user) : done(null, false, {message: 'User not authorized'})
 
-  const invitationUUID = req.query.state
-  if (invitationUUID)
-    db.transaction(userRepository.acceptInvitation, [invitationUUID, profile.emails[0].value])
-      .then(userFetchCallback)
-  else
-    userRepository.findUserByLoginEmails(profile.emails.map(e => e.value.toLowerCase()))
-      .then(userFetchCallback)
+  try {
+    const invitationUuid = req.query.state
+    const loginEmail = profile.emails[0].value.toLowerCase()
+
+    if (invitationUuid) {
+      const user = await db.transaction(userRepository.acceptInvitation, [invitationUuid, loginEmail])
+      userFetchCallback(user)
+    } else {
+      const user = await userRepository.findUserByLoginEmail(loginEmail)
+      userFetchCallback(user)
+    }
+  } catch (e) {
+    console.log('Error occurred while authenticating', e)
+    done(null, false, {message: 'Error occurred: ' + e})
+  }
 }
 
 const authenticationFailed = (req, res) => {

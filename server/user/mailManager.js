@@ -2,7 +2,6 @@ const nodemailer = require('nodemailer')
 const Promise = require('bluebird')
 
 const {getCountryName} = require('../../common/country')
-const {getCountryRole} = require('../../common/countryRole')
 const {createI18nInstance} = require('../../common/i18n/i18nFactory')
 
 const transporter = nodemailer.createTransport({
@@ -17,9 +16,9 @@ const transporter = nodemailer.createTransport({
 
 const createMailOptions = (countryIso, user, url, i18n) => {
 
-  const link = `${url}/login${user.invitationUUID ? `?i=${user.invitationUUID}` : ''}`
-  const country = getCountryName(countryIso, i18n.language)
-  const role = getCountryRole(countryIso, user).role.toLowerCase()
+  const link = `${url}/login${user.invitationUuid ? `?i=${user.invitationUuid}` : ''}`
+  const country = getCountryName(countryIso, 'en')
+  const role = user.role.toLowerCase()
 
   return {
     from: '"FRA Platform" <fra@fao.org>',
@@ -33,7 +32,7 @@ const createMailOptions = (countryIso, user, url, i18n) => {
 
 const sendMail = (countryIso, user, url) => new Promise((resolve, reject) => {
   createI18nInstance(
-    user.lang,
+    'en',
     i18n => {
 
       const mailOptions = createMailOptions(countryIso, user, url, i18n)

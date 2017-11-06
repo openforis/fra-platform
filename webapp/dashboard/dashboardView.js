@@ -17,10 +17,12 @@ const getActionLocalizationKey = (message) => {
     markAsResolved: 'resolved',
     deleteOdp: 'deleted',
     createOdp: 'added',
-    addUser: 'addUser',
+    addUser: 'addUser', //Legacy, no longer created
     updateUser: 'updateUser',
     removeUser: 'removeUser',
-    acceptInvitation: 'acceptInvitation'
+    acceptInvitation: 'acceptInvitation',
+    addInvitation: 'addInvitation',
+    updateInvitation: 'updateInvitation'
   }
   const key = messageToKey[message]
   if (key) {
