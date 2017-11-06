@@ -189,7 +189,7 @@ class UserRow extends React.Component {
         </button>
         <button className="btn btn-s btn-destructive" disabled={this.state.editing} onClick={() =>
           window.confirm(i18n.t('userManagement.confirmDelete', {user: user.name, country: getCountryName(countryIso, i18n.language)}))
-            ? removeUser(countryIso, user.id)
+            ? removeUser(countryIso, user)
             : null
         }>
           {i18n.t('userManagement.remove')}

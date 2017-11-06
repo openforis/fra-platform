@@ -88,6 +88,20 @@ const addInvitation = async (client, user, countryIso, userToInvite) => {
   return invitationUuid
 }
 
+const removeInvitation = async (client, user, countryIso, invitationUuid) => {
+  const invitationInfo = await getInvitationInfo(client, invitationUuid)
+  if (invitationInfo.countryIso !== countryIso) throw new AccessControlException('error.access.countryDoesNotMatch', {countryIso})
+  await client.query(
+    'DELETE FROM fra_user_invitation WHERE invitation_uuid = $1',
+    [invitationUuid]
+  )
+  await auditRepository
+    .insertAudit(client, user.id, 'removeInvitation', countryIso, 'users', {
+      user: invitationInfo.name,
+      role: invitationInfo.role.toLowerCase()
+    })
+}
+
 const updateInvitation = async (client, user, countryIso, userToUpdate) => {
   await client.query(
     `UPDATE fra_user_invitation
@@ -136,6 +150,8 @@ const updateUser = async (client, user, countryIso, userToUpdate) => {
 }
 
 const removeCountryUser = async (client, user, countryIso, userId) => {
+  console.log('## userId in removeCountryUser', userId)
+
   const userToRemove = await findUserById(userId, client)
   await client.query(`
         DELETE FROM
@@ -234,6 +250,7 @@ module.exports = {
   fetchCountryUsers,
   addInvitation,
   updateInvitation,
+  removeInvitation,
   updateUser,
   removeCountryUser,
   acceptInvitation,
