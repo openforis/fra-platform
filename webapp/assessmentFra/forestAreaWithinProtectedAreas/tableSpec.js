@@ -21,13 +21,13 @@ export default (i18n, extentOfForest) => {
     name: 'forestAreaWithinProtectedAreas',
     header: <thead>
     <tr>
-      <th className="fra-table__header-cell" rowSpan="2">{i18n.t('forestAreaWithinProtectedAreas.categoryHeader')}</th>
-      <th className="fra-table__header-cell-middle"
+      <th className="fra-table__header-cell-left" rowSpan="2">{i18n.t('forestAreaWithinProtectedAreas.categoryHeader')}</th>
+      <th className="fra-table__header-cell"
           colSpan="9">{i18n.t('forestAreaWithinProtectedAreas.areaUnitLabel')}</th>
     </tr>
     <tr>
       {
-        mapIndexed((year, i) => <th key={i} className="fra-table__header-cell-right">{year}</th>, years)
+        mapIndexed((year, i) => <th key={i} className="fra-table__header-cell">{year}</th>, years)
       }
     </tr>
     </thead>,

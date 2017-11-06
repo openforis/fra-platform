@@ -9,8 +9,7 @@ export class PercentInput extends React.Component {
 
   render () {
     return <div className="percent-input__container validation-error-sensitive-field" ref="wrapper">
-      <div className="percent-input__readonly-view"
-           style={{display: this.state.hasFocus ? 'none' : 'inline-block'}}>
+      <div className="percent-input__readonly-view" style={{visibility: this.state.hasFocus ? 'hidden' : 'visible'}}>
         {this.props.value}
       </div>
       <input

@@ -139,12 +139,12 @@ We add just the full *thead* here:
 ```
 header: <thead>
   <tr>
-    <td className="fra-table__header-cell"/>
-    <td className="fra-table__header-cell-align-right">1990</td>
-    <td className="fra-table__header-cell-align-right">2000</td>
-    <td className="fra-table__header-cell-align-right">2010</td>
-    <td className="fra-table__header-cell-align-right">2015</td>
-    <td className="fra-table__header-cell-align-right">2020</td>
+    <th className="fra-table__header-cell"/>
+    <th className="fra-table__header-cell">1990</th>
+    <th className="fra-table__header-cell">2000</th>
+    <th className="fra-table__header-cell">2010</th>
+    <th className="fra-table__header-cell">2015</th>
+    <th className="fra-table__header-cell">2020</th>
   </tr>
 </thead>
 ```
@@ -157,7 +157,7 @@ For the "row-heading" (the first column which contains just static
 text), well add this inside a rows attribute which contains an array:
 
 ```
-rows: [{type: 'readOnly', jsx: <td key="expansion" className="fra-table__header-cell">Production</td>}]
+rows: [{type: 'readOnly', jsx: <td key="expansion" className="fra-table__category-cell">Production</td>}]
 
 ```
 
@@ -172,7 +172,7 @@ dynamic input field cell:
 Now the whole row looks like this:
 
 ```
-[{type: 'readOnly', jsx: <td key="production" className="fra-table__header-cell">Production</td>},
+[{type: 'readOnly', jsx: <td key="production" className="fra-table__category-cell">Production</td>},
  {type: 'integerInput'}]
 ```
 
@@ -180,7 +180,7 @@ We have one readonly and one input cell. To add all the input fields,
 we just paste more of them:
 
 ```
-[{type: 'readOnly', jsx: <td key="production" className="fra-table__header-cell">Production</td>},
+[{type: 'readOnly', jsx: <td key="production" className="fra-table__category-cell">Production</td>},
  {type: 'integerInput'},
  {type: 'integerInput'},
  {type: 'integerInput'},
@@ -196,7 +196,7 @@ in the readOnly-cell changes:
 ```
 rows: [
  [
-  {type: 'readOnly', jsx: <td key="production" className="fra-table__header-cell">Production</td>},
+  {type: 'readOnly', jsx: <td key="production" className="fra-table__category-cell">Production</td>},
   {type: 'integerInput'},
   {type: 'integerInput'},
   {type: 'integerInput'},
@@ -204,7 +204,7 @@ rows: [
   {type: 'integerInput'}
  ],
  [
-  {type: 'readOnly', jsx: <td key="protection" className="fra-table__header-cell">Protection of soil and water</td>},
+  {type: 'readOnly', jsx: <td key="protection" className="fra-table__category-cell">Protection of soil and water</td>},
   {type: 'integerInput'},
   {type: 'integerInput'},
   {type: 'integerInput'},
@@ -221,7 +221,7 @@ all the rows which are almost identical:
 
 ```
 const createPdmoIOnputRow = (rowHeader) => [
-  {type: 'readOnly', jsx: <td key="protection" className="fra-table__header-cell">{rowHeader}</td>},
+  {type: 'readOnly', jsx: <td key="protection" className="fra-table__category-cell">{rowHeader}</td>},
   ...(R.times(() => ({type: 'integerInput'}), 5))
 ]
 ```
@@ -286,7 +286,7 @@ const totalForestArea = (tableData, columnIdx) =>
   )
 
 const totalForestAreaCell = (column) => (props) =>
-  <td key="" className="fra-table__text-readonly-cell-align-right">
+  <td key="" className="fra-table__calculated-cell">
     {totalForestArea(props.tableData, column)}
   </td>
 
@@ -302,12 +302,12 @@ export default {
   name: 'primaryDesignatedManagementObjective',
   header: <thead>
   <tr>
-    <td className="fra-table__header-cell"/>
-    <td className="fra-table__header-cell-align-right">1990</td>
-    <td className="fra-table__header-cell-align-right">2000</td>
-    <td className="fra-table__header-cell-align-right">2010</td>
-    <td className="fra-table__header-cell-align-right">2015</td>
-    <td className="fra-table__header-cell-align-right">2020</td>
+    <th className="fra-table__header-cell"/>
+    <th className="fra-table__header-cell">1990</th>
+    <th className="fra-table__header-cell">2000</th>
+    <th className="fra-table__header-cell">2010</th>
+    <th className="fra-table__header-cell">2015</th>
+    <th className="fra-table__header-cell">2020</th>
   </tr>
   </thead>,
   rows: [
@@ -318,7 +318,7 @@ export default {
     createPdmoInputRow('Multiple use'),
     createPdmoInputRow('Other'),
     createPdmoInputRow('No/unknown'),
-    [{type: 'readOnly', jsx: <td key="" className="fra-table__header-cell">Total forest area</td>},
+    [{type: 'readOnly', jsx: <td key="" className="fra-table__header-cell-left">Total forest area</td>},
      {type: 'custom', render: totalForestAreaCell(1)},
      {type: 'custom', render: totalForestAreaCell(2)},
      {type: 'custom', render: totalForestAreaCell(3)},

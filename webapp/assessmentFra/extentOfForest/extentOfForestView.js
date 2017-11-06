@@ -15,7 +15,7 @@ import { sum, formatNumber, eq } from '../../../common/bignumberUtils'
 
 const sectionName = 'extentOfForest'
 const mapIndexed = R.addIndex(R.map)
-const odpValueCellClass = (fraColumn) => fraColumn.type === 'odp' ? 'odp-value-cell' : ''
+const odpValueCellClass = (fraColumn) => fraColumn.type === 'odp' ? 'odp-value-cell-total' : 'fra-table__calculated-cell'
 
 const ExtentOfForest = (props) => {
 
@@ -41,13 +41,13 @@ const ExtentOfForest = (props) => {
 
   const totalAreaRow = fra =>
     <tr key="totalArea">
-      <th className="fra-table__header-cell">
+      <th className="fra-table__header-cell-left">
         {props.i18n.t('extentOfForest.totalLandArea')}
       </th>
       {
         mapIndexed((fraColumn, i) => {
           const totalLandArea = sum([fraColumn.forestArea, fraColumn.otherWoodedLand, fraColumn.otherLand])
-          return <td className={`fra-table__calculated-cell ${totalAreaValidationClass(fraColumn, totalLandArea)} ${odpValueCellClass(fraColumn)}`} key={i}>
+          return <td className={`${odpValueCellClass(fraColumn)} ${totalAreaValidationClass(fraColumn, totalLandArea)}`} key={i}>
             {formatNumber(totalLandArea)}
           </td>
         }, R.values(fra))
@@ -56,11 +56,11 @@ const ExtentOfForest = (props) => {
 
   const faoStatRow = fra =>
     <tr key="faoStat">
-      <th className="fra-table__header-cell">{props.i18n.t('extentOfForest.faoStatLandArea')}</th>
+      <th className="fra-table__header-cell-left">{props.i18n.t('extentOfForest.faoStatLandArea')}</th>
       {
         mapIndexed((faoStatColumn, i) => {
           const faoStatLandArea = R.path([props.countryIso, 'faoStat', faoStatColumn.name], countryConfig)
-          return <td className={`fra-table__calculated-cell ${odpValueCellClass(faoStatColumn)}`} key={i}>
+          return <td className={odpValueCellClass(faoStatColumn)} key={i}>
             {formatNumber(faoStatLandArea)}
           </td>
         }, R.values(fra))

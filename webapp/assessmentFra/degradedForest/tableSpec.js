@@ -7,7 +7,7 @@ export default i18n => ({
     [
       {
         type: 'readOnly',
-        jsx: <th className="fra-table__header-cell" colSpan="2">
+        jsx: <th className="fra-table__header-cell-left" colSpan="2">
           {i18n.t('degradedForest.doesYourCountryMonitor')}
         </th>
       },
@@ -18,7 +18,7 @@ export default i18n => ({
       }
     ],
     [
-      {type: 'readOnly', jsx: <th className="fra-table__category-cell" rowSpan="2">{i18n.t('degradedForest.ifYes')}</th>},
+      {type: 'readOnly', jsx: <th className="fra-table__category-cell" rowSpan="2" style={{minWidth: '72px'}}>{i18n.t('degradedForest.ifYes')}</th>},
       {type: 'readOnly', jsx: <th className="fra-table__category-cell">{i18n.t('degradedForest.whatIsDefinition')}</th>},
       {type: 'verticallyGrowingTextInput', minWidth: 350},
     ],

@@ -15,19 +15,19 @@ import { getForestAreaForYear } from '../extentOfForest/extentOfForestHelper'
 
 const mapIndexed = R.addIndex(R.map)
 const sectionName = 'forestCharacteristics'
-const odpValueCellClass = (fraColumn) => fraColumn.type === 'odp' ? 'odp-value-cell' : ''
+const odpValueCellClass = (fraColumn) => fraColumn.type === 'odp' ? 'odp-value-cell-total' : 'fra-table__calculated-cell'
 
 const ForestCharacteristics = props => {
 
   const plantedForestRow = fra => {
     return <tr key="plantedForest">
-      <th className="fra-table__header-cell">
+      <th className="fra-table__header-cell-left">
         {props.i18n.t('forestCharacteristics.plantedForest')}
       </th>
       {
         mapIndexed((fraColumn, i) => {
           const plantedForestArea = sum([fraColumn.plantationForestArea, fraColumn.otherPlantedForestArea])
-          return <td className={`fra-table__calculated-cell ${odpValueCellClass(fraColumn)}`} key={i}>
+          return <td className={odpValueCellClass(fraColumn)} key={i}>
             {formatNumber(plantedForestArea)}
           </td>
         }, R.values(fra))
@@ -50,7 +50,7 @@ const ForestCharacteristics = props => {
 
   const totalForestAreaRow = fra => {
     return <tr key="totalForestArea">
-      <th className="fra-table__header-cell">
+      <th className="fra-table__header-cell-left">
         {props.i18n.t('forestCharacteristics.totalForestArea')}
       </th>
       {
@@ -61,7 +61,7 @@ const ForestCharacteristics = props => {
             totalForestAreaNotEqualToExtentOfForest(eofForestArea, forestArea)
               ? 'validation-error'
               : ''
-          return <td className={`fra-table__calculated-cell ${validationErrorClass} ${odpValueCellClass(fraColumn)}`} key={i}>
+          return <td className={`${odpValueCellClass(fraColumn)} ${validationErrorClass}`} key={i}>
             {formatNumber(forestArea)}
           </td>
         }, R.values(fra))
