@@ -125,9 +125,6 @@ class AddUserForm extends React.Component {
               addNewUser(countryIso)
               this.setState({adding: false})
             }}>
-              <svg className="icon icon-sub icon-white">
-                <use xlinkHref="img/icons.svg#small-add"/>
-              </svg>
               {i18n.t('userManagement.addUser')}
             </button>
           </td>
