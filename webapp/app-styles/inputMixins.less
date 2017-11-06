@@ -1,23 +1,26 @@
 // Mixins used in textInput, thousandSeparatedInput and percentInput
 @import (reference) "./config";
 
-.mixin-input-container(@align) {
+.mixin-input-container() {
+  display: flex;
+  align-items: center;
   position: relative;
   height: 100%;
-  line-height: inherit;
-  text-align: @align;
 }
 
-.mixin-input-field(@padding: 10px) {
+.mixin-input-field(@right: 10px) {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background: transparent;
   border: none;
   color: inherit;
   font-size: inherit;
-  height: 100%;
   line-height: inherit;
   text-align: inherit;
-  padding: 10px @padding 10px 10px;
-  width: 100%;
+  padding: 10px @right 10px 10px;
 
   &:focus {
     outline: none;
@@ -30,15 +33,12 @@
 }
 
 .mixin-readonly-view(@right: 10px) {
-  position: absolute;
-  top: 50%;
-  right: @right;
-  left: 10px;
-  height: 20px;
-  margin-top: -10px;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  color: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  padding: 10px @right 10px 10px;
   white-space: nowrap;
+  width: 100%;
 
   &.placeholder {
     color: @text-disabled;

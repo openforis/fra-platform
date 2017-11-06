@@ -148,7 +148,7 @@ class CommentThread extends React.Component {
   }
 }
 
-const ReviewHeader = ({name, close, userInfo, countryIso, section, target, issueId, issueStatus, markIssueAsResolved, i18n}) =>
+const ReviewHeader = ({title, close, userInfo, countryIso, section, target, issueId, issueStatus, markIssueAsResolved, i18n}) =>
   <div className="fra-review__header">
     <h2 className="fra-review__header-title subhead">{i18n.t('review.comments')}</h2>
     <div className="fra-review__header-close-btn" onClick={e => close(e)}>
@@ -156,7 +156,7 @@ const ReviewHeader = ({name, close, userInfo, countryIso, section, target, issue
         <use xlinkHref="img/icons.svg#remove"/>
       </svg>
     </div>
-    {name ? <div className="fra-review__header-target">{name}</div> : null}
+    {title ? <div className="fra-review__header-target">{title}</div> : null}
     {issueId && isReviewer(countryIso, userInfo) && issueStatus !== 'resolved'
       ? <div className="fra-review__header-button">
         <button
@@ -179,7 +179,7 @@ class ReviewPanel extends React.Component {
     const isActive = R.pipe(R.defaultTo({}), R.isEmpty, R.not)(this.props.openThread)
     const target = R.isNil(this.props.openThread) ? null : (this.props.openThread.target).join(',')
     const section = R.isNil(this.props.openThread) ? '' : this.props.openThread.section
-    const name = R.isNil(this.props.openThread) ? '' : this.props.openThread.name
+    const title = R.isNil(this.props.openThread) ? '' : this.props.openThread.name
     const comments = R.defaultTo([], target ? this.props[target].issue : [])
     const issueId = comments && comments.length > 0 ? comments[0].issueId : null
     const issueStatus = comments && comments.length > 0 ? comments[0].issueStatus : null
@@ -190,7 +190,7 @@ class ReviewPanel extends React.Component {
 
     return <div className={`fra-review-${isActive ? 'active' : 'hidden'}`}>
       <ReviewHeader
-        name={name}
+        title={title}
         close={close}
         userInfo={this.props.userInfo}
         countryIso={this.props.country}

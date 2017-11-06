@@ -18,12 +18,12 @@ const totalForestArea = (tableData, column) => totalSum(tableData, column, sumRo
 const thead = i18n =>
   <thead>
     <tr>
-      <th className="fra-table__header-cell" rowSpan="2">{i18n.t('designatedManagementObjective.categoryHeader')}</th>
-      <th className="fra-table__header-cell-middle" colSpan="5">{i18n.t('designatedManagementObjective.areaUnitLabel')}</th>
+      <th className="fra-table__header-cell-left" rowSpan="2">{i18n.t('designatedManagementObjective.categoryHeader')}</th>
+      <th className="fra-table__header-cell" colSpan="5">{i18n.t('designatedManagementObjective.areaUnitLabel')}</th>
     </tr>
     <tr>
       {
-        mapIndexed((year, i) => <th key={i} className="fra-table__header-cell-right">{year}</th>, years)
+        mapIndexed((year, i) => <th key={i} className="fra-table__header-cell">{year}</th>, years)
       }
     </tr>
   </thead>
@@ -43,7 +43,7 @@ export const primaryDesignatedManagementObjectiveTableSpec = (i18n, extentOfFore
       {
         type: 'readOnly',
         jsx:
-          <th key="total_forest_area" className="fra-table__header-cell">
+          <th key="total_forest_area" className="fra-table__header-cell-left">
             {i18n.t('designatedManagementObjective.totalForestArea')}
           </th>
       },

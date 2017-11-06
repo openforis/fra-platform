@@ -8,10 +8,9 @@ const TextInputTableCell = ({countryIso,
                              rowIdx,
                              colIdx,
                              tableValueChanged,
-                             tableChanged,
-                             minWidth}) => {
+                             tableChanged}) => {
   const currentValue = tableData[rowIdx][colIdx]
-  return <td className="fra-table__cell">
+  return <td className="fra-table__cell-left">
     <TextInput
       value={currentValue}
       onChange={
@@ -28,12 +27,11 @@ const TextInputTableCell = ({countryIso,
           tableData,
           tableChanged,
           tableValueChanged)
-      }
-      minWidth={minWidth}/>
+      }/>
   </td>
 }
 
 export default (cellSpec) => ({
-  render: (props) => <TextInputTableCell {...props} minWidth={cellSpec.minWidth}/>,
+  render: (props) => <TextInputTableCell {...props} />,
   acceptValue: (newValue, _) => newValue
 })

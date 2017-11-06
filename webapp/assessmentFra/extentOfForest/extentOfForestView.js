@@ -9,12 +9,13 @@ import DefinitionLink from '../../reusableUiComponents/definitionLink'
 import ChartWrapper from './chart/chartWrapper'
 import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
 import { TableWithOdp } from '../../tableWithOdp/tableWithOdp'
-import { CommentableReviewDescription } from '../../description/commentableDescription'
+import { CommentableDescriptions } from '../../description/commentableDescription'
 import countryConfig from '../../../common/countryConfig'
 import { sum, formatNumber, eq } from '../../../common/bignumberUtils'
 
+const sectionName = 'extentOfForest'
 const mapIndexed = R.addIndex(R.map)
-const odpValueCellClass = (fraColumn) => fraColumn.type === 'odp' ? 'odp-value-cell' : ''
+const odpValueCellClass = (fraColumn) => fraColumn.type === 'odp' ? 'odp-value-cell-total' : 'fra-table__calculated-cell'
 
 const ExtentOfForest = (props) => {
 
@@ -40,13 +41,13 @@ const ExtentOfForest = (props) => {
 
   const totalAreaRow = fra =>
     <tr key="totalArea">
-      <th className="fra-table__header-cell">
+      <th className="fra-table__header-cell-left">
         {props.i18n.t('extentOfForest.totalLandArea')}
       </th>
       {
         mapIndexed((fraColumn, i) => {
           const totalLandArea = sum([fraColumn.forestArea, fraColumn.otherWoodedLand, fraColumn.otherLand])
-          return <td className={`fra-table__calculated-cell ${totalAreaValidationClass(fraColumn, totalLandArea)} ${odpValueCellClass(fraColumn)}`} key={i}>
+          return <td className={`${odpValueCellClass(fraColumn)} ${totalAreaValidationClass(fraColumn, totalLandArea)}`} key={i}>
             {formatNumber(totalLandArea)}
           </td>
         }, R.values(fra))
@@ -55,11 +56,11 @@ const ExtentOfForest = (props) => {
 
   const faoStatRow = fra =>
     <tr key="faoStat">
-      <th className="fra-table__header-cell">{props.i18n.t('extentOfForest.faoStatLandArea')}</th>
+      <th className="fra-table__header-cell-left">{props.i18n.t('extentOfForest.faoStatLandArea')}</th>
       {
         mapIndexed((faoStatColumn, i) => {
           const faoStatLandArea = R.path([props.countryIso, 'faoStat', faoStatColumn.name], countryConfig)
-          return <td className={`fra-table__calculated-cell ${odpValueCellClass(faoStatColumn)}`} key={i}>
+          return <td className={odpValueCellClass(faoStatColumn)} key={i}>
             {formatNumber(faoStatLandArea)}
           </td>
         }, R.values(fra))
@@ -138,7 +139,7 @@ const ExtentOfForest = (props) => {
         {i18n.t('nationalDataPoint.addNationalDataPoint')}
       </Link>
     </div>
-    <ChartWrapper stateName="extentOfForest" trends={[
+    <ChartWrapper stateName={sectionName} trends={[
       {name: 'forestArea', label: i18n.t('fraClass.forest'), color: '#0098a6'},
       {name: 'otherWoodedLand', label: i18n.t('fraClass.otherWoodedLand'), color: '#bf00af'}
     ]}/>
@@ -153,17 +154,15 @@ const ExtentOfForest = (props) => {
       </button>
     </div>
     <TableWithOdp
-               section='extentOfForest'
+               section={sectionName}
                rows={eofRows}
                areaUnitLabel={props.i18n.t('extentOfForest.areaUnitLabel')}
                categoryHeader={props.i18n.t('extentOfForest.categoryHeader')}
                {...props}/>
-    <CommentableReviewDescription
-      section='extentOfForest'
+    <CommentableDescriptions
+      section={sectionName}
+      name={sectionName}
       countryIso={props.match.params.countryIso}
-      descriptionName={`extentOfForest_generalComments`}
-      commentTarget={['generalComments']}
-      descriptionTitle={i18n.t('description.generalCommentsTitle')}
       i18n={i18n}
     />
   </div>
@@ -173,11 +172,11 @@ class DataFetchingComponent extends React.Component {
   componentWillMount () {
     const countryIso = this.props.match.params.countryIso
     this.fetch(countryIso)
-    this.props.fetchLastSectionUpdateTimestamp(countryIso, 'extentOfForest')
+    this.props.fetchLastSectionUpdateTimestamp(countryIso, sectionName)
   }
 
   fetch (countryIso) {
-    this.props.fetchItem('extentOfForest', countryIso)
+    this.props.fetchItem(sectionName, countryIso)
   }
 
   render () {

@@ -52,9 +52,9 @@ export const getIssueSummary = (countryIso, section, target) => dispatch => {
     })
 }
 
-export const openCommentThread = (countryIso, section, target, name) => dispatch => {
+export const openCommentThread = (countryIso, section, target, title) => dispatch => {
   retrieveComments(countryIso, section, target)(dispatch)
-  dispatch({type: issueOpenCommentThread, target, section, name})
+  dispatch({type: issueOpenCommentThread, target, section, title})
 }
 export const closeCommentThread = (countryIso, section, target) => dispatch => {
   getIssueSummary(countryIso, section, target)(dispatch)
