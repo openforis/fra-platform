@@ -74,10 +74,12 @@ module.exports.translation = {
       edited: 'edited',
       resolved: 'resolved issue in',
       status: 'changed status to',
-      addUser:'added {{user}} as {{role}}',
+      addUser:'added {{user}} as {{role}}', //Legacy, no longer created
       updateUser:'edited {{user}}',
       removeUser:'removed {{user}}',
-      acceptInvitation: 'joined as {{role}}'
+      acceptInvitation: 'joined as {{role}}',
+      addInvitation: 'Invited {{user}} as {{role}}',
+      updateInvitation: 'Invite updated for {{user}} as {{role}}'
     }
   },
 
