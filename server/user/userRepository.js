@@ -131,13 +131,9 @@ const updateUser = async (client, user, countryIso, userToUpdate) => {
   await auditRepository.insertAudit(client, user.id, 'updateUser', countryIso, 'users', {user: userToUpdate.name})
 }
 
-const removeCountryUser = (client, user, countryIso, userId) =>
-  findUserById(userId, client)
-    .then(userToRemove =>
-      auditRepository.insertAudit(client, user.id, 'removeUser', countryIso, 'users', {user: userToRemove.name})
-    )
-    .then(() =>
-      client.query(`
+const removeCountryUser = async (client, user, countryIso, userId) => {
+  const userToRemove = await findUserById(userId, client)
+  await client.query(`
         DELETE FROM
           user_country_role
         WHERE
@@ -145,7 +141,8 @@ const removeCountryUser = (client, user, countryIso, userId) =>
         AND
           country_iso = $2
   `, [userId, countryIso])
-    )
+  await auditRepository.insertAudit(client, user.id, 'removeUser', countryIso, 'users', {user: userToRemove.name})
+}
 
 const getInvitationInfo = async (client, invitationUuid) => {
   const invitationInfo = await client.query(
