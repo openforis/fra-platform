@@ -57,14 +57,9 @@ module.exports.init = app => {
     } else {
       const url = req.protocol + '://' + req.get('host')
       db.transaction(userRepository.addInvitation, [req.user, countryIso, userToBeChangedOrAdded])
-        .then(user =>
-          user
-          ? sendMail(countryIso, user, url)
-            .then(() => res.json({}))
-            .catch(err => sendErr(res, err))
-          : res.json({})
-        )
-      .catch(err => sendErr(res, err))
+        .then(invitationUuid => sendMail(countryIso, {...userToBeChangedOrAdded, invitationUuid}, url))
+        .then(() => res.json({}))
+        .catch(err => sendErr(res, err))
     }
   })
 

@@ -98,6 +98,7 @@ const addInvitation = async (client, user, countryIso, userToInvite) => {
       userToInvite: userToInvite.name,
       role: userToInvite.role.toLowerCase()
     })
+  return invitationUuid
 }
 
 const updateInvitation = () => null
