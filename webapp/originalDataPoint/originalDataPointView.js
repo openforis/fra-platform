@@ -258,10 +258,10 @@ const OdpViewContent = ({match, saveDraft, markAsActual, remove, active, autoSav
                   saveDraft={saveDraft}
                   openThread={openThread}
                   parentCategory="otherLandPercent"
-                  categoryColumns={[{name: 'otherLandPalmsPercent', type: 'integer'},
-                                    {name: 'otherLandTreeOrchardsPercent', type: 'integer'},
-                                    {name: 'otherLandAgroforestryPercent', type: 'integer'},
-                                    {name: 'otherLandTreesUrbanSettingsPercent', type: 'integer'}]}
+                  categoryColumns={[{name: 'otherLandPalmsPercent', type: 'decimal'},
+                                    {name: 'otherLandTreeOrchardsPercent', type: 'decimal'},
+                                    {name: 'otherLandAgroforestryPercent', type: 'decimal'},
+                                    {name: 'otherLandTreesUrbanSettingsPercent', type: 'decimal'}]}
                   targetSuffix="other_land_charasteristics"
                   validationResultField="validOtherLandPercentage"
                   reviewTitleKey="otherLandCharacteristics"
@@ -341,7 +341,7 @@ const OdpViewContent = ({match, saveDraft, markAsActual, remove, active, autoSav
                   openThread={openThread}
                   parentCategory="plantationPercent"
                   ancestorCategory="forestPercent"
-                  categoryColumns={[{name: 'plantationIntroducedPercent', type: 'integer'}]}
+                  categoryColumns={[{name: 'plantationIntroducedPercent', type: 'decimal'}]}
                   targetSuffix="plantation_forest_introduced"
                   validationResultField="validPlantationIntroducedPercentage"
                   reviewTitleKey="plantationForest"
@@ -410,16 +410,17 @@ const OdpViewContent = ({match, saveDraft, markAsActual, remove, active, autoSav
 const mapIndexed = R.addIndex(R.map)
 
 
-const updatePastedValues = ({
-                              odp,
-                              countryIso,
-                              rowIndex,
-                              colIndex,
-                              columns,
-                              saveDraft,
-                              allowGrow = false,
-                              allowedClass = (nc) => true
-                            }) => evt => {
+const updatePastedValues =
+  ({
+    odp,
+    countryIso,
+    rowIndex,
+    colIndex,
+    columns,
+    saveDraft,
+    allowGrow = false,
+    allowedClass = (nc) => true
+  }) => evt => {
 
   const rawPastedData = readPasteClipboard(evt, 'string')
   const {updatedOdp, firstPastedCellData} = handlePaste(columns, allowedClass, odp, allowGrow, rawPastedData, rowIndex, colIndex)
@@ -522,9 +523,9 @@ const NationalClassRow =
 
 const extentOfForestCols = [
   {name: 'area', type: 'decimal'},
-  {name: 'forestPercent', type: 'integer'},
-  {name: 'otherWoodedLandPercent', type: 'integer'},
-  {name: 'otherLandPercent', type: 'integer'}]
+  {name: 'forestPercent', type: 'decimal'},
+  {name: 'otherWoodedLandPercent', type: 'decimal'},
+  {name: 'otherLandPercent', type: 'decimal'}]
 
 const extentOfForestRows = (countryIso, odp, saveDraft, openThread, i18n) =>
   R.pipe(
@@ -540,11 +541,8 @@ const extentOfForestRows = (countryIso, odp, saveDraft, openThread, i18n) =>
       {...nationalClass}/>)
   )(odp.nationalClasses)
 
-const numberUpdateCreator = (saveDraft, type = 'integer') => (countryIso, odp, index, fieldName, currentValue) => evt => {
-  saveDraft(countryIso, originalDataPoint.updateNationalClass(odp, index, fieldName, type === 'integer'
-    ? acceptNextInteger(evt.target.value, currentValue)
-    : acceptNextDecimal(evt.target.value, currentValue)
-  ))
+const numberUpdateCreator = (saveDraft) => (countryIso, odp, index, fieldName, currentValue) => evt => {
+  saveDraft(countryIso, originalDataPoint.updateNationalClass(odp, index, fieldName, acceptNextDecimal(evt.target.value, currentValue)))
 }
 
 const ExtentOfForestRow =
@@ -565,7 +563,6 @@ const ExtentOfForestRow =
   const validationStatus = getValidationStatusRow(odp, index)
   const eofStatusPercentage = () => validationStatus.validEofPercentage === false ? 'error' : ''
   const numberUpdated = numberUpdateCreator(saveDraft)
-  const decimalUpdated = numberUpdateCreator(saveDraft, 'decimal')
 
   return <tr className={isCommentsOpen([odp.odpId, 'class', `${odp.nationalClasses[index].uuid}`, 'value'], openThread) ? 'fra-row-comments__open' : ''}>
     <th className="fra-table__category-cell">{className}</th>
@@ -573,7 +570,7 @@ const ExtentOfForestRow =
       className={`fra-table__cell fra-table__divider ${validationStatus.validArea === false ? 'error' : ''}`}>
       <ThousandSeparatedDecimalInput
         numberValue={area}
-        onChange={decimalUpdated(countryIso, odp, index, 'area', area)}
+        onChange={numberUpdated(countryIso, odp, index, 'area', area)}
         onPaste={updatePastedValues({
           odp,
           countryIso,
@@ -585,7 +582,7 @@ const ExtentOfForestRow =
     </td>
     <td className={`fra-table__cell ${eofStatusPercentage()}`}>
       <PercentInput
-        value={forestPercent || ''}
+        numberValue={forestPercent}
         onChange={numberUpdated(countryIso, odp, index, 'forestPercent', forestPercent)}
         onPaste={updatePastedValues({
           odp,
@@ -599,7 +596,7 @@ const ExtentOfForestRow =
     </td>
     <td className={`fra-table__cell ${eofStatusPercentage()}`}>
       <PercentInput
-        value={otherWoodedLandPercent || ''}
+        numberValue={otherWoodedLandPercent}
         onChange={numberUpdated(countryIso, odp, index, 'otherWoodedLandPercent', otherWoodedLandPercent)}
         onPaste={updatePastedValues({
           odp,
@@ -613,7 +610,7 @@ const ExtentOfForestRow =
     </td>
     <td className={`fra-table__cell ${eofStatusPercentage()}`}>
       <PercentInput
-        value={otherLandPercent || ''}
+        numberValue={otherLandPercent}
         onChange={numberUpdated(countryIso, odp, index, 'otherLandPercent', otherLandPercent)}
         onPaste={updatePastedValues({
           odp,
@@ -641,9 +638,9 @@ const ExtentOfForestRow =
 
 const forestCharacteristicsCols = [
   {name: 'area', type: 'decimal'},
-  {name: 'naturalForestPercent', type: 'integer'},
-  {name: 'plantationPercent', type: 'integer'},
-  {name: 'otherPlantedPercent', type: 'integer'}
+  {name: 'naturalForestPercent', type: 'decimal'},
+  {name: 'plantationPercent', type: 'decimal'},
+  {name: 'otherPlantedPercent', type: 'decimal'}
   ]
 
 const foresCharaceristicsRows = (countryIso, odp, saveDraft, openThread, i18n) =>
@@ -687,7 +684,7 @@ const ForestCharacteristicsRow =
           <th className={`fra-table__calculated-sub-cell fra-table__divider`}>{formatDecimal(area ? area * nationalClass.forestPercent / 100 : null)}</th>
           <td className={`fra-table__cell ${focStatusPercentage()}`}>
             <PercentInput
-              value={naturalForestPercent || ''}
+              numberValue={naturalForestPercent}
               onChange={numberUpdated(countryIso, odp, index, 'naturalForestPercent', naturalForestPercent)}
               onPaste={updatePastedValues({
                 odp,
@@ -702,7 +699,7 @@ const ForestCharacteristicsRow =
           </td>
           <td className={`fra-table__cell ${focStatusPercentage()}`}>
             <PercentInput
-              value={plantationPercent || ''}
+              numberValue={plantationPercent}
               onChange={numberUpdated(countryIso, odp, index, 'plantationPercent', plantationPercent)}
               onPaste={updatePastedValues({
                 odp,
@@ -717,7 +714,7 @@ const ForestCharacteristicsRow =
           </td>
           <td className={`fra-table__cell ${focStatusPercentage()}`}>
             <PercentInput
-              value={otherPlantedPercent || ''}
+              numberValue={otherPlantedPercent}
               onChange={numberUpdated(countryIso, odp, index, 'otherPlantedPercent', otherPlantedPercent)}
               onPaste={updatePastedValues({
                 odp,
@@ -792,7 +789,7 @@ const SubcategoryRow =
               const currentCol = categoryColumns[colIndex].name
               return <td key={colIndex} className={`fra-table__cell ${displayError()}`}>
                 <PercentInput
-                  value={nationalClass[currentCol] || ''}
+                  numberValue={nationalClass[currentCol]}
                   onChange={numberUpdated(countryIso, odp, index, currentCol, nationalClass[currentCol])}
                   onPaste={updatePastedValues({
                     odp,

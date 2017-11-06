@@ -44,7 +44,7 @@ export class ThousandSeparatedDecimalInput extends React.Component {
           this.setState({inputValue: numberValue || null})
           this.refs.decimalInputField.select()
         }}
-        onBlur={() => { this.setState({hasFocus: false})}} />
+        onBlur={() => {this.setState({hasFocus: false})}} />
     </div>
   }
 }
