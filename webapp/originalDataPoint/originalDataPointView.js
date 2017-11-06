@@ -868,6 +868,7 @@ class CommentsEditor extends React.Component {
   }
 
   render () {
+    const content = this.props.active.description || this.props.i18n.t('description.emptyLabel')
     return <div>
       <div className="fra-description__header-row">
         <h3 className="subhead fra-description__header">{this.props.title}</h3>
@@ -881,12 +882,10 @@ class CommentsEditor extends React.Component {
         {this.state.open ? this.props.i18n.t('description.done') : this.props.i18n.t('description.edit')}
         </button>
       </div>
-      <div ref="editorContent">
-        <div className="cke_wrapper" style={{display: this.state.open ? 'block' : 'none'}}>
-          <textarea ref="originalDataPointDescription"/>
-        </div>
-        <div className="fra-description__preview" style={{display: this.state.open ? 'none' : 'block'}} dangerouslySetInnerHTML={{__html: this.props.active.description}}/>
+      <div className="cke_wrapper" style={{display: this.state.open ? 'block' : 'none'}}>
+        <textarea ref="originalDataPointDescription"/>
       </div>
+      <div className={`fra-description__${this.props.active.description ? 'preview' : 'placeholder'}`} style={{display: this.state.open ? 'none' : 'block'}} dangerouslySetInnerHTML={{__html: content}}/>
     </div>
   }
 

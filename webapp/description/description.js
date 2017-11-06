@@ -39,10 +39,10 @@ class Description extends Component {
       <div ref="editorContent">
       {
         R.isNil(this.props.content)
-          ? <div className="fra-description__loading">{this.props.i18n.t('description.loading')}</div>
+          ? <div className="fra-description__placeholder">{this.props.i18n.t('description.loading')}</div>
           : isActive
             ? <DescriptionEditor {...this.props} />
-            : <div className="fra-description__preview" dangerouslySetInnerHTML={{__html: content}}/>
+            : <div className={`fra-description__${this.props.content ? 'preview' : 'placeholder'}`} dangerouslySetInnerHTML={{__html: content}}/>
       }
       </div>
     </div>
