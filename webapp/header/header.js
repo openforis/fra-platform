@@ -4,6 +4,7 @@ import * as R from 'ramda'
 import React from 'react'
 import { connect } from 'react-redux'
 import { logout, switchLanguage } from '../user/actions'
+import { toggleNavigationVisible } from '../navigation/actions'
 import { getRelativeDate } from '../utils/relativeDate'
 import { PopoverControl } from './../reusableUiComponents/popoverControl'
 
@@ -55,11 +56,24 @@ const autosaveStatusText = (i18n, status, lastSaveTimeStamp) => {
     : statusTextTranslation
 }
 
-const Header = ({status, userInfo, lastSaveTimeStamp, width, i18n, ...props}) => {
-  const style = {width: `calc(100vw - ${width}px)`}
+const Header = ({status,
+                  userInfo,
+                  lastSaveTimeStamp,
+                  i18n,
+                  toggleNavigationVisible,
+                  navigationVisible,
+                  commentsOpen,
+                  ...props}) => {
+  const commentColumnCurrentWidth = commentsOpen ? 288 : 0
+  const navigationCurrentWidth = navigationVisible ? 256 : 0
+  const subtractFromHeaderWidth = commentColumnCurrentWidth + navigationCurrentWidth
+
+  const style = {
+    left: `${navigationCurrentWidth}px`,
+    width: `calc(100vw - ${subtractFromHeaderWidth}px)`
+  }
   return <div className="header__container" style={style}>
-    {/* Placeholder for space-between flexbox alignment */}
-    <div/>
+    { toggleNavigationControl(toggleNavigationVisible, navigationVisible) }
     {R.isNil(status)
       ? null
       : <div className={`header__autosave status-${status}`}>
@@ -73,9 +87,23 @@ const Header = ({status, userInfo, lastSaveTimeStamp, width, i18n, ...props}) =>
   </div>
 }
 
-const mapStateToProps = state =>
-  R.pipe(
-    R.merge(state.autoSave),
-    R.merge(state.user))(state.router)
+const toggleNavigationControl = (toggleNavigationVisible, navigationVisible) => {
+  const iconSuffix = navigationVisible ? '-left' : '-right'
+  const text = navigationVisible ? 'Hide sidebar' : 'Show sidebar'
+  return <div onClick={toggleNavigationVisible}>
+        <svg className="icon icon-middle">
+          <use xlinkHref={`img/icons.svg#small${iconSuffix}`}/>
+        </svg>
+        {text}
+  </div>
+}
 
-export default connect(mapStateToProps, {logout, switchLanguage})(Header)
+const mapStateToProps = state => ({
+  ...state.autoSave,
+  ...state.user,
+  ...state.router,
+  commentsOpen: state.review.openThread,
+  navigationVisible: state.navigation.navigationVisible
+})
+
+export default connect(mapStateToProps, {logout, switchLanguage, toggleNavigationVisible})(Header)

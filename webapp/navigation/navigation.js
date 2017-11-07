@@ -357,11 +357,18 @@ class NavigationSync extends React.Component {
   }
 
   render () {
-    return <Nav {...this.props} />
+    if (this.props.navigationVisible) {
+      return <Nav {...this.props} />
+    }
+    return <noscript/>
   }
 }
 
-const mapStateToProps = state => R.pipe(R.merge(state.navigation), R.merge(state.router))(state.user)
+const mapStateToProps = state => ({
+  ...state.navigation,
+  ...state.router,
+  ...state.user
+})
 
 export default connect(mapStateToProps, {
   follow,
