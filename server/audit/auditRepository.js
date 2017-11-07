@@ -2,10 +2,17 @@ const db = require('../db/db')
 const R = require('ramda')
 const camelize = require('camelize')
 
-module.exports.insertAudit = (client, userId, message, countryIso, section, target = null) => {
-  return client.query(
-    'INSERT INTO fra_audit (user_id, message, country_iso, section, target) VALUES ($1, $2, $3, $4, $5);',
-    [userId, message, countryIso, section, target]
+module.exports.insertAudit = async (client, userId, message, countryIso, section, target = null) => {
+  const userResult = await client.query('SELECT name, email, login_email FROM fra_user WHERE id = $1', [userId])
+  if (userResult.rows.length !== 1) throw new Error(`User ID query resulted in ${userResult.rows.length} rows`)
+  const user = camelize(userResult.rows[0])
+  await client.query(
+    `INSERT INTO 
+      fra_audit 
+      (user_email, user_login_email, user_name, message, country_iso, section, target) 
+    VALUES 
+      ($1, $2, $3, $4, $5, $6, $7);`,
+    [user.email, user.loginEmail, user.name, message, countryIso, section, target]
   )
 }
 
@@ -27,25 +34,25 @@ module.exports.getLastAuditTimeStampForSection = (countryIso, section) => {
 module.exports.getAuditFeed = (countryIso) => {
   return db.query(
     ` SELECT
-        fu.name AS full_name,
-        fu.email,
+        user_name as full_name,
+        user_email as email,
         message,
         split_part(section, '_', 1) AS section_name,
         target,
         to_char(time, 'YYYY-MM-DD"T"HH24:MI:ssZ') AS edit_time
       FROM (
         SELECT
-          user_id,
+          user_name,
+          user_email,
           message,
           section,
           target,
           time,
-          rank() OVER (PARTITION BY user_id, message, section ORDER BY time DESC) as rank
+          rank() OVER (PARTITION BY user_name, user_email, message, section ORDER BY time DESC) as rank
         FROM fra_audit
         WHERE country_iso = $1
         AND message != 'deleteComment'
       ) AS fa
-      JOIN fra_user fu ON fa.user_id = fu.id
       WHERE rank = 1
       ORDER BY time DESC
       LIMIT 20

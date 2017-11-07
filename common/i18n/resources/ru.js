@@ -182,7 +182,6 @@ module.exports.translation = {
     forestCharacteristics: 'Характеристики леса',
     forestCharacteristicsValues: 'Значения характеристик леса',
     naturalForestArea: 'Естественно возобновленный лес',
-    naturalForestPrimaryArea: '…в том числе коренной',
     plantationForestArea: 'Лесные культуры',
     plantationForestIntroducedArea: '…в том числе интродуцированные породы',
     otherPlantedForestArea: 'Прочие лесонасаждения'

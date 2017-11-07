@@ -63,11 +63,18 @@ module.exports.init = app => {
     }
   })
 
-  app.delete('/users/:countryIso/:userId', (req, res) => {
+  app.delete('/users/:countryIso/', (req, res) => {
     checkCountryAccessFromReqParams(req)
-
-    db.transaction(userRepository.removeCountryUser, [req.user, req.params.countryIso, req.params.userId])
-      .then(res.json({}))
-      .catch(err => sendErr(res, err))
+    if (req.query.id) {
+      db.transaction(userRepository.removeCountryUser, [req.user, req.params.countryIso, req.query.id])
+        .then(() => res.json({}))
+        .catch(err => sendErr(res, err))
+    } else if (req.query.invitationUuid) {
+      db.transaction(userRepository.removeInvitation, [req.user, req.params.countryIso, req.query.invitationUuid])
+        .then(() => res.json({}))
+        .catch(err => sendErr(res, err))
+    } else {
+      sendErr(res, 'No id or invitationUuid given')
+    }
   })
 }
