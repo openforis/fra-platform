@@ -113,6 +113,12 @@ const Cell = (props) => {
     R.defaultTo(null)
   )(values)
 
+  const disableInput = R.pipe(
+    R.find(v => eq(v.year, col.year)),
+    R.defaultTo(null),
+    v => typeof v.year === 'number'
+  )(areaValues)
+
   const whichTotal = props.type === 'avg'
     ? props.rowIdx === 1
       ? sum([currentCol.otherPlantedForestAvg, currentCol.plantationForestAvg])
@@ -126,7 +132,7 @@ const Cell = (props) => {
     : <td className="fra-table__cell">
         <ThousandSeparatedDecimalInput
           numberValue={value}
-          disabled={R.isNil(value)}
+          disabled={disableInput}
           onChange={e => props.updateValue(countryIso, areaValues, values, col.year, field, type, e.target.value)}
           onPaste={e => props.updateValues(countryIso, areaValues, values, readPasteClipboard(e, 'decimal'), type, props.cols, props.rowIdx, props.colIdx)}
         />
