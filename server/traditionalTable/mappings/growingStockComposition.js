@@ -27,9 +27,7 @@ module.exports = {
     {name: 'scientific_name', type: 'text'},
     {name: 'common_name', type: 'text'},
     {name: '1990', type: 'numeric'},
-    {name: '1995', type: 'numeric'},
     {name: '2000', type: 'numeric'},
-    {name: '2005', type: 'numeric'},
     {name: '2010', type: 'numeric'},
     {name: '2015', type: 'numeric'}
   ]
