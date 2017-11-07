@@ -30,8 +30,9 @@ export const persistUser = (countryIso, user, fetch = false) => dispatch => {
   })
 }
 
-export const removeUser = (countryIso, userId) => dispatch => {
-  axios.delete(`/api/users/${countryIso}/${userId}`)
+export const removeUser = (countryIso, user) => dispatch => {
+  const queryParam = user.id ? `?id=${user.id}` : `?invitationUuid=${user.invitationUuid}`
+  axios.delete(`/api/users/${countryIso}/${queryParam}`)
     .then(() => {
       dispatch(fetchUsers(countryIso))
     }).catch((err) => {

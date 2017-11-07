@@ -79,6 +79,7 @@ module.exports.translation = {
       removeUser:'removed {{user}}',
       acceptInvitation: 'joined as {{role}}',
       addInvitation: 'Invited {{user}} as {{role}}',
+      removeInvitation: 'Removed invitation of {{user}} as {{role}}',
       updateInvitation: 'Invite updated for {{user}} as {{role}}'
     }
   },
@@ -89,7 +90,8 @@ module.exports.translation = {
       countryRoleNotSpecified: 'Error: User {{user}} tried to access {{countryIso}} but no role has been specified',
       countryUserNotReviewer: 'Error: User {{user}} tried to access {{countryIso}} of which is not reviewer',
       roleChangeNotAllowed: 'Error: User {{user}} tried to set another user\'s role to {{role}} which is not allowed for the logged in user',
-      invitationAlreadyUsed: 'Error: invitation {{invitationUuid}} has already been used, hijacking by {{loginEmail}} not allowed!'
+      invitationAlreadyUsed: 'Error: invitation {{invitationUuid}} has already been used, hijacking by {{loginEmail}} not allowed!',
+      countryDoesNotMatch: 'Error: country {{countyryIso}} does not match'
     },
     assessment: {
       transitionNotAllowed: 'Error: Transition from {{currentStatus}} to {{status}} is not allowed for role {{role}}'
