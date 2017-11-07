@@ -4,7 +4,7 @@ import ReviewIndicator from '../../review/reviewIndicator'
 import { readPasteClipboard } from '../../utils/copyPasteUtil'
 import { ThousandSeparatedDecimalInput } from '../../reusableUiComponents/thousandSeparatedDecimalInput'
 import { formatDecimal } from '../../utils/numberFormat'
-import { eq } from '../../../common/bignumberUtils'
+import { sum, eq } from '../../../common/bignumberUtils'
 
 const GrowingStockTable = (props) => {
   const cols = R.filter(v => v.type !== 'odp', R.values(props.areaValues))
@@ -17,6 +17,8 @@ const GrowingStockTable = (props) => {
         cols={cols}
         type='avg'
         {...props} />
+    </div>
+    <div className="fra-table__scroll-wrapper">
       <Table
         categoriesHeader={props.header}
         colsHeader={props.totalTableHeader}
@@ -106,12 +108,25 @@ const Cell = (props) => {
     R.defaultTo(null),
   )(values)
 
+  const currentCol = R.pipe(
+    R.find(v => eq(v.year, col.year)),
+    R.defaultTo(null)
+  )(values)
+
+  const whichTotal = props.type === 'avg'
+    ? props.rowIdx === 1
+      ? sum([currentCol.otherPlantedForestAvg, currentCol.plantationForestAvg])
+      : sum([currentCol.naturallyRegeneratingForestAvg, currentCol.otherPlantedForestAvg, currentCol.plantationForestAvg])
+    : props.rowIdx === 1
+      ? sum([currentCol.otherPlantedForest, currentCol.plantationForest])
+      : sum([currentCol.naturallyRegeneratingForest, currentCol.otherPlantedForest, currentCol.plantationForest])
+
   return calculated
-    ? <td className="fra-table__calculated-cell">{formatDecimal(value)}</td>
+    ? <td className="fra-table__calculated-cell">{formatDecimal(whichTotal)}</td>
     : <td className="fra-table__cell">
         <ThousandSeparatedDecimalInput
           numberValue={value}
-          precision={2}
+          disabled={R.isNil(value)}
           onChange={e => props.updateValue(countryIso, areaValues, values, col.year, field, type, e.target.value)}
           onPaste={e => props.updateValues(countryIso, areaValues, values, readPasteClipboard(e, 'decimal'), type, props.cols, props.rowIdx, props.colIdx)}
         />

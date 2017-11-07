@@ -67,22 +67,12 @@ const getFieldValue = field => R.pipe(
   R.defaultTo(0)
 )
 
-const calculateTotal = (obj, field) => sum(R.map(f => getFieldValue(f)(obj), getFields(field, 'sumFields')))
-
-const updateTotals = (areaValues, year) => R.pipe(
-  obj => R.assoc('plantedForest', calculateTotal(obj, 'plantedForest'), obj),
-  obj => R.assoc('totalForest', calculateTotal(obj, 'totalForest'), obj),
-  R.partial(updateMirrorValue, [areaValues, year, 'plantedForest', 'total']),
-  R.partial(updateMirrorValue, [areaValues, year, 'totalForest', 'total'])
-)
-
 export const updateGrowingStockValue = (areaValues, growingStockValues, year, field, type, value) => {
   const updatedValue = R.pipe(
     R.find(R.propEq('year', year)),
     R.defaultTo({year}),
     R.assoc(`${field}${type === 'avg' ? 'Avg' : ''}`, R.isEmpty(value) ? null : value),
-    R.partial(updateMirrorValue, [areaValues, year, field, type]),
-    updateTotals(areaValues, year)
+    R.partial(updateMirrorValue, [areaValues, year, field, type])
   )(growingStockValues)
 
   const index = R.findIndex(R.propEq('year', year), growingStockValues)
