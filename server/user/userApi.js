@@ -67,11 +67,11 @@ module.exports.init = app => {
     checkCountryAccessFromReqParams(req)
     if (req.query.id) {
       db.transaction(userRepository.removeCountryUser, [req.user, req.params.countryIso, req.query.id])
-        .then(res.json({}))
+        .then(() => res.json({}))
         .catch(err => sendErr(res, err))
     } else if (req.query.invitationUuid) {
       db.transaction(userRepository.removeInvitation, [req.user, req.params.countryIso, req.query.invitationUuid])
-        .then(res.json({}))
+        .then(() => res.json({}))
         .catch(err => sendErr(res, err))
     } else {
       sendErr(res, 'No id or invitationUuid given')
