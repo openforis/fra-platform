@@ -21,7 +21,8 @@ const getAssessment = async (client, countryIso, assessmentType) => {
   const result = await client.query(
     `SELECT 
            status,
-           desk_study
+           desk_study,
+           type
          FROM 
            assessment 
          WHERE country_iso = $1
@@ -32,35 +33,39 @@ const getAssessment = async (client, countryIso, assessmentType) => {
   return camelize(result.rows[0])
 }
 
-const addAssessment = (client, countryIso, assessmentType, status) =>
+const addAssessment = (client, countryIso, assessment) =>
   client.query(
     `INSERT INTO
       assessment 
       (country_iso, type, status)  
      VALUES 
       ($1, $2, $3)`,
-    [countryIso, assessmentType, status]
+    [countryIso, assessment.type, assessment.status]
   )
 
-const updateAssessment = (client, countryIso, assessmentType, status) =>
+const updateAssessment = (client, countryIso, assessment) =>
   client.query(
     `UPDATE assessment
      SET status = $1
      WHERE country_iso = $2
      AND type = $3`,
-    [status, countryIso, assessmentType]
+    [assessment.status, countryIso, assessment.type]
   )
 
 module.exports.changeAssessmentStatus =
-  async (client, countryIso, user, assessmentType, status) => {
-    const currentAssessment = await getAssessment(client, countryIso, assessmentType)
-    const currentStatus = !currentAssessment ? 'editing' : currentAssessment.status
+  async (client, countryIso, user, assessmentType, newStatus) => {
+    const currentAssessmentFromDb = await getAssessment(client, countryIso, assessmentType)
+    const existsInDb = !!currentAssessmentFromDb
+    const currentAssessment = existsInDb
+      ? currentAssessmentFromDb
+      : {status: 'editing', deskStudy: false, type: assessmentType}
     const role = roleForCountry(countryIso, user)
-    checkStatusTransitionAllowance(currentStatus, status, role)
-    if (currentAssessment) {
-      await updateAssessment(client, countryIso, assessmentType, status)
+    checkStatusTransitionAllowance(currentAssessment.status, newStatus, role)
+    const newAssessment = {...currentAssessment, status: newStatus}
+    if (existsInDb) {
+      await updateAssessment(client, countryIso, newAssessment)
     } else {
-      await addAssessment(client, countryIso, assessmentType, status)
+      await addAssessment(client, countryIso, newAssessment)
     }
   }
 
