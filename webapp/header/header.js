@@ -90,7 +90,8 @@ const Header = ({status,
 const toggleNavigationControl = (toggleNavigationVisible, navigationVisible) => {
   const iconSuffix = navigationVisible ? '-left' : '-right'
   const text = navigationVisible ? 'Hide sidebar' : 'Show sidebar'
-  return <div onClick={toggleNavigationVisible}>
+  return <div className="header__toggle-navigation-visible"
+              onClick={toggleNavigationVisible}>
         <svg className="icon icon-middle">
           <use xlinkHref={`img/icons.svg#small${iconSuffix}`}/>
         </svg>
