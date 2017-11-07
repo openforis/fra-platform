@@ -73,7 +73,10 @@ const Header = ({status,
     width: `calc(100vw - ${subtractFromHeaderWidth}px)`
   }
   return <div className="header__container" style={style}>
-    { toggleNavigationControl(toggleNavigationVisible, navigationVisible) }
+    <ToggleNavigationControl
+      toggleNavigationVisible={toggleNavigationVisible}
+      navigationVisible={navigationVisible}
+      i18n={i18n} />
     {R.isNil(status)
       ? null
       : <div className={`header__autosave status-${status}`}>
@@ -87,15 +90,13 @@ const Header = ({status,
   </div>
 }
 
-const toggleNavigationControl = (toggleNavigationVisible, navigationVisible) => {
-  const iconSuffix = navigationVisible ? '-left' : '-right'
-  const text = navigationVisible ? 'Hide sidebar' : 'Show sidebar'
-  return <div className="header__toggle-navigation-visible"
-              onClick={toggleNavigationVisible}>
-        <svg className="icon icon-middle">
-          <use xlinkHref={`img/icons.svg#small${iconSuffix}`}/>
-        </svg>
-        {text}
+const ToggleNavigationControl = (props) => {
+  const localisationKey = props.navigationVisible ? 'hideSidebar' : 'showSidebar'
+  return <div className="header__toggle-navigation-visible" onClick={props.toggleNavigationVisible}>
+    <svg className="icon icon-sub">
+      <use xlinkHref="img/icons.svg#menu-left"/>
+    </svg>
+    {props.i18n.t('header.' + localisationKey)}
   </div>
 }
 

@@ -14,10 +14,10 @@
 }
 
 .header__toggle-navigation-visible {
-  cursor: pointer;
-  > .icon {
-    margin-bottom: 2px;
-    margin-right: 2px;
+  .mixin-header-menu-item;
+
+  .icon {
+    margin-right: 8px;
   }
 }
 
@@ -61,19 +61,7 @@
 }
 
 .header__menu-item {
-  padding: 20px 12px;
-  line-height: 20px;
-  cursor: pointer;
-  transition: @ease-out;
-
-  &:hover,
-  &.active {
-    color: @text-body;
-
-    .icon {
-      color: @text-body;
-    }
-  }
+  .mixin-header-menu-item;
 
   .icon {
     margin-left: 4px;
@@ -98,4 +86,21 @@
 @keyframes fadeOutCheck {
   from { opacity: 1 }
   to { opacity: 0 }
+}
+
+
+.mixin-header-menu-item() {
+  padding: 20px 12px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: @ease-out;
+
+  &:hover,
+  &.active {
+    color: @text-body;
+
+    .icon {
+      color: @text-body;
+    }
+  }
 }
