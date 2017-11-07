@@ -8,7 +8,7 @@ export default (columns, allowedClass, odp, allowGrow, rawPastedData, rowIndex, 
   const sanitizerFor = type =>
     type === 'decimal'
       ? acceptNextDecimal
-      : (type === 'integer' ? acceptNextInteger : R.identity)
+      : type === 'integer' ? acceptNextInteger : R.identity
 
   const updateOdp = (odp, rowNo, colNo, rawValue) => {
     if (R.isNil(columns[colNo])) return odp
@@ -16,10 +16,12 @@ export default (columns, allowedClass, odp, allowGrow, rawPastedData, rowIndex, 
     const fieldName = columns[colNo].name
     return originalDataPoint.updateNationalClass(odp, rowNo, fieldName, value)
   }
+
   const allowedClasses = R.filter(
     nc => !nc.placeHolder && allowedClass(nc),
     mapIndexed((nc, i) => ({...nc, rowIndex: i}), odp.nationalClasses)
   )
+
   const rowCount = allowedClasses.length
 
   const allowedIndexes = allowGrow
@@ -49,6 +51,8 @@ export default (columns, allowedClass, odp, allowGrow, rawPastedData, rowIndex, 
       {odp: odp, pastedRowIndex: 0},
       pastedData
     ).odp
+
   const firstPastedCellData = sanitizerFor(columns[colIndex].type)(pastedData[0][0])
+
   return {updatedOdp, firstPastedCellData}
 }

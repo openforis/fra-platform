@@ -111,7 +111,6 @@ const Cell = (props) => {
     : <td className="fra-table__cell">
         <ThousandSeparatedDecimalInput
           numberValue={value}
-          precision={2}
           onChange={e => props.updateValue(countryIso, areaValues, values, col.year, field, type, e.target.value)}
           onPaste={e => props.updateValues(countryIso, areaValues, values, readPasteClipboard(e, 'decimal'), type, props.cols, props.rowIdx, props.colIdx)}
         />
