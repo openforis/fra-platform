@@ -150,7 +150,7 @@ class CommentThread extends React.Component {
 
 const ReviewHeader = ({title, close, userInfo, countryIso, section, target, issueId, issueStatus, markIssueAsResolved, i18n}) =>
   <div className="fra-review__header">
-    <h2 className="fra-review__header-title subhead">{i18n.t('review.comments')}</h2>
+    <div className="fra-review__header-title">{i18n.t('review.comments')}</div>
     <div className="fra-review__header-close-btn" onClick={e => close(e)}>
       <svg className="icon">
         <use xlinkHref="img/icons.svg#remove"/>
