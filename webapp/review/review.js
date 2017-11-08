@@ -188,42 +188,46 @@ class ReviewPanel extends React.Component {
     }, [this])
     const i18n = this.props.i18n
 
-    return <div className={`fra-review-${isActive ? 'active' : 'hidden'}`}>
-      <ReviewHeader
-        title={title}
-        close={close}
-        userInfo={this.props.userInfo}
-        countryIso={this.props.country}
-        section={section}
-        target={target}
-        issueId={issueId}
-        issueStatus={issueStatus}
-        markIssueAsResolved={this.props.markIssueAsResolved}
-        i18n={i18n}
-      />
-      <CommentThread
-        comments={comments}
-        userInfo={this.props.userInfo}
-        countryIso={this.props.country}
-        section={section}
-        target={target}
-        markCommentAsDeleted={this.props.markCommentAsDeleted}
-        issueStatus={issueStatus}
-        i18n={i18n}
-      />
-      <AddComment
-        issueId={issueId}
-        countryIso={this.props.country}
-        section={section}
-        target={target}
-        postComment={this.props.postComment}
-        onCancel={close}
-        isFirst={comments.length === 0}
-        userInfo={this.props.userInfo}
-        issueStatus={issueStatus}
-        i18n={i18n}
-      />
-    </div>
+    return isActive
+    ? <div className="fra-review__container">
+        <div className="fra-review">
+          <ReviewHeader
+            title={title}
+            close={close}
+            userInfo={this.props.userInfo}
+            countryIso={this.props.country}
+            section={section}
+            target={target}
+            issueId={issueId}
+            issueStatus={issueStatus}
+            markIssueAsResolved={this.props.markIssueAsResolved}
+            i18n={i18n}
+          />
+          <CommentThread
+            comments={comments}
+            userInfo={this.props.userInfo}
+            countryIso={this.props.country}
+            section={section}
+            target={target}
+            markCommentAsDeleted={this.props.markCommentAsDeleted}
+            issueStatus={issueStatus}
+            i18n={i18n}
+          />
+          <AddComment
+            issueId={issueId}
+            countryIso={this.props.country}
+            section={section}
+            target={target}
+            postComment={this.props.postComment}
+            onCancel={close}
+            isFirst={comments.length === 0}
+            userInfo={this.props.userInfo}
+            issueStatus={issueStatus}
+            i18n={i18n}
+          />
+        </div>
+      </div>
+    : null
   }
 }
 

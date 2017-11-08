@@ -70,7 +70,7 @@ class CountrySelectionItem extends React.Component {
 }
 
 const CountryList = ({isOpen, countries, currentCountry, i18n}) => {
-  if (!isOpen) return <noscript/>
+  if (!isOpen) return null
   return <div className="nav__country-list">
     <div className="nav__country-list-content">
       {
@@ -135,7 +135,7 @@ const changeStateLink = (countryIso, assessmentType, currentStatus, targetStatus
 
 const PrimaryItem = ({label, countryIso, assessmentType, assessmentStatuses, changeAssessmentStatus, userInfo, i18n}) => {
   if (!countryIso || !userInfo)
-    return <noscript/>
+    return null
 
   const currentAssessmentStatus = R.path([assessmentType], assessmentStatuses)
   const allowedTransitions = getAllowedStatusTransitions(roleForCountry(countryIso, userInfo), currentAssessmentStatus)
@@ -360,7 +360,7 @@ class NavigationSync extends React.Component {
     if (this.props.navigationVisible) {
       return <Nav {...this.props} />
     }
-    return <noscript/>
+    return null
   }
 }
 

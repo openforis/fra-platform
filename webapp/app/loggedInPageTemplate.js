@@ -8,15 +8,14 @@ import { connect } from 'react-redux'
 import ErrorComponent from '../applicationError/errorComponent'
 
 const template = ({children, commentsOpen}) => {
-  const containerClass = commentsOpen ? 'fra-view__container commenting-visible' : 'fra-view__container'
   return <div className="app__root">
     <Navigation/>
-    <ErrorComponent/>
-    <div className={containerClass}>
+    <Header />
+    <div className="fra-view__container">
       { children }
     </div>
-    <Header />
     <Review />
+    <ErrorComponent/>
   </div>
 }
 
