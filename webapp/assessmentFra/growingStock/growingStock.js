@@ -56,7 +56,6 @@ const getArea = (areaValues, year, areaFields) => R.pipe(
 
 const updateMirrorValue = (areaValues, year, field, type, obj) => {
   const area = getArea(areaValues, year, getAreaFields(field))
-  console.log('is area nil', R.isNil(area))
   if (!greaterThanOrEqualTo(area, 0)) return obj
   return type === 'avg'
     ? R.assoc(field, div(mul(R.prop(`${field}Avg`, obj), area), 1000))(obj)

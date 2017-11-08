@@ -101,6 +101,7 @@ const Row = (props) => {
 
 const Cell = (props) => {
   const {countryIso, col, type, field, areaValues, values, calculated} = props
+
   const value = R.pipe(
     R.find(v => eq(v.year, col.year)),
     R.defaultTo({}),
@@ -119,16 +120,17 @@ const Cell = (props) => {
     R.defaultTo({})
   )(values)
 
-  const whichTotal = type === 'avg'
-    ? props.rowIdx === 1
-      ? sum([currentCol.otherPlantedForestAvg, currentCol.plantationForestAvg])
-      : sum([currentCol.naturallyRegeneratingForestAvg, currentCol.otherPlantedForestAvg, currentCol.plantationForestAvg])
-    : props.rowIdx === 1
-      ? sum([currentCol.otherPlantedForest, currentCol.plantationForest])
-      : sum([currentCol.naturallyRegeneratingForest, currentCol.otherPlantedForest, currentCol.plantationForest])
+  const totalSums = {
+    plantedForestAvg: sum([currentCol.otherPlantedForestAvg, currentCol.plantationForestAvg]),
+    totalForestAvg: sum([currentCol.naturallyRegeneratingForestAvg, currentCol.otherPlantedForestAvg, currentCol.plantationForestAvg]),
+    plantedForest: sum([currentCol.otherPlantedForest, currentCol.plantationForest]),
+    totalForest: sum([currentCol.naturallyRegeneratingForest, currentCol.otherPlantedForest, currentCol.plantationForest])
+  }
+
+  const totalField = type === 'avg' ? field + 'Avg' : field
 
   return calculated
-    ? <td className="fra-table__calculated-cell">{formatDecimal(whichTotal)}</td>
+    ? <td className="fra-table__calculated-cell">{formatDecimal(totalSums[totalField])}</td>
     : <td className="fra-table__cell">
         <ThousandSeparatedDecimalInput
           numberValue={value}
