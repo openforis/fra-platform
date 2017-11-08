@@ -20,7 +20,6 @@ const GrowingStockTable = (props) => {
         {...props}
         categoriesHeader={props.header}
         colsHeader={props.avgTableHeader}
-        cols={cols}
         areaValues={cols}
         type='avg' />
     </div>
@@ -29,7 +28,6 @@ const GrowingStockTable = (props) => {
         {...props}
         categoriesHeader={props.header}
         colsHeader={props.totalTableHeader}
-        cols={cols}
         areaValues={cols}
         type='total' />
     </div>
@@ -37,17 +35,17 @@ const GrowingStockTable = (props) => {
 }
 
 const Table = (props) => {
-  const {cols, rows} = props
+  const {areaValues, rows} = props
 
   return <table className="fra-table">
     <thead>
     <tr>
       <th rowSpan="2" className="fra-table__header-cell-left">{props.categoriesHeader}</th>
-      <th colSpan={cols.length} className="fra-table__header-cell">{props.colsHeader}</th>
+      <th colSpan={areaValues.length} className="fra-table__header-cell">{props.colsHeader}</th>
     </tr>
     <tr>
       {
-        cols.map(v =>
+        areaValues.map(v =>
           <th className="fra-table__header-cell" key={`${v.name}`}>
             {v.name}
           </th>)
@@ -69,7 +67,7 @@ const Table = (props) => {
 }
 
 const Row = (props) => {
-  const {openCommentThread, i18n, row, cols, type} = props
+  const {openCommentThread, i18n, row, areaValues, type} = props
 
   return <tr
     className={openCommentThread && R.equals(openCommentThread.target, [row.field, type]) ? 'fra-row-comments__open' : ''}>
@@ -83,7 +81,7 @@ const Row = (props) => {
       {i18n.t(row.labelKey) }
     </th>
     {
-      cols.map((col, i) =>
+      areaValues.map((col, i) =>
         <Cell
           key={`${row.field}${col.name}`}
           field={row.field}
@@ -110,7 +108,6 @@ const Cell = (props) => {
   const {countryIso, col, type, field, areaValues, values, calculated} = props
   const totalField = type === 'avg' ? field + 'Avg' : field
 
-
   const value = R.pipe(
     R.find(v => eq(v.year, col.year)),
     R.defaultTo({}),
@@ -136,7 +133,7 @@ const Cell = (props) => {
         <ThousandSeparatedDecimalInput
           numberValue={value}
           onChange={e => props.updateValue(countryIso, areaValues, values, col.year, field, type, e.target.value)}
-          onPaste={e => props.updateValues(countryIso, areaValues, values, readPasteClipboard(e, 'decimal'), type, props.cols, props.rowIdx, props.colIdx)}
+          onPaste={e => props.updateValues(countryIso, areaValues, values, readPasteClipboard(e, 'decimal'), type, props.rowIdx, props.colIdx)}
         />
       </td>
 }

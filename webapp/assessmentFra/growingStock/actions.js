@@ -22,9 +22,9 @@ export const updateValue = (countryIso, areaValues, values, year, field, type, v
   dispatch(persistUpdatedValues(countryIso, updatedValues))
 }
 
-export const updateValues = (countryIso, areaValues, growingStockValues, data, type, cols, rowIdx, colIdx) => dispatch => {
+export const updateValues = (countryIso, areaValues, growingStockValues, data, type, rowIdx, colIdx) => dispatch => {
   dispatch(autosave.start)
-  const updatedValues = updateGrowingStockValues(areaValues, growingStockValues, data, type, cols, rowIdx, colIdx)
+  const updatedValues = updateGrowingStockValues(areaValues, growingStockValues, data, type, rowIdx, colIdx)
   dispatch({type: growingStockUpdateStart, data: updatedValues})
   dispatch(persistUpdatedValues(countryIso, updatedValues))
 }
