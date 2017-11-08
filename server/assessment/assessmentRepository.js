@@ -37,10 +37,10 @@ const addAssessment = (client, countryIso, assessment) =>
   client.query(
     `INSERT INTO
       assessment 
-      (country_iso, type, status)  
+      (country_iso, type, status, desk_study)  
      VALUES 
-      ($1, $2, $3)`,
-    [countryIso, assessment.assessmentType, assessment.status]
+      ($1, $2, $3, $4)`,
+    [countryIso, assessment.assessmentType, assessment.status, assessment.deskStudy]
   )
 
 const updateAssessment = (client, countryIso, assessment) =>
