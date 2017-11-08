@@ -52,7 +52,14 @@
 
 // Commenting panel
 
-.mixin-review-base() {
+.fra-review__container {
+  position: relative;
+  width: 288px;
+  z-index: 1;
+  flex-shrink: 0;
+}
+
+.fra-review {
   position: fixed;
   width: 288px;
   height: 100%;
@@ -60,22 +67,6 @@
   flex-flow: column nowrap;
   background: white;
   border-left: @ui-thin-border;
-}
-
-.fra-review-active {
-  .mixin-review-base;
-  right: 0;
-  visibility: visible;
-  opacity: 1;
-  transition: @ease-out;
-}
-
-.fra-review-hidden {
- .mixin-review-base;
- right: -288px;
- visibility: hidden;
- opacity: 0;
- transition: @ease-out;
 }
 
 .fra-review__comment-thread {
@@ -88,7 +79,7 @@
 
 .fra-review__header {
   background-color: @ui-bg;
-  padding: 16px;
+  padding: 10px 16px;
   border-bottom: @ui-thin-border;
 }
 
@@ -101,7 +92,7 @@
 
 .fra-review__header-target {
   margin-top: 4px;
-  line-height: 20px;
+  font-size: @font-s;
 }
 
 .fra-review__header-button {

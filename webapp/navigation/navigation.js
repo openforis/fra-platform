@@ -70,7 +70,7 @@ class CountrySelectionItem extends React.Component {
 }
 
 const CountryList = ({isOpen, countries, currentCountry, i18n}) => {
-  if (!isOpen) return <noscript/>
+  if (!isOpen) return null
   return <div className="nav__country-list">
     <div className="nav__country-list-content">
       {
@@ -135,7 +135,7 @@ const changeStateLink = (countryIso, assessmentType, currentStatus, targetStatus
 
 const PrimaryItem = ({label, countryIso, assessmentType, assessmentStatuses, changeAssessmentStatus, userInfo, i18n}) => {
   if (!countryIso || !userInfo)
-    return <noscript/>
+    return null
 
   const currentAssessmentStatus = R.path([assessmentType], assessmentStatuses)
   const allowedTransitions = getAllowedStatusTransitions(roleForCountry(countryIso, userInfo), currentAssessmentStatus)
@@ -279,8 +279,8 @@ class Nav extends React.Component {
 
     const {userInfo, i18n, path, countries, country, changeAssessmentStatus, getCountryList} = this.props
 
-    return <div className="main__nav-wrapper">
-      <div className="main__nav">
+    return <div className="fra-nav__container">
+      <div className="fra-nav">
         <CountrySelectionItem name={country}
                               countries={countries}
                               listCountries={getCountryList}
@@ -357,11 +357,18 @@ class NavigationSync extends React.Component {
   }
 
   render () {
-    return <Nav {...this.props} />
+    if (this.props.navigationVisible) {
+      return <Nav {...this.props} />
+    }
+    return null
   }
 }
 
-const mapStateToProps = state => R.pipe(R.merge(state.navigation), R.merge(state.router))(state.user)
+const mapStateToProps = state => ({
+  ...state.navigation,
+  ...state.router,
+  ...state.user
+})
 
 export default connect(mapStateToProps, {
   follow,

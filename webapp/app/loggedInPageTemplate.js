@@ -8,20 +8,21 @@ import { connect } from 'react-redux'
 import ErrorComponent from '../applicationError/errorComponent'
 
 const template = ({children, commentsOpen}) => {
-  const containerClass = R.isNil(commentsOpen) ? 'fra-view__container' : 'fra-view__container commenting-visible'
-  const headerWidth = R.isNil(commentsOpen) ? 256: 544
   return <div className="app__root">
     <Navigation/>
-    <ErrorComponent/>
-    <div className={containerClass}>
+    <Header />
+    <div className="fra-view__container">
       { children }
     </div>
-    <Header width={headerWidth} />
     <Review />
+    <ErrorComponent/>
   </div>
 }
 
-const mapStateToProps = state => ({'commentsOpen': state.review.openThread})
+const mapStateToProps = state => ({
+  commentsOpen: !!state.review.openThread,
+  navigationVisible: state.navigation.navigationVisible
+})
 
 export default connect(mapStateToProps)(template)
 
