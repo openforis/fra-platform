@@ -20,7 +20,7 @@ const UserInfo = props => {
   }]
 
   return <PopoverControl items={userInfoItems}>
-    <div className="header__menu-item">
+    <div className="fra-header__menu-item">
       {props.userName}
       <svg className="icon icon-middle">
         <use xlinkHref="img/icons.svg#small-down"/>
@@ -40,7 +40,7 @@ const LanguageSelection = ({i18n, switchLanguage, ...props}) => {
   )
 
   return <PopoverControl items={languageSelectionItems}>
-    <div className="header__menu-item">
+    <div className="fra-header__menu-item">
       {i18n.t(`language.${i18n.language}`)}
       <svg className="icon icon-middle">
         <use xlinkHref="img/icons.svg#small-down"/>
@@ -72,27 +72,29 @@ const Header = ({status,
     left: `${navigationCurrentWidth}px`,
     width: `calc(100vw - ${subtractFromHeaderWidth}px)`
   }
-  return <div className="header__container" style={style}>
-    <ToggleNavigationControl
-      toggleNavigationVisible={toggleNavigationVisible}
-      navigationVisible={navigationVisible}
-      i18n={i18n} />
-    {R.isNil(status)
-      ? null
-      : <div className={`header__autosave status-${status}`}>
-          {autosaveStatusText(i18n, status, lastSaveTimeStamp)}
-        </div>
-    }
-    <div className="header__menu">
-      <LanguageSelection i18n={i18n} {...props}/>
-      <UserInfo userName={userInfo.name} i18n={i18n} {...props}/>
+  return <div className="fra-header__container" style={style}>
+    <div className="fra-header">
+      <ToggleNavigationControl
+        toggleNavigationVisible={toggleNavigationVisible}
+        navigationVisible={navigationVisible}
+        i18n={i18n} />
+      {R.isNil(status)
+        ? null
+        : <div className={`fra-header__autosave status-${status}`}>
+            {autosaveStatusText(i18n, status, lastSaveTimeStamp)}
+          </div>
+      }
+      <div className="fra-header__menu">
+        <LanguageSelection i18n={i18n} {...props}/>
+        <UserInfo userName={userInfo.name} i18n={i18n} {...props}/>
+      </div>
     </div>
   </div>
 }
 
 const ToggleNavigationControl = (props) => {
   const localisationKey = props.navigationVisible ? 'hideSidebar' : 'showSidebar'
-  return <div className="header__toggle-navigation-visible" onClick={props.toggleNavigationVisible}>
+  return <div className="fra-header__toggle-navigation-visible" onClick={props.toggleNavigationVisible}>
     <svg className="icon icon-sub">
       <use xlinkHref="img/icons.svg#menu-left"/>
     </svg>

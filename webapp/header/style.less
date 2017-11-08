@@ -1,19 +1,23 @@
 @import (reference) "../app-styles/config";
 
-.header__container {
+.fra-header__container {
   position: fixed;
-  top: 0;
+  height: 64px;
+  border-bottom: @ui-thin-border;
+}
+
+.fra-header {
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
   background: white;
-  border-bottom: @ui-thin-border;
   color: @text-mute;
-  height: 64px;
+  height: 100%;
   padding: 0 20px;
 }
 
-.header__toggle-navigation-visible {
+.fra-header__toggle-navigation-visible {
   .mixin-header-menu-item;
 
   .icon {
@@ -21,7 +25,7 @@
   }
 }
 
-.header__autosave {
+.fra-header__autosave {
   display: inline-block;
   line-height: 16px;
   padding: 8px 8px 8px 30px;
@@ -48,7 +52,7 @@
   }
 }
 
-.header__menu {
+.fra-header__menu {
   display: flex;
   align-items: center;
 
@@ -60,7 +64,7 @@
   }
 }
 
-.header__menu-item {
+.fra-header__menu-item {
   .mixin-header-menu-item;
 
   .icon {
