@@ -1,20 +1,31 @@
 @import (reference) "../app-styles/config";
 
-.header__container {
+.fra-header__container {
   position: fixed;
-  top: 0;
-  left: 256px;
+  height: 64px;
+  border-bottom: @ui-thin-border;
+}
+
+.fra-header {
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
   background: white;
-  border-bottom: @ui-thin-border;
   color: @text-mute;
-  height: 64px;
+  height: 100%;
   padding: 0 20px;
 }
 
-.header__autosave {
+.fra-header__toggle-navigation-visible {
+  .mixin-header-menu-item;
+
+  .icon {
+    margin-right: 8px;
+  }
+}
+
+.fra-header__autosave {
   display: inline-block;
   line-height: 16px;
   padding: 8px 8px 8px 30px;
@@ -41,7 +52,7 @@
   }
 }
 
-.header__menu {
+.fra-header__menu {
   display: flex;
   align-items: center;
 
@@ -53,20 +64,8 @@
   }
 }
 
-.header__menu-item {
-  padding: 20px 12px;
-  line-height: 20px;
-  cursor: pointer;
-  transition: @ease-out;
-
-  &:hover,
-  &.active {
-    color: @text-body;
-
-    .icon {
-      color: @text-body;
-    }
-  }
+.fra-header__menu-item {
+  .mixin-header-menu-item;
 
   .icon {
     margin-left: 4px;
@@ -91,4 +90,21 @@
 @keyframes fadeOutCheck {
   from { opacity: 1 }
   to { opacity: 0 }
+}
+
+
+.mixin-header-menu-item() {
+  padding: 20px 12px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: @ease-out;
+
+  &:hover,
+  &.active {
+    color: @text-body;
+
+    .icon {
+      color: @text-body;
+    }
+  }
 }
