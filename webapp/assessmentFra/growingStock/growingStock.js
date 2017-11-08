@@ -1,5 +1,5 @@
 import * as R from 'ramda'
-import { sum, mul, div, eq, toFixed } from '../../../common/bignumberUtils'
+import { sum, mul, div, eq, greaterThanOrEqualTo } from '../../../common/bignumberUtils'
 
 export const rows = [
   {
@@ -56,11 +56,10 @@ const getArea = (areaValues, year, areaFields) => R.pipe(
 
 const updateMirrorValue = (areaValues, year, field, type, obj) => {
   const area = getArea(areaValues, year, getAreaFields(field))
-  return area >= 0
-    ? type === 'avg'
-      ? R.assoc(field, toFixed(mul(R.prop(`${field}Avg`, obj), area)))(obj)
-      : R.assoc(`${field}Avg`, area === 0 ? 0 : toFixed(div(R.prop(field, obj), area)))(obj)
-    : obj
+  if (!greaterThanOrEqualTo(area, 0)) return obj
+  return type === 'avg'
+    ? R.assoc(field, div(mul(R.prop(`${field}Avg`, obj), area), 1000))(obj)
+    : R.assoc(`${field}Avg`, eq(area, 0) ? 0 : div(mul(R.prop(field, obj), 1000), area))(obj)
 }
 
 const getFieldValue = field => R.pipe(
@@ -68,22 +67,12 @@ const getFieldValue = field => R.pipe(
   R.defaultTo(0)
 )
 
-const calculateTotal = (obj, field) => sum(R.map(f => getFieldValue(f)(obj), getFields(field, 'sumFields')))
-
-const updateTotals = (areaValues, year) => R.pipe(
-  obj => R.assoc('plantedForest', calculateTotal(obj, 'plantedForest'), obj),
-  obj => R.assoc('totalForest', calculateTotal(obj, 'totalForest'), obj),
-  R.partial(updateMirrorValue, [areaValues, year, 'plantedForest', 'total']),
-  R.partial(updateMirrorValue, [areaValues, year, 'totalForest', 'total'])
-)
-
 export const updateGrowingStockValue = (areaValues, growingStockValues, year, field, type, value) => {
   const updatedValue = R.pipe(
     R.find(R.propEq('year', year)),
     R.defaultTo({year}),
     R.assoc(`${field}${type === 'avg' ? 'Avg' : ''}`, R.isEmpty(value) ? null : value),
-    R.partial(updateMirrorValue, [areaValues, year, field, type]),
-    updateTotals(areaValues, year)
+    R.partial(updateMirrorValue, [areaValues, year, field, type])
   )(growingStockValues)
 
   const index = R.findIndex(R.propEq('year', year), growingStockValues)

@@ -16,11 +16,7 @@ module.exports.readGrowingStock = countryIso =>
           other_planted_forest,
           other_planted_forest_avg,
           other_wooded_land,
-          other_wooded_land_avg,
-          planted_forest,
-          planted_forest_avg,
-          total_forest,
-          total_forest_avg
+          other_wooded_land_avg
       FROM
           growing_stock
       WHERE
@@ -36,11 +32,7 @@ module.exports.readGrowingStock = countryIso =>
         otherPlantedForest: row.other_planted_forest,
         otherPlantedForestAvg: row.other_planted_forest_avg,
         otherWoodedLand: row.other_wooded_land,
-        otherWoodedLandAvg: row.other_wooded_land_avg,
-        plantedForest: row.planted_forest,
-        plantedForestAvg: row.planted_forest_avg,
-        totalForest: row.total_forest,
-        totalForestAvg: row.total_forest_avg
+        otherWoodedLandAvg: row.other_wooded_land_avg
       })
     ))
 
@@ -61,19 +53,12 @@ module.exports.persistGrowingStock = (client, user, countryIso, values) =>
               other_planted_forest,
               other_planted_forest_avg,
               other_wooded_land,
-              other_wooded_land_avg,
-              planted_forest,
-              planted_forest_avg,
-              total_forest,
-              total_forest_avg
-              
+              other_wooded_land_avg
           )
-          VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14);`,
+          VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);`,
         [countryIso, value.year,
           value.naturallyRegeneratingForest, value.naturallyRegeneratingForestAvg,
           value.plantationForest, value.plantationForestAvg,
           value.otherPlantedForest, value.otherPlantedForestAvg,
-          value.otherWoodedLand, value.otherWoodedLandAvg,
-          value.plantedForest, value.plantedForestAvg,
-          value.totalForest, value.totalForestAvg])
+          value.otherWoodedLand, value.otherWoodedLandAvg])
     )))

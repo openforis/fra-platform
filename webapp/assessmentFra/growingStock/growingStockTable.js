@@ -4,7 +4,7 @@ import ReviewIndicator from '../../review/reviewIndicator'
 import { readPasteClipboard } from '../../utils/copyPasteUtil'
 import { ThousandSeparatedDecimalInput } from '../../reusableUiComponents/thousandSeparatedDecimalInput'
 import { formatDecimal } from '../../utils/numberFormat'
-import { eq } from '../../../common/bignumberUtils'
+import { sum, eq } from '../../../common/bignumberUtils'
 
 const GrowingStockTable = (props) => {
   const cols = R.filter(v => v.type !== 'odp', R.values(props.areaValues))
@@ -17,6 +17,8 @@ const GrowingStockTable = (props) => {
         cols={cols}
         type='avg'
         {...props} />
+    </div>
+    <div className="fra-table__scroll-wrapper">
       <Table
         categoriesHeader={props.header}
         colsHeader={props.totalTableHeader}
@@ -99,18 +101,40 @@ const Row = (props) => {
 
 const Cell = (props) => {
   const {countryIso, col, type, field, areaValues, values, calculated} = props
+
   const value = R.pipe(
     R.find(v => eq(v.year, col.year)),
     R.defaultTo({}),
     R.prop(`${field}${type === 'avg' ? 'Avg' : ''}`),
-    R.defaultTo(null),
+    R.defaultTo(null)
   )(values)
 
+  const hasFraData = R.pipe(
+    R.find(v => eq(v.year, col.year)),
+    R.defaultTo(null),
+    v => typeof v.year === 'number'
+  )(areaValues)
+
+  const currentCol = R.pipe(
+    R.find(v => eq(v.year, col.year)),
+    R.defaultTo({})
+  )(values)
+
+  const totalSums = {
+    plantedForestAvg: sum([currentCol.otherPlantedForestAvg, currentCol.plantationForestAvg]),
+    totalForestAvg: sum([currentCol.naturallyRegeneratingForestAvg, currentCol.otherPlantedForestAvg, currentCol.plantationForestAvg]),
+    plantedForest: sum([currentCol.otherPlantedForest, currentCol.plantationForest]),
+    totalForest: sum([currentCol.naturallyRegeneratingForest, currentCol.otherPlantedForest, currentCol.plantationForest])
+  }
+
+  const totalField = type === 'avg' ? field + 'Avg' : field
+
   return calculated
-    ? <td className="fra-table__calculated-cell">{formatDecimal(value)}</td>
+    ? <td className="fra-table__calculated-cell">{formatDecimal(totalSums[totalField])}</td>
     : <td className="fra-table__cell">
         <ThousandSeparatedDecimalInput
           numberValue={value}
+          disabled={hasFraData}
           onChange={e => props.updateValue(countryIso, areaValues, values, col.year, field, type, e.target.value)}
           onPaste={e => props.updateValues(countryIso, areaValues, values, readPasteClipboard(e, 'decimal'), type, props.cols, props.rowIdx, props.colIdx)}
         />
