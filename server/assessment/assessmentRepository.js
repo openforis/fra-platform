@@ -46,10 +46,10 @@ const addAssessment = (client, countryIso, assessment) =>
 const updateAssessment = (client, countryIso, assessment) =>
   client.query(
     `UPDATE assessment
-     SET status = $1
-     WHERE country_iso = $2
-     AND type = $3`,
-    [assessment.status, countryIso, assessment.assessmentType]
+     SET status = $1, desk_study = $2
+     WHERE country_iso = $3
+     AND type = $4`,
+    [assessment.status, assessment.deskStudy, countryIso, assessment.assessmentType]
   )
 
 module.exports.changeAssessment =
@@ -60,7 +60,9 @@ module.exports.changeAssessment =
       ? currentAssessmentFromDb
       : defaultAssessment(newAssessment.assessment)
     const role = roleForCountry(countryIso, user)
-    checkStatusTransitionAllowance(currentAssessment.status, newAssessment.status, role)
+    if (currentAssessment.status !== newAssessment.status) {
+      checkStatusTransitionAllowance(currentAssessment.status, newAssessment.status, role)
+    }
     if (existsInDb) {
       await updateAssessment(client, countryIso, newAssessment)
     } else {

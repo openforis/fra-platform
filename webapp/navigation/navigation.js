@@ -145,6 +145,11 @@ const PrimaryItem = ({label, countryIso, assessmentType, assessments, changeAsse
         }
       </div>
     </PopoverControl>
+    <input
+      type="checkbox"
+      checked={assessment.deskStudy}
+      onClick={ () => changeAssessment(countryIso, {...assessment, deskStudy: !assessment.deskStudy}) }
+    />
   </div>
 }
 
