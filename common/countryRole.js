@@ -34,7 +34,7 @@ const roleForCountry= (countryIso, userInfo) => {
 
 const hasUserRole = (countryIso, userInfo, roleObj) => roleForCountry(countryIso, userInfo).role === roleObj.role
 
-const isReviewer = (countryIso, userInfo) => hasUserRole(countryIso, userInfo, reviewer)
+const isReviewer = (countryIso, userInfo) => hasUserRole(countryIso, userInfo, reviewer) || hasUserRole(countryIso, userInfo, administrator)
 const isNationalCorrespondent = (countryIso, userInfo) => hasUserRole(countryIso, userInfo, nationalCorrespondent)
 const hasNoRole = (countryIso, userInfo) => hasUserRole(countryIso, userInfo, noRole)
 
