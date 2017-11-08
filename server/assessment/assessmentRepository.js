@@ -58,7 +58,7 @@ module.exports.changeAssessmentStatus =
     const existsInDb = !!currentAssessmentFromDb
     const currentAssessment = existsInDb
       ? currentAssessmentFromDb
-      : {status: 'editing', deskStudy: false, type: assessmentType}
+      : defaultAssessment(assessmentType)
     const role = roleForCountry(countryIso, user)
     checkStatusTransitionAllowance(currentAssessment.status, newStatus, role)
     const newAssessment = {...currentAssessment, status: newStatus}
@@ -69,14 +69,31 @@ module.exports.changeAssessmentStatus =
     }
   }
 
-module.exports.getAssessmentStatuses = (countryIso) =>
-  db.query(
+const defaultAssessment = (assessmentType) => ({status: 'editing', deskStudy: false, type: assessmentType})
+
+const defaultStatuses = R.pipe(
+  R.map(assessmentType => [assessmentType, defaultAssessment(assessmentType)]),
+  R.fromPairs
+)(['annuallyUpdated', 'fra2020'])
+
+module.exports.getAssessments = async (countryIso) => {
+  const rawResults = await db.query(
     `SELECT
        type AS assessment_type,
-       status
+       status,
+       desk_study
       FROM
         assessment
       WHERE
         country_iso = $1`,
     [countryIso]
-  ).then(result => R.map(camelize, result.rows))
+  )
+
+  const assessmentsFromDb = R.map(camelize, rawResults.rows)
+  const assessmentsAsObject = R.reduce(
+    (resultObj, status) => R.assoc(status.assessmentType, status, resultObj),
+    {},
+    assessmentsFromDb
+  )
+  return R.merge(defaultStatuses, assessmentsAsObject)
+}

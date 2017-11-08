@@ -118,26 +118,10 @@ const CountryRow = ({selectedCountry, country, i18n}) => {
   </Link>
 }
 
-const changeStateLink = (countryIso, assessmentType, currentStatus, targetStatus, changeAssessmentStatus, direction, i18n) => {
-
-  const label = currentStatus === 'changing'
-    ? i18n.t('navigation.assessmentStatus.changing.label')
-    : i18n.t(`navigation.assessmentStatus.${targetStatus}.${direction}`)
-
-  return <a
-    className={targetStatus ? 'nav__primary-assessment-action' : 'nav__primary-assessment-action--disabled'}
-    href="#"
-    onClick={(evt) => {
-      evt.preventDefault()
-      if (targetStatus) changeAssessmentStatus(countryIso, assessmentType, targetStatus)
-    }}>{label}</a>
-}
-
-const PrimaryItem = ({label, countryIso, assessmentType, assessmentStatuses, changeAssessmentStatus, userInfo, i18n}) => {
+const PrimaryItem = ({label, countryIso, assessmentType, assessments, changeAssessmentStatus, userInfo, i18n}) => {
   if (!countryIso || !userInfo)
     return <noscript/>
-
-  const currentAssessmentStatus = R.path([assessmentType], assessmentStatuses)
+  const currentAssessmentStatus = R.path([assessmentType, 'status'], assessments)
   const allowedTransitions = getAllowedStatusTransitions(roleForCountry(countryIso, userInfo), currentAssessmentStatus)
   const possibleAssesmentStatuses = [
     {direction: 'next', transition: allowedTransitions.next},
@@ -308,7 +292,7 @@ class Nav extends React.Component {
             <PrimaryItem label={i18n.t('navigation.fra2020')}
                          countryIso={country}
                          assessmentType="fra2020"
-                         assessmentStatuses={status.assessmentStatuses}
+                         assessments={status.assessments}
                          changeAssessmentStatus={changeAssessmentStatus}
                          userInfo={userInfo}
                          i18n={i18n}/>
