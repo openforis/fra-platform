@@ -101,6 +101,7 @@ const Row = (props) => {
 
 const Cell = (props) => {
   const {countryIso, col, type, field, areaValues, values, calculated} = props
+  const totalField = type === 'avg' ? field + 'Avg' : field
 
   const value = R.pipe(
     R.find(v => eq(v.year, col.year)),
@@ -108,12 +109,6 @@ const Cell = (props) => {
     R.prop(`${field}${type === 'avg' ? 'Avg' : ''}`),
     R.defaultTo(null)
   )(values)
-
-  const hasFraData = R.pipe(
-    R.find(v => eq(v.year, col.year)),
-    R.defaultTo(null),
-    v => typeof v.year === 'number'
-  )(areaValues)
 
   const currentCol = R.pipe(
     R.find(v => eq(v.year, col.year)),
@@ -127,14 +122,11 @@ const Cell = (props) => {
     totalForest: sum([currentCol.naturallyRegeneratingForest, currentCol.otherPlantedForest, currentCol.plantationForest])
   }
 
-  const totalField = type === 'avg' ? field + 'Avg' : field
-
   return calculated
     ? <td className="fra-table__calculated-cell">{formatDecimal(totalSums[totalField])}</td>
     : <td className="fra-table__cell">
         <ThousandSeparatedDecimalInput
           numberValue={value}
-          disabled={hasFraData}
           onChange={e => props.updateValue(countryIso, areaValues, values, col.year, field, type, e.target.value)}
           onPaste={e => props.updateValues(countryIso, areaValues, values, readPasteClipboard(e, 'decimal'), type, props.cols, props.rowIdx, props.colIdx)}
         />
