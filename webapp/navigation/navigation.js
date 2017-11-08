@@ -279,8 +279,8 @@ class Nav extends React.Component {
 
     const {userInfo, i18n, path, countries, country, changeAssessmentStatus, getCountryList} = this.props
 
-    return <div className="main__nav-wrapper">
-      <div className="main__nav">
+    return <div className="fra-nav__container">
+      <div className="fra-nav">
         <CountrySelectionItem name={country}
                               countries={countries}
                               listCountries={getCountryList}
