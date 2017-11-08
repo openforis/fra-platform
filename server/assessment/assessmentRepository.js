@@ -40,7 +40,7 @@ const addAssessment = (client, countryIso, assessment) =>
       (country_iso, type, status)  
      VALUES 
       ($1, $2, $3)`,
-    [countryIso, assessment.type, assessment.status]
+    [countryIso, assessment.assessmentType, assessment.status]
   )
 
 const updateAssessment = (client, countryIso, assessment) =>
@@ -49,19 +49,18 @@ const updateAssessment = (client, countryIso, assessment) =>
      SET status = $1
      WHERE country_iso = $2
      AND type = $3`,
-    [assessment.status, countryIso, assessment.type]
+    [assessment.status, countryIso, assessment.assessmentType]
   )
 
-module.exports.changeAssessmentStatus =
-  async (client, countryIso, user, assessmentType, newStatus) => {
-    const currentAssessmentFromDb = await getAssessment(client, countryIso, assessmentType)
+module.exports.changeAssessment =
+  async (client, countryIso, user, newAssessment) => {
+    const currentAssessmentFromDb = await getAssessment(client, countryIso, newAssessment.assessmentType)
     const existsInDb = !!currentAssessmentFromDb
     const currentAssessment = existsInDb
       ? currentAssessmentFromDb
-      : defaultAssessment(assessmentType)
+      : defaultAssessment(newAssessment.assessment)
     const role = roleForCountry(countryIso, user)
-    checkStatusTransitionAllowance(currentAssessment.status, newStatus, role)
-    const newAssessment = {...currentAssessment, status: newStatus}
+    checkStatusTransitionAllowance(currentAssessment.status, newAssessment.status, role)
     if (existsInDb) {
       await updateAssessment(client, countryIso, newAssessment)
     } else {
