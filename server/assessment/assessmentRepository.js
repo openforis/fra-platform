@@ -69,7 +69,13 @@ module.exports.changeAssessmentStatus =
     }
   }
 
-const defaultAssessment = (assessmentType) => ({status: 'editing', deskStudy: false, type: assessmentType})
+const defaultAssessment = (assessmentType) => ({
+  status: 'editing',
+  deskStudy: false,
+  //TODO remove usage of assessmentType as property throughout the code
+  type: assessmentType,
+  assessmentType: assessmentType
+})
 
 const defaultStatuses = R.pipe(
   R.map(assessmentType => [assessmentType, defaultAssessment(assessmentType)]),

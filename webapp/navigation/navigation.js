@@ -11,7 +11,7 @@ import { follow } from './../router/actions'
 import {
   getCountryList,
   fetchCountryOverviewStatus,
-  changeAssessmentStatus,
+  changeAssessment,
   navigationScroll
 } from './actions'
 import { fra2020Items } from './items'
@@ -118,10 +118,11 @@ const CountryRow = ({selectedCountry, country, i18n}) => {
   </Link>
 }
 
-const PrimaryItem = ({label, countryIso, assessmentType, assessments, changeAssessmentStatus, userInfo, i18n}) => {
-  if (!countryIso || !userInfo)
+const PrimaryItem = ({label, countryIso, assessmentType, assessments, changeAssessment, userInfo, i18n}) => {
+  const assessment = R.path([assessmentType], assessments)
+  if (!countryIso || !userInfo || !assessment)
     return <noscript/>
-  const currentAssessmentStatus = R.path([assessmentType, 'status'], assessments)
+  const currentAssessmentStatus = assessment.status
   const allowedTransitions = getAllowedStatusTransitions(roleForCountry(countryIso, userInfo), currentAssessmentStatus)
   const possibleAssesmentStatuses = [
     {direction: 'next', transition: allowedTransitions.next},
@@ -130,7 +131,7 @@ const PrimaryItem = ({label, countryIso, assessmentType, assessments, changeAsse
   const allowedAssesmentStatuses = R.filter(R.prop('transition'), possibleAssesmentStatuses)
   const assessmentStatusItems = R.map(targetStatus => ({
     label: i18n.t(`navigation.assessmentStatus.${targetStatus.transition}.${targetStatus.direction}`),
-    onClick: () => changeAssessmentStatus(countryIso, assessmentType, targetStatus.transition)
+    onClick: () => changeAssessment(countryIso, {...assessment, status: targetStatus.transition})
   }), allowedAssesmentStatuses)
 
   return <div className="nav__primary-item">
@@ -261,7 +262,7 @@ class Nav extends React.Component {
       R.defaultTo({issuesCount: 0})
     )(status.reviewStatus)
 
-    const {userInfo, i18n, path, countries, country, changeAssessmentStatus, getCountryList} = this.props
+    const {userInfo, i18n, path, countries, country, changeAssessment, getCountryList} = this.props
 
     return <div className="main__nav-wrapper">
       <div className="main__nav">
@@ -293,7 +294,7 @@ class Nav extends React.Component {
                          countryIso={country}
                          assessmentType="fra2020"
                          assessments={status.assessments}
-                         changeAssessmentStatus={changeAssessmentStatus}
+                         changeAssessment={changeAssessment}
                          userInfo={userInfo}
                          i18n={i18n}/>
             {
@@ -351,6 +352,6 @@ export default connect(mapStateToProps, {
   follow,
   getCountryList,
   fetchCountryOverviewStatus,
-  changeAssessmentStatus,
+  changeAssessment,
   navigationScroll
 })(NavigationSync)
