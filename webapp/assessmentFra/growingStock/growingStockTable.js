@@ -5,26 +5,33 @@ import { readPasteClipboard } from '../../utils/copyPasteUtil'
 import { ThousandSeparatedDecimalInput } from '../../reusableUiComponents/thousandSeparatedDecimalInput'
 import { formatDecimal } from '../../utils/numberFormat'
 import { sum, eq } from '../../../common/bignumberUtils'
+import { getOwlAreaForYear } from './growingStock'
 
 const GrowingStockTable = (props) => {
-  const cols = R.filter(v => v.type !== 'odp', R.values(props.areaValues))
+  const filterCols = R.filter(v => v.type !== 'odp', R.values(props.areaValues))
+  const cols = R.map(col => {
+    const owl = getOwlAreaForYear(props.extentOfForest, col.year)
+    return {...col, otherWoodedLand: owl}
+  }, filterCols)
 
   return <div className="fra-table__container">
     <div className="fra-table__scroll-wrapper">
       <Table
+        {...props}
         categoriesHeader={props.header}
         colsHeader={props.avgTableHeader}
         cols={cols}
-        type='avg'
-        {...props} />
+        areaValues={cols}
+        type='avg' />
     </div>
     <div className="fra-table__scroll-wrapper">
       <Table
+        {...props}
         categoriesHeader={props.header}
         colsHeader={props.totalTableHeader}
         cols={cols}
-        type='total'
-        {...props} />
+        areaValues={cols}
+        type='total' />
     </div>
   </div>
 }
@@ -102,6 +109,7 @@ const Row = (props) => {
 const Cell = (props) => {
   const {countryIso, col, type, field, areaValues, values, calculated} = props
   const totalField = type === 'avg' ? field + 'Avg' : field
+
 
   const value = R.pipe(
     R.find(v => eq(v.year, col.year)),
