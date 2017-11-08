@@ -48,7 +48,7 @@ class AddComment extends React.Component {
       </div>
       <div className="fra-review__footer-buttons">
         <button className="fra-review__footer-add-btn btn btn-primary btn-s"
-                disabled={!canAddComment()}
+                disabled={!canAddComment() || this.state.message === ''}
                 onClick={() => this.handleAddComment(this.props.issueId, this.props.countryIso, this.props.section, this.props.target, null, this.state.message)}>
           {this.props.i18n.t('review.add')}
         </button>
