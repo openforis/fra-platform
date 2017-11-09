@@ -3,7 +3,6 @@ import R from 'ramda'
 import React from 'react'
 import LoggedInPageTemplate from '../app/loggedInPageTemplate'
 import { connect } from 'react-redux'
-import { getCountryName } from '../../common/country'
 import { getRelativeDate } from '../utils/relativeDate'
 import { fetchAuditFeed } from '../audit/actions'
 import { Link } from './../reusableUiComponents/link'
@@ -47,15 +46,15 @@ const getSectionUrl = (item) => {
   return item.sectionName
 }
 
-const LinkList = ({title, links}) => {
-  return <ul className="link-list__container">
-    <li className="link-list__heading">
+const LinkList = ({title, items}) => {
+  return <ul className="dashboard__list">
+    <li className="dashboard__list-heading">
       <h3 className="subhead">{title}</h3>
     </li>
     {
-      links.map(link =>
-        <li className="link-list__item" key={link.url}>
-          <a href={link.url} className="link" target="_blank">{link.name}</a>
+      items.map(item =>
+        <li className="dashboard__list-item" key={item.url}>
+          <a href={item.url} className="link" target="_blank">{item.name}</a>
         </li>
       )
     }
@@ -121,32 +120,83 @@ class DashboardView extends React.Component {
     return <LoggedInPageTemplate>
       <div className="fra-view__content">
         <div className="dashboard__page-header">
-          <h1 className="title">{getCountryName(countryIso, i18n.language)}</h1>
+          <h1 className="title">FRA Platform</h1>
         </div>
         <div className="dashboard__container">
-          <div className="dashboard__activity">
-            <h3 className="subhead dashboard__activity-title">{i18n.t('dashboard.recentActivity')}</h3>
-            {
-              feed && feed.length > 0
-                ? mapIndexed((item, index) =>
-                  <ActivityItem
-                    key={index}
-                    i18n={i18n}
-                    countryIso={countryIso}
-                    item={item}
-                  />, feed)
-                : <div className="dashboard__activity-item">
-                    <span className="dashboard__activity-placeholder">{i18n.t('dashboard.noRecentActivity')}</span>
+          <div className="dashboard__main">
+            <div className="dashboard__header">
+              <ul className="dashboard__list">
+                <li className="dashboard__list-heading">
+                  <h3 className="subhead">{i18n.t('dashboard.timeline')}</h3>
+                </li>
+                <li className="dashboard__list-item">
+                  <div className="dashboard__list-icon">
+                    <svg className="icon"><use xlinkHref="img/icons.svg#checkbox"/></svg>
                   </div>
+                  <span className="dashboard__list-item-year">09.11.2017</span>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                </li>
+                <li className="dashboard__list-item">
+                  <div className="dashboard__list-icon">
+                    <svg className="icon"><use xlinkHref="img/icons.svg#checkbox"/></svg>
+                  </div>
+                  <span className="dashboard__list-item-year">09.11.2017</span>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                </li>
+                <li className="dashboard__list-item">
+                  <div className="dashboard__list-icon">
+                    <svg className="icon"><use xlinkHref="img/icons.svg#checkbox"/></svg>
+                  </div>
+                  <span className="dashboard__list-item-year">09.11.2017</span>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                </li>
+              </ul>
+            </div>
+            <h3 className="subhead dashboard__main-title">{i18n.t('dashboard.recentActivity')}</h3>
+            {
+              R.isNil(feed)
+                ? null
+                : feed.length > 0
+                  ? mapIndexed((item, index) =>
+                    <ActivityItem
+                      key={index}
+                      i18n={i18n}
+                      countryIso={countryIso}
+                      item={item}
+                    />, feed)
+                  : <div className="dashboard__activity-empty">
+                      <img src="img/tucan.svg" class="login__tucan" height="72"/>
+                      <h4 className="dashboard__activity-empty-title">Looks like there is no recent activity</h4>
+                      <p>Changes done in the platform will appear here so that you can get up to speed on what’s been happening while you were away.</p>
+                    </div>
             }
           </div>
           <div className="dashboard__sidebar">
             <LinkList
               title={i18n.t('dashboard.externalLinks.title')}
-              links={externalLinks}/>
+              items={externalLinks}/>
+            <div className="dashboard__block">
+              <h3 className="subhead dashboard__block-heading">{i18n.t('dashboard.about')}</h3>
+              <p>{i18n.t('dashboard.fraProcess')}</p>
+              <a href="http://www.fao.org/forest-resources-assessment/en/" target="_blank" className="link">{i18n.t('dashboard.linkFraProcess')}</a>
+            </div>
+            <div className="dashboard__block">
+              <h3 className="subhead dashboard__block-heading">{i18n.t('dashboard.contact')}</h3>
+              <p>
+                Firstname Lastname<br/>
+                firstname.lastname@fao.org<br/>
+                +358 40 123 4567
+              </p>
+              <p>
+                Firstname Lastname<br/>
+                firstname.lastname@fao.org<br/>
+                +358 40 123 4567
+              </p>
+            </div>
+            <img src="img/cfrq_logos.png" className="dashboard__logos"/>
+            <div className="dashboard__version">{i18n.t('navigation.support.platformVersion')} {__PLATFORM_VERSION__}</div>
           </div>
         </div>
-        <div className="dashboard__version">{i18n.t('navigation.support.platformVersion')} {__PLATFORM_VERSION__}</div>
       </div>
     </LoggedInPageTemplate>
   }
