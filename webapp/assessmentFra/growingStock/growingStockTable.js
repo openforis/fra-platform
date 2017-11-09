@@ -4,14 +4,15 @@ import ReviewIndicator from '../../review/reviewIndicator'
 import { readPasteClipboard } from '../../utils/copyPasteUtil'
 import { ThousandSeparatedDecimalInput } from '../../reusableUiComponents/thousandSeparatedDecimalInput'
 import { formatDecimal } from '../../utils/numberFormat'
-import { sum, eq } from '../../../common/bignumberUtils'
-import { getOwlAreaForYear } from './growingStock'
+import { sum, div, mul, eq } from '../../../common/bignumberUtils'
+import { getOwlAreaForYear, getForestAreaForYear } from './growingStock'
 
 const GrowingStockTable = (props) => {
   const filterCols = R.filter(v => v.type !== 'odp', R.values(props.areaValues))
   const cols = R.map(col => {
-    const owl = getOwlAreaForYear(props.extentOfForest, col.year)
-    return {...col, otherWoodedLand: owl}
+    const otherWoodedLand = getOwlAreaForYear(props.extentOfForest, col.year)
+    const forestArea = getForestAreaForYear(props.extentOfForest, col.year)
+    return {...col, otherWoodedLand, forestArea}
   }, filterCols)
 
   return <div className="fra-table__container">
@@ -115,16 +116,23 @@ const Cell = (props) => {
     R.defaultTo(null)
   )(values)
 
-  const currentCol = R.pipe(
+  const currentCol = (object) => R.pipe(
     R.find(v => eq(v.year, col.year)),
     R.defaultTo({})
-  )(values)
+  )(object)
+
+  const colAreaValues = currentCol(areaValues)
+  const colValues = currentCol(values)
+
+  const plantedForestSum = sum([colValues.plantationForest, colValues.otherPlantedForest])
+  const totalForestSum = sum([colValues.naturallyRegeneratingForest, colValues.plantationForest, colValues.otherPlantedForest])
+  const areaPlantedForestSum = sum([colAreaValues.plantationForestArea, colAreaValues.otherPlantedForestArea])
 
   const totalSums = {
-    plantedForestAvg: sum([currentCol.otherPlantedForestAvg, currentCol.plantationForestAvg]),
-    totalForestAvg: sum([currentCol.naturallyRegeneratingForestAvg, currentCol.otherPlantedForestAvg, currentCol.plantationForestAvg]),
-    plantedForest: sum([currentCol.otherPlantedForest, currentCol.plantationForest]),
-    totalForest: sum([currentCol.naturallyRegeneratingForest, currentCol.otherPlantedForest, currentCol.plantationForest])
+    plantedForestAvg: div(mul(plantedForestSum, 1000), areaPlantedForestSum),
+    totalForestAvg: div(mul(totalForestSum, 1000), colAreaValues.forestArea),
+    plantedForest: plantedForestSum,
+    totalForest: totalForestSum
   }
 
   return calculated
