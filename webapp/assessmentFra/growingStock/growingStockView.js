@@ -75,7 +75,8 @@ class GrowingStockView extends Component {
 const mapStateToProps = state => ({
   i18n: state.user.i18n,
   growingStock: state.growingStock,
-  'openCommentThread': state.review.openThread
+  openCommentThread: state.review.openThread,
+  extentOfForest: state.extentOfForest
 })
 
 export default connect(

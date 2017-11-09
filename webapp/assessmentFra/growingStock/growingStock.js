@@ -67,6 +67,12 @@ const getFieldValue = field => R.pipe(
   R.defaultTo(0)
 )
 
+export const getOwlAreaForYear = (extentOfForest, year) => {
+  if (!extentOfForest || R.isEmpty(extentOfForest)) return null
+  const groupedByYear = R.groupBy(R.prop('name'), extentOfForest.fra)
+  return R.path([year, 0, 'otherWoodedLand'], groupedByYear)
+}
+
 export const updateGrowingStockValue = (areaValues, growingStockValues, year, field, type, value) => {
   const updatedValue = R.pipe(
     R.find(R.propEq('year', year)),
@@ -83,7 +89,7 @@ export const updateGrowingStockValue = (areaValues, growingStockValues, year, fi
   return updatedValues
 }
 
-export const updateGrowingStockValues = (areaValues, growingStockValues, data, type, cols, rowIdx, colIdx) => {
+export const updateGrowingStockValues = (areaValues, growingStockValues, data, type, rowIdx, colIdx) => {
   const updatableRows = rows.filter(r => !r.calculated)
   let updatedValues = R.clone(growingStockValues)
 
@@ -97,8 +103,8 @@ export const updateGrowingStockValues = (areaValues, growingStockValues, data, t
     if (R.isNil(item)) return
     r.map((c, j) => {
       const col = colIdx + j
-      if (R.isNil(cols[col])) return
-      updatedValues = updateGrowingStockValue(areaValues, updatedValues, cols[col].year, item.field, type, c)
+      if (R.isNil(areaValues[col])) return
+      updatedValues = updateGrowingStockValue(areaValues, updatedValues, areaValues[col].year, item.field, type, c)
     })
   })
 
