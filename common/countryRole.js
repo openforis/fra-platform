@@ -38,14 +38,14 @@ const isReviewer = (countryIso, userInfo) => hasUserRole(countryIso, userInfo, r
 const isNationalCorrespondent = (countryIso, userInfo) => hasUserRole(countryIso, userInfo, nationalCorrespondent)
 const hasNoRole = (countryIso, userInfo) => hasUserRole(countryIso, userInfo, noRole)
 
-const isSuperUser = userInfo => hasRole('ADMINISTRATOR', userInfo.roles)
+const isAdministrator = userInfo => hasRole('ADMINISTRATOR', userInfo.roles)
 
 module.exports.getCountryRole = getCountryRole
 module.exports.roleForCountry = roleForCountry
 module.exports.isReviewer = isReviewer
 module.exports.isNationalCorrespondent = isNationalCorrespondent
 module.exports.hasNoRole = hasNoRole
-module.exports.isSuperUser = isSuperUser
+module.exports.isAdministrator = isAdministrator
 module.exports.reviewer = reviewer
 module.exports.nationalCorrespondent = nationalCorrespondent
 module.exports.collaborator = collaborator

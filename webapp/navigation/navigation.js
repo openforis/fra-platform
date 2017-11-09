@@ -17,6 +17,7 @@ import {
 import { fra2020Items } from './items'
 import { roleForCountry } from '../../common/countryRole'
 import { allowedToChangeRoles } from '../../common/userManagementAccessControl'
+import { isAdministrator } from '../../common/countryRole'
 import { getAllowedStatusTransitions } from '../../common/assessment'
 import { PopoverControl } from './../reusableUiComponents/popoverControl'
 
@@ -147,12 +148,16 @@ const PrimaryItem = ({label, countryIso, assessmentType, assessments, changeAsse
         }
       </div>
     </PopoverControl>
-    <input
-      type="checkbox"
-      checked={assessment.deskStudy}
-      disabled={currentAssessmentStatus === 'changing'}
-      onClick={() => changeAssessment(countryIso, {...assessment, deskStudy: !assessment.deskStudy})}
-    />
+    {
+      isAdministrator(userInfo)
+      ? <input
+        type="checkbox"
+        checked={assessment.deskStudy}
+        disabled={currentAssessmentStatus === 'changing'}
+        onClick={() => changeAssessment(countryIso, {...assessment, deskStudy: !assessment.deskStudy})}
+      />
+      : null
+    }
   </div>
 }
 

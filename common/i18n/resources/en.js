@@ -94,7 +94,8 @@ module.exports.translation = {
       countryDoesNotMatch: 'Error: country {{countyryIso}} does not match'
     },
     assessment: {
-      transitionNotAllowed: 'Error: Transition from {{currentStatus}} to {{status}} is not allowed for role {{role}}'
+      transitionNotAllowed: 'Error: Transition from {{currentStatus}} to {{status}} is not allowed for role {{role}}',
+      deskStudyNotAllowed: 'Error: Only administrator can change desk-study status'
     },
     review: {
       commentDeleteNotOwner: 'Error: User {{user}} tried to delete a comment that doesn\'t own',

@@ -2,9 +2,9 @@ const db = require('../db/db')
 const camelize = require('camelize')
 const R = require('ramda')
 
-const {roleForCountry} = require('../../common/countryRole')
-const {getAllowedStatusTransitions} = require('../../common/assessment')
-const {AccessControlException} = require('../utils/accessControl')
+const { roleForCountry, isAdministrator } = require('../../common/countryRole')
+const { getAllowedStatusTransitions } = require('../../common/assessment')
+const { AccessControlException } = require('../utils/accessControl')
 
 const checkStatusTransitionAllowance = (currentStatus, newStatus, role) => {
   const allowed = getAllowedStatusTransitions(role, currentStatus)
@@ -62,6 +62,9 @@ module.exports.changeAssessment =
     const role = roleForCountry(countryIso, user)
     if (currentAssessment.status !== newAssessment.status) {
       checkStatusTransitionAllowance(currentAssessment.status, newAssessment.status, role)
+    }
+    if (currentAssessment.deskStudy !== newAssessment.deskStudy && !isAdministrator(user)) {
+      throw new AccessControlException('error.assessment.deskStudyNotAllowed')
     }
     if (existsInDb) {
       await updateAssessment(client, countryIso, newAssessment)
