@@ -64,7 +64,8 @@ module.exports.translation = {
     about: 'About',
     contact: 'Contact',
     recentActivity: 'Recent activity',
-    noRecentActivity: 'No recent activity',
+    noRecentActivityTitle: 'Looks like there’s no recent activity',
+    noRecentActivityBody: 'Changes done in the platform will appear here, so that you can get up to speed on what’s been happening while you were away.',
     externalLinks: {
       title: 'External links',
       nationalFocalPoints: 'National focal points',

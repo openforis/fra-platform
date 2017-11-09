@@ -166,8 +166,8 @@ class DashboardView extends React.Component {
                     />, feed)
                   : <div className="dashboard__activity-empty">
                       <img src="img/tucan.svg" class="login__tucan" height="72"/>
-                      <h4 className="dashboard__activity-empty-title">Looks like there is no recent activity</h4>
-                      <p>Changes done in the platform will appear here so that you can get up to speed on what’s been happening while you were away.</p>
+                      <p className="dashboard__activity-empty-title">{i18n.t('dashboard.noRecentActivityTitle')}</p>
+                      <p>{i18n.t('dashboard.noRecentActivityBody')}</p>
                     </div>
             }
           </div>
