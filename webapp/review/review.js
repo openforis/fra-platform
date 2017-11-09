@@ -97,51 +97,53 @@ class CommentThread extends React.Component {
 
     return <div ref="commentScroller" className="fra-review__comment-thread">
       {
-        comments && R.not(R.isEmpty(comments))
-          ? mapIndexed((c, i) =>
-            <div key={i} className={`fra-review__comment ${ isCommentDeleted(c) ? 'fra-review__comment-deleted' : ''}`}>
-              <div className="fra-review__comment-header">
-                <img className="fra-review__comment-avatar" src={`https://www.gravatar.com/avatar/${c.hash}?default=mm`}/>
-                <div className="fra-review__comment-author-section">
-                  <div className={`fra-review__comment-author ${isThisMe(c) ? 'author-me' : ''}`}>
-                    {c.username}
-                  </div>
-                  {
-                    isThisMe(c) && !isCommentDeleted(c) && !isCommentStatusResolved(c) && issueStatus !== 'resolved'
-                    ? <button className="btn fra-review__comment-delete-button"
-                              onClick={() => {
-                                if(window.confirm(i18n.t('review.confirmDelete'))) {
-                                  markCommentAsDeleted(countryIso, section, target, c.commentId)
-                                }
-                              } }>
-                        {i18n.t('review.delete')}
-                      </button>
-                    : null
-                  }
-                  <div className="fra-review__comment-time">
+        R.isNil(comments)
+          ? null
+          : R.not(R.isEmpty(comments))
+            ? mapIndexed((c, i) =>
+              <div key={i} className={`fra-review__comment ${ isCommentDeleted(c) ? 'fra-review__comment-deleted' : ''}`}>
+                <div className="fra-review__comment-header">
+                  <img className="fra-review__comment-avatar" src={`https://www.gravatar.com/avatar/${c.hash}?default=mm`}/>
+                  <div className="fra-review__comment-author-section">
+                    <div className={`fra-review__comment-author ${isThisMe(c) ? 'author-me' : ''}`}>
+                      {c.username}
+                    </div>
                     {
-                      isCommentDeleted(c)
-                      ? i18n.t('review.commentDeleted')
-                      : (getRelativeDate(c.addedTime, i18n) || i18n.t('time.aMomentAgo'))
+                      isThisMe(c) && !isCommentDeleted(c) && !isCommentStatusResolved(c) && issueStatus !== 'resolved'
+                      ? <button className="btn fra-review__comment-delete-button"
+                                onClick={() => {
+                                  if(window.confirm(i18n.t('review.confirmDelete'))) {
+                                    markCommentAsDeleted(countryIso, section, target, c.commentId)
+                                  }
+                                } }>
+                          {i18n.t('review.delete')}
+                        </button>
+                      : null
                     }
+                    <div className="fra-review__comment-time">
+                      {
+                        isCommentDeleted(c)
+                        ? i18n.t('review.commentDeleted')
+                        : (getRelativeDate(c.addedTime, i18n) || i18n.t('time.aMomentAgo'))
+                      }
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="fra-review__comment-text">
-                {
-                  isCommentStatusResolved(c)
-                  ? i18n.t('review.commentMarkedAsResolved')
-                  : c.message
-                }
-              </div>
-            </div>,
-          comments)
-          : <div className='fra-review__comment-placeholder'>
-            <svg className="fra-review__comment-placeholder-icon icon-24">
-              <use xlinkHref="img/icons.svg#chat-46"/>
-            </svg>
-            <span className="fra-review__comment-placeholder-text">{i18n.t('review.noComments')}</span>
-          </div>
+                <div className="fra-review__comment-text">
+                  {
+                    isCommentStatusResolved(c)
+                    ? i18n.t('review.commentMarkedAsResolved')
+                    : c.message
+                  }
+                </div>
+              </div>,
+              comments)
+            : <div className='fra-review__comment-placeholder'>
+              <svg className="fra-review__comment-placeholder-icon icon-24">
+                <use xlinkHref="img/icons.svg#chat-46"/>
+              </svg>
+              <span className="fra-review__comment-placeholder-text">{i18n.t('review.noComments')}</span>
+            </div>
       }
     </div>
 
