@@ -48,7 +48,7 @@ class AddComment extends React.Component {
       </div>
       <div className="fra-review__footer-buttons">
         <button className="fra-review__footer-add-btn btn btn-primary btn-s"
-                disabled={!canAddComment()}
+                disabled={!canAddComment() || this.state.message === ''}
                 onClick={() => this.handleAddComment(this.props.issueId, this.props.countryIso, this.props.section, this.props.target, null, this.state.message)}>
           {this.props.i18n.t('review.add')}
         </button>
@@ -150,7 +150,7 @@ class CommentThread extends React.Component {
 
 const ReviewHeader = ({title, close, userInfo, countryIso, section, target, issueId, issueStatus, markIssueAsResolved, i18n}) =>
   <div className="fra-review__header">
-    <h2 className="fra-review__header-title subhead">{i18n.t('review.comments')}</h2>
+    <div className="fra-review__header-title">{i18n.t('review.comments')}</div>
     <div className="fra-review__header-close-btn" onClick={e => close(e)}>
       <svg className="icon">
         <use xlinkHref="img/icons.svg#remove"/>
@@ -188,42 +188,46 @@ class ReviewPanel extends React.Component {
     }, [this])
     const i18n = this.props.i18n
 
-    return <div className={`fra-review-${isActive ? 'active' : 'hidden'}`}>
-      <ReviewHeader
-        title={title}
-        close={close}
-        userInfo={this.props.userInfo}
-        countryIso={this.props.country}
-        section={section}
-        target={target}
-        issueId={issueId}
-        issueStatus={issueStatus}
-        markIssueAsResolved={this.props.markIssueAsResolved}
-        i18n={i18n}
-      />
-      <CommentThread
-        comments={comments}
-        userInfo={this.props.userInfo}
-        countryIso={this.props.country}
-        section={section}
-        target={target}
-        markCommentAsDeleted={this.props.markCommentAsDeleted}
-        issueStatus={issueStatus}
-        i18n={i18n}
-      />
-      <AddComment
-        issueId={issueId}
-        countryIso={this.props.country}
-        section={section}
-        target={target}
-        postComment={this.props.postComment}
-        onCancel={close}
-        isFirst={comments.length === 0}
-        userInfo={this.props.userInfo}
-        issueStatus={issueStatus}
-        i18n={i18n}
-      />
-    </div>
+    return isActive
+    ? <div className="fra-review__container">
+        <div className="fra-review">
+          <ReviewHeader
+            title={title}
+            close={close}
+            userInfo={this.props.userInfo}
+            countryIso={this.props.country}
+            section={section}
+            target={target}
+            issueId={issueId}
+            issueStatus={issueStatus}
+            markIssueAsResolved={this.props.markIssueAsResolved}
+            i18n={i18n}
+          />
+          <CommentThread
+            comments={comments}
+            userInfo={this.props.userInfo}
+            countryIso={this.props.country}
+            section={section}
+            target={target}
+            markCommentAsDeleted={this.props.markCommentAsDeleted}
+            issueStatus={issueStatus}
+            i18n={i18n}
+          />
+          <AddComment
+            issueId={issueId}
+            countryIso={this.props.country}
+            section={section}
+            target={target}
+            postComment={this.props.postComment}
+            onCancel={close}
+            isFirst={comments.length === 0}
+            userInfo={this.props.userInfo}
+            issueStatus={issueStatus}
+            i18n={i18n}
+          />
+        </div>
+      </div>
+    : null
   }
 }
 

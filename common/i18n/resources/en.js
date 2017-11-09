@@ -158,6 +158,8 @@ module.exports.translation = {
   header: {
     profilePicture: 'Edit profile picture',
     logout: 'Logout',
+    hideSidebar: 'Hide sidebar',
+    showSidebar: 'Show sidebar',
     autoSave: {
       saving: 'Saving…',
       complete: 'All changes saved',

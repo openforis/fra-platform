@@ -52,7 +52,14 @@
 
 // Commenting panel
 
-.mixin-review-base() {
+.fra-review__container {
+  position: relative;
+  width: 288px;
+  z-index: 1;
+  flex-shrink: 0;
+}
+
+.fra-review {
   position: fixed;
   width: 288px;
   height: 100%;
@@ -60,22 +67,6 @@
   flex-flow: column nowrap;
   background: white;
   border-left: @ui-thin-border;
-}
-
-.fra-review-active {
-  .mixin-review-base;
-  right: 0;
-  visibility: visible;
-  opacity: 1;
-  transition: @ease-out;
-}
-
-.fra-review-hidden {
- .mixin-review-base;
- right: -288px;
- visibility: hidden;
- opacity: 0;
- transition: @ease-out;
 }
 
 .fra-review__comment-thread {
@@ -87,25 +78,38 @@
 // Header
 
 .fra-review__header {
+  display: flex;
+  position: relative;
+  flex-flow: column nowrap;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 12px 16px 11px 16px;
+  min-height: 64px;
+  border-bottom: 1px solid @ui-border;
   background-color: @ui-bg;
-  padding: 16px;
-  border-bottom: @ui-thin-border;
 }
 
 .fra-review__header-close-btn {
   position: absolute;
   cursor: pointer;
-  right: 16px;
-  top: 18px;
+  right: 14px;
+  top: 14px;
+}
+
+.fra-review__header-title {
+  font-weight: 700;
+  line-height: 20px;
 }
 
 .fra-review__header-target {
   margin-top: 4px;
-  line-height: 20px;
+  font-size: @font-s;
+  line-height: 16px;
 }
 
 .fra-review__header-button {
   margin-top: 8px;
+  margin-bottom: 4px;
 }
 
 // Footer

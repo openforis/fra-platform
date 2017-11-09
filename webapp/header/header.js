@@ -4,6 +4,7 @@ import * as R from 'ramda'
 import React from 'react'
 import { connect } from 'react-redux'
 import { logout, switchLanguage } from '../user/actions'
+import { toggleNavigationVisible } from '../navigation/actions'
 import { getRelativeDate } from '../utils/relativeDate'
 import { PopoverControl } from './../reusableUiComponents/popoverControl'
 
@@ -19,7 +20,7 @@ const UserInfo = props => {
   }]
 
   return <PopoverControl items={userInfoItems}>
-    <div className="header__menu-item">
+    <div className="fra-header__menu-item">
       {props.userName}
       <svg className="icon icon-middle">
         <use xlinkHref="img/icons.svg#small-down"/>
@@ -39,7 +40,7 @@ const LanguageSelection = ({i18n, switchLanguage, ...props}) => {
   )
 
   return <PopoverControl items={languageSelectionItems}>
-    <div className="header__menu-item">
+    <div className="fra-header__menu-item">
       {i18n.t(`language.${i18n.language}`)}
       <svg className="icon icon-middle">
         <use xlinkHref="img/icons.svg#small-down"/>
@@ -55,27 +56,58 @@ const autosaveStatusText = (i18n, status, lastSaveTimeStamp) => {
     : statusTextTranslation
 }
 
-const Header = ({status, userInfo, lastSaveTimeStamp, width, i18n, ...props}) => {
-  const style = {width: `calc(100vw - ${width}px)`}
-  return <div className="header__container" style={style}>
-    {/* Placeholder for space-between flexbox alignment */}
-    <div/>
-    {R.isNil(status)
-      ? null
-      : <div className={`header__autosave status-${status}`}>
-          {autosaveStatusText(i18n, status, lastSaveTimeStamp)}
-        </div>
-    }
-    <div className="header__menu">
-      <LanguageSelection i18n={i18n} {...props}/>
-      <UserInfo userName={userInfo.name} i18n={i18n} {...props}/>
+const Header = ({status,
+                  userInfo,
+                  lastSaveTimeStamp,
+                  i18n,
+                  toggleNavigationVisible,
+                  navigationVisible,
+                  commentsOpen,
+                  ...props}) => {
+  const commentColumnCurrentWidth = commentsOpen ? 288 : 0
+  const navigationCurrentWidth = navigationVisible ? 256 : 0
+  const subtractFromHeaderWidth = commentColumnCurrentWidth + navigationCurrentWidth
+
+  const style = {
+    left: `${navigationCurrentWidth}px`,
+    width: `calc(100vw - ${subtractFromHeaderWidth}px)`
+  }
+  return <div className="fra-header__container" style={style}>
+    <div className="fra-header">
+      <ToggleNavigationControl
+        toggleNavigationVisible={toggleNavigationVisible}
+        navigationVisible={navigationVisible}
+        i18n={i18n} />
+      {R.isNil(status)
+        ? null
+        : <div className={`fra-header__autosave status-${status}`}>
+            {autosaveStatusText(i18n, status, lastSaveTimeStamp)}
+          </div>
+      }
+      <div className="fra-header__menu">
+        <LanguageSelection i18n={i18n} {...props}/>
+        <UserInfo userName={userInfo.name} i18n={i18n} {...props}/>
+      </div>
     </div>
   </div>
 }
 
-const mapStateToProps = state =>
-  R.pipe(
-    R.merge(state.autoSave),
-    R.merge(state.user))(state.router)
+const ToggleNavigationControl = (props) => {
+  const localisationKey = props.navigationVisible ? 'hideSidebar' : 'showSidebar'
+  return <div className="fra-header__toggle-navigation-visible" onClick={props.toggleNavigationVisible}>
+    <svg className="icon icon-sub">
+      <use xlinkHref="img/icons.svg#menu-left"/>
+    </svg>
+    {props.i18n.t('header.' + localisationKey)}
+  </div>
+}
 
-export default connect(mapStateToProps, {logout, switchLanguage})(Header)
+const mapStateToProps = state => ({
+  ...state.autoSave,
+  ...state.user,
+  ...state.router,
+  commentsOpen: state.review.openThread,
+  navigationVisible: state.navigation.navigationVisible
+})
+
+export default connect(mapStateToProps, {logout, switchLanguage, toggleNavigationVisible})(Header)
