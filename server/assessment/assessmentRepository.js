@@ -40,7 +40,7 @@ const addAssessment = (client, countryIso, assessment) =>
       (country_iso, type, status, desk_study)  
      VALUES 
       ($1, $2, $3, $4)`,
-    [countryIso, assessment.assessmentType, assessment.status, assessment.deskStudy]
+    [countryIso, assessment.type, assessment.status, assessment.deskStudy]
   )
 
 const updateAssessment = (client, countryIso, assessment) =>
@@ -49,12 +49,12 @@ const updateAssessment = (client, countryIso, assessment) =>
      SET status = $1, desk_study = $2
      WHERE country_iso = $3
      AND type = $4`,
-    [assessment.status, assessment.deskStudy, countryIso, assessment.assessmentType]
+    [assessment.status, assessment.deskStudy, countryIso, assessment.type]
   )
 
 module.exports.changeAssessment =
   async (client, countryIso, user, newAssessment) => {
-    const currentAssessmentFromDb = await getAssessment(client, countryIso, newAssessment.assessmentType)
+    const currentAssessmentFromDb = await getAssessment(client, countryIso, newAssessment.type)
     const existsInDb = !!currentAssessmentFromDb
     const currentAssessment = existsInDb
       ? currentAssessmentFromDb
@@ -76,9 +76,8 @@ module.exports.changeAssessment =
 const defaultAssessment = (assessmentType) => ({
   status: 'editing',
   deskStudy: false,
-  //TODO remove usage of assessmentType as property throughout the code
-  type: assessmentType,
-  assessmentType: assessmentType
+  //TODO remove usage of type as property throughout the code
+  type: assessmentType
 })
 
 const defaultStatuses = R.pipe(
@@ -89,7 +88,7 @@ const defaultStatuses = R.pipe(
 module.exports.getAssessments = async (countryIso) => {
   const rawResults = await db.query(
     `SELECT
-       type AS assessment_type,
+       type,
        status,
        desk_study
       FROM
@@ -101,7 +100,7 @@ module.exports.getAssessments = async (countryIso) => {
 
   const assessmentsFromDb = R.map(camelize, rawResults.rows)
   const assessmentsAsObject = R.reduce(
-    (resultObj, status) => R.assoc(status.assessmentType, status, resultObj),
+    (resultObj, assessment) => R.assoc(assessment.type, assessment, resultObj),
     {},
     assessmentsFromDb
   )
