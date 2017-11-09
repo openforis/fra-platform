@@ -73,11 +73,16 @@ const validationErrorRow = columnErrorMsgs => {
   return <tr key="validationError">
     <td style={{padding: '0'}}/>
     {
-      mapIndexed((errorMsg, i) => {
-        return <td className="fra-table__validation-cell" key={i}>
-          <div className="fra-table__validation-error">{errorMsg}</div>
+      mapIndexed((errorMsgs, colIdx) =>
+        <td className="fra-table__validation-cell" key={colIdx}>
+          {
+            mapIndexed(
+              (errorMsg, errorIdx) => <div key={errorIdx} className="fra-table__validation-error">{errorMsg}</div>,
+              errorMsgs
+            )
+          }
         </td>
-      }, columnErrorMsgs)
+      , columnErrorMsgs)
     }
   </tr>
 }

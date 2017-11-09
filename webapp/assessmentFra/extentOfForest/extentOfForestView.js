@@ -70,13 +70,23 @@ const ExtentOfForest = (props) => {
   const validationErrorMessages = fra =>
     R.map(fraColumn => {
       const totalLandArea = sum([fraColumn.forestArea, fraColumn.otherWoodedLand, fraColumn.otherLand])
-      return totalAreaNotEqualToFaoStat(fraColumn, totalLandArea)
-        ? props.i18n.t('extentOfForest.faoStatMismatch')
-        : null
+      const validationErrors =
+        R.reject(
+          R.isNil,
+          [
+            !otherLandValidator(fraColumn)
+              ? props.i18n.t('generalValidation.subCategoryExceedsParent')
+              : null,
+            totalAreaNotEqualToFaoStat(fraColumn, totalLandArea)
+              ? props.i18n.t('extentOfForest.faoStatMismatch')
+              : null
+          ]
+        )
+      return validationErrors
     },R.values(fra))
 
   const otherLandValidator = (fraColumn, field) => {
-    if (R.isNil(fraColumn[field])) return true
+    if (field && R.isNil(fraColumn[field])) return true
     const subCategorySum =sum([
       fraColumn.otherLandPalms,
       fraColumn.otherLandTreeOrchards,

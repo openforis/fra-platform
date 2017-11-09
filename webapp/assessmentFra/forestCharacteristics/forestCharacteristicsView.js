@@ -74,8 +74,8 @@ const ForestCharacteristics = props => {
       const forestArea = totalForestArea(fraColumn)
       const eofForestArea = getForestAreaForYear(props.extentOfForest, fraColumn.name)
       return totalForestAreaNotEqualToExtentOfForest(eofForestArea, forestArea)
-        ? props.i18n.t('generalValidation.forestAreaDoesNotMatchExtentOfForest', {eofForestArea: formatNumber(eofForestArea)})
-        : null
+        ? [props.i18n.t('generalValidation.forestAreaDoesNotMatchExtentOfForest', {eofForestArea: formatNumber(eofForestArea)})]
+        : []
     },R.values(fra))
 
   const disableGenerateFRAValues = () => {
