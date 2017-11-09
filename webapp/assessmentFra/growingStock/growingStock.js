@@ -67,6 +67,12 @@ const getFieldValue = field => R.pipe(
   R.defaultTo(0)
 )
 
+export const getForestAreaForYear = (extentOfForest, year) => {
+  if (!extentOfForest || R.isEmpty(extentOfForest)) return null
+  const groupedByYear = R.groupBy(R.prop('name'), extentOfForest.fra)
+  return R.path([year, 0, 'forestArea'], groupedByYear)
+}
+
 export const getOwlAreaForYear = (extentOfForest, year) => {
   if (!extentOfForest || R.isEmpty(extentOfForest)) return null
   const groupedByYear = R.groupBy(R.prop('name'), extentOfForest.fra)

@@ -77,7 +77,11 @@ const validationErrorRow = columnErrorMsgs => {
         <td className="fra-table__validation-cell" key={colIdx}>
           {
             mapIndexed(
-              (errorMsg, errorIdx) => <div key={errorIdx} className="fra-table__validation-error">{errorMsg}</div>,
+              (errorMsg, errorIdx) =>
+                <div key={errorIdx} className="fra-table__validation-container">
+                  <div className="fra-table__validation-error">{errorMsg}</div>
+                </div>
+              ,
               errorMsgs
             )
           }
