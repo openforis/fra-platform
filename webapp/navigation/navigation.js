@@ -122,7 +122,7 @@ const CountryRow = ({selectedCountry, country, i18n}) => {
 const PrimaryItem = ({label, countryIso, assessmentType, assessments, changeAssessment, userInfo, i18n}) => {
   const assessment = R.path([assessmentType], assessments)
   if (!countryIso || !userInfo || !assessment)
-    return <noscript/>
+    return null
   const currentAssessmentStatus = assessment.status
   const allowedTransitions = getAllowedStatusTransitions(roleForCountry(countryIso, userInfo), currentAssessmentStatus)
   const possibleAssesmentStatuses = [
