@@ -11,7 +11,7 @@ import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
 import { TableWithOdp } from '../../tableWithOdp/tableWithOdp'
 import { CommentableDescriptions } from '../../description/commentableDescription'
 import countryConfig from '../../../common/countryConfig'
-import { sum, formatNumber, eq } from '../../../common/bignumberUtils'
+import { sum, formatNumber, eq, greaterThanOrEqualTo } from '../../../common/bignumberUtils'
 
 const sectionName = 'extentOfForest'
 const mapIndexed = R.addIndex(R.map)
@@ -75,6 +75,18 @@ const ExtentOfForest = (props) => {
         : null
     },R.values(fra))
 
+  const otherLandValidator = (fraColumn) => {
+    const subCategorySum =sum([
+      fraColumn.otherLandPalms,
+      fraColumn.otherLandTreeOrchards,
+      fraColumn.otherLandAgroforestry,
+      fraColumn.otherLandTreesUrbanSettings
+    ])
+    const otherLand = fraColumn.otherLand
+    if (R.isNil(subCategorySum) || R.isNil(otherLand)) return true
+    return greaterThanOrEqualTo(fraColumn.otherLand, subCategorySum)
+  }
+
   const eofRows = [
     {
       type: 'field',
@@ -94,25 +106,28 @@ const ExtentOfForest = (props) => {
     {
       type: 'field',
       field: 'otherLandPalms',
-      validator: (value, fra) => false,
+      validator: otherLandValidator,
       className: 'fra-table__subcategory-cell',
       localizedName: i18n.t('extentOfForest.ofWhichPalms')
     },
     {
       type: 'field',
       field: 'otherLandTreeOrchards',
+      validator: otherLandValidator,
       className: 'fra-table__subcategory-cell',
       localizedName: i18n.t('extentOfForest.ofWhichTreeOrchards')
     },
     {
       type: 'field',
       field: 'otherLandAgroforestry',
+      validator: otherLandValidator,
       className: 'fra-table__subcategory-cell',
       localizedName: i18n.t('extentOfForest.ofWhichAgroforestry')
     },
     {
       type: 'field',
       field: 'otherLandTreesUrbanSettings',
+      validator: otherLandValidator,
       className: 'fra-table__subcategory-cell',
       localizedName: i18n.t('extentOfForest.ofWhichTreesUrbanSettings')
     },
