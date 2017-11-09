@@ -134,6 +134,7 @@ module.exports.translation = {
         previous: 'Return to editing'
       }
     },
+    assessmentDeskStudy: 'Desk study',
     support: {
       dontDelete: 'System information please don’t delete',
       sendFeedback: 'Send feedback',

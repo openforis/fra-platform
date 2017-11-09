@@ -157,7 +157,7 @@ const PrimaryItem = ({label, countryIso, assessmentType, assessments, changeAsse
           disabled={currentAssessmentStatus === 'changing'}
           onClick={() => changeAssessment(countryIso, {...assessment, deskStudy: !assessment.deskStudy})}
         />
-        <span className="nav__primary-desk-study-label-text">Desk study</span>
+        <span className="nav__primary-desk-study-label-text">{i18n.t('navigation.assessmentDeskStudy')}</span>
       </label>
       : null
     }
