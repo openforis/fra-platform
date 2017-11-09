@@ -150,12 +150,15 @@ const PrimaryItem = ({label, countryIso, assessmentType, assessments, changeAsse
     </PopoverControl>
     {
       isAdministrator(userInfo)
-      ? <input
-        type="checkbox"
-        checked={assessment.deskStudy}
-        disabled={currentAssessmentStatus === 'changing'}
-        onClick={() => changeAssessment(countryIso, {...assessment, deskStudy: !assessment.deskStudy})}
-      />
+      ? <label className="nav__primary-desk-study">
+        <input
+          type="checkbox"
+          checked={assessment.deskStudy}
+          disabled={currentAssessmentStatus === 'changing'}
+          onClick={() => changeAssessment(countryIso, {...assessment, deskStudy: !assessment.deskStudy})}
+        />
+        <span className="nav__primary-desk-study-label-text">Desk study</span>
+      </label>
       : null
     }
   </div>
