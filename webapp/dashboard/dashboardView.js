@@ -165,7 +165,7 @@ class DashboardView extends React.Component {
                       item={item}
                     />, feed)
                   : <div className="dashboard__activity-empty">
-                      <img src="img/tucan.svg" class="login__tucan" height="72"/>
+                      <img src="img/tucan.svg" height="72"/>
                       <p className="dashboard__activity-empty-title">{i18n.t('dashboard.noRecentActivityTitle')}</p>
                       <p>{i18n.t('dashboard.noRecentActivityBody')}</p>
                     </div>
