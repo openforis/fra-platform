@@ -75,7 +75,8 @@ const ExtentOfForest = (props) => {
         : null
     },R.values(fra))
 
-  const otherLandValidator = (fraColumn) => {
+  const otherLandValidator = (fraColumn, field) => {
+    if (R.isNil(fraColumn[field])) return true
     const subCategorySum =sum([
       fraColumn.otherLandPalms,
       fraColumn.otherLandTreeOrchards,

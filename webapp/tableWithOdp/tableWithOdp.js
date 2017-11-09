@@ -97,22 +97,21 @@ const renderFieldRow = ({row, countryIso, fra, save, saveMany, pasteUpdate, rowI
     <th className={className ? className : 'fra-table__category-cell'}>{ localizedName }</th>
     {
       mapIndexed(
-        (v, colIdx) => {
+        (fraColumn, colIdx) => {
           const tdClasses =
             R.pipe(
               R.reject(R.isNil),
               R.join(' ')
             )([
-                v.type === 'odp' ? 'odp-value-cell' : 'fra-table__cell',
-                validator(v, fra) ? null : 'validation-error'
+                fraColumn.type === 'odp' ? 'odp-value-cell' : 'fra-table__cell',
+                validator(fraColumn, field) ? null : 'validation-error'
             ])
-          console.log('classes', tdClasses)
           return (
-            <td className={tdClasses} key={`${v.type}_${v.name}`}>
+            <td className={tdClasses} key={`${fraColumn.type}_${fraColumn.name}`}>
             {
-              v.type === 'odp'
-                ? formatNumber(v[field])
-                : fraValueCell(v, fra, countryIso, save, saveMany, pasteUpdate, field, rowIdx, colIdx)
+              fraColumn.type === 'odp'
+                ? formatNumber(fraColumn[field])
+                : fraValueCell(fraColumn, fra, countryIso, save, saveMany, pasteUpdate, field, rowIdx, colIdx)
             }
             </td>
           )
