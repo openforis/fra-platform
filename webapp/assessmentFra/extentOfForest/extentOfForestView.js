@@ -94,6 +94,7 @@ const ExtentOfForest = (props) => {
     {
       type: 'field',
       field: 'otherLandPalms',
+      validator: (value, fra) => false,
       className: 'fra-table__subcategory-cell',
       localizedName: i18n.t('extentOfForest.ofWhichPalms')
     },

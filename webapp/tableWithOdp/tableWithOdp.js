@@ -82,26 +82,42 @@ const validationErrorRow = columnErrorMsgs => {
   </tr>
 }
 
+const alwaysOkValidator = () => true
+
 const renderFieldRow = ({row, countryIso, fra, save, saveMany, pasteUpdate, rowIdx, openCommentThread, section}) => {
   const {
     localizedName,
     field,
     className
   } = row
+  const validator = row.validator || alwaysOkValidator
   return <tr
     key={field}
     className={`${openCommentThread && R.isEmpty(R.difference(openCommentThread.target, [field])) ? 'fra-row-comments__open' : ''}`}>
     <th className={className ? className : 'fra-table__category-cell'}>{ localizedName }</th>
     {
-      mapIndexed((v, colIdx) =>
-        <td className={v.type === 'odp' ? 'odp-value-cell' : 'fra-table__cell'} key={`${v.type}_${v.name}`}>
-          {
-            v.type === 'odp'
-              ? formatNumber(v[field])
-              : fraValueCell(v, fra, countryIso, save, saveMany, pasteUpdate, field, rowIdx, colIdx)
-          }
-        </td>
-      , R.values(fra))
+      mapIndexed(
+        (v, colIdx) => {
+          const tdClasses =
+            R.pipe(
+              R.reject(R.isNil),
+              R.join(' ')
+            )([
+                v.type === 'odp' ? 'odp-value-cell' : 'fra-table__cell',
+                validator(v, fra) ? null : 'validation-error'
+            ])
+          console.log('classes', tdClasses)
+          return (
+            <td className={tdClasses} key={`${v.type}_${v.name}`}>
+            {
+              v.type === 'odp'
+                ? formatNumber(v[field])
+                : fraValueCell(v, fra, countryIso, save, saveMany, pasteUpdate, field, rowIdx, colIdx)
+            }
+            </td>
+          )
+        },
+        R.values(fra))
     }
     <td className="fra-table__row-anchor-cell">
       <div className="fra-table__review-indicator-anchor">
