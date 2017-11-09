@@ -10,7 +10,8 @@ import {
 const actionHandlers = {
   [listCountries]: (state, action) => ({...state, countries: action.countries}),
   [fetchCountryOverviewStatusCompleted]: (state, action) => ({...state, status: action.status}),
-  [changeAssessmentStatusInitiated]: (state, action) => (R.assocPath(['status', 'assessments', action.assessmentType, 'status'], 'changing' ,state)),
+  [changeAssessmentStatusInitiated]: (state, action) =>
+    (R.assocPath(['status', 'assessments', action.assessmentType, 'status'], 'changing' ,state)),
   [navigationScrolled]: (state, action) => ({...state, scrollPosition: action.position}),
 }
 

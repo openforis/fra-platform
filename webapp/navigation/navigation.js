@@ -130,9 +130,11 @@ const PrimaryItem = ({label, countryIso, assessmentType, assessments, changeAsse
   ]
   const allowedAssesmentStatuses = R.filter(R.prop('transition'), possibleAssesmentStatuses)
   const assessmentStatusItems = R.map(targetStatus => ({
-    label: i18n.t(`navigation.assessmentStatus.${targetStatus.transition}.${targetStatus.direction}`),
-    onClick: () => changeAssessment(countryIso, {...assessment, status: targetStatus.transition})
-  }), allowedAssesmentStatuses)
+      label: i18n.t(`navigation.assessmentStatus.${targetStatus.transition}.${targetStatus.direction}`),
+      onClick: () => changeAssessment(countryIso, {...assessment, status: targetStatus.transition})
+    }),
+    allowedAssesmentStatuses
+  )
 
   return <div className="nav__primary-item">
     <div className="nav__primary-label">{label}</div>
@@ -148,7 +150,8 @@ const PrimaryItem = ({label, countryIso, assessmentType, assessments, changeAsse
     <input
       type="checkbox"
       checked={assessment.deskStudy}
-      onClick={ () => changeAssessment(countryIso, {...assessment, deskStudy: !assessment.deskStudy}) }
+      disabled={currentAssessmentStatus === 'changing'}
+      onClick={() => changeAssessment(countryIso, {...assessment, deskStudy: !assessment.deskStudy})}
     />
   </div>
 }
