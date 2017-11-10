@@ -131,36 +131,37 @@ const PrimaryItem = ({label, countryIso, assessmentType, assessments, changeAsse
   ]
   const allowedAssesmentStatuses = R.filter(R.prop('transition'), possibleAssesmentStatuses)
   const assessmentStatusItems = R.map(targetStatus => ({
-      label: i18n.t(`navigation.assessmentStatus.${targetStatus.transition}.${targetStatus.direction}`),
-      onClick: () => changeAssessment(countryIso, {...assessment, status: targetStatus.transition})
-    }),
-    allowedAssesmentStatuses
-  )
+    content: i18n.t(`navigation.assessmentStatus.${targetStatus.transition}.${targetStatus.direction}`),
+    onClick: () => changeAssessment(countryIso, {...assessment, status: targetStatus.transition})
+  }), allowedAssesmentStatuses)
+  const deskStudyItems = [{
+    divider: true
+  }, {
+    content: <div className="popover-control__checkbox-container">
+      <span className={`popover-control__checkbox ${assessment.deskStudy ? 'checked' : ''}`}></span>
+      <span>{i18n.t('navigation.assessmentDeskStudy')}</span>
+    </div>,
+    onClick: () => currentAssessmentStatus !== 'changing'
+      ? changeAssessment(countryIso, {...assessment, deskStudy: !assessment.deskStudy})
+      : null
+  }]
+  const popoverItems = isAdministrator(userInfo)
+    ? R.flatten(R.append(deskStudyItems, assessmentStatusItems))
+    : assessmentStatusItems
 
   return <div className="nav__primary-item">
-    <div className="nav__primary-label">{label}</div>
-    <PopoverControl items={assessmentStatusItems}>
-      <div className={`nav__primary-assessment-status status-${currentAssessmentStatus} actionable-${!R.isEmpty(assessmentStatusItems)}`}>
+    <div className="nav__primary-label">{assessment.deskStudy ? label + ' (Desk study)' : label}</div>
+    <PopoverControl items={popoverItems}>
+      <div className={`nav__primary-assessment-status status-${currentAssessmentStatus} actionable-${!R.isEmpty(popoverItems)}`}>
         <span>{i18n.t(`navigation.assessmentStatus.${currentAssessmentStatus}.label`)}</span>
-        {!R.isEmpty(assessmentStatusItems)
+        {
+          !R.isEmpty(popoverItems)
           ? <svg className="icon icon-white icon-middle"><use xlinkHref="img/icons.svg#small-down"/></svg>
           : null
         }
       </div>
     </PopoverControl>
-    {
-      isAdministrator(userInfo)
-      ? <label className="nav__primary-desk-study">
-        <input
-          type="checkbox"
-          checked={assessment.deskStudy}
-          disabled={currentAssessmentStatus === 'changing'}
-          onChange={() => changeAssessment(countryIso, {...assessment, deskStudy: !assessment.deskStudy})}
-        />
-        <span className="nav__primary-desk-study-label-text">{i18n.t('navigation.assessmentDeskStudy')}</span>
-      </label>
-      : null
-    }
+
   </div>
 }
 

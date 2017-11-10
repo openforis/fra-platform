@@ -2,6 +2,8 @@ import React from 'react'
 import * as R from 'ramda'
 import './popoverControl.less'
 
+const mapIndexed = R.addIndex(R.map)
+
 export class PopoverControl extends React.Component {
   constructor (props) {
     super(props)
@@ -38,11 +40,11 @@ export class PopoverControl extends React.Component {
     if (R.isEmpty(items)) return null
     return <div className="popover-control__menu">
       {
-        R.map(item =>
+        mapIndexed((item, i) =>
           item.divider
           ? <div className="popover-control__divider" key="divider"></div>
-          : <div className="popover-control__item" key={item.label} onClick={item.onClick}>
-              {item.label}
+          : <div className="popover-control__item" key={i} onClick={item.onClick}>
+              {item.content}
             </div>
           , items)
       }
