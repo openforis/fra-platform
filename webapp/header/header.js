@@ -10,12 +10,12 @@ import { PopoverControl } from './../reusableUiComponents/popoverControl'
 
 const UserInfo = props => {
   const userInfoItems = [{
-    label: props.i18n.t('header.logout'),
+    content: props.i18n.t('header.logout'),
     onClick: () => props.logout()
   }, {
     divider: true
   }, {
-    label: props.i18n.t('header.profilePicture'),
+    content: props.i18n.t('header.profilePicture'),
     onClick: () => window.open('https://gravatar.com', '_blank')
   }]
 
@@ -34,7 +34,7 @@ const LanguageSelection = ({i18n, switchLanguage, ...props}) => {
   const selectableLangs = R.reject(l => l === i18n.language, supportedLangs)
   const languageSelectionItems = R.map(lang =>
     ({
-      label: i18n.t(`language.${lang}`),
+      content: i18n.t(`language.${lang}`),
       onClick: () => switchLanguage(lang)
     }), selectableLangs
   )

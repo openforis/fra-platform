@@ -24,9 +24,9 @@ export const fetchCountryOverviewStatus = countryIso => dispatch => {
     .catch((err) => dispatch(applicationError(err)))
 }
 
-export const changeAssessmentStatus = (countryIso, assessmentType, status) => dispatch => {
-  dispatch({type: changeAssessmentStatusInitiated, assessmentType})
-  axios.post(`/api/assessment/status/${countryIso}?assessmentType=${assessmentType}&status=${status}`)
+export const changeAssessment = (countryIso, assessment) => dispatch => {
+  dispatch({type: changeAssessmentStatusInitiated, assessmentType: assessment.type})
+  axios.post(`/api/assessment/${countryIso}`, assessment)
     .then(() => {
       //Force update of country-list when it's opened next (review statuses might have changed):
       dispatch({type: listCountries, countries: []})
