@@ -10,7 +10,7 @@ import ChartWrapper from '../extentOfForest/chart/chartWrapper'
 import { CommentableDescriptions } from '../../description/commentableDescription'
 import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
 import DefinitionLink from '../../reusableUiComponents/definitionLink'
-import { sum, formatNumber, eq } from '../../../common/bignumberUtils'
+import { sum, formatNumber, eq, greaterThanOrEqualTo } from '../../../common/bignumberUtils'
 import { getForestAreaForYear } from '../extentOfForest/extentOfForestHelper'
 
 const mapIndexed = R.addIndex(R.map)
@@ -73,9 +73,23 @@ const ForestCharacteristics = props => {
     R.map(fraColumn => {
       const forestArea = totalForestArea(fraColumn)
       const eofForestArea = getForestAreaForYear(props.extentOfForest, fraColumn.name)
-      return totalForestAreaNotEqualToExtentOfForest(eofForestArea, forestArea)
-        ? props.i18n.t('generalValidation.forestAreaDoesNotMatchExtentOfForest', {eofForestArea: formatNumber(eofForestArea)})
-        : null
+      const validationErrors =
+        R.reject(
+          R.isNil,
+          [
+            !plantationForestValidator(fraColumn)
+              ? props.i18n.t('generalValidation.subCategoryExceedsParent')
+              : null,
+            totalForestAreaNotEqualToExtentOfForest(eofForestArea, forestArea)
+              ? props.i18n.t
+                (
+                  'generalValidation.forestAreaDoesNotMatchExtentOfForest',
+                  {eofForestArea: formatNumber(eofForestArea)}
+                )
+              : null
+          ]
+        )
+      return validationErrors
     },R.values(fra))
 
   const disableGenerateFRAValues = () => {
@@ -87,6 +101,14 @@ const ForestCharacteristics = props => {
   }
 
   const i18n = props.i18n
+
+  const plantationForestValidator = fraColumn => {
+    const plantationForest = fraColumn.plantationForestArea
+    const introduced = fraColumn.plantationForestIntroducedArea
+    if (R.isNil(plantationForest) || R.isNil(introduced)) return true
+    return greaterThanOrEqualTo(plantationForest, introduced)
+  }
+
   const rows = [
     {
       type: 'field',
@@ -105,6 +127,7 @@ const ForestCharacteristics = props => {
     {
       type: 'field',
       field: 'plantationForestIntroducedArea',
+      validator: plantationForestValidator,
       className: 'fra-table__subcategory-cell',
       localizedName: i18n.t('forestCharacteristics.plantationForestIntroducedArea')
     },

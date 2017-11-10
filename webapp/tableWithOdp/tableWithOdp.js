@@ -85,16 +85,25 @@ const validationErrorRow = columnErrorMsgs => {
   return <tr key="validationError">
     <td style={{padding: '0'}}/>
     {
-      mapIndexed((errorMsg, i) => {
-        return <td className="fra-table__validation-cell" key={i}>
-          <div className="fra-table__validation-container">
-            <div className="fra-table__validation-error">{errorMsg}</div>
-          </div>
+      mapIndexed((errorMsgs, colIdx) =>
+        <td className="fra-table__validation-cell" key={colIdx}>
+          {
+            mapIndexed(
+              (errorMsg, errorIdx) =>
+                <div key={errorIdx} className="fra-table__validation-container">
+                  <div className="fra-table__validation-error">{errorMsg}</div>
+                </div>
+              ,
+              errorMsgs
+            )
+          }
         </td>
-      }, columnErrorMsgs)
+      , columnErrorMsgs)
     }
   </tr>
 }
+
+const alwaysOkValidator = () => true
 
 const renderFieldRow = ({row, countryIso, fra, save, saveMany, pasteUpdate, rowIdx, openCommentThread, section}) => {
   const {
@@ -102,20 +111,33 @@ const renderFieldRow = ({row, countryIso, fra, save, saveMany, pasteUpdate, rowI
     field,
     className
   } = row
+  const validator = row.validator || alwaysOkValidator
   return <tr
     key={field}
     className={`${openCommentThread && R.isEmpty(R.difference(openCommentThread.target, [field])) ? 'fra-row-comments__open' : ''}`}>
     <th className={className ? className : 'fra-table__category-cell'}>{ localizedName }</th>
     {
-      mapIndexed((v, colIdx) =>
-        <td className={v.type === 'odp' ? 'odp-value-cell' : 'fra-table__cell'} key={`${v.type}_${v.name}`}>
-          {
-            v.type === 'odp'
-              ? formatNumber(v[field])
-              : fraValueCell(v, fra, countryIso, save, saveMany, pasteUpdate, field, rowIdx, colIdx)
-          }
-        </td>
-      , R.values(fra))
+      mapIndexed(
+        (fraColumn, colIdx) => {
+          const tdClasses =
+            R.pipe(
+              R.reject(R.isNil),
+              R.join(' ')
+            )([
+                fraColumn.type === 'odp' ? 'odp-value-cell' : 'fra-table__cell',
+                validator(fraColumn, field) ? null : 'validation-error'
+            ])
+          return (
+            <td className={tdClasses} key={`${fraColumn.type}_${fraColumn.name}`}>
+            {
+              fraColumn.type === 'odp'
+                ? formatNumber(fraColumn[field])
+                : fraValueCell(fraColumn, fra, countryIso, save, saveMany, pasteUpdate, field, rowIdx, colIdx)
+            }
+            </td>
+          )
+        },
+        R.values(fra))
     }
     <td className="fra-table__row-anchor-cell">
       <div className="fra-table__review-indicator-anchor">
