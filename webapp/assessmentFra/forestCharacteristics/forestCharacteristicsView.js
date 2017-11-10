@@ -5,7 +5,7 @@ import { Link } from '../../reusableUiComponents/link'
 
 import { fetchItem, save, saveMany, generateFraValues } from '../../tableWithOdp/actions'
 import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
-import { TableWithOdp } from '../../tableWithOdp/tableWithOdp'
+import { TableWithOdp, hasFraValues } from '../../tableWithOdp/tableWithOdp'
 import ChartWrapper from '../extentOfForest/chart/chartWrapper'
 import { CommentableDescriptions } from '../../description/commentableDescription'
 import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
@@ -155,7 +155,7 @@ const ForestCharacteristics = props => {
       <button
         disabled={disableGenerateFRAValues()}
         className="btn btn-primary"
-        onClick={() => hasForestArea()
+        onClick={() => hasFraValues(props.fra, rows)
           ? window.confirm(i18n.t('extentOfForest.confirmGenerateFraValues'))
             ? props.generateFraValues(sectionName, props.countryIso)
             : null
