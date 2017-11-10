@@ -86,16 +86,6 @@ const ForestCharacteristics = props => {
     return props.generatingFraValues || odps.length < 2
   }
 
-  const hasForestArea = () => {
-    const area = R.pipe(
-      R.values,
-      R.filter(v => v.type !== 'odp'),
-      R.map(c => c.forestArea),
-      R.reject(R.isNil)
-    )(props.fra)
-    return area.length > 0
-  }
-
   const i18n = props.i18n
   const rows = [
     {
