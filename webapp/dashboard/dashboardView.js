@@ -86,12 +86,16 @@ const ActivityItem = ({i18n, countryIso, item}) => {
 
 class DashboardView extends React.Component {
   componentWillMount () {
-    this.props.fetchAuditFeed(this.props.match.params.countryIso)
+    this.fetch(this.props.match.params.countryIso)
   }
 
   componentWillReceiveProps (next) {
     if (!R.equals(this.props.match.params.countryIso, next.match.params.countryIso))
-      this.props.fetchAuditFeed(this.props.match.params.countryIso)
+      this.fetch(next.match.params.countryIso)
+  }
+
+  fetch (countryIso) {
+    this.props.fetchAuditFeed(countryIso)
   }
 
   render () {
