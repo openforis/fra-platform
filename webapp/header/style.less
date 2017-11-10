@@ -28,9 +28,10 @@
 .fra-header__autosave {
   display: inline-block;
   line-height: 16px;
-  padding: 8px 8px 8px 30px;
+  padding: 8px;
   position: relative;
   border-radius: 2px;
+  white-space: nowrap;
 
   &.status-saving {
     font-style: italic;
@@ -42,8 +43,9 @@
 
     &::before {
       content: '';
-      position: absolute;
-      left: 8px;
+      display: inline-block;
+      vertical-align: sub;
+      margin-right: 6px;
       width: 16px;
       height: 16px;
       background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+QXJ0Ym9hcmQ8L3RpdGxlPjxwYXRoIGQ9Ik04IDBDMy42IDAgMCAzLjYgMCA4czMuNiA4IDggOCA4LTMuNiA4LTgtMy42LTgtOC04ek03IDExLjRMMy42IDggNSA2LjZsMiAyIDQtNEwxMi40IDYgNyAxMS40eiIgZmlsbD0iIzZCNiIvPjwvc3ZnPg==);
@@ -88,8 +90,12 @@
 }
 
 @keyframes fadeOutCheck {
-  from { opacity: 1 }
-  to { opacity: 0 }
+  0% { opacity: 1 }
+  95% { opacity: 0}
+  100% {
+    width: 0;
+    margin-right: 0;
+  }
 }
 
 
