@@ -7,6 +7,7 @@ import { getCountryName, getCountryAlpha2 } from '../../common/country'
 import { getRelativeDate } from '../utils/relativeDate'
 
 import { Link } from './../reusableUiComponents/link'
+import Icon from '../reusableUiComponents/icon'
 import { follow } from './../router/actions'
 import {
   getCountryList,
@@ -190,10 +191,10 @@ const NationalDataItem = ({path, countryIso, pathTemplate, secondaryPathTemplate
     <div className="nav__link-status-content">
       <ReviewStatus status={status} />
       <div className="nav__link-error-status">
-        {status.errors ? <svg className="icon icon-middle icon-red">
-            <use xlinkHref="img/icons.svg#alert"/>
-          </svg>
-          : null
+        {
+          status.errors
+            ? <Icon className="icon-middle icon-red" name="alert"/>
+            : null
         }
       </div>
     </div>

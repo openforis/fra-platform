@@ -11,8 +11,6 @@ const cssBundleName = 'styles-[hash].css'
 
 const lastCommit = process.env.SOURCE_VERSION || "N/A"
 const platformVersion = lastCommit + '_' + new Date().toISOString()
-//Used for e.g. images referenced within JSX. Not for bundles.
-const resourceCacheBust = uuidv4()
 
 const alwaysInUseplugins = [
   new ExtractTextPlugin({filename: cssBundleName}),
@@ -20,7 +18,7 @@ const alwaysInUseplugins = [
   new webpack.DefinePlugin(
     {
       __PLATFORM_VERSION__: `"${platformVersion}"`,
-      __BUST__: `"${resourceCacheBust}"`
+      __BUST__: `"${uuidv4()}"`
     }
   )
 ]
