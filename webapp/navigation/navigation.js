@@ -121,9 +121,9 @@ const CountryRow = ({selectedCountry, country, i18n}) => {
 
 const PrimaryItem = ({label, countryIso, assessmentType, assessments, changeAssessment, userInfo, i18n}) => {
   const assessment = R.path([assessmentType], assessments)
-  if (!countryIso || !userInfo || !assessment)
-    return null
+  if (!countryIso || !userInfo || !assessment) return null
   const currentAssessmentStatus = assessment.status
+  const assesmentIsChanging = currentAssessmentStatus === 'changing'
   const allowedTransitions = getAllowedStatusTransitions(roleForCountry(countryIso, userInfo), currentAssessmentStatus)
   const possibleAssesmentStatuses = [
     {direction: 'next', transition: allowedTransitions.next},
@@ -135,33 +135,31 @@ const PrimaryItem = ({label, countryIso, assessmentType, assessments, changeAsse
     onClick: () => changeAssessment(countryIso, {...assessment, status: targetStatus.transition})
   }), allowedAssesmentStatuses)
   const deskStudyItems = [{
-    divider: true
-  }, {
-    content: <div className="popover-control__checkbox-container">
-      <span className={`popover-control__checkbox ${assessment.deskStudy ? 'checked' : ''}`}></span>
-      <span>{i18n.t('navigation.assessmentDeskStudy')}</span>
-    </div>,
-    onClick: () => currentAssessmentStatus !== 'changing'
-      ? changeAssessment(countryIso, {...assessment, deskStudy: !assessment.deskStudy})
-      : null
-  }]
+      divider: true
+    }, {
+      content: <div className="popover-control__checkbox-container">
+        <span className={`popover-control__checkbox ${assessment.deskStudy ? 'checked' : ''}`}></span>
+        <span>{i18n.t('navigation.assessmentDeskStudy')}</span>
+      </div>,
+      onClick: () => changeAssessment(countryIso, {...assessment, deskStudy: !assessment.deskStudy})
+    }]
   const popoverItems = isAdministrator(userInfo)
     ? R.flatten(R.append(deskStudyItems, assessmentStatusItems))
     : assessmentStatusItems
+  const allowedPopoverItems = !assesmentIsChanging ? popoverItems : []
 
   return <div className="nav__primary-item">
     <div className="nav__primary-label">{assessment.deskStudy ? label + ' (Desk study)' : label}</div>
-    <PopoverControl items={popoverItems}>
-      <div className={`nav__primary-assessment-status status-${currentAssessmentStatus} actionable-${!R.isEmpty(popoverItems)}`}>
+    <PopoverControl items={allowedPopoverItems}>
+      <div className={`nav__primary-assessment-status status-${currentAssessmentStatus} actionable-${!R.isEmpty(allowedPopoverItems)}`}>
         <span>{i18n.t(`navigation.assessmentStatus.${currentAssessmentStatus}.label`)}</span>
         {
-          !R.isEmpty(popoverItems)
+          !R.isEmpty(allowedPopoverItems)
           ? <svg className="icon icon-white icon-middle"><use xlinkHref="img/icons.svg#small-down"/></svg>
           : null
         }
       </div>
     </PopoverControl>
-
   </div>
 }
 
