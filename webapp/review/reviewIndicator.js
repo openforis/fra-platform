@@ -1,6 +1,7 @@
 import * as R from 'ramda'
 import React from 'react'
 import { connect } from 'react-redux'
+import Icon from '../reusableUiComponents/icon'
 
 import { getIssueSummary, openCommentThread, closeCommentThread } from './actions'
 
@@ -16,9 +17,7 @@ const CommentStatus = ({count, active, issueStatus, hasUnreadIssues, ...props}) 
     {
       count > 0
         ? <div className={`fra-review__issue-status-count ${getIssueStatusCssClass()}`}>{count}</div>
-        : <svg className="icon">
-          <use xlinkHref="img/icons.svg#circle-add"/>
-        </svg>
+        : <Icon name="circle-add"/>
     }
   </div>
 }

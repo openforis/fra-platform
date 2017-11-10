@@ -1,7 +1,8 @@
-var path = require('path')
+const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const webpack = require('webpack')
+const uuidv4 = require('uuid/v4')
 
 const prodBuild = process.env.NODE_ENV === 'production'
 
@@ -10,11 +11,18 @@ const cssBundleName = 'styles-[hash].css'
 
 const lastCommit = process.env.SOURCE_VERSION || "N/A"
 const platformVersion = lastCommit + '_' + new Date().toISOString()
+//Used for e.g. images referenced within JSX. Not for bundles.
+const resourceCacheBust = uuidv4()
 
 const alwaysInUseplugins = [
   new ExtractTextPlugin({filename: cssBundleName}),
   new HtmlWebpackPlugin({template: './web-resources/index.html'}),
-  new webpack.DefinePlugin({__PLATFORM_VERSION__: `"${platformVersion}"`})
+  new webpack.DefinePlugin(
+    {
+      __PLATFORM_VERSION__: `"${platformVersion}"`,
+      __BUST__: `"${resourceCacheBust}"`
+    }
+  )
 ]
 
 const uglifyPlugin = new webpack.optimize.UglifyJsPlugin({
