@@ -49,7 +49,12 @@ const TableRow = ({odp, i18n, countryIso, removeFromList}) => {
       <Link className="btn btn-s btn-link" to={odpUrl}>
         {i18n.t('nationalDataPoint.edit')}
       </Link>
-      <button className="btn btn-s btn-link-destructive" onClick ={() => window.confirm(i18n.t('nationalDataPoint.confirmDelete')) ? removeFromList(countryIso, odp.odpId) : null}>
+      <button
+        className="btn btn-s btn-link-destructive"
+        onClick={() => window.confirm(i18n.t('nationalDataPoint.confirmDelete'))
+          ? removeFromList(countryIso, odp.odpId)
+          : null
+      }>
         {i18n.t('nationalDataPoint.delete')}
       </button>
     </td>

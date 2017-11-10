@@ -8,7 +8,7 @@ import { Link } from '../../reusableUiComponents/link'
 import DefinitionLink from '../../reusableUiComponents/definitionLink'
 import ChartWrapper from './chart/chartWrapper'
 import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
-import { TableWithOdp } from '../../tableWithOdp/tableWithOdp'
+import { TableWithOdp, hasFraValues } from '../../tableWithOdp/tableWithOdp'
 import { CommentableDescriptions } from '../../description/commentableDescription'
 import countryConfig from '../../../common/countryConfig'
 import { sum, formatNumber, eq } from '../../../common/bignumberUtils'
@@ -148,8 +148,15 @@ const ExtentOfForest = (props) => {
       <DefinitionLink document="tad" anchor="1a" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
       <DefinitionLink document="faq" anchor="1a" title={i18n.t('definition.faqLabel')} lang={i18n.language}
                       className="align-left"/>
-      <button disabled={disableGenerateFRAValues()} className="btn btn-primary"
-              onClick={() => props.generateFraValues('extentOfForest', props.countryIso)}>
+      <button
+        disabled={disableGenerateFRAValues()}
+        className="btn btn-primary"
+        onClick={() => hasFraValues(props.fra, eofRows)
+          ? window.confirm(i18n.t('extentOfForest.confirmGenerateFraValues'))
+            ? props.generateFraValues('extentOfForest', props.countryIso)
+            : null
+          : props.generateFraValues('extentOfForest', props.countryIso)
+      }>
         {i18n.t('extentOfForest.generateFraValues')}
       </button>
     </div>

@@ -11,6 +11,18 @@ import { formatNumber } from '../../common/bignumberUtils'
 
 const mapIndexed = R.addIndex(R.map)
 
+export const hasFraValues = (fra, rowsSpecs) => {
+  const valueFieldNames = R.reject(R.isNil, R.pluck('field', rowsSpecs))
+  const flattenedFraValues = R.pipe(
+    R.values,
+    R.filter(v => v.type !== 'odp'),
+    R.map(column => R.props(valueFieldNames, column)),
+    R.flatten,
+    R.reject(R.isNil)
+  )(fra)
+  return flattenedFraValues.length > 0
+}
+
 export class TableWithOdp extends React.Component {
 
   render () {

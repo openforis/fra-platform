@@ -5,7 +5,7 @@ import { Link } from '../../reusableUiComponents/link'
 
 import { fetchItem, save, saveMany, generateFraValues } from '../../tableWithOdp/actions'
 import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
-import { TableWithOdp } from '../../tableWithOdp/tableWithOdp'
+import { TableWithOdp, hasFraValues } from '../../tableWithOdp/tableWithOdp'
 import ChartWrapper from '../extentOfForest/chart/chartWrapper'
 import { CommentableDescriptions } from '../../description/commentableDescription'
 import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
@@ -85,6 +85,7 @@ const ForestCharacteristics = props => {
     )(props.fra)
     return props.generatingFraValues || odps.length < 2
   }
+
   const i18n = props.i18n
   const rows = [
     {
@@ -141,8 +142,15 @@ const ForestCharacteristics = props => {
       <h3 className="subhead">{i18n.t('forestCharacteristics.forestCharacteristics')}</h3>
       <DefinitionLink document="tad" anchor="1b" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
       <DefinitionLink document="faq" anchor="1b" title={i18n.t('definition.faqLabel')} lang={i18n.language} className="align-left"/>
-      <button disabled={disableGenerateFRAValues()} className="btn btn-primary"
-              onClick={() => props.generateFraValues(sectionName, props.countryIso)}>
+      <button
+        disabled={disableGenerateFRAValues()}
+        className="btn btn-primary"
+        onClick={() => hasFraValues(props.fra, rows)
+          ? window.confirm(i18n.t('extentOfForest.confirmGenerateFraValues'))
+            ? props.generateFraValues(sectionName, props.countryIso)
+            : null
+          : props.generateFraValues(sectionName, props.countryIso)
+      }>
         {i18n.t('extentOfForest.generateFraValues')}
       </button>
     </div>
