@@ -4,6 +4,7 @@ import './style.less'
 import assert from 'assert'
 import { Link } from '../reusableUiComponents/link'
 import { ThousandSeparatedDecimalInput } from '../reusableUiComponents/thousandSeparatedDecimalInput'
+import Icon from '../reusableUiComponents/icon'
 import ReviewIndicator from '../review/reviewIndicator'
 import { readPasteClipboard } from '../utils/copyPasteUtil'
 import { acceptNextDecimal} from '../utils/numberInput'
@@ -58,7 +59,7 @@ const buildRows = (rows, props) => {
 
 const OdpHeading = ({countryIso, odpValue}) =>
   <Link className="link" to={`/country/${countryIso}/odp/${odpValue.odpId}`}>
-    {odpValue.draft ? <svg className="icon icon-sub icon-margin"><use xlinkHref="img/icons.svg#pencil"/></svg> : ''}
+    {odpValue.draft ? <Icon className="icon-sub icon-margin" name="pencil"/> : ''}
     {odpValue.name}
   </Link>
 

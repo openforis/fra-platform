@@ -25,6 +25,7 @@ import ckEditorConfig from '../ckEditor/ckEditorConfig'
 import ReviewIndicator from '../review/reviewIndicator'
 import DefinitionLink from './../reusableUiComponents/definitionLink'
 import MultiSelect from '../reusableUiComponents/multiSelect'
+import Icon from '../reusableUiComponents/icon'
 import handlePaste from './paste'
 import { fetchLastSectionUpdateTimestamp } from '../audit/actions'
 
@@ -483,9 +484,7 @@ const NationalClassRow =
             : <div
               className="odp__nc-table__remove"
               onClick={(evt) => saveDraft(countryIso, originalDataPoint.removeNationalClass(odp, index))}>
-              <svg className="icon">
-                <use xlinkHref="img/icons.svg#remove"/>
-              </svg>
+              <Icon name="remove"/>
             </div>
           }
         </div>

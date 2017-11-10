@@ -19,7 +19,7 @@ import { fra2020Items } from './items'
 import { roleForCountry } from '../../common/countryRole'
 import { allowedToChangeRoles } from '../../common/userManagementAccessControl'
 import { getAllowedStatusTransitions } from '../../common/assessment'
-import { PopoverControl } from './../reusableUiComponents/popoverControl'
+import { PopoverControl } from '../reusableUiComponents/popoverControl'
 
 import './style.less'
 
@@ -61,9 +61,7 @@ class CountrySelectionItem extends React.Component {
         <span className="nav__country-name">{getCountryName(countryIso, i18n.language)}</span>
         <span className="nav__country-role">{role}</span>
       </div>
-      <svg className="icon">
-        <use xlinkHref="img/icons.svg#small-down"/>
-      </svg>
+      <Icon name="small-down"/>
       <CountryList isOpen={this.state.isOpen} countries={countries} currentCountry={countryIso}
                    i18n={i18n}/>
     </div>
@@ -156,7 +154,7 @@ const PrimaryItem = ({label, countryIso, assessmentType, assessmentStatuses, cha
       <div className={`nav__primary-assessment-status status-${currentAssessmentStatus} actionable-${!R.isEmpty(assessmentStatusItems)}`}>
         <span>{i18n.t(`navigation.assessmentStatus.${currentAssessmentStatus}.label`)}</span>
         {!R.isEmpty(assessmentStatusItems)
-          ? <svg className="icon icon-white icon-middle"><use xlinkHref="img/icons.svg#small-down"/></svg>
+          ? <Icon className="icon-white icon-middle" name="small-down"/>
           : null
         }
       </div>

@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
 import { Link } from '../../reusableUiComponents/link'
+import Icon from '../../reusableUiComponents/icon'
 
 import { fetchItem, save, saveMany, generateFraValues } from '../../tableWithOdp/actions'
 import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
@@ -126,9 +127,7 @@ const ForestCharacteristics = props => {
     <div className="fra-view__page-header">
       <h1 className="title">{i18n.t('forestCharacteristics.estimationAndForecasting')}</h1>
       <Link className="btn btn-primary align-right" to={`/country/${props.countryIso}/odp`}>
-        <svg className="icon icon-sub icon-white">
-          <use xlinkHref="img/icons.svg#small-add"/>
-        </svg>
+        <Icon className="icon-sub icon-white" name="small-add"/>
         {i18n.t('nationalDataPoint.addNationalDataPoint')}
       </Link>
     </div>
