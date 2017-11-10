@@ -85,6 +85,17 @@ const ForestCharacteristics = props => {
     )(props.fra)
     return props.generatingFraValues || odps.length < 2
   }
+
+  const hasForestArea = () => {
+    const area = R.pipe(
+      R.values,
+      R.filter(v => v.type !== 'odp'),
+      R.map(c => c.forestArea),
+      R.reject(R.isNil)
+    )(props.fra)
+    return area.length > 0
+  }
+
   const i18n = props.i18n
   const rows = [
     {
@@ -141,8 +152,15 @@ const ForestCharacteristics = props => {
       <h3 className="subhead">{i18n.t('forestCharacteristics.forestCharacteristics')}</h3>
       <DefinitionLink document="tad" anchor="1b" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
       <DefinitionLink document="faq" anchor="1b" title={i18n.t('definition.faqLabel')} lang={i18n.language} className="align-left"/>
-      <button disabled={disableGenerateFRAValues()} className="btn btn-primary"
-              onClick={() => props.generateFraValues(sectionName, props.countryIso)}>
+      <button
+        disabled={disableGenerateFRAValues()}
+        className="btn btn-primary"
+        onClick={() => hasForestArea()
+          ? window.confirm(i18n.t('extentOfForest.confirmGenerateFraValues'))
+            ? props.generateFraValues(sectionName, props.countryIso)
+            : null
+          : props.generateFraValues(sectionName, props.countryIso)
+      }>
         {i18n.t('extentOfForest.generateFraValues')}
       </button>
     </div>

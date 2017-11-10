@@ -303,6 +303,7 @@ The FRA team
     categoryHeader: 'FRA categories',
     areaUnitLabel: 'Area (1000 ha)',
     generateFraValues: 'Generate FRA values',
+    confirmGenerateFraValues: 'Generating FRA values will override previously generated values.',
     forestArea: 'Forest',
     chart: {
       placeholderLine1: 'To get started, add new national data points and use',

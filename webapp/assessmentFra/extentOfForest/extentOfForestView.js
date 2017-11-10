@@ -27,6 +27,16 @@ const ExtentOfForest = (props) => {
     return props.generatingFraValues || odps.length < 2
   }
 
+  const hasForestArea = () => {
+    const area = R.pipe(
+      R.values,
+      R.filter(v => v.type !== 'odp'),
+      R.map(c => c.forestArea),
+      R.reject(R.isNil)
+    )(props.fra)
+    return area.length > 0
+  }
+
   const i18n = props.i18n
 
   const totalAreaNotEqualToFaoStat = (fraColumn, totalArea) => {
@@ -148,8 +158,15 @@ const ExtentOfForest = (props) => {
       <DefinitionLink document="tad" anchor="1a" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
       <DefinitionLink document="faq" anchor="1a" title={i18n.t('definition.faqLabel')} lang={i18n.language}
                       className="align-left"/>
-      <button disabled={disableGenerateFRAValues()} className="btn btn-primary"
-              onClick={() => props.generateFraValues('extentOfForest', props.countryIso)}>
+      <button
+        disabled={disableGenerateFRAValues()}
+        className="btn btn-primary"
+        onClick={() => hasForestArea()
+          ? window.confirm(i18n.t('extentOfForest.confirmGenerateFraValues'))
+            ? props.generateFraValues('extentOfForest', props.countryIso)
+            : null
+          : props.generateFraValues('extentOfForest', props.countryIso)
+      }>
         {i18n.t('extentOfForest.generateFraValues')}
       </button>
     </div>
