@@ -111,12 +111,12 @@ class CommentThread extends React.Component {
                     </div>
                     {
                       isThisMe(c) && !isCommentDeleted(c) && !isCommentStatusResolved(c) && issueStatus !== 'resolved'
-                      ? <button className="btn fra-review__comment-delete-button"
-                                onClick={() => {
-                                  if(window.confirm(i18n.t('review.confirmDelete'))) {
-                                    markCommentAsDeleted(countryIso, section, target, c.commentId)
-                                  }
-                                } }>
+                      ? <button
+                          className="btn fra-review__comment-delete-button"
+                          onClick={() => window.confirm(i18n.t('review.confirmDelete'))
+                            ? markCommentAsDeleted(countryIso, section, target, c.commentId)
+                            : null
+                        }>
                           {i18n.t('review.delete')}
                         </button>
                       : null

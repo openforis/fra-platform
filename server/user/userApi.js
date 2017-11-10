@@ -52,12 +52,12 @@ module.exports.init = app => {
         .catch(err => sendErr(res, err))
     } else if (userToBeChangedOrAdded.invitationUuid) {
       db.transaction(userRepository.updateInvitation, [req.user, countryIso, userToBeChangedOrAdded])
-        .then(invitationUuid => sendMail(countryIso, {...userToBeChangedOrAdded, invitationUuid}, url))
+        .then(invitationUuid => sendMail(countryIso, {...userToBeChangedOrAdded, invitationUuid}, req.user, url))
         .then(() => res.json({}))
         .catch(err => sendErr(res, err))
     } else {
       db.transaction(userRepository.addInvitation, [req.user, countryIso, userToBeChangedOrAdded])
-        .then(invitationUuid => sendMail(countryIso, {...userToBeChangedOrAdded, invitationUuid}, url))
+        .then(invitationUuid => sendMail(countryIso, {...userToBeChangedOrAdded, invitationUuid}, req.user, url))
         .then(() => res.json({}))
         .catch(err => sendErr(res, err))
     }

@@ -387,7 +387,10 @@ const OdpViewContent = ({match, saveDraft, markAsActual, remove, active, autoSav
     <div className="odp__bottom-buttons">
       <button className="btn btn-destructive"
         disabled={saveControlsDisabled()}
-        onClick ={() => window.confirm(i18n.t('nationalDataPoint.confirmDelete')) ? remove(countryIso, active.odpId) : null}>
+        onClick ={() => window.confirm(i18n.t('nationalDataPoint.confirmDelete'))
+          ? remove(countryIso, active.odpId)
+          : null
+      }>
         {i18n.t('nationalDataPoint.delete')}
       </button>
       {

@@ -9,10 +9,10 @@ import Icon from '../../reusableUiComponents/icon'
 import DefinitionLink from '../../reusableUiComponents/definitionLink'
 import ChartWrapper from './chart/chartWrapper'
 import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
-import { TableWithOdp } from '../../tableWithOdp/tableWithOdp'
+import { TableWithOdp, hasFraValues } from '../../tableWithOdp/tableWithOdp'
 import { CommentableDescriptions } from '../../description/commentableDescription'
 import countryConfig from '../../../common/countryConfig'
-import { sum, formatNumber, eq } from '../../../common/bignumberUtils'
+import { sum, formatNumber, eq, greaterThanOrEqualTo } from '../../../common/bignumberUtils'
 
 const sectionName = 'extentOfForest'
 const mapIndexed = R.addIndex(R.map)
@@ -71,10 +71,33 @@ const ExtentOfForest = (props) => {
   const validationErrorMessages = fra =>
     R.map(fraColumn => {
       const totalLandArea = sum([fraColumn.forestArea, fraColumn.otherWoodedLand, fraColumn.otherLand])
-      return totalAreaNotEqualToFaoStat(fraColumn, totalLandArea)
-        ? props.i18n.t('extentOfForest.faoStatMismatch')
-        : null
+      const validationErrors =
+        R.reject(
+          R.isNil,
+          [
+            !otherLandValidator(fraColumn)
+              ? props.i18n.t('generalValidation.subCategoryExceedsParent')
+              : null,
+            totalAreaNotEqualToFaoStat(fraColumn, totalLandArea)
+              ? props.i18n.t('extentOfForest.faoStatMismatch')
+              : null
+          ]
+        )
+      return validationErrors
     },R.values(fra))
+
+  const otherLandValidator = (fraColumn, field) => {
+    if (field && R.isNil(fraColumn[field])) return true
+    const subCategorySum =sum([
+      fraColumn.otherLandPalms,
+      fraColumn.otherLandTreeOrchards,
+      fraColumn.otherLandAgroforestry,
+      fraColumn.otherLandTreesUrbanSettings
+    ])
+    const otherLand = fraColumn.otherLand
+    if (R.isNil(subCategorySum) || R.isNil(otherLand)) return true
+    return greaterThanOrEqualTo(fraColumn.otherLand, subCategorySum)
+  }
 
   const eofRows = [
     {
@@ -95,24 +118,28 @@ const ExtentOfForest = (props) => {
     {
       type: 'field',
       field: 'otherLandPalms',
+      validator: otherLandValidator,
       className: 'fra-table__subcategory-cell',
       localizedName: i18n.t('extentOfForest.ofWhichPalms')
     },
     {
       type: 'field',
       field: 'otherLandTreeOrchards',
+      validator: otherLandValidator,
       className: 'fra-table__subcategory-cell',
       localizedName: i18n.t('extentOfForest.ofWhichTreeOrchards')
     },
     {
       type: 'field',
       field: 'otherLandAgroforestry',
+      validator: otherLandValidator,
       className: 'fra-table__subcategory-cell',
       localizedName: i18n.t('extentOfForest.ofWhichAgroforestry')
     },
     {
       type: 'field',
       field: 'otherLandTreesUrbanSettings',
+      validator: otherLandValidator,
       className: 'fra-table__subcategory-cell',
       localizedName: i18n.t('extentOfForest.ofWhichTreesUrbanSettings')
     },
@@ -147,8 +174,15 @@ const ExtentOfForest = (props) => {
       <DefinitionLink document="tad" anchor="1a" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
       <DefinitionLink document="faq" anchor="1a" title={i18n.t('definition.faqLabel')} lang={i18n.language}
                       className="align-left"/>
-      <button disabled={disableGenerateFRAValues()} className="btn btn-primary"
-              onClick={() => props.generateFraValues('extentOfForest', props.countryIso)}>
+      <button
+        disabled={disableGenerateFRAValues()}
+        className="btn btn-primary"
+        onClick={() => hasFraValues(props.fra, eofRows)
+          ? window.confirm(i18n.t('extentOfForest.confirmGenerateFraValues'))
+            ? props.generateFraValues('extentOfForest', props.countryIso)
+            : null
+          : props.generateFraValues('extentOfForest', props.countryIso)
+      }>
         {i18n.t('extentOfForest.generateFraValues')}
       </button>
     </div>
