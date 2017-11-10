@@ -8,7 +8,7 @@ import { Link } from '../../reusableUiComponents/link'
 import DefinitionLink from '../../reusableUiComponents/definitionLink'
 import ChartWrapper from './chart/chartWrapper'
 import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
-import { TableWithOdp } from '../../tableWithOdp/tableWithOdp'
+import { TableWithOdp, hasFraValues } from '../../tableWithOdp/tableWithOdp'
 import { CommentableDescriptions } from '../../description/commentableDescription'
 import countryConfig from '../../../common/countryConfig'
 import { sum, formatNumber, eq } from '../../../common/bignumberUtils'
@@ -25,18 +25,6 @@ const ExtentOfForest = (props) => {
       R.filter(v => v.type === 'odp')
     )(props.fra)
     return props.generatingFraValues || odps.length < 2
-  }
-
-  const hasFraValues = (rowsSpecs) => {
-    const valueFieldNames = R.reject(R.isNil, R.pluck('field', rowsSpecs))
-    const flattenedFraValues = R.pipe(
-      R.values,
-      R.filter(v => v.type !== 'odp'),
-      R.map(column => R.props(valueFieldNames, column)),
-      R.flatten,
-      R.reject(R.isNil)
-    )(props.fra)
-    return flattenedFraValues.length > 0
   }
 
   const i18n = props.i18n
@@ -163,7 +151,7 @@ const ExtentOfForest = (props) => {
       <button
         disabled={disableGenerateFRAValues()}
         className="btn btn-primary"
-        onClick={() => hasFraValues(eofRows)
+        onClick={() => hasFraValues(props.fra, eofRows)
           ? window.confirm(i18n.t('extentOfForest.confirmGenerateFraValues'))
             ? props.generateFraValues('extentOfForest', props.countryIso)
             : null
