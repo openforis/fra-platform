@@ -27,14 +27,16 @@ const ExtentOfForest = (props) => {
     return props.generatingFraValues || odps.length < 2
   }
 
-  const hasForestArea = () => {
-    const area = R.pipe(
+  const hasFraValues = (rowsSpecs) => {
+    const valueFieldNames = R.reject(R.isNil, R.pluck('field', rowsSpecs))
+    const flattenedFraValues = R.pipe(
       R.values,
       R.filter(v => v.type !== 'odp'),
-      R.map(c => c.forestArea),
+      R.map(column => R.props(valueFieldNames, column)),
+      R.flatten,
       R.reject(R.isNil)
     )(props.fra)
-    return area.length > 0
+    return flattenedFraValues.length > 0
   }
 
   const i18n = props.i18n
@@ -161,7 +163,7 @@ const ExtentOfForest = (props) => {
       <button
         disabled={disableGenerateFRAValues()}
         className="btn btn-primary"
-        onClick={() => hasForestArea()
+        onClick={() => hasFraValues(eofRows)
           ? window.confirm(i18n.t('extentOfForest.confirmGenerateFraValues'))
             ? props.generateFraValues('extentOfForest', props.countryIso)
             : null
