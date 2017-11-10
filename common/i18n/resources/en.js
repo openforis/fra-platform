@@ -264,26 +264,32 @@ module.exports.translation = {
     insufficientPrivileges: 'Insufficient privileges',
     confirmDelete: 'Remove {{user}} from {{country}}?',
     invitationEmail:{
-      subject:'FRA Platform - Access granted to {{country}}',
-      textMessage:`Dear {{user}},
+      subject:'Invited to {{country}} on FRA Platform',
+      textMessage:`Dear {{invitedUser}},
 %0D%0A%0D%0A
-You have been granted access to {{country}} as {{role}}
+{{loggedInUser}} has invited you to join {{country}} on FRA Platfrom as a {{role}}.
 %0D%0A%0D%0A
-To access the platform, please follow the link {{link}}
-%0D%0A%0D%0A
-Thank you,
+Accept this invitation and visit the country at the following URL:
 %0D%0A
+{{link}}
+%0D%0A%0D%0A
+Happy reporting, and don't hesitate to contact us with your feedback.
+%0D%0A%0D%0A
 The FRA team
+%0D%0A
+{{url}}
     `,
-      htmlMessage:`Dear {{user}},
+      htmlMessage:`Dear {{invitedUser}},
 <br/><br/>
-You have been granted access to {{country}} as {{role}}
+{{loggedInUser}} has invited you to join {{country}} on FRA Platfrom as a {{role}}.
 <br/><br/>
-To access the platform, please follow the link <a href="{{link}}">{{link}}</a>
+<b><a href="{{link}}">Accept this invitation and visit the country</a></b>
 <br/><br/>
-Thank you,
-<br/>
+Happy reporting, and don't hesitate to contact us with your feedback.
+<br/><br/>
 The FRA team
+<br/>
+{{url}}
     `
     }
   },
