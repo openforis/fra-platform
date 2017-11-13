@@ -6,7 +6,7 @@ import Icon from '../../reusableUiComponents/icon'
 
 import { fetchItem, save, saveMany, generateFraValues } from '../../tableWithOdp/actions'
 import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
-import { TableWithOdp, hasFraValues } from '../../tableWithOdp/tableWithOdp'
+import { TableWithOdp, hasFraValues, disableGenerateFraValues } from '../../tableWithOdp/tableWithOdp'
 import ChartWrapper from '../extentOfForest/chart/chartWrapper'
 import { CommentableDescriptions } from '../../description/commentableDescription'
 import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
@@ -93,14 +93,6 @@ const ForestCharacteristics = props => {
       return validationErrors
     },R.values(fra))
 
-  const disableGenerateFRAValues = () => {
-    const odps = R.pipe(
-      R.values,
-      R.filter(v => v.type === 'odp')
-    )(props.fra)
-    return props.generatingFraValues || odps.length < 2
-  }
-
   const i18n = props.i18n
 
   const plantationForestValidator = fraColumn => {
@@ -165,7 +157,7 @@ const ForestCharacteristics = props => {
       <DefinitionLink document="tad" anchor="1b" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
       <DefinitionLink document="faq" anchor="1b" title={i18n.t('definition.faqLabel')} lang={i18n.language} className="align-left"/>
       <button
-        disabled={disableGenerateFRAValues()}
+        disabled={disableGenerateFraValues(props.fra, props.generatingFraValues)}
         className="btn btn-primary"
         onClick={() => hasFraValues(props.fra, rows)
           ? window.confirm(i18n.t('extentOfForest.confirmGenerateFraValues'))
@@ -194,11 +186,9 @@ const ForestCharacteristics = props => {
 
 class DataFetchingComponent extends React.Component {
   componentWillMount () {
-    this.fetch(this.props.match.params.countryIso)
-    this.props.fetchLastSectionUpdateTimestamp(
-      this.props.match.params.countryIso,
-      sectionName
-    )
+    const countryIso = this.props.match.params.countryIso
+    this.fetch(countryIso)
+    this.props.fetchLastSectionUpdateTimestamp(countryIso, sectionName)
   }
 
   componentWillReceiveProps (next) {
@@ -218,19 +208,20 @@ class DataFetchingComponent extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  ...state.forestCharacteristics,
-  openCommentThread: state.review.openThread,
-  i18n: state.user.i18n,
-  extentOfForest: state.extentOfForest
-})
+const mapStateToProps = state =>
+  ({
+    ...state.forestCharacteristics,
+    openCommentThread: state.review.openThread,
+    i18n: state.user.i18n,
+    extentOfForest: state.extentOfForest
+  })
 
 export default connect(
     mapStateToProps,
     {
-      fetchItem,
       save,
       saveMany,
+      fetchItem,
       generateFraValues,
       fetchLastSectionUpdateTimestamp
     }
