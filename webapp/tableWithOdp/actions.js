@@ -8,9 +8,8 @@ export const pasteChangeStart = name => `${name}/value/paste/start`
 export const generateFraValuesStart =  name => `${name}/generateFraValues/start`
 
 export const odpDirtyAction = 'tableWithOdp/odpDirtyAction'
-
-export const markOdpDirty = ({type: odpDirtyAction, dirty: true})
-export const markOdpClean = ({type: odpDirtyAction, dirty: false})
+export const markOdpDirty = {type: odpDirtyAction, dirty: true}
+export const markOdpClean = {type: odpDirtyAction, dirty: false}
 
 const fetched = (itemName, countryIso, data) => ({
   type: valuesFetched(itemName),
@@ -68,6 +67,7 @@ export const saveMany = (section, countryIso, columnData) => dispatch => {
 
 export const generateFraValues = (section, countryIso) => dispatch => {
   dispatch({type: generateFraValuesStart(section)})
+  dispatch(markOdpClean)
 
   axios.post(`/api/nde/${section}/generateFraValues/${countryIso}`).then(resp => {
     dispatch(fetchItem(section, countryIso))

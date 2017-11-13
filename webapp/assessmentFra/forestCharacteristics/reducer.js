@@ -4,8 +4,9 @@ import { applyReducerFunction } from '../../utils/reduxUtils'
 
 const actionHandlers = {
   [tableWithOdpActions.valueChangeStart('forestCharacteristics')]: (state, action) => updateValueReducer(state, action),
+  [tableWithOdpActions.valuesFetched('forestCharacteristics')]: (state, action) => ({...state, ...action.data, generatingFraValues: false}),
+  [tableWithOdpActions.generateFraValuesStart('forestCharacteristics')]: (state, action) => ({...state, generatingFraValues: true}),
   [tableWithOdpActions.pasteChangeStart('forestCharacteristics')]: (state, action) => updateValuesReducer(state, action),
-  [tableWithOdpActions.valuesFetched('forestCharacteristics')]: (state, action) => action.data,
   [tableWithOdpActions.odpDirtyAction]: (state, action) => ({...state, odpDirty: action.dirty})
 }
 

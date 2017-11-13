@@ -10,6 +10,7 @@ import {
 } from './originalDataPoint'
 import { validateDataPoint } from '../../common/validateOriginalDataPoint'
 import { fetchCountryOverviewStatus } from '../navigation/actions'
+import { markOdpDirty } from '../tableWithOdp/actions'
 
 // Validation
 export const odpValidationCompleted = 'originalDataPoint/validationStatus/completed'
@@ -81,6 +82,7 @@ export const removeFromList = (countryIso, odpId) => dispatch => {
 export const markAsActual = (countryIso, odp) => dispatch => {
   const validationStatus = validateDataPoint(odp)
   dispatch(validationCompleted(validationStatus))
+  dispatch(markOdpDirty)
 
   if (validationStatus.valid) {
     dispatch(autosave.start)

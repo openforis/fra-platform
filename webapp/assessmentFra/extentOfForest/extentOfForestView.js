@@ -177,6 +177,14 @@ const ExtentOfForest = (props) => {
       }>
         {i18n.t('extentOfForest.generateFraValues')}
       </button>
+      {
+        !disableGenerateFraValues(props.fra, props.generatingFraValues) && props.odpDirty
+          ? <div className="support-text">
+              <Icon name="alert" className="icon-orange icon-sub icon-margin-right"/>
+              {i18n.t('nationalDataPoint.remindDirtyOdp')}
+            </div>
+          : null
+      }
     </div>
     <TableWithOdp
                section={sectionName}
