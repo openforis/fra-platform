@@ -35,6 +35,11 @@ const mul = (x, y) => applyOp(x, y, 'mul')
 
 const div = (x, y) => applyOp(x, y, 'div')
 
+const abs = (x) => {
+  const xNum = toBigNumber(x)
+  return xNum.isFinite() && xNum.abs()
+}
+
 const greaterThanOrEqualTo = (x, y) => {
   const xNum = toBigNumber(x)
   const yNum = toBigNumber(y)
@@ -60,6 +65,7 @@ module.exports.add = add
 module.exports.sub = sub
 module.exports.mul = mul
 module.exports.div = div
+module.exports.abs = abs
 module.exports.eq = eq
 module.exports.greaterThanOrEqualTo = greaterThanOrEqualTo
 module.exports.toFixed = toFixed

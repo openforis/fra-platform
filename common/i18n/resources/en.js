@@ -318,7 +318,7 @@ The FRA team
     ofWhichTreesUrbanSettings: '…of which trees in urban settings',
     totalLandArea: 'Total land area',
     faoStatLandArea: 'FAOSTAT land area',
-    faoStatMismatch: "Total land area doesn't match FAOSTAT"
+    faoStatMismatch: "Doesn't match FAOSTAT land area"
   },
 
   forestCharacteristics: {
@@ -574,7 +574,7 @@ The FRA team
 
   generalValidation: {
     subCategoryExceedsParent: 'Subcategory exceeds parent',
-    forestAreaDoesNotMatchExtentOfForest: 'Forest area does not match table 1a: {{eofForestArea}}',
+    forestAreaDoesNotMatchExtentOfForest: 'Doesn‘t match Total forest area',
     forestAreaExceedsExtentOfForest: 'Forest area exceeds table 1a: {{eofForestArea}}'
   }
 }

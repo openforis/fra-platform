@@ -11,7 +11,7 @@ import ChartWrapper from '../extentOfForest/chart/chartWrapper'
 import { CommentableDescriptions } from '../../description/commentableDescription'
 import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
 import DefinitionLink from '../../reusableUiComponents/definitionLink'
-import { sum, formatNumber, eq, greaterThanOrEqualTo } from '../../../common/bignumberUtils'
+import { sum, formatNumber, eq, greaterThanOrEqualTo, abs, sub } from '../../../common/bignumberUtils'
 import { getForestAreaForYear } from '../extentOfForest/extentOfForestHelper'
 
 const mapIndexed = R.addIndex(R.map)
@@ -20,10 +20,12 @@ const odpValueCellClass = (fraColumn) => fraColumn.type === 'odp' ? 'odp-value-c
 
 const ForestCharacteristics = props => {
 
+  const i18n = props.i18n
+
   const plantedForestRow = fra => {
     return <tr key="plantedForest">
       <th className="fra-table__header-cell-left">
-        {props.i18n.t('forestCharacteristics.plantedForest')}
+        {i18n.t('forestCharacteristics.plantedForest')} (b)
       </th>
       {
         mapIndexed((fraColumn, i) => {
@@ -46,13 +48,21 @@ const ForestCharacteristics = props => {
   const totalForestAreaNotEqualToExtentOfForest = (eofForestArea, totalForestArea) => {
     if (R.isNil(eofForestArea)) return false
     if (R.isNil(totalForestArea)) return false
-    return !eq(eofForestArea, totalForestArea)
+    const absDifference = abs(sub(eofForestArea, totalForestArea))
+    return greaterThanOrEqualTo(absDifference, 1)
   }
 
-  const totalForestAreaRow = fra => {
-    return <tr key="totalForestArea">
+  const plantationForestValidator = fraColumn => {
+    const plantationForest = fraColumn.plantationForestArea
+    const introduced = fraColumn.plantationForestIntroducedArea
+    if (R.isNil(plantationForest) || R.isNil(introduced)) return true
+    return greaterThanOrEqualTo(plantationForest, introduced)
+  }
+
+  const totalRow = fra => {
+    return <tr key="totalArea">
       <th className="fra-table__header-cell-left">
-        {props.i18n.t('forestCharacteristics.totalForestArea')}
+        Total (a+b)
       </th>
       {
         mapIndexed((fraColumn, i) => {
@@ -70,6 +80,22 @@ const ForestCharacteristics = props => {
     </tr>
   }
 
+  const totalForestAreaRow = fra => {
+    return <tr key="totalForestArea">
+      <th className="fra-table__header-cell-left">
+        {i18n.t('forestCharacteristics.totalForestArea')}
+      </th>
+      {
+        mapIndexed((fraColumn, i) => {
+          const eofForestArea = getForestAreaForYear(props.extentOfForest, fraColumn.name)
+          return <td className={`${odpValueCellClass(fraColumn)}`} key={i}>
+            {formatNumber(eofForestArea)}
+          </td>
+        }, R.values(fra))
+      }
+    </tr>
+  }
+
   const validationErrorMessages = fra =>
     R.map(fraColumn => {
       const forestArea = totalForestArea(fraColumn)
@@ -79,14 +105,10 @@ const ForestCharacteristics = props => {
           R.isNil,
           [
             !plantationForestValidator(fraColumn)
-              ? props.i18n.t('generalValidation.subCategoryExceedsParent')
+              ? i18n.t('generalValidation.subCategoryExceedsParent')
               : null,
             totalForestAreaNotEqualToExtentOfForest(eofForestArea, forestArea)
-              ? props.i18n.t
-                (
-                  'generalValidation.forestAreaDoesNotMatchExtentOfForest',
-                  {eofForestArea: formatNumber(eofForestArea)}
-                )
+              ? i18n.t ('generalValidation.forestAreaDoesNotMatchExtentOfForest')
               : null
           ]
         )
@@ -101,20 +123,11 @@ const ForestCharacteristics = props => {
     return props.generatingFraValues || odps.length < 2
   }
 
-  const i18n = props.i18n
-
-  const plantationForestValidator = fraColumn => {
-    const plantationForest = fraColumn.plantationForestArea
-    const introduced = fraColumn.plantationForestIntroducedArea
-    if (R.isNil(plantationForest) || R.isNil(introduced)) return true
-    return greaterThanOrEqualTo(plantationForest, introduced)
-  }
-
   const rows = [
     {
       type: 'field',
       field: 'naturalForestArea',
-      localizedName: i18n.t('forestCharacteristics.naturalForestArea')
+      rowHeader: i18n.t('forestCharacteristics.naturalForestArea') + ' (a)'
     },
     {
       type: 'custom',
@@ -123,19 +136,23 @@ const ForestCharacteristics = props => {
     {
       type: 'field',
       field: 'plantationForestArea',
-      localizedName: i18n.t('forestCharacteristics.plantationForestArea')
+      rowHeader: i18n.t('forestCharacteristics.plantationForestArea')
     },
     {
       type: 'field',
       field: 'plantationForestIntroducedArea',
       validator: plantationForestValidator,
       className: 'fra-table__subcategory-cell',
-      localizedName: i18n.t('forestCharacteristics.plantationForestIntroducedArea')
+      rowHeader: i18n.t('forestCharacteristics.plantationForestIntroducedArea')
     },
     {
       type: 'field',
       field: 'otherPlantedForestArea',
-      localizedName: i18n.t('forestCharacteristics.otherPlantedForestArea')
+      rowHeader: i18n.t('forestCharacteristics.otherPlantedForestArea')
+    },
+    {
+      type: 'custom',
+      render: totalRow
     },
     {
       type: 'custom',
@@ -156,9 +173,9 @@ const ForestCharacteristics = props => {
       </Link>
     </div>
     <ChartWrapper stateName="forestCharacteristics" trends={[
-      {name:'naturalForestArea', label:props.i18n.t('forestCharacteristics.naturalForestArea'), color:'#0098a6'},
-      {name:'plantationForestArea', label:props.i18n.t('forestCharacteristics.plantationForestArea'), color:'#bf00af'},
-      {name:'otherPlantedForestArea', label:props.i18n.t('forestCharacteristics.otherPlantedForestArea'), color:'#f28130'}
+      {name:'naturalForestArea', label:i18n.t('forestCharacteristics.naturalForestArea'), color:'#0098a6'},
+      {name:'plantationForestArea', label:i18n.t('forestCharacteristics.plantationForestArea'), color:'#bf00af'},
+      {name:'otherPlantedForestArea', label:i18n.t('forestCharacteristics.otherPlantedForestArea'), color:'#f28130'}
       ]} />
     <div className="fra-view__section-header">
       <h3 className="subhead">{i18n.t('forestCharacteristics.forestCharacteristics')}</h3>

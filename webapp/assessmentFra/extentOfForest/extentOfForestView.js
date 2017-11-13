@@ -12,7 +12,7 @@ import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
 import { TableWithOdp, hasFraValues } from '../../tableWithOdp/tableWithOdp'
 import { CommentableDescriptions } from '../../description/commentableDescription'
 import countryConfig from '../../../common/countryConfig'
-import { sum, formatNumber, eq, greaterThanOrEqualTo } from '../../../common/bignumberUtils'
+import { sum, formatNumber, eq, greaterThanOrEqualTo, abs, sub } from '../../../common/bignumberUtils'
 
 const sectionName = 'extentOfForest'
 const mapIndexed = R.addIndex(R.map)
@@ -34,7 +34,8 @@ const ExtentOfForest = (props) => {
     const faoStatValue = R.path([props.countryIso, 'faoStat', fraColumn.name], countryConfig)
     if (!faoStatValue) return false // It's normal that we don't have faoStat-values for years
     if (R.isNil(totalArea)) return false
-    return !eq(faoStatValue, totalArea)
+    const absDifference = abs(sub(faoStatValue, totalArea))
+    return greaterThanOrEqualTo(absDifference, 1)
   }
 
   const totalAreaValidationClass = (fraColumn, totalArea) =>
@@ -43,7 +44,7 @@ const ExtentOfForest = (props) => {
   const totalAreaRow = fra =>
     <tr key="totalArea">
       <th className="fra-table__header-cell-left">
-        {props.i18n.t('extentOfForest.totalLandArea')}
+        {props.i18n.t('extentOfForest.totalLandArea')} (a+b+c)
       </th>
       {
         mapIndexed((fraColumn, i) => {
@@ -103,45 +104,45 @@ const ExtentOfForest = (props) => {
     {
       type: 'field',
       field: 'forestArea',
-      localizedName: i18n.t('extentOfForest.forestArea')
+      rowHeader: i18n.t('extentOfForest.forestArea') + ' (a)'
     },
     {
       type: 'field',
       field: 'otherWoodedLand',
-      localizedName: i18n.t('fraClass.otherWoodedLand')
+      rowHeader: i18n.t('fraClass.otherWoodedLand') + ' (b)'
     },
     {
       type: 'field',
       field: 'otherLand',
-      localizedName: i18n.t('fraClass.otherLand')
+      rowHeader: i18n.t('fraClass.otherLand') + ' (c)'
     },
     {
       type: 'field',
       field: 'otherLandPalms',
       validator: otherLandValidator,
       className: 'fra-table__subcategory-cell',
-      localizedName: i18n.t('extentOfForest.ofWhichPalms')
+      rowHeader: i18n.t('extentOfForest.ofWhichPalms')
     },
     {
       type: 'field',
       field: 'otherLandTreeOrchards',
       validator: otherLandValidator,
       className: 'fra-table__subcategory-cell',
-      localizedName: i18n.t('extentOfForest.ofWhichTreeOrchards')
+      rowHeader: i18n.t('extentOfForest.ofWhichTreeOrchards')
     },
     {
       type: 'field',
       field: 'otherLandAgroforestry',
       validator: otherLandValidator,
       className: 'fra-table__subcategory-cell',
-      localizedName: i18n.t('extentOfForest.ofWhichAgroforestry')
+      rowHeader: i18n.t('extentOfForest.ofWhichAgroforestry')
     },
     {
       type: 'field',
       field: 'otherLandTreesUrbanSettings',
       validator: otherLandValidator,
       className: 'fra-table__subcategory-cell',
-      localizedName: i18n.t('extentOfForest.ofWhichTreesUrbanSettings')
+      rowHeader: i18n.t('extentOfForest.ofWhichTreesUrbanSettings')
     },
     {
       type: 'custom',
