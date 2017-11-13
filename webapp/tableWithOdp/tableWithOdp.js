@@ -79,7 +79,7 @@ const buildRows = (rows, props) => {
 
 const OdpHeading = ({countryIso, odpValue}) =>
   <Link className="link" to={`/country/${countryIso}/odp/${odpValue.odpId}`}>
-    {odpValue.draft ? <Icon className="icon-sub icon-margin" name="pencil"/> : ''}
+    {odpValue.draft ? <Icon className="icon-sub icon-margin-right" name="pencil"/> : ''}
     {odpValue.name}
   </Link>
 

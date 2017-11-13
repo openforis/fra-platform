@@ -16,7 +16,7 @@ const TableRow = ({odp, i18n, countryIso, removeFromList}) => {
       {odp.year ? odp.year : null}
       {
         odp.editStatus !== 'noChanges'
-          ? <Icon className="icon-margin icon-sub" name="pencil"/>
+          ? <Icon className="icon-margin-left icon-sub" name="pencil"/>
           : null
       }
     </td>
@@ -94,7 +94,7 @@ const ODPListing = ({countryIso, odps = [], i18n, userInfo, removeFromList}) => 
       <tfoot>
         <tr>
           <td className="odp-list__footnotes" colSpan="4">
-            <Icon className="icon-margin icon-sub" name="pencil"/>
+            <Icon className="icon-margin-right icon-sub" name="pencil"/>
             {i18n.t('nationalDataPoint.modifiedExplanation')}
           </td>
         </tr>
