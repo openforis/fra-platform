@@ -7,6 +7,7 @@ import { getCountryName, getCountryAlpha2 } from '../../common/country'
 import { getRelativeDate } from '../utils/relativeDate'
 
 import { Link } from './../reusableUiComponents/link'
+import Icon from '../reusableUiComponents/icon'
 import { follow } from './../router/actions'
 import {
   getCountryList,
@@ -19,7 +20,7 @@ import { roleForCountry } from '../../common/countryRole'
 import { allowedToChangeRoles } from '../../common/userManagementAccessControl'
 import { isAdministrator } from '../../common/countryRole'
 import { getAllowedStatusTransitions } from '../../common/assessment'
-import { PopoverControl } from './../reusableUiComponents/popoverControl'
+import { PopoverControl } from '../reusableUiComponents/popoverControl'
 
 import './style.less'
 
@@ -61,9 +62,7 @@ class CountrySelectionItem extends React.Component {
         <span className="nav__country-name">{getCountryName(countryIso, i18n.language)}</span>
         <span className="nav__country-role">{role}</span>
       </div>
-      <svg className="icon">
-        <use xlinkHref="img/icons.svg#small-down"/>
-      </svg>
+      <Icon name="small-down"/>
       <CountryList isOpen={this.state.isOpen} countries={countries} currentCountry={countryIso}
                    i18n={i18n}/>
     </div>
@@ -155,7 +154,7 @@ const PrimaryItem = ({label, countryIso, assessmentType, assessments, changeAsse
         <span>{i18n.t(`navigation.assessmentStatus.${currentAssessmentStatus}.label`)}</span>
         {
           !R.isEmpty(allowedPopoverItems)
-          ? <svg className="icon icon-white icon-middle"><use xlinkHref="img/icons.svg#small-down"/></svg>
+          ? <Icon className="icon-white icon-middle" name="small-down"/>
           : null
         }
       </div>
@@ -190,10 +189,10 @@ const NationalDataItem = ({path, countryIso, pathTemplate, secondaryPathTemplate
     <div className="nav__link-status-content">
       <ReviewStatus status={status} />
       <div className="nav__link-error-status">
-        {status.errors ? <svg className="icon icon-middle icon-red">
-            <use xlinkHref="img/icons.svg#alert"/>
-          </svg>
-          : null
+        {
+          status.errors
+            ? <Icon className="icon-middle icon-red" name="alert"/>
+            : null
         }
       </div>
     </div>

@@ -7,6 +7,7 @@ import { parse, differenceInMonths, differenceInWeeks, differenceInDays, differe
 import {getRelativeDate} from '../utils/relativeDate'
 import { isReviewer } from '../../common/countryRole'
 import VerticallyGrowingTextField from '../reusableUiComponents/verticallyGrowingTextField'
+import Icon from '../reusableUiComponents/icon'
 
 const mapIndexed = R.addIndex(R.map)
 
@@ -139,9 +140,7 @@ class CommentThread extends React.Component {
               </div>,
               comments)
             : <div className='fra-review__comment-placeholder'>
-              <svg className="fra-review__comment-placeholder-icon icon-24">
-                <use xlinkHref="img/icons.svg#chat-46"/>
-              </svg>
+              <Icon className="fra-review__comment-placeholder-icon icon-24" name="chat-46"/>
               <span className="fra-review__comment-placeholder-text">{i18n.t('review.noComments')}</span>
             </div>
       }
@@ -154,9 +153,7 @@ const ReviewHeader = ({title, close, userInfo, countryIso, section, target, issu
   <div className="fra-review__header">
     <div className="fra-review__header-title">{i18n.t('review.comments')}</div>
     <div className="fra-review__header-close-btn" onClick={e => close(e)}>
-      <svg className="icon">
-        <use xlinkHref="img/icons.svg#remove"/>
-      </svg>
+      <Icon name="remove"/>
     </div>
     {title ? <div className="fra-review__header-target">{title}</div> : null}
     {issueId && isReviewer(countryIso, userInfo) && issueStatus !== 'resolved'
