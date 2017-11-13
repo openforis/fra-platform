@@ -222,7 +222,7 @@ class DataFetchingComponent extends React.Component {
 const mapStateToProps = state =>
   ({
     ...state.extentOfForest,
-    'openCommentThread': state.review.openThread,
+    openCommentThread: state.review.openThread,
     i18n: state.user.i18n
   })
 
