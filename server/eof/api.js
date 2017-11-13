@@ -94,7 +94,10 @@ module.exports.init = app => {
       .catch(err => sendErr(res, err))
   })
 
-  app.post('/nde/:section/generateFraValues/:countryIso', (req, res) => {
+  app.post('/nde/:section/generateFraValues/:countryIso/:method', (req, res) => {
+
+    console.log('generateFraValues METHOD', req.params.method)
+
     checkCountryAccessFromReqParams(req)
     db.transaction(auditRepository.insertAudit,
       [req.user.id, 'generateFraValues', req.params.countryIso, req.params.section])
