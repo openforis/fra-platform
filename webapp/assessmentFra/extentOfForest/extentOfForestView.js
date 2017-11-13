@@ -12,6 +12,7 @@ import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
 import { TableWithOdp, hasFraValues } from '../../tableWithOdp/tableWithOdp'
 import { CommentableDescriptions } from '../../description/commentableDescription'
 import countryConfig from '../../../common/countryConfig'
+import { PopoverControl } from '../../reusableUiComponents/popoverControl'
 import { sum, formatNumber, eq, greaterThanOrEqualTo } from '../../../common/bignumberUtils'
 
 const sectionName = 'extentOfForest'
@@ -157,6 +158,16 @@ const ExtentOfForest = (props) => {
     }
   ]
 
+
+  const generateFraValues = (method) => {
+    console.log('extrapolation method', method)
+    hasFraValues(props.fra, eofRows)
+      ? window.confirm(i18n.t('extentOfForest.confirmGenerateFraValues'))
+        ? props.generateFraValues('extentOfForest', props.countryIso)
+        : null
+      : props.generateFraValues('extentOfForest', props.countryIso)
+  }
+
   return <div className='fra-view__content'>
     <div className="fra-view__page-header">
       <h1 className="title">{i18n.t('extentOfForest.estimationAndForecasting')}</h1>
@@ -174,17 +185,19 @@ const ExtentOfForest = (props) => {
       <DefinitionLink document="tad" anchor="1a" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
       <DefinitionLink document="faq" anchor="1a" title={i18n.t('definition.faqLabel')} lang={i18n.language}
                       className="align-left"/>
-      <button
-        disabled={disableGenerateFRAValues()}
-        className="btn btn-primary"
-        onClick={() => hasFraValues(props.fra, eofRows)
-          ? window.confirm(i18n.t('extentOfForest.confirmGenerateFraValues'))
-            ? props.generateFraValues('extentOfForest', props.countryIso)
-            : null
-          : props.generateFraValues('extentOfForest', props.countryIso)
-      }>
-        {i18n.t('extentOfForest.generateFraValues')}
-      </button>
+      <PopoverControl items={
+        disableGenerateFRAValues()
+          ? []
+          :  [
+              { content: 'Linear extrapolation', onClick:() => generateFraValues('linear') },
+              { content: 'Repeat latest extrapolation', onClick:() => generateFraValues('repeatLast') }
+             ]}
+      >
+        <div className={`btn btn-primary ${disableGenerateFRAValues() ? 'disabled' : ''}`}>
+          {i18n.t('extentOfForest.generateFraValues')}
+          <Icon className="icon-white icon-margin icon-middle" name="small-down"/>
+        </div>
+      </PopoverControl>
     </div>
     <TableWithOdp
                section={sectionName}
