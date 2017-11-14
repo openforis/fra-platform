@@ -63,7 +63,7 @@ const ForestCharacteristics = props => {
   const totalRow = fra => {
     return <tr key="totalArea">
       <th className="fra-table__header-cell-left">
-        {i18n.t('forestCharacteristics.total', {formula: '(a+b)'})}
+        {i18n.t('forestCharacteristics.total')} (a+b)
       </th>
       {
         mapIndexed((fraColumn, i) => {
