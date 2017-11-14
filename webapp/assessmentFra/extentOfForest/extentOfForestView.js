@@ -159,13 +159,12 @@ const ExtentOfForest = (props) => {
   ]
 
 
-  const generateFraValues = (method) => {
-    console.log('extrapolation method', method)
+  const generateFraValues = (extrapolationMethod) => {
     hasFraValues(props.fra, eofRows)
       ? window.confirm(i18n.t('extentOfForest.confirmGenerateFraValues'))
-        ? props.generateFraValues('extentOfForest', props.countryIso, method)
+        ? props.generateFraValues('extentOfForest', props.countryIso, extrapolationMethod)
         : null
-      : props.generateFraValues('extentOfForest', props.countryIso, method)
+      : props.generateFraValues('extentOfForest', props.countryIso, extrapolationMethod)
   }
 
   return <div className='fra-view__content'>

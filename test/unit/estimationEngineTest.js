@@ -195,14 +195,51 @@ const expectedEstimations1 = [
 ]
 
 describe('estimationEngine', () => {
-  it('Interpolates and extrapolates as expected', () => {
+  it('Interpolates and extrapolates linearly', () => {
     const estimated = estimationEngine.estimateFraValues(
       fraYears,
       testOdpSet1,
-      estimationEngine.eofFields
+      estimationEngine.eofFields,
+      {method: 'linear'}
     )
     assert(
       R.equals(expectedEstimations1, estimated),
       `Estimated values were not as expected ${JSON.stringify(jsonDiff.diff(expectedEstimations1, estimated))}`)
+  })
+  it('Extrapolates with repeat last value', () => {
+
+    const odps = [
+      {
+        forestArea: 500,
+        otherWoodedLand: 300,
+        type: 'odp',
+        year: 2009,
+      },
+      {
+        forestArea: 480,
+        otherWoodedLand: 344,
+        type: 'odp',
+        year: 2018,
+      }]
+
+    const estimated = estimationEngine.estimateFraValues(
+      fraYears,
+      odps,
+      ['forestArea', 'otherWoodedLand'],
+      {method: 'repeatLast'}
+    )
+    assert.deepEqual(
+      [ { forestArea: '500.00', otherWoodedLand: '300.00', year: 1990 },
+        { forestArea: '500.00', otherWoodedLand: '300.00', year: 2000 },
+        { forestArea: '497.78', otherWoodedLand: '304.89', year: 2010 },
+        { forestArea: '486.67', otherWoodedLand: '329.33', year: 2015 },
+        { forestArea: '484.45', otherWoodedLand: '334.22', year: 2016 },
+        { forestArea: '482.23', otherWoodedLand: '339.11', year: 2017 },
+        { forestArea: '480.00', otherWoodedLand: '344.00', year: 2018 },
+        { forestArea: '480.00', otherWoodedLand: '344.00', year: 2019 },
+        { forestArea: '480.00', otherWoodedLand: '344.00', year: 2020 }
+      ],
+      R.map(R.pickAll(['forestArea', 'otherWoodedLand', 'year']), estimated)
+    )
   })
 })

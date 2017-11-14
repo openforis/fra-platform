@@ -96,7 +96,7 @@ module.exports.init = app => {
 
   app.post('/nde/:section/generateFraValues/:countryIso/:method', (req, res) => {
 
-    console.log('generateFraValues METHOD', req.params.method)
+    console.log('generateFraValues METHOD', req.params.extrapolationMethod)
 
     checkCountryAccessFromReqParams(req)
     db.transaction(auditRepository.insertAudit,
@@ -116,7 +116,7 @@ module.exports.init = app => {
     )(defaultResponse())
 
     estimationEngine
-      .estimateAndWrite(readOdp, writer, fieldsToEstimate, req.params.countryIso, years)
+      .estimateAndWrite(readOdp, writer, fieldsToEstimate, req.params.countryIso, years, {method: req.params.extrapolationMethod})
       .then(() => res.json({}))
       .catch(err => sendErr(res, err))
   })

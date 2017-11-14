@@ -61,10 +61,10 @@ export const saveMany = (section, countryIso, columnData) => dispatch => {
   dispatch(changeMany({section, countryIso, columnData}))
 }
 
-export const generateFraValues = (section, countryIso, method = 'linear') => dispatch => {
+export const generateFraValues = (section, countryIso, extrapolationMethod = 'linear') => dispatch => {
   dispatch({type: generateFraValuesStart(section)})
 
-  axios.post(`/api/nde/${section}/generateFraValues/${countryIso}/${method}`)
+  axios.post(`/api/nde/${section}/generateFraValues/${countryIso}/${extrapolationMethod}`)
     .then(() => {
       dispatch(fetchItem(section, countryIso))
     })
