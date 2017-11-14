@@ -1,14 +1,16 @@
 import * as R from 'ramda'
 
-import * as odpTypes from '../../tableWithOdp/actions'
+import * as tableWithOdpActions from '../../tableWithOdp/actions'
 import { updateValueReducer, updateValuesReducer } from '../../tableWithOdp/reducerFunctions'
 import { applyReducerFunction } from '../../utils/reduxUtils'
 
 const actionHandlers = {
-  [odpTypes.valueChangeStart('extentOfForest')]: (state, action) => updateValueReducer(state, action),
-  [odpTypes.valuesFetched('extentOfForest')]: (state, action) => action.data,
-  [odpTypes.generateFraValuesStart('extentOfForest')]: (state, action) => R.assoc('generatingFraValues', true)(state),
-  [odpTypes.pasteChangeStart('extentOfForest')]: (state, action) => updateValuesReducer(state, action)
+  [tableWithOdpActions.valueChangeStart('extentOfForest')]: (state, action) => updateValueReducer(state, action),
+  [tableWithOdpActions.valuesFetched('extentOfForest')]: (state, action) => ({...state, ...action.data, generatingFraValues: false}),
+  [tableWithOdpActions.generateFraValuesStart('extentOfForest')]: (state, action) => ({...state, generatingFraValues: true}),
+  [tableWithOdpActions.pasteChangeStart('extentOfForest')]: (state, action) => updateValuesReducer(state, action),
+  [tableWithOdpActions.odpCleanAction('extentOfForest')]: (state, action) => ({...state, odpDirty: false}),
+  [tableWithOdpActions.odpDirtyAction]: (state, action) => ({...state, odpDirty: true})
 }
 
 export default (state = {}, action) => applyReducerFunction(actionHandlers, state, action)
