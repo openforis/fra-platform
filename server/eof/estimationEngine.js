@@ -99,7 +99,7 @@ const extrapolationMethods = {
 
 const extrapolate = (year, values, field, extrapolationSpec) => {
   const extrapolationMethod = extrapolationMethods[extrapolationSpec.method]
-  assert(extrapolationMethod,`Invalid extrapolation method: ${extrapolationSpec}`)
+  assert(extrapolationMethod,`Invalid extrapolation method: ${extrapolationSpec.method}`)
   return extrapolationMethod(year, values, field, extrapolationSpec)
 }
 
