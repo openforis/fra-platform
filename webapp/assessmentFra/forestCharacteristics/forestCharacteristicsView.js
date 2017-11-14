@@ -11,7 +11,7 @@ import ChartWrapper from '../extentOfForest/chart/chartWrapper'
 import { CommentableDescriptions } from '../../description/commentableDescription'
 import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
 import DefinitionLink from '../../reusableUiComponents/definitionLink'
-import { sum, formatNumber, eq, greaterThanOrEqualTo, abs, sub } from '../../../common/bignumberUtils'
+import { sum, formatNumber, eq, greaterThanOrEqualTo, abs, sub, lessThan } from '../../../common/bignumberUtils'
 import { getForestAreaForYear } from '../extentOfForest/extentOfForestHelper'
 
 const mapIndexed = R.addIndex(R.map)
@@ -56,7 +56,8 @@ const ForestCharacteristics = props => {
     const plantationForest = fraColumn.plantationForestArea
     const introduced = fraColumn.plantationForestIntroducedArea
     if (R.isNil(plantationForest) || R.isNil(introduced)) return true
-    return greaterThanOrEqualTo(plantationForest, introduced)
+    const absDifference = abs(sub(plantationForest, introduced))
+    return lessThan(absDifference, 1)
   }
 
   const totalRow = fra => {

@@ -12,7 +12,7 @@ import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
 import { TableWithOdp, hasFraValues } from '../../tableWithOdp/tableWithOdp'
 import { CommentableDescriptions } from '../../description/commentableDescription'
 import countryConfig from '../../../common/countryConfig'
-import { sum, formatNumber, eq, greaterThanOrEqualTo, abs, sub } from '../../../common/bignumberUtils'
+import { sum, formatNumber, eq, greaterThanOrEqualTo, abs, sub, lessThan } from '../../../common/bignumberUtils'
 
 const sectionName = 'extentOfForest'
 const mapIndexed = R.addIndex(R.map)
@@ -97,7 +97,8 @@ const ExtentOfForest = (props) => {
     ])
     const otherLand = fraColumn.otherLand
     if (R.isNil(subCategorySum) || R.isNil(otherLand)) return true
-    return greaterThanOrEqualTo(fraColumn.otherLand, subCategorySum)
+    const absDifference = abs(sub(subCategorySum, otherLand))
+    return lessThan(absDifference, 1)
   }
 
   const eofRows = [

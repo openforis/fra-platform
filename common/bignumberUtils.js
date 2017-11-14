@@ -18,38 +18,38 @@ const toBigNumber = value => {
   return new BigNumber(value)
 }
 
-const applyOp = (x, y, op) => {
-  const res = toBigNumber(x)[op](toBigNumber(y))
-  return res.isFinite() ? res : null
+const applyOperator = (x, y, op) => {
+  const result = toBigNumber(x)[op](toBigNumber(y))
+  return result.isFinite() ? result : null
+}
+
+const applyComparison = (x, y, comp) => {
+  const xNum = toBigNumber(x)
+  const yNum = toBigNumber(y)
+  return xNum.isFinite() && yNum.isFinite() && xNum[comp](yNum)
 }
 
 const sum = array => R.isEmpty(array) || array.every(v => !v)
   ? null
   : R.reduce((total, f) => add(total, defaultTo0(f)), 0, array)
 
-const add = (x, y) => applyOp(x, y, 'add')
+const add = (x, y) => applyOperator(x, y, 'add')
 
-const sub = (x, y) => applyOp(x, y, 'sub')
+const sub = (x, y) => applyOperator(x, y, 'sub')
 
-const mul = (x, y) => applyOp(x, y, 'mul')
+const mul = (x, y) => applyOperator(x, y, 'mul')
 
-const div = (x, y) => applyOp(x, y, 'div')
+const div = (x, y) => applyOperator(x, y, 'div')
+
+const greaterThanOrEqualTo = (x, y) => applyComparison(x, y, 'greaterThanOrEqualTo')
+
+const lessThan = (x, y) => applyComparison(x, y, 'lessThan')
+
+const eq = (x, y) => applyComparison(x, y, 'eq')
 
 const abs = (x) => {
   const xNum = toBigNumber(x)
-  return xNum.isFinite() && xNum.abs()
-}
-
-const greaterThanOrEqualTo = (x, y) => {
-  const xNum = toBigNumber(x)
-  const yNum = toBigNumber(y)
-  return xNum.isFinite() && yNum.isFinite() && xNum.greaterThanOrEqualTo(yNum)
-}
-
-const eq = (x, y) => {
-  const xNum = toBigNumber(x)
-  const yNum = toBigNumber(y)
-  return xNum.isFinite() && yNum.isFinite() && xNum.eq(yNum)
+  return xNum.isFinite() ? xNum.abs() : null
 }
 
 const toFixed = (value, precision = 2) => R.isNil(value)
@@ -68,5 +68,6 @@ module.exports.div = div
 module.exports.abs = abs
 module.exports.eq = eq
 module.exports.greaterThanOrEqualTo = greaterThanOrEqualTo
+module.exports.lessThan = lessThan
 module.exports.toFixed = toFixed
 module.exports.formatNumber = formatNumber
