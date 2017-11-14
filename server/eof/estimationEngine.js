@@ -93,12 +93,19 @@ const repeatLastExtrapolation = (year, values, field) => {
 }
 
 const annualChangeExtrapolation = (year, values, field, {ratePast, rateFuture}) => {
-  const previousValues = getPreviousValues(year)(values)
-  const nextValues = getNextValues(year)(values)
+  const filterOdp = vals => R.filter(vals => vals.type === 'odp', vals)
+  const previousValues = filterOdp(getPreviousValues(year)(values))
+  const nextValues = filterOdp(getNextValues(year)(values))
   if (previousValues.length >= 1) {
-    return add(R.head(previousValues)[field], rateFuture)
+    const previousOdp = R.head(previousValues)
+    const previousOdpYear = previousOdp.year
+    const years = year - previousOdpYear
+    return add(previousOdp[field], mul(rateFuture, years))
   } else if (nextValues.length >= 1) {
-    return add(R.head(nextValues)[field], ratePast)
+    const nextOdp = R.head(nextValues)
+    const nextOdpYear = nextOdp.year
+    const years = nextOdpYear - year
+    return add(nextOdp[field], mul(ratePast, years))
   } else {
     return null
   }
