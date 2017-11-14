@@ -38,6 +38,20 @@ const testOdpSet1 = [
     year: 2018,
   }]
 
+const testOdpSet2 = [
+  {
+    forestArea: 500,
+    otherWoodedLand: 300,
+    type: 'odp',
+    year: 2009,
+  },
+  {
+    forestArea: 480,
+    otherWoodedLand: 344,
+    type: 'odp',
+    year: 2018,
+  }]
+
 const expectedEstimations1 = [
   {
     forestArea: '38518.52',
@@ -205,24 +219,9 @@ describe('estimationEngine', () => {
     assert.deepEqual(expectedEstimations1, estimated)
   })
   it('Extrapolates with repeat last value', () => {
-
-    const odps = [
-      {
-        forestArea: 500,
-        otherWoodedLand: 300,
-        type: 'odp',
-        year: 2009,
-      },
-      {
-        forestArea: 480,
-        otherWoodedLand: 344,
-        type: 'odp',
-        year: 2018,
-      }]
-
     const estimated = estimationEngine.estimateFraValues(
       fraYears,
-      odps,
+      testOdpSet2,
       ['forestArea', 'otherWoodedLand'],
       {method: 'repeatLast'}
     )
@@ -237,6 +236,26 @@ describe('estimationEngine', () => {
         { forestArea: '480.00', otherWoodedLand: '344.00', year: 2019 },
         { forestArea: '480.00', otherWoodedLand: '344.00', year: 2020 }
       ],
+      R.map(R.pickAll(['forestArea', 'otherWoodedLand', 'year']), estimated)
+    )
+  })
+
+  it('Extrapolates with annual change rate', () => {
+    const estimated = estimationEngine.estimateFraValues(
+      fraYears,
+      testOdpSet2,
+      ['forestArea', 'otherWoodedLand'],
+      {method: 'annualChange', ratePast: -10, rateFuture: 20})
+    assert.deepEqual(
+      [ { forestArea: '310.00', otherWoodedLand: '110.00', year: 1990 },
+        { forestArea: '410.00', otherWoodedLand: '210.00', year: 2000 },
+        { forestArea: '497.78', otherWoodedLand: '304.89', year: 2010 },
+        { forestArea: '486.67', otherWoodedLand: '329.33', year: 2015 },
+        { forestArea: '484.45', otherWoodedLand: '334.22', year: 2016 },
+        { forestArea: '482.23', otherWoodedLand: '339.11', year: 2017 },
+        { forestArea: '480.00', otherWoodedLand: '344.00', year: 2018 },
+        { forestArea: '500.00', otherWoodedLand: '364.00', year: 2019 },
+        { forestArea: '520.00', otherWoodedLand: '384.00', year: 2020 } ],
       R.map(R.pickAll(['forestArea', 'otherWoodedLand', 'year']), estimated)
     )
   })

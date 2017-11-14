@@ -48,7 +48,7 @@ const getPreviousValues = year => R.pipe(
   R.sort((a, b) => b.year - a.year)
 )
 
-const estimateField = (values = [], field, year, extrapolationSpec) => {
+const estimateField = (values = [], odpValues, field, year, extrapolationSpec) => {
   const odp = R.find(R.propEq('year', year))(values)
   const previousValue = getPreviousValues(year)(values)[0]
   const nextValue = getNextValues(year)(values)[0]
@@ -60,7 +60,7 @@ const estimateField = (values = [], field, year, extrapolationSpec) => {
   } else if (previousValue && nextValue) {
     return applyEstimationFunction(year, previousValue, nextValue, field, linearInterpolation)
   } else {
-    return extrapolate(year, values, field, extrapolationSpec)
+    return extrapolate(year, values, odpValues, field, extrapolationSpec)
   }
 }
 
@@ -69,7 +69,7 @@ const applyEstimationFunction = (year, pointA, pointB, field, estFunction) => {
   return estimated < 0 ? '0' : estimated
 }
 
-const linearExtrapolation = (year, values, field) => {
+const linearExtrapolation = (year, values, _, field) => {
   const previous2Values = getPreviousValues(year)(values).slice(0, 2)
   const next2Values = getNextValues(year)(values).slice(0, 2)
 
@@ -81,7 +81,7 @@ const linearExtrapolation = (year, values, field) => {
     return null
 }
 
-const repeatLastExtrapolation = (year, values, field) => {
+const repeatLastExtrapolation = (year, values, _, field) => {
   const previousValues = getPreviousValues(year)(values)
   const nextValues = getNextValues(year)(values)
   if (previousValues.length >= 1)
@@ -92,10 +92,11 @@ const repeatLastExtrapolation = (year, values, field) => {
     return null
 }
 
-const annualChangeExtrapolation = (year, values, field, {ratePast, rateFuture}) => {
-  const filterOdp = vals => R.filter(vals => vals.type === 'odp', vals)
-  const previousValues = filterOdp(getPreviousValues(year)(values))
-  const nextValues = filterOdp(getNextValues(year)(values))
+const annualChangeExtrapolation = (year, values, odpValues, field, {ratePast, rateFuture}) => {
+  assert(ratePast && rateFuture, 'ratePast and rateFuture must be given for annualChange extrapolation method')
+
+  const previousValues = getPreviousValues(year)(odpValues)
+  const nextValues = getNextValues(year)(odpValues)
   if (previousValues.length >= 1) {
     const previousOdp = R.head(previousValues)
     const previousOdpYear = previousOdp.year
@@ -117,13 +118,13 @@ const extrapolationMethods = {
   'annualChange': annualChangeExtrapolation
 }
 
-const extrapolate = (year, values, field, extrapolationSpec) => {
+const extrapolate = (year, values, odpValues, field, extrapolationSpec) => {
   const extrapolationMethod = extrapolationMethods[extrapolationSpec.method]
   assert(extrapolationMethod,`Invalid extrapolation method: ${extrapolationSpec.method}`)
-  return extrapolationMethod(year, values, field, extrapolationSpec)
+  return extrapolationMethod(year, values, odpValues, field, extrapolationSpec)
 }
 
-const estimateFraValue = (year, values, fieldsToEstimate, extrapolationSpec) => {
+const estimateFraValue = (year, values, odpValues, fieldsToEstimate, extrapolationSpec) => {
 
   const estimateFieldReducer = (newFraObj, field) => {
     const fraEstimatedYears = R.pipe(
@@ -136,7 +137,7 @@ const estimateFraValue = (year, values, fieldsToEstimate, extrapolationSpec) => 
     //Filtering out objects with field value null or already estimated
     const fieldValues = R.reject(v => !v[field] || isEstimatedOdp(v), values)
 
-    const estValue = estimateField(fieldValues, field, year, extrapolationSpec)
+    const estValue = estimateField(fieldValues, odpValues, field, year, extrapolationSpec)
 
     return R.pipe(
       R.assoc([field], toFixed(estValue)),
@@ -155,7 +156,7 @@ const estimateFraValue = (year, values, fieldsToEstimate, extrapolationSpec) => 
 const estimateFraValues = (years, odpValues, fieldstoEstimate, extrapolationSpec) => {
 
   const estimateFraValuesReducer = (values, year) => {
-    const newValue = estimateFraValue(year, values, fieldstoEstimate, extrapolationSpec)
+    const newValue = estimateFraValue(year, values, odpValues, fieldstoEstimate, extrapolationSpec)
     return [...values, newValue]
   }
 
