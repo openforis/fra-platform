@@ -11,7 +11,7 @@ import ChartWrapper from '../extentOfForest/chart/chartWrapper'
 import { CommentableDescriptions } from '../../description/commentableDescription'
 import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
 import DefinitionLink from '../../reusableUiComponents/definitionLink'
-import { sum, formatNumber, eq, greaterThanOrEqualTo, abs, sub, lessThan } from '../../../common/bignumberUtils'
+import { sum, formatNumber, eq, greaterThanOrEqualTo, abs, sub, greaterThan } from '../../../common/bignumberUtils'
 import { getForestAreaForYear } from '../extentOfForest/extentOfForestHelper'
 
 const mapIndexed = R.addIndex(R.map)
@@ -48,16 +48,18 @@ const ForestCharacteristics = props => {
   const totalForestAreaNotEqualToExtentOfForest = (eofForestArea, totalForestArea) => {
     if (R.isNil(eofForestArea)) return false
     if (R.isNil(totalForestArea)) return false
+    const tolerance = 1
     const absDifference = abs(sub(eofForestArea, totalForestArea))
-    return greaterThanOrEqualTo(absDifference, 1)
+    return greaterThanOrEqualTo(absDifference, tolerance)
   }
 
   const plantationForestValidator = fraColumn => {
     const plantationForest = fraColumn.plantationForestArea
     const introduced = fraColumn.plantationForestIntroducedArea
     if (R.isNil(plantationForest) || R.isNil(introduced)) return true
-    const absDifference = abs(sub(plantationForest, introduced))
-    return lessThan(absDifference, 1)
+    const tolerance = -1
+    const difference = sub(plantationForest, introduced)
+    return greaterThan(difference, tolerance)
   }
 
   const totalRow = fra => {

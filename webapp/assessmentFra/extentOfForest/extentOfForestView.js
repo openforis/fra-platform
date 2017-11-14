@@ -12,7 +12,7 @@ import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
 import { TableWithOdp, hasFraValues } from '../../tableWithOdp/tableWithOdp'
 import { CommentableDescriptions } from '../../description/commentableDescription'
 import countryConfig from '../../../common/countryConfig'
-import { sum, formatNumber, eq, greaterThanOrEqualTo, abs, sub, lessThan } from '../../../common/bignumberUtils'
+import { sum, formatNumber, eq, greaterThanOrEqualTo, abs, sub, greaterThan } from '../../../common/bignumberUtils'
 
 const sectionName = 'extentOfForest'
 const mapIndexed = R.addIndex(R.map)
@@ -34,8 +34,24 @@ const ExtentOfForest = (props) => {
     const faoStatValue = R.path([props.countryIso, 'faoStat', fraColumn.name], countryConfig)
     if (!faoStatValue) return false // It's normal that we don't have faoStat-values for years
     if (R.isNil(totalArea)) return false
+    const tolerance = 1
     const absDifference = abs(sub(faoStatValue, totalArea))
-    return greaterThanOrEqualTo(absDifference, 1)
+    return greaterThanOrEqualTo(absDifference, tolerance)
+  }
+
+  const otherLandValidator = (fraColumn, field) => {
+    if (field && R.isNil(fraColumn[field])) return true
+    const subCategorySum =sum([
+      fraColumn.otherLandPalms,
+      fraColumn.otherLandTreeOrchards,
+      fraColumn.otherLandAgroforestry,
+      fraColumn.otherLandTreesUrbanSettings
+    ])
+    const otherLand = fraColumn.otherLand
+    if (R.isNil(subCategorySum) || R.isNil(otherLand)) return true
+    const tolerance = -1
+    const difference = sub(otherLand, subCategorySum)
+    return greaterThan(difference, tolerance)
   }
 
   const totalAreaValidationClass = (fraColumn, totalArea) =>
@@ -86,20 +102,6 @@ const ExtentOfForest = (props) => {
         )
       return validationErrors
     },R.values(fra))
-
-  const otherLandValidator = (fraColumn, field) => {
-    if (field && R.isNil(fraColumn[field])) return true
-    const subCategorySum =sum([
-      fraColumn.otherLandPalms,
-      fraColumn.otherLandTreeOrchards,
-      fraColumn.otherLandAgroforestry,
-      fraColumn.otherLandTreesUrbanSettings
-    ])
-    const otherLand = fraColumn.otherLand
-    if (R.isNil(subCategorySum) || R.isNil(otherLand)) return true
-    const absDifference = abs(sub(subCategorySum, otherLand))
-    return lessThan(absDifference, 1)
-  }
 
   const eofRows = [
     {

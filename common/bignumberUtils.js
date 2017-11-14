@@ -43,6 +43,10 @@ const div = (x, y) => applyOperator(x, y, 'div')
 
 const greaterThanOrEqualTo = (x, y) => applyComparison(x, y, 'greaterThanOrEqualTo')
 
+const lessThanOrEqualTo = (x, y) => applyComparison(x, y, 'lessThanOrEqualTo')
+
+const greaterThan = (x, y) => applyComparison(x, y, 'greaterThan')
+
 const lessThan = (x, y) => applyComparison(x, y, 'lessThan')
 
 const eq = (x, y) => applyComparison(x, y, 'eq')
@@ -68,6 +72,8 @@ module.exports.div = div
 module.exports.abs = abs
 module.exports.eq = eq
 module.exports.greaterThanOrEqualTo = greaterThanOrEqualTo
+module.exports.lessThanOrEqualTo = lessThanOrEqualTo
+module.exports.greaterThan = greaterThan
 module.exports.lessThan = lessThan
 module.exports.toFixed = toFixed
 module.exports.formatNumber = formatNumber
