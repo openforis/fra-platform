@@ -4,6 +4,7 @@ import { formatDecimal } from '../../utils/numberFormat'
 import { totalSum } from '../../traditionalTable/aggregate'
 import { subCategoryValidator } from '../../traditionalTable/validators'
 import { forestAreaSameAsExtentOfForestValidator } from '../../traditionalTable/validators'
+import { getForestAreaForYear } from '../extentOfForest/extentOfForestHelper'
 
 const mapIndexed = R.addIndex(R.map)
 
@@ -34,16 +35,19 @@ export default (i18n, extentOfForest) => ({
   </tr>
   </thead>,
   rows: [
-    createInputRow(i18n.t('forestOwnership.privateOwnership')),
+    createInputRow(i18n.t('forestOwnership.privateOwnership') + ' (a)'),
     createInputRow(i18n.t('forestOwnership.ofWhichIndividuals'), 'fra-table__subcategory-cell', privateOwnershipValidator),
     createInputRow(i18n.t('forestOwnership.ofWhichPrivateBusinesses'), 'fra-table__subcategory-cell', privateOwnershipValidator),
     createInputRow(i18n.t('forestOwnership.ofWhichCommunities'), 'fra-table__subcategory-cell', privateOwnershipValidator),
-    createInputRow(i18n.t('forestOwnership.publicOwnership')),
-    createInputRow(i18n.t('forestOwnership.otherOrUnknown')),
+    createInputRow(i18n.t('forestOwnership.publicOwnership') + ' (b)'),
+    createInputRow(i18n.t('forestOwnership.otherOrUnknown') + ' (c)'),
     [
       {
         type: 'readOnly',
-        jsx: <th key="total_forest_area" className="fra-table__header-cell-left">{i18n.t('forestOwnership.totalForestArea')}</th>
+        jsx:
+          <th key="total" className="fra-table__header-cell-left">
+            {i18n.t('forestOwnership.total')} (a+b+c)
+          </th>
       },
       ...mapIndexed((year, i) =>
         ({
@@ -51,14 +55,26 @@ export default (i18n, extentOfForest) => ({
           calculateValue: props => totalSum(props.tableData, i+1, sumRows),
           valueFormatter: formatDecimal,
           validator: forestAreaSameAsExtentOfForestValidator(year, extentOfForest, sumRows)
-        })
-        ,
-        years
-      )
+        }), years)
+    ],
+    [
+      {
+        type: 'readOnly',
+        jsx:
+          <th key="total_forest_area" className="fra-table__header-cell-left">
+            {i18n.t('forestOwnership.totalForestArea')}
+          </th>
+      },
+      ...mapIndexed((year, i) =>
+        ({
+          type: 'calculated',
+          calculateValue: props => getForestAreaForYear(extentOfForest, year),
+          valueFormatter: formatDecimal
+        }), years)
     ]
   ],
   valueSlice: {
     columnStart: 1,
-    rowEnd: -1
+    rowEnd: -2
   }
 })

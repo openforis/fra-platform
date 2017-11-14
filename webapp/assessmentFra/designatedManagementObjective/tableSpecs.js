@@ -3,6 +3,7 @@ import R from 'ramda'
 import { formatDecimal } from '../../utils/numberFormat'
 import { totalSum } from '../../traditionalTable/aggregate'
 import { forestAreaSameAsExtentOfForestValidator } from '../../traditionalTable/validators'
+import { getForestAreaForYear } from '../extentOfForest/extentOfForestHelper'
 
 const mapIndexed = R.addIndex(R.map)
 
@@ -32,13 +33,29 @@ export const primaryDesignatedManagementObjectiveTableSpec = (i18n, extentOfFore
   name: 'primaryDesignatedManagementObjective',
   header: thead(i18n),
   rows: [
-    createDmoInputRow(i18n.t('designatedManagementObjective.production')),
-    createDmoInputRow(i18n.t('designatedManagementObjective.soilWaterProtection')),
-    createDmoInputRow(i18n.t('designatedManagementObjective.biodiversityConservation')),
-    createDmoInputRow(i18n.t('designatedManagementObjective.socialServices')),
-    createDmoInputRow(i18n.t('designatedManagementObjective.multipleUse')),
-    createDmoInputRow(i18n.t('designatedManagementObjective.other')),
-    createDmoInputRow(i18n.t('designatedManagementObjective.unknown')),
+    createDmoInputRow(i18n.t('designatedManagementObjective.production') + ' (a)'),
+    createDmoInputRow(i18n.t('designatedManagementObjective.soilWaterProtection') + ' (b)'),
+    createDmoInputRow(i18n.t('designatedManagementObjective.biodiversityConservation') + ' (c)'),
+    createDmoInputRow(i18n.t('designatedManagementObjective.socialServices') + ' (d)'),
+    createDmoInputRow(i18n.t('designatedManagementObjective.multipleUse') + ' (e)'),
+    createDmoInputRow(i18n.t('designatedManagementObjective.other') + ' (f)'),
+    createDmoInputRow(i18n.t('designatedManagementObjective.unknown') + ' (g)'),
+    [
+      {
+        type: 'readOnly',
+        jsx:
+          <th key="total" className="fra-table__header-cell-left">
+            {i18n.t('designatedManagementObjective.total')} (a+b+c+d+e+f+g)
+          </th>
+      },
+      ...mapIndexed((year, i) =>
+        ({
+          type: 'calculated',
+          calculateValue: props => totalForestArea(props.tableData, i+1),
+          valueFormatter: formatDecimal,
+          validator: forestAreaSameAsExtentOfForestValidator(year, extentOfForest, sumRows)
+        }), years)
+    ],
     [
       {
         type: 'readOnly',
@@ -50,15 +67,14 @@ export const primaryDesignatedManagementObjectiveTableSpec = (i18n, extentOfFore
       ...mapIndexed((year, i) =>
         ({
           type: 'calculated',
-          calculateValue: props => totalForestArea(props.tableData, i+1),
-          valueFormatter: formatDecimal,
-          validator: forestAreaSameAsExtentOfForestValidator(year, extentOfForest, sumRows)
+          calculateValue: props => getForestAreaForYear(extentOfForest, year),
+          valueFormatter: formatDecimal
         }), years)
     ]
   ],
   valueSlice: {
     columnStart: 1,
-    rowEnd: -1
+    rowEnd: -2
   }
 })
 

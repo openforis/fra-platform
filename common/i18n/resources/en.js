@@ -430,7 +430,8 @@ The FRA team
     multipleUse: 'Multiple use',
     other: 'Other (specify in comments)',
     unknown: 'No/unknown',
-    totalForestArea: 'Total forest area'
+    totalForestArea: 'Total forest area',
+    total: 'Total'
   },
 
   forestAreaWithinProtectedAreas: {
@@ -452,7 +453,8 @@ The FRA team
     ofWhichCommunities: '…of which owned by local, tribal and indigenous communities',
     publicOwnership: 'Public ownership',
     otherOrUnknown: 'Other/unknown (specify in comments)',
-    totalForestArea: 'Total forest area'
+    totalForestArea: 'Total forest area',
+    total: 'Total'
   },
 
   holderOfManagementRights: {
@@ -475,6 +477,7 @@ The FRA team
     diseases: 'Diseases',
     severeWeatherEvents: 'Severe weather events',
     other: 'Other',
+    totalForestArea: 'Total forest area',
     total: 'Total'
   },
 
