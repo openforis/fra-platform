@@ -13,6 +13,7 @@ import { TableWithOdp, hasFraValues } from '../../tableWithOdp/tableWithOdp'
 import { CommentableDescriptions } from '../../description/commentableDescription'
 import countryConfig from '../../../common/countryConfig'
 import { sum, formatNumber, eq, greaterThanOrEqualTo, abs, sub, greaterThan } from '../../../common/bignumberUtils'
+import ReviewIndicator from '../../review/reviewIndicator'
 
 const sectionName = 'extentOfForest'
 const mapIndexed = R.addIndex(R.map)
@@ -70,6 +71,16 @@ const ExtentOfForest = (props) => {
           </td>
         }, R.values(fra))
       }
+      <td className="fra-table__row-anchor-cell">
+        <div className="fra-table__review-indicator-anchor">
+          <ReviewIndicator
+            key="totalArea"
+            section={sectionName}
+            title={i18n.t('extentOfForest.totalLandArea')}
+            target={['totalArea']}
+            countryIso={props.countryIso} />
+        </div>
+      </td>
     </tr>
 
   const faoStatRow = fra =>
@@ -83,6 +94,16 @@ const ExtentOfForest = (props) => {
           </td>
         }, R.values(fra))
       }
+      <td className="fra-table__row-anchor-cell">
+        <div className="fra-table__review-indicator-anchor">
+          <ReviewIndicator
+            key="faoStat"
+            section={sectionName}
+            title={i18n.t('extentOfForest.faoStat')}
+            target={['faoStat']}
+            countryIso={props.countryIso} />
+        </div>
+      </td>
     </tr>
 
   const validationErrorMessages = fra =>
@@ -107,17 +128,20 @@ const ExtentOfForest = (props) => {
     {
       type: 'field',
       field: 'forestArea',
-      rowHeader: i18n.t('extentOfForest.forestArea') + ' (a)'
+      rowHeader: i18n.t('extentOfForest.forestArea'),
+      rowVariable: '(a)'
     },
     {
       type: 'field',
       field: 'otherWoodedLand',
-      rowHeader: i18n.t('fraClass.otherWoodedLand') + ' (b)'
+      rowHeader: i18n.t('fraClass.otherWoodedLand'),
+      rowVariable: '(b)'
     },
     {
       type: 'field',
       field: 'otherLand',
-      rowHeader: i18n.t('fraClass.otherLand') + ' (c)'
+      rowHeader: i18n.t('fraClass.otherLand'),
+      rowVariable: '(c)'
     },
     {
       type: 'field',

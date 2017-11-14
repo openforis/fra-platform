@@ -13,6 +13,7 @@ import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
 import DefinitionLink from '../../reusableUiComponents/definitionLink'
 import { sum, formatNumber, eq, greaterThanOrEqualTo, abs, sub, greaterThan } from '../../../common/bignumberUtils'
 import { getForestAreaForYear } from '../extentOfForest/extentOfForestHelper'
+import ReviewIndicator from '../../review/reviewIndicator'
 
 const mapIndexed = R.addIndex(R.map)
 const sectionName = 'forestCharacteristics'
@@ -21,22 +22,6 @@ const odpValueCellClass = (fraColumn) => fraColumn.type === 'odp' ? 'odp-value-c
 const ForestCharacteristics = props => {
 
   const i18n = props.i18n
-
-  const plantedForestRow = fra => {
-    return <tr key="plantedForest">
-      <th className="fra-table__header-cell-left">
-        {i18n.t('forestCharacteristics.plantedForest')} (b)
-      </th>
-      {
-        mapIndexed((fraColumn, i) => {
-          const plantedForestArea = sum([fraColumn.plantationForestArea, fraColumn.otherPlantedForestArea])
-          return <td className={odpValueCellClass(fraColumn)} key={i}>
-            {formatNumber(plantedForestArea)}
-          </td>
-        }, R.values(fra))
-      }
-    </tr>
-  }
 
   const totalForestArea = (fraColumn) =>
     sum([
@@ -62,8 +47,34 @@ const ForestCharacteristics = props => {
     return greaterThan(difference, tolerance)
   }
 
+  const plantedForestRow = fra => {
+    return <tr key="plantedForest">
+      <th className="fra-table__header-cell-left">
+        {i18n.t('forestCharacteristics.plantedForest')} (b)
+      </th>
+      {
+        mapIndexed((fraColumn, i) => {
+          const plantedForestArea = sum([fraColumn.plantationForestArea, fraColumn.otherPlantedForestArea])
+          return <td className={odpValueCellClass(fraColumn)} key={i}>
+            {formatNumber(plantedForestArea)}
+          </td>
+        }, R.values(fra))
+      }
+      <td className="fra-table__row-anchor-cell">
+        <div className="fra-table__review-indicator-anchor">
+          <ReviewIndicator
+            key="plantedForest"
+            section={sectionName}
+            title={i18n.t('forestCharacteristics.plantedForest')}
+            target={['plantedForest']}
+            countryIso={props.countryIso} />
+        </div>
+      </td>
+    </tr>
+  }
+
   const totalRow = fra => {
-    return <tr key="totalArea">
+    return <tr key="total">
       <th className="fra-table__header-cell-left">
         {i18n.t('forestCharacteristics.total')} (a+b)
       </th>
@@ -80,6 +91,16 @@ const ForestCharacteristics = props => {
           </td>
         }, R.values(fra))
       }
+      <td className="fra-table__row-anchor-cell">
+        <div className="fra-table__review-indicator-anchor">
+          <ReviewIndicator
+            key="total"
+            section={sectionName}
+            title={i18n.t('forestCharacteristics.total')}
+            target={['total']}
+            countryIso={props.countryIso} />
+        </div>
+      </td>
     </tr>
   }
 
@@ -98,6 +119,16 @@ const ForestCharacteristics = props => {
           </td>
         }, R.values(fra))
       }
+      <td className="fra-table__row-anchor-cell">
+        <div className="fra-table__review-indicator-anchor">
+          <ReviewIndicator
+            key="totalForestArea"
+            section={sectionName}
+            title={i18n.t('forestCharacteristics.totalForestArea')}
+            target={['totalForestArea']}
+            countryIso={props.countryIso} />
+        </div>
+      </td>
     </tr>
   }
 
@@ -132,7 +163,8 @@ const ForestCharacteristics = props => {
     {
       type: 'field',
       field: 'naturalForestArea',
-      rowHeader: i18n.t('forestCharacteristics.naturalForestArea') + ' (a)'
+      rowHeader: i18n.t('forestCharacteristics.naturalForestArea'),
+      rowVariable: '(a)'
     },
     {
       type: 'custom',
