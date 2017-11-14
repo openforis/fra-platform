@@ -9,7 +9,7 @@ import Icon from '../../reusableUiComponents/icon'
 import DefinitionLink from '../../reusableUiComponents/definitionLink'
 import ChartWrapper from './chart/chartWrapper'
 import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
-import { TableWithOdp, hasFraValues } from '../../tableWithOdp/tableWithOdp'
+import { TableWithOdp, hasFraValues, disableGenerateFraValues } from '../../tableWithOdp/tableWithOdp'
 import { CommentableDescriptions } from '../../description/commentableDescription'
 import countryConfig from '../../../common/countryConfig'
 import { sum, formatNumber, eq, greaterThanOrEqualTo } from '../../../common/bignumberUtils'
@@ -19,14 +19,6 @@ const mapIndexed = R.addIndex(R.map)
 const odpValueCellClass = (fraColumn) => fraColumn.type === 'odp' ? 'odp-value-cell-total' : 'fra-table__calculated-cell'
 
 const ExtentOfForest = (props) => {
-
-  const disableGenerateFRAValues = () => {
-    const odps = R.pipe(
-      R.values,
-      R.filter(v => v.type === 'odp')
-    )(props.fra)
-    return props.generatingFraValues || odps.length < 2
-  }
 
   const i18n = props.i18n
 
@@ -175,7 +167,7 @@ const ExtentOfForest = (props) => {
       <DefinitionLink document="faq" anchor="1a" title={i18n.t('definition.faqLabel')} lang={i18n.language}
                       className="align-left"/>
       <button
-        disabled={disableGenerateFRAValues()}
+        disabled={disableGenerateFraValues(props.fra, props.generatingFraValues)}
         className="btn btn-primary"
         onClick={() => hasFraValues(props.fra, eofRows)
           ? window.confirm(i18n.t('extentOfForest.confirmGenerateFraValues'))
@@ -185,6 +177,14 @@ const ExtentOfForest = (props) => {
       }>
         {i18n.t('extentOfForest.generateFraValues')}
       </button>
+      {
+        !disableGenerateFraValues(props.fra, props.generatingFraValues) && props.odpDirty
+          ? <div className="support-text">
+              <Icon name="alert" className="icon-orange icon-sub icon-margin-right"/>
+              {i18n.t('nationalDataPoint.remindDirtyOdp')}
+            </div>
+          : null
+      }
     </div>
     <TableWithOdp
                section={sectionName}
@@ -222,7 +222,7 @@ class DataFetchingComponent extends React.Component {
 const mapStateToProps = state =>
   ({
     ...state.extentOfForest,
-    'openCommentThread': state.review.openThread,
+    openCommentThread: state.review.openThread,
     i18n: state.user.i18n
   })
 
