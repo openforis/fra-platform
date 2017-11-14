@@ -4,6 +4,7 @@ import { formatDecimal } from '../../utils/numberFormat'
 import { totalSum } from '../../traditionalTable/aggregate'
 import { forestAreaSameAsExtentOfForestValidator } from '../../traditionalTable/validators'
 import { getForestAreaForYear } from '../extentOfForest/extentOfForestHelper'
+import { Link } from '../../reusableUiComponents/link'
 
 const mapIndexed = R.addIndex(R.map)
 
@@ -29,7 +30,7 @@ const thead = i18n =>
     </tr>
   </thead>
 
-export const primaryDesignatedManagementObjectiveTableSpec = (i18n, extentOfForest) => ({
+export const primaryDesignatedManagementObjectiveTableSpec = (i18n, extentOfForest, countryIso) => ({
   name: 'primaryDesignatedManagementObjective',
   header: thead(i18n),
   rows: [
@@ -61,7 +62,9 @@ export const primaryDesignatedManagementObjectiveTableSpec = (i18n, extentOfFore
         type: 'readOnly',
         jsx:
           <th key="total_forest_area" className="fra-table__header-cell-left">
-            {i18n.t('designatedManagementObjective.totalForestArea')}
+            <Link to={`/country/${countryIso}/extentOfForest`} className="link">
+              {i18n.t('designatedManagementObjective.totalForestArea')}
+            </Link>
           </th>
       },
       ...mapIndexed((year, i) =>

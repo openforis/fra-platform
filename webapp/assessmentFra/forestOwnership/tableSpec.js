@@ -5,6 +5,7 @@ import { totalSum } from '../../traditionalTable/aggregate'
 import { subCategoryValidator } from '../../traditionalTable/validators'
 import { forestAreaSameAsExtentOfForestValidator } from '../../traditionalTable/validators'
 import { getForestAreaForYear } from '../extentOfForest/extentOfForestHelper'
+import { Link } from '../../reusableUiComponents/link'
 
 const mapIndexed = R.addIndex(R.map)
 
@@ -21,7 +22,7 @@ const privateOwnershipValidator = subCategoryValidator(0, R.range(1, 4))
 const years = [1990, 2000, 2010, 2015, 2020]
 const sumRows = [0,4,5]
 
-export default (i18n, extentOfForest) => ({
+export default (i18n, extentOfForest, countryIso) => ({
   name: 'forestOwnership',
   header: <thead>
   <tr>
@@ -62,7 +63,9 @@ export default (i18n, extentOfForest) => ({
         type: 'readOnly',
         jsx:
           <th key="total_forest_area" className="fra-table__header-cell-left">
-            {i18n.t('forestOwnership.totalForestArea')}
+            <Link to={`/country/${countryIso}/extentOfForest`} className="link">
+              {i18n.t('forestOwnership.totalForestArea')}
+            </Link>
           </th>
       },
       ...mapIndexed((year, i) =>

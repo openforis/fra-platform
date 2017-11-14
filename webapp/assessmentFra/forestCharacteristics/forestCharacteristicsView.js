@@ -86,7 +86,9 @@ const ForestCharacteristics = props => {
   const totalForestAreaRow = fra => {
     return <tr key="totalForestArea">
       <th className="fra-table__header-cell-left">
-        {i18n.t('forestCharacteristics.totalForestArea')}
+        <Link to={`/country/${props.countryIso}/extentOfForest`} className="link">
+          {i18n.t('forestCharacteristics.totalForestArea')}
+        </Link>
       </th>
       {
         mapIndexed((fraColumn, i) => {

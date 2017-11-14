@@ -43,16 +43,14 @@ export default (i18n, extentOfForest) => {
       [
         {
           type: 'readOnly',
-          jsx: <th key=""
-                   className="fra-table__category-cell">{i18n.t('forestAreaWithinProtectedAreas.forestAreaWithLongTermManagementPlan')}</th>
+          jsx: <th key="" className="fra-table__category-cell">{i18n.t('forestAreaWithinProtectedAreas.forestAreaWithLongTermManagementPlan')}</th>
         },
         ...inputColumns
       ],
       [
         {
           type: 'readOnly',
-          jsx: <th key=""
-                   className="fra-table__subcategory-cell">{i18n.t('forestAreaWithinProtectedAreas.ofWhichInProtectedAreas')}</th>
+          jsx: <th key="" className="fra-table__subcategory-cell">{i18n.t('forestAreaWithinProtectedAreas.ofWhichInProtectedAreas')}</th>
         },
         ...R.times(() => ({type: 'decimalInput', validator: subCategoryValidator(1, [2])}), 9)
       ]

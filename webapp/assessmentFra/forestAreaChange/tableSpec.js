@@ -4,6 +4,7 @@ import { formatDecimal } from '../../utils/numberFormat'
 import { sub, div, eq, toFixed, abs, lessThan } from '../../../common/bignumberUtils'
 import { subCategoryValidator } from '../../traditionalTable/validators'
 import { getForestAreaForYear } from '../extentOfForest/extentOfForestHelper'
+import { Link } from '../../reusableUiComponents/link'
 
 const mapIndexed = R.addIndex(R.map)
 const ofWhichRows = R.range(1, 3)
@@ -52,7 +53,7 @@ const netChangeValidator =
     }
 }
 
-export default (i18n, extentOfForest) => {
+export default (i18n, extentOfForest, countryIso) => {
   return {
     name: 'forestAreaChange', // used to uniquely identify table
     header: <thead>
@@ -122,7 +123,9 @@ export default (i18n, extentOfForest) => {
           type: 'readOnly',
           jsx:
             <th className="fra-table__header-cell-left">
-              {i18n.t('forestAreaChange.forestAreaNetChange')}
+              <Link to={`/country/${countryIso}/extentOfForest`} className="link">
+                {i18n.t('forestAreaChange.forestAreaNetChange')}
+              </Link>
             </th>
         },
         ...mapIndexed(

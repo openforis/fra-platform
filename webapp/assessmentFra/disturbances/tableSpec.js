@@ -4,13 +4,14 @@ import { totalSum } from '../../traditionalTable/aggregate'
 import { formatDecimal } from '../../utils/numberFormat'
 import { forestAreaLessThanOrEqualToExtentOfForestValidator } from '../../traditionalTable/validators'
 import { getForestAreaForYear } from '../extentOfForest/extentOfForestHelper'
+import { Link } from '../../reusableUiComponents/link'
 
 const mapIndexed = R.addIndex(R.map)
 const years = R.range(2000, 2018)
 const sumRows = R.range(0,4)
 const inputColumns = R.times(() => ({type: 'decimalInput'}), 18)
 
-export default (i18n, extentOfForest) => ({
+export default (i18n, extentOfForest, countryIso) => ({
   name: 'disturbances', // used to uniquely identify table
   header: <thead>
   <tr>
@@ -73,7 +74,9 @@ export default (i18n, extentOfForest) => ({
         type: 'readOnly',
         jsx:
           <th key="total_forest_area" className="fra-table__header-cell-left">
+          <Link to={`/country/${countryIso}/extentOfForest`} className="link">
             {i18n.t('disturbances.totalForestArea')}
+          </Link>
           </th>
       },
       ...mapIndexed((year, i) =>
