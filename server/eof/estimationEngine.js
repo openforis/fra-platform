@@ -92,9 +92,21 @@ const repeatLastExtrapolation = (year, values, field) => {
     return null
 }
 
+const annualChangeExtrapolation = (year, values, field, {ratePast, rateFuture}) => {
+  const previousValues = getPreviousValues(year)(values)
+  const nextValues = getNextValues(year)(values)
+  if (previousValues.length >= 1)
+    return add(R.head(previousValues)[field], ratePast)
+  else if (nextValues.length >= 1)
+    return add(R.head(nextValues)[field], rateFuture)
+  else
+    return null
+}
+
 const extrapolationMethods = {
   'linear': linearExtrapolation,
-  'repeatLast': repeatLastExtrapolation
+  'repeatLast': repeatLastExtrapolation,
+  'annualChange': annualChangeExtrapolation
 }
 
 const extrapolate = (year, values, field, extrapolationSpec) => {

@@ -160,11 +160,40 @@ const ExtentOfForest = (props) => {
 
 
   const generateFraValues = (extrapolationMethod) => {
-    hasFraValues(props.fra, eofRows)
-      ? window.confirm(i18n.t('extentOfForest.confirmGenerateFraValues'))
-        ? props.generateFraValues('extentOfForest', props.countryIso, extrapolationMethod)
-        : null
-      : props.generateFraValues('extentOfForest', props.countryIso, extrapolationMethod)
+    const generateAnnualChange = () => {
+      const valuesRaw = window.prompt('Annual change rate', '-0.1 0.1')
+      const [ratePast, rateFuture] = valuesRaw.split(' ')
+      if (
+        isNaN(ratePast) ||
+        isNaN(rateFuture) ||
+        ratePast === ' ' ||
+        rateFuture === ' '
+      ) { return }
+      props.generateFraValues(
+        'extentOfForest',
+        props.countryIso,
+        {
+          method:
+          extrapolationMethod,
+          ratePast,
+          rateFuture
+        }
+      )
+    }
+    const generate = () => {
+      if (extrapolationMethod === 'annualChange') {
+        generateAnnualChange()
+      } else {
+        props.generateFraValues('extentOfForest', props.countryIso, {method: extrapolationMethod})
+      }
+    }
+    if (hasFraValues(props.fra, eofRows)) {
+      if (window.confirm(i18n.t('extentOfForest.confirmGenerateFraValues'))) {
+        generate()
+      }
+    } else {
+      generate()
+    }
   }
 
   return <div className='fra-view__content'>
@@ -189,7 +218,8 @@ const ExtentOfForest = (props) => {
           ? []
           :  [
               { content: 'Linear extrapolation', onClick:() => generateFraValues('linear') },
-              { content: 'Repeat latest extrapolation', onClick:() => generateFraValues('repeatLast') }
+              { content: 'Repeat last extrapolation', onClick:() => generateFraValues('repeatLast') },
+              { content: 'Annual change rate extrapolation', onClick:() => generateFraValues('annualChange') },
              ]}
       >
         <div className={`btn btn-primary ${disableGenerateFRAValues() ? 'disabled' : ''}`}>
