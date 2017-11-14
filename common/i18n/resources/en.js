@@ -316,7 +316,7 @@ The FRA team
     ofWhichTreeOrchards: '…of which tree orchards (includes fruit, nuts, olive, etc.)',
     ofWhichAgroforestry: '…of which agroforestry',
     ofWhichTreesUrbanSettings: '…of which trees in urban settings',
-    totalLandArea: 'Total land area',
+    totalLandArea: 'Total land area {{formula}}',
     faoStatLandArea: 'FAOSTAT land area',
     faoStatMismatch: "Doesn't match FAOSTAT land area"
   },
@@ -331,7 +331,8 @@ The FRA team
     plantationForestIntroducedArea: '…of which introduced species',
     otherPlantedForestArea: 'Other planted forest',
     plantedForest: 'Planted forest',
-    totalForestArea: 'Total forest area'
+    totalForestArea: 'Total forest area',
+    total: 'Total {{formula}}'
   },
 
   forestAreaChange: {
