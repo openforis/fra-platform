@@ -202,9 +202,7 @@ describe('estimationEngine', () => {
       estimationEngine.eofFields,
       {method: 'linear'}
     )
-    assert(
-      R.equals(expectedEstimations1, estimated),
-      `Estimated values were not as expected ${JSON.stringify(jsonDiff.diff(expectedEstimations1, estimated))}`)
+    assert.deepEqual(expectedEstimations1, estimated)
   })
   it('Extrapolates with repeat last value', () => {
 
