@@ -9,7 +9,7 @@ import Icon from '../../reusableUiComponents/icon'
 import DefinitionLink from '../../reusableUiComponents/definitionLink'
 import ChartWrapper from './chart/chartWrapper'
 import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
-import { TableWithOdp, hasFraValues } from '../../tableWithOdp/tableWithOdp'
+import { TableWithOdp, hasFraValues, disableGenerateFraValues } from '../../tableWithOdp/tableWithOdp'
 import { CommentableDescriptions } from '../../description/commentableDescription'
 import countryConfig from '../../../common/countryConfig'
 import { PopoverControl } from '../../reusableUiComponents/popoverControl'
@@ -20,14 +20,6 @@ const mapIndexed = R.addIndex(R.map)
 const odpValueCellClass = (fraColumn) => fraColumn.type === 'odp' ? 'odp-value-cell-total' : 'fra-table__calculated-cell'
 
 const ExtentOfForest = (props) => {
-
-  const disableGenerateFRAValues = () => {
-    const odps = R.pipe(
-      R.values,
-      R.filter(v => v.type === 'odp')
-    )(props.fra)
-    return props.generatingFraValues || odps.length < 2
-  }
 
   const i18n = props.i18n
 
@@ -214,7 +206,7 @@ const ExtentOfForest = (props) => {
       <DefinitionLink document="faq" anchor="1a" title={i18n.t('definition.faqLabel')} lang={i18n.language}
                       className="align-left"/>
       <PopoverControl items={
-        disableGenerateFRAValues()
+        disableGenerateFraValues(props.fra, props.generatingFraValues)
           ? []
           :  [
               { content: 'Linear extrapolation', onClick:() => generateFraValues('linear') },
@@ -222,11 +214,19 @@ const ExtentOfForest = (props) => {
               { content: 'Annual change rate extrapolation', onClick:() => generateFraValues('annualChange') },
              ]}
       >
-        <div className={`btn btn-primary ${disableGenerateFRAValues() ? 'disabled' : ''}`}>
+        <div className={`btn btn-primary ${disableGenerateFraValues(props.fra, props.generatingFraValues) ? 'disabled' : ''}`}>
           {i18n.t('extentOfForest.generateFraValues')}
           <Icon className="icon-white icon-margin icon-middle" name="small-down"/>
         </div>
       </PopoverControl>
+      {
+        !disableGenerateFraValues(props.fra, props.generatingFraValues) && props.odpDirty
+          ? <div className="support-text">
+          <Icon name="alert" className="icon-orange icon-sub icon-margin-right"/>
+          {i18n.t('nationalDataPoint.remindDirtyOdp')}
+        </div>
+          : null
+      }
     </div>
     <TableWithOdp
                section={sectionName}
@@ -264,7 +264,7 @@ class DataFetchingComponent extends React.Component {
 const mapStateToProps = state =>
   ({
     ...state.extentOfForest,
-    'openCommentThread': state.review.openThread,
+    openCommentThread: state.review.openThread,
     i18n: state.user.i18n
   })
 
