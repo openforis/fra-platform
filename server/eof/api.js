@@ -94,7 +94,7 @@ module.exports.init = app => {
       .catch(err => sendErr(res, err))
   })
 
-  app.post('/nde/:section/generateFraValues/:countryIso/:method', (req, res) => {
+  app.post('/nde/:section/generateFraValues/:countryIso/:extrapolationMethod', (req, res) => {
 
     console.log('generateFraValues METHOD', req.params.extrapolationMethod)
 
