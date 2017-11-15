@@ -5,7 +5,7 @@ import LoggedInPageTemplate from '../app/loggedInPageTemplate'
 import { connect } from 'react-redux'
 import { getRelativeDate } from '../utils/relativeDate'
 import { fetchAuditFeed } from '../audit/actions'
-import { Link } from './../reusableUiComponents/link'
+import { Link } from '../reusableUiComponents/link'
 
 const mapIndexed = R.addIndex(R.map)
 
@@ -134,23 +134,14 @@ class DashboardView extends React.Component {
                   <h3 className="subhead">{i18n.t('dashboard.timeline')}</h3>
                 </li>
                 <li className="dashboard__list-item">
-                  <div className="dashboard__list-icon">
-                    <svg className="icon"><use xlinkHref="img/icons.svg#checkbox"/></svg>
-                  </div>
                   <span className="dashboard__list-item-year">09.11.2017</span>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit
                 </li>
                 <li className="dashboard__list-item">
-                  <div className="dashboard__list-icon">
-                    <svg className="icon"><use xlinkHref="img/icons.svg#checkbox"/></svg>
-                  </div>
                   <span className="dashboard__list-item-year">09.11.2017</span>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit
                 </li>
                 <li className="dashboard__list-item">
-                  <div className="dashboard__list-icon">
-                    <svg className="icon"><use xlinkHref="img/icons.svg#checkbox"/></svg>
-                  </div>
                   <span className="dashboard__list-item-year">09.11.2017</span>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit
                 </li>
