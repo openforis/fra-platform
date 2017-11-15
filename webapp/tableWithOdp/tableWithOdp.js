@@ -125,12 +125,7 @@ export class GenerateFraValuesControl extends React.Component {
     const generateAnnualChange = () => {
       const ratePast = this.state.ratePast
       const rateFuture = this.state.rateFuture
-      if (
-        isNaN(ratePast) ||
-        isNaN(rateFuture) ||
-        ratePast === ' ' ||
-        rateFuture === ' '
-      ) { return }
+      if (!this.validRates()) { throw new Error('Validation errors rates') }
       generateFraValues(
         section,
         countryIso,
