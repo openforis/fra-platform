@@ -6,7 +6,7 @@ import Icon from '../../reusableUiComponents/icon'
 
 import { fetchItem, save, saveMany, generateFraValues } from '../../tableWithOdp/actions'
 import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
-import { TableWithOdp, hasFraValues, disableGenerateFraValues } from '../../tableWithOdp/tableWithOdp'
+import { TableWithOdp, GenerateFraValuesControl, disableGenerateFraValues } from '../../tableWithOdp/tableWithOdp'
 import ChartWrapper from '../extentOfForest/chart/chartWrapper'
 import { CommentableDescriptions } from '../../description/commentableDescription'
 import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
@@ -156,17 +156,7 @@ const ForestCharacteristics = props => {
       <h3 className="subhead">{i18n.t('forestCharacteristics.forestCharacteristics')}</h3>
       <DefinitionLink document="tad" anchor="1b" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
       <DefinitionLink document="faq" anchor="1b" title={i18n.t('definition.faqLabel')} lang={i18n.language} className="align-left"/>
-      <button
-        disabled={disableGenerateFraValues(props.fra, props.generatingFraValues)}
-        className="btn btn-primary"
-        onClick={() => hasFraValues(props.fra, rows)
-          ? window.confirm(i18n.t('extentOfForest.confirmGenerateFraValues'))
-            ? props.generateFraValues(sectionName, props.countryIso)
-            : null
-          : props.generateFraValues(sectionName, props.countryIso)
-      }>
-        {i18n.t('extentOfForest.generateFraValues')}
-      </button>
+      <GenerateFraValuesControl section={sectionName} rows={rows} {...props} />
       {
         !disableGenerateFraValues(props.fra, props.generatingFraValues) && props.odpDirty
           ? <div className="support-text">
