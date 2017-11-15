@@ -20,15 +20,22 @@ export const disableGenerateFraValues = (fra, generatingFraValues) => {
     return generatingFraValues || odps.length < 2
   }
 
-export const hasFraValues = (fra, rowsSpecs) => {
+export const getFraValues = (fra, rowsSpecs) => {
   const valueFieldNames = R.reject(R.isNil, R.pluck('field', rowsSpecs))
-  const flattenedFraValues = R.pipe(
+  const fraValues = R.pipe(
     R.values,
     R.filter(v => v.type !== 'odp'),
-    R.map(column => R.props(valueFieldNames, column)),
+    R.map(column => R.props(valueFieldNames, column))
+  )(fra)
+  return fraValues
+}
+
+export const hasFraValues = (fra, rowsSpecs) => {
+  const fraValues = getFraValues(fra, rowsSpecs)
+  const flattenedFraValues = R.pipe(
     R.flatten,
     R.reject(R.isNil)
-  )(fra)
+  )(fraValues)
   return flattenedFraValues.length > 0
 }
 

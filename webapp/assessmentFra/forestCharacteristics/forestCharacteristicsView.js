@@ -1,12 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
+import clipboard from 'clipboard-polyfill'
 import { Link } from '../../reusableUiComponents/link'
 import Icon from '../../reusableUiComponents/icon'
 
 import { fetchItem, save, saveMany, generateFraValues } from '../../tableWithOdp/actions'
 import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
-import { TableWithOdp, hasFraValues, disableGenerateFraValues } from '../../tableWithOdp/tableWithOdp'
+import { TableWithOdp, hasFraValues, getFraValues, disableGenerateFraValues } from '../../tableWithOdp/tableWithOdp'
 import ChartWrapper from '../extentOfForest/chart/chartWrapper'
 import { CommentableDescriptions } from '../../description/commentableDescription'
 import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
@@ -156,6 +157,28 @@ const ForestCharacteristics = props => {
       <h3 className="subhead">{i18n.t('forestCharacteristics.forestCharacteristics')}</h3>
       <DefinitionLink document="tad" anchor="1b" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
       <DefinitionLink document="faq" anchor="1b" title={i18n.t('definition.faqLabel')} lang={i18n.language} className="align-left"/>
+      <button
+        className="btn btn-secondary"
+        onClick={() => {
+          var data = getFraValues(props.fra, rows)
+          var transposedData = R.transpose(data)
+          var table = `
+            <table>
+            ${R.map(r => `
+              <tr>
+              ${R.map(v => `<td>${v || ''}</td>`, r).join('')}
+              </tr>
+              `, transposedData).join('')}
+            </table>
+          `
+          var dt = new clipboard.DT()
+          dt.setData("text/plain", "Fallback text")
+          dt.setData("text/html", table)
+          clipboard.write(dt)
+        }
+      }>
+        Copy to clipboard
+      </button>
       <button
         disabled={disableGenerateFraValues(props.fra, props.generatingFraValues)}
         className="btn btn-primary"
