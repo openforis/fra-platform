@@ -95,9 +95,9 @@ export class GenerateFraValuesControl extends React.Component {
         className="select"
         value={this.state.extrapolationMethod}
         onChange={evt => this.setState({...this.state, extrapolationMethod: evt.target.value})}>
-        <option value="linear">Linear</option>
-        <option value="repeatLast">Repeat last</option>
-        <option value="annualChange">Annual change</option>
+        <option value="linear">{i18n.t('tableWithOdp.linearExtrapolation')}</option>
+        <option value="repeatLast">{i18n.t('tableWithOdp.repeatLastExtrapolation')}</option>
+        <option value="annualChange">{i18n.t('tableWithOdp.annualChangeExtrapolation')}</option>
       </select>
 
       <button
