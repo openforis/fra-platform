@@ -6,20 +6,11 @@ import { Link } from '../reusableUiComponents/link'
 import { ThousandSeparatedDecimalInput } from '../reusableUiComponents/thousandSeparatedDecimalInput'
 import Icon from '../reusableUiComponents/icon'
 import ReviewIndicator from '../review/reviewIndicator'
-import { PopoverControl } from '../reusableUiComponents/popoverControl'
 import { readPasteClipboard } from '../utils/copyPasteUtil'
 import { acceptNextDecimal} from '../utils/numberInput'
 import { formatNumber } from '../../common/bignumberUtils'
 
 const mapIndexed = R.addIndex(R.map)
-
-export const disableGenerateFraValues = (fra, generatingFraValues) => {
-    const odps = R.pipe(
-      R.values,
-      R.filter(v => v.type === 'odp')
-    )(fra)
-    return generatingFraValues || odps.length < 2
-  }
 
 export const hasFraValues = (fra, rowsSpecs) => {
   const valueFieldNames = R.reject(R.isNil, R.pluck('field', rowsSpecs))
@@ -68,12 +59,70 @@ export class TableWithOdp extends React.Component {
   }
 }
 
-export const GenerateFraValuesControl = props => {
+export class GenerateFraValuesControl extends React.Component {
 
-  const generateFraValues = (extrapolationMethod) => {
+  constructor(props) {
+    super(props)
+    this.state = {extrapolationMethod: 'linear'}
+  }
+
+  render() {
+    const props = this.props
+    return <div>
+      {
+        this.state.extrapolationMethod === 'annualChange'
+          ? <div>
+          <input
+            type="text"
+            className="text-input"
+            placeholder="Past rate"
+            value={this.state.ratePast}
+            onChange={(evt) => this.setState({...this.state, ratePast: evt.target.value})}
+          />
+          <input
+            type="text"
+            className="text-input"
+            placeholder="Future rate"
+            value={this.state.rateFuture}
+            onChange={(evt) => this.setState({...this.state, rateFuture: evt.target.value})}
+          />
+        </div>
+          : null
+      }
+      <select
+        className="select"
+        value={this.state.extrapolationMethod}
+        onChange={evt => this.setState({...this.state, extrapolationMethod: evt.target.value})}>
+        <option value="linear">Linear</option>
+        <option value="repeatLast">Repeat last</option>
+        <option value="annualChange">Annual change</option>
+      </select>
+
+      <button
+        disabled={this.disableGenerateFraValues(props.fra, props.generatingFraValues)}
+        className="btn btn-primary"
+        onClick={() => this.generateFraValues(this.state.extrapolationMethod)}>
+        {props.i18n.t('tableWithOdp.generateFraValues')}
+      </button>
+    </div>
+  }
+
+
+  disableGenerateFraValues (fra, generatingFraValues) {
+    if (this.state.extrapolationMethod === 'annualChange' && !this.validRates()) return true
+
+    const odps = R.pipe(
+      R.values,
+      R.filter(v => v.type === 'odp')
+    )(fra)
+    return generatingFraValues || odps.length < 2
+  }
+
+  generateFraValues (extrapolationMethod) {
+    const props = this.props
     const generateAnnualChange = () => {
-      const valuesRaw = window.prompt('Annual change rate', '-0.1 0.1')
-      const [ratePast, rateFuture] = valuesRaw.split(' ')
+      const ratePast = this.state.ratePast
+      const rateFuture = this.state.rateFuture
       if (
         isNaN(ratePast) ||
         isNaN(rateFuture) ||
@@ -107,20 +156,13 @@ export const GenerateFraValuesControl = props => {
     }
   }
 
-  return <PopoverControl items={
-      disableGenerateFraValues(props.fra, props.generatingFraValues)
-        ? []
-        :  [
-        { content: 'Linear extrapolation', onClick:() => generateFraValues('linear') },
-        { content: 'Repeat last extrapolation', onClick:() => generateFraValues('repeatLast') },
-        { content: 'Annual change rate extrapolation', onClick:() => generateFraValues('annualChange') },
-      ]}
-    >
-    <div className={`btn btn-primary ${disableGenerateFraValues(props.fra, props.generatingFraValues) ? 'disabled' : ''}`}>
-      {props.i18n.t('tableWithOdp.generateFraValues')}
-      <Icon className="icon-white icon-margin icon-middle" name="small-down"/>
-    </div>
-  </PopoverControl>
+  validRates() {
+    return this.validRate(this.state.ratePast) && this.validRate(this.state.rateFuture)
+  }
+
+  validRate (rate) {
+    return !isNaN(rate) && !R.isNil(rate) && !R.isEmpty(R.trim(rate))
+  }
 }
 
 const buildRows = (rows, props) => {

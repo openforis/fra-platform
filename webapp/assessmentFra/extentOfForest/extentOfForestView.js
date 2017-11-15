@@ -9,7 +9,7 @@ import Icon from '../../reusableUiComponents/icon'
 import DefinitionLink from '../../reusableUiComponents/definitionLink'
 import ChartWrapper from './chart/chartWrapper'
 import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
-import { TableWithOdp, GenerateFraValuesControl, hasFraValues, disableGenerateFraValues } from '../../tableWithOdp/tableWithOdp'
+import { TableWithOdp, GenerateFraValuesControl, hasFraValues} from '../../tableWithOdp/tableWithOdp'
 import { CommentableDescriptions } from '../../description/commentableDescription'
 import countryConfig from '../../../common/countryConfig'
 import { sum, formatNumber, eq, greaterThanOrEqualTo } from '../../../common/bignumberUtils'
@@ -206,7 +206,7 @@ const ExtentOfForest = (props) => {
                       className="align-left"/>
       <GenerateFraValuesControl section={sectionName} rows={eofRows} {...props} />
       {
-        !disableGenerateFraValues(props.fra, props.generatingFraValues) && props.odpDirty
+        props.odpDirty
           ? <div className="support-text">
           <Icon name="alert" className="icon-orange icon-sub icon-margin-right"/>
           {i18n.t('nationalDataPoint.remindDirtyOdp')}
