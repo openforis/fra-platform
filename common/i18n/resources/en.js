@@ -469,7 +469,8 @@ The FRA team
     communities: 'Local, tribal and indigenous communities',
     other: 'Other (specify in comments)',
     totalPublicOwnership: 'Total public ownership',
-    total: 'Total'
+    total: 'Total',
+    publicOwnershipDoesNotMatch: 'Doesn’t match Total public ownership'
   },
 
   disturbances: {

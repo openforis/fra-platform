@@ -1,26 +1,38 @@
 import React from 'react'
 import R from 'ramda'
-import { totalSumFormatted } from '../../traditionalTable/aggregate'
 import { formatDecimal } from '../../utils/numberFormat'
+import { totalSum } from '../../traditionalTable/aggregate'
+import { sub, abs, lessThan } from '../../../common/bignumberUtils'
 import { Link } from '../../reusableUiComponents/link'
+
+const mapIndexed = R.addIndex(R.map)
+const years = [1990, 2000, 2010, 2015]
+const sumRows = R.range(0, 5)
 
 const createInputRow = (rowHeader, cname = 'fra-table__category-cell') => [
   {type: 'readOnly', jsx: <th key="protection" className={`${cname}`}>{rowHeader}</th>},
   ...(R.times(() => ({type: 'decimalInput'}), 4))
 ]
 
-const totalOwnershipCell = (column) => (props) =>
-  <td key="" className="fra-table__calculated-cell">
-    {totalSumFormatted(props.tableData, column, R.range(0, 5))}
-  </td>
-
-const totalPublicOwnershipCell = (column, otherTableData) => (props) => {
-  const publicOwnershipAreaForYear = R.path(['tableData', 4, column], otherTableData) // 4 is public ownership row
-  return <td key="" className="fra-table__calculated-cell">
-   {formatDecimal(publicOwnershipAreaForYear)}
-  </td>
+const getTotalPublicOwnershipForColumn = (forestOwnership, column) => {
+  const areaForYear = R.path(['tableData', 4, column], forestOwnership) // 4 is public ownership row
+  return areaForYear
 }
 
+const totalAreaSameAsTotalPublicOwnershipValidator = (column, forestOwnership, sumRows) => (props) => {
+  const areaForYear = getTotalPublicOwnershipForColumn(forestOwnership, column)
+  const sumForYear = totalSum(props.tableData, column, sumRows)
+  if (!areaForYear || !sumForYear) return {valid: true}
+  const tolerance = 1
+  const absDifference = abs(sub(areaForYear, sumForYear))
+  const result = lessThan(absDifference, tolerance)
+  return {
+    valid: result,
+    message: result
+      ? null
+      : props.i18n.t('holderOfManagementRights.publicOwnershipDoesNotMatch')
+  }
+}
 
 export default (i18n, forestOwnership, countryIso) => ({
   name: 'holderOfManagementRights',
@@ -50,10 +62,13 @@ export default (i18n, forestOwnership, countryIso) => ({
             {i18n.t('holderOfManagementRights.total')} (a+b+c+d+e)
           </th>
       },
-      {type: 'custom', render: totalOwnershipCell(1)},
-      {type: 'custom', render: totalOwnershipCell(2)},
-      {type: 'custom', render: totalOwnershipCell(3)},
-      {type: 'custom', render: totalOwnershipCell(4)}
+      ...mapIndexed((year, i) =>
+        ({
+          type: 'calculated',
+          calculateValue: props => totalSum(props.tableData, i+1, sumRows),
+          valueFormatter: formatDecimal,
+          validator: totalAreaSameAsTotalPublicOwnershipValidator(i+1, forestOwnership, sumRows)
+        }), years)
     ],
     [
       {
@@ -65,14 +80,16 @@ export default (i18n, forestOwnership, countryIso) => ({
             </Link>
           </th>
       },
-      {type: 'custom', render: totalPublicOwnershipCell(1, forestOwnership)},
-      {type: 'custom', render: totalPublicOwnershipCell(2, forestOwnership)},
-      {type: 'custom', render: totalPublicOwnershipCell(3, forestOwnership)},
-      {type: 'custom', render: totalPublicOwnershipCell(4, forestOwnership)}
+      ...mapIndexed((year, i) =>
+        ({
+          type: 'calculated',
+          calculateValue: props => getTotalPublicOwnershipForColumn(forestOwnership, i+1),
+          valueFormatter: formatDecimal
+        }), years)
     ]
   ],
   valueSlice: {
     columnStart: 1,
-    rowEnd: -1
+    rowEnd: -2
   }
 })
