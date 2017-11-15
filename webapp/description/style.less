@@ -74,9 +74,12 @@
   color: @text-disabled;
 }
 
-div.fra-row-comments__open .fra-description__preview {
-  outline: 1px solid @ui-accent;
-  outline-offset: -1px;
-  box-shadow: 0 0 4px fade(@ui-accent, 50%);
-  padding: 1em;
+div.fra-row-comments__open {
+  .fra-description__preview,
+  .fra-description__placeholder {
+    outline: 1px solid @ui-accent;
+    outline-offset: -1px;
+    box-shadow: 0 0 4px fade(@ui-accent, 50%);
+    padding: 1em;
+  }
 }

@@ -15,14 +15,14 @@ export default i18n => ({
   </tr>
   <tr>
     {
-      mapIndexed((year, i) => <th key={i} className="fra-table__header-cell">{year}</th>, years)
+      R.map(year => <th key={year} className="fra-table__header-cell">{year}</th>, years)
     }
   </tr>
   </thead>,
   rows: [
     [{
       type: 'readOnly',
-      jsx: <th key="expansion" className="fra-table__category-cell">
+      jsx: <th className="fra-table__category-cell">
         {i18n.t('areaAffectedByFire.totalLandAreaAffectedByFire')}
       </th>
     },
@@ -31,7 +31,7 @@ export default i18n => ({
     [
       {
         type: 'readOnly',
-        jsx: <th key="" className="fra-table__subcategory-cell">{i18n.t('areaAffectedByFire.ofWhichForest')}</th>
+        jsx: <th className="fra-table__subcategory-cell">{i18n.t('areaAffectedByFire.ofWhichForest')}</th>
       },
       ...R.times(() => ({type: 'decimalInput', validator: subCategoryValidator(0, [1])}), 18)
     ]

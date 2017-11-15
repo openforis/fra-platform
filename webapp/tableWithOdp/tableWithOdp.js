@@ -96,16 +96,16 @@ const validationErrorRow = columnErrorMsgs => {
     {
       mapIndexed((errorMsgs, colIdx) =>
         <td className="fra-table__validation-cell" key={colIdx}>
+          <div className="fra-table__validation-container">
           {
             mapIndexed(
               (errorMsg, errorIdx) =>
-                <div key={errorIdx} className="fra-table__validation-container">
-                  <div className="fra-table__validation-error">{errorMsg}</div>
-                </div>
+                  <div className="fra-table__validation-error" key={errorIdx}>{errorMsg}</div>
               ,
               errorMsgs
             )
           }
+          </div>
         </td>
       , columnErrorMsgs)
     }
@@ -116,15 +116,18 @@ const alwaysOkValidator = () => true
 
 const renderFieldRow = ({row, countryIso, fra, save, saveMany, pasteUpdate, rowIdx, openCommentThread, section}) => {
   const {
-    localizedName,
+    rowHeader,
     field,
-    className
+    className,
+    rowVariable
   } = row
   const validator = row.validator || alwaysOkValidator
   return <tr
     key={field}
     className={`${openCommentThread && R.isEmpty(R.difference(openCommentThread.target, [field])) ? 'fra-row-comments__open' : ''}`}>
-    <th className={className ? className : 'fra-table__category-cell'}>{ localizedName }</th>
+    <th className={className ? className : 'fra-table__category-cell'}>
+      {rowHeader} {rowVariable}
+    </th>
     {
       mapIndexed(
         (fraColumn, colIdx) => {
@@ -153,7 +156,7 @@ const renderFieldRow = ({row, countryIso, fra, save, saveMany, pasteUpdate, rowI
         <ReviewIndicator
           key={`${field}_ri`}
           section={section}
-          title={localizedName}
+          title={rowHeader}
           target={[field]}
           countryIso={countryIso} />
       </div>

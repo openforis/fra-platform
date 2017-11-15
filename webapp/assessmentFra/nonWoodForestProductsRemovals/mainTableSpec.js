@@ -66,7 +66,7 @@ const otherProductsRow = (heading) => [
 const totalRow = i18n => {
 
   const renderSum = ({tableData}) =>
-    <td key="" className="fra-table__calculated-cell">
+    <td className="fra-table__calculated-cell">
       {totalSumFormatted(tableData, 5, R.range(0, 13), formatInteger)}
     </td>
 

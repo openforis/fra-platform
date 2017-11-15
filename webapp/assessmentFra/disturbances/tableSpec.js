@@ -3,13 +3,15 @@ import R from 'ramda'
 import { totalSum } from '../../traditionalTable/aggregate'
 import { formatDecimal } from '../../utils/numberFormat'
 import { forestAreaLessThanOrEqualToExtentOfForestValidator } from '../../traditionalTable/validators'
+import { getForestAreaForYear } from '../extentOfForest/extentOfForestHelper'
+import { Link } from '../../reusableUiComponents/link'
 
 const mapIndexed = R.addIndex(R.map)
 const years = R.range(2000, 2018)
 const sumRows = R.range(0,4)
 const inputColumns = R.times(() => ({type: 'decimalInput'}), 18)
 
-export default (i18n, extentOfForest) => ({
+export default (i18n, extentOfForest, countryIso) => ({
   name: 'disturbances', // used to uniquely identify table
   header: <thead>
   <tr>
@@ -18,7 +20,7 @@ export default (i18n, extentOfForest) => ({
   </tr>
   <tr>
     {
-      mapIndexed((year, i) => <th key={i} className="fra-table__header-cell">{year}</th>, years)
+      R.map(year => <th key={year} className="fra-table__header-cell">{year}</th>, years)
     }
   </tr>
   </thead>,
@@ -26,35 +28,38 @@ export default (i18n, extentOfForest) => ({
     [
       {
         type: 'readOnly',
-        jsx: <th key="expansion" className="fra-table__category-cell">{i18n.t('disturbances.insects')}</th>
+        jsx: <th className="fra-table__category-cell">{i18n.t('disturbances.insects')} (a)</th>
       },
     ...inputColumns
     ],
     [
       {
         type: 'readOnly',
-        jsx: <th key="expansion" className="fra-table__category-cell">{i18n.t('disturbances.diseases')}</th>
+        jsx: <th className="fra-table__category-cell">{i18n.t('disturbances.diseases')} (b)</th>
       },
     ...inputColumns
     ],
     [
       {
         type: 'readOnly',
-        jsx: <th key="expansion" className="fra-table__category-cell">{i18n.t('disturbances.severeWeatherEvents')}</th>
+        jsx: <th className="fra-table__category-cell">{i18n.t('disturbances.severeWeatherEvents')} (c)</th>
       },
     ...inputColumns
     ],
     [
       {
         type: 'readOnly',
-        jsx: <th key="expansion" className="fra-table__category-cell">{i18n.t('disturbances.other')}</th>
+        jsx: <th className="fra-table__category-cell">{i18n.t('disturbances.other')} (d)</th>
       },
     ...inputColumns
     ],
     [
       {
         type: 'readOnly',
-        jsx: <th key="expansion" className="fra-table__header-cell-left">{i18n.t('disturbances.total')}</th>
+        jsx:
+          <th className="fra-table__header-cell-left">
+            {i18n.t('disturbances.total')} (a+b+c+d)
+          </th>
       },
       ...mapIndexed((year, i) =>
         ({
@@ -63,10 +68,27 @@ export default (i18n, extentOfForest) => ({
           valueFormatter: formatDecimal,
           validator: forestAreaLessThanOrEqualToExtentOfForestValidator(year, extentOfForest, sumRows)
         }), years)
+    ],
+    [
+      {
+        type: 'readOnly',
+        jsx:
+          <th className="fra-table__header-cell-left">
+          <Link to={`/country/${countryIso}/extentOfForest`} className="link">
+            {i18n.t('disturbances.totalForestArea')}
+          </Link>
+          </th>
+      },
+      ...R.map(year =>
+        ({
+          type: 'calculated',
+          calculateValue: props => getForestAreaForYear(extentOfForest, year),
+          valueFormatter: formatDecimal
+        }), years)
     ]
   ],
   valueSlice: {
     columnStart: 1,
-    rowEnd: -1
+    rowEnd: -2
   }
 })

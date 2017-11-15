@@ -319,7 +319,7 @@ The FRA team
     ofWhichTreesUrbanSettings: '…of which trees in urban settings',
     totalLandArea: 'Total land area',
     faoStatLandArea: 'FAOSTAT land area',
-    faoStatMismatch: "Total land area doesn't match FAOSTAT"
+    faoStatMismatch: "Doesn't match FAOSTAT land area"
   },
 
   forestCharacteristics: {
@@ -332,7 +332,8 @@ The FRA team
     plantationForestIntroducedArea: '…of which introduced species',
     otherPlantedForestArea: 'Other planted forest',
     plantedForest: 'Planted forest',
-    totalForestArea: 'Total forest area'
+    totalForestArea: 'Total forest area',
+    total: 'Total'
   },
 
   forestAreaChange: {
@@ -344,7 +345,8 @@ The FRA team
     ofWhichNaturalExpansion: '…of which natural expansion',
     deforestation: 'Deforestation',
     forestAreaNetChange: 'Forest area net change',
-    netChangeDoesNotMatch: "Net change doesn't match table 1a: {{eofNetChange}}"
+    netChangeDoesNotMatch: "Doesn't match Forest area net change",
+    total: 'Total'
   },
 
   annualReforestation: {
@@ -430,7 +432,8 @@ The FRA team
     multipleUse: 'Multiple use',
     other: 'Other (specify in comments)',
     unknown: 'No/unknown',
-    totalForestArea: 'Total forest area'
+    totalForestArea: 'Total forest area',
+    total: 'Total'
   },
 
   forestAreaWithinProtectedAreas: {
@@ -452,7 +455,8 @@ The FRA team
     ofWhichCommunities: '…of which owned by local, tribal and indigenous communities',
     publicOwnership: 'Public ownership',
     otherOrUnknown: 'Other/unknown (specify in comments)',
-    totalForestArea: 'Total forest area'
+    totalForestArea: 'Total forest area',
+    total: 'Total'
   },
 
   holderOfManagementRights: {
@@ -464,7 +468,9 @@ The FRA team
     privateBusinesses: 'Private business entities and institutions',
     communities: 'Local, tribal and indigenous communities',
     other: 'Other (specify in comments)',
-    totalPublicOwnership: 'Total public ownership'
+    totalPublicOwnership: 'Total public ownership',
+    total: 'Total',
+    publicOwnershipDoesNotMatch: 'Doesn’t match Total public ownership'
   },
 
   disturbances: {
@@ -475,6 +481,7 @@ The FRA team
     diseases: 'Diseases',
     severeWeatherEvents: 'Severe weather events',
     other: 'Other',
+    totalForestArea: 'Total forest area',
     total: 'Total'
   },
 
@@ -575,7 +582,7 @@ The FRA team
 
   generalValidation: {
     subCategoryExceedsParent: 'Subcategory exceeds parent',
-    forestAreaDoesNotMatchExtentOfForest: 'Forest area does not match table 1a: {{eofForestArea}}',
-    forestAreaExceedsExtentOfForest: 'Forest area exceeds table 1a: {{eofForestArea}}'
+    forestAreaDoesNotMatchExtentOfForest: 'Doesn‘t match Total forest area',
+    forestAreaExceedsExtentOfForest: 'Exceeds Total forest area'
   }
 }

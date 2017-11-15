@@ -25,7 +25,8 @@ class designatedManagementObjectiveView extends React.Component {
 
   render() {
     const {match, i18n, extentOfForest} = this.props
-    const primaryDmoTableSpec = primaryDesignatedManagementObjectiveTableSpec(i18n, extentOfForest)
+    const countryIso = match.params.countryIso
+    const primaryDmoTableSpec = primaryDesignatedManagementObjectiveTableSpec(i18n, extentOfForest, countryIso)
     const totalDmoTableSpec = totalAreaWithDesignatedManagementObjectiveTableSpec(i18n)
 
     return <LoggedInPageTemplate>
@@ -44,7 +45,7 @@ class designatedManagementObjectiveView extends React.Component {
         <p className="dmo__support-text">{i18n.t('designatedManagementObjective.primaryDesignatedManagementObjectiveSupport')}</p>
         <TraditionalTable
           tableSpec={primaryDmoTableSpec}
-          countryIso={match.params.countryIso}
+          countryIso={countryIso}
           section={sectionName}/>
         <h3 className="subhead dmo__table-header">
           {i18n.t('designatedManagementObjective.totalAreaWithDesignatedManagementObjective')}
@@ -52,12 +53,12 @@ class designatedManagementObjectiveView extends React.Component {
         <p className="dmo__support-text">{i18n.t('designatedManagementObjective.totalAreaWithDesignatedManagementObjectiveSupport')}</p>
         <TraditionalTable
           tableSpec={totalDmoTableSpec}
-          countryIso={match.params.countryIso}
+          countryIso={countryIso}
           section={sectionName}/>
         <CommentableDescriptions
           section={primaryDmoTableSpec.name}
           name={sectionName}
-          countryIso={match.params.countryIso}
+          countryIso={countryIso}
           i18n={i18n}
         />
       </div>

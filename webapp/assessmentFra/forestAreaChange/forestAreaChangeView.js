@@ -8,7 +8,7 @@ const ForestAreaChangeView = props =>
     {...props}
     headingLocalizationKey="forestAreaChange.forestAreaChange"
     sectionAnchor="1c"
-    tableSpecInstance={tableSpec(props.i18n, props.extentOfForest)}/>
+    tableSpecInstance={tableSpec(props.i18n, props.extentOfForest, props.match.params.countryIso)}/>
 
 const mapStateToProps = state => ({i18n: state.user.i18n, extentOfForest: state.extentOfForest})
 

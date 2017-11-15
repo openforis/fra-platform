@@ -36,7 +36,7 @@ const totalIntroduced = (tableData, column) => totalSumFormatted(tableData, colu
 const totalGrowingStock = (tableData, column) => totalSumFormatted(tableData, column, R.concat(totalNativeRows, totalIntroducedRows))
 
 const renderAggregate = (aggregateFunction, column) => ({tableData}) =>
-  <td key="" className="fra-table__calculated-cell">
+  <td className="fra-table__calculated-cell">
     {aggregateFunction(tableData, column)}
   </td>
 
