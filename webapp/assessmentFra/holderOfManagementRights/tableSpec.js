@@ -10,7 +10,7 @@ const years = [1990, 2000, 2010, 2015]
 const sumRows = R.range(0, 5)
 
 const createInputRow = (rowHeader, cname = 'fra-table__category-cell') => [
-  {type: 'readOnly', jsx: <th key="protection" className={`${cname}`}>{rowHeader}</th>},
+  {type: 'readOnly', jsx: <th className={`${cname}`}>{rowHeader}</th>},
   ...(R.times(() => ({type: 'decimalInput'}), 4))
 ]
 
@@ -42,10 +42,9 @@ export default (i18n, forestOwnership, countryIso) => ({
     <th className="fra-table__header-cell" colSpan="4">{i18n.t('holderOfManagementRights.areaUnitLabel')}</th>
   </tr>
   <tr>
-    <th className="fra-table__header-cell">1990</th>
-    <th className="fra-table__header-cell">2000</th>
-    <th className="fra-table__header-cell">2010</th>
-    <th className="fra-table__header-cell">2015</th>
+    {
+      R.map(year => <th key={year} className="fra-table__header-cell">{year}</th>, years)
+    }
   </tr>
   </thead>,
   rows: [
@@ -58,7 +57,7 @@ export default (i18n, forestOwnership, countryIso) => ({
       {
         type: 'readOnly',
         jsx:
-          <th key="total_public_ownership" className="fra-table__header-cell-left">
+          <th className="fra-table__header-cell-left">
             {i18n.t('holderOfManagementRights.total')} (a+b+c+d+e)
           </th>
       },
@@ -74,18 +73,18 @@ export default (i18n, forestOwnership, countryIso) => ({
       {
         type: 'readOnly',
         jsx:
-          <th key="total_public_ownership" className="fra-table__header-cell-left">
+          <th className="fra-table__header-cell-left">
             <Link to={`/country/${countryIso}/forestOwnership`} className="link">
               {i18n.t('holderOfManagementRights.totalPublicOwnership')}
             </Link>
           </th>
       },
-      ...mapIndexed((year, i) =>
+      ...R.times(i =>
         ({
           type: 'calculated',
           calculateValue: props => getTotalPublicOwnershipForColumn(forestOwnership, i+1),
           valueFormatter: formatDecimal
-        }), years)
+        }), years.length)
     ]
   ],
   valueSlice: {

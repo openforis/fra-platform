@@ -9,7 +9,7 @@ import { Link } from '../../reusableUiComponents/link'
 const mapIndexed = R.addIndex(R.map)
 
 const createDmoInputRow = (rowHeader) => [
-  {type: 'readOnly', jsx: <th key="protection" className="fra-table__category-cell">{rowHeader}</th>},
+  {type: 'readOnly', jsx: <th className="fra-table__category-cell">{rowHeader}</th>},
   ...(R.times(() => ({type: 'decimalInput'}), 5))
 ]
 
@@ -25,7 +25,7 @@ const thead = i18n =>
     </tr>
     <tr>
       {
-        mapIndexed((year, i) => <th key={i} className="fra-table__header-cell">{year}</th>, years)
+        R.map(year => <th key={year} className="fra-table__header-cell">{year}</th>, years)
       }
     </tr>
   </thead>
@@ -45,7 +45,7 @@ export const primaryDesignatedManagementObjectiveTableSpec = (i18n, extentOfFore
       {
         type: 'readOnly',
         jsx:
-          <th key="total" className="fra-table__header-cell-left">
+          <th className="fra-table__header-cell-left">
             {i18n.t('designatedManagementObjective.total')} (a+b+c+d+e+f+g)
           </th>
       },
@@ -61,13 +61,13 @@ export const primaryDesignatedManagementObjectiveTableSpec = (i18n, extentOfFore
       {
         type: 'readOnly',
         jsx:
-          <th key="total_forest_area" className="fra-table__header-cell-left">
+          <th className="fra-table__header-cell-left">
             <Link to={`/country/${countryIso}/extentOfForest`} className="link">
               {i18n.t('designatedManagementObjective.totalForestArea')}
             </Link>
           </th>
       },
-      ...mapIndexed((year, i) =>
+      ...R.map(year =>
         ({
           type: 'calculated',
           calculateValue: props => getForestAreaForYear(extentOfForest, year),

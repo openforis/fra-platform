@@ -20,7 +20,7 @@ export default (i18n, extentOfForest, countryIso) => ({
   </tr>
   <tr>
     {
-      mapIndexed((year, i) => <th key={i} className="fra-table__header-cell">{year}</th>, years)
+      R.map(year => <th key={year} className="fra-table__header-cell">{year}</th>, years)
     }
   </tr>
   </thead>,
@@ -28,28 +28,28 @@ export default (i18n, extentOfForest, countryIso) => ({
     [
       {
         type: 'readOnly',
-        jsx: <th key="expansion" className="fra-table__category-cell">{i18n.t('disturbances.insects')} (a)</th>
+        jsx: <th className="fra-table__category-cell">{i18n.t('disturbances.insects')} (a)</th>
       },
     ...inputColumns
     ],
     [
       {
         type: 'readOnly',
-        jsx: <th key="expansion" className="fra-table__category-cell">{i18n.t('disturbances.diseases')} (b)</th>
+        jsx: <th className="fra-table__category-cell">{i18n.t('disturbances.diseases')} (b)</th>
       },
     ...inputColumns
     ],
     [
       {
         type: 'readOnly',
-        jsx: <th key="expansion" className="fra-table__category-cell">{i18n.t('disturbances.severeWeatherEvents')} (c)</th>
+        jsx: <th className="fra-table__category-cell">{i18n.t('disturbances.severeWeatherEvents')} (c)</th>
       },
     ...inputColumns
     ],
     [
       {
         type: 'readOnly',
-        jsx: <th key="expansion" className="fra-table__category-cell">{i18n.t('disturbances.other')} (d)</th>
+        jsx: <th className="fra-table__category-cell">{i18n.t('disturbances.other')} (d)</th>
       },
     ...inputColumns
     ],
@@ -57,7 +57,7 @@ export default (i18n, extentOfForest, countryIso) => ({
       {
         type: 'readOnly',
         jsx:
-          <th key="total" className="fra-table__header-cell-left">
+          <th className="fra-table__header-cell-left">
             {i18n.t('disturbances.total')} (a+b+c+d)
           </th>
       },
@@ -73,13 +73,13 @@ export default (i18n, extentOfForest, countryIso) => ({
       {
         type: 'readOnly',
         jsx:
-          <th key="total_forest_area" className="fra-table__header-cell-left">
+          <th className="fra-table__header-cell-left">
           <Link to={`/country/${countryIso}/extentOfForest`} className="link">
             {i18n.t('disturbances.totalForestArea')}
           </Link>
           </th>
       },
-      ...mapIndexed((year, i) =>
+      ...R.map(year =>
         ({
           type: 'calculated',
           calculateValue: props => getForestAreaForYear(extentOfForest, year),

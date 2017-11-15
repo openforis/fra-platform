@@ -10,7 +10,7 @@ import { Link } from '../../reusableUiComponents/link'
 const mapIndexed = R.addIndex(R.map)
 
 const createInputRow = (rowHeader, cname = 'fra-table__category-cell', validator) => [
-  {type: 'readOnly', jsx: <th key="protection" className={`${cname}`}>{rowHeader}</th>},
+  {type: 'readOnly', jsx: <th className={`${cname}`}>{rowHeader}</th>},
   ...(R.times(() => ({
     type: 'decimalInput',
     validator: validator
@@ -31,7 +31,7 @@ export default (i18n, extentOfForest, countryIso) => ({
   </tr>
   <tr>
     {
-      mapIndexed((year, i) => <th key={i} className="fra-table__header-cell">{year}</th>, years)
+      R.map(year => <th key={year} className="fra-table__header-cell">{year}</th>, years)
     }
   </tr>
   </thead>,
@@ -46,7 +46,7 @@ export default (i18n, extentOfForest, countryIso) => ({
       {
         type: 'readOnly',
         jsx:
-          <th key="total" className="fra-table__header-cell-left">
+          <th className="fra-table__header-cell-left">
             {i18n.t('forestOwnership.total')} (a+b+c)
           </th>
       },
@@ -62,13 +62,13 @@ export default (i18n, extentOfForest, countryIso) => ({
       {
         type: 'readOnly',
         jsx:
-          <th key="total_forest_area" className="fra-table__header-cell-left">
+          <th className="fra-table__header-cell-left">
             <Link to={`/country/${countryIso}/extentOfForest`} className="link">
               {i18n.t('forestOwnership.totalForestArea')}
             </Link>
           </th>
       },
-      ...mapIndexed((year, i) =>
+      ...R.map(year =>
         ({
           type: 'calculated',
           calculateValue: props => getForestAreaForYear(extentOfForest, year),
