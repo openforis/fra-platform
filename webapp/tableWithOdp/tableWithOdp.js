@@ -108,14 +108,14 @@ export const GenerateFraValuesControl = props => {
   }
 
   return <PopoverControl items={
-    disableGenerateFraValues(props.fra, props.generatingFraValues)
-      ? []
-      :  [
-      { content: 'Linear extrapolation', onClick:() => generateFraValues('linear') },
-      { content: 'Repeat last extrapolation', onClick:() => generateFraValues('repeatLast') },
-      { content: 'Annual change rate extrapolation', onClick:() => generateFraValues('annualChange') },
-    ]}
-  >
+      disableGenerateFraValues(props.fra, props.generatingFraValues)
+        ? []
+        :  [
+        { content: 'Linear extrapolation', onClick:() => generateFraValues('linear') },
+        { content: 'Repeat last extrapolation', onClick:() => generateFraValues('repeatLast') },
+        { content: 'Annual change rate extrapolation', onClick:() => generateFraValues('annualChange') },
+      ]}
+    >
     <div className={`btn btn-primary ${disableGenerateFraValues(props.fra, props.generatingFraValues) ? 'disabled' : ''}`}>
       {props.i18n.t('tableWithOdp.generateFraValues')}
       <Icon className="icon-white icon-margin icon-middle" name="small-down"/>
