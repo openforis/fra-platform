@@ -67,28 +67,28 @@ export class GenerateFraValuesControl extends React.Component {
   }
 
   render() {
-    const props = this.props
+    const {i18n, fra, generatingFraValues} = this.props
     const rateValidationClass = rate =>
       this.validRate(rate) || R.isEmpty(rate) ? '' : 'validation-error'
     return <div className="table-with-odp__generate-fra-values-control">
       {
         this.state.extrapolationMethod === 'annualChange'
           ? <div>
-          <input
-            type="text"
-            className={`text-input ${rateValidationClass(this.state.ratePast)}`}
-            placeholder="Past rate"
-            value={this.state.ratePast}
-            onChange={(evt) => this.setState({...this.state, ratePast: evt.target.value})}
-          />
-          <input
-            type="text"
-            className={`text-input ${rateValidationClass(this.state.rateFuture)}`}
-            placeholder="Future rate"
-            value={this.state.rateFuture}
-            onChange={(evt) => this.setState({...this.state, rateFuture: evt.target.value})}
-          />
-        </div>
+            <input
+              type="text"
+              className={`text-input ${rateValidationClass(this.state.ratePast)}`}
+              placeholder="Past rate"
+              value={this.state.ratePast}
+              onChange={(evt) => this.setState({...this.state, ratePast: evt.target.value})}
+            />
+            <input
+              type="text"
+              className={`text-input ${rateValidationClass(this.state.rateFuture)}`}
+              placeholder="Future rate"
+              value={this.state.rateFuture}
+              onChange={(evt) => this.setState({...this.state, rateFuture: evt.target.value})}
+            />
+          </div>
           : null
       }
       <select
@@ -101,10 +101,10 @@ export class GenerateFraValuesControl extends React.Component {
       </select>
 
       <button
-        disabled={this.disableGenerateFraValues(props.fra, props.generatingFraValues)}
+        disabled={this.disableGenerateFraValues(fra, generatingFraValues)}
         className="btn btn-primary"
         onClick={() => this.generateFraValues(this.state.extrapolationMethod)}>
-        {props.i18n.t('tableWithOdp.generateFraValues')}
+        {i18n.t('tableWithOdp.generateFraValues')}
       </button>
     </div>
   }
@@ -121,7 +121,7 @@ export class GenerateFraValuesControl extends React.Component {
   }
 
   generateFraValues (extrapolationMethod) {
-    const props = this.props
+    const {section, countryIso, i18n, fra, rows, generateFraValues} = this.props
     const generateAnnualChange = () => {
       const ratePast = this.state.ratePast
       const rateFuture = this.state.rateFuture
@@ -131,9 +131,9 @@ export class GenerateFraValuesControl extends React.Component {
         ratePast === ' ' ||
         rateFuture === ' '
       ) { return }
-      props.generateFraValues(
-        props.section,
-        props.countryIso,
+      generateFraValues(
+        section,
+        countryIso,
         {
           method:
           extrapolationMethod,
@@ -146,11 +146,11 @@ export class GenerateFraValuesControl extends React.Component {
       if (extrapolationMethod === 'annualChange') {
         generateAnnualChange()
       } else {
-        props.generateFraValues(props.section, props.countryIso, {method: extrapolationMethod})
+        generateFraValues(section, countryIso, {method: extrapolationMethod})
       }
     }
-    if (hasFraValues(props.fra, props.rows)) {
-      if (window.confirm(props.i18n.t('tableWithOdp.confirmGenerateFraValues'))) {
+    if (hasFraValues(fra, rows)) {
+      if (window.confirm(i18n.t('tableWithOdp.confirmGenerateFraValues'))) {
         generate()
       }
     } else {
