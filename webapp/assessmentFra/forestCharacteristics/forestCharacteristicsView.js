@@ -13,7 +13,7 @@ import ChartWrapper from '../extentOfForest/chart/chartWrapper'
 import { CommentableDescriptions } from '../../description/commentableDescription'
 import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
 import DefinitionLink from '../../reusableUiComponents/definitionLink'
-import { sum, formatNumber, eq, greaterThanOrEqualTo } from '../../../common/bignumberUtils'
+import { sum, formatNumber, eq, greaterThanOrEqualTo, toFixed } from '../../../common/bignumberUtils'
 import { getForestAreaForYear } from '../extentOfForest/extentOfForestHelper'
 
 const mapIndexed = R.addIndex(R.map)
@@ -110,7 +110,7 @@ const ForestCharacteristics = props => {
         {mapIndexed((row, i) =>
           <tr key={i}>
             {mapIndexed((value, i) =>
-              <td key={i}> {value || ''} </td>
+              <td key={i}> {toFixed(value)} </td>
             , row)}
           </tr>
         , tableValues)}

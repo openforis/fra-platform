@@ -11,6 +11,7 @@ import { rows, avgRows, getGrowingStockValues } from './growingStock'
 import DefinitionLink from '../../reusableUiComponents/definitionLink'
 import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
 import { fetch, updateValue, updateValues } from './actions'
+import { toFixed } from '../../../common/bignumberUtils'
 
 const sectionName = 'growingStock'
 const mapIndexed = R.addIndex(R.map)
@@ -31,7 +32,7 @@ const GrowingStock = (props) => {
         {mapIndexed((row, i) =>
           <tr key={i}>
             {mapIndexed((value, i) =>
-              <td key={i}> {value || ''} </td>
+              <td key={i}> {toFixed(value)} </td>
             , row)}
           </tr>
         , tableValues)}
