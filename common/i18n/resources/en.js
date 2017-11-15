@@ -376,7 +376,8 @@ The FRA team
     ofWhichPlantationForest: '…of which plantation forest',
     ofWhichOtherPlantedForest: '…of which other planted forest',
     totalForest: 'Total forest',
-    otherWoodedLand: 'Other wooded land'
+    otherWoodedLand: 'Other wooded land',
+    copyToClipboard: 'Copy data'
   },
 
   growingStockComposition: {
