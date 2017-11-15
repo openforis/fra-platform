@@ -73,18 +73,18 @@ export class GenerateFraValuesControl extends React.Component {
     return <div className="table-with-odp__generate-fra-values-control">
       {
         this.state.extrapolationMethod === 'annualChange'
-          ? <div>
+          ? <div className="table-with-odp__generate-inputs">
             <input
               type="text"
               className={`text-input ${rateValidationClass(this.state.ratePast)}`}
-              placeholder="Past rate"
+              placeholder="Past"
               value={this.state.ratePast}
               onChange={(evt) => this.setState({...this.state, ratePast: evt.target.value})}
             />
             <input
               type="text"
               className={`text-input ${rateValidationClass(this.state.rateFuture)}`}
-              placeholder="Future rate"
+              placeholder="Future"
               value={this.state.rateFuture}
               onChange={(evt) => this.setState({...this.state, rateFuture: evt.target.value})}
             />
