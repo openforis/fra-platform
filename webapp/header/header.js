@@ -6,25 +6,24 @@ import { connect } from 'react-redux'
 import { logout, switchLanguage } from '../user/actions'
 import { toggleNavigationVisible } from '../navigation/actions'
 import { getRelativeDate } from '../utils/relativeDate'
-import { PopoverControl } from './../reusableUiComponents/popoverControl'
+import { PopoverControl } from '../reusableUiComponents/popoverControl'
+import Icon from '../reusableUiComponents/icon'
 
 const UserInfo = props => {
   const userInfoItems = [{
-    label: props.i18n.t('header.logout'),
+    content: props.i18n.t('header.logout'),
     onClick: () => props.logout()
   }, {
     divider: true
   }, {
-    label: props.i18n.t('header.profilePicture'),
+    content: props.i18n.t('header.profilePicture'),
     onClick: () => window.open('https://gravatar.com', '_blank')
   }]
 
   return <PopoverControl items={userInfoItems}>
     <div className="fra-header__menu-item">
       {props.userName}
-      <svg className="icon icon-middle">
-        <use xlinkHref="img/icons.svg#small-down"/>
-      </svg>
+      <Icon className="icon-middle" name="small-down"/>
     </div>
   </PopoverControl>
 }
@@ -34,7 +33,7 @@ const LanguageSelection = ({i18n, switchLanguage, ...props}) => {
   const selectableLangs = R.reject(l => l === i18n.language, supportedLangs)
   const languageSelectionItems = R.map(lang =>
     ({
-      label: i18n.t(`language.${lang}`),
+      content: i18n.t(`language.${lang}`),
       onClick: () => switchLanguage(lang)
     }), selectableLangs
   )
@@ -42,9 +41,7 @@ const LanguageSelection = ({i18n, switchLanguage, ...props}) => {
   return <PopoverControl items={languageSelectionItems}>
     <div className="fra-header__menu-item">
       {i18n.t(`language.${i18n.language}`)}
-      <svg className="icon icon-middle">
-        <use xlinkHref="img/icons.svg#small-down"/>
-      </svg>
+      <Icon className="icon-middle" name="small-down"/>
     </div>
   </PopoverControl>
 }
@@ -95,9 +92,7 @@ const Header = ({status,
 const ToggleNavigationControl = (props) => {
   const localisationKey = props.navigationVisible ? 'hideSidebar' : 'showSidebar'
   return <div className="fra-header__toggle-navigation-visible" onClick={props.toggleNavigationVisible}>
-    <svg className="icon icon-sub">
-      <use xlinkHref="img/icons.svg#menu-left"/>
-    </svg>
+    <Icon className="icon-sub" name="menu-left"/>
     {props.i18n.t('header.' + localisationKey)}
   </div>
 }

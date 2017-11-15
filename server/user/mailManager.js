@@ -14,28 +14,29 @@ const transporter = nodemailer.createTransport({
   }
 })
 
-const createMailOptions = (countryIso, user, url, i18n) => {
+const createMailOptions = (countryIso, invitedUser, loggedInUser, url, i18n) => {
 
-  const link = `${url}/login${user.invitationUuid ? `?i=${user.invitationUuid}` : ''}`
+  const link = `${url}/login${invitedUser.invitationUuid ? `?i=${invitedUser.invitationUuid}` : ''}`
   const country = getCountryName(countryIso, 'en')
-  const role = user.role.toLowerCase()
+  const role = invitedUser.role.toLowerCase()
+
+  console.log(countryIso, invitedUser, loggedInUser, url, link)
 
   return {
     from: '"FRA Platform" <fra@fao.org>',
-    to: user.email,
+    to: invitedUser.email,
     subject: i18n.t('userManagement.invitationEmail.subject', {country}),
-    text: i18n.t('userManagement.invitationEmail.textMessage', {country, user: user.name, role: `$t(user.roles.${role})`, link}),
-    html: i18n.t('userManagement.invitationEmail.htmlMessage', {country, user: user.name, role: `$t(user.roles.${role})`, link})
+    text: i18n.t('userManagement.invitationEmail.textMessage', {country, invitedUser: invitedUser.name, role: `$t(user.roles.${role})`, loggedInUser: loggedInUser.name, link, url}),
+    html: i18n.t('userManagement.invitationEmail.htmlMessage', {country, invitedUser: invitedUser.name, role: `$t(user.roles.${role})`, loggedInUser: loggedInUser.name, link, url})
   }
-
 }
 
-const sendMail = (countryIso, user, url) => new Promise((resolve, reject) => {
+const sendMail = (countryIso, invitedUser, loggedInUser, url) => new Promise((resolve, reject) => {
   createI18nInstance(
     'en',
     i18n => {
 
-      const mailOptions = createMailOptions(countryIso, user, url, i18n)
+      const mailOptions = createMailOptions(countryIso, invitedUser, loggedInUser, url, i18n)
 
       transporter.sendMail(mailOptions, (error, info) => {
         if (error)
@@ -44,7 +45,6 @@ const sendMail = (countryIso, user, url) => new Promise((resolve, reject) => {
         resolve(info)
       })
     })
-
 })
 
 module.exports.sendMail = sendMail

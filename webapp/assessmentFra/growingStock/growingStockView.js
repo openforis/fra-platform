@@ -49,11 +49,6 @@ class GrowingStockView extends Component {
     )
   }
 
-  componentWillReceiveProps (next) {
-    if (!R.equals(this.props.match.params.countryIso, next.match.params.countryIso))
-      this.fetch(next.match.params.countryIso)
-  }
-
   fetch (countryIso) {
     this.props.fetch(countryIso)
   }

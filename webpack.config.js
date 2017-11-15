@@ -1,7 +1,8 @@
-var path = require('path')
+const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const webpack = require('webpack')
+const uuidv4 = require('uuid/v4')
 
 const prodBuild = process.env.NODE_ENV === 'production'
 
@@ -14,7 +15,12 @@ const platformVersion = lastCommit + '_' + new Date().toISOString()
 const alwaysInUseplugins = [
   new ExtractTextPlugin({filename: cssBundleName}),
   new HtmlWebpackPlugin({template: './web-resources/index.html'}),
-  new webpack.DefinePlugin({__PLATFORM_VERSION__: `"${platformVersion}"`})
+  new webpack.DefinePlugin(
+    {
+      __PLATFORM_VERSION__: `"${platformVersion}"`,
+      __BUST__: `"${uuidv4()}"`
+    }
+  )
 ]
 
 const uglifyPlugin = new webpack.optimize.UglifyJsPlugin({

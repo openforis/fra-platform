@@ -10,10 +10,10 @@ import ErrorComponent from '../applicationError/errorComponent'
 const template = ({children, commentsOpen}) => {
   return <div className="app__root">
     <Navigation/>
-    <Header />
     <div className="fra-view__container">
       { children }
     </div>
+    <Header />
     <Review />
     <ErrorComponent/>
   </div>

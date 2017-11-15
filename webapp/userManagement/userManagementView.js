@@ -119,7 +119,7 @@ class AddUserForm extends React.Component {
             field="email" editing={true}
             updateUser={updateNewUser}
             validate={this.state.adding ? validField(user, 'email') : true}/>
-          <td>
+          <td style={{padding: 0}}>
             <button className="btn btn-primary" onClick={() => {
               this.setState({adding: true})
               addNewUser(countryIso)

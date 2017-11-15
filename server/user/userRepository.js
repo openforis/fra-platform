@@ -252,5 +252,6 @@ module.exports = {
   updateUser,
   removeCountryUser,
   acceptInvitation,
+  addCountryRoleAndUpdateUserBasedOnInvitation,
   fetchUsersAndInvitations
 }

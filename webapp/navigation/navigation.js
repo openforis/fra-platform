@@ -7,18 +7,20 @@ import { getCountryName, getCountryAlpha2 } from '../../common/country'
 import { getRelativeDate } from '../utils/relativeDate'
 
 import { Link } from './../reusableUiComponents/link'
+import Icon from '../reusableUiComponents/icon'
 import { follow } from './../router/actions'
 import {
   getCountryList,
   fetchCountryOverviewStatus,
-  changeAssessmentStatus,
+  changeAssessment,
   navigationScroll
 } from './actions'
 import { fra2020Items } from './items'
 import { roleForCountry } from '../../common/countryRole'
 import { allowedToChangeRoles } from '../../common/userManagementAccessControl'
+import { isAdministrator } from '../../common/countryRole'
 import { getAllowedStatusTransitions } from '../../common/assessment'
-import { PopoverControl } from './../reusableUiComponents/popoverControl'
+import { PopoverControl } from '../reusableUiComponents/popoverControl'
 
 import './style.less'
 
@@ -60,9 +62,7 @@ class CountrySelectionItem extends React.Component {
         <span className="nav__country-name">{getCountryName(countryIso, i18n.language)}</span>
         <span className="nav__country-role">{role}</span>
       </div>
-      <svg className="icon">
-        <use xlinkHref="img/icons.svg#small-down"/>
-      </svg>
+      <Icon name="small-down"/>
       <CountryList isOpen={this.state.isOpen} countries={countries} currentCountry={countryIso}
                    i18n={i18n}/>
     </div>
@@ -118,26 +118,11 @@ const CountryRow = ({selectedCountry, country, i18n}) => {
   </Link>
 }
 
-const changeStateLink = (countryIso, assessmentType, currentStatus, targetStatus, changeAssessmentStatus, direction, i18n) => {
-
-  const label = currentStatus === 'changing'
-    ? i18n.t('navigation.assessmentStatus.changing.label')
-    : i18n.t(`navigation.assessmentStatus.${targetStatus}.${direction}`)
-
-  return <a
-    className={targetStatus ? 'nav__primary-assessment-action' : 'nav__primary-assessment-action--disabled'}
-    href="#"
-    onClick={(evt) => {
-      evt.preventDefault()
-      if (targetStatus) changeAssessmentStatus(countryIso, assessmentType, targetStatus)
-    }}>{label}</a>
-}
-
-const PrimaryItem = ({label, countryIso, assessmentType, assessmentStatuses, changeAssessmentStatus, userInfo, i18n}) => {
-  if (!countryIso || !userInfo)
-    return null
-
-  const currentAssessmentStatus = R.path([assessmentType], assessmentStatuses)
+const PrimaryItem = ({label, countryIso, assessmentType, assessments, changeAssessment, userInfo, i18n}) => {
+  const assessment = R.path([assessmentType], assessments)
+  if (!countryIso || !userInfo || !assessment) return null
+  const currentAssessmentStatus = assessment.status
+  const assesmentIsChanging = currentAssessmentStatus === 'changing'
   const allowedTransitions = getAllowedStatusTransitions(roleForCountry(countryIso, userInfo), currentAssessmentStatus)
   const possibleAssesmentStatuses = [
     {direction: 'next', transition: allowedTransitions.next},
@@ -145,17 +130,31 @@ const PrimaryItem = ({label, countryIso, assessmentType, assessmentStatuses, cha
   ]
   const allowedAssesmentStatuses = R.filter(R.prop('transition'), possibleAssesmentStatuses)
   const assessmentStatusItems = R.map(targetStatus => ({
-    label: i18n.t(`navigation.assessmentStatus.${targetStatus.transition}.${targetStatus.direction}`),
-    onClick: () => changeAssessmentStatus(countryIso, assessmentType, targetStatus.transition)
+    content: i18n.t(`navigation.assessmentStatus.${targetStatus.transition}.${targetStatus.direction}`),
+    onClick: () => changeAssessment(countryIso, {...assessment, status: targetStatus.transition})
   }), allowedAssesmentStatuses)
+  const deskStudyItems = [{
+      divider: true
+    }, {
+      content: <div className="popover-control__checkbox-container">
+        <span className={`popover-control__checkbox ${assessment.deskStudy ? 'checked' : ''}`}></span>
+        <span>{i18n.t('navigation.assessmentDeskStudy')}</span>
+      </div>,
+      onClick: () => changeAssessment(countryIso, {...assessment, deskStudy: !assessment.deskStudy})
+    }]
+  const popoverItems = isAdministrator(userInfo)
+    ? R.flatten(R.append(deskStudyItems, assessmentStatusItems))
+    : assessmentStatusItems
+  const allowedPopoverItems = !assesmentIsChanging ? popoverItems : []
 
   return <div className="nav__primary-item">
-    <div className="nav__primary-label">{label}</div>
-    <PopoverControl items={assessmentStatusItems}>
-      <div className={`nav__primary-assessment-status status-${currentAssessmentStatus} actionable-${!R.isEmpty(assessmentStatusItems)}`}>
+    <div className="nav__primary-label">{assessment.deskStudy ? label + ' (Desk study)' : label}</div>
+    <PopoverControl items={allowedPopoverItems}>
+      <div className={`nav__primary-assessment-status status-${currentAssessmentStatus} actionable-${!R.isEmpty(allowedPopoverItems)}`}>
         <span>{i18n.t(`navigation.assessmentStatus.${currentAssessmentStatus}.label`)}</span>
-        {!R.isEmpty(assessmentStatusItems)
-          ? <svg className="icon icon-white icon-middle"><use xlinkHref="img/icons.svg#small-down"/></svg>
+        {
+          !R.isEmpty(allowedPopoverItems)
+          ? <Icon className="icon-white icon-middle" name="small-down"/>
           : null
         }
       </div>
@@ -190,10 +189,10 @@ const NationalDataItem = ({path, countryIso, pathTemplate, secondaryPathTemplate
     <div className="nav__link-status-content">
       <ReviewStatus status={status} />
       <div className="nav__link-error-status">
-        {status.errors ? <svg className="icon icon-middle icon-red">
-            <use xlinkHref="img/icons.svg#alert"/>
-          </svg>
-          : null
+        {
+          status.errors
+            ? <Icon className="icon-middle icon-red" name="alert"/>
+            : null
         }
       </div>
     </div>
@@ -277,7 +276,7 @@ class Nav extends React.Component {
       R.defaultTo({issuesCount: 0})
     )(status.reviewStatus)
 
-    const {userInfo, i18n, path, countries, country, changeAssessmentStatus, getCountryList} = this.props
+    const {userInfo, i18n, path, countries, country, changeAssessment, getCountryList} = this.props
 
     return <div className="fra-nav__container">
       <div className="fra-nav">
@@ -308,8 +307,8 @@ class Nav extends React.Component {
             <PrimaryItem label={i18n.t('navigation.fra2020')}
                          countryIso={country}
                          assessmentType="fra2020"
-                         assessmentStatuses={status.assessmentStatuses}
-                         changeAssessmentStatus={changeAssessmentStatus}
+                         assessments={status.assessments}
+                         changeAssessment={changeAssessment}
                          userInfo={userInfo}
                          i18n={i18n}/>
             {
@@ -374,6 +373,6 @@ export default connect(mapStateToProps, {
   follow,
   getCountryList,
   fetchCountryOverviewStatus,
-  changeAssessmentStatus,
+  changeAssessment,
   navigationScroll
 })(NavigationSync)

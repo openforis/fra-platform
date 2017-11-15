@@ -4,12 +4,33 @@ import './style.less'
 import assert from 'assert'
 import { Link } from '../reusableUiComponents/link'
 import { ThousandSeparatedDecimalInput } from '../reusableUiComponents/thousandSeparatedDecimalInput'
+import Icon from '../reusableUiComponents/icon'
 import ReviewIndicator from '../review/reviewIndicator'
 import { readPasteClipboard } from '../utils/copyPasteUtil'
 import { acceptNextDecimal} from '../utils/numberInput'
 import { formatNumber } from '../../common/bignumberUtils'
 
 const mapIndexed = R.addIndex(R.map)
+
+export const disableGenerateFraValues = (fra, generatingFraValues) => {
+    const odps = R.pipe(
+      R.values,
+      R.filter(v => v.type === 'odp')
+    )(fra)
+    return generatingFraValues || odps.length < 2
+  }
+
+export const hasFraValues = (fra, rowsSpecs) => {
+  const valueFieldNames = R.reject(R.isNil, R.pluck('field', rowsSpecs))
+  const flattenedFraValues = R.pipe(
+    R.values,
+    R.filter(v => v.type !== 'odp'),
+    R.map(column => R.props(valueFieldNames, column)),
+    R.flatten,
+    R.reject(R.isNil)
+  )(fra)
+  return flattenedFraValues.length > 0
+}
 
 export class TableWithOdp extends React.Component {
 
@@ -58,7 +79,7 @@ const buildRows = (rows, props) => {
 
 const OdpHeading = ({countryIso, odpValue}) =>
   <Link className="link" to={`/country/${countryIso}/odp/${odpValue.odpId}`}>
-    {odpValue.draft ? <svg className="icon icon-sub icon-margin"><use xlinkHref="img/icons.svg#pencil"/></svg> : ''}
+    {odpValue.draft ? <Icon className="icon-sub icon-margin-right" name="pencil"/> : ''}
     {odpValue.name}
   </Link>
 
@@ -73,16 +94,25 @@ const validationErrorRow = columnErrorMsgs => {
   return <tr key="validationError">
     <td style={{padding: '0'}}/>
     {
-      mapIndexed((errorMsg, i) => {
-        return <td className="fra-table__validation-cell" key={i}>
-          <div className="fra-table__validation-container">
-            <div className="fra-table__validation-error">{errorMsg}</div>
-          </div>
+      mapIndexed((errorMsgs, colIdx) =>
+        <td className="fra-table__validation-cell" key={colIdx}>
+          {
+            mapIndexed(
+              (errorMsg, errorIdx) =>
+                <div key={errorIdx} className="fra-table__validation-container">
+                  <div className="fra-table__validation-error">{errorMsg}</div>
+                </div>
+              ,
+              errorMsgs
+            )
+          }
         </td>
-      }, columnErrorMsgs)
+      , columnErrorMsgs)
     }
   </tr>
 }
+
+const alwaysOkValidator = () => true
 
 const renderFieldRow = ({row, countryIso, fra, save, saveMany, pasteUpdate, rowIdx, openCommentThread, section}) => {
   const {
@@ -90,20 +120,33 @@ const renderFieldRow = ({row, countryIso, fra, save, saveMany, pasteUpdate, rowI
     field,
     className
   } = row
+  const validator = row.validator || alwaysOkValidator
   return <tr
     key={field}
     className={`${openCommentThread && R.isEmpty(R.difference(openCommentThread.target, [field])) ? 'fra-row-comments__open' : ''}`}>
     <th className={className ? className : 'fra-table__category-cell'}>{ localizedName }</th>
     {
-      mapIndexed((v, colIdx) =>
-        <td className={v.type === 'odp' ? 'odp-value-cell' : 'fra-table__cell'} key={`${v.type}_${v.name}`}>
-          {
-            v.type === 'odp'
-              ? formatNumber(v[field])
-              : fraValueCell(v, fra, countryIso, save, saveMany, pasteUpdate, field, rowIdx, colIdx)
-          }
-        </td>
-      , R.values(fra))
+      mapIndexed(
+        (fraColumn, colIdx) => {
+          const tdClasses =
+            R.pipe(
+              R.reject(R.isNil),
+              R.join(' ')
+            )([
+                fraColumn.type === 'odp' ? 'odp-value-cell' : 'fra-table__cell',
+                validator(fraColumn, field) ? null : 'validation-error'
+            ])
+          return (
+            <td className={tdClasses} key={`${fraColumn.type}_${fraColumn.name}`}>
+            {
+              fraColumn.type === 'odp'
+                ? formatNumber(fraColumn[field])
+                : fraValueCell(fraColumn, fra, countryIso, save, saveMany, pasteUpdate, field, rowIdx, colIdx)
+            }
+            </td>
+          )
+        },
+        R.values(fra))
     }
     <td className="fra-table__row-anchor-cell">
       <div className="fra-table__review-indicator-anchor">

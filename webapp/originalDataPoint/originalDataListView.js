@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import * as R from 'ramda'
 import { fetchOdps, removeFromList } from './actions'
 import { Link } from './../reusableUiComponents/link'
+import Icon from '../reusableUiComponents/icon'
 import LoggedInPageTemplate from '../app/loggedInPageTemplate'
 
 const TableRow = ({odp, i18n, countryIso, removeFromList}) => {
@@ -15,7 +16,7 @@ const TableRow = ({odp, i18n, countryIso, removeFromList}) => {
       {odp.year ? odp.year : null}
       {
         odp.editStatus !== 'noChanges'
-          ? <svg className="icon icon-margin icon-sub"><use xlinkHref="img/icons.svg#pencil"/></svg>
+          ? <Icon className="icon-margin-left icon-sub" name="pencil"/>
           : null
       }
     </td>
@@ -33,9 +34,7 @@ const TableRow = ({odp, i18n, countryIso, removeFromList}) => {
       <div className="odp-list__notification-container">
         {
           !odp.validationStatus.valid
-            ? <svg className="icon icon-red">
-                <use xlinkHref="img/icons.svg#alert"/>
-              </svg>
+            ? <Icon className="icon-red" name="alert"/>
             : null
         }
         {
@@ -49,7 +48,12 @@ const TableRow = ({odp, i18n, countryIso, removeFromList}) => {
       <Link className="btn btn-s btn-link" to={odpUrl}>
         {i18n.t('nationalDataPoint.edit')}
       </Link>
-      <button className="btn btn-s btn-link-destructive" onClick ={() => window.confirm(i18n.t('nationalDataPoint.confirmDelete')) ? removeFromList(countryIso, odp.odpId) : null}>
+      <button
+        className="btn btn-s btn-link-destructive"
+        onClick={() => window.confirm(i18n.t('nationalDataPoint.confirmDelete'))
+          ? removeFromList(countryIso, odp.odpId)
+          : null
+      }>
         {i18n.t('nationalDataPoint.delete')}
       </button>
     </td>
@@ -61,9 +65,7 @@ const ODPListing = ({countryIso, odps = [], i18n, userInfo, removeFromList}) => 
     <div className="fra-view__page-header">
       <h1 className="title">{i18n.t('nationalDataPoint.nationalData')}</h1>
       <Link className="btn btn-primary" to={`/country/${countryIso}/odp`}>
-        <svg className="icon icon-sub icon-white">
-          <use xlinkHref="img/icons.svg#small-add"/>
-        </svg>
+        <Icon className="icon-sub icon-white" name="small-add"/>
         {i18n.t('nationalDataPoint.addNationalDataPoint')}
       </Link>
     </div>
@@ -92,7 +94,7 @@ const ODPListing = ({countryIso, odps = [], i18n, userInfo, removeFromList}) => 
       <tfoot>
         <tr>
           <td className="odp-list__footnotes" colSpan="4">
-            <svg className="icon icon-sub icon-margin"><use xlinkHref="img/icons.svg#pencil"/></svg>
+            <Icon className="icon-margin-right icon-sub" name="pencil"/>
             {i18n.t('nationalDataPoint.modifiedExplanation')}
           </td>
         </tr>

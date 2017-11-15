@@ -101,7 +101,8 @@ module.exports.translation = {
       countryDoesNotMatch: 'Error: country {{countyryIso}} does not match'
     },
     assessment: {
-      transitionNotAllowed: 'Error: Transition from {{currentStatus}} to {{status}} is not allowed for role {{role}}'
+      transitionNotAllowed: 'Error: Transition from {{currentStatus}} to {{status}} is not allowed for role {{role}}',
+      deskStudyNotAllowed: 'Error: Only administrator can change desk-study status'
     },
     review: {
       commentDeleteNotOwner: 'Error: User {{user}} tried to delete a comment that doesn\'t own',
@@ -140,6 +141,7 @@ module.exports.translation = {
         previous: 'Return to editing'
       }
     },
+    assessmentDeskStudy: 'Desk study',
     support: {
       dontDelete: 'System information please don’t delete',
       sendFeedback: 'Send feedback',
@@ -243,6 +245,7 @@ module.exports.translation = {
     forestCharacteristics: 'Forest characteristics',
     otherLandCharacteristics: 'Other land with tree cover',
     plantationForest: 'Plantation forest',
+    remindDirtyOdp: 'National data point has been updated, remember to regenerate values.',
     dataSourceMethodsOptions: {
       nationalForestInventory: 'National Forest Inventory',
       sampleBasedRemoteSensingAssessment: 'Sample-based remote sensing assessment',
@@ -271,26 +274,32 @@ module.exports.translation = {
     insufficientPrivileges: 'Insufficient privileges',
     confirmDelete: 'Remove {{user}} from {{country}}?',
     invitationEmail:{
-      subject:'FRA Platform - Access granted to {{country}}',
-      textMessage:`Dear {{user}},
+      subject:'Invited to {{country}} on FRA Platform',
+      textMessage:`Dear {{invitedUser}},
 %0D%0A%0D%0A
-You have been granted access to {{country}} as {{role}}
+{{loggedInUser}} has invited you to join {{country}} on FRA Platfrom as a {{role}}.
 %0D%0A%0D%0A
-To access the platform, please follow the link {{link}}
-%0D%0A%0D%0A
-Thank you,
+Accept this invitation and visit the country at the following URL:
 %0D%0A
+{{link}}
+%0D%0A%0D%0A
+Happy reporting, and don't hesitate to contact us with your feedback.
+%0D%0A%0D%0A
 The FRA team
+%0D%0A
+{{url}}
     `,
-      htmlMessage:`Dear {{user}},
+      htmlMessage:`Dear {{invitedUser}},
 <br/><br/>
-You have been granted access to {{country}} as {{role}}
+{{loggedInUser}} has invited you to join {{country}} on FRA Platfrom as a {{role}}.
 <br/><br/>
-To access the platform, please follow the link <a href="{{link}}">{{link}}</a>
+<b><a href="{{link}}">Accept this invitation and visit the country</a></b>
 <br/><br/>
-Thank you,
-<br/>
+Happy reporting, and don't hesitate to contact us with your feedback.
+<br/><br/>
 The FRA team
+<br/>
+{{url}}
     `
     }
   },
@@ -304,6 +313,7 @@ The FRA team
     categoryHeader: 'FRA categories',
     areaUnitLabel: 'Area (1000 ha)',
     generateFraValues: 'Generate FRA values',
+    confirmGenerateFraValues: 'Generating FRA values will override previously generated values.',
     forestArea: 'Forest',
     chart: {
       placeholderLine1: 'To get started, add new national data points and use',

@@ -25,6 +25,7 @@ import ckEditorConfig from '../ckEditor/ckEditorConfig'
 import ReviewIndicator from '../review/reviewIndicator'
 import DefinitionLink from './../reusableUiComponents/definitionLink'
 import MultiSelect from '../reusableUiComponents/multiSelect'
+import Icon from '../reusableUiComponents/icon'
 import handlePaste from './paste'
 import { fetchLastSectionUpdateTimestamp } from '../audit/actions'
 
@@ -386,7 +387,10 @@ const OdpViewContent = ({match, saveDraft, markAsActual, remove, active, autoSav
     <div className="odp__bottom-buttons">
       <button className="btn btn-destructive"
         disabled={saveControlsDisabled()}
-        onClick ={() => window.confirm(i18n.t('nationalDataPoint.confirmDelete')) ? remove(countryIso, active.odpId) : null}>
+        onClick ={() => window.confirm(i18n.t('nationalDataPoint.confirmDelete'))
+          ? remove(countryIso, active.odpId)
+          : null
+      }>
         {i18n.t('nationalDataPoint.delete')}
       </button>
       {
@@ -483,9 +487,7 @@ const NationalClassRow =
             : <div
               className="odp__nc-table__remove"
               onClick={(evt) => saveDraft(countryIso, originalDataPoint.removeNationalClass(odp, index))}>
-              <svg className="icon">
-                <use xlinkHref="img/icons.svg#remove"/>
-              </svg>
+              <Icon name="remove"/>
             </div>
           }
         </div>

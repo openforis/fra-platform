@@ -7,6 +7,7 @@ import tableSpec from './tableSpec'
 import { CommentableDescriptions } from '../../description/commentableDescription'
 import DefinitionLink from '../../reusableUiComponents/definitionLink'
 import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
+import Icon from '../../reusableUiComponents/icon'
 
 class CarbonStockView extends React.Component {
 
@@ -35,7 +36,7 @@ class CarbonStockView extends React.Component {
           <DefinitionLink document="tad" anchor="2d" title={i18n.t('definition.definitionLabel')} lang={lang}/>
           <DefinitionLink document="faq" anchor="2c" title={i18n.t('definition.faqLabel')} lang={lang} className="align-left"/>
           <a className="btn btn-primary" href={calculatorFilePath}>
-            <svg className="icon icon-sub icon-white"><use xlinkHref="img/icons.svg#hit-down"/></svg>
+            <Icon className="icon-sub icon-white" name="hit-down"/>
             {i18n.t('biomassStock.downloadExcel')}
           </a>
         </div>

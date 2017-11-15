@@ -10,14 +10,6 @@ const odpRepository = require('../odp/odpRepository')
 const assessmentRepository = require('../assessment/assessmentRepository')
 const auditRepository = require('../audit/auditRepository')
 
-const defaultStatuses = {
-  'annuallyUpdated': 'editing',
-  'fra2020': 'editing'
-}
-
-const simplifyAssessmentStatuses = statuses =>
-  R.reduce((resultObj, status) => R.assoc(status.assessmentType, status.status, resultObj), {}, statuses)
-
 module.exports.init = app => {
 
   app.get('/country/all', (req, res) => {
@@ -30,15 +22,14 @@ module.exports.init = app => {
     checkCountryAccessFromReqParams(req)
     const odpData = odpRepository.listAndValidateOriginalDataPoints(req.params.countryIso)
     const reviewStatus = reviewRepository.getCountryIssuesSummary(req.params.countryIso, req.user)
-    const assessmentStatuses = assessmentRepository.getAssessmentStatuses(req.params.countryIso)
-
+    const assessments = assessmentRepository.getAssessments(req.params.countryIso)
     Promise.all(
       [
         odpData,
         reviewStatus,
-        assessmentStatuses
+        assessments
       ]
-    ).then(([odps, reviewStatus, assessmentStatusResult]) => {
+    ).then(([odps, reviewStatus, assessments]) => {
         const odpStatus = {
           count: odps.length,
           errors: R.filter(o => !o.validationStatus.valid, odps).length !== 0,
@@ -47,10 +38,7 @@ module.exports.init = app => {
           {
             odpStatus,
             reviewStatus,
-            assessmentStatuses: R.merge(
-              defaultStatuses,
-              simplifyAssessmentStatuses(assessmentStatusResult)
-            )
+            assessments
           })
       }
     ).catch(err => sendErr(res, err))

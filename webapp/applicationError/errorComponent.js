@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { clearApplicationError } from './actions'
+import Icon from '../reusableUiComponents/icon'
 import * as R from 'ramda'
 import './style.less'
 
@@ -8,9 +9,7 @@ const ErrorBox = ({error, i18n, clearApplicationError}) =>
   <div className="alert-container">
     <div className="alert-error">
       <div className="alert-icon">
-        <svg className="icon">
-          <use xlinkHref="img/icons.svg#alert"/>
-        </svg>
+        <Icon name="alert"/>
       </div>
       <div className="alert-message">{
         error.key
@@ -18,9 +17,7 @@ const ErrorBox = ({error, i18n, clearApplicationError}) =>
           : error + ''
       }</div>
       <div className="alert-dismiss" onClick={() => clearApplicationError()}>
-        <svg className="icon">
-          <use xlinkHref="img/icons.svg#remove"/>
-        </svg>
+        <Icon name="remove"/>
       </div>
     </div>
   </div>
