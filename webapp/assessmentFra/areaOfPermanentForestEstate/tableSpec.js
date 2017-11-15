@@ -25,7 +25,7 @@ export default (i18n, extentOfForest) => {
     <tr>
       <th className="fra-table__header-cell">{i18n.t('areaOfPermanentForestEstate.applicable')}</th>
       {
-        mapIndexed((year, i) => <th key={i} className="fra-table__header-cell">{year}</th>, years)
+        R.map(year => <th key={year} className="fra-table__header-cell">{year}</th>, years)
       }
     </tr>
     </thead>,
