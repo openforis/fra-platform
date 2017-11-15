@@ -14,12 +14,12 @@ const createInputRow = (rowHeader, cname = 'fra-table__category-cell', validator
   ...(R.times(() => ({
     type: 'decimalInput',
     validator: validator
-  }), 5))
+  }), 4))
 ]
 
 const privateOwnershipValidator = subCategoryValidator(0, R.range(1, 4))
 
-const years = [1990, 2000, 2010, 2015, 2020]
+const years = [1990, 2000, 2010, 2015]
 const sumRows = [0,4,5]
 
 export default (i18n, extentOfForest, countryIso) => ({
@@ -27,7 +27,7 @@ export default (i18n, extentOfForest, countryIso) => ({
   header: <thead>
   <tr>
     <th className="fra-table__header-cell-left" rowSpan="2">{i18n.t('forestOwnership.categoryHeader')}</th>
-    <th className="fra-table__header-cell" colSpan="5">{i18n.t('forestOwnership.areaUnitLabel')}</th>
+    <th className="fra-table__header-cell" colSpan="4">{i18n.t('forestOwnership.areaUnitLabel')}</th>
   </tr>
   <tr>
     {
