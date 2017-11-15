@@ -468,7 +468,8 @@ The FRA team
     privateBusinesses: 'Private business entities and institutions',
     communities: 'Local, tribal and indigenous communities',
     other: 'Other (specify in comments)',
-    totalPublicOwnership: 'Total public ownership'
+    totalPublicOwnership: 'Total public ownership',
+    total: 'Total'
   },
 
   disturbances: {
