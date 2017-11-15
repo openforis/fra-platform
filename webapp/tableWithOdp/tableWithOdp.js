@@ -63,25 +63,27 @@ export class GenerateFraValuesControl extends React.Component {
 
   constructor(props) {
     super(props)
-    this.state = {extrapolationMethod: 'linear'}
+    this.state = {extrapolationMethod: 'linear', ratePast: '', rateFuture: ''}
   }
 
   render() {
     const props = this.props
-    return <div>
+    const rateValidationClass = rate =>
+      this.validRate(rate) || R.isEmpty(rate) ? '' : 'validation-error'
+    return <div className="table-with-odp__generate-fra-values-control">
       {
         this.state.extrapolationMethod === 'annualChange'
           ? <div>
           <input
             type="text"
-            className="text-input"
+            className={`text-input ${rateValidationClass(this.state.ratePast)}`}
             placeholder="Past rate"
             value={this.state.ratePast}
             onChange={(evt) => this.setState({...this.state, ratePast: evt.target.value})}
           />
           <input
             type="text"
-            className="text-input"
+            className={`text-input ${rateValidationClass(this.state.rateFuture)}`}
             placeholder="Future rate"
             value={this.state.rateFuture}
             onChange={(evt) => this.setState({...this.state, rateFuture: evt.target.value})}
