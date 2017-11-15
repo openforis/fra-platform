@@ -1,4 +1,5 @@
 import React from 'react'
+import ReactDOMServer from 'react-dom/server'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
 import clipboard from 'clipboard-polyfill'
@@ -103,6 +104,28 @@ const ForestCharacteristics = props => {
     return greaterThanOrEqualTo(plantationForest, introduced)
   }
 
+  const ClipboardTable = ({tableValues}) =>
+    <table>
+      <tbody>
+        {mapIndexed((row, i) =>
+          <tr key={i}>
+            {mapIndexed((value, i) =>
+              <td key={i}> {value || ''} </td>
+            , row)}
+          </tr>
+        , tableValues)}
+      </tbody>
+    </table>
+
+  const copyTableAsHtml = (fra, rowsSpecs) => {
+    const transposedFraValues = R.transpose(getFraValues(fra, rowsSpecs))
+    const htmlTable = ReactDOMServer.renderToString(<ClipboardTable tableValues={transposedFraValues}/>)
+    const dataTransfer = new clipboard.DT()
+    dataTransfer.setData("text/plain", i18n.t('forestCharacteristics.forestCharacteristics'))
+    dataTransfer.setData("text/html", htmlTable)
+    clipboard.write(dataTransfer)
+  }
+
   const rows = [
     {
       type: 'field',
@@ -159,25 +182,8 @@ const ForestCharacteristics = props => {
       <DefinitionLink document="faq" anchor="1b" title={i18n.t('definition.faqLabel')} lang={i18n.language} className="align-left"/>
       <button
         className="btn btn-secondary"
-        onClick={() => {
-          var data = getFraValues(props.fra, rows)
-          var transposedData = R.transpose(data)
-          var table = `
-            <table>
-            ${R.map(r => `
-              <tr>
-              ${R.map(v => `<td>${v || ''}</td>`, r).join('')}
-              </tr>
-              `, transposedData).join('')}
-            </table>
-          `
-          var dt = new clipboard.DT()
-          dt.setData("text/plain", "Fallback text")
-          dt.setData("text/html", table)
-          clipboard.write(dt)
-        }
-      }>
-        Copy to clipboard
+        onClick={() => copyTableAsHtml(props.fra, rows)}>
+        {i18n.t('forestCharacteristics.copyToClipboard')}
       </button>
       <button
         disabled={disableGenerateFraValues(props.fra, props.generatingFraValues)}

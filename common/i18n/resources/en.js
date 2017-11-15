@@ -332,7 +332,8 @@ The FRA team
     plantationForestIntroducedArea: '…of which introduced species',
     otherPlantedForestArea: 'Other planted forest',
     plantedForest: 'Planted forest',
-    totalForestArea: 'Total forest area'
+    totalForestArea: 'Total forest area',
+    copyToClipboard: 'Copy data'
   },
 
   forestAreaChange: {
