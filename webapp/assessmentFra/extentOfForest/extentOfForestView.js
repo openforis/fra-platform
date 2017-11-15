@@ -9,10 +9,9 @@ import Icon from '../../reusableUiComponents/icon'
 import DefinitionLink from '../../reusableUiComponents/definitionLink'
 import ChartWrapper from './chart/chartWrapper'
 import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
-import { TableWithOdp, hasFraValues, disableGenerateFraValues } from '../../tableWithOdp/tableWithOdp'
+import { TableWithOdp, GenerateFraValuesControl, hasFraValues, disableGenerateFraValues } from '../../tableWithOdp/tableWithOdp'
 import { CommentableDescriptions } from '../../description/commentableDescription'
 import countryConfig from '../../../common/countryConfig'
-import { PopoverControl } from '../../reusableUiComponents/popoverControl'
 import { sum, formatNumber, eq, greaterThanOrEqualTo } from '../../../common/bignumberUtils'
 
 const sectionName = 'extentOfForest'
@@ -205,20 +204,7 @@ const ExtentOfForest = (props) => {
       <DefinitionLink document="tad" anchor="1a" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
       <DefinitionLink document="faq" anchor="1a" title={i18n.t('definition.faqLabel')} lang={i18n.language}
                       className="align-left"/>
-      <PopoverControl items={
-        disableGenerateFraValues(props.fra, props.generatingFraValues)
-          ? []
-          :  [
-              { content: 'Linear extrapolation', onClick:() => generateFraValues('linear') },
-              { content: 'Repeat last extrapolation', onClick:() => generateFraValues('repeatLast') },
-              { content: 'Annual change rate extrapolation', onClick:() => generateFraValues('annualChange') },
-             ]}
-      >
-        <div className={`btn btn-primary ${disableGenerateFraValues(props.fra, props.generatingFraValues) ? 'disabled' : ''}`}>
-          {i18n.t('extentOfForest.generateFraValues')}
-          <Icon className="icon-white icon-margin icon-middle" name="small-down"/>
-        </div>
-      </PopoverControl>
+      <GenerateFraValuesControl section={sectionName} rows={eofRows} {...props} />
       {
         !disableGenerateFraValues(props.fra, props.generatingFraValues) && props.odpDirty
           ? <div className="support-text">

@@ -6,6 +6,7 @@ import { Link } from '../reusableUiComponents/link'
 import { ThousandSeparatedDecimalInput } from '../reusableUiComponents/thousandSeparatedDecimalInput'
 import Icon from '../reusableUiComponents/icon'
 import ReviewIndicator from '../review/reviewIndicator'
+import { PopoverControl } from '../reusableUiComponents/popoverControl'
 import { readPasteClipboard } from '../utils/copyPasteUtil'
 import { acceptNextDecimal} from '../utils/numberInput'
 import { formatNumber } from '../../common/bignumberUtils'
@@ -65,6 +66,61 @@ export class TableWithOdp extends React.Component {
       </div>
     </div>
   }
+}
+
+export const GenerateFraValuesControl = props => {
+
+  const generateFraValues = (extrapolationMethod) => {
+    const generateAnnualChange = () => {
+      const valuesRaw = window.prompt('Annual change rate', '-0.1 0.1')
+      const [ratePast, rateFuture] = valuesRaw.split(' ')
+      if (
+        isNaN(ratePast) ||
+        isNaN(rateFuture) ||
+        ratePast === ' ' ||
+        rateFuture === ' '
+      ) { return }
+      props.generateFraValues(
+        props.section,
+        props.countryIso,
+        {
+          method:
+          extrapolationMethod,
+          ratePast,
+          rateFuture
+        }
+      )
+    }
+    const generate = () => {
+      if (extrapolationMethod === 'annualChange') {
+        generateAnnualChange()
+      } else {
+        props.generateFraValues(props.section, props.countryIso, {method: extrapolationMethod})
+      }
+    }
+    if (hasFraValues(props.fra, props.rows)) {
+      if (window.confirm(props.i18n.t('tableWithOdp.confirmGenerateFraValues'))) {
+        generate()
+      }
+    } else {
+      generate()
+    }
+  }
+
+  return <PopoverControl items={
+    disableGenerateFraValues(props.fra, props.generatingFraValues)
+      ? []
+      :  [
+      { content: 'Linear extrapolation', onClick:() => generateFraValues('linear') },
+      { content: 'Repeat last extrapolation', onClick:() => generateFraValues('repeatLast') },
+      { content: 'Annual change rate extrapolation', onClick:() => generateFraValues('annualChange') },
+    ]}
+  >
+    <div className={`btn btn-primary ${disableGenerateFraValues(props.fra, props.generatingFraValues) ? 'disabled' : ''}`}>
+      {props.i18n.t('tableWithOdp.generateFraValues')}
+      <Icon className="icon-white icon-margin icon-middle" name="small-down"/>
+    </div>
+  </PopoverControl>
 }
 
 const buildRows = (rows, props) => {
