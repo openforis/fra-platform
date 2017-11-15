@@ -50,8 +50,10 @@ const ExtentOfForest = (props) => {
   const totalAreaValidationClass = (fraColumn, totalArea) =>
     totalAreaNotEqualToFaoStat(fraColumn, totalArea) ? 'validation-error' : ''
 
+  const rowHighlightClass = (target) => props.openCommentThread && R.isEmpty(R.difference(props.openCommentThread.target, [target])) ? 'fra-row-comments__open' : ''
+
   const totalAreaRow = fra =>
-    <tr key="totalArea">
+    <tr className={rowHighlightClass('totalArea')}>
       <th className="fra-table__header-cell-left">
         {i18n.t('extentOfForest.totalLandArea')} (a+b+c)
       </th>
@@ -76,7 +78,7 @@ const ExtentOfForest = (props) => {
     </tr>
 
   const faoStatRow = fra =>
-    <tr key="faoStat">
+    <tr className={rowHighlightClass('faoStat')}>
       <th className="fra-table__header-cell-left">{props.i18n.t('extentOfForest.faoStatLandArea')}</th>
       {
         mapIndexed((faoStatColumn, i) => {
@@ -91,7 +93,7 @@ const ExtentOfForest = (props) => {
           <ReviewIndicator
             key="faoStat"
             section={sectionName}
-            title={i18n.t('extentOfForest.faoStat')}
+            title={i18n.t('extentOfForest.faoStatLandArea')}
             target={['faoStat']}
             countryIso={props.countryIso} />
         </div>

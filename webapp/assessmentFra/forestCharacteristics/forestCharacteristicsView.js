@@ -47,8 +47,10 @@ const ForestCharacteristics = props => {
     return greaterThan(difference, tolerance)
   }
 
-  const plantedForestRow = fra => {
-    return <tr key="plantedForest">
+  const rowHighlightClass = (target) => props.openCommentThread && R.isEmpty(R.difference(props.openCommentThread.target, [target])) ? 'fra-row-comments__open' : ''
+
+  const plantedForestRow = fra =>
+    <tr className={rowHighlightClass('plantedForest')}>
       <th className="fra-table__header-cell-left">
         {i18n.t('forestCharacteristics.plantedForest')} (b)
       </th>
@@ -71,10 +73,9 @@ const ForestCharacteristics = props => {
         </div>
       </td>
     </tr>
-  }
 
-  const totalRow = fra => {
-    return <tr key="total">
+  const totalRow = fra =>
+    <tr className={rowHighlightClass('total')}>
       <th className="fra-table__header-cell-left">
         {i18n.t('forestCharacteristics.total')} (a+b)
       </th>
@@ -102,10 +103,9 @@ const ForestCharacteristics = props => {
         </div>
       </td>
     </tr>
-  }
 
-  const totalForestAreaRow = fra => {
-    return <tr key="totalForestArea">
+  const totalForestAreaRow = fra =>
+    <tr className={rowHighlightClass('totalForestArea')}>
       <th className="fra-table__header-cell-left">
         <Link to={`/country/${props.countryIso}/extentOfForest`} className="link">
           {i18n.t('forestCharacteristics.totalForestArea')}
@@ -130,7 +130,6 @@ const ForestCharacteristics = props => {
         </div>
       </td>
     </tr>
-  }
 
   const validationErrorMessages = fra =>
     R.map(fraColumn => {
