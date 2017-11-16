@@ -67,6 +67,15 @@ const getFieldValue = field => R.pipe(
   R.defaultTo(0)
 )
 
+export const getGrowingStockValues = (growingStock, rowsSpecs) => {
+  const growingStockValues = R.pipe(
+    R.values,
+    R.map(column => R.props(rowsSpecs, column)),
+    R.transpose
+  )(growingStock)
+  return growingStockValues
+}
+
 export const getForestAreaForYear = (extentOfForest, year) => {
   if (!extentOfForest || R.isEmpty(extentOfForest)) return null
   const groupedByYear = R.groupBy(R.prop('name'), extentOfForest.fra)

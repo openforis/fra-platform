@@ -1,17 +1,19 @@
 import React from 'react'
+import ReactDOMServer from 'react-dom/server'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
+import clipboard from 'clipboard-polyfill'
 import { Link } from '../../reusableUiComponents/link'
 import Icon from '../../reusableUiComponents/icon'
 
 import { fetchItem, save, saveMany, generateFraValues } from '../../tableWithOdp/actions'
 import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
-import { TableWithOdp, GenerateFraValuesControl } from '../../tableWithOdp/tableWithOdp'
+import { TableWithOdp, GenerateFraValuesControl, getFraValues } from '../../tableWithOdp/tableWithOdp'
 import ChartWrapper from '../extentOfForest/chart/chartWrapper'
 import { CommentableDescriptions } from '../../description/commentableDescription'
 import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
 import DefinitionLink from '../../reusableUiComponents/definitionLink'
-import { sum, formatNumber, eq, greaterThanOrEqualTo, abs, sub, greaterThan } from '../../../common/bignumberUtils'
+import { sum, formatNumber, eq, greaterThanOrEqualTo, abs, sub, greaterThan, toFixed } from '../../../common/bignumberUtils'
 import { getForestAreaForYear } from '../extentOfForest/extentOfForestHelper'
 import ReviewIndicator from '../../review/reviewIndicator'
 
@@ -150,6 +152,28 @@ const ForestCharacteristics = props => {
       return validationErrors
     },R.values(fra))
 
+  const ClipboardTable = ({tableValues}) =>
+    <table>
+      <tbody>
+        {mapIndexed((row, i) =>
+          <tr key={i}>
+            {mapIndexed((value, i) =>
+              <td key={i}> {toFixed(value)} </td>
+            , row)}
+          </tr>
+        , tableValues)}
+      </tbody>
+    </table>
+
+  const copyTableAsHtml = (fra, rowsSpecs) => {
+    const transposedFraValues = R.transpose(getFraValues(fra, rowsSpecs))
+    const htmlTable = ReactDOMServer.renderToString(<ClipboardTable tableValues={transposedFraValues}/>)
+    const dataTransfer = new clipboard.DT()
+    dataTransfer.setData("text/plain", i18n.t('forestCharacteristics.forestCharacteristics'))
+    dataTransfer.setData("text/html", htmlTable)
+    clipboard.write(dataTransfer)
+  }
+
   const rows = [
     {
       type: 'field',
@@ -194,8 +218,8 @@ const ForestCharacteristics = props => {
 
   return <div className='fra-view__content'>
     <div className="fra-view__page-header">
-      <h1 className="title">{i18n.t('forestCharacteristics.estimationAndForecasting')}</h1>
-      <Link className="btn btn-primary align-right" to={`/country/${props.countryIso}/odp`}>
+      <h1 className="title align-left">{i18n.t('forestCharacteristics.estimationAndForecasting')}</h1>
+      <Link className="btn btn-primary" to={`/country/${props.countryIso}/odp`}>
         <Icon className="icon-sub icon-white" name="small-add"/>
         {i18n.t('nationalDataPoint.addNationalDataPoint')}
       </Link>
@@ -210,6 +234,11 @@ const ForestCharacteristics = props => {
       <DefinitionLink document="tad" anchor="1b" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
       <DefinitionLink document="faq" anchor="1b" title={i18n.t('definition.faqLabel')} lang={i18n.language} className="align-left"/>
       <GenerateFraValuesControl section={sectionName} rows={rows} {...props} />
+      <button
+        className="btn-s btn-secondary"
+        onClick={() => copyTableAsHtml(props.fra, rows)}>
+         {i18n.t('forestCharacteristics.copyToClipboard')}
+      </button>
       {
         props.odpDirty
           ? <div className="support-text">
@@ -222,7 +251,7 @@ const ForestCharacteristics = props => {
     <TableWithOdp
       section={sectionName}
       rows={rows}
-      areaUnitLabel={i18n.t('forestCharacteristics.areaUnitLabel')}
+      tableHeader={i18n.t('forestCharacteristics.areaUnitLabel')}
       categoryHeader={i18n.t('forestCharacteristics.categoryHeader')}
       {...props}
     />

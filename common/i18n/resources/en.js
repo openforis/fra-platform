@@ -331,7 +331,8 @@ The FRA team
     otherPlantedForestArea: 'Other planted forest',
     plantedForest: 'Planted forest',
     totalForestArea: 'Total forest area',
-    total: 'Total'
+    total: 'Total',
+    copyToClipboard: 'Copy values'
   },
 
   tableWithOdp: {
@@ -386,7 +387,8 @@ The FRA team
     ofWhichPlantationForest: '…of which plantation forest',
     ofWhichOtherPlantedForest: '…of which other planted forest',
     totalForest: 'Total forest',
-    otherWoodedLand: 'Other wooded land'
+    otherWoodedLand: 'Other wooded land',
+    copyToClipboard: 'Copy values'
   },
 
   growingStockComposition: {

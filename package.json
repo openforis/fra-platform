@@ -43,6 +43,7 @@
     "bluebird": "^3.5.0",
     "body-parser": "^1.17.2",
     "camelize": "^1.0.0",
+    "clipboard-polyfill": "^2.3.0",
     "compression": "^1.6.2",
     "connect-pg-simple": "^4.2.0",
     "cookie-parser": "^1.4.3",

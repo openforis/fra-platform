@@ -12,15 +12,22 @@ import { formatNumber } from '../../common/bignumberUtils'
 
 const mapIndexed = R.addIndex(R.map)
 
-export const hasFraValues = (fra, rowsSpecs) => {
+export const getFraValues = (fra, rowsSpecs) => {
   const valueFieldNames = R.reject(R.isNil, R.pluck('field', rowsSpecs))
-  const flattenedFraValues = R.pipe(
+  const fraValues = R.pipe(
     R.values,
     R.filter(v => v.type !== 'odp'),
-    R.map(column => R.props(valueFieldNames, column)),
+    R.map(column => R.props(valueFieldNames, column))
+  )(fra)
+  return fraValues
+}
+
+export const hasFraValues = (fra, rowsSpecs) => {
+  const fraValues = getFraValues(fra, rowsSpecs)
+  const flattenedFraValues = R.pipe(
     R.flatten,
     R.reject(R.isNil)
-  )(fra)
+  )(fraValues)
   return flattenedFraValues.length > 0
 }
 
@@ -34,7 +41,7 @@ export class TableWithOdp extends React.Component {
           <thead>
           <tr>
             <th className="fra-table__header-cell-left" rowSpan="2">{this.props.categoryHeader}</th>
-            <th className="fra-table__header-cell" colSpan={R.values(this.props.fra).length}>{this.props.areaUnitLabel}</th>
+            <th className="fra-table__header-cell" colSpan={R.values(this.props.fra).length}>{this.props.tableHeader}</th>
           </tr>
           <tr>
             {
@@ -73,22 +80,22 @@ export class GenerateFraValuesControl extends React.Component {
     return <div className="table-with-odp__generate-fra-values-control">
       {
         this.state.generateMethod === 'annualChange'
-          ? <div className="table-with-odp__generate-inputs">
-            <input
-              type="text"
-              className={`text-input-s ${rateValidationClass(this.state.ratePast)}`}
-              placeholder={i18n.t('tableWithOdp.placeholderPast')}
-              value={this.state.ratePast}
-              onChange={(evt) => this.setState({...this.state, ratePast: evt.target.value})}
-            />
-            <input
-              type="text"
-              className={`text-input-s ${rateValidationClass(this.state.rateFuture)}`}
-              placeholder={i18n.t('tableWithOdp.placeholderFuture')}
-              value={this.state.rateFuture}
-              onChange={(evt) => this.setState({...this.state, rateFuture: evt.target.value})}
-            />
-          </div>
+          ? <div>
+              <input
+                type="text"
+                className={`text-input-s ${rateValidationClass(this.state.ratePast)}`}
+                placeholder={i18n.t('tableWithOdp.placeholderPast')}
+                value={this.state.ratePast}
+                onChange={(evt) => this.setState({...this.state, ratePast: evt.target.value})}
+              />
+              <input
+                type="text"
+                className={`text-input-s ${rateValidationClass(this.state.rateFuture)}`}
+                placeholder={i18n.t('tableWithOdp.placeholderFuture')}
+                value={this.state.rateFuture}
+                onChange={(evt) => this.setState({...this.state, rateFuture: evt.target.value})}
+              />
+            </div>
           : null
       }
       <select
@@ -102,8 +109,8 @@ export class GenerateFraValuesControl extends React.Component {
         <option value="clearTable">{i18n.t('tableWithOdp.clearTable')}</option>
       </select>
       <button
-        disabled={this.disableGenerateFraValues(fra, generatingFraValues)}
         className="btn-s btn-primary"
+        disabled={this.disableGenerateFraValues(fra, generatingFraValues)}
         onClick={() => this.generateFraValues(this.state.generateMethod)}>
         {
           this.state.generateMethod === 'clearTable'
