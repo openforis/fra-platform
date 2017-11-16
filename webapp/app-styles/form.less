@@ -54,6 +54,11 @@ input, select, textarea {
   border-radius: 2px;
   color: @text-body;
   line-height: 20px;
+
+  &:focus {
+    outline: none;
+    border-color: @text-body;
+  }
 }
 
 .mixin-select-base(@padding, @border, @radius) {
