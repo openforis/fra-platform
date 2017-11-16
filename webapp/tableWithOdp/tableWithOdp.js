@@ -12,14 +12,6 @@ import { formatNumber } from '../../common/bignumberUtils'
 
 const mapIndexed = R.addIndex(R.map)
 
-export const disableGenerateFraValues = (fra, generatingFraValues) => {
-    const odps = R.pipe(
-      R.values,
-      R.filter(v => v.type === 'odp')
-    )(fra)
-    return generatingFraValues || odps.length < 2
-  }
-
 export const getFraValues = (fra, rowsSpecs) => {
   const valueFieldNames = R.reject(R.isNil, R.pluck('field', rowsSpecs))
   const fraValues = R.pipe(
@@ -71,6 +63,114 @@ export class TableWithOdp extends React.Component {
         </table>
       </div>
     </div>
+  }
+}
+
+export class GenerateFraValuesControl extends React.Component {
+
+  constructor(props) {
+    super(props)
+    this.state = {generateMethod: 'linear', ratePast: '', rateFuture: ''}
+  }
+
+  render() {
+    const {i18n, fra, generatingFraValues} = this.props
+    const rateValidationClass = rate =>
+      this.validRate(rate) || R.isEmpty(rate) ? '' : 'validation-error'
+    return <div className="table-with-odp__generate-fra-values-control">
+      {
+        this.state.generateMethod === 'annualChange'
+          ? <div className="table-with-odp__generate-inputs">
+            <input
+              type="text"
+              className={`text-input-s ${rateValidationClass(this.state.ratePast)}`}
+              placeholder={i18n.t('tableWithOdp.placeholderPast')}
+              value={this.state.ratePast}
+              onChange={(evt) => this.setState({...this.state, ratePast: evt.target.value})}
+            />
+            <input
+              type="text"
+              className={`text-input-s ${rateValidationClass(this.state.rateFuture)}`}
+              placeholder={i18n.t('tableWithOdp.placeholderFuture')}
+              value={this.state.rateFuture}
+              onChange={(evt) => this.setState({...this.state, rateFuture: evt.target.value})}
+            />
+          </div>
+          : null
+      }
+      <select
+        className="select-s"
+        value={this.state.generateMethod}
+        onChange={evt => this.setState({...this.state, generateMethod: evt.target.value})}>
+        <option value="linear">{i18n.t('tableWithOdp.linearExtrapolation')}</option>
+        <option value="repeatLast">{i18n.t('tableWithOdp.repeatLastExtrapolation')}</option>
+        <option value="annualChange">{i18n.t('tableWithOdp.annualChangeExtrapolation')}</option>
+        <option disabled>---</option>
+        <option value="clearTable">{i18n.t('tableWithOdp.clearTable')}</option>
+      </select>
+      <button
+        disabled={this.disableGenerateFraValues(fra, generatingFraValues)}
+        className="btn-s btn-primary"
+        onClick={() => this.generateFraValues(this.state.generateMethod)}>
+        {
+          this.state.generateMethod === 'clearTable'
+            ? i18n.t('tableWithOdp.clearTable')
+            : i18n.t('tableWithOdp.generateFraValues')
+        }
+      </button>
+    </div>
+  }
+
+
+  disableGenerateFraValues (fra, generatingFraValues) {
+    if (this.state.generateMethod === 'clearTable') return false
+    if (this.state.generateMethod === 'annualChange' && !this.validRates()) return true
+    const odps = R.pipe(
+      R.values,
+      R.filter(v => v.type === 'odp')
+    )(fra)
+    return generatingFraValues || odps.length < 2
+  }
+
+  generateFraValues (generateMethod) {
+    const {section, countryIso, i18n, fra, rows, generateFraValues} = this.props
+    const generateAnnualChange = () => {
+      const ratePast = this.state.ratePast
+      const rateFuture = this.state.rateFuture
+      if (!this.validRates()) { throw new Error('Validation errors rates') }
+      generateFraValues(
+        section,
+        countryIso,
+        {
+          method:
+          generateMethod,
+          ratePast,
+          rateFuture
+        }
+      )
+    }
+    const generate = () => {
+      if (generateMethod === 'annualChange') {
+        generateAnnualChange()
+      } else {
+        generateFraValues(section, countryIso, {method: generateMethod})
+      }
+    }
+    if (hasFraValues(fra, rows)) {
+      if (window.confirm(i18n.t('tableWithOdp.confirmGenerateFraValues'))) {
+        generate()
+      }
+    } else {
+      generate()
+    }
+  }
+
+  validRates() {
+    return this.validRate(this.state.ratePast) && this.validRate(this.state.rateFuture)
+  }
+
+  validRate (rate) {
+    return !isNaN(rate) && !R.isNil(rate) && !R.isEmpty(R.trim(rate))
   }
 }
 

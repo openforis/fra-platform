@@ -48,12 +48,12 @@ class AddComment extends React.Component {
               placeholder={`${canAddComment() ? this.props.i18n.t('review.writeComment') : this.props.i18n.t('review.commentingClosed')}`}/>
       </div>
       <div className="fra-review__footer-buttons">
-        <button className="fra-review__footer-add-btn btn btn-primary btn-s"
+        <button className="fra-review__footer-add-btn btn-s btn-primary"
                 disabled={!canAddComment() || this.state.message === ''}
                 onClick={() => this.handleAddComment(this.props.issueId, this.props.countryIso, this.props.section, this.props.target, null, this.state.message)}>
           {this.props.i18n.t('review.add')}
         </button>
-        <button className="btn btn-s btn-secondary"
+        <button className="btn-s btn-secondary"
                 disabled={!canAddComment()}
                 onClick={() => this.props.onCancel()}>
           {this.props.i18n.t('review.cancel')}

@@ -871,7 +871,7 @@ class CommentsEditor extends React.Component {
     return <div>
       <div className="fra-description__header-row">
         <h3 className="subhead fra-description__header">{this.props.title}</h3>
-        <button className={`btn btn-s ${this.state.open ? 'btn-primary' : 'btn-secondary'}`} onClick={e => {
+        <button className={`btn-s ${this.state.open ? 'btn-primary' : 'btn-secondary'}`} onClick={e => {
             this.state.open
               ? this.setState({open: false})
               : this.setState({open: true, shouldStealFocus: true})

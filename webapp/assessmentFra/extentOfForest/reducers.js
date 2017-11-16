@@ -1,5 +1,3 @@
-import * as R from 'ramda'
-
 import * as tableWithOdpActions from '../../tableWithOdp/actions'
 import { updateValueReducer, updateValuesReducer } from '../../tableWithOdp/reducerFunctions'
 import { applyReducerFunction } from '../../utils/reduxUtils'
