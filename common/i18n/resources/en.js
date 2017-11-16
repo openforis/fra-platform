@@ -335,10 +335,12 @@ The FRA team
 
   tableWithOdp: {
     confirmGenerateFraValues: 'Generating FRA values will override previously generated values.',
-    generateFraValues: 'Generate FRA values',
+    generateFraValues: 'Generate values',
     linearExtrapolation: 'Linear',
     repeatLastExtrapolation: 'Repeat last',
-    annualChangeExtrapolation: 'Annual change'
+    annualChangeExtrapolation: 'Annual change',
+    placeholderFuture: 'Future',
+    placeholderPast: 'Past'
   },
 
   forestAreaChange: {

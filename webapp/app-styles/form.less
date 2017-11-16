@@ -15,7 +15,7 @@ input, select, textarea {
 .select {
   .mixin-select-base(8px, @ui-thin-border, 3px);
   font-size: @font-m;
-  height: 32px;
+  height: 36px;
   min-width: 120px;
 
   &:focus {
@@ -24,10 +24,10 @@ input, select, textarea {
   }
 }
 
-.select-small {
+.select-s {
   .mixin-select-base(8px, @ui-thin-border, 3px);
   font-size: @font-xs;
-  height: 24px;
+  height: 28px;
   min-width: 80px;
 
   &:focus {
@@ -37,12 +37,23 @@ input, select, textarea {
 }
 
 .text-input {
+  .mixin-input-base;
+  font-size: @font-m;
+  padding: 7px 9px;
+}
+
+.text-input-s {
+  .mixin-input-base;
+  font-size: @font-s;
+  padding: 3px 7px;
+}
+
+.mixin-input-base() {
   background-color: transparent;
   border: @ui-thin-border;
   border-radius: 2px;
   color: @text-body;
   line-height: 20px;
-  padding: 7px 9px;
 }
 
 .mixin-select-base(@padding, @border, @radius) {

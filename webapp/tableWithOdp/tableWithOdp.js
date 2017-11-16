@@ -76,15 +76,15 @@ export class GenerateFraValuesControl extends React.Component {
           ? <div className="table-with-odp__generate-inputs">
             <input
               type="text"
-              className={`text-input ${rateValidationClass(this.state.ratePast)}`}
-              placeholder="Past"
+              className={`text-input-s ${rateValidationClass(this.state.ratePast)}`}
+              placeholder={i18n.t('tableWithOdp.placeholderPast')}
               value={this.state.ratePast}
               onChange={(evt) => this.setState({...this.state, ratePast: evt.target.value})}
             />
             <input
               type="text"
-              className={`text-input ${rateValidationClass(this.state.rateFuture)}`}
-              placeholder="Future"
+              className={`text-input-s ${rateValidationClass(this.state.rateFuture)}`}
+              placeholder={i18n.t('tableWithOdp.placeholderFuture')}
               value={this.state.rateFuture}
               onChange={(evt) => this.setState({...this.state, rateFuture: evt.target.value})}
             />
@@ -92,17 +92,16 @@ export class GenerateFraValuesControl extends React.Component {
           : null
       }
       <select
-        className="select"
+        className="select-s"
         value={this.state.extrapolationMethod}
         onChange={evt => this.setState({...this.state, extrapolationMethod: evt.target.value})}>
         <option value="linear">{i18n.t('tableWithOdp.linearExtrapolation')}</option>
         <option value="repeatLast">{i18n.t('tableWithOdp.repeatLastExtrapolation')}</option>
         <option value="annualChange">{i18n.t('tableWithOdp.annualChangeExtrapolation')}</option>
       </select>
-
       <button
         disabled={this.disableGenerateFraValues(fra, generatingFraValues)}
-        className="btn btn-primary"
+        className="btn-s btn-primary"
         onClick={() => this.generateFraValues(this.state.extrapolationMethod)}>
         {i18n.t('tableWithOdp.generateFraValues')}
       </button>
