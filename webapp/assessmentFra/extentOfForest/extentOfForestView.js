@@ -24,7 +24,7 @@ const ExtentOfForest = (props) => {
   const i18n = props.i18n
 
   const totalAreaNotEqualToFaoStat = (fraColumn, totalArea) => {
-    const faoStatValue = R.path([props.countryIso, 'faoStat', fraColumn.name], countryConfig)
+    const faoStatValue = R.path([props.countryIso, 'faoStat', fraColumn.name, 'area'], countryConfig)
     if (!faoStatValue) return false // It's normal that we don't have faoStat-values for years
     if (R.isNil(totalArea)) return false
     const tolerance = 1
@@ -82,7 +82,7 @@ const ExtentOfForest = (props) => {
       <th className="fra-table__header-cell-left">{props.i18n.t('extentOfForest.faoStatLandArea')}</th>
       {
         mapIndexed((faoStatColumn, i) => {
-          const faoStatLandArea = R.path([props.countryIso, 'faoStat', faoStatColumn.name], countryConfig)
+          const faoStatLandArea = R.path([props.countryIso, 'faoStat', faoStatColumn.name, 'area'], countryConfig)
           return <td className={odpValueCellClass(faoStatColumn)} key={i}>
             {formatNumber(faoStatLandArea)}
           </td>
