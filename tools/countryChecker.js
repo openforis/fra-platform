@@ -23,8 +23,6 @@ const compareWithFaoStat = async (countryDbExportFile, faostatCsvFile) => {
         const dbCountries = await csv.parseAsync(countryData)
         const faostatRawData = await fs.readFileAsync(faostatCsvFile, {encoding: 'utf-8'})
         const parsedFaostatData = await csv.parseAsync(faostatRawData)
-        console.log(parsedFaostatData)
-
         const faoStatCountryIsoAndName = R.pipe(
             R.slice(1, undefined),
             R.map(row => [R.nth(-2, row), R.nth(1, row)]),
