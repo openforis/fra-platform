@@ -6,6 +6,7 @@ const R = require('ramda')
 const countryIsoCol = 6
 const yearCol = 3
 const areaCol = 5
+const estimateCol = 7
 
 const getFaostatValues = async (fileName) => {
   const rawFaostatData = await fs.readFileAsync(fileName, {encoding: 'utf-8'})
@@ -15,12 +16,17 @@ const getFaostatValues = async (fileName) => {
     row => ({
       countryIso: row[countryIsoCol],
       year: row[yearCol],
-      area: row[areaCol]
+      area: row[areaCol],
+      estimate: row[estimateCol] === 'EST'
     }),
     faoStatData
   )
   const groupedByCountry = R.reduce(
-    (result, row) => R.assocPath([row.countryIso, 'faoStat', row.year], row.area, result),
+    (result, row) => R.assocPath(
+      [row.countryIso, 'faoStat', row.year],
+      {area: row.area, estimate: row.estimate},
+      result
+    ),
     {},
     rowObjects
   )
