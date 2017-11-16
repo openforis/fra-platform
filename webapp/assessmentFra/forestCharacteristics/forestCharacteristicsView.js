@@ -251,7 +251,7 @@ const ForestCharacteristics = props => {
     <TableWithOdp
       section={sectionName}
       rows={rows}
-      areaUnitLabel={i18n.t('forestCharacteristics.areaUnitLabel')}
+      tableHeader={i18n.t('forestCharacteristics.areaUnitLabel')}
       categoryHeader={i18n.t('forestCharacteristics.categoryHeader')}
       {...props}
     />

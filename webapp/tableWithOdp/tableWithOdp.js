@@ -41,7 +41,7 @@ export class TableWithOdp extends React.Component {
           <thead>
           <tr>
             <th className="fra-table__header-cell-left" rowSpan="2">{this.props.categoryHeader}</th>
-            <th className="fra-table__header-cell" colSpan={R.values(this.props.fra).length}>{this.props.areaUnitLabel}</th>
+            <th className="fra-table__header-cell" colSpan={R.values(this.props.fra).length}>{this.props.tableHeader}</th>
           </tr>
           <tr>
             {

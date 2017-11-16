@@ -245,11 +245,11 @@ const ExtentOfForest = (props) => {
       }
     </div>
     <TableWithOdp
-               section={sectionName}
-               rows={eofRows}
-               areaUnitLabel={props.i18n.t('extentOfForest.areaUnitLabel')}
-               categoryHeader={props.i18n.t('extentOfForest.categoryHeader')}
-               {...props}/>
+      section={sectionName}
+      rows={eofRows}
+      tableHeader={props.i18n.t('extentOfForest.areaUnitLabel')}
+      categoryHeader={props.i18n.t('extentOfForest.categoryHeader')}
+      {...props}/>
     <CommentableDescriptions
       section={sectionName}
       name={sectionName}
