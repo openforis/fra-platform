@@ -98,6 +98,7 @@ export class GenerateFraValuesControl extends React.Component {
         <option value="linear">{i18n.t('tableWithOdp.linearExtrapolation')}</option>
         <option value="repeatLast">{i18n.t('tableWithOdp.repeatLastExtrapolation')}</option>
         <option value="annualChange">{i18n.t('tableWithOdp.annualChangeExtrapolation')}</option>
+        <option value="clearTable">Clear table</option>
       </select>
       <button
         disabled={this.disableGenerateFraValues(fra, generatingFraValues)}

@@ -55,7 +55,7 @@ const estimateField = (values = [], odpValues, field, year, extrapolationSpec) =
 
   if (odp) {
     return odp[field]
-  } else if (values.length < 2) {
+  } else if (values.length < 2 || extrapolationSpec.method === 'clearTable') {
     return null
   } else if (previousValue && nextValue) {
     return applyEstimationFunction(year, previousValue, nextValue, field, linearInterpolation)
@@ -92,6 +92,10 @@ const repeatLastExtrapolation = (year, values, _, field) => {
     return null
 }
 
+const clearTableValues = () => {
+  return null
+}
+
 const annualChangeExtrapolation = (year, values, odpValues, field, {ratePast, rateFuture}) => {
   assert(ratePast && rateFuture, 'ratePast and rateFuture must be given for annualChange extrapolation method')
 
@@ -115,7 +119,8 @@ const annualChangeExtrapolation = (year, values, odpValues, field, {ratePast, ra
 const extrapolationMethods = {
   'linear': linearExtrapolation,
   'repeatLast': repeatLastExtrapolation,
-  'annualChange': annualChangeExtrapolation
+  'annualChange': annualChangeExtrapolation,
+  'clearTable': clearTableValues
 }
 
 const extrapolate = (year, values, odpValues, field, extrapolationSpec) => {
