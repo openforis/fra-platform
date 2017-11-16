@@ -63,7 +63,7 @@ export class GenerateFraValuesControl extends React.Component {
 
   constructor(props) {
     super(props)
-    this.state = {extrapolationMethod: 'linear', ratePast: '', rateFuture: ''}
+    this.state = {generateMethod: 'linear', ratePast: '', rateFuture: ''}
   }
 
   render() {
@@ -72,7 +72,7 @@ export class GenerateFraValuesControl extends React.Component {
       this.validRate(rate) || R.isEmpty(rate) ? '' : 'validation-error'
     return <div className="table-with-odp__generate-fra-values-control">
       {
-        this.state.extrapolationMethod === 'annualChange'
+        this.state.generateMethod === 'annualChange'
           ? <div className="table-with-odp__generate-inputs">
             <input
               type="text"
@@ -93,8 +93,8 @@ export class GenerateFraValuesControl extends React.Component {
       }
       <select
         className="select-s"
-        value={this.state.extrapolationMethod}
-        onChange={evt => this.setState({...this.state, extrapolationMethod: evt.target.value})}>
+        value={this.state.generateMethod}
+        onChange={evt => this.setState({...this.state, generateMethod: evt.target.value})}>
         <option value="linear">{i18n.t('tableWithOdp.linearExtrapolation')}</option>
         <option value="repeatLast">{i18n.t('tableWithOdp.repeatLastExtrapolation')}</option>
         <option value="annualChange">{i18n.t('tableWithOdp.annualChangeExtrapolation')}</option>
@@ -103,7 +103,7 @@ export class GenerateFraValuesControl extends React.Component {
       <button
         disabled={this.disableGenerateFraValues(fra, generatingFraValues)}
         className="btn-s btn-primary"
-        onClick={() => this.generateFraValues(this.state.extrapolationMethod)}>
+        onClick={() => this.generateFraValues(this.state.generateMethod)}>
         {i18n.t('tableWithOdp.generateFraValues')}
       </button>
     </div>
@@ -111,7 +111,7 @@ export class GenerateFraValuesControl extends React.Component {
 
 
   disableGenerateFraValues (fra, generatingFraValues) {
-    if (this.state.extrapolationMethod === 'annualChange' && !this.validRates()) return true
+    if (this.state.generateMethod === 'annualChange' && !this.validRates()) return true
 
     const odps = R.pipe(
       R.values,
@@ -120,7 +120,7 @@ export class GenerateFraValuesControl extends React.Component {
     return generatingFraValues || odps.length < 2
   }
 
-  generateFraValues (extrapolationMethod) {
+  generateFraValues (generateMethod) {
     const {section, countryIso, i18n, fra, rows, generateFraValues} = this.props
     const generateAnnualChange = () => {
       const ratePast = this.state.ratePast
@@ -131,17 +131,17 @@ export class GenerateFraValuesControl extends React.Component {
         countryIso,
         {
           method:
-          extrapolationMethod,
+          generateMethod,
           ratePast,
           rateFuture
         }
       )
     }
     const generate = () => {
-      if (extrapolationMethod === 'annualChange') {
+      if (generateMethod === 'annualChange') {
         generateAnnualChange()
       } else {
-        generateFraValues(section, countryIso, {method: extrapolationMethod})
+        generateFraValues(section, countryIso, {method: generateMethod})
       }
     }
     if (hasFraValues(fra, rows)) {

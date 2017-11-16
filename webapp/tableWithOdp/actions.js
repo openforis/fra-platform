@@ -65,15 +65,15 @@ export const saveMany = (section, countryIso, columnData) => dispatch => {
   dispatch(changeMany({section, countryIso, columnData}))
 }
 
-export const generateFraValues = (section, countryIso, extrapolationSpec = {method: 'linear'}) => dispatch => {
+export const generateFraValues = (section, countryIso, generateSpec = {method: 'linear'}) => dispatch => {
   dispatch({type: generateFraValuesStart(section)})
   dispatch({type: odpCleanAction(section)})
 
-  const ratePart = extrapolationSpec.method === 'annualChange'
-    ? `?ratePast=${extrapolationSpec.ratePast}&rateFuture=${extrapolationSpec.rateFuture}`
+  const ratePart = generateSpec.method === 'annualChange'
+    ? `?ratePast=${generateSpec.ratePast}&rateFuture=${generateSpec.rateFuture}`
     : ''
 
-  axios.post(`/api/nde/${section}/generateFraValues/${countryIso}/${extrapolationSpec.method}${ratePart}`)
+  axios.post(`/api/nde/${section}/generateFraValues/${countryIso}/${generateSpec.method}${ratePart}`)
     .then(() => {
       dispatch(fetchItem(section, countryIso))
     })

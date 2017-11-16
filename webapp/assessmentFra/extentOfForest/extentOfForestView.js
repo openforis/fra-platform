@@ -150,7 +150,7 @@ const ExtentOfForest = (props) => {
   ]
 
 
-  const generateFraValues = (extrapolationMethod) => {
+  const generateFraValues = (generateMethod) => {
     const generateAnnualChange = () => {
       const valuesRaw = window.prompt('Annual change rate', '-0.1 0.1')
       const [ratePast, rateFuture] = valuesRaw.split(' ')
@@ -165,17 +165,17 @@ const ExtentOfForest = (props) => {
         props.countryIso,
         {
           method:
-          extrapolationMethod,
+          generateMethod,
           ratePast,
           rateFuture
         }
       )
     }
     const generate = () => {
-      if (extrapolationMethod === 'annualChange') {
+      if (generateMethod === 'annualChange') {
         generateAnnualChange()
       } else {
-        props.generateFraValues('extentOfForest', props.countryIso, {method: extrapolationMethod})
+        props.generateFraValues('extentOfForest', props.countryIso, {method: generateMethod})
       }
     }
     if (hasFraValues(props.fra, eofRows)) {

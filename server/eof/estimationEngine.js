@@ -48,19 +48,19 @@ const getPreviousValues = year => R.pipe(
   R.sort((a, b) => b.year - a.year)
 )
 
-const estimateField = (values = [], odpValues, field, year, extrapolationSpec) => {
+const estimateField = (values = [], odpValues, field, year, generateSpec) => {
   const odp = R.find(R.propEq('year', year))(values)
   const previousValue = getPreviousValues(year)(values)[0]
   const nextValue = getNextValues(year)(values)[0]
 
   if (odp) {
     return odp[field]
-  } else if (values.length < 2 || extrapolationSpec.method === 'clearTable') {
+  } else if (values.length < 2 || generateSpec.method === 'clearTable') {
     return null
   } else if (previousValue && nextValue) {
     return applyEstimationFunction(year, previousValue, nextValue, field, linearInterpolation)
   } else {
-    return extrapolate(year, values, odpValues, field, extrapolationSpec)
+    return extrapolate(year, values, odpValues, field, generateSpec)
   }
 }
 
@@ -116,20 +116,20 @@ const annualChangeExtrapolation = (year, values, odpValues, field, {ratePast, ra
   }
 }
 
-const extrapolationMethods = {
+const generateMethods = {
   'linear': linearExtrapolation,
   'repeatLast': repeatLastExtrapolation,
   'annualChange': annualChangeExtrapolation,
   'clearTable': clearTableValues
 }
 
-const extrapolate = (year, values, odpValues, field, extrapolationSpec) => {
-  const extrapolationMethod = extrapolationMethods[extrapolationSpec.method]
-  assert(extrapolationMethod,`Invalid extrapolation method: ${extrapolationSpec.method}`)
-  return extrapolationMethod(year, values, odpValues, field, extrapolationSpec)
+const extrapolate = (year, values, odpValues, field, generateSpec) => {
+  const extrapolationMethod = generateMethods[generateSpec.method]
+  assert(extrapolationMethod,`Invalid extrapolation method: ${generateSpec.method}`)
+  return extrapolationMethod(year, values, odpValues, field, generateSpec)
 }
 
-const estimateFraValue = (year, values, odpValues, fieldsToEstimate, extrapolationSpec) => {
+const estimateFraValue = (year, values, odpValues, fieldsToEstimate, generateSpec) => {
 
   const estimateFieldReducer = (newFraObj, field) => {
     const fraEstimatedYears = R.pipe(
@@ -142,7 +142,7 @@ const estimateFraValue = (year, values, odpValues, fieldsToEstimate, extrapolati
     //Filtering out objects with field value null or already estimated
     const fieldValues = R.reject(v => !v[field] || isEstimatedOdp(v), values)
 
-    const estValue = estimateField(fieldValues, odpValues, field, year, extrapolationSpec)
+    const estValue = estimateField(fieldValues, odpValues, field, year, generateSpec)
 
     return R.pipe(
       R.assoc([field], toFixed(estValue)),
@@ -158,10 +158,10 @@ const estimateFraValue = (year, values, odpValues, fieldsToEstimate, extrapolati
 }
 
 // Pure function, no side-effects
-const estimateFraValues = (years, odpValues, fieldstoEstimate, extrapolationSpec) => {
+const estimateFraValues = (years, odpValues, fieldstoEstimate, generateSpec) => {
 
   const estimateFraValuesReducer = (values, year) => {
-    const newValue = estimateFraValue(year, values, odpValues, fieldstoEstimate, extrapolationSpec)
+    const newValue = estimateFraValue(year, values, odpValues, fieldstoEstimate, generateSpec)
     return [...values, newValue]
   }
 
@@ -179,9 +179,9 @@ module.exports.focFields = focFields
 
 module.exports.estimateFraValues = estimateFraValues
 
-module.exports.estimateAndWrite = (odpReader, fraWriter, fieldsToEstimate, countryIso, years, extrapolationSpec) => {
+module.exports.estimateAndWrite = (odpReader, fraWriter, fieldsToEstimate, countryIso, years, generateSpec) => {
   return odpReader(countryIso).then(values => {
-    const estimated = estimateFraValues(years, R.values(values), fieldsToEstimate, extrapolationSpec)
+    const estimated = estimateFraValues(years, R.values(values), fieldsToEstimate, generateSpec)
     return Promise.all(
       R.map(
         estimatedValues => fraWriter(countryIso, estimatedValues.year, estimatedValues, true),
