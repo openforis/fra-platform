@@ -45,14 +45,16 @@ const OdpViewContent = ({match, saveDraft, markAsActual, remove, active, autoSav
       <h1 className="title align-left">{i18n.t('nationalDataPoint.nationalDataPoint')}</h1>
       {
         active.editStatus && active.editStatus !== 'newDraft'
-        ? <button className="btn btn-secondary"
+        ? <button
+            className="btn btn-secondary"
             disabled={saveControlsDisabled()}
             onClick={() => cancelDraft(countryIso, active.odpId)}>
               {i18n.t('nationalDataPoint.discardChanges')}
           </button>
         : null
       }
-      <button className="btn btn-primary"
+      <button
+        className="btn btn-primary"
         disabled={saveControlsDisabled()}
         onClick={() => markAsActual(countryIso, active)}>
          {i18n.t('nationalDataPoint.doneEditing')}
@@ -174,10 +176,11 @@ const OdpViewContent = ({match, saveDraft, markAsActual, remove, active, autoSav
         <h3 className="subhead">
           {i18n.t('nationalDataPoint.nationalClasses')}
         </h3>
-        <button disabled={copyDisabled || copyPreviousClassesDisabled()}
-                className="btn btn-primary btn-copy-prev-values"
-                onClick={() => copyPreviousNationalClasses(countryIso, active)}>
-          {i18n.t('nationalDataPoint.copyPreviousValues')}
+        <button
+          className="btn-s btn-primary btn-copy-prev-values"
+          disabled={copyDisabled || copyPreviousClassesDisabled()}
+          onClick={() => copyPreviousNationalClasses(countryIso, active)}>
+            {i18n.t('nationalDataPoint.copyPreviousValues')}
         </button>
       </div>
       <div className="fra-table__container">
@@ -385,7 +388,8 @@ const OdpViewContent = ({match, saveDraft, markAsActual, remove, active, autoSav
     </div>
 
     <div className="odp__bottom-buttons">
-      <button className="btn btn-destructive"
+      <button
+        className="btn btn-destructive"
         disabled={saveControlsDisabled()}
         onClick ={() => window.confirm(i18n.t('nationalDataPoint.confirmDelete'))
           ? remove(countryIso, active.odpId)
@@ -395,17 +399,19 @@ const OdpViewContent = ({match, saveDraft, markAsActual, remove, active, autoSav
       </button>
       {
         active.editStatus && active.editStatus !== 'newDraft'
-          ? <button className="btn btn-secondary"
+          ? <button
+              className="btn btn-secondary"
               disabled={saveControlsDisabled()}
               onClick={() => cancelDraft(countryIso, active.odpId)}>
-              {i18n.t('nationalDataPoint.discardChanges')}
+               {i18n.t('nationalDataPoint.discardChanges')}
             </button>
           : null
       }
-      <button className="btn btn-primary"
+      <button
+        className="btn btn-primary"
         disabled={saveControlsDisabled()}
         onClick={() => markAsActual(countryIso, active)}>
-        {i18n.t('nationalDataPoint.doneEditing')}
+         {i18n.t('nationalDataPoint.doneEditing')}
       </button>
     </div>
   </div>
@@ -871,14 +877,20 @@ class CommentsEditor extends React.Component {
     return <div>
       <div className="fra-description__header-row">
         <h3 className="subhead fra-description__header">{this.props.title}</h3>
-        <button className={`btn-s ${this.state.open ? 'btn-primary' : 'btn-secondary'}`} onClick={e => {
+        <button
+          className={`btn-s ${this.state.open ? 'btn-primary' : 'btn-secondary'}`}
+          onClick={e => {
             this.state.open
               ? this.setState({open: false})
               : this.setState({open: true, shouldStealFocus: true})
             e.stopPropagation()
           }
         }>
-        {this.state.open ? this.props.i18n.t('description.done') : this.props.i18n.t('description.edit')}
+          {
+            this.state.open
+              ? this.props.i18n.t('description.done')
+              : this.props.i18n.t('description.edit')
+          }
         </button>
       </div>
       <div className="cke_wrapper" style={{display: this.state.open ? 'block' : 'none'}}>
