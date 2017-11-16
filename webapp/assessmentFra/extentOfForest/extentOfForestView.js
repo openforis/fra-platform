@@ -9,7 +9,7 @@ import Icon from '../../reusableUiComponents/icon'
 import DefinitionLink from '../../reusableUiComponents/definitionLink'
 import ChartWrapper from './chart/chartWrapper'
 import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
-import { TableWithOdp, hasFraValues, disableGenerateFraValues } from '../../tableWithOdp/tableWithOdp'
+import { TableWithOdp, GenerateFraValuesControl, hasFraValues} from '../../tableWithOdp/tableWithOdp'
 import { CommentableDescriptions } from '../../description/commentableDescription'
 import countryConfig from '../../../common/countryConfig'
 import { sum, formatNumber, eq, greaterThanOrEqualTo, abs, sub, greaterThan } from '../../../common/bignumberUtils'
@@ -179,6 +179,44 @@ const ExtentOfForest = (props) => {
     }
   ]
 
+
+  const generateFraValues = (generateMethod) => {
+    const generateAnnualChange = () => {
+      const valuesRaw = window.prompt('Annual change rate', '-0.1 0.1')
+      const [ratePast, rateFuture] = valuesRaw.split(' ')
+      if (
+        isNaN(ratePast) ||
+        isNaN(rateFuture) ||
+        ratePast === ' ' ||
+        rateFuture === ' '
+      ) { return }
+      props.generateFraValues(
+        'extentOfForest',
+        props.countryIso,
+        {
+          method:
+          generateMethod,
+          ratePast,
+          rateFuture
+        }
+      )
+    }
+    const generate = () => {
+      if (generateMethod === 'annualChange') {
+        generateAnnualChange()
+      } else {
+        props.generateFraValues('extentOfForest', props.countryIso, {method: generateMethod})
+      }
+    }
+    if (hasFraValues(props.fra, eofRows)) {
+      if (window.confirm(i18n.t('extentOfForest.confirmGenerateFraValues'))) {
+        generate()
+      }
+    } else {
+      generate()
+    }
+  }
+
   return <div className='fra-view__content'>
     <div className="fra-view__page-header">
       <h1 className="title">{i18n.t('extentOfForest.estimationAndForecasting')}</h1>
@@ -196,23 +234,13 @@ const ExtentOfForest = (props) => {
       <DefinitionLink document="tad" anchor="1a" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
       <DefinitionLink document="faq" anchor="1a" title={i18n.t('definition.faqLabel')} lang={i18n.language}
                       className="align-left"/>
-      <button
-        disabled={disableGenerateFraValues(props.fra, props.generatingFraValues)}
-        className="btn btn-primary"
-        onClick={() => hasFraValues(props.fra, eofRows)
-          ? window.confirm(i18n.t('extentOfForest.confirmGenerateFraValues'))
-            ? props.generateFraValues('extentOfForest', props.countryIso)
-            : null
-          : props.generateFraValues('extentOfForest', props.countryIso)
-      }>
-        {i18n.t('extentOfForest.generateFraValues')}
-      </button>
+      <GenerateFraValuesControl section={sectionName} rows={eofRows} {...props} />
       {
-        !disableGenerateFraValues(props.fra, props.generatingFraValues) && props.odpDirty
+        props.odpDirty
           ? <div className="support-text">
-              <Icon name="alert" className="icon-orange icon-sub icon-margin-right"/>
-              {i18n.t('nationalDataPoint.remindDirtyOdp')}
-            </div>
+          <Icon name="alert" className="icon-orange icon-sub icon-margin-right"/>
+          {i18n.t('nationalDataPoint.remindDirtyOdp')}
+        </div>
           : null
       }
     </div>

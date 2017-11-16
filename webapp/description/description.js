@@ -26,7 +26,7 @@ class Description extends Component {
     return <div>
       <div className="fra-description__header-row">
         <h3 className="subhead fra-description__header">{this.props.title}</h3>
-        <button className={`btn btn-s ${isActive ? 'btn-primary' : 'btn-secondary'}`} onClick={e => {
+        <button className={`btn-s ${isActive ? 'btn-primary' : 'btn-secondary'}`} onClick={e => {
             isActive
               ? this.props.closeEditor()
               : this.props.openEditor(this.props.name)

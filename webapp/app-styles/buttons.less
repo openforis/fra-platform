@@ -5,38 +5,11 @@ button:hover {
 }
 
 .btn {
-  background-color: transparent;
-  border-radius: 2px;
-  border: solid 1px transparent;
-  cursor: pointer;
-  display: inline-block;
-  font-family: inherit;
-  font-size: @font-m;
-  font-weight: 700;
-  line-height: 20px;
-  padding: 7px 15px;
-  text-align: center;
-  text-decoration: none;
-  transition: @ease-out;
-  vertical-align: middle;
-  white-space: nowrap;
-  outline: none;
-
-  .icon {
-    margin-right: 6px;
-  }
-}
-
-.btn.disabled,
-.btn:disabled {
-  cursor: not-allowed;
-  opacity: .4;
-  pointer-events: none;
+  .mixin-button-base(@font-m, 7px 15px);
 }
 
 .btn-s {
-  font-size: @font-s;
-  padding: 3px 9px;
+  .mixin-button-base(@font-s, 3px 9px);
 }
 
 .btn-primary {
@@ -114,5 +87,35 @@ button:hover {
 
   &:hover {
     text-decoration: underline;
+  }
+}
+
+.mixin-button-base(@fontSize, @padding) {
+  background-color: transparent;
+  border-radius: 2px;
+  border: solid 1px transparent;
+  cursor: pointer;
+  display: inline-block;
+  font-family: inherit;
+  font-size: @fontSize;
+  font-weight: 700;
+  line-height: 20px;
+  padding: @padding;
+  text-align: center;
+  text-decoration: none;
+  transition: @ease-out;
+  vertical-align: middle;
+  white-space: nowrap;
+  outline: none;
+
+  &.disabled,
+  &:disabled {
+   cursor: not-allowed;
+   opacity: .4;
+   pointer-events: none;
+  }
+
+  .icon {
+   margin-right: 6px;
   }
 }
