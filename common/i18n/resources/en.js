@@ -340,7 +340,8 @@ The FRA team
     repeatLastExtrapolation: 'Repeat last',
     annualChangeExtrapolation: 'Annual change',
     placeholderFuture: 'Future',
-    placeholderPast: 'Past'
+    placeholderPast: 'Past',
+    clearTable: 'Clear table'
   },
 
   forestAreaChange: {

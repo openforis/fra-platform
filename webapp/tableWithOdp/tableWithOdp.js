@@ -98,21 +98,26 @@ export class GenerateFraValuesControl extends React.Component {
         <option value="linear">{i18n.t('tableWithOdp.linearExtrapolation')}</option>
         <option value="repeatLast">{i18n.t('tableWithOdp.repeatLastExtrapolation')}</option>
         <option value="annualChange">{i18n.t('tableWithOdp.annualChangeExtrapolation')}</option>
-        <option value="clearTable">Clear table</option>
+        <option disabled>---</option>
+        <option value="clearTable">{i18n.t('tableWithOdp.clearTable')}</option>
       </select>
       <button
         disabled={this.disableGenerateFraValues(fra, generatingFraValues)}
         className="btn-s btn-primary"
         onClick={() => this.generateFraValues(this.state.generateMethod)}>
-        {i18n.t('tableWithOdp.generateFraValues')}
+        {
+          this.state.generateMethod === 'clearTable'
+            ? i18n.t('tableWithOdp.clearTable')
+            : i18n.t('tableWithOdp.generateFraValues')
+        }
       </button>
     </div>
   }
 
 
   disableGenerateFraValues (fra, generatingFraValues) {
+    if (this.state.generateMethod === 'clearTable') return false
     if (this.state.generateMethod === 'annualChange' && !this.validRates()) return true
-
     const odps = R.pipe(
       R.values,
       R.filter(v => v.type === 'odp')
