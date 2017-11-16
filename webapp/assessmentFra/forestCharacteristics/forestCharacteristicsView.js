@@ -218,8 +218,8 @@ const ForestCharacteristics = props => {
 
   return <div className='fra-view__content'>
     <div className="fra-view__page-header">
-      <h1 className="title">{i18n.t('forestCharacteristics.estimationAndForecasting')}</h1>
-      <Link className="btn btn-primary align-right" to={`/country/${props.countryIso}/odp`}>
+      <h1 className="title align-left">{i18n.t('forestCharacteristics.estimationAndForecasting')}</h1>
+      <Link className="btn btn-primary" to={`/country/${props.countryIso}/odp`}>
         <Icon className="icon-sub icon-white" name="small-add"/>
         {i18n.t('nationalDataPoint.addNationalDataPoint')}
       </Link>

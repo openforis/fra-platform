@@ -80,22 +80,22 @@ export class GenerateFraValuesControl extends React.Component {
     return <div className="table-with-odp__generate-fra-values-control">
       {
         this.state.generateMethod === 'annualChange'
-          ? <div className="table-with-odp__generate-inputs">
-            <input
-              type="text"
-              className={`text-input-s ${rateValidationClass(this.state.ratePast)}`}
-              placeholder={i18n.t('tableWithOdp.placeholderPast')}
-              value={this.state.ratePast}
-              onChange={(evt) => this.setState({...this.state, ratePast: evt.target.value})}
-            />
-            <input
-              type="text"
-              className={`text-input-s ${rateValidationClass(this.state.rateFuture)}`}
-              placeholder={i18n.t('tableWithOdp.placeholderFuture')}
-              value={this.state.rateFuture}
-              onChange={(evt) => this.setState({...this.state, rateFuture: evt.target.value})}
-            />
-          </div>
+          ? <div>
+              <input
+                type="text"
+                className={`text-input-s ${rateValidationClass(this.state.ratePast)}`}
+                placeholder={i18n.t('tableWithOdp.placeholderPast')}
+                value={this.state.ratePast}
+                onChange={(evt) => this.setState({...this.state, ratePast: evt.target.value})}
+              />
+              <input
+                type="text"
+                className={`text-input-s ${rateValidationClass(this.state.rateFuture)}`}
+                placeholder={i18n.t('tableWithOdp.placeholderFuture')}
+                value={this.state.rateFuture}
+                onChange={(evt) => this.setState({...this.state, rateFuture: evt.target.value})}
+              />
+            </div>
           : null
       }
       <select
