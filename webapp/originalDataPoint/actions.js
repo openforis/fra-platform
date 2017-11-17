@@ -9,7 +9,7 @@ import {
   copyNationalClassDefinitions
 } from './originalDataPoint'
 import { validateDataPoint } from '../../common/validateOriginalDataPoint'
-import { fetchCountryOverviewStatus } from '../navigation/actions'
+import { fetchCountryOverviewStatus } from '../country/actions'
 import { markOdpDirty } from '../tableWithOdp/actions'
 
 // Validation

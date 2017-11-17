@@ -1,16 +1,12 @@
 import R from 'ramda'
 import { applyReducerFunction } from '../utils/reduxUtils'
 import {
-  listCountries,
-  fetchCountryOverviewStatusCompleted,
   changeAssessmentStatusInitiated,
   navigationScrolled,
   toggleShowNavigation
 } from './actions'
 
 const actionHandlers = {
-  [listCountries]: (state, action) => ({...state, countries: action.countries}),
-  [fetchCountryOverviewStatusCompleted]: (state, action) => ({...state, status: action.status}),
   [changeAssessmentStatusInitiated]: (state, action) =>
     (R.assocPath(['status', 'assessments', action.assessmentType, 'status'], 'changing' ,state)),
   [navigationScrolled]: (state, action) => ({...state, scrollPosition: action.position}),

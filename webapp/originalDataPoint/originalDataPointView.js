@@ -12,7 +12,7 @@ import {
   copyPreviousNationalClasses,
   cancelDraft
 } from './actions'
-import { fetchCountryOverviewStatus } from '../navigation/actions'
+import { fetchCountryOverviewStatus } from '../country/actions'
 import { acceptNextDecimal } from '../utils/numberInput'
 import { readPasteClipboard } from '../utils/copyPasteUtil'
 import { formatDecimal } from '../utils/numberFormat'
