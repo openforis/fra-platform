@@ -7,7 +7,8 @@ const OtherLandWithTreeCoverView = props =>
   <SingleTraditionalTableView
     {...props}
     headingLocalizationKey="otherLandWithTreeCover.otherLandWithTreeCover"
-    sectionAnchor="1f"
+    faqAnchor="1a"
+    tadAnchor="1f"
     tableSpecInstance={tableSpec(props.i18n, props.extentOfForest)}/>
 
 const mapStateToProps = state => ({i18n: state.user.i18n, extentOfForest: state.extentOfForest})
