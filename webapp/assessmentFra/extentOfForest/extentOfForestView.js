@@ -11,7 +11,7 @@ import ChartWrapper from './chart/chartWrapper'
 import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
 import { TableWithOdp, GenerateFraValuesControl, hasFraValues} from '../../tableWithOdp/tableWithOdp'
 import { CommentableDescriptions } from '../../description/commentableDescription'
-import { sum, formatNumber, eq, greaterThanOrEqualTo, abs, sub, greaterThan } from '../../../common/bignumberUtils'
+import { sum, formatNumber, greaterThanOrEqualTo, abs, sub, greaterThan } from '../../../common/bignumberUtils'
 import ReviewIndicator from '../../review/reviewIndicator'
 
 const sectionName = 'extentOfForest'
