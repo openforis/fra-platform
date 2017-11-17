@@ -5,7 +5,7 @@ tables with input fields. These tables are saved to database in a
 format which should be easily queryable and readable.
 
 The following steps show how to create a new view with this kind of
-traditional table. We'll use "Primary designated management objective"
+traditional table. We'll use "Designated management objective"
 as an example.
 
 ## 1. Create the database mapping model
@@ -34,7 +34,7 @@ row identifiers):
 
 ```
 module.exports = {
-  tableName: 'primary_designated_management_objective',
+  tableName: 'designated_management_objective',
   rows: {
     names: [
       'production',
@@ -59,15 +59,15 @@ module.exports = {
 All the fields are numbers, so we store/map them with the type `numeric`
 
 That mapping file is then stored under:
-`server/traditionalTable/mappings/primaryDesignatedManagementObjective.js`
+`server/traditionalTable/mappings/designatedManagementObjective.js`
 and a reference to it is added into:
 `server/traditionalTable/tableMappings.js`. Below is the diff of the addition.
 
 ```
-+const primaryDesignatedManagementObjective = require('./mappings/primaryDesignatedManagementObjective')
++const designatedManagementObjective = require('./mappings/designatedManagementObjective')
 
 -const mappings = {specificForestCategories, forestAreaChange}
-+const mappings = {specificForestCategories, forestAreaChange, primaryDesignatedManagementObjectives}
++const mappings = {specificForestCategories, forestAreaChange, designatedManagementObjectives}
 
 ```
 
@@ -77,14 +77,14 @@ We are ready to create the table based on the DB mapping above. Let's
 run the following command:
 
 ```
-node tools/createTraditionalTable.js primaryDesignatedManagementObjective
+node tools/createTraditionalTable.js designatedManagementObjective
 ```
 
-The name *primaryDesignatedManagementObjective* above came from the
+The name *designatedManagementObjective* above came from the
 change we did to *tableMappings.js*. Now we get this output:
 
 ```
-CREATE TABLE primary_designated_management_objective ("country_iso" VARCHAR, "row_name" VARCHAR, "1990" NUMERIC, "2000" NUMERIC, "2010" NUMERIC, "2015" NUMERIC, "2020" NUMERIC, PRIMARY KEY (country_iso, row_name));
+CREATE TABLE designated_management_objective ("country_iso" VARCHAR, "row_name" VARCHAR, "1990" NUMERIC, "2000" NUMERIC, "2010" NUMERIC, "2015" NUMERIC, "2020" NUMERIC, PRIMARY KEY (country_iso, row_name));
 
 ```
 
@@ -106,7 +106,7 @@ The front-end table is described via a *tableSpec* js-file which
 contains the description of the table and possibly also some code.
 
 First, we add a new js file
-`webapp/primaryDesignatedManagementObjectives/tableSpec.js` and add
+`webapp/designatedManagementObjectives/tableSpec.js` and add
 React import there: `import React from 'react'`. The tableSpec is a JavaScript
 object exported from the module. Let's create an empty one (we'll fill
 in the attributes next).
@@ -126,7 +126,7 @@ data with backend persistence-functionality.
 
 So in our case we add:
 
-```name: "primaryDesignatedManagementObjective"```
+```name: "designatedManagementObjective"```
 
 ### Header
 
@@ -299,7 +299,7 @@ table specification is now:
 
 ```
 export default {
-  name: 'primaryDesignatedManagementObjective',
+  name: 'designatedManagementObjective',
   header: <thead>
   <tr>
     <th className="fra-table__header-cell"/>
@@ -383,12 +383,9 @@ contain just undefined values anyway).
 
 ## 4. Add the table to a view.
 
-Adding a view to the FRA Platform navigation is out of scope for this
-guide. But we will show how to add a table to any view/page.
-
-So, skipping the navigation stuff, we assume that a view file has been
-created and it's in
-`webapp/primaryDesignatedManagementObjective/primaryDesignatedManagementObjectiveView.js`.
+Adding a view to the FRA Platform navigation is covered in sections 5 and 6. But now we will show 
+how to add a table to any view/page. We assume that a view file has been created and it's in
+`webapp/designatedManagementObjective/designatedManagementObjectiveView.js`.
 
 Next, we need to import the tableSpec we just created:
 
@@ -413,3 +410,44 @@ anywhere)
 And we're finished! The table is rendered in the UI, fetches it's
 own data and autosaves it.
 
+## 5. Create a route for the view
+
+For the view to be accessible from a url we need to create a route for it in
+`webapp/app/routes.js`
+
+Next, we import the view
+
+```
+import designatedManagementObjectiveView from '../assessmentFra/designatedManagementObjective/designatedManagementObjectiveView'
+```
+
+Next, we add a route
+
+```
+const routes = {
+  '/country/:countryIso/designatedManagementObjective': designatedManagementObjectiveView
+}
+```
+
+## 6. Add view to navigation
+
+Now that we have a url for the view we need to add it to the navigation, open `webapp/navigation/items.js`
+
+Next, import the table spec
+
+```
+import designatedManagementObjectiveTableSpec from '../assessmentFra/designatedManagementObjective/tableSpec'
+```
+
+Next, we add it to the navigation
+
+```
+export const fra2020Items = i18n => [
+  {
+    tableNo: '1f',
+    label: i18n.t('designatedManagementObjective.designatedManagementObjective'),
+    pathTemplate: '/country/:countryIso/designatedManagementObjective',
+    section: designatedManagementObjectiveTableSpec(i18n).name
+  },
+]
+```
