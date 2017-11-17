@@ -72,6 +72,7 @@ export const remove = (countryIso, odpId) => dispatch => {
 export const removeFromList = (countryIso, odpId) => dispatch => {
   axios.delete(`/api/odp/?odpId=${odpId}`)
     .then(() => {
+      fetchCountryOverviewStatus(countryIso)(dispatch)
       fetchOdps(countryIso)(dispatch)
     }).catch(err => dispatch(applicationError(err))
   )
