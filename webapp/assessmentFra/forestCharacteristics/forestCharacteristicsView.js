@@ -12,8 +12,9 @@ import { TableWithOdp, GenerateFraValuesControl, getFraValues } from '../../tabl
 import ChartWrapper from '../extentOfForest/chart/chartWrapper'
 import { CommentableDescriptions } from '../../description/commentableDescription'
 import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
+import { saveCountryConfigSetting } from '../../country/actions'
 import DefinitionLink from '../../reusableUiComponents/definitionLink'
-import { sum, formatNumber, eq, greaterThanOrEqualTo, abs, sub, greaterThan, toFixed } from '../../../common/bignumberUtils'
+import { sum, formatNumber, greaterThanOrEqualTo, abs, sub, greaterThan, toFixed } from '../../../common/bignumberUtils'
 import { getForestAreaForYear } from '../extentOfForest/extentOfForestHelper'
 import ReviewIndicator from '../../review/reviewIndicator'
 
@@ -219,10 +220,19 @@ const ForestCharacteristics = props => {
   return <div className='fra-view__content'>
     <div className="fra-view__page-header">
       <h1 className="title align-left">{i18n.t('forestCharacteristics.estimationAndForecasting')}</h1>
-      <Link className="btn btn-primary" to={`/country/${props.countryIso}/odp/extentOfForest`}>
-        <Icon className="icon-sub icon-white" name="small-add"/>
-        {i18n.t('nationalDataPoint.addNationalDataPoint')}
-      </Link>
+      <button
+        className="btn btn-primary"
+        onClick={() => {
+          console.log('user orig datapoints', props.useOriginalDataPoints)
+          props.saveCountryConfigSetting(props.countryIso, 'useOriginalDataPoints', !props.useOriginalDataPoints)
+        }}
+      >
+        {
+          props.useOriginalDataPoints
+            ? "Don't use national data points"
+            : "Use National data points"
+        }
+      </button>
     </div>
     <ChartWrapper stateName="forestCharacteristics" trends={[
       {name:'naturalForestArea', label:props.i18n.t('forestCharacteristics.naturalForestArea'), color:'#0098a6'},
@@ -288,7 +298,8 @@ const mapStateToProps = state =>
     ...state.forestCharacteristics,
     openCommentThread: state.review.openThread,
     i18n: state.user.i18n,
-    extentOfForest: state.extentOfForest
+    extentOfForest: state.extentOfForest,
+    useOriginalDataPoints: R.path(['country', 'config', 'useOriginalDataPoints'], state) == 'true'
   })
 
 export default connect(
@@ -298,6 +309,7 @@ export default connect(
       saveMany,
       fetchItem,
       generateFraValues,
-      fetchLastSectionUpdateTimestamp
+      fetchLastSectionUpdateTimestamp,
+      saveCountryConfigSetting
     }
   )(DataFetchingComponent)

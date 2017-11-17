@@ -1,9 +1,11 @@
 import axios from 'axios'
 import { applicationError } from '../applicationError/actions'
+import * as autosave from '../autosave/actions'
 
 export const listCountries = 'country/country/list'
 export const fetchCountryOverviewStatusCompleted = 'country/status/completed'
 export const countryConfig = 'country/countryConfig'
+export const changeCountryConfigSetting = '/country/changeSetting'
 
 export const getCountryList = () => dispatch => {
   axios.get('/api/country/all').then(resp => {
@@ -23,4 +25,13 @@ export const getCountryConfig = countryIso => dispatch => {
     dispatch({type: countryConfig, config: resp.data})
   })
   .catch((err) => dispatch(applicationError(err)))
+}
+
+export const saveCountryConfigSetting = (countryIso, key, value) => dispatch => {
+  console.log('save setting')
+  dispatch(autosave.start)
+  dispatch({type: changeCountryConfigSetting, key: key, value: value})
+  axios.post(`/api/country/config/${countryIso}/${key}/${value}`)
+    .then(() => dispatch(autosave.complete))
+    .catch((err) => dispatch(applicationError(err)))
 }
