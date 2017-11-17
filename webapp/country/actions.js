@@ -20,7 +20,7 @@ export const fetchCountryOverviewStatus = countryIso => dispatch => {
 
 export const getCountryConfig = countryIso => dispatch => {
   axios.get(`/api/country/config/${countryIso}`).then(resp => {
-    dispatch({type: countryConfig, status: resp.data})
+    dispatch({type: countryConfig, config: resp.data})
   })
   .catch((err) => dispatch(applicationError(err)))
 }

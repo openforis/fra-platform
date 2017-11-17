@@ -11,7 +11,6 @@ import ChartWrapper from './chart/chartWrapper'
 import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
 import { TableWithOdp, GenerateFraValuesControl, hasFraValues} from '../../tableWithOdp/tableWithOdp'
 import { CommentableDescriptions } from '../../description/commentableDescription'
-import countryConfig from '../../../common/countryConfig'
 import { sum, formatNumber, eq, greaterThanOrEqualTo, abs, sub, greaterThan } from '../../../common/bignumberUtils'
 import ReviewIndicator from '../../review/reviewIndicator'
 
@@ -23,8 +22,10 @@ const ExtentOfForest = (props) => {
 
   const i18n = props.i18n
 
+  const getFaostatValue = year => console.log(props.faoStat) || R.path(['faoStat', year, 'area'], props)
+
   const totalAreaNotEqualToFaoStat = (fraColumn, totalArea) => {
-    const faoStatValue = R.path([props.countryIso, 'faoStat', fraColumn.name, 'area'], countryConfig)
+    const faoStatValue = getFaostatValue(fraColumn.name)
     if (!faoStatValue) return false // It's normal that we don't have faoStat-values for years
     if (R.isNil(totalArea)) return false
     const tolerance = 1
@@ -82,7 +83,7 @@ const ExtentOfForest = (props) => {
       <th className="fra-table__header-cell-left">{props.i18n.t('extentOfForest.faoStatLandArea')}</th>
       {
         mapIndexed((faoStatColumn, i) => {
-          const faoStatLandArea = R.path([props.countryIso, 'faoStat', faoStatColumn.name, 'area'], countryConfig)
+          const faoStatLandArea = getFaostatValue(faoStatColumn.name)
           return <td className={odpValueCellClass(faoStatColumn)} key={i}>
             {formatNumber(faoStatLandArea)}
           </td>
@@ -281,6 +282,7 @@ const mapStateToProps = state =>
   ({
     ...state.extentOfForest,
     openCommentThread: state.review.openThread,
+    faoStat: R.path(['country', 'config', 'faoStat'], state),
     i18n: state.user.i18n
   })
 
