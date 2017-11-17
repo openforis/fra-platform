@@ -90,7 +90,18 @@ const getAllowedCountries = roles => {
   }
 }
 
-module.exports.getAllowedCountries = getAllowedCountries
+const getDynamicCountryConfiguration = async countryIso => {
+  const result = await db.query(`
+      SELECT config 
+        FROM dynamic_country_configuration
+        WHERE country_iso = $1
+    `,
+    [countryIso])
+  if (result.rows.length === 0) return {}
+  return result.rows[0].config
+}
 
+module.exports.getAllowedCountries = getAllowedCountries
+module.exports.getDynamicCountryConfiguration = getDynamicCountryConfiguration
 module.exports.getFirstAllowedCountry = roles =>
   getAllowedCountries(roles).then(result => R.pipe(R.values, R.head, R.head)(result))
