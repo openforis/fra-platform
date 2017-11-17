@@ -28,6 +28,7 @@ import MultiSelect from '../reusableUiComponents/multiSelect'
 import Icon from '../reusableUiComponents/icon'
 import handlePaste from './paste'
 import { fetchLastSectionUpdateTimestamp } from '../audit/actions'
+import { Link } from '../reusableUiComponents/link'
 
 const years = ['', ...R.pipe(R.range(1980), R.reverse)(2021)]
 
@@ -204,6 +205,19 @@ const OdpViewContent = ({match, saveDraft, markAsActual, remove, active, autoSav
     </div>
 
     <h2 className="headline">{i18n.t('nationalDataPoint.reclassificationLabel')}</h2>
+
+    <div className="odp__tab-controller">
+      <Link
+        className={`odp__tab-item ${activeTab === 'extentOfForest' ? 'active' : null}`}
+        to={`/country/${countryIso}/odp/extentOfForest${active.odpId ? '/'+active.odpId : null}`}>
+          {i18n.t('nationalDataPoint.forestCategoriesLabel')}
+      </Link>
+      <Link
+        className={`odp__tab-item ${activeTab === 'forestCharacteristics' ? 'active' : null}`}
+        to={`/country/${countryIso}/odp/forestCharacteristics${active.odpId ? '/'+active.odpId : null}`}>
+        {i18n.t('nationalDataPoint.forestCharacteristics')}
+      </Link>
+    </div>
 
     {
       activeTab === 'extentOfForest'
