@@ -1,7 +1,7 @@
 const R = require('ramda')
 const fs = require('fs')
 const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
-const countryConfig = require('../../common/countryConfig')
+const countryConfig = require('../country/countryConfig')
 const fileName = 'calculator'
 
 module.exports.init = app => {

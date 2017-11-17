@@ -9,7 +9,7 @@ const reviewRepository = require('../review/reviewRepository')
 const odpRepository = require('../odp/odpRepository')
 const assessmentRepository = require('../assessment/assessmentRepository')
 const auditRepository = require('../audit/auditRepository')
-const countryConfig = require('../../common/countryConfig')
+const countryConfig = require('./countryConfig')
 
 module.exports.init = app => {
 
