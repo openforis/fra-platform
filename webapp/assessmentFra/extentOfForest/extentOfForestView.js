@@ -221,7 +221,7 @@ const ExtentOfForest = (props) => {
   return <div className='fra-view__content'>
     <div className="fra-view__page-header">
       <h1 className="title align-left">{i18n.t('extentOfForest.estimationAndForecasting')}</h1>
-      <Link className="btn btn-primary" to={`/country/${props.countryIso}/odp`}>
+      <Link className="btn btn-primary" to={`/country/${props.countryIso}/odp/extentOfForest`}>
         <Icon className="icon-sub icon-white" name="small-add"/>
         {i18n.t('nationalDataPoint.addNationalDataPoint')}
       </Link>
