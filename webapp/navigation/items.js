@@ -13,6 +13,7 @@ import employmentTableSpec from '../assessmentFra/employment/tableSpec'
 import forestPolicyTableSpec from '../assessmentFra/forestPolicy/tableSpec'
 import carbonStockTableSpec from '../assessmentFra/carbonStock/tableSpec'
 import biomassStockTableSpec from '../assessmentFra/biomassStock/tableSpec'
+import otherLandWithTreeCoverTableSpec from '../assessmentFra/otherLandWithTreeCover/tableSpec'
 
 export const fra2020Items = i18n => [
   {
@@ -49,6 +50,12 @@ export const fra2020Items = i18n => [
     label: i18n.t('specificForestCategories.specificForestCategories'),
     pathTemplate: '/country/:countryIso/specificForestCategories',
     section: specificForestCategoriesTableSpec(i18n).name
+  },
+  {
+    tableNo: '1f',
+    label: i18n.t('otherLandWithTreeCover.otherLandWithTreeCover'),
+    pathTemplate: '/country/:countryIso/otherLandWithTreeCover',
+    section: otherLandWithTreeCoverTableSpec(i18n).name
   },
   {
     type: 'header',

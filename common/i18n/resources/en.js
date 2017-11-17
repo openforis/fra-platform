@@ -376,6 +376,16 @@ The FRA team
     primaryForest: 'Primary forest'
   },
 
+  otherLandWithTreeCover: {
+    otherLandWithTreeCover: 'Other land with tree cover',
+    areaUnitLabel: 'Area (1000 ha)',
+    categoryHeader: 'FRA categories',
+    ofWhichPalms: '…of which palms',
+    ofWhichTreeOrchards: '…of which tree orchards',
+    ofWhichAgroforestry: '…of which agroforestry',
+    ofWhichTreesInUrbanSettings: '…of which trees in urban settings'
+  },
+
   growingStock: {
     growingStock: 'Growing stock',
     supportText: 'Please make sure you have entered data in tables 1a & 1b before editing this table',
