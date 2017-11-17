@@ -1,5 +1,6 @@
 const Promise = require('bluebird')
 const R = require('ramda')
+const db = require('../db/db')
 
 const {sendErr} = require('../utils/requestUtils')
 const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
@@ -43,6 +44,22 @@ module.exports.init = app => {
           })
       }
     ).catch(err => sendErr(res, err))
+  })
+
+  app.post('/country/config/:countryIso/:configKey/:configValue', async (req, res) => {
+    checkCountryAccessFromReqParams(req)
+    try {
+      await db.transaction(countryRepository.saveDynamicConfigurationVariable,
+        [
+          req.params.countryIso,
+          req.params.configKey,
+          req.params.configValue
+        ]
+      )
+      res.json({})
+    } catch (e) {
+      sendErr(res, e)
+    }
   })
 
   app.get('/country/config/:countryIso', async (req, res) => {

@@ -101,7 +101,31 @@ const getDynamicCountryConfiguration = async countryIso => {
   return result.rows[0].config
 }
 
+const saveDynamicConfigurationVariable = async (client, countryIso, key, value) => {
+  const configResult = await client.query(
+    'SELECT config FROM dynamic_country_configuration WHERE country_iso = $1',
+    [countryIso]
+  )
+  if (configResult.rows.length > 0) {
+    await client.query(
+      `UPDATE dynamic_country_configuration
+       SET config = $1
+       WHERE country_iso = $2`,
+      [{...configResult.rows[0].config, [key]: value}, countryIso]
+    )
+  } else {
+    await client.query(
+      `INSERT INTO dynamic_country_configuration
+       (country_iso, config)
+       VALUES
+       ($1, $2)`,
+      [countryIso, {[key]: value}]
+    )
+  }
+}
+
 module.exports.getAllowedCountries = getAllowedCountries
 module.exports.getDynamicCountryConfiguration = getDynamicCountryConfiguration
+module.exports.saveDynamicConfigurationVariable = saveDynamicConfigurationVariable
 module.exports.getFirstAllowedCountry = roles =>
   getAllowedCountries(roles).then(result => R.pipe(R.values, R.head, R.head)(result))
