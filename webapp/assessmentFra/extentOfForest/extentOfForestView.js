@@ -22,7 +22,7 @@ const ExtentOfForest = (props) => {
 
   const i18n = props.i18n
 
-  const getFaostatValue = year => console.log(props.faoStat) || R.path(['faoStat', year, 'area'], props)
+  const getFaostatValue = year => R.path(['faoStat', year, 'area'], props)
 
   const totalAreaNotEqualToFaoStat = (fraColumn, totalArea) => {
     const faoStatValue = getFaostatValue(fraColumn.name)
