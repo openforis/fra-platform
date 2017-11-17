@@ -1,8 +1,9 @@
 import axios from 'axios'
 import { applicationError } from '../applicationError/actions'
 
-export const listCountries = 'navigation/country/list'
-export const fetchCountryOverviewStatusCompleted = 'navigation/status/completed'
+export const listCountries = 'country/country/list'
+export const fetchCountryOverviewStatusCompleted = 'country/status/completed'
+export const countryConfig = 'country/countryConfig'
 
 export const getCountryList = () => dispatch => {
   axios.get('/api/country/all').then(resp => {
@@ -15,4 +16,11 @@ export const fetchCountryOverviewStatus = countryIso => dispatch => {
     dispatch({type: fetchCountryOverviewStatusCompleted, status: resp.data})
   })
     .catch((err) => dispatch(applicationError(err)))
+}
+
+export const getCountryConfig = countryIso => dispatch => {
+  axios.get(`/api/country/config/${countryIso}`).then(resp => {
+    dispatch({type: countryConfig, status: resp.data})
+  })
+  .catch((err) => dispatch(applicationError(err)))
 }

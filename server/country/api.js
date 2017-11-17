@@ -9,6 +9,7 @@ const reviewRepository = require('../review/reviewRepository')
 const odpRepository = require('../odp/odpRepository')
 const assessmentRepository = require('../assessment/assessmentRepository')
 const auditRepository = require('../audit/auditRepository')
+const countryConfig = require('../../common/countryConfig')
 
 module.exports.init = app => {
 
@@ -42,5 +43,10 @@ module.exports.init = app => {
           })
       }
     ).catch(err => sendErr(res, err))
+  })
+
+  app.get('/country/config/:countryIso', (req, res) => {
+    checkCountryAccessFromReqParams(req)
+    res.json(countryConfig[req.params.countryIso])
   })
 }
