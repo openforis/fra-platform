@@ -9,12 +9,8 @@ import { getRelativeDate } from '../utils/relativeDate'
 import { Link } from './../reusableUiComponents/link'
 import Icon from '../reusableUiComponents/icon'
 import { follow } from './../router/actions'
-import {
-  getCountryList,
-  fetchCountryOverviewStatus,
-  changeAssessment,
-  navigationScroll
-} from './actions'
+import { changeAssessment, navigationScroll } from './actions'
+import { getCountryList, fetchCountryOverviewStatus } from '../country/actions'
 import { fra2020Items } from './items'
 import { roleForCountry } from '../../common/countryRole'
 import { allowedToChangeRoles } from '../../common/userManagementAccessControl'
@@ -365,6 +361,7 @@ class NavigationSync extends React.Component {
 
 const mapStateToProps = state => ({
   ...state.navigation,
+  ...state.country,
   ...state.router,
   ...state.user
 })

@@ -1,7 +1,7 @@
 const R = require('ramda')
 const csv = require('csv')
 const faoStat = require('./faoStat')
-const countryConfig = require('../common/countryConfig')
+const countryConfig = require('../server/country/countryConfig')
 const fs = require('fs')
 
 if (process.argv.length < 4) {
