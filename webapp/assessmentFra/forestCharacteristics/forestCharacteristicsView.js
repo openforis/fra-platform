@@ -216,7 +216,10 @@ const ForestCharacteristics = props => {
       validationErrorMessages
     }
   ]
-
+  const filteredFraColumns = R.reject(
+    fraColumn => !props.useOriginalDataPoints && fraColumn.type === 'odp',
+    R.values(props.fra)
+  )
   return <div className='fra-view__content'>
     <div className="fra-view__page-header">
       <h1 className="title align-left">{i18n.t('forestCharacteristics.estimationAndForecasting')}</h1>
@@ -263,6 +266,7 @@ const ForestCharacteristics = props => {
       tableHeader={i18n.t('forestCharacteristics.areaUnitLabel')}
       categoryHeader={i18n.t('forestCharacteristics.categoryHeader')}
       {...props}
+      fra={filteredFraColumns}
     />
     <CommentableDescriptions
       section={sectionName}
