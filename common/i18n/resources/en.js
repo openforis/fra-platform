@@ -591,11 +591,13 @@ The FRA team
   },
 
   assessment: {
+    fra2020: 'FRA 2020',
     statusChangeNotification:
       {
-        subject: 'Assessment {{assessment}} status changed to {{status}} for country {{country}}',
-        textMessage: 'Assessment {{assessment}} status was changed to {{status}} by {{user}} for country {{country}}',
-        htmlMessage: `Assessment <b>{{assessment}}</b> status changed to <b>{{status}}</b> by <b>{{user}}</b> for country <b>{{country}}</b>`
+        subject: 'FRA Platform assessment {{assessment}} status changed to {{status}}',
+        textMessage: 'FRA Platform assessment {{assessment}} status was changed to {{status}} by {{user}} for country {{country}}',
+        htmlMessage: `<a href="{{serverUrl}}"><b>FRA Platform</b></a> assessment {{assessment}}
+                      status was changed to <b>{{status}}</b> by {{user}} for country {{country}}`
       }
   },
 

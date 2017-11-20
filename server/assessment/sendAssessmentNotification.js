@@ -4,13 +4,14 @@ const { sendMail } = require('../email/sendMail')
 const { getCountryName } = require('../../common/country')
 const { fetchCountryUsers } = require('../user/userRepository')
 
-const createMail = (countryIso, assessment, user, loggedInUser, i18n) => {
+const createMail = (countryIso, assessment, user, loggedInUser, i18n, serverUrl) => {
   const country = getCountryName(countryIso, 'en')
   const emailLocalizationParameters = {
     country,
-    assessment: assessment.type,
+    serverUrl,
     status: assessment.status,
-    user: loggedInUser.name
+    user: loggedInUser.name,
+    assessment: i18n.t('assessment.' + assessment.type)
   }
   return {
     to: user.email,
@@ -37,14 +38,14 @@ const relevantUser = (newStatus, role) => {
   return false
 }
 
-const sendAssessmentNotification = async (countryIso, assessment, loggedInUser) => {
+const sendAssessmentNotification = async (countryIso, assessment, loggedInUser, serverUrl) => {
   const i18n = await createI18nPromise('en')
   const countryUsers = await fetchCountryUsers(countryIso)
   const relevantUsers = R.filter(user => relevantUser(assessment.status, user.role),countryUsers)
 
   // Can't use forEach or map here, await doesn't work properly
   for (let user of relevantUsers) {
-    await sendMail(createMail(countryIso, assessment, user, loggedInUser, i18n))
+    await sendMail(createMail(countryIso, assessment, user, loggedInUser, i18n, serverUrl))
   }
 }
 
