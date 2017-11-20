@@ -6,7 +6,7 @@ const userRepository = require('./userRepository')
 const { sendErr } = require('../utils/requestUtils')
 const { AccessControlException } = require('../utils/accessControl')
 const { checkCountryAccessFromReqParams } = require('../utils/accessControl')
-const { sendMail } = require('./mailManager')
+const { sendInvitation } = require('./sendInvitation')
 const { allowedToChangeRoles } = require('../../common/userManagementAccessControl')
 
 const filterAllowedUsers = (countryIso, user, users) => {
@@ -52,12 +52,12 @@ module.exports.init = app => {
         .catch(err => sendErr(res, err))
     } else if (userToBeChangedOrAdded.invitationUuid) {
       db.transaction(userRepository.updateInvitation, [req.user, countryIso, userToBeChangedOrAdded])
-        .then(invitationUuid => sendMail(countryIso, {...userToBeChangedOrAdded, invitationUuid}, req.user, url))
+        .then(invitationUuid => sendInvitation(countryIso, {...userToBeChangedOrAdded, invitationUuid}, req.user, url))
         .then(() => res.json({}))
         .catch(err => sendErr(res, err))
     } else {
       db.transaction(userRepository.addInvitation, [req.user, countryIso, userToBeChangedOrAdded])
-        .then(invitationUuid => sendMail(countryIso, {...userToBeChangedOrAdded, invitationUuid}, req.user, url))
+        .then(invitationUuid => sendInvitation(countryIso, {...userToBeChangedOrAdded, invitationUuid}, req.user, url))
         .then(() => res.json({}))
         .catch(err => sendErr(res, err))
     }
