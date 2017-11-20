@@ -70,32 +70,40 @@ export class GenerateFraValuesControl extends React.Component {
 
   constructor(props) {
     super(props)
-    this.state = {generateMethod: 'linear', ratePast: '', rateFuture: ''}
+    const valueFieldNames = R.reject(R.isNil, R.pluck('field', props.rows))
+    const annualChangeRates = R.pipe(
+      R.map(fieldName => [fieldName, {ratePast: '', rateFuture: ''}]),
+      R.fromPairs
+    )(valueFieldNames)
+    this.state = {generateMethod: 'linear', annualChangeRates}
   }
 
   render() {
-    const {i18n, fra, generatingFraValues} = this.props
+    const {i18n, fra, generatingFraValues, rows} = this.props
     const rateValidationClass = rate =>
       this.validRate(rate) || R.isEmpty(rate) ? '' : 'validation-error'
     return <div className="table-with-odp__generate-fra-values-control">
       {
         this.state.generateMethod === 'annualChange'
-          ? <div>
+          ? R.map(field =>
+              <div key={field}>
+              {field}
               <input
-                type="text"
-                className={`text-input-s ${rateValidationClass(this.state.ratePast)}`}
-                placeholder={i18n.t('tableWithOdp.placeholderPast')}
-                value={this.state.ratePast}
-                onChange={(evt) => this.setState({...this.state, ratePast: evt.target.value})}
-              />
-              <input
-                type="text"
-                className={`text-input-s ${rateValidationClass(this.state.rateFuture)}`}
-                placeholder={i18n.t('tableWithOdp.placeholderFuture')}
-                value={this.state.rateFuture}
-                onChange={(evt) => this.setState({...this.state, rateFuture: evt.target.value})}
-              />
-            </div>
+                  type="text"
+                  className={`text-input-s ${rateValidationClass(this.state.annualChangeRates[field].ratePast)}`}
+                  placeholder={i18n.t('tableWithOdp.placeholderPast')}
+                  value={this.state.annualChangeRates[field].ratePast}
+                  onChange={(evt) => this.setState(R.assocPath(['annualChangeRates', field, 'ratePast'], evt.target.value, this.state))}
+                />
+                <input
+                  type="text"
+                  className={`text-input-s ${rateValidationClass(this.state.annualChangeRates[field].rateFuture)}`}
+                  placeholder={i18n.t('tableWithOdp.placeholderFuture')}
+                  value={this.state.annualChangeRates[field].rateFuture}
+                  onChange={(evt) => this.setState(R.assocPath(['annualChangeRates', field, 'rateFuture'], evt.target.value, this.state))}
+                />
+                </div>
+            , R.keys(this.state.annualChangeRates))
           : null
       }
       <select
@@ -134,17 +142,13 @@ export class GenerateFraValuesControl extends React.Component {
   generateFraValues (generateMethod) {
     const {section, countryIso, i18n, fra, rows, generateFraValues} = this.props
     const generateAnnualChange = () => {
-      const ratePast = this.state.ratePast
-      const rateFuture = this.state.rateFuture
       if (!this.validRates()) { throw new Error('Validation errors rates') }
       generateFraValues(
         section,
         countryIso,
         {
-          method:
-          generateMethod,
-          ratePast,
-          rateFuture
+          method: generateMethod,
+          changeRates: this.state.annualChangeRates
         }
       )
     }
@@ -165,7 +169,10 @@ export class GenerateFraValuesControl extends React.Component {
   }
 
   validRates() {
-    return this.validRate(this.state.ratePast) && this.validRate(this.state.rateFuture)
+    const loop = R.map(value =>
+      this.validRate(value.ratePast) && this.validRate(value.rateFuture)
+    , R.values(this.state.annualChangeRates))
+    return R.all(R.identity, loop)
   }
 
   validRate (rate) {
