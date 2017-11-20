@@ -34,7 +34,7 @@ const years = ['', ...R.pipe(R.range(1980), R.reverse)(2021)]
 
 const isCommentsOpen = (target, openThread = {}) => R.equals('odp', openThread.section) && R.isEmpty(R.difference(openThread.target, target))
 
-const OdpViewContent = ({match, saveDraft, markAsActual, remove, active, autoSaving, cancelDraft, copyPreviousNationalClasses, copyDisabled, openThread, i18n}) => {
+const OdpViewContent = ({match, saveDraft, markAsActual, remove, active, autoSaving, cancelDraft, copyPreviousNationalClasses, copyDisabled, openThread, i18n, useOriginalDataPoints}) => {
   const countryIso = match.params.countryIso
   const saveControlsDisabled = () => !active.odpId || autoSaving
   const copyPreviousClassesDisabled = () => active.year && !autoSaving ? false : true
@@ -212,11 +212,17 @@ const OdpViewContent = ({match, saveDraft, markAsActual, remove, active, autoSav
         to={`/country/${countryIso}/odp/extentOfForest${active.odpId ? '/'+active.odpId : null}`}>
           {i18n.t('nationalDataPoint.forestCategoriesLabel')}
       </Link>
-      <Link
-        className={`odp__tab-item ${activeTab === 'forestCharacteristics' ? 'active' : null}`}
-        to={`/country/${countryIso}/odp/forestCharacteristics${active.odpId ? '/'+active.odpId : null}`}>
-        {i18n.t('nationalDataPoint.forestCharacteristics')}
-      </Link>
+      {
+        useOriginalDataPoints
+        ? <Link
+            className={`odp__tab-item ${activeTab === 'forestCharacteristics' ? 'active' : null}`}
+            to={`/country/${countryIso}/odp/forestCharacteristics${active.odpId ? '/'+active.odpId : null}`}>
+            {i18n.t('nationalDataPoint.forestCharacteristics')}
+          </Link>
+        : <span className="odp__tab-item">
+            {i18n.t('nationalDataPoint.forestCharacteristics')} ({i18n.t('nationalDataPoint.disabled')})
+          </span>
+      }
     </div>
 
     {
@@ -972,7 +978,8 @@ const mapStateToProps = state => {
   const autoSaving = state.autoSave.status === 'saving'
   const active = odp.active
   const openThread = R.defaultTo({target: [], section: ''}, R.path(['review', 'openThread'], state))
-  return {...odp, active, autoSaving, openThread, i18n: state.user.i18n}
+  const useOriginalDataPoints = !!R.path(['country', 'config', 'useOriginalDataPoints'], state)
+  return {...odp, active, autoSaving, openThread, i18n: state.user.i18n, useOriginalDataPoints}
 }
 
 export default connect(mapStateToProps, {
