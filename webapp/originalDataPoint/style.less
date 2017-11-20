@@ -13,7 +13,7 @@
 
 .odp__section-header {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   margin-bottom: 16px;
 
   > * {
@@ -45,6 +45,36 @@
 
   .cke_wrapper {
     flex-grow: 1;
+  }
+}
+
+// Tabs
+
+.odp__tab-controller {
+  display: flex;
+  flex-wrap: nowrap;
+  margin-top: 24px;
+}
+
+.odp__tab-item {
+  border: 1px solid transparent;
+  border-bottom-color: @ui-border;
+  border-top-width: 2px;
+  color: @text-disabled;
+  font-weight: 700;
+  line-height: 16px;
+  margin-left: -1px;
+  outline: none;
+  padding: 11px;
+  text-align: center;
+  text-decoration: none;
+  width: 100%;
+
+  &.active {
+    border-color: @ui-border;
+    border-bottom-color: transparent;
+    border-top-color: @ui-accent;
+    color: @text-body;
   }
 }
 

@@ -16,7 +16,7 @@ export const getFraValues = (fra, rowsSpecs) => {
   const valueFieldNames = R.reject(R.isNil, R.pluck('field', rowsSpecs))
   const fraValues = R.pipe(
     R.values,
-    R.filter(v => v.type !== 'odp'),
+    R.filter(value => value.type !== 'odp'),
     R.map(column => R.props(valueFieldNames, column))
   )(fra)
   return fraValues
@@ -45,12 +45,12 @@ export class TableWithOdp extends React.Component {
           </tr>
           <tr>
             {
-              R.values(this.props.fra).map(v =>
-                <th className={v.type === 'odp' ? 'odp-header-cell' : 'fra-table__header-cell'} key={`${v.type}_${v.name}`}>
+              R.values(this.props.fra).map(value =>
+                <th className={value.type === 'odp' ? 'odp-header-cell' : 'fra-table__header-cell'} key={`${value.type}_${value.name}`}>
                   {
-                    v.type === 'odp'
-                      ? <OdpHeading countryIso={this.props.countryIso} odpValue={v}/>
-                      : v.name
+                    value.type === 'odp'
+                      ? <OdpHeading countryIso={this.props.countryIso} odpValue={value} section={this.props.section}/>
+                      : value.name
                   }
                 </th>
               )
@@ -121,13 +121,12 @@ export class GenerateFraValuesControl extends React.Component {
     </div>
   }
 
-
   disableGenerateFraValues (fra, generatingFraValues) {
     if (this.state.generateMethod === 'clearTable') return false
     if (this.state.generateMethod === 'annualChange' && !this.validRates()) return true
     const odps = R.pipe(
       R.values,
-      R.filter(v => v.type === 'odp')
+      R.filter(value => value.type === 'odp')
     )(fra)
     return generatingFraValues || odps.length < 2
   }
@@ -184,8 +183,8 @@ const buildRows = (rows, props) => {
     , rows)
 }
 
-const OdpHeading = ({countryIso, odpValue}) =>
-  <Link className="link" to={`/country/${countryIso}/odp/${odpValue.odpId}`}>
+const OdpHeading = ({countryIso, odpValue, section}) =>
+  <Link className="link" to={`/country/${countryIso}/odp/${section}/${odpValue.odpId}`}>
     {odpValue.draft ? <Icon className="icon-sub icon-margin-right" name="pencil"/> : ''}
     {odpValue.name}
   </Link>

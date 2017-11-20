@@ -180,56 +180,21 @@ const ExtentOfForest = (props) => {
     }
   ]
 
-
-  const generateFraValues = (generateMethod) => {
-    const generateAnnualChange = () => {
-      const valuesRaw = window.prompt('Annual change rate', '-0.1 0.1')
-      const [ratePast, rateFuture] = valuesRaw.split(' ')
-      if (
-        isNaN(ratePast) ||
-        isNaN(rateFuture) ||
-        ratePast === ' ' ||
-        rateFuture === ' '
-      ) { return }
-      props.generateFraValues(
-        'extentOfForest',
-        props.countryIso,
-        {
-          method:
-          generateMethod,
-          ratePast,
-          rateFuture
-        }
-      )
-    }
-    const generate = () => {
-      if (generateMethod === 'annualChange') {
-        generateAnnualChange()
-      } else {
-        props.generateFraValues('extentOfForest', props.countryIso, {method: generateMethod})
-      }
-    }
-    if (hasFraValues(props.fra, eofRows)) {
-      if (window.confirm(i18n.t('extentOfForest.confirmGenerateFraValues'))) {
-        generate()
-      }
-    } else {
-      generate()
-    }
-  }
-
   return <div className='fra-view__content'>
     <div className="fra-view__page-header">
       <h1 className="title align-left">{i18n.t('extentOfForest.estimationAndForecasting')}</h1>
-      <Link className="btn btn-primary" to={`/country/${props.countryIso}/odp`}>
+      <Link className="btn btn-primary" to={`/country/${props.countryIso}/odp/extentOfForest`}>
         <Icon className="icon-sub icon-white" name="small-add"/>
         {i18n.t('nationalDataPoint.addNationalDataPoint')}
       </Link>
     </div>
-    <ChartWrapper stateName={sectionName} trends={[
-      {name: 'forestArea', label: i18n.t('fraClass.forest'), color: '#0098a6'},
-      {name: 'otherWoodedLand', label: i18n.t('fraClass.otherWoodedLand'), color: '#bf00af'}
-    ]}/>
+    <ChartWrapper
+      fra={props.fra}
+      trends={[
+        {name: 'forestArea', label: i18n.t('fraClass.forest'), color: '#0098a6'},
+        {name: 'otherWoodedLand', label: i18n.t('fraClass.otherWoodedLand'), color: '#bf00af'}
+      ]}
+    />
     <div className="fra-view__section-header">
       <h3 className="subhead">{i18n.t('extentOfForest.extentOfForest')}</h3>
       <DefinitionLink document="tad" anchor="1a" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
