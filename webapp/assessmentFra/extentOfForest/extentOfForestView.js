@@ -188,10 +188,13 @@ const ExtentOfForest = (props) => {
         {i18n.t('nationalDataPoint.addNationalDataPoint')}
       </Link>
     </div>
-    <ChartWrapper stateName={sectionName} trends={[
-      {name: 'forestArea', label: i18n.t('fraClass.forest'), color: '#0098a6'},
-      {name: 'otherWoodedLand', label: i18n.t('fraClass.otherWoodedLand'), color: '#bf00af'}
-    ]}/>
+    <ChartWrapper
+      fra={props.fra}
+      trends={[
+        {name: 'forestArea', label: i18n.t('fraClass.forest'), color: '#0098a6'},
+        {name: 'otherWoodedLand', label: i18n.t('fraClass.otherWoodedLand'), color: '#bf00af'}
+      ]}
+    />
     <div className="fra-view__section-header">
       <h3 className="subhead">{i18n.t('extentOfForest.extentOfForest')}</h3>
       <DefinitionLink document="tad" anchor="1a" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>

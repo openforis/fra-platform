@@ -57,11 +57,9 @@ class Chart extends Component {
 }
 
 const mapStateToProps = (state, props) => {
-  const eof = state[props.stateName]
-  if (eof && eof.fra) {
-
+  if (props.fra) {
     const data = R.pipe(
-      R.map(t => ({[t.name]: getChartData(eof.fra, t.name)})),
+      R.map(t => ({[t.name]: getChartData(props.fra, t.name)})),
       R.mergeAll
     )(props.trends)
 

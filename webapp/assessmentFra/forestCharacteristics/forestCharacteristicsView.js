@@ -236,11 +236,14 @@ const ForestCharacteristics = props => {
         }
       </button>
     </div>
-    <ChartWrapper stateName="forestCharacteristics" trends={[
-      {name:'naturalForestArea', label:props.i18n.t('forestCharacteristics.naturalForestArea'), color:'#0098a6'},
-      {name:'plantationForestArea', label:props.i18n.t('forestCharacteristics.plantationForestArea'), color:'#bf00af'},
-      {name:'otherPlantedForestArea', label:props.i18n.t('forestCharacteristics.otherPlantedForestArea'), color:'#f58833'}
-    ]} />
+    <ChartWrapper
+      fra={filteredFraColumns}
+      trends={[
+        {name:'naturalForestArea', label:props.i18n.t('forestCharacteristics.naturalForestArea'), color:'#0098a6'},
+        {name:'plantationForestArea', label:props.i18n.t('forestCharacteristics.plantationForestArea'), color:'#bf00af'},
+        {name:'otherPlantedForestArea', label:props.i18n.t('forestCharacteristics.otherPlantedForestArea'), color:'#f58833'}
+      ]}
+    />
     <div className="fra-view__section-header">
       <h3 className="subhead">{i18n.t('forestCharacteristics.forestCharacteristics')}</h3>
       <DefinitionLink document="tad" anchor="1b" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
