@@ -34,23 +34,23 @@ const years = ['', ...R.pipe(R.range(1980), R.reverse)(2021)]
 
 const isCommentsOpen = (target, openThread = {}) => R.equals('odp', openThread.section) && R.isEmpty(R.difference(openThread.target, target))
 
-const OdpViewContent = ({match, saveDraft, markAsActual, remove, active, autoSaving, cancelDraft, copyPreviousNationalClasses, copyDisabled, openThread, i18n, useOriginalDataPoints}) => {
+const OdpViewContent = ({match, saveDraft, markAsActual, remove, odp, autoSaving, cancelDraft, copyPreviousNationalClasses, copyDisabled, openThread, i18n, useOriginalDataPoints}) => {
   const countryIso = match.params.countryIso
-  const saveControlsDisabled = () => !active.odpId || autoSaving
-  const copyPreviousClassesDisabled = () => active.year && !autoSaving ? false : true
-  const yearValidationStatusClass = () => active.validationStatus && !active.validationStatus.year.valid ? 'error' : ''
-  const unselectable = R.defaultTo([], active.reservedYears)
+  const saveControlsDisabled = () => !odp.odpId || autoSaving
+  const copyPreviousClassesDisabled = () => odp.year && !autoSaving ? false : true
+  const yearValidationStatusClass = () => odp.validationStatus && !odp.validationStatus.year.valid ? 'error' : ''
+  const unselectable = R.defaultTo([], odp.reservedYears)
   const activeTab = match.params.tab
 
   return <div className="fra-view__content">
     <div className="fra-view__page-header">
       <h1 className="title align-left">{i18n.t('nationalDataPoint.nationalDataPoint')}</h1>
       {
-        active.editStatus && active.editStatus !== 'newDraft'
+        odp.editStatus && odp.editStatus !== 'newDraft'
         ? <button
             className="btn btn-secondary"
             disabled={saveControlsDisabled()}
-            onClick={() => cancelDraft(countryIso, active.odpId, activeTab)}>
+            onClick={() => cancelDraft(countryIso, odp.odpId, activeTab)}>
               {i18n.t('nationalDataPoint.discardChanges')}
           </button>
         : null
@@ -58,7 +58,7 @@ const OdpViewContent = ({match, saveDraft, markAsActual, remove, active, autoSav
       <button
         className="btn btn-primary"
         disabled={saveControlsDisabled()}
-        onClick={() => markAsActual(countryIso, active, activeTab)}>
+        onClick={() => markAsActual(countryIso, odp, activeTab)}>
          {i18n.t('nationalDataPoint.doneEditing')}
       </button>
     </div>
@@ -68,9 +68,9 @@ const OdpViewContent = ({match, saveDraft, markAsActual, remove, active, autoSav
         <select
           required
           className="select validation-error-sensitive-field"
-          value={active.year || ''}
+          value={odp.year || ''}
           onChange={
-            (e) => saveDraft(countryIso, R.assoc('year', R.isEmpty(e.target.value) ? null : Number(e.target.value), active))}>
+            (e) => saveDraft(countryIso, R.assoc('year', R.isEmpty(e.target.value) ? null : Number(e.target.value), odp))}>
           {
             years.map(
               year =>
@@ -94,18 +94,18 @@ const OdpViewContent = ({match, saveDraft, markAsActual, remove, active, autoSav
               <th className="fra-table__header-cell-left">{i18n.t('nationalDataPoint.references')}</th>
               <td className="fra-table__cell-left odp__data-source-input-column">
                 <VerticallyGrowingTextField
-                  value={active.dataSourceReferences || ''}
-                  onChange={ (e) => saveDraft(countryIso, R.assoc('dataSourceReferences', e.target.value, active)) }
+                  value={odp.dataSourceReferences || ''}
+                  onChange={ (e) => saveDraft(countryIso, R.assoc('dataSourceReferences', e.target.value, odp)) }
                 />
               </td>
               <td className="fra-table__row-anchor-cell">
                 {
-                  active.odpId
+                  odp.odpId
                     ? <div className="odp__review-indicator-row-anchor">
                     <ReviewIndicator
                       section='odp'
                       title={i18n.t('nationalDataPoint.dataSources')}
-                      target={[active.odpId, 'dataSourceReferences']}
+                      target={[odp.odpId, 'dataSourceReferences']}
                       countryIso={countryIso}/>
                   </div>
                     : null
@@ -118,7 +118,7 @@ const OdpViewContent = ({match, saveDraft, markAsActual, remove, active, autoSav
                 <MultiSelect
                   i18n={i18n}
                   localizationPrefix="nationalDataPoint.dataSourceMethodsOptions"
-                  values={active.dataSourceMethods}
+                  values={odp.dataSourceMethods}
                   options={[
                     'nationalForestInventory',
                     'sampleBasedRemoteSensingAssessment',
@@ -127,18 +127,18 @@ const OdpViewContent = ({match, saveDraft, markAsActual, remove, active, autoSav
                     'other'
                   ]}
                   onChange={ (values) =>
-                    saveDraft(countryIso, R.assoc('dataSourceMethods', values, active))
+                    saveDraft(countryIso, R.assoc('dataSourceMethods', values, odp))
                   }
                 />
               </td>
               <td className="fra-table__row-anchor-cell">
                 {
-                  active.odpId
+                  odp.odpId
                     ? <div className="odp__review-indicator-row-anchor">
                         <ReviewIndicator
                           section='odp'
                           title={i18n.t('nationalDataPoint.dataSources')}
-                          target={[active.odpId, 'dataSourceMethods']}
+                          target={[odp.odpId, 'dataSourceMethods']}
                           countryIso={countryIso}/>
                       </div>
                     : null
@@ -149,18 +149,18 @@ const OdpViewContent = ({match, saveDraft, markAsActual, remove, active, autoSav
               <th className="fra-table__header-cell-left">{i18n.t('nationalDataPoint.additionalComments')}</th>
               <td className="fra-table__cell-left odp__data-source-input-column">
                 <VerticallyGrowingTextField
-                  value={active.dataSourceAdditionalComments || ''}
-                  onChange={ (e) => saveDraft(countryIso, R.assoc('dataSourceAdditionalComments', e.target.value, active)) }
+                  value={odp.dataSourceAdditionalComments || ''}
+                  onChange={ (e) => saveDraft(countryIso, R.assoc('dataSourceAdditionalComments', e.target.value, odp)) }
                 />
               </td>
               <td className="fra-table__row-anchor-cell">
               {
-                active.odpId
+                odp.odpId
                   ? <div className="odp__review-indicator-row-anchor">
                   <ReviewIndicator
                     section='odp'
                     title={i18n.t('nationalDataPoint.dataSources')}
-                    target={[active.odpId, 'dataSourceAdditionalComments']}
+                    target={[odp.odpId, 'dataSourceAdditionalComments']}
                     countryIso={countryIso}/>
                 </div>
                   : null
@@ -181,7 +181,7 @@ const OdpViewContent = ({match, saveDraft, markAsActual, remove, active, autoSav
         <button
           className="btn-s btn-primary btn-copy-prev-values"
           disabled={copyDisabled || copyPreviousClassesDisabled()}
-          onClick={() => copyPreviousNationalClasses(countryIso, active)}>
+          onClick={() => copyPreviousNationalClasses(countryIso, odp)}>
             {i18n.t('nationalDataPoint.copyPreviousValues')}
         </button>
       </div>
@@ -196,7 +196,7 @@ const OdpViewContent = ({match, saveDraft, markAsActual, remove, active, autoSav
             </thead>
             <tbody>
             {
-              nationalClassRows(countryIso, active, saveDraft, openThread, i18n)
+              nationalClassRows(countryIso, odp, saveDraft, openThread, i18n)
             }
             </tbody>
           </table>
@@ -209,14 +209,14 @@ const OdpViewContent = ({match, saveDraft, markAsActual, remove, active, autoSav
     <div className="odp__tab-controller">
       <Link
         className={`odp__tab-item ${activeTab === 'extentOfForest' ? 'active' : null}`}
-        to={`/country/${countryIso}/odp/extentOfForest${active.odpId ? '/'+active.odpId : null}`}>
+        to={`/country/${countryIso}/odp/extentOfForest${odp.odpId ? '/'+odp.odpId : null}`}>
           {i18n.t('nationalDataPoint.forestCategoriesLabel')}
       </Link>
       {
         useOriginalDataPoints
         ? <Link
             className={`odp__tab-item ${activeTab === 'forestCharacteristics' ? 'active' : null}`}
-            to={`/country/${countryIso}/odp/forestCharacteristics${active.odpId ? '/'+active.odpId : null}`}>
+            to={`/country/${countryIso}/odp/forestCharacteristics${odp.odpId ? '/'+odp.odpId : null}`}>
             {i18n.t('nationalDataPoint.forestCharacteristics')}
           </Link>
         : <span className="odp__tab-item">
@@ -228,13 +228,13 @@ const OdpViewContent = ({match, saveDraft, markAsActual, remove, active, autoSav
     {
       activeTab === 'extentOfForest'
         ? <ExtentOfForestSection
-            active={active}
+            odp={odp}
             countryIso={countryIso}
             saveDraft={saveDraft}
             openThread={openThread}
             i18n={i18n}/>
         : <ForestCharacteristicsSection
-            active={active}
+            odp={odp}
             countryIso={countryIso}
             saveDraft={saveDraft}
             openThread={openThread}
@@ -244,19 +244,19 @@ const OdpViewContent = ({match, saveDraft, markAsActual, remove, active, autoSav
     <div className="odp__section">
       <div className="fra-description">
         <div className={
-          isCommentsOpen([`${active.odpId}`, 'comments'], openThread)
+          isCommentsOpen([`${odp.odpId}`, 'comments'], openThread)
             ? 'fra-description__description-wrapper fra-row-comments__open'
             : 'fra-description__description-wrapper'
         }>
-          <CommentsEditor active={active} match={match} saveDraft={saveDraft} i18n={i18n} title={i18n.t('review.comments')} />
+          <CommentsEditor odp={odp} match={match} saveDraft={saveDraft} i18n={i18n} title={i18n.t('review.comments')} />
         </div>
         <div className="fra-description__review-indicator-wrapper">
         {
-          active.odpId
+          odp.odpId
             ? <ReviewIndicator
                 section='odp'
                 title={i18n.t('nationalDataPoint.nationalDataPoint')}
-                target={[`${active.odpId}`, 'comments']}
+                target={[`${odp.odpId}`, 'comments']}
                 countryIso={countryIso}/>
             : null
         }
@@ -269,17 +269,17 @@ const OdpViewContent = ({match, saveDraft, markAsActual, remove, active, autoSav
         className="btn btn-destructive"
         disabled={saveControlsDisabled()}
         onClick ={() => window.confirm(i18n.t('nationalDataPoint.confirmDelete'))
-          ? remove(countryIso, active.odpId, activeTab)
+          ? remove(countryIso, odp.odpId, activeTab)
           : null
       }>
         {i18n.t('nationalDataPoint.delete')}
       </button>
       {
-        active.editStatus && active.editStatus !== 'newDraft'
+        odp.editStatus && odp.editStatus !== 'newDraft'
           ? <button
               className="btn btn-secondary"
               disabled={saveControlsDisabled()}
-              onClick={() => cancelDraft(countryIso, active.odpId, activeTab)}>
+              onClick={() => cancelDraft(countryIso, odp.odpId, activeTab)}>
                {i18n.t('nationalDataPoint.discardChanges')}
             </button>
           : null
@@ -287,14 +287,14 @@ const OdpViewContent = ({match, saveDraft, markAsActual, remove, active, autoSav
       <button
         className="btn btn-primary"
         disabled={saveControlsDisabled()}
-        onClick={() => markAsActual(countryIso, active, activeTab)}>
+        onClick={() => markAsActual(countryIso, odp, activeTab)}>
          {i18n.t('nationalDataPoint.doneEditing')}
       </button>
     </div>
   </div>
 }
 
-const ExtentOfForestSection = ({active, countryIso, saveDraft, openThread, i18n}) => {
+const ExtentOfForestSection = ({odp, countryIso, saveDraft, openThread, i18n}) => {
   return <div className="odp__section">
     <div className="odp__section-header">
       <h3 className="subhead">{i18n.t('nationalDataPoint.forestCategoriesLabel')}</h3>
@@ -320,21 +320,21 @@ const ExtentOfForestSection = ({active, countryIso, saveDraft, openThread, i18n}
           </thead>
           <tbody>
           {
-            extentOfForestRows(countryIso, active, saveDraft, openThread, i18n)
+            extentOfForestRows(countryIso, odp, saveDraft, openThread, i18n)
           }
           <tr>
             <th className="fra-table__header-cell-left">{i18n.t('nationalDataPoint.total')}</th>
-            <td className="fra-table__calculated-cell fra-table__divider">{formatDecimal(originalDataPoint.totalArea(active))}</td>
-            <td className="fra-table__calculated-cell">{formatDecimal(originalDataPoint.classTotalArea(active, 'forestPercent'))}</td>
-            <td className="fra-table__calculated-cell">{formatDecimal(originalDataPoint.classTotalArea(active, 'otherWoodedLandPercent'))}</td>
-            <td className="fra-table__calculated-cell">{formatDecimal(originalDataPoint.classTotalArea(active, 'otherLandPercent'))}</td>
+            <td className="fra-table__calculated-cell fra-table__divider">{formatDecimal(originalDataPoint.totalArea(odp))}</td>
+            <td className="fra-table__calculated-cell">{formatDecimal(originalDataPoint.classTotalArea(odp, 'forestPercent'))}</td>
+            <td className="fra-table__calculated-cell">{formatDecimal(originalDataPoint.classTotalArea(odp, 'otherWoodedLandPercent'))}</td>
+            <td className="fra-table__calculated-cell">{formatDecimal(originalDataPoint.classTotalArea(odp, 'otherLandPercent'))}</td>
           </tr>
           </tbody>
         </table>
       </div>
     </div>
     {
-      originalDataPoint.classTotalArea(active, 'otherLandPercent')
+      originalDataPoint.classTotalArea(odp, 'otherLandPercent')
       ? <div className="fra-table__container">
           <div className="fra-table__scroll-wrapper">
             <table className="fra-table odp__sub-table">
@@ -349,7 +349,7 @@ const ExtentOfForestSection = ({active, countryIso, saveDraft, openThread, i18n}
               </tr>
               </thead>
               <SubcategoryTableBody
-                odp={active}
+                odp={odp}
                 countryIso={countryIso}
                 saveDraft={saveDraft}
                 openThread={openThread}
@@ -365,11 +365,11 @@ const ExtentOfForestSection = ({active, countryIso, saveDraft, openThread, i18n}
               <tfoot>
                 <tr>
                   <th className="fra-table__header-cell-left">{i18n.t('nationalDataPoint.total')}</th>
-                  <th className="fra-table__calculated-cell fra-table__divider">{formatDecimal(originalDataPoint.classTotalArea(active, 'otherLandPercent'))}</th>
-                  <td className="fra-table__calculated-cell">{formatDecimal(originalDataPoint.subClassTotalArea(active, 'otherLandPercent', 'otherLandPalmsPercent'))}</td>
-                  <td className="fra-table__calculated-cell">{formatDecimal(originalDataPoint.subClassTotalArea(active, 'otherLandPercent', 'otherLandTreeOrchardsPercent'))}</td>
-                  <td className="fra-table__calculated-cell">{formatDecimal(originalDataPoint.subClassTotalArea(active, 'otherLandPercent', 'otherLandAgroforestryPercent'))}</td>
-                  <td className="fra-table__calculated-cell">{formatDecimal(originalDataPoint.subClassTotalArea(active, 'otherLandPercent', 'otherLandTreesUrbanSettingsPercent'))}</td>
+                  <th className="fra-table__calculated-cell fra-table__divider">{formatDecimal(originalDataPoint.classTotalArea(odp, 'otherLandPercent'))}</th>
+                  <td className="fra-table__calculated-cell">{formatDecimal(originalDataPoint.subClassTotalArea(odp, 'otherLandPercent', 'otherLandPalmsPercent'))}</td>
+                  <td className="fra-table__calculated-cell">{formatDecimal(originalDataPoint.subClassTotalArea(odp, 'otherLandPercent', 'otherLandTreeOrchardsPercent'))}</td>
+                  <td className="fra-table__calculated-cell">{formatDecimal(originalDataPoint.subClassTotalArea(odp, 'otherLandPercent', 'otherLandAgroforestryPercent'))}</td>
+                  <td className="fra-table__calculated-cell">{formatDecimal(originalDataPoint.subClassTotalArea(odp, 'otherLandPercent', 'otherLandTreesUrbanSettingsPercent'))}</td>
                 </tr>
               </tfoot>
             </table>
@@ -380,7 +380,7 @@ const ExtentOfForestSection = ({active, countryIso, saveDraft, openThread, i18n}
   </div>
 }
 
-const ForestCharacteristicsSection = ({active, countryIso, saveDraft, openThread, i18n}) => {
+const ForestCharacteristicsSection = ({odp, countryIso, saveDraft, openThread, i18n}) => {
   return <div className="odp__section">
     <div className="odp__section-header">
       <h3 className="subhead">{i18n.t('nationalDataPoint.forestCharacteristics')}</h3>
@@ -406,21 +406,21 @@ const ForestCharacteristicsSection = ({active, countryIso, saveDraft, openThread
           </thead>
           <tbody>
           {
-            foresCharaceristicsRows(countryIso, active, saveDraft, openThread, i18n)
+            foresCharaceristicsRows(countryIso, odp, saveDraft, openThread, i18n)
           }
           <tr>
             <th className="fra-table__header-cell-left">{i18n.t('nationalDataPoint.total')}</th>
-            <th className="fra-table__calculated-cell fra-table__divider">{formatDecimal(originalDataPoint.classTotalArea(active, 'forestPercent'))}</th>
-            <td className="fra-table__calculated-cell">{formatDecimal(originalDataPoint.subClassTotalArea(active, 'forestPercent', 'naturalForestPercent'))}</td>
-            <td className="fra-table__calculated-cell">{formatDecimal(originalDataPoint.subClassTotalArea(active, 'forestPercent', 'plantationPercent'))}</td>
-            <td className="fra-table__calculated-cell">{formatDecimal(originalDataPoint.subClassTotalArea(active, 'forestPercent', 'otherPlantedPercent'))}</td>
+            <th className="fra-table__calculated-cell fra-table__divider">{formatDecimal(originalDataPoint.classTotalArea(odp, 'forestPercent'))}</th>
+            <td className="fra-table__calculated-cell">{formatDecimal(originalDataPoint.subClassTotalArea(odp, 'forestPercent', 'naturalForestPercent'))}</td>
+            <td className="fra-table__calculated-cell">{formatDecimal(originalDataPoint.subClassTotalArea(odp, 'forestPercent', 'plantationPercent'))}</td>
+            <td className="fra-table__calculated-cell">{formatDecimal(originalDataPoint.subClassTotalArea(odp, 'forestPercent', 'otherPlantedPercent'))}</td>
           </tr>
           </tbody>
         </table>
       </div>
     </div>
     {
-      originalDataPoint.subClassTotalArea(active, 'forestPercent', 'plantationPercent')
+      originalDataPoint.subClassTotalArea(odp, 'forestPercent', 'plantationPercent')
       ? <div className="fra-table__container">
           <div className="fra-table__scroll-wrapper">
             <table className="fra-table odp__sub-table">
@@ -432,7 +432,7 @@ const ForestCharacteristicsSection = ({active, countryIso, saveDraft, openThread
                 </tr>
               </thead>
               <SubcategoryTableBody
-                odp={active}
+                odp={odp}
                 countryIso={countryIso}
                 saveDraft={saveDraft}
                 openThread={openThread}
@@ -446,8 +446,8 @@ const ForestCharacteristicsSection = ({active, countryIso, saveDraft, openThread
               <tfoot>
                 <tr>
                   <th className="fra-table__header-cell-left">{i18n.t('nationalDataPoint.total')}</th>
-                  <th className="fra-table__calculated-cell fra-table__divider">{formatDecimal(originalDataPoint.subClassTotalArea(active, 'forestPercent', 'plantationPercent'))}</th>
-                  <td className="fra-table__calculated-cell">{formatDecimal(originalDataPoint.subSubClassTotalArea(active, 'forestPercent', 'plantationPercent', 'plantationIntroducedPercent'))}</td>
+                  <th className="fra-table__calculated-cell fra-table__divider">{formatDecimal(originalDataPoint.subClassTotalArea(odp, 'forestPercent', 'plantationPercent'))}</th>
+                  <td className="fra-table__calculated-cell">{formatDecimal(originalDataPoint.subSubClassTotalArea(odp, 'forestPercent', 'plantationPercent', 'plantationIntroducedPercent'))}</td>
                 </tr>
               </tfoot>
             </table>
@@ -876,7 +876,7 @@ class CommentsEditor extends React.Component {
   initCKeditor () {
     if (this.props.match.params.odpId) {
       this.descriptionEditor.setData(
-        this.props.active.description,
+        this.props.odp.description,
         {callback: () => this.initCkeditorChangeListener()})
     } else {
       this.initCkeditorChangeListener()
@@ -887,7 +887,7 @@ class CommentsEditor extends React.Component {
     this.descriptionEditor.on('change', (evt) => {
         this.props.saveDraft(
           this.props.match.params.countryIso,
-          {...this.props.active, description: evt.editor.getData()})
+          {...this.props.odp, description: evt.editor.getData()})
       }
     )
   }
@@ -913,7 +913,7 @@ class CommentsEditor extends React.Component {
   }
 
   render () {
-    const content = this.props.active.description || this.props.i18n.t('description.emptyLabel')
+    const content = this.props.odp.description || this.props.i18n.t('description.emptyLabel')
     return <div>
       <div className="fra-description__header-row">
         <h3 className="subhead fra-description__header">{this.props.title}</h3>
@@ -936,7 +936,7 @@ class CommentsEditor extends React.Component {
       <div className="cke_wrapper" style={{display: this.state.open ? 'block' : 'none'}}>
         <textarea ref="originalDataPointDescription"/>
       </div>
-      <div className={`fra-description__${this.props.active.description ? 'preview' : 'placeholder'}`} style={{display: this.state.open ? 'none' : 'block'}} dangerouslySetInnerHTML={{__html: content}}/>
+      <div className={`fra-description__${this.props.odp.description ? 'preview' : 'placeholder'}`} style={{display: this.state.open ? 'none' : 'block'}} dangerouslySetInnerHTML={{__html: content}}/>
     </div>
   }
 
@@ -960,10 +960,10 @@ class OriginalDataPointView extends React.Component {
   render () {
     return <LoggedInPageTemplate>
       {
-        this.props.active
+        this.props.odp
           ? <OdpViewContent years={years}
                        copyDisabled={R.or(
-                         R.not(originalDataPoint.allowCopyingOfPreviousValues(this.props.active)),
+                         R.not(originalDataPoint.allowCopyingOfPreviousValues(this.props.odp)),
                          R.not(R.isNil(R.path(['match', 'params', 'odpId'], this.props))))}
                        {...this.props}/>
           : null
@@ -974,12 +974,11 @@ class OriginalDataPointView extends React.Component {
 }
 
 const mapStateToProps = state => {
-  const odp = state.originalDataPoint
   const autoSaving = state.autoSave.status === 'saving'
-  const active = odp.active
+  const odp = state.originalDataPoint.active
   const openThread = R.defaultTo({target: [], section: ''}, R.path(['review', 'openThread'], state))
   const useOriginalDataPoints = !!R.path(['country', 'config', 'useOriginalDataPoints'], state)
-  return {...odp, active, autoSaving, openThread, i18n: state.user.i18n, useOriginalDataPoints}
+  return {...state.originalDataPoint, odp, autoSaving, openThread, i18n: state.user.i18n, useOriginalDataPoints}
 }
 
 export default connect(mapStateToProps, {
