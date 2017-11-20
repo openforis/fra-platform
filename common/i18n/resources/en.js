@@ -270,17 +270,15 @@ module.exports.translation = {
     invitationEmail:{
       subject:'Invited to {{country}} on FRA Platform',
       textMessage:`Dear {{invitedUser}},
-%0D%0A%0D%0A
+
 {{loggedInUser}} has invited you to join {{country}} on FRA Platfrom as a {{role}}.
-%0D%0A%0D%0A
+
 Accept this invitation and visit the country at the following URL:
-%0D%0A
 {{link}}
-%0D%0A%0D%0A
+
 Happy reporting, and don't hesitate to contact us with your feedback.
-%0D%0A%0D%0A
+
 The FRA team
-%0D%0A
 {{url}}
     `,
       htmlMessage:`Dear {{invitedUser}},
@@ -595,9 +593,21 @@ The FRA team
     statusChangeNotification:
       {
         subject: 'FRA Platform assessment {{assessment}} status changed to {{status}}',
-        textMessage: 'FRA Platform assessment {{assessment}} status was changed to {{status}} by {{user}} for country {{country}}',
-        htmlMessage: `<a href="{{serverUrl}}"><b>FRA Platform</b></a> assessment {{assessment}}
-                      status was changed to <b>{{status}}</b> by {{user}} for country {{country}}`
+        textMessage: `Dear {{recipientName}},
+
+FRA Platform assessment {{assessment}} status was changed to {{status}} by {{changer}} for country {{country}}.
+
+The FRA team
+{{serverUrl}}`,
+        htmlMessage: `Dear {{recipientName}},
+<br/><br/>
+<a href="{{serverUrl}}"><b>FRA Platform</b></a>
+assessment {{assessment}}
+status was changed to <b>{{status}}</b> by {{changer}} for country {{country}}.
+<br/><br/>
+The FRA team
+<br/>
+{{serverUrl}}`
       }
   },
 

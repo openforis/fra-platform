@@ -9,8 +9,9 @@ const createMail = (countryIso, assessment, user, loggedInUser, i18n, serverUrl)
   const emailLocalizationParameters = {
     country,
     serverUrl,
+    recipientName: user.name,
     status: assessment.status,
-    user: loggedInUser.name,
+    changer: loggedInUser.name,
     assessment: i18n.t('assessment.' + assessment.type)
   }
   return {
