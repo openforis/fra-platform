@@ -52,15 +52,11 @@ const GrowingStock = (props) => {
     <div className="fra-view__page-header">
       <h1 className="title">{i18n.t('growingStock.growingStock')}</h1>
       <DefinitionLink document="tad" anchor="2a" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
-      <DefinitionLink document="faq" anchor="2a" title={i18n.t('definition.faqLabel')} lang={i18n.language} className="align-left"/>
-    </div>
-    <div className="fra-view__section-header">
-      <div className="growing-stock-view__support-text align-left">{i18n.t('growingStock.supportText')}</div>
-      <button
-        className="btn-s btn-secondary"
-        onClick={() => copyTableAsHtml(props.values, avgRows)}>
-          {i18n.t('growingStock.copyToClipboard')}
-      </button>
+      <DefinitionLink document="faq" anchor="2a" title={i18n.t('definition.faqLabel')} lang={i18n.language}/>
+      <div className="definition-link align-left" onClick={() => copyTableAsHtml(props.values, avgRows)}>
+        {i18n.t('growingStock.copyToClipboard')}
+      </div>
+      <p className="support-text">{i18n.t('growingStock.supportText')}</p>
     </div>
     <GrowingStockTable
       section={sectionName}
