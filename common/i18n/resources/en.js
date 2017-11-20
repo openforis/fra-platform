@@ -594,8 +594,8 @@ The FRA team
     statusChangeNotification:
       {
         subject: 'Assessment {{assessment}} status changed to {{status}} for country {{country}}',
-        textMessage: 'Assessment {{assessment}} status changed to {{status}} for country {{country}}',
-        htmlMessage: `Assessment <b>{{assessment}}</b> status changed to <b>{{status}}</b> for country <b>{{country}}</b>`
+        textMessage: 'Assessment {{assessment}} status was changed to {{status}} by {{user}} for country {{country}}',
+        htmlMessage: `Assessment <b>{{assessment}}</b> status changed to <b>{{status}}</b> by <b>{{user}}</b> for country <b>{{country}}</b>`
       }
   },
 

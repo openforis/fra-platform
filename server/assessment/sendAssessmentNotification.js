@@ -6,7 +6,12 @@ const { fetchCountryUsers } = require('../user/userRepository')
 
 const createMail = (countryIso, assessment, user, loggedInUser, i18n) => {
   const country = getCountryName(countryIso, 'en')
-  const emailLocalizationParameters = {country, assessment: assessment.type, status: assessment.status}
+  const emailLocalizationParameters = {
+    country,
+    assessment: assessment.type,
+    status: assessment.status,
+    user: loggedInUser.name
+  }
   return {
     to: user.email,
     subject: i18n.t('assessment.statusChangeNotification.subject', emailLocalizationParameters),
