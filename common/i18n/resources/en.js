@@ -274,24 +274,24 @@ module.exports.translation = {
 {{loggedInUser}} has invited you to join {{country}} on FRA Platfrom as a {{role}}.
 
 Accept this invitation and visit the country at the following URL:
-{{link}}
+{{- link}}
 
 Happy reporting, and don't hesitate to contact us with your feedback.
 
 The FRA team
-{{url}}
+{{- url}}
     `,
       htmlMessage:`Dear {{invitedUser}},
 <br/><br/>
 {{loggedInUser}} has invited you to join {{country}} on FRA Platfrom as a {{role}}.
 <br/><br/>
-<b><a href="{{link}}">Accept this invitation and visit the country</a></b>
+<b><a href="{{- link}}">Accept this invitation and visit the country</a></b>
 <br/><br/>
 Happy reporting, and don't hesitate to contact us with your feedback.
 <br/><br/>
 The FRA team
 <br/>
-{{url}}
+{{- url}}
     `
     }
   },
@@ -598,16 +598,16 @@ The FRA team
 FRA Platform assessment {{assessment}} status was changed to {{status}} by {{changer}} for country {{country}}.
 
 The FRA team
-{{serverUrl}}`,
+{{- serverUrl}}`,
         htmlMessage: `Dear {{recipientName}},
 <br/><br/>
-<a href="{{serverUrl}}"><b>FRA Platform</b></a>
+<a href="{{- serverUrl}}"><b>FRA Platform</b></a>
 assessment {{assessment}}
 status was changed to <b>{{status}}</b> by {{changer}} for country {{country}}.
 <br/><br/>
 The FRA team
 <br/>
-{{serverUrl}}`
+{{- serverUrl}}`
       }
   },
 
