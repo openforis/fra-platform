@@ -332,7 +332,9 @@ The FRA team
     plantedForest: 'Planted forest',
     totalForestArea: 'Total forest area',
     total: 'Total',
-    copyToClipboard: 'Copy values'
+    copyToClipboard: 'Copy values',
+    useOriginalDataPoints: 'Use national data points',
+    dontUseOriginalDataPoints: "Don't use national data points"
   },
 
   tableWithOdp: {

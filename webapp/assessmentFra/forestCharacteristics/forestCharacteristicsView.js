@@ -228,8 +228,8 @@ const ForestCharacteristics = props => {
       >
         {
           props.useOriginalDataPoints
-            ? "Don't use national data points"
-            : "Use national data points"
+            ? i18n.t('forestCharacteristics.dontUseOriginalDataPoints')
+            : i18n.t('forestCharacteristics.useOriginalDataPoints')
         }
       </button>
     </div>
