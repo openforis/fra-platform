@@ -20,8 +20,6 @@ const createMailOptions = (countryIso, invitedUser, loggedInUser, url, i18n) => 
   const country = getCountryName(countryIso, 'en')
   const role = invitedUser.role.toLowerCase()
 
-  console.log(countryIso, invitedUser, loggedInUser, url, link)
-
   return {
     from: '"FRA Platform" <fra@fao.org>',
     to: invitedUser.email,
