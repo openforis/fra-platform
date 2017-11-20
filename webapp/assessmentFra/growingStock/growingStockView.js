@@ -52,16 +52,20 @@ const GrowingStock = (props) => {
     <div className="fra-view__page-header">
       <h1 className="title">{i18n.t('growingStock.growingStock')}</h1>
       <DefinitionLink document="tad" anchor="2a" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
-      <DefinitionLink document="faq" anchor="2a" title={i18n.t('definition.faqLabel')} lang={i18n.language}/>
-      <div className="definition-link align-left" onClick={() => copyTableAsHtml(props.values, avgRows)}>
-        {i18n.t('growingStock.copyToClipboard')}
-      </div>
+      <DefinitionLink document="faq" anchor="2a" title={i18n.t('definition.faqLabel')} lang={i18n.language} className="align-left"/>
       <p className="support-text">{i18n.t('growingStock.supportText')}</p>
     </div>
     <GrowingStockTable
       section={sectionName}
       header={props.i18n.t('growingStock.categoryHeader')}
-      avgTableHeader={props.i18n.t('growingStock.avgTableHeader')}
+      avgTableHeader={
+        <div>
+          {props.i18n.t('growingStock.avgTableHeader')}
+          <button className="fra-table__header-button btn-xs btn-primary" onClick={() => copyTableAsHtml(props.values, avgRows)}>
+            {props.i18n.t('growingStock.copyToClipboard')}
+          </button>
+        </div>
+      }
       totalTableHeader={props.i18n.t('growingStock.totalTableHeader')}
       rows={rows}
       {...props}

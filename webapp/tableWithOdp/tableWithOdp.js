@@ -1,5 +1,7 @@
 import React from 'react'
 import * as R from 'ramda'
+import ReactDOMServer from 'react-dom/server'
+import clipboard from 'clipboard-polyfill'
 import './style.less'
 import assert from 'assert'
 import { Link } from '../reusableUiComponents/link'
@@ -8,11 +10,11 @@ import Icon from '../reusableUiComponents/icon'
 import ReviewIndicator from '../review/reviewIndicator'
 import { readPasteClipboard } from '../utils/copyPasteUtil'
 import { acceptNextDecimal} from '../utils/numberInput'
-import { formatNumber } from '../../common/bignumberUtils'
+import { formatNumber, toFixed } from '../../common/bignumberUtils'
 
 const mapIndexed = R.addIndex(R.map)
 
-export const getFraValues = (fra, rowsSpecs) => {
+const getFraValues = (fra, rowsSpecs) => {
   const valueFieldNames = R.reject(R.isNil, R.pluck('field', rowsSpecs))
   const fraValues = R.pipe(
     R.values,
@@ -22,7 +24,7 @@ export const getFraValues = (fra, rowsSpecs) => {
   return fraValues
 }
 
-export const hasFraValues = (fra, rowsSpecs) => {
+const hasFraValues = (fra, rowsSpecs) => {
   const fraValues = getFraValues(fra, rowsSpecs)
   const flattenedFraValues = R.pipe(
     R.flatten,
@@ -33,6 +35,29 @@ export const hasFraValues = (fra, rowsSpecs) => {
 
 export class TableWithOdp extends React.Component {
 
+  clipboardTable (tableValues) {
+    return <table>
+      <tbody>
+        {mapIndexed((row, i) =>
+          <tr key={i}>
+            {mapIndexed((value, i) =>
+              <td key={i}> {toFixed(value)} </td>
+            , row)}
+          </tr>
+        , tableValues)}
+      </tbody>
+    </table>
+  }
+
+  copyTableAsHtml (rowsSpecs) {
+    const transposedFraValues = R.transpose(getFraValues(this.props.fra, rowsSpecs))
+    const htmlTable = ReactDOMServer.renderToString(this.clipboardTable(transposedFraValues))
+    const dataTransfer = new clipboard.DT()
+    dataTransfer.setData("text/plain", this.props.i18n.t('forestCharacteristics.forestCharacteristics'))
+    dataTransfer.setData("text/html", htmlTable)
+    clipboard.write(dataTransfer)
+  }
+
   render () {
     const rows = this.props.rows
     return <div className="fra-table__container table-with-odp">
@@ -41,7 +66,14 @@ export class TableWithOdp extends React.Component {
           <thead>
           <tr>
             <th className="fra-table__header-cell-left" rowSpan="2">{this.props.categoryHeader}</th>
-            <th className="fra-table__header-cell" colSpan={R.values(this.props.fra).length}>{this.props.tableHeader}</th>
+            <th className="fra-table__header-cell" colSpan={R.values(this.props.fra).length}>
+              <div>
+                {this.props.tableHeader}
+                <button className="fra-table__header-button btn-xs btn-primary" onClick={() => this.copyTableAsHtml(rows)}>
+                  {this.props.i18n.t('tableWithOdp.copyToClipboard')}
+                </button>
+              </div>
+            </th>
           </tr>
           <tr>
             {

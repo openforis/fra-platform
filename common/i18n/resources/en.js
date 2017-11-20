@@ -333,7 +333,6 @@ The FRA team
     plantedForest: 'Planted forest',
     totalForestArea: 'Total forest area',
     total: 'Total',
-    copyToClipboard: 'Copy values',
     useOriginalDataPoints: 'Use national data points',
     dontUseOriginalDataPoints: "Don't use national data points"
   },
@@ -346,7 +345,8 @@ The FRA team
     annualChangeExtrapolation: 'Annual change',
     placeholderFuture: 'Future',
     placeholderPast: 'Past',
-    clearTable: 'Clear table'
+    clearTable: 'Clear table',
+    copyToClipboard: 'Copy values'
   },
 
   forestAreaChange: {
