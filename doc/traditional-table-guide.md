@@ -286,7 +286,7 @@ const totalForestArea = (tableData, columnIdx) =>
   )
 
 const totalForestAreaCell = (column) => (props) =>
-  <td key="" className="fra-table__calculated-cell">
+  <td className="fra-table__calculated-cell">
     {totalForestArea(props.tableData, column)}
   </td>
 
@@ -318,7 +318,7 @@ export default {
     createPdmoInputRow('Multiple use'),
     createPdmoInputRow('Other'),
     createPdmoInputRow('No/unknown'),
-    [{type: 'readOnly', jsx: <td key="" className="fra-table__header-cell-left">Total forest area</td>},
+    [{type: 'readOnly', jsx: <td className="fra-table__header-cell-left">Total forest area</td>},
      {type: 'custom', render: totalForestAreaCell(1)},
      {type: 'custom', render: totalForestAreaCell(2)},
      {type: 'custom', render: totalForestAreaCell(3)},

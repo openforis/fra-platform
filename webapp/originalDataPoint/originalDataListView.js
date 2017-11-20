@@ -45,11 +45,11 @@ const TableRow = ({odp, i18n, countryIso, removeFromList}) => {
       </div>
     </td>
     <td className="odp-list__edit-cell">
-      <Link className="btn btn-s btn-link" to={odpUrl}>
+      <Link className="btn-s btn-link" to={odpUrl}>
         {i18n.t('nationalDataPoint.edit')}
       </Link>
       <button
-        className="btn btn-s btn-link-destructive"
+        className="btn-s btn-link-destructive"
         onClick={() => window.confirm(i18n.t('nationalDataPoint.confirmDelete'))
           ? removeFromList(countryIso, odp.odpId)
           : null

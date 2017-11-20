@@ -94,7 +94,8 @@ module.exports.init = app => {
       .catch(err => sendErr(res, err))
   })
 
-  app.post('/nde/:section/generateFraValues/:countryIso', (req, res) => {
+  app.post('/nde/:section/generateFraValues/:countryIso/:generateMethod', (req, res) => {
+
     checkCountryAccessFromReqParams(req)
     db.transaction(auditRepository.insertAudit,
       [req.user.id, 'generateFraValues', req.params.countryIso, req.params.section])
@@ -112,8 +113,21 @@ module.exports.init = app => {
       R.map((v) => v.year)
     )(defaultResponse())
 
+    const generateSpec = {
+      method: req.params.generateMethod,
+      ratePast: req.query.ratePast,
+      rateFuture: req.query.rateFuture
+    }
+
     estimationEngine
-      .estimateAndWrite(readOdp, writer, fieldsToEstimate, req.params.countryIso, years)
+      .estimateAndWrite(
+        readOdp,
+        writer,
+        fieldsToEstimate,
+        req.params.countryIso,
+        years,
+        generateSpec
+      )
       .then(() => res.json({}))
       .catch(err => sendErr(res, err))
   })

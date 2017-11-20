@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { fetchCountryOverviewStatus } from '../navigation/actions'
+import { fetchCountryOverviewStatus } from '../country/actions'
 
 export const issuePostCommentCompleted = 'issue/comment/post/completed'
 export const issueRetrieveCommentsStarted = 'issue/comment/retrieve/started'

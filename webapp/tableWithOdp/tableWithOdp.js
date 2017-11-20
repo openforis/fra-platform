@@ -12,23 +12,22 @@ import { formatNumber } from '../../common/bignumberUtils'
 
 const mapIndexed = R.addIndex(R.map)
 
-export const disableGenerateFraValues = (fra, generatingFraValues) => {
-    const odps = R.pipe(
-      R.values,
-      R.filter(v => v.type === 'odp')
-    )(fra)
-    return generatingFraValues || odps.length < 2
-  }
-
-export const hasFraValues = (fra, rowsSpecs) => {
+export const getFraValues = (fra, rowsSpecs) => {
   const valueFieldNames = R.reject(R.isNil, R.pluck('field', rowsSpecs))
-  const flattenedFraValues = R.pipe(
+  const fraValues = R.pipe(
     R.values,
     R.filter(v => v.type !== 'odp'),
-    R.map(column => R.props(valueFieldNames, column)),
+    R.map(column => R.props(valueFieldNames, column))
+  )(fra)
+  return fraValues
+}
+
+export const hasFraValues = (fra, rowsSpecs) => {
+  const fraValues = getFraValues(fra, rowsSpecs)
+  const flattenedFraValues = R.pipe(
     R.flatten,
     R.reject(R.isNil)
-  )(fra)
+  )(fraValues)
   return flattenedFraValues.length > 0
 }
 
@@ -42,7 +41,7 @@ export class TableWithOdp extends React.Component {
           <thead>
           <tr>
             <th className="fra-table__header-cell-left" rowSpan="2">{this.props.categoryHeader}</th>
-            <th className="fra-table__header-cell" colSpan={R.values(this.props.fra).length}>{this.props.areaUnitLabel}</th>
+            <th className="fra-table__header-cell" colSpan={R.values(this.props.fra).length}>{this.props.tableHeader}</th>
           </tr>
           <tr>
             {
@@ -64,6 +63,114 @@ export class TableWithOdp extends React.Component {
         </table>
       </div>
     </div>
+  }
+}
+
+export class GenerateFraValuesControl extends React.Component {
+
+  constructor(props) {
+    super(props)
+    this.state = {generateMethod: 'linear', ratePast: '', rateFuture: ''}
+  }
+
+  render() {
+    const {i18n, fra, generatingFraValues} = this.props
+    const rateValidationClass = rate =>
+      this.validRate(rate) || R.isEmpty(rate) ? '' : 'validation-error'
+    return <div className="table-with-odp__generate-fra-values-control">
+      {
+        this.state.generateMethod === 'annualChange'
+          ? <div>
+              <input
+                type="text"
+                className={`text-input-s ${rateValidationClass(this.state.ratePast)}`}
+                placeholder={i18n.t('tableWithOdp.placeholderPast')}
+                value={this.state.ratePast}
+                onChange={(evt) => this.setState({...this.state, ratePast: evt.target.value})}
+              />
+              <input
+                type="text"
+                className={`text-input-s ${rateValidationClass(this.state.rateFuture)}`}
+                placeholder={i18n.t('tableWithOdp.placeholderFuture')}
+                value={this.state.rateFuture}
+                onChange={(evt) => this.setState({...this.state, rateFuture: evt.target.value})}
+              />
+            </div>
+          : null
+      }
+      <select
+        className="select-s"
+        value={this.state.generateMethod}
+        onChange={evt => this.setState({...this.state, generateMethod: evt.target.value})}>
+        <option value="linear">{i18n.t('tableWithOdp.linearExtrapolation')}</option>
+        <option value="repeatLast">{i18n.t('tableWithOdp.repeatLastExtrapolation')}</option>
+        <option value="annualChange">{i18n.t('tableWithOdp.annualChangeExtrapolation')}</option>
+        <option disabled>---</option>
+        <option value="clearTable">{i18n.t('tableWithOdp.clearTable')}</option>
+      </select>
+      <button
+        className="btn-s btn-primary"
+        disabled={this.disableGenerateFraValues(fra, generatingFraValues)}
+        onClick={() => this.generateFraValues(this.state.generateMethod)}>
+        {
+          this.state.generateMethod === 'clearTable'
+            ? i18n.t('tableWithOdp.clearTable')
+            : i18n.t('tableWithOdp.generateFraValues')
+        }
+      </button>
+    </div>
+  }
+
+
+  disableGenerateFraValues (fra, generatingFraValues) {
+    if (this.state.generateMethod === 'clearTable') return false
+    if (this.state.generateMethod === 'annualChange' && !this.validRates()) return true
+    const odps = R.pipe(
+      R.values,
+      R.filter(v => v.type === 'odp')
+    )(fra)
+    return generatingFraValues || odps.length < 2
+  }
+
+  generateFraValues (generateMethod) {
+    const {section, countryIso, i18n, fra, rows, generateFraValues} = this.props
+    const generateAnnualChange = () => {
+      const ratePast = this.state.ratePast
+      const rateFuture = this.state.rateFuture
+      if (!this.validRates()) { throw new Error('Validation errors rates') }
+      generateFraValues(
+        section,
+        countryIso,
+        {
+          method:
+          generateMethod,
+          ratePast,
+          rateFuture
+        }
+      )
+    }
+    const generate = () => {
+      if (generateMethod === 'annualChange') {
+        generateAnnualChange()
+      } else {
+        generateFraValues(section, countryIso, {method: generateMethod})
+      }
+    }
+    if (hasFraValues(fra, rows)) {
+      if (window.confirm(i18n.t('tableWithOdp.confirmGenerateFraValues'))) {
+        generate()
+      }
+    } else {
+      generate()
+    }
+  }
+
+  validRates() {
+    return this.validRate(this.state.ratePast) && this.validRate(this.state.rateFuture)
+  }
+
+  validRate (rate) {
+    return !isNaN(rate) && !R.isNil(rate) && !R.isEmpty(R.trim(rate))
   }
 }
 
@@ -96,16 +203,16 @@ const validationErrorRow = columnErrorMsgs => {
     {
       mapIndexed((errorMsgs, colIdx) =>
         <td className="fra-table__validation-cell" key={colIdx}>
+          <div className="fra-table__validation-container">
           {
             mapIndexed(
               (errorMsg, errorIdx) =>
-                <div key={errorIdx} className="fra-table__validation-container">
-                  <div className="fra-table__validation-error">{errorMsg}</div>
-                </div>
+                  <div className="fra-table__validation-error" key={errorIdx}>{errorMsg}</div>
               ,
               errorMsgs
             )
           }
+          </div>
         </td>
       , columnErrorMsgs)
     }
@@ -116,15 +223,18 @@ const alwaysOkValidator = () => true
 
 const renderFieldRow = ({row, countryIso, fra, save, saveMany, pasteUpdate, rowIdx, openCommentThread, section}) => {
   const {
-    localizedName,
+    rowHeader,
     field,
-    className
+    className,
+    rowVariable
   } = row
   const validator = row.validator || alwaysOkValidator
   return <tr
     key={field}
     className={`${openCommentThread && R.isEmpty(R.difference(openCommentThread.target, [field])) ? 'fra-row-comments__open' : ''}`}>
-    <th className={className ? className : 'fra-table__category-cell'}>{ localizedName }</th>
+    <th className={className ? className : 'fra-table__category-cell'}>
+      {rowHeader} {rowVariable}
+    </th>
     {
       mapIndexed(
         (fraColumn, colIdx) => {
@@ -153,7 +263,7 @@ const renderFieldRow = ({row, countryIso, fra, save, saveMany, pasteUpdate, rowI
         <ReviewIndicator
           key={`${field}_ri`}
           section={section}
-          title={localizedName}
+          title={rowHeader}
           target={[field]}
           countryIso={countryIso} />
       </div>

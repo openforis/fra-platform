@@ -1,9 +1,10 @@
 import React from 'react'
 import R from 'ramda'
 import { formatDecimal } from '../../utils/numberFormat'
-import { sub, div, eq, toFixed } from '../../../common/bignumberUtils'
+import { sub, div, eq, toFixed, abs, lessThan } from '../../../common/bignumberUtils'
 import { subCategoryValidator } from '../../traditionalTable/validators'
 import { getForestAreaForYear } from '../extentOfForest/extentOfForestHelper'
+import { Link } from '../../reusableUiComponents/link'
 
 const mapIndexed = R.addIndex(R.map)
 const ofWhichRows = R.range(1, 3)
@@ -14,14 +15,22 @@ const integerInputColumns = R.times(() => ({type: 'decimalInput'}), 4)
 
 const netChange = (tableData, column) => sub(tableData[0][column], tableData[3][column])
 
-const netChangeValid = (tableData, column, extentOfForest, startYear, endYear) => {
+const eofNetChange = (extentOfForest, startYear, endYear) => {
+  const timeSpan = endYear-startYear
   const startYearEofArea = getForestAreaForYear(extentOfForest, startYear)
   const endYearEofArea = getForestAreaForYear(extentOfForest, endYear)
-  const netChangeFromExtentOfForest = toFixed(div(sub(endYearEofArea, startYearEofArea), '10'))
-  const netChangeFromThisTable = toFixed(netChange(tableData, column))
+  const eofNetChange = div(sub(endYearEofArea, startYearEofArea), timeSpan)
+  return eofNetChange
+}
+
+const netChangeValid = (tableData, column, extentOfForest, startYear, endYear) => {
+  const netChangeFromExtentOfForest = eofNetChange(extentOfForest, startYear, endYear)
+  const netChangeFromThisTable = netChange(tableData, column)
   if (!netChangeFromExtentOfForest || !netChangeFromThisTable) return {valid: true}
+  const tolerance = 1
+  const absDifference = abs(sub(netChangeFromExtentOfForest, netChangeFromThisTable))
   return {
-    valid: eq(netChangeFromExtentOfForest, netChangeFromThisTable),
+    valid: lessThan(absDifference, tolerance),
     eofNetChange: netChangeFromExtentOfForest
   }
 }
@@ -44,7 +53,7 @@ const netChangeValidator =
     }
 }
 
-export default (i18n, extentOfForest) => {
+export default (i18n, extentOfForest, countryIso) => {
   return {
     name: 'forestAreaChange', // used to uniquely identify table
     header: <thead>
@@ -68,7 +77,7 @@ export default (i18n, extentOfForest) => {
       [
         {
           type: 'readOnly',
-          jsx: <th className="fra-table__category-cell">{i18n.t('forestAreaChange.forestExpansion')}</th>
+          jsx: <th className="fra-table__category-cell">{i18n.t('forestAreaChange.forestExpansion')} (a)</th>
         },
         ...integerInputColumns
       ],
@@ -89,14 +98,17 @@ export default (i18n, extentOfForest) => {
       [
         {
           type: 'readOnly',
-          jsx: <th className="fra-table__category-cell">{i18n.t('forestAreaChange.deforestation')}</th>
+          jsx: <th className="fra-table__category-cell">{i18n.t('forestAreaChange.deforestation')} (b)</th>
         },
         ...integerInputColumns
       ],
       [
         {
           type: 'readOnly',
-          jsx: <th className="fra-table__header-cell-left">{i18n.t('forestAreaChange.forestAreaNetChange')}</th>
+          jsx:
+            <th className="fra-table__header-cell-left">
+              {i18n.t('forestAreaChange.total')} (a-b)
+            </th>
         },
         ...mapIndexed(
           ([column, startYear, endYear]) => ({
@@ -104,17 +116,29 @@ export default (i18n, extentOfForest) => {
             calculateValue: props => netChange(props.tableData, column),
             valueFormatter: formatDecimal,
             validator: netChangeValidator(i18n, extentOfForest, startYear, endYear)
-          }),
-          yearIntervals
-        )
-
+          }), yearIntervals)
+      ],
+      [
+        {
+          type: 'readOnly',
+          jsx:
+            <th className="fra-table__header-cell-left">
+              <Link to={`/country/${countryIso}/extentOfForest`} className="link">
+                {i18n.t('forestAreaChange.forestAreaNetChange')}
+              </Link>
+            </th>
+        },
+        ...mapIndexed(
+          ([column, startYear, endYear]) => ({
+            type: 'calculated',
+            calculateValue: props => eofNetChange(extentOfForest, startYear, endYear),
+            valueFormatter: formatDecimal
+          }), yearIntervals)
       ]
     ],
     valueSlice: {
-      rowStart: 0,
-      rowEnd: -1,
       columnStart: 1,
-      columnEnd: undefined
+      rowEnd: -2
     }
   }
 }

@@ -9,10 +9,10 @@ import Icon from '../../reusableUiComponents/icon'
 import DefinitionLink from '../../reusableUiComponents/definitionLink'
 import ChartWrapper from './chart/chartWrapper'
 import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
-import { TableWithOdp, hasFraValues, disableGenerateFraValues } from '../../tableWithOdp/tableWithOdp'
+import { TableWithOdp, GenerateFraValuesControl, hasFraValues} from '../../tableWithOdp/tableWithOdp'
 import { CommentableDescriptions } from '../../description/commentableDescription'
-import countryConfig from '../../../common/countryConfig'
-import { sum, formatNumber, eq, greaterThanOrEqualTo } from '../../../common/bignumberUtils'
+import { sum, formatNumber, greaterThanOrEqualTo, abs, sub, greaterThan } from '../../../common/bignumberUtils'
+import ReviewIndicator from '../../review/reviewIndicator'
 
 const sectionName = 'extentOfForest'
 const mapIndexed = R.addIndex(R.map)
@@ -22,20 +22,41 @@ const ExtentOfForest = (props) => {
 
   const i18n = props.i18n
 
+  const getFaostatValue = year => R.path(['faoStat', year, 'area'], props)
+
   const totalAreaNotEqualToFaoStat = (fraColumn, totalArea) => {
-    const faoStatValue = R.path([props.countryIso, 'faoStat', fraColumn.name], countryConfig)
+    const faoStatValue = getFaostatValue(fraColumn.name)
     if (!faoStatValue) return false // It's normal that we don't have faoStat-values for years
     if (R.isNil(totalArea)) return false
-    return !eq(faoStatValue, totalArea)
+    const tolerance = 1
+    const absDifference = abs(sub(faoStatValue, totalArea))
+    return greaterThanOrEqualTo(absDifference, tolerance)
+  }
+
+  const otherLandValidator = (fraColumn, field) => {
+    if (field && R.isNil(fraColumn[field])) return true
+    const subCategorySum =sum([
+      fraColumn.otherLandPalms,
+      fraColumn.otherLandTreeOrchards,
+      fraColumn.otherLandAgroforestry,
+      fraColumn.otherLandTreesUrbanSettings
+    ])
+    const otherLand = fraColumn.otherLand
+    if (R.isNil(subCategorySum) || R.isNil(otherLand)) return true
+    const tolerance = -1
+    const difference = sub(otherLand, subCategorySum)
+    return greaterThan(difference, tolerance)
   }
 
   const totalAreaValidationClass = (fraColumn, totalArea) =>
     totalAreaNotEqualToFaoStat(fraColumn, totalArea) ? 'validation-error' : ''
 
+  const rowHighlightClass = (target) => props.openCommentThread && R.isEmpty(R.difference(props.openCommentThread.target, [target])) ? 'fra-row-comments__open' : ''
+
   const totalAreaRow = fra =>
-    <tr key="totalArea">
+    <tr className={rowHighlightClass('totalArea')}>
       <th className="fra-table__header-cell-left">
-        {props.i18n.t('extentOfForest.totalLandArea')}
+        {i18n.t('extentOfForest.totalLandArea')} (a+b+c)
       </th>
       {
         mapIndexed((fraColumn, i) => {
@@ -45,19 +66,39 @@ const ExtentOfForest = (props) => {
           </td>
         }, R.values(fra))
       }
+      <td className="fra-table__row-anchor-cell">
+        <div className="fra-table__review-indicator-anchor">
+          <ReviewIndicator
+            key="totalArea"
+            section={sectionName}
+            title={i18n.t('extentOfForest.totalLandArea')}
+            target={['totalArea']}
+            countryIso={props.countryIso} />
+        </div>
+      </td>
     </tr>
 
   const faoStatRow = fra =>
-    <tr key="faoStat">
+    <tr className={rowHighlightClass('faoStat')}>
       <th className="fra-table__header-cell-left">{props.i18n.t('extentOfForest.faoStatLandArea')}</th>
       {
         mapIndexed((faoStatColumn, i) => {
-          const faoStatLandArea = R.path([props.countryIso, 'faoStat', faoStatColumn.name], countryConfig)
+          const faoStatLandArea = getFaostatValue(faoStatColumn.name)
           return <td className={odpValueCellClass(faoStatColumn)} key={i}>
             {formatNumber(faoStatLandArea)}
           </td>
         }, R.values(fra))
       }
+      <td className="fra-table__row-anchor-cell">
+        <div className="fra-table__review-indicator-anchor">
+          <ReviewIndicator
+            key="faoStat"
+            section={sectionName}
+            title={i18n.t('extentOfForest.faoStatLandArea')}
+            target={['faoStat']}
+            countryIso={props.countryIso} />
+        </div>
+      </td>
     </tr>
 
   const validationErrorMessages = fra =>
@@ -78,62 +119,52 @@ const ExtentOfForest = (props) => {
       return validationErrors
     },R.values(fra))
 
-  const otherLandValidator = (fraColumn, field) => {
-    if (field && R.isNil(fraColumn[field])) return true
-    const subCategorySum =sum([
-      fraColumn.otherLandPalms,
-      fraColumn.otherLandTreeOrchards,
-      fraColumn.otherLandAgroforestry,
-      fraColumn.otherLandTreesUrbanSettings
-    ])
-    const otherLand = fraColumn.otherLand
-    if (R.isNil(subCategorySum) || R.isNil(otherLand)) return true
-    return greaterThanOrEqualTo(fraColumn.otherLand, subCategorySum)
-  }
-
   const eofRows = [
     {
       type: 'field',
       field: 'forestArea',
-      localizedName: i18n.t('extentOfForest.forestArea')
+      rowHeader: i18n.t('extentOfForest.forestArea'),
+      rowVariable: '(a)'
     },
     {
       type: 'field',
       field: 'otherWoodedLand',
-      localizedName: i18n.t('fraClass.otherWoodedLand')
+      rowHeader: i18n.t('fraClass.otherWoodedLand'),
+      rowVariable: '(b)'
     },
     {
       type: 'field',
       field: 'otherLand',
-      localizedName: i18n.t('fraClass.otherLand')
+      rowHeader: i18n.t('fraClass.otherLand'),
+      rowVariable: '(c)'
     },
     {
       type: 'field',
       field: 'otherLandPalms',
       validator: otherLandValidator,
       className: 'fra-table__subcategory-cell',
-      localizedName: i18n.t('extentOfForest.ofWhichPalms')
+      rowHeader: i18n.t('extentOfForest.ofWhichPalms')
     },
     {
       type: 'field',
       field: 'otherLandTreeOrchards',
       validator: otherLandValidator,
       className: 'fra-table__subcategory-cell',
-      localizedName: i18n.t('extentOfForest.ofWhichTreeOrchards')
+      rowHeader: i18n.t('extentOfForest.ofWhichTreeOrchards')
     },
     {
       type: 'field',
       field: 'otherLandAgroforestry',
       validator: otherLandValidator,
       className: 'fra-table__subcategory-cell',
-      localizedName: i18n.t('extentOfForest.ofWhichAgroforestry')
+      rowHeader: i18n.t('extentOfForest.ofWhichAgroforestry')
     },
     {
       type: 'field',
       field: 'otherLandTreesUrbanSettings',
       validator: otherLandValidator,
       className: 'fra-table__subcategory-cell',
-      localizedName: i18n.t('extentOfForest.ofWhichTreesUrbanSettings')
+      rowHeader: i18n.t('extentOfForest.ofWhichTreesUrbanSettings')
     },
     {
       type: 'custom',
@@ -149,10 +180,48 @@ const ExtentOfForest = (props) => {
     }
   ]
 
+
+  const generateFraValues = (generateMethod) => {
+    const generateAnnualChange = () => {
+      const valuesRaw = window.prompt('Annual change rate', '-0.1 0.1')
+      const [ratePast, rateFuture] = valuesRaw.split(' ')
+      if (
+        isNaN(ratePast) ||
+        isNaN(rateFuture) ||
+        ratePast === ' ' ||
+        rateFuture === ' '
+      ) { return }
+      props.generateFraValues(
+        'extentOfForest',
+        props.countryIso,
+        {
+          method:
+          generateMethod,
+          ratePast,
+          rateFuture
+        }
+      )
+    }
+    const generate = () => {
+      if (generateMethod === 'annualChange') {
+        generateAnnualChange()
+      } else {
+        props.generateFraValues('extentOfForest', props.countryIso, {method: generateMethod})
+      }
+    }
+    if (hasFraValues(props.fra, eofRows)) {
+      if (window.confirm(i18n.t('extentOfForest.confirmGenerateFraValues'))) {
+        generate()
+      }
+    } else {
+      generate()
+    }
+  }
+
   return <div className='fra-view__content'>
     <div className="fra-view__page-header">
-      <h1 className="title">{i18n.t('extentOfForest.estimationAndForecasting')}</h1>
-      <Link className="btn btn-primary align-right" to={`/country/${props.countryIso}/odp`}>
+      <h1 className="title align-left">{i18n.t('extentOfForest.estimationAndForecasting')}</h1>
+      <Link className="btn btn-primary" to={`/country/${props.countryIso}/odp`}>
         <Icon className="icon-sub icon-white" name="small-add"/>
         {i18n.t('nationalDataPoint.addNationalDataPoint')}
       </Link>
@@ -166,32 +235,22 @@ const ExtentOfForest = (props) => {
       <DefinitionLink document="tad" anchor="1a" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
       <DefinitionLink document="faq" anchor="1a" title={i18n.t('definition.faqLabel')} lang={i18n.language}
                       className="align-left"/>
-      <button
-        disabled={disableGenerateFraValues(props.fra, props.generatingFraValues)}
-        className="btn btn-primary"
-        onClick={() => hasFraValues(props.fra, eofRows)
-          ? window.confirm(i18n.t('extentOfForest.confirmGenerateFraValues'))
-            ? props.generateFraValues('extentOfForest', props.countryIso)
-            : null
-          : props.generateFraValues('extentOfForest', props.countryIso)
-      }>
-        {i18n.t('extentOfForest.generateFraValues')}
-      </button>
+      <GenerateFraValuesControl section={sectionName} rows={eofRows} {...props} />
       {
-        !disableGenerateFraValues(props.fra, props.generatingFraValues) && props.odpDirty
+        props.odpDirty
           ? <div className="support-text">
-              <Icon name="alert" className="icon-orange icon-sub icon-margin-right"/>
-              {i18n.t('nationalDataPoint.remindDirtyOdp')}
-            </div>
+          <Icon name="alert" className="icon-orange icon-sub icon-margin-right"/>
+          {i18n.t('nationalDataPoint.remindDirtyOdp')}
+        </div>
           : null
       }
     </div>
     <TableWithOdp
-               section={sectionName}
-               rows={eofRows}
-               areaUnitLabel={props.i18n.t('extentOfForest.areaUnitLabel')}
-               categoryHeader={props.i18n.t('extentOfForest.categoryHeader')}
-               {...props}/>
+      section={sectionName}
+      rows={eofRows}
+      tableHeader={props.i18n.t('extentOfForest.areaUnitLabel')}
+      categoryHeader={props.i18n.t('extentOfForest.categoryHeader')}
+      {...props}/>
     <CommentableDescriptions
       section={sectionName}
       name={sectionName}
@@ -223,6 +282,7 @@ const mapStateToProps = state =>
   ({
     ...state.extentOfForest,
     openCommentThread: state.review.openThread,
+    faoStat: R.path(['country', 'config', 'faoStat'], state),
     i18n: state.user.i18n
   })
 
