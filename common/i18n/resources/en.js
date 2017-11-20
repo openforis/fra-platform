@@ -590,6 +590,15 @@ The FRA team
     notSelected: ''
   },
 
+  assessment: {
+    statusChangeNotification:
+      {
+        subject: 'Assessment {{assessment}} status changed to {{status}} for country {{country}}',
+        textMessage: 'Assessment {{assessment}} status changed to {{status}} for country {{country}}',
+        htmlMessage: `Assessment <b>{{assessment}}</b> status changed to <b>{{status}}</b> for country <b>{{country}}</b>`
+      }
+  },
+
   multiSelect: {
     placeholder: 'Choose…'
   },

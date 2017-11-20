@@ -2,6 +2,7 @@ const db = require('../db/db')
 const repository = require('./assessmentRepository')
 const {sendErr} = require('../utils/requestUtils')
 const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
+const {sendAssessmentNotification} = require('./sendAssessmentNotification')
 
 module.exports.init = app => {
   app.post('/assessment/:countryIso', (req, res) => {
@@ -15,6 +16,7 @@ module.exports.init = app => {
           assessment
         ]
       )
+      .then(() => sendAssessmentNotification(req.params.countryIso, assessment, req.user))
       .then(() => res.json({}))
       .catch(err => sendErr(res, err))
   })

@@ -1,6 +1,6 @@
 const nodemailer = require('nodemailer')
 
-const {getCountryName} = require('../../common/country')
+const { getCountryName } = require('../../common/country')
 const { createI18nPromise } = require('../../common/i18n/i18nFactory')
 const { sendMail } = require('../email/sendMail')
 
