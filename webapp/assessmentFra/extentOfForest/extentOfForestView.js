@@ -180,44 +180,6 @@ const ExtentOfForest = (props) => {
     }
   ]
 
-
-  const generateFraValues = (generateMethod) => {
-    const generateAnnualChange = () => {
-      const valuesRaw = window.prompt('Annual change rate', '-0.1 0.1')
-      const [ratePast, rateFuture] = valuesRaw.split(' ')
-      if (
-        isNaN(ratePast) ||
-        isNaN(rateFuture) ||
-        ratePast === ' ' ||
-        rateFuture === ' '
-      ) { return }
-      props.generateFraValues(
-        'extentOfForest',
-        props.countryIso,
-        {
-          method:
-          generateMethod,
-          ratePast,
-          rateFuture
-        }
-      )
-    }
-    const generate = () => {
-      if (generateMethod === 'annualChange') {
-        generateAnnualChange()
-      } else {
-        props.generateFraValues('extentOfForest', props.countryIso, {method: generateMethod})
-      }
-    }
-    if (hasFraValues(props.fra, eofRows)) {
-      if (window.confirm(i18n.t('extentOfForest.confirmGenerateFraValues'))) {
-        generate()
-      }
-    } else {
-      generate()
-    }
-  }
-
   return <div className='fra-view__content'>
     <div className="fra-view__page-header">
       <h1 className="title align-left">{i18n.t('extentOfForest.estimationAndForecasting')}</h1>
