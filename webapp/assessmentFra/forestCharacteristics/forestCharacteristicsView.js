@@ -175,7 +175,7 @@ const ForestCharacteristics = props => {
     clipboard.write(dataTransfer)
   }
 
-  const rows = [
+  const focRows = [
     {
       type: 'field',
       field: 'naturalForestArea',
@@ -250,12 +250,12 @@ const ForestCharacteristics = props => {
       <DefinitionLink document="faq" anchor="1b" title={i18n.t('definition.faqLabel')} lang={i18n.language} className="align-left"/>
       {
         props.useOriginalDataPoints
-          ? <GenerateFraValuesControl section={sectionName} rows={rows} {...props} />
+          ? <GenerateFraValuesControl section={sectionName} rows={focRows} {...props} />
           : null
       }
       <button
         className="btn-s btn-secondary"
-        onClick={() => copyTableAsHtml(props.fra, rows)}>
+        onClick={() => copyTableAsHtml(props.fra, focRows)}>
          {i18n.t('forestCharacteristics.copyToClipboard')}
       </button>
       {
@@ -269,7 +269,7 @@ const ForestCharacteristics = props => {
     </div>
     <TableWithOdp
       section={sectionName}
-      rows={rows}
+      rows={focRows}
       tableHeader={i18n.t('forestCharacteristics.areaUnitLabel')}
       categoryHeader={i18n.t('forestCharacteristics.categoryHeader')}
       {...props}
