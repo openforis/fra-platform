@@ -223,14 +223,13 @@ const ForestCharacteristics = props => {
       <button
         className="btn btn-primary"
         onClick={() => {
-          console.log('user orig datapoints', props.useOriginalDataPoints)
           props.saveCountryConfigSetting(props.countryIso, 'useOriginalDataPoints', !props.useOriginalDataPoints)
         }}
       >
         {
           props.useOriginalDataPoints
             ? "Don't use national data points"
-            : "Use National data points"
+            : "Use national data points"
         }
       </button>
     </div>
@@ -299,7 +298,7 @@ const mapStateToProps = state =>
     openCommentThread: state.review.openThread,
     i18n: state.user.i18n,
     extentOfForest: state.extentOfForest,
-    useOriginalDataPoints: R.path(['country', 'config', 'useOriginalDataPoints'], state) == 'true'
+    useOriginalDataPoints: !!R.path(['country', 'config', 'useOriginalDataPoints'], state)
   })
 
 export default connect(

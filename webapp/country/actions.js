@@ -28,10 +28,9 @@ export const getCountryConfig = countryIso => dispatch => {
 }
 
 export const saveCountryConfigSetting = (countryIso, key, value) => dispatch => {
-  console.log('save setting')
   dispatch(autosave.start)
-  dispatch({type: changeCountryConfigSetting, key: key, value: value})
-  axios.post(`/api/country/config/${countryIso}/${key}/${value}`)
+  dispatch({type: changeCountryConfigSetting, key, value})
+  axios.post(`/api/country/config/${countryIso}`, {key, value})
     .then(() => dispatch(autosave.complete))
     .catch((err) => dispatch(applicationError(err)))
 }

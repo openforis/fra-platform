@@ -46,14 +46,15 @@ module.exports.init = app => {
     ).catch(err => sendErr(res, err))
   })
 
-  app.post('/country/config/:countryIso/:configKey/:configValue', async (req, res) => {
+  // Changes one key/value pair
+  app.post('/country/config/:countryIso', async (req, res) => {
     checkCountryAccessFromReqParams(req)
     try {
       await db.transaction(countryRepository.saveDynamicConfigurationVariable,
         [
           req.params.countryIso,
-          req.params.configKey,
-          req.params.configValue
+          req.body.key,
+          req.body.value
         ]
       )
       res.json({})
