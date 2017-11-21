@@ -519,14 +519,14 @@ The FRA team
 
   forestPolicy: {
     forestPolicy: 'Policies, Legislation and national platform for stakeholder participation in forest policy',
-    categoryHeader: 'FRA categories',
+    categoryHeader: 'Indicate the excistence of',
     areaUnitLabel: 'Boolean (Yes/No)',
     national: 'National',
     subnational: 'Sub-national',
     policiesSFM: 'Policies supporting SFM',
     legislationsSFM: 'Legislations and regulations supporting SFM',
-    stakeholderParticipation: 'Is there a national platform that promotes or allows for stakeholder participation in forest policy development?',
-    existenceOfTraceabilitySystem: 'Existence of a traceability system for wood products'
+    stakeholderParticipation: 'National platform that promotes or allows for stakeholder participation in forest policy development',
+    existenceOfTraceabilitySystem: 'Traceability system for wood products'
   },
 
   areaOfPermanentForestEstate: {
