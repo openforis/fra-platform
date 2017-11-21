@@ -8,3 +8,5 @@ module.exports.sendErr = (res, err) => {
     res.status(500).json({error: 'Could not serve', err})
   }
 }
+
+module.exports.serverUrl = (req) => req.protocol + '://' + req.get('host')
