@@ -4,8 +4,12 @@ const faoStat = require('./faoStat')
 const countryConfig = require('../server/country/countryConfig')
 const fs = require('fs')
 
+const exampleUsage =
+  'node faostatUpdater.js exampleData/FAOSTAT_data_11-9-2017.csv /tmp/countryConfigWithUpdatedFaostat.json'
+
 if (process.argv.length < 4) {
   console.log(`Usage: ${process.argv[0]} <path of the faostat csv file> <path of the output file>`)
+  console.log(`example:\n${exampleUsage}`)
   process.exit()
 }
 
