@@ -9,9 +9,9 @@ import { getRelativeDate } from '../utils/relativeDate'
 import { Link } from './../reusableUiComponents/link'
 import Icon from '../reusableUiComponents/icon'
 import { follow } from './../router/actions'
-import { changeAssessment, navigationScroll } from './actions'
+import { changeAssessment, navigationScroll, toggleNavigationGroupCollapse } from './actions'
 import { getCountryList, fetchCountryOverviewStatus } from '../country/actions'
-import { fra2020Items } from './items'
+import { assessments } from './items'
 import { roleForCountry } from '../../common/countryRole'
 import { allowedToChangeRoles } from '../../common/userManagementAccessControl'
 import { isAdministrator } from '../../common/countryRole'
@@ -195,14 +195,32 @@ const NationalDataItem = ({path, countryIso, pathTemplate, secondaryPathTemplate
   </Link>
 }
 
-const SecondaryItemHeader = ({sectionNo, label}) => {
-  return <div className="nav__secondary-item-header">
-    <div className="nav__secondary-order">{sectionNo}</div>
-    <div className="nav__secondary-label">{label}</div>
+const SecondaryItemGroup = ({countryIso, item, getReviewStatus, i18n, toggleNavigationGroupCollapse, navigationGroupCollapseState}) => {
+  return <div className="nav__group">
+    <div className="nav__secondary-item-header" onClick={() => toggleNavigationGroupCollapse('fra2020', item.sectionNo)}>
+      <div className="nav__secondary-order">{item.sectionNo}</div>
+      <div className="nav__secondary-label">{i18n.t(item.label)}</div>
+    </div>
+    {
+      navigationGroupCollapseState.fra2020[item.sectionNo]
+      ? <div className="nav__group-children">
+          {
+            R.map(child =>
+              <SecondaryItem path={child.path}
+                key={child.label}
+                countryIso={countryIso}
+                status={getReviewStatus(child.section)}
+                i18n={i18n}
+                {...child} />
+            , item.children)
+          }
+        </div>
+      : null
+    }
   </div>
 }
 
-const SecondaryItem = ({path, countryIso, status, pathTemplate, tableNo, label}) => {
+const SecondaryItem = ({path, countryIso, status, pathTemplate, tableNo, label, i18n}) => {
   const route = new Route(pathTemplate)
   const linkTo = route.reverse({countryIso})
 
@@ -210,7 +228,7 @@ const SecondaryItem = ({path, countryIso, status, pathTemplate, tableNo, label})
     className={`nav__secondary-item ${R.equals(path, linkTo) ? 'selected' : ''}`}
               to={linkTo}>
     <div className='nav__secondary-order'>{tableNo}</div>
-    <div className='nav__secondary-label'>{label}</div>
+    <div className='nav__secondary-label'>{i18n.t(label)}</div>
     <div className="nav__secondary-status-content">
       <ReviewStatus status={status} />
     </div>
@@ -308,17 +326,16 @@ class Nav extends React.Component {
                          userInfo={userInfo}
                          i18n={i18n}/>
             {
-              fra2020Items(i18n).map(item =>
-                item.type === 'header'
-                  ? <SecondaryItemHeader key={item.label}
-                                         label={item.label}
-                                         sectionNo={item.sectionNo}/>
-                  : <SecondaryItem path={path}
-                                   key={item.label}
-                                   countryIso={country}
-                                   status={getReviewStatus(item.section)}
-                                   {...item} />
-              )
+              R.map(item =>
+                <SecondaryItemGroup
+                  key={item.label}
+                  countryIso={country}
+                  item={item}
+                  getReviewStatus={getReviewStatus}
+                  i18n={i18n}
+                  {...this.props}
+                  />
+              , assessments.fra2020)
             }
 
             <div className="nav__divider"/>
@@ -371,5 +388,6 @@ export default connect(mapStateToProps, {
   getCountryList,
   fetchCountryOverviewStatus,
   changeAssessment,
-  navigationScroll
+  navigationScroll,
+  toggleNavigationGroupCollapse
 })(NavigationSync)
