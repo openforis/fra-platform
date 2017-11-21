@@ -16,7 +16,11 @@ module.exports.init = app => {
           assessment
         ]
       )
-      .then(() => sendAssessmentNotification(req.params.countryIso, assessment, req.user, serverUrl(req)))
+      .then(isStatusChange => {
+        if (isStatusChange) {
+          sendAssessmentNotification(req.params.countryIso, assessment, req.user, serverUrl(req))
+        }
+      })
       .then(() => res.json({}))
       .catch(err => sendErr(res, err))
   })
