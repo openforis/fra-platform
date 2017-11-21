@@ -11,7 +11,7 @@ import ChartWrapper from './chart/chartWrapper'
 import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
 import { TableWithOdp, GenerateFraValuesControl } from '../../tableWithOdp/tableWithOdp'
 import { CommentableDescriptions } from '../../description/commentableDescription'
-import { sum, formatNumber, greaterThanOrEqualTo, abs, sub, greaterThan } from '../../../common/bignumberUtils'
+import { sum, formatNumber, greaterThanOrEqualTo, lessThanOrEqualTo, abs, sub, greaterThan } from '../../../common/bignumberUtils'
 import ReviewIndicator from '../../review/reviewIndicator'
 
 const sectionName = 'extentOfForest'
@@ -23,6 +23,7 @@ const ExtentOfForest = (props) => {
   const i18n = props.i18n
 
   const getFaostatValue = year => R.path(['faoStat', year, 'area'], props)
+  const getForestArea2015Value = year => R.path(['fra2015ForestAreas', year], props)
 
   const totalAreaNotEqualToFaoStat = (fraColumn, totalArea) => {
     const faoStatValue = getFaostatValue(fraColumn.name)
@@ -46,6 +47,14 @@ const ExtentOfForest = (props) => {
     const tolerance = -1
     const difference = sub(otherLand, subCategorySum)
     return greaterThan(difference, tolerance)
+  }
+
+  const forestAreaValidator = (fraColumn) => {
+    const forestAreaFromFra2015 = getForestArea2015Value(fraColumn.name)
+    if (R.isNil(forestAreaFromFra2015) || R.isNil(fraColumn.forestArea)) return true
+    const tolerance = 1
+    const absDifference = abs(sub(forestAreaFromFra2015, fraColumn.forestArea))
+    return lessThanOrEqualTo(absDifference, tolerance)
   }
 
   const totalAreaValidationClass = (fraColumn, totalArea) =>
@@ -108,6 +117,12 @@ const ExtentOfForest = (props) => {
         R.reject(
           R.isNil,
           [
+            !forestAreaValidator(fraColumn)
+              ? props.i18n.t(
+                'extentOfForest.forestAreaDoesNotMatchPreviouslyReported',
+                {previous: getForestArea2015Value(fraColumn.name)}
+              )
+              : null,
             !otherLandValidator(fraColumn)
               ? props.i18n.t('generalValidation.subCategoryExceedsParent')
               : null,
@@ -123,6 +138,7 @@ const ExtentOfForest = (props) => {
     {
       type: 'field',
       field: 'forestArea',
+      validator: forestAreaValidator,
       rowHeader: i18n.t('extentOfForest.forestArea'),
       rowVariable: '(a)'
     },
@@ -247,6 +263,7 @@ const mapStateToProps = state =>
     ...state.extentOfForest,
     openCommentThread: state.review.openThread,
     faoStat: R.path(['country', 'config', 'faoStat'], state),
+    fra2015ForestAreas: R.path(['country', 'config', 'fra2015ForestAreas'], state),
     i18n: state.user.i18n
   })
 
