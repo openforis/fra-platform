@@ -42,6 +42,7 @@ const update = async (faoStatCsvFile, outputFile) => {
     const merged = R.mergeDeepLeft(faoStatWithRepeatedYearsInTheFuture, countryConfig)
     fs.writeFileSync(outputFile, JSON.stringify(merged), 'utf8')
     console.log('Wrote merged values into: ', outputFile)
+    console.log('You should manually copy them over the countryConfig values')
   } catch (e) { console.log(e) }
 }
 
