@@ -39,18 +39,22 @@ class designatedManagementObjectiveView extends React.Component {
           <DefinitionLink document="faq" anchor="3a" title={i18n.t('definition.faqLabel')} lang={i18n.language}
                           className="align-left"/>
         </div>
-        <h3 className="subhead dmo__table-header">
-          {i18n.t('designatedManagementObjective.primaryDesignatedManagementObjective')}
-        </h3>
-        <p className="dmo__support-text">{i18n.t('designatedManagementObjective.primaryDesignatedManagementObjectiveSupport')}</p>
+        <div className="fra-view__section-header dmo__section-header">
+          <h3 className="subhead">
+            {i18n.t('designatedManagementObjective.primaryDesignatedManagementObjective')}
+          </h3>
+          <p className="support-text">{i18n.t('designatedManagementObjective.primaryDesignatedManagementObjectiveSupport')}</p>
+        </div>
         <TraditionalTable
           tableSpec={primaryDmoTableSpec}
           countryIso={countryIso}
           section={sectionName}/>
-        <h3 className="subhead dmo__table-header">
-          {i18n.t('designatedManagementObjective.totalAreaWithDesignatedManagementObjective')}
-        </h3>
-        <p className="dmo__support-text">{i18n.t('designatedManagementObjective.totalAreaWithDesignatedManagementObjectiveSupport')}</p>
+        <div className="fra-view__section-header dmo__section-header">
+          <h3 className="subhead">
+            {i18n.t('designatedManagementObjective.totalAreaWithDesignatedManagementObjective')}
+          </h3>
+          <p className="support-text">{i18n.t('designatedManagementObjective.totalAreaWithDesignatedManagementObjectiveSupport')}</p>
+        </div>
         <TraditionalTable
           tableSpec={totalDmoTableSpec}
           countryIso={countryIso}

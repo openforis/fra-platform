@@ -4,8 +4,12 @@ const faoStat = require('./faoStat')
 const countryConfig = require('../server/country/countryConfig')
 const fs = require('fs')
 
+const exampleUsage =
+  'node faostatUpdater.js exampleData/FAOSTAT_data_11-9-2017.csv /tmp/countryConfigWithUpdatedFaostat.json'
+
 if (process.argv.length < 4) {
   console.log(`Usage: ${process.argv[0]} <path of the faostat csv file> <path of the output file>`)
+  console.log(`example:\n${exampleUsage}`)
   process.exit()
 }
 
@@ -40,8 +44,9 @@ const update = async (faoStatCsvFile, outputFile) => {
     const faostatData = await faoStat.getFaostatValues(faoStatCsvFile)
     const faoStatWithRepeatedYearsInTheFuture = addFaostatValuesForYearsUntil2020(faostatData)
     const merged = R.mergeDeepLeft(faoStatWithRepeatedYearsInTheFuture, countryConfig)
-    fs.writeFileSync(outputFile, JSON.stringify(merged), 'utf8')
+    fs.writeFileSync(outputFile, JSON.stringify(merged, null, '  '), 'utf8')
     console.log('Wrote merged values into: ', outputFile)
+    console.log('You should manually copy them over the countryConfig values')
   } catch (e) { console.log(e) }
 }
 

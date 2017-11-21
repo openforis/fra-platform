@@ -8,7 +8,7 @@ import Icon from '../reusableUiComponents/icon'
 import LoggedInPageTemplate from '../app/loggedInPageTemplate'
 
 const TableRow = ({odp, i18n, countryIso, removeFromList}) => {
-  const odpUrl = `/country/${countryIso}/odp/${odp.odpId}`
+  const odpUrl = `/country/${countryIso}/odp/extentOfForest/${odp.odpId}`
   const navigateTo = (url) => window.location.href = '#' + url
 
   return <tr className="odp-list__link-row">
@@ -64,7 +64,7 @@ const ODPListing = ({countryIso, odps = [], i18n, userInfo, removeFromList}) => 
   return <div className="fra-view__content">
     <div className="fra-view__page-header">
       <h1 className="title">{i18n.t('nationalDataPoint.nationalData')}</h1>
-      <Link className="btn btn-primary" to={`/country/${countryIso}/odp`}>
+      <Link className="btn btn-primary" to={`/country/${countryIso}/odp/extentOfForest`}>
         <Icon className="icon-sub icon-white" name="small-add"/>
         {i18n.t('nationalDataPoint.addNationalDataPoint')}
       </Link>
