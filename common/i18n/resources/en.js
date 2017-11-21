@@ -346,7 +346,8 @@ The FRA team
     placeholderFuture: 'Future',
     placeholderPast: 'Past',
     clearTable: 'Clear table',
-    copyToClipboard: 'Copy values'
+    copyToClipboard: 'Copy values',
+    placeholderSelect: 'Choose…'
   },
 
   forestAreaChange: {

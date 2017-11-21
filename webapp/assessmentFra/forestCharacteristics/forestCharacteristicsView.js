@@ -223,11 +223,7 @@ const ForestCharacteristics = props => {
       <h3 className="subhead">{i18n.t('forestCharacteristics.forestCharacteristics')}</h3>
       <DefinitionLink document="tad" anchor="1b" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
       <DefinitionLink document="faq" anchor="1b" title={i18n.t('definition.faqLabel')} lang={i18n.language} className="align-left"/>
-      {
-        props.useOriginalDataPoints
-          ? <GenerateFraValuesControl section={sectionName} rows={focRows} {...props} />
-          : null
-      }
+      <GenerateFraValuesControl section={sectionName} rows={focRows} {...props} />
       {
         props.odpDirty
           ? <div className="support-text">

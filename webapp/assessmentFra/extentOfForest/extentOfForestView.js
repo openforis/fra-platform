@@ -199,7 +199,7 @@ const ExtentOfForest = (props) => {
       <h3 className="subhead">{i18n.t('extentOfForest.extentOfForest')}</h3>
       <DefinitionLink document="tad" anchor="1a" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
       <DefinitionLink document="faq" anchor="1a" title={i18n.t('definition.faqLabel')} lang={i18n.language} className="align-left"/>
-      <GenerateFraValuesControl section={sectionName} rows={eofRows} {...props} />
+      <GenerateFraValuesControl section={sectionName} rows={eofRows} useOriginalDataPoints={true} {...props} />
       {
         props.odpDirty
           ? <div className="support-text">

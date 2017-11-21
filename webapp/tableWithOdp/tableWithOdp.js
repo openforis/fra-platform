@@ -11,6 +11,7 @@ import ReviewIndicator from '../review/reviewIndicator'
 import { readPasteClipboard } from '../utils/copyPasteUtil'
 import { acceptNextDecimal} from '../utils/numberInput'
 import { formatNumber, toFixed } from '../../common/bignumberUtils'
+import { hasOdps } from '../assessmentFra/extentOfForest/extentOfForestHelper'
 
 const mapIndexed = R.addIndex(R.map)
 
@@ -57,6 +58,7 @@ export class TableWithOdp extends React.Component {
     dataTransfer.setData("text/html", htmlTable)
     clipboard.write(dataTransfer)
   }
+
 
   render () {
     const rows = this.props.rows
@@ -107,26 +109,32 @@ export class GenerateFraValuesControl extends React.Component {
       R.map(fieldName => [fieldName, {ratePast: '', rateFuture: ''}]),
       R.fromPairs
     )(valueFieldNames)
-    this.state = {generateMethod: 'linear', annualChangeRates}
+    this.state = {generateMethod: '', annualChangeRates}
   }
 
   render() {
-    const {i18n, fra, generatingFraValues, rows} = this.props
+    const {i18n, fra, generatingFraValues, rows, useOriginalDataPoints} = this.props
     const rateValidationClass = rate => this.validRate(rate) || R.isEmpty(rate) ? '' : 'validation-error'
     const rowHeaders = R.reject(R.isNil, R.pluck('rowHeader', rows))
     return <div className="table-with-odp__generate-control">
       <select
+        required
         className="select-s"
         value={this.state.generateMethod}
         onChange={evt => this.setState({...this.state, generateMethod: evt.target.value})}>
-        <option value="linear">{i18n.t('tableWithOdp.linearExtrapolation')}</option>
-        <option value="repeatLast">{i18n.t('tableWithOdp.repeatLastExtrapolation')}</option>
-        <option value="annualChange">{i18n.t('tableWithOdp.annualChangeExtrapolation')}</option>
-        <option disabled>---</option>
+        <option hidden value="">{i18n.t('tableWithOdp.placeholderSelect')}</option>
+        {
+          hasOdps(fra) && !!useOriginalDataPoints
+          ? [<option key="1" value="linear">{i18n.t('tableWithOdp.linearExtrapolation')}</option>,
+            <option key="2" value="repeatLast">{i18n.t('tableWithOdp.repeatLastExtrapolation')}</option>,
+            <option key="3" value="annualChange">{i18n.t('tableWithOdp.annualChangeExtrapolation')}</option>,
+            <option key="4" disabled>---</option>]
+          : null
+        }
         <option value="clearTable">{i18n.t('tableWithOdp.clearTable')}</option>
       </select>
       <button
-        className="btn-s btn-primary"
+        className={`btn-s ${this.state.generateMethod === 'clearTable' ? 'btn-destructive' : 'btn-primary'}`}
         disabled={this.disableGenerateFraValues(fra, generatingFraValues)}
         onClick={() => this.generateFraValues(this.state.generateMethod)}>
         {
@@ -172,6 +180,7 @@ export class GenerateFraValuesControl extends React.Component {
   }
 
   disableGenerateFraValues (fra, generatingFraValues) {
+    if (this.state.generateMethod === '') return true
     if (this.state.generateMethod === 'clearTable') return false
     if (this.state.generateMethod === 'annualChange' && !this.validRates()) return true
     const odps = R.pipe(
