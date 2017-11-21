@@ -113,28 +113,6 @@ module.exports.translation = {
   },
 
   navigation: {
-    annuallyUpdated: 'Annually updated',
-    fra2020: 'FRA 2020',
-    assessmentStatus: {
-      changing: {
-        label: 'Changing…'
-      },
-      review: {
-        label: 'In review',
-        next: 'Send to review',
-        previous: 'Return to review'
-      },
-      accepted: {
-        label: 'Accepted',
-        next: 'Accept',
-        previous: ''
-      },
-      editing: {
-        label: 'Editing',
-        previous: 'Return to editing'
-      }
-    },
-    assessmentDeskStudy: 'Desk study',
     support: {
       dontDelete: 'System information please don’t delete',
       sendFeedback: 'Send feedback',
@@ -590,6 +568,7 @@ The FRA team
 
   assessment: {
     fra2020: 'FRA 2020',
+    deskStudy: 'Desk study',
     statusChangeNotification:
       {
         subject: '{{country}} status changed to {{status}} on FRA Platform',
