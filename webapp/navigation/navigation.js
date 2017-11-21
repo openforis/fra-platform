@@ -195,44 +195,36 @@ const NationalDataItem = ({path, countryIso, pathTemplate, secondaryPathTemplate
   </Link>
 }
 
-const SecondaryItemGroup = ({countryIso, item, getReviewStatus, i18n, toggleNavigationGroupCollapse, navigationGroupCollapseState}) => {
+const SecondaryItemGroup = ({countryIso, item, getReviewStatus, path, assessment, i18n, toggleNavigationGroupCollapse, navigationGroupCollapseState}) => {
   return <div className="nav__group">
-    <div className="nav__secondary-item-header" onClick={() => toggleNavigationGroupCollapse('fra2020', item.sectionNo)}>
+    <div className="nav__secondary-item-header" onClick={() => toggleNavigationGroupCollapse(assessment, item.sectionNo)}>
       <div className="nav__secondary-order">{item.sectionNo}</div>
       <div className="nav__secondary-label">{i18n.t(item.label)}</div>
     </div>
     {
-      navigationGroupCollapseState.fra2020[item.sectionNo]
+      navigationGroupCollapseState[assessment][item.sectionNo]
       ? <div className="nav__group-children">
           {
-            R.map(child =>
-              <SecondaryItem path={child.path}
-                key={child.label}
-                countryIso={countryIso}
-                status={getReviewStatus(child.section)}
-                i18n={i18n}
-                {...child} />
+            R.map(child => {
+              const route = new Route(child.pathTemplate)
+              const linkTo = route.reverse({countryIso})
+
+              return <Link
+                className={`nav__secondary-item ${R.equals(path, linkTo) ? 'selected' : ''}`}
+                          to={linkTo}>
+                <div className='nav__secondary-order'>{child.tableNo}</div>
+                <div className='nav__secondary-label'>{i18n.t(child.label)}</div>
+                <div className="nav__secondary-status-content">
+                  <ReviewStatus status={getReviewStatus(child.section)} />
+                </div>
+              </Link>
+            }
             , item.children)
           }
         </div>
       : null
     }
   </div>
-}
-
-const SecondaryItem = ({path, countryIso, status, pathTemplate, tableNo, label, i18n}) => {
-  const route = new Route(pathTemplate)
-  const linkTo = route.reverse({countryIso})
-
-  return <Link
-    className={`nav__secondary-item ${R.equals(path, linkTo) ? 'selected' : ''}`}
-              to={linkTo}>
-    <div className='nav__secondary-order'>{tableNo}</div>
-    <div className='nav__secondary-label'>{i18n.t(label)}</div>
-    <div className="nav__secondary-status-content">
-      <ReviewStatus status={status} />
-    </div>
-  </Link>
 }
 
 const roleLabel = (countryIso, userInfo, i18n) => i18n.t(roleForCountry(countryIso, userInfo).labelKey)
@@ -332,6 +324,8 @@ class Nav extends React.Component {
                   countryIso={country}
                   item={item}
                   getReviewStatus={getReviewStatus}
+                  assessment="fra2020"
+                  path={path}
                   i18n={i18n}
                   {...this.props}
                   />
