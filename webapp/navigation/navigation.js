@@ -196,34 +196,31 @@ const NationalDataItem = ({path, countryIso, pathTemplate, secondaryPathTemplate
 }
 
 const SecondaryItemGroup = ({countryIso, item, getReviewStatus, path, assessment, i18n, toggleNavigationGroupCollapse, navigationGroupCollapseState}) => {
-  return <div className="nav__group">
+  return <div className="nav__group" key={item.sectionNo}>
     <div className="nav__secondary-item-header" onClick={() => toggleNavigationGroupCollapse(assessment, item.sectionNo)}>
       <div className="nav__secondary-order">{item.sectionNo}</div>
       <div className="nav__secondary-label">{i18n.t(item.label)}</div>
     </div>
-    {
-      navigationGroupCollapseState[assessment][item.sectionNo]
-      ? <div className="nav__group-children">
-          {
-            R.map(child => {
-              const route = new Route(child.pathTemplate)
-              const linkTo = route.reverse({countryIso})
+    <div className={navigationGroupCollapseState[assessment][item.sectionNo] ? 'nav__group-children--visible' : 'nav__group-children--hidden'}>
+      {
+        R.map(child => {
+          const route = new Route(child.pathTemplate)
+          const linkTo = route.reverse({countryIso})
 
-              return <Link
-                className={`nav__secondary-item ${R.equals(path, linkTo) ? 'selected' : ''}`}
-                          to={linkTo}>
-                <div className='nav__secondary-order'>{child.tableNo}</div>
-                <div className='nav__secondary-label'>{i18n.t(child.label)}</div>
-                <div className="nav__secondary-status-content">
-                  <ReviewStatus status={getReviewStatus(child.section)} />
-                </div>
-              </Link>
-            }
-            , item.children)
-          }
-        </div>
-      : null
-    }
+          return <Link
+            key={child.tableNo}
+            className={`nav__secondary-item ${R.equals(path, linkTo) ? 'selected' : ''}`}
+            to={linkTo}>
+              <div className='nav__secondary-order'>{child.tableNo}</div>
+              <div className='nav__secondary-label'>{i18n.t(child.label)}</div>
+              <div className="nav__secondary-status-content">
+                <ReviewStatus status={getReviewStatus(child.section)} />
+              </div>
+            </Link>
+        }
+        , item.children)
+      }
+    </div>
   </div>
 }
 

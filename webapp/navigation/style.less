@@ -346,6 +346,20 @@
   margin-top: 8px;
 }
 
+// Group
+
+.nav__group-children--hidden {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.15s ease-out;
+}
+
+.nav__group-children--visible {
+  max-height: 500px;
+  overflow: hidden;
+  transition: max-height 0.25s ease-out;
+}
+
 // Mixins
 
 .mixin-nav-primary-base() {
