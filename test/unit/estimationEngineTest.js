@@ -245,7 +245,14 @@ describe('estimationEngine', () => {
       fraYears,
       testOdpSet2,
       ['forestArea', 'otherWoodedLand'],
-      {method: 'annualChange', ratePast: -10, rateFuture: 20})
+      {
+        method: 'annualChange',
+        changeRates: {
+          forestArea: {ratePast: -10, rateFuture: 20},
+          otherWoodedLand: {ratePast: -10, rateFuture: 20}
+        }
+      }
+      )
     assert.deepEqual(
       [ { forestArea: '310.00', otherWoodedLand: '110.00', year: 1990 },
         { forestArea: '410.00', otherWoodedLand: '210.00', year: 2000 },
