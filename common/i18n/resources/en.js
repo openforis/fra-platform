@@ -539,7 +539,7 @@ The FRA team
   employment: {
     employment: 'Employment in forestry and logging',
     categoryHeader: 'FRA 2020 categories',
-    unitHeader: 'Full-time equivalents (FTE)',
+    unitHeader: 'Full-time equivalents (1000 FTE)',
     inForestry: 'Employment in forestry and logging',
     ofWhichFemale: '…of which female',
     ofWhichSilviculture: '…of which silviculture and other forestry activities',
