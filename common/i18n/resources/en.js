@@ -319,7 +319,7 @@ The FRA team
     totalLandArea: 'Total land area',
     faoStatLandArea: 'FAOSTAT land area',
     faoStatMismatch: "Doesn't match FAOSTAT land area",
-    forestAreaDoesNotMatchPreviouslyReported: "Forest area doesn't match fra2015 area"
+    forestAreaDoesNotMatchPreviouslyReported: "Forest area doesn't match FRA 2015 area: {{previous}}"
   },
 
   forestCharacteristics: {

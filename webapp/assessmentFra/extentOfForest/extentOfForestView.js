@@ -23,6 +23,7 @@ const ExtentOfForest = (props) => {
   const i18n = props.i18n
 
   const getFaostatValue = year => R.path(['faoStat', year, 'area'], props)
+  const getForestArea2015Value = year => R.path(['fra2015ForestAreas', year], props)
 
   const totalAreaNotEqualToFaoStat = (fraColumn, totalArea) => {
     const faoStatValue = getFaostatValue(fraColumn.name)
@@ -49,7 +50,7 @@ const ExtentOfForest = (props) => {
   }
 
   const forestAreaValidator = (fraColumn) => {
-    const forestAreaFromFra2015 = R.path(['fra2015ForestAreas', fraColumn.name], props)
+    const forestAreaFromFra2015 = getForestArea2015Value(fraColumn.name)
     if (R.isNil(forestAreaFromFra2015) || R.isNil(fraColumn.forestArea)) return true
     const tolerance = 1
     const absDifference = abs(sub(forestAreaFromFra2015, fraColumn.forestArea))
@@ -117,7 +118,10 @@ const ExtentOfForest = (props) => {
           R.isNil,
           [
             !forestAreaValidator(fraColumn)
-              ? props.i18n.t('extentOfForest.forestAreaDoesNotMatchPreviouslyReported')
+              ? props.i18n.t(
+                'extentOfForest.forestAreaDoesNotMatchPreviouslyReported',
+                {previous: getForestArea2015Value(fraColumn.name)}
+              )
               : null,
             !otherLandValidator(fraColumn)
               ? props.i18n.t('generalValidation.subCategoryExceedsParent')
