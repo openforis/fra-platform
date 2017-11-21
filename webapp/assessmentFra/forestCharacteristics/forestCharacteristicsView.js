@@ -1,14 +1,11 @@
 import React from 'react'
-import ReactDOMServer from 'react-dom/server'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
-import clipboard from 'clipboard-polyfill'
 import { Link } from '../../reusableUiComponents/link'
 import Icon from '../../reusableUiComponents/icon'
-
 import { fetchItem, save, saveMany, generateFraValues } from '../../tableWithOdp/actions'
 import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
-import { TableWithOdp, GenerateFraValuesControl, getFraValues } from '../../tableWithOdp/tableWithOdp'
+import { TableWithOdp, GenerateFraValuesControl } from '../../tableWithOdp/tableWithOdp'
 import ChartWrapper from '../extentOfForest/chart/chartWrapper'
 import { CommentableDescriptions } from '../../description/commentableDescription'
 import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
@@ -153,29 +150,7 @@ const ForestCharacteristics = props => {
       return validationErrors
     },R.values(fra))
 
-  const ClipboardTable = ({tableValues}) =>
-    <table>
-      <tbody>
-        {mapIndexed((row, i) =>
-          <tr key={i}>
-            {mapIndexed((value, i) =>
-              <td key={i}> {toFixed(value)} </td>
-            , row)}
-          </tr>
-        , tableValues)}
-      </tbody>
-    </table>
-
-  const copyTableAsHtml = (fra, rowsSpecs) => {
-    const transposedFraValues = R.transpose(getFraValues(fra, rowsSpecs))
-    const htmlTable = ReactDOMServer.renderToString(<ClipboardTable tableValues={transposedFraValues}/>)
-    const dataTransfer = new clipboard.DT()
-    dataTransfer.setData("text/plain", i18n.t('forestCharacteristics.forestCharacteristics'))
-    dataTransfer.setData("text/html", htmlTable)
-    clipboard.write(dataTransfer)
-  }
-
-  const rows = [
+  const focRows = [
     {
       type: 'field',
       field: 'naturalForestArea',
@@ -248,16 +223,7 @@ const ForestCharacteristics = props => {
       <h3 className="subhead">{i18n.t('forestCharacteristics.forestCharacteristics')}</h3>
       <DefinitionLink document="tad" anchor="1b" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
       <DefinitionLink document="faq" anchor="1b" title={i18n.t('definition.faqLabel')} lang={i18n.language} className="align-left"/>
-      {
-        props.useOriginalDataPoints
-          ? <GenerateFraValuesControl section={sectionName} rows={rows} {...props} />
-          : null
-      }
-      <button
-        className="btn-s btn-secondary"
-        onClick={() => copyTableAsHtml(props.fra, rows)}>
-         {i18n.t('forestCharacteristics.copyToClipboard')}
-      </button>
+      <GenerateFraValuesControl section={sectionName} rows={focRows} {...props} />
       {
         props.odpDirty
           ? <div className="support-text">
@@ -269,7 +235,7 @@ const ForestCharacteristics = props => {
     </div>
     <TableWithOdp
       section={sectionName}
-      rows={rows}
+      rows={focRows}
       tableHeader={i18n.t('forestCharacteristics.areaUnitLabel')}
       categoryHeader={i18n.t('forestCharacteristics.categoryHeader')}
       {...props}
