@@ -33,7 +33,7 @@ const update = async (previousFraFile, outputFile) => {
     )
     const previousFraValues = R.fromPairs(previousFraValuePairs)
     const merged = R.mergeDeepLeft(previousFraValues, countryConfig)
-    fs.writeFileSync(outputFile, JSON.stringify(merged), 'utf8')
+    fs.writeFileSync(outputFile, JSON.stringify(merged, null, '  '), 'utf8')
     console.log('Wrote merged values into: ', outputFile)
     console.log('You should manually copy them over the countryConfig values')
   } catch (e) { console.log(e) }
