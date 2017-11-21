@@ -4,8 +4,12 @@ const promise = require('bluebird')
 const fs = promise.promisifyAll(require('fs'))
 const csv = promise.promisifyAll(require('csv'))
 
+const exampleUsage =
+  'node previousFraValuesFrom2015Updater.js exampleData/fra-2015-forest-areas.csv /tmp/countryConfigUpdatedWithFra2015ForestAreas.json'
+
 if (process.argv.length < 4) {
   console.log(`Usage: ${process.argv[0]} <path of the previous fra values file> <path of the output file>`)
+  console.log(`example:\n${exampleUsage}`)
   process.exit()
 }
 
