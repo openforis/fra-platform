@@ -3,10 +3,10 @@ const uuidv4 = require('uuid/v4')
 
 const db = require('../db/db')
 const userRepository = require('./userRepository')
-const { sendErr } = require('../utils/requestUtils')
+const { sendErr, serverUrl } = require('../utils/requestUtils')
 const { AccessControlException } = require('../utils/accessControl')
 const { checkCountryAccessFromReqParams } = require('../utils/accessControl')
-const { sendMail } = require('./mailManager')
+const { sendInvitation } = require('./sendInvitation')
 const { allowedToChangeRoles } = require('../../common/userManagementAccessControl')
 
 const filterAllowedUsers = (countryIso, user, users) => {
@@ -44,7 +44,7 @@ module.exports.init = app => {
     if (!R.contains(userToBeChangedOrAdded.role, allowedRoles)) {
       throw new AccessControlException('error.access.roleChangeNotAllowed', {user: req.user.name, role: userToBeChangedOrAdded.role})
     }
-    const url = req.protocol + '://' + req.get('host')
+    const url = serverUrl(req)
     if (userToBeChangedOrAdded.id) {
       // update existing user
       db.transaction(userRepository.updateUser, [req.user, countryIso, userToBeChangedOrAdded])
@@ -52,12 +52,12 @@ module.exports.init = app => {
         .catch(err => sendErr(res, err))
     } else if (userToBeChangedOrAdded.invitationUuid) {
       db.transaction(userRepository.updateInvitation, [req.user, countryIso, userToBeChangedOrAdded])
-        .then(invitationUuid => sendMail(countryIso, {...userToBeChangedOrAdded, invitationUuid}, req.user, url))
+        .then(invitationUuid => sendInvitation(countryIso, {...userToBeChangedOrAdded, invitationUuid}, req.user, url))
         .then(() => res.json({}))
         .catch(err => sendErr(res, err))
     } else {
       db.transaction(userRepository.addInvitation, [req.user, countryIso, userToBeChangedOrAdded])
-        .then(invitationUuid => sendMail(countryIso, {...userToBeChangedOrAdded, invitationUuid}, req.user, url))
+        .then(invitationUuid => sendInvitation(countryIso, {...userToBeChangedOrAdded, invitationUuid}, req.user, url))
         .then(() => res.json({}))
         .catch(err => sendErr(res, err))
     }

@@ -107,7 +107,7 @@ const CountryRow = ({selectedCountry, country, i18n}) => {
       country.fra2020Assessment
         ? <span
         className="nav__country-list-item-secondary"><AssessmentStatus
-        status={country.fra2020Assessment}/>{i18n.t(`navigation.assessmentStatus.${country.fra2020Assessment}.label`)}</span>
+        status={country.fra2020Assessment}/>{i18n.t(`assessment.status.${country.fra2020Assessment}.label`)}</span>
         : null
     }
     <span className="nav__country-list-item-secondary">{getRelativeDate(country.lastEdit, i18n) || i18n.t('audit.notStarted')}</span>
@@ -126,7 +126,7 @@ const PrimaryItem = ({label, countryIso, assessmentType, assessments, changeAsse
   ]
   const allowedAssesmentStatuses = R.filter(R.prop('transition'), possibleAssesmentStatuses)
   const assessmentStatusItems = R.map(targetStatus => ({
-    content: i18n.t(`navigation.assessmentStatus.${targetStatus.transition}.${targetStatus.direction}`),
+    content: i18n.t(`assessment.status.${targetStatus.transition}.${targetStatus.direction}`),
     onClick: () => changeAssessment(countryIso, {...assessment, status: targetStatus.transition})
   }), allowedAssesmentStatuses)
   const deskStudyItems = [{
@@ -134,7 +134,7 @@ const PrimaryItem = ({label, countryIso, assessmentType, assessments, changeAsse
     }, {
       content: <div className="popover-control__checkbox-container">
         <span className={`popover-control__checkbox ${assessment.deskStudy ? 'checked' : ''}`}></span>
-        <span>{i18n.t('navigation.assessmentDeskStudy')}</span>
+        <span>{i18n.t('assessment.deskStudy')}</span>
       </div>,
       onClick: () => changeAssessment(countryIso, {...assessment, deskStudy: !assessment.deskStudy})
     }]
@@ -147,7 +147,7 @@ const PrimaryItem = ({label, countryIso, assessmentType, assessments, changeAsse
     <div className="nav__primary-label">{assessment.deskStudy ? label + ' (Desk study)' : label}</div>
     <PopoverControl items={allowedPopoverItems}>
       <div className={`nav__primary-assessment-status status-${currentAssessmentStatus} actionable-${!R.isEmpty(allowedPopoverItems)}`}>
-        <span>{i18n.t(`navigation.assessmentStatus.${currentAssessmentStatus}.label`)}</span>
+        <span>{i18n.t(`assessment.status.${currentAssessmentStatus}.label`)}</span>
         {
           !R.isEmpty(allowedPopoverItems)
           ? <Icon className="icon-white icon-middle" name="small-down"/>
@@ -300,7 +300,7 @@ class Nav extends React.Component {
 
             <div className="nav__divider"></div>
 
-            <PrimaryItem label={i18n.t('navigation.fra2020')}
+            <PrimaryItem label={i18n.t('assessment.fra2020')}
                          countryIso={country}
                          assessmentType="fra2020"
                          assessments={status.assessments}
