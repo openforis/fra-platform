@@ -318,7 +318,8 @@ The FRA team
     ofWhichTreesUrbanSettings: '…of which trees in urban settings',
     totalLandArea: 'Total land area',
     faoStatLandArea: 'FAOSTAT land area',
-    faoStatMismatch: "Doesn't match FAOSTAT land area"
+    faoStatMismatch: "Doesn't match FAOSTAT land area",
+    forestAreaDoesNotMatchPreviouslyReported: "Forest area doesn't match fra2015 area"
   },
 
   forestCharacteristics: {
