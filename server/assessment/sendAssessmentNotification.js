@@ -10,7 +10,7 @@ const createMail = (countryIso, assessment, user, loggedInUser, i18n, serverUrl)
     country,
     serverUrl,
     recipientName: user.name,
-    status: assessment.status,
+    status: i18n.t('assessment.status.' + assessment.status + '.label'),
     changer: loggedInUser.name,
     assessment: i18n.t('assessment.' + assessment.type)
   }

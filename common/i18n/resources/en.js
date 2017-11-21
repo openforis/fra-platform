@@ -592,23 +592,44 @@ The FRA team
     fra2020: 'FRA 2020',
     statusChangeNotification:
       {
-        subject: 'FRA Platform assessment {{assessment}} status changed to {{status}}',
+        subject: '{{country}} status changed to {{status}} on FRA Platform',
         textMessage: `Dear {{recipientName}},
 
-FRA Platform assessment {{assessment}} status was changed to {{status}} by {{changer}} for country {{country}}.
+{{changer}} changed the status of {{assessment}} to "{{status}}" for {{country}} on FRA Platform.
+
+Visit the platfrom at: {{- serverUrl}}
 
 The FRA team
 {{- serverUrl}}`,
         htmlMessage: `Dear {{recipientName}},
 <br/><br/>
-<a href="{{- serverUrl}}"><b>FRA Platform</b></a>
-assessment {{assessment}}
-status was changed to <b>{{status}}</b> by {{changer}} for country {{country}}.
+{{changer}} changed the status of {{assessment}} to "{{status}}" for {{country}} on FRA Platform.
+<br/><br/>
+<a href="{{- serverUrl}}"><b>Visit the platfrom</b></a>
 <br/><br/>
 The FRA team
 <br/>
 {{- serverUrl}}`
+      },
+    status: {
+      changing: {
+        label: 'Changing…'
+      },
+      review: {
+        label: 'In review',
+        next: 'Send to review',
+        previous: 'Return to review'
+      },
+      accepted: {
+        label: 'Accepted',
+        next: 'Accept',
+        previous: ''
+      },
+      editing: {
+        label: 'Editing',
+        previous: 'Return to editing'
       }
+    }
   },
 
   multiSelect: {
