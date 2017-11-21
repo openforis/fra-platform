@@ -31,8 +31,10 @@ class SingleTraditionalTableView extends React.Component {
       <div className="fra-view__content">
         <div className="fra-view__page-header">
           <h1 className="title">{i18n.t(headingLocalizationKey)}</h1>
-          <DefinitionLink document="tad" anchor={sectionAnchor ? sectionAnchor : tadAnchor} title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
-          <DefinitionLink document="faq" anchor={sectionAnchor ? sectionAnchor : faqAnchor} title={i18n.t('definition.faqLabel')} lang={i18n.language} className="align-left"/>
+          <div className="fra-view__header-secondary-content">
+            <DefinitionLink document="tad" anchor={sectionAnchor ? sectionAnchor : tadAnchor} title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
+            <DefinitionLink document="faq" anchor={sectionAnchor ? sectionAnchor : faqAnchor} title={i18n.t('definition.faqLabel')} lang={i18n.language}/>
+          </div>
         </div>
         <TraditionalTable tableSpec={tableSpecInstance} countryIso={match.params.countryIso}/>
         <CommentableDescriptions
