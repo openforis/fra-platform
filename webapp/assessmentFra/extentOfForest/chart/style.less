@@ -34,6 +34,8 @@
   overflow: hidden;
 }
 
+// Tooltip
+
 .chart__tooltip {
   line-height: 16px;
   font-weight: 400;
@@ -41,7 +43,7 @@
   background: @bgColorTooltip;
   border-radius: 2px;
   pointer-events: none;
-  font-size: 14px;
+  font-size: @font-xs;
   color: #fff;
   opacity: 0;
   text-align: center;
@@ -59,21 +61,16 @@
   border-color: @bgColorTooltip transparent transparent transparent;
 }
 
-.chart__tooltip-year {
+.chart__tooltip-heading {
+  text-align: left;
   color: #ccc;
-  font-size: 12px;
   margin-bottom: 4px;
 }
 
 .chart__tooltip-value-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: baseline;
-}
-
-.chart__tooltip-unit {
-  margin-left: 4px;
-  font-size: 12px;
 }
 
 .chart__tooltip-marker {
@@ -81,4 +78,21 @@
   height: 12px;
   margin-right: 8px;
   border-radius: 2px;
+  align-self: center;
+}
+
+.chart__tooltip-value {
+  font-size: @font-m;
+}
+
+.chart__tooltip-unit {
+  margin-left: 4px;
+}
+
+.chart__tooltip-methods {
+  margin-top: 8px;
+}
+
+.chart__tooltip-data-source {
+  text-align: left;
 }
