@@ -218,10 +218,12 @@ const ExtentOfForest = (props) => {
       <GenerateFraValuesControl section={sectionName} rows={eofRows} useOriginalDataPoints={true} {...props} />
       {
         props.odpDirty
-          ? <div className="support-text">
-          <Icon name="alert" className="icon-orange icon-sub icon-margin-right"/>
-          {i18n.t('nationalDataPoint.remindDirtyOdp')}
-        </div>
+          ? <div className="fra-view__header-secondary-content">
+              <p className="support-text">
+                <Icon name="alert" className="icon-orange icon-sub icon-margin-right"/>
+                {i18n.t('nationalDataPoint.remindDirtyOdp')}
+              </p>
+            </div>
           : null
       }
     </div>

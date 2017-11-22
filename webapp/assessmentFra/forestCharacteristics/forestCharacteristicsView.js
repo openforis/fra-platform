@@ -225,10 +225,12 @@ const ForestCharacteristics = props => {
       <DefinitionLink document="faq" anchor="1b" title={i18n.t('definition.faqLabel')} lang={i18n.language} className="align-left"/>
       <GenerateFraValuesControl section={sectionName} rows={focRows} {...props} />
       {
-        props.odpDirty
-          ? <div className="support-text">
-              <Icon name="alert" className="icon-orange icon-sub icon-margin-right"/>
-              {i18n.t('nationalDataPoint.remindDirtyOdp')}
+        props.odpDirty && props.useOriginalDataPoints
+          ? <div className="fra-view__header-secondary-content">
+              <p className="support-text">
+                <Icon name="alert" className="icon-orange icon-sub icon-margin-right"/>
+                {i18n.t('nationalDataPoint.remindDirtyOdp')}
+              </p>
             </div>
           : null
       }
