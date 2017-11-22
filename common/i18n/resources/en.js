@@ -326,7 +326,7 @@ The FRA team
     placeholderPast: 'Past',
     clearTable: 'Clear table',
     copyToClipboard: 'Copy values',
-    placeholderSelect: 'Choose…'
+    placeholderSelect: 'Extrapolation method…'
   },
 
   forestAreaChange: {
