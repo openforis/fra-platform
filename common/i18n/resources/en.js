@@ -363,8 +363,8 @@ The FRA team
     growingStock: 'Growing stock',
     supportText: 'Please make sure you have entered data in tables 1a & 1b before editing this table',
     categoryHeader: 'FRA categories',
-    avgTableHeader: 'Average growing stock (m³/ha)',
-    totalTableHeader: 'Total growing stock (million m³)',
+    avgTableHeader: 'Average growing stock m³/ha (o.b.)',
+    totalTableHeader: 'Total growing stock (million m³ o.b.)',
     naturallyRegeneratingForest: 'Naturally regenerating forest',
     plantedForest: 'Planted forest',
     ofWhichPlantationForest: '…of which plantation forest',
@@ -497,14 +497,14 @@ The FRA team
 
   forestPolicy: {
     forestPolicy: 'Policies, Legislation and national platform for stakeholder participation in forest policy',
-    categoryHeader: 'FRA categories',
+    categoryHeader: 'Indicate the excistence of',
     areaUnitLabel: 'Boolean (Yes/No)',
     national: 'National',
     subnational: 'Sub-national',
     policiesSFM: 'Policies supporting SFM',
     legislationsSFM: 'Legislations and regulations supporting SFM',
-    stakeholderParticipation: 'Is there a national platform that promotes or allows for stakeholder participation in forest policy development?',
-    existenceOfTraceabilitySystem: 'Existence of a traceability system for wood products'
+    stakeholderParticipation: 'National platform that promotes or allows for stakeholder participation in forest policy development',
+    existenceOfTraceabilitySystem: 'Traceability system for wood products'
   },
 
   areaOfPermanentForestEstate: {
@@ -517,7 +517,7 @@ The FRA team
   employment: {
     employment: 'Employment in forestry and logging',
     categoryHeader: 'FRA 2020 categories',
-    unitHeader: 'Full-time equivalents (FTE)',
+    unitHeader: 'Full-time equivalents (1000 FTE)',
     inForestry: 'Employment in forestry and logging',
     ofWhichFemale: '…of which female',
     ofWhichSilviculture: '…of which silviculture and other forestry activities',
@@ -622,6 +622,7 @@ The FRA team
   generalValidation: {
     subCategoryExceedsParent: 'Subcategory exceeds parent',
     forestAreaDoesNotMatchExtentOfForest: 'Doesn‘t match Total forest area',
-    forestAreaExceedsExtentOfForest: 'Exceeds Total forest area'
+    forestAreaExceedsExtentOfForest: 'Exceeds Total forest area',
+    valueMustBePositive: 'Value must be over zero'
   }
 }
