@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
+import { connect } from 'react-redux'
+import R from 'ramda'
 import * as d3 from 'd3'
 import d3Tip from 'd3-tip'
 import { formatNumber } from '../../../../../common/bignumberUtils'
@@ -61,6 +63,9 @@ class DataPoint extends Component {
   }
 
   htmlTooltip (d) {
+    const dataSourceMethodsPart = d.dataSourceMethods
+      ? R.join('', R.map(dataSourceMethod => `<div>${dataSourceMethod}</div>`, d.dataSourceMethods))
+      : ''
     const precision = Number.isInteger(d.value) ? 0 : 2
     return `
         <div class="chart__tooltip-year">${d.year}</div>
@@ -69,6 +74,7 @@ class DataPoint extends Component {
             <div class="chart__tooltip-value">${formatNumber(d.value, precision)}</div>
             <div class="chart__tooltip-unit">(1000 ha)</div>
         </div>
+        ${dataSourceMethodsPart}
     `
   }
 
@@ -94,4 +100,6 @@ class DataPoint extends Component {
 
 }
 
-export default DataPoint
+const mapStateToProps = state => ({i18n: state.user.i18n})
+
+export default connect(mapStateToProps)(DataPoint)
