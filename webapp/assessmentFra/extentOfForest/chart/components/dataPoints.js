@@ -63,13 +63,24 @@ class DataPoint extends Component {
   }
 
   htmlTooltip (d) {
+    const dataSourceMethodRows = (dataSourceMethods) =>
+      R.join('',
+        R.map(
+          dataSourceMethod =>
+            `<div class="chart__tooltip-data-source">${this.props.i18n.t('nationalDataPoint.dataSourceMethodsOptions.' + dataSourceMethod)}</div>`,
+          dataSourceMethods
+        )
+      )
+
     const dataSourceMethodsPart = d.dataSourceMethods
-      ? R.join('', R.map(dataSourceMethod =>
-        `<div>${this.props.i18n.t('nationalDataPoint.dataSourceMethodsOptions.' + dataSourceMethod)}</div>`, d.dataSourceMethods))
+      ? `
+          <div class="chart__tooltip-heading chart__tooltip-methods-heading">METHODS</div>
+          ${dataSourceMethodRows(d.dataSourceMethods)}
+        `
       : ''
     const precision = Number.isInteger(d.value) ? 0 : 2
     return `
-        <div class="chart__tooltip-year">${d.year}</div>
+        <div class="chart__tooltip-heading">${d.year}</div>
         <div class="chart__tooltip-value-container">
             <div class="chart__tooltip-marker" style="background-color: ${d.type === 'fra' ? '#ffffff' : this.props.color}"></div>
             <div class="chart__tooltip-value">${formatNumber(d.value, precision)}</div>

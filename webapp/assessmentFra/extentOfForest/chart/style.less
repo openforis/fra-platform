@@ -59,15 +59,20 @@
   border-color: @bgColorTooltip transparent transparent transparent;
 }
 
-.chart__tooltip-year {
+.chart__tooltip-heading {
+  text-align: left;
   color: #ccc;
   font-size: 12px;
   margin-bottom: 4px;
 }
 
+.chart__tooltip-methods-heading {
+  margin-top: 6px;
+}
+
 .chart__tooltip-value-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: baseline;
 }
 
@@ -81,4 +86,9 @@
   height: 12px;
   margin-right: 8px;
   border-radius: 2px;
+}
+
+.chart__tooltip-data-source {
+  text-align: left;
+  font-size: 12px;
 }
