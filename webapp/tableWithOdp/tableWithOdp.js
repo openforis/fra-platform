@@ -118,17 +118,18 @@ export class GenerateFraValuesControl extends React.Component {
     const rowHeaders = R.reject(R.isNil, R.pluck('rowHeader', rows))
     return <div className="table-with-odp__generate-control">
       <select
-        required
         className="select-s"
         value={this.state.generateMethod}
         onChange={evt => this.setState({...this.state, generateMethod: evt.target.value})}>
         <option hidden value="">{i18n.t('tableWithOdp.placeholderSelect')}</option>
         {
           hasOdps(fra) && !!useOriginalDataPoints
-          ? [<option key="1" value="linear">{i18n.t('tableWithOdp.linearExtrapolation')}</option>,
-            <option key="2" value="repeatLast">{i18n.t('tableWithOdp.repeatLastExtrapolation')}</option>,
-            <option key="3" value="annualChange">{i18n.t('tableWithOdp.annualChangeExtrapolation')}</option>,
-            <option key="4" disabled>---</option>]
+          ? [
+              <option key="linear" value="linear">{i18n.t('tableWithOdp.linearExtrapolation')}</option>,
+              <option key="repeatLast" value="repeatLast">{i18n.t('tableWithOdp.repeatLastExtrapolation')}</option>,
+              <option key="annualChange" value="annualChange">{i18n.t('tableWithOdp.annualChangeExtrapolation')}</option>,
+              <option key="divider" disabled>---</option>
+            ]
           : null
         }
         <option value="clearTable">{i18n.t('tableWithOdp.clearTable')}</option>

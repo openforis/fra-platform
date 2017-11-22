@@ -66,7 +66,6 @@ const OdpViewContent = ({match, saveDraft, markAsActual, remove, odp, autoSaving
       <h3 className="subhead">{i18n.t('nationalDataPoint.referenceYearData')}</h3>
       <div className={`odp__year-selection ${yearValidationStatusClass()}`}>
         <select
-          required
           className="select validation-error-sensitive-field"
           value={odp.year || ''}
           onChange={

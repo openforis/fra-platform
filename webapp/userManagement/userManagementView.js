@@ -72,12 +72,16 @@ const UserRoleSelectCol = ({
   {
     editing
       ? <div className="user-list__input-container validation-error-sensitive-field">
-          <select required
-                  className="fra-table__select"
-                  value={user.role}
-                  onChange={e => updateUser(countryIso, user.id, 'role', e.target.value)}
-                  disabled={user.saving}>
-            {user.role === '' ? <option value="" hidden>{i18n.t('userManagement.role')}</option> : null}
+          <select
+            className="fra-table__select"
+            value={user.role}
+            onChange={e => updateUser(countryIso, user.id, 'role', e.target.value)}
+            disabled={user.saving}>
+            {
+              user.role === ''
+                ? <option value="" hidden>{i18n.t('userManagement.role')}</option>
+                : null
+            }
             { roleOptions(allowedRoles, i18n) }
           </select>
         </div>
