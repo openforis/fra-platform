@@ -64,7 +64,8 @@ class DataPoint extends Component {
 
   htmlTooltip (d) {
     const dataSourceMethodsPart = d.dataSourceMethods
-      ? R.join('', R.map(dataSourceMethod => `<div>${dataSourceMethod}</div>`, d.dataSourceMethods))
+      ? R.join('', R.map(dataSourceMethod =>
+        `<div>${this.props.i18n.t('nationalDataPoint.dataSourceMethodsOptions.' + dataSourceMethod)}</div>`, d.dataSourceMethods))
       : ''
     const precision = Number.isInteger(d.value) ? 0 : 2
     return `
