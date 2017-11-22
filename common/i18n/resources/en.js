@@ -620,6 +620,7 @@ The FRA team
   generalValidation: {
     subCategoryExceedsParent: 'Subcategory exceeds parent',
     forestAreaDoesNotMatchExtentOfForest: 'Doesn‘t match Total forest area',
-    forestAreaExceedsExtentOfForest: 'Exceeds Total forest area'
+    forestAreaExceedsExtentOfForest: 'Exceeds Total forest area',
+    valueMustBePositive: 'Value must be over zero'
   }
 }
