@@ -154,10 +154,10 @@ const NationalData = ({path, countryIso, pathTemplate, secondaryPathTemplate, st
   </Link>
 }
 
-const Assessment = ({label, countryIso, assessmentType, assessments, changeAssessment, userInfo, i18n}) => {
-  const assessment = R.path([assessmentType], assessments)
-  if (!countryIso || !userInfo || !assessment) return null
-  const currentAssessmentStatus = assessment.status
+const Assessment = ({assessment, countryIso, status, changeAssessment, userInfo, sections, i18n, ...props}) => {
+  const currentAssessment = R.path([assessment], status)
+  if (!countryIso || !userInfo || !currentAssessment) return null
+  const currentAssessmentStatus = currentAssessment.status
   const assesmentIsChanging = currentAssessmentStatus === 'changing'
   const allowedTransitions = getAllowedStatusTransitions(roleForCountry(countryIso, userInfo), currentAssessmentStatus)
   const possibleAssesmentStatuses = [
@@ -167,25 +167,33 @@ const Assessment = ({label, countryIso, assessmentType, assessments, changeAsses
   const allowedAssesmentStatuses = R.filter(R.prop('transition'), possibleAssesmentStatuses)
   const assessmentStatusItems = R.map(targetStatus => ({
     content: i18n.t(`assessment.status.${targetStatus.transition}.${targetStatus.direction}`),
-    onClick: () => changeAssessment(countryIso, {...assessment, status: targetStatus.transition})
+    onClick: () => changeAssessment(countryIso, {...currentAssessment, status: targetStatus.transition})
   }), allowedAssesmentStatuses)
   const deskStudyItems = [{
       divider: true
     }, {
       content: <div className="popover-control__checkbox-container">
-        <span className={`popover-control__checkbox ${assessment.deskStudy ? 'checked' : ''}`}></span>
+        <span className={`popover-control__checkbox ${currentAssessment.deskStudy ? 'checked' : ''}`}></span>
         <span>{i18n.t('assessment.deskStudy')}</span>
       </div>,
-      onClick: () => changeAssessment(countryIso, {...assessment, deskStudy: !assessment.deskStudy})
+      onClick: () => changeAssessment(countryIso, {...currentAssessment, deskStudy: !currentAssessment.deskStudy})
     }]
   const popoverItems = isAdministrator(userInfo)
     ? R.flatten(R.append(deskStudyItems, assessmentStatusItems))
     : assessmentStatusItems
   const allowedPopoverItems = !assesmentIsChanging ? popoverItems : []
 
+  console.log(assessment, sections)
+
   return <div className="nav__assessment">
     <div className="nav__primary-item">
-      <div className="nav__primary-label">{assessment.deskStudy ? label + ' (Desk study)' : label}</div>
+      <div className="nav__primary-label">
+      {
+        currentAssessment.deskStudy
+          ? i18n.t('assessment.' + assessment) + ' (' + i18n.t('assessment.deskStudy') + ')'
+          : i18n.t('assessment.' + assessment)
+      }
+      </div>
       <PopoverControl items={allowedPopoverItems}>
         <div className={`nav__primary-assessment-status status-${currentAssessmentStatus} actionable-${!R.isEmpty(allowedPopoverItems)}`}>
           <span>{i18n.t(`assessment.status.${currentAssessmentStatus}.label`)}</span>
@@ -197,16 +205,28 @@ const Assessment = ({label, countryIso, assessmentType, assessments, changeAsses
         </div>
       </PopoverControl>
     </div>
+    {
+      R.map(item =>
+        <AssesmentSection
+          key={item.label}
+          countryIso={countryIso}
+          item={item}
+          assessment={assessment}
+          i18n={i18n}
+          {...props}
+          />
+      , sections)
+    }
   </div>
 }
 
-const AssesmentSection = ({countryIso, item, getReviewStatus, path, assessment, i18n, toggleNavigationGroupCollapse, navigationGroupCollapseState}) => {
+const AssesmentSection = ({countryIso, item, assessment, i18n, ...props}) => {
   return <div className="nav__group" key={item.sectionNo}>
-    <div className="nav__secondary-item-header" onClick={() => toggleNavigationGroupCollapse(assessment, item.sectionNo)}>
+    <div className="nav__secondary-item-header" onClick={() => props.toggleNavigationGroupCollapse(assessment, item.sectionNo)}>
       <div className="nav__secondary-order">{item.sectionNo}</div>
       <div className="nav__secondary-label">{i18n.t(item.label)}</div>
     </div>
-    <div className={navigationGroupCollapseState[assessment][item.sectionNo] ? 'nav__group-children--visible' : 'nav__group-children--hidden'}>
+    <div className={props.navigationGroupCollapseState[assessment][item.sectionNo] ? 'nav__group-children--visible' : 'nav__group-children--hidden'}>
       {
         R.map(child => {
           const route = new Route(child.pathTemplate)
@@ -214,12 +234,12 @@ const AssesmentSection = ({countryIso, item, getReviewStatus, path, assessment, 
 
           return <Link
             key={child.tableNo}
-            className={`nav__secondary-item ${R.equals(path, linkTo) ? 'selected' : ''}`}
+            className={`nav__secondary-item ${R.equals(props.path, linkTo) ? 'selected' : ''}`}
             to={linkTo}>
               <div className='nav__secondary-order'>{child.tableNo}</div>
               <div className='nav__secondary-label'>{i18n.t(child.label)}</div>
               <div className="nav__secondary-status-content">
-                <ReviewStatus status={getReviewStatus(child.section)} />
+                <ReviewStatus status={props.getReviewStatus(child.section)} />
               </div>
             </Link>
         }
@@ -312,27 +332,20 @@ class Nav extends React.Component {
               secondaryPathTemplate="/country/:countryIso/odp"
               userInfo={userInfo}/>
             <div className="nav__divider"></div>
-            <Assessment
-              label={i18n.t('assessment.fra2020')}
-              countryIso={country}
-              assessmentType="fra2020"
-              assessments={status.assessments}
-              changeAssessment={changeAssessment}
-              userInfo={userInfo}
-              i18n={i18n}/>
-              {
-              R.map(item =>
-                <AssesmentSection
-                  key={item.label}
-                  countryIso={country}
-                  item={item}
-                  getReviewStatus={getReviewStatus}
-                  assessment="fra2020"
-                  path={path}
-                  i18n={i18n}
-                  {...this.props}
-                  />
-              , assessments.fra2020)
+            {
+              R.map(([assessment, sections]) =>
+              <Assessment
+                {...this.props}
+                key={assessment}
+                assessment={assessment}
+                countryIso={country}
+                status={status.assessments}
+                changeAssessment={changeAssessment}
+                userInfo={userInfo}
+                sections={sections}
+                getReviewStatus={getReviewStatus}
+                i18n={i18n}/>
+              , R.toPairs(assessments))
             }
             <div className="nav__divider"/>
             {
