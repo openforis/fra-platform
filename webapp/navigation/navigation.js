@@ -75,15 +75,14 @@ const CountryList = ({isOpen, countries, currentCountry, i18n}) => {
       {
         R.pipe(
           R.toPairs,
-          R.map(pair => <CountryRole key={pair[0]} role={pair[0]} roleCountries={pair[1]} currentCountry={currentCountry} i18n={i18n}  />
+          R.map(([role, countries]) =>
+            <CountryRole key={role} role={role} roleCountries={countries} currentCountry={currentCountry} i18n={i18n} />
           )
         )(countries)
       }
     </div>
   </div>
 }
-
-const AssessmentStatus = ({status}) => <div className={`status-${status}`} />
 
 const CountryRole = ({role, roleCountries, currentCountry, i18n}) =>
   <div className="nav__country-list-section">
@@ -93,9 +92,9 @@ const CountryRole = ({role, roleCountries, currentCountry, i18n}) =>
       <span className="nav__country-list-header-secondary">{i18n.t('audit.edited')}</span>
     </div>
     {
-      roleCountries.map(c =>
-        <CountryRow key={c.countryIso} selectedCountry={currentCountry} country={c} i18n={i18n}/>
-      )
+      R.map(country =>
+        <CountryRow key={country.countryIso} selectedCountry={currentCountry} country={country} i18n={i18n}/>
+      , roleCountries)
     }
   </div>
 
@@ -103,24 +102,30 @@ const CountryRow = ({selectedCountry, country, i18n}) => {
   return <Link
     to={`/country/${country.countryIso}`}
     className={`nav__country-list-item ${R.equals(selectedCountry, country.countryIso) ? 'selected' : ''}`}>
-    <div className="nav__country-list-item-primary">
+    <span className="nav__country-list-item-primary">
       {getCountryName(country.countryIso, i18n.language)}
-    </div>
+    </span>
     {
       country.fra2020Assessment
-        ? <span
-        className="nav__country-list-item-secondary"><AssessmentStatus
-        status={country.fra2020Assessment}/>{i18n.t(`assessment.status.${country.fra2020Assessment}.label`)}</span>
+        ? <span className="nav__country-list-item-secondary">
+            <div className={`status-${country.fra2020Assessment}`} />
+            {i18n.t(`assessment.status.${country.fra2020Assessment}.label`)}
+          </span>
         : null
     }
-    <span className="nav__country-list-item-secondary">{getRelativeDate(country.lastEdit, i18n) || i18n.t('audit.notStarted')}</span>
+    <span className="nav__country-list-item-secondary">
+      {getRelativeDate(country.lastEdit, i18n) || i18n.t('audit.notStarted')}
+    </span>
   </Link>
 }
 
-const Dashboard = ({path, countryIso, pathTemplate, label}) => {
+const getLinkTo = (pathTemplate, countryIso) => {
   const route = new Route(pathTemplate)
-  const linkTo = route.reverse({countryIso})
+  return route.reverse({countryIso})
+}
 
+const Dashboard = ({path, countryIso, pathTemplate, label}) => {
+  const linkTo = getLinkTo(pathTemplate, countryIso)
   return <Link className={`nav__link-item ${R.equals(path, linkTo) ? 'selected' : ''}`}
                to={linkTo}>
     <div className='nav__link-label'>{label}</div>
@@ -133,9 +138,8 @@ const ReviewStatus = ({status}) =>
     : null
 
 const NationalData = ({path, countryIso, pathTemplate, secondaryPathTemplate, status, label, userInfo}) => {
-  const route = new Route(pathTemplate)
-  const linkTo = route.reverse({countryIso})
-  const secondaryLinkTo = new Route(secondaryPathTemplate).reverse({countryIso})
+  const linkTo = getLinkTo(pathTemplate, countryIso)
+  const secondaryLinkTo = getLinkTo(secondaryPathTemplate, countryIso)
 
   return <Link className={`nav__link-item ${R.any(linkTo => R.startsWith(linkTo, path), [linkTo, secondaryLinkTo]) ? 'selected' : ''}`}
                to={linkTo}>
@@ -183,16 +187,14 @@ const Assessment = ({assessment, countryIso, status, changeAssessment, userInfo,
     : assessmentStatusItems
   const allowedPopoverItems = !assesmentIsChanging ? popoverItems : []
 
-  console.log(assessment, sections)
-
   return <div className="nav__assessment">
     <div className="nav__primary-item">
       <div className="nav__primary-label">
-      {
-        currentAssessment.deskStudy
-          ? i18n.t('assessment.' + assessment) + ' (' + i18n.t('assessment.deskStudy') + ')'
-          : i18n.t('assessment.' + assessment)
-      }
+        {
+          currentAssessment.deskStudy
+            ? `${i18n.t('assessment.' + assessment)} (${i18n.t('assessment.deskStudy')})`
+            : i18n.t('assessment.' + assessment)
+        }
       </div>
       <PopoverControl items={allowedPopoverItems}>
         <div className={`nav__primary-assessment-status status-${currentAssessmentStatus} actionable-${!R.isEmpty(allowedPopoverItems)}`}>
@@ -213,24 +215,24 @@ const Assessment = ({assessment, countryIso, status, changeAssessment, userInfo,
           item={item}
           assessment={assessment}
           i18n={i18n}
-          {...props}
-          />
+          {...props}/>
       , sections)
     }
   </div>
 }
 
 const AssesmentSection = ({countryIso, item, assessment, i18n, ...props}) => {
-  return <div className="nav__group" key={item.sectionNo}>
+  const sectionCollapsedClass = props.navigationGroupCollapseState[assessment][item.sectionNo] ? 'nav__section-items--visible' : 'nav__section-items--hidden'
+
+  return <div className="nav__section">
     <div className="nav__secondary-item-header" onClick={() => props.toggleNavigationGroupCollapse(assessment, item.sectionNo)}>
       <div className="nav__secondary-order">{item.sectionNo}</div>
       <div className="nav__secondary-label">{i18n.t(item.label)}</div>
     </div>
-    <div className={props.navigationGroupCollapseState[assessment][item.sectionNo] ? 'nav__group-children--visible' : 'nav__group-children--hidden'}>
+    <div className={sectionCollapsedClass}>
       {
         R.map(child => {
-          const route = new Route(child.pathTemplate)
-          const linkTo = route.reverse({countryIso})
+          const linkTo = getLinkTo(child.pathTemplate, countryIso)
 
           return <Link
             key={child.tableNo}
@@ -250,8 +252,7 @@ const AssesmentSection = ({countryIso, item, assessment, i18n, ...props}) => {
 }
 
 const UsersManagement = ({i18n, countryIso, path, pathTemplate}) => {
-  const route = new Route(pathTemplate)
-  const linkTo = route.reverse({countryIso})
+  const linkTo = getLinkTo(pathTemplate, countryIso)
 
   return <Link
       className={`nav__link-item ${R.equals(path, linkTo) ? 'selected' : ''}`}
@@ -317,48 +318,46 @@ class Nav extends React.Component {
           const content = ReactDOM.findDOMNode(this.refs.scroll_content)
           this.props.navigationScroll(content.scrollTop)
         }}>
-          <div>
-            <Dashboard
-              label={i18n.t('dashboard.dashboard')}
+          <Dashboard
+            label={i18n.t('dashboard.dashboard')}
+            countryIso={country}
+            path={path}
+            pathTemplate="/country/:countryIso"/>
+          <NationalData
+            label={i18n.t('nationalDataPoint.nationalData')}
+            countryIso={country}
+            status={R.merge(getReviewStatus('odp'), status.odpStatus)}
+            path={path}
+            pathTemplate="/country/:countryIso/odps"
+            secondaryPathTemplate="/country/:countryIso/odp"
+            userInfo={userInfo}/>
+          <div className="nav__divider"></div>
+          {
+            R.map(([assessment, sections]) =>
+            <Assessment
+              {...this.props}
+              key={assessment}
+              assessment={assessment}
               countryIso={country}
-              path={path}
-              pathTemplate="/country/:countryIso"/>
-            <NationalData
-              label={i18n.t('nationalDataPoint.nationalData')}
-              countryIso={country}
-              status={R.merge(getReviewStatus('odp'), status.odpStatus)}
-              path={path}
-              pathTemplate="/country/:countryIso/odps"
-              secondaryPathTemplate="/country/:countryIso/odp"
-              userInfo={userInfo}/>
-            <div className="nav__divider"></div>
-            {
-              R.map(([assessment, sections]) =>
-              <Assessment
-                {...this.props}
-                key={assessment}
-                assessment={assessment}
-                countryIso={country}
-                status={status.assessments}
-                changeAssessment={changeAssessment}
-                userInfo={userInfo}
-                sections={sections}
-                getReviewStatus={getReviewStatus}
-                i18n={i18n}/>
-              , R.toPairs(assessments))
-            }
-            <div className="nav__divider"/>
-            {
-              !R.isEmpty(allowedToChangeRoles(country, userInfo))
-                ? <UsersManagement
-                    countryIso={country}
-                    i18n={i18n}
-                    path={path}
-                    pathTemplate="/country/:countryIso/users"/>
-                : null
-            }
-            <SuppportLinks countryIso={country} {...this.props} />
-          </div>
+              status={status.assessments}
+              changeAssessment={changeAssessment}
+              userInfo={userInfo}
+              sections={sections}
+              getReviewStatus={getReviewStatus}
+              i18n={i18n}/>
+            , R.toPairs(assessments))
+          }
+          <div className="nav__divider"/>
+          {
+            !R.isEmpty(allowedToChangeRoles(country, userInfo))
+              ? <UsersManagement
+                  countryIso={country}
+                  i18n={i18n}
+                  path={path}
+                  pathTemplate="/country/:countryIso/users"/>
+              : null
+          }
+          <SuppportLinks countryIso={country} {...this.props} />
         </div>
       </div>
     </div>
