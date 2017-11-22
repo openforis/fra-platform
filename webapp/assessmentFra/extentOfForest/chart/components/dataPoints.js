@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
+import ReactDOMServer from 'react-dom/server'
 import { connect } from 'react-redux'
 import R from 'ramda'
 import * as d3 from 'd3'
@@ -63,38 +64,38 @@ class DataPoint extends Component {
   }
 
   htmlTooltip (d) {
-    const dataSourceMethodRows = (dataSourceMethods) =>
-      R.join('',
-        R.map(
-          dataSourceMethod =>
-            `<div class="chart__tooltip-data-source">${this.props.i18n.t('nationalDataPoint.dataSourceMethodsOptions.' + dataSourceMethod)}</div>`,
-          dataSourceMethods
-        )
-      )
-
-    const dataSourceMethodsPart = d.dataSourceMethods
-      ? `
-          <div class="chart__tooltip-heading chart__tooltip-methods-heading">METHODS</div>
-          ${dataSourceMethodRows(d.dataSourceMethods)}
-        `
-      : ''
     const precision = Number.isInteger(d.value) ? 0 : 2
-    return `
-        <div class="chart__tooltip-heading">${d.year}</div>
-        <div class="chart__tooltip-value-container">
-            <div class="chart__tooltip-marker" style="background-color: ${d.type === 'fra' ? '#ffffff' : this.props.color}"></div>
-            <div class="chart__tooltip-value">${formatNumber(d.value, precision)}</div>
-            <div class="chart__tooltip-unit">(1000 ha)</div>
+    return <div>
+        <div className="chart__tooltip-heading">{d.year}</div>
+        <div className="chart__tooltip-value-container">
+            <div className="chart__tooltip-marker" style={{backgroundColor: d.type === 'fra' ? '#ffffff' : this.props.color}}></div>
+            <div className="chart__tooltip-value">{formatNumber(d.value, precision)}</div>
+            <div className="chart__tooltip-unit">(1000 ha)</div>
         </div>
-        ${dataSourceMethodsPart}
-    `
+        {
+          d.dataSourceMethods
+          ? <div className="chart__tooltip-methods">
+              <div className="chart__tooltip-heading">
+                {this.props.i18n.t('nationalDataPoint.methodsUsed')}
+              </div>
+              {
+                R.map(dataSourceMethod =>
+                  <div key={dataSourceMethod} className="chart__tooltip-data-source">
+                    {this.props.i18n.t('nationalDataPoint.dataSourceMethodsOptions.' + dataSourceMethod)}
+                  </div>
+                , d.dataSourceMethods)
+              }
+           </div>
+          : null
+        }
+    </div>
   }
 
   componentDidMount () {
     this.toolTip = d3Tip()
       .attr('class', 'chart__tooltip')
       .offset([-10, 0])
-      .html(this.htmlTooltip.bind(this))
+      .html((d) => ReactDOMServer.renderToString(this.htmlTooltip(d)))
 
     d3.select(this.refs.circles)
       .call(this.toolTip)
