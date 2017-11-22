@@ -6,6 +6,7 @@ export const changeAssessmentStatusInitiated = 'navigation/changeAssessmentStatu
 export const navigationScrolled = 'navigation/scroll/end'
 export const toggleShowNavigation = 'navigation/toggleShow'
 export const toggleNavigationGroup = 'navigation/toggleGroup'
+export const toggleAllNavigationGroups = 'navigation/toggleAllGroups'
 
 export const navigationScroll = scrollPos => ({type: navigationScrolled, position: scrollPos})
 
@@ -23,3 +24,4 @@ export const changeAssessment = (countryIso, assessment) => dispatch => {
 }
 
 export const toggleNavigationGroupCollapse = (assessment, sectionNo) => ({type: toggleNavigationGroup, assessment, sectionNo})
+export const toggleAllNavigationGroupsCollapse = () => ({type: toggleAllNavigationGroups})

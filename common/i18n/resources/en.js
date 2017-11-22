@@ -113,6 +113,8 @@ module.exports.translation = {
   },
 
   navigation: {
+    hideAll: 'Hide all',
+    showAll: 'Show all',
     support: {
       dontDelete: 'System information please don’t delete',
       sendFeedback: 'Send feedback',

@@ -9,7 +9,7 @@ import { getRelativeDate } from '../utils/relativeDate'
 import { Link } from './../reusableUiComponents/link'
 import Icon from '../reusableUiComponents/icon'
 import { follow } from './../router/actions'
-import { changeAssessment, navigationScroll, toggleNavigationGroupCollapse } from './actions'
+import { changeAssessment, navigationScroll, toggleNavigationGroupCollapse, toggleAllNavigationGroupsCollapse } from './actions'
 import { getCountryList, fetchCountryOverviewStatus } from '../country/actions'
 import { assessments } from './items'
 import { roleForCountry } from '../../common/countryRole'
@@ -126,8 +126,7 @@ const getLinkTo = (pathTemplate, countryIso) => {
 
 const Dashboard = ({path, countryIso, pathTemplate, label}) => {
   const linkTo = getLinkTo(pathTemplate, countryIso)
-  return <Link className={`nav__link ${R.equals(path, linkTo) ? 'selected' : ''}`}
-               to={linkTo}>
+  return <Link className={`nav__link ${R.equals(path, linkTo) ? 'selected' : ''}`} to={linkTo}>
     <div className='nav__link-label'>{label}</div>
   </Link>
 }
@@ -148,11 +147,11 @@ const NationalData = ({path, countryIso, pathTemplate, secondaryPathTemplate, st
     <div className="nav__link-status-content">
       <ReviewStatus status={status} />
       <div className="nav__link-error-status">
-        {
-          status.errors
-            ? <Icon className="icon-middle icon-red" name="alert"/>
-            : null
-        }
+      {
+        status.errors
+          ? <Icon className="icon-middle icon-red" name="alert"/>
+          : null
+      }
       </div>
     </div>
   </Link>
@@ -190,11 +189,11 @@ const Assessment = ({assessment, countryIso, status, changeAssessment, userInfo,
   return <div className="nav__assessment">
     <div className="nav__assessment-header">
       <div className="nav__assessment-label">
-        {
-          currentAssessment.deskStudy
-            ? `${i18n.t('assessment.' + assessment)} (${i18n.t('assessment.deskStudy')})`
-            : i18n.t('assessment.' + assessment)
-        }
+      {
+        currentAssessment.deskStudy
+          ? `${i18n.t('assessment.' + assessment)} (${i18n.t('assessment.deskStudy')})`
+          : i18n.t('assessment.' + assessment)
+      }
       </div>
       <PopoverControl items={allowedPopoverItems}>
         <div className={`nav__assessment-status status-${currentAssessmentStatus} actionable-${!R.isEmpty(allowedPopoverItems)}`}>
@@ -206,6 +205,15 @@ const Assessment = ({assessment, countryIso, status, changeAssessment, userInfo,
           }
         </div>
       </PopoverControl>
+      <button
+        className="btn-s nav__assessment-toggle"
+        onClick={() => props.toggleAllNavigationGroupsCollapse()}>
+        {
+          props.lastUncollapseState
+            ? i18n.t('navigation.hideAll')
+            : i18n.t('navigation.showAll')
+        }
+      </button>
     </div>
     {
       R.map(item =>
@@ -230,23 +238,22 @@ const AssesmentSection = ({countryIso, item, assessment, i18n, ...props}) => {
       <div className="nav__section-label">{i18n.t(item.label)}</div>
     </div>
     <div className={sectionCollapsedClass}>
-      {
-        R.map(child => {
-          const linkTo = getLinkTo(child.pathTemplate, countryIso)
+    {
+      R.map(child => {
+        const linkTo = getLinkTo(child.pathTemplate, countryIso)
 
-          return <Link
-            key={child.tableNo}
-            className={`nav__section-item ${R.equals(props.path, linkTo) ? 'selected' : ''}`}
-            to={linkTo}>
-              <div className='nav__section-order'>{child.tableNo}</div>
-              <div className='nav__section-label'>{i18n.t(child.label)}</div>
-              <div className="nav__section-status-content">
-                <ReviewStatus status={props.getReviewStatus(child.section)} />
-              </div>
-            </Link>
-        }
-        , item.children)
-      }
+        return <Link
+          key={child.tableNo}
+          className={`nav__section-item ${R.equals(props.path, linkTo) ? 'selected' : ''}`}
+          to={linkTo}>
+            <div className='nav__section-order'>{child.tableNo}</div>
+            <div className='nav__section-label'>{i18n.t(child.label)}</div>
+            <div className="nav__section-status-content">
+              <ReviewStatus status={props.getReviewStatus(child.section)} />
+            </div>
+          </Link>
+      }, item.children)
+    }
     </div>
   </div>
 }
@@ -255,8 +262,8 @@ const UsersManagement = ({i18n, countryIso, path, pathTemplate}) => {
   const linkTo = getLinkTo(pathTemplate, countryIso)
 
   return <Link
-      className={`nav__link ${R.equals(path, linkTo) ? 'selected' : ''}`}
-      to={linkTo}>
+    className={`nav__link ${R.equals(path, linkTo) ? 'selected' : ''}`}
+    to={linkTo}>
       <div className='nav__link-label'>{i18n.t('navigation.support.manageCollaborators')}</div>
     </Link>
 }
@@ -399,5 +406,6 @@ export default connect(mapStateToProps, {
   fetchCountryOverviewStatus,
   changeAssessment,
   navigationScroll,
-  toggleNavigationGroupCollapse
+  toggleNavigationGroupCollapse,
+  toggleAllNavigationGroupsCollapse
 })(NavigationSync)
