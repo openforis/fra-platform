@@ -52,11 +52,11 @@ const LinkList = ({title, items}) => {
       <h3 className="subhead">{title}</h3>
     </li>
     {
-      items.map(item =>
+      R.map(item =>
         <li className="dashboard__list-item" key={item.url}>
           <a href={item.url} className="link" target="_blank">{item.name}</a>
         </li>
-      )
+      , items)
     }
   </ul>
 }
@@ -120,33 +120,48 @@ class DashboardView extends React.Component {
       name: i18n.t('dashboard.externalLinks.unReddPlatform'),
       url: 'http://redd.unfccc.int/submissions.html'
     }]
+    const tableContentKeys = [
+      ['milestone1', 'date1', 'activity1'],
+      ['milestone2', 'date2', 'activity2'],
+      ['milestone3', 'date3', 'activity3'],
+      ['milestone4', 'date4', 'activity4'],
+      ['milestone5', 'date5', 'activity5'],
+      ['milestone6', 'date6', 'activity6']
+    ]
 
     return <LoggedInPageTemplate>
       <div className="fra-view__content">
         <div className="dashboard__page-header">
-          <h1 className="title">FRA Platform</h1>
+          <h1 className="title">{i18n.t('dashboard.fraPlatform')}</h1>
+        </div>
+        <div className="dashboard__container">
+          <table className="dashboard__table">
+            <thead>
+              <tr>
+                <th>{i18n.t('dashboard.milestoneHeader')}</th>
+                <th>{i18n.t('dashboard.dateHeader')}</th>
+                <th>{i18n.t('dashboard.activityHeader')}</th>
+              </tr>
+            </thead>
+            <tbody>
+            {
+              mapIndexed((row, i) =>
+                <tr key={i}>
+                  {
+                    R.map(cell =>
+                      <td key={cell}>
+                        {i18n.t('dashboard.milestones.' + cell)}
+                      </td>
+                    , row)
+                  }
+                </tr>
+              , tableContentKeys)
+            }
+            </tbody>
+          </table>
         </div>
         <div className="dashboard__container">
           <div className="dashboard__main">
-            <div className="dashboard__header">
-              <ul className="dashboard__list">
-                <li className="dashboard__list-heading">
-                  <h3 className="subhead">{i18n.t('dashboard.timeline')}</h3>
-                </li>
-                <li className="dashboard__list-item">
-                  <span className="dashboard__list-item-year">09.11.2017</span>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                </li>
-                <li className="dashboard__list-item">
-                  <span className="dashboard__list-item-year">09.11.2017</span>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                </li>
-                <li className="dashboard__list-item">
-                  <span className="dashboard__list-item-year">09.11.2017</span>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                </li>
-              </ul>
-            </div>
             <h3 className="subhead dashboard__main-title">{i18n.t('dashboard.recentActivity')}</h3>
             {
               R.isNil(feed)

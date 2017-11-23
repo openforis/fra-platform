@@ -1,20 +1,10 @@
 @import (reference) "../app-styles/config";
 
+@dashboard-border: 1px solid #eeeeee;
+
 .dashboard__page-header {
   max-width: 1280px;
   margin: 0 auto 24px;
-}
-
-.dashboard__header {
-  margin-bottom: 32px;
-
-  .dashboard__list-heading {
-    margin-bottom: 16px;
-  }
-
-  .dashboard__list-item {
-    margin: 8px 0;
-  }
 }
 
 .dashboard__container {
@@ -44,7 +34,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-top: 1px solid #eee;
+  border-top: @dashboard-border;
   padding: 10px 0;
 }
 
@@ -70,7 +60,7 @@
 }
 
 .dashboard__activity-empty {
-  border-top: 1px solid #eee;
+  border-top: @dashboard-border;
   color: @text-disabled;
   padding: 48px;
   text-align: center;
@@ -80,6 +70,36 @@
   color: @text-body;
   font-weight: 700;
   margin-top: 20px;
+}
+
+
+// Table
+
+.dashboard__table {
+  border-collapse: collapse;
+  line-height: 20px;
+  width: 100%;
+  margin-bottom: 32px;
+
+  td, th {
+    padding: 10px 20px 10px 0;
+    text-align: left;
+    vertical-align: top;
+
+    &:last-child {
+      padding-right: 0;
+    }
+  }
+
+  th {
+    font-size: @font-l;
+    color: @text-heading;
+  }
+
+  td {
+    font-size: @font-m;
+    border-top: @dashboard-border;
+  }
 }
 
 // List
