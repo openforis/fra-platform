@@ -89,7 +89,23 @@ library and SQL scripts. The SQL migrations are run on the startup
 of the Node.js server. Only the scripts which have not yet been
 applied are applied.
 
+## Code organization
 
+### Server-side
+
+Most of the server code is about reading data from and
+writing data to database and converting that data between JSON and raw
+query results or query parameters.
+
+Separate domain concepts have separate *api* modules and *repository*
+modules. For example, the _descriptions_ which are visible as MS
+Word-like rich text editors in the UI, are stored and retrieved on the
+server-side with these modules:
+
+* `server/descriptions/api.js`
+* `server/descriptions/decriptionsRepository.js`
+
+![server-side-code-organization](img/server-side-code-organization.png)
 
 
 
