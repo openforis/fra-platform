@@ -5,7 +5,7 @@
 ![hela-architecture](img/fra-platform-architecture.png)
 
 FRA Platform consists of Javascript-based front-end which runs in the
-browser and a NodeJS backend (also JavaScript) which talks to
+browser and a [Node.js](https://nodejs.org/en/docs/) backend (also JavaScript) which talks to
 PostgreSQL database. The only external services at the time of writing
 are a standard SMTP server and Google authentication services.
 
@@ -16,7 +16,24 @@ All libraries used in the application are visible in
 [package.json](../package.json). The list below consists of the most
 important ones.
 
-### Client-side libraries
+### Libraries used in client and server
+
+#### [Ramda](http://ramdajs.com/docs/)
+
+Ramda is used to apply a [functional programming
+paradigm](https://en.wikipedia.org/wiki/Functional_programming) for
+JavaScript.
+
+#### [bignumber.js](https://github.com/MikeMcl/bignumber.js/)
+
+Used to make calculations more accurate than with plain floating point
+numbers (Javascript default).
+
+#### [i18next](https://www.i18next.com/)
+
+Used for localization of UI texts and other messages (also on server).
+
+### Client-side libraries and technologies
 
 #### [ES2015](http://www.ecma-international.org/ecma-262/6.0/)
 
@@ -39,25 +56,44 @@ code.
 Redux is used to store and manipulate client-side state for the Web
 Application.
 
-#### [Ramda](http://ramdajs.com/docs/)
+#### [D3.js](https://d3js.org/)
 
-Ramda is used to apply a [functional programming
-paradigm](https://en.wikipedia.org/wiki/Functional_programming) for
-JavaScript.
+Used to draw charts
+
+#### [Axios](https://github.com/axios/axios)
+
+Used for Ajax HTTP requests from from browser to server.
 
 #### [Less](http://lesscss.org/)
 
 Used to add features to CSS and to make it easily bundlable with
 Webpack.
 
-#### [Node.js](https://nodejs.org/en/docs/)
-
 Used as the web-server and server-side application platform.
+
+### Server-side libraries
 
 #### [Passport](http://www.passportjs.org/docs/)
 
 Used to integrate google authentication service. Can be used to
 integrate other authentication services as well.
 
-### Server-side libraries
+#### [pg](https://www.npmjs.com/package/pg)
+
+SQL queries to PostgreSQL database are used via this library.
+
+#### [db-migrate](https://www.npmjs.com/package/db-migrate)
+
+The database schema and it's initial data is created using this
+library and SQL scripts. The SQL migrations are run on the startup
+of the Node.js server. Only the scripts which have not yet been
+applied are applied.
+
+
+
+
+
+
+
+
 
