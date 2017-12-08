@@ -91,7 +91,41 @@ applied are applied.
 
 ## Code organization
 
-### Server-side
+### Client-side (webapp/)
+
+The client application application is divided in to subdirectories based on technical or
+domain concepts. Here are some key diretories:
+
+#### app
+
+Contains the bootstrapping of the single-page application (routes,
+fetching initial data etc)
+
+#### userManagement
+
+Managing and inviting users to a country.
+
+#### assessmentFra
+
+All the code to construct the views which are part of the FRA
+assessment. For example: Extent of Forest, Growing Stock, ...
+
+#### traditionalTable
+
+Reusable framework for creating fixed-size, simple tables. Most of the
+views (the simpler ones without charts and National Data Points) are created using this.
+
+#### reusableUiComponents
+
+Contains generic, reusable UI components which are used in many
+places. For example a multi-select UI widget.
+
+#### navigation
+
+Contains the code needed to construct the navigation bar on the left.
+
+
+### Server-side (server/)
 
 Most of the server code is about reading data from and
 writing data to database and converting that data between JSON and raw
