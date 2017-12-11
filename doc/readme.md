@@ -1,1 +1,3 @@
-FRA Platform Documentation
+# FRA Platform Documentation
+
+![tucan](img/tucan.gif)
