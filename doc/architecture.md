@@ -17,6 +17,8 @@ All libraries used in the application are listed in
 [package.json](../package.json). The list below consists of the most
 important ones with a brief explanation on why they are used.
 
+![libraries](img/libraries.png)
+
 ### Libraries used in client and server
 
 #### [Ramda](http://ramdajs.com/docs/)
@@ -59,15 +61,15 @@ code.
 
 Redux is used to store and manipulate shared client-side state for the Web
 application. This means state which should be available to multiple components
-within the application. 
+within the application.
 
 #### [D3.js](https://d3js.org/)
 
-Used to draw charts for the most important views. 
+Used to draw charts for the most important views.
 
 #### [Axios](https://github.com/axios/axios)
 
-Used for [Ajax](https://en.wikipedia.org/wiki/Ajax_(programming)) 
+Used for [Ajax](https://en.wikipedia.org/wiki/Ajax_(programming))
 HTTP requests from from browser to server.
 
 #### [Less](http://lesscss.org/)
@@ -76,6 +78,11 @@ Used to add practical features to CSS and to make it easily bundlable with
 Webpack.
 
 ### Server-side libraries
+
+#### [Express](https://expressjs.com/)
+
+Server-side HTTP library. Used for responding to HTTP requests and
+setting headers etc.
 
 #### [Passport](http://www.passportjs.org/docs/)
 
