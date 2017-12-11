@@ -311,6 +311,7 @@ class Nav extends React.Component {
   }
 
   render () {
+    if (!this.props.navigationVisible) return null
     const status = R.defaultTo({}, this.props.status)
     const getReviewStatus = section => R.pipe(
       R.defaultTo({}),
@@ -381,15 +382,6 @@ class Nav extends React.Component {
   }
 }
 
-class NavigationSync extends React.Component {
-  render () {
-    if (this.props.navigationVisible) {
-      return <Nav {...this.props} />
-    }
-    return null
-  }
-}
-
 const mapStateToProps = state => ({
   ...state.navigation,
   ...state.country,
@@ -405,4 +397,4 @@ export default connect(mapStateToProps, {
   navigationScroll,
   toggleNavigationGroupCollapse,
   toggleAllNavigationGroupsCollapse
-})(NavigationSync)
+})(Nav)
