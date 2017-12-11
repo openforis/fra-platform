@@ -10,7 +10,8 @@ import { Link } from './../reusableUiComponents/link'
 import Icon from '../reusableUiComponents/icon'
 import { follow } from './../router/actions'
 import { changeAssessment, navigationScroll, toggleNavigationGroupCollapse, toggleAllNavigationGroupsCollapse } from './actions'
-import { getCountryList, fetchCountryOverviewStatus } from '../country/actions'
+import { getCountryList } from '../country/actions'
+import { fetchAllCountryData } from '../app/actions'
 import { assessments } from './items'
 import { roleForCountry } from '../../common/countryRole'
 import { allowedToChangeRoles } from '../../common/userManagementAccessControl'
@@ -60,15 +61,15 @@ class CountrySelection extends React.Component {
       </div>
       <Icon name="small-down"/>
       <CountryList
+        {...this.props}
         isOpen={this.state.isOpen}
-        countries={countries}
         currentCountry={countryIso}
-        i18n={i18n}/>
+      />
     </div>
   }
 }
 
-const CountryList = ({isOpen, countries, currentCountry, i18n}) => {
+const CountryList = ({isOpen, countries, ...props}) => {
   if (!isOpen) return null
   return <div className="nav__country-list">
     <div className="nav__country-list-content">
@@ -76,7 +77,7 @@ const CountryList = ({isOpen, countries, currentCountry, i18n}) => {
         R.pipe(
           R.toPairs,
           R.map(([role, countries]) =>
-            <CountryRole key={role} role={role} roleCountries={countries} currentCountry={currentCountry} i18n={i18n} />
+            <CountryRole key={role} role={role} roleCountries={countries} {...props} />
           )
         )(countries)
       }
@@ -84,7 +85,7 @@ const CountryList = ({isOpen, countries, currentCountry, i18n}) => {
   </div>
 }
 
-const CountryRole = ({role, roleCountries, currentCountry, i18n}) =>
+const CountryRole = ({role, roleCountries, currentCountry, fetchAllCountryData, i18n}) =>
   <div className="nav__country-list-section">
     <div className="nav__country-list-header">
       <span className="nav__country-list-primary-col">{i18n.t(`user.roles.${role.toLowerCase()}`)}</span>
@@ -93,15 +94,20 @@ const CountryRole = ({role, roleCountries, currentCountry, i18n}) =>
     </div>
     {
       R.map(country =>
-        <CountryRow key={country.countryIso} selectedCountry={currentCountry} country={country} i18n={i18n}/>
+        <CountryRow key={country.countryIso}
+                    selectedCountry={currentCountry}
+                    country={country}
+                    fetchAllCountryData={fetchAllCountryData}
+                    i18n={i18n}/>
       , roleCountries)
     }
   </div>
 
-const CountryRow = ({selectedCountry, country, i18n}) => {
+const CountryRow = ({selectedCountry, country, fetchAllCountryData, i18n}) => {
   return <Link
     to={`/country/${country.countryIso}`}
-    className={`nav__country-list-row ${R.equals(selectedCountry, country.countryIso) ? 'selected' : ''}`}>
+    className={`nav__country-list-row ${R.equals(selectedCountry, country.countryIso) ? 'selected' : ''}`}
+    onClick={() => fetchAllCountryData(country.countryIso)}>
     <span className="nav__country-list-primary-col">
       {getCountryName(country.countryIso, i18n.language)}
     </span>
@@ -305,6 +311,7 @@ class Nav extends React.Component {
   }
 
   render () {
+    if (!this.props.navigationVisible) return null
     const status = R.defaultTo({}, this.props.status)
     const getReviewStatus = section => R.pipe(
       R.defaultTo({}),
@@ -316,11 +323,13 @@ class Nav extends React.Component {
 
     return <div className="fra-nav__container">
       <div className="fra-nav">
-        <CountrySelection name={country}
-                              countries={countries}
-                              listCountries={getCountryList}
-                              role={roleLabel(country, userInfo, i18n)}
-                              i18n={i18n}/>
+        <CountrySelection
+          {...this.props}
+          name={country}
+          countries={countries}
+          listCountries={getCountryList}
+          role={roleLabel(country, userInfo, i18n)}
+          />
         <div className="nav__scroll-content" ref="scroll_content" onScroll={() => {
           const content = ReactDOM.findDOMNode(this.refs.scroll_content)
           this.props.navigationScroll(content.scrollTop)
@@ -373,26 +382,6 @@ class Nav extends React.Component {
   }
 }
 
-class NavigationSync extends React.Component {
-
-  componentWillMount () {
-    this.props.fetchCountryOverviewStatus(this.props.country)
-  }
-
-  componentWillReceiveProps (next) {
-    if (!R.equals(this.props.country, next.country)) {
-      this.props.fetchCountryOverviewStatus(next.country)
-    }
-  }
-
-  render () {
-    if (this.props.navigationVisible) {
-      return <Nav {...this.props} />
-    }
-    return null
-  }
-}
-
 const mapStateToProps = state => ({
   ...state.navigation,
   ...state.country,
@@ -403,9 +392,9 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps, {
   follow,
   getCountryList,
-  fetchCountryOverviewStatus,
+  fetchAllCountryData,
   changeAssessment,
   navigationScroll,
   toggleNavigationGroupCollapse,
   toggleAllNavigationGroupsCollapse
-})(NavigationSync)
+})(Nav)
