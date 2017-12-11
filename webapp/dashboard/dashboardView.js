@@ -7,7 +7,6 @@ import { getCountryName } from '../../common/country'
 import { getRelativeDate } from '../utils/relativeDate'
 import { fetchAuditFeed } from '../audit/actions'
 import { Link } from './../reusableUiComponents/link'
-import { hasOdps } from '../assessmentFra/extentOfForest/extentOfForestHelper'
 
 const mapIndexed = R.addIndex(R.map)
 
