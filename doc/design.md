@@ -2,7 +2,7 @@
 
 ## Styleguide
 
-The FRA Platform styleguide can be found on [Zeplin](https://zeplin.io/). Cosimo has been made the owner of the project, so ha can give access. If you just want to preview the styleguide and don't need any measurements. Have a look at the [Zeplin Scene preview](https://scene.zeplin.io/project/591160b68341f5adef6f2819).
+The FRA Platform styleguide can be found on [Zeplin](https://zeplin.io/). Cosimo has been made the owner of the project, so ha can give access. If you just want to preview the styleguide and don't need any measurements, have a look at the [Zeplin Scene preview](https://scene.zeplin.io/project/591160b68341f5adef6f2819).
 
 ## Design files
 
