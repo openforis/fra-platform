@@ -42,7 +42,7 @@ const getSectionLocalizationKey = (section) => {
 const getSectionUrl = (item) => {
   const odpId = R.path(['target', 'odpId'], item)
   if (odpId) {
-    return 'odp/' + odpId
+    return 'odp/extentOfForest/' + odpId
   }
   return item.sectionName
 }
