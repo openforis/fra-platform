@@ -7,6 +7,7 @@ import { getCountryName } from '../../common/country'
 import { getRelativeDate } from '../utils/relativeDate'
 import { fetchAuditFeed } from '../audit/actions'
 import { Link } from './../reusableUiComponents/link'
+import { hasOdps } from '../assessmentFra/extentOfForest/extentOfForestHelper'
 
 const mapIndexed = R.addIndex(R.map)
 
@@ -39,9 +40,10 @@ const getSectionLocalizationKey = (section) => {
   return section + '.' + section
 }
 
-const getSectionUrl = (item) => {
+const getSectionUrl = (item, fra) => {
   const odpId = R.path(['target', 'odpId'], item)
-  if (odpId) {
+  const odpExists = R.path(['odpId', odpId], fra)
+  if (odpExists) {
     return 'odp/extentOfForest/' + odpId
   }
   return item.sectionName
@@ -62,8 +64,8 @@ const LinkList = ({title, links}) => {
   </ul>
 }
 
-const ActivityItem = ({i18n, countryIso, item}) => {
-  const sectionUrl = getSectionUrl(item)
+const ActivityItem = ({i18n, countryIso, item, fra}) => {
+  const sectionUrl = getSectionUrl(item, fra)
   const sectionLocalizationKey = getSectionLocalizationKey(item.sectionName)
   const actionLocalizationKey = getActionLocalizationKey(item.message)
   const usersManagementLocalaizationParameters = item.target ? {user: item.target.user, role: i18n.t('user.roles.' + item.target.role)} : null
@@ -138,6 +140,7 @@ class DashboardView extends React.Component {
                     i18n={i18n}
                     countryIso={countryIso}
                     item={item}
+                    fra={this.props.extentOfForest.fra}
                   />, feed)
                 : <div className="dashboard__activity-item">
                     <span className="dashboard__activity-placeholder">{i18n.t('dashboard.noRecentActivity')}</span>
@@ -156,6 +159,6 @@ class DashboardView extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({i18n: state.user.i18n, feed: state.dashboard.feed})
+const mapStateToProps = state => ({i18n: state.user.i18n, feed: state.dashboard.feed, extentOfForest: state.extentOfForest})
 
 export default connect(mapStateToProps, {fetchAuditFeed})(DashboardView)
