@@ -1,10 +1,16 @@
 # FRA Platform Design
 
-## Styleguide
+## Technical design choices
+
+1. All numeric values for areas are stored in the unit displayed for the corresponding table
+2. In most cases, sums are calculated in the UI and the totals are *not* stored in the database
+3. Decimal inputs have always 2 decimals and are restricted maximum 20 characters
+4. Qualitative data is stored as HTML to database
+5. Data points are stored in precision of year
+
+## Styleguide & Design files
 
 The FRA Platform styleguide can be found on [Zeplin](https://zeplin.io/). Cosimo has been made the owner of the project, so ha can give access. If you just want to preview the styleguide and don't need any measurements, have a look at the [Zeplin Scene preview](https://scene.zeplin.io/project/591160b68341f5adef6f2819).
-
-## Design files
 
 Design files are available in Sketch format in the `/doc/sketch` directory. Lately we have been only drawing mockups on a on-demand basis, as design directly in the browser has turned out to be quite fast for simpler tasks.
 
