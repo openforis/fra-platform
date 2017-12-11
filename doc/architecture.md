@@ -2,19 +2,20 @@
 
 ## System architecture
 
-![hela-architecture](img/fra-platform-architecture.png)
-
 FRA Platform consists of Javascript-based front-end which runs in the
 browser and a [Node.js](https://nodejs.org/en/docs/) backend (also JavaScript) which talks to
 PostgreSQL database. The only external services at the time of writing
 are a standard SMTP server and Google authentication services.
 
+![fra-architecture](img/fra-platform-architecture.png)
+
+As illustrated above, the runtime system is quite simple for now. 
 
 ## Main technologies
 
-All libraries used in the application are visible in
+All libraries used in the application are listed in
 [package.json](../package.json). The list below consists of the most
-important ones.
+important ones with a brief explanation on why they are used.
 
 ### Libraries used in client and server
 
@@ -26,50 +27,53 @@ JavaScript.
 
 #### [bignumber.js](https://github.com/MikeMcl/bignumber.js/)
 
-Used to make calculations more accurate than with plain floating point
-numbers (Javascript default).
+Used to make calculations more accurate than with built-in floating point
+numbers (Javascript default). These calculations are slower than hardware
+accelerated floating point ones. If a bottleneck appears somewhere which 
+can be traced to bignumber calculations, there might be a need to use floating
+points in such a case.
 
 #### [i18next](https://www.i18next.com/)
 
-Used for localization of UI texts and other messages (also on server).
+Used for localization of UI texts and other messages. Also used on server.
 
 ### Client-side libraries and technologies
 
 #### [ES2015](http://www.ecma-international.org/ecma-262/6.0/)
 
-Client-side JavaScript is transpiled from ES2015 version of JavaScript
-with WebPack to older, mostly ES5 version
+Client-side JavaScript is [transpiled](https://en.wikipedia.org/wiki/Source-to-source_compiler) 
+from ES2015 version of JavaScript with WebPack to older, mostly ES5 version
 which is supported better by current web browsers.
 
 #### [WebPack](https://webpack.js.org/)
 
-Used to create a single, optimized bundle of all the required Javascript and
-stylesheets for the Browser application.
+Used to create a single, optimized bundle of all the required JavaScript and
+stylesheet files for the browser application.
 
 #### [React](https://facebook.github.io/react/)
 
-React is used for rendering the Web application HTML from Javascript
+React is used for dynamically creating the Web application HTML from JavaScript
 code.
 
 #### [Redux](https://redux.js.org/)
 
-Redux is used to store and manipulate client-side state for the Web
-Application.
+Redux is used to store and manipulate shared client-side state for the Web
+application. This means state which should be available to multiple components
+within the application. 
 
 #### [D3.js](https://d3js.org/)
 
-Used to draw charts
+Used to draw charts for the most important views. 
 
 #### [Axios](https://github.com/axios/axios)
 
-Used for Ajax HTTP requests from from browser to server.
+Used for [Ajax](https://en.wikipedia.org/wiki/Ajax_(programming)) 
+HTTP requests from from browser to server.
 
 #### [Less](http://lesscss.org/)
 
-Used to add features to CSS and to make it easily bundlable with
+Used to add practical features to CSS and to make it easily bundlable with
 Webpack.
-
-Used as the web-server and server-side application platform.
 
 ### Server-side libraries
 
@@ -86,8 +90,8 @@ SQL queries to PostgreSQL database are used via this library.
 
 The database schema and it's initial data is created using this
 library and SQL scripts. The SQL migrations are run on the startup
-of the Node.js server. Only the scripts which have not yet been
-applied are applied.
+of the Node.js server (`server/db/migration/execMigrations.js`). 
+Only the scripts which have not yet been applied are applied.
 
 ## Code organization
 
@@ -124,6 +128,9 @@ places. For example a multi-select UI widget.
 
 Contains the code needed to construct the navigation bar on the left.
 
+#### review
+
+All the reusable code related to commenting and showing comment indicators.
 
 ### Server-side (server/)
 
