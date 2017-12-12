@@ -10,7 +10,7 @@ import LoggedInPageTemplate from '../app/loggedInPageTemplate'
 import TraditionalTable from '../traditionalTable/traditionalTable'
 import { CommentableDescriptions } from '../description/commentableDescription'
 import { fetchLastSectionUpdateTimestamp } from '../audit/actions'
-import DefinitionLink from './../reusableUiComponents/definitionLink'
+import DefinitionLink from '../reusableUiComponents/definitionLink'
 
 class SingleTraditionalTableView extends React.Component {
 

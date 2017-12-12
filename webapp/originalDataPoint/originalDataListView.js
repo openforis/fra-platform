@@ -3,7 +3,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
 import { fetchOdps, removeFromList } from './actions'
-import { Link } from './../reusableUiComponents/link'
+import { Link } from '../reusableUiComponents/link'
 import Icon from '../reusableUiComponents/icon'
 import LoggedInPageTemplate from '../app/loggedInPageTemplate'
 
