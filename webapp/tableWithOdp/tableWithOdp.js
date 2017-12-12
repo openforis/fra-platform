@@ -135,7 +135,7 @@ export class GenerateFraValuesControl extends React.Component {
         <option value="clearTable">{i18n.t('tableWithOdp.clearTable')}</option>
       </select>
       <button
-        className={`btn-s ${this.state.generateMethod === 'clearTable' ? 'btn-destructive' : 'btn-primary'}`}
+        className={`btn-s ${this.state.generateMethod === 'clearTable' ? 'btn-secondary' : 'btn-primary'}`}
         disabled={this.disableGenerateFraValues(fra, generatingFraValues)}
         onClick={() => this.generateFraValues(this.state.generateMethod)}>
         {
