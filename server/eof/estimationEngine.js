@@ -53,10 +53,10 @@ const estimateField = (values = [], odpValues, field, year, generateSpec) => {
   const previousValue = getPreviousValues(year)(values)[0]
   const nextValue = getNextValues(year)(values)[0]
 
-  if (odp) {
-    return odp[field]
-  } else if (values.length < 2 || generateSpec.method === 'clearTable') {
+  if (values.length < 2 || generateSpec.method === 'clearTable') {
     return null
+  } else if (odp) {
+    return odp[field]
   } else if (previousValue && nextValue) {
     return applyEstimationFunction(year, previousValue, nextValue, field, linearInterpolation)
   } else {
