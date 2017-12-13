@@ -2,11 +2,11 @@ module.exports = {
   tableName: 'other_land_with_tree_cover',
   rows: {
     names: [
-      'other_land_with_tree_cover',
-      'of_which_palms',
-      'of_which_tree_orchards',
-      'of_which_agroforestry',
-      'of_which_trees_in_urban_settings'
+      'palms',
+      'tree_orchards',
+      'agroforestry',
+      'trees_in_urban_settings',
+      'other'
     ]
   },
   columns: [

@@ -9,7 +9,7 @@ const OtherLandWithTreeCoverView = props =>
     headingLocalizationKey="otherLandWithTreeCover.otherLandWithTreeCover"
     faqAnchor="1a"
     tadAnchor="1f"
-    tableSpecInstance={tableSpec(props.i18n, props.extentOfForest)}/>
+    tableSpecInstance={tableSpec(props.i18n, props.extentOfForest, props.match.params.countryIso)}/>
 
 const mapStateToProps = state => ({i18n: state.user.i18n, extentOfForest: state.extentOfForest})
 
