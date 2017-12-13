@@ -249,7 +249,7 @@ module.exports.translation = {
     otherLandCharacteristics: 'Other land with tree cover',
     plantationForest: 'Plantation forest',
     remindDirtyOdp: 'National data point has been updated, remember to regenerate values.',
-    disabled: 'Disabled',
+    disabled: 'Disabled, enable in section 1b',
     dataSourceMethodsOptions: {
       nationalForestInventory: 'National Forest Inventory',
       sampleBasedRemoteSensingAssessment: 'Sample-based remote sensing assessment',

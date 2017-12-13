@@ -209,7 +209,7 @@ const OdpViewContent = ({match, saveDraft, markAsActual, remove, odp, autoSaving
       <Link
         className={`odp__tab-item ${activeTab === 'extentOfForest' ? 'active' : null}`}
         to={`/country/${countryIso}/odp/extentOfForest/${odp.odpId ? odp.odpId : null}`}>
-          {i18n.t('nationalDataPoint.forestCategoriesLabel')}
+          1a {i18n.t('nationalDataPoint.forestCategoriesLabel')}
       </Link>
       {
         useOriginalDataPoints
@@ -219,7 +219,8 @@ const OdpViewContent = ({match, saveDraft, markAsActual, remove, odp, autoSaving
             {i18n.t('nationalDataPoint.forestCharacteristics')}
           </Link>
         : <span className="odp__tab-item">
-            {i18n.t('nationalDataPoint.forestCharacteristics')} ({i18n.t('nationalDataPoint.disabled')})
+            1b {i18n.t('nationalDataPoint.forestCharacteristics')}
+            <span className="odp__tab-item-support">({i18n.t('nationalDataPoint.disabled')})</span>
           </span>
       }
     </div>
