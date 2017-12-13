@@ -10,6 +10,7 @@ const nonWoodForestProductsRemovals = require('./mappings/nonWoodForestProductsR
 const nonWoodForestProductsRemovalsCurrency = require('./mappings/nonWoodForestProductsRemovalsCurrency')
 const biomassStock = require('./mappings/biomassStock')
 const carbonStock = require('./mappings/carbonStock')
+const carbonStockSoilDepth = require('./mappings/carbonStockSoilDepth')
 const degradedForest = require('./mappings/degradedForest')
 const employment = require('./mappings/employment')
 const graduationOfStudents = require('./mappings/graduationOfStudents')
@@ -21,6 +22,7 @@ const disturbances = require('./mappings/disturbances')
 const areaOfPermanentForestEstate = require('./mappings/areaOfPermanentForestEstate')
 const forestPolicy = require('./mappings/forestPolicy')
 const otherLandWithTreeCover = require('./mappings/otherLandWithTreeCover')
+const climaticDomain = require('./mappings/climaticDomain')
 
 const mappings = {
   specificForestCategories,
@@ -41,9 +43,11 @@ const mappings = {
   disturbances,
   biomassStock,
   carbonStock,
+  carbonStockSoilDepth,
   areaOfPermanentForestEstate,
   forestPolicy,
-  otherLandWithTreeCover
+  otherLandWithTreeCover,
+  climaticDomain
 }
 
 const getRowIndex = (name, names) => {

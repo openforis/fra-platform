@@ -1,14 +1,13 @@
 const R = require('ramda')
 const fs = require('fs')
 const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
-const countryConfig = require('../country/countryConfig')
 const fileName = 'calculator'
 
 module.exports.init = app => {
-  app.get('/biomassStock/:countryIso/:lang/download', (req, res) => {
+  app.get('/biomassStock/:countryIso/:domain/:lang/download', (req, res) => {
     checkCountryAccessFromReqParams(req)
     const availableLanguages = ['en', 'fr', 'es', 'ru']
-    const countryDomain = R.path([req.params.countryIso, 'domain'] , countryConfig)
+    const countryDomain = req.params.domain
     if (R.isNil(countryDomain)) {
       res.status(500).json({error: `Could not find domain for country ${req.params.countryIso}`})
       return
