@@ -1,4 +1,16 @@
 import React from 'react'
+import R from 'ramda'
+import { greaterThanOrEqualTo } from '../../../common/bignumberUtils'
+
+const positiveOrZero = i18n => (props, row, column) => {
+  const value = props.tableData[row][column]
+  if (R.isNil(value)) return {valid: true}
+  const result = greaterThanOrEqualTo(value, 0)
+  return {
+    valid: result,
+    message: result ? null : i18n.t('generalValidation.valueMustBePositive')
+  }
+}
 
 export default i18n => ({
   name: 'annualReforestation', // used to uniquely identify table
@@ -20,10 +32,10 @@ export default i18n => ({
         type: 'readOnly',
         jsx: <th key="reforestation" className="fra-table__category-cell">{i18n.t('annualReforestation.reforestation')}</th>
       },
-      {type: 'decimalInput'},
-      {type: 'decimalInput'},
-      {type: 'decimalInput'},
-      {type: 'decimalInput'}
+      {type: 'decimalInput', validator: positiveOrZero(i18n) },
+      {type: 'decimalInput', validator: positiveOrZero(i18n) },
+      {type: 'decimalInput', validator: positiveOrZero(i18n) },
+      {type: 'decimalInput', validator: positiveOrZero(i18n) }
     ]
   ],
   valueSlice: {columnStart: 1}

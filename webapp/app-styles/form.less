@@ -13,9 +13,9 @@ input, select, textarea {
 }
 
 .select {
-  .mixin-select-base(8px, @ui-thin-border, 3px);
+  .mixin-select-base(8px, @ui-thin-border, 2px);
   font-size: @font-m;
-  height: 36px;
+  height: 32px;
   min-width: 120px;
 
   &:focus {
@@ -25,7 +25,7 @@ input, select, textarea {
 }
 
 .select-s {
-  .mixin-select-base(8px, @ui-thin-border, 3px);
+  .mixin-select-base(8px, @ui-thin-border, 2px);
   font-size: @font-xs;
   height: 28px;
   min-width: 80px;
@@ -77,8 +77,4 @@ input, select, textarea {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-
-  &:invalid {
-    color: @text-disabled;
-  }
 }

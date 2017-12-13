@@ -45,9 +45,10 @@ class NonWoodForestProductsRemovalsView extends React.Component {
       <div className="fra-view__content">
         <div className="fra-view__page-header">
           <h1 className="title">{i18n.t('nonWoodForestProductsRemovals.nonWoodForestProductsRemovals')}</h1>
-          <DefinitionLink document="tad" anchor="7c" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
-          <DefinitionLink document="faq" anchor="7c" title={i18n.t('definition.faqLabel')} lang={i18n.language}
-                          className="align-left"/>
+          <div className="fra-view__header-secondary-content">
+            <DefinitionLink document="tad" anchor="7c" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
+            <DefinitionLink document="faq" anchor="7c" title={i18n.t('definition.faqLabel')} lang={i18n.language}/>
+          </div>
         </div>
         <TraditionalTable tableSpec={mainTableSpecInstance} countryIso={match.params.countryIso}/>
         <div className="nwfpr__currency-table-wrapper">

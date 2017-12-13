@@ -19,16 +19,35 @@
   .mixin-flex-header-row(16px)
 }
 
+.fra-view__header-secondary-content {
+  margin: 0;
+  width: 100%;
+
+  > * {
+    margin: 8px 16px 0 0;
+  }
+
+  .support-text {
+    color: @text-mute;
+    display: block;
+    line-height: 20px;
+  }
+}
+
 .mixin-flex-header-row(@margin) {
   display: flex;
   flex-flow: row wrap;
   align-items: baseline;
   justify-content: space-between;
   margin-bottom: @margin;
-  margin-right: -16px;
 
   > * {
-    margin-right: 16px;
+    margin-left: 16px;
+  }
+
+  .title,
+  .subhead {
+    margin-left: 0;
   }
 
   .align-left {
@@ -37,11 +56,5 @@
 
   .align-right {
     margin-left: auto;
-  }
-
-  .support-text {
-    color: @text-mute;
-    margin-top: 8px;
-    width: 100%;
   }
 }

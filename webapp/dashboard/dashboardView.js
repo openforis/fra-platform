@@ -3,10 +3,9 @@ import R from 'ramda'
 import React from 'react'
 import LoggedInPageTemplate from '../app/loggedInPageTemplate'
 import { connect } from 'react-redux'
-import { getCountryName } from '../../common/country'
 import { getRelativeDate } from '../utils/relativeDate'
 import { fetchAuditFeed } from '../audit/actions'
-import { Link } from './../reusableUiComponents/link'
+import { Link } from '../reusableUiComponents/link'
 
 const mapIndexed = R.addIndex(R.map)
 
@@ -39,31 +38,32 @@ const getSectionLocalizationKey = (section) => {
   return section + '.' + section
 }
 
-const getSectionUrl = (item) => {
+const getSectionUrl = (item, fra) => {
   const odpId = R.path(['target', 'odpId'], item)
-  if (odpId) {
-    return 'odp/' + odpId
+  const odpExists = R.path(['odpId', odpId], fra)
+  if (odpExists) {
+    return 'odp/extentOfForest/' + odpId
   }
   return item.sectionName
 }
 
-const LinkList = ({title, links}) => {
-  return <ul className="link-list__container">
-    <li className="link-list__heading">
+const LinkList = ({title, items}) => {
+  return <ul className="dashboard__list">
+    <li className="dashboard__list-heading">
       <h3 className="subhead">{title}</h3>
     </li>
     {
-      links.map(link =>
-        <li className="link-list__item" key={link.url}>
-          <a href={link.url} className="link" target="_blank">{link.name}</a>
+      R.map(item =>
+        <li className="dashboard__list-item" key={item.url}>
+          <a href={item.url} className="link" target="_blank">{item.name}</a>
         </li>
-      )
+      , items)
     }
   </ul>
 }
 
-const ActivityItem = ({i18n, countryIso, item}) => {
-  const sectionUrl = getSectionUrl(item)
+const ActivityItem = ({i18n, countryIso, item, fra}) => {
+  const sectionUrl = getSectionUrl(item, fra)
   const sectionLocalizationKey = getSectionLocalizationKey(item.sectionName)
   const actionLocalizationKey = getActionLocalizationKey(item.message)
   const usersManagementLocalaizationParameters = item.target ? {user: item.target.user, role: i18n.t('user.roles.' + item.target.role)} : null
@@ -121,41 +121,99 @@ class DashboardView extends React.Component {
       name: i18n.t('dashboard.externalLinks.unReddPlatform'),
       url: 'http://redd.unfccc.int/submissions.html'
     }]
+    const tableContentKeys = [
+      ['milestone1', 'date1', 'activity1'],
+      ['milestone2', 'date2', 'activity2'],
+      ['milestone3', 'date3', 'activity3'],
+      ['milestone4', 'date4', 'activity4'],
+      ['milestone5', 'date5', 'activity5'],
+      ['milestone6', 'date6', 'activity6']
+    ]
 
     return <LoggedInPageTemplate>
       <div className="fra-view__content">
         <div className="dashboard__page-header">
-          <h1 className="title">{getCountryName(countryIso, i18n.language)}</h1>
+          <h1 className="title">{i18n.t('dashboard.fraPlatform')}</h1>
         </div>
         <div className="dashboard__container">
-          <div className="dashboard__activity">
-            <h3 className="subhead dashboard__activity-title">{i18n.t('dashboard.recentActivity')}</h3>
+          <table className="dashboard__table">
+            <thead>
+              <tr>
+                <th>{i18n.t('dashboard.milestoneHeader')}</th>
+                <th>{i18n.t('dashboard.dateHeader')}</th>
+                <th>{i18n.t('dashboard.activityHeader')}</th>
+              </tr>
+            </thead>
+            <tbody>
             {
-              feed && feed.length > 0
-                ? mapIndexed((item, index) =>
-                  <ActivityItem
-                    key={index}
-                    i18n={i18n}
-                    countryIso={countryIso}
-                    item={item}
-                  />, feed)
-                : <div className="dashboard__activity-item">
-                    <span className="dashboard__activity-placeholder">{i18n.t('dashboard.noRecentActivity')}</span>
-                  </div>
+              mapIndexed((row, i) =>
+                <tr key={i}>
+                  {
+                    R.map(cell =>
+                      <td key={cell}>
+                        {i18n.t('dashboard.milestones.' + cell)}
+                      </td>
+                    , row)
+                  }
+                </tr>
+              , tableContentKeys)
+            }
+            </tbody>
+          </table>
+        </div>
+        <div className="dashboard__container">
+          <div className="dashboard__main">
+            <h3 className="subhead dashboard__main-title">{i18n.t('dashboard.recentActivity')}</h3>
+            {
+              R.isNil(feed)
+                ? null
+                : feed.length > 0
+                  ? mapIndexed((item, index) =>
+                    <ActivityItem
+                      key={index}
+                      i18n={i18n}
+                      countryIso={countryIso}
+                      item={item}
+                      fra={this.props.extentOfForest.fra}
+                    />, feed)
+                  : <div className="dashboard__activity-empty">
+                      <img src="img/tucan.svg" height="72"/>
+                      <p className="dashboard__activity-empty-title">{i18n.t('dashboard.noRecentActivityTitle')}</p>
+                      <p>{i18n.t('dashboard.noRecentActivityBody')}</p>
+                    </div>
             }
           </div>
           <div className="dashboard__sidebar">
             <LinkList
               title={i18n.t('dashboard.externalLinks.title')}
-              links={externalLinks}/>
+              items={externalLinks}/>
+            <div className="dashboard__block">
+              <h3 className="subhead dashboard__block-heading">{i18n.t('dashboard.about')}</h3>
+              <p>{i18n.t('dashboard.fraProcess')}</p>
+              <a href="http://www.fao.org/forest-resources-assessment/en/" target="_blank" className="link">{i18n.t('dashboard.linkFraProcess')}</a>
+            </div>
+            <div className="dashboard__block">
+              <h3 className="subhead dashboard__block-heading">{i18n.t('dashboard.contact')}</h3>
+              <p>
+                Firstname Lastname<br/>
+                firstname.lastname@fao.org<br/>
+                +358 40 123 4567
+              </p>
+              <p>
+                Firstname Lastname<br/>
+                firstname.lastname@fao.org<br/>
+                +358 40 123 4567
+              </p>
+            </div>
+            <img src="img/cfrq_logos.png" className="dashboard__logos"/>
+            <div className="dashboard__version">{i18n.t('navigation.support.platformVersion')} {__PLATFORM_VERSION__}</div>
           </div>
         </div>
-        <div className="dashboard__version">{i18n.t('navigation.support.platformVersion')} {__PLATFORM_VERSION__}</div>
       </div>
     </LoggedInPageTemplate>
   }
 }
 
-const mapStateToProps = state => ({i18n: state.user.i18n, feed: state.dashboard.feed})
+const mapStateToProps = state => ({i18n: state.user.i18n, feed: state.dashboard.feed, extentOfForest: state.extentOfForest})
 
 export default connect(mapStateToProps, {fetchAuditFeed})(DashboardView)

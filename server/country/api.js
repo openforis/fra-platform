@@ -1,5 +1,6 @@
 const Promise = require('bluebird')
 const R = require('ramda')
+const db = require('../db/db')
 
 const {sendErr} = require('../utils/requestUtils')
 const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
@@ -9,6 +10,7 @@ const reviewRepository = require('../review/reviewRepository')
 const odpRepository = require('../odp/odpRepository')
 const assessmentRepository = require('../assessment/assessmentRepository')
 const auditRepository = require('../audit/auditRepository')
+const countryConfig = require('./countryConfig')
 
 module.exports.init = app => {
 
@@ -42,5 +44,34 @@ module.exports.init = app => {
           })
       }
     ).catch(err => sendErr(res, err))
+  })
+
+  // Changes one key/value pair
+  app.post('/country/config/:countryIso', async (req, res) => {
+    checkCountryAccessFromReqParams(req)
+    try {
+      await db.transaction(countryRepository.saveDynamicConfigurationVariable,
+        [
+          req.params.countryIso,
+          req.body.key,
+          req.body.value
+        ]
+      )
+      res.json({})
+    } catch (e) {
+      sendErr(res, e)
+    }
+  })
+
+  app.get('/country/config/:countryIso', async (req, res) => {
+    checkCountryAccessFromReqParams(req)
+    try {
+      const dynamicConfig = await countryRepository.getDynamicCountryConfiguration(req.params.countryIso)
+      const staticConfig = countryConfig[req.params.countryIso]
+      const fullConfig = R.mergeDeepRight(staticConfig, dynamicConfig)
+      res.json(fullConfig)
+    } catch (e) {
+      sendErr(res, e)
+    }
   })
 }

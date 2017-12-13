@@ -1,19 +1,17 @@
 import React from 'react'
-import ReactDOMServer from 'react-dom/server'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
-import clipboard from 'clipboard-polyfill'
 import { Link } from '../../reusableUiComponents/link'
 import Icon from '../../reusableUiComponents/icon'
-
 import { fetchItem, save, saveMany, generateFraValues } from '../../tableWithOdp/actions'
 import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
-import { TableWithOdp, GenerateFraValuesControl, getFraValues } from '../../tableWithOdp/tableWithOdp'
+import { TableWithOdp, GenerateFraValuesControl } from '../../tableWithOdp/tableWithOdp'
 import ChartWrapper from '../extentOfForest/chart/chartWrapper'
 import { CommentableDescriptions } from '../../description/commentableDescription'
 import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
+import { saveCountryConfigSetting } from '../../country/actions'
 import DefinitionLink from '../../reusableUiComponents/definitionLink'
-import { sum, formatNumber, eq, greaterThanOrEqualTo, abs, sub, greaterThan, toFixed } from '../../../common/bignumberUtils'
+import { sum, formatNumber, greaterThanOrEqualTo, abs, sub, greaterThan, toFixed } from '../../../common/bignumberUtils'
 import { getForestAreaForYear } from '../extentOfForest/extentOfForestHelper'
 import ReviewIndicator from '../../review/reviewIndicator'
 
@@ -152,29 +150,7 @@ const ForestCharacteristics = props => {
       return validationErrors
     },R.values(fra))
 
-  const ClipboardTable = ({tableValues}) =>
-    <table>
-      <tbody>
-        {mapIndexed((row, i) =>
-          <tr key={i}>
-            {mapIndexed((value, i) =>
-              <td key={i}> {toFixed(value)} </td>
-            , row)}
-          </tr>
-        , tableValues)}
-      </tbody>
-    </table>
-
-  const copyTableAsHtml = (fra, rowsSpecs) => {
-    const transposedFraValues = R.transpose(getFraValues(fra, rowsSpecs))
-    const htmlTable = ReactDOMServer.renderToString(<ClipboardTable tableValues={transposedFraValues}/>)
-    const dataTransfer = new clipboard.DT()
-    dataTransfer.setData("text/plain", i18n.t('forestCharacteristics.forestCharacteristics'))
-    dataTransfer.setData("text/html", htmlTable)
-    clipboard.write(dataTransfer)
-  }
-
-  const rows = [
+  const focRows = [
     {
       type: 'field',
       field: 'naturalForestArea',
@@ -215,45 +191,57 @@ const ForestCharacteristics = props => {
       validationErrorMessages
     }
   ]
-
+  const filteredFraColumns = R.reject(
+    fraColumn => !props.useOriginalDataPoints && fraColumn.type === 'odp',
+    R.values(props.fra)
+  )
   return <div className='fra-view__content'>
     <div className="fra-view__page-header">
       <h1 className="title align-left">{i18n.t('forestCharacteristics.estimationAndForecasting')}</h1>
-      <Link className="btn btn-primary" to={`/country/${props.countryIso}/odp`}>
-        <Icon className="icon-sub icon-white" name="small-add"/>
-        {i18n.t('nationalDataPoint.addNationalDataPoint')}
-      </Link>
+      <button
+        className="btn btn-primary"
+        onClick={() => {
+          props.saveCountryConfigSetting(props.countryIso, 'useOriginalDataPoints', !props.useOriginalDataPoints)
+        }}
+      >
+        {
+          props.useOriginalDataPoints
+            ? i18n.t('forestCharacteristics.dontUseOriginalDataPoints')
+            : i18n.t('forestCharacteristics.useOriginalDataPoints')
+        }
+      </button>
     </div>
-    <ChartWrapper stateName="forestCharacteristics" trends={[
-      {name:'naturalForestArea', label:props.i18n.t('forestCharacteristics.naturalForestArea'), color:'#0098a6'},
-      {name:'plantationForestArea', label:props.i18n.t('forestCharacteristics.plantationForestArea'), color:'#bf00af'},
-      {name:'otherPlantedForestArea', label:props.i18n.t('forestCharacteristics.otherPlantedForestArea'), color:'#f58833'}
-    ]} />
+    <ChartWrapper
+      fra={filteredFraColumns}
+      trends={[
+        {name:'naturalForestArea', label:props.i18n.t('forestCharacteristics.naturalForestArea'), color:'#0098a6'},
+        {name:'plantationForestArea', label:props.i18n.t('forestCharacteristics.plantationForestArea'), color:'#bf00af'},
+        {name:'otherPlantedForestArea', label:props.i18n.t('forestCharacteristics.otherPlantedForestArea'), color:'#f58833'}
+      ]}
+    />
     <div className="fra-view__section-header">
       <h3 className="subhead">{i18n.t('forestCharacteristics.forestCharacteristics')}</h3>
       <DefinitionLink document="tad" anchor="1b" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
       <DefinitionLink document="faq" anchor="1b" title={i18n.t('definition.faqLabel')} lang={i18n.language} className="align-left"/>
-      <GenerateFraValuesControl section={sectionName} rows={rows} {...props} />
-      <button
-        className="btn-s btn-secondary"
-        onClick={() => copyTableAsHtml(props.fra, rows)}>
-         {i18n.t('forestCharacteristics.copyToClipboard')}
-      </button>
+      <GenerateFraValuesControl section={sectionName} rows={focRows} {...props} />
       {
-        props.odpDirty
-          ? <div className="support-text">
-              <Icon name="alert" className="icon-orange icon-sub icon-margin-right"/>
-              {i18n.t('nationalDataPoint.remindDirtyOdp')}
+        props.odpDirty && props.useOriginalDataPoints
+          ? <div className="fra-view__header-secondary-content">
+              <p className="support-text">
+                <Icon name="alert" className="icon-orange icon-sub icon-margin-right"/>
+                {i18n.t('nationalDataPoint.remindDirtyOdp')}
+              </p>
             </div>
           : null
       }
     </div>
     <TableWithOdp
       section={sectionName}
-      rows={rows}
+      rows={focRows}
       tableHeader={i18n.t('forestCharacteristics.areaUnitLabel')}
       categoryHeader={i18n.t('forestCharacteristics.categoryHeader')}
       {...props}
+      fra={filteredFraColumns}
     />
     <CommentableDescriptions
       section={sectionName}
@@ -288,7 +276,8 @@ const mapStateToProps = state =>
     ...state.forestCharacteristics,
     openCommentThread: state.review.openThread,
     i18n: state.user.i18n,
-    extentOfForest: state.extentOfForest
+    extentOfForest: state.extentOfForest,
+    useOriginalDataPoints: !!R.path(['country', 'config', 'useOriginalDataPoints'], state)
   })
 
 export default connect(
@@ -298,6 +287,7 @@ export default connect(
       saveMany,
       fetchItem,
       generateFraValues,
-      fetchLastSectionUpdateTimestamp
+      fetchLastSectionUpdateTimestamp,
+      saveCountryConfigSetting
     }
   )(DataFetchingComponent)

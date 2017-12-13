@@ -8,7 +8,7 @@ import { fetchInitialData } from '../app/actions'
 import Route from 'route-parser'
 
 const getCountryIsoFromPath = (path) => {
-  const match = new Route('/country/:countryIso/*whatever').match(path.replace('#', ''))
+  const match = new Route('/country/:countryIso*whatever').match(path.replace('#', ''))
   return match ? match.countryIso : null
 }
 

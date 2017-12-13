@@ -7,6 +7,7 @@ const yearlyVolumeInputsForRow = () =>
     {type: 'decimalInput'},
     {type: 'decimalInput'},
     {type: 'decimalInput'},
+    {type: 'decimalInput'},
     {type: 'decimalInput'}
   ]
 
@@ -77,7 +78,7 @@ const totalRow = (i18n, rowHeaderKey, aggregateFunction) => [
   },
   fillerCell,
   fillerCell,
-  ...R.map(aggregateCell(aggregateFunction), R.range(3, 7))
+  ...R.map(aggregateCell(aggregateFunction), R.range(3, 8))
 ]
 
 const totalNativeRow = i18n => totalRow(i18n, 'growingStockComposition.totalNative', totalNative)
@@ -93,7 +94,7 @@ const introducedHeaderRow = i18n => [
       {i18n.t('growingStockComposition.introducedTreeSpecies')}
     </th>
   },
-  ...R.map(() => fillerCell, R.range(1, 6)),
+  ...R.map(() => fillerCell, R.range(1, 7)),
   {
     type: 'readOnly',
     jsx: <td className="fra-table__filler-last"/>
@@ -105,16 +106,17 @@ export default i18n => ({
   header: <thead>
   <tr>
     <th className="fra-table__header-cell-left">{i18n.t('growingStockComposition.categoryHeader')}</th>
-    <th rowSpan="2" className="fra-table__header-cell-left">{i18n.t('growingStockComposition.scientificName')}</th>
-    <th rowSpan="2" className="fra-table__header-cell-left">{i18n.t('growingStockComposition.commonName')}</th>
-    <th className="fra-table__header-cell" colSpan="4">{i18n.t('growingStockComposition.areaUnitLabel')}</th>
+    <th rowSpan="2" className="fra-table__header-cell">{i18n.t('growingStockComposition.scientificName')}</th>
+    <th rowSpan="2" className="fra-table__header-cell">{i18n.t('growingStockComposition.commonName')}</th>
+    <th className="fra-table__header-cell" colSpan="5">{i18n.t('growingStockComposition.areaUnitLabel')}</th>
   </tr>
   <tr>
-    <th className="fra-table__header-cell">{i18n.t('growingStockComposition.nativeTreeSpecies')}</th>
+    <th className="fra-table__header-cell-left">{i18n.t('growingStockComposition.nativeTreeSpecies')}</th>
     <th className="fra-table__header-cell">1990</th>
     <th className="fra-table__header-cell">2000</th>
     <th className="fra-table__header-cell">2010</th>
     <th className="fra-table__header-cell">2015</th>
+    <th className="fra-table__header-cell">2020</th>
   </tr>
   </thead>,
   rows:
