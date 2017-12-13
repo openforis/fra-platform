@@ -393,10 +393,13 @@ The FRA team
     otherLandWithTreeCover: 'Other land with tree cover',
     areaUnitLabel: 'Area (1000 ha)',
     categoryHeader: 'FRA categories',
-    ofWhichPalms: '…of which palms',
-    ofWhichTreeOrchards: '…of which tree orchards',
-    ofWhichAgroforestry: '…of which agroforestry',
-    ofWhichTreesInUrbanSettings: '…of which trees in urban settings'
+    palms: 'Palms',
+    treeorchards: 'Tree orchards',
+    agroforestry: 'Agroforestry',
+    treesinurbansettings: 'Trees in urban settings',
+    total: 'Total',
+    otherLandArea: 'Other land area',
+    other: 'Other (specify in comments)'
   },
 
   growingStock: {
