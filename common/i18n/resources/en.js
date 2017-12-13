@@ -439,7 +439,8 @@ The FRA team
     carbonBelowGroundBiomass: 'Carbon in below-ground biomass',
     carbonDeadwood: 'Carbon in dead wood',
     carbonLitter: 'Carbon in litter',
-    carbonSoil: 'Soil carbon'
+    carbonSoil: 'Soil carbon',
+    soilDepthHeading: 'Soil depth (cm) used for soil carbon estimates',
   },
 
   designatedManagementObjective: {
