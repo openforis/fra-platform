@@ -6,5 +6,6 @@ export default props =>
   <SingleTraditionalTableView
     {...props}
     headingLocalizationKey="employment.employment"
+    headingDetailsLocalizationKey="employment.average"
     sectionAnchor="7a"
     tableSpec={tableSpec}/>
