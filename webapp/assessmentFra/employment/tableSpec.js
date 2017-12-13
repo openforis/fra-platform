@@ -17,11 +17,7 @@ const sumOfGenders = (tableData, rowIdx, yearIdx) => {
 const genderOfWhichValitor = subCategoryValidator(0, R.range(1, 5))
 
 const yearFields = (rowIdx, validator) => yearIdx => [
-  {
-    type: 'custom',
-    render: props =>
-      <td className="fra-table__calculated-cell">{sumOfGenders(props.tableData, rowIdx, yearIdx)}</td>
-  },
+  {type: 'integerInput', validator: validator},
   {type: 'integerInput', validator: validator},
   {type: 'integerInput', validator: validator}
 ]
@@ -39,9 +35,9 @@ const rowSubHeading = (i18n, localizationKey) =>
 
 const yearSubHeadings = i18n =>
   [
-    <th key="total" className="fra-table__header-cell">Total</th>,
-    <th key="female" className="fra-table__category-cell-right">Female</th>,
-    <th key="male" className="fra-table__category-cell-right">Male</th>
+    <th key="total" className="fra-table__header-cell">{i18n.t('employment.total')}</th>,
+    <th key="female" className="fra-table__category-cell-right">{i18n.t('employment.female')}</th>,
+    <th key="male" className="fra-table__category-cell-right">{i18n.t('employment.male')}</th>
   ]
 
 export default i18n => ({

@@ -10,16 +10,16 @@ module.exports = {
     ]
   },
   columns: [
-    {name: '1990_total_placeholder', type: 'numeric'}, //Will contain no data in DB, sum field in UI
+    {name: '1990_total', type: 'numeric'},
     {name: '1990_female', type: 'numeric'},
     {name: '1990_male', type: 'numeric'},
-    {name: '2000_total_placeholder', type: 'numeric'}, //Will contain no data in DB, sum field in UI
+    {name: '2000_total', type: 'numeric'},
     {name: '2000_female', type: 'numeric'},
     {name: '2000_male', type: 'numeric'},
-    {name: '2010_total_placeholder', type: 'numeric'},//Will contain no data in DB, sum field in UI
+    {name: '2010_total', type: 'numeric'},
     {name: '2010_female', type: 'numeric'},
     {name: '2010_male', type: 'numeric'},
-    {name: '2015_total_placeholder', type: 'numeric'}, //Will contain no data in DB, sum field in UI
+    {name: '2015_total', type: 'numeric'},
     {name: '2015_female', type: 'numeric'},
     {name: '2015_male', type: 'numeric'}
   ]
