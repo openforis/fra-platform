@@ -102,9 +102,9 @@ module.exports.translation = {
       edited: 'edited',
       resolved: 'resolved issue in',
       status: 'changed status to',
-      addUser:'added {{user}} as {{role}}', //Legacy, no longer created
-      updateUser:'edited {{user}}',
-      removeUser:'removed {{user}}',
+      addUser: 'added {{user}} as {{role}}', //Legacy, no longer created
+      updateUser: 'edited {{user}}',
+      removeUser: 'removed {{user}}',
       acceptInvitation: 'joined as {{role}}',
       addInvitation: 'Invited {{user}} as {{role}}',
       removeInvitation: 'Removed invitation of {{user}} as {{role}}',
@@ -277,9 +277,9 @@ module.exports.translation = {
     addUser: 'Add collaborator',
     insufficientPrivileges: 'Insufficient privileges',
     confirmDelete: 'Remove {{user}} from {{country}}?',
-    invitationEmail:{
-      subject:'Invited to {{country}} on FRA Platform',
-      textMessage:`Dear {{invitedUser}},
+    invitationEmail: {
+      subject: 'Invited to {{country}} on FRA Platform',
+      textMessage: `Dear {{invitedUser}},
 
 {{loggedInUser}} has invited you to join {{country}} on FRA Platfrom as a {{role}}.
 
@@ -291,7 +291,7 @@ Happy reporting, and don't hesitate to contact us with your feedback.
 The FRA team
 {{- url}}
     `,
-      htmlMessage:`Dear {{invitedUser}},
+      htmlMessage: `Dear {{invitedUser}},
 <br/><br/>
 {{loggedInUser}} has invited you to join {{country}} on FRA Platfrom as a {{role}}.
 <br/><br/>
@@ -326,8 +326,8 @@ The FRA team
     ofWhichTreesUrbanSettings: '…of which trees in urban settings',
     totalLandArea: 'Total land area',
     faoStatLandArea: 'FAOSTAT land area',
-    faoStatMismatch: "Doesn't match FAOSTAT land area",
-    forestAreaDoesNotMatchPreviouslyReported: "Forest area doesn't match FRA 2015 area: {{previous}}"
+    faoStatMismatch: 'Doesn\'t match FAOSTAT land area',
+    forestAreaDoesNotMatchPreviouslyReported: 'Forest area doesn\'t match FRA 2015 area: {{previous}}'
   },
 
   forestCharacteristics: {
@@ -343,7 +343,7 @@ The FRA team
     totalForestArea: 'Total forest area',
     total: 'Total',
     useOriginalDataPoints: 'Use national data points',
-    dontUseOriginalDataPoints: "Don't use national data points"
+    dontUseOriginalDataPoints: 'Don\'t use national data points'
   },
 
   tableWithOdp: {
@@ -368,7 +368,7 @@ The FRA team
     ofWhichNaturalExpansion: '…of which natural expansion',
     deforestation: 'Deforestation',
     forestAreaNetChange: 'Forest area net change',
-    netChangeDoesNotMatch: "Doesn't match Forest area net change",
+    netChangeDoesNotMatch: 'Doesn\'t match Forest area net change',
     total: 'Total'
   },
 
@@ -550,22 +550,26 @@ The FRA team
     categoryHeader: 'FRA 2020 categories',
     unitHeader: 'Full-time equivalents (1000 FTE)',
     inForestry: 'Employment in forestry and logging',
-    ofWhichFemale: '…of which female',
     ofWhichSilviculture: '…of which silviculture and other forestry activities',
     ofWhichLogging: '…of which logging',
     ofWhichGathering: '…of which gathering of non wood forest products',
-    ofWhichSupport: '…of which support services to forestry'
+    ofWhichSupport: '…of which support services to forestry',
+    total: 'Total',
+    female: 'Female',
+    male: 'Male'
   },
 
   graduationOfStudents: {
     graduationOfStudents: 'Graduation of students in forest-related education (3 year average)',
     numberOfStudents: 'Number of graduated students',
     fra2020Categories: 'FRA 2020 categories',
-    doctoralDegree: 'Doctoral degree (Ph. D.)',
-    ofWhichFemale: '...of which female',
-    mastersDegree: 'Master\'s degree (MSc)',
-    bachelorsDegree: 'Bachelor\'s degree (BSc)',
-    technicianCertificate: 'Technician certificate / diploma'
+    doctoralDegree: 'Doctoral degree',
+    mastersDegree: 'Master\'s degree',
+    bachelorsDegree: 'Bachelor\'s degree',
+    technicianCertificate: 'Technician certificate / diploma',
+    total: 'Total',
+    female: 'Female',
+    male: 'Male'
   },
 
   nonWoodForestProductsRemovals: {
