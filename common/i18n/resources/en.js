@@ -119,7 +119,7 @@ module.exports.translation = {
     access: {
       countryRoleNotSpecified: 'Error: User {{user}} tried to access {{countryIso}} but no role has been specified',
       countryUserNotReviewer: 'Error: User {{user}} tried to access {{countryIso}} of which is not reviewer',
-      roleChangeNotAllowed: 'Error: User {{user}} tried to set another user\'s role to {{role}} which is not allowed for the logged in user',
+      roleChangeNotAllowed: 'Error: User {{user}} tried to set another user’s role to {{role}} which is not allowed for the logged in user',
       invitationAlreadyUsed: 'Error: invitation {{invitationUuid}} has already been used, hijacking by {{loginEmail}} not allowed!',
       countryDoesNotMatch: 'Error: country {{countyryIso}} does not match'
     },
@@ -128,7 +128,7 @@ module.exports.translation = {
       deskStudyNotAllowed: 'Error: Only administrator can change desk-study status'
     },
     review: {
-      commentDeleteNotOwner: 'Error: User {{user}} tried to delete a comment that doesn\'t own',
+      commentDeleteNotOwner: 'Error: User {{user}} tried to delete a comment that doesn’t own',
       commentEnterResolvedIssue: 'Error: User {{user}} tried to enter a comment for a resolved issue'
     },
     ndp: {
@@ -326,8 +326,8 @@ The FRA team
     ofWhichTreesUrbanSettings: '…of which trees in urban settings',
     totalLandArea: 'Total land area',
     faoStatLandArea: 'FAOSTAT land area',
-    faoStatMismatch: 'Doesn\'t match FAOSTAT land area',
-    forestAreaDoesNotMatchPreviouslyReported: 'Forest area doesn\'t match FRA 2015 area: {{previous}}'
+    faoStatMismatch: 'Doesn’t match FAOSTAT land area',
+    forestAreaDoesNotMatchPreviouslyReported: 'Forest area doesn’t match FRA 2015 area: {{previous}}'
   },
 
   forestCharacteristics: {
@@ -343,7 +343,7 @@ The FRA team
     totalForestArea: 'Total forest area',
     total: 'Total',
     useOriginalDataPoints: 'Use national data points',
-    dontUseOriginalDataPoints: 'Don\'t use national data points'
+    dontUseOriginalDataPoints: 'Don’t use national data points'
   },
 
   tableWithOdp: {
@@ -368,7 +368,7 @@ The FRA team
     ofWhichNaturalExpansion: '…of which natural expansion',
     deforestation: 'Deforestation',
     forestAreaNetChange: 'Forest area net change',
-    netChangeDoesNotMatch: 'Doesn\'t match Forest area net change',
+    netChangeDoesNotMatch: 'Doesn’t match Forest area net change',
     total: 'Total'
   },
 
@@ -564,8 +564,8 @@ The FRA team
     numberOfStudents: 'Number of graduated students',
     fra2020Categories: 'FRA 2020 categories',
     doctoralDegree: 'Doctoral degree',
-    mastersDegree: 'Master\'s degree',
-    bachelorsDegree: 'Bachelor\'s degree',
+    mastersDegree: 'Master’s degree',
+    bachelorsDegree: 'Bachelor’s degree',
     technicianCertificate: 'Technician certificate / diploma',
     total: 'Total',
     female: 'Female',
