@@ -56,3 +56,24 @@ Here is the git configuration (normally not needed):
 ### [Production environment](https://fra-platform.herokuapp.com)
 
 Deployed manually from command-line currently, see chapter _GitLab Continuous Integration_ above. 
+
+## Email settings
+
+FRA Platform requires to send emails (through [nodemailer](https://nodemailer.com)) to invite new users to access specific countries.
+
+SendGrid has been selected as service provider for such purpose and it has been added as add-on in heroku using the Starter plan (up to 12000 emails per month / free).
+
+It also provides an [online dashboard](https://sendgrid.com) that can be accessed using the following account settings:
+```
+username: app67746415@heroku.com
+password: l7u9xjcd5238
+```
+
+To use SendGrid as service provider, the following env variables must be added to the hosting machine:
+```
+export FRA_MAIL_HOST=smtp.sendgrid.net
+export FRA_MAIL_PORT=587
+export FRA_MAIL_SECURE=false
+export FRA_MAIL_USER=apikey
+export FRA_MAIL_PASSWORD=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
+```
