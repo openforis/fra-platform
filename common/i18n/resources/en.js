@@ -546,7 +546,8 @@ The FRA team
   },
 
   employment: {
-    employment: 'Employment in forestry and logging (3 year average)',
+    employment: 'Employment in forestry and logging',
+    average: '3 year average',
     categoryHeader: 'FRA 2020 categories',
     unitHeader: 'Full-time equivalents (1000 FTE)',
     inForestry: 'Employment in forestry and logging',
@@ -560,7 +561,8 @@ The FRA team
   },
 
   graduationOfStudents: {
-    graduationOfStudents: 'Graduation of students in forest-related education (3 year average)',
+    graduationOfStudents: 'Graduation of students in forest-related education',
+    average: '3 year average',
     numberOfStudents: 'Number of graduated students',
     fra2020Categories: 'FRA 2020 categories',
     doctoralDegree: 'Doctoral degree',

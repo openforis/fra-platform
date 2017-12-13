@@ -23,14 +23,17 @@ class SingleTraditionalTableView extends React.Component {
   }
 
   render() {
-    const {match, i18n, headingLocalizationKey, sectionAnchor, tadAnchor, faqAnchor} = this.props
+    const {match, i18n, headingLocalizationKey, headingDetailsLocalizationKey, sectionAnchor, tadAnchor, faqAnchor} = this.props
     const countryIso = match.params.countryIso
     const tableSpecInstance = this.getTableSpec()
 
     return <LoggedInPageTemplate>
       <div className="fra-view__content">
         <div className="fra-view__page-header">
-          <h1 className="title">{i18n.t(headingLocalizationKey)}</h1>
+          <h1 className="title">
+            {i18n.t(headingLocalizationKey)}
+            {headingDetailsLocalizationKey ? ` (${i18n.t(headingDetailsLocalizationKey)})` : null}
+          </h1>
           <div className="fra-view__header-secondary-content">
             <DefinitionLink document="tad" anchor={sectionAnchor ? sectionAnchor : tadAnchor} title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
             <DefinitionLink document="faq" anchor={sectionAnchor ? sectionAnchor : faqAnchor} title={i18n.t('definition.faqLabel')} lang={i18n.language}/>
