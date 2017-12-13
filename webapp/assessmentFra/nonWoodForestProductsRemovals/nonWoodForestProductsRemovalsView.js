@@ -1,4 +1,3 @@
-import './style.less'
 import React from 'react'
 import { connect } from 'react-redux'
 
@@ -17,7 +16,7 @@ const currencyNameTableSpec = i18n => ({
     [
       {
         type: 'readOnly',
-        jsx: <td className="nwfpr__currency-heading-cell ">
+        jsx: <td className="fra-secondary-table__heading-cell">
           {i18n.t('nonWoodForestProductsRemovals.currency')}
         </td>
       },
@@ -51,7 +50,7 @@ class NonWoodForestProductsRemovalsView extends React.Component {
           </div>
         </div>
         <TraditionalTable tableSpec={mainTableSpecInstance} countryIso={match.params.countryIso}/>
-        <div className="nwfpr__currency-table-wrapper">
+        <div className="fra-secondary-table__wrapper">
           <TraditionalTable tableSpec={currencyNameTableSpec(i18n)} countryIso={match.params.countryIso}/>
         </div>
         <CommentableDescriptions
