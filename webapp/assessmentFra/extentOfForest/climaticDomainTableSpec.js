@@ -21,16 +21,16 @@ export default i18n => ({
   name: 'climaticDomain',
   header: <thead>
     <tr>
-      <th className="fra-table__header-cell">{i18n.t('extentOfForest.climaticDomain.climaticDomain')}</th>
-      <th className="fra-table__header-cell">{i18n.t('extentOfForest.climaticDomain.percentOfForestArea2015')}</th>
-      <th className="fra-table__header-cell">{i18n.t('extentOfForest.climaticDomain.percentOfForestArea2015Override')}</th>
+      <th className="fra-table__header-cell">{i18n.t('climaticDomain.climaticDomain')}</th>
+      <th className="fra-table__header-cell">{i18n.t('climaticDomain.percentOfForestArea2015')}</th>
+      <th className="fra-table__header-cell">{i18n.t('climaticDomain.percentOfForestArea2015Override')}</th>
     </tr>
   </thead>,
   rows: [
-    climaticDomainInputRow(i18n.t('extentOfForest.climaticDomain.boreal')),
-    climaticDomainInputRow(i18n.t('extentOfForest.climaticDomain.temperate')),
-    climaticDomainInputRow(i18n.t('extentOfForest.climaticDomain.subTropical')),
-    climaticDomainInputRow(i18n.t('extentOfForest.climaticDomain.tropical'))
+    climaticDomainInputRow(i18n.t('climaticDomain.boreal')),
+    climaticDomainInputRow(i18n.t('climaticDomain.temperate')),
+    climaticDomainInputRow(i18n.t('climaticDomain.subTropical')),
+    climaticDomainInputRow(i18n.t('climaticDomain.tropical'))
   ],
   valueSlice: {columnStart: 2}
 })
