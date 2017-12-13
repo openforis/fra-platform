@@ -108,7 +108,7 @@ export default i18n => ({
     <th className="fra-table__header-cell-left">{i18n.t('growingStockComposition.categoryHeader')}</th>
     <th rowSpan="2" className="fra-table__header-cell">{i18n.t('growingStockComposition.scientificName')}</th>
     <th rowSpan="2" className="fra-table__header-cell">{i18n.t('growingStockComposition.commonName')}</th>
-    <th className="fra-table__header-cell" colSpan="6">{i18n.t('growingStockComposition.areaUnitLabel')}</th>
+    <th className="fra-table__header-cell" colSpan="5">{i18n.t('growingStockComposition.areaUnitLabel')}</th>
   </tr>
   <tr>
     <th className="fra-table__header-cell-left">{i18n.t('growingStockComposition.nativeTreeSpecies')}</th>
