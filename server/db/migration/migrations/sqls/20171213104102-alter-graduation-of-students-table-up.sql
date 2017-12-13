@@ -56,10 +56,10 @@ graduation_of_students ADD COLUMN "2010_female" NUMERIC;
 ALTER TABLE
 graduation_of_students ADD COLUMN "2010_male" NUMERIC;
 ALTER TABLE
-graduation_of_students ADD COLUMN "20105_total" NUMERIC;
+graduation_of_students ADD COLUMN "2015_total" NUMERIC;
 ALTER TABLE
-graduation_of_students ADD COLUMN "20105_female" NUMERIC;
+graduation_of_students ADD COLUMN "2015_female" NUMERIC;
 ALTER TABLE
-graduation_of_students ADD COLUMN "20105_male" NUMERIC;
+graduation_of_students ADD COLUMN "2015_male" NUMERIC;
 
 
