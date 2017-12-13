@@ -1,5 +1,11 @@
 module.exports =
 {
+    "ATL": {
+      "climaticDomainPercents2015": {
+        "boreal": 22,
+        "subtropical": 44
+      }
+    },
     "ABW": {
         "domain": "tropical",
         "faoStat": {

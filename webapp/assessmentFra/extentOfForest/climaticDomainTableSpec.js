@@ -1,23 +1,23 @@
 import React from 'react'
+import R from 'ramda'
 import { formatDecimal } from '../../utils/numberFormat'
 
-const climaticDomainInputRow = categoryHeader =>
+const climaticDomainInputRow = (categoryHeader, previouslyKnownValue) =>
   [
     {
       type: 'readOnly',
       jsx: <th className="fra-table__category-cell">{categoryHeader}</th>
     },
     {
-      type: 'calculated',
-      calculateValue: props => 0, // placeHolder, let's calculate this later
-      valueFormatter: formatDecimal
+      type: 'readOnly',
+      jsx: <td className="fra-table__calculated-cell">{formatDecimal(previouslyKnownValue)}</td>
     },
     {
       type: 'decimalInput'
     }
   ]
 
-export default i18n => ({
+export default (i18n, climaticDomainPercents) => ({
   name: 'climaticDomain',
   header: <thead>
     <tr>
@@ -27,10 +27,10 @@ export default i18n => ({
     </tr>
   </thead>,
   rows: [
-    climaticDomainInputRow(i18n.t('climaticDomain.boreal')),
-    climaticDomainInputRow(i18n.t('climaticDomain.temperate')),
-    climaticDomainInputRow(i18n.t('climaticDomain.subTropical')),
-    climaticDomainInputRow(i18n.t('climaticDomain.tropical'))
+    climaticDomainInputRow(i18n.t('climaticDomain.boreal'), R.path(['boreal'], climaticDomainPercents)),
+    climaticDomainInputRow(i18n.t('climaticDomain.temperate'), R.path(['temperate'], climaticDomainPercents)),
+    climaticDomainInputRow(i18n.t('climaticDomain.subtropical'), R.path(['subtropical'], climaticDomainPercents)),
+    climaticDomainInputRow(i18n.t('climaticDomain.tropical'), R.path(['tropical'], climaticDomainPercents))
   ],
   valueSlice: {columnStart: 2}
 })
