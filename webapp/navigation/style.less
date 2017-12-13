@@ -179,7 +179,6 @@
 
 .nav__link-label {
   font-weight: 700;
-  line-height: 20px;
 }
 
 .nav__link-count {
@@ -194,7 +193,7 @@
 // Assessment
 
 .nav__assessment-header {
-  .mixin-nav-primary-base;
+  padding: 8px 12px 12px 16px;
 
   .popover-control__menu {
     top: 31px;
@@ -300,7 +299,7 @@
 // Navigation Footer
 
 .nav__footer {
-  .mixin-nav-primary-base;
+  padding: 8px 12px 12px 16px;
   font-size: @font-s;
 }
 
@@ -325,11 +324,6 @@
 
 // Mixins
 
-.mixin-nav-primary-base() {
-  padding: 8px 12px 12px 16px;
-  line-height: 20px;
-}
-
 .mixin-nav-secondary-base(@padding, @hover: false) {
   display: flex;
   align-items: stretch;
@@ -337,7 +331,6 @@
   padding: @padding 12px @padding 16px;
   text-decoration: none;
   color: @text-body;
-  line-height: 20px;
 
   & when (@hover=true) {
     &:hover {
