@@ -330,6 +330,17 @@ The FRA team
     forestAreaDoesNotMatchPreviouslyReported: "Forest area doesn't match FRA 2015 area: {{previous}}"
   },
 
+  climaticDomain: {
+    climaticDomain: 'Climatic domain',
+    percentOfForestArea2015: '% of forest area 2015',
+    percentOfForestArea2015Override: 'Override value',
+    selectDefault: 'Default',
+    boreal: 'Boreal',
+    temperate: 'Temperate',
+    subtropical: 'Sub-tropical',
+    tropical: 'Tropical'
+  },
+
   forestCharacteristics: {
     forestCharacteristics: 'Forest characteristics',
     estimationAndForecasting: 'Estimation and forecasting',
