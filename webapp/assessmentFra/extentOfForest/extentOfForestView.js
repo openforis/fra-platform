@@ -13,6 +13,8 @@ import { TableWithOdp, GenerateFraValuesControl } from '../../tableWithOdp/table
 import { CommentableDescriptions } from '../../description/commentableDescription'
 import { sum, formatNumber, greaterThanOrEqualTo, lessThanOrEqualTo, abs, sub, greaterThan } from '../../../common/bignumberUtils'
 import ReviewIndicator from '../../review/reviewIndicator'
+import climaticDomainTableSpec from './climaticDomainTableSpec'
+import TraditionalTable from '../../traditionalTable/traditionalTable'
 
 const sectionName = 'extentOfForest'
 const mapIndexed = R.addIndex(R.map)
@@ -233,6 +235,7 @@ const ExtentOfForest = (props) => {
       tableHeader={props.i18n.t('extentOfForest.areaUnitLabel')}
       categoryHeader={props.i18n.t('extentOfForest.categoryHeader')}
       {...props}/>
+    <TraditionalTable tableSpec={climaticDomainTableSpec(props.i18n)} countryIso={props.countryIso}/>
     <CommentableDescriptions
       section={sectionName}
       name={sectionName}

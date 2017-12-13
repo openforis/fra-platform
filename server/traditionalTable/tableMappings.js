@@ -20,6 +20,7 @@ const forestOwnership = require('./mappings/forestOwnership')
 const disturbances = require('./mappings/disturbances')
 const areaOfPermanentForestEstate = require('./mappings/areaOfPermanentForestEstate')
 const forestPolicy = require('./mappings/forestPolicy')
+const climaticDomain = require('./mappings/climaticDomain')
 
 const mappings = {
   specificForestCategories,
@@ -41,7 +42,8 @@ const mappings = {
   biomassStock,
   carbonStock,
   areaOfPermanentForestEstate,
-  forestPolicy
+  forestPolicy,
+  climaticDomain
 }
 
 const getRowIndex = (name, names) => {

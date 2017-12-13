@@ -327,7 +327,16 @@ The FRA team
     totalLandArea: 'Total land area',
     faoStatLandArea: 'FAOSTAT land area',
     faoStatMismatch: "Doesn't match FAOSTAT land area",
-    forestAreaDoesNotMatchPreviouslyReported: "Forest area doesn't match FRA 2015 area: {{previous}}"
+    forestAreaDoesNotMatchPreviouslyReported: "Forest area doesn't match FRA 2015 area: {{previous}}",
+    climaticDomain: {
+      climaticDomain: 'Climatic domain',
+      percentOfForestArea2015: '% of forest area 2015',
+      percentOfForestArea2015Override: 'Override value',
+      boreal: 'Boreal',
+      temperate: 'Temperate',
+      subTropical: 'Sub-tropical',
+      tropical: 'Tropical'
+    }
   },
 
   forestCharacteristics: {
