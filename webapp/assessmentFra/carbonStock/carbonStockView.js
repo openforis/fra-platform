@@ -9,21 +9,41 @@ import DefinitionLink from '../../reusableUiComponents/definitionLink'
 import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
 import Icon from '../../reusableUiComponents/icon'
 
+const soilDepthTableSpec = i18n => ({
+  name: 'carbonStockSoilDepth',
+  header: <thead/>,
+  disableReviewComments: true,
+  rows: [
+    [
+      {
+        type: 'readOnly',
+        jsx: <td className="fra-secondary-table__heading-cell">
+          {i18n.t('carbonStock.soilDepthHeading')}
+        </td>
+      },
+      {type: 'decimalInput'}
+    ]
+  ],
+  valueSlice: {
+    columnStart: 1
+  }
+})
+
 class CarbonStockView extends React.Component {
 
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.tableSpecInstance = tableSpec(this.props.i18n)
   }
 
-  componentWillMount() {
+  componentWillMount () {
     this.props.fetchLastSectionUpdateTimestamp(
       this.props.match.params.countryIso,
       this.tableSpecInstance.name
     )
   }
 
-  render() {
+  render () {
     const {match, i18n} = this.props
     const countryIso = match.params.countryIso
     const lang = i18n.language
@@ -43,6 +63,9 @@ class CarbonStockView extends React.Component {
           </div>
         </div>
         <TraditionalTable tableSpec={this.tableSpecInstance} countryIso={countryIso}/>
+        <div className="fra-secondary-table__wrapper">
+          <TraditionalTable tableSpec={soilDepthTableSpec(i18n)} countryIso={match.params.countryIso}/>
+        </div>
         <CommentableDescriptions
           section="carbonStock"
           name="carbonStock"
