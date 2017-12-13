@@ -2,7 +2,6 @@ const db = require('../db/db')
 const repository = require('./traditionalTableRepository')
 const {sendErr} = require('../utils/requestUtils')
 const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
-const auditRepository = require('./../audit/auditRepository')
 
 module.exports.init = app => {
   app.post('/traditionalTable/:countryIso/:tableSpecName', (req, res) => {
