@@ -35,7 +35,7 @@ const linearExtrapolationBackwards = (x, xa, ya, xb, yb) =>
     )
   )
 
-const eofFields = ['forestArea', 'otherWoodedLand', 'otherLand', 'otherLandPalms', 'otherLandTreeOrchards', 'otherLandAgroforestry', 'otherLandTreesUrbanSettings']
+const eofFields = ['forestArea', 'otherWoodedLand', 'otherLand']
 const focFields = ['naturalForestArea', 'plantationForestArea', 'plantationForestIntroducedArea', 'otherPlantedForestArea']
 
 const getNextValues = year => R.pipe(
