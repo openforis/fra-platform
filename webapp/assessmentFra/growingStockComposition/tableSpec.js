@@ -105,12 +105,12 @@ export default i18n => ({
   header: <thead>
   <tr>
     <th className="fra-table__header-cell-left">{i18n.t('growingStockComposition.categoryHeader')}</th>
-    <th rowSpan="2" className="fra-table__header-cell-left">{i18n.t('growingStockComposition.scientificName')}</th>
-    <th rowSpan="2" className="fra-table__header-cell-left">{i18n.t('growingStockComposition.commonName')}</th>
+    <th rowSpan="2" className="fra-table__header-cell">{i18n.t('growingStockComposition.scientificName')}</th>
+    <th rowSpan="2" className="fra-table__header-cell">{i18n.t('growingStockComposition.commonName')}</th>
     <th className="fra-table__header-cell" colSpan="4">{i18n.t('growingStockComposition.areaUnitLabel')}</th>
   </tr>
   <tr>
-    <th className="fra-table__header-cell">{i18n.t('growingStockComposition.nativeTreeSpecies')}</th>
+    <th className="fra-table__header-cell-left">{i18n.t('growingStockComposition.nativeTreeSpecies')}</th>
     <th className="fra-table__header-cell">1990</th>
     <th className="fra-table__header-cell">2000</th>
     <th className="fra-table__header-cell">2010</th>
