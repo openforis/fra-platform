@@ -356,11 +356,11 @@ The FRA team
     placeholderPast: 'Past',
     clearTable: 'Clear table',
     copyToClipboard: 'Copy values',
-    placeholderSelect: 'Extrapolation method…'
+    placeholderSelect: 'Estimation and forecasting'
   },
 
   forestAreaChange: {
-    forestAreaChange: 'Annual forest area loss, gain and net change',
+    forestAreaChange: 'Annual forest expansion, deforestation and net change',
     categoryHeader: 'FRA categories',
     areaUnitLabel: 'Area (1000 ha/year)',
     forestExpansion: 'Forest expansion',
@@ -393,13 +393,13 @@ The FRA team
     growingStock: 'Growing stock',
     supportText: 'Please make sure you have entered data in tables 1a & 1b before editing this table',
     categoryHeader: 'FRA categories',
-    avgTableHeader: 'Average growing stock m³/ha (o.b.)',
-    totalTableHeader: 'Total growing stock (million m³ o.b.)',
+    avgTableHeader: 'Growing stock m³/ha (over bark)',
+    totalTableHeader: 'Total growing stock (million m³ over bark)',
     naturallyRegeneratingForest: 'Naturally regenerating forest',
     plantedForest: 'Planted forest',
     ofWhichPlantationForest: '…of which plantation forest',
     ofWhichOtherPlantedForest: '…of which other planted forest',
-    totalForest: 'Total forest',
+    totalForest: 'Forest',
     otherWoodedLand: 'Other wooded land',
     copyToClipboard: 'Copy values'
   },
@@ -409,7 +409,7 @@ The FRA team
     categoryHeader: 'FRA categories',
     nativeTreeSpecies: 'Native tree species',
     introducedTreeSpecies: 'Introduced tree species',
-    areaUnitLabel: 'Growing stock in forest (million m³ o.b.)',
+    areaUnitLabel: 'Growing stock in forest (million m³ over bark)',
     scientificName: 'Scientific name',
     commonName: 'Common name',
     rank: 'Ranked in terms of volume',
@@ -417,7 +417,8 @@ The FRA team
     remainingIntroduced: 'Remaining introduced tree species',
     totalNative: 'Total volume of native tree species',
     totalIntroduced: 'Total volume of introduced tree species',
-    totalGrowingStock: 'Total growing stock'
+    totalGrowingStock: 'Total growing stock',
+    rankingYear: 'Ranking year 2015'
   },
 
   biomassStock: {
@@ -465,7 +466,7 @@ The FRA team
     categoryHeader: 'FRA categories',
     areaUnitLabel: 'Area (1000 ha)',
     header: 'Forest area within protected areas',
-    forestAreaWithLongTermManagementPlan: 'Forest area with long-term management plan',
+    forestAreaWithLongTermManagementPlan: 'Forest area with long-term forest management plan',
     ofWhichInProtectedAreas: '…of which in protected areas'
   },
 
@@ -522,7 +523,7 @@ The FRA team
     doesYourCountryMonitor: 'Does your country monitor area of degraded forest',
     ifYes: 'If "yes"',
     whatIsDefinition: 'What is the national definition of "Degraded forest"?',
-    howMonitored: 'How is it being monitored?',
+    howMonitored: 'Describe the monitoring process and results?',
   },
 
   forestPolicy: {
@@ -533,8 +534,8 @@ The FRA team
     subnational: 'Sub-national',
     policiesSFM: 'Policies supporting SFM',
     legislationsSFM: 'Legislations and regulations supporting SFM',
-    stakeholderParticipation: 'National platform that promotes or allows for stakeholder participation in forest policy development',
-    existenceOfTraceabilitySystem: 'Traceability system for wood products'
+    stakeholderParticipation: 'Platform that promotes or allows for stakeholder participation in forest policy development',
+    existenceOfTraceabilitySystem: 'Traceability system(s) for wood products'
   },
 
   areaOfPermanentForestEstate: {
@@ -545,7 +546,7 @@ The FRA team
   },
 
   employment: {
-    employment: 'Employment in forestry and logging',
+    employment: 'Employment in forestry and logging (3 year average)',
     categoryHeader: 'FRA 2020 categories',
     unitHeader: 'Full-time equivalents (1000 FTE)',
     inForestry: 'Employment in forestry and logging',
@@ -557,7 +558,7 @@ The FRA team
   },
 
   graduationOfStudents: {
-    graduationOfStudents: 'Graduation of students in forest-related education',
+    graduationOfStudents: 'Graduation of students in forest-related education (3 year average)',
     numberOfStudents: 'Number of graduated students',
     fra2020Categories: 'FRA 2020 categories',
     doctoralDegree: 'Doctoral degree (Ph. D.)',
@@ -568,7 +569,7 @@ The FRA team
   },
 
   nonWoodForestProductsRemovals: {
-    nonWoodForestProductsRemovals: 'Non wood forest products removals 2015',
+    nonWoodForestProductsRemovals: 'Non wood forest products removals and value 2015',
     nameOfProduct: 'Name of NWFP product',
     keySpecies: 'Key species',
     quantity: 'Quantity',
