@@ -9,7 +9,7 @@ import {
   copyNationalClassDefinitions
 } from './originalDataPoint'
 import { validateDataPoint } from '../../common/validateOriginalDataPoint'
-import { fetchCountryOverviewStatus } from '../navigation/actions'
+import { fetchCountryOverviewStatus } from '../country/actions'
 import { markOdpDirty } from '../tableWithOdp/actions'
 
 // Validation
@@ -59,12 +59,12 @@ export const clearActive = () => ({type: odpClearActiveAction})
 
 // Delete
 
-export const remove = (countryIso, odpId) => dispatch => {
+export const remove = (countryIso, odpId, destination) => dispatch => {
   axios.delete(`/api/odp/?odpId=${odpId}`)
     .then(() => {
       dispatch({type: odpClearActiveAction})
       fetchCountryOverviewStatus(countryIso)(dispatch)
-      window.history.back()
+      window.location = `#/country/${countryIso}/${destination}`
     }).catch(err => dispatch(applicationError(err))
   )
 }
@@ -80,7 +80,7 @@ export const removeFromList = (countryIso, odpId) => dispatch => {
 
 // Marking drafts
 
-export const markAsActual = (countryIso, odp) => dispatch => {
+export const markAsActual = (countryIso, odp, destination) => dispatch => {
   const validationStatus = validateDataPoint(odp)
   dispatch(validationCompleted(validationStatus))
   dispatch(markOdpDirty)
@@ -91,7 +91,7 @@ export const markAsActual = (countryIso, odp) => dispatch => {
       dispatch(autosave.complete)
       dispatch({type: odpClearActiveAction})
       fetchCountryOverviewStatus(countryIso)(dispatch)
-      window.history.back()
+      window.location = `#/country/${countryIso}/${destination}`
     }).catch(err =>
       dispatch(applicationError(err))
     )
@@ -135,10 +135,10 @@ export const copyPreviousNationalClasses = (countryIso, odp) => dispatch => {
   })
 }
 
-export const cancelDraft = (countryIso, odpId) => dispatch => {
+export const cancelDraft = (countryIso, odpId, destination) => dispatch => {
   if (odpId)
     axios.delete(`/api/odp/draft/?odpId=${odpId}`)
-      .then(() => window.history.back())
+      .then(() => window.location = `#/country/${countryIso}/${destination}`)
       .catch((err) => dispatch(applicationError(err)))
   else
     window.location = `#/country/${countryIso}`

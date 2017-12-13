@@ -9,7 +9,7 @@ const actionHandlers = {
     const pathWithoutHash = action.to ? action.to.replace(/#/gi, '') : null
     const pathState = {...state, path: pathWithoutHash}
 
-    const r = new Route('#/country/:countryIso(/)(odp*)(/)(:odpId)')
+    const r = new Route('#/country/:countryIso(/)(odp*)(/)(:tab)(/)(:odpId)')
     const match = r.match(location.hash)
     if(match && match.countryIso) {
         return R.assoc('country', match.countryIso)(pathState)

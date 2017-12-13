@@ -35,22 +35,31 @@ class designatedManagementObjectiveView extends React.Component {
           <h1 className="title">
             {i18n.t('designatedManagementObjective.designatedManagementObjective')}
           </h1>
-          <DefinitionLink document="tad" anchor="3a" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
-          <DefinitionLink document="faq" anchor="3a" title={i18n.t('definition.faqLabel')} lang={i18n.language}
-                          className="align-left"/>
+          <div className="fra-view__header-secondary-content">
+            <DefinitionLink document="tad" anchor="3a" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
+            <DefinitionLink document="faq" anchor="3a" title={i18n.t('definition.faqLabel')} lang={i18n.language}/>
+          </div>
         </div>
-        <h3 className="subhead dmo__table-header">
-          {i18n.t('designatedManagementObjective.primaryDesignatedManagementObjective')}
-        </h3>
-        <p className="dmo__support-text">{i18n.t('designatedManagementObjective.primaryDesignatedManagementObjectiveSupport')}</p>
+        <div className="fra-view__section-header dmo__section-header">
+          <h3 className="subhead">
+            {i18n.t('designatedManagementObjective.primaryDesignatedManagementObjective')}
+          </h3>
+          <div className="fra-view__header-secondary-content">
+            <p className="support-text">{i18n.t('designatedManagementObjective.primaryDesignatedManagementObjectiveSupport')}</p>
+          </div>
+        </div>
         <TraditionalTable
           tableSpec={primaryDmoTableSpec}
           countryIso={countryIso}
           section={sectionName}/>
-        <h3 className="subhead dmo__table-header">
-          {i18n.t('designatedManagementObjective.totalAreaWithDesignatedManagementObjective')}
-        </h3>
-        <p className="dmo__support-text">{i18n.t('designatedManagementObjective.totalAreaWithDesignatedManagementObjectiveSupport')}</p>
+        <div className="fra-view__section-header dmo__section-header">
+          <h3 className="subhead">
+            {i18n.t('designatedManagementObjective.totalAreaWithDesignatedManagementObjective')}
+          </h3>
+          <div className="fra-view__header-secondary-content">
+            <p className="support-text">{i18n.t('designatedManagementObjective.totalAreaWithDesignatedManagementObjectiveSupport')}</p>
+          </div>
+        </div>
         <TraditionalTable
           tableSpec={totalDmoTableSpec}
           countryIso={countryIso}

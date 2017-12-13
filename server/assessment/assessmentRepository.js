@@ -52,6 +52,8 @@ const updateAssessment = (client, countryIso, assessment) =>
     [assessment.status, assessment.deskStudy, countryIso, assessment.type]
   )
 
+// Returns a boolean telling whether status was changed
+// (used to determine whether we should send a status-change email)
 module.exports.changeAssessment =
   async (client, countryIso, user, newAssessment) => {
     const currentAssessmentFromDb = await getAssessment(client, countryIso, newAssessment.type)
@@ -60,7 +62,8 @@ module.exports.changeAssessment =
       ? currentAssessmentFromDb
       : defaultAssessment(newAssessment.assessment)
     const role = roleForCountry(countryIso, user)
-    if (currentAssessment.status !== newAssessment.status) {
+    let isStatusChange = currentAssessment.status !== newAssessment.status
+    if (isStatusChange) {
       checkStatusTransitionAllowance(currentAssessment.status, newAssessment.status, role)
     }
     if (currentAssessment.deskStudy !== newAssessment.deskStudy && !isAdministrator(user)) {
@@ -71,6 +74,7 @@ module.exports.changeAssessment =
     } else {
       await addAssessment(client, countryIso, newAssessment)
     }
+    return isStatusChange
   }
 
 const defaultAssessment = (assessmentType) => ({

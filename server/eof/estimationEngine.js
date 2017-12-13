@@ -53,10 +53,10 @@ const estimateField = (values = [], odpValues, field, year, generateSpec) => {
   const previousValue = getPreviousValues(year)(values)[0]
   const nextValue = getNextValues(year)(values)[0]
 
-  if (odp) {
-    return odp[field]
-  } else if (values.length < 2 || generateSpec.method === 'clearTable') {
+  if (values.length < 2 || generateSpec.method === 'clearTable') {
     return null
+  } else if (odp) {
+    return odp[field]
   } else if (previousValue && nextValue) {
     return applyEstimationFunction(year, previousValue, nextValue, field, linearInterpolation)
   } else {
@@ -96,8 +96,8 @@ const clearTableValues = () => {
   return null
 }
 
-const annualChangeExtrapolation = (year, values, odpValues, field, {ratePast, rateFuture}) => {
-  assert(ratePast && rateFuture, 'ratePast and rateFuture must be given for annualChange extrapolation method')
+const annualChangeExtrapolation = (year, values, odpValues, field, {changeRates}) => {
+  assert(changeRates, 'changeRates must be given for annualChange extrapolation method')
 
   const previousValues = getPreviousValues(year)(odpValues)
   const nextValues = getNextValues(year)(odpValues)
@@ -105,12 +105,18 @@ const annualChangeExtrapolation = (year, values, odpValues, field, {ratePast, ra
     const previousOdp = R.head(previousValues)
     const previousOdpYear = previousOdp.year
     const years = year - previousOdpYear
-    return add(previousOdp[field], mul(rateFuture, years))
+    const rateFuture = R.path([field, 'rateFuture'], changeRates)
+    return rateFuture
+      ? add(previousOdp[field], mul(rateFuture, years))
+      : null
   } else if (nextValues.length >= 1) {
     const nextOdp = R.head(nextValues)
     const nextOdpYear = nextOdp.year
     const years = nextOdpYear - year
-    return add(nextOdp[field], mul(ratePast, years))
+    const ratePast = R.path([field, 'ratePast'], changeRates)
+    return ratePast
+      ? add(nextOdp[field], mul(ratePast, years))
+      : null
   } else {
     return null
   }

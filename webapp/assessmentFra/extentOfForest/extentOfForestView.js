@@ -9,10 +9,9 @@ import Icon from '../../reusableUiComponents/icon'
 import DefinitionLink from '../../reusableUiComponents/definitionLink'
 import ChartWrapper from './chart/chartWrapper'
 import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
-import { TableWithOdp, GenerateFraValuesControl, hasFraValues} from '../../tableWithOdp/tableWithOdp'
+import { TableWithOdp, GenerateFraValuesControl } from '../../tableWithOdp/tableWithOdp'
 import { CommentableDescriptions } from '../../description/commentableDescription'
-import countryConfig from '../../../common/countryConfig'
-import { sum, formatNumber, eq, greaterThanOrEqualTo, abs, sub, greaterThan } from '../../../common/bignumberUtils'
+import { sum, formatNumber, greaterThanOrEqualTo, lessThanOrEqualTo, abs, sub, greaterThan } from '../../../common/bignumberUtils'
 import ReviewIndicator from '../../review/reviewIndicator'
 
 const sectionName = 'extentOfForest'
@@ -23,8 +22,11 @@ const ExtentOfForest = (props) => {
 
   const i18n = props.i18n
 
+  const getFaostatValue = year => R.path(['faoStat', year, 'area'], props)
+  const getForestArea2015Value = year => R.path(['fra2015ForestAreas', year], props)
+
   const totalAreaNotEqualToFaoStat = (fraColumn, totalArea) => {
-    const faoStatValue = R.path([props.countryIso, 'faoStat', fraColumn.name, 'area'], countryConfig)
+    const faoStatValue = getFaostatValue(fraColumn.name)
     if (!faoStatValue) return false // It's normal that we don't have faoStat-values for years
     if (R.isNil(totalArea)) return false
     const tolerance = 1
@@ -45,6 +47,14 @@ const ExtentOfForest = (props) => {
     const tolerance = -1
     const difference = sub(otherLand, subCategorySum)
     return greaterThan(difference, tolerance)
+  }
+
+  const forestAreaValidator = (fraColumn) => {
+    const forestAreaFromFra2015 = getForestArea2015Value(fraColumn.name)
+    if (R.isNil(forestAreaFromFra2015) || R.isNil(fraColumn.forestArea)) return true
+    const tolerance = 1
+    const absDifference = abs(sub(forestAreaFromFra2015, fraColumn.forestArea))
+    return lessThanOrEqualTo(absDifference, tolerance)
   }
 
   const totalAreaValidationClass = (fraColumn, totalArea) =>
@@ -82,7 +92,7 @@ const ExtentOfForest = (props) => {
       <th className="fra-table__header-cell-left">{props.i18n.t('extentOfForest.faoStatLandArea')}</th>
       {
         mapIndexed((faoStatColumn, i) => {
-          const faoStatLandArea = R.path([props.countryIso, 'faoStat', faoStatColumn.name, 'area'], countryConfig)
+          const faoStatLandArea = getFaostatValue(faoStatColumn.name)
           return <td className={odpValueCellClass(faoStatColumn)} key={i}>
             {formatNumber(faoStatLandArea)}
           </td>
@@ -107,6 +117,12 @@ const ExtentOfForest = (props) => {
         R.reject(
           R.isNil,
           [
+            !forestAreaValidator(fraColumn)
+              ? props.i18n.t(
+                'extentOfForest.forestAreaDoesNotMatchPreviouslyReported',
+                {previous: getForestArea2015Value(fraColumn.name)}
+              )
+              : null,
             !otherLandValidator(fraColumn)
               ? props.i18n.t('generalValidation.subCategoryExceedsParent')
               : null,
@@ -122,6 +138,7 @@ const ExtentOfForest = (props) => {
     {
       type: 'field',
       field: 'forestArea',
+      validator: forestAreaValidator,
       rowHeader: i18n.t('extentOfForest.forestArea'),
       rowVariable: '(a)'
     },
@@ -179,68 +196,34 @@ const ExtentOfForest = (props) => {
     }
   ]
 
-
-  const generateFraValues = (generateMethod) => {
-    const generateAnnualChange = () => {
-      const valuesRaw = window.prompt('Annual change rate', '-0.1 0.1')
-      const [ratePast, rateFuture] = valuesRaw.split(' ')
-      if (
-        isNaN(ratePast) ||
-        isNaN(rateFuture) ||
-        ratePast === ' ' ||
-        rateFuture === ' '
-      ) { return }
-      props.generateFraValues(
-        'extentOfForest',
-        props.countryIso,
-        {
-          method:
-          generateMethod,
-          ratePast,
-          rateFuture
-        }
-      )
-    }
-    const generate = () => {
-      if (generateMethod === 'annualChange') {
-        generateAnnualChange()
-      } else {
-        props.generateFraValues('extentOfForest', props.countryIso, {method: generateMethod})
-      }
-    }
-    if (hasFraValues(props.fra, eofRows)) {
-      if (window.confirm(i18n.t('extentOfForest.confirmGenerateFraValues'))) {
-        generate()
-      }
-    } else {
-      generate()
-    }
-  }
-
   return <div className='fra-view__content'>
     <div className="fra-view__page-header">
       <h1 className="title align-left">{i18n.t('extentOfForest.estimationAndForecasting')}</h1>
-      <Link className="btn btn-primary" to={`/country/${props.countryIso}/odp`}>
+      <Link className="btn btn-primary" to={`/country/${props.countryIso}/odp/${sectionName}`}>
         <Icon className="icon-sub icon-white" name="small-add"/>
         {i18n.t('nationalDataPoint.addNationalDataPoint')}
       </Link>
     </div>
-    <ChartWrapper stateName={sectionName} trends={[
-      {name: 'forestArea', label: i18n.t('fraClass.forest'), color: '#0098a6'},
-      {name: 'otherWoodedLand', label: i18n.t('fraClass.otherWoodedLand'), color: '#bf00af'}
-    ]}/>
+    <ChartWrapper
+      fra={props.fra}
+      trends={[
+        {name: 'forestArea', label: i18n.t('fraClass.forest'), color: '#0098a6'},
+        {name: 'otherWoodedLand', label: i18n.t('fraClass.otherWoodedLand'), color: '#bf00af'}
+      ]}
+    />
     <div className="fra-view__section-header">
       <h3 className="subhead">{i18n.t('extentOfForest.extentOfForest')}</h3>
       <DefinitionLink document="tad" anchor="1a" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
-      <DefinitionLink document="faq" anchor="1a" title={i18n.t('definition.faqLabel')} lang={i18n.language}
-                      className="align-left"/>
-      <GenerateFraValuesControl section={sectionName} rows={eofRows} {...props} />
+      <DefinitionLink document="faq" anchor="1a" title={i18n.t('definition.faqLabel')} lang={i18n.language} className="align-left"/>
+      <GenerateFraValuesControl section={sectionName} rows={eofRows} useOriginalDataPoints={true} {...props} />
       {
         props.odpDirty
-          ? <div className="support-text">
-          <Icon name="alert" className="icon-orange icon-sub icon-margin-right"/>
-          {i18n.t('nationalDataPoint.remindDirtyOdp')}
-        </div>
+          ? <div className="fra-view__header-secondary-content">
+              <p className="support-text">
+                <Icon name="alert" className="icon-orange icon-sub icon-margin-right"/>
+                {i18n.t('nationalDataPoint.remindDirtyOdp')}
+              </p>
+            </div>
           : null
       }
     </div>
@@ -281,6 +264,8 @@ const mapStateToProps = state =>
   ({
     ...state.extentOfForest,
     openCommentThread: state.review.openThread,
+    faoStat: R.path(['country', 'config', 'faoStat'], state),
+    fra2015ForestAreas: R.path(['country', 'config', 'fra2015ForestAreas'], state),
     i18n: state.user.i18n
   })
 

@@ -38,12 +38,13 @@
 
   .icon {
     transition: @ease-out;
+    color: @text-disabled;
   }
 
   &.active,
   &:hover {
     .icon {
-      color: rgba(0, 0, 0, .75);
+      color: @text-body;
       width: 20px;
       height: 20px;
     }

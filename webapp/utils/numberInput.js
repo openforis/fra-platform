@@ -1,7 +1,7 @@
 import * as R from 'ramda'
 import { toFixed } from '../../common/bignumberUtils'
 
-const trim = (value) => value.replace(/\s/g, '')
+const trim = (value) => value.replace(/\s|\,/g, '')
 
 export const acceptableAsInteger = (newValue) => {
   const newValueTrimmed = trim(newValue)
