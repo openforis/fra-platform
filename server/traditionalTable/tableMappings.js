@@ -10,6 +10,7 @@ const nonWoodForestProductsRemovals = require('./mappings/nonWoodForestProductsR
 const nonWoodForestProductsRemovalsCurrency = require('./mappings/nonWoodForestProductsRemovalsCurrency')
 const biomassStock = require('./mappings/biomassStock')
 const carbonStock = require('./mappings/carbonStock')
+const carbonStockSoilDepth = require('./mappings/carbonStockSoilDepth')
 const degradedForest = require('./mappings/degradedForest')
 const employment = require('./mappings/employment')
 const graduationOfStudents = require('./mappings/graduationOfStudents')
@@ -41,6 +42,7 @@ const mappings = {
   disturbances,
   biomassStock,
   carbonStock,
+  carbonStockSoilDepth,
   areaOfPermanentForestEstate,
   forestPolicy,
   climaticDomain
