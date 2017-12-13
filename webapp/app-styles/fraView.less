@@ -12,11 +12,17 @@
 }
 
 .fra-view__page-header {
-  .mixin-flex-header-row(24px)
+  .mixin-flex-header-row(24px, center)
 }
 
 .fra-view__section-header {
-  .mixin-flex-header-row(16px)
+  .mixin-flex-header-row(16px, baseline)
+}
+
+.fra-view__page-header-controls {
+  select {
+    margin-right: 8px;
+  }
 }
 
 .fra-view__header-secondary-content {
@@ -30,14 +36,13 @@
   .support-text {
     color: @text-mute;
     display: block;
-    line-height: 20px;
   }
 }
 
-.mixin-flex-header-row(@margin) {
+.mixin-flex-header-row(@margin, @align) {
   display: flex;
   flex-flow: row wrap;
-  align-items: baseline;
+  align-items: @align;
   justify-content: space-between;
   margin-bottom: @margin;
 
