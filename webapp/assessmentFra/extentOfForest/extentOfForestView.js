@@ -235,10 +235,13 @@ const ExtentOfForest = (props) => {
       tableHeader={props.i18n.t('extentOfForest.areaUnitLabel')}
       categoryHeader={props.i18n.t('extentOfForest.categoryHeader')}
       {...props}/>
-    <TraditionalTable
-      tableSpec={climaticDomainTableSpec(props.i18n)}
-      countryIso={props.countryIso}
-      section={sectionName}/>
+    <div className="eof__climatic-domain-table-wrapper">
+      <TraditionalTable
+        tableSpec={climaticDomainTableSpec(props.i18n)}
+        countryIso={props.countryIso}
+        section={sectionName}
+      />
+    </div>
     <CommentableDescriptions
       section={sectionName}
       name={sectionName}
