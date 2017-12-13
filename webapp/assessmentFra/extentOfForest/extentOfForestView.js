@@ -13,6 +13,8 @@ import { TableWithOdp, GenerateFraValuesControl } from '../../tableWithOdp/table
 import { CommentableDescriptions } from '../../description/commentableDescription'
 import { sum, formatNumber, greaterThanOrEqualTo, lessThanOrEqualTo, abs, sub, greaterThan } from '../../../common/bignumberUtils'
 import ReviewIndicator from '../../review/reviewIndicator'
+import climaticDomainTableSpec from './climaticDomainTableSpec'
+import TraditionalTable from '../../traditionalTable/traditionalTable'
 
 const sectionName = 'extentOfForest'
 const mapIndexed = R.addIndex(R.map)
@@ -233,6 +235,13 @@ const ExtentOfForest = (props) => {
       tableHeader={props.i18n.t('extentOfForest.areaUnitLabel')}
       categoryHeader={props.i18n.t('extentOfForest.categoryHeader')}
       {...props}/>
+    <div className="eof__climatic-domain-table-wrapper">
+      <TraditionalTable
+        tableSpec={climaticDomainTableSpec(props.i18n, props.climaticDomainPercents2015)}
+        countryIso={props.countryIso}
+        section={sectionName}
+      />
+    </div>
     <CommentableDescriptions
       section={sectionName}
       name={sectionName}
@@ -266,6 +275,7 @@ const mapStateToProps = state =>
     openCommentThread: state.review.openThread,
     faoStat: R.path(['country', 'config', 'faoStat'], state),
     fra2015ForestAreas: R.path(['country', 'config', 'fra2015ForestAreas'], state),
+    climaticDomainPercents2015: R.path(['country', 'config', 'climaticDomainPercents2015'], state),
     i18n: state.user.i18n
   })
 
