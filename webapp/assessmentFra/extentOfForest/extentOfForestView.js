@@ -237,7 +237,7 @@ const ExtentOfForest = (props) => {
       {...props}/>
     <div className="eof__climatic-domain-table-wrapper">
       <TraditionalTable
-        tableSpec={climaticDomainTableSpec(props.i18n)}
+        tableSpec={climaticDomainTableSpec(props.i18n, props.climaticDomainPercents2015)}
         countryIso={props.countryIso}
         section={sectionName}
       />
@@ -275,6 +275,7 @@ const mapStateToProps = state =>
     openCommentThread: state.review.openThread,
     faoStat: R.path(['country', 'config', 'faoStat'], state),
     fra2015ForestAreas: R.path(['country', 'config', 'fra2015ForestAreas'], state),
+    climaticDomainPercents2015: R.path(['country', 'config', 'climaticDomainPercents2015'], state),
     i18n: state.user.i18n
   })
 
