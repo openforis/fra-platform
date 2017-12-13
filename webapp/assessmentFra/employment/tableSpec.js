@@ -17,11 +17,7 @@ const sumOfGenders = (tableData, rowIdx, yearIdx) => {
 const genderOfWhichValitor = subCategoryValidator(0, R.range(1, 5))
 
 const yearFields = (rowIdx, validator) => yearIdx => [
-  {
-    type: 'custom',
-    render: props =>
-      <td className="fra-table__calculated-cell">{sumOfGenders(props.tableData, rowIdx, yearIdx)}</td>
-  },
+  {type: 'integerInput', validator: validator},
   {type: 'integerInput', validator: validator},
   {type: 'integerInput', validator: validator}
 ]
