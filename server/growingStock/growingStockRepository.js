@@ -4,35 +4,27 @@ const camelize = require('camelize')
 const auditRepository = require('./../audit/auditRepository')
 const Promise = require('bluebird')
 
-module.exports.readGrowingStock = countryIso =>
+module.exports.readGrowingStock = (countryIso, tableName) =>
   db
     .query(`
       SELECT
           year,
           naturally_regenerating_forest,
-          naturally_regenerating_forest_avg,
           plantation_forest,
-          plantation_forest_avg,
           other_planted_forest,
-          other_planted_forest_avg,
-          other_wooded_land,
-          other_wooded_land_avg
+          other_wooded_land
       FROM
-          growing_stock
+          ${tableName}
       WHERE
-              country_iso = $1
+          country_iso = $1
       ORDER BY year`, [countryIso])
     .then(result => result.rows.map(
       row => ({
         year: row.year,
         naturallyRegeneratingForest: row.naturally_regenerating_forest,
-        naturallyRegeneratingForestAvg: row.naturally_regenerating_forest_avg,
         plantationForest: row.plantation_forest,
-        plantationForestAvg: row.plantation_forest_avg,
         otherPlantedForest: row.other_planted_forest,
-        otherPlantedForestAvg: row.other_planted_forest_avg,
-        otherWoodedLand: row.other_wooded_land,
-        otherWoodedLandAvg: row.other_wooded_land_avg
+        otherWoodedLand: row.other_wooded_land
       })
     ))
 
@@ -62,3 +54,32 @@ module.exports.persistGrowingStock = (client, user, countryIso, values) =>
           value.otherPlantedForest, value.otherPlantedForestAvg,
           value.otherWoodedLand, value.otherWoodedLandAvg])
     )))
+
+module.exports.getEofArea = (countryIso) => {
+  return db.query(`
+    SELECT
+      year,
+      forest_area,
+      other_wooded_land
+    FROM
+      eof_fra_values
+    WHERE
+      country_iso = $1
+    ORDER BY year`, [countryIso]
+  ).then(res => R.map(camelize, res.rows))
+}
+
+module.exports.getFocArea = (countryIso) => {
+  return db.query(`
+    SELECT
+      year,
+      natural_forest_area,
+      plantation_forest_area,
+      other_planted_forest_area
+    FROM
+      foc_fra_values
+    WHERE
+      country_iso = $1
+    ORDER BY year`, [countryIso]
+  ).then(res => R.map(camelize, res.rows))
+}
