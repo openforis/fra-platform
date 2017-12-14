@@ -223,7 +223,7 @@ const Assessment = ({assessment, countryIso, status, changeAssessment, userInfo,
     </div>
     {
       R.map(item =>
-        <AssesmentSection
+        <AssessmentSection
           key={item.label}
           countryIso={countryIso}
           item={item}
@@ -235,33 +235,52 @@ const Assessment = ({assessment, countryIso, status, changeAssessment, userInfo,
   </div>
 }
 
-const AssesmentSection = ({countryIso, item, assessment, i18n, ...props}) => {
+const AssessmentSection = ({countryIso, item, assessment, i18n, ...props}) => {
   const sectionCollapsedClass = props.navigationGroupCollapseState[assessment][item.sectionNo] ? 'nav__section-items--visible' : 'nav__section-items--hidden'
 
-  return <div className="nav__section">
-    <div className="nav__section-header" onClick={() => props.toggleNavigationGroupCollapse(assessment, item.sectionNo)}>
-      <div className="nav__section-order">{item.sectionNo}</div>
-      <div className="nav__section-label">{i18n.t(item.label)}</div>
+  return item.type === 'link'
+    ? <AssessmentLink
+      key={item.tableNo}
+      countryIso={countryIso}
+      i18n={i18n}
+      navItem={item}
+      {...props}
+    />
+    : <div className="nav__section">
+      <div className="nav__section-header"
+           onClick={() => props.toggleNavigationGroupCollapse(assessment, item.sectionNo)}>
+        <div className="nav__section-order">{item.sectionNo}</div>
+        <div className="nav__section-label">{i18n.t(item.label)}</div>
+      </div>
+      <div className={sectionCollapsedClass}>
+        {
+          R.map(child =>
+              <AssessmentLink
+                key={child.tableNo}
+                countryIso={countryIso}
+                i18n={i18n}
+                navItem={child}
+                {...props}
+              />
+            , item.children)
+        }
+      </div>
     </div>
-    <div className={sectionCollapsedClass}>
-    {
-      R.map(child => {
-        const linkTo = getLinkTo(child.pathTemplate, countryIso)
+}
 
-        return <Link
-          key={child.tableNo}
-          className={`nav__section-item ${R.equals(props.path, linkTo) ? 'selected' : ''}`}
-          to={linkTo}>
-            <div className='nav__section-order'>{child.tableNo}</div>
-            <div className='nav__section-label'>{i18n.t(child.label)}</div>
-            <div className="nav__section-status-content">
-              <ReviewStatus status={props.getReviewStatus(child.section)} />
-            </div>
-          </Link>
-      }, item.children)
-    }
+const AssessmentLink = props => {
+  const {countryIso, i18n, path, navItem} = props
+  const linkTo = getLinkTo(navItem.pathTemplate, countryIso)
+
+  return <Link
+    className={`nav__section-item ${R.equals(path, linkTo) ? 'selected' : ''}`}
+    to={linkTo}>
+    <div className='nav__section-order'>{navItem.tableNo}</div>
+    <div className='nav__section-label'>{i18n.t(navItem.label)}</div>
+    <div className="nav__section-status-content">
+      <ReviewStatus status={props.getReviewStatus(navItem.section)}/>
     </div>
-  </div>
+  </Link>
 }
 
 const UsersManagement = ({i18n, countryIso, path, pathTemplate}) => {

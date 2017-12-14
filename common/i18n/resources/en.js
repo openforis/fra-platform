@@ -632,6 +632,10 @@ The FRA team
     notSelected: ''
   },
 
+  sustainableDevelopment:{
+    sustainableDevelopment:'Sustainable Development Goal 15'
+  },
+
   assessment: {
     fra2020: 'FRA 2020',
     deskStudy: 'Desk study',
