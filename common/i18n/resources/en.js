@@ -334,16 +334,6 @@ The FRA team
     climaticDomain: 'Climatic domain',
     percentOfForestArea2015: '% of forest area 2015',
     percentOfForestArea2015Override: 'Override value',
-    boreal: 'Boreal',
-    temperate: 'Temperate',
-    subtropical: 'Sub-tropical',
-    tropical: 'Tropical'
-  },
-
-  climaticDomain: {
-    climaticDomain: 'Climatic domain',
-    percentOfForestArea2015: '% of forest area 2015',
-    percentOfForestArea2015Override: 'Override value',
     selectDefault: 'Default',
     boreal: 'Boreal',
     temperate: 'Temperate',
@@ -408,6 +398,19 @@ The FRA team
     mangroves: 'Mangroves',
     temporarilyUnstocked: 'Temporarily unstocked and/or recently regenerated',
     primaryForest: 'Primary forest'
+  },
+
+  otherLandWithTreeCover: {
+    otherLandWithTreeCover: 'Other land with tree cover',
+    areaUnitLabel: 'Area (1000 ha)',
+    categoryHeader: 'FRA categories',
+    palms: 'Palms',
+    treeorchards: 'Tree orchards',
+    agroforestry: 'Agroforestry',
+    treesinurbansettings: 'Trees in urban settings',
+    total: 'Total',
+    otherLandArea: 'Other land area',
+    other: 'Other (specify in comments)'
   },
 
   growingStock: {
@@ -682,6 +685,7 @@ The FRA team
     subCategoryExceedsParent: 'Subcategory exceeds parent',
     forestAreaDoesNotMatchExtentOfForest: 'Doesn‘t match Total forest area',
     forestAreaExceedsExtentOfForest: 'Exceeds Total forest area',
+    otherLandExceedsExtentOfForest: 'Exceeds Other land area',
     valueMustBePositive: 'Value must be over zero'
   }
 }

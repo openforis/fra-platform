@@ -36,21 +36,6 @@ const ExtentOfForest = (props) => {
     return greaterThanOrEqualTo(absDifference, tolerance)
   }
 
-  const otherLandValidator = (fraColumn, field) => {
-    if (field && R.isNil(fraColumn[field])) return true
-    const subCategorySum =sum([
-      fraColumn.otherLandPalms,
-      fraColumn.otherLandTreeOrchards,
-      fraColumn.otherLandAgroforestry,
-      fraColumn.otherLandTreesUrbanSettings
-    ])
-    const otherLand = fraColumn.otherLand
-    if (R.isNil(subCategorySum) || R.isNil(otherLand)) return true
-    const tolerance = -1
-    const difference = sub(otherLand, subCategorySum)
-    return greaterThan(difference, tolerance)
-  }
-
   const forestAreaValidator = (fraColumn) => {
     const forestAreaFromFra2015 = getForestArea2015Value(fraColumn.name)
     if (R.isNil(forestAreaFromFra2015) || R.isNil(fraColumn.forestArea)) return true
@@ -125,9 +110,6 @@ const ExtentOfForest = (props) => {
                 {previous: getForestArea2015Value(fraColumn.name)}
               )
               : null,
-            !otherLandValidator(fraColumn)
-              ? props.i18n.t('generalValidation.subCategoryExceedsParent')
-              : null,
             totalAreaNotEqualToFaoStat(fraColumn, totalLandArea)
               ? props.i18n.t('extentOfForest.faoStatMismatch')
               : null
@@ -155,34 +137,6 @@ const ExtentOfForest = (props) => {
       field: 'otherLand',
       rowHeader: i18n.t('fraClass.otherLand'),
       rowVariable: '(c)'
-    },
-    {
-      type: 'field',
-      field: 'otherLandPalms',
-      validator: otherLandValidator,
-      className: 'fra-table__subcategory-cell',
-      rowHeader: i18n.t('extentOfForest.ofWhichPalms')
-    },
-    {
-      type: 'field',
-      field: 'otherLandTreeOrchards',
-      validator: otherLandValidator,
-      className: 'fra-table__subcategory-cell',
-      rowHeader: i18n.t('extentOfForest.ofWhichTreeOrchards')
-    },
-    {
-      type: 'field',
-      field: 'otherLandAgroforestry',
-      validator: otherLandValidator,
-      className: 'fra-table__subcategory-cell',
-      rowHeader: i18n.t('extentOfForest.ofWhichAgroforestry')
-    },
-    {
-      type: 'field',
-      field: 'otherLandTreesUrbanSettings',
-      validator: otherLandValidator,
-      className: 'fra-table__subcategory-cell',
-      rowHeader: i18n.t('extentOfForest.ofWhichTreesUrbanSettings')
     },
     {
       type: 'custom',

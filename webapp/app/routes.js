@@ -28,6 +28,7 @@ import HolderOfManagementRightsView from '../assessmentFra/holderOfManagementRig
 import DisturbancesView from '../assessmentFra/disturbances/disturbancesView'
 import AreaOfPermanentForestEstateView from '../assessmentFra/areaOfPermanentForestEstate/areaOfPermanentForestEstateView'
 import ForestPolicyView from '../assessmentFra/forestPolicy/forestPolicyView'
+import OtherLandWithTreeCoverView from '../assessmentFra//otherLandWithTreeCover/otherLandWithTreeCoverView'
 
 
 const routes = {
@@ -58,7 +59,8 @@ const routes = {
   '/country/:countryIso/holderOfManagementRights': HolderOfManagementRightsView,
   '/country/:countryIso/disturbances': DisturbancesView,
   '/country/:countryIso/areaOfPermanentForestEstateView': AreaOfPermanentForestEstateView,
-  '/country/:countryIso/forestPolicy': ForestPolicyView
+  '/country/:countryIso/forestPolicy': ForestPolicyView,
+  '/country/:countryIso/otherLandWithTreeCover': OtherLandWithTreeCoverView
 }
 
 const routeConfig = R.pipe(
