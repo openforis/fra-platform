@@ -61,41 +61,6 @@ Explanatory notes
 2. Includes agricultural land, meadows and pastures, built-up areas, barren land, land under permanent ice, etc. 
 3. Includes all areas classified under the sub-category "Other land with tree cover".
 
-### OTHER LAND WITH TREE COVER _(Supplementary term)_
-
-> Land classified as **other land**, spanning more than 0.5 hectares with a **canopy cover** of more than 10 percent of **trees** able to reach a height of 5 meters at maturity. 
-
-Explanatory notes
-
-1. Land use is the key criteria for distinguishing between forest and other land with tree cover. 
-2. Specifically includes: palms (oil, coconut, dates, etc), tree orchards (fruit, nuts, olive, etc), agroforestry and trees in urban settings.
-3. Includes groups of trees and scattered trees (e g trees outside forest) in agricultural landscapes, parks, gardens and around buildings, provided that area, height and canopy cover criteria are met.
-4. Includes tree stands in agricultural production systems, such as fruit tree plantations/orchards. In these cases the height threshold can be lower than 5 meters.
-5. Includes agroforestry systems when crops are grown under tree cover and tree plantations established mainly for other purposes than wood, such as oil palm plantations.
-6. The different sub-categories of other land with tree *cover* are exclusive and area reported under one sub-category should not be reported for any other sub-categories.
-7. Excludes scattered trees with a canopy cover less than 10 percent, small groups of trees covering less than 0.5 hectares and tree lines less than 20 meters wide. 
-
-### PALMS _(Sub-category of OTHER LAND)_
-
-> **Other land tree cover** predominantly composed of palms for production of oil, coconuts or dates.
-
-### TREE ORCHARDS _(Sub-category of OTHER LAND)_
-
-> **Other land with tree cover** predominantly composed of trees for production of fruits, nuts, or olives.
-
-### AGROFORESTRY _(Sub-category of OTHER LAND)_
-
-> **Other land with tree cover** with agricultural crops and/or pastures/animals.
-
-Explanatory notes
-
-1. Includes areas with bamboo and palms provided that land use, height and canopy cover criteria are met.
-2. Includes agrisilviculturural, silvopastoral and agrosilvopastoral systems.
-
-### TREES IN URBAN SETTINGS _(Sub-category of OTHER LAND)_
-
-> **Other land with tree cover** such as: urban parks, alleys and gardens.
-
 ## 1b Forest characteristics
 
 ### NATURALLY REGENERATING FOREST
@@ -213,6 +178,43 @@ Explanatory notes
     - they show natural forest dynamics, such as natural tree species composition, occurrence of dead wood, natural age structure and natural regeneration processes; 
     - the area is large enough to maintain its natural ecological processes; 
     - there has been no known significant human intervention or the last significant human intervention was long enough ago to have allowed the natural species composition and processes to have become re-established.
+
+## 1f Other land with tree cover
+
+### OTHER LAND WITH TREE COVER _(Supplementary term)_
+
+> Land classified as **other land**, spanning more than 0.5 hectares with a **canopy cover** of more than 10 percent of **trees** able to reach a height of 5 meters at maturity. 
+
+Explanatory notes
+
+1. Land use is the key criteria for distinguishing between forest and other land with tree cover. 
+2. Specifically includes: palms (oil, coconut, dates, etc), tree orchards (fruit, nuts, olive, etc), agroforestry and trees in urban settings.
+3. Includes groups of trees and scattered trees (e g trees outside forest) in agricultural landscapes, parks, gardens and around buildings, provided that area, height and canopy cover criteria are met.
+4. Includes tree stands in agricultural production systems, such as fruit tree plantations/orchards. In these cases the height threshold can be lower than 5 meters.
+5. Includes agroforestry systems when crops are grown under tree cover and tree plantations established mainly for other purposes than wood, such as oil palm plantations.
+6. The different sub-categories of other land with tree *cover* are exclusive and area reported under one sub-category should not be reported for any other sub-categories.
+7. Excludes scattered trees with a canopy cover less than 10 percent, small groups of trees covering less than 0.5 hectares and tree lines less than 20 meters wide. 
+
+### PALMS _(Sub-category of OTHER LAND)_
+
+> **Other land tree cover** predominantly composed of palms for production of oil, coconuts or dates.
+
+### TREE ORCHARDS _(Sub-category of OTHER LAND)_
+
+> **Other land with tree cover** predominantly composed of trees for production of fruits, nuts, or olives.
+
+### AGROFORESTRY _(Sub-category of OTHER LAND)_
+
+> **Other land with tree cover** with agricultural crops and/or pastures/animals.
+
+Explanatory notes
+
+1. Includes areas with bamboo and palms provided that land use, height and canopy cover criteria are met.
+2. Includes agrisilviculturural, silvopastoral and agrosilvopastoral systems.
+
+### TREES IN URBAN SETTINGS _(Sub-category of OTHER LAND)_
+
+> **Other land with tree cover** such as: urban parks, alleys and gardens.
 
 ---
 

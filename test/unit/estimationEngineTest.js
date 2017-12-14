@@ -19,10 +19,6 @@ const testOdpSet1 = [
     forestArea: 40000,
     otherWoodedLand: 2000,
     otherLand: 80000,
-    otherLandPalms: 30000,
-    otherLandTreeOrchards: 40000,
-    otherLandAgroforestry: 20000,
-    otherLandTreesUrbanSettings: 2000,
     type: 'odp',
     year: 1991,
   },
@@ -30,10 +26,6 @@ const testOdpSet1 = [
     forestArea: 80000,
     otherWoodedLand: 29000,
     otherLand: 80000,
-    otherLandPalms: 35000,
-    otherLandTreeOrchards: 45000,
-    otherLandAgroforestry: 22000,
-    otherLandTreesUrbanSettings: 1800,
     type: 'odp',
     year: 2018,
   }]
@@ -60,14 +52,6 @@ const expectedEstimations1 = [
     otherWoodedLandEstimated: true,
     otherLand: '80000.00',
     otherLandEstimated: true,
-    otherLandPalms: '29814.81',
-    otherLandPalmsEstimated: true,
-    otherLandTreeOrchards: '39814.81',
-    otherLandTreeOrchardsEstimated: true,
-    otherLandAgroforestry: '19925.93',
-    otherLandAgroforestryEstimated: true,
-    otherLandTreesUrbanSettings: '2007.41',
-    otherLandTreesUrbanSettingsEstimated: true,
     year: 1990
   },
   {
@@ -77,14 +61,6 @@ const expectedEstimations1 = [
     otherWoodedLandEstimated: true,
     otherLand: '80000.00',
     otherLandEstimated: true,
-    otherLandPalms: '31666.67',
-    otherLandPalmsEstimated: true,
-    otherLandTreeOrchards: '41666.67',
-    otherLandTreeOrchardsEstimated: true,
-    otherLandAgroforestry: '20666.67',
-    otherLandAgroforestryEstimated: true,
-    otherLandTreesUrbanSettings: '1933.33',
-    otherLandTreesUrbanSettingsEstimated: true,
     year: 2000
   },
   {
@@ -94,14 +70,6 @@ const expectedEstimations1 = [
     otherWoodedLandEstimated: true,
     otherLand: '80000.00',
     otherLandEstimated: true,
-    otherLandPalms: '33518.52',
-    otherLandPalmsEstimated: true,
-    otherLandTreeOrchards: '43518.52',
-    otherLandTreeOrchardsEstimated: true,
-    otherLandAgroforestry: '21407.41',
-    otherLandAgroforestryEstimated: true,
-    otherLandTreesUrbanSettings: '1859.26',
-    otherLandTreesUrbanSettingsEstimated: true,
     year: 2010
   },
   {
@@ -111,14 +79,6 @@ const expectedEstimations1 = [
     otherWoodedLandEstimated: true,
     otherLand: '80000.00',
     otherLandEstimated: true,
-    otherLandPalms: '34444.45',
-    otherLandPalmsEstimated: true,
-    otherLandTreeOrchards: '44444.45',
-    otherLandTreeOrchardsEstimated: true,
-    otherLandAgroforestry: '21777.78',
-    otherLandAgroforestryEstimated: true,
-    otherLandTreesUrbanSettings: '1822.22',
-    otherLandTreesUrbanSettingsEstimated: true,
     year: 2015
   },
   {
@@ -128,14 +88,6 @@ const expectedEstimations1 = [
     otherWoodedLandEstimated: true,
     otherLand: '80000.00',
     otherLandEstimated: true,
-    otherLandPalms: '34629.63',
-    otherLandPalmsEstimated: true,
-    otherLandTreeOrchards: '44629.63',
-    otherLandTreeOrchardsEstimated: true,
-    otherLandAgroforestry: '21851.85',
-    otherLandAgroforestryEstimated: true,
-    otherLandTreesUrbanSettings: '1814.81',
-    otherLandTreesUrbanSettingsEstimated: true,
     year: 2016
   },
   {
@@ -145,14 +97,6 @@ const expectedEstimations1 = [
     otherWoodedLandEstimated: true,
     otherLand: '80000.00',
     otherLandEstimated: true,
-    otherLandPalms: '34814.82',
-    otherLandPalmsEstimated: true,
-    otherLandTreeOrchards: '44814.82',
-    otherLandTreeOrchardsEstimated: true,
-    otherLandAgroforestry: '21925.93',
-    otherLandAgroforestryEstimated: true,
-    otherLandTreesUrbanSettings: '1807.41',
-    otherLandTreesUrbanSettingsEstimated: true,
     year: 2017
   },
   {
@@ -162,14 +106,6 @@ const expectedEstimations1 = [
     otherWoodedLandEstimated: true,
     otherLand: '80000.00',
     otherLandEstimated: true,
-    otherLandPalms: '35000.00',
-    otherLandPalmsEstimated: true,
-    otherLandTreeOrchards: '45000.00',
-    otherLandTreeOrchardsEstimated: true,
-    otherLandAgroforestry: '22000.00',
-    otherLandAgroforestryEstimated: true,
-    otherLandTreesUrbanSettings: '1800.00',
-    otherLandTreesUrbanSettingsEstimated: true,
     year: 2018
   },
   {
@@ -179,14 +115,6 @@ const expectedEstimations1 = [
     otherWoodedLandEstimated: true,
     otherLand: '80000.00',
     otherLandEstimated: true,
-    otherLandPalms: '35185.18',
-    otherLandPalmsEstimated: true,
-    otherLandTreeOrchards: '45185.18',
-    otherLandTreeOrchardsEstimated: true,
-    otherLandAgroforestry: '22074.07',
-    otherLandAgroforestryEstimated: true,
-    otherLandTreesUrbanSettings: '1792.59',
-    otherLandTreesUrbanSettingsEstimated: true,
     year: 2019
   },
   {
@@ -196,14 +124,6 @@ const expectedEstimations1 = [
     otherWoodedLandEstimated: true,
     otherLand: '80000.00',
     otherLandEstimated: true,
-    otherLandPalms: '35370.36',
-    otherLandPalmsEstimated: true,
-    otherLandTreeOrchards: '45370.36',
-    otherLandTreeOrchardsEstimated: true,
-    otherLandAgroforestry: '22148.14',
-    otherLandAgroforestryEstimated: true,
-    otherLandTreesUrbanSettings: '1785.18',
-    otherLandTreesUrbanSettingsEstimated: true,
     year: 2020
   }
 ]
