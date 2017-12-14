@@ -5,7 +5,7 @@
 import R from 'ramda'
 import { sub, abs, lessThan, greaterThan } from '../../common/bignumberUtils'
 import { totalSum } from '../traditionalTable/aggregate'
-import { getForestAreaForYear } from '../assessmentFra/extentOfForest/extentOfForestHelper'
+import { getForestAreaForYear, getOtherLandAreaForYear } from '../assessmentFra/extentOfForest/extentOfForestHelper'
 import { formatDecimal } from '../utils/numberFormat'
 
 export const subCategoryValidator =
@@ -41,20 +41,38 @@ export const forestAreaSameAsExtentOfForestValidator =
     }
   }
 
-  export const forestAreaLessThanOrEqualToExtentOfForestValidator =
-    (year, extentOfForest, rowIndexes) => (props, row, column) => {
-    const eofForestArea = getForestAreaForYear(extentOfForest, year)
-    const forestAreaValue = rowIndexes
-      ? totalSum(props.tableData, column, rowIndexes)
-      : props.tableData[row][column]
-    if (!eofForestArea || !forestAreaValue) return {valid: true}
-    const tolerance = -1
-    const difference = sub(eofForestArea, forestAreaValue)
-    const result = greaterThan(difference, tolerance)
-    return {
-      valid: result,
-      message: result
-        ? null
-        : props.i18n.t('generalValidation.forestAreaExceedsExtentOfForest')
-    }
+export const forestAreaLessThanOrEqualToExtentOfForestValidator =
+  (year, extentOfForest, rowIndexes) => (props, row, column) => {
+  const eofForestArea = getForestAreaForYear(extentOfForest, year)
+  const forestAreaValue = rowIndexes
+    ? totalSum(props.tableData, column, rowIndexes)
+    : props.tableData[row][column]
+  if (!eofForestArea || !forestAreaValue) return {valid: true}
+  const tolerance = -1
+  const difference = sub(eofForestArea, forestAreaValue)
+  const result = greaterThan(difference, tolerance)
+  return {
+    valid: result,
+    message: result
+      ? null
+      : props.i18n.t('generalValidation.forestAreaExceedsExtentOfForest')
   }
+}
+
+export const otherLandLessThanOrEqualToExtentOfForestValidator =
+  (year, extentOfForest, rowIndexes) => (props, row, column) => {
+  const eofForestArea = getOtherLandAreaForYear(extentOfForest, year)
+  const otherLandAreaValue = rowIndexes
+    ? totalSum(props.tableData, column, rowIndexes)
+    : props.tableData[row][column]
+  if (!eofForestArea || !otherLandAreaValue) return {valid: true}
+  const tolerance = -1
+  const difference = sub(eofForestArea, otherLandAreaValue)
+  const result = greaterThan(difference, tolerance)
+  return {
+    valid: result,
+    message: result
+      ? null
+      : props.i18n.t('generalValidation.otherLandExceedsExtentOfForest')
+  }
+}

@@ -34,6 +34,12 @@ export const assessments = {
         label: 'specificForestCategories.specificForestCategories',
         pathTemplate: '/country/:countryIso/specificForestCategories',
         section: 'specificForestCategories'
+      },
+      {
+        tableNo: '1f',
+        label: 'otherLandWithTreeCover.otherLandWithTreeCover',
+        pathTemplate: '/country/:countryIso/otherLandWithTreeCover',
+        section: 'otherLandWithTreeCover'
       }
     ]
   },

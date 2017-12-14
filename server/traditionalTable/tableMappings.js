@@ -21,6 +21,7 @@ const forestOwnership = require('./mappings/forestOwnership')
 const disturbances = require('./mappings/disturbances')
 const areaOfPermanentForestEstate = require('./mappings/areaOfPermanentForestEstate')
 const forestPolicy = require('./mappings/forestPolicy')
+const otherLandWithTreeCover = require('./mappings/otherLandWithTreeCover')
 const climaticDomain = require('./mappings/climaticDomain')
 
 const mappings = {
@@ -45,6 +46,7 @@ const mappings = {
   carbonStockSoilDepth,
   areaOfPermanentForestEstate,
   forestPolicy,
+  otherLandWithTreeCover,
   climaticDomain
 }
 
