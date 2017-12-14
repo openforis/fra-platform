@@ -636,6 +636,7 @@ The FRA team
     sustainableDevelopment: 'Sustainable Development Goal 15',
     indicator: 'Indicator',
     percent: 'Percent',
+    nameOfAgencyResponsible:'Name of agency responsible',
     sdgIndicator15_1_1: 'SDG Indicator 15.1.1 Forest area as proportion of total land area 2015',
     forestAreaProportionLandArea2015:'Forest area as proportion of total land area 2015'
   },
