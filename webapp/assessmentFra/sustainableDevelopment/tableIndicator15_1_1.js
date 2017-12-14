@@ -1,6 +1,7 @@
 import React from 'react'
 
 import TableIndicatorAgency from './tableIndicatorAgency'
+import ReviewIndicator from '../../review/reviewIndicator'
 
 import { div, eq, mul, sum } from '../../../common/bignumberUtils'
 import { formatDecimal } from '../../utils/numberFormat'
@@ -60,6 +61,15 @@ const TableIndicator15_1_1 = ({i18n, countryIso, data}) => {
                 <td key={`${year}v`} className="fra-table__calculated-cell">{formatDecimal(getValueByYear(year))}</td>
               )(years)
             }
+            <td className="fra-table__row-anchor-cell">
+              <div className="fra-table__review-indicator-anchor">
+                <ReviewIndicator
+                  section={'sustainableDevelopment'}
+                  title={i18n.t('sustainableDevelopment.forestAreaProportionLandArea2015')}
+                  target={['indicator15.1.1']}
+                  countryIso={countryIso} />
+              </div>
+            </td>
           </tr>
           </tbody>
         </table>
