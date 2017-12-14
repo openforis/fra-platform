@@ -326,8 +326,8 @@ The FRA team
     ofWhichTreesUrbanSettings: '…of which trees in urban settings',
     totalLandArea: 'Total land area',
     faoStatLandArea: 'FAOSTAT land area',
-    faoStatMismatch: "Doesn't match FAOSTAT land area",
-    forestAreaDoesNotMatchPreviouslyReported: "Forest area doesn't match FRA 2015 area: {{previous}}",
+    faoStatMismatch: 'Doesn\'t match FAOSTAT land area',
+    forestAreaDoesNotMatchPreviouslyReported: 'Forest area doesn\'t match FRA 2015 area: {{previous}}',
   },
 
   climaticDomain: {
@@ -632,8 +632,12 @@ The FRA team
     notSelected: ''
   },
 
-  sustainableDevelopment:{
-    sustainableDevelopment:'Sustainable Development Goal 15'
+  sustainableDevelopment: {
+    sustainableDevelopment: 'Sustainable Development Goal 15',
+    indicator: 'Indicator',
+    percent: 'Percent',
+    sdgIndicator15_1_1: 'SDG Indicator 15.1.1 Forest area as proportion of total land area 2015',
+    forestAreaProportionLandArea2015:'Forest area as proportion of total land area 2015'
   },
 
   assessment: {
