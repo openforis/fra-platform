@@ -5,7 +5,7 @@ import * as R from 'ramda'
 import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
 import TraditionalTable from '../../traditionalTable/traditionalTable'
 import tableSpec from './tableSpec'
-import { CommentableDescriptions } from '../../description/commentableDescription'
+import { DataSourceDescriptionAndComments } from '../../description/dataSourceDescriptionAndComments'
 import DefinitionLink from '../../reusableUiComponents/definitionLink'
 import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
 
@@ -87,7 +87,7 @@ class CarbonStockView extends React.Component {
         <div className="fra-secondary-table__wrapper">
           <TraditionalTable tableSpec={soilDepthTableSpec(i18n)} countryIso={match.params.countryIso}/>
         </div>
-        <CommentableDescriptions
+        <DataSourceDescriptionAndComments
           section="carbonStock"
           name="carbonStock"
           countryIso={countryIso}

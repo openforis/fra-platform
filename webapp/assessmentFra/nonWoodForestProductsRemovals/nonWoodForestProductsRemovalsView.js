@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
 import TraditionalTable from '../../traditionalTable/traditionalTable'
 import mainTableSpec from './mainTableSpec'
-import { CommentableDescriptions } from '../../description/commentableDescription'
+import { DataSourceDescriptionAndComments } from '../../description/dataSourceDescriptionAndComments'
 import DefinitionLink from '../../reusableUiComponents/definitionLink'
 import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
 
@@ -53,7 +53,7 @@ class NonWoodForestProductsRemovalsView extends React.Component {
         <div className="fra-secondary-table__wrapper">
           <TraditionalTable tableSpec={currencyNameTableSpec(i18n)} countryIso={match.params.countryIso}/>
         </div>
-        <CommentableDescriptions
+        <DataSourceDescriptionAndComments
           section={mainTableSpecInstance.name}
           name="nonWoodForestProductsRemovals"
           countryIso={match.params.countryIso}

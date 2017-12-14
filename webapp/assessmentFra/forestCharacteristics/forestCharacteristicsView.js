@@ -7,7 +7,7 @@ import { fetchItem, save, saveMany, generateFraValues } from '../../tableWithOdp
 import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
 import { TableWithOdp, GenerateFraValuesControl } from '../../tableWithOdp/tableWithOdp'
 import ChartWrapper from '../extentOfForest/chart/chartWrapper'
-import { CommentableDescriptions } from '../../description/commentableDescription'
+import { DataSourceDescriptionAndComments } from '../../description/dataSourceDescriptionAndComments'
 import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
 import { saveCountryConfigSetting } from '../../country/actions'
 import DefinitionLink from '../../reusableUiComponents/definitionLink'
@@ -243,7 +243,7 @@ const ForestCharacteristics = props => {
       {...props}
       fra={filteredFraColumns}
     />
-    <CommentableDescriptions
+    <DataSourceDescriptionAndComments
       section={sectionName}
       name={sectionName}
       countryIso={props.countryIso}

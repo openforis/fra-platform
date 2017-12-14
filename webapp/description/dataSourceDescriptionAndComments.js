@@ -12,7 +12,7 @@ const assertProps = props =>
     props.name &&
     props.countryIso &&
     props.section,
-    'Some property is missing for CommentableDescriptions'
+    'Some property is missing for DataSourceDescriptionAndComments'
   )
 
 const dataSourcesEditorTemplate = (i18n) =>
@@ -83,4 +83,4 @@ const mapStateToProps = (state, props) => {
   }
 }
 
-export const CommentableDescriptions = connect(mapStateToProps, {})(CommentableReviewDescriptions)
+export const DataSourceDescriptionAndComments = connect(mapStateToProps, {})(CommentableReviewDescriptions)

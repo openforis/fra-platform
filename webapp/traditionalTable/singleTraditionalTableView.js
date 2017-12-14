@@ -8,7 +8,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import LoggedInPageTemplate from '../app/loggedInPageTemplate'
 import TraditionalTable from '../traditionalTable/traditionalTable'
-import { CommentableDescriptions } from '../description/commentableDescription'
+import { DataSourceDescriptionAndComments } from '../description/dataSourceDescriptionAndComments'
 import { fetchLastSectionUpdateTimestamp } from '../audit/actions'
 import DefinitionLink from '../reusableUiComponents/definitionLink'
 
@@ -40,7 +40,7 @@ class SingleTraditionalTableView extends React.Component {
           </div>
         </div>
         <TraditionalTable tableSpec={tableSpecInstance} countryIso={match.params.countryIso}/>
-        <CommentableDescriptions
+        <DataSourceDescriptionAndComments
           section={tableSpecInstance.name}
           name={tableSpecInstance.name}
           countryIso={countryIso}
