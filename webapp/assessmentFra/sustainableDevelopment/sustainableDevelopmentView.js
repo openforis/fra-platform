@@ -3,16 +3,17 @@ import { connect } from 'react-redux'
 import * as R from 'ramda'
 
 import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
-import TraditionalTable from '../../traditionalTable/traditionalTable'
 import { CommentableDescriptions } from '../../description/commentableDescription'
 import DefinitionLink from '../../reusableUiComponents/definitionLink'
+import TableIndicatorAgency from './tableIndicatorAgency'
+
 import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
 
 import { fetch } from './actions'
 import { formatDecimal } from '../../utils/numberFormat'
 import { sum, div, mul, eq } from '../../../common/bignumberUtils'
 
-const Table_15_1_1 = ({i18n, data}) => {
+const Table_15_1_1 = ({i18n, countryIso, data}) => {
   const years = R.pipe(
     R.filter(v => v.type !== 'odp'),
     R.map(v => v.name)
@@ -71,6 +72,12 @@ const Table_15_1_1 = ({i18n, data}) => {
         </table>
       </div>
     </div>
+
+    <TableIndicatorAgency
+      i18n={i18n}
+      countryIso={countryIso}
+      tableSpecName="sustainableDevelopmentAgencyIndicator15_1_1"/>
+
   </div>
 }
 
@@ -101,7 +108,7 @@ class SustainableDevelopmentView extends React.Component {
               <DefinitionLink document="faq" anchor="8" title={i18n.t('definition.faqLabel')} lang={lang}/>
             </div>
           </div>
-          <Table_15_1_1 i18n={i18n} data={data}/>
+          <Table_15_1_1 i18n={i18n} countryIso={countryIso} data={data}/>
           <CommentableDescriptions
             section="sustainableDevelopment"
             name="sustainableDevelopment"
