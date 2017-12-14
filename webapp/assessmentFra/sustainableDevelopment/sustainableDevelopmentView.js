@@ -23,7 +23,6 @@ class SustainableDevelopmentView extends React.Component {
     const {match, i18n, data} = this.props
     const countryIso = match.params.countryIso
     const lang = i18n.language
-    // console.log(data)
 
     return R.isEmpty(data)
       ? null
@@ -31,7 +30,6 @@ class SustainableDevelopmentView extends React.Component {
         <div className="fra-view__content">
           <div className="fra-view__page-header">
             <h1 className="title">{i18n.t('sustainableDevelopment.sustainableDevelopment')}</h1>
-
             <div className="fra-view__header-secondary-content">
               <DefinitionLink document="tad" anchor="8" title={i18n.t('definition.definitionLabel')} lang={lang}/>
               <DefinitionLink document="faq" anchor="8" title={i18n.t('definition.faqLabel')} lang={lang}/>
