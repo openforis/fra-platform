@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import * as R from 'ramda'
 import clipboard from 'clipboard-polyfill'
 import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
-import { CommentableDescriptions } from '../../description/commentableDescription'
+import { DataSourceDescriptionAndComments } from '../../description/dataSourceDescriptionAndComments'
 import GrowingStockTable from './growingStockTable'
 import { rows, avgRows, getGrowingStockValues } from './growingStock'
 import DefinitionLink from '../../reusableUiComponents/definitionLink'
@@ -72,7 +72,7 @@ const GrowingStock = (props) => {
       rows={rows}
       {...props}
     />
-    <CommentableDescriptions
+    <DataSourceDescriptionAndComments
       section={sectionName}
       name={sectionName}
       countryIso={props.countryIso}

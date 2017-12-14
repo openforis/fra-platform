@@ -5,7 +5,7 @@ import * as R from 'ramda'
 import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
 import TraditionalTable from '../../traditionalTable/traditionalTable'
 import tableSpec from './tableSpec'
-import { CommentableDescriptions } from '../../description/commentableDescription'
+import { DataSourceDescriptionAndComments } from '../../description/dataSourceDescriptionAndComments'
 import DefinitionLink from '../../reusableUiComponents/definitionLink'
 import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
 
@@ -64,7 +64,7 @@ class BiomassStockView extends React.Component {
           </div>
         </div>
         <TraditionalTable tableSpec={this.tableSpecInstance} countryIso={countryIso}/>
-        <CommentableDescriptions
+        <DataSourceDescriptionAndComments
           section="biomassStock"
           name="biomassStock"
           countryIso={countryIso}

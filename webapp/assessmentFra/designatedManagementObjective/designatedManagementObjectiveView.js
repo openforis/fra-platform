@@ -8,7 +8,7 @@ import {
   primaryDesignatedManagementObjectiveTableSpec,
   totalAreaWithDesignatedManagementObjectiveTableSpec
 } from './tableSpecs'
-import { CommentableDescriptions } from '../../description/commentableDescription'
+import { DataSourceDescriptionAndComments } from '../../description/dataSourceDescriptionAndComments'
 import DefinitionLink from '../../reusableUiComponents/definitionLink'
 import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
 
@@ -64,7 +64,7 @@ class designatedManagementObjectiveView extends React.Component {
           tableSpec={totalDmoTableSpec}
           countryIso={countryIso}
           section={sectionName}/>
-        <CommentableDescriptions
+        <DataSourceDescriptionAndComments
           section={primaryDmoTableSpec.name}
           name={sectionName}
           countryIso={countryIso}

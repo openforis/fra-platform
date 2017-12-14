@@ -10,7 +10,7 @@ import DefinitionLink from '../../reusableUiComponents/definitionLink'
 import ChartWrapper from './chart/chartWrapper'
 import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
 import { TableWithOdp, GenerateFraValuesControl } from '../../tableWithOdp/tableWithOdp'
-import { CommentableDescriptions } from '../../description/commentableDescription'
+import { DataSourceDescriptionAndComments } from '../../description/dataSourceDescriptionAndComments'
 import { sum, formatNumber, greaterThanOrEqualTo, lessThanOrEqualTo, abs, sub, greaterThan } from '../../../common/bignumberUtils'
 import ReviewIndicator from '../../review/reviewIndicator'
 import climaticDomainTableSpec from './climaticDomainTableSpec'
@@ -196,7 +196,7 @@ const ExtentOfForest = (props) => {
         section={sectionName}
       />
     </div>
-    <CommentableDescriptions
+    <DataSourceDescriptionAndComments
       section={sectionName}
       name={sectionName}
       countryIso={props.match.params.countryIso}
