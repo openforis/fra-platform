@@ -213,6 +213,7 @@ module.exports.translation = {
     dataSourcesPlus: 'Data sources + type of data source eg NFI, etc',
     originalData: 'Original data',
     nationalClassificationAndDefinitions: 'National classification and definitions',
+    nationalData: 'National Data'
   },
 
   nationalDataPoint: {
