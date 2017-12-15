@@ -210,6 +210,7 @@ module.exports.translation = {
     dataSourcesTitle: 'Data sources, original data & national classification and definitions',
     generalCommentsTitle: 'Comments',
     dataSources: 'Data sources',
+    dataSourcesPlus: 'Data sources + type of data source eg NFI, etc',
     originalData: 'Original data',
     nationalClassificationAndDefinitions: 'National classification and definitions',
   },
