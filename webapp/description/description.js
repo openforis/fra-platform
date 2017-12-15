@@ -2,13 +2,14 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
 import R from 'ramda'
+import assert from 'assert'
 import ckEditorConfig from '../ckEditor/ckEditorConfig'
 import { saveDescriptions, fetchDescriptions, openEditor, closeEditor } from './actions'
 
 class Description extends Component {
 
   fetchData (countryIso) {
-    this.props.fetchDescriptions(countryIso, this.props.name)
+    this.props.fetchDescriptions(countryIso, this.props.section, this.props.name)
   }
 
   componentDidMount () {
@@ -21,6 +22,7 @@ class Description extends Component {
   }
 
   render() {
+    assert(this.props.section, 'No section given')
     const content = this.props.content || this.props.i18n.t('description.emptyLabel')
     const isActive = this.props.editing === this.props.name
     return <div>
@@ -53,7 +55,7 @@ class DescriptionEditor extends Component {
 
   initCkeditorChangeListener () {
     this.editor.on('change', (evt) =>
-      this.props.saveDescriptions(this.props.countryIso, this.props.name, evt.editor.getData())
+      this.props.saveDescriptions(this.props.countryIso, this.props.section, this.props.name, evt.editor.getData())
     )
   }
 

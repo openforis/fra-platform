@@ -40,7 +40,8 @@ class CommentableReviewDescriptions extends React.Component {
         }>
           <Description
             title={this.props.i18n.t('description.dataSourcesTitle')}
-            name={this.props.name + '_' + dataSources}
+            section={this.props.section}
+            name={dataSources}
             template={dataSourcesEditorTemplate(this.props.i18n)}
             countryIso={this.props.countryIso}/>
         </div>
@@ -61,7 +62,8 @@ class CommentableReviewDescriptions extends React.Component {
         }>
           <Description
             title={this.props.i18n.t('description.generalCommentsTitle')}
-            name={this.props.name + '_' + generalComments}
+            section={this.props.section}
+            name={generalComments}
             countryIso={this.props.countryIso}/>
         </div>
         <div className="fra-description__review-indicator-wrapper">
