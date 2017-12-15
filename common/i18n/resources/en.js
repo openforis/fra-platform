@@ -213,7 +213,10 @@ module.exports.translation = {
     dataSourcesPlus: 'Data sources + type of data source eg NFI, etc',
     originalData: 'Original data',
     nationalClassificationAndDefinitions: 'National classification and definitions',
-    nationalData: 'National Data'
+    nationalData: 'National Data',
+    analysisAndProcessing: 'Analysis and processing of national data',
+    estimationAndForecasting: 'Estimation and forecasting',
+    reclassification: 'Reclassification into FRA 2020 categories'
   },
 
   nationalDataPoint: {
