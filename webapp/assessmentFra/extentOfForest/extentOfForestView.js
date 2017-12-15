@@ -12,6 +12,7 @@ import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
 import { TableWithOdp, GenerateFraValuesControl } from '../../tableWithOdp/tableWithOdp'
 import { DataSourceDescriptionAndComments } from '../../description/dataSourceDescriptionAndComments'
 import NationalDataDescriptions from '../../description/nationalDataDescriptions'
+import AnalysisDescriptions from '../../description/analysisDescriptions'
 import { sum, formatNumber, greaterThanOrEqualTo, lessThanOrEqualTo, abs, sub } from '../../../common/bignumberUtils'
 import ReviewIndicator from '../../review/reviewIndicator'
 import climaticDomainTableSpec from './climaticDomainTableSpec'
@@ -169,6 +170,7 @@ const ExtentOfForest = (props) => {
       ]}
     />
     <NationalDataDescriptions section={sectionName} countryIso={props.countryIso}/>
+    <AnalysisDescriptions section={sectionName} countryIso={props.countryIso}/>
     <div className="fra-view__section-header">
       <h3 className="subhead">{i18n.t('extentOfForest.extentOfForest')}</h3>
       <DefinitionLink document="tad" anchor="1a" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
