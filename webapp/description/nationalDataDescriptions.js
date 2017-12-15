@@ -13,7 +13,7 @@ const assertProps = props =>
 const NationalDataDescriptions = props => {
   assertProps(props)
   return <div className="fra-description__container">
-    <h3 className="subhead fra-description__group-header">National Data</h3>
+    <h3 className="subhead fra-description__group-header">{props.i18n.t('description.nationalData')}</h3>
    <CommentableDescription
       title={props.i18n.t('description.dataSourcesPlus')}
       name="dataSources"
