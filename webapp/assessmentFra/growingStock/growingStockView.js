@@ -4,7 +4,7 @@ import * as R from 'ramda'
 import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
 import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
 import DefinitionLink from '../../reusableUiComponents/definitionLink'
-import { fetch, changeTotalValue } from './actions'
+import { fetch, changeAvgValue, changeTotalValue } from './actions'
 import { ThousandSeparatedDecimalInput } from '../../reusableUiComponents/thousandSeparatedDecimalInput'
 import { sum, formatNumber, greaterThanOrEqualTo, lessThanOrEqualTo, abs, sub, greaterThan } from '../../../common/bignumberUtils'
 
@@ -22,7 +22,7 @@ const InputRow = (props) => {
         return <td className="fra-table__cell" key={year}>
           <ThousandSeparatedDecimalInput
             numberValue={value}
-            onChange={e => props.changeTotalValue(props.countryIso, year, props.row, e.target.value)}/>
+            onChange={e => props.changeValue(props.countryIso, year, props.row, e.target.value || null)}/>
         </td>
       }, years)
     }
@@ -49,8 +49,6 @@ const GrowingStock = (props) => {
   const avgTableArea = R.path(['avgTableArea'], props)
   const totalTableArea = R.path(['totalTableArea'], props)
 
-  // console.log(avgTableArea, props.avgTableArea)
-
   return <div className='fra-view__content growing-stock-view'>
     <div className="fra-view__page-header">
       <h1 className="title">{i18n.t('growingStock.growingStock')}</h1>
@@ -76,6 +74,7 @@ const GrowingStock = (props) => {
             <InputRow
               data={avgTableArea}
               row="naturallyRegeneratingForest"
+              changeValue={props.changeAvgValue}
               {...props}
             />
             <TotalRow
@@ -87,12 +86,14 @@ const GrowingStock = (props) => {
               data={avgTableArea}
               row="plantationForest"
               subCategory={true}
+              changeValue={props.changeAvgValue}
               {...props}
             />
             <InputRow
               data={avgTableArea}
               row="otherPlantedForest"
               subCategory={true}
+              changeValue={props.changeAvgValue}
               {...props}
             />
             <TotalRow
@@ -103,9 +104,9 @@ const GrowingStock = (props) => {
             <InputRow
               data={avgTableArea}
               row="otherWoodedLand"
+              changeValue={props.changeAvgValue}
               {...props}
             />
-
           </tbody>
         </table>
       </div>
@@ -127,6 +128,7 @@ const GrowingStock = (props) => {
             <InputRow
               data={totalTableArea}
               row="naturallyRegeneratingForest"
+              changeValue={props.changeTotalValue}
               {...props}
             />
             <TotalRow
@@ -138,12 +140,14 @@ const GrowingStock = (props) => {
               data={totalTableArea}
               row="plantationForest"
               subCategory={true}
+              changeValue={props.changeTotalValue}
               {...props}
             />
             <InputRow
               data={totalTableArea}
               row="otherPlantedForest"
               subCategory={true}
+              changeValue={props.changeTotalValue}
               {...props}
             />
             <TotalRow
@@ -154,6 +158,7 @@ const GrowingStock = (props) => {
             <InputRow
               data={totalTableArea}
               row="otherWoodedLand"
+              changeValue={props.changeTotalValue}
               {...props}
             />
           </tbody>
@@ -197,6 +202,7 @@ export default connect(
     {
       fetch,
       changeTotalValue,
+      changeAvgValue,
       fetchLastSectionUpdateTimestamp
     }
   )(GrowingStockView)
