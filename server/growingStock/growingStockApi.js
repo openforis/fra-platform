@@ -47,6 +47,7 @@ module.exports.init = app => {
     checkCountryAccessFromReqParams(req)
     try {
       await db.transaction(repository.persistBothGrowingStock, [req.user, req.params.countryIso, req.body])
+      res.json({})
     } catch (err) {
       sendErr(res, err)
     }

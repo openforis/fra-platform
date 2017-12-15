@@ -32,11 +32,11 @@ module.exports.persistBothGrowingStock = async (client, user, countryIso, values
   await persistGrowingStock(client, user, countryIso, values.totalTable,'growing_stock_total')
 }
 
-module.exports.persistGrowingStock = (client, user, countryIso, values, tableName) =>
+const persistGrowingStock = (client, user, countryIso, values, tableName) =>
   auditRepository
     .insertAudit(client, user.id, 'persistGrowingStockValues', countryIso, 'growingStock')
     .then(() => client.query(`DELETE FROM ${tableName} WHERE country_iso = $1`, [countryIso]))
-    .then(() => Promise.all(values.map(value =>
+    .then(() => Promise.all(R.toPairs(values).map(([year, value]) =>
       client.query(
         `INSERT INTO ${tableName}
           (
@@ -45,11 +45,11 @@ module.exports.persistGrowingStock = (client, user, countryIso, values, tableNam
               naturally_regenerating_forest,
               plantation_forest,
               other_planted_forest,
-              other_wooded_land,
+              other_wooded_land
           )
-          VALUES ($1, $2, $3, $4, $5, $6);`,
+          VALUES ($1, $2, $3, $4, $5, $6)`,
         [countryIso,
-          value.year,
+          year,
           value.naturallyRegeneratingForest,
           value.plantationForest,
           value.otherPlantedForest,
