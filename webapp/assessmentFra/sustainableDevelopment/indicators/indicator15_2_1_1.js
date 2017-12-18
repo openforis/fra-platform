@@ -3,23 +3,17 @@ import React from 'react'
 import ResponsibleAgency from './responsibleAgency'
 import ReviewIndicator from '../../../review/reviewIndicator'
 
-import { div, eq, mul, sub } from '../../../../common/bignumberUtils'
+import { div, mul, sub } from '../../../../common/bignumberUtils'
 import { formatDecimal } from '../../../utils/numberFormat'
 import * as R from 'ramda'
 
+import { getForestArea } from './indicators'
+
 const Indicator15_2_1_1 = ({i18n, countryIso, data, years}) => {
 
-  const getForestArea = year => R.pipe(
-    R.find(v => eq(v.year, year) && R.propEq('type', 'odp', v)),
-    o => R.isNil(o)
-      ? R.find(v => eq(v.year, year) && R.propEq('type', 'fra', v), data.extentOfForest)
-      : o,
-    R.prop('forestArea')
-  )(data.extentOfForest)
-
   const getValue1YearDiff = (year1, year2) => {
-    const forest1 = getForestArea(year1)
-    const forest2 = getForestArea(year2)
+    const forest1 = getForestArea(data, year1)
+    const forest2 = getForestArea(data, year2)
 
     return R.pipe(
       () => sub(forest2, forest1),
@@ -29,8 +23,8 @@ const Indicator15_2_1_1 = ({i18n, countryIso, data, years}) => {
   }
 
   const getValueGt2yearsDiff = (year1, year2, p) => {
-    const forest1 = getForestArea(year1)
-    const forest2 = getForestArea(year2)
+    const forest1 = getForestArea(data, year1)
+    const forest2 = getForestArea(data, year2)
 
     return R.pipe(
       () => div(forest2, forest1),

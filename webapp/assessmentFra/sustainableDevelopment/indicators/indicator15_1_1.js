@@ -3,27 +3,22 @@ import React from 'react'
 import ResponsibleAgency from './responsibleAgency'
 import ReviewIndicator from '../../../review/reviewIndicator'
 
-import { div, eq, mul, sum } from '../../../../common/bignumberUtils'
+import { div, mul, sum } from '../../../../common/bignumberUtils'
 import { formatDecimal } from '../../../utils/numberFormat'
 import * as R from 'ramda'
 
+import { getDataPoint, getForestArea } from './indicators'
+
 const Indicator15_1_1 = ({i18n, countryIso, data, years}) => {
 
-  const getDataPoint = year => R.pipe(
-    R.find(v => eq(v.year, year) && R.propEq('type', 'odp', v)),
-    o => R.isNil(o)
-      ? R.find(v => eq(v.year, year) && R.propEq('type', 'fra', v), data.extentOfForest)
-      : o,
-  )(data.extentOfForest)
-
   const area2015 = R.pipe(
-    getDataPoint,
+    R.partial(getDataPoint, [data]),
     dataPoint => sum([dataPoint.forestArea, dataPoint.otherWoodedLand, dataPoint.otherLand])
   )(2015)
 
   const getValueByYear = year => R.pipe(
-    getDataPoint,
-    dataPoint => div(dataPoint.forestArea, area2015),
+    R.partial(getForestArea, [data]),
+    forestArea => div(forestArea, area2015),
     res => R.isNil(res) ? null : mul(res, 100)
   )(year)
 
