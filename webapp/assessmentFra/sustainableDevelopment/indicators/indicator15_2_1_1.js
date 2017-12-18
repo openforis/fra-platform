@@ -7,11 +7,7 @@ import { div, eq, mul, sub } from '../../../../common/bignumberUtils'
 import { formatDecimal } from '../../../utils/numberFormat'
 import * as R from 'ramda'
 
-const Indicator15_2_1_1 = ({i18n, countryIso, data}) => {
-  const years = R.pipe(
-    R.filter(v => v.type !== 'odp'),
-    R.map(v => v.name)
-  )(data.extentOfForest)
+const Indicator15_2_1_1 = ({i18n, countryIso, data, years}) => {
 
   const getForestArea = year => R.pipe(
     R.find(v => eq(v.year, year) && R.propEq('type', 'odp', v)),
@@ -64,9 +60,12 @@ const Indicator15_2_1_1 = ({i18n, countryIso, data}) => {
       <table className="fra-table">
         <thead>
         <tr>
-          <th rowSpan="2"
-              className="fra-table__header-cell-left">{i18n.t('sustainableDevelopment.subIndicator', {no: 1})}</th>
-          <th colSpan="8" className="fra-table__header-cell">{i18n.t('sustainableDevelopment.percent')}</th>
+          <th rowSpan="2" className="fra-table__header-cell-left">
+            {i18n.t('sustainableDevelopment.subIndicator', {no: 1})}
+          </th>
+          <th colSpan="8" className="fra-table__header-cell">
+            {i18n.t('sustainableDevelopment.percent')}
+          </th>
         </tr>
         <tr>
           {

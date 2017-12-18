@@ -28,6 +28,11 @@ class SustainableDevelopmentView extends React.Component {
     const countryIso = match.params.countryIso
     const lang = i18n.language
 
+    const years = R.pipe(
+      R.filter(v => v.type !== 'odp'),
+      R.map(v => v.name)
+    )(R.values(data.extentOfForest))
+
     return R.isEmpty(data)
       ? null
       : <LoggedInPageTemplate>
@@ -42,11 +47,13 @@ class SustainableDevelopmentView extends React.Component {
           <Indicator15_1_1
             i18n={i18n}
             countryIso={countryIso}
-            data={data}/>
+            data={data}
+            years={years}/>
           <Indicator15_2_1
             i18n={i18n}
             countryIso={countryIso}
-            data={data}/>
+            data={data}
+            years={years}/>
           <CommentableDescriptions
             section="sustainableDevelopment"
             name="sustainableDevelopment"
