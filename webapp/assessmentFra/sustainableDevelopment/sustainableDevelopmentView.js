@@ -36,7 +36,7 @@ class SustainableDevelopmentView extends React.Component {
     return R.isEmpty(data)
       ? null
       : <LoggedInPageTemplate>
-        <div className="fra-view__content">
+        <div className="fra-view__content fra-sustainable-dev__content">
           <div className="fra-view__page-header">
             <h1 className="title">{i18n.t('sustainableDevelopment.sustainableDevelopment')}</h1>
             <div className="fra-view__header-secondary-content">
