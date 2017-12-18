@@ -7,7 +7,9 @@ import { fetchItem, save, saveMany, generateFraValues } from '../../tableWithOdp
 import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
 import { TableWithOdp, GenerateFraValuesControl } from '../../tableWithOdp/tableWithOdp'
 import ChartWrapper from '../extentOfForest/chart/chartWrapper'
-import { DataSourceDescriptionAndComments } from '../../descriptionBundles/dataSourceDescriptionAndComments'
+import NationalDataDescriptions from '../../descriptionBundles/nationalDataDescriptions'
+import AnalysisDescriptions from '../../descriptionBundles/analysisDescriptions'
+import GeneralComments from '../../descriptionBundles/generalComments'
 import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
 import { saveCountryConfigSetting } from '../../country/actions'
 import DefinitionLink from '../../reusableUiComponents/definitionLink'
@@ -219,6 +221,8 @@ const ForestCharacteristics = props => {
         {name:'otherPlantedForestArea', label:props.i18n.t('forestCharacteristics.otherPlantedForestArea'), color:'#f58833'}
       ]}
     />
+    <NationalDataDescriptions section={sectionName} countryIso={props.countryIso}/>
+    <AnalysisDescriptions section={sectionName} countryIso={props.countryIso}/>
     <div className="fra-view__section-header">
       <h3 className="subhead">{i18n.t('forestCharacteristics.forestCharacteristics')}</h3>
       <DefinitionLink document="tad" anchor="1b" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
@@ -243,11 +247,9 @@ const ForestCharacteristics = props => {
       {...props}
       fra={filteredFraColumns}
     />
-    <DataSourceDescriptionAndComments
+    <GeneralComments
       section={sectionName}
-      name={sectionName}
-      countryIso={props.countryIso}
-      i18n={i18n}
+      countryIso={props.match.params.countryIso}
     />
   </div>
 }
