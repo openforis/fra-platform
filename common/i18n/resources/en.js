@@ -646,6 +646,8 @@ The FRA team
     percent2015ForestAreaBaseline: 'Percent (2015 forest area baseline)',
     proportionForestAreaLegallyEstablishedProtectedAreas: 'Proportion of forest area located within legally established protected areas',
     proportionForestAreaLongTermForestManagement: 'Proportion of forest area under long-term forest management',
+    forestArea1000Ha: 'Forest area (1000 ha)',
+    forestAreaVerifiedForestManagement: 'Forest area under independently verified forest management certification schemes'
   },
 
   assessment: {
