@@ -8,7 +8,9 @@ import React from 'react'
 import { connect } from 'react-redux'
 import LoggedInPageTemplate from '../app/loggedInPageTemplate'
 import TraditionalTable from '../traditionalTable/traditionalTable'
-import { DataSourceDescriptionAndComments } from '../descriptionBundles/dataSourceDescriptionAndComments'
+import NationalDataDescriptions from '../descriptionBundles/nationalDataDescriptions'
+import AnalysisDescriptions from '../descriptionBundles/analysisDescriptions'
+import GeneralComments from '../descriptionBundles/generalComments'
 import { fetchLastSectionUpdateTimestamp } from '../audit/actions'
 import DefinitionLink from '../reusableUiComponents/definitionLink'
 
@@ -29,23 +31,18 @@ class SingleTraditionalTableView extends React.Component {
 
     return <LoggedInPageTemplate>
       <div className="fra-view__content">
-        <div className="fra-view__page-header">
-          <h1 className="title">
+        <NationalDataDescriptions section={tableSpecInstance.name} countryIso={countryIso}/>
+        <AnalysisDescriptions section={tableSpecInstance.name} countryIso={countryIso}/>
+        <div className="fra-view__section-header">
+          <h3 className="subhead">
             {i18n.t(headingLocalizationKey)}
             {headingDetailsLocalizationKey ? ` (${i18n.t(headingDetailsLocalizationKey)})` : null}
-          </h1>
-          <div className="fra-view__header-secondary-content">
-            <DefinitionLink document="tad" anchor={sectionAnchor ? sectionAnchor : tadAnchor} title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
-            <DefinitionLink document="faq" anchor={sectionAnchor ? sectionAnchor : faqAnchor} title={i18n.t('definition.faqLabel')} lang={i18n.language}/>
-          </div>
+          </h3>
+          <DefinitionLink document="tad" anchor={sectionAnchor ? sectionAnchor : tadAnchor} title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
+          <DefinitionLink className="align-left" document="faq" anchor={sectionAnchor ? sectionAnchor : faqAnchor} title={i18n.t('definition.faqLabel')} lang={i18n.language}/>
         </div>
         <TraditionalTable tableSpec={tableSpecInstance} countryIso={match.params.countryIso}/>
-        <DataSourceDescriptionAndComments
-          section={tableSpecInstance.name}
-          name={tableSpecInstance.name}
-          countryIso={countryIso}
-          i18n={i18n}
-        />
+        <GeneralComments section={tableSpecInstance.name} countryIso={countryIso}/>
       </div>
     </LoggedInPageTemplate>
 
