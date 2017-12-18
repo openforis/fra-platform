@@ -5,7 +5,8 @@ import * as R from 'ramda'
 import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
 import { CommentableDescriptions } from '../../description/commentableDescription'
 import DefinitionLink from '../../reusableUiComponents/definitionLink'
-import TableIndicator15_1_1 from './tableIndicator15_1_1'
+
+import TableIndicator15_1_1 from './indicators/tableIndicator15_1_1'
 
 import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
 import { fetch } from './actions'
