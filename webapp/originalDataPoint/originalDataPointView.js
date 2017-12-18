@@ -333,50 +333,6 @@ const ExtentOfForestSection = ({odp, countryIso, saveDraft, openThread, i18n}) =
         </table>
       </div>
     </div>
-    {
-      originalDataPoint.classTotalArea(odp, 'otherLandPercent')
-      ? <div className="fra-table__container">
-          <div className="fra-table__scroll-wrapper">
-            <table className="fra-table odp__sub-table">
-              <thead>
-              <tr>
-                <th className="fra-table__header-cell-left">{i18n.t('nationalDataPoint.otherLandCharacteristics')}</th>
-                <th className="fra-table__header-cell fra-table__divider">{i18n.t('nationalDataPoint.area')}</th>
-                <th className="fra-table__header-cell">{i18n.t('fraOtherLandClass.palms')}</th>
-                <th className="fra-table__header-cell">{i18n.t('fraOtherLandClass.treeOrchards')}</th>
-                <th className="fra-table__header-cell">{i18n.t('fraOtherLandClass.agroforestry')}</th>
-                <th className="fra-table__header-cell">{i18n.t('fraOtherLandClass.treesUrbanSettings')}</th>
-              </tr>
-              </thead>
-              <SubcategoryTableBody
-                odp={odp}
-                countryIso={countryIso}
-                saveDraft={saveDraft}
-                openThread={openThread}
-                parentCategory="otherLandPercent"
-                categoryColumns={[{name: 'otherLandPalmsPercent', type: 'decimal'},
-                                  {name: 'otherLandTreeOrchardsPercent', type: 'decimal'},
-                                  {name: 'otherLandAgroforestryPercent', type: 'decimal'},
-                                  {name: 'otherLandTreesUrbanSettingsPercent', type: 'decimal'}]}
-                targetSuffix="other_land_charasteristics"
-                validationResultField="validOtherLandPercentage"
-                reviewTitleKey="otherLandCharacteristics"
-                i18n={i18n} />
-              <tfoot>
-                <tr>
-                  <th className="fra-table__header-cell-left">{i18n.t('nationalDataPoint.total')}</th>
-                  <th className="fra-table__calculated-cell fra-table__divider">{formatDecimal(originalDataPoint.classTotalArea(odp, 'otherLandPercent'))}</th>
-                  <td className="fra-table__calculated-cell">{formatDecimal(originalDataPoint.subClassTotalArea(odp, 'otherLandPercent', 'otherLandPalmsPercent'))}</td>
-                  <td className="fra-table__calculated-cell">{formatDecimal(originalDataPoint.subClassTotalArea(odp, 'otherLandPercent', 'otherLandTreeOrchardsPercent'))}</td>
-                  <td className="fra-table__calculated-cell">{formatDecimal(originalDataPoint.subClassTotalArea(odp, 'otherLandPercent', 'otherLandAgroforestryPercent'))}</td>
-                  <td className="fra-table__calculated-cell">{formatDecimal(originalDataPoint.subClassTotalArea(odp, 'otherLandPercent', 'otherLandTreesUrbanSettingsPercent'))}</td>
-                </tr>
-              </tfoot>
-            </table>
-          </div>
-      </div>
-    : null
-    }
   </div>
 }
 
