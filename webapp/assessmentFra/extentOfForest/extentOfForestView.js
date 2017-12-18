@@ -10,7 +10,7 @@ import DefinitionLink from '../../reusableUiComponents/definitionLink'
 import ChartWrapper from './chart/chartWrapper'
 import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
 import { TableWithOdp, GenerateFraValuesControl } from '../../tableWithOdp/tableWithOdp'
-import { DataSourceDescriptionAndComments } from '../../descriptionBundles/dataSourceDescriptionAndComments'
+import GeneralComments from '../../descriptionBundles/generalComments'
 import NationalDataDescriptions from '../../descriptionBundles/nationalDataDescriptions'
 import AnalysisDescriptions from '../../descriptionBundles/analysisDescriptions'
 import { sum, formatNumber, greaterThanOrEqualTo, lessThanOrEqualTo, abs, sub } from '../../../common/bignumberUtils'
@@ -200,11 +200,9 @@ const ExtentOfForest = (props) => {
         section={sectionName}
       />
     </div>
-    <DataSourceDescriptionAndComments
+    <GeneralComments
       section={sectionName}
-      name={sectionName}
       countryIso={props.match.params.countryIso}
-      i18n={i18n}
     />
   </div>
 }
