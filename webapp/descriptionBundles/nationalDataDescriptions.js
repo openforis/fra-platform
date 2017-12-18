@@ -19,18 +19,17 @@ const NationalDataDescriptions = props => {
       name="dataSources"
       {...props}
     />
-    <hr/>
     <CommentableDescription
       title={props.i18n.t('description.nationalClassificationAndDefinitions')}
       name="nationalClassificationAndDefinitions"
       {...props}
     />
-    <hr/>
     <CommentableDescription
       title={props.i18n.t('description.originalData')}
       name="originalData"
       {...props}
     />
+    <hr/>
   </div>
 }
 
