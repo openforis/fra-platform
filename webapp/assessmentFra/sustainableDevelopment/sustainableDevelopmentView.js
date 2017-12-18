@@ -1,3 +1,5 @@
+import './style.less'
+
 import React from 'react'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
@@ -6,7 +8,8 @@ import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
 import { CommentableDescriptions } from '../../description/commentableDescription'
 import DefinitionLink from '../../reusableUiComponents/definitionLink'
 
-import TableIndicator15_1_1 from './indicators/tableIndicator15_1_1'
+import Indicator15_1_1 from './indicators/indicator15_1_1'
+import Indicator15_2_1 from './indicators/indicator15_2_1'
 
 import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
 import { fetch } from './actions'
@@ -36,7 +39,11 @@ class SustainableDevelopmentView extends React.Component {
               <DefinitionLink document="faq" anchor="8" title={i18n.t('definition.faqLabel')} lang={lang}/>
             </div>
           </div>
-          <TableIndicator15_1_1
+          <Indicator15_1_1
+            i18n={i18n}
+            countryIso={countryIso}
+            data={data}/>
+          <Indicator15_2_1
             i18n={i18n}
             countryIso={countryIso}
             data={data}/>
