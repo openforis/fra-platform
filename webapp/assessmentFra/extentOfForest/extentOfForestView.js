@@ -17,6 +17,7 @@ import { sum, formatNumber, greaterThanOrEqualTo, lessThanOrEqualTo, abs, sub } 
 import ReviewIndicator from '../../review/reviewIndicator'
 import climaticDomainTableSpec from './climaticDomainTableSpec'
 import TraditionalTable from '../../traditionalTable/traditionalTable'
+import { saveCountryConfigSetting } from '../../country/actions'
 
 const sectionName = 'extentOfForest'
 const mapIndexed = R.addIndex(R.map)
@@ -153,31 +154,57 @@ const ExtentOfForest = (props) => {
       validationErrorMessages
     }
   ]
-
+  const filteredFraColumns = R.reject(
+    fraColumn => !props.useOriginalDataPoints && fraColumn.type === 'odp',
+    R.values(props.fra)
+  )
   return <div className='fra-view__content'>
     <div className="fra-view__page-header">
       <h1 className="title align-left">{i18n.t('extentOfForest.estimationAndForecasting')}</h1>
-      <Link className="btn btn-primary" to={`/country/${props.countryIso}/odp/${sectionName}`}>
-        <Icon className="icon-sub icon-white" name="small-add"/>
-        {i18n.t('nationalDataPoint.addNationalDataPoint')}
-      </Link>
+      {
+        props.useOriginalDataPoints
+        ? <Link className="btn btn-primary" to={`/country/${props.countryIso}/odp/${sectionName}`}>
+            <Icon className="icon-sub icon-white" name="small-add"/>
+            {i18n.t('nationalDataPoint.addNationalDataPoint')}
+          </Link>
+        : null
+      }
+      <button
+        className="btn btn-primary"
+        onClick={() => {
+          props.saveCountryConfigSetting(props.countryIso, 'useOriginalDataPoints', !props.useOriginalDataPoints)
+        }}
+      >
+        {
+          props.useOriginalDataPoints
+            ? i18n.t('extentOfForest.dontUseOriginalDataPoints')
+            : i18n.t('extentOfForest.useOriginalDataPoints')
+        }
+      </button>
     </div>
     <ChartWrapper
-      fra={props.fra}
+      fra={filteredFraColumns}
       trends={[
         {name: 'forestArea', label: i18n.t('fraClass.forest'), color: '#0098a6'},
         {name: 'otherWoodedLand', label: i18n.t('fraClass.otherWoodedLand'), color: '#bf00af'}
       ]}
     />
-    <NationalDataDescriptions section={sectionName} countryIso={props.countryIso}/>
-    <AnalysisDescriptions section={sectionName} countryIso={props.countryIso}/>
+    {
+      props.useOriginalDataPoints
+        ? null
+        : [
+            <NationalDataDescriptions key="ndd" section={sectionName} countryIso={props.countryIso}/>,
+            <AnalysisDescriptions key="ad" section={sectionName} countryIso={props.countryIso}/>
+          ]
+    }
+
     <div className="fra-view__section-header">
       <h3 className="subhead">{i18n.t('extentOfForest.extentOfForest')}</h3>
       <DefinitionLink document="tad" anchor="1a" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
       <DefinitionLink document="faq" anchor="1a" title={i18n.t('definition.faqLabel')} lang={i18n.language} className="align-left"/>
       <GenerateFraValuesControl section={sectionName} rows={eofRows} useOriginalDataPoints={true} {...props} />
       {
-        props.odpDirty
+        props.odpDirty && props.useOriginalDataPoints
           ? <div className="fra-view__header-secondary-content">
               <p className="support-text">
                 <Icon name="alert" className="icon-orange icon-sub icon-margin-right"/>
@@ -192,7 +219,9 @@ const ExtentOfForest = (props) => {
       rows={eofRows}
       tableHeader={props.i18n.t('extentOfForest.areaUnitLabel')}
       categoryHeader={props.i18n.t('extentOfForest.categoryHeader')}
-      {...props}/>
+      {...props}
+      fra={filteredFraColumns}
+    />
     <div className="eof__climatic-domain-table-wrapper">
       <TraditionalTable
         tableSpec={climaticDomainTableSpec(props.i18n, props.climaticDomainPercents2015)}
@@ -232,6 +261,7 @@ const mapStateToProps = state =>
     faoStat: R.path(['country', 'config', 'faoStat'], state),
     fra2015ForestAreas: R.path(['country', 'config', 'fra2015ForestAreas'], state),
     climaticDomainPercents2015: R.path(['country', 'config', 'climaticDomainPercents2015'], state),
+    useOriginalDataPoints: !!R.path(['country', 'config', 'useOriginalDataPoints'], state),
     i18n: state.user.i18n
   })
 
@@ -242,6 +272,7 @@ export default connect(
       saveMany,
       fetchItem,
       generateFraValues,
-      fetchLastSectionUpdateTimestamp
+      fetchLastSectionUpdateTimestamp,
+      saveCountryConfigSetting
     }
   )(DataFetchingComponent)
