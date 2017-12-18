@@ -5,7 +5,7 @@ import Indicator15_2_1_2 from './indicator15_2_1_2'
 import Indicator15_2_1_3 from './indicator15_2_1_3'
 import Indicator15_2_1_4 from './indicator15_2_1_4'
 
-const Indicator15_2_1 = ({i18n, countryIso, data, years}) => {
+const Indicator15_2_1 = ({i18n, countryIso, data, countryConfig, years}) => {
 
   return <div>
     <div className="fra-view__section-header">
@@ -34,6 +34,7 @@ const Indicator15_2_1 = ({i18n, countryIso, data, years}) => {
       countryIso={countryIso}
       data={data}
       years={years}
+      countryConfig={countryConfig}
     />
   </div>
 }

@@ -23,8 +23,14 @@ class SustainableDevelopmentView extends React.Component {
     this.props.fetch(countryIso)
   }
 
+  componentWillReceiveProps (nextProps) {
+    const nextCountryIso = nextProps.match.params.countryIso
+    if (nextCountryIso !== this.props.match.params.countryIso)
+      this.props.fetch(nextCountryIso)
+  }
+
   render () {
-    const {match, i18n, data} = this.props
+    const {match, i18n, data, countryConfig} = this.props
     const countryIso = match.params.countryIso
     const lang = i18n.language
 
@@ -53,7 +59,8 @@ class SustainableDevelopmentView extends React.Component {
             i18n={i18n}
             countryIso={countryIso}
             data={data}
-            years={years}/>
+            years={years}
+            countryConfig={countryConfig}/>
           <CommentableDescriptions
             section="sustainableDevelopment"
             name="sustainableDevelopment"
@@ -67,7 +74,8 @@ class SustainableDevelopmentView extends React.Component {
 
 const mapStateToProps = state => ({
   i18n: state.user.i18n,
-  data: state.sustainableDevelopment
+  data: state.sustainableDevelopment,
+  countryConfig: R.path(['country', 'config'], state)
 })
 
 export default connect(mapStateToProps, {fetchLastSectionUpdateTimestamp, fetch})(SustainableDevelopmentView)
