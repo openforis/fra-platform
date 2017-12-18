@@ -40,7 +40,7 @@ const Indicator15_2_1_4 = ({i18n, countryIso, data, years, countryConfig}) => {
             {i18n.t('sustainableDevelopment.forestAreaVerifiedForestManagement')}
           </th>
           {
-            indicatorYears.map((year, i) =>
+            indicatorYears.map(year =>
               <td key={`${year}h`} className="fra-table__calculated-cell">
                 {formatDecimal(getCertifiedArea(year))}
               </td>

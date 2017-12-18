@@ -3,29 +3,24 @@ import React from 'react'
 import ResponsibleAgency from './responsibleAgency'
 import ReviewIndicator from '../../../review/reviewIndicator'
 
-import { div, eq, mul } from '../../../../common/bignumberUtils'
+import { div, mul } from '../../../../common/bignumberUtils'
 import { formatDecimal } from '../../../utils/numberFormat'
 import * as R from 'ramda'
 
+import { getForestArea } from './indicators'
+
 const Indicator15_2_1_3 = ({i18n, countryIso, data, years}) => {
 
-  const getForestArea = year => R.pipe(
-    R.find(v => eq(v.year, year) && R.propEq('type', 'odp', v)),
-    o => R.isNil(o)
-      ? R.find(v => eq(v.year, year) && R.propEq('type', 'fra', v), data.extentOfForest)
-      : o,
-    R.prop('forestArea')
-  )(data.extentOfForest)
-
-  const getProp = (year, col, row) => R.pipe(
+  const getValue = (year, col, row) => R.pipe(
+    R.prop('forestAreaWithinProtectedAreas'),
     R.defaultTo([[], []]),
-    data => data[row],
-    data => div(data[col], getForestArea(year)),
+    d => d[row],
+    d => div(d[col], getForestArea(data, year)),
     v => R.isNil(v) ? null : mul(v, 100)
-  )(data.forestAreaWithinProtectedAreas)
+  )(data)
 
-  const getPropProtectedAreas = (year, col) => getProp(year, col, 0)
-  const getPropForestManagement = (year, col) => getProp(year, col, 1)
+  const getValueProtectedAreas = (year, col) => getValue(year, col, 0)
+  const getValueForestManagement = (year, col) => getValue(year, col, 1)
 
   return <div className="fra-table__container fra-sustainable-dev-sub-indicator-table">
     <div className="fra-table__scroll-wrapper">
@@ -57,7 +52,7 @@ const Indicator15_2_1_3 = ({i18n, countryIso, data, years}) => {
           {
             years.map((year, i) =>
               <td key={`${year}h`} className="fra-table__calculated-cell">
-                {formatDecimal(getPropProtectedAreas(year, i))}
+                {formatDecimal(getValueProtectedAreas(year, i))}
               </td>
             )
           }
@@ -79,7 +74,7 @@ const Indicator15_2_1_3 = ({i18n, countryIso, data, years}) => {
           {
             years.map((year, i) =>
               <td key={`${year}h`} className="fra-table__calculated-cell">
-                {formatDecimal(getPropForestManagement(year, i))}
+                {formatDecimal(getValueForestManagement(year, i))}
               </td>
             )
           }
