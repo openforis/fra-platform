@@ -8,7 +8,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import LoggedInPageTemplate from '../app/loggedInPageTemplate'
 import TraditionalTable from '../traditionalTable/traditionalTable'
-import { DataSourceDescriptionAndComments } from '../description/dataSourceDescriptionAndComments'
+import { DataSourceDescriptionAndComments } from '../descriptionBundles/dataSourceDescriptionAndComments'
 import { fetchLastSectionUpdateTimestamp } from '../audit/actions'
 import DefinitionLink from '../reusableUiComponents/definitionLink'
 

@@ -7,7 +7,7 @@ import { fetchItem, save, saveMany, generateFraValues } from '../../tableWithOdp
 import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
 import { TableWithOdp, GenerateFraValuesControl } from '../../tableWithOdp/tableWithOdp'
 import ChartWrapper from '../extentOfForest/chart/chartWrapper'
-import { DataSourceDescriptionAndComments } from '../../description/dataSourceDescriptionAndComments'
+import { DataSourceDescriptionAndComments } from '../../descriptionBundles/dataSourceDescriptionAndComments'
 import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
 import { saveCountryConfigSetting } from '../../country/actions'
 import DefinitionLink from '../../reusableUiComponents/definitionLink'

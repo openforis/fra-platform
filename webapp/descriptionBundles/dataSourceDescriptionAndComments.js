@@ -3,7 +3,7 @@ import R from 'ramda'
 import assert from 'assert'
 import { connect } from 'react-redux'
 
-import './style.less'
+import '../description/style.less'
 import ReviewIndicator from '../review/reviewIndicator'
 import Description from '../description/description'
 
