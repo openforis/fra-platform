@@ -142,13 +142,9 @@ const addClassData = (client, odpVersionId, odp) => {
         forest_plantation_percent,
         forest_plantation_introduced_percent,
         other_planted_forest_percent,
-        other_land_palms_percent,
-        other_land_tree_orchards_percent,
-        other_land_agroforestry_percent,
-        other_land_trees_urban_settings_percent,
         uuid)
         VALUES
-        ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16);`,
+        ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12);`,
       [
         odpVersionId,
         nationalClass.className,
@@ -161,10 +157,6 @@ const addClassData = (client, odpVersionId, odp) => {
         nationalClass.plantationPercent,
         nationalClass.plantationIntroducedPercent,
         nationalClass.otherPlantedPercent,
-        nationalClass.otherLandPalmsPercent,
-        nationalClass.otherLandTreeOrchardsPercent,
-        nationalClass.otherLandAgroforestryPercent,
-        nationalClass.otherLandTreesUrbanSettingsPercent,
         nationalClass.uuid
       ]),
     odp.nationalClasses)
@@ -262,10 +254,6 @@ const getOdpNationalClasses = (queryProvider, odpVersionId) =>
       forest_plantation_percent,
       forest_plantation_introduced_percent,
       other_planted_forest_percent,
-      other_land_palms_percent,
-      other_land_tree_orchards_percent,
-      other_land_agroforestry_percent,
-      other_land_trees_urban_settings_percent,
       uuid
      FROM odp_class
      WHERE odp_version_id = $1`
@@ -282,10 +270,6 @@ const getOdpNationalClasses = (queryProvider, odpVersionId) =>
       plantationPercent: row.forest_plantation_percent,
       plantationIntroducedPercent: row.forest_plantation_introduced_percent,
       otherPlantedPercent: row.other_planted_forest_percent,
-      otherLandPalmsPercent: row.other_land_palms_percent,
-      otherLandTreeOrchardsPercent: row.other_land_tree_orchards_percent,
-      otherLandAgroforestryPercent: row.other_land_agroforestry_percent,
-      otherLandTreesUrbanSettingsPercent: row.other_land_trees_urban_settings_percent,
       uuid: row.uuid
     }), result.rows))
 
@@ -331,10 +315,6 @@ const eofReducer = (results, row, type = 'fra') => R.assoc(`odp_${row.year}`,
     forestArea: row.forest_area,
     otherWoodedLand: row.other_wooded_land_area,
     otherLand: row.other_land_area,
-    otherLandPalms: row.other_land_palms,
-    otherLandTreeOrchards: row.other_land_tree_orchards,
-    otherLandAgroforestry: row.other_land_agroforestry,
-    otherLandTreesUrbanSettings: row.other_land_trees_urban_settings,
     name: row.year + '',
     type: 'odp',
     year: Number(row.year),
@@ -367,10 +347,6 @@ module.exports.readEofOdps = (countryIso) =>
           SUM(c.area * c.forest_percent / 100.0) AS forest_area,
           SUM(c.area * c.other_wooded_land_percent / 100.0) AS other_wooded_land_area,
           SUM(c.area * c.other_land_percent / 100.0) AS other_land_area,
-          SUM(c.area * c.other_land_palms_percent * c.other_land_percent / 10000.0) AS other_land_palms,
-          SUM(c.area * c.other_land_tree_orchards_percent * c.other_land_percent / 10000.0) AS other_land_tree_orchards,
-          SUM(c.area * c.other_land_agroforestry_percent * c.other_land_percent / 10000.0) AS other_land_agroforestry,
-          SUM(c.area * c.other_land_trees_urban_settings_percent * c.other_land_percent / 10000.0) AS other_land_trees_urban_settings,
           CASE
             WHEN p.draft_id IS NULL
             THEN FALSE
