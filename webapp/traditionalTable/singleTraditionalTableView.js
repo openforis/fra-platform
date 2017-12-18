@@ -25,14 +25,28 @@ class SingleTraditionalTableView extends React.Component {
   }
 
   render() {
-    const {match, i18n, headingLocalizationKey, headingDetailsLocalizationKey, sectionAnchor, tadAnchor, faqAnchor} = this.props
+    const {
+      match,
+      i18n,
+      headingLocalizationKey,
+      headingDetailsLocalizationKey,
+      sectionAnchor,
+      tadAnchor,
+      faqAnchor,
+      useAnalysisDescriptions
+    } = this.props
     const countryIso = match.params.countryIso
     const tableSpecInstance = this.getTableSpec()
 
     return <LoggedInPageTemplate>
       <div className="fra-view__content">
         <NationalDataDescriptions section={tableSpecInstance.name} countryIso={countryIso}/>
-        <AnalysisDescriptions section={tableSpecInstance.name} countryIso={countryIso}/>
+        {
+          // Default is that we show the analysisDescriptions if this prop doesn't exist
+          useAnalysisDescriptions === false
+            ? null
+            : <AnalysisDescriptions section={tableSpecInstance.name} countryIso={countryIso}/>
+        }
         <div className="fra-view__section-header">
           <h3 className="subhead">
             {i18n.t(headingLocalizationKey)}
