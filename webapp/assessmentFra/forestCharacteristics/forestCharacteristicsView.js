@@ -194,7 +194,7 @@ const ForestCharacteristics = props => {
     }
   ]
   const filteredFraColumns = R.reject(
-    fraColumn => !props.useOriginalDataPoints && fraColumn.type === 'odp',
+    fraColumn => !props.useOriginalDataPointsInFoc && fraColumn.type === 'odp',
     R.values(props.fra)
   )
   return <div className='fra-view__content'>
@@ -203,11 +203,11 @@ const ForestCharacteristics = props => {
       <button
         className="btn btn-primary"
         onClick={() => {
-          props.saveCountryConfigSetting(props.countryIso, 'useOriginalDataPoints', !props.useOriginalDataPoints)
+          props.saveCountryConfigSetting(props.countryIso, 'useOriginalDataPointsInFoc', !props.useOriginalDataPointsInFoc)
         }}
       >
         {
-          props.useOriginalDataPoints
+          props.useOriginalDataPointsInFoc
             ? i18n.t('forestCharacteristics.dontUseOriginalDataPoints')
             : i18n.t('forestCharacteristics.useOriginalDataPoints')
         }
@@ -229,7 +229,7 @@ const ForestCharacteristics = props => {
       <DefinitionLink document="faq" anchor="1b" title={i18n.t('definition.faqLabel')} lang={i18n.language} className="align-left"/>
       <GenerateFraValuesControl section={sectionName} rows={focRows} {...props} />
       {
-        props.odpDirty && props.useOriginalDataPoints
+        props.odpDirty && props.useOriginalDataPointsInFoc
           ? <div className="fra-view__header-secondary-content">
               <p className="support-text">
                 <Icon name="alert" className="icon-orange icon-sub icon-margin-right"/>
@@ -279,7 +279,7 @@ const mapStateToProps = state =>
     openCommentThread: state.review.openThread,
     i18n: state.user.i18n,
     extentOfForest: state.extentOfForest,
-    useOriginalDataPoints: !!R.path(['country', 'config', 'useOriginalDataPoints'], state)
+    useOriginalDataPointsInFoc: !!R.path(['country', 'config', 'useOriginalDataPointsInFoc'], state)
   })
 
 export default connect(
