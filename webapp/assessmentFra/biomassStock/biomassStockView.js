@@ -5,9 +5,11 @@ import * as R from 'ramda'
 import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
 import TraditionalTable from '../../traditionalTable/traditionalTable'
 import tableSpec from './tableSpec'
-import { DataSourceDescriptionAndComments } from '../../descriptionBundles/dataSourceDescriptionAndComments'
 import DefinitionLink from '../../reusableUiComponents/definitionLink'
 import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
+import NationalDataDescriptions from '../../descriptionBundles/nationalDataDescriptions'
+import AnalysisDescriptions from '../../descriptionBundles/analysisDescriptions'
+import GeneralComments from '../../descriptionBundles/generalComments'
 
 class BiomassStockView extends React.Component {
 
@@ -34,8 +36,10 @@ class BiomassStockView extends React.Component {
 
     return <LoggedInPageTemplate>
       <div className="fra-view__content">
+        <NationalDataDescriptions section="biomassStock" countryIso={countryIso}/>
+        <AnalysisDescriptions section="biomassStock" countryIso={countryIso}/>
         <div className="fra-view__page-header">
-          <h1 className="title">{i18n.t('biomassStock.biomassStock')}</h1>
+          <h3 className="subhead">{i18n.t('biomassStock.biomassStock')}</h3>
           <div className="fra-view__page-header-controls">
             {
               !R.isNil(this.props.domain)
@@ -64,11 +68,9 @@ class BiomassStockView extends React.Component {
           </div>
         </div>
         <TraditionalTable tableSpec={this.tableSpecInstance} countryIso={countryIso}/>
-        <DataSourceDescriptionAndComments
+        <GeneralComments
           section="biomassStock"
-          name="biomassStock"
           countryIso={countryIso}
-          i18n={i18n}
         />
       </div>
     </LoggedInPageTemplate>
