@@ -1,13 +1,13 @@
 import React from 'react'
 
-import TableIndicatorAgency from './tableIndicatorAgency'
+import ResponsibleAgency from './responsibleAgency'
 import ReviewIndicator from '../../../review/reviewIndicator'
 
 import { div, eq, mul, sum } from '../../../../common/bignumberUtils'
 import { formatDecimal } from '../../../utils/numberFormat'
 import * as R from 'ramda'
 
-const TableIndicator15_1_1 = ({i18n, countryIso, data}) => {
+const Indicator15_1_1 = ({i18n, countryIso, data}) => {
   const years = R.pipe(
     R.filter(v => v.type !== 'odp'),
     R.map(v => v.name)
@@ -31,7 +31,7 @@ const TableIndicator15_1_1 = ({i18n, countryIso, data}) => {
     res => R.isNil(res) ? null : mul(res, 100)
   )(year)
 
-  return <div>
+  return <div className="fra-sustainable-dev-indicator-15-1-1">
     <div className="fra-view__section-header">
       <h3 className="subhead">{i18n.t('sustainableDevelopment.sdgIndicator15_1_1')}</h3>
     </div>
@@ -76,7 +76,7 @@ const TableIndicator15_1_1 = ({i18n, countryIso, data}) => {
       </div>
     </div>
 
-    <TableIndicatorAgency
+    <ResponsibleAgency
       i18n={i18n}
       countryIso={countryIso}
       tableSpecName="sustainableDevelopmentAgencyIndicator15_1_1"/>
@@ -84,4 +84,4 @@ const TableIndicator15_1_1 = ({i18n, countryIso, data}) => {
   </div>
 }
 
-export default TableIndicator15_1_1
+export default Indicator15_1_1
