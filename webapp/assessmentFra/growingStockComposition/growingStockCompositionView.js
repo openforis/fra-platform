@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
 import TraditionalTable from '../../traditionalTable/traditionalTable'
 import tableSpec from './tableSpec'
-import { DataSourceDescriptionAndComments } from '../../description/dataSourceDescriptionAndComments'
+import { DataSourceDescriptionAndComments } from '../../descriptionBundles/dataSourceDescriptionAndComments'
 import DefinitionLink from '../../reusableUiComponents/definitionLink'
 import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
 

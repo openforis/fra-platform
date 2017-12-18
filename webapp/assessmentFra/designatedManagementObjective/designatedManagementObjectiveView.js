@@ -8,7 +8,7 @@ import {
   primaryDesignatedManagementObjectiveTableSpec,
   totalAreaWithDesignatedManagementObjectiveTableSpec
 } from './tableSpecs'
-import { DataSourceDescriptionAndComments } from '../../description/dataSourceDescriptionAndComments'
+import { DataSourceDescriptionAndComments } from '../../descriptionBundles/dataSourceDescriptionAndComments'
 import DefinitionLink from '../../reusableUiComponents/definitionLink'
 import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
 
