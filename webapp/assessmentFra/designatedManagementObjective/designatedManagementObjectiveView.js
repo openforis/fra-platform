@@ -8,9 +8,11 @@ import {
   primaryDesignatedManagementObjectiveTableSpec,
   totalAreaWithDesignatedManagementObjectiveTableSpec
 } from './tableSpecs'
-import { DataSourceDescriptionAndComments } from '../../descriptionBundles/dataSourceDescriptionAndComments'
 import DefinitionLink from '../../reusableUiComponents/definitionLink'
 import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
+import NationalDataDescriptions from '../../descriptionBundles/nationalDataDescriptions'
+import AnalysisDescriptions from '../../descriptionBundles/analysisDescriptions'
+import GeneralComments from '../../descriptionBundles/generalComments'
 
 const sectionName = 'designatedManagementObjective'
 
@@ -31,10 +33,12 @@ class designatedManagementObjectiveView extends React.Component {
 
     return <LoggedInPageTemplate>
       <div className="fra-view__content">
+        <NationalDataDescriptions section={sectionName} countryIso={countryIso}/>
+        <AnalysisDescriptions section={sectionName} countryIso={countryIso}/>
         <div className="fra-view__page-header">
-          <h1 className="title">
+          <h3 className="subhead">
             {i18n.t('designatedManagementObjective.designatedManagementObjective')}
-          </h1>
+          </h3>
           <div className="fra-view__header-secondary-content">
             <DefinitionLink document="tad" anchor="3a" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
             <DefinitionLink document="faq" anchor="3a" title={i18n.t('definition.faqLabel')} lang={i18n.language}/>
@@ -64,11 +68,9 @@ class designatedManagementObjectiveView extends React.Component {
           tableSpec={totalDmoTableSpec}
           countryIso={countryIso}
           section={sectionName}/>
-        <DataSourceDescriptionAndComments
-          section={primaryDmoTableSpec.name}
-          name={sectionName}
+        <GeneralComments
+          section={sectionName}
           countryIso={countryIso}
-          i18n={i18n}
         />
       </div>
     </LoggedInPageTemplate>
