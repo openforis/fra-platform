@@ -11,7 +11,7 @@ const isEmptyDescriptions = (client, countryIso, section, name) =>
   ).then(result => result.rows.length === 0)
 
 module.exports.persistDescriptions = (client, countryIso, section, name, content) =>
-  isEmptyDescriptions(client, countryIso, name).then(isEmpty =>
+  isEmptyDescriptions(client, countryIso, section, name).then(isEmpty =>
     isEmpty
       ? insertDescriptions(client, countryIso, section, name, content)
       : updateDescriptions(client, countryIso, section, name, content))
