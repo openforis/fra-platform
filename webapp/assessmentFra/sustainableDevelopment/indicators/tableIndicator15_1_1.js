@@ -1,10 +1,10 @@
 import React from 'react'
 
 import TableIndicatorAgency from './tableIndicatorAgency'
-import ReviewIndicator from '../../review/reviewIndicator'
+import ReviewIndicator from '../../../review/reviewIndicator'
 
-import { div, eq, mul, sum } from '../../../common/bignumberUtils'
-import { formatDecimal } from '../../utils/numberFormat'
+import { div, eq, mul, sum } from '../../../../common/bignumberUtils'
+import { formatDecimal } from '../../../utils/numberFormat'
 import * as R from 'ramda'
 
 const TableIndicator15_1_1 = ({i18n, countryIso, data}) => {

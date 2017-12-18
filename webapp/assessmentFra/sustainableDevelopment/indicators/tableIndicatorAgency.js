@@ -1,5 +1,5 @@
 import React from 'react'
-import TraditionalTable from '../../traditionalTable/traditionalTable'
+import TraditionalTable from '../../../traditionalTable/traditionalTable'
 
 const TableIndicatorAgency = ({i18n, countryIso, tableSpecName}) => {
   const tableSpec = {
