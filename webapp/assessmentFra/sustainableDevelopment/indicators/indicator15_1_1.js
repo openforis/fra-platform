@@ -7,11 +7,7 @@ import { div, eq, mul, sum } from '../../../../common/bignumberUtils'
 import { formatDecimal } from '../../../utils/numberFormat'
 import * as R from 'ramda'
 
-const Indicator15_1_1 = ({i18n, countryIso, data}) => {
-  const years = R.pipe(
-    R.filter(v => v.type !== 'odp'),
-    R.map(v => v.name)
-  )(data.extentOfForest)
+const Indicator15_1_1 = ({i18n, countryIso, data, years}) => {
 
   const getDataPoint = year => R.pipe(
     R.find(v => eq(v.year, year) && R.propEq('type', 'odp', v)),
@@ -67,7 +63,7 @@ const Indicator15_1_1 = ({i18n, countryIso, data}) => {
                   section={'sustainableDevelopment'}
                   title={i18n.t('sustainableDevelopment.forestAreaProportionLandArea2015')}
                   target={['indicator15.1.1']}
-                  countryIso={countryIso} />
+                  countryIso={countryIso}/>
               </div>
             </td>
           </tr>

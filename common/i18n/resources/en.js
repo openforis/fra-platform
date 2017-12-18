@@ -636,12 +636,13 @@ The FRA team
     sustainableDevelopment: 'Sustainable Development Goal 15',
     indicator: 'Indicator',
     percent: 'Percent',
-    nameOfAgencyResponsible:'Name of agency responsible',
+    nameOfAgencyResponsible: 'Name of agency responsible',
     sdgIndicator15_1_1: 'SDG Indicator 15.1.1 Forest area as proportion of total land area 2015',
-    forestAreaProportionLandArea2015:'Forest area as proportion of total land area 2015',
+    forestAreaProportionLandArea2015: 'Forest area as proportion of total land area 2015',
     sdgIndicator15_2_1: 'SDG Indicator 15.2.1 Progress towards sustainable forest management',
     subIndicator: 'Sub-Indicator {{no}}',
     forestAreaAnnualNetChangeRate: 'Forest area annual net change rate',
+    aboveGroundBiomassStockForests: 'Above-ground biomass stock in forests',
   },
 
   assessment: {
