@@ -5,7 +5,9 @@ import * as R from 'ramda'
 import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
 import TraditionalTable from '../../traditionalTable/traditionalTable'
 import tableSpec from './tableSpec'
-import { DataSourceDescriptionAndComments } from '../../descriptionBundles/dataSourceDescriptionAndComments'
+import NationalDataDescriptions from '../../descriptionBundles/nationalDataDescriptions'
+import AnalysisDescriptions from '../../descriptionBundles/analysisDescriptions'
+import GeneralComments from '../../descriptionBundles/generalComments'
 import DefinitionLink from '../../reusableUiComponents/definitionLink'
 import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
 
@@ -54,8 +56,10 @@ class CarbonStockView extends React.Component {
 
     return <LoggedInPageTemplate>
       <div className="fra-view__content">
+        <NationalDataDescriptions section="carbonStock" countryIso={countryIso}/>
+        <AnalysisDescriptions section="carbonStock" countryIso={countryIso}/>
         <div className="fra-view__page-header">
-          <h1 className="title">{i18n.t('carbonStock.carbonStock')}</h1>
+          <h3 className="subhead">{i18n.t('carbonStock.carbonStock')}</h3>
           <div className="fra-view__page-header-controls">
             {
               !R.isNil(this.props.domain)
@@ -87,11 +91,9 @@ class CarbonStockView extends React.Component {
         <div className="fra-secondary-table__wrapper">
           <TraditionalTable tableSpec={soilDepthTableSpec(i18n)} countryIso={match.params.countryIso}/>
         </div>
-        <DataSourceDescriptionAndComments
+        <GeneralComments
           section="carbonStock"
-          name="carbonStock"
           countryIso={countryIso}
-          i18n={i18n}
         />
       </div>
     </LoggedInPageTemplate>
