@@ -1,5 +1,5 @@
 import React from 'react'
-import CommentableDescription from './commentableDescription'
+import CommentableDescription from '../description/commentableDescription'
 import { connect } from 'react-redux'
 import assert from 'assert'
 
