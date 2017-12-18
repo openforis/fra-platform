@@ -2,6 +2,7 @@ import React from 'react'
 
 import Indicator15_2_1_1 from './indicator15_2_1_1'
 import Indicator15_2_1_2 from './indicator15_2_1_2'
+import Indicator15_2_1_3 from './indicator15_2_1_3'
 
 const Indicator15_2_1 = ({i18n, countryIso, data, years}) => {
 
@@ -16,6 +17,12 @@ const Indicator15_2_1 = ({i18n, countryIso, data, years}) => {
       years={years}
     />
     <Indicator15_2_1_2
+      i18n={i18n}
+      countryIso={countryIso}
+      data={data}
+      years={years}
+    />
+    <Indicator15_2_1_3
       i18n={i18n}
       countryIso={countryIso}
       data={data}
