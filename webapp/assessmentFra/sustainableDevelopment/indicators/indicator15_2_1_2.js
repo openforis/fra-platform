@@ -3,9 +3,15 @@ import React from 'react'
 import ResponsibleAgency from './responsibleAgency'
 import ReviewIndicator from '../../../review/reviewIndicator'
 
+import * as R from 'ramda'
 import { formatDecimal } from '../../../utils/numberFormat'
 
 const Indicator15_2_1_1 = ({i18n, countryIso, data, years}) => {
+
+  const getBiomassStock = col => R.pipe(
+    R.defaultTo([[]]),
+    data => data[0][col]
+  )(data.biomassStock)
 
   return <div className="fra-table__container fra-sustainable-dev-sub-indicator-table">
     <div className="fra-table__scroll-wrapper">
@@ -37,10 +43,9 @@ const Indicator15_2_1_1 = ({i18n, countryIso, data, years}) => {
           {
             years.map((year, i) =>
               <td key={`${year}h`} className="fra-table__calculated-cell">
-                {formatDecimal(data.biomassStock[0][i])}
+                {formatDecimal(getBiomassStock(i))}
               </td>
             )
-
           }
           <td className="fra-table__row-anchor-cell">
             <div className="fra-table__review-indicator-anchor">
@@ -55,7 +60,6 @@ const Indicator15_2_1_1 = ({i18n, countryIso, data, years}) => {
         </tbody>
       </table>
     </div>
-
 
     <ResponsibleAgency
       i18n={i18n}

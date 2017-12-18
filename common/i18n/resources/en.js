@@ -643,6 +643,9 @@ The FRA team
     subIndicator: 'Sub-Indicator {{no}}',
     forestAreaAnnualNetChangeRate: 'Forest area annual net change rate',
     aboveGroundBiomassStockForests: 'Above-ground biomass stock in forests',
+    percent2015ForestAreaBaseline: 'Percent (2015 forest area baseline)',
+    proportionForestAreaLegallyEstablishedProtectedAreas: 'Proportion of forest area located within legally established protected areas',
+    proportionForestAreaLongTermForestManagement: 'Proportion of forest area under long-term forest management',
   },
 
   assessment: {

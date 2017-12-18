@@ -89,7 +89,6 @@ const Indicator15_2_1_1 = ({i18n, countryIso, data, years}) => {
                       className="fra-table__calculated-cell">{formatDecimal(getValue(year, years[i + 1]))}</td>
                 : null
             )
-
           }
           <td className="fra-table__row-anchor-cell">
             <div className="fra-table__review-indicator-anchor">
@@ -104,7 +103,6 @@ const Indicator15_2_1_1 = ({i18n, countryIso, data, years}) => {
         </tbody>
       </table>
     </div>
-
 
     <ResponsibleAgency
       i18n={i18n}
