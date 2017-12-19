@@ -1,15 +1,36 @@
 const db = require('../db/db')
 const R = require('ramda')
+const camelize = require('camelize')
 
-const emptyEof = (countryIso, year) =>
-  db.query('SELECT id FROM eof_fra_values WHERE country_iso = $1 and year = $2', [countryIso, year])
-    .then(result => result.rows.length === 0)
+const existingEofValues = async (countryIso, year) => {
+  const result = await db.query(
+    `SELECT
+       forest_area,
+       other_wooded_land,
+       other_land,
+       forest_area_estimated,
+       other_wooded_land_estimated,
+       other_land_estimated
+     FROM eof_fra_values 
+     WHERE country_iso = $1 AND year = $2`,
+    [countryIso, year]
+  )
+  const formattedResult = R.map(camelize, result.rows)
+  if (formattedResult.length === 0) return null
+  return formattedResult[0]
+}
 
-module.exports.persistEofValues = (countryIso, year, values) =>
-  emptyEof(countryIso, year).then(isEmpty =>
-    isEmpty
-      ? insertEof(countryIso, year, values)
-      : updateEof(countryIso, year, values))
+module.exports.persistEofValues = async (countryIso, year, values) => {
+  const existingValues = await existingEofValues(countryIso, year)
+  if (existingValues) {
+    // This merge is signifcant when we are generating values,
+    // then we are only choosing only some of the rows and should
+    // leave the rest as they are
+    updateEof(countryIso, year, R.merge(existingValues, values))
+  } else {
+    insertEof(countryIso, year, values)
+  }
+}
 
 const insertEof = (countryIso, year, fraValues) =>
   db.query(`INSERT INTO
