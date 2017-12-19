@@ -35,9 +35,6 @@ const linearExtrapolationBackwards = (x, xa, ya, xb, yb) =>
     )
   )
 
-const eofFields = ['forestArea', 'otherWoodedLand', 'otherLand']
-const focFields = ['naturalForestArea', 'plantationForestArea', 'plantationForestIntroducedArea', 'otherPlantedForestArea']
-
 const getNextValues = year => R.pipe(
   R.filter(v => v.year > year),
   R.sort((a, b) => a.year - b.year)
@@ -135,7 +132,7 @@ const extrapolate = (year, values, odpValues, field, generateSpec) => {
   return extrapolationMethod(year, values, odpValues, field, generateSpec)
 }
 
-const estimateFraValue = (year, values, odpValues, fieldsToEstimate, generateSpec) => {
+const estimateFraValue = (year, values, odpValues, generateSpec) => {
 
   const estimateFieldReducer = (newFraObj, field) => {
     const fraEstimatedYears = R.pipe(
@@ -160,14 +157,14 @@ const estimateFraValue = (year, values, odpValues, fieldsToEstimate, generateSpe
     R.partial(R.reduce, [estimateFieldReducer, {}]),
     R.assoc('year', year),
     R.assoc('store', true)
-  )(fieldsToEstimate)
+  )(generateSpec.fields)
 }
 
 // Pure function, no side-effects
-const estimateFraValues = (years, odpValues, fieldstoEstimate, generateSpec) => {
+const estimateFraValues = (years, odpValues, generateSpec) => {
 
   const estimateFraValuesReducer = (values, year) => {
-    const newValue = estimateFraValue(year, values, odpValues, fieldstoEstimate, generateSpec)
+    const newValue = estimateFraValue(year, values, odpValues, generateSpec)
     return [...values, newValue]
   }
 
@@ -180,14 +177,11 @@ const estimateFraValues = (years, odpValues, fieldstoEstimate, generateSpec) => 
   return estimatedValues
 }
 
-module.exports.eofFields = eofFields
-module.exports.focFields = focFields
-
 module.exports.estimateFraValues = estimateFraValues
 
-module.exports.estimateAndWrite = (odpReader, fraWriter, fieldsToEstimate, countryIso, years, generateSpec) => {
+module.exports.estimateAndWrite = (odpReader, fraWriter, countryIso, years, generateSpec) => {
   return odpReader(countryIso).then(values => {
-    const estimated = estimateFraValues(years, R.values(values), fieldsToEstimate, generateSpec)
+    const estimated = estimateFraValues(years, R.values(values), generateSpec)
     return Promise.all(
       R.map(
         estimatedValues => fraWriter(countryIso, estimatedValues.year, estimatedValues, true),
