@@ -108,9 +108,11 @@
   }
 }
 
-.fra-row-comments__open {
-  outline: 1px solid @ui-accent;
-  outline-offset: -1px;
-  box-shadow: 0 0 4px fade(@ui-accent, 50%);
-  padding: 1em;
+div.fra-row-comments__open {
+  padding: 0 8px;
+
+  .fra-description__preview,
+  .cke_wrapper {
+    padding-bottom: 8px;
+  }
 }
