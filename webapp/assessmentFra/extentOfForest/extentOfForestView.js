@@ -197,12 +197,15 @@ const ExtentOfForest = (props) => {
             <AnalysisDescriptions key="ad" section={sectionName} countryIso={props.countryIso}/>
           ]
     }
-
     <div className="fra-view__section-header">
       <h3 className="subhead">{i18n.t('extentOfForest.extentOfForest')}</h3>
       <DefinitionLink document="tad" anchor="1a" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
       <DefinitionLink document="faq" anchor="1a" title={i18n.t('definition.faqLabel')} lang={i18n.language} className="align-left"/>
-      <GenerateFraValuesControl section={sectionName} rows={eofRows} useOriginalDataPoints={true} {...props} />
+      {
+        props.useOriginalDataPoints
+          ? <GenerateFraValuesControl section={sectionName} rows={eofRows} useOriginalDataPoints={true} {...props} />
+          : null
+      }
       {
         props.odpDirty && props.useOriginalDataPoints
           ? <div className="fra-view__header-secondary-content">
