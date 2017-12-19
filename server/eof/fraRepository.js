@@ -74,15 +74,34 @@ const updateEof = (countryIso, year, fraValues) =>
       fraValues.otherWoodedLandEstimated,
       fraValues.otherLandEstimated])
 
-const emptyFoc = (countryIso, year) =>
-  db.query('SELECT id FROM foc_fra_values WHERE country_iso = $1 and year = $2', [countryIso, year])
-    .then(result => result.rows.length === 0)
+const existingFocValues = async (countryIso, year) => {
+  const result = await db.query(
+    `SELECT
+       natural_forest_area,
+       plantation_forest_area,
+       plantation_forest_introduced_area,
+       other_planted_forest_area,
+       natural_forest_area_estimated,
+       plantation_forest_area_estimated,
+       plantation_forest_introduced_area_estimated,
+       other_planted_forest_area_estimated
+     FROM foc_fra_values 
+     WHERE country_iso = $1 AND year = $2`,
+    [countryIso, year]
+  )
+  const formattedResult = R.map(camelize, result.rows)
+  if (formattedResult.length === 0) return null
+  return formattedResult[0]
+}
 
-module.exports.persistFocValues = (countryIso, year, fraValues) =>
-  emptyFoc(countryIso, year).then(isEmpty =>
-    isEmpty
-      ? insertFoc(countryIso, year, fraValues)
-      : updateFoc(countryIso, year, fraValues))
+module.exports.persistFocValues = async (countryIso, year, fraValues) => {
+  const existingValues = await existingFocValues(countryIso, year)
+  if (existingValues) {
+    updateFoc(countryIso, year, R.merge(existingValues, fraValues))
+  } else {
+    insertFoc(countryIso, year, fraValues)
+  }
+}
 
 const insertFoc = (countryIso, year, fraValues) =>
   db.query(`INSERT INTO
