@@ -160,7 +160,16 @@ const ExtentOfForest = (props) => {
   )
   return <div className='fra-view__content'>
     <div className="fra-view__page-header">
-      <h1 className="title align-left">{i18n.t('extentOfForest.estimationAndForecasting')}</h1>
+      <button
+        className={`btn btn-${props.useOriginalDataPoints ? 'secondary' : 'primary'}`}
+        onClick={() => {props.saveCountryConfigSetting(props.countryIso, 'useOriginalDataPoints', !props.useOriginalDataPoints)}}
+      >
+      {
+        props.useOriginalDataPoints
+        ? i18n.t('extentOfForest.dontUseOriginalDataPoints')
+        : i18n.t('nationalDataPoint.addNationalDataPoint')
+      }
+      </button>
       {
         props.useOriginalDataPoints
         ? <Link className="btn btn-primary" to={`/country/${props.countryIso}/odp/${sectionName}`}>
@@ -169,18 +178,19 @@ const ExtentOfForest = (props) => {
           </Link>
         : null
       }
-      <button
-        className="btn btn-primary"
-        onClick={() => {
-          props.saveCountryConfigSetting(props.countryIso, 'useOriginalDataPoints', !props.useOriginalDataPoints)
-        }}
-      >
-        {
-          props.useOriginalDataPoints
-            ? i18n.t('extentOfForest.dontUseOriginalDataPoints')
-            : i18n.t('extentOfForest.useOriginalDataPoints')
-        }
-      </button>
+    </div>
+    {
+      props.useOriginalDataPoints
+        ? null
+        : [
+            <NationalDataDescriptions key="ndd" section={sectionName} countryIso={props.countryIso}/>,
+            <AnalysisDescriptions key="ad" section={sectionName} countryIso={props.countryIso}/>
+          ]
+    }
+    <h2 className="headline">{i18n.t('extentOfForest.extentOfForest')}</h2>
+    <div className="fra-view__section-toolbar">
+      <DefinitionLink className="margin-right-big" document="tad" anchor="1a" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
+      <DefinitionLink className="align-left" document="faq" anchor="1a" title={i18n.t('definition.faqLabel')} lang={i18n.language}/>
     </div>
     <ChartWrapper
       fra={filteredFraColumns}
@@ -191,32 +201,18 @@ const ExtentOfForest = (props) => {
     />
     {
       props.useOriginalDataPoints
-        ? null
-        : [
-            <NationalDataDescriptions key="ndd" section={sectionName} countryIso={props.countryIso}/>,
-            <AnalysisDescriptions key="ad" section={sectionName} countryIso={props.countryIso}/>
-          ]
+      ? <div className="fra-view__section-toolbar">
+          <GenerateFraValuesControl section={sectionName} rows={eofRows} useOriginalDataPoints={true} {...props} />
+          {
+            props.odpDirty
+              ? <p className="support-text">
+                  {i18n.t('nationalDataPoint.remindDirtyOdp')}
+                </p>
+              : null
+          }
+        </div>
+      : null
     }
-    <div className="fra-view__section-header">
-      <h3 className="subhead">{i18n.t('extentOfForest.extentOfForest')}</h3>
-      <DefinitionLink document="tad" anchor="1a" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
-      <DefinitionLink document="faq" anchor="1a" title={i18n.t('definition.faqLabel')} lang={i18n.language} className="align-left"/>
-      {
-        props.useOriginalDataPoints
-          ? <GenerateFraValuesControl section={sectionName} rows={eofRows} useOriginalDataPoints={true} {...props} />
-          : null
-      }
-      {
-        props.odpDirty && props.useOriginalDataPoints
-          ? <div className="fra-view__header-secondary-content">
-              <p className="support-text">
-                <Icon name="alert" className="icon-orange icon-sub icon-margin-right"/>
-                {i18n.t('nationalDataPoint.remindDirtyOdp')}
-              </p>
-            </div>
-          : null
-      }
-    </div>
     <TableWithOdp
       section={sectionName}
       rows={eofRows}
@@ -225,13 +221,11 @@ const ExtentOfForest = (props) => {
       {...props}
       fra={filteredFraColumns}
     />
-    <div className="eof__climatic-domain-table-wrapper">
-      <TraditionalTable
-        tableSpec={climaticDomainTableSpec(props.i18n, props.climaticDomainPercents2015)}
-        countryIso={props.countryIso}
-        section={sectionName}
-      />
-    </div>
+    <TraditionalTable
+      tableSpec={climaticDomainTableSpec(props.i18n, props.climaticDomainPercents2015)}
+      countryIso={props.countryIso}
+      section={sectionName}
+    />
     <GeneralComments
       section={sectionName}
       countryIso={props.match.params.countryIso}
