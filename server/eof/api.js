@@ -103,10 +103,6 @@ module.exports.init = app => {
     const readOdp = odpReaders[section]
     const writer = fraWriters[section]
     const defaultResponse = defaultResponses[section]
-    const fieldsToEstimate = {
-      'extentOfForest': estimationEngine.eofFields,
-      'forestCharacteristics': estimationEngine.focFields
-    }[section]
 
     const years = R.pipe(
       R.values,
@@ -118,7 +114,6 @@ module.exports.init = app => {
       .estimateAndWrite(
         readOdp,
         writer,
-        fieldsToEstimate,
         req.params.countryIso,
         years,
         generateSpec
