@@ -1,7 +1,6 @@
 const assert = require('chai').assert
 const estimationEngine = require('../../server/eof/estimationEngine')
 const R = require('ramda')
-const jsonDiff = require('jsondiffpatch')
 
 const fraYears = [
   1990,
@@ -133,8 +132,7 @@ describe('estimationEngine', () => {
     const estimated = estimationEngine.estimateFraValues(
       fraYears,
       testOdpSet1,
-      estimationEngine.eofFields,
-      {method: 'linear'}
+      {method: 'linear', fields: ['forestArea', 'otherWoodedLand', 'otherLand']}
     )
     assert.deepEqual(expectedEstimations1, estimated)
   })
@@ -142,8 +140,7 @@ describe('estimationEngine', () => {
     const estimated = estimationEngine.estimateFraValues(
       fraYears,
       testOdpSet2,
-      ['forestArea', 'otherWoodedLand'],
-      {method: 'repeatLast'}
+      {method: 'repeatLast', fields: ['forestArea', 'otherWoodedLand']}
     )
     assert.deepEqual(
       [ { forestArea: '500.00', otherWoodedLand: '300.00', year: 1990 },
@@ -164,13 +161,13 @@ describe('estimationEngine', () => {
     const estimated = estimationEngine.estimateFraValues(
       fraYears,
       testOdpSet2,
-      ['forestArea', 'otherWoodedLand'],
       {
         method: 'annualChange',
         changeRates: {
           forestArea: {ratePast: -10, rateFuture: 20},
           otherWoodedLand: {ratePast: -5, rateFuture: 10}
-        }
+        },
+        fields: ['forestArea', 'otherWoodedLand']
       }
       )
     assert.deepEqual(
