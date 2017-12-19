@@ -245,8 +245,8 @@ const OdpViewContent = ({match, saveDraft, markAsActual, remove, odp, autoSaving
       <div className="fra-description">
         <div className={
           isCommentsOpen([`${odp.odpId}`, 'comments'], openThread)
-            ? 'fra-description__description-wrapper fra-row-comments__open'
-            : 'fra-description__description-wrapper'
+            ? 'fra-description__wrapper fra-row-comments__open'
+            : 'fra-description__wrapper'
         }>
           <CommentsEditor odp={odp} match={match} saveDraft={saveDraft} i18n={i18n} title={i18n.t('review.comments')} />
         </div>
