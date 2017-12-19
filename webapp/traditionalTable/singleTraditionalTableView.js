@@ -47,12 +47,12 @@ class SingleTraditionalTableView extends React.Component {
             ? null
             : <AnalysisDescriptions section={tableSpecInstance.name} countryIso={countryIso}/>
         }
-        <div className="fra-view__section-header">
-          <h3 className="subhead">
-            {i18n.t(headingLocalizationKey)}
-            {headingDetailsLocalizationKey ? ` (${i18n.t(headingDetailsLocalizationKey)})` : null}
-          </h3>
-          <DefinitionLink document="tad" anchor={sectionAnchor ? sectionAnchor : tadAnchor} title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
+        <h2 className="headline">
+          {i18n.t(headingLocalizationKey)}
+          {headingDetailsLocalizationKey ? ` (${i18n.t(headingDetailsLocalizationKey)})` : null}
+        </h2>
+        <div className="fra-view__section-toolbar">
+          <DefinitionLink className="margin-right-big" document="tad" anchor={sectionAnchor ? sectionAnchor : tadAnchor} title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
           <DefinitionLink className="align-left" document="faq" anchor={sectionAnchor ? sectionAnchor : faqAnchor} title={i18n.t('definition.faqLabel')} lang={i18n.language}/>
         </div>
         <TraditionalTable tableSpec={tableSpecInstance} countryIso={match.params.countryIso}/>
