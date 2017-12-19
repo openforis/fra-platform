@@ -18,8 +18,8 @@ const CommentableDescription = props => {
   return <div className="fra-description">
       <div className={
         R.equals(props.openCommentThreadTarget, [props.name])
-          ? 'fra-description__description-wrapper fra-row-comments__open'
-          : 'fra-description__description-wrapper'
+          ? 'fra-description__wrapper fra-row-comments__open'
+          : 'fra-description__wrapper'
       }>
         <Description
           title={props.title}
