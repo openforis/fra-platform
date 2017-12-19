@@ -167,7 +167,7 @@ const ExtentOfForest = (props) => {
       {
         props.useOriginalDataPoints
         ? i18n.t('extentOfForest.dontUseOriginalDataPoints')
-        : i18n.t('nationalDataPoint.addNationalDataPoint')
+        : i18n.t('extentOfForest.useOriginalDataPoints')
       }
       </button>
       {
