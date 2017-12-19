@@ -182,12 +182,17 @@ export const assessments = {
       ]
     },
     {
-      type: 'link',
+      type: 'header',
       sectionNo: '8',
-      section: 'sustainableDevelopment',
-      tableNo: '8',
-      label: 'sustainableDevelopment.sustainableDevelopment',
-      pathTemplate: '/country/:countryIso/sustainableDevelopment',
+      label: 'navigation.sectionHeaders.sustainableDevelopment',
+      children: [
+        {
+          tableNo: '8a',
+          label: 'sustainableDevelopment.sustainableDevelopment',
+          pathTemplate: '/country/:countryIso/sustainableDevelopment',
+          section: 'sustainableDevelopment'
+        }
+      ]
     }
   ]
 }

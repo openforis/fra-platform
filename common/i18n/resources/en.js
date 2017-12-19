@@ -161,7 +161,8 @@ module.exports.translation = {
       forestOwnershipAndManagementRights: 'Forest ownership and management rights',
       forestDisturbances: 'Forest disturbances',
       forestPolicyAndLegislation: 'Forest policy and legislation',
-      employmentEducationAndNwfp: 'Employment, education and NWFP'
+      employmentEducationAndNwfp: 'Employment, education and NWFP',
+      sustainableDevelopment:'Sustainable Development Goal 15'
     }
   },
 
