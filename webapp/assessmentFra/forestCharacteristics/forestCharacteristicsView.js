@@ -7,7 +7,9 @@ import { fetchItem, save, saveMany, generateFraValues } from '../../tableWithOdp
 import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
 import { TableWithOdp, GenerateFraValuesControl } from '../../tableWithOdp/tableWithOdp'
 import ChartWrapper from '../extentOfForest/chart/chartWrapper'
-import { CommentableDescriptions } from '../../description/commentableDescription'
+import NationalDataDescriptions from '../../descriptionBundles/nationalDataDescriptions'
+import AnalysisDescriptions from '../../descriptionBundles/analysisDescriptions'
+import GeneralComments from '../../descriptionBundles/generalComments'
 import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
 import { saveCountryConfigSetting } from '../../country/actions'
 import DefinitionLink from '../../reusableUiComponents/definitionLink'
@@ -192,24 +194,38 @@ const ForestCharacteristics = props => {
     }
   ]
   const filteredFraColumns = R.reject(
-    fraColumn => !props.useOriginalDataPoints && fraColumn.type === 'odp',
+    fraColumn => !props.useOriginalDataPointsInFoc && fraColumn.type === 'odp',
     R.values(props.fra)
   )
   return <div className='fra-view__content'>
-    <div className="fra-view__page-header">
-      <h1 className="title align-left">{i18n.t('forestCharacteristics.estimationAndForecasting')}</h1>
-      <button
-        className="btn btn-primary"
-        onClick={() => {
-          props.saveCountryConfigSetting(props.countryIso, 'useOriginalDataPoints', !props.useOriginalDataPoints)
-        }}
-      >
-        {
-          props.useOriginalDataPoints
+    {
+      props.useOriginalDataPoints
+      ? <div className="fra-view__page-header">
+          <button
+            className={`btn btn-${props.useOriginalDataPointsInFoc ? 'secondary' : 'primary'}`}
+            onClick={() => {props.saveCountryConfigSetting(props.countryIso, 'useOriginalDataPointsInFoc', !props.useOriginalDataPointsInFoc)}}
+          >
+          {
+            props.useOriginalDataPointsInFoc
             ? i18n.t('forestCharacteristics.dontUseOriginalDataPoints')
             : i18n.t('forestCharacteristics.useOriginalDataPoints')
-        }
-      </button>
+          }
+          </button>
+        </div>
+      : null
+    }
+    {
+      props.useOriginalDataPointsInFoc
+        ? null
+        : [
+            <NationalDataDescriptions key="ndd" section={sectionName} countryIso={props.countryIso}/>,
+            <AnalysisDescriptions key="ad" section={sectionName} countryIso={props.countryIso}/>
+          ]
+    }
+    <h2 className="headline">{i18n.t('forestCharacteristics.forestCharacteristics')}</h2>
+    <div className="fra-view__section-toolbar">
+      <DefinitionLink className="margin-right-big" document="tad" anchor="1b" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
+      <DefinitionLink className="align-left" document="faq" anchor="1b" title={i18n.t('definition.faqLabel')} lang={i18n.language} />
     </div>
     <ChartWrapper
       fra={filteredFraColumns}
@@ -219,22 +235,20 @@ const ForestCharacteristics = props => {
         {name:'otherPlantedForestArea', label:props.i18n.t('forestCharacteristics.otherPlantedForestArea'), color:'#f58833'}
       ]}
     />
-    <div className="fra-view__section-header">
-      <h3 className="subhead">{i18n.t('forestCharacteristics.forestCharacteristics')}</h3>
-      <DefinitionLink document="tad" anchor="1b" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
-      <DefinitionLink document="faq" anchor="1b" title={i18n.t('definition.faqLabel')} lang={i18n.language} className="align-left"/>
-      <GenerateFraValuesControl section={sectionName} rows={focRows} {...props} />
-      {
-        props.odpDirty && props.useOriginalDataPoints
-          ? <div className="fra-view__header-secondary-content">
-              <p className="support-text">
-                <Icon name="alert" className="icon-orange icon-sub icon-margin-right"/>
-                {i18n.t('nationalDataPoint.remindDirtyOdp')}
-              </p>
-            </div>
-          : null
-      }
-    </div>
+    {
+      props.useOriginalDataPointsInFoc
+      ? <div className="fra-view__section-toolbar">
+          <GenerateFraValuesControl section={sectionName} rows={focRows} {...props} />
+          {
+            props.odpDirty
+              ? <p className="support-text">
+                  {i18n.t('nationalDataPoint.remindDirtyOdp')}
+                </p>
+              : null
+          }
+        </div>
+      : null
+    }
     <TableWithOdp
       section={sectionName}
       rows={focRows}
@@ -243,11 +257,9 @@ const ForestCharacteristics = props => {
       {...props}
       fra={filteredFraColumns}
     />
-    <CommentableDescriptions
+    <GeneralComments
       section={sectionName}
-      name={sectionName}
-      countryIso={props.countryIso}
-      i18n={i18n}
+      countryIso={props.match.params.countryIso}
     />
   </div>
 }
@@ -271,14 +283,20 @@ class DataFetchingComponent extends React.Component {
   }
 }
 
-const mapStateToProps = state =>
-  ({
+const mapStateToProps = state => {
+  //System-wide setting:
+  const useOriginalDataPoints = !!R.path(['country', 'config', 'useOriginalDataPoints'], state)
+  const useOriginalDataPointsInFoc = !!R.path(['country', 'config', 'useOriginalDataPointsInFoc'], state)
+  return {
     ...state.forestCharacteristics,
     openCommentThread: state.review.openThread,
     i18n: state.user.i18n,
     extentOfForest: state.extentOfForest,
-    useOriginalDataPoints: !!R.path(['country', 'config', 'useOriginalDataPoints'], state)
-  })
+    useOriginalDataPoints: useOriginalDataPoints,
+    // Only if ODPs are enabled system-wide and ALSO locally, they are enabled:
+    useOriginalDataPointsInFoc: useOriginalDataPoints && useOriginalDataPointsInFoc
+  }
+}
 
 export default connect(
     mapStateToProps,

@@ -8,4 +8,5 @@ export default props =>
     headingLocalizationKey="employment.employment"
     headingDetailsLocalizationKey="employment.average"
     sectionAnchor="7a"
-    tableSpec={tableSpec}/>
+    tableSpec={tableSpec}
+    useAnalysisDescriptions={false}/>

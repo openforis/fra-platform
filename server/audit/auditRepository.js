@@ -20,7 +20,7 @@ module.exports.getLastAuditTimeStampForSection = (countryIso, section) => {
   const excludedMsgs = ['createIssue', 'createComment', 'deleteComment']
   return db.query(
     ` SELECT
-        split_part(section, '_', 1) as section_name,
+        section as section_name,
         to_char(max(time), 'YYYY-MM-DD"T"HH24:MI:ssZ') as latest_edit
       FROM fra_audit
       WHERE country_iso = $1
@@ -37,7 +37,7 @@ module.exports.getAuditFeed = (countryIso) => {
         user_name as full_name,
         user_email as email,
         message,
-        split_part(section, '_', 1) AS section_name,
+        section AS section_name,
         target,
         to_char(time, 'YYYY-MM-DD"T"HH24:MI:ssZ') AS edit_time
       FROM (
