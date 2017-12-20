@@ -163,15 +163,14 @@ export class GenerateFraValuesControl extends React.Component {
         mapIndexed((field, i) =>
             <tr key={i}>
               <td>
-                <input
-                    type="checkbox"
-                    checked={R.contains(field, this.state.selectedFields)}
-                    onClick={
-                      evt => R.contains(field, this.state.selectedFields)
-                        ? this.setState({...this.state, selectedFields: R.reject(f => f === field, this.state.selectedFields)})
-                        : this.setState({...this.state, selectedFields: R.append(field, this.state.selectedFields)})
-                    }
-                  />
+                <div
+                  className={`fra-checkbox ${R.contains(field, this.state.selectedFields) ? 'checked' : ''}`}
+                  onClick={
+                    evt => R.contains(field, this.state.selectedFields)
+                      ? this.setState({...this.state, selectedFields: R.reject(f => f === field, this.state.selectedFields)})
+                      : this.setState({...this.state, selectedFields: R.append(field, this.state.selectedFields)})
+                  }
+                />
               </td>
               <td className="table-with-odp__generate-input-header">{rowHeaders[i]}</td>
               {
