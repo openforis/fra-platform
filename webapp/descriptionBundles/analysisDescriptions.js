@@ -13,7 +13,7 @@ const assertProps = props =>
 const AnalysisDescriptions = props => {
   assertProps(props)
   return <div className="fra-description__container">
-    <h3 className="subhead fra-description__group-header">{props.i18n.t('description.analysisAndProcessing')}</h3>
+    <h2 className="headline fra-description__group-header">{props.i18n.t('description.analysisAndProcessing')}</h2>
     <CommentableDescription
       title={props.i18n.t('description.estimationAndForecasting')}
       name="estimationAndForecasting"
@@ -24,7 +24,6 @@ const AnalysisDescriptions = props => {
       name="reclassification"
       {...props}
     />
-    <hr/>
   </div>
 }
 

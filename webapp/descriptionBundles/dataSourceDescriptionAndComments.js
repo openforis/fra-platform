@@ -35,8 +35,8 @@ class CommentableReviewDescriptions extends React.Component {
       <div className="fra-description">
         <div className={
           R.equals(this.props.openCommentThreadTarget, dataSourcesTarget)
-            ? 'fra-description__description-wrapper fra-row-comments__open'
-            : 'fra-description__description-wrapper'
+            ? 'fra-description__wrapper fra-row-comments__open'
+            : 'fra-description__wrapper'
         }>
           <Description
             title={this.props.i18n.t('description.dataSourcesTitle')}
@@ -53,12 +53,11 @@ class CommentableReviewDescriptions extends React.Component {
             countryIso={this.props.countryIso}/>
         </div>
       </div>
-      <hr/>
       <div className="fra-description">
         <div className={
           R.equals(this.props.openCommentThreadTarget, generalCommentsTarget)
-            ? 'fra-description__description-wrapper fra-row-comments__open'
-            : 'fra-description__description-wrapper'
+            ? 'fra-description__wrapper fra-row-comments__open'
+            : 'fra-description__wrapper'
         }>
           <Description
             title={this.props.i18n.t('description.generalCommentsTitle')}
