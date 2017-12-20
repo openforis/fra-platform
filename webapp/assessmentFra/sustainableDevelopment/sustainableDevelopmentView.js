@@ -5,7 +5,6 @@ import { connect } from 'react-redux'
 import * as R from 'ramda'
 
 import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
-import { CommentableDescriptions } from '../../description/commentableDescription'
 import DefinitionLink from '../../reusableUiComponents/definitionLink'
 
 import Indicator15_1_1 from './indicators/indicator15_1_1'
@@ -61,12 +60,6 @@ class SustainableDevelopmentView extends React.Component {
             data={data}
             years={years}
             countryConfig={countryConfig}/>
-          <CommentableDescriptions
-            section="sustainableDevelopment"
-            name="sustainableDevelopment"
-            countryIso={countryIso}
-            i18n={i18n}
-          />
         </div>
       </LoggedInPageTemplate>
   }
