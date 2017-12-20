@@ -34,7 +34,7 @@ const years = ['', ...R.pipe(R.range(1980), R.reverse)(2021)]
 
 const isCommentsOpen = (target, openThread = {}) => R.equals('odp', openThread.section) && R.isEmpty(R.difference(openThread.target, target))
 
-const OdpViewContent = ({match, saveDraft, markAsActual, remove, odp, autoSaving, cancelDraft, copyPreviousNationalClasses, copyDisabled, openThread, i18n, useOriginalDataPoints}) => {
+const OdpViewContent = ({match, saveDraft, markAsActual, remove, odp, autoSaving, cancelDraft, copyPreviousNationalClasses, copyDisabled, openThread, i18n, useOriginalDataPointsInFoc}) => {
   const countryIso = match.params.countryIso
   const saveControlsDisabled = () => !odp.odpId || autoSaving
   const copyPreviousClassesDisabled = () => odp.year && !autoSaving ? false : true
@@ -48,7 +48,7 @@ const OdpViewContent = ({match, saveDraft, markAsActual, remove, odp, autoSaving
       {
         odp.editStatus && odp.editStatus !== 'newDraft'
         ? <button
-            className="btn btn-secondary"
+            className="btn btn-secondary margin-right"
             disabled={saveControlsDisabled()}
             onClick={() => cancelDraft(countryIso, odp.odpId, activeTab)}>
               {i18n.t('nationalDataPoint.discardChanges')}
@@ -212,11 +212,11 @@ const OdpViewContent = ({match, saveDraft, markAsActual, remove, odp, autoSaving
           1a {i18n.t('nationalDataPoint.forestCategoriesLabel')}
       </Link>
       {
-        useOriginalDataPoints
+        useOriginalDataPointsInFoc
         ? <Link
             className={`odp__tab-item ${activeTab === 'forestCharacteristics' ? 'active' : null}`}
             to={`/country/${countryIso}/odp/forestCharacteristics/${odp.odpId ? odp.odpId : null}`}>
-            {i18n.t('nationalDataPoint.forestCharacteristics')}
+            1b {i18n.t('nationalDataPoint.forestCharacteristics')}
           </Link>
         : <span className="odp__tab-item">
             1b {i18n.t('nationalDataPoint.forestCharacteristics')}
@@ -245,8 +245,8 @@ const OdpViewContent = ({match, saveDraft, markAsActual, remove, odp, autoSaving
       <div className="fra-description">
         <div className={
           isCommentsOpen([`${odp.odpId}`, 'comments'], openThread)
-            ? 'fra-description__description-wrapper fra-row-comments__open'
-            : 'fra-description__description-wrapper'
+            ? 'fra-description__wrapper fra-row-comments__open'
+            : 'fra-description__wrapper'
         }>
           <CommentsEditor odp={odp} match={match} saveDraft={saveDraft} i18n={i18n} title={i18n.t('review.comments')} />
         </div>
@@ -869,30 +869,29 @@ class CommentsEditor extends React.Component {
   }
 
   render () {
-    const content = this.props.odp.description || this.props.i18n.t('description.emptyLabel')
     return <div>
       <div className="fra-description__header-row">
         <h3 className="subhead fra-description__header">{this.props.title}</h3>
-        <button
-          className={`btn-s ${this.state.open ? 'btn-primary' : 'btn-secondary'}`}
-          onClick={e => {
+        <div className="fra-description__link" onClick={e =>
+          {
             this.state.open
               ? this.setState({open: false})
               : this.setState({open: true, shouldStealFocus: true})
             e.stopPropagation()
           }
         }>
-          {
-            this.state.open
-              ? this.props.i18n.t('description.done')
-              : this.props.i18n.t('description.edit')
-          }
-        </button>
+          {this.state.open ? this.props.i18n.t('description.done') : this.props.i18n.t('description.edit')}
+        </div>
       </div>
       <div className="cke_wrapper" style={{display: this.state.open ? 'block' : 'none'}}>
         <textarea ref="originalDataPointDescription"/>
       </div>
-      <div className={`fra-description__${this.props.odp.description ? 'preview' : 'placeholder'}`} style={{display: this.state.open ? 'none' : 'block'}} dangerouslySetInnerHTML={{__html: content}}/>
+      {
+        this.props.odp.description
+        ? <div className="fra-description__preview" style={{display: this.state.open ? 'none' : 'block'}} dangerouslySetInnerHTML={{__html: this.props.odp.description}}/>
+        : null
+      }
+
     </div>
   }
 
@@ -933,8 +932,8 @@ const mapStateToProps = state => {
   const autoSaving = state.autoSave.status === 'saving'
   const odp = state.originalDataPoint.active
   const openThread = R.defaultTo({target: [], section: ''}, R.path(['review', 'openThread'], state))
-  const useOriginalDataPoints = !!R.path(['country', 'config', 'useOriginalDataPoints'], state)
-  return {...state.originalDataPoint, odp, autoSaving, openThread, i18n: state.user.i18n, useOriginalDataPoints}
+  const useOriginalDataPointsInFoc = !!R.path(['country', 'config', 'useOriginalDataPointsInFoc'], state)
+  return {...state.originalDataPoint, odp, autoSaving, openThread, i18n: state.user.i18n, useOriginalDataPointsInFoc}
 }
 
 export default connect(mapStateToProps, {

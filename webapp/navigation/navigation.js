@@ -339,14 +339,18 @@ class Nav extends React.Component {
             countryIso={country}
             path={path}
             pathTemplate="/country/:countryIso"/>
-          <NationalData
-            label={i18n.t('nationalDataPoint.nationalData')}
-            countryIso={country}
-            status={R.merge(getReviewStatus('odp'), status.odpStatus)}
-            path={path}
-            pathTemplate="/country/:countryIso/odps"
-            secondaryPathTemplate="/country/:countryIso/odp"
-            userInfo={userInfo}/>
+          {
+            R.path(['config', 'useOriginalDataPoints'], this.props)
+              ?  <NationalData
+                  label={i18n.t('nationalDataPoint.nationalData')}
+                  countryIso={country}
+                  status={R.merge(getReviewStatus('odp'), status.odpStatus)}
+                  path={path}
+                  pathTemplate="/country/:countryIso/odps"
+                  secondaryPathTemplate="/country/:countryIso/odp"
+                  userInfo={userInfo}/>
+              : null
+          }
           <div className="nav__divider"></div>
           {
             R.map(([assessment, sections]) =>

@@ -146,7 +146,7 @@ module.exports.translation = {
     hideAll: 'Hide all',
     showAll: 'Show all',
     support: {
-      dontDelete: 'System information please don’t delete',
+      dontDelete: 'System information please don’t remove',
       sendFeedback: 'Send feedback',
       feedbackEmailSubject: 'FRA Platform Feedback',
       platformVersion: 'Platform version',
@@ -192,7 +192,7 @@ module.exports.translation = {
     comments: 'Comments',
     noComments: 'No comments',
     resolve: 'Resolve',
-    confirmDelete: 'Are you sure you want to delete this comment? This cannot be undone.',
+    confirmDelete: 'Delete this comment? This cannot be undone.',
     commentDeleted: 'Comment deleted',
     commentMarkedAsResolved: 'Marked as resolved',
     delete: 'Delete',
@@ -205,14 +205,18 @@ module.exports.translation = {
   description: {
     edit: 'Edit',
     done: 'Done',
-    emptyLabel: 'No content',
     loading: 'Loading content…',
     description: 'Description',
     dataSourcesTitle: 'Data sources, original data & national classification and definitions',
     generalCommentsTitle: 'Comments',
     dataSources: 'Data sources',
+    dataSourcesPlus: 'Data sources + type of data source eg NFI, etc',
     originalData: 'Original data',
     nationalClassificationAndDefinitions: 'National classification and definitions',
+    nationalData: 'National Data',
+    analysisAndProcessing: 'Analysis and processing of national data',
+    estimationAndForecasting: 'Estimation and forecasting',
+    reclassification: 'Reclassification into FRA 2020 categories'
   },
 
   nationalDataPoint: {
@@ -242,14 +246,14 @@ module.exports.translation = {
     total: 'Total',
     delete: 'Delete',
     modifiedExplanation: 'National data point with modifications',
-    confirmDelete: 'Are you sure you want to delete this data point? This cannot be undone.',
+    confirmDelete: 'Delete this data point? This cannot be undone.',
     discardChanges: 'Discard changes',
     doneEditing: 'Done editing',
     enterOrCopyPasteNationalClasses: 'Enter or copy and paste national classes',
     forestCharacteristics: 'Forest characteristics',
     otherLandCharacteristics: 'Other land with tree cover',
     plantationForest: 'Plantation forest',
-    remindDirtyOdp: 'National data point has been updated, remember to regenerate values.',
+    remindDirtyOdp: 'National data point has been updated, remember to regenerate values',
     disabled: 'Disabled, enable in section 1b',
     dataSourceMethodsOptions: {
       nationalForestInventory: 'National Forest Inventory',
@@ -327,8 +331,10 @@ The FRA team
     ofWhichTreesUrbanSettings: '…of which trees in urban settings',
     totalLandArea: 'Total land area',
     faoStatLandArea: 'FAOSTAT land area',
-    faoStatMismatch: 'Doesn\'t match FAOSTAT land area',
-    forestAreaDoesNotMatchPreviouslyReported: 'Forest area doesn\'t match FRA 2015 area: {{previous}}',
+    faoStatMismatch: 'Doesn’t match FAOSTAT land area',
+    forestAreaDoesNotMatchPreviouslyReported: 'Forest area doesn’t match FRA 2015 area: {{previous}}',
+    useOriginalDataPoints: 'Use national data points',
+    dontUseOriginalDataPoints: 'Don’t use national data points'
   },
 
   climaticDomain: {
