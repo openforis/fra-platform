@@ -2,13 +2,14 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
 import R from 'ramda'
+import assert from 'assert'
 import ckEditorConfig from '../ckEditor/ckEditorConfig'
 import { saveDescriptions, fetchDescriptions, openEditor, closeEditor } from './actions'
 
 class Description extends Component {
 
   fetchData (countryIso) {
-    this.props.fetchDescriptions(countryIso, this.props.name)
+    this.props.fetchDescriptions(countryIso, this.props.section, this.props.name)
   }
 
   componentDidMount () {
@@ -21,28 +22,31 @@ class Description extends Component {
   }
 
   render() {
-    const content = this.props.content || this.props.i18n.t('description.emptyLabel')
+    assert(this.props.section, 'No section given')
     const isActive = this.props.editing === this.props.name
     return <div>
       <div className="fra-description__header-row">
         <h3 className="subhead fra-description__header">{this.props.title}</h3>
-        <button className={`btn-s ${isActive ? 'btn-primary' : 'btn-secondary'}`} onClick={e => {
+        <div className="fra-description__link" onClick={e =>
+          {
             isActive
               ? this.props.closeEditor()
               : this.props.openEditor(this.props.name)
             e.stopPropagation()
           }
         }>
-        {isActive ? this.props.i18n.t('description.done') : this.props.i18n.t('description.edit')}
-        </button>
+          {isActive ? this.props.i18n.t('description.done') : this.props.i18n.t('description.edit')}
+        </div>
       </div>
       <div ref="editorContent">
       {
         R.isNil(this.props.content)
-          ? <div className="fra-description__placeholder">{this.props.i18n.t('description.loading')}</div>
+          ? null
           : isActive
             ? <DescriptionEditor {...this.props} />
-            : <div className={`fra-description__${this.props.content ? 'preview' : 'placeholder'}`} dangerouslySetInnerHTML={{__html: content}}/>
+            : this.props.content
+              ? <div className="fra-description__preview" dangerouslySetInnerHTML={{__html: this.props.content}}/>
+              : null
       }
       </div>
     </div>
@@ -53,7 +57,7 @@ class DescriptionEditor extends Component {
 
   initCkeditorChangeListener () {
     this.editor.on('change', (evt) =>
-      this.props.saveDescriptions(this.props.countryIso, this.props.name, evt.editor.getData())
+      this.props.saveDescriptions(this.props.countryIso, this.props.section, this.props.name, evt.editor.getData())
     )
   }
 
@@ -81,10 +85,8 @@ class DescriptionEditor extends Component {
   }
 
   render () {
-    return <div className={this.props.classes || ''}>
-      <div className="cke_wrapper">
-        <textarea id={this.props.name} ref={this.props.name}/>
-      </div>
+    return <div className="cke_wrapper">
+      <textarea id={this.props.name} ref={this.props.name}/>
     </div>
   }
 }
