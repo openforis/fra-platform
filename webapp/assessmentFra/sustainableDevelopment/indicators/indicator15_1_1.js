@@ -65,12 +65,12 @@ const Indicator15_1_1 = ({i18n, countryIso, data, years}) => {
           </tbody>
         </table>
       </div>
+      <ResponsibleAgency
+        i18n={i18n}
+        countryIso={countryIso}
+        tableSpecName="sustainableDevelopmentAgencyIndicator15_1_1"/>
     </div>
 
-    <ResponsibleAgency
-      i18n={i18n}
-      countryIso={countryIso}
-      tableSpecName="sustainableDevelopmentAgencyIndicator15_1_1"/>
 
   </div>
 }
