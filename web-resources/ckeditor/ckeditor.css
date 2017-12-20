@@ -128,6 +128,10 @@ td, th {
   text-align: left;
 }
 
+th > p, td > p {
+  margin: 0;
+}
+
 
 /* Widget Styles */
 
