@@ -109,7 +109,6 @@ const GrowingStock = (props) => {
         </table>
       </div>
     </div>
-    <div style={{height: '32px'}}></div>
     <div className="fra-table__container">
       <div className="fra-table__scroll-wrapper">
         <table className="fra-table">
