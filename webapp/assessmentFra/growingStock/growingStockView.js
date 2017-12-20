@@ -50,13 +50,11 @@ const GrowingStock = (props) => {
   const totalTableArea = R.path(['totalTableArea'], props)
 
   return <div className='fra-view__content growing-stock-view'>
-    <div className="fra-view__page-header">
-      <h1 className="title">{i18n.t('growingStock.growingStock')}</h1>
-      <div className="fra-view__header-secondary-content">
-        <DefinitionLink document="tad" anchor="2a" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
-        <DefinitionLink document="faq" anchor="2a" title={i18n.t('definition.faqLabel')} lang={i18n.language}/>
-        <p className="support-text">{i18n.t('growingStock.supportText')}</p>
-      </div>
+    <h2 className="headline">{i18n.t('growingStock.growingStock')}</h2>
+    <div className="fra-view__section-toolbar">
+      <DefinitionLink className="margin-right-big" document="tad" anchor="2a" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
+      <DefinitionLink className="align-left" document="faq" anchor="2a" title={i18n.t('definition.faqLabel')} lang={i18n.language}/>
+      <p className="support-text">{i18n.t('growingStock.supportText')}</p>
     </div>
     <div className="fra-table__container">
       <div className="fra-table__scroll-wrapper">
