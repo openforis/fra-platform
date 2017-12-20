@@ -198,24 +198,34 @@ const ForestCharacteristics = props => {
     R.values(props.fra)
   )
   return <div className='fra-view__content'>
-    <div className="fra-view__page-header">
-      <h1 className="title align-left">{i18n.t('forestCharacteristics.estimationAndForecasting')}</h1>
-      {
-        props.useOriginalDataPoints
-        ? <button
-            className="btn btn-primary"
-            onClick={() => {
-              props.saveCountryConfigSetting(props.countryIso, 'useOriginalDataPointsInFoc', !props.useOriginalDataPointsInFoc)
-            }}
+    {
+      props.useOriginalDataPoints
+      ? <div className="fra-view__page-header">
+          <button
+            className={`btn btn-${props.useOriginalDataPointsInFoc ? 'secondary' : 'primary'}`}
+            onClick={() => {props.saveCountryConfigSetting(props.countryIso, 'useOriginalDataPointsInFoc', !props.useOriginalDataPointsInFoc)}}
           >
           {
             props.useOriginalDataPointsInFoc
-              ? i18n.t('forestCharacteristics.dontUseOriginalDataPoints')
-              : i18n.t('forestCharacteristics.useOriginalDataPoints')
+            ? i18n.t('forestCharacteristics.dontUseOriginalDataPoints')
+            : i18n.t('forestCharacteristics.useOriginalDataPoints')
           }
           </button>
-        : null
-      }
+        </div>
+      : null
+    }
+    {
+      props.useOriginalDataPointsInFoc
+        ? null
+        : [
+            <NationalDataDescriptions key="ndd" section={sectionName} countryIso={props.countryIso}/>,
+            <AnalysisDescriptions key="ad" section={sectionName} countryIso={props.countryIso}/>
+          ]
+    }
+    <h2 className="headline">{i18n.t('forestCharacteristics.forestCharacteristics')}</h2>
+    <div className="fra-view__section-toolbar">
+      <DefinitionLink className="margin-right-big" document="tad" anchor="1b" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
+      <DefinitionLink className="align-left" document="faq" anchor="1b" title={i18n.t('definition.faqLabel')} lang={i18n.language} />
     </div>
     <ChartWrapper
       fra={filteredFraColumns}
@@ -227,32 +237,18 @@ const ForestCharacteristics = props => {
     />
     {
       props.useOriginalDataPointsInFoc
-        ? null
-        : [
-            <NationalDataDescriptions key="ndd" section={sectionName} countryIso={props.countryIso}/>,
-            <AnalysisDescriptions key="ad" section={sectionName} countryIso={props.countryIso}/>
-          ]
+      ? <div className="fra-view__section-toolbar">
+          <GenerateFraValuesControl section={sectionName} rows={focRows} {...props} />
+          {
+            props.odpDirty
+              ? <p className="support-text">
+                  {i18n.t('nationalDataPoint.remindDirtyOdp')}
+                </p>
+              : null
+          }
+        </div>
+      : null
     }
-    <div className="fra-view__section-header">
-      <h3 className="subhead">{i18n.t('forestCharacteristics.forestCharacteristics')}</h3>
-      <DefinitionLink document="tad" anchor="1b" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
-      <DefinitionLink document="faq" anchor="1b" title={i18n.t('definition.faqLabel')} lang={i18n.language} className="align-left"/>
-      {
-        props.useOriginalDataPointsInFoc
-          ? <GenerateFraValuesControl section={sectionName} rows={focRows} {...props} />
-          : null
-      }
-      {
-        props.odpDirty && props.useOriginalDataPointsInFoc
-          ? <div className="fra-view__header-secondary-content">
-              <p className="support-text">
-                <Icon name="alert" className="icon-orange icon-sub icon-margin-right"/>
-                {i18n.t('nationalDataPoint.remindDirtyOdp')}
-              </p>
-            </div>
-          : null
-      }
-    </div>
     <TableWithOdp
       section={sectionName}
       rows={focRows}

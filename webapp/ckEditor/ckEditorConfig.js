@@ -15,7 +15,7 @@ const ckEditorConfig = {
   removeButtons: 'Scayt,Cut,Copy,Paste,Anchor,Maximize,Source,Strike,Outdent,Indent',
   allowedContent: 'p em strong u sub sup ul ol li table thead tbody tr; th[colspan,rowspan]; td[colspan,rowspan]; a[!href]; img[!src,alt,width,height]',
   contentsCss: '/ckeditor/ckeditor.css',
-  height: 230,
+  height: 72,
   extraPlugins: 'autogrow',
   autoGrow_minHeight: 72,
   autoGrow_maxHeight: 600,
