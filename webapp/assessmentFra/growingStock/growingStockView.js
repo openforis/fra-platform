@@ -6,48 +6,131 @@ import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
 import DefinitionLink from '../../reusableUiComponents/definitionLink'
 import { fetch, changeAvgValue, changeTotalValue } from './actions'
 import { ThousandSeparatedDecimalInput } from '../../reusableUiComponents/thousandSeparatedDecimalInput'
-import { sum, formatNumber, greaterThanOrEqualTo, lessThanOrEqualTo, abs, sub, greaterThan } from '../../../common/bignumberUtils'
+import { sum, div, mul, formatNumber } from '../../../common/bignumberUtils'
+import ReviewIndicator from '../../review/reviewIndicator'
 
 const sectionName = 'growingStock'
 const mapIndexed = R.addIndex(R.map)
 const years = [1990, 2000, 2010, 2015, 2020]
 
-const InputRow = (props) => {
+const InputRowAvg = (props) => {
   const thClassName = props.subCategory ? 'fra-table__subcategory-cell' : 'fra-table__category-cell'
+  const target = props.row + 'Avg'
   return <tr>
     <th className={thClassName}>{props.i18n.t(`growingStock.${props.row}`)}</th>
     {
       R.map(year => {
-        const value = R.path([year, props.row], props.data) || null
+        const value = R.path([year, props.row], props.avgTable)
         return <td className="fra-table__cell" key={year}>
           <ThousandSeparatedDecimalInput
             numberValue={value}
-            onChange={e => props.changeValue(props.countryIso, year, props.row, e.target.value || null)}/>
+            onChange={e => props.changeAvgValue(props.countryIso, year, props.row, e.target.value)}/>
         </td>
       }, years)
     }
+    <td className="fra-table__row-anchor-cell">
+      <div className="fra-table__review-indicator-anchor">
+        <ReviewIndicator
+          key={target}
+          section={sectionName}
+          title={props.i18n.t(`growingStock.${props.row}`)}
+          target={[target]}
+          countryIso={props.countryIso}/>
+      </div>
+    </td>
   </tr>
 }
 
-const TotalRow = (props) => {
+const InputRowTotal = (props) => {
+  const thClassName = props.subCategory ? 'fra-table__subcategory-cell' : 'fra-table__category-cell'
+  const target = props.row + 'Total'
+  return <tr>
+    <th className={thClassName}>{props.i18n.t(`growingStock.${props.row}`)}</th>
+    {
+      R.map(year => {
+        const value = R.path([year, props.row], props.totalTable)
+        return <td className="fra-table__cell" key={year}>
+          <ThousandSeparatedDecimalInput
+            numberValue={value}
+            onChange={e => props.changeTotalValue(props.countryIso, year, props.row, e.target.value)}/>
+        </td>
+      }, years)
+    }
+    <td className="fra-table__row-anchor-cell">
+      <div className="fra-table__review-indicator-anchor">
+        <ReviewIndicator
+          key={target}
+          section={sectionName}
+          title={props.i18n.t(`growingStock.${props.row}`)}
+          target={[target]}
+          countryIso={props.countryIso}/>
+      </div>
+    </td>
+  </tr>
+}
+
+const SumRowAvg = (props) => {
+  const target = props.row + 'Avg'
   return <tr>
     <th className="fra-table__header-cell-left">{props.i18n.t(`growingStock.${props.row}`)}</th>
     {
       R.map(year => {
-        const value = R.path([year, props.row], props.data) || null
+        const yearData = R.path([year], props.totalTable) || {}
+        const value = R.values(R.pick(props.sumFields, yearData)) || null
+        const baseYearData = R.path([year], props.baseTable) || {}
+        const baseValue = R.values(R.pick(props.baseFields, baseYearData)) || null
+        const avg = div(mul(sum(value), 1000), sum(baseValue))
         return <td className="fra-table__calculated-cell" key={year}>
-          {formatNumber(value)}
+          {formatNumber(avg)}
         </td>
       }, years)
     }
+    <td className="fra-table__row-anchor-cell">
+      <div className="fra-table__review-indicator-anchor">
+        <ReviewIndicator
+          key={target}
+          section={sectionName}
+          title={props.i18n.t(`growingStock.${props.row}`)}
+          target={[target]}
+          countryIso={props.countryIso}/>
+      </div>
+    </td>
+  </tr>
+}
+
+const SumRowTotal = (props) => {
+  const target = props.row + 'Total'
+  return <tr>
+    <th className="fra-table__header-cell-left">{props.i18n.t(`growingStock.${props.row}`)}</th>
+    {
+      R.map(year => {
+        const yearData = R.path([year], props.totalTable) || {}
+        const value = R.values(R.pick(props.sumFields, yearData)) || null
+        return <td className="fra-table__calculated-cell" key={year}>
+          {formatNumber(sum(value))}
+        </td>
+      }, years)
+    }
+    <td className="fra-table__row-anchor-cell">
+      <div className="fra-table__review-indicator-anchor">
+        <ReviewIndicator
+          key={target}
+          section={sectionName}
+          title={props.i18n.t(`growingStock.${props.row}`)}
+          target={[target]}
+          countryIso={props.countryIso}/>
+      </div>
+    </td>
   </tr>
 }
 
 const GrowingStock = (props) => {
   const i18n = props.i18n
   const countryIso = props.countryIso
-  const avgTableArea = R.path(['avgTableArea'], props)
-  const totalTableArea = R.path(['totalTableArea'], props)
+  const avgTable = R.path(['avgTable'], props)
+  const totalTable = R.path(['totalTable'], props)
+
+  if (R.isNil(avgTable) || R.isNil(totalTable)) return null
 
   return <div className='fra-view__content growing-stock-view'>
     <h2 className="headline">{i18n.t('growingStock.growingStock')}</h2>
@@ -69,40 +152,34 @@ const GrowingStock = (props) => {
             </tr>
           </thead>
           <tbody>
-            <InputRow
-              data={avgTableArea}
+            <InputRowAvg
               row="naturallyRegeneratingForest"
-              changeValue={props.changeAvgValue}
               {...props}
             />
-            <TotalRow
-              data={avgTableArea}
+            <SumRowAvg
               row="plantedForest"
+              sumFields={['plantationForest', 'otherPlantedForest']}
+              baseFields={['plantationForestArea', 'otherPlantedForestArea']}
               {...props}
             />
-            <InputRow
-              data={avgTableArea}
+            <InputRowAvg
               row="plantationForest"
               subCategory={true}
-              changeValue={props.changeAvgValue}
               {...props}
             />
-            <InputRow
-              data={avgTableArea}
+            <InputRowAvg
               row="otherPlantedForest"
               subCategory={true}
-              changeValue={props.changeAvgValue}
               {...props}
             />
-            <TotalRow
-              data={avgTableArea}
+            <SumRowAvg
               row="totalForest"
+              sumFields={['naturallyRegeneratingForest', 'plantationForest', 'otherPlantedForest']}
+              baseFields={['forestArea']}
               {...props}
             />
-            <InputRow
-              data={avgTableArea}
+            <InputRowAvg
               row="otherWoodedLand"
-              changeValue={props.changeAvgValue}
               {...props}
             />
           </tbody>
@@ -122,40 +199,32 @@ const GrowingStock = (props) => {
             </tr>
           </thead>
           <tbody>
-            <InputRow
-              data={totalTableArea}
+            <InputRowTotal
               row="naturallyRegeneratingForest"
-              changeValue={props.changeTotalValue}
               {...props}
             />
-            <TotalRow
-              data={totalTableArea}
+            <SumRowTotal
               row="plantedForest"
+              sumFields={['plantationForest', 'otherPlantedForest']}
               {...props}
             />
-            <InputRow
-              data={totalTableArea}
+            <InputRowTotal
               row="plantationForest"
               subCategory={true}
-              changeValue={props.changeTotalValue}
               {...props}
             />
-            <InputRow
-              data={totalTableArea}
+            <InputRowTotal
               row="otherPlantedForest"
               subCategory={true}
-              changeValue={props.changeTotalValue}
               {...props}
             />
-            <TotalRow
-              data={totalTableArea}
+            <SumRowTotal
               row="totalForest"
+              sumFields={['naturallyRegeneratingForest', 'plantationForest', 'otherPlantedForest']}
               {...props}
             />
-            <InputRow
-              data={totalTableArea}
+            <InputRowTotal
               row="otherWoodedLand"
-              changeValue={props.changeTotalValue}
               {...props}
             />
           </tbody>
@@ -187,9 +256,9 @@ class GrowingStockView extends React.Component {
 
 const mapStateToProps = state =>
   ({
-    totalTableArea: state.growingStock.totalTable,
-    avgTableArea: state.growingStock.avgTable,
-    focEofArea: state.growingStock.focEofArea,
+    totalTable: state.growingStock.totalTable,
+    avgTable: state.growingStock.avgTable,
+    baseTable: state.growingStock.focEofArea,
     openCommentThread: state.review.openThread,
     i18n: state.user.i18n
   })
