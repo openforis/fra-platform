@@ -5,7 +5,9 @@ import * as R from 'ramda'
 import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
 import TraditionalTable from '../../traditionalTable/traditionalTable'
 import tableSpec from './tableSpec'
-import { CommentableDescriptions } from '../../description/commentableDescription'
+import NationalDataDescriptions from '../../descriptionBundles/nationalDataDescriptions'
+import AnalysisDescriptions from '../../descriptionBundles/analysisDescriptions'
+import GeneralComments from '../../descriptionBundles/generalComments'
 import DefinitionLink from '../../reusableUiComponents/definitionLink'
 import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
 
@@ -54,13 +56,17 @@ class CarbonStockView extends React.Component {
 
     return <LoggedInPageTemplate>
       <div className="fra-view__content">
-        <div className="fra-view__page-header">
-          <h1 className="title">{i18n.t('carbonStock.carbonStock')}</h1>
-          <div className="fra-view__page-header-controls">
+        <NationalDataDescriptions section="carbonStock" countryIso={countryIso}/>
+        <AnalysisDescriptions section="carbonStock" countryIso={countryIso}/>
+        <h2 className="headline">{i18n.t('carbonStock.carbonStock')}</h2>
+        <div className="fra-view__section-toolbar" style={{marginTop: '4px'}}>
+          <DefinitionLink className="margin-right-big" document="tad" anchor="2d" title={i18n.t('definition.definitionLabel')} lang={lang}/>
+          <DefinitionLink className="align-left" document="faq" anchor="2c" title={i18n.t('definition.faqLabel')} lang={lang}/>
+          <div>
             {
               !R.isNil(this.props.domain)
               ? <select
-                  className="select-s"
+                  className="select-s margin-right"
                   value={countryDomain}
                   onChange={evt => this.setState({selectedDomain: evt.target.value})}>
                   {
@@ -78,20 +84,15 @@ class CarbonStockView extends React.Component {
               {i18n.t('biomassStock.downloadExcel')}
             </a>
           </div>
-          <div className="fra-view__header-secondary-content">
-            <DefinitionLink document="tad" anchor="2d" title={i18n.t('definition.definitionLabel')} lang={lang}/>
-            <DefinitionLink document="faq" anchor="2c" title={i18n.t('definition.faqLabel')} lang={lang}/>
-          </div>
+
         </div>
         <TraditionalTable tableSpec={this.tableSpecInstance} countryIso={countryIso}/>
         <div className="fra-secondary-table__wrapper">
           <TraditionalTable tableSpec={soilDepthTableSpec(i18n)} countryIso={match.params.countryIso}/>
         </div>
-        <CommentableDescriptions
+        <GeneralComments
           section="carbonStock"
-          name="carbonStock"
           countryIso={countryIso}
-          i18n={i18n}
         />
       </div>
     </LoggedInPageTemplate>
