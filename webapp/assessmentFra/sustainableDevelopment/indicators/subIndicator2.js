@@ -6,7 +6,7 @@ import ReviewIndicator from '../../../review/reviewIndicator'
 import * as R from 'ramda'
 import { formatDecimal } from '../../../utils/numberFormat'
 
-const Indicator15_2_1_1 = ({i18n, countryIso, data, years}) => {
+const SubIndicator2 = ({i18n, countryIso, data, years}) => {
 
   const getBiomassStock = year => R.path(['biomassStock', year], data)
 
@@ -66,4 +66,4 @@ const Indicator15_2_1_1 = ({i18n, countryIso, data, years}) => {
   </div>
 }
 
-export default Indicator15_2_1_1
+export default SubIndicator2

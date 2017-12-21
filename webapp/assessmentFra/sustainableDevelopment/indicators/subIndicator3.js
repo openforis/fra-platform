@@ -9,7 +9,7 @@ import * as R from 'ramda'
 
 import { getForestArea } from './indicators'
 
-const Indicator15_2_1_3 = ({i18n, countryIso, data, years}) => {
+const SubIndicator3 = ({i18n, countryIso, data, years}) => {
 
   const getValue = (year, field) => {
     const val = R.path(['forestAreaWithinProtectedAreas', field, year], data)
@@ -97,4 +97,4 @@ const Indicator15_2_1_3 = ({i18n, countryIso, data, years}) => {
   </div>
 }
 
-export default Indicator15_2_1_3
+export default SubIndicator3
