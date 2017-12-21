@@ -5,8 +5,7 @@ const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
 const {sendErr} = require('../utils/requestUtils')
 
 const {getFraValues} = require('../eof/api')
-const {read, readObject} = require('../traditionalTable/traditionalTableRepository')
-const sustainableDevelopmentRepository = require('./sustainableDevelopmentRepository')
+const {readObject} = require('../traditionalTable/traditionalTableRepository')
 
 module.exports.init = app => {
 
@@ -14,13 +13,17 @@ module.exports.init = app => {
     checkCountryAccessFromReqParams(req)
     try {
       const countryIso = req.params.countryIso
-
       const extentOfForest = await getFraValues('extentOfForest', countryIso)
-      const forestAreaWithinProtectedAreas = await read(countryIso, 'forestAreaWithinProtectedAreas')
-
       const bioMass = await readObject(countryIso, 'biomassStock')
       const aboveGroundOnlyBiomass = R.path(['forestAboveGround'], bioMass)
-      //const forestAreaWithinProtectedAreas = await readObject(countryIso, 'forestAreaWithinProtectedAreas')
+      const forestAreaWithinProtectedAreasAllFields = await readObject(countryIso, 'forestAreaWithinProtectedAreas')
+      const forestAreaWithinProtectedAreas = R.pick(
+        [
+          'forestAreaWithinProtectedAreas',
+          'forestAreaWithLongTermManagementPlan'
+        ],
+        forestAreaWithinProtectedAreasAllFields || {}
+      )
       res.json({
         extentOfForest: extentOfForest.fra,
         biomassStock: aboveGroundOnlyBiomass,
