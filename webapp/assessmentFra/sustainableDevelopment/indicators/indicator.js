@@ -9,7 +9,7 @@ import * as R from 'ramda'
 
 import { getDataPoint, getForestArea } from './indicators'
 
-const Indicator15_1_1 = ({i18n, countryIso, data, years}) => {
+const Indicator = ({i18n, countryIso, data, years}) => {
 
   const area2015 = R.pipe(
     R.partial(getDataPoint, [data]),
@@ -75,4 +75,4 @@ const Indicator15_1_1 = ({i18n, countryIso, data, years}) => {
   </div>
 }
 
-export default Indicator15_1_1
+export default Indicator
