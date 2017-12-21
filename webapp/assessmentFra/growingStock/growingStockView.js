@@ -4,7 +4,7 @@ import * as R from 'ramda'
 import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
 import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
 import DefinitionLink from '../../reusableUiComponents/definitionLink'
-import { fetch, changeAvgValue, changeTotalValue, pasteAvgValue } from './actions'
+import { fetch, changeAvgValue, changeTotalValue, pasteAvgValue, pasteTotalValue } from './actions'
 import { ThousandSeparatedDecimalInput } from '../../reusableUiComponents/thousandSeparatedDecimalInput'
 import { sum, div, mul, formatNumber } from '../../../common/bignumberUtils'
 import ReviewIndicator from '../../review/reviewIndicator'
@@ -54,6 +54,7 @@ const InputRowTotal = (props) => {
         return <td className="fra-table__cell" key={year}>
           <ThousandSeparatedDecimalInput
             numberValue={value}
+            onPaste={e => props.pasteTotalValue(props.countryIso, year, props.row, readPasteClipboard(e, 'decimal'))}
             onChange={e => props.changeTotalValue(props.countryIso, year, props.row, e.target.value)}/>
         </td>
       }, years)
@@ -272,6 +273,7 @@ export default connect(
       changeTotalValue,
       changeAvgValue,
       pasteAvgValue,
+      pasteTotalValue,
       fetchLastSectionUpdateTimestamp
     }
   )(GrowingStockView)
