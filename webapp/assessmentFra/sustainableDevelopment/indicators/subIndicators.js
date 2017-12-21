@@ -1,9 +1,9 @@
 import React from 'react'
 
-import Indicator15_2_1_1 from './indicator15_2_1_1'
-import Indicator15_2_1_2 from './indicator15_2_1_2'
-import Indicator15_2_1_3 from './indicator15_2_1_3'
-import Indicator15_2_1_4 from './indicator15_2_1_4'
+import SubIndicator1 from './subIndicator1'
+import SubIndicator2 from './subIndicator2'
+import SubIndicator3 from './subIndicator3'
+import SubIndicator4 from './subIndicator4'
 
 const SubIndicators = ({i18n, countryIso, data, countryConfig, years}) => {
 
@@ -11,25 +11,25 @@ const SubIndicators = ({i18n, countryIso, data, countryConfig, years}) => {
     <div className="fra-view__section-header">
       <h3 className="subhead">{i18n.t('sustainableDevelopment.sdgIndicator15_2_1')}</h3>
     </div>
-    <Indicator15_2_1_1
+    <SubIndicator1
       i18n={i18n}
       countryIso={countryIso}
       data={data}
       years={years}
     />
-    <Indicator15_2_1_2
+    <SubIndicator2
       i18n={i18n}
       countryIso={countryIso}
       data={data}
       years={years}
     />
-    <Indicator15_2_1_3
+    <SubIndicator3
       i18n={i18n}
       countryIso={countryIso}
       data={data}
       years={years}
     />
-    <Indicator15_2_1_4
+    <SubIndicator4
       i18n={i18n}
       countryIso={countryIso}
       data={data}

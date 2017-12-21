@@ -6,7 +6,7 @@ import ReviewIndicator from '../../../review/reviewIndicator'
 import { formatDecimal } from '../../../utils/numberFormat'
 import * as R from 'ramda'
 
-const Indicator15_2_1_4 = ({i18n, countryIso, data, years, countryConfig}) => {
+const SubIndicator4 = ({i18n, countryIso, data, years, countryConfig}) => {
 
   const indicatorYears = R.reject(y => y === '1990', years)
 
@@ -69,4 +69,4 @@ const Indicator15_2_1_4 = ({i18n, countryIso, data, years, countryConfig}) => {
   </div>
 }
 
-export default Indicator15_2_1_4
+export default SubIndicator4

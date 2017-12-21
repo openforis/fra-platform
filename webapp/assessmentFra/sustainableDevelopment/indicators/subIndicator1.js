@@ -9,7 +9,7 @@ import * as R from 'ramda'
 
 import { getForestArea } from './indicators'
 
-const Indicator15_2_1_1 = ({i18n, countryIso, data, years}) => {
+const SubIndicator1 = ({i18n, countryIso, data, years}) => {
 
   const getValue1YearDiff = (year1, year2) => {
     const forest1 = getForestArea(data, year1)
@@ -106,4 +106,4 @@ const Indicator15_2_1_1 = ({i18n, countryIso, data, years}) => {
   </div>
 }
 
-export default Indicator15_2_1_1
+export default SubIndicator1
