@@ -5,7 +5,7 @@ import * as R from 'ramda'
 import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
 import DefinitionLink from '../../reusableUiComponents/definitionLink'
 
-import Indicator15_1_1 from './indicators/indicator15_1_1'
+import Indicator from './indicators/indicator'
 import Indicator15_2_1 from './indicators/indicator15_2_1'
 
 import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
@@ -45,7 +45,7 @@ class SustainableDevelopmentView extends React.Component {
             <DefinitionLink className="margin-right-big" document="tad" anchor="8" title={i18n.t('definition.definitionLabel')} lang={lang}/>
             <DefinitionLink className="align-left" document="faq" anchor="8" title={i18n.t('definition.faqLabel')} lang={lang}/>
           </div>
-          <Indicator15_1_1
+          <Indicator
             i18n={i18n}
             countryIso={countryIso}
             data={data}
