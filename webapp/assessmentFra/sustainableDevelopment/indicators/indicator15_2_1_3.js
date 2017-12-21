@@ -11,16 +11,13 @@ import { getForestArea } from './indicators'
 
 const Indicator15_2_1_3 = ({i18n, countryIso, data, years}) => {
 
-  const getValue = (year, col, row) => R.pipe(
-    R.prop('forestAreaWithinProtectedAreas'),
-    R.defaultTo([[], []]),
-    d => d[row],
-    d => div(d[col], getForestArea(data, year)),
-    v => R.isNil(v) ? null : mul(v, 100)
-  )(data)
+  const getValue = (year, field) => {
+    const val = R.path(['forestAreaWithinProtectedAreas', field, year], data)
+    return mul(div(val, getForestArea(data, year)), 100)
+  }
 
-  const getValueProtectedAreas = (year, col) => getValue(year, col, 0)
-  const getValueForestManagement = (year, col) => getValue(year, col, 1)
+  const getValueProtectedAreas = year => getValue(year, 'forestAreaWithinProtectedAreas')
+  const getValueForestManagement = year => getValue(year, 'forestAreaWithLongTermManagementPlan')
 
   return <div className="fra-table__container fra-sustainable-dev-sub-indicator-table">
     <div className="fra-table__scroll-wrapper">
