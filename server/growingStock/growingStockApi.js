@@ -36,8 +36,8 @@ module.exports.init = app => {
         const yearEof = R.path([year, 0], groupedEof) || {}
         return [year, R.merge(obj, R.merge(yearFoc, yearEof))]
       }, years)
-      const focEofArea = R.fromPairs(mergeFocEofByYear)
-      res.json({avgTable, totalTable, focEofArea})
+      const baseTable = R.fromPairs(mergeFocEofByYear)
+      res.json({avgTable, totalTable, baseTable})
     } catch (err) {
       sendErr(res, err)
     }

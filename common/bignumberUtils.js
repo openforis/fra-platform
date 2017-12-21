@@ -60,6 +60,10 @@ const toFixed = (value, precision = 2) => R.isNil(value)
   ? null
   : toBigNumber(value).toFixed(precision)
 
+const toString = (value) => R.isNil(value)
+  ? null
+  : toBigNumber(value).toString()
+
 const formatNumber = (value, precision = 2) => R.isNil(value)
   ? null
   : toBigNumber(value).toFormat(precision)
@@ -76,4 +80,5 @@ module.exports.lessThanOrEqualTo = lessThanOrEqualTo
 module.exports.greaterThan = greaterThan
 module.exports.lessThan = lessThan
 module.exports.toFixed = toFixed
+module.exports.toString = toString
 module.exports.formatNumber = formatNumber
