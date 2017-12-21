@@ -1,12 +1,14 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
+import ReactDOMServer from 'react-dom/server'
+import clipboard from 'clipboard-polyfill'
 import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
 import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
 import DefinitionLink from '../../reusableUiComponents/definitionLink'
 import { fetch, changeAvgValue, changeTotalValue, pasteAvgValue, pasteTotalValue } from './actions'
 import { ThousandSeparatedDecimalInput } from '../../reusableUiComponents/thousandSeparatedDecimalInput'
-import { sum, div, mul, formatNumber } from '../../../common/bignumberUtils'
+import { sum, div, mul, toFixed, formatNumber } from '../../../common/bignumberUtils'
 import ReviewIndicator from '../../review/reviewIndicator'
 import { readPasteClipboard } from '../../utils/copyPasteUtil'
 
@@ -127,6 +129,34 @@ const SumRowTotal = (props) => {
   </tr>
 }
 
+const ClipboardTable = ({tableValues}) =>
+  <table>
+    <tbody>
+      {mapIndexed((row, i) =>
+        <tr key={i}>
+          {mapIndexed((value, i) =>
+            <td key={i}> {toFixed(value)} </td>
+          , row)}
+        </tr>
+      , tableValues)}
+    </tbody>
+  </table>
+
+const copyTableAsHtml = (tableData, i18n) => {
+  const tableValues = R.pipe(
+    R.values,
+    R.map(y => R.omit(['year'], y)),
+    R.map(R.values),
+    R.transpose,
+    R.insert(1, [])
+  )(tableData)
+  const htmlTable = ReactDOMServer.renderToString(<ClipboardTable tableValues={tableValues}/>)
+  const dataTransfer = new clipboard.DT()
+  dataTransfer.setData("text/plain", i18n.t('growingStock.growingStock'))
+  dataTransfer.setData("text/html", htmlTable)
+  clipboard.write(dataTransfer)
+}
+
 const GrowingStock = (props) => {
   const i18n = props.i18n
   const countryIso = props.countryIso
@@ -148,7 +178,14 @@ const GrowingStock = (props) => {
           <thead>
             <tr>
               <th className="fra-table__header-cell-left" rowSpan="2">{i18n.t('growingStock.categoryHeader')}</th>
-              <th className="fra-table__header-cell" colSpan="5">{i18n.t('growingStock.avgTableHeader')}</th>
+              <th className="fra-table__header-cell" colSpan="5">
+                <div>
+                  {props.i18n.t('growingStock.avgTableHeader')}
+                  <button className="fra-table__header-button btn-xs btn-primary" onClick={() => copyTableAsHtml(avgTable, i18n)}>
+                    {props.i18n.t('growingStock.copyToClipboard')}
+                  </button>
+                </div>
+              </th>
             </tr>
             <tr>
               {R.map(year => <th className="fra-table__header-cell" key={year}>{year}</th>, years)}
