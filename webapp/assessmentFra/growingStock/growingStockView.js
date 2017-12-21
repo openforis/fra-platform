@@ -258,7 +258,7 @@ const mapStateToProps = state =>
   ({
     totalTable: state.growingStock.totalTable,
     avgTable: state.growingStock.avgTable,
-    baseTable: state.growingStock.focEofArea,
+    baseTable: state.growingStock.baseTable,
     openCommentThread: state.review.openThread,
     i18n: state.user.i18n
   })

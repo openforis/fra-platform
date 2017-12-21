@@ -5,6 +5,7 @@ import * as autosave from '../../autosave/actions'
 export const growingStockFetchCompleted = 'growingStock/fetch/completed'
 export const growingStockChanged = 'growingStock/changed'
 import { acceptNextDecimal} from '../../utils/numberInput'
+import { div, mul, toString } from '../../../common/bignumberUtils'
 
 export const fetch = (countryIso) => dispatch =>
   axios
@@ -13,20 +14,30 @@ export const fetch = (countryIso) => dispatch =>
     .catch(err => dispatch(applicationError(err)))
 
 export const changeAvgValue = (countryIso, year, row, newValue) => (dispatch, getState) => {
-  const growingStock = getState().growingStock
-  const currentValue = R.path(['avgTable', year, row], growingStock)
+  const growingStockState = getState().growingStock
+  const currentValue = R.path(['avgTable', year, row], growingStockState)
   const sanitizedValue = acceptNextDecimal(newValue, currentValue)
-  const insertValue = R.assocPath(['avgTable', year, row], sanitizedValue, growingStock)
+  const baseValue = R.path(['baseTable', year, mapBaseValueKeys[row]], growingStockState)
+  const calculatedValue = toString(div(mul(sanitizedValue, baseValue), 1000))
+  const insertValue = R.pipe(
+    R.assocPath(['avgTable', year, row], sanitizedValue),
+    R.assocPath(['totalTable', year, row], calculatedValue)
+  )(growingStockState)
   dispatch(autosave.start)
   dispatch({type: growingStockChanged, data: insertValue})
   dispatch(persistValues(countryIso, insertValue))
 }
 
 export const changeTotalValue = (countryIso, year, row, newValue) => (dispatch, getState) => {
-  const growingStock = getState().growingStock
-  const currentValue = R.path(['avgTable', year, row], growingStock)
+  const growingStockState = getState().growingStock
+  const currentValue = R.path(['avgTable', year, row], growingStockState)
   const sanitizedValue = acceptNextDecimal(newValue, currentValue)
-  const insertValue = R.assocPath(['totalTable', year, row], sanitizedValue, growingStock)
+  const baseValue = R.path(['baseTable', year, mapBaseValueKeys[row]], growingStockState)
+  const calculatedValue = toString(div(mul(sanitizedValue, 1000), baseValue))
+  const insertValue = R.pipe(
+    R.assocPath(['totalTable', year, row], sanitizedValue),
+    R.assocPath(['avgTable', year, row], calculatedValue)
+  )(growingStockState)
   dispatch(autosave.start)
   dispatch({type: growingStockChanged, data: insertValue})
   dispatch(persistValues(countryIso, insertValue))
@@ -46,4 +57,11 @@ export const persistValues = (countryIso, values) => {
     }
   }
   return dispatched
+}
+
+const mapBaseValueKeys = {
+  'naturallyRegeneratingForest': 'naturalForestArea',
+  'plantationForest': 'plantationForestArea',
+  'otherPlantedForest': 'otherPlantedForestArea',
+  'otherWoodedLand': 'otherWoodedLand'
 }
