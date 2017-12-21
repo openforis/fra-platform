@@ -8,10 +8,7 @@ import { formatDecimal } from '../../../utils/numberFormat'
 
 const Indicator15_2_1_1 = ({i18n, countryIso, data, years}) => {
 
-  const getBiomassStock = col => R.pipe(
-    R.defaultTo([[]]),
-    data => data[0][col]
-  )(data.biomassStock)
+  const getBiomassStock = year => R.path(['biomassStock', year], data)
 
   return <div className="fra-table__container fra-sustainable-dev-sub-indicator-table">
     <div className="fra-table__scroll-wrapper">
@@ -41,9 +38,9 @@ const Indicator15_2_1_1 = ({i18n, countryIso, data, years}) => {
             {i18n.t('sustainableDevelopment.aboveGroundBiomassStockForests')}
           </th>
           {
-            years.map((year, i) =>
+            years.map(year =>
               <td key={`${year}h`} className="fra-table__calculated-cell">
-                {formatDecimal(getBiomassStock(i))}
+                {formatDecimal(getBiomassStock(year))}
               </td>
             )
           }

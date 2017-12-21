@@ -5,31 +5,29 @@ const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
 const {sendErr} = require('../utils/requestUtils')
 
 const {getFraValues} = require('../eof/api')
-const {read} = require('../traditionalTable/traditionalTableRepository')
+const {read, readObject} = require('../traditionalTable/traditionalTableRepository')
+const sustainableDevelopmentRepository = require('./sustainableDevelopmentRepository')
 
 module.exports.init = app => {
 
-  app.get('/sustainableDevelopment/:countryIso', (req, res) => {
+  app.get('/sustainableDevelopment/:countryIso', async (req, res) => {
     checkCountryAccessFromReqParams(req)
+    try {
+      const countryIso = req.params.countryIso
 
-    const countryIso = req.params.countryIso
+      const extentOfForest = await getFraValues('extentOfForest', countryIso)
+      const forestAreaWithinProtectedAreas = await read(countryIso, 'forestAreaWithinProtectedAreas')
 
-    const extentOfForestPromise = getFraValues('extentOfForest', countryIso)
-    const biomassStockPromise = read(countryIso, 'biomassStock')
-    const forestAreaWithinProtectedAreasPromise = read(countryIso, 'forestAreaWithinProtectedAreas')
-
-    Promise
-      .all([
-        extentOfForestPromise,
-        biomassStockPromise,
-        forestAreaWithinProtectedAreasPromise
-      ])
-      .then(result => res.json({
-        extentOfForest: result[0].fra,
-        biomassStock: result[1],
-        forestAreaWithinProtectedAreas: result[2]
-      }))
-      .catch(err => sendErr(res, err))
-
+      const bioMass = await readObject(countryIso, 'biomassStock')
+      const aboveGroundOnlyBiomass = R.path(['forestAboveGround'], bioMass)
+      //const forestAreaWithinProtectedAreas = await readObject(countryIso, 'forestAreaWithinProtectedAreas')
+      res.json({
+        extentOfForest: extentOfForest.fra,
+        biomassStock: aboveGroundOnlyBiomass,
+        forestAreaWithinProtectedAreas: forestAreaWithinProtectedAreas
+      })
+    } catch (err) {
+      sendErr(res, err)
+    }
   })
 }
