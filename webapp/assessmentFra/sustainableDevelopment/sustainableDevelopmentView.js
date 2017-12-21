@@ -6,7 +6,7 @@ import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
 import DefinitionLink from '../../reusableUiComponents/definitionLink'
 
 import Indicator from './indicators/indicator'
-import Indicator15_2_1 from './indicators/indicator15_2_1'
+import SubIndicators from './indicators/subIndicators'
 
 import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
 import { fetch } from './actions'
@@ -50,7 +50,7 @@ class SustainableDevelopmentView extends React.Component {
             countryIso={countryIso}
             data={data}
             years={years}/>
-          <Indicator15_2_1
+          <SubIndicators
             i18n={i18n}
             countryIso={countryIso}
             data={data}
