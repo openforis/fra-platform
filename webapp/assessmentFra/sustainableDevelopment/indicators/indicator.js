@@ -11,10 +11,9 @@ import { getDataPoint, getForestArea } from './indicators'
 
 const Indicator = ({i18n, countryIso, data, years}) => {
 
-  const area2015 = R.pipe(
-    R.partial(getDataPoint, [data]),
-    dataPoint => sum([dataPoint.forestArea, dataPoint.otherWoodedLand, dataPoint.otherLand])
-  )(2015)
+  const dataPoint = getDataPoint(data, 2015)
+  const sumFields = R.props(['forestArea', 'otherWoodedLand', 'otherLand'], dataPoint || {})
+  const area2015 = sum(sumFields)
 
   const getValueByYear = year => R.pipe(
     R.partial(getForestArea, [data]),
