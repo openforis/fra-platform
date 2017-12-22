@@ -45,7 +45,7 @@ class designatedManagementObjectiveView extends React.Component {
           {i18n.t('designatedManagementObjective.primaryDesignatedManagementObjective')}
         </h3>
         <div className="fra-view__section-toolbar">
-          <p className="support-text">{i18n.t('designatedManagementObjective.primaryDesignatedManagementObjectiveSupport')}</p>
+          <div className="support-text">{i18n.t('designatedManagementObjective.primaryDesignatedManagementObjectiveSupport')}</div>
         </div>
         <TraditionalTable
           tableSpec={primaryDmoTableSpec}
@@ -55,7 +55,7 @@ class designatedManagementObjectiveView extends React.Component {
           {i18n.t('designatedManagementObjective.totalAreaWithDesignatedManagementObjective')}
         </h3>
         <div className="fra-view__section-toolbar">
-          <p className="support-text">{i18n.t('designatedManagementObjective.totalAreaWithDesignatedManagementObjectiveSupport')}</p>
+          <div className="support-text">{i18n.t('designatedManagementObjective.totalAreaWithDesignatedManagementObjectiveSupport')}</div>
         </div>
         <TraditionalTable
           tableSpec={totalDmoTableSpec}

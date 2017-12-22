@@ -2,6 +2,7 @@ import React from 'react'
 import R from 'ramda'
 
 const inputColumns = R.times(() => ({type: 'decimalInput'}), 9)
+const years = [1990, 2000, 2010, 2015, 2016, 2017, 2018, 2019, 2020]
 
 export default i18n => ({
   name: 'biomassStock', // used to uniquely identify table
@@ -11,15 +12,7 @@ export default i18n => ({
     <th className="fra-table__header-cell" colSpan="9">{i18n.t(`biomassStock.tableHeader`)}</th>
   </tr>
   <tr>
-    <th className="fra-table__header-cell">1990</th>
-    <th className="fra-table__header-cell">2000</th>
-    <th className="fra-table__header-cell">2010</th>
-    <th className="fra-table__header-cell">2015</th>
-    <th className="fra-table__header-cell">2016</th>
-    <th className="fra-table__header-cell">2017</th>
-    <th className="fra-table__header-cell">2018</th>
-    <th className="fra-table__header-cell">2019</th>
-    <th className="fra-table__header-cell">2020</th>
+    {R.map(year => <th className="fra-table__header-cell" key={year}>{year}</th>, years)}
   </tr>
   </thead>,
   rows:[
