@@ -11,6 +11,8 @@ import { ThousandSeparatedDecimalInput } from '../../reusableUiComponents/thousa
 import { sum, div, mul, toFixed, formatNumber } from '../../../common/bignumberUtils'
 import ReviewIndicator from '../../review/reviewIndicator'
 import { readPasteClipboard } from '../../utils/copyPasteUtil'
+import NationalDataDescriptions from '../../descriptionBundles/nationalDataDescriptions'
+import GeneralComments from '../../descriptionBundles/generalComments'
 
 const sectionName = 'growingStock'
 const mapIndexed = R.addIndex(R.map)
@@ -166,6 +168,7 @@ const GrowingStock = (props) => {
   if (R.isNil(avgTable) || R.isNil(totalTable)) return null
 
   return <div className='fra-view__content growing-stock-view'>
+    <NationalDataDescriptions section={sectionName} countryIso={countryIso}/>
     <h2 className="headline">{i18n.t('growingStock.growingStock')}</h2>
     <div className="fra-view__section-toolbar">
       <DefinitionLink className="margin-right-big" document="tad" anchor="2a" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
@@ -271,6 +274,7 @@ const GrowingStock = (props) => {
         </table>
       </div>
     </div>
+    <GeneralComments section={sectionName} countryIso={countryIso}/>
   </div>
 }
 
