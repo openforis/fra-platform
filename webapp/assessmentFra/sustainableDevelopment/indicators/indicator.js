@@ -15,11 +15,7 @@ const Indicator = ({i18n, countryIso, data, years}) => {
   const sumFields = R.props(['forestArea', 'otherWoodedLand', 'otherLand'], dataPoint || {})
   const area2015 = sum(sumFields)
 
-  const getValueByYear = year => R.pipe(
-    R.partial(getForestArea, [data]),
-    forestArea => div(forestArea, area2015),
-    res => R.isNil(res) ? null : mul(res, 100)
-  )(year)
+  const getValueByYear = year => mul(div(getForestArea(data, year), area2015), 100)
 
   return <div className="fra-sustainable-dev-indicator-15-1-1">
     <div className="fra-view__section-header">
