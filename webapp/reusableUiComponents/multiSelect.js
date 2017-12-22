@@ -67,7 +67,7 @@ export default class MultiSelect extends React.Component {
                          key={option}
                          onMouseDown={(e) => e.stopPropagation() }
                          onClick={optionClick(values, this.props.onChange, option)}>
-                      <span className={`multi-select__checkbox ${R.contains(option, values) ? 'checked' : ''}`}></span>
+                      <span className={`fra-checkbox ${R.contains(option, values) ? 'checked' : ''}`}></span>
                       <span className="multi-select__opened-item-label">{this.localizeOption(option)}</span>
                     </div>,
                     this.props.options
