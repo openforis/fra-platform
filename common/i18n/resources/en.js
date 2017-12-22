@@ -536,7 +536,7 @@ The FRA team
     insects: 'Insects',
     diseases: 'Diseases',
     severeWeatherEvents: 'Severe weather events',
-    other: 'Other',
+    other: 'Other (specify in comments)',
     totalForestArea: 'Total forest area',
     total: 'Total'
   },
