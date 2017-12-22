@@ -15,6 +15,7 @@ export const acceptableAsInteger = (newValue) => {
 // Util function for UI fields which require integer values to be stored
 // Gives previous value if new can't be converted to Integer
 export const acceptNextInteger = (newValue, currentValue) => {
+  if (R.isNil(newValue)) return null
   const newValueTrimmed = trim(newValue)
   if (newValueTrimmed === '') return null
   if (!acceptableAsInteger(newValue)) return currentValue
@@ -40,6 +41,7 @@ export const acceptableAsDecimal = (newValue) => {
 // Util function for UI fields which require integer values to be stored
 // Gives previous value if new can't be converted to Integer
 export const acceptNextDecimal = (newValue, currentValue) => {
+  if (R.isNil(newValue)) return null
   const newValueTrimmed = trim(newValue)
   if (newValueTrimmed === '') return null
   if (!acceptableAsDecimal(newValue)) return currentValue

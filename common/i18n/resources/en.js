@@ -427,8 +427,8 @@ The FRA team
     totalTableHeader: 'Total growing stock (million m³ over bark)',
     naturallyRegeneratingForest: 'Naturally regenerating forest',
     plantedForest: 'Planted forest',
-    ofWhichPlantationForest: '…of which plantation forest',
-    ofWhichOtherPlantedForest: '…of which other planted forest',
+    plantationForest: '…of which plantation forest',
+    otherPlantedForest: '…of which other planted forest',
     totalForest: 'Forest',
     otherWoodedLand: 'Other wooded land',
     copyToClipboard: 'Copy values'

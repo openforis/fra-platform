@@ -1,94 +1,288 @@
-import './style.less'
-import React, { Component } from 'react'
-import ReactDOMServer from 'react-dom/server'
+import React from 'react'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
+import ReactDOMServer from 'react-dom/server'
 import clipboard from 'clipboard-polyfill'
 import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
-import { DataSourceDescriptionAndComments } from '../../descriptionBundles/dataSourceDescriptionAndComments'
-import GrowingStockTable from './growingStockTable'
-import { rows, avgRows, getGrowingStockValues } from './growingStock'
-import DefinitionLink from '../../reusableUiComponents/definitionLink'
 import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
-import { fetch, updateValue, updateValues } from './actions'
-import { toFixed } from '../../../common/bignumberUtils'
+import DefinitionLink from '../../reusableUiComponents/definitionLink'
+import { fetch, changeAvgValue, changeTotalValue, pasteAvgValue, pasteTotalValue } from './actions'
+import { ThousandSeparatedDecimalInput } from '../../reusableUiComponents/thousandSeparatedDecimalInput'
+import { sum, div, mul, toFixed, formatNumber } from '../../../common/bignumberUtils'
+import ReviewIndicator from '../../review/reviewIndicator'
+import { readPasteClipboard } from '../../utils/copyPasteUtil'
+import NationalDataDescriptions from '../../descriptionBundles/nationalDataDescriptions'
+import GeneralComments from '../../descriptionBundles/generalComments'
 
 const sectionName = 'growingStock'
 const mapIndexed = R.addIndex(R.map)
+const years = [1990, 2000, 2010, 2015, 2016, 2017, 2018, 2019, 2020]
+
+const InputRowAvg = (props) => {
+  const thClassName = props.subCategory ? 'fra-table__subcategory-cell' : 'fra-table__category-cell'
+  const target = props.row + 'Avg'
+  return <tr>
+    <th className={thClassName}>{props.i18n.t(`growingStock.${props.row}`)}</th>
+    {
+      R.map(year => {
+        const value = R.path([year, props.row], props.avgTable)
+        return <td className="fra-table__cell" key={year}>
+          <ThousandSeparatedDecimalInput
+            numberValue={value}
+            onPaste={e => props.pasteAvgValue(props.countryIso, year, props.row, readPasteClipboard(e, 'decimal'))}
+            onChange={e => props.changeAvgValue(props.countryIso, year, props.row, e.target.value)}/>
+        </td>
+      }, years)
+    }
+    <td className="fra-table__row-anchor-cell">
+      <div className="fra-table__review-indicator-anchor">
+        <ReviewIndicator
+          key={target}
+          section={sectionName}
+          title={props.i18n.t(`growingStock.${props.row}`)}
+          target={[target]}
+          countryIso={props.countryIso}/>
+      </div>
+    </td>
+  </tr>
+}
+
+const InputRowTotal = (props) => {
+  const thClassName = props.subCategory ? 'fra-table__subcategory-cell' : 'fra-table__category-cell'
+  const target = props.row + 'Total'
+  return <tr>
+    <th className={thClassName}>{props.i18n.t(`growingStock.${props.row}`)}</th>
+    {
+      R.map(year => {
+        const value = R.path([year, props.row], props.totalTable)
+        return <td className="fra-table__cell" key={year}>
+          <ThousandSeparatedDecimalInput
+            numberValue={value}
+            onPaste={e => props.pasteTotalValue(props.countryIso, year, props.row, readPasteClipboard(e, 'decimal'))}
+            onChange={e => props.changeTotalValue(props.countryIso, year, props.row, e.target.value)}/>
+        </td>
+      }, years)
+    }
+    <td className="fra-table__row-anchor-cell">
+      <div className="fra-table__review-indicator-anchor">
+        <ReviewIndicator
+          key={target}
+          section={sectionName}
+          title={props.i18n.t(`growingStock.${props.row}`)}
+          target={[target]}
+          countryIso={props.countryIso}/>
+      </div>
+    </td>
+  </tr>
+}
+
+const SumRowAvg = (props) => {
+  const target = props.row + 'Avg'
+  return <tr>
+    <th className="fra-table__header-cell-left">{props.i18n.t(`growingStock.${props.row}`)}</th>
+    {
+      R.map(year => {
+        const yearData = R.path([year], props.totalTable) || {}
+        const value = R.values(R.pick(props.sumFields, yearData)) || null
+        const baseYearData = R.path([year], props.baseTable) || {}
+        const baseValue = R.values(R.pick(props.baseFields, baseYearData)) || null
+        const avg = div(mul(sum(value), 1000), sum(baseValue))
+        return <td className="fra-table__calculated-cell" key={year}>
+          {formatNumber(avg)}
+        </td>
+      }, years)
+    }
+    <td className="fra-table__row-anchor-cell">
+      <div className="fra-table__review-indicator-anchor">
+        <ReviewIndicator
+          key={target}
+          section={sectionName}
+          title={props.i18n.t(`growingStock.${props.row}`)}
+          target={[target]}
+          countryIso={props.countryIso}/>
+      </div>
+    </td>
+  </tr>
+}
+
+const SumRowTotal = (props) => {
+  const target = props.row + 'Total'
+  return <tr>
+    <th className="fra-table__header-cell-left">{props.i18n.t(`growingStock.${props.row}`)}</th>
+    {
+      R.map(year => {
+        const yearData = R.path([year], props.totalTable) || {}
+        const value = R.values(R.pick(props.sumFields, yearData)) || null
+        return <td className="fra-table__calculated-cell" key={year}>
+          {formatNumber(sum(value))}
+        </td>
+      }, years)
+    }
+    <td className="fra-table__row-anchor-cell">
+      <div className="fra-table__review-indicator-anchor">
+        <ReviewIndicator
+          key={target}
+          section={sectionName}
+          title={props.i18n.t(`growingStock.${props.row}`)}
+          target={[target]}
+          countryIso={props.countryIso}/>
+      </div>
+    </td>
+  </tr>
+}
+
+const ClipboardTable = ({tableValues}) =>
+  <table>
+    <tbody>
+      {mapIndexed((row, i) =>
+        <tr key={i}>
+          {mapIndexed((value, i) =>
+            <td key={i}> {toFixed(value)} </td>
+          , row)}
+        </tr>
+      , tableValues)}
+    </tbody>
+  </table>
+
+const copyTableAsHtml = (tableData, i18n) => {
+  const tableValues = R.pipe(
+    R.values,
+    R.map(y => R.omit(['year', 'otherWoodedLand'], y)),
+    R.map(R.values),
+    R.transpose,
+    R.insert(1, [])
+  )(tableData)
+  const htmlTable = ReactDOMServer.renderToString(<ClipboardTable tableValues={tableValues}/>)
+  const dataTransfer = new clipboard.DT()
+  dataTransfer.setData("text/plain", i18n.t('growingStock.growingStock'))
+  dataTransfer.setData("text/html", htmlTable)
+  clipboard.write(dataTransfer)
+}
 
 const GrowingStock = (props) => {
   const i18n = props.i18n
+  const countryIso = props.countryIso
+  const avgTable = R.path(['avgTable'], props)
+  const totalTable = R.path(['totalTable'], props)
 
-  const avgRows = [
-    'naturallyRegeneratingForestAvg',
-    'plantedForestAvg',
-    'plantationForestAvg',
-    'otherPlantedForestAvg'
-  ]
+  if (R.isNil(avgTable) || R.isNil(totalTable)) return null
 
-  const ClipboardTable = ({tableValues}) =>
-    <table>
-      <tbody>
-        {mapIndexed((row, i) =>
-          <tr key={i}>
-            {mapIndexed((value, i) =>
-              <td key={i}> {toFixed(value)} </td>
-            , row)}
-          </tr>
-        , tableValues)}
-      </tbody>
-    </table>
-
-  const copyTableAsHtml = (growingStock, rowsSpecs) => {
-    const transposedGsValues = getGrowingStockValues(growingStock, rowsSpecs)
-    const htmlTable = ReactDOMServer.renderToString(<ClipboardTable tableValues={transposedGsValues}/>)
-    const dataTransfer = new clipboard.DT()
-    dataTransfer.setData("text/plain", i18n.t('growingStock.growingStock'))
-    dataTransfer.setData("text/html", htmlTable)
-    clipboard.write(dataTransfer)
-  }
-
-  return <div className='fra-view__content growing-stock-view'>
-    <div className="fra-view__page-header">
-      <h1 className="title">{i18n.t('growingStock.growingStock')}</h1>
-      <div className="fra-view__header-secondary-content">
-        <DefinitionLink document="tad" anchor="2a" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
-        <DefinitionLink document="faq" anchor="2a" title={i18n.t('definition.faqLabel')} lang={i18n.language}/>
-        <p className="support-text">{i18n.t('growingStock.supportText')}</p>
+  return <div className='fra-view__content'>
+    <NationalDataDescriptions section={sectionName} countryIso={countryIso}/>
+    <h2 className="headline">{i18n.t('growingStock.growingStock')}</h2>
+    <div className="fra-view__section-toolbar">
+      <DefinitionLink className="margin-right-big" document="tad" anchor="2a" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
+      <DefinitionLink className="align-left" document="faq" anchor="2a" title={i18n.t('definition.faqLabel')} lang={i18n.language}/>
+      <div className="support-text full-width">{i18n.t('growingStock.supportText')}</div>
+    </div>
+    <div className="fra-table__container">
+      <div className="fra-table__scroll-wrapper">
+        <table className="fra-table">
+          <thead>
+            <tr>
+              <th className="fra-table__header-cell-left" rowSpan="2">{i18n.t('growingStock.categoryHeader')}</th>
+              <th className="fra-table__header-cell" colSpan="9">
+                <div>
+                  {props.i18n.t('growingStock.avgTableHeader')}
+                  <button className="fra-table__header-button btn-xs btn-primary" onClick={() => copyTableAsHtml(avgTable, i18n)}>
+                    {props.i18n.t('growingStock.copyToClipboard')}
+                  </button>
+                </div>
+              </th>
+            </tr>
+            <tr>
+              {R.map(year => <th className="fra-table__header-cell" key={year}>{year}</th>, years)}
+            </tr>
+          </thead>
+          <tbody>
+            <InputRowAvg
+              row="naturallyRegeneratingForest"
+              {...props}
+            />
+            <SumRowAvg
+              row="plantedForest"
+              sumFields={['plantationForest', 'otherPlantedForest']}
+              baseFields={['plantationForestArea', 'otherPlantedForestArea']}
+              {...props}
+            />
+            <InputRowAvg
+              row="plantationForest"
+              subCategory={true}
+              {...props}
+            />
+            <InputRowAvg
+              row="otherPlantedForest"
+              subCategory={true}
+              {...props}
+            />
+            <SumRowAvg
+              row="totalForest"
+              sumFields={['naturallyRegeneratingForest', 'plantationForest', 'otherPlantedForest']}
+              baseFields={['forestArea']}
+              {...props}
+            />
+            <InputRowAvg
+              row="otherWoodedLand"
+              {...props}
+            />
+          </tbody>
+        </table>
       </div>
     </div>
-    <GrowingStockTable
-      section={sectionName}
-      header={props.i18n.t('growingStock.categoryHeader')}
-      avgTableHeader={
-        <div>
-          {props.i18n.t('growingStock.avgTableHeader')}
-          <button className="fra-table__header-button btn-xs btn-primary" onClick={() => copyTableAsHtml(props.values, avgRows)}>
-            {props.i18n.t('growingStock.copyToClipboard')}
-          </button>
-        </div>
-      }
-      totalTableHeader={props.i18n.t('growingStock.totalTableHeader')}
-      rows={rows}
-      {...props}
-    />
-    <DataSourceDescriptionAndComments
-      section={sectionName}
-      name={sectionName}
-      countryIso={props.countryIso}
-      i18n={i18n}
-    />
+    <div className="fra-table__container">
+      <div className="fra-table__scroll-wrapper">
+        <table className="fra-table">
+          <thead>
+            <tr>
+              <th className="fra-table__header-cell-left" rowSpan="2">{i18n.t('growingStock.categoryHeader')}</th>
+              <th className="fra-table__header-cell" colSpan="9">{i18n.t('growingStock.totalTableHeader')}</th>
+            </tr>
+            <tr>
+              {R.map(year => <th className="fra-table__header-cell" key={year}>{year}</th>, years)}
+            </tr>
+          </thead>
+          <tbody>
+            <InputRowTotal
+              row="naturallyRegeneratingForest"
+              {...props}
+            />
+            <SumRowTotal
+              row="plantedForest"
+              sumFields={['plantationForest', 'otherPlantedForest']}
+              {...props}
+            />
+            <InputRowTotal
+              row="plantationForest"
+              subCategory={true}
+              {...props}
+            />
+            <InputRowTotal
+              row="otherPlantedForest"
+              subCategory={true}
+              {...props}
+            />
+            <SumRowTotal
+              row="totalForest"
+              sumFields={['naturallyRegeneratingForest', 'plantationForest', 'otherPlantedForest']}
+              {...props}
+            />
+            <InputRowTotal
+              row="otherWoodedLand"
+              {...props}
+            />
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <GeneralComments section={sectionName} countryIso={countryIso}/>
   </div>
 }
 
-class GrowingStockView extends Component {
-
+class GrowingStockView extends React.Component {
   componentWillMount () {
-    this.fetch(this.props.match.params.countryIso)
-    this.props.fetchLastSectionUpdateTimestamp(
-      this.props.match.params.countryIso,
-      sectionName
-    )
+    const countryIso = this.props.match.params.countryIso
+    this.fetch(countryIso)
+    this.props.fetchLastSectionUpdateTimestamp(countryIso, sectionName)
   }
 
   fetch (countryIso) {
@@ -96,32 +290,31 @@ class GrowingStockView extends Component {
   }
 
   render () {
-    return R.isEmpty(this.props.growingStock)
-      ? null
-      : <LoggedInPageTemplate commentsOpen={this.props.openCommentThread}>
-        <GrowingStock
-          areaValues={this.props.growingStock.areaValues}
-          countryIso={this.props.match.params.countryIso}
-          values={this.props.growingStock.values}
-          {...this.props}/>
-      </LoggedInPageTemplate>
+    return <LoggedInPageTemplate commentsOpen={this.props.openCommentThread}>
+      <GrowingStock
+        countryIso={this.props.match.params.countryIso}
+        {...this.props}/>
+    </LoggedInPageTemplate>
   }
-
 }
 
-const mapStateToProps = state => ({
-  i18n: state.user.i18n,
-  growingStock: state.growingStock,
-  openCommentThread: state.review.openThread,
-  extentOfForest: state.extentOfForest
-})
+const mapStateToProps = state =>
+  ({
+    totalTable: state.growingStock.totalTable,
+    avgTable: state.growingStock.avgTable,
+    baseTable: state.growingStock.baseTable,
+    openCommentThread: state.review.openThread,
+    i18n: state.user.i18n
+  })
 
 export default connect(
-  mapStateToProps,
-  {
-    fetch,
-    updateValue,
-    updateValues,
-    fetchLastSectionUpdateTimestamp
-  }
-)(GrowingStockView)
+    mapStateToProps,
+    {
+      fetch,
+      changeTotalValue,
+      changeAvgValue,
+      pasteAvgValue,
+      pasteTotalValue,
+      fetchLastSectionUpdateTimestamp
+    }
+  )(GrowingStockView)
