@@ -14,24 +14,15 @@ const SubIndicator1 = ({i18n, countryIso, data, years}) => {
   const getValue1YearDiff = (year1, year2) => {
     const forest1 = getForestArea(data, year1)
     const forest2 = getForestArea(data, year2)
-
-    return R.pipe(
-      () => sub(forest2, forest1),
-      v => R.isNil(v) ? null : div(v, forest2),
-      v => R.isNil(v) ? null : mul(v, 100),
-    )()
+    return mul(div(sub(forest2, forest1), forest2), 100)
   }
 
   const getValueGt2yearsDiff = (year1, year2, p) => {
     const forest1 = getForestArea(data, year1)
     const forest2 = getForestArea(data, year2)
-
-    return R.pipe(
-      () => div(forest2, forest1),
-      v => R.isNil(v) ? null : Math.pow(v, p),
-      v => R.isNil(v) ? null : sub(v, 1),
-      v => R.isNil(v) ? null : mul(v, 100)
-    )()
+    const divided = div(forest2, forest1)
+    if (R.isNil(divided) || R.isNil(p)) return null
+    return mul(sub(Math.pow(divided, p), 1), 100)
   }
 
   const getValue5yearsDiff = (year1, year2) => getValueGt2yearsDiff(year1, year2, 0.2)
