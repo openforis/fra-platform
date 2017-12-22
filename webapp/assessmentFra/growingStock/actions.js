@@ -32,7 +32,7 @@ const pasteRowMapping = {
 const yearToColumn = R.invertObj(pasteYearMapping)
 const rowToIndex = R.invertObj(pasteRowMapping)
 
-const malvAvg = (growingStockState, year, row, newValue) => {
+const updateAvg = (growingStockState, year, row, newValue) => {
   const currentValue = R.path(['avgTable', year, row], growingStockState)
   const sanitizedValue = acceptNextDecimal(newValue, currentValue)
   const baseValue = R.path(['baseTable', year, baseValueKeysMapping[row]], growingStockState)
@@ -44,7 +44,7 @@ const malvAvg = (growingStockState, year, row, newValue) => {
   return updatedValue
 }
 
-const malvTotal = (growingStockState, year, row, newValue) => {
+const updateTotal = (growingStockState, year, row, newValue) => {
   const currentValue = R.path(['totalTableTable', year, row], growingStockState)
   const sanitizedValue = acceptNextDecimal(newValue, currentValue)
   const baseValue = R.path(['baseTable', year, baseValueKeysMapping[row]], growingStockState)
@@ -56,7 +56,7 @@ const malvTotal = (growingStockState, year, row, newValue) => {
   return updatedValue
 }
 
-const malvPaste = (growingStockState, year, row, pastedData, malvFunc) => {
+const updatePasteData = (growingStockState, year, row, pastedData, malvFunc) => {
   const colOffset = Number(yearToColumn[year])
   const rowOffset = Number(rowToIndex[row])
 
@@ -99,7 +99,7 @@ export const fetch = (countryIso) => dispatch =>
 
 export const changeAvgValue = (countryIso, year, row, newValue) => (dispatch, getState) => {
   const growingStockState = getState().growingStock
-  const updatedValue = malvAvg(growingStockState, year, row, newValue)
+  const updatedValue = updateAvg(growingStockState, year, row, newValue)
   dispatch(autosave.start)
   dispatch({type: growingStockChanged, data: updatedValue})
   dispatch(persistValues(countryIso, updatedValue))
@@ -107,7 +107,7 @@ export const changeAvgValue = (countryIso, year, row, newValue) => (dispatch, ge
 
 export const changeTotalValue = (countryIso, year, row, newValue) => (dispatch, getState) => {
   const growingStockState = getState().growingStock
-  const updatedValue = malvTotal(growingStockState, year, row, newValue)
+  const updatedValue = updateTotal(growingStockState, year, row, newValue)
   dispatch(autosave.start)
   dispatch({type: growingStockChanged, data: updatedValue})
   dispatch(persistValues(countryIso, updatedValue))
@@ -115,7 +115,7 @@ export const changeTotalValue = (countryIso, year, row, newValue) => (dispatch, 
 
 export const pasteAvgValue = (countryIso, year, row, pastedData) => (dispatch, getState) => {
   const growingStockState = getState().growingStock
-  const updatedValues = malvPaste(growingStockState, year, row, pastedData, malvAvg)
+  const updatedValues = updatePasteData(growingStockState, year, row, pastedData, updateAvg)
   dispatch(autosave.start)
   dispatch({type: growingStockChanged, data: updatedValues})
   dispatch(persistValues(countryIso, updatedValues))
@@ -123,7 +123,7 @@ export const pasteAvgValue = (countryIso, year, row, pastedData) => (dispatch, g
 
 export const pasteTotalValue = (countryIso, year, row, pastedData) => (dispatch, getState) => {
   const growingStockState = getState().growingStock
-  const updatedValues = malvPaste(growingStockState, year, row, pastedData, malvTotal)
+  const updatedValues = updatePasteData(growingStockState, year, row, pastedData, updateTotal)
   dispatch(autosave.start)
   dispatch({type: growingStockChanged, data: updatedValues})
   dispatch(persistValues(countryIso, updatedValues))

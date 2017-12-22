@@ -33,7 +33,7 @@ class GrowingStockCompositionView extends React.Component {
         <div className="fra-view__section-toolbar">
           <DefinitionLink className="margin-right-big" document="tad" anchor="2b" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
           <DefinitionLink className="align-left" document="faq" anchor="2b" title={i18n.t('definition.faqLabel')} lang={i18n.language}/>
-          <p className="support-text">{i18n.t('growingStockComposition.rankingYear')}</p>
+          <div className="support-text">{i18n.t('growingStockComposition.rankingYear')}</div>
         </div>
         <TraditionalTable tableSpec={this.tableSpecInstance} countryIso={match.params.countryIso}/>
         <GeneralComments
