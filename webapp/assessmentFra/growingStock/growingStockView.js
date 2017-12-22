@@ -147,7 +147,7 @@ const ClipboardTable = ({tableValues}) =>
 const copyTableAsHtml = (tableData, i18n) => {
   const tableValues = R.pipe(
     R.values,
-    R.map(y => R.omit(['year'], y)),
+    R.map(y => R.omit(['year', 'otherWoodedLand'], y)),
     R.map(R.values),
     R.transpose,
     R.insert(1, [])
