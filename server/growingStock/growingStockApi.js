@@ -18,7 +18,6 @@ module.exports.init = app => {
       )(table)
       const totalTable = pairTable(growingStockTotal)
       const avgTable = pairTable(growingStockAvg)
-
       const focArea = await repository.getFocArea(req.params.countryIso)
       const eofArea = await repository.getEofArea(req.params.countryIso)
       const years = R.uniq(R.pluck('year', [...focArea, ...eofArea]))

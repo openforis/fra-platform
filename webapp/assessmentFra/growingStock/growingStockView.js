@@ -16,7 +16,7 @@ import GeneralComments from '../../descriptionBundles/generalComments'
 
 const sectionName = 'growingStock'
 const mapIndexed = R.addIndex(R.map)
-const years = [1990, 2000, 2010, 2015, 2020]
+const years = [1990, 2000, 2010, 2015, 2016, 2017, 2018, 2019, 2020]
 
 const InputRowAvg = (props) => {
   const thClassName = props.subCategory ? 'fra-table__subcategory-cell' : 'fra-table__category-cell'
@@ -181,7 +181,7 @@ const GrowingStock = (props) => {
           <thead>
             <tr>
               <th className="fra-table__header-cell-left" rowSpan="2">{i18n.t('growingStock.categoryHeader')}</th>
-              <th className="fra-table__header-cell" colSpan="5">
+              <th className="fra-table__header-cell" colSpan="9">
                 <div>
                   {props.i18n.t('growingStock.avgTableHeader')}
                   <button className="fra-table__header-button btn-xs btn-primary" onClick={() => copyTableAsHtml(avgTable, i18n)}>
@@ -235,7 +235,7 @@ const GrowingStock = (props) => {
           <thead>
             <tr>
               <th className="fra-table__header-cell-left" rowSpan="2">{i18n.t('growingStock.categoryHeader')}</th>
-              <th className="fra-table__header-cell" colSpan="5">{i18n.t('growingStock.totalTableHeader')}</th>
+              <th className="fra-table__header-cell" colSpan="9">{i18n.t('growingStock.totalTableHeader')}</th>
             </tr>
             <tr>
               {R.map(year => <th className="fra-table__header-cell" key={year}>{year}</th>, years)}

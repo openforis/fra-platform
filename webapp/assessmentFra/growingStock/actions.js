@@ -19,7 +19,11 @@ const pasteYearMapping = {
   1: '2000',
   2: '2010',
   3: '2015',
-  4: '2020'
+  4: '2016',
+  5: '2017',
+  6: '2018',
+  7: '2019',
+  8: '2020'
 }
 
 const pasteRowMapping = {
@@ -59,31 +63,27 @@ const updateTotal = (growingStockState, year, row, newValue) => {
 const updatePasteData = (growingStockState, year, row, pastedData, malvFunc) => {
   const colOffset = Number(yearToColumn[year])
   const rowOffset = Number(rowToIndex[row])
-
   const handleRow = (pastedRowIndex, pastedRow, result) =>
     R.reduce(
       (accu, pastedColumnValue) => {
         const yearToUpdate = pasteYearMapping[accu.colIndex + colOffset]
         const rowToUpdate = pasteRowMapping[pastedRowIndex + rowOffset]
         if (R.isNil(yearToUpdate) || R.isNil(rowToUpdate)) return accu
-        const newAccu = {
+        return {
           result: malvFunc(accu.result, yearToUpdate, rowToUpdate, pastedColumnValue),
           colIndex: accu.colIndex + 1
         }
-        return newAccu
       },
       {result: result, colIndex: 0},
       pastedRow).result
 
   const updatedGrowingStock =
     R.reduce(
-      (accu, pastedRow) => {
-        const newAccu = {
+      (accu, pastedRow) =>
+        ({
           result: handleRow(accu.pastedRowIndex, pastedRow, accu.result),
           pastedRowIndex: accu.pastedRowIndex + 1
-        }
-        return newAccu
-      },
+        }),
       {result: growingStockState, pastedRowIndex: 0},
       pastedData
     ).result
