@@ -24,7 +24,7 @@ const Indicator = ({i18n, countryIso, data, years}) => {
 
   return <div className="fra-sustainable-dev-indicator-15-1-1">
     <div className="fra-view__section-header">
-      <h3 className="subhead">{i18n.t('sustainableDevelopment.sdgIndicator15_1_1')}</h3>
+      <h3 className="subhead">{i18n.t('sustainableDevelopment.indicator1')}</h3>
     </div>
     <div className="fra-table__container">
       <div className="fra-table__scroll-wrapper">
@@ -68,7 +68,7 @@ const Indicator = ({i18n, countryIso, data, years}) => {
       <ResponsibleAgency
         i18n={i18n}
         countryIso={countryIso}
-        tableSpecName="sustainableDevelopmentAgencyIndicator15_1_1"/>
+        tableSpecName="sustainableDevelopmentAgencyIndicator"/>
     </div>
 
 

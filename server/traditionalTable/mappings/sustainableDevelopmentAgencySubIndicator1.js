@@ -1,5 +1,5 @@
 module.exports = {
-  tableName: 'sustainable_development_ind_15_2_1_2',
+  tableName: 'sustainable_development_sub_indicator1',
   section: 'sustainableDevelopment',
   rows: {
     names: ['agency_name']

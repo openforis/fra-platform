@@ -23,11 +23,11 @@ const areaOfPermanentForestEstate = require('./mappings/areaOfPermanentForestEst
 const forestPolicy = require('./mappings/forestPolicy')
 const otherLandWithTreeCover = require('./mappings/otherLandWithTreeCover')
 const climaticDomain = require('./mappings/climaticDomain')
-const sustainableDevelopmentAgencyIndicator15_1_1 = require('./mappings/sustainableDevelopmentAgencyIndicator15_1_1')
-const sustainableDevelopmentAgencyIndicator15_2_1_1 = require('./mappings/sustainableDevelopmentAgencyIndicator15_2_1_1')
-const sustainableDevelopmentAgencyIndicator15_2_1_2 = require('./mappings/sustainableDevelopmentAgencyIndicator15_2_1_2')
-const sustainableDevelopmentAgencyIndicator15_2_1_3 = require('./mappings/sustainableDevelopmentAgencyIndicator15_2_1_3')
-const sustainableDevelopmentAgencyIndicator15_2_1_4 = require('./mappings/sustainableDevelopmentAgencyIndicator15_2_1_4')
+const sustainableDevelopmentAgencyIndicator = require('./mappings/sustainableDevelopmentAgencyIndicator')
+const sustainableDevelopmentAgencySubIndicator1 = require('./mappings/sustainableDevelopmentAgencySubIndicator1')
+const sustainableDevelopmentAgencySubIndicator2 = require('./mappings/sustainableDevelopmentAgencySubIndicator2')
+const sustainableDevelopmentAgencySubIndicator3 = require('./mappings/sustainableDevelopmentAgencySubIndicator3')
+const sustainableDevelopmentAgencySubIndicator4 = require('./mappings/sustainableDevelopmentAgencySubIndicator4')
 
 const mappings = {
   specificForestCategories,
@@ -53,11 +53,11 @@ const mappings = {
   forestPolicy,
   otherLandWithTreeCover,
   climaticDomain,
-  sustainableDevelopmentAgencyIndicator15_1_1,
-  sustainableDevelopmentAgencyIndicator15_2_1_1,
-  sustainableDevelopmentAgencyIndicator15_2_1_2,
-  sustainableDevelopmentAgencyIndicator15_2_1_3,
-  sustainableDevelopmentAgencyIndicator15_2_1_4
+  sustainableDevelopmentAgencyIndicator,
+  sustainableDevelopmentAgencySubIndicator1,
+  sustainableDevelopmentAgencySubIndicator2,
+  sustainableDevelopmentAgencySubIndicator3,
+  sustainableDevelopmentAgencySubIndicator4
 }
 
 const getRowIndex = (name, names) => {
