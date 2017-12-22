@@ -49,7 +49,7 @@ const SubIndicator2 = ({i18n, countryIso, data, years}) => {
               <ReviewIndicator
                 section={'sustainableDevelopment'}
                 title={i18n.t('sustainableDevelopment.aboveGroundBiomassStockForests')}
-                target={['indicator15.2.1.2']}
+                target={['subIndicator2']}
                 countryIso={countryIso}/>
             </div>
           </td>
@@ -61,7 +61,7 @@ const SubIndicator2 = ({i18n, countryIso, data, years}) => {
     <ResponsibleAgency
       i18n={i18n}
       countryIso={countryIso}
-      tableSpecName="sustainableDevelopmentAgencyIndicator15_2_1_2"/>
+      tableSpecName="sustainableDevelopmentAgencySubIndicator2"/>
 
   </div>
 }
