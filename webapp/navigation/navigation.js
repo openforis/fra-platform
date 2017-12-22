@@ -182,7 +182,11 @@ const Assessment = ({assessment, countryIso, status, changeAssessment, userInfo,
       divider: true
     }, {
       content: <div className="popover-control__checkbox-container">
-        <span className={`popover-control__checkbox ${currentAssessment.deskStudy ? 'checked' : ''}`}></span>
+        <span
+          style={{marginRight: '8px'}}
+          className={`fra-checkbox ${currentAssessment.deskStudy ? 'checked' : ''}`}
+        >
+        </span>
         <span>{i18n.t('assessment.deskStudy')}</span>
       </div>,
       onClick: () => changeAssessment(countryIso, {...currentAssessment, deskStudy: !currentAssessment.deskStudy})

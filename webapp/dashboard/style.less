@@ -1,7 +1,5 @@
 @import (reference) "../app-styles/config";
 
-@dashboard-border: 1px solid #eeeeee;
-
 .dashboard__page-header {
   max-width: 1280px;
   margin: 0 auto 24px;
@@ -34,7 +32,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-top: @dashboard-border;
+  border-top: 1px solid @ui-border-light;
   padding: 10px 0;
 }
 
@@ -60,7 +58,7 @@
 }
 
 .dashboard__activity-empty {
-  border-top: @dashboard-border;
+  border-top: 1px solid @ui-border-light;
   color: @text-disabled;
   padding: 48px;
   text-align: center;
@@ -98,7 +96,7 @@
 
   td {
     font-size: @font-m;
-    border-top: @dashboard-border;
+    border-top: 1px solid @ui-border-light;
   }
 }
 
