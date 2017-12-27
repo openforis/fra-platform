@@ -154,15 +154,18 @@ const ExtentOfForest = (props) => {
       validationErrorMessages
     }
   ]
-  const filteredFraColumns = R.reject(
-    fraColumn => !props.useOriginalDataPoints && fraColumn.type === 'odp',
-    R.values(props.fra)
-  )
   return <div className='fra-view__content'>
     <div className="fra-view__page-header">
       <button
         className={`btn btn-${props.useOriginalDataPoints ? 'secondary' : 'primary'}`}
-        onClick={() => {props.saveCountryConfigSetting(props.countryIso, 'useOriginalDataPoints', !props.useOriginalDataPoints)}}
+        onClick={() => {
+          props.saveCountryConfigSetting(
+            props.countryIso,
+            'useOriginalDataPoints',
+            !props.useOriginalDataPoints,
+            () => props.fetchItem(sectionName, props.countryIso)
+          )
+        }}
       >
       {
         props.useOriginalDataPoints
@@ -193,7 +196,7 @@ const ExtentOfForest = (props) => {
       <DefinitionLink className="align-left" document="faq" anchor="1a" title={i18n.t('definition.faqLabel')} lang={i18n.language}/>
     </div>
     <ChartWrapper
-      fra={filteredFraColumns}
+      fra={props.fra}
       trends={[
         {name: 'forestArea', label: i18n.t('fraClass.forest'), color: '#0098a6'},
         {name: 'otherWoodedLand', label: i18n.t('fraClass.otherWoodedLand'), color: '#bf00af'}
@@ -219,7 +222,7 @@ const ExtentOfForest = (props) => {
       tableHeader={props.i18n.t('extentOfForest.areaUnitLabel')}
       categoryHeader={props.i18n.t('extentOfForest.categoryHeader')}
       {...props}
-      fra={filteredFraColumns}
+      fra={props.fra}
     />
     <TraditionalTable
       tableSpec={climaticDomainTableSpec(props.i18n, props.climaticDomainPercents2015)}
