@@ -60,13 +60,8 @@ module.exports.init = app => {
     db.transaction(auditRepository.insertAudit,
       [req.user.id, 'saveFraValues', req.params.countryIso, req.params.section])
     const section = req.params.section
-    const updates = []
     const writer = fraWriters[section]
-
-    R.map(c => {
-      updates.push(writer(req.params.countryIso, c.year, c))
-    }, req.body.columns)
-
+    const updates = R.map(c => writer(req.params.countryIso, c.year, c), req.body.columns)
     Promise.all(updates)
       .then(() => res.json({}))
       .catch(err => sendErr(res, err))
@@ -80,7 +75,7 @@ module.exports.init = app => {
       [req.user.id, 'saveFraValues', req.params.countryIso, section])
 
     const writer = fraWriters[section]
-
+    console.log('saveFraValues', req.params.year)
     writer(req.params.countryIso, req.params.year, req.body)
       .then(() => res.json({}))
       .catch(err => sendErr(res, err))
