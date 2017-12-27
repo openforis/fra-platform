@@ -30,26 +30,21 @@ const defaultResponses = {
   'forestCharacteristics': () => focTableResponse.buildDefaultResponse(focTableResponse.defaultYears)
 }
 
-const getFraValues = (section, countryIso) => {
+const getFraValues = async (section, countryIso) => {
   const readFra = fraReaders[section]
 
   const readOdp = odpReaders[section]
   const defaultResponse = defaultResponses[section]
 
-  const fra = readFra(countryIso)
-  const odp = readOdp(countryIso)
-
-  return Promise.all([fra, odp])
-    .then(result => {
-      const fra = R.pipe(
-        R.merge(defaultResponse()),
-        R.merge(result[1]),
-        R.values,
-        R.sort((a, b) => a.year === b.year ? (a.type < b.type ? -1 : 1) : a.year - b.year)
-      )(result[0])
-
-      return {fra}
-    })
+  const fra = await readFra(countryIso)
+  const odp = await readOdp(countryIso)
+  const result = R.pipe(
+    R.merge(defaultResponse()),
+    R.merge(odp),
+    R.values,
+    R.sort((a, b) => a.year === b.year ? (a.type < b.type ? -1 : 1) : a.year - b.year)
+  )(fra)
+  return {fra: result}
 }
 
 module.exports.getFraValues = getFraValues
@@ -87,12 +82,12 @@ module.exports.init = app => {
     }
   })
 
-  app.get('/nde/:section/:countryIso', (req, res) => {
+  app.get('/nde/:section/:countryIso', async (req, res) => {
     checkCountryAccessFromReqParams(req)
-
-    getFraValues(req.params.section, req.params.countryIso)
-      .then(fra => res.json(fra))
-      .catch(err => sendErr(res, err))
+    try {
+      const fra = await getFraValues(req.params.section, req.params.countryIso)
+      res.json(fra)
+    } catch (err) { sendErr(res, err) }
   })
 
   app.post('/nde/:section/generateFraValues/:countryIso', (req, res) => {
