@@ -193,17 +193,20 @@ const ForestCharacteristics = props => {
       validationErrorMessages
     }
   ]
-  const filteredFraColumns = R.reject(
-    fraColumn => !props.useOriginalDataPointsInFoc && fraColumn.type === 'odp',
-    R.values(props.fra)
-  )
   return <div className='fra-view__content'>
     {
       props.useOriginalDataPoints
       ? <div className="fra-view__page-header">
           <button
             className={`btn btn-${props.useOriginalDataPointsInFoc ? 'secondary' : 'primary'}`}
-            onClick={() => {props.saveCountryConfigSetting(props.countryIso, 'useOriginalDataPointsInFoc', !props.useOriginalDataPointsInFoc)}}
+            onClick={() => {
+              props.saveCountryConfigSetting(
+                props.countryIso,
+                'useOriginalDataPointsInFoc',
+                !props.useOriginalDataPointsInFoc,
+                () => props.fetchItem(sectionName, props.countryIso)
+              )
+            }}
           >
           {
             props.useOriginalDataPointsInFoc
@@ -228,7 +231,7 @@ const ForestCharacteristics = props => {
       <DefinitionLink className="align-left" document="faq" anchor="1b" title={i18n.t('definition.faqLabel')} lang={i18n.language} />
     </div>
     <ChartWrapper
-      fra={filteredFraColumns}
+      fra={props.fra}
       trends={[
         {name:'naturalForestArea', label:props.i18n.t('forestCharacteristics.naturalForestArea'), color:'#0098a6'},
         {name:'plantationForestArea', label:props.i18n.t('forestCharacteristics.plantationForestArea'), color:'#bf00af'},
@@ -255,7 +258,7 @@ const ForestCharacteristics = props => {
       tableHeader={i18n.t('forestCharacteristics.areaUnitLabel')}
       categoryHeader={i18n.t('forestCharacteristics.categoryHeader')}
       {...props}
-      fra={filteredFraColumns}
+      fra={props.fra}
     />
     <GeneralComments
       section={sectionName}
