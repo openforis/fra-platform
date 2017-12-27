@@ -744,9 +744,15 @@ Explanatory notes
 1. If values are obtained from a point further down the production chain, transport costs and possible handling and/or processing costs should be subtracted whenever possible.
 2. Commercial value refers to actual market value and potential value of both marketed and non-marketed products.
 
+--- 
+
+# 8 Sustainable Development Goal 15
+
+Sustainable Development Goal 15
+
 ---
 
-# 8 Additional terms and definitions
+# 9 Additional terms and definitions
 
 ### CANOPY COVER
 
