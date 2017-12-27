@@ -23,6 +23,11 @@ const areaOfPermanentForestEstate = require('./mappings/areaOfPermanentForestEst
 const forestPolicy = require('./mappings/forestPolicy')
 const otherLandWithTreeCover = require('./mappings/otherLandWithTreeCover')
 const climaticDomain = require('./mappings/climaticDomain')
+const sustainableDevelopmentAgencyIndicator = require('./mappings/sustainableDevelopmentAgencyIndicator')
+const sustainableDevelopmentAgencySubIndicator1 = require('./mappings/sustainableDevelopmentAgencySubIndicator1')
+const sustainableDevelopmentAgencySubIndicator2 = require('./mappings/sustainableDevelopmentAgencySubIndicator2')
+const sustainableDevelopmentAgencySubIndicator3 = require('./mappings/sustainableDevelopmentAgencySubIndicator3')
+const sustainableDevelopmentAgencySubIndicator4 = require('./mappings/sustainableDevelopmentAgencySubIndicator4')
 
 const mappings = {
   specificForestCategories,
@@ -47,7 +52,12 @@ const mappings = {
   areaOfPermanentForestEstate,
   forestPolicy,
   otherLandWithTreeCover,
-  climaticDomain
+  climaticDomain,
+  sustainableDevelopmentAgencyIndicator,
+  sustainableDevelopmentAgencySubIndicator1,
+  sustainableDevelopmentAgencySubIndicator2,
+  sustainableDevelopmentAgencySubIndicator3,
+  sustainableDevelopmentAgencySubIndicator4
 }
 
 const getRowIndex = (name, names) => {

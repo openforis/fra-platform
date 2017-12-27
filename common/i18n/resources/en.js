@@ -161,7 +161,8 @@ module.exports.translation = {
       forestOwnershipAndManagementRights: 'Forest ownership and management rights',
       forestDisturbances: 'Forest disturbances',
       forestPolicyAndLegislation: 'Forest policy and legislation',
-      employmentEducationAndNwfp: 'Employment, education and NWFP'
+      employmentEducationAndNwfp: 'Employment, education and NWFP',
+      sustainableDevelopment:'Sustainable Development Goal 15'
     }
   },
 
@@ -330,8 +331,8 @@ The FRA team
     ofWhichTreesUrbanSettings: '…of which trees in urban settings',
     totalLandArea: 'Total land area',
     faoStatLandArea: 'FAOSTAT land area',
-    faoStatMismatch: "Doesn't match FAOSTAT land area",
-    forestAreaDoesNotMatchPreviouslyReported: "Forest area doesn't match FRA 2015 area: {{previous}}",
+    faoStatMismatch: 'Doesn’t match FAOSTAT land area',
+    forestAreaDoesNotMatchPreviouslyReported: 'Forest area doesn’t match FRA 2015 area: {{previous}}',
     useOriginalDataPoints: 'Use national data points',
     dontUseOriginalDataPoints: 'Don’t use national data points'
   },
@@ -636,6 +637,24 @@ The FRA team
     total: 'Total',
     currency: 'Name of currency',
     notSelected: ''
+  },
+
+  sustainableDevelopment: {
+    sustainableDevelopment: 'Sustainable Development Goal 15',
+    indicator: 'Indicator',
+    percent: 'Percent',
+    nameOfAgencyResponsible: 'Name of agency responsible',
+    indicator1: 'SDG Indicator 15.1.1 Forest area as proportion of total land area 2015',
+    forestAreaProportionLandArea2015: 'Forest area as proportion of total land area 2015',
+    sdgIndicator15_2_1: 'SDG Indicator 15.2.1 Progress towards sustainable forest management',
+    subIndicator: 'Sub-Indicator {{no}}',
+    forestAreaAnnualNetChangeRate: 'Forest area annual net change rate',
+    aboveGroundBiomassStockForests: 'Above-ground biomass stock in forests',
+    percent2015ForestAreaBaseline: 'Percent (2015 forest area baseline)',
+    proportionForestAreaLegallyEstablishedProtectedAreas: 'Proportion of forest area located within legally established protected areas',
+    proportionForestAreaLongTermForestManagement: 'Proportion of forest area under long-term forest management',
+    forestArea1000Ha: 'Forest area (1000 ha)',
+    forestAreaVerifiedForestManagement: 'Forest area under independently verified forest management certification schemes'
   },
 
   assessment: {

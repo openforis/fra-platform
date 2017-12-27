@@ -403,3 +403,9 @@ Use the best conversion factor available to convert the traditional measurement 
 ### Can grazing be considered as fodder and therefore as a NWFP.
 
 No, grazing is a service while fodder is a tangible good. So include fodder collected from the forest, but exclude grazing.
+
+--- 
+
+# 8 Sustainable Development Goal 15
+
+Sustainable Development Goal 15

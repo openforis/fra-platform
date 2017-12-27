@@ -15,6 +15,7 @@ import review from '../review/reducer'
 import dashboard from '../dashboard/reducer'
 import userManagement from '../userManagement/reducer'
 import country from '../country/reducer'
+import sustainableDevelopment from '../assessmentFra/sustainableDevelopment/reducer'
 
 export default combineReducers({
   applicationError,
@@ -31,5 +32,6 @@ export default combineReducers({
   growingStock,
   dashboard,
   userManagement,
-  country
+  country,
+  sustainableDevelopment
 })
