@@ -9,6 +9,7 @@ const R = require('ramda')
 const estimationEngine = require('./estimationEngine')
 const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
 const auditRepository = require('./../audit/auditRepository')
+const defaultYears = require('./defaultYears')
 
 const forestAreaTableResponse = require('./forestAreaTableResponse')
 const focTableResponse = require('./focTableResponse')
@@ -26,8 +27,8 @@ const fraWriters = {
   'forestCharacteristics': fraRepository.persistFocValues
 }
 const defaultResponses = {
-  'extentOfForest': () => forestAreaTableResponse.fra,
-  'forestCharacteristics': () => focTableResponse.buildDefaultResponse(focTableResponse.defaultYears)
+  'extentOfForest': forestAreaTableResponse,
+  'forestCharacteristics': focTableResponse
 }
 
 const getFraValues = async (section, countryIso) => {
@@ -38,9 +39,15 @@ const getFraValues = async (section, countryIso) => {
 
   const fra = await readFra(countryIso)
   const odp = await readOdp(countryIso)
+
+  const odpYears = R.pluck('year', odp)
+  const fraYears = R.pluck('year', fra)
+  const defaults = R.reject(value => R.contains(value.year, [...odpYears, ...fraYears]), defaultResponse)
+
   const result = R.pipe(
-    R.merge(defaultResponse()),
-    R.merge(odp),
+    R.reject(value => R.contains(value.year, odpYears)),
+    R.concat(defaults),
+    R.concat(odp),
     R.values,
     R.sort((a, b) => a.year === b.year ? (a.type < b.type ? -1 : 1) : a.year - b.year)
   )(fra)
@@ -98,12 +105,6 @@ module.exports.init = app => {
     const section = req.params.section
     const readOdp = odpReaders[section]
     const writer = fraWriters[section]
-    const defaultResponse = defaultResponses[section]
-
-    const years = R.pipe(
-      R.values,
-      R.map((v) => v.year)
-    )(defaultResponse())
     const generateSpec = req.body
 
     estimationEngine
@@ -111,7 +112,7 @@ module.exports.init = app => {
         readOdp,
         writer,
         req.params.countryIso,
-        years,
+        defaultYears,
         generateSpec
       )
       .then(() => res.json({}))

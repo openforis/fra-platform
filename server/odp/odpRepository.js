@@ -309,34 +309,38 @@ const getOdp = odpId =>
 
 module.exports.getOdp = getOdp
 
-const eofReducer = (results, row, type = 'fra') => R.assoc(`odp_${row.year}`,
-  {
-    odpId: row.odp_id,
-    forestArea: row.forest_area,
-    otherWoodedLand: row.other_wooded_land_area,
-    otherLand: row.other_land_area,
-    name: row.year + '',
-    type: 'odp',
-    year: Number(row.year),
-    dataSourceMethods: R.path(['data_source_methods', 'methods'], row),
-    draft: row.draft
-  },
-  results)
+const eofReducer = (results, row, type = 'fra') =>
+  [
+    ...results,
+    {
+      odpId: row.odp_id,
+      forestArea: row.forest_area,
+      otherWoodedLand: row.other_wooded_land_area,
+      otherLand: row.other_land_area,
+      name: row.year + '',
+      type: 'odp',
+      year: Number(row.year),
+      dataSourceMethods: R.path(['data_source_methods', 'methods'], row),
+      draft: row.draft
+    }
+  ]
 
-const focReducer = (results, row, type = 'fra') => R.assoc(`odp_${row.year}`,
-  {
-    odpId: row.odp_id,
-    naturalForestArea: row.natural_forest_area,
-    plantationForestArea: row.plantation_forest_area,
-    plantationForestIntroducedArea: row.plantation_forest_introduced_area,
-    otherPlantedForestArea: row.other_planted_forest_area,
-    name: row.year + '',
-    type: 'odp',
-    year: Number(row.year),
-    dataSourceMethods: R.path(['data_source_methods', 'methods'], row),
-    draft: row.draft
-  },
-  results)
+const focReducer = (results, row, type = 'fra') =>
+  [
+    ...results,
+    {
+      odpId: row.odp_id,
+      naturalForestArea: row.natural_forest_area,
+      plantationForestArea: row.plantation_forest_area,
+      plantationForestIntroducedArea: row.plantation_forest_introduced_area,
+      otherPlantedForestArea: row.other_planted_forest_area,
+      name: row.year + '',
+      type: 'odp',
+      year: Number(row.year),
+      dataSourceMethods: R.path(['data_source_methods', 'methods'], row),
+      draft: row.draft
+    }
+  ]
 
 module.exports.readEofOdps = (countryIso) =>
   db.query(`
@@ -364,7 +368,7 @@ module.exports.readEofOdps = (countryIso) =>
         WHERE p.country_iso = $1 AND year IS NOT NULL
         GROUP BY odp_id, v.year, v.data_source_methods, draft
         `
-    , [countryIso]).then(result => R.reduce(eofReducer, {}, result.rows))
+    , [countryIso]).then(result => R.reduce(eofReducer, [], result.rows))
 
 module.exports.readFocOdps = (countryIso) =>
   db.query(`
@@ -393,7 +397,7 @@ module.exports.readFocOdps = (countryIso) =>
         WHERE p.country_iso = $1 AND year IS NOT NULL
         GROUP BY odp_id, v.year, v.data_source_methods, draft
         `
-    , [countryIso]).then(result => R.reduce(focReducer, {}, result.rows))
+    , [countryIso]).then(result => R.reduce(focReducer, [], result.rows))
 
 const listOriginalDataPoints = countryIso =>
   db.query(`SELECT p.id as odp_id FROM odp p WHERE country_iso = $1`, [countryIso])
