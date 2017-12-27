@@ -4,10 +4,11 @@ const db = require('../db/db')
 const os = require('os')
 const Promise = require('bluebird')
 const fs = Promise.promisifyAll(require('fs'))
-const {sendErr, sendOk} = require('../utils/requestUtils')
+const { sendErr, sendOk } = require('../utils/requestUtils')
 const R = require('ramda')
 const estimationEngine = require('./estimationEngine')
-const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
+const { checkCountryAccessFromReqParams } = require('../utils/accessControl')
+const { getDynamicCountryConfiguration } = require('../country/countryRepository')
 const auditRepository = require('./../audit/auditRepository')
 const defaultYears = require('./defaultYears')
 
@@ -30,15 +31,31 @@ const defaultResponses = {
   'extentOfForest': forestAreaTableResponse,
   'forestCharacteristics': focTableResponse
 }
+const odpsInUse = {
+  'extentOfForest': (config) => config.useOriginalDataPoints === true,
+  'forestCharacteristics': (config) =>
+    config.useOriginalDataPoints === true && config.useOriginalDataPointsInFoc === true
+}
+
+const getOdps = async (section, countryIso) => {
+  const dynamicConfig = await getDynamicCountryConfiguration(countryIso)
+  const useOdps = odpsInUse[section](dynamicConfig)
+  const readOdp = odpReaders[section]
+  if (useOdps) {
+    const odps = await readOdp(countryIso)
+    return odps
+  } else {
+    return []
+  }
+}
 
 const getFraValues = async (section, countryIso) => {
   const readFra = fraReaders[section]
 
-  const readOdp = odpReaders[section]
   const defaultResponse = defaultResponses[section]
 
   const fra = await readFra(countryIso)
-  const odp = await readOdp(countryIso)
+  const odp = await getOdps(section, countryIso)
 
   const odpYears = R.pluck('year', odp)
   const fraYears = R.pluck('year', fra)
