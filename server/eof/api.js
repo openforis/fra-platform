@@ -73,17 +73,18 @@ module.exports.init = app => {
   })
 
   // persists section fra values
-  app.post('/nde/:section/country/:countryIso/:year', (req, res) => {
+  app.post('/nde/:section/country/:countryIso/:year', async (req, res) => {
     const section = req.params.section
     checkCountryAccessFromReqParams(req)
-    db.transaction(auditRepository.insertAudit,
-      [req.user.id, 'saveFraValues', req.params.countryIso, section])
-
-    const writer = fraWriters[section]
-    console.log('saveFraValues', req.params.year)
-    writer(req.params.countryIso, req.params.year, req.body)
-      .then(() => res.json({}))
-      .catch(err => sendErr(res, err))
+    try {
+      await db.transaction(auditRepository.insertAudit,
+        [req.user.id, 'saveFraValues', req.params.countryIso, section])
+      const writer = fraWriters[section]
+      await writer(req.params.countryIso, req.params.year, req.body)
+      sendOk(res)
+    } catch (err) {
+      sendErr(res, err)
+    }
   })
 
   app.get('/nde/:section/:countryIso', (req, res) => {
