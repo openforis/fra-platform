@@ -4,7 +4,7 @@ const db = require('../db/db')
 const os = require('os')
 const Promise = require('bluebird')
 const fs = Promise.promisifyAll(require('fs'))
-const {sendErr} = require('../utils/requestUtils')
+const {sendErr, sendOk} = require('../utils/requestUtils')
 const R = require('ramda')
 const estimationEngine = require('./estimationEngine')
 const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
@@ -55,16 +55,21 @@ const getFraValues = (section, countryIso) => {
 module.exports.getFraValues = getFraValues
 
 module.exports.init = app => {
-  app.post('/nde/:section/:countryIso', (req, res) => {
+  app.post('/nde/:section/:countryIso', async (req, res) => {
     checkCountryAccessFromReqParams(req)
-    db.transaction(auditRepository.insertAudit,
-      [req.user.id, 'saveFraValues', req.params.countryIso, req.params.section])
-    const section = req.params.section
-    const writer = fraWriters[section]
-    const updates = R.map(c => writer(req.params.countryIso, c.year, c), req.body.columns)
-    Promise.all(updates)
-      .then(() => res.json({}))
-      .catch(err => sendErr(res, err))
+    try {
+      await db.transaction(auditRepository.insertAudit,
+        [req.user.id, 'saveFraValues', req.params.countryIso, req.params.section])
+      const section = req.params.section
+      const writer = fraWriters[section]
+      const updates = R.map(c => writer(req.params.countryIso, c.year, c), req.body.columns)
+      for (let update of updates) {
+        await update
+      }
+      sendOk(res)
+    } catch (err) {
+      sendErr(res, err)
+    }
   })
 
   // persists section fra values
