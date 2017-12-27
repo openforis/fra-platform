@@ -2,7 +2,6 @@ const db = require('../db/db')
 const R = require('ramda')
 const {sendErr} = require('../utils/requestUtils')
 const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
-const {getFraValues} = require('../eof/api')
 const repository = require('./growingStockRepository')
 
 module.exports.init = app => {
