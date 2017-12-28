@@ -1,4 +1,5 @@
 const R = require('ramda')
+const { sum, lessThanOrEqualTo } = require('./bignumberUtils')
 
 module.exports.validateDataPoint = odp => {
   const defaultTo0 = R.defaultTo(0)
@@ -8,10 +9,10 @@ module.exports.validateDataPoint = odp => {
     R.partialRight(R.gt, [0])
   )(odp.year)
 
-  const validateEofPercentage = cls => R.pipe(
-    c => R.sum([defaultTo0(c.forestPercent), defaultTo0(c.otherWoodedLandPercent), defaultTo0(c.otherLandPercent)]),
-    R.equals(100)
-  )(cls)
+  const validateEofPercentage = cls => {
+    const percentSum = sum([defaultTo0(cls.forestPercent), defaultTo0(cls.otherWoodedLandPercent)])
+    return lessThanOrEqualTo(percentSum, 100)
+  }
 
   const validateFocPercentage = cls =>
     cls.forestPercent <= 0 ? true : R.pipe(
