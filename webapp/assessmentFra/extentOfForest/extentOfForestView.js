@@ -30,15 +30,6 @@ const ExtentOfForest = (props) => {
   const getFaostatValue = year => R.path(['faoStat', year, 'area'], props)
   const getForestArea2015Value = year => R.path(['fra2015ForestAreas', year], props)
 
-  const totalAreaNotEqualToFaoStat = (fraColumn, totalArea) => {
-    const faoStatValue = getFaostatValue(fraColumn.name)
-    if (!faoStatValue) return false // It's normal that we don't have faoStat-values for years
-    if (R.isNil(totalArea)) return false
-    const tolerance = 1
-    const absDifference = abs(sub(faoStatValue, totalArea))
-    return greaterThanOrEqualTo(absDifference, tolerance)
-  }
-
   const forestAreaValidator = (fraColumn) => {
     const forestAreaFromFra2015 = getForestArea2015Value(fraColumn.name)
     if (R.isNil(forestAreaFromFra2015) || R.isNil(fraColumn.forestArea)) return true
@@ -47,11 +38,18 @@ const ExtentOfForest = (props) => {
     return lessThanOrEqualTo(absDifference, tolerance)
   }
 
-  const totalAreaValidationClass = (fraColumn, totalArea) =>
-    totalAreaNotEqualToFaoStat(fraColumn, totalArea) ? 'validation-error' : ''
+  const calculateOtherLandArea = (faoStatLandArea, fraColumn) =>
+    sub(faoStatLandArea, sum([fraColumn.forestArea, fraColumn.otherWoodedLand]))
 
-  const otherLandValidationClass = (fraColumn, otherLand) =>
-    lessThanOrEqualTo(otherLand, 0) ? 'validation-error' : ''
+  const otherLandAreaNegative = (fraColumn) => {
+    const faoStatLandArea = getFaostatValue(fraColumn.name)
+    const otherLandArea = calculateOtherLandArea(faoStatLandArea, fraColumn)
+    if (R.isNil(faoStatLandArea) || R.isNil(otherLandArea)) return false
+    return lessThanOrEqualTo(otherLandArea, 0)
+  }
+
+  const otherLandValidationClass = fraColumn =>
+    otherLandAreaNegative(fraColumn) ? 'validation-error' : ''
 
   const rowHighlightClass = (target) => props.openCommentThread && R.isEmpty(R.difference(props.openCommentThread.target, [target])) ? 'fra-row-comments__open' : ''
 
@@ -63,8 +61,8 @@ const ExtentOfForest = (props) => {
       {
         mapIndexed((fraColumn, i) => {
           const faoStatLandArea = getFaostatValue(fraColumn.name)
-          const otherLandArea = sub(faoStatLandArea, sum([fraColumn.forestArea, fraColumn.otherWoodedLand]))
-          return <td className={`${odpValueCellClass(fraColumn)} ${otherLandValidationClass(fraColumn, otherLandArea)}`} key={i}>
+          const otherLandArea = calculateOtherLandArea(faoStatLandArea, fraColumn)
+          return <td className={`${odpValueCellClass(fraColumn)} ${otherLandValidationClass(fraColumn)}`} key={i}>
             {formatNumber(otherLandArea)}
           </td>
         }, R.values(fra))
@@ -74,41 +72,21 @@ const ExtentOfForest = (props) => {
           <ReviewIndicator
             key="totalArea"
             section={sectionName}
-            title={i18n.t('extentOfForest.totalLandArea')}
+            title={i18n.t('fraClass.otherLand')}
             target={['otherLand']}
             countryIso={props.countryIso} />
         </div>
       </td>
     </tr>
 
-  const totalAreaRow = fra =>
-    <tr className={rowHighlightClass('totalArea')}>
-      <th className="fra-table__header-cell-left">
-        {i18n.t('extentOfForest.totalLandArea')} (a+b+c)
-      </th>
-      {
-        mapIndexed((fraColumn, i) => {
-          const totalLandArea = sum([fraColumn.forestArea, fraColumn.otherWoodedLand, fraColumn.otherLand])
-          return <td className={`${odpValueCellClass(fraColumn)} ${totalAreaValidationClass(fraColumn, totalLandArea)}`} key={i}>
-            {formatNumber(totalLandArea)}
-          </td>
-        }, R.values(fra))
-      }
-      <td className="fra-table__row-anchor-cell">
-        <div className="fra-table__review-indicator-anchor">
-          <ReviewIndicator
-            key="totalArea"
-            section={sectionName}
-            title={i18n.t('extentOfForest.totalLandArea')}
-            target={['totalArea']}
-            countryIso={props.countryIso} />
-        </div>
-      </td>
-    </tr>
-
-  const faoStatRow = fra =>
+  const faoStatTotalLandAreaRow = fra =>
     <tr className={rowHighlightClass('faoStat')}>
-      <th className="fra-table__header-cell-left">{props.i18n.t('extentOfForest.faoStatLandArea')}</th>
+      <th className="fra-table__header-cell-left">{
+        props.i18n.t('extentOfForest.totalLandArea')
+      }
+      &nbsp;
+      (FAOSTAT)
+      </th>
       {
         mapIndexed((faoStatColumn, i) => {
           const faoStatLandArea = getFaostatValue(faoStatColumn.name)
@@ -122,7 +100,7 @@ const ExtentOfForest = (props) => {
           <ReviewIndicator
             key="faoStat"
             section={sectionName}
-            title={i18n.t('extentOfForest.faoStatLandArea')}
+            title={i18n.t('extentOfForest.totalLandArea')}
             target={['faoStat']}
             countryIso={props.countryIso} />
         </div>
@@ -142,8 +120,8 @@ const ExtentOfForest = (props) => {
                 {previous: getForestArea2015Value(fraColumn.name)}
               )
               : null,
-            totalAreaNotEqualToFaoStat(fraColumn, totalLandArea)
-              ? props.i18n.t('extentOfForest.faoStatMismatch')
+            otherLandAreaNegative(fraColumn)
+              ? props.i18n.t('extentOfForest.otherLandNegative')
               : null
           ]
         )
@@ -165,22 +143,12 @@ const ExtentOfForest = (props) => {
       rowVariable: '(b)'
     },
     {
-      type: 'field',
-      field: 'otherLand',
-      rowHeader: i18n.t('fraClass.otherLand'),
-      rowVariable: '(c)'
-    },
-    {
       type: 'custom',
       render: otherLandRow
     },
     {
       type: 'custom',
-      render: totalAreaRow
-    },
-    {
-      type: 'custom',
-      render: faoStatRow
+      render: faoStatTotalLandAreaRow
     },
     {
       type: 'validationErrors',
