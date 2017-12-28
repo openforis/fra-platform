@@ -109,7 +109,6 @@ const ExtentOfForest = (props) => {
 
   const validationErrorMessages = fra =>
     R.map(fraColumn => {
-      const totalLandArea = sum([fraColumn.forestArea, fraColumn.otherWoodedLand, fraColumn.otherLand])
       const validationErrors =
         R.reject(
           R.isNil,
