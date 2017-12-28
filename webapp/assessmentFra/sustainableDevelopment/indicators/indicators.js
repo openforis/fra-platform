@@ -6,10 +6,4 @@ export const getDataPoint = (data, year) => R.pipe(
   R.find(v => eq(v.year, year))
 )(data)
 
-export const getForestArea = (data, year)  => R.pipe(
-  R.partialRight(getDataPoint,[year]),
-  R.prop('forestArea')
-)(data)
-
-
-
+export const getForestArea = (data, year) => R.path(['forestArea'], getDataPoint(data, year))
