@@ -1,10 +1,9 @@
-const Promise = require('bluebird')
 const R = require('ramda')
 
 const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
 const {sendErr} = require('../utils/requestUtils')
 
-const {getFraValues} = require('../eof/api')
+const {getFraValues} = require('../eof/fraValueService')
 const {readObject} = require('../traditionalTable/traditionalTableRepository')
 
 module.exports.init = app => {
