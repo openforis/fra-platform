@@ -50,7 +50,36 @@ const ExtentOfForest = (props) => {
   const totalAreaValidationClass = (fraColumn, totalArea) =>
     totalAreaNotEqualToFaoStat(fraColumn, totalArea) ? 'validation-error' : ''
 
+  const otherLandValidationClass = (fraColumn, otherLand) =>
+    lessThanOrEqualTo(otherLand, 0) ? 'validation-error' : ''
+
   const rowHighlightClass = (target) => props.openCommentThread && R.isEmpty(R.difference(props.openCommentThread.target, [target])) ? 'fra-row-comments__open' : ''
+
+  const otherLandRow = fra =>
+    <tr className={rowHighlightClass('otherLand')}>
+      <th className="fra-table__category-cell">
+        {i18n.t('fraClass.otherLand')}
+      </th>
+      {
+        mapIndexed((fraColumn, i) => {
+          const faoStatLandArea = getFaostatValue(fraColumn.name)
+          const otherLandArea = sub(faoStatLandArea, sum([fraColumn.forestArea, fraColumn.otherWoodedLand]))
+          return <td className={`${odpValueCellClass(fraColumn)} ${otherLandValidationClass(fraColumn, otherLandArea)}`} key={i}>
+            {formatNumber(otherLandArea)}
+          </td>
+        }, R.values(fra))
+      }
+      <td className="fra-table__row-anchor-cell">
+        <div className="fra-table__review-indicator-anchor">
+          <ReviewIndicator
+            key="totalArea"
+            section={sectionName}
+            title={i18n.t('extentOfForest.totalLandArea')}
+            target={['otherLand']}
+            countryIso={props.countryIso} />
+        </div>
+      </td>
+    </tr>
 
   const totalAreaRow = fra =>
     <tr className={rowHighlightClass('totalArea')}>
@@ -140,6 +169,10 @@ const ExtentOfForest = (props) => {
       field: 'otherLand',
       rowHeader: i18n.t('fraClass.otherLand'),
       rowVariable: '(c)'
+    },
+    {
+      type: 'custom',
+      render: otherLandRow
     },
     {
       type: 'custom',
