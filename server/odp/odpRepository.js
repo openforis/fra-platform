@@ -350,7 +350,7 @@ module.exports.readEofOdps = (countryIso) =>
           v.data_source_methods,
           SUM(c.area * c.forest_percent / 100.0) AS forest_area,
           SUM(c.area * c.other_wooded_land_percent / 100.0) AS other_wooded_land_area,
-          SUM(c.area * c.other_land_percent / 100.0) AS other_land_area,
+          SUM(c.area * (100 - (c.forest_percent + c.other_wooded_land_percent)) / 100.0) AS other_land_area,
           CASE
             WHEN p.draft_id IS NULL
             THEN FALSE
