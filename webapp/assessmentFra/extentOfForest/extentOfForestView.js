@@ -30,7 +30,7 @@ const ExtentOfForest = (props) => {
   const getFaostatValue = year => R.path(['faoStat', year, 'area'], props)
   const getForestArea2015Value = year => R.path(['fra2015ForestAreas', year], props)
 
-  const forestAreaValidator = (fraColumn) => {
+  const forestAreaComparedTo2015ValueValidator = fraColumn => {
     const forestAreaFromFra2015 = getForestArea2015Value(fraColumn.name)
     if (R.isNil(forestAreaFromFra2015) || R.isNil(fraColumn.forestArea)) return true
     const tolerance = 1
@@ -41,15 +41,15 @@ const ExtentOfForest = (props) => {
   const calculateOtherLandArea = (faoStatLandArea, fraColumn) =>
     sub(faoStatLandArea, sum([fraColumn.forestArea, fraColumn.otherWoodedLand]))
 
-  const otherLandAreaNegative = (fraColumn) => {
+  const fedAreasNotExceedingTotalLandAreaValidator = fraColumn => {
     const faoStatLandArea = getFaostatValue(fraColumn.name)
     const otherLandArea = calculateOtherLandArea(faoStatLandArea, fraColumn)
-    if (R.isNil(faoStatLandArea) || R.isNil(otherLandArea)) return false
-    return lessThanOrEqualTo(otherLandArea, 0)
+    if (R.isNil(faoStatLandArea) || R.isNil(otherLandArea)) return true
+    return greaterThanOrEqualTo(otherLandArea, 0)
   }
 
   const otherLandValidationClass = fraColumn =>
-    otherLandAreaNegative(fraColumn) ? 'validation-error' : ''
+    fedAreasNotExceedingTotalLandAreaValidator(fraColumn) ? '' : 'validation-error'
 
   const rowHighlightClass = (target) => props.openCommentThread && R.isEmpty(R.difference(props.openCommentThread.target, [target])) ? 'fra-row-comments__open' : ''
 
@@ -113,14 +113,14 @@ const ExtentOfForest = (props) => {
         R.reject(
           R.isNil,
           [
-            !forestAreaValidator(fraColumn)
+            !forestAreaComparedTo2015ValueValidator(fraColumn)
               ? props.i18n.t(
                 'extentOfForest.forestAreaDoesNotMatchPreviouslyReported',
                 {previous: getForestArea2015Value(fraColumn.name)}
               )
               : null,
-            otherLandAreaNegative(fraColumn)
-              ? props.i18n.t('extentOfForest.otherLandNegative')
+            !fedAreasNotExceedingTotalLandAreaValidator(fraColumn)
+              ? props.i18n.t('extentOfForest.fedAreasExceedTotalLandArea')
               : null
           ]
         )
@@ -131,7 +131,7 @@ const ExtentOfForest = (props) => {
     {
       type: 'field',
       field: 'forestArea',
-      validator: forestAreaValidator,
+      validator: forestAreaComparedTo2015ValueValidator,
       rowHeader: i18n.t('extentOfForest.forestArea'),
       rowVariable: '(a)'
     },
