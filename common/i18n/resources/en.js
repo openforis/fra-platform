@@ -330,7 +330,7 @@ The FRA team
     ofWhichAgroforestry: '…of which agroforestry',
     ofWhichTreesUrbanSettings: '…of which trees in urban settings',
     totalLandArea: 'Total land area',
-    fedAreasExceedTotalLandArea: 'Forest area and Other Wooded Land exceed total land area',
+    fedAreasExceedTotalLandArea: 'Forest area and other wooded land exceed total land area',
     forestAreaDoesNotMatchPreviouslyReported: 'Forest area doesn’t match FRA 2015 area: {{previous}}',
     useOriginalDataPoints: 'Use national data points',
     dontUseOriginalDataPoints: 'Don’t use national data points'

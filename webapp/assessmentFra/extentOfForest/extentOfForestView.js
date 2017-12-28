@@ -48,6 +48,11 @@ const ExtentOfForest = (props) => {
     return greaterThanOrEqualTo(otherLandArea, 0)
   }
 
+  const forestAreaValidator = fraColumn =>
+    forestAreaComparedTo2015ValueValidator(fraColumn)
+    &&
+    fedAreasNotExceedingTotalLandAreaValidator(fraColumn)
+
   const otherLandValidationClass = fraColumn =>
     fedAreasNotExceedingTotalLandAreaValidator(fraColumn) ? '' : 'validation-error'
 
@@ -131,13 +136,14 @@ const ExtentOfForest = (props) => {
     {
       type: 'field',
       field: 'forestArea',
-      validator: forestAreaComparedTo2015ValueValidator,
+      validator: forestAreaValidator,
       rowHeader: i18n.t('extentOfForest.forestArea'),
       rowVariable: '(a)'
     },
     {
       type: 'field',
       field: 'otherWoodedLand',
+      validator: fedAreasNotExceedingTotalLandAreaValidator,
       rowHeader: i18n.t('fraClass.otherWoodedLand'),
       rowVariable: '(b)'
     },
