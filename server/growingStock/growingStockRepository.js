@@ -55,30 +55,3 @@ const persistGrowingStock = (client, user, countryIso, values, tableName) =>
           value.otherPlantedForest,
           value.otherWoodedLand])
     )))
-
-module.exports.getEofArea = (countryIso) =>
-  db.query(`
-    SELECT
-      year,
-      forest_area,
-      other_wooded_land
-    FROM
-      eof_fra_values
-    WHERE
-      country_iso = $1
-    ORDER BY year`, [countryIso])
-  .then(res => R.map(camelize, res.rows))
-
-module.exports.getFocArea = (countryIso) =>
-  db.query(`
-    SELECT
-      year,
-      natural_forest_area,
-      plantation_forest_area,
-      other_planted_forest_area
-    FROM
-      foc_fra_values
-    WHERE
-      country_iso = $1
-    ORDER BY year`, [countryIso])
-  .then(res => R.map(camelize, res.rows))
