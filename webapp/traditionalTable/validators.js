@@ -59,14 +59,12 @@ export const forestAreaLessThanOrEqualToExtentOfForestValidator =
 }
 
 export const otherLandLessThanOrEqualToExtentOfForestValidator =
-  (year, extentOfForest, rowIndexes) => (props, row, column) => {
-  const eofForestArea = getOtherLandAreaForYear(extentOfForest, year)
-  const otherLandAreaValue = rowIndexes
-    ? totalSum(props.tableData, column, rowIndexes)
-    : props.tableData[row][column]
-  if (!eofForestArea || !otherLandAreaValue) return {valid: true}
+  (year, extentOfForest, faoStat, rowIndexes) => (props, row, column) => {
+  const faoStatOtherLandArea = getOtherLandAreaForYear(extentOfForest, faoStat, year)
+  const calculatedOtherLandAreaValue = totalSum(props.tableData, column, rowIndexes)
+  if (!faoStatOtherLandArea || !calculatedOtherLandAreaValue) return {valid: true}
   const tolerance = -1
-  const difference = sub(eofForestArea, otherLandAreaValue)
+  const difference = sub(faoStatOtherLandArea, calculatedOtherLandAreaValue)
   const result = greaterThan(difference, tolerance)
   return {
     valid: result,
