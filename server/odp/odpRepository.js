@@ -137,14 +137,13 @@ const addClassData = (client, odpVersionId, odp) => {
         area,
         forest_percent,
         other_wooded_land_percent,
-        other_land_percent,
         forest_natural_percent,
         forest_plantation_percent,
         forest_plantation_introduced_percent,
         other_planted_forest_percent,
         uuid)
         VALUES
-        ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12);`,
+        ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11);`,
       [
         odpVersionId,
         nationalClass.className,
@@ -152,7 +151,6 @@ const addClassData = (client, odpVersionId, odp) => {
         nationalClass.area,
         nationalClass.forestPercent,
         nationalClass.otherWoodedLandPercent,
-        nationalClass.otherLandPercent,
         nationalClass.naturalForestPercent,
         nationalClass.plantationPercent,
         nationalClass.plantationIntroducedPercent,
@@ -249,7 +247,6 @@ const getOdpNationalClasses = (queryProvider, odpVersionId) =>
       area,
       forest_percent,
       other_wooded_land_percent,
-      other_land_percent,
       forest_natural_percent,
       forest_plantation_percent,
       forest_plantation_introduced_percent,
@@ -265,7 +262,6 @@ const getOdpNationalClasses = (queryProvider, odpVersionId) =>
       area: row.area,
       forestPercent: row.forest_percent,
       otherWoodedLandPercent: row.other_wooded_land_percent,
-      otherLandPercent: row.other_land_percent,
       naturalForestPercent: row.forest_natural_percent,
       plantationPercent: row.forest_plantation_percent,
       plantationIntroducedPercent: row.forest_plantation_introduced_percent,
@@ -316,7 +312,6 @@ const eofReducer = (results, row, type = 'fra') =>
       odpId: row.odp_id,
       forestArea: row.forest_area,
       otherWoodedLand: row.other_wooded_land_area,
-      otherLand: row.other_land_area,
       name: row.year + '',
       type: 'odp',
       year: Number(row.year),
@@ -350,7 +345,6 @@ module.exports.readEofOdps = (countryIso) =>
           v.data_source_methods,
           SUM(c.area * c.forest_percent / 100.0) AS forest_area,
           SUM(c.area * c.other_wooded_land_percent / 100.0) AS other_wooded_land_area,
-          SUM(c.area * (100 - (c.forest_percent + c.other_wooded_land_percent)) / 100.0) AS other_land_area,
           CASE
             WHEN p.draft_id IS NULL
             THEN FALSE
