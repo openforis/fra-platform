@@ -17,14 +17,12 @@ const testOdpSet1 = [
   {
     forestArea: 40000,
     otherWoodedLand: 2000,
-    otherLand: 80000,
     type: 'odp',
     year: 1991,
   },
   {
     forestArea: 80000,
     otherWoodedLand: 29000,
-    otherLand: 80000,
     type: 'odp',
     year: 2018,
   }]
@@ -49,8 +47,6 @@ const expectedEstimations1 = [
     forestAreaEstimated: true,
     otherWoodedLand: '1000.00',
     otherWoodedLandEstimated: true,
-    otherLand: '80000.00',
-    otherLandEstimated: true,
     year: 1990
   },
   {
@@ -58,8 +54,6 @@ const expectedEstimations1 = [
     forestAreaEstimated: true,
     otherWoodedLand: '11000.00',
     otherWoodedLandEstimated: true,
-    otherLand: '80000.00',
-    otherLandEstimated: true,
     year: 2000
   },
   {
@@ -67,8 +61,6 @@ const expectedEstimations1 = [
     forestAreaEstimated: true,
     otherWoodedLand: '21000.00',
     otherWoodedLandEstimated: true,
-    otherLand: '80000.00',
-    otherLandEstimated: true,
     year: 2010
   },
   {
@@ -76,8 +68,6 @@ const expectedEstimations1 = [
     forestAreaEstimated: true,
     otherWoodedLand: '26000.00',
     otherWoodedLandEstimated: true,
-    otherLand: '80000.00',
-    otherLandEstimated: true,
     year: 2015
   },
   {
@@ -85,8 +75,6 @@ const expectedEstimations1 = [
     forestAreaEstimated: true,
     otherWoodedLand: '27000.00',
     otherWoodedLandEstimated: true,
-    otherLand: '80000.00',
-    otherLandEstimated: true,
     year: 2016
   },
   {
@@ -94,8 +82,6 @@ const expectedEstimations1 = [
     forestAreaEstimated: true,
     otherWoodedLand: '28000.00',
     otherWoodedLandEstimated: true,
-    otherLand: '80000.00',
-    otherLandEstimated: true,
     year: 2017
   },
   {
@@ -103,8 +89,6 @@ const expectedEstimations1 = [
     forestAreaEstimated: true,
     otherWoodedLand: '29000.00',
     otherWoodedLandEstimated: true,
-    otherLand: '80000.00',
-    otherLandEstimated: true,
     year: 2018
   },
   {
@@ -112,8 +96,6 @@ const expectedEstimations1 = [
     forestAreaEstimated: true,
     otherWoodedLand: '30000.00',
     otherWoodedLandEstimated: true,
-    otherLand: '80000.00',
-    otherLandEstimated: true,
     year: 2019
   },
   {
@@ -121,8 +103,6 @@ const expectedEstimations1 = [
     forestAreaEstimated: true,
     otherWoodedLand: '31000.00',
     otherWoodedLandEstimated: true,
-    otherLand: '80000.00',
-    otherLandEstimated: true,
     year: 2020
   }
 ]
@@ -132,7 +112,7 @@ describe('estimationEngine', () => {
     const estimated = estimationEngine.estimateFraValues(
       fraYears,
       testOdpSet1,
-      {method: 'linear', fields: ['forestArea', 'otherWoodedLand', 'otherLand']}
+      {method: 'linear', fields: ['forestArea', 'otherWoodedLand']}
     )
     assert.deepEqual(expectedEstimations1, estimated)
   })
