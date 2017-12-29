@@ -6,7 +6,6 @@ import R from 'ramda'
 import { sub, abs, lessThan, greaterThan } from '../../common/bignumberUtils'
 import { totalSum } from '../traditionalTable/aggregate'
 import { getForestAreaForYear, getOtherLandAreaForYear } from '../assessmentFra/extentOfForest/extentOfForestHelper'
-import { formatDecimal } from '../utils/numberFormat'
 
 export const subCategoryValidator =
   (totalRowIndex, rowIndexes) => (props, currentFieldRowIdx, currentFieldColumnIdx) => {
