@@ -7,10 +7,8 @@ const existingEofValues = async (countryIso, year) => {
     `SELECT
        forest_area,
        other_wooded_land,
-       other_land,
        forest_area_estimated,
-       other_wooded_land_estimated,
-       other_land_estimated
+       other_wooded_land_estimated
      FROM eof_fra_values 
      WHERE country_iso = $1 AND year = $2`,
     [countryIso, year]
@@ -39,20 +37,16 @@ const insertEof = (countryIso, year, fraValues) =>
              year,
              forest_area,
              other_wooded_land,
-             other_land,
              forest_area_estimated,
-             other_wooded_land_estimated,
-             other_land_estimated)
+             other_wooded_land_estimated)
              VALUES
-             ($1, $2, $3, $4, $5, $6, $7, $8)`,
+             ($1, $2, $3, $4, $5, $6)`,
     [countryIso,
       year,
       fraValues.forestArea,
       fraValues.otherWoodedLand,
-      fraValues.otherLand,
       fraValues.forestAreaEstimated,
-      fraValues.otherWoodedLandEstimated,
-      fraValues.otherLandEstimated])
+      fraValues.otherWoodedLandEstimated])
 
 const updateEof = (countryIso, year, fraValues) =>
   db.query(`UPDATE
@@ -60,19 +54,15 @@ const updateEof = (countryIso, year, fraValues) =>
             SET
              forest_area = $3,
              other_wooded_land = $4,
-             other_land = $5,
-             forest_area_estimated = $6,
-             other_wooded_land_estimated = $7,
-             other_land_estimated = $8
+             forest_area_estimated = $5,
+             other_wooded_land_estimated = $6
             WHERE country_iso = $1 AND year = $2`,
     [countryIso,
       year,
       fraValues.forestArea,
       fraValues.otherWoodedLand,
-      fraValues.otherLand,
       fraValues.forestAreaEstimated,
-      fraValues.otherWoodedLandEstimated,
-      fraValues.otherLandEstimated])
+      fraValues.otherWoodedLandEstimated])
 
 const existingFocValues = async (countryIso, year) => {
   const result = await db.query(
@@ -162,13 +152,11 @@ const forestAreaReducer = (results, row, type = 'fra') =>
     {
       forestArea: row.forest_area,
       otherWoodedLand: row.other_wooded_land,
-      otherLand: row.other_land,
       name: row.year + '',
       type: 'fra',
       year: row.year !== null ? Number(row.year) : null,
       forestAreaEstimated: row.forest_area_estimated || false,
-      otherWoodedLandEstimated: row.other_wooded_land_estimated || false,
-      otherLandEstimated: row.other_land_estimated || false
+      otherWoodedLandEstimated: row.other_wooded_land_estimated || false
     }
   ]
 
@@ -196,10 +184,8 @@ module.exports.readFraForestAreas = (countryIso) =>
       year,
       forest_area,
       other_wooded_land,
-      other_land,
       forest_area_estimated,
-      other_wooded_land_estimated ,
-      other_land_estimated
+      other_wooded_land_estimated
     FROM
       eof_fra_values WHERE country_iso = $1`,
     [countryIso]
