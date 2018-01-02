@@ -3,7 +3,7 @@
  */
 
 import R from 'ramda'
-import { sum, mul, div } from '../../common/bignumberUtils'
+import { sum, mul, sub, add } from '../../common/bignumberUtils'
 
 const uuidv4 = require('uuid/v4')
 
@@ -63,6 +63,13 @@ export const classTotalArea = (odp, percentFieldName) => R.pipe(
   R.map(nationalClass => mul(nationalClass.area, nationalClass[percentFieldName]).div(100.0)),
   sum
 )(odp.nationalClasses)
+
+export const otherLandTotalArea = (odp) => {
+  const total = totalArea(odp)
+  const forestArea = classTotalArea(odp, 'forestPercent')
+  const otherWoodedArea = classTotalArea(odp, 'otherWoodedLandPercent')
+  return sub(total, add(forestArea, otherWoodedArea))
+}
 
 export const subClassTotalArea = (odp, percentFieldName, subClassPercentFieldName) =>
   R.pipe(

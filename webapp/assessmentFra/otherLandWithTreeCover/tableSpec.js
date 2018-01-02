@@ -10,7 +10,7 @@ const mapIndexed = R.addIndex(R.map)
 const years = [1990, 2000, 2010, 2015, 2020]
 const sumRows = R.range(0,5)
 
-export default (i18n, extentOfForest, countryIso) => {
+export default (i18n, extentOfForest, faoStat, countryIso) => {
   const createInputRow = (rowHeader) => [
     {
       type: 'readOnly',
@@ -54,7 +54,7 @@ export default (i18n, extentOfForest, countryIso) => {
             type: 'calculated',
             calculateValue: props => totalSum(props.tableData, i+1, sumRows),
             valueFormatter: formatDecimal,
-            validator: otherLandLessThanOrEqualToExtentOfForestValidator(year, extentOfForest, sumRows)
+            validator: otherLandLessThanOrEqualToExtentOfForestValidator(year, extentOfForest, faoStat, sumRows)
           }), years)
       ],
       [
@@ -70,7 +70,7 @@ export default (i18n, extentOfForest, countryIso) => {
         ...R.map(year =>
           ({
             type: 'calculated',
-            calculateValue: props => getOtherLandAreaForYear(extentOfForest, year),
+            calculateValue: props => getOtherLandAreaForYear(extentOfForest, faoStat, year),
             valueFormatter: formatDecimal
           }), years)
       ]
