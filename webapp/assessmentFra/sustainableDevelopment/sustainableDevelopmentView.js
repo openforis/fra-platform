@@ -49,7 +49,8 @@ class SustainableDevelopmentView extends React.Component {
             i18n={i18n}
             countryIso={countryIso}
             data={data}
-            years={years}/>
+            years={years}
+            countryConfig={countryConfig}/>
           <SubIndicators
             i18n={i18n}
             countryIso={countryIso}

@@ -1,4 +1,5 @@
 const R = require('ramda')
+const defaultYears = require('./defaultYears')
 
 const buildDefault = year => ({
   year,
@@ -10,6 +11,4 @@ const buildDefault = year => ({
   otherPlantedForestArea: null
 })
 
-module.exports.defaultYears = [1990, 2000, 2010, 2015, 2016, 2017, 2018, 2019, 2020]
-
-module.exports.buildDefaultResponse = years =>  R.reduce((a,b) => R.merge(a, {[`fra_${b}`]: buildDefault(b)}), {}, years)
+module.exports = R.map(year => buildDefault(year), defaultYears)
