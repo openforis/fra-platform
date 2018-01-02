@@ -59,8 +59,8 @@ const ExtentOfForest = (props) => {
 
   const otherLandRow = fra =>
     <tr className={rowHighlightClass('otherLand')}>
-      <th className="fra-table__category-cell">
-        {i18n.t('fraClass.otherLand')}
+      <th className="fra-table__header-cell-left">
+        {i18n.t('fraClass.otherLand')} (c-a-b)
       </th>
       {
         mapIndexed((fraColumn, i) => {
@@ -85,11 +85,8 @@ const ExtentOfForest = (props) => {
 
   const faoStatTotalLandAreaRow = fra =>
     <tr className={rowHighlightClass('faoStat')}>
-      <th className="fra-table__header-cell-left">{
-        props.i18n.t('extentOfForest.totalLandArea')
-      }
-      &nbsp;
-      (FAOSTAT)
+      <th className="fra-table__header-cell-left">
+        {props.i18n.t('extentOfForest.totalLandArea')} (c)
       </th>
       {
         mapIndexed((faoStatColumn, i) => {
