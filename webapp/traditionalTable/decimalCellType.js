@@ -13,19 +13,22 @@ const DecimalCellType = props => {
     colIdx,
     tableValueChanged,
     tableChanged,
-    validator
+    validator,
+    customOnChange
   } = props
   const currentValue = tableData[rowIdx][colIdx]
   const valid = validator ? validator(props, rowIdx, colIdx).valid : true
   return <td className={`fra-table__cell ${valid ? '' : 'error'}`}>
-    <ThousandSeparatedDecimalInput numberValue={ currentValue }
+    <ThousandSeparatedDecimalInput numberValue={currentValue}
                                    onChange={
                                      (evt) => {
                                        const newValue = evt.target.value
                                        // This if prevents just a useless, no-op autosave, the value wouldn't
                                        // be accepted anyway...
                                        if (acceptableAsDecimal(newValue)) {
-                                         tableValueChanged(countryIso, tableSpec, rowIdx, colIdx, newValue)
+                                         customOnChange
+                                           ? customOnChange(countryIso, tableData, tableSpec, rowIdx, colIdx, newValue)
+                                           : tableValueChanged(countryIso, tableSpec, rowIdx, colIdx, newValue)
                                        }
                                      }
                                    }
@@ -46,6 +49,7 @@ export default (cellSpec) => ({
   render: (props) => <DecimalCellType
     {...props}
     validator={cellSpec.validator}
+    customOnChange={cellSpec.customOnChange}
   />,
   acceptValue: acceptNextDecimal
 })
