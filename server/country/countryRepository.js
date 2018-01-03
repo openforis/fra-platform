@@ -151,8 +151,18 @@ const saveDynamicConfigurationVariable = async (client, countryIso, key, value) 
   }
 }
 
+const getCountry = countryIso =>
+  db.query(`
+    SELECT
+      c.country_iso, c.country_iso2, c.list_name_en, c.full_name_en, c.list_name_es, c.full_name_es, c.list_name_fr, c.full_name_fr, c.list_name_ru, c.full_name_ru
+    FROM country c
+    WHERE c.country_iso = $1
+  `,[countryIso])
+    .then(res => getCountryProperties(camelize(res.rows[0])))
+
 module.exports.getAllowedCountries = getAllowedCountries
 module.exports.getDynamicCountryConfiguration = getDynamicCountryConfiguration
 module.exports.saveDynamicConfigurationVariable = saveDynamicConfigurationVariable
 module.exports.getFirstAllowedCountry = roles =>
   getAllowedCountries(roles).then(result => R.pipe(R.values, R.head, R.head)(result))
+module.exports.getCountry = getCountry
