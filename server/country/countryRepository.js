@@ -50,7 +50,6 @@ const handleCountryResult = resolveRole => result => {
     R.toPairs,
     R.map(
       ([countryIso, vals]) => {
-        console.log(countryIso, vals)
         return {
           ...getCountryProperties(vals[0]),
           annualAssessment: determineCountryAssessmentStatus('annuallyUpdated', getStatuses(vals)),
