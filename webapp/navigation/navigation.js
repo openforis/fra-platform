@@ -50,9 +50,6 @@ class CountrySelection extends React.Component {
 
     return <div className="nav__country" ref="navCountryItem" onClick={() => {
       this.setState({isOpen: R.not(this.state.isOpen)})
-      if (R.isEmpty(countries)) {
-        this.props.listCountries()
-      }
     }}>
       <div className="nav__country-flag" style={style}></div>
       <div className="nav__country-info">
@@ -307,6 +304,10 @@ const roleLabel = (countryIso, userInfo, i18n) => i18n.t(roleForCountry(countryI
 
 class Nav extends React.Component {
 
+  componentWillMount () {
+    this.props.getCountryList()
+  }
+
   componentDidMount () {
     const content = ReactDOM.findDOMNode(this.refs.scroll_content)
     if (this.props.scrollPosition) {
@@ -323,7 +324,7 @@ class Nav extends React.Component {
       R.defaultTo({issuesCount: 0})
     )(status.reviewStatus)
 
-    const {userInfo, i18n, path, countries, country, changeAssessment, getCountryList} = this.props
+    const {userInfo, i18n, path, countries, country, changeAssessment} = this.props
 
     return <div className="fra-nav__container">
       <div className="fra-nav">
@@ -331,7 +332,6 @@ class Nav extends React.Component {
           {...this.props}
           name={country}
           countries={countries}
-          listCountries={getCountryList}
           role={roleLabel(country, userInfo, i18n)}
           />
         <div className="nav__scroll-content" ref="scroll_content" onScroll={() => {
