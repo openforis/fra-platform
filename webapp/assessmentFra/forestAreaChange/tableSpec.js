@@ -107,22 +107,6 @@ export default (i18n, extentOfForest, countryIso) => {
           type: 'readOnly',
           jsx:
             <th className="fra-table__header-cell-left">
-              {i18n.t('forestAreaChange.total')} (a-b)
-            </th>
-        },
-        ...mapIndexed(
-          ([column, startYear, endYear]) => ({
-            type: 'calculated',
-            calculateValue: props => netChange(props.tableData, column),
-            valueFormatter: formatDecimal,
-            validator: netChangeValidator(i18n, extentOfForest, startYear, endYear)
-          }), yearIntervals)
-      ],
-      [
-        {
-          type: 'readOnly',
-          jsx:
-            <th className="fra-table__header-cell-left">
               <Link to={`/country/${countryIso}/extentOfForest`} className="link">
                 {i18n.t('forestAreaChange.forestAreaNetChange')}
               </Link>
@@ -138,7 +122,7 @@ export default (i18n, extentOfForest, countryIso) => {
     ],
     valueSlice: {
       columnStart: 1,
-      rowEnd: -2
+      rowEnd: -1
     }
   }
 }
