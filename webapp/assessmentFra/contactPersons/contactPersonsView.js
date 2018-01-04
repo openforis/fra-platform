@@ -26,7 +26,7 @@ class ContactPersonsView extends React.Component {
            title={i18n.t('contactPersons.contactPersons')}
            name='contactPersons'
            countryIso={this.props.match.params.countryIso}
-           template={`<p>${i18n.t('contactPersons.contactPersonsSupport')}</p><table><thead><tr><th>${i18n.t('contactPersons.name')}</th><th>${i18n.t('contactPersons.institution')}</th><th>${i18n.t('contactPersons.email')}</th><th>${i18n.t('contactPersons.tables')}</th></tr></thead><tbody><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr></tbody></table>`}
+           template={`<p>${i18n.t('contactPersons.contactPersonsSupport')}</p><table><thead><tr><th>${i18n.t('contactPersons.firstName')}</th><th>${i18n.t('contactPersons.lastName')}</th><th>${i18n.t('contactPersons.institution')}</th><th>${i18n.t('contactPersons.email')}</th><th>${i18n.t('contactPersons.tables')}</th></tr></thead><tbody><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr></tbody></table>`}
          />
         <hr/>
         <CommentableDescription
