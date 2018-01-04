@@ -13,11 +13,9 @@ export const uploadQuestionnaire = (countryIso, file) => dispatch => {
   }
 
   dispatch(autosave.start)
+
   axios
     .post(`/api/panEuropean/${countryIso}/upload`, formData, config)
-    .then(() => {
-      console.log('aaaa')
-      dispatch(autosave.complete)
-    })
+    .then(() => dispatch(autosave.complete))
     .catch(err => dispatch(applicationError(err)))
 }
