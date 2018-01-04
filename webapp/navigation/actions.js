@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { applicationError } from '../applicationError/actions'
-import { fetchCountryOverviewStatus, listCountries } from '../country/actions'
+import { fetchCountryOverviewStatus, getCountryList } from '../country/actions'
 
 export const changeAssessmentStatusInitiated = 'navigation/changeAssessmentStatusInitiated'
 export const navigationScrolled = 'navigation/scroll/end'
@@ -16,8 +16,7 @@ export const changeAssessment = (countryIso, assessment) => dispatch => {
   dispatch({type: changeAssessmentStatusInitiated, assessmentType: assessment.type})
   axios.post(`/api/assessment/${countryIso}`, assessment)
     .then(() => {
-      //Force update of country-list when it's opened next (review statuses might have changed):
-      dispatch({type: listCountries, countries: []})
+      getCountryList()(dispatch)
       fetchCountryOverviewStatus(countryIso)(dispatch)
     })
     .catch((err) => dispatch(applicationError(err)))

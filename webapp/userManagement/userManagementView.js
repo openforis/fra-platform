@@ -7,7 +7,7 @@ import * as R from 'ramda'
 import LoggedInPageTemplate from '../app/loggedInPageTemplate'
 import TextInput from '../reusableUiComponents/textInput'
 import { roles } from '../../common/countryRole'
-import { getCountryName } from '../../common/country'
+import { getCountryName } from '../country/actions'
 import { allowedToChangeRoles } from '../../common/userManagementAccessControl'
 
 import { fetchUsers, updateUser, removeUser, persistUser, updateNewUser, addNewUser } from './actions'
@@ -151,7 +151,7 @@ class UserRow extends React.Component {
   }
 
   render () {
-    const {countryIso, i18n, user, updateUser, removeUser, persistUser} = this.props
+    const {countryIso, i18n, user, updateUser, removeUser, persistUser, getCountryName} = this.props
 
     return <tr>
       <UserTextFieldCol
@@ -245,4 +245,4 @@ const mapStateToProps = (state, props) =>// console.log(props.match.params.count
     newUser: state.userManagement.newUser
   })
 
-export default connect(mapStateToProps, {fetchUsers, updateUser, removeUser, persistUser, updateNewUser, addNewUser})(UsersView)
+export default connect(mapStateToProps, {fetchUsers, updateUser, removeUser, persistUser, updateNewUser, addNewUser, getCountryName})(UsersView)
