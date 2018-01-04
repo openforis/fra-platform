@@ -385,8 +385,7 @@ The FRA team
     ofWhichNaturalExpansion: '…of which natural expansion',
     deforestation: 'Deforestation',
     forestAreaNetChange: 'Forest area net change',
-    netChangeDoesNotMatch: 'Doesn’t match Forest area net change',
-    total: 'Total'
+    netChangeDoesNotMatch: 'Doesn’t match Forest area net change'
   },
 
   annualReforestation: {
