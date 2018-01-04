@@ -13,6 +13,10 @@ import { uploadQuestionnaire } from './actions'
 
 class PanEuropeanIndicatorsView extends React.Component {
 
+  componentWillMount () {
+    this.props.fetchLastSectionUpdateTimestamp(this.props.countryIso, 'panEuropean')
+  }
+
   onFileSelected () {
     this.props.uploadQuestionnaire(this.props.countryIso, this.refs.inputFile.files[0])
   }
@@ -28,16 +32,21 @@ class PanEuropeanIndicatorsView extends React.Component {
 
         <div className="pan-european__container">
           <div className="pan-european__buttons">
-            <input ref="inputFile" type="file" style={{display: 'none'}} onChange={() => this.onFileSelected()}/>
-            <button className="btn btn-primary"
-                    onClick={() => this.refs.inputFile.dispatchEvent(new MouseEvent('click'))}>
+            <input
+              ref="inputFile"
+              type="file"
+              style={{display: 'none'}}
+              onChange={() => this.onFileSelected()}
+              accept=".xls,xlsx"/>
+            <a className="btn btn-primary"
+               onClick={() => this.refs.inputFile.dispatchEvent(new MouseEvent('click'))}>
               <Icon className="icon-sub icon-white" name="hit-down"/>
               {i18n.t('panEuropeanIndicators.uploadQuestionnaire')}
-            </button>
-            <button className="btn btn-primary">
+            </a>
+            <a className="btn btn-primary" href={`/api/panEuropean/${countryIso}/download`} target="_blank">
               <Icon className="icon-sub icon-white" name="hit-down"/>
               {i18n.t('panEuropeanIndicators.downloadQuestionnaire')}
-            </button>
+            </a>
           </div>
           <div>
             <ReviewIndicator
