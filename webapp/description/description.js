@@ -22,6 +22,14 @@ class Description extends Component {
       this.fetchData(nextProps.countryIso)
   }
 
+  showEditorContent (isActive) {
+    if (R.isNil(this.props.content)) return null
+    if (isActive) return <DescriptionEditor {...this.props} />
+    if (this.props.content) return <div className="fra-description__preview" dangerouslySetInnerHTML={{__html: this.props.content}}/>
+    if (this.props.template) return <div className="fra-description__preview" dangerouslySetInnerHTML={{__html: this.props.template}}/>
+    return null
+  }
+
   render() {
     assert(this.props.section, 'No section given')
     const isActive = this.props.editing === this.props.name
@@ -40,15 +48,7 @@ class Description extends Component {
         </div>
       </div>
       <div ref="editorContent">
-      {
-        R.isNil(this.props.content)
-          ? null
-          : isActive
-            ? <DescriptionEditor {...this.props} />
-            : this.props.content
-              ? <div className="fra-description__preview" dangerouslySetInnerHTML={{__html: this.props.content}}/>
-              : <div className="fra-description__preview" dangerouslySetInnerHTML={{__html: this.props.template}}/>
-      }
+        {this.showEditorContent(isActive)}
       </div>
     </div>
   }
