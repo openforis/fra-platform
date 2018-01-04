@@ -47,7 +47,7 @@ class Description extends Component {
             ? <DescriptionEditor {...this.props} />
             : this.props.content
               ? <div className="fra-description__preview" dangerouslySetInnerHTML={{__html: this.props.content}}/>
-              : null
+              : <div className="fra-description__preview" dangerouslySetInnerHTML={{__html: this.props.template}}/>
       }
       </div>
     </div>

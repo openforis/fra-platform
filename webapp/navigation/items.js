@@ -2,6 +2,18 @@ export const assessments = {
   'fra2020': [
     {
       type: 'header',
+      sectionNo: '0',
+      label: 'navigation.sectionHeaders.introduction',
+      children: [
+        {
+          label: 'contactPersons.contactPersons',
+          section: 'contactPersons',
+          pathTemplate: '/country/:countryIso/contactPersons'
+        }
+      ]
+    },
+    {
+      type: 'header',
       sectionNo: '1',
       label: 'navigation.sectionHeaders.forestExtentCharacteristicsAndChanges',
       children: [
