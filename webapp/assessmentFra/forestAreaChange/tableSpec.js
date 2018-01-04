@@ -1,7 +1,7 @@
 import React from 'react'
 import R from 'ramda'
 import { formatDecimal } from '../../utils/numberFormat'
-import { sub, div, add, abs, lessThan } from '../../../common/bignumberUtils'
+import { sub, div, eq, toFixed, abs, lessThan } from '../../../common/bignumberUtils'
 import { subCategoryValidator } from '../../traditionalTable/validators'
 import { getForestAreaForYear } from '../extentOfForest/extentOfForestHelper'
 import { Link } from '../../reusableUiComponents/link'
@@ -11,10 +11,12 @@ const ofWhichRows = R.range(1, 3)
 const expansionValidator = subCategoryValidator(0, ofWhichRows)
 const ofWhichColumns = R.times(() => ({type: 'decimalInput', validator: expansionValidator}), 4)
 
+const integerInputColumns = R.times(() => ({type: 'decimalInput'}), 4)
+
 const netChange = (tableData, column) => sub(tableData[0][column], tableData[3][column])
 
 const eofNetChange = (extentOfForest, startYear, endYear) => {
-  const timeSpan = endYear - startYear
+  const timeSpan = endYear-startYear
   const startYearEofArea = getForestAreaForYear(extentOfForest, startYear)
   const endYearEofArea = getForestAreaForYear(extentOfForest, endYear)
   const eofNetChange = div(sub(endYearEofArea, startYearEofArea), timeSpan)
@@ -41,7 +43,7 @@ const yearIntervals = [
 ]
 
 const netChangeValidator =
-  (i18n, extentOfForest, startYear, endYear) => (props, row, column) => {
+  (i18n, extentOfForest, startYear, endYear) =>  (props, row, column) => {
     const {valid, eofNetChange} = netChangeValid(props.tableData, column, extentOfForest, startYear, endYear)
     return {
       valid,
@@ -49,23 +51,9 @@ const netChangeValidator =
         ? null
         : i18n.t('forestAreaChange.netChangeDoesNotMatch', {eofNetChange: formatDecimal(eofNetChange)})
     }
-  }
-
-const updateForestDeforestationValue = (countryIso, tableData, tableSpec, rowIdx, colIdx, newValue, extentOfForest, tableChanged, startYear, endYear, rowIdxMirror, op) => {
-  newValue = R.isEmpty(newValue) ? null : newValue
-  const netChangeFromExtentOfForest = eofNetChange(extentOfForest, startYear, endYear)
-
-  const newTableData = R.pipe(
-    R.update(rowIdx, R.update(colIdx, newValue, tableData[rowIdx])),
-    data => R.isNil(netChangeFromExtentOfForest) || R.isNil(newValue)
-      ? data
-      : R.update(rowIdxMirror, R.update(colIdx, op(newValue, netChangeFromExtentOfForest).toNumber(), data[rowIdxMirror]))(data)
-  )(tableData)
-
-  tableChanged(countryIso, tableSpec, newTableData)
 }
 
-export default (i18n, extentOfForest, countryIso, tableChanged) => {
+export default (i18n, extentOfForest, countryIso) => {
   return {
     name: 'forestAreaChange', // used to uniquely identify table
     header: <thead>
@@ -91,12 +79,7 @@ export default (i18n, extentOfForest, countryIso, tableChanged) => {
           type: 'readOnly',
           jsx: <th className="fra-table__category-cell">{i18n.t('forestAreaChange.forestExpansion')} (a)</th>
         },
-        ...mapIndexed(
-          ([column, startYear, endYear]) => ({
-            type: 'decimalInput',
-            customOnChange: (countryIso, tableData, tableSpec, rowIdx, colIdx, newValue) =>
-              updateForestDeforestationValue(countryIso, tableData, tableSpec, rowIdx, colIdx, newValue, extentOfForest, tableChanged, startYear, endYear, 3, sub)
-          }), yearIntervals)
+        ...integerInputColumns
       ],
       [
         {
@@ -117,12 +100,7 @@ export default (i18n, extentOfForest, countryIso, tableChanged) => {
           type: 'readOnly',
           jsx: <th className="fra-table__category-cell">{i18n.t('forestAreaChange.deforestation')} (b)</th>
         },
-        ...mapIndexed(
-          ([column, startYear, endYear]) => ({
-            type: 'decimalInput',
-            customOnChange: (countryIso, tableData, tableSpec, rowIdx, colIdx, newValue) =>
-              updateForestDeforestationValue(countryIso, tableData, tableSpec, rowIdx, colIdx, newValue, extentOfForest, tableChanged, startYear, endYear, 0, add)
-          }), yearIntervals)
+        ...integerInputColumns
       ],
       [
         {
