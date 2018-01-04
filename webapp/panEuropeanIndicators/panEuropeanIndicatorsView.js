@@ -6,10 +6,16 @@ import * as R from 'ramda'
 
 import LoggedInPageTemplate from '../app/loggedInPageTemplate'
 import ReviewIndicator from '../review/reviewIndicator'
+import Icon from '../reusableUiComponents/icon'
 
 import { fetchLastSectionUpdateTimestamp } from '../audit/actions'
+import { uploadQuestionnaire } from './actions'
 
 class PanEuropeanIndicatorsView extends React.Component {
+
+  onFileSelected () {
+    this.props.uploadQuestionnaire(this.props.countryIso, this.refs.inputFile.files[0])
+  }
 
   render () {
     const {i18n, countryIso} = this.props
@@ -22,8 +28,16 @@ class PanEuropeanIndicatorsView extends React.Component {
 
         <div className="pan-european__container">
           <div className="pan-european__buttons">
-            <button className="btn btn-primary">{i18n.t('panEuropeanIndicators.uploadQuestionnaire')}</button>
-            <button className="btn btn-primary">{i18n.t('panEuropeanIndicators.downloadQuestionnaire')}</button>
+            <input ref="inputFile" type="file" style={{display: 'none'}} onChange={() => this.onFileSelected()}/>
+            <button className="btn btn-primary"
+                    onClick={() => this.refs.inputFile.dispatchEvent(new MouseEvent('click'))}>
+              <Icon className="icon-sub icon-white" name="hit-down"/>
+              {i18n.t('panEuropeanIndicators.uploadQuestionnaire')}
+            </button>
+            <button className="btn btn-primary">
+              <Icon className="icon-sub icon-white" name="hit-down"/>
+              {i18n.t('panEuropeanIndicators.downloadQuestionnaire')}
+            </button>
           </div>
           <div>
             <ReviewIndicator
@@ -45,4 +59,7 @@ const mapStateToProps = (state, props) => ({
   countryIso: props.match.params.countryIso
 })
 
-export default connect(mapStateToProps, {fetchLastSectionUpdateTimestamp})(PanEuropeanIndicatorsView)
+export default connect(mapStateToProps, {
+  fetchLastSectionUpdateTimestamp,
+  uploadQuestionnaire
+})(PanEuropeanIndicatorsView)
