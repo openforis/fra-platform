@@ -1,13 +1,13 @@
 const R = require('ramda')
 const { createI18nPromise } = require('../../common/i18n/i18nFactory')
 const { sendMail } = require('../email/sendMail')
-const { getCountryName } = require('../../common/country')
+const { getCountry } = require('../country/countryRepository')
 const { fetchCountryUsers } = require('../user/userRepository')
 
-const createMail = (countryIso, assessment, user, loggedInUser, i18n, serverUrl) => {
-  const country = getCountryName(countryIso, 'en')
+const createMail = async (countryIso, assessment, user, loggedInUser, i18n, serverUrl) => {
+  const country = await getCountry(countryIso)
   const emailLocalizationParameters = {
-    country,
+    country: country.listName.en,
     serverUrl,
     recipientName: user.name,
     status: i18n.t('assessment.status.' + assessment.status + '.label'),
@@ -46,7 +46,7 @@ const sendAssessmentNotification = async (countryIso, assessment, loggedInUser, 
 
   // Can't use forEach or map here, await doesn't work properly
   for (let user of relevantUsers) {
-    await sendMail(createMail(countryIso, assessment, user, loggedInUser, i18n, serverUrl))
+    await sendMail(await createMail(countryIso, assessment, user, loggedInUser, i18n, serverUrl))
   }
 }
 

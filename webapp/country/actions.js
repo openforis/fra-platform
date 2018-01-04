@@ -1,6 +1,9 @@
 import axios from 'axios'
+import * as R from 'ramda'
+
 import { applicationError } from '../applicationError/actions'
 import * as autosave from '../autosave/actions'
+import { getCountry } from './country'
 
 export const listCountries = 'country/country/list'
 export const fetchCountryOverviewStatusCompleted = 'country/status/completed'
@@ -24,7 +27,7 @@ export const getCountryConfig = countryIso => dispatch => {
   axios.get(`/api/country/config/${countryIso}`).then(resp => {
     dispatch({type: countryConfig, config: resp.data})
   })
-  .catch((err) => dispatch(applicationError(err)))
+    .catch((err) => dispatch(applicationError(err)))
 }
 
 export const saveCountryConfigSetting = (countryIso, key, value, onComplete = null) => dispatch => {
@@ -37,3 +40,8 @@ export const saveCountryConfigSetting = (countryIso, key, value, onComplete = nu
     })
     .catch((err) => dispatch(applicationError(err)))
 }
+
+export const getCountryName = (countryIso, lang) => (dispatch, getState) => R.pipe(
+  getCountry(countryIso),
+  R.path(['listName', lang])
+)(getState())

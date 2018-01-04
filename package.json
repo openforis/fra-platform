@@ -56,7 +56,6 @@
     "dotenv": "^4.0.0",
     "express": "^4.15.2",
     "express-session": "^1.15.3",
-    "i18n-iso-countries": "^2.1.1",
     "i18next": "^8.4.3",
     "marked": "^0.3.6",
     "mocha-webpack": "^0.7.0",
