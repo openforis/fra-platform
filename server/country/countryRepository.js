@@ -10,12 +10,12 @@ const camelize = require('camelize')
  * accepted status.
  */
 const determineCountryAssessmentStatus = (type, statuses) => R.pipe(
-    R.filter(R.propEq('type', type)),
-    R.head,
-    R.defaultTo({status: 'editing'}), //Initially, there are no rows for country's assessment,
-                                      //this is also considered to be 'editing' status
-    R.prop('status')
-  )(statuses)
+  R.filter(R.propEq('type', type)),
+  R.head,
+  R.defaultTo({status: 'editing'}), //Initially, there are no rows for country's assessment,
+  //this is also considered to be 'editing' status
+  R.prop('status')
+)(statuses)
 
 const determineRole = roles => countryIso =>
   R.pipe(R.filter(R.propEq('countryIso', countryIso)), R.head, R.prop('role'))(roles)
@@ -26,6 +26,23 @@ const getStatuses = groupedRows =>
     R.filter(R.identity)
   )(groupedRows)
 
+const getCountryProperties = country => ({
+  countryIso: country.countryIso,
+  listName: {
+    en: country.listNameEn,
+    es: country.listNameEs,
+    fr: country.listNameFr,
+    ru: country.listNameRu
+  },
+  fullName: {
+    en: country.fullNameEn,
+    es: country.fullNameEs,
+    fr: country.fullNameFr,
+    ru: country.fullNameRu
+  },
+  lastEdit: country.lastEdited
+})
+
 const handleCountryResult = resolveRole => result => {
   const grouped = R.groupBy(row => row.countryIso, camelize(result.rows))
   return R.pipe(
@@ -33,12 +50,10 @@ const handleCountryResult = resolveRole => result => {
     R.map(
       ([countryIso, vals]) => {
         return {
-          countryIso,
-          name: vals[0].name,
+          ...getCountryProperties(vals[0]),
           annualAssessment: determineCountryAssessmentStatus('annuallyUpdated', getStatuses(vals)),
           fra2020Assessment: determineCountryAssessmentStatus('fra2020', getStatuses(vals)),
           role: resolveRole(countryIso),
-          lastEdit:  vals[0].lastEdited
         }
       }),
     R.groupBy(R.prop('role'))
@@ -48,43 +63,54 @@ const handleCountryResult = resolveRole => result => {
 const getAllCountries = role => {
   const excludedMsgs = ['createIssue', 'createComment', 'deleteComment']
   return db.query(`
-       WITH fa AS (
-       SELECT country_iso, to_char(max(time), 'YYYY-MM-DD"T"HH24:MI:ssZ') as last_edited
-           FROM fra_audit
-           WHERE NOT (message in ($1))
-           GROUP BY country_iso
-       ) 
-       SELECT c.country_iso, c.name, a.type, a.status, fa.last_edited
-            FROM country c
-            LEFT OUTER JOIN assessment a ON c.country_iso = a.country_iso 
-            LEFT OUTER JOIN fa on fa.country_iso = c.country_iso
-            ORDER BY name ASC`, [excludedMsgs])
+    WITH fa AS (
+      SELECT country_iso, to_char(max(time), 'YYYY-MM-DD"T"HH24:MI:ssZ') as last_edited
+      FROM fra_audit
+      WHERE NOT (message in ($1))
+      GROUP BY country_iso
+    ) 
+    SELECT
+      c.country_iso, c.list_name_en, c.full_name_en, c.list_name_es, c.full_name_es, c.list_name_fr, c.full_name_fr, c.list_name_ru, c.full_name_ru,
+      a.type, a.status, 
+      fa.last_edited
+    FROM 
+      country c
+    LEFT OUTER JOIN 
+      assessment a ON c.country_iso = a.country_iso 
+    LEFT OUTER JOIN 
+      fa ON fa.country_iso = c.country_iso
+    ORDER BY name ASC`, [excludedMsgs])
     .then(handleCountryResult(() => role))
 }
 
 const getAllowedCountries = roles => {
   const hasRole = (role) => R.find(R.propEq('role', role), roles)
-  if (hasRole('ADMINISTRATOR'))  {
+  if (hasRole('ADMINISTRATOR')) {
     return getAllCountries('ADMINISTRATOR')
   } else {
     const excludedMsgs = ['createIssue', 'createComment', 'deleteComment']
     const allowedCountryIsos = R.pipe(R.map(R.prop('countryIso')), R.reject(R.isNil))(roles)
     const allowedIsoQueryPlaceholders = R.range(2, allowedCountryIsos.length + 2).map(i => '$' + i).join(',')
     return db.query(`
-     WITH fa AS (
-      SELECT country_iso, to_char(max(time), 'YYYY-MM-DD"T"HH24:MI:ssZ') as last_edited
-         FROM fra_audit
-         WHERE country_iso in (${allowedIsoQueryPlaceholders})
-         AND NOT (message in ($1))
-         GROUP BY country_iso
-     ) 
-    SELECT c.country_iso, c.name, a.type, a.status, fa.last_edited
-                     FROM country c
-                     LEFT OUTER JOIN assessment a ON c.country_iso = a.country_iso
-                     LEFT OUTER JOIN fa
-                       ON fa.country_iso = c.country_iso
-                     WHERE c.country_iso in (${allowedIsoQueryPlaceholders})
-                     ORDER BY name ASC`,
+      WITH fa AS (
+        SELECT country_iso, to_char(max(time), 'YYYY-MM-DD"T"HH24:MI:ssZ') as last_edited
+        FROM fra_audit
+        WHERE country_iso in (${allowedIsoQueryPlaceholders})
+        AND NOT (message in ($1))
+        GROUP BY country_iso
+      )
+      SELECT
+        c.country_iso, c.list_name_en, c.full_name_en, c.list_name_es, c.full_name_es, c.list_name_fr, c.full_name_fr, c.list_name_ru, c.full_name_ru, 
+        a.type, a.status, 
+        fa.last_edited
+      FROM 
+        country c
+      LEFT OUTER JOIN 
+        assessment a ON c.country_iso = a.country_iso
+      LEFT OUTER JOIN 
+        fa ON fa.country_iso = c.country_iso
+      WHERE c.country_iso in (${allowedIsoQueryPlaceholders})
+      ORDER BY name ASC`,
       [excludedMsgs, ...allowedCountryIsos])
       .then(handleCountryResult(determineRole(roles)))
   }
@@ -124,8 +150,18 @@ const saveDynamicConfigurationVariable = async (client, countryIso, key, value) 
   }
 }
 
+const getCountry = countryIso =>
+  db.query(`
+    SELECT
+      c.country_iso, c.list_name_en, c.full_name_en, c.list_name_es, c.full_name_es, c.list_name_fr, c.full_name_fr, c.list_name_ru, c.full_name_ru
+    FROM country c
+    WHERE c.country_iso = $1
+  `,[countryIso])
+    .then(res => getCountryProperties(camelize(res.rows[0])))
+
 module.exports.getAllowedCountries = getAllowedCountries
 module.exports.getDynamicCountryConfiguration = getDynamicCountryConfiguration
 module.exports.saveDynamicConfigurationVariable = saveDynamicConfigurationVariable
 module.exports.getFirstAllowedCountry = roles =>
   getAllowedCountries(roles).then(result => R.pipe(R.values, R.head, R.head)(result))
+module.exports.getCountry = getCountry

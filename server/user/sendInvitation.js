@@ -1,12 +1,11 @@
-const nodemailer = require('nodemailer')
-
-const { getCountryName } = require('../../common/country')
+const { getCountry } = require('../country/countryRepository')
 const { createI18nPromise } = require('../../common/i18n/i18nFactory')
 const { sendMail } = require('../email/sendMail')
 
-const createMail = (countryIso, invitedUser, loggedInUser, url, i18n) => {
+const createMail = async (countryIso, invitedUser, loggedInUser, url, i18n) => {
   const link = `${url}/login${invitedUser.invitationUuid ? `?i=${invitedUser.invitationUuid}` : ''}`
-  const country = getCountryName(countryIso, 'en')
+  const dbCountry = await getCountry(countryIso)
+  const country = dbCountry.listName.en
   const role = invitedUser.role.toLowerCase()
   return {
     to: invitedUser.email,
@@ -18,7 +17,7 @@ const createMail = (countryIso, invitedUser, loggedInUser, url, i18n) => {
 
 const sendInvitation = async (countryIso, invitedUser, loggedInUser, url) => {
   const i18n = await createI18nPromise('en')
-  const invitationEmail = createMail(countryIso, invitedUser, loggedInUser, url, i18n)
+  const invitationEmail = await createMail(countryIso, invitedUser, loggedInUser, url, i18n)
   await sendMail(invitationEmail)
 }
 
