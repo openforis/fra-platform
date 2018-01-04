@@ -162,7 +162,8 @@ module.exports.translation = {
       forestDisturbances: 'Forest disturbances',
       forestPolicyAndLegislation: 'Forest policy and legislation',
       employmentEducationAndNwfp: 'Employment, education and NWFP',
-      sustainableDevelopment:'Sustainable Development Goal 15'
+      sustainableDevelopment: 'Sustainable Development Goal 15',
+      panEuropeanIndicators: 'Pan-European Indicators'
     }
   },
 
@@ -654,6 +655,10 @@ The FRA team
     proportionForestAreaLongTermForestManagement: 'Proportion of forest area under long-term forest management',
     forestArea1000Ha: 'Forest area (1000 ha)',
     forestAreaVerifiedForestManagement: 'Forest area under independently verified forest management certification schemes'
+  },
+
+  panEuropeanIndicators: {
+    panEuropeanIndicators: 'Pan-European Indicators for Sustainable Forest Management'
   },
 
   assessment: {
