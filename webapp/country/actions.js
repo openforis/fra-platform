@@ -45,8 +45,3 @@ export const getCountryName = (countryIso, lang) => (dispatch, getState) => R.pi
   getCountry(countryIso),
   R.path(['listName', lang])
 )(getState())
-
-export const getCountryAlpha2 = countryIso => (dispatch, getState) => R.pipe(
-  getCountry(countryIso),
-  R.prop('countryIso2')
-)(getState())
