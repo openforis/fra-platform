@@ -3,17 +3,15 @@ import React from 'react'
 import ResponsibleAgency from './responsibleAgency'
 import ReviewIndicator from '../../../review/reviewIndicator'
 
-import { div, mul, sum } from '../../../../common/bignumberUtils'
+import { div, mul } from '../../../../common/bignumberUtils'
 import { formatDecimal } from '../../../utils/numberFormat'
 import * as R from 'ramda'
 
-import { getDataPoint, getForestArea } from './indicators'
+import { getForestArea } from './indicators'
 
-const Indicator = ({i18n, countryIso, data, years}) => {
+const Indicator = ({i18n, countryIso, countryConfig, data, years}) => {
 
-  const dataPoint = getDataPoint(data, 2015)
-  const sumFields = R.props(['forestArea', 'otherWoodedLand', 'otherLand'], dataPoint || {})
-  const area2015 = sum(sumFields)
+  const area2015 = R.path(['faoStat', 2015, 'area'], countryConfig)
 
   const getValueByYear = year => mul(div(getForestArea(data, year), area2015), 100)
 

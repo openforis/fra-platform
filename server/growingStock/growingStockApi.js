@@ -2,7 +2,7 @@ const db = require('../db/db')
 const R = require('ramda')
 const {sendErr} = require('../utils/requestUtils')
 const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
-const {getFraValues} = require('../eof/api')
+const {getFraValues} = require('../eof/fraValueService')
 const repository = require('./growingStockRepository')
 
 module.exports.init = app => {
@@ -18,8 +18,16 @@ module.exports.init = app => {
       )(table)
       const totalTable = pairTable(growingStockTotal)
       const avgTable = pairTable(growingStockAvg)
-      const focArea = await repository.getFocArea(req.params.countryIso)
-      const eofArea = await repository.getEofArea(req.params.countryIso)
+
+      const forestCharacteristics = await getFraValues('forestCharacteristics', req.params.countryIso)
+      const extentOfForest = await getFraValues('extentOfForest', req.params.countryIso)
+
+      const focArea = R.map(
+        R.pick(['year', 'naturalForestArea', 'plantationForestArea', 'otherPlantedForestArea']),
+        forestCharacteristics.fra
+      )
+      const eofArea = R.map(R.pick(['year', 'forestArea', 'otherWoodedLand']), extentOfForest.fra)
+
       const years = R.uniq(R.pluck('year', [...focArea, ...eofArea]))
       const groupedFoc = R.groupBy(R.prop('year'), focArea)
       const groupedEof = R.groupBy(R.prop('year'), eofArea)

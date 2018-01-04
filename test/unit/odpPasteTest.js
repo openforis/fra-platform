@@ -2,6 +2,12 @@ const R = require('ramda')
 const assert = require('chai').assert
 const handlePaste = require('../../webapp/originalDataPoint/paste').default
 
+/*
+ * NOTE: This test uses otherLand-concepts which are no longer actually used in
+ * originalDataPoint view. However, the logic of skipping irrelevant rows
+ * when pasting is still valid
+ */
+
 const emptyOdp = {nationalClasses: [{placeHolder: true}]}
 const odpWithExistingClasses = {
   nationalClasses: [

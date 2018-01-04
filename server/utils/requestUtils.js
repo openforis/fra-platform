@@ -9,4 +9,9 @@ module.exports.sendErr = (res, err) => {
   }
 }
 
+// Sends an empty JSON message with status 200
+module.exports.sendOk = res => {
+  res.json({})
+}
+
 module.exports.serverUrl = (req) => req.protocol + '://' + req.get('host')
