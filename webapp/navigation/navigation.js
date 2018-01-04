@@ -3,14 +3,12 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
 import Route from 'route-parser'
-import { getCountryName, getCountryAlpha2 } from '../../common/country'
 import { getRelativeDate } from '../utils/relativeDate'
-
 import { Link } from '../reusableUiComponents/link'
 import Icon from '../reusableUiComponents/icon'
 import { follow } from './../router/actions'
 import { changeAssessment, navigationScroll, toggleNavigationGroupCollapse, toggleAllNavigationGroupsCollapse } from './actions'
-import { getCountryList } from '../country/actions'
+import { getCountryList, getCountryName } from '../country/actions'
 import { fetchAllCountryData } from '../app/actions'
 import { assessments } from './items'
 import { roleForCountry } from '../../common/countryRole'
@@ -41,18 +39,14 @@ class CountrySelection extends React.Component {
 
   render () {
     const countryIso = this.props.name
-    const role = this.props.role
-    const countries = this.props.countries || []
-    const i18n = this.props.i18n
+    const {role, i18n, getCountryName} = this.props
+
     const style = {
-      backgroundImage: `url('/img/flags/1x1/${getCountryAlpha2(countryIso).toLowerCase()}.svg'`
+      backgroundImage: `url('/img/flags/1x1/${countryIso}.svg'`
     }
 
     return <div className="nav__country" ref="navCountryItem" onClick={() => {
       this.setState({isOpen: R.not(this.state.isOpen)})
-      if (R.isEmpty(countries)) {
-        this.props.listCountries()
-      }
     }}>
       <div className="nav__country-flag" style={style}></div>
       <div className="nav__country-info">
@@ -76,8 +70,12 @@ const CountryList = ({isOpen, countries, ...props}) => {
       {
         R.pipe(
           R.toPairs,
-          R.map(([role, countries]) =>
-            <CountryRole key={role} role={role} roleCountries={countries} {...props} />
+          R.map(([role, roleCountries]) =>
+            <CountryRole
+              {...props}
+              key={role}
+              roleCountries={roleCountries}
+            />
           )
         )(countries)
       }
@@ -85,7 +83,7 @@ const CountryList = ({isOpen, countries, ...props}) => {
   </div>
 }
 
-const CountryRole = ({role, roleCountries, currentCountry, fetchAllCountryData, i18n}) =>
+const CountryRole = ({role, roleCountries, currentCountry, i18n, ...props}) =>
   <div className="nav__country-list-section">
     <div className="nav__country-list-header">
       <span className="nav__country-list-primary-col">{i18n.t(`user.roles.${role.toLowerCase()}`)}</span>
@@ -94,16 +92,18 @@ const CountryRole = ({role, roleCountries, currentCountry, fetchAllCountryData, 
     </div>
     {
       R.map(country =>
-        <CountryRow key={country.countryIso}
-                    selectedCountry={currentCountry}
-                    country={country}
-                    fetchAllCountryData={fetchAllCountryData}
-                    i18n={i18n}/>
-      , roleCountries)
+          <CountryRow
+            {...props}
+            key={country.countryIso}
+            country={country}
+            i18n={i18n}
+            selectedCountry={currentCountry}
+          />
+        , roleCountries)
     }
   </div>
 
-const CountryRow = ({selectedCountry, country, fetchAllCountryData, i18n}) => {
+const CountryRow = ({selectedCountry, country, fetchAllCountryData, i18n, getCountryName}) => {
   return <Link
     to={`/country/${country.countryIso}`}
     className={`nav__country-list-row ${R.equals(selectedCountry, country.countryIso) ? 'selected' : ''}`}
@@ -307,6 +307,10 @@ const roleLabel = (countryIso, userInfo, i18n) => i18n.t(roleForCountry(countryI
 
 class Nav extends React.Component {
 
+  componentWillMount () {
+    this.props.getCountryList()
+  }
+
   componentDidMount () {
     const content = ReactDOM.findDOMNode(this.refs.scroll_content)
     if (this.props.scrollPosition) {
@@ -323,29 +327,30 @@ class Nav extends React.Component {
       R.defaultTo({issuesCount: 0})
     )(status.reviewStatus)
 
-    const {userInfo, i18n, path, countries, country, changeAssessment, getCountryList} = this.props
+    const {userInfo, i18n, path, countries, country, changeAssessment} = this.props
 
     return <div className="fra-nav__container">
-      <div className="fra-nav">
-        <CountrySelection
-          {...this.props}
-          name={country}
-          countries={countries}
-          listCountries={getCountryList}
-          role={roleLabel(country, userInfo, i18n)}
+      {R.isNil(countries)
+        ? null
+        : <div className="fra-nav">
+          <CountrySelection
+            {...this.props}
+            name={country}
+            countries={countries}
+            role={roleLabel(country, userInfo, i18n)}
           />
-        <div className="nav__scroll-content" ref="scroll_content" onScroll={() => {
-          const content = ReactDOM.findDOMNode(this.refs.scroll_content)
-          this.props.navigationScroll(content.scrollTop)
-        }}>
-          <Dashboard
-            label={i18n.t('dashboard.dashboard')}
-            countryIso={country}
-            path={path}
-            pathTemplate="/country/:countryIso"/>
-          {
-            R.path(['config', 'useOriginalDataPoints'], this.props)
-              ?  <NationalData
+          <div className="nav__scroll-content" ref="scroll_content" onScroll={() => {
+            const content = ReactDOM.findDOMNode(this.refs.scroll_content)
+            this.props.navigationScroll(content.scrollTop)
+          }}>
+            <Dashboard
+              label={i18n.t('dashboard.dashboard')}
+              countryIso={country}
+              path={path}
+              pathTemplate="/country/:countryIso"/>
+            {
+              R.path(['config', 'useOriginalDataPoints'], this.props)
+                ? <NationalData
                   label={i18n.t('nationalDataPoint.nationalData')}
                   countryIso={country}
                   status={R.merge(getReviewStatus('odp'), status.odpStatus)}
@@ -353,39 +358,40 @@ class Nav extends React.Component {
                   pathTemplate="/country/:countryIso/odps"
                   secondaryPathTemplate="/country/:countryIso/odp"
                   userInfo={userInfo}/>
-              : null
-          }
-          <div className="nav__divider"></div>
-          {
-            R.map(([assessment, sections]) =>
-            <Assessment
-              {...this.props}
-              key={assessment}
-              assessment={assessment}
-              countryIso={country}
-              status={status.assessments}
-              changeAssessment={changeAssessment}
-              userInfo={userInfo}
-              sections={sections}
-              getReviewStatus={getReviewStatus}
-              i18n={i18n}/>
-            , R.toPairs(assessments))
-          }
-          <div className="nav__divider"/>
-          {
-            !R.isEmpty(allowedToChangeRoles(country, userInfo))
-              ? <UsersManagement
+                : null
+            }
+            <div className="nav__divider"></div>
+            {
+              R.map(([assessment, sections]) =>
+                  <Assessment
+                    {...this.props}
+                    key={assessment}
+                    assessment={assessment}
+                    countryIso={country}
+                    status={status.assessments}
+                    changeAssessment={changeAssessment}
+                    userInfo={userInfo}
+                    sections={sections}
+                    getReviewStatus={getReviewStatus}
+                    i18n={i18n}/>
+                , R.toPairs(assessments))
+            }
+            <div className="nav__divider"/>
+            {
+              !R.isEmpty(allowedToChangeRoles(country, userInfo))
+                ? <UsersManagement
                   countryIso={country}
                   i18n={i18n}
                   path={path}
                   pathTemplate="/country/:countryIso/users"/>
-              : null
-          }
-          <Footer
-            countryIso={country}
-            {...this.props}/>
+                : null
+            }
+            <Footer
+              countryIso={country}
+              {...this.props}/>
+          </div>
         </div>
-      </div>
+      }
     </div>
   }
 }
@@ -400,6 +406,7 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps, {
   follow,
   getCountryList,
+  getCountryName,
   fetchAllCountryData,
   changeAssessment,
   navigationScroll,
