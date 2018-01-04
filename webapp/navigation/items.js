@@ -6,6 +6,7 @@ export const assessments = {
       label: 'navigation.sectionHeaders.introduction',
       children: [
         {
+          tableNo: '',
           label: 'contactPersons.contactPersons',
           section: 'contactPersons',
           pathTemplate: '/country/:countryIso/contactPersons'
