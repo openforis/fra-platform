@@ -2,7 +2,6 @@ import * as R from 'ramda'
 
 const demoCountry = {
   countryIso: 'ATL',
-  countryIso2: 'atlantis',
   listName: {
     en: 'Atlantis',
     es: 'Atlantis',
