@@ -321,7 +321,8 @@ The FRA team
     contactPersonsSupport: 'The present report was prepared by the following person(s)',
     introductoryText: 'Introductory text',
     introductoryTextSupport: 'Place an introductory text on the content of this report',
-    name: 'Name (last name, first name)',
+    firstName: 'First name',
+    lastName: 'Last name',
     institution: 'Institution/address',
     email: 'Email',
     tables: 'Tables'
