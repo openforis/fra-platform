@@ -386,8 +386,7 @@ The FRA team
     ofWhichNaturalExpansion: '…of which natural expansion',
     deforestation: 'Deforestation',
     forestAreaNetChange: 'Forest area net change',
-    netChangeDoesNotMatch: 'Doesn’t match Forest area net change',
-    total: 'Total'
+    netChangeDoesNotMatch: 'Doesn’t match Forest area net change'
   },
 
   annualReforestation: {
@@ -644,9 +643,9 @@ The FRA team
     indicator: 'Indicator',
     percent: 'Percent',
     nameOfAgencyResponsible: 'Name of agency responsible',
-    indicator1: 'SDG Indicator 15.1.1 Forest area as proportion of total land area 2015',
+    sdgIndicator1: 'SDG Indicator 15.1.1 Forest area as proportion of total land area 2015',
+    sdgIndicator2: 'SDG Indicator 15.2.1 Progress towards sustainable forest management',
     forestAreaProportionLandArea2015: 'Forest area as proportion of total land area 2015',
-    sdgIndicator15_2_1: 'SDG Indicator 15.2.1 Progress towards sustainable forest management',
     subIndicator: 'Sub-Indicator {{no}}',
     forestAreaAnnualNetChangeRate: 'Forest area annual net change rate',
     aboveGroundBiomassStockForests: 'Above-ground biomass stock in forests',

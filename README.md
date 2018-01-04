@@ -81,15 +81,3 @@ FRA Platform contains a simple framework for creating tables with
 fixed amount of rows and columns. These tables can store and retrieve
 their own data so it reduces the need to custom-code the logic for
 these simple cases. [The user guide is here](doc/traditional-table-guide.md).
-
-## Adding users to the system
-
-There is a command-line tool which does some basic checks and creates migration files
-for a new user. Here is an example of it's usage:
-
-```
-tools/add-user.sh -l jan.egeland@gmail.com -n "Jan Egeland" -c ITA -r REVIEWER -c NOR -r NATIONAL_CORRESPONDENT
-```
-
-The above command creates a migration file which adds the user Jan Egeland as a REVIEWER for Italy and 
-NATIONAL_CORRESPONDENT for Norway.
