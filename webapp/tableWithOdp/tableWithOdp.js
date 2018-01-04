@@ -12,25 +12,27 @@ import { readPasteClipboard } from '../utils/copyPasteUtil'
 import { acceptNextDecimal} from '../utils/numberInput'
 import { formatNumber, toFixed } from '../../common/bignumberUtils'
 import { hasOdps } from '../assessmentFra/extentOfForest/extentOfForestHelper'
+import defaultYears from '../../server/eof/defaultYears'
 
 const mapIndexed = R.addIndex(R.map)
 
-const getFraValues = (fra, rowsSpecs) => {
-  const valueFieldNames = R.reject(R.isNil, R.pluck('field', rowsSpecs))
+const getFraValues = (fra, rows) => {
+  const valueFieldNames = R.reject(R.isNil, R.pluck('field', rows))
   const fraValues = R.pipe(
-    R.values,
-    R.filter(value => value.type !== 'odp'),
+    R.filter(value => R.contains(value.year, defaultYears)),
     R.map(column => R.props(valueFieldNames, column))
   )(fra)
   return fraValues
 }
 
-const hasFraValues = (fra, rowsSpecs) => {
-  const fraValues = getFraValues(fra, rowsSpecs)
+const hasTableValues = (fra, rows) => {
+  const valueFieldNames = R.reject(R.isNil, R.pluck('field', rows))
   const flattenedFraValues = R.pipe(
+    R.filter(value => value.type === 'fra'),
+    R.map(column => R.props(valueFieldNames, column)),
     R.flatten,
     R.reject(R.isNil)
-  )(fraValues)
+  )(fra)
   return flattenedFraValues.length > 0
 }
 
@@ -50,8 +52,8 @@ export class TableWithOdp extends React.Component {
     </table>
   }
 
-  copyTableAsHtml (rowsSpecs) {
-    const transposedFraValues = R.transpose(getFraValues(this.props.fra, rowsSpecs))
+  copyTableAsHtml () {
+    const transposedFraValues = R.transpose(getFraValues(this.props.fra, this.props.rows))
     const htmlTable = ReactDOMServer.renderToString(this.clipboardTable(transposedFraValues))
     const dataTransfer = new clipboard.DT()
     dataTransfer.setData("text/plain", this.props.i18n.t('forestCharacteristics.forestCharacteristics'))
@@ -61,7 +63,6 @@ export class TableWithOdp extends React.Component {
 
 
   render () {
-    const rows = this.props.rows
     return <div className="fra-table__container table-with-odp">
       <div className="fra-table__scroll-wrapper">
         <table className="fra-table">
@@ -71,7 +72,7 @@ export class TableWithOdp extends React.Component {
             <th className="fra-table__header-cell" colSpan={R.values(this.props.fra).length}>
               <div>
                 {this.props.tableHeader}
-                <button className="fra-table__header-button btn-xs btn-primary" onClick={() => this.copyTableAsHtml(rows)}>
+                <button className="fra-table__header-button btn-xs btn-primary" onClick={() => this.copyTableAsHtml()}>
                   {this.props.i18n.t('tableWithOdp.copyToClipboard')}
                 </button>
               </div>
@@ -92,7 +93,7 @@ export class TableWithOdp extends React.Component {
           </tr>
           </thead>
           <tbody>
-            {buildRows(rows, this.props)}
+            {buildRows(this.props.rows, this.props)}
           </tbody>
         </table>
       </div>
@@ -243,7 +244,7 @@ export class GenerateFraValuesControl extends React.Component {
         )
       }
     }
-    if (hasFraValues(fra, rows)) {
+    if (hasTableValues(fra, rows)) {
       if (window.confirm(i18n.t('tableWithOdp.confirmGenerateFraValues'))) {
         generate()
       }

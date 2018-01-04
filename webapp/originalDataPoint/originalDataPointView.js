@@ -14,6 +14,7 @@ import {
 } from './actions'
 import { fetchCountryOverviewStatus } from '../country/actions'
 import { acceptNextDecimal } from '../utils/numberInput'
+import { add, sub } from '../../common/bignumberUtils'
 import { readPasteClipboard } from '../utils/copyPasteUtil'
 import { formatDecimal } from '../utils/numberFormat'
 import { ThousandSeparatedDecimalInput } from '../reusableUiComponents/thousandSeparatedDecimalInput'
@@ -327,7 +328,7 @@ const ExtentOfForestSection = ({odp, countryIso, saveDraft, openThread, i18n}) =
             <td className="fra-table__calculated-cell fra-table__divider">{formatDecimal(originalDataPoint.totalArea(odp))}</td>
             <td className="fra-table__calculated-cell">{formatDecimal(originalDataPoint.classTotalArea(odp, 'forestPercent'))}</td>
             <td className="fra-table__calculated-cell">{formatDecimal(originalDataPoint.classTotalArea(odp, 'otherWoodedLandPercent'))}</td>
-            <td className="fra-table__calculated-cell">{formatDecimal(originalDataPoint.classTotalArea(odp, 'otherLandPercent'))}</td>
+            <td className="fra-table__calculated-cell">{formatDecimal(originalDataPoint.otherLandTotalArea(odp))}</td>
           </tr>
           </tbody>
         </table>
@@ -559,7 +560,6 @@ const ExtentOfForestRow =
    area,
    forestPercent,
    otherWoodedLandPercent,
-   otherLandPercent,
    openThread,
    i18n
   }) => {
@@ -612,19 +612,9 @@ const ExtentOfForestRow =
         })}
       />
     </td>
-    <td className={`fra-table__cell ${eofStatusPercentage()}`}>
-      <PercentInput
-        numberValue={otherLandPercent}
-        onChange={numberUpdated(countryIso, odp, index, 'otherLandPercent', otherLandPercent)}
-        onPaste={updatePastedValues({
-          odp,
-          countryIso,
-          rowIndex: index,
-          colIndex: 3,
-          columns: extentOfForestCols,
-          saveDraft
-        })}
-      />
+    <td className="fra-table__calculated-cell">
+      {formatDecimal(sub(100, add(forestPercent, otherWoodedLandPercent)))}
+      <span style={{marginLeft: '8px'}}>%</span>
     </td>
     <td className="fra-table__row-anchor-cell">
       {odp.odpId
@@ -771,8 +761,7 @@ const SubcategoryRow =
     targetSuffix,
     validationResultField,
     reviewTitleKey,
-    i18n,
-    ...props
+    i18n
   }) => {
     const nationalClass = odp.nationalClasses[index]
     const numberUpdated = numberUpdateCreator(saveDraft)
