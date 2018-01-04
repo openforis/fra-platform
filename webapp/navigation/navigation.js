@@ -8,7 +8,7 @@ import { Link } from '../reusableUiComponents/link'
 import Icon from '../reusableUiComponents/icon'
 import { follow } from './../router/actions'
 import { changeAssessment, navigationScroll, toggleNavigationGroupCollapse, toggleAllNavigationGroupsCollapse } from './actions'
-import { getCountryList, getCountryName, getCountryAlpha2 } from '../country/actions'
+import { getCountryList, getCountryName } from '../country/actions'
 import { fetchAllCountryData } from '../app/actions'
 import { assessments } from './items'
 import { roleForCountry } from '../../common/countryRole'
@@ -39,10 +39,10 @@ class CountrySelection extends React.Component {
 
   render () {
     const countryIso = this.props.name
-    const {role, i18n, getCountryName, getCountryAlpha2} = this.props
+    const {role, i18n, getCountryName} = this.props
 
     const style = {
-      backgroundImage: `url('/img/flags/1x1/${getCountryAlpha2(countryIso).toLowerCase()}.svg'`
+      backgroundImage: `url('/img/flags/1x1/${countryIso}.svg'`
     }
 
     return <div className="nav__country" ref="navCountryItem" onClick={() => {
@@ -407,7 +407,6 @@ export default connect(mapStateToProps, {
   follow,
   getCountryList,
   getCountryName,
-  getCountryAlpha2,
   fetchAllCountryData,
   changeAssessment,
   navigationScroll,
