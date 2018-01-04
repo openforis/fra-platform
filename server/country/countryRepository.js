@@ -28,7 +28,6 @@ const getStatuses = groupedRows =>
 
 const getCountryProperties = country => ({
   countryIso: country.countryIso,
-  countryIso2: country.countryIso2,
   listName: {
     en: country.listNameEn,
     es: country.listNameEs,
@@ -71,7 +70,7 @@ const getAllCountries = role => {
       GROUP BY country_iso
     ) 
     SELECT
-      c.country_iso, c.country_iso2, c.list_name_en, c.full_name_en, c.list_name_es, c.full_name_es, c.list_name_fr, c.full_name_fr, c.list_name_ru, c.full_name_ru,
+      c.country_iso, c.list_name_en, c.full_name_en, c.list_name_es, c.full_name_es, c.list_name_fr, c.full_name_fr, c.list_name_ru, c.full_name_ru,
       a.type, a.status, 
       fa.last_edited
     FROM 
@@ -101,7 +100,7 @@ const getAllowedCountries = roles => {
         GROUP BY country_iso
       )
       SELECT
-        c.country_iso, c.country_iso2, c.list_name_en, c.full_name_en, c.list_name_es, c.full_name_es, c.list_name_fr, c.full_name_fr, c.list_name_ru, c.full_name_ru, 
+        c.country_iso, c.list_name_en, c.full_name_en, c.list_name_es, c.full_name_es, c.list_name_fr, c.full_name_fr, c.list_name_ru, c.full_name_ru, 
         a.type, a.status, 
         fa.last_edited
       FROM 
@@ -154,7 +153,7 @@ const saveDynamicConfigurationVariable = async (client, countryIso, key, value) 
 const getCountry = countryIso =>
   db.query(`
     SELECT
-      c.country_iso, c.country_iso2, c.list_name_en, c.full_name_en, c.list_name_es, c.full_name_es, c.list_name_fr, c.full_name_fr, c.list_name_ru, c.full_name_ru
+      c.country_iso, c.list_name_en, c.full_name_en, c.list_name_es, c.full_name_es, c.list_name_fr, c.full_name_fr, c.list_name_ru, c.full_name_ru
     FROM country c
     WHERE c.country_iso = $1
   `,[countryIso])
