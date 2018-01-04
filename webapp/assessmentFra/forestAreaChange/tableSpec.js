@@ -78,7 +78,7 @@ export default (i18n, extentOfForest, countryIso) => {
       [
         {
           type: 'readOnly',
-          jsx: <th className="fra-table__category-cell">{i18n.t('forestAreaChange.deforestation')} (b)</th>
+          jsx: <th className="fra-table__header-cell-left">{i18n.t('forestAreaChange.deforestation')} (b)</th>
         },
         ...mapIndexed(
           ([column, startYear, endYear]) => ({
