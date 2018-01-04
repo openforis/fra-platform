@@ -268,13 +268,13 @@ const AssesmentSection = ({countryIso, item, assessment, i18n, ...props}) => {
   </div>
 }
 
-const UsersManagement = ({i18n, countryIso, path, pathTemplate}) => {
+const SectionLink = ({i18n, countryIso, path, pathTemplate, label}) => {
   const linkTo = getLinkTo(pathTemplate, countryIso)
 
   return <Link
     className={`nav__link ${R.equals(path, linkTo) ? 'selected' : ''}`}
     to={linkTo}>
-      <div className='nav__link-label'>{i18n.t('navigation.support.manageCollaborators')}</div>
+      <div className='nav__link-label'>{i18n.t(label)}</div>
     </Link>
 }
 
@@ -372,13 +372,23 @@ class Nav extends React.Component {
             , R.toPairs(assessments))
           }
           <div className="nav__divider"/>
+          <SectionLink
+            countryIso={country}
+            i18n={i18n}
+            path={path}
+            pathTemplate="/country/:countryIso/panEuropeanIndicators"
+            label="navigation.sectionHeaders.panEuropeanIndicators"
+          />
+          <div className="nav__divider"/>
           {
             !R.isEmpty(allowedToChangeRoles(country, userInfo))
-              ? <UsersManagement
+              ? <SectionLink
                   countryIso={country}
                   i18n={i18n}
                   path={path}
-                  pathTemplate="/country/:countryIso/users"/>
+                  pathTemplate="/country/:countryIso/users"
+                  label="navigation.support.manageCollaborators"
+              />
               : null
           }
           <Footer

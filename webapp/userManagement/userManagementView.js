@@ -237,7 +237,7 @@ class UsersView extends React.Component {
   }
 }
 
-const mapStateToProps = (state, props) =>// console.log(props.match.params.countryIso, R.path(['user', 'userInfo'], state)) ||
+const mapStateToProps = (state, props) =>
   ({
     i18n: state.user.i18n,
     userList: state.userManagement.list,
