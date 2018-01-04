@@ -6,7 +6,10 @@ import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
 import DefinitionLink from '../../reusableUiComponents/definitionLink'
 
 import Indicator from './indicators/indicator'
-import SubIndicators from './indicators/subIndicators'
+import SubIndicator1 from './indicators/subIndicator1'
+import SubIndicator2 from './indicators/subIndicator2'
+import SubIndicator3 from './indicators/subIndicator3'
+import SubIndicator4 from './indicators/subIndicator4'
 
 import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
 import { fetch } from './actions'
@@ -45,18 +48,39 @@ class SustainableDevelopmentView extends React.Component {
             <DefinitionLink className="margin-right-big" document="tad" anchor="8" title={i18n.t('definition.definitionLabel')} lang={lang}/>
             <DefinitionLink className="align-left" document="faq" anchor="8" title={i18n.t('definition.faqLabel')} lang={lang}/>
           </div>
+          <h3 className="subhead" style={{marginBottom: 16}}>{i18n.t('sustainableDevelopment.sdgIndicator1')}</h3>
           <Indicator
             i18n={i18n}
             countryIso={countryIso}
             data={data}
             years={years}
             countryConfig={countryConfig}/>
-          <SubIndicators
+          <h3 className="subhead" style={{marginBottom: 16}}>{i18n.t('sustainableDevelopment.sdgIndicator2')}</h3>
+          <SubIndicator1
             i18n={i18n}
             countryIso={countryIso}
             data={data}
             years={years}
-            countryConfig={countryConfig}/>
+          />
+          <SubIndicator2
+            i18n={i18n}
+            countryIso={countryIso}
+            data={data}
+            years={years}
+          />
+          <SubIndicator3
+            i18n={i18n}
+            countryIso={countryIso}
+            data={data}
+            years={years}
+          />
+          <SubIndicator4
+            i18n={i18n}
+            countryIso={countryIso}
+            data={data}
+            years={years}
+            countryConfig={countryConfig}
+          />
         </div>
       </LoggedInPageTemplate>
   }

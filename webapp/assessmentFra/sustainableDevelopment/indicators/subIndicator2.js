@@ -10,7 +10,7 @@ const SubIndicator2 = ({i18n, countryIso, data, years}) => {
 
   const getBiomassStock = year => R.path(['biomassStock', year], data)
 
-  return <div className="fra-table__container fra-sustainable-dev-sub-indicator-table">
+  return <div className="fra-table__container">
     <div className="fra-table__scroll-wrapper">
       <table className="fra-table">
         <thead>

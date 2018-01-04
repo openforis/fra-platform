@@ -2,7 +2,8 @@
 
 .dashboard__page-header {
   max-width: 1280px;
-  margin: 0 auto 24px;
+  margin: 0 auto;
+  padding-bottom: 24px;
 }
 
 .dashboard__container {
@@ -10,11 +11,12 @@
   justify-content: space-between;
   max-width: 1280px;
   margin: 0 auto;
+  padding-bottom: 32px;
 }
 
 .dashboard__main {
-  padding-right: 16px;
-  width: 60%;
+  padding-right: 20px;
+  width: 50%;
 }
 
 .dashboard__main-title {
@@ -22,8 +24,8 @@
 }
 
 .dashboard__sidebar {
-  padding-left: 16px;
-  width: 40%;
+  padding-left: 20px;
+  width: 50%;
 }
 
 // Activity
@@ -34,9 +36,11 @@
   justify-content: space-between;
   border-top: 1px solid @ui-border-light;
   padding: 10px 0;
+  word-break: break-word;
 }
 
 .dashboard__activity-avatar {
+  flex-shrink: 0;
   border-radius: 100%;
   box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
   height: 28px;
@@ -77,7 +81,6 @@
   border-collapse: collapse;
   line-height: 20px;
   width: 100%;
-  margin-bottom: 32px;
 
   td, th {
     padding: 10px 20px 10px 0;

@@ -19,7 +19,7 @@ const SubIndicator3 = ({i18n, countryIso, data, years}) => {
   const getValueProtectedAreas = year => getValue(year, 'forestAreaWithinProtectedAreas')
   const getValueForestManagement = year => getValue(year, 'forestAreaWithLongTermManagementPlan')
 
-  return <div className="fra-table__container fra-sustainable-dev-sub-indicator-table">
+  return <div className="fra-table__container">
     <div className="fra-table__scroll-wrapper">
       <table className="fra-table">
         <thead>
