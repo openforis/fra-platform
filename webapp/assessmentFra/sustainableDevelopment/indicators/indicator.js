@@ -15,11 +15,7 @@ const Indicator = ({i18n, countryIso, countryConfig, data, years}) => {
 
   const getValueByYear = year => mul(div(getForestArea(data, year), area2015), 100)
 
-  return <div className="fra-sustainable-dev-indicator-15-1-1">
-    <div className="fra-view__section-header">
-      <h3 className="subhead">{i18n.t('sustainableDevelopment.indicator1')}</h3>
-    </div>
-    <div className="fra-table__container">
+  return <div className="fra-table__container">
       <div className="fra-table__scroll-wrapper">
         <table className="fra-table">
           <thead>
@@ -63,9 +59,6 @@ const Indicator = ({i18n, countryIso, countryConfig, data, years}) => {
         countryIso={countryIso}
         tableSpecName="sustainableDevelopmentAgencyIndicator"/>
     </div>
-
-
-  </div>
 }
 
 export default Indicator
