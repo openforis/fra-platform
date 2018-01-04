@@ -12,7 +12,7 @@ const SubIndicator4 = ({i18n, countryIso, years, countryConfig}) => {
 
   const getCertifiedArea = year => R.path(['certifiedAreas',year])(countryConfig)
 
-  return <div className="fra-table__container fra-sustainable-dev-sub-indicator-table">
+  return <div className="fra-table__container">
     <div className="fra-table__scroll-wrapper">
       <table className="fra-table">
         <thead>
