@@ -25,7 +25,8 @@ const CommentableDescription = props => {
           title={props.title}
           section={props.section}
           name={props.name}
-          countryIso={props.countryIso}/>
+          countryIso={props.countryIso}
+          template={props.template}/>
       </div>
       <div className="fra-description__review-indicator-wrapper">
         <ReviewIndicator

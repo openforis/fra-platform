@@ -155,6 +155,7 @@ module.exports.translation = {
       manageCollaborators: 'Manage collaborators'
     },
     sectionHeaders: {
+      introduction: 'Introduction',
       forestExtentCharacteristicsAndChanges: 'Forest extent, characteristics and changes',
       forestGrowingStockBiomassAndCarbon: 'Forest growing stock, biomass and carbon',
       forestDesignationAndManagement: 'Forest designation and management',
@@ -313,6 +314,18 @@ The FRA team
 
   // FRA 2020 questionare
   // Object name and title should have allways the same name
+
+  contactPersons: {
+    reportPreparationAndContactPersons: 'Report preparation and contact persons',
+    contactPersons: 'Contact persons',
+    contactPersonsSupport: 'The present report was prepared by the following person(s)',
+    introductoryText: 'Introductory text',
+    introductoryTextSupport: 'Place an introductory text on the content of this report',
+    name: 'Name (last name, first name)',
+    institution: 'Institution/address',
+    email: 'Email',
+    tables: 'Tables'
+  },
 
   extentOfForest: {
     extentOfForest: 'Extent of forest and other wooded land',
