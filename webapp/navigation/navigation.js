@@ -15,6 +15,7 @@ import { roleForCountry } from '../../common/countryRole'
 import { allowedToChangeRoles } from '../../common/userManagementAccessControl'
 import { isAdministrator } from '../../common/countryRole'
 import { getAllowedStatusTransitions } from '../../common/assessment'
+import { hasOdps } from '../assessmentFra/extentOfForest/extentOfForestHelper'
 import { PopoverControl } from '../reusableUiComponents/popoverControl'
 
 import './style.less'
@@ -349,7 +350,7 @@ class Nav extends React.Component {
               path={path}
               pathTemplate="/country/:countryIso"/>
             {
-              R.path(['config', 'useOriginalDataPoints'], this.props)
+              this.props.showOriginalDataPoints
                 ? <NationalData
                   label={i18n.t('nationalDataPoint.nationalData')}
                   countryIso={country}
@@ -397,6 +398,7 @@ class Nav extends React.Component {
 }
 
 const mapStateToProps = state => ({
+  showOriginalDataPoints: hasOdps(R.path(['extentOfForest', 'fra'], state)),
   ...state.navigation,
   ...state.country,
   ...state.router,
