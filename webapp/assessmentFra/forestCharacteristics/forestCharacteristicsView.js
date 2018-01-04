@@ -2,7 +2,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
 import { Link } from '../../reusableUiComponents/link'
-import Icon from '../../reusableUiComponents/icon'
 import { fetchItem, save, saveMany, generateFraValues } from '../../tableWithOdp/actions'
 import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
 import { TableWithOdp, GenerateFraValuesControl } from '../../tableWithOdp/tableWithOdp'
@@ -16,6 +15,7 @@ import DefinitionLink from '../../reusableUiComponents/definitionLink'
 import { sum, formatNumber, greaterThanOrEqualTo, abs, sub, greaterThan, toFixed } from '../../../common/bignumberUtils'
 import { getForestAreaForYear } from '../extentOfForest/extentOfForestHelper'
 import ReviewIndicator from '../../review/reviewIndicator'
+import { hasOdps } from '../extentOfForest/extentOfForestHelper'
 
 const mapIndexed = R.addIndex(R.map)
 const sectionName = 'forestCharacteristics'
@@ -287,9 +287,10 @@ class DataFetchingComponent extends React.Component {
 }
 
 const mapStateToProps = state => {
-  //System-wide setting:
-  const useOriginalDataPoints = !!R.path(['country', 'config', 'useOriginalDataPoints'], state)
+  //System-wide data-point enabling for country is done  by adding one or more ODPs in table 1a
+  const useOriginalDataPoints = hasOdps(R.path(['extentOfForest', 'fra'], state))
   const useOriginalDataPointsInFoc = !!R.path(['country', 'config', 'useOriginalDataPointsInFoc'], state)
+
   return {
     ...state.forestCharacteristics,
     openCommentThread: state.review.openThread,
