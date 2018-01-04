@@ -30,7 +30,7 @@ import AreaOfPermanentForestEstateView from '../assessmentFra/areaOfPermanentFor
 import ForestPolicyView from '../assessmentFra/forestPolicy/forestPolicyView'
 import OtherLandWithTreeCoverView from '../assessmentFra/otherLandWithTreeCover/otherLandWithTreeCoverView'
 import SustainableDevelopment from '../assessmentFra/sustainableDevelopment/sustainableDevelopmentView'
-import PanEuropeanIndicatorsView from '../panEuropeanIndicators/PanEuropeanIndicatorsView'
+import PanEuropeanIndicatorsView from '../panEuropeanIndicators/panEuropeanIndicatorsView'
 
 const routes = {
   '/': () => <noscript/>, //This will get rendered first (it flashes), before we redirect to logged-in page or login page
