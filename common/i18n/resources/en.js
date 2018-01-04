@@ -83,7 +83,7 @@ module.exports.translation = {
       milestone5: 'FRA 2020 Preliminary Findings',
       milestone6: 'FRA 2020 Main Report',
       date1: 'March 2018',
-      date2: 'April 2018 – September 2018',
+      date2: 'April – September 2018',
       date3: 'October 2018',
       date4: 'January – February 2019',
       date5: 'March 2020',
@@ -111,7 +111,8 @@ module.exports.translation = {
       updateInvitation: 'Invite updated for {{user}} as {{role}}'
     },
     fraProcess: 'FAO has been monitoring the world’s forests at 5 to 10 year intervals since 1946. The Global Forest Resources Assessments (FRA) are now produced every five years in an attempt to provide a consistent approach to describing the world’s forests and how they are changing. The Assessment is based on two primary sources of data: Country Reports prepared by National Correspondents and remote sensing that is conducted by FAO together with national focal points and regional partners. The scope of the FRA has changed regularly since the first assessment published in 1948. These assessments make an interesting history of global forest interests, both in terms of their substantive content, but also in their changing scope.',
-    linkFraProcess: 'Read more about the FRA process'
+    linkFraProcess: 'Read more about the FRA process',
+    getStarted: 'Get started'
   },
 
   // error messages
