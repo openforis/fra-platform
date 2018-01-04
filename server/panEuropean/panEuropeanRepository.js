@@ -4,7 +4,7 @@ const db = require('../db/db')
 
 module.exports.persistPanEuropeanQtyQuestionnaire = (client, user, countryIso, file) =>
   auditRepository
-    .insertAudit(client, user.id, 'persistPanEuropeanQtyQuestionnaire', countryIso, 'panEuropean')
+    .insertAudit(client, user.id, 'persistPanEuropeanQtyQuestionnaire', countryIso, 'panEuropeanIndicators')
     .then(() =>
       client.query('SELECT id FROM pan_european WHERE country_iso = $1', [countryIso])
         .then(resp => R.isEmpty(resp.rows)
