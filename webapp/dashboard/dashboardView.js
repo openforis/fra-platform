@@ -180,6 +180,7 @@ class DashboardView extends React.Component {
                       <img src="img/tucan.svg" height="72"/>
                       <p className="dashboard__activity-empty-title">{i18n.t('dashboard.noRecentActivityTitle')}</p>
                       <p>{i18n.t('dashboard.noRecentActivityBody')}</p>
+                      <Link className="btn-s btn-primary" to={`/country/${countryIso}/contactPersons`}>{i18n.t('dashboard.getStarted')}</Link>
                     </div>
             }
           </div>
