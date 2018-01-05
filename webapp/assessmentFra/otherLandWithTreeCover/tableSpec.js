@@ -27,7 +27,7 @@ export default (i18n, extentOfForest, faoStat, countryIso) => {
     header: <thead>
     <tr>
       <th className="fra-table__header-cell-left" rowSpan="2">{i18n.t('otherLandWithTreeCover.categoryHeader')}</th>
-      <th className="fra-table__header-cell" colSpan="5">{i18n.t('otherLandWithTreeCover.areaUnitLabel')}</th>
+      <th className="fra-table__header-cell" colSpan={years.length}>{i18n.t('otherLandWithTreeCover.areaUnitLabel')}</th>
     </tr>
     <tr>
       {

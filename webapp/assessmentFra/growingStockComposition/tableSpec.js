@@ -2,6 +2,8 @@ import React from 'react'
 import R from 'ramda'
 import { totalSumFormatted } from '../../traditionalTable/aggregate'
 
+const years = [1990, 2000, 2010, 2015, 2020]
+
 const yearlyVolumeInputsForRow = () =>
   [
     {type: 'decimalInput'},
@@ -108,15 +110,15 @@ export default i18n => ({
     <th className="fra-table__header-cell-left">{i18n.t('growingStockComposition.categoryHeader')}</th>
     <th rowSpan="2" className="fra-table__header-cell">{i18n.t('growingStockComposition.scientificName')}</th>
     <th rowSpan="2" className="fra-table__header-cell">{i18n.t('growingStockComposition.commonName')}</th>
-    <th className="fra-table__header-cell" colSpan="5">{i18n.t('growingStockComposition.areaUnitLabel')}</th>
+    <th className="fra-table__header-cell" colSpan={years.length}>{i18n.t('growingStockComposition.areaUnitLabel')}</th>
   </tr>
   <tr>
     <th className="fra-table__header-cell-left">{i18n.t('growingStockComposition.nativeTreeSpecies')}</th>
-    <th className="fra-table__header-cell">1990</th>
-    <th className="fra-table__header-cell">2000</th>
-    <th className="fra-table__header-cell">2010</th>
-    <th className="fra-table__header-cell">2015</th>
-    <th className="fra-table__header-cell">2020</th>
+    {
+      R.map(year=>
+        <th key={year} className="fra-table__header-cell">{year}</th>
+      , years)
+    }
   </tr>
   </thead>,
   rows:

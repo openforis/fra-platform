@@ -21,7 +21,7 @@ const thead = i18n =>
   <thead>
     <tr>
       <th className="fra-table__header-cell-left" rowSpan="2">{i18n.t('designatedManagementObjective.categoryHeader')}</th>
-      <th className="fra-table__header-cell" colSpan="5">{i18n.t('designatedManagementObjective.areaUnitLabel')}</th>
+      <th className="fra-table__header-cell" colSpan={years.length}>{i18n.t('designatedManagementObjective.areaUnitLabel')}</th>
     </tr>
     <tr>
       {
