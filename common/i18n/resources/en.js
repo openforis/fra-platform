@@ -348,7 +348,8 @@ The FRA team
     fedAreasExceedTotalLandArea: 'Forest area and other wooded land exceed total land area',
     forestAreaDoesNotMatchPreviouslyReported: 'Forest area doesn’t match FRA 2015 area: {{previous}}',
     useOriginalDataPoints: 'Use national data points',
-    dontUseOriginalDataPoints: 'Don’t use national data points'
+    dontUseOriginalDataPoints: 'Don’t use national data points',
+    whatIsThis: 'What is this?'
   },
 
   climaticDomain: {
