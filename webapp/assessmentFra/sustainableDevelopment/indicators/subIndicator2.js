@@ -18,7 +18,7 @@ const SubIndicator2 = ({i18n, countryIso, data, years}) => {
           <th rowSpan="2" className="fra-table__header-cell-left">
             {i18n.t('sustainableDevelopment.subIndicator', {no: 2})}
           </th>
-          <th colSpan="9" className="fra-table__header-cell">
+          <th colSpan={years.length} className="fra-table__header-cell">
             {i18n.t('biomassStock.tableHeader')}
           </th>
         </tr>
