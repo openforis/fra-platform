@@ -39,7 +39,7 @@ export default (i18n, forestOwnership, countryIso) => ({
   header: <thead>
   <tr>
     <th className="fra-table__header-cell-left" rowSpan="2">{i18n.t('holderOfManagementRights.categoryHeader')}</th>
-    <th className="fra-table__header-cell" colSpan="4">{i18n.t('holderOfManagementRights.areaUnitLabel')}</th>
+    <th className="fra-table__header-cell" colSpan={years.length}>{i18n.t('holderOfManagementRights.areaUnitLabel')}</th>
   </tr>
   <tr>
     {
