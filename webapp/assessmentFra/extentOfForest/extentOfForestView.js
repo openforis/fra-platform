@@ -158,13 +158,12 @@ const ExtentOfForest = (props) => {
     }
   ]
   return <div className='fra-view__content'>
-    <div className="fra-view__page-header">
-      <div/>
-      <Link className="btn btn-primary" to={`/country/${props.countryIso}/odp/${sectionName}`}>
-        <Icon className="icon-sub icon-white" name="small-add"/>
-        {i18n.t('nationalDataPoint.addNationalDataPoint')}
-      </Link>
-    </div>
+    <Link className="btn btn-primary" to={`/country/${props.countryIso}/odp/${sectionName}`} style={{marginRight: 16}}>
+      <Icon className="icon-sub icon-white" name="small-add"/>
+      {i18n.t('nationalDataPoint.addNationalDataPoint')}
+    </Link>
+    <DefinitionLink document="faq" anchor="1a" title={i18n.t('extentOfForest.whatIsThis')} lang={i18n.language}/>
+    <hr/>
     {
       hasOdps(props.fra)
         ? null

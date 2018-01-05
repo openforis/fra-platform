@@ -193,28 +193,31 @@ const ForestCharacteristics = props => {
       validationErrorMessages
     }
   ]
+
+  const handleOdpButtonClick = () => {
+    props.saveCountryConfigSetting(
+      props.countryIso,
+      'useOriginalDataPointsInFoc',
+      !props.useOriginalDataPointsInFoc,
+      () => props.fetchItem(sectionName, props.countryIso)
+    )
+  }
+
   return <div className='fra-view__content'>
     {
       props.useOriginalDataPoints
-      ? <div className="fra-view__page-header">
-          <button
+      ? [<button
+            key="odpButton"
             className={`btn btn-${props.useOriginalDataPointsInFoc ? 'secondary' : 'primary'}`}
-            onClick={() => {
-              props.saveCountryConfigSetting(
-                props.countryIso,
-                'useOriginalDataPointsInFoc',
-                !props.useOriginalDataPointsInFoc,
-                () => props.fetchItem(sectionName, props.countryIso)
-              )
-            }}
+            onClick={() => handleOdpButtonClick()}
           >
           {
             props.useOriginalDataPointsInFoc
             ? i18n.t('forestCharacteristics.dontUseOriginalDataPoints')
             : i18n.t('forestCharacteristics.useOriginalDataPoints')
           }
-          </button>
-        </div>
+          </button>,
+          <hr key="separator"/>]
       : null
     }
     {
