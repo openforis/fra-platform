@@ -19,9 +19,8 @@ const defaultResponses = {
   'forestCharacteristics': focTableResponse
 }
 const odpsInUse = {
-  'extentOfForest': (config) => config.useOriginalDataPoints === true,
-  'forestCharacteristics': (config) =>
-  config.useOriginalDataPoints === true && config.useOriginalDataPointsInFoc === true
+  'extentOfForest': (config) => true,
+  'forestCharacteristics': (config) => config.useOriginalDataPointsInFoc === true
 }
 
 const getOdps = async (section, countryIso) => {
@@ -29,7 +28,7 @@ const getOdps = async (section, countryIso) => {
   const useOdps = odpsInUse[section](dynamicConfig)
   const readOdp = odpReaders[section]
   if (useOdps) {
-    const odps = await readOdp(countryIso)
+  const odps = await readOdp(countryIso)
     return odps
   } else {
     return []

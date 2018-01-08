@@ -2,7 +2,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
 import { Link } from '../../reusableUiComponents/link'
-import Icon from '../../reusableUiComponents/icon'
 import { fetchItem, save, saveMany, generateFraValues } from '../../tableWithOdp/actions'
 import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
 import { TableWithOdp, GenerateFraValuesControl } from '../../tableWithOdp/tableWithOdp'
@@ -16,6 +15,7 @@ import DefinitionLink from '../../reusableUiComponents/definitionLink'
 import { sum, formatNumber, greaterThanOrEqualTo, abs, sub, greaterThan, toFixed } from '../../../common/bignumberUtils'
 import { getForestAreaForYear } from '../extentOfForest/extentOfForestHelper'
 import ReviewIndicator from '../../review/reviewIndicator'
+import { hasOdps } from '../extentOfForest/extentOfForestHelper'
 
 const mapIndexed = R.addIndex(R.map)
 const sectionName = 'forestCharacteristics'
@@ -193,28 +193,31 @@ const ForestCharacteristics = props => {
       validationErrorMessages
     }
   ]
+
+  const handleOdpButtonClick = () => {
+    props.saveCountryConfigSetting(
+      props.countryIso,
+      'useOriginalDataPointsInFoc',
+      !props.useOriginalDataPointsInFoc,
+      () => props.fetchItem(sectionName, props.countryIso)
+    )
+  }
+
   return <div className='fra-view__content'>
     {
       props.useOriginalDataPoints
-      ? <div className="fra-view__page-header">
-          <button
+      ? [<button
+            key="odpButton"
             className={`btn btn-${props.useOriginalDataPointsInFoc ? 'secondary' : 'primary'}`}
-            onClick={() => {
-              props.saveCountryConfigSetting(
-                props.countryIso,
-                'useOriginalDataPointsInFoc',
-                !props.useOriginalDataPointsInFoc,
-                () => props.fetchItem(sectionName, props.countryIso)
-              )
-            }}
+            onClick={() => handleOdpButtonClick()}
           >
           {
             props.useOriginalDataPointsInFoc
             ? i18n.t('forestCharacteristics.dontUseOriginalDataPoints')
             : i18n.t('forestCharacteristics.useOriginalDataPoints')
           }
-          </button>
-        </div>
+          </button>,
+          <hr key="separator"/>]
       : null
     }
     {
@@ -287,9 +290,10 @@ class DataFetchingComponent extends React.Component {
 }
 
 const mapStateToProps = state => {
-  //System-wide setting:
-  const useOriginalDataPoints = !!R.path(['country', 'config', 'useOriginalDataPoints'], state)
+  //System-wide data-point enabling for country is done  by adding one or more ODPs in table 1a
+  const useOriginalDataPoints = hasOdps(R.path(['extentOfForest', 'fra'], state))
   const useOriginalDataPointsInFoc = !!R.path(['country', 'config', 'useOriginalDataPointsInFoc'], state)
+
   return {
     ...state.forestCharacteristics,
     openCommentThread: state.review.openThread,
