@@ -65,7 +65,7 @@ const SubIndicator1 = ({i18n, countryIso, data, years}) => {
         <tbody>
         <tr>
           <th className="fra-table__category-cell">
-            {i18n.t('sustainableDevelopment.forestAreaProportionLandArea2015')}
+            {i18n.t('sustainableDevelopment.forestAreaAnnualNetChangeRate')}
           </th>
           {
             years.map((year, i) =>
