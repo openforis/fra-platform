@@ -8,7 +8,7 @@ import { Link } from '../reusableUiComponents/link'
 import Icon from '../reusableUiComponents/icon'
 import { follow } from './../router/actions'
 import { changeAssessment, navigationScroll, toggleNavigationGroupCollapse, toggleAllNavigationGroupsCollapse } from './actions'
-import { getCountryList, getCountryName } from '../country/actions'
+import { getCountryList, getCountryName, isPanEuropeanCountry } from '../country/actions'
 import { fetchAllCountryData } from '../app/actions'
 import { assessments } from './items'
 import { roleForCountry } from '../../common/countryRole'
@@ -327,7 +327,7 @@ class Nav extends React.Component {
       R.defaultTo({issuesCount: 0})
     )(status.reviewStatus)
 
-    const {userInfo, i18n, path, countries, country, changeAssessment} = this.props
+    const {userInfo, i18n, path, countries, country, changeAssessment, isPanEuropeanCountry} = this.props
 
     return <div className="fra-nav__container">
       {R.isNil(countries)
@@ -376,14 +376,20 @@ class Nav extends React.Component {
                     i18n={i18n}/>
                 , R.toPairs(assessments))
             }
-            <div className="nav__divider"/>
-            <SectionLink
-              countryIso={country}
-              i18n={i18n}
-              path={path}
-              pathTemplate="/country/:countryIso/panEuropeanIndicators"
-              label="navigation.sectionHeaders.panEuropeanIndicators"
-            />
+            {
+              isPanEuropeanCountry(country)
+              ? <div>
+                <div className="nav__divider"/>
+                <SectionLink
+                  countryIso={country}
+                  i18n={i18n}
+                  path={path}
+                  pathTemplate="/country/:countryIso/panEuropeanIndicators"
+                  label="navigation.sectionHeaders.panEuropeanIndicators"
+                />
+              </div>
+              : null
+            }
             <div className="nav__divider"/>
             {
               !R.isEmpty(allowedToChangeRoles(country, userInfo))
@@ -417,6 +423,7 @@ export default connect(mapStateToProps, {
   follow,
   getCountryList,
   getCountryName,
+  isPanEuropeanCountry,
   fetchAllCountryData,
   changeAssessment,
   navigationScroll,
