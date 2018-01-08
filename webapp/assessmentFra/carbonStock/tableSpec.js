@@ -1,18 +1,18 @@
 import React from 'react'
 import R from 'ramda'
+import defaultYears from '../../../server/eof/defaultYears'
 
 const inputColumns = R.times(() => ({type: 'decimalInput'}), 9)
-const years = [1990, 2000, 2010, 2015, 2016, 2017, 2018, 2019, 2020]
 
 export default i18n => ({
   name: 'carbonStock', // used to uniquely identify table
   header: <thead>
   <tr>
     <th className="fra-table__header-cell-left" rowSpan="2">{i18n.t('carbonStock.categoryHeader')}</th>
-    <th className="fra-table__header-cell" colSpan="9">{i18n.t(`carbonStock.tableHeader`)}</th>
+    <th className="fra-table__header-cell" colSpan={defaultYears.length}>{i18n.t(`carbonStock.tableHeader`)}</th>
   </tr>
   <tr>
-    {R.map(year => <th className="fra-table__header-cell" key={year}>{year}</th>, years)}
+    {R.map(year => <th className="fra-table__header-cell" key={year}>{year}</th>, defaultYears)}
   </tr>
   </thead>,
   rows:[
