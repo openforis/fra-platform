@@ -1,6 +1,6 @@
-const auditRepository = require('./../audit/auditRepository')
 const R = require('ramda')
 const db = require('../db/db')
+const auditRepository = require('./../audit/auditRepository')
 
 module.exports.persistPanEuropeanQtyQuestionnaire = (client, user, countryIso, file) =>
   auditRepository
