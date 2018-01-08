@@ -83,7 +83,7 @@ module.exports.translation = {
       milestone5: 'FRA 2020 Preliminary Findings',
       milestone6: 'FRA 2020 Main Report',
       date1: 'March 2018',
-      date2: 'April 2018 – September 2018',
+      date2: 'April – September 2018',
       date3: 'October 2018',
       date4: 'January – February 2019',
       date5: 'March 2020',
@@ -111,7 +111,8 @@ module.exports.translation = {
       updateInvitation: 'Invite updated for {{user}} as {{role}}'
     },
     fraProcess: 'FAO has been monitoring the world’s forests at 5 to 10 year intervals since 1946. The Global Forest Resources Assessments (FRA) are now produced every five years in an attempt to provide a consistent approach to describing the world’s forests and how they are changing. The Assessment is based on two primary sources of data: Country Reports prepared by National Correspondents and remote sensing that is conducted by FAO together with national focal points and regional partners. The scope of the FRA has changed regularly since the first assessment published in 1948. These assessments make an interesting history of global forest interests, both in terms of their substantive content, but also in their changing scope.',
-    linkFraProcess: 'Read more about the FRA process'
+    linkFraProcess: 'Read more about the FRA process',
+    getStarted: 'Get started'
   },
 
   // error messages
@@ -155,6 +156,7 @@ module.exports.translation = {
       manageCollaborators: 'Manage collaborators'
     },
     sectionHeaders: {
+      introduction: 'Introduction',
       forestExtentCharacteristicsAndChanges: 'Forest extent, characteristics and changes',
       forestGrowingStockBiomassAndCarbon: 'Forest growing stock, biomass and carbon',
       forestDesignationAndManagement: 'Forest designation and management',
@@ -315,6 +317,19 @@ The FRA team
   // FRA 2020 questionare
   // Object name and title should have allways the same name
 
+  contactPersons: {
+    reportPreparationAndContactPersons: 'Report preparation and contact persons',
+    contactPersons: 'Contact persons',
+    contactPersonsSupport: 'The present report was prepared by the following person(s)',
+    introductoryText: 'Introductory text',
+    introductoryTextSupport: 'Place an introductory text on the content of this report',
+    firstName: 'First name',
+    lastName: 'Last name',
+    institution: 'Institution/address',
+    email: 'Email',
+    tables: 'Tables'
+  },
+
   extentOfForest: {
     extentOfForest: 'Extent of forest and other wooded land',
     estimationAndForecasting: 'Estimation and forecasting',
@@ -334,7 +349,8 @@ The FRA team
     fedAreasExceedTotalLandArea: 'Forest area and other wooded land exceed total land area',
     forestAreaDoesNotMatchPreviouslyReported: 'Forest area doesn’t match FRA 2015 area: {{previous}}',
     useOriginalDataPoints: 'Use national data points',
-    dontUseOriginalDataPoints: 'Don’t use national data points'
+    dontUseOriginalDataPoints: 'Don’t use national data points',
+    whatIsThis: 'What is this?'
   },
 
   climaticDomain: {

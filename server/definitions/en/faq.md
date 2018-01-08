@@ -6,6 +6,10 @@ _FRA 2020_
 
 If new data have become available since last reporting, you may need to also change the historical figures as the new data most likely will affect the trends. Likewise, if you notice that some errors were made in the estimations for FRA 2010, these should be corrected accordingly. Whenever, previously reported figures are changed, the justification should be clearly documented in the comments to the table.
 
+### National data points
+
+National data points are a way to increase transparency in the FRA report by separating the national data points from the FRA reporting year data. By using national data points you also enable different estimation and forecasting methods for generating the FRA year values.
+
 ### Can sub-national level information on forest area be used to improve/generate national level estimates?
 
  If boundaries of the sub-national units are consistent and definitions compatible, sub-national level information can be aggregated to generate a composite national level estimate through addition of the sub-national figures. Where definitions/classifications differ, harmonization of national classes or reclassification to the FRA categories should be done prior to adding the various estimates.
