@@ -4,10 +4,9 @@ import {
   subCategoryValidator,
   forestAreaLessThanOrEqualToExtentOfForestValidator
 } from '../../traditionalTable/validators'
+import defaultYears from '../../../server/eof/defaultYears'
 
 const mapIndexed = R.addIndex(R.map)
-
-const years = [1990, 2000, 2010, 2015, 2016, 2017, 2018, 2019, 2020]
 
 export default (i18n, extentOfForest) => {
   const inputColumns = R.map(
@@ -15,19 +14,18 @@ export default (i18n, extentOfForest) => {
       type: 'decimalInput',
       validator: forestAreaLessThanOrEqualToExtentOfForestValidator(year, extentOfForest)
     }),
-    years
+    defaultYears
   )
   return {
     name: 'forestAreaWithinProtectedAreas',
     header: <thead>
     <tr>
       <th className="fra-table__header-cell-left" rowSpan="2">{i18n.t('forestAreaWithinProtectedAreas.categoryHeader')}</th>
-      <th className="fra-table__header-cell"
-          colSpan="9">{i18n.t('forestAreaWithinProtectedAreas.areaUnitLabel')}</th>
+      <th className="fra-table__header-cell" colSpan={defaultYears.length}>{i18n.t('forestAreaWithinProtectedAreas.areaUnitLabel')}</th>
     </tr>
     <tr>
       {
-        R.map(year => <th key={year} className="fra-table__header-cell">{year}</th>, years)
+        R.map(year => <th key={year} className="fra-table__header-cell">{year}</th>, defaultYears)
       }
     </tr>
     </thead>,

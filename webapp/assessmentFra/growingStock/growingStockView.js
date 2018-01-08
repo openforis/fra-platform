@@ -13,10 +13,10 @@ import ReviewIndicator from '../../review/reviewIndicator'
 import { readPasteClipboard } from '../../utils/copyPasteUtil'
 import NationalDataDescriptions from '../../descriptionBundles/nationalDataDescriptions'
 import GeneralComments from '../../descriptionBundles/generalComments'
+import defaultYears from '../../../server/eof/defaultYears'
 
 const sectionName = 'growingStock'
 const mapIndexed = R.addIndex(R.map)
-const years = [1990, 2000, 2010, 2015, 2016, 2017, 2018, 2019, 2020]
 
 const InputRowAvg = (props) => {
   const thClassName = props.subCategory ? 'fra-table__subcategory-cell' : 'fra-table__category-cell'
@@ -32,7 +32,7 @@ const InputRowAvg = (props) => {
             onPaste={e => props.pasteAvgValue(props.countryIso, year, props.row, readPasteClipboard(e, 'decimal'))}
             onChange={e => props.changeAvgValue(props.countryIso, year, props.row, e.target.value)}/>
         </td>
-      }, years)
+      }, defaultYears)
     }
     <td className="fra-table__row-anchor-cell">
       <div className="fra-table__review-indicator-anchor">
@@ -61,7 +61,7 @@ const InputRowTotal = (props) => {
             onPaste={e => props.pasteTotalValue(props.countryIso, year, props.row, readPasteClipboard(e, 'decimal'))}
             onChange={e => props.changeTotalValue(props.countryIso, year, props.row, e.target.value)}/>
         </td>
-      }, years)
+      }, defaultYears)
     }
     <td className="fra-table__row-anchor-cell">
       <div className="fra-table__review-indicator-anchor">
@@ -90,7 +90,7 @@ const SumRowAvg = (props) => {
         return <td className="fra-table__calculated-cell" key={year}>
           {formatNumber(avg)}
         </td>
-      }, years)
+      }, defaultYears)
     }
     <td className="fra-table__row-anchor-cell">
       <div className="fra-table__review-indicator-anchor">
@@ -116,7 +116,7 @@ const SumRowTotal = (props) => {
         return <td className="fra-table__calculated-cell" key={year}>
           {formatNumber(sum(value))}
         </td>
-      }, years)
+      }, defaultYears)
     }
     <td className="fra-table__row-anchor-cell">
       <div className="fra-table__review-indicator-anchor">
@@ -181,7 +181,7 @@ const GrowingStock = (props) => {
           <thead>
             <tr>
               <th className="fra-table__header-cell-left" rowSpan="2">{i18n.t('growingStock.categoryHeader')}</th>
-              <th className="fra-table__header-cell" colSpan="9">
+              <th className="fra-table__header-cell" colSpan={defaultYears.length}>
                 <div>
                   {props.i18n.t('growingStock.avgTableHeader')}
                   <button className="fra-table__header-button btn-xs btn-primary" onClick={() => copyTableAsHtml(avgTable, i18n)}>
@@ -191,7 +191,7 @@ const GrowingStock = (props) => {
               </th>
             </tr>
             <tr>
-              {R.map(year => <th className="fra-table__header-cell" key={year}>{year}</th>, years)}
+              {R.map(year => <th className="fra-table__header-cell" key={year}>{year}</th>, defaultYears)}
             </tr>
           </thead>
           <tbody>
@@ -235,10 +235,10 @@ const GrowingStock = (props) => {
           <thead>
             <tr>
               <th className="fra-table__header-cell-left" rowSpan="2">{i18n.t('growingStock.categoryHeader')}</th>
-              <th className="fra-table__header-cell" colSpan="9">{i18n.t('growingStock.totalTableHeader')}</th>
+              <th className="fra-table__header-cell" colSpan={defaultYears.length}>{i18n.t('growingStock.totalTableHeader')}</th>
             </tr>
             <tr>
-              {R.map(year => <th className="fra-table__header-cell" key={year}>{year}</th>, years)}
+              {R.map(year => <th className="fra-table__header-cell" key={year}>{year}</th>, defaultYears)}
             </tr>
           </thead>
           <tbody>

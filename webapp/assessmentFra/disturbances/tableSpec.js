@@ -16,7 +16,7 @@ export default (i18n, extentOfForest, countryIso) => ({
   header: <thead>
   <tr>
     <th className="fra-table__header-cell-left" rowSpan="2">{i18n.t('disturbances.categoryHeader')}</th>
-    <th className="fra-table__header-cell" colSpan="18">{i18n.t('disturbances.areaUnitLabel')}</th>
+    <th className="fra-table__header-cell" colSpan={years.length}>{i18n.t('disturbances.areaUnitLabel')}</th>
   </tr>
   <tr>
     {
