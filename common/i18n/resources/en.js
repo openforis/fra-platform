@@ -503,7 +503,7 @@ The FRA team
     socialServices: 'Social Services',
     multipleUse: 'Multiple use',
     other: 'Other (specify in comments)',
-    unknown: 'No/unknown',
+    unknown: 'None/unknown',
     totalForestArea: 'Total forest area',
     total: 'Total'
   },
