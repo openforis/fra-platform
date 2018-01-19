@@ -26,7 +26,6 @@ export const uploadQuestionnaire = (countryIso, file) => dispatch => {
 }
 
 export const deleteQuestionare = (countryIso) => dispatch => {
-  console.log(countryIso)
   dispatch(autosave.start)
   axios
     .delete(`/api/panEuropean/${countryIso}`)
