@@ -18,7 +18,8 @@ const alwaysInUseplugins = [
   new webpack.DefinePlugin(
     {
       __PLATFORM_VERSION__: `"${platformVersion}"`,
-      __BUST__: `"${uuidv4()}"`
+      __BUST__: `"${uuidv4()}"`,
+      __GOOGLE_API__:JSON.stringify(process.env.FRA_GOOGLE_API)
     }
   )
 ]
