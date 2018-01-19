@@ -69,18 +69,18 @@ const getAllCountries = role => {
       FROM fra_audit
       WHERE NOT (message in ($1))
       GROUP BY country_iso
-    ) 
+    )
     SELECT
       c.country_iso, c.list_name_en, c.full_name_en, c.list_name_es, c.full_name_es, c.list_name_fr, c.full_name_fr, c.list_name_ru, c.full_name_ru, c.pan_european,
-      a.type, a.status, 
+      a.type, a.status,
       fa.last_edited
-    FROM 
+    FROM
       country c
-    LEFT OUTER JOIN 
-      assessment a ON c.country_iso = a.country_iso 
-    LEFT OUTER JOIN 
+    LEFT OUTER JOIN
+      assessment a ON c.country_iso = a.country_iso
+    LEFT OUTER JOIN
       fa ON fa.country_iso = c.country_iso
-    ORDER BY name ASC`, [excludedMsgs])
+    ORDER BY list_name_en ASC`, [excludedMsgs])
     .then(handleCountryResult(() => role))
 }
 
@@ -102,16 +102,16 @@ const getAllowedCountries = roles => {
       )
       SELECT
         c.country_iso, c.list_name_en, c.full_name_en, c.list_name_es, c.full_name_es, c.list_name_fr, c.full_name_fr, c.list_name_ru, c.full_name_ru, c.pan_european,
-        a.type, a.status, 
+        a.type, a.status,
         fa.last_edited
-      FROM 
+      FROM
         country c
-      LEFT OUTER JOIN 
+      LEFT OUTER JOIN
         assessment a ON c.country_iso = a.country_iso
-      LEFT OUTER JOIN 
+      LEFT OUTER JOIN
         fa ON fa.country_iso = c.country_iso
       WHERE c.country_iso in (${allowedIsoQueryPlaceholders})
-      ORDER BY name ASC`,
+      ORDER BY list_name_en ASC`,
       [excludedMsgs, ...allowedCountryIsos])
       .then(handleCountryResult(determineRole(roles)))
   }
@@ -119,7 +119,7 @@ const getAllowedCountries = roles => {
 
 const getDynamicCountryConfiguration = async countryIso => {
   const result = await db.query(`
-      SELECT config 
+      SELECT config
         FROM dynamic_country_configuration
         WHERE country_iso = $1
     `,
