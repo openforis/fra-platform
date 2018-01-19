@@ -671,8 +671,10 @@ The FRA team
 
   panEuropeanIndicators: {
     panEuropeanIndicators: 'Pan-European Quantitative Indicators for Sustainable Forest Management',
-    uploadQuestionnaire: 'Upload Questionnaire',
-    downloadQuestionnaire: 'Download Questionnaire',
+    uploadQuestionnaire: 'Upload questionnaire',
+    downloadQuestionnaire: 'Download empty questionnaire',
+    download: 'Download',
+    remove: 'Remove'
   },
 
   assessment: {
