@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import { getRelativeDate } from '../utils/relativeDate'
 import { fetchAuditFeed } from '../audit/actions'
 import { Link } from '../reusableUiComponents/link'
+import { getRoleLabelKey } from '../../common/countryRole'
 
 const mapIndexed = R.addIndex(R.map)
 
@@ -66,7 +67,7 @@ const ActivityItem = ({i18n, countryIso, item, fra}) => {
   const sectionUrl = getSectionUrl(item, fra)
   const sectionLocalizationKey = getSectionLocalizationKey(item.sectionName)
   const actionLocalizationKey = getActionLocalizationKey(item.message)
-  const usersManagementLocalaizationParameters = item.target ? {user: item.target.user, role: i18n.t('user.roles.' + item.target.role)} : null
+  const usersManagementLocalaizationParameters = item.target ? {user: item.target.user, role: i18n.t(getRoleLabelKey(item.target.role))} : null
 
   return <div className="dashboard__activity-item">
     <img className="dashboard__activity-avatar" src={`https://www.gravatar.com/avatar/${item.hash}?default=mm`}/>

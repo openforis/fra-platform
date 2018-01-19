@@ -11,9 +11,8 @@ module.exports.translation =  {
     roles: {
       reviewer: 'Examinateur',
       nationalCorrespondent: 'Correspondant national',
-      national_correspondent: 'Correspondant national',
-      reviewer_all: 'Examinateur',
-      national_correspondent_all: 'Correspondant national',
+      collaborator: 'Collaborateur',
+      administrator: 'Administrateur',
       noRole: 'S.O.'
     }
   },

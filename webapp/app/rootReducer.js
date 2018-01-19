@@ -17,6 +17,7 @@ import country from '../country/reducer'
 import sustainableDevelopment from '../assessmentFra/sustainableDevelopment/reducer'
 import dashboard from '../dashboard/reducer'
 import landing from '../landing/reducer'
+import panEuropeanIndicators from '../panEuropeanIndicators/reducer'
 
 export default combineReducers({
   applicationError,
@@ -35,5 +36,6 @@ export default combineReducers({
   country,
   sustainableDevelopment,
   dashboard,
-  landing
+  landing,
+  panEuropeanIndicators
 })
