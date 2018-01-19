@@ -43,7 +43,7 @@ const fetchCountryUsers = (countryIso) =>
 
 const fetchInvitations = (countryIso) =>
   db.query(
-    `SELECT 
+    `SELECT
        invitation_uuid,
        email,
        name,
@@ -73,17 +73,17 @@ const getIdOfJustAddedUser = client =>
 const addInvitation = async (client, user, countryIso, userToInvite) => {
   const invitationUuid = uuidv4()
   await client.query(
-    `INSERT INTO 
-      fra_user_invitation 
+    `INSERT INTO
+      fra_user_invitation
       (invitation_uuid, email, name, role, country_iso)
-     VALUES 
+     VALUES
      ($1, $2, $3, $4, $5)`,
     [invitationUuid, userToInvite.email, userToInvite.name, userToInvite.role, countryIso]
   )
   await auditRepository
     .insertAudit(client, user.id, 'addInvitation', countryIso, 'users', {
       user: userToInvite.name,
-      role: userToInvite.role.toLowerCase()
+      role: userToInvite.role
     })
   return invitationUuid
 }
@@ -98,7 +98,7 @@ const removeInvitation = async (client, user, countryIso, invitationUuid) => {
   await auditRepository
     .insertAudit(client, user.id, 'removeInvitation', countryIso, 'users', {
       user: invitationInfo.name,
-      role: invitationInfo.role.toLowerCase()
+      role: invitationInfo.role
     })
 }
 
@@ -112,7 +112,7 @@ const updateInvitation = async (client, user, countryIso, userToUpdate) => {
   await auditRepository
     .insertAudit(client, user.id, 'updateInvitation', countryIso, 'users', {
       user: userToUpdate.name,
-      role: userToUpdate.role.toLowerCase()
+      role: userToUpdate.role
     })
   return userToUpdate.invitationUuid
 }
@@ -172,8 +172,8 @@ const removeCountryUser = async (client, user, countryIso, userId) => {
 
 const getInvitationInfo = async (client, invitationUuid) => {
   const invitationInfo = await client.query(
-    `SELECT country_iso, name, role, accepted, email 
-      FROM fra_user_invitation 
+    `SELECT country_iso, name, role, accepted, email
+      FROM fra_user_invitation
       WHERE invitation_uuid = $1`,
     [invitationUuid]
   )
@@ -190,9 +190,9 @@ const setInvitationAccepted = (client, invitationUuid) => client.query(
 
 const addUserCountryRole = (client, userId, countryIso, role) =>
   client.query(
-  `INSERT INTO user_country_role 
-      (user_id, country_iso, role) 
-      VALUES 
+  `INSERT INTO user_country_role
+      (user_id, country_iso, role)
+      VALUES
       ($1, $2, $3)`,
   [userId, countryIso, role]
 )
@@ -217,7 +217,7 @@ const addAcceptToAudit = (client, userId, invitationInfo) =>
     'users',
     {
       user: invitationInfo.name,
-      role: invitationInfo.role.toLowerCase()
+      role: invitationInfo.role
     })
 
 const addCountryRoleAndUpdateUserBasedOnInvitation = async (client, user, invitationUuid) => {

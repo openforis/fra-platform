@@ -31,7 +31,7 @@ import ForestPolicyView from '../assessmentFra/forestPolicy/forestPolicyView'
 import OtherLandWithTreeCoverView from '../assessmentFra/otherLandWithTreeCover/otherLandWithTreeCoverView'
 import SustainableDevelopmentView from '../assessmentFra/sustainableDevelopment/sustainableDevelopmentView'
 import ContactPersonsView from '../assessmentFra/contactPersons/contactPersonsView'
-
+import PanEuropeanIndicatorsView from '../panEuropeanIndicators/panEuropeanIndicatorsView'
 
 const routes = {
   '/': () => <noscript/>, //This will get rendered first (it flashes), before we redirect to logged-in page or login page
@@ -64,7 +64,8 @@ const routes = {
   '/country/:countryIso/forestPolicy': ForestPolicyView,
   '/country/:countryIso/otherLandWithTreeCover': OtherLandWithTreeCoverView,
   '/country/:countryIso/sustainableDevelopment': SustainableDevelopmentView,
-  '/country/:countryIso/contactPersons': ContactPersonsView
+  '/country/:countryIso/contactPersons': ContactPersonsView,
+  '/country/:countryIso/panEuropeanIndicators': PanEuropeanIndicatorsView
 }
 
 const routeConfig = R.pipe(

@@ -27,9 +27,6 @@ module.exports.translation = {
     roles: {
       reviewer: 'Reviewer',
       nationalCorrespondent: 'National correspondent',
-      national_correspondent: 'National correspondent',
-      reviewer_all: 'Reviewer',
-      national_correspondent_all: 'National correspondent',
       collaborator: 'Collaborator',
       administrator: 'Administrator',
       noRole: 'N/A'
@@ -164,7 +161,8 @@ module.exports.translation = {
       forestDisturbances: 'Forest disturbances',
       forestPolicyAndLegislation: 'Forest policy and legislation',
       employmentEducationAndNwfp: 'Employment, education and NWFP',
-      sustainableDevelopment:'Sustainable Development Goal 15'
+      sustainableDevelopment: 'Sustainable Development Goal 15',
+      panEuropeanIndicators: 'Pan-European Indicators'
     }
   },
 
@@ -502,7 +500,7 @@ The FRA team
     socialServices: 'Social Services',
     multipleUse: 'Multiple use',
     other: 'Other (specify in comments)',
-    unknown: 'No/unknown',
+    unknown: 'None/unknown',
     totalForestArea: 'Total forest area',
     total: 'Total'
   },
@@ -669,6 +667,16 @@ The FRA team
     proportionForestAreaLongTermForestManagement: 'Proportion of forest area under long-term forest management',
     forestArea1000Ha: 'Forest area (1000 ha)',
     forestAreaVerifiedForestManagement: 'Forest area under independently verified forest management certification schemes'
+  },
+
+  panEuropeanIndicators: {
+    panEuropeanIndicators: 'Pan-European Quantitative Indicators for Sustainable Forest Management',
+    uploadQuestionnaire: 'Upload questionnaire',
+    chooseFile: 'Choose file',
+    downloadQuestionnaire: 'Download empty questionnaire',
+    download: 'Download',
+    remove: 'Remove',
+    noQuestionnaire: 'No questionnaire selected'
   },
 
   assessment: {

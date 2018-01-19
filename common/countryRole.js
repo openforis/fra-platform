@@ -16,6 +16,8 @@ const roles = {
   [collaborator.role]: collaborator
 }
 
+const getRoleLabelKey = (roleName) => R.path([roleName, 'labelKey'], roles)
+
 const hasRole = (role, roles) => R.find(R.propEq('role', role))(roles)
 
 const getCountryRoles = (countryIso, userInfo) => R.filter(R.propEq('countryIso', countryIso))(userInfo.roles)
@@ -51,3 +53,4 @@ module.exports.nationalCorrespondent = nationalCorrespondent
 module.exports.collaborator = collaborator
 module.exports.noRole = noRole
 module.exports.roles = R.values(roles)
+module.exports.getRoleLabelKey = getRoleLabelKey

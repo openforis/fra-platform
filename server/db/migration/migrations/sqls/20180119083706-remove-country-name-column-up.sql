@@ -1,0 +1,2 @@
+ALTER TABLE country
+DROP COLUMN name;
