@@ -9,6 +9,7 @@ import TextInput from '../reusableUiComponents/textInput'
 import { roles } from '../../common/countryRole'
 import { getCountryName } from '../country/actions'
 import { allowedToChangeRoles } from '../../common/userManagementAccessControl'
+import { getRoleLabelKey } from '../../common/countryRole'
 
 import { fetchUsers, updateUser, removeUser, persistUser, updateNewUser, addNewUser } from './actions'
 import { validField } from './users'
@@ -86,8 +87,8 @@ const UserRoleSelectCol = ({
           </select>
         </div>
       : readOnly
-        ? <div className="user-list__cell--read-only">{i18n.t(`user.roles.${R.toLower(user.role)}`)}</div>
-        : <div className="user-list__cell--editable">{i18n.t(`user.roles.${R.toLower(user.role)}`)}</div>
+        ? <div className="user-list__cell--read-only">{i18n.t(getRoleLabelKey(user.role))}</div>
+        : <div className="user-list__cell--editable">{i18n.t(getRoleLabelKey(user.role))}</div>
   }
   </td>
 
