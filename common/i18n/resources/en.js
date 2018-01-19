@@ -276,6 +276,7 @@ module.exports.translation = {
     email: 'Email',
     loginEmail: 'Login',
     noUsers: 'No collaborators added',
+    placeholder: 'Choose…',
     remove: 'Remove',
     done: 'Done',
     edit: 'Edit',
