@@ -19,7 +19,7 @@ class Map extends React.Component {
       maxZoom: 15,
       center: new google.maps.LatLng(20.8892506, 14.2342302),
       mapTypeId: google.maps.MapTypeId.ROADMAP,
-      zoomControl: true,
+      zoomControl: false,
       mapTypeControl: false,
       scaleControl: false,
       streetViewControl: false,
