@@ -45,3 +45,8 @@ export const getCountryName = (countryIso, lang) => (dispatch, getState) => R.pi
   getCountry(countryIso),
   R.path(['listName', lang])
 )(getState())
+
+export const isPanEuropeanCountry = countryIso => (dispatch, getState) => R.pipe(
+  getCountry(countryIso),
+  R.propEq('panEuropean', true),
+)(getState())

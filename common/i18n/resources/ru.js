@@ -11,9 +11,8 @@ module.exports.translation = {
     roles: {
       reviewer: 'Обозреватель',
       nationalCorrespondent: 'Национальный корреспондент',
-      national_correspondent: 'Национальный корреспондент',
-      reviewer_all: 'Обозреватель',
-      national_correspondent_all: 'Национальный корреспондент',
+      collaborator: 'Коллаборационист',
+      administrator: 'Администратор',
       noRole: 'Недоступно'
     }
   },
