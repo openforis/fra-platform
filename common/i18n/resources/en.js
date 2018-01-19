@@ -57,6 +57,41 @@ module.exports.translation = {
     treesUrbanSettings: '…of which trees in urban settings'
   },
 
+  landing:{
+    sections:{
+      overview:'Overview',
+      about:'About',
+      recentActivity:'Recent activity',
+      externalData:'External data'
+    },
+    milestones: {
+      milestoneHeader: 'Milestone / activity',
+      dateHeader: 'Date',
+      activityHeader: 'Activity',
+      milestone1: 'Global meeting of National Correspondents',
+      milestone2: 'Regional and sub-regional workshops',
+      milestone3: 'Deadline for submission of country reports',
+      milestone4: 'Validation of final country reports',
+      milestone5: 'FRA 2020 Preliminary Findings',
+      milestone6: 'FRA 2020 Main Report',
+      date1: 'March 2018',
+      date2: 'April – September 2018',
+      date3: 'October 2018',
+      date4: 'January – February 2019',
+      date5: 'March 2020',
+      date6: 'July 2020',
+      activity1: 'Launch of the FRA 2020 reporting process. Training of National Correspondents and work on key variables for SDGs reporting',
+      activity2: 'Technical assistance and review of draft country reports',
+      activity3: 'All country reports submitted, reviewed and accepted',
+      activity4: 'Request for official validation of the final country reports will be sent to the national authorities',
+      activity5: 'Release of key findings',
+      activity6: 'Launch of FRA 2020 Main Report',
+    },
+    about:{
+      contact: 'Contact'
+    }
+  },
+
   dashboard: {
     dashboard: 'Dashboard',
     fraPlatform: 'FRA Platform',
