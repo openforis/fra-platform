@@ -80,7 +80,7 @@ const UserRoleSelectCol = ({
             disabled={user.saving}>
             {
               user.role === ''
-                ? <option value="" hidden>{i18n.t('userManagement.role')}</option>
+                ? <option value="">{i18n.t('userManagement.placeholder')}</option>
                 : null
             }
             { roleOptions(allowedRoles, i18n) }
@@ -104,6 +104,13 @@ class AddUserForm extends React.Component {
 
     return <div className="add-user__container">
       <table className="add-user__table">
+        <thead>
+          <tr>
+            <th className="user-list__header-cell">{i18n.t('userManagement.name')}</th>
+            <th className="user-list__header-cell">{i18n.t('userManagement.role')}</th>
+            <th className="user-list__header-cell">{i18n.t('userManagement.email')}</th>
+          </tr>
+        </thead>
         <tbody>
         <tr>
           <UserTextFieldCol countryIso={countryIso}
