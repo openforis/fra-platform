@@ -11,9 +11,8 @@ import { changeAssessment, navigationScroll, toggleNavigationGroupCollapse, togg
 import { getCountryList, getCountryName, isPanEuropeanCountry } from '../country/actions'
 import { fetchAllCountryData } from '../app/actions'
 import { assessments } from './items'
-import { roleForCountry } from '../../common/countryRole'
+import { isAdministrator, roleForCountry, getRoleLabelKey } from '../../common/countryRole'
 import { allowedToChangeRoles } from '../../common/userManagementAccessControl'
-import { isAdministrator } from '../../common/countryRole'
 import { getAllowedStatusTransitions } from '../../common/assessment'
 import { hasOdps } from '../assessmentFra/extentOfForest/extentOfForestHelper'
 import { PopoverControl } from '../reusableUiComponents/popoverControl'
@@ -75,6 +74,7 @@ const CountryList = ({isOpen, countries, ...props}) => {
             <CountryRole
               {...props}
               key={role}
+              role={role}
               roleCountries={roleCountries}
             />
           )
@@ -85,9 +85,10 @@ const CountryList = ({isOpen, countries, ...props}) => {
 }
 
 const CountryRole = ({role, roleCountries, currentCountry, i18n, ...props}) =>
+  console.log(roleCountries, role, props) ||
   <div className="nav__country-list-section">
     <div className="nav__country-list-header">
-      <span className="nav__country-list-primary-col">{i18n.t(`user.roles.${role.toLowerCase()}`)}</span>
+      <span className="nav__country-list-primary-col">{i18n.t(getRoleLabelKey(role))}</span>
       <span className="nav__country-list-secondary-col">{i18n.t('countryListing.fra2020')}</span>
       <span className="nav__country-list-secondary-col">{i18n.t('audit.edited')}</span>
     </div>
