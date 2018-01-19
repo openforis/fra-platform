@@ -16,6 +16,7 @@ import dashboard from '../dashboard/reducer'
 import userManagement from '../userManagement/reducer'
 import country from '../country/reducer'
 import sustainableDevelopment from '../assessmentFra/sustainableDevelopment/reducer'
+import panEuropeanIndicators from '../panEuropeanIndicators/reducer'
 
 export default combineReducers({
   applicationError,
@@ -33,5 +34,6 @@ export default combineReducers({
   dashboard,
   userManagement,
   country,
-  sustainableDevelopment
+  sustainableDevelopment,
+  panEuropeanIndicators
 })

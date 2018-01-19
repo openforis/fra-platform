@@ -1,7 +1,7 @@
 const db = require('../db/db')
 const R = require('ramda')
 
-const {persistPanEuropeanQtyQuestionnaire, getPanEuropeanQtyQuestionnaire} = require('./panEuropeanRepository')
+const {persistPanEuropeanQtyQuestionnaire, getPanEuropeanQtyQuestionnaire, deletePanEuropeanQtyQuestionnaire} = require('./panEuropeanRepository')
 const {getCountry} = require('./../country/countryRepository')
 
 const {sendErr} = require('../utils/requestUtils')
@@ -14,20 +14,56 @@ module.exports.init = app => {
     return country.panEuropean
   }
 
+  app.get('/panEuropean/:countryIso/uploadedQuestionareInfo', async (req, res) => {
+    try {
+      checkCountryAccessFromReqParams(req)
+      const questionnaire = await getPanEuropeanQtyQuestionnaire(req.params.countryIso)
+      const questionnaireFileName = R.path(['qtyQuestionnaireName'], questionnaire)
+      res.json({questionnaireFileName})
+    } catch (err) {
+      sendErr(res, err)
+    }
+  })
+
+  app.delete('/panEuropean/:countryIso', async (req, res) => {
+    try {
+      checkCountryAccessFromReqParams(req)
+      console.log(req.params.countryIso)
+      await db.transaction(deletePanEuropeanQtyQuestionnaire, [req.params.countryIso])
+      res.json({})
+    } catch (err) {
+      sendErr(res, err)
+    }
+  })
+
   app.post('/panEuropean/:countryIso/upload', async (req, res) => {
     try {
       checkCountryAccessFromReqParams(req)
 
       const isPanEuropean = await isPanEuropeanCountry(res, req.params.countryIso)
       if (isPanEuropean) {
-
         await db.transaction(persistPanEuropeanQtyQuestionnaire, [req.user, req.params.countryIso, req.files.file])
-
-        res.send({})
-
+        res.json({})
       } else {
         res.status(404).send('404 / Page not found')
       }
+    } catch (err) {
+      sendErr(res, err)
+    }
+  })
+
+  app.get('/panEuropean/:countryIso/downloadEmpty', async (req, res) => {
+    try {
+      checkCountryAccessFromReqParams(req)
+
+      const isPanEuropean = await isPanEuropeanCountry(res, req.params.countryIso)
+      if (isPanEuropean) {
+        const questionnaire = await getPanEuropeanQtyQuestionnaire(req.params.countryIso)
+        res.download(`${__dirname}/panEuropeanQuestionnaire.xls`, 'PanEuropeanQuestionnaire.xls')
+      } else {
+        res.status(404).send('404 / Page not found')
+      }
+
     } catch (err) {
       sendErr(res, err)
     }
@@ -39,17 +75,9 @@ module.exports.init = app => {
 
       const isPanEuropean = await isPanEuropeanCountry(res, req.params.countryIso)
       if (isPanEuropean) {
-
         const questionnaire = await getPanEuropeanQtyQuestionnaire(req.params.countryIso)
-
-        if (R.isNil(questionnaire)) {
-          // download empty default pan european questionnaire
-          res.download(`${__dirname}/panEuropeanQuestionnaire.xls`, 'PanEuropeanQuestionnaire.xls')
-        } else {
-          res.setHeader('Content-Disposition', 'attachment; filename=' + questionnaire.qtyQuestionnaireName)
-          res.end(questionnaire.qtyQuestionnaire, 'binary')
-        }
-
+        res.setHeader('Content-Disposition', 'attachment; filename=' + questionnaire.qtyQuestionnaireName)
+        res.end(questionnaire.qtyQuestionnaire, 'binary')
       } else {
         res.status(404).send('404 / Page not found')
       }

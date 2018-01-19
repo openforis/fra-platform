@@ -9,12 +9,13 @@ import ReviewIndicator from '../review/reviewIndicator'
 import Icon from '../reusableUiComponents/icon'
 
 import { fetchLastSectionUpdateTimestamp } from '../audit/actions'
-import { uploadQuestionnaire } from './actions'
+import { uploadQuestionnaire, getUploadedQuestionareInfo, deleteQuestionare } from './actions'
 
 class PanEuropeanIndicatorsView extends React.Component {
 
   componentWillMount () {
     this.props.fetchLastSectionUpdateTimestamp(this.props.countryIso, 'panEuropean')
+    this.props.getUploadedQuestionareInfo(this.props.countryIso)
   }
 
   componentWillReceiveProps (nextProps) {
@@ -30,7 +31,7 @@ class PanEuropeanIndicatorsView extends React.Component {
   }
 
   render () {
-    const {i18n, countryIso, status} = this.props
+    const {i18n, countryIso, status, questionnaireFileName} = this.props
     return <LoggedInPageTemplate>
       <div className="fra-view__content">
 
@@ -38,8 +39,13 @@ class PanEuropeanIndicatorsView extends React.Component {
           <h1 className="title">{i18n.t('panEuropeanIndicators.panEuropeanIndicators')}</h1>
         </div>
 
+        <a className="btn btn-primary" href={`/api/panEuropean/${countryIso}/downloadEmpty`} target="_blank">
+          <Icon className="icon-sub icon-white" name="hit-down"/>
+          {i18n.t('panEuropeanIndicators.downloadQuestionnaire')}
+        </a>
+        <hr/>
+
         <div className="pan-european__container">
-          <div className="pan-european__buttons">
             <input
               ref="inputFile"
               type="file"
@@ -47,17 +53,31 @@ class PanEuropeanIndicatorsView extends React.Component {
               onChange={() => this.onFileSelected()}
               accept=".xls,.xlsx"
             />
+            <div>
+              {
+                R.isNil(questionnaireFileName)
+                  ? 'NO FILE; PLX UPLOAD'
+                  : questionnaireFileName
+              }
+              {
+                R.isNil(questionnaireFileName)
+                  ? null
+                  : [
+                    <a className="btn-link" href={`/api/panEuropean/${countryIso}/download`} target="_blank">
+                      {i18n.t('panEuropeanIndicators.download')}
+                    </a>,
+                    <a className="btn-link-destructive" onClick={() => this.props.deleteQuestionare(countryIso)}>
+                      {i18n.t('panEuropeanIndicators.remove')}
+                    </a>
+                  ]
+              }
+            </div>
             <button className="btn btn-primary"
                     onClick={() => this.refs.inputFile.dispatchEvent(new MouseEvent('click'))}
                     disabled={R.equals('saving', status)}>
-              <Icon className="icon-sub icon-white" name="hit-down"/>
+              <Icon className="icon-sub icon-white" name="small-add"/>
               {i18n.t('panEuropeanIndicators.uploadQuestionnaire')}
             </button>
-            <a className="btn btn-primary" href={`/api/panEuropean/${countryIso}/download`} target="_blank">
-              <Icon className="icon-sub icon-white" name="hit-down"/>
-              {i18n.t('panEuropeanIndicators.downloadQuestionnaire')}
-            </a>
-          </div>
 
           <ReviewIndicator
             section={'panEuropeanIndicators'}
@@ -76,10 +96,13 @@ class PanEuropeanIndicatorsView extends React.Component {
 const mapStateToProps = (state, props) => ({
   i18n: state.user.i18n,
   countryIso: props.match.params.countryIso,
-  status: state.autoSave.status
+  status: state.autoSave.status,
+  questionnaireFileName: state.panEuropeanIndicators.questionnaireFileName
 })
 
 export default connect(mapStateToProps, {
   fetchLastSectionUpdateTimestamp,
-  uploadQuestionnaire
+  uploadQuestionnaire,
+  getUploadedQuestionareInfo,
+  deleteQuestionare
 })(PanEuropeanIndicatorsView)

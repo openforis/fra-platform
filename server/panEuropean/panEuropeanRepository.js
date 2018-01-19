@@ -23,22 +23,22 @@ const insertPanEuropeanQtyQuestionnaire = (client, countryIso, file) =>
 
 const updatePanEuropeanQtyQuestionnaire = (client, countryIso, file) =>
   client.query(`
-    UPDATE 
-      pan_european 
-    SET 
+    UPDATE
+      pan_european
+    SET
       qty_questionnaire = $1,
       qty_questionnaire_name = $2
-    WHERE 
+    WHERE
       country_iso = $3
     `, [file.data, file.name, countryIso])
 
 module.exports.getPanEuropeanQtyQuestionnaire = countryIso =>
   db.query(`
-    SELECT 
+    SELECT
       id, qty_questionnaire, qty_questionnaire_name
-    FROM 
-      pan_european 
-    WHERE 
+    FROM
+      pan_european
+    WHERE
       country_iso = $1
     `, [countryIso])
     .then(resp => R.isEmpty(resp.rows)
@@ -49,3 +49,10 @@ module.exports.getPanEuropeanQtyQuestionnaire = countryIso =>
       }
     )
 
+module.exports.deletePanEuropeanQtyQuestionnaire = (client, countryIso) =>
+  client.query(`
+    DELETE FROM
+      pan_european
+    WHERE
+      country_iso = $1
+    `, [countryIso])
