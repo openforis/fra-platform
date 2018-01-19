@@ -8,12 +8,11 @@ import { Link } from '../reusableUiComponents/link'
 import Icon from '../reusableUiComponents/icon'
 import { follow } from './../router/actions'
 import { changeAssessment, navigationScroll, toggleNavigationGroupCollapse, toggleAllNavigationGroupsCollapse } from './actions'
-import { getCountryList, getCountryName } from '../country/actions'
+import { getCountryList, getCountryName, isPanEuropeanCountry } from '../country/actions'
 import { fetchAllCountryData } from '../app/actions'
 import { assessments } from './items'
-import { roleForCountry } from '../../common/countryRole'
+import { isAdministrator, roleForCountry, getRoleLabelKey } from '../../common/countryRole'
 import { allowedToChangeRoles } from '../../common/userManagementAccessControl'
-import { isAdministrator } from '../../common/countryRole'
 import { getAllowedStatusTransitions } from '../../common/assessment'
 import { hasOdps } from '../assessmentFra/extentOfForest/extentOfForestHelper'
 import { PopoverControl } from '../reusableUiComponents/popoverControl'
@@ -75,6 +74,7 @@ const CountryList = ({isOpen, countries, ...props}) => {
             <CountryRole
               {...props}
               key={role}
+              role={role}
               roleCountries={roleCountries}
             />
           )
@@ -85,9 +85,10 @@ const CountryList = ({isOpen, countries, ...props}) => {
 }
 
 const CountryRole = ({role, roleCountries, currentCountry, i18n, ...props}) =>
+  console.log(roleCountries, role, props) ||
   <div className="nav__country-list-section">
     <div className="nav__country-list-header">
-      <span className="nav__country-list-primary-col">{i18n.t(`user.roles.${role.toLowerCase()}`)}</span>
+      <span className="nav__country-list-primary-col">{i18n.t(getRoleLabelKey(role))}</span>
       <span className="nav__country-list-secondary-col">{i18n.t('countryListing.fra2020')}</span>
       <span className="nav__country-list-secondary-col">{i18n.t('audit.edited')}</span>
     </div>
@@ -269,13 +270,13 @@ const AssesmentSection = ({countryIso, item, assessment, i18n, ...props}) => {
   </div>
 }
 
-const UsersManagement = ({i18n, countryIso, path, pathTemplate}) => {
+const SectionLink = ({i18n, countryIso, path, pathTemplate, label}) => {
   const linkTo = getLinkTo(pathTemplate, countryIso)
 
   return <Link
     className={`nav__link ${R.equals(path, linkTo) ? 'selected' : ''}`}
     to={linkTo}>
-      <div className='nav__link-label'>{i18n.t('navigation.support.manageCollaborators')}</div>
+      <div className='nav__link-label'>{i18n.t(label)}</div>
     </Link>
 }
 
@@ -328,7 +329,7 @@ class Nav extends React.Component {
       R.defaultTo({issuesCount: 0})
     )(status.reviewStatus)
 
-    const {userInfo, i18n, path, countries, country, changeAssessment} = this.props
+    const {userInfo, i18n, path, countries, country, changeAssessment, isPanEuropeanCountry} = this.props
 
     return <div className="fra-nav__container">
       {R.isNil(countries)
@@ -377,14 +378,30 @@ class Nav extends React.Component {
                     i18n={i18n}/>
                 , R.toPairs(assessments))
             }
-            <div className="nav__divider"/>
             {
-              !R.isEmpty(allowedToChangeRoles(country, userInfo))
-                ? <UsersManagement
+              isPanEuropeanCountry(country)
+              ? <div>
+                <div className="nav__divider"/>
+                <SectionLink
                   countryIso={country}
                   i18n={i18n}
                   path={path}
-                  pathTemplate="/country/:countryIso/users"/>
+                  pathTemplate="/country/:countryIso/panEuropeanIndicators"
+                  label="navigation.sectionHeaders.panEuropeanIndicators"
+                />
+              </div>
+              : null
+            }
+            <div className="nav__divider"/>
+            {
+              !R.isEmpty(allowedToChangeRoles(country, userInfo))
+                ? <SectionLink
+                  countryIso={country}
+                  i18n={i18n}
+                  path={path}
+                  pathTemplate="/country/:countryIso/users"
+                  label="navigation.support.manageCollaborators"
+                />
                 : null
             }
             <Footer
@@ -409,6 +426,7 @@ export default connect(mapStateToProps, {
   follow,
   getCountryList,
   getCountryName,
+  isPanEuropeanCountry,
   fetchAllCountryData,
   changeAssessment,
   navigationScroll,

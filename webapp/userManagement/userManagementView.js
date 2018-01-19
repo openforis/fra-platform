@@ -9,6 +9,7 @@ import TextInput from '../reusableUiComponents/textInput'
 import { roles } from '../../common/countryRole'
 import { getCountryName } from '../country/actions'
 import { allowedToChangeRoles } from '../../common/userManagementAccessControl'
+import { getRoleLabelKey } from '../../common/countryRole'
 
 import { fetchUsers, updateUser, removeUser, persistUser, updateNewUser, addNewUser } from './actions'
 import { validField } from './users'
@@ -79,15 +80,15 @@ const UserRoleSelectCol = ({
             disabled={user.saving}>
             {
               user.role === ''
-                ? <option value="" hidden>{i18n.t('userManagement.role')}</option>
+                ? <option value="">{i18n.t('userManagement.placeholder')}</option>
                 : null
             }
             { roleOptions(allowedRoles, i18n) }
           </select>
         </div>
       : readOnly
-        ? <div className="user-list__cell--read-only">{i18n.t(`user.roles.${R.toLower(user.role)}`)}</div>
-        : <div className="user-list__cell--editable">{i18n.t(`user.roles.${R.toLower(user.role)}`)}</div>
+        ? <div className="user-list__cell--read-only">{i18n.t(getRoleLabelKey(user.role))}</div>
+        : <div className="user-list__cell--editable">{i18n.t(getRoleLabelKey(user.role))}</div>
   }
   </td>
 
@@ -103,6 +104,13 @@ class AddUserForm extends React.Component {
 
     return <div className="add-user__container">
       <table className="add-user__table">
+        <thead>
+          <tr>
+            <th className="user-list__header-cell">{i18n.t('userManagement.name')}</th>
+            <th className="user-list__header-cell">{i18n.t('userManagement.role')}</th>
+            <th className="user-list__header-cell">{i18n.t('userManagement.email')}</th>
+          </tr>
+        </thead>
         <tbody>
         <tr>
           <UserTextFieldCol countryIso={countryIso}
@@ -237,7 +245,7 @@ class UsersView extends React.Component {
   }
 }
 
-const mapStateToProps = (state, props) =>// console.log(props.match.params.countryIso, R.path(['user', 'userInfo'], state)) ||
+const mapStateToProps = (state, props) =>
   ({
     i18n: state.user.i18n,
     userList: state.userManagement.list,

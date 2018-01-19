@@ -14,6 +14,7 @@ const demoCountry = {
     fr: 'Atlantis',
     ru: 'Atlantis'
   },
+  panEuropean: true,
   lastEdit: null
 }
 

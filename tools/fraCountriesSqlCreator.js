@@ -5,13 +5,12 @@ const R = require('ramda')
 const Promise = require('bluebird')
 const fs = Promise.promisifyAll(require('fs'))
 const csv = Promise.promisifyAll(require('csv'))
-const countryConfig = require('../server/country/countryConfig')
 
 const exampleUsage =
-  'node certifiedAreasCountryUdater.js exampleData/Certification.csv /tmp/countryConfigWithCertifiedAreas.json'
+  'node certifiedAreasCountryUdater.js ./exampleData/FAOCountriesNOCS_EXPORT.csv ./exampleData/FRACountries.csv ./exampleData/EUCountries.csv /tmp/countriesSQL.sql'
 
 if (process.argv.length < 4) {
-  console.log(`Usage: ${process.argv[0]} <path of the countries csv file> <path of the FRA countries csv file> <path of the output file>`)
+  console.log(`Usage: ${process.argv[0]} <path of the countries csv file> <path of the FRA countries csv file> <path of the EU countries csv file> <path of the output file>`)
   console.log(`example:\n${exampleUsage}`)
   process.exit()
 }
@@ -19,20 +18,28 @@ if (process.argv.length < 4) {
 const countriesInputCsvFile = process.argv[2]
 console.log('reading file', countriesInputCsvFile)
 const fraCountriesInputCsvFile = process.argv[3]
-const outputFile = process.argv[4]
+const euCountriesInputCsvFile = process.argv[4]
+const outputFile = process.argv[5]
 
-const getCountrySqlUpdates = async (countriesFileName, fraCountriesFileName) => {
-  const rawFRACountries = await fs.readFileAsync(fraCountriesFileName, {encoding: 'utf-8'})
-  const parsedFRACountries = await csv.parseAsync(rawFRACountries)
-  const fraCountries = R.pipe(
+const readCsv = async fileName => {
+  const rawFile = await fs.readFileAsync(fileName, {encoding: 'utf-8'})
+  const csvFile = await csv.parseAsync(rawFile)
+  return csvFile
+}
+
+const getCountryISOs = async fileName => {
+  const parsedCountries = await readCsv(fileName)
+  return R.pipe(
     R.slice(1, undefined),
     R.map(c => c[0])
-  )(parsedFRACountries)
+  )(parsedCountries)
+}
 
-  console.log(fraCountries.length)
+const getCountrySqlUpdates = async (countriesFileName, fraCountriesFileName, euCountriesFileName) => {
+  const fraCountries = await getCountryISOs(fraCountriesFileName)
+  const euCountries = await getCountryISOs(euCountriesFileName)
 
-  const rawCountries = await fs.readFileAsync(countriesFileName, {encoding: 'utf-8'})
-  const parsedCountries = await csv.parseAsync(rawCountries)
+  const allCountries = await readCsv(countriesFileName)
   const countries = R.pipe(
     R.slice(1, undefined),
     R.map(c => ({
@@ -45,19 +52,19 @@ const getCountrySqlUpdates = async (countriesFileName, fraCountriesFileName) => 
       listNameFr: c[7],
       fullNameFr: c[8],
       listNameRu: c[9],
-      fullNameRu: c[10]
+      fullNameRu: c[10],
+      panEuropean: R.contains(c[1], euCountries)
     })),
     R.filter(c => R.contains(c.iso3, fraCountries))
-  )(parsedCountries)
+  )(allCountries)
 
-  console.log(countries.length)
+  console.log(countries[1])
 
   const sqls =
     R.map(c => `
     UPDATE
         country
     SET
-        country_iso2 = '${c.iso2.replaceAll('n/a', 'NA')}',
         list_name_en = '${c.listNameEn.replaceAll(`'`, `''`)}',
         full_name_en = '${c.fullNameEn.replaceAll(`'`, `''`)}',
         list_name_es = '${c.listNameEs.replaceAll(`'`, `''`)}',
@@ -65,7 +72,8 @@ const getCountrySqlUpdates = async (countriesFileName, fraCountriesFileName) => 
         list_name_fr = '${c.listNameFr.replaceAll(`'`, `''`)}',
         full_name_fr = '${c.fullNameFr.replaceAll(`'`, `''`)}',
         list_name_ru = '${c.listNameRu.replaceAll(`'`, `''`)}',
-        full_name_ru = '${c.fullNameRu.replaceAll(`'`, `''`)}'
+        full_name_ru = '${c.fullNameRu.replaceAll(`'`, `''`)}',
+        pan_european = ${c.panEuropean}
     WHERE
         country_iso = '${c.iso3}';
     `)
@@ -82,11 +90,11 @@ const writeSqlUpdates = async (countries, outputFile) => {
   })
 }
 
-const update = async (countriesInputCsvFile, fraCountriesInputCsvFile, outputFile) => {
+const update = async (countriesInputCsvFile, fraCountriesInputCsvFile, euCountriesInputCsvFile, outputFile) => {
   try {
-    const sqlUpdates = await getCountrySqlUpdates(countriesInputCsvFile, fraCountriesInputCsvFile)
+    const sqlUpdates = await getCountrySqlUpdates(countriesInputCsvFile, fraCountriesInputCsvFile, euCountriesInputCsvFile)
     await writeSqlUpdates(sqlUpdates, outputFile)
   } catch (e) { console.log(e) }
 }
 
-update(countriesInputCsvFile, fraCountriesInputCsvFile, outputFile)
+update(countriesInputCsvFile, fraCountriesInputCsvFile, euCountriesInputCsvFile, outputFile)
