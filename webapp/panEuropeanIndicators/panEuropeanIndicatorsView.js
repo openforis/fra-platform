@@ -34,18 +34,33 @@ class PanEuropeanIndicatorsView extends React.Component {
     const {i18n, countryIso, status, questionnaireFileName} = this.props
     return <LoggedInPageTemplate>
       <div className="fra-view__content">
-
         <div className="fra-view__page-header">
           <h1 className="title">{i18n.t('panEuropeanIndicators.panEuropeanIndicators')}</h1>
         </div>
-
         <a className="btn btn-primary" href={`/api/panEuropean/${countryIso}/downloadEmpty`} target="_blank">
           <Icon className="icon-sub icon-white" name="hit-down"/>
           {i18n.t('panEuropeanIndicators.downloadQuestionnaire')}
         </a>
         <hr/>
-
+        <h3 className="subhead">{i18n.t('panEuropeanIndicators.uploadQuestionnaire')}</h3>
         <div className="pan-european__container">
+          <div className="pan-european__file-input">
+            <div className="pan-european__file">
+              <Icon name="single-folded-content" className="icon-24 icon-middle icon-margin-right"/>
+              {
+                R.isNil(questionnaireFileName)
+                  ? <span className="pan-european__file-name pan-european__file-placeholder">{i18n.t('panEuropeanIndicators.noQuestionnaire')}</span>
+                  : [
+                    <span className="pan-european__file-name">{questionnaireFileName}</span>,
+                    <a className="btn btn-link" href={`/api/panEuropean/${countryIso}/download`} target="_blank">
+                      {i18n.t('panEuropeanIndicators.download')}
+                    </a>,
+                    <button className="btn btn-link-destructive" onClick={() => this.props.deleteQuestionare(countryIso)}>
+                      {i18n.t('panEuropeanIndicators.remove')}
+                    </button>
+                  ]
+              }
+            </div>
             <input
               ref="inputFile"
               type="file"
@@ -53,31 +68,13 @@ class PanEuropeanIndicatorsView extends React.Component {
               onChange={() => this.onFileSelected()}
               accept=".xls,.xlsx"
             />
-            <div>
-              {
-                R.isNil(questionnaireFileName)
-                  ? 'NO FILE; PLX UPLOAD'
-                  : questionnaireFileName
-              }
-              {
-                R.isNil(questionnaireFileName)
-                  ? null
-                  : [
-                    <a className="btn-link" href={`/api/panEuropean/${countryIso}/download`} target="_blank">
-                      {i18n.t('panEuropeanIndicators.download')}
-                    </a>,
-                    <a className="btn-link-destructive" onClick={() => this.props.deleteQuestionare(countryIso)}>
-                      {i18n.t('panEuropeanIndicators.remove')}
-                    </a>
-                  ]
-              }
-            </div>
-            <button className="btn btn-primary"
-                    onClick={() => this.refs.inputFile.dispatchEvent(new MouseEvent('click'))}
-                    disabled={R.equals('saving', status)}>
-              <Icon className="icon-sub icon-white" name="small-add"/>
-              {i18n.t('panEuropeanIndicators.uploadQuestionnaire')}
+            <button
+              className="btn btn-primary"
+              onClick={() => this.refs.inputFile.dispatchEvent(new MouseEvent('click'))}
+              disabled={R.equals('saving', status)}>
+                {i18n.t('panEuropeanIndicators.chooseFile')}
             </button>
+          </div>
 
           <ReviewIndicator
             section={'panEuropeanIndicators'}
