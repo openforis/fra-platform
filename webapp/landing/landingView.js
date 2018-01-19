@@ -14,7 +14,7 @@ const sections = [
   {name: 'overview', component: OverviewView},
   {name: 'about', component: AboutView},
   {name: 'recentActivity', component: RecentActivityView},
-  {name: 'externalData', component: OverviewView}
+  // {name: 'externalData', component: OverviewView}
 ]
 
 class LandingView extends React.Component {
