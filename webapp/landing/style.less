@@ -28,7 +28,6 @@
   margin: 0 5px;
 }
 
-
 .landing__page-container {
   display: flex;
   flex-wrap: wrap;
@@ -40,10 +39,40 @@
   padding: 14px 7px;
 }
 
+//Milestones
+.landing__milestone-container {
+  .landing__page-container;
+}
+
+.landing__milestone-header {
+  margin-bottom: 12px;
+  width: 100%;
+  text-align: center;
+}
+
+.landing__milestone-item {
+  width: 48%;
+  padding: 14px 10px;
+  border: 1px solid @ui-border-light;
+  background-color: lighten(@ui-bg, 1%);
+  margin: 0 1% 10px 1%;
+}
+
+.landing__milestone-date {
+  margin-bottom: 5px;
+  text-transform: uppercase;
+  font-size: @font-xxs;
+  color: @text-mute;
+  text-align: center;
+}
+
+.landing__milestone-desc {
+  text-align: center;
+}
+
 // About
 
 .landing__about-text {
-  //font-size: @font-l;
   line-height: 1.75;
   margin-bottom: 24px;
 }
@@ -59,7 +88,7 @@
   width: 70%;
 }
 
-.landing__activity-item:not(:first-of-type){
+.landing__activity-item:not(:first-of-type) {
   border-top: 1px solid @ui-border-light;
 }
 
@@ -86,7 +115,6 @@
 }
 
 .landing__activity-empty {
-  border-top: 1px solid @ui-border-light;
   color: @text-disabled;
   padding: 48px;
   text-align: center;
@@ -160,7 +188,6 @@
 .landing__block-heading {
   margin-bottom: 12px;
 }
-
 
 // Misc
 

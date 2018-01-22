@@ -14,29 +14,17 @@ const milestonesTableContent = [
 ]
 
 const Milestones = ({i18n}) => <div className="landing__page-container-item">
-  <table className="landing__table">
-    <thead>
-    <tr>
-      <th>{i18n.t('landing.milestones.milestoneHeader')}</th>
-      <th>{i18n.t('landing.milestones.dateHeader')}</th>
-    </tr>
-    </thead>
-    <tbody>
-    {
-      milestonesTableContent.map((row, i) =>
-        <tr key={i}>
-          {
-            R.map(cell =>
-                <td key={cell}>
-                  {i18n.t('landing.milestones.' + cell)}
-                </td>
-              , row)
-          }
-        </tr>
-      )
-    }
-    </tbody>
-  </table>
+  <div className="landing__milestone-container">
+    <div className="landing__milestone-header">
+      <h2>{i18n.t('landing.milestones.milestones')}</h2>
+    </div>
+    {milestonesTableContent.map(milestone =>
+      <div key={milestone[0]} className="landing__milestone-item">
+        <div className="landing__milestone-date">{i18n.t(`landing.milestones.${milestone[1]}`)}</div>
+        <div className="landing__milestone-desc">{i18n.t(`landing.milestones.${milestone[0]}`)}</div>
+      </div>
+    )}
+  </div>
 </div>
 
 const Logos = () => <div className="landing__page-container-item">
@@ -50,13 +38,11 @@ class OverviewView extends React.Component {
 
     return <div className="landing__page-container">
       <MapViewContainer {...this.props}/>
-      <div className="landing__page-container-item"></div>
+      {/*<div className="landing__page-container-item"></div>*/}
 
       <Milestones {...this.props} />
       <Logos/>
-      <div className="landing__page-container">
-        <div className="landing__version">{i18n.t('navigation.support.platformVersion')} {__PLATFORM_VERSION__}</div>
-      </div>
+
     </div>
   }
 }

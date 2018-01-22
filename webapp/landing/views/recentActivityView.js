@@ -23,9 +23,9 @@ const getActionLocalizationKey = (message) => {
   }
   const key = messageToKey[message]
   if (key) {
-    return 'dashboard.actions.' + key
+    return 'landing.recentActivity.actions.' + key
   }
-  return 'dashboard.actions.edited'
+  return 'landing.recentActivity.actions.edited'
 }
 
 const getSectionLocalizationKey = (section) => {
@@ -90,7 +90,6 @@ class RecentActivityView extends React.Component {
     const {i18n, feed, extentOfForest} = this.props
 
     return <div className="landing__page-container">
-
       {
         R.isNil(feed)
           ? null
@@ -105,10 +104,10 @@ class RecentActivityView extends React.Component {
             />)
           : <div className="landing__activity-empty">
             <img src="img/tucan.svg" height="72"/>
-            <p className="landing__activity-empty-title">{i18n.t('dashboard.noRecentActivityTitle')}</p>
-            <p>{i18n.t('dashboard.noRecentActivityBody')}</p>
+            <p className="landing__activity-empty-title">{i18n.t('landing.recentActivity.noRecentActivityTitle')}</p>
+            <p>{i18n.t('landing.recentActivity.noRecentActivityBody')}</p>
             <Link className="btn-s btn-primary"
-                  to={`/country/${countryIso}/contactPersons`}>{i18n.t('dashboard.getStarted')}</Link>
+                  to={`/country/${countryIso}/contactPersons`}>{i18n.t('landing.recentActivity.getStarted')}</Link>
           </div>
       }
 
