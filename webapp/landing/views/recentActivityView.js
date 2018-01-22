@@ -5,6 +5,7 @@ import R from 'ramda'
 import { getRelativeDate } from '../../utils/relativeDate'
 import { fetchAuditFeed } from '../../audit/actions'
 import { Link } from '../../reusableUiComponents/link'
+import camelize from 'camelize'
 
 const getActionLocalizationKey = (message) => {
   const messageToKey = {
@@ -50,7 +51,9 @@ const ActivityItem = ({i18n, countryIso, item, fra}) => {
   const actionLocalizationKey = getActionLocalizationKey(item.message)
   const usersManagementLocalaizationParameters = item.target ? {
     user: item.target.user,
-    role: i18n.t('user.roles.' + item.target.role)
+    role: item.target.role
+      ? i18n.t('user.roles.' + camelize(item.target.role.toLowerCase()))
+      : null
   } : null
 
   return <div className="landing__activity-item">

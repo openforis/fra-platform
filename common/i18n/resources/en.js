@@ -82,6 +82,9 @@ module.exports.translation = {
       activity5: 'Release of key findings',
       activity6: 'Launch of FRA 2020 Main Report',
     },
+    users: {
+      users: 'Users'
+    },
     about: {
       contact: 'Contact',
       seniorForestryOfficer: 'Senior Forestry Officer',
@@ -90,7 +93,7 @@ module.exports.translation = {
       linkFraProcess: 'Read more about the FRA process',
       or: 'Or'
     },
-    recentActivity:{
+    recentActivity: {
       noRecentActivityTitle: 'Looks like there’s no recent activity',
       noRecentActivityBody: 'Changes done in the platform will appear here, so that you can get up to speed on what’s been happening while you were away.',
       getStarted: 'Get started',

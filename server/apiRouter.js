@@ -14,6 +14,7 @@ const biomassStockApi = require('./biomassStock/biomassStockApi')
 const auditApi = require('./audit/api')
 const sustainableDevelopmentApi = require('./sustainableDevelopment/sustainableDevelopmentApi')
 const panEuropeanApi = require('./panEuropean/panEuropeanApi')
+const landingApi = require('./landing/landingApi')
 
 const apiRouter = express.Router()
 //Nothing should be cached by default with the APIs
@@ -35,5 +36,6 @@ biomassStockApi.init(apiRouter)
 auditApi.init(apiRouter)
 sustainableDevelopmentApi.init(apiRouter)
 panEuropeanApi.init(apiRouter)
+landingApi.init(apiRouter)
 
 module.exports.router = apiRouter
