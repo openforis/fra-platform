@@ -3,7 +3,8 @@ import { applicationError } from '../applicationError/actions'
 
 import { googleApiKey, fusionTableUrl, fusionTableTId, getBoundsFromGeometryCollections } from './views/countryMap/map'
 
-export const countryLatLngBoundsLoaded = 'landing/countryLatLngBoundsLoaded'
+export const countryLatLngBoundsLoaded = 'landing/country/LatLngBoundsLoaded'
+export const countryOverviewLoaded = 'landing/country/OverviewLoaded'
 
 export const loadCountryShape = countryIso => dispatch => {
 
@@ -21,4 +22,14 @@ export const loadCountryShape = countryIso => dispatch => {
 
     })
     .catch((err) => dispatch(applicationError(err)))
+}
+
+export const getCountryOverview = countryIso => dispatch => {
+  axios.get(`/api/landing/${countryIso}/overview`)
+    .then(resp =>
+      dispatch({type: countryOverviewLoaded, overview: resp.data.overview})
+    )
+    .catch(err =>
+      dispatch(applicationError(err))
+    )
 }

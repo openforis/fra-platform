@@ -46,8 +46,6 @@ class LandingView extends React.Component {
           </div>
         </div>
 
-        {/*<hr/>*/}
-
         {React.createElement(this.state.section.component, {...this.props})}
 
       </div>
