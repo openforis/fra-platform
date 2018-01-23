@@ -16,7 +16,7 @@ const AboutView = ({i18n}) => <div>
       <p>
         Anssi Pekkarinen<br/>
         {i18n.t('landing.about.seniorForestryOfficer')}<br/>
-        FAO Forestry Department<br/>
+        {i18n.t('landing.about.faoForestryDepartment')}<br/>
         Viale delle Terme di Caracalla<br/>
         Rome 00153, Italy<br/>
         {i18n.t('landing.about.email')}: Anssi.Pekkarinen@Fao.org

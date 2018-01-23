@@ -85,7 +85,6 @@ const CountryList = ({isOpen, countries, ...props}) => {
 }
 
 const CountryRole = ({role, roleCountries, currentCountry, i18n, ...props}) =>
-  console.log(roleCountries, role, props) ||
   <div className="nav__country-list-section">
     <div className="nav__country-list-header">
       <span className="nav__country-list-primary-col">{i18n.t(getRoleLabelKey(role))}</span>

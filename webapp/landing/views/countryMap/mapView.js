@@ -12,32 +12,6 @@ class Map extends React.Component {
     return this.props.match.params.countryIso
   }
 
-  componentDidMount () {
-    const mapOptions = {
-      zoom: 2,
-      minZoom: 2,
-      maxZoom: 15,
-      center: new google.maps.LatLng(20.8892506, 14.2342302),
-      mapTypeId: google.maps.MapTypeId.ROADMAP,
-      zoomControl: false,
-      mapTypeControl: false,
-      scaleControl: false,
-      streetViewControl: false,
-      rotateControl: false,
-      fullscreenControl: false,
-      backgroundColor: '#e6e6e6',
-      gestureHandling: 'greedy',
-      // draggable: false
-    }
-
-    this.map = new google.maps.Map(this.refs.map, mapOptions)
-    this.map.setOptions({styles: mapStyle})
-
-    setTimeout(() =>
-        this.props.loadCountryShape(this.getCountryIso())
-      , 500)
-  }
-
   addCountry () {
     if (this.fusionTableLayer)
       this.fusionTableLayer.setMap(null)
@@ -64,10 +38,38 @@ class Map extends React.Component {
     this.fusionTableLayer.setMap(this.map)
   }
 
-  componentWillUpdate (nextProps, nextState) {
+  loadCountryShape (countryIso) {
+    this.props.loadCountryShape(countryIso)
+  }
+
+  componentDidMount () {
+    const mapOptions = {
+      zoom: 2,
+      minZoom: 2,
+      maxZoom: 15,
+      center: new google.maps.LatLng(20.8892506, 14.2342302),
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+      zoomControl: false,
+      mapTypeControl: false,
+      scaleControl: false,
+      streetViewControl: false,
+      rotateControl: false,
+      fullscreenControl: false,
+      backgroundColor: '#e6e6e6',
+      gestureHandling: 'greedy',
+      // draggable: false
+    }
+
+    this.map = new google.maps.Map(this.refs.map, mapOptions)
+    this.map.setOptions({styles: mapStyle})
+
+    this.loadCountryShape(this.getCountryIso())
+  }
+
+  componentWillReceiveProps (nextProps) {
     const nextCountryIso = nextProps.match.params.countryIso
     if (this.getCountryIso() !== nextCountryIso) {
-      this.props.loadCountryShape(nextCountryIso)
+      this.loadCountryShape(nextCountryIso)
     }
   }
 

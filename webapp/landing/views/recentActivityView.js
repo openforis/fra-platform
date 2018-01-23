@@ -1,11 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import R from 'ramda'
+import camelize from 'camelize'
 
 import { getRelativeDate } from '../../utils/relativeDate'
 import { fetchAuditFeed } from '../../audit/actions'
 import { Link } from '../../reusableUiComponents/link'
-import camelize from 'camelize'
 
 const getActionLocalizationKey = (message) => {
   const messageToKey = {
@@ -45,22 +45,27 @@ const getSectionUrl = (item, fra) => {
   return item.sectionName
 }
 
+const getUserMessageParams = (item, i18n) => ({
+  user: item.target.user,
+  role: item.target.role
+    ? i18n.t('user.roles.' + camelize(item.target.role.toLowerCase()))
+    : null
+})
+
 const ActivityItem = ({i18n, countryIso, item, fra}) => {
   const sectionUrl = getSectionUrl(item, fra)
   const sectionLocalizationKey = getSectionLocalizationKey(item.sectionName)
   const actionLocalizationKey = getActionLocalizationKey(item.message)
-  const usersManagementLocalaizationParameters = item.target ? {
-    user: item.target.user,
-    role: item.target.role
-      ? i18n.t('user.roles.' + camelize(item.target.role.toLowerCase()))
-      : null
-  } : null
 
   return <div className="landing__activity-item">
     <img className="landing__activity-avatar" src={`https://www.gravatar.com/avatar/${item.hash}?default=mm`}/>
     <div className="landing__activity-name">
       <strong>{item.fullName}</strong>
-      <span>{item.target ? i18n.t(actionLocalizationKey, usersManagementLocalaizationParameters) : i18n.t(actionLocalizationKey)}</span>
+      <span>{
+        item.target
+          ? i18n.t(actionLocalizationKey, getUserMessageParams(item, i18n))
+          : i18n.t(actionLocalizationKey)
+      }</span>
       {
         sectionUrl === 'users'
           ? null

@@ -23,9 +23,11 @@ class MapViewContainer extends React.Component {
 
   render () {
     return <div className="landing__page-container-item">
-      {this.state.apiLoaded
-        ? <MapView {...this.props}/>
-        : <span>...loading map</span>}
+      {
+        this.state.apiLoaded
+          ? <MapView {...this.props}/>
+          : <span>...loading map</span>
+      }
     </div>
   }
 

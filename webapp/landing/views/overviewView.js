@@ -18,7 +18,7 @@ const milestonesTableContent = [
 const Milestones = ({i18n}) => <div className="landing__page-container-item">
   <div className="landing__milestone-container">
     <div className="landing__milestone-header">
-      <h2>{i18n.t('landing.milestones.milestones')}</h2>
+      <h3>{i18n.t('landing.milestones.milestones')}</h3>
     </div>
     {milestonesTableContent.map(milestone =>
       <div key={milestone[0]} className="landing__milestone-item">
@@ -35,7 +35,7 @@ const Logos = () => <div className="landing__page-container-item">
 
 const Users = ({i18n, users}) => <div className="landing__users-container">
   <div className="landing__milestone-header">
-    <h2>{i18n.t('landing.users.users')}</h2>
+    <h3>{i18n.t('landing.users.users')}</h3>
   </div>
   {users.map(user =>
     <div key={user.id} className="landing__user-container">
