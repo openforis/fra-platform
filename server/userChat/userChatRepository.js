@@ -1,7 +1,6 @@
 const db = require('../db/db')
 const R = require('ramda')
-
-
+// const {findUserById} = require('')
 const getChatSummary = async (userFrom, userTo) => {
 
   const resultChat = await db.query(`
@@ -13,25 +12,23 @@ const getChatSummary = async (userFrom, userTo) => {
       (user_a = $2 AND user_b = $1)
   `, [userFrom, userTo])
 
-  console.log('=========')
-  console.log(userFrom, userTo)
-  console.log(resultChat.rows)
-
-  if(R.isEmpty(resultChat.rows))
+  if (R.isEmpty(resultChat.rows))
     return null
   else {
-    const chatId = resultChat.rows[0].id
+    const id = resultChat.rows[0].id
 
     const resultChatMessage = await db.query(`
       SELECT count(*) as unread_messages
       FROM user_chat_message
       WHERE user_chat_id = $1
       AND to_user = $2
-    `, [chatId, userTo])
+    `, [id, userTo])
 
-    return {chatId, unreadMessages: resultChatMessage.rows[0].unread_messages}
+    return {id, unreadMessages: resultChatMessage.rows[0].unread_messages}
   }
 
 }
+
+
 
 module.exports.getChatSummary = getChatSummary

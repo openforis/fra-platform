@@ -119,6 +119,10 @@ module.exports.translation = {
     }
   },
 
+  userChat:{
+    chatHeader:'Messages with {{user}}'
+  },
+
   dashboard: {
     dashboard: 'Dashboard',
     fraPlatform: 'FRA Platform',

@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import R from 'ramda'
 import camelize from 'camelize'
 import { getCountryOverview } from '../actions'
+import { openChat, closeChat } from '../../userChat/actions'
 
 import MapViewContainer from './countryMap/mapViewContainer'
 
@@ -33,34 +34,44 @@ const Logos = () => <div className="landing__page-container-item">
   <img src="img/cfrq_logos.png" className="landing__logos"/>
 </div>
 
-const Users = ({i18n, users}) => <div className="landing__users-container">
+const Users = ({i18n, users, userInfo, openChat}) => <div className="landing__users-container">
   <div className="landing__milestone-header">
     <h3>{i18n.t('landing.users.users')}</h3>
   </div>
-  {users.map(user =>
-    <div key={user.id} className="landing__user-container">
-      <div className="landing__user-header">
-        <img
-          className="landing__user-avatar"
-          src={`https://www.gravatar.com/avatar/${user.hash}?default=mm`}/>
-        <div className="landing__user-info">
+  {
+    users.map(user =>
+      <div key={user.id} className="landing__user-container">
+        <div className="landing__user-header">
+          <img
+            className="landing__user-avatar"
+            src={`https://www.gravatar.com/avatar/${user.hash}?default=mm`}/>
+          <div className="landing__user-info">
 
-          <div className="landing__user-name">
-            {user.name}
+            <div className="landing__user-name">
+              {user.name}
+            </div>
+            <div className="landing__user-role">
+              {i18n.t(`user.roles.${camelize(user.role.toLowerCase())}`)}
+            </div>
+            { // add message button if session user is not equal to current displayed user
+              R.prop('id', userInfo) !== user.id
+                ? <button
+                  className="landing__user-btn-message"
+                  onClick={() => openChat(R.path(['chat', 'id'], user), userInfo.id, user.id)}
+                >{
+                  i18n.t('landing.users.message')}
+                  {
+                    user.chat
+                      ? <span className="landing__user-message-count">{user.chat.unreadMessages}</span>
+                      : null
+                  }
+                </button>
+                : null
+            }
           </div>
-          <div className="landing__user-role">
-            {i18n.t(`user.roles.${camelize(user.role.toLowerCase())}`)}
-          </div>
-          <button className="landing__user-btn-message">{
-            i18n.t('landing.users.message')}
-            {user.chat
-            ?<span className="landing__user-message-count">{user.chat.unreadMessages}</span>
-            :null
-          }</button>
         </div>
       </div>
-    </div>
-  )}
+    )}
 </div>
 
 class OverviewView extends React.Component {
@@ -74,12 +85,16 @@ class OverviewView extends React.Component {
       this.getCountryOverview(next.match.params.countryIso)
   }
 
+  componentWillUnmount () {
+    this.props.closeChat()
+  }
+
   getCountryOverview (countryIso) {
     this.props.getCountryOverview(countryIso)
   }
 
   render () {
-    const {i18n, overview} = this.props
+    const {overview} = this.props
     const users = overview && overview.users
 
     return <div className="landing__page-container">
@@ -88,7 +103,7 @@ class OverviewView extends React.Component {
       {
         R.isEmpty(users) || R.isNil(users)
           ? null
-          : <Users i18n={i18n} users={users}/>
+          : <Users users={users} {...this.props}/>
       }
       <Logos/>
 
@@ -98,7 +113,12 @@ class OverviewView extends React.Component {
 
 const mapStateToProps = state => ({
   i18n: state.user.i18n,
-  ...state.landing
+  ...state.landing,
+  ...state.user
 })
 
-export default connect(mapStateToProps, {getCountryOverview})(OverviewView)
+export default connect(mapStateToProps, {
+  getCountryOverview,
+  openChat,
+  closeChat
+})(OverviewView)
