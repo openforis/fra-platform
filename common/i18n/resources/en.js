@@ -83,7 +83,8 @@ module.exports.translation = {
       activity6: 'Launch of FRA 2020 Main Report',
     },
     users: {
-      users: 'Users'
+      users: 'Users',
+      message: 'Message'
     },
     about: {
       contact: 'Contact',

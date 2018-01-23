@@ -44,12 +44,19 @@ const Users = ({i18n, users}) => <div className="landing__users-container">
           className="landing__user-avatar"
           src={`https://www.gravatar.com/avatar/${user.hash}?default=mm`}/>
         <div className="landing__user-info">
+
           <div className="landing__user-name">
             {user.name}
           </div>
           <div className="landing__user-role">
             {i18n.t(`user.roles.${camelize(user.role.toLowerCase())}`)}
           </div>
+          <button className="landing__user-btn-message">{
+            i18n.t('landing.users.message')}
+            {user.chat
+            ?<span className="landing__user-message-count">{user.chat.unreadMessages}</span>
+            :null
+          }</button>
         </div>
       </div>
     </div>
