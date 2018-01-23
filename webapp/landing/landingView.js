@@ -26,7 +26,7 @@ class LandingView extends React.Component {
 
   render () {
     const countryIso = this.props.match.params.countryIso
-    const {i18n, getCountryName} = this.props
+    const {i18n, getCountryName, closeChat} = this.props
 
     return <LoggedInPageTemplate>
       <div className="fra-view__content">
@@ -59,5 +59,5 @@ const mapStateToProps = state => ({
 })
 
 export default connect(mapStateToProps, {
-  getCountryName,
+  getCountryName
 })(LandingView)

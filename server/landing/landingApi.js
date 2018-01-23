@@ -13,7 +13,9 @@ const getUsersOverview = async (sessionUserId, dbUsers) => {
   const getUserOverview = async (user) => ({
     ...user,
     hash: crypto.createHash('md5').update(user.email).digest('hex'),
-    chat: await getChatSummary(user.id, sessionUserId)
+    chat: user.id !== sessionUserId
+      ? await getChatSummary(user.id, sessionUserId)
+      : null
   })
 
   const users = await Promise.all(dbUsers.map(getUserOverview))
