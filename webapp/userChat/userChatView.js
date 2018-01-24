@@ -1,3 +1,5 @@
+import './style.less'
+
 import React from 'react'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
@@ -141,7 +143,7 @@ class UserChatView extends React.Component {
     return R.isNil(chat)
       ? null
       : <div className="fra-review__container">
-        <div className="fra-review">
+        <div className="fra-review user-chat">
           <UserChatHeader i18n={i18n} chat={chat} closeChat={closeChat}/>
           <UserChatMessages i18n={i18n} chat={chat}/>
           <UsersChatAddMessage i18n={i18n} chat={chat} closeChat={closeChat} sendMessage={sendMessage}
