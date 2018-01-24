@@ -27,7 +27,7 @@ module.exports.init = app => {
       checkCountryAccessFromReqParams(req)
 
       const {message, fromUserId, toUserId} = req.body
-      console.log(message)
+
       const persistedMessage = await db.transaction(addMessage, [message, fromUserId, toUserId])
 
       res.json(persistedMessage)
