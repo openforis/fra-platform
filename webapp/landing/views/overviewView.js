@@ -2,10 +2,12 @@ import React from 'react'
 import { connect } from 'react-redux'
 import R from 'ramda'
 import camelize from 'camelize'
+
+import Icon from '../../reusableUiComponents/icon'
+import MapViewContainer from './countryMap/mapViewContainer'
+
 import { getCountryOverview } from '../actions'
 import { openChat, closeChat } from '../../userChat/actions'
-
-import MapViewContainer from './countryMap/mapViewContainer'
 
 const milestonesTableContent = [
   ['milestone1', 'date1'],
@@ -34,7 +36,7 @@ const Logos = () => <div className="landing__page-container-item">
   <img src="img/cfrq_logos.png" className="landing__logos"/>
 </div>
 
-const Users = ({i18n, users, userInfo, openChat}) => <div className="landing__users-container">
+const Users = ({countryIso, i18n, users, userInfo, openChat}) => <div className="landing__users-container">
   <div className="landing__milestone-header">
     <h3>{i18n.t('landing.users.users')}</h3>
   </div>
@@ -57,12 +59,13 @@ const Users = ({i18n, users, userInfo, openChat}) => <div className="landing__us
               R.prop('id', userInfo) !== user.id
                 ? <button
                   className="landing__user-btn-message"
-                  onClick={() => openChat(R.path(['chat', 'id'], user), userInfo.id, user.id)}
-                >{
-                  i18n.t('landing.users.message')}
+                  onClick={() => openChat(countryIso, userInfo, user)}
+                >
+                  <Icon name="chat-46"/>
+                  {i18n.t('landing.users.message')}
                   {
-                    user.chat
-                      ? <span className="landing__user-message-count">{user.chat.unreadMessages}</span>
+                    user.chat.unreadMessages > 0
+                      ? <div className="landing__user-message-count">{user.chat.unreadMessages}</div>
                       : null
                   }
                 </button>
@@ -94,7 +97,8 @@ class OverviewView extends React.Component {
   }
 
   render () {
-    const {overview} = this.props
+    const countryIso = this.props.match.params.countryIso
+    const {overview, i18n, userInfo, openChat} = this.props
     const users = overview && overview.users
 
     return <div className="landing__page-container">
@@ -103,7 +107,11 @@ class OverviewView extends React.Component {
       {
         R.isEmpty(users) || R.isNil(users)
           ? null
-          : <Users users={users} {...this.props}/>
+          : <Users users={users}
+                   countryIso={countryIso}
+                   i18n={i18n}
+                   userInfo={userInfo}
+                   openChat={openChat}/>
       }
       <Logos/>
 
@@ -112,7 +120,6 @@ class OverviewView extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  i18n: state.user.i18n,
   ...state.landing,
   ...state.user
 })

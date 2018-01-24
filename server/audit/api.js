@@ -1,8 +1,8 @@
 const R = require('ramda')
-const crypto = require('crypto')
 const auditRepository = require('./auditRepository')
 const {sendErr} = require('../utils/requestUtils')
 const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
+const {emailHash} = require('../../common/userUtils')
 
 module.exports.init = app => {
   app.get('/audit/getLatestAuditLogTimestamp/:countryIso', (req, res) => {
@@ -19,7 +19,7 @@ module.exports.init = app => {
     auditRepository.getAuditFeed(req.params.countryIso)
       .then(feed => {
         const hashedFeed = R.map(item => {
-          const hash = crypto.createHash('md5').update(item.email).digest('hex')
+          const hash = emailHash(item.email)
           return {...item, hash}
         }, feed)
         res.json({feed: hashedFeed})
