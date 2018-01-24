@@ -49,7 +49,7 @@ const Users = ({countryIso, i18n, users, userInfo, openChat}) => <div className=
             src={`https://www.gravatar.com/avatar/${user.hash}?default=mm`}/>
           <div className="landing__user-info">
 
-            <div className="landing__user-name">
+            <div className={`landing__user-name${userInfo.id === user.id ? ' session-user' :''}`}>
               {user.name}
             </div>
             <div className="landing__user-role">

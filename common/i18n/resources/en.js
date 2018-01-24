@@ -121,7 +121,7 @@ module.exports.translation = {
 
   userChat: {
     chatHeader: 'Messages with {{user}}',
-    noMessages: 'No messages sent yet',
+    noMessages: 'No messages',
     writeMessage: 'Write a message…',
     send: 'Send',
     cancel: 'Cancel'

@@ -113,11 +113,13 @@
 }
 
 .landing__user-name {
-  color: @ui-accent;
   font-weight: bold;
+  &.session-user {
+    color: @ui-accent;
+  }
 }
 
-.landing__user-btn-message{
+.landing__user-btn-message {
   .mixin-button-base(@font-m, 7px 14px);
   .btn-secondary;
 
