@@ -171,6 +171,7 @@ const removeCountryUser = async (client, user, countryIso, userId) => {
 }
 
 const getInvitationInfo = async (client, invitationUuid) => {
+  console.log(invitationUuid)
   const invitationInfo = await client.query(
     `SELECT country_iso, name, role, accepted, email
       FROM fra_user_invitation
