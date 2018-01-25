@@ -26,7 +26,7 @@ class MapViewContainer extends React.Component {
       {
         this.state.apiLoaded
           ? <MapView {...this.props}/>
-          : <span>...loading map</span>
+          : <span style={{fontStyle: 'italic'}}>{this.props.i18n.t('landing.overview.loadingMap')}</span>
       }
     </div>
   }
