@@ -37,7 +37,8 @@ const getChatMessages = async (client, sessionUserId, otherUserId) => {
   // then loading messages
   const resultChatMessages = await client.query(`
       SELECT 
-        text, from_user, to_user, time, read_time
+        text, from_user, to_user, 
+        to_char(time,'YYYY-MM-DD"T"HH24:MI:ssZ') as time, to_char(read_time,'YYYY-MM-DD"T"HH24:MI:ssZ') as read_time
       FROM 
         user_chat_message
       WHERE 
@@ -62,7 +63,8 @@ const addMessage = async (client, message, fromUserId, toUserId) => {
 
   const resultChatMessage = await client.query(`
     SELECT 
-      text, from_user, to_user, time, read_time
+      text, from_user, to_user,
+      to_char(time,'YYYY-MM-DD"T"HH24:MI:ssZ') as time, to_char(read_time,'YYYY-MM-DD"T"HH24:MI:ssZ') as read_time
     FROM 
       user_chat_message
     WHERE 
