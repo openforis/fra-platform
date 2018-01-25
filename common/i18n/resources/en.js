@@ -61,6 +61,9 @@ module.exports.translation = {
       recentActivity: 'Recent activity',
       externalData: 'External data'
     },
+    overview:{
+      loadingMap:'Loading map…'
+    },
     milestones: {
       milestones: 'Milestones',
       milestone1: 'Global meeting of National Correspondents',

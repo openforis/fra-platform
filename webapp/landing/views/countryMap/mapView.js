@@ -12,7 +12,7 @@ class Map extends React.Component {
     return this.props.match.params.countryIso
   }
 
-  addCountry () {
+  addCountryLayer () {
     if (this.fusionTableLayer)
       this.fusionTableLayer.setMap(null)
 
@@ -73,14 +73,16 @@ class Map extends React.Component {
     }
   }
 
+  shouldComponentUpdate (nextProps, nextState) {
+    return !!(nextProps.countryLatLngBounds && !this.props.countryLatLngBounds)
+  }
+
   componentDidUpdate (prevProps, prevState) {
     const {countryLatLngBounds} = this.props
 
-    if (countryLatLngBounds) {
-      this.map.panToBounds(countryLatLngBounds)
-      this.map.fitBounds(countryLatLngBounds)
-      this.addCountry()
-    }
+    this.map.panToBounds(countryLatLngBounds)
+    this.map.fitBounds(countryLatLngBounds)
+    this.addCountryLayer()
   }
 
   render () {

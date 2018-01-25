@@ -3,10 +3,12 @@ import { applicationError } from '../applicationError/actions'
 
 import { googleApiKey, fusionTableUrl, fusionTableTId, getBoundsFromGeometryCollections } from './views/countryMap/map'
 
+export const countryLatLngBoundsLoading = 'landing/country/LatLngBoundsLoading'
 export const countryLatLngBoundsLoaded = 'landing/country/LatLngBoundsLoaded'
 export const countryOverviewLoaded = 'landing/country/OverviewLoaded'
 
 export const loadCountryShape = countryIso => dispatch => {
+  dispatch({type: countryLatLngBoundsLoading})
 
   const data = {
     sql: `SELECT geometry FROM ${fusionTableTId} WHERE ISO = '${countryIso}' ORDER BY NAME_FAO ASC`,
