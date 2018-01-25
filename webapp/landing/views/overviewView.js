@@ -61,7 +61,7 @@ const Users = ({countryIso, i18n, users, userInfo, openChat}) => <div className=
                   className="landing__user-btn-message"
                   onClick={() => openChat(countryIso, userInfo, user)}
                 >
-                  <Icon name="chat-46"/>
+                  <Icon name="chat-46" className="icon-middle" />
                   {i18n.t('landing.users.message')}
                   {
                     user.chat.unreadMessages > 0
