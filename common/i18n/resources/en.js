@@ -124,7 +124,30 @@ module.exports.translation = {
     noMessages: 'No messages',
     writeMessage: 'Write a message…',
     send: 'Send',
-    cancel: 'Cancel'
+    cancel: 'Cancel',
+    notificationEmail: {
+      subject: '{{sender}} sent you a message',
+      textMessage: `Dear {{recipient}},
+
+{{sender}} sent you a message.
+
+Access the platform at the following URL to see and respond:
+{{- link}}
+
+The FRA team
+{{- url}}
+    `,
+      htmlMessage: `Dear {{recipient}},
+<br/><br/>
+{{sender}} sent you a message.
+<br/><br/>
+<b><a href="{{- link}}">Access the platform to see and respond.</a></b>
+<br/><br/>
+The FRA team
+<br/>
+{{- url}}
+    `
+    }
   },
 
   dashboard: {
