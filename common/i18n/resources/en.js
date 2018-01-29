@@ -55,6 +55,7 @@ module.exports.translation = {
   },
 
   landing: {
+    home: "Home",
     sections: {
       overview: 'Overview',
       about: 'About',
