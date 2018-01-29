@@ -7,15 +7,20 @@ import { getRelativeDate } from '../utils/relativeDate'
 import { Link } from '../reusableUiComponents/link'
 import Icon from '../reusableUiComponents/icon'
 import { follow } from './../router/actions'
-import { changeAssessment, navigationScroll, toggleNavigationGroupCollapse, toggleAllNavigationGroupsCollapse } from './actions'
+import {
+  changeAssessment,
+  navigationScroll,
+  toggleNavigationGroupCollapse,
+  toggleAllNavigationGroupsCollapse
+} from './actions'
 import { getCountryList, getCountryName, isPanEuropeanCountry } from '../country/actions'
 import { fetchAllCountryData } from '../app/actions'
 import { assessments } from './items'
-import { isAdministrator, roleForCountry, getRoleLabelKey } from '../../common/countryRole'
+import { roleForCountry, getRoleLabelKey } from '../../common/countryRole'
 import { allowedToChangeRoles } from '../../common/userManagementAccessControl'
-import { getAllowedStatusTransitions } from '../../common/assessment'
 import { hasOdps } from '../assessmentFra/extentOfForest/extentOfForestHelper'
-import { PopoverControl } from '../reusableUiComponents/popoverControl'
+import Assessment from './assessment'
+import ReviewStatus from './reviewStatus'
 
 import './style.less'
 
@@ -139,11 +144,6 @@ const Dashboard = ({path, countryIso, pathTemplate, label}) => {
   </Link>
 }
 
-const ReviewStatus = ({status}) =>
-  status.issueStatus === 'opened'
-    ? <div className={`nav__review-status--${status.hasUnreadIssues ? 'unread' : 'open'}`}/>
-    : null
-
 const NationalData = ({path, countryIso, pathTemplate, secondaryPathTemplate, status, label, userInfo}) => {
   const linkTo = getLinkTo(pathTemplate, countryIso)
   const secondaryLinkTo = getLinkTo(secondaryPathTemplate, countryIso)
@@ -163,111 +163,6 @@ const NationalData = ({path, countryIso, pathTemplate, secondaryPathTemplate, st
       </div>
     </div>
   </Link>
-}
-
-const Assessment = ({assessment, countryIso, status, changeAssessment, userInfo, sections, i18n, ...props}) => {
-  const currentAssessment = R.path([assessment], status)
-  if (!countryIso || !userInfo || !currentAssessment) return null
-  const currentAssessmentStatus = currentAssessment.status
-  const assesmentIsChanging = currentAssessmentStatus === 'changing'
-  const allowedTransitions = getAllowedStatusTransitions(roleForCountry(countryIso, userInfo), currentAssessmentStatus)
-  const possibleAssesmentStatuses = [
-    {direction: 'next', transition: allowedTransitions.next},
-    {direction: 'previous', transition: allowedTransitions.previous}
-  ]
-  const allowedAssesmentStatuses = R.filter(R.prop('transition'), possibleAssesmentStatuses)
-  const assessmentStatusItems = R.map(targetStatus => ({
-    content: i18n.t(`assessment.status.${targetStatus.transition}.${targetStatus.direction}`),
-    onClick: () => changeAssessment(countryIso, {...currentAssessment, status: targetStatus.transition})
-  }), allowedAssesmentStatuses)
-  const deskStudyItems = [{
-      divider: true
-    }, {
-      content: <div className="popover-control__checkbox-container">
-        <span
-          style={{marginRight: '8px'}}
-          className={`fra-checkbox ${currentAssessment.deskStudy ? 'checked' : ''}`}
-        >
-        </span>
-        <span>{i18n.t('assessment.deskStudy')}</span>
-      </div>,
-      onClick: () => changeAssessment(countryIso, {...currentAssessment, deskStudy: !currentAssessment.deskStudy})
-    }]
-  const popoverItems = isAdministrator(userInfo)
-    ? R.flatten(R.append(deskStudyItems, assessmentStatusItems))
-    : assessmentStatusItems
-  const allowedPopoverItems = !assesmentIsChanging ? popoverItems : []
-
-  return <div className="nav__assessment">
-    <div className="nav__assessment-header">
-      <div className="nav__assessment-label">
-      {
-        currentAssessment.deskStudy
-          ? `${i18n.t('assessment.' + assessment)} (${i18n.t('assessment.deskStudy')})`
-          : i18n.t('assessment.' + assessment)
-      }
-      </div>
-      <PopoverControl items={allowedPopoverItems}>
-        <div className={`nav__assessment-status status-${currentAssessmentStatus} actionable-${!R.isEmpty(allowedPopoverItems)}`}>
-          <span>{i18n.t(`assessment.status.${currentAssessmentStatus}.label`)}</span>
-          {
-            !R.isEmpty(allowedPopoverItems)
-            ? <Icon className="icon-white icon-middle" name="small-down"/>
-            : null
-          }
-        </div>
-      </PopoverControl>
-      <button
-        className="btn-s nav__assessment-toggle"
-        onClick={() => props.toggleAllNavigationGroupsCollapse()}>
-        {
-          props.lastUncollapseState
-            ? i18n.t('navigation.hideAll')
-            : i18n.t('navigation.showAll')
-        }
-      </button>
-    </div>
-    {
-      R.map(item =>
-        <AssesmentSection
-          key={item.label}
-          countryIso={countryIso}
-          item={item}
-          assessment={assessment}
-          i18n={i18n}
-          {...props}/>
-      , sections)
-    }
-  </div>
-}
-
-const AssesmentSection = ({countryIso, item, assessment, i18n, ...props}) => {
-  const sectionCollapsedClass = props.navigationGroupCollapseState[assessment][item.sectionNo] ? 'nav__section-items--visible' : 'nav__section-items--hidden'
-
-  return <div className="nav__section">
-    <div className="nav__section-header" onClick={() => props.toggleNavigationGroupCollapse(assessment, item.sectionNo)}>
-      <div className="nav__section-order">{item.sectionNo}</div>
-      <div className="nav__section-label">{i18n.t(item.label)}</div>
-    </div>
-    <div className={sectionCollapsedClass}>
-    {
-      R.map(child => {
-        const linkTo = getLinkTo(child.pathTemplate, countryIso)
-
-        return <Link
-          key={child.tableNo}
-          className={`nav__section-item ${R.equals(props.path, linkTo) ? 'selected' : ''}`}
-          to={linkTo}>
-            <div className='nav__section-order'>{child.tableNo}</div>
-            <div className='nav__section-label'>{i18n.t(child.label)}</div>
-            <div className="nav__section-status-content">
-              <ReviewStatus status={props.getReviewStatus(child.section)} />
-            </div>
-          </Link>
-      }, item.children)
-    }
-    </div>
-  </div>
 }
 
 const SectionLink = ({i18n, countryIso, path, pathTemplate, label}) => {
