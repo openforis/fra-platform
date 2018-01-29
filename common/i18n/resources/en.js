@@ -163,7 +163,10 @@ module.exports.translation = {
       employmentEducationAndNwfp: 'Employment, education and NWFP',
       sustainableDevelopment: 'Sustainable Development Goal 15',
       panEuropeanIndicators: 'Pan-European Indicators'
-    }
+    },
+    submit: 'Submit',
+    cancel: 'Cancel',
+    changeStatusTextPlaceholder:'Add an optional message'
   },
 
   header: {
