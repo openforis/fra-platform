@@ -131,13 +131,6 @@ const getLinkTo = (pathTemplate, countryIso) => {
   return route.reverse({countryIso})
 }
 
-const Dashboard = ({path, countryIso, pathTemplate, label}) => {
-  const linkTo = getLinkTo(pathTemplate, countryIso)
-  return <Link className={`nav__link ${R.equals(path, linkTo) ? 'selected' : ''}`} to={linkTo}>
-    <div className='nav__link-label'>{label}</div>
-  </Link>
-}
-
 const ReviewStatus = ({status}) =>
   status.issueStatus === 'opened'
     ? <div className={`nav__review-status--${status.hasUnreadIssues ? 'unread' : 'open'}`}/>
@@ -269,13 +262,13 @@ const AssesmentSection = ({countryIso, item, assessment, i18n, ...props}) => {
   </div>
 }
 
-const SectionLink = ({i18n, countryIso, path, pathTemplate, label}) => {
+const SectionLink = ({countryIso, path, pathTemplate, label}) => {
   const linkTo = getLinkTo(pathTemplate, countryIso)
 
   return <Link
     className={`nav__link ${R.equals(path, linkTo) ? 'selected' : ''}`}
     to={linkTo}>
-      <div className='nav__link-label'>{i18n.t(label)}</div>
+      <div className='nav__link-label'>{label}</div>
     </Link>
 }
 
@@ -344,11 +337,13 @@ class Nav extends React.Component {
             const content = ReactDOM.findDOMNode(this.refs.scroll_content)
             this.props.navigationScroll(content.scrollTop)
           }}>
-            <Dashboard
-              label={i18n.t('dashboard.dashboard')}
+            <SectionLink
               countryIso={country}
+              i18n={i18n}
               path={path}
-              pathTemplate="/country/:countryIso"/>
+              pathTemplate="/country/:countryIso"
+              label={i18n.t('landing.home')}
+            />
             {
               this.props.showOriginalDataPoints
                 ? <NationalData
@@ -386,7 +381,7 @@ class Nav extends React.Component {
                   i18n={i18n}
                   path={path}
                   pathTemplate="/country/:countryIso/panEuropeanIndicators"
-                  label="navigation.sectionHeaders.panEuropeanIndicators"
+                  label={i18n.t('navigation.sectionHeaders.panEuropeanIndicators')}
                 />
               </div>
               : null
@@ -399,7 +394,7 @@ class Nav extends React.Component {
                   i18n={i18n}
                   path={path}
                   pathTemplate="/country/:countryIso/users"
-                  label="navigation.support.manageCollaborators"
+                  label={i18n.t('navigation.support.manageCollaborators')}
                 />
                 : null
             }
