@@ -32,10 +32,6 @@ const Milestones = ({i18n}) => <div className="landing__page-container-item">
   </div>
 </div>
 
-const Logos = () => <div className="landing__page-container-item">
-  <img src="img/cfrq_logos.png" className="landing__logos"/>
-</div>
-
 const Users = ({countryIso, i18n, users, userInfo, openChat}) => <div className="landing__users-container">
   <div className="landing__milestone-header">
     <h3>{i18n.t('landing.users.users')}</h3>
@@ -113,8 +109,6 @@ class OverviewView extends React.Component {
                    userInfo={userInfo}
                    openChat={openChat}/>
       }
-      <Logos/>
-
     </div>
   }
 }
