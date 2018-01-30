@@ -1,6 +1,5 @@
 import React from 'react'
 import * as R from 'ramda'
-import Route from 'route-parser'
 import { isAdministrator, roleForCountry } from '../../common/countryRole'
 import { getAllowedStatusTransitions } from '../../common/assessment'
 
@@ -8,12 +7,7 @@ import { PopoverControl } from '../reusableUiComponents/popoverControl'
 import { Modal, ModalHeader, ModalBody, ModalFooter, ModalClose } from '../reusableUiComponents/modal'
 import Icon from '../reusableUiComponents/icon'
 import { Link } from '../reusableUiComponents/link'
-import ReviewStatus from './reviewStatus'
-
-const getLinkTo = (pathTemplate, countryIso) => {
-  const route = new Route(pathTemplate)
-  return route.reverse({countryIso})
-}
+import { ReviewStatus, getLinkTo } from './navigationComponents'
 
 const AssessmentSection = ({countryIso, item, assessment, i18n, ...props}) => {
 

@@ -20,7 +20,7 @@ import { roleForCountry, getRoleLabelKey } from '../../common/countryRole'
 import { allowedToChangeRoles } from '../../common/userManagementAccessControl'
 import { hasOdps } from '../assessmentFra/extentOfForest/extentOfForestHelper'
 import Assessment from './assessment'
-import ReviewStatus from './reviewStatus'
+import {ReviewStatus} from './navigationComponents'
 
 import './style.less'
 
