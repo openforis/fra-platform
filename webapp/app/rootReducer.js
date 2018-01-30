@@ -15,7 +15,6 @@ import review from '../review/reducer'
 import userManagement from '../userManagement/reducer'
 import country from '../country/reducer'
 import sustainableDevelopment from '../assessmentFra/sustainableDevelopment/reducer'
-import dashboard from '../dashboard/reducer'
 import landing from '../landing/reducer'
 import panEuropeanIndicators from '../panEuropeanIndicators/reducer'
 import userChat from '../userChat/reducer'
@@ -36,7 +35,6 @@ export default combineReducers({
   userManagement,
   country,
   sustainableDevelopment,
-  dashboard,
   landing,
   panEuropeanIndicators,
   userChat
