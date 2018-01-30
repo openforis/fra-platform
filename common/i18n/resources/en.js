@@ -693,6 +693,8 @@ The FRA team
 
 {{changer}} changed the status of {{assessment}} to "{{status}}" for {{country}} on FRA Platform.
 
+{{message}}
+
 Visit the platfrom at: {{- serverUrl}}
 
 The FRA team
@@ -700,6 +702,8 @@ The FRA team
         htmlMessage: `Dear {{recipientName}},
 <br/><br/>
 {{changer}} changed the status of {{assessment}} to "{{status}}" for {{country}} on FRA Platform.
+<br/><br/>
+{{message}}
 <br/><br/>
 <a href="{{- serverUrl}}"><b>Visit the platfrom</b></a>
 <br/><br/>
