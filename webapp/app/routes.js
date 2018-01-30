@@ -3,7 +3,6 @@ import React from 'react'
 import Route from 'route-parser'
 
 import Router from '../router/router'
-import DashboardView from '../dashboard/dashboardView'
 import LandingView from '../landing/landingView'
 import UserManagementView from '../userManagement/userManagementView'
 import OriginalDataPointView from '../originalDataPoint/originalDataPointView'

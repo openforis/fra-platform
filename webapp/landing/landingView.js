@@ -12,8 +12,8 @@ import RecentActivityView from './views/recentActivityView'
 
 const sections = [
   {name: 'overview', component: OverviewView},
-  {name: 'about', component: AboutView},
   {name: 'recentActivity', component: RecentActivityView},
+  {name: 'about', component: AboutView},
   // {name: 'externalData', component: OverviewView}
 ]
 

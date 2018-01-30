@@ -19,13 +19,15 @@ const milestonesTableContent = [
   },
   {
     year: '2019', milestones: [
-      {key: 'milestone4', date: 'date4'}
+      {key: 'milestone4', date: 'date4'},
+      {key: 'milestone7', date: 'date7'}
     ]
   },
   {
     year: '2020', milestones: [
       {key: 'milestone5', date: 'date5'},
-      {key: 'milestone6', date: 'date6'}
+      {key: 'milestone6', date: 'date6'},
+      {key: 'milestone8', date: 'date8'}
     ]
   }
 ]
