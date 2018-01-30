@@ -125,7 +125,7 @@ class RecentActivityView extends React.Component {
 
 const mapStateToProps = state => ({
   i18n: state.user.i18n,
-  feed: state.dashboard.feed,
+  feed: state.landing.feed,
   extentOfForest: state.extentOfForest
 })
 
