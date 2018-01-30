@@ -54,62 +54,102 @@ module.exports.translation = {
     treesUrbanSettings: '…of which trees in urban settings'
   },
 
-  dashboard: {
-    dashboard: 'Dashboard',
-    fraPlatform: 'FRA Platform',
-    timeline: 'Timeline',
-    about: 'About',
-    contact: 'Contact',
-    recentActivity: 'Recent activity',
-    noRecentActivityTitle: 'Looks like there’s no recent activity',
-    noRecentActivityBody: 'Changes done in the platform will appear here, so that you can get up to speed on what’s been happening while you were away.',
-    externalLinks: {
-      title: 'External links',
-      nationalFocalPoints: 'National focal points',
-      unFcccReportedData: 'UNFCCC reported data',
-      unReddPlatform: 'UN-REDD platform'
+  landing: {
+    home: "Home",
+    sections: {
+      overview: 'Overview',
+      about: 'About FRA',
+      recentActivity: 'Recent activity',
+      externalData: 'External data'
     },
-    milestoneHeader: 'Milestone / activity',
-    dateHeader: 'Date',
-    activityHeader: 'Activity',
+    overview:{
+      loadingMap:'Loading map…'
+    },
     milestones: {
+      milestones: 'Milestones',
       milestone1: 'Global meeting of National Correspondents',
       milestone2: 'Regional and sub-regional workshops',
       milestone3: 'Deadline for submission of country reports',
       milestone4: 'Validation of final country reports',
       milestone5: 'FRA 2020 Preliminary Findings',
       milestone6: 'FRA 2020 Main Report',
-      date1: 'March 2018',
-      date2: 'April – September 2018',
-      date3: 'October 2018',
-      date4: 'January – February 2019',
-      date5: 'March 2020',
-      date6: 'July 2020',
-      activity1: 'Launch of the FRA 2020 reporting process. Training of National Correspondents and work on key variables for SDGs reporting',
-      activity2: 'Technical assistance and review of draft country reports',
-      activity3: 'All country reports submitted, reviewed and accepted',
-      activity4: 'Request for official validation of the final country reports will be sent to the national authorities',
-      activity5: 'Release of key findings',
-      activity6: 'Launch of FRA 2020 Main Report',
+      milestone7: 'Data analysis and report drafting',
+      milestone8: 'Launch of analysis and dissemination platform',
+      date1: 'March',
+      date2: 'April – September',
+      date3: 'October',
+      date4: 'January – February',
+      date5: 'March',
+      date6: 'July',
+      date7: 'March - December',
+      date8: 'August'
     },
-    actions: {
-      added: 'added',
-      commented: 'commented on',
-      deleted: 'deleted',
-      edited: 'edited',
-      resolved: 'resolved issue in',
-      status: 'changed status to',
-      addUser: 'added {{user}} as {{role}}', //Legacy, no longer created
-      updateUser: 'edited {{user}}',
-      removeUser: 'removed {{user}}',
-      acceptInvitation: 'joined as {{role}}',
-      addInvitation: 'Invited {{user}} as {{role}}',
-      removeInvitation: 'Removed invitation of {{user}} as {{role}}',
-      updateInvitation: 'Invite updated for {{user}} as {{role}}'
+    users: {
+      users: 'Contacts',
+      message: 'Message'
     },
-    fraProcess: 'FAO has been monitoring the world’s forests at 5 to 10 year intervals since 1946. The Global Forest Resources Assessments (FRA) are now produced every five years in an attempt to provide a consistent approach to describing the world’s forests and how they are changing. The Assessment is based on two primary sources of data: Country Reports prepared by National Correspondents and remote sensing that is conducted by FAO together with national focal points and regional partners. The scope of the FRA has changed regularly since the first assessment published in 1948. These assessments make an interesting history of global forest interests, both in terms of their substantive content, but also in their changing scope.',
-    linkFraProcess: 'Read more about the FRA process',
-    getStarted: 'Get started'
+    about: {
+      contact: 'Contact',
+      seniorForestryOfficer: 'Senior Forestry Officer',
+      faoForestryDepartment: 'FAO Forestry Department',
+      email: 'Email',
+      fraProcess: 'FAO has been monitoring the world’s forests at 5 to 10 year intervals since 1946. The Global Forest Resources Assessments (FRA) are now produced every five years in an attempt to provide a consistent approach to describing the world’s forests and how they are changing. The Assessment is based on two primary sources of data: Country Reports prepared by National Correspondents and remote sensing that is conducted by FAO together with national focal points and regional partners. The scope of the FRA has changed regularly since the first assessment published in 1948. These assessments make an interesting history of global forest interests, both in terms of their substantive content, but also in their changing scope.',
+      linkFraProcess: 'Read more about the FRA process',
+      or: 'Or'
+    },
+    recentActivity: {
+      noRecentActivityTitle: 'Looks like there’s no recent activity',
+      noRecentActivityBody: 'Changes done in the platform will appear here, so that you can get up to speed on what’s been happening while you were away.',
+      getStarted: 'Get started',
+      actions: {
+        added: 'added',
+        commented: 'commented on',
+        deleted: 'deleted',
+        edited: 'edited',
+        resolved: 'resolved issue in',
+        status: 'changed status to',
+        addUser: 'added {{user}} as {{role}}', //Legacy, no longer created
+        updateUser: 'edited {{user}}',
+        removeUser: 'removed {{user}}',
+        acceptInvitation: 'joined as {{role}}',
+        addInvitation: 'Invited {{user}} as {{role}}',
+        removeInvitation: 'Removed invitation of {{user}} as {{role}}',
+        updateInvitation: 'Invite updated for {{user}} as {{role}}'
+      },
+      fraProcess: 'FAO has been monitoring the world’s forests at 5 to 10 year intervals since 1946. The Global Forest Resources Assessments (FRA) are now produced every five years in an attempt to provide a consistent approach to describing the world’s forests and how they are changing. The Assessment is based on two primary sources of data: Country Reports prepared by National Correspondents and remote sensing that is conducted by FAO together with national focal points and regional partners. The scope of the FRA has changed regularly since the first assessment published in 1948. These assessments make an interesting history of global forest interests, both in terms of their substantive content, but also in their changing scope.',
+      linkFraProcess: 'Read more about the FRA process'
+    }
+  },
+
+  userChat: {
+    chatHeader: 'Messages with {{user}}',
+    noMessages: 'No messages',
+    writeMessage: 'Write a message…',
+    send: 'Send',
+    cancel: 'Cancel',
+    notificationEmail: {
+      subject: '{{sender}} sent you a message',
+      textMessage: `Dear {{recipient}},
+
+{{sender}} sent you a message.
+
+Access the platform at the following URL to see and respond:
+{{- link}}
+
+The FRA team
+{{- url}}
+    `,
+      htmlMessage: `Dear {{recipient}},
+<br/><br/>
+{{sender}} sent you a message.
+<br/><br/>
+<b><a href="{{- link}}">Access the platform to see and respond.</a></b>
+<br/><br/>
+The FRA team
+<br/>
+{{- url}}
+    `
+    }
   },
 
   // error messages
