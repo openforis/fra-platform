@@ -1,10 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-const Logos = () => <div className="landing__page-container-item">
-  <img src="img/cfrq_logos.png" className="landing__logos"/>
-</div>
-
 const AboutView = ({i18n}) => <div className="landing__page-container">
 
   <div className="landing__page-container-item">
@@ -29,8 +25,6 @@ const AboutView = ({i18n}) => <div className="landing__page-container">
       FRA@Fao.org<br/>
     </p>
   </div>
-
-  <Logos/>
 
   <div className="landing__version">{i18n.t('navigation.support.platformVersion')} {__PLATFORM_VERSION__}</div>
 </div>
