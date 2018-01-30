@@ -6,7 +6,6 @@ import { getAllowedStatusTransitions } from '../../common/assessment'
 
 import { PopoverControl } from '../reusableUiComponents/popoverControl'
 import { Modal, ModalHeader, ModalBody, ModalFooter, ModalClose } from '../reusableUiComponents/modal'
-import VerticallyGrowingTextField from '../reusableUiComponents/verticallyGrowingTextField'
 import Icon from '../reusableUiComponents/icon'
 import { Link } from '../reusableUiComponents/link'
 import ReviewStatus from './reviewStatus'
@@ -57,10 +56,7 @@ class AssessmentHeader extends React.Component {
   }
 
   render () {
-    const {assessment, countryIso, status, changeAssessment, userInfo, i18n} = this.props
-    const currentAssessment = R.path([assessment], status)
-
-    if (!currentAssessment) return null
+    const {assessment, currentAssessment, countryIso, changeAssessment, userInfo, i18n} = this.props
 
     const currentAssessmentStatus = currentAssessment.status
     const allowedTransitions = getAllowedStatusTransitions(roleForCountry(countryIso, userInfo), currentAssessmentStatus)
@@ -110,13 +106,13 @@ class AssessmentHeader extends React.Component {
           </ModalHeader>
           <ModalBody>
             <div style={{height: '160px'}}>
-              <VerticallyGrowingTextField
+              <textarea
                 className="assessment__comment"
                 placeholder={i18n.t('navigation.changeStatusTextPlaceholder')}
                 ref="messageTextarea"
                 value={R.path(['assessmentChanging', 'message'], this.state)}
                 onChange={e => this.setState(R.assocPath(['assessmentChanging', 'message'], e.target.value, this.state))}
-              />
+              ></textarea>
             </div>
           </ModalBody>
           <ModalFooter>
@@ -132,8 +128,7 @@ class AssessmentHeader extends React.Component {
                         message: this.state.assessmentChanging.message
                       })
                       closeModal()
-                    }
-                    }>
+                    }}>
               {i18n.t('navigation.submit')}
             </button>
           </ModalFooter>
@@ -173,10 +168,15 @@ class AssessmentHeader extends React.Component {
 }
 
 const Assessment = (props) => {
-  const {assessment, countryIso, sections, i18n, userInfo} = props
+  const {assessment, countryIso, sections, i18n, status} = props
+  const currentAssessment = R.path([assessment], status)
 
   return <div className="nav__assessment">
-    <AssessmentHeader {...props}/>
+    {
+      currentAssessment
+        ? <AssessmentHeader currentAssessment={currentAssessment} {...props} />
+        : null
+    }
     {
       R.map(item =>
           <AssessmentSection
@@ -185,7 +185,8 @@ const Assessment = (props) => {
             item={item}
             assessment={assessment}
             i18n={i18n}
-            {...props}/>
+            {...props}
+          />
         , sections)
     }
   </div>
