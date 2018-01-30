@@ -58,7 +58,7 @@ module.exports.translation = {
     home: "Home",
     sections: {
       overview: 'Overview',
-      about: 'About',
+      about: 'About FRA',
       recentActivity: 'Recent activity',
       externalData: 'External data'
     },
