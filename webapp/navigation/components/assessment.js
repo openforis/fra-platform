@@ -1,12 +1,12 @@
 import React from 'react'
 import * as R from 'ramda'
-import { isAdministrator, roleForCountry } from '../../common/countryRole'
-import { getAllowedStatusTransitions } from '../../common/assessment'
+import { isAdministrator, roleForCountry } from '../../../common/countryRole'
+import { getAllowedStatusTransitions } from '../../../common/assessment'
 
-import { PopoverControl } from '../reusableUiComponents/popoverControl'
-import { Modal, ModalHeader, ModalBody, ModalFooter, ModalClose } from '../reusableUiComponents/modal'
-import Icon from '../reusableUiComponents/icon'
-import { Link } from '../reusableUiComponents/link'
+import { PopoverControl } from '../../reusableUiComponents/popoverControl'
+import { Modal, ModalHeader, ModalBody, ModalFooter, ModalClose } from '../../reusableUiComponents/modal'
+import Icon from '../../reusableUiComponents/icon'
+import { Link } from '../../reusableUiComponents/link'
 import { ReviewStatus, getLinkTo } from './navigationComponents'
 
 const AssessmentSection = ({countryIso, item, assessment, i18n, ...props}) => {
