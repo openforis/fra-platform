@@ -1,6 +1,6 @@
 import React from 'react'
 import * as R from 'ramda'
-import { isAdministrator, roleForCountry } from '../../../common/countryRole'
+import { isAdministrator } from '../../../common/countryRole'
 import { getAllowedStatusTransitions } from '../../../common/assessment'
 
 import { PopoverControl } from '../../reusableUiComponents/popoverControl'
@@ -53,7 +53,7 @@ class AssessmentHeader extends React.Component {
     const {assessment, currentAssessment, countryIso, changeAssessment, userInfo, i18n} = this.props
 
     const currentAssessmentStatus = currentAssessment.status
-    const allowedTransitions = getAllowedStatusTransitions(roleForCountry(countryIso, userInfo), currentAssessmentStatus)
+    const allowedTransitions = getAllowedStatusTransitions(countryIso, userInfo, currentAssessmentStatus)
     const possibleAssessmentStatuses = [
       {direction: 'next', transition: allowedTransitions.next},
       {direction: 'previous', transition: allowedTransitions.previous}

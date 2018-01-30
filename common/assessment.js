@@ -1,24 +1,31 @@
-const R = require('ramda')
+const {isAdministrator, isReviewer, isCollaborator, roleForCountry} = require('./countryRole')
 
-const assessmentStatusChangerRoles = ['ADMINISTRATOR', 'REVIEWER', 'NATIONAL_CORRESPONDENT']
+module.exports.getAllowedStatusTransitions = (countryIso, userInfo, currentState) => {
+  // collaborator cannot change the status of the assessment
+  if (isCollaborator(countryIso, userInfo))
+    return {}
 
-module.exports.getAllowedStatusTransitions = (role, currentState) => {
-  if (!role || !R.contains(role.role, assessmentStatusChangerRoles)) return {}
-  const acceptTransitionsAllowed = role.role === 'REVIEWER' || role.role === 'ADMINISTRATOR'
   switch (currentState) {
+    // all other roles can submit to review
     case 'editing':
       return {next: 'review'}
     case 'review':
-      if (acceptTransitionsAllowed) {
-        return {previous: 'editing', next: 'accepted'}
-      } else {
-        return {previous: 'editing'}
-      }
-    case 'accepted': //In this state, only reviewer or admin can do transition
-      return acceptTransitionsAllowed ? {previous: 'review'} : {}
+      return isAdministrator(userInfo) || isReviewer(countryIso, userInfo)
+        ? {previous: 'editing', next: 'accepted'}
+        : {}
+    //In accepted or final states, only admin can do transition
+    case 'accepted':
+      return isAdministrator(userInfo)
+        ? {previous: 'review', next: 'final'}
+        : {}
+    case 'final':
+      //In this state, only admin can do transition
+      return isAdministrator(userInfo)
+        ? {previous: 'accepted'}
+        : {}
     case 'changing': //System's in the middle of changing the state
       return {}
     default:
-      return  {next: 'review'}
+      return {next: 'review'}
   }
 }

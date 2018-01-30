@@ -6,13 +6,13 @@ const { roleForCountry, isAdministrator } = require('../../common/countryRole')
 const { getAllowedStatusTransitions } = require('../../common/assessment')
 const { AccessControlException } = require('../utils/accessControl')
 
-const checkStatusTransitionAllowance = (currentStatus, newStatus, role) => {
-  const allowed = getAllowedStatusTransitions(role, currentStatus)
+const checkStatusTransitionAllowance = (currentStatus, newStatus, countryIso, user) => {
+  const allowed = getAllowedStatusTransitions(countryIso, user, currentStatus)
   if (!R.contains(newStatus, R.values(allowed))) {
     throw new AccessControlException('error.assessment.transitionNotAllowed', {
       currentStatus: currentStatus,
       status: newStatus,
-      role: role.role
+      role: roleForCountry(countryIso, user)
     })
   }
 }
@@ -61,10 +61,9 @@ module.exports.changeAssessment =
     const currentAssessment = existsInDb
       ? currentAssessmentFromDb
       : defaultAssessment(newAssessment.assessment)
-    const role = roleForCountry(countryIso, user)
     let isStatusChange = currentAssessment.status !== newAssessment.status
     if (isStatusChange) {
-      checkStatusTransitionAllowance(currentAssessment.status, newAssessment.status, role)
+      checkStatusTransitionAllowance(currentAssessment.status, newAssessment.status, countryIso, user)
     }
     if (currentAssessment.deskStudy !== newAssessment.deskStudy && !isAdministrator(user)) {
       throw new AccessControlException('error.assessment.deskStudyNotAllowed')

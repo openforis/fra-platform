@@ -166,7 +166,7 @@
   }
 
   .status-accepted {
-    .mixin-status-base(@ui-status-accepted);
+    .mixin-status-base(@ui-status-final);
     margin-right: 8px;
   }
 }
@@ -241,6 +241,10 @@
 
   &.status-accepted {
     background-color: @ui-status-accepted;
+  }
+
+  &.status-final {
+    background-color: @ui-status-final;
   }
 }
 
