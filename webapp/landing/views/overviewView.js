@@ -98,7 +98,7 @@ class OverviewView extends React.Component {
     const users = overview && overview.users
 
     return <div className="landing__page-container">
-      <MapViewContainer {...this.props}/>
+      {/*<MapViewContainer {...this.props}/>*/}
       <Milestones {...this.props} />
       {
         R.isEmpty(users) || R.isNil(users)
