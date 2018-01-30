@@ -23,7 +23,7 @@ const hasRole = (role, roles) => R.find(R.propEq('role', role))(roles)
 const getCountryRoles = (countryIso, userInfo) => R.filter(R.propEq('countryIso', countryIso))(userInfo.roles)
 const getCountryRole = (countryIso, userInfo) => getCountryRoles(countryIso, userInfo)[0]
 
-const roleForCountry= (countryIso, userInfo) => {
+const roleForCountry = (countryIso, userInfo) => {
   if (!userInfo) return noRole
   if (hasRole('ADMINISTRATOR', userInfo.roles)) return administrator
   const rolesForCountry = getCountryRoles(countryIso, userInfo)
@@ -38,6 +38,7 @@ const hasUserRole = (countryIso, userInfo, roleObj) => roleForCountry(countryIso
 
 const isReviewer = (countryIso, userInfo) => hasUserRole(countryIso, userInfo, reviewer) || hasUserRole(countryIso, userInfo, administrator)
 const isNationalCorrespondent = (countryIso, userInfo) => hasUserRole(countryIso, userInfo, nationalCorrespondent)
+const isCollaborator = (countryIso, userInfo) => hasUserRole(countryIso, userInfo, collaborator)
 const hasNoRole = (countryIso, userInfo) => hasUserRole(countryIso, userInfo, noRole)
 
 const isAdministrator = userInfo => hasRole('ADMINISTRATOR', userInfo.roles)
@@ -46,6 +47,7 @@ module.exports.getCountryRole = getCountryRole
 module.exports.roleForCountry = roleForCountry
 module.exports.isReviewer = isReviewer
 module.exports.isNationalCorrespondent = isNationalCorrespondent
+module.exports.isCollaborator = isCollaborator
 module.exports.hasNoRole = hasNoRole
 module.exports.isAdministrator = isAdministrator
 module.exports.reviewer = reviewer

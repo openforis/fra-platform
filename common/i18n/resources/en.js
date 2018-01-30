@@ -763,6 +763,11 @@ The FRA team
       accepted: {
         label: 'Accepted',
         next: 'Accept',
+        previous: 'Return to accepted'
+      },
+      final: {
+        label: 'Final',
+        next: 'Finalize',
         previous: ''
       },
       editing: {
