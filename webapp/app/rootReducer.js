@@ -12,11 +12,12 @@ import user from '../user/reducer'
 import traditionalTable from '../traditionalTable/reducer'
 import descriptions from '../description/reducers'
 import review from '../review/reducer'
-import dashboard from '../dashboard/reducer'
 import userManagement from '../userManagement/reducer'
 import country from '../country/reducer'
 import sustainableDevelopment from '../assessmentFra/sustainableDevelopment/reducer'
+import landing from '../landing/reducer'
 import panEuropeanIndicators from '../panEuropeanIndicators/reducer'
+import userChat from '../userChat/reducer'
 
 export default combineReducers({
   applicationError,
@@ -31,9 +32,10 @@ export default combineReducers({
   review,
   traditionalTable,
   growingStock,
-  dashboard,
   userManagement,
   country,
   sustainableDevelopment,
-  panEuropeanIndicators
+  landing,
+  panEuropeanIndicators,
+  userChat
 })
