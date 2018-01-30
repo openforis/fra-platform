@@ -1,10 +1,10 @@
-const crypto = require('crypto')
 const R = require('ramda')
 
 const db = require('../db/db')
 const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
 const {sendErr} = require('../utils/requestUtils')
 const reviewRepository = require('./reviewRepository')
+const {emailHash} = require('../../common/userUtils')
 
 module.exports.init = app => {
 
@@ -47,7 +47,7 @@ module.exports.init = app => {
             R.merge(R.omit('email', comment), // leave out email
               R.pipe( // calculate email hash for gravatar
                 R.prop('email'),
-                v => crypto.createHash('md5').update(v).digest('hex'),
+                v => emailHash(v),
                 h => ({hash: h})
               )(comment)
             )
