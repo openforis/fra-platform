@@ -1,34 +1,50 @@
 const {isAdministrator, isNationalCorrespondent, isReviewer, isCollaborator} = require('./countryRole')
 
-module.exports.getAllowedStatusTransitions = (countryIso, userInfo, currentState) => {
+const assessmentStatus = {
+  editing: 'editing',
+  review: 'review',
+  approval: 'approval',
+  accepted: 'accepted',
+  changing: 'changing'
+}
+
+const getAllowedStatusTransitions = (countryIso, userInfo, currentState) => {
   // collaborator cannot change the status of the assessment
   if (!userInfo || isCollaborator(countryIso, userInfo))
     return {}
 
   switch (currentState) {
-    case 'review': // in review, only reviewer can do transitions
+    // in review, only reviewer can do transitions
+    case assessmentStatus.review:
       return isAdministrator(userInfo) || isReviewer(countryIso, userInfo)
-        ? {previous: 'editing', next: 'approval'}
+        ? {previous: assessmentStatus.editing, next: assessmentStatus.approval}
         : {}
 
     //In approval or accepted, only admin can do transitions
-    case 'approval':
+    case assessmentStatus.approval:
       return isAdministrator(userInfo)
-        ? {previous: 'review', next: 'accepted'}
+        ? {previous: assessmentStatus.review, next: assessmentStatus.accepted}
         : {}
 
-    case 'accepted':
+    case assessmentStatus.accepted:
       return isAdministrator(userInfo)
-        ? {previous: 'approval'}
+        ? {previous: assessmentStatus.approval}
         : {}
 
-    case 'changing': //System's in the middle of changing the state
+    //System's in the middle of changing the state
+    case assessmentStatus.changing:
       return {}
 
-    case 'editing':
-    default: // in editing or default only nationalCorrespondent can submit to review
+    // in editing or default only nationalCorrespondent can submit to review
+    case assessmentStatus.editing:
+    default:
       return isAdministrator(userInfo) || isNationalCorrespondent(countryIso, userInfo)
-        ? {next: 'review'}
+        ? {next: assessmentStatus.review}
         : {}
   }
+}
+
+module.exports = {
+  assessmentStatus,
+  getAllowedStatusTransitions
 }
