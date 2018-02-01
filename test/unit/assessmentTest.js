@@ -1,6 +1,5 @@
-const R = require('ramda')
 const assert = require('chai').assert
-const assessment = require('../../common/assessment')
+const {getAllowedStatusTransitions, assessmentStatus} = require('../../common/assessment')
 
 const countryIso = 'ATL'
 
@@ -11,7 +10,7 @@ describe('assessment', () => {
   it('Allows nothing when no role found', () => {
     assert.deepEqual(
       {},
-      assessment.getAllowedStatusTransitions(countryIso, null, 'editing')
+      getAllowedStatusTransitions(countryIso, null, assessmentStatus.editing)
     )
   })
 
@@ -19,25 +18,25 @@ describe('assessment', () => {
   it('Allows nothing when role is COLLABORATOR and state is editing', () => {
     assert.deepEqual(
       {},
-      assessment.getAllowedStatusTransitions(countryIso, getUserInfo(countryIso, 'COLLABORATOR'), 'editing')
+      getAllowedStatusTransitions(countryIso, getUserInfo(countryIso, 'COLLABORATOR'), assessmentStatus.editing)
     )
   })
   it('Returns review as next when user in NATIONAL_CORRESPONDENT and state is editing', () => {
     assert.deepEqual(
-      {next: 'review'},
-      assessment.getAllowedStatusTransitions(countryIso, getUserInfo(countryIso, 'NATIONAL_CORRESPONDENT'), 'editing')
+      {next: assessmentStatus.review},
+      getAllowedStatusTransitions(countryIso, getUserInfo(countryIso, 'NATIONAL_CORRESPONDENT'), assessmentStatus.editing)
     )
   })
   it('Allows nothing when user is REVIEWER and state in in editing', () => {
     assert.deepEqual(
       {},
-      assessment.getAllowedStatusTransitions(countryIso, getUserInfo(countryIso, 'REVIEWER'), 'editing')
+      getAllowedStatusTransitions(countryIso, getUserInfo(countryIso, 'REVIEWER'), assessmentStatus.editing)
     )
   })
   it('Returns review as next when user in ADMINISTRATOR and state is editing', () => {
     assert.deepEqual(
-      {next: 'review'},
-      assessment.getAllowedStatusTransitions(countryIso, getUserInfo(countryIso, 'ADMINISTRATOR'), 'editing')
+      {next: assessmentStatus.review},
+      getAllowedStatusTransitions(countryIso, getUserInfo(countryIso, 'ADMINISTRATOR'), assessmentStatus.editing)
     )
   })
 
@@ -45,24 +44,24 @@ describe('assessment', () => {
   it('Allows nothing when role is COLLABORATOR and state is review', () => {
     assert.deepEqual(
       {},
-      assessment.getAllowedStatusTransitions(countryIso, getUserInfo(countryIso, 'COLLABORATOR'), 'review')
+      getAllowedStatusTransitions(countryIso, getUserInfo(countryIso, 'COLLABORATOR'), assessmentStatus.review)
     )
   })
   it('Allows nothing when user is NATIONAL_CORRESPONDENT and state is review', () => {
     assert.deepEqual(
       {},
-      assessment.getAllowedStatusTransitions(countryIso, getUserInfo(countryIso, 'NATIONAL_CORRESPONDENT'), 'review'))
+      getAllowedStatusTransitions(countryIso, getUserInfo(countryIso, 'NATIONAL_CORRESPONDENT'), assessmentStatus.review))
   })
   it('Returns approval as next and editing as previous when user is REVIEWER and state is review', () => {
     assert.deepEqual(
-      {next: 'approval', previous: 'editing'},
-      assessment.getAllowedStatusTransitions(countryIso, getUserInfo(countryIso, 'REVIEWER'), 'review')
+      {next: assessmentStatus.approval, previous: assessmentStatus.editing},
+      getAllowedStatusTransitions(countryIso, getUserInfo(countryIso, 'REVIEWER'), assessmentStatus.review)
     )
   })
   it('Returns approval as next and editing as previous when user is ADMINISTRATOR and state is review', () => {
     assert.deepEqual(
-      {next: 'approval', previous: 'editing'},
-      assessment.getAllowedStatusTransitions(countryIso, getUserInfo(countryIso, 'ADMINISTRATOR'), 'review')
+      {next: assessmentStatus.approval, previous: assessmentStatus.editing},
+      getAllowedStatusTransitions(countryIso, getUserInfo(countryIso, 'ADMINISTRATOR'), assessmentStatus.review)
     )
   })
 
@@ -70,25 +69,25 @@ describe('assessment', () => {
   it('Allows nothing when role is COLLABORATOR and state is approval', () => {
     assert.deepEqual(
       {},
-      assessment.getAllowedStatusTransitions(countryIso, getUserInfo(countryIso, 'COLLABORATOR'), 'approval')
+      getAllowedStatusTransitions(countryIso, getUserInfo(countryIso, 'COLLABORATOR'), assessmentStatus.approval)
     )
   })
   it('Allows nothing when user is NATIONAL_CORRESPONDENT and state is in approval', () => {
     assert.deepEqual(
       {},
-      assessment.getAllowedStatusTransitions(countryIso, getUserInfo(countryIso, 'NATIONAL_CORRESPONDENT'), 'approval')
+      getAllowedStatusTransitions(countryIso, getUserInfo(countryIso, 'NATIONAL_CORRESPONDENT'), assessmentStatus.approval)
     )
   })
   it('Allows nothing when user is REVIEWER and state is in approval', () => {
     assert.deepEqual(
       {},
-      assessment.getAllowedStatusTransitions(countryIso, getUserInfo(countryIso, 'REVIEWER'), 'approval')
+      getAllowedStatusTransitions(countryIso, getUserInfo(countryIso, 'REVIEWER'), assessmentStatus.approval)
     )
   })
   it('Returns review as previous and accepted as next when user is ADMINISTRATOR and state is in approval', () => {
     assert.deepEqual(
-      {previous: 'review', next: 'accepted'},
-      assessment.getAllowedStatusTransitions(countryIso, getUserInfo(countryIso, 'ADMINISTRATOR'), 'approval')
+      {previous: assessmentStatus.review, next: assessmentStatus.accepted},
+      getAllowedStatusTransitions(countryIso, getUserInfo(countryIso, 'ADMINISTRATOR'), assessmentStatus.approval)
     )
   })
 
@@ -96,25 +95,25 @@ describe('assessment', () => {
   it('Allows nothing when role is COLLABORATOR and state is accepted', () => {
     assert.deepEqual(
       {},
-      assessment.getAllowedStatusTransitions(countryIso, getUserInfo(countryIso, 'COLLABORATOR'), 'accepted')
+      getAllowedStatusTransitions(countryIso, getUserInfo(countryIso, 'COLLABORATOR'), assessmentStatus.accepted)
     )
   })
   it('Allows nothing when user is NATIONAL_CORRESPONDENT and state is accepted', () => {
     assert.deepEqual(
       {},
-      assessment.getAllowedStatusTransitions(countryIso, getUserInfo(countryIso, 'NATIONAL_CORRESPONDENT'), 'accepted')
+      getAllowedStatusTransitions(countryIso, getUserInfo(countryIso, 'NATIONAL_CORRESPONDENT'), assessmentStatus.accepted)
     )
   })
   it('Allows nothing when user is REVIEWER and state is accepted', () => {
     assert.deepEqual(
       {},
-      assessment.getAllowedStatusTransitions(countryIso, getUserInfo(countryIso, 'REVIEWER'), 'accepted')
+      getAllowedStatusTransitions(countryIso, getUserInfo(countryIso, 'REVIEWER'), assessmentStatus.accepted)
     )
   })
   it('Returns approval as previous when user is ADMINISTRATOR and state is accepted', () => {
     assert.deepEqual(
-      {previous: 'approval'},
-      assessment.getAllowedStatusTransitions(countryIso, getUserInfo(countryIso, 'ADMINISTRATOR'), 'accepted')
+      {previous: assessmentStatus.approval},
+      getAllowedStatusTransitions(countryIso, getUserInfo(countryIso, 'ADMINISTRATOR'), assessmentStatus.accepted)
     )
   })
 })
