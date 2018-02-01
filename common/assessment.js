@@ -2,24 +2,24 @@ const {isAdministrator, isNationalCorrespondent, isReviewer, isCollaborator} = r
 
 module.exports.getAllowedStatusTransitions = (countryIso, userInfo, currentState) => {
   // collaborator cannot change the status of the assessment
-  if (isCollaborator(countryIso, userInfo))
+  if (!userInfo || isCollaborator(countryIso, userInfo))
     return {}
 
   switch (currentState) {
     case 'review': // in review, only reviewer can do transitions
       return isAdministrator(userInfo) || isReviewer(countryIso, userInfo)
-        ? {previous: 'editing', next: 'accepted'}
+        ? {previous: 'editing', next: 'approval'}
         : {}
 
-    //In accepted or final states, only admin can do transitions
+    //In approval or accepted, only admin can do transitions
+    case 'approval':
+      return isAdministrator(userInfo)
+        ? {previous: 'review', next: 'accepted'}
+        : {}
+
     case 'accepted':
       return isAdministrator(userInfo)
-        ? {previous: 'review', next: 'final'}
-        : {}
-
-    case 'final':
-      return isAdministrator(userInfo)
-        ? {previous: 'accepted'}
+        ? {previous: 'approval'}
         : {}
 
     case 'changing': //System's in the middle of changing the state

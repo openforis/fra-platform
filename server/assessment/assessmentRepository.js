@@ -12,7 +12,7 @@ const checkStatusTransitionAllowance = (currentStatus, newStatus, countryIso, us
     throw new AccessControlException('error.assessment.transitionNotAllowed', {
       currentStatus: currentStatus,
       status: newStatus,
-      role: roleForCountry(countryIso, user)
+      role: roleForCountry(countryIso, user).role
     })
   }
 }

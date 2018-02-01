@@ -755,24 +755,24 @@ The FRA team
       changing: {
         label: 'Changing…'
       },
+      editing: {
+        label: 'Editing',
+        previous: 'Return to editing'
+      },
       review: {
         label: 'In review',
         next: 'Send to review',
         previous: 'Return to review'
       },
+      approval: {
+        label: 'In approval',
+        next: 'Send for approval',
+        previous: 'Return to approval'
+      },
       accepted: {
         label: 'Accepted',
         next: 'Accept',
-        previous: 'Return to accepted'
-      },
-      final: {
-        label: 'Final',
-        next: 'Finalize',
         previous: ''
-      },
-      editing: {
-        label: 'Editing',
-        previous: 'Return to editing'
       }
     }
   },
