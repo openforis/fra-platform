@@ -1,4 +1,4 @@
-const {isAdministrator, isNationalCorrespondent, isReviewer, isCollaborator, roleForCountry} = require('./countryRole')
+const {isAdministrator, isNationalCorrespondent, isReviewer, isCollaborator} = require('./countryRole')
 
 module.exports.getAllowedStatusTransitions = (countryIso, userInfo, currentState) => {
   // collaborator cannot change the status of the assessment
