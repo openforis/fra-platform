@@ -42,6 +42,48 @@ const AssessmentSection = ({countryIso, item, assessment, i18n, ...props}) => {
   </div>
 }
 
+class AssessmentChangeStatusConfirmationModal extends React.Component {
+
+  render () {
+    const {countryIso, i18n, currentAssessment, targetStatus, changeAssessment, onClose} = this.props
+
+    return <Modal isOpen="true">
+      <ModalHeader>
+        <div className="modal-header-center">
+          {i18n.t(`assessment.status.${R.prop('transition', targetStatus)}.${R.prop('direction', targetStatus)}`)}
+        </div>
+        <ModalClose onClose={onClose}/>
+      </ModalHeader>
+      <ModalBody>
+        <div style={{height: '160px'}}>
+            <textarea
+              className="assessment__comment"
+              placeholder={i18n.t('navigation.changeStatusTextPlaceholder')}
+              ref="messageTextarea"
+            />
+        </div>
+      </ModalBody>
+      <ModalFooter>
+        <button className="btn btn-secondary modal-footer__item"
+                onClick={onClose}>
+          {i18n.t('navigation.cancel')}
+        </button>
+        <button className="btn btn-primary modal-footer__item"
+                onClick={() => {
+                  changeAssessment(countryIso, {
+                    ...currentAssessment,
+                    status: targetStatus.transition,
+                    message: this.refs.messageTextarea.value
+                  })
+                  onClose()
+                }}>
+          {i18n.t('navigation.submit')}
+        </button>
+      </ModalFooter>
+    </Modal>
+  }
+}
+
 class AssessmentHeader extends React.Component {
 
   constructor (props) {
@@ -79,55 +121,29 @@ class AssessmentHeader extends React.Component {
         R.filter(R.prop('transition')),
         R.map(targetStatus => ({
           content: i18n.t(`assessment.status.${targetStatus.transition}.${targetStatus.direction}`),
-          onClick: () => this.setState({assessmentChanging: {targetStatus}})
+          onClick: () => this.setState({targetStatus})
         })),
+        //adding desk study option if user is administrator
         items => isAdministrator(userInfo)
           ? R.flatten(R.append(deskStudyItems, items))
           : items
       )(possibleAssessmentStatuses)
 
-    const closeModal = () => this.setState({assessmentChanging: null})
-
     return <div className="nav__assessment-header">
-      {R.isNil(R.prop('assessmentChanging', this.state))
-        ? null
-        : <Modal isOpen="true">
-          <ModalHeader>
-            <div className="modal-header-center">
-              {i18n.t(`assessment.status.${R.path(['assessmentChanging', 'targetStatus', 'transition'], this.state)}.${R.path(['assessmentChanging', 'targetStatus', 'direction'], this.state)}`)}
-            </div>
-            <ModalClose onClose={closeModal}/>
-          </ModalHeader>
-          <ModalBody>
-            <div style={{height: '160px'}}>
-              <textarea
-                className="assessment__comment"
-                placeholder={i18n.t('navigation.changeStatusTextPlaceholder')}
-                ref="messageTextarea"
-                value={R.path(['assessmentChanging', 'message'], this.state)}
-                onChange={e => this.setState(R.assocPath(['assessmentChanging', 'message'], e.target.value, this.state))}
-              ></textarea>
-            </div>
-          </ModalBody>
-          <ModalFooter>
-            <button className="btn btn-secondary modal-footer__item"
-                    onClick={closeModal}>
-              {i18n.t('navigation.cancel')}
-            </button>
-            <button className="btn btn-primary modal-footer__item"
-                    onClick={() => {
-                      changeAssessment(countryIso, {
-                        ...currentAssessment,
-                        status: this.state.assessmentChanging.targetStatus.transition,
-                        message: this.state.assessmentChanging.message
-                      })
-                      closeModal()
-                    }}>
-              {i18n.t('navigation.submit')}
-            </button>
-          </ModalFooter>
-        </Modal>
+
+      { // showing confirmation modal dialog before submitting the change of the status
+        R.isNil(R.prop('targetStatus', this.state))
+          ? null
+          : <AssessmentChangeStatusConfirmationModal
+            countryIso={countryIso}
+            i18n={i18n}
+            currentAssessment={currentAssessment}
+            targetStatus={R.prop('targetStatus', this.state)}
+            changeAssessment={changeAssessment}
+            onClose={() => this.setState({targetStatus: null})}
+          />
       }
+
       <div className="nav__assessment-label">
         {
           currentAssessment.deskStudy
