@@ -28,7 +28,7 @@ const getAllowedStatusTransitions = (countryIso, userInfo, currentState) => {
 
     case assessmentStatus.accepted:
       return isAdministrator(userInfo)
-        ? {previous: assessmentStatus.approval}
+        ? {previous: assessmentStatus.review}
         : {}
 
     //System's in the middle of changing the state
