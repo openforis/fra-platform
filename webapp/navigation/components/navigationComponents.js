@@ -1,7 +1,7 @@
 import React from 'react'
 import Route from 'route-parser'
 import * as R from 'ramda'
-
+import Icon from '../../reusableUiComponents/icon'
 import { Link } from '../../reusableUiComponents/link'
 
 export const getLinkTo = (pathTemplate, countryIso) => {
