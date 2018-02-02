@@ -2,9 +2,10 @@ const db = require('../db/db')
 const camelize = require('camelize')
 const R = require('ramda')
 
-const { roleForCountry, isAdministrator } = require('../../common/countryRole')
-const { getAllowedStatusTransitions } = require('../../common/assessment')
-const { AccessControlException } = require('../utils/accessControl')
+const {insertAudit} = require('../audit/auditRepository')
+const {roleForCountry, isAdministrator} = require('../../common/countryRole')
+const {getAllowedStatusTransitions} = require('../../common/assessment')
+const {AccessControlException} = require('../utils/accessControl')
 
 const checkStatusTransitionAllowance = (currentStatus, newStatus, countryIso, user) => {
   const allowed = getAllowedStatusTransitions(countryIso, user, currentStatus)
@@ -73,6 +74,13 @@ module.exports.changeAssessment =
     } else {
       await addAssessment(client, countryIso, newAssessment)
     }
+    // insert audit log
+    if (isStatusChange)
+      insertAudit(client, user.id, 'updateAssessmentStatus', countryIso, 'assessment', {
+        assessment: newAssessment.type,
+        status: newAssessment.status
+      })
+
     return isStatusChange
   }
 
