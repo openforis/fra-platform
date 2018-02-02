@@ -6,7 +6,7 @@
   margin: auto;
   display: flex;
   justify-content: space-between;
-
+  padding: 0 8px 24px;
 }
 
 .landing__page-title {
@@ -17,15 +17,29 @@
 .landing__page-menu {
   width: 50%;
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
 }
 
 .landing__page-menu-button {
   .btn;
-  .btn-link;
   font-size: @font-l;
   font-weight: bold;
-  margin: 0 5px;
+  margin: 0;
+  color: @text-mute;
+  border-bottom: 2px solid transparent;
+
+  &:hover {
+    color: @ui-accent;
+  }
+
+  &.disabled,
+  &:disabled {
+    border-bottom-color: @ui-accent;
+    cursor: default;
+    color: @ui-accent;
+    opacity: 1;
+    pointer-events: none;
+  }
 }
 
 .landing__page-container {
@@ -36,7 +50,7 @@
 
 .landing__page-container-item {
   width: 50%;
-  padding: 14px 7px 0px 7px;
+  padding: 8px;
 }
 
 //Milestones
@@ -60,7 +74,7 @@
   display: flex;
   flex-direction: column;
   flex: 1;
-  padding: 0 12px;
+  padding: 0 8px;
 }
 
 .landing__milestone-group-year {
@@ -70,12 +84,10 @@
 }
 
 .landing__milestone-item {
-  //width: 48%;
   padding: 14px 10px;
   border: 1px solid @ui-border-light;
   background-color: lighten(@ui-bg, 1%);
   margin-top: 12px;
-  //margin: 0 1% 10px 1%;
 }
 
 .landing__milestone-item-date {
@@ -176,8 +188,9 @@
   align-items: center;
   justify-content: space-between;
   padding: 10px 0;
+  margin: 0 8px;
   word-break: break-word;
-  width: 70%;
+  width: 100%;
 }
 
 .landing__activity-item:not(:first-of-type) {
@@ -270,8 +283,6 @@
 // Block
 
 .landing__block {
-  //margin-bottom: 24px;
-
   p {
     margin: 12px 0;
   }
@@ -295,5 +306,4 @@
   display: block;
   max-width: 100%;
   margin-top: 24px;
-  //margin: 32px 0;
 }
