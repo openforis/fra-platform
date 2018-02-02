@@ -20,7 +20,8 @@ const getActionLocalizationKey = (message) => {
     acceptInvitation: 'acceptInvitation',
     addInvitation: 'addInvitation',
     removeInvitation: 'removeInvitation',
-    updateInvitation: 'updateInvitation'
+    updateInvitation: 'updateInvitation',
+    updateAssessmentStatus: 'updateAssessmentStatus'
   }
   const key = messageToKey[message]
   if (key) {
@@ -45,12 +46,20 @@ const getSectionUrl = (item, fra) => {
   return item.sectionName
 }
 
-const getUserMessageParams = (item, i18n) => ({
-  user: item.target.user,
-  role: item.target.role
-    ? i18n.t('user.roles.' + camelize(item.target.role.toLowerCase()))
-    : null
-})
+const getMessageParams = (item, i18n) =>
+  item.target.user
+    ? {
+      user: item.target.user,
+      role: item.target.role
+        ? i18n.t('user.roles.' + camelize(item.target.role.toLowerCase()))
+        : null
+    }
+    : item.target.assessment
+    ? {
+      assessment: i18n.t(`assessment.${item.target.assessment}`),
+      status: i18n.t(`assessment.status.${item.target.status}.label`)
+    }
+    : {}
 
 const ActivityItem = ({i18n, countryIso, item, fra}) => {
   const sectionUrl = getSectionUrl(item, fra)
@@ -63,11 +72,12 @@ const ActivityItem = ({i18n, countryIso, item, fra}) => {
       <strong>{item.fullName}</strong>
       <span>{
         item.target
-          ? i18n.t(actionLocalizationKey, getUserMessageParams(item, i18n))
+          ? i18n.t(actionLocalizationKey, getMessageParams(item, i18n))
           : i18n.t(actionLocalizationKey)
       }</span>
       {
-        sectionUrl === 'users'
+        // excluding section link when section is users or assessment
+        R.contains(sectionUrl, ['users', 'assessment'])
           ? null
           : sectionUrl === 'odp' || actionLocalizationKey === 'dashboard.actions.deleted'
           ? <span>{i18n.t(sectionLocalizationKey)}</span>
