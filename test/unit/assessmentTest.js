@@ -110,9 +110,9 @@ describe('assessment', () => {
       getAllowedStatusTransitions(countryIso, getUserInfo(countryIso, 'REVIEWER'), assessmentStatus.accepted)
     )
   })
-  it('Returns approval as previous when user is ADMINISTRATOR and state is accepted', () => {
+  it('Returns review as previous when user is ADMINISTRATOR and state is accepted', () => {
     assert.deepEqual(
-      {previous: assessmentStatus.approval},
+      {previous: assessmentStatus.review},
       getAllowedStatusTransitions(countryIso, getUserInfo(countryIso, 'ADMINISTRATOR'), assessmentStatus.accepted)
     )
   })
