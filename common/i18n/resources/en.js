@@ -766,7 +766,7 @@ The FRA team
         previous: 'Return to review',
       },
       approval: {
-        label: 'In approval',
+        label: 'Awaiting approval',
         next: 'Send for approval',
         previous: 'Return to approval'
       },
