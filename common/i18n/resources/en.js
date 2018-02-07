@@ -55,15 +55,15 @@ module.exports.translation = {
   },
 
   landing: {
-    home: "Home",
+    home: 'Home',
     sections: {
       overview: 'Overview',
       about: 'About FRA',
       recentActivity: 'Recent activity',
       externalData: 'External data'
     },
-    overview:{
-      loadingMap:'Loading map…'
+    overview: {
+      loadingMap: 'Loading map…'
     },
     milestones: {
       milestones: 'Milestones',
@@ -112,9 +112,10 @@ module.exports.translation = {
         updateUser: 'edited {{user}}',
         removeUser: 'removed {{user}}',
         acceptInvitation: 'joined as {{role}}',
-        addInvitation: 'Invited {{user}} as {{role}}',
-        removeInvitation: 'Removed invitation of {{user}} as {{role}}',
-        updateInvitation: 'Invite updated for {{user}} as {{role}}'
+        addInvitation: 'invited {{user}} as {{role}}',
+        removeInvitation: 'removed invitation of {{user}} as {{role}}',
+        updateInvitation: 'invite updated for {{user}} as {{role}}',
+        updateAssessmentStatus: 'changed the status of {{assessment}} to {{status}}'
       },
       fraProcess: 'FAO has been monitoring the world’s forests at 5 to 10 year intervals since 1946. The Global Forest Resources Assessments (FRA) are now produced every five years in an attempt to provide a consistent approach to describing the world’s forests and how they are changing. The Assessment is based on two primary sources of data: Country Reports prepared by National Correspondents and remote sensing that is conducted by FAO together with national focal points and regional partners. The scope of the FRA has changed regularly since the first assessment published in 1948. These assessments make an interesting history of global forest interests, both in terms of their substantive content, but also in their changing scope.',
       linkFraProcess: 'Read more about the FRA process'
@@ -203,7 +204,10 @@ The FRA team
       employmentEducationAndNwfp: 'Employment, education and NWFP',
       sustainableDevelopment: 'Sustainable Development Goal 15',
       panEuropeanIndicators: 'Pan-European Indicators'
-    }
+    },
+    submit: 'Submit',
+    cancel: 'Cancel',
+    changeStatusTextPlaceholder: 'Add an optional message'
   },
 
   header: {
@@ -730,6 +734,8 @@ The FRA team
 
 {{changer}} changed the status of {{assessment}} to "{{status}}" for {{country}} on FRA Platform.
 
+{{message}}
+
 Visit the platfrom at: {{- serverUrl}}
 
 The FRA team
@@ -737,6 +743,8 @@ The FRA team
         htmlMessage: `Dear {{recipientName}},
 <br/><br/>
 {{changer}} changed the status of {{assessment}} to "{{status}}" for {{country}} on FRA Platform.
+<br/><br/>
+{{message}}
 <br/><br/>
 <a href="{{- serverUrl}}"><b>Visit the platfrom</b></a>
 <br/><br/>
@@ -748,19 +756,24 @@ The FRA team
       changing: {
         label: 'Changing…'
       },
+      editing: {
+        label: 'Editing',
+        previous: 'Return to editing'
+      },
       review: {
         label: 'In review',
         next: 'Send to review',
-        previous: 'Return to review'
+        previous: 'Return to review',
+      },
+      approval: {
+        label: 'Awaiting approval',
+        next: 'Send for approval',
+        previous: 'Return to approval'
       },
       accepted: {
         label: 'Accepted',
         next: 'Accept',
         previous: ''
-      },
-      editing: {
-        label: 'Editing',
-        previous: 'Return to editing'
       }
     }
   },
