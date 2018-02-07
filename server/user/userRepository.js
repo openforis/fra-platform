@@ -41,6 +41,26 @@ const fetchCountryUsers = (countryIso) =>
   `, [countryIso])
     .then(res => camelize(res.rows))
 
+const fetchAdministrators = () =>
+  db.query(`
+    SELECT
+      u.id,
+      u.email,
+      u.name,
+      u.login_email,
+      u.lang,
+      cr.role
+    FROM
+      fra_user u
+    JOIN
+      user_country_role cr
+      ON
+        u.id = cr.user_id
+      AND
+        cr.role = 'ADMINISTRATOR'
+  `)
+    .then(res => camelize(res.rows))
+
 const fetchInvitations = (countryIso) =>
   db.query(
     `SELECT
@@ -246,6 +266,7 @@ module.exports = {
   findUserByLoginEmail,
   updateLanguage,
   fetchCountryUsers,
+  fetchAdministrators,
   addInvitation,
   updateInvitation,
   removeInvitation,

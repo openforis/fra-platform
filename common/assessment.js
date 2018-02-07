@@ -1,24 +1,50 @@
-const R = require('ramda')
+const {isAdministrator, isNationalCorrespondent, isReviewer, isCollaborator} = require('./countryRole')
 
-const assessmentStatusChangerRoles = ['ADMINISTRATOR', 'REVIEWER', 'NATIONAL_CORRESPONDENT']
+const assessmentStatus = {
+  editing: 'editing',
+  review: 'review',
+  approval: 'approval',
+  accepted: 'accepted',
+  changing: 'changing'
+}
 
-module.exports.getAllowedStatusTransitions = (role, currentState) => {
-  if (!role || !R.contains(role.role, assessmentStatusChangerRoles)) return {}
-  const acceptTransitionsAllowed = role.role === 'REVIEWER' || role.role === 'ADMINISTRATOR'
+const getAllowedStatusTransitions = (countryIso, userInfo, currentState) => {
+  // collaborator cannot change the status of the assessment
+  if (!userInfo || isCollaborator(countryIso, userInfo))
+    return {}
+
   switch (currentState) {
-    case 'editing':
-      return {next: 'review'}
-    case 'review':
-      if (acceptTransitionsAllowed) {
-        return {previous: 'editing', next: 'accepted'}
-      } else {
-        return {previous: 'editing'}
-      }
-    case 'accepted': //In this state, only reviewer or admin can do transition
-      return acceptTransitionsAllowed ? {previous: 'review'} : {}
-    case 'changing': //System's in the middle of changing the state
+    // in review, only reviewer can do transitions
+    case assessmentStatus.review:
+      return isAdministrator(userInfo) || isReviewer(countryIso, userInfo)
+        ? {previous: assessmentStatus.editing, next: assessmentStatus.approval}
+        : {}
+
+    //In approval or accepted, only admin can do transitions
+    case assessmentStatus.approval:
+      return isAdministrator(userInfo)
+        ? {previous: assessmentStatus.review, next: assessmentStatus.accepted}
+        : {}
+
+    case assessmentStatus.accepted:
+      return isAdministrator(userInfo)
+        ? {previous: assessmentStatus.review}
+        : {}
+
+    //System's in the middle of changing the state
+    case assessmentStatus.changing:
       return {}
+
+    // in editing or default only nationalCorrespondent can submit to review
+    case assessmentStatus.editing:
     default:
-      return  {next: 'review'}
+      return isAdministrator(userInfo) || isNationalCorrespondent(countryIso, userInfo)
+        ? {next: assessmentStatus.review}
+        : {}
   }
+}
+
+module.exports = {
+  assessmentStatus,
+  getAllowedStatusTransitions
 }
