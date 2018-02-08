@@ -60,8 +60,8 @@ module.exports.init = app => {
   })
 
   app.get('/nde/:section/:countryIso', async (req, res) => {
-    checkCountryAccessFromReqParams(req)
     try {
+      checkCountryAccessFromReqParams(req)
       const fra = await fraValueService.getFraValues(req.params.section, req.params.countryIso)
       res.json(fra)
     } catch (err) { sendErr(res, err) }
