@@ -86,11 +86,14 @@ module.exports.init = app => {
     }
   })
 
-  app.post('/issue/markAsResolved', (req, res) => {
-    reviewRepository.getIssueCountryAndSection(req.query.issueId).then(commentInfo => {
-      db.transaction(reviewRepository.markIssueAsResolved, [commentInfo.countryIso, commentInfo.section, req.query.issueId, req.user])
-        .then(() => res.json({}))
-        .catch(err => sendErr(res, err))
-    })
+  app.post('/issue/markAsResolved', async (req, res) => {
+    try {
+      const commentInfo = await reviewRepository.getIssueCountryAndSection(req.query.issueId)
+      await allowedToEditCommentsCheck(commentInfo.countryIso, req.user, commentInfo.section)
+      await db.transaction(reviewRepository.markIssueAsResolved, [commentInfo.countryIso, commentInfo.section, req.query.issueId, req.user])
+      res.json({})
+    } catch (err) {
+      sendErr(res, err)
+    }
   })
 }
