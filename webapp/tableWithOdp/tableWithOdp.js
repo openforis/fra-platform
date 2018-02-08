@@ -209,11 +209,13 @@ export class GenerateFraValuesControl extends React.Component {
     if (this.state.generateMethod === 'clearTable') return false
     if (this.state.generateMethod === 'annualChange' && !this.validRates()) return true
     if (R.isEmpty(this.state.selectedFields)) return true
+
+    const noRequiredOdps = this.state.generateMethod === 'linear' ? 2 : 1
     const odps = R.pipe(
       R.values,
       R.filter(value => value.type === 'odp')
     )(fra)
-    return generatingFraValues || odps.length < 2
+    return generatingFraValues || odps.length < noRequiredOdps
   }
 
   generateFraValues (generateMethod) {
