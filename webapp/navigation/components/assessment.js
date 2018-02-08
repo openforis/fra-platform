@@ -11,7 +11,7 @@ import { ReviewStatus, getLinkTo } from './navigationComponents'
 
 const AssessmentSection = ({countryIso, item, assessment, i18n, ...props}) => {
 
-  const isSectionExpanded = props.navigationGroupCollapseState[assessment][item.sectionNo]
+  const isSectionExpanded = props.navigationGroupCollapseState[assessment.type][item.sectionNo]
 
   const getChildStatus = () => R.pipe(
     R.map(child => props.getReviewStatus(child.section)),
@@ -24,7 +24,7 @@ const AssessmentSection = ({countryIso, item, assessment, i18n, ...props}) => {
 
   return <div className="nav__section">
     <div className="nav__section-header"
-         onClick={() => props.toggleNavigationGroupCollapse(assessment, item.sectionNo)}>
+         onClick={() => props.toggleNavigationGroupCollapse(assessment.type, item.sectionNo)}>
       <div className="nav__section-order">{item.sectionNo}</div>
       <div className="nav__section-label">{i18n.t(item.label)}</div>
       {isSectionExpanded
@@ -58,7 +58,7 @@ const AssessmentSection = ({countryIso, item, assessment, i18n, ...props}) => {
 class AssessmentChangeStatusConfirmationModal extends React.Component {
 
   render () {
-    const {countryIso, i18n, currentAssessment, targetStatus, changeAssessment, onClose} = this.props
+    const {countryIso, i18n, assessment, targetStatus, changeAssessment, onClose} = this.props
 
     return <Modal isOpen="true">
       <ModalHeader>
@@ -84,7 +84,7 @@ class AssessmentChangeStatusConfirmationModal extends React.Component {
         <button className="btn btn-primary modal-footer__item"
                 onClick={() => {
                   changeAssessment(countryIso, {
-                    ...currentAssessment,
+                    ...assessment,
                     status: targetStatus.transition,
                     message: this.refs.messageTextarea.value
                   })
@@ -105,10 +105,10 @@ class AssessmentHeader extends React.Component {
   }
 
   render () {
-    const {assessment, currentAssessment, countryIso, changeAssessment, userInfo, i18n} = this.props
+    const {assessment, countryIso, changeAssessment, userInfo, i18n} = this.props
+    const assessmentStatus = assessment.status
 
-    const currentAssessmentStatus = currentAssessment.status
-    const allowedTransitions = getAllowedStatusTransitions(countryIso, userInfo, currentAssessmentStatus)
+    const allowedTransitions = getAllowedStatusTransitions(countryIso, userInfo, assessmentStatus)
     const possibleAssessmentStatuses = [
       {direction: 'next', transition: allowedTransitions.next},
       {direction: 'previous', transition: allowedTransitions.previous}
@@ -120,15 +120,15 @@ class AssessmentHeader extends React.Component {
       content: <div className="popover-control__checkbox-container">
         <span
           style={{marginRight: '8px'}}
-          className={`fra-checkbox ${currentAssessment.deskStudy ? 'checked' : ''}`}
+          className={`fra-checkbox ${assessment.deskStudy ? 'checked' : ''}`}
         >
         </span>
         <span>{i18n.t('assessment.deskStudy')}</span>
       </div>,
-      onClick: () => changeAssessment(countryIso, {...currentAssessment, deskStudy: !currentAssessment.deskStudy})
+      onClick: () => changeAssessment(countryIso, {...assessment, deskStudy: !assessment.deskStudy})
     }]
 
-    const popoverItems = currentAssessmentStatus === 'changing'
+    const popoverItems = assessmentStatus === 'changing'
       ? []
       : R.pipe(
         R.filter(R.prop('transition')),
@@ -150,7 +150,7 @@ class AssessmentHeader extends React.Component {
           : <AssessmentChangeStatusConfirmationModal
             countryIso={countryIso}
             i18n={i18n}
-            currentAssessment={currentAssessment}
+            assessment={assessment}
             targetStatus={R.prop('targetStatus', this.state)}
             changeAssessment={changeAssessment}
             onClose={() => this.setState({targetStatus: null})}
@@ -159,16 +159,16 @@ class AssessmentHeader extends React.Component {
 
       <div className="nav__assessment-label">
         {
-          currentAssessment.deskStudy
-            ? `${i18n.t('assessment.' + assessment)} (${i18n.t('assessment.deskStudy')})`
-            : i18n.t('assessment.' + assessment)
+          assessment.deskStudy
+            ? `${i18n.t('assessment.' + assessment.type)} (${i18n.t('assessment.deskStudy')})`
+            : i18n.t('assessment.' + assessment.type)
         }
       </div>
 
       <PopoverControl items={popoverItems}>
         <div
-          className={`nav__assessment-status status-${currentAssessmentStatus} actionable-${!R.isEmpty(popoverItems)}`}>
-          <span>{i18n.t(`assessment.status.${currentAssessmentStatus}.label`)}</span>
+          className={`nav__assessment-status status-${assessmentStatus} actionable-${!R.isEmpty(popoverItems)}`}>
+          <span>{i18n.t(`assessment.status.${assessmentStatus}.label`)}</span>
           {
             !R.isEmpty(popoverItems)
               ? <Icon className="icon-white icon-middle" name="small-down"/>
@@ -191,23 +191,19 @@ class AssessmentHeader extends React.Component {
 }
 
 const Assessment = (props) => {
-  const {assessment, countryIso, sections, i18n, status} = props
-  const currentAssessment = R.path([assessment], status)
+  const {assessment, sections} = props
 
   return <div className="nav__assessment">
     {
-      currentAssessment
-        ? <AssessmentHeader currentAssessment={currentAssessment} {...props} />
+      assessment
+        ? <AssessmentHeader {...props} />
         : null
     }
     {
       R.map(item =>
           <AssessmentSection
             key={item.label}
-            countryIso={countryIso}
             item={item}
-            assessment={assessment}
-            i18n={i18n}
             {...props}
           />
         , sections)
