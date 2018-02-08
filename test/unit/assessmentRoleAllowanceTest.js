@@ -10,7 +10,7 @@ const {
 const allStatuses = R.reject(status => status === 'changing' ,R.values(assessmentStatus))
 const allStatusesButThese = butThese => R.reject(status => R.contains(status, butThese) ,allStatuses)
 
-describe.only('assessmentEdit', () => {
+describe('assessmentEdit', () => {
   it('Nonexisting roles are not allowed to do anything', () => {
     R.forEach(status => {
       assert.isFalse(isUserRoleAllowedToEditAssessmentData({role: 'NONE'}, status))
