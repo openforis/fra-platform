@@ -1,42 +1,12 @@
 const R = require('ramda')
 const {roleForCountry} = require('../../common/countryRole')
+const {assessmentSections} = require('../../common/assessmentSectionItems')
 const {AccessControlException} = require('../utils/accessControl')
 const assessmentRepository = require('./assessmentRepository')
 const {
   isUserRoleAllowedToEditAssessmentData,
   isUserRoleAllowedToEditAssessmentComments
 } = require('./assessmentRoleAllowance')
-
-// This is basically duplicate data from navigation/items.js
-// There might be a better solution to this by sharing a common
-// data structure (in /common)
-const assessmentSections = {
-  'fra2020': [
-    'extentOfForest',
-    'forestCharacteristics',
-    'forestAreaChange',
-    'annualReforestation',
-    'specificForestCategories',
-    'otherLandWithTreeCover',
-    'growingStock',
-    'growingStockComposition',
-    'biomassStock',
-    'carbonStock',
-    'designatedManagementObjective',
-    'forestAreaWithinProtectedAreas',
-    'forestOwnership',
-    'holderOfManagementRights',
-    'disturbances',
-    'areaAffectedByFire',
-    'degradedForest',
-    'forestPolicy',
-    'areaOfPermanentForestEstate',
-    'employment',
-    'graduationOfStudents',
-    'nonWoodForestProductsRemovals',
-    'sustainableDevelopment'
-  ]
-}
 
 const assessmentForSection = section =>
   R.pipe(
