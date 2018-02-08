@@ -31,14 +31,19 @@ module.exports.init = app => {
       .catch(err => sendErr(res, err))
   })
 
-  app.post('/review/:countryIso/:section', (req, res) => {
-    checkCountryAccessFromReqParams(req)
-    const target = req.query.target ? req.query.target.split(',') : []
-    db.transaction(
-      reviewRepository.createIssueWithComment,
-      [req.params.countryIso, req.params.section, {params: target}, req.user.id, req.body.msg])
-      .then(result => res.json({}))
-      .catch(err => sendErr(res, err))
+  app.post('/review/:countryIso/:section', async (req, res) => {
+    try {
+      checkCountryAccessFromReqParams(req)
+      await allowedToEditCommentsCheck(req.params.countryIso, req.user, req.params.section)
+      const target = req.query.target ? req.query.target.split(',') : []
+      await db.transaction(
+        reviewRepository.createIssueWithComment,
+        [req.params.countryIso, req.params.section, {params: target}, req.user.id, req.body.msg]
+      )
+      res.json({})
+    } catch (err) {
+      sendErr(res, err)
+    }
   })
 
   app.get('/review/:countryIso/:section', (req, res) => {
