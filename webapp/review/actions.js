@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { applicationError } from '../applicationError/actions'
 import { fetchCountryOverviewStatus } from '../country/actions'
 
 export const issuePostCommentCompleted = 'issue/comment/post/completed'
@@ -27,8 +28,10 @@ export const postComment = (issueId, countryIso, section, target, userId, msg) =
       fetchCountryOverviewStatus(countryIso)(dispatch)
       axios.get(`api/review/${countryIso}/${section}?target=${target}`)
         .then(sectionCommentsReceived(section, target, dispatch))
+        .catch(err => dispatch(applicationError(err)))
     }
   )
+  .catch(err => dispatch(applicationError(err)))
 }
 
 export const retrieveComments = (countryIso, section, target) => dispatch => {
@@ -70,6 +73,8 @@ export const markCommentAsDeleted = (countryIso, section, target, commentId) => 
       getIssueSummary(countryIso, section, target)(dispatch)
       fetchCountryOverviewStatus(countryIso)(dispatch)
     })
+    .catch(err => dispatch(applicationError(err)))
+
 
 export const markIssueAsResolved = (countryIso, section, target, issueId) => dispatch => {
   axios.post(`api/issue/markAsResolved?issueId=${issueId}`)
@@ -78,4 +83,6 @@ export const markIssueAsResolved = (countryIso, section, target, issueId) => dis
       getIssueSummary(countryIso, section, target)(dispatch)
       fetchCountryOverviewStatus(countryIso)(dispatch)
     })
+    .catch(err => dispatch(applicationError(err)))
+
 }
