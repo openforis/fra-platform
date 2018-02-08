@@ -5,16 +5,22 @@ const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
 const {sendErr} = require('../utils/requestUtils')
 const reviewRepository = require('./reviewRepository')
 const {emailHash} = require('../../common/userUtils')
+const {allowedToEditCommentsCheck} = require('../assessment/assessmentEditAccessControl')
 
 module.exports.init = app => {
 
-  app.post('/review/:issueId', (req, res) => {
-    reviewRepository.getIssueCountryAndSection(req.params.issueId).then(commentInfo => {
-      db.transaction(reviewRepository.createComment, [req.params.issueId, req.user,
-        commentInfo.countryIso, commentInfo.section, req.body.msg, 'opened'])
-        .then(result => res.json({}))
-        .catch(err => sendErr(res, err))
-    })
+  app.post('/review/:issueId', async (req, res) => {
+    try {
+      const commentInfo = await reviewRepository.getIssueCountryAndSection(req.params.issueId)
+      await allowedToEditCommentsCheck(commentInfo.countryIso, req.user, commentInfo.section)
+      await db.transaction(
+        reviewRepository.createComment,
+        [req.params.issueId, req.user, commentInfo.countryIso, commentInfo.section, req.body.msg, 'opened']
+      )
+      res.json({})
+    } catch (err) {
+      sendErr(res, err)
+    }
   })
 
   app.get('/review/:countryIso/:section/summary', (req, res) => {
