@@ -11,17 +11,30 @@ import { ReviewStatus, getLinkTo } from './navigationComponents'
 
 const AssessmentSection = ({countryIso, item, assessment, i18n, ...props}) => {
 
-  const sectionCollapsedClass = props.navigationGroupCollapseState[assessment][item.sectionNo]
-    ? 'nav__section-items--visible'
-    : 'nav__section-items--hidden'
+  const isSectionExpanded = props.navigationGroupCollapseState[assessment][item.sectionNo]
+
+  const getChildStatus = () => R.pipe(
+    R.map(child => props.getReviewStatus(child.section)),
+    // filtering all opened statuses
+    R.reject(status => status.issuesCount === 0 || status.issueStatus !== 'opened'),
+    // checking if there's an open status with unread issues
+    R.or(R.find(R.propEq('hasUnreadIssues'), true), R.head),
+    R.defaultTo({})
+  )(item.children)
 
   return <div className="nav__section">
     <div className="nav__section-header"
          onClick={() => props.toggleNavigationGroupCollapse(assessment, item.sectionNo)}>
       <div className="nav__section-order">{item.sectionNo}</div>
       <div className="nav__section-label">{i18n.t(item.label)}</div>
+      {isSectionExpanded
+        ? null
+        : <div className="nav__section-status-content">
+          <ReviewStatus status={getChildStatus()}/>
+        </div>
+      }
     </div>
-    <div className={sectionCollapsedClass}>
+    <div className={isSectionExpanded ? 'nav__section-items--visible' : 'nav__section-items--hidden'}>
       {
         R.map(child => {
           const linkTo = getLinkTo(child.pathTemplate, countryIso)
