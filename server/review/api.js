@@ -72,12 +72,18 @@ module.exports.init = app => {
       .catch(err => sendErr(res, err))
   })
 
-  app.delete('/review/:countryIso/comments/:commentId', (req, res) => {
-    reviewRepository.getCommentCountryAndSection(req.params.commentId).then(commentInfo => {
-      db.transaction(reviewRepository.markCommentAsDeleted, [commentInfo.countryIso, commentInfo.section, req.params.commentId, req.user])
-        .then(() => res.json({}))
-        .catch(err => sendErr(res, err))
-    })
+  app.delete('/review/:countryIso/comments/:commentId', async (req, res) => {
+    try {
+      const commentInfo = await reviewRepository.getCommentCountryAndSection(req.params.commentId)
+      await allowedToEditCommentsCheck(commentInfo.countryIso, req.user, commentInfo.section)
+      await db.transaction(
+        reviewRepository.markCommentAsDeleted,
+        [commentInfo.countryIso, commentInfo.section, req.params.commentId, req.user]
+      )
+      res.json({})
+    } catch (err) {
+      sendErr(res, err)
+    }
   })
 
   app.post('/issue/markAsResolved', (req, res) => {
