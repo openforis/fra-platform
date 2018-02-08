@@ -7,4 +7,5 @@ export default props =>
     {...props}
     headingLocalizationKey="forestPolicy.forestPolicy"
     sectionAnchor="6a"
-    tableSpec={tableSpec}/>
+    tableSpec={tableSpec}
+    useAnalysisDescriptions={false}/>
