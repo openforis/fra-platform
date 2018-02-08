@@ -1,25 +1,25 @@
 const db = require('../db/db')
 const R = require('ramda')
+const { allowedToEditDataCheck } = require('../assessment/assessmentEditAccessControl')
 const sqlCreator = require('./traditionalTableSqlCreator')
 const tableMappings = require('./tableMappings')
 const auditRepository = require('./../audit/auditRepository')
 const camelize = require('camelize')
 
-module.exports.save = (client, userId, countryIso, tableSpecName, tableData) => {
+module.exports.save = async (client, user, countryIso, tableSpecName, tableData) => {
   const mapping = tableMappings.getMapping(tableSpecName)
   const section = mapping.section ? mapping.section : tableSpecName
 
-  const [deleteQuery, deleteQyeryParams] = sqlCreator.createDelete(countryIso, tableSpecName)
-  const insertQueries = sqlCreator.createInserts(countryIso, tableSpecName, tableData)
-  const insertAudit = auditRepository.insertAudit(client, userId, 'saveTraditionalTable', countryIso, section)
+  await allowedToEditDataCheck(countryIso, user, section)
 
-  return insertAudit.then(() => client.query(
-    deleteQuery, deleteQyeryParams
-  ).then(() =>
-    Promise.all(R.map(
-      ([queryString, params]) => client.query(queryString, params),
-      insertQueries))
-  ))
+  const [deleteQuery, deleteQyeryParams] = sqlCreator.createDelete(countryIso, tableSpecName)
+  await auditRepository.insertAudit(client, user.id, 'saveTraditionalTable', countryIso, section)
+  const insertQueries = sqlCreator.createInserts(countryIso, tableSpecName, tableData)
+
+  await client.query(deleteQuery, deleteQyeryParams)
+  for (const [queryString, params] of insertQueries) {
+    await client.query(queryString, params)
+  }
 }
 
 const createTableData = (cols, rows) =>

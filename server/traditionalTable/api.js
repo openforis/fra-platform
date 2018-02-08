@@ -6,7 +6,7 @@ const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
 module.exports.init = app => {
   app.post('/traditionalTable/:countryIso/:tableSpecName', (req, res) => {
     checkCountryAccessFromReqParams(req)
-    db.transaction(repository.save, [req.user.id, req.params.countryIso, req.params.tableSpecName, req.body])
+    db.transaction(repository.save, [req.user, req.params.countryIso, req.params.tableSpecName, req.body])
       .then(result => res.json({}))
       .catch(err => sendErr(res, err))
   })
