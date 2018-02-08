@@ -160,7 +160,9 @@ The FRA team
       countryUserNotReviewer: 'Error: User {{user}} tried to access {{countryIso}} of which is not reviewer',
       roleChangeNotAllowed: 'Error: User {{user}} tried to set another user’s role to {{role}} which is not allowed for the logged in user',
       invitationAlreadyUsed: 'Error: invitation {{invitationUuid}} has already been used, hijacking by {{loginEmail}} not allowed!',
-      countryDoesNotMatch: 'Error: country {{countyryIso}} does not match'
+      countryDoesNotMatch: 'Error: country {{countyryIso}} does not match',
+      assessmentEditingNotAllowed: 'Error: User {{user}} in role {{role}} cannot edit assessment in state {{assessmentStatus}} for country {{countryIso}}',
+      assessmentCommentingNotAllowed: 'Error: User {{user}} in role {{role}} cannot comment assessment in state {{assessmentStatus}} for country {{countryIso}}'
     },
     assessment: {
       transitionNotAllowed: 'Error: Transition from {{currentStatus}} to {{status}} is not allowed for role {{role}}',

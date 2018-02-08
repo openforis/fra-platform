@@ -21,14 +21,20 @@ const roleAllowances = {
   }
 }
 
-export const isUserRoleAllowedToEdit = (role, assessmentStatus, editType) => {
+const isUserRoleAllowedToEdit = (role, assessmentStatus, editType) => {
   if (R.isNil(role) || R.isNil(role.role)) return false;
   const allowedStatusesForRole = R.path([role.role, editType], roleAllowances)
   return R.contains(assessmentStatus, allowedStatusesForRole)
 }
 
-export const isUserRoleAllowedToEditAssessmentComments = (role, assessmentStatus) =>
+const isUserRoleAllowedToEditAssessmentComments = (role, assessmentStatus) =>
   isUserRoleAllowedToEdit(role, assessmentStatus, 'comments')
 
-export const isUserRoleAllowedToEditAssessmentData = (role, assessmentStatus) =>
+const isUserRoleAllowedToEditAssessmentData = (role, assessmentStatus) =>
   isUserRoleAllowedToEdit(role, assessmentStatus, 'data')
+
+module.exports = {
+  isUserRoleAllowedToEdit,
+  isUserRoleAllowedToEditAssessmentComments,
+  isUserRoleAllowedToEditAssessmentData
+}
