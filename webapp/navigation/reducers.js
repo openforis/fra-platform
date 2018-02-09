@@ -7,7 +7,7 @@ import {
   toggleNavigationGroup,
   toggleAllNavigationGroups
 } from './actions'
-import { assessments } from './items'
+import { assessments } from '../../common/assessmentSectionItems'
 
 const actionHandlers = {
   [changeAssessmentStatusInitiated]: (state, action) =>

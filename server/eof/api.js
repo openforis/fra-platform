@@ -1,5 +1,6 @@
 const fraRepository = require('./fraRepository')
 const odpRepository = require('../odp/odpRepository')
+const { allowedToEditDataCheck } = require('../assessment/assessmentEditAccessControl')
 const db = require('../db/db')
 const os = require('os')
 const Promise = require('bluebird')
@@ -47,6 +48,7 @@ module.exports.init = app => {
     const section = req.params.section
     checkCountryAccessFromReqParams(req)
     try {
+      await allowedToEditDataCheck(req.params.countryIso, req.user, section)
       await db.transaction(auditRepository.insertAudit,
         [req.user.id, 'saveFraValues', req.params.countryIso, section])
       const writer = fraWriters[section]
@@ -58,8 +60,8 @@ module.exports.init = app => {
   })
 
   app.get('/nde/:section/:countryIso', async (req, res) => {
-    checkCountryAccessFromReqParams(req)
     try {
+      checkCountryAccessFromReqParams(req)
       const fra = await fraValueService.getFraValues(req.params.section, req.params.countryIso)
       res.json(fra)
     } catch (err) { sendErr(res, err) }

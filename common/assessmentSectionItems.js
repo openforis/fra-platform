@@ -1,4 +1,6 @@
-export const assessments = {
+const R = require('ramda')
+
+const assessments = {
   'fra2020': [
     {
       type: 'header',
@@ -209,3 +211,23 @@ export const assessments = {
     }
   ]
 }
+
+const sectionsFromItems = items =>
+  R.flatten(
+    R.map(
+      item => R.map(R.prop('section'), item.children),
+      items
+    )
+  )
+
+const convertToAssessmentSections = assessments =>
+  R.pipe(
+    R.toPairs,
+    R.map(([assessment, items]) => [assessment, sectionsFromItems(items)]),
+    R.fromPairs
+  )(assessments)
+
+const assessmentSections = convertToAssessmentSections(assessments)
+
+module.exports.assessments = assessments
+module.exports.assessmentSections = assessmentSections
