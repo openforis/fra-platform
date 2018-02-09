@@ -90,9 +90,8 @@ class Nav extends React.Component {
                   <Assessment
                     {...this.props}
                     key={assessment}
-                    assessment={assessment}
+                    assessment={status.assessments[assessment]}
                     countryIso={country}
-                    status={status.assessments}
                     changeAssessment={changeAssessment}
                     userInfo={userInfo}
                     sections={sections}
