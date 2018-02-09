@@ -8,7 +8,8 @@ const AreaOfPermanentForestEstateView = props =>
     {...props}
     headingLocalizationKey="areaOfPermanentForestEstate.areaOfPermanentForestEstate"
     sectionAnchor="6b"
-    tableSpecInstance={tableSpec(props.i18n, props.extentOfForest)}/>
+    tableSpecInstance={tableSpec(props.i18n, props.extentOfForest)}
+    useAnalysisDescriptions={false}/>
 
 const mapStateToProps = state => ({i18n: state.user.i18n, extentOfForest: state.extentOfForest})
 
