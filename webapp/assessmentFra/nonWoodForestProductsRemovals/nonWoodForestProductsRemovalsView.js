@@ -7,7 +7,6 @@ import mainTableSpec from './mainTableSpec'
 import DefinitionLink from '../../reusableUiComponents/definitionLink'
 import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
 import NationalDataDescriptions from '../../descriptionBundles/nationalDataDescriptions'
-import AnalysisDescriptions from '../../descriptionBundles/analysisDescriptions'
 import GeneralComments from '../../descriptionBundles/generalComments'
 
 const currencyNameTableSpec = i18n => ({
@@ -45,7 +44,6 @@ class NonWoodForestProductsRemovalsView extends React.Component {
     return <LoggedInPageTemplate>
       <div className="fra-view__content">
         <NationalDataDescriptions section={mainTableSpecInstance.name} countryIso={match.params.countryIso}/>
-        <AnalysisDescriptions section={mainTableSpecInstance.name} countryIso={match.params.countryIso}/>
         <h2 className="headline">{i18n.t('nonWoodForestProductsRemovals.nonWoodForestProductsRemovals')}</h2>
         <div className="fra-view__section-toolbar">
           <DefinitionLink className="margin-right-big" document="tad" anchor="7c" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>

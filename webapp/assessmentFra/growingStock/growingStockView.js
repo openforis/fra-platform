@@ -12,6 +12,7 @@ import { sum, div, mul, toFixed, formatNumber } from '../../../common/bignumberU
 import ReviewIndicator from '../../review/reviewIndicator'
 import { readPasteClipboard } from '../../utils/copyPasteUtil'
 import NationalDataDescriptions from '../../descriptionBundles/nationalDataDescriptions'
+import AnalysisDescriptions from '../../descriptionBundles/analysisDescriptions'
 import GeneralComments from '../../descriptionBundles/generalComments'
 import defaultYears from '../../../server/eof/defaultYears'
 
@@ -169,6 +170,7 @@ const GrowingStock = (props) => {
 
   return <div className='fra-view__content'>
     <NationalDataDescriptions section={sectionName} countryIso={countryIso}/>
+    <AnalysisDescriptions section={sectionName} countryIso={countryIso}/>
     <h2 className="headline">{i18n.t('growingStock.growingStock')}</h2>
     <div className="fra-view__section-toolbar">
       <DefinitionLink className="margin-right-big" document="tad" anchor="2a" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
