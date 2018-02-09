@@ -34,50 +34,53 @@ class SustainableDevelopmentView extends React.Component {
     const {match, i18n, data, countryConfig} = this.props
     const countryIso = match.params.countryIso
     const lang = i18n.language
-
+    const years = R.drop(1, defaultYears)
+    
     return R.isEmpty(data)
       ? null
       : <LoggedInPageTemplate>
-          <div className="fra-view__content fra-sustainable-dev__content">
-            <h2 className="headline">{i18n.t('sustainableDevelopment.sustainableDevelopment')}</h2>
-            <div className="fra-view__section-toolbar">
-              <DefinitionLink className="margin-right-big" document="tad" anchor="8" title={i18n.t('definition.definitionLabel')} lang={lang}/>
-              <DefinitionLink className="align-left" document="faq" anchor="8" title={i18n.t('definition.faqLabel')} lang={lang}/>
-            </div>
-            <h3 className="subhead" style={{marginBottom: 16}}>{i18n.t('sustainableDevelopment.sdgIndicator1')}</h3>
-            <Indicator
-              i18n={i18n}
-              countryIso={countryIso}
-              data={data}
-              years={defaultYears}
-              countryConfig={countryConfig}/>
-            <h3 className="subhead" style={{marginBottom: 16}}>{i18n.t('sustainableDevelopment.sdgIndicator2')}</h3>
-            <SubIndicator1
-              i18n={i18n}
-              countryIso={countryIso}
-              data={data}
-              years={defaultYears}
-            />
-            <SubIndicator2
-              i18n={i18n}
-              countryIso={countryIso}
-              data={data}
-              years={defaultYears}
-            />
-            <SubIndicator3
-              i18n={i18n}
-              countryIso={countryIso}
-              data={data}
-              years={defaultYears}
-            />
-            <SubIndicator4
-              i18n={i18n}
-              countryIso={countryIso}
-              data={data}
-              years={defaultYears}
-              countryConfig={countryConfig}
-            />
+        <div className="fra-view__content fra-sustainable-dev__content">
+          <h2 className="headline">{i18n.t('sustainableDevelopment.sustainableDevelopment')}</h2>
+          <div className="fra-view__section-toolbar">
+            <DefinitionLink className="margin-right-big" document="tad" anchor="8"
+                            title={i18n.t('definition.definitionLabel')} lang={lang}/>
+            <DefinitionLink className="align-left" document="faq" anchor="8" title={i18n.t('definition.faqLabel')}
+                            lang={lang}/>
           </div>
+          <h3 className="subhead" style={{marginBottom: 16}}>{i18n.t('sustainableDevelopment.sdgIndicator1')}</h3>
+          <Indicator
+            i18n={i18n}
+            countryIso={countryIso}
+            data={data}
+            years={years}
+            countryConfig={countryConfig}/>
+          <h3 className="subhead" style={{marginBottom: 16}}>{i18n.t('sustainableDevelopment.sdgIndicator2')}</h3>
+          <SubIndicator1
+            i18n={i18n}
+            countryIso={countryIso}
+            data={data}
+            years={years}
+          />
+          <SubIndicator2
+            i18n={i18n}
+            countryIso={countryIso}
+            data={data}
+            years={years}
+          />
+          <SubIndicator3
+            i18n={i18n}
+            countryIso={countryIso}
+            data={data}
+            years={years}
+          />
+          <SubIndicator4
+            i18n={i18n}
+            countryIso={countryIso}
+            data={data}
+            years={years}
+            countryConfig={countryConfig}
+          />
+        </div>
       </LoggedInPageTemplate>
   }
 }
