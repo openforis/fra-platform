@@ -26,7 +26,7 @@ const update = async (faoStatCsvFile, outputFile) => {
     const countryFaoStataData = R.reduce(
       (result, row) => {
         const faoStat = R.reduce(
-          (countryObj, year) => R.assoc(year, {area: Number(row[4]), estimate: false}, countryObj),
+          (countryObj, year) => R.assoc(year, {area: Number(row[4]), estimate: year !== 2015}, countryObj),
           {},
           R.range(1980, 2021)
         )
