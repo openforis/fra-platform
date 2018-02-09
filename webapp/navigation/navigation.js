@@ -19,7 +19,7 @@ import {
 
 import { getCountryList, getCountryName, isPanEuropeanCountry } from '../country/actions'
 import { fetchAllCountryData } from '../app/actions'
-import { assessments } from './items'
+import { assessments } from '../../common/assessmentSectionItems'
 import { roleForCountry } from '../../common/countryRole'
 import { allowedToChangeRoles } from '../../common/userManagementAccessControl'
 import { hasOdps } from '../assessmentFra/extentOfForest/extentOfForestHelper'
