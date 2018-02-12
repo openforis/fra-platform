@@ -14,11 +14,6 @@ module.exports.init = app => {
       const tableSpecName = req.params.tableSpecName
       const countryIso = req.params.countryIso
 
-      const mapping = tableMappings.getMapping(tableSpecName)
-      const section = mapping.section ? mapping.section : tableSpecName
-
-      await allowedToEditDataCheck(countryIso, req.user, section)
-
       await db.transaction(
         repository.save,
         [req.user, countryIso, tableSpecName, req.body]
