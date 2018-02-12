@@ -21,17 +21,19 @@ module.exports.init = app => {
   )
 
   app.post('/country/descriptions/:countryIso/:section/:name', async (req, res) => {
+      const countryIso = req.params.countryIso
+      const section = req.params.section
       try {
         checkCountryAccessFromReqParams(req)
-        await allowedToEditDataCheck(req.params.countryIso, req.user, req.params.section)
+        await allowedToEditDataCheck(countryIso, req.user, section)
 
         await db.transaction(
           auditRepository.insertAudit,
-          [req.user.id, 'saveDescriptions', req.params.countryIso, req.params.section]
+          [req.user.id, 'saveDescriptions', countryIso, section]
         )
         await db.transaction(
           repository.persistDescriptions,
-          [req.params.countryIso, req.params.section, req.params.name, req.body.content]
+          [countryIso, section, req.params.name, req.body.content]
         )
 
         sendOk(res)
