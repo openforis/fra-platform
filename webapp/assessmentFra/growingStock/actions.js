@@ -2,9 +2,10 @@ import axios from 'axios'
 import R from 'ramda'
 import { applicationError } from '../../applicationError/actions'
 import * as autosave from '../../autosave/actions'
+
 export const growingStockFetchCompleted = 'growingStock/fetch/completed'
 export const growingStockChanged = 'growingStock/changed'
-import { acceptNextDecimal} from '../../utils/numberInput'
+import { acceptNextDecimal } from '../../utils/numberInput'
 import { div, mul, toString } from '../../../common/bignumberUtils'
 
 const baseValueKeysMapping = {
@@ -134,6 +135,7 @@ export const persistValues = (countryIso, values) => {
     axios
       .post(`/api/growingStock/${countryIso}`, values)
       .then(() => dispatch(autosave.complete))
+      .catch(err => dispatch(applicationError(err)))
   }
 
   dispatched.meta = {
