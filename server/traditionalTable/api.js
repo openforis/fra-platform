@@ -2,6 +2,8 @@ const db = require('../db/db')
 const repository = require('./traditionalTableRepository')
 const {sendErr, sendOk} = require('../utils/requestUtils')
 const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
+const tableMappings = require('./tableMappings')
+const {allowedToEditDataCheck} = require('../assessment/assessmentEditAccessControl')
 
 module.exports.init = app => {
 
@@ -9,9 +11,17 @@ module.exports.init = app => {
     try {
       checkCountryAccessFromReqParams(req)
 
+      const tableSpecName = req.params.tableSpecName
+      const countryIso = req.params.countryIso
+
+      const mapping = tableMappings.getMapping(tableSpecName)
+      const section = mapping.section ? mapping.section : tableSpecName
+
+      await allowedToEditDataCheck(countryIso, req.user, section)
+
       await db.transaction(
         repository.save,
-        [req.user, req.params.countryIso, req.params.tableSpecName, req.body]
+        [req.user, countryIso, tableSpecName, req.body]
       )
 
       sendOk(res)

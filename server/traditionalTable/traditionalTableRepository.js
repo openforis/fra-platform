@@ -1,17 +1,11 @@
 const db = require('../db/db')
 const R = require('ramda')
-const { allowedToEditDataCheck } = require('../assessment/assessmentEditAccessControl')
 const sqlCreator = require('./traditionalTableSqlCreator')
 const tableMappings = require('./tableMappings')
 const auditRepository = require('./../audit/auditRepository')
 const camelize = require('camelize')
 
 module.exports.save = async (client, user, countryIso, tableSpecName, tableData) => {
-  const mapping = tableMappings.getMapping(tableSpecName)
-  const section = mapping.section ? mapping.section : tableSpecName
-
-  await allowedToEditDataCheck(countryIso, user, section)
-
   const [deleteQuery, deleteQyeryParams] = sqlCreator.createDelete(countryIso, tableSpecName)
   await auditRepository.insertAudit(client, user.id, 'saveTraditionalTable', countryIso, section)
   const insertQueries = sqlCreator.createInserts(countryIso, tableSpecName, tableData)
