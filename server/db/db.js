@@ -49,7 +49,13 @@ module.exports.transaction = (fn, argv) => {
             client.release()
             return response
           })
-          .catch(err => Promise.all([{__error: err}, client.query('ROLLBACK')]))
+          .catch(err => Promise.all([
+              {__error: err},
+              client.query('ROLLBACK').then(
+                () => client.release()
+              )
+            ])
+          )
           .then(result => {
             // Test if we have arrived via catch
             if (isCatchResult(result)) {
@@ -57,14 +63,15 @@ module.exports.transaction = (fn, argv) => {
             } else {
               return result
             }
-          }))
+          })
+        )
     )
 }
 
 const isCatchResult = (result) =>
-result &&
-result.hasOwnProperty('length') &&
-typeof result.length === 'number' &&
-result.length === 2 &&
-result[0] &&
-result[0].__error
+  result &&
+  result.hasOwnProperty('length') &&
+  typeof result.length === 'number' &&
+  result.length === 2 &&
+  result[0] &&
+  result[0].__error
