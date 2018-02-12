@@ -30,7 +30,7 @@ export default class CountrySelection extends React.Component {
     const {role, i18n, getCountryName} = this.props
 
     const style = {
-      backgroundImage: `url('/img/flags/1x1/${countryIso}.svg'`
+      backgroundImage: `url('/img/flags/1x1/${countryIso}.svg'), url('/img/flags/1x1/ATL.svg')`
     }
 
     return <div className="nav__country" ref="navCountryItem" onClick={() => {
