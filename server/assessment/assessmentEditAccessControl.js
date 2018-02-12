@@ -11,7 +11,7 @@ const {
 const assessmentForSection = section =>
   R.pipe(
     R.toPairs,
-    R.map(([assessment, sections]) =>  R.contains(section, sections) ? assessment : null),
+    R.map(([assessment, sections]) => R.contains(section, sections) ? assessment : null),
     R.head)(assessmentSections)
 
 const getAssessmentStatus = async (countryIso, section) => {
@@ -36,7 +36,7 @@ const allowedToEditDataCheck = async (countryIso, user, section) => {
   const assessmentStatus = await getAssessmentStatus(countryIso, section)
   const role = roleForCountry(countryIso, user)
   if (R.isNil(assessmentStatus)) return //Until we're sure this doesn't break anything
-  if(!isUserRoleAllowedToEditAssessmentData(role, assessmentStatus)) {
+  if (!isUserRoleAllowedToEditAssessmentData(role, assessmentStatus)) {
     throw new AccessControlException(
       'error.access.assessmentEditingNotAllowed',
       {user: user.name, role: role.role, countryIso, assessmentStatus})
@@ -47,7 +47,7 @@ const allowedToEditCommentsCheck = async (countryIso, user, section) => {
   const assessmentStatus = await getAssessmentStatus(countryIso, section)
   const role = roleForCountry(countryIso, user)
   if (R.isNil(assessmentStatus)) return //Until we're sure this doesn't break anything
-  if(!isUserRoleAllowedToEditAssessmentComments(role, assessmentStatus)) {
+  if (!isUserRoleAllowedToEditAssessmentComments(role, assessmentStatus)) {
     throw new AccessControlException(
       'error.access.assessmentCommentingNotAllowed',
       {user: user.name, role: role.role, countryIso, assessmentStatus})
