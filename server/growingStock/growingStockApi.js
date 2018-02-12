@@ -4,12 +4,14 @@ const {sendErr} = require('../utils/requestUtils')
 const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
 const {getFraValues} = require('../eof/fraValueService')
 const repository = require('./growingStockRepository')
+const {allowedToEditDataCheck} = require('../assessment/assessmentEditAccessControl')
 
 module.exports.init = app => {
 
   app.get('/growingStock/:countryIso', async (req, res) => {
-    checkCountryAccessFromReqParams(req)
     try {
+      checkCountryAccessFromReqParams(req)
+
       const growingStockTotal = await repository.readGrowingStock(req.params.countryIso, 'growing_stock_total')
       const growingStockAvg = await repository.readGrowingStock(req.params.countryIso, 'growing_stock_avg')
       const pairTable = (table) => R.pipe(
@@ -51,8 +53,10 @@ module.exports.init = app => {
   })
 
   app.post('/growingStock/:countryIso', async (req, res) => {
-    checkCountryAccessFromReqParams(req)
     try {
+      checkCountryAccessFromReqParams(req)
+      await allowedToEditDataCheck(req.params.countryIso, req.user, 'growingStock')
+
       await db.transaction(repository.persistBothGrowingStock, [req.user, req.params.countryIso, req.body])
       res.json({})
     } catch (err) {
