@@ -1,7 +1,7 @@
 import R from 'ramda'
 import { sum, sub } from '../../../common/bignumberUtils'
 
-const getValueForYear = (extentOfForest, year, field) => {
+export const getValueForYear = (extentOfForest, year, field) => {
   if (!extentOfForest || R.isEmpty(extentOfForest)) return null
   const groupedByYear = R.groupBy(R.prop('name'), extentOfForest.fra)
   return R.path([year, 0, field], groupedByYear)
