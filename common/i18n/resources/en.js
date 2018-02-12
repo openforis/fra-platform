@@ -463,7 +463,8 @@ The FRA team
     bamboo: 'Bamboos',
     mangroves: 'Mangroves',
     temporarilyUnstocked: 'Temporarily unstocked and/or recently regenerated',
-    primaryForest: 'Primary forest'
+    primaryForest: 'Primary forest',
+    exceedsNaturallyRegeneratingForest: 'Exceeds naturally regenerating forest',
   },
 
   otherLandWithTreeCover: {
