@@ -3,8 +3,6 @@ import * as R from 'ramda'
 
 import { applicationError } from '../applicationError/actions'
 import * as autosave from '../autosave/actions'
-import { getCountry } from './country'
-
 export const listCountries = 'country/country/list'
 export const fetchCountryOverviewStatusCompleted = 'country/status/completed'
 export const countryConfig = 'country/countryConfig'
@@ -40,6 +38,13 @@ export const saveCountryConfigSetting = (countryIso, key, value, onComplete = nu
     })
     .catch((err) => dispatch(applicationError(err)))
 }
+
+const getCountry = countryIso => R.pipe(
+  R.path(['country', 'countries']),
+  R.values,
+  R.flatten,
+  R.find(R.propEq('countryIso', countryIso)),
+)
 
 export const getCountryName = (countryIso, lang) => (dispatch, getState) => R.pipe(
   getCountry(countryIso),
