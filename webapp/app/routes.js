@@ -4,7 +4,6 @@ import Route from 'route-parser'
 
 import Router from '../router/router'
 import LandingView from '../landing/landingView'
-import UserManagementView from '../userManagement/userManagementView'
 import OriginalDataPointView from '../originalDataPoint/originalDataPointView'
 import OriginalDataListView from '../originalDataPoint/originalDataListView'
 import ExtentOfForestView from '../assessmentFra/extentOfForest/extentOfForestView'
@@ -37,7 +36,6 @@ const routes = {
   '/': () => <noscript/>, //This will get rendered first (it flashes), before we redirect to logged-in page or login page
   '/version': () => <span>{__PLATFORM_VERSION__}</span>,
   '/country/:countryIso': LandingView,
-  '/country/:countryIso/users': UserManagementView,
   '/country/:countryIso/odps': OriginalDataListView,
   '/country/:countryIso/odp/:tab': OriginalDataPointView,
   '/country/:countryIso/odp/:tab/:odpId': OriginalDataPointView,

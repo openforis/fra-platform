@@ -21,8 +21,7 @@ import { getCountryList, getCountryName, isPanEuropeanCountry } from '../country
 import { fetchAllCountryData } from '../app/actions'
 import { assessments } from '../../common/assessmentSectionItems'
 import { roleForCountry } from '../../common/countryRole'
-import { allowedToChangeRoles } from '../../common/userManagementAccessControl'
-import { hasOdps } from '../assessmentFra/extentOfForest/extentOfForestHelper'
+// import { hasOdps } from '../assessmentFra/extentOfForest/extentOfForestHelper'
 
 
 const roleLabel = (countryIso, userInfo, i18n) => i18n.t(roleForCountry(countryIso, userInfo).labelKey)
@@ -114,17 +113,7 @@ class Nav extends React.Component {
                 : null
             }
             <div className="nav__divider"/>
-            {
-              !R.isEmpty(allowedToChangeRoles(country, userInfo))
-                ? <SectionLink
-                  countryIso={country}
-                  i18n={i18n}
-                  path={path}
-                  pathTemplate="/country/:countryIso/users"
-                  label={i18n.t('navigation.support.manageCollaborators')}
-                />
-                : null
-            }
+
             <Footer
               countryIso={country}
               {...this.props}/>
