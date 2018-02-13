@@ -209,7 +209,8 @@ The FRA team
     },
     submit: 'Submit',
     cancel: 'Cancel',
-    changeStatusTextPlaceholder: 'Add an optional message'
+    changeStatusTextPlaceholder: 'Add an optional message',
+    doNotNotifyUsers: 'Don\'t notify users'
   },
 
   header: {
@@ -464,7 +465,7 @@ The FRA team
     mangroves: 'Mangroves',
     temporarilyUnstocked: 'Temporarily unstocked and/or recently regenerated',
     primaryForest: 'Primary forest',
-    exceedsNaturallyRegeneratingForest: 'Exceeds naturally regenerating forest',
+    exceedsNaturallyRegeneratingForest: 'Exceeds naturally regenerating forest (1b)',
   },
 
   otherLandWithTreeCover: {
@@ -787,9 +788,9 @@ The FRA team
 
   generalValidation: {
     subCategoryExceedsParent: 'Subcategory exceeds parent',
-    forestAreaDoesNotMatchExtentOfForest: 'Doesn‘t match Total forest area',
-    forestAreaExceedsExtentOfForest: 'Exceeds Total forest area',
-    otherLandExceedsExtentOfForest: 'Exceeds Other land area',
-    valueMustBePositive: 'Value must be over zero'
+    forestAreaDoesNotMatchExtentOfForest: 'Doesn\'t match Forest area (1a)',
+    forestAreaExceedsExtentOfForest: 'Exceeds Forest area (1a)',
+    otherLandExceedsExtentOfForest: 'Exceeds Other land area (1a)',
+    valueMustBePositive: 'Value should be greater than zero'
   }
 }
