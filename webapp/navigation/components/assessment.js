@@ -57,6 +57,11 @@ const AssessmentSection = ({countryIso, item, assessment, i18n, ...props}) => {
 
 class AssessmentChangeStatusConfirmationModal extends React.Component {
 
+  constructor (props) {
+    super(props)
+    this.state = {notifyUsers: true}
+  }
+
   render () {
     const {countryIso, i18n, assessment, targetStatus, changeAssessment, onClose} = this.props
 
@@ -70,10 +75,15 @@ class AssessmentChangeStatusConfirmationModal extends React.Component {
       <ModalBody>
         <div style={{height: '160px'}}>
             <textarea
-              className="assessment__comment"
+              className="nav__assessment-comment"
               placeholder={i18n.t('navigation.changeStatusTextPlaceholder')}
               ref="messageTextarea"
             />
+        </div>
+        <div className="nav__assessment-notify-users"
+             onClick={() => this.setState({notifyUsers: !this.state.notifyUsers})}>
+          <div className={`fra-checkbox${this.state.notifyUsers ? '' : ' checked'}`}></div>
+          {i18n.t('navigation.doNotNotifyUsers')}
         </div>
       </ModalBody>
       <ModalFooter>
@@ -83,11 +93,15 @@ class AssessmentChangeStatusConfirmationModal extends React.Component {
         </button>
         <button className="btn btn-primary modal-footer__item"
                 onClick={() => {
-                  changeAssessment(countryIso, {
-                    ...assessment,
-                    status: targetStatus.transition,
-                    message: this.refs.messageTextarea.value
-                  })
+                  changeAssessment(
+                    countryIso,
+                    {
+                      ...assessment,
+                      status: targetStatus.transition,
+                      message: this.refs.messageTextarea.value
+                    },
+                    this.state.notifyUsers
+                  )
                   onClose()
                 }}>
           {i18n.t('navigation.submit')}
@@ -144,7 +158,7 @@ class AssessmentHeader extends React.Component {
 
     return <div className="nav__assessment-header">
 
-      { // showing confirmation modal dialog before submitting the change of the status
+      { // showing confirmation modal dialog before submitting the status change
         R.isNil(R.prop('targetStatus', this.state))
           ? null
           : <AssessmentChangeStatusConfirmationModal
