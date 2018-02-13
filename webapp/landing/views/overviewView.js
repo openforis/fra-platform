@@ -97,8 +97,14 @@ const Users = ({countryIso, i18n, users, userInfo, openChat}) => <div className=
     )}
 </div>
 
-const Logos = () => <div className="landing__page-container-item">
-  <img src="img/cfrq_logos.png" className="landing__logos"/>
+const Logos = ({i18n}) => <div>
+  <div className="landing__logos-container">
+    <img src="img/cfrq_logos.png" className="landing__logos"/>
+  </div>
+  <div className="landing__logos-container">
+    <div style={{paddingRight:'14px'}}>{i18n.t('landing.overview.withFinancialSupportOf')}</div>
+    <img src="/img/ec_logo.png" height="50" />
+  </div>
 </div>
 
 class OverviewView extends React.Component {
@@ -137,7 +143,9 @@ class OverviewView extends React.Component {
                    userInfo={userInfo}
                    openChat={openChat}/>
       }
-      <Logos/>
+
+      <Logos i18n={i18n}/>
+
     </div>
   }
 }
