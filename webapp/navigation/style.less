@@ -260,6 +260,47 @@
   }
 }
 
+.nav__assessment-comment {
+  resize: none;
+  outline: none;
+  display: block;
+  overflow: hidden; // Removes scrollbar
+
+  width: 100%;
+  min-height: 100%;
+  background: transparent;
+  border: @ui-thin-border;
+  color: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  text-align: inherit;
+  padding: 10px;
+
+  &:focus {
+    outline: none;
+    //box-shadow: 0 0 0 1px @text-body;
+  }
+
+  &::placeholder {
+    color: @text-disabled;
+  }
+}
+
+.nav__assessment-notify-users {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 14px;
+
+  .fra-checkbox {
+    margin-right: 7px;
+  }
+}
+
+.nav__assessment-notify-users:hover {
+  cursor: pointer;
+}
+
 // Assessment Section
 
 .nav__section-header {
@@ -298,32 +339,6 @@
   max-height: 500px;
   overflow: hidden;
   transition: max-height 0.25s ease-out;
-}
-
-.assessment__comment {
-  resize: none;
-  outline: none;
-  display: block;
-  overflow: hidden;  // Removes scrollbar
-
-  width: 100%;
-  min-height: 100%;
-  background: transparent;
-  border: @ui-thin-border;
-  color: inherit;
-  font-size: inherit;
-  line-height: inherit;
-  text-align: inherit;
-  padding: 10px;
-
-  &:focus {
-    outline: none;
-    //box-shadow: 0 0 0 1px @text-body;
-  }
-
-  &::placeholder {
-    color: @text-disabled;
-  }
 }
 
 // Navigation Footer

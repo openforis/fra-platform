@@ -1,14 +1,18 @@
 const db = require('../db/db')
 const repository = require('./assessmentRepository')
-const {sendErr, serverUrl} = require('../utils/requestUtils')
+const {sendErr, sendOk, serverUrl} = require('../utils/requestUtils')
 const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
 const {sendAssessmentNotification} = require('./sendAssessmentNotification')
 
 module.exports.init = app => {
-  app.post('/assessment/:countryIso', (req, res) => {
-    checkCountryAccessFromReqParams(req)
-    const assessment = req.body
-    db.transaction(
+
+  app.post('/assessment/:countryIso', async (req, res) => {
+    try {
+      checkCountryAccessFromReqParams(req)
+      const assessment = req.body
+      const notifyUsers = req.query.notifyUsers === 'true'
+
+      const isStatusChange = await db.transaction(
         repository.changeAssessment,
         [
           req.params.countryIso,
@@ -16,12 +20,15 @@ module.exports.init = app => {
           assessment
         ]
       )
-      .then(isStatusChange => {
-        if (isStatusChange) {
-          return sendAssessmentNotification(req.params.countryIso, assessment, req.user, serverUrl(req))
-        }
-      })
-      .then(() => res.json({}))
-      .catch(err => sendErr(res, err))
+
+      if (isStatusChange && notifyUsers) {
+        await sendAssessmentNotification(req.params.countryIso, assessment, req.user, serverUrl(req))
+      }
+
+      sendOk(res)
+    } catch (err) {
+      sendErr(res, err)
+    }
   })
+
 }
