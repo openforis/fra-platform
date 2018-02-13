@@ -63,7 +63,8 @@ module.exports.translation = {
       externalData: 'External data'
     },
     overview: {
-      loadingMap: 'Loading map…'
+      loadingMap: 'Loading map…',
+      withFinancialSupportOf:'With the financial support of '
     },
     milestones: {
       milestones: 'Milestones',
