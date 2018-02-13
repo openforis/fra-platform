@@ -63,7 +63,7 @@ class AssessmentChangeStatusConfirmationModal extends React.Component {
   }
 
   render () {
-    const {countryIso, i18n, assessment, targetStatus, changeAssessment, onClose} = this.props
+    const {countryIso, i18n, userInfo, assessment, targetStatus, changeAssessment, onClose} = this.props
 
     return <Modal isOpen="true">
       <ModalHeader>
@@ -80,11 +80,15 @@ class AssessmentChangeStatusConfirmationModal extends React.Component {
               ref="messageTextarea"
             />
         </div>
-        <div className="nav__assessment-notify-users"
-             onClick={() => this.setState({notifyUsers: !this.state.notifyUsers})}>
-          <div className={`fra-checkbox${this.state.notifyUsers ? '' : ' checked'}`}></div>
-          {i18n.t('navigation.doNotNotifyUsers')}
-        </div>
+        { //administrator can disable email notification
+          isAdministrator(userInfo)
+            ? <div className="nav__assessment-notify-users"
+                   onClick={() => this.setState({notifyUsers: !this.state.notifyUsers})}>
+              <div className={`fra-checkbox${this.state.notifyUsers ? '' : ' checked'}`}></div>
+              {i18n.t('navigation.doNotNotifyUsers')}
+            </div>
+            : null
+        }
       </ModalBody>
       <ModalFooter>
         <button className="btn btn-secondary modal-footer__item"
@@ -167,6 +171,7 @@ class AssessmentHeader extends React.Component {
             assessment={assessment}
             targetStatus={R.prop('targetStatus', this.state)}
             changeAssessment={changeAssessment}
+            userInfo={userInfo}
             onClose={() => this.setState({targetStatus: null})}
           />
       }
