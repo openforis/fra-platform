@@ -7,7 +7,7 @@ import * as R from 'ramda'
 
 import CountrySelection from './components/countrySelection'
 import Assessment from './components/assessment'
-import { NationalData, SectionLink, Footer } from './components/navigationComponents'
+import { SectionLink, Footer } from './components/navigationComponents'
 
 import { follow } from './../router/actions'
 import {
@@ -73,16 +73,16 @@ class Nav extends React.Component {
               label={i18n.t('landing.home')}
             />
             {
-              this.props.showOriginalDataPoints
-                ? <NationalData
-                  label={i18n.t('nationalDataPoint.nationalData')}
-                  countryIso={country}
-                  status={R.merge(getReviewStatus('odp'), status.odpStatus)}
-                  path={path}
-                  pathTemplate="/country/:countryIso/odps"
-                  secondaryPathTemplate="/country/:countryIso/odp"
-                  userInfo={userInfo}/>
-                : null
+              // this.props.showOriginalDataPoints
+              //   ? <NationalData
+              //     label={i18n.t('nationalDataPoint.nationalData')}
+              //     countryIso={country}
+              //     status={R.merge(getReviewStatus('odp'), status.odpStatus)}
+              //     path={path}
+              //     pathTemplate="/country/:countryIso/odps"
+              //     secondaryPathTemplate="/country/:countryIso/odp"
+              //     userInfo={userInfo}/>
+              //   : null
             }
             <div className="nav__divider"></div>
             {
@@ -136,7 +136,7 @@ class Nav extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  showOriginalDataPoints: hasOdps(R.path(['extentOfForest', 'fra'], state)),
+  // showOriginalDataPoints: hasOdps(R.path(['extentOfForest', 'fra'], state)),
   ...state.navigation,
   ...state.country,
   ...state.router,
