@@ -16,8 +16,8 @@ h1, h2, h3, h4 {
 }
 
 .login__wrapper {
-    margin: 48px auto;
-    margin-top: 10vh;
+    margin: auto;
+    margin-top: 5vh;
     width: 560px;
     position: relative;
     text-align: center;
