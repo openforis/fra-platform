@@ -10,7 +10,7 @@ module.exports.init = app => {
     try {
       checkCountryAccessFromReqParams(req)
       const assessment = req.body
-      const notifyUsers = req.query.notifyUsers
+      const notifyUsers = req.query.notifyUsers === 'true'
 
       const isStatusChange = await db.transaction(
         repository.changeAssessment,
