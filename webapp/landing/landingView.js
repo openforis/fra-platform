@@ -11,7 +11,7 @@ import { isAllowedToChangeRole } from '../../common/userManagementAccessControl'
 import OverviewView from './views/overviewView'
 import AboutView from './views/aboutView'
 import RecentActivityView from './views/recentActivityView'
-import UserManagementView from '../userManagement/userManagementView'
+import UserManagementView from './views/userManagement/userManagementView'
 
 class LandingView extends React.Component {
 

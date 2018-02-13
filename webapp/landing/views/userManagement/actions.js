@@ -1,7 +1,7 @@
 import axios from 'axios'
 import * as R from 'ramda'
 
-import { applicationError } from '../applicationError/actions'
+import { applicationError } from '../../../applicationError/actions'
 import { newUser, updateUserField, updateListUserField, validUser } from './users'
 
 export const usersFetch = 'users/fetch'
