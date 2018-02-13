@@ -7,10 +7,10 @@ const { sendErr, serverUrl } = require('../utils/requestUtils')
 const { AccessControlException } = require('../utils/accessControl')
 const { checkCountryAccessFromReqParams } = require('../utils/accessControl')
 const { sendInvitation } = require('./sendInvitation')
-const { allowedToChangeRoles } = require('../../common/userManagementAccessControl')
+const { rolesAllowedToChange } = require('../../common/userManagementAccessControl')
 
 const filterAllowedUsers = (countryIso, user, users) => {
-  const allowedRoles = allowedToChangeRoles(countryIso, user)
+  const allowedRoles = rolesAllowedToChange(countryIso, user)
   return R.filter(userInList => R.contains(userInList.role, allowedRoles), users)
 }
 
@@ -40,7 +40,7 @@ module.exports.init = app => {
     const userToBeChangedOrAdded = req.body
     const countryIso = req.params.countryIso
 
-    const allowedRoles = allowedToChangeRoles(countryIso, req.user)
+    const allowedRoles = rolesAllowedToChange(countryIso, req.user)
     if (!R.contains(userToBeChangedOrAdded.role, allowedRoles)) {
       throw new AccessControlException('error.access.roleChangeNotAllowed', {user: req.user.name, role: userToBeChangedOrAdded.role})
     }
