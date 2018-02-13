@@ -60,6 +60,7 @@ module.exports.translation = {
       overview: 'Overview',
       about: 'About FRA',
       recentActivity: 'Recent activity',
+      userManagement:'Manage collaborators',
       externalData: 'External data'
     },
     overview: {
