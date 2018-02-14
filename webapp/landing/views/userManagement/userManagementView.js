@@ -4,12 +4,11 @@ import React from 'react'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
 
-import LoggedInPageTemplate from '../app/loggedInPageTemplate'
-import TextInput from '../reusableUiComponents/textInput'
-import { roles } from '../../common/countryRole'
-import { getCountryName } from '../country/actions'
-import { allowedToChangeRoles } from '../../common/userManagementAccessControl'
-import { getRoleLabelKey } from '../../common/countryRole'
+import TextInput from '../../../reusableUiComponents/textInput'
+import { roles } from '../../../../common/countryRole'
+import { getCountryName } from '../../../country/actions'
+import { rolesAllowedToChange } from '../../../../common/userManagementAccessControl'
+import { getRoleLabelKey } from '../../../../common/countryRole'
 
 import { fetchUsers, updateUser, removeUser, persistUser, updateNewUser, addNewUser } from './actions'
 import { validField } from './users'
@@ -19,38 +18,38 @@ const mapIndexed = R.addIndex(R.map)
 const UserTable = ({userList, i18n, ...props}) =>
   <table className="user-list__table">
     <thead>
-      <tr>
-        <th className="user-list__header-cell">{i18n.t('userManagement.name')}</th>
-        <th className="user-list__header-cell">{i18n.t('userManagement.role')}</th>
-        <th className="user-list__header-cell">{i18n.t('userManagement.email')}</th>
-        <th className="user-list__header-cell">{i18n.t('userManagement.loginEmail')}</th>
-        <th className="user-list__header-cell user-list__edit-column"/>
-      </tr>
+    <tr>
+      <th className="user-list__header-cell">{i18n.t('userManagement.name')}</th>
+      <th className="user-list__header-cell">{i18n.t('userManagement.role')}</th>
+      <th className="user-list__header-cell">{i18n.t('userManagement.email')}</th>
+      <th className="user-list__header-cell">{i18n.t('userManagement.loginEmail')}</th>
+      <th className="user-list__header-cell user-list__edit-column"/>
+    </tr>
     </thead>
     <tbody>
     {
       userList.length > 0
-        ? mapIndexed((user, i) => <UserRow key={i} i18n={i18n} user={user} {...props}/> , userList)
+        ? mapIndexed((user, i) => <UserRow key={i} i18n={i18n} user={user} {...props}/>, userList)
         : <tr>
-            <td className="user-list__cell" colSpan="5">
-              <div className="user-list__cell--read-only">{i18n.t('userManagement.noUsers')}</div>
-            </td>
-          </tr>
+          <td className="user-list__cell" colSpan="5">
+            <div className="user-list__cell--read-only">{i18n.t('userManagement.noUsers')}</div>
+          </td>
+        </tr>
     }
     </tbody>
   </table>
 
 const UserTextFieldCol = ({countryIso, i18n, user, field, editing = false, readOnly = false, updateUser, validate}) =>
   <td className={`user-list__cell ${validate ? '' : 'error'} ${editing ? 'editing' : ''}`}>
-  {
-    editing
-      ? <TextInput placeholder={i18n.t(`userManagement.${field}`)} value={user[field]}
-                   onChange={e => updateUser(countryIso, user.id, field, e.target.value)}
-                   disabled={user.saving}/>
-      : readOnly
-        ? <div className="user-list__cell--read-only">{user[field] ? user[field] : '\xA0' }</div>
+    {
+      editing
+        ? <TextInput placeholder={i18n.t(`userManagement.${field}`)} value={user[field]}
+                     onChange={e => updateUser(countryIso, user.id, field, e.target.value)}
+                     disabled={user.saving}/>
+        : readOnly
+        ? <div className="user-list__cell--read-only">{user[field] ? user[field] : '\xA0'}</div>
         : <div className="user-list__cell--editable">{user[field]}</div>
-  }
+    }
   </td>
 
 const roleOptions = (allowedRoles, i18n) =>
@@ -68,11 +67,11 @@ const UserRoleSelectCol = ({
                              updateUser,
                              validate,
                              allowedRoles
-                            }) =>
+                           }) =>
   <td className={`user-list__cell ${validate ? '' : 'error'} ${editing ? 'editing' : ''}`}>
-  {
-    editing
-      ? <div className="user-list__input-container validation-error-sensitive-field">
+    {
+      editing
+        ? <div className="user-list__input-container validation-error-sensitive-field">
           <select
             className="fra-table__select"
             value={user.role}
@@ -83,16 +82,16 @@ const UserRoleSelectCol = ({
                 ? <option value="">{i18n.t('userManagement.placeholder')}</option>
                 : null
             }
-            { roleOptions(allowedRoles, i18n) }
+            {roleOptions(allowedRoles, i18n)}
           </select>
         </div>
-      : readOnly
+        : readOnly
         ? <div className="user-list__cell--read-only">{i18n.t(getRoleLabelKey(user.role))}</div>
         : <div className="user-list__cell--editable">{i18n.t(getRoleLabelKey(user.role))}</div>
-  }
+    }
   </td>
 
-class AddUserForm extends React.Component {
+class AddUserForm extends React.Component {
 
   constructor (props) {
     super(props)
@@ -105,20 +104,20 @@ class AddUserForm extends React.Component {
     return <div className="add-user__container">
       <table className="add-user__table">
         <thead>
-          <tr>
-            <th className="user-list__header-cell">{i18n.t('userManagement.name')}</th>
-            <th className="user-list__header-cell">{i18n.t('userManagement.role')}</th>
-            <th className="user-list__header-cell">{i18n.t('userManagement.email')}</th>
-          </tr>
+        <tr>
+          <th className="user-list__header-cell">{i18n.t('userManagement.name')}</th>
+          <th className="user-list__header-cell">{i18n.t('userManagement.role')}</th>
+          <th className="user-list__header-cell">{i18n.t('userManagement.email')}</th>
+        </tr>
         </thead>
         <tbody>
         <tr>
           <UserTextFieldCol countryIso={countryIso}
-            i18n={i18n}
-            user={user}
-            field="name" editing={true}
-            updateUser={updateNewUser}
-            validate={this.state.adding ? validField(user, 'name') : true}/>
+                            i18n={i18n}
+                            user={user}
+                            field="name" editing={true}
+                            updateUser={updateNewUser}
+                            validate={this.state.adding ? validField(user, 'name') : true}/>
           <UserRoleSelectCol
             {...this.props}
             field="role"
@@ -126,11 +125,11 @@ class AddUserForm extends React.Component {
             updateUser={updateNewUser}
             validate={this.state.adding ? validField(user, 'role') : true}/>
           <UserTextFieldCol countryIso={countryIso}
-            i18n={i18n}
-            user={user}
-            field="email" editing={true}
-            updateUser={updateNewUser}
-            validate={this.state.adding ? validField(user, 'email') : true}/>
+                            i18n={i18n}
+                            user={user}
+                            field="email" editing={true}
+                            updateUser={updateNewUser}
+                            validate={this.state.adding ? validField(user, 'email') : true}/>
           <td style={{padding: 0}}>
             <button className="btn btn-primary" onClick={() => {
               this.setState({adding: true})
@@ -183,10 +182,10 @@ class UserRow extends React.Component {
         updateUser={updateUser}
         validate={validField(user, 'email')}/>
       <UserTextFieldCol countryIso={countryIso}
-        i18n={i18n}
-        user={user}
-        field="loginEmail" readOnly={true}
-        updateUser={updateUser} validate={true}/>
+                        i18n={i18n}
+                        user={user}
+                        field="loginEmail" readOnly={true}
+                        updateUser={updateUser} validate={true}/>
       <td className="user-list__cell user-list__edit-column">
         <button className="btn-s btn-link" onClick={() => {
           if (this.state.editing) {
@@ -197,7 +196,10 @@ class UserRow extends React.Component {
           {this.state.editing ? i18n.t('userManagement.done') : i18n.t('userManagement.edit')}
         </button>
         <button className="btn-s btn-link-destructive" disabled={this.state.editing} onClick={() =>
-          window.confirm(i18n.t('userManagement.confirmDelete', {user: user.name, country: getCountryName(countryIso, i18n.language)}))
+          window.confirm(i18n.t('userManagement.confirmDelete', {
+            user: user.name,
+            country: getCountryName(countryIso, i18n.language)
+          }))
             ? removeUser(countryIso, user)
             : null
         }>
@@ -224,23 +226,14 @@ class UsersView extends React.Component {
   }
 
   render () {
-    const {i18n, match, userList, newUser, allowedRoles} = this.props
-    return userList
-      ? <LoggedInPageTemplate>
-          <div className="fra-view__content">
-            <div className="fra-view__page-header">
-              <h1 className="title">{i18n.t('userManagement.manageCollaborators')}</h1>
-            </div>
-            {
-              !R.isEmpty(allowedRoles)
-                ? <div>
-                    <AddUserForm {...this.props} user={newUser} countryIso={match.params.countryIso}/>
-                    <UserTable {...this.props} countryIso={match.params.countryIso}/>
-                  </div>
-                : <div>{i18n.t('userManagement.insufficientPrivileges')}</div>
-            }
-          </div>
-        </LoggedInPageTemplate>
+    const {match, userList, newUser, allowedRoles} = this.props
+    const countryIso = match.params.countryIso
+
+    return userList && !R.isEmpty(allowedRoles)
+      ? <div>
+        <AddUserForm {...this.props} user={newUser} countryIso={countryIso}/>
+        <UserTable {...this.props} countryIso={countryIso}/>
+      </div>
       : null
   }
 }
@@ -249,8 +242,16 @@ const mapStateToProps = (state, props) =>
   ({
     i18n: state.user.i18n,
     userList: state.userManagement.list,
-    allowedRoles:  allowedToChangeRoles(props.match.params.countryIso, R.path(['user', 'userInfo'], state)),
+    allowedRoles: rolesAllowedToChange(props.match.params.countryIso, R.path(['user', 'userInfo'], state)),
     newUser: state.userManagement.newUser
   })
 
-export default connect(mapStateToProps, {fetchUsers, updateUser, removeUser, persistUser, updateNewUser, addNewUser, getCountryName})(UsersView)
+export default connect(mapStateToProps, {
+  fetchUsers,
+  updateUser,
+  removeUser,
+  persistUser,
+  updateNewUser,
+  addNewUser,
+  getCountryName
+})(UsersView)
