@@ -9,8 +9,9 @@ const {readObject} = require('../traditionalTable/traditionalTableRepository')
 module.exports.init = app => {
 
   app.get('/sustainableDevelopment/:countryIso', async (req, res) => {
-    checkCountryAccessFromReqParams(req)
     try {
+      checkCountryAccessFromReqParams(req)
+
       const countryIso = req.params.countryIso
       const extentOfForest = await getFraValues('extentOfForest', countryIso)
       const bioMass = await readObject(countryIso, 'biomassStock')

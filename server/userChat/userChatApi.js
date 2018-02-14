@@ -55,8 +55,7 @@ module.exports.init = app => {
 
       const persistedMessage = await db.transaction(addMessage, [message, fromUserId, toUserId])
 
-      // async sending notification email
-      sendNotificationEmail(req, fromUserId, toUserId)
+      await sendNotificationEmail(req, fromUserId, toUserId)
 
       res.json(persistedMessage)
 

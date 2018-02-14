@@ -11,6 +11,8 @@ module.exports.init = app => {
 
   app.post('/review/:issueId', async (req, res) => {
     try {
+      checkCountryAccessFromReqParams(req)
+
       const commentInfo = await reviewRepository.getIssueCountryAndSection(req.params.issueId)
       await allowedToEditCommentsCheck(commentInfo.countryIso, req.user, commentInfo.section)
       await db.transaction(
@@ -23,17 +25,22 @@ module.exports.init = app => {
     }
   })
 
-  app.get('/review/:countryIso/:section/summary', (req, res) => {
-    checkCountryAccessFromReqParams(req)
-    reviewRepository
-      .getIssuesSummary(req.params.countryIso, req.params.section, req.query.target, req.user)
-      .then(result => res.json(result))
-      .catch(err => sendErr(res, err))
+  app.get('/review/:countryIso/:section/summary', async (req, res) => {
+    try {
+      checkCountryAccessFromReqParams(req)
+
+      const result = await reviewRepository.getIssuesSummary(req.params.countryIso, req.params.section, req.query.target, req.user)
+
+      res.json(result)
+    } catch (err) {
+      sendErr(res, err)
+    }
   })
 
   app.post('/review/:countryIso/:section', async (req, res) => {
     try {
       checkCountryAccessFromReqParams(req)
+
       await allowedToEditCommentsCheck(req.params.countryIso, req.user, req.params.section)
       const target = req.query.target ? req.query.target.split(',') : []
       await db.transaction(
@@ -46,34 +53,38 @@ module.exports.init = app => {
     }
   })
 
-  app.get('/review/:countryIso/:section', (req, res) => {
-    checkCountryAccessFromReqParams(req)
-    reviewRepository.getIssueComments(req.params.countryIso, req.params.section, req.user)
-      .then(result => {
-        const target = req.query.target && req.query.target.split(',')
-        const issues = R.filter(comment => R.pathEq(['target', 'params'], target, comment), result)
+  app.get('/review/:countryIso/:section', async (req, res) => {
+    try {
+      checkCountryAccessFromReqParams(req)
 
-        const sendResponse = () => res.json(R.map(
-          comment =>
-            R.merge(R.omit('email', comment), // leave out email
-              R.pipe( // calculate email hash for gravatar
-                R.prop('email'),
-                v => emailHash(v),
-                h => ({hash: h})
-              )(comment)
-            )
-          , issues))
+      const result = await reviewRepository.getIssueComments(req.params.countryIso, req.params.section, req.user)
 
-        issues.length > 0
-          ? reviewRepository.updateIssueReadTime(issues[0].issueId, req.user).then(() => sendResponse())
-          : sendResponse()
+      const target = req.query.target && req.query.target.split(',')
+      const issues = R.filter(comment => R.pathEq(['target', 'params'], target, comment), result)
 
-      })
-      .catch(err => sendErr(res, err))
+      if (issues.length > 0)
+        await reviewRepository.updateIssueReadTime(issues[0].issueId, req.user)
+
+      res.json(R.map(
+        comment =>
+          R.merge(R.omit('email', comment), // leave out email
+            R.pipe( // calculate email hash for gravatar
+              R.prop('email'),
+              v => emailHash(v),
+              h => ({hash: h})
+            )(comment)
+          )
+        , issues))
+
+    } catch (err) {
+      sendErr(res, err)
+    }
   })
 
   app.delete('/review/:countryIso/comments/:commentId', async (req, res) => {
     try {
+      checkCountryAccessFromReqParams(req)
+
       const commentInfo = await reviewRepository.getCommentCountryAndSection(req.params.commentId)
       await allowedToEditCommentsCheck(commentInfo.countryIso, req.user, commentInfo.section)
       await db.transaction(
@@ -88,6 +99,8 @@ module.exports.init = app => {
 
   app.post('/issue/markAsResolved', async (req, res) => {
     try {
+      checkCountryAccessFromReqParams(req)
+
       const commentInfo = await reviewRepository.getIssueCountryAndSection(req.query.issueId)
       await allowedToEditCommentsCheck(commentInfo.countryIso, req.user, commentInfo.section)
       await db.transaction(reviewRepository.markIssueAsResolved, [commentInfo.countryIso, commentInfo.section, req.query.issueId, req.user])

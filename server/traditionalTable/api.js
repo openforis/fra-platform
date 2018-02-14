@@ -2,8 +2,6 @@ const db = require('../db/db')
 const repository = require('./traditionalTableRepository')
 const {sendErr, sendOk} = require('../utils/requestUtils')
 const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
-const tableMappings = require('./tableMappings')
-const {allowedToEditDataCheck} = require('../assessment/assessmentEditAccessControl')
 
 module.exports.init = app => {
 
