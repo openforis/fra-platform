@@ -20,36 +20,36 @@ module.exports.init = app => {
     }).catch(err => sendErr(res, err))
   })
 
-  app.get('/country/overviewStatus/:countryIso', (req, res) => {
-    checkCountryAccessFromReqParams(req)
-    const odpData = odpRepository.listAndValidateOriginalDataPoints(req.params.countryIso)
-    const reviewStatus = reviewRepository.getCountryIssuesSummary(req.params.countryIso, req.user)
-    const assessments = assessmentRepository.getAssessments(req.params.countryIso)
-    Promise.all(
-      [
-        odpData,
+  app.get('/country/overviewStatus/:countryIso', async (req, res) => {
+    try {
+      checkCountryAccessFromReqParams(req)
+
+      const odpDataPromise = odpRepository.listAndValidateOriginalDataPoints(req.params.countryIso)
+      const reviewStatusPromise = reviewRepository.getCountryIssuesSummary(req.params.countryIso, req.user)
+      const assessmentsPromise = assessmentRepository.getAssessments(req.params.countryIso)
+
+      const [odps, reviewStatus, assessments] = await Promise.all([odpDataPromise, reviewStatusPromise, assessmentsPromise])
+
+      const odpStatus = {
+        count: odps.length,
+        errors: R.filter(o => !o.validationStatus.valid, odps).length !== 0,
+      }
+      res.json({
+        odpStatus,
         reviewStatus,
         assessments
-      ]
-    ).then(([odps, reviewStatus, assessments]) => {
-        const odpStatus = {
-          count: odps.length,
-          errors: R.filter(o => !o.validationStatus.valid, odps).length !== 0,
-        }
-        res.json(
-          {
-            odpStatus,
-            reviewStatus,
-            assessments
-          })
-      }
-    ).catch(err => sendErr(res, err))
+      })
+
+    } catch (err) {
+      sendErr(res, err)
+    }
   })
 
   // Changes one key/value pair
   app.post('/country/config/:countryIso', async (req, res) => {
-    checkCountryAccessFromReqParams(req)
     try {
+      checkCountryAccessFromReqParams(req)
+
       await db.transaction(countryRepository.saveDynamicConfigurationVariable,
         [
           req.params.countryIso,
@@ -64,11 +64,13 @@ module.exports.init = app => {
   })
 
   app.get('/country/config/:countryIso', async (req, res) => {
-    checkCountryAccessFromReqParams(req)
     try {
+      checkCountryAccessFromReqParams(req)
+
       const dynamicConfig = await countryRepository.getDynamicCountryConfiguration(req.params.countryIso)
       const staticConfig = countryConfig[req.params.countryIso]
       const fullConfig = R.mergeDeepRight(staticConfig, dynamicConfig)
+
       res.json(fullConfig)
     } catch (e) {
       sendErr(res, e)
