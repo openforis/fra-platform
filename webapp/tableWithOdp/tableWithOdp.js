@@ -306,7 +306,6 @@ const fraValueCell = (fraValue, fra, countryIso, save, saveMany, pasteUpdate, fi
 const validationErrorRow = columnErrorMsgs => {
   if (R.all(R.isNil, columnErrorMsgs)) return null
   return <tr key="validationError">
-    <td style={{padding: '0'}}/>
     {
       mapIndexed((errorMsgs, colIdx) =>
         <td className="fra-table__validation-cell" key={colIdx}>

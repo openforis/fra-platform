@@ -153,6 +153,10 @@ const ExtentOfForest = (props) => {
       render: faoStatTotalLandAreaRow
     },
     {
+      type: 'custom',
+      render: ()=> <tr><td className="fra-table__notice-message-cell" rowSpan="2">{i18n.t('extentOfForest.tableNoticeMessage')}</td></tr>
+    },
+    {
       type: 'validationErrors',
       validationErrorMessages
     }
