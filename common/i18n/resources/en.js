@@ -437,7 +437,8 @@ The FRA team
     placeholderPast: 'Past',
     clearTable: 'Clear table',
     copyToClipboard: 'Copy values',
-    placeholderSelect: 'Estimation and forecasting'
+    placeholderSelect: 'Estimation and forecasting',
+    _1000haYear:'1000 ha/year'
   },
 
   forestAreaChange: {
