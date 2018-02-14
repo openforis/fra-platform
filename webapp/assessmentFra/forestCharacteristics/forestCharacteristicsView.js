@@ -189,6 +189,10 @@ const ForestCharacteristics = props => {
       render: totalForestAreaRow
     },
     {
+      type: 'custom',
+      render: ()=> <tr><td rowSpan="2"></td></tr>
+    },
+    {
       type: 'validationErrors',
       validationErrorMessages
     }
