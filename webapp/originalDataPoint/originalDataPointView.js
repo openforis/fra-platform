@@ -341,7 +341,7 @@ const ForestCharacteristicsSection = ({odp, countryIso, saveDraft, openThread, i
   return <div className="odp__section">
     <div className="odp__section-header">
       <h3 className="subhead">{i18n.t('nationalDataPoint.forestCharacteristics')}</h3>
-      <DefinitionLink document="tad" anchor="2a" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
+      <DefinitionLink document="tad" anchor="1b" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
     </div>
     <div className="fra-table__container">
       <div className="fra-table__scroll-wrapper">
