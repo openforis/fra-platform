@@ -193,7 +193,8 @@ export class GenerateFraValuesControl extends React.Component {
                           value={this.state.annualChangeRates[field].rateFuture}
                           onChange={(evt) => this.setState(R.assocPath(['annualChangeRates', field, 'rateFuture'], evt.target.value, this.state))}
                         />
-                      </td>
+                      </td>,
+                      <td key="unit" className="table-with-odp__generate-comment-cell">{i18n.t('tableWithOdp._1000haYear')}</td>
                      ]
                   :  null
               }
