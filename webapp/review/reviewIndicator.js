@@ -13,10 +13,10 @@ const CommentStatus = ({count, active, issueStatus, hasUnreadIssues, ...props}) 
       ? 'unread-issue'
       : ''
 
-  return <div {...props} className={`fra-review__issue-status ${active ? 'active' : ''}`}>
+  return <div {...props} className={`fra-review__issue-status${count > 0 ? '-opened' : ''}${active ? ' active' : ''}`}>
     {
       count > 0
-        ? <div className={`fra-review__issue-status-count ${getIssueStatusCssClass()}`}>{count}</div>
+        ? <div className={`icon-container ${getIssueStatusCssClass()}`}><Icon name="chat-46"/></div>
         : <Icon name="circle-add"/>
     }
   </div>

@@ -6,35 +6,17 @@
   margin-right: -32px;
 }
 
-.fra-review__issue-status-count {
-  width: 20px;
-  min-width: 20px;
-  height: 20px;
-  background: @ui-accent;
-  color: white;
-  border-radius: 100%;
-  text-align: center;
-  line-height: 20px;
-  cursor: pointer;
-  font-size: @font-xxs;
-  transition: @ease-out;
-
-  &.issue-resolved {
-    background-color: @text-mute;
-  }
-
-  &.unread-issue {
-    background-color: @ui-alert;
-  }
-}
-
-.fra-review__issue-status {
+.fra-review__issue-status-base {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 32px;
   height: 42px;
   cursor: pointer;
+}
+
+.fra-review__issue-status {
+  .fra-review__issue-status-base;
 
   .icon {
     transition: @ease-out;
@@ -48,6 +30,35 @@
       width: 20px;
       height: 20px;
     }
+  }
+}
+.fra-review__issue-status-opened {
+  .fra-review__issue-status-base;
+
+  .icon-container {
+    width: 20px;
+    min-width: 20px;
+    height: 20px;
+    background-color: @ui-accent;
+    color: white;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &.issue-resolved {
+      background-color: @text-mute;
+    }
+
+    &.unread-issue {
+      background-color: @ui-alert;
+    }
+  }
+
+  .icon {
+    width: 10px;
+    height: 11px;
+    color: white;
   }
 }
 
