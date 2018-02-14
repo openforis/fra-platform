@@ -61,8 +61,9 @@ export class TableWithOdp extends React.Component {
     clipboard.write(dataTransfer)
   }
 
-
   render () {
+    const {copyValues = true} = this.props
+
     return <div className="fra-table__container table-with-odp">
       <div className="fra-table__scroll-wrapper">
         <table className="fra-table">
@@ -72,16 +73,20 @@ export class TableWithOdp extends React.Component {
             <th className="fra-table__header-cell" colSpan={R.values(this.props.fra).length}>
               <div>
                 {this.props.tableHeader}
-                <button className="fra-table__header-button btn-xs btn-primary" onClick={() => this.copyTableAsHtml()}>
-                  {this.props.i18n.t('tableWithOdp.copyToClipboard')}
-                </button>
+                {copyValues
+                  ? <button className="fra-table__header-button btn-xs btn-primary"
+                            onClick={() => this.copyTableAsHtml()}>
+                    {this.props.i18n.t('tableWithOdp.copyToClipboard')}
+                  </button>
+                  : null}
               </div>
             </th>
           </tr>
           <tr>
             {
               R.values(this.props.fra).map(value =>
-                <th className={value.type === 'odp' ? 'odp-header-cell' : 'fra-table__header-cell'} key={`${value.type}_${value.name}`}>
+                <th className={value.type === 'odp' ? 'odp-header-cell' : 'fra-table__header-cell'}
+                    key={`${value.type}_${value.name}`}>
                   {
                     value.type === 'odp'
                       ? <OdpHeading countryIso={this.props.countryIso} odpValue={value} section={this.props.section}/>
@@ -93,7 +98,7 @@ export class TableWithOdp extends React.Component {
           </tr>
           </thead>
           <tbody>
-            {buildRows(this.props.rows, this.props)}
+          {buildRows(this.props.rows, this.props)}
           </tbody>
         </table>
       </div>

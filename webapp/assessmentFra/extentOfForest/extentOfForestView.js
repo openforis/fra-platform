@@ -204,6 +204,7 @@ const ExtentOfForest = (props) => {
       categoryHeader={props.i18n.t('extentOfForest.categoryHeader')}
       {...props}
       fra={props.fra}
+      copyValues={false}
     />
     <TraditionalTable
       tableSpec={climaticDomainTableSpec(props.i18n, props.climaticDomainPercents2015)}
