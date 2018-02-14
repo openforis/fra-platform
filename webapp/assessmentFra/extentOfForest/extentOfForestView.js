@@ -153,6 +153,10 @@ const ExtentOfForest = (props) => {
       render: faoStatTotalLandAreaRow
     },
     {
+      type: 'custom',
+      render: ()=> <tr><td className="fra-table__notice-message-cell" rowSpan="2">{i18n.t('extentOfForest.tableNoticeMessage')}</td></tr>
+    },
+    {
       type: 'validationErrors',
       validationErrorMessages
     }
@@ -162,7 +166,6 @@ const ExtentOfForest = (props) => {
       <Icon className="icon-sub icon-white" name="small-add"/>
       {i18n.t('nationalDataPoint.addNationalDataPoint')}
     </Link>
-    <DefinitionLink document="faq" anchor="1a" title={i18n.t('extentOfForest.whatIsThis')} lang={i18n.language}/>
     <hr/>
     {
       hasOdps(props.fra)
@@ -205,6 +208,7 @@ const ExtentOfForest = (props) => {
       categoryHeader={props.i18n.t('extentOfForest.categoryHeader')}
       {...props}
       fra={props.fra}
+      copyValues={false}
     />
     <TraditionalTable
       tableSpec={climaticDomainTableSpec(props.i18n, props.climaticDomainPercents2015)}

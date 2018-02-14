@@ -60,11 +60,12 @@ module.exports.translation = {
       overview: 'Overview',
       about: 'About FRA',
       recentActivity: 'Recent activity',
+      userManagement: 'Manage collaborators',
       externalData: 'External data'
     },
     overview: {
       loadingMap: 'Loading map…',
-      withFinancialSupportOf:'With the financial support of '
+      withFinancialSupportOf: 'With the financial support of '
     },
     milestones: {
       milestones: 'Milestones',
@@ -396,7 +397,8 @@ The FRA team
     forestAreaDoesNotMatchPreviouslyReported: 'Forest area doesn’t match FRA 2015 area: {{previous}}',
     useOriginalDataPoints: 'Use national data points',
     dontUseOriginalDataPoints: 'Don’t use national data points',
-    whatIsThis: 'What is this?'
+    whatIsThis: 'What is this?',
+    tableNoticeMessage: 'The FAOSTAT land area figure for the year 2015 is used for all reference years'
   },
 
   climaticDomain: {
@@ -436,7 +438,8 @@ The FRA team
     placeholderPast: 'Past',
     clearTable: 'Clear table',
     copyToClipboard: 'Copy values',
-    placeholderSelect: 'Estimation and forecasting'
+    placeholderSelect: 'Estimation and forecasting',
+    _1000haYear: '1000 ha/year'
   },
 
   forestAreaChange: {

@@ -18,11 +18,11 @@ const AboutView = ({i18n}) => <div className="landing__page-container">
       {i18n.t('landing.about.faoForestryDepartment')}<br/>
       Viale delle Terme di Caracalla<br/>
       Rome 00153, Italy<br/>
-      {i18n.t('landing.about.email')}: Anssi.Pekkarinen@Fao.org
+      {i18n.t('landing.about.email')}: <a href="mailto:Anssi.Pekkarinen@Fao.org">Anssi.Pekkarinen@Fao.org</a>
     </p>
     <p>{i18n.t('landing.about.or')}</p>
     <p>
-      FRA@Fao.org<br/>
+      <a href="mailto:FRA@Fao.org">FRA@Fao.org</a>
     </p>
   </div>
 

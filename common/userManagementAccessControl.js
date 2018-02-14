@@ -1,8 +1,27 @@
-const { roleForCountry } = require('./countryRole')
+const R = require('ramda')
 
-module.exports.allowedToChangeRoles = (countryIso, userInfo) =>  {
-  const role = roleForCountry(countryIso, userInfo)
-  if (role.role === 'ADMINISTRATOR') return ['REVIEWER', 'NATIONAL_CORRESPONDENT', 'COLLABORATOR']
-  if (role.role === 'NATIONAL_CORRESPONDENT') return ['COLLABORATOR']
+const {
+  isAdministrator,
+  isNationalCorrespondent,
+  nationalCorrespondent,
+  reviewer,
+  collaborator
+} = require('./countryRole')
+
+const rolesAllowedToChange = (countryIso, userInfo) => {
+
+  if (isAdministrator(userInfo))
+    return [reviewer.role, nationalCorrespondent.role, collaborator.role]
+
+  if (isNationalCorrespondent(countryIso, userInfo))
+    return [collaborator.role]
+
   return []
+}
+
+const isAllowedToChangeRole = (countryIso, userInfo) => R.not(R.isEmpty(rolesAllowedToChange(countryIso, userInfo)))
+
+module.exports = {
+  rolesAllowedToChange,
+  isAllowedToChangeRole
 }
