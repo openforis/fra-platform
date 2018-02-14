@@ -162,7 +162,6 @@ const ExtentOfForest = (props) => {
       <Icon className="icon-sub icon-white" name="small-add"/>
       {i18n.t('nationalDataPoint.addNationalDataPoint')}
     </Link>
-    <DefinitionLink document="faq" anchor="1a" title={i18n.t('extentOfForest.whatIsThis')} lang={i18n.language}/>
     <hr/>
     {
       hasOdps(props.fra)
