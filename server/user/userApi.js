@@ -55,21 +55,18 @@ module.exports.init = app => {
       if (userToBeChangedOrAdded.id) {
         // update existing user
         await db.transaction(userRepository.updateUser, [req.user, countryIso, userToBeChangedOrAdded])
-      } else if (userToBeChangedOrAdded.invitationUuid) {
-        const invitationUuid = await db.transaction(userRepository.updateInvitation, [req.user, countryIso, userToBeChangedOrAdded])
-        await sendInvitation(countryIso, {
-          ...userToBeChangedOrAdded,
-          invitationUuid
-        }, req.user, url)
-
       } else {
-        const invitationUuid = await db.transaction(userRepository.addInvitation, [req.user, countryIso, userToBeChangedOrAdded])
+        const persistFunction = userToBeChangedOrAdded.invitationUuid
+          ? userRepository.updateInvitation
+          : userRepository.addInvitation
+        const invitationUuid = await db.transaction(persistFunction, [req.user, countryIso, userToBeChangedOrAdded])
         await sendInvitation(countryIso, {
           ...userToBeChangedOrAdded,
           invitationUuid
         }, req.user, url)
 
       }
+
       sendOk(res)
     } catch (err) {
       sendErr(res, err)
