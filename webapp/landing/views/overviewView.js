@@ -104,6 +104,8 @@ const Logos = ({i18n}) => <div>
   <div className="landing__logos-container">
     <div style={{paddingRight:'14px'}}>{i18n.t('landing.overview.withFinancialSupportOf')}</div>
     <img src="/img/ec_logo.png" height="50" />
+    <img src="/img/mfafi_logo.png" height="80" />
+    <img src="/img/mmmfi_logo.png" height="50" />
   </div>
 </div>
 
