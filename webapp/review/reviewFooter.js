@@ -80,12 +80,14 @@ class FraReviewFooter extends React.Component {
           {
             this.state.showPicker
               ? <EmojiPicker
-                onClick={emoji => this.setState({
-                  ...this.state,
-                  showPicker: false,
-                  message: R.insert(this.state.messageCursorPosition, emoji, this.state.message).join(''),
-                  messageCursorPosition: this.state.messageCursorPosition + emoji.length
-                })}
+                onClick={emoji => {
+                  this.setState({
+                    ...this.state,
+                    showPicker: false,
+                    message: R.insert(this.state.messageCursorPosition, emoji, this.state.message).join(''),
+                    messageCursorPosition: this.state.messageCursorPosition + emoji.length
+                  })
+                }}
                 style={this.state.pickerStyle}
                 i18n={i18n}
               />

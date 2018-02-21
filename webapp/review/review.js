@@ -2,10 +2,12 @@ import './style.less'
 import * as R from 'ramda'
 import React from 'react'
 import { connect } from 'react-redux'
+
 import { postComment, retrieveComments, closeCommentThread, markCommentAsDeleted, markIssueAsResolved } from './actions'
-import { parse, differenceInMonths, differenceInWeeks, differenceInDays, differenceInHours, format } from 'date-fns'
-import {getRelativeDate} from '../utils/relativeDate'
+import { getRelativeDate } from '../utils/relativeDate'
 import { isReviewer } from '../../common/countryRole'
+
+import FraReviewFooter from './reviewFooter'
 import VerticallyGrowingTextField from '../reusableUiComponents/verticallyGrowingTextField'
 import Icon from '../reusableUiComponents/icon'
 
@@ -13,56 +15,58 @@ const mapIndexed = R.addIndex(R.map)
 
 class AddComment extends React.Component {
 
-  constructor() {
+  constructor () {
     super()
-    this.state = { message: '' }
+
+    this.handleAddComment = this.handleAddComment.bind(this)
   }
 
-  handleInputChange (evt) {
-    this.setState({ message: evt.target.value })
-  }
+  handleAddComment (msg) {
+    const {postComment, issueId, countryIso, section, target} = this.props
 
-  handleKeyDown (evt) {
-    if (evt.keyCode === 13 && evt.metaKey) {
-      this.handleAddComment(this.props.issueId, this.props.countryIso, this.props.section, this.props.target, null, this.state.message)
-    }
-  }
-
-  handleAddComment (issueId, countryIso, section, target, userId, msg) {
-    if (!R.isEmpty(R.trim(msg))) {
-      this.props.postComment(issueId, countryIso, section, target, null, msg)
-      this.setState({ message: '' })
-    }
+    postComment(issueId, countryIso, section, target, null, msg)
   }
 
   render () {
-    const canAddComment = () => this.props.issueStatus !== 'resolved' || isReviewer(this.props.countryIso, this.props.userInfo)
-    return <div className="fra-review__footer">
-      <div className="fra-review__footer-input-wrapper">
-        <VerticallyGrowingTextField
-              disabled={!canAddComment()}
-              onChange={(evt) => this.handleInputChange(evt)}
-              onKeyDown={(evt) => this.handleKeyDown(evt)}
-              value={this.state.message}
-              className="fra-review__footer-input"
-              placeholder={`${canAddComment() ? this.props.i18n.t('review.writeComment') : this.props.i18n.t('review.commentingClosed')}`}/>
-      </div>
-      <div className="fra-review__footer-buttons">
-        <button className="fra-review__footer-add-btn btn-s btn-primary"
-                disabled={!canAddComment() || this.state.message === ''}
-                onClick={() => this.handleAddComment(this.props.issueId, this.props.countryIso, this.props.section, this.props.target, null, this.state.message)}>
-          {this.props.i18n.t('review.add')}
-        </button>
-        <button className="btn-s btn-secondary"
-                disabled={!canAddComment()}
-                onClick={() => this.props.onCancel()}>
-          {this.props.i18n.t('review.cancel')}
-        </button>
-      </div>
-    </div>
+
+    const {i18n, countryIso, userInfo, issueStatus, onCancel} = this.props
+
+    const canAddComment = () => issueStatus !== 'resolved' || isReviewer(countryIso, userInfo)
+
+    return <FraReviewFooter
+      onSubmit={this.handleAddComment}
+      onCancel={() => onCancel()}
+      placeholder={`${canAddComment() ? this.props.i18n.t('review.writeComment') : this.props.i18n.t('review.commentingClosed')}`}
+      i18n={i18n}
+      submitBtnLabel={i18n.t('review.add')}
+      cancelBtnLabel={i18n.t('review.cancel')}
+    />
+
+    // return <div className="fra-review__footer">
+    //   <div className="fra-review__footer-input-wrapper">
+    //     <VerticallyGrowingTextField
+    //       disabled={!canAddComment()}
+    //       onChange={(evt) => this.handleInputChange(evt)}
+    //       onKeyDown={(evt) => this.handleKeyDown(evt)}
+    //       value={this.state.message}
+    //       className="fra-review__footer-input"
+    //       placeholder={`${canAddComment() ? this.props.i18n.t('review.writeComment') : this.props.i18n.t('review.commentingClosed')}`}/>
+    //   </div>
+    //   <div className="fra-review__footer-buttons">
+    //     <button className="fra-review__footer-add-btn btn-s btn-primary"
+    //             disabled={!canAddComment() || this.state.message === ''}
+    //             onClick={() => this.handleAddComment(this.props.issueId, this.props.countryIso, this.props.section, this.props.target, null, this.state.message)}>
+    //       {this.props.i18n.t('review.add')}
+    //     </button>
+    //     <button className="btn-s btn-secondary"
+    //             disabled={!canAddComment()}
+    //             onClick={() => this.props.onCancel()}>
+    //       {this.props.i18n.t('review.cancel')}
+    //     </button>
+    //   </div>
+    // </div>
   }
 }
-
 
 class CommentThread extends React.Component {
 
@@ -101,31 +105,32 @@ class CommentThread extends React.Component {
         R.isNil(comments)
           ? null
           : R.not(R.isEmpty(comments))
-            ? mapIndexed((c, i) =>
+          ? mapIndexed((c, i) =>
               <div key={i} className={`fra-review__comment ${ isCommentDeleted(c) ? 'fra-review__comment-deleted' : ''}`}>
                 <div className="fra-review__comment-header">
-                  <img className="fra-review__comment-avatar" src={`https://www.gravatar.com/avatar/${c.hash}?default=mm`}/>
+                  <img className="fra-review__comment-avatar"
+                       src={`https://www.gravatar.com/avatar/${c.hash}?default=mm`}/>
                   <div className="fra-review__comment-author-section">
                     <div className={`fra-review__comment-author ${isThisMe(c) ? 'author-me' : ''}`}>
                       {c.username}
                     </div>
                     {
                       isThisMe(c) && !isCommentDeleted(c) && !isCommentStatusResolved(c) && issueStatus !== 'resolved'
-                      ? <button
+                        ? <button
                           className="btn fra-review__comment-delete-button"
                           onClick={() => window.confirm(i18n.t('review.confirmDelete'))
                             ? markCommentAsDeleted(countryIso, section, target, c.commentId)
                             : null
-                        }>
+                          }>
                           {i18n.t('review.delete')}
                         </button>
-                      : null
+                        : null
                     }
                     <div className="fra-review__comment-time">
                       {
                         isCommentDeleted(c)
-                        ? i18n.t('review.commentDeleted')
-                        : (getRelativeDate(c.addedTime, i18n) || i18n.t('time.aMomentAgo'))
+                          ? i18n.t('review.commentDeleted')
+                          : (getRelativeDate(c.addedTime, i18n) || i18n.t('time.aMomentAgo'))
                       }
                     </div>
                   </div>
@@ -133,16 +138,16 @@ class CommentThread extends React.Component {
                 <div className="fra-review__comment-text">
                   {
                     isCommentStatusResolved(c)
-                    ? i18n.t('review.commentMarkedAsResolved')
-                    : c.message
+                      ? i18n.t('review.commentMarkedAsResolved')
+                      : c.message
                   }
                 </div>
               </div>,
-              comments)
-            : <div className='fra-review__comment-placeholder'>
-              <Icon className="fra-review__comment-placeholder-icon icon-24" name="chat-46"/>
-              <span className="fra-review__comment-placeholder-text">{i18n.t('review.noComments')}</span>
-            </div>
+            comments)
+          : <div className='fra-review__comment-placeholder'>
+            <Icon className="fra-review__comment-placeholder-icon icon-24" name="chat-46"/>
+            <span className="fra-review__comment-placeholder-text">{i18n.t('review.noComments')}</span>
+          </div>
       }
     </div>
 
@@ -188,7 +193,7 @@ class ReviewPanel extends React.Component {
     const i18n = this.props.i18n
 
     return isActive
-    ? <div className="fra-review__container">
+      ? <div className="fra-review__container">
         <div className="fra-review">
           <ReviewHeader
             title={title}
@@ -226,7 +231,7 @@ class ReviewPanel extends React.Component {
           />
         </div>
       </div>
-    : null
+      : null
   }
 }
 

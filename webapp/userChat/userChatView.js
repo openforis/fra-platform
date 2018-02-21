@@ -96,7 +96,6 @@ class UsersChatAddMessage extends React.Component {
     const {i18n, closeChat} = this.props
 
     return <FraReviewFooter
-      ref="fraReviewEmojiInput"
       onSubmit={this.handleSendMessage}
       onCancel={() => closeChat()}
       placeholder={i18n.t('userChat.writeMessage')}
