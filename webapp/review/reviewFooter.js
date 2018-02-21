@@ -71,6 +71,8 @@ class FraReviewFooter extends React.Component {
   render () {
     const {placeholder, i18n, submitBtnLabel, cancelBtnLabel, onCancel} = this.props
 
+    const submitBtnDisabled = R.isEmpty(this.state.message)
+
     return <div className="fra-review__footer">
 
       <div className="fra-review__footer-input-wrapper">
@@ -109,7 +111,8 @@ class FraReviewFooter extends React.Component {
 
       <div className="fra-review__footer-buttons">
         <button className="fra-review__footer-add-btn btn-s btn-primary"
-                onClick={() => this.onSubmit()}>
+                onClick={() => this.onSubmit()}
+                disabled={submitBtnDisabled}>
           {submitBtnLabel}
         </button>
         <button className="btn-s btn-secondary"
