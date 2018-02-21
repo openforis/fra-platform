@@ -151,8 +151,8 @@ describe('estimationEngine', () => {
       }
       )
     assert.deepEqual(
-      [ { forestArea: '310.00', otherWoodedLand: '205.00', year: 1990 },
-        { forestArea: '410.00', otherWoodedLand: '255.00', year: 2000 },
+      [ { forestArea: '690.00', otherWoodedLand: '395.00', year: 1990 },
+        { forestArea: '590.00', otherWoodedLand: '345.00', year: 2000 },
         { forestArea: '497.78', otherWoodedLand: '304.89', year: 2010 },
         { forestArea: '486.67', otherWoodedLand: '329.33', year: 2015 },
         { forestArea: '484.45', otherWoodedLand: '334.22', year: 2016 },
