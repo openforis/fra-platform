@@ -5,6 +5,7 @@ import { totalSum } from '../../traditionalTable/aggregate'
 import { forestAreaSameAsExtentOfForestValidator } from '../../traditionalTable/validators'
 import { getForestAreaForYear } from '../extentOfForest/extentOfForestHelper'
 import { Link } from '../../reusableUiComponents/link'
+import { sub } from '../../../common/bignumberUtils'
 
 const mapIndexed = R.addIndex(R.map)
 
@@ -19,15 +20,17 @@ const totalForestArea = (tableData, column) => totalSum(tableData, column, sumRo
 
 const thead = i18n =>
   <thead>
-    <tr>
-      <th className="fra-table__header-cell-left" rowSpan="2">{i18n.t('designatedManagementObjective.categoryHeader')}</th>
-      <th className="fra-table__header-cell" colSpan={years.length}>{i18n.t('designatedManagementObjective.areaUnitLabel')}</th>
-    </tr>
-    <tr>
-      {
-        R.map(year => <th key={year} className="fra-table__header-cell">{year}</th>, years)
-      }
-    </tr>
+  <tr>
+    <th className="fra-table__header-cell-left"
+        rowSpan="2">{i18n.t('designatedManagementObjective.categoryHeader')}</th>
+    <th className="fra-table__header-cell"
+        colSpan={years.length}>{i18n.t('designatedManagementObjective.areaUnitLabel')}</th>
+  </tr>
+  <tr>
+    {
+      R.map(year => <th key={year} className="fra-table__header-cell">{year}</th>, years)
+    }
+  </tr>
   </thead>
 
 export const primaryDesignatedManagementObjectiveTableSpec = (i18n, extentOfForest, countryIso) => ({
@@ -40,7 +43,34 @@ export const primaryDesignatedManagementObjectiveTableSpec = (i18n, extentOfFore
     createDmoInputRow(i18n.t('designatedManagementObjective.socialServices') + ' (d)'),
     createDmoInputRow(i18n.t('designatedManagementObjective.multipleUse') + ' (e)'),
     createDmoInputRow(i18n.t('designatedManagementObjective.other') + ' (f)'),
-    createDmoInputRow(i18n.t('designatedManagementObjective.unknown') + ' (g)'),
+    [
+      {
+        type: 'readOnly',
+        jsx: <th className="fra-table__category-cell">{`${i18n.t('designatedManagementObjective.unknown')} (g)`}</th>
+      },
+      ...mapIndexed((year, i) =>
+        ({
+          type: 'calculated',
+          calculateValue: props => {
+
+            const getValue = (row, col) => R.pipe(
+              R.prop(row),
+              R.prop(col),
+              R.defaultTo(0)
+            )(props.tableData)
+
+            const rows = R.range(0, 6)
+            const value = R.reduce(
+              (value, row) => sub(value, getValue(row, i + 1)),
+              getForestAreaForYear(extentOfForest, year),
+              rows
+            )
+
+            return value
+          },
+          valueFormatter: formatDecimal
+        }), years)
+    ],
     [
       {
         type: 'readOnly',
@@ -52,7 +82,7 @@ export const primaryDesignatedManagementObjectiveTableSpec = (i18n, extentOfFore
       ...mapIndexed((year, i) =>
         ({
           type: 'calculated',
-          calculateValue: props => totalForestArea(props.tableData, i+1),
+          calculateValue: props => totalForestArea(props.tableData, i + 1),
           valueFormatter: formatDecimal,
           validator: forestAreaSameAsExtentOfForestValidator(year, extentOfForest, sumRows)
         }), years)
