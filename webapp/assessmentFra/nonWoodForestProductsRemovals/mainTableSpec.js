@@ -96,7 +96,7 @@ export default i18n => ({
     <th className="fra-table__header-cell">{i18n.t('nonWoodForestProductsRemovals.quantity')}</th>
     <th className="fra-table__header-cell">{i18n.t('nonWoodForestProductsRemovals.unit')}</th>
     <th className="fra-table__header-cell">{i18n.t('nonWoodForestProductsRemovals.value')}</th>
-    <th className="fra-table__header-cell">{i18n.t('nonWoodForestProductsRemovals.category')}</th>
+    <th className="fra-table__header-cell fra-table__nwfp-category-cell">{i18n.t('nonWoodForestProductsRemovals.category')}</th>
   </tr>
   </thead>,
   rows: [
