@@ -28,7 +28,6 @@ class AddComment extends React.Component {
   }
 
   render () {
-
     const {i18n, countryIso, userInfo, issueStatus, onCancel} = this.props
 
     const canAddComment = () => issueStatus !== 'resolved' || isReviewer(countryIso, userInfo)
@@ -40,31 +39,9 @@ class AddComment extends React.Component {
       i18n={i18n}
       submitBtnLabel={i18n.t('review.add')}
       cancelBtnLabel={i18n.t('review.cancel')}
+      submitAllowed={canAddComment()}
     />
 
-    // return <div className="fra-review__footer">
-    //   <div className="fra-review__footer-input-wrapper">
-    //     <VerticallyGrowingTextField
-    //       disabled={!canAddComment()}
-    //       onChange={(evt) => this.handleInputChange(evt)}
-    //       onKeyDown={(evt) => this.handleKeyDown(evt)}
-    //       value={this.state.message}
-    //       className="fra-review__footer-input"
-    //       placeholder={`${canAddComment() ? this.props.i18n.t('review.writeComment') : this.props.i18n.t('review.commentingClosed')}`}/>
-    //   </div>
-    //   <div className="fra-review__footer-buttons">
-    //     <button className="fra-review__footer-add-btn btn-s btn-primary"
-    //             disabled={!canAddComment() || this.state.message === ''}
-    //             onClick={() => this.handleAddComment(this.props.issueId, this.props.countryIso, this.props.section, this.props.target, null, this.state.message)}>
-    //       {this.props.i18n.t('review.add')}
-    //     </button>
-    //     <button className="btn-s btn-secondary"
-    //             disabled={!canAddComment()}
-    //             onClick={() => this.props.onCancel()}>
-    //       {this.props.i18n.t('review.cancel')}
-    //     </button>
-    //   </div>
-    // </div>
   }
 }
 

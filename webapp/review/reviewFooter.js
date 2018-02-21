@@ -69,9 +69,16 @@ class FraReviewFooter extends React.Component {
   }
 
   render () {
-    const {placeholder, i18n, submitBtnLabel, cancelBtnLabel, onCancel} = this.props
+    const {
+      placeholder,
+      i18n,
+      submitBtnLabel,
+      cancelBtnLabel,
+      onCancel,
+      submitAllowed = true
+    } = this.props
 
-    const submitBtnDisabled = R.isEmpty(this.state.message)
+    const submitBtnDisabled = R.isEmpty(this.state.message) || !submitAllowed
 
     return <div className="fra-review__footer">
 
@@ -104,11 +111,16 @@ class FraReviewFooter extends React.Component {
           onClick={evt => this.registerInputPosition(evt)}
           value={this.state.message}
           className="fra-review__footer-input"
-          placeholder={placeholder}/>
+          placeholder={placeholder}
+          disabled={!submitAllowed}/>
 
-        <div ref="emojiPickerToggleButton">
-          <EmojiPickerController onClick={() => this.showPicker()}/>
-        </div>
+        {
+          submitAllowed
+            ? <div ref="emojiPickerToggleButton">
+              <EmojiPickerController onClick={() => this.showPicker()}/>
+            </div>
+            : null
+        }
       </div>
 
       <div className="fra-review__footer-buttons">
