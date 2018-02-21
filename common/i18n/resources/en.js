@@ -796,5 +796,23 @@ The FRA team
     forestAreaExceedsExtentOfForest: 'Exceeds Forest area (1a)',
     otherLandExceedsExtentOfForest: 'Exceeds Other land area (1a)',
     valueMustBePositive: 'Value should be greater than zero'
+  },
+
+  emoji: {
+    picker: {
+      search: 'Search',
+      categories: {
+        search: 'Search Results',
+        recent: 'Frequently Used',
+        people: 'Smileys & People',
+        nature: 'Animals & Nature',
+        foods: 'Food & Drink',
+        activity: 'Activity',
+        places: 'Travel & Places',
+        objects: 'Objects',
+        symbols: 'Symbols',
+        flags: 'Flags',
+      }
+    }
   }
 }
