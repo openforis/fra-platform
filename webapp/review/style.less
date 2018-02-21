@@ -32,6 +32,7 @@
     }
   }
 }
+
 .fra-review__issue-status-opened {
   .fra-review__issue-status-base;
 
@@ -133,6 +134,14 @@
   border-radius: 2px;
   border: @ui-thin-border;
   overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .vgtf__container {
+    flex-grow: 1;
+  }
+
 }
 
 .fra-review__footer-input {

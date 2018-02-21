@@ -54,6 +54,7 @@
     "db-migrate": "^0.10.0-beta.20",
     "db-migrate-pg": "^0.1.11",
     "dotenv": "^4.0.0",
+    "emoji-mart-lite": "^0.4.10",
     "express": "^4.15.2",
     "express-fileupload": "^0.3.0",
     "express-session": "^1.15.3",

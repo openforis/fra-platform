@@ -2,8 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
 
+import FraReviewFooter from '../review/reviewFooter'
 import Icon from '../reusableUiComponents/icon'
-import VerticallyGrowingTextField from '../reusableUiComponents/verticallyGrowingTextField'
 
 import { closeChat, sendMessage } from './actions'
 import { getRelativeDate } from '../utils/relativeDate'
@@ -82,55 +82,29 @@ class UsersChatAddMessage extends React.Component {
 
   constructor () {
     super()
-    this.state = {message: ''}
+    this.handleSendMessage = this.handleSendMessage.bind(this)
   }
 
-  handleInputChange (evt) {
-    this.setState({message: evt.target.value})
-  }
+  handleSendMessage (msg) {
+    const {countryIso, chat, sendMessage} = this.props
+    const {sessionUser, recipientUser} = chat
 
-  handleKeyDown (evt) {
-    if (evt.keyCode === 13 && evt.metaKey) {
-      this.handleSendMessage(this.state.message)
-    }
-  }
-
-  handleSendMessage () {
-    const msg = R.prop('message', this.state)
-    if (!R.isEmpty(R.trim(msg))) {
-
-      const {countryIso, chat, sendMessage} = this.props
-      const {sessionUser, recipientUser} = chat
-
-      sendMessage(countryIso, sessionUser.id, recipientUser.id, msg)
-
-      this.setState({message: ''})
-    }
+    sendMessage(countryIso, sessionUser.id, recipientUser.id, msg)
   }
 
   render () {
     const {i18n, closeChat} = this.props
 
-    return <div className="fra-review__footer">
-      <div className="fra-review__footer-input-wrapper">
-        <VerticallyGrowingTextField
-          onChange={evt => this.handleInputChange(evt)}
-          onKeyDown={evt => this.handleKeyDown(evt)}
-          value={this.state.message}
-          className="fra-review__footer-input"
-          placeholder={i18n.t('userChat.writeMessage')}/>
-      </div>
-      <div className="fra-review__footer-buttons">
-        <button className="fra-review__footer-add-btn btn-s btn-primary"
-                onClick={() => this.handleSendMessage()}>
-          {this.props.i18n.t('userChat.send')}
-        </button>
-        <button className="btn-s btn-secondary"
-                onClick={() => closeChat()}>
-          {i18n.t('userChat.cancel')}
-        </button>
-      </div>
-    </div>
+    return <FraReviewFooter
+      ref="fraReviewEmojiInput"
+      onSubmit={this.handleSendMessage}
+      onCancel={() => closeChat()}
+      placeholder={i18n.t('userChat.writeMessage')}
+      i18n={i18n}
+      submitBtnLabel={i18n.t('userChat.send')}
+      cancelBtnLabel={i18n.t('userChat.cancel')}
+    />
+
   }
 }
 
