@@ -114,8 +114,10 @@ class OverviewView extends React.Component {
   }
 
   componentWillReceiveProps (next) {
-    if (!R.equals(this.props.match.params.countryIso, next.match.params.countryIso))
+    if (!R.equals(this.props.match.params.countryIso, next.match.params.countryIso)){
+      this.props.closeChat()
       this.getCountryOverview(next.match.params.countryIso)
+    }
   }
 
   componentWillUnmount () {
