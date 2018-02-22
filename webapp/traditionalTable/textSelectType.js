@@ -10,7 +10,8 @@ const optionLabel = (option, i18n, localizationPrefix) => {
   return isHeadingOption(option) ? `--- ${localized} ---` : localized
 }
 
-const TextSelectType = ({countryIso,
+const TextSelectType = ({
+                          countryIso,
                           tableSpec,
                           tableData,
                           rowIdx,
@@ -18,28 +19,31 @@ const TextSelectType = ({countryIso,
                           tableValueChanged,
                           options,
                           localizationPrefix,
-                          i18n}) => {
+                          i18n
+                        }) => {
   const currentValue = tableData[rowIdx][colIdx]
   return <td className="fra-table__cell">
-    <select
-      className="fra-table__select"
-      value={currentValue || 'notSelected'}
-      onChange={
-        (evt) => {
-          tableValueChanged(countryIso, tableSpec, rowIdx, colIdx, evt.target.value)
-        }
-      }>
-      {
-        R.map(option =>
-            <option
-              value={option.name}
-              disabled={isHeadingOption(option)}
-              hidden={option.hidden ? true : false}
-              key={option.name}>{optionLabel(option, i18n, localizationPrefix)}
+    <div className="fra-table__select-container">
+      <select
+        className="fra-table__select"
+        value={currentValue || 'notSelected'}
+        onChange={
+          (evt) => {
+            tableValueChanged(countryIso, tableSpec, rowIdx, colIdx, evt.target.value)
+          }
+        }>
+        {
+          R.map(option =>
+              <option
+                value={option.name}
+                disabled={isHeadingOption(option)}
+                hidden={option.hidden ? true : false}
+                key={option.name}>{optionLabel(option, i18n, localizationPrefix)}
               </option>
-          ,[notSelectedOption, ...options])
-      }
-    </select>
+            , [notSelectedOption, ...options])
+        }
+      </select>
+    </div>
   </td>
 }
 

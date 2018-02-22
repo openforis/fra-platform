@@ -113,7 +113,7 @@ const annualChangeExtrapolation = (year, values, odpValues, field, {changeRates}
     const years = nextOdpYear - year
     const ratePast = R.path([field, 'ratePast'], changeRates)
     return ratePast
-      ? add(nextOdp[field], mul(ratePast, years))
+      ? add(nextOdp[field], mul(ratePast * -1, years))
       : null
   } else {
     return null

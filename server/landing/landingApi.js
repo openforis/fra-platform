@@ -22,6 +22,8 @@ const getUsersOverview = async (sessionUserId, dbUsers) => {
   return users
 }
 
+const sdgContactsFileName = 'NSO_SDG_Contact_Persons_20171213.xlsx'
+
 module.exports.init = app => {
 
   app.get('/landing/:countryIso/overview', async (req, res) => {
@@ -35,6 +37,18 @@ module.exports.init = app => {
       const users = await getUsersOverview(userId, dbUsers)
 
       res.json({overview: {users}})
+    } catch (err) {
+      sendErr(res, err)
+    }
+  })
+
+  app.get('/landing/sdgFocalPoints', async (req, res) => {
+    try {
+      checkCountryAccessFromReqParams(req)
+
+      const filePath = `${__dirname}/${sdgContactsFileName}`
+      res.download(filePath, 'NSO_SDG_Contact_Persons.xlsx')
+
     } catch (err) {
       sendErr(res, err)
     }
