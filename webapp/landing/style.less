@@ -245,6 +245,38 @@
   margin-top: 20px;
 }
 
+// Links
+.landing__links-container {
+  .landing__page-container;
+  width: 100%;
+  padding-top: 12px;
+}
+
+.landing__link-container {
+  padding: 20px 40px;
+  border: 1px solid #eeeeee;
+  background-color: #f8f8f8;
+  margin: 12px 1%;
+  width: 31%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  a {
+    background-color: transparent;
+    font-size: @font-s;
+    line-height: 20px;
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.1s ease-out;
+    font-weight: bold;
+    color: @text-mute;
+    &:hover {
+      color: @ui-accent;
+    }
+  }
+}
+
 // Table
 
 .landing__table {
