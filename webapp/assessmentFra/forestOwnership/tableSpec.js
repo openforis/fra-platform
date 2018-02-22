@@ -5,6 +5,7 @@ import { totalSum } from '../../traditionalTable/aggregate'
 import { subCategoryValidator, forestAreaSameAsExtentOfForestValidator } from '../../traditionalTable/validators'
 import { getForestAreaForYear } from '../extentOfForest/extentOfForestHelper'
 import { Link } from '../../reusableUiComponents/link'
+import { sub } from '../../../common/bignumberUtils'
 
 const mapIndexed = R.addIndex(R.map)
 
@@ -40,7 +41,34 @@ export default (i18n, extentOfForest, countryIso) => ({
     createInputRow(i18n.t('forestOwnership.ofWhichPrivateBusinesses'), 'fra-table__subcategory-cell', privateOwnershipValidator),
     createInputRow(i18n.t('forestOwnership.ofWhichCommunities'), 'fra-table__subcategory-cell', privateOwnershipValidator),
     createInputRow(i18n.t('forestOwnership.publicOwnership') + ' (b)'),
-    createInputRow(i18n.t('forestOwnership.otherOrUnknown') + ' (c)'),
+    [
+      {
+        type: 'readOnly',
+        jsx: <th className="fra-table__category-cell">{`${i18n.t('forestOwnership.otherOrUnknown')} (c)`}</th>
+      },
+      ...mapIndexed((year, i) =>
+        ({
+          type: 'calculated',
+          calculateValue: props => {
+
+            const getValue = (row, col) => R.pipe(
+              R.prop(row),
+              R.prop(col),
+              R.defaultTo(0)
+            )(props.tableData)
+
+            const rows = [0,4]
+            const value = R.reduce(
+              (value, row) => sub(value, getValue(row, i + 1)),
+              getForestAreaForYear(extentOfForest, year),
+              rows
+            )
+
+            return value
+          },
+          valueFormatter: formatDecimal
+        }), years)
+    ],
     [
       {
         type: 'readOnly',

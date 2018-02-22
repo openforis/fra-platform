@@ -1,5 +1,6 @@
 @import (reference) "./config";
 @import (reference) "./form";
+@import (reference) "./inputMixins";
 
 .fra-table__container {
   position: relative;
@@ -120,6 +121,9 @@
 }
 
 // Select cell
+.fra-table__select-container {
+  .mixin-input-container;
+}
 
 .fra-table__select {
   .mixin-select-base(10px, none, 0);
@@ -178,8 +182,8 @@
 
   & when (@cell=true) {
     white-space: nowrap;
-    height: 1px;
     min-width: 72px;
+    position: relative;
   }
 }
 

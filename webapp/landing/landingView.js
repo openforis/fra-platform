@@ -12,6 +12,7 @@ import OverviewView from './views/overviewView'
 import AboutView from './views/aboutView'
 import RecentActivityView from './views/recentActivityView'
 import UserManagementView from './views/userManagement/userManagementView'
+import LinksView from './views/linksView'
 
 class LandingView extends React.Component {
 
@@ -34,7 +35,8 @@ class LandingView extends React.Component {
     const defaultSections = [
       {name: 'overview', component: OverviewView},
       {name: 'recentActivity', component: RecentActivityView},
-      {name: 'about', component: AboutView}
+      {name: 'about', component: AboutView},
+      {name: 'links', component: LinksView}
     ]
 
     return isAllowedToChangeRole(countryIso, userInfo)
