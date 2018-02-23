@@ -61,6 +61,7 @@ class EditUserForm extends React.Component {
               accept="image/*"
               style={{display: 'none'}}
               onChange={() => {
+                console.log(this.refs.profilePictureFile.files[0].size)
                 //preview image
                 const reader = new FileReader()
                 reader.onload = e => this.refs.profilePicture.src = e.target.result
@@ -97,6 +98,22 @@ class EditUserForm extends React.Component {
             {i18n.t('editUser.role')}
           </div>
           <div className="edit-user__form-field-roles">
+          </div>
+        </div>
+
+        <div className="edit-user__form-item-buttons">
+          <div className="edit-user__form-label"></div>
+          <div className="edit-user__form-field-buttons">
+            <button className="btn btn-secondary"
+                    onClick={() => {
+                      this.setState({user: this.props.user})
+                      window.history.back()
+                    }}>
+              {i18n.t('editUser.cancel')}
+            </button>
+            <button className="btn btn-primary">
+              {i18n.t('editUser.done')}
+            </button>
           </div>
         </div>
 

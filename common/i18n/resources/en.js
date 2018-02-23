@@ -830,7 +830,8 @@ The FRA team
     loginEmail: 'Login',
     institution:'Institution',
     position:'Position',
-    done: 'Done'
+    done: 'Done',
+    cancel: 'Cancel'
 
   }
 }
