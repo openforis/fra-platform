@@ -9,18 +9,16 @@ import { isAdministrator } from '../../common/countryRole'
 
 class EditUserView extends React.Component {
 
-  canEdit () {
-    //only admin or him/her self can edit the user
-    const {userInfo, userId} = this.props
-    return isAdministrator(userInfo) || userInfo.id === userId
-  }
-
   render () {
-    const {userId} = this.props
-    return this.canEdit()
+    const {userInfo, userId, countryIso} = this.props
+
+    //only admin or him/her self can edit the user
+    const canEdit = isAdministrator(userInfo) || userInfo.id === userId
+
+    return canEdit
       ? <LoggedInPageTemplate>
         <div className="fra-view__content">
-          <EditUserForm userId={userId}/>
+          <EditUserForm userId={userId} countryIso={countryIso} />
         </div>
       </LoggedInPageTemplate>
       : <NotFound/>

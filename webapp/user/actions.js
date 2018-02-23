@@ -2,17 +2,18 @@ import axios from 'axios'
 import { applicationError } from '../applicationError/actions'
 import { createI18nInstance } from '../../common/i18n/i18nFactory'
 
-export const userInfo = 'login/userInfo'
-export const switchLanguageAction = 'user/switchLanguage'
+export const userLoggedInUserLoaded = 'user/loggedInUser/loaded'
+export const userLoggedInUserSwitchLanguage = 'user/loggedInUser/switchLanguage'
 
-// logged in used action creators
+// logged in user action creators
 
 export const getLoggedinUserInfo = () => dispatch => {
   axios.get(`/api/loggedInUser/`)
     .then(resp => {
+      const userInfo = resp.data.userInfo
       createI18nInstance(
-        resp.data.userInfo.lang,
-        i18n => dispatch({type: userInfo, userInfo: resp.data.userInfo, i18n})
+        userInfo.lang,
+        i18n => dispatch({type: userLoggedInUserLoaded, userInfo, i18n})
       )
     })
     .catch((err) => {
@@ -27,7 +28,7 @@ export const switchLanguage = lang => dispatch => {
 
   createI18nInstance(
     lang,
-    i18n => dispatch({type: switchLanguageAction, i18n})
+    i18n => dispatch({type: userLoggedInUserSwitchLanguage, i18n})
   )
 }
 
@@ -39,4 +40,21 @@ export const logout = () => dispatch => {
     .catch((err) => {
       dispatch(applicationError(err))
     })
+}
+
+//editUser action creators
+
+export const userEditUserLoaded = 'user/editUser/loaded'
+
+export const loadUserToEdit = (countryIso, userId) => dispatch => {
+  if (Number(userId) > 0) {
+    axios
+      .get(`/api/users/${countryIso}/user/edit/${userId}`)
+      .then(resp => {
+        const user = resp.data.user
+        const countries = resp.data.countries
+        dispatch({type: userEditUserLoaded, user, countries})
+      })
+      .catch(err => dispatch(applicationError(err)))
+  }
 }

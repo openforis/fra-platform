@@ -2,8 +2,8 @@
 
 .edit-user__form-item {
   display: flex;
-  padding: 8px;
-  height: 50px;
+  padding: 10px;
+  height: 60px;
 }
 
 .edit-user__form-label {
@@ -25,6 +25,11 @@
   display: flex;
 }
 
+.edit-user__form-field-disabled {
+  .edit-user__form-field;
+  color: @text-disabled;
+}
+
 .edit-user__form-item-picture {
   .edit-user__form-item;
   height: auto;
@@ -34,7 +39,7 @@
     justify-content: center;
   }
 
-  .btn{
+  .btn {
     position: absolute;
     right: 5px;
     bottom: 5px;
