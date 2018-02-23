@@ -5,6 +5,8 @@ import { createI18nInstance } from '../../common/i18n/i18nFactory'
 export const userInfo = 'login/userInfo'
 export const switchLanguageAction = 'user/switchLanguage'
 
+// logged in used action creators
+
 export const getLoggedinUserInfo = () => dispatch => {
   axios.get(`/api/loggedInUser/`)
     .then(resp => {

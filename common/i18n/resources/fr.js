@@ -216,7 +216,7 @@ L'équipe de FRA
   },
 
   header: {
-    profilePicture: 'Modifier photo profil',
+    editProfile: 'Modifier profil',
     logout: 'Déconnexion',
     hideSidebar: 'Masquer barre latérale',
     showSidebar: 'Montrer barre latérale',
