@@ -89,4 +89,18 @@ module.exports.init = app => {
       sendErr(res, err)
     }
   })
+
+  app.get('/users/:countryIso/user/edit/:userId', async (req, res) => {
+    try {
+      checkCountryAccessFromReqParams(req)
+
+      const user = await userRepository.findUserById(req.params.userId)
+
+      res.json({user})
+
+    } catch (err) {
+      sendErr(res, err)
+    }
+  })
+
 }

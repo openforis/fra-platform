@@ -6,9 +6,9 @@ const auditRepository = require('./../audit/auditRepository')
 const { AccessControlException } = require('../utils/accessControl')
 
 const findUserById = async (userId, client = db) => {
-  const res = await client.query('SELECT id, name, email, lang FROM fra_user WHERE id = $1', [userId])
+  const res = await client.query('SELECT id, name, email, login_email, lang FROM fra_user WHERE id = $1', [userId])
   if (res.rows.length < 1) return null
-  const resultUser = res.rows[0]
+  const resultUser = camelize(res.rows[0])
   const resultRoles = await client.query('SELECT country_iso, role FROM user_country_role WHERE user_id = $1', [resultUser.id])
   return {...resultUser, roles: camelize(resultRoles.rows)}
 }
