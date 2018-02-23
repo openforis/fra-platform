@@ -1,0 +1,48 @@
+@import (reference) '../../app-styles/config';
+
+.edit-user__form-item {
+  display: flex;
+  padding: 8px;
+  height: 50px;
+}
+
+.edit-user__form-label {
+  flex: 0 1 30%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: @font-xxs;
+  color: lighten(@text-mute, 10%);;
+}
+
+.edit-user__form-field {
+  position: relative;
+  border: @ui-thin-border;
+  flex: 0 1 40%;
+  display: flex;
+}
+
+.edit-user__form-item-picture {
+  .edit-user__form-item;
+  height: auto;
+
+  .edit-user__form-field {
+    border: none;
+    justify-content: center;
+  }
+
+  .btn{
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+  }
+}
+
+.edit-user__picture-img {
+  border-radius: 100%;
+  width: 80px;
+  height: 80px;
+}
