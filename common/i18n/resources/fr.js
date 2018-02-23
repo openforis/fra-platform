@@ -825,5 +825,6 @@ L'équipe de FRA
     institution: 'Institution',
     position: 'Position',
     done: 'Terminé',
+    cancel: 'Effacer',
   }
 }

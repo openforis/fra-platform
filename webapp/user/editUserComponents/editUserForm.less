@@ -23,6 +23,7 @@
   border: @ui-thin-border;
   flex: 0 1 40%;
   display: flex;
+  justify-content: center;
 }
 
 .edit-user__form-field-disabled {
@@ -36,7 +37,6 @@
 
   .edit-user__form-field {
     border: none;
-    justify-content: center;
   }
 
   .btn {
@@ -50,4 +50,19 @@
   border-radius: 100%;
   width: 85px;
   height: 85px;
+}
+
+.edit-user__form-item-buttons {
+  .edit-user__form-item;
+  margin-top: 20px;
+  height: auto;
+}
+
+.edit-user__form-field-buttons {
+  .edit-user__form-field;
+  border: none;
+  .btn {
+    min-width: 80px;
+    margin: 0 6px;
+  }
 }
