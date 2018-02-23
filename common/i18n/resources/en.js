@@ -222,7 +222,7 @@ The FRA team
   },
 
   header: {
-    profilePicture: 'Edit profile picture',
+    editProfile: 'Edit profile',
     logout: 'Logout',
     hideSidebar: 'Hide sidebar',
     showSidebar: 'Show sidebar',
