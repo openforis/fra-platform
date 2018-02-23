@@ -814,6 +814,16 @@ L'équipe de FRA
         flags: 'Drapeaux',
       }
     }
-  }
+  },
 
+  editUser: {
+    chooseProfilePicture: 'Choisir l\'image',
+    name: 'Nom',
+    role: 'Rôle',
+    email: 'Email',
+    loginEmail: 'Identifiant',
+    institution: 'Institution',
+    position: 'Position',
+    done: 'Terminé',
+  }
 }

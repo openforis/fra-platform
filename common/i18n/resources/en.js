@@ -820,5 +820,17 @@ The FRA team
         flags: 'Flags',
       }
     }
+  },
+
+  editUser:{
+    chooseProfilePicture:'Choose picture',
+    name:'Name',
+    role: 'Role',
+    email: 'Email',
+    loginEmail: 'Login',
+    institution:'Institution',
+    position:'Position',
+    done: 'Done'
+
   }
 }
