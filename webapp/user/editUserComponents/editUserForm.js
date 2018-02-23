@@ -55,8 +55,21 @@ class EditUserForm extends React.Component {
         <div className="edit-user__form-item-picture">
           <div className="edit-user__form-label"></div>
           <div className="edit-user__form-field">
-            <img src={'/img/avatar.png'} className="edit-user__picture-img"/>
-            <button className="btn btn-primary btn-xs">
+            <input
+              ref="profilePictureFile"
+              type="file"
+              accept="image/*"
+              style={{display: 'none'}}
+              onChange={() => {
+                //preview image
+                const reader = new FileReader()
+                reader.onload = e => this.refs.profilePicture.src = e.target.result
+                reader.readAsDataURL(this.refs.profilePictureFile.files[0])
+              }}
+            />
+            <img ref="profilePicture" src={'/img/avatar.png'} className="edit-user__picture-img"/>
+            <button className="btn btn-primary btn-xs"
+                    onClick={() => this.refs.profilePictureFile.dispatchEvent(new MouseEvent('click'))}>
               {i18n.t('editUser.chooseProfilePicture')}
             </button>
           </div>
