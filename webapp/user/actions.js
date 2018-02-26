@@ -52,8 +52,7 @@ export const loadUserToEdit = (countryIso, userId) => dispatch => {
       .get(`/api/users/${countryIso}/user/edit/${userId}`)
       .then(resp => {
         const user = resp.data.user
-        const countries = resp.data.countries
-        dispatch({type: userEditUserLoaded, user, countries})
+        dispatch({type: userEditUserLoaded, user})
       })
       .catch(err => dispatch(applicationError(err)))
   }

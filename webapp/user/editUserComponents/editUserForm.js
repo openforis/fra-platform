@@ -1,30 +1,32 @@
 import './editUserForm.less'
 
 import React from 'react'
-import { connect } from 'react-redux'
+import {connect} from 'react-redux'
 import R from 'ramda'
 
-import { loadUserToEdit } from '../actions'
+import {isAdministrator, administrator} from '../../../common/countryRole'
+
+import {loadUserToEdit} from '../actions'
 
 import TextInput from '../../reusableUiComponents/textInput'
 
 class EditUserForm extends React.Component {
 
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     this.state = {user: null}
   }
 
-  loadUser (countryIso, userId) {
+  loadUser(countryIso, userId) {
     this.props.loadUserToEdit(countryIso, userId)
   }
 
-  componentWillMount () {
+  componentWillMount() {
     this.loadUser(this.props.countryIso, this.props.userId)
   }
 
-  componentWillReceiveProps (nextProps) {
+  componentWillReceiveProps(nextProps) {
     if (this.props.userId !== nextProps.userId ||
       this.props.countryIso !== nextProps.countryIso
     ) {
@@ -36,10 +38,13 @@ class EditUserForm extends React.Component {
     }
   }
 
-  render () {
-    const {i18n} = this.props
+  render() {
+    const {i18n, userInfo, countries} = this.props
     const {user} = this.state
     console.log(user)
+    console.log(countries)
+
+    const isAdmin = isAdministrator(userInfo)
 
     const textInputFields = [
       {key: 'name'},
@@ -93,11 +98,45 @@ class EditUserForm extends React.Component {
           )
         }
 
-        <div className="edit-user__form-item">
+        <div className="edit-user__form-item-roles">
           <div className="edit-user__form-label">
             {i18n.t('editUser.role')}
           </div>
           <div className="edit-user__form-field-roles">
+
+            <div className="edit-user__form-field-role edit-user__form-field-country-selector"
+                 onClick={() => {
+                 }}>
+              <div className="role">{i18n.t('user.roles.administrator')}</div>
+              <div className={`fra-checkbox${isAdmin ? ' checked' : ''}`}></div>
+            </div>
+
+            <div className="edit-user__form-field-role">
+              <div className="role">{i18n.t('user.roles.reviewer')}</div>
+              <div className="edit-user__form-field-country-box">Italy</div>
+              <div className="edit-user__form-field-country-box">Italy</div>
+              <div className="edit-user__form-field-country-box">Italy</div>
+              <div className="edit-user__form-field-country-box">Italy</div>
+              <div className="edit-user__form-field-country-box">Italy</div>
+              <div className="edit-user__form-field-country-box">Italy</div>
+              <div className="edit-user__form-field-country-box">Italy</div>
+              <div className="edit-user__form-field-country-box">Italy</div>
+              <div className="edit-user__form-field-country-box">Italy</div>
+              <div className="edit-user__form-field-country-box">Italy</div>
+              <div className="edit-user__form-field-country-box">Italy</div>
+              <div className="edit-user__form-field-country-box">Italy</div>
+              <div className="edit-user__form-field-country-box">Italy</div>
+              <div className="edit-user__form-field-country-box">Italy</div>
+              <div className="edit-user__form-field-country-box">Italy</div>
+              <div className="edit-user__form-field-country-box">Italy</div>
+              <div className="edit-user__form-field-country-box">Italy</div>
+              <div className="edit-user__form-field-country-box">Italy</div>
+              <div className="edit-user__form-field-country-box">Italy</div>
+              {isAdmin ? <a className="edit-user__edit-country-link">{i18n.t('description.edit')}</a> : null}
+            </div>
+
+            <div className="edit-user__form-field-role">{i18n.t('user.roles.nationalCorrespondent')}</div>
+            <div className="edit-user__form-field-role">{i18n.t('user.roles.collaborator')}</div>
           </div>
         </div>
 
@@ -123,10 +162,14 @@ class EditUserForm extends React.Component {
   }
 }
 
-const mapStateToProps = (state, props) => ({
+const mapStateToProps = (state, props) => console.log(state) || ({
   i18n: state.user.i18n,
   userInfo: state.user.userInfo,
-  ...state.user.editUser
+  ...state.user.editUser,
+  //get countries if is admin.
+  countries: isAdministrator(state.user.userInfo)
+    ? R.path(['country', 'countries', administrator.role], state)
+    : null
 })
 
 export default connect(mapStateToProps, {loadUserToEdit})(EditUserForm)
