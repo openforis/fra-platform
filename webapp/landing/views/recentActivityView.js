@@ -1,11 +1,12 @@
 import React from 'react'
-import { connect } from 'react-redux'
+import {connect} from 'react-redux'
 import R from 'ramda'
-import camelize from 'camelize'
 
-import { getRelativeDate } from '../../utils/relativeDate'
-import { fetchAuditFeed } from '../../audit/actions'
-import { Link } from '../../reusableUiComponents/link'
+import {i18nUserRole} from '../../../common/userUtils'
+
+import {getRelativeDate} from '../../utils/relativeDate'
+import {fetchAuditFeed} from '../../audit/actions'
+import {Link} from '../../reusableUiComponents/link'
 
 const getActionLocalizationKey = (message) => {
   const messageToKey = {
@@ -51,7 +52,7 @@ const getMessageParams = (item, i18n) =>
     ? {
       user: item.target.user,
       role: item.target.role
-        ? i18n.t('user.roles.' + camelize(item.target.role.toLowerCase()))
+        ? i18nUserRole(i18n, item.target.role)
         : null
     }
     : item.target.assessment
@@ -90,20 +91,20 @@ const ActivityItem = ({i18n, countryIso, item, fra}) => {
 
 class RecentActivityView extends React.Component {
 
-  componentWillMount () {
+  componentWillMount() {
     this.fetch(this.props.match.params.countryIso)
   }
 
-  componentWillReceiveProps (next) {
+  componentWillReceiveProps(next) {
     if (!R.equals(this.props.match.params.countryIso, next.match.params.countryIso))
       this.fetch(next.match.params.countryIso)
   }
 
-  fetch (countryIso) {
+  fetch(countryIso) {
     this.props.fetchAuditFeed(countryIso)
   }
 
-  render () {
+  render() {
     const countryIso = this.props.match.params.countryIso
     const {i18n, feed, extentOfForest} = this.props
 

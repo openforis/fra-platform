@@ -4,11 +4,20 @@ import React from 'react'
 import {connect} from 'react-redux'
 import R from 'ramda'
 
-import {isAdministrator, administrator} from '../../../common/countryRole'
+import {
+  isAdministrator,
+  administrator,
+  reviewer,
+  nationalCorrespondent,
+  collaborator
+} from '../../../common/countryRole'
+import {i18nUserRole} from '../../../common/userUtils'
 
 import {loadUserToEdit} from '../actions'
+import {getCountryName} from "../../country/actions";
 
 import TextInput from '../../reusableUiComponents/textInput'
+import CountrySelectionModal from "./countrySelectionModal";
 
 class EditUserForm extends React.Component {
 
@@ -39,12 +48,23 @@ class EditUserForm extends React.Component {
   }
 
   render() {
-    const {i18n, userInfo, countries} = this.props
+    const {i18n, userInfo, countries, getCountryName} = this.props
     const {user} = this.state
-    console.log(user)
-    console.log(countries)
 
-    const isAdmin = isAdministrator(userInfo)
+    //only administrator can change user roles
+    const canEditRoles = isAdministrator(userInfo)
+
+    const roles = [reviewer.role, nationalCorrespondent.role, collaborator.role]
+
+    const toggleCountryRole = (countryIso, role) => {
+      const userRolesPath = ['user', 'roles']
+      const userRoles = R.path(userRolesPath, this.state)
+      const idx = R.findIndex(userRole => userRole.countryIso === countryIso && userRole.role === role, userRoles)
+      const newUserRoles = idx >= 0
+        ? R.remove(idx, 1, userRoles)
+        : R.insert(userRoles.length, {countryIso, role}, userRoles)
+      this.setState(R.assocPath(userRolesPath, newUserRoles, this.state))
+    }
 
     const textInputFields = [
       {key: 'name'},
@@ -104,39 +124,62 @@ class EditUserForm extends React.Component {
           </div>
           <div className="edit-user__form-field-roles">
 
-            <div className="edit-user__form-field-role edit-user__form-field-country-selector"
-                 onClick={() => {
-                 }}>
-              <div className="role">{i18n.t('user.roles.administrator')}</div>
-              <div className={`fra-checkbox${isAdmin ? ' checked' : ''}`}></div>
-            </div>
+            {
+              canEditRoles
+                ? <div className="edit-user__form-field-role edit-user__form-field-country-selector"
+                       onClick={() => toggleCountryRole(null, administrator.role)}>
+                  <div className="role">{i18n.t('user.roles.administrator')}</div>
+                  <div className={`fra-checkbox${isAdministrator(user) ? ' checked' : ''}`}></div>
+                </div>
+                : null
+            }
 
-            <div className="edit-user__form-field-role">
-              <div className="role">{i18n.t('user.roles.reviewer')}</div>
-              <div className="edit-user__form-field-country-box">Italy</div>
-              <div className="edit-user__form-field-country-box">Italy</div>
-              <div className="edit-user__form-field-country-box">Italy</div>
-              <div className="edit-user__form-field-country-box">Italy</div>
-              <div className="edit-user__form-field-country-box">Italy</div>
-              <div className="edit-user__form-field-country-box">Italy</div>
-              <div className="edit-user__form-field-country-box">Italy</div>
-              <div className="edit-user__form-field-country-box">Italy</div>
-              <div className="edit-user__form-field-country-box">Italy</div>
-              <div className="edit-user__form-field-country-box">Italy</div>
-              <div className="edit-user__form-field-country-box">Italy</div>
-              <div className="edit-user__form-field-country-box">Italy</div>
-              <div className="edit-user__form-field-country-box">Italy</div>
-              <div className="edit-user__form-field-country-box">Italy</div>
-              <div className="edit-user__form-field-country-box">Italy</div>
-              <div className="edit-user__form-field-country-box">Italy</div>
-              <div className="edit-user__form-field-country-box">Italy</div>
-              <div className="edit-user__form-field-country-box">Italy</div>
-              <div className="edit-user__form-field-country-box">Italy</div>
-              {isAdmin ? <a className="edit-user__edit-country-link">{i18n.t('description.edit')}</a> : null}
-            </div>
+            {roles.map(role =>
+              canEditRoles
+                ? <div key={role}>
+                  <div className="edit-user__form-field-role">
+                    <div className="role">{i18nUserRole(i18n, role)}</div>
+                    {
+                      canEditRoles
+                        ? <a className="btn-xs btn-primary"
+                             onClick={() => this.setState(R.assocPath(['editingRole', role], true, this.state))}>
+                          {i18n.t('description.edit')}
+                        </a>
+                        : null
+                    }
+                  </div>
 
-            <div className="edit-user__form-field-role">{i18n.t('user.roles.nationalCorrespondent')}</div>
-            <div className="edit-user__form-field-role">{i18n.t('user.roles.collaborator')}</div>
+                  <div className="edit-user__form-field-role-countries">
+                    {
+                      R.filter(userRole => userRole.role === role, user.roles)
+                        .map(userRole =>
+                          <div key={userRole.countryIso} className="edit-user__form-field-country-box">
+                            {getCountryName(userRole.countryIso, userInfo.lang)}
+                          </div>
+                        )
+                    }
+                  </div>
+
+                  {
+                    R.path(['editingRole', role], this.state)
+                      ? <CountrySelectionModal
+                        i18n={i18n}
+                        countries={countries}
+                        userInfo={userInfo}
+                        user={user}
+                        role={role}
+                        getCountryName={getCountryName}
+                        onClose={() => this.setState(R.dissocPath(['editingRole', role], this.state))}
+                        onChange={R.partialRight(toggleCountryRole, [role])}
+                      />
+                      : null
+                  }
+                </div>
+                : null
+            )
+            }
+
+
           </div>
         </div>
 
@@ -162,7 +205,7 @@ class EditUserForm extends React.Component {
   }
 }
 
-const mapStateToProps = (state, props) => console.log(state) || ({
+const mapStateToProps = (state, props) => ({
   i18n: state.user.i18n,
   userInfo: state.user.userInfo,
   ...state.user.editUser,
@@ -172,4 +215,4 @@ const mapStateToProps = (state, props) => console.log(state) || ({
     : null
 })
 
-export default connect(mapStateToProps, {loadUserToEdit})(EditUserForm)
+export default connect(mapStateToProps, {loadUserToEdit, getCountryName})(EditUserForm)
