@@ -18,6 +18,8 @@ class CountrySelectionModal extends React.Component {
       onClose
     } = this.props
 
+    const countryRegions = R.groupBy(c => c.region, countries)
+
     const selection = R.filter(userRole => userRole.role === role, user.roles)
     const isSelected = countryIso => R.pipe(
       R.filter(userRole => userRole.countryIso === countryIso),
@@ -34,15 +36,22 @@ class CountrySelectionModal extends React.Component {
       <ModalBody>
         <div className="edit-user__form-field-country-selection">
           {
-            countries.map(country => {
-              const selected = isSelected(country.countryIso)
-              return <div key={country.countryIso}
-                          className="edit-user__form-field-country-selector"
-                          onClick={() => toggleCountryRole(country.countryIso)}>
-                {getCountryName(country.countryIso, userInfo.lang)}
-                <div className={`fra-checkbox${selected ? ' checked' : ''}`}></div>
+            R.keys(countryRegions).sort((a, b) => a < b ? -1 : 1).map(region =>
+              <div key={region} className="edit-user__form-field-region-container">
+                <div className="edit-user__form-field-region-label">{i18n.t(`country.region.${region}`)}</div>
+                {
+                  R.prop(region, countryRegions).map(country => {
+                    const selected = isSelected(country.countryIso)
+                    return <div key={country.countryIso}
+                                className="edit-user__form-field-country-selector"
+                                onClick={() => toggleCountryRole(country.countryIso)}>
+                      <div className={`fra-checkbox${selected ? ' checked' : ''}`}></div>
+                      {getCountryName(country.countryIso, userInfo.lang)}
+                    </div>
+                  })
+                }
               </div>
-            })
+            )
           }
         </div>
       </ModalBody>
