@@ -51,6 +51,7 @@ module.exports.isCollaborator = isCollaborator
 module.exports.hasNoRole = hasNoRole
 module.exports.isAdministrator = isAdministrator
 module.exports.reviewer = reviewer
+module.exports.administrator = administrator
 module.exports.nationalCorrespondent = nationalCorrespondent
 module.exports.collaborator = collaborator
 module.exports.noRole = noRole

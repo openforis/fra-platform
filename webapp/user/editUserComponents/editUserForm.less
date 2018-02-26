@@ -1,4 +1,5 @@
 @import (reference) '../../app-styles/config';
+@import (reference) '../../app-styles/buttons';
 
 .edit-user__form-item {
   display: flex;
@@ -65,4 +66,61 @@
     min-width: 80px;
     margin: 0 6px;
   }
+}
+
+.edit-user__form-item-roles {
+  .edit-user__form-item;
+  height: auto;
+
+}
+
+.edit-user__form-field-roles {
+  .edit-user__form-field;
+  flex-direction: column;
+  border: none;
+}
+
+.edit-user__form-field-role {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 4px;
+  flex-wrap: wrap;
+  padding-right: 30px;
+  position: relative;
+
+  div {
+    margin-bottom: 5px;
+  }
+  div:not(:last-child) {
+    margin-right: 5px;
+  }
+
+  .role {
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+}
+
+.edit-user__form-field-country-selector {
+  cursor: pointer;
+  .fra-checkbox {
+    margin-left: 4px;
+  }
+}
+
+.edit-user__form-field-country-box {
+  //border: @ui-thin-border;
+  padding: 4px 8px;
+  border-radius: 3px;
+  background-color: lighten(@ui-bg, 1%);
+  color: darken(@text-disabled, 15%);
+}
+
+.edit-user__edit-country-link {
+  .btn-xs;
+  .btn-primary;
+  position: absolute;
+  right: 0;
+  top: 0;
 }
