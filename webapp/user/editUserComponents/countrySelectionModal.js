@@ -36,24 +36,26 @@ class CountrySelectionModal extends React.Component {
       <ModalBody>
         <div className="edit-user__form-field-country-selection">
           {
-            R.keys(countryRegions).sort((a, b) => a < b ? -1 : 1).map(region =>
-              <div key={region} className="edit-user__form-field-region-container">
-                <div className="edit-user__form-field-region-label">{i18n.t(`country.region.${region}`)}</div>
-                {
-                  R.prop(region, countryRegions).map(country => {
-                    const selected = isSelected(country.countryIso)
-                    return <div key={country.countryIso}
-                                className="edit-user__form-field-country-selector"
-                                onClick={() => toggleCountryRole(country.countryIso)}>
-                      <div className={`fra-checkbox${selected ? ' checked' : ''}`}></div>
-                      <div className="edit-user__form-field-country-label">
-                           {getCountryName(country.countryIso, userInfo.lang)}
+            R.keys(countryRegions)
+              .sort((a, b) => i18n.t(`country.region.${a}`) < i18n.t(`country.region.${b}`) ? -1 : 1)
+              .map(region =>
+                <div key={region} className="edit-user__form-field-region-container">
+                  <div className="edit-user__form-field-region-label">{i18n.t(`country.region.${region}`)}</div>
+                  {
+                    R.prop(region, countryRegions).map(country => {
+                      const selected = isSelected(country.countryIso)
+                      return <div key={country.countryIso}
+                                  className="edit-user__form-field-country-selector"
+                                  onClick={() => toggleCountryRole(country.countryIso)}>
+                        <div className={`fra-checkbox${selected ? ' checked' : ''}`}></div>
+                        <div className="edit-user__form-field-country-label">
+                          {getCountryName(country.countryIso, userInfo.lang)}
+                        </div>
                       </div>
-                    </div>
-                  })
-                }
-              </div>
-            )
+                    })
+                  }
+                </div>
+              )
           }
         </div>
       </ModalBody>
