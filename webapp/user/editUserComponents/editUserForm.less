@@ -71,7 +71,6 @@
 .edit-user__form-item-roles {
   .edit-user__form-item;
   height: auto;
-
 }
 
 .edit-user__form-field-roles {
@@ -84,43 +83,46 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-bottom: 4px;
+  padding-bottom: 6px;
+
+  .role {
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 0 6px;
+  }
+}
+
+.edit-user__form-field-role-countries {
+  .edit-user__form-field-role;
   flex-wrap: wrap;
   padding-right: 30px;
   position: relative;
 
   div {
-    margin-bottom: 5px;
-  }
-  div:not(:last-child) {
-    margin-right: 5px;
-  }
-
-  .role {
-    font-weight: bold;
-    text-transform: uppercase;
+    margin: 0 5px 5px 0;
   }
 }
 
 .edit-user__form-field-country-selector {
   cursor: pointer;
+  display: flex;
+  padding: 5px;
+  align-items: center;
+
   .fra-checkbox {
     margin-left: 4px;
   }
 }
 
 .edit-user__form-field-country-box {
-  //border: @ui-thin-border;
+  border: @ui-thin-border;
   padding: 4px 8px;
   border-radius: 3px;
   background-color: lighten(@ui-bg, 1%);
   color: darken(@text-disabled, 15%);
 }
 
-.edit-user__edit-country-link {
-  .btn-xs;
-  .btn-primary;
-  position: absolute;
-  right: 0;
-  top: 0;
+.edit-user__form-field-country-selection {
+  display: flex;
+  flex-wrap: wrap;
 }
