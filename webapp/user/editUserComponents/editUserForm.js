@@ -157,7 +157,7 @@ class EditUserForm extends React.Component {
             {
               canEditRoles
                 ? <div
-                  className="edit-user__form-field-role edit-user__form-field-country-selector validation-error-sensitive-field"
+                  className="edit-user__form-field-role-admin validation-error-sensitive-field"
                   onClick={() => toggleCountryRole(null, administrator.role)}>
                   <div className="role">{i18n.t('user.roles.administrator')}</div>
                   <div className={`fra-checkbox${isAdministrator(user) ? ' checked' : ''}`}></div>
