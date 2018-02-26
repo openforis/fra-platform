@@ -65,7 +65,10 @@ class EditUserForm extends React.Component {
 
       const newUserRoles = idx >= 0
         ? R.remove(idx, 1, userRoles)
-        : R.insert(userRoles.length, {countryIso, role}, userRoles)
+        // setting role as administrator, removes all other roles
+        : role === administrator.role
+          ? [{countryIso: null, role}]
+          : R.insert(userRoles.length, {countryIso, role}, userRoles)
 
       this.setState(R.pipe(
         R.assocPath(userRolesPath, newUserRoles),
@@ -163,8 +166,8 @@ class EditUserForm extends React.Component {
             }
 
             {roles.map(role =>
-              // role section is available to administrators or if user has at least one role
-              canEditRoles || R.findIndex(R.propEq('role', role), this.state.user.roles) >= 0
+              // role section is available to administrators or if user has at least one role and it's not administrator
+              !isAdministrator(user) && (canEditRoles || R.findIndex(R.propEq('role', role), this.state.user.roles) >= 0)
                 ? <div key={role} className="validation-error-sensitive-field">
                   <div className="edit-user__form-field-role">
                     <div className="role">{i18nUserRole(i18n, role)}</div>
