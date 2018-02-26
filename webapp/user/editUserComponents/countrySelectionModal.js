@@ -46,7 +46,9 @@ class CountrySelectionModal extends React.Component {
                                 className="edit-user__form-field-country-selector"
                                 onClick={() => toggleCountryRole(country.countryIso)}>
                       <div className={`fra-checkbox${selected ? ' checked' : ''}`}></div>
-                      {getCountryName(country.countryIso, userInfo.lang)}
+                      <div className="edit-user__form-field-country-label">
+                           {getCountryName(country.countryIso, userInfo.lang)}
+                      </div>
                     </div>
                   })
                 }
