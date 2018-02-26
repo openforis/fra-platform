@@ -1,4 +1,4 @@
-import * as R from "ramda";
+const R = require("ramda")
 
 const camelize = require('camelize')
 
