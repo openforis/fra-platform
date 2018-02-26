@@ -1,7 +1,7 @@
 import R from 'ramda'
 
-import { userLoggedInUserLoaded, userLoggedInUserSwitchLanguage, userEditUserLoaded } from './actions'
-import { applyReducerFunction } from '../utils/reduxUtils'
+import {userLoggedInUserLoaded, userLoggedInUserSwitchLanguage, userEditUserLoaded} from './actions'
+import {applyReducerFunction} from '../utils/reduxUtils'
 
 const actionHandlers = {
   [userLoggedInUserLoaded]: (state, action) =>
@@ -9,7 +9,7 @@ const actionHandlers = {
   [userLoggedInUserSwitchLanguage]: (state, action) =>
     ({...state, i18n: action.i18n}),
   [userEditUserLoaded]: (state, action) =>
-    R.assocPath(['editUser', 'user'], action.user)(state)
+    R.assocPath(['editUser', 'user'], action.user, state)
 }
 
 export default (state = {}, action) => applyReducerFunction(actionHandlers, state, action)

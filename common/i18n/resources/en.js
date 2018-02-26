@@ -831,8 +831,8 @@ The FRA team
     institution: 'Institution',
     position: 'Position',
     done: 'Done',
-    cancel: 'Cancel'
-
+    cancel: 'Cancel',
+    picture1MbMax: 'Profile picture cannot exceed 1MB'
   },
 
   country: {

@@ -1,6 +1,6 @@
 import axios from 'axios'
-import { applicationError } from '../applicationError/actions'
-import { createI18nInstance } from '../../common/i18n/i18nFactory'
+import {applicationError} from '../applicationError/actions'
+import {createI18nInstance} from '../../common/i18n/i18nFactory'
 
 export const userLoggedInUserLoaded = 'user/loggedInUser/loaded'
 export const userLoggedInUserSwitchLanguage = 'user/loggedInUser/switchLanguage'
@@ -56,4 +56,10 @@ export const loadUserToEdit = (countryIso, userId) => dispatch => {
       })
       .catch(err => dispatch(applicationError(err)))
   }
+}
+
+export const persistUser = (countryIso, user) => dispatch => {
+
+  // dispatch({type: userEditUserLoaded, user})
+  window.history.back()
 }
