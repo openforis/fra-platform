@@ -822,16 +822,28 @@ The FRA team
     }
   },
 
-  editUser:{
-    chooseProfilePicture:'Choose picture',
-    name:'Name',
+  editUser: {
+    chooseProfilePicture: 'Choose picture',
+    name: 'Name',
     role: 'Role',
     email: 'Email',
     loginEmail: 'Login',
-    institution:'Institution',
-    position:'Position',
+    institution: 'Institution',
+    position: 'Position',
     done: 'Done',
     cancel: 'Cancel'
 
+  },
+
+  country: {
+    region: {
+      asia: 'Asia',
+      europe: 'Europe',
+      oceania: 'Oceania',
+      north_and_central_america: 'North and Central America',
+      south_america: 'South America',
+      africa: 'Africa',
+      atlantis: 'Atlantis'
+    }
   }
 }

@@ -135,7 +135,8 @@ class EditUserForm extends React.Component {
             }
 
             {roles.map(role =>
-              canEditRoles
+              // role section is available to administrators or if user has at least one role
+              canEditRoles || R.findIndex(R.propEq('role', role), this.state.user.roles) >= 0
                 ? <div key={role}>
                   <div className="edit-user__form-field-role">
                     <div className="role">{i18nUserRole(i18n, role)}</div>
@@ -170,7 +171,7 @@ class EditUserForm extends React.Component {
                         role={role}
                         getCountryName={getCountryName}
                         onClose={() => this.setState(R.dissocPath(['editingRole', role], this.state))}
-                        onChange={R.partialRight(toggleCountryRole, [role])}
+                        toggleCountryRole={R.partialRight(toggleCountryRole, [role])}
                       />
                       : null
                   }

@@ -14,7 +14,7 @@ class CountrySelectionModal extends React.Component {
       userInfo, //session user
       user, //user currently being edited
       getCountryName,
-      onChange: toggleCountryRole,
+      toggleCountryRole,
       onClose
     } = this.props
 

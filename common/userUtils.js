@@ -1,4 +1,4 @@
-import camelize from "camelize";
+const camelize = require('camelize')
 
 const crypto = require('crypto')
 
