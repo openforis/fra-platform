@@ -77,6 +77,20 @@
   .edit-user__form-field;
   flex-direction: column;
   border: none;
+
+  .modal-content {
+    margin: 3%;
+    animation-duration: 0.1s;
+  }
+
+  .modal-body {
+    overflow: auto;
+    max-height: 85%;
+  }
+
+  .modal-footer {
+    padding-top: 20px;
+  }
 }
 
 .edit-user__form-field-role {
@@ -110,7 +124,7 @@
   align-items: center;
 
   .fra-checkbox {
-    margin-left: 4px;
+    margin-right: 4px;
   }
 }
 
@@ -124,5 +138,18 @@
 
 .edit-user__form-field-country-selection {
   display: flex;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
+  justify-content: space-evenly;
+}
+
+.edit-user__form-field-region-container {
+  display: flex;
+  flex: 0 1 15%;
+  flex-flow: column;
+}
+
+.edit-user__form-field-region-label {
+  font-weight: bold;
+  margin-bottom: 10px;
+  padding-left: 15px;
 }
