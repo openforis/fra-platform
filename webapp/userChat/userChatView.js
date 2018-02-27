@@ -6,7 +6,9 @@ import FraReviewFooter from '../review/reviewFooter'
 import Icon from '../reusableUiComponents/icon'
 
 import { closeChat, sendMessage } from './actions'
+
 import { getRelativeDate } from '../utils/relativeDate'
+import { profilePictureUri } from '../../common/userUtils'
 
 const UserChatHeader = ({i18n, chat, closeChat}) =>
   <div className="fra-review__header">
@@ -33,7 +35,7 @@ class UserChatMessages extends React.Component {
   }
 
   render () {
-    const {i18n, chat} = this.props
+    const {i18n, chat, countryIso} = this.props
     const {messages, sessionUser, recipientUser} = chat
 
     const messageUser = message =>
@@ -54,7 +56,7 @@ class UserChatMessages extends React.Component {
             <div key={i} className={`fra-review__comment`}>
               <div className="fra-review__comment-header">
                 <img className="fra-review__comment-avatar"
-                     src={`https://www.gravatar.com/avatar/${message.hash}?default=mm`}/>
+                     src={profilePictureUri(countryIso, messageUser(message).id)}/>
                 <div className="fra-review__comment-author-section">
                   <div className={`fra-review__comment-author ${isSessionUserMessageSender(message) ? 'author-me' : ''}`}>
                     {messageUser(message).name}
@@ -116,7 +118,7 @@ class UserChatView extends React.Component {
       : <div className="fra-review__container">
         <div className="fra-review user-chat">
           <UserChatHeader i18n={i18n} chat={chat} closeChat={closeChat}/>
-          <UserChatMessages i18n={i18n} chat={chat}/>
+          <UserChatMessages i18n={i18n} chat={chat} countryIso={countryIso}/>
           <UsersChatAddMessage i18n={i18n} chat={chat} closeChat={closeChat} sendMessage={sendMessage}
                                countryIso={countryIso}/>
         </div>
