@@ -338,6 +338,7 @@ L'équipe de FRA
     addUser: 'Ajouter collaborateur',
     insufficientPrivileges: 'Privilèges insuffisants',
     confirmDelete: 'Éliminer {{user}} de {{country}}?',
+    allUsers: 'Tous les collaborateurs',
     invitationEmail: {
       subject: 'Invitation à rejoindre le/la {{country}} sur la plateforme de FRA',
       textMessage: `Cher {{invitedUser}},

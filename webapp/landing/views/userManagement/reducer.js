@@ -5,7 +5,7 @@ import {
   usersListUserUpdate,
   usersNewUserUpdate
 } from './actions'
-import { applyReducerFunction } from '../../../utils/reduxUtils'
+import {applyReducerFunction} from '../../../utils/reduxUtils'
 
 const sortUsers = users => R.sortBy(R.compose(R.toLower, R.prop('name')), users)
 
@@ -13,6 +13,7 @@ const actionHandlers = {
   //users list
   [usersFetch]: (state, action) => R.pipe(
     R.assoc('countryUsers', sortUsers(action.countryUsers)),
+    R.assoc('allUsers', sortUsers(action.allUsers)),
     R.assoc('newUser', action.newUser),
   )(state),
 
