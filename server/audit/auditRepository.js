@@ -34,6 +34,7 @@ module.exports.getLastAuditTimeStampForSection = (countryIso, section) => {
 module.exports.getAuditFeed = (countryIso) => {
   return db.query(
     ` SELECT
+        u.id as user_id,
         user_name as full_name,
         user_email as email,
         message,
@@ -44,15 +45,19 @@ module.exports.getAuditFeed = (countryIso) => {
         SELECT
           user_name,
           user_email,
+          user_login_email,
           message,
           section,
           target,
           time,
-          rank() OVER (PARTITION BY user_name, user_email, message, section ORDER BY time DESC) as rank
+          rank() OVER (PARTITION BY user_name, user_email, user_login_email, message, section ORDER BY time DESC) as rank
         FROM fra_audit
         WHERE country_iso = $1
         AND message != 'deleteComment'
       ) AS fa
+      JOIN
+        fra_user u
+      ON user_login_email = u.login_email  
       WHERE rank = 1
       ORDER BY time DESC
       LIMIT 20
