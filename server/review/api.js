@@ -4,7 +4,6 @@ const db = require('../db/db')
 const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
 const {sendErr} = require('../utils/requestUtils')
 const reviewRepository = require('./reviewRepository')
-const {emailHash} = require('../../common/userUtils')
 const {allowedToEditCommentsCheck} = require('../assessment/assessmentEditAccessControl')
 
 module.exports.init = app => {
@@ -65,16 +64,8 @@ module.exports.init = app => {
       if (issues.length > 0)
         await reviewRepository.updateIssueReadTime(issues[0].issueId, req.user)
 
-      res.json(R.map(
-        comment =>
-          R.merge(R.omit('email', comment), // leave out email
-            R.pipe( // calculate email hash for gravatar
-              R.prop('email'),
-              v => emailHash(v),
-              h => ({hash: h})
-            )(comment)
-          )
-        , issues))
+      // leave out email
+      res.json(R.map(comment => R.omit('email', comment), issues))
 
     } catch (err) {
       sendErr(res, err)

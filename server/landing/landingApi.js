@@ -1,9 +1,7 @@
-const R = require('ramda')
 const Promise = require('bluebird')
 
 const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
 const {sendErr} = require('../utils/requestUtils')
-const {emailHash} = require('../../common/userUtils')
 
 const {fetchCountryUsers} = require('../user/userRepository')
 const {getChatSummary} = require('../userChat/userChatRepository')
@@ -12,7 +10,6 @@ const getUsersOverview = async (sessionUserId, dbUsers) => {
 
   const getUserOverview = async (user) => ({
     ...user,
-    hash: emailHash(user.email),
     chat: user.id !== sessionUserId
       ? await getChatSummary(user.id, sessionUserId)
       : null

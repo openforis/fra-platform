@@ -4,8 +4,6 @@ const camelize = require('camelize')
 
 const crypto = require('crypto')
 
-const emailHash = email => crypto.createHash('md5').update(email).digest('hex')
-
 const profilePictureUri = (countryIso, userId) => `/api/users/${countryIso}/user/${userId}/profilePicture`
 
 const i18nUserRole = (i18n, role) => i18n.t('user.roles.' + camelize(role.toLowerCase()))
@@ -39,7 +37,6 @@ const validate = user => {
 }
 
 module.exports = {
-  emailHash,
   profilePictureUri,
   i18nUserRole,
   validate
