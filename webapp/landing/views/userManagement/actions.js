@@ -1,11 +1,9 @@
 import axios from 'axios'
-import * as R from 'ramda'
 
 import { applicationError } from '../../../applicationError/actions'
-import { newUser, updateUserField, updateListUserField, validUser } from './users'
+import { newUser, updateUserField, validUser } from './users'
 
 export const usersFetch = 'users/fetch'
-export const usersListUserUpdate = 'users/list/user/update'
 export const usersNewUserUpdate = 'users/new/user/update'
 
 // list action creators
@@ -14,10 +12,6 @@ export const fetchUsers = countryIso => dispatch =>
     .then(resp => dispatch({type: usersFetch, users: resp.data, newUser: newUser()}))
     .catch(err => dispatch(applicationError(err)))
 
-export const updateUser = (countryIso, userId, field, value) => (dispatch, getState) => {
-  const user = updateListUserField(userId, field, value)(getState().userManagement.list)
-  dispatch({type: usersListUserUpdate, user})
-}
 
 export const persistUser = (countryIso, user, fetch = false) => dispatch => {
   if (!validUser(user)) throw Error('User not valid')

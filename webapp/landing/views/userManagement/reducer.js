@@ -16,12 +16,6 @@ const actionHandlers = {
     R.assoc('newUser', action.newUser),
   )(state),
 
-  [usersListUserUpdate]: (state, action) => {
-    const user = action.user
-    const idx = R.findIndex(R.propEq('id', user.id), state.list)
-    return R.assoc('list', R.update(idx, user, state.list), state)
-  },
-
   // new user
   [usersNewUserUpdate]: (state, action) => R.assoc('newUser', action.user, state)
 }
