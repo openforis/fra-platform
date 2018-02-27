@@ -66,9 +66,9 @@ const ActivityItem = ({i18n, countryIso, item, fra}) => {
   const sectionUrl = getSectionUrl(item, fra)
   const sectionLocalizationKey = getSectionLocalizationKey(item.sectionName)
   const actionLocalizationKey = getActionLocalizationKey(item.message)
-console.log(item)
+
   return <div className="landing__activity-item">
-    <img className="landing__activity-avatar" src={`https://www.gravatar.com/avatar/${item.hash}?default=mm`}/>
+    <img className="landing__activity-avatar" src={profilePictureUri(countryIso, item.userId)}/>
     <div className="landing__activity-name">
       <strong>{item.fullName}</strong>
       <span>{
