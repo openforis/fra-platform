@@ -1,7 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import R from 'ramda'
-import camelize from 'camelize'
+
+import {i18nUserRole, profilePictureUri} from '../../../common/userUtils'
 
 import Icon from '../../reusableUiComponents/icon'
 // import MapViewContainer from './countryMap/mapViewContainer'
@@ -65,14 +66,14 @@ const Users = ({countryIso, i18n, users, userInfo, openChat}) => <div className=
           <div className="landing__user-header">
             <img
               className="landing__user-avatar"
-              src={`https://www.gravatar.com/avatar/${user.hash}?default=mm`}/>
+              src={profilePictureUri(countryIso, user.id)}/>
             <div className="landing__user-info">
 
               <div className={`landing__user-name${userInfo.id === user.id ? ' session-user' : ''}`}>
                 {user.name}
               </div>
               <div className="landing__user-role">
-                {i18n.t(`user.roles.${camelize(user.role.toLowerCase())}`)}
+                {i18nUserRole(i18n, user.role)}
               </div>
               { // add message button if session user is not equal to current displayed user
                 R.prop('id', userInfo) !== user.id

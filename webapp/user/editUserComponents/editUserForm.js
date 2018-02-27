@@ -111,7 +111,7 @@ class EditUserForm extends React.Component {
                 reader.readAsDataURL(this.refs.profilePictureFile.files[0])
               }}
             />
-            <img ref="profilePicture" src={profilePictureUri(countryIso, user)} className="edit-user__picture-img"/>
+            <img ref="profilePicture" src={profilePictureUri(countryIso, user.id)} className="edit-user__picture-img"/>
             <button className="btn btn-primary btn-xs"
                     onClick={() => this.refs.profilePictureFile.dispatchEvent(new MouseEvent('click'))}>
               {i18n.t('editUser.chooseProfilePicture')}
