@@ -30,13 +30,16 @@ module.exports.init = app => {
       .catch(err => sendErr(res, err))
   })
 
+  // get users and invitations list
   app.get('/users/:countryIso', async (req, res) => {
     try {
       checkCountryAccessFromReqParams(req)
 
       const countryIso = req.params.countryIso
-      const users = await userRepository.fetchUsersAndInvitations(countryIso, req.user)
-      res.json(filterAllowedUsers(countryIso, req.user, users))
+      const allCountryUsers = await userRepository.fetchUsersAndInvitations(countryIso, req.user)
+      const countryUsers = filterAllowedUsers(countryIso, req.user, allCountryUsers)
+
+      res.json({countryUsers})
     } catch (err) {
       sendErr(res, err)
     }

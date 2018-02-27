@@ -10,7 +10,7 @@ export const usersNewUserUpdate = 'users/new/user/update'
 
 export const fetchUsers = countryIso => dispatch =>
   axios.get(`/api/users/${countryIso}`)
-    .then(resp => dispatch({type: usersFetch, users: resp.data, newUser: newUser()}))
+    .then(resp => dispatch({type: usersFetch, ...resp.data, newUser: newUser()}))
     .catch(err => dispatch(applicationError(err)))
 
 export const removeUser = (countryIso, user) => dispatch => {
