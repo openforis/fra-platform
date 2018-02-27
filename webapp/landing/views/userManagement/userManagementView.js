@@ -1,17 +1,16 @@
 import './style.less'
 
 import React from 'react'
-import { connect } from 'react-redux'
+import {connect} from 'react-redux'
 import * as R from 'ramda'
 
-import TextInput from '../../../reusableUiComponents/textInput'
-import { roles } from '../../../../common/countryRole'
-import { getCountryName } from '../../../country/actions'
-import { rolesAllowedToChange } from '../../../../common/userManagementAccessControl'
-import { getRoleLabelKey } from '../../../../common/countryRole'
+import AddUserForm from './addUserForm'
 
-import { fetchUsers, updateUser, removeUser, persistUser, updateNewUser, addNewUser } from './actions'
-import { validField } from './users'
+import {rolesAllowedToChange} from '../../../../common/userManagementAccessControl'
+import {i18nUserRole} from '../../../../common/userUtils'
+
+import {getCountryName} from '../../../country/actions'
+import {fetchUsers, removeUser, persistUser, updateNewUser, addNewUser} from './actions'
 
 const mapIndexed = R.addIndex(R.map)
 
@@ -39,162 +38,41 @@ const UserTable = ({userList, i18n, ...props}) =>
     </tbody>
   </table>
 
-const UserTextFieldCol = ({countryIso, i18n, user, field, editing = false, readOnly = false, updateUser, validate}) =>
-  <td className={`user-list__cell ${validate ? '' : 'error'} ${editing ? 'editing' : ''}`}>
-    {
-      editing
-        ? <TextInput placeholder={i18n.t(`userManagement.${field}`)} value={user[field]}
-                     onChange={e => updateUser(countryIso, user.id, field, e.target.value)}
-                     disabled={user.saving}/>
-        : readOnly
-        ? <div className="user-list__cell--read-only">{user[field] ? user[field] : '\xA0'}</div>
-        : <div className="user-list__cell--editable">{user[field]}</div>
-    }
-  </td>
-
-const roleOptions = (allowedRoles, i18n) =>
-  R.pipe(
-    R.filter(role => R.contains(role.role, allowedRoles)),
-    R.map(role => <option key={role.role} value={role.role}>{i18n.t(role.labelKey)}</option>)
-  )(roles)
-
-const UserRoleSelectCol = ({
-                             countryIso,
-                             i18n,
-                             user,
-                             editing = false,
-                             readOnly = false,
-                             updateUser,
-                             validate,
-                             allowedRoles
-                           }) =>
-  <td className={`user-list__cell ${validate ? '' : 'error'} ${editing ? 'editing' : ''}`}>
-    {
-      editing
-        ? <div className="user-list__input-container validation-error-sensitive-field">
-          <select
-            className="fra-table__select"
-            value={user.role}
-            onChange={e => updateUser(countryIso, user.id, 'role', e.target.value)}
-            disabled={user.saving}>
-            {
-              user.role === ''
-                ? <option value="">{i18n.t('userManagement.placeholder')}</option>
-                : null
-            }
-            {roleOptions(allowedRoles, i18n)}
-          </select>
-        </div>
-        : readOnly
-        ? <div className="user-list__cell--read-only">{i18n.t(getRoleLabelKey(user.role))}</div>
-        : <div className="user-list__cell--editable">{i18n.t(getRoleLabelKey(user.role))}</div>
-    }
-  </td>
-
-class AddUserForm extends React.Component {
-
-  constructor (props) {
-    super(props)
-    this.state = {adding: false}
-  }
-
-  render () {
-    const {countryIso, i18n, user, updateNewUser, addNewUser} = this.props
-
-    return <div className="add-user__container">
-      <table className="add-user__table">
-        <thead>
-        <tr>
-          <th className="user-list__header-cell">{i18n.t('userManagement.name')}</th>
-          <th className="user-list__header-cell">{i18n.t('userManagement.role')}</th>
-          <th className="user-list__header-cell">{i18n.t('userManagement.email')}</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-          <UserTextFieldCol countryIso={countryIso}
-                            i18n={i18n}
-                            user={user}
-                            field="name" editing={true}
-                            updateUser={updateNewUser}
-                            validate={this.state.adding ? validField(user, 'name') : true}/>
-          <UserRoleSelectCol
-            {...this.props}
-            field="role"
-            editing={true}
-            updateUser={updateNewUser}
-            validate={this.state.adding ? validField(user, 'role') : true}/>
-          <UserTextFieldCol countryIso={countryIso}
-                            i18n={i18n}
-                            user={user}
-                            field="email" editing={true}
-                            updateUser={updateNewUser}
-                            validate={this.state.adding ? validField(user, 'email') : true}/>
-          <td style={{padding: 0}}>
-            <button className="btn btn-primary" onClick={() => {
-              this.setState({adding: true})
-              addNewUser(countryIso)
-              this.setState({adding: false})
-            }}>
-              {i18n.t('userManagement.addUser')}
-            </button>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
-  }
-}
-
 class UserRow extends React.Component {
 
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {editing: false}
   }
 
-  toggleOpen () {
+  toggleOpen() {
     this.setState({editing: !this.state.editing})
   }
 
-  render () {
-    const {countryIso, i18n, user, updateUser, removeUser, persistUser, getCountryName} = this.props
+  render() {
+    const {countryIso, i18n, user, removeUser, persistUser, getCountryName} = this.props
 
     return <tr>
-      <UserTextFieldCol
-        countryIso={countryIso}
-        i18n={i18n}
-        user={user}
-        field="name"
-        editing={this.state.editing}
-        updateUser={updateUser}
-        validate={validField(user, 'name')}/>
-      <UserRoleSelectCol
-        {...this.props}
-        field="role"
-        editing={this.state.editing}
-        validate={validField(user, 'role')}/>
-      <UserTextFieldCol
-        countryIso={countryIso}
-        i18n={i18n}
-        user={user}
-        field="email" editing={this.state.editing}
-        updateUser={updateUser}
-        validate={validField(user, 'email')}/>
-      <UserTextFieldCol countryIso={countryIso}
-                        i18n={i18n}
-                        user={user}
-                        field="loginEmail" readOnly={true}
-                        updateUser={updateUser} validate={true}/>
+      <UserColumn user={user} field="name"/>
+      <td className="user-list__cell">
+        <div className="user-list__cell--read-only">{i18nUserRole(i18n, user.role)}</div>
+      </td>
+      <UserColumn user={user} field="email"/>
+      <UserColumn user={user} field="loginEmail"/>
+
       <td className="user-list__cell user-list__edit-column">
-        <button className="btn-s btn-link" onClick={() => {
-          if (this.state.editing) {
-            persistUser(countryIso, user, true)
-          }
-          this.toggleOpen()
-        }}>
-          {this.state.editing ? i18n.t('userManagement.done') : i18n.t('userManagement.edit')}
-        </button>
+        { // pending users cannot be edited
+          user.invitationUuid
+            ? null
+            : <button className="btn-s btn-link" onClick={() => {
+              if (this.state.editing) {
+                persistUser(countryIso, user, true)
+              }
+              this.toggleOpen()
+            }}>
+              {this.state.editing ? i18n.t('userManagement.done') : i18n.t('userManagement.edit')}
+            </button>
+        }
         <button className="btn-s btn-link-destructive" disabled={this.state.editing} onClick={() =>
           window.confirm(i18n.t('userManagement.confirmDelete', {
             user: user.name,
@@ -210,22 +88,26 @@ class UserRow extends React.Component {
   }
 }
 
+const UserColumn = ({user, field}) => <td className="user-list__cell">
+  <div className="user-list__cell--read-only">{user[field] ? user[field] : '\xA0'}</div>
+</td>
+
 class UsersView extends React.Component {
 
-  componentWillMount () {
+  componentWillMount() {
     this.fetch(this.props.match.params.countryIso)
   }
 
-  componentWillReceiveProps (next) {
+  componentWillReceiveProps(next) {
     if (!R.equals(this.props.match.params.countryIso, next.match.params.countryIso))
       this.fetch(next.match.params.countryIso)
   }
 
-  fetch (countryIso) {
+  fetch(countryIso) {
     this.props.fetchUsers(countryIso)
   }
 
-  render () {
+  render() {
     const {match, userList, newUser, allowedRoles} = this.props
     const countryIso = match.params.countryIso
 
@@ -248,7 +130,6 @@ const mapStateToProps = (state, props) =>
 
 export default connect(mapStateToProps, {
   fetchUsers,
-  updateUser,
   removeUser,
   persistUser,
   updateNewUser,

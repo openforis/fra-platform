@@ -18,10 +18,12 @@ const filterAllowedUsers = (countryIso, user, users) => {
 
 module.exports.init = app => {
 
+  // get session user
   app.get('/loggedInUser/', (req, res) =>
     res.json({userInfo: req.user})
   )
 
+  // update session user language
   app.post('/user/lang', (req, res) => {
     db.transaction(userRepository.updateLanguage, [req.query.lang, req.user])
       .then(() => res.json({}))
@@ -40,35 +42,32 @@ module.exports.init = app => {
     }
   })
 
+  // add new user
   app.post('/users/:countryIso', async (req, res) => {
     try {
       checkCountryAccessFromReqParams(req)
 
-      const userToBeChangedOrAdded = req.body
+      const newUser = req.body
       const countryIso = req.params.countryIso
 
       const allowedRoles = rolesAllowedToChange(countryIso, req.user)
-      if (!R.contains(userToBeChangedOrAdded.role, allowedRoles)) {
+      if (!R.contains(newUser.role, allowedRoles)) {
         throw new AccessControlException('error.access.roleChangeNotAllowed', {
           user: req.user.name,
-          role: userToBeChangedOrAdded.role
+          role: newUser.role
         })
       }
-      const url = serverUrl(req)
-      if (userToBeChangedOrAdded.id) {
-        // update existing user
-        await db.transaction(userRepository.updateUser, [req.user, countryIso, userToBeChangedOrAdded])
-      } else {
-        const persistFunction = userToBeChangedOrAdded.invitationUuid
-          ? userRepository.updateInvitation
-          : userRepository.addInvitation
-        const invitationUuid = await db.transaction(persistFunction, [req.user, countryIso, userToBeChangedOrAdded])
-        await sendInvitation(countryIso, {
-          ...userToBeChangedOrAdded,
-          invitationUuid
-        }, req.user, url)
 
-      }
+      const persistFunction = newUser.invitationUuid
+        ? userRepository.updateInvitation
+        : userRepository.addInvitation
+
+      const url = serverUrl(req)
+      const invitationUuid = await db.transaction(persistFunction, [req.user, countryIso, newUser])
+      await sendInvitation(countryIso, {
+        ...newUser,
+        invitationUuid
+      }, req.user, url)
 
       sendOk(res)
     } catch (err) {
@@ -76,6 +75,7 @@ module.exports.init = app => {
     }
   })
 
+  // remove user
   app.delete('/users/:countryIso/', async (req, res) => {
     try {
       checkCountryAccessFromReqParams(req)
@@ -93,6 +93,7 @@ module.exports.init = app => {
     }
   })
 
+  // get user for editing page
   app.get('/users/:countryIso/user/edit/:userId', async (req, res) => {
     try {
       checkCountryAccessFromReqParams(req)
@@ -106,6 +107,7 @@ module.exports.init = app => {
     }
   })
 
+  // get user profile picture
   app.get('/users/:countryIso/user/:userId/profilePicture', async (req, res) => {
     try {
       checkCountryAccessFromReqParams(req)
@@ -121,6 +123,7 @@ module.exports.init = app => {
     }
   })
 
+  // update user
   app.post('/users/:countryIso/user/edit/', async (req, res) => {
     try {
       checkCountryAccessFromReqParams(req)
