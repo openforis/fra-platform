@@ -112,10 +112,10 @@ module.exports.init = app => {
     try {
       checkCountryAccessFromReqParams(req)
 
-      const profilePictureFile = await userRepository.getUserProfilePicture(req.params.userId)
+      const profilePicture = await userRepository.getUserProfilePicture(req.params.userId)
 
-      profilePictureFile
-        ? res.end(profilePictureFile, 'binary')
+      profilePicture && profilePicture.data
+        ? res.end(profilePicture.data, 'binary')
         : res.sendFile(`${__dirname}/avatar.png`)
 
     } catch (err) {
@@ -132,20 +132,22 @@ module.exports.init = app => {
       const userToUpdate = JSON.parse(req.body.user)
       const countryIso = req.params.countryIso
 
-
-      if (isAdministrator(user)
+      // checking permission to edit user
+      if (
+        isAdministrator(user)
         || user.id === userToUpdate.id
         || (isNationalCorrespondent(countryIso, user) && isCollaborator(countryIso, userToUpdate))
       ) {
-
         const validation = validateUser(userToUpdate)
         if (validation.valid) {
+          const profilePicture = await userRepository.getUserProfilePicture(userToUpdate.id)
+
           const profilePictureFile = R.pipe(
             R.path(['files', 'profilePicture']),
-            R.defaultTo({data: null, name: null})
+            R.defaultTo({data: profilePicture.data, name: profilePicture.name})
           )(req)
 
-          await db.transaction(userRepository.updateUser, [req.user, countryIso, userToUpdate, profilePictureFile])
+          await db.transaction(userRepository.updateUser, [user, countryIso, userToUpdate, profilePictureFile])
 
           sendOk(res)
         } else {

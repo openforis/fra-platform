@@ -83,10 +83,19 @@ const fetchUsersAndInvitations = async (countryIso) => {
 }
 
 const getUserProfilePicture = async (userId, client = db) => {
-  const res = await client.query('SELECT profile_picture_file FROM fra_user WHERE id = $1', [userId])
+  const res = await client.query(`
+    SELECT 
+      profile_picture_file, profile_picture_filename 
+    FROM fra_user 
+    WHERE id = $1`
+    , [userId])
+
   return R.isEmpty(res.rows)
     ? null
-    : res.rows[0].profile_picture_file
+    : {
+      data: res.rows[0].profile_picture_file,
+      name: res.rows[0].profile_picture_filename,
+    }
 }
 
 const insertUser = (client, email, name, loginEmail) =>
