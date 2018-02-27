@@ -48,6 +48,7 @@ export const logout = () => dispatch => {
 //editUser action creators
 
 export const userEditUserLoaded = 'user/editUser/loaded'
+export const userEditUserCompleted = 'user/editUser/completed'
 
 export const loadUserToEdit = (countryIso, userId) => dispatch => {
   if (Number(userId) > 0) {
@@ -64,7 +65,7 @@ export const loadUserToEdit = (countryIso, userId) => dispatch => {
 export const persistUser = (countryIso, user) => dispatch => {
   const formData = new FormData()
   formData.append('profilePicture', user.profilePicture)
-  formData.append('user', JSON.stringify(R.dissoc('profilePicture',user)))
+  formData.append('user', JSON.stringify(R.dissoc('profilePicture', user)))
 
   const config = {
     headers: {
@@ -78,7 +79,7 @@ export const persistUser = (countryIso, user) => dispatch => {
     .post(`/api/users/${countryIso}/user/edit`, formData, config)
     .then(() => {
       dispatch(autosave.complete)
-      // window.history.back()
+      dispatch({type: userEditUserCompleted})
     })
     .catch(err => dispatch(applicationError(err)))
 

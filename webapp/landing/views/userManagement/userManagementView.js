@@ -5,12 +5,13 @@ import {connect} from 'react-redux'
 import * as R from 'ramda'
 
 import AddUserForm from './addUserForm'
+import EditUserForm from '../../../user/editUserComponents/editUserForm'
 
 import {rolesAllowedToChange} from '../../../../common/userManagementAccessControl'
 import {i18nUserRole} from '../../../../common/userUtils'
 
 import {getCountryName} from '../../../country/actions'
-import {fetchUsers, removeUser, persistUser, updateNewUser, addNewUser} from './actions'
+import {fetchUsers, removeUser, updateNewUser, addNewUser} from './actions'
 
 const mapIndexed = R.addIndex(R.map)
 
@@ -38,61 +39,48 @@ const UserTable = ({userList, i18n, ...props}) =>
     </tbody>
   </table>
 
-class UserRow extends React.Component {
+const UserRow = ({countryIso, i18n, user, removeUser, onEditClick, getCountryName}) =>
+  <tr>
+    <UserColumn user={user} field="name"/>
+    <td className="user-list__cell">
+      <div className="user-list__cell--read-only">{i18nUserRole(i18n, user.role)}</div>
+    </td>
+    <UserColumn user={user} field="email"/>
+    <UserColumn user={user} field="loginEmail"/>
 
-  constructor(props) {
-    super(props)
-    this.state = {editing: false}
-  }
+    <td className="user-list__cell user-list__edit-column">
+      { // pending users cannot be edited
+        user.invitationUuid
+          ? null
+          : <button className="btn-s btn-link"
+                    onClick={() => onEditClick(user.id)}>
+            {i18n.t('userManagement.edit')}
+          </button>
+      }
+      <button className="btn-s btn-link-destructive" onClick={() =>
+        window.confirm(i18n.t('userManagement.confirmDelete', {
+          user: user.name,
+          country: getCountryName(countryIso, i18n.language)
+        }))
+          ? removeUser(countryIso, user)
+          : null
+      }>
+        {i18n.t('userManagement.remove')}
+      </button>
+    </td>
+  </tr>
 
-  toggleOpen() {
-    this.setState({editing: !this.state.editing})
-  }
-
-  render() {
-    const {countryIso, i18n, user, removeUser, persistUser, getCountryName} = this.props
-
-    return <tr>
-      <UserColumn user={user} field="name"/>
-      <td className="user-list__cell">
-        <div className="user-list__cell--read-only">{i18nUserRole(i18n, user.role)}</div>
-      </td>
-      <UserColumn user={user} field="email"/>
-      <UserColumn user={user} field="loginEmail"/>
-
-      <td className="user-list__cell user-list__edit-column">
-        { // pending users cannot be edited
-          user.invitationUuid
-            ? null
-            : <button className="btn-s btn-link" onClick={() => {
-              if (this.state.editing) {
-                persistUser(countryIso, user, true)
-              }
-              this.toggleOpen()
-            }}>
-              {this.state.editing ? i18n.t('userManagement.done') : i18n.t('userManagement.edit')}
-            </button>
-        }
-        <button className="btn-s btn-link-destructive" disabled={this.state.editing} onClick={() =>
-          window.confirm(i18n.t('userManagement.confirmDelete', {
-            user: user.name,
-            country: getCountryName(countryIso, i18n.language)
-          }))
-            ? removeUser(countryIso, user)
-            : null
-        }>
-          {i18n.t('userManagement.remove')}
-        </button>
-      </td>
-    </tr>
-  }
-}
 
 const UserColumn = ({user, field}) => <td className="user-list__cell">
   <div className="user-list__cell--read-only">{user[field] ? user[field] : '\xA0'}</div>
 </td>
 
 class UsersView extends React.Component {
+
+  constructor(props) {
+    super(props)
+    this.state = {}
+  }
 
   componentWillMount() {
     this.fetch(this.props.match.params.countryIso)
@@ -101,6 +89,11 @@ class UsersView extends React.Component {
   componentWillReceiveProps(next) {
     if (!R.equals(this.props.match.params.countryIso, next.match.params.countryIso))
       this.fetch(next.match.params.countryIso)
+    // edit user is completed, reloading users and resetting state
+    if(R.prop('editUserStatus', next) === 'completed' && R.prop('editUserStatus', this.props) === 'loaded'){
+      this.setState({editingUserId: null})
+      this.fetch(next.match.params.countryIso)
+    }
   }
 
   fetch(countryIso) {
@@ -111,11 +104,19 @@ class UsersView extends React.Component {
     const {match, userList, newUser, allowedRoles} = this.props
     const countryIso = match.params.countryIso
 
+    const onEditClick = (userId) => this.setState({editingUserId: userId})
+
     return userList && !R.isEmpty(allowedRoles)
-      ? <div>
-        <AddUserForm {...this.props} user={newUser} countryIso={countryIso}/>
-        <UserTable {...this.props} countryIso={countryIso}/>
-      </div>
+      ? this.state.editingUserId
+        ? <EditUserForm
+          userId={this.state.editingUserId}
+          countryIso={countryIso}
+          onCancel={() => this.setState({editingUserId: null})}
+        />
+        : <div>
+          <AddUserForm {...this.props} user={newUser} countryIso={countryIso}/>
+          <UserTable {...this.props} countryIso={countryIso} onEditClick={onEditClick}/>
+        </div>
       : null
   }
 }
@@ -125,13 +126,13 @@ const mapStateToProps = (state, props) =>
     i18n: state.user.i18n,
     userList: state.userManagement.list,
     allowedRoles: rolesAllowedToChange(props.match.params.countryIso, R.path(['user', 'userInfo'], state)),
-    newUser: state.userManagement.newUser
+    newUser: state.userManagement.newUser,
+    editUserStatus: R.path(['user', 'editUser', 'status'], state)
   })
 
 export default connect(mapStateToProps, {
   fetchUsers,
   removeUser,
-  persistUser,
   updateNewUser,
   addNewUser,
   getCountryName
