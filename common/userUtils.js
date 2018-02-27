@@ -6,6 +6,8 @@ const crypto = require('crypto')
 
 const emailHash = email => crypto.createHash('md5').update(email).digest('hex')
 
+const profilePictureUri = (countryIso, user) => `/api/users/${countryIso}/user/${user.id}/profilePicture`
+
 const i18nUserRole = (i18n, role) => i18n.t('user.roles.' + camelize(role.toLowerCase()))
 
 // validation methods
@@ -38,6 +40,7 @@ const validate = user => {
 
 module.exports = {
   emailHash,
+  profilePictureUri,
   i18nUserRole,
   validate
 }

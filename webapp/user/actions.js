@@ -1,6 +1,9 @@
 import axios from 'axios'
+import R from 'ramda'
+
 import {applicationError} from '../applicationError/actions'
 import {createI18nInstance} from '../../common/i18n/i18nFactory'
+import * as autosave from "../autosave/actions"
 
 export const userLoggedInUserLoaded = 'user/loggedInUser/loaded'
 export const userLoggedInUserSwitchLanguage = 'user/loggedInUser/switchLanguage'
@@ -59,7 +62,24 @@ export const loadUserToEdit = (countryIso, userId) => dispatch => {
 }
 
 export const persistUser = (countryIso, user) => dispatch => {
+  const formData = new FormData()
+  formData.append('profilePicture', user.profilePicture)
+  formData.append('user', JSON.stringify(R.dissoc('profilePicture',user)))
 
-  // dispatch({type: userEditUserLoaded, user})
-  window.history.back()
+  const config = {
+    headers: {
+      'content-type': 'multipart/form-data'
+    }
+  }
+
+  dispatch(autosave.start)
+
+  axios
+    .post(`/api/users/${countryIso}/user/edit`, formData, config)
+    .then(() => {
+      dispatch(autosave.complete)
+      // window.history.back()
+    })
+    .catch(err => dispatch(applicationError(err)))
+
 }
