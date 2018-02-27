@@ -15,7 +15,7 @@ import {fetchUsers, removeUser, updateNewUser, addNewUser} from './actions'
 
 const mapIndexed = R.addIndex(R.map)
 
-const UserTable = ({userList, i18n, ...props}) =>
+const UserTable = ({countryUsers, i18n, ...props}) =>
   <table className="user-list__table">
     <thead>
     <tr>
@@ -28,8 +28,8 @@ const UserTable = ({userList, i18n, ...props}) =>
     </thead>
     <tbody>
     {
-      userList.length > 0
-        ? mapIndexed((user, i) => <UserRow key={i} i18n={i18n} user={user} {...props}/>, userList)
+      countryUsers.length > 0
+        ? mapIndexed((user, i) => <UserRow key={i} i18n={i18n} user={user} {...props}/>, countryUsers)
         : <tr>
           <td className="user-list__cell" colSpan="5">
             <div className="user-list__cell--read-only">{i18n.t('userManagement.noUsers')}</div>
@@ -101,12 +101,12 @@ class UsersView extends React.Component {
   }
 
   render() {
-    const {match, userList, newUser, allowedRoles} = this.props
+    const {match, countryUsers, newUser, allowedRoles} = this.props
     const countryIso = match.params.countryIso
 
     const onEditClick = (userId) => this.setState({editingUserId: userId})
 
-    return userList && !R.isEmpty(allowedRoles)
+    return countryUsers && !R.isEmpty(allowedRoles)
       ? this.state.editingUserId
         ? <EditUserForm
           userId={this.state.editingUserId}
@@ -124,7 +124,7 @@ class UsersView extends React.Component {
 const mapStateToProps = (state, props) =>
   ({
     i18n: state.user.i18n,
-    userList: state.userManagement.list,
+    countryUsers: state.userManagement.countryUsers,
     allowedRoles: rolesAllowedToChange(props.match.params.countryIso, R.path(['user', 'userInfo'], state)),
     newUser: state.userManagement.newUser,
     editUserStatus: R.path(['user', 'editUser', 'status'], state)

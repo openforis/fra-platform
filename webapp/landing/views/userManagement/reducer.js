@@ -12,7 +12,7 @@ const sortUsers = users => R.sortBy(R.compose(R.toLower, R.prop('name')), users)
 const actionHandlers = {
   //users list
   [usersFetch]: (state, action) => R.pipe(
-    R.assoc('list', sortUsers(action.users)),
+    R.assoc('countryUsers', sortUsers(action.countryUsers)),
     R.assoc('newUser', action.newUser),
   )(state),
 
