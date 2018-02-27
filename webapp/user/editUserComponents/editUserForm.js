@@ -48,7 +48,9 @@ class EditUserForm extends React.Component {
   }
 
   render() {
-    const {i18n, userInfo, countryIso, countries, getCountryName, persistUser} = this.props
+    const defaultOnCancel = () => window.history.back()
+
+    const {i18n, userInfo, countryIso, countries, getCountryName, persistUser, onCancel = defaultOnCancel} = this.props
     const {user, validation} = this.state
 
     const hasValidProp = prop => R.pipe(
@@ -219,10 +221,7 @@ class EditUserForm extends React.Component {
           <div className="edit-user__form-label"></div>
           <div className="edit-user__form-field-buttons">
             <button className="btn btn-secondary"
-                    onClick={() => {
-                      this.setState({user: this.props.user})
-                      window.history.back()
-                    }}>
+                    onClick={onCancel}>
               {i18n.t('editUser.cancel')}
             </button>
             <button className="btn btn-primary"

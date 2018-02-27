@@ -1,28 +1,17 @@
 import axios from 'axios'
 
-import { applicationError } from '../../../applicationError/actions'
-import { newUser, updateUserField, validUser } from './users'
+import {applicationError} from '../../../applicationError/actions'
+import {newUser, updateUserField, validUser} from './users'
 
 export const usersFetch = 'users/fetch'
 export const usersNewUserUpdate = 'users/new/user/update'
 
 // list action creators
+
 export const fetchUsers = countryIso => dispatch =>
   axios.get(`/api/users/${countryIso}`)
     .then(resp => dispatch({type: usersFetch, users: resp.data, newUser: newUser()}))
     .catch(err => dispatch(applicationError(err)))
-
-
-export const persistUser = (countryIso, user, fetch = false) => dispatch => {
-  if (!validUser(user)) throw Error('User not valid')
-  axios.post(`/api/users/${countryIso}`, user)
-    .then(() => {
-      if (fetch)
-        dispatch(fetchUsers(countryIso))
-    }).catch((err) => {
-    dispatch(applicationError(err))
-  })
-}
 
 export const removeUser = (countryIso, user) => dispatch => {
   const queryParam = user.id ? `?id=${user.id}` : `?invitationUuid=${user.invitationUuid}`
@@ -43,5 +32,12 @@ export const updateNewUser = (countryIso, userId, field, value) => (dispatch, ge
 
 export const addNewUser = countryIso => (dispatch, getState) => {
   const user = getState().userManagement.newUser
-  dispatch(persistUser(countryIso, user, true))
+
+  if (!validUser(user))
+    throw Error('User not valid')
+
+  axios.post(`/api/users/${countryIso}`, user)
+    .then(() => dispatch(fetchUsers(countryIso)))
+    .catch(err => dispatch(applicationError(err)))
+
 }
