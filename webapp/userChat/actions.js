@@ -1,7 +1,6 @@
 import axios from 'axios'
 import { applicationError } from '../applicationError/actions'
 
-import { emailHash } from '../../common/userUtils'
 import { getCountryOverview } from '../landing/actions'
 
 export const userChatLoaded = 'userChat/chat/loaded'
@@ -14,8 +13,8 @@ export const openChat = (countryIso, sessionUser, recipientUser) => dispatch => 
     .get(`/api/userChat/${countryIso}/messages`, {params: {sessionUserId: sessionUser.id, otherUserId: recipientUser.id}})
     .then(resp => {
         const chat = {
-          sessionUser: {id: sessionUser.id, name: sessionUser.name, emailHash: emailHash(sessionUser.email)},
-          recipientUser: {id: recipientUser.id, name: recipientUser.name, emailHash: emailHash(recipientUser.email)},
+          sessionUser: {id: sessionUser.id, name: sessionUser.name},
+          recipientUser: {id: recipientUser.id, name: recipientUser.name},
           messages: resp.data
         }
 
