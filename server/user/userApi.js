@@ -8,6 +8,9 @@ const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
 const {sendInvitation} = require('./sendInvitation')
 const {rolesAllowedToChange} = require('../../common/userManagementAccessControl')
 
+const {isAdministrator, isNationalCorrespondent, isCollaborator} = require('../../common/countryRole')
+const {validate: validateUser} = require('../../common/userUtils')
+
 const filterAllowedUsers = (countryIso, user, users) => {
   const allowedRoles = rolesAllowedToChange(countryIso, user)
   return R.filter(userInList => R.contains(userInList.role, allowedRoles), users)
@@ -97,6 +100,58 @@ module.exports.init = app => {
       const user = await userRepository.findUserById(req.params.userId)
 
       res.json({user})
+
+    } catch (err) {
+      sendErr(res, err)
+    }
+  })
+
+  app.get('/users/:countryIso/user/:userId/profilePicture', async (req, res) => {
+    try {
+      checkCountryAccessFromReqParams(req)
+
+      const profilePictureFile = await userRepository.getUserProfilePicture(req.params.userId)
+
+      profilePictureFile
+        ? res.end(profilePictureFile, 'binary')
+        : res.sendFile(`${__dirname}/avatar.png`)
+
+    } catch (err) {
+      sendErr(res, err)
+    }
+  })
+
+  app.post('/users/:countryIso/user/edit/', async (req, res) => {
+    try {
+      checkCountryAccessFromReqParams(req)
+
+      const user = req.user
+      const userToUpdate = JSON.parse(req.body.user)
+      const countryIso = req.params.countryIso
+
+
+      if (isAdministrator(user)
+        || user.id === userToUpdate.id
+        || (isNationalCorrespondent(countryIso, user) && isCollaborator(countryIso, userToUpdate))
+      ) {
+
+        const validation = validateUser(userToUpdate)
+        if (validation.valid) {
+          const profilePictureFile = R.pipe(
+            R.path(['files', 'profilePicture']),
+            R.defaultTo({data: null, name: null})
+          )(req)
+
+          await db.transaction(userRepository.updateUser, [req.user, countryIso, userToUpdate, profilePictureFile])
+
+          sendOk(res)
+        } else {
+          sendErr(res, {msg: 'Invalid User', ...validation})
+        }
+
+      } else {
+        sendErr(res, 'Operation not allowed')
+      }
 
     } catch (err) {
       sendErr(res, err)

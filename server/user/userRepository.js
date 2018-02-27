@@ -1,9 +1,11 @@
 const uuidv4 = require('uuid/v4')
 const camelize = require('camelize')
+const Promise = require('bluebird')
+const R = require('ramda')
 
 const db = require('../db/db')
 const auditRepository = require('./../audit/auditRepository')
-const { AccessControlException } = require('../utils/accessControl')
+const {AccessControlException} = require('../utils/accessControl')
 
 const findUserById = async (userId, client = db) => {
   const res = await client.query('SELECT id, name, email, login_email, institution, position, lang FROM fra_user WHERE id = $1', [userId])
@@ -80,6 +82,13 @@ const fetchUsersAndInvitations = async (countryIso) => {
   return [...users, ...invitations]
 }
 
+const getUserProfilePicture = async (userId, client = db) => {
+  const res = await client.query('SELECT profile_picture_file FROM fra_user WHERE id = $1', [userId])
+  return R.isEmpty(res.rows)
+    ? null
+    : res.rows[0].profile_picture_file
+}
+
 const insertUser = (client, email, name, loginEmail) =>
   client.query(`
     INSERT INTO
@@ -137,35 +146,45 @@ const updateInvitation = async (client, user, countryIso, userToUpdate) => {
   return userToUpdate.invitationUuid
 }
 
-const updateUserFields = (client, userToUpdate) =>
+const updateUserFields = (client, userToUpdate, profilePictureFile) =>
   client.query(
     `
       UPDATE
         fra_user
       SET
         name = $1,
-        email = $2
+        email = $2,
+        institution = $3,
+        position = $4,
+        profile_picture_file = $5,
+        profile_picture_filename = $6
       WHERE
-        id = $3
-    `,
-  [userToUpdate.name, userToUpdate.email, userToUpdate.id]
-)
-
-const updateUser = async (client, user, countryIso, userToUpdate) => {
-  await updateUserFields(client, userToUpdate)
-  await client.query(
-      `
-      UPDATE
-        user_country_role
-      SET
-        role = $1
-      WHERE
-        user_id = $2
-      AND
-        country_iso = $3
-      `,
-    [userToUpdate.role, userToUpdate.id, countryIso]
+        id = $7
+    `, [
+      userToUpdate.name,
+      userToUpdate.email,
+      userToUpdate.institution,
+      userToUpdate.position,
+      profilePictureFile.data,
+      profilePictureFile.name,
+      userToUpdate.id
+    ]
   )
+
+const updateUser = async (client, user, countryIso, userToUpdate, profilePictureFile) => {
+  await updateUserFields(client, userToUpdate, profilePictureFile)
+  // removing old roles
+  await client.query(`DELETE FROM user_country_role WHERE user_id = $1`, [userToUpdate.id])
+  // adding new roles
+  const userRolePromises = userToUpdate.roles.map(userRole =>
+    client.query(`
+      INSERT INTO user_country_role
+      (user_id, country_iso, role)
+      VALUES($1, $2, $3)`
+      , [userToUpdate.id, userRole.countryIso, userRole.role])
+  )
+  await Promise.all(userRolePromises)
+  // insert audit
   await auditRepository.insertAudit(client, user.id, 'updateUser', countryIso, 'users', {user: userToUpdate.name})
 }
 
@@ -210,16 +229,19 @@ const setInvitationAccepted = (client, invitationUuid) => client.query(
 
 const addUserCountryRole = (client, userId, countryIso, role) =>
   client.query(
-  `INSERT INTO user_country_role
+    `INSERT INTO user_country_role
       (user_id, country_iso, role)
       VALUES
       ($1, $2, $3)`,
-  [userId, countryIso, role]
-)
+    [userId, countryIso, role]
+  )
 
 const addNewUserBasedOnInvitation = async (client, invitationUuid, loginEmail) => {
   const invitationInfo = await getInvitationInfo(client, invitationUuid)
-  if (!!invitationInfo.accepted) throw new AccessControlException('error.access.invitationAlreadyUsed', {loginEmail, invitationUuid})
+  if (!!invitationInfo.accepted) throw new AccessControlException('error.access.invitationAlreadyUsed', {
+    loginEmail,
+    invitationUuid
+  })
   await insertUser(client, invitationInfo.email, invitationInfo.name, loginEmail)
   const userIdResult = await getIdOfJustAddedUser(client)
   const userId = userIdResult.rows[0].user_id
@@ -267,6 +289,7 @@ module.exports = {
   updateLanguage,
   fetchCountryUsers,
   fetchAdministrators,
+  getUserProfilePicture,
   addInvitation,
   updateInvitation,
   removeInvitation,
