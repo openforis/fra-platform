@@ -1,0 +1,5 @@
+ALTER TABLE
+    fra_user ADD COLUMN institution CHARACTER VARYING(1024);
+
+ALTER TABLE
+    fra_user ADD COLUMN position CHARACTER VARYING(1024);
