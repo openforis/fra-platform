@@ -82,6 +82,33 @@ const fetchUsersAndInvitations = async (countryIso) => {
   return [...users, ...invitations]
 }
 
+// fetch users and invitation expect country passed as argument
+const fetchAllUsersAndInvitations = async () => {
+
+  const usersRes = await db.query(`
+    SELECT DISTINCT
+      u.id,
+      u.email,
+      u.name,
+      u.login_email,
+      u.lang
+    FROM
+      fra_user u
+  `)
+
+  const invitationsRes = await db.query(`
+    SELECT
+      invitation_uuid,
+      email,
+      name,
+      role
+     FROM fra_user_invitation
+     WHERE accepted IS NULL`
+  )
+
+  return [...camelize(usersRes.rows), ...camelize(invitationsRes.rows)]
+}
+
 const getUserProfilePicture = async (userId, client = db) => {
   const res = await client.query(`
     SELECT 
@@ -306,5 +333,6 @@ module.exports = {
   removeCountryUser,
   acceptInvitation,
   addCountryRoleAndUpdateUserBasedOnInvitation,
-  fetchUsersAndInvitations
+  fetchUsersAndInvitations,
+  fetchAllUsersAndInvitations
 }
