@@ -45,7 +45,7 @@ const UserTable = ({users, i18n, showRole = true, ...props}) =>
   </table>
 
 const UserRow = ({countryIso, i18n, user, removeUser, onEditClick, getCountryName, showRole}) =>
-  <tr>
+  <tr className={user.invitationUuid ? 'user-list__invitation-row' : ''}>
     <UserColumn user={user} field="name"/>
     {
       showRole
