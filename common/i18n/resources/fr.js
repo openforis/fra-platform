@@ -124,8 +124,8 @@ module.exports.translation = {
       linkFraProcess: 'En savoir davantage sur le processus de FRA'
     },
     links: {
-      unfcccFocalPoints: 'Liste des points focaux de la CCNUCC',
-      sdgFocalPoints: 'Liste des points focaux nationaux pour les ODD',
+      unfcccFocalPoints: 'Points focaux de la CCNUCC',
+      sdgFocalPoints: 'Points focaux nationaux pour les ODD',
       reddPortal: 'Systèmes de surveillance des terres par satellite (SSTS), habilité par l\'ONU-REDD/FAO'
     }
   },
