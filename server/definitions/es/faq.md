@@ -2,7 +2,7 @@
 
 _FRA 2020_
 
-# TABLA 1a
+# 1a Extensión del bosque y otras tierras boscosas
 
 ### ¿Puedo corregir o modificar cifras informadas previamente?
 
@@ -66,7 +66,7 @@ Los umbrales deben ser seleccionados por el país en el primer comunicado nacion
 
 Las líneas eléctricas y telefónicas de menos de 20 metros de ancho y que atraviesan zonas forestales se deben clasificar como “bosque”. En todos los otros casos deben ser clasificadas como “otras tierras”.
 
-# TABLA 1b
+# 1b Características de los bosques
 
 ###	¿Cómo debo informar sobre áreas donde se ha llevado a cabo plantación de mejora?
 
@@ -80,7 +80,7 @@ Si no es posible distinguir si un bosque es plantado o regenerado de forma natur
 
 Las áreas con especies naturalizadas que se generan de forma natural deben ser informadas como “otro bosque regenerado de forma natural” y también bajo la subcategoría “...de las cuales especies introducidas”, si constituyen más del 50% de las existencias en formación en su madurez”. 
 
-# TABLA 1c
+# 1c Expansión, deforestación anual y cambio neto anual
 
 ###	¿Cuándo debo considerar que cierta tierra abandonada se ha transformado en bosque y, por lo tanto, debe ser incluida bajo “expansión natural del bosque”?
 
@@ -97,7 +97,7 @@ La forestación es la plantación/siembra de árboles en áreas que previamente 
 No, la terminología sobre forestación y reforestación es diferente. En las directrices del IPCC, tanto la forestación, como la reforestación implican un cambio de uso de la tierra y corresponden con el término forestación de FRA, mientras que el término revegetación del IPCC corresponde en buena medida con el término reforestación de FRA. 
 (Pendiente)
 
-# TABLA 1e
+# 1e Categorías específicas de los bosques
 
 ### ¿De qué modo debo interpretar “indicios visiblemente claros de actividad humana” de modo de poder distinguir entre “bosque primario” y “otro bosque regenerado de forma natural”?
 
@@ -123,7 +123,7 @@ Esta definición cae dentro de la definición de “bosques regenerados de forma
 
 La OIMT define bosque primario manejado como:
 
-_“Bosque en el que la extracción sostenible de madera y/o productos no maderables (por ejemplo, a través de sistemas integrados de explotación y tratamientos silvícolas), la gestión de la fauna silvestre y otros usos han cambiado la estructura y la composición de especies del bosque primario original. Se mantienen todos los productos y servicios principales_. 
+_“Bosque en el que la extracción sostenible de madera y/o productos no maderables (por ejemplo, a través de sistemas integrados de explotación y tratamientos silvícolas), la gestión de la fauna silvestre y otros usos han cambiado la estructura y la composición de especies del bosque primario original. Se mantienen todos los productos y servicios principales”_. 
 
 También esta definición cae dentro de la definición de “bosques regenerados de forma natural” de FRA 2020.
 
@@ -131,7 +131,7 @@ También esta definición cae dentro de la definición de “bosques regenerados
 
 Los bosques alterados sin impacto humano visible y con una composición de especies y estructura que se asemeja a un bosque maduro o cercano a maduro se deben clasificar como “primario”, mientras que un bosque gravemente dañado con una estructura de edad y composición de especies que difieren significativamente de un bosque maduro se debe clasificar como “bosque regenerado de forma natural”. Vea también la nota Explicativa 1 para la definición de Bosque Primario.
 
-# TABLA 1f
+# 1f Otras tierras con cubierta de árboles
 
 ### ¿De qué manera se deben clasificar las áreas bajo múltiples usos de la tierra (agroforestal, pastoreo forestal, etc.) de manera coherente, cuando ningún uso de la tierra se considera significativamente más importante que otro?
 
@@ -180,7 +180,6 @@ FRA utiliza la definición de manglar a partir de la Botánica de los Manglares 
 | Excoecaria agallocha         | Pelliciera rhizophorae       |       
 | Excoecaria indica            |                              |
  
-
 ###	¿Cómo clasificar los huertos de semillas?
 
 Los huertos de semillas de especies de árboles forestales se deben considerar como bosque. 
@@ -195,13 +194,13 @@ Sí, si no están manejados para fines agrícolas y si se cumplen los criterios 
 
 --
 
-# TABLA 2a
+# 2a Existencias en formación
 
 ###	¿Es posible estimar las existencias en crecimiento a partir de las existencias de biomasa utilizando los factores de conversión?
 
 Es posible, pero se debe hacer con mucho cuidado; particularmente los factores de conversión y expansión necesitan existencias en formación por hectárea como parte del registro, por lo que deben hacerse algunos supuestos. Utilizar los factores de densidad de la madera y expansión de la biomasa es más directo.
 
-# TABLA 2b
+# 2b Composición de las existencias en formación
 
 ### La Tabla 2b sobre la composición de las existencias en formación, ¿hace referencia sólo a los bosques naturales?
 
@@ -219,7 +218,7 @@ Por volumen (existencias en formación).
 
 Sí, si los datos nacionales permiten la distinción de especies individuales dentro de ciertos grupos de especies, los países pueden informar sobre géneros (o grupos) en vez de especies, y escribir una nota en el campo de comentarios pertinente a la tabla.
 
-# TABLA 2c Y 2d
+# 2c Biomasa Y 2d Carbono
 
 *Aspectos metodológicos generales*
 
@@ -247,7 +246,7 @@ Generalmente, se considera que las ecuaciones de biomasa entregan mejores estima
 
 --
 
-# TABLA 3a
+# 3a Objetivo de gestión designado
 
 ###	Si la legislación nacional señala que todos los bosques deben ser manejados para producción, conservación de la biodiversidad y protección del suelo y del agua, ¿debo informar toda la superficie forestal siendo de “múltiple uso” como la función primaria designada?
 
@@ -255,7 +254,7 @@ La definición de función de designación primaria, nota explicativa 2, dice qu
 
 --
 
-# TABLA 4a Y 4b
+# 4a Propieda del bosque Y 4b Derechos de gestión de bosques públicos
 
 ###	¿Cómo debo informar sobre la propiedad cuando los territorios indígenas coinciden con las áreas protegidas?
 
@@ -303,7 +302,7 @@ En la Tabla 4a, infórmelos como “Públicos”.  En la tabla 4b, infórmelos b
 
 --
 
-# TABLA 6b
+# 6b Área de zona forestal permanente
 
 ###	El concepto de Zona Forestal Permanente (PFE, por su sigla en inglés) no encaja en el contexto nacional. ¿Cómo lo debo informar?
 
@@ -311,7 +310,7 @@ Si el concepto de Zona Forestal Permanente no encaja con el contexto nacional, e
 
 --
 
-# TABLA 7a
+# 7a Empleo en silvicultura y extracción de madera
 
 ### ¿Qué significa EDC?
 
@@ -345,7 +344,7 @@ No, sólo se debe incluir el empleo directamente relacionado con la producción 
 
 Si es posible, su tiempo se debe dividir entre estas dos actividades, de modo que si él/ella trabaja 50% en cada una de ellas, debe contar como un FTE de 0,5 anual para cada actividad. Si no es posible llevar a cabo la división, observe en qué actividad la persona pasa la mayoría del tiempo.
 
-# TABLA 7c
+# 7c Extracción y valor de los productos forestales no maderables
 
 ###	¿Podemos incluir servicios como agua, ecoturismo, recreación, caza, carbono, etc., en la tabla de PFNM? En otros contextos informamos sobre bienes y servicios no madereros y los incluimos.
 
