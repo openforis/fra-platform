@@ -10,19 +10,21 @@ import { PopoverControl } from '../reusableUiComponents/popoverControl'
 import Icon from '../reusableUiComponents/icon'
 
 const UserInfo = props => {
+  const {userInfo, i18n, country, logout} = props
+
   const userInfoItems = [{
-    content: props.i18n.t('header.logout'),
-    onClick: () => props.logout()
+    content: i18n.t('header.logout'),
+    onClick: () => logout()
   }, {
     divider: true
   }, {
-    content: props.i18n.t('header.profilePicture'),
-    onClick: () => window.open('https://gravatar.com', '_blank')
+    content: i18n.t('header.editProfile'),
+    link: `/country/${country}/user/${userInfo.id}`,
   }]
 
   return <PopoverControl items={userInfoItems}>
     <div className="fra-header__menu-item">
-      {props.userName}
+      {userInfo.name}
       <Icon className="icon-middle" name="small-down"/>
     </div>
   </PopoverControl>
@@ -53,14 +55,16 @@ const autosaveStatusText = (i18n, status, lastSaveTimeStamp) => {
     : statusTextTranslation
 }
 
-const Header = ({status,
+const Header = ({
+                  status,
                   userInfo,
                   lastSaveTimeStamp,
                   i18n,
                   toggleNavigationVisible,
                   navigationVisible,
                   commentsOpen,
-                  ...props}) => {
+                  ...props
+                }) => {
   const commentColumnCurrentWidth = commentsOpen ? 288 : 0
   const navigationCurrentWidth = navigationVisible ? 256 : 0
   const subtractFromHeaderWidth = commentColumnCurrentWidth + navigationCurrentWidth
@@ -74,16 +78,16 @@ const Header = ({status,
       <ToggleNavigationControl
         toggleNavigationVisible={toggleNavigationVisible}
         navigationVisible={navigationVisible}
-        i18n={i18n} />
+        i18n={i18n}/>
       {R.isNil(status)
         ? null
         : <div className={`fra-header__autosave status-${status}`}>
-            {autosaveStatusText(i18n, status, lastSaveTimeStamp)}
-          </div>
+          {autosaveStatusText(i18n, status, lastSaveTimeStamp)}
+        </div>
       }
       <div className="fra-header__menu">
         <LanguageSelection i18n={i18n} {...props}/>
-        <UserInfo userName={userInfo.name} i18n={i18n} {...props}/>
+        <UserInfo userInfo={userInfo} i18n={i18n} {...props}/>
       </div>
     </div>
   </div>

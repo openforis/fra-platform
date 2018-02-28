@@ -10,7 +10,7 @@ const links = [
 const LinksView = ({i18n}) => <div className="landing__links-container">
   {
     links.map(link =>
-      <div className="landing__link-container">
+      <div key={link.key} className="landing__link-container">
         <a href={link.href} target="_blank">{i18n.t(`landing.links.${link.key}`)}</a>
       </div>
     )

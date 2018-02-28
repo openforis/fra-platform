@@ -26,8 +26,11 @@ module.exports.translation = {
   user: {
     roles: {
       reviewer: 'Examinateur',
+      reviewer_plural: 'Examinateurs',
       nationalCorrespondent: 'Correspondant national',
+      nationalCorrespondent_plural: 'Correspondants nationaux',
       collaborator: 'Collaborateur',
+      collaborator_plural: 'Collaborateurs',
       administrator: 'Administrateur',
       noRole: 'N/A'
     }
@@ -61,7 +64,8 @@ module.exports.translation = {
       about: 'À propos de FRA',
       recentActivity: 'Activité récente',
       userManagement: 'Gérer collaborateurs',
-      externalData: 'Données externes'
+      externalData: 'Données externes',
+      links: 'Liens'
     },
     overview: {
       loadingMap: 'Chargement carte…',
@@ -121,6 +125,11 @@ module.exports.translation = {
       },
       fraProcess: 'Depuis 1946, la FAO assure le suivi des ressources forestières mondiales tous les 5 à 10 ans. Les évaluations des ressources forestières mondiales (FRA) sont désormais produites tous les cinq ans afin de fournir une approche cohérente pour décrire les forêts du monde et leur mode d\'évolution. L\'évaluation repose sur deux sources de données principales: les rapports nationaux préparés par les Correspondants nationaux et des analyses par télédétection menées par la FAO en collaboration avec les points de contact nationaux et des partenaires régionaux. Le champ d\'application de FRA évolue régulièrement depuis la première évaluation publiée en 1948. Ces évaluations tracent une histoire intéressante de l\'intérêt accordé aux ressources forestières mondiales en ce qui concerne le contenu concret et l\'évolution du champ d\'application.',
       linkFraProcess: 'En savoir davantage sur le processus de FRA'
+    },
+    links: {
+      unfcccFocalPoints: 'Points focaux de la CCNUCC',
+      sdgFocalPoints: 'Points focaux nationaux pour les ODD',
+      reddPortal: 'Systèmes de surveillance des terres par satellite (SSTS), habilité par l\'ONU-REDD/FAO'
     }
   },
 
@@ -216,7 +225,7 @@ L'équipe de FRA
   },
 
   header: {
-    profilePicture: 'Modifier photo profil',
+    editProfile: 'Modifier profil',
     logout: 'Déconnexion',
     hideSidebar: 'Masquer barre latérale',
     showSidebar: 'Montrer barre latérale',
@@ -331,7 +340,8 @@ L'équipe de FRA
     edit: 'Modifier',
     addUser: 'Ajouter collaborateur',
     insufficientPrivileges: 'Privilèges insuffisants',
-    confirmDelete: 'Éliminer {{user}} de {{country}}?',
+    confirmDelete: 'Éliminer {{user}}?',
+    allUsers: 'Tous les collaborateurs',
     invitationEmail: {
       subject: 'Invitation à rejoindre le/la {{country}} sur la plateforme de FRA',
       textMessage: `Cher {{invitedUser}},
@@ -814,6 +824,30 @@ L'équipe de FRA
         flags: 'Drapeaux',
       }
     }
-  }
+  },
 
+  editUser: {
+    chooseProfilePicture: 'Choisir l\'image',
+    name: 'Nom',
+    role: 'Rôle',
+    email: 'Email',
+    loginEmail: 'Identifiant',
+    institution: 'Institution',
+    position: 'Position',
+    done: 'Terminé',
+    cancel: 'Effacer',
+    picture1MbMax: 'L\'image de profil ne peut pas dépasser 1 Mo'
+  },
+
+  country: {
+    region: {
+      asia: 'Asie',
+      europe: 'Europe',
+      oceania: 'Océanie',
+      north_and_central_america: 'Amérique du Nord et Centrale',
+      south_america: 'Amérique du sud',
+      africa: 'Afrique',
+      atlantis: 'Atlantis'
+    }
+  }
 }

@@ -26,8 +26,11 @@ module.exports.translation = {
   user: {
     roles: {
       reviewer: 'Reviewer',
+      reviewer_plural: 'Reviewers',
       nationalCorrespondent: 'National correspondent',
+      nationalCorrespondent_plural: 'National correspondents',
       collaborator: 'Collaborator',
+      collaborator_plural: 'Collaborators',
       administrator: 'Administrator',
       noRole: 'N/A'
     }
@@ -124,8 +127,8 @@ module.exports.translation = {
       linkFraProcess: 'Read more about the FRA process'
     },
     links: {
-      unfcccFocalPoints: 'List of UNFCCC focal points',
-      sdgFocalPoints: 'List of National SDG focal points',
+      unfcccFocalPoints: 'UNFCCC focal points',
+      sdgFocalPoints: 'National SDG focal points',
       reddPortal: 'Satellite Land Monitoring Systems (SLMS), empowered by UN-REDD/FAO'
     }
   },
@@ -222,7 +225,7 @@ The FRA team
   },
 
   header: {
-    profilePicture: 'Edit profile picture',
+    editProfile: 'Edit profile',
     logout: 'Logout',
     hideSidebar: 'Hide sidebar',
     showSidebar: 'Show sidebar',
@@ -337,7 +340,8 @@ The FRA team
     edit: 'Edit',
     addUser: 'Add collaborator',
     insufficientPrivileges: 'Insufficient privileges',
-    confirmDelete: 'Remove {{user}} from {{country}}?',
+    confirmDelete: 'Remove {{user}}?',
+    allUsers:'All collaborators',
     invitationEmail: {
       subject: 'Invited to {{country}} on FRA Platform',
       textMessage: `Dear {{invitedUser}},
@@ -819,6 +823,31 @@ The FRA team
         symbols: 'Symbols',
         flags: 'Flags',
       }
+    }
+  },
+
+  editUser: {
+    chooseProfilePicture: 'Choose picture',
+    name: 'Name',
+    role: 'Role',
+    email: 'Email',
+    loginEmail: 'Login',
+    institution: 'Institution',
+    position: 'Position',
+    done: 'Done',
+    cancel: 'Cancel',
+    picture1MbMax: 'Profile picture cannot exceed 1MB'
+  },
+
+  country: {
+    region: {
+      asia: 'Asia',
+      europe: 'Europe',
+      oceania: 'Oceania',
+      north_and_central_america: 'North and Central America',
+      south_america: 'South America',
+      africa: 'Africa',
+      atlantis: 'Atlantis'
     }
   }
 }

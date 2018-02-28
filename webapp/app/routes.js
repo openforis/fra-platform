@@ -31,6 +31,7 @@ import OtherLandWithTreeCoverView from '../assessmentFra/otherLandWithTreeCover/
 import SustainableDevelopmentView from '../assessmentFra/sustainableDevelopment/sustainableDevelopmentView'
 import ContactPersonsView from '../assessmentFra/contactPersons/contactPersonsView'
 import PanEuropeanIndicatorsView from '../panEuropeanIndicators/panEuropeanIndicatorsView'
+import EditUserView from '../user/editUserView'
 
 const routes = {
   '/': () => <noscript/>, //This will get rendered first (it flashes), before we redirect to logged-in page or login page
@@ -63,7 +64,8 @@ const routes = {
   '/country/:countryIso/otherLandWithTreeCover': OtherLandWithTreeCoverView,
   '/country/:countryIso/sustainableDevelopment': SustainableDevelopmentView,
   '/country/:countryIso/contactPersons': ContactPersonsView,
-  '/country/:countryIso/panEuropeanIndicators': PanEuropeanIndicatorsView
+  '/country/:countryIso/panEuropeanIndicators': PanEuropeanIndicatorsView,
+  '/country/:countryIso/user/:userId': EditUserView
 }
 
 const routeConfig = R.pipe(
