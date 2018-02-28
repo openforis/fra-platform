@@ -9,7 +9,7 @@ import EditUserForm from '../../../user/editUserComponents/editUserForm'
 
 import { rolesAllowedToChange } from '../../../../common/userManagementAccessControl'
 import { i18nUserRole } from '../../../../common/userUtils'
-import { isAdministrator } from '../../../../common/countryRole'
+import { isAdministrator, nationalCorrespondent, collaborator, reviewer } from '../../../../common/countryRole'
 
 import { getCountryName } from '../../../country/actions'
 import { fetchUsers, removeUser, updateNewUser, addNewUser } from './actions'
@@ -80,6 +80,18 @@ const UserColumn = ({user, field}) => <td className="user-list__cell">
   <div className="user-list__cell--read-only">{user[field] ? user[field] : '\xA0'}</div>
 </td>
 
+const UsersCount = ({i18n, userCounts}) =>
+  <div className="user-counts__container">
+    {
+      [nationalCorrespondent.role, collaborator.role, reviewer.role]
+        .map(role =>
+          <div key={role} className="user-counts__item">
+            {`${userCounts[role]} ${i18nUserRole(i18n, role, Number(userCounts[role]))}`}
+          </div>
+        )
+    }
+  </div>
+
 class UsersView extends React.Component {
 
   constructor (props) {
@@ -106,7 +118,7 @@ class UsersView extends React.Component {
   }
 
   render () {
-    const {match, countryUsers, allUsers, newUser, allowedRoles, i18n} = this.props
+    const {match, countryUsers, allUsers, userCounts, newUser, allowedRoles, i18n} = this.props
     const countryIso = match.params.countryIso
 
     const onEditClick = (userId) => this.setState({editingUserId: userId})
@@ -127,6 +139,7 @@ class UsersView extends React.Component {
                 <h3 className="user-list__other-users-title">{i18n.t('userManagement.allUsers')}</h3>
                 <UserTable {...this.props} users={allUsers} showRole={false} countryIso={countryIso}
                            onEditClick={onEditClick}/>
+                <UsersCount userCounts={userCounts} i18n={i18n}/>
               </div>
               : null
           }
@@ -142,6 +155,7 @@ const mapStateToProps = (state, props) =>
     allUsers: isAdministrator(state.user.userInfo)
       ? state.userManagement.allUsers
       : null,
+    userCounts: state.userManagement.userCounts,
     allowedRoles: rolesAllowedToChange(props.match.params.countryIso, R.path(['user', 'userInfo'], state)),
     newUser: state.userManagement.newUser,
     editUserStatus: R.path(['user', 'editUser', 'status'], state)

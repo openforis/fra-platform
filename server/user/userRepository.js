@@ -7,6 +7,8 @@ const db = require('../db/db')
 const auditRepository = require('./../audit/auditRepository')
 const {AccessControlException} = require('../utils/accessControl')
 
+const {nationalCorrespondent, reviewer, collaborator} = require('../../common/countryRole')
+
 const findUserById = async (userId, client = db) => {
   const res = await client.query('SELECT id, name, email, login_email, institution, position, lang FROM fra_user WHERE id = $1', [userId])
   if (res.rows.length < 1) return null
@@ -107,6 +109,39 @@ const fetchAllUsersAndInvitations = async () => {
   )
 
   return [...camelize(usersRes.rows), ...camelize(invitationsRes.rows)]
+}
+
+// getUserCounts
+const getUserCountsByRole = async (client = db) => {
+  const ncRole = nationalCorrespondent.role
+  const reviewerRole = reviewer.role
+  const collaboratorRole = collaborator.role
+
+  const roleSelect = (role) =>`
+  ${role} AS (
+    SELECT count(*) FROM user_country_role u
+    WHERE u.role = '${role}'
+  )
+  `
+  const countsRes = await client.query(`
+    WITH
+    ${roleSelect(ncRole)}
+    , ${roleSelect(reviewerRole)}
+    , ${roleSelect(collaboratorRole)}
+    SELECT
+    ${ncRole}.count as ${ncRole},
+    ${reviewerRole}.count as ${reviewerRole},
+    ${collaboratorRole}.count as ${collaboratorRole}
+    FROM
+    ${ncRole}, ${reviewerRole}, ${collaboratorRole}
+  `)
+
+  const counts = countsRes.rows[0]
+  return {
+    [ncRole]: counts[ncRole.toLowerCase()],
+    [reviewerRole]: counts[reviewerRole.toLowerCase()],
+    [collaboratorRole]: counts[collaboratorRole.toLowerCase()]
+  }
 }
 
 const getUserProfilePicture = async (userId, client = db) => {
@@ -327,5 +362,6 @@ module.exports = {
   acceptInvitation,
   addCountryRoleAndUpdateUserBasedOnInvitation,
   fetchUsersAndInvitations,
-  fetchAllUsersAndInvitations
+  fetchAllUsersAndInvitations,
+  getUserCountsByRole
 }

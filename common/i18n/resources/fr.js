@@ -26,8 +26,11 @@ module.exports.translation = {
   user: {
     roles: {
       reviewer: 'Examinateur',
+      reviewer_plural: 'Examinateurs',
       nationalCorrespondent: 'Correspondant national',
+      nationalCorrespondent_plural: 'Correspondants nationaux',
       collaborator: 'Collaborateur',
+      collaborator_plural: 'Collaborateurs',
       administrator: 'Administrateur',
       noRole: 'N/A'
     }
