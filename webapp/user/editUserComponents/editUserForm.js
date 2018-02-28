@@ -159,7 +159,7 @@ class EditUserForm extends React.Component {
             {
               canEditRoles
                 ? <div
-                  className="edit-user__form-field-role-admin validation-error-sensitive-field"
+                  className="edit-user__form-field-role-admin edit-user__form-field-role-container validation-error-sensitive-field"
                   onClick={() => toggleCountryRole(null, administrator.role)}>
                   <div className="role">{i18n.t('user.roles.administrator')}</div>
                   <div className={`fra-checkbox${isAdministrator(user) ? ' checked' : ''}`}></div>
@@ -170,7 +170,7 @@ class EditUserForm extends React.Component {
             {roles.map(role =>
               // role section is available to administrators or if user has at least one role and it's not administrator
               !isAdministrator(user) && (canEditRoles || R.findIndex(R.propEq('role', role), this.state.user.roles) >= 0)
-                ? <div key={role} className="validation-error-sensitive-field">
+                ? <div key={role} className="edit-user__form-field-role-container validation-error-sensitive-field">
                   <div className="edit-user__form-field-role">
                     <div className="role">{i18nUserRole(i18n, role)}</div>
                     {

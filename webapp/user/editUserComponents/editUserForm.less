@@ -85,14 +85,13 @@
 .edit-user__form-field-roles {
   .edit-user__form-field;
   flex-direction: column;
-  border: none;
 
   .modal-content {
     margin: 2.5vh;
     animation-duration: 0.1s;
   }
 
-  .modal-header{
+  .modal-header {
     height: 5vh;
   }
 
@@ -107,11 +106,18 @@
   }
 }
 
+.edit-user__form-field-role-container {
+  padding: 12px 0;
+}
+
+.edit-user__form-field-role-container:not(:last-of-type) {
+  border-bottom: @ui-thin-border;
+}
+
 .edit-user__form-field-role {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-bottom: 6px;
 
   .role {
     font-weight: bold;
@@ -123,17 +129,21 @@
 .edit-user__form-field-role-admin {
   .edit-user__form-field-role;
   cursor: pointer;
-  padding: 6px 0;
 }
 
 .edit-user__form-field-role-countries {
   .edit-user__form-field-role;
   flex-wrap: wrap;
   position: relative;
+}
 
-  div {
-    margin: 0 5px 5px 0;
-  }
+.edit-user__form-field-country-box {
+  border: @ui-thin-border;
+  padding: 4px 8px;
+  border-radius: 3px;
+  background-color: lighten(@ui-bg, 1%);
+  color: darken(@text-disabled, 15%);
+  margin: 5px 5px 0 0;
 }
 
 .edit-user__form-field-country-selector {
@@ -145,14 +155,6 @@
   .fra-checkbox {
     margin-right: 4px;
   }
-}
-
-.edit-user__form-field-country-box {
-  border: @ui-thin-border;
-  padding: 4px 8px;
-  border-radius: 3px;
-  background-color: lighten(@ui-bg, 1%);
-  color: darken(@text-disabled, 15%);
 }
 
 .edit-user__form-field-country-selection {
