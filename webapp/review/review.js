@@ -6,9 +6,9 @@ import { connect } from 'react-redux'
 import { postComment, retrieveComments, closeCommentThread, markCommentAsDeleted, markIssueAsResolved } from './actions'
 import { getRelativeDate } from '../utils/relativeDate'
 import { isReviewer } from '../../common/countryRole'
+import {profilePictureUri} from '../../common/userUtils'
 
 import FraReviewFooter from './reviewFooter'
-import VerticallyGrowingTextField from '../reusableUiComponents/verticallyGrowingTextField'
 import Icon from '../reusableUiComponents/icon'
 
 const mapIndexed = R.addIndex(R.map)
@@ -86,7 +86,7 @@ class CommentThread extends React.Component {
               <div key={i} className={`fra-review__comment ${ isCommentDeleted(c) ? 'fra-review__comment-deleted' : ''}`}>
                 <div className="fra-review__comment-header">
                   <img className="fra-review__comment-avatar"
-                       src={`https://www.gravatar.com/avatar/${c.hash}?default=mm`}/>
+                       src={profilePictureUri(countryIso, c.userId)}/>
                   <div className="fra-review__comment-author-section">
                     <div className={`fra-review__comment-author ${isThisMe(c) ? 'author-me' : ''}`}>
                       {c.username}

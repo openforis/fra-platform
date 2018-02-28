@@ -24,8 +24,3 @@ export const validField = (user, field) =>
       : validEmail(user)
 
 export const updateUserField = (field, value) => R.assoc(field, value)
-
-export const updateListUserField = (userId, field, value) => R.pipe(
-  R.find(R.propEq('id', userId)),
-  updateUserField(field, value)
-)

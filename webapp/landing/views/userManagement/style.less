@@ -9,6 +9,10 @@
   table-layout: fixed;
 }
 
+.user-list__invitation-row {
+  color: @text-disabled;
+}
+
 .user-list__header-cell {
   border-bottom: @ui-thin-border;
   font-size: @font-m;
@@ -31,7 +35,6 @@
 }
 
 .user-list__cell--read-only {
-  color: @text-disabled;
   cursor: default;
   padding: 12px 10px;
   word-break: break-word;
@@ -44,7 +47,7 @@
 }
 
 .user-list__edit-column {
-  width: 120px;
+  width: 140px;
   text-align: right;
 }
 
@@ -87,4 +90,26 @@
     width: 100%;
     text-align: center;
   }
+}
+
+.user-list__other-users-container {
+  padding-top: 48px;
+}
+
+.user-list__other-users-title {
+  border-bottom: 1px solid @text-heading;
+  padding: 12px 10px;
+}
+
+.user-counts__container {
+  border-top: 1px solid @text-heading;
+  padding: 12px 10px;
+  margin-top: -1px;
+}
+
+.user-counts__item {
+  color: @text-mute;
+  padding: 1px 0;
+  font-size: @font-xs;
+  font-weight: bold;
 }

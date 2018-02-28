@@ -1,14 +1,18 @@
 const uuidv4 = require('uuid/v4')
 const camelize = require('camelize')
+const Promise = require('bluebird')
+const R = require('ramda')
 
 const db = require('../db/db')
 const auditRepository = require('./../audit/auditRepository')
-const { AccessControlException } = require('../utils/accessControl')
+const {AccessControlException} = require('../utils/accessControl')
+
+const {nationalCorrespondent, reviewer, collaborator} = require('../../common/countryRole')
 
 const findUserById = async (userId, client = db) => {
-  const res = await client.query('SELECT id, name, email, lang FROM fra_user WHERE id = $1', [userId])
+  const res = await client.query('SELECT id, name, email, login_email, institution, position, lang FROM fra_user WHERE id = $1', [userId])
   if (res.rows.length < 1) return null
-  const resultUser = res.rows[0]
+  const resultUser = camelize(res.rows[0])
   const resultRoles = await client.query('SELECT country_iso, role FROM user_country_role WHERE user_id = $1', [resultUser.id])
   return {...resultUser, roles: camelize(resultRoles.rows)}
 }
@@ -80,6 +84,82 @@ const fetchUsersAndInvitations = async (countryIso) => {
   return [...users, ...invitations]
 }
 
+// fetch users and invitation expect country passed as argument
+const fetchAllUsersAndInvitations = async () => {
+
+  const usersRes = await db.query(`
+    SELECT DISTINCT
+      u.id,
+      u.email,
+      u.name,
+      u.login_email,
+      u.lang
+    FROM
+      fra_user u
+  `)
+
+  const invitationsRes = await db.query(`
+    SELECT
+      invitation_uuid,
+      email,
+      name,
+      role
+     FROM fra_user_invitation
+     WHERE accepted IS NULL`
+  )
+
+  return [...camelize(usersRes.rows), ...camelize(invitationsRes.rows)]
+}
+
+// getUserCounts
+const getUserCountsByRole = async (client = db) => {
+  const ncRole = nationalCorrespondent.role
+  const reviewerRole = reviewer.role
+  const collaboratorRole = collaborator.role
+
+  const roleSelect = (role) =>`
+  ${role} AS (
+    SELECT count(*) FROM user_country_role u
+    WHERE u.role = '${role}'
+  )
+  `
+  const countsRes = await client.query(`
+    WITH
+    ${roleSelect(ncRole)}
+    , ${roleSelect(reviewerRole)}
+    , ${roleSelect(collaboratorRole)}
+    SELECT
+    ${ncRole}.count as ${ncRole},
+    ${reviewerRole}.count as ${reviewerRole},
+    ${collaboratorRole}.count as ${collaboratorRole}
+    FROM
+    ${ncRole}, ${reviewerRole}, ${collaboratorRole}
+  `)
+
+  const counts = countsRes.rows[0]
+  return {
+    [ncRole]: counts[ncRole.toLowerCase()],
+    [reviewerRole]: counts[reviewerRole.toLowerCase()],
+    [collaboratorRole]: counts[collaboratorRole.toLowerCase()]
+  }
+}
+
+const getUserProfilePicture = async (userId, client = db) => {
+  const res = await client.query(`
+    SELECT 
+      profile_picture_file, profile_picture_filename 
+    FROM fra_user 
+    WHERE id = $1`
+    , [userId])
+
+  return R.isEmpty(res.rows)
+    ? null
+    : {
+      data: res.rows[0].profile_picture_file,
+      name: res.rows[0].profile_picture_filename,
+    }
+}
+
 const insertUser = (client, email, name, loginEmail) =>
   client.query(`
     INSERT INTO
@@ -110,7 +190,7 @@ const addInvitation = async (client, user, countryIso, userToInvite) => {
 
 const removeInvitation = async (client, user, countryIso, invitationUuid) => {
   const invitationInfo = await getInvitationInfo(client, invitationUuid)
-  if (invitationInfo.countryIso !== countryIso) throw new AccessControlException('error.access.countryDoesNotMatch', {countryIso})
+  //if (invitationInfo.countryIso !== countryIso) throw new AccessControlException('error.access.countryDoesNotMatch', {countryIso})
   await client.query(
     'DELETE FROM fra_user_invitation WHERE invitation_uuid = $1',
     [invitationUuid]
@@ -137,56 +217,59 @@ const updateInvitation = async (client, user, countryIso, userToUpdate) => {
   return userToUpdate.invitationUuid
 }
 
-const updateUserFields = (client, userToUpdate) =>
+const updateUserFields = (client, userToUpdate, profilePictureFile) =>
   client.query(
     `
       UPDATE
         fra_user
       SET
         name = $1,
-        email = $2
+        email = $2,
+        institution = $3,
+        position = $4,
+        profile_picture_file = $5,
+        profile_picture_filename = $6
       WHERE
-        id = $3
-    `,
-  [userToUpdate.name, userToUpdate.email, userToUpdate.id]
-)
-
-const updateUser = async (client, user, countryIso, userToUpdate) => {
-  await updateUserFields(client, userToUpdate)
-  await client.query(
-      `
-      UPDATE
-        user_country_role
-      SET
-        role = $1
-      WHERE
-        user_id = $2
-      AND
-        country_iso = $3
-      `,
-    [userToUpdate.role, userToUpdate.id, countryIso]
+        id = $7
+    `, [
+      userToUpdate.name,
+      userToUpdate.email,
+      userToUpdate.institution,
+      userToUpdate.position,
+      profilePictureFile.data,
+      profilePictureFile.name,
+      userToUpdate.id
+    ]
   )
+
+const updateUser = async (client, user, countryIso, userToUpdate, profilePictureFile) => {
+  await updateUserFields(client, userToUpdate, profilePictureFile)
+  // removing old roles
+  await client.query(`DELETE FROM user_country_role WHERE user_id = $1`, [userToUpdate.id])
+  // adding new roles
+  const userRolePromises = userToUpdate.roles.map(userRole =>
+    client.query(`
+      INSERT INTO user_country_role
+      (user_id, country_iso, role)
+      VALUES($1, $2, $3)`
+      , [userToUpdate.id, userRole.countryIso, userRole.role])
+  )
+  await Promise.all(userRolePromises)
+  // insert audit
   await auditRepository.insertAudit(client, user.id, 'updateUser', countryIso, 'users', {user: userToUpdate.name})
 }
 
-const removeCountryUser = async (client, user, countryIso, userId) => {
+const removeUser = async (client, user, countryIso, userId) => {
   const userToRemove = await findUserById(userId, client)
   await client.query(`
         DELETE FROM
           user_country_role
         WHERE
           user_id = $1
-        AND
-          country_iso = $2
-  `, [userId, countryIso])
-  const roleCountInOtherCountriesResult = await client.query(
-    'SELECT COUNT(*) AS role_count FROM user_country_role WHERE user_id = $1',
-    [userId]
-  )
-  const roleCountInOtherCountries = roleCountInOtherCountriesResult.rows[0].role_count
-  if (Number(roleCountInOtherCountries) === 0) {
-    await client.query(`DELETE FROM fra_user WHERE id = $1`, [userId])
-  }
+  `, [userId])
+
+  await client.query(`DELETE FROM fra_user WHERE id = $1`, [userId])
+
   await auditRepository.insertAudit(client, user.id, 'removeUser', countryIso, 'users', {user: userToRemove.name})
 }
 
@@ -210,16 +293,19 @@ const setInvitationAccepted = (client, invitationUuid) => client.query(
 
 const addUserCountryRole = (client, userId, countryIso, role) =>
   client.query(
-  `INSERT INTO user_country_role
+    `INSERT INTO user_country_role
       (user_id, country_iso, role)
       VALUES
       ($1, $2, $3)`,
-  [userId, countryIso, role]
-)
+    [userId, countryIso, role]
+  )
 
 const addNewUserBasedOnInvitation = async (client, invitationUuid, loginEmail) => {
   const invitationInfo = await getInvitationInfo(client, invitationUuid)
-  if (!!invitationInfo.accepted) throw new AccessControlException('error.access.invitationAlreadyUsed', {loginEmail, invitationUuid})
+  if (!!invitationInfo.accepted) throw new AccessControlException('error.access.invitationAlreadyUsed', {
+    loginEmail,
+    invitationUuid
+  })
   await insertUser(client, invitationInfo.email, invitationInfo.name, loginEmail)
   const userIdResult = await getIdOfJustAddedUser(client)
   const userId = userIdResult.rows[0].user_id
@@ -267,12 +353,15 @@ module.exports = {
   updateLanguage,
   fetchCountryUsers,
   fetchAdministrators,
+  getUserProfilePicture,
   addInvitation,
   updateInvitation,
   removeInvitation,
   updateUser,
-  removeCountryUser,
+  removeUser,
   acceptInvitation,
   addCountryRoleAndUpdateUserBasedOnInvitation,
-  fetchUsersAndInvitations
+  fetchUsersAndInvitations,
+  fetchAllUsersAndInvitations,
+  getUserCountsByRole
 }

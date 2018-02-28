@@ -1,7 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import R from 'ramda'
-import camelize from 'camelize'
+
+import {i18nUserRole, profilePictureUri} from '../../../common/userUtils'
 
 import Icon from '../../reusableUiComponents/icon'
 // import MapViewContainer from './countryMap/mapViewContainer'
@@ -55,7 +56,7 @@ const Milestones = ({i18n}) => <div className="landing__milestones-container">
 </div>
 
 const Users = ({countryIso, i18n, users, userInfo, openChat}) => <div className="landing__users-container">
-  <div className="landing__milestones-header">
+  <div className="landing__users-header">
     <h3>{i18n.t('landing.users.users')}</h3>
   </div>
   {
@@ -65,14 +66,14 @@ const Users = ({countryIso, i18n, users, userInfo, openChat}) => <div className=
           <div className="landing__user-header">
             <img
               className="landing__user-avatar"
-              src={`https://www.gravatar.com/avatar/${user.hash}?default=mm`}/>
+              src={profilePictureUri(countryIso, user.id)}/>
             <div className="landing__user-info">
 
               <div className={`landing__user-name${userInfo.id === user.id ? ' session-user' : ''}`}>
                 {user.name}
               </div>
               <div className="landing__user-role">
-                {i18n.t(`user.roles.${camelize(user.role.toLowerCase())}`)}
+                {i18nUserRole(i18n, user.role)}
               </div>
               { // add message button if session user is not equal to current displayed user
                 R.prop('id', userInfo) !== user.id
@@ -95,18 +96,6 @@ const Users = ({countryIso, i18n, users, userInfo, openChat}) => <div className=
         </div>
       </div>
     )}
-</div>
-
-const Logos = ({i18n}) => <div>
-  <div className="landing__logos-container">
-    <img src="img/cfrq_logos.png" className="landing__logos"/>
-  </div>
-  <div className="landing__logos-container">
-    <div style={{paddingRight:'14px'}}>{i18n.t('landing.overview.withFinancialSupportOf')}</div>
-    <img src="/img/ec_logo.png" height="50" />
-    <img src="/img/mfafi_logo.png" height="80" />
-    <img src="/img/mmmfi_logo.png" height="50" />
-  </div>
 </div>
 
 class OverviewView extends React.Component {
@@ -147,8 +136,6 @@ class OverviewView extends React.Component {
                    userInfo={userInfo}
                    openChat={openChat}/>
       }
-
-      <Logos i18n={i18n}/>
 
     </div>
   }
