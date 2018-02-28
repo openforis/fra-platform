@@ -43,7 +43,11 @@ module.exports.init = app => {
         ? await userRepository.fetchAllUsersAndInvitations(req.params.countryIso)
         : []
 
-      res.json({countryUsers, allUsers})
+      const userCounts = isAdministrator(req.user)
+        ? await userRepository.getUserCountsByRole()
+        : null
+
+      res.json({countryUsers, allUsers, userCounts})
     } catch (err) {
       sendErr(res, err)
     }

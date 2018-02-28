@@ -4,7 +4,7 @@ const camelize = require('camelize')
 
 const profilePictureUri = (countryIso, userId) => `/api/users/${countryIso}/user/${userId}/profilePicture`
 
-const i18nUserRole = (i18n, role) => i18n.t('user.roles.' + camelize(role.toLowerCase()))
+const i18nUserRole = (i18n, role, count = 1) => i18n.t('user.roles.' + camelize(role.toLowerCase()), {count})
 
 // validation methods
 const validName = user => !R.isEmpty(user.name)
