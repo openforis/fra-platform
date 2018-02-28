@@ -155,7 +155,7 @@ const addInvitation = async (client, user, countryIso, userToInvite) => {
 
 const removeInvitation = async (client, user, countryIso, invitationUuid) => {
   const invitationInfo = await getInvitationInfo(client, invitationUuid)
-  if (invitationInfo.countryIso !== countryIso) throw new AccessControlException('error.access.countryDoesNotMatch', {countryIso})
+  //if (invitationInfo.countryIso !== countryIso) throw new AccessControlException('error.access.countryDoesNotMatch', {countryIso})
   await client.query(
     'DELETE FROM fra_user_invitation WHERE invitation_uuid = $1',
     [invitationUuid]
