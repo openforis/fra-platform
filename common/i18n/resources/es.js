@@ -222,7 +222,7 @@ El equipo de FRA
   },
 
   header: {
-    profilePicture: 'Editar la foto de perfil',
+    editProfile: 'Editar perfil',
     logout: 'Desconectar',
     hideSidebar: 'Esconder la barra lateral',
     showSidebar: 'Mostrar la barra lateral',
@@ -259,7 +259,7 @@ El equipo de FRA
 
   description: {
     edit: 'Editar',
-    done: 'Terminado',
+    done: 'Finalizado',
     loading: 'Cargando contenido…',
     description: 'Descripción',
     dataSourcesTitle: 'Fuentes de datos, datos originales y clasificación nacional y definiciones',
@@ -337,7 +337,8 @@ El equipo de FRA
     edit: 'Editar',
     addUser: 'Añadir colaborador',
     insufficientPrivileges: 'Privilegios insuficientes',
-    confirmDelete: 'Eliminar {{user}} de {{country}}?',
+    confirmDelete: '¿Eliminar {{user}}?',
+    allUsers: 'Todos los colaboradores',
     invitationEmail: {
       subject: 'Invitación a {{country}} a la plataforma de la FRA',
       textMessage: `Estimado/a {{invitedUser}},
@@ -819,6 +820,31 @@ El equipo de FRA
         symbols: 'Símbolos',
         flags: 'Banderas',
       }
+    }
+  },
+
+  editUser: {
+    chooseProfilePicture: 'Elegir foto',
+    name: 'Nombre',
+    role: 'Función',
+    email: 'Correo electrónico',
+    loginEmail: 'Iniciar sesión',
+    institution: 'Institución',
+    position: 'Cargo',
+    done: 'Finalizado',
+    cancel: 'Cancelar',
+    picture1MbMax: 'La foto de perfil no puede ser superior a 1MB'
+  },
+
+  country: {
+    region: {
+      asia: 'Asia',
+      europe: 'Europa',
+      oceania: 'Oceanía',
+      north_and_central_america: 'América del Norte y Central',
+      south_america: 'América del Sur',
+      africa: 'África',
+      atlantis: 'Atlántida'
     }
   }
 }
