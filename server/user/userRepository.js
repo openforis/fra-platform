@@ -224,24 +224,17 @@ const updateUser = async (client, user, countryIso, userToUpdate, profilePicture
   await auditRepository.insertAudit(client, user.id, 'updateUser', countryIso, 'users', {user: userToUpdate.name})
 }
 
-const removeCountryUser = async (client, user, countryIso, userId) => {
+const removeUser = async (client, user, countryIso, userId) => {
   const userToRemove = await findUserById(userId, client)
   await client.query(`
         DELETE FROM
           user_country_role
         WHERE
           user_id = $1
-        AND
-          country_iso = $2
-  `, [userId, countryIso])
-  const roleCountInOtherCountriesResult = await client.query(
-    'SELECT COUNT(*) AS role_count FROM user_country_role WHERE user_id = $1',
-    [userId]
-  )
-  const roleCountInOtherCountries = roleCountInOtherCountriesResult.rows[0].role_count
-  if (Number(roleCountInOtherCountries) === 0) {
-    await client.query(`DELETE FROM fra_user WHERE id = $1`, [userId])
-  }
+  `, [userId])
+
+  await client.query(`DELETE FROM fra_user WHERE id = $1`, [userId])
+
   await auditRepository.insertAudit(client, user.id, 'removeUser', countryIso, 'users', {user: userToRemove.name})
 }
 
@@ -330,7 +323,7 @@ module.exports = {
   updateInvitation,
   removeInvitation,
   updateUser,
-  removeCountryUser,
+  removeUser,
   acceptInvitation,
   addCountryRoleAndUpdateUserBasedOnInvitation,
   fetchUsersAndInvitations,

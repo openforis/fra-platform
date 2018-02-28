@@ -337,7 +337,7 @@ The FRA team
     edit: 'Edit',
     addUser: 'Add collaborator',
     insufficientPrivileges: 'Insufficient privileges',
-    confirmDelete: 'Remove {{user}} from {{country}}?',
+    confirmDelete: 'Remove {{user}}?',
     allUsers:'All collaborators',
     invitationEmail: {
       subject: 'Invited to {{country}} on FRA Platform',
