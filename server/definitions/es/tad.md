@@ -132,7 +132,7 @@ Nota explicativa
 
 ### REFORESTACIÓN
 
-Regeneración natural o restablecimiento del bosque a través de la plantación o de la siembra deliberada en tierra que ya es de uso forestal.
+> Regeneración natural o restablecimiento del bosque a través de la plantación o de la siembra deliberada en tierra que ya es de uso forestal.
 
 Notas explicativas
 

@@ -28,16 +28,16 @@ For more details on FRA Programme, please see: http://www.fao.org/forest-resourc
 
 Explanatory notes
 
-1. Forest is determined both by the presence of trees and the absence of other predominant land uses. The trees should be able to reach a minimum height of 5 meters *in situ*. 
-2. Includes areas with young trees that have not yet reached but which are expected to reach a canopy cover of 10 percent and tree height of 5 meters. It also includes areas that are temporarily unstocked due to clear-cutting as part of a forest management practice or natural disasters, and which are expected to be regenerated within 5 years. Local conditions may, in exceptional cases, justify that a longer time frame is used.
-3. Includes forest roads, firebreaks and other small open areas; forest in national parks, nature reserves and other protected areas such as those of specific environmental, scientific, historical, cultural or spiritual interest.
-4. Includes windbreaks, shelterbelts and corridors of trees with an area of more than 0.5 hectares and width of more than 20 meters.
-5. Includes abandoned shifting cultivation land with a regeneration of trees that have, or are expected to reach, a canopy cover of 10 percent and tree height of 5 meters.
-6. Includes areas with mangroves in tidal zones, regardless whether this area is classified as land area or not.
-7. Includes rubber-wood, cork oak and Christmas tree plantations. 
-8. Includes areas with bamboo and palms provided that land use, height and canopy cover criteria are met.
-9. Includes areas outside the legally designated forest land which meet the definition of "forest".
-10. **Excludes** tree stands in agricultural production systems, such as fruit tree plantations, oil palm plantations, olive orchards and agroforestry systems when crops are grown under tree cover.  **Note:** Some agroforestry systems such as the "Taungya" system where crops are grown only during the first years of the forest rotation should be classified as forest.
+1.	Forest is determined both by the presence of trees and the absence of other predominant land uses. The trees should be able to reach a minimum height of 5 meters *in situ*. 
+2.	Includes areas with young trees that have not yet reached but which are expected to reach a canopy cover of 10 percent and tree height of 5 meters. It also includes areas that are temporarily unstocked due to clear-cutting as part of a forest management practice or natural disasters, and which are expected to be regenerated within 5 years. Local conditions may, in exceptional cases, justify that a longer time frame is used.
+3.	Includes forest roads, firebreaks and other small open areas; forest in national parks, nature reserves and other protected areas such as those of specific environmental, scientific, historical, cultural or spiritual interest.
+4.	Includes windbreaks, shelterbelts and corridors of trees with an area of more than 0.5 hectares and width of more than 20 meters.
+5.	Includes abandoned shifting cultivation land with a regeneration of trees that have, or are expected to reach, a canopy cover of 10 percent and tree height of 5 meters.
+6.	Includes areas with mangroves in tidal zones, regardless whether this area is classified as land area or not.
+7.	Includes rubber-wood, cork oak and Christmas tree plantations. 
+8.	Includes areas with bamboo and palms provided that land use, height and canopy cover criteria are met.
+9.	Includes areas outside the legally designated forest land which meet the definition of “forest”.
+10.	**Excludes** tree stands in agricultural production systems, such as fruit tree plantations, oil palm plantations, olive orchards and agroforestry systems when crops are grown under tree cover.  Note: Some agroforestry systems such as the “Taungya” system where crops are grown only during the first years of the forest rotation should be classified as forest.
 
 ### OTHER WOODED LAND
 
@@ -47,7 +47,7 @@ Explanatory notes
 
 1. The definition above has two options:
     - The canopy cover of trees is between 5 and 10 percent; trees should be higher than 5 meters or able to reach 5 meters *in situ*. 
-    - OR
+OR
     - The canopy cover of trees is less than 5 percent but the combined cover of shrubs, bushes and trees is more than 10 percent. Includes areas of shrubs and bushes where no trees are present.
 2. Includes areas with trees that will not reach a height of 5 meters *in situ* and with a canopy cover of 10 percent or more, e.g. some alpine tree vegetation types, arid zone mangroves, etc.
 
@@ -76,7 +76,7 @@ Explanatory notes
 
 ### PLANTED FOREST
 
-> **Forest** predominantly composed of trees established through planting and/or deliberate seeding.
+> **Forest** predominantly composed of **trees** established through planting and/or deliberate seeding.
 
 Explanatory notes
 
@@ -89,15 +89,15 @@ Explanatory notes
 
 Explanatory notes
 
-1. Specifically includes: short rotation plantation for wood, fibre and energy.
-2. Specifically excludes: forest planted for protection or ecosystem restoration.
-3. Specifically excludes: Forest established through planting or seeding which at stand maturity resembles or will resemble natural forest.
+1.	Specifically includes: short rotation plantation for wood, fibre and energy.
+2.	Specifically excludes: forest planted for protection or ecosystem restoration.
+3.	Specifically excludes: Forest established through planting or seeding which at stand maturity resembles or will resemble naturally regenerating forest.
 
 ### OTHER PLANTED FOREST
 
 > **Planted forest** which is not classified as **plantation forest**.
 
-## 1c Annual forest area loss, gain and net change
+## 1c Annual forest expansion, deforestation and net change
 
 ### FOREST EXPANSION
 
@@ -126,7 +126,7 @@ Explanatory notes
 
 Explanatory note
 
-1. The Forest area net *change* is the difference in forest area between two FRA reference years. The net change can be either positive (gain), negative (loss) or zero (no change).
+1. The "Forest area net change" is the difference in forest area between two FRA reference years. The net change can be either positive (gain), negative (loss) or zero (no change).
 
 ## 1d Annual reforestation
 
@@ -155,7 +155,7 @@ Explanatory note
 
 > **Forest** and **other wooded land** with mangrove vegetation.
 
-### TEMPORARILY UNSTOCKED AND/OR RECENTLY REGENERATED
+### TEMPORARILY UNSTOCKED AND/OR RECENTLY REGENERATED FOREST
 
 > Forest area which is temporarily unstocked or with trees shorter than 1.3 meters that have not yet reached but are expected to reach a canopy cover of at least 10 percent and tree height of at least 5 meters.
 
@@ -172,28 +172,29 @@ Explanatory notes
 Explanatory notes
 
 1. Includes both pristine and managed forests that meet the definition.
-2. Includes forests where indigenous peoples engage in traditional forest stewardship activities that meet the definition.
-3. Excludes forests where hunting, poaching, trapping or gathering have caused significant native species loss or disturbance to ecological processes.
-4. Some key characteristics of primary forests are:
-    - they show natural forest dynamics, such as natural tree species composition, occurrence of dead wood, natural age structure and natural regeneration processes; 
-    - the area is large enough to maintain its natural ecological processes; 
-    - there has been no known significant human intervention or the last significant human intervention was long enough ago to have allowed the natural species composition and processes to have become re-established.
+2.	Includes forests where indigenous peoples engage in traditional forest stewardship activities that meet the definition.
+3.	Includes forest with visible signs of abiotic damages (such as storm, snow, drought, fire) and biotic damages (such as insects, pests and diseases).
+4.	Excludes forests where hunting, poaching, trapping or gathering have caused significant native species loss or disturbance to ecological processes.
+5.	Some key characteristics of primary forests are:
+    -	they show natural forest dynamics, such as natural tree species composition, occurrence of dead wood, natural age structure and natural regeneration processes; 
+    -	the area is large enough to maintain its natural ecological processes; 
+    -	there has been no known significant human intervention or the last significant human intervention was long enough ago to have allowed the natural species composition and processes to have become re-established.
 
 ## 1f Other land with tree cover
 
-### OTHER LAND WITH TREE COVER _(Supplementary term)_
+### OTHER LAND WITH TREE COVER
 
-> Land classified as **other land**, spanning more than 0.5 hectares with a **canopy cover** of more than 10 percent of **trees** able to reach a height of 5 meters at maturity. 
+> Land classified as **"other land"**, spanning more than 0.5 hectares with a **canopy cover** of more than 10 percent of **trees** able to reach a height of 5 meters at maturity. 
 
 Explanatory notes
 
-1. Land use is the key criteria for distinguishing between forest and other land with tree cover. 
-2. Specifically includes: palms (oil, coconut, dates, etc), tree orchards (fruit, nuts, olive, etc), agroforestry and trees in urban settings.
-3. Includes groups of trees and scattered trees (e g trees outside forest) in agricultural landscapes, parks, gardens and around buildings, provided that area, height and canopy cover criteria are met.
-4. Includes tree stands in agricultural production systems, such as fruit tree plantations/orchards. In these cases the height threshold can be lower than 5 meters.
-5. Includes agroforestry systems when crops are grown under tree cover and tree plantations established mainly for other purposes than wood, such as oil palm plantations.
-6. The different sub-categories of other land with tree *cover* are exclusive and area reported under one sub-category should not be reported for any other sub-categories.
-7. Excludes scattered trees with a canopy cover less than 10 percent, small groups of trees covering less than 0.5 hectares and tree lines less than 20 meters wide. 
+1.	Land use is the key criteria for distinguishing between forest and other land with tree cover. 
+2.	Specifically includes: palms (oil, coconut, dates, etc), tree orchards (fruit, nuts, olive, etc), agroforestry and trees in urban settings.
+3.	Includes groups of trees and scattered trees (e g trees outside forest) in agricultural landscapes, parks, gardens and around buildings, provided that area, height and canopy cover criteria are met.
+4.	Includes tree stands in agricultural production systems, such as fruit tree plantations/orchards. In these cases the height threshold can be lower than 5 meters.
+5.	Includes agroforestry systems when crops are grown under tree cover and tree plantations established mainly for other purposes than wood, such as oil palm plantations.
+6.	The different sub-categories of “other land with tree cover” are exclusive and area reported under one sub-category should not be reported for any other sub-categories.
+7.	Excludes scattered trees with a canopy cover less than 10 percent, small groups of trees covering less than 0.5 hectares and tree lines less than 20 meters wide. 
 
 ### PALMS _(Sub-category of OTHER LAND)_
 
@@ -232,10 +233,6 @@ Explanatory notes
 2. Includes laying living trees.
 3. Excludes branches, twigs, foliage, flowers, seeds, and roots.
 
-### AVERAGE GROWING STOCK
-
-**Growing stock** divided by the area on where it grows.
-
 ## 2b Growing stock composition
 
 ### NATIVE TREE SPECIES _(Supplementary term)_
@@ -273,6 +270,14 @@ Explanatory notes
 
 1. Includes the below-ground part of the stump.
 2. The country may use another threshold value than 2 mm for fine roots, but in such a case the threshold value used must be documented. 
+
+### DEAD WOOD
+
+> All non-living woody biomass not contained in the litter, either standing, lying on the ground, or in the soil. Dead wood includes wood lying on the surface, dead roots, and stumps larger than or equal to 10 cm in diameter or any other diameter used by the country.
+
+Explanatory note
+
+1.	The country may use another threshold value than 10 cm, but in such a case the threshold value used must be documented.
 
 ## 2d Carbon stock
 
@@ -323,25 +328,25 @@ Explanatory note
 
 ## 3a Designated management objective
 
-### FOREST AREA WITH MANAGEMENT OBJECTIVE _(Supplementary term)_
+### TOTAL AREA WITH DESIGNATED MANAGEMENT OBJECTIVE
 
 > The total area managed for a specific objective.
 
+Explanatory note
+
+1.	Management objectives are not exclusive. Hence, areas can be counted more than once e.g. : 
+	a) Areas where the management objective is multiple use should be counted once for each specific management objective included in the multiple use. 
+	b) Areas with primary management objective can be counted more than once if other management objectives have been considered.
+
+### PRIMARY DESIGNATED MANAGEMENT OBJECTIVE
+
+> The primary designated management objective assigned to a management unit. 
+
 Explanatory notes
 
-1. Management objectives are not exclusive. Hence, areas can be counted more than once e.g.:
-    1. Areas where the management objective is multiple use should be counted once for each specific management objective included in the multiple use.  
-    2. Areas with primary management objective can be counted more than once if other management objectives have been considered.
-
-### PRIMARY MANAGEMENT OBJECTIVE _(Supplementary term)_
-
-> The primary management objective assigned to a management unit. 
-
-Explanatory notes
-
-1. In order to be considered primary, the management objective should be significantly more important than other management objectives.
-2. Primary management objectives are exclusive and area reported under one primary management objective should not be reported for any other primary management objectives. 
-3. Nation-wide general management objectives established in national legislation or policies (such as e.g. all forest land should be managed for production, conservation and social *purposes*) should not be considered as management objectives in this context.
+1.	In order to be considered primary, the management objective should be significantly more important than other management objectives.
+2.	Primary management objectives are exclusive and area reported under one primary management objective should not be reported for any other primary management objectives. 
+3.	Nation-wide general management objectives established in national legislation or policies (such as e.g. *“all forest land should be managed for production, conservation and social purposes”*) should not be considered as management objectives in this context.
 
 ### PRODUCTION
 
@@ -399,9 +404,9 @@ Explanatory note
 
 Forest with no or unknown primary management objective.
 
-## 3b Forest area within protected areas and forest area with long-term management plans
+## 3b Forest area within legally established protected areas and forest area with long-term forest management plans
 
-### FOREST AREA WITHIN PROTECTED AREAS
+### FOREST AREA WITHIN LEGALLY ESTABLISHED PROTECTED AREAS
 
 > **Forest** area within formally established protected areas independently of the purpose for which the protected areas were established.
 
@@ -483,7 +488,7 @@ Explanatory note
 
 1. Includes areas where ownership is unclear or disputed.
 
-## 4b Holder of management rights of public forests
+## 4b Management rights of public forests
 
 ### MANAGEMENT RIGHTS OF PUBLIC FORESTS _(Supplementary term)_
 
@@ -494,25 +499,25 @@ Explanatory notes
 1. Generally includes agreements that regulate not only the right to harvest or collect products, but also the responsibility to manage the forest for long-term benefits.
 2. Generally excludes harvesting licences, permits and rights to collect non wood forest products when such use rights are not linked to a long-term forest management responsibility.
 
-### MANAGEMENT RIGHTS BY PUBLIC ADMINISTRATION
+### PUBLIC ADMINISTRATION
 
 > The Public Administration (or institutions or corporations owned by the Public Administration) retains management rights and responsibilities within the limits specified by the legislation.
 
-### MANAGEMENT RIGHTS BY INDIVIDUALS / HOUSEHOLDS
+### INDIVIDUALS / HOUSEHOLDS
 
 > **Forest** management rights and responsibilities are transferred from the Public Administration to individuals or households through long-term leases or management agreements.
 
-### MANAGEMENT RIGHTS BY PRIVATE COMPANIES
+### PRIVATE BUSINESS ENTITIES AND INSTITUTIONS
 
 > **Forest** management rights and responsibilities are transferred from the Public Administration to corporations, other business entities, private co-operatives, private non-profit institutions and associations, etc., through long-term leases or management agreements.
 
-### MANAGEMENT RIGHTS BY LOCAL, TRIBAL AND INDIGENOUS COMMUNITIES
+### LOCAL, TRIBAL AND INDIGENOUS COMMUNITIES
 
 > **Forest** management rights and responsibilities are transferred from the Public Administration to local communities (including indigenous and tribal communities) through long-term leases or management agreements. 
 
 ### OTHER FORMS OF MANAGEMENT RIGHTS
 
-> **forest**s for which the transfer of management rights does not belong to any of the categories mentioned above. 
+> **Forest**s for which the transfer of management rights does not belong to any of the categories mentioned above. 
 
 ---
 
@@ -520,17 +525,25 @@ Explanatory notes
 
 ## 5a Disturbances
 
-### OUTBREAKS OF INSECTS
+### DISTURBANCE
 
-> A detectable reduction in **forest** health caused by a sudden increase in numbers of harmful insects.
+> Damage caused by any factor (biotic or abiotic) that adversely affects the vigor and productivity of the forest and which is not a direct result of human activities.
 
-### OUTBREAKS OF DISEASES
+Explanatory note
 
-> A detectable reduction in forest health caused by a sudden increase in numbers of harmful pathogens, such as bacteria, fungi, phytoplasma or virus.
+1.	For the purpose of this reporting table, disturbances exclude forest fires as these are reported on in a separate table.
 
-### SEVERE WEATHER EVENTS
+### DISTURBANCE BY INSECTS
 
-> Damage caused by severe weather events, such as snow, storm, drought, etc.
+> Disturbance caused by insect pests.
+
+### DISTURBANCE BY DISEASES
+
+> Disturbance caused by diseases attributable to pathogens, such as bacteria, fungi, phytoplasma or viruses.
+
+### DISTURBANCES BY SEVERE WEATHER EVENTS
+
+> Disturbances caused by abiotic factors, such as snow, storm, droughts, etc.
 
 ## 5b Area affected by fire
 
@@ -556,13 +569,13 @@ Explanatory note
 
 # 6 Forest policy and legislation
 
-## 6a  Policies, Legislation and national platform for stakeholder participation in forest policy
+## 6a Policies, legislation and national platform for stakeholder participation in forest policy
 
 ### POLICIES SUPPORTING SUSTAINABLE FOREST MANAGEMENT
 
 > Policies or strategies that explicitly encourage sustainable forest management.
 
-### LEGISLATION AND REGULATIONS SUPPORTING SUSTAINABLE FOREST MANAGEMENT
+### LEGISLATION AND/OR REGULATIONS SUPPORTING SUSTAINABLE FOREST MANAGEMENT
 
 > Legislation and regulations that govern and guide sustainable forest management, operations and use.
 
@@ -578,7 +591,7 @@ Explanatory note
 
 ### PERMANENT FOREST ESTATE
 
-> Land, whether public or private, secured by law and kept under permanent forest cover. This includes land for the production of timber and other forest products, for the protection of soil and water, and for the conservation of biodiversity, as well as land intended to fulfil a combination of these functions. The main categories of the permanent forest estate are protection and production.
+> Forest area that is designated to be retained as forest and may not be converted to other land use.
 
 Explanatory note
 
@@ -628,14 +641,18 @@ Explanatory notes
 
 Explanatory notes
 
-1. The class includes:
-    - production of roundwood for forest-based manufacturing industries
-    - production of roundwood used in an unprocessed form such as pit-props, fence posts and utility poles
-    - gathering and production of fire wood
-    - production of charcoal in the forest (using traditional methods)  
-2. The output of this activity can take the form of logs,   
-The class excludes:
-    - growing of Christmas trees
+1.	The class includes:
+	-	production of roundwood for forest-based manufacturing industries
+	-	production of roundwood used in an unprocessed form such as pit-props, fence posts and utility poles
+	-	gathering and production of fire wood
+	-	production of charcoal in the forest (using traditional methods)
+	-	The output of this activity can take the form of logs, chips or fire wood
+2.	The class excludes:
+	-	growing of Christmas trees
+	-	growing of standing timber: planting, replanting, transplanting, thinning and conserving of forests and timber tracts
+	-	gathering of wild growing non-wood forest products
+	-	production of wood chips and particles, not associated with logging
+	-	production of charcoal through distillation of wood
 
 ### GATHERING OF NON WOOD FOREST PRODUCTS _(Sub-category of EMPLOYMENT IN FORESTRY AND LOGGING)_
 
@@ -662,7 +679,7 @@ Gathering of wild growing materials such as
     - growing of berries or nuts
     - gathering of fire wood
 
-### EMPLOYMENT IN SUPPORT SERVICES TO FORESTRY _(Sub-category of EMPLOYMENT IN FORSTRY AND LOGGING)_
+### EMPLOYMENT IN SUPPORT SERVICES TO FORESTRY _(Sub-category of EMPLOYMENT IN FORESTRY AND LOGGING)_
 
 > This class includes employment in carrying out part of the forestry operation on a free or contract basis.
 
@@ -703,7 +720,7 @@ Explanatory notes
 Explanatory notes
 
 1. Corresponds to the first stage of tertiary education (ISCED 7 level http://www.uis.unesco.org/Education/Documents/isced-2011-en.pdf ).
-2. Usually two years of post-graduate studies after a bachelorеs degree.
+2. Usually two years of post-graduate studies after a bachelor's degree.
 
 ### BACHELOR'S DEGREE (B.Sc.) OR EQUIVALENT
 
@@ -717,7 +734,7 @@ Explanatory note
 
 > Qualification issued from a technical education institution consisting of 1 to 3 years post-secondary education.
 
-## 7c Non wood forest products
+## 7c Non Wood Forest Products removals and value
 
 ### NON WOOD FOREST PRODUCT
 
@@ -727,15 +744,15 @@ Explanatory notes
 
 1. Generally includes non-wood plant and animal products collected from areas defined as forest (see definition of forest). 
 2. Specifically includes the following regardless of whether from natural forests or plantations:
-- gum arabic, rubber/latex and resin;
-- Christmas trees, cork, bamboo and rattan.
+	- gum arabic, rubber/latex and resin;
+	- Christmas trees, cork, bamboo and rattan.
 3. Generally **excludes** products collected in tree stands in agricultural production systems, such as fruit tree plantations, oil palm plantations and agroforestry systems when crops are grown under tree cover.
 4. Specifically **excludes** the following:
-- woody raw materials and products, such as  chips, charcoal, fuelwood and wood used for tools, household equipment and carvings;
-- grazing in the forest;
-- fish and shellfish.
+	- woody raw materials and products, such as: chips, charcoal, fuelwood and wood used for tools, household equipment and carvings;
+	- grazing in the forest;
+	- fish and shellfish.
 
-### COMMERCIAL VALUE OF NON WOOD FOREST PRODUCTS
+### VALUE OF NON WOOD FOREST PRODUCTS
 
 > For the purpose of reporting on this variable, value is defined as the commercial market value at the **forest** gate.
 
@@ -744,15 +761,7 @@ Explanatory notes
 1. If values are obtained from a point further down the production chain, transport costs and possible handling and/or processing costs should be subtracted whenever possible.
 2. Commercial value refers to actual market value and potential value of both marketed and non-marketed products.
 
---- 
-
-# 8 Sustainable Development Goal 15
-
-Sustainable Development Goal 15
-
----
-
-# 9 Additional terms and definitions
+# 8 Additional terms and definitions
 
 ### CANOPY COVER
 
@@ -765,7 +774,7 @@ Explanatory notes
 
 ### FOREST POLICY
 
-> A set of orientations and principles of actions adopted by public authorities in harmony with national socio-economic and environmental policies in a given country to guide future decisions in relation to the management, use and conservation of forest for the benefit of society.
+> A set of orientations and principles of actions adopted by public authorities in harmony with national socio-economic and environmental policies in a given country to guide future decisions in relation to the management, use and conservation of **forest** for the benefit of society.
 
 ### SHRUB
 
@@ -773,7 +782,7 @@ Explanatory notes
 
 ### SUSTAINABLE FOREST MANAGEMENT
 
-> A dynamic and evolving concept, [that] is intended to maintain and enhance the economic, social and environmental value of all types of forests, for the benefit of present and future generations.
+> A dynamic and evolving concept, [that] is intended to maintain and enhance the economic, social and environmental value of all types of **forest**s, for the benefit of present and future generations.
 
 ### TREE
 
