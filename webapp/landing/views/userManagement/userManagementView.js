@@ -1,18 +1,18 @@
 import './style.less'
 
 import React from 'react'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import * as R from 'ramda'
 
 import AddUserForm from './addUserForm'
 import EditUserForm from '../../../user/editUserComponents/editUserForm'
 
-import {rolesAllowedToChange} from '../../../../common/userManagementAccessControl'
-import {i18nUserRole} from '../../../../common/userUtils'
-import {isAdministrator} from '../../../../common/countryRole'
+import { rolesAllowedToChange } from '../../../../common/userManagementAccessControl'
+import { i18nUserRole } from '../../../../common/userUtils'
+import { isAdministrator } from '../../../../common/countryRole'
 
-import {getCountryName} from '../../../country/actions'
-import {fetchUsers, removeUser, updateNewUser, addNewUser} from './actions'
+import { getCountryName } from '../../../country/actions'
+import { fetchUsers, removeUser, updateNewUser, addNewUser } from './actions'
 
 const mapIndexed = R.addIndex(R.map)
 
@@ -67,10 +67,7 @@ const UserRow = ({countryIso, i18n, user, removeUser, onEditClick, getCountryNam
           </button>
       }
       <button className="btn-s btn-link-destructive" onClick={() =>
-        window.confirm(i18n.t('userManagement.confirmDelete', {
-          user: user.name,
-          country: getCountryName(countryIso, i18n.language)
-        }))
+        window.confirm(i18n.t('userManagement.confirmDelete', {user: user.name}))
           ? removeUser(countryIso, user)
           : null
       }>
@@ -79,23 +76,22 @@ const UserRow = ({countryIso, i18n, user, removeUser, onEditClick, getCountryNam
     </td>
   </tr>
 
-
 const UserColumn = ({user, field}) => <td className="user-list__cell">
   <div className="user-list__cell--read-only">{user[field] ? user[field] : '\xA0'}</div>
 </td>
 
 class UsersView extends React.Component {
 
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = {}
   }
 
-  componentWillMount() {
+  componentWillMount () {
     this.fetch(this.props.match.params.countryIso)
   }
 
-  componentWillReceiveProps(next) {
+  componentWillReceiveProps (next) {
     if (!R.equals(this.props.match.params.countryIso, next.match.params.countryIso))
       this.fetch(next.match.params.countryIso)
     // edit user is completed, reloading users and resetting state
@@ -105,11 +101,11 @@ class UsersView extends React.Component {
     }
   }
 
-  fetch(countryIso) {
+  fetch (countryIso) {
     this.props.fetchUsers(countryIso)
   }
 
-  render() {
+  render () {
     const {match, countryUsers, allUsers, newUser, allowedRoles, i18n} = this.props
     const countryIso = match.params.countryIso
 

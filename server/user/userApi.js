@@ -88,7 +88,7 @@ module.exports.init = app => {
       checkCountryAccessFromReqParams(req)
 
       if (req.query.id) {
-        await db.transaction(userRepository.removeCountryUser, [req.user, req.params.countryIso, req.query.id])
+        await db.transaction(userRepository.removeUser, [req.user, req.params.countryIso, req.query.id])
       } else if (req.query.invitationUuid) {
         await db.transaction(userRepository.removeInvitation, [req.user, req.params.countryIso, req.query.invitationUuid])
       } else {

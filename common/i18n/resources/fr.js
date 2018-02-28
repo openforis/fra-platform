@@ -337,7 +337,7 @@ L'équipe de FRA
     edit: 'Modifier',
     addUser: 'Ajouter collaborateur',
     insufficientPrivileges: 'Privilèges insuffisants',
-    confirmDelete: 'Éliminer {{user}} de {{country}}?',
+    confirmDelete: 'Éliminer {{user}}?',
     allUsers: 'Tous les collaborateurs',
     invitationEmail: {
       subject: 'Invitation à rejoindre le/la {{country}} sur la plateforme de FRA',
