@@ -124,8 +124,8 @@ module.exports.translation = {
       linkFraProcess: 'Más información sobre el proceso de FRA'
     },
     links: {
-      unfcccFocalPoints: 'Lista de los puntos de contacto de la CMNUCC',
-      sdgFocalPoints: 'Lista de los puntos de contacto nacionales para los ODS',
+      unfcccFocalPoints: 'Puntos de contacto de la CMNUCC',
+      sdgFocalPoints: 'Puntos de contacto nacionales para los ODS',
       reddPortal: 'Sistemas satelitales de monitoreo terrestre, habilitados por el Programa ONU-REDD y la FAO'
     }
   },

@@ -124,8 +124,8 @@ module.exports.translation = {
       linkFraProcess: 'Read more about the FRA process'
     },
     links: {
-      unfcccFocalPoints: 'List of UNFCCC focal points',
-      sdgFocalPoints: 'List of National SDG focal points',
+      unfcccFocalPoints: 'UNFCCC focal points',
+      sdgFocalPoints: 'National SDG focal points',
       reddPortal: 'Satellite Land Monitoring Systems (SLMS), empowered by UN-REDD/FAO'
     }
   },
