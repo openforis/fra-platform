@@ -5,8 +5,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 97,
         "temperate": 3,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -214,8 +213,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 60,
         "temperate": 40,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -423,8 +421,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 100,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -632,8 +629,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -841,8 +837,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 0,
         "temperate": 100,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -1050,8 +1045,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -1259,8 +1253,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -1468,8 +1461,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -1677,8 +1669,7 @@ module.exports =
         "tropical": 86,
         "subtropical": 6,
         "temperate": 7,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -1886,8 +1877,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 61,
         "temperate": 39,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -2095,8 +2085,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -2304,8 +2293,7 @@ module.exports =
         "tropical": 15,
         "subtropical": 50,
         "temperate": 35,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -2513,8 +2501,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 0,
         "temperate": 100,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "550",
@@ -2722,8 +2709,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 29,
         "temperate": 71,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -2931,8 +2917,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -3140,8 +3125,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 100,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -3349,8 +3333,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -3558,8 +3541,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -3767,8 +3749,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 0,
         "temperate": 100,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -3976,8 +3957,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 0,
         "temperate": 100,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -4185,8 +4165,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -4394,8 +4373,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -4603,8 +4581,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 100,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -4812,8 +4789,7 @@ module.exports =
         "tropical": 72,
         "subtropical": 28,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -5021,8 +4997,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -5230,8 +5205,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "faoStat": {
         "1980": {
@@ -5412,8 +5386,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 6,
         "temperate": 94,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -5621,8 +5594,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -5830,8 +5802,7 @@ module.exports =
         "tropical": 97,
         "subtropical": 3,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "638.41",
@@ -6039,8 +6010,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -6248,8 +6218,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -6457,8 +6426,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 2,
         "temperate": 98,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -6666,8 +6634,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -6875,8 +6842,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -7084,8 +7050,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -7293,8 +7258,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -7502,8 +7466,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -7711,8 +7674,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 0,
         "temperate": 24,
-        "boreal": 76,
-        "polar": 0
+        "boreal": 76
       },
       "certifiedAreas": {
         "2000": "1070",
@@ -7920,8 +7882,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -8129,8 +8090,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -8338,8 +8298,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -8547,8 +8506,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 29,
         "temperate": 71,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -8756,8 +8714,7 @@ module.exports =
         "tropical": 4,
         "subtropical": 67,
         "temperate": 22,
-        "boreal": 7,
-        "polar": 0
+        "boreal": 7
       },
       "certifiedAreas": {
         "2000": "0",
@@ -8965,8 +8922,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -9174,8 +9130,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -9383,8 +9338,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -9592,8 +9546,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -9801,8 +9754,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -10010,8 +9962,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -10219,8 +10170,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 12,
         "temperate": 88,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -10428,8 +10378,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -10637,8 +10586,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "faoStat": {
         "1980": {
@@ -10818,8 +10766,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 100,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -11027,8 +10974,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 0,
         "temperate": 100,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "11.34",
@@ -11236,8 +11182,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 0,
         "temperate": 100,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -11445,8 +11390,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -11654,8 +11598,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 0,
         "temperate": 100,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -11863,8 +11806,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -12072,8 +12014,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -12281,8 +12222,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -12490,8 +12430,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -12699,8 +12638,7 @@ module.exports =
         "tropical": 18,
         "subtropical": 82,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -12908,8 +12846,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -13117,8 +13054,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -13326,8 +13262,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -13535,8 +13470,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 0,
         "temperate": 100,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -13744,8 +13678,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -13953,8 +13886,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 100,
-        "polar": 0
+        "boreal": 100
       },
       "certifiedAreas": {
         "2000": "0",
@@ -14162,8 +14094,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 0,
         "temperate": 100,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -14371,8 +14302,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -14580,8 +14510,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 0,
         "temperate": 2,
-        "boreal": 98,
-        "polar": 0
+        "boreal": 98
       },
       "certifiedAreas": {
         "2000": "21.91",
@@ -14789,8 +14718,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 13,
         "temperate": 87,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "1.1",
@@ -14998,8 +14926,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -15207,8 +15134,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -15416,8 +15342,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -15625,8 +15550,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -15834,8 +15758,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 38,
         "temperate": 62,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -16043,8 +15966,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 0,
         "temperate": 100,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "3020",
@@ -16252,8 +16174,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -16461,8 +16382,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 0,
         "temperate": 100,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -16670,8 +16590,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 89,
         "temperate": 11,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -16879,8 +16798,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 100,
-        "polar": 0
+        "boreal": 100
       },
       "certifiedAreas": {
         "2000": "0",
@@ -17088,8 +17006,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -17297,8 +17214,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -17506,8 +17422,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -17715,8 +17630,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -17924,8 +17838,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 0,
         "temperate": 100,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -18133,8 +18046,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -18342,8 +18254,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -18551,8 +18462,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -18760,8 +18670,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -18969,8 +18878,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 100,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -19178,8 +19086,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -19387,8 +19294,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 0,
         "temperate": 100,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -19596,8 +19502,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 100,
-        "polar": 0
+        "boreal": 100
       },
       "certifiedAreas": {
         "2000": "0",
@@ -19805,8 +19710,7 @@ module.exports =
         "tropical": 89,
         "subtropical": 11,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -20014,8 +19918,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -20223,8 +20126,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 96,
         "temperate": 4,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -20432,8 +20334,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 100,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -20641,8 +20542,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 0,
         "temperate": 100,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "397",
@@ -20850,8 +20750,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 0,
         "temperate": 100,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -21059,8 +20958,7 @@ module.exports =
         "tropical": 1,
         "subtropical": 99,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -21268,8 +21166,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 68,
         "temperate": 32,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -21477,8 +21374,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -21686,8 +21582,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 50,
         "temperate": 50,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "12.44",
@@ -21895,8 +21790,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 0,
         "temperate": 100,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -22104,8 +21998,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 100,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -22313,8 +22206,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 0,
         "temperate": 88,
-        "boreal": 12,
-        "polar": 0
+        "boreal": 12
       },
       "certifiedAreas": {
         "2000": "0",
@@ -22522,8 +22414,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -22731,8 +22622,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -22940,8 +22830,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 100,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -23149,8 +23038,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 0,
         "temperate": 100,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -23358,8 +23246,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -23567,8 +23454,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 0,
         "temperate": 100,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -23776,8 +23662,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 100,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -23985,8 +23870,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 100,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -24194,8 +24078,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -24403,8 +24286,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 100,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -24612,8 +24494,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 0,
         "temperate": 100,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -24821,8 +24702,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 0,
         "temperate": 100,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -25030,8 +24910,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 0,
         "temperate": 100,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -25239,8 +25118,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -25448,8 +25326,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -25657,8 +25534,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "73.3",
@@ -25866,8 +25742,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -26075,8 +25950,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -26284,8 +26158,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 100,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -26493,8 +26366,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -26702,8 +26574,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -26911,8 +26782,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -27120,8 +26990,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -27329,8 +27198,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -27538,8 +27406,7 @@ module.exports =
         "tropical": 66,
         "subtropical": 34,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -27747,8 +27614,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -27956,8 +27822,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 100,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -28165,8 +28030,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 0,
         "temperate": 47,
-        "boreal": 53,
-        "polar": 0
+        "boreal": 53
       },
       "certifiedAreas": {
         "2000": "0",
@@ -28374,8 +28238,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 32,
         "temperate": 68,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -28583,8 +28446,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -28792,8 +28654,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 100,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -29001,8 +28862,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -29210,8 +29070,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -29419,8 +29278,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -29628,8 +29486,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -29837,8 +29694,7 @@ module.exports =
         "tropical": 59,
         "subtropical": 41,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -30046,8 +29902,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 0,
         "temperate": 100,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -30255,8 +30110,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -30464,8 +30318,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 48,
         "temperate": 52,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "19.7",
@@ -30673,8 +30526,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -30882,8 +30734,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -31091,8 +30942,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -31300,8 +31150,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -31509,8 +31358,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 100,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -31718,8 +31566,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -31927,8 +31774,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 0,
         "temperate": 7,
-        "boreal": 93,
-        "polar": 0
+        "boreal": 93
       },
       "certifiedAreas": {
         "2000": "5600",
@@ -32136,8 +31982,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -32345,8 +32190,7 @@ module.exports =
         "tropical": 1,
         "subtropical": 98,
         "temperate": 1,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -32554,8 +32398,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -32763,8 +32606,7 @@ module.exports =
         "tropical": 54,
         "subtropical": 46,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -32972,8 +32814,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -33181,8 +33022,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -33390,8 +33230,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -33599,8 +33438,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -33808,8 +33646,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -34017,8 +33854,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -34226,8 +34062,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 0,
         "temperate": 100,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -34435,8 +34270,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 73,
         "temperate": 27,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -34644,8 +34478,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -34853,8 +34686,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 100,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -35062,8 +34894,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 12,
         "temperate": 88,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -35271,8 +35102,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 0,
         "temperate": 100,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -35480,8 +35310,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -35689,8 +35518,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 0,
         "temperate": 100,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -35898,8 +35726,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 0,
         "temperate": 14,
-        "boreal": 85,
-        "polar": 1
+        "boreal": 86
       },
       "certifiedAreas": {
         "2000": "0",
@@ -36107,8 +35934,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -36316,8 +36142,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -36526,8 +36351,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -36735,8 +36559,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -36944,8 +36767,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -37153,8 +36975,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 100,
-        "polar": 0
+        "boreal": 100
       },
       "certifiedAreas": {
         "2000": "0",
@@ -37362,8 +37183,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -37571,8 +37391,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -37780,8 +37599,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -37989,8 +37807,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 100,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -38198,8 +38015,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -38407,8 +38223,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -38616,8 +38431,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -38825,8 +38639,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 0,
         "temperate": 100,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -39034,8 +38847,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -39243,8 +39055,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -39452,8 +39263,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -39661,8 +39471,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "faoStat": {
         "1980": {
@@ -39842,8 +39651,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 0,
         "temperate": 100,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -40051,8 +39859,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 5,
         "temperate": 95,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -40260,8 +40067,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -40469,8 +40275,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -40678,8 +40483,7 @@ module.exports =
         "tropical": 30,
         "subtropical": 70,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "1006.5",
@@ -40887,8 +40691,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -41096,8 +40899,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 68,
         "temperate": 32,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -41305,8 +41107,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -41514,8 +41315,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -41723,8 +41523,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -41932,8 +41731,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 100,
-        "polar": 0
+        "boreal": 100
       },
       "certifiedAreas": {
         "2000": "0",
@@ -42141,8 +41939,7 @@ module.exports =
         "tropical": 83,
         "subtropical": 17,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "17",
@@ -42350,8 +42147,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 0,
         "temperate": 29,
-        "boreal": 71,
-        "polar": 0
+        "boreal": 71
       },
       "certifiedAreas": {
         "2000": "1334",
@@ -42559,8 +42355,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 0,
         "temperate": 100,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -42768,8 +42563,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 100,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -42977,8 +42771,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 0,
         "temperate": 100,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -43186,8 +42979,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -43395,8 +43187,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 41,
         "temperate": 59,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -43604,8 +43395,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -43813,8 +43603,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -44022,8 +43811,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -44231,8 +44019,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -44440,8 +44227,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -44649,8 +44435,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 100,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -44858,8 +44643,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 88,
         "temperate": 12,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -45067,8 +44851,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 11,
         "temperate": 89,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -45276,8 +45059,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -45485,8 +45267,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -45694,8 +45475,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -45903,8 +45683,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 0,
         "temperate": 100,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -46112,8 +45891,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -46321,8 +46099,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 0,
         "temperate": 86,
-        "boreal": 14,
-        "polar": 0
+        "boreal": 14
       },
       "certifiedAreas": {
         "2000": "0",
@@ -46530,8 +46307,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -46739,8 +46515,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 26,
         "temperate": 58,
-        "boreal": 14,
-        "polar": 1
+        "boreal": 15
       },
       "certifiedAreas": {
         "2000": "0",
@@ -46948,8 +46723,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -47157,8 +46931,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 100,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -47366,8 +47139,7 @@ module.exports =
         "tropical": 0,
         "subtropical": 0,
         "temperate": 100,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -47575,8 +47347,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -47784,8 +47555,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -47993,8 +47763,7 @@ module.exports =
         "tropical": 95,
         "subtropical": 5,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -48202,8 +47971,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -48411,8 +48179,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -48620,8 +48387,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -48829,8 +48595,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",
@@ -49038,8 +48803,7 @@ module.exports =
         "tropical": 100,
         "subtropical": 0,
         "temperate": 0,
-        "boreal": 0,
-        "polar": 0
+        "boreal": 0
       },
       "certifiedAreas": {
         "2000": "0",

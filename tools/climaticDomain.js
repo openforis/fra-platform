@@ -29,8 +29,7 @@ const update = async (climaticDomainCsvFile, outputFile) => {
           tropical: Number(row[2]),
           subtropical: Number(row[3]),
           temperate: Number(row[4]),
-          boreal: Number(row[5]),
-          polar: Number(row[6])
+          boreal: Number(row[5]) + Number(row[6])
         }
         return R.assoc(row[1], {climaticDomainPercents2015}, result)
       },
