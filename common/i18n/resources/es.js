@@ -200,7 +200,7 @@ El equipo de FRA
     support: {
       dontDelete: 'No elimine la información del sistema',
       sendFeedback: 'Enviar comentarios',
-      feedbackEmailSubject: 'Comentarios de la plataforma de la FRA',
+      feedbackEmailSubject: 'Comentarios de la plataforma de FRA',
       platformVersion: 'Versión de la plataforma',
       userAgent: 'Agente de usuario',
       user: 'Usuario',
@@ -343,26 +343,26 @@ El equipo de FRA
     confirmDelete: '¿Eliminar {{user}}?',
     allUsers: 'Todos los colaboradores',
     invitationEmail: {
-      subject: 'Invitación a {{country}} a la plataforma de la FRA',
+      subject: 'Invitación a la plataforma de FRA',
       textMessage: `Estimado/a {{invitedUser}},
 
-{{loggedInUser}} le ha invitado para que incorpore a {{country}} a la plataforma de la FRA como {{role}}.
+Ha sido invitado/a a acceder a la plataforma de FRA como {{role}} para {{country}}.
 
-Acepte la invitación y visite el país en la siguiente dirección URL:
+Acepte esta invitación y acceda a la plataforma en la siguiente dirección URL:
 {{- link}}
 
-Espero que disfrute del informe, y no dude en ponerse en contacto con nosotros para enviarnos sus comentarios.
+¡Que disfrute del trabajo!
 
 El equipo de FRA
 {{- url}}
     `,
       htmlMessage: `Estimado/a {{invitedUser}},
 <br/><br/>
-{{loggedInUser}} le ha invitado para que incorpore a {{country}} a la plataforma de FRA como {{role}}.
+Ha sido invitado/a a acceder a la plataforma de FRA como {{role}} para {{country}}.
 <br/><br/>
-<b><a href="{{- link}}">Acepte la invitación y visite el país</a></b>
+<b><a href="{{- link}}">Acepte esta invitación y acceda a la plataforma</a></b>
 <br/><br/>
-Espero que disfrute del informe, y no dude en ponerse en contacto con nosotros para enviarnos sus comentarios.
+¡Que disfrute del trabajo!
 <br/><br/>
 El equipo de FRA
 <br/>
@@ -747,10 +747,10 @@ El equipo de FRA
     deskStudy: 'Estudio técnico',
     statusChangeNotification:
       {
-        subject: 'El estado de {{country}} cambió a {{status}} en la plataforma de la FRA',
+        subject: 'El estado de {{country}} cambió a {{status}} en la plataforma de FRA',
         textMessage: `Estimado/a {{recipientName}},
 
-{{changer}} cambió el estado de {{assessment}} de {{country}} a "{{status}}" en la plataforma de la FRA.
+{{changer}} ha cambiado el estado de {{assessment}} a "{{status}}" para {{country}} en la plataforma de FRA.
 
 {{message}}
 
@@ -760,7 +760,7 @@ El equipo de FRA
 {{- serverUrl}}`,
         htmlMessage: `Estimado/a {{recipientName}},
 <br/><br/>
-{{changer}} cambió el estado de {{assessment}} de {{country}} a "{{status}}" en la plataforma de la FRA.
+{{changer}} ha cambiado el estado de {{assessment}} a "{{status}}" para {{country}} en la plataforma de FRA.
 <br/><br/>
 {{message}}
 <br/><br/>
