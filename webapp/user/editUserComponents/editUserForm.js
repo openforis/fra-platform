@@ -1,7 +1,7 @@
 import './editUserForm.less'
 
 import React from 'react'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import R from 'ramda'
 
 import {
@@ -11,31 +11,31 @@ import {
   nationalCorrespondent,
   collaborator
 } from '../../../common/countryRole'
-import {i18nUserRole, validate, profilePictureUri} from '../../../common/userUtils'
+import { i18nUserRole, validate, profilePictureUri } from '../../../common/userUtils'
 
-import {loadUserToEdit, persistUser} from '../actions'
-import {getCountryName} from "../../country/actions"
+import { loadUserToEdit, persistUser } from '../actions'
+import { getCountryName } from '../../country/actions'
 
 import TextInput from '../../reusableUiComponents/textInput'
-import CountrySelectionModal from "./countrySelectionModal"
+import CountrySelectionModal from './countrySelectionModal'
 
 class EditUserForm extends React.Component {
 
-  constructor(props) {
+  constructor (props) {
     super(props)
 
     this.state = {user: null}
   }
 
-  loadUser(countryIso, userId) {
+  loadUser (countryIso, userId) {
     this.props.loadUserToEdit(countryIso, userId)
   }
 
-  componentWillMount() {
+  componentWillMount () {
     this.loadUser(this.props.countryIso, this.props.userId)
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps (nextProps) {
     if (this.props.userId !== nextProps.userId ||
       this.props.countryIso !== nextProps.countryIso
     ) {
@@ -47,7 +47,7 @@ class EditUserForm extends React.Component {
     }
   }
 
-  render() {
+  render () {
     const defaultOnCancel = () => window.history.back()
 
     const {i18n, userInfo, countryIso, countries, getCountryName, persistUser, onCancel = defaultOnCancel} = this.props
@@ -83,7 +83,7 @@ class EditUserForm extends React.Component {
     // properties used to render ui form fields
     const roles = [reviewer.role, nationalCorrespondent.role, collaborator.role]
     const textInputFields = [
-      {key: 'name'},
+      {key: 'name', onlyAdmin: true},
       {key: 'email'},
       {key: 'loginEmail', disabled: true},
       {key: 'institution'},
@@ -127,13 +127,15 @@ class EditUserForm extends React.Component {
         </div>
 
         {
-          textInputFields.map(inputField =>
-            <div className="edit-user__form-item" key={inputField.key}>
+          textInputFields.map(inputField => {
+            const disabled = inputField.disabled === true || (inputField.onlyAdmin ? !isAdministrator(userInfo) : false)
+
+            return <div className="edit-user__form-item" key={inputField.key}>
               <div className="edit-user__form-label">
                 {i18n.t(`editUser.${inputField.key}`)}
               </div>
               <div
-                className={`edit-user__form-field${inputField.disabled === true ? '-disabled' : ''}${hasValidProp(inputField.key) ? '' : ' error'}`}>
+                className={`edit-user__form-field${disabled ? '-disabled' : ''}${hasValidProp(inputField.key) ? '' : ' error'}`}>
                 <TextInput
                   value={R.prop(inputField.key, user)}
                   onChange={evt => {
@@ -143,11 +145,11 @@ class EditUserForm extends React.Component {
                       validateUser
                     )(this.state))
                   }}
-                  disabled={inputField.disabled === true}
+                  disabled={disabled}
                 />
               </div>
             </div>
-          )
+          })
         }
 
         <div className="edit-user__form-item-roles">
