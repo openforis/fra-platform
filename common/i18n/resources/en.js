@@ -343,28 +343,28 @@ The FRA team
     confirmDelete: 'Remove {{user}}?',
     allUsers:'All collaborators',
     invitationEmail: {
-      subject: 'Invited to {{country}} on FRA Platform',
+      subject: 'FRA platform invitation',
       textMessage: `Dear {{invitedUser}},
 
-{{loggedInUser}} has invited you to join {{country}} on FRA Platfrom as a {{role}}.
+You have been invited to access the FRA platform as {{role}} for {{country}}.
 
-Accept this invitation and visit the country at the following URL:
+Accept this invitation and access the platform at the following URL:
 {{- link}}
 
-Happy reporting, and don't hesitate to contact us with your feedback.
+Happy reporting!
 
-The FRA team
+The FRA team fra@fao.org
 {{- url}}
     `,
       htmlMessage: `Dear {{invitedUser}},
 <br/><br/>
-{{loggedInUser}} has invited you to join {{country}} on FRA Platfrom as a {{role}}.
+You have been invited to access the FRA platform as {{role}} for {{country}}.
 <br/><br/>
-<b><a href="{{- link}}">Accept this invitation and visit the country</a></b>
+<b><a href="{{- link}}">Accept this invitation and access the platform</a></b>
 <br/><br/>
-Happy reporting, and don't hesitate to contact us with your feedback.
+Happy reporting!
 <br/><br/>
-The FRA team
+The FRA team fra@fao.org
 <br/>
 {{- url}}
     `

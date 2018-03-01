@@ -82,12 +82,12 @@ module.exports.translation = {
       milestone7: 'Análisis de datos y redacción de informes',
       milestone8: 'Lanzamiento de la plataforma de análisis y difusión',
       date1: 'Marzo',
-      date2: 'De abril a septiembre',
+      date2: 'Abril – Septiembre',
       date3: 'Octubre',
-      date4: 'De enero a febrero',
+      date4: 'Enero – Febrero',
       date5: 'Marzo',
       date6: 'Julio',
-      date7: 'De marzo a diciembre',
+      date7: 'Marzo – Diciembre',
       date8: 'Agosto'
     },
     users: {
@@ -108,28 +108,28 @@ module.exports.translation = {
       noRecentActivityBody: 'Los cambios realizados en la plataforma aparecerán aquí, para que se pueda poner al día sobre lo que ha estado ocurriendo mientras estaba ausente.',
       getStarted: 'Para empezar',
       actions: {
-        added: 'añadido',
-        commented: 'comentado',
-        deleted: 'borrado',
-        edited: 'editado',
-        resolved: 'asunto resuelto en',
-        status: 'estado cambiado a',
-        addUser: 'añadido {{user}} como {{role}}', //Legacy, no longer created
-        updateUser: 'editado {{user}}',
-        removeUser: 'eliminado {{user}}',
-        acceptInvitation: 'incorporado como {{role}}',
-        addInvitation: 'invitado {{user}} como {{role}}',
-        removeInvitation: 'invitación eliminada de {{user}} como {{role}}',
-        updateInvitation: 'invitación actualizada de {{user}} como {{role}}',
-        updateAssessmentStatus: 'cambió el estado de {{assessment}} a {{status}}'
+        added: 'ha añadido',
+        commented: 'ha comentado',
+        deleted: 'ha borrado',
+        edited: 'ha editado',
+        resolved: 'ha resuelto el asunto',
+        status: 'ha cambiado el estado a',
+        addUser: 'ha añadido a {{user}} como {{role}}', //Legacy, no longer created
+        updateUser: 'ha editado a {{user}}',
+        removeUser: 'ha eliminado a {{user}}',
+        acceptInvitation: 'ha sido incorporado/a como {{role}}',
+        addInvitation: 'ha invitado a {{user}} como {{role}}',
+        removeInvitation: 'ha eliminado la invitación de {{user}} como {{role}}',
+        updateInvitation: 'ha actualizado la invitación de {{user}} como {{role}}',
+        updateAssessmentStatus: 'ha cambiado el estado de {{assessment}} a {{status}}'
       },
-      fraProcess: 'La FAO ha estado monitoreando los bosques del mundo en intervalos de 5 a 10 años desde 1946. Las recientes Evaluaciones de los Recursos Forestales Mundiales (FRA) se llevan a cabo ahora cada 5 años, en un esfuerzo por proporcionar un enfoque conherente para describir los bosques del mundo y cómo estos están cambiando. La evaluación se basa en dos principales fuentes de datos: los informes nacionales desarrollados por Corresponsales Naciones y la teledetección, llevada a cabo por la FAO junto con los coordinadores nacionales y los asociados regionales. El alcance de FRA ha cambiado de forma regular desde que se publicó la primera evaluación en 1948. Dichas evaluaciones constituyen una interesante historia sobre los intereses forestales mundiales, tanto en lo que respecta a su contenido sustancial como a su alcance cambiante.',
+      fraProcess: 'La FAO ha estado monitoreando los bosques del mundo en intervalos de 5 a 10 años desde 1946. Las recientes Evaluaciones de los Recursos Forestales Mundiales (FRA) se llevan a cabo cada 5 años, en un esfuerzo por proporcionar un enfoque conherente para describir los bosques del mundo y cómo estos están cambiando. La evaluación se basa en dos principales fuentes de datos: los informes nacionales desarrollados por Corresponsales Naciones y la teledetección, llevada a cabo por la FAO junto con los coordinadores nacionales y los asociados regionales. El alcance de FRA ha cambiado de forma regular desde que se publicó la primera evaluación en 1948. Dichas evaluaciones constituyen una interesante historia sobre los intereses forestales mundiales, tanto en lo que respecta a su contenido sustancial como a su alcance cambiante.',
       linkFraProcess: 'Más información sobre el proceso de FRA'
     },
     links: {
       unfcccFocalPoints: 'Puntos de contacto de la CMNUCC',
       sdgFocalPoints: 'Puntos de contacto nacionales para los ODS',
-      reddPortal: 'Sistemas satelitales de monitoreo terrestre, habilitados por el Programa ONU-REDD y la FAO'
+      reddPortal: 'Sistemas satelitales de monitoreo terrestre habilitados por el Programa ONU-REDD y la FAO'
     }
   },
 
@@ -200,7 +200,7 @@ El equipo de FRA
     support: {
       dontDelete: 'No elimine la información del sistema',
       sendFeedback: 'Enviar comentarios',
-      feedbackEmailSubject: 'Comentarios de la plataforma de la FRA',
+      feedbackEmailSubject: 'Comentarios de la plataforma de FRA',
       platformVersion: 'Versión de la plataforma',
       userAgent: 'Agente de usuario',
       user: 'Usuario',
@@ -332,7 +332,7 @@ El equipo de FRA
     name: 'Nombre',
     role: 'Función',
     email: 'Correo electrónico',
-    loginEmail: 'Iniciar sesión',
+    loginEmail: 'Nombre de usuario',
     noUsers: 'No se han añadido colaboradores',
     placeholder: 'Elegir…',
     remove: 'Eliminar',
@@ -343,26 +343,26 @@ El equipo de FRA
     confirmDelete: '¿Eliminar {{user}}?',
     allUsers: 'Todos los colaboradores',
     invitationEmail: {
-      subject: 'Invitación a {{country}} a la plataforma de la FRA',
+      subject: 'Invitación a la plataforma de FRA',
       textMessage: `Estimado/a {{invitedUser}},
 
-{{loggedInUser}} le ha invitado para que incorpore a {{country}} a la plataforma de la FRA como {{role}}.
+Ha sido invitado/a a acceder a la plataforma de FRA como {{role}} para {{country}}.
 
-Acepte la invitación y visite el país en la siguiente dirección URL:
+Acepte esta invitación y acceda a la plataforma en la siguiente dirección URL:
 {{- link}}
 
-Espero que disfrute del informe, y no dude en ponerse en contacto con nosotros para enviarnos sus comentarios.
+¡Que disfrute del trabajo!
 
 El equipo de FRA
 {{- url}}
     `,
       htmlMessage: `Estimado/a {{invitedUser}},
 <br/><br/>
-{{loggedInUser}} le ha invitado para que incorpore a {{country}} a la plataforma de FRA como {{role}}.
+Ha sido invitado/a a acceder a la plataforma de FRA como {{role}} para {{country}}.
 <br/><br/>
-<b><a href="{{- link}}">Acepte la invitación y visite el país</a></b>
+<b><a href="{{- link}}">Acepte esta invitación y acceda a la plataforma</a></b>
 <br/><br/>
-Espero que disfrute del informe, y no dude en ponerse en contacto con nosotros para enviarnos sus comentarios.
+¡Que disfrute del trabajo!
 <br/><br/>
 El equipo de FRA
 <br/>
@@ -408,13 +408,13 @@ El equipo de FRA
     useOriginalDataPoints: 'Usar puntos de datos nacionales',
     dontUseOriginalDataPoints: 'No usar puntos de datos nacionales',
     whatIsThis: '¿Qué significa esto?',
-    tableNoticeMessage: 'La cifra correspondiente a la superficie de tierra en el año 2015 según FAOSTAT se usa para todos los años de referencia'
+    tableNoticeMessage: 'La superficie de tierra registrada según FAOSTAT para el año 2015 se usa para todos los años de referencia'
   },
 
   climaticDomain: {
     climaticDomain: 'Región climática',
     percentOfForestArea2015: 'Porcentaje de área de bosque en 2015',
-    percentOfForestArea2015Override: 'Invalidar valor',
+    percentOfForestArea2015Override: 'Reemplazar valor',
     selectDefault: 'Por defecto',
     boreal: 'Boreal',
     temperate: 'Templada',
@@ -423,15 +423,15 @@ El equipo de FRA
   },
 
   forestCharacteristics: {
-    forestCharacteristics: 'Características del bosque',
+    forestCharacteristics: 'Características de los bosques',
     estimationAndForecasting: 'Estimación y proyección',
     categoryHeader: 'Categorías de FRA',
     areaUnitLabel: 'Área forestal (1000 ha)',
     naturalForestArea: 'Bosque regenerado de forma natural',
     plantationForestArea: 'Plantación forestal',
     plantationForestIntroducedArea: '…de la cual con especies introducidas',
-    otherPlantedForestArea: 'Otros bosques plantados',
-    plantedForest: 'Bosques plantados',
+    otherPlantedForestArea: 'Otro bosque plantado',
+    plantedForest: 'Bosque plantado',
     totalForestArea: 'Área de bosque total',
     total: 'Total',
     useOriginalDataPoints: 'Usar puntos de datos nacionales',
@@ -439,8 +439,8 @@ El equipo de FRA
   },
 
   tableWithOdp: {
-    confirmGenerateFraValues: '¿Invalidar los valores existentes?',
-    generateFraValues: 'Establecer valores',
+    confirmGenerateFraValues: '¿Reemplazar los valores existentes?',
+    generateFraValues: 'Generar valores',
     linearExtrapolation: 'Lineal',
     repeatLastExtrapolation: 'Repetir el último',
     annualChangeExtrapolation: 'Cambio anual',
@@ -457,7 +457,7 @@ El equipo de FRA
     categoryHeader: 'Categorías de FRA',
     areaUnitLabel: 'Área (1000 ha/año)',
     forestExpansion: 'Expansión del bosque',
-    ofWhichAfforestation: '… de la cual con forestación',
+    ofWhichAfforestation: '…de la cual con forestación',
     ofWhichNaturalExpansion: '…de la cual con expansión natural',
     deforestation: 'Deforestación',
     forestAreaNetChange: 'Cambio neto en el área de bosque',
@@ -491,7 +491,7 @@ El equipo de FRA
     agroforestry: 'Agroforestería',
     treesinurbansettings: 'Árboles en espacios urbanos',
     total: 'Total',
-    otherLandArea: 'Otra superficie de tierras',
+    otherLandArea: 'Área de otras tierras',
     other: 'Otros (especificar en comentarios)'
   },
 
@@ -504,7 +504,7 @@ El equipo de FRA
     naturallyRegeneratingForest: 'Bosque regenerado de forma natural',
     plantedForest: 'Bosque plantado',
     plantationForest: '…del cual con plantación forestal',
-    otherPlantedForest: '…del cual con otros bosques plantados',
+    otherPlantedForest: '…del cual con otro bosque plantado',
     totalForest: 'Bosque',
     otherWoodedLand: 'Otras tierras boscosas',
     copyToClipboard: 'Copiar valores'
@@ -554,7 +554,7 @@ El equipo de FRA
     primaryDesignatedManagementObjective: 'Objetivo primario de gestión designado',
     primaryDesignatedManagementObjectiveSupport: 'El objetivo primario de gestión designado es significativamente más importante que otros objetivos de gestión. Los diferentes objetivos primarios de gestión son *exclusivos* y las áreas reportadas bajo un objetivo primario de gestión no deben ser reportadas para ningún otro objetivo primario de gestión. La suma de los diferentes objetivos de gestión se debe añadir al área de bosque.',
     totalAreaWithDesignatedManagementObjective: 'Área total con un objetivo de gestión designado',
-    totalAreaWithDesignatedManagementObjectiveSupport: 'Objetivo de gestión designado, independientemente de si es primario o no. Las diferentes categorías de designación *no son exclusivas*. Por lo tanto, las áreas se pueden reportar más de una vez, por ejemplo, el área de bosque reportado como objetivo primario de gestión "de uso múltiple" debe ser reportado para cada objetivo de gestión específico. De este modo, la suma de los diferentes objetivos de gestión puede ser mayor que el área de bosque total.',
+    totalAreaWithDesignatedManagementObjectiveSupport: 'Objetivo de gestión designado, independientemente de si es primario o no. Las diferentes categorías de designación *no son exclusivas*. Por lo tanto, las áreas se pueden reportar más de una vez. Por ejemplo, el área de bosque reportado como objetivo primario de gestión "de uso múltiple" debe ser reportado para cada objetivo de gestión específico. De este modo, la suma de los diferentes objetivos de gestión puede ser superior al área de bosque total.',
     categoryHeader: 'Categorías de FRA 2020',
     areaUnitLabel: 'Área forestal (1000 ha)',
     production: 'Producción',
@@ -569,10 +569,10 @@ El equipo de FRA
   },
 
   forestAreaWithinProtectedAreas: {
-    forestAreaWithinProtectedAreas: 'Área de bosque dentro de áreas protegidas y área de bosque con plan de gestión a largo plazo',
+    forestAreaWithinProtectedAreas: 'Área de bosque dentro de áreas protegidas legalmente establecidas y área de bosque con plan de gestión a largo plazo',
     categoryHeader: 'Categorías de FRA',
     areaUnitLabel: 'Área (1000 ha)',
-    header: 'Área de bosque dentro de áreas protegidas',
+    header: 'Área de bosque dentro de áreas protegidas legalmente establecidas',
     forestAreaWithLongTermManagementPlan: 'Área de bosque con plan de gestión a largo plazo',
     ofWhichInProtectedAreas: '…de la cual en áreas protegidas'
   },
@@ -586,7 +586,7 @@ El equipo de FRA
     ofWhichPrivateBusinesses: '…de la cual de propiedad de entidades comerciales e instituciones privadas',
     ofWhichCommunities: '…de la cual de propiedad de comunidades locales, tribales e indígenas',
     publicOwnership: 'Propiedad pública',
-    otherOrUnknown: 'Otros/desconocidas (especificar en comentarios)',
+    otherOrUnknown: 'Otras/desconocidas (especificar en comentarios)',
     totalForestArea: 'Área de bosque total',
     total: 'Total'
   },
@@ -654,7 +654,7 @@ El equipo de FRA
 
   employment: {
     employment: 'Empleo en silvicultura y extracción de madera',
-    average: 'En un promedio de 3 años',
+    average: 'en un promedio de 3 años',
     categoryHeader: 'Categorías de FRA 2020',
     unitHeader: 'Empleo equivalente dedicación completa (1000 EDC)',
     inForestry: 'Empleo en silvicultura y extracción de madera',
@@ -663,13 +663,13 @@ El equipo de FRA
     ofWhichGathering: '…del cual en la recolección de productos forestales no maderables',
     ofWhichSupport: '…del cual en los servicios de apoyo a la silvicultura',
     total: 'Total',
-    female: 'Mujer',
-    male: 'Hombre'
+    female: 'Mujeres',
+    male: 'Hombres'
   },
 
   graduationOfStudents: {
     graduationOfStudents: 'Graduación de alumnos en estudios relativos al bosque',
-    average: 'En un promedio de 3 años',
+    average: 'en un promedio de 3 años',
     numberOfStudents: 'Número de graduados',
     fra2020Categories: 'Categorías de FRA 2020',
     doctoralDegree: 'Doctorado',
@@ -677,17 +677,17 @@ El equipo de FRA
     bachelorsDegree: 'Título de grado',
     technicianCertificate: 'Certificado/diploma de técnico',
     total: 'Total',
-    female: 'Mujer',
-    male: 'Hombre'
+    female: 'Mujeres',
+    male: 'Hombres'
   },
 
   nonWoodForestProductsRemovals: {
-    nonWoodForestProductsRemovals: 'Extracción y valor de los productos forestales no maderables (PFNM) en 2015',
+    nonWoodForestProductsRemovals: 'Extracción y valor de los productos forestales no maderables en 2015',
     nameOfProduct: 'Nombre del PFNM',
     keySpecies: 'Especies principales',
     quantity: 'Cantidad',
     unit: 'Unidad',
-    value: 'Valor (1000 en moneda)',
+    value: 'Valor (1000 en moneda local)',
     category: 'Categoría de PFNM',
     plantProductsSelectHeading: 'Productos vegetales / materia prima',
     food: '1 Alimentos',
@@ -710,7 +710,7 @@ El equipo de FRA
     allOtherPlantProducts: 'Todos los demás productos vegetales',
     allOtherAnimalProducts: 'Todos los demás productos animales',
     total: 'Total',
-    currency: 'Nombre de la moneda',
+    currency: 'Nombre de la moneda local',
     notSelected: ''
   },
 
@@ -720,7 +720,7 @@ El equipo de FRA
     percent: 'Porcentaje',
     nameOfAgencyResponsible: 'Nombre del organismo responsable',
     sdgIndicator1: 'Indicador 15.1.1 de los ODS: Superficie forestal como proporción de la superficie total en 2015',
-    sdgIndicator2: 'Indicador 15.2.1 de los ODS: Cubierta forestal en el marco de la ordenación sostenible de los bosques',
+    sdgIndicator2: 'Indicador 15.2.1 de los ODS: Progresos en la gestión forestal sostenible',
     forestAreaProportionLandArea2015: 'Superficie forestal como proporción de la superficie total en 2015',
     subIndicator: 'Subindicador {{no}}',
     forestAreaAnnualNetChangeRate: 'Porcentaje anual de cambio neto en el área de bosque',
@@ -747,10 +747,10 @@ El equipo de FRA
     deskStudy: 'Estudio técnico',
     statusChangeNotification:
       {
-        subject: 'El estado de {{country}} cambió a {{status}} en la plataforma de la FRA',
+        subject: 'El estado de {{country}} cambió a {{status}} en la plataforma de FRA',
         textMessage: `Estimado/a {{recipientName}},
 
-{{changer}} cambió el estado de {{assessment}} de {{country}} a "{{status}}" en la plataforma de la FRA.
+{{changer}} ha cambiado el estado de {{assessment}} a "{{status}}" para {{country}} en la plataforma de FRA.
 
 {{message}}
 
@@ -760,7 +760,7 @@ El equipo de FRA
 {{- serverUrl}}`,
         htmlMessage: `Estimado/a {{recipientName}},
 <br/><br/>
-{{changer}} cambió el estado de {{assessment}} de {{country}} a "{{status}}" en la plataforma de la FRA.
+{{changer}} ha cambiado el estado de {{assessment}} a "{{status}}" para {{country}} en la plataforma de FRA.
 <br/><br/>
 {{message}}
 <br/><br/>
@@ -801,11 +801,11 @@ El equipo de FRA
   },
 
   generalValidation: {
-    subCategoryExceedsParent: 'La subcategoría es mayor que la categoría',
+    subCategoryExceedsParent: 'La subcategoría es superior a la categoría',
     forestAreaDoesNotMatchExtentOfForest: 'No coincide con el área de bosque (1a)',
-    forestAreaExceedsExtentOfForest: 'Excede el área de bosque (1a)',
-    otherLandExceedsExtentOfForest: 'Excede otra superficie de tierra(1a)',
-    valueMustBePositive: 'El valor debe ser mayor que cero'
+    forestAreaExceedsExtentOfForest: 'Superior al área de bosque (1a)',
+    otherLandExceedsExtentOfForest: 'Superior al área de otras tierras (1a)',
+    valueMustBePositive: 'El valor debe ser superior a cero'
   },
 
   emoji: {
