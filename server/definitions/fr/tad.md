@@ -41,7 +41,7 @@ Note(s) explicative(s)
 
 ### AUTRES TERRES BOISÉES
 
-Terres non définies comme **«forêt»**, couvrant une superficie de plus de 0,5 hectares avec des arbres atteignant une hauteur supérieure à 5 mètres et un **couvert forestier** de 5-10 pour cent, ou des arbres capables d’atteindre ces seuils *in situ*; ou un couvert mixte d’arbustes, arbrisseaux et d’arbres supérieur à 10 pour cent. Sont exclues les terres à vocation agricole ou urbaine prédominante.
+> Terres non définies comme **«forêt»**, couvrant une superficie de plus de 0,5 hectares avec des arbres atteignant une hauteur supérieure à 5 mètres et un **couvert forestier** de 5-10 pour cent, ou des arbres capables d’atteindre ces seuils *in situ*; ou un couvert mixte d’arbustes, arbrisseaux et d’arbres supérieur à 10 pour cent. Sont exclues les terres à vocation agricole ou urbaine prédominante.
 
 Note(s) explicative(s )
 
@@ -402,7 +402,7 @@ Note(s) explicative(s )
 
 ### AUCUNE FONCTION/FONCTION INCONNUE
 
-Forêt sans objectif de gestion principal, ou dont l'objectif de gestion est inconnu.
+> Forêt sans objectif de gestion principal, ou dont l'objectif de gestion est inconnu.
 
 ## 3b Superficie forestière se trouvant à l'interieur d'aires protégées juridiquement constituées et superficie forestières avec des plans de gestion à long-terme
 
