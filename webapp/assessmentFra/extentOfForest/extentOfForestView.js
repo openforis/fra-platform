@@ -244,7 +244,7 @@ const mapStateToProps = state =>
   ({
     ...state.extentOfForest,
     openCommentThread: state.review.openThread,
-    faoStat: R.path(['country', 'config', 'faoStat'], state),
+    climaticDomainPercents2015: R.path(['country', 'config', 'faoStat'], state),
     fra2015ForestAreas: R.path(['country', 'config', 'fra2015ForestAreas'], state),
     climaticDomainPercents2015: R.path(['country', 'config', 'climaticDomainPercents2015'], state),
     i18n: state.user.i18n

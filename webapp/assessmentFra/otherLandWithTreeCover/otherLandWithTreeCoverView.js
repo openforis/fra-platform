@@ -10,13 +10,13 @@ const OtherLandWithTreeCoverView = props =>
     headingLocalizationKey="otherLandWithTreeCover.otherLandWithTreeCover"
     faqAnchor="1a"
     tadAnchor="1f"
-    tableSpecInstance={tableSpec(props.i18n, props.extentOfForest, props.faoStat, props.match.params.countryIso)}
+    tableSpecInstance={tableSpec(props.i18n, props.extentOfForest, props.climaticDomainPercents2015, props.match.params.countryIso)}
   />
 
 const mapStateToProps = state => ({
   i18n: state.user.i18n,
   extentOfForest: state.extentOfForest,
-  faoStat: R.path(['country', 'config', 'faoStat'], state)
+  climaticDomainPercents2015: R.path(['country', 'config', 'faoStat'], state)
 })
 
 export default connect(mapStateToProps)(OtherLandWithTreeCoverView)
