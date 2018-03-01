@@ -1,4 +1,5 @@
 const R = require('ramda')
+const Promise = require('bluebird')
 
 const db = require('../db/db')
 const userRepository = require('./userRepository')
@@ -167,6 +168,32 @@ module.exports.init = app => {
 
       } else {
         sendErr(res, 'Operation not allowed')
+      }
+
+    } catch (err) {
+      sendErr(res, err)
+    }
+  })
+
+  app.get('/users/invitations/send', async (req, res) => {
+    try {
+      if (isAdministrator(req.user)) {
+        const url = serverUrl(req)
+
+        const invitations = await userRepository.fetchAllInvitations()
+        const sendInvitationPromises = invitations.map(async invitation => {
+
+          await sendInvitation(invitation.countryIso, invitation, req.user, url)
+
+          return `<p>Email sent to ${invitation.name} (${invitation.email}) invited as ${invitation.role} for ${invitation.countryIso}</p>`
+        })
+
+        const sendInvitations = await Promise.all(sendInvitationPromises)
+
+        res.send(sendInvitations.join('<br/><br/>'))
+
+      } else {
+        res.status(404).send('404 / Page not found')
       }
 
     } catch (err) {

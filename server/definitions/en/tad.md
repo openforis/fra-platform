@@ -41,7 +41,7 @@ Explanatory notes
 
 ### OTHER WOODED LAND
 
-Land not classified as **Forest**, spanning more than 0.5 hectares; with **trees** higher than 5 meters and a **canopy cover** of 5-10 percent, or trees able to reach these thresholds *in situ*; or with a combined cover of **shrubs**, bushes and trees above 10 percent. It does not include land that is predominantly under agricultural or urban land use.
+> Land not classified as **Forest**, spanning more than 0.5 hectares; with **trees** higher than 5 meters and a **canopy cover** of 5-10 percent, or trees able to reach these thresholds *in situ*; or with a combined cover of **shrubs**, bushes and trees above 10 percent. It does not include land that is predominantly under agricultural or urban land use.
 
 Explanatory notes
 
@@ -132,7 +132,7 @@ Explanatory note
 
 ### REFORESTATION
 
-Re-establishment of forest through planting and/or deliberate seeding on land classified as forest.
+> Re-establishment of forest through planting and/or deliberate seeding on land classified as forest.
 
 Explanatory notes
 
@@ -402,7 +402,7 @@ Explanatory note
 
 ### NO/UNKNOWN
 
-Forest with no or unknown primary management objective.
+> Forest with no or unknown primary management objective.
 
 ## 3b Forest area within legally established protected areas and forest area with long-term forest management plans
 
@@ -760,6 +760,8 @@ Explanatory notes
 
 1. If values are obtained from a point further down the production chain, transport costs and possible handling and/or processing costs should be subtracted whenever possible.
 2. Commercial value refers to actual market value and potential value of both marketed and non-marketed products.
+
+--
 
 # 8 Additional terms and definitions
 

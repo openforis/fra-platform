@@ -41,7 +41,7 @@ Notas explicativas
 
 ### OTRAS TIERRAS BOSCOSAS
 
-Tierra no definida como **bosque** que se extiende por más de 0,5 hectáreas; con **árboles** de una altura superior a 5 metros y una cobertura de copa de 5 a 10 por ciento, o árboles capaces de alcanzar estos límites mínimos *in situ*; o con una cubierta mixta de arbustos, matorrales y árboles superior a 10 por ciento. No incluye la tierra sometida a un uso predominantemente agrícola o urbano.
+> Tierra no definida como **bosque** que se extiende por más de 0,5 hectáreas; con **árboles** de una altura superior a 5 metros y una cobertura de copa de 5 a 10 por ciento, o árboles capaces de alcanzar estos límites mínimos *in situ*; o con una cubierta mixta de arbustos, matorrales y árboles superior a 10 por ciento. No incluye la tierra sometida a un uso predominantemente agrícola o urbano.
 
 Notas explicativas
 
@@ -402,7 +402,7 @@ Nota explicativa
 
 ### NINGUNO/DESCONOCIDO
 
-Bosque cuyo objetivo primario de gestión es desconocido o no posee uno.
+> Bosque cuyo objetivo primario de gestión es desconocido o no posee uno.
 
 ## 3b Área de bosque dentro de áreas protegidas legalmente establecidas y área de bosque con plan de gestión a largo plazo
 
