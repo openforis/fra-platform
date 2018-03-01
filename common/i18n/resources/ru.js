@@ -7,240 +7,847 @@ module.exports.translation = {
     ru: 'Русский'
   },
 
+  definition: {
+    definitionLabel: 'См. определения',
+    faqLabel: 'Часто задаваемые вопросы'
+  },
+
+  audit: {
+    notStarted: 'Не начата',
+    edited: 'Отредактировано'
+  },
+
+  yesNoTextSelect: {
+    yes: 'Да',
+    no: 'Нет',
+    notSelected: '',
+  },
+
   user: {
     roles: {
-      reviewer: 'Обозреватель',
+      reviewer: 'Рецензент',
+      reviewer_plural: 'Рецензенты',
       nationalCorrespondent: 'Национальный корреспондент',
-      collaborator: 'Коллаборационист',
+      nationalCorrespondent_plural: 'Национальные корреспонденты',
+      collaborator: 'Сотрудник',
+      collaborator_plural: 'Сотрудники',
       administrator: 'Администратор',
-      noRole: 'Недоступно'
+      noRole: 'Нет сведений'
     }
   },
 
   fraClass: {
     forest: 'Леса',
-    otherWoodedLand: 'Другая лесистая местность',
-    otherLand: 'Другая земельная площадь'
+    otherWoodedLand: 'Прочие лесопокрытые земли',
+    otherLand: 'Другие земельные площади'
   },
+
   fraForestCharacteristicsClass: {
-    naturallyGenerated: 'Естественно возобновленные леса',
-    plantationForest: 'Лесные культуры',
-    otherPlantedForest: 'Другие лесонасаждения',
-    introduced: '...в том числе интродуцированные породы'
+    naturallyRegeneratingForest: 'Естественно возобновляемые леса',
+    plantationForest: 'Плантационные лесные культуры',
+    ofWhichIntroduced: '…в том числе интродуцированные породы',
+    otherPlantedForest: 'Другие лесные культуры',
+    totalForest: 'Всего лесов'
+  },
+
+  fraOtherLandClass: {
+    palms: '…в том числе пальмы (масличные, кокосовые, финиковые и т.д.)',
+    treeOrchards: '…в том числе древесные сады (включает фруктовые, ореховые,оливковые деревья и т.д)',
+    agroforestry: '…в том числе агролесоводство',
+    treesUrbanSettings: '…в том числе деревья в городской среде'
+  },
+
+  landing: {
+    home: 'Главная',
+    sections: {
+      overview: 'Обзор',
+      about: 'Информация об ОЛР',
+      recentActivity: 'Недавняя активность',
+      userManagement: 'Координировать сотрудников',
+      externalData: 'Внешние данные',
+      links: 'Ссылки'
+    },
+    overview: {
+      loadingMap: 'Загрузка карты…',
+      withFinancialSupportOf: 'При финансовой поддержке '
+    },
+    milestones: {
+      milestones: 'Этапы работ',
+      milestone1: 'Глобальное совещание национальных корреспондентов',
+      milestone2: 'Региональные и субрегиональные семинары',
+      milestone3: 'Крайний срок представления страновых докладов',
+      milestone4: 'Утверждение заключительных страновых докладов',
+      milestone5: 'Предварительные результаты ОЛР–2020',
+      milestone6: 'Основной доклад ОЛР–2020',
+      milestone7: 'Анализ данных и подготовка доклада',
+      milestone8: 'Запуск платформы для анализа и распространения данных',
+      date1: 'Март',
+      date2: 'Апрель – Сентябрь',
+      date3: 'Октябрь',
+      date4: 'Январь – Февраль',
+      date5: 'Март',
+      date6: 'Июль',
+      date7: 'Март - Декабрь',
+      date8: 'Август'
+    },
+    users: {
+      users: 'Контакты',
+      message: 'Сообщение'
+    },
+    about: {
+      contact: 'Контакт',
+      seniorForestryOfficer: 'Старший специалист по лесному хозяйству',
+      faoForestryDepartment: 'Департамент лесного хозяйства ФАО',
+      email: 'Электронная почта',
+      fraProcess: 'С 1946 года ФАО осуществляет мониторинг мировых лесов с периодичностью 5-10 лет. Современные Глобальные оценки лесных ресурсов (ОЛР) подготавливаются каждые пять лет с целью обеспечения последовательного подхода к описанию мировых лесов и их изменений.Оценка основывается на двух главных источниках данных: страновые доклады, подготовленные национальными корреспондентами и дистанционное зондирование, проводимое ФАО совместно с национальными координаторами и региональными партнерами.   Масштаб ОЛР регулярно изменяется со времени проведения первой оценки, опубликованной в 1948 году. Данные оценки создают историю глобальных лесных интересов, как с точки зрения основного содержания, так и их меняющегося масштаба.',
+      linkFraProcess: 'Более подробная информация о процессе ОЛР',
+      or: 'Или'
+    },
+    recentActivity: {
+      noRecentActivityTitle: 'Нет недавней активности',
+      noRecentActivityBody: 'Здесь отразятся изменения, сделанные на платформе, чтобы Вы могли быстрее разобраться, что происходило во время Вашего отсутствия.',
+      getStarted: 'Начать',
+      actions: {
+        added: 'добавил',
+        commented: 'оставил комментарий к',
+        deleted: 'удалил',
+        edited: 'отредактировал',
+        resolved: 'разрешил проблему в',
+        status: 'изменил статус на',
+        addUser: 'добавил {{user}} как {{role}}', //Legacy, no longer created
+        updateUser: 'отредактировал {{user}}',
+        removeUser: 'удалил {{user}}',
+        acceptInvitation: 'присоединился как {{role}}',
+        addInvitation: 'пригласил {{user}} как {{role}}',
+        removeInvitation: 'удалил приглашение от {{user}} как {{role}}',
+        updateInvitation: 'приглашение обновлено для {{user}} как {{role}}',
+        updateAssessmentStatus: 'изменил статус с {{assessment}} на {{status}}'
+      },
+      fraProcess: 'С 1946 года ФАО осуществляет мониторинг мировых лесов с периодичностью 5-10 лет. Современные Глобальные оценки лесных ресурсов (ОЛР) подготавливаются каждые пять лет с целью обеспечения последовательного подхода к описанию мировых лесов и их изменений.Оценка основывается на двух главных источниках данных: страновые доклады, подготовленные национальными корреспондентами и дистанционное зондирование, проводимое ФАО совместно с национальными координаторами и региональными партнерами.   Масштаб ОЛР регулярно изменяется со времени проведения первой оценки, опубликованной в 1948 году. Данные оценки создают историю глобальных лесных интересов, как с точки зрения основного содержания, так и их меняющегося масштаба.',
+      linkFraProcess: 'Более подробная информация о процессе ОЛР'
+    },
+    links: {
+      unfcccFocalPoints: 'Список координаторов РКИКООН',
+      sdgFocalPoints: 'Список национальных координаторов ЦУР',
+      reddPortal: 'Спутниковая система мониторинга земель (SLMS), предоставленная программой UN-REDD/ФАО'
+    }
+  },
+
+  userChat: {
+    chatHeader: 'Сообщения от {{user}}',
+    noMessages: 'Нет сообщений',
+    writeMessage: 'Написать сообщение…',
+    send: 'Отправить',
+    cancel: 'Отмена',
+    notificationEmail: {
+      subject: '{{sender}} отправил Вам сообщение',
+      textMessage: `Уважаемый(ая) {{recipient}},
+
+{{sender}} отправил Вам сообщение.
+
+Зайдите на платформу по следующему адресу, чтобы просмотреть сообщение и ответить:
+{{- link}}
+
+Группа по ОЛР
+{{- url}}
+    `,
+      htmlMessage: `Уважаемый(ая) {{recipient}},
+<br/><br/>
+{{sender}} отправил Вам сообщение.
+<br/><br/>
+<b><a href="{{- link}}">Зайдите на платформу, чтобы просмотреть сообщение и ответить.</a></b>
+<br/><br/>
+Группа по ОЛР
+<br/>
+{{- url}}
+    `
+    }
   },
 
   // error messages
   error: {
     access: {
-      countryRoleNotSpecified: 'Ошибка: Пользователь {{user}} попытался получить доступ к {{countryIso}} но не была указана задача',
-      countryUserNotReviewer: 'Ошибка: Пользователь {{user}} попытался получить доступ к {{countryIso}} не являясь ее обозревателем'
+      countryRoleNotSpecified: 'Ошибка: Пользователь {{user}} попытался получить доступ к {{countryIso}} но не была указана роль',
+      countryUserNotReviewer: 'Ошибка: Пользователь {{user}} попытался получить доступ к {{countryIso}} не являясь рецензентом этой страны',
+      roleChangeNotAllowed: 'Ошибка: Пользователь {{user}} попытался назначить роль другого пользователя {{role}}, что не разрешается вошедшему пользователю',
+      invitationAlreadyUsed: 'Ошибка: приглащение {{invitationUuid}} уже было использовано, захват {{loginEmail}} не разрешается!',
+      countryDoesNotMatch: 'Ошибка: страна{{countyryIso}}не совпадает',
+      assessmentEditingNotAllowed: 'Ошибка: Пользователь {{user}} в роли {{role}} не может редактировать оценку в состоянии {{assessmentStatus}} для страны {{countryIso}}',
+      assessmentCommentingNotAllowed: 'Ошибка: Пользователь {{user}} в роли {{role}} не может комментировать оценку в состоянии {{assessmentStatus}} для страны {{countryIso}}'
     },
     assessment: {
-      transitionNotAllowed: 'Ошибка: Переход с {{currentStatus}} на {{status}} не разрешен для задачи {{role}}'
+      transitionNotAllowed: 'Ошибка: Переход от {{currentStatus}} к {{status}} не разрешается для роли {{role}}',
+      deskStudyNotAllowed: 'Ошибка: Только администратор может изменять статус кабинетного исследования'
     },
     review: {
       commentDeleteNotOwner: 'Ошибка: Пользователь {{user}} попытался удалить чужой комментарий',
-      commentEnterResolvedIssue: 'Ошибка: Пользователь {{user}} попытался добавить комментарий для разрешенной проблемы'
+      commentEnterResolvedIssue: 'Ошибка: Пользователь {{user}} попытался добавить комментарий к разрешенной проблеме'
     },
     ndp: {
-      previousNdpNotFound: 'Невозможно найти Национальные данные до {{year}}'
+      previousNdpNotFound: 'Невозможно найти Национальные отчетные годы до до {{year}}'
     }
   },
   // components
 
   countryListing: {
-    annuallyReported: 'Ежегодно',
-    fiveYearCycle: 'Раз в пять лет'
+    annuallyUpdated: 'Ежегодно обновляется',
+    fra2020: 'ОЛР-2020'
   },
 
   navigation: {
-    annuallyReported: 'Ежегодные данные',
-    fiveYearCycle: 'Пятилетний цикл',
-    assessmentStatus: {
-      changing: {
-        label: 'Изменяется…'
-      },
-      review: {
-        label: 'Рассматривается',
-        next: 'Послать для рассмотрения',
-        previous: 'Вернуть для рассмотрения'
-      },
-      accepted: {
-        label: 'Принято',
-        next: 'Принять',
-        previous: ''
-      },
-      editing: {
-        label: 'Редактирование',
-        previous: 'Вернуться к редактированию'
-      }
-    }
+    hideAll: 'Скрыть все',
+    showAll: 'Показать все',
+    support: {
+      dontDelete: 'Системная информация, просьба не удалять',
+      sendFeedback: 'Направить отзыв',
+      feedbackEmailSubject: 'Обратная связь с платформой ОЛР',
+      platformVersion: 'Версия платформы',
+      userAgent: 'Агент пользователя',
+      user: 'Пользователь',
+      manageCollaborators: 'Координировать сотрудников'
+    },
+    sectionHeaders: {
+      introduction: 'Введение',
+      forestExtentCharacteristicsAndChanges: 'Площадь лесов, характеристики и изменения',
+      forestGrowingStockBiomassAndCarbon: 'Запас древостоя, биомасса и углерод',
+      forestDesignationAndManagement: 'Назначение лесов и управление лесами',
+      forestOwnershipAndManagementRights: 'Права собственности на леса и права управления лесами',
+      forestDisturbances: 'Нарушения лесов',
+      forestPolicyAndLegislation: 'Лесохозяйственная политика и законодательство',
+      employmentEducationAndNwfp: 'Занятость, образование и НДЛП',
+      sustainableDevelopment: 'Цель устойчивого развития 15',
+      panEuropeanIndicators: 'Общеевропейские индикаторы'
+    },
+    submit: 'Представить на рассмотрение',
+    cancel: 'Отмена',
+    changeStatusTextPlaceholder: 'Добавить комментарий по выбору',
+    doNotNotifyUsers: 'Не уведомлять пользователей'
   },
 
   header: {
+    editProfile: 'Редактировать профиль',
     logout: 'Выход',
+    hideSidebar: 'Скрыть боковую панель',
+    showSidebar: 'Показать боковую панель',
     autoSave: {
-      saving: 'Сохранение…'
+      saving: 'Сохранение…',
+      complete: 'Все изменения сохранены',
+      lastSaveTimestampReceived: 'Последний раз отредактировано '
     }
+  },
+
+  time: {
+    hour: '{{count}} час назад',
+    hour_plural: '{{count}} часа(-ов) назад',
+    day: '{{count}} день назад',
+    day_plural: '{{count}} дня(-ей) назад',
+    week: '{{count}} неделю назад',
+    week_plural: '{{count}} недели назад',
+    aMomentAgo: 'минуту назад'
   },
 
   review: {
     comments: 'Комментарии',
     noComments: 'Нет комментариев',
     resolve: 'Разрешить',
-    commentTime: {
-      hour: '{{count}} час назад',
-      hour_plural: '{{count}} час-а/-ов назад',
-      day: '{{count}} день назад',
-      day_plural: '{{count}} дня/дней назад',
-      week: '{{count}} неделю назад',
-      week_plural: '{{count}} недели назад',
-      aMomentAgo: 'Только что'
-    },
-    confirmDelete: 'Вы действительно хотите удалить этот комментарий? Его будет невозможно восстановить.',
+    confirmDelete: 'Удалить этот комментарий? Его невозможно будет восстановить.',
     commentDeleted: 'Комментарий удален',
     commentMarkedAsResolved: 'Помечен как разрешенный',
     delete: 'Удалить',
     writeComment: 'Написать комментарий…',
-    commentingClosed: 'Комментирование завершено',
+    commentingClosed: 'Комментирование закрыто',
     add: 'Добавить',
-    cancel: 'Отменить'
+    cancel: 'Отмена'
   },
 
   description: {
+    edit: 'Редактировать',
+    done: 'Готово',
+    loading: 'Загрузка содержимого…',
     description: 'Описание',
+    dataSourcesTitle: 'Источники данных, исходные данные и национальная классификация и определения',
+    generalCommentsTitle: 'Комментарии',
     dataSources: 'Источники данных',
+    dataSourcesPlus: 'Источники данных + вид источника данных, например, НИЛ и т.д.',
     originalData: 'Исходные данные',
-    nationalClassificationAndDefinitions: 'Национальные классификация и определения',
+    nationalClassificationAndDefinitions: 'Национальная классификация и определения',
+    nationalData: 'Национальные данные',
+    analysisAndProcessing: 'Анализ и обработка национальных данных',
+    estimationAndForecasting: 'Оценка и прогнозирование',
+    reclassification: 'Реклассификация в категории ОЛР-2020'
   },
 
   nationalDataPoint: {
     nationalDataPoint: 'Национальный отчетный год',
     addNationalDataPoint: 'Добавить национальный отчетный год',
-    noNationalDataAdded: 'Нет добавленных национальных данных',
+    noNationalDataAdded: 'Национальные данные не добавлены',
     nationalData: 'Национальные данные',
-    year: 'Год',
+    reclassificationLabel: 'Исходные данные и реклассификация',
+    forestCategoriesLabel: 'Леса, прочие лесопокрытые земли и другие земельные площади',
+    referenceYearData: 'Отчетный год для данных',
+    referenceYear: 'Отчетный год',
+    references: 'Справочные материалы',
+    selectYear: 'Выбрать…',
     methods: 'Методы',
+    methodsUsed: 'Используемые методы',
+    dataSource: 'Источник данных',
+    dataSources: 'Источники данных',
+    additionalComments: 'Дополнительные комментарии',
     edit: 'Редактировать',
     copyPreviousValues: 'Копировать предыдущие значения',
-    nationalClass: 'Национальная категория',
-    nationalClasses: 'Национальные категории',
-    definition: 'Определения',
-    fraClasses: 'Категории ОЛР',
-    class: 'Категория',
-    area: 'Площадь',
-    total: 'Всего',
+    nationalClass: 'Национальный класс',
+    nationalClasses: 'Классификации и определения',
+    definition: 'Определение',
+    fraClasses: 'Классы ОЛР',
+    class: 'Класс',
+    area: 'Площадь (1000 га)',
+    total: 'Итого',
     delete: 'Удалить',
-    confirmDelete: 'Вы действительно хотите удалить этот отчетный год? Его будет невозможно восстановить.',
-    cancel: 'Отменить',
-    saveData: 'Сохранить данные',
-    enterOrCopyPasteNationalClasses: 'Введите либо скопируйте национальные классы'
-  },
-
-  // annually reported assessment components
-
-  extentOfForest: {
-    extentOfForest: 'Площадь лесов',
-    generateFraValues: 'Сгенерировать значения ОЛР',
-    extentOfForestValues: 'Показатели площади лесов',
-    forestArea: 'Покрытая лесом площадь',
-    chart: {
-      placeholderLine1: 'Чтобы начать, добавьте национальные моменты сбора данных и используйте',
-      placeholderLine2: 'их чтобы сгенерировать значения ОЛР автоматически'
+    modifiedExplanation: 'Национальный отчетный год с изменениями',
+    confirmDelete: 'Удалить этот отчетный год? Его невозможно будет восстановить.',
+    discardChanges: 'Отменить изменения',
+    doneEditing: 'Завершить редактирование',
+    enterOrCopyPasteNationalClasses: 'Введите или скопируйте и вставьте национальные классы',
+    forestCharacteristics: 'Характеристики лесов',
+    otherLandCharacteristics: 'Другие лесистые земли',
+    plantationForest: 'Плантационные лесные культуры',
+    remindDirtyOdp: 'Национальный отчетный год был обновлен, не забудьте регенерировать значения',
+    disabled: 'Заблокировано, разблокируйте в разделе 1b',
+    dataSourceMethodsOptions: {
+      nationalForestInventory: 'Национальная инвентаризация лесов',
+      sampleBasedRemoteSensingAssessment: 'Выборочная оценка с помощью дистанционного зондирования',
+      fullCoverMaps: 'Полные карты лесов/растительности',
+      registersQuestionnaires: 'Реестры/опросники',
+      other: 'Другое (указать в комментариях)'
+    },
+    appliesToVariablesOptions: {
+      forest: 'Леса',
+      otherWoodedLand: 'Прочие лесопокрытые земли',
+      otherLand: 'Другие земельные площади'
     }
   },
 
-  growingStock: {
-    growingStock: 'Запасы леса на корню'
+  userManagement: {
+    manageCollaborators: 'Координировать сотрудников',
+    name: 'Имя',
+    role: 'Роль',
+    email: 'Электронная почта',
+    loginEmail: 'Логин',
+    noUsers: 'Сотрудники не добавлены',
+    placeholder: 'Выбрать…',
+    remove: 'Удалить',
+    done: 'Готово',
+    edit: 'Редактировать',
+    addUser: 'Добавить сотрудника',
+    insufficientPrivileges: 'Недостаточно полномочий',
+    confirmDelete: 'Удалить {{user}}?',
+    allUsers:'Все сотрудники',
+    invitationEmail: {
+      subject: 'Приглашение на платформу ОЛР',
+      textMessage: `Уважаемый(ая) {{invitedUser}},
+
+Вас пригласили на платформу ОЛР в качестве {{role}} для {{country}}.
+
+Примите это приглашение и зайдите на платформу по следующему адресу:
+{{- link}}
+
+Успехов в работе!
+
+Группа по ОЛР fra@fao.org
+{{- url}}
+    `,
+      htmlMessage: `Уважаемый(ая) {{invitedUser}},
+<br/><br/>
+Вас пригласили на платформу ОЛР в качестве {{role}} для {{country}}.
+<br/><br/>
+<b><a href="{{- link}}">Примите это приглашение и зайдите на платформу</a></b>
+<br/><br/>
+Успехов в работе!
+<br/><br/>
+Группа по ОЛР fra@fao.org
+<br/>
+{{- url}}
+    `
+    }
   },
 
-  biomassStock: {
-    biomassStock: 'Запасы биомассы'
+  // FRA 2020 questionare
+  // Object name and title should have allways the same name
+
+  contactPersons: {
+    reportPreparationAndContactPersons: 'Подготавливающие доклад и контактные лица',
+    contactPersons: 'Контактные лица',
+    contactPersonsSupport: 'Настоящий доклад был подготовлен следующим(и) лицом(-ами)',
+    introductoryText: 'Вступительный текст',
+    introductoryTextSupport: 'Вставьте вступительный текст о содержании данного доклада',
+    firstName: 'Имя',
+    lastName: 'Фамилия',
+    institution: 'Учреждение/адрес',
+    email: 'Электронная почта',
+    tables: 'Таблицы'
   },
 
-  carbonStock: {
-    carbonStock: 'Запасы углерода'
+  extentOfForest: {
+    extentOfForest: 'Площадь лесов и прочих лесопокрытых земель',
+    estimationAndForecasting: 'Оценка и прогнозирование',
+    categoryHeader: 'Категории ОЛР',
+    areaUnitLabel: 'Площадь (1000 га)',
+    forestArea: 'Леса',
+    chart: {
+      placeholderLine1: 'Чтобы начать, добавьте новые национальные отчетные годы и используйте',
+      placeholderLine2: 'их для получения значений ОЛР автоматически.'
+    },
+    otherLandCategories: 'Категории других земельных площадей',
+    ofWhichPalms: '…в том числе пальмы (масличные, кокосовые, финиковые и т.д.)',
+    ofWhichTreeOrchards: '…в том числе древесные сады (вкл. фруктовые, ореховые, оливковые и т.д.)',
+    ofWhichAgroforestry: '…в том числе агролесоводство',
+    ofWhichTreesUrbanSettings: '…в том числе деревья в городской среде',
+    totalLandArea: 'Общая площадь земель',
+    fedAreasExceedTotalLandArea: 'Площадь лесов и прочих лесопокрытых земель превышает общую площадь земель',
+    forestAreaDoesNotMatchPreviouslyReported: 'Площадь лесов не совпадает с площадью ОЛР-2015: {{previous}}',
+    useOriginalDataPoints: 'Использовать национальные отчетные годы',
+    dontUseOriginalDataPoints: 'Не использовать национальные отчетные годы',
+    whatIsThis: 'Что это такое?',
+    tableNoticeMessage: 'Данные ФАОСТАТ о площади земель за 2015 год используются для всех отчетных лет'
   },
 
-  protectedAreas: {
-    protectedAreasLongTermMgmtPlans: 'Охраняемые территории и долгосрочные планы управления'
-  },
-
-  // five year cycle assessment components
-
-  forestAreaChange: {
-    forestAreaLossGainChange: 'Прирост, убыль и чистое изменение лесных площадей',
-    forestExpansion: 'Расширение леса (a)',
-    ofWhichAfforestation: '…в том числе лесоразведение',
-    ofWhichNaturalExpansion: '…в том числе естественное расширение',
-    deforestation: 'Обезлесение (b)',
-    forestAreaNetChange: 'Чистое изменение лесной площади'
+  climaticDomain: {
+    climaticDomain: 'Климатическая зона',
+    percentOfForestArea2015: '% площади лесов 2015',
+    percentOfForestArea2015Override: 'Переопределить значение',
+    selectDefault: 'По умолчанию',
+    boreal: 'Бореальная',
+    temperate: 'Умеренная',
+    subtropical: 'Субтропическая',
+    tropical: 'Тропическая'
   },
 
   forestCharacteristics: {
-    forestCharacteristics: 'Характеристики леса',
-    forestCharacteristicsValues: 'Значения характеристик леса',
-    naturalForestArea: 'Естественно возобновленный лес',
-    plantationForestArea: 'Лесные культуры',
+    forestCharacteristics: 'Характеристики лесов',
+    estimationAndForecasting: 'Оценка и прогнозирование',
+    categoryHeader: 'Категории ОЛР',
+    areaUnitLabel: 'Площадь лесов (1000 га)',
+    naturalForestArea: 'Естественно возобновляемые леса',
+    plantationForestArea: 'Плантационные лесные культуры',
     plantationForestIntroducedArea: '…в том числе интродуцированные породы',
-    otherPlantedForestArea: 'Прочие лесонасаждения'
+    otherPlantedForestArea: 'Другие лесные культуры',
+    plantedForest: 'Лесные культуры',
+    totalForestArea: 'Общая площадь лесов',
+    total: 'Итого',
+    useOriginalDataPoints: 'Использовать национальные отчетные годы',
+    dontUseOriginalDataPoints: 'Не использовать национальные отчетные годы'
+  },
+
+  tableWithOdp: {
+    confirmGenerateFraValues: 'Переопределить существующие значения?',
+    generateFraValues: 'Получить значения',
+    linearExtrapolation: 'Линейная экстраполяция',
+    repeatLastExtrapolation: 'Повторять последнее значение',
+    annualChangeExtrapolation: 'Годовое изменение',
+    placeholderFuture: 'Будущее',
+    placeholderPast: 'Прошлое',
+    clearTable: 'Очистить таблицу',
+    copyToClipboard: 'Скопировать значения',
+    placeholderSelect: 'Оценка и прогнозирование',
+    _1000haYear: '1000 га/год'
+  },
+
+  forestAreaChange: {
+    forestAreaChange: 'Годовое расширение лесов, обезлесение и чистое изменение',
+    categoryHeader: 'Категории ОЛР',
+    areaUnitLabel: 'Площадь лесов (1000 га/год)',
+    forestExpansion: 'Расширение лесов',
+    ofWhichAfforestation: '…в том числе лесоразведение',
+    ofWhichNaturalExpansion: '…в том числе естественное расширение лесов',
+    deforestation: 'Обезлесение',
+    forestAreaNetChange: 'Чистое изменение лесной площади',
+    netChangeDoesNotMatch: 'Не совпадает с Чистым изменением лесной площади'
+  },
+
+  annualReforestation: {
+    annualReforestation: 'Ежегодное лесовосстановление',
+    categoryHeader: 'Категории ОЛР',
+    areaUnitLabel: 'Площадь лесов (1000 га/год)',
+    reforestation: 'Лесовосстановление'
   },
 
   specificForestCategories: {
     specificForestCategories: 'Специальные категории леса',
-    bamboo: 'Бамбук',
-    mangroves: 'Мангры',
-    rubberPlantations: 'Каучуковые плантации'
+    categoryHeader: 'Категории ОЛР',
+    areaUnitLabel: 'Площадь (1000 га)',
+    bamboo: 'Бамбуковые леса',
+    mangroves: 'Мангровые леса',
+    temporarilyUnstocked: 'Временно обезлесенные и/или недавно возобновленные',
+    primaryForest: 'Девственные леса',
+    exceedsNaturallyRegeneratingForest: 'Превышает естественно возобновляемые леса (1b)',
+  },
+
+  otherLandWithTreeCover: {
+    otherLandWithTreeCover: 'Другие лесистые земли',
+    areaUnitLabel: 'Площадь (1000 га)',
+    categoryHeader: 'Категории ОЛР',
+    palms: 'Пальмы',
+    treeorchards: 'Древесные сады',
+    agroforestry: 'Агролесоводство',
+    treesinurbansettings: 'Деревья в городской среде',
+    total: 'Итого',
+    otherLandArea: 'Другие земельные площади',
+    other: 'Другое (указать в комментариях)'
+  },
+
+  growingStock: {
+    growingStock: 'Запас древостоя',
+    supportText: 'Просьба убедиться, что Вы ввели данные в таблицах 1a и 1b перед редактированием данной таблицы',
+    categoryHeader: 'Категории ОЛР',
+    avgTableHeader: 'Запас древостоя м³/га (с корой)',
+    totalTableHeader: 'Общий запас древостоя (млн. м³ с корой)',
+    naturallyRegeneratingForest: 'Естественно возобновляемые леса',
+    plantedForest: 'Лесные культуры',
+    plantationForest: '…в том числе плантационные лесные культуры',
+    otherPlantedForest: '…в том числе другие лесные культуры',
+    totalForest: 'Леса',
+    otherWoodedLand: 'Прочие лесопокрытые земли',
+    copyToClipboard: 'Скопировать значения'
   },
 
   growingStockComposition: {
-    growingStockComposition: 'Состав насаждений'
+    growingStockComposition: 'Состав древостоя',
+    categoryHeader: 'Категории ОЛР',
+    nativeTreeSpecies: 'Местные древесные породы',
+    introducedTreeSpecies: 'Интродуцированные древесные породы',
+    areaUnitLabel: 'Запас древостоя (млн. м³ с корой)',
+    scientificName: 'Научное название',
+    commonName: 'Общее название',
+    rank: 'Классифицированы по объему',
+    remainingNative: 'Остальные местные древесные породы ',
+    remainingIntroduced: 'Остальные интродуцированные древесные породы ',
+    totalNative: 'Общий объем местных древесных пород',
+    totalIntroduced: 'Общий объем интродуцированных древесных пород',
+    totalGrowingStock: 'Общий запас древостоя',
+    rankingYear: 'Год классификации 2015'
   },
 
-  nonWoodForestProducts: {
-    nonWoodForestProducts: 'Недревесные лесные товары'
+  biomassStock: {
+    biomassStock: 'Запас биомассы',
+    categoryHeader: 'Категории ОЛР',
+    tableHeader: 'Лесная биомасса (тонн/га)',
+    aboveGround: 'Надземная биомасса',
+    belowGround: 'Подземная биомасса',
+    deadWood: 'Мертвая древесина',
+    downloadExcel: 'Скачать калькулятор excel'
   },
 
-  primaryDesignatedManagementObjective: {
-    primaryDesignatedManagementObjective: 'Главная назначенная функция',
+  carbonStock: {
+    carbonStock: 'Запас углерода',
+    categoryHeader: 'Категории ОЛР',
+    tableHeader: 'Лесной запас углерода (тонн/га)',
+    carbonAboveGroundBiomass: 'Углерод в надземной биомассе',
+    carbonBelowGroundBiomass: 'Углерод в подземной биомассе',
+    carbonDeadwood: 'Углерод в мертвой древесине',
+    carbonLitter: 'Углерод в лесном опаде',
+    carbonSoil: 'Почвенный углерод',
+    soilDepthHeading: 'Глубина почвы (см), использованная для оценки почвенного углерода',
+  },
+
+  designatedManagementObjective: {
+    designatedManagementObjective: 'Назначенная цель управления лесами',
+    primaryDesignatedManagementObjective: 'Главная назначенная цель управления ',
+    primaryDesignatedManagementObjectiveSupport: 'Главная назначенная цель управления значительно важнее других целей управления. Различные главные цели управления являются *исключительными* и площади, представленные под одной главной целью управления лесами, не должны быть представлены для каких-либо других главных целей управления лесами.  Сумма различных целей управления должна суммироваться в площадь лесов.',
+    totalAreaWithDesignatedManagementObjective: 'Общая площадь с назначенной целью управления',
+    totalAreaWithDesignatedManagementObjectiveSupport: 'Назначенная цель управления, вне зависимости от того, является ли она главной или нет. Различные категории назначения *не исключительны*. Поэтому данные о площадях могут представляться более одного раза, например, данные о площади лесов с главной целью управления «Многоцелевое использование» должны представляться по каждой цели управления. Следовательно, сумма различных целей управления может быть больше общей площади лесов.',
+    categoryHeader: 'Категории ОЛР-2020',
+    areaUnitLabel: 'Площадь лесов (1000 га)',
     production: 'Производство',
-    soilWaterProtection: 'Защита почв и охрана вод',
+    soilWaterProtection: 'Охрана почв и водных ресурсов',
     biodiversityConservation: 'Сохранение биоразнообразия',
-    socialServices: 'Услуги в социальной области',
+    socialServices: 'Социальные услуги',
     multipleUse: 'Многоцелевое использование',
-    other: 'Другие виды',
-    unknown: 'Отсутствует/неизвестно',
-    totalForestArea: 'Общая площадь покрытая лесом'
+    other: 'Другие виды (указать в комментариях)',
+    unknown: 'Отсутствует/неизвестна',
+    totalForestArea: 'Общая площадь лесов',
+    total: 'Итого'
   },
 
-  forestOwnershipManagementRights: {
-    forestOwnershipManagementRights: 'Права собственности на леса и управление лесами'
+  forestAreaWithinProtectedAreas: {
+    forestAreaWithinProtectedAreas: 'Лесные площади на охраняемых территориях и лесные площади с долгосрочным планами управления лесами',
+    categoryHeader: 'Категории ОЛР',
+    areaUnitLabel: 'Площадь (1000 га)',
+    header: 'Лесная площадь на охраняемых территориях',
+    forestAreaWithLongTermManagementPlan: 'Лесная площадь с долгосрочным планом управления лесами',
+    ofWhichInProtectedAreas: '…в том числе на охраняемых территориях'
+  },
+
+  forestOwnership: {
+    forestOwnership: 'Права собственности на леса',
+    categoryHeader: 'Категории ОЛР',
+    areaUnitLabel: 'Площадь лесов (1000 га)',
+    privateOwnership: 'Частная собственность',
+    ofWhichIndividuals: '…в том числе находящиеся в собственности отдельных лиц',
+    ofWhichPrivateBusinesses: '…в том числе находящиеся в собственности частных предприятий и учреждений',
+    ofWhichCommunities: '…в том числе находящиеся в собственности местных, племенных и коренных общин',
+    publicOwnership: 'Государственная собственность',
+    otherOrUnknown: 'Другие формы собственности/неизвестны (указать в комментариях)',
+    totalForestArea: 'Общая площадь лесов',
+    total: 'Итого'
+  },
+
+  holderOfManagementRights: {
+    holderOfManagementRights: 'Права управления государственными лесами',
+    categoryHeader: 'Категории ОЛР',
+    areaUnitLabel: 'Площадь лесов (1000 га)',
+    publicAdministration: 'Государственная администрация',
+    individuals: 'Отдельные лица',
+    privateBusinesses: 'Частные предприятия и учреждения',
+    communities: 'Местные, племенные и коренные общины',
+    other: 'Другие формы прав управления лесами (указать в комментариях)',
+    totalPublicOwnership: 'Общая площадь в государственной собственности',
+    total: 'Итого',
+    publicOwnershipDoesNotMatch: 'Не совпадает с "Общая площадь в государственной собственности"'
   },
 
   disturbances: {
-    disturbances: 'Нарушения'
+    disturbances: 'Нарушения ',
+    categoryHeader: 'Категории ОЛР',
+    areaUnitLabel: 'Площадь (1000 га)',
+    insects: 'Насекомые',
+    diseases: 'Болезни',
+    severeWeatherEvents: 'Суровые погодные явления',
+    other: 'Другое (указать в комментариях)',
+    totalForestArea: 'Общая площадь лесов',
+    total: 'Итого'
   },
 
   areaAffectedByFire: {
-    areaAffectedByFire: 'Площадь, пострадавшая от пожара',
-    totalLandAreaAffectedByFire: 'Общая площадь земель, пострадавших от пожара',
-    ofWhichForest: '…в том числе лесов'
+    areaAffectedByFire: 'Площадь, пораженная пожарами',
+    categoryHeader: 'Категории ОЛР',
+    areaUnitLabel: 'Площадь (1000 га)',
+    totalLandAreaAffectedByFire: 'Общая земельная площадь, пораженная пожарами',
+    ofWhichForest: '…в том числе леса'
   },
 
-  employment: {
-    employment: 'Занятость'
+  degradedForest: {
+    degradedForest: 'Деградировавшие леса',
+    doesYourCountryMonitor: 'Осуществляет ли ваша страна мониторинг площади деградировавших лесов?',
+    ifYes: 'Если "Да"',
+    whatIsDefinition: 'Каким является национальное определение "Деградировавшие леса"??',
+    howMonitored: 'Опишите процесс мониторинга и результаты',
   },
 
-  graduationOfStudents: {
-    graduationOfStudents: 'Университетский диплом'
-  },
-
-  policiesAndLegislation: {
-    policiesAndLegislation: 'Политика и нормативно-правовая база'
+  forestPolicy: {
+    forestPolicy: 'Политика, законодательство и национальная платформа для участия заинтересованных сторон в лесохозяйственной политике',
+    categoryHeader: 'Указать наличие',
+    areaUnitLabel: 'Логические значения (Да/Нет)',
+    national: 'Национальные',
+    subnational: 'Субнациональные',
+    policiesSFM: 'Политика, содействующая УУЛ',
+    legislationsSFM: 'Законодательные и/или нормативные акты, содействующие УУЛ',
+    stakeholderParticipation: 'Платформа, содействующая участию заинтересованных сторон в развитии лесохозяйственной политики',
+    existenceOfTraceabilitySystem: 'Система(-ы) отслеживания происхождения древесной продукции'
   },
 
   areaOfPermanentForestEstate: {
-    areaOfPermanentForestEstate: 'Площадь постоянного лесного фонда'
-  }
+    areaOfPermanentForestEstate: 'Площадь постоянного лесного фонда',
+    categoryHeader: 'Категории ОЛР-2020',
+    areaUnitLabel: 'Площадь лесов (1000 га)',
+    applicable: 'Применимо?'
+  },
 
+  employment: {
+    employment: 'Занятость в лесном хозяйстве и лесозаготовке',
+    average: 'Среднее значение за трехлетний период',
+    categoryHeader: 'Категории ОЛР-2020',
+    unitHeader: 'Эквиваленты полной занятости (1000 ЭПЗ)',
+    inForestry: 'Занятость в лесном хозяйстве и лесозаготовке',
+    ofWhichSilviculture: '…в том числе лесоводство и другая лесохозяйственная деятельность',
+    ofWhichLogging: '…в том числе лесозаготовка',
+    ofWhichGathering: '…в том числе сбор недревесной лесной продукции',
+    ofWhichSupport: '…в том числе занятость во вспомогательных услугах в лесном хозяйстве',
+    total: 'Всего',
+    female: 'Женщины',
+    male: 'Мужчины'
+  },
+
+  graduationOfStudents: {
+    graduationOfStudents: 'Получение образования в сфере лесного хозяйства',
+    average: 'Среднее значение за трехлетний период',
+    numberOfStudents: 'Количество выпускников',
+    fra2020Categories: 'Категории ОЛР-2020',
+    doctoralDegree: 'Докторская степень',
+    mastersDegree: 'Степень магистра',
+    bachelorsDegree: 'Степень бакалавра',
+    technicianCertificate: 'Свидетельство/ диплом о профессионально-техническом образовании',
+    total: 'Всего',
+    female: 'Женщины',
+    male: 'Мужчины'
+  },
+
+  nonWoodForestProductsRemovals: {
+    nonWoodForestProductsRemovals: 'Вывозка и стоимость недревесной лесной продукции 2015',
+    nameOfProduct: 'Название продукта НДЛП',
+    keySpecies: 'Ключевые виды',
+    quantity: 'Количество',
+    unit: 'Единица',
+    value: 'Стоимость (1000 единиц валюты)',
+    category: 'Категория НДЛП',
+    plantProductsSelectHeading: 'Продукты/сырье растительного происхождения',
+    food: '1 Продовольствие',
+    fodder: '2 Корм',
+    rawMaterialForMedicine: '3 Лекарственное сырье и сырье для ароматических продуктов',
+    rawMaterialForColorants: '4 Сырье для красителей и красок',
+    rawMaterialForUtensils: '5 Сырье для утвари, ремесленных изделий и строительства',
+    ornamentalPlants: '6 Декоративные растения',
+    exudates: '7 Вытяжки',
+    otherPlantProducts: '8 Другие продукты растительного происхождения',
+    animalProductsSelectHeading: 'Продукты/сырье животного происхождения',
+    livingAnimals: '9 Живые животные',
+    hidesSkins: '10 Кожевенное сырье и трофеи',
+    wildHoney: '11 Дикий мед и пчелиный воск',
+    wildMeat: '12 Мясо дичи',
+    animalRawMaterialForMedicine: '13 Лекарственное сырье',
+    animalRawMaterialForColorants: '14 Сырье для красителей',
+    otherEdibleAnimalProducts: '15 Другие съедобные продукты животного происхождения',
+    otherNonEdibleAnimalProducts: '16 Другие несъедобные продукты животного происхождения',
+    allOtherPlantProducts: 'Все остальные продукты растительного происхождения',
+    allOtherAnimalProducts: 'Все остальные продукты животного происхождения',
+    total: 'Итого',
+    currency: 'Название валюты',
+    notSelected: ''
+  },
+
+  sustainableDevelopment: {
+    sustainableDevelopment: 'Цель устойчивого развития 15',
+    indicator: 'Индикатор',
+    percent: 'Процент',
+    nameOfAgencyResponsible: 'Название ответственного ведомства',
+    sdgIndicator1: 'Индикатор ЦУР 15.1.1 Площадь лесов в процентном отношении к общей площади земель 2015',
+    sdgIndicator2: 'Индикатор ЦУР 15.2.1 Прогресс на пути к устойчивому управлению лесами',
+    forestAreaProportionLandArea2015: 'Площадь лесов в процентном отношении к общей площади земель 2015',
+    subIndicator: 'Субиндикатор {{no}}',
+    forestAreaAnnualNetChangeRate: 'Темп чистого изменения лесной площади',
+    aboveGroundBiomassStockForests: 'Запас надземной биомассы в лесах',
+    percent2015ForestAreaBaseline: 'Процент (Площадь лесов 2015 - исходная отметка)',
+    proportionForestAreaLegallyEstablishedProtectedAreas: 'Доля площади лесов, находящихся на законно установленных охраняемых территориях',
+    proportionForestAreaLongTermForestManagement: 'Доля площади лесов под долгосрочным планом управления лесами',
+    forestArea1000Ha: 'Площадь лесов (1000 га)',
+    forestAreaVerifiedForestManagement: 'Площадь лесов под независимо проверяемыми системами сертификации управления лесами'
+  },
+
+  panEuropeanIndicators: {
+    panEuropeanIndicators: 'Общеевропейские количественные индикаторы устойчивого управления лесами',
+    uploadQuestionnaire: 'Загрузить вопросник',
+    chooseFile: 'Выбрать файл',
+    downloadQuestionnaire: 'Скачать незаполненный вопросник',
+    download: 'Скачать',
+    remove: 'Удалить',
+    noQuestionnaire: 'Вопросник не выбран'
+  },
+
+  assessment: {
+    fra2020: 'ОЛР-2020',
+    deskStudy: 'Кабинетное исследование',
+    statusChangeNotification:
+      {
+        subject: '{{country}} статус изменен на {{status}} на платформе ОЛР',
+        textMessage: `Уважаемый(ая){{recipientName}},
+
+{{changer}} изменил статус с {{assessment}} на "{{status}}" для {{country}} на платформе ОЛР.
+
+{{message}}
+
+Зайдите на платформу по адресу: {{- serverUrl}}
+
+Группа по ОЛР
+{{- serverUrl}}`,
+        htmlMessage: `Уважаемый(ая) {{recipientName}},
+<br/><br/>
+{{changer}} изменил статус с {{assessment}} на "{{status}}" для {{country}} на платформе ОЛР.
+<br/><br/>
+{{message}}
+<br/><br/>
+<a href="{{- serverUrl}}"><b>Зайдите на платформу</b></a>
+<br/><br/>
+Группа по ОЛР
+<br/>
+{{- serverUrl}}`
+      },
+    status: {
+      changing: {
+        label: 'Изменяется…'
+      },
+      editing: {
+        label: 'Редактируется',
+        previous: 'Вернуться к редактированию'
+      },
+      review: {
+        label: 'На рассмотрении',
+        next: 'Отправить на рассмотрение',
+        previous: 'Вернуться к рассмотрению',
+      },
+      approval: {
+        label: 'Ожидает утверждения',
+        next: 'Отправить на утверждение',
+        previous: 'Вернуться к утверждению'
+      },
+      accepted: {
+        label: 'Принят',
+        next: 'Принять',
+        previous: ''
+      }
+    }
+  },
+
+  multiSelect: {
+    placeholder: 'Выбрать…'
+  },
+
+  generalValidation: {
+    subCategoryExceedsParent: 'Подкатегория превышает родительскую категорию',
+    forestAreaDoesNotMatchExtentOfForest: 'Не совпадает с "Площадь лесов" (1a)',
+    forestAreaExceedsExtentOfForest: 'Превышает "Площадь лесов" (1a)',
+    otherLandExceedsExtentOfForest: 'Превышает "Другие земельные площади" (1a)',
+    valueMustBePositive: 'Значение должно быть больше нуля'
+  },
+
+  emoji: {
+    picker: {
+      search: 'Поиск',
+      categories: {
+        search: 'Результаты поиска',
+        recent: 'Часто используемые',
+        people: 'Смайлики и люди',
+        nature: 'Животные и природа',
+        foods: 'Еда и напитки',
+        activity: 'Деятельность',
+        places: 'Путешествия и места',
+        objects: 'Предметы',
+        symbols: 'Символы',
+        flags: 'Флаги',
+      }
+    }
+  },
+
+  editUser: {
+    chooseProfilePicture: 'Выбрать картинку',
+    name: 'Имя',
+    role: 'Роль',
+    email: 'Электронная почта',
+    loginEmail: 'Логин',
+    institution: 'Учреждение',
+    position: 'Должность',
+    done: 'Готово',
+    cancel: 'Отмена',
+    picture1MbMax: 'Картинка в профиле не может превышать 1MB'
+  },
+
+  country: {
+    region: {
+      asia: 'Азия',
+      europe: 'Европа',
+      oceania: 'Океания',
+      north_and_central_america: 'Северная и Центральная Америка',
+      south_america: 'Южная Америка',
+      africa: 'Африка',
+      atlantis: 'Атлантида'
+    }
+  }
 }
