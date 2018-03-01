@@ -739,7 +739,9 @@ module.exports.translation = {
     downloadQuestionnaire: 'Скачать незаполненный вопросник',
     download: 'Скачать',
     remove: 'Удалить',
-    noQuestionnaire: 'Вопросник не выбран'
+    noQuestionnaire: 'Вопросник не выбран',
+    panEuropeanQualitativeIndicators: 'Общеевропейские количественные индикаторы устойчивого управления лесами',
+    accessReportingPage: 'Зайти на страницу отчетности'
   },
 
   assessment: {

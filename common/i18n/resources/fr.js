@@ -739,7 +739,9 @@ L'équipe de FRA
     downloadQuestionnaire: 'Télédécharger questionnaire vide',
     download: 'Télédécharger',
     remove: 'Supprimer',
-    noQuestionnaire: 'Aucun questionnaire sélectionné'
+    noQuestionnaire: 'Aucun questionnaire sélectionné',
+    panEuropeanQualitativeIndicators: 'Indicateurs qualitatifs paneuropéens sur la gestion durable des forêts',
+    accessReportingPage: 'Accéder à la page de rapport'
   },
 
   assessment: {
