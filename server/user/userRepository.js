@@ -84,7 +84,22 @@ const fetchUsersAndInvitations = async (countryIso) => {
   return [...users, ...invitations]
 }
 
-// fetch users and invitation expect country passed as argument
+const fetchAllInvitations = async () => {
+  const invitationsRes = await db.query(`
+    SELECT
+      invitation_uuid,
+      email,
+      name,
+      role,
+      country_iso
+     FROM fra_user_invitation
+     WHERE accepted IS NULL
+     `)
+
+  return [...camelize(invitationsRes.rows)]
+}
+
+// fetch all users and invitations
 const fetchAllUsersAndInvitations = async () => {
 
   const usersRes = await db.query(`
@@ -98,17 +113,9 @@ const fetchAllUsersAndInvitations = async () => {
       fra_user u
   `)
 
-  const invitationsRes = await db.query(`
-    SELECT
-      invitation_uuid,
-      email,
-      name,
-      role
-     FROM fra_user_invitation
-     WHERE accepted IS NULL`
-  )
+  const invitations = await fetchAllInvitations()
 
-  return [...camelize(usersRes.rows), ...camelize(invitationsRes.rows)]
+  return [...camelize(usersRes.rows), ...invitations]
 }
 
 // getUserCounts
@@ -117,7 +124,7 @@ const getUserCountsByRole = async (client = db) => {
   const reviewerRole = reviewer.role
   const collaboratorRole = collaborator.role
 
-  const roleSelect = (role) =>`
+  const roleSelect = (role) => `
   ${role} AS (
     SELECT count(*) FROM user_country_role u
     WHERE u.role = '${role}'
@@ -363,5 +370,6 @@ module.exports = {
   addCountryRoleAndUpdateUserBasedOnInvitation,
   fetchUsersAndInvitations,
   fetchAllUsersAndInvitations,
+  fetchAllInvitations,
   getUserCountsByRole
 }

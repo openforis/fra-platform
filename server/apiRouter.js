@@ -1,5 +1,4 @@
 const express = require('express')
-const R = require('ramda')
 
 const eofApi = require('./eof/api')
 const odpApi = require('./odp/api')
