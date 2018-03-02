@@ -31,16 +31,16 @@ class PanEuropeanIndicatorsView extends React.Component {
   }
 
   render () {
-    const {i18n, countryIso, status, questionnaireFileName} = this.props
+    const {i18n, countryIso, status, questionnaireFileName, panEuropean = {}} = this.props
     return <LoggedInPageTemplate>
       <div className="fra-view__content">
         <div className="fra-view__page-header">
-          <h1 className="title">{i18n.t('panEuropeanIndicators.panEuropeanIndicators')}</h1>
+          <h2 className="headline">{i18n.t('panEuropeanIndicators.panEuropeanIndicators')}</h2>
+          <a className="btn-s btn-primary" href={`/api/panEuropean/${countryIso}/downloadEmpty`} target="_blank">
+            <Icon className="icon-sub icon-white" name="hit-down"/>
+            {i18n.t('panEuropeanIndicators.downloadQuestionnaire')}
+          </a>
         </div>
-        <a className="btn btn-primary" href={`/api/panEuropean/${countryIso}/downloadEmpty`} target="_blank">
-          <Icon className="icon-sub icon-white" name="hit-down"/>
-          {i18n.t('panEuropeanIndicators.downloadQuestionnaire')}
-        </a>
         <hr/>
         <h3 className="subhead">{i18n.t('panEuropeanIndicators.uploadQuestionnaire')}</h3>
         <div className="pan-european__container">
@@ -49,7 +49,8 @@ class PanEuropeanIndicatorsView extends React.Component {
               <Icon name="single-folded-content" className="icon-24 icon-middle icon-margin-right"/>
               {
                 R.isNil(questionnaireFileName)
-                  ? <span className="pan-european__file-name pan-european__file-placeholder">{i18n.t('panEuropeanIndicators.noQuestionnaire')}</span>
+                  ? <span
+                    className="pan-european__file-name pan-european__file-placeholder">{i18n.t('panEuropeanIndicators.noQuestionnaire')}</span>
                   : [
                     <span className="pan-european__file-name">{questionnaireFileName}</span>,
                     <a className="btn btn-link" href={`/api/panEuropean/${countryIso}/download`} target="_blank">
@@ -72,7 +73,7 @@ class PanEuropeanIndicatorsView extends React.Component {
               className="btn btn-primary"
               onClick={() => this.refs.inputFile.dispatchEvent(new MouseEvent('click'))}
               disabled={R.equals('saving', status)}>
-                {i18n.t('panEuropeanIndicators.chooseFile')}
+              {i18n.t('panEuropeanIndicators.chooseFile')}
             </button>
           </div>
 
@@ -82,6 +83,16 @@ class PanEuropeanIndicatorsView extends React.Component {
             target={['uploadQuestionnaire']}
             countryIso={countryIso}
           />
+        </div>
+
+        <div className="pan-european__qualitative-questionnaire-container">
+          <div className="fra-view__page-header">
+            <h2 className="headline">{i18n.t('panEuropeanIndicators.panEuropeanQualitativeIndicators')}</h2>
+          </div>
+          <hr/>
+          <a className="btn btn-primary" href={panEuropean.qualitativeQuestionnaireUrl} target="_blank">
+            {i18n.t('panEuropeanIndicators.accessReportingPage')}
+          </a>
         </div>
 
       </div>
@@ -94,7 +105,8 @@ const mapStateToProps = (state, props) => ({
   i18n: state.user.i18n,
   countryIso: props.match.params.countryIso,
   status: state.autoSave.status,
-  questionnaireFileName: state.panEuropeanIndicators.questionnaireFileName
+  questionnaireFileName: state.panEuropeanIndicators.questionnaireFileName,
+  panEuropean: R.path(['country', 'config', 'panEuropean'], state)
 })
 
 export default connect(mapStateToProps, {
