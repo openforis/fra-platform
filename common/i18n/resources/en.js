@@ -129,7 +129,8 @@ module.exports.translation = {
     links: {
       unfcccFocalPoints: 'UNFCCC focal points',
       sdgFocalPoints: 'National SDG focal points',
-      reddPortal: 'Satellite Land Monitoring Systems (SLMS), empowered by UN-REDD/FAO'
+      reddPortal: 'Satellite Land Monitoring Systems (SLMS), empowered by UN-REDD/FAO',
+      fraGeoSpatialTools: 'FRA Geospatial tools'
     }
   },
 

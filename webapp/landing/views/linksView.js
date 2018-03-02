@@ -4,7 +4,8 @@ import { connect } from 'react-redux'
 const links = [
   {href: 'http://unfccc.int/parties_observers/parties/national_focal_points/items/9336.php', key: 'unfcccFocalPoints'},
   {href: '/api/landing/sdgFocalPoints', key: 'sdgFocalPoints'},
-  {href: 'http://www.slms4redd.org', key: 'reddPortal'}
+  {href: 'http://www.slms4redd.org', key: 'reddPortal'},
+  {href: 'https://goo.gl/aYJmzd', key: 'fraGeoSpatialTools'}
 ]
 
 const LinksView = ({i18n}) => <div className="landing__links-container">

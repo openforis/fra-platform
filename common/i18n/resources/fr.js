@@ -129,7 +129,8 @@ module.exports.translation = {
     links: {
       unfcccFocalPoints: 'Points focaux de la CCNUCC',
       sdgFocalPoints: 'Points focaux nationaux pour les ODD',
-      reddPortal: 'Systèmes de surveillance des terres par satellite (SSTS), habilité par l\'ONU-REDD/FAO'
+      reddPortal: 'Systèmes de surveillance des terres par satellite (SSTS), habilité par l\'ONU-REDD/FAO',
+      fraGeoSpatialTools: 'Outils géospatiaux de FRA'
     }
   },
 

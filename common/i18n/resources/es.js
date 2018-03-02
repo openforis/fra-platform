@@ -129,7 +129,8 @@ module.exports.translation = {
     links: {
       unfcccFocalPoints: 'Puntos de contacto de la CMNUCC',
       sdgFocalPoints: 'Puntos de contacto nacionales para los ODS',
-      reddPortal: 'Sistemas satelitales de monitoreo terrestre habilitados por el Programa ONU-REDD y la FAO'
+      reddPortal: 'Sistemas satelitales de monitoreo terrestre habilitados por el Programa ONU-REDD y la FAO',
+      fraGeoSpatialTools: 'Herramientas geoespaciales del FRA'
     }
   },
 
