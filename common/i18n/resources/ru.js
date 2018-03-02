@@ -748,7 +748,7 @@ module.exports.translation = {
     panEuropeanIndicators: 'Общеевропейские количественные индикаторы устойчивого управления лесами',
     uploadQuestionnaire: 'Загрузить вопросник',
     chooseFile: 'Выбрать файл',
-    downloadQuestionnaire: 'Скачать незаполненный вопросник',
+    downloadQuestionnaire: 'Скачать вопросник',
     download: 'Скачать',
     remove: 'Удалить',
     noQuestionnaire: 'Вопросник не выбран',
