@@ -13,7 +13,7 @@ module.exports.translation = {
   },
 
   audit: {
-    notStarted: 'Не начата',
+    notStarted: 'Не начато',
     edited: 'Отредактировано'
   },
 
@@ -129,7 +129,7 @@ module.exports.translation = {
     links: {
       unfcccFocalPoints: 'Список координаторов РКИКООН',
       sdgFocalPoints: 'Список национальных координаторов ЦУР',
-      reddPortal: 'Спутниковая система мониторинга земель (SLMS), предоставленная программой UN-REDD/ФАО'
+      reddPortal: 'Спутниковые системы мониторинга земель (SLMS), предоставленные программой UN-REDD/ФАО'
     }
   },
 
@@ -629,7 +629,7 @@ module.exports.translation = {
     degradedForest: 'Деградировавшие леса',
     doesYourCountryMonitor: 'Осуществляет ли ваша страна мониторинг площади деградировавших лесов?',
     ifYes: 'Если "Да"',
-    whatIsDefinition: 'Каким является национальное определение "Деградировавшие леса"??',
+    whatIsDefinition: 'Каким является национальное определение "Деградировавшие леса"?',
     howMonitored: 'Опишите процесс мониторинга и результаты',
   },
 
@@ -740,7 +740,7 @@ module.exports.translation = {
     download: 'Скачать',
     remove: 'Удалить',
     noQuestionnaire: 'Вопросник не выбран',
-    panEuropeanQualitativeIndicators: 'Общеевропейские количественные индикаторы устойчивого управления лесами',
+    panEuropeanQualitativeIndicators: 'Общеевропейские качественные индикаторы устойчивого управления лесами',
     accessReportingPage: 'Зайти на страницу отчетности'
   },
 
