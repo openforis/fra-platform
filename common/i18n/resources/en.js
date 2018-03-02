@@ -341,7 +341,7 @@ The FRA team
     addUser: 'Add collaborator',
     insufficientPrivileges: 'Insufficient privileges',
     confirmDelete: 'Remove {{user}}?',
-    allUsers:'All collaborators',
+    allUsers: 'All collaborators',
     invitationEmail: {
       subject: 'FRA platform invitation',
       textMessage: `Dear {{invitedUser}},
@@ -736,10 +736,12 @@ The FRA team fra@fao.org
     panEuropeanIndicators: 'Pan-European Quantitative Indicators for Sustainable Forest Management',
     uploadQuestionnaire: 'Upload questionnaire',
     chooseFile: 'Choose file',
-    downloadQuestionnaire: 'Download empty questionnaire',
+    downloadQuestionnaire: 'Download questionnaire',
     download: 'Download',
     remove: 'Remove',
-    noQuestionnaire: 'No questionnaire selected'
+    noQuestionnaire: 'No questionnaire selected',
+    panEuropeanQualitativeIndicators: 'Pan-European Qualitative Indicators for Sustainable Forest Management',
+    accessReportingPage: 'Access reporting page'
   },
 
   assessment: {

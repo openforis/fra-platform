@@ -414,6 +414,9 @@ module.exports =
         "2005": "782.4",
         "2010": "776.3",
         "2015": "771.5"
+      },
+      "panEuropean": {
+        "qualitativeQuestionnaireUrl": "https://gis.nlcsk.org/questionnaire?country=6FD93366-D65D-44ED-B499-E7E1F90B6B3F"
       }
     },
     "DZA": {
@@ -1038,6 +1041,9 @@ module.exports =
         "2005": "16",
         "2010": "16",
         "2015": "16"
+      },
+      "panEuropean": {
+        "qualitativeQuestionnaireUrl": "https://gis.nlcsk.org/questionnaire?country=39C563BD-81AF-4684-8B75-4924F59EFF11"
       }
     },
     "AGO": {
@@ -2702,6 +2708,9 @@ module.exports =
         "2005": "3851",
         "2010": "3860",
         "2015": "3869"
+      },
+      "panEuropean": {
+        "qualitativeQuestionnaireUrl": "https://gis.nlcsk.org/questionnaire?country=27C7C489-57D5-46C4-A157-3DF579736CC8"
       }
     },
     "AZE": {
@@ -3950,6 +3959,9 @@ module.exports =
         "2005": "8436",
         "2010": "8534",
         "2015": "8633.5"
+      },
+      "panEuropean": {
+        "qualitativeQuestionnaireUrl": "https://gis.nlcsk.org/questionnaire?country=ECA9F5B4-5B7F-4170-9FFF-1FFD4E48E9B4"
       }
     },
     "BEL": {
@@ -4158,6 +4170,9 @@ module.exports =
         "2005": "674.2",
         "2010": "681.2",
         "2015": "683.4"
+      },
+      "panEuropean": {
+        "qualitativeQuestionnaireUrl": "https://gis.nlcsk.org/questionnaire?country=766FA09B-FE72-47C8-B84C-A126E6224245"
       }
     },
     "BLZ": {
@@ -5587,6 +5602,9 @@ module.exports =
         "2005": "2185",
         "2010": "2185",
         "2015": "2185"
+      },
+      "panEuropean": {
+        "qualitativeQuestionnaireUrl": "https://gis.nlcsk.org/questionnaire?country=28EE4C7D-704F-4022-ACFD-3D3BC8934A6F"
       }
     },
     "BWA": {
@@ -6627,6 +6645,9 @@ module.exports =
         "2005": "3651",
         "2010": "3737",
         "2015": "3823"
+      },
+      "panEuropean": {
+        "qualitativeQuestionnaireUrl": "https://gis.nlcsk.org/questionnaire?country=EDD1FD75-CB88-4309-BB34-1E1E5BFF86A6"
       }
     },
     "BFA": {
@@ -10371,6 +10392,9 @@ module.exports =
         "2005": "1903",
         "2010": "1920",
         "2015": "1922"
+      },
+      "panEuropean": {
+        "qualitativeQuestionnaireUrl": "https://gis.nlcsk.org/questionnaire?country=93DD84F7-DD4A-4088-A2F5-F9B81A603C99"
       }
     },
     "CUB": {
@@ -10967,6 +10991,9 @@ module.exports =
         "2005": "172.851",
         "2010": "172.841",
         "2015": "172.7"
+      },
+      "panEuropean": {
+        "qualitativeQuestionnaireUrl": "https://gis.nlcsk.org/questionnaire?country=47903419-CD16-4D90-B3C1-1D6BB4D48522"
       }
     },
     "CZE": {
@@ -11175,6 +11202,9 @@ module.exports =
         "2005": "2647",
         "2010": "2657",
         "2015": "2667"
+      },
+      "panEuropean": {
+        "qualitativeQuestionnaireUrl": "https://gis.nlcsk.org/questionnaire?country=BDEF2D24-86C5-4997-8BB3-3CE2BFD431C3"
       }
     },
     "PRK": {
@@ -11799,6 +11829,9 @@ module.exports =
         "2005": "557.7",
         "2010": "587.1",
         "2015": "612.2"
+      },
+      "panEuropean": {
+        "qualitativeQuestionnaireUrl": "https://gis.nlcsk.org/questionnaire?country=07D56E41-80E4-439D-AABA-0F8ABAB2B223"
       }
     },
     "DJI": {
@@ -13671,6 +13704,9 @@ module.exports =
         "2005": "2252",
         "2010": "2234",
         "2015": "2232"
+      },
+      "panEuropean": {
+        "qualitativeQuestionnaireUrl": "https://gis.nlcsk.org/questionnaire?country=282B98E4-5435-41E3-B37D-87CF0E08BB73"
       }
     },
     "ETH": {
@@ -14711,6 +14747,9 @@ module.exports =
         "2005": "22143",
         "2010": "22218",
         "2015": "22218"
+      },
+      "panEuropean": {
+        "qualitativeQuestionnaireUrl": "https://gis.nlcsk.org/questionnaire?country=755C7740-6C09-4229-84E5-51F4DED92F2B"
       }
     },
     "FRA": {
@@ -14919,6 +14958,9 @@ module.exports =
         "2005": "15861",
         "2010": "16424",
         "2015": "16989"
+      },
+      "panEuropean": {
+        "qualitativeQuestionnaireUrl": "https://gis.nlcsk.org/questionnaire?country=BEEC6842-94A9-4279-9C61-BE5BF1FCC0BD"
       }
     },
     "GUF": {
@@ -15959,6 +16001,9 @@ module.exports =
         "2005": "2772.5",
         "2010": "2822.4",
         "2015": "2822.4"
+      },
+      "panEuropean": {
+        "qualitativeQuestionnaireUrl": "https://gis.nlcsk.org/questionnaire?country=0D22021A-81DA-47A1-B121-91B9C1EE148C"
       }
     },
     "DEU": {
@@ -16167,6 +16212,9 @@ module.exports =
         "2005": "11384",
         "2010": "11409",
         "2015": "11419"
+      },
+      "panEuropean": {
+        "qualitativeQuestionnaireUrl": "https://gis.nlcsk.org/questionnaire?country=4D9D3292-513F-4658-83A8-0ADFA23DA70A"
       }
     },
     "GHA": {
@@ -16791,6 +16839,9 @@ module.exports =
         "2005": "3752",
         "2010": "3903",
         "2015": "4054"
+      },
+      "panEuropean": {
+        "qualitativeQuestionnaireUrl": "https://gis.nlcsk.org/questionnaire?country=1B40F62E-3AED-4C61-8227-23A36BBCA211"
       }
     },
     "GRL": {
@@ -19079,6 +19130,9 @@ module.exports =
         "2005": "0",
         "2010": "0",
         "2015": "0"
+      },
+      "panEuropean": {
+        "qualitativeQuestionnaireUrl": "https://gis.nlcsk.org/questionnaire?country=17799662-4F57-44E0-8BBE-35F1F931EE5E"
       }
     },
     "HND": {
@@ -19495,6 +19549,9 @@ module.exports =
         "2005": "1983",
         "2010": "2046",
         "2015": "2069"
+      },
+      "panEuropean": {
+        "qualitativeQuestionnaireUrl": "https://gis.nlcsk.org/questionnaire?country=5F792F40-A5DA-4BA1-A593-9F5F733CFDFF"
       }
     },
     "ISL": {
@@ -19703,6 +19760,9 @@ module.exports =
         "2005": "36.5",
         "2010": "42.7",
         "2015": "49.2"
+      },
+      "panEuropean": {
+        "qualitativeQuestionnaireUrl": "https://gis.nlcsk.org/questionnaire?country=45902757-F937-40E3-8E73-FE19CC4874D3"
       }
     },
     "IND": {
@@ -20743,6 +20803,9 @@ module.exports =
         "2005": "694.835",
         "2010": "725.635",
         "2015": "754.016"
+      },
+      "panEuropean": {
+        "qualitativeQuestionnaireUrl": "https://gis.nlcsk.org/questionnaire?country=1CFB1CE0-6FB4-474E-9A60-FFEFE3C9EAAC"
       }
     },
     "IMN": {
@@ -21367,6 +21430,9 @@ module.exports =
         "2005": "8759",
         "2010": "9028",
         "2015": "9297"
+      },
+      "panEuropean": {
+        "qualitativeQuestionnaireUrl": "https://gis.nlcsk.org/questionnaire?country=3D3B69B0-0665-459E-85BE-DAC762256BAE"
       }
     },
     "JAM": {
@@ -23655,6 +23721,9 @@ module.exports =
         "2005": "3297",
         "2010": "3354",
         "2015": "3356"
+      },
+      "panEuropean": {
+        "qualitativeQuestionnaireUrl": "https://gis.nlcsk.org/questionnaire?country=5B94FC10-8D43-4F82-ABAC-7D44C9406BC5"
       }
     },
     "LBN": {
@@ -24695,6 +24764,9 @@ module.exports =
         "2005": "6.9",
         "2010": "6.9",
         "2015": "6.9"
+      },
+      "panEuropean": {
+        "qualitativeQuestionnaireUrl": "https://gis.nlcsk.org/questionnaire?country=217E544E-B33F-488F-AC81-5FFFD2CEEFDB"
       }
     },
     "LTU": {
@@ -24903,6 +24975,9 @@ module.exports =
         "2005": "2121",
         "2010": "2170",
         "2015": "2180"
+      },
+      "panEuropean": {
+        "qualitativeQuestionnaireUrl": "https://gis.nlcsk.org/questionnaire?country=74296508-F210-444F-9E88-C9B218E3BC2E"
       }
     },
     "LUX": {
@@ -25111,6 +25186,9 @@ module.exports =
         "2005": "86.7",
         "2010": "86.7",
         "2015": "86.7"
+      },
+      "panEuropean": {
+        "qualitativeQuestionnaireUrl": "https://gis.nlcsk.org/questionnaire?country=C299C539-72B6-4BF1-B736-C2C3F46021A1"
       }
     },
     "MDG": {
@@ -26359,6 +26437,9 @@ module.exports =
         "2005": "0.347",
         "2010": "0.347",
         "2015": "0.347"
+      },
+      "panEuropean": {
+        "qualitativeQuestionnaireUrl": "https://gis.nlcsk.org/questionnaire?country=8F721492-5694-435E-BE0E-DB3678C67896"
       }
     },
     "MHL": {
@@ -28023,6 +28104,9 @@ module.exports =
         "2005": "0",
         "2010": "0",
         "2015": "0"
+      },
+      "panEuropean": {
+        "qualitativeQuestionnaireUrl": "https://gis.nlcsk.org/questionnaire?country=14515878-EF7F-4ED3-951D-5A0DF53CBF99"
       }
     },
     "MNG": {
@@ -28439,6 +28523,9 @@ module.exports =
         "2005": "626",
         "2010": "827",
         "2015": "827"
+      },
+      "panEuropean": {
+        "qualitativeQuestionnaireUrl": "https://gis.nlcsk.org/questionnaire?country=8840DC0D-DA3B-410B-950C-C3CBE6102A85"
       }
     },
     "MSR": {
@@ -30103,6 +30190,9 @@ module.exports =
         "2005": "365",
         "2010": "373",
         "2015": "376"
+      },
+      "panEuropean": {
+        "qualitativeQuestionnaireUrl": "https://gis.nlcsk.org/questionnaire?country=9858FAC3-B04D-4BCB-904A-B1CD4A7CD8C9"
       }
     },
     "NCL": {
@@ -31975,6 +32065,9 @@ module.exports =
         "2005": "12092",
         "2010": "12102",
         "2015": "12112"
+      },
+      "panEuropean": {
+        "qualitativeQuestionnaireUrl": "https://gis.nlcsk.org/questionnaire?country=9BC60DA4-2108-44EC-A843-5C7F7B025F7C"
       }
     },
     "OMN": {
@@ -34263,6 +34356,9 @@ module.exports =
         "2005": "9200",
         "2010": "9329",
         "2015": "9435"
+      },
+      "panEuropean": {
+        "qualitativeQuestionnaireUrl": "https://gis.nlcsk.org/questionnaire?country=95336097-7BA4-47B0-ACB0-85712A3C4C8D"
       }
     },
     "PRT": {
@@ -34471,6 +34567,9 @@ module.exports =
         "2005": "3296",
         "2010": "3239",
         "2015": "3182"
+      },
+      "panEuropean": {
+        "qualitativeQuestionnaireUrl": "https://gis.nlcsk.org/questionnaire?country=65EDF0F9-2ABC-4166-9DAC-F2CA4D10B6C4"
       }
     },
     "PRI": {
@@ -35303,6 +35402,9 @@ module.exports =
         "2005": "363",
         "2010": "386",
         "2015": "409"
+      },
+      "panEuropean": {
+        "qualitativeQuestionnaireUrl": "https://gis.nlcsk.org/questionnaire?country=2C7323DC-66C6-4947-8903-67E1D085FD6A"
       }
     },
     "REU": {
@@ -35719,6 +35821,9 @@ module.exports =
         "2005": "6391",
         "2010": "6515",
         "2015": "6861"
+      },
+      "panEuropean": {
+        "qualitativeQuestionnaireUrl": "https://gis.nlcsk.org/questionnaire?country=9D945F13-B5A3-4639-AB7C-2C9E4C7E73EE"
       }
     },
     "RUS": {
@@ -35927,6 +36032,9 @@ module.exports =
         "2005": "808790",
         "2010": "815135.6",
         "2015": "814930.5"
+      },
+      "panEuropean": {
+        "qualitativeQuestionnaireUrl": "https://gis.nlcsk.org/questionnaire?country=50D29BC6-0FF6-4EC4-9981-B514098DA89A"
       }
     },
     "RWA": {
@@ -38840,6 +38948,9 @@ module.exports =
         "2005": "2476",
         "2010": "2713",
         "2015": "2720"
+      },
+      "panEuropean": {
+        "qualitativeQuestionnaireUrl": "https://gis.nlcsk.org/questionnaire?country=19F2C1D0-5C55-4B7B-AFED-4408683C40AC"
       }
     },
     "SYC": {
@@ -39852,6 +39963,9 @@ module.exports =
         "2005": "1932",
         "2010": "1939",
         "2015": "1940"
+      },
+      "panEuropean": {
+        "qualitativeQuestionnaireUrl": "https://gis.nlcsk.org/questionnaire?country=4ABDE62F-A871-492F-A0ED-415E1FBF67FA"
       }
     },
     "SVN": {
@@ -40060,6 +40174,9 @@ module.exports =
         "2005": "1243",
         "2010": "1247",
         "2015": "1248"
+      },
+      "panEuropean": {
+        "qualitativeQuestionnaireUrl": "https://gis.nlcsk.org/questionnaire?country=8B533E48-FB62-435F-A6A5-D191BA99902A"
       }
     },
     "SLB": {
@@ -41100,6 +41217,9 @@ module.exports =
         "2005": "17282.09",
         "2010": "18247.2",
         "2015": "18417.87"
+      },
+      "panEuropean": {
+        "qualitativeQuestionnaireUrl": "https://gis.nlcsk.org/questionnaire?country=340BC29A-010F-41A6-B28B-62E967CBD5BA"
       }
     },
     "LKA": {
@@ -42348,6 +42468,9 @@ module.exports =
         "2005": "28218",
         "2010": "28073",
         "2015": "28073"
+      },
+      "panEuropean": {
+        "qualitativeQuestionnaireUrl": "https://gis.nlcsk.org/questionnaire?country=A05A94D3-2CCB-4FC9-A65E-058FD8E1AE13"
       }
     },
     "CHE": {
@@ -42556,6 +42679,9 @@ module.exports =
         "2005": "1217",
         "2010": "1235",
         "2015": "1254"
+      },
+      "panEuropean": {
+        "qualitativeQuestionnaireUrl": "https://gis.nlcsk.org/questionnaire?country=911832F9-1B84-4235-A829-0FFBE170E491"
       }
     },
     "SYR": {
@@ -43388,6 +43514,9 @@ module.exports =
         "2005": "975",
         "2010": "998",
         "2015": "998"
+      },
+      "panEuropean": {
+        "qualitativeQuestionnaireUrl": "https://gis.nlcsk.org/questionnaire?country=C59D657C-96E0-41AE-94EC-5853FC64A4EC"
       }
     },
     "TLS": {
@@ -44844,6 +44973,9 @@ module.exports =
         "2005": "10662",
         "2010": "11203",
         "2015": "11715"
+      },
+      "panEuropean": {
+        "qualitativeQuestionnaireUrl": "https://gis.nlcsk.org/questionnaire?country=A0D7AC1D-6378-42DE-9CA6-80C680A5697E"
       }
     },
     "TKM": {
@@ -45884,6 +46016,9 @@ module.exports =
         "2005": "9575",
         "2010": "9548",
         "2015": "9657"
+      },
+      "panEuropean": {
+        "qualitativeQuestionnaireUrl": "https://gis.nlcsk.org/questionnaire?country=AA6E514D-B848-4F95-8401-D9CD59BAE4C5"
       }
     },
     "ARE": {
@@ -46300,6 +46435,9 @@ module.exports =
         "2005": "3021",
         "2010": "3059",
         "2015": "3144"
+      },
+      "panEuropean": {
+        "qualitativeQuestionnaireUrl": "https://gis.nlcsk.org/questionnaire?country=9FDEFD11-487E-49BC-BB29-D6F18E0940C4"
       }
     },
     "TZA": {

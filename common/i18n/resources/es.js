@@ -736,10 +736,12 @@ El equipo de FRA
     panEuropeanIndicators: 'Indicadores cuantitativos paneuropeos para la gestión forestal sostenible',
     uploadQuestionnaire: 'Cargar cuestionario',
     chooseFile: 'Elegir archivo',
-    downloadQuestionnaire: 'Descargar un cuestionario en blanco',
+    downloadQuestionnaire: 'Descargar el cuestionario',
     download: 'Descargar',
     remove: 'Eliminar',
-    noQuestionnaire: 'Ningún cuestionario seleccionado'
+    noQuestionnaire: 'Ningún cuestionario seleccionado',
+    panEuropeanQualitativeIndicators: 'Indicadores cualitativos paneuropeos para la gestión forestal sostenible',
+    accessReportingPage: 'Acceder a la página de informes'
   },
 
   assessment: {

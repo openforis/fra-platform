@@ -13,7 +13,7 @@ module.exports.translation = {
   },
 
   audit: {
-    notStarted: 'Не начата',
+    notStarted: 'Не начато',
     edited: 'Отредактировано'
   },
 
@@ -26,11 +26,17 @@ module.exports.translation = {
   user: {
     roles: {
       reviewer: 'Рецензент',
-      reviewer_plural: 'Рецензенты',
+      reviewer_0: 'Рецензент',
+      reviewer_1: 'Рецензента',
+      reviewer_2: 'Рецензентов',
       nationalCorrespondent: 'Национальный корреспондент',
-      nationalCorrespondent_plural: 'Национальные корреспонденты',
+      nationalCorrespondent_0: 'Национальный корреспондент',
+      nationalCorrespondent_1: 'Национальных корреспондента',
+      nationalCorrespondent_2: 'Национальных корреспондентов',
       collaborator: 'Сотрудник',
-      collaborator_plural: 'Сотрудники',
+      collaborator_0: 'Сотрудник',
+      collaborator_1: 'Сотрудника',
+      collaborator_2: 'Сотрудников',
       administrator: 'Администратор',
       noRole: 'Нет сведений'
     }
@@ -129,7 +135,7 @@ module.exports.translation = {
     links: {
       unfcccFocalPoints: 'Список координаторов РКИКООН',
       sdgFocalPoints: 'Список национальных координаторов ЦУР',
-      reddPortal: 'Спутниковая система мониторинга земель (SLMS), предоставленная программой UN-REDD/ФАО'
+      reddPortal: 'Спутниковые системы мониторинга земель (SLMS), предоставленные программой UN-REDD/ФАО'
     }
   },
 
@@ -238,11 +244,17 @@ module.exports.translation = {
 
   time: {
     hour: '{{count}} час назад',
-    hour_plural: '{{count}} часа(-ов) назад',
+    hour_0: '{{count}} час назад',
+    hour_1: '{{count}} часа назад',
+    hour_2: '{{count}} часов назад',
     day: '{{count}} день назад',
-    day_plural: '{{count}} дня(-ей) назад',
+    day_0: '{{count}} день назад',
+    day_1: '{{count}} дня назад',
+    day_2: '{{count}} дней назад',
     week: '{{count}} неделю назад',
-    week_plural: '{{count}} недели назад',
+    week_0: '{{count}} неделю назад',
+    week_1: '{{count}} недели назад',
+    week_2: '{{count}} недель назад',
     aMomentAgo: 'минуту назад'
   },
 
@@ -629,7 +641,7 @@ module.exports.translation = {
     degradedForest: 'Деградировавшие леса',
     doesYourCountryMonitor: 'Осуществляет ли ваша страна мониторинг площади деградировавших лесов?',
     ifYes: 'Если "Да"',
-    whatIsDefinition: 'Каким является национальное определение "Деградировавшие леса"??',
+    whatIsDefinition: 'Каким является национальное определение "Деградировавшие леса"?',
     howMonitored: 'Опишите процесс мониторинга и результаты',
   },
 
@@ -736,10 +748,12 @@ module.exports.translation = {
     panEuropeanIndicators: 'Общеевропейские количественные индикаторы устойчивого управления лесами',
     uploadQuestionnaire: 'Загрузить вопросник',
     chooseFile: 'Выбрать файл',
-    downloadQuestionnaire: 'Скачать незаполненный вопросник',
+    downloadQuestionnaire: 'Скачать вопросник',
     download: 'Скачать',
     remove: 'Удалить',
-    noQuestionnaire: 'Вопросник не выбран'
+    noQuestionnaire: 'Вопросник не выбран',
+    panEuropeanQualitativeIndicators: 'Общеевропейские качественные индикаторы устойчивого управления лесами',
+    accessReportingPage: 'Зайти на страницу отчетности'
   },
 
   assessment: {
