@@ -44,7 +44,7 @@ const UserTable = ({users, i18n, showRole = true, ...props}) =>
     </tbody>
   </table>
 
-const UserRow = ({countryIso, i18n, user, removeUser, onEditClick, getCountryName, showRole}) =>
+const UserRow = ({countryIso, i18n, user, removeUser, onEditClick, getCountryName, showRole, userInfo}) =>
   <tr className={user.invitationUuid ? 'user-list__invitation-row' : ''}>
     <UserColumn user={user} field="name"/>
     {
@@ -66,13 +66,17 @@ const UserRow = ({countryIso, i18n, user, removeUser, onEditClick, getCountryNam
             {i18n.t('userManagement.edit')}
           </button>
       }
-      <button className="btn-s btn-link-destructive" onClick={() =>
-        window.confirm(i18n.t('userManagement.confirmDelete', {user: user.name}))
-          ? removeUser(countryIso, user)
-          : null
-      }>
+      <button
+        className="btn-s btn-link-destructive"
+        disabled={userInfo.id === user.id}
+        onClick={() =>
+          window.confirm(i18n.t('userManagement.confirmDelete', {user: user.name}))
+            ? removeUser(countryIso, user)
+            : null
+        }>
         {i18n.t('userManagement.remove')}
       </button>
+
     </td>
   </tr>
 
@@ -151,6 +155,7 @@ class UsersView extends React.Component {
 const mapStateToProps = (state, props) =>
   ({
     i18n: state.user.i18n,
+    userInfo: state.user.userInfo,
     countryUsers: state.userManagement.countryUsers,
     allUsers: isAdministrator(state.user.userInfo)
       ? state.userManagement.allUsers
