@@ -10,7 +10,7 @@ const {sendInvitation} = require('./sendInvitation')
 const {rolesAllowedToChange} = require('../../common/userManagementAccessControl')
 
 const {isAdministrator, isNationalCorrespondent, isCollaborator} = require('../../common/countryRole')
-const {validate: validateUser} = require('../../common/userUtils')
+const {validate: validateUser, validEmail} = require('../../common/userUtils')
 
 const filterAllowedUsers = (countryIso, user, users) => {
   const allowedRoles = rolesAllowedToChange(countryIso, user)
@@ -202,9 +202,14 @@ module.exports.init = app => {
         const invitations = await userRepository.fetchAllInvitations(url)
         const sendInvitationPromises = invitations.map(async invitation => {
 
-          await sendInvitation(invitation.countryIso, invitation, req.user, url)
+          if (validEmail(invitation)) {
+            await sendInvitation(invitation.countryIso, invitation, req.user, url)
+            return `<p>Email sent to ${invitation.name} (${invitation.email}) invited as ${invitation.role} for ${invitation.countryIso}</p>`
 
-          return `<p>Email sent to ${invitation.name} (${invitation.email}) invited as ${invitation.role} for ${invitation.countryIso}</p>`
+          } else {
+            return `<p style="color:red">Email could not be sent to ${invitation.name} (${invitation.email}) invited as ${invitation.role} for ${invitation.countryIso}</p>`
+          }
+
         })
 
         const sendInvitations = await Promise.all(sendInvitationPromises)
