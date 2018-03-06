@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-import {applicationError} from '../../../applicationError/actions'
-import {newUser, updateUserField, validUser} from './users'
+import { applicationError } from '../../../applicationError/actions'
+import { newUser, updateUserField, validUser } from './users'
 
 export const usersFetch = 'users/fetch'
 export const usersNewUserUpdate = 'users/new/user/update'
@@ -22,6 +22,11 @@ export const removeUser = (countryIso, user) => dispatch => {
     dispatch(applicationError(err))
   })
 }
+
+export const sendInvitationEmail = (countryIso, invitationUuid) => dispatch =>
+  axios
+    .get(`/api/users/${countryIso}/invitations/${invitationUuid}/send`)
+    .catch(err => dispatch(applicationError(err)))
 
 // new user action creators
 

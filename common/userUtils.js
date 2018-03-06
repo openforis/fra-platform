@@ -37,5 +37,6 @@ const validate = user => {
 module.exports = {
   profilePictureUri,
   i18nUserRole,
-  validate
+  validate,
+  validEmail
 }
