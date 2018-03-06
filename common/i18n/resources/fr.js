@@ -343,29 +343,32 @@ L'équipe de FRA
     insufficientPrivileges: 'Privilèges insuffisants',
     confirmDelete: 'Éliminer {{user}}?',
     allUsers: 'Tous les collaborateurs',
+    info: 'Info',
+    invitationLink: 'Lien d\'invitation',
+    sendInvitation: 'Envoyer un email d\'invitation',
     invitationEmail: {
-      subject: 'Invitation à rejoindre le/la {{country}} sur la plateforme de FRA',
+      subject: 'Invitation à la plateforme de FRA',
       textMessage: `Cher {{invitedUser}},
 
-{{loggedInUser}} vous a invité à rejoindre le/la {{country}} sur la plateforme de FRA comme {{role}}.
+Vous avez été invité à accéder à la plateforme de FRA comme {{role}} pour le/la {{country}}.
 
-POur accepter cette invitation et voir le pays, se rendre à l'adresse suivante:
+Acceptez cette invitation et accédez à cette plateforme à l'adresse suivante:
 {{- link}}
 
-Bon travail, et n'hésitez pas à nous envoyer vos réactions.
+Bon travail!
 
-L'équipe de FRA
+L'équipe de FRA fra@fao.org
 {{- url}}
     `,
       htmlMessage: `Cher {{invitedUser}},
 <br/><br/>
-{{loggedInUser}} vous a invité à rejoindre le/la {{country}} sur la plateforme de FRA comme {{role}}.
+Vous avez été invité à accéder à la plateforme de FRA comme {{role}} pour le/la {{country}}.
 <br/><br/>
-<b><a href="{{- link}}">Accepter cette invitation et voir le pays</a></b>
+<b><a href="{{- link}}">Acceptez cette invitation et accédez à la plateforme</a></b>
 <br/><br/>
-Bon travail et n'hésitez pas à nous envoyer vos réactions.
+Bon travail!
 <br/><br/>
-L'équipe de FRA
+L'équipe de FRA fra@fao.org
 <br/>
 {{- url}}
     `
@@ -741,8 +744,8 @@ L'équipe de FRA
     download: 'Télédécharger',
     remove: 'Supprimer',
     noQuestionnaire: 'Aucun questionnaire sélectionné',
-    panEuropeanQualitativeIndicators: 'Indicateurs qualitatifs paneuropéens sur la gestion durable des forêts',
-    accessReportingPage: 'Accéder à la page de rapport'
+    panEuropeanQualitativeIndicators: 'Indicateurs qualitatifs paneuropéens sur la gestion forestière durable',
+    accessReportingPage: 'Accéder à la page des rapports'
   },
 
   assessment: {
