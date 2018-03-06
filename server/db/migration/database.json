@@ -1,11 +1,23 @@
 {
   "dev": {
     "driver": "pg",
-    "user": {"ENV": "PGUSER"},
-    "password": {"ENV": "PGPASSWORD"},
-    "host": {"ENV": "PGHOST"},
-    "database": {"ENV": "PGDATABASE"},
-    "schema": {"ENV": "public"},
+    "user": {
+      "ENV": "PGUSER"
+    },
+    "password": {
+      "ENV": "PGPASSWORD"
+    },
+    "host": {
+      "ENV": "PGHOST"
+    },
+    "database": {
+      "ENV": "PGDATABASE"
+    },
+    "schema": {
+      "ENV": "public"
+    }
+  },
+  "prod": {
     "ssl": true
   }
 }
