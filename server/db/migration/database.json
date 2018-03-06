@@ -1,5 +1,5 @@
 {
-  "dev": {
+  "development": {
     "driver": "pg",
     "user": {
       "ENV": "PGUSER"
@@ -17,7 +17,7 @@
       "ENV": "public"
     }
   },
-  "prod": {
+  "production": {
     "ssl": true
   }
 }
