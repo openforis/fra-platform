@@ -343,6 +343,9 @@ L'équipe de FRA
     insufficientPrivileges: 'Privilèges insuffisants',
     confirmDelete: 'Éliminer {{user}}?',
     allUsers: 'Tous les collaborateurs',
+    info: 'Info',
+    invitationLink: 'Lien d\'invitation',
+    sendInvitation: 'Envoyer un email d\'invitation',
     invitationEmail: {
       subject: 'Invitation à la plateforme de FRA',
       textMessage: `Cher {{invitedUser}},
