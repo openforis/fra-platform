@@ -355,6 +355,9 @@ module.exports.translation = {
     insufficientPrivileges: 'Недостаточно полномочий',
     confirmDelete: 'Удалить {{user}}?',
     allUsers:'Все сотрудники',
+    info: 'Информация',
+    invitationLink: 'Ссылка на приглашение',
+    sendInvitation: 'Направить приглашение по электронной почте',
     invitationEmail: {
       subject: 'Приглашение на платформу ОЛР',
       textMessage: `Уважаемый(ая) {{invitedUser}},
