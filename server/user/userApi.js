@@ -37,11 +37,13 @@ module.exports.init = app => {
       checkCountryAccessFromReqParams(req)
 
       const countryIso = req.params.countryIso
-      const allCountryUsers = await userRepository.fetchUsersAndInvitations(countryIso, req.user)
+      const url = serverUrl(req)
+
+      const allCountryUsers = await userRepository.fetchUsersAndInvitations(countryIso, url)
       const countryUsers = filterAllowedUsers(countryIso, req.user, allCountryUsers)
 
       const allUsers = isAdministrator(req.user)
-        ? await userRepository.fetchAllUsersAndInvitations(req.params.countryIso)
+        ? await userRepository.fetchAllUsersAndInvitations(url)
         : []
 
       const userCounts = isAdministrator(req.user)
@@ -175,12 +177,29 @@ module.exports.init = app => {
     }
   })
 
+  app.get('/users/:countryIso/invitations/:invitationUuid/send', async (req, res) => {
+    try {
+      checkCountryAccessFromReqParams(req)
+
+      const url = serverUrl(req)
+
+      const invitation = await userRepository.fetchInvitation(req.params.invitationUuid, url)
+
+      if (invitation)
+        await sendInvitation(invitation.countryIso, invitation, req.user, url)
+
+      sendOk(res)
+    } catch (err) {
+      sendErr(res, err)
+    }
+  })
+
   app.get('/users/invitations/send', async (req, res) => {
     try {
       if (isAdministrator(req.user)) {
         const url = serverUrl(req)
 
-        const invitations = await userRepository.fetchAllInvitations()
+        const invitations = await userRepository.fetchAllInvitations(url)
         const sendInvitationPromises = invitations.map(async invitation => {
 
           await sendInvitation(invitation.countryIso, invitation, req.user, url)

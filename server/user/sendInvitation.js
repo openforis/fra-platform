@@ -3,8 +3,11 @@ const { createI18nPromise } = require('../../common/i18n/i18nFactory')
 const { sendMail } = require('../email/sendMail')
 const { getRoleLabelKey } = require('../../common/countryRole')
 
+const loginUrl = (user, url) =>
+  `${url}/login${user.invitationUuid ? `?i=${user.invitationUuid}` : ''}`
+
 const createMail = async (countryIso, invitedUser, loggedInUser, url, i18n) => {
-  const link = `${url}/login${invitedUser.invitationUuid ? `?i=${invitedUser.invitationUuid}` : ''}`
+  const link = loginUrl(invitedUser, url)
   const dbCountry = await getCountry(countryIso)
   const country = dbCountry.listName.en
   const role = getRoleLabelKey(invitedUser.role)
@@ -23,3 +26,4 @@ const sendInvitation = async (countryIso, invitedUser, loggedInUser, url) => {
 }
 
 module.exports.sendInvitation = sendInvitation
+module.exports.loginUrl = loginUrl

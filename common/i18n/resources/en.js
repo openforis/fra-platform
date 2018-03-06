@@ -343,6 +343,9 @@ The FRA team
     insufficientPrivileges: 'Insufficient privileges',
     confirmDelete: 'Remove {{user}}?',
     allUsers: 'All collaborators',
+    info: 'Info',
+    invitationLink: 'Invitation link',
+    sendInvitation: 'Send invitation email',
     invitationEmail: {
       subject: 'FRA platform invitation',
       textMessage: `Dear {{invitedUser}},

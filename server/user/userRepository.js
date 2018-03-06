@@ -9,6 +9,8 @@ const {AccessControlException} = require('../utils/accessControl')
 
 const {nationalCorrespondent, reviewer, collaborator} = require('../../common/countryRole')
 
+const {loginUrl} = require('./sendInvitation')
+
 const findUserById = async (userId, client = db) => {
   const res = await client.query('SELECT id, name, email, login_email, institution, position, lang FROM fra_user WHERE id = $1', [userId])
   if (res.rows.length < 1) return null
@@ -65,7 +67,7 @@ const fetchAdministrators = () =>
   `)
     .then(res => camelize(res.rows))
 
-const fetchInvitations = (countryIso) =>
+const fetchInvitations = (countryIso, url) =>
   db.query(
     `SELECT
        invitation_uuid,
@@ -76,15 +78,17 @@ const fetchInvitations = (countryIso) =>
      WHERE country_iso = $1
      AND accepted IS NULL`,
     [countryIso])
-    .then(res => camelize(res.rows))
+    .then(res => camelize(res.rows)
+      .map(invitation => ({...invitation, invitationLink: loginUrl(invitation, url)}))
+    )
 
-const fetchUsersAndInvitations = async (countryIso) => {
+const fetchUsersAndInvitations = async (countryIso, url) => {
   const users = await fetchCountryUsers(countryIso)
-  const invitations = await fetchInvitations(countryIso)
+  const invitations = await fetchInvitations(countryIso, url)
   return [...users, ...invitations]
 }
 
-const fetchAllInvitations = async () => {
+const fetchAllInvitations = async (url) => {
   const invitationsRes = await db.query(`
     SELECT
       invitation_uuid,
@@ -96,11 +100,34 @@ const fetchAllInvitations = async () => {
      WHERE accepted IS NULL
      `)
 
-  return [...camelize(invitationsRes.rows)]
+  return camelize(invitationsRes.rows)
+    .map(invitation => ({...invitation, invitationLink: loginUrl(invitation, url)}))
+}
+
+const fetchInvitation = async (invitationUUID, url) => {
+  const invitationsRes = await db.query(`
+    SELECT
+      invitation_uuid,
+      email,
+      name,
+      role,
+      country_iso
+     FROM fra_user_invitation
+     WHERE accepted IS NULL
+     AND invitation_uuid = $1
+     `, [invitationUUID])
+
+  return R.isEmpty(invitationsRes.rows)
+    ? null
+    : R.pipe(
+    R.head,
+      camelize,
+    invitation => R.assoc('invitationLink', loginUrl(invitation, url), invitation),
+    )(invitationsRes.rows)
 }
 
 // fetch all users and invitations
-const fetchAllUsersAndInvitations = async () => {
+const fetchAllUsersAndInvitations = async (url) => {
 
   const usersRes = await db.query(`
     SELECT DISTINCT
@@ -113,7 +140,7 @@ const fetchAllUsersAndInvitations = async () => {
       fra_user u
   `)
 
-  const invitations = await fetchAllInvitations()
+  const invitations = await fetchAllInvitations(url)
 
   return [...camelize(usersRes.rows), ...invitations]
 }
@@ -371,5 +398,6 @@ module.exports = {
   fetchUsersAndInvitations,
   fetchAllUsersAndInvitations,
   fetchAllInvitations,
+  fetchInvitation,
   getUserCountsByRole
 }

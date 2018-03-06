@@ -4,6 +4,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
 
+import Icon from '../../../reusableUiComponents/icon'
 import AddUserForm from './addUserForm'
 import EditUserForm from '../../../user/editUserComponents/editUserForm'
 
@@ -12,7 +13,7 @@ import { i18nUserRole } from '../../../../common/userUtils'
 import { isAdministrator, nationalCorrespondent, collaborator, reviewer } from '../../../../common/countryRole'
 
 import { getCountryName } from '../../../country/actions'
-import { fetchUsers, removeUser, updateNewUser, addNewUser } from './actions'
+import { fetchUsers, removeUser, updateNewUser, addNewUser, sendInvitationEmail } from './actions'
 
 const mapIndexed = R.addIndex(R.map)
 
@@ -44,41 +45,76 @@ const UserTable = ({users, i18n, showRole = true, ...props}) =>
     </tbody>
   </table>
 
-const UserRow = ({countryIso, i18n, user, removeUser, onEditClick, getCountryName, showRole, userInfo}) =>
-  <tr className={user.invitationUuid ? 'user-list__invitation-row' : ''}>
-    <UserColumn user={user} field="name"/>
-    {
-      showRole
-        ? <td className="user-list__cell">
-          <div className="user-list__cell--read-only">{i18nUserRole(i18n, user.role)}</div>
-        </td>
-        : null
-    }
-    <UserColumn user={user} field="email"/>
-    <UserColumn user={user} field="loginEmail"/>
+class UserRow extends React.Component {
+  constructor () {
+    super()
+    this.state = {}
+  }
 
-    <td className="user-list__cell user-list__edit-column">
-      { // pending users cannot be edited
-        user.invitationUuid
-          ? null
-          : <button className="btn-s btn-link"
-                    onClick={() => onEditClick(user.id)}>
-            {i18n.t('userManagement.edit')}
-          </button>
+  render () {
+    const {countryIso, i18n, user, removeUser, onEditClick, showRole, userInfo, sendInvitationEmail} = this.props
+
+    return < tr className={user.invitationUuid ? 'user-list__invitation-row' : ''}>
+      <UserColumn user={user} field="name"/>
+      {
+        showRole
+          ? <td className="user-list__cell">
+            <div className="user-list__cell--read-only">{i18nUserRole(i18n, user.role)}</div>
+          </td>
+          : null
       }
-      <button
-        className="btn-s btn-link-destructive"
-        disabled={userInfo.id === user.id}
-        onClick={() =>
-          window.confirm(i18n.t('userManagement.confirmDelete', {user: user.name}))
-            ? removeUser(countryIso, user)
-            : null
-        }>
-        {i18n.t('userManagement.remove')}
-      </button>
+      <UserColumn user={user} field="email"/>
+      <UserColumn user={user} field="loginEmail"/>
 
-    </td>
-  </tr>
+      <td className="user-list__cell user-list__edit-column">
+        { // pending users cannot be edited
+          user.invitationUuid
+            ? <button className="btn-s btn-link"
+                      onClick={() => this.setState({showInvitationInfo: true})}>
+              {i18n.t('userManagement.info')}
+            </button>
+            : <button className="btn-s btn-link"
+                      onClick={() => onEditClick(user.id)}>
+              {i18n.t('userManagement.edit')}
+            </button>
+        }
+        <button
+          className="btn-s btn-link-destructive"
+          disabled={userInfo.id === user.id}
+          onClick={() =>
+            window.confirm(i18n.t('userManagement.confirmDelete', {user: user.name}))
+              ? removeUser(countryIso, user)
+              : null
+          }>
+          {i18n.t('userManagement.remove')}
+        </button>
+
+        {this.state.showInvitationInfo
+          ? <div className="user-list__invitation-info">
+            <div>
+              <div>{i18n.t('userManagement.invitationLink')}: {user.invitationLink}</div>
+              <div style={{textAlign: 'center'}}>
+                <button className="btn-s btn-link"
+                        onClick={() => {
+                          sendInvitationEmail(countryIso, user.invitationUuid)
+                          this.setState({showInvitationInfo: null})
+                        }}>
+                  {i18n.t('userManagement.sendInvitation')}
+                </button>
+              </div>
+            </div>
+            <a onClick={() => this.setState({showInvitationInfo: null})}>
+              <Icon name="remove" className="icon-close"/>
+            </a>
+          </div>
+          : null
+        }
+
+      </td>
+    </tr>
+
+  }
+}
 
 const UserColumn = ({user, field}) => <td className="user-list__cell">
   <div className="user-list__cell--read-only">{user[field] ? user[field] : '\xA0'}</div>
@@ -171,5 +207,6 @@ export default connect(mapStateToProps, {
   removeUser,
   updateNewUser,
   addNewUser,
-  getCountryName
+  getCountryName,
+  sendInvitationEmail
 })(UsersView)
