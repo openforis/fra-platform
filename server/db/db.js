@@ -46,8 +46,33 @@ module.exports.connect = connect
  * saveStuff(client, name, contents)
  *
  * You must always use the client to queries
+ *
+ * Code taken from https://node-postgres.com/features/transactions
  */
-module.exports.transaction = (fn, argv) => {
+module.exports.transaction = async (fn, argv) => {
+  // note: we don't try/catch this because if connecting throws an exception
+  // we don't need to dispose of the client (it will be undefined)
+  const client = await pool.connect()
+
+  try {
+    await client.query('BEGIN')
+
+    const result = await fn.apply(null, [client, ...argv])
+
+    await client.query('COMMIT')
+    return result
+  } catch (e) {
+    await client.query('ROLLBACK')
+    // console.log("==== ROLLBACK ")
+    throw e
+  } finally {
+    // console.log("==== client.release()")
+    client.release()
+  }
+
+}
+
+module.exports.transactionOLD = (fn, argv) => {
   return connect()
     .then(client =>
       client.query('BEGIN')
