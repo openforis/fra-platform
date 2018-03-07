@@ -56,7 +56,7 @@ const createOdp = (client, countryIso, user) =>
   client.query('INSERT INTO odp (country_iso ) VALUES ($1)', [countryIso]).then(resp =>
     client.query('SELECT last_value FROM odp_id_seq').then(resp => resp.rows[0].last_value)
   ).then(odpId =>
-      Promise.all([odpId, auditRepository.insertAudit(client, user.id, 'createOdp', countryIso, 'odp', {odpId})])
+    Promise.all([odpId, auditRepository.insertAudit(client, user.id, 'createOdp', countryIso, 'odp', {odpId})])
   ).then(([odpId, _]) => odpId)
 
 const insertDraft = (client, countryIso, user, odpId, draft) =>
@@ -83,15 +83,14 @@ const insertDraft = (client, countryIso, user, odpId, draft) =>
     client.query('UPDATE odp SET draft_id = (SELECT last_value FROM odp_version_id_seq) WHERE id = $1', [odpId])
   )
 
-const updateDraft = (client, draft) =>
-  client.query(
-    'SELECT draft_id FROM odp WHERE id = $1', [draft.odpId]
-  ).then((res) => res.rows[0].draft_id
-  ).then(draftId => {
-      return [draftId, wipeClassData(client, draftId), addClassData(client, draftId, draft)]
-    }
-  ).then(([draftId, ..._]) =>
-    client.query(`
+const updateDraft = async (client, draft) => {
+  const res = await client.query('SELECT draft_id FROM odp WHERE id = $1', [draft.odpId])
+  const draftId = res.rows[0].draft_id
+
+  await wipeClassData(client, draftId)
+  await addClassData(client, draftId, draft)
+
+  await client.query(`
     UPDATE
     odp_version
     SET year = $2,
@@ -101,15 +100,15 @@ const updateDraft = (client, draft) =>
     data_source_additional_comments = $6
     WHERE id = $1;
     `,
-      [
-        draftId,
-        draft.year,
-        draft.description,
-        draft.dataSourceReferences,
-        {methods: draft.dataSourceMethods},
-        draft.dataSourceAdditionalComments
-      ])
-  )
+    [
+      draftId,
+      draft.year,
+      draft.description,
+      draft.dataSourceReferences,
+      {methods: draft.dataSourceMethods},
+      draft.dataSourceAdditionalComments
+    ])
+}
 
 module.exports.deleteDraft = (client, odpId, user) =>
   getAndCheckOdpCountryId(client, odpId, user)
@@ -198,30 +197,30 @@ const getAndCheckOdpCountryId = (client, odpId, user) =>
 module.exports.getAndCheckOdpCountryId = getAndCheckOdpCountryId
 
 const deleteOdp = (client, odpId, user) =>
-      getAndCheckOdpCountryId(client, odpId, user)
-        .then( countryIso =>
-         Promise.all([countryIso, auditRepository.insertAudit(client, user.id, 'deleteOdp', countryIso, 'odp', {odpId})])
-        )
-        .then(([countryIso, _]) =>
-          Promise.all([
-            client.query('SELECT actual_id, draft_id FROM odp WHERE id = $1', [odpId]),
-            countryIso])
-        ).then(([selectResult, countryIso]) =>
-        client.query('DELETE FROM odp WHERE id = $1', [odpId])
-          .then(() => [selectResult.rows[0].draft_id, selectResult.rows[0].actual_id, countryIso])
-      ).then(([draftId, actualId, countryIso]) => {
-        return Promise.all([
-          draftId
-            ? wipeClassData(client, draftId)
-            .then(() => client.query('DELETE FROM odp_version WHERE id = $1', [draftId]))
-            : Promise.resolve(),
-          actualId
-            ? wipeClassData(client, actualId)
-            .then(() => client.query('DELETE FROM odp_version WHERE id = $1', [actualId]))
-            : Promise.resolve(),
-          deleteIssues(client, countryIso, 'odp', 0, odpId)
-        ])
-      })
+  getAndCheckOdpCountryId(client, odpId, user)
+    .then(countryIso =>
+      Promise.all([countryIso, auditRepository.insertAudit(client, user.id, 'deleteOdp', countryIso, 'odp', {odpId})])
+    )
+    .then(([countryIso, _]) =>
+      Promise.all([
+        client.query('SELECT actual_id, draft_id FROM odp WHERE id = $1', [odpId]),
+        countryIso])
+    ).then(([selectResult, countryIso]) =>
+    client.query('DELETE FROM odp WHERE id = $1', [odpId])
+      .then(() => [selectResult.rows[0].draft_id, selectResult.rows[0].actual_id, countryIso])
+  ).then(([draftId, actualId, countryIso]) => {
+    return Promise.all([
+      draftId
+        ? wipeClassData(client, draftId)
+          .then(() => client.query('DELETE FROM odp_version WHERE id = $1', [draftId]))
+        : Promise.resolve(),
+      actualId
+        ? wipeClassData(client, actualId)
+          .then(() => client.query('DELETE FROM odp_version WHERE id = $1', [actualId]))
+        : Promise.resolve(),
+      deleteIssues(client, countryIso, 'odp', 0, odpId)
+    ])
+  })
 
 module.exports.deleteOdp = deleteOdp
 
@@ -297,11 +296,11 @@ const getOdp = odpId =>
         `, [odpId, versionId]),
         nationalClasses])
     ).then(([result, nationalClasses]) => {
-        const camelizedResult = camelize(result.rows[0])
-        const dataSourceMethods = R.path(['dataSourceMethods', 'methods'], camelizedResult)
-        return {...camelizedResult, nationalClasses, dataSourceMethods}
-      }
-    )
+      const camelizedResult = camelize(result.rows[0])
+      const dataSourceMethods = R.path(['dataSourceMethods', 'methods'], camelizedResult)
+      return {...camelizedResult, nationalClasses, dataSourceMethods}
+    }
+  )
 
 module.exports.getOdp = getOdp
 
