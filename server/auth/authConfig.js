@@ -1,10 +1,10 @@
 const passport = require('passport')
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy
+const LocalStrategy = require('passport-local')
 const cookieParser = require('cookie-parser')
 
 const userRepository = require('../user/userRepository')
 const db = require('../db/db')
-
 
 const googleStrategyVerifyCallback = async (req, accessToken, refreshToken, profile, done) => {
 
@@ -28,6 +28,13 @@ const googleStrategyVerifyCallback = async (req, accessToken, refreshToken, prof
   }
 }
 
+const localStrategyVerifyCallback = async (req, username, password, done) => {
+  console.log('========== localStrategyVerifyCallback body ', req.body)
+  console.log('========== localStrategyVerifyCallback username  ', username)
+  console.log('========== localStrategyVerifyCallback password  ', password)
+  done(null, false, {status: 'error', message: 'Invitation not found'})
+}
+
 module.exports.init = (app) => {
 
   app.use(cookieParser())
@@ -41,6 +48,14 @@ module.exports.init = (app) => {
       passReqToCallback: true
     },
     googleStrategyVerifyCallback
+  ))
+
+  passport.use(new LocalStrategy({
+      usernameField: 'email',
+      passwordField: 'password',
+      passReqToCallback: true
+    },
+    localStrategyVerifyCallback
   ))
 
   passport.serializeUser((user, done) => done(null, user.id))

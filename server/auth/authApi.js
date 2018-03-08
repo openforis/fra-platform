@@ -4,13 +4,12 @@ const userRepository = require('../user/userRepository')
 const countryRepository = require('../country/countryRepository')
 const {sendErr} = require('../utils/requestUtils')
 
-
 const authenticationFailed = (req, res) => {
   req.logout()
   res.redirect('/login?loginFailed=true')
 }
 
-const authenticationSuccessful = (req, user, next, res) => {
+const authenticationSuccessful = (req, user, next, res, done) => {
   req.logIn(user, err => {
     if (err) {
       next(err)
@@ -21,7 +20,7 @@ const authenticationSuccessful = (req, user, next, res) => {
         // More here:
         // https://github.com/voxpelli/node-connect-pg-simple/issues/31#issuecomment-230596077
         req.session.save(() => {
-          res.redirect(`/#/country/${defaultCountry.countryIso}`)
+          done(`/#/country/${defaultCountry.countryIso}`)
         })
       }).catch(err => sendErr(res, err))
     }
@@ -44,7 +43,9 @@ module.exports.init = app => {
       } else if (!user) {
         authenticationFailed(req, res)
       } else {
-        authenticationSuccessful(req, user, next, res)
+        authenticationSuccessful(req, user, next, res,
+          redirectUrl => res.redirect(redirectUrl)
+        )
       }
     })(req, res, next)
   })
@@ -52,6 +53,21 @@ module.exports.init = app => {
   app.post('/auth/logout', (req, res) => {
     req.logout()
     res.json({})
+  })
+
+  app.post('/auth/local/login', function (req, res, next) {
+
+    passport.authenticate('local', (err, user, info) => {
+      if (err) {
+        return next(err)
+      } else if (!user) {
+        res.send(info)
+      } else {
+        authenticationSuccessful(req, user, next, res,
+          redirectUrl => res.send({redirectUrl})
+        )
+      }
+    })(req, res, next)
   })
 
 }

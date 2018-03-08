@@ -18,7 +18,7 @@
     <div class="alert-error">
         <div class="alert-icon">
             <svg class="icon">
-                <use xlink:href="img/icons.svg#alert">
+                <use xlink:href="img/icons.svg#alert"/>
             </svg>
         </div>
         <div class="alert-message">User not authorized</div>
@@ -52,6 +52,8 @@
                     <input type="text" name="email" id="email" placeholder="Enter your email"/>
                     <input type="password" name="password" id="password" placeholder="Enter your password"/>
                     <input type="password" name="password2" id="password2" placeholder="Repeat your password"/>
+                </div>
+                <div class="alert-error" id="loginError" style="display: none">
                 </div>
                 <div class="login__buttons">
                     <button class="btn" type="reset" onclick="showSignin()">Cancel</button>
@@ -123,6 +125,7 @@
 
   var showFraLogin = function () {
     document.getElementById('signInContainer').style.display = 'none'
+    document.getElementById('loginError').style.display = 'none'
     document.getElementById('loginContainer').style.display = 'block'
   }
 
@@ -137,21 +140,40 @@
   var submitLoginForm = function () {
     setReadOnlyForm(true)
 
-    // var http = new XMLHttpRequest();
-    // var url = "url";
-    // var params = JSON.stringify({ appoverGUID: approverGUID });
-    // http.open("POST", url, true);
-    //
-    // http.setRequestHeader("Content-type", "application/json; charset=utf-8");
-    // http.setRequestHeader("Content-length", params.length);
-    // http.setRequestHeader("Connection", "close");
-    //
-    // http.onreadystatechange = function() {
-    //   if(http.readyState == 4 && http.status == 200) {
-    //     alert(http.responseText);
-    //   }
-    // }
-    // http.send(params);
+    var params = null
+    if (invitationUUID) {
+      params = {
+        invitationUUID: invitationUUID,
+        password: document.getElementById('password').value,
+        password2: document.getElementById('password2').value,
+        // passportjs local strategy hack
+        email: invitationUUID,
+      }
+    } else {
+      params = {
+        email: document.getElementById('email').value,
+        password: document.getElementById('password').value
+      }
+    }
+
+    var http = new XMLHttpRequest()
+    http.open('POST', '/auth/local/login', true)
+    http.setRequestHeader('Content-type', 'application/json; charset=utf-8')
+
+    http.onreadystatechange = function () {
+      if (http.readyState == XMLHttpRequest.DONE && http.status == 200) {
+
+        var resp = JSON.parse(http.responseText)
+        if (resp.message) {
+          document.getElementById('loginError').style.display = 'block'
+          document.getElementById('loginError').innerHTML = resp.message
+        } else if (resp.redirectUrl) {
+          window.location = resp.redirectUrl
+        }
+        setReadOnlyForm(false)
+      }
+    }
+    http.send(JSON.stringify(params))
   }
 
 </script>
