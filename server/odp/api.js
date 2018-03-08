@@ -4,8 +4,11 @@ const Promise = require('bluebird')
 const db = require('../db/db')
 const odpRepository = require('./odpRepository')
 const reviewRepository = require('../review/reviewRepository')
+
 const {sendErr, sendOk} = require('../utils/requestUtils')
+
 const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
+const {allowedToEditDataCheck} = require('../assessment/assessmentEditAccessControl')
 
 module.exports.init = app => {
 
@@ -60,6 +63,9 @@ module.exports.init = app => {
     try {
       checkCountryAccessFromReqParams(req)
 
+      const countryIso = req.query.countryIso
+      await allowedToEditDataCheck(countryIso, req.user, 'extentOfForest')
+
       await db.transaction(odpRepository.deleteOdp, [req.query.odpId, req.user])
 
       sendOk(res)
@@ -71,7 +77,9 @@ module.exports.init = app => {
   app.post('/odp/draft', async (req, res) => {
     try {
       checkCountryAccessFromReqParams(req)
+
       const countryIso = req.query.countryIso
+      await allowedToEditDataCheck(countryIso, req.user, 'extentOfForest')
 
       const result = await db.transaction(odpRepository.saveDraft, [countryIso, req.user, req.body])
       res.json(result)
@@ -85,6 +93,9 @@ module.exports.init = app => {
     try {
       checkCountryAccessFromReqParams(req)
 
+      const countryIso = req.query.countryIso
+      await allowedToEditDataCheck(countryIso, req.user, 'extentOfForest')
+
       await db.transaction(odpRepository.deleteDraft, [req.query.odpId, req.user])
 
       sendOk(res)
@@ -96,6 +107,9 @@ module.exports.init = app => {
   app.get('/prevOdp/:countryIso/:year', async (req, res) => {
     try {
       checkCountryAccessFromReqParams(req)
+
+      const countryIso = req.query.countryIso
+      await allowedToEditDataCheck(countryIso, req.user, 'extentOfForest')
 
       const resp = await odpRepository.listOriginalDataPoints(req.params.countryIso)
 
@@ -120,6 +134,9 @@ module.exports.init = app => {
   app.post('/odp/markAsActual', async (req, res) => {
     try {
       checkCountryAccessFromReqParams(req)
+
+      const countryIso = req.query.countryIso
+      await allowedToEditDataCheck(countryIso, req.user, 'extentOfForest')
 
       await db.transaction(odpRepository.markAsActual, [req.query.odpId, req.user])
 
