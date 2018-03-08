@@ -50,7 +50,7 @@ const localStrategyVerifyCallback = async (req, email, password, done) => {
       else if (R.trim(password) !== R.trim(password2))
         sendResp(null, 'Passwords don\'t match')
       else {
-        const hash = await bcrypt.hash(password, 10)
+        const hash = await bcrypt.hash(R.trim(password), 10)
         const user = await db.transaction(userRepository.acceptInvitationLocalUser, [invitationUUID, hash])
         sendResp(user)
       }
