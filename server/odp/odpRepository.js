@@ -5,18 +5,14 @@ const camelize = require('camelize')
 const db = require('../db/db')
 
 const {insertAudit} = require('./../audit/auditRepository')
-const {deleteIssues, deleteIssuesByIds} = require('../review/reviewRepository')
+const {deleteIssues} = require('../review/reviewRepository')
 
 const {validateDataPoint} = require('../../common/validateOriginalDataPoint')
 const {checkCountryAccess} = require('../utils/accessControl')
 
-// ========================
-//   ODP DRAFT METHODS
-// ========================
-const getDraftId = async (client, odpId) => {
-  const res = await client.query('SELECT draft_id FROM odp WHERE id = $1', [odpId])
-  return res.rows[0].draft_id
-}
+const {updateOrInsertDraft} = require('./odpDraftRepository')
+const {wipeClassData, getOdpNationalClasses, wipeNationalClassIssues} = require('./odpClassRepository')
+const {eofReducer, focReducer} = require('./odpRepositoryUtils')
 
 const saveDraft = async (client, countryIso, user, draft) => {
   const odpId = draft.odpId
@@ -24,68 +20,6 @@ const saveDraft = async (client, countryIso, user, draft) => {
     : await createOdp(client, countryIso, user)
 
   return await updateOrInsertDraft(client, user, odpId, countryIso, draft)
-}
-
-const updateOrInsertDraft = async (client, user, odpId, countryIso, draft) => {
-  const draftId = await getDraftId(client, odpId)
-
-  if (draftId) {
-    await updateDraft(client, draft)
-    await wipeNationalClassIssues(client, odpId, countryIso, draft.nationalClasses)
-  } else {
-    await insertDraft(client, countryIso, user, odpId, draft)
-  }
-
-  await insertAudit(client, user.id, 'updateOrInsertDraft', countryIso, 'odp', {odpId})
-
-  return {odpId}
-}
-
-const updateDraft = async (client, draft) => {
-  const res = await client.query('SELECT draft_id FROM odp WHERE id = $1', [draft.odpId])
-  const draftId = res.rows[0].draft_id
-
-  await wipeClassData(client, draftId)
-  await addClassData(client, draftId, draft)
-
-  await client.query(`
-    UPDATE
-    odp_version
-    SET year = $2,
-    description = $3,
-    data_source_references = $4,
-    data_source_methods = $5,
-    data_source_additional_comments = $6
-    WHERE id = $1;
-    `,
-    [
-      draftId,
-      draft.year,
-      draft.description,
-      draft.dataSourceReferences,
-      {methods: draft.dataSourceMethods},
-      draft.dataSourceAdditionalComments
-    ])
-}
-
-const insertDraft = async (client, countryIso, user, odpId, draft) => {
-  await client.query(`
-  INSERT INTO odp_version
-  (year, description, data_source_references, data_source_methods, data_source_additional_comments)
-  VALUES ($1, $2, $3, $4, $5);`,
-    [
-      draft.year,
-      draft.description,
-      draft.dataSourceReferences,
-      {methods: draft.dataSourceMethods},
-      draft.dataSourceAdditionalComments
-    ]
-  )
-
-  const resOdpVersionId = await client.query('SELECT last_value AS odp_version_id FROM odp_version_id_seq')
-  await addClassData(client, resOdpVersionId.rows[0].odp_version_id, draft)
-
-  return await client.query('UPDATE odp SET draft_id = (SELECT last_value FROM odp_version_id_seq) WHERE id = $1', [odpId])
 }
 
 const deleteDraft = async (client, odpId, user) => {
@@ -102,101 +36,6 @@ const deleteDraft = async (client, odpId, user) => {
     return await deleteOdp(client, odpId, user)
   }
 }
-
-// ========================
-//   ODP CLASSES METHODS
-// ========================
-
-const getOdpNationalClasses = async (client, odpVersionId) => {
-  const res = await client.query(`
-    SELECT
-      name, definition, area,
-      forest_percent, other_wooded_land_percent, forest_natural_percent,
-      forest_plantation_percent, forest_plantation_introduced_percent, other_planted_forest_percent,
-      uuid
-    FROM odp_class
-    WHERE odp_version_id = $1`
-    ,
-    [odpVersionId])
-
-  return res.rows.map(row => ({
-    className: row.name,
-    definition: row.definition,
-    area: row.area,
-    forestPercent: row.forest_percent,
-    otherWoodedLandPercent: row.other_wooded_land_percent,
-    naturalForestPercent: row.forest_natural_percent,
-    plantationPercent: row.forest_plantation_percent,
-    plantationIntroducedPercent: row.forest_plantation_introduced_percent,
-    otherPlantedPercent: row.other_planted_forest_percent,
-    uuid: row.uuid
-  }))
-}
-
-const wipeNationalClassIssues = async (client, odpId, countryIso, nationalClasses) => {
-  const hasClasses = nationalClasses.length > 0
-  const classUuids = nationalClasses.map(c => `"${c.uuid}"`)
-  const classQueryPlaceholders = R.range(3, nationalClasses.length + 3).map(i => '$' + i).join(',')
-
-  const res = await client.query(`
-      SELECT
-        i.id as issue_id
-      FROM issue i
-      WHERE i.country_iso = $1
-      AND i.section = $2
-      AND i.target #> '{params,0}' = '"${odpId}"'
-      ${ hasClasses
-    ? `AND i.target #> '{params,2}' NOT IN (${classQueryPlaceholders})`
-    : `AND i.target #> '{params,1}' = '"class"'`}
-    `
-    , hasClasses ? [countryIso, 'odp', ...classUuids] : [countryIso, 'odp'])
-  const issueIds = res.rows.map(r => r.issue_id)
-
-  await deleteIssuesByIds(client, issueIds)
-
-  return {odpId}
-}
-
-const addClassData = async (client, odpVersionId, odp) => {
-  const nationalInserts = R.map(
-    (nationalClass) => client.query(
-      `INSERT INTO odp_class
-        (odp_version_id,
-        name,
-        definition,
-        area,
-        forest_percent,
-        other_wooded_land_percent,
-        forest_natural_percent,
-        forest_plantation_percent,
-        forest_plantation_introduced_percent,
-        other_planted_forest_percent,
-        uuid)
-        VALUES
-        ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11);`,
-      [
-        odpVersionId,
-        nationalClass.className,
-        nationalClass.definition,
-        nationalClass.area,
-        nationalClass.forestPercent,
-        nationalClass.otherWoodedLandPercent,
-        nationalClass.naturalForestPercent,
-        nationalClass.plantationPercent,
-        nationalClass.plantationIntroducedPercent,
-        nationalClass.otherPlantedPercent,
-        nationalClass.uuid
-      ]),
-    odp.nationalClasses)
-  return await Promise.all(nationalInserts)
-}
-
-const wipeClassData = async (client, odpVersionId) =>
-  await client.query('DELETE FROM odp_class WHERE odp_version_id = $1', [odpVersionId])
-
-// ========================
-//   ODP METHODS
-// ========================
 
 const createOdp = async (client, countryIso, user) => {
   await client.query('INSERT INTO odp (country_iso ) VALUES ($1)', [countryIso])
@@ -300,38 +139,6 @@ const getOdp = async odpId => {
   return {...editStatus, nationalClasses, dataSourceMethods}
 }
 
-const eofReducer = (results, row, type = 'fra') =>
-  [
-    ...results,
-    {
-      odpId: row.odp_id,
-      forestArea: row.forest_area,
-      otherWoodedLand: row.other_wooded_land_area,
-      name: row.year + '',
-      type: 'odp',
-      year: Number(row.year),
-      dataSourceMethods: R.path(['data_source_methods', 'methods'], row),
-      draft: row.draft
-    }
-  ]
-
-const focReducer = (results, row, type = 'fra') =>
-  [
-    ...results,
-    {
-      odpId: row.odp_id,
-      naturalForestArea: row.natural_forest_area,
-      plantationForestArea: row.plantation_forest_area,
-      plantationForestIntroducedArea: row.plantation_forest_introduced_area,
-      otherPlantedForestArea: row.other_planted_forest_area,
-      name: row.year + '',
-      type: 'odp',
-      year: Number(row.year),
-      dataSourceMethods: R.path(['data_source_methods', 'methods'], row),
-      draft: row.draft
-    }
-  ]
-
 const readEofOdps = async (countryIso) => {
   const res = await db.query(`
     SELECT
@@ -407,16 +214,11 @@ const listAndValidateOriginalDataPoints = async countryIso => {
   return R.map(odp => R.assoc('validationStatus', validateDataPoint(odp), odp), odps)
 }
 
-// ========================
-//   EXPORTS
-// ========================
-
 module.exports = {
   saveDraft,
   deleteDraft,
 
   getOdp,
-  createOdp,
   markAsActual,
   deleteOdp,
 
