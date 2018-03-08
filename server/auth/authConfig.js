@@ -39,33 +39,34 @@ const localStrategyVerifyCallback = async (req, email, password, done) => {
   try {
     const invitationUUID = req.body.invitationUUID
     if (invitationUUID) {
+      const password2 = req.body.password2
       //accepting invitation
       const invitation = await userRepository.fetchInvitation(invitationUUID)
+      // validating invitation
       if (!invitation)
         sendResp(null, 'Invitation not found')
-
-      // validating invitation
-      const password2 = req.body.password2
-      if (R.isEmpty(R.trim(password)) || R.isEmpty(R.trim(password2)))
+      else if (R.isEmpty(R.trim(password)) || R.isEmpty(R.trim(password2)))
         sendResp(null, 'Passwords cannot be empty')
-      if (R.trim(password) !== R.trim(password2))
+      else if (R.trim(password) !== R.trim(password2))
         sendResp(null, 'Passwords don\'t match')
-
-      const hash = await bcrypt.hash(password, 10)
-      const user = await db.transaction(userRepository.acceptInvitationLocalUser, [invitationUUID, hash])
-      sendResp(user)
+      else {
+        const hash = await bcrypt.hash(password, 10)
+        const user = await db.transaction(userRepository.acceptInvitationLocalUser, [invitationUUID, hash])
+        sendResp(user)
+      }
 
     } else {
       // login
       if (!validEmail({email}))
         sendResp(null, 'Email not valid')
-      if (R.isEmpty(R.trim(password)))
+      else if (R.isEmpty(R.trim(password)))
         sendResp(null, 'Password cannot be empty')
-
-      const user = await userRepository.findUserByEmailAndPassword(email, password)
-      user
-        ? sendResp(user)
-        : sendResp(null, 'User not found. Check that email and password are correct')
+      else {
+        const user = await userRepository.findUserByEmailAndPassword(email, password)
+        user
+          ? sendResp(user)
+          : sendResp(null, 'User not found. Check that email and password are correct')
+      }
     }
   } catch (e) {
     console.log('Error occurred while authenticating', e)
