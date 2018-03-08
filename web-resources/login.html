@@ -54,6 +54,12 @@
                     <input type="password" name="password2" id="password2" placeholder="Repeat your password"/>
                 </div>
                 <div class="alert-error" id="loginError" style="display: none">
+                    <div class="alert-icon">
+                        <svg class="icon">
+                            <use xlink:href="img/icons.svg#alert"/>
+                        </svg>
+                    </div>
+                    <div class="alert-message" id="loginErrorMessage"></div>
                 </div>
                 <div class="login__buttons">
                     <button class="btn" type="reset" onclick="showSignin()">Cancel</button>
@@ -166,8 +172,8 @@
 
         var resp = JSON.parse(http.responseText)
         if (resp.message) {
-          document.getElementById('loginError').style.display = 'block'
-          document.getElementById('loginError').innerHTML = resp.message
+          document.getElementById('loginError').style.display = 'flex'
+          document.getElementById('loginErrorMessage').innerHTML = resp.message
         } else if (resp.redirectUrl) {
           window.location = resp.redirectUrl
         }
