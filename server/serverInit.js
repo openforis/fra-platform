@@ -16,6 +16,8 @@ module.exports = () => {
 
   const app = express()
 
+  app.use(bodyParser.json({limit: '5000kb'}))
+
   resourceCacheControl.init(app)
 //Not part of apiRouter because of special urls (starting from root)
   sessionInit.init(app)
@@ -29,7 +31,6 @@ module.exports = () => {
   app.use('/img/', express.static(`${__dirname}/../web-resources/img`))
   app.use('/css/', express.static(`${__dirname}/../web-resources/css`))
   app.use('/ckeditor/', express.static(`${__dirname}/../web-resources/ckeditor`))
-  app.use(bodyParser.json({limit: '5000kb'}))
 
   app.use(fileUpload())
   app.use('/api', apiRouter.router)
