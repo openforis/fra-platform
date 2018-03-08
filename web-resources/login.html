@@ -6,55 +6,87 @@
     <title>FRA platform</title>
     <link href="css/login.css" rel="stylesheet" type="text/css">
     <script type="text/javascript">
-        document.addEventListener("DOMContentLoaded", function() {
-          if (location.search.indexOf('loginFailed') !== -1) {
-            document.getElementById('login-failed-indicator').style.display = "block"
-          }
-        })
+      document.addEventListener('DOMContentLoaded', function () {
+        if (location.search.indexOf('loginFailed') !== -1) {
+          document.getElementById('login-failed-indicator').style.display = 'block'
+        }
+      })
     </script>
 </head>
 <body>
-    <div style="display:none" id="login-failed-indicator" class="alert-container">
-        <div class="alert-error">
-            <div class="alert-icon">
-                <svg class="icon"><use xlink:href="img/icons.svg#alert"></svg>
-            </div>
-            <div class="alert-message">User not authorized</div>
+<div style="display:none" id="login-failed-indicator" class="alert-container">
+    <div class="alert-error">
+        <div class="alert-icon">
+            <svg class="icon">
+                <use xlink:href="img/icons.svg#alert">
+            </svg>
         </div>
+        <div class="alert-message">User not authorized</div>
     </div>
-    <div class="login__wrapper">
-        <img src="img/fao_logo.svg" class="login__logo" height="60" />
-        <img src="img/tucan.svg" class="login__tucan"/>
-        <div class="login__box">
-            <div class="login__top" id="loginForm">
-                <h2>Login to FRA Platform</h2>
-                <div id="loginButtons" class="login__buttons">
-                    <button class="btn">Sign in with FRA</button>
-                </div>
-            </div>
-            <div class="login__bottom">
-                <h3>CFRQ</h3>
-                <p>Collaborative Forest Resources Questionnaire</p>
-                <img src="img/cfrq_logos.png">
-            </div>
-        </div>
-        <div class="login__legal">
-            <p>All rights reserved. FAO encourages the reproduction and dissemination of material published on this Web site. Non-commercial uses will be authorized free of charge, upon request. Reproduction for resale or other commercial purposes, including educational purposes, may incur fees. Applications for permission to reproduce or disseminate FAO copyright material, and all queries concerning rights and licences, should be addressed by e-mail to <a href="mailto:copyright@fao.org">copyright@fao.org</a>. If you need help, send an e-mail to the <a href="mailto:fra@fao.org">fra@fao.org</a>.</p>
-            <div class="login__contributor-logos">
-                <img src="/img/ec_logo.png" height="60" />
-                <img src="/img/mfafi_logo.png" height="100" />
-                <img src="/img/mmmfi_logo.png" height="60" />
-            </div>
-            <p>This website was produced with partial funding by the <a target="_blank" href="http://ec.europa.eu/europeaid/">European Commission</a>,
-                the <a target="_blank" href="http://mediabank.finland.fi/l/DmBwDKDCT_Bn">Ministry for foreign affairs of Finland</a>
-                and the <a target="_blank" href="http://mmm.fi/ministerio/yhteisotunnus">Ministry of Agriculture and Forestry  of Finland</a>.
+</div>
+<div class="login__wrapper">
+    <img src="img/fao_logo.svg" class="login__logo" height="60"/>
+    <img src="img/tucan.svg" class="login__tucan"/>
 
-            </p>
+    <div class="login__box" id="signInContainer">
+        <div class="login__top">
+            <h2>Login to FRA Platform</h2>
+            <div>
+                <a id="btnGoogleSignIn" class="btn">Sign in with Google</a>
+                <button class="btn" type="button" onclick="showFraLogin()">Sign in with FRA</button>
+            </div>
+        </div>
+        <div class="login__bottom">
+            <h3>CFRQ</h3>
+            <p>Collaborative Forest Resources Questionnaire</p>
+            <img src="img/cfrq_logos.png">
         </div>
     </div>
+
+    <div class="login__box" id="loginContainer" style="display: none">
+        <div class="login__top">
+            <h2>Login to FRA Platform</h2>
+            <form action="/">
+                <div class="login__form">
+                    <input type="hidden" name="invitationUUID" id="invitationUUID"/>
+                    <input type="text" name="email" id="email" placeholder="Enter your email"/>
+                    <input type="password" name="password" id="password" placeholder="Enter your password"/>
+                    <input type="password" name="password2" id="password2" placeholder="Repeat your password"/>
+                </div>
+                <div class="login__buttons">
+                    <button class="btn" type="reset" onclick="showSignin()">Cancel</button>
+                    <button class="btn" type="submit">Login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="login__legal">
+        <p>All rights reserved. FAO encourages the reproduction and dissemination of material published on this Web
+            site. Non-commercial uses will be authorized free of charge, upon request. Reproduction for resale or other
+            commercial purposes, including educational purposes, may incur fees. Applications for permission to
+            reproduce or disseminate FAO copyright material, and all queries concerning rights and licences, should be
+            addressed by e-mail to <a href="mailto:copyright@fao.org">copyright@fao.org</a>. If you need help, send an
+            e-mail to the <a href="mailto:fra@fao.org">fra@fao.org</a>.</p>
+        <div class="login__contributor-logos">
+            <img src="/img/ec_logo.png" height="60"/>
+            <img src="/img/mfafi_logo.png" height="100"/>
+            <img src="/img/mmmfi_logo.png" height="60"/>
+        </div>
+        <p>This website was produced with partial funding by the <a target="_blank"
+                                                                    href="http://ec.europa.eu/europeaid/">European
+            Commission</a>,
+            the <a target="_blank" href="http://mediabank.finland.fi/l/DmBwDKDCT_Bn">Ministry for foreign affairs of
+                Finland</a>
+            and the <a target="_blank" href="http://mmm.fi/ministerio/yhteisotunnus">Ministry of Agriculture and
+                Forestry of Finland</a>.
+
+        </p>
+    </div>
+</div>
 </body>
 <script type="text/javascript">
-  function getParameterByName(name, url) {
+  function getParameterByName (name, url) {
     if (!url) {
       url = window.location.href
     }
@@ -69,10 +101,29 @@
     }
     return decodeURIComponent(results[2].replace(/\+/g, ' '))
   }
+
   var invitationUUID = getParameterByName('i')
   var loginUrl = invitationUUID ? '/auth/google?i=' + invitationUUID : '/auth/google'
-  var loginBtn = '<a href="' + loginUrl + '" class="btn">Sign in with Google</a>'
-  var loginButtonsHtml = document.getElementById('loginButtons').innerHTML
-  document.getElementById('loginButtons').innerHTML = loginBtn + loginButtonsHtml
+  document.getElementById('btnGoogleSignIn').setAttribute('href', loginUrl)
+
+  // init fra login
+  if (invitationUUID) {
+    document.getElementById('invitationUUID').setAttribute('value', invitationUUID)
+    document.getElementById('email').remove()
+  } else {
+    document.getElementById('invitationUUID').remove()
+    document.getElementById('password2').remove()
+  }
+
+  var showSignin = function () {
+    document.getElementById('loginContainer').style.display = 'none'
+    document.getElementById('signInContainer').style.display = 'block'
+  }
+
+  var showFraLogin = function () {
+    document.getElementById('signInContainer').style.display = 'none'
+    document.getElementById('loginContainer').style.display = 'block'
+  }
+
 </script>
 </html>

@@ -85,6 +85,28 @@ h1, h2, h3, h4 {
     justify-content: center;
 }
 
+.login__form {
+    display: flex;
+    flex-direction: column;
+}
+
+.login__form input[type=text],
+.login__form input[type=password] {
+    margin: 20px 20%;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 2px solid #99999961;
+    font-size: 14px;
+    padding: 10px 20px;
+    outline: none;
+    text-align: center;
+}
+
+.login__buttons {
+    margin-top: 20px;
+}
+
 .btn {
     background-color: #0098a6;
     border: 2px solid #00988F;
