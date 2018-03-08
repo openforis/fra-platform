@@ -25,7 +25,7 @@ module.exports.validateDataPoint = odp => {
     )(cls)
 
   const validateClassName = c =>
-    !(R.isEmpty(c.className) || R.length(c.className) > 512)
+    !(R.isEmpty(c.className) || R.length(c.className) > 1024)
 
   const nationalClasses = R.map(
     c => R.pipe(
