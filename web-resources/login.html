@@ -28,6 +28,9 @@
         <div class="login__box">
             <div class="login__top" id="loginForm">
                 <h2>Login to FRA Platform</h2>
+                <div id="loginButtons" class="login__buttons">
+                    <button class="btn">Sign in with FRA</button>
+                </div>
             </div>
             <div class="login__bottom">
                 <h3>CFRQ</h3>
@@ -69,6 +72,7 @@
   var invitationUUID = getParameterByName('i')
   var loginUrl = invitationUUID ? '/auth/google?i=' + invitationUUID : '/auth/google'
   var loginBtn = '<a href="' + loginUrl + '" class="btn">Sign in with Google</a>'
-  document.getElementById('loginForm').innerHTML += loginBtn
+  var loginButtonsHtml = document.getElementById('loginButtons').innerHTML
+  document.getElementById('loginButtons').innerHTML = loginBtn + loginButtonsHtml
 </script>
 </html>
