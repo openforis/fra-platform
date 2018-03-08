@@ -60,7 +60,7 @@ export const clearActive = () => ({type: odpClearActiveAction})
 // Delete
 
 export const remove = (countryIso, odpId, destination) => dispatch => {
-  axios.delete(`/api/odp/?odpId=${odpId}`)
+  axios.delete(`/api/odp/?odpId=${odpId}&countryIso=${countryIso}`)
     .then(() => {
       dispatch({type: odpClearActiveAction})
       fetchCountryOverviewStatus(countryIso)(dispatch)
@@ -70,7 +70,7 @@ export const remove = (countryIso, odpId, destination) => dispatch => {
 }
 
 export const removeFromList = (countryIso, odpId) => dispatch => {
-  axios.delete(`/api/odp/?odpId=${odpId}`)
+  axios.delete(`/api/odp/?odpId=${odpId}&countryIso=${countryIso}`)
     .then(() => {
       fetchCountryOverviewStatus(countryIso)(dispatch)
       fetchOdps(countryIso)(dispatch)
@@ -87,7 +87,7 @@ export const markAsActual = (countryIso, odp, destination) => dispatch => {
 
   if (validationStatus.valid) {
     dispatch(autosave.start)
-    axios.post(`/api/odp/markAsActual/?odpId=${odp.odpId}`).then(resp => {
+    axios.post(`/api/odp/markAsActual/?odpId=${odp.odpId}&countryIso=${countryIso}`).then(resp => {
       dispatch(autosave.complete)
       dispatch({type: odpClearActiveAction})
       fetchCountryOverviewStatus(countryIso)(dispatch)
@@ -125,7 +125,7 @@ export const fetchOdps = countryIso => dispatch =>
   )
 
 export const copyPreviousNationalClasses = (countryIso, odp) => dispatch => {
-  axios.get(`/api/prevOdp/${countryIso}/${odp.year}`).then(resp => {
+  axios.get(`/api/prevOdp/${countryIso}/${odp.year}?countryIso=${countryIso}`).then(resp => {
     const prevOdp = resp.data
     if (prevOdp.nationalClasses) {
       saveDraft(countryIso, copyNationalClassDefinitions(odp, prevOdp))(dispatch)
@@ -137,12 +137,9 @@ export const copyPreviousNationalClasses = (countryIso, odp) => dispatch => {
 
 export const cancelDraft = (countryIso, odpId, destination) => dispatch => {
   if (odpId)
-    axios.delete(`/api/odp/draft/?odpId=${odpId}`)
+    axios.delete(`/api/odp/draft/?odpId=${odpId}&countryIso=${countryIso}`)
       .then(() => window.location = `#/country/${countryIso}/${destination}`)
       .catch((err) => dispatch(applicationError(err)))
   else
     window.location = `#/country/${countryIso}`
 }
-
-
-// fetching odp based assesment item
