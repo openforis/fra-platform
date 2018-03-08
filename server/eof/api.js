@@ -93,7 +93,7 @@ module.exports.init = app => {
       const writer = fraWriters[section]
       const generateSpec = req.body
 
-      estimationEngine.estimateAndWrite(
+      await estimationEngine.estimateAndWrite(
         readOdp,
         writer,
         countryIso,
