@@ -46,7 +46,7 @@
     <div class="login__box" id="loginContainer" style="display: none">
         <div class="login__top">
             <h2>Login to FRA Platform</h2>
-            <form action="/">
+            <form id="loginForm" action="/">
                 <div class="login__form">
                     <input type="hidden" name="invitationUUID" id="invitationUUID"/>
                     <input type="text" name="email" id="email" placeholder="Enter your email"/>
@@ -55,7 +55,7 @@
                 </div>
                 <div class="login__buttons">
                     <button class="btn" type="reset" onclick="showSignin()">Cancel</button>
-                    <button class="btn" type="submit">Login</button>
+                    <button class="btn" type="button" onclick="submitLoginForm()">Login</button>
                 </div>
             </form>
         </div>
@@ -123,6 +123,34 @@
   var showFraLogin = function () {
     document.getElementById('signInContainer').style.display = 'none'
     document.getElementById('loginContainer').style.display = 'block'
+  }
+
+  var setReadOnlyForm = function (disabled) {
+    var form = document.getElementById('loginForm')
+    var elements = form.elements
+    for (var i = 0, len = elements.length; i < len; ++i) {
+      elements[i].disabled = disabled
+    }
+  }
+
+  var submitLoginForm = function () {
+    setReadOnlyForm(true)
+
+    // var http = new XMLHttpRequest();
+    // var url = "url";
+    // var params = JSON.stringify({ appoverGUID: approverGUID });
+    // http.open("POST", url, true);
+    //
+    // http.setRequestHeader("Content-type", "application/json; charset=utf-8");
+    // http.setRequestHeader("Content-length", params.length);
+    // http.setRequestHeader("Connection", "close");
+    //
+    // http.onreadystatechange = function() {
+    //   if(http.readyState == 4 && http.status == 200) {
+    //     alert(http.responseText);
+    //   }
+    // }
+    // http.send(params);
   }
 
 </script>
