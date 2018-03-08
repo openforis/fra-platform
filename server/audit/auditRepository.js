@@ -45,19 +45,18 @@ module.exports.getAuditFeed = (countryIso) => {
         SELECT
           user_name,
           user_email,
-          user_login_email,
           message,
           section,
           target,
           time,
-          rank() OVER (PARTITION BY user_name, user_email, user_login_email, message, section ORDER BY time DESC) as rank
+          rank() OVER (PARTITION BY user_name, user_email, message, section ORDER BY time DESC) as rank
         FROM fra_audit
         WHERE country_iso = $1
         AND message != 'deleteComment'
       ) AS fa
       JOIN
         fra_user u
-      ON user_login_email = u.login_email  
+      ON user_email = u.email  
       WHERE rank = 1
       ORDER BY time DESC
       LIMIT 20
