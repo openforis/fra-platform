@@ -24,10 +24,13 @@ module.exports.validateDataPoint = odp => {
       c => R.sum([defaultTo0(c.plantationIntroducedPercent)]) <= 100
     )(cls)
 
+  const validateClassName = c =>
+    !(R.isEmpty(c.className) || R.length(c.className) > 512)
+
   const nationalClasses = R.map(
     c => R.pipe(
       R.assoc('uuid', c.uuid),
-      R.assoc('validClassName', R.not(R.isEmpty(c.className))),
+      R.assoc('validClassName', validateClassName(c)),
       v => R.assoc('validArea', c.placeHolder || !v.validClassName ? true : !isNaN(parseFloat(c.area)), v),
       v => R.assoc('validEofPercentage', c.placeHolder || !v.validArea || !v.validClassName ? true : validateEofPercentage(c), v),
       v => R.assoc('validFocPercentage', c.placeHolder || !v.validArea || !v.validClassName ? true : validateFocPercentage(c), v),
