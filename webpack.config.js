@@ -33,7 +33,7 @@ const uglifyPlugin = new webpack.optimize.UglifyJsPlugin({
 
 const plugins = prodBuild ? [...alwaysInUseplugins, uglifyPlugin] : alwaysInUseplugins
 
-const webPackConfig = {
+const webPackConfig = [{
   entry: './webapp/app/main.js',
   output: {
     filename: jsBundleName,
@@ -76,9 +76,53 @@ const webPackConfig = {
       }
     ]
   },
-  plugins: plugins
-}
+  plugins: plugins,
+  devtool: 'source-map'
+},
 
-webPackConfig.devtool = 'source-map'
+  {
+    entry: './webapp/login/login.js',
+    output: {
+      filename: 'login-[hash].js',
+      path: path.resolve(__dirname, 'dist')
+    },
+    module: {
+      rules: [
+        {
+          test: /\.less$/,
+          use: ExtractTextPlugin.extract({
+            fallback: 'style-loader',
+            use: ['css-loader', 'less-loader']
+          })
+        },
+        {
+          test: /\.(js|jsx)$/,
+          exclude: /(node_modules|bower_components)/,
+          use: {
+            loader: 'babel-loader',
+            options: {
+              presets: ['env', 'react'],
+              plugins: [require('babel-plugin-transform-object-rest-spread')]
+            }
+          }
+        }
+      ]
+    },
+    plugins: [
+      new ExtractTextPlugin({filename: 'login-[hash].css'}),
+      new HtmlWebpackPlugin({template: './web-resources/login.html',filename:'login.html'}),
+      new webpack.DefinePlugin({
+        __BUST__: `"${uuidv4()}"`,
+        'process.env': {
+          'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+        }
+      })
+    ],
+    devtool: 'source-map'
+
+  }
+]
+
+// webPackConfig.devtool = 'source-map'
 
 module.exports = webPackConfig
