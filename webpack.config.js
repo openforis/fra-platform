@@ -9,19 +9,20 @@ const prodBuild = process.env.NODE_ENV === 'production'
 const jsBundleName = 'bundle-[hash].js'
 const cssBundleName = 'styles-[hash].css'
 
-const lastCommit = process.env.SOURCE_VERSION || "N/A"
+const lastCommit = process.env.SOURCE_VERSION || 'N/A'
 const platformVersion = lastCommit + '_' + new Date().toISOString()
 
 const alwaysInUseplugins = [
   new ExtractTextPlugin({filename: cssBundleName}),
   new HtmlWebpackPlugin({template: './web-resources/index.html'}),
-  new webpack.DefinePlugin(
-    {
-      __PLATFORM_VERSION__: `"${platformVersion}"`,
-      __BUST__: `"${uuidv4()}"`,
-      __GOOGLE_API__:JSON.stringify(process.env.FRA_GOOGLE_API)
+  new webpack.DefinePlugin({
+    __PLATFORM_VERSION__: `"${platformVersion}"`,
+    __BUST__: `"${uuidv4()}"`,
+    __GOOGLE_API__: JSON.stringify(process.env.FRA_GOOGLE_API),
+    'process.env': {
+      'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
     }
-  )
+  })
 ]
 
 const uglifyPlugin = new webpack.optimize.UglifyJsPlugin({
@@ -71,7 +72,7 @@ const webPackConfig = {
       },
       {
         test: /\.css$/,
-        use: [ 'style-loader', 'css-loader' ]
+        use: ['style-loader', 'css-loader']
       }
     ]
   },
