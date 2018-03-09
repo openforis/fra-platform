@@ -36,6 +36,9 @@ const localStrategyVerifyCallback = async (req, email, password, done) => {
   const sendResp = (user, message) =>
     user ? done(null, user) : done(null, false, {message})
 
+  // at least 6 chars, 1 lower case, 1 upper case and 1 number
+  const passwordRegex = new RegExp(`^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{6,})`)
+
   try {
     const invitationUUID = req.body.invitationUUID
     if (invitationUUID) {
@@ -47,10 +50,12 @@ const localStrategyVerifyCallback = async (req, email, password, done) => {
         sendResp(null, 'Invitation not found')
       else if (R.isEmpty(R.trim(password)) || R.isEmpty(R.trim(password2)))
         sendResp(null, 'Passwords cannot be empty')
+      else if (!passwordRegex.test(password))
+        sendResp(null, 'Password must contain six characters or more and have at least one lower case and one upper case alphabetical character and one number')
       else if (R.trim(password) !== R.trim(password2))
         sendResp(null, 'Passwords don\'t match')
       else {
-        const hash = await bcrypt.hash(R.trim(password), 10)
+        const hash = await bcrypt.hash(password, 10)
         const user = await db.transaction(userRepository.acceptInvitationLocalUser, [invitationUUID, hash])
         sendResp(user)
       }
@@ -65,7 +70,7 @@ const localStrategyVerifyCallback = async (req, email, password, done) => {
         const user = await userRepository.findUserByEmailAndPassword(email, password)
         user
           ? sendResp(user)
-          : sendResp(null, 'User not found. Check that email and password are correct')
+          : sendResp(null, 'Invalid email or password')
       }
     }
   } catch (e) {
