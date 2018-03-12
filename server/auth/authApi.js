@@ -1,6 +1,6 @@
 const passport = require('passport')
+
 const authConfig = require('./authConfig')
-const userRepository = require('../user/userRepository')
 const countryRepository = require('../country/countryRepository')
 const {sendErr} = require('../utils/requestUtils')
 
