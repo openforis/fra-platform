@@ -70,7 +70,7 @@ const localStrategyVerifyCallback = async (req, email, password, done) => {
         const user = await userRepository.findUserByEmailAndPassword(email, password)
         user
           ? sendResp(user)
-          : sendResp(null, 'We couldn\'t find any user matching this email and password. Make sure you have a valid FRA account.')
+          : sendResp(null, 'We couldn\'t find any user matching these credentials.\nMake sure you have a valid FRA account.')
       }
     }
   } catch (e) {
