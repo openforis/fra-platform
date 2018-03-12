@@ -1,89 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>FRA platform</title>
 </head>
+
 <body>
-<div style="display:none" id="login-failed-indicator" class="alert-container">
-    <div class="alert-error">
-        <div class="alert-icon">
-            <svg class="icon">
-                <use xlink:href="img/icons.svg#alert"/>
-            </svg>
-        </div>
-        <div class="alert-message">User not authorized</div>
-    </div>
-</div>
-<div class="login__wrapper">
-    <img src="img/fao_logo.svg" class="login__logo" height="60"/>
-    <img src="img/tucan.svg" class="login__tucan"/>
-
-    <div class="login__box" id="signInContainer">
-        <div class="login__top">
-            <h2>Login to FRA Platform</h2>
-            <div>
-                <a id="btnGoogleSignIn" class="btn">Sign in with Google</a>
-                <button id="btnFraSignIn" class="btn" type="button">Sign in with FRA</button>
-            </div>
-        </div>
-        <div class="login__bottom">
-            <h3>CFRQ</h3>
-            <p>Collaborative Forest Resources Questionnaire</p>
-            <img src="img/cfrq_logos.png">
-        </div>
-    </div>
-
-    <div class="login__box" id="loginContainer" style="display: none">
-        <div class="login__top">
-            <h2>Login to FRA Platform</h2>
-            <form id="loginForm">
-                <div class="login__form">
-                    <input type="hidden" name="invitationUUID" id="invitationUUID"/>
-                    <input type="text" name="email" id="email" placeholder="Enter your email"/>
-                    <input type="password" name="password" id="password" placeholder="Enter your password"/>
-                    <input type="password" name="password2" id="password2" placeholder="Repeat your password"/>
-                </div>
-                <div class="alert-error" id="loginError" style="display: none">
-                    <div class="alert-icon">
-                        <svg class="icon">
-                            <use xlink:href="img/icons.svg#alert"/>
-                        </svg>
-                    </div>
-                    <div class="alert-message" id="loginErrorMessage"></div>
-                </div>
-                <div class="login__buttons">
-                    <button id="fraLoginBtnCancel" class="btn" type="reset">Cancel</button>
-                    <button class="btn" type="submit">Login</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <div class="login__legal">
-        <p>All rights reserved. FAO encourages the reproduction and dissemination of material published on this Web
-            site. Non-commercial uses will be authorized free of charge, upon request. Reproduction for resale or other
-            commercial purposes, including educational purposes, may incur fees. Applications for permission to
-            reproduce or disseminate FAO copyright material, and all queries concerning rights and licences, should be
-            addressed by e-mail to <a href="mailto:copyright@fao.org">copyright@fao.org</a>. If you need help, send an
-            e-mail to the <a href="mailto:fra@fao.org">fra@fao.org</a>.</p>
-        <div class="login__contributor-logos">
-            <img src="/img/ec_logo.png" height="60"/>
-            <img src="/img/mfafi_logo.png" height="100"/>
-            <img src="/img/mmmfi_logo.png" height="60"/>
-        </div>
-        <p>
-            This website was produced with partial funding by the
-            <a target="_blank" href="http://ec.europa.eu/europeaid/">European Commission</a>, the
-            <a target="_blank" href="http://mediabank.finland.fi/l/DmBwDKDCT_Bn">
-                Ministry for foreign affairs of Finland
-            </a> and the
-            <a target="_blank" href="http://mmm.fi/ministerio/yhteisotunnus">
-                Ministry of Agriculture and Forestry of Finland
-            </a>.
-        </p>
-    </div>
+<div id="main">
 </div>
 </body>
 
