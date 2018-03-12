@@ -1,7 +1,12 @@
-import {exportReducer} from '../utils/reduxUtils'
+import * as R from 'ramda'
 
-const actionHandlers ={
+import { exportReducer } from '../utils/reduxUtils'
 
+import { localLoginResponseLoaded } from './actions'
+
+const actionHandlers = {
+  [localLoginResponseLoaded]: (state, action) =>
+    R.assocPath(['localLogin', 'message'], action.message, state)
 }
 
 export default exportReducer(actionHandlers)

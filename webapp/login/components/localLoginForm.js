@@ -4,6 +4,8 @@ import * as R from 'ramda'
 import { connect } from 'react-redux'
 import { getUrlParameter } from '../../utils/urlUtils'
 
+import { localLoginSubmit, localLoginReset } from './../actions'
+
 import Icon from '../../reusableUiComponents/icon'
 
 const loginFields = [
@@ -18,19 +20,15 @@ const invitationFields = [
 
 class LocalLoginForm extends React.Component {
 
-  constructor () {
-    super()
+  constructor (props) {
+    super(props)
     this.state = {user: {}}
-  }
 
-  handleSubmit (e) {
-    e.preventDefault()
-
-    console.log('+ user ', this.state.user)
+    props.localLoginReset()
   }
 
   render () {
-    const {onCancel} = this.props
+    const {onCancel, localLoginSubmit, message} = this.props
 
     const invitationUUID = getUrlParameter('i')
 
@@ -49,12 +47,16 @@ class LocalLoginForm extends React.Component {
       </div>
 
       {
-        false
+        message
           ? <div className="alert-error" id="loginError">
             <div className="alert-icon">
               <Icon name="alert"/>
             </div>
-            <div className="alert-message" id="loginErrorMessage"></div>
+            <div className="alert-message" id="loginErrorMessage">{
+              message.split('\n').map((item, i) =>
+                <span key={i}>{item}<br/></span>
+              )
+            }</div>
           </div>
           : null
       }
@@ -66,7 +68,7 @@ class LocalLoginForm extends React.Component {
           Cancel
         </button>
         <button className="btn" type="button"
-                onSubmit={e => this.handleSubmit(e)}>
+                onClick={e => localLoginSubmit(this.state.user, invitationUUID)}>
           Login
         </button>
       </div>
@@ -75,6 +77,8 @@ class LocalLoginForm extends React.Component {
   }
 }
 
-const mapStateToProps = state => console.log(state) || ({})
+const mapStateToProps = state => ({
+  message: R.path(['localLogin', 'message'], state)
+})
 
-export default connect(mapStateToProps)(LocalLoginForm)
+export default connect(mapStateToProps, {localLoginSubmit, localLoginReset})(LocalLoginForm)
