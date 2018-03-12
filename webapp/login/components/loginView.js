@@ -78,10 +78,10 @@ class LoginView extends React.Component {
                      href={`/auth/google${invitationUUID ? `?i=${invitationUUID}` : ''}`}>
                     Sign in with Google
                   </a>
-                  {/*<button className="btn" type="button"*/}
-                          {/*onClick={() => this.setState({localLogin: true})}>*/}
-                    {/*Sign in with FRA*/}
-                  {/*</button>*/}
+                  <button className="btn" type="button"
+                          onClick={() => this.setState({localLogin: true})}>
+                    Sign in with FRA
+                  </button>
                 </div>
             }
           </div>
