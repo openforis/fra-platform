@@ -1,4 +1,4 @@
-const R = require("ramda")
+const R = require('ramda')
 
 const camelize = require('camelize')
 
@@ -34,9 +34,16 @@ const validate = user => {
   }
 }
 
+// user types
+const userType = {
+  google: 'google',
+  local: 'local'
+}
+
 module.exports = {
   profilePictureUri,
   i18nUserRole,
   validate,
-  validEmail
+  validEmail,
+  userType
 }

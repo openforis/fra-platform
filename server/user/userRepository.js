@@ -9,6 +9,7 @@ const auditRepository = require('./../audit/auditRepository')
 const {AccessControlException} = require('../utils/accessControl')
 
 const {nationalCorrespondent, reviewer, collaborator} = require('../../common/countryRole')
+const {userType} = require('../../common/userUtils')
 
 const {loginUrl} = require('./sendInvitation')
 
@@ -28,7 +29,7 @@ const findUserByEmailAndPassword = async (email, password, client = db) => {
   const res = await  client.query(`
     SELECT id, password 
     FROM fra_user 
-    WHERE LOWER(email) = $1`
+    WHERE LOWER(email) = LOWER($1)`
     , [email])
 
   if (!R.isEmpty(res.rows)) {
@@ -211,12 +212,17 @@ const getUserProfilePicture = async (userId, client = db) => {
     }
 }
 
-const insertUser = (client, email, name, loginEmail, password = null) =>
-  client.query(`
+const insertUser = (client, email, name, loginEmail, password = null) => {
+  const type = password
+    ? userType.local
+    : userType.google
+
+  return client.query(`
     INSERT INTO
-      fra_user(email, name, login_email, password)
-    VALUES ($1, $2, $3, $4)
-  `, [email, name, loginEmail, password])
+      fra_user(email, name, login_email, password, type)
+    VALUES ($1, $2, $3, $4, $5)
+  `, [email, name, loginEmail, password, type])
+}
 
 const getIdOfJustAddedUser = client =>
   client.query(`SELECT last_value as user_id FROM fra_user_id_seq`)
