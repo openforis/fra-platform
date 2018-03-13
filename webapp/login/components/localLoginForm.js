@@ -6,6 +6,7 @@ import { getUrlParameter } from '../../utils/urlUtils'
 
 import { localLoginSubmit, localLoginReset } from './../actions'
 
+import ForgotPasswordFormModal from './forgotPasswordFormModal'
 import Icon from '../../reusableUiComponents/icon'
 
 const loginFields = [
@@ -22,7 +23,7 @@ class LocalLoginForm extends React.Component {
 
   constructor (props) {
     super(props)
-    this.state = {user: {}}
+    this.state = {user: {}, forgotPassword: false}
 
     props.localLoginReset()
   }
@@ -37,14 +38,14 @@ class LocalLoginForm extends React.Component {
       : loginFields
 
     return <div className="login__form">
-      <div>
-        {
-          formFields.map(f =>
-            <input key={f.name} type={f.type} name={f.name} placeholder={f.placeholder}
-                   onChange={e => this.setState({user: R.assoc(f.name, e.target.value, this.state.user)})}/>
-          )
-        }
-      </div>
+
+      {
+        formFields.map(f =>
+          <input key={f.name} type={f.type} name={f.name} placeholder={f.placeholder}
+                 onChange={e => this.setState({user: R.assoc(f.name, e.target.value, this.state.user)})}/>
+        )
+      }
+
 
       {
         message
@@ -72,7 +73,16 @@ class LocalLoginForm extends React.Component {
           Login
         </button>
       </div>
-      <a onClick={() => ({})}>Forgot your password ?</a>
+
+      <a onClick={() => this.setState({forgotPassword: true})}>Forgot your password ?</a>
+
+      {
+        this.state.forgotPassword
+          ? <ForgotPasswordFormModal email={R.path(['user', 'email'], this.state)}
+                                     onClose={() => this.setState({forgotPassword: false})}/>
+          : null
+      }
+
     </div>
   }
 }
