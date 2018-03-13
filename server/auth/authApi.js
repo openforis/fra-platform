@@ -1,8 +1,12 @@
 const passport = require('passport')
+const R = require('ramda')
 
 const authConfig = require('./authConfig')
 const countryRepository = require('../country/countryRepository')
 const {sendErr} = require('../utils/requestUtils')
+const {validEmail} = require('../../common/userUtils')
+
+const {findLocalUserByEmail} = require('../user/userRepository')
 
 const authenticationFailed = (req, res) => {
   req.logout()
@@ -55,7 +59,7 @@ module.exports.init = app => {
     res.json({})
   })
 
-  app.post('/auth/local/login', function (req, res, next) {
+  app.post('/auth/local/login', (req, res, next) => {
 
     passport.authenticate('local', (err, user, info) => {
       if (err) {
@@ -68,6 +72,28 @@ module.exports.init = app => {
         )
       }
     })(req, res, next)
+  })
+
+  app.post('/auth/local/resetPassword', async (req, res) => {
+    try {
+
+      const email = req.body.email
+      //validation
+      if (R.isEmpty(R.trim(email)))
+        res.send({error: 'Email cannot be empty'})
+      else if (!validEmail({email}))
+        res.send({error: 'Email not valid'})
+      else {
+        const user = await findLocalUserByEmail(email)
+        if (!user) {
+          res.send({error: 'We couldn\'t find any user matching this email.\nMake sure you have a valid FRA account.'})
+        } else {
+          //reset password
+        }
+      }
+    } catch (err) {
+      sendErr(res, err)
+    }
   })
 
 }

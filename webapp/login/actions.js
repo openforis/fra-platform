@@ -1,6 +1,7 @@
 import axios from 'axios'
 
-export const localLoginResponseLoaded = 'localLogin/Response/Loaded'
+export const localLoginResponseLoaded = 'localLogin/response/loaded'
+export const localLoginResetPasswordResponseLoaded = 'localLogin/resetPassword/loaded'
 
 export const localLoginReset = () => dispatch =>
   dispatch({type: localLoginResponseLoaded, message: null})
@@ -16,5 +17,20 @@ export const localLoginSubmit = (user, invitationUUID) => dispatch => {
         dispatch({type: localLoginResponseLoaded, message: data.message})
       }
     }).catch(error => dispatch({type: localLoginResponseLoaded, message: error}))
+
+}
+
+export const resetPasswordFormReset = () => dispatch =>
+  dispatch({type: localLoginResetPasswordResponseLoaded, message: null, error: null})
+
+export const resetPassword = email => dispatch => {
+
+  axios.post('/auth/local/resetPassword', {email})
+    .then(resp => {
+      const data = resp.data
+
+      dispatch({type: localLoginResetPasswordResponseLoaded, ...data})
+    })
+    .catch(error => dispatch({type: localLoginResetPasswordResponseLoaded, message: error}))
 
 }

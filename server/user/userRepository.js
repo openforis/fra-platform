@@ -25,6 +25,20 @@ const findUserByLoginEmail = (loginEmail, client = db) =>
   client.query('SELECT id from fra_user WHERE LOWER(login_email) in ($1)', [loginEmail])
     .then(res => res.rows.length > 0 ? findUserById(res.rows[0].id, client) : null)
 
+const findLocalUserByEmail = async (email, client = db) => {
+  const res = await  client.query(`
+    SELECT id, name, email, institution, position, lang
+    FROM fra_user 
+    WHERE LOWER(email) = LOWER($1)
+    AND type = $2`
+    , [email, userType.local])
+
+  return R.isEmpty(res.rows)
+    ? null
+    : res.rows[0]
+
+}
+
 const findUserByEmailAndPassword = async (email, password, client = db) => {
   const res = await  client.query(`
     SELECT id, password 
@@ -431,6 +445,7 @@ const acceptInvitationLocalUser = async (client, invitationUUID, password) => {
 module.exports = {
   findUserById,
   findUserByLoginEmail,
+  findLocalUserByEmail,
   findUserByEmailAndPassword,
   updateLanguage,
   fetchCountryUsers,
