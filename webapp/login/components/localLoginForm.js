@@ -24,8 +24,10 @@ class LocalLoginForm extends React.Component {
   constructor (props) {
     super(props)
     this.state = {user: {}, forgotPassword: false}
+  }
 
-    props.localLoginReset()
+  componentDidMount () {
+    this.props.localLoginReset()
   }
 
   render () {
@@ -46,14 +48,13 @@ class LocalLoginForm extends React.Component {
         )
       }
 
-
       {
         message
-          ? <div className="alert-error" id="loginError">
+          ? <div className="alert-error">
             <div className="alert-icon">
               <Icon name="alert"/>
             </div>
-            <div className="alert-message" id="loginErrorMessage">{
+            <div className="alert-message">{
               message.split('\n').map((item, i) =>
                 <span key={i}>{item}<br/></span>
               )

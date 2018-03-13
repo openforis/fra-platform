@@ -1,13 +1,21 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import * as R from 'ramda'
 
 import { Modal, ModalBody } from '../../reusableUiComponents/modal'
+import Icon from '../../reusableUiComponents/icon'
+
+import { resetPassword, resetPasswordFormReset } from './../actions'
 
 class ForgotPasswordFormModal extends React.Component {
 
+  componentDidMount () {
+    this.props.resetPasswordFormReset()
+  }
+
   render () {
 
-    const {onClose, email = ''} = this.props
+    const {onClose, resetPassword, email = '', error, message} = this.props
 
     return <Modal isOpen="true">
 
@@ -16,12 +24,27 @@ class ForgotPasswordFormModal extends React.Component {
 
           <div className="login__top">
             <h3>Enter your email and submit the form.<br/>
-              Your will receive and email with instructions
+              Your will receive the instructions via email
             </h3>
 
             <div className="login__form">
-              <input type="text" ref="email" value={email} placeholder="Email"/>
+              <input type="text" ref="email" placeholder="Email"/>
             </div>
+
+            {
+              error
+                ? <div className="alert-error">
+                  <div className="alert-icon">
+                    <Icon name="alert"/>
+                  </div>
+                  <div className="alert-message">{
+                    error.split('\n').map((item, i) =>
+                      <span key={i}>{item}<br/></span>
+                    )
+                  }</div>
+                </div>
+                : null
+            }
 
             <div className="login__buttons">
               <button className="btn"
@@ -30,7 +53,7 @@ class ForgotPasswordFormModal extends React.Component {
               </button>
               <button className="btn"
                       onClick={() => {
-
+                        resetPassword(this.refs.email.value)
                       }}>
                 Submit
               </button>
@@ -44,6 +67,9 @@ class ForgotPasswordFormModal extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({})
+const mapStateToProps = state => ({
+  error: R.path(['localLogin', 'resetPassword', 'error'], state),
+  message: R.path(['localLogin', 'resetPassword', 'message'], state)
+})
 
-export default connect(mapStateToProps)(ForgotPasswordFormModal)
+export default connect(mapStateToProps, {resetPassword, resetPasswordFormReset})(ForgotPasswordFormModal)
