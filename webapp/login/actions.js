@@ -25,7 +25,7 @@ export const resetPasswordFormReset = () => dispatch =>
 
 export const resetPassword = email => dispatch => {
 
-  axios.post('/auth/local/resetPassword', {email})
+  axios.post('/auth/local/createResetPassword', {email})
     .then(resp => {
       const data = resp.data
 

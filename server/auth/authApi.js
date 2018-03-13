@@ -1,12 +1,15 @@
 const passport = require('passport')
 const R = require('ramda')
 
+const db = require('./../db/db')
 const authConfig = require('./authConfig')
 const countryRepository = require('../country/countryRepository')
-const {sendErr} = require('../utils/requestUtils')
+const {sendErr, serverUrl} = require('../utils/requestUtils')
 const {validEmail} = require('../../common/userUtils')
 
 const {findLocalUserByEmail} = require('../user/userRepository')
+const {createResetPassword} = require('../user/userResetPasswordRepository')
+const {sendResetPasswordEmail} = require('./resetPassword')
 
 const authenticationFailed = (req, res) => {
   req.logout()
@@ -74,7 +77,7 @@ module.exports.init = app => {
     })(req, res, next)
   })
 
-  app.post('/auth/local/resetPassword', async (req, res) => {
+  app.post('/auth/local/createResetPassword', async (req, res) => {
     try {
 
       const email = req.body.email
@@ -89,6 +92,11 @@ module.exports.init = app => {
           res.send({error: 'We couldn\'t find any user matching this email.\nMake sure you have a valid FRA account.'})
         } else {
           //reset password
+          const resetPassword = await db.transaction(createResetPassword,[user.id])
+          const url = serverUrl(req)
+
+          await sendResetPasswordEmail(user, url, resetPassword.uuid)
+          res.send({message: `The request to reset your password has been successfully submitted.\nYou'll be shortly receiving an email with instructions`})
         }
       }
     } catch (err) {
