@@ -15,52 +15,64 @@ class ForgotPasswordFormModal extends React.Component {
 
   render () {
 
-    const {onClose, resetPassword, email = '', error, message} = this.props
+    const {onClose, resetPassword, error, message} = this.props
 
     return <Modal isOpen="true">
 
       <ModalBody>
-        <div className="login__box" style={{border: 0, boxShadow: 'none'}}>
+        {
+          message
 
-          <div className="login__top">
-            <h3>Enter your email and submit the form.<br/>
-              Your will receive the instructions via email
-            </h3>
-
-            <div className="login__form">
-              <input type="text" ref="email" placeholder="Email"/>
+            ? <div className="alert-confirmation-message">
+              {
+                message.split('\n').map((item, i) =>
+                  <span key={i}>{item}<br/></span>
+                )
+              }
             </div>
 
-            {
-              error
-                ? <div className="alert-error">
-                  <div className="alert-icon">
-                    <Icon name="alert"/>
-                  </div>
-                  <div className="alert-message">{
-                    error.split('\n').map((item, i) =>
-                      <span key={i}>{item}<br/></span>
-                    )
-                  }</div>
+            : <div className="login__box" style={{border: 0, boxShadow: 'none'}}>
+
+              <div className="login__top">
+                <h3>Enter your email and submit the form.<br/>
+                  Your will receive the instructions via email
+                </h3>
+
+                <div className="login__form">
+                  <input type="text" ref="email" placeholder="Email"/>
                 </div>
-                : null
-            }
 
-            <div className="login__buttons">
-              <button className="btn"
-                      onClick={onClose}>
-                Cancel
-              </button>
-              <button className="btn"
-                      onClick={() => {
-                        resetPassword(this.refs.email.value)
-                      }}>
-                Submit
-              </button>
+                {
+                  error
+                    ? <div className="alert-error">
+                      <div className="alert-icon">
+                        <Icon name="alert"/>
+                      </div>
+                      <div className="alert-message">{
+                        error.split('\n').map((item, i) =>
+                          <span key={i}>{item}<br/></span>
+                        )
+                      }</div>
+                    </div>
+                    : null
+                }
+
+                <div className="login__buttons">
+                  <button className="btn"
+                          onClick={onClose}>
+                    Cancel
+                  </button>
+                  <button className="btn"
+                          onClick={() => {
+                            resetPassword(this.refs.email.value)
+                          }}>
+                    Submit
+                  </button>
+                </div>
+
+              </div>
             </div>
-
-          </div>
-        </div>
+        }
       </ModalBody>
 
     </Modal>

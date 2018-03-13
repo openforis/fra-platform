@@ -33,6 +33,36 @@ module.exports.translation = {
       collaborator_plural: 'Collaborators',
       administrator: 'Administrator',
       noRole: 'N/A'
+    },
+
+    resetPasswordEmail: {
+      subject: 'FRA platform - Reset password',
+      textMessage: `Dear {{user}}
+
+We have received a request to reset your password for your FRA account. 
+If you didn't make this request, you can safely ignore this email.
+
+Click the following link to reset your password
+{{- link}}}
+
+
+Thanks,
+The FRA team fra@fao.org
+{{- url}}`,
+      htmlMessage: `Dear {{user}}
+<br/><br/>
+We have received a request to reset your password for your FRA account. 
+<br/>
+If you didn't make this request, you can safely ignore this email.
+<br/><br/><br/>
+<a href="{{link}}" style="text-decoration: none; background-color: #0098a6;border: 2px solid #00988F;color: white;font-size: 14px;font-weight: 700;    padding: 10px 50px;">Click here to reset your password</a>
+<br/><br/><br/>
+Thanks,
+<br/>
+The FRA team fra@fao.org
+<br/>
+{{- url}}
+      `,
     }
   },
 
