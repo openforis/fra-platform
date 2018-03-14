@@ -3,6 +3,7 @@ const {sendErr} = require('../utils/requestUtils')
 const countryRepository = require('../country/countryRepository')
 
 module.exports.init = app => {
+
   const loginPage = (req, res, next) => {
     express.static(`${__dirname}/../../dist/login.html`)(req, res, next)
   }
@@ -24,4 +25,7 @@ module.exports.init = app => {
       sendErr(res, err)
     }
   })
+
+  app.use('/resetPassword', loginPage)
+
 }

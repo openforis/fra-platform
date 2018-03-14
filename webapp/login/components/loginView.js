@@ -1,22 +1,10 @@
 import './style.less'
 
 import React from 'react'
+import * as R from 'ramda'
 
-import { getUrlParameter } from '../../utils/urlUtils'
-
-import Icon from '../../reusableUiComponents/icon'
-
-import LocalLoginForm from './localLoginForm'
-
-const LoginFailed = () =>
-  <div className="alert-container">
-    <div className="alert-error">
-      <div className="alert-icon">
-        <Icon name="alert"/>
-      </div>
-      <div className="alert-message">User not authorized</div>
-    </div>
-  </div>
+import LoginForm from './loginForm'
+import ResetPasswordForm from './resetPasswordForm'
 
 const LoginLegal = () =>
   <div className="login__legal">
@@ -43,62 +31,38 @@ const LoginLegal = () =>
     </p>
   </div>
 
-class LoginView extends React.Component {
+const loginComponents = [
+  {path: '/login', component: LoginForm},
+  {path: '/resetPassword', component: ResetPasswordForm}
+]
 
-  constructor () {
-    super()
-    this.state = {localLogin: false}
-  }
+const LoginView = () => {
+  const {component} = R.find(R.propEq('path', location.pathname), loginComponents)
 
-  render () {
+  return <div>
+    <div className="login__wrapper">
+      <img src="/img/fao_logo.svg" className="login__logo" height="60"/>
+      <img src="/img/tucan.svg" className="login__tucan"/>
 
-    const invitationUUID = getUrlParameter('i')
-    const loginFailed = getUrlParameter('loginFailed')
-
-    return <div>
-
-      {
-        loginFailed
-          ? <LoginFailed/>
-          : null
-      }
-
-      <div className="login__wrapper">
-        <img src="/img/fao_logo.svg" className="login__logo" height="60"/>
-        <img src="/img/tucan.svg" className="login__tucan"/>
-
-        <div className="login__box">
-          <div className="login__top">
-            <h2>Login to FRA Platform</h2>
-            {
-              this.state.localLogin
-                ? <LocalLoginForm onCancel={() => this.setState({localLogin: false})}/>
-                : <div>
-                  <a className="btn"
-                     href={`/auth/google${invitationUUID ? `?i=${invitationUUID}` : ''}`}>
-                    Sign in with Google
-                  </a>
-                  <button className="btn" type="button"
-                          onClick={() => this.setState({localLogin: true})}>
-                    Sign in with FRA
-                  </button>
-                </div>
-            }
-          </div>
-          <div className="login__bottom">
-            <h3>CFRQ</h3>
-            <p>Collaborative Forest Resources Questionnaire</p>
-            <img src="/img/cfrq_logos.png"/>
-          </div>
+      <div className="login__box">
+        <div className="login__top">
+          {
+            React.createElement(component)
+          }
         </div>
 
-        <LoginLegal/>
-
+        <div className="login__bottom">
+          <h3>CFRQ</h3>
+          <p>Collaborative Forest Resources Questionnaire</p>
+          <img src="/img/cfrq_logos.png"/>
+        </div>
       </div>
 
-    </div>
-  }
+      <LoginLegal/>
 
+    </div>
+
+  </div>
 }
 
 export default LoginView
