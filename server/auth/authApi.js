@@ -5,7 +5,7 @@ const db = require('./../db/db')
 const authConfig = require('./authConfig')
 const countryRepository = require('../country/countryRepository')
 const {sendErr, serverUrl} = require('../utils/requestUtils')
-const {validEmail} = require('../../common/userUtils')
+const {validEmail, validPassword, passwordHash} = require('../../common/userUtils')
 
 const {findLocalUserByEmail, findUserById} = require('../user/userRepository')
 const {createResetPassword, findResetPassword} = require('../user/userResetPasswordRepository')
@@ -119,4 +119,26 @@ module.exports.init = app => {
     }
   })
 
+  app.post('/auth/local/changePassword', async (req, res) => {
+    try {
+
+      const sendResp = (error = null, message = null) =>
+        res.json({error, message})
+console.log(req.body)
+      const {uuid, userId, password, password2} = req.body
+      if (R.isEmpty(R.trim(password)) || R.isEmpty(R.trim(password2)))
+        sendResp('Passwords cannot be empty')
+      else if (R.trim(password) !== R.trim(password2))
+        sendResp('Passwords don\'t match')
+      else if (!validPassword(password))
+        sendResp('Password must contain six characters or more and have at least one lower case and one upper case alphabetical character and one number')
+      else {
+        const hash = await passwordHash(password)
+      }
+
+    } catch (err) {
+      sendErr(res, err)
+    }
+
+  })
 }

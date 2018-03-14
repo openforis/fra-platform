@@ -36,11 +36,21 @@ export const resetPassword = email => dispatch => {
 }
 
 export const resetPasswordLoaded = 'resetPassword/loaded'
+export const changePasswordResponseLoaded = 'changePassword/response/loaded'
 
 export const findResetPassword = uuid => dispatch => {
   axios.get(`/auth/local/resetPassword/${uuid}`)
     .then(resp => {
       dispatch({type: resetPasswordLoaded, status: 'loaded', resetPassword: resp.data})
     })
-    .catch(error => console.log(error) || dispatch({type: resetPasswordLoaded, status: 'error'}))
+    .catch(error => dispatch({type: resetPasswordLoaded, status: 'error'}))
+}
+
+export const changePassword = (uuid, userId, password, password2) => dispatch => {
+  axios.post(`/auth/local/changePassword`, {uuid, userId, password, password2})
+    .then(resp => {
+      const {message, error} = resp.data
+      dispatch({type: changePasswordResponseLoaded, message, error})
+    })
+    .catch(error => dispatch({type: changePasswordResponseLoaded, error}))
 }
