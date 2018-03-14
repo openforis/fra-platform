@@ -5,7 +5,8 @@ import { exportReducer } from '../utils/reduxUtils'
 import {
   localLoginResponseLoaded,
   localLoginResetPasswordResponseLoaded,
-  resetPasswordLoaded
+  resetPasswordLoaded,
+  changePasswordResponseLoaded
 } from './actions'
 
 const actionHandlers = {
@@ -21,6 +22,11 @@ const actionHandlers = {
   [resetPasswordLoaded]: (state, action) => R.pipe(
     R.assocPath(['resetPassword', 'status'], action.status),
     R.assocPath(['resetPassword', 'data'], action.resetPassword)
+  )(state),
+
+  [changePasswordResponseLoaded]: (state, action) => R.pipe(
+    R.assocPath(['changePassword', 'message'], action.message),
+    R.assocPath(['changePassword', 'error'], action.error)
   )(state)
 }
 

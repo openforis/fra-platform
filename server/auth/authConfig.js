@@ -4,11 +4,9 @@ const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy
 const LocalStrategy = require('passport-local')
 const cookieParser = require('cookie-parser')
 
-const bcrypt = require('bcrypt')
-
 const userRepository = require('../user/userRepository')
 const db = require('../db/db')
-const {validEmail} = require('../../common/userUtils')
+const {validEmail, validPassword, passwordHash} = require('../../common/userUtils')
 
 const googleStrategyVerifyCallback = async (req, accessToken, refreshToken, profile, done) => {
 
@@ -36,9 +34,6 @@ const localStrategyVerifyCallback = async (req, email, password, done) => {
   const sendResp = (user, message) =>
     user ? done(null, user) : done(null, false, {message})
 
-  // at least 6 chars, 1 lower case, 1 upper case and 1 number
-  const passwordRegex = new RegExp(`^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{6,})`)
-
   try {
     const invitationUUID = req.body.invitationUUID
     if (invitationUUID) {
@@ -50,12 +45,12 @@ const localStrategyVerifyCallback = async (req, email, password, done) => {
         sendResp(null, 'Invitation not found')
       else if (R.isEmpty(R.trim(password)) || R.isEmpty(R.trim(password2)))
         sendResp(null, 'Passwords cannot be empty')
-      else if (!passwordRegex.test(password))
-        sendResp(null, 'Password must contain six characters or more and have at least one lower case and one upper case alphabetical character and one number')
       else if (R.trim(password) !== R.trim(password2))
         sendResp(null, 'Passwords don\'t match')
+      else if (!validPassword(password))
+        sendResp(null, 'Password must contain six characters or more and have at least one lower case and one upper case alphabetical character and one number')
       else {
-        const hash = await bcrypt.hash(password, 10)
+        const hash = await passwordHash(password)
         const user = await db.transaction(userRepository.acceptInvitationLocalUser, [invitationUUID, hash])
         sendResp(user)
       }
