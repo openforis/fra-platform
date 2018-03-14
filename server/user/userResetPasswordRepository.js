@@ -1,4 +1,7 @@
 const camelize = require('camelize')
+const R = require('ramda')
+const {differenceInSeconds} = require('date-fns')
+const {toUTCSelectParam} = require('../db/queryHelper')
 
 const createResetPassword = async (client, userId) => {
 
@@ -19,6 +22,37 @@ const createResetPassword = async (client, userId) => {
   return camelize(res.rows[0])
 }
 
+const findResetPassword = async (client, uuid) => {
+  const res = await client.query(`
+  SELECT
+    user_id, uuid, ${toUTCSelectParam('created_time')}
+  FROM
+    fra_user_reset_password
+  WHERE active = true
+  AND uuid = $1
+  `, [uuid])
+
+  if (R.isEmpty(res.rows)) {
+    return null
+  } else {
+    const resetPassword = camelize(res.rows[0])
+
+    const oneWeek = 1 * 60 * 60 * 24 * 7
+    if (differenceInSeconds(resetPassword.createdTime, new Date().toISOString()) > oneWeek + 1) {
+      // if reset password is older than one week, invalidate the reset password request
+      await  client.query(`
+        UPDATE fra_user_reset_password 
+        SET active = false
+        WHERE uuid = $1
+        `, [resetPassword.uuid])
+      return null
+    } else {
+      return resetPassword
+    }
+  }
+}
+
 module.exports = {
-  createResetPassword
+  createResetPassword,
+  findResetPassword
 }

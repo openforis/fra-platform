@@ -21,11 +21,11 @@ const LoginLegal = () =>
     </div>
     <p>
       This website was produced with partial funding by the
-      <a target="_blank" href="http://ec.europa.eu/europeaid/">European Commission</a>, the
-      <a target="_blank" href="http://mediabank.finland.fi/l/DmBwDKDCT_Bn">
+      <a target="_blank" href="http://ec.europa.eu/europeaid/"> European Commission</a>, the
+      &#160;<a target="_blank" href="http://mediabank.finland.fi/l/DmBwDKDCT_Bn">
         Ministry for foreign affairs of Finland
       </a> and the
-      <a target="_blank" href="http://mmm.fi/ministerio/yhteisotunnus">
+      &#160;<a target="_blank" href="http://mmm.fi/ministerio/yhteisotunnus">
         Ministry of Agriculture and Forestry of Finland
       </a>.
     </p>
