@@ -112,12 +112,16 @@ h1, h2, h3, h4 {
   border-top: none;
   border-left: none;
   border-right: none;
-  border-bottom: 2px solid #99999961;
+  border-bottom: 2px solid rgba(153, 153, 153, 0.3);
   font-size: 14px;
   padding: 10px 20px;
   outline: none;
   text-align: center;
   width: 50%;
+}
+
+.login__form input[type=text]:disabled {
+  background-color: rgba(153, 153, 153, 0.1);
 }
 
 .login__buttons {
