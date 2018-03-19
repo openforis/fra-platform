@@ -2,12 +2,14 @@ const uuidv4 = require('uuid/v4')
 const camelize = require('camelize')
 const Promise = require('bluebird')
 const R = require('ramda')
+const bcrypt = require('bcrypt')
 
 const db = require('../db/db')
 const auditRepository = require('./../audit/auditRepository')
 const {AccessControlException} = require('../utils/accessControl')
 
 const {nationalCorrespondent, reviewer, collaborator} = require('../../common/countryRole')
+const {userType} = require('../../common/userUtils')
 
 const {loginUrl} = require('./sendInvitation')
 
@@ -22,6 +24,36 @@ const findUserById = async (userId, client = db) => {
 const findUserByLoginEmail = (loginEmail, client = db) =>
   client.query('SELECT id from fra_user WHERE LOWER(login_email) in ($1)', [loginEmail])
     .then(res => res.rows.length > 0 ? findUserById(res.rows[0].id, client) : null)
+
+const findLocalUserByEmail = async (email, client = db) => {
+  const res = await  client.query(`
+    SELECT id, name, email, institution, position, lang
+    FROM fra_user 
+    WHERE LOWER(email) = LOWER($1)
+    AND type = $2`
+    , [email, userType.local])
+
+  return R.isEmpty(res.rows)
+    ? null
+    : res.rows[0]
+
+}
+
+const findUserByEmailAndPassword = async (email, password, client = db) => {
+  const res = await  client.query(`
+    SELECT id, password 
+    FROM fra_user 
+    WHERE LOWER(email) = LOWER($1)`
+    , [email])
+
+  if (!R.isEmpty(res.rows)) {
+    const passwordMatch = await bcrypt.compare(password, res.rows[0].password)
+    if (passwordMatch)
+      return await findUserById(res.rows[0].id, client)
+  }
+
+  return null
+}
 
 const updateLanguage = (client, lang, userInfo) =>
   client
@@ -104,7 +136,7 @@ const fetchAllInvitations = async (url) => {
     .map(invitation => ({...invitation, invitationLink: loginUrl(invitation, url)}))
 }
 
-const fetchInvitation = async (invitationUUID, url) => {
+const fetchInvitation = async (invitationUUID, url = '') => {
   const invitationsRes = await db.query(`
     SELECT
       invitation_uuid,
@@ -120,9 +152,9 @@ const fetchInvitation = async (invitationUUID, url) => {
   return R.isEmpty(invitationsRes.rows)
     ? null
     : R.pipe(
-    R.head,
+      R.head,
       camelize,
-    invitation => R.assoc('invitationLink', loginUrl(invitation, url), invitation),
+      invitation => R.assoc('invitationLink', loginUrl(invitation, url), invitation),
     )(invitationsRes.rows)
 }
 
@@ -194,12 +226,17 @@ const getUserProfilePicture = async (userId, client = db) => {
     }
 }
 
-const insertUser = (client, email, name, loginEmail) =>
-  client.query(`
+const insertUser = (client, email, name, loginEmail, password = null) => {
+  const type = password
+    ? userType.local
+    : userType.google
+
+  return client.query(`
     INSERT INTO
-      fra_user(email, name, login_email)
-    VALUES ($1, $2, $3)
-  `, [email, name, loginEmail])
+      fra_user(email, name, login_email, password, type)
+    VALUES ($1, $2, $3, $4, $5)
+  `, [email, name, loginEmail, password, type])
+}
 
 const getIdOfJustAddedUser = client =>
   client.query(`SELECT last_value as user_id FROM fra_user_id_seq`)
@@ -334,18 +371,19 @@ const addUserCountryRole = (client, userId, countryIso, role) =>
     [userId, countryIso, role]
   )
 
-const addNewUserBasedOnInvitation = async (client, invitationUuid, loginEmail) => {
+const addNewUserBasedOnInvitation = async (client, invitationUuid, loginEmail, password) => {
   const invitationInfo = await getInvitationInfo(client, invitationUuid)
   if (!!invitationInfo.accepted) throw new AccessControlException('error.access.invitationAlreadyUsed', {
     loginEmail,
     invitationUuid
   })
-  await insertUser(client, invitationInfo.email, invitationInfo.name, loginEmail)
+  await insertUser(client, invitationInfo.email, invitationInfo.name, loginEmail, password)
   const userIdResult = await getIdOfJustAddedUser(client)
   const userId = userIdResult.rows[0].user_id
   await addUserCountryRole(client, userId, invitationInfo.countryIso, invitationInfo.role)
   await setInvitationAccepted(client, invitationUuid)
   await addAcceptToAudit(client, userId, invitationInfo)
+  return userId
 }
 
 const addAcceptToAudit = (client, userId, invitationInfo) =>
@@ -381,9 +419,34 @@ const acceptInvitation = async (client, invitationUuid, loginEmail) => {
   }
 }
 
+const findUserByInvitation = async (client, invitationUUID) => {
+  const invitation = await fetchInvitation(invitationUUID)
+  if (invitation) {
+    const resUser = await client.query('SELECT id from fra_user WHERE LOWER(email) = $1', [invitation.email.toLowerCase()])
+    if (!R.isEmpty(resUser.rows))
+      return await findUserById(resUser.rows[0].id, client)
+  }
+
+  return null
+}
+
+const acceptInvitationLocalUser = async (client, invitationUUID, password) => {
+  const user = await findUserByInvitation(client, invitationUUID)
+  if (user) {
+    await addCountryRoleAndUpdateUserBasedOnInvitation(client, user, invitationUUID)
+    return user
+  } else {
+    const userId = await addNewUserBasedOnInvitation(client, invitationUUID, null, password)
+    const user = await findUserById(userId, client)
+    return user
+  }
+}
+
 module.exports = {
   findUserById,
   findUserByLoginEmail,
+  findLocalUserByEmail,
+  findUserByEmailAndPassword,
   updateLanguage,
   fetchCountryUsers,
   fetchAdministrators,
@@ -399,5 +462,6 @@ module.exports = {
   fetchAllUsersAndInvitations,
   fetchAllInvitations,
   fetchInvitation,
-  getUserCountsByRole
+  getUserCountsByRole,
+  acceptInvitationLocalUser
 }

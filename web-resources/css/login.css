@@ -85,22 +85,47 @@ h1, h2, h3, h4 {
     justify-content: center;
 }
 
+.login__form {
+    display: flex;
+    flex-direction: column;
+}
+
+.login__form input[type=text],
+.login__form input[type=password] {
+    margin: 20px 20%;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 2px solid #99999961;
+    font-size: 14px;
+    padding: 10px 20px;
+    outline: none;
+    text-align: center;
+}
+
+.login__buttons {
+    margin-top: 20px;
+}
+
 .btn {
     background-color: #0098a6;
-    border-radius: 2px;
+    border: 2px solid #00988F;
     color: white;
+    font-size: 14px;
     cursor: pointer;
     display: inline-block;
     font-family: inherit;
     font-weight: 700;
     line-height: 20px;
     outline: none;
-    padding: 10px 20px;
+    padding: 10px 0;
     text-align: center;
     text-decoration: none;
     transition: all .1s ease-out;
     vertical-align: middle;
     white-space: nowrap;
+    margin: 0 10px;
+    min-width: 180px;
 }
 
 .btn:hover {
