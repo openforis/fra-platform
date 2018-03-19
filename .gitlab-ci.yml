@@ -18,7 +18,7 @@ deploy_staging:
   script:
     - apt-get update
     - apt-get install --assume-yes rubygems
-    - gem install dpl
+    - gem install dpl -v 1.8.47
     - dpl --provider=heroku --app=$HEROKU_STAGING_APP_NAME --api-key=$HEROKU_STAGING_API_KEY
   only:
     - master
@@ -31,7 +31,7 @@ deploy_production:
   script:
     - apt-get update
     - apt-get install --assume-yes rubygems
-    - gem install dpl
+    - gem install dpl -v 1.8.47
     - dpl --provider=heroku --app=$HEROKU_PRODUCTION_APP_NAME --api-key=$HEROKU_PRODUCTION_API_KEY
   only:
     - master
