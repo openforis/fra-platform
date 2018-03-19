@@ -22,6 +22,13 @@ const createResetPassword = async (client, userId) => {
   return camelize(res.rows[0])
 }
 
+const invalidateResetPassword = async (client, uuid) =>
+  await client.query(`
+    UPDATE fra_user_reset_password 
+    SET active = false
+    WHERE uuid = $1
+  `, [uuid])
+
 const findResetPassword = async (client, uuid) => {
   const res = await client.query(`
   SELECT
@@ -40,11 +47,8 @@ const findResetPassword = async (client, uuid) => {
     const oneWeek = 1 * 60 * 60 * 24 * 7
     if (differenceInSeconds(resetPassword.createdTime, new Date().toISOString()) > oneWeek + 1) {
       // if reset password is older than one week, invalidate the reset password request
-      await  client.query(`
-        UPDATE fra_user_reset_password 
-        SET active = false
-        WHERE uuid = $1
-        `, [resetPassword.uuid])
+      await invalidateResetPassword(client, resetPassword.uuid)
+
       return null
     } else {
       return resetPassword
@@ -52,7 +56,25 @@ const findResetPassword = async (client, uuid) => {
   }
 }
 
+const changePassword = async (client, uuid, userId, newPassword) => {
+  const resetPassword = await findResetPassword(client, uuid)
+  if (resetPassword && resetPassword.userId === userId) {
+    await client.query(`
+      UPDATE fra_user 
+      SET password = $1
+      WHERE id = $2 
+    `, [newPassword, userId])
+
+    await invalidateResetPassword(client, uuid)
+
+    return true
+  } else {
+    return false
+  }
+}
+
 module.exports = {
   createResetPassword,
-  findResetPassword
+  findResetPassword,
+  changePassword
 }

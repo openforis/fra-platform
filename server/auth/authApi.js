@@ -8,7 +8,7 @@ const {sendErr, serverUrl} = require('../utils/requestUtils')
 const {validEmail, validPassword} = require('../../common/userUtils')
 
 const {findLocalUserByEmail, findUserById} = require('../user/userRepository')
-const {createResetPassword, findResetPassword} = require('../user/userResetPasswordRepository')
+const {createResetPassword, findResetPassword, changePassword} = require('../user/userResetPasswordRepository')
 const {sendResetPasswordEmail} = require('./resetPassword')
 
 const authenticationFailed = (req, res) => {
@@ -36,6 +36,8 @@ const authenticationSuccessful = (req, user, next, res, done) => {
 
 module.exports.init = app => {
   authConfig.init(app)
+
+  // login / logout apis
 
   app.get('/auth/google', (req, res) =>
     passport.authenticate('google',
@@ -76,6 +78,8 @@ module.exports.init = app => {
       }
     })(req, res, next)
   })
+
+  // reset / change passwords apis
 
   app.post('/auth/local/resetPassword', async (req, res) => {
     try {
@@ -124,7 +128,7 @@ module.exports.init = app => {
 
       const sendResp = (error = null, message = null) =>
         res.json({error, message})
-console.log(req.body)
+
       const {uuid, userId, password, password2} = req.body
       if (R.isEmpty(R.trim(password)) || R.isEmpty(R.trim(password2)))
         sendResp('Passwords cannot be empty')
@@ -134,6 +138,10 @@ console.log(req.body)
         sendResp('Password must contain six characters or more and have at least one lower case and one upper case alphabetical character and one number')
       else {
         const hash = await authConfig.passwordHash(password)
+        const changed = await db.transaction(changePassword, [uuid, userId, hash])
+        changed
+          ? sendResp(null, 'Password has been changed')
+          : sendResp('Ooops. It looks like your request is not longer valid.')
       }
 
     } catch (err) {
