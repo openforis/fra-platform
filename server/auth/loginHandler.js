@@ -1,6 +1,7 @@
 const express = require('express')
 const {sendErr} = require('../utils/requestUtils')
 const countryRepository = require('../country/countryRepository')
+const {fetchInvitation} = require('./../user/userRepository')
 
 module.exports.init = app => {
 
@@ -8,10 +9,22 @@ module.exports.init = app => {
     express.static(`${__dirname}/../../dist/login.html`)(req, res, next)
   }
 
+  const validInvitationUUID = async (uuid) => {
+    const invitation = await fetchInvitation(uuid)
+    return invitation ? true : false
+  }
+
   app.use('/login', async (req, res, next) => {
     try {
-      if (req.user) {
-        if (req.query.i) {
+      const invitationUUID = req.query.i
+      const follow = invitationUUID
+        ? await validInvitationUUID(invitationUUID)
+        : true
+
+      if (!follow)
+        res.redirect('/login')
+      else if (req.user) {
+        if (invitationUUID) {
           req.logout()
           loginPage(req, res, next)
           return
