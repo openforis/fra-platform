@@ -5,7 +5,7 @@ const db = require('./../db/db')
 const authConfig = require('./authConfig')
 const countryRepository = require('../country/countryRepository')
 const {sendErr, serverUrl} = require('../utils/requestUtils')
-const {validEmail, validPassword, passwordHash} = require('../../common/userUtils')
+const {validEmail, validPassword} = require('../../common/userUtils')
 
 const {findLocalUserByEmail, findUserById} = require('../user/userRepository')
 const {createResetPassword, findResetPassword} = require('../user/userResetPasswordRepository')
@@ -133,7 +133,7 @@ console.log(req.body)
       else if (!validPassword(password))
         sendResp('Password must contain six characters or more and have at least one lower case and one upper case alphabetical character and one number')
       else {
-        const hash = await passwordHash(password)
+        const hash = await authConfig.passwordHash(password)
       }
 
     } catch (err) {

@@ -1,6 +1,5 @@
 const R = require('ramda')
 const camelize = require('camelize')
-const bcrypt = require('bcrypt')
 
 const profilePictureUri = (countryIso, userId) => `/api/users/${countryIso}/user/${userId}/profilePicture`
 
@@ -40,8 +39,6 @@ const userType = {
   local: 'local'
 }
 
-const passwordHash = async password => await bcrypt.hash(password, 10)
-
 // at least 6 chars, 1 lower case, 1 upper case and 1 number
 const passwordRegex = new RegExp(`^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{6,})`)
 const validPassword = password => passwordRegex.test(password)
@@ -52,6 +49,5 @@ module.exports = {
   validate,
   validEmail,
   userType,
-  passwordHash,
   validPassword
 }
