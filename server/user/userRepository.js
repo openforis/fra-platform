@@ -14,7 +14,7 @@ const {userType} = require('../../common/userUtils')
 const {loginUrl} = require('./sendInvitation')
 
 const findUserById = async (userId, client = db) => {
-  const res = await client.query('SELECT id, name, email, login_email, institution, position, lang FROM fra_user WHERE id = $1', [userId])
+  const res = await client.query('SELECT id, name, email, login_email, institution, position, lang, type FROM fra_user WHERE id = $1', [userId])
   if (res.rows.length < 1) return null
   const resultUser = camelize(res.rows[0])
   const resultRoles = await client.query('SELECT country_iso, role FROM user_country_role WHERE user_id = $1', [resultUser.id])
