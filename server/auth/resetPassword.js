@@ -1,7 +1,7 @@
 const {createI18nPromise} = require('./../../common/i18n/i18nFactory')
 const {sendMail} = require('./../email/sendMail')
 
-const createMail = async (i18n, user, url, uuid) => {
+const createMail = (i18n, user, url, uuid) => {
   const link = url + '/resetPassword?k=' + uuid
 
   return {
@@ -14,7 +14,7 @@ const createMail = async (i18n, user, url, uuid) => {
 
 const sendResetPasswordEmail = async (user, url, uuid) => {
   const i18n = await createI18nPromise('en')
-  const email = await createMail(i18n, user, url, uuid)
+  const email = createMail(i18n, user, url, uuid)
   return await sendMail(email)
 }
 
