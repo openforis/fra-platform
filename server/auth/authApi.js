@@ -1,38 +1,22 @@
 const passport = require('passport')
+const R = require('ramda')
+
+const db = require('./../db/db')
 const authConfig = require('./authConfig')
-const db = require('../db/db')
-const userRepository = require('../user/userRepository')
 const countryRepository = require('../country/countryRepository')
-const {sendErr} = require('../utils/requestUtils')
+const {sendErr, serverUrl} = require('../utils/requestUtils')
+const {validEmail, validPassword} = require('../../common/userUtils')
 
-const verifyCallback = async (req, accessToken, refreshToken, profile, done) => {
-
-  const userFetchCallback = user =>
-    user ? done(null, user) : done(null, false, {message: 'User not authorized'})
-
-  try {
-    const invitationUuid = req.query.state
-    const loginEmail = profile.emails[0].value.toLowerCase()
-
-    if (invitationUuid) {
-      const user = await db.transaction(userRepository.acceptInvitation, [invitationUuid, loginEmail])
-      userFetchCallback(user)
-    } else {
-      const user = await userRepository.findUserByLoginEmail(loginEmail)
-      userFetchCallback(user)
-    }
-  } catch (e) {
-    console.log('Error occurred while authenticating', e)
-    done(null, false, {message: 'Error occurred: ' + e})
-  }
-}
+const {findLocalUserByEmail, findUserById} = require('../user/userRepository')
+const {createResetPassword, findResetPassword, changePassword} = require('../user/userResetPasswordRepository')
+const {sendResetPasswordEmail} = require('./resetPassword')
 
 const authenticationFailed = (req, res) => {
   req.logout()
   res.redirect('/login?loginFailed=true')
 }
 
-const authenticationSuccessful = (req, user, next, res) => {
+const authenticationSuccessful = (req, user, next, res, done) => {
   req.logIn(user, err => {
     if (err) {
       next(err)
@@ -43,7 +27,7 @@ const authenticationSuccessful = (req, user, next, res) => {
         // More here:
         // https://github.com/voxpelli/node-connect-pg-simple/issues/31#issuecomment-230596077
         req.session.save(() => {
-          res.redirect(`/#/country/${defaultCountry.countryIso}`)
+          done(`/#/country/${defaultCountry.countryIso}`)
         })
       }).catch(err => sendErr(res, err))
     }
@@ -51,7 +35,9 @@ const authenticationSuccessful = (req, user, next, res) => {
 }
 
 module.exports.init = app => {
-  authConfig.init(app, verifyCallback)
+  authConfig.init(app)
+
+  // login / logout apis
 
   app.get('/auth/google', (req, res) =>
     passport.authenticate('google',
@@ -66,7 +52,9 @@ module.exports.init = app => {
       } else if (!user) {
         authenticationFailed(req, res)
       } else {
-        authenticationSuccessful(req, user, next, res)
+        authenticationSuccessful(req, user, next, res,
+          redirectUrl => res.redirect(redirectUrl)
+        )
       }
     })(req, res, next)
   })
@@ -76,4 +64,89 @@ module.exports.init = app => {
     res.json({})
   })
 
+  app.post('/auth/local/login', (req, res, next) => {
+
+    passport.authenticate('local', (err, user, info) => {
+      if (err) {
+        return next(err)
+      } else if (!user) {
+        res.send(info)
+      } else {
+        authenticationSuccessful(req, user, next, res,
+          redirectUrl => res.send({redirectUrl})
+        )
+      }
+    })(req, res, next)
+  })
+
+  // reset / change passwords apis
+
+  app.post('/auth/local/resetPassword', async (req, res) => {
+    try {
+
+      const email = req.body.email
+      //validation
+      if (R.isEmpty(R.trim(email)))
+        res.send({error: 'Email cannot be empty'})
+      else if (!validEmail({email}))
+        res.send({error: 'Email not valid'})
+      else {
+        const user = await findLocalUserByEmail(email)
+        if (!user) {
+          res.send({error: 'We couldn\'t find any user matching this email.\nMake sure you have a valid FRA account.'})
+        } else {
+          //reset password
+          const resetPassword = await db.transaction(createResetPassword, [user.id])
+          const url = serverUrl(req)
+
+          await sendResetPasswordEmail(user, url, resetPassword.uuid)
+          res.send({message: `The request to reset your password has been successfully submitted.\nYou'll be shortly receiving an email with instructions`})
+        }
+      }
+    } catch (err) {
+      sendErr(res, err)
+    }
+  })
+
+  app.get('/auth/local/resetPassword/:uuid', async (req, res) => {
+    try {
+
+      const resetPassword = await db.transaction(findResetPassword, [req.params.uuid])
+      if (resetPassword) {
+        const user = await findUserById(resetPassword.userId)
+        res.json({...resetPassword, user})
+      } else {
+        res.json(null)
+      }
+    } catch (err) {
+      sendErr(res, err)
+    }
+  })
+
+  app.post('/auth/local/changePassword', async (req, res) => {
+    try {
+
+      const sendResp = (error = null, message = null) =>
+        res.json({error, message})
+
+      const {uuid, userId, password, password2} = req.body
+      if (R.isEmpty(R.trim(password)) || R.isEmpty(R.trim(password2)))
+        sendResp('Passwords cannot be empty')
+      else if (R.trim(password) !== R.trim(password2))
+        sendResp('Passwords don\'t match')
+      else if (!validPassword(password))
+        sendResp('Password must contain six characters or more and have at least one lower case and one upper case alphabetical character and one number')
+      else {
+        const hash = await authConfig.passwordHash(password)
+        const changed = await db.transaction(changePassword, [uuid, userId, hash])
+        changed
+          ? sendResp(null, 'Password has been changed')
+          : sendResp('Ooops. It looks like your request is not longer valid.')
+      }
+
+    } catch (err) {
+      sendErr(res, err)
+    }
+
+  })
 }
