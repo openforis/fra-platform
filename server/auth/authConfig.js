@@ -3,10 +3,13 @@ const passport = require('passport')
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy
 const LocalStrategy = require('passport-local')
 const cookieParser = require('cookie-parser')
+const bcrypt = require('bcrypt')
 
 const userRepository = require('../user/userRepository')
 const db = require('../db/db')
-const {validEmail, validPassword, passwordHash} = require('../../common/userUtils')
+const {validEmail, validPassword} = require('../../common/userUtils')
+
+const passwordHash = async password => await bcrypt.hash(password, 10)
 
 const googleStrategyVerifyCallback = async (req, accessToken, refreshToken, profile, done) => {
 
@@ -74,7 +77,7 @@ const localStrategyVerifyCallback = async (req, email, password, done) => {
   }
 }
 
-module.exports.init = (app) => {
+const init = (app) => {
 
   app.use(cookieParser())
   app.use(passport.initialize())
@@ -104,4 +107,9 @@ module.exports.init = (app) => {
       .then(user => done(null, user))
   )
 
+}
+
+module.exports = {
+  init,
+  passwordHash
 }
