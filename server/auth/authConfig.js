@@ -40,7 +40,7 @@ const localStrategyVerifyCallback = async (req, email, password, done) => {
   try {
     const invitationUUID = req.body.invitationUUID
     if (invitationUUID) {
-      const password2 = req.body.password2
+      const password2 = req.body.password2 || ''
       //accepting invitation
       const invitation = await userRepository.fetchInvitation(invitationUUID)
       // validating invitation
