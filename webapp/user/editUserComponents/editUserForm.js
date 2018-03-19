@@ -85,7 +85,7 @@ class EditUserForm extends React.Component {
     const textInputFields = [
       {key: 'name', onlyAdmin: true},
       {key: 'email'},
-      {key: 'loginEmail', disabled: true},
+      {key: 'loginEmail', disabled: true, type: 'google'},
       {key: 'institution'},
       {key: 'position'},
     ]
@@ -129,26 +129,29 @@ class EditUserForm extends React.Component {
         {
           textInputFields.map(inputField => {
             const disabled = inputField.disabled === true || (inputField.onlyAdmin ? !isAdministrator(userInfo) : false)
+            const allowed = !inputField.type || inputField.type === user.type
 
-            return <div className="edit-user__form-item" key={inputField.key}>
-              <div className="edit-user__form-label">
-                {i18n.t(`editUser.${inputField.key}`)}
+            return allowed
+              ? <div className="edit-user__form-item" key={inputField.key}>
+                <div className="edit-user__form-label">
+                  {i18n.t(`editUser.${inputField.key}`)}
+                </div>
+                <div
+                  className={`edit-user__form-field${disabled ? '-disabled' : ''}${hasValidProp(inputField.key) ? '' : ' error'}`}>
+                  <TextInput
+                    value={R.prop(inputField.key, user)}
+                    onChange={evt => {
+                      // this.setState({user: R.assoc(inputField.key, evt.target.value, user)})
+                      this.setState(R.pipe(
+                        R.assocPath(['user', inputField.key], evt.target.value),
+                        validateUser
+                      )(this.state))
+                    }}
+                    disabled={disabled}
+                  />
+                </div>
               </div>
-              <div
-                className={`edit-user__form-field${disabled ? '-disabled' : ''}${hasValidProp(inputField.key) ? '' : ' error'}`}>
-                <TextInput
-                  value={R.prop(inputField.key, user)}
-                  onChange={evt => {
-                    // this.setState({user: R.assoc(inputField.key, evt.target.value, user)})
-                    this.setState(R.pipe(
-                      R.assocPath(['user', inputField.key], evt.target.value),
-                      validateUser
-                    )(this.state))
-                  }}
-                  disabled={disabled}
-                />
-              </div>
-            </div>
+              : null
           })
         }
 
