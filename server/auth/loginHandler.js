@@ -9,19 +9,22 @@ module.exports.init = app => {
     express.static(`${__dirname}/../../dist/login.html`)(req, res, next)
   }
 
-  const verifyInvitationUUID = async (req, res) => {
-    const invitation = await fetchInvitation(req.query.i)
-    if (!invitation)
-      res.redirect('/login')
+  const validInvitationUUID = async (uuid) => {
+    const invitation = await fetchInvitation(uuid)
+    return invitation ? true : false
   }
 
   app.use('/login', async (req, res, next) => {
     try {
-      if (req.query.i)
-        await verifyInvitationUUID(req, res)
+      const invitationUUID = req.query.i
+      const follow = invitationUUID
+        ? await validInvitationUUID(invitationUUID)
+        : true
 
-      if (req.user) {
-        if (req.query.i) {
+      if (!follow)
+        res.redirect('/login')
+      else if (req.user) {
+        if (invitationUUID) {
           req.logout()
           loginPage(req, res, next)
           return
