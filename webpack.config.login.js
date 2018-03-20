@@ -5,7 +5,6 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const webpack = require('webpack')
 const uuidv4 = require('uuid/v4')
 
-
 const plugins = [
   new ExtractTextPlugin({filename: 'login-[hash].css'}),
   new HtmlWebpackPlugin({template: './web-resources/login.html', filename: 'login.html'}),
@@ -18,7 +17,7 @@ const plugins = [
 ]
 
 const config = {
-  entry: './webapp/login/login.js',
+  entry: ['babel-polyfill', './webapp/login/login.js'],
   output: {
     filename: 'login-[hash].js',
     path: path.resolve(__dirname, 'dist')
