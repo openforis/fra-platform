@@ -22,7 +22,7 @@ const plugins = [
 ]
 
 const config = {
-  entry: './webapp/app/main.js',
+  entry: ['babel-polyfill', './webapp/app/main.js'],
   output: {
     filename: 'bundle-[hash].js',
     path: path.resolve(__dirname, 'dist')
