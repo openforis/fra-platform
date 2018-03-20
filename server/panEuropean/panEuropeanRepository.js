@@ -1,6 +1,10 @@
 const R = require('ramda')
 const db = require('../db/db')
+const {format} = require('date-fns')
 const auditRepository = require('./../audit/auditRepository')
+
+const fileName = (fileName, countryIso) =>
+  `${fileName.substring(0, fileName.lastIndexOf('.'))}_${countryIso}_${format(new Date(), 'YYYYMMDD')}.${fileName.substring(fileName.lastIndexOf('.') + 1, fileName.length)}`
 
 module.exports.persistPanEuropeanQuantitativeQuestionnaire = (client, user, countryIso, file) =>
   auditRepository
@@ -19,7 +23,7 @@ const insertPanEuropeanQuantitativeQuestionnaire = (client, countryIso, file) =>
       pan_european (country_iso, quantitative_questionnaire, quantitative_questionnaire_name)
      VALUES
       ($1, $2, $3)
-    `, [countryIso, file.data, file.name])
+    `, [countryIso, file.data, fileName(file.name, countryIso)])
 
 const updatePanEuropeanQuantitativeQuestionnaire = (client, countryIso, file) =>
   client.query(`
@@ -30,7 +34,7 @@ const updatePanEuropeanQuantitativeQuestionnaire = (client, countryIso, file) =>
       quantitative_questionnaire_name = $2
     WHERE
       country_iso = $3
-    `, [file.data, file.name, countryIso])
+    `, [file.data, fileName(file.name, countryIso), countryIso])
 
 module.exports.getPanEuropeanQuantitativeQuestionnaire = countryIso =>
   db.query(`
