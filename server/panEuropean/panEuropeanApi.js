@@ -58,7 +58,7 @@ module.exports.init = app => {
       const isPanEuropean = await isPanEuropeanCountry(res, req.params.countryIso)
       if (isPanEuropean) {
         const questionnaire = await getPanEuropeanQuantitativeQuestionnaire(req.params.countryIso)
-        res.download(`${__dirname}/panEuropeanQuestionnaire.xlsm`, 'PanEuropeanQuestionnaire.xlsm')
+        res.download(`${__dirname}/panEuropeanQuestionnaire.xls`, 'PanEuropeanQuestionnaire.xls')
       } else {
         res.status(404).send('404 / Page not found')
       }
