@@ -39,27 +39,49 @@ const localStrategyVerifyCallback = async (req, email, password, done) => {
 
   try {
     const invitationUUID = req.body.invitationUUID
-    if (invitationUUID) {
-      const password2 = req.body.password2 || ''
-      //accepting invitation
-      const invitation = await userRepository.fetchInvitation(invitationUUID)
-      // validating invitation
-      if (!invitation)
-        sendResp(null, 'Invitation not found')
-      else if (R.isEmpty(R.trim(password)) || R.isEmpty(R.trim(password2)))
-        sendResp(null, 'Passwords cannot be empty')
-      else if (R.trim(password) !== R.trim(password2))
-        sendResp(null, 'Passwords don\'t match')
-      else if (!validPassword(password))
-        sendResp(null, 'Password must contain six characters or more and have at least one lower case and one upper case alphabetical character and one number')
-      else {
-        const hash = await passwordHash(password)
-        const user = await db.transaction(userRepository.acceptInvitationLocalUser, [invitationUUID, hash])
-        sendResp(user)
-      }
 
-    } else {
+    //accepting invitation
+    if (invitationUUID) {
+      const invitation = await userRepository.fetchInvitation(invitationUUID)
+      const password2 = req.body.password2 || ''
+      // validating invitation
+      if (!invitation) {
+
+        sendResp(null, 'Invitation not found')
+      }
+      else {
+        const user = await userRepository.findUserByEmail(email)
+        if (user) {
+          //existing user
+          if (R.isEmpty(R.trim(password)))
+            sendResp(null, 'Password cannot be empty')
+          else {
+            const validatedUser = await userRepository.findUserByEmailAndPassword(email, password)
+            if (validatedUser) {
+              const hash = await passwordHash(password)
+              const acceptedUser = await db.transaction(userRepository.acceptInvitationLocalUser, [invitationUUID, hash])
+              sendResp(acceptedUser)
+            } else {
+              sendResp(null, 'We couldn\'t find any user matching these credentials.\nMake sure you have a valid FRA account.')
+            }
+          }
+        } else {
+          //new user
+          if (R.isEmpty(R.trim(password)) || R.isEmpty(R.trim(password2)))
+            sendResp(null, 'Passwords cannot be empty')
+          else if (R.trim(password) !== R.trim(password2))
+            sendResp(null, 'Passwords don\'t match')
+          else if (!validPassword(password))
+            sendResp(null, 'Password must contain six characters or more and have at least one lower case and one upper case alphabetical character and one number')
+          else {
+            const hash = await passwordHash(password)
+            const user = await db.transaction(userRepository.acceptInvitationLocalUser, [invitationUUID, hash])
+            sendResp(user)
+          }
+        }
+      }
       // login
+    } else {
       if (!validEmail({email}))
         sendResp(null, 'Email not valid')
       else if (R.isEmpty(R.trim(password)))

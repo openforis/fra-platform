@@ -7,7 +7,7 @@ const countryRepository = require('../country/countryRepository')
 const {sendErr, serverUrl} = require('../utils/requestUtils')
 const {validEmail, validPassword} = require('../../common/userUtils')
 
-const {findLocalUserByEmail, findUserById} = require('../user/userRepository')
+const {findLocalUserByEmail, findUserById, fetchInvitation, findUserByEmail} = require('../user/userRepository')
 const {createResetPassword, findResetPassword, changePassword} = require('../user/userResetPasswordRepository')
 const {sendResetPasswordEmail} = require('./resetPassword')
 
@@ -36,6 +36,18 @@ const authenticationSuccessful = (req, user, next, res, done) => {
 
 module.exports.init = app => {
   authConfig.init(app)
+
+  app.get('/auth/invitation/:uuid', async (req, res) => {
+    try {
+      const invitation = await fetchInvitation(req.params.uuid, '')
+      if (invitation) {
+        const user = await findUserByEmail(invitation.email)
+        res.json({invitation, user})
+      }
+    } catch (err) {
+      sendErr(res, err)
+    }
+  })
 
   // login / logout apis
 

@@ -39,6 +39,18 @@ const findLocalUserByEmail = async (email, client = db) => {
 
 }
 
+const findUserByEmail = async (email, client = db) => {
+  const res = await  client.query(`
+    SELECT id 
+    FROM fra_user 
+    WHERE LOWER(email) = LOWER($1)`
+    , [email])
+
+  return R.isEmpty(res.rows)
+    ? null
+    : await findUserById(res.rows[0].id, client)
+}
+
 const findUserByEmailAndPassword = async (email, password, client = db) => {
   const res = await  client.query(`
     SELECT id, password 
@@ -442,6 +454,7 @@ const acceptInvitationLocalUser = async (client, invitationUUID, password) => {
 
 module.exports = {
   findUserById,
+  findUserByEmail,
   findUserByLoginEmail,
   findLocalUserByEmail,
   findUserByEmailAndPassword,
