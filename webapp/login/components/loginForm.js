@@ -1,4 +1,10 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import * as R from 'ramda'
+
+import { userType } from '../../../common/userUtils'
+
+import { initLogin } from '../actions'
 import { getUrlParameter } from '../../utils/urlUtils'
 
 import Icon from '../../reusableUiComponents/icon'
@@ -22,34 +28,71 @@ class LoginForm extends React.Component {
     this.state = {localLogin: false}
   }
 
+  componentDidMount () {
+    this.props.initLogin()
+  }
+
+  onlyLoginType (type) {
+    const {user} = this.props
+    return user.id && user.type === type
+  }
+
+  onlyLocalLogin () {
+    return this.onlyLoginType(userType.local)
+
+  }
+
+  onlyGoogleLogin () {
+    return this.onlyLoginType(userType.google)
+
+  }
+
   render () {
-    const invitationUUID = getUrlParameter('i')
     const loginFailed = getUrlParameter('loginFailed')
 
-    return <div>
-      {
-        loginFailed
-          ? <LoginFailed/>
-          : null
-      }
+    const {status, invitation, user} = this.props
 
-      <h2>Login to FRA Platform</h2>
-      {
-        this.state.localLogin
-          ? <LocalLoginForm onCancel={() => this.setState({localLogin: false})}/>
-          : <div>
-            <a className="btn"
-               href={`/auth/google${invitationUUID ? `?i=${invitationUUID}` : ''}`}>
-              Sign in with Google
-            </a>
-            <button className="btn" type="button"
-                    onClick={() => this.setState({localLogin: true})}>
-              Sign in with FRA
-            </button>
-          </div>
-      }
-    </div>
+    return status === 'loaded'
+      ? <div>
+        {
+          loginFailed
+            ? <LoginFailed/>
+            : null
+        }
+
+        <h2>Login to FRA Platform</h2>
+        {
+          this.state.localLogin || this.onlyLocalLogin()
+            ? <LocalLoginForm
+              onCancel={() => this.setState({localLogin: false})}
+              user={user}
+              onlyLocalLogin={this.onlyLocalLogin()}
+              invitation={invitation}
+            />
+            : <div>
+              <a className="btn"
+                 href={`/auth/google${invitation ? `?i=${invitation.invitationUuid}` : ''}`}>
+                Sign in with Google
+              </a>
+              {
+                this.onlyGoogleLogin()
+                  ? null
+                  : <button className="btn" type="button"
+                            onClick={() => this.setState({localLogin: true})}>
+                    Sign in with FRA
+                  </button>
+              }
+            </div>
+        }
+      </div>
+      : null
   }
 }
 
-export default LoginForm
+const mapStateToProps = state => ({
+  status: R.path(['login', 'status'], state),
+  invitation: R.path(['login', 'invitation'], state),
+  user: R.path(['login', 'user'], state)
+})
+
+export default connect(mapStateToProps, {initLogin})(LoginForm)

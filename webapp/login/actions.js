@@ -1,4 +1,33 @@
 import axios from 'axios'
+import { getUrlParameter } from '../utils/urlUtils'
+
+export const loginInitLoaded = 'login/init/loaded'
+export const loginUserPropChanged = 'login/userProp/changed'
+
+export const initLogin = () => dispatch => {
+  const defaultUser = {type: 'google', email: '', password: ''}
+
+  const invitationUUID = getUrlParameter('i')
+  if (invitationUUID) {
+    axios.get(`/auth/invitation/${invitationUUID}`)
+      .then(res => {
+        const {invitation, user} = res.data
+        dispatch({
+          type: loginInitLoaded,
+          invitation,
+          user: user ? {...user, password: ''} : {...defaultUser, email: invitation.email}
+        })
+      })
+  } else {
+    dispatch({type: loginInitLoaded, user: defaultUser})
+  }
+}
+
+export const loginUserPropChange = (prop, value) => dispatch => {
+  dispatch({type: loginUserPropChanged, prop, value})
+}
+
+// local login
 
 export const localLoginResponseLoaded = 'localLogin/response/loaded'
 export const localLoginResetPasswordResponseLoaded = 'localLogin/resetPassword/ResponseLoaded'
@@ -8,7 +37,7 @@ export const localLoginReset = () => dispatch =>
 
 export const localLoginSubmit = (user, invitationUUID) => dispatch => {
 
-  axios.post('/auth/local/login', {email: 'hackPassport', invitationUUID, ...user})
+  axios.post('/auth/local/login', {invitationUUID, ...user})
     .then(resp => {
       const data = resp.data
       if (data.redirectUrl) {
@@ -34,6 +63,8 @@ export const resetPassword = email => dispatch => {
     .catch(error => dispatch({type: localLoginResetPasswordResponseLoaded, message: error}))
 
 }
+
+// reset password
 
 export const resetPasswordLoaded = 'resetPassword/loaded'
 export const changePasswordResponseLoaded = 'changePassword/response/loaded'

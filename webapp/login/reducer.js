@@ -3,6 +3,8 @@ import * as R from 'ramda'
 import { exportReducer } from '../utils/reduxUtils'
 
 import {
+  loginInitLoaded,
+  loginUserPropChanged,
   localLoginResponseLoaded,
   localLoginResetPasswordResponseLoaded,
   resetPasswordLoaded,
@@ -10,6 +12,16 @@ import {
 } from './actions'
 
 const actionHandlers = {
+
+  [loginInitLoaded]: (state, action) => R.pipe(
+    R.assocPath(['login', 'status'], 'loaded'),
+    R.assocPath(['login', 'invitation'], action.invitation),
+    R.assocPath(['login', 'user'], action.user)
+  )(state),
+
+  [loginUserPropChanged]: (state, action) => R.pipe(
+    R.assocPath(['login', 'user', action.prop], action.value)
+  )(state),
 
   [localLoginResponseLoaded]: (state, action) =>
     R.assocPath(['localLogin', 'message'], action.message, state),
