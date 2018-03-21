@@ -27,7 +27,7 @@ const findUserByLoginEmail = (loginEmail, client = db) =>
 
 const findLocalUserByEmail = async (email, client = db) => {
   const res = await  client.query(`
-    SELECT id, name, email, institution, position, lang
+    SELECT id
     FROM fra_user 
     WHERE LOWER(email) = LOWER($1)
     AND type = $2`
@@ -35,7 +35,7 @@ const findLocalUserByEmail = async (email, client = db) => {
 
   return R.isEmpty(res.rows)
     ? null
-    : res.rows[0]
+    : await findUserById(res.rows[0].id)
 
 }
 
@@ -401,7 +401,8 @@ const addAcceptToAudit = (client, userId, invitationInfo) =>
 const addCountryRoleAndUpdateUserBasedOnInvitation = async (client, user, invitationUuid) => {
   const invitationInfo = await getInvitationInfo(client, invitationUuid)
   if (!!invitationInfo.accepted) return //Invitation is already accepted, just allow the user to log in normally
-  await updateUserFields(client, {...invitationInfo, id: user.id})
+  const profilePicture = await getUserProfilePicture(user.id, client)
+  await updateUserFields(client, {...invitationInfo, id: user.id}, profilePicture)
   await addUserCountryRole(client, user.id, invitationInfo.countryIso, invitationInfo.role)
   await setInvitationAccepted(client, invitationUuid)
   await addAcceptToAudit(client, user.id, invitationInfo)
@@ -419,19 +420,16 @@ const acceptInvitation = async (client, invitationUuid, loginEmail) => {
   }
 }
 
-const findUserByInvitation = async (client, invitationUUID) => {
+const findLocalUserByInvitation = async (client, invitationUUID) => {
   const invitation = await fetchInvitation(invitationUUID)
-  if (invitation) {
-    const resUser = await client.query('SELECT id from fra_user WHERE LOWER(email) = $1', [invitation.email.toLowerCase()])
-    if (!R.isEmpty(resUser.rows))
-      return await findUserById(resUser.rows[0].id, client)
-  }
-
-  return null
+  if (invitation)
+    return await findLocalUserByEmail(invitation.email, client)
+  else
+    return null
 }
 
 const acceptInvitationLocalUser = async (client, invitationUUID, password) => {
-  const user = await findUserByInvitation(client, invitationUUID)
+  const user = await findLocalUserByInvitation(client, invitationUUID)
   if (user) {
     await addCountryRoleAndUpdateUserBasedOnInvitation(client, user, invitationUUID)
     return user
