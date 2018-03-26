@@ -38,7 +38,7 @@ const ExtentOfForest = (props) => {
     return lessThanOrEqualTo(absDifference, tolerance)
   }
 
-  const calculateOtherLandArea = (fraColumn) =>{
+  const calculateOtherLandArea = (fraColumn) => {
     const faoStatLandArea = getFaostatValue(fraColumn.name)
     return sub(faoStatLandArea, sum([fraColumn.forestArea, fraColumn.otherWoodedLand]))
   }
@@ -118,22 +118,23 @@ const ExtentOfForest = (props) => {
 
   const validationErrorMessages = fra =>
     R.map(fraColumn => {
-      const validationErrors =
-        R.reject(
-          R.isNil,
-          [
-            !forestAreaComparedTo2015ValueValidator(fraColumn)
-              ? props.i18n.t(
-              'extentOfForest.forestAreaDoesNotMatchPreviouslyReported',
-              {previous: getForestArea2015Value(fraColumn.name)}
-              )
-              : null,
-            !fedAreasNotExceedingTotalLandAreaValidator(fraColumn)
-              ? props.i18n.t('extentOfForest.fedAreasExceedTotalLandArea')
-              : null
-          ]
-        )
-      return validationErrors
+      const validationErrors = fraColumn.type === 'odp'
+        ? forestAreaValidator(fraColumn) && otherWoodedLandValidator(fraColumn)
+          ? []
+          : [props.i18n.t('extentOfForest.ndpMissingValues')]
+        : [
+          !forestAreaComparedTo2015ValueValidator(fraColumn)
+            ? props.i18n.t(
+            'extentOfForest.forestAreaDoesNotMatchPreviouslyReported',
+            {previous: getForestArea2015Value(fraColumn.name)}
+            )
+            : null,
+          !fedAreasNotExceedingTotalLandAreaValidator(fraColumn)
+            ? props.i18n.t('extentOfForest.fedAreasExceedTotalLandArea')
+            : null
+        ]
+
+      return R.reject(R.isNil, validationErrors)
     }, R.values(fra))
 
   const eofRows = [
