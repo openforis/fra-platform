@@ -7,7 +7,7 @@ CREATE TABLE
   password_changed_time TIMESTAMP WITHOUT TIME ZONE,
   active                BOOLEAN DEFAULT TRUE                                                    NOT NULL,
   CONSTRAINT frauserresetpassword_user_fk FOREIGN KEY (user_id)
-  REFERENCES "frap-dev"."public"."fra_user" ("id")
+  REFERENCES fra_user ("id")
   ON DELETE CASCADE,
   PRIMARY KEY (uuid)
 )
