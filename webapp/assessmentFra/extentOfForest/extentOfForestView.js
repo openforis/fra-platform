@@ -38,23 +38,31 @@ const ExtentOfForest = (props) => {
     return lessThanOrEqualTo(absDifference, tolerance)
   }
 
-  const calculateOtherLandArea = (faoStatLandArea, fraColumn) =>
-    sub(faoStatLandArea, sum([fraColumn.forestArea, fraColumn.otherWoodedLand]))
+  const calculateOtherLandArea = (fraColumn) =>{
+    const faoStatLandArea = getFaostatValue(fraColumn.name)
+    return sub(faoStatLandArea, sum([fraColumn.forestArea, fraColumn.otherWoodedLand]))
+  }
 
   const fedAreasNotExceedingTotalLandAreaValidator = fraColumn => {
+    const otherLandArea = calculateOtherLandArea(fraColumn)
     const faoStatLandArea = getFaostatValue(fraColumn.name)
-    const otherLandArea = calculateOtherLandArea(faoStatLandArea, fraColumn)
     if (R.isNil(faoStatLandArea) || R.isNil(otherLandArea)) return true
     return greaterThanOrEqualTo(otherLandArea, 0)
   }
 
-  const forestAreaValidator = fraColumn =>
-    forestAreaComparedTo2015ValueValidator(fraColumn)
-    &&
-    fedAreasNotExceedingTotalLandAreaValidator(fraColumn)
+  const forestAreaValidator = fraColumn => fraColumn.type === 'odp'
+    ? !R.isNil(fraColumn.forestArea)
+    : forestAreaComparedTo2015ValueValidator(fraColumn) && fedAreasNotExceedingTotalLandAreaValidator(fraColumn)
 
-  const otherLandValidationClass = fraColumn =>
-    fedAreasNotExceedingTotalLandAreaValidator(fraColumn) ? '' : 'validation-error'
+  const otherWoodedLandValidator = fraColumn => fraColumn.type === 'odp'
+    ? !R.isNil(fraColumn.otherWoodedLand)
+    : fedAreasNotExceedingTotalLandAreaValidator(fraColumn)
+
+  const otherLandValidationClass = fraColumn => fraColumn.type === 'odp'
+    ? R.isNil(calculateOtherLandArea(fraColumn))
+      ? 'validation-error' : ''
+    : fedAreasNotExceedingTotalLandAreaValidator(fraColumn)
+      ? '' : 'validation-error'
 
   const rowHighlightClass = (target) => props.openCommentThread && R.isEmpty(R.difference(props.openCommentThread.target, [target])) ? 'fra-row-comments__open' : ''
 
@@ -65,8 +73,7 @@ const ExtentOfForest = (props) => {
       </th>
       {
         mapIndexed((fraColumn, i) => {
-          const faoStatLandArea = getFaostatValue(fraColumn.name)
-          const otherLandArea = calculateOtherLandArea(faoStatLandArea, fraColumn)
+          const otherLandArea = calculateOtherLandArea(fraColumn)
           return <td className={`${odpValueCellClass(fraColumn)} ${otherLandValidationClass(fraColumn)}`} key={i}>
             {formatNumber(otherLandArea)}
           </td>
@@ -79,7 +86,7 @@ const ExtentOfForest = (props) => {
             section={sectionName}
             title={i18n.t('fraClass.otherLand')}
             target={['otherLand']}
-            countryIso={props.countryIso} />
+            countryIso={props.countryIso}/>
         </div>
       </td>
     </tr>
@@ -104,7 +111,7 @@ const ExtentOfForest = (props) => {
             section={sectionName}
             title={i18n.t('extentOfForest.totalLandArea')}
             target={['faoStat']}
-            countryIso={props.countryIso} />
+            countryIso={props.countryIso}/>
         </div>
       </td>
     </tr>
@@ -117,8 +124,8 @@ const ExtentOfForest = (props) => {
           [
             !forestAreaComparedTo2015ValueValidator(fraColumn)
               ? props.i18n.t(
-                'extentOfForest.forestAreaDoesNotMatchPreviouslyReported',
-                {previous: getForestArea2015Value(fraColumn.name)}
+              'extentOfForest.forestAreaDoesNotMatchPreviouslyReported',
+              {previous: getForestArea2015Value(fraColumn.name)}
               )
               : null,
             !fedAreasNotExceedingTotalLandAreaValidator(fraColumn)
@@ -127,7 +134,7 @@ const ExtentOfForest = (props) => {
           ]
         )
       return validationErrors
-    },R.values(fra))
+    }, R.values(fra))
 
   const eofRows = [
     {
@@ -140,7 +147,7 @@ const ExtentOfForest = (props) => {
     {
       type: 'field',
       field: 'otherWoodedLand',
-      validator: fedAreasNotExceedingTotalLandAreaValidator,
+      validator: otherWoodedLandValidator,
       rowHeader: i18n.t('fraClass.otherWoodedLand'),
       rowVariable: '(b)'
     },
@@ -154,7 +161,9 @@ const ExtentOfForest = (props) => {
     },
     {
       type: 'custom',
-      render: ()=> <tr><td className="fra-table__notice-message-cell" rowSpan="2">{i18n.t('extentOfForest.tableNoticeMessage')}</td></tr>
+      render: () => <tr>
+        <td className="fra-table__notice-message-cell" rowSpan="2">{i18n.t('extentOfForest.tableNoticeMessage')}</td>
+      </tr>
     },
     {
       type: 'validationErrors',
@@ -171,14 +180,16 @@ const ExtentOfForest = (props) => {
       hasOdps(props.fra)
         ? null
         : [
-            <NationalDataDescriptions key="ndd" section={sectionName} countryIso={props.countryIso}/>,
-            <AnalysisDescriptions key="ad" section={sectionName} countryIso={props.countryIso}/>
-          ]
+          <NationalDataDescriptions key="ndd" section={sectionName} countryIso={props.countryIso}/>,
+          <AnalysisDescriptions key="ad" section={sectionName} countryIso={props.countryIso}/>
+        ]
     }
     <h2 className="headline">{i18n.t('extentOfForest.extentOfForest')}</h2>
     <div className="fra-view__section-toolbar">
-      <DefinitionLink className="margin-right-big" document="tad" anchor="1a" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
-      <DefinitionLink className="align-left" document="faq" anchor="1a" title={i18n.t('definition.faqLabel')} lang={i18n.language}/>
+      <DefinitionLink className="margin-right-big" document="tad" anchor="1a"
+                      title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
+      <DefinitionLink className="align-left" document="faq" anchor="1a" title={i18n.t('definition.faqLabel')}
+                      lang={i18n.language}/>
     </div>
     <ChartWrapper
       fra={props.fra}
@@ -189,17 +200,17 @@ const ExtentOfForest = (props) => {
     />
     {
       hasOdps(props.fra)
-      ? <div className="fra-view__section-toolbar">
+        ? <div className="fra-view__section-toolbar">
           <GenerateFraValuesControl section={sectionName} rows={eofRows} useOriginalDataPoints={true} {...props} />
           {
             props.odpDirty
               ? <div className="support-text">
-                  {i18n.t('nationalDataPoint.remindDirtyOdp')}
-                </div>
+                {i18n.t('nationalDataPoint.remindDirtyOdp')}
+              </div>
               : null
           }
         </div>
-      : null
+        : null
     }
     <TableWithOdp
       section={sectionName}
@@ -251,13 +262,13 @@ const mapStateToProps = state =>
   })
 
 export default connect(
-    mapStateToProps,
-    {
-      save,
-      saveMany,
-      fetchItem,
-      generateFraValues,
-      fetchLastSectionUpdateTimestamp,
-      saveCountryConfigSetting
-    }
-  )(DataFetchingComponent)
+  mapStateToProps,
+  {
+    save,
+    saveMany,
+    fetchItem,
+    generateFraValues,
+    fetchLastSectionUpdateTimestamp,
+    saveCountryConfigSetting
+  }
+)(DataFetchingComponent)
