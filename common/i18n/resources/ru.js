@@ -424,7 +424,8 @@ module.exports.translation = {
     useOriginalDataPoints: 'Использовать национальные отчетные годы',
     dontUseOriginalDataPoints: 'Не использовать национальные отчетные годы',
     whatIsThis: 'Что это такое?',
-    tableNoticeMessage: 'Данные ФАОСТАТ о площади земель за 2015 год используются для всех отчетных лет'
+    tableNoticeMessage: 'Данные ФАОСТАТ о площади земель за 2015 год используются для всех отчетных лет',
+    ndpMissingValues: 'Национальный отчетный год имеет отсутствующие значения'
   },
 
   climaticDomain: {
