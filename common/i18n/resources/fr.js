@@ -412,7 +412,8 @@ L'équipe de FRA fra@fao.org
     useOriginalDataPoints: 'Utiliser les points de données nationales',
     dontUseOriginalDataPoints: 'Ne pas utiliser les points de données nationales',
     whatIsThis: 'Qu\'est-ce-que c\'est?',
-    tableNoticeMessage: 'La superficie des terres enregistrée par FAOSTAT pour l\'année 2015 est utilisée pour toutes les années de référence'
+    tableNoticeMessage: 'La superficie des terres enregistrée par FAOSTAT pour l\'année 2015 est utilisée pour toutes les années de référence',
+    ndpMissingValues: 'Le point de données nationales a des valeurs manquantes'
   },
 
   climaticDomain: {
