@@ -1,30 +1,16 @@
 import React from 'react'
 import R from 'ramda'
+
 import { formatDecimal } from '../../utils/numberFormat'
-import { sub, div, abs, lessThan } from '../../../common/bignumberUtils'
+import { add, sub } from '../../../common/bignumberUtils'
 import { subCategoryValidator } from '../../traditionalTable/validators'
-import { getForestAreaForYear } from '../extentOfForest/extentOfForestHelper'
 import { Link } from '../../reusableUiComponents/link'
+import { forestExpansionMirrorCell, eofNetChange } from './forestAreaChange'
 
 const mapIndexed = R.addIndex(R.map)
 const ofWhichRows = R.range(1, 3)
 const expansionValidator = subCategoryValidator(0, ofWhichRows)
 const ofWhichColumns = R.times(() => ({type: 'decimalInput', validator: expansionValidator}), 4)
-
-const integerInputColumns = R.times(() => ({type: 'decimalInput'}), 4)
-
-const eofNetChange = (extentOfForest, startYear, endYear) => {
-  const timeSpan = endYear - startYear
-  const startYearEofArea = getForestAreaForYear(extentOfForest, startYear)
-  const endYearEofArea = getForestAreaForYear(extentOfForest, endYear)
-  const eofNetChange = div(sub(endYearEofArea, startYearEofArea), timeSpan)
-  return eofNetChange
-}
-
-const deforestationValue = (tableData, extentOfForest, startYear, endYear, column) => {
-  const netChangeFromExtentOfForest = eofNetChange(extentOfForest, startYear, endYear)
-  return sub(tableData[0][column], netChangeFromExtentOfForest)
-}
 
 const yearIntervals = [
   [1, 1990, 2000],
@@ -38,8 +24,12 @@ export default (i18n, extentOfForest, countryIso) => {
     name: 'forestAreaChange', // used to uniquely identify table
     header: <thead>
     <tr>
-      <th className="fra-table__header-cell-left" rowSpan="2">{i18n.t('forestAreaChange.categoryHeader')}</th>
-      <th className="fra-table__header-cell" colSpan={yearIntervals.length}>{i18n.t('forestAreaChange.areaUnitLabel')}</th>
+      <th className="fra-table__header-cell-left" rowSpan="2">
+        {i18n.t('forestAreaChange.categoryHeader')}
+      </th>
+      <th className="fra-table__header-cell" colSpan={yearIntervals.length}>
+        {i18n.t('forestAreaChange.areaUnitLabel')}
+      </th>
     </tr>
     <tr>
       {
@@ -59,7 +49,11 @@ export default (i18n, extentOfForest, countryIso) => {
           type: 'readOnly',
           jsx: <th className="fra-table__category-cell">{i18n.t('forestAreaChange.forestExpansion')} (a)</th>
         },
-        ...integerInputColumns
+        ...mapIndexed(
+          ([column, startYear, endYear]) => ({
+            type: 'custom',
+            render: props => forestExpansionMirrorCell(props, extentOfForest, startYear, endYear, 3, sub)
+          }), yearIntervals)
       ],
       [
         {
@@ -82,9 +76,8 @@ export default (i18n, extentOfForest, countryIso) => {
         },
         ...mapIndexed(
           ([column, startYear, endYear]) => ({
-            type: 'calculated',
-            calculateValue: props => deforestationValue(props.tableData, extentOfForest, startYear, endYear, column),
-            valueFormatter: formatDecimal
+            type: 'custom',
+            render: props => forestExpansionMirrorCell(props, extentOfForest, startYear, endYear, 0, add)
           }), yearIntervals)
       ],
       [
