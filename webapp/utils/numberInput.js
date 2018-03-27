@@ -8,8 +8,8 @@ export const acceptableAsInteger = (newValue) => {
   if (newValueTrimmed === '') return true
   if (R.contains('e', newValueTrimmed)) return false
   return !isNaN(newValueTrimmed) &&
-          newValueTrimmed.indexOf('.') === -1 &&
-          isFinite(newValueTrimmed)
+    newValueTrimmed.indexOf('.') === -1 &&
+    isFinite(newValueTrimmed)
 }
 
 // Util function for UI fields which require integer values to be stored
@@ -23,18 +23,21 @@ export const acceptNextInteger = (newValue, currentValue) => {
   return Math.round(Number(newValueTrimmed))
 }
 
-const isValidDecimalPart = d => {
-  const ds = d.split('.')
-  return ds.length === 2 ? (ds[1].length <= 2) : true;
+const isValidDecimalPart = (d, checkNoDecimals) => {
+  if (checkNoDecimals) {
+    const ds = d.split('.')
+    return ds.length === 2 ? (ds[1].length <= 2) : true
+  }
+  return true
 }
 
-export const acceptableAsDecimal = (newValue) => {
+export const acceptableAsDecimal = (newValue, checkNoDecimals = true) => {
   const newValueTrimmed = trim(newValue)
   if (newValueTrimmed === '') return true
   if (R.contains('e', newValueTrimmed)) return false
-  if(!R.test(/^(-)?[0-9]*(\.{1}[0-9]*)?$/)) return false
+  if (!R.test(/^(-)?[0-9]*(\.{1}[0-9]*)?$/)) return false
   return !isNaN(newValueTrimmed) &&
-    isValidDecimalPart(newValueTrimmed) &&
+    isValidDecimalPart(newValueTrimmed, checkNoDecimals) &&
     isFinite(newValueTrimmed)
 }
 
@@ -44,7 +47,7 @@ export const acceptNextDecimal = (newValue, currentValue) => {
   if (R.isNil(newValue)) return null
   const newValueTrimmed = trim(newValue)
   if (newValueTrimmed === '') return null
-  if (!acceptableAsDecimal(newValue)) return currentValue
+  if (!acceptableAsDecimal(newValue, false)) return currentValue
   if (newValueTrimmed.length > 20) return currentValue
   return toFixed(newValueTrimmed)
 }
