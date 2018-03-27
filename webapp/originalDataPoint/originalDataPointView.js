@@ -62,6 +62,16 @@ const OdpViewContent = ({match, saveDraft, markAsActual, remove, odp, autoSaving
         onClick={() => markAsActual(countryIso, odp, activeTab)}>
          {i18n.t('nationalDataPoint.doneEditing')}
       </button>
+      <div className="odp-v-divider"></div>
+      <button
+        className="btn btn-destructive"
+        disabled={saveControlsDisabled()}
+        onClick ={() => window.confirm(i18n.t('nationalDataPoint.confirmDelete'))
+          ? remove(countryIso, odp.odpId, activeTab)
+          : null
+        }>
+        {i18n.t('nationalDataPoint.delete')}
+      </button>
     </div>
     <div className="odp__section">
       <h3 className="subhead">{i18n.t('nationalDataPoint.referenceYearData')}</h3>
@@ -266,15 +276,6 @@ const OdpViewContent = ({match, saveDraft, markAsActual, remove, odp, autoSaving
     </div>
 
     <div className="odp__bottom-buttons">
-      <button
-        className="btn btn-destructive"
-        disabled={saveControlsDisabled()}
-        onClick ={() => window.confirm(i18n.t('nationalDataPoint.confirmDelete'))
-          ? remove(countryIso, odp.odpId, activeTab)
-          : null
-      }>
-        {i18n.t('nationalDataPoint.delete')}
-      </button>
       {
         odp.editStatus && odp.editStatus !== 'newDraft'
           ? <button
@@ -290,6 +291,16 @@ const OdpViewContent = ({match, saveDraft, markAsActual, remove, odp, autoSaving
         disabled={saveControlsDisabled()}
         onClick={() => markAsActual(countryIso, odp, activeTab)}>
          {i18n.t('nationalDataPoint.doneEditing')}
+      </button>
+      <div className="odp-v-divider"></div>
+      <button
+        className="btn btn-destructive"
+        disabled={saveControlsDisabled()}
+        onClick ={() => window.confirm(i18n.t('nationalDataPoint.confirmDelete'))
+          ? remove(countryIso, odp.odpId, activeTab)
+          : null
+      }>
+        {i18n.t('nationalDataPoint.delete')}
       </button>
     </div>
   </div>
