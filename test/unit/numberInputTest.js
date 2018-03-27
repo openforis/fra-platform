@@ -1,9 +1,9 @@
-const assert = require('chai').assert
-const acceptNextInteger = require('../../webapp/utils/numberInput').acceptNextInteger
-const acceptNextDecimal = require('../../webapp/utils/numberInput').acceptNextDecimal
+const {assert} = require('chai')
 
-describe("Number input", () => {
-  it("accepts an integer", () => {
+const {acceptNextInteger, acceptNextDecimal} = require('../../webapp/utils/numberInput')
+
+describe('Number input', () => {
+  it('accepts an integer', () => {
     const actual = acceptNextInteger('3', '1')
     assert.equal('3', actual)
   })
@@ -28,8 +28,8 @@ describe("Number input", () => {
     assert.equal('2.00', actual)
   })
 
-  it('does not accept decimal with three places', () => {
+  it('rounds to 2 decimals numbers with more than 2', () => {
     const actual = acceptNextDecimal('1.888', '1.00')
-    assert.equal('1.00', actual)
+    assert.equal('1.89', actual)
   })
 })
