@@ -442,7 +442,8 @@ The FRA team fra@fao.org
     useOriginalDataPoints: 'Use national data points',
     dontUseOriginalDataPoints: 'Don’t use national data points',
     whatIsThis: 'What is this?',
-    tableNoticeMessage: 'The FAOSTAT land area figure for the year 2015 is used for all reference years'
+    tableNoticeMessage: 'The FAOSTAT land area figure for the year 2015 is used for all reference years',
+    ndpMissingValues: 'National data point has missing values'
   },
 
   climaticDomain: {

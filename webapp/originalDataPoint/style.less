@@ -28,12 +28,8 @@
 .odp__bottom-buttons {
   margin-top: 24px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
-
-  .btn-destructive {
-    margin-right: auto;
-  }
 
   .btn-primary {
     margin-left: 8px;
@@ -235,4 +231,11 @@
   font-size: @font-s;
   padding: @padding;
   text-align: @align;
+}
+
+.odp-v-divider {
+  border-left: @ui-thin-border;
+  height: 20px;
+  width: 1px;
+  margin: 0 8px;
 }

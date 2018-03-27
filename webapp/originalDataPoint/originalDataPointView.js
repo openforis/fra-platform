@@ -31,7 +31,7 @@ import handlePaste from './paste'
 import { fetchLastSectionUpdateTimestamp } from '../audit/actions'
 import { Link } from '../reusableUiComponents/link'
 
-const years = ['', ...R.pipe(R.range(1980), R.reverse)(2021)]
+const years = ['', ...R.pipe(R.range(1960), R.reverse)(2021)]
 
 const isCommentsOpen = (target, openThread = {}) => R.equals('odp', openThread.section) && R.isEmpty(R.difference(openThread.target, target))
 
@@ -61,6 +61,16 @@ const OdpViewContent = ({match, saveDraft, markAsActual, remove, odp, autoSaving
         disabled={saveControlsDisabled()}
         onClick={() => markAsActual(countryIso, odp, activeTab)}>
          {i18n.t('nationalDataPoint.doneEditing')}
+      </button>
+      <div className="odp-v-divider"></div>
+      <button
+        className="btn btn-destructive"
+        disabled={saveControlsDisabled()}
+        onClick ={() => window.confirm(i18n.t('nationalDataPoint.confirmDelete'))
+          ? remove(countryIso, odp.odpId, activeTab)
+          : null
+        }>
+        {i18n.t('nationalDataPoint.delete')}
       </button>
     </div>
     <div className="odp__section">
@@ -266,15 +276,6 @@ const OdpViewContent = ({match, saveDraft, markAsActual, remove, odp, autoSaving
     </div>
 
     <div className="odp__bottom-buttons">
-      <button
-        className="btn btn-destructive"
-        disabled={saveControlsDisabled()}
-        onClick ={() => window.confirm(i18n.t('nationalDataPoint.confirmDelete'))
-          ? remove(countryIso, odp.odpId, activeTab)
-          : null
-      }>
-        {i18n.t('nationalDataPoint.delete')}
-      </button>
       {
         odp.editStatus && odp.editStatus !== 'newDraft'
           ? <button
@@ -290,6 +291,16 @@ const OdpViewContent = ({match, saveDraft, markAsActual, remove, odp, autoSaving
         disabled={saveControlsDisabled()}
         onClick={() => markAsActual(countryIso, odp, activeTab)}>
          {i18n.t('nationalDataPoint.doneEditing')}
+      </button>
+      <div className="odp-v-divider"></div>
+      <button
+        className="btn btn-destructive"
+        disabled={saveControlsDisabled()}
+        onClick ={() => window.confirm(i18n.t('nationalDataPoint.confirmDelete'))
+          ? remove(countryIso, odp.odpId, activeTab)
+          : null
+      }>
+        {i18n.t('nationalDataPoint.delete')}
       </button>
     </div>
   </div>

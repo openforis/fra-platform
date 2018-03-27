@@ -100,7 +100,11 @@ const annualChangeExtrapolation = (year, values, odpValues, field, {changeRates}
   const previousValues = getPreviousValues(year)(odpValues)
   const nextValues = getNextValues(year)(odpValues)
   if (previousValues.length >= 1) {
-    const previousOdp = R.head(previousValues)
+    const previousOdp = R.pipe(
+      R.reject(o => R.isNil(o[field])),
+      R.head,
+      R.defaultTo(R.head(previousValues))
+    )(previousValues)
     const previousOdpYear = previousOdp.year
     const years = year - previousOdpYear
     const rateFuture = R.path([field, 'rateFuture'], changeRates)
@@ -129,7 +133,7 @@ const generateMethods = {
 
 const extrapolate = (year, values, odpValues, field, generateSpec) => {
   const extrapolationMethod = generateMethods[generateSpec.method]
-  assert(extrapolationMethod,`Invalid extrapolation method: ${generateSpec.method}`)
+  assert(extrapolationMethod, `Invalid extrapolation method: ${generateSpec.method}`)
   return extrapolationMethod(year, values, odpValues, field, generateSpec)
 }
 

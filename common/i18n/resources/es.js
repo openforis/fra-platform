@@ -412,7 +412,8 @@ El equipo de FRA
     useOriginalDataPoints: 'Usar puntos de datos nacionales',
     dontUseOriginalDataPoints: 'No usar puntos de datos nacionales',
     whatIsThis: '¿Qué significa esto?',
-    tableNoticeMessage: 'La superficie de tierra registrada según FAOSTAT para el año 2015 se usa para todos los años de referencia'
+    tableNoticeMessage: 'La superficie de tierra registrada según FAOSTAT para el año 2015 se usa para todos los años de referencia',
+    ndpMissingValues:'El punto de datos nacionales tiene valores faltantes'
   },
 
   climaticDomain: {
