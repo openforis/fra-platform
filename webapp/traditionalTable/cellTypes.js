@@ -15,9 +15,12 @@ const cellTypeCreators = {
   'textSelect': TextSelectType,
   'yesNoSelect': YesNoSelectType,
   'verticallyGrowingTextInput': VerticallyGrowingTextCell,
-  'calculated':  CalculatedCellType,
+  'calculated': CalculatedCellType,
   'readOnly': (cellSpec) => ({render: (props) => cellSpec.jsx}),
-  'custom': (cellSpec) => ({render: (props) => cellSpec.render(props)})
+  'custom': (cellSpec) => ({
+    render: (props) => cellSpec.render(props),
+    acceptValue: cellSpec.acceptValue
+  })
 }
 
 export const getCellType = (tableSpec, rowIdx, colIdx) => {
