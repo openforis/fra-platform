@@ -6,12 +6,17 @@ import { formatDecimal } from '../../utils/numberFormat'
 
 import { subCategoryValidator } from '../../traditionalTable/validators'
 import { Link } from '../../reusableUiComponents/link'
-import { yearIntervals, forestExpansionMirrorCell, eofNetChange } from './forestAreaChange'
+import { yearIntervals, decimalInputCell, eofNetChange } from './forestAreaChange'
 
 const mapIndexed = R.addIndex(R.map)
 const ofWhichRows = R.range(1, 3)
 const expansionValidator = subCategoryValidator(0, ofWhichRows)
-const ofWhichColumns = R.times(() => ({type: 'decimalInput', validator: expansionValidator}), 4)
+
+const decimalInputColumns = (extentOfForest, validator) => R.times(() => ({
+  type: 'custom',
+  render: props => decimalInputCell(props, extentOfForest, validator),
+  acceptValue: acceptNextDecimal
+}), 4)
 
 export default (i18n, extentOfForest, countryIso) => {
   return {
@@ -43,36 +48,28 @@ export default (i18n, extentOfForest, countryIso) => {
           type: 'readOnly',
           jsx: <th className="fra-table__category-cell">{i18n.t('forestAreaChange.forestExpansion')} (a)</th>
         },
-        ...mapIndexed(() => ({
-          type: 'custom',
-          render: props => forestExpansionMirrorCell(props, extentOfForest),
-          acceptValue: acceptNextDecimal
-        }), yearIntervals)
+        ...decimalInputColumns(extentOfForest)
       ],
       [
         {
           type: 'readOnly',
           jsx: <th className="fra-table__subcategory-cell">{i18n.t('forestAreaChange.ofWhichAfforestation')}</th>
         },
-        ...ofWhichColumns
+        ...decimalInputColumns(extentOfForest, expansionValidator)
       ],
       [
         {
           type: 'readOnly',
           jsx: <th className="fra-table__subcategory-cell">{i18n.t('forestAreaChange.ofWhichNaturalExpansion')}</th>
         },
-        ...ofWhichColumns
+        ...decimalInputColumns(extentOfForest, expansionValidator)
       ],
       [
         {
           type: 'readOnly',
           jsx: <th className="fra-table__header-cell-left">{i18n.t('forestAreaChange.deforestation')} (b)</th>
         },
-        ...mapIndexed(() => ({
-          type: 'custom',
-          render: props => forestExpansionMirrorCell(props, extentOfForest),
-          acceptValue: acceptNextDecimal
-        }), yearIntervals)
+        ...decimalInputColumns(extentOfForest)
       ],
       [
         {
