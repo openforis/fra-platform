@@ -61,7 +61,7 @@ const updateTableDataValue = (tableData, rowIdx, colIdx, value, extentOfForest) 
     : null
 }
 
-export const forestExpansionMirrorCell = (props, extentOfForest) => {
+export const decimalInputCell = (props, extentOfForest, validator) => {
   const {
     countryIso,
     tableSpec,
@@ -71,7 +71,8 @@ export const forestExpansionMirrorCell = (props, extentOfForest) => {
     tableChanged
   } = props
 
-  return <td className="fra-table__cell">
+  const valid = validator ? validator(props, rowIdx, colIdx).valid : true
+  return <td className={`fra-table__cell ${valid ? '' : 'error'}`}>
     <ThousandSeparatedDecimalInput
       numberValue={tableData[rowIdx][colIdx]}
       onChange={evt => {
