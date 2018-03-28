@@ -1,23 +1,17 @@
 import React from 'react'
 import R from 'ramda'
 
+import { acceptNextDecimal } from '../../utils/numberInput'
 import { formatDecimal } from '../../utils/numberFormat'
-import { add, sub } from '../../../common/bignumberUtils'
+
 import { subCategoryValidator } from '../../traditionalTable/validators'
 import { Link } from '../../reusableUiComponents/link'
-import { forestExpansionMirrorCell, eofNetChange } from './forestAreaChange'
+import { yearIntervals, forestExpansionMirrorCell, eofNetChange } from './forestAreaChange'
 
 const mapIndexed = R.addIndex(R.map)
 const ofWhichRows = R.range(1, 3)
 const expansionValidator = subCategoryValidator(0, ofWhichRows)
 const ofWhichColumns = R.times(() => ({type: 'decimalInput', validator: expansionValidator}), 4)
-
-const yearIntervals = [
-  [1, 1990, 2000],
-  [2, 2000, 2010],
-  [3, 2010, 2015],
-  [4, 2015, 2020]
-]
 
 export default (i18n, extentOfForest, countryIso) => {
   return {
@@ -49,11 +43,11 @@ export default (i18n, extentOfForest, countryIso) => {
           type: 'readOnly',
           jsx: <th className="fra-table__category-cell">{i18n.t('forestAreaChange.forestExpansion')} (a)</th>
         },
-        ...mapIndexed(
-          ([column, startYear, endYear]) => ({
-            type: 'custom',
-            render: props => forestExpansionMirrorCell(props, extentOfForest, startYear, endYear, 3, sub)
-          }), yearIntervals)
+        ...mapIndexed(() => ({
+          type: 'custom',
+          render: props => forestExpansionMirrorCell(props, extentOfForest),
+          acceptValue: acceptNextDecimal
+        }), yearIntervals)
       ],
       [
         {
@@ -74,11 +68,11 @@ export default (i18n, extentOfForest, countryIso) => {
           type: 'readOnly',
           jsx: <th className="fra-table__header-cell-left">{i18n.t('forestAreaChange.deforestation')} (b)</th>
         },
-        ...mapIndexed(
-          ([column, startYear, endYear]) => ({
-            type: 'custom',
-            render: props => forestExpansionMirrorCell(props, extentOfForest, startYear, endYear, 0, add)
-          }), yearIntervals)
+        ...mapIndexed(() => ({
+          type: 'custom',
+          render: props => forestExpansionMirrorCell(props, extentOfForest),
+          acceptValue: acceptNextDecimal
+        }), yearIntervals)
       ],
       [
         {
