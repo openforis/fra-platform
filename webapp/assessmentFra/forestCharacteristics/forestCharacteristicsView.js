@@ -19,7 +19,7 @@ import { hasOdps } from '../extentOfForest/extentOfForestHelper'
 
 const mapIndexed = R.addIndex(R.map)
 const sectionName = 'forestCharacteristics'
-const odpValueCellClass = (fraColumn) => fraColumn.type === 'odp' ? 'odp-value-cell-total' : 'fra-table__calculated-cell'
+const odpValueCellClass = (fraColumn) => fraColumn.type === 'odp' ? 'odp-value-cell-total no-print' : 'fra-table__calculated-cell'
 
 const ForestCharacteristics = props => {
 
@@ -109,7 +109,10 @@ const ForestCharacteristics = props => {
   const totalForestAreaRow = fra =>
     <tr className={rowHighlightClass('totalForestArea')}>
       <th className="fra-table__header-cell-left">
-        <Link to={`/country/${props.countryIso}/extentOfForest`} className="link">
+        <div className="only-print">
+          {i18n.t('forestCharacteristics.totalForestArea')}
+        </div>
+        <Link to={`/country/${props.countryIso}/extentOfForest`} className="link no-print">
           {i18n.t('forestCharacteristics.totalForestArea')}
         </Link>
       </th>
@@ -212,7 +215,7 @@ const ForestCharacteristics = props => {
       props.useOriginalDataPoints
       ? [<button
             key="odpButton"
-            className={`btn btn-${props.useOriginalDataPointsInFoc ? 'secondary' : 'primary'}`}
+            className={`btn btn-${props.useOriginalDataPointsInFoc ? 'secondary' : 'primary'} no-print`}
             onClick={() => handleOdpButtonClick()}
           >
           {
@@ -221,7 +224,7 @@ const ForestCharacteristics = props => {
             : i18n.t('forestCharacteristics.useOriginalDataPoints')
           }
           </button>,
-          <hr key="separator"/>]
+          <hr key="separator" className="no-print"/>]
       : null
     }
     {
@@ -234,8 +237,8 @@ const ForestCharacteristics = props => {
     }
     <h2 className="headline">{i18n.t('forestCharacteristics.forestCharacteristics')}</h2>
     <div className="fra-view__section-toolbar">
-      <DefinitionLink className="margin-right-big" document="tad" anchor="1b" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
-      <DefinitionLink className="align-left" document="faq" anchor="1b" title={i18n.t('definition.faqLabel')} lang={i18n.language} />
+      <DefinitionLink className="margin-right-big no-print" document="tad" anchor="1b" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
+      <DefinitionLink className="align-left no-print" document="faq" anchor="1b" title={i18n.t('definition.faqLabel')} lang={i18n.language} />
     </div>
     <ChartWrapper
       fra={props.fra}
@@ -247,7 +250,7 @@ const ForestCharacteristics = props => {
     />
     {
       props.useOriginalDataPointsInFoc
-      ? <div className="fra-view__section-toolbar">
+      ? <div className="fra-view__section-toolbar no-print">
           <GenerateFraValuesControl section={sectionName} rows={focRows} {...props} />
           {
             props.odpDirty

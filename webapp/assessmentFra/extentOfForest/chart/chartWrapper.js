@@ -14,7 +14,7 @@ class ChartWrapper extends UpdateOnResizeReactComponent {
 
   render() {
     this.width = this.getWidth()
-    return <div ref="chartWrapper" className="chart__container">
+    return <div ref="chartWrapper" className="chart__container no-print">
       <ChartContainer
         fra={this.props.fra}
         wrapperWidth={this.width}

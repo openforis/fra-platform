@@ -74,7 +74,7 @@ export class TableWithOdp extends React.Component {
               <div>
                 {this.props.tableHeader}
                 {copyValues
-                  ? <button className="fra-table__header-button btn-xs btn-primary"
+                  ? <button className="fra-table__header-button btn-xs btn-primary no-print"
                             onClick={() => this.copyTableAsHtml()}>
                     {this.props.i18n.t('tableWithOdp.copyToClipboard')}
                   </button>
@@ -85,7 +85,7 @@ export class TableWithOdp extends React.Component {
           <tr>
             {
               R.values(this.props.fra).map(value =>
-                <th className={value.type === 'odp' ? 'odp-header-cell' : 'fra-table__header-cell'}
+                <th className={value.type === 'odp' ? 'odp-header-cell no-print' : 'fra-table__header-cell'}
                     key={`${value.type}_${value.name}`}>
                   {
                     value.type === 'odp'
@@ -305,7 +305,7 @@ const fraValueCell = (fraValue, fra, countryIso, save, saveMany, pasteUpdate, fi
 
 const validationErrorRow = columnErrorMsgs => {
   if (R.all(R.isNil, columnErrorMsgs)) return null
-  return <tr key="validationError">
+  return <tr key="validationError" className="no-print">
     {
       mapIndexed((errorMsgs, colIdx) =>
         <td className="fra-table__validation-cell" key={colIdx}>
@@ -349,7 +349,7 @@ const renderFieldRow = ({row, countryIso, fra, save, saveMany, pasteUpdate, rowI
               R.reject(R.isNil),
               R.join(' ')
             )([
-                fraColumn.type === 'odp' ? 'odp-value-cell' : 'fra-table__cell',
+                fraColumn.type === 'odp' ? 'odp-value-cell no-print' : 'fra-table__cell',
                 validator(fraColumn, field) ? null : 'validation-error'
             ])
           return (

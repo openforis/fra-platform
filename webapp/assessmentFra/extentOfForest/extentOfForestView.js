@@ -21,7 +21,7 @@ import { hasOdps } from './extentOfForestHelper'
 
 const sectionName = 'extentOfForest'
 const mapIndexed = R.addIndex(R.map)
-const odpValueCellClass = (fraColumn) => fraColumn.type === 'odp' ? 'odp-value-cell-total' : 'fra-table__calculated-cell'
+const odpValueCellClass = (fraColumn) => fraColumn.type === 'odp' ? 'odp-value-cell-total no-print' : 'fra-table__calculated-cell'
 
 const ExtentOfForest = (props) => {
 
@@ -172,11 +172,11 @@ const ExtentOfForest = (props) => {
     }
   ]
   return <div className='fra-view__content'>
-    <Link className="btn btn-primary" to={`/country/${props.countryIso}/odp/${sectionName}`} style={{marginRight: 16}}>
+    <Link className="btn btn-primary no-print" to={`/country/${props.countryIso}/odp/${sectionName}`} style={{marginRight: 16}}>
       <Icon className="icon-sub icon-white" name="small-add"/>
       {i18n.t('nationalDataPoint.addNationalDataPoint')}
     </Link>
-    <hr/>
+    <hr className="no-print"/>
     {
       hasOdps(props.fra)
         ? null
@@ -187,9 +187,9 @@ const ExtentOfForest = (props) => {
     }
     <h2 className="headline">{i18n.t('extentOfForest.extentOfForest')}</h2>
     <div className="fra-view__section-toolbar">
-      <DefinitionLink className="margin-right-big" document="tad" anchor="1a"
+      <DefinitionLink className="margin-right-big no-print" document="tad" anchor="1a"
                       title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
-      <DefinitionLink className="align-left" document="faq" anchor="1a" title={i18n.t('definition.faqLabel')}
+      <DefinitionLink className="align-left no-print" document="faq" anchor="1a" title={i18n.t('definition.faqLabel')}
                       lang={i18n.language}/>
     </div>
     <ChartWrapper
@@ -201,7 +201,7 @@ const ExtentOfForest = (props) => {
     />
     {
       hasOdps(props.fra)
-        ? <div className="fra-view__section-toolbar">
+        ? <div className="fra-view__section-toolbar no-print">
           <GenerateFraValuesControl section={sectionName} rows={eofRows} useOriginalDataPoints={true} {...props} />
           {
             props.odpDirty
