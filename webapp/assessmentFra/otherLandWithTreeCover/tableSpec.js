@@ -8,7 +8,7 @@ import { Link } from '../../reusableUiComponents/link'
 
 const mapIndexed = R.addIndex(R.map)
 const years = [1990, 2000, 2010, 2015, 2020]
-const sumRows = R.range(0,5)
+const sumRows = R.range(0, 5)
 
 export default (i18n, extentOfForest, faoStat, countryIso) => {
   const createInputRow = (rowHeader) => [
@@ -27,7 +27,8 @@ export default (i18n, extentOfForest, faoStat, countryIso) => {
     header: <thead>
     <tr>
       <th className="fra-table__header-cell-left" rowSpan="2">{i18n.t('otherLandWithTreeCover.categoryHeader')}</th>
-      <th className="fra-table__header-cell" colSpan={years.length}>{i18n.t('otherLandWithTreeCover.areaUnitLabel')}</th>
+      <th className="fra-table__header-cell"
+          colSpan={years.length}>{i18n.t('otherLandWithTreeCover.areaUnitLabel')}</th>
     </tr>
     <tr>
       {
@@ -52,7 +53,7 @@ export default (i18n, extentOfForest, faoStat, countryIso) => {
         ...mapIndexed((year, i) =>
           ({
             type: 'calculated',
-            calculateValue: props => totalSum(props.tableData, i+1, sumRows),
+            calculateValue: props => totalSum(props.tableData, i + 1, sumRows),
             valueFormatter: formatDecimal,
             validator: otherLandLessThanOrEqualToExtentOfForestValidator(year, extentOfForest, faoStat, sumRows)
           }), years)
@@ -62,7 +63,10 @@ export default (i18n, extentOfForest, faoStat, countryIso) => {
           type: 'readOnly',
           jsx:
             <th className="fra-table__header-cell-left">
-              <Link to={`/country/${countryIso}/extentOfForest`} className="link">
+              <div className="only-print">
+                {i18n.t('otherLandWithTreeCover.otherLandArea')}
+              </div>
+              <Link to={`/country/${countryIso}/extentOfForest`} className="link no-print">
                 {i18n.t('otherLandWithTreeCover.otherLandArea')}
               </Link>
             </th>

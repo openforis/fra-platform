@@ -42,7 +42,7 @@ class BiomassStockView extends React.Component {
         <div className="fra-view__section-toolbar" style={{marginTop: '4px'}}>
           <DefinitionLink className="margin-right-big" document="tad" anchor="2c" title={i18n.t('definition.definitionLabel')} lang={lang}/>
           <DefinitionLink className="align-left" document="faq" anchor="2c" title={i18n.t('definition.faqLabel')} lang={lang}/>
-          <div>
+          <div className="no-print">
             {
               !R.isNil(this.props.domain)
               ? <select
