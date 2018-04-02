@@ -4,11 +4,12 @@ import ExtentOfForestView from '../assessmentFra/extentOfForest/extentOfForestVi
 import ForestCharacteristicsView from '../assessmentFra/forestCharacteristics/forestCharacteristicsView'
 import ForestAreaChangeView from '../assessmentFra/forestAreaChange/forestAreaChangeView'
 import AnnualReforestationView from '../assessmentFra/annualReforestation/annualReforestationView'
+import SpecificForestCategoriesView from '../assessmentFra/specificForestCategories/specificForestCategoriesView'
+import OtherLandWithTreeCoverView from '../assessmentFra/otherLandWithTreeCover/otherLandWithTreeCoverView'
 
 import GrowingStockView from '../assessmentFra/growingStock/growingStockView'
-import SpecificForestCategoriesView from '../assessmentFra/specificForestCategories/specificForestCategoriesView'
 import GrowingStockCompositionView from '../assessmentFra/growingStockComposition/growingStockCompositionView'
-import designatedManagementObjectiveView
+import DesignatedManagementObjectiveView
   from '../assessmentFra/designatedManagementObjective/designatedManagementObjectiveView'
 import AreaAffecteByFireView from '../assessmentFra/areaAffectedByFire/areaAffectedByFireView'
 import DegradedForestView from '../assessmentFra/degradedForest/degradedForestView'
@@ -26,7 +27,6 @@ import DisturbancesView from '../assessmentFra/disturbances/disturbancesView'
 import AreaOfPermanentForestEstateView
   from '../assessmentFra/areaOfPermanentForestEstate/areaOfPermanentForestEstateView'
 import ForestPolicyView from '../assessmentFra/forestPolicy/forestPolicyView'
-import OtherLandWithTreeCoverView from '../assessmentFra/otherLandWithTreeCover/otherLandWithTreeCoverView'
 import SustainableDevelopmentView from '../assessmentFra/sustainableDevelopment/sustainableDevelopmentView'
 
 const AssessmentFraPrintView = (props) => {
@@ -43,6 +43,12 @@ const AssessmentFraPrintView = (props) => {
 
     <div className="page-break"/>
     <AnnualReforestationView {...props}/>
+
+    <div className="page-break"/>
+    <SpecificForestCategoriesView {...props}/>
+
+    <div className="page-break"/>
+    <OtherLandWithTreeCoverView {...props}/>
 
   </div>
 }
