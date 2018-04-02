@@ -175,7 +175,7 @@ const GrowingStock = (props) => {
     <div className="fra-view__section-toolbar">
       <DefinitionLink className="margin-right-big" document="tad" anchor="2a" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
       <DefinitionLink className="align-left" document="faq" anchor="2a" title={i18n.t('definition.faqLabel')} lang={i18n.language}/>
-      <div className="support-text full-width">{i18n.t('growingStock.supportText')}</div>
+      <div className="support-text full-width no-print">{i18n.t('growingStock.supportText')}</div>
     </div>
     <div className="fra-table__container">
       <div className="fra-table__scroll-wrapper">
@@ -186,7 +186,7 @@ const GrowingStock = (props) => {
               <th className="fra-table__header-cell" colSpan={defaultYears.length}>
                 <div>
                   {props.i18n.t('growingStock.avgTableHeader')}
-                  <button className="fra-table__header-button btn-xs btn-primary" onClick={() => copyTableAsHtml(avgTable, i18n)}>
+                  <button className="fra-table__header-button btn-xs btn-primary no-print" onClick={() => copyTableAsHtml(avgTable, i18n)}>
                     {props.i18n.t('growingStock.copyToClipboard')}
                   </button>
                 </div>

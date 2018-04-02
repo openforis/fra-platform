@@ -9,6 +9,9 @@ import OtherLandWithTreeCoverView from '../assessmentFra/otherLandWithTreeCover/
 
 import GrowingStockView from '../assessmentFra/growingStock/growingStockView'
 import GrowingStockCompositionView from '../assessmentFra/growingStockComposition/growingStockCompositionView'
+import BiomassStockView from '../assessmentFra/biomassStock/biomassStockView'
+import CarbonStockView from '../assessmentFra/carbonStock/carbonStockView'
+
 import DesignatedManagementObjectiveView
   from '../assessmentFra/designatedManagementObjective/designatedManagementObjectiveView'
 import AreaAffecteByFireView from '../assessmentFra/areaAffectedByFire/areaAffectedByFireView'
@@ -17,8 +20,6 @@ import EmploymentView from '../assessmentFra/employment/employmentView'
 import GraduationOfStudentsView from '../assessmentFra/graduationOfStudents/graduationOfStudentsView'
 import NonWoodForestProductsRemovalsView
   from '../assessmentFra/nonWoodForestProductsRemovals/nonWoodForestProductsRemovalsView'
-import BiomassStockView from '../assessmentFra/biomassStock/biomassStockView'
-import CarbonStockView from '../assessmentFra/carbonStock/carbonStockView'
 import ForestOwnershipView from '../assessmentFra/forestOwnership/forestOwnershipView'
 import ForestAreaWithinProtectedAreasView
   from '../assessmentFra/forestAreaWithinProtectedAreas/forestAreaWithinprotectedAreasView'
@@ -37,19 +38,23 @@ const AssessmentFraPrintView = (props) => {
 
     <div className="page-break"/>
     <ForestCharacteristicsView {...props}/>
-
     <div className="page-break"/>
     <ForestAreaChangeView {...props}/>
-
     <div className="page-break"/>
     <AnnualReforestationView {...props}/>
-
     <div className="page-break"/>
     <SpecificForestCategoriesView {...props}/>
-
     <div className="page-break"/>
     <OtherLandWithTreeCoverView {...props}/>
 
+    <div className="page-break"/>
+    <GrowingStockView {...props}/>
+    <div className="page-break"/>
+    <GrowingStockCompositionView {...props}/>
+    <div className="page-break"/>
+    <BiomassStockView {...props}/>
+    <div className="page-break"/>
+    <CarbonStockView {...props}/>
   </div>
 }
 
