@@ -1,7 +1,36 @@
+.only-print {
+  display: none !important;
+}
+
 .fra-print__container {
   padding: 28px 32px;
 
+  .app__root {
+    height: auto !important;
+  }
+
+  .fra-view__content {
+    padding: 0 !important;
+  }
+
   .no-print {
     display: none !important;
+  }
+
+  .only-print {
+    display: inherit !important;
+  }
+}
+
+@media screen {
+  .page-break {
+    height: 1px;
+    margin: 64px 0;
+  }
+}
+
+@media print {
+  .page-break {
+    page-break-after: always;
   }
 }

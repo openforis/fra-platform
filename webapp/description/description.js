@@ -36,7 +36,7 @@ class Description extends Component {
     return <div>
       <div className="fra-description__header-row">
         <h3 className="subhead fra-description__header">{this.props.title}</h3>
-        <div className="fra-description__link" onClick={e =>
+        <div className="fra-description__link no-print" onClick={e =>
           {
             isActive
               ? this.props.closeEditor()
