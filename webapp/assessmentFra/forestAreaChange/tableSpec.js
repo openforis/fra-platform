@@ -76,7 +76,10 @@ export default (i18n, extentOfForest, countryIso) => {
           type: 'readOnly',
           jsx:
             <th className="fra-table__header-cell-left">
-              <Link to={`/country/${countryIso}/extentOfForest`} className="link">
+              <div className="only-print">
+                {i18n.t('forestAreaChange.forestAreaNetChange')} (a-b)
+              </div>
+              <Link to={`/country/${countryIso}/extentOfForest`} className="link no-print">
                 {i18n.t('forestAreaChange.forestAreaNetChange')} (a-b)
               </Link>
             </th>
