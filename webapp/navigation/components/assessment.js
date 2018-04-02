@@ -182,6 +182,9 @@ class AssessmentHeader extends React.Component {
             ? `${i18n.t('assessment.' + assessment.type)} (${i18n.t('assessment.deskStudy')})`
             : i18n.t('assessment.' + assessment.type)
         }
+        <a className="btn-s btn-secondary">
+          <Icon name="small-print" className="icon-no-margin"/>
+        </a>
       </div>
 
       <PopoverControl items={popoverItems}>
