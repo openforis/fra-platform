@@ -22,7 +22,7 @@ export default class TextInput extends React.Component {
       <input
         type="text"
         style={{opacity: this.state.hasFocus ? '1' : '0'}}
-        className="text-input__input-field"
+        className="text-input__input-field no-print"
         ref="textInputField"
         value={this.props.value || ''}
         onChange={this.props.onChange}
