@@ -46,7 +46,7 @@ class ReviewIndicator extends React.Component {
     const hasUnreadIssues = R.isNil(targetProps) ? false : targetProps.hasUnreadIssues
     const active = this.props.openThread && this.props.section == this.props.openThread.section && R.equals(this.props.target, this.props.openThread.target) ? true : false
 
-    return <div className="fra-review__add-issue">
+    return <div className="fra-review__add-issue no-print">
       <CommentStatus
         count={count}
         active={active}
