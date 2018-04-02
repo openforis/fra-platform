@@ -182,9 +182,9 @@ class AssessmentHeader extends React.Component {
             ? `${i18n.t('assessment.' + assessment.type)} (${i18n.t('assessment.deskStudy')})`
             : i18n.t('assessment.' + assessment.type)
         }
-        <a className="btn-s btn-secondary">
+        <Link className="btn-s btn-secondary" to={`/country/${countryIso}/print/${assessment.type}`} target="_blank">
           <Icon name="small-print" className="icon-no-margin"/>
-        </a>
+        </Link>
       </div>
 
       <PopoverControl items={popoverItems}>
