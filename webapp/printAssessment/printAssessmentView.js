@@ -3,6 +3,7 @@ import './style.less'
 import React from 'react'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
+import { setPrintingMode } from './printAssessment'
 
 import AssessmentFraPrintView from './../assessmentFra/assessmentFraPrintView'
 
@@ -11,6 +12,9 @@ const views = [{
 }]
 
 const PrintAssessmentView = (props) => {
+
+  setPrintingMode()
+
   const {match, i18n} = props
   const {assessment} = match.params
 
@@ -20,7 +24,6 @@ const PrintAssessmentView = (props) => {
     <h1>{i18n.t('assessment.' + assessment)}</h1>
     <hr/>
     {React.createElement(component, {...props})}
-
   </div>
 
 }
