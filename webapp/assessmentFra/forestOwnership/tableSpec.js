@@ -20,7 +20,7 @@ const createInputRow = (rowHeader, cname = 'fra-table__category-cell', validator
 const privateOwnershipValidator = subCategoryValidator(0, R.range(1, 4))
 
 const years = [1990, 2000, 2010, 2015]
-const sumRows = [0,4,5]
+const sumRows = [0, 4, 5]
 
 export default (i18n, extentOfForest, countryIso) => ({
   name: 'forestOwnership',
@@ -57,7 +57,7 @@ export default (i18n, extentOfForest, countryIso) => ({
               R.defaultTo(0)
             )(props.tableData)
 
-            const rows = [0,4]
+            const rows = [0, 4]
             const value = R.reduce(
               (value, row) => sub(value, getValue(row, i + 1)),
               getForestAreaForYear(extentOfForest, year),
@@ -80,7 +80,7 @@ export default (i18n, extentOfForest, countryIso) => ({
       ...mapIndexed((year, i) =>
         ({
           type: 'calculated',
-          calculateValue: props => totalSum(props.tableData, i+1, sumRows),
+          calculateValue: props => totalSum(props.tableData, i + 1, sumRows),
           valueFormatter: formatDecimal,
           validator: forestAreaSameAsExtentOfForestValidator(year, extentOfForest, sumRows)
         }), years)
@@ -90,7 +90,10 @@ export default (i18n, extentOfForest, countryIso) => ({
         type: 'readOnly',
         jsx:
           <th className="fra-table__header-cell-left">
-            <Link to={`/country/${countryIso}/extentOfForest`} className="link">
+            <div className="only-print">
+              {i18n.t('forestOwnership.totalForestArea')}
+            </div>
+            <Link to={`/country/${countryIso}/extentOfForest`} className="link no-print">
               {i18n.t('forestOwnership.totalForestArea')}
             </Link>
           </th>

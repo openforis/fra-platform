@@ -17,14 +17,15 @@ import DesignatedManagementObjectiveView
 import ForestAreaWithinProtectedAreasView
   from '../assessmentFra/forestAreaWithinProtectedAreas/forestAreaWithinprotectedAreasView'
 
+import ForestOwnershipView from '../assessmentFra/forestOwnership/forestOwnershipView'
+import HolderOfManagementRightsView from '../assessmentFra/holderOfManagementRights/holderOfManagementRightsView'
+
 import AreaAffecteByFireView from '../assessmentFra/areaAffectedByFire/areaAffectedByFireView'
 import DegradedForestView from '../assessmentFra/degradedForest/degradedForestView'
 import EmploymentView from '../assessmentFra/employment/employmentView'
 import GraduationOfStudentsView from '../assessmentFra/graduationOfStudents/graduationOfStudentsView'
 import NonWoodForestProductsRemovalsView
   from '../assessmentFra/nonWoodForestProductsRemovals/nonWoodForestProductsRemovalsView'
-import ForestOwnershipView from '../assessmentFra/forestOwnership/forestOwnershipView'
-import HolderOfManagementRightsView from '../assessmentFra/holderOfManagementRights/holderOfManagementRightsView'
 import DisturbancesView from '../assessmentFra/disturbances/disturbancesView'
 import AreaOfPermanentForestEstateView
   from '../assessmentFra/areaOfPermanentForestEstate/areaOfPermanentForestEstateView'
@@ -61,6 +62,11 @@ const AssessmentFraPrintView = (props) => {
     <DesignatedManagementObjectiveView {...props}/>
     <div className="page-break"/>
     <ForestAreaWithinProtectedAreasView {...props}/>
+
+    <div className="page-break"/>
+    <ForestOwnershipView {...props}/>
+    <div className="page-break"/>
+    <HolderOfManagementRightsView {...props}/>
   </div>
 }
 
