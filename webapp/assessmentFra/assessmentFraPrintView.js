@@ -36,7 +36,7 @@ import NonWoodForestProductsRemovalsView
 import SustainableDevelopmentView from '../assessmentFra/sustainableDevelopment/sustainableDevelopmentView'
 
 const AssessmentFraPrintView = (props) => {
-  console.log(props)
+
   return <div>
 
     <ExtentOfForestView {...props}/>
