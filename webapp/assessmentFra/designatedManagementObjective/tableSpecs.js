@@ -92,7 +92,10 @@ export const primaryDesignatedManagementObjectiveTableSpec = (i18n, extentOfFore
         type: 'readOnly',
         jsx:
           <th className="fra-table__header-cell-left">
-            <Link to={`/country/${countryIso}/extentOfForest`} className="link">
+            <div className="only-print">
+              {i18n.t('designatedManagementObjective.totalForestArea')}
+            </div>
+            <Link to={`/country/${countryIso}/extentOfForest`} className="link no-print">
               {i18n.t('designatedManagementObjective.totalForestArea')}
             </Link>
           </th>
