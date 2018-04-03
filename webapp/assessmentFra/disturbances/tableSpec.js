@@ -8,7 +8,7 @@ import { Link } from '../../reusableUiComponents/link'
 
 const mapIndexed = R.addIndex(R.map)
 const years = R.range(2000, 2018)
-const sumRows = R.range(0,4)
+const sumRows = R.range(0, 4)
 const inputColumns = R.times(() => ({type: 'decimalInput'}), 18)
 
 export default (i18n, extentOfForest, countryIso) => ({
@@ -30,28 +30,28 @@ export default (i18n, extentOfForest, countryIso) => ({
         type: 'readOnly',
         jsx: <th className="fra-table__category-cell">{i18n.t('disturbances.insects')} (a)</th>
       },
-    ...inputColumns
+      ...inputColumns
     ],
     [
       {
         type: 'readOnly',
         jsx: <th className="fra-table__category-cell">{i18n.t('disturbances.diseases')} (b)</th>
       },
-    ...inputColumns
+      ...inputColumns
     ],
     [
       {
         type: 'readOnly',
         jsx: <th className="fra-table__category-cell">{i18n.t('disturbances.severeWeatherEvents')} (c)</th>
       },
-    ...inputColumns
+      ...inputColumns
     ],
     [
       {
         type: 'readOnly',
         jsx: <th className="fra-table__category-cell">{i18n.t('disturbances.other')} (d)</th>
       },
-    ...inputColumns
+      ...inputColumns
     ],
     [
       {
@@ -64,7 +64,7 @@ export default (i18n, extentOfForest, countryIso) => ({
       ...mapIndexed((year, i) =>
         ({
           type: 'calculated',
-          calculateValue: props => totalSum(props.tableData, i+1, sumRows),
+          calculateValue: props => totalSum(props.tableData, i + 1, sumRows),
           valueFormatter: formatDecimal,
           validator: forestAreaLessThanOrEqualToExtentOfForestValidator(year, extentOfForest, sumRows)
         }), years)
@@ -74,9 +74,12 @@ export default (i18n, extentOfForest, countryIso) => ({
         type: 'readOnly',
         jsx:
           <th className="fra-table__header-cell-left">
-          <Link to={`/country/${countryIso}/extentOfForest`} className="link">
-            {i18n.t('disturbances.totalForestArea')}
-          </Link>
+            <div className="only-print">
+              {i18n.t('disturbances.totalForestArea')}
+            </div>
+            <Link to={`/country/${countryIso}/extentOfForest`} className="link no-print">
+              {i18n.t('disturbances.totalForestArea')}
+            </Link>
           </th>
       },
       ...R.map(year =>
