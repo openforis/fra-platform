@@ -29,9 +29,12 @@ class VerticallyGrowingTextField extends React.Component {
         <textarea
           ref="textArea"
           rows="1"
-          className="vgtf__textarea"
+          className="vgtf__textarea no-print"
           style={{minWidth: minWidthStyleAttr}}
           {...R.dissoc('minWidth', this.props)} />
+        <div className="text-input__readonly-view only-print" style={{minWidth: minWidthStyleAttr}}>
+          {this.props.value}
+        </div>
       </div>
     )
   }
