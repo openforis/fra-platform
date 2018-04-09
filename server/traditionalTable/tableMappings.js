@@ -5,6 +5,8 @@ const forestAreaChange = require('./mappings/forestAreaChange')
 const holderOfManagementRights = require('./mappings/holderOfManagementRights')
 const primaryDesignatedManagementObjective = require('./mappings/primaryDesignatedManagementObjective')
 const areaAffectedByFire = require('./mappings/areaAffectedByFire')
+const areaAffectedByFirePrint1 = require('./mappings/areaAffectedByFirePrint1')
+const areaAffectedByFirePrint2 = require('./mappings/areaAffectedByFirePrint2')
 const growingStockComposition = require('./mappings/growingStockComposition')
 const nonWoodForestProductsRemovals = require('./mappings/nonWoodForestProductsRemovals')
 const nonWoodForestProductsRemovalsCurrency = require('./mappings/nonWoodForestProductsRemovalsCurrency')
@@ -36,6 +38,8 @@ const mappings = {
   forestAreaChange,
   primaryDesignatedManagementObjective,
   areaAffectedByFire,
+  areaAffectedByFirePrint1,
+  areaAffectedByFirePrint2,
   growingStockComposition,
   holderOfManagementRights,
   nonWoodForestProductsRemovals,

@@ -21,7 +21,7 @@ import ForestOwnershipView from '../assessmentFra/forestOwnership/forestOwnershi
 import HolderOfManagementRightsView from '../assessmentFra/holderOfManagementRights/holderOfManagementRightsView'
 
 import DisturbancesPrintView from '../assessmentFra/disturbances/disturbancesPrintView'
-import AreaAffecteByFireView from '../assessmentFra/areaAffectedByFire/areaAffectedByFireView'
+import AreaAffectedByFirePrintView from '../assessmentFra/areaAffectedByFire/areaAffectedByFirePrintView'
 import DegradedForestView from '../assessmentFra/degradedForest/degradedForestView'
 
 import ForestPolicyView from '../assessmentFra/forestPolicy/forestPolicyView'
@@ -74,7 +74,7 @@ const AssessmentFraPrintView = (props) => {
     <div className="page-break"/>
     <DisturbancesPrintView {...props}/>
     <div className="page-break"/>
-    <AreaAffecteByFireView {...props}/>
+    <AreaAffectedByFirePrintView {...props}/>
     <div className="page-break"/>
     <DegradedForestView {...props}/>
 
