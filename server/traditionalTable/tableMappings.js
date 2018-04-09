@@ -19,6 +19,8 @@ const totalAreaWithDesignatedManagementObjective = require('./mappings/totalArea
 const annualReforestation = require('./mappings/annualReforestation')
 const forestOwnership = require('./mappings/forestOwnership')
 const disturbances = require('./mappings/disturbances')
+const disturbancesPrint1 = require('./mappings/disturbancesPrint1')
+const disturbancesPrint2 = require('./mappings/disturbancesPrint2')
 const areaOfPermanentForestEstate = require('./mappings/areaOfPermanentForestEstate')
 const forestPolicy = require('./mappings/forestPolicy')
 const otherLandWithTreeCover = require('./mappings/otherLandWithTreeCover')
@@ -46,6 +48,8 @@ const mappings = {
   totalAreaWithDesignatedManagementObjective,
   annualReforestation,
   disturbances,
+  disturbancesPrint1,
+  disturbancesPrint2,
   biomassStock,
   carbonStock,
   carbonStockSoilDepth,
