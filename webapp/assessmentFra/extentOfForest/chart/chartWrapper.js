@@ -10,20 +10,20 @@ class ChartWrapper extends UpdateOnResizeReactComponent {
   }
 
   getWidth () {
-    return this.refs.chartWrapper ? this.refs.chartWrapper.getBoundingClientRect().width : 960
+    return this.refs.chartWrapper && !isPrintingMode()
+      ? this.refs.chartWrapper.getBoundingClientRect().width
+      : 960
   }
 
   render () {
     this.width = this.getWidth()
-    return isPrintingMode()
-      ? null
-      : <div ref="chartWrapper" className="chart__container no-print">
-        <ChartContainer
-          fra={this.props.fra}
-          wrapperWidth={this.width}
-          stateName={this.props.stateName}
-          trends={this.props.trends}/>
-      </div>
+    return <div ref="chartWrapper" className="chart__container">
+      <ChartContainer
+        fra={this.props.fra}
+        wrapperWidth={this.width}
+        stateName={this.props.stateName}
+        trends={this.props.trends}/>
+    </div>
   }
 }
 
