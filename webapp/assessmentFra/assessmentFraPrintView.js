@@ -29,7 +29,7 @@ import AreaOfPermanentForestEstateView
   from '../assessmentFra/areaOfPermanentForestEstate/areaOfPermanentForestEstateView'
 
 import EmploymentPrintView from '../assessmentFra/employment/employmentPrintView'
-import GraduationOfStudentsView from '../assessmentFra/graduationOfStudents/graduationOfStudentsView'
+import GraduationOfStudentsPrintView from '../assessmentFra/graduationOfStudents/graduationOfStudentsPrintView'
 import NonWoodForestProductsRemovalsView
   from '../assessmentFra/nonWoodForestProductsRemovals/nonWoodForestProductsRemovalsView'
 
@@ -86,7 +86,7 @@ const AssessmentFraPrintView = (props) => {
     <div className="page-break"/>
     <EmploymentPrintView {...props}/>
     <div className="page-break"/>
-    <GraduationOfStudentsView {...props}/>
+    <GraduationOfStudentsPrintView {...props}/>
     <div className="page-break"/>
     <NonWoodForestProductsRemovalsView {...props}/>
 
