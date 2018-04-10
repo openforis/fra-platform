@@ -18,6 +18,8 @@ const employment = require('./mappings/employment')
 const employmentPrint1 = require('./mappings/employmentPrint1')
 const employmentPrint2 = require('./mappings/employmentPrint2')
 const graduationOfStudents = require('./mappings/graduationOfStudents')
+const graduationOfStudentsPrint1 = require('./mappings/graduationOfStudentsPrint1')
+const graduationOfStudentsPrint2 = require('./mappings/graduationOfStudentsPrint2')
 const forestAreaWithinProtectedAreas = require('./mappings/forestAreaWithinProtectedAreas')
 const totalAreaWithDesignatedManagementObjective = require('./mappings/totalAreaWithDesignatedManagementObjective')
 const annualReforestation = require('./mappings/annualReforestation')
@@ -51,6 +53,8 @@ const mappings = {
   employmentPrint1,
   employmentPrint2,
   graduationOfStudents,
+  graduationOfStudentsPrint1,
+  graduationOfStudentsPrint2,
   forestOwnership,
   forestAreaWithinProtectedAreas,
   totalAreaWithDesignatedManagementObjective,
