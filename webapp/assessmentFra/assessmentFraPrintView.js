@@ -28,7 +28,7 @@ import ForestPolicyView from '../assessmentFra/forestPolicy/forestPolicyView'
 import AreaOfPermanentForestEstateView
   from '../assessmentFra/areaOfPermanentForestEstate/areaOfPermanentForestEstateView'
 
-import EmploymentView from '../assessmentFra/employment/employmentView'
+import EmploymentPrintView from '../assessmentFra/employment/employmentPrintView'
 import GraduationOfStudentsView from '../assessmentFra/graduationOfStudents/graduationOfStudentsView'
 import NonWoodForestProductsRemovalsView
   from '../assessmentFra/nonWoodForestProductsRemovals/nonWoodForestProductsRemovalsView'
@@ -84,7 +84,7 @@ const AssessmentFraPrintView = (props) => {
     <AreaOfPermanentForestEstateView {...props}/>
 
     <div className="page-break"/>
-    <EmploymentView {...props}/>
+    <EmploymentPrintView {...props}/>
     <div className="page-break"/>
     <GraduationOfStudentsView {...props}/>
     <div className="page-break"/>

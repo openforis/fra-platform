@@ -15,6 +15,8 @@ const carbonStock = require('./mappings/carbonStock')
 const carbonStockSoilDepth = require('./mappings/carbonStockSoilDepth')
 const degradedForest = require('./mappings/degradedForest')
 const employment = require('./mappings/employment')
+const employmentPrint1 = require('./mappings/employmentPrint1')
+const employmentPrint2 = require('./mappings/employmentPrint2')
 const graduationOfStudents = require('./mappings/graduationOfStudents')
 const forestAreaWithinProtectedAreas = require('./mappings/forestAreaWithinProtectedAreas')
 const totalAreaWithDesignatedManagementObjective = require('./mappings/totalAreaWithDesignatedManagementObjective')
@@ -46,6 +48,8 @@ const mappings = {
   nonWoodForestProductsRemovalsCurrency,
   degradedForest,
   employment,
+  employmentPrint1,
+  employmentPrint2,
   graduationOfStudents,
   forestOwnership,
   forestAreaWithinProtectedAreas,
