@@ -25,7 +25,7 @@ const TextSelectType = ({
   return <td className="fra-table__cell">
     <div className="fra-table__select-container">
       <select
-        className="fra-table__select"
+        className="fra-table__select no-print"
         value={currentValue || 'notSelected'}
         onChange={
           (evt) => {
@@ -43,6 +43,9 @@ const TextSelectType = ({
             , [notSelectedOption, ...options])
         }
       </select>
+      <div className="text-input__readonly-view only-print">
+        {currentValue || '-'}
+      </div>
     </div>
   </td>
 }

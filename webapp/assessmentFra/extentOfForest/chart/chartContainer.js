@@ -24,7 +24,7 @@ class Chart extends Component {
   }
 
   render () {
-    return <div ref="chartContainer">
+    return <div ref="chartContainer" style={{textAlign: 'center'}}>
       {this.props.data
         ? <svg width={this.props.wrapperWidth} height={styles.height}>
           <Legend {...this.props} />

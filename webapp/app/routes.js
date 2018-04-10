@@ -10,28 +10,33 @@ import ExtentOfForestView from '../assessmentFra/extentOfForest/extentOfForestVi
 import GrowingStockView from '../assessmentFra/growingStock/growingStockView'
 import SpecificForestCategoriesView from '../assessmentFra/specificForestCategories/specificForestCategoriesView'
 import GrowingStockCompositionView from '../assessmentFra/growingStockComposition/growingStockCompositionView'
-import designatedManagementObjectiveView from '../assessmentFra/designatedManagementObjective/designatedManagementObjectiveView'
+import designatedManagementObjectiveView
+  from '../assessmentFra/designatedManagementObjective/designatedManagementObjectiveView'
 import ForestAreaChangeView from '../assessmentFra/forestAreaChange/forestAreaChangeView'
 import AreaAffecteByFireView from '../assessmentFra/areaAffectedByFire/areaAffectedByFireView'
 import DegradedForestView from '../assessmentFra/degradedForest/degradedForestView'
 import EmploymentView from '../assessmentFra/employment/employmentView'
 import GraduationOfStudentsView from '../assessmentFra/graduationOfStudents/graduationOfStudentsView'
 import ForestCharacteristicsView from '../assessmentFra/forestCharacteristics/forestCharacteristicsView'
-import NonWoodForestProductsRemovalsView from '../assessmentFra/nonWoodForestProductsRemovals/nonWoodForestProductsRemovalsView'
+import NonWoodForestProductsRemovalsView
+  from '../assessmentFra/nonWoodForestProductsRemovals/nonWoodForestProductsRemovalsView'
 import AnnualReforestationView from '../assessmentFra/annualReforestation/annualReforestationView'
 import BiomassStockView from '../assessmentFra/biomassStock/biomassStockView'
 import CarbonStockView from '../assessmentFra/carbonStock/carbonStockView'
 import ForestOwnershipView from '../assessmentFra/forestOwnership/forestOwnershipView'
-import ForestAreaWithinProtectedAreasView from '../assessmentFra/forestAreaWithinProtectedAreas/forestAreaWithinprotectedAreasView'
+import ForestAreaWithinProtectedAreasView
+  from '../assessmentFra/forestAreaWithinProtectedAreas/forestAreaWithinprotectedAreasView'
 import HolderOfManagementRightsView from '../assessmentFra/holderOfManagementRights/holderOfManagementRightsView'
 import DisturbancesView from '../assessmentFra/disturbances/disturbancesView'
-import AreaOfPermanentForestEstateView from '../assessmentFra/areaOfPermanentForestEstate/areaOfPermanentForestEstateView'
+import AreaOfPermanentForestEstateView
+  from '../assessmentFra/areaOfPermanentForestEstate/areaOfPermanentForestEstateView'
 import ForestPolicyView from '../assessmentFra/forestPolicy/forestPolicyView'
 import OtherLandWithTreeCoverView from '../assessmentFra/otherLandWithTreeCover/otherLandWithTreeCoverView'
 import SustainableDevelopmentView from '../assessmentFra/sustainableDevelopment/sustainableDevelopmentView'
 import ContactPersonsView from '../assessmentFra/contactPersons/contactPersonsView'
 import PanEuropeanIndicatorsView from '../panEuropeanIndicators/panEuropeanIndicatorsView'
 import EditUserView from '../user/editUserView'
+import PrintAssessmentView from '../printAssessment/printAssessmentView'
 
 const routes = {
   '/': () => <noscript/>, //This will get rendered first (it flashes), before we redirect to logged-in page or login page
@@ -65,7 +70,8 @@ const routes = {
   '/country/:countryIso/sustainableDevelopment': SustainableDevelopmentView,
   '/country/:countryIso/contactPersons': ContactPersonsView,
   '/country/:countryIso/panEuropeanIndicators': PanEuropeanIndicatorsView,
-  '/country/:countryIso/user/:userId': EditUserView
+  '/country/:countryIso/user/:userId': EditUserView,
+  '/country/:countryIso/print/:assessment': PrintAssessmentView
 }
 
 const routeConfig = R.pipe(

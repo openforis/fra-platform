@@ -21,7 +21,7 @@ export class PercentInput extends React.Component {
       <input
         type="text"
         maxLength="6"
-        className="percent-input__input-field"
+        className="percent-input__input-field no-print"
         ref="percentInputField"
         value={value || ''}
         style={{opacity: this.state.hasFocus ? '1' : '0'}}

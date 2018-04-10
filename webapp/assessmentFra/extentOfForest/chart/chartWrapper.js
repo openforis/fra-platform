@@ -1,18 +1,21 @@
 import React from 'react'
 import UpdateOnResizeReactComponent from '../../../reusableUiComponents/updateOnResizeReactComponent'
 import ChartContainer from './chartContainer'
+import { isPrintingMode } from '../../../printAssessment/printAssessment'
 
 class ChartWrapper extends UpdateOnResizeReactComponent {
-  componentDidUpdate() {
+  componentDidUpdate () {
     if (!this.width || !this.getWidth()) return
     if (this.width !== this.getWidth()) this.forceUpdate()
   }
 
-  getWidth() {
-    return this.refs.chartWrapper ? this.refs.chartWrapper.getBoundingClientRect().width : 960
+  getWidth () {
+    return this.refs.chartWrapper && !isPrintingMode()
+      ? this.refs.chartWrapper.getBoundingClientRect().width
+      : 960
   }
 
-  render() {
+  render () {
     this.width = this.getWidth()
     return <div ref="chartWrapper" className="chart__container">
       <ChartContainer

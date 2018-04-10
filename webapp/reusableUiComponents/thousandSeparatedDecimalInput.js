@@ -23,7 +23,7 @@ export class ThousandSeparatedDecimalInput extends React.Component {
         type="text"
         maxLength="100"
         disabled={this.props.disabled}
-        className="number-input__input-field"
+        className="number-input__input-field no-print"
         ref="decimalInputField"
         value={value || ''}
         style={{opacity: this.state.hasFocus ? '1' : '0'}}

@@ -39,7 +39,8 @@ export default (i18n, forestOwnership, countryIso) => ({
   header: <thead>
   <tr>
     <th className="fra-table__header-cell-left" rowSpan="2">{i18n.t('holderOfManagementRights.categoryHeader')}</th>
-    <th className="fra-table__header-cell" colSpan={years.length}>{i18n.t('holderOfManagementRights.areaUnitLabel')}</th>
+    <th className="fra-table__header-cell"
+        colSpan={years.length}>{i18n.t('holderOfManagementRights.areaUnitLabel')}</th>
   </tr>
   <tr>
     {
@@ -64,9 +65,9 @@ export default (i18n, forestOwnership, countryIso) => ({
       ...mapIndexed((year, i) =>
         ({
           type: 'calculated',
-          calculateValue: props => totalSum(props.tableData, i+1, sumRows),
+          calculateValue: props => totalSum(props.tableData, i + 1, sumRows),
           valueFormatter: formatDecimal,
-          validator: totalAreaSameAsTotalPublicOwnershipValidator(i+1, forestOwnership, sumRows)
+          validator: totalAreaSameAsTotalPublicOwnershipValidator(i + 1, forestOwnership, sumRows)
         }), years)
     ],
     [
@@ -74,7 +75,10 @@ export default (i18n, forestOwnership, countryIso) => ({
         type: 'readOnly',
         jsx:
           <th className="fra-table__header-cell-left">
-            <Link to={`/country/${countryIso}/forestOwnership`} className="link">
+            <div className="only-print">
+              {i18n.t('holderOfManagementRights.totalPublicOwnership')}
+            </div>
+            <Link to={`/country/${countryIso}/forestOwnership`} className="link no-print">
               {i18n.t('holderOfManagementRights.totalPublicOwnership')}
             </Link>
           </th>
@@ -82,7 +86,7 @@ export default (i18n, forestOwnership, countryIso) => ({
       ...R.times(i =>
         ({
           type: 'calculated',
-          calculateValue: props => getTotalPublicOwnershipForColumn(forestOwnership, i+1),
+          calculateValue: props => getTotalPublicOwnershipForColumn(forestOwnership, i + 1),
           valueFormatter: formatDecimal
         }), years.length)
     ]

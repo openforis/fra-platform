@@ -1,12 +1,18 @@
 import React from 'react'
-import SingleTraditionalTableView from '../../traditionalTable/singleTraditionalTableView'
-import tableSpec from './tableSpec'
+import { connect } from 'react-redux'
 
-export default props =>
+import SingleTraditionalTableView from '../../traditionalTable/singleTraditionalTableView'
+import tableSpec, { tableProps } from './tableSpec'
+
+const GraduationOfStudentsView = props =>
   <SingleTraditionalTableView
     {...props}
     headingLocalizationKey="graduationOfStudents.graduationOfStudents"
     headingDetailsLocalizationKey="graduationOfStudents.average"
     sectionAnchor="7b"
-    tableSpec={tableSpec}
+    tableSpecInstance={tableSpec(props.i18n, tableProps.graduationOfStudents)}
     useAnalysisDescriptions={false}/>
+
+const mapStateToProps = state => ({i18n: state.user.i18n})
+
+export default connect(mapStateToProps)(GraduationOfStudentsView)

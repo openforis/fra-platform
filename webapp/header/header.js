@@ -73,7 +73,7 @@ const Header = ({
     left: `${navigationCurrentWidth}px`,
     width: `calc(100vw - ${subtractFromHeaderWidth}px)`
   }
-  return <div className="fra-header__container" style={style}>
+  return <div className="fra-header__container no-print" style={style}>
     <div className="fra-header">
       <ToggleNavigationControl
         toggleNavigationVisible={toggleNavigationVisible}

@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import Icon from '../reusableUiComponents/icon'
 
 import { getIssueSummary, openCommentThread, closeCommentThread } from './actions'
+import { isPrintingMode } from '../printAssessment/printAssessment'
 
 const CommentStatus = ({count, active, issueStatus, hasUnreadIssues, ...props}) => {
   const getIssueStatusCssClass = () =>
@@ -28,14 +29,19 @@ class ReviewIndicator extends React.Component {
     super(props)
   }
 
+  getIssueSummary (countryIso, section, target) {
+    if (!isPrintingMode())
+      this.props.getIssueSummary(countryIso, section, target)
+  }
+
   componentDidMount () {
-    this.props.getIssueSummary(this.props.countryIso, this.props.section, this.props.target)
+    this.getIssueSummary(this.props.countryIso, this.props.section, this.props.target)
   }
 
   componentWillReceiveProps (next) {
     // changing country or target
     if (next.countryIso !== this.props.countryIso || !R.equals(next.target, this.props.target)) {
-      this.props.getIssueSummary(next.countryIso, next.section, next.target)
+      this.getIssueSummary(next.countryIso, next.section, next.target)
     }
   }
 
@@ -46,7 +52,7 @@ class ReviewIndicator extends React.Component {
     const hasUnreadIssues = R.isNil(targetProps) ? false : targetProps.hasUnreadIssues
     const active = this.props.openThread && this.props.section == this.props.openThread.section && R.equals(this.props.target, this.props.openThread.target) ? true : false
 
-    return <div className="fra-review__add-issue">
+    return <div className="fra-review__add-issue no-print">
       <CommentStatus
         count={count}
         active={active}

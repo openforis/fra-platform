@@ -50,7 +50,7 @@ class Nav extends React.Component {
 
     const {userInfo, i18n, path, countries, country, changeAssessment, isPanEuropeanCountry} = this.props
 
-    return <div className="fra-nav__container">
+    return <div className="fra-nav__container no-print">
       {R.isNil(countries)
         ? null
         : <div className="fra-nav">
