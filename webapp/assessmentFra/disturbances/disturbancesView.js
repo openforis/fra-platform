@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import tableSpec from './tableSpec'
+import tableSpec, { tableProps } from './tableSpec'
 import SingleTraditionalTableView from '../../traditionalTable/singleTraditionalTableView'
 
 const DisturbancesView = props =>
@@ -8,7 +8,7 @@ const DisturbancesView = props =>
     {...props}
     headingLocalizationKey="disturbances.disturbances"
     sectionAnchor="5a"
-    tableSpecInstance={tableSpec(props.i18n, props.extentOfForest, props.match.params.countryIso)}/>
+    tableSpecInstance={tableSpec(props.i18n, props.extentOfForest, props.match.params.countryIso, tableProps.disturbances)}/>
 
 const mapStateToProps = state => ({i18n: state.user.i18n, extentOfForest: state.extentOfForest})
 

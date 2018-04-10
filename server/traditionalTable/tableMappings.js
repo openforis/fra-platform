@@ -5,6 +5,8 @@ const forestAreaChange = require('./mappings/forestAreaChange')
 const holderOfManagementRights = require('./mappings/holderOfManagementRights')
 const primaryDesignatedManagementObjective = require('./mappings/primaryDesignatedManagementObjective')
 const areaAffectedByFire = require('./mappings/areaAffectedByFire')
+const areaAffectedByFirePrint1 = require('./mappings/areaAffectedByFirePrint1')
+const areaAffectedByFirePrint2 = require('./mappings/areaAffectedByFirePrint2')
 const growingStockComposition = require('./mappings/growingStockComposition')
 const nonWoodForestProductsRemovals = require('./mappings/nonWoodForestProductsRemovals')
 const nonWoodForestProductsRemovalsCurrency = require('./mappings/nonWoodForestProductsRemovalsCurrency')
@@ -13,12 +15,18 @@ const carbonStock = require('./mappings/carbonStock')
 const carbonStockSoilDepth = require('./mappings/carbonStockSoilDepth')
 const degradedForest = require('./mappings/degradedForest')
 const employment = require('./mappings/employment')
+const employmentPrint1 = require('./mappings/employmentPrint1')
+const employmentPrint2 = require('./mappings/employmentPrint2')
 const graduationOfStudents = require('./mappings/graduationOfStudents')
+const graduationOfStudentsPrint1 = require('./mappings/graduationOfStudentsPrint1')
+const graduationOfStudentsPrint2 = require('./mappings/graduationOfStudentsPrint2')
 const forestAreaWithinProtectedAreas = require('./mappings/forestAreaWithinProtectedAreas')
 const totalAreaWithDesignatedManagementObjective = require('./mappings/totalAreaWithDesignatedManagementObjective')
 const annualReforestation = require('./mappings/annualReforestation')
 const forestOwnership = require('./mappings/forestOwnership')
 const disturbances = require('./mappings/disturbances')
+const disturbancesPrint1 = require('./mappings/disturbancesPrint1')
+const disturbancesPrint2 = require('./mappings/disturbancesPrint2')
 const areaOfPermanentForestEstate = require('./mappings/areaOfPermanentForestEstate')
 const forestPolicy = require('./mappings/forestPolicy')
 const otherLandWithTreeCover = require('./mappings/otherLandWithTreeCover')
@@ -34,18 +42,26 @@ const mappings = {
   forestAreaChange,
   primaryDesignatedManagementObjective,
   areaAffectedByFire,
+  areaAffectedByFirePrint1,
+  areaAffectedByFirePrint2,
   growingStockComposition,
   holderOfManagementRights,
   nonWoodForestProductsRemovals,
   nonWoodForestProductsRemovalsCurrency,
   degradedForest,
   employment,
+  employmentPrint1,
+  employmentPrint2,
   graduationOfStudents,
+  graduationOfStudentsPrint1,
+  graduationOfStudentsPrint2,
   forestOwnership,
   forestAreaWithinProtectedAreas,
   totalAreaWithDesignatedManagementObjective,
   annualReforestation,
   disturbances,
+  disturbancesPrint1,
+  disturbancesPrint2,
   biomassStock,
   carbonStock,
   carbonStockSoilDepth,

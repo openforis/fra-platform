@@ -1,0 +1,47 @@
+.only-print {
+  display: none !important;
+}
+
+.fra-print__container {
+  padding: 28px 32px;
+
+  .app__root {
+    height: auto !important;
+  }
+
+  .fra-view__content {
+    padding: 0 !important;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  .only-print {
+    display: inherit !important;
+  }
+
+  .fra-table__header-cell-left,
+  .fra-table__category-cell,
+  .fra-table__subcategory-cell,
+  .fra-table__notice-message-cell {
+    width: 200px !important;
+  }
+}
+
+@media screen {
+  .page-break {
+    height: 1px;
+    margin: 64px 0;
+  }
+}
+
+@media print {
+  .fra-print__container {
+    padding: 0;
+  }
+
+  .page-break {
+    page-break-after: always;
+  }
+}

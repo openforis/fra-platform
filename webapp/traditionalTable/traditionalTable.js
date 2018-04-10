@@ -101,7 +101,7 @@ const validationErrorColumns = props => {
 const validationErrorRow = props => {
   const columns = validationErrorColumns(props)
   if (!columns) return null
-  return <tr>
+  return <tr className="no-print">
     {columns}
   </tr>
 }

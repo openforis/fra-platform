@@ -20,7 +20,7 @@ export class ThousandSeparatedIntegerInput extends React.Component {
         maxLength="100"
         disabled={this.props.disabled}
         ref="integerInputField"
-        className="number-input__input-field"
+        className="number-input__input-field no-print"
         value={integerValue || ''}
         style={{opacity: this.state.hasFocus ? '1' : '0'}}
         onChange={onChange}
