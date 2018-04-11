@@ -46,7 +46,9 @@ class NonWoodForestProductsRemovalsView extends React.Component {
     return <LoggedInPageTemplate>
       <div className="fra-view__content">
         <NationalDataDescriptions section={mainTableSpecInstance.name} countryIso={match.params.countryIso}/>
-        <h2 className="headline">{i18n.t('nonWoodForestProductsRemovals.nonWoodForestProductsRemovals')}</h2>
+        <h2 className="headline">
+          <span className="only-print">7c </span>{i18n.t('nonWoodForestProductsRemovals.nonWoodForestProductsRemovals')}
+        </h2>
         <div className="fra-view__section-toolbar">
           <DefinitionLink className="margin-right-big" document="tad" anchor="7c" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
           <DefinitionLink className="align-left" document="faq" anchor="7c" title={i18n.t('definition.faqLabel')} lang={i18n.language}/>

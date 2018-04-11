@@ -35,7 +35,7 @@ class designatedManagementObjectiveView extends React.Component {
         <NationalDataDescriptions section={sectionName} countryIso={countryIso}/>
         <AnalysisDescriptions section={sectionName} countryIso={countryIso}/>
         <h2 className="headline">
-          {i18n.t('designatedManagementObjective.designatedManagementObjective')}
+          <span className="only-print">3a </span>{i18n.t('designatedManagementObjective.designatedManagementObjective')}
         </h2>
         <div className="fra-view__section-toolbar">
           <DefinitionLink className="margin-right-big" document="tad" anchor="3a" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>

@@ -48,7 +48,7 @@ class SingleTraditionalTableView extends React.Component {
             : <AnalysisDescriptions section={tableSpecInstance.name} countryIso={countryIso}/>
         }
         <h2 className="headline">
-          {i18n.t(headingLocalizationKey)}
+          <span className="only-print">{`${sectionAnchor ? sectionAnchor : tadAnchor} `}</span>{i18n.t(headingLocalizationKey)}
           {headingDetailsLocalizationKey ? ` (${i18n.t(headingDetailsLocalizationKey)})` : null}
         </h2>
         <div className="fra-view__section-toolbar">

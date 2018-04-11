@@ -21,7 +21,7 @@ const DisturbancesPrintView = props => {
       <AnalysisDescriptions section={tableProps.disturbances.name} countryIso={countryIso}/>
 
       <h2 className="headline">
-        {i18n.t('disturbances.disturbances')}
+        <span className="only-print">5a </span>{i18n.t('disturbances.disturbances')}
       </h2>
       <div className="fra-view__section-toolbar">
       </div>
