@@ -21,7 +21,7 @@ const AreaAffectedByFirePrintView = props => {
       <AnalysisDescriptions section={tableProps.areaAffectedByFire.name} countryIso={countryIso}/>
 
       <h2 className="headline">
-        {i18n.t('areaAffectedByFire.areaAffectedByFire')}
+        <span className="only-print">5b </span>{i18n.t('areaAffectedByFire.areaAffectedByFire')}
       </h2>
       <div className="fra-view__section-toolbar">
       </div>

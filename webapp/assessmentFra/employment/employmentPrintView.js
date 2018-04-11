@@ -20,7 +20,7 @@ const EmploymentPrintView = props => {
       <NationalDataDescriptions section={tableProps.employment.name} countryIso={countryIso}/>
 
       <h2 className="headline">
-        {i18n.t('employment.employment')} ({i18n.t('employment.average')})
+        <span className="only-print">7a </span>{i18n.t('employment.employment')} ({i18n.t('employment.average')})
       </h2>
       <div className="fra-view__section-toolbar">
       </div>

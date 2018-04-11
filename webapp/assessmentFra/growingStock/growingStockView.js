@@ -171,7 +171,9 @@ const GrowingStock = (props) => {
   return <div className='fra-view__content'>
     <NationalDataDescriptions section={sectionName} countryIso={countryIso}/>
     <AnalysisDescriptions section={sectionName} countryIso={countryIso}/>
-    <h2 className="headline">{i18n.t('growingStock.growingStock')}</h2>
+    <h2 className="headline">
+      <span className="only-print">2a </span>{i18n.t('growingStock.growingStock')}
+    </h2>
     <div className="fra-view__section-toolbar">
       <DefinitionLink className="margin-right-big" document="tad" anchor="2a" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
       <DefinitionLink className="align-left" document="faq" anchor="2a" title={i18n.t('definition.faqLabel')} lang={i18n.language}/>

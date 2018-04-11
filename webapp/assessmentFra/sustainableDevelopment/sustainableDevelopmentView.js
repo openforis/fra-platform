@@ -35,12 +35,14 @@ class SustainableDevelopmentView extends React.Component {
     const countryIso = match.params.countryIso
     const lang = i18n.language
     const years = R.drop(1, defaultYears)
-    
+
     return R.isEmpty(data)
       ? null
       : <LoggedInPageTemplate>
         <div className="fra-view__content fra-sustainable-dev__content">
-          <h2 className="headline">{i18n.t('sustainableDevelopment.sustainableDevelopment')}</h2>
+          <h2 className="headline">
+            <span className="only-print">8a </span>{i18n.t('sustainableDevelopment.sustainableDevelopment')}
+          </h2>
           <div className="fra-view__section-toolbar">
             <DefinitionLink className="margin-right-big" document="tad" anchor="8"
                             title={i18n.t('definition.definitionLabel')} lang={lang}/>

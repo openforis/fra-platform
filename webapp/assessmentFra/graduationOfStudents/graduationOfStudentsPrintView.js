@@ -20,7 +20,7 @@ const GraduationOfStudentsView = props => {
       <NationalDataDescriptions section={tableProps.graduationOfStudents.name} countryIso={countryIso}/>
 
       <h2 className="headline">
-        {i18n.t('graduationOfStudents.graduationOfStudents')} ({i18n.t('graduationOfStudents.average')})
+        <span className="only-print">7b </span>{i18n.t('graduationOfStudents.graduationOfStudents')} ({i18n.t('graduationOfStudents.average')})
       </h2>
       <div className="fra-view__section-toolbar">
       </div>

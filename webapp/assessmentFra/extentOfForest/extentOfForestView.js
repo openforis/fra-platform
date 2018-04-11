@@ -172,7 +172,8 @@ const ExtentOfForest = (props) => {
     }
   ]
   return <div className='fra-view__content'>
-    <Link className="btn btn-primary no-print" to={`/country/${props.countryIso}/odp/${sectionName}`} style={{marginRight: 16}}>
+    <Link className="btn btn-primary no-print" to={`/country/${props.countryIso}/odp/${sectionName}`}
+          style={{marginRight: 16}}>
       <Icon className="icon-sub icon-white" name="small-add"/>
       {i18n.t('nationalDataPoint.addNationalDataPoint')}
     </Link>
@@ -185,7 +186,9 @@ const ExtentOfForest = (props) => {
           <AnalysisDescriptions key="ad" section={sectionName} countryIso={props.countryIso}/>
         ]
     }
-    <h2 className="headline">{i18n.t('extentOfForest.extentOfForest')}</h2>
+    <h2 className="headline">
+      <span className="only-print">1a </span>{i18n.t('extentOfForest.extentOfForest')}
+    </h2>
     <div className="fra-view__section-toolbar">
       <DefinitionLink className="margin-right-big no-print" document="tad" anchor="1a"
                       title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
