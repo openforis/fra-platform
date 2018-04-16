@@ -133,10 +133,13 @@ module.exports.translation = {
       linkFraProcess: 'Более подробная информация о процессе ОЛР'
     },
     links: {
+      links: 'Ссылки',
       unfcccFocalPoints: 'Список координаторов РКИКООН',
       sdgFocalPoints: 'Список национальных координаторов ЦУР',
       reddPortal: 'Спутниковые системы мониторинга земель (SLMS), предоставленные программой UN-REDD/ФАО',
-      fraGeoSpatialTools: 'Геопространственные инструменты ОЛР'
+      fraGeoSpatialTools: 'Геопространственные инструменты ОЛР',
+      repository: 'Repository',
+      uploadFile: 'Upload a file',
     }
   },
 
@@ -354,7 +357,7 @@ module.exports.translation = {
     addUser: 'Добавить сотрудника',
     insufficientPrivileges: 'Недостаточно полномочий',
     confirmDelete: 'Удалить {{user}}?',
-    allUsers:'Все сотрудники',
+    allUsers: 'Все сотрудники',
     info: 'Информация',
     invitationLink: 'Ссылка на приглашение',
     sendInvitation: 'Направить приглашение по электронной почте',

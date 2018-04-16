@@ -95,7 +95,7 @@ The FRA team fra@fao.org
       recentActivity: 'Recent activity',
       userManagement: 'Manage collaborators',
       externalData: 'External data',
-      links: 'Links'
+      links: 'Links & Repository'
     },
     overview: {
       loadingMap: 'Loading map…',
@@ -157,10 +157,13 @@ The FRA team fra@fao.org
       linkFraProcess: 'Read more about the FRA process'
     },
     links: {
+      links: 'Links',
       unfcccFocalPoints: 'UNFCCC focal points',
       sdgFocalPoints: 'National SDG focal points',
       reddPortal: 'Satellite Land Monitoring Systems (SLMS), empowered by UN-REDD/FAO',
-      fraGeoSpatialTools: 'FRA Geospatial tools'
+      fraGeoSpatialTools: 'FRA Geospatial tools',
+      repository: 'Repository',
+      uploadFile: 'Upload a file',
     }
   },
 
