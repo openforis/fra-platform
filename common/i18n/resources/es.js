@@ -65,7 +65,7 @@ module.exports.translation = {
       recentActivity: 'Actividad reciente',
       userManagement: 'Gestionar colaboradores',
       externalData: 'Datos externos',
-      links: 'Enlaces'
+      links: 'Enlaces y Repositorio'
     },
     overview: {
       loadingMap: 'Cargando mapa…',
@@ -127,10 +127,13 @@ module.exports.translation = {
       linkFraProcess: 'Más información sobre el proceso de FRA'
     },
     links: {
+      links: 'Enlaces',
       unfcccFocalPoints: 'Puntos de contacto de la CMNUCC',
       sdgFocalPoints: 'Puntos de contacto nacionales para los ODS',
       reddPortal: 'Sistemas satelitales de monitoreo terrestre habilitados por el Programa ONU-REDD y la FAO',
-      fraGeoSpatialTools: 'Herramientas geoespaciales del FRA'
+      fraGeoSpatialTools: 'Herramientas geoespaciales del FRA',
+      repository: 'Repositorio',
+      uploadFile: 'Cargar un archivo',
     }
   },
 
