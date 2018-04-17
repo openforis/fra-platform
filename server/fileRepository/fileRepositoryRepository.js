@@ -46,8 +46,22 @@ const getFile = async (fileId, client = db) => {
   }
 }
 
+const deleteFile = async (client, user, countryIso, fileId) => {
+  const file = await getFile(fileId, client)
+  if (file) {
+    await auditRepository.insertAudit(client, user.id, 'fileRepositoryDelete', countryIso, 'fileRepository', {file: file.fileName})
+
+    await client.query(`
+      DELETE FROM repository 
+      WHERE id = $1
+    `, [fileId])
+  }
+  return await getFilesList(countryIso, client)
+}
+
 module.exports = {
   persistFile,
   getFilesList,
-  getFile
+  getFile,
+  deleteFile
 }

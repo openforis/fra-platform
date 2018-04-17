@@ -76,3 +76,16 @@ export const uploadFile = (countryIso, file) => dispatch => {
     })
     .catch(err => dispatch(applicationError(err)))
 }
+
+export const deleteFile = (countryIso, fileId) => dispatch => {
+  dispatch(autosave.start)
+
+  axios
+    .delete(`/api/fileRepository/${countryIso}/file/${fileId}`)
+    .then(resp => {
+      const filesList = resp.data
+      dispatch({type: fileRepositoryFilesListLoad, filesList})
+      dispatch(autosave.complete)
+    })
+    .catch(err => dispatch(applicationError(err)))
+}
