@@ -140,6 +140,7 @@ module.exports.translation = {
       fraGeoSpatialTools: 'Геопространственные инструменты ОЛР',
       repository: 'Хранилище данных',
       uploadFile: 'Загрузить файл',
+      confirmDelete: 'Удалить {{file}}? Его невозможно будет восстановить.',
     }
   },
 

@@ -134,6 +134,7 @@ module.exports.translation = {
       fraGeoSpatialTools: 'Herramientas geoespaciales del FRA',
       repository: 'Repositorio',
       uploadFile: 'Cargar un archivo',
+      confirmDelete: '¿Borrar {{file}}? Esta acción no puede deshacerse.',
     }
   },
 
