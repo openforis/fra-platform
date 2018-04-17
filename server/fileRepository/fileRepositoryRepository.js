@@ -16,7 +16,7 @@ const persistFile = async (client, user, countryIso, file) => {
 
 const getFilesList = async (countryIso, client = db) => {
   const filesListResp = await client.query(`
-    SELECT country_iso, file_name, file
+    SELECT id, country_iso, file_name
     FROM repository
     WHERE country_iso = $1
   `, [countryIso])

@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import { isStatusSaving } from '../../autosave/autosave'
-import { uploadFile } from '../actions'
+import { getFilesList, uploadFile } from '../actions'
 
 import Icon from '../../reusableUiComponents/icon'
 
@@ -15,9 +15,16 @@ const links = [
 
 class LinksView extends React.Component {
 
+  componentDidMount () {
+    const {getFilesList, match} = this.props
+    const countryIso = match.params.countryIso
+
+    getFilesList(countryIso)
+  }
+
   render () {
 
-    const {i18n, match, uploadFile, status} = this.props
+    const {i18n, match, uploadFile, status, filesList} = this.props
     const countryIso = match.params.countryIso
 
     return <div className="landing__links-container">
@@ -52,6 +59,17 @@ class LinksView extends React.Component {
           {i18n.t('landing.links.uploadFile')}
         </button>
       </div>
+      {
+        filesList
+          ? filesList.map((file, i) =>
+            <div key={i} className="landing__link-container">
+              {file.fileName}
+            </div>
+          )
+          : null
+      }
+
+
     </div>
   }
 }
@@ -62,4 +80,4 @@ const mapStateToProps = state => ({
   ...state.landing.repository,
 })
 
-export default connect(mapStateToProps, {uploadFile})(LinksView)
+export default connect(mapStateToProps, {uploadFile, getFilesList})(LinksView)

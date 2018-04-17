@@ -41,6 +41,19 @@ export const getCountryOverview = countryIso => dispatch => {
 // ================
 //  file repository action creators
 // ================
+
+export const fileRepositoryFilesListLoad = 'fileRepository/filesList/load'
+
+export const getFilesList = (countryIso) => dispatch => {
+  axios
+    .get(`/api/fileRepository/${countryIso}/filesList`)
+    .then(resp => {
+      const filesList = resp.data
+      dispatch({type: fileRepositoryFilesListLoad, filesList})
+    })
+    .catch(err => dispatch(applicationError(err)))
+}
+
 export const uploadFile = (countryIso, file) => dispatch => {
   const formData = new FormData()
   formData.append('file', file)
@@ -55,9 +68,11 @@ export const uploadFile = (countryIso, file) => dispatch => {
 
   axios
     .post(`/api/fileRepository/${countryIso}/upload`, formData, config)
-    .then(() => {
+    .then(resp => {
+      const filesList = resp.data
+      dispatch({type: fileRepositoryFilesListLoad, filesList})
       dispatch(autosave.complete)
-      dispatch(getUploadedQuestionareInfo(countryIso))
+
     })
     .catch(err => dispatch(applicationError(err)))
 }
