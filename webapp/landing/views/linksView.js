@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import { isStatusSaving } from '../../autosave/autosave'
-import { getFilesList, uploadFile } from '../actions'
+import { getFilesList, uploadFile, deleteFile } from '../actions'
 
 import Icon from '../../reusableUiComponents/icon'
 
@@ -24,7 +24,7 @@ class LinksView extends React.Component {
 
   render () {
 
-    const {i18n, match, uploadFile, status, filesList} = this.props
+    const {i18n, match, uploadFile, status, filesList, deleteFile} = this.props
     const countryIso = match.params.countryIso
 
     return <div className="landing__links-container">
@@ -65,9 +65,10 @@ class LinksView extends React.Component {
             <div key={i} className="landing__link-container">
               <a href={`/api/fileRepository/${countryIso}/file/${file.id}`} target="_blank">{file.fileName}</a>
               <button className="btn-xs landing__btn-remove-file"
+                      disabled={isStatusSaving(status)}
                       onClick={
                         () => window.confirm(i18n.t('landing.links.confirmDelete', {file: file.fileName}))
-                          ? null
+                          ? deleteFile(countryIso, file.id)
                           : null
                       }>
                 <Icon className="icon-no-margin" name="trash-simple"/>
@@ -88,4 +89,4 @@ const mapStateToProps = state => ({
   ...state.landing.repository,
 })
 
-export default connect(mapStateToProps, {uploadFile, getFilesList})(LinksView)
+export default connect(mapStateToProps, {uploadFile, getFilesList, deleteFile})(LinksView)
