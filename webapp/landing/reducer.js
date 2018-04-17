@@ -1,7 +1,12 @@
-import R from 'ramda'
+import * as R from 'ramda'
 
-import {  exportReducer } from '../utils/reduxUtils'
-import { countryLatLngBoundsLoading, countryLatLngBoundsLoaded, countryOverviewLoaded } from './actions'
+import { exportReducer } from '../utils/reduxUtils'
+import {
+  countryLatLngBoundsLoading,
+  countryLatLngBoundsLoaded,
+  countryOverviewLoaded,
+  fileRepositoryFilesListLoad
+} from './actions'
 import { lastAuditFeedReceived } from '../audit/actions'
 
 const actionHandlers = {
@@ -15,7 +20,10 @@ const actionHandlers = {
     ({...state, overview: action.overview}),
 
   [lastAuditFeedReceived]: (state, action) =>
-    ({...state, feed: action.feed})
+    ({...state, feed: action.feed}),
+
+  [fileRepositoryFilesListLoad]: (state, action) =>
+    R.assocPath(['repository', 'filesList'], action.filesList, state)
 
 }
 
