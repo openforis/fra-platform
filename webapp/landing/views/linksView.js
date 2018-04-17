@@ -1,6 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
+import { isStatusSaving } from '../../autosave/autosave'
+import { uploadFile } from '../actions'
+
 import Icon from '../../reusableUiComponents/icon'
 
 const links = [
@@ -10,29 +13,53 @@ const links = [
   {href: 'https://goo.gl/aYJmzd', key: 'fraGeoSpatialTools'}
 ]
 
-const LinksView = ({i18n}) => <div className="landing__links-container">
-  <div className="landing__page-container-header">
-    <h3>{i18n.t('landing.links.links')}</h3>
-  </div>
-  {
-    links.map(link =>
-      <div key={link.key} className="landing__link-container">
-        <a href={link.href} target="_blank">{i18n.t(`landing.links.${link.key}`)}</a>
-      </div>
-    )
-  }
+class LinksView extends React.Component {
 
-  <div className="landing__repository-header">
-    <h3>{i18n.t('landing.links.repository')}</h3>
-    <button className="btn-s btn-primary">
-      <Icon className="icon-sub icon-white" name="hit-up"/>
-      {i18n.t('landing.links.uploadFile')}
-    </button>
-  </div>
-</div>
+  render () {
+
+    const {i18n, match, uploadFile, status} = this.props
+    const countryIso = match.params.countryIso
+
+    return <div className="landing__links-container">
+
+      {/*links*/}
+      <div className="landing__page-container-header">
+        <h3>{i18n.t('landing.links.links')}</h3>
+      </div>
+      {
+        links.map(link =>
+          <div key={link.key} className="landing__link-container">
+            <a href={link.href} target="_blank">{i18n.t(`landing.links.${link.key}`)}</a>
+          </div>
+        )
+      }
+
+      {/*repository*/}
+      <div className="landing__repository-header">
+        <h3>{i18n.t('landing.links.repository')}</h3>
+        <input
+          ref="file"
+          type="file"
+          style={{display: 'none'}}
+          onChange={e => {
+            uploadFile(countryIso, this.refs.file.files[0])
+          }}
+        />
+        <button className="btn-s btn-primary"
+                disabled={isStatusSaving(status)}
+                onClick={() => this.refs.file.dispatchEvent(new MouseEvent('click'))}>
+          <Icon className="icon-sub icon-white" name="hit-up"/>
+          {i18n.t('landing.links.uploadFile')}
+        </button>
+      </div>
+    </div>
+  }
+}
 
 const mapStateToProps = state => ({
   i18n: state.user.i18n,
+  status: state.autoSave.status,
+  ...state.landing.repository,
 })
 
-export default connect(mapStateToProps)(LinksView)
+export default connect(mapStateToProps, {uploadFile})(LinksView)

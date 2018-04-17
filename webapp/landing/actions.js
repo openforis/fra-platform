@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { applicationError } from '../applicationError/actions'
+import * as autosave from '../autosave/actions'
 
 import { googleApiKey, fusionTableUrl, fusionTableTId, getBoundsFromGeometryCollections } from './views/countryMap/map'
 
@@ -34,4 +35,8 @@ export const getCountryOverview = countryIso => dispatch => {
     .catch(err =>
       dispatch(applicationError(err))
     )
+}
+
+export const uploadFile = (countryIso, file) => dispatch => {
+  dispatch(autosave.start)
 }
