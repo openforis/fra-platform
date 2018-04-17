@@ -1,4 +1,5 @@
 const camelize = require('camelize')
+const R = require('ramda')
 const db = require('../db/db')
 const auditRepository = require('./../audit/auditRepository')
 
@@ -24,7 +25,29 @@ const getFilesList = async (countryIso, client = db) => {
   return camelize(filesListResp.rows)
 }
 
+const getFile = async (fileId, client = db) => {
+  const fileResp = await client.query(`
+    SELECT id, country_iso, file_name, file
+    FROM repository
+    WHERE id = $1
+  `, [fileId])
+
+  if (R.isEmpty(fileResp.rows))
+    return null
+  else {
+    const resp = fileResp.rows[0]
+
+    return {
+      id: resp.id,
+      countryIso: resp.country_iso,
+      fileName: resp.file_name,
+      file: resp.file
+    }
+  }
+}
+
 module.exports = {
   persistFile,
-  getFilesList
+  getFilesList,
+  getFile
 }
