@@ -64,6 +64,14 @@ class LinksView extends React.Component {
           ? filesList.map((file, i) =>
             <div key={i} className="landing__link-container">
               <a href={`/api/fileRepository/${countryIso}/file/${file.id}`} target="_blank">{file.fileName}</a>
+              <button className="btn-xs landing__btn-remove-file"
+                      onClick={
+                        () => window.confirm(i18n.t('landing.links.confirmDelete', {file: file.fileName}))
+                          ? null
+                          : null
+                      }>
+                <Icon className="icon-no-margin" name="trash-simple"/>
+              </button>
             </div>
           )
           : null

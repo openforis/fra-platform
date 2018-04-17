@@ -250,13 +250,14 @@
 
 .landing__link-container {
   padding: 20px 40px;
-  border: 1px solid #eeeeee;
+  border: 1px solid @ui-border-light;
   background-color: #f8f8f8;
   margin: 12px 1%;
   flex: 0 1 31%;
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
 
   a {
     background-color: transparent;
@@ -269,6 +270,23 @@
     &:hover {
       color: @ui-accent;
     }
+  }
+}
+
+.landing__btn-remove-file {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: transparent;
+  padding: 4px;
+  border-color: @ui-border-light;
+  border-top: none !important;
+  border-right: none !important;
+  border-top-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+
+  &:hover {
+    background-color: rgba(208, 2, 27, 0.1);
   }
 }
 

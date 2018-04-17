@@ -134,6 +134,7 @@ module.exports.translation = {
       fraGeoSpatialTools: 'Outils géospatiaux de FRA',
       repository: 'Référentiel',
       uploadFile: 'Mettre en ligne un fichier',
+      confirmDelete: 'Supprimer {{file}}? Cette action ne peut pas être annulée.',
     }
   },
 
