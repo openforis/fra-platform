@@ -71,7 +71,7 @@ module.exports.translation = {
       recentActivity: 'Недавняя активность',
       userManagement: 'Координировать сотрудников',
       externalData: 'Внешние данные',
-      links: 'Ссылки'
+      links: 'Ссылки и хранилище данных'
     },
     overview: {
       loadingMap: 'Загрузка карты…',
@@ -138,8 +138,8 @@ module.exports.translation = {
       sdgFocalPoints: 'Список национальных координаторов ЦУР',
       reddPortal: 'Спутниковые системы мониторинга земель (SLMS), предоставленные программой UN-REDD/ФАО',
       fraGeoSpatialTools: 'Геопространственные инструменты ОЛР',
-      repository: 'Repository',
-      uploadFile: 'Upload a file',
+      repository: 'Хранилище данных',
+      uploadFile: 'Загрузить файл',
     }
   },
 
