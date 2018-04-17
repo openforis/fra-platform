@@ -3,6 +3,7 @@ import { applicationError } from '../applicationError/actions'
 import * as autosave from '../autosave/actions'
 
 import { googleApiKey, fusionTableUrl, fusionTableTId, getBoundsFromGeometryCollections } from './views/countryMap/map'
+import { getUploadedQuestionareInfo } from '../panEuropeanIndicators/actions'
 
 export const countryLatLngBoundsLoading = 'landing/country/LatLngBoundsLoading'
 export const countryLatLngBoundsLoaded = 'landing/country/LatLngBoundsLoaded'
@@ -37,6 +38,26 @@ export const getCountryOverview = countryIso => dispatch => {
     )
 }
 
+// ================
+//  file repository action creators
+// ================
 export const uploadFile = (countryIso, file) => dispatch => {
+  const formData = new FormData()
+  formData.append('file', file)
+
+  const config = {
+    headers: {
+      'content-type': 'multipart/form-data'
+    }
+  }
+
   dispatch(autosave.start)
+
+  axios
+    .post(`/api/fileRepository/${countryIso}/upload`, formData, config)
+    .then(() => {
+      dispatch(autosave.complete)
+      dispatch(getUploadedQuestionareInfo(countryIso))
+    })
+    .catch(err => dispatch(applicationError(err)))
 }
