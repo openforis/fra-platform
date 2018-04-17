@@ -63,7 +63,7 @@ class LinksView extends React.Component {
         filesList
           ? filesList.map((file, i) =>
             <div key={i} className="landing__link-container">
-              {file.fileName}
+              <a href={`/api/fileRepository/${countryIso}/file/${file.id}`} target="_blank">{file.fileName}</a>
             </div>
           )
           : null
