@@ -139,7 +139,6 @@ Notas explicativas
 1.	Implica que no hubo ningún cambio en el uso de la tierra.
 2.	Incluye la plantación o siembra de áreas de bosque temporalmente sin cubierta de árboles, así como también la plantación o siembra en áreas de bosque con cubierta de árboles.
 3.	Incluye rebrote de árboles originariamente plantados o sembrados.
-4.	Excluye la regeneración natural del bosque.
 
 ## 1e Categorías específicas de los bosques
 

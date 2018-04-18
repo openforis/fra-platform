@@ -95,7 +95,7 @@ The FRA team fra@fao.org
       recentActivity: 'Recent activity',
       userManagement: 'Manage collaborators',
       externalData: 'External data',
-      links: 'Links'
+      links: 'Links & Repository'
     },
     overview: {
       loadingMap: 'Loading map…',
@@ -139,8 +139,10 @@ The FRA team fra@fao.org
       getStarted: 'Get started',
       actions: {
         added: 'added',
+        addedFile: 'added {{file}}',
         commented: 'commented on',
         deleted: 'deleted',
+        deletedFile: 'deleted {{file}}',
         edited: 'edited',
         resolved: 'resolved issue in',
         status: 'changed status to',
@@ -157,10 +159,14 @@ The FRA team fra@fao.org
       linkFraProcess: 'Read more about the FRA process'
     },
     links: {
+      links: 'Links',
       unfcccFocalPoints: 'UNFCCC focal points',
       sdgFocalPoints: 'National SDG focal points',
       reddPortal: 'Satellite Land Monitoring Systems (SLMS), empowered by UN-REDD/FAO',
-      fraGeoSpatialTools: 'FRA Geospatial tools'
+      fraGeoSpatialTools: 'FRA Geospatial tools',
+      repository: 'Repository',
+      uploadFile: 'Upload a file',
+      confirmDelete: 'Delete {{file}}? This cannot be undone.',
     }
   },
 
@@ -665,7 +671,7 @@ The FRA team fra@fao.org
     doesYourCountryMonitor: 'Does your country monitor area of degraded forest',
     ifYes: 'If "yes"',
     whatIsDefinition: 'What is the national definition of "Degraded forest"?',
-    howMonitored: 'Describe the monitoring process and results?',
+    howMonitored: 'Describe the monitoring process and results',
   },
 
   forestPolicy: {
@@ -722,7 +728,7 @@ The FRA team fra@fao.org
     keySpecies: 'Key species',
     quantity: 'Quantity',
     unit: 'Unit',
-    value: 'Value (1000 currency)',
+    value: 'Value (1000 local currency)',
     category: 'NWFP category',
     plantProductsSelectHeading: 'Plant products / raw material',
     food: '1 Food',

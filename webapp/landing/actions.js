@@ -1,7 +1,9 @@
 import axios from 'axios'
 import { applicationError } from '../applicationError/actions'
+import * as autosave from '../autosave/actions'
 
 import { googleApiKey, fusionTableUrl, fusionTableTId, getBoundsFromGeometryCollections } from './views/countryMap/map'
+import { getUploadedQuestionareInfo } from '../panEuropeanIndicators/actions'
 
 export const countryLatLngBoundsLoading = 'landing/country/LatLngBoundsLoading'
 export const countryLatLngBoundsLoaded = 'landing/country/LatLngBoundsLoaded'
@@ -34,4 +36,56 @@ export const getCountryOverview = countryIso => dispatch => {
     .catch(err =>
       dispatch(applicationError(err))
     )
+}
+
+// ================
+//  file repository action creators
+// ================
+
+export const fileRepositoryFilesListLoad = 'fileRepository/filesList/load'
+
+export const getFilesList = (countryIso) => dispatch => {
+  axios
+    .get(`/api/fileRepository/${countryIso}/filesList`)
+    .then(resp => {
+      const filesList = resp.data
+      dispatch({type: fileRepositoryFilesListLoad, filesList})
+    })
+    .catch(err => dispatch(applicationError(err)))
+}
+
+export const uploadFile = (countryIso, file) => dispatch => {
+  const formData = new FormData()
+  formData.append('file', file)
+
+  const config = {
+    headers: {
+      'content-type': 'multipart/form-data'
+    }
+  }
+
+  dispatch(autosave.start)
+
+  axios
+    .post(`/api/fileRepository/${countryIso}/upload`, formData, config)
+    .then(resp => {
+      const filesList = resp.data
+      dispatch({type: fileRepositoryFilesListLoad, filesList})
+      dispatch(autosave.complete)
+
+    })
+    .catch(err => dispatch(applicationError(err)))
+}
+
+export const deleteFile = (countryIso, fileId) => dispatch => {
+  dispatch(autosave.start)
+
+  axios
+    .delete(`/api/fileRepository/${countryIso}/file/${fileId}`)
+    .then(resp => {
+      const filesList = resp.data
+      dispatch({type: fileRepositoryFilesListLoad, filesList})
+      dispatch(autosave.complete)
+    })
+    .catch(err => dispatch(applicationError(err)))
 }

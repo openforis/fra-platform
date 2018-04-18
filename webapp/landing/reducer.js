@@ -1,13 +1,30 @@
-import R from 'ramda'
-import { applyReducerFunction } from '../utils/reduxUtils'
-import { countryLatLngBoundsLoading, countryLatLngBoundsLoaded, countryOverviewLoaded } from './actions'
+import * as R from 'ramda'
+
+import { exportReducer } from '../utils/reduxUtils'
+import {
+  countryLatLngBoundsLoading,
+  countryLatLngBoundsLoaded,
+  countryOverviewLoaded,
+  fileRepositoryFilesListLoad
+} from './actions'
 import { lastAuditFeedReceived } from '../audit/actions'
 
 const actionHandlers = {
-  [countryLatLngBoundsLoading]: (state, action) => R.dissoc('countryLatLngBounds', state),
-  [countryLatLngBoundsLoaded]: (state, action) => ({...state, countryLatLngBounds: action.countryLatLngBounds}),
-  [countryOverviewLoaded]: (state, action) => ({...state, overview: action.overview}),
-  [lastAuditFeedReceived]: (state, action) => ({...state, feed: action.feed})
+  [countryLatLngBoundsLoading]: (state, action) =>
+    R.dissoc('countryLatLngBounds', state),
+
+  [countryLatLngBoundsLoaded]: (state, action) =>
+    ({...state, countryLatLngBounds: action.countryLatLngBounds}),
+
+  [countryOverviewLoaded]: (state, action) =>
+    ({...state, overview: action.overview}),
+
+  [lastAuditFeedReceived]: (state, action) =>
+    ({...state, feed: action.feed}),
+
+  [fileRepositoryFilesListLoad]: (state, action) =>
+    R.assocPath(['repository', 'filesList'], action.filesList, state)
+
 }
 
-export default (state = {}, action) => applyReducerFunction(actionHandlers, state, action)
+export default exportReducer(actionHandlers)

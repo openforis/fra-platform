@@ -15,6 +15,7 @@ const sustainableDevelopmentApi = require('./sustainableDevelopment/sustainableD
 const panEuropeanApi = require('./panEuropean/panEuropeanApi')
 const landingApi = require('./landing/landingApi')
 const userChatApi = require('./userChat/userChatApi')
+const fileRepositoryApi = require('./fileRepository/fileRepositoryApi')
 
 const apiRouter = express.Router()
 //Nothing should be cached by default with the APIs
@@ -38,5 +39,6 @@ sustainableDevelopmentApi.init(apiRouter)
 panEuropeanApi.init(apiRouter)
 landingApi.init(apiRouter)
 userChatApi.init(apiRouter)
+fileRepositoryApi.init(apiRouter)
 
 module.exports.router = apiRouter

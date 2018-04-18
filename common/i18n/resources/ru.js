@@ -71,7 +71,7 @@ module.exports.translation = {
       recentActivity: 'Недавняя активность',
       userManagement: 'Координировать сотрудников',
       externalData: 'Внешние данные',
-      links: 'Ссылки'
+      links: 'Ссылки и хранилище данных'
     },
     overview: {
       loadingMap: 'Загрузка карты…',
@@ -115,8 +115,10 @@ module.exports.translation = {
       getStarted: 'Начать',
       actions: {
         added: 'добавил',
+        addedFile: 'добавил {{file}}',
         commented: 'оставил комментарий к',
         deleted: 'удалил',
+        deletedFile: 'удалил {{file}}',
         edited: 'отредактировал',
         resolved: 'разрешил проблему в',
         status: 'изменил статус на',
@@ -133,10 +135,14 @@ module.exports.translation = {
       linkFraProcess: 'Более подробная информация о процессе ОЛР'
     },
     links: {
+      links: 'Ссылки',
       unfcccFocalPoints: 'Список координаторов РКИКООН',
       sdgFocalPoints: 'Список национальных координаторов ЦУР',
       reddPortal: 'Спутниковые системы мониторинга земель (SLMS), предоставленные программой UN-REDD/ФАО',
-      fraGeoSpatialTools: 'Геопространственные инструменты ОЛР'
+      fraGeoSpatialTools: 'Геопространственные инструменты ОЛР',
+      repository: 'Хранилище данных',
+      uploadFile: 'Загрузить файл',
+      confirmDelete: 'Удалить {{file}}? Его невозможно будет восстановить.',
     }
   },
 
@@ -354,7 +360,7 @@ module.exports.translation = {
     addUser: 'Добавить сотрудника',
     insufficientPrivileges: 'Недостаточно полномочий',
     confirmDelete: 'Удалить {{user}}?',
-    allUsers:'Все сотрудники',
+    allUsers: 'Все сотрудники',
     info: 'Информация',
     invitationLink: 'Ссылка на приглашение',
     sendInvitation: 'Направить приглашение по электронной почте',

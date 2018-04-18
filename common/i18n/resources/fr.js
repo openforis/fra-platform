@@ -65,7 +65,7 @@ module.exports.translation = {
       recentActivity: 'Activité récente',
       userManagement: 'Gérer collaborateurs',
       externalData: 'Données externes',
-      links: 'Liens'
+      links: 'Liens et Référentiel'
     },
     overview: {
       loadingMap: 'Chargement carte…',
@@ -109,8 +109,10 @@ module.exports.translation = {
       getStarted: 'Commencer',
       actions: {
         added: 'a ajouté',
+        addedFile: 'a ajouté {{file}}',
         commented: 'a commenté',
         deleted: 'a supprimé',
+        deletedFile: 'a supprimé {{file}}',
         edited: 'a modifié',
         resolved: 'a résolu',
         status: 'changer le statut à',
@@ -127,10 +129,14 @@ module.exports.translation = {
       linkFraProcess: 'En savoir davantage sur le processus de FRA'
     },
     links: {
+      links: 'Liens',
       unfcccFocalPoints: 'Points focaux de la CCNUCC',
       sdgFocalPoints: 'Points focaux nationaux pour les ODD',
       reddPortal: 'Systèmes de surveillance des terres par satellite (SSTS), habilité par l\'ONU-REDD/FAO',
-      fraGeoSpatialTools: 'Outils géospatiaux de FRA'
+      fraGeoSpatialTools: 'Outils géospatiaux de FRA',
+      repository: 'Référentiel',
+      uploadFile: 'Mettre en ligne un fichier',
+      confirmDelete: 'Supprimer {{file}}? Cette action ne peut pas être annulée.',
     }
   },
 

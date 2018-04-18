@@ -34,7 +34,7 @@ const milestonesTableContent = [
 ]
 
 const Milestones = ({i18n}) => <div className="landing__milestones-container">
-  <div className="landing__milestones-header">
+  <div className="landing__page-container-header">
     <h3>{i18n.t('landing.milestones.milestones')}</h3>
   </div>
   <div className="landing__milestones-content">
@@ -56,7 +56,7 @@ const Milestones = ({i18n}) => <div className="landing__milestones-container">
 </div>
 
 const Users = ({countryIso, i18n, users, userInfo, openChat}) => <div className="landing__users-container">
-  <div className="landing__users-header">
+  <div className="landing__page-container-header">
     <h3>{i18n.t('landing.users.users')}</h3>
   </div>
   {
