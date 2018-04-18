@@ -669,7 +669,7 @@ The FRA team fra@fao.org
     doesYourCountryMonitor: 'Does your country monitor area of degraded forest',
     ifYes: 'If "yes"',
     whatIsDefinition: 'What is the national definition of "Degraded forest"?',
-    howMonitored: 'Describe the monitoring process and results?',
+    howMonitored: 'Describe the monitoring process and results',
   },
 
   forestPolicy: {
@@ -726,7 +726,7 @@ The FRA team fra@fao.org
     keySpecies: 'Key species',
     quantity: 'Quantity',
     unit: 'Unit',
-    value: 'Value (1000 currency)',
+    value: 'Value (1000 local currency)',
     category: 'NWFP category',
     plantProductsSelectHeading: 'Plant products / raw material',
     food: '1 Food',
