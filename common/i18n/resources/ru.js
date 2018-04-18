@@ -115,8 +115,10 @@ module.exports.translation = {
       getStarted: 'Начать',
       actions: {
         added: 'добавил',
+        addedFile: 'добавил {{file}}',
         commented: 'оставил комментарий к',
         deleted: 'удалил',
+        deletedFile: 'удалил {{file}}',
         edited: 'отредактировал',
         resolved: 'разрешил проблему в',
         status: 'изменил статус на',

@@ -1,12 +1,12 @@
 import React from 'react'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import R from 'ramda'
 
-import {i18nUserRole, profilePictureUri} from '../../../common/userUtils'
+import { i18nUserRole, profilePictureUri } from '../../../common/userUtils'
 
-import {getRelativeDate} from '../../utils/relativeDate'
-import {fetchAuditFeed} from '../../audit/actions'
-import {Link} from '../../reusableUiComponents/link'
+import { getRelativeDate } from '../../utils/relativeDate'
+import { fetchAuditFeed } from '../../audit/actions'
+import { Link } from '../../reusableUiComponents/link'
 
 const getActionLocalizationKey = (message) => {
   const messageToKey = {
@@ -22,7 +22,9 @@ const getActionLocalizationKey = (message) => {
     addInvitation: 'addInvitation',
     removeInvitation: 'removeInvitation',
     updateInvitation: 'updateInvitation',
-    updateAssessmentStatus: 'updateAssessmentStatus'
+    updateAssessmentStatus: 'updateAssessmentStatus',
+    fileRepositoryUpload: 'addedFile',
+    fileRepositoryDelete: 'deletedFile'
   }
   const key = messageToKey[message]
   if (key) {
@@ -34,6 +36,9 @@ const getActionLocalizationKey = (message) => {
 const getSectionLocalizationKey = (section) => {
   if (R.contains(section, 'odp')) {
     return 'nationalDataPoint.nationalDataPoint'
+  }
+  if (section === 'fileRepository') {
+    return 'landing.sections.links'
   }
   return section + '.' + section
 }
@@ -60,7 +65,9 @@ const getMessageParams = (item, i18n) =>
       assessment: i18n.t(`assessment.${item.target.assessment}`),
       status: i18n.t(`assessment.status.${item.target.status}.label`)
     }
-    : {}
+    : item.target.file
+      ? {file: item.target.file}
+      : {}
 
 const ActivityItem = ({i18n, countryIso, item, fra}) => {
   const sectionUrl = getSectionUrl(item, fra)
@@ -80,7 +87,7 @@ const ActivityItem = ({i18n, countryIso, item, fra}) => {
         // excluding section link when section is users or assessment
         R.contains(sectionUrl, ['users', 'assessment'])
           ? null
-          : sectionUrl === 'odp' || actionLocalizationKey === 'dashboard.actions.deleted'
+          : R.contains(sectionUrl, ['odp', 'fileRepository']) || actionLocalizationKey === 'dashboard.actions.deleted'
           ? <span>{i18n.t(sectionLocalizationKey)}</span>
           : <Link className="link" to={`/country/${countryIso}/${sectionUrl}`}>{i18n.t(sectionLocalizationKey)}</Link>
       }
@@ -91,20 +98,20 @@ const ActivityItem = ({i18n, countryIso, item, fra}) => {
 
 class RecentActivityView extends React.Component {
 
-  componentWillMount() {
+  componentWillMount () {
     this.fetch(this.props.match.params.countryIso)
   }
 
-  componentWillReceiveProps(next) {
+  componentWillReceiveProps (next) {
     if (!R.equals(this.props.match.params.countryIso, next.match.params.countryIso))
       this.fetch(next.match.params.countryIso)
   }
 
-  fetch(countryIso) {
+  fetch (countryIso) {
     this.props.fetchAuditFeed(countryIso)
   }
 
-  render() {
+  render () {
     const countryIso = this.props.match.params.countryIso
     const {i18n, feed, extentOfForest} = this.props
 

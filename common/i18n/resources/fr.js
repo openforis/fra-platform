@@ -109,8 +109,10 @@ module.exports.translation = {
       getStarted: 'Commencer',
       actions: {
         added: 'a ajouté',
+        addedFile: 'a ajouté {{file}}',
         commented: 'a commenté',
         deleted: 'a supprimé',
+        deletedFile: 'a supprimé {{file}}',
         edited: 'a modifié',
         resolved: 'a résolu',
         status: 'changer le statut à',
