@@ -54,7 +54,11 @@ class LinksView extends React.Component {
         />
         <button className="btn-s btn-primary"
                 disabled={isStatusSaving(status)}
-                onClick={() => this.refs.file.dispatchEvent(new MouseEvent('click'))}>
+                onClick={() => {
+                  // first reset current value, then trigger click event
+                  this.refs.file.value = ''
+                  this.refs.file.dispatchEvent(new MouseEvent('click'))
+                }}>
           <Icon className="icon-sub icon-white" name="hit-up"/>
           {i18n.t('landing.links.uploadFile')}
         </button>
