@@ -139,7 +139,6 @@ Explanatory notes
 1. Implies no change of land use.
 2. Includes planting/seeding of temporarily unstocked forest areas as well as planting/seeding of areas with forest cover.
 3. Includes coppice from trees that were originally planted or seeded.
-4. Excludes natural regeneration of forest.
 
 ## 1e Specific forest categories
 
