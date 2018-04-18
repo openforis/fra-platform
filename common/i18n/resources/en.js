@@ -139,8 +139,10 @@ The FRA team fra@fao.org
       getStarted: 'Get started',
       actions: {
         added: 'added',
+        addedFile: 'added {{file}}',
         commented: 'commented on',
         deleted: 'deleted',
+        deletedFile: 'deleted {{file}}',
         edited: 'edited',
         resolved: 'resolved issue in',
         status: 'changed status to',
