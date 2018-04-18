@@ -139,7 +139,6 @@ Note(s) explicative(s )
 1.	N’implique pas de conversion de l’utilisation de la terre.
 2.	Inclut la plantation ou le semis de zones forestières temporairement non boisées ainsi que la plantation ou le semis de zones avec un couvert forestier.
 3.	Inclut les taillis des arbres originairement plantés ou semés.
-4.	Exclut la régénération naturelle des forêts.
 
 ## 1e Catégories spécifiques des forêts
 

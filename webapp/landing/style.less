@@ -6,7 +6,7 @@
   margin: auto;
   display: flex;
   justify-content: space-between;
-  padding: 0 8px 24px;
+  padding-bottom: 24px;
 }
 
 .landing__page-title {
@@ -46,6 +46,12 @@
   justify-content: center;
 }
 
+.landing__page-container-header {
+  margin-bottom: 12px;
+  width: 100%;
+  text-align: center;
+}
+
 .landing__page-container-item {
   width: 50%;
   padding: 8px;
@@ -55,12 +61,6 @@
 .landing__milestones-container {
   .landing__page-container;
   width: 100%;
-}
-
-.landing__milestones-header {
-  margin-bottom: 12px;
-  width: 100%;
-  text-align: center;
 }
 
 .landing__milestones-content {
@@ -106,12 +106,6 @@
   .landing__page-container;
   width: 100%;
   padding: 32px 8px 0px 8px;
-}
-
-.landing__users-header {
-  margin-bottom: 12px;
-  width: 100%;
-  text-align: center;
 }
 
 .landing__user-outer-container {
@@ -256,13 +250,14 @@
 
 .landing__link-container {
   padding: 20px 40px;
-  border: 1px solid #eeeeee;
+  border: 1px solid @ui-border-light;
   background-color: #f8f8f8;
   margin: 12px 1%;
   flex: 0 1 31%;
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
 
   a {
     background-color: transparent;
@@ -275,6 +270,35 @@
     &:hover {
       color: @ui-accent;
     }
+  }
+}
+
+.landing__btn-remove-file {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: transparent;
+  padding: 4px;
+  border-color: @ui-border-light;
+  border-top: none !important;
+  border-right: none !important;
+  border-radius: 0 !important;
+  margin: 0;
+
+  &:hover {
+    background-color: rgba(208, 2, 27, 0.1);
+  }
+}
+
+.landing__repository-header {
+  .landing__page-container-header;
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  button {
+    margin-left: 12px;
   }
 }
 
