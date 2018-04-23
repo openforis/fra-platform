@@ -597,7 +597,7 @@ L'équipe de FRA fra@fao.org
     ofWhichPrivateBusinesses: '…dont appartenant à des entreprises et des institutions commerciales privées',
     ofWhichCommunities: '…dont appartenant à des collectivités locales, tribales et indigènes',
     publicOwnership: 'Propriété publique',
-    otherOrUnknown: 'Autre/Inconnue (à préciser dans les commentaires)',
+    otherOrUnknown: 'Inconnue/Autre (à préciser dans les commentaires)',
     totalForestArea: 'Superficie forestière totale',
     total: 'Total'
   },
@@ -610,7 +610,7 @@ L'équipe de FRA fra@fao.org
     individuals: 'Particuliers',
     privateBusinesses: 'Entreprises et des institutions commerciales privées',
     communities: 'Collectivités locales, tribales et indigènes',
-    other: 'Autre (à préciser dans les commentaires)',
+    other: 'Inconnue/Autre (à préciser dans les commentaires)',
     totalPublicOwnership: 'Propriété publique totale',
     total: 'Total',
     publicOwnershipDoesNotMatch: 'Ne correspond pas à la propriété publique totale'
