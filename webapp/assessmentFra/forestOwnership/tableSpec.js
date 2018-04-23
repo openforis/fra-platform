@@ -69,22 +69,22 @@ export default (i18n, extentOfForest, countryIso) => ({
           valueFormatter: formatDecimal
         }), years)
     ],
-    [
-      {
-        type: 'readOnly',
-        jsx:
-          <th className="fra-table__header-cell-left">
-            {i18n.t('forestOwnership.total')} (a+b+c)
-          </th>
-      },
-      ...mapIndexed((year, i) =>
-        ({
-          type: 'calculated',
-          calculateValue: props => totalSum(props.tableData, i + 1, sumRows),
-          valueFormatter: formatDecimal,
-          validator: forestAreaSameAsExtentOfForestValidator(year, extentOfForest, sumRows)
-        }), years)
-    ],
+    // [
+    //   {
+    //     type: 'readOnly',
+    //     jsx:
+    //       <th className="fra-table__header-cell-left">
+    //         {i18n.t('forestOwnership.total')} (a+b+c)
+    //       </th>
+    //   },
+    //   ...mapIndexed((year, i) =>
+    //     ({
+    //       type: 'calculated',
+    //       calculateValue: props => totalSum(props.tableData, i + 1, sumRows),
+    //       valueFormatter: formatDecimal,
+    //       validator: forestAreaSameAsExtentOfForestValidator(year, extentOfForest, sumRows)
+    //     }), years)
+    // ],
     [
       {
         type: 'readOnly',
@@ -108,6 +108,6 @@ export default (i18n, extentOfForest, countryIso) => ({
   ],
   valueSlice: {
     columnStart: 1,
-    rowEnd: -2
+    rowEnd: -1
   }
 })
