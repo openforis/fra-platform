@@ -49,18 +49,6 @@ const updateTableDataMirrorValue = (tableData, rowIdx, colIdx, extentOfForest) =
 
 }
 
-const updateTableDataValue = (tableData, rowIdx, colIdx, value, extentOfForest) => {
-  const newValue = acceptNextDecimal(value, tableData[rowIdx][colIdx])
-
-  return newValue
-    ? R.pipe(
-      R.update(rowIdx, R.update(colIdx, newValue, tableData[rowIdx])),
-      R.partialRight(updateTableDataMirrorValue, [rowIdx, colIdx, extentOfForest])
-    )(tableData)
-
-    : null
-}
-
 export const decimalInputCell = (props, extentOfForest, validator) => {
   const {
     countryIso,
@@ -96,10 +84,15 @@ export const decimalInputCell = (props, extentOfForest, validator) => {
 const handleChange =
   (countryIso, rowIdx, colIdx, tableSpec, tableData, tableChanged, extentOfForest, newValue) => {
 
-    const updatedTableData = updateTableDataValue(tableData, rowIdx, colIdx, newValue, extentOfForest)
-    if (updatedTableData) {
-      tableChanged(countryIso, tableSpec, updatedTableData)
-    }
+    const nextDecimal = acceptNextDecimal(newValue, tableData[rowIdx][colIdx])
+
+    const updatedTableData = R.pipe(
+      R.update(rowIdx, R.update(colIdx, nextDecimal, tableData[rowIdx])),
+      R.partialRight(updateTableDataMirrorValue, [rowIdx, colIdx, extentOfForest])
+    )(tableData)
+
+    tableChanged(countryIso, tableSpec, updatedTableData)
+
   }
 
 const handlePaste =
