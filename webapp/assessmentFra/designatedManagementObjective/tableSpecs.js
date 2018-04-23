@@ -71,22 +71,22 @@ export const primaryDesignatedManagementObjectiveTableSpec = (i18n, extentOfFore
           valueFormatter: formatDecimal
         }), years)
     ],
-    [
-      {
-        type: 'readOnly',
-        jsx:
-          <th className="fra-table__header-cell-left">
-            {i18n.t('designatedManagementObjective.total')} (a+b+c+d+e+f+g)
-          </th>
-      },
-      ...mapIndexed((year, i) =>
-        ({
-          type: 'calculated',
-          calculateValue: props => totalForestArea(props.tableData, i + 1),
-          valueFormatter: formatDecimal,
-          validator: forestAreaSameAsExtentOfForestValidator(year, extentOfForest, sumRows)
-        }), years)
-    ],
+    // [
+    //   {
+    //     type: 'readOnly',
+    //     jsx:
+    //       <th className="fra-table__header-cell-left">
+    //         {i18n.t('designatedManagementObjective.total')} (a+b+c+d+e+f+g)
+    //       </th>
+    //   },
+    //   ...mapIndexed((year, i) =>
+    //     ({
+    //       type: 'calculated',
+    //       calculateValue: props => totalForestArea(props.tableData, i + 1),
+    //       valueFormatter: formatDecimal,
+    //       validator: forestAreaSameAsExtentOfForestValidator(year, extentOfForest, sumRows)
+    //     }), years)
+    // ],
     [
       {
         type: 'readOnly',
@@ -110,7 +110,7 @@ export const primaryDesignatedManagementObjectiveTableSpec = (i18n, extentOfFore
   ],
   valueSlice: {
     columnStart: 1,
-    rowEnd: -2
+    rowEnd: -1
   }
 })
 

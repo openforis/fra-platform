@@ -53,21 +53,36 @@ export default (i18n, forestOwnership, countryIso) => ({
     createInputRow(i18n.t('holderOfManagementRights.individuals') + ' (b)'),
     createInputRow(i18n.t('holderOfManagementRights.privateBusinesses') + ' (c)'),
     createInputRow(i18n.t('holderOfManagementRights.communities') + ' (d)'),
-    createInputRow(i18n.t('holderOfManagementRights.other') + ' (e)'),
+    // createInputRow(i18n.t('holderOfManagementRights.other') + ' (e)'),
     [
       {
         type: 'readOnly',
         jsx:
-          <th className="fra-table__header-cell-left">
-            {i18n.t('holderOfManagementRights.total')} (a+b+c+d+e)
+          <th className="fra-table__category-cell">
+            {i18n.t('holderOfManagementRights.other')} (e)
           </th>
       },
       ...mapIndexed((year, i) =>
         ({
           type: 'calculated',
-          calculateValue: props => totalSum(props.tableData, i + 1, sumRows),
-          valueFormatter: formatDecimal,
-          validator: totalAreaSameAsTotalPublicOwnershipValidator(i + 1, forestOwnership, sumRows)
+          calculateValue: props => {
+
+            const getValue = (row, col) => R.pipe(
+              R.prop(row),
+              R.prop(col),
+              R.defaultTo(0)
+            )(props.tableData)
+
+            const rows = [0, 1, 2, 3]
+            const value = R.reduce(
+              (value, row) => sub(value, getValue(row, i + 1)),
+              getTotalPublicOwnershipForColumn(forestOwnership, i + 1),
+              rows
+            )
+
+            return value
+          },
+          valueFormatter: formatDecimal
         }), years)
     ],
     [
@@ -93,6 +108,6 @@ export default (i18n, forestOwnership, countryIso) => ({
   ],
   valueSlice: {
     columnStart: 1,
-    rowEnd: -2
+    rowEnd: -1
   }
 })
