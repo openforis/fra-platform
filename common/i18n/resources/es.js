@@ -597,7 +597,7 @@ El equipo de FRA
     ofWhichPrivateBusinesses: '…de la cual de propiedad de entidades comerciales e instituciones privadas',
     ofWhichCommunities: '…de la cual de propiedad de comunidades locales, tribales e indígenas',
     publicOwnership: 'Propiedad pública',
-    otherOrUnknown: 'Otras/desconocidas (especificar en comentarios)',
+    otherOrUnknown: 'Desconocidas/otras (especificar en comentarios)',
     totalForestArea: 'Área de bosque total',
     total: 'Total'
   },
@@ -610,7 +610,7 @@ El equipo de FRA
     individuals: 'Individuos',
     privateBusinesses: 'Entidades comerciales e instituciones privadas',
     communities: 'Comunidades locales, tribales e indígenas',
-    other: 'Otras (especificar en comentarios)',
+    other: 'Desconocidas/otras (especificar en comentarios)',
     totalPublicOwnership: 'Propiedad pública total',
     total: 'Total',
     publicOwnershipDoesNotMatch: 'No coincide con la propiedad pública total'

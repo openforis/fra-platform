@@ -627,7 +627,7 @@ The FRA team fra@fao.org
     ofWhichPrivateBusinesses: '…of which owned by private business entities and institutions',
     ofWhichCommunities: '…of which owned by local, tribal and indigenous communities',
     publicOwnership: 'Public ownership',
-    otherOrUnknown: 'Other/unknown (specify in comments)',
+    otherOrUnknown: 'Unknown/other (specify in comments)',
     totalForestArea: 'Total forest area',
     total: 'Total'
   },
@@ -640,7 +640,7 @@ The FRA team fra@fao.org
     individuals: 'Individuals',
     privateBusinesses: 'Private business entities and institutions',
     communities: 'Local, tribal and indigenous communities',
-    other: 'Other (specify in comments)',
+    other: 'Unknown/other (specify in comments)',
     totalPublicOwnership: 'Total public ownership',
     total: 'Total',
     publicOwnershipDoesNotMatch: 'Doesn’t match Total public ownership'
