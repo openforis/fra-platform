@@ -54,6 +54,14 @@ const getChatMessages = async (client, sessionUserId, otherUserId) => {
 }
 
 const addMessage = async (client, message, fromUserId, toUserId) => {
+  const resultUnreadMessages = await client.query(`
+    SELECT id
+    FROM user_chat_message
+    WHERE from_user = $1
+    AND to_user = $2
+    AND read_time IS NULL
+  `, [fromUserId, toUserId])
+
   await client.query(`
     INSERT INTO 
       user_chat_message (text, from_user, to_user)
@@ -71,9 +79,14 @@ const addMessage = async (client, message, fromUserId, toUserId) => {
       id = (SELECT last_value FROM user_chat_message_id_seq)
   `)
 
-  return camelize(resultChatMessage.rows[0])
+  return {
+    unreadMessages: resultUnreadMessages.rows.length,
+    message: camelize(resultChatMessage.rows[0])
+  }
 }
 
-module.exports.getChatSummary = getChatSummary
-module.exports.getChatMessages = getChatMessages
-module.exports.addMessage = addMessage
+module.exports = {
+  getChatSummary,
+  getChatMessages,
+  addMessage
+}
