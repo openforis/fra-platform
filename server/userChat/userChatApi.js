@@ -53,11 +53,12 @@ module.exports.init = app => {
 
       const {message, fromUserId, toUserId} = req.body
 
-      const persistedMessage = await db.transaction(addMessage, [message, fromUserId, toUserId])
+      const addMessageResponse = await db.transaction(addMessage, [message, fromUserId, toUserId])
 
-      await sendNotificationEmail(req, fromUserId, toUserId)
+      if (addMessageResponse.unreadMessages === 0)
+        await sendNotificationEmail(req, fromUserId, toUserId)
 
-      res.json(persistedMessage)
+      res.json(addMessageResponse.message)
 
     } catch (e) {
       sendErr(res, e)
