@@ -516,7 +516,7 @@ L'équipe de FRA fra@fao.org
     plantedForest: 'Forêt plantée',
     plantationForest: '…dont forêt de plantation',
     otherPlantedForest: '…dont autre forêt plantée',
-    totalForest: 'Forêt',
+    forest: 'Forêt',
     otherWoodedLand: 'Autre terre boisée',
     copyToClipboard: 'Copier valeurs'
   },

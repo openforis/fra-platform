@@ -516,7 +516,7 @@ El equipo de FRA
     plantedForest: 'Bosque plantado',
     plantationForest: '…del cual con plantación forestal',
     otherPlantedForest: '…del cual con otro bosque plantado',
-    totalForest: 'Bosque',
+    forest: 'Bosque',
     otherWoodedLand: 'Otras tierras boscosas',
     copyToClipboard: 'Copiar valores'
   },

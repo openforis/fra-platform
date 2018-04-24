@@ -3,17 +3,20 @@ import { connect } from 'react-redux'
 import * as R from 'ramda'
 import ReactDOMServer from 'react-dom/server'
 import clipboard from 'clipboard-polyfill'
-import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
+
 import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
-import DefinitionLink from '../../reusableUiComponents/definitionLink'
 import { fetch, changeAvgValue, changeTotalValue, pasteAvgValue, pasteTotalValue } from './actions'
-import { ThousandSeparatedDecimalInput } from '../../reusableUiComponents/thousandSeparatedDecimalInput'
-import { sum, div, mul, toFixed, formatNumber } from '../../../common/bignumberUtils'
-import ReviewIndicator from '../../review/reviewIndicator'
+import { div, toFixed } from '../../../common/bignumberUtils'
 import { readPasteClipboard } from '../../utils/copyPasteUtil'
+
+import { ThousandSeparatedDecimalInput } from '../../reusableUiComponents/thousandSeparatedDecimalInput'
+import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
+import DefinitionLink from '../../reusableUiComponents/definitionLink'
+import ReviewIndicator from '../../review/reviewIndicator'
 import NationalDataDescriptions from '../../descriptionBundles/nationalDataDescriptions'
 import AnalysisDescriptions from '../../descriptionBundles/analysisDescriptions'
 import GeneralComments from '../../descriptionBundles/generalComments'
+
 import defaultYears from '../../../server/eof/defaultYears'
 
 const sectionName = 'growingStock'
@@ -77,61 +80,6 @@ const InputRowTotal = (props) => {
   </tr>
 }
 
-const SumRowAvg = (props) => {
-  const target = props.row + 'Avg'
-  return <tr>
-    <th className="fra-table__header-cell-left">{props.i18n.t(`growingStock.${props.row}`)}</th>
-    {
-      R.map(year => {
-        const yearData = R.path([year], props.totalTable) || {}
-        const value = R.values(R.pick(props.sumFields, yearData)) || null
-        const baseYearData = R.path([year], props.baseTable) || {}
-        const baseValue = R.values(R.pick(props.baseFields, baseYearData)) || null
-        const avg = div(mul(sum(value), 1000), sum(baseValue))
-        return <td className="fra-table__calculated-cell" key={year}>
-          {formatNumber(avg)}
-        </td>
-      }, defaultYears)
-    }
-    <td className="fra-table__row-anchor-cell">
-      <div className="fra-table__review-indicator-anchor">
-        <ReviewIndicator
-          key={target}
-          section={sectionName}
-          title={props.i18n.t(`growingStock.${props.row}`)}
-          target={[target]}
-          countryIso={props.countryIso}/>
-      </div>
-    </td>
-  </tr>
-}
-
-const SumRowTotal = (props) => {
-  const target = props.row + 'Total'
-  return <tr>
-    <th className="fra-table__header-cell-left">{props.i18n.t(`growingStock.${props.row}`)}</th>
-    {
-      R.map(year => {
-        const yearData = R.path([year], props.totalTable) || {}
-        const value = R.values(R.pick(props.sumFields, yearData)) || null
-        return <td className="fra-table__calculated-cell" key={year}>
-          {formatNumber(sum(value))}
-        </td>
-      }, defaultYears)
-    }
-    <td className="fra-table__row-anchor-cell">
-      <div className="fra-table__review-indicator-anchor">
-        <ReviewIndicator
-          key={target}
-          section={sectionName}
-          title={props.i18n.t(`growingStock.${props.row}`)}
-          target={[target]}
-          countryIso={props.countryIso}/>
-      </div>
-    </td>
-  </tr>
-}
-
 const ClipboardTable = ({tableValues}) =>
   <table>
     <tbody>
@@ -179,6 +127,8 @@ const GrowingStock = (props) => {
       <DefinitionLink className="align-left" document="faq" anchor="2a" title={i18n.t('definition.faqLabel')} lang={i18n.language}/>
       <div className="support-text full-width no-print">{i18n.t('growingStock.supportText')}</div>
     </div>
+
+    {/*AVG Table*/}
     <div className="fra-table__container">
       <div className="fra-table__scroll-wrapper">
         <table className="fra-table">
@@ -203,10 +153,8 @@ const GrowingStock = (props) => {
               row="naturallyRegeneratingForest"
               {...props}
             />
-            <SumRowAvg
+            <InputRowAvg
               row="plantedForest"
-              sumFields={['plantationForest', 'otherPlantedForest']}
-              baseFields={['plantationForestArea', 'otherPlantedForestArea']}
               {...props}
             />
             <InputRowAvg
@@ -219,10 +167,8 @@ const GrowingStock = (props) => {
               subCategory={true}
               {...props}
             />
-            <SumRowAvg
-              row="totalForest"
-              sumFields={['naturallyRegeneratingForest', 'plantationForest', 'otherPlantedForest']}
-              baseFields={['forestArea']}
+            <InputRowAvg
+              row="forest"
               {...props}
             />
             <InputRowAvg
@@ -233,6 +179,8 @@ const GrowingStock = (props) => {
         </table>
       </div>
     </div>
+
+    {/*TOTAL Table*/}
     <div className="fra-table__container">
       <div className="fra-table__scroll-wrapper">
         <table className="fra-table">
@@ -250,9 +198,8 @@ const GrowingStock = (props) => {
               row="naturallyRegeneratingForest"
               {...props}
             />
-            <SumRowTotal
+            <InputRowAvg
               row="plantedForest"
-              sumFields={['plantationForest', 'otherPlantedForest']}
               {...props}
             />
             <InputRowTotal
@@ -265,9 +212,8 @@ const GrowingStock = (props) => {
               subCategory={true}
               {...props}
             />
-            <SumRowTotal
-              row="totalForest"
-              sumFields={['naturallyRegeneratingForest', 'plantationForest', 'otherPlantedForest']}
+            <InputRowAvg
+              row="forest"
               {...props}
             />
             <InputRowTotal
@@ -278,6 +224,7 @@ const GrowingStock = (props) => {
         </table>
       </div>
     </div>
+
     <GeneralComments section={sectionName} countryIso={countryIso}/>
   </div>
 }
