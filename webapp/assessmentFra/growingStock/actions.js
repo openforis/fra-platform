@@ -31,9 +31,11 @@ const pasteYearMapping = {
 
 const pasteRowMapping = {
   0: 'naturallyRegeneratingForest',
-  1: 'plantationForest',
-  2: 'otherPlantedForest',
-  3: 'otherWoodedLand'
+  1: 'plantedForest',
+  2: 'plantationForest',
+  3: 'otherPlantedForest',
+  4: 'forest',
+  5: 'otherWoodedLand'
 }
 
 const yearToColumn = R.invertObj(pasteYearMapping)
