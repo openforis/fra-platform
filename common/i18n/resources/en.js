@@ -546,7 +546,7 @@ The FRA team fra@fao.org
     plantedForest: 'Planted forest',
     plantationForest: '…of which plantation forest',
     otherPlantedForest: '…of which other planted forest',
-    totalForest: 'Forest',
+    forest: 'Forest',
     otherWoodedLand: 'Other wooded land',
     copyToClipboard: 'Copy values'
   },

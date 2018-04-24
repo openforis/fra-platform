@@ -528,7 +528,7 @@ module.exports.translation = {
     plantedForest: 'Лесные культуры',
     plantationForest: '…в том числе плантационные лесные культуры',
     otherPlantedForest: '…в том числе другие лесные культуры',
-    totalForest: 'Леса',
+    forest: 'Леса',
     otherWoodedLand: 'Прочие лесопокрытые земли',
     copyToClipboard: 'Скопировать значения'
   },
