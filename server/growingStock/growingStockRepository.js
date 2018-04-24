@@ -11,25 +11,29 @@ module.exports.readGrowingStock = (countryIso, tableName) =>
         naturally_regenerating_forest,
         plantation_forest,
         other_planted_forest,
-        other_wooded_land
+        other_wooded_land,
+        planted_forest,
+        forest
     FROM
         ${tableName}
     WHERE
         country_iso = $1
     ORDER BY year`, [countryIso])
-  .then(result => result.rows.map(
-    row => ({
-      year: row.year,
-      naturallyRegeneratingForest: row.naturally_regenerating_forest,
-      plantationForest: row.plantation_forest,
-      otherPlantedForest: row.other_planted_forest,
-      otherWoodedLand: row.other_wooded_land
-    })
-  ))
+    .then(result => result.rows.map(
+      row => ({
+        year: row.year,
+        naturallyRegeneratingForest: row.naturally_regenerating_forest,
+        plantationForest: row.plantation_forest,
+        otherPlantedForest: row.other_planted_forest,
+        otherWoodedLand: row.other_wooded_land,
+        plantedForest: row.planted_forest,
+        forest: row.forest
+      })
+    ))
 
 module.exports.persistBothGrowingStock = async (client, user, countryIso, values) => {
   await persistGrowingStock(client, user, countryIso, values.avgTable, 'growing_stock_avg')
-  await persistGrowingStock(client, user, countryIso, values.totalTable,'growing_stock_total')
+  await persistGrowingStock(client, user, countryIso, values.totalTable, 'growing_stock_total')
 }
 
 const persistGrowingStock = (client, user, countryIso, values, tableName) =>
@@ -39,19 +43,24 @@ const persistGrowingStock = (client, user, countryIso, values, tableName) =>
     .then(() => Promise.all(R.toPairs(values).map(([year, value]) =>
       client.query(
         `INSERT INTO ${tableName}
-          (
+         (
               country_iso,
               year,
               naturally_regenerating_forest,
               plantation_forest,
               other_planted_forest,
-              other_wooded_land
-          )
-          VALUES ($1, $2, $3, $4, $5, $6)`,
+              other_wooded_land,
+              planted_forest,
+              forest
+         )
+         VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`,
         [countryIso,
           year,
           value.naturallyRegeneratingForest,
           value.plantationForest,
           value.otherPlantedForest,
-          value.otherWoodedLand])
+          value.otherWoodedLand,
+          value.plantedForest,
+          value.forest
+        ])
     )))
