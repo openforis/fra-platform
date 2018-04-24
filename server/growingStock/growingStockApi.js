@@ -5,6 +5,7 @@ const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
 const {getFraValues} = require('../eof/fraValueService')
 const repository = require('./growingStockRepository')
 const {allowedToEditDataCheck} = require('../assessment/assessmentEditAccessControl')
+const {add, defaultTo0} = require('../../common/bignumberUtils')
 
 module.exports.init = app => {
 
@@ -25,7 +26,13 @@ module.exports.init = app => {
       const extentOfForest = await getFraValues('extentOfForest', req.params.countryIso)
 
       const focArea = R.map(
-        R.pick(['year', 'naturalForestArea', 'plantationForestArea', 'otherPlantedForestArea']),
+        foc => ({
+          year: foc.year,
+          naturalForestArea: foc.naturalForestArea,
+          plantationForestArea: foc.plantationForestArea,
+          otherPlantedForestArea: foc.otherPlantedForestArea,
+          plantedForestArea: add(defaultTo0(foc.plantationForestArea), defaultTo0(foc.otherPlantedForestArea)).toString()
+        }),
         forestCharacteristics.fra
       )
       const eofArea = R.map(R.pick(['year', 'forestArea', 'otherWoodedLand']), extentOfForest.fra)
@@ -40,6 +47,7 @@ module.exports.init = app => {
           otherPlantedForestArea: null,
           forestArea: null,
           otherWoodedLand: null,
+          plantedForestArea: null,
         }
         const yearFoc = R.path([year, 0], groupedFoc) || {}
         const yearEof = R.path([year, 0], groupedEof) || {}

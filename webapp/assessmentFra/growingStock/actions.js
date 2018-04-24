@@ -12,7 +12,9 @@ const baseValueKeysMapping = {
   'naturallyRegeneratingForest': 'naturalForestArea',
   'plantationForest': 'plantationForestArea',
   'otherPlantedForest': 'otherPlantedForestArea',
-  'otherWoodedLand': 'otherWoodedLand'
+  'otherWoodedLand': 'otherWoodedLand',
+  'forest': 'forestArea',
+  'plantedForest': 'plantedForestArea',
 }
 
 const pasteYearMapping = {

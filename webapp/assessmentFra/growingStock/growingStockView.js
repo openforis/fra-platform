@@ -198,7 +198,7 @@ const GrowingStock = (props) => {
               row="naturallyRegeneratingForest"
               {...props}
             />
-            <InputRowAvg
+            <InputRowTotal
               row="plantedForest"
               {...props}
             />
@@ -212,7 +212,7 @@ const GrowingStock = (props) => {
               subCategory={true}
               {...props}
             />
-            <InputRowAvg
+            <InputRowTotal
               row="forest"
               {...props}
             />

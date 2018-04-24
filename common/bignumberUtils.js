@@ -82,3 +82,4 @@ module.exports.lessThan = lessThan
 module.exports.toFixed = toFixed
 module.exports.toString = toString
 module.exports.formatNumber = formatNumber
+module.exports.defaultTo0 = defaultTo0
