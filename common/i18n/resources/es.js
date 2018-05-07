@@ -386,7 +386,7 @@ El equipo de FRA
 
   contactPersons: {
     reportPreparationAndContactPersons: 'Elaboración de informes y personas de contacto',
-    contactPersons: 'Personas de contacto',
+    contactPersons: 'Colaboradores',
     contactPersonsSupport: 'El presente informe fue preparado por la/s siguiente/s persona/s',
     introductoryText: 'Texto introductorio',
     introductoryTextSupport: 'Incluir un texto introductorio en el contenido del presente informe',
