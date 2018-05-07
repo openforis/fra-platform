@@ -386,7 +386,7 @@ L'équipe de FRA fra@fao.org
 
   contactPersons: {
     reportPreparationAndContactPersons: 'Préparation du rapport et personnes de contact',
-    contactPersons: 'Personnes de contact',
+    contactPersons: 'Collaborateurs',
     contactPersonsSupport: 'Le présent rapport a été préparé par la(les) personne(s) suivante(s)',
     introductoryText: 'Texte d\'introduction',
     introductoryTextSupport: 'Placer un texte d\'introduction sur le contenu de ce rapport',

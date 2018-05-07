@@ -398,7 +398,7 @@ module.exports.translation = {
 
   contactPersons: {
     reportPreparationAndContactPersons: 'Подготавливающие доклад и контактные лица',
-    contactPersons: 'Контактные лица',
+    contactPersons: 'Сотрудников',
     contactPersonsSupport: 'Настоящий доклад был подготовлен следующим(и) лицом(-ами)',
     introductoryText: 'Вступительный текст',
     introductoryTextSupport: 'Вставьте вступительный текст о содержании данного доклада',
