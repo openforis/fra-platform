@@ -16,6 +16,7 @@ const panEuropeanApi = require('./panEuropean/panEuropeanApi')
 const landingApi = require('./landing/landingApi')
 const userChatApi = require('./userChat/userChatApi')
 const fileRepositoryApi = require('./fileRepository/fileRepositoryApi')
+const collaboratorsApi = require('./collaborators/collaboratorsApi')
 
 const apiRouter = express.Router()
 //Nothing should be cached by default with the APIs
@@ -40,5 +41,6 @@ panEuropeanApi.init(apiRouter)
 landingApi.init(apiRouter)
 userChatApi.init(apiRouter)
 fileRepositoryApi.init(apiRouter)
+collaboratorsApi.init(apiRouter)
 
 module.exports.router = apiRouter

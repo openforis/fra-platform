@@ -18,6 +18,7 @@ import sustainableDevelopment from '../assessmentFra/sustainableDevelopment/redu
 import landing from '../landing/reducer'
 import panEuropeanIndicators from '../panEuropeanIndicators/reducer'
 import userChat from '../userChat/reducer'
+import contactPersons from '../assessmentFra/contactPersons/reducer'
 
 export default combineReducers({
   applicationError,
@@ -37,5 +38,6 @@ export default combineReducers({
   sustainableDevelopment,
   landing,
   panEuropeanIndicators,
-  userChat
+  userChat,
+  contactPersons
 })
