@@ -47,17 +47,27 @@ export default class MultiSelect extends React.Component {
       : option.tableNo + ', ' + i18n.t(option.label)
   }
 
+  getValues (defaultValues = []) {
+    return R.defaultTo(defaultValues, this.props.values)
+  }
+
+  sortValues (values) {
+    return R.sortBy(R.prop('tableNo'), values)
+  }
+
   removeOption (option) {
-    const {values = [], onChange} = this.props
+    const {onChange} = this.props
+    const values = this.getValues()
     const updValues = R.reject(R.equals(option), values)
 
     updValues.length === 0
       ? onChange([optionAll])
-      : onChange(updValues)
+      : onChange(this.sortValues(updValues))
   }
 
   addOption (option) {
-    const {values = [], onChange} = this.props
+    const {onChange} = this.props
+    const values = this.getValues()
 
     R.contains(option, [optionAll, optionNone])
       ? onChange([option])
@@ -65,7 +75,8 @@ export default class MultiSelect extends React.Component {
       R.pipe(
         R.reject(R.equals(optionAll)),
         R.reject(R.equals(optionNone)),
-        R.append(option)
+        R.append(option),
+        this.sortValues
       )(values)
       )
   }
@@ -79,9 +90,7 @@ export default class MultiSelect extends React.Component {
   }
 
   render () {
-    const {
-      values = [optionAll]
-    } = this.props
+    const values = this.getValues([optionAll])
 
     return <div
       ref="multiSelect"

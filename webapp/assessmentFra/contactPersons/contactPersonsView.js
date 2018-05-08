@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import * as R from 'ramda'
 
 import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
-import { fetchCollaborators } from './actions'
+import { fetchCollaboratorsCountryAccess, persistCollaboratorCountryAccess } from './actions'
 
 import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
 import CommentableDescription from '../../description/commentableDescription.js'
@@ -18,12 +18,13 @@ class ContactPersonsView extends React.Component {
   componentDidMount () {
     const countryIso = this.props.match.params.countryIso
     this.props.fetchLastSectionUpdateTimestamp(countryIso, sectionName)
-    this.props.fetchCollaborators(countryIso)
+    this.props.fetchCollaboratorsCountryAccess(countryIso)
   }
 
   render () {
 
-    const {i18n, collaborators} = this.props
+    const {i18n, match, collaborators, persistCollaboratorCountryAccess} = this.props
+    const countryIso = match.params.countryIso
 
     return <LoggedInPageTemplate commentsOpen={this.props.openCommentThread}>
       <div className="fra-view__content">
@@ -45,15 +46,16 @@ class ContactPersonsView extends React.Component {
                 <td className="fra-table__header-cell-left" colSpan="2">{i18n.t('userManagement.noUsers')}</td>
               </tr>
               : collaborators.map(collaborator =>
-                <tr key={collaborator.id}>
+                <tr key={collaborator.userId}>
                   <td className="fra-table__category-cell">{collaborator.name}</td>
                   <td className="fra-table__cell-left">
                     <MultiSelect
                       i18n={i18n}
                       localizationPrefix="nationalDataPoint.dataSourceMethodsOptions"
-                      values={collaborator.tables}
+                      values={collaborator.tables || undefined}
                       onChange={
                         (values) => {
+                          persistCollaboratorCountryAccess(countryIso, R.assoc('tables', values, collaborator))
                         }
                       }
                     />
@@ -86,4 +88,8 @@ const mapStateToProps = state => ({
   collaborators: state.contactPersons.collaborators || []
 })
 
-export default connect(mapStateToProps, {fetchLastSectionUpdateTimestamp, fetchCollaborators})(ContactPersonsView)
+export default connect(mapStateToProps, {
+  fetchLastSectionUpdateTimestamp,
+  fetchCollaboratorsCountryAccess,
+  persistCollaboratorCountryAccess
+})(ContactPersonsView)
