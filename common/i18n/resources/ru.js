@@ -406,7 +406,9 @@ module.exports.translation = {
     lastName: 'Фамилия',
     institution: 'Учреждение/адрес',
     email: 'Электронная почта',
-    tables: 'Таблицы'
+    tables: 'Таблицы',
+    all: 'Все',
+    none: 'Ни одна'
   },
 
   extentOfForest: {

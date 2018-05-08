@@ -394,7 +394,9 @@ L'équipe de FRA fra@fao.org
     lastName: 'Nom de famille',
     institution: 'Institution/adresse',
     email: 'Email',
-    tables: 'Tableaux'
+    tables: 'Tableaux',
+    all: 'Toutes',
+    none: 'Aucune'
   },
 
   extentOfForest: {

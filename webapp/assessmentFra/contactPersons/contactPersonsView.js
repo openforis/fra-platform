@@ -9,6 +9,7 @@ import { fetchCollaborators } from './actions'
 
 import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
 import CommentableDescription from '../../description/commentableDescription.js'
+import MultiSelect from './collaboratorsTableMultiSelect'
 
 const sectionName = 'contactPersons'
 
@@ -30,7 +31,7 @@ class ContactPersonsView extends React.Component {
           <h2 className="headline">{i18n.t('contactPersons.reportPreparationAndContactPersons')}</h2>
         </div>
 
-        <div className="fra-table__scroll-wrapper">
+        <div className="collaborators-table__scroll-wrapper">
           <table className="fra-table">
             <thead>
             <tr>
@@ -46,7 +47,17 @@ class ContactPersonsView extends React.Component {
               : collaborators.map(collaborator =>
                 <tr key={collaborator.id}>
                   <td className="fra-table__category-cell">{collaborator.name}</td>
-                  <td className="fra-table__category-cell"></td>
+                  <td className="fra-table__cell-left">
+                    <MultiSelect
+                      i18n={i18n}
+                      localizationPrefix="nationalDataPoint.dataSourceMethodsOptions"
+                      values={collaborator.tables}
+                      onChange={
+                        (values) => {
+                        }
+                      }
+                    />
+                  </td>
                 </tr>
               )
             }
