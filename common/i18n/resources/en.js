@@ -424,7 +424,9 @@ The FRA team fra@fao.org
     lastName: 'Last name',
     institution: 'Institution/address',
     email: 'Email',
-    tables: 'Tables'
+    tables: 'Tables',
+    all: 'All',
+    none: 'None'
   },
 
   extentOfForest: {

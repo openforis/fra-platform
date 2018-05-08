@@ -394,7 +394,9 @@ El equipo de FRA
     lastName: 'Apellido',
     institution: 'Institución/dirección',
     email: 'Correo electrónico',
-    tables: 'Tablas'
+    tables: 'Tablas',
+    all: 'Todas',
+    none: 'Ninguna'
   },
 
   extentOfForest: {
@@ -419,7 +421,7 @@ El equipo de FRA
     dontUseOriginalDataPoints: 'No usar puntos de datos nacionales',
     whatIsThis: '¿Qué significa esto?',
     tableNoticeMessage: 'La superficie de tierra registrada según FAOSTAT para el año 2015 se usa para todos los años de referencia',
-    ndpMissingValues:'El punto de datos nacionales tiene valores faltantes'
+    ndpMissingValues: 'El punto de datos nacionales tiene valores faltantes'
   },
 
   climaticDomain: {
