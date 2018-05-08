@@ -91,14 +91,15 @@ export default class MultiSelect extends React.Component {
 
   render () {
     const values = this.getValues([optionAll])
+    const {disabled} = this.props
 
     return <div
       ref="multiSelect"
       tabIndex="0"
-      onMouseDown={this.toggleOpen.bind(this)}
-      onFocus={() => this.setState({open: true})}
-      onBlur={() => this.setState({open: false})}
-      className={`multi-select ${this.state.open ? 'has-focus' : ''}`}>
+      onMouseDown={disabled ? null : this.toggleOpen.bind(this)}
+      onFocus={() => disabled ? null : this.setState({open: true})}
+      onBlur={() => disabled ? null : this.setState({open: false})}
+      className={`${disabled ? '' : 'multi-select'} ${this.state.open ? 'has-focus' : ''}`}>
       <div className="multi-select__closed-content">
         {
           R.isEmpty(values)
@@ -109,25 +110,30 @@ export default class MultiSelect extends React.Component {
             )(values)
         }
       </div>
-      <div className="multi-select__opened-content-anchor">
-        {
-          this.state.open
-            ? <div className="multi-select__opened">
-              {
-                options.map(option =>
-                  <div className="multi-select__opened-item"
-                       key={option.tableNo}
-                       onMouseDown={(e) => e.stopPropagation()}
-                       onClick={e => this.toggleOption(option)}>
-                    <span className={`fra-checkbox ${R.contains(option, values) ? 'checked' : ''}`}></span>
-                    <span className="multi-select__opened-item-label">{this.localizeOption(option)}</span>
-                  </div>
-                )
-              }
-            </div>
-            : null
-        }
-      </div>
+      {
+        disabled
+          ? null
+          : <div className="multi-select__opened-content-anchor">
+            {
+              this.state.open
+                ? <div className="multi-select__opened">
+                  {
+                    options.map(option =>
+                      <div className="multi-select__opened-item"
+                           key={option.tableNo}
+                           onMouseDown={(e) => e.stopPropagation()}
+                           onClick={e => this.toggleOption(option)}>
+                        <span className={`fra-checkbox ${R.contains(option, values) ? 'checked' : ''}`}></span>
+                        <span className="multi-select__opened-item-label">{this.localizeOption(option)}</span>
+                      </div>
+                    )
+                  }
+                </div>
+                : null
+            }
+          </div>
+      }
+
     </div>
   }
 }
