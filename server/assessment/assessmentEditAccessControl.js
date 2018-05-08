@@ -1,12 +1,14 @@
 const R = require('ramda')
-const {roleForCountry} = require('../../common/countryRole')
+const {roleForCountry, isCollaborator} = require('../../common/countryRole')
 const {assessmentSections} = require('../../common/assessmentSectionItems')
 const {AccessControlException} = require('../utils/accessControl')
 const assessmentRepository = require('./assessmentRepository')
 const {
   isUserRoleAllowedToEditAssessmentData,
-  isUserRoleAllowedToEditAssessmentComments
+  isUserRoleAllowedToEditAssessmentComments,
+  isCollaboratorAllowedToEditSectionData
 } = require('./assessmentRoleAllowance')
+const {fetchCollaboratorCountryAccessTables} = require('./../collaborators/collaboratorsRepository')
 
 const assessmentForSection = section =>
   R.pipe(
@@ -36,10 +38,22 @@ const allowedToEditDataCheck = async (countryIso, user, section) => {
   const assessmentStatus = await getAssessmentStatus(countryIso, section)
   const role = roleForCountry(countryIso, user)
   if (R.isNil(assessmentStatus)) return //Until we're sure this doesn't break anything
+
+  // first check access for all users
   if (!isUserRoleAllowedToEditAssessmentData(role, assessmentStatus)) {
     throw new AccessControlException(
       'error.access.assessmentEditingNotAllowed',
       {user: user.name, role: role.role, countryIso, assessmentStatus})
+  }
+
+  // then check if user is a collaborator and has restricted access to specific table
+  if (isCollaborator(countryIso, user)) {
+    const tables = await fetchCollaboratorCountryAccessTables(countryIso, user.id)
+
+    if (!isCollaboratorAllowedToEditSectionData(section, tables))
+      throw new AccessControlException(
+        'error.access.assessmentEditingNotAllowed',
+        {user: user.name, role: role.role, countryIso, assessmentStatus})
   }
 }
 
@@ -54,4 +68,7 @@ const allowedToEditCommentsCheck = async (countryIso, user, section) => {
   }
 }
 
-module.exports = {allowedToEditDataCheck, allowedToEditCommentsCheck}
+module.exports = {
+  allowedToEditDataCheck,
+  allowedToEditCommentsCheck
+}

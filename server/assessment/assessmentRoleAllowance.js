@@ -1,5 +1,5 @@
 const R = require('ramda')
-const {assessmentStatus:status} = require('../../common/assessment')
+const {assessmentStatus: status} = require('../../common/assessment')
 
 const roleAllowances = {
   'NONE': {comments: [], data: []},
@@ -22,7 +22,7 @@ const roleAllowances = {
 }
 
 const isUserRoleAllowedToEdit = (role, assessmentStatus, editType) => {
-  if (R.isNil(role) || R.isNil(role.role)) return false;
+  if (R.isNil(role) || R.isNil(role.role)) return false
   const allowedStatusesForRole = R.path([role.role, editType], roleAllowances)
   return R.contains(assessmentStatus, allowedStatusesForRole)
 }
@@ -33,8 +33,17 @@ const isUserRoleAllowedToEditAssessmentComments = (role, assessmentStatus) =>
 const isUserRoleAllowedToEditAssessmentData = (role, assessmentStatus) =>
   isUserRoleAllowedToEdit(role, assessmentStatus, 'data')
 
+const isCollaboratorAllowedToEditSectionData = (section, allowedTables) => {
+  const allowedSections = allowedTables.map(t => t.section)
+
+  if (R.contains('all', allowedSections) || R.contains(section, allowedSections))
+    return true
+  return false
+}
+
 module.exports = {
   isUserRoleAllowedToEdit,
   isUserRoleAllowedToEditAssessmentComments,
-  isUserRoleAllowedToEditAssessmentData
+  isUserRoleAllowedToEditAssessmentData,
+  isCollaboratorAllowedToEditSectionData
 }
