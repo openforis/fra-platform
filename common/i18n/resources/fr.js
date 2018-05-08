@@ -382,7 +382,7 @@ L'équipe de FRA fra@fao.org
   },
 
   // FRA 2020 questionare
-  // Object name and title should have allways the same name
+  // Object name and title should have always the same name
 
   contactPersons: {
     reportPreparationAndContactPersons: 'Préparation du rapport et personnes de contact',

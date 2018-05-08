@@ -382,7 +382,7 @@ El equipo de FRA
   },
 
   // FRA 2020 questionare
-  // Object name and title should have allways the same name
+  // Object name and title should have always the same name
 
   contactPersons: {
     reportPreparationAndContactPersons: 'Elaboración de informes y personas de contacto',

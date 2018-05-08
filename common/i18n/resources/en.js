@@ -412,7 +412,7 @@ The FRA team fra@fao.org
   },
 
   // FRA 2020 questionare
-  // Object name and title should have allways the same name
+  // Object name and title should have always the same name
 
   contactPersons: {
     reportPreparationAndContactPersons: 'Report preparation and contact persons',

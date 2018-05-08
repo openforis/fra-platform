@@ -6,6 +6,7 @@ import * as R from 'ramda'
 
 import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
 import { fetchCollaboratorsCountryAccess, persistCollaboratorCountryAccess } from './actions'
+import { isAdministrator, isNationalCorrespondent } from './../../../common/countryRole'
 
 import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
 import CommentableDescription from '../../description/commentableDescription.js'
@@ -23,7 +24,7 @@ class ContactPersonsView extends React.Component {
 
   render () {
 
-    const {i18n, match, collaborators, persistCollaboratorCountryAccess} = this.props
+    const {userInfo, i18n, match, collaborators, persistCollaboratorCountryAccess} = this.props
     const countryIso = match.params.countryIso
 
     return <LoggedInPageTemplate commentsOpen={this.props.openCommentThread}>
@@ -51,6 +52,7 @@ class ContactPersonsView extends React.Component {
                   <td className="fra-table__cell-left">
                     <MultiSelect
                       i18n={i18n}
+                      disabled={!(isAdministrator(userInfo) || isNationalCorrespondent(countryIso, userInfo))}
                       localizationPrefix="nationalDataPoint.dataSourceMethodsOptions"
                       values={collaborator.tables || undefined}
                       onChange={
@@ -85,6 +87,7 @@ class ContactPersonsView extends React.Component {
 const mapStateToProps = state => ({
   openCommentThread: state.review.openThread,
   i18n: state.user.i18n,
+  userInfo: state.user.userInfo,
   collaborators: state.contactPersons.collaborators || []
 })
 
