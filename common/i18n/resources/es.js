@@ -214,7 +214,7 @@ El equipo de FRA
       manageCollaborators: 'Gestionar colaboradores'
     },
     sectionHeaders: {
-      introduction: 'Introducción',
+      introduction: 'Introducción / Colaboradores',
       forestExtentCharacteristicsAndChanges: 'Extensión del bosque, características y cambios',
       forestGrowingStockBiomassAndCarbon: 'Existencias en formación, biomasa y carbono',
       forestDesignationAndManagement: 'Designación y gestión del bosque',
@@ -386,7 +386,7 @@ El equipo de FRA
 
   contactPersons: {
     reportPreparationAndContactPersons: 'Elaboración de informes y personas de contacto',
-    contactPersons: 'Colaboradores',
+    contactPersons: 'Introducción / Colaboradores',
     contactPersonsSupport: 'El presente informe fue preparado por la/s siguiente/s persona/s',
     introductoryText: 'Texto introductorio',
     introductoryTextSupport: 'Incluir un texto introductorio en el contenido del presente informe',
