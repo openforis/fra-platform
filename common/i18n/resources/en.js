@@ -244,7 +244,7 @@ The FRA team
       manageCollaborators: 'Manage collaborators'
     },
     sectionHeaders: {
-      introduction: 'Introduction',
+      introduction: 'Introduction / Collaborators',
       forestExtentCharacteristicsAndChanges: 'Forest extent, characteristics and changes',
       forestGrowingStockBiomassAndCarbon: 'Forest growing stock, biomass and carbon',
       forestDesignationAndManagement: 'Forest designation and management',
@@ -416,7 +416,7 @@ The FRA team fra@fao.org
 
   contactPersons: {
     reportPreparationAndContactPersons: 'Report preparation and contact persons',
-    contactPersons: 'Collaborators',
+    contactPersons: 'Introduction / Collaborators',
     contactPersonsSupport: 'The present report was prepared by the following person(s)',
     introductoryText: 'Introductory text',
     introductoryTextSupport: 'Place an introductory text on the content of this report',

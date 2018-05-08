@@ -220,7 +220,7 @@ module.exports.translation = {
       manageCollaborators: 'Координировать сотрудников'
     },
     sectionHeaders: {
-      introduction: 'Введение',
+      introduction: 'Введение / Сотрудников',
       forestExtentCharacteristicsAndChanges: 'Площадь лесов, характеристики и изменения',
       forestGrowingStockBiomassAndCarbon: 'Запас древостоя, биомасса и углерод',
       forestDesignationAndManagement: 'Назначение лесов и управление лесами',
@@ -398,7 +398,7 @@ module.exports.translation = {
 
   contactPersons: {
     reportPreparationAndContactPersons: 'Подготавливающие доклад и контактные лица',
-    contactPersons: 'Сотрудников',
+    contactPersons: 'Введение / Сотрудников',
     contactPersonsSupport: 'Настоящий доклад был подготовлен следующим(и) лицом(-ами)',
     introductoryText: 'Вступительный текст',
     introductoryTextSupport: 'Вставьте вступительный текст о содержании данного доклада',
