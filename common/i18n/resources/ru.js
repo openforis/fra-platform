@@ -217,10 +217,11 @@ module.exports.translation = {
       platformVersion: 'Версия платформы',
       userAgent: 'Агент пользователя',
       user: 'Пользователь',
-      manageCollaborators: 'Координировать сотрудников'
+      manageCollaborators: 'Координировать сотрудников',
+      userGuide: 'Руководство пользователя'
     },
     sectionHeaders: {
-      introduction: 'Введение',
+      introduction: 'Введение / Сотрудников',
       forestExtentCharacteristicsAndChanges: 'Площадь лесов, характеристики и изменения',
       forestGrowingStockBiomassAndCarbon: 'Запас древостоя, биомасса и углерод',
       forestDesignationAndManagement: 'Назначение лесов и управление лесами',
@@ -394,11 +395,11 @@ module.exports.translation = {
   },
 
   // FRA 2020 questionare
-  // Object name and title should have allways the same name
+  // Object name and title should have always the same name
 
   contactPersons: {
     reportPreparationAndContactPersons: 'Подготавливающие доклад и контактные лица',
-    contactPersons: 'Контактные лица',
+    contactPersons: 'Введение / Сотрудников',
     contactPersonsSupport: 'Настоящий доклад был подготовлен следующим(и) лицом(-ами)',
     introductoryText: 'Вступительный текст',
     introductoryTextSupport: 'Вставьте вступительный текст о содержании данного доклада',
@@ -406,7 +407,9 @@ module.exports.translation = {
     lastName: 'Фамилия',
     institution: 'Учреждение/адрес',
     email: 'Электронная почта',
-    tables: 'Таблицы'
+    tables: 'Таблицы',
+    all: 'Все',
+    none: 'Ни одна'
   },
 
   extentOfForest: {
