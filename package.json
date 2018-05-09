@@ -2,7 +2,7 @@
   "license": "UNLICENSED",
   "name": "frap",
   "engines": {
-    "node": ">=8.6.0",
+    "node": ">=9",
     "yarn": ">=1.1.0"
   },
   "scripts": {
