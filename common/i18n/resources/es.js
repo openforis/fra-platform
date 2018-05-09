@@ -211,10 +211,11 @@ El equipo de FRA
       platformVersion: 'Versión de la plataforma',
       userAgent: 'Agente de usuario',
       user: 'Usuario',
-      manageCollaborators: 'Gestionar colaboradores'
+      manageCollaborators: 'Gestionar colaboradores',
+      userGuide: 'Guía del usuario'
     },
     sectionHeaders: {
-      introduction: 'Introducción',
+      introduction: 'Introducción / Colaboradores',
       forestExtentCharacteristicsAndChanges: 'Extensión del bosque, características y cambios',
       forestGrowingStockBiomassAndCarbon: 'Existencias en formación, biomasa y carbono',
       forestDesignationAndManagement: 'Designación y gestión del bosque',
@@ -382,11 +383,11 @@ El equipo de FRA
   },
 
   // FRA 2020 questionare
-  // Object name and title should have allways the same name
+  // Object name and title should have always the same name
 
   contactPersons: {
     reportPreparationAndContactPersons: 'Elaboración de informes y personas de contacto',
-    contactPersons: 'Personas de contacto',
+    contactPersons: 'Introducción / Colaboradores',
     contactPersonsSupport: 'El presente informe fue preparado por la/s siguiente/s persona/s',
     introductoryText: 'Texto introductorio',
     introductoryTextSupport: 'Incluir un texto introductorio en el contenido del presente informe',
@@ -394,7 +395,9 @@ El equipo de FRA
     lastName: 'Apellido',
     institution: 'Institución/dirección',
     email: 'Correo electrónico',
-    tables: 'Tablas'
+    tables: 'Tablas',
+    all: 'Todas',
+    none: 'Ninguna'
   },
 
   extentOfForest: {
@@ -419,7 +422,7 @@ El equipo de FRA
     dontUseOriginalDataPoints: 'No usar puntos de datos nacionales',
     whatIsThis: '¿Qué significa esto?',
     tableNoticeMessage: 'La superficie de tierra registrada según FAOSTAT para el año 2015 se usa para todos los años de referencia',
-    ndpMissingValues:'El punto de datos nacionales tiene valores faltantes'
+    ndpMissingValues: 'El punto de datos nacionales tiene valores faltantes'
   },
 
   climaticDomain: {

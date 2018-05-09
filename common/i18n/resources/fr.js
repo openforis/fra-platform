@@ -211,10 +211,11 @@ L'équipe de FRA
       platformVersion: 'Version plateforme',
       userAgent: 'Agent utilisateur',
       user: 'Utilisateur',
-      manageCollaborators: 'Gérer collaborateurs'
+      manageCollaborators: 'Gérer collaborateurs',
+      userGuide: 'Guide de l\'utilisateur'
     },
     sectionHeaders: {
-      introduction: 'Introduction',
+      introduction: 'Introduction / Collaborateurs',
       forestExtentCharacteristicsAndChanges: 'Étendue, caractéristiques et changement des forêts',
       forestGrowingStockBiomassAndCarbon: 'Matériel sur pied, biomasse et carbone forestiers',
       forestDesignationAndManagement: 'Désignation et gestion des forêts',
@@ -382,11 +383,11 @@ L'équipe de FRA fra@fao.org
   },
 
   // FRA 2020 questionare
-  // Object name and title should have allways the same name
+  // Object name and title should have always the same name
 
   contactPersons: {
     reportPreparationAndContactPersons: 'Préparation du rapport et personnes de contact',
-    contactPersons: 'Personnes de contact',
+    contactPersons: 'Introduction / Collaborateurs',
     contactPersonsSupport: 'Le présent rapport a été préparé par la(les) personne(s) suivante(s)',
     introductoryText: 'Texte d\'introduction',
     introductoryTextSupport: 'Placer un texte d\'introduction sur le contenu de ce rapport',
@@ -394,7 +395,9 @@ L'équipe de FRA fra@fao.org
     lastName: 'Nom de famille',
     institution: 'Institution/adresse',
     email: 'Email',
-    tables: 'Tableaux'
+    tables: 'Tableaux',
+    all: 'Toutes',
+    none: 'Aucune'
   },
 
   extentOfForest: {
