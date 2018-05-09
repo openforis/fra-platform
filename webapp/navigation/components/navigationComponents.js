@@ -64,6 +64,12 @@ ${i18n.t('navigation.support.userAgent')}: ${navigator.userAgent}
     <a
       className="nav__footer-link"
       target="_top"
+      href='/api/fileRepository/userGuide'>
+      {i18n.t('navigation.support.userGuide')}
+    </a>
+    <a
+      className="nav__footer-link"
+      target="_top"
       href={`mailto:fra@fao.org?subject=${subject}&body=${body}`}>
       {i18n.t('navigation.support.sendFeedback')}
     </a>

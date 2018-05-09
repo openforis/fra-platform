@@ -7,6 +7,20 @@ const {persistFile, getFilesList, getFile, deleteFile} = require('./fileReposito
 
 module.exports.init = app => {
 
+  // get user guide
+  app.get('/fileRepository/userGuide', (req, res) => {
+    try {
+      checkCountryAccessFromReqParams(req)
+
+      const userGuideFileName = 'User Guide FRA Platform.pdf'
+
+      res.download(`${__dirname}/${userGuideFileName}`, userGuideFileName)
+
+    } catch (err) {
+      sendErr(res, err)
+    }
+  })
+
   // upload new file
   app.post('/fileRepository/:countryIso/upload', async (req, res) => {
     try {

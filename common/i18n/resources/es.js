@@ -211,7 +211,8 @@ El equipo de FRA
       platformVersion: 'Versión de la plataforma',
       userAgent: 'Agente de usuario',
       user: 'Usuario',
-      manageCollaborators: 'Gestionar colaboradores'
+      manageCollaborators: 'Gestionar colaboradores',
+      userGuide: 'Guía del usuario'
     },
     sectionHeaders: {
       introduction: 'Introducción / Colaboradores',

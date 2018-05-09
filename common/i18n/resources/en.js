@@ -241,7 +241,8 @@ The FRA team
       platformVersion: 'Platform version',
       userAgent: 'User agent',
       user: 'User',
-      manageCollaborators: 'Manage collaborators'
+      manageCollaborators: 'Manage collaborators',
+      userGuide: 'User guide'
     },
     sectionHeaders: {
       introduction: 'Introduction / Collaborators',
