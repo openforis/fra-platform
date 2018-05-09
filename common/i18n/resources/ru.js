@@ -217,7 +217,8 @@ module.exports.translation = {
       platformVersion: 'Версия платформы',
       userAgent: 'Агент пользователя',
       user: 'Пользователь',
-      manageCollaborators: 'Координировать сотрудников'
+      manageCollaborators: 'Координировать сотрудников',
+      userGuide: 'Руководство пользователя'
     },
     sectionHeaders: {
       introduction: 'Введение / Сотрудников',
