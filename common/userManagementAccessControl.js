@@ -4,6 +4,7 @@ const {
   isAdministrator,
   isNationalCorrespondent,
   nationalCorrespondent,
+  alternateNationalCorrespondent,
   reviewer,
   collaborator
 } = require('./countryRole')
@@ -11,10 +12,10 @@ const {
 const rolesAllowedToChange = (countryIso, userInfo) => {
 
   if (isAdministrator(userInfo))
-    return [reviewer.role, nationalCorrespondent.role, collaborator.role]
+    return [reviewer.role, nationalCorrespondent.role, alternateNationalCorrespondent.role, collaborator.role]
 
   if (isNationalCorrespondent(countryIso, userInfo))
-    return [collaborator.role]
+    return [collaborator.role, alternateNationalCorrespondent.role]
 
   return []
 }
