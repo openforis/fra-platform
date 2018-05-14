@@ -9,6 +9,7 @@ import {
   administrator,
   reviewer,
   nationalCorrespondent,
+  alternateNationalCorrespondent,
   collaborator
 } from '../../../common/countryRole'
 import { i18nUserRole, validate, profilePictureUri } from '../../../common/userUtils'
@@ -81,7 +82,7 @@ class EditUserForm extends React.Component {
     //only administrator can change user roles
     const canEditRoles = isAdministrator(userInfo)
     // properties used to render ui form fields
-    const roles = [reviewer.role, nationalCorrespondent.role, collaborator.role]
+    const roles = [reviewer.role, nationalCorrespondent.role, alternateNationalCorrespondent.role, collaborator.role]
     const textInputFields = [
       {key: 'name', onlyAdmin: true},
       {key: 'email'},
