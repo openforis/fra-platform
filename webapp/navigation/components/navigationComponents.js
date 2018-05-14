@@ -61,18 +61,22 @@ ${newLine}
 ${i18n.t('navigation.support.userAgent')}: ${navigator.userAgent}
 `
   return <div className="nav__footer">
-    <a
-      className="nav__footer-link"
-      target="_top"
-      href='/api/fileRepository/userGuide'>
-      {i18n.t('navigation.support.userGuide')}
-    </a>
-    <a
-      className="nav__footer-link"
-      target="_top"
-      href={`mailto:fra@fao.org?subject=${subject}&body=${body}`}>
-      {i18n.t('navigation.support.sendFeedback')}
-    </a>
+    <div>
+      <a
+        className="nav__footer-link"
+        target="_top"
+        href='/api/fileRepository/userGuide'>
+        {i18n.t('navigation.support.userGuide')}
+      </a>
+    </div>
+    <div>
+      <a
+        className="nav__footer-link"
+        target="_top"
+        href={`mailto:fra@fao.org?subject=${subject}&body=${body}`}>
+        {i18n.t('navigation.support.sendFeedback')}
+      </a>
+    </div>
     <span className="nav__footer-copyright">&copy; {currentYear} FAO</span>
   </div>
 }
