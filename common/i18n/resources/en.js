@@ -29,6 +29,8 @@ module.exports.translation = {
       reviewer_plural: 'Reviewers',
       nationalCorrespondent: 'National correspondent',
       nationalCorrespondent_plural: 'National correspondents',
+      alternateNationalCorrespondent: 'Alternate national correspondent',
+      alternateNationalCorrespondent_plural: 'Alternate national correspondents',
       collaborator: 'Collaborator',
       collaborator_plural: 'Collaborators',
       administrator: 'Administrator',

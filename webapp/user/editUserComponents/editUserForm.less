@@ -155,6 +155,14 @@
   .fra-checkbox {
     margin-right: 4px;
   }
+
+  &.disabled {
+    cursor: not-allowed !important;
+    color: @text-disabled;
+    .fra-checkbox {
+      border: 1px solid @ui-border-light;
+    }
+  }
 }
 
 .edit-user__form-field-country-selection {

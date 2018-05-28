@@ -10,7 +10,7 @@ import EditUserForm from '../../../user/editUserComponents/editUserForm'
 
 import { rolesAllowedToChange } from '../../../../common/userManagementAccessControl'
 import { i18nUserRole } from '../../../../common/userUtils'
-import { isAdministrator, nationalCorrespondent, collaborator, reviewer } from '../../../../common/countryRole'
+import { isAdministrator, nationalCorrespondent, collaborator, reviewer, alternateNationalCorrespondent } from '../../../../common/countryRole'
 
 import { getCountryName } from '../../../country/actions'
 import { fetchUsers, removeUser, updateNewUser, addNewUser, sendInvitationEmail } from './actions'
@@ -123,7 +123,7 @@ const UserColumn = ({user, field}) => <td className="user-list__cell">
 const UsersCount = ({i18n, userCounts}) =>
   <div className="user-counts__container">
     {
-      [nationalCorrespondent.role, collaborator.role, reviewer.role]
+      [nationalCorrespondent.role, alternateNationalCorrespondent.role, collaborator.role, reviewer.role]
         .map(role =>
           <div key={role} className="user-counts__item">
             {`${userCounts[role]} ${i18nUserRole(i18n, role, Number(userCounts[role]))}`}
