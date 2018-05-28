@@ -8,7 +8,7 @@ const db = require('../db/db')
 const auditRepository = require('./../audit/auditRepository')
 const {AccessControlException} = require('../utils/accessControl')
 
-const {nationalCorrespondent, reviewer, collaborator} = require('../../common/countryRole')
+const {nationalCorrespondent, reviewer, collaborator, alternateNationalCorrespondent} = require('../../common/countryRole')
 const {userType} = require('../../common/userUtils')
 
 const {loginUrl} = require('./sendInvitation')
@@ -194,6 +194,7 @@ const getUserCountsByRole = async (client = db) => {
   const ncRole = nationalCorrespondent.role
   const reviewerRole = reviewer.role
   const collaboratorRole = collaborator.role
+  const alternateNCRole = alternateNationalCorrespondent.role
 
   const roleSelect = (role) => `
   ${role} AS (
@@ -206,19 +207,22 @@ const getUserCountsByRole = async (client = db) => {
     ${roleSelect(ncRole)}
     , ${roleSelect(reviewerRole)}
     , ${roleSelect(collaboratorRole)}
+    , ${roleSelect(alternateNCRole)}
     SELECT
     ${ncRole}.count as ${ncRole},
     ${reviewerRole}.count as ${reviewerRole},
-    ${collaboratorRole}.count as ${collaboratorRole}
+    ${collaboratorRole}.count as ${collaboratorRole},
+    ${alternateNCRole}.count as ${alternateNCRole}
     FROM
-    ${ncRole}, ${reviewerRole}, ${collaboratorRole}
+    ${ncRole}, ${reviewerRole}, ${collaboratorRole}, ${alternateNCRole}
   `)
 
   const counts = countsRes.rows[0]
   return {
     [ncRole]: counts[ncRole.toLowerCase()],
     [reviewerRole]: counts[reviewerRole.toLowerCase()],
-    [collaboratorRole]: counts[collaboratorRole.toLowerCase()]
+    [collaboratorRole]: counts[collaboratorRole.toLowerCase()],
+    [alternateNCRole]: counts[alternateNCRole.toLowerCase()]
   }
 }
 

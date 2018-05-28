@@ -1,21 +1,42 @@
 const R = require('ramda')
 const {assessmentStatus: status} = require('../../common/assessment')
 
+const {
+  noRole,
+  collaborator,
+  alternateNationalCorrespondent,
+  nationalCorrespondent,
+  reviewer,
+  administrator
+} = require('../../common/countryRole')
+
 const roleAllowances = {
-  'NONE': {comments: [], data: []},
-  'COLLABORATOR': {
+  [noRole.role]: {
+    comments: [],
+    data: []
+  },
+
+  [collaborator.role]: {
     comments: [status.editing],
     data: [status.editing]
   },
-  'NATIONAL_CORRESPONDENT': {
+
+  [alternateNationalCorrespondent.role]: {
+    comments: [status.editing],
+    data: [status.editing]
+  },
+
+  [nationalCorrespondent.role]: {
     comments: [status.editing, status.review],
     data: [status.editing]
   },
-  'REVIEWER': {
+
+  [reviewer.role]: {
     comments: [status.editing, status.review, status.approval],
     data: [status.editing, status.review]
   },
-  'ADMINISTRATOR': {
+
+  [administrator.role]: {
     comments: [status.editing, status.review, status.approval, status.accepted],
     data: [status.editing, status.review, status.approval, status.accepted]
   }
