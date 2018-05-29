@@ -20,6 +20,7 @@ const getFilesList = async (countryIso, client = db) => {
     SELECT id, country_iso, file_name
     FROM repository
     WHERE country_iso = $1
+    OR country_iso IS NULL
   `, [countryIso])
 
   return camelize(filesListResp.rows)
