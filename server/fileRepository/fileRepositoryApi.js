@@ -26,7 +26,12 @@ module.exports.init = app => {
     try {
       checkCountryAccessFromReqParams(req)
 
-      const filesList = await db.transaction(persistFile, [req.user, req.params.countryIso, req.files.file])
+      const globalFile = req.body.global === 'true'
+
+      const countryIso = req.params.countryIso
+      const fileCountryIso = globalFile ? null : countryIso
+
+      const filesList = await db.transaction(persistFile, [req.user, countryIso, req.files.file, fileCountryIso])
 
       res.json(filesList)
 

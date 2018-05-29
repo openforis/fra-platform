@@ -1,6 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
+import { isAdministrator } from '../../../common/countryRole'
+
 import { isStatusSaving } from '../../autosave/autosave'
 import { getFilesList, uploadFile, deleteFile } from '../actions'
 
@@ -24,14 +26,36 @@ class LinksView extends React.Component {
 
   render () {
 
-    const {i18n, match, uploadFile, status, filesList, deleteFile} = this.props
+    const {i18n, userInfo, match, uploadFile, status, filesList, deleteFile} = this.props
     const countryIso = match.params.countryIso
 
-    return <div className="landing__links-container">
+    return <div className="landing__page-container">
 
       {/*links*/}
-      <div className="landing__page-container-header">
+      <div className="landing__repository-header" style={{marginTop: 0}}>
         <h3>{i18n.t('landing.links.links')}</h3>
+        <input
+          ref="globalFile"
+          type="file"
+          style={{display: 'none'}}
+          onChange={e => {
+            uploadFile(countryIso, this.refs.globalFile.files[0], true)
+          }}
+        />
+        {
+          isAdministrator(userInfo)
+            ? <button className="btn-s btn-primary"
+                      disabled={isStatusSaving(status)}
+                      onClick={() => {
+                        // first reset current value, then trigger click event
+                        this.refs.globalFile.value = ''
+                        this.refs.globalFile.dispatchEvent(new MouseEvent('click'))
+                      }}>
+              <Icon className="icon-sub icon-white" name="hit-up"/>
+              {i18n.t('landing.links.uploadFile')}
+            </button>
+            : null
+        }
       </div>
       {
         links.map(link =>
@@ -89,6 +113,7 @@ class LinksView extends React.Component {
 
 const mapStateToProps = state => ({
   i18n: state.user.i18n,
+  userInfo: state.user.userInfo,
   status: state.autoSave.status,
   ...state.landing.repository,
 })
