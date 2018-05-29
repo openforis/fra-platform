@@ -1,5 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import * as R from 'ramda'
+
+import { isAdministrator } from '../../../common/countryRole'
 
 import { isStatusSaving } from '../../autosave/autosave'
 import { getFilesList, uploadFile, deleteFile } from '../actions'
@@ -24,19 +27,66 @@ class LinksView extends React.Component {
 
   render () {
 
-    const {i18n, match, uploadFile, status, filesList, deleteFile} = this.props
+    const {i18n, userInfo, match, uploadFile, status, filesList = [], deleteFile} = this.props
     const countryIso = match.params.countryIso
 
-    return <div className="landing__links-container">
+    const isAdmin = isAdministrator(userInfo)
+
+    const countryFiles = filesList.filter(f => f.countryIso === countryIso)
+    const globalFiles = filesList.filter(f => R.isNil(f.countryIso))
+
+    return <div className="landing__page-container">
 
       {/*links*/}
-      <div className="landing__page-container-header">
+      <div className="landing__repository-header" style={{marginTop: 0}}>
         <h3>{i18n.t('landing.links.links')}</h3>
+        <input
+          ref="globalFile"
+          type="file"
+          style={{display: 'none'}}
+          onChange={e => {
+            uploadFile(countryIso, this.refs.globalFile.files[0], true)
+          }}
+        />
+        {
+          isAdmin
+            ? <button className="btn-s btn-primary"
+                      disabled={isStatusSaving(status)}
+                      onClick={() => {
+                        // first reset current value, then trigger click event
+                        this.refs.globalFile.value = ''
+                        this.refs.globalFile.dispatchEvent(new MouseEvent('click'))
+                      }}>
+              <Icon className="icon-sub icon-white" name="hit-up"/>
+              {i18n.t('landing.links.uploadFile')}
+            </button>
+            : null
+        }
       </div>
       {
         links.map(link =>
           <div key={link.key} className="landing__link-container">
             <a href={link.href} target="_blank">{i18n.t(`landing.links.${link.key}`)}</a>
+          </div>
+        )
+      }
+      {
+        globalFiles.map((file, i) =>
+          <div key={i} className="landing__link-container">
+            <a href={`/api/fileRepository/${countryIso}/file/${file.id}`} target="_blank">{file.fileName}</a>
+            {
+              isAdmin
+                ? <button className="btn-xs landing__btn-remove-file"
+                          disabled={isStatusSaving(status)}
+                          onClick={
+                            () => window.confirm(i18n.t('landing.links.confirmDelete', {file: file.fileName}))
+                              ? deleteFile(countryIso, file.id)
+                              : null
+                          }>
+                  <Icon className="icon-no-margin" name="trash-simple"/>
+                </button>
+                : null
+            }
           </div>
         )
       }
@@ -64,22 +114,20 @@ class LinksView extends React.Component {
         </button>
       </div>
       {
-        filesList
-          ? filesList.map((file, i) =>
-            <div key={i} className="landing__link-container">
-              <a href={`/api/fileRepository/${countryIso}/file/${file.id}`} target="_blank">{file.fileName}</a>
-              <button className="btn-xs landing__btn-remove-file"
-                      disabled={isStatusSaving(status)}
-                      onClick={
-                        () => window.confirm(i18n.t('landing.links.confirmDelete', {file: file.fileName}))
-                          ? deleteFile(countryIso, file.id)
-                          : null
-                      }>
-                <Icon className="icon-no-margin" name="trash-simple"/>
-              </button>
-            </div>
-          )
-          : null
+        countryFiles.map((file, i) =>
+          <div key={i} className="landing__link-container">
+            <a href={`/api/fileRepository/${countryIso}/file/${file.id}`} target="_blank">{file.fileName}</a>
+            <button className="btn-xs landing__btn-remove-file"
+                    disabled={isStatusSaving(status)}
+                    onClick={
+                      () => window.confirm(i18n.t('landing.links.confirmDelete', {file: file.fileName}))
+                        ? deleteFile(countryIso, file.id)
+                        : null
+                    }>
+              <Icon className="icon-no-margin" name="trash-simple"/>
+            </button>
+          </div>
+        )
       }
 
 
@@ -89,6 +137,7 @@ class LinksView extends React.Component {
 
 const mapStateToProps = state => ({
   i18n: state.user.i18n,
+  userInfo: state.user.userInfo,
   status: state.autoSave.status,
   ...state.landing.repository,
 })

@@ -3,14 +3,14 @@ const R = require('ramda')
 const db = require('../db/db')
 const auditRepository = require('./../audit/auditRepository')
 
-const persistFile = async (client, user, countryIso, file) => {
+const persistFile = async (client, user, countryIso, file, fileCountryIso) => {
   await auditRepository.insertAudit(client, user.id, 'fileRepositoryUpload', countryIso, 'fileRepository', {file: file.name})
 
   await client.query(`
     INSERT INTO repository 
     (country_iso, file_name, file)
     VALUES ($1, $2, $3)
-  `, [countryIso, file.name, file.data])
+  `, [fileCountryIso, file.name, file.data])
 
   return await getFilesList(countryIso, client)
 }
@@ -20,6 +20,7 @@ const getFilesList = async (countryIso, client = db) => {
     SELECT id, country_iso, file_name
     FROM repository
     WHERE country_iso = $1
+    OR country_iso IS NULL
   `, [countryIso])
 
   return camelize(filesListResp.rows)
