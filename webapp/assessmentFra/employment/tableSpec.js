@@ -21,9 +21,9 @@ export const tableProps = {
 const genderOfWhichValitor = subCategoryValidator(0, R.range(1, 5))
 
 const yearFields = (rowIdx, validator) => yearIdx => [
-  {type: 'integerInput', validator: validator},
-  {type: 'integerInput', validator: validator},
-  {type: 'integerInput', validator: validator}
+  {type: 'decimalInput', validator: validator},
+  {type: 'decimalInput', validator: validator},
+  {type: 'decimalInput', validator: validator}
 ]
 
 const rowHeading = (i18n, localizationKey) =>

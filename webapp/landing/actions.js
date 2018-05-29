@@ -54,9 +54,10 @@ export const getFilesList = (countryIso) => dispatch => {
     .catch(err => dispatch(applicationError(err)))
 }
 
-export const uploadFile = (countryIso, file) => dispatch => {
+export const uploadFile = (countryIso, file, global = false) => dispatch => {
   const formData = new FormData()
   formData.append('file', file)
+  formData.append('global', global)
 
   const config = {
     headers: {
