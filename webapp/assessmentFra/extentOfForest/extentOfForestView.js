@@ -83,12 +83,15 @@ const ExtentOfForest = (props) => {
       }
       <td className="fra-table__row-anchor-cell">
         <div className="fra-table__review-indicator-anchor">
-          <ReviewIndicator
-            key="totalArea"
-            section={sectionName}
-            title={i18n.t('fraClass.otherLand')}
-            target={['otherLand']}
-            countryIso={props.countryIso}/>
+          {
+            isEditDataDisabled
+              ? null
+              : <ReviewIndicator key="totalArea"
+                                 section={sectionName}
+                                 title={i18n.t('fraClass.otherLand')}
+                                 target={['otherLand']}
+                                 countryIso={props.countryIso}/>
+          }
         </div>
       </td>
     </tr>
@@ -108,12 +111,15 @@ const ExtentOfForest = (props) => {
       }
       <td className="fra-table__row-anchor-cell">
         <div className="fra-table__review-indicator-anchor">
-          <ReviewIndicator
-            key="faoStat"
-            section={sectionName}
-            title={i18n.t('extentOfForest.totalLandArea')}
-            target={['faoStat']}
-            countryIso={props.countryIso}/>
+          {
+            isEditDataDisabled
+              ? null
+              : <ReviewIndicator key="faoStat"
+                                 section={sectionName}
+                                 title={i18n.t('extentOfForest.totalLandArea')}
+                                 target={['faoStat']}
+                                 countryIso={props.countryIso}/>
+          }
         </div>
       </td>
     </tr>
@@ -214,7 +220,7 @@ const ExtentOfForest = (props) => {
       ]}
     />
     {
-      hasOdps(props.fra)
+      hasOdps(props.fra) && !isEditDataDisabled
         ? <div className="fra-view__section-toolbar no-print">
           <GenerateFraValuesControl section={sectionName} rows={eofRows} useOriginalDataPoints={true} {...props} />
           {
