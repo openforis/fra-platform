@@ -8,7 +8,7 @@ const actionHandlers = {
 
   [collaboratorsCountryAccessUpdate]: (state, action) => {
     const {collaborator} = action
-    const idx = R.findIndex(R.propEq('id', collaborator.id), state.collaborators)
+    const idx = R.findIndex(R.propEq('userId', collaborator.userId), state.collaborators)
     return {...state, collaborators: R.update(idx, collaborator, state.collaborators)}
   }
 }
