@@ -9,7 +9,7 @@ import * as R from 'ramda'
 
 import { getForestArea } from './indicators'
 
-const SubIndicator1 = ({i18n, countryIso, data, years}) => {
+const SubIndicator1 = ({i18n, countryIso, data, years, disabled}) => {
 
   const getValue1YearDiff = (year1, year2) => {
     const forest1 = getForestArea(data, year1)
@@ -77,11 +77,14 @@ const SubIndicator1 = ({i18n, countryIso, data, years}) => {
           }
           <td className="fra-table__row-anchor-cell">
             <div className="fra-table__review-indicator-anchor">
-              <ReviewIndicator
-                section={'sustainableDevelopment'}
-                title={i18n.t('sustainableDevelopment.forestAreaAnnualNetChangeRate')}
-                target={['subIndicator1']}
-                countryIso={countryIso}/>
+              {
+                disabled
+                  ? null
+                  : <ReviewIndicator section={'sustainableDevelopment'}
+                                     title={i18n.t('sustainableDevelopment.forestAreaAnnualNetChangeRate')}
+                                     target={['subIndicator1']}
+                                     countryIso={countryIso}/>
+              }
             </div>
           </td>
         </tr>
@@ -92,7 +95,8 @@ const SubIndicator1 = ({i18n, countryIso, data, years}) => {
     <ResponsibleAgency
       i18n={i18n}
       countryIso={countryIso}
-      tableSpecName="sustainableDevelopmentAgencySubIndicator1"/>
+      tableSpecName="sustainableDevelopmentAgencySubIndicator1"
+      disabled={disabled}/>
 
   </div>
 }

@@ -14,6 +14,7 @@ import SubIndicator4 from './indicators/subIndicator4'
 
 import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
 import { fetch } from './actions'
+import { isFRA2020DataEditDisabled } from '../../utils/assessmentAccess'
 
 class SustainableDevelopmentView extends React.Component {
 
@@ -31,7 +32,7 @@ class SustainableDevelopmentView extends React.Component {
   }
 
   render () {
-    const {match, i18n, data, countryConfig} = this.props
+    const {match, i18n, data, countryConfig, isEditDataDisabled} = this.props
     const countryIso = match.params.countryIso
     const lang = i18n.language
     const years = R.drop(1, defaultYears)
@@ -55,25 +56,29 @@ class SustainableDevelopmentView extends React.Component {
             countryIso={countryIso}
             data={data}
             years={years}
-            countryConfig={countryConfig}/>
+            countryConfig={countryConfig}
+            disabled={isEditDataDisabled}/>
           <h3 className="subhead" style={{marginBottom: 16}}>{i18n.t('sustainableDevelopment.sdgIndicator2')}</h3>
           <SubIndicator1
             i18n={i18n}
             countryIso={countryIso}
             data={data}
             years={years}
+            disabled={isEditDataDisabled}
           />
           <SubIndicator2
             i18n={i18n}
             countryIso={countryIso}
             data={data}
             years={years}
+            disabled={isEditDataDisabled}
           />
           <SubIndicator3
             i18n={i18n}
             countryIso={countryIso}
             data={data}
             years={years}
+            disabled={isEditDataDisabled}
           />
           <SubIndicator4
             i18n={i18n}
@@ -81,6 +86,7 @@ class SustainableDevelopmentView extends React.Component {
             data={data}
             years={years}
             countryConfig={countryConfig}
+            disabled={isEditDataDisabled}
           />
         </div>
       </LoggedInPageTemplate>
@@ -90,7 +96,8 @@ class SustainableDevelopmentView extends React.Component {
 const mapStateToProps = state => ({
   i18n: state.user.i18n,
   data: state.sustainableDevelopment,
-  countryConfig: R.path(['country', 'config'], state)
+  countryConfig: R.path(['country', 'config'], state),
+  isEditDataDisabled: isFRA2020DataEditDisabled(state)
 })
 
 export default connect(mapStateToProps, {fetchLastSectionUpdateTimestamp, fetch})(SustainableDevelopmentView)

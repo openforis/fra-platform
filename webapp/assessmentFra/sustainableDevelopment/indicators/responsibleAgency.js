@@ -1,7 +1,7 @@
 import React from 'react'
 import TraditionalTable from '../../../traditionalTable/traditionalTable'
 
-const TableIndicatorAgency = ({i18n, countryIso, tableSpecName}) => {
+const TableIndicatorAgency = ({i18n, countryIso, tableSpecName, disabled}) => {
   const tableSpec = {
     name: tableSpecName,
     header: <thead/>,
@@ -23,7 +23,8 @@ const TableIndicatorAgency = ({i18n, countryIso, tableSpecName}) => {
   return <div className="fra-secondary-table__wrapper">
     <TraditionalTable
       tableSpec={tableSpec}
-      countryIso={countryIso}/>
+      countryIso={countryIso}
+      disabled={disabled}/>
   </div>
 }
 

@@ -9,7 +9,7 @@ import * as R from 'ramda'
 
 import { getForestArea } from './indicators'
 
-const SubIndicator3 = ({i18n, countryIso, data, years}) => {
+const SubIndicator3 = ({i18n, countryIso, data, years, disabled}) => {
 
   const getValue = (year, field) => {
     const val = R.path(['forestAreaWithinProtectedAreas', field, year], data)
@@ -55,11 +55,14 @@ const SubIndicator3 = ({i18n, countryIso, data, years}) => {
           }
           <td className="fra-table__row-anchor-cell">
             <div className="fra-table__review-indicator-anchor">
-              <ReviewIndicator
-                section={'sustainableDevelopment'}
-                title={i18n.t('sustainableDevelopment.proportionForestAreaLegallyEstablishedProtectedAreas')}
-                target={['proportionForestAreaLegallyEstablishedProtectedAreas']}
-                countryIso={countryIso}/>
+              {
+                disabled
+                  ? null
+                  : <ReviewIndicator section={'sustainableDevelopment'}
+                                     title={i18n.t('sustainableDevelopment.proportionForestAreaLegallyEstablishedProtectedAreas')}
+                                     target={['proportionForestAreaLegallyEstablishedProtectedAreas']}
+                                     countryIso={countryIso}/>
+              }
             </div>
           </td>
         </tr>
@@ -77,11 +80,14 @@ const SubIndicator3 = ({i18n, countryIso, data, years}) => {
           }
           <td className="fra-table__row-anchor-cell">
             <div className="fra-table__review-indicator-anchor">
-              <ReviewIndicator
-                section={'sustainableDevelopment'}
-                title={i18n.t('sustainableDevelopment.proportionForestAreaLongTermForestManagement')}
-                target={['proportionForestAreaLongTermForestManagement']}
-                countryIso={countryIso}/>
+              {
+                disabled
+                  ? null
+                  : <ReviewIndicator section={'sustainableDevelopment'}
+                                     title={i18n.t('sustainableDevelopment.proportionForestAreaLongTermForestManagement')}
+                                     target={['proportionForestAreaLongTermForestManagement']}
+                                     countryIso={countryIso}/>
+              }
             </div>
           </td>
         </tr>
@@ -92,7 +98,8 @@ const SubIndicator3 = ({i18n, countryIso, data, years}) => {
     <ResponsibleAgency
       i18n={i18n}
       countryIso={countryIso}
-      tableSpecName="sustainableDevelopmentAgencySubIndicator3"/>
+      tableSpecName="sustainableDevelopmentAgencySubIndicator3"
+      disabled={disabled}/>
 
   </div>
 }
