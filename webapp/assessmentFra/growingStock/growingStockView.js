@@ -18,11 +18,13 @@ import AnalysisDescriptions from '../../descriptionBundles/analysisDescriptions'
 import GeneralComments from '../../descriptionBundles/generalComments'
 
 import defaultYears from '../../../server/eof/defaultYears'
+import { isFRA2020DataEditDisabled } from '../../utils/assessmentAccess'
 
 const sectionName = 'growingStock'
 const mapIndexed = R.addIndex(R.map)
 
 const InputRowAvg = (props) => {
+  const {isEditDataDisabled} = props
   const thClassName = props.subCategory ? 'fra-table__subcategory-cell' : 'fra-table__category-cell'
   const target = props.row + 'Avg'
   return <tr>
@@ -34,25 +36,29 @@ const InputRowAvg = (props) => {
           <ThousandSeparatedDecimalInput
             numberValue={value}
             onPaste={e => props.pasteAvgValue(props.countryIso, year, props.row, readPasteClipboard(e, 'decimal'))}
-            onChange={e => props.changeAvgValue(props.countryIso, year, props.row, e.target.value)}/>
+            onChange={e => props.changeAvgValue(props.countryIso, year, props.row, e.target.value)}
+            disabled={isEditDataDisabled}/>
         </td>
       }, defaultYears)
     }
     <td className="fra-table__row-anchor-cell">
       <div className="fra-table__review-indicator-anchor">
-        <ReviewIndicator
-          key={target}
-          section={sectionName}
-          title={props.i18n.t(`growingStock.${props.row}`)}
-          target={[target]}
-          countryIso={props.countryIso}/>
+        {
+          isEditDataDisabled
+            ? null
+            : <ReviewIndicator key={target}
+                               section={sectionName}
+                               title={props.i18n.t(`growingStock.${props.row}`)}
+                               target={[target]}
+                               countryIso={props.countryIso}/>
+        }
       </div>
     </td>
   </tr>
 }
 
 const InputRowTotal = (props) => {
-  const {countryIso, totalTable, subCategory, row, validator} = props
+  const {countryIso, totalTable, subCategory, row, validator, isEditDataDisabled} = props
 
   const thClassName = subCategory ? 'fra-table__subcategory-cell' : 'fra-table__category-cell'
   const target = row + 'Total'
@@ -67,18 +73,22 @@ const InputRowTotal = (props) => {
           <ThousandSeparatedDecimalInput
             numberValue={value}
             onPaste={e => props.pasteTotalValue(countryIso, year, row, readPasteClipboard(e, 'decimal'))}
-            onChange={e => props.changeTotalValue(countryIso, year, row, e.target.value)}/>
+            onChange={e => props.changeTotalValue(countryIso, year, row, e.target.value)}
+            disabled={isEditDataDisabled} />
         </td>
       }, defaultYears)
     }
     <td className="fra-table__row-anchor-cell">
       <div className="fra-table__review-indicator-anchor">
-        <ReviewIndicator
-          key={target}
-          section={sectionName}
-          title={props.i18n.t(`growingStock.${props.row}`)}
-          target={[target]}
-          countryIso={props.countryIso}/>
+        {
+          isEditDataDisabled
+            ? null
+            : <ReviewIndicator key={target}
+                               section={sectionName}
+                               title={props.i18n.t(`growingStock.${props.row}`)}
+                               target={[target]}
+                               countryIso={props.countryIso}/>
+        }
       </div>
     </td>
   </tr>
@@ -132,16 +142,14 @@ export const plantedForestSubCategoryValidator = (props, year, row) => {
 }
 
 const GrowingStock = (props) => {
-  const i18n = props.i18n
-  const countryIso = props.countryIso
-  const avgTable = R.path(['avgTable'], props)
-  const totalTable = R.path(['totalTable'], props)
+  const {i18n, countryIso, avgTable, totalTable, isEditDataDisabled} = props
+
 
   if (R.isNil(avgTable) || R.isNil(totalTable)) return null
 
   return <div className='fra-view__content'>
-    <NationalDataDescriptions section={sectionName} countryIso={countryIso}/>
-    <AnalysisDescriptions section={sectionName} countryIso={countryIso}/>
+    <NationalDataDescriptions section={sectionName} countryIso={countryIso} disabled={isEditDataDisabled}/>
+    <AnalysisDescriptions section={sectionName} countryIso={countryIso} disabled={isEditDataDisabled}/>
     <h2 className="headline">
       <span className="only-print">2a </span>{i18n.t('growingStock.growingStock')}
     </h2>
@@ -254,7 +262,7 @@ const GrowingStock = (props) => {
       </div>
     </div>
 
-    <GeneralComments section={sectionName} countryIso={countryIso}/>
+    <GeneralComments section={sectionName} countryIso={countryIso} disabled={isEditDataDisabled}/>
   </div>
 }
 
@@ -284,7 +292,8 @@ const mapStateToProps = state =>
     avgTable: state.growingStock.avgTable,
     baseTable: state.growingStock.baseTable,
     openCommentThread: state.review.openThread,
-    i18n: state.user.i18n
+    i18n: state.user.i18n,
+    isEditDataDisabled: isFRA2020DataEditDisabled(state)
   })
 
 export default connect(
