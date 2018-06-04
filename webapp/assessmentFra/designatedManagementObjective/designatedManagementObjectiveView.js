@@ -13,19 +13,21 @@ import NationalDataDescriptions from '../../descriptionBundles/nationalDataDescr
 import AnalysisDescriptions from '../../descriptionBundles/analysisDescriptions'
 import GeneralComments from '../../descriptionBundles/generalComments'
 
+import { isFRA2020DataEditDisabled } from '../../utils/assessmentAccess'
+
 const sectionName = 'designatedManagementObjective'
 
 class designatedManagementObjectiveView extends React.Component {
 
-  componentWillMount() {
+  componentWillMount () {
     this.props.fetchLastSectionUpdateTimestamp(
       this.props.match.params.countryIso,
       sectionName
     )
   }
 
-  render() {
-    const {match, i18n, extentOfForest} = this.props
+  render () {
+    const {match, i18n, extentOfForest, isEditDataDisabled} = this.props
     const countryIso = match.params.countryIso
     const primaryDmoTableSpec = primaryDesignatedManagementObjectiveTableSpec(i18n, extentOfForest, countryIso)
     const totalDmoTableSpec = totalAreaWithDesignatedManagementObjectiveTableSpec(i18n)
@@ -38,14 +40,18 @@ class designatedManagementObjectiveView extends React.Component {
           <span className="only-print">3a </span>{i18n.t('designatedManagementObjective.designatedManagementObjective')}
         </h2>
         <div className="fra-view__section-toolbar">
-          <DefinitionLink className="margin-right-big" document="tad" anchor="3a" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
-          <DefinitionLink className="align-left" document="faq" anchor="3a" title={i18n.t('definition.faqLabel')} lang={i18n.language}/>
+          <DefinitionLink className="margin-right-big" document="tad" anchor="3a"
+                          title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
+          <DefinitionLink className="align-left" document="faq" anchor="3a" title={i18n.t('definition.faqLabel')}
+                          lang={i18n.language}/>
         </div>
         <h3 className="subhead">
           {i18n.t('designatedManagementObjective.primaryDesignatedManagementObjective')}
         </h3>
         <div className="fra-view__section-toolbar">
-          <div className="support-text no-print">{i18n.t('designatedManagementObjective.primaryDesignatedManagementObjectiveSupport')}</div>
+          <div className="support-text no-print">
+            {i18n.t('designatedManagementObjective.primaryDesignatedManagementObjectiveSupport')}
+          </div>
         </div>
         <TraditionalTable
           tableSpec={primaryDmoTableSpec}
@@ -55,7 +61,9 @@ class designatedManagementObjectiveView extends React.Component {
           {i18n.t('designatedManagementObjective.totalAreaWithDesignatedManagementObjective')}
         </h3>
         <div className="fra-view__section-toolbar">
-          <div className="support-text no-print">{i18n.t('designatedManagementObjective.totalAreaWithDesignatedManagementObjectiveSupport')}</div>
+          <div className="support-text no-print">
+            {i18n.t('designatedManagementObjective.totalAreaWithDesignatedManagementObjectiveSupport')}
+          </div>
         </div>
         <TraditionalTable
           tableSpec={totalDmoTableSpec}
@@ -70,6 +78,10 @@ class designatedManagementObjectiveView extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({i18n: state.user.i18n, extentOfForest: state.extentOfForest})
+const mapStateToProps = state => ({
+  i18n: state.user.i18n,
+  extentOfForest: state.extentOfForest,
+  isEditDataDisabled: isFRA2020DataEditDisabled(state)
+})
 
 export default connect(mapStateToProps, {fetchLastSectionUpdateTimestamp})(designatedManagementObjectiveView)
