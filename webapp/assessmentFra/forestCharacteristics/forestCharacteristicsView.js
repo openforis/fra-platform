@@ -16,6 +16,7 @@ import { sum, formatNumber, greaterThanOrEqualTo, abs, sub, greaterThan, toFixed
 import { getForestAreaForYear } from '../extentOfForest/extentOfForestHelper'
 import ReviewIndicator from '../../review/reviewIndicator'
 import { hasOdps } from '../extentOfForest/extentOfForestHelper'
+import { isFRA2020DataEditDisabled } from '../../utils/assessmentAccess'
 
 const mapIndexed = R.addIndex(R.map)
 const sectionName = 'forestCharacteristics'
@@ -23,7 +24,7 @@ const odpValueCellClass = (fraColumn) => fraColumn.type === 'odp' ? 'odp-value-c
 
 const ForestCharacteristics = props => {
 
-  const i18n = props.i18n
+  const {i18n, isEditDataDisabled} = props
 
   const totalForestArea = (fraColumn) =>
     sum([
@@ -66,12 +67,15 @@ const ForestCharacteristics = props => {
       }
       <td className="fra-table__row-anchor-cell">
         <div className="fra-table__review-indicator-anchor">
-          <ReviewIndicator
-            key="plantedForest"
-            section={sectionName}
-            title={i18n.t('forestCharacteristics.plantedForest')}
-            target={['plantedForest']}
-            countryIso={props.countryIso} />
+          {
+            isEditDataDisabled
+              ? null
+              : <ReviewIndicator key="plantedForest"
+                                 section={sectionName}
+                                 title={i18n.t('forestCharacteristics.plantedForest')}
+                                 target={['plantedForest']}
+                                 countryIso={props.countryIso}/>
+          }
         </div>
       </td>
     </tr>
@@ -96,12 +100,15 @@ const ForestCharacteristics = props => {
       }
       <td className="fra-table__row-anchor-cell">
         <div className="fra-table__review-indicator-anchor">
-          <ReviewIndicator
-            key="total"
-            section={sectionName}
-            title={i18n.t('forestCharacteristics.total')}
-            target={['total']}
-            countryIso={props.countryIso} />
+          {
+            isEditDataDisabled
+              ? null
+              : <ReviewIndicator key="total"
+                                 section={sectionName}
+                                 title={i18n.t('forestCharacteristics.total')}
+                                 target={['total']}
+                                 countryIso={props.countryIso}/>
+          }
         </div>
       </td>
     </tr>
@@ -126,12 +133,15 @@ const ForestCharacteristics = props => {
       }
       <td className="fra-table__row-anchor-cell">
         <div className="fra-table__review-indicator-anchor">
-          <ReviewIndicator
-            key="totalForestArea"
-            section={sectionName}
-            title={i18n.t('forestCharacteristics.totalForestArea')}
-            target={['totalForestArea']}
-            countryIso={props.countryIso} />
+          {
+            isEditDataDisabled
+              ? null
+              : <ReviewIndicator key="totalForestArea"
+                                 section={sectionName}
+                                 title={i18n.t('forestCharacteristics.totalForestArea')}
+                                 target={['totalForestArea']}
+                                 countryIso={props.countryIso}/>
+          }
         </div>
       </td>
     </tr>
@@ -212,7 +222,7 @@ const ForestCharacteristics = props => {
 
   return <div className='fra-view__content'>
     {
-      props.useOriginalDataPoints
+      props.useOriginalDataPoints && !isEditDataDisabled
       ? [<button
             key="odpButton"
             className={`btn btn-${props.useOriginalDataPointsInFoc ? 'secondary' : 'primary'} no-print`}
@@ -228,11 +238,11 @@ const ForestCharacteristics = props => {
       : null
     }
     {
-      props.useOriginalDataPointsInFoc
+      props.useOriginalDataPointsInFoc && !isEditDataDisabled
         ? null
         : [
-            <NationalDataDescriptions key="ndd" section={sectionName} countryIso={props.countryIso}/>,
-            <AnalysisDescriptions key="ad" section={sectionName} countryIso={props.countryIso}/>
+            <NationalDataDescriptions key="ndd" section={sectionName} countryIso={props.countryIso} disabled={isEditDataDisabled}/>,
+            <AnalysisDescriptions key="ad" section={sectionName} countryIso={props.countryIso} disabled={isEditDataDisabled}/>
           ]
     }
     <h2 className="headline">
@@ -251,7 +261,7 @@ const ForestCharacteristics = props => {
       ]}
     />
     {
-      props.useOriginalDataPointsInFoc
+      props.useOriginalDataPointsInFoc && !isEditDataDisabled
       ? <div className="fra-view__section-toolbar no-print">
           <GenerateFraValuesControl section={sectionName} rows={focRows} {...props} />
           {
@@ -271,10 +281,12 @@ const ForestCharacteristics = props => {
       categoryHeader={i18n.t('forestCharacteristics.categoryHeader')}
       {...props}
       fra={props.fra}
+      disabled={isEditDataDisabled}
     />
     <GeneralComments
       section={sectionName}
       countryIso={props.match.params.countryIso}
+      disabled={isEditDataDisabled}
     />
   </div>
 }
@@ -310,7 +322,8 @@ const mapStateToProps = state => {
     extentOfForest: state.extentOfForest,
     useOriginalDataPoints: useOriginalDataPoints,
     // Only if ODPs are enabled system-wide and ALSO locally, they are enabled:
-    useOriginalDataPointsInFoc: useOriginalDataPoints && useOriginalDataPointsInFoc
+    useOriginalDataPointsInFoc: useOriginalDataPoints && useOriginalDataPointsInFoc,
+    isEditDataDisabled: isFRA2020DataEditDisabled(state)
   }
 }
 
