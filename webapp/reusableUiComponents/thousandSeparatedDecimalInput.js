@@ -12,7 +12,7 @@ export class ThousandSeparatedDecimalInput extends React.Component {
   }
 
   render () {
-    const {numberValue, onChange, onPaste} = this.props
+    const {numberValue, onChange, onPaste, disabled} = this.props
     const value = this.state.inputValue || numberValue
 
     return <div className="number-input__container validation-error-sensitive-field" ref="wrapper">
@@ -22,7 +22,7 @@ export class ThousandSeparatedDecimalInput extends React.Component {
       <input
         type="text"
         maxLength="100"
-        disabled={this.props.disabled}
+        disabled={disabled}
         className="number-input__input-field no-print"
         ref="decimalInputField"
         value={value || ''}
@@ -44,7 +44,7 @@ export class ThousandSeparatedDecimalInput extends React.Component {
           this.setState({inputValue: numberValue || null})
           this.refs.decimalInputField.select()
         }}
-        onBlur={() => {this.setState({hasFocus: false})}} />
+        onBlur={() => {this.setState({hasFocus: false})}}/>
     </div>
   }
 }

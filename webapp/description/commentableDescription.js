@@ -15,7 +15,7 @@ const assertProps = props => assert(
 
 const CommentableDescription = props => {
   assertProps(props)
-  const {disabled = false} = props
+  const {disabled = false, commentsDisabled=false} = props
 
   return <div className="fra-description">
     <div className={
@@ -37,7 +37,7 @@ const CommentableDescription = props => {
         title={props.title}
         target={[props.name]}
         countryIso={props.countryIso}
-        disabled={disabled}
+        disabled={commentsDisabled}
       />
     </div>
   </div>
