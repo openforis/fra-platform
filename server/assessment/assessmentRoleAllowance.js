@@ -27,12 +27,12 @@ const roleAllowances = {
   },
 
   [nationalCorrespondent.role]: {
-    comments: [status.editing, status.review],
+    comments: [status.editing],
     data: [status.editing]
   },
 
   [reviewer.role]: {
-    comments: [status.editing, status.review, status.approval],
+    comments: [status.editing, status.review],
     data: [status.editing, status.review]
   },
 

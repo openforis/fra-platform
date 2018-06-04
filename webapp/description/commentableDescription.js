@@ -15,7 +15,7 @@ const assertProps = props => assert(
 
 const CommentableDescription = props => {
   assertProps(props)
-  const {disabled = false, commentsDisabled=false} = props
+  const {disabled = false} = props
 
   return <div className="fra-description">
     <div className={
@@ -32,13 +32,16 @@ const CommentableDescription = props => {
         disabled={disabled}/>
     </div>
     <div className="fra-description__review-indicator-wrapper">
-      <ReviewIndicator
-        section={props.section}
-        title={props.title}
-        target={[props.name]}
-        countryIso={props.countryIso}
-        disabled={commentsDisabled}
-      />
+      {
+        disabled
+          ? null
+          : <ReviewIndicator
+            section={props.section}
+            title={props.title}
+            target={[props.name]}
+            countryIso={props.countryIso}
+          />
+      }
     </div>
   </div>
 }
