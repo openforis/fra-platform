@@ -375,12 +375,16 @@ const renderFieldRow = ({row, countryIso, fra, save, saveMany, pasteUpdate, rowI
     }
     <td className="fra-table__row-anchor-cell">
       <div className="fra-table__review-indicator-anchor">
-        <ReviewIndicator
-          key={`${field}_ri`}
-          section={section}
-          title={rowHeader}
-          target={[field]}
-          countryIso={countryIso}/>
+        {
+          disabled
+            ? null
+            : <ReviewIndicator key={`${field}_ri`}
+                               section={section}
+                               title={rowHeader}
+                               target={[field]}
+                               countryIso={countryIso}/>
+        }
+
       </div>
     </td>
   </tr>
