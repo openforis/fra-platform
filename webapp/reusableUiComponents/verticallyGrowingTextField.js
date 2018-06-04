@@ -4,17 +4,17 @@ import './verticallyGrowingTextField.less'
 
 class VerticallyGrowingTextField extends React.Component {
 
-  componentDidMount() {
+  componentDidMount () {
     this.resizeTextArea()
   }
 
-  componentDidUpdate(prev) {
-    if(!R.equals(this.props.value, prev.value)) {
+  componentDidUpdate (prev) {
+    if (!R.equals(this.props.value, prev.value)) {
       this.resizeTextArea()
     }
   }
 
-  resizeTextArea() {
+  resizeTextArea () {
     const textArea = this.refs.textArea
     if (textArea) {
       textArea.style.height = 'auto'
@@ -23,11 +23,14 @@ class VerticallyGrowingTextField extends React.Component {
   }
 
   render () {
-    const minWidthStyleAttr = this.props.minWidth ? `${this.props.minWidth}px` : null
+    const {minWidth, disabled} = this.props
+    const minWidthStyleAttr = minWidth ? `${minWidth}px` : null
+
     return (
       <div className="vgtf__container">
         <textarea
           ref="textArea"
+          disabled={disabled}
           rows="1"
           className="vgtf__textarea no-print"
           style={{minWidth: minWidthStyleAttr}}
