@@ -10,6 +10,7 @@ import DefinitionLink from '../../reusableUiComponents/definitionLink'
 import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
 import NationalDataDescriptions from '../../descriptionBundles/nationalDataDescriptions'
 import GeneralComments from '../../descriptionBundles/generalComments'
+import { isFRA2020DataEditDisabled } from '../../utils/assessmentAccess'
 
 const currencyNameTableSpec = i18n => ({
   name: 'nonWoodForestProductsRemovalsCurrency',
@@ -40,12 +41,12 @@ class NonWoodForestProductsRemovalsView extends React.Component {
   }
 
   render() {
-    const {match, i18n} = this.props
+    const {match, i18n, isEditDataDisabled} = this.props
     const mainTableSpecInstance = mainTableSpec(i18n)
 
     return <LoggedInPageTemplate>
       <div className="fra-view__content">
-        <NationalDataDescriptions section={mainTableSpecInstance.name} countryIso={match.params.countryIso}/>
+        <NationalDataDescriptions section={mainTableSpecInstance.name} countryIso={match.params.countryIso} disabled={isEditDataDisabled} />
         <h2 className="headline">
           <span className="only-print">7c </span>{i18n.t('nonWoodForestProductsRemovals.nonWoodForestProductsRemovals')}
         </h2>
@@ -53,19 +54,23 @@ class NonWoodForestProductsRemovalsView extends React.Component {
           <DefinitionLink className="margin-right-big" document="tad" anchor="7c" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
           <DefinitionLink className="align-left" document="faq" anchor="7c" title={i18n.t('definition.faqLabel')} lang={i18n.language}/>
         </div>
-        <TraditionalTable tableSpec={mainTableSpecInstance} countryIso={match.params.countryIso}/>
+        <TraditionalTable tableSpec={mainTableSpecInstance} countryIso={match.params.countryIso} disabled={isEditDataDisabled}/>
         <div className="fra-secondary-table__wrapper">
-          <TraditionalTable tableSpec={currencyNameTableSpec(i18n)} countryIso={match.params.countryIso}/>
+          <TraditionalTable tableSpec={currencyNameTableSpec(i18n)} countryIso={match.params.countryIso} disabled={isEditDataDisabled}/>
         </div>
         <GeneralComments
           section={mainTableSpecInstance.name}
           countryIso={match.params.countryIso}
+          disabled={isEditDataDisabled}
         />
       </div>
     </LoggedInPageTemplate>
   }
 }
 
-const mapStateToProps = state => ({i18n: state.user.i18n})
+const mapStateToProps = state => ({
+  i18n: state.user.i18n,
+  isEditDataDisabled: isFRA2020DataEditDisabled(state)
+})
 
 export default connect(mapStateToProps, {fetchLastSectionUpdateTimestamp})(NonWoodForestProductsRemovalsView)
