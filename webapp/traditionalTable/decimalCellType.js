@@ -13,7 +13,8 @@ const DecimalCellType = props => {
     colIdx,
     tableValueChanged,
     tableChanged,
-    validator
+    validator,
+    disabled
   } = props
   const currentValue = tableData[rowIdx][colIdx]
   const valid = validator ? validator(props, rowIdx, colIdx).valid : true
@@ -38,7 +39,8 @@ const DecimalCellType = props => {
                                        tableData,
                                        tableChanged,
                                        tableValueChanged)
-                                   }/>
+                                   }
+                                   disabled={disabled}/>
   </td>
 }
 
