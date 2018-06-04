@@ -12,13 +12,13 @@ const mapIndexed = R.addIndex(R.map)
 const ofWhichRows = R.range(1, 3)
 const expansionValidator = subCategoryValidator(0, ofWhichRows)
 
-const decimalInputColumns = (extentOfForest, validator) => R.times(() => ({
+const decimalInputColumns = (extentOfForest, validator, disabled) => R.times(() => ({
   type: 'custom',
-  render: props => decimalInputCell(props, extentOfForest, validator),
+  render: props => decimalInputCell(props, extentOfForest, validator, disabled),
   acceptValue: acceptNextDecimal
 }), 4)
 
-export default (i18n, extentOfForest, countryIso) => {
+export default (i18n, extentOfForest, countryIso, disabled) => {
   return {
     name: 'forestAreaChange', // used to uniquely identify table
     header: <thead>
@@ -48,28 +48,28 @@ export default (i18n, extentOfForest, countryIso) => {
           type: 'readOnly',
           jsx: <th className="fra-table__category-cell">{i18n.t('forestAreaChange.forestExpansion')} (a)</th>
         },
-        ...decimalInputColumns(extentOfForest)
+        ...decimalInputColumns(extentOfForest, null, disabled)
       ],
       [
         {
           type: 'readOnly',
           jsx: <th className="fra-table__subcategory-cell">{i18n.t('forestAreaChange.ofWhichAfforestation')}</th>
         },
-        ...decimalInputColumns(extentOfForest, expansionValidator)
+        ...decimalInputColumns(extentOfForest, expansionValidator, disabled)
       ],
       [
         {
           type: 'readOnly',
           jsx: <th className="fra-table__subcategory-cell">{i18n.t('forestAreaChange.ofWhichNaturalExpansion')}</th>
         },
-        ...decimalInputColumns(extentOfForest, expansionValidator)
+        ...decimalInputColumns(extentOfForest, expansionValidator, disabled)
       ],
       [
         {
           type: 'readOnly',
           jsx: <th className="fra-table__header-cell-left">{i18n.t('forestAreaChange.deforestation')} (b)</th>
         },
-        ...decimalInputColumns(extentOfForest)
+        ...decimalInputColumns(extentOfForest, null, disabled)
       ],
       [
         {
