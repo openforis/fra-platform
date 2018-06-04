@@ -13,6 +13,7 @@ import AnalysisDescriptions from '../descriptionBundles/analysisDescriptions'
 import GeneralComments from '../descriptionBundles/generalComments'
 import { fetchLastSectionUpdateTimestamp } from '../audit/actions'
 import DefinitionLink from '../reusableUiComponents/definitionLink'
+import { isFRA2020DataEditDisabled } from '../utils/assessmentAccess'
 
 class SingleTraditionalTableView extends React.Component {
 
@@ -33,19 +34,20 @@ class SingleTraditionalTableView extends React.Component {
       sectionAnchor,
       tadAnchor,
       faqAnchor,
-      useAnalysisDescriptions
+      useAnalysisDescriptions,
+      isEditDataDisabled
     } = this.props
     const countryIso = match.params.countryIso
     const tableSpecInstance = this.getTableSpec()
 
     return <LoggedInPageTemplate>
       <div className="fra-view__content">
-        <NationalDataDescriptions section={tableSpecInstance.name} countryIso={countryIso}/>
+        <NationalDataDescriptions section={tableSpecInstance.name} countryIso={countryIso} disabled={isEditDataDisabled}/>
         {
           // Default is that we show the analysisDescriptions if this prop doesn't exist
           useAnalysisDescriptions === false
             ? null
-            : <AnalysisDescriptions section={tableSpecInstance.name} countryIso={countryIso}/>
+            : <AnalysisDescriptions section={tableSpecInstance.name} countryIso={countryIso} disabled={isEditDataDisabled}/>
         }
         <h2 className="headline">
           <span className="only-print">{`${sectionAnchor ? sectionAnchor : tadAnchor} `}</span>{i18n.t(headingLocalizationKey)}
@@ -55,14 +57,17 @@ class SingleTraditionalTableView extends React.Component {
           <DefinitionLink className="margin-right-big" document="tad" anchor={sectionAnchor ? sectionAnchor : tadAnchor} title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
           <DefinitionLink className="align-left" document="faq" anchor={sectionAnchor ? sectionAnchor : faqAnchor} title={i18n.t('definition.faqLabel')} lang={i18n.language}/>
         </div>
-        <TraditionalTable tableSpec={tableSpecInstance} countryIso={match.params.countryIso}/>
-        <GeneralComments section={tableSpecInstance.name} countryIso={countryIso}/>
+        <TraditionalTable tableSpec={tableSpecInstance} countryIso={match.params.countryIso} disabled={isEditDataDisabled}/>
+        <GeneralComments section={tableSpecInstance.name} countryIso={countryIso} disabled={isEditDataDisabled}/>
       </div>
     </LoggedInPageTemplate>
 
   }
 }
 
-const mapStateToProps = state => ({i18n: state.user.i18n})
+const mapStateToProps = state => ({
+  i18n: state.user.i18n,
+  isEditDataDisabled: isFRA2020DataEditDisabled(state)
+})
 
 export default connect(mapStateToProps, {fetchLastSectionUpdateTimestamp})(SingleTraditionalTableView)
