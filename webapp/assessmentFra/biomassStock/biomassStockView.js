@@ -10,6 +10,7 @@ import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
 import NationalDataDescriptions from '../../descriptionBundles/nationalDataDescriptions'
 import AnalysisDescriptions from '../../descriptionBundles/analysisDescriptions'
 import GeneralComments from '../../descriptionBundles/generalComments'
+import { isFRA2020DataEditDisabled } from '../../utils/assessmentAccess'
 
 class BiomassStockView extends React.Component {
 
@@ -27,7 +28,7 @@ class BiomassStockView extends React.Component {
   }
 
   render () {
-    const {match, i18n} = this.props
+    const {match, i18n, isEditDataDisabled} = this.props
     const countryIso = match.params.countryIso
     const lang = i18n.language
     const countryDomain = this.state.selectedDomain || this.props.domain
@@ -36,8 +37,8 @@ class BiomassStockView extends React.Component {
 
     return <LoggedInPageTemplate>
       <div className="fra-view__content">
-        <NationalDataDescriptions section="biomassStock" countryIso={countryIso}/>
-        <AnalysisDescriptions section="biomassStock" countryIso={countryIso}/>
+        <NationalDataDescriptions section="biomassStock" countryIso={countryIso} disabled={isEditDataDisabled}/>
+        <AnalysisDescriptions section="biomassStock" countryIso={countryIso} disabled={isEditDataDisabled}/>
         <h2 className="headline">
           <span className="only-print">2c </span>{i18n.t('biomassStock.biomassStock')}
         </h2>
@@ -67,10 +68,11 @@ class BiomassStockView extends React.Component {
             </a>
           </div>
         </div>
-        <TraditionalTable tableSpec={this.tableSpecInstance} countryIso={countryIso}/>
+        <TraditionalTable tableSpec={this.tableSpecInstance} countryIso={countryIso} disabled={isEditDataDisabled}/>
         <GeneralComments
           section="biomassStock"
           countryIso={countryIso}
+          disabled={isEditDataDisabled}
         />
       </div>
     </LoggedInPageTemplate>
@@ -79,7 +81,8 @@ class BiomassStockView extends React.Component {
 const mapStateToProps = state =>
   ({
     domain: R.path(['country', 'config', 'domain'], state),
-    i18n: state.user.i18n
+    i18n: state.user.i18n,
+    isEditDataDisabled: isFRA2020DataEditDisabled(state)
   })
 
 export default connect(mapStateToProps, {fetchLastSectionUpdateTimestamp})(BiomassStockView)
