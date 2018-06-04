@@ -9,7 +9,7 @@ import { ThousandSeparatedDecimalInput } from '../reusableUiComponents/thousandS
 import Icon from '../reusableUiComponents/icon'
 import ReviewIndicator from '../review/reviewIndicator'
 import { readPasteClipboard } from '../utils/copyPasteUtil'
-import { acceptNextDecimal} from '../utils/numberInput'
+import { acceptNextDecimal } from '../utils/numberInput'
 import { formatNumber, toFixed } from '../../common/bignumberUtils'
 import { hasOdps } from '../assessmentFra/extentOfForest/extentOfForestHelper'
 import defaultYears from '../../server/eof/defaultYears'
@@ -41,11 +41,11 @@ export class TableWithOdp extends React.Component {
   clipboardTable (tableValues) {
     return <table>
       <tbody>
-        {mapIndexed((row, i) =>
+      {mapIndexed((row, i) =>
           <tr key={i}>
             {mapIndexed((value, i) =>
-              <td key={i}> {toFixed(value)} </td>
-            , row)}
+                <td key={i}> {toFixed(value)} </td>
+              , row)}
           </tr>
         , tableValues)}
       </tbody>
@@ -56,13 +56,13 @@ export class TableWithOdp extends React.Component {
     const transposedFraValues = R.transpose(getFraValues(this.props.fra, this.props.rows))
     const htmlTable = ReactDOMServer.renderToString(this.clipboardTable(transposedFraValues))
     const dataTransfer = new clipboard.DT()
-    dataTransfer.setData("text/plain", this.props.i18n.t('forestCharacteristics.forestCharacteristics'))
-    dataTransfer.setData("text/html", htmlTable)
+    dataTransfer.setData('text/plain', this.props.i18n.t('forestCharacteristics.forestCharacteristics'))
+    dataTransfer.setData('text/html', htmlTable)
     clipboard.write(dataTransfer)
   }
 
   render () {
-    const {copyValues = true} = this.props
+    const {copyValues = true, disabled = false} = this.props
 
     return <div className="fra-table__container table-with-odp">
       <div className="fra-table__scroll-wrapper">
@@ -89,7 +89,8 @@ export class TableWithOdp extends React.Component {
                     key={`${value.type}_${value.name}`}>
                   {
                     value.type === 'odp'
-                      ? <OdpHeading countryIso={this.props.countryIso} odpValue={value} section={this.props.section}/>
+                      ? <OdpHeading countryIso={this.props.countryIso} odpValue={value} section={this.props.section}
+                                    disabled={disabled}/>
                       : value.name
                   }
                 </th>
@@ -108,7 +109,7 @@ export class TableWithOdp extends React.Component {
 
 export class GenerateFraValuesControl extends React.Component {
 
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.fieldNames = R.reject(R.isNil, R.pluck('field', props.rows))
     const annualChangeRates = R.pipe(
@@ -116,12 +117,12 @@ export class GenerateFraValuesControl extends React.Component {
       R.fromPairs
     )(this.fieldNames)
     this.state = {
-        generateMethod: '', annualChangeRates,
-        selectedFields: []
+      generateMethod: '', annualChangeRates,
+      selectedFields: []
     }
   }
 
-  render() {
+  render () {
     const {i18n, fra, generatingFraValues, rows, useOriginalDataPoints} = this.props
     return <div className="table-with-odp__generate-control">
       <select
@@ -131,13 +132,13 @@ export class GenerateFraValuesControl extends React.Component {
         <option disabled>{i18n.t('tableWithOdp.placeholderSelect')}</option>
         {
           hasOdps(fra) && !!useOriginalDataPoints
-          ? [
+            ? [
               <option key="linear" value="linear">{i18n.t('tableWithOdp.linearExtrapolation')}</option>,
               <option key="repeatLast" value="repeatLast">{i18n.t('tableWithOdp.repeatLastExtrapolation')}</option>,
               <option key="annualChange" value="annualChange">{i18n.t('tableWithOdp.annualChangeExtrapolation')}</option>,
               <option key="divider" disabled>---</option>
             ]
-          : null
+            : null
         }
         <option value="clearTable">{i18n.t('tableWithOdp.clearTable')}</option>
       </select>
@@ -173,7 +174,10 @@ export class GenerateFraValuesControl extends React.Component {
                   className={`fra-checkbox ${R.contains(field, this.state.selectedFields) ? 'checked' : ''}`}
                   onClick={
                     evt => R.contains(field, this.state.selectedFields)
-                      ? this.setState({...this.state, selectedFields: R.reject(f => f === field, this.state.selectedFields)})
+                      ? this.setState({
+                        ...this.state,
+                        selectedFields: R.reject(f => f === field, this.state.selectedFields)
+                      })
                       : this.setState({...this.state, selectedFields: R.append(field, this.state.selectedFields)})
                   }
                 />
@@ -181,27 +185,28 @@ export class GenerateFraValuesControl extends React.Component {
               <td className="table-with-odp__generate-input-header">{rowHeaders[i]}</td>
               {
                 this.state.generateMethod === 'annualChange'
-                  ?  [
-                      <td key="ratePast" className="table-with-odp__generate-input-cell">
-                        <input
-                          type="text"
-                          className={`text-input-s ${rateValidationClass(this.state.annualChangeRates[field].ratePast)}`}
-                          placeholder={i18n.t('tableWithOdp.placeholderPast')}
-                          value={this.state.annualChangeRates[field].ratePast}
-                          onChange={(evt) => this.setState(R.assocPath(['annualChangeRates', field, 'ratePast'], evt.target.value, this.state))} />
-                      </td>,
-                      <td key="rateFuture" className="table-with-odp__generate-input-cell">
-                        <input
-                          type="text"
-                          className={`text-input-s ${rateValidationClass(this.state.annualChangeRates[field].rateFuture)}`}
-                          placeholder={i18n.t('tableWithOdp.placeholderFuture')}
-                          value={this.state.annualChangeRates[field].rateFuture}
-                          onChange={(evt) => this.setState(R.assocPath(['annualChangeRates', field, 'rateFuture'], evt.target.value, this.state))}
-                        />
-                      </td>,
-                      <td key="unit" className="table-with-odp__generate-comment-cell">{i18n.t('tableWithOdp._1000haYear')}</td>
-                     ]
-                  :  null
+                  ? [
+                    <td key="ratePast" className="table-with-odp__generate-input-cell">
+                      <input
+                        type="text"
+                        className={`text-input-s ${rateValidationClass(this.state.annualChangeRates[field].ratePast)}`}
+                        placeholder={i18n.t('tableWithOdp.placeholderPast')}
+                        value={this.state.annualChangeRates[field].ratePast}
+                        onChange={(evt) => this.setState(R.assocPath(['annualChangeRates', field, 'ratePast'], evt.target.value, this.state))}/>
+                    </td>,
+                    <td key="rateFuture" className="table-with-odp__generate-input-cell">
+                      <input
+                        type="text"
+                        className={`text-input-s ${rateValidationClass(this.state.annualChangeRates[field].rateFuture)}`}
+                        placeholder={i18n.t('tableWithOdp.placeholderFuture')}
+                        value={this.state.annualChangeRates[field].rateFuture}
+                        onChange={(evt) => this.setState(R.assocPath(['annualChangeRates', field, 'rateFuture'], evt.target.value, this.state))}
+                      />
+                    </td>,
+                    <td key="unit"
+                        className="table-with-odp__generate-comment-cell">{i18n.t('tableWithOdp._1000haYear')}</td>
+                  ]
+                  : null
               }
             </tr>
           , R.keys(this.state.annualChangeRates))
@@ -269,10 +274,10 @@ export class GenerateFraValuesControl extends React.Component {
     )(this.state.annualChangeRates)
   }
 
-  validRates() {
+  validRates () {
     const valids = R.map(value =>
       this.validRate(value.ratePast) && this.validRate(value.rateFuture)
-    , R.values(this.selectedRates()))
+      , R.values(this.selectedRates()))
     return R.all(R.identity, valids)
   }
 
@@ -287,47 +292,51 @@ const buildRows = (rows, props) => {
   const pasteUpdate = R.partial(updatePastedValues, [R.pluck('field', rows)])
 
   return mapIndexed((row, rowIdx) =>
-      <TableRow {...props} key={rowIdx} row={row} save={save} saveMany={saveMany} pasteUpdate={pasteUpdate} rowIdx={rowIdx}/>
+      <TableRow {...props} key={rowIdx} row={row} save={save} saveMany={saveMany} pasteUpdate={pasteUpdate}
+                rowIdx={rowIdx}/>
     , rows)
 }
 
-const OdpHeading = ({countryIso, odpValue, section}) =>
-  <Link className="link" to={`/country/${countryIso}/odp/${section}/${odpValue.odpId}`}>
-    {odpValue.draft ? <Icon className="icon-sub icon-margin-right" name="pencil"/> : ''}
-    {odpValue.name}
-  </Link>
+const OdpHeading = ({countryIso, odpValue, section, disabled}) =>
+  disabled
+    ? <div>{odpValue.name}</div>
+    : <Link className="link" to={`/country/${countryIso}/odp/${section}/${odpValue.odpId}`}>
+      {odpValue.draft ? <Icon className="icon-sub icon-margin-right" name="pencil"/> : ''}
+      {odpValue.name}
+    </Link>
 
-const fraValueCell = (fraValue, fra, countryIso, save, saveMany, pasteUpdate, field, rowIdx, colIdx) =>
+const fraValueCell = (fraValue, fra, countryIso, save, saveMany, pasteUpdate, field, rowIdx, colIdx, disabled) =>
   <ThousandSeparatedDecimalInput
-    numberValue={ fraValue[field] }
-    onPaste={ e => saveMany(countryIso, pasteUpdate(e, rowIdx, colIdx, fra)) }
-    onChange={ e => { save(countryIso, fraValue.name, e.target.value, fraValue, field, acceptNextDecimal) } }/>
+    numberValue={fraValue[field]}
+    onPaste={e => saveMany(countryIso, pasteUpdate(e, rowIdx, colIdx, fra))}
+    onChange={e => { save(countryIso, fraValue.name, e.target.value, fraValue, field, acceptNextDecimal) }}
+    disabled={disabled}/>
 
 const validationErrorRow = columnErrorMsgs => {
   if (R.all(R.isNil, columnErrorMsgs)) return null
   return <tr key="validationError" className="no-print">
     {
       mapIndexed((errorMsgs, colIdx) =>
-        <td className="fra-table__validation-cell" key={colIdx}>
-          <div className="fra-table__validation-container">
-          {
-            mapIndexed(
-              (errorMsg, errorIdx) =>
-                  <div className="fra-table__validation-error" key={errorIdx}>{errorMsg}</div>
-              ,
-              errorMsgs
-            )
-          }
-          </div>
-        </td>
-      , columnErrorMsgs)
+          <td className="fra-table__validation-cell" key={colIdx}>
+            <div className="fra-table__validation-container">
+              {
+                mapIndexed(
+                  (errorMsg, errorIdx) =>
+                    <div className="fra-table__validation-error" key={errorIdx}>{errorMsg}</div>
+                  ,
+                  errorMsgs
+                )
+              }
+            </div>
+          </td>
+        , columnErrorMsgs)
     }
   </tr>
 }
 
 const alwaysOkValidator = () => true
 
-const renderFieldRow = ({row, countryIso, fra, save, saveMany, pasteUpdate, rowIdx, openCommentThread, section}) => {
+const renderFieldRow = ({row, countryIso, fra, save, saveMany, pasteUpdate, rowIdx, openCommentThread, section, disabled}) => {
   const {
     rowHeader,
     field,
@@ -349,16 +358,16 @@ const renderFieldRow = ({row, countryIso, fra, save, saveMany, pasteUpdate, rowI
               R.reject(R.isNil),
               R.join(' ')
             )([
-                fraColumn.type === 'odp' ? 'odp-value-cell no-print' : 'fra-table__cell',
-                validator(fraColumn, field) ? null : 'validation-error'
+              fraColumn.type === 'odp' ? 'odp-value-cell no-print' : 'fra-table__cell',
+              validator(fraColumn, field) ? null : 'validation-error'
             ])
           return (
             <td className={tdClasses} key={`${fraColumn.type}_${fraColumn.name}`}>
-            {
-              fraColumn.type === 'odp'
-                ? formatNumber(fraColumn[field])
-                : fraValueCell(fraColumn, fra, countryIso, save, saveMany, pasteUpdate, field, rowIdx, colIdx)
-            }
+              {
+                fraColumn.type === 'odp'
+                  ? formatNumber(fraColumn[field])
+                  : fraValueCell(fraColumn, fra, countryIso, save, saveMany, pasteUpdate, field, rowIdx, colIdx, disabled)
+              }
             </td>
           )
         },
@@ -371,7 +380,7 @@ const renderFieldRow = ({row, countryIso, fra, save, saveMany, pasteUpdate, rowI
           section={section}
           title={rowHeader}
           target={[field]}
-          countryIso={countryIso} />
+          countryIso={countryIso}/>
       </div>
     </td>
   </tr>
@@ -394,7 +403,7 @@ const updatePastedValues = (rowNames, evt, rowIdx, colIdx, fra) => {
   // Pasted values are not to be consumed if column is odp -- i.e. odp columns are to be skipped.
   // This is achieved by constructing correct 'view' on the fra data in two steps.
   // First odp values values that appear after where paste begins are filtered out.
-  const fraOnly =  R.filter(R.pipe(R.prop('type'), R.equals('fra')))(R.drop(colIdx, fra))
+  const fraOnly = R.filter(R.pipe(R.prop('type'), R.equals('fra')))(R.drop(colIdx, fra))
   // Second both fra and odp columns before where paste begins are concatenated together
   // with the filtered part to preserve correct index.
   const readFrom = R.concat(R.take(colIdx, fra), fraOnly)
