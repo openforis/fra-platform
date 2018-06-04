@@ -10,6 +10,7 @@ import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
 import NationalDataDescriptions from '../../descriptionBundles/nationalDataDescriptions'
 import AnalysisDescriptions from '../../descriptionBundles/analysisDescriptions'
 import GeneralComments from '../../descriptionBundles/generalComments'
+import { isFRA2020DataEditDisabled } from '../../utils/assessmentAccess'
 
 class GrowingStockCompositionView extends React.Component {
 
@@ -23,12 +24,12 @@ class GrowingStockCompositionView extends React.Component {
   }
 
   render () {
-    const {match, i18n} = this.props
+    const {match, i18n, isEditDataDisabled} = this.props
 
     return <LoggedInPageTemplate>
       <div className="fra-view__content growing-stock-composition-view">
-        <NationalDataDescriptions section={this.tableSpecInstance.name} countryIso={match.params.countryIso}/>
-        <AnalysisDescriptions section={this.tableSpecInstance.name} countryIso={match.params.countryIso}/>
+        <NationalDataDescriptions section={this.tableSpecInstance.name} countryIso={match.params.countryIso} disabled={isEditDataDisabled}/>
+        <AnalysisDescriptions section={this.tableSpecInstance.name} countryIso={match.params.countryIso} disabled={isEditDataDisabled}/>
         <h2 className="headline">
           <span className="only-print">2b </span>{i18n.t('growingStockComposition.growingStockComposition')}
         </h2>
@@ -37,10 +38,11 @@ class GrowingStockCompositionView extends React.Component {
           <DefinitionLink className="align-left" document="faq" anchor="2b" title={i18n.t('definition.faqLabel')} lang={i18n.language}/>
           <div className="support-text">{i18n.t('growingStockComposition.rankingYear')}</div>
         </div>
-        <TraditionalTable tableSpec={this.tableSpecInstance} countryIso={match.params.countryIso}/>
+        <TraditionalTable tableSpec={this.tableSpecInstance} countryIso={match.params.countryIso} disabled={isEditDataDisabled}/>
         <GeneralComments
           section={this.tableSpecInstance.name}
           countryIso={match.params.countryIso}
+          disabled={isEditDataDisabled}
         />
       </div>
     </LoggedInPageTemplate>
@@ -48,6 +50,9 @@ class GrowingStockCompositionView extends React.Component {
 
 }
 
-const mapStateToProps = state => ({i18n: state.user.i18n})
+const mapStateToProps = state => ({
+  i18n: state.user.i18n,
+  isEditDataDisabled: isFRA2020DataEditDisabled(state)
+})
 
 export default connect(mapStateToProps, {fetchLastSectionUpdateTimestamp})(GrowingStockCompositionView)
