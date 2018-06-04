@@ -34,8 +34,8 @@ class designatedManagementObjectiveView extends React.Component {
 
     return <LoggedInPageTemplate>
       <div className="fra-view__content">
-        <NationalDataDescriptions section={sectionName} countryIso={countryIso}/>
-        <AnalysisDescriptions section={sectionName} countryIso={countryIso}/>
+        <NationalDataDescriptions section={sectionName} countryIso={countryIso} disabled={isEditDataDisabled}/>
+        <AnalysisDescriptions section={sectionName} countryIso={countryIso} disabled={isEditDataDisabled}/>
         <h2 className="headline">
           <span className="only-print">3a </span>{i18n.t('designatedManagementObjective.designatedManagementObjective')}
         </h2>
@@ -56,7 +56,8 @@ class designatedManagementObjectiveView extends React.Component {
         <TraditionalTable
           tableSpec={primaryDmoTableSpec}
           countryIso={countryIso}
-          section={sectionName}/>
+          section={sectionName}
+          disabled={isEditDataDisabled}/>
         <h3 className="subhead">
           {i18n.t('designatedManagementObjective.totalAreaWithDesignatedManagementObjective')}
         </h3>
@@ -68,10 +69,12 @@ class designatedManagementObjectiveView extends React.Component {
         <TraditionalTable
           tableSpec={totalDmoTableSpec}
           countryIso={countryIso}
-          section={sectionName}/>
+          section={sectionName}
+          disabled={isEditDataDisabled}/>
         <GeneralComments
           section={sectionName}
           countryIso={countryIso}
+          disabled={isEditDataDisabled}
         />
       </div>
     </LoggedInPageTemplate>
