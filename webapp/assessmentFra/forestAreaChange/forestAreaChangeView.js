@@ -2,14 +2,19 @@ import React from 'react'
 import tableSpec from './tableSpec'
 import { connect } from 'react-redux'
 import SingleTraditionalTableView from '../../traditionalTable/singleTraditionalTableView'
+import { isFRA2020DataEditDisabled } from '../../utils/assessmentAccess'
 
 const ForestAreaChangeView = props =>
   <SingleTraditionalTableView
     {...props}
     headingLocalizationKey="forestAreaChange.forestAreaChange"
     sectionAnchor="1c"
-    tableSpecInstance={tableSpec(props.i18n, props.extentOfForest, props.match.params.countryIso)}/>
+    tableSpecInstance={tableSpec(props.i18n, props.extentOfForest, props.match.params.countryIso, props.isEditDataDisabled)}/>
 
-const mapStateToProps = state => ({i18n: state.user.i18n, extentOfForest: state.extentOfForest})
+const mapStateToProps = state => ({
+  i18n: state.user.i18n,
+  extentOfForest: state.extentOfForest,
+  isEditDataDisabled: isFRA2020DataEditDisabled(state)
+})
 
 export default connect(mapStateToProps)(ForestAreaChangeView)

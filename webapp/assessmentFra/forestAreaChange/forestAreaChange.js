@@ -49,7 +49,7 @@ const updateTableDataMirrorValue = (tableData, rowIdx, colIdx, extentOfForest) =
 
 }
 
-export const decimalInputCell = (props, extentOfForest, validator) => {
+export const decimalInputCell = (props, extentOfForest, validator, disabled = false) => {
   const {
     countryIso,
     tableSpec,
@@ -63,6 +63,7 @@ export const decimalInputCell = (props, extentOfForest, validator) => {
   return <td className={`fra-table__cell ${valid ? '' : 'error'}`}>
     <ThousandSeparatedDecimalInput
       numberValue={tableData[rowIdx][colIdx]}
+      disabled={disabled}
       onChange={evt => {
         const targetValue = evt.target.value
         handleChange(countryIso, rowIdx, colIdx, tableSpec, tableData, tableChanged, extentOfForest, targetValue)
