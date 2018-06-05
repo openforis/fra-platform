@@ -86,8 +86,10 @@ const totalRow = i18n => {
   ]
 }
 
+export const sectionName = 'nonWoodForestProductsRemovals'
+
 export default i18n => ({
-  name: 'nonWoodForestProductsRemovals',
+  name: sectionName,
   header: <thead>
   <tr>
     <th className="fra-table__header-cell"/>
