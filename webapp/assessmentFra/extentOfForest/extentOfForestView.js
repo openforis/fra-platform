@@ -184,12 +184,12 @@ const ExtentOfForest = (props) => {
       isEditDataDisabled
         ? null
         : [
-          <Link className="btn btn-primary no-print" to={`/country/${props.countryIso}/odp/${sectionName}`}
+          <Link key="link" className="btn btn-primary no-print" to={`/country/${props.countryIso}/odp/${sectionName}`}
                 style={{marginRight: 16}}>
             <Icon className="icon-sub icon-white" name="small-add"/>
             {i18n.t('nationalDataPoint.addNationalDataPoint')}
           </Link>,
-          <hr className="no-print"/>
+          <hr key="hr" className="no-print"/>
         ]
     }
 
@@ -283,7 +283,7 @@ const mapStateToProps = state =>
     fra2015ForestAreas: R.path(['country', 'config', 'fra2015ForestAreas'], state),
     climaticDomainPercents2015: R.path(['country', 'config', 'climaticDomainPercents2015'], state),
     i18n: state.user.i18n,
-    isEditDataDisabled: isFRA2020DataEditDisabled(state)
+    isEditDataDisabled: isFRA2020DataEditDisabled(state, sectionName)
   })
 
 export default connect(

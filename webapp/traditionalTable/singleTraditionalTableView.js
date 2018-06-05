@@ -21,7 +21,7 @@ class SingleTraditionalTableView extends React.Component {
     this.props.fetchLastSectionUpdateTimestamp(this.props.match.params.countryIso, this.props.tableSpecInstance.name)
   }
 
-    render() {
+  render() {
     const {
       match,
       i18n,
