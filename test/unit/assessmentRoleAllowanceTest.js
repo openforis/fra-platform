@@ -34,19 +34,19 @@ describe('assessmentEdit', () => {
       },
       allStatusesButThese(['editing']))
   })
-  it('National correspondents can comment on editing and review assessments but only edit editing', () => {
+  it('National correspondents can only edit editing', () => {
     const nc = {role: 'NATIONAL_CORRESPONDENT'}
     assert.isTrue(isUserRoleAllowedToEditAssessmentData(nc, 'editing'))
     assert.isTrue(isUserRoleAllowedToEditAssessmentComments(nc, 'editing'))
     assert.isFalse(isUserRoleAllowedToEditAssessmentData(nc, 'review'))
-    assert.isTrue(isUserRoleAllowedToEditAssessmentComments(nc, 'review'))
+    assert.isFalse(isUserRoleAllowedToEditAssessmentComments(nc, 'review'))
     R.forEach(status => {
         assert.isFalse(isUserRoleAllowedToEditAssessmentData(nc, status))
         assert.isFalse(isUserRoleAllowedToEditAssessmentComments(nc, status))
       },
       allStatusesButThese(['editing', 'review']))
   })
-  it('Reviewers can edit anything below and up to review. approval can be commented but data cannot edited ', () => {
+  it('Reviewers can edit anything below to review.', () => {
     const reviewer = {role: 'REVIEWER'}
     R.forEach(status => {
         assert.isTrue(isUserRoleAllowedToEditAssessmentData(reviewer, status))
@@ -54,7 +54,7 @@ describe('assessmentEdit', () => {
       },
       allStatusesButThese(['approval', 'accepted']))
     assert.isFalse(isUserRoleAllowedToEditAssessmentData(reviewer, 'approval'))
-    assert.isTrue(isUserRoleAllowedToEditAssessmentComments(reviewer, 'approval'))
+    assert.isFalse(isUserRoleAllowedToEditAssessmentComments(reviewer, 'approval'))
     assert.isFalse(isUserRoleAllowedToEditAssessmentData(reviewer, 'accepted'))
     assert.isFalse(isUserRoleAllowedToEditAssessmentComments(reviewer, 'accepted'))
   })
