@@ -10,12 +10,13 @@ const reviewRepository = require('../review/reviewRepository')
 const odpRepository = require('../odp/odpRepository')
 const auditRepository = require('../audit/auditRepository')
 const assessmentRepository = require('../assessment/assessmentRepository')
+const {fetchCollaboratorCountryAccessTables} = require('./../collaborators/collaboratorsRepository')
 
 const {
   isUserRoleAllowedToEditAssessmentData,
   isUserRoleAllowedToEditAssessmentComments
-} = require('../assessment/assessmentRoleAllowance')
-const {roleForCountry} = require('../../common/countryRole')
+} = require('../../common/assessmentRoleAllowance')
+const {roleForCountry, isCollaborator} = require('../../common/countryRole')
 
 const countryConfig = require('./countryConfig')
 
@@ -32,14 +33,15 @@ module.exports.init = app => {
       checkCountryAccessFromReqParams(req)
 
       const {countryIso} = req.params
+      const userInfo = req.user
 
       const odpDataPromise = odpRepository.listAndValidateOriginalDataPoints(countryIso)
-      const reviewStatusPromise = reviewRepository.getCountryIssuesSummary(countryIso, req.user)
+      const reviewStatusPromise = reviewRepository.getCountryIssuesSummary(countryIso, userInfo)
       const assessmentsPromise = assessmentRepository.getAssessments(countryIso)
 
       const [odps, reviewStatus, assessmentsDB] = await Promise.all([odpDataPromise, reviewStatusPromise, assessmentsPromise])
 
-      const userRole = roleForCountry(countryIso, req.user)
+      const userRole = roleForCountry(countryIso, userInfo)
       const assessments = R.reduce(
         (assessmentsObj, assessmentKey) => {
           const assessment = R.pipe(
@@ -55,11 +57,16 @@ module.exports.init = app => {
         {},
         R.keys(assessmentsDB)
       )
+      if (isCollaborator(countryIso, userInfo)) {
+        const tables = await fetchCollaboratorCountryAccessTables(countryIso, userInfo.id)
+        assessments.fra2020.tablesAccess = tables
+      }
 
       const odpStatus = {
         count: odps.length,
         errors: R.filter(o => !o.validationStatus.valid, odps).length !== 0,
       }
+
       res.json({
         odpStatus,
         reviewStatus,

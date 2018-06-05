@@ -5,7 +5,7 @@ const {assessmentStatus} = require('../../common/assessment')
 const {
   isUserRoleAllowedToEditAssessmentData,
   isUserRoleAllowedToEditAssessmentComments
-} = require('../../server/assessment/assessmentRoleAllowance')
+} = require('../../common/assessmentRoleAllowance')
 
 const allStatuses = R.reject(status => status === 'changing' ,R.values(assessmentStatus))
 const allStatusesButThese = butThese => R.reject(status => R.contains(status, butThese) ,allStatuses)
