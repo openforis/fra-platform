@@ -12,6 +12,8 @@ import DefinitionLink from '../../reusableUiComponents/definitionLink'
 import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
 import { isFRA2020DataEditDisabled } from '../../utils/assessmentAccess'
 
+const sectionName = "carbonStock"
+
 const soilDepthTableSpec = i18n => ({
   name: 'carbonStockSoilDepth',
   header: <thead/>,
@@ -57,8 +59,8 @@ class CarbonStockView extends React.Component {
 
     return <LoggedInPageTemplate>
       <div className="fra-view__content">
-        <NationalDataDescriptions section="carbonStock" countryIso={countryIso} disabled={isEditDataDisabled}/>
-        <AnalysisDescriptions section="carbonStock" countryIso={countryIso} disabled={isEditDataDisabled}/>
+        <NationalDataDescriptions section={sectionName} countryIso={countryIso} disabled={isEditDataDisabled}/>
+        <AnalysisDescriptions section={sectionName} countryIso={countryIso} disabled={isEditDataDisabled}/>
         <h2 className="headline">
           <span className="only-print">2d </span>{i18n.t('carbonStock.carbonStock')}
         </h2>
@@ -94,7 +96,7 @@ class CarbonStockView extends React.Component {
           <TraditionalTable tableSpec={soilDepthTableSpec(i18n)} countryIso={match.params.countryIso} disabled={isEditDataDisabled}/>
         </div>
         <GeneralComments
-          section="carbonStock"
+          section={sectionName}
           countryIso={countryIso}
           disabled={isEditDataDisabled}
         />
@@ -107,7 +109,7 @@ const mapStateToProps = state =>
   ({
     domain: R.path(['country', 'config', 'domain'], state),
     i18n: state.user.i18n,
-    isEditDataDisabled: isFRA2020DataEditDisabled(state)
+    isEditDataDisabled: isFRA2020DataEditDisabled(state, sectionName)
   })
 
 export default connect(mapStateToProps, {fetchLastSectionUpdateTimestamp})(CarbonStockView)

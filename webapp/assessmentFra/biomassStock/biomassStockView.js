@@ -12,6 +12,8 @@ import AnalysisDescriptions from '../../descriptionBundles/analysisDescriptions'
 import GeneralComments from '../../descriptionBundles/generalComments'
 import { isFRA2020DataEditDisabled } from '../../utils/assessmentAccess'
 
+const sectionName = "biomassStock"
+
 class BiomassStockView extends React.Component {
 
   constructor(props) {
@@ -37,8 +39,8 @@ class BiomassStockView extends React.Component {
 
     return <LoggedInPageTemplate>
       <div className="fra-view__content">
-        <NationalDataDescriptions section="biomassStock" countryIso={countryIso} disabled={isEditDataDisabled}/>
-        <AnalysisDescriptions section="biomassStock" countryIso={countryIso} disabled={isEditDataDisabled}/>
+        <NationalDataDescriptions section={sectionName} countryIso={countryIso} disabled={isEditDataDisabled}/>
+        <AnalysisDescriptions section={sectionName} countryIso={countryIso} disabled={isEditDataDisabled}/>
         <h2 className="headline">
           <span className="only-print">2c </span>{i18n.t('biomassStock.biomassStock')}
         </h2>
@@ -70,7 +72,7 @@ class BiomassStockView extends React.Component {
         </div>
         <TraditionalTable tableSpec={this.tableSpecInstance} countryIso={countryIso} disabled={isEditDataDisabled}/>
         <GeneralComments
-          section="biomassStock"
+          section={sectionName}
           countryIso={countryIso}
           disabled={isEditDataDisabled}
         />
@@ -82,7 +84,7 @@ const mapStateToProps = state =>
   ({
     domain: R.path(['country', 'config', 'domain'], state),
     i18n: state.user.i18n,
-    isEditDataDisabled: isFRA2020DataEditDisabled(state)
+    isEditDataDisabled: isFRA2020DataEditDisabled(state, sectionName)
   })
 
 export default connect(mapStateToProps, {fetchLastSectionUpdateTimestamp})(BiomassStockView)
