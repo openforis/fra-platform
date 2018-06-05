@@ -293,7 +293,7 @@ const mapStateToProps = state =>
     baseTable: state.growingStock.baseTable,
     openCommentThread: state.review.openThread,
     i18n: state.user.i18n,
-    isEditDataDisabled: isFRA2020DataEditDisabled(state)
+    isEditDataDisabled: isFRA2020DataEditDisabled(state, sectionName)
   })
 
 export default connect(
