@@ -18,7 +18,7 @@ import AnalysisDescriptions from '../../descriptionBundles/analysisDescriptions'
 import GeneralComments from '../../descriptionBundles/generalComments'
 
 import defaultYears from '../../../server/eof/defaultYears'
-import { isFRA2020DataEditDisabled } from '../../utils/assessmentAccess'
+import { isFRA2020SectionEditDisabled } from '../../utils/assessmentAccess'
 
 const sectionName = 'growingStock'
 const mapIndexed = R.addIndex(R.map)
@@ -293,7 +293,7 @@ const mapStateToProps = state =>
     baseTable: state.growingStock.baseTable,
     openCommentThread: state.review.openThread,
     i18n: state.user.i18n,
-    isEditDataDisabled: isFRA2020DataEditDisabled(state, sectionName)
+    isEditDataDisabled: isFRA2020SectionEditDisabled(state, sectionName)
   })
 
 export default connect(

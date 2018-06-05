@@ -10,7 +10,7 @@ import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
 import NationalDataDescriptions from '../../descriptionBundles/nationalDataDescriptions'
 import AnalysisDescriptions from '../../descriptionBundles/analysisDescriptions'
 import GeneralComments from '../../descriptionBundles/generalComments'
-import { isFRA2020DataEditDisabled } from '../../utils/assessmentAccess'
+import { isFRA2020SectionEditDisabled } from '../../utils/assessmentAccess'
 
 const sectionName = "biomassStock"
 
@@ -84,7 +84,7 @@ const mapStateToProps = state =>
   ({
     domain: R.path(['country', 'config', 'domain'], state),
     i18n: state.user.i18n,
-    isEditDataDisabled: isFRA2020DataEditDisabled(state, sectionName)
+    isEditDataDisabled: isFRA2020SectionEditDisabled(state, sectionName)
   })
 
 export default connect(mapStateToProps, {fetchLastSectionUpdateTimestamp})(BiomassStockView)

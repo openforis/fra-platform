@@ -14,7 +14,7 @@ import SubIndicator4 from './indicators/subIndicator4'
 
 import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
 import { fetch } from './actions'
-import { isFRA2020DataEditDisabled } from '../../utils/assessmentAccess'
+import { isFRA2020SectionEditDisabled } from '../../utils/assessmentAccess'
 
 const sectionName = 'sustainableDevelopment'
 
@@ -99,7 +99,7 @@ const mapStateToProps = state => ({
   i18n: state.user.i18n,
   data: state.sustainableDevelopment,
   countryConfig: R.path(['country', 'config'], state),
-  isEditDataDisabled: isFRA2020DataEditDisabled(state, sectionName)
+  isEditDataDisabled: isFRA2020SectionEditDisabled(state, sectionName)
 })
 
 export default connect(mapStateToProps, {fetchLastSectionUpdateTimestamp, fetch})(SustainableDevelopmentView)

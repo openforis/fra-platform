@@ -19,7 +19,7 @@ import TraditionalTable from '../../traditionalTable/traditionalTable'
 import { saveCountryConfigSetting } from '../../country/actions'
 import { hasOdps } from './extentOfForestHelper'
 
-import { isFRA2020DataEditDisabled } from '../../utils/assessmentAccess'
+import { isFRA2020SectionEditDisabled } from '../../utils/assessmentAccess'
 
 const sectionName = 'extentOfForest'
 const mapIndexed = R.addIndex(R.map)
@@ -283,7 +283,7 @@ const mapStateToProps = state =>
     fra2015ForestAreas: R.path(['country', 'config', 'fra2015ForestAreas'], state),
     climaticDomainPercents2015: R.path(['country', 'config', 'climaticDomainPercents2015'], state),
     i18n: state.user.i18n,
-    isEditDataDisabled: isFRA2020DataEditDisabled(state, sectionName)
+    isEditDataDisabled: isFRA2020SectionEditDisabled(state, sectionName)
   })
 
 export default connect(

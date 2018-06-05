@@ -177,11 +177,16 @@ class AssessmentHeader extends React.Component {
       }
 
       <div className="nav__assessment-label">
-        {
-          assessment.deskStudy
-            ? `${i18n.t('assessment.' + assessment.type)} (${i18n.t('assessment.deskStudy')})`
-            : i18n.t('assessment.' + assessment.type)
-        }
+        <div>
+          <button className="btn-s btn-secondary" style={{marginRight:'5px'}}>
+            <Icon name="lock-circle" className="icon-no-margin"/>
+          </button>
+          {
+            assessment.deskStudy
+              ? `${i18n.t('assessment.' + assessment.type)} (${i18n.t('assessment.deskStudy')})`
+              : i18n.t('assessment.' + assessment.type)
+          }
+        </div>
         <Link className="btn-s btn-secondary" to={`/country/${countryIso}/print/${assessment.type}`} target="_blank">
           <Icon name="small-print" className="icon-no-margin"/>
         </Link>
