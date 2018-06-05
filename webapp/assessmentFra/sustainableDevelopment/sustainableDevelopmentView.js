@@ -16,12 +16,14 @@ import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
 import { fetch } from './actions'
 import { isFRA2020DataEditDisabled } from '../../utils/assessmentAccess'
 
+const sectionName = 'sustainableDevelopment'
+
 class SustainableDevelopmentView extends React.Component {
 
   componentWillMount () {
     const countryIso = this.props.match.params.countryIso
 
-    this.props.fetchLastSectionUpdateTimestamp(countryIso, 'sustainableDevelopment')
+    this.props.fetchLastSectionUpdateTimestamp(countryIso, sectionName)
     this.props.fetch(countryIso)
   }
 
@@ -97,7 +99,7 @@ const mapStateToProps = state => ({
   i18n: state.user.i18n,
   data: state.sustainableDevelopment,
   countryConfig: R.path(['country', 'config'], state),
-  isEditDataDisabled: isFRA2020DataEditDisabled(state)
+  isEditDataDisabled: isFRA2020DataEditDisabled(state, sectionName)
 })
 
 export default connect(mapStateToProps, {fetchLastSectionUpdateTimestamp, fetch})(SustainableDevelopmentView)

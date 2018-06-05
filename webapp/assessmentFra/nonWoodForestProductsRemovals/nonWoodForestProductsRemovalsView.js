@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 
 import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
 import TraditionalTable from '../../traditionalTable/traditionalTable'
-import mainTableSpec from './mainTableSpec'
+import mainTableSpec , {sectionName} from './mainTableSpec'
 import DefinitionLink from '../../reusableUiComponents/definitionLink'
 import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
 import NationalDataDescriptions from '../../descriptionBundles/nationalDataDescriptions'
@@ -70,7 +70,7 @@ class NonWoodForestProductsRemovalsView extends React.Component {
 
 const mapStateToProps = state => ({
   i18n: state.user.i18n,
-  isEditDataDisabled: isFRA2020DataEditDisabled(state)
+  isEditDataDisabled: isFRA2020DataEditDisabled(state, sectionName)
 })
 
 export default connect(mapStateToProps, {fetchLastSectionUpdateTimestamp})(NonWoodForestProductsRemovalsView)
