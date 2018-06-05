@@ -19,7 +19,8 @@ const TextSelectType = ({
                           tableValueChanged,
                           options,
                           localizationPrefix,
-                          i18n
+                          i18n,
+                          disabled
                         }) => {
   const currentValue = tableData[rowIdx][colIdx]
   return <td className="fra-table__cell">
@@ -27,6 +28,7 @@ const TextSelectType = ({
       <select
         className="fra-table__select no-print"
         value={currentValue || 'notSelected'}
+        disabled={disabled}
         onChange={
           (evt) => {
             tableValueChanged(countryIso, tableSpec, rowIdx, colIdx, evt.target.value)

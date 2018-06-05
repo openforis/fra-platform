@@ -6,11 +6,11 @@ import ReviewIndicator from '../../../review/reviewIndicator'
 import { formatDecimal } from '../../../utils/numberFormat'
 import * as R from 'ramda'
 
-const SubIndicator4 = ({i18n, countryIso, years, countryConfig}) => {
+const SubIndicator4 = ({i18n, countryIso, years, countryConfig, disabled}) => {
 
   const indicatorYears = R.reject(y => y === '1990', years)
 
-  const getCertifiedArea = year => R.path(['certifiedAreas',year])(countryConfig)
+  const getCertifiedArea = year => R.path(['certifiedAreas', year])(countryConfig)
 
   return <div className="fra-table__container">
     <div className="fra-table__scroll-wrapper">
@@ -48,11 +48,15 @@ const SubIndicator4 = ({i18n, countryIso, years, countryConfig}) => {
           }
           <td className="fra-table__row-anchor-cell">
             <div className="fra-table__review-indicator-anchor">
-              <ReviewIndicator
-                section={'sustainableDevelopment'}
-                title={i18n.t('sustainableDevelopment.forestAreaVerifiedForestManagement')}
-                target={['subIndicator4']}
-                countryIso={countryIso}/>
+              {
+                disabled
+                  ? null
+                  : <ReviewIndicator
+                    section={'sustainableDevelopment'}
+                    title={i18n.t('sustainableDevelopment.forestAreaVerifiedForestManagement')}
+                    target={['subIndicator4']}
+                    countryIso={countryIso}/>
+              }
             </div>
           </td>
         </tr>
@@ -64,7 +68,8 @@ const SubIndicator4 = ({i18n, countryIso, years, countryConfig}) => {
     <ResponsibleAgency
       i18n={i18n}
       countryIso={countryIso}
-      tableSpecName="sustainableDevelopmentAgencySubIndicator4"/>
+      tableSpecName="sustainableDevelopmentAgencySubIndicator4"
+      disabled={disabled}/>
 
   </div>
 }

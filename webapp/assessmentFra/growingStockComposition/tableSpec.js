@@ -103,8 +103,10 @@ const introducedHeaderRow = i18n => [
   }
 ]
 
+export const sectionName = 'growingStockComposition'
+
 export default i18n => ({
-  name: 'growingStockComposition',
+  name: sectionName,
   header: <thead>
   <tr>
     <th className="fra-table__header-cell-left">{i18n.t('growingStockComposition.categoryHeader')}</th>

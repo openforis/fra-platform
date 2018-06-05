@@ -6,21 +6,27 @@ import {
   userEditUserLoaded,
   userEditUserCompleted
 } from './actions'
-import {applyReducerFunction} from '../utils/reduxUtils'
+
+import { exportReducer } from '../utils/reduxUtils'
 
 const actionHandlers = {
   [userLoggedInUserLoaded]: (state, action) =>
     ({...state, userInfo: action.userInfo, i18n: action.i18n}),
+
   [userLoggedInUserSwitchLanguage]: (state, action) =>
-    ({...state, i18n: action.i18n}),
+    R.pipe(
+      R.assoc('i18n', action.i18n),
+      R.assocPath(['userInfo', 'lang'], action.i18n.language)
+    )(state),
 
   // edit user functions
   [userEditUserLoaded]: (state, action) => R.pipe(
     R.assocPath(['editUser', 'user'], action.user),
     R.assocPath(['editUser', 'status'], 'loaded')
   )(state),
+
   [userEditUserCompleted]: (state, action) =>
     R.assocPath(['editUser', 'status'], 'completed', state)
 }
 
-export default (state = {}, action) => applyReducerFunction(actionHandlers, state, action)
+export default exportReducer(actionHandlers)

@@ -2,18 +2,22 @@ import React from 'react'
 import { handlePaste } from './paste'
 import VerticallyGrowingTextField from '../reusableUiComponents/verticallyGrowingTextField'
 
-const VerticallyGrowingTextCell = ({countryIso,
+const VerticallyGrowingTextCell = ({
+                                     countryIso,
                                      tableSpec,
                                      tableData,
                                      rowIdx,
                                      colIdx,
                                      tableValueChanged,
                                      tableChanged,
-                                     minWidth}) => {
+                                     minWidth,
+                                     disabled
+                                   }) => {
   const currentValue = tableData[rowIdx][colIdx]
   return <td className="fra-table__cell-left">
     <VerticallyGrowingTextField
       value={currentValue || ''}
+      disabled={disabled}
       onChange={
         (evt) => {
           tableValueChanged(countryIso, tableSpec, rowIdx, colIdx, evt.target.value)
