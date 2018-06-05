@@ -3,15 +3,23 @@ import * as R from 'ramda'
 import { isCollaborator, isReviewer, isAdministrator } from '../../common/countryRole'
 import { isCollaboratorAllowedToEditSectionData } from '../../common/assessmentRoleAllowance'
 
-const getFra2020 = state => R.pipe(
-  R.path(['country', 'status', 'assessments', 'fra2020']),
+const getAssessment = (state, name) => R.pipe(
+  R.path(['country', 'status', 'assessments', name]),
   R.defaultTo({})
 )(state)
+
+const getFra2020 = state => getAssessment(state, 'fra2020')
 
 const getFra2020Prop = (state, prop, defaultValue = null) => R.pipe(
   getFra2020,
   R.prop(prop),
   R.defaultTo(defaultValue)
+)(state)
+
+export const isAssessmentEditable = (state, name) => R.pipe(
+  R.partialRight(getAssessment, [name]),
+  R.prop('canEditData'),
+  R.defaultTo(false)
 )(state)
 
 const isFRA2020Editable = state => getFra2020Prop(state, 'canEditData', false)
