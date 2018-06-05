@@ -18,14 +18,10 @@ import { isFRA2020DataEditDisabled } from '../utils/assessmentAccess'
 class SingleTraditionalTableView extends React.Component {
 
   componentDidMount() {
-    this.props.fetchLastSectionUpdateTimestamp(this.props.match.params.countryIso, this.getTableSpec().name)
+    this.props.fetchLastSectionUpdateTimestamp(this.props.match.params.countryIso, this.props.tableSpecInstance.name)
   }
 
-  getTableSpec() {
-    return this.props.tableSpecInstance || this.props.tableSpec(this.props.i18n)
-  }
-
-  render() {
+    render() {
     const {
       match,
       i18n,
@@ -35,10 +31,11 @@ class SingleTraditionalTableView extends React.Component {
       tadAnchor,
       faqAnchor,
       useAnalysisDescriptions,
+      tableSpecInstance,
       isEditDataDisabled
     } = this.props
+
     const countryIso = match.params.countryIso
-    const tableSpecInstance = this.getTableSpec()
 
     return <LoggedInPageTemplate>
       <div className="fra-view__content">
@@ -65,9 +62,14 @@ class SingleTraditionalTableView extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  i18n: state.user.i18n,
-  isEditDataDisabled: isFRA2020DataEditDisabled(state)
-})
+const mapStateToProps = (state, props) => {
+  const tableSpecInstance =  props.tableSpecInstance || props.tableSpec(state.user.i18n)
+
+  return {
+    i18n: state.user.i18n,
+    tableSpecInstance,
+    isEditDataDisabled: isFRA2020DataEditDisabled(state, tableSpecInstance.name)
+  }
+}
 
 export default connect(mapStateToProps, {fetchLastSectionUpdateTimestamp})(SingleTraditionalTableView)
