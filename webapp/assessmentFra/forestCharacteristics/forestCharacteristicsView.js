@@ -323,7 +323,7 @@ const mapStateToProps = state => {
     useOriginalDataPoints: useOriginalDataPoints,
     // Only if ODPs are enabled system-wide and ALSO locally, they are enabled:
     useOriginalDataPointsInFoc: useOriginalDataPoints && useOriginalDataPointsInFoc,
-    isEditDataDisabled: isFRA2020DataEditDisabled(state)
+    isEditDataDisabled: isFRA2020DataEditDisabled(state, sectionName)
   }
 }
 
