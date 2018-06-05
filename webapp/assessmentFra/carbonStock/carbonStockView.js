@@ -10,6 +10,9 @@ import AnalysisDescriptions from '../../descriptionBundles/analysisDescriptions'
 import GeneralComments from '../../descriptionBundles/generalComments'
 import DefinitionLink from '../../reusableUiComponents/definitionLink'
 import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
+import { isFRA2020DataEditDisabled } from '../../utils/assessmentAccess'
+
+const sectionName = "carbonStock"
 
 const soilDepthTableSpec = i18n => ({
   name: 'carbonStockSoilDepth',
@@ -47,7 +50,7 @@ class CarbonStockView extends React.Component {
   }
 
   render () {
-    const {match, i18n} = this.props
+    const {match, i18n, isEditDataDisabled} = this.props
     const countryIso = match.params.countryIso
     const lang = i18n.language
     const countryDomain = this.state.selectedDomain || this.props.domain
@@ -56,8 +59,8 @@ class CarbonStockView extends React.Component {
 
     return <LoggedInPageTemplate>
       <div className="fra-view__content">
-        <NationalDataDescriptions section="carbonStock" countryIso={countryIso}/>
-        <AnalysisDescriptions section="carbonStock" countryIso={countryIso}/>
+        <NationalDataDescriptions section={sectionName} countryIso={countryIso} disabled={isEditDataDisabled}/>
+        <AnalysisDescriptions section={sectionName} countryIso={countryIso} disabled={isEditDataDisabled}/>
         <h2 className="headline">
           <span className="only-print">2d </span>{i18n.t('carbonStock.carbonStock')}
         </h2>
@@ -88,13 +91,14 @@ class CarbonStockView extends React.Component {
           </div>
 
         </div>
-        <TraditionalTable tableSpec={this.tableSpecInstance} countryIso={countryIso}/>
+        <TraditionalTable tableSpec={this.tableSpecInstance} countryIso={countryIso} disabled={isEditDataDisabled}/>
         <div className="fra-secondary-table__wrapper">
-          <TraditionalTable tableSpec={soilDepthTableSpec(i18n)} countryIso={match.params.countryIso}/>
+          <TraditionalTable tableSpec={soilDepthTableSpec(i18n)} countryIso={match.params.countryIso} disabled={isEditDataDisabled}/>
         </div>
         <GeneralComments
-          section="carbonStock"
+          section={sectionName}
           countryIso={countryIso}
+          disabled={isEditDataDisabled}
         />
       </div>
     </LoggedInPageTemplate>
@@ -104,7 +108,8 @@ class CarbonStockView extends React.Component {
 const mapStateToProps = state =>
   ({
     domain: R.path(['country', 'config', 'domain'], state),
-    i18n: state.user.i18n
+    i18n: state.user.i18n,
+    isEditDataDisabled: isFRA2020DataEditDisabled(state, sectionName)
   })
 
 export default connect(mapStateToProps, {fetchLastSectionUpdateTimestamp})(CarbonStockView)

@@ -14,38 +14,46 @@ class Description extends Component {
   }
 
   componentDidMount () {
-      this.fetchData(this.props.countryIso)
+    this.fetchData(this.props.countryIso)
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps (nextProps) {
     if (!R.equals(this.props.countryIso, nextProps.countryIso))
       this.fetchData(nextProps.countryIso)
   }
 
   showEditorContent (isActive) {
-    if (R.isNil(this.props.content)) return null
-    if (isActive) return <DescriptionEditor {...this.props} />
-    if (this.props.content) return <div className="fra-description__preview" dangerouslySetInnerHTML={{__html: this.props.content}}/>
-    if (this.props.template) return <div className="fra-description__preview" dangerouslySetInnerHTML={{__html: this.props.template}}/>
+    if (R.isNil(this.props.content))
+      return null
+    if (isActive)
+      return <DescriptionEditor {...this.props} />
+    if (this.props.content)
+      return <div className="fra-description__preview" dangerouslySetInnerHTML={{__html: this.props.content}}/>
+    if (this.props.template)
+      return <div className="fra-description__preview" dangerouslySetInnerHTML={{__html: this.props.template}}/>
     return null
   }
 
-  render() {
+  render () {
     assert(this.props.section, 'No section given')
+    const {disabled} = this.props
     const isActive = this.props.editing === this.props.name
     return <div>
       <div className="fra-description__header-row">
         <h3 className="subhead fra-description__header">{this.props.title}</h3>
-        <div className="fra-description__link no-print" onClick={e =>
-          {
-            isActive
-              ? this.props.closeEditor()
-              : this.props.openEditor(this.props.name)
-            e.stopPropagation()
-          }
-        }>
-          {isActive ? this.props.i18n.t('description.done') : this.props.i18n.t('description.edit')}
-        </div>
+        {
+          disabled
+            ? null
+            : <div className="fra-description__link no-print" onClick={e => {
+              isActive
+                ? this.props.closeEditor()
+                : this.props.openEditor(this.props.name)
+              e.stopPropagation()
+            }}>
+              {isActive ? this.props.i18n.t('description.done') : this.props.i18n.t('description.edit')}
+            </div>
+        }
+
       </div>
       <div ref="editorContent">
         {this.showEditorContent(isActive)}

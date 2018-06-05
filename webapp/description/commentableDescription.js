@@ -15,32 +15,40 @@ const assertProps = props => assert(
 
 const CommentableDescription = props => {
   assertProps(props)
+  const {disabled = false} = props
+
   return <div className="fra-description">
-      <div className={
-        R.equals(props.openCommentThreadTarget, [props.name])
-          ? 'fra-description__wrapper fra-row-comments__open'
-          : 'fra-description__wrapper'
-      }>
-        <Description
-          title={props.title}
-          section={props.section}
-          name={props.name}
-          countryIso={props.countryIso}
-          template={props.template}/>
-      </div>
-      <div className="fra-description__review-indicator-wrapper">
-        <ReviewIndicator
-          section={props.section}
-          title={props.title}
-          target={[props.name]}
-          countryIso={props.countryIso}/>
-      </div>
+    <div className={
+      R.equals(props.openCommentThreadTarget, [props.name])
+        ? 'fra-description__wrapper fra-row-comments__open'
+        : 'fra-description__wrapper'
+    }>
+      <Description
+        title={props.title}
+        section={props.section}
+        name={props.name}
+        countryIso={props.countryIso}
+        template={props.template}
+        disabled={disabled}/>
+    </div>
+    <div className="fra-description__review-indicator-wrapper">
+      {
+        disabled
+          ? null
+          : <ReviewIndicator
+            section={props.section}
+            title={props.title}
+            target={[props.name]}
+            countryIso={props.countryIso}
+          />
+      }
+    </div>
   </div>
 }
 
 const mapStateToProps = state =>
   ({
-   openCommentThreadTarget: state.review.openThread ? state.review.openThread.target : null
+    openCommentThreadTarget: state.review.openThread ? state.review.openThread.target : null
   })
 
 export default connect(mapStateToProps, {})(CommentableDescription)

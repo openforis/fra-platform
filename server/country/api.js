@@ -8,8 +8,16 @@ const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
 const countryRepository = require('./countryRepository')
 const reviewRepository = require('../review/reviewRepository')
 const odpRepository = require('../odp/odpRepository')
-const assessmentRepository = require('../assessment/assessmentRepository')
 const auditRepository = require('../audit/auditRepository')
+const assessmentRepository = require('../assessment/assessmentRepository')
+const {fetchCollaboratorCountryAccessTables} = require('./../collaborators/collaboratorsRepository')
+
+const {
+  isUserRoleAllowedToEditAssessmentData,
+  isUserRoleAllowedToEditAssessmentComments
+} = require('../../common/assessmentRoleAllowance')
+const {roleForCountry, isCollaborator} = require('../../common/countryRole')
+
 const countryConfig = require('./countryConfig')
 
 module.exports.init = app => {
@@ -24,16 +32,41 @@ module.exports.init = app => {
     try {
       checkCountryAccessFromReqParams(req)
 
-      const odpDataPromise = odpRepository.listAndValidateOriginalDataPoints(req.params.countryIso)
-      const reviewStatusPromise = reviewRepository.getCountryIssuesSummary(req.params.countryIso, req.user)
-      const assessmentsPromise = assessmentRepository.getAssessments(req.params.countryIso)
+      const {countryIso} = req.params
+      const userInfo = req.user
 
-      const [odps, reviewStatus, assessments] = await Promise.all([odpDataPromise, reviewStatusPromise, assessmentsPromise])
+      const odpDataPromise = odpRepository.listAndValidateOriginalDataPoints(countryIso)
+      const reviewStatusPromise = reviewRepository.getCountryIssuesSummary(countryIso, userInfo)
+      const assessmentsPromise = assessmentRepository.getAssessments(countryIso)
+
+      const [odps, reviewStatus, assessmentsDB] = await Promise.all([odpDataPromise, reviewStatusPromise, assessmentsPromise])
+
+      const userRole = roleForCountry(countryIso, userInfo)
+      const assessments = R.reduce(
+        (assessmentsObj, assessmentKey) => {
+          const assessment = R.pipe(
+            R.prop(assessmentKey),
+            a => ({
+              ...a,
+              canEditData: isUserRoleAllowedToEditAssessmentData(userRole, a.status),
+              canEditComments: isUserRoleAllowedToEditAssessmentComments(userRole, a.status)
+            })
+          )(assessmentsDB)
+          return R.assoc(assessmentKey, assessment, assessmentsObj)
+        },
+        {},
+        R.keys(assessmentsDB)
+      )
+      if (isCollaborator(countryIso, userInfo)) {
+        const tables = await fetchCollaboratorCountryAccessTables(countryIso, userInfo.id)
+        assessments.fra2020.tablesAccess = tables
+      }
 
       const odpStatus = {
         count: odps.length,
         errors: R.filter(o => !o.validationStatus.valid, odps).length !== 0,
       }
+
       res.json({
         odpStatus,
         reviewStatus,

@@ -22,13 +22,17 @@ const Cell = (props) => {
 
 class ReviewWrapper extends React.Component {
   render () {
+    const {section, tableSpec, rowIdx, countryIso, disabled} = this.props
     return <td ref="rowAnchor" className="fra-table__row-anchor-cell">
       <div className="fra-table__review-indicator-anchor">
-        <ReviewIndicator
-          section={this.props.section || this.props.tableSpec.name}
-          title=""
-          target={commentTarget(this.props.tableSpec.name, this.props.rowIdx)}
-          countryIso={this.props.countryIso}/>
+        {
+          disabled
+            ? null
+            : <ReviewIndicator section={section || tableSpec.name}
+                               title=""
+                               target={commentTarget(tableSpec.name, rowIdx)}
+                               countryIso={countryIso}/>
+        }
       </div>
     </td>
   }
@@ -89,9 +93,11 @@ const validationErrorColumns = props => {
     (columnErrorMsgs, i) =>
       <td key={`errorColumn${i}`} className="fra-table__validation-cell">
         <div className="fra-table__validation-container">
-        {mapIndexed((errorMsg, j) =>
-          <div key={j} className="fra-table__validation-error">{errorMsg}</div>
-        , columnErrorMsgs)}
+          {
+            mapIndexed((errorMsg, j) =>
+                <div key={j} className="fra-table__validation-error">{errorMsg}</div>
+              , columnErrorMsgs)
+          }
         </div>
       </td>,
     validationErrorColumnMessages
@@ -111,7 +117,6 @@ const TableBody = props =>
   {tableRows(props)}
   {validationErrorRow(props)}
   </tbody>
-
 
 class FraTable extends UpdateOnResizeReactComponent {
 
@@ -135,7 +140,7 @@ const mapStateToProps = (state, props) => {
   assert(props.tableSpec.name, 'tableSpec is missing name')
   return {
     ...props,
-    tableData: R.path(['traditionalTable', props.tableSpec.name, 'tableData'], state)|| table.createTableData(props.tableSpec),
+    tableData: R.path(['traditionalTable', props.tableSpec.name, 'tableData'], state) || table.createTableData(props.tableSpec),
     openCommentThreadTarget: state.review.openThread ? state.review.openThread.target : null,
     i18n: state.user.i18n
   }

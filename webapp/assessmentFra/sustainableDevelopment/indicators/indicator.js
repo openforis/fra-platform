@@ -9,7 +9,7 @@ import * as R from 'ramda'
 
 import { getForestArea } from './indicators'
 
-const Indicator = ({i18n, countryIso, countryConfig, data, years}) => {
+const Indicator = ({i18n, countryIso, countryConfig, data, years, disabled}) => {
 
   const area2015 = R.path(['faoStat', 2015, 'area'], countryConfig)
   const getValueByYear = year => mul(div(getForestArea(data, year), area2015), 100)
@@ -44,11 +44,14 @@ const Indicator = ({i18n, countryIso, countryConfig, data, years}) => {
             }
             <td className="fra-table__row-anchor-cell">
               <div className="fra-table__review-indicator-anchor">
-                <ReviewIndicator
-                  section={'sustainableDevelopment'}
-                  title={i18n.t('sustainableDevelopment.forestAreaProportionLandArea2015')}
-                  target={['indicator15.1.1']}
-                  countryIso={countryIso}/>
+                {
+                  disabled
+                    ? null
+                    : <ReviewIndicator section={'sustainableDevelopment'}
+                                       title={i18n.t('sustainableDevelopment.forestAreaProportionLandArea2015')}
+                                       target={['indicator15.1.1']}
+                                       countryIso={countryIso}/>
+                }
               </div>
             </td>
           </tr>
@@ -58,7 +61,8 @@ const Indicator = ({i18n, countryIso, countryConfig, data, years}) => {
     <ResponsibleAgency
       i18n={i18n}
       countryIso={countryIso}
-      tableSpecName="sustainableDevelopmentAgencyIndicator"/>
+      tableSpecName="sustainableDevelopmentAgencyIndicator"
+      disabled={disabled}/>
   </div>
 }
 
