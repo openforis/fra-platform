@@ -18,9 +18,11 @@ const decimalInputColumns = (extentOfForest, validator, disabled) => R.times(() 
   acceptValue: acceptNextDecimal
 }), 4)
 
+export const sectionName = 'forestAreaChange'
+
 export default (i18n, extentOfForest, countryIso, disabled) => {
   return {
-    name: 'forestAreaChange', // used to uniquely identify table
+    name: sectionName, // used to uniquely identify table
     header: <thead>
     <tr>
       <th className="fra-table__header-cell-left" rowSpan="2">
