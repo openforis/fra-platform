@@ -1,4 +1,5 @@
 const db = require('../db/db')
+const fs = require('fs')
 
 const {sendErr} = require('../utils/requestUtils')
 const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
@@ -8,13 +9,22 @@ const {persistFile, getFilesList, getFile, deleteFile} = require('./fileReposito
 module.exports.init = app => {
 
   // get user guide
-  app.get('/fileRepository/userGuide', (req, res) => {
+  app.get('/fileRepository/userGuide/:lang', (req, res) => {
     try {
       checkCountryAccessFromReqParams(req)
 
-      const userGuideFileName = 'User Guide FRA Platform.pdf'
+      const lang = req.params.lang
 
-      res.download(`${__dirname}/${userGuideFileName}`, userGuideFileName)
+      const userGuideFileName = 'User Guide FRA Platform'
+
+      const filePath = `${__dirname}/userGuide/${userGuideFileName}_${lang}.pdf`
+      const fallbackFilePath = `${__dirname}/userGuide/${userGuideFileName}_en.pdf`
+
+      if (fs.existsSync(filePath)) {
+        res.download(filePath, `${userGuideFileName}.pdf`)
+      } else {
+        res.download(fallbackFilePath, `${userGuideFileName}.pdf`)
+      }
 
     } catch (err) {
       sendErr(res, err)

@@ -65,7 +65,7 @@ ${i18n.t('navigation.support.userAgent')}: ${navigator.userAgent}
       <a
         className="nav__footer-link"
         target="_top"
-        href='/api/fileRepository/userGuide'>
+        href={`/api/fileRepository/userGuide/${userInfo.lang}`}>
         {i18n.t('navigation.support.userGuide')}
       </a>
     </div>
