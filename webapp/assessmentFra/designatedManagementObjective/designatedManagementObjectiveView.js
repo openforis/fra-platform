@@ -84,7 +84,7 @@ class designatedManagementObjectiveView extends React.Component {
 const mapStateToProps = state => ({
   i18n: state.user.i18n,
   extentOfForest: state.extentOfForest,
-  isEditDataDisabled: isFRA2020DataEditDisabled(state)
+  isEditDataDisabled: isFRA2020DataEditDisabled(state, sectionName)
 })
 
 export default connect(mapStateToProps, {fetchLastSectionUpdateTimestamp})(designatedManagementObjectiveView)

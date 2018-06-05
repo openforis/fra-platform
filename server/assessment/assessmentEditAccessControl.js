@@ -7,7 +7,7 @@ const {
   isUserRoleAllowedToEditAssessmentData,
   isUserRoleAllowedToEditAssessmentComments,
   isCollaboratorAllowedToEditSectionData
-} = require('./assessmentRoleAllowance')
+} = require('../../common/assessmentRoleAllowance')
 const {fetchCollaboratorCountryAccessTables} = require('./../collaborators/collaboratorsRepository')
 
 const assessmentForSection = section =>

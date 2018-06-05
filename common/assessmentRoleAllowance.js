@@ -1,5 +1,5 @@
 const R = require('ramda')
-const {assessmentStatus: status} = require('../../common/assessment')
+const {assessmentStatus: status} = require('./assessment')
 
 const {
   noRole,
@@ -8,7 +8,7 @@ const {
   nationalCorrespondent,
   reviewer,
   administrator
-} = require('../../common/countryRole')
+} = require('./countryRole')
 
 const roleAllowances = {
   [noRole.role]: {
