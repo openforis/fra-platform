@@ -2,6 +2,7 @@ import * as R from 'ramda'
 
 import { isCollaborator, isReviewer, isAdministrator } from '../../common/countryRole'
 import { isCollaboratorAllowedToEditSectionData } from '../../common/assessmentRoleAllowance'
+import { assessmentStatus } from '../../common/assessment'
 
 const getUserInfo = R.path(['user', 'userInfo'])
 const getCountryIso = R.path(['router', 'country'])
@@ -29,6 +30,18 @@ export const isAssessmentLocked = (state, assessmentName) => {
   }
 
   return !canEdit
+}
+
+export const canToggleAssessmentLock = (state, assessmentName) => {
+  const userInfo = getUserInfo(state)
+  const countryIso = getCountryIso(state)
+
+  if (isReviewer(countryIso, userInfo) && !isAdministrator(userInfo)) {
+    const status = getAssessmentProp(assessmentName, 'status', '')(state)
+    return R.contains(status, [assessmentStatus.editing, assessmentStatus.review])
+  }
+
+  return false
 }
 
 const fra2020 = 'fra2020'
