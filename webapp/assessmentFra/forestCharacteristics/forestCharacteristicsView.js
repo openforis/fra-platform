@@ -16,7 +16,7 @@ import { sum, formatNumber, greaterThanOrEqualTo, abs, sub, greaterThan, toFixed
 import { getForestAreaForYear } from '../extentOfForest/extentOfForestHelper'
 import ReviewIndicator from '../../review/reviewIndicator'
 import { hasOdps } from '../extentOfForest/extentOfForestHelper'
-import { isFRA2020DataEditDisabled } from '../../utils/assessmentAccess'
+import { isFRA2020SectionEditDisabled } from '../../utils/assessmentAccess'
 
 const mapIndexed = R.addIndex(R.map)
 const sectionName = 'forestCharacteristics'
@@ -222,23 +222,24 @@ const ForestCharacteristics = props => {
 
   return <div className='fra-view__content'>
     {
-      props.useOriginalDataPoints && !isEditDataDisabled
-      ? [<button
-            key="odpButton"
-            className={`btn btn-${props.useOriginalDataPointsInFoc ? 'secondary' : 'primary'} no-print`}
-            onClick={() => handleOdpButtonClick()}
-          >
-          {
-            props.useOriginalDataPointsInFoc
-            ? i18n.t('forestCharacteristics.dontUseOriginalDataPoints')
-            : i18n.t('forestCharacteristics.useOriginalDataPoints')
-          }
+      props.useOriginalDataPoints
+        ? [
+          <button key="odpButton"
+                  className={`btn btn-${props.useOriginalDataPointsInFoc ? 'secondary' : 'primary'} no-print`}
+                  onClick={() => handleOdpButtonClick()}
+                  disabled={isEditDataDisabled}>
+            {
+              props.useOriginalDataPointsInFoc
+                ? i18n.t('forestCharacteristics.dontUseOriginalDataPoints')
+                : i18n.t('forestCharacteristics.useOriginalDataPoints')
+            }
           </button>,
-          <hr key="separator" className="no-print"/>]
-      : null
+          <hr key="separator" className="no-print"/>
+        ]
+        : null
     }
     {
-      props.useOriginalDataPointsInFoc && !isEditDataDisabled
+      props.useOriginalDataPointsInFoc
         ? null
         : [
             <NationalDataDescriptions key="ndd" section={sectionName} countryIso={props.countryIso} disabled={isEditDataDisabled}/>,
@@ -323,7 +324,7 @@ const mapStateToProps = state => {
     useOriginalDataPoints: useOriginalDataPoints,
     // Only if ODPs are enabled system-wide and ALSO locally, they are enabled:
     useOriginalDataPointsInFoc: useOriginalDataPoints && useOriginalDataPointsInFoc,
-    isEditDataDisabled: isFRA2020DataEditDisabled(state, sectionName)
+    isEditDataDisabled: isFRA2020SectionEditDisabled(state, sectionName)
   }
 }
 

@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { applicationError } from '../applicationError/actions'
 import { fetchCountryOverviewStatus, getCountryList } from '../country/actions'
+import * as R from 'ramda'
 
 export const changeAssessmentStatusInitiated = 'navigation/changeAssessmentStatusInitiated'
 export const navigationScrolled = 'navigation/scroll/end'
@@ -29,3 +30,15 @@ export const toggleNavigationGroupCollapse = (assessment, sectionNo) => ({
 })
 
 export const toggleAllNavigationGroupsCollapse = () => ({type: toggleAllNavigationGroups})
+
+export const toggleAssessmentLockChange = 'navigation/assessment/toggleLock'
+
+export const toggleAssessmentLock = assessmentName => (dispatch, getState) => {
+  const locked = R.pipe(
+    R.path(['country', 'status', 'assessments', assessmentName, 'locked']),
+    R.defaultTo(true),
+    R.not
+  )(getState())
+
+  dispatch({type: toggleAssessmentLockChange, assessmentName, locked})
+}

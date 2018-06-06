@@ -1,4 +1,6 @@
 import React from 'react'
+import { connect } from 'react-redux'
+
 import * as R from 'ramda'
 import { isAdministrator } from '../../../common/countryRole'
 import { getAllowedStatusTransitions } from '../../../common/assessment'
@@ -8,6 +10,10 @@ import { Modal, ModalHeader, ModalBody, ModalFooter, ModalClose } from '../../re
 import Icon from '../../reusableUiComponents/icon'
 import { Link } from '../../reusableUiComponents/link'
 import { ReviewStatus, getLinkTo } from './navigationComponents'
+
+import { canToggleAssessmentLock, isAssessmentLocked } from '../../utils/assessmentAccess'
+
+import { toggleAssessmentLock } from '../actions'
 
 const AssessmentSection = ({countryIso, item, assessment, i18n, ...props}) => {
 
@@ -123,7 +129,7 @@ class AssessmentHeader extends React.Component {
   }
 
   render () {
-    const {assessment, countryIso, changeAssessment, userInfo, i18n} = this.props
+    const {assessment, countryIso, changeAssessment, userInfo, i18n, isLocked, canToggleLock, toggleAssessmentLock} = this.props
     const assessmentStatus = assessment.status
 
     const allowedTransitions = getAllowedStatusTransitions(countryIso, userInfo, assessmentStatus)
@@ -177,11 +183,18 @@ class AssessmentHeader extends React.Component {
       }
 
       <div className="nav__assessment-label">
-        {
-          assessment.deskStudy
-            ? `${i18n.t('assessment.' + assessment.type)} (${i18n.t('assessment.deskStudy')})`
-            : i18n.t('assessment.' + assessment.type)
-        }
+        <div className="nav__assessment-lock">
+          <button className="btn-s btn-secondary nav__assessment-btn-lock"
+                  disabled={!canToggleLock}
+                  onClick={() => toggleAssessmentLock(assessment.type)}>
+            <Icon name={isLocked ? 'lock-circle' : 'lock-circle-open'} className="icon-no-margin"/>
+          </button>
+          {
+            assessment.deskStudy
+              ? `${i18n.t('assessment.' + assessment.type)} (${i18n.t('assessment.deskStudy')})`
+              : i18n.t('assessment.' + assessment.type)
+          }
+        </div>
         <Link className="btn-s btn-secondary" to={`/country/${countryIso}/print/${assessment.type}`} target="_blank">
           <Icon name="small-print" className="icon-no-margin"/>
         </Link>
@@ -233,7 +246,18 @@ const Assessment = (props) => {
   </div>
 }
 
-export default Assessment
+const mapStateToProps = (state, props) => {
+  const {assessment} = props
+
+  return assessment
+    ? {
+      isLocked: isAssessmentLocked(state, R.prop('type', assessment)),
+      canToggleLock: canToggleAssessmentLock(state, R.prop('type', assessment))
+    }
+    : {}
+}
+
+export default connect(mapStateToProps, {toggleAssessmentLock})(Assessment)
 
 
 

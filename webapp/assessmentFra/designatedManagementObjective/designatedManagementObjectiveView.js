@@ -13,7 +13,7 @@ import NationalDataDescriptions from '../../descriptionBundles/nationalDataDescr
 import AnalysisDescriptions from '../../descriptionBundles/analysisDescriptions'
 import GeneralComments from '../../descriptionBundles/generalComments'
 
-import { isFRA2020DataEditDisabled } from '../../utils/assessmentAccess'
+import { isFRA2020SectionEditDisabled } from '../../utils/assessmentAccess'
 
 const sectionName = 'designatedManagementObjective'
 
@@ -84,7 +84,7 @@ class designatedManagementObjectiveView extends React.Component {
 const mapStateToProps = state => ({
   i18n: state.user.i18n,
   extentOfForest: state.extentOfForest,
-  isEditDataDisabled: isFRA2020DataEditDisabled(state, sectionName)
+  isEditDataDisabled: isFRA2020SectionEditDisabled(state, sectionName)
 })
 
 export default connect(mapStateToProps, {fetchLastSectionUpdateTimestamp})(designatedManagementObjectiveView)

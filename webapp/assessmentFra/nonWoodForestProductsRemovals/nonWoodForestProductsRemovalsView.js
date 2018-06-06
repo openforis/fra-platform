@@ -10,7 +10,7 @@ import DefinitionLink from '../../reusableUiComponents/definitionLink'
 import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
 import NationalDataDescriptions from '../../descriptionBundles/nationalDataDescriptions'
 import GeneralComments from '../../descriptionBundles/generalComments'
-import { isFRA2020DataEditDisabled } from '../../utils/assessmentAccess'
+import { isFRA2020SectionEditDisabled } from '../../utils/assessmentAccess'
 
 const currencyNameTableSpec = i18n => ({
   name: 'nonWoodForestProductsRemovalsCurrency',
@@ -70,7 +70,7 @@ class NonWoodForestProductsRemovalsView extends React.Component {
 
 const mapStateToProps = state => ({
   i18n: state.user.i18n,
-  isEditDataDisabled: isFRA2020DataEditDisabled(state, sectionName)
+  isEditDataDisabled: isFRA2020SectionEditDisabled(state, sectionName)
 })
 
 export default connect(mapStateToProps, {fetchLastSectionUpdateTimestamp})(NonWoodForestProductsRemovalsView)
