@@ -11,7 +11,7 @@ import Icon from '../../reusableUiComponents/icon'
 import { Link } from '../../reusableUiComponents/link'
 import { ReviewStatus, getLinkTo } from './navigationComponents'
 
-import { isAssessmentEditable } from '../../utils/assessmentAccess'
+import { isAssessmentLocked } from '../../utils/assessmentAccess'
 
 const AssessmentSection = ({countryIso, item, assessment, i18n, ...props}) => {
 
@@ -127,7 +127,7 @@ class AssessmentHeader extends React.Component {
   }
 
   render () {
-    const {assessment, countryIso, changeAssessment, userInfo, i18n, isEditable} = this.props
+    const {assessment, countryIso, changeAssessment, userInfo, i18n, isLocked} = this.props
     const assessmentStatus = assessment.status
 
     const allowedTransitions = getAllowedStatusTransitions(countryIso, userInfo, assessmentStatus)
@@ -183,7 +183,7 @@ class AssessmentHeader extends React.Component {
       <div className="nav__assessment-label">
         <div className="nav__assessment-lock">
           <button className="btn-s btn-secondary nav__assessment-btn-lock" disabled={true}>
-            <Icon name={isEditable ? 'lock-circle-open' : 'lock-circle'} className="icon-no-margin"/>
+            <Icon name={isLocked ? 'lock-circle' : 'lock-circle-open'} className="icon-no-margin"/>
           </button>
           {
             assessment.deskStudy
@@ -246,7 +246,7 @@ const mapStateToProps = (state, props) => {
   const {assessment} = props
 
   return assessment
-    ? {isEditable: isAssessmentEditable(state, R.prop('type', assessment))}
+    ? {isLocked: isAssessmentLocked(state, R.prop('type', assessment))}
     : {}
 }
 
