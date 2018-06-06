@@ -13,7 +13,7 @@ import AnalysisDescriptions from '../descriptionBundles/analysisDescriptions'
 import GeneralComments from '../descriptionBundles/generalComments'
 import { fetchLastSectionUpdateTimestamp } from '../audit/actions'
 import DefinitionLink from '../reusableUiComponents/definitionLink'
-import { isFRA2020DataEditDisabled } from '../utils/assessmentAccess'
+import { isFRA2020SectionEditDisabled } from '../utils/assessmentAccess'
 
 class SingleTraditionalTableView extends React.Component {
 
@@ -68,7 +68,7 @@ const mapStateToProps = (state, props) => {
   return {
     i18n: state.user.i18n,
     tableSpecInstance,
-    isEditDataDisabled: isFRA2020DataEditDisabled(state, tableSpecInstance.name)
+    isEditDataDisabled: isFRA2020SectionEditDisabled(state, tableSpecInstance.name)
   }
 }
 
