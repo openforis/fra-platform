@@ -238,7 +238,7 @@ const ForestCharacteristics = props => {
       : null
     }
     {
-      props.useOriginalDataPointsInFoc && !isEditDataDisabled
+      props.useOriginalDataPointsInFoc
         ? null
         : [
             <NationalDataDescriptions key="ndd" section={sectionName} countryIso={props.countryIso} disabled={isEditDataDisabled}/>,
