@@ -11,7 +11,9 @@ import Icon from '../../reusableUiComponents/icon'
 import { Link } from '../../reusableUiComponents/link'
 import { ReviewStatus, getLinkTo } from './navigationComponents'
 
-import { isAssessmentLocked } from '../../utils/assessmentAccess'
+import { canToggleAssessmentLock, isAssessmentLocked } from '../../utils/assessmentAccess'
+
+import { toggleAssessmentLock } from '../actions'
 
 const AssessmentSection = ({countryIso, item, assessment, i18n, ...props}) => {
 
@@ -127,7 +129,7 @@ class AssessmentHeader extends React.Component {
   }
 
   render () {
-    const {assessment, countryIso, changeAssessment, userInfo, i18n, isLocked} = this.props
+    const {assessment, countryIso, changeAssessment, userInfo, i18n, isLocked, canToggleLock, toggleAssessmentLock} = this.props
     const assessmentStatus = assessment.status
 
     const allowedTransitions = getAllowedStatusTransitions(countryIso, userInfo, assessmentStatus)
@@ -182,7 +184,9 @@ class AssessmentHeader extends React.Component {
 
       <div className="nav__assessment-label">
         <div className="nav__assessment-lock">
-          <button className="btn-s btn-secondary nav__assessment-btn-lock" disabled={true}>
+          <button className="btn-s btn-secondary nav__assessment-btn-lock"
+                  disabled={!canToggleLock}
+                  onClick={() => toggleAssessmentLock(assessment.type)}>
             <Icon name={isLocked ? 'lock-circle' : 'lock-circle-open'} className="icon-no-margin"/>
           </button>
           {
@@ -246,11 +250,14 @@ const mapStateToProps = (state, props) => {
   const {assessment} = props
 
   return assessment
-    ? {isLocked: isAssessmentLocked(state, R.prop('type', assessment))}
+    ? {
+      isLocked: isAssessmentLocked(state, R.prop('type', assessment)),
+      canToggleLock: canToggleAssessmentLock(state, R.prop('type', assessment))
+    }
     : {}
 }
 
-export default connect(mapStateToProps)(Assessment)
+export default connect(mapStateToProps, {toggleAssessmentLock})(Assessment)
 
 
 
