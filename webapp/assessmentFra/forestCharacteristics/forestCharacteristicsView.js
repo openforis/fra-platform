@@ -222,20 +222,21 @@ const ForestCharacteristics = props => {
 
   return <div className='fra-view__content'>
     {
-      props.useOriginalDataPoints && !isEditDataDisabled
-      ? [<button
-            key="odpButton"
-            className={`btn btn-${props.useOriginalDataPointsInFoc ? 'secondary' : 'primary'} no-print`}
-            onClick={() => handleOdpButtonClick()}
-          >
-          {
-            props.useOriginalDataPointsInFoc
-            ? i18n.t('forestCharacteristics.dontUseOriginalDataPoints')
-            : i18n.t('forestCharacteristics.useOriginalDataPoints')
-          }
+      props.useOriginalDataPoints
+        ? [
+          <button key="odpButton"
+                  className={`btn btn-${props.useOriginalDataPointsInFoc ? 'secondary' : 'primary'} no-print`}
+                  onClick={() => handleOdpButtonClick()}
+                  disabled={isEditDataDisabled}>
+            {
+              props.useOriginalDataPointsInFoc
+                ? i18n.t('forestCharacteristics.dontUseOriginalDataPoints')
+                : i18n.t('forestCharacteristics.useOriginalDataPoints')
+            }
           </button>,
-          <hr key="separator" className="no-print"/>]
-      : null
+          <hr key="separator" className="no-print"/>
+        ]
+        : null
     }
     {
       props.useOriginalDataPointsInFoc
