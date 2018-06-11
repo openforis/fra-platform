@@ -79,7 +79,7 @@ module.exports.translation = {
       milestone2: 'Ateliers régionaux et sous-régionaux',
       milestone3: 'Date limite de présentation des rapports nationaux',
       milestone4: 'Validation des rapports nationaux définitifs',
-      milestone5: 'Conclusions préliminaire de FRA 2020',
+      milestone5: 'Conclusions préliminaires de FRA 2020',
       milestone6: 'Rapport principal de FRA 2020',
       milestone7: 'Analyse des données et élaboration du rapport',
       milestone8: 'Lancement de la plateforme d\'analyse et de diffusion',
@@ -121,10 +121,10 @@ module.exports.translation = {
         addUser: '{{user}} a été ajouté comme {{role}}', //Legacy, no longer created
         updateUser: 'a modifié {{user}}',
         removeUser: 'a éliminé {{user}}',
-        acceptInvitation: 'est devenu membre comme {{role}}',
-        addInvitation: 'a invité {{user}} comme {{role}}',
-        removeInvitation: 'a effacé l\'invitation de {{user}} comme {{role}}',
-        updateInvitation: 'a mise à jour l\'invitation pour {{user}} comme {{role}}',
+        acceptInvitation: 'est devenu membre en tant que {{role}}',
+        addInvitation: 'a invité {{user}} en tant que {{role}}',
+        removeInvitation: 'a révoqué l\'invitation de {{user}} en tant que {{role}}',
+        updateInvitation: 'a mise à jour l\'invitation pour {{user}} en tant que {{role}}',
         updateAssessmentStatus: 'a changé le statut de {{assessment}} à {{status}}'
       },
       fraProcess: 'Depuis 1946, la FAO assure le suivi des ressources forestières mondiales tous les 5 à 10 ans. Les évaluations des ressources forestières mondiales (FRA) sont désormais produites tous les cinq ans afin de fournir une approche cohérente pour décrire les forêts du monde et leur mode d\'évolution. L\'évaluation repose sur deux sources de données principales: les rapports nationaux préparés par les Correspondants nationaux et des analyses par télédétection menées par la FAO en collaboration avec les points de contact nationaux et des partenaires régionaux. Le champ d\'application de FRA évolue régulièrement depuis la première évaluation publiée en 1948. Ces évaluations tracent une histoire intéressante de l\'intérêt accordé aux ressources forestières mondiales en ce qui concerne le contenu concret et l\'évolution du champ d\'application.',
@@ -304,7 +304,7 @@ L'équipe de FRA
     dataSources: 'Source des données',
     additionalComments: 'Commentaires supplémentaires',
     edit: 'Modifier',
-    copyPreviousValues: 'Copier valeurs antérieures',
+    copyPreviousValues: 'Copier valeurs précédentes',
     nationalClass: 'Classe nationale',
     nationalClasses: 'Classifications et définitions',
     definition: 'Définition',
@@ -316,12 +316,12 @@ L'équipe de FRA
     modifiedExplanation: 'Point des données nationales avec modifications',
     confirmDelete: 'Supprimer ce point des données? Cette action ne peut pas être annulée.',
     discardChanges: 'Annuler les modifications',
-    doneEditing: 'Vérification terminée',
+    doneEditing: 'Terminée',
     enterOrCopyPasteNationalClasses: 'Saisir ou copier-coller les classes nationales',
     forestCharacteristics: 'Caractéristiques des forêts',
     otherLandCharacteristics: 'Autre terre dotée de couvert arboré',
     plantationForest: 'Forêt de plantation',
-    remindDirtyOdp: 'Le point des données nationales a été actualisé, régénérer les valeurs',
+    remindDirtyOdp: 'Le point des données nationales a été actualisé, générer nouvelles valeurs',
     disabled: 'Désactivé, activer dans la section 1b',
     dataSourceMethodsOptions: {
       nationalForestInventory: 'Inventaire national des forêts',
@@ -429,7 +429,7 @@ L'équipe de FRA fra@fao.org
 
   climaticDomain: {
     climaticDomain: 'Domaine climatique',
-    percentOfForestArea2015: '% de superficie forstière 2015',
+    percentOfForestArea2015: '% de superficie forestière 2015',
     percentOfForestArea2015Override: 'Remplacer valeur',
     selectDefault: 'Défault',
     boreal: 'Boréal',
@@ -513,7 +513,7 @@ L'équipe de FRA fra@fao.org
 
   growingStock: {
     growingStock: 'Matériel sur pied',
-    supportText: 'Contrôler d\'avoir introduit les données dans les tableaux 1a & 1b avant de modifer ce tableau',
+    supportText: 'Contrôler d\'avoir introduit les données dans les tableaux 1a & 1b avant de modifier ce tableau',
     categoryHeader: 'Catégories de FRA',
     avgTableHeader: 'Matériel sur pied m³/ha (sur écorce)',
     totalTableHeader: 'Total matériel sur pied (millions m³ sur écorce)',
@@ -613,7 +613,7 @@ L'équipe de FRA fra@fao.org
     areaUnitLabel: 'Superficie forestière (1000 ha)',
     publicAdministration: 'Administration publique',
     individuals: 'Particuliers',
-    privateBusinesses: 'Entreprises et des institutions commerciales privées',
+    privateBusinesses: 'Entreprises et institutions commerciales privées',
     communities: 'Collectivités locales, tribales et indigènes',
     other: 'Inconnue/Autre (à préciser dans les commentaires)',
     totalPublicOwnership: 'Propriété publique totale',
@@ -705,7 +705,7 @@ L'équipe de FRA fra@fao.org
     unit: 'Unité',
     value: 'Valeur (1000 monnaie nationale)',
     category: 'Catégorie de PFNL',
-    plantProductsSelectHeading: 'Produits végétaux / matières premières',
+    plantProductsSelectHeading: 'Produits d\'origine végétale / matières premières',
     food: '1 Aliments',
     fodder: '2 Fourrage',
     rawMaterialForMedicine: '3 Matières premières pour les médicaments et les produits aromatiques',
@@ -798,12 +798,12 @@ L'équipe de FRA
       },
       review: {
         label: 'À l\'étude',
-        next: 'Envoyer pour examen',
+        next: 'Transmettre pour examen',
         previous: 'Retour à examen',
       },
       approval: {
         label: 'Attente d\'approbation',
-        next: 'Envoyer pour approbation',
+        next: 'Transmettre pour approbation',
         previous: 'Retour à approbation'
       },
       accepted: {
