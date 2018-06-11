@@ -17,16 +17,19 @@ const NationalDataDescriptions = props => {
    <CommentableDescription
       title={props.i18n.t('description.dataSourcesPlus')}
       name="dataSources"
+      showAlertEmptyContent={true}
       {...props}
     />
     <CommentableDescription
       title={props.i18n.t('description.nationalClassificationAndDefinitions')}
       name="nationalClassificationAndDefinitions"
+      showAlertEmptyContent={true}
       {...props}
     />
     <CommentableDescription
       title={props.i18n.t('description.originalData')}
       name="originalData"
+      showAlertEmptyContent={true}
       {...props}
     />
   </div>
