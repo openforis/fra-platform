@@ -184,16 +184,16 @@ class AssessmentHeader extends React.Component {
 
       <div className="nav__assessment-label">
         <div className="nav__assessment-lock">
-          <button className="btn-s btn-secondary nav__assessment-btn-lock"
-                  disabled={!canToggleLock}
-                  onClick={() => toggleAssessmentLock(assessment.type)}>
-            <Icon name={isLocked ? 'lock-circle' : 'lock-circle-open'} className="icon-no-margin"/>
-          </button>
           {
             assessment.deskStudy
               ? `${i18n.t('assessment.' + assessment.type)} (${i18n.t('assessment.deskStudy')})`
               : i18n.t('assessment.' + assessment.type)
           }
+          <button className="btn-s btn-secondary nav__assessment-btn-lock"
+                  disabled={!canToggleLock}
+                  onClick={() => toggleAssessmentLock(assessment.type)}>
+            <Icon name={isLocked ? 'lock-circle' : 'lock-circle-open'} className="icon-no-margin"/>
+          </button>
         </div>
         <Link className="btn-s btn-secondary" to={`/country/${countryIso}/print/${assessment.type}`} target="_blank">
           <Icon name="small-print" className="icon-no-margin"/>

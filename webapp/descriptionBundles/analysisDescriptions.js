@@ -17,11 +17,13 @@ const AnalysisDescriptions = props => {
     <CommentableDescription
       title={props.i18n.t('description.estimationAndForecasting')}
       name="estimationAndForecasting"
+      showAlertEmptyContent={true}
       {...props}
     />
     <CommentableDescription
       title={props.i18n.t('description.reclassification')}
       name="reclassification"
+      showAlertEmptyContent={true}
       {...props}
     />
   </div>

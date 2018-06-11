@@ -1,8 +1,12 @@
 import './style.less'
+
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
 import R from 'ramda'
+
+import Icon from '../reusableUiComponents/icon'
+
 import assert from 'assert'
 import ckEditorConfig from '../ckEditor/ckEditorConfig'
 import { saveDescriptions, fetchDescriptions, openEditor, closeEditor } from './actions'
@@ -36,21 +40,41 @@ class Description extends Component {
 
   render () {
     assert(this.props.section, 'No section given')
-    const {disabled} = this.props
-    const isActive = this.props.editing === this.props.name
+
+    const {
+      i18n,
+      title,
+      content,
+      editing,
+      name,
+      closeEditor,
+      openEditor,
+      disabled,
+      showAlertEmptyContent = false
+    } = this.props
+
+    const isActive = editing === name
+    const showError = showAlertEmptyContent && !content
+
     return <div>
       <div className="fra-description__header-row">
-        <h3 className="subhead fra-description__header">{this.props.title}</h3>
+        <h3 className={`subhead fra-description__header${showError ? ' icon-red' : ''}`}>
+          {title}
+          {
+            showError
+              ? <Icon className="icon-margin-left icon-red" name="alert"/>
+              : null
+          }
+        </h3>
         {
           disabled
             ? null
-            : <div className="fra-description__link no-print" onClick={e => {
-              isActive
-                ? this.props.closeEditor()
-                : this.props.openEditor(this.props.name)
-              e.stopPropagation()
-            }}>
-              {isActive ? this.props.i18n.t('description.done') : this.props.i18n.t('description.edit')}
+            : <div className="fra-description__link no-print"
+                   onClick={e => {
+                     isActive ? closeEditor() : openEditor(name)
+                     e.stopPropagation()
+                   }}>
+              {isActive ? i18n.t('description.done') : i18n.t('description.edit')}
             </div>
         }
 
