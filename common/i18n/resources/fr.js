@@ -824,7 +824,7 @@ L'équipe de FRA
     forestAreaExceedsExtentOfForest: 'Supérieur à la superficie de la Forêt (1a)',
     otherLandExceedsExtentOfForest: 'Supérieur à la superficie des autres terres (1a)',
     valueMustBePositive: 'La valeur devra être supérieure à zéro',
-    requiredField: 'Ce champ est obligatoire'
+    emptyField: 'Ce champ est vide'
   },
 
   emoji: {
