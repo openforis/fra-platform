@@ -37,10 +37,12 @@ import ContactPersonsView from '../assessmentFra/contactPersons/contactPersonsVi
 import PanEuropeanIndicatorsView from '../panEuropeanIndicators/panEuropeanIndicatorsView'
 import EditUserView from '../user/editUserView'
 import PrintAssessmentView from '../printAssessment/printAssessmentView'
+import AdminView from '../admin/adminView'
 
 const routes = {
   '/': () => <noscript/>, //This will get rendered first (it flashes), before we redirect to logged-in page or login page
   '/version': () => <span>{__PLATFORM_VERSION__}</span>,
+  '/admin': AdminView,
   '/country/:countryIso': LandingView,
   '/country/:countryIso/odps': OriginalDataListView,
   '/country/:countryIso/odp/:tab': OriginalDataPointView,
