@@ -823,7 +823,8 @@ El equipo de FRA
     forestAreaDoesNotMatchExtentOfForest: 'No coincide con el área de bosque (1a)',
     forestAreaExceedsExtentOfForest: 'Superior al área de bosque (1a)',
     otherLandExceedsExtentOfForest: 'Superior al área de otras tierras (1a)',
-    valueMustBePositive: 'El valor debe ser superior a cero'
+    valueMustBePositive: 'El valor debe ser superior a cero',
+    requiredField: 'Este campo es obligatorio'
   },
 
   emoji: {
