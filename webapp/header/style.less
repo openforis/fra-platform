@@ -74,6 +74,12 @@
   }
 }
 
+.fra-header__menu-item-separator {
+  border-right: 1px solid @ui-border;
+  height: 60%;
+  width: 1px;
+}
+
 @keyframes fadeInComplete {
   0% {
     background-color: white;
@@ -104,6 +110,8 @@
   cursor: pointer;
   transition: @ease-out;
   white-space: nowrap;
+  color: inherit;
+  text-decoration: none;
 
   &:hover,
   &.active {

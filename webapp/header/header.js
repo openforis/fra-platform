@@ -1,13 +1,18 @@
 import './style.less'
-import * as R from 'ramda'
 
 import React from 'react'
 import { connect } from 'react-redux'
-import { logout, switchLanguage } from '../user/actions'
-import { toggleNavigationVisible } from '../navigation/actions'
-import { getRelativeDate } from '../utils/relativeDate'
+import * as R from 'ramda'
+
 import { PopoverControl } from '../reusableUiComponents/popoverControl'
 import Icon from '../reusableUiComponents/icon'
+import { Link } from '../reusableUiComponents/link'
+
+import { logout, switchLanguage } from '../user/actions'
+import { toggleNavigationVisible } from '../navigation/actions'
+
+import { getRelativeDate } from '../utils/relativeDate'
+import { isAdministrator } from '../../common/countryRole'
 
 const UserInfo = props => {
   const {userInfo, i18n, country, logout} = props
@@ -88,6 +93,14 @@ const Header = ({
       <div className="fra-header__menu">
         <LanguageSelection i18n={i18n} {...props}/>
         <UserInfo userInfo={userInfo} i18n={i18n} {...props}/>
+        {
+          isAdministrator(userInfo)
+            ? [
+              <div key="v-separator" className="fra-header__menu-item-separator"  style={{margin:'0 20px'}}/>,
+              <Link key="admin-link" to="/admin" className="fra-header__menu-item">Admin</Link>
+            ]
+            : null
+        }
       </div>
     </div>
   </div>
