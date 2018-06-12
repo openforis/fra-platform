@@ -86,7 +86,7 @@ class Description extends Component {
               ? [
                 <Icon key="icon-error" className="icon-margin-left icon-red" name="alert"/>,
                 <div key="tooltip-error" ref="tooltipError"
-                     className="fra-description__tooltip-error">{i18n.t('generalValidation.requiredField')}</div>
+                     className="fra-description__tooltip-error">{i18n.t('generalValidation.emptyField')}</div>
               ]
               : null
           }
