@@ -11,6 +11,8 @@ import assert from 'assert'
 import ckEditorConfig from '../ckEditor/ckEditorConfig'
 import { saveDescriptions, fetchDescriptions, openEditor, closeEditor } from './actions'
 
+import { elementOffset } from '../utils/domUtils'
+
 class Description extends Component {
 
   fetchData (countryIso) {
@@ -58,11 +60,34 @@ class Description extends Component {
 
     return <div>
       <div className="fra-description__header-row">
-        <h3 className={`subhead fra-description__header${showError ? ' icon-red' : ''}`}>
+        <h3 ref="descriptionHeader"
+            className={`subhead fra-description__header${showError ? ' icon-red' : ''}`}
+            onMouseOver={e => {
+              if (showError) {
+                const {descriptionHeader, tooltipError} = this.refs
+
+                const headerOffset = elementOffset(descriptionHeader)
+                const left = headerOffset.left + descriptionHeader.offsetWidth / 2
+                const top = headerOffset.top
+
+                tooltipError.style.top = top
+                tooltipError.style.left = left
+                tooltipError.style.opacity = 1
+              }
+            }}
+            onMouseOut={e => {
+              if (showError)
+                this.refs.tooltipError.style.opacity = 0
+            }}
+        >
           {title}
           {
             showError
-              ? <Icon className="icon-margin-left icon-red" name="alert"/>
+              ? [
+                <Icon key="icon-error" className="icon-margin-left icon-red" name="alert"/>,
+                <div key="tooltip-error" ref="tooltipError"
+                     className="fra-description__tooltip-error">{i18n.t('generalValidation.requiredField')}</div>
+              ]
               : null
           }
         </h3>

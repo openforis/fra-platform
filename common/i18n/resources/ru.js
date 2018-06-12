@@ -837,7 +837,8 @@ module.exports.translation = {
     forestAreaDoesNotMatchExtentOfForest: 'Не совпадает с "Площадь лесов" (1a)',
     forestAreaExceedsExtentOfForest: 'Превышает "Площадь лесов" (1a)',
     otherLandExceedsExtentOfForest: 'Превышает "Другие земельные площади" (1a)',
-    valueMustBePositive: 'Значение должно быть больше нуля'
+    valueMustBePositive: 'Значение должно быть больше нуля',
+    requiredField: 'Обязательно для заполнения'
   },
 
   emoji: {

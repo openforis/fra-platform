@@ -823,7 +823,8 @@ L'équipe de FRA
     forestAreaDoesNotMatchExtentOfForest: 'Ne correspond pas à la superficie de la Forêt (1a)',
     forestAreaExceedsExtentOfForest: 'Supérieur à la superficie de la Forêt (1a)',
     otherLandExceedsExtentOfForest: 'Supérieur à la superficie des autres terres (1a)',
-    valueMustBePositive: 'La valeur devra être supérieure à zéro'
+    valueMustBePositive: 'La valeur devra être supérieure à zéro',
+    requiredField: 'Ce champ est obligatoire'
   },
 
   emoji: {

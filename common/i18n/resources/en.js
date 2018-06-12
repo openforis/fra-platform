@@ -853,7 +853,8 @@ The FRA team
     forestAreaDoesNotMatchExtentOfForest: 'Doesn\'t match Forest area (1a)',
     forestAreaExceedsExtentOfForest: 'Exceeds Forest area (1a)',
     otherLandExceedsExtentOfForest: 'Exceeds Other land area (1a)',
-    valueMustBePositive: 'Value should be greater than zero'
+    valueMustBePositive: 'Value should be greater than zero',
+    requiredField: 'This field is required'
   },
 
   emoji: {
