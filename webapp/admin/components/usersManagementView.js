@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import * as R from 'ramda'
 
 import EditUserForm from '../../user/editUserComponents/editUserForm'
+import Icon from '../../reusableUiComponents/icon'
 
 import { fetchAllUsers } from '../../userManagement/actions'
 
