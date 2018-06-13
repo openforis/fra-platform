@@ -119,7 +119,6 @@ const UserColumn = ({user, field}) => <td className="user-list__cell">
   <div className="user-list__cell--read-only">{user[field] ? user[field] : '\xA0'}</div>
 </td>
 
-
 class UsersView extends React.Component {
 
   constructor (props) {
@@ -146,8 +145,7 @@ class UsersView extends React.Component {
   }
 
   render () {
-    const {match, countryUsers, newUser, allowedRoles, i18n} = this.props
-    const countryIso = match.params.countryIso
+    const {countryUsers, newUser, allowedRoles, countryIso} = this.props
 
     const onEditClick = (userId) => this.setState({editingUserId: userId})
 
@@ -161,7 +159,6 @@ class UsersView extends React.Component {
         : <div>
           <AddUserForm {...this.props} user={newUser} countryIso={countryIso}/>
           <UserTable {...this.props} users={countryUsers} countryIso={countryIso} onEditClick={onEditClick}/>
-
         </div>
       : null
   }
@@ -174,7 +171,8 @@ const mapStateToProps = (state, props) =>
     countryUsers: state.userManagement.countryUsers,
     allowedRoles: rolesAllowedToChange(props.match.params.countryIso, R.path(['user', 'userInfo'], state)),
     newUser: state.userManagement.newUser,
-    editUserStatus: R.path(['user', 'editUser', 'status'], state)
+    editUserStatus: R.path(['user', 'editUser', 'status'], state),
+    countryIso: R.path(['match', 'params', 'countryIso'], props)
   })
 
 export default connect(mapStateToProps, {
