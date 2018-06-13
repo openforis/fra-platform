@@ -14,8 +14,8 @@ export const fetchUsers = countryIso => dispatch =>
     .then(resp => dispatch({type: usersFetch, ...resp.data, newUser: newUser()}))
     .catch(err => dispatch(applicationError(err)))
 
-export const fetchAllUsers = countryIso => dispatch =>
-  axios.get(`/api/users/${countryIso}`)
+export const fetchAllUsers = () => dispatch =>
+  axios.get(`/api/users`)
     .then(resp => dispatch({type: usersAllFetch, ...resp.data}))
     .catch(err => dispatch(applicationError(err)))
 
