@@ -898,5 +898,9 @@ The FRA team
       africa: 'Africa',
       atlantis: 'Atlantis'
     }
+  },
+
+  admin: {
+    admin: 'Admin'
   }
 }
