@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
 
-import UsersTable from './usersTable'
+import UsersTable from '../../userManagement/usersTable'
 import UsersCount from './usersCount'
 import EditUserForm from '../../user/editUserComponents/editUserForm'
 
@@ -38,7 +38,7 @@ class UsersManagementView extends React.Component {
                       onCancel={() => this.setState({editingUserId: null})}
       />
       : <div>
-        <UsersTable {...this.props} users={allUsers} onEditClick={onEditClick}/>
+        <UsersTable {...this.props} isAdminTable={true} users={allUsers} onEditClick={onEditClick}/>
         <UsersCount i18n={i18n} userCounts={userCounts}/>
       </div>
   }
