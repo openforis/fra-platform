@@ -1,7 +1,7 @@
 import React from 'react'
 import * as R from "ramda"
 
-import {validField} from "./users"
+import {validField} from "./userManagement"
 import {roles} from "../../common/countryRole"
 
 import TextInput from '../reusableUiComponents/textInput'
