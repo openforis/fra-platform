@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import NotFound from '../app/notfound'
 import LoggedInPageTemplate from '../app/loggedInPageTemplate'
-import EditUserForm from './editUserComponents/editUserForm'
+import EditUserForm from '../userManagement/edit/editUserForm'
 
 import { isAdministrator } from '../../common/countryRole'
 
