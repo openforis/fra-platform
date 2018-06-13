@@ -35,7 +35,7 @@ import OtherLandWithTreeCoverView from '../assessmentFra/otherLandWithTreeCover/
 import SustainableDevelopmentView from '../assessmentFra/sustainableDevelopment/sustainableDevelopmentView'
 import ContactPersonsView from '../assessmentFra/contactPersons/contactPersonsView'
 import PanEuropeanIndicatorsView from '../panEuropeanIndicators/panEuropeanIndicatorsView'
-import EditUserView from '../user/editUserView'
+import EditUserView from '../userManagement/editUserView'
 import PrintAssessmentView from '../printAssessment/printAssessmentView'
 import AdminView from '../admin/adminView'
 
