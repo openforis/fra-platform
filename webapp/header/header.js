@@ -96,8 +96,8 @@ const Header = ({
         {
           isAdministrator(userInfo)
             ? [
-              <div key="v-separator" className="fra-header__menu-item-separator"  style={{margin:'0 20px'}}/>,
-              <Link key="admin-link" to="/admin" className="fra-header__menu-item">Admin</Link>
+              <div key="v-separator" className="fra-header__menu-item-separator" style={{margin: '0 20px'}}/>,
+              <Link key="admin-link" to="/admin" className="fra-header__menu-item">{i18n.t('admin.admin')}</Link>
             ]
             : null
         }
