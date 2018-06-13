@@ -13,7 +13,7 @@ import { rolesAllowedToChange } from '../../../common/userManagementAccessContro
 import { getCountryName } from '../../country/actions'
 import { fetchUsers, removeUser, updateNewUser, addNewUser, sendInvitationEmail } from '../../userManagement/actions'
 
-class UsersView extends React.Component {
+class ManageCollaboratorsView extends React.Component {
 
   constructor (props) {
     super(props)
@@ -76,4 +76,4 @@ export default connect(mapStateToProps, {
   addNewUser,
   getCountryName,
   sendInvitationEmail
-})(UsersView)
+})(ManageCollaboratorsView)
