@@ -4,6 +4,7 @@ import { applicationError } from '../../../applicationError/actions'
 import { newUser, updateUserField, validUser } from './users'
 
 export const usersFetch = 'users/fetch'
+export const usersAllFetch = 'users/all/fetch'
 export const usersNewUserUpdate = 'users/new/user/update'
 
 // list action creators
@@ -11,6 +12,11 @@ export const usersNewUserUpdate = 'users/new/user/update'
 export const fetchUsers = countryIso => dispatch =>
   axios.get(`/api/users/${countryIso}`)
     .then(resp => dispatch({type: usersFetch, ...resp.data, newUser: newUser()}))
+    .catch(err => dispatch(applicationError(err)))
+
+export const fetchAllUsers = countryIso => dispatch =>
+  axios.get(`/api/users/${countryIso}`)
+    .then(resp => dispatch({type: usersAllFetch, ...resp.data}))
     .catch(err => dispatch(applicationError(err)))
 
 export const removeUser = (countryIso, user) => dispatch => {

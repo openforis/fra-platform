@@ -158,7 +158,7 @@ class UsersView extends React.Component {
   }
 
   render () {
-    const {match, countryUsers, allUsers, userCounts, newUser, allowedRoles, i18n} = this.props
+    const {match, countryUsers, newUser, allowedRoles, i18n} = this.props
     const countryIso = match.params.countryIso
 
     const onEditClick = (userId) => this.setState({editingUserId: userId})
@@ -173,16 +173,7 @@ class UsersView extends React.Component {
         : <div>
           <AddUserForm {...this.props} user={newUser} countryIso={countryIso}/>
           <UserTable {...this.props} users={countryUsers} countryIso={countryIso} onEditClick={onEditClick}/>
-          {
-            allUsers
-              ? <div className="user-list__other-users-container">
-                <h3 className="user-list__other-users-title">{i18n.t('userManagement.allUsers')}</h3>
-                <UserTable {...this.props} users={allUsers} showRole={false} countryIso={countryIso}
-                           onEditClick={onEditClick}/>
-                <UsersCount userCounts={userCounts} i18n={i18n}/>
-              </div>
-              : null
-          }
+
         </div>
       : null
   }
@@ -193,10 +184,6 @@ const mapStateToProps = (state, props) =>
     i18n: state.user.i18n,
     userInfo: state.user.userInfo,
     countryUsers: state.userManagement.countryUsers,
-    allUsers: isAdministrator(state.user.userInfo)
-      ? state.userManagement.allUsers
-      : null,
-    userCounts: state.userManagement.userCounts,
     allowedRoles: rolesAllowedToChange(props.match.params.countryIso, R.path(['user', 'userInfo'], state)),
     newUser: state.userManagement.newUser,
     editUserStatus: R.path(['user', 'editUser', 'status'], state)
