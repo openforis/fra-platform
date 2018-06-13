@@ -14,8 +14,7 @@ import { toggleNavigationVisible } from '../navigation/actions'
 import { getRelativeDate } from '../utils/relativeDate'
 import { isAdministrator } from '../../common/countryRole'
 
-const UserInfo = props => {
-  const {userInfo, i18n, country, logout} = props
+const UserInfo = ({userInfo, i18n, country, logout}) => {
 
   const userInfoItems = [{
     content: i18n.t('header.logout'),
@@ -35,7 +34,7 @@ const UserInfo = props => {
   </PopoverControl>
 }
 
-const LanguageSelection = ({i18n, switchLanguage, ...props}) => {
+const LanguageSelection = ({i18n, switchLanguage}) => {
   const supportedLangs = ['en', 'fr', 'es', 'ru']
   const selectableLangs = R.reject(l => l === i18n.language, supportedLangs)
   const languageSelectionItems = R.map(lang =>
@@ -93,7 +92,7 @@ const Header = ({
       }
       <div className="fra-header__menu">
         <LanguageSelection i18n={i18n} {...props}/>
-        <UserInfo userInfo={userInfo} i18n={i18n} {...props}/>
+        <UserInfo userInfo={userInfo} i18n={i18n} country={country} {...props}/>
         {
           isAdministrator(userInfo)
             ? [
