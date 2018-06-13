@@ -1,15 +1,21 @@
 import React from 'react'
 
-import Icon from '../../reusableUiComponents/icon'
+import Icon from '../reusableUiComponents/icon'
 
-const UsersTable = ({users, i18n, ...props}) =>
+import { i18nUserRole } from '../../common/userUtils'
+
+const UsersTable = ({users, i18n, isAdminTable = false, ...props}) =>
   users
     ? <table className="user-list__table">
 
       <thead>
       <tr>
         <th className="user-list__header-cell">{i18n.t('userManagement.name')}</th>
-        <th className="user-list__header-cell">{i18n.t('userManagement.role')}</th>
+        {
+          isAdminTable
+            ? null
+            : <th className="user-list__header-cell">{i18n.t('userManagement.role')}</th>
+        }
         <th className="user-list__header-cell">{i18n.t('userManagement.email')}</th>
         <th className="user-list__header-cell">{i18n.t('userManagement.loginEmail')}</th>
         <th className="user-list__header-cell user-list__edit-column"/>
@@ -20,7 +26,7 @@ const UsersTable = ({users, i18n, ...props}) =>
       {
         users.length > 0
           ? users.map((user, i) =>
-            <UserRow key={i} i18n={i18n} user={user} {...props}/>
+            <UserRow key={i} i18n={i18n} user={user} isAdminTable={isAdminTable} {...props}/>
           )
           : <tr>
             <td className="user-list__cell" colSpan="5">
@@ -47,14 +53,21 @@ class UserRow extends React.Component {
       removeUser,
       onEditClick,
       userInfo,
-      sendInvitationEmail
+      sendInvitationEmail,
+      isAdminTable
     } = this.props
 
     return <tr className={user.invitationUuid ? 'user-list__invitation-row' : ''}>
       <UserColumn user={user} field="name"/>
-      <td className="user-list__cell">
-        {/*<div className="user-list__cell--read-only">{i18nUserRole(i18n, user.role)}</div>*/}
-      </td>
+
+      {
+        isAdminTable
+          ? null
+          : <td className="user-list__cell">
+            <div className="user-list__cell--read-only">{i18nUserRole(i18n, user.role)}</div>
+          </td>
+      }
+
       <UserColumn user={user} field="email"/>
       <UserColumn user={user} field="loginEmail"/>
 
@@ -75,7 +88,7 @@ class UserRow extends React.Component {
           disabled={userInfo.id === user.id}
           onClick={() =>
             window.confirm(i18n.t('userManagement.confirmDelete', {user: user.name}))
-              ? removeUser(countryIso, user, true)
+              ? removeUser(countryIso, user, isAdminTable)
               : null
           }>
           {i18n.t('userManagement.remove')}
