@@ -5,7 +5,7 @@ import * as R from 'ramda'
 import EditUserForm from '../../user/editUserComponents/editUserForm'
 import Icon from '../../reusableUiComponents/icon'
 
-import { fetchAllUsers } from '../../userManagement/actions'
+import { fetchAllUsers, removeUser, sendInvitationEmail } from '../../userManagement/actions'
 
 import {
   alternateNationalCorrespondent,
@@ -88,7 +88,7 @@ class UserRow extends React.Component {
           disabled={userInfo.id === user.id}
           onClick={() =>
             window.confirm(i18n.t('userManagement.confirmDelete', {user: user.name}))
-              ? removeUser(countryIso, user)
+              ? removeUser(countryIso, user, true)
               : null
           }>
           {i18n.t('userManagement.remove')}
@@ -185,10 +185,14 @@ class UsersManagementView extends React.Component {
 const mapStateToProps = (state, props) =>
   ({
     i18n: state.user.i18n,
+    userInfo: state.user.userInfo,
+    countryIso: R.path(['match', 'params', 'countryIso'], props),
     allUsers: state.userManagement.allUsers,
     userCounts: state.userManagement.userCounts,
-    editUserStatus: R.path(['user', 'editUser', 'status'], state),
-    countryIso: R.path(['match', 'params', 'countryIso'], props)
+    editUserStatus: R.path(['user', 'editUser', 'status'], state)
   })
 
-export default connect(mapStateToProps, {fetchAllUsers})(UsersManagementView)
+export default connect(
+  mapStateToProps,
+  {fetchAllUsers, removeUser, sendInvitationEmail}
+)(UsersManagementView)
