@@ -2,7 +2,7 @@ import axios from 'axios'
 import * as R from 'ramda'
 
 import { applicationError } from '../applicationError/actions'
-import { newUser, updateUserField, validUser } from './users'
+import { newUser, updateUserField, validUser } from './userManagement'
 import * as autosave from '../autosave/actions'
 
 export const userManagementCountryUsersFetch = 'userManagement/countryUsers/fetch'
