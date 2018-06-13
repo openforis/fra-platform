@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
 
-import UsersTable from '../../userManagement/usersTable'
+import UsersTable from '../../userManagement/list/usersTable'
 import UsersCount from './usersCount'
 import EditUserForm from '../../user/editUserComponents/editUserForm'
 

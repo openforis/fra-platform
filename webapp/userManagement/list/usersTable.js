@@ -1,8 +1,8 @@
 import React from 'react'
 
-import Icon from '../reusableUiComponents/icon'
+import Icon from '../../reusableUiComponents/icon'
 
-import { i18nUserRole } from '../../common/userUtils'
+import { i18nUserRole } from '../../../common/userUtils'
 
 const UsersTable = ({users, i18n, isAdminTable = false, ...props}) =>
   users

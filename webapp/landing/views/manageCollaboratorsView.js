@@ -6,7 +6,7 @@ import * as R from 'ramda'
 
 import AddUserForm from '../../userManagement/addUserForm'
 import EditUserForm from '../../user/editUserComponents/editUserForm'
-import UsersTable from '../../userManagement/usersTable'
+import UsersTable from '../../userManagement/list/usersTable'
 
 import { rolesAllowedToChange } from '../../../common/userManagementAccessControl'
 
