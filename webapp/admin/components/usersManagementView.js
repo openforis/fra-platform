@@ -4,7 +4,7 @@ import * as R from 'ramda'
 
 import UsersTable from '../../userManagement/list/usersTable'
 import UsersCount from './usersCount'
-import EditUserForm from '../../user/editUserComponents/editUserForm'
+import EditUserForm from '../../userManagement/edit/editUserForm'
 
 import { fetchAllUsers, removeUser, sendInvitationEmail } from '../../userManagement/actions'
 
@@ -52,7 +52,7 @@ const mapStateToProps = (state, props) =>
     countryIso: R.path(['match', 'params', 'countryIso'], props),
     allUsers: state.userManagement.allUsers,
     userCounts: state.userManagement.userCounts,
-    editUserStatus: R.path(['user', 'editUser', 'status'], state)
+    editUserStatus: R.path(['userManagement', 'editUser', 'status'], state)
   })
 
 export default connect(

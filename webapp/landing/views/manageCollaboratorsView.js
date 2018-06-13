@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import * as R from 'ramda'
 
 import AddUserForm from '../../userManagement/addUserForm'
-import EditUserForm from '../../user/editUserComponents/editUserForm'
+import EditUserForm from '../../userManagement/edit/editUserForm'
 import UsersTable from '../../userManagement/list/usersTable'
 
 import { rolesAllowedToChange } from '../../../common/userManagementAccessControl'
@@ -62,10 +62,10 @@ const mapStateToProps = (state, props) =>
   ({
     i18n: state.user.i18n,
     userInfo: state.user.userInfo,
-    countryUsers: state.userManagement.countryUsers,
     allowedRoles: rolesAllowedToChange(props.match.params.countryIso, R.path(['user', 'userInfo'], state)),
+    countryUsers: state.userManagement.countryUsers,
     newUser: state.userManagement.newUser,
-    editUserStatus: R.path(['user', 'editUser', 'status'], state),
+    editUserStatus: R.path(['userManagement', 'editUser', 'status'], state),
     countryIso: R.path(['match', 'params', 'countryIso'], props)
   })
 

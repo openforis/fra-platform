@@ -1,9 +1,7 @@
 import axios from 'axios'
-import R from 'ramda'
 
 import {applicationError} from '../applicationError/actions'
 import {createI18nInstance} from '../../common/i18n/i18nFactory'
-import * as autosave from "../autosave/actions"
 
 export const userLoggedInUserLoaded = 'user/loggedInUser/loaded'
 export const userLoggedInUserSwitchLanguage = 'user/loggedInUser/switchLanguage'
@@ -45,42 +43,3 @@ export const logout = () => dispatch => {
     })
 }
 
-//editUser action creators
-
-export const userEditUserLoaded = 'user/editUser/loaded'
-export const userEditUserCompleted = 'user/editUser/completed'
-
-export const loadUserToEdit = (countryIso, userId) => dispatch => {
-  if (Number(userId) > 0) {
-    axios
-      .get(`/api/users/${countryIso}/user/edit/${userId}`)
-      .then(resp => {
-        const user = resp.data.user
-        dispatch({type: userEditUserLoaded, user})
-      })
-      .catch(err => dispatch(applicationError(err)))
-  }
-}
-
-export const persistUser = (countryIso, user) => dispatch => {
-  const formData = new FormData()
-  formData.append('profilePicture', user.profilePicture)
-  formData.append('user', JSON.stringify(R.dissoc('profilePicture', user)))
-
-  const config = {
-    headers: {
-      'content-type': 'multipart/form-data'
-    }
-  }
-
-  dispatch(autosave.start)
-
-  axios
-    .post(`/api/users/${countryIso}/user/edit`, formData, config)
-    .then(() => {
-      dispatch(autosave.complete)
-      dispatch({type: userEditUserCompleted})
-    })
-    .catch(err => dispatch(applicationError(err)))
-
-}
