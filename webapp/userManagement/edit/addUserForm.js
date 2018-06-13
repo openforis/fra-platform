@@ -1,10 +1,10 @@
 import React from 'react'
 import * as R from "ramda"
 
-import {validField} from "./userManagement"
-import {roles} from "../../common/countryRole"
+import {validField} from "../userManagement"
+import {roles} from "../../../common/countryRole"
 
-import TextInput from '../reusableUiComponents/textInput'
+import TextInput from '../../reusableUiComponents/textInput'
 
 const UserTextFieldCol = ({countryIso, i18n, user, field, editing = false, readOnly = false, updateUser, validate}) =>
   <td className={`user-list__cell ${validate ? '' : 'error'} ${editing ? 'editing' : ''}`}>
