@@ -68,6 +68,7 @@ const Header = ({
                   toggleNavigationVisible,
                   navigationVisible,
                   commentsOpen,
+                  country,
                   ...props
                 }) => {
   const commentColumnCurrentWidth = commentsOpen ? 288 : 0
@@ -97,7 +98,11 @@ const Header = ({
           isAdministrator(userInfo)
             ? [
               <div key="v-separator" className="fra-header__menu-item-separator" style={{margin: '0 20px'}}/>,
-              <Link key="admin-link" to="/admin" className="fra-header__menu-item">{i18n.t('admin.admin')}</Link>
+              <Link key="admin-link"
+                    to={`/country/${country}/admin`}
+                    className="fra-header__menu-item">
+                {i18n.t('admin.admin')}
+              </Link>
             ]
             : null
         }
