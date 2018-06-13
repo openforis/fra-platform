@@ -5,6 +5,7 @@ import {
   usersAllFetch,
   usersNewUserUpdate
 } from './actions'
+
 import { applyReducerFunction } from '../utils/reduxUtils'
 
 const sortUsers = users => R.sortBy(R.compose(R.toLower, R.prop('name')), users)

@@ -10,12 +10,6 @@ import EditUserForm from '../../user/editUserComponents/editUserForm'
 
 import { rolesAllowedToChange } from '../../../common/userManagementAccessControl'
 import { i18nUserRole } from '../../../common/userUtils'
-import {
-  nationalCorrespondent,
-  collaborator,
-  reviewer,
-  alternateNationalCorrespondent
-} from '../../../common/countryRole'
 
 import { getCountryName } from '../../country/actions'
 import { fetchUsers, removeUser, updateNewUser, addNewUser, sendInvitationEmail } from '../../userManagement/actions'
@@ -125,17 +119,6 @@ const UserColumn = ({user, field}) => <td className="user-list__cell">
   <div className="user-list__cell--read-only">{user[field] ? user[field] : '\xA0'}</div>
 </td>
 
-const UsersCount = ({i18n, userCounts}) =>
-  <div className="user-counts__container">
-    {
-      [nationalCorrespondent.role, alternateNationalCorrespondent.role, collaborator.role, reviewer.role]
-        .map(role =>
-          <div key={role} className="user-counts__item">
-            {`${userCounts[role]} ${i18nUserRole(i18n, role, Number(userCounts[role]))}`}
-          </div>
-        )
-    }
-  </div>
 
 class UsersView extends React.Component {
 
