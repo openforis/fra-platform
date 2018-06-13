@@ -4,7 +4,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
 
-import AddUserForm from '../../userManagement/addUserForm'
+import AddUserForm from '../../userManagement/edit/addUserForm'
 import EditUserForm from '../../userManagement/edit/editUserForm'
 import UsersTable from '../../userManagement/list/usersTable'
 
