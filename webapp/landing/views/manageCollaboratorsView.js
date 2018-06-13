@@ -1,19 +1,24 @@
-import './style.less'
+import '../../userManagement/style.less'
 
 import React from 'react'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
 
-import Icon from '../../../reusableUiComponents/icon'
-import AddUserForm from './addUserForm'
-import EditUserForm from '../../../user/editUserComponents/editUserForm'
+import Icon from '../../reusableUiComponents/icon'
+import AddUserForm from '../../userManagement/addUserForm'
+import EditUserForm from '../../user/editUserComponents/editUserForm'
 
-import { rolesAllowedToChange } from '../../../../common/userManagementAccessControl'
-import { i18nUserRole } from '../../../../common/userUtils'
-import { isAdministrator, nationalCorrespondent, collaborator, reviewer, alternateNationalCorrespondent } from '../../../../common/countryRole'
+import { rolesAllowedToChange } from '../../../common/userManagementAccessControl'
+import { i18nUserRole } from '../../../common/userUtils'
+import {
+  nationalCorrespondent,
+  collaborator,
+  reviewer,
+  alternateNationalCorrespondent
+} from '../../../common/countryRole'
 
-import { getCountryName } from '../../../country/actions'
-import { fetchUsers, removeUser, updateNewUser, addNewUser, sendInvitationEmail } from './actions'
+import { getCountryName } from '../../country/actions'
+import { fetchUsers, removeUser, updateNewUser, addNewUser, sendInvitationEmail } from '../../userManagement/actions'
 
 const mapIndexed = R.addIndex(R.map)
 

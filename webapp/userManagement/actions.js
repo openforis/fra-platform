@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import { applicationError } from '../../../applicationError/actions'
+import { applicationError } from '../applicationError/actions'
 import { newUser, updateUserField, validUser } from './users'
 
 export const usersFetch = 'users/fetch'
