@@ -19,11 +19,13 @@ export const fetchAllUsers = () => dispatch =>
     .then(resp => dispatch({type: usersAllFetch, ...resp.data}))
     .catch(err => dispatch(applicationError(err)))
 
-export const removeUser = (countryIso, user) => dispatch => {
+export const removeUser = (countryIso, user, fetchAll = false) => dispatch => {
   const queryParam = user.id ? `?id=${user.id}` : `?invitationUuid=${user.invitationUuid}`
   axios.delete(`/api/users/${countryIso}/${queryParam}`)
     .then(() => {
-      dispatch(fetchUsers(countryIso))
+      fetchAll
+        ? dispatch(fetchAllUsers())
+        : dispatch(fetchUsers(countryIso))
     }).catch((err) => {
     dispatch(applicationError(err))
   })
