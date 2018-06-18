@@ -901,6 +901,9 @@ The FRA team
   },
 
   admin: {
-    admin: 'Admin'
+    admin: 'Admin',
+    filter: 'Filter by',
+    language: 'Language',
+    country: 'Country'
   }
 }
