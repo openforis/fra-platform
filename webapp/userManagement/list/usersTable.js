@@ -133,33 +133,28 @@ const UserRoleColumn = ({user, i18n, isAdminTable, userInfo, getCountryName}) =>
 
 const userRoles = (user, i18n, userInfo, getCountryName) => {
   if (user.invitationUuid) {
-
-    return <div>
-      <div className="user-counts__item">
-        {i18nUserRole(i18n, user.role)}
-      </div>
-      <div>
-        {getCountryName(user.countryIso, userInfo.lang)}
-      </div>
-    </div>
-
+    return userRole(i18n, getCountryName, userInfo.lang, user.role, [user.countryIso])
   } else {
-
     const roleCountries = R.groupBy(R.prop('role'), user.roles)
-
-    return R.keys(roleCountries).map(role => <div key={role}>
-      <div className="user-counts__item">
-        {i18nUserRole(i18n, role)}
-      </div>
-      <div>
-        {
-          roleCountries[role].map(countryRole =>
-            getCountryName(countryRole.countryIso, userInfo.lang)
-          ).join(', ')
-        }
-      </div>
-    </div>)
+    return R.keys(roleCountries)
+      .map(role => {
+        const countryISOs = roleCountries[role].map(R.prop('countryIso'))
+        return userRole(i18n, getCountryName, userInfo.lang, role, countryISOs)
+      })
   }
 }
+
+const userRole = (i18n, getCountryName, lang, role, countryISOs) => <div key={role}>
+  <div className="user-counts__item">
+    {i18nUserRole(i18n, role)}
+  </div>
+  <div>
+    {
+      countryISOs.map(countryIso =>
+        getCountryName(countryIso, lang)
+      ).join(', ')
+    }
+  </div>
+</div>
 
 export default UsersTable
