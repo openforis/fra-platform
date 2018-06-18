@@ -4,6 +4,7 @@ import * as R from 'ramda'
 
 import UsersTable from '../../userManagement/list/usersTable'
 import UsersCount from './usersCount'
+import UsersTableFilter from './usersTableFilter'
 import EditUserForm from '../../userManagement/edit/editUserForm'
 
 import { fetchAllUsers, removeUser, sendInvitationEmail } from '../../userManagement/actions'
@@ -11,8 +12,16 @@ import { getCountryName } from '../../country/actions'
 
 class UsersManagementView extends React.Component {
 
-  fetchUsers () {
-    this.props.fetchAllUsers()
+  constructor (props) {
+    super(props)
+
+    this.state = {
+      filter: {
+        countries: [],
+        langs: [],
+        roles: [],
+      }
+    }
   }
 
   componentWillReceiveProps (next) {
@@ -27,10 +36,45 @@ class UsersManagementView extends React.Component {
     this.fetchUsers()
   }
 
-  render () {
-    const {i18n, allUsers, userCounts, countryIso} = this.props
-    const onEditClick = userId => this.setState({editingUserId: userId})
+  fetchUsers () {
+    this.props.fetchAllUsers()
+  }
 
+  filterUsers () {
+    const {allUsers = []} = this.props
+    const {langs, roles, countries} = R.path(['state', 'filter'], this)
+
+    const filterFn = user => {
+      let include = true
+
+      if (!R.isEmpty(langs)) {
+        // TODO
+      }
+
+      if (!R.isEmpty(roles)) {
+
+        //invitation
+        if (user.invitationUuid)
+          include = R.contains(user.role, roles)
+        else
+          include = R.any(
+            countryRole => R.contains(countryRole.role, roles),
+            user.roles
+          )
+
+      }
+
+      return include
+    }
+
+    return R.filter(filterFn, allUsers)
+  }
+
+  render () {
+    const {i18n, userCounts, countryIso} = this.props
+    const users = this.filterUsers()
+
+    const onEditClick = userId => this.setState({editingUserId: userId})
     const editingUserId = R.path(['state', 'editingUserId'], this)
 
     return editingUserId
@@ -39,7 +83,8 @@ class UsersManagementView extends React.Component {
                       onCancel={() => this.setState({editingUserId: null})}
       />
       : <div>
-        <UsersTable {...this.props} isAdminTable={true} users={allUsers} onEditClick={onEditClick}/>
+        <UsersTableFilter i18n={i18n} filter={this.state.filter} onChange={filter => this.setState({filter})}/>
+        <UsersTable {...this.props} isAdminTable={true} users={users} onEditClick={onEditClick}/>
         <UsersCount i18n={i18n} userCounts={userCounts}/>
       </div>
   }
