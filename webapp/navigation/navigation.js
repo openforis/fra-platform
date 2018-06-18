@@ -28,9 +28,9 @@ const roleLabel = (countryIso, userInfo, i18n) => i18n.t(roleForCountry(countryI
 
 class Nav extends React.Component {
 
-  componentWillMount () {
-    this.props.getCountryList()
-  }
+  // componentWillMount () {
+  //   this.props.getCountryList()
+  // }
 
   componentDidMount () {
     const content = ReactDOM.findDOMNode(this.refs.scroll_content)

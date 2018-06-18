@@ -1,4 +1,5 @@
 import React from 'react'
+import * as R from 'ramda'
 
 import Icon from '../../reusableUiComponents/icon'
 
@@ -11,11 +12,7 @@ const UsersTable = ({users, i18n, isAdminTable = false, ...props}) =>
       <thead>
       <tr>
         <th className="user-list__header-cell">{i18n.t('userManagement.name')}</th>
-        {
-          isAdminTable
-            ? null
-            : <th className="user-list__header-cell">{i18n.t('userManagement.role')}</th>
-        }
+        <th className="user-list__header-cell">{i18n.t('userManagement.role')}</th>
         <th className="user-list__header-cell">{i18n.t('userManagement.email')}</th>
         <th className="user-list__header-cell">{i18n.t('userManagement.loginEmail')}</th>
         <th className="user-list__header-cell user-list__edit-column"/>
@@ -54,20 +51,18 @@ class UserRow extends React.Component {
       onEditClick,
       userInfo,
       sendInvitationEmail,
-      isAdminTable
+      isAdminTable,
+      getCountryName
     } = this.props
 
     return <tr className={user.invitationUuid ? 'user-list__invitation-row' : ''}>
+
       <UserColumn user={user} field="name"/>
-
-      {
-        isAdminTable
-          ? null
-          : <td className="user-list__cell">
-            <div className="user-list__cell--read-only">{i18nUserRole(i18n, user.role)}</div>
-          </td>
-      }
-
+      <UserRoleColumn user={user}
+                      i18n={i18n}
+                      isAdminTable={isAdminTable}
+                      userInfo={userInfo}
+                      getCountryName={getCountryName}/>
       <UserColumn user={user} field="email"/>
       <UserColumn user={user} field="loginEmail"/>
 
@@ -125,5 +120,32 @@ class UserRow extends React.Component {
 const UserColumn = ({user, field}) => <td className="user-list__cell">
   <div className="user-list__cell--read-only">{user[field] ? user[field] : '\xA0'}</div>
 </td>
+
+const UserRoleColumn = ({user, i18n, isAdminTable, userInfo, getCountryName}) => <td className="user-list__cell">
+  <div className="user-list__cell--read-only">
+    {
+      isAdminTable
+        ? userRoles(user, i18n, userInfo, getCountryName)
+        : i18nUserRole(i18n, user.role)
+    }
+  </div>
+</td>
+
+const userRoles = (user, i18n, userInfo, getCountryName) => {
+  const roleCountries = R.groupBy(R.prop('role'), user.roles)
+
+  return R.keys(roleCountries).map(role => <div key={role}>
+    <div className="user-counts__item">
+      {i18nUserRole(i18n, role)}
+    </div>
+    <div>
+      {
+        roleCountries[role].map(countryRole =>
+          getCountryName(countryRole.countryIso, userInfo.lang)
+        ).join(', ')
+      }
+    </div>
+  </div>)
+}
 
 export default UsersTable
