@@ -7,6 +7,7 @@ import UsersCount from './usersCount'
 import EditUserForm from '../../userManagement/edit/editUserForm'
 
 import { fetchAllUsers, removeUser, sendInvitationEmail } from '../../userManagement/actions'
+import { getCountryName } from '../../country/actions'
 
 class UsersManagementView extends React.Component {
 
@@ -57,5 +58,5 @@ const mapStateToProps = (state, props) =>
 
 export default connect(
   mapStateToProps,
-  {fetchAllUsers, removeUser, sendInvitationEmail}
+  {fetchAllUsers, removeUser, sendInvitationEmail, getCountryName}
 )(UsersManagementView)

@@ -172,21 +172,13 @@ const fetchInvitation = async (invitationUUID, url = '') => {
 
 // fetch all users and invitations
 const fetchAllUsersAndInvitations = async (url) => {
-
-  const usersRes = await db.query(`
-    SELECT DISTINCT
-      u.id,
-      u.email,
-      u.name,
-      u.login_email,
-      u.lang
-    FROM
-      fra_user u
-  `)
+  const userIdsRes = await db.query(`SELECT DISTINCT u.id FROM fra_user u`)
+  const userPromises = userIdsRes.rows.map(row => findUserById(row.id))
+  const users = await Promise.all(userPromises)
 
   const invitations = await fetchAllInvitations(url)
 
-  return [...camelize(usersRes.rows), ...invitations]
+  return [...users, ...invitations]
 }
 
 // getUserCounts

@@ -47,7 +47,7 @@ const mapStateToProps = state => {
     ? state.router.path
     : (window.location.hash || window.location.pathname)
   // We use userInfo as the test to see if initial data is loaded already because it's so essential
-  const initialDataLoaded = !!state.user.userInfo
+  const initialDataLoaded = !!state.user.userInfo && !!R.path(['country', 'countries'], state)
   return {path, initialDataLoaded}
 }
 
