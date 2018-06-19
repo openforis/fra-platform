@@ -868,5 +868,12 @@ L'équipe de FRA
       africa: 'Afrique',
       atlantis: 'Atlantis'
     }
+  },
+
+  admin: {
+    admin: 'Administration',
+    filter: 'Filtrer par',
+    language: 'Langue',
+    country: 'Pays'
   }
 }
