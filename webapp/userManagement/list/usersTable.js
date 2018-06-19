@@ -22,19 +22,19 @@ const UsersTable = ({users, i18n, isAdminTable = false, ...props}) =>
       <tbody>
       {
         users.length > 0
-          ? users.map((user, i) =>
-            <UserRow key={i} i18n={i18n} user={user} isAdminTable={isAdminTable} {...props}/>
-          )
-          : <tr>
-            <td className="user-list__cell" colSpan="5">
-              <div className="user-list__cell--read-only">{i18n.t('userManagement.noUsers')}</div>
-            </td>
-          </tr>
+          ? users.map((user, i) => <UserRow key={i} i18n={i18n} user={user} isAdminTable={isAdminTable} {...props}/>)
+          : <NoUsersRow i18n={i18n}/>
       }
       </tbody>
 
     </table>
     : null
+
+const NoUsersRow = ({i18n}) => <tr>
+  <td className="user-list__cell" colSpan="5">
+    <div className="user-list__cell--read-only">{i18n.t('userManagement.noUsers')}</div>
+  </td>
+</tr>
 
 class UserRow extends React.Component {
   constructor () {
