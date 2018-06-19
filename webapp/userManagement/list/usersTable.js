@@ -1,6 +1,7 @@
 import React from 'react'
 import * as R from 'ramda'
 
+import UsersTableCSVExportButton from './usersTableCVS'
 import Icon from '../../reusableUiComponents/icon'
 
 import { i18nUserRole } from '../../../common/userUtils'
@@ -15,7 +16,9 @@ const UsersTable = ({users, i18n, isAdminTable = false, ...props}) =>
         <th className="user-list__header-cell">{i18n.t('userManagement.role')}</th>
         <th className="user-list__header-cell">{i18n.t('userManagement.email')}</th>
         <th className="user-list__header-cell">{i18n.t('userManagement.loginEmail')}</th>
-        <th className="user-list__header-cell user-list__edit-column"/>
+        <th className="user-list__header-cell user-list__edit-column">
+          <UsersTableCSVExportButton i18n={i18n} users={users} isAdminTable={isAdminTable} {...props}/>
+        </th>
       </tr>
       </thead>
 
