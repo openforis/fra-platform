@@ -50,7 +50,6 @@ class UserRow extends React.Component {
       removeUser,
       onEditClick,
       userInfo,
-      sendInvitationEmail,
       isAdminTable,
       getCountryName
     } = this.props
@@ -91,23 +90,7 @@ class UserRow extends React.Component {
 
         {
           this.state.showInvitationInfo
-            ? <div className="user-list__invitation-info">
-              <div>
-                <div>{i18n.t('userManagement.invitationLink')}: {user.invitationLink}</div>
-                <div style={{textAlign: 'center'}}>
-                  <button className="btn-s btn-link"
-                          onClick={() => {
-                            sendInvitationEmail(countryIso, user.invitationUuid)
-                            this.setState({showInvitationInfo: null})
-                          }}>
-                    {i18n.t('userManagement.sendInvitation')}
-                  </button>
-                </div>
-              </div>
-              <a onClick={() => this.setState({showInvitationInfo: null})}>
-                <Icon name="remove" className="icon-close"/>
-              </a>
-            </div>
+            ? <UserInvitationInfo {...this.props} onClose={() => this.setState({showInvitationInfo: null})}/>
             : null
         }
 
@@ -116,6 +99,25 @@ class UserRow extends React.Component {
 
   }
 }
+
+const UserInvitationInfo = ({i18n, countryIso, user, sendInvitationEmail, onClose}) => <div
+  className="user-list__invitation-info">
+  <div>
+    <div>{i18n.t('userManagement.invitationLink')}: {user.invitationLink}</div>
+    <div style={{textAlign: 'center'}}>
+      <button className="btn-s btn-link"
+              onClick={() => {
+                sendInvitationEmail(countryIso, user.invitationUuid)
+                onClose()
+              }}>
+        {i18n.t('userManagement.sendInvitation')}
+      </button>
+    </div>
+  </div>
+  <a onClick={onClose}>
+    <Icon name="remove" className="icon-close"/>
+  </a>
+</div>
 
 const UserColumn = ({user, field}) => <td className="user-list__cell">
   <div className="user-list__cell--read-only">{user[field] ? user[field] : '\xA0'}</div>
