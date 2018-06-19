@@ -20,48 +20,38 @@ class UsersTableFilterWrapper extends React.Component {
 
   filterUsers () {
     const {users = []} = this.props
-    const {langs, roles, countries} = R.path(['state', 'filter'], this)
+    const {roles, countries} = R.path(['state', 'filter'], this)
 
-    const filterFn = user => {
-      let include = true
+    const includeCountryRole = countryRole => R.isEmpty(roles)
+      ? R.contains(countryRole.countryIso, countries)
+      : R.isEmpty(countries)
+        ? R.contains(countryRole.role, roles)
+        : R.any(roleFilter =>
+            R.any(countryFilter =>
+              countryRole.role === roleFilter && countryRole.countryIso === countryFilter
+              , countries)
+          , roles)
 
-      if (!R.isEmpty(langs)) {
-        // TODO
-      }
-
-      if (!R.isEmpty(roles)) {
-
-        //invitation
-        if (user.invitationUuid)
-          include = R.contains(user.role, roles)
-        else
-          include = R.any(
-            countryRole => R.contains(countryRole.role, roles),
-            user.roles
-          )
-
-      }
-
-      return include
-    }
+    const filterFn = user => R.isEmpty(roles) && R.isEmpty(countries)
+      ? true
+      : R.any(
+        includeCountryRole,
+        user.invitationUuid ? [{...user}] : user.roles
+      )
 
     return R.filter(filterFn, users)
   }
 
   render () {
-    const {i18n, onEditClick} = this.props
     const filteredUsers = this.filterUsers()
 
     return <div>
-      <UsersTableFilter key="users-table-filter"
-                        i18n={i18n}
+      <UsersTableFilter {...this.props}
                         filter={this.state.filter}
                         onChange={filter => this.setState({filter})}/>
 
-      <UsersTable key="users-table"
-                  {...this.props}
-                  users={filteredUsers}
-                  onEditClick={onEditClick}/>
+      <UsersTable {...this.props}
+                  users={filteredUsers}/>
 
     </div>
   }
