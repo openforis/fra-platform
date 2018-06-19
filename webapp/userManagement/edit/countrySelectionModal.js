@@ -3,39 +3,28 @@ import R from 'ramda'
 
 import { Modal, ModalBody, ModalClose, ModalFooter, ModalHeader } from '../../reusableUiComponents/modal'
 
-import { i18nUserRole } from '../../../common/userUtils'
-
 class CountrySelectionModal extends React.Component {
+
   render () {
     const {
       i18n,
-      role,
       countries,
       userInfo, //session user
-      user, //user currently being edited
       getCountryName,
-      toggleCountryRole,
-      onClose
+      toggleCountry,
+      onClose,
+      selection,
+      unselectableCountries,
+      headerLabel,
     } = this.props
 
     const countryRegions = R.groupBy(c => c.region, countries)
-
-    const selection = R.filter(userRole => userRole.role === role, user.roles)
-    const isSelected = countryIso => R.pipe(
-      R.filter(userRole => userRole.countryIso === countryIso),
-      R.isEmpty,
-      R.not
-    )(selection)
-
-    const unselectableCountries = R.pipe(
-      R.filter(userRole => userRole.role !== role),
-      R.map(R.prop('countryIso'))
-    )(user.roles)
+    const isSelected = countryIso => R.contains(countryIso, selection)
     const isUnselactable = countryIso => R.contains(countryIso, unselectableCountries)
 
     return <Modal isOpen={true}>
       <ModalHeader>
-        {i18nUserRole(i18n, role)}
+        {headerLabel}
         <ModalClose onClose={onClose}/>
       </ModalHeader>
 
@@ -53,7 +42,7 @@ class CountrySelectionModal extends React.Component {
                       const isCountryUnselectable = isUnselactable(country.countryIso)
                       return <div key={country.countryIso}
                                   className={`edit-user__form-field-country-selector${isCountryUnselectable ? ' disabled' : ''}`}
-                                  onClick={() => isCountryUnselectable ? null : toggleCountryRole(country.countryIso)}>
+                                  onClick={() => isCountryUnselectable ? null : toggleCountry(country.countryIso)}>
                         <div className={`fra-checkbox${selected ? ' checked' : ''}`}></div>
                         <div className="edit-user__form-field-country-label">
                           {getCountryName(country.countryIso, userInfo.lang)}
@@ -70,6 +59,7 @@ class CountrySelectionModal extends React.Component {
       <ModalFooter>
         <button className="btn btn-primary" onClick={onClose}>{i18n.t('editUser.done')}</button>
       </ModalFooter>
+
     </Modal>
   }
 }

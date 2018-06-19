@@ -2,7 +2,7 @@ import './editUserForm.less'
 
 import React from 'react'
 import { connect } from 'react-redux'
-import R from 'ramda'
+import * as R from 'ramda'
 
 import {
   isAdministrator,
@@ -206,11 +206,22 @@ class EditUserForm extends React.Component {
                         i18n={i18n}
                         countries={countries}
                         userInfo={userInfo}
-                        user={user}
-                        role={role}
+                        headerLabel={i18nUserRole(i18n, role)}
+                        selection={
+                          R.pipe(
+                            R.filter(userRole => userRole.role === role),
+                            R.map(R.prop('countryIso'))
+                          )(user.roles)
+                        }
+                        unselectableCountries={
+                          R.pipe(
+                            R.filter(userRole => userRole.role !== role),
+                            R.map(R.prop('countryIso'))
+                          )(user.roles)
+                        }
                         getCountryName={getCountryName}
                         onClose={() => this.setState(R.dissocPath(['editingRole', role], this.state))}
-                        toggleCountryRole={R.partialRight(toggleCountryRole, [role])}
+                        toggleCountry={R.partialRight(toggleCountryRole, [role])}
                       />
                       : null
                   }
