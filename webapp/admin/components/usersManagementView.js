@@ -9,6 +9,7 @@ import EditUserForm from '../../userManagement/edit/editUserForm'
 
 import { fetchAllUsers, removeUser, sendInvitationEmail } from '../../userManagement/actions'
 import { getCountryName } from '../../country/actions'
+import { administrator } from '../../../common/countryRole'
 
 class UsersManagementView extends React.Component {
 
@@ -57,7 +58,8 @@ const mapStateToProps = (state, props) =>
     countryIso: R.path(['match', 'params', 'countryIso'], props),
     allUsers: state.userManagement.allUsers,
     userCounts: state.userManagement.userCounts,
-    editUserStatus: R.path(['userManagement', 'editUser', 'status'], state)
+    editUserStatus: R.path(['userManagement', 'editUser', 'status'], state),
+    countries: R.path(['country', 'countries', administrator.role], state)
   })
 
 export default connect(
