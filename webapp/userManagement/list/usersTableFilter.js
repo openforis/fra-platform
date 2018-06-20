@@ -8,24 +8,12 @@ import snake from 'to-snake-case'
 import MultiSelect from '../../reusableUiComponents/multiSelect'
 import CountrySelectionModal from '../edit/countrySelectionModal'
 
-import {
-  alternateNationalCorrespondent,
-  nationalCorrespondent,
-  collaborator,
-  reviewer,
-  administrator
-} from '../../../common/countryRole'
+import { roleKeys } from '../../../common/countryRole'
 
 const roleToValue = role => camelize(role.toLowerCase())
 const valueToRole = value => snake(value).toUpperCase()
 
-const roles = [
-  roleToValue(reviewer.role),
-  roleToValue(nationalCorrespondent.role),
-  roleToValue(alternateNationalCorrespondent.role),
-  roleToValue(collaborator.role),
-  roleToValue(administrator.role)
-]
+const roles = R.map(roleToValue, roleKeys)
 
 const languages = ['en', 'es', 'fr', 'ru']
 

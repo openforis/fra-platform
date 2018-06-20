@@ -51,7 +51,8 @@ class UsersTableFilterWrapper extends React.Component {
                         onChange={filter => this.setState({filter})}/>
 
       <UsersTable {...this.props}
-                  users={filteredUsers}/>
+                  users={filteredUsers}
+                  roles={R.path(['filter', 'roles'], this.state)}/>
 
     </div>
   }

@@ -21,6 +21,11 @@ const roles = {
   [collaborator.role]: collaborator
 }
 
+const roleKeys = R.pipe(
+  R.values,
+  R.map(R.prop('role'))
+)(roles)
+
 const getRoleLabelKey = (roleName) => R.path([roleName, 'labelKey'], roles)
 
 const hasRole = (role, roles) => R.find(R.propEq('role', role))(roles)
@@ -67,4 +72,5 @@ module.exports.collaborator = collaborator
 module.exports.noRole = noRole
 
 module.exports.roles = R.values(roles)
+module.exports.roleKeys = roleKeys
 module.exports.getRoleLabelKey = getRoleLabelKey
