@@ -9,11 +9,11 @@ module.exports.readGrowingStock = (countryIso, tableName) =>
     SELECT
         year,
         naturally_regenerating_forest,
+        planted_forest,
         plantation_forest,
         other_planted_forest,
-        other_wooded_land,
-        planted_forest,
-        forest
+        forest,
+        other_wooded_land
     FROM
         ${tableName}
     WHERE
@@ -23,11 +23,11 @@ module.exports.readGrowingStock = (countryIso, tableName) =>
       row => ({
         year: row.year,
         naturallyRegeneratingForest: row.naturally_regenerating_forest,
+        plantedForest: row.planted_forest,
         plantationForest: row.plantation_forest,
         otherPlantedForest: row.other_planted_forest,
-        otherWoodedLand: row.other_wooded_land,
-        plantedForest: row.planted_forest,
-        forest: row.forest
+        forest: row.forest,
+        otherWoodedLand: row.other_wooded_land
       })
     ))
 
