@@ -904,6 +904,7 @@ The FRA team
     admin: 'Admin',
     filter: 'Filter by',
     language: 'Language',
-    country: 'Country'
+    country: 'Country',
+    invitationPending:'Invitation pending'
   }
 }

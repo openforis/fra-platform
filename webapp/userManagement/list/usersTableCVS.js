@@ -4,84 +4,72 @@ import * as R from 'ramda'
 import { CSVLink } from 'react-csv'
 import Icon from '../../reusableUiComponents/icon'
 
-import { i18nUserRole } from '../../../common/userUtils'
-import { getRoleLabelKey } from '../../../common/countryRole'
-import { getFilterRoles } from './filter'
+import { administrator, getRoleLabelKey } from '../../../common/countryRole'
+import { getFilterRoles, filterUserCountryRoles } from './filter'
 
-const UsersTableCSVExportButton = ({users, i18n, isAdminTable, filter, userInfo, getCountryName}) =>
+const UsersTableCSVExportButton = ({users, i18n, isAdminTable = false, filter = {}, userInfo, getCountryName}) =>
   <CSVLink className="btn-s btn-primary"
            target="_blank"
            filename="FRA-Users.csv"
-           data={csvData(users, i18n, isAdminTable, userInfo, getCountryName)}
-           headers={isAdminTable
-             ? adminCsvHeaders(i18n, filter)
-             : csvHeaders(i18n)
-           }>
+           data={csvTableData(users, i18n, getCountryName, userInfo.lang, isAdminTable, filter)}
+           headers={csvHeaders(i18n, isAdminTable, filter)}>
     <Icon className="icon-sub icon-white" name="hit-down"/>CSV
   </CSVLink>
 
-const csvHeaders = i18n => [
+// ==== HEADERS
+const csvHeaders = (i18n, isAdminTable, filter) => [
   {key: 'name', label: i18n.t('userManagement.name')},
-  {key: 'role', label: i18n.t('userManagement.role')},
+  ...csvRoleHeaders(i18n, isAdminTable, filter),
   {key: 'email', label: i18n.t('userManagement.email')},
   {key: 'loginEmail', label: i18n.t('userManagement.loginEmail')},
 ]
 
-const adminCsvHeaders = (i18n, filter) => [
-  {key: 'name', label: i18n.t('userManagement.name')},
-  ...getFilterRoles(filter)
-    .map(role => ({key: role, label: i18n.t(getRoleLabelKey(role))})),
-  {key: 'email', label: i18n.t('userManagement.email')},
-  {key: 'loginEmail', label: i18n.t('userManagement.loginEmail')},
-]
-
-const csvData = (users, i18n, isAdminTable, userInfo, getCountryName) =>
-  R.map(
-    user => ({
-      name: user.name,
-      role: userRoleCSVColumn(user, i18n, isAdminTable, userInfo, getCountryName),
-      email: user.email,
-      loginEmail: user.loginEmail
-    })
-    , users
-  )
-
-const adminCsvData = (users, i18n, adminRoles, userInfo, getCountryName) =>
-  R.map(
-    user => ({
-      name: user.name,
-      role: userRoleCSVColumn(user, i18n, isAdminTable, userInfo, getCountryName),
-      email: user.email,
-      loginEmail: user.loginEmail
-    })
-    , users
-  )
-
-const userRoleCSVColumn = (user, i18n, isAdminTable, userInfo, getCountryName) =>
+const csvRoleHeaders = (i18n, isAdminTable, filter) =>
   isAdminTable
-    ? userRoles(user, i18n, userInfo, getCountryName)
-    : i18nUserRole(i18n, user.role)
+    ? getFilterRoles(filter)
+      .map(role => ({key: role, label: i18n.t(getRoleLabelKey(role))}))
+    : [{key: 'role', label: i18n.t('userManagement.role')}]
 
-const userRoles = (user, i18n, userInfo, getCountryName) => {
-  if (user.invitationUuid) {
-    return userRole(i18n, getCountryName, userInfo.lang, user.role, [user.countryIso])
-  } else {
-    const roleCountries = R.groupBy(R.prop('role'), user.roles)
-    return R.keys(roleCountries)
-      .map(role => {
-        const countryISOs = roleCountries[role].map(R.prop('countryIso'))
-        return userRole(i18n, getCountryName, userInfo.lang, role, countryISOs)
-      })
-      .join(`\r\n\r\n`)
+// ==== TABLE DATA
+const csvTableData = (users, i18n, getCountryName, lang, isAdminTable, filter) =>
+  isAdminTable
+    ? adminCsvTableData(users, i18n, getCountryName, lang, filter)
+    : users.map(user =>
+      csvRowData(user, i18n, user, false, getCountryName, lang)
+    )
+
+const adminCsvTableData = (users, i18n, getCountryName, lang, filter) =>
+  R.reduce(
+    (rows, user) => {
+      user.invitationUuid
+        ? rows.push(
+        csvRowData(user, i18n, user, true, getCountryName, lang)
+        )
+        : user.roles
+          .forEach(userRole => rows.push(
+            csvRowData(user, i18n, userRole, true, getCountryName, lang)
+          ))
+
+      return rows
+    }
+    , []
+    , filterUserCountryRoles(filter)(users)
+  )
+
+const csvRowData = (user, i18n, userRole, isAdminTable, getCountryName, lang) => {
+  const roleKey = isAdminTable ? userRole.role : 'role'
+  const roleValue = isAdminTable
+    ? userRole.role === administrator.role
+      ? i18n.t(getRoleLabelKey(administrator.role))
+      : getCountryName(userRole.countryIso, lang)
+    : i18n.t(getRoleLabelKey(userRole.role))
+
+  return {
+    name: user.name,
+    [roleKey]: `${roleValue}${user.invitationUuid ? ' - ' + i18n.t('admin.invitationPending') : ''}`,
+    email: user.email,
+    loginEmail: user.loginEmail
   }
-}
-
-const userRole = (i18n, getCountryName, lang, role, countryISOs) => {
-  const countryNames = countryISOs
-    .map(countryIso => getCountryName(countryIso, lang))
-    .join(', ')
-
-  return `${i18nUserRole(i18n, role)}\r\n${countryNames}`
 }
 
 export default UsersTableCSVExportButton
