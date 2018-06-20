@@ -5,13 +5,18 @@ import { CSVLink } from 'react-csv'
 import Icon from '../../reusableUiComponents/icon'
 
 import { i18nUserRole } from '../../../common/userUtils'
+import { getRoleLabelKey } from '../../../common/countryRole'
+import { getFilterRoles } from './filter'
 
-const UsersTableCSVExportButton = ({users, i18n, isAdminTable, userInfo,getCountryName}) =>
+const UsersTableCSVExportButton = ({users, i18n, isAdminTable, filter, userInfo, getCountryName}) =>
   <CSVLink className="btn-s btn-primary"
            target="_blank"
            filename="FRA-Users.csv"
            data={csvData(users, i18n, isAdminTable, userInfo, getCountryName)}
-           headers={csvHeaders(i18n)}>
+           headers={isAdminTable
+             ? adminCsvHeaders(i18n, filter)
+             : csvHeaders(i18n)
+           }>
     <Icon className="icon-sub icon-white" name="hit-down"/>CSV
   </CSVLink>
 
@@ -22,7 +27,26 @@ const csvHeaders = i18n => [
   {key: 'loginEmail', label: i18n.t('userManagement.loginEmail')},
 ]
 
+const adminCsvHeaders = (i18n, filter) => [
+  {key: 'name', label: i18n.t('userManagement.name')},
+  ...getFilterRoles(filter)
+    .map(role => ({key: role, label: i18n.t(getRoleLabelKey(role))})),
+  {key: 'email', label: i18n.t('userManagement.email')},
+  {key: 'loginEmail', label: i18n.t('userManagement.loginEmail')},
+]
+
 const csvData = (users, i18n, isAdminTable, userInfo, getCountryName) =>
+  R.map(
+    user => ({
+      name: user.name,
+      role: userRoleCSVColumn(user, i18n, isAdminTable, userInfo, getCountryName),
+      email: user.email,
+      loginEmail: user.loginEmail
+    })
+    , users
+  )
+
+const adminCsvData = (users, i18n, adminRoles, userInfo, getCountryName) =>
   R.map(
     user => ({
       name: user.name,

@@ -1,8 +1,9 @@
 import React from 'react'
-import * as R from 'ramda'
 
 import UsersTable from './usersTable'
 import UsersTableFilter from './usersTableFilter'
+
+import { defaultFilter, filterUsers } from './filter'
 
 class UsersTableFilterWrapper extends React.Component {
 
@@ -10,40 +11,14 @@ class UsersTableFilterWrapper extends React.Component {
     super(props)
 
     this.state = {
-      filter: {
-        countries: [],
-        langs: [],
-        roles: [],
-      }
+      filter: defaultFilter
     }
-  }
 
-  filterUsers () {
-    const {users = []} = this.props
-    const {roles, countries} = R.path(['state', 'filter'], this)
-
-    const includeCountryRole = countryRole => R.isEmpty(roles)
-      ? R.contains(countryRole.countryIso, countries)
-      : R.isEmpty(countries)
-        ? R.contains(countryRole.role, roles)
-        : R.any(roleFilter =>
-            R.any(countryFilter =>
-              countryRole.role === roleFilter && countryRole.countryIso === countryFilter
-              , countries)
-          , roles)
-
-    const filterFn = user => R.isEmpty(roles) && R.isEmpty(countries)
-      ? true
-      : R.any(
-        includeCountryRole,
-        user.invitationUuid ? [{...user}] : user.roles
-      )
-
-    return R.filter(filterFn, users)
   }
 
   render () {
-    const filteredUsers = this.filterUsers()
+    const {users = []} = this.props
+    const filteredUsers = filterUsers(this.state.filter)(users)
 
     return <div>
       <UsersTableFilter {...this.props}
@@ -52,7 +27,7 @@ class UsersTableFilterWrapper extends React.Component {
 
       <UsersTable {...this.props}
                   users={filteredUsers}
-                  roles={R.path(['filter', 'roles'], this.state)}/>
+                  filter={this.state.filter}/>
 
     </div>
   }
