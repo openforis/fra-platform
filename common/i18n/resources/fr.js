@@ -874,6 +874,7 @@ L'équipe de FRA
     admin: 'Administration',
     filter: 'Filtrer par',
     language: 'Langue',
-    country: 'Pays'
+    country: 'Pays',
+    invitationPending: 'Invitation en attente'
   }
 }
