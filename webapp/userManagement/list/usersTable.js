@@ -4,9 +4,8 @@ import * as R from 'ramda'
 import UsersTableCSVExportButton from './usersTableCVS'
 import Icon from '../../reusableUiComponents/icon'
 
-import { administrator, roleKeys, getRoleLabelKey } from '../../../common/countryRole'
-
-const adminRoles = (roles = []) => R.isEmpty(roles) ? roleKeys : roles
+import { administrator, getRoleLabelKey } from '../../../common/countryRole'
+import { getFilterRoles } from './filter'
 
 const UsersTable = ({users, i18n, isAdminTable = false, ...props}) =>
   users
@@ -25,13 +24,13 @@ const UsersTable = ({users, i18n, isAdminTable = false, ...props}) =>
     </table>
     : null
 
-const UsersTableHeadRow = ({users, i18n, isAdminTable, ...props}) =>
+const UsersTableHeadRow = ({users, i18n, isAdminTable, filter = {}, ...props}) =>
   <thead>
   <tr>
     <th className="user-list__header-cell">{i18n.t('userManagement.name')}</th>
     {
       isAdminTable
-        ? adminRoles(props.roles).map(role =>
+        ? getFilterRoles(filter).map(role =>
           <th key={role} className="user-list__header-cell">{i18n.t(getRoleLabelKey(role))}</th>
         )
         : <th className="user-list__header-cell">{i18n.t('userManagement.role')}</th>
@@ -43,7 +42,11 @@ const UsersTableHeadRow = ({users, i18n, isAdminTable, ...props}) =>
         : <th className="user-list__header-cell">{i18n.t('userManagement.loginEmail')}</th>
     }
     <th className="user-list__header-cell user-list__edit-column">
-      <UsersTableCSVExportButton i18n={i18n} users={users} isAdminTable={isAdminTable} {...props}/>
+      <UsersTableCSVExportButton {...props}
+                                 i18n={i18n}
+                                 users={users}
+                                 isAdminTable={isAdminTable}
+                                 filter={filter}/>
     </th>
   </tr>
   </thead>
@@ -70,7 +73,7 @@ class UserRow extends React.Component {
       userInfo,
       isAdminTable,
       getCountryName,
-      roles
+      filter
     } = this.props
 
     return <tr className={user.invitationUuid ? 'user-list__invitation-row' : ''}>
@@ -79,7 +82,7 @@ class UserRow extends React.Component {
 
       {
         isAdminTable
-          ? adminRoles(roles).map(role =>
+          ? getFilterRoles(filter).map(role =>
             <UserRoleColumn user={user} i18n={i18n}
                             lang={userInfo.lang} getCountryName={getCountryName}
                             isAdminTable={isAdminTable}
