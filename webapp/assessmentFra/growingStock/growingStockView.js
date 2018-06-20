@@ -74,7 +74,7 @@ const InputRowTotal = (props) => {
             numberValue={value}
             onPaste={e => props.pasteTotalValue(countryIso, year, row, readPasteClipboard(e, 'decimal'))}
             onChange={e => props.changeTotalValue(countryIso, year, row, e.target.value)}
-            disabled={isEditDataDisabled} />
+            disabled={isEditDataDisabled}/>
         </td>
       }, defaultYears)
     }
@@ -110,10 +110,9 @@ const ClipboardTable = ({tableValues}) =>
 const copyTableAsHtml = (tableData, i18n) => {
   const tableValues = R.pipe(
     R.values,
-    R.map(y => R.omit(['year', 'otherWoodedLand'], y)),
+    R.map(y => R.omit(['year', 'otherWoodedLand', 'forest'], y)),
     R.map(R.values),
     R.transpose,
-    R.insert(1, [])
   )(tableData)
   const htmlTable = ReactDOMServer.renderToString(<ClipboardTable tableValues={tableValues}/>)
   const dataTransfer = new clipboard.DT()
@@ -143,7 +142,6 @@ export const plantedForestSubCategoryValidator = (props, year, row) => {
 
 const GrowingStock = (props) => {
   const {i18n, countryIso, avgTable, totalTable, isEditDataDisabled} = props
-
 
   if (R.isNil(avgTable) || R.isNil(totalTable)) return null
 
