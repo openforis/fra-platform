@@ -4,27 +4,15 @@ import * as R from 'ramda'
 import UsersTableCSVExportButton from './usersTableCVS'
 import Icon from '../../reusableUiComponents/icon'
 
-import { i18nUserRole } from '../../../common/userUtils'
+import { administrator, roleKeys, getRoleLabelKey } from '../../../common/countryRole'
+
+const adminRoles = (roles = []) => R.isEmpty(roles) ? roleKeys : roles
 
 const UsersTable = ({users, i18n, isAdminTable = false, ...props}) =>
   users
     ? <table className="user-list__table">
 
-      <thead>
-      <tr>
-        <th className="user-list__header-cell">{i18n.t('userManagement.name')}</th>
-        <th className="user-list__header-cell">{i18n.t('userManagement.role')}</th>
-        <th className="user-list__header-cell">{i18n.t('userManagement.email')}</th>
-        {
-          isAdminTable
-            ? null
-            : <th className="user-list__header-cell">{i18n.t('userManagement.loginEmail')}</th>
-        }
-        <th className="user-list__header-cell user-list__edit-column">
-          <UsersTableCSVExportButton i18n={i18n} users={users} isAdminTable={isAdminTable} {...props}/>
-        </th>
-      </tr>
-      </thead>
+      <UsersTableHeadRow i18n={i18n} users={users} isAdminTable={isAdminTable} {...props}/>
 
       <tbody>
       {
@@ -36,6 +24,29 @@ const UsersTable = ({users, i18n, isAdminTable = false, ...props}) =>
 
     </table>
     : null
+
+const UsersTableHeadRow = ({users, i18n, isAdminTable, ...props}) =>
+  <thead>
+  <tr>
+    <th className="user-list__header-cell">{i18n.t('userManagement.name')}</th>
+    {
+      isAdminTable
+        ? adminRoles(props.roles).map(role =>
+          <th key={role} className="user-list__header-cell">{i18n.t(getRoleLabelKey(role))}</th>
+        )
+        : <th className="user-list__header-cell">{i18n.t('userManagement.role')}</th>
+    }
+    <th className="user-list__header-cell">{i18n.t('userManagement.email')}</th>
+    {
+      isAdminTable
+        ? null
+        : <th className="user-list__header-cell">{i18n.t('userManagement.loginEmail')}</th>
+    }
+    <th className="user-list__header-cell user-list__edit-column">
+      <UsersTableCSVExportButton i18n={i18n} users={users} isAdminTable={isAdminTable} {...props}/>
+    </th>
+  </tr>
+  </thead>
 
 const NoUsersRow = ({i18n}) => <tr>
   <td className="user-list__cell" colSpan="5">
@@ -58,17 +69,28 @@ class UserRow extends React.Component {
       onEditClick,
       userInfo,
       isAdminTable,
-      getCountryName
+      getCountryName,
+      roles
     } = this.props
 
     return <tr className={user.invitationUuid ? 'user-list__invitation-row' : ''}>
 
       <UserColumn user={user} field="name"/>
-      <UserRoleColumn user={user}
-                      i18n={i18n}
-                      isAdminTable={isAdminTable}
-                      userInfo={userInfo}
-                      getCountryName={getCountryName}/>
+
+      {
+        isAdminTable
+          ? adminRoles(roles).map(role =>
+            <UserRoleColumn user={user} i18n={i18n}
+                            lang={userInfo.lang} getCountryName={getCountryName}
+                            isAdminTable={isAdminTable}
+                            key={role} role={role}/>
+          )
+          : <UserRoleColumn user={user} i18n={i18n}
+                            isAdminTable={isAdminTable}
+                            lang={userInfo.lang} getCountryName={getCountryName}/>
+
+      }
+
       <UserColumn user={user} field="email"/>
 
       {
@@ -135,40 +157,34 @@ const UserColumn = ({user, field}) => <td className="user-list__cell">
   <div className="user-list__cell--read-only">{user[field] ? user[field] : '\xA0'}</div>
 </td>
 
-const UserRoleColumn = ({user, i18n, isAdminTable, userInfo, getCountryName}) => <td className="user-list__cell">
-  <div className="user-list__cell--read-only">
-    {
-      isAdminTable
-        ? userRoles(user, i18n, userInfo, getCountryName)
-        : i18nUserRole(i18n, user.role)
-    }
-  </div>
-</td>
+const UserRoleColumn = ({i18n, user, role = null, lang, getCountryName, isAdminTable}) => {
 
-const userRoles = (user, i18n, userInfo, getCountryName) => {
-  if (user.invitationUuid) {
-    return userRole(i18n, getCountryName, userInfo.lang, user.role, [user.countryIso])
-  } else {
-    const roleCountries = R.groupBy(R.prop('role'), user.roles)
-    return R.keys(roleCountries)
-      .map(role => {
-        const countryISOs = roleCountries[role].map(R.prop('countryIso'))
-        return userRole(i18n, getCountryName, userInfo.lang, role, countryISOs)
-      })
-  }
+  const roleLabel = userRole => i18n.t(getRoleLabelKey(userRole.role))
+
+  const invitationColumnValue = user => isAdminTable
+    ? user.role === role
+      ? getCountryName(user.countryIso, lang)
+      : null
+    : roleLabel(user)
+
+  return <td className="user-list__cell">
+    <div className="user-list__cell--read-only">
+      {
+        user.invitationUuid
+          ? invitationColumnValue(user)
+          : isAdminTable
+          ? R.pipe(
+            R.filter(userRole => role ? userRole.role === role : role),
+            R.map(userRole => userRole.role === administrator.role
+              ? roleLabel(userRole)
+              : i18n.t(getCountryName(userRole.countryIso, lang))
+            ),
+            R.join(', ')
+          )(user.roles)
+          : roleLabel(user)
+      }
+    </div>
+  </td>
 }
-
-const userRole = (i18n, getCountryName, lang, role, countryISOs) => <div key={role}>
-  <div className="user-counts__item">
-    {i18nUserRole(i18n, role)}
-  </div>
-  <div>
-    {
-      countryISOs.map(countryIso =>
-        getCountryName(countryIso, lang)
-      ).join(', ')
-    }
-  </div>
-</div>
 
 export default UsersTable
