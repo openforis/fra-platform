@@ -15,7 +15,11 @@ const UsersTable = ({users, i18n, isAdminTable = false, ...props}) =>
         <th className="user-list__header-cell">{i18n.t('userManagement.name')}</th>
         <th className="user-list__header-cell">{i18n.t('userManagement.role')}</th>
         <th className="user-list__header-cell">{i18n.t('userManagement.email')}</th>
-        <th className="user-list__header-cell">{i18n.t('userManagement.loginEmail')}</th>
+        {
+          isAdminTable
+            ? null
+            : <th className="user-list__header-cell">{i18n.t('userManagement.loginEmail')}</th>
+        }
         <th className="user-list__header-cell user-list__edit-column">
           <UsersTableCSVExportButton i18n={i18n} users={users} isAdminTable={isAdminTable} {...props}/>
         </th>
@@ -66,7 +70,12 @@ class UserRow extends React.Component {
                       userInfo={userInfo}
                       getCountryName={getCountryName}/>
       <UserColumn user={user} field="email"/>
-      <UserColumn user={user} field="loginEmail"/>
+
+      {
+        isAdminTable
+          ? null
+          : <UserColumn user={user} field="loginEmail"/>
+      }
 
       <td className="user-list__cell user-list__edit-column">
         { // pending users cannot be edited
