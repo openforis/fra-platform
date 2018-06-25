@@ -1,7 +1,7 @@
 module.exports = {
   tableName: 'specific_forest_categories',
   rows: {
-    names: ['bamboo', 'mangroves', 'temporarily_unstocked', 'primary_forest']
+    names: ['bamboo', 'mangroves', 'temporarily_unstocked', 'primary_forest', 'rubber_wood']
   },
   columns: [
     {name: '1990', type: 'numeric'},

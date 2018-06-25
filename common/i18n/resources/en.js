@@ -526,6 +526,7 @@ The FRA team fra@fao.org
     temporarilyUnstocked: 'Temporarily unstocked and/or recently regenerated',
     primaryForest: 'Primary forest',
     exceedsNaturallyRegeneratingForest: 'Exceeds naturally regenerating forest (1b)',
+    rubberWood: 'Rubber wood'
   },
 
   otherLandWithTreeCover: {

@@ -496,6 +496,7 @@ L'équipe de FRA fra@fao.org
     temporarilyUnstocked: 'Temporairement non boisée et/ou récemment régénérée',
     primaryForest: 'Forêt primaire',
     exceedsNaturallyRegeneratingForest: 'Supérieur aux forêts naturellement régénérées (1b)',
+    rubberWood: 'Bois de caoutchouc'
   },
 
   otherLandWithTreeCover: {
