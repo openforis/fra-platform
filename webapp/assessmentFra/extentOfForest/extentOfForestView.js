@@ -23,7 +23,7 @@ import { isFRA2020SectionEditDisabled } from '../../utils/assessmentAccess'
 
 const sectionName = 'extentOfForest'
 const mapIndexed = R.addIndex(R.map)
-const odpValueCellClass = (fraColumn) => fraColumn.type === 'odp' ? 'odp-value-cell-total no-print' : 'fra-table__calculated-cell'
+const odpValueCellClass = (fraColumn) => fraColumn.type === 'odp' ? 'odp-value-cell-total' : 'fra-table__calculated-cell'
 
 const ExtentOfForest = (props) => {
 

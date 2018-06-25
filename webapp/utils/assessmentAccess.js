@@ -3,6 +3,7 @@ import * as R from 'ramda'
 import { isCollaborator, isReviewer, isAdministrator } from '../../common/countryRole'
 import { isCollaboratorAllowedToEditSectionData } from '../../common/assessmentRoleAllowance'
 import { assessmentStatus } from '../../common/assessment'
+import { isPrintingMode } from '../printAssessment/printAssessment'
 
 const getUserInfo = R.path(['user', 'userInfo'])
 const getCountryIso = R.path(['router', 'country'])
@@ -70,5 +71,5 @@ const canEditFRA2020Section = (state, section = 'all') => {
 }
 
 export const isFRA2020SectionEditDisabled = (state, section) => {
-  return !canEditFRA2020Section(state, section)
+  return isPrintingMode || !canEditFRA2020Section(state, section)
 }
