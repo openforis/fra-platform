@@ -882,5 +882,13 @@ module.exports.translation = {
       africa: 'Африка',
       atlantis: 'Атлантида'
     }
+  },
+
+  admin: {
+    admin: 'Администратор',
+    filter: 'Фильтровать по',
+    language: 'Язык',
+    country: 'Страна',
+    invitationPending: 'Приглашение в стадии рассмотрения'
   }
 }
