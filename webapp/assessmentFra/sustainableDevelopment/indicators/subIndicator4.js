@@ -3,30 +3,37 @@ import React from 'react'
 import ResponsibleAgency from './responsibleAgency'
 import ReviewIndicator from '../../../review/reviewIndicator'
 
+import { div, mul } from '../../../../common/bignumberUtils'
 import { formatDecimal } from '../../../utils/numberFormat'
 import * as R from 'ramda'
 
-const SubIndicator4 = ({i18n, countryIso, years, countryConfig, disabled}) => {
+import { getForestArea } from './indicators'
 
-  const indicatorYears = R.reject(y => y === '1990', years)
+const SubIndicator4 = ({i18n, countryIso, data, years, disabled}) => {
 
-  const getCertifiedArea = year => R.path(['certifiedAreas', year])(countryConfig)
+  const getValue = (year, field) => {
+    const val = R.path(['forestAreaWithinProtectedAreas', field, year], data)
+    return mul(div(val, getForestArea(data, year)), 100)
+  }
+
+  const getValueForestManagement = year => getValue(year, 'forestAreaWithLongTermManagementPlan')
 
   return <div className="fra-table__container">
     <div className="fra-table__scroll-wrapper">
       <table className="fra-table">
+
         <thead>
         <tr>
           <th rowSpan="2" className="fra-table__header-cell-left">
             {i18n.t('sustainableDevelopment.subIndicator', {no: 4})}
           </th>
           <th colSpan={years.length} className="fra-table__header-cell">
-            {i18n.t('sustainableDevelopment.forestArea1000Ha')}
+            {i18n.t('sustainableDevelopment.percent2015ForestAreaBaseline')}
           </th>
         </tr>
         <tr>
           {
-            indicatorYears.map(year =>
+            years.map(year =>
               <th key={`${year}h`} className="fra-table__header-cell">
                 {year}
               </th>
@@ -34,15 +41,16 @@ const SubIndicator4 = ({i18n, countryIso, years, countryConfig, disabled}) => {
           }
         </tr>
         </thead>
+
         <tbody>
         <tr>
           <th className="fra-table__category-cell">
-            {i18n.t('sustainableDevelopment.forestAreaVerifiedForestManagement')}
+            {i18n.t('sustainableDevelopment.proportionForestAreaLongTermForestManagement')}
           </th>
           {
-            indicatorYears.map(year =>
+            years.map((year, i) =>
               <td key={`${year}h`} className="fra-table__calculated-cell">
-                {formatDecimal(getCertifiedArea(year))}
+                {formatDecimal(getValueForestManagement(year, i))}
               </td>
             )
           }
@@ -51,17 +59,16 @@ const SubIndicator4 = ({i18n, countryIso, years, countryConfig, disabled}) => {
               {
                 disabled
                   ? null
-                  : <ReviewIndicator
-                    section={'sustainableDevelopment'}
-                    title={i18n.t('sustainableDevelopment.forestAreaVerifiedForestManagement')}
-                    target={['subIndicator4']}
-                    countryIso={countryIso}/>
+                  : <ReviewIndicator section={'sustainableDevelopment'}
+                                     title={i18n.t('sustainableDevelopment.proportionForestAreaLongTermForestManagement')}
+                                     target={['proportionForestAreaLongTermForestManagement']}
+                                     countryIso={countryIso}/>
               }
             </div>
           </td>
         </tr>
-
         </tbody>
+
       </table>
     </div>
 
