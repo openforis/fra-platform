@@ -1,6 +1,5 @@
 import React from 'react'
 
-import ResponsibleAgency from './responsibleAgency'
 import ReviewIndicator from '../../../review/reviewIndicator'
 
 import { formatDecimal } from '../../../utils/numberFormat'
