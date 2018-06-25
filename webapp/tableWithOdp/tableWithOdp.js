@@ -85,7 +85,7 @@ export class TableWithOdp extends React.Component {
           <tr>
             {
               R.values(this.props.fra).map(value =>
-                <th className={value.type === 'odp' ? 'odp-header-cell no-print' : 'fra-table__header-cell'}
+                <th className={value.type === 'odp' ? 'odp-header-cell' : 'fra-table__header-cell'}
                     key={`${value.type}_${value.name}`}>
                   {
                     value.type === 'odp'
@@ -358,7 +358,7 @@ const renderFieldRow = ({row, countryIso, fra, save, saveMany, pasteUpdate, rowI
               R.reject(R.isNil),
               R.join(' ')
             )([
-              fraColumn.type === 'odp' ? 'odp-value-cell no-print' : 'fra-table__cell',
+              fraColumn.type === 'odp' ? 'odp-value-cell' : 'fra-table__cell',
               validator(fraColumn, field) ? null : 'validation-error'
             ])
           return (
