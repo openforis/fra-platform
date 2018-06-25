@@ -24,7 +24,7 @@ export const isAssessmentLocked = (state, assessmentName) => {
   const userInfo = getUserInfo(state)
   const countryIso = getCountryIso(state)
 
-  if (isReviewer(countryIso, userInfo) && !isAdministrator(userInfo)) {
+  if (isReviewer(countryIso, userInfo) || isAdministrator(userInfo)) {
     const locked = getAssessmentProp(assessmentName, 'locked', true)(state)
     return locked
   }
@@ -36,7 +36,10 @@ export const canToggleAssessmentLock = (state, assessmentName) => {
   const userInfo = getUserInfo(state)
   const countryIso = getCountryIso(state)
 
-  if (isReviewer(countryIso, userInfo) && !isAdministrator(userInfo)) {
+  if (isAdministrator(userInfo)) {
+    return true
+  }
+  if (isReviewer(countryIso, userInfo)) {
     const status = getAssessmentProp(assessmentName, 'status', '')(state)
     return R.contains(status, [assessmentStatus.editing, assessmentStatus.review])
   }
