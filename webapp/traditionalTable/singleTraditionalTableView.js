@@ -30,6 +30,7 @@ class SingleTraditionalTableView extends React.Component {
       sectionAnchor,
       tadAnchor,
       faqAnchor,
+      useNationalDataDescriptions,
       useAnalysisDescriptions,
       tableSpecInstance,
       isEditDataDisabled
@@ -39,7 +40,11 @@ class SingleTraditionalTableView extends React.Component {
 
     return <LoggedInPageTemplate>
       <div className="fra-view__content">
-        <NationalDataDescriptions section={tableSpecInstance.name} countryIso={countryIso} disabled={isEditDataDisabled}/>
+        {
+          useNationalDataDescriptions === false
+          ? null
+            :<NationalDataDescriptions section={tableSpecInstance.name} countryIso={countryIso} disabled={isEditDataDisabled}/>
+        }
         {
           // Default is that we show the analysisDescriptions if this prop doesn't exist
           useAnalysisDescriptions === false
