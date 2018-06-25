@@ -510,6 +510,7 @@ module.exports.translation = {
     temporarilyUnstocked: 'Временно обезлесенные и/или недавно возобновленные',
     primaryForest: 'Девственные леса',
     exceedsNaturallyRegeneratingForest: 'Превышает естественно возобновляемые леса (1b)',
+    rubberWood: 'Каучуковое дерево'
   },
 
   otherLandWithTreeCover: {
