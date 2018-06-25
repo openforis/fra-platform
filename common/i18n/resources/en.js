@@ -771,10 +771,10 @@ The FRA team fra@fao.org
     forestAreaProportionLandArea2015: 'Forest area as proportion of total land area 2015',
     subIndicator: 'Sub-Indicator {{no}}',
     forestAreaAnnualNetChangeRate: 'Forest area annual net change rate',
-    aboveGroundBiomassStockForests: 'Above-ground biomass stock in forests',
+    aboveGroundBiomassStockForests: 'Above-ground biomass stock in forest',
     percent2015ForestAreaBaseline: 'Percent (2015 forest area baseline)',
     proportionForestAreaLegallyEstablishedProtectedAreas: 'Proportion of forest area located within legally established protected areas',
-    proportionForestAreaLongTermForestManagement: 'Proportion of forest area under long-term forest management',
+    proportionForestAreaLongTermForestManagement: 'Proportion of forest area under long-term forest management plan',
     forestArea1000Ha: 'Forest area (1000 ha)',
     forestAreaVerifiedForestManagement: 'Forest area under independently verified forest management certification schemes'
   },
