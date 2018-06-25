@@ -496,6 +496,7 @@ El equipo de FRA
     temporarilyUnstocked: 'Bosque temporalmente sin cubierta de árboles y/o recientemente regenerado',
     primaryForest: 'Bosque primario',
     exceedsNaturallyRegeneratingForest: 'Excede el bosque regenerado de forma natural (1b)',
+    rubberWood: 'Madera de caucho'
   },
 
   otherLandWithTreeCover: {

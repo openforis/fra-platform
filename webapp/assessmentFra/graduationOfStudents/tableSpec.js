@@ -65,6 +65,7 @@ export default (i18n, tableProp) => {
       inputRow(1, inputRowHeading(i18n, 'graduationOfStudents.mastersDegree')),
       inputRow(2, inputRowHeading(i18n, 'graduationOfStudents.bachelorsDegree')),
       inputRow(3, inputRowHeading(i18n, 'graduationOfStudents.technicianCertificate')),
+      inputRow(4, inputRowHeading(i18n, 'graduationOfStudents.total')),
     ],
     valueSlice: {
       columnStart: 1

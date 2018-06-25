@@ -74,7 +74,8 @@ export default (i18n, extentOfForest, forestCharacteristics) => ({
         type: 'decimalInput',
         validator: primaryForestValidator(year, forestCharacteristics)
       }))
-    ]
+    ],
+    forestAreaRow(i18n, extentOfForest, 'rubberWood'),
   ],
   valueSlice: {columnStart: 1}
 })
