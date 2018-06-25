@@ -6,6 +6,7 @@ module.exports = {
       'masters_degree',
       'bachelors_degree',
       'technician_certificate',
+      'total'
     ]
   },
   columns: [
