@@ -71,5 +71,5 @@ const canEditFRA2020Section = (state, section = 'all') => {
 }
 
 export const isFRA2020SectionEditDisabled = (state, section) => {
-  return isPrintingMode || !canEditFRA2020Section(state, section)
+  return isPrintingMode() || !canEditFRA2020Section(state, section)
 }
