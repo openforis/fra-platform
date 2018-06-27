@@ -5,8 +5,7 @@ const db = require('../db/db')
 const userRepository = require('./userRepository')
 const {sendErr, sendOk, serverUrl, send404} = require('../utils/requestUtils')
 
-const {AccessControlException} = require('../utils/accessControl')
-const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
+const {AccessControlException,checkCountryAccessFromReqParams} = require('../utils/accessControl')
 const {sendInvitation} = require('./sendInvitation')
 const {rolesAllowedToChange} = require('../../common/userManagementAccessControl')
 
