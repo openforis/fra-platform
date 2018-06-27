@@ -3,7 +3,7 @@ import * as R from 'ramda'
 
 import UsersTableCSVExportButton from './usersTableCVS'
 import Icon from '../../reusableUiComponents/icon'
-import MultiSelect from '../../assessmentFra/contactPersons/collaboratorsTableMultiSelect'
+import MultiSelect from './collaboratorsTableMultiSelect'
 
 import {
   administrator,
