@@ -4,44 +4,6 @@ const camelize = require('camelize')
 
 const {collaborator} = require('./../../common/countryRole')
 
-const fetchCollaboratorsCountryAccess = async countryIso => {
-
-  const selectRes = await db.query(`
-    SELECT
-      u.id as user_id,
-      u.email,
-      u.name,
-      u.login_email,
-      u.lang,
-      cr.role,
-      ca.tables
-    FROM
-      fra_user u
-    JOIN
-      user_country_role cr
-      ON
-        u.id = cr.user_id
-      AND
-        cr.country_iso = $1
-    LEFT OUTER JOIN
-        collaborators_country_access ca
-        ON ca.user_id = u.id
-        AND ca.country_iso = cr.country_iso
-    WHERE
-      cr.role = $2    
-  `, [countryIso, collaborator.role])
-
-  return R.pipe(
-    camelize,
-    R.map(ca => ({
-        ...ca,
-        tables: R.path(['tables', 'tables'], ca)
-      })
-    )
-  )(selectRes.rows)
-
-}
-
 const fetchCollaboratorCountryAccessTables = async (countryIso, collaboratorId) => {
 
   const selectRes = await db.query(`
@@ -115,7 +77,6 @@ const persistCollaboratorCountryAccess = async (client, user, countryIso, collab
 }
 
 module.exports = {
-  fetchCollaboratorsCountryAccess,
   fetchCollaboratorCountryAccessTables,
   persistCollaboratorCountryAccess
 }
