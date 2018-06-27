@@ -11,7 +11,14 @@ import UsersTable from '../../userManagement/list/usersTable'
 import { rolesAllowedToChange } from '../../../common/userManagementAccessControl'
 
 import { getCountryName } from '../../country/actions'
-import { fetchUsers, removeUser, updateNewUser, addNewUser, sendInvitationEmail } from '../../userManagement/actions'
+import {
+  fetchUsers,
+  removeUser,
+  updateNewUser,
+  addNewUser,
+  sendInvitationEmail,
+  persistCollaboratorCountryAccess
+} from '../../userManagement/actions'
 
 class ManageCollaboratorsView extends React.Component {
 
@@ -75,5 +82,6 @@ export default connect(mapStateToProps, {
   updateNewUser,
   addNewUser,
   getCountryName,
-  sendInvitationEmail
+  sendInvitationEmail,
+  persistCollaboratorCountryAccess
 })(ManageCollaboratorsView)

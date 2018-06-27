@@ -83,7 +83,8 @@ class UserRow extends React.Component {
       userInfo,
       isAdminTable,
       getCountryName,
-      filter
+      filter,
+      persistCollaboratorCountryAccess
     } = this.props
 
     return <tr className={user.invitationUuid ? 'user-list__invitation-row' : ''}>
@@ -107,7 +108,9 @@ class UserRow extends React.Component {
       {
         isAdminTable
           ? null
-          : <UserTableAccessColumn user={user} i18n={i18n}/>
+          : <UserTableAccessColumn user={user} i18n={i18n}
+                                   countryIso={countryIso}
+                                   persistCollaboratorCountryAccess={persistCollaboratorCountryAccess}/>
       }
 
       <UserColumn user={user} field="email"/>
@@ -206,15 +209,14 @@ const UserRoleColumn = ({i18n, user, role = null, lang, getCountryName, isAdminT
   </td>
 }
 
-const UserTableAccessColumn = ({i18n, user}) => {
+const UserTableAccessColumn = ({i18n, countryIso, user, persistCollaboratorCountryAccess}) => {
   return <td className="user-list__cell">
     {user.role === collaborator.role
       ? <MultiSelect i18n={i18n}
                      values={user.tables || undefined}
                      onChange={
                        (values) => {
-                         console.log(values)
-                         // persistCollaboratorCountryAccess(countryIso, R.assoc('tables', values, collaborator))
+                         persistCollaboratorCountryAccess(countryIso, user.id, values)
                        }
                      }
       />

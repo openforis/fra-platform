@@ -2,6 +2,7 @@ import * as R from 'ramda'
 
 import {
   userManagementCountryUsersFetch,
+  userManagementCollaboratorTableAccessUpdate,
   userManagementAllUsersFetch,
   userManagementNewUserUpdate,
   userManagementEditUserLoad,
@@ -23,6 +24,12 @@ const actionHandlers = {
     R.assoc('allUsers', sortUsers(action.allUsers)),
     R.assoc('userCounts', action.userCounts),
   )(state),
+
+  // collaborator table access update
+  [userManagementCollaboratorTableAccessUpdate]: (state, action) => {
+    const idx = R.findIndex(R.propEq('id', action.userId), state.countryUsers)
+    return R.assocPath(['countryUsers', idx, 'tables'], action.tables, state)
+  },
 
   // new user
   [userManagementNewUserUpdate]: (state, action) => R.assoc('newUser', action.user, state),
