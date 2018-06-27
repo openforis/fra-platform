@@ -367,6 +367,7 @@ module.exports.translation = {
     confirmDelete: 'Удалить {{user}}?',
     allUsers: 'Все сотрудники',
     info: 'Информация',
+    tableAccess: 'Доступ к таблице',
     invitationLink: 'Ссылка на приглашение',
     sendInvitation: 'Направить приглашение по электронной почте',
     invitationEmail: {

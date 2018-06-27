@@ -44,7 +44,7 @@ export default class MultiSelect extends React.Component {
 
     return R.contains(option, [optionAll, optionNone])
       ? i18n.t(option.label)
-      : option.tableNo + ', ' + i18n.t(option.label)
+      : option.tableNo //+ ', ' + i18n.t(option.label)
   }
 
   getValues (defaultValues = []) {

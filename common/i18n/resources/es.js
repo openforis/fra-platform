@@ -353,6 +353,7 @@ El equipo de FRA
     confirmDelete: '¿Eliminar {{user}}?',
     allUsers: 'Todos los colaboradores',
     info: 'Información',
+    tableAccess: 'Acceso a las mesas',
     invitationLink: 'Enlace de invitación',
     sendInvitation: 'Enviar correo electrónico de invitación',
     invitationEmail: {

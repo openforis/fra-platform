@@ -383,6 +383,7 @@ The FRA team
     confirmDelete: 'Remove {{user}}?',
     allUsers: 'All collaborators',
     info: 'Info',
+    tableAccess: 'Table access',
     invitationLink: 'Invitation link',
     sendInvitation: 'Send invitation email',
     invitationEmail: {
@@ -905,6 +906,6 @@ The FRA team
     filter: 'Filter by',
     language: 'Language',
     country: 'Country',
-    invitationPending:'Invitation pending'
+    invitationPending: 'Invitation pending'
   }
 }

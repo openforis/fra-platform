@@ -3,8 +3,13 @@ import * as R from 'ramda'
 
 import UsersTableCSVExportButton from './usersTableCVS'
 import Icon from '../../reusableUiComponents/icon'
+import MultiSelect from '../../assessmentFra/contactPersons/collaboratorsTableMultiSelect'
 
-import { administrator, getRoleLabelKey } from '../../../common/countryRole'
+import {
+  administrator,
+  collaborator,
+  getRoleLabelKey
+} from '../../../common/countryRole'
 import { getFilterRoles } from './filter'
 
 const UsersTable = ({users, i18n, isAdminTable = false, ...props}) =>
@@ -34,6 +39,11 @@ const UsersTableHeadRow = ({users, i18n, isAdminTable, filter = {}, ...props}) =
           <th key={role} className="user-list__header-cell">{i18n.t(getRoleLabelKey(role))}</th>
         )
         : <th className="user-list__header-cell">{i18n.t('userManagement.role')}</th>
+    }
+    {
+      isAdminTable
+        ? null
+        : <th className="user-list__header-cell">{i18n.t('userManagement.tableAccess')}</th>
     }
     <th className="user-list__header-cell">{i18n.t('userManagement.email')}</th>
     {
@@ -92,6 +102,12 @@ class UserRow extends React.Component {
                             isAdminTable={isAdminTable}
                             lang={userInfo.lang} getCountryName={getCountryName}/>
 
+      }
+
+      {
+        isAdminTable
+          ? null
+          : <UserTableAccessColumn user={user} i18n={i18n}/>
       }
 
       <UserColumn user={user} field="email"/>
@@ -187,6 +203,23 @@ const UserRoleColumn = ({i18n, user, role = null, lang, getCountryName, isAdminT
           : roleLabel(user)
       }
     </div>
+  </td>
+}
+
+const UserTableAccessColumn = ({i18n, user}) => {
+  return <td className="user-list__cell">
+    {user.role === collaborator.role
+      ? <MultiSelect i18n={i18n}
+                     values={collaborator.tables || undefined}
+                     onChange={
+                       (values) => {
+                         console.log(values)
+                         // persistCollaboratorCountryAccess(countryIso, R.assoc('tables', values, collaborator))
+                       }
+                     }
+      />
+      : '-'
+    }
   </td>
 }
 
