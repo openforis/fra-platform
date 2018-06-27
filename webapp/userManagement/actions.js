@@ -8,6 +8,7 @@ import * as autosave from '../autosave/actions'
 export const userManagementCountryUsersFetch = 'userManagement/countryUsers/fetch'
 export const userManagementAllUsersFetch = 'userManagement/all/fetch'
 export const userManagementNewUserUpdate = 'userManagement/newUser/update'
+export const userManagementCollaboratorTableAccessUpdate = 'userManagement/tableAccess/update'
 
 // list action creators
 
@@ -37,6 +38,33 @@ export const sendInvitationEmail = (countryIso, invitationUuid) => dispatch =>
   axios
     .get(`/api/users/${countryIso}/invitations/${invitationUuid}/send`)
     .catch(err => dispatch(applicationError(err)))
+
+// collaborator table access
+
+export const persistCollaboratorCountryAccess = (countryIso, userId, tables) => dispatch => {
+  dispatch(autosave.start)
+  dispatch({type: userManagementCollaboratorTableAccessUpdate, userId, tables})
+  dispatch(postCollaboratorCountryAccess(countryIso, userId, tables))
+}
+
+const postCollaboratorCountryAccess = (countryIso, userId, tables) => {
+  const dispatched = dispatch => {
+    axios
+      .post(`/api/collaboratorCountryAccess/${countryIso}`, {userId, tables})
+      .then(() => {
+        dispatch(autosave.complete)
+      }).catch(err => dispatch(applicationError(err)))
+  }
+
+  dispatched.meta = {
+    debounce: {
+      time: 400,
+      key: userManagementCollaboratorTableAccessUpdate
+    }
+  }
+  return dispatched
+
+}
 
 // new user action creators
 
