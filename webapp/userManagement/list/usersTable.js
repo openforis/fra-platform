@@ -210,7 +210,7 @@ const UserTableAccessColumn = ({i18n, user}) => {
   return <td className="user-list__cell">
     {user.role === collaborator.role
       ? <MultiSelect i18n={i18n}
-                     values={collaborator.tables || undefined}
+                     values={user.tables || undefined}
                      onChange={
                        (values) => {
                          console.log(values)
