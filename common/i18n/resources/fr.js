@@ -217,7 +217,7 @@ L'équipe de FRA
       userGuide: 'Guide de l\'utilisateur'
     },
     sectionHeaders: {
-      introduction: 'Introduction / Collaborateurs',
+      introduction: 'Introduction',
       forestExtentCharacteristicsAndChanges: 'Étendue, caractéristiques et changement des forêts',
       forestGrowingStockBiomassAndCarbon: 'Matériel sur pied, biomasse et carbone forestiers',
       forestDesignationAndManagement: 'Désignation et gestion des forêts',
@@ -390,7 +390,7 @@ L'équipe de FRA fra@fao.org
 
   contactPersons: {
     reportPreparationAndContactPersons: 'Préparation du rapport et personnes de contact',
-    contactPersons: 'Introduction / Collaborateurs',
+    contactPersons: 'Introduction',
     contactPersonsSupport: 'Le présent rapport a été préparé par la(les) personne(s) suivante(s)',
     introductoryText: 'Texte d\'introduction',
     introductoryTextSupport: 'Placer un texte d\'introduction sur le contenu de ce rapport',
