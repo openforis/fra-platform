@@ -3,9 +3,9 @@ const Promise = require('bluebird')
 
 const db = require('../db/db')
 const userRepository = require('./userRepository')
-const {sendErr, sendOk, serverUrl} = require('../utils/requestUtils')
-const {AccessControlException} = require('../utils/accessControl')
-const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
+const {sendErr, sendOk, serverUrl, send404} = require('../utils/requestUtils')
+
+const {AccessControlException,checkCountryAccessFromReqParams} = require('../utils/accessControl')
 const {sendInvitation} = require('./sendInvitation')
 const {rolesAllowedToChange} = require('../../common/userManagementAccessControl')
 
@@ -42,15 +42,25 @@ module.exports.init = app => {
       const allCountryUsers = await userRepository.fetchUsersAndInvitations(countryIso, url)
       const countryUsers = filterAllowedUsers(countryIso, req.user, allCountryUsers)
 
-      const allUsers = isAdministrator(req.user)
-        ? await userRepository.fetchAllUsersAndInvitations(url)
-        : []
+      res.json({countryUsers})
+    } catch (err) {
+      sendErr(res, err)
+    }
+  })
 
-      const userCounts = isAdministrator(req.user)
-        ? await userRepository.getUserCountsByRole()
-        : null
+  // get all users / only admin can access it
+  app.get('/users', async (req, res) => {
+    try {
+      if (isAdministrator(req.user)) {
+        const url = serverUrl(req)
 
-      res.json({countryUsers, allUsers, userCounts})
+        const allUsers = await userRepository.fetchAllUsersAndInvitations(url)
+        const userCounts = await userRepository.getUserCountsByRole()
+
+        res.json({allUsers, userCounts})
+      } else {
+        send404(res)
+      }
     } catch (err) {
       sendErr(res, err)
     }

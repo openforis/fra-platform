@@ -217,7 +217,7 @@ El equipo de FRA
       userGuide: 'Guía del usuario'
     },
     sectionHeaders: {
-      introduction: 'Introducción / Colaboradores',
+      introduction: 'Introducción',
       forestExtentCharacteristicsAndChanges: 'Extensión del bosque, características y cambios',
       forestGrowingStockBiomassAndCarbon: 'Existencias en formación, biomasa y carbono',
       forestDesignationAndManagement: 'Designación y gestión del bosque',
@@ -353,6 +353,7 @@ El equipo de FRA
     confirmDelete: '¿Eliminar {{user}}?',
     allUsers: 'Todos los colaboradores',
     info: 'Información',
+    tableAccess: 'Acceso a las mesas',
     invitationLink: 'Enlace de invitación',
     sendInvitation: 'Enviar correo electrónico de invitación',
     invitationEmail: {
@@ -389,7 +390,7 @@ El equipo de FRA
 
   contactPersons: {
     reportPreparationAndContactPersons: 'Elaboración de informes y personas de contacto',
-    contactPersons: 'Introducción / Colaboradores',
+    contactPersons: 'Introducción',
     contactPersonsSupport: 'El presente informe fue preparado por la/s siguiente/s persona/s',
     introductoryText: 'Texto introductorio',
     introductoryTextSupport: 'Incluir un texto introductorio en el contenido del presente informe',
@@ -869,5 +870,13 @@ El equipo de FRA
       africa: 'África',
       atlantis: 'Atlántida'
     }
+  },
+
+  admin: {
+    admin: 'Administración',
+    filter: 'Filtrar por',
+    language: 'Idioma',
+    country: 'País',
+    invitationPending: 'Invitación pendiente'
   }
 }

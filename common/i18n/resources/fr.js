@@ -217,7 +217,7 @@ L'équipe de FRA
       userGuide: 'Guide de l\'utilisateur'
     },
     sectionHeaders: {
-      introduction: 'Introduction / Collaborateurs',
+      introduction: 'Introduction',
       forestExtentCharacteristicsAndChanges: 'Étendue, caractéristiques et changement des forêts',
       forestGrowingStockBiomassAndCarbon: 'Matériel sur pied, biomasse et carbone forestiers',
       forestDesignationAndManagement: 'Désignation et gestion des forêts',
@@ -353,6 +353,7 @@ L'équipe de FRA
     confirmDelete: 'Éliminer {{user}}?',
     allUsers: 'Tous les collaborateurs',
     info: 'Info',
+    tableAccess: 'Accès aux tables',
     invitationLink: 'Lien d\'invitation',
     sendInvitation: 'Envoyer un email d\'invitation',
     invitationEmail: {
@@ -389,7 +390,7 @@ L'équipe de FRA fra@fao.org
 
   contactPersons: {
     reportPreparationAndContactPersons: 'Préparation du rapport et personnes de contact',
-    contactPersons: 'Introduction / Collaborateurs',
+    contactPersons: 'Introduction',
     contactPersonsSupport: 'Le présent rapport a été préparé par la(les) personne(s) suivante(s)',
     introductoryText: 'Texte d\'introduction',
     introductoryTextSupport: 'Placer un texte d\'introduction sur le contenu de ce rapport',
@@ -869,5 +870,13 @@ L'équipe de FRA
       africa: 'Afrique',
       atlantis: 'Atlantis'
     }
+  },
+
+  admin: {
+    admin: 'Administration',
+    filter: 'Filtrer par',
+    language: 'Langue',
+    country: 'Pays',
+    invitationPending: 'Invitation en attente'
   }
 }

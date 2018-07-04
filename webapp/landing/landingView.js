@@ -11,7 +11,7 @@ import { isAllowedToChangeRole } from '../../common/userManagementAccessControl'
 import OverviewView from './views/overviewView'
 import AboutView from './views/aboutView'
 import RecentActivityView from './views/recentActivityView'
-import UserManagementView from './views/userManagement/userManagementView'
+import ManageCollaboratorsView from './views/manageCollaboratorsView'
 import LinksView from './views/linksView'
 
 class LandingView extends React.Component {
@@ -40,7 +40,7 @@ class LandingView extends React.Component {
     ]
 
     return isAllowedToChangeRole(countryIso, userInfo)
-      ? R.insert(1, {name: 'userManagement', component: UserManagementView}, defaultSections)
+      ? R.insert(1, {name: 'userManagement', component: ManageCollaboratorsView}, defaultSections)
       : defaultSections
   }
 
