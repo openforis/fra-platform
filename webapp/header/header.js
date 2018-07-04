@@ -1,16 +1,20 @@
 import './style.less'
-import * as R from 'ramda'
 
 import React from 'react'
 import { connect } from 'react-redux'
-import { logout, switchLanguage } from '../user/actions'
-import { toggleNavigationVisible } from '../navigation/actions'
-import { getRelativeDate } from '../utils/relativeDate'
+import * as R from 'ramda'
+
 import { PopoverControl } from '../reusableUiComponents/popoverControl'
 import Icon from '../reusableUiComponents/icon'
+import { Link } from '../reusableUiComponents/link'
 
-const UserInfo = props => {
-  const {userInfo, i18n, country, logout} = props
+import { logout, switchLanguage } from '../user/actions'
+import { toggleNavigationVisible } from '../navigation/actions'
+
+import { getRelativeDate } from '../utils/relativeDate'
+import { isAdministrator } from '../../common/countryRole'
+
+const UserInfo = ({userInfo, i18n, country, logout}) => {
 
   const userInfoItems = [{
     content: i18n.t('header.logout'),
@@ -30,7 +34,7 @@ const UserInfo = props => {
   </PopoverControl>
 }
 
-const LanguageSelection = ({i18n, switchLanguage, ...props}) => {
+const LanguageSelection = ({i18n, switchLanguage}) => {
   const supportedLangs = ['en', 'fr', 'es', 'ru']
   const selectableLangs = R.reject(l => l === i18n.language, supportedLangs)
   const languageSelectionItems = R.map(lang =>
@@ -63,6 +67,7 @@ const Header = ({
                   toggleNavigationVisible,
                   navigationVisible,
                   commentsOpen,
+                  country,
                   ...props
                 }) => {
   const commentColumnCurrentWidth = commentsOpen ? 288 : 0
@@ -87,7 +92,19 @@ const Header = ({
       }
       <div className="fra-header__menu">
         <LanguageSelection i18n={i18n} {...props}/>
-        <UserInfo userInfo={userInfo} i18n={i18n} {...props}/>
+        <UserInfo userInfo={userInfo} i18n={i18n} country={country} {...props}/>
+        {
+          isAdministrator(userInfo)
+            ? [
+              <div key="v-separator" className="fra-header__menu-item-separator" style={{margin: '0 20px'}}/>,
+              <Link key="admin-link"
+                    to={`/country/${country}/admin`}
+                    className="fra-header__menu-item">
+                {i18n.t('admin.admin')}
+              </Link>
+            ]
+            : null
+        }
       </div>
     </div>
   </div>

@@ -6,6 +6,7 @@ const bcrypt = require('bcrypt')
 
 const db = require('../db/db')
 const auditRepository = require('./../audit/auditRepository')
+const {fetchCollaboratorCountryAccessTables} = require('./../collaborators/collaboratorsRepository')
 const {AccessControlException} = require('../utils/accessControl')
 
 const {nationalCorrespondent, reviewer, collaborator, alternateNationalCorrespondent} = require('../../common/countryRole')
@@ -71,8 +72,8 @@ const updateLanguage = (client, lang, userInfo) =>
   client
     .query('UPDATE fra_user SET lang = $1 WHERE id = $2', [lang, userInfo.id])
 
-const fetchCountryUsers = (countryIso) =>
-  db.query(`
+const fetchCountryUsers = async (countryIso) => {
+  const usersRes = await db.query(`
     SELECT
       u.id,
       u.email,
@@ -89,7 +90,21 @@ const fetchCountryUsers = (countryIso) =>
       AND
         cr.country_iso = $1
   `, [countryIso])
-    .then(res => camelize(res.rows))
+
+  const users = camelize(usersRes.rows)
+
+  //add collaborator table access
+  const addCollaboratorTablesAccess = async user => {
+    if (user.role === collaborator.role) {
+      const tables = await fetchCollaboratorCountryAccessTables(countryIso, user.id)
+      return R.assoc('tables', tables, user)
+    } else {
+      return user
+    }
+  }
+
+  return Promise.all(users.map(addCollaboratorTablesAccess))
+}
 
 const fetchAdministrators = () =>
   db.query(`
@@ -172,21 +187,13 @@ const fetchInvitation = async (invitationUUID, url = '') => {
 
 // fetch all users and invitations
 const fetchAllUsersAndInvitations = async (url) => {
-
-  const usersRes = await db.query(`
-    SELECT DISTINCT
-      u.id,
-      u.email,
-      u.name,
-      u.login_email,
-      u.lang
-    FROM
-      fra_user u
-  `)
+  const userIdsRes = await db.query(`SELECT DISTINCT u.id FROM fra_user u`)
+  const userPromises = userIdsRes.rows.map(row => findUserById(row.id))
+  const users = await Promise.all(userPromises)
 
   const invitations = await fetchAllInvitations(url)
 
-  return [...camelize(usersRes.rows), ...invitations]
+  return [...users, ...invitations]
 }
 
 // getUserCounts

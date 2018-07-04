@@ -225,7 +225,7 @@ module.exports.translation = {
       userGuide: 'Руководство пользователя'
     },
     sectionHeaders: {
-      introduction: 'Введение / Сотрудников',
+      introduction: 'Введение',
       forestExtentCharacteristicsAndChanges: 'Площадь лесов, характеристики и изменения',
       forestGrowingStockBiomassAndCarbon: 'Запас древостоя, биомасса и углерод',
       forestDesignationAndManagement: 'Назначение лесов и управление лесами',
@@ -367,6 +367,7 @@ module.exports.translation = {
     confirmDelete: 'Удалить {{user}}?',
     allUsers: 'Все сотрудники',
     info: 'Информация',
+    tableAccess: 'Доступ к таблице',
     invitationLink: 'Ссылка на приглашение',
     sendInvitation: 'Направить приглашение по электронной почте',
     invitationEmail: {
@@ -403,7 +404,7 @@ module.exports.translation = {
 
   contactPersons: {
     reportPreparationAndContactPersons: 'Подготавливающие доклад и контактные лица',
-    contactPersons: 'Введение / Сотрудников',
+    contactPersons: 'Введение',
     contactPersonsSupport: 'Настоящий доклад был подготовлен следующим(и) лицом(-ами)',
     introductoryText: 'Вступительный текст',
     introductoryTextSupport: 'Вставьте вступительный текст о содержании данного доклада',
@@ -883,5 +884,13 @@ module.exports.translation = {
       africa: 'Африка',
       atlantis: 'Атлантида'
     }
+  },
+
+  admin: {
+    admin: 'Администратор',
+    filter: 'Фильтровать по',
+    language: 'Язык',
+    country: 'Страна',
+    invitationPending: 'Приглашение в стадии рассмотрения'
   }
 }

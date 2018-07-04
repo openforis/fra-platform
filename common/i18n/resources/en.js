@@ -247,7 +247,7 @@ The FRA team
       userGuide: 'User guide'
     },
     sectionHeaders: {
-      introduction: 'Introduction / Collaborators',
+      introduction: 'Introduction',
       forestExtentCharacteristicsAndChanges: 'Forest extent, characteristics and changes',
       forestGrowingStockBiomassAndCarbon: 'Forest growing stock, biomass and carbon',
       forestDesignationAndManagement: 'Forest designation and management',
@@ -383,6 +383,7 @@ The FRA team
     confirmDelete: 'Remove {{user}}?',
     allUsers: 'All collaborators',
     info: 'Info',
+    tableAccess: 'Table access',
     invitationLink: 'Invitation link',
     sendInvitation: 'Send invitation email',
     invitationEmail: {
@@ -419,7 +420,7 @@ The FRA team fra@fao.org
 
   contactPersons: {
     reportPreparationAndContactPersons: 'Report preparation and contact persons',
-    contactPersons: 'Introduction / Collaborators',
+    contactPersons: 'Introduction',
     contactPersonsSupport: 'The present report was prepared by the following person(s)',
     introductoryText: 'Introductory text',
     introductoryTextSupport: 'Place an introductory text on the content of this report',
@@ -899,5 +900,13 @@ The FRA team
       africa: 'Africa',
       atlantis: 'Atlantis'
     }
+  },
+
+  admin: {
+    admin: 'Admin',
+    filter: 'Filter by',
+    language: 'Language',
+    country: 'Country',
+    invitationPending: 'Invitation pending'
   }
 }

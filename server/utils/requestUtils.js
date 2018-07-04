@@ -1,6 +1,6 @@
 const {AccessControlException} = require('./accessControl')
 
-module.exports.sendErr = (res, err) => {
+const sendErr = (res, err) => {
   console.error(err)
   if (err instanceof AccessControlException) {
     res.status(403).json({error: err.error})
@@ -10,8 +10,15 @@ module.exports.sendErr = (res, err) => {
 }
 
 // Sends an empty JSON message with status 200
-module.exports.sendOk = res => {
-  res.json({})
-}
+const sendOk = res => res.json({})
 
-module.exports.serverUrl = (req) => req.protocol + '://' + req.get('host')
+const send404 = res => res.status(404).send('404 / Page not found')
+
+const serverUrl = req => req.protocol + '://' + req.get('host')
+
+module.exports = {
+  sendErr,
+  sendOk,
+  send404,
+  serverUrl
+}

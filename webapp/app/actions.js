@@ -1,7 +1,7 @@
 import { getLoggedinUserInfo } from '../user/actions'
 import { fetchItem } from '../tableWithOdp/actions'
 import { fetchCountryOverviewStatus } from '../country/actions'
-import { getCountryConfig } from '../country/actions'
+import { getCountryConfig, getCountryList } from '../country/actions'
 
 export const fetchAllCountryData = countryIso => dispatch => {
   // This got broken accidentally on dashboard route and nobody noticed, let's make
@@ -13,6 +13,7 @@ export const fetchAllCountryData = countryIso => dispatch => {
   }
   fetchCountryOverviewStatus(countryIso)(dispatch)
   fetchItem('extentOfForest', countryIso)(dispatch)
+  getCountryList()(dispatch)
   getCountryConfig(countryIso)(dispatch)
 }
 

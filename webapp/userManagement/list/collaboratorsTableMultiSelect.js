@@ -1,5 +1,5 @@
 import React from 'react'
-import R from 'ramda'
+import * as R from 'ramda'
 
 import { assessments } from '../../../common/assessmentSectionItems'
 
@@ -44,7 +44,7 @@ export default class MultiSelect extends React.Component {
 
     return R.contains(option, [optionAll, optionNone])
       ? i18n.t(option.label)
-      : option.tableNo + ', ' + i18n.t(option.label)
+      : option.tableNo //+ ', ' + i18n.t(option.label)
   }
 
   getValues (defaultValues = []) {
