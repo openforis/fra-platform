@@ -31,12 +31,12 @@ class PanEuropeanIndicatorsView extends React.Component {
   }
 
   render () {
-    const {i18n, countryIso, status, questionnaireFileName, panEuropean = {}} = this.props
+    const {i18n, countryIso, status, questionnaireFileName, userInfo, panEuropean = {}} = this.props
     return <LoggedInPageTemplate>
       <div className="fra-view__content">
         <div className="fra-view__page-header">
           <h2 className="headline">{i18n.t('panEuropeanIndicators.panEuropeanIndicators')}</h2>
-          <a className="btn-s btn-primary" href={`/api/panEuropean/${countryIso}/downloadEmpty`} target="_blank">
+          <a className="btn-s btn-primary" href={`/api/panEuropean/${countryIso}/downloadEmpty/${userInfo.lang}`} target="_blank">
             <Icon className="icon-sub icon-white" name="hit-down"/>
             {i18n.t('panEuropeanIndicators.downloadQuestionnaire')}
           </a>
@@ -103,6 +103,7 @@ class PanEuropeanIndicatorsView extends React.Component {
 
 const mapStateToProps = (state, props) => ({
   i18n: state.user.i18n,
+  userInfo: state.user.userInfo,
   countryIso: props.match.params.countryIso,
   status: state.autoSave.status,
   questionnaireFileName: state.panEuropeanIndicators.questionnaireFileName,

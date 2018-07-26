@@ -7,6 +7,8 @@ const {getCountry} = require('./../country/countryRepository')
 const {sendErr} = require('../utils/requestUtils')
 const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
 
+const {fileTypes, downloadFile} = require('../fileRepository/fileRepository')
+
 module.exports.init = app => {
 
   const isPanEuropeanCountry = async (res, countryIso) => {
@@ -51,17 +53,15 @@ module.exports.init = app => {
     }
   })
 
-  app.get('/panEuropean/:countryIso/downloadEmpty', async (req, res) => {
+  app.get('/panEuropean/:countryIso/downloadEmpty/:lang', async (req, res) => {
     try {
       checkCountryAccessFromReqParams(req)
 
       const isPanEuropean = await isPanEuropeanCountry(res, req.params.countryIso)
-      if (isPanEuropean) {
-        const questionnaire = await getPanEuropeanQuantitativeQuestionnaire(req.params.countryIso)
-        res.download(`${__dirname}/panEuropeanQuestionnaire.xls`, 'PanEuropeanQuestionnaire.xls')
-      } else {
-        res.status(404).send('404 / Page not found')
-      }
+
+      isPanEuropean
+        ? downloadFile(res, fileTypes.panEuropeanQuestionnaire, req.params.lang)
+        : res.status(404).send('404 / Page not found')
 
     } catch (err) {
       sendErr(res, err)
