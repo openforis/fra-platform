@@ -13,7 +13,7 @@ const SubIndicator3 = ({i18n, countryIso, data, years, disabled}) => {
 
   const getValue = (year, field) => {
     const val = R.path(['forestAreaWithinProtectedAreas', field, year], data)
-    return mul(div(val, getForestArea(data, year)), 100)
+    return mul(div(val, getForestArea(data, 2015)), 100)
   }
 
   const getValueProtectedAreas = year => getValue(year, 'forestAreaWithinProtectedAreas')
