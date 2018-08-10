@@ -1,4 +1,5 @@
 const Promise = require('bluebird')
+const R = require('ramda')
 
 const db = require('../db/db')
 
@@ -6,17 +7,35 @@ const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
 const {sendErr, serverUrl} = require('../utils/requestUtils')
 const {createI18nPromise} = require('../../common/i18n/i18nFactory')
 const {findUserById} = require('../user/userRepository')
+const {getCountry} = require('../country/countryRepository')
 const {sendMail} = require('../email/sendMail')
 
 const {getChatMessages, addMessage} = require('./userChatRepository')
 
-const createMail = async (countryIso, i18n, sender, recipient, url) => {
-  const link = `${url}/#/country/${countryIso}`
+const createMail = async (country, i18n, sender, recipient, url) => {
+  const link = `${url}/#/country/${country.countryIso}`
+  const countryName = R.path(['listName', 'en'], country)
+
   return {
     to: recipient.email,
-    subject: i18n.t('userChat.notificationEmail.subject', {sender: sender.name}),
-    text: i18n.t('userChat.notificationEmail.textMessage', {sender: sender.name, recipient: recipient.name, link, url}),
-    html: i18n.t('userChat.notificationEmail.htmlMessage', {sender: sender.name, recipient: recipient.name, link, url})
+    subject: i18n.t('userChat.notificationEmail.subject', {
+      sender: sender.name,
+      country: countryName
+    }),
+    text: i18n.t('userChat.notificationEmail.textMessage', {
+      sender: sender.name,
+      recipient: recipient.name,
+      link,
+      url,
+      country: countryName
+    }),
+    html: i18n.t('userChat.notificationEmail.htmlMessage', {
+      sender: sender.name,
+      recipient: recipient.name,
+      link,
+      url,
+      country: countryName
+    })
   }
 }
 
@@ -24,11 +43,12 @@ const sendNotificationEmail = async (req, senderId, recipientId) => {
   const i18nPromise = createI18nPromise('en')
   const senderPromise = findUserById(senderId)
   const recipientPromise = findUserById(recipientId)
+  const countryPromise = getCountry(req.params.countryIso)
 
-  const [i18n, sender, recipient] = await Promise.all([i18nPromise, senderPromise, recipientPromise])
+  const [i18n, sender, recipient, country] = await Promise.all([i18nPromise, senderPromise, recipientPromise, countryPromise])
   const url = serverUrl(req)
 
-  const notificationEmail = await createMail(req.params.countryIso, i18n, sender, recipient, url)
+  const notificationEmail = await createMail(country, i18n, sender, recipient, url)
   await sendMail(notificationEmail)
 }
 

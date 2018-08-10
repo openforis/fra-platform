@@ -179,10 +179,10 @@ The FRA team fra@fao.org
     send: 'Send',
     cancel: 'Cancel',
     notificationEmail: {
-      subject: '{{sender}} sent you a message',
+      subject: '{{sender}} sent you a message on {{country}}',
       textMessage: `Dear {{recipient}},
 
-{{sender}} sent you a message.
+{{sender}} sent you a message on {{country}}.
 
 Access the platform at the following URL to see and respond:
 {{- link}}
@@ -192,7 +192,7 @@ The FRA team
     `,
       htmlMessage: `Dear {{recipient}},
 <br/><br/>
-{{sender}} sent you a message.
+{{sender}} sent you a message on {{country}}.
 <br/><br/>
 <b><a href="{{- link}}">Access the platform to see and respond.</a></b>
 <br/><br/>
