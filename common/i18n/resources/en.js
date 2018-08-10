@@ -683,7 +683,7 @@ The FRA team fra@fao.org
 
   forestPolicy: {
     forestPolicy: 'Policies, Legislation and national platform for stakeholder participation in forest policy',
-    categoryHeader: 'Indicate the excistence of',
+    categoryHeader: 'Indicate the existence of',
     areaUnitLabel: 'Boolean (Yes/No)',
     national: 'National',
     subnational: 'Sub-national',
