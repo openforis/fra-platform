@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import R from 'ramda'
 
-import {i18nUserRole, profilePictureUri} from '../../../common/userUtils'
+import { i18nUserRole, profilePictureUri } from '../../../common/userUtils'
 
 import Icon from '../../reusableUiComponents/icon'
 // import MapViewContainer from './countryMap/mapViewContainer'
@@ -62,7 +62,7 @@ const Users = ({countryIso, i18n, users, userInfo, openChat}) => <div className=
   {
     users.map(user =>
       <div key={user.id} className="landing__user-outer-container">
-        <div className="landing__user-container">
+        <div className={`landing__user-container${user.active ? '' : ' user-list__inactive-user'}`}>
           <div className="landing__user-header">
             <img
               className="landing__user-avatar"
@@ -105,7 +105,7 @@ class OverviewView extends React.Component {
   }
 
   componentWillReceiveProps (next) {
-    if (!R.equals(this.props.match.params.countryIso, next.match.params.countryIso)){
+    if (!R.equals(this.props.match.params.countryIso, next.match.params.countryIso)) {
       this.props.closeChat()
       this.getCountryOverview(next.match.params.countryIso)
     }
