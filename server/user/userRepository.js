@@ -15,7 +15,7 @@ const {userType} = require('../../common/userUtils')
 const {loginUrl} = require('./sendInvitation')
 
 const findUserById = async (userId, client = db) => {
-  const res = await client.query('SELECT id, name, email, login_email, institution, position, lang, type FROM fra_user WHERE id = $1', [userId])
+  const res = await client.query('SELECT id, name, email, login_email, institution, position, lang, type, active FROM fra_user WHERE id = $1', [userId])
   if (res.rows.length < 1) return null
   const resultUser = camelize(res.rows[0])
   const resultRoles = await client.query('SELECT country_iso, role FROM user_country_role WHERE user_id = $1', [resultUser.id])
@@ -114,6 +114,7 @@ const fetchAdministrators = () =>
       u.name,
       u.login_email,
       u.lang,
+      u.active,
       cr.role
     FROM
       fra_user u
@@ -322,9 +323,10 @@ const updateUserFields = (client, userToUpdate, profilePictureFile) =>
         institution = $3,
         position = $4,
         profile_picture_file = $5,
-        profile_picture_filename = $6
+        profile_picture_filename = $6,
+        active = $7
       WHERE
-        id = $7
+        id = $8
     `, [
       userToUpdate.name,
       userToUpdate.email,
@@ -332,7 +334,8 @@ const updateUserFields = (client, userToUpdate, profilePictureFile) =>
       userToUpdate.position,
       profilePictureFile.data,
       profilePictureFile.name,
-      userToUpdate.id
+      userToUpdate.active,
+      userToUpdate.id,
     ]
   )
 

@@ -869,8 +869,10 @@ module.exports.translation = {
     loginEmail: 'Логин',
     institution: 'Учреждение',
     position: 'Должность',
-    done: 'Готово',
+    done: 'Сохранить',
     cancel: 'Отмена',
+    deactivate: 'Деактивировать',
+    activate: 'Активировать',
     picture1MbMax: 'Картинка в профиле не может превышать 1MB'
   },
 
