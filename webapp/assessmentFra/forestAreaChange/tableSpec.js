@@ -69,7 +69,7 @@ export default (i18n, extentOfForest, countryIso, disabled) => {
       [
         {
           type: 'readOnly',
-          jsx: <th className="fra-table__header-cell-left">{i18n.t('forestAreaChange.deforestation')} (b)</th>
+          jsx: <th className="fra-table__category-cell">{i18n.t('forestAreaChange.deforestation')} (b)</th>
         },
         ...decimalInputColumns(extentOfForest, null, disabled)
       ],
