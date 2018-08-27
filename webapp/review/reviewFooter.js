@@ -80,62 +80,62 @@ class FraReviewFooter extends React.Component {
 
     const submitBtnDisabled = R.isEmpty(this.state.message) || !submitAllowed
 
-    return <div className="fra-review__footer">
+    return submitAllowed ?
+      <div className="fra-review__footer">
 
-      <div className="fra-review__footer-input-wrapper">
-        <div ref="emojiPicker">
-          {
-            this.state.showPicker
-              ? <EmojiPicker
-                onClick={emoji => {
-                  this.setState({
-                    ...this.state,
-                    showPicker: false,
-                    message: R.insert(this.state.messageCursorPosition, emoji, this.state.message).join(''),
-                    messageCursorPosition: this.state.messageCursorPosition + emoji.length
-                  })
-                }}
-                style={this.state.pickerStyle}
-                i18n={i18n}
-              />
-              : null
-          }
+        <div className="fra-review__footer-input-wrapper">
+          <div ref="emojiPicker">
+            {
+              this.state.showPicker
+                ? <EmojiPicker
+                  onClick={emoji => {
+                    this.setState({
+                      ...this.state,
+                      showPicker: false,
+                      message: R.insert(this.state.messageCursorPosition, emoji, this.state.message).join(''),
+                      messageCursorPosition: this.state.messageCursorPosition + emoji.length
+                    })
+                  }}
+                  style={this.state.pickerStyle}
+                  i18n={i18n}
+                />
+                : null
+            }
+          </div>
+
+          <VerticallyGrowingTextField
+            ref="textField"
+            onChange={evt => this.onInputChange(evt)}
+            onKeyDown={evt => this.onInputKeyDown(evt)}
+            onFocus={evt => this.onInputFocus(evt)}
+            onKeyUp={evt => this.registerInputPosition(evt)}
+            onClick={evt => this.registerInputPosition(evt)}
+            value={this.state.message}
+            className="fra-review__footer-input"
+            placeholder={placeholder}
+            disabled={!submitAllowed}/>
+
+          <div ref="emojiPickerToggleButton">
+            <EmojiPickerController onClick={() => this.showPicker()}/>
+          </div>
+
         </div>
 
-        <VerticallyGrowingTextField
-          ref="textField"
-          onChange={evt => this.onInputChange(evt)}
-          onKeyDown={evt => this.onInputKeyDown(evt)}
-          onFocus={evt => this.onInputFocus(evt)}
-          onKeyUp={evt => this.registerInputPosition(evt)}
-          onClick={evt => this.registerInputPosition(evt)}
-          value={this.state.message}
-          className="fra-review__footer-input"
-          placeholder={placeholder}
-          disabled={!submitAllowed}/>
+        <div className="fra-review__footer-buttons">
+          <button className="fra-review__footer-add-btn btn-s btn-primary"
+                  onClick={() => this.onSubmit()}
+                  disabled={submitBtnDisabled}>
+            {submitBtnLabel}
+          </button>
+          <button className="btn-s btn-secondary"
+                  onClick={() => onCancel()}>
+            {cancelBtnLabel}
+          </button>
+        </div>
 
-        {
-          submitAllowed
-            ? <div ref="emojiPickerToggleButton">
-              <EmojiPickerController onClick={() => this.showPicker()}/>
-            </div>
-            : null
-        }
       </div>
 
-      <div className="fra-review__footer-buttons">
-        <button className="fra-review__footer-add-btn btn-s btn-primary"
-                onClick={() => this.onSubmit()}
-                disabled={submitBtnDisabled}>
-          {submitBtnLabel}
-        </button>
-        <button className="btn-s btn-secondary"
-                onClick={() => onCancel()}>
-          {cancelBtnLabel}
-        </button>
-      </div>
-
-    </div>
+      : null
   }
 
 }
