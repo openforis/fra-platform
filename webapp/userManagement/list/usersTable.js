@@ -78,7 +78,6 @@ class UserRow extends React.Component {
       countryIso,
       i18n,
       user,
-      removeUser,
       onEditClick,
       userInfo,
       isAdminTable,
@@ -87,7 +86,12 @@ class UserRow extends React.Component {
       persistCollaboratorCountryAccess
     } = this.props
 
-    return <tr className={user.invitationUuid ? 'user-list__invitation-row' : ''}>
+    const rowClassName = user.invitationUuid
+      ? 'user-list__invitation-row'
+      : user.active
+        ? ''
+        : 'user-list__inactive-user'
+    return <tr className={rowClassName}>
 
       <UserColumn user={user} field="name"/>
 
