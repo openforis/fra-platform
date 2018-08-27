@@ -237,13 +237,17 @@ class EditUserForm extends React.Component {
         </div>
 
         {
-          canEditRoles ?
+          canEditRoles && user.id !== userInfo.id ?
             <div className="edit-user__form-item-buttons">
               <div className="edit-user__form-label"></div>
               <div className="edit-user__form-field-buttons">
                 <button className="btn btn-secondary"
-                        onClick={() => {}}>
-                  {i18n.t('editUser.deactivate')}
+                        onClick={() => this.setState(R.pipe(
+                          R.assocPath(['user', 'active'], !user.active),
+                          validateUser
+                        )(this.state))
+                        }>
+                  {user.active ? i18n.t('editUser.deactivate') : i18n.t('editUser.activate')}
                 </button>
               </div>
             </div>
