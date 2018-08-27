@@ -149,8 +149,10 @@ class DescriptionEditor extends Component {
   }
 }
 
-const mapStateToProps = (state, props) => {
-  return R.pipe(R.defaultTo({}), R.merge({editing: state.descriptions.editing}), R.merge(state.user))(state.descriptions[props.name])
-}
+const mapStateToProps = (state, props) => ({
+  ...state.user,
+  content: R.pathOr('', ['descriptions', props.section, props.name, 'content'], state),
+  editing: R.pathOr(false, ['descriptions', 'editing'], state)
+})
 
 export default connect(mapStateToProps, {fetchDescriptions, saveDescriptions, openEditor, closeEditor})(Description)

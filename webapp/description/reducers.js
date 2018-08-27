@@ -4,14 +4,16 @@ import * as types from './actions'
 import { applyReducerFunction } from '../utils/reduxUtils'
 
 const actionHandlers = {
-  [types.descriptionsFetched]: (state, action) => {
-    const data = {[action.name]: action.data[action.name]}
-    return R.merge(state, data)
-  },
-  [types.descriptionsChangeStart]: (state, action) => {
-    const data = {[action.name]: R.pipe(R.assoc('content', action.content))(state[action.name])}
-    return R.merge(state, data)
-  },
+  [types.descriptionsFetched]: (state, action) => R.assocPath(
+    [action.section, action.name],
+    action.data[action.name],
+    state
+  ),
+  [types.descriptionsChangeStart]: (state, action) => R.assocPath(
+    [action.section, action.name, 'content'],
+    action.content,
+    state
+  ),
   [types.openEditorStart]: (state, action) => ({...state, 'editing': action.name}),
   [types.closeEditorStart]: state => R.omit(['editing'], state)
 }
