@@ -49,8 +49,6 @@ class Nav extends React.Component {
 
     const {userInfo, i18n, path, countries, country, changeAssessment, isPanEuropeanCountry} = this.props
 
-    console.log(R.isEmpty(status))
-
     return <div className="fra-nav__container no-print">
       {
         R.isNil(countries) || R.isEmpty(status)
