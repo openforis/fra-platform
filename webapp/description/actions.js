@@ -6,19 +6,19 @@ export const descriptionsFetched = 'descriptions/fetched'
 
 export const fetchDescriptions = (countryIso, section, name) => dispatch => {
   axios.get(`/api/country/descriptions/${countryIso}/${section}/${name}`)
-    .then(resp => dispatch({type: descriptionsFetched, data: resp.data, name}))
+    .then(resp => dispatch({type: descriptionsFetched, section, name, data: resp.data}))
     .catch(err => dispatch(applicationError(err)))
 }
 
 export const descriptionsChangeStart = 'descriptions/change/start'
 
 export const saveDescriptions = (countryIso, section, name, content) => dispatch => {
-  dispatch(startSaveDescriptions(name, content))
+  dispatch(startSaveDescriptions(section, name, content))
   dispatch(autosave.start)
   dispatch(changeDescriptions(countryIso, section, name, content))
 }
 
-const startSaveDescriptions = (name, content) => ({type: descriptionsChangeStart, name, content})
+const startSaveDescriptions = (section, name, content) => ({type: descriptionsChangeStart, section, name, content})
 
 export const openEditorStart = 'descriptions/editor/open'
 export const closeEditorStart = 'descriptions/editor/close'
