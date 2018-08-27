@@ -885,8 +885,10 @@ The FRA team
     loginEmail: 'Login',
     institution: 'Institution',
     position: 'Position',
-    done: 'Done',
+    done: 'Save',
     cancel: 'Cancel',
+    deactivate: 'Deactivate',
+    activate: 'Activate',
     picture1MbMax: 'Profile picture cannot exceed 1MB'
   },
 

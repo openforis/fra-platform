@@ -855,7 +855,7 @@ L'équipe de FRA
     loginEmail: 'Identifiant',
     institution: 'Institution',
     position: 'Position',
-    done: 'Terminé',
+    done: 'Enregistrer',
     cancel: 'Effacer',
     picture1MbMax: 'L\'image de profil ne peut pas dépasser 1 Mo'
   },

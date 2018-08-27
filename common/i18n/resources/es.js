@@ -855,7 +855,7 @@ El equipo de FRA
     loginEmail: 'Iniciar sesión',
     institution: 'Institución',
     position: 'Cargo',
-    done: 'Finalizado',
+    done: 'Guardar',
     cancel: 'Cancelar',
     picture1MbMax: 'La foto de perfil no puede ser superior a 1MB'
   },
