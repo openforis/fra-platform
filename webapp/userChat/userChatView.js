@@ -95,7 +95,10 @@ class UsersChatAddMessage extends React.Component {
   }
 
   render () {
-    const {i18n, closeChat} = this.props
+    const {i18n, chat, closeChat} = this.props
+
+    const {sessionUser, recipientUser} = chat
+    const submitAllowed = sessionUser.active && recipientUser.active
 
     return <FraReviewFooter
       onSubmit={this.handleSendMessage}
@@ -104,6 +107,7 @@ class UsersChatAddMessage extends React.Component {
       i18n={i18n}
       submitBtnLabel={i18n.t('userChat.send')}
       cancelBtnLabel={i18n.t('userChat.cancel')}
+      submitAllowed={submitAllowed}
     />
 
   }

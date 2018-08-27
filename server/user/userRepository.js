@@ -80,6 +80,7 @@ const fetchCountryUsers = async (countryIso) => {
       u.name,
       u.login_email,
       u.lang,
+      u.active,
       cr.role
     FROM
       fra_user u
