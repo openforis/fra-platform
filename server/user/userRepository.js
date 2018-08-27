@@ -23,7 +23,13 @@ const findUserById = async (userId, client = db) => {
 }
 
 const findUserByLoginEmail = (loginEmail, client = db) =>
-  client.query('SELECT id from fra_user WHERE LOWER(login_email) in ($1)', [loginEmail])
+  client.query(
+    `SELECT id 
+    FROM fra_user 
+    WHERE LOWER(login_email) in ($1) 
+    AND active = $2`,
+    [loginEmail, true]
+  )
     .then(res => res.rows.length > 0 ? findUserById(res.rows[0].id, client) : null)
 
 const findLocalUserByEmail = async (email, client = db) => {
@@ -56,8 +62,9 @@ const findUserByEmailAndPassword = async (email, password, client = db) => {
   const res = await  client.query(`
     SELECT id, password 
     FROM fra_user 
-    WHERE LOWER(email) = LOWER($1)`
-    , [email])
+    WHERE LOWER(email) = LOWER($1)
+    AND active = $2`
+    , [email, true])
 
   if (!R.isEmpty(res.rows)) {
     const passwordMatch = await bcrypt.compare(password, res.rows[0].password)
@@ -268,6 +275,17 @@ const getIdOfJustAddedUser = client =>
 
 const addInvitation = async (client, user, countryIso, userToInvite) => {
   const invitationUuid = uuidv4()
+
+  // check if user is active
+  const inactiveUserRes = await client.query(`
+  SELECT * FROM fra_user 
+  WHERE email = LOWER($1)
+  AND active = $2
+  `, [R.toLower(userToInvite.email), false])
+  if (!R.isEmpty(inactiveUserRes.rows)) {
+    throw new AccessControlException('User with email ' + userToInvite.email + ' has been deactivated')
+  }
+
   await client.query(
     `INSERT INTO
       fra_user_invitation
