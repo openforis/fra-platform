@@ -13,8 +13,8 @@ export const openChat = (countryIso, sessionUser, recipientUser) => dispatch => 
     .get(`/api/userChat/${countryIso}/messages`, {params: {sessionUserId: sessionUser.id, otherUserId: recipientUser.id}})
     .then(resp => {
         const chat = {
-          sessionUser: {id: sessionUser.id, name: sessionUser.name},
-          recipientUser: {id: recipientUser.id, name: recipientUser.name},
+          sessionUser,
+          recipientUser,
           messages: resp.data
         }
 

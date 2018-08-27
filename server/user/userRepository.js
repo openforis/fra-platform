@@ -15,7 +15,7 @@ const {userType} = require('../../common/userUtils')
 const {loginUrl} = require('./sendInvitation')
 
 const findUserById = async (userId, client = db) => {
-  const res = await client.query('SELECT id, name, email, login_email, institution, position, lang, type FROM fra_user WHERE id = $1', [userId])
+  const res = await client.query('SELECT id, name, email, login_email, institution, position, lang, type, active FROM fra_user WHERE id = $1', [userId])
   if (res.rows.length < 1) return null
   const resultUser = camelize(res.rows[0])
   const resultRoles = await client.query('SELECT country_iso, role FROM user_country_role WHERE user_id = $1', [resultUser.id])
@@ -23,7 +23,13 @@ const findUserById = async (userId, client = db) => {
 }
 
 const findUserByLoginEmail = (loginEmail, client = db) =>
-  client.query('SELECT id from fra_user WHERE LOWER(login_email) in ($1)', [loginEmail])
+  client.query(
+    `SELECT id 
+    FROM fra_user 
+    WHERE LOWER(login_email) in ($1) 
+    AND active = $2`,
+    [loginEmail, true]
+  )
     .then(res => res.rows.length > 0 ? findUserById(res.rows[0].id, client) : null)
 
 const findLocalUserByEmail = async (email, client = db) => {
@@ -56,8 +62,9 @@ const findUserByEmailAndPassword = async (email, password, client = db) => {
   const res = await  client.query(`
     SELECT id, password 
     FROM fra_user 
-    WHERE LOWER(email) = LOWER($1)`
-    , [email])
+    WHERE LOWER(email) = LOWER($1)
+    AND active = $2`
+    , [email, true])
 
   if (!R.isEmpty(res.rows)) {
     const passwordMatch = await bcrypt.compare(password, res.rows[0].password)
@@ -80,6 +87,7 @@ const fetchCountryUsers = async (countryIso) => {
       u.name,
       u.login_email,
       u.lang,
+      u.active,
       cr.role
     FROM
       fra_user u
@@ -114,6 +122,7 @@ const fetchAdministrators = () =>
       u.name,
       u.login_email,
       u.lang,
+      u.active,
       cr.role
     FROM
       fra_user u
@@ -266,6 +275,17 @@ const getIdOfJustAddedUser = client =>
 
 const addInvitation = async (client, user, countryIso, userToInvite) => {
   const invitationUuid = uuidv4()
+
+  // check if user is active
+  const inactiveUserRes = await client.query(`
+  SELECT * FROM fra_user 
+  WHERE email = LOWER($1)
+  AND active = $2
+  `, [R.toLower(userToInvite.email), false])
+  if (!R.isEmpty(inactiveUserRes.rows)) {
+    throw new AccessControlException('User with email ' + userToInvite.email + ' has been deactivated')
+  }
+
   await client.query(
     `INSERT INTO
       fra_user_invitation
@@ -322,9 +342,10 @@ const updateUserFields = (client, userToUpdate, profilePictureFile) =>
         institution = $3,
         position = $4,
         profile_picture_file = $5,
-        profile_picture_filename = $6
+        profile_picture_filename = $6,
+        active = $7
       WHERE
-        id = $7
+        id = $8
     `, [
       userToUpdate.name,
       userToUpdate.email,
@@ -332,7 +353,8 @@ const updateUserFields = (client, userToUpdate, profilePictureFile) =>
       userToUpdate.position,
       profilePictureFile.data,
       profilePictureFile.name,
-      userToUpdate.id
+      userToUpdate.active,
+      userToUpdate.id,
     ]
   )
 
