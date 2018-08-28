@@ -5,11 +5,11 @@ const db = require('../db/db')
 const userRepository = require('./userRepository')
 const {sendErr, sendOk, serverUrl, send404} = require('../utils/requestUtils')
 
-const {AccessControlException,checkCountryAccessFromReqParams} = require('../utils/accessControl')
+const {AccessControlException, checkCountryAccessFromReqParams} = require('../utils/accessControl')
 const {sendInvitation} = require('./sendInvitation')
 const {rolesAllowedToChange} = require('../../common/userManagementAccessControl')
 
-const {isAdministrator, isNationalCorrespondent, isCollaborator} = require('../../common/countryRole')
+const {isAdministrator, isNationalCorrespondent, isCollaborator, isAlternateNationalCorrespondent} = require('../../common/countryRole')
 const {validate: validateUser, validEmail} = require('../../common/userUtils')
 
 const filterAllowedUsers = (countryIso, user, users) => {
@@ -160,7 +160,10 @@ module.exports.init = app => {
       if (
         isAdministrator(user)
         || user.id === userToUpdate.id
-        || (isNationalCorrespondent(countryIso, user) && isCollaborator(countryIso, userToUpdate))
+        || (
+          isNationalCorrespondent(countryIso, user) &&
+          (isCollaborator(countryIso, userToUpdate) || isAlternateNationalCorrespondent(countryIso, userToUpdate))
+        )
       ) {
         const validation = validateUser(userToUpdate)
         if (validation.valid) {

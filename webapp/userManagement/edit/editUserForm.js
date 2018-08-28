@@ -6,6 +6,7 @@ import * as R from 'ramda'
 
 import {
   isAdministrator,
+  isNationalCorrespondent,
   administrator,
   reviewer,
   nationalCorrespondent,
@@ -53,8 +54,6 @@ class EditUserForm extends React.Component {
 
     const {i18n, userInfo, countryIso, countries, getCountryName, persistUser, onCancel = defaultOnCancel} = this.props
     const {user, validation} = this.state
-
-    console.log(userInfo)
 
     const hasValidProp = prop => R.pipe(
       R.path([prop, 'valid']),
@@ -237,7 +236,7 @@ class EditUserForm extends React.Component {
         </div>
 
         {
-          canEditRoles && user.id !== userInfo.id ?
+          (canEditRoles || isNationalCorrespondent(countryIso, userInfo)) && user.id !== userInfo.id ?
             <div className="edit-user__form-item-buttons">
               <div className="edit-user__form-label"></div>
               <div className="edit-user__form-field-buttons">
