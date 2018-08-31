@@ -1,6 +1,7 @@
 @import (reference) "./config";
 @import (reference) "./form";
 @import (reference) "./inputMixins";
+@import (reference) "./fraValidation";
 
 .fra-table__container {
   position: relative;
@@ -73,6 +74,10 @@
     color: @text-disabled;
     font-weight: 400;
     padding-right: 2px;
+  }
+
+  &.error {
+    .validation-error;
   }
 }
 
