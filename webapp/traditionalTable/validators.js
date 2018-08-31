@@ -6,7 +6,7 @@ import R from 'ramda'
 import { abs, greaterThan, greaterThanOrEqualTo, lessThan, sub, eq } from '../../common/bignumberUtils'
 import { totalSum } from '../traditionalTable/aggregate'
 import { getForestAreaForYear, getOtherLandAreaForYear } from '../assessmentFra/extentOfForest/extentOfForestHelper'
-import { getTotalGrowingStock } from '../assessmentFra/growingStock/growingStock'
+import { getTotalGrowingStockInForest } from '../assessmentFra/growingStock/growingStock'
 
 export const subCategoryValidator = (totalRowIndex, rowIndexes) =>
   (props, currentFieldRowIdx, currentFieldColumnIdx) => {
@@ -93,7 +93,7 @@ export const equalToTotalGrowingStock = (year, growingStock, aggregateFunction =
   (props, row, column) => {
     const {i18n, tableData} = props
     const value = R.isNil(aggregateFunction) ? tableData[row][column] : aggregateFunction(tableData, column)
-    const totalGrowingStock = getTotalGrowingStock(growingStock, year)
+    const totalGrowingStock = getTotalGrowingStockInForest(growingStock, year)
 
     const valid = R.isNil(value) || eq(totalGrowingStock, 0) || eq(totalGrowingStock, value)
 

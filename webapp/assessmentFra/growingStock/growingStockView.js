@@ -19,6 +19,7 @@ import GeneralComments from '../../descriptionBundles/generalComments'
 
 import defaultYears from '../../../server/eof/defaultYears'
 import { isFRA2020SectionEditDisabled } from '../../utils/assessmentAccess'
+import { getTotalGrowingStockFieldsSum } from './growingStock'
 
 const sectionName = 'growingStock'
 const mapIndexed = R.addIndex(R.map)
@@ -121,24 +122,25 @@ const copyTableAsHtml = (tableData, i18n) => {
   clipboard.write(dataTransfer)
 }
 
-export const plantedForestSubCategoryValidator = (props, year, row) => {
-  const {totalTable} = props
-  const totalValue = R.path([year, 'plantedForest'], totalTable)
-  const sumOfPartsProp = prop => defaultTo0(R.path([year, prop], totalTable))
-  const sumOfParts = add(sumOfPartsProp('plantationForest'), sumOfPartsProp('otherPlantedForest'))
-  const value = R.path([year, row], totalTable)
-  if (R.isNil(value) || R.isNil(sumOfParts) || R.isNil(totalValue)) return {valid: true}
+const subCategoryValidator = (parentField, childFields) =>
+  (props, year, row) => {
+    const parentValue = getTotalGrowingStockFieldsSum(props, year, [parentField])
+    const childValues = getTotalGrowingStockFieldsSum(props, year, childFields)
 
-  const tolerance = -1
-  const difference = sub(totalValue, sumOfParts)
-  const valid = greaterThan(difference, tolerance)
-  return {
-    valid: valid,
-    message: valid
-      ? null
-      : props.i18n.t('generalValidation.subCategoryExceedsParent')
+    const tolerance = -1
+    const difference = sub(parentValue, childValues)
+    const valid = greaterThan(difference, tolerance)
+
+    return {
+      valid: valid,
+      message: valid
+        ? ''
+        : props.i18n.t('generalValidation.subCategoryExceedsParent')
+    }
   }
-}
+
+export const plantedForestSubCategoryValidator = subCategoryValidator('plantedForest', ['plantationForest', 'otherPlantedForest'])
+export const forestSubCategoryValidator = subCategoryValidator('forest', ['plantedForest', 'naturallyRegeneratingForest'])
 
 const GrowingStock = (props) => {
   const {i18n, countryIso, avgTable, totalTable, isEditDataDisabled} = props
@@ -230,10 +232,12 @@ const GrowingStock = (props) => {
           <InputRowTotal
             row="naturallyRegeneratingForest"
             {...props}
+            validator={forestSubCategoryValidator}
           />
           <InputRowTotal
             row="plantedForest"
             {...props}
+            validator={forestSubCategoryValidator}
           />
           <InputRowTotal
             row="plantationForest"
@@ -255,6 +259,22 @@ const GrowingStock = (props) => {
             row="otherWoodedLand"
             {...props}
           />
+          <tr className="no-print">
+            <td></td>
+            {
+              R.map(year => <td className="fra-table__validation-cell" key={year}>
+                <div className="fra-table__validation-container">
+                  <div className="fra-table__validation-error">{
+                    R.uniq([
+                      forestSubCategoryValidator(props, year).message,
+                      plantedForestSubCategoryValidator(props, year).message,
+                    ])
+                  }</div>
+                </div>
+              </td>, defaultYears)
+            }
+          </tr>
+
           </tbody>
         </table>
       </div>
