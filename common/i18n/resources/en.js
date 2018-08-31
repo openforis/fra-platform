@@ -856,7 +856,8 @@ The FRA team
     forestAreaExceedsExtentOfForest: 'Exceeds Forest area (1a)',
     otherLandExceedsExtentOfForest: 'Exceeds Other land area (1a)',
     valueMustBePositive: 'Value should be greater than zero',
-    emptyField: 'This field is empty'
+    emptyField: 'This field is empty',
+    mustBeEqualToTotalGrowingStock: 'Value should be equal to Total Growing Stock (2a)',
   },
 
   emoji: {

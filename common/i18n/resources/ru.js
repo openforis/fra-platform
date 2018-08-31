@@ -840,7 +840,8 @@ module.exports.translation = {
     forestAreaExceedsExtentOfForest: 'Превышает "Площадь лесов" (1a)',
     otherLandExceedsExtentOfForest: 'Превышает "Другие земельные площади" (1a)',
     valueMustBePositive: 'Значение должно быть больше нуля',
-    emptyField: 'Пустое поле'
+    emptyField: 'Пустое поле',
+    mustBeEqualToTotalGrowingStock: 'Value should be equal to Total Growing Stock (2a)',
   },
 
   emoji: {

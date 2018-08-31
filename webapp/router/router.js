@@ -43,11 +43,16 @@ class Router extends React.Component {
 }
 
 const mapStateToProps = state => {
+
   const path = state.router.path
     ? state.router.path
     : (window.location.hash || window.location.pathname)
   // We use userInfo as the test to see if initial data is loaded already because it's so essential
-  const initialDataLoaded = !!state.user.userInfo && !!R.path(['country', 'countries'], state)
+  const initialDataLoaded = !!state.user.userInfo
+    && !!R.path(['country', 'countries'], state)
+    && !R.isEmpty(state.extentOfForest)
+    && !R.isEmpty(state.growingStock)
+
   return {path, initialDataLoaded}
 }
 

@@ -826,7 +826,8 @@ L'équipe de FRA
     forestAreaExceedsExtentOfForest: 'Supérieur à la superficie de la Forêt (1a)',
     otherLandExceedsExtentOfForest: 'Supérieur à la superficie des autres terres (1a)',
     valueMustBePositive: 'La valeur devra être supérieure à zéro',
-    emptyField: 'Ce champ est vide'
+    emptyField: 'Ce champ est vide',
+    mustBeEqualToTotalGrowingStock: 'La valeur doit être égale au Total Matériel sur pied (2a)',
   },
 
   emoji: {

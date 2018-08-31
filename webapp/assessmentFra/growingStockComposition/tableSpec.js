@@ -1,6 +1,7 @@
 import React from 'react'
 import R from 'ramda'
 import { totalSumFormatted } from '../../traditionalTable/aggregate'
+import { equalToTotalGrowingStock } from '../../traditionalTable/validators'
 
 const years = [1990, 2000, 2010, 2015, 2020]
 
@@ -38,16 +39,24 @@ const totalIntroduced = (tableData, column) => totalSumFormatted(tableData, colu
 
 const totalGrowingStock = (tableData, column) => totalSumFormatted(tableData, column, R.concat(totalNativeRows, totalIntroducedRows))
 
-const renderAggregate = (aggregateFunction, column) => ({tableData}) =>
-  <td className="fra-table__calculated-cell">
-    {aggregateFunction(tableData, column)}
-  </td>
+const renderAggregate = (aggregateFunction, column) =>
+  props => {
+    const {tableData, validator, rowIdx, colIdx} = props
+    const valid = validator ? validator(props, rowIdx, colIdx).valid : true
 
-const aggregateCell = aggregateFunction => column =>
-  ({
+    return <td className={`fra-table__calculated-cell ${valid ? '' : 'error'}`}>
+      {aggregateFunction(tableData, column)}
+    </td>
+  }
+
+const aggregateCell = (aggregateFunction, growingStock = null) => (column, i) => {
+  const year = years[i]
+  return {
     type: 'custom',
-    render: renderAggregate(aggregateFunction, column)
-  })
+    render: renderAggregate(aggregateFunction, column),
+    validator: growingStock ? equalToTotalGrowingStock(year, growingStock, aggregateFunction) : null
+  }
+}
 
 const remainingNativeRow = i18n => [
   {
@@ -73,21 +82,21 @@ const remainingIntroducedRow = i18n => [
   ...yearlyVolumeInputsForRow()
 ]
 
-const totalRow = (i18n, rowHeaderKey, aggregateFunction) => [
+const totalRow = (i18n, rowHeaderKey, aggregateFunction, growingStock) => [
   {
     type: 'readOnly',
     jsx: <th className="fra-table__header-cell-left fra-table__filler-first">{i18n.t(rowHeaderKey)}</th>
   },
   fillerCell,
   fillerCell,
-  ...R.map(aggregateCell(aggregateFunction), R.range(3, 8))
+  ...R.range(3, 8).map(aggregateCell(aggregateFunction, growingStock))
 ]
 
 const totalNativeRow = i18n => totalRow(i18n, 'growingStockComposition.totalNative', totalNative)
 
 const totalIntroducedRow = i18n => totalRow(i18n, 'growingStockComposition.totalIntroduced', totalIntroduced)
 
-const totalGrowingStockRow = i18n => totalRow(i18n, 'growingStockComposition.totalGrowingStock', totalGrowingStock)
+const totalGrowingStockRow = (i18n, growingStock) => totalRow(i18n, 'growingStockComposition.totalGrowingStock', totalGrowingStock, growingStock)
 
 const introducedHeaderRow = i18n => [
   {
@@ -105,7 +114,7 @@ const introducedHeaderRow = i18n => [
 
 export const sectionName = 'growingStockComposition'
 
-export default i18n => ({
+export default (i18n, growingStock) => ({
   name: sectionName,
   header: <thead>
   <tr>
@@ -117,9 +126,9 @@ export default i18n => ({
   <tr>
     <th className="fra-table__header-cell-left">{i18n.t('growingStockComposition.nativeTreeSpecies')}</th>
     {
-      R.map(year=>
-        <th key={year} className="fra-table__header-cell">{year}</th>
-      , years)
+      R.map(year =>
+          <th key={year} className="fra-table__header-cell">{year}</th>
+        , years)
     }
   </tr>
   </thead>,
@@ -132,7 +141,7 @@ export default i18n => ({
       ...R.map(rankRow(i18n), R.range(1, 6)),
       remainingIntroducedRow(i18n),
       totalIntroducedRow(i18n),
-      totalGrowingStockRow(i18n)
+      totalGrowingStockRow(i18n, growingStock)
     ],
   valueSlice: {
     rowStart: 0,
