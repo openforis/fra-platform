@@ -3,9 +3,10 @@
  * Don't put your verySpecificValidatorUsedInOnePlace here, leave it in tableSpec instead
  */
 import R from 'ramda'
-import { abs, greaterThan, greaterThanOrEqualTo, lessThan, sub } from '../../common/bignumberUtils'
+import { abs, greaterThan, greaterThanOrEqualTo, lessThan, sub, eq } from '../../common/bignumberUtils'
 import { totalSum } from '../traditionalTable/aggregate'
 import { getForestAreaForYear, getOtherLandAreaForYear } from '../assessmentFra/extentOfForest/extentOfForestHelper'
+import { getTotalGrowingStock } from '../assessmentFra/growingStock/growingStock'
 
 export const subCategoryValidator = (totalRowIndex, rowIndexes) =>
   (props, currentFieldRowIdx, currentFieldColumnIdx) => {
@@ -73,6 +74,7 @@ export const otherLandLessThanOrEqualToExtentOfForestValidator = (year, extentOf
         : props.i18n.t('generalValidation.otherLandExceedsExtentOfForest')
     }
   }
+
 export const positiveOrZero = () =>
   (props, row, column) => {
     const {i18n, tableData, calculateValue = null} = props
@@ -84,5 +86,21 @@ export const positiveOrZero = () =>
       message: valid
         ? null
         : i18n.t('generalValidation.valueMustBePositive')
+    }
+  }
+
+export const equalToTotalGrowingStock = (year, growingStock, aggregateFunction = null) =>
+  (props, row, column) => {
+    const {i18n, tableData} = props
+    const value = R.isNil(aggregateFunction) ? tableData[row][column] : aggregateFunction(tableData, column)
+    const totalGrowingStock = getTotalGrowingStock(growingStock, year)
+
+    const valid = R.isNil(value) || eq(totalGrowingStock, 0) || eq(totalGrowingStock, value)
+
+    return {
+      valid,
+      message: valid
+        ? null
+        : i18n.t('generalValidation.mustBeEqualToTotalGrowingStock')
     }
   }

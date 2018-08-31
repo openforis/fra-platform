@@ -1,6 +1,7 @@
 import './style.less'
 import React from 'react'
 import { connect } from 'react-redux'
+import * as R from 'ramda'
 
 import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
 import TraditionalTable from '../../traditionalTable/traditionalTable'
@@ -16,7 +17,8 @@ class GrowingStockCompositionView extends React.Component {
 
   constructor(props) {
     super(props)
-    this.tableSpecInstance = tableSpec(this.props.i18n)
+    const {i18n, growingStock} = props
+    this.tableSpecInstance = tableSpec(i18n, growingStock)
   }
 
   componentWillMount() {
@@ -52,7 +54,8 @@ class GrowingStockCompositionView extends React.Component {
 
 const mapStateToProps = state => ({
   i18n: state.user.i18n,
-  isEditDataDisabled: isFRA2020SectionEditDisabled(state, sectionName)
+  isEditDataDisabled: isFRA2020SectionEditDisabled(state, sectionName),
+  growingStock: R.prop('growingStock', state)
 })
 
 export default connect(mapStateToProps, {fetchLastSectionUpdateTimestamp})(GrowingStockCompositionView)

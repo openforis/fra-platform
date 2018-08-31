@@ -826,7 +826,8 @@ El equipo de FRA
     forestAreaExceedsExtentOfForest: 'Superior al área de bosque (1a)',
     otherLandExceedsExtentOfForest: 'Superior al área de otras tierras (1a)',
     valueMustBePositive: 'El valor debe ser superior a cero',
-    emptyField: 'Este campo está vacío'
+    emptyField: 'Este campo está vacío',
+    mustBeEqualToTotalGrowingStock: 'El valor debe ser igual al Existencias totales en formación (2a)',
   },
 
   emoji: {
