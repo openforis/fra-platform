@@ -1,8 +1,8 @@
 import React from 'react'
 import R from 'ramda'
+
 import { formatDecimal } from '../../utils/numberFormat'
-import { totalSum } from '../../traditionalTable/aggregate'
-import { subCategoryValidator, forestAreaSameAsExtentOfForestValidator } from '../../traditionalTable/validators'
+import { subCategoryValidator, positiveOrZero } from '../../traditionalTable/validators'
 import { getForestAreaForYear } from '../extentOfForest/extentOfForestHelper'
 import { Link } from '../../reusableUiComponents/link'
 import { sub } from '../../../common/bignumberUtils'
@@ -20,7 +20,6 @@ const createInputRow = (rowHeader, cname = 'fra-table__category-cell', validator
 const privateOwnershipValidator = subCategoryValidator(0, R.range(1, 4))
 
 const years = [1990, 2000, 2010, 2015]
-const sumRows = [0, 4, 5]
 
 export default (i18n, extentOfForest, countryIso) => ({
   name: 'forestOwnership',
@@ -66,7 +65,8 @@ export default (i18n, extentOfForest, countryIso) => ({
 
             return value
           },
-          valueFormatter: formatDecimal
+          valueFormatter: formatDecimal,
+          validator: positiveOrZero(),
         }), years)
     ],
     // [

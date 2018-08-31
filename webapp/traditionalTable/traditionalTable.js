@@ -68,7 +68,7 @@ const createValidationStatus = (props) => {
         const cellSpec = props.tableSpec.rows[rowIdx][colIdx]
         assert(cellSpec, `No cellspec for ${rowIdx} ${colIdx}`)
         return cellSpec.validator
-          ? cellSpec.validator(props, rowIdx, colIdx)
+          ? cellSpec.validator(R.merge(props, cellSpec), rowIdx, colIdx)
           : null
       },
       row
@@ -88,6 +88,7 @@ const validationErrorColumns = props => {
       R.map(R.pluck('message')),
       R.map(R.uniq)
     )(createValidationStatus(props))
+
   if (R.all(R.isEmpty, validationErrorColumnMessages)) return null
   return mapIndexed(
     (columnErrorMsgs, i) =>

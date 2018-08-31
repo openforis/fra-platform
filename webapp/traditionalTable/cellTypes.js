@@ -18,7 +18,7 @@ const cellTypeCreators = {
   'calculated': CalculatedCellType,
   'readOnly': (cellSpec) => ({render: (props) => cellSpec.jsx}),
   'custom': (cellSpec) => ({
-    render: (props) => cellSpec.render(props),
+    render: (props) => cellSpec.render({...props, validator: cellSpec.validator}),
     acceptValue: cellSpec.acceptValue
   })
 }
