@@ -167,6 +167,15 @@ export class GenerateFraValuesControl extends React.Component {
     return <table className="table-with-odp__generate-inputs-table">
       <tbody>
       {
+        this.state.generateMethod === 'annualChange'
+        ? <tr>
+          <td colSpan={2}></td>
+          <td style={{textAlign:'center'}}>{i18n.t('tableWithOdp.placeholderPast')}</td>
+          <td style={{textAlign:'center'}}>{i18n.t('tableWithOdp.placeholderFuture')}</td>
+          </tr>
+          : null
+      }
+      {
         mapIndexed((field, i) =>
             <tr key={i}>
               <td className="table-with-odp__generate-inputs-row-selection-cell">
@@ -190,7 +199,6 @@ export class GenerateFraValuesControl extends React.Component {
                       <input
                         type="text"
                         className={`text-input-s ${rateValidationClass(this.state.annualChangeRates[field].ratePast)}`}
-                        placeholder={i18n.t('tableWithOdp.placeholderPast')}
                         value={this.state.annualChangeRates[field].ratePast}
                         onChange={(evt) => this.setState(R.assocPath(['annualChangeRates', field, 'ratePast'], evt.target.value, this.state))}/>
                     </td>,
@@ -198,7 +206,6 @@ export class GenerateFraValuesControl extends React.Component {
                       <input
                         type="text"
                         className={`text-input-s ${rateValidationClass(this.state.annualChangeRates[field].rateFuture)}`}
-                        placeholder={i18n.t('tableWithOdp.placeholderFuture')}
                         value={this.state.annualChangeRates[field].rateFuture}
                         onChange={(evt) => this.setState(R.assocPath(['annualChangeRates', field, 'rateFuture'], evt.target.value, this.state))}
                       />
