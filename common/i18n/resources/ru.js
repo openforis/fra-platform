@@ -363,6 +363,7 @@ module.exports.translation = {
     done: 'Готово',
     edit: 'Редактировать',
     addUser: 'Добавить сотрудника',
+    formErrors:'There are errors in the form. Please, fix them and submit it again.',
     insufficientPrivileges: 'Недостаточно полномочий',
     confirmDelete: 'Удалить {{user}}?',
     allUsers: 'Все сотрудники',

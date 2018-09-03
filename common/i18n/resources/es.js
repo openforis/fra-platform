@@ -349,6 +349,7 @@ El equipo de FRA
     done: 'Finalizado',
     edit: 'Editar',
     addUser: 'Añadir colaborador',
+    formErrors: 'Hay errores en el formulario. Por favor, corrígelos y envíalo de nuevo.',
     insufficientPrivileges: 'Privilegios insuficientes',
     confirmDelete: '¿Eliminar {{user}}?',
     allUsers: 'Todos los colaboradores',
