@@ -1,8 +1,8 @@
 import React from 'react'
-import * as R from "ramda"
+import * as R from 'ramda'
 
-import {validField} from "../userManagement"
-import {roles} from "../../../common/countryRole"
+import { validField } from '../userManagement'
+import { roles } from '../../../common/countryRole'
 
 import TextInput from '../../reusableUiComponents/textInput'
 
@@ -60,15 +60,23 @@ const UserRoleSelectCol = ({
 
 class AddUserForm extends React.Component {
 
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = {adding: false}
   }
 
-  render() {
+  render () {
     const {countryIso, i18n, user, updateNewUser, addNewUser} = this.props
+    const invalidForm = this.state.adding &&
+      !(validField(user, 'name') && validField(user, 'role') && validField(user, 'email'))
 
     return <div className="add-user__container">
+      {
+        invalidForm
+          ? <div className="add-user__error-container">{i18n.t('userManagement.formErrors')}</div>
+          : null
+      }
+
       <table className="add-user__table">
         <thead>
         <tr>

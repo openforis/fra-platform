@@ -379,6 +379,7 @@ The FRA team
     done: 'Done',
     edit: 'Edit',
     addUser: 'Add collaborator',
+    formErrors:'There are errors in the form. Please, fix them and submit it again.',
     insufficientPrivileges: 'Insufficient privileges',
     confirmDelete: 'Remove {{user}}?',
     allUsers: 'All collaborators',
