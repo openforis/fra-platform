@@ -4,7 +4,7 @@ import R from 'ramda'
 import { acceptNextDecimal } from '../../utils/numberInput'
 import { formatDecimal } from '../../utils/numberFormat'
 
-import { subCategoryValidator } from '../../traditionalTable/validators'
+import { subCategoryValidator, positiveOrZero } from '../../traditionalTable/validators'
 import { Link } from '../../reusableUiComponents/link'
 import { yearIntervals, decimalInputCell, eofNetChange } from './forestAreaChange'
 
@@ -15,7 +15,8 @@ const expansionValidator = subCategoryValidator(0, ofWhichRows)
 const decimalInputColumns = (extentOfForest, validator, disabled) => R.times(() => ({
   type: 'custom',
   render: props => decimalInputCell(props, extentOfForest, validator, disabled),
-  acceptValue: acceptNextDecimal
+  acceptValue: acceptNextDecimal,
+  validator,
 }), 4)
 
 export const sectionName = 'forestAreaChange'
@@ -50,7 +51,7 @@ export default (i18n, extentOfForest, countryIso, disabled) => {
           type: 'readOnly',
           jsx: <th className="fra-table__category-cell">{i18n.t('forestAreaChange.forestExpansion')} (a)</th>
         },
-        ...decimalInputColumns(extentOfForest, null, disabled)
+        ...decimalInputColumns(extentOfForest, positiveOrZero(), disabled)
       ],
       [
         {
@@ -71,7 +72,7 @@ export default (i18n, extentOfForest, countryIso, disabled) => {
           type: 'readOnly',
           jsx: <th className="fra-table__category-cell">{i18n.t('forestAreaChange.deforestation')} (b)</th>
         },
-        ...decimalInputColumns(extentOfForest, null, disabled)
+        ...decimalInputColumns(extentOfForest, positiveOrZero(), disabled)
       ],
       [
         {
