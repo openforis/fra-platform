@@ -52,19 +52,17 @@ const ExtentOfForest = (props) => {
     return greaterThanOrEqualTo(otherLandArea, 0)
   }
 
-  const forestAreaValidator = fraColumn => fraColumn.type === 'odp'
-    ? !R.isNil(fraColumn.forestArea)
-    : forestAreaComparedTo2015ValueValidator(fraColumn) && fedAreasNotExceedingTotalLandAreaValidator(fraColumn)
+  const forestAreaValidator = fraColumn =>
+    forestAreaComparedTo2015ValueValidator(fraColumn) &&
+    fedAreasNotExceedingTotalLandAreaValidator(fraColumn) &&
+    (fraColumn.type === 'odp' ? !R.isNil(fraColumn.forestArea) : true)
 
-  const otherWoodedLandValidator = fraColumn => fraColumn.type === 'odp'
-    ? !R.isNil(fraColumn.otherWoodedLand)
-    : fedAreasNotExceedingTotalLandAreaValidator(fraColumn)
+  const otherWoodedLandValidator = fraColumn =>
+    fedAreasNotExceedingTotalLandAreaValidator(fraColumn) &&
+    (fraColumn.type === 'odp' ? !R.isNil(fraColumn.otherWoodedLand) : true)
 
-  const otherLandValidationClass = fraColumn => fraColumn.type === 'odp'
-    ? R.isNil(calculateOtherLandArea(fraColumn))
-      ? 'validation-error' : ''
-    : fedAreasNotExceedingTotalLandAreaValidator(fraColumn)
-      ? '' : 'validation-error'
+  const otherLandValidationClass = fraColumn =>
+    fedAreasNotExceedingTotalLandAreaValidator(fraColumn) ? '' : 'validation-error'
 
   const rowHighlightClass = (target) => props.openCommentThread && R.isEmpty(R.difference(props.openCommentThread.target, [target])) ? 'fra-row-comments__open' : ''
 
@@ -126,21 +124,22 @@ const ExtentOfForest = (props) => {
 
   const validationErrorMessages = fra =>
     R.map(fraColumn => {
-      const validationErrors = fraColumn.type === 'odp'
-        ? forestAreaValidator(fraColumn) && otherWoodedLandValidator(fraColumn)
-          ? []
-          : [props.i18n.t('extentOfForest.ndpMissingValues')]
-        : [
-          !forestAreaComparedTo2015ValueValidator(fraColumn)
-            ? props.i18n.t(
-            'extentOfForest.forestAreaDoesNotMatchPreviouslyReported',
-            {previous: getForestArea2015Value(fraColumn.name)}
-            )
-            : null,
-          !fedAreasNotExceedingTotalLandAreaValidator(fraColumn)
-            ? props.i18n.t('extentOfForest.fedAreasExceedTotalLandArea')
-            : null
-        ]
+      const validationErrors = [
+        fraColumn.type === 'odp' && R.isNil(fraColumn.forestArea)
+          ? props.i18n.t('extentOfForest.ndpMissingValues')
+          : null,
+
+        !forestAreaComparedTo2015ValueValidator(fraColumn)
+          ? props.i18n.t(
+          'extentOfForest.forestAreaDoesNotMatchPreviouslyReported',
+          {previous: getForestArea2015Value(fraColumn.name)}
+          )
+          : null,
+
+        !fedAreasNotExceedingTotalLandAreaValidator(fraColumn)
+          ? props.i18n.t('extentOfForest.fedAreasExceedTotalLandArea')
+          : null
+      ]
 
       return R.reject(R.isNil, validationErrors)
     }, R.values(fra))
