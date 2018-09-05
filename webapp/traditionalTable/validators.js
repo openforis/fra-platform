@@ -95,7 +95,11 @@ export const equalToTotalGrowingStock = (year, growingStock, aggregateFunction =
     const value = R.isNil(aggregateFunction) ? tableData[row][column] : aggregateFunction(tableData, column)
     const totalGrowingStock = getTotalGrowingStockInForest(growingStock, year)
 
-    const valid = R.isNil(value) || eq(totalGrowingStock, 0) || eq(totalGrowingStock, value)
+    const tolerance = 1
+    const difference = sub(totalGrowingStock, value)
+    const result = !greaterThan(abs(difference), tolerance)
+
+    const valid = R.isNil(value) || eq(totalGrowingStock, 0) || result
 
     return {
       valid,
