@@ -14,7 +14,7 @@ import {
 } from './actions'
 import { fetchCountryOverviewStatus } from '../country/actions'
 import { acceptNextDecimal } from '../utils/numberInput'
-import { add, sub } from '../../common/bignumberUtils'
+import { add, sub, greaterThan } from '../../common/bignumberUtils'
 import { readPasteClipboard } from '../utils/copyPasteUtil'
 import { formatDecimal } from '../utils/numberFormat'
 import { ThousandSeparatedDecimalInput } from '../reusableUiComponents/thousandSeparatedDecimalInput'
@@ -349,6 +349,10 @@ const ExtentOfForestSection = ({odp, countryIso, saveDraft, openThread, i18n}) =
 }
 
 const ForestCharacteristicsSection = ({odp, countryIso, saveDraft, openThread, i18n}) => {
+
+  const plantationTotal = originalDataPoint.subClassTotalArea(odp, 'forestPercent', 'plantationPercent')
+  const hasPlantation = plantationTotal && greaterThan(plantationTotal, 0)
+
   return <div className="odp__section">
     <div className="odp__section-header">
       <h3 className="subhead">{i18n.t('nationalDataPoint.forestCharacteristics')}</h3>
@@ -387,8 +391,9 @@ const ForestCharacteristicsSection = ({odp, countryIso, saveDraft, openThread, i
         </table>
       </div>
     </div>
+
     {
-      originalDataPoint.subClassTotalArea(odp, 'forestPercent', 'plantationPercent')
+      hasPlantation
       ? <div className="fra-table__container">
           <div className="fra-table__scroll-wrapper">
             <table className="fra-table odp__sub-table">
