@@ -124,12 +124,14 @@ const copyTableAsHtml = (tableData, i18n) => {
 
 const subCategoryValidator = (parentField, childFields) =>
   (props, year, row) => {
-    const parentValue = getTotalGrowingStockFieldsSum(props, year, [parentField])
+    const parentValue = R.path(['totalTable', year, parentField])(props)
     const childValues = getTotalGrowingStockFieldsSum(props, year, childFields)
 
     const tolerance = -1
     const difference = sub(parentValue, childValues)
-    const valid = greaterThan(difference, tolerance)
+    const valid = parentValue
+      ? greaterThan(difference, tolerance)
+      : true
 
     return {
       valid: valid,
