@@ -282,19 +282,15 @@ class DataFetchingComponent extends React.Component {
   }
 
   render () {
-    const fraData = R.prop('fra', this.props)
+    const {fra, fraNoNDPs} = this.props
     const {showNDPs} = this.state
 
-    const fra = showNDPs
-      ? fraData
-      : R.reject(R.propEq('type', 'odp'), fraData)
-
-    const hasNDPs = hasOdps(fraData)
+    const hasNDPs = hasOdps(fra)
 
     return <LoggedInPageTemplate commentsOpen={this.props.openCommentThread}>
       <ExtentOfForest {...this.props}
                       countryIso={this.props.match.params.countryIso}
-                      fra={fra}
+                      fra={showNDPs ? fra : fraNoNDPs}
                       showNDPs={showNDPs}
                       hasNDPs={hasNDPs}
                       toggleNDPs={() => this.setState({showNDPs: !showNDPs})}/>
