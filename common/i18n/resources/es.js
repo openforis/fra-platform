@@ -428,7 +428,7 @@ El equipo de FRA
     tableNoticeMessage: 'La superficie de tierra registrada según FAOSTAT para el año 2015 se usa para todos los años de referencia',
     ndpMissingValues: 'El punto de datos nacionales tiene valores faltantes',
     showNDPs: 'Mostrar puntos de datos nacionales',
-    hideNDPs: 'Esconder National data points',
+    hideNDPs: 'Esconder puntos de datos nacionales',
   },
 
   climaticDomain: {
