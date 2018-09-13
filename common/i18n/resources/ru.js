@@ -363,7 +363,7 @@ module.exports.translation = {
     done: 'Готово',
     edit: 'Редактировать',
     addUser: 'Добавить сотрудника',
-    formErrors:'There are errors in the form. Please, fix them and submit it again.',
+    formErrors: 'There are errors in the form. Please, fix them and submit it again.',
     insufficientPrivileges: 'Недостаточно полномочий',
     confirmDelete: 'Удалить {{user}}?',
     allUsers: 'Все сотрудники',
@@ -440,7 +440,9 @@ module.exports.translation = {
     dontUseOriginalDataPoints: 'Не использовать национальные отчетные годы',
     whatIsThis: 'Что это такое?',
     tableNoticeMessage: 'Данные ФАОСТАТ о площади земель за 2015 год используются для всех отчетных лет',
-    ndpMissingValues: 'Национальный отчетный год имеет отсутствующие значения'
+    ndpMissingValues: 'Национальный отчетный год имеет отсутствующие значения',
+    showNDPs: 'Show National data points',
+    hideNDPs: 'Hide National data points',
   },
 
   climaticDomain: {
