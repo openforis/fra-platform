@@ -227,7 +227,7 @@ const ExtentOfForest = (props) => {
       ]}
     />
     {
-      hasNDPs && !isEditDataDisabled
+      hasNDPs && showNDPs && !isEditDataDisabled
         ? <div className="fra-view__section-toolbar no-print">
           <GenerateFraValuesControl section={sectionName} rows={eofRows} useOriginalDataPoints={true} {...props} />
           {
