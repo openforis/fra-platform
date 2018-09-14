@@ -363,7 +363,7 @@ module.exports.translation = {
     done: 'Готово',
     edit: 'Редактировать',
     addUser: 'Добавить сотрудника',
-    formErrors:'There are errors in the form. Please, fix them and submit it again.',
+    formErrors: 'Просьба исправить ошибки в формуляре.',
     insufficientPrivileges: 'Недостаточно полномочий',
     confirmDelete: 'Удалить {{user}}?',
     allUsers: 'Все сотрудники',
@@ -440,7 +440,9 @@ module.exports.translation = {
     dontUseOriginalDataPoints: 'Не использовать национальные отчетные годы',
     whatIsThis: 'Что это такое?',
     tableNoticeMessage: 'Данные ФАОСТАТ о площади земель за 2015 год используются для всех отчетных лет',
-    ndpMissingValues: 'Национальный отчетный год имеет отсутствующие значения'
+    ndpMissingValues: 'Национальный отчетный год имеет отсутствующие значения',
+    showNDPs: 'Показать национальные отчетные годы',
+    hideNDPs: 'Скрыть национальные отчетные годы',
   },
 
   climaticDomain: {
@@ -842,7 +844,7 @@ module.exports.translation = {
     otherLandExceedsExtentOfForest: 'Превышает "Другие земельные площади" (1a)',
     valueMustBePositive: 'Значение должно быть больше нуля',
     emptyField: 'Пустое поле',
-    mustBeEqualToTotalGrowingStock: 'Value should be equal to Total Growing Stock (2a)',
+    mustBeEqualToTotalGrowingStock: 'Значение должно равняться Общему запасу древостоя (2a)',
   },
 
   emoji: {

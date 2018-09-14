@@ -129,7 +129,7 @@ export class GenerateFraValuesControl extends React.Component {
         className="select-s"
         value={this.state.generateMethod}
         onChange={evt => this.setState({...this.state, generateMethod: evt.target.value})}>
-        <option disabled>{i18n.t('tableWithOdp.placeholderSelect')}</option>
+        <option value='' disabled>{i18n.t('tableWithOdp.placeholderSelect')}</option>
         {
           hasOdps(fra) && !!useOriginalDataPoints
             ? [

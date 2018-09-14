@@ -786,7 +786,7 @@ const SubcategoryRow =
     const commentTarget = [odp.odpId, 'class', `${odp.nationalClasses[index].uuid}`, targetSuffix]
     const areaMultiplier = ancestorCategory ? nationalClass[parentCategory] * nationalClass[ancestorCategory] / 10000 : nationalClass[parentCategory] / 100
     const categoryArea = area ? area * areaMultiplier : null
-    const allowedClass = nc => ancestorCategory ? nc[parentCategory] && nc[ancestorCategory] > 0 : nc[parentCategory] > 0
+    const allowedClass = nc => ancestorCategory ? nc[parentCategory] >0 && nc[ancestorCategory] > 0 : nc[parentCategory] > 0
 
     return !allowedClass(nationalClass)
       ? null

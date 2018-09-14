@@ -379,7 +379,7 @@ The FRA team
     done: 'Done',
     edit: 'Edit',
     addUser: 'Add collaborator',
-    formErrors:'There are errors in the form. Please, fix them and submit it again.',
+    formErrors: 'There are errors in the form. Please, fix them and submit it again.',
     insufficientPrivileges: 'Insufficient privileges',
     confirmDelete: 'Remove {{user}}?',
     allUsers: 'All collaborators',
@@ -456,7 +456,9 @@ The FRA team fra@fao.org
     dontUseOriginalDataPoints: 'Don’t use national data points',
     whatIsThis: 'What is this?',
     tableNoticeMessage: 'The FAOSTAT land area figure for the year 2015 is used for all reference years',
-    ndpMissingValues: 'National data point has missing values'
+    ndpMissingValues: 'National data point has missing values',
+    showNDPs: 'Show National data points',
+    hideNDPs: 'Hide National data points',
   },
 
   climaticDomain: {
