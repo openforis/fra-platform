@@ -1,25 +1,28 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
-import { fetchItem, save, saveMany, generateFraValues } from '../../tableWithOdp/actions'
-import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
+
+import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
 import { Link } from '../../reusableUiComponents/link'
 import Icon from '../../reusableUiComponents/icon'
 import DefinitionLink from '../../reusableUiComponents/definitionLink'
 import ChartWrapper from './chart/chartWrapper'
-import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
 import { TableWithOdp, GenerateFraValuesControl } from '../../tableWithOdp/tableWithOdp'
 import NationalDataDescriptions from '../../descriptionBundles/nationalDataDescriptions'
 import AnalysisDescriptions from '../../descriptionBundles/analysisDescriptions'
 import GeneralComments from '../../descriptionBundles/generalComments'
-import { sum, formatNumber, greaterThanOrEqualTo, lessThanOrEqualTo, abs, sub } from '../../../common/bignumberUtils'
 import ReviewIndicator from '../../review/reviewIndicator'
-import climaticDomainTableSpec from './climaticDomainTableSpec'
 import TraditionalTable from '../../traditionalTable/traditionalTable'
-import { saveCountryConfigSetting } from '../../country/actions'
-import { hasOdps } from './extentOfForestHelper'
 
+import { saveCountryConfigSetting } from '../../country/actions'
+import { fetchItem, save, saveMany, generateFraValues } from '../../tableWithOdp/actions'
+import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
+
+import { sum, formatNumber, greaterThanOrEqualTo, lessThanOrEqualTo, abs, sub } from '../../../common/bignumberUtils'
+import climaticDomainTableSpec from './climaticDomainTableSpec'
+import { hasOdps } from './extentOfForestHelper'
 import { isFRA2020SectionEditDisabled } from '../../utils/assessmentAccess'
+import { isAdministrator } from '../../../common/countryRole'
 
 const sectionName = 'extentOfForest'
 const mapIndexed = R.addIndex(R.map)
@@ -27,7 +30,7 @@ const odpValueCellClass = (fraColumn) => fraColumn.type === 'odp' ? 'odp-value-c
 
 const ExtentOfForest = (props) => {
 
-  const {i18n, isEditDataDisabled} = props
+  const {i18n, isEditDataDisabled, userInfo, showNDPs, toggleNDPs, hasNDPs} = props
 
   const getFaostatValue = year => R.path(['faoStat', year, 'area'], props)
   const getForestArea2015Value = year => R.path(['fra2015ForestAreas', year], props)
@@ -189,7 +192,7 @@ const ExtentOfForest = (props) => {
     <hr className="no-print"/>
 
     {
-      hasOdps(props.fra)
+      hasNDPs
         ? null
         : [
           <NationalDataDescriptions key="ndd" section={sectionName} countryIso={props.countryIso}
@@ -200,6 +203,15 @@ const ExtentOfForest = (props) => {
     }
     <h2 className="headline">
       <span className="only-print">1a </span>{i18n.t('extentOfForest.extentOfForest')}
+      {
+        isAdministrator(userInfo) && hasNDPs
+          ? <button className="btn-s btn-secondary no-print"
+                    onClick={toggleNDPs}
+                    style={{marginLeft: '12px'}}>
+            {i18n.t(`extentOfForest.${showNDPs ? 'hideNDPs' : 'showNDPs'}`)}
+          </button>
+          : null
+      }
     </h2>
     <div className="fra-view__section-toolbar">
       <DefinitionLink className="margin-right-big no-print" document="tad" anchor="1a"
@@ -215,7 +227,7 @@ const ExtentOfForest = (props) => {
       ]}
     />
     {
-      hasOdps(props.fra) && !isEditDataDisabled
+      hasNDPs && showNDPs && !isEditDataDisabled
         ? <div className="fra-view__section-toolbar no-print">
           <GenerateFraValuesControl section={sectionName} rows={eofRows} useOriginalDataPoints={true} {...props} />
           {
@@ -253,6 +265,12 @@ const ExtentOfForest = (props) => {
 }
 
 class DataFetchingComponent extends React.Component {
+
+  constructor () {
+    super()
+    this.state = {showNDPs: true}
+  }
+
   componentWillMount () {
     const countryIso = this.props.match.params.countryIso
     this.fetch(countryIso)
@@ -264,8 +282,18 @@ class DataFetchingComponent extends React.Component {
   }
 
   render () {
+    const {fra, fraNoNDPs} = this.props
+    const {showNDPs} = this.state
+
+    const hasNDPs = hasOdps(fra)
+
     return <LoggedInPageTemplate commentsOpen={this.props.openCommentThread}>
-      <ExtentOfForest {...this.props} countryIso={this.props.match.params.countryIso}/>
+      <ExtentOfForest {...this.props}
+                      countryIso={this.props.match.params.countryIso}
+                      fra={showNDPs ? fra : fraNoNDPs}
+                      showNDPs={showNDPs}
+                      hasNDPs={hasNDPs}
+                      toggleNDPs={() => this.setState({showNDPs: !showNDPs})}/>
     </LoggedInPageTemplate>
   }
 }
@@ -278,7 +306,8 @@ const mapStateToProps = state =>
     fra2015ForestAreas: R.path(['country', 'config', 'fra2015ForestAreas'], state),
     climaticDomainPercents2015: R.path(['country', 'config', 'climaticDomainPercents2015'], state),
     i18n: state.user.i18n,
-    isEditDataDisabled: isFRA2020SectionEditDisabled(state, sectionName)
+    isEditDataDisabled: isFRA2020SectionEditDisabled(state, sectionName),
+    userInfo: R.path(['user', 'userInfo'], state)
   })
 
 export default connect(
