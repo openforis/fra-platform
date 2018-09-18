@@ -100,6 +100,7 @@ const localStrategyVerifyCallback = async (req, email, password, done) => {
 }
 
 const init = (app) => {
+  const appUri = process.env.APP_URI
 
   app.use(cookieParser())
   app.use(passport.initialize())
@@ -108,7 +109,7 @@ const init = (app) => {
   passport.use(new GoogleStrategy({
       clientID: process.env.FRA_GOOGLE_CLIENT_ID,
       clientSecret: process.env.FRA_GOOGLE_CLIENT_SECRET,
-      callbackURL: '/auth/google/callback',
+      callbackURL: `${appUri ? appUri : ''}/auth/google/callback`,
       passReqToCallback: true
     },
     googleStrategyVerifyCallback
