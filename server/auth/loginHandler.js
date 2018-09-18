@@ -1,5 +1,5 @@
 const express = require('express')
-const {sendErr} = require('../utils/requestUtils')
+const {sendErr, appUri} = require('../utils/requestUtils')
 const countryRepository = require('../country/countryRepository')
 const {fetchInvitation} = require('./../user/userRepository')
 
@@ -30,7 +30,7 @@ module.exports.init = app => {
           return
         }
         const defaultCountry = await countryRepository.getFirstAllowedCountry(req.user.roles)
-        res.redirect(`/#/country/${defaultCountry.countryIso}`)
+        res.redirect(`${appUri}/#/country/${defaultCountry.countryIso}`)
       } else {
         loginPage(req, res, next)
       }
