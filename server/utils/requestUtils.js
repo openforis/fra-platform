@@ -16,9 +16,12 @@ const send404 = res => res.status(404).send('404 / Page not found')
 
 const serverUrl = req => req.protocol + '://' + req.get('host')
 
+const appUri = process.env.APP_URI ? process.env.APP_URI : ''
+
 module.exports = {
   sendErr,
   sendOk,
   send404,
-  serverUrl
+  serverUrl,
+  appUri,
 }

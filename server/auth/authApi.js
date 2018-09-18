@@ -4,7 +4,7 @@ const R = require('ramda')
 const db = require('./../db/db')
 const authConfig = require('./authConfig')
 const countryRepository = require('../country/countryRepository')
-const {sendErr, serverUrl} = require('../utils/requestUtils')
+const {sendErr, serverUrl, appUri} = require('../utils/requestUtils')
 const {validEmail, validPassword} = require('../../common/userUtils')
 
 const {findLocalUserByEmail, findUserById, fetchInvitation, findUserByEmail} = require('../user/userRepository')
@@ -27,7 +27,7 @@ const authenticationSuccessful = (req, user, next, res, done) => {
         // More here:
         // https://github.com/voxpelli/node-connect-pg-simple/issues/31#issuecomment-230596077
         req.session.save(() => {
-          done(`/#/country/${defaultCountry.countryIso}`)
+          done(`${appUri}/#/country/${defaultCountry.countryIso}`)
         })
       }).catch(err => sendErr(res, err))
     }
