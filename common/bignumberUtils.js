@@ -2,20 +2,25 @@ const BigNumber = require('bignumber.js')
 const R = require('ramda')
 
 //disabling BigNumber Error: new BigNumber() number type has more than 15 significant digits
+const groupSeparator = '\xA0'
 BigNumber.config({
   ERRORS: false,
   FORMAT: {
     decimalSeparator: '.',
-    groupSeparator: '\xA0', // non-breaking space
+    groupSeparator, // non-breaking space
     groupSize: 3
   }
 })
 
 const defaultTo0 = R.defaultTo(0)
 
-const toBigNumber = value => {
+const toBigNumber = (value = '') => {
   if (value instanceof BigNumber) return value //Do not wrap unnecessarily
-  return new BigNumber(value)
+  return new BigNumber(
+    R.is(String, value)
+      ? value.split(groupSeparator).join('')
+      : value
+  )
 }
 
 const applyOperator = (x, y, op) => {
