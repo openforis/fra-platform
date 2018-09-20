@@ -145,7 +145,6 @@ const subCategoryValidator = (parentField, childFields) =>
 export const plantedForestSubCategoryValidator = subCategoryValidator('plantedForest', ['plantationForest', 'otherPlantedForest'])
 
 const equalToTotalGrowingStockSubCategoryValidator = (props, year, row) => {
-  console.log(props)
   return equalToTotalGrowingStock(
     year,
     props,
@@ -295,7 +294,9 @@ const GrowingStock = (props) => {
                       forestSubCategoryValidator(props, year).message,
                       plantedForestSubCategoryValidator(props, year).message,
                       equalToTotalGrowingStockSubCategoryValidator(props, year).message,
-                    ]).map(m => <div className="fra-table__validation-error">{m}</div>)
+                    ]).map((m, i) =>
+                      <div key={i} className="fra-table__validation-error">{m}</div>
+                    )
                   }
                 </div>
               </td>, defaultYears)
