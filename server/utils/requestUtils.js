@@ -1,3 +1,4 @@
+const R = require('ramda')
 const {AccessControlException} = require('./accessControl')
 
 const sendErr = (res, err) => {
@@ -14,9 +15,11 @@ const sendOk = res => res.json({})
 
 const send404 = res => res.status(404).send('404 / Page not found')
 
-const serverUrl = req => req.protocol + '://' + req.get('host')
-
 const appUri = process.env.APP_URI ? process.env.APP_URI : ''
+
+const serverUrl = req => R.isEmpty(appUri)
+  ? req.protocol + '://' + req.get('host')
+  : appUri
 
 module.exports = {
   sendErr,
