@@ -20,6 +20,7 @@ import GeneralComments from '../../descriptionBundles/generalComments'
 import defaultYears from '../../../server/eof/defaultYears'
 import { isFRA2020SectionEditDisabled } from '../../utils/assessmentAccess'
 import { getTotalGrowingStockFieldsSum } from './growingStock'
+import { equalToTotalGrowingStock } from '../../traditionalTable/validators'
 
 const sectionName = 'growingStock'
 const mapIndexed = R.addIndex(R.map)
@@ -142,7 +143,30 @@ const subCategoryValidator = (parentField, childFields) =>
   }
 
 export const plantedForestSubCategoryValidator = subCategoryValidator('plantedForest', ['plantationForest', 'otherPlantedForest'])
-export const forestSubCategoryValidator = subCategoryValidator('forest', ['plantedForest', 'naturallyRegeneratingForest'])
+
+const equalToTotalGrowingStockSubCategoryValidator = (props, year, row) => {
+  console.log(props)
+  return equalToTotalGrowingStock(
+    year,
+    props,
+    () => {
+      const plantedForest = R.path(['totalTable', year, 'plantedForest'])(props)
+      const naturallyRegeneratingForest = R.path(['totalTable', year, 'naturallyRegeneratingForest'])(props)
+
+      if (R.isNil(plantedForest) || R.isNil(naturallyRegeneratingForest))
+        return null
+
+      return add(plantedForest, naturallyRegeneratingForest)
+
+    })(props, row, year)
+}
+
+export const forestSubCategoryValidator = (props, year, row) => {
+  const forestValidator = subCategoryValidator('forest', ['plantedForest', 'naturallyRegeneratingForest'])(props, year, row)
+  return forestValidator.valid
+    ? equalToTotalGrowingStockSubCategoryValidator(props, year, row)
+    : forestValidator
+}
 
 const GrowingStock = (props) => {
   const {i18n, countryIso, avgTable, totalTable, isEditDataDisabled} = props
@@ -266,12 +290,13 @@ const GrowingStock = (props) => {
             {
               R.map(year => <td className="fra-table__validation-cell" key={year}>
                 <div className="fra-table__validation-container">
-                  <div className="fra-table__validation-error">{
+                  {
                     R.uniq([
                       forestSubCategoryValidator(props, year).message,
                       plantedForestSubCategoryValidator(props, year).message,
-                    ])
-                  }</div>
+                      equalToTotalGrowingStockSubCategoryValidator(props, year).message,
+                    ]).map(m => <div className="fra-table__validation-error">{m}</div>)
+                  }
                 </div>
               </td>, defaultYears)
             }
