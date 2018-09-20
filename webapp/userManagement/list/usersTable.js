@@ -78,6 +78,7 @@ class UserRow extends React.Component {
       countryIso,
       i18n,
       user,
+      removeUser,
       onEditClick,
       userInfo,
       isAdminTable,
@@ -128,10 +129,23 @@ class UserRow extends React.Component {
       <td className="user-list__cell user-list__edit-column">
         { // pending users cannot be edited
           user.invitationUuid
-            ? <button className="btn-s btn-link"
+            ? [
+              <button key={0}
+                      className="btn-s btn-link"
                       onClick={() => this.setState({showInvitationInfo: true})}>
-              {i18n.t('userManagement.info')}
-            </button>
+                {i18n.t('userManagement.info')}
+              </button>,
+              <button key={1}
+                      className="btn-s btn-link-destructive"
+                      disabled={userInfo.id === user.id}
+                      onClick={() =>
+                        window.confirm(i18n.t('userManagement.confirmDelete', {user: user.name}))
+                          ? removeUser(countryIso, user, isAdminTable)
+                          : null
+                      }>
+                {i18n.t('userManagement.remove')}
+              </button>
+            ]
             : <button className="btn-s btn-link"
                       onClick={() => onEditClick(user.id)}>
               {i18n.t('userManagement.edit')}
