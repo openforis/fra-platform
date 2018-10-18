@@ -161,8 +161,8 @@ module.exports.init = app => {
         isAdministrator(user)
         || user.id === userToUpdate.id
         || (
-          isNationalCorrespondent(countryIso, user) &&
-          (isCollaborator(countryIso, userToUpdate) || isAlternateNationalCorrespondent(countryIso, userToUpdate))
+          (isNationalCorrespondent(countryIso, user) || isAlternateNationalCorrespondent(countryIso, userToUpdate)) &&
+          isCollaborator(countryIso, userToUpdate)
         )
       ) {
         const validation = validateUser(userToUpdate)
