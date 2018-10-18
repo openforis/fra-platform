@@ -1,4 +1,4 @@
-const {isAdministrator, isNationalCorrespondent, isReviewer, isCollaborator} = require('./countryRole')
+const {isAdministrator, isNationalCorrespondent, isAlternateNationalCorrespondent, isReviewer, isCollaborator} = require('./countryRole')
 
 const assessmentStatus = {
   editing: 'editing',
@@ -38,7 +38,7 @@ const getAllowedStatusTransitions = (countryIso, userInfo, currentState) => {
     // in editing or default only nationalCorrespondent can submit to review
     case assessmentStatus.editing:
     default:
-      return isAdministrator(userInfo) || isNationalCorrespondent(countryIso, userInfo)
+      return isAdministrator(userInfo) || isNationalCorrespondent(countryIso, userInfo) || isAlternateNationalCorrespondent(countryIso, userInfo)
         ? {next: assessmentStatus.review}
         : {}
   }

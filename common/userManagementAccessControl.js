@@ -3,6 +3,7 @@ const R = require('ramda')
 const {
   isAdministrator,
   isNationalCorrespondent,
+  isAlternateNationalCorrespondent,
   nationalCorrespondent,
   alternateNationalCorrespondent,
   reviewer,
@@ -14,8 +15,8 @@ const rolesAllowedToChange = (countryIso, userInfo) => {
   if (isAdministrator(userInfo))
     return [reviewer.role, nationalCorrespondent.role, alternateNationalCorrespondent.role, collaborator.role]
 
-  if (isNationalCorrespondent(countryIso, userInfo))
-    return [collaborator.role, alternateNationalCorrespondent.role]
+  if (isNationalCorrespondent(countryIso, userInfo) || isAlternateNationalCorrespondent(countryIso, userInfo))
+    return [collaborator.role]
 
   return []
 }
