@@ -19,7 +19,7 @@ deploy_staging:
     - apt-get update
     - apt-get install --assume-yes rubygems
     - gem install dpl -v 1.8.47
-    - dpl --provider=heroku --app=$HEROKU_STAGING_APP_NAME --api-key=$HEROKU_STAGING_API_KEY
+    - dpl --provider=heroku --app=dev-fra-platform --api-key=76a1d966-e7fc-4c1b-9e85-a35649b2f507
   only:
     - master
   environment:
