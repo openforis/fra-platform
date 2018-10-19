@@ -9,6 +9,7 @@ import Icon from '../../reusableUiComponents/icon'
 
 import { getCountryOverview } from '../actions'
 import { openChat, closeChat } from '../../userChat/actions'
+import { openCountryMessageBoard } from '../../countryMessageBoard/actions'
 
 const milestonesTableContent = [
   {
@@ -55,9 +56,27 @@ const Milestones = ({i18n}) => <div className="landing__milestones-container">
   </div>
 </div>
 
-const Users = ({countryIso, i18n, users, userInfo, openChat}) => <div className="landing__users-container">
+const Users = ({countryIso, i18n, users, userInfo, openChat, closeChat, openCountryMessageBoard}) => <div
+  className="landing__users-container">
   <div className="landing__page-container-header">
-    <h3>{i18n.t('landing.users.users')}</h3>
+    <h3 className="landing__users-container-header">
+      {i18n.t('landing.users.users')}
+      <button
+        className="landing__user-btn-message"
+        onClick={() => {
+          closeChat()
+          openCountryMessageBoard()
+        }}
+      >
+        <Icon name="chat-46" className="icon-middle"/>
+        {i18n.t('countryMessageBoard.messageBoard')}
+        {
+          // user.chat.unreadMessages > 0
+          //   ? <div className="landing__user-message-count">{user.chat.unreadMessages}</div>
+          //   : null
+        }
+      </button>
+    </h3>
   </div>
   {
     users.map(user =>
@@ -121,7 +140,7 @@ class OverviewView extends React.Component {
 
   render () {
     const countryIso = this.props.match.params.countryIso
-    const {overview, i18n, userInfo, openChat} = this.props
+    const {overview, i18n, userInfo, openChat, closeChat, openCountryMessageBoard} = this.props
     const users = overview && overview.users
 
     return <div className="landing__page-container">
@@ -134,7 +153,9 @@ class OverviewView extends React.Component {
                    countryIso={countryIso}
                    i18n={i18n}
                    userInfo={userInfo}
-                   openChat={openChat}/>
+                   openChat={openChat}
+                   closeChat={closeChat}
+                   openCountryMessageBoard={openCountryMessageBoard}/>
       }
 
     </div>
@@ -149,5 +170,6 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps, {
   getCountryOverview,
   openChat,
-  closeChat
+  closeChat,
+  openCountryMessageBoard
 })(OverviewView)

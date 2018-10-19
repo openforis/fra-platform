@@ -914,5 +914,9 @@ The FRA team
     language: 'Language',
     country: 'Country',
     invitationPending: 'Invitation pending'
+  },
+
+  countryMessageBoard: {
+    messageBoard:'Message Board'
   }
 }
