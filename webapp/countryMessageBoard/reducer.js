@@ -3,7 +3,8 @@ import * as R from 'ramda'
 import { applyReducerFunction } from '../utils/reduxUtils'
 import {
   countryMessageBoardOpen,
-  countryMessageBoardClose
+  countryMessageBoardClose,
+  countryMessageBoardOpenMessageSent
 } from './actions'
 
 const actionHandlers = {
@@ -14,6 +15,9 @@ const actionHandlers = {
   )(state),
 
   [countryMessageBoardClose]: (state, action) => R.dissoc('show')(state),
+
+  [countryMessageBoardOpenMessageSent]: (state, action) =>
+    R.assoc('messages', R.append(action.message, state.messages))(state)
   // [userChatLoaded]: (state, action) => ({...state, chat: action.chat}),
   // [userChatClose]: (state, action) => R.dissoc('chat', state),
   // [userChatMessageSent]: (state, action) => {
