@@ -1,10 +1,12 @@
 const Promise = require('bluebird')
+const db = require('../db/db')
 
 const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
 const {sendErr} = require('../utils/requestUtils')
 
 const {fetchCountryUsers} = require('../user/userRepository')
 const {getChatSummary} = require('../userChat/userChatRepository')
+const {fetchCountryUnreadMessages} = require('../countryMessageBoard/countryMessageBoardRepository')
 
 const getUsersOverview = async (sessionUserId, dbUsers) => {
 
@@ -32,8 +34,9 @@ module.exports.init = app => {
 
       const dbUsers = await fetchCountryUsers(countryIso)
       const users = await getUsersOverview(userId, dbUsers)
+      const countryMessageBoardUnreadMessages = await db.transaction(fetchCountryUnreadMessages, [countryIso, userId])
 
-      res.json({overview: {users}})
+      res.json({overview: {users, countryMessageBoardUnreadMessages: countryMessageBoardUnreadMessages.length}})
     } catch (err) {
       sendErr(res, err)
     }
