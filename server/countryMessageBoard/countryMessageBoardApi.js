@@ -10,8 +10,9 @@ module.exports.init = app => {
     try {
       checkCountryAccessFromReqParams(req)
       const {countryIso} = req.params
+      const userId = req.user.id
 
-      const messages = await fetchCountryMessages(countryIso)
+      const messages = await db.transaction(fetchCountryMessages, [countryIso, userId])
 
       res.json(messages)
 

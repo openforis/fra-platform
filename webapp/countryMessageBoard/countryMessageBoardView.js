@@ -111,8 +111,10 @@ class MessageBoardView extends React.Component {
     const {showMessageBoard: showMessageBoardPrev, countryIso: countryIsoPrev} = prevProps
 
     if (showMessageBoard &&
-      (!showMessageBoardPrev || countryIso !== countryIsoPrev))
+      (!showMessageBoardPrev || countryIso !== countryIsoPrev)) {
+
       fetchAllCountryMessageBoardMessages(countryIso)
+    }
   }
 
   render () {
