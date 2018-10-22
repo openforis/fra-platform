@@ -11,6 +11,7 @@ import { profilePictureUri } from '../../common/userUtils'
 import {
   closeCountryMessageBoard,
   sendCountryMessageBoard,
+  fetchAllCountryMessageBoardMessages,
 } from './actions'
 
 const MessageBoardHeader = ({i18n, closeCountryMessageBoard}) =>
@@ -105,7 +106,13 @@ class MessageBoardAddMessage extends React.Component {
 
 class MessageBoardView extends React.Component {
 
-  componentDidMount () {
+  componentDidUpdate (prevProps) {
+    const {countryIso, fetchAllCountryMessageBoardMessages, showMessageBoard} = this.props
+    const {showMessageBoard: showMessageBoardPrev, countryIso: countryIsoPrev} = prevProps
+
+    if (showMessageBoard &&
+      (!showMessageBoardPrev || countryIso !== countryIsoPrev))
+      fetchAllCountryMessageBoardMessages(countryIso)
   }
 
   render () {
@@ -131,4 +138,7 @@ const mapStateToProps = state => ({
   countryIso: R.path(['router', 'country'], state)
 })
 
-export default connect(mapStateToProps, {closeCountryMessageBoard, sendCountryMessageBoard})(MessageBoardView)
+export default connect(
+  mapStateToProps,
+  {closeCountryMessageBoard, sendCountryMessageBoard, fetchAllCountryMessageBoardMessages}
+)(MessageBoardView)
