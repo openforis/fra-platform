@@ -9,7 +9,8 @@ import { getRelativeDate } from '../utils/relativeDate'
 import { profilePictureUri } from '../../common/userUtils'
 
 import {
-  closeCountryMessageBoard
+  closeCountryMessageBoard,
+  sendCountryMessageBoard,
 } from './actions'
 
 const MessageBoardHeader = ({i18n, closeCountryMessageBoard}) =>
@@ -84,7 +85,7 @@ class MessageBoardAddMessage extends React.Component {
   handleSendMessage (msg) {
     const {countryIso, userInfo, sendCountryMessageBoard} = this.props
 
-    sendCountryMessageBoard(countryIso, userInfo.id, msg)
+    sendCountryMessageBoard(countryIso, msg, userInfo.id, userInfo.name)
   }
 
   render () {
@@ -105,7 +106,6 @@ class MessageBoardAddMessage extends React.Component {
 class MessageBoardView extends React.Component {
 
   componentDidMount () {
-    console.log('componentDidMount')
   }
 
   render () {
@@ -124,10 +124,11 @@ class MessageBoardView extends React.Component {
   }
 }
 
-const mapStateToProps = state => console.log(state.countryMessageBoard)|| ({
+const mapStateToProps = state => ({
   showMessageBoard: R.pathEq(['countryMessageBoard', 'show'], true)(state),
+  messages: R.path(['countryMessageBoard', 'messages'])(state),
   ...state.user,
   countryIso: R.path(['router', 'country'], state)
 })
 
-export default connect(mapStateToProps, {closeCountryMessageBoard})(MessageBoardView)
+export default connect(mapStateToProps, {closeCountryMessageBoard, sendCountryMessageBoard})(MessageBoardView)
