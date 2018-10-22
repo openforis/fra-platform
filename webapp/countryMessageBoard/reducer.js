@@ -4,7 +4,8 @@ import { applyReducerFunction } from '../utils/reduxUtils'
 import {
   countryMessageBoardOpen,
   countryMessageBoardClose,
-  countryMessageBoardOpenMessageSent
+  countryMessageBoardOpenMessageSent,
+  countryMessageBoardAllMessagesLoad,
 } from './actions'
 
 const actionHandlers = {
@@ -17,17 +18,12 @@ const actionHandlers = {
   [countryMessageBoardClose]: (state, action) => R.dissoc('show')(state),
 
   [countryMessageBoardOpenMessageSent]: (state, action) =>
-    R.assoc('messages', R.append(action.message, state.messages))(state)
-  // [userChatLoaded]: (state, action) => ({...state, chat: action.chat}),
-  // [userChatClose]: (state, action) => R.dissoc('chat', state),
-  // [userChatMessageSent]: (state, action) => {
-  //   const messages = R.pipe(
-  //     R.path(['chat', 'messages']),
-  //     R.append(action.message)
-  //   )(state)
-  //
-  //   return R.assocPath(['chat', 'messages'], messages, state)
-  // }
+    R.assoc('messages', R.append(action.message, state.messages))(state),
+
+  [countryMessageBoardAllMessagesLoad]: (state, action) =>
+    R.assoc('messages', action.messages)(state)
+  // R.assoc('messages', R.concat(state.messages, action.messages))(state)
+
 }
 
 export default (state = {}, action) => applyReducerFunction(actionHandlers, state, action)
