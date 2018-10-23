@@ -112,6 +112,31 @@
     margin-left: 14px;
     margin-top: 0px !important;
   }
+
+  .support-text {
+    color: @text-mute;
+    margin-left: 14px;
+    font-size: @font-s;
+    font-weight: normal;
+  }
+}
+
+.landing__message-board-container {
+  width: 100%;
+  display: grid;
+  //border: 2px solid @ui-border;
+  background: lighten(@ui-bg, 1%);
+  margin-top: 14px;
+  border: 1px solid @ui-border-light;
+}
+
+.landing__message-board {
+  //width: 40% !important;
+  justify-self: center;
+
+  .landing__user-outer-container {
+    flex: 0 1 50%;
+  }
 }
 
 .landing__users-container {
@@ -128,7 +153,7 @@
 .landing__user-container {
   padding: 14px 10px;
   border: 1px solid @ui-border-light;
-  background-color: lighten(@ui-bg, 1%);
+  background-color: white;
   //margin: 0 1% 10px 1%;
   line-height: 18px;
 }
