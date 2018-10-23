@@ -917,6 +917,8 @@ The FRA team
   },
 
   countryMessageBoard: {
-    messageBoard:'Message Board'
+    messageBoard: 'Message Board',
+    messageBoardDesc: 'Messages posted here are visible to all country members',
+    oneToOneMessages: 'One To One Messages'
   }
 }

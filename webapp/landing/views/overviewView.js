@@ -56,27 +56,59 @@ const Milestones = ({i18n}) => <div className="landing__milestones-container">
   </div>
 </div>
 
+const MessageBoard = ({countryIso, i18n, closeChat, openCountryMessageBoard, countryMessageBoardUnreadMessages = 0}) => (
+  <div
+    className="landing__users-container landing__message-board">
+    <div className="landing__page-container-header">
+      <h3 className="landing__users-container-header">
+        {i18n.t('countryMessageBoard.messageBoard')}
+      </h3>
+    </div>
+    <div className="landing__user-outer-container">
+      <div className="landing__user-container">
+        <div className="landing__user-header">
+          <img
+            className="landing__user-avatar"
+            style={{
+              backgroundImage: `url('/img/flags/1x1/${countryIso}.svg'), url('/img/flags/1x1/ATL.svg')`,
+              backgroundSize: 'cover'
+            }}
+          />
+          <div className="landing__user-info">
+
+            <div className="landing__user-role">
+              {i18n.t('countryMessageBoard.messageBoardDesc')}
+            </div>
+            <button
+              className="landing__user-btn-message"
+              onClick={() => {
+                closeChat()
+                openCountryMessageBoard()
+              }}
+            >
+              <Icon name="chat-46" className="icon-middle"/>
+              {i18n.t('landing.users.message')}
+              {
+                countryMessageBoardUnreadMessages > 0
+                  ? <div className="landing__user-message-count">{countryMessageBoardUnreadMessages}</div>
+                  : null
+              }
+            </button>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+)
+
 const Users = ({countryIso, i18n, users, userInfo, openChat, closeChat, openCountryMessageBoard, closeCountryMessageBoard, countryMessageBoardUnreadMessages = 0}) => (
   <div
     className="landing__users-container">
     <div className="landing__page-container-header">
       <h3 className="landing__users-container-header">
-        {i18n.t('landing.users.users')}
-        <button
-          className="landing__user-btn-message"
-          onClick={() => {
-            closeChat()
-            openCountryMessageBoard()
-          }}
-        >
-          <Icon name="chat-46" className="icon-middle"/>
-          {i18n.t('countryMessageBoard.messageBoard')}
-          {
-            countryMessageBoardUnreadMessages > 0
-              ? <div className="landing__user-message-count">{countryMessageBoardUnreadMessages}</div>
-              : null
-          }
-        </button>
+        {i18n.t('countryMessageBoard.oneToOneMessages')}
       </h3>
     </div>
     {
@@ -152,19 +184,31 @@ class OverviewView extends React.Component {
     return <div className="landing__page-container">
       {/*<MapViewContainer {...this.props}/>*/}
       <Milestones {...this.props} />
-      {
-        R.isEmpty(users) || R.isNil(users)
-          ? null
-          : <Users users={users}
-                   countryIso={countryIso}
-                   i18n={i18n}
-                   userInfo={userInfo}
-                   openChat={openChat}
-                   closeChat={closeChat}
-                   openCountryMessageBoard={openCountryMessageBoard}
-                   closeCountryMessageBoard={closeCountryMessageBoard}
-                   countryMessageBoardUnreadMessages={countryMessageBoardUnreadMessages}/>
-      }
+
+      <div className="landing__message-board-container">
+        <MessageBoard users={users}
+                      countryIso={countryIso}
+                      i18n={i18n}
+                      userInfo={userInfo}
+                      openChat={openChat}
+                      closeChat={closeChat}
+                      openCountryMessageBoard={openCountryMessageBoard}
+                      closeCountryMessageBoard={closeCountryMessageBoard}
+                      countryMessageBoardUnreadMessages={countryMessageBoardUnreadMessages}/>
+        {
+          R.isEmpty(users) || R.isNil(users)
+            ? null
+            : <Users users={users}
+                     countryIso={countryIso}
+                     i18n={i18n}
+                     userInfo={userInfo}
+                     openChat={openChat}
+                     closeChat={closeChat}
+                     openCountryMessageBoard={openCountryMessageBoard}
+                     closeCountryMessageBoard={closeCountryMessageBoard}
+                     countryMessageBoardUnreadMessages={countryMessageBoardUnreadMessages}/>
+        }
+      </div>
 
     </div>
   }
