@@ -9,6 +9,7 @@ import Icon from '../../reusableUiComponents/icon'
 
 import { getCountryOverview } from '../actions'
 import { openChat, closeChat } from '../../userChat/actions'
+import { openCountryMessageBoard, closeCountryMessageBoard } from '../../countryMessageBoard/actions'
 
 const milestonesTableContent = [
   {
@@ -55,48 +56,105 @@ const Milestones = ({i18n}) => <div className="landing__milestones-container">
   </div>
 </div>
 
-const Users = ({countryIso, i18n, users, userInfo, openChat}) => <div className="landing__users-container">
-  <div className="landing__page-container-header">
-    <h3>{i18n.t('landing.users.users')}</h3>
-  </div>
-  {
-    users.map(user =>
-      <div key={user.id} className="landing__user-outer-container">
-        <div className={`landing__user-container${user.active ? '' : ' user-list__inactive-user'}`}>
-          <div className="landing__user-header">
-            <img
-              className="landing__user-avatar"
-              src={profilePictureUri(countryIso, user.id)}/>
-            <div className="landing__user-info">
+const MessageBoard = ({countryIso, i18n, closeChat, openCountryMessageBoard, countryMessageBoardUnreadMessages = 0, countryMessageBoardOpened}) => (
+  <div
+    className="landing__users-container landing__message-board">
+    <div className="landing__page-container-header">
+      <h3 className="landing__users-container-header">
+        {i18n.t('countryMessageBoard.messageBoard')}
+      </h3>
+    </div>
+    <div className="landing__user-outer-container">
+      <div className="landing__user-container">
+        <div className="landing__user-header">
+          <img
+            className="landing__user-avatar"
+            style={{
+              backgroundImage: `url('/img/flags/1x1/${countryIso}.svg'), url('/img/flags/1x1/ATL.svg')`,
+              backgroundSize: 'cover'
+            }}
+          />
+          <div className="landing__user-info">
 
-              <div className={`landing__user-name${userInfo.id === user.id ? ' session-user' : ''}`}>
-                {user.name}
-              </div>
-              <div className="landing__user-role">
-                {i18nUserRole(i18n, user.role)}
-              </div>
-              { // add message button if session user is not equal to current displayed user
-                R.prop('id', userInfo) !== user.id
-                  ? <button
-                    className="landing__user-btn-message"
-                    onClick={() => openChat(countryIso, userInfo, user)}
-                  >
-                    <Icon name="chat-46" className="icon-middle"/>
-                    {i18n.t('landing.users.message')}
-                    {
-                      user.chat.unreadMessages > 0
-                        ? <div className="landing__user-message-count">{user.chat.unreadMessages}</div>
-                        : null
-                    }
-                  </button>
+            <div className="landing__user-role">
+              {i18n.t('countryMessageBoard.messageBoardDesc')}
+            </div>
+            <button
+              className="landing__user-btn-message"
+              onClick={() => {
+                if (!countryMessageBoardOpened) {
+                  closeChat()
+                  openCountryMessageBoard()
+                }
+              }}
+            >
+              <Icon name="chat-46" className="icon-middle"/>
+              {i18n.t('landing.users.message')}
+              {
+                countryMessageBoardUnreadMessages > 0
+                  ? <div className="landing__user-message-count">{countryMessageBoardUnreadMessages}</div>
                   : null
               }
-            </div>
+            </button>
+
           </div>
         </div>
       </div>
-    )}
-</div>
+    </div>
+  </div>
+
+)
+
+const Users = ({countryIso, i18n, users, userInfo, openChat, closeChat, openCountryMessageBoard, closeCountryMessageBoard, countryMessageBoardUnreadMessages = 0}) => (
+  <div
+    className="landing__users-container">
+    <div className="landing__page-container-header">
+      <h3 className="landing__users-container-header">
+        {i18n.t('countryMessageBoard.oneToOneMessages')}
+      </h3>
+    </div>
+    {
+      users.map(user =>
+        <div key={user.id} className="landing__user-outer-container">
+          <div className={`landing__user-container${user.active ? '' : ' user-list__inactive-user'}`}>
+            <div className="landing__user-header">
+              <img
+                className="landing__user-avatar"
+                src={profilePictureUri(countryIso, user.id)}/>
+              <div className="landing__user-info">
+
+                <div className={`landing__user-name${userInfo.id === user.id ? ' session-user' : ''}`}>
+                  {user.name}
+                </div>
+                <div className="landing__user-role">
+                  {i18nUserRole(i18n, user.role)}
+                </div>
+                { // add message button if session user is not equal to current displayed user
+                  R.prop('id', userInfo) !== user.id
+                    ? <button
+                      className="landing__user-btn-message"
+                      onClick={() => {
+                        closeCountryMessageBoard()
+                        openChat(countryIso, userInfo, user)
+                      }}
+                    >
+                      <Icon name="chat-46" className="icon-middle"/>
+                      {i18n.t('landing.users.message')}
+                      {
+                        user.chat.unreadMessages > 0
+                          ? <div className="landing__user-message-count">{user.chat.unreadMessages}</div>
+                          : null
+                      }
+                    </button>
+                    : null
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+  </div>
+)
 
 class OverviewView extends React.Component {
 
@@ -113,6 +171,7 @@ class OverviewView extends React.Component {
 
   componentWillUnmount () {
     this.props.closeChat()
+    this.props.closeCountryMessageBoard()
   }
 
   getCountryOverview (countryIso) {
@@ -121,21 +180,37 @@ class OverviewView extends React.Component {
 
   render () {
     const countryIso = this.props.match.params.countryIso
-    const {overview, i18n, userInfo, openChat} = this.props
+    const {overview, i18n, userInfo, openChat, closeChat, openCountryMessageBoard, closeCountryMessageBoard, countryMessageBoardOpened} = this.props
     const users = overview && overview.users
+    const countryMessageBoardUnreadMessages = overview && overview.countryMessageBoardUnreadMessages
 
     return <div className="landing__page-container">
       {/*<MapViewContainer {...this.props}/>*/}
       <Milestones {...this.props} />
-      {
-        R.isEmpty(users) || R.isNil(users)
-          ? null
-          : <Users users={users}
-                   countryIso={countryIso}
-                   i18n={i18n}
-                   userInfo={userInfo}
-                   openChat={openChat}/>
-      }
+
+      <div className="landing__message-board-container">
+        <MessageBoard countryIso={countryIso}
+                      i18n={i18n}
+                      userInfo={userInfo}
+                      closeChat={closeChat}
+                      openCountryMessageBoard={openCountryMessageBoard}
+                      closeCountryMessageBoard={closeCountryMessageBoard}
+                      countryMessageBoardUnreadMessages={countryMessageBoardUnreadMessages}
+                      countryMessageBoardOpened={countryMessageBoardOpened}/>
+        {
+          R.isEmpty(users) || R.isNil(users)
+            ? null
+            : <Users users={users}
+                     countryIso={countryIso}
+                     i18n={i18n}
+                     userInfo={userInfo}
+                     openChat={openChat}
+                     closeChat={closeChat}
+                     openCountryMessageBoard={openCountryMessageBoard}
+                     closeCountryMessageBoard={closeCountryMessageBoard}
+                     countryMessageBoardUnreadMessages={countryMessageBoardUnreadMessages}/>
+        }
+      </div>
 
     </div>
   }
@@ -143,11 +218,14 @@ class OverviewView extends React.Component {
 
 const mapStateToProps = state => ({
   ...state.landing,
-  ...state.user
+  ...state.user,
+  countryMessageBoardOpened: R.pathEq(['countryMessageBoard', 'show'], true)(state)
 })
 
 export default connect(mapStateToProps, {
   getCountryOverview,
   openChat,
-  closeChat
+  closeChat,
+  openCountryMessageBoard,
+  closeCountryMessageBoard,
 })(OverviewView)

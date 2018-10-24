@@ -10,7 +10,7 @@ const {findUserById} = require('../user/userRepository')
 const {getCountry} = require('../country/countryRepository')
 const {sendMail} = require('../email/sendMail')
 
-const {getChatMessages, addMessage} = require('./userChatRepository')
+const {getChatMessages, addMessage, getChatUnreadMessages} = require('./userChatRepository')
 
 const createMail = async (country, i18n, sender, recipient, url) => {
   const link = `${url}/#/country/${country.countryIso}`
@@ -54,7 +54,7 @@ const sendNotificationEmail = async (req, senderId, recipientId) => {
 
 module.exports.init = app => {
 
-  app.get('/userChat/:countryIso/messages', async (req, res) => {
+  app.get('/userChat/:countryIso/messages/all', async (req, res) => {
     try {
       checkCountryAccessFromReqParams(req)
 
@@ -67,18 +67,36 @@ module.exports.init = app => {
     }
   })
 
+  app.get('/userChat/:countryIso/messages/new', async (req, res) => {
+    try {
+      checkCountryAccessFromReqParams(req)
+
+      const messages = await db.transaction(getChatUnreadMessages, [req.query.otherUserId, req.query.sessionUserId, true])
+
+      res.json(messages)
+
+    } catch (e) {
+      sendErr(res, e)
+    }
+  })
+
+  const checkUnreadMessages = async (req, fromUserId, toUserId) => {
+    const unreadMessages = await db.transaction(getChatUnreadMessages, [fromUserId, toUserId])
+    if (unreadMessages.length > 0)
+      await sendNotificationEmail(req, fromUserId, toUserId)
+  }
+
   app.post('/userChat/:countryIso/message', async (req, res) => {
     try {
       checkCountryAccessFromReqParams(req)
 
       const {message, fromUserId, toUserId} = req.body
 
-      const addMessageResponse = await db.transaction(addMessage, [message, fromUserId, toUserId])
+      const messageDb = await db.transaction(addMessage, [message, fromUserId, toUserId])
 
-      if (addMessageResponse.unreadMessages === 0)
-        await sendNotificationEmail(req, fromUserId, toUserId)
+      setTimeout(() => checkUnreadMessages(req, fromUserId, toUserId), 5000)
 
-      res.json(addMessageResponse.message)
+      res.json(messageDb)
 
     } catch (e) {
       sendErr(res, e)

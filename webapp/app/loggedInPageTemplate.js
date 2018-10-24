@@ -1,9 +1,10 @@
 import React from 'react'
-import * as R from 'ramda'
+
 import Navigation from '../navigation/navigation'
 import Header from '../header/header'
 import Review from '../review/review'
 import UserChat from '../userChat/userChatView'
+import CountryMessageBoardView from '../countryMessageBoard/countryMessageBoardView'
 
 import { connect } from 'react-redux'
 import ErrorComponent from '../applicationError/errorComponent'
@@ -17,6 +18,7 @@ const template = ({children, commentsOpen}) => {
     <Header/>
     <Review/>
     <UserChat/>
+    <CountryMessageBoardView/>
     <ErrorComponent/>
   </div>
 }

@@ -78,7 +78,7 @@ class FraReviewFooter extends React.Component {
       submitAllowed = true
     } = this.props
 
-    const submitBtnDisabled = R.isEmpty(this.state.message) || !submitAllowed
+    const submitBtnDisabled = R.isEmpty(R.trim(this.state.message)) || !submitAllowed
 
     return submitAllowed ?
       <div className="fra-review__footer">
