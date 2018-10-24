@@ -53,7 +53,7 @@ const fetchNewCountryMessageBoardMessages = countryIso => dispatch => {
         fetch()
       })
       .catch(e => applicationError(e))
-  }, 2000)
+  }, 1000)
 
   fetch()
 
