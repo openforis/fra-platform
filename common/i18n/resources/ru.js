@@ -898,5 +898,11 @@ module.exports.translation = {
     language: 'Язык',
     country: 'Страна',
     invitationPending: 'Приглашение в стадии рассмотрения'
+  },
+
+  countryMessageBoard: {
+    messageBoard: 'Доска сообщений',
+    messageBoardDesc: 'Оставленные здесь сообщения видны всем участникам от страны',
+    oneToOneMessages: 'Личные сообщения'
   }
 }

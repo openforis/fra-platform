@@ -30,8 +30,12 @@ class UserChatMessages extends React.Component {
     this.scrollToBottom()
   }
 
-  componentDidUpdate () {
-    this.scrollToBottom()
+  componentDidUpdate (prevProps) {
+    const messages = R.path(['chat', 'messages'])(this.props)
+    const prevMessages = R.path(['chat', 'messages'])(prevProps)
+
+    if (messages.length > prevMessages.length)
+      this.scrollToBottom()
   }
 
   render () {

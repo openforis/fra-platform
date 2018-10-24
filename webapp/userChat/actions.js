@@ -6,11 +6,18 @@ import { getCountryOverview } from '../landing/actions'
 export const userChatLoaded = 'userChat/chat/loaded'
 export const userChatClose = 'userChat/chat/close'
 export const userChatMessageSent = 'userChat/chat/messageSent'
+export const userChatNewMessagesLoaded = 'userChat/chat/newMessages/loaded'
 
 export const openChat = (countryIso, sessionUser, recipientUser) => dispatch => {
+  clearFetchingNewMessages()
 
   axios
-    .get(`/api/userChat/${countryIso}/messages`, {params: {sessionUserId: sessionUser.id, otherUserId: recipientUser.id}})
+    .get(`/api/userChat/${countryIso}/messages/all`, {
+      params: {
+        sessionUserId: sessionUser.id,
+        otherUserId: recipientUser.id
+      }
+    })
     .then(resp => {
         const chat = {
           sessionUser,
@@ -19,6 +26,9 @@ export const openChat = (countryIso, sessionUser, recipientUser) => dispatch => 
         }
 
         dispatch({type: userChatLoaded, chat})
+
+        dispatch(getChatNewMessages(countryIso, sessionUser, recipientUser))
+
         // when opening chat, unread messages are marked as read, therefore reloading country overview is needed
         getCountryOverview(countryIso)(dispatch)
       }
@@ -26,8 +36,32 @@ export const openChat = (countryIso, sessionUser, recipientUser) => dispatch => 
     .catch(e => applicationError(e))
 }
 
+let fetchNewMessagesTimeout = null
+const getChatNewMessages = (countryIso, sessionUser, recipientUser) => dispatch => {
+  const fetch = () => fetchNewMessagesTimeout = setTimeout(() => {
+    axios.get(`/api/userChat/${countryIso}/messages/new`, {
+      params: {
+        sessionUserId: sessionUser.id,
+        otherUserId: recipientUser.id
+      }
+    })
+      .then(resp => {
+        dispatch({type: userChatNewMessagesLoaded, messages: resp.data})
+        fetch()
+      })
+  }, 1000)
+
+  fetch()
+}
+
+const clearFetchingNewMessages = () => {
+  clearTimeout(fetchNewMessagesTimeout)
+  fetchNewMessagesTimeout = null
+}
+
 export const closeChat = () => dispatch => {
   dispatch({type: userChatClose})
+  clearFetchingNewMessages()
 }
 
 export const sendMessage = (countryIso, fromUserId, toUserId, message) => dispatch => {
