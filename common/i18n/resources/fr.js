@@ -882,5 +882,11 @@ L'équipe de FRA
     language: 'Langue',
     country: 'Pays',
     invitationPending: 'Invitation en attente'
+  },
+
+  countryMessageBoard: {
+    messageBoard: 'Panneau d\'affichage',
+    messageBoardDesc: 'Les messages postés ici sont visibles par tous les membres du pays.',
+    oneToOneMessages: 'Messages individuels'
   }
 }
