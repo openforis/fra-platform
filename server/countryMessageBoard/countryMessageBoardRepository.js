@@ -9,16 +9,20 @@ const persistMessage = async (client, countryIso, message, fromUserId) => {
   )
 }
 
+const markMessagesRead = async (client, userId, messages) =>
+  messages.forEach(
+    async msg =>
+      await client.query(`
+        INSERT INTO country_message_board_message_read (message_id, user_id)
+        VALUES ($1, $2)
+      `, [msg.id, userId])
+  )
+
 const fetchCountryMessages = async (client, countryIso, userId) => {
 
   // marking unread messages as read
   const unreadMessages = await fetchCountryUnreadMessages(client, countryIso, userId)
-  unreadMessages.forEach(async msg =>
-    await client.query(`
-      INSERT INTO country_message_board_message_read (message_id, user_id)
-      VALUES ($1, $2)
-    `, [msg.id, userId])
-  )
+  await markMessagesRead(client, userId, unreadMessages)
 
   // fetching all messages
   const messagesResp = await client.query(`
@@ -37,7 +41,7 @@ const fetchCountryMessages = async (client, countryIso, userId) => {
   return camelize(messagesResp.rows)
 }
 
-const fetchCountryUnreadMessages = async (client, countryIso, userId) => {
+const fetchCountryUnreadMessages = async (client, countryIso, userId, markAsRead = false) => {
   const messagesResp = await client.query(`
     SELECT m.id,
            m.country_iso,
@@ -53,7 +57,12 @@ const fetchCountryUnreadMessages = async (client, countryIso, userId) => {
     ORDER BY m.time
   `, [countryIso, userId])
 
-  return camelize(messagesResp.rows)
+  const messages = camelize(messagesResp.rows)
+
+  if(markAsRead)
+    await markMessagesRead(client, userId, messages)
+
+  return messages
 }
 
 module.exports = {
