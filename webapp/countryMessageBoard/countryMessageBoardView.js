@@ -34,8 +34,12 @@ class MessageBoardMessages extends React.Component {
     this.scrollToBottom()
   }
 
-  componentDidUpdate () {
-    this.scrollToBottom()
+  componentDidUpdate (prevProps) {
+    const messages = R.prop('messages')(this.props)
+    const prevMessages = R.prop('messages')(prevProps)
+
+    if (messages.length > prevMessages.length)
+      this.scrollToBottom()
   }
 
   render () {
