@@ -3,7 +3,7 @@ const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
 
 const db = require('../db/db')
 
-const {persistMessage, fetchCountryMessages} = require('./countryMessageBoardRepository')
+const {persistMessage, fetchCountryMessages, fetchCountryUnreadMessages} = require('./countryMessageBoardRepository')
 
 module.exports.init = app => {
   app.get('/countryMessageBoard/:countryIso/messages/all', async (req, res) => {
@@ -13,6 +13,21 @@ module.exports.init = app => {
       const userId = req.user.id
 
       const messages = await db.transaction(fetchCountryMessages, [countryIso, userId])
+
+      res.json(messages)
+
+    } catch (e) {
+      sendErr(res, e)
+    }
+  })
+
+  app.get('/countryMessageBoard/:countryIso/messages/new', async (req, res) => {
+    try {
+      checkCountryAccessFromReqParams(req)
+      const {countryIso} = req.params
+      const userId = req.user.id
+
+      const messages = await db.transaction(fetchCountryUnreadMessages, [countryIso, userId, true])
 
       res.json(messages)
 

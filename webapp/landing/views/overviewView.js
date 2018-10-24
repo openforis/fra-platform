@@ -56,7 +56,7 @@ const Milestones = ({i18n}) => <div className="landing__milestones-container">
   </div>
 </div>
 
-const MessageBoard = ({countryIso, i18n, closeChat, openCountryMessageBoard, countryMessageBoardUnreadMessages = 0}) => (
+const MessageBoard = ({countryIso, i18n, closeChat, openCountryMessageBoard, countryMessageBoardUnreadMessages = 0, countryMessageBoardOpened}) => (
   <div
     className="landing__users-container landing__message-board">
     <div className="landing__page-container-header">
@@ -82,8 +82,10 @@ const MessageBoard = ({countryIso, i18n, closeChat, openCountryMessageBoard, cou
             <button
               className="landing__user-btn-message"
               onClick={() => {
-                closeChat()
-                openCountryMessageBoard()
+                if (!countryMessageBoardOpened) {
+                  closeChat()
+                  openCountryMessageBoard()
+                }
               }}
             >
               <Icon name="chat-46" className="icon-middle"/>
@@ -169,6 +171,7 @@ class OverviewView extends React.Component {
 
   componentWillUnmount () {
     this.props.closeChat()
+    this.props.closeCountryMessageBoard()
   }
 
   getCountryOverview (countryIso) {
@@ -177,7 +180,7 @@ class OverviewView extends React.Component {
 
   render () {
     const countryIso = this.props.match.params.countryIso
-    const {overview, i18n, userInfo, openChat, closeChat, openCountryMessageBoard, closeCountryMessageBoard} = this.props
+    const {overview, i18n, userInfo, openChat, closeChat, openCountryMessageBoard, closeCountryMessageBoard, countryMessageBoardOpened} = this.props
     const users = overview && overview.users
     const countryMessageBoardUnreadMessages = overview && overview.countryMessageBoardUnreadMessages
 
@@ -186,15 +189,14 @@ class OverviewView extends React.Component {
       <Milestones {...this.props} />
 
       <div className="landing__message-board-container">
-        <MessageBoard users={users}
-                      countryIso={countryIso}
+        <MessageBoard countryIso={countryIso}
                       i18n={i18n}
                       userInfo={userInfo}
-                      openChat={openChat}
                       closeChat={closeChat}
                       openCountryMessageBoard={openCountryMessageBoard}
                       closeCountryMessageBoard={closeCountryMessageBoard}
-                      countryMessageBoardUnreadMessages={countryMessageBoardUnreadMessages}/>
+                      countryMessageBoardUnreadMessages={countryMessageBoardUnreadMessages}
+                      countryMessageBoardOpened={countryMessageBoardOpened}/>
         {
           R.isEmpty(users) || R.isNil(users)
             ? null
@@ -216,7 +218,8 @@ class OverviewView extends React.Component {
 
 const mapStateToProps = state => ({
   ...state.landing,
-  ...state.user
+  ...state.user,
+  countryMessageBoardOpened: R.pathEq(['countryMessageBoard', 'show'], true)(state)
 })
 
 export default connect(mapStateToProps, {

@@ -6,6 +6,7 @@ import {
   countryMessageBoardClose,
   countryMessageBoardOpenMessageSent,
   countryMessageBoardAllMessagesLoad,
+  countryMessageBoardNewMessagesLoad,
 } from './actions'
 
 const actionHandlers = {
@@ -21,8 +22,10 @@ const actionHandlers = {
     R.assoc('messages', R.append(action.message, state.messages))(state),
 
   [countryMessageBoardAllMessagesLoad]: (state, action) =>
-    R.assoc('messages', action.messages)(state)
-  // R.assoc('messages', R.concat(state.messages, action.messages))(state)
+    R.assoc('messages', action.messages)(state),
+
+  [countryMessageBoardNewMessagesLoad]: (state, action) =>
+    R.assoc('messages', R.concat(state.messages, action.messages))(state)
 
 }
 
