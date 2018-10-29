@@ -13738,172 +13738,172 @@ module.exports =
       },
       "faoStat": {
         "1980": {
-          "area": 100000,
+          "area": 111971.55,
           "estimate": true
         },
         "1981": {
-          "area": 100000,
+          "area": 111971.55,
           "estimate": true
         },
         "1982": {
-          "area": 100000,
+          "area": 111971.55,
           "estimate": true
         },
         "1983": {
-          "area": 100000,
+          "area": 111971.55,
           "estimate": true
         },
         "1984": {
-          "area": 100000,
+          "area": 111971.55,
           "estimate": true
         },
         "1985": {
-          "area": 100000,
+          "area": 111971.55,
           "estimate": true
         },
         "1986": {
-          "area": 100000,
+          "area": 111971.55,
           "estimate": true
         },
         "1987": {
-          "area": 100000,
+          "area": 111971.55,
           "estimate": true
         },
         "1988": {
-          "area": 100000,
+          "area": 111971.55,
           "estimate": true
         },
         "1989": {
-          "area": 100000,
+          "area": 111971.55,
           "estimate": true
         },
         "1990": {
-          "area": 100000,
+          "area": 111971.55,
           "estimate": true
         },
         "1991": {
-          "area": 100000,
+          "area": 111971.55,
           "estimate": true
         },
         "1992": {
-          "area": 100000,
+          "area": 111971.55,
           "estimate": true
         },
         "1993": {
-          "area": 100000,
+          "area": 111971.55,
           "estimate": true
         },
         "1994": {
-          "area": 100000,
+          "area": 111971.55,
           "estimate": true
         },
         "1995": {
-          "area": 100000,
+          "area": 111971.55,
           "estimate": true
         },
         "1996": {
-          "area": 100000,
+          "area": 111971.55,
           "estimate": true
         },
         "1997": {
-          "area": 100000,
+          "area": 111971.55,
           "estimate": true
         },
         "1998": {
-          "area": 100000,
+          "area": 111971.55,
           "estimate": true
         },
         "1999": {
-          "area": 100000,
+          "area": 111971.55,
           "estimate": true
         },
         "2000": {
-          "area": 100000,
+          "area": 111971.55,
           "estimate": true
         },
         "2001": {
-          "area": 100000,
+          "area": 111971.55,
           "estimate": true
         },
         "2002": {
-          "area": 100000,
+          "area": 111971.55,
           "estimate": true
         },
         "2003": {
-          "area": 100000,
+          "area": 111971.55,
           "estimate": true
         },
         "2004": {
-          "area": 100000,
+          "area": 111971.55,
           "estimate": true
         },
         "2005": {
-          "area": 100000,
+          "area": 111971.55,
           "estimate": true
         },
         "2006": {
-          "area": 100000,
+          "area": 111971.55,
           "estimate": true
         },
         "2007": {
-          "area": 100000,
+          "area": 111971.55,
           "estimate": true
         },
         "2008": {
-          "area": 100000,
+          "area": 111971.55,
           "estimate": true
         },
         "2009": {
-          "area": 100000,
+          "area": 111971.55,
           "estimate": true
         },
         "2010": {
-          "area": 100000,
+          "area": 111971.55,
           "estimate": true
         },
         "2011": {
-          "area": 100000,
+          "area": 111971.55,
           "estimate": true
         },
         "2012": {
-          "area": 100000,
+          "area": 111971.55,
           "estimate": true
         },
         "2013": {
-          "area": 100000,
+          "area": 111971.55,
           "estimate": true
         },
         "2014": {
-          "area": 100000,
+          "area": 111971.55,
           "estimate": true
         },
         "2015": {
-          "area": 100000,
+          "area": 111971.55,
           "estimate": false,
           "repeated": true
         },
         "2016": {
-          "area": 100000,
+          "area": 111971.55,
           "estimate": true,
           "repeated": true
         },
         "2017": {
-          "area": 100000,
+          "area": 111971.55,
           "estimate": true,
           "repeated": true
         },
         "2018": {
-          "area": 100000,
+          "area": 111971.55,
           "estimate": true,
           "repeated": true
         },
         "2019": {
-          "area": 100000,
+          "area": 111971.55,
           "estimate": true,
           "repeated": true
         },
         "2020": {
-          "area": 100000,
+          "area": 111971.55,
           "estimate": true,
           "repeated": true
         }
