@@ -31,7 +31,7 @@ import handlePaste from './paste'
 import { fetchLastSectionUpdateTimestamp } from '../audit/actions'
 import { Link } from '../reusableUiComponents/link'
 
-const years = ['', ...R.pipe(R.range(1960), R.reverse)(2021)]
+const years = ['', ...R.pipe(R.range(1950), R.reverse)(2021)]
 
 const isCommentsOpen = (target, openThread = {}) => R.equals('odp', openThread.section) && R.isEmpty(R.difference(openThread.target, target))
 
