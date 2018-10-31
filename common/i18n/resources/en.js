@@ -807,7 +807,7 @@ The FRA team fra@fao.org
 
 {{message}}
 
-Visit the platfrom at: {{- serverUrl}}
+Visit the platform at: {{- serverUrl}}
 
 The FRA team
 {{- serverUrl}}`,
@@ -817,7 +817,7 @@ The FRA team
 <br/><br/>
 {{message}}
 <br/><br/>
-<a href="{{- serverUrl}}"><b>Visit the platfrom</b></a>
+<a href="{{- serverUrl}}"><b>Visit the platform</b></a>
 <br/><br/>
 The FRA team
 <br/>
