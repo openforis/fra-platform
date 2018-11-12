@@ -20,7 +20,7 @@ export const tableProps = {
   }
 }
 
-export default (i18n, tableProp) => {
+export default (i18n, tableProp = tableProps.areaAffectedByFire) => {
   const {startYear, endYear, name} = tableProp
 
   const years = R.range(startYear, endYear + 1)

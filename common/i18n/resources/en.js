@@ -97,7 +97,8 @@ The FRA team fra@fao.org
       recentActivity: 'Recent activity',
       userManagement: 'Manage collaborators',
       externalData: 'External data',
-      links: 'Links & Repository'
+      links: 'Links & Repository',
+      contentCheck: 'Content / Check'
     },
     overview: {
       loadingMap: 'Loading map…',
