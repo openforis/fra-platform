@@ -2,17 +2,19 @@ import './style.less'
 
 import React from 'react'
 import { connect } from 'react-redux'
-import R from 'ramda'
+import * as R from 'ramda'
 
 import LoggedInPageTemplate from '../app/loggedInPageTemplate'
 import { getCountryName } from '../country/actions'
 import { isAllowedToChangeRole } from '../../common/userManagementAccessControl'
+import { isReviewer } from '../../common/countryRole'
 
 import OverviewView from './views/overviewView'
 import AboutView from './views/aboutView'
 import RecentActivityView from './views/recentActivityView'
 import ManageCollaboratorsView from './views/manageCollaboratorsView'
 import LinksView from './views/linksView'
+import ContentCheckView from './views/contentCheck/contentCheckView'
 
 class LandingView extends React.Component {
 
@@ -39,9 +41,13 @@ class LandingView extends React.Component {
       {name: 'links', component: LinksView}
     ]
 
-    return isAllowedToChangeRole(countryIso, userInfo)
+    const sections = isAllowedToChangeRole(countryIso, userInfo)
       ? R.insert(1, {name: 'userManagement', component: ManageCollaboratorsView}, defaultSections)
       : defaultSections
+
+    return isReviewer(countryIso, userInfo)
+      ? R.insert(1, {name: 'contentCheck', component: ContentCheckView}, sections)
+      : sections
   }
 
   render () {
