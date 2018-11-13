@@ -2,7 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
 
-import ExtentTable from './extentTable'
+import Extent from './extent'
+import PeriodicChangeRate from './periodicChangeRate'
 
 import forestAreaWithinProtectedAreasTableSpec from '../../../assessmentFra/forestAreaWithinProtectedAreas/tableSpec'
 import specificForestCategoriesTableSpec from '../../../assessmentFra/specificForestCategories/tableSpec'
@@ -64,15 +65,24 @@ class ContentCheckView extends React.Component {
       //8
       certifiedAreas
     } = this.props
-    // console.log('==== ', this.props)
+
+    const getFraValue = (variable, year) => R.pipe(
+      R.prop('fra'),
+      R.find(R.propEq('year', year)),
+      R.prop(variable),
+    )(extentOfForest)
+
     return (
       <div>
-        <ExtentTable i18n={i18n} years={defaultYears}
-                     extentOfForest={extentOfForest}
-                     specificForestCategories={specificForestCategories}
-                     forestAreaWithinProtectedAreas={forestAreaWithinProtectedAreas}
-                     certifiedAreas={certifiedAreas}
-        />
+        <Extent i18n={i18n} years={defaultYears} getFraValue={getFraValue}
+                extentOfForest={extentOfForest}
+                specificForestCategories={specificForestCategories}
+                forestAreaWithinProtectedAreas={forestAreaWithinProtectedAreas}
+                certifiedAreas={certifiedAreas}/>
+
+        <PeriodicChangeRate i18n={i18n} years={defaultYears} getFraValue={getFraValue}
+                            extentOfForest={extentOfForest} forestCharacteristics={forestCharacteristics}/>
+
       </div>
     )
   }

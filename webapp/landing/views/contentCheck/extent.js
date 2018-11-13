@@ -4,10 +4,10 @@ import * as R from 'ramda'
 import { formatDecimal } from '../../../utils/numberFormat'
 import { div, mul } from '../../../../common/bignumberUtils'
 
-const ExtentTable = (props) => {
+const Extent = (props) => {
 
   const {
-    i18n, years,
+    i18n, years, getFraValue,
     extentOfForest,
     specificForestCategories,
     forestAreaWithinProtectedAreas,
@@ -15,12 +15,6 @@ const ExtentTable = (props) => {
   } = props
 
   const specificForestCategoriesYears = {1990: 1, 2000: 2, 2010: 3, 2015: 4, 2020: 5}
-
-  const getFraValue = (variable, year) => R.pipe(
-    R.prop('fra'),
-    R.find(R.propEq('year', year)),
-    R.prop(variable),
-  )(extentOfForest)
 
   const getForestAreaWithinProtectedAreasPerc = (row, col, year) => {
     const forestArea = getFraValue('forestArea', year)
@@ -209,4 +203,4 @@ const ExtentTable = (props) => {
   )
 }
 
-export default ExtentTable
+export default Extent
