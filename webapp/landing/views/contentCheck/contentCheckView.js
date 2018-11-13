@@ -2,6 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
 
+import ExtentTable from './extentTable'
+
 import forestAreaWithinProtectedAreasTableSpec from '../../../assessmentFra/forestAreaWithinProtectedAreas/tableSpec'
 import specificForestCategoriesTableSpec from '../../../assessmentFra/specificForestCategories/tableSpec'
 import biomassStockTableSpec from '../../../assessmentFra/biomassStock/tableSpec'
@@ -15,6 +17,8 @@ import areaAffectedByFireTableSpec from '../../../assessmentFra/areaAffectedByFi
 import { fetchTableData } from '../../../traditionalTable/actions'
 import { fetchItem } from '../../../tableWithOdp/actions'
 import { fetch } from '../../../assessmentFra/growingStock/actions'
+
+import defaultYears from '../../../../server/eof/defaultYears'
 
 class ContentCheckView extends React.Component {
 
@@ -45,11 +49,30 @@ class ContentCheckView extends React.Component {
   }
 
   render () {
-
+    const {
+      i18n,
+      //1
+      extentOfForest, forestCharacteristics, specificForestCategories,
+      //2
+      growingStock, biomassStock, carbonStock,
+      //3
+      primaryDesignatedManagementObjective, forestAreaWithinProtectedAreas,
+      //4
+      forestOwnership, holderOfManagementRights,
+      //5
+      disturbances, areaAffectedByFire,
+      //8
+      certifiedAreas
+    } = this.props
     // console.log('==== ', this.props)
     return (
       <div>
-        fdsafads
+        <ExtentTable i18n={i18n} years={defaultYears}
+                     extentOfForest={extentOfForest}
+                     specificForestCategories={specificForestCategories}
+                     forestAreaWithinProtectedAreas={forestAreaWithinProtectedAreas}
+                     certifiedAreas={certifiedAreas}
+        />
       </div>
     )
   }

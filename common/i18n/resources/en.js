@@ -170,6 +170,15 @@ The FRA team fra@fao.org
       repository: 'Repository',
       uploadFile: 'Upload a file',
       confirmDelete: 'Delete {{file}}? This cannot be undone.',
+    },
+    contentCheck: {
+      extent: 'Extent',
+      forest: 'Forest (1000 ha)',
+      owl: 'Other wooded land (1000 ha)',
+      primaryForest: 'Primary forest (% of forest)',
+      forestProtectedArea: 'Forest in protected areas (% of forest)',
+      forestMgmtPlan: 'Forest area with mgmt plan (% of forest)',
+      certifiedForestArea: 'Certified forest area (1000 ha)',
     }
   },
 
