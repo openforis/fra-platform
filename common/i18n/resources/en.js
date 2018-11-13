@@ -179,6 +179,8 @@ The FRA team fra@fao.org
       forestProtectedArea: 'Forest in protected areas (% of forest)',
       forestMgmtPlan: 'Forest area with mgmt plan (% of forest)',
       certifiedForestArea: 'Certified forest area (1000 ha)',
+
+
     }
   },
 
