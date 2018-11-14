@@ -212,6 +212,8 @@ The FRA team fra@fao.org
       primaryDesignatedManagementObjective: 'Primary designated management objective',
 
       totalAreaDesignatedManagementObjective: 'Total area with designated management objective',
+
+      forestOwnership: 'Ownership',
     }
   },
 
