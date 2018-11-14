@@ -208,6 +208,8 @@ The FRA team fra@fao.org
       ratioCarbonAgb: 'Ratio (Carbon/biomass) for above-ground biomass',
       ratioCarbonBgb: 'Ratio (Carbon/biomass) for below-ground biomass',
       ratioCarbonDeadwood: 'Ratio (Carbon/biomass) for dead wood',
+
+      primaryDesignatedManagementObjective: 'Primary designated management objective',
     }
   },
 
