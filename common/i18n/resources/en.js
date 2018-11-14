@@ -210,6 +210,8 @@ The FRA team fra@fao.org
       ratioCarbonDeadwood: 'Ratio (Carbon/biomass) for dead wood',
 
       primaryDesignatedManagementObjective: 'Primary designated management objective',
+
+      totalAreaDesignatedManagementObjective: 'Total area with designated management objective',
     }
   },
 

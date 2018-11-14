@@ -6,6 +6,7 @@ import Extent from './extent'
 import PeriodicChangeRate from './periodicChangeRate'
 import ForestGSBiomassCarbon from './forestGSBiomassCarbon'
 import PrimaryDesignatedManagementObjectiveView from './primaryDesignatedManagementObjective'
+import TotalAreaDesignatedManagementObjectiveView from './totalAreaDesignatedManagementObjective'
 
 import forestAreaWithinProtectedAreasTableSpec from '../../../assessmentFra/forestAreaWithinProtectedAreas/tableSpec'
 import specificForestCategoriesTableSpec from '../../../assessmentFra/specificForestCategories/tableSpec'
@@ -57,7 +58,7 @@ class ContentCheckView extends React.Component {
       //2
       growingStock, biomassStock, carbonStock,
       //3
-       forestAreaWithinProtectedAreas,
+      forestAreaWithinProtectedAreas,
       //4
       forestOwnership, holderOfManagementRights,
       //5
@@ -103,6 +104,9 @@ class ContentCheckView extends React.Component {
           <PrimaryDesignatedManagementObjectiveView i18n={i18n} countryIso={countryIso}
                                                     years={defaultYears}
                                                     extentOfForest={extentOfForest}/>
+
+          <TotalAreaDesignatedManagementObjectiveView i18n={i18n} countryIso={countryIso}
+                                                      years={defaultYears}/>
 
 
         </div>
