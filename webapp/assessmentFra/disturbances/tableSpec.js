@@ -27,7 +27,7 @@ export const tableProps = {
   }
 }
 
-export default (i18n, extentOfForest, countryIso, tableProp) => {
+export default (i18n, extentOfForest, countryIso, tableProp = tableProps.disturbances) => {
 
   const {startYear, endYear, name} = tableProp
 
