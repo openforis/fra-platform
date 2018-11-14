@@ -9,6 +9,7 @@ import PrimaryDesignatedManagementObjectiveView from './primaryDesignatedManagem
 import TotalAreaDesignatedManagementObjectiveView from './totalAreaDesignatedManagementObjective'
 import ForestOwnership from './forestOwnership'
 import ManagementRightsOfPublicForests from './managementRightsOfPublicForests'
+import Disturbances from './disturbances'
 
 import forestAreaWithinProtectedAreasTableSpec from '../../../assessmentFra/forestAreaWithinProtectedAreas/tableSpec'
 import specificForestCategoriesTableSpec from '../../../assessmentFra/specificForestCategories/tableSpec'
@@ -118,6 +119,9 @@ class ContentCheckView extends React.Component {
           <ManagementRightsOfPublicForests i18n={i18n} countryIso={countryIso}
                                            years={defaultYears}
                                            forestOwnership={forestOwnership}/>
+
+          <Disturbances i18n={i18n} countryIso={countryIso}
+                        disturbances={disturbances} areaAffectedByFire={areaAffectedByFire}/>
 
         </div>
       )
