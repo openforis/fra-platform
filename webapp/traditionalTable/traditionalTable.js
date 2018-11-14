@@ -116,7 +116,7 @@ const validationErrorRow = props => {
 const TableBody = props =>
   <tbody>
   {tableRows(props)}
-  {validationErrorRow(props)}
+  {!props.skipValidation && validationErrorRow(props)}
   </tbody>
 
 class FraTable extends UpdateOnResizeReactComponent {
