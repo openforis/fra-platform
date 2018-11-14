@@ -216,6 +216,8 @@ The FRA team fra@fao.org
       forestOwnership: 'Ownership',
 
       managementRightsOfPublicForests: 'Management rights of public forests',
+
+      disturbances: 'Disturbances',
     }
   },
 
