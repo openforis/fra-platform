@@ -180,7 +180,17 @@ The FRA team fra@fao.org
       forestMgmtPlan: 'Forest area with mgmt plan (% of forest)',
       certifiedForestArea: 'Certified forest area (1000 ha)',
 
-
+      periodicChangeRate: 'Periodic change rates (annual rates)',
+      forestAreaNetChange: 'Forest area annual net change (1000 hectares)',
+      forestAreaNetChangeRate: 'Forest area annual net change rate (%)',
+      owlNetChange: 'OWL area annual net change (1000 ha)',
+      owlNetChangeRate: 'OWL area annual net change rate(%)',
+      primaryForestNetChange: 'Primary forest annual net change (1000 ha)',
+      primaryForestNetChangeRate: 'Primary forest area change rate (%)',
+      naturallyRegeneratingForestNetChange: 'Naturally regenerating forest annual net change',
+      naturallyRegeneratingForestNetChangeRate: 'Naturally regenerating forest change rate (%)',
+      plantedForestNetChange: 'Planted forest annual net change',
+      plantedForestNetChangeRate: 'Planted forest change rate (%)',
     }
   },
 
