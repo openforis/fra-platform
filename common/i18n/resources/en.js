@@ -214,6 +214,8 @@ The FRA team fra@fao.org
       totalAreaDesignatedManagementObjective: 'Total area with designated management objective',
 
       forestOwnership: 'Ownership',
+
+      managementRightsOfPublicForests: 'Management rights of public forests',
     }
   },
 

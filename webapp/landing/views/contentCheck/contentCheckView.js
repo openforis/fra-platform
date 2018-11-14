@@ -8,13 +8,14 @@ import ForestGSBiomassCarbon from './forestGSBiomassCarbon'
 import PrimaryDesignatedManagementObjectiveView from './primaryDesignatedManagementObjective'
 import TotalAreaDesignatedManagementObjectiveView from './totalAreaDesignatedManagementObjective'
 import ForestOwnership from './forestOwnership'
+import ManagementRightsOfPublicForests from './managementRightsOfPublicForests'
 
 import forestAreaWithinProtectedAreasTableSpec from '../../../assessmentFra/forestAreaWithinProtectedAreas/tableSpec'
 import specificForestCategoriesTableSpec from '../../../assessmentFra/specificForestCategories/tableSpec'
 import biomassStockTableSpec from '../../../assessmentFra/biomassStock/tableSpec'
 import carbonStockTableSpec from '../../../assessmentFra/carbonStock/tableSpec'
 import forestOwnershipTableSpec from '../../../assessmentFra/forestOwnership/tableSpec'
-import holderOfManagementRightsTableSpec from '../../../assessmentFra/holderOfManagementRights/tableSpec'
+// import holderOfManagementRightsTableSpec from '../../../assessmentFra/holderOfManagementRights/tableSpec'
 import disturbancesTableSpec from '../../../assessmentFra/disturbances/tableSpec'
 import areaAffectedByFireTableSpec from '../../../assessmentFra/areaAffectedByFire/tableSpec'
 
@@ -44,7 +45,7 @@ class ContentCheckView extends React.Component {
     fetchTableData(countryIso, forestAreaWithinProtectedAreasTableSpec(i18n, extentOfForest))
     //4
     fetchTableData(countryIso, forestOwnershipTableSpec(i18n, extentOfForest, countryIso))
-    fetchTableData(countryIso, holderOfManagementRightsTableSpec(i18n, forestOwnership, countryIso))
+    // fetchTableData(countryIso, holderOfManagementRightsTableSpec(i18n, forestOwnership, countryIso))
     //5
     fetchTableData(countryIso, disturbancesTableSpec(i18n, extentOfForest, countryIso))
     fetchTableData(countryIso, areaAffectedByFireTableSpec(i18n))
@@ -61,7 +62,7 @@ class ContentCheckView extends React.Component {
       //3
       forestAreaWithinProtectedAreas,
       //4
-      forestOwnership, holderOfManagementRights,
+      forestOwnership,
       //5
       disturbances, areaAffectedByFire,
       //8
@@ -79,7 +80,7 @@ class ContentCheckView extends React.Component {
     return forestCharacteristics && specificForestCategories &&
     growingStock && biomassStock && carbonStock &&
     forestAreaWithinProtectedAreas &&
-    forestOwnership && holderOfManagementRights &&
+    forestOwnership &&
     disturbances && areaAffectedByFire
       ? (
         <div>
@@ -114,6 +115,10 @@ class ContentCheckView extends React.Component {
                            extentOfForest={extentOfForest}
                            forestOwnership={forestOwnership}/>
 
+          <ManagementRightsOfPublicForests i18n={i18n} countryIso={countryIso}
+                                           years={defaultYears}
+                                           forestOwnership={forestOwnership}/>
+
         </div>
       )
       : null
@@ -135,7 +140,7 @@ const mapStateToProps = state => ({
   forestAreaWithinProtectedAreas: R.path(['traditionalTable', 'forestAreaWithinProtectedAreas'])(state),//3b
 
   forestOwnership: R.path(['traditionalTable', 'forestOwnership'])(state),//4a
-  holderOfManagementRights: R.path(['traditionalTable', 'holderOfManagementRights'])(state),//4b
+  // holderOfManagementRights: R.path(['traditionalTable', 'holderOfManagementRights'])(state),//4b
 
   disturbances: R.path(['traditionalTable', 'disturbances'])(state),//5a
   areaAffectedByFire: R.path(['traditionalTable', 'areaAffectedByFire'])(state),//5b
