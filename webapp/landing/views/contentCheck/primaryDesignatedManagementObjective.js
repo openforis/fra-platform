@@ -20,7 +20,6 @@ const PrimaryDesignatedManagementObjectiveView = (props) => {
   </thead>
 
   tableSpec.rows = tableSpec.rows.splice(0, tableSpec.rows.length - 1)
-  // tableSpec.rows = tableSpec.rows.splice(0, tableSpec.rows.length - 2)
 
   return (
     <TraditionalTable
