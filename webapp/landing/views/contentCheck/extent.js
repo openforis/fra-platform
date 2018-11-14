@@ -7,12 +7,11 @@ import { div, mul } from '../../../../common/bignumberUtils'
 const Extent = (props) => {
 
   const {
-    i18n, years, getFraValue,tableData5YearsMapping,
+    i18n, years, getFraValue, tableData5YearsMapping,
     specificForestCategories,
     forestAreaWithinProtectedAreas,
-    certifiedAreas,
+    certifiedAreas = {},
   } = props
-
 
   const getForestAreaWithinProtectedAreasPerc = (row, col, year) => {
     const forestArea = getFraValue('forestArea', year)

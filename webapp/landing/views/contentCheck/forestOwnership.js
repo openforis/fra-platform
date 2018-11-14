@@ -12,7 +12,6 @@ const ForestOwnership = (props) => {
   } = props
 
   const tableYears = years.filter(y => y % 5 === 0 && y <= 2015)
-  console.log(props)
 
   const getOtherValue = i => {
     const year = tableYears[i]
