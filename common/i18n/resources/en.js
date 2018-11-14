@@ -191,6 +191,23 @@ The FRA team fra@fao.org
       naturallyRegeneratingForestNetChangeRate: 'Naturally regenerating forest change rate (%)',
       plantedForestNetChange: 'Planted forest annual net change',
       plantedForestNetChangeRate: 'Planted forest change rate (%)',
+
+      forestGSBiomassCarbon: 'FOREST growing stock, biomass and carbon',
+      gs: 'GS (m3/ha)',
+      agb: 'Above-ground biomass (t/ha)',
+      bgb: 'Below-ground biomass (t/ha)',
+      deadwood: 'Dead wood (t/ha)',
+      carbonAgb: 'C in above-ground biomass (t/ha)',
+      carbonBgb: 'C in below-ground biomass (t/ha)',
+      carbonDeadwood: 'C in dead wood (t/ha)',
+      carbonLitter: 'C in litter (t/ha)',
+      carbonSoil: 'C in soil (t/ha)',
+      ratioAgb: 'Ratio (above-ground biomass) / GS (t/m3)',
+      rootShootRatio: 'Root-Shoot ratio',
+      ratioDeadwood: 'Ratio (Dead wood / Living biomass)',
+      ratioCarbonAgb: 'Ratio (Carbon/biomass) for above-ground biomass',
+      ratioCarbonBgb: 'Ratio (Carbon/biomass) for below-ground biomass',
+      ratioCarbonDeadwood: 'Ratio (Carbon/biomass) for dead wood',
     }
   },
 

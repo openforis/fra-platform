@@ -4,6 +4,7 @@ import * as R from 'ramda'
 
 import Extent from './extent'
 import PeriodicChangeRate from './periodicChangeRate'
+import ForestGSBiomassCarbon from './forestGSBiomassCarbon'
 
 import forestAreaWithinProtectedAreasTableSpec from '../../../assessmentFra/forestAreaWithinProtectedAreas/tableSpec'
 import specificForestCategoriesTableSpec from '../../../assessmentFra/specificForestCategories/tableSpec'
@@ -94,6 +95,11 @@ class ContentCheckView extends React.Component {
                               getFraValue={getFraValue} tableData5YearsMapping={tableData5YearsMapping}
                               extentOfForest={extentOfForest} forestCharacteristics={forestCharacteristics}
                               specificForestCategories={specificForestCategories}/>
+
+          <ForestGSBiomassCarbon i18n={i18n} years={defaultYears}
+                                 biomassStock={biomassStock}
+                                 growingStock={growingStock}
+                                 carbonStock={carbonStock}/>
 
 
         </div>
