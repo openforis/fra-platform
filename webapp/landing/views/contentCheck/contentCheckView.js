@@ -66,25 +66,39 @@ class ContentCheckView extends React.Component {
       certifiedAreas
     } = this.props
 
-    const getFraValue = (variable, year) => R.pipe(
+    const getFraValue = (variable, year, source = extentOfForest) => R.pipe(
       R.prop('fra'),
       R.find(R.propEq('year', year)),
       R.prop(variable),
-    )(extentOfForest)
+    )(source)
 
-    return (
-      <div>
-        <Extent i18n={i18n} years={defaultYears} getFraValue={getFraValue}
-                extentOfForest={extentOfForest}
-                specificForestCategories={specificForestCategories}
-                forestAreaWithinProtectedAreas={forestAreaWithinProtectedAreas}
-                certifiedAreas={certifiedAreas}/>
+    const tableData5YearsMapping = {1990: 1, 2000: 2, 2010: 3, 2015: 4, 2020: 5}
 
-        <PeriodicChangeRate i18n={i18n} years={defaultYears} getFraValue={getFraValue}
-                            extentOfForest={extentOfForest} forestCharacteristics={forestCharacteristics}/>
+    return forestCharacteristics && specificForestCategories &&
+    growingStock && biomassStock && carbonStock &&
+    primaryDesignatedManagementObjective && forestAreaWithinProtectedAreas &&
+    forestOwnership && holderOfManagementRights &&
+    disturbances && areaAffectedByFire
+      ? (
+        <div>
 
-      </div>
-    )
+          <Extent i18n={i18n} years={defaultYears}
+                  getFraValue={getFraValue} tableData5YearsMapping={tableData5YearsMapping}
+                  extentOfForest={extentOfForest}
+                  specificForestCategories={specificForestCategories}
+                  forestAreaWithinProtectedAreas={forestAreaWithinProtectedAreas}
+                  certifiedAreas={certifiedAreas}/>
+
+
+          <PeriodicChangeRate i18n={i18n} years={defaultYears}
+                              getFraValue={getFraValue} tableData5YearsMapping={tableData5YearsMapping}
+                              extentOfForest={extentOfForest} forestCharacteristics={forestCharacteristics}
+                              specificForestCategories={specificForestCategories}/>
+
+
+        </div>
+      )
+      : null
   }
 }
 

@@ -7,14 +7,12 @@ import { div, mul } from '../../../../common/bignumberUtils'
 const Extent = (props) => {
 
   const {
-    i18n, years, getFraValue,
-    extentOfForest,
+    i18n, years, getFraValue,tableData5YearsMapping,
     specificForestCategories,
     forestAreaWithinProtectedAreas,
     certifiedAreas,
   } = props
 
-  const specificForestCategoriesYears = {1990: 1, 2000: 2, 2010: 3, 2015: 4, 2020: 5}
 
   const getForestAreaWithinProtectedAreasPerc = (row, col, year) => {
     const forestArea = getFraValue('forestArea', year)
@@ -85,7 +83,7 @@ const Extent = (props) => {
                       formatDecimal(
                         mul(
                           div(
-                            R.path(['tableData', 3, specificForestCategoriesYears[year]])(specificForestCategories),
+                            R.path(['tableData', 3, tableData5YearsMapping[year]])(specificForestCategories),
                             getFraValue('forestArea', year)
                           ),
                           100
@@ -166,7 +164,7 @@ const Extent = (props) => {
                   <div className="number-input__readonly-view">
                     {
                       formatDecimal(
-                        R.path(['tableData', 0, specificForestCategoriesYears[year]])(specificForestCategories)
+                        R.path(['tableData', 0, tableData5YearsMapping[year]])(specificForestCategories)
                       )
                     }
                   </div>
@@ -185,7 +183,7 @@ const Extent = (props) => {
                   <div className="number-input__readonly-view">
                     {
                       formatDecimal(
-                        R.path(['tableData', 1, specificForestCategoriesYears[year]])(specificForestCategories)
+                        R.path(['tableData', 1, tableData5YearsMapping[year]])(specificForestCategories)
                       )
                     }
                   </div>
