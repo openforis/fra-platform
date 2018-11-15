@@ -22,7 +22,7 @@ const PeriodicChangeRate = (props) => {
       : null
 
   const getNetChangeRate = (valueA, valueB, yearA, yearB) =>
-    valueA && valueB ?
+    valueA && valueB && Number(valueA) > 0 && Number(valueB) > 0 ?
       mul(
         sub(
           Math.pow(
