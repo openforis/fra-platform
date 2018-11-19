@@ -7,7 +7,7 @@ import * as R from 'ramda'
 import LoggedInPageTemplate from '../app/loggedInPageTemplate'
 import { getCountryName } from '../country/actions'
 import { isAllowedToChangeRole } from '../../common/userManagementAccessControl'
-import { isReviewer, isAdministrator } from '../../common/countryRole'
+import { isReviewer } from '../../common/countryRole'
 
 import OverviewView from './views/overviewView'
 import AboutView from './views/aboutView'
@@ -45,8 +45,7 @@ class LandingView extends React.Component {
       ? R.insert(1, {name: 'userManagement', component: ManageCollaboratorsView}, defaultSections)
       : defaultSections
 
-    // return isReviewer(countryIso, userInfo)
-    return isAdministrator(userInfo)
+    return isReviewer(countryIso, userInfo)
       ? R.insert(1, {name: 'contentCheck', component: ContentCheckView}, sections)
       : sections
   }
