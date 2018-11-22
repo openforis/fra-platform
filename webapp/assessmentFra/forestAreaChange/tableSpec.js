@@ -6,7 +6,7 @@ import { formatDecimal } from '../../utils/numberFormat'
 
 import { subCategoryValidator, positiveOrZero } from '../../traditionalTable/validators'
 import { Link } from '../../reusableUiComponents/link'
-import { yearIntervals, decimalInputCell, eofNetChange } from './forestAreaChange'
+import { yearIntervals, decimalInputCell, eofNetChange, calculateMirrorValue, rowMirrors } from './forestAreaChange'
 
 const mapIndexed = R.addIndex(R.map)
 const ofWhichRows = R.range(1, 3)
@@ -20,6 +20,34 @@ const decimalInputColumns = (extentOfForest, validator, disabled) => R.times(() 
 }), 4)
 
 export const sectionName = 'forestAreaChange'
+
+const forestChangeValidator = extentOfForest => (props, row, column) => {
+  const positiveOrZeroRes = positiveOrZero()(props, row, column)
+  if (positiveOrZeroRes.valid) {
+    const {tableData, i18n} = props
+
+    const value = tableData[row][column]
+
+    const rowMirror = R.find(R.propEq('rowMirrorIdx', row), rowMirrors)
+    const yearInterval = yearIntervals[column - 1]
+    const {fn, row: rowMirrorRow} = rowMirror
+
+    const calculatedValue = calculateMirrorValue(tableData, extentOfForest, yearInterval[1], yearInterval[2], rowMirrorRow, column, fn)
+
+    if (value && calculatedValue && value !== calculatedValue) {
+      return {
+        valid: false,
+        message: i18n.t('generalValidation.forestAreaDoesNotMatchExtentOfForest')
+      }
+    } else {
+      return {valid: true}
+    }
+
+  }
+  else {
+    return positiveOrZeroRes
+  }
+}
 
 export default (i18n, extentOfForest, countryIso, disabled) => {
   return {
@@ -51,7 +79,7 @@ export default (i18n, extentOfForest, countryIso, disabled) => {
           type: 'readOnly',
           jsx: <th className="fra-table__category-cell">{i18n.t('forestAreaChange.forestExpansion')} (a)</th>
         },
-        ...decimalInputColumns(extentOfForest, positiveOrZero(), disabled)
+        ...decimalInputColumns(extentOfForest, forestChangeValidator(extentOfForest), disabled)
       ],
       [
         {
@@ -72,7 +100,7 @@ export default (i18n, extentOfForest, countryIso, disabled) => {
           type: 'readOnly',
           jsx: <th className="fra-table__category-cell">{i18n.t('forestAreaChange.deforestation')} (b)</th>
         },
-        ...decimalInputColumns(extentOfForest, positiveOrZero(), disabled)
+        ...decimalInputColumns(extentOfForest, forestChangeValidator(extentOfForest), disabled)
       ],
       [
         {
