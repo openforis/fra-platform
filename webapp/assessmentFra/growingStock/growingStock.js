@@ -1,5 +1,14 @@
 import * as R from 'ramda'
-import { sum } from '../../../common/bignumberUtils'
+import { div, mul, sum, toString } from '../../../common/bignumberUtils'
+
+const baseValueKeysMapping = {
+  'naturallyRegeneratingForest': 'naturalForestArea',
+  'plantationForest': 'plantationForestArea',
+  'otherPlantedForest': 'otherPlantedForestArea',
+  'otherWoodedLand': 'otherWoodedLand',
+  'forest': 'forestArea',
+  'plantedForest': 'plantedForestArea',
+}
 
 const getTotalFieldValue = (field, year) => R.pipe(
   R.path(['totalTable', year, field]),
@@ -15,3 +24,16 @@ export const getTotalGrowingStockFieldsSum = (growingStock, year, fields = []) =
 
 export const getTotalGrowingStockInForest = (growingStock, year) =>
   getTotalFieldValue('forest', year)(growingStock)
+
+
+export const calculateTotalValue = (growingStockState, year, row, avgValue) => {
+  const baseValue = R.path(['baseTable', year, baseValueKeysMapping[row]], growingStockState)
+  const value = toString(div(mul(avgValue, baseValue), 1000))
+  return value
+}
+
+export const calculateAvgValue = (growingStockState, year, row, totalValue) => {
+  const baseValue = R.path(['baseTable', year, baseValueKeysMapping[row]], growingStockState)
+  const value = toString(div(mul(totalValue, 1000), baseValue))
+  return value
+}
