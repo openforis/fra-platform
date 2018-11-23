@@ -185,7 +185,7 @@ const totalValidator = (props, year, row) => {
       ? {valid: true}
       : {
         valid: false,
-        message: props.i18n.t('generalValidation.forestAreaDoesNotMatchExtentOfForest')
+        message: props.i18n.t('generalValidation.valuesAreInconsistent1aOr1b')
       }
   } else {
     return {valid: true}
@@ -204,7 +204,7 @@ const avgValidator = (props, year, row) => {
       ? {valid: true}
       : {
         valid: false,
-        message: props.i18n.t('generalValidation.forestAreaDoesNotMatchExtentOfForest')
+        message: props.i18n.t('generalValidation.valuesAreInconsistent1aOr1b')
       }
   } else {
     return {valid: true}

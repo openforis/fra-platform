@@ -3,6 +3,7 @@ import R from 'ramda'
 
 import { acceptNextDecimal } from '../../utils/numberInput'
 import { formatDecimal } from '../../utils/numberFormat'
+import { formatNumber } from '../../../common/bignumberUtils'
 
 import { subCategoryValidator, positiveOrZero } from '../../traditionalTable/validators'
 import { Link } from '../../reusableUiComponents/link'
@@ -26,18 +27,18 @@ const forestChangeValidator = extentOfForest => (props, row, column) => {
   if (positiveOrZeroRes.valid) {
     const {tableData, i18n} = props
 
-    const value = tableData[row][column]
+    const value = formatNumber(tableData[row][column])
 
     const rowMirror = R.find(R.propEq('rowMirrorIdx', row), rowMirrors)
     const yearInterval = yearIntervals[column - 1]
     const {fn, row: rowMirrorRow} = rowMirror
 
-    const calculatedValue = calculateMirrorValue(tableData, extentOfForest, yearInterval[1], yearInterval[2], rowMirrorRow, column, fn)
+    const calculatedValue = formatNumber(calculateMirrorValue(tableData, extentOfForest, yearInterval[1], yearInterval[2], rowMirrorRow, column, fn))
 
-    if (value && calculatedValue && value !== calculatedValue) {
+    if (value && value !== calculatedValue) {
       return {
         valid: false,
-        message: i18n.t('generalValidation.forestAreaDoesNotMatchExtentOfForest')
+        message: i18n.t('generalValidation.valuesAreInconsistentWithNetChange')
       }
     } else {
       return {valid: true}

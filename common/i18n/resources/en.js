@@ -910,6 +910,8 @@ The FRA team
     valueMustBePositive: 'Value should be greater than zero',
     emptyField: 'This field is empty',
     mustBeEqualToTotalGrowingStock: 'Value should be equal to Total Growing Stock (2a)',
+    valuesAreInconsistentWithNetChange: 'Values are inconsistent with Forest area net change',
+    valuesAreInconsistent1aOr1b: 'Values are inconsistent with Areas reported in tables 1a or 1b',
   },
 
   emoji: {
