@@ -6,7 +6,7 @@ import clipboard from 'clipboard-polyfill'
 
 import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
 import { fetch, changeAvgValue, changeTotalValue, pasteAvgValue, pasteTotalValue } from './actions'
-import { div, greaterThan, sub, toFixed, add, defaultTo0 } from '../../../common/bignumberUtils'
+import { div, greaterThan, sub, toFixed, add, formatNumber } from '../../../common/bignumberUtils'
 import { readPasteClipboard } from '../../utils/copyPasteUtil'
 
 import { ThousandSeparatedDecimalInput } from '../../reusableUiComponents/thousandSeparatedDecimalInput'
@@ -19,14 +19,14 @@ import GeneralComments from '../../descriptionBundles/generalComments'
 
 import defaultYears from '../../../server/eof/defaultYears'
 import { isFRA2020SectionEditDisabled } from '../../utils/assessmentAccess'
-import { getTotalGrowingStockFieldsSum } from './growingStock'
+import { calculateAvgValue, calculateTotalValue, getTotalGrowingStockFieldsSum } from './growingStock'
 import { equalToTotalGrowingStock } from '../../traditionalTable/validators'
 
 const sectionName = 'growingStock'
 const mapIndexed = R.addIndex(R.map)
 
 const InputRowAvg = (props) => {
-  const {isEditDataDisabled} = props
+  const {isEditDataDisabled, validator, row} = props
   const thClassName = props.subCategory ? 'fra-table__subcategory-cell' : 'fra-table__category-cell'
   const target = props.row + 'Avg'
   return <tr>
@@ -34,7 +34,8 @@ const InputRowAvg = (props) => {
     {
       R.map(year => {
         const value = R.path([year, props.row], props.avgTable)
-        return <td className="fra-table__cell" key={year}>
+        const valid = validator ? validator(props, year, row).valid : true
+        return <td className={`fra-table__cell${valid ? '' : ' error'}`} key={year}>
           <ThousandSeparatedDecimalInput
             numberValue={value}
             onPaste={e => props.pasteAvgValue(props.countryIso, year, props.row, readPasteClipboard(e, 'decimal'))}
@@ -134,6 +135,10 @@ const subCategoryValidator = (parentField, childFields) =>
       ? greaterThan(difference, tolerance)
       : true
 
+    if (valid) {
+      return totalValidator(props, year, row)
+    }
+
     return {
       valid: valid,
       message: valid
@@ -162,9 +167,48 @@ const equalToTotalGrowingStockSubCategoryValidator = (props, year, row) => {
 
 export const forestSubCategoryValidator = (props, year, row) => {
   const forestValidator = subCategoryValidator('forest', ['plantedForest', 'naturallyRegeneratingForest'])(props, year, row)
+  const equalToTotal = equalToTotalGrowingStockSubCategoryValidator(props, year, row)
   return forestValidator.valid
-    ? equalToTotalGrowingStockSubCategoryValidator(props, year, row)
+    ? equalToTotal
     : forestValidator
+}
+
+const totalValidator = (props, year, row) => {
+  // console.log(props, year, row)
+  const totalValue = R.path(['totalTable', year, row], props)
+  const avgValue = R.path(['avgTable', year, row], props)
+  const value = formatNumber(calculateTotalValue(props, year, row, avgValue))
+  const equals = value === formatNumber(totalValue)
+
+  if (value) {
+    return equals
+      ? {valid: true}
+      : {
+        valid: false,
+        message: props.i18n.t('generalValidation.valuesAreInconsistent1aOr1b')
+      }
+  } else {
+    return {valid: true}
+  }
+}
+
+const avgValidator = (props, year, row) => {
+  // console.log(props, year, row)
+  const totalValue = R.path(['totalTable', year, row], props)
+  const avgValue = R.path(['avgTable', year, row], props)
+  const value = formatNumber(calculateAvgValue(props, year, row, totalValue))
+  const equals = value === formatNumber(avgValue)
+
+  if (value) {
+    return equals
+      ? {valid: true}
+      : {
+        valid: false,
+        message: props.i18n.t('generalValidation.valuesAreInconsistent1aOr1b')
+      }
+  } else {
+    return {valid: true}
+  }
 }
 
 const GrowingStock = (props) => {
@@ -210,6 +254,7 @@ const GrowingStock = (props) => {
           <tbody>
           <InputRowAvg
             row="naturallyRegeneratingForest"
+            validator={avgValidator}
             {...props}
           />
           <InputRowAvg
@@ -218,22 +263,44 @@ const GrowingStock = (props) => {
           />
           <InputRowAvg
             row="plantationForest"
+            validator={avgValidator}
             subCategory={true}
             {...props}
           />
           <InputRowAvg
             row="otherPlantedForest"
+            validator={avgValidator}
             subCategory={true}
             {...props}
           />
           <InputRowAvg
             row="forest"
+            validator={avgValidator}
             {...props}
           />
           <InputRowAvg
             row="otherWoodedLand"
+            validator={avgValidator}
             {...props}
           />
+          <tr className="no-print">
+            <td></td>
+            {
+              R.map(year => <td className="fra-table__validation-cell" key={year}>
+                <div className="fra-table__validation-container">
+                  {
+                    R.uniq([
+                      ...['naturallyRegeneratingForest', 'plantedForest', 'plantationForest', 'otherPlantedForest', 'forest', 'otherWoodedLand']
+                        .map(row => avgValidator(props, year, row).message)
+                    ]).map((m, i) =>
+                      <div key={i} className="fra-table__validation-error">{m}</div>
+                    )
+                  }
+                </div>
+              </td>, defaultYears)
+            }
+          </tr>
+
           </tbody>
         </table>
       </div>
@@ -278,10 +345,12 @@ const GrowingStock = (props) => {
           />
           <InputRowTotal
             row="forest"
+            validator={totalValidator}
             {...props}
           />
           <InputRowTotal
             row="otherWoodedLand"
+            validator={totalValidator}
             {...props}
           />
           <tr className="no-print">
@@ -294,6 +363,8 @@ const GrowingStock = (props) => {
                       forestSubCategoryValidator(props, year).message,
                       plantedForestSubCategoryValidator(props, year).message,
                       equalToTotalGrowingStockSubCategoryValidator(props, year).message,
+                      ...['naturallyRegeneratingForest', 'plantedForest', 'plantationForest', 'otherPlantedForest', 'forest', 'otherWoodedLand']
+                        .map(row => totalValidator(props, year, row).message)
                     ]).map((m, i) =>
                       <div key={i} className="fra-table__validation-error">{m}</div>
                     )

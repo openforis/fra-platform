@@ -3,19 +3,11 @@ import R from 'ramda'
 import { applicationError } from '../../applicationError/actions'
 import * as autosave from '../../autosave/actions'
 
+import { acceptNextDecimal } from '../../utils/numberInput'
+import { calculateTotalValue, calculateAvgValue } from './growingStock'
+
 export const growingStockFetchCompleted = 'growingStock/fetch/completed'
 export const growingStockChanged = 'growingStock/changed'
-import { acceptNextDecimal } from '../../utils/numberInput'
-import { div, mul, toString } from '../../../common/bignumberUtils'
-
-const baseValueKeysMapping = {
-  'naturallyRegeneratingForest': 'naturalForestArea',
-  'plantationForest': 'plantationForestArea',
-  'otherPlantedForest': 'otherPlantedForestArea',
-  'otherWoodedLand': 'otherWoodedLand',
-  'forest': 'forestArea',
-  'plantedForest': 'plantedForestArea',
-}
 
 const pasteYearMapping = {
   0: '1990',
@@ -44,8 +36,7 @@ const rowToIndex = R.invertObj(pasteRowMapping)
 const updateAvg = (growingStockState, year, row, newValue) => {
   const currentValue = R.path(['avgTable', year, row], growingStockState)
   const sanitizedValue = acceptNextDecimal(newValue, currentValue)
-  const baseValue = R.path(['baseTable', year, baseValueKeysMapping[row]], growingStockState)
-  const calculatedValue = toString(div(mul(sanitizedValue, baseValue), 1000))
+  const calculatedValue = calculateTotalValue(growingStockState, year, row, sanitizedValue)
   const updatedValue = R.pipe(
     R.assocPath(['avgTable', year, row], sanitizedValue),
     R.assocPath(['totalTable', year, row], calculatedValue)
@@ -56,8 +47,9 @@ const updateAvg = (growingStockState, year, row, newValue) => {
 const updateTotal = (growingStockState, year, row, newValue) => {
   const currentValue = R.path(['totalTableTable', year, row], growingStockState)
   const sanitizedValue = acceptNextDecimal(newValue, currentValue)
-  const baseValue = R.path(['baseTable', year, baseValueKeysMapping[row]], growingStockState)
-  const calculatedValue = toString(div(mul(sanitizedValue, 1000), baseValue))
+
+  const calculatedValue = calculateAvgValue(growingStockState, year, row, sanitizedValue)
+
   const updatedValue = R.pipe(
     R.assocPath(['avgTable', year, row], calculatedValue),
     R.assocPath(['totalTable', year, row], sanitizedValue)
