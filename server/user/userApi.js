@@ -9,7 +9,7 @@ const {AccessControlException, checkCountryAccessFromReqParams} = require('../ut
 const {sendInvitation} = require('./sendInvitation')
 const {rolesAllowedToChange} = require('../../common/userManagementAccessControl')
 
-const {isAdministrator, isNationalCorrespondent, isCollaborator, isAlternateNationalCorrespondent} = require('../../common/countryRole')
+const {isAdministrator, isNationalCorrespondent, isCollaborator, isAlternateNationalCorrespondent, getCountryRole} = require('../../common/countryRole')
 const {validate: validateUser, validEmail} = require('../../common/userUtils')
 
 const filterAllowedUsers = (countryIso, user, users) => {
@@ -82,12 +82,37 @@ module.exports.init = app => {
         })
       }
 
-      const persistFunction = newUser.invitationUuid
-        ? userRepository.updateInvitation
-        : userRepository.addInvitation
+      const user = await userRepository.findUserByEmail(newUser.email)
+      let invitationUuid = null
+
+      // EXISTING USER
+      if (user) {
+        const countryRole = getCountryRole(countryIso, user)
+
+        if (countryRole) {
+          // User already added to country
+          throw new AccessControlException(
+            'error.access.userAlreadyAddedToCountry',
+            {user: user.name + ' (' + user.email + ')', countryIso}
+          )
+        } else {
+          // adding country to user
+          const profilePicture = await userRepository.getUserProfilePicture(user.id)
+          const rolesUpdated = R.append({countryIso, role: newUser.role}, user.roles)
+          await db.transaction(userRepository.updateUser, [req.user, countryIso, R.assoc('roles', rolesUpdated, user), profilePicture])
+        }
+
+        // NEW USER
+      } else {
+
+        const persistFunction = newUser.invitationUuid
+          ? userRepository.updateInvitation
+          : userRepository.addInvitation
+
+        invitationUuid = await db.transaction(persistFunction, [req.user, countryIso, newUser])
+      }
 
       const url = serverUrl(req)
-      const invitationUuid = await db.transaction(persistFunction, [req.user, countryIso, newUser])
       await sendInvitation(countryIso, {
         ...newUser,
         invitationUuid
