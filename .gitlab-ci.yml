@@ -1,4 +1,4 @@
-image: node:9.8.0
+image: node:10.13.0
 
 stages:
   - build
@@ -18,7 +18,7 @@ deploy_staging:
   script:
     - apt-get update
     - apt-get install --assume-yes rubygems
-    - gem install dpl -v 1.8.47
+    - gem install dpl -v 1.10.6
     - dpl --provider=heroku --edge=true --app=dev-fra-platform --api-key=$HEROKU_STAGING_API_KEY
   only:
     - master
@@ -31,7 +31,7 @@ deploy_production:
   script:
     - apt-get update
     - apt-get install --assume-yes rubygems
-    - gem install dpl -v 1.8.47
+    - gem install dpl -v 1.10.6
     - dpl --provider=heroku --app=$HEROKU_PRODUCTION_APP_NAME --api-key=$HEROKU_PRODUCTION_API_KEY
   only:
     - master
