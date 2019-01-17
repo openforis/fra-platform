@@ -7,9 +7,9 @@ stages:
 build:
   stage: build
   script:
-  - yarn install
-  - yarn test
-  - yarn build
+    - yarn install
+    - yarn test
+    - yarn build
 
 deploy_staging:
   stage: deploy
@@ -19,7 +19,7 @@ deploy_staging:
     - apt-get update
     - apt-get install --assume-yes rubygems
     - gem install dpl -v 1.10.6
-    - dpl --provider=heroku --edge=true --app=dev-fra-platform --api-key=$HEROKU_STAGING_API_KEY
+    - dpl --provider=heroku --app=dev-fra-platform --api-key=$HEROKU_STAGING_API_KEY
   only:
     - master
   environment:
