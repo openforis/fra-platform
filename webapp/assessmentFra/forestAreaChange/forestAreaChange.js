@@ -24,13 +24,13 @@ export const eofNetChange = (extentOfForest, startYear, endYear) => {
   return eofNetChange
 }
 
-const calculateMirrorValue = (tableData, extentOfForest, startYear, endYear, row, column, fn) => {
+export const calculateMirrorValue = (tableData, extentOfForest, startYear, endYear, row, column, fn) => {
   const netChangeFromExtentOfForest = eofNetChange(extentOfForest, startYear, endYear)
   const value = toFixed(fn(tableData[row][column], netChangeFromExtentOfForest))
   return value ? value.toString() : null
 }
 
-const rowMirrors = [
+export const rowMirrors = [
   {row: 0, rowMirrorIdx: 3, fn: sub},
   {row: 3, rowMirrorIdx: 0, fn: add}
 ]
