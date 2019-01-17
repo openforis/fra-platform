@@ -9,6 +9,8 @@ import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
 import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
 import CommentableDescription from '../../description/commentableDescription.js'
 
+import { isFRA2020SectionEditDisabled } from '../../utils/assessmentAccess'
+
 const sectionName = 'contactPersons'
 
 class ContactPersonsView extends React.Component {
@@ -20,7 +22,7 @@ class ContactPersonsView extends React.Component {
 
   render () {
 
-    const {i18n, countryIso} = this.props
+    const {i18n, countryIso, isEditDataDisabled} = this.props
 
     return <LoggedInPageTemplate commentsOpen={this.props.openCommentThread}>
       <div className="fra-view__content">
@@ -31,6 +33,7 @@ class ContactPersonsView extends React.Component {
           name='introductoryText'
           countryIso={countryIso}
           template={i18n.t('contactPersons.introductoryTextSupport')}
+          disabled={isEditDataDisabled}
         />
 
       </div>
@@ -41,7 +44,8 @@ class ContactPersonsView extends React.Component {
 const mapStateToProps = (state, props) => ({
   openCommentThread: state.review.openThread,
   i18n: state.user.i18n,
-  countryIso: R.path(['match', 'params', 'countryIso'], props)
+  countryIso: R.path(['match', 'params', 'countryIso'], props),
+  isEditDataDisabled: isFRA2020SectionEditDisabled(state, sectionName)
 })
 
 export default connect(mapStateToProps, {fetchLastSectionUpdateTimestamp})(ContactPersonsView)
