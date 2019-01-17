@@ -1,5 +1,7 @@
 import React from 'react'
 
+import IntroductionView from './contactPersons/contactPersonsView'
+
 import ExtentOfForestView from '../assessmentFra/extentOfForest/extentOfForestView'
 import ForestCharacteristicsView from '../assessmentFra/forestCharacteristics/forestCharacteristicsView'
 import ForestAreaChangeView from '../assessmentFra/forestAreaChange/forestAreaChangeView'
@@ -38,6 +40,10 @@ import SustainableDevelopmentView from '../assessmentFra/sustainableDevelopment/
 const AssessmentFraPrintView = (props) => {
 
   return <div>
+
+    <IntroductionView {...props}/>
+
+    <div className="page-break"/>
 
     <ExtentOfForestView {...props}/>
 
