@@ -12,7 +12,9 @@
     "start": "node server/server.js",
     "postinstall": "webpack --config webpack.config.js",
     "watch": "yarn build:watch & yarn watch:server",
-    "watch:server": "NODE_ENV=development nodemon -e js --watch server server/server.js",
+    "watch-debug": "yarn build:watch & yarn watch:server-debug",
+    "watch:server": "NODE_ENV=development nodemon -e js  --inspect --watch server server/server.js",
+    "watch:server-debug": "NODE_ENV=development nodemon -e js  --inspect --watch server server/serverLocal.js",
     "create-migration": "./server/db/migration/create-migration.sh",
     "test": "mocha-webpack --webpack-config webpack.config-test.js -R spec test/unit"
   },
