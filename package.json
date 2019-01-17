@@ -3,7 +3,7 @@
   "name": "frap",
   "engines": {
     "node": "10.13.0",
-    "yarn": ">=1.12.3"
+    "yarn": ">=1.10.1"
   },
   "scripts": {
     "build": "webpack -p --config webpack.config.js",
