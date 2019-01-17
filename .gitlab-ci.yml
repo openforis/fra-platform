@@ -13,14 +13,13 @@ build:
 
 deploy_staging:
   stage: deploy
-  edge: true
   except:
     - schedules
   script:
     - apt-get update
     - apt-get install --assume-yes rubygems
     - gem install dpl -v 1.8.47
-    - dpl --provider=heroku --app=dev-fra-platform --api-key=$HEROKU_STAGING_API_KEY
+    - dpl --provider=heroku --edge=true --app=dev-fra-platform --api-key=$HEROKU_STAGING_API_KEY
   only:
     - master
   environment:
