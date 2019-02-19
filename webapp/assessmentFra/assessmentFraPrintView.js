@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 
 import { getCountryName } from '../country/actions'
 
+import ContactPersonsPrintView from './contactPersons/contactPersonsPrintView'
 import IntroductionView from './contactPersons/contactPersonsView'
 
 import ExtentOfForestView from '../assessmentFra/extentOfForest/extentOfForestView'
@@ -45,12 +46,13 @@ const AssessmentFraPrintView = (props) => {
   const { i18n, match, getCountryName } = props
   const countryIso = match.params.countryIso
 
-  return (
+  return  (
     <div>
 
       <h1>{i18n.t('fraReportPrint.title', { country: getCountryName(countryIso, i18n.language) })}</h1>
       <hr/>
 
+      <ContactPersonsPrintView {...props}/>
       <IntroductionView {...props}/>
 
       <div className="page-break"/>
