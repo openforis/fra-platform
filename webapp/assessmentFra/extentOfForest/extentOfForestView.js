@@ -13,6 +13,7 @@ import AnalysisDescriptions from '../../descriptionBundles/analysisDescriptions'
 import GeneralComments from '../../descriptionBundles/generalComments'
 import ReviewIndicator from '../../review/reviewIndicator'
 import TraditionalTable from '../../traditionalTable/traditionalTable'
+import NationalDataPointsPrintView from '../../originalDataPoint/nationalDataPointsPrintView'
 
 import { saveCountryConfigSetting } from '../../country/actions'
 import { fetchItem, save, saveMany, generateFraValues } from '../../tableWithOdp/actions'
@@ -201,7 +202,9 @@ const ExtentOfForest = (props) => {
 
     {
       hasNDPs
-        ? null
+        ? isPrintingMode()
+          ? <NationalDataPointsPrintView {...props} />
+          : null
         : [
           <NationalDataDescriptions key="ndd" section={sectionName} countryIso={props.countryIso}
                                     disabled={isEditDataDisabled}/>,
@@ -209,6 +212,7 @@ const ExtentOfForest = (props) => {
                                 disabled={isEditDataDisabled}/>
         ]
     }
+
     <h2 className="headline no-print">
       {i18n.t('extentOfForest.extentOfForest')}
       {
