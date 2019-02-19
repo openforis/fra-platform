@@ -24,6 +24,9 @@ import { hasOdps } from './extentOfForestHelper'
 import { isFRA2020SectionEditDisabled } from '../../utils/assessmentAccess'
 import { isAdministrator } from '../../../common/countryRole'
 
+import FraUtils from '../../../common/fraUtils'
+import { isPrintingMode } from '../../printAssessment/printAssessment'
+
 const sectionName = 'extentOfForest'
 const mapIndexed = R.addIndex(R.map)
 const odpValueCellClass = (fraColumn) => fraColumn.type === 'odp' ? 'odp-value-cell-total' : 'fra-table__calculated-cell'
@@ -292,10 +295,16 @@ class DataFetchingComponent extends React.Component {
 
     const hasNDPs = hasOdps(fra)
 
+    const data = isPrintingMode()
+      ? FraUtils.filterFraYears(fra)
+      : showNDPs
+        ? fra
+        : fraNoNDPs
+
     return <LoggedInPageTemplate commentsOpen={this.props.openCommentThread}>
       <ExtentOfForest {...this.props}
                       countryIso={this.props.match.params.countryIso}
-                      fra={showNDPs ? fra : fraNoNDPs}
+                      fra={data}
                       showNDPs={showNDPs}
                       hasNDPs={hasNDPs}
                       toggleNDPs={() => this.setState({ showNDPs: !showNDPs })}/>
