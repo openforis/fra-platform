@@ -15,14 +15,12 @@ const PrintAssessmentView = (props) => {
 
   setPrintingMode()
 
-  const {match, i18n} = props
+  const {match} = props
   const {assessment} = match.params
 
   const {component} = R.find(R.propEq('assessment', assessment), views)
 
   return <div className="fra-print__container">
-    <h1>{i18n.t('assessment.' + assessment)}</h1>
-    <hr/>
     {React.createElement(component, {...props})}
   </div>
 

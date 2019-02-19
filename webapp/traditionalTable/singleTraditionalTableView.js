@@ -39,6 +39,12 @@ class SingleTraditionalTableView extends React.Component {
     const countryIso = match.params.countryIso
 
     return <LoggedInPageTemplate>
+
+      <h2 className="title only-print">
+        <span className="only-print">{`${sectionAnchor ? sectionAnchor : tadAnchor} `}</span> {i18n.t(headingLocalizationKey)}
+        {headingDetailsLocalizationKey ? ` (${i18n.t(headingDetailsLocalizationKey)})` : null}
+      </h2>
+
       <div className="fra-view__content">
         {
           useNationalDataDescriptions === false
@@ -51,8 +57,8 @@ class SingleTraditionalTableView extends React.Component {
             ? null
             : <AnalysisDescriptions section={tableSpecInstance.name} countryIso={countryIso} disabled={isEditDataDisabled}/>
         }
-        <h2 className="headline">
-          <span className="only-print">{`${sectionAnchor ? sectionAnchor : tadAnchor} `}</span>{i18n.t(headingLocalizationKey)}
+        <h2 className="headline no-print">
+          {i18n.t(headingLocalizationKey)}
           {headingDetailsLocalizationKey ? ` (${i18n.t(headingDetailsLocalizationKey)})` : null}
         </h2>
         <div className="fra-view__section-toolbar">

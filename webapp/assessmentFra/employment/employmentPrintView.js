@@ -10,17 +10,22 @@ import GeneralComments from '../../descriptionBundles/generalComments'
 
 const EmploymentPrintView = props => {
 
-  const {i18n, match} = props
-  const {countryIso} = match.params
+  const { i18n, match } = props
+  const { countryIso } = match.params
   const tableSpecPrint1 = tableSpec(i18n, tableProps.employmentPrint1)
   const tableSpecPrint2 = tableSpec(i18n, tableProps.employmentPrint2)
 
   return <LoggedInPageTemplate>
+
+    <h2 className="title only-print">
+      7a {i18n.t('employment.employment')} ({i18n.t('employment.average')})
+    </h2>
+
     <div className="fra-view__content">
       <NationalDataDescriptions section={tableProps.employment.name} countryIso={countryIso}/>
 
-      <h2 className="headline">
-        <span className="only-print">7a </span>{i18n.t('employment.employment')} ({i18n.t('employment.average')})
+      <h2 className="headline no-print">
+        {i18n.t('employment.employment')} ({i18n.t('employment.average')})
       </h2>
       <div className="fra-view__section-toolbar">
       </div>

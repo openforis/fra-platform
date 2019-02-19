@@ -1,4 +1,7 @@
 import React from 'react'
+import { connect } from 'react-redux'
+
+import { getCountryName } from '../country/actions'
 
 import IntroductionView from './contactPersons/contactPersonsView'
 
@@ -39,66 +42,72 @@ import SustainableDevelopmentView from '../assessmentFra/sustainableDevelopment/
 
 const AssessmentFraPrintView = (props) => {
 
-  return <div>
+  const { i18n, match, getCountryName } = props
+  const countryIso = match.params.countryIso
 
-    <IntroductionView {...props}/>
+  return (
+    <div>
 
-    <div className="page-break"/>
+      <h1>{i18n.t('fraReportPrint.title', { country: getCountryName(countryIso, i18n.language) })}</h1>
+      <hr/>
 
-    <ExtentOfForestView {...props}/>
+      <IntroductionView {...props}/>
 
-    <div className="page-break"/>
-    <ForestCharacteristicsView {...props}/>
-    <div className="page-break"/>
-    <ForestAreaChangeView {...props}/>
-    <div className="page-break"/>
-    <AnnualReforestationView {...props}/>
-    <div className="page-break"/>
-    <SpecificForestCategoriesView {...props}/>
-    <div className="page-break"/>
-    <OtherLandWithTreeCoverView {...props}/>
+      <div className="page-break"/>
+      <ExtentOfForestView {...props}/>
+      <div className="page-break"/>
+      <ForestCharacteristicsView {...props}/>
+      <div className="page-break"/>
+      <ForestAreaChangeView {...props}/>
+      <div className="page-break"/>
+      <AnnualReforestationView {...props}/>
+      <div className="page-break"/>
+      <SpecificForestCategoriesView {...props}/>
+      <div className="page-break"/>
+      <OtherLandWithTreeCoverView {...props}/>
 
-    <div className="page-break"/>
-    <GrowingStockView {...props}/>
-    <div className="page-break"/>
-    <GrowingStockCompositionView {...props}/>
-    <div className="page-break"/>
-    <BiomassStockView {...props}/>
-    <div className="page-break"/>
-    <CarbonStockView {...props}/>
+      <div className="page-break"/>
+      <GrowingStockView {...props}/>
+      <div className="page-break"/>
+      <GrowingStockCompositionView {...props}/>
+      <div className="page-break"/>
+      <BiomassStockView {...props}/>
+      <div className="page-break"/>
+      <CarbonStockView {...props}/>
 
-    <div className="page-break"/>
-    <DesignatedManagementObjectiveView {...props}/>
-    <div className="page-break"/>
-    <ForestAreaWithinProtectedAreasView {...props}/>
+      <div className="page-break"/>
+      <DesignatedManagementObjectiveView {...props}/>
+      <div className="page-break"/>
+      <ForestAreaWithinProtectedAreasView {...props}/>
 
-    <div className="page-break"/>
-    <ForestOwnershipView {...props}/>
-    <div className="page-break"/>
-    <HolderOfManagementRightsView {...props}/>
+      <div className="page-break"/>
+      <ForestOwnershipView {...props}/>
+      <div className="page-break"/>
+      <HolderOfManagementRightsView {...props}/>
 
-    <div className="page-break"/>
-    <DisturbancesPrintView {...props}/>
-    <div className="page-break"/>
-    <AreaAffectedByFirePrintView {...props}/>
-    <div className="page-break"/>
-    <DegradedForestView {...props}/>
+      <div className="page-break"/>
+      <DisturbancesPrintView {...props}/>
+      <div className="page-break"/>
+      <AreaAffectedByFirePrintView {...props}/>
+      <div className="page-break"/>
+      <DegradedForestView {...props}/>
 
-    <div className="page-break"/>
-    <ForestPolicyView {...props}/>
-    <div className="page-break"/>
-    <AreaOfPermanentForestEstateView {...props}/>
+      <div className="page-break"/>
+      <ForestPolicyView {...props}/>
+      <div className="page-break"/>
+      <AreaOfPermanentForestEstateView {...props}/>
 
-    <div className="page-break"/>
-    <EmploymentPrintView {...props}/>
-    <div className="page-break"/>
-    <GraduationOfStudentsPrintView {...props}/>
-    <div className="page-break"/>
-    <NonWoodForestProductsRemovalsView {...props}/>
+      <div className="page-break"/>
+      <EmploymentPrintView {...props}/>
+      <div className="page-break"/>
+      <GraduationOfStudentsPrintView {...props}/>
+      <div className="page-break"/>
+      <NonWoodForestProductsRemovalsView {...props}/>
 
-    <div className="page-break"/>
-    <SustainableDevelopmentView {...props}/>
-  </div>
+      <div className="page-break"/>
+      <SustainableDevelopmentView {...props}/>
+    </div>
+  )
 }
 
-export default AssessmentFraPrintView
+export default connect(null, { getCountryName })(AssessmentFraPrintView)

@@ -45,10 +45,15 @@ class NonWoodForestProductsRemovalsView extends React.Component {
     const mainTableSpecInstance = mainTableSpec(i18n)
 
     return <LoggedInPageTemplate>
+
+      <h2 className="title only-print">
+        7c {i18n.t('nonWoodForestProductsRemovals.nonWoodForestProductsRemovals')}
+      </h2>
+
       <div className="fra-view__content">
         <NationalDataDescriptions section={mainTableSpecInstance.name} countryIso={match.params.countryIso} disabled={isEditDataDisabled} />
-        <h2 className="headline">
-          <span className="only-print">7c </span>{i18n.t('nonWoodForestProductsRemovals.nonWoodForestProductsRemovals')}
+        <h2 className="headline no-print">
+          {i18n.t('nonWoodForestProductsRemovals.nonWoodForestProductsRemovals')}
         </h2>
         <div className="fra-view__section-toolbar">
           <DefinitionLink className="margin-right-big" document="tad" anchor="7c" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
