@@ -12,11 +12,15 @@ import GeneralComments from '../../descriptionBundles/generalComments'
 import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
 import { saveCountryConfigSetting } from '../../country/actions'
 import DefinitionLink from '../../reusableUiComponents/definitionLink'
-import { sum, formatNumber, greaterThanOrEqualTo, abs, sub, greaterThan, toFixed } from '../../../common/bignumberUtils'
+import { sum, formatNumber, greaterThanOrEqualTo, abs, sub, greaterThan } from '../../../common/bignumberUtils'
 import { getForestAreaForYear } from '../extentOfForest/extentOfForestHelper'
 import ReviewIndicator from '../../review/reviewIndicator'
+
 import { hasOdps } from '../extentOfForest/extentOfForestHelper'
 import { isFRA2020SectionEditDisabled } from '../../utils/assessmentAccess'
+import { isPrintingMode } from '../../printAssessment/printAssessment'
+
+import FraUtils from '../../../common/fraUtils'
 
 const mapIndexed = R.addIndex(R.map)
 const sectionName = 'forestCharacteristics'
@@ -309,10 +313,20 @@ class DataFetchingComponent extends React.Component {
   }
 
   render () {
-    return <LoggedInPageTemplate commentsOpen={this.props.openCommentThread}>
-      <ForestCharacteristics {...this.props} countryIso={this.props.match.params.countryIso}
-      />
-    </LoggedInPageTemplate>
+    const { fra } = this.props
+    const data = fra && isPrintingMode() ? FraUtils.filterFraYears(fra) : fra
+
+    return (
+      <LoggedInPageTemplate commentsOpen={this.props.openCommentThread}>
+
+        <ForestCharacteristics
+          {...this.props}
+          countryIso={this.props.match.params.countryIso}
+          fra={data}
+        />
+
+      </LoggedInPageTemplate>
+    )
   }
 }
 

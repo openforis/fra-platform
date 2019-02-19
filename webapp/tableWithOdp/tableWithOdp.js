@@ -360,19 +360,22 @@ const renderFieldRow = ({row, countryIso, fra, save, saveMany, pasteUpdate, rowI
     {
       mapIndexed(
         (fraColumn, colIdx) => {
-          const tdClasses =
-            R.pipe(
-              R.reject(R.isNil),
-              R.join(' ')
-            )([
-              fraColumn.type === 'odp' ? 'odp-value-cell' : 'fra-table__cell',
-              validator(fraColumn, field) ? null : 'validation-error'
-            ])
+
+          const className = 'fra-table__cell'
+            + (fraColumn.type === 'odp' ? ' odp-value-cell' : '')
+            + (validator(fraColumn, field) ? '' : ' validation-error')
+
           return (
-            <td className={tdClasses} key={`${fraColumn.type}_${fraColumn.name}`}>
+            <td className={className} key={`${fraColumn.type}_${fraColumn.name}`}>
               {
                 fraColumn.type === 'odp'
-                  ? formatNumber(fraColumn[field])
+                  ? (
+                    <div className="number-input__container validation-error-sensitive-field">
+                      <div className="number-input__readonly-view">
+                        {formatNumber(fraColumn[field])}
+                      </div>
+                    </div>
+                  )
                   : fraValueCell(fraColumn, fra, countryIso, save, saveMany, pasteUpdate, field, rowIdx, colIdx, disabled)
               }
             </td>
