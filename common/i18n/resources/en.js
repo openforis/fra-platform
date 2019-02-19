@@ -972,5 +972,9 @@ The FRA team
     messageBoard: 'Message Board',
     messageBoardDesc: 'Messages posted here are visible to all country members',
     oneToOneMessages: 'One To One Messages'
+  },
+
+  fraReportPrint:{
+    title: 'FRA 2020 Report for {{country}}'
   }
 }

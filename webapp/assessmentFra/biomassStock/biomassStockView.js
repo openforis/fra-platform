@@ -39,10 +39,15 @@ class BiomassStockView extends React.Component {
 
     return <LoggedInPageTemplate>
       <div className="fra-view__content">
+
+        <h2 className="title only-print">
+          2c {i18n.t('biomassStock.biomassStock')}
+        </h2>
+
         <NationalDataDescriptions section={sectionName} countryIso={countryIso} disabled={isEditDataDisabled}/>
         <AnalysisDescriptions section={sectionName} countryIso={countryIso} disabled={isEditDataDisabled}/>
-        <h2 className="headline">
-          <span className="only-print">2c </span>{i18n.t('biomassStock.biomassStock')}
+        <h2 className="headline no-print">
+          {i18n.t('biomassStock.biomassStock')}
         </h2>
         <div className="fra-view__section-toolbar" style={{marginTop: '4px'}}>
           <DefinitionLink className="margin-right-big" document="tad" anchor="2c" title={i18n.t('definition.definitionLabel')} lang={lang}/>

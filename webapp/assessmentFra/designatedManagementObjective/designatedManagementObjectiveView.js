@@ -33,11 +33,16 @@ class designatedManagementObjectiveView extends React.Component {
     const totalDmoTableSpec = totalAreaWithDesignatedManagementObjectiveTableSpec(i18n)
 
     return <LoggedInPageTemplate>
+
+      <h2 className="title only-print">
+        3a {i18n.t('designatedManagementObjective.designatedManagementObjective')}
+      </h2>
+
       <div className="fra-view__content">
         <NationalDataDescriptions section={sectionName} countryIso={countryIso} disabled={isEditDataDisabled}/>
         <AnalysisDescriptions section={sectionName} countryIso={countryIso} disabled={isEditDataDisabled}/>
-        <h2 className="headline">
-          <span className="only-print">3a </span>{i18n.t('designatedManagementObjective.designatedManagementObjective')}
+        <h2 className="headline no-print">
+          {i18n.t('designatedManagementObjective.designatedManagementObjective')}
         </h2>
         <div className="fra-view__section-toolbar">
           <DefinitionLink className="margin-right-big" document="tad" anchor="3a"

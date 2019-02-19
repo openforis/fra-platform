@@ -58,11 +58,16 @@ class CarbonStockView extends React.Component {
     const climaticDomains = ['boreal', 'temperate', 'subtropical', 'tropical']
 
     return <LoggedInPageTemplate>
+
+      <h2 className="title only-print">
+        2d {i18n.t('carbonStock.carbonStock')}
+      </h2>
+
       <div className="fra-view__content">
         <NationalDataDescriptions section={sectionName} countryIso={countryIso} disabled={isEditDataDisabled}/>
         <AnalysisDescriptions section={sectionName} countryIso={countryIso} disabled={isEditDataDisabled}/>
-        <h2 className="headline">
-          <span className="only-print">2d </span>{i18n.t('carbonStock.carbonStock')}
+        <h2 className="headline no-print">
+          {i18n.t('carbonStock.carbonStock')}
         </h2>
         <div className="fra-view__section-toolbar" style={{marginTop: '4px'}}>
           <DefinitionLink className="margin-right-big" document="tad" anchor="2d" title={i18n.t('definition.definitionLabel')} lang={lang}/>

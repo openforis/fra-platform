@@ -16,12 +16,17 @@ const DisturbancesPrintView = props => {
   const tableSpecPrint2 = tableSpec(i18n, extentOfForest, countryIso, tableProps.disturbancesPrint2)
 
   return <LoggedInPageTemplate>
+
+    <h2 className="title only-print">
+      5a {i18n.t('disturbances.disturbances')}
+    </h2>
+
     <div className="fra-view__content">
       <NationalDataDescriptions section={tableProps.disturbances.name} countryIso={countryIso}/>
       <AnalysisDescriptions section={tableProps.disturbances.name} countryIso={countryIso}/>
 
-      <h2 className="headline">
-        <span className="only-print">5a </span>{i18n.t('disturbances.disturbances')}
+      <h2 className="headline no-print">
+        {i18n.t('disturbances.disturbances')}
       </h2>
       <div className="fra-view__section-toolbar">
       </div>
