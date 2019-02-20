@@ -22,11 +22,9 @@ const NationalClasses = props => {
       {
         !printView &&
         <div className="odp__section-header">
-
           <h3 className="subhead">
             {i18n.t('nationalDataPoint.nationalClasses')}
           </h3>
-          !printView &&
           <button
             className="btn-s btn-primary btn-copy-prev-values"
             disabled={copyDisabled || copyPreviousClassesDisabled()}
@@ -44,7 +42,10 @@ const NationalClasses = props => {
             <tr>
               {
                 printView &&
-                <th className="fra-table__header-cell odp__year-column" rowSpan={nationalClasses.length + 1}>{odp.year}</th>
+                <th className="fra-table__header-cell odp__year-column"
+                    rowSpan={nationalClasses.length + 1}>
+                  {odp.year}
+                </th>
               }
               <th className="fra-table__header-cell-left">{i18n.t('nationalDataPoint.nationalClass')}</th>
               <th className="fra-table__header-cell-left">{i18n.t('nationalDataPoint.definition')}</th>

@@ -1,6 +1,10 @@
 import * as R from 'ramda'
+
 import { readPasteClipboard } from '../../utils/copyPasteUtil'
+import { acceptNextDecimal } from '../../utils/numberInput'
+
 import handlePaste from '../paste'
+import * as originalDataPoint from '../originalDataPoint'
 
 export const isCommentsOpen = (target, openThread = {}) =>
   R.equals('odp', openThread.section) && R.isEmpty(R.difference(openThread.target, target))
@@ -31,3 +35,11 @@ export const updatePastedValues = (props) => evt => {
   saveDraft(countryIso, updatedOdp)
   return firstPastedCellData
 }
+
+export const numberUpdateCreator = (saveDraft) =>
+  (countryIso, odp, index, fieldName, currentValue) => evt =>
+    saveDraft(
+      countryIso,
+      originalDataPoint.updateNationalClass(odp, index, fieldName, acceptNextDecimal(evt.target.value, currentValue))
+    )
+
