@@ -16,12 +16,17 @@ const AreaAffectedByFirePrintView = props => {
   const tableSpecPrint2 = tableSpec(i18n, tableProps.areaAffectedByFirePrint2)
 
   return <LoggedInPageTemplate>
+
+    <h2 className="title only-print">
+      5b {i18n.t('areaAffectedByFire.areaAffectedByFire')}
+    </h2>
+
     <div className="fra-view__content">
       <NationalDataDescriptions section={tableProps.areaAffectedByFire.name} countryIso={countryIso}/>
       <AnalysisDescriptions section={tableProps.areaAffectedByFire.name} countryIso={countryIso}/>
 
-      <h2 className="headline">
-        <span className="only-print">5b </span>{i18n.t('areaAffectedByFire.areaAffectedByFire')}
+      <h2 className="headline no-print">
+        {i18n.t('areaAffectedByFire.areaAffectedByFire')}
       </h2>
       <div className="fra-view__section-toolbar">
       </div>

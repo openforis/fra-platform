@@ -44,8 +44,13 @@ class SustainableDevelopmentView extends React.Component {
       ? null
       : <LoggedInPageTemplate>
         <div className="fra-view__content fra-sustainable-dev__content">
-          <h2 className="headline">
-            <span className="only-print">8a </span>{i18n.t('sustainableDevelopment.sustainableDevelopment')}
+
+          <h2 className="title only-print">
+            8a {i18n.t('sustainableDevelopment.sustainableDevelopment')}
+          </h2>
+
+          <h2 className="headline no-print">
+            {i18n.t('sustainableDevelopment.sustainableDevelopment')}
           </h2>
 
           <div className="fra-view__section-toolbar">
