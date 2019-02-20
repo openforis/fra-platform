@@ -31,9 +31,9 @@ const years = ['', ...R.pipe(R.range(1950), R.reverse)(2021)]
 const OriginalDataPoint = (props) => {
 
   const {
-    match, saveDraft, markAsActual, remove,
-    odp, autoSaving, cancelDraft, copyPreviousNationalClasses,
-    copyDisabled, openThread, i18n, useOriginalDataPointsInFoc
+    match, i18n, odp,
+    saveDraft, markAsActual, remove, cancelDraft, openThread,
+    autoSaving,
   } = props
 
   const { countryIso, tab } = match.params

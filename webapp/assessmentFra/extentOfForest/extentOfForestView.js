@@ -203,7 +203,7 @@ const ExtentOfForest = (props) => {
     {
       hasNDPs
         ? isPrintingMode()
-          ? <NationalDataPointsPrintView {...props} />
+          ? <NationalDataPointsPrintView {...props} section={sectionName} />
           : null
         : [
           <NationalDataDescriptions key="ndd" section={sectionName} countryIso={props.countryIso}
