@@ -10,17 +10,22 @@ import GeneralComments from '../../descriptionBundles/generalComments'
 
 const GraduationOfStudentsView = props => {
 
-  const {i18n, match} = props
-  const {countryIso} = match.params
+  const { i18n, match } = props
+  const { countryIso } = match.params
   const tableSpecPrint1 = tableSpec(i18n, tableProps.graduationOfStudentsPrint1)
   const tableSpecPrint2 = tableSpec(i18n, tableProps.graduationOfStudentsPrint2)
 
   return <LoggedInPageTemplate>
+
+    <h2 className="title only-print">
+      7b {i18n.t('graduationOfStudents.graduationOfStudents')} ({i18n.t('graduationOfStudents.average')})
+    </h2>
+
     <div className="fra-view__content">
       <NationalDataDescriptions section={tableProps.graduationOfStudents.name} countryIso={countryIso}/>
 
-      <h2 className="headline">
-        <span className="only-print">7b </span>{i18n.t('graduationOfStudents.graduationOfStudents')} ({i18n.t('graduationOfStudents.average')})
+      <h2 className="headline no-print">
+        {i18n.t('graduationOfStudents.graduationOfStudents')} ({i18n.t('graduationOfStudents.average')})
       </h2>
       <div className="fra-view__section-toolbar">
       </div>
@@ -34,6 +39,6 @@ const GraduationOfStudentsView = props => {
 
 }
 
-const mapStateToProps = state => ({i18n: state.user.i18n})
+const mapStateToProps = state => ({ i18n: state.user.i18n })
 
 export default connect(mapStateToProps)(GraduationOfStudentsView)

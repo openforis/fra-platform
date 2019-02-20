@@ -13,6 +13,7 @@ import AnalysisDescriptions from '../../descriptionBundles/analysisDescriptions'
 import GeneralComments from '../../descriptionBundles/generalComments'
 import ReviewIndicator from '../../review/reviewIndicator'
 import TraditionalTable from '../../traditionalTable/traditionalTable'
+import NationalDataPointsPrintView from '../../originalDataPoint/nationalDataPointsPrintView'
 
 import { saveCountryConfigSetting } from '../../country/actions'
 import { fetchItem, save, saveMany, generateFraValues } from '../../tableWithOdp/actions'
@@ -24,13 +25,16 @@ import { hasOdps } from './extentOfForestHelper'
 import { isFRA2020SectionEditDisabled } from '../../utils/assessmentAccess'
 import { isAdministrator } from '../../../common/countryRole'
 
+import FraUtils from '../../../common/fraUtils'
+import { isPrintingMode } from '../../printAssessment/printAssessment'
+
 const sectionName = 'extentOfForest'
 const mapIndexed = R.addIndex(R.map)
 const odpValueCellClass = (fraColumn) => fraColumn.type === 'odp' ? 'odp-value-cell-total' : 'fra-table__calculated-cell'
 
 const ExtentOfForest = (props) => {
 
-  const {i18n, isEditDataDisabled, userInfo, showNDPs, toggleNDPs, hasNDPs} = props
+  const { i18n, isEditDataDisabled, userInfo, showNDPs, toggleNDPs, hasNDPs } = props
 
   const getFaostatValue = year => R.path(['faoStat', year, 'area'], props)
   const getForestArea2015Value = year => R.path(['fra2015ForestAreas', year], props)
@@ -135,7 +139,7 @@ const ExtentOfForest = (props) => {
         !forestAreaComparedTo2015ValueValidator(fraColumn)
           ? props.i18n.t(
           'extentOfForest.forestAreaDoesNotMatchPreviouslyReported',
-          {previous: getForestArea2015Value(fraColumn.name)}
+          { previous: getForestArea2015Value(fraColumn.name) }
           )
           : null,
 
@@ -181,11 +185,16 @@ const ExtentOfForest = (props) => {
       validationErrorMessages
     }
   ]
+
   return <div className='fra-view__content'>
+
+    <h1 className="title only-print">
+      1a {i18n.t('extentOfForest.extentOfForest')}
+    </h1>
 
     <Link className={`btn btn-primary no-print${isEditDataDisabled ? ' disabled' : ''}`}
           to={`/country/${props.countryIso}/odp/${sectionName}`}
-          style={{marginRight: 16}}>
+          style={{ marginRight: 16 }}>
       <Icon className="icon-sub icon-white" name="small-add"/>
       {i18n.t('nationalDataPoint.addNationalDataPoint')}
     </Link>
@@ -193,7 +202,9 @@ const ExtentOfForest = (props) => {
 
     {
       hasNDPs
-        ? null
+        ? isPrintingMode()
+          ? <NationalDataPointsPrintView {...props} section={sectionName} />
+          : null
         : [
           <NationalDataDescriptions key="ndd" section={sectionName} countryIso={props.countryIso}
                                     disabled={isEditDataDisabled}/>,
@@ -201,13 +212,14 @@ const ExtentOfForest = (props) => {
                                 disabled={isEditDataDisabled}/>
         ]
     }
-    <h2 className="headline">
-      <span className="only-print">1a </span>{i18n.t('extentOfForest.extentOfForest')}
+
+    <h2 className="headline no-print">
+      {i18n.t('extentOfForest.extentOfForest')}
       {
         isAdministrator(userInfo) && hasNDPs
-          ? <button className="btn-s btn-secondary no-print"
+          ? <button className="btn-s btn-secondary"
                     onClick={toggleNDPs}
-                    style={{marginLeft: '12px'}}>
+                    style={{ marginLeft: '12px' }}>
             {i18n.t(`extentOfForest.${showNDPs ? 'hideNDPs' : 'showNDPs'}`)}
           </button>
           : null
@@ -222,8 +234,8 @@ const ExtentOfForest = (props) => {
     <ChartWrapper
       fra={props.fra}
       trends={[
-        {name: 'forestArea', label: i18n.t('fraClass.forest'), color: '#0098a6'},
-        {name: 'otherWoodedLand', label: i18n.t('fraClass.otherWoodedLand'), color: '#bf00af'}
+        { name: 'forestArea', label: i18n.t('fraClass.forest'), color: '#0098a6' },
+        { name: 'otherWoodedLand', label: i18n.t('fraClass.otherWoodedLand'), color: '#bf00af' }
       ]}
     />
     {
@@ -268,7 +280,7 @@ class DataFetchingComponent extends React.Component {
 
   constructor () {
     super()
-    this.state = {showNDPs: true}
+    this.state = { showNDPs: true }
   }
 
   componentWillMount () {
@@ -282,18 +294,24 @@ class DataFetchingComponent extends React.Component {
   }
 
   render () {
-    const {fra, fraNoNDPs} = this.props
-    const {showNDPs} = this.state
+    const { fra, fraNoNDPs } = this.props
+    const { showNDPs } = this.state
 
     const hasNDPs = hasOdps(fra)
+
+    const data = isPrintingMode()
+      ? FraUtils.filterFraYears(fra)
+      : showNDPs
+        ? fra
+        : fraNoNDPs
 
     return <LoggedInPageTemplate commentsOpen={this.props.openCommentThread}>
       <ExtentOfForest {...this.props}
                       countryIso={this.props.match.params.countryIso}
-                      fra={showNDPs ? fra : fraNoNDPs}
+                      fra={data}
                       showNDPs={showNDPs}
                       hasNDPs={hasNDPs}
-                      toggleNDPs={() => this.setState({showNDPs: !showNDPs})}/>
+                      toggleNDPs={() => this.setState({ showNDPs: !showNDPs })}/>
     </LoggedInPageTemplate>
   }
 }

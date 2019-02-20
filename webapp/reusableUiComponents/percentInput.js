@@ -47,3 +47,5 @@ export class PercentInput extends React.Component {
     </div>
   }
 }
+
+export default PercentInput
