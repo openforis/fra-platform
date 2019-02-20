@@ -127,8 +127,14 @@ const ForestCharacteristicsSection = props => {
         <div className="fra-table__scroll-wrapper">
           <table className="fra-table">
 
-            <thead>
+            <tbody>
             <tr>
+              {
+                printView &&
+                <th className="fra-table__header-cell odp__year-column" rowSpan={nationalClasses.length + 3}>
+                  {odp.year}
+                </th>
+              }
               <th className="fra-table__header-cell fra-table__divider" colSpan="2">
                 {i18n.t('nationalDataPoint.nationalClasses')}
               </th>
@@ -153,9 +159,7 @@ const ForestCharacteristicsSection = props => {
                 {i18n.t('fraForestCharacteristicsClass.otherPlantedForest')}
               </th>
             </tr>
-            </thead>
 
-            <tbody>
             {
               nationalClasses.map((nationalClass, index) => (
                 <ForestCharacteristicsRow

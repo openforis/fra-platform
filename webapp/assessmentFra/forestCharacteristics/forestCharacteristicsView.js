@@ -15,6 +15,7 @@ import DefinitionLink from '../../reusableUiComponents/definitionLink'
 import { sum, formatNumber, greaterThanOrEqualTo, abs, sub, greaterThan } from '../../../common/bignumberUtils'
 import { getForestAreaForYear } from '../extentOfForest/extentOfForestHelper'
 import ReviewIndicator from '../../review/reviewIndicator'
+import NationalDataPointsPrintView from '../../originalDataPoint/nationalDataPointsPrintView'
 
 import { hasOdps } from '../extentOfForest/extentOfForestHelper'
 import { isFRA2020SectionEditDisabled } from '../../utils/assessmentAccess'
@@ -249,7 +250,9 @@ const ForestCharacteristics = props => {
     }
     {
       props.useOriginalDataPointsInFoc
-        ? null
+        ? isPrintingMode()
+          ? <NationalDataPointsPrintView {...props} section={sectionName} />
+          : null
         : [
             <NationalDataDescriptions key="ndd" section={sectionName} countryIso={props.countryIso} disabled={isEditDataDisabled}/>,
             <AnalysisDescriptions key="ad" section={sectionName} countryIso={props.countryIso} disabled={isEditDataDisabled}/>
