@@ -102,7 +102,10 @@ const ForestCharacteristicsRow = props => {
 }
 
 const ForestCharacteristicsSection = props => {
-  const { odp, countryIso, saveDraft, openThread, i18n } = props
+  const {
+    odp, countryIso, saveDraft, openThread, i18n,
+    printView = false
+  } = props
 
   const plantationTotal = originalDataPoint.subClassTotalArea(odp, 'forestPercent', 'plantationPercent')
   const hasPlantation = plantationTotal && greaterThan(plantationTotal, 0)
@@ -112,10 +115,13 @@ const ForestCharacteristicsSection = props => {
   return (
     <div className="odp__section">
 
-      <div className="odp__section-header">
-        <h3 className="subhead">{i18n.t('nationalDataPoint.forestCharacteristics')}</h3>
-        <DefinitionLink document="tad" anchor="1b" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
-      </div>
+      {
+        !printView &&
+        <div className="odp__section-header">
+          <h3 className="subhead">{i18n.t('nationalDataPoint.forestCharacteristics')}</h3>
+          <DefinitionLink document="tad" anchor="1b" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
+        </div>
+      }
 
       <div className="fra-table__container">
         <div className="fra-table__scroll-wrapper">

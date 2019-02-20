@@ -97,25 +97,37 @@ const ExtentOfForestRow = props => {
 
 const ExtentOfForestSection = props => {
 
-  const { odp, countryIso, saveDraft, openThread, i18n } = props
+  const {
+    odp, countryIso, saveDraft, openThread, i18n,
+    printView = false
+  } = props
 
   const nationalClasses = odp.nationalClasses.filter(nationalClass => !nationalClass.placeHolder)
 
   return (
     <div className="odp__section">
 
-      <div className="odp__section-header">
-        <h3 className="subhead">{i18n.t('nationalDataPoint.forestCategoriesLabel')}</h3>
-        <DefinitionLink document="tad" anchor="1a" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
-      </div>
+      {
+        !printView &&
+        <div className="odp__section-header">
+          <h3 className="subhead">{i18n.t('nationalDataPoint.forestCategoriesLabel')}</h3>
+          <DefinitionLink document="tad" anchor="1a" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
+        </div>
+      }
 
       <div className="fra-table__container">
         <div className="fra-table__scroll-wrapper">
 
           <table className="fra-table">
 
-            <thead>
+            <tbody>
             <tr>
+              {
+                printView &&
+                <th className="fra-table__header-cell odp__year-column" rowSpan={nationalClasses.length + 3}>
+                  {odp.year}
+                </th>
+              }
               <th className="fra-table__header-cell fra-table__divider"
                   colSpan="2">{i18n.t('nationalDataPoint.nationalClasses')}</th>
               <th className="fra-table__header-cell"
@@ -128,9 +140,7 @@ const ExtentOfForestSection = props => {
               <th className="fra-table__header-cell">{i18n.t('fraClass.otherWoodedLand')}</th>
               <th className="fra-table__header-cell">{i18n.t('fraClass.otherLand')}</th>
             </tr>
-            </thead>
 
-            <tbody>
             {
               nationalClasses.map((nationalClass, index) => (
                 <ExtentOfForestRow

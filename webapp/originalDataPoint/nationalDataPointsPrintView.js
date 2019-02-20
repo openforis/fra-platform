@@ -4,6 +4,8 @@ import * as R from 'ramda'
 
 import DataSources from './components/dataSources'
 import NationalClasses from './components/nationalClasses'
+import ExtentOfForestSection from './components/originalData/extentOfForestSection'
+import ForestCharacteristicsSection from './components/originalData/forestCharacteristicsSection'
 
 import { fetchOdps } from './actions'
 
@@ -41,6 +43,20 @@ const NationalClassesPrintView = ({ ndps, ...props }) => (
   </div>
 )
 
+const OriginalDataPrintView = ({ ndps, section, ...props }) => (
+  <div className="odp__section-print-mode">
+    <h3 className="subhead">
+      {props.i18n.t('nationalDataPoint.reclassificationLabel')}
+    </h3>
+    {
+      ndps.map((ndp, i) => {
+        const component = section === 'extentOfForest' ? ExtentOfForestSection : ForestCharacteristicsSection
+        return React.createElement(component, { key: i, ...props, odp: ndp, printView: true })
+      })
+    }
+  </div>
+)
+
 class NationalDataPointsPrintView extends React.PureComponent {
 
   componentDidMount () {
@@ -50,6 +66,7 @@ class NationalDataPointsPrintView extends React.PureComponent {
 
   render () {
     const { ndps, i18n } = this.props
+
     const data = ndps && !R.isEmpty(ndps)
       ? ndps.sort((a, b) => Number(a.year) - Number(b.year))
       : null
@@ -57,13 +74,17 @@ class NationalDataPointsPrintView extends React.PureComponent {
     return data
       ? (
         <div>
-
           <h2 className="headline">{i18n.t('nationalDataPoint.nationalData')}</h2>
           <DataSourcesPrintView {...this.props} ndps={data}/>
           <NationalClassesPrintView {...this.props} ndps={data}/>
+          <OriginalDataPrintView {...this.props} ndps={data}/>
         </div>
       )
-      : null
+      : (
+        <div>
+          <i>{i18n.t('description.loading')}</i>
+        </div>
+      )
   }
 }
 
