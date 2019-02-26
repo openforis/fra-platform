@@ -1,4 +1,4 @@
-import R from 'ramda'
+import * as R from 'ramda'
 import { acceptNextInteger, acceptNextDecimal } from '../utils/numberInput'
 import * as originalDataPoint from './originalDataPoint'
 

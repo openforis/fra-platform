@@ -30,7 +30,8 @@ const CommentableDescription = props => {
         countryIso={props.countryIso}
         template={props.template}
         disabled={disabled}
-        showAlertEmptyContent={props.showAlertEmptyContent}/>
+        showAlertEmptyContent={props.showAlertEmptyContent}
+        showDashEmptyContent={props.showDashEmptyContent}/>
     </div>
     <div className="fra-description__review-indicator-wrapper">
       {

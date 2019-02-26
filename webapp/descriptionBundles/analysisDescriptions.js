@@ -1,7 +1,9 @@
 import React from 'react'
-import CommentableDescription from '../description/commentableDescription'
 import { connect } from 'react-redux'
 import assert from 'assert'
+
+import CommentableDescription from '../description/commentableDescription'
+import { isPrintingMode } from '../printAssessment/printAssessment'
 
 const assertProps = props =>
   assert(
@@ -17,19 +19,21 @@ const AnalysisDescriptions = props => {
     <CommentableDescription
       title={props.i18n.t('description.estimationAndForecasting')}
       name="estimationAndForecasting"
-      showAlertEmptyContent={true}
+      showAlertEmptyContent={!isPrintingMode()}
+      showDashEmptyContent={isPrintingMode()}
       {...props}
     />
     <CommentableDescription
       title={props.i18n.t('description.reclassification')}
       name="reclassification"
-      showAlertEmptyContent={true}
+      showAlertEmptyContent={!isPrintingMode()}
+      showDashEmptyContent={isPrintingMode()}
       {...props}
     />
   </div>
 }
 
-const mapStateToProps = (state) => ({i18n: state.user.i18n})
+const mapStateToProps = (state) => ({ i18n: state.user.i18n })
 
 export default connect(mapStateToProps, {})(AnalysisDescriptions)
 

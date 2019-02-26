@@ -28,7 +28,9 @@ class Description extends Component {
       this.fetchData(nextProps.countryIso)
   }
 
-  showEditorContent (isActive) {
+  showEditorContent (isActive, showDash) {
+    if(showDash)
+      return <div>-</div>
     if (R.isNil(this.props.content))
       return null
     if (isActive)
@@ -52,11 +54,13 @@ class Description extends Component {
       closeEditor,
       openEditor,
       disabled,
-      showAlertEmptyContent = false
+      showAlertEmptyContent = false,
+      showDashEmptyContent = false,
     } = this.props
 
     const isActive = editing === name
     const showError = showAlertEmptyContent && !content
+    const showDash = showDashEmptyContent && !content
 
     return <div>
       <div className="fra-description__header-row">
@@ -105,7 +109,7 @@ class Description extends Component {
 
       </div>
       <div ref="editorContent">
-        {this.showEditorContent(isActive)}
+        {this.showEditorContent(isActive, showDash)}
       </div>
     </div>
   }

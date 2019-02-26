@@ -86,6 +86,7 @@ const fetchCountryUsers = async (countryIso) => {
       u.email,
       u.name,
       u.login_email,
+      u.institution,
       u.lang,
       u.active,
       cr.role
