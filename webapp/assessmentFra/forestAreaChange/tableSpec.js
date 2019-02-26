@@ -22,34 +22,6 @@ const decimalInputColumns = (extentOfForest, validator, disabled) => R.times(() 
 
 export const sectionName = 'forestAreaChange'
 
-const forestChangeValidator = extentOfForest => (props, row, column) => {
-  const positiveOrZeroRes = positiveOrZero()(props, row, column)
-  if (positiveOrZeroRes.valid) {
-    const {tableData, i18n} = props
-
-    const value = formatNumber(tableData[row][column])
-
-    const rowMirror = R.find(R.propEq('rowMirrorIdx', row), rowMirrors)
-    const yearInterval = yearIntervals[column - 1]
-    const {fn, row: rowMirrorRow} = rowMirror
-
-    const calculatedValue = formatNumber(calculateMirrorValue(tableData, extentOfForest, yearInterval[1], yearInterval[2], rowMirrorRow, column, fn))
-
-    if (value && value !== calculatedValue) {
-      return {
-        valid: false,
-        message: i18n.t('generalValidation.valuesAreInconsistentWithNetChange')
-      }
-    } else {
-      return {valid: true}
-    }
-
-  }
-  else {
-    return positiveOrZeroRes
-  }
-}
-
 export default (i18n, extentOfForest, countryIso, disabled) => {
   return {
     name: sectionName, // used to uniquely identify table
@@ -80,7 +52,7 @@ export default (i18n, extentOfForest, countryIso, disabled) => {
           type: 'readOnly',
           jsx: <th className="fra-table__category-cell">{i18n.t('forestAreaChange.forestExpansion')} (a)</th>
         },
-        ...decimalInputColumns(extentOfForest, forestChangeValidator(extentOfForest), disabled)
+        ...decimalInputColumns(extentOfForest, positiveOrZero(), disabled)
       ],
       [
         {
@@ -101,7 +73,7 @@ export default (i18n, extentOfForest, countryIso, disabled) => {
           type: 'readOnly',
           jsx: <th className="fra-table__category-cell">{i18n.t('forestAreaChange.deforestation')} (b)</th>
         },
-        ...decimalInputColumns(extentOfForest, forestChangeValidator(extentOfForest), disabled)
+        ...decimalInputColumns(extentOfForest, positiveOrZero(), disabled)
       ],
       [
         {
