@@ -217,10 +217,15 @@ const GrowingStock = (props) => {
   if (R.isNil(avgTable) || R.isNil(totalTable)) return null
 
   return <div className='fra-view__content'>
+
+    <h2 className="title only-print">
+      2a {i18n.t('growingStock.growingStock')}
+    </h2>
+
     <NationalDataDescriptions section={sectionName} countryIso={countryIso} disabled={isEditDataDisabled}/>
     <AnalysisDescriptions section={sectionName} countryIso={countryIso} disabled={isEditDataDisabled}/>
-    <h2 className="headline">
-      <span className="only-print">2a </span>{i18n.t('growingStock.growingStock')}
+    <h2 className="headline no-print">
+      {i18n.t('growingStock.growingStock')}
     </h2>
     <div className="fra-view__section-toolbar">
       <DefinitionLink className="margin-right-big" document="tad" anchor="2a"

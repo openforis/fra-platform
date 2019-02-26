@@ -12,11 +12,16 @@ import GeneralComments from '../../descriptionBundles/generalComments'
 import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
 import { saveCountryConfigSetting } from '../../country/actions'
 import DefinitionLink from '../../reusableUiComponents/definitionLink'
-import { sum, formatNumber, greaterThanOrEqualTo, abs, sub, greaterThan, toFixed } from '../../../common/bignumberUtils'
+import { sum, formatNumber, greaterThanOrEqualTo, abs, sub, greaterThan } from '../../../common/bignumberUtils'
 import { getForestAreaForYear } from '../extentOfForest/extentOfForestHelper'
 import ReviewIndicator from '../../review/reviewIndicator'
+import NationalDataPointsPrintView from '../../originalDataPoint/nationalDataPointsPrintView'
+
 import { hasOdps } from '../extentOfForest/extentOfForestHelper'
 import { isFRA2020SectionEditDisabled } from '../../utils/assessmentAccess'
+import { isPrintingMode } from '../../printAssessment/printAssessment'
+
+import FraUtils from '../../../common/fraUtils'
 
 const mapIndexed = R.addIndex(R.map)
 const sectionName = 'forestCharacteristics'
@@ -221,6 +226,11 @@ const ForestCharacteristics = props => {
   }
 
   return <div className='fra-view__content'>
+
+    <h1 className="title only-print">
+      1b {i18n.t('forestCharacteristics.forestCharacteristics')}
+    </h1>
+
     {
       props.useOriginalDataPoints
         ? [
@@ -240,18 +250,20 @@ const ForestCharacteristics = props => {
     }
     {
       props.useOriginalDataPointsInFoc
-        ? null
+        ? isPrintingMode()
+          ? <NationalDataPointsPrintView {...props} section={sectionName} />
+          : null
         : [
             <NationalDataDescriptions key="ndd" section={sectionName} countryIso={props.countryIso} disabled={isEditDataDisabled}/>,
             <AnalysisDescriptions key="ad" section={sectionName} countryIso={props.countryIso} disabled={isEditDataDisabled}/>
           ]
     }
-    <h2 className="headline">
-      <span className="only-print">1b </span>{i18n.t('forestCharacteristics.forestCharacteristics')}
+    <h2 className="headline no-print">
+      {i18n.t('forestCharacteristics.forestCharacteristics')}
     </h2>
-    <div className="fra-view__section-toolbar">
-      <DefinitionLink className="margin-right-big no-print" document="tad" anchor="1b" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
-      <DefinitionLink className="align-left no-print" document="faq" anchor="1b" title={i18n.t('definition.faqLabel')} lang={i18n.language} />
+    <div className="fra-view__section-toolbar no-print">
+      <DefinitionLink className="margin-right-big" document="tad" anchor="1b" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
+      <DefinitionLink className="align-left" document="faq" anchor="1b" title={i18n.t('definition.faqLabel')} lang={i18n.language} />
     </div>
     <ChartWrapper
       fra={props.fra}
@@ -304,10 +316,20 @@ class DataFetchingComponent extends React.Component {
   }
 
   render () {
-    return <LoggedInPageTemplate commentsOpen={this.props.openCommentThread}>
-      <ForestCharacteristics {...this.props} countryIso={this.props.match.params.countryIso}
-      />
-    </LoggedInPageTemplate>
+    const { fra } = this.props
+    const data = fra && isPrintingMode() ? FraUtils.filterFraYears(fra) : fra
+
+    return (
+      <LoggedInPageTemplate commentsOpen={this.props.openCommentThread}>
+
+        <ForestCharacteristics
+          {...this.props}
+          countryIso={this.props.match.params.countryIso}
+          fra={data}
+        />
+
+      </LoggedInPageTemplate>
+    )
   }
 }
 
