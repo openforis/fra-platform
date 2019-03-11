@@ -5224,172 +5224,172 @@ module.exports =
       },
       "faoStat": {
         "1980": {
-          "area": 32200,
+          "area": 32.2,
           "estimate": true
         },
         "1981": {
-          "area": 32200,
+          "area": 32.2,
           "estimate": true
         },
         "1982": {
-          "area": 32200,
+          "area": 32.2,
           "estimate": true
         },
         "1983": {
-          "area": 32200,
+          "area": 32.2,
           "estimate": true
         },
         "1984": {
-          "area": 32200,
+          "area": 32.2,
           "estimate": true
         },
         "1985": {
-          "area": 32200,
+          "area": 32.2,
           "estimate": true
         },
         "1986": {
-          "area": 32200,
+          "area": 32.2,
           "estimate": true
         },
         "1987": {
-          "area": 32200,
+          "area": 32.2,
           "estimate": true
         },
         "1988": {
-          "area": 32200,
+          "area": 32.2,
           "estimate": true
         },
         "1989": {
-          "area": 32200,
+          "area": 32.2,
           "estimate": true
         },
         "1990": {
-          "area": 32200,
+          "area": 32.2,
           "estimate": true
         },
         "1991": {
-          "area": 32200,
+          "area": 32.2,
           "estimate": true
         },
         "1992": {
-          "area": 32200,
+          "area": 32.2,
           "estimate": true
         },
         "1993": {
-          "area": 32200,
+          "area": 32.2,
           "estimate": true
         },
         "1994": {
-          "area": 32200,
+          "area": 32.2,
           "estimate": true
         },
         "1995": {
-          "area": 32200,
+          "area": 32.2,
           "estimate": true
         },
         "1996": {
-          "area": 32200,
+          "area": 32.2,
           "estimate": true
         },
         "1997": {
-          "area": 32200,
+          "area": 32.2,
           "estimate": true
         },
         "1998": {
-          "area": 32200,
+          "area": 32.2,
           "estimate": true
         },
         "1999": {
-          "area": 32200,
+          "area": 32.2,
           "estimate": true
         },
         "2000": {
-          "area": 32200,
+          "area": 32.2,
           "estimate": true
         },
         "2001": {
-          "area": 32200,
+          "area": 32.2,
           "estimate": true
         },
         "2002": {
-          "area": 32200,
+          "area": 32.2,
           "estimate": true
         },
         "2003": {
-          "area": 32200,
+          "area": 32.2,
           "estimate": true
         },
         "2004": {
-          "area": 32200,
+          "area": 32.2,
           "estimate": true
         },
         "2005": {
-          "area": 32200,
+          "area": 32.2,
           "estimate": true
         },
         "2006": {
-          "area": 32200,
+          "area": 32.2,
           "estimate": true
         },
         "2007": {
-          "area": 32200,
+          "area": 32.2,
           "estimate": true
         },
         "2008": {
-          "area": 32200,
+          "area": 32.2,
           "estimate": true
         },
         "2009": {
-          "area": 32200,
+          "area": 32.2,
           "estimate": true
         },
         "2010": {
-          "area": 32200,
+          "area": 32.2,
           "estimate": true
         },
         "2011": {
-          "area": 32200,
+          "area": 32.2,
           "estimate": true
         },
         "2012": {
-          "area": 32200,
+          "area": 32.2,
           "estimate": true
         },
         "2013": {
-          "area": 32200,
+          "area": 32.2,
           "estimate": true
         },
         "2014": {
-          "area": 32200,
+          "area": 32.2,
           "estimate": true
         },
         "2015": {
-          "area": 32200,
+          "area": 32.2,
           "estimate": false,
           "repeated": true
         },
         "2016": {
-          "area": 32200,
+          "area": 32.2,
           "estimate": true,
           "repeated": true
         },
         "2017": {
-          "area": 32200,
+          "area": 32.2,
           "estimate": true,
           "repeated": true
         },
         "2018": {
-          "area": 32200,
+          "area": 32.2,
           "estimate": true,
           "repeated": true
         },
         "2019": {
-          "area": 32200,
+          "area": 32.2,
           "estimate": true,
           "repeated": true
         },
         "2020": {
-          "area": 32200,
+          "area": 32.2,
           "estimate": true,
           "repeated": true
         },
@@ -10615,172 +10615,172 @@ module.exports =
       },
       "faoStat": {
         "1980": {
-          "area": 44400,
+          "area": 44.4,
           "estimate": true
         },
         "1981": {
-          "area": 44400,
+          "area": 44.4,
           "estimate": true
         },
         "1982": {
-          "area": 44400,
+          "area": 44.4,
           "estimate": true
         },
         "1983": {
-          "area": 44400,
+          "area": 44.4,
           "estimate": true
         },
         "1984": {
-          "area": 44400,
+          "area": 44.4,
           "estimate": true
         },
         "1985": {
-          "area": 44400,
+          "area": 44.4,
           "estimate": true
         },
         "1986": {
-          "area": 44400,
+          "area": 44.4,
           "estimate": true
         },
         "1987": {
-          "area": 44400,
+          "area": 44.4,
           "estimate": true
         },
         "1988": {
-          "area": 44400,
+          "area": 44.4,
           "estimate": true
         },
         "1989": {
-          "area": 44400,
+          "area": 44.4,
           "estimate": true
         },
         "1990": {
-          "area": 44400,
+          "area": 44.4,
           "estimate": true
         },
         "1991": {
-          "area": 44400,
+          "area": 44.4,
           "estimate": true
         },
         "1992": {
-          "area": 44400,
+          "area": 44.4,
           "estimate": true
         },
         "1993": {
-          "area": 44400,
+          "area": 44.4,
           "estimate": true
         },
         "1994": {
-          "area": 44400,
+          "area": 44.4,
           "estimate": true
         },
         "1995": {
-          "area": 44400,
+          "area": 44.4,
           "estimate": true
         },
         "1996": {
-          "area": 44400,
+          "area": 44.4,
           "estimate": true
         },
         "1997": {
-          "area": 44400,
+          "area": 44.4,
           "estimate": true
         },
         "1998": {
-          "area": 44400,
+          "area": 44.4,
           "estimate": true
         },
         "1999": {
-          "area": 44400,
+          "area": 44.4,
           "estimate": true
         },
         "2000": {
-          "area": 44400,
+          "area": 44.4,
           "estimate": true
         },
         "2001": {
-          "area": 44400,
+          "area": 44.4,
           "estimate": true
         },
         "2002": {
-          "area": 44400,
+          "area": 44.4,
           "estimate": true
         },
         "2003": {
-          "area": 44400,
+          "area": 44.4,
           "estimate": true
         },
         "2004": {
-          "area": 44400,
+          "area": 44.4,
           "estimate": true
         },
         "2005": {
-          "area": 44400,
+          "area": 44.4,
           "estimate": true
         },
         "2006": {
-          "area": 44400,
+          "area": 44.4,
           "estimate": true
         },
         "2007": {
-          "area": 44400,
+          "area": 44.4,
           "estimate": true
         },
         "2008": {
-          "area": 44400,
+          "area": 44.4,
           "estimate": true
         },
         "2009": {
-          "area": 44400,
+          "area": 44.4,
           "estimate": true
         },
         "2010": {
-          "area": 44400,
+          "area": 44.4,
           "estimate": true
         },
         "2011": {
-          "area": 44400,
+          "area": 44.4,
           "estimate": true
         },
         "2012": {
-          "area": 44400,
+          "area": 44.4,
           "estimate": true
         },
         "2013": {
-          "area": 44400,
+          "area": 44.4,
           "estimate": true
         },
         "2014": {
-          "area": 44400,
+          "area": 44.4,
           "estimate": true
         },
         "2015": {
-          "area": 44400,
+          "area": 44.4,
           "estimate": false,
           "repeated": true
         },
         "2016": {
-          "area": 44400,
+          "area": 44.4,
           "estimate": true,
           "repeated": true
         },
         "2017": {
-          "area": 44400,
+          "area": 44.4,
           "estimate": true,
           "repeated": true
         },
         "2018": {
-          "area": 44400,
+          "area": 44.4,
           "estimate": true,
           "repeated": true
         },
         "2019": {
-          "area": 44400,
+          "area": 44.4,
           "estimate": true,
           "repeated": true
         },
         "2020": {
-          "area": 44400,
+          "area": 44.4,
           "estimate": true,
           "repeated": true
         }
@@ -39588,172 +39588,172 @@ module.exports =
       },
       "faoStat": {
         "1980": {
-          "area": 3400,
+          "area": 3.4,
           "estimate": true
         },
         "1981": {
-          "area": 3400,
+          "area": 3.4,
           "estimate": true
         },
         "1982": {
-          "area": 3400,
+          "area": 3.4,
           "estimate": true
         },
         "1983": {
-          "area": 3400,
+          "area": 3.4,
           "estimate": true
         },
         "1984": {
-          "area": 3400,
+          "area": 3.4,
           "estimate": true
         },
         "1985": {
-          "area": 3400,
+          "area": 3.4,
           "estimate": true
         },
         "1986": {
-          "area": 3400,
+          "area": 3.4,
           "estimate": true
         },
         "1987": {
-          "area": 3400,
+          "area": 3.4,
           "estimate": true
         },
         "1988": {
-          "area": 3400,
+          "area": 3.4,
           "estimate": true
         },
         "1989": {
-          "area": 3400,
+          "area": 3.4,
           "estimate": true
         },
         "1990": {
-          "area": 3400,
+          "area": 3.4,
           "estimate": true
         },
         "1991": {
-          "area": 3400,
+          "area": 3.4,
           "estimate": true
         },
         "1992": {
-          "area": 3400,
+          "area": 3.4,
           "estimate": true
         },
         "1993": {
-          "area": 3400,
+          "area": 3.4,
           "estimate": true
         },
         "1994": {
-          "area": 3400,
+          "area": 3.4,
           "estimate": true
         },
         "1995": {
-          "area": 3400,
+          "area": 3.4,
           "estimate": true
         },
         "1996": {
-          "area": 3400,
+          "area": 3.4,
           "estimate": true
         },
         "1997": {
-          "area": 3400,
+          "area": 3.4,
           "estimate": true
         },
         "1998": {
-          "area": 3400,
+          "area": 3.4,
           "estimate": true
         },
         "1999": {
-          "area": 3400,
+          "area": 3.4,
           "estimate": true
         },
         "2000": {
-          "area": 3400,
+          "area": 3.4,
           "estimate": true
         },
         "2001": {
-          "area": 3400,
+          "area": 3.4,
           "estimate": true
         },
         "2002": {
-          "area": 3400,
+          "area": 3.4,
           "estimate": true
         },
         "2003": {
-          "area": 3400,
+          "area": 3.4,
           "estimate": true
         },
         "2004": {
-          "area": 3400,
+          "area": 3.4,
           "estimate": true
         },
         "2005": {
-          "area": 3400,
+          "area": 3.4,
           "estimate": true
         },
         "2006": {
-          "area": 3400,
+          "area": 3.4,
           "estimate": true
         },
         "2007": {
-          "area": 3400,
+          "area": 3.4,
           "estimate": true
         },
         "2008": {
-          "area": 3400,
+          "area": 3.4,
           "estimate": true
         },
         "2009": {
-          "area": 3400,
+          "area": 3.4,
           "estimate": true
         },
         "2010": {
-          "area": 3400,
+          "area": 3.4,
           "estimate": true
         },
         "2011": {
-          "area": 3400,
+          "area": 3.4,
           "estimate": true
         },
         "2012": {
-          "area": 3400,
+          "area": 3.4,
           "estimate": true
         },
         "2013": {
-          "area": 3400,
+          "area": 3.4,
           "estimate": true
         },
         "2014": {
-          "area": 3400,
+          "area": 3.4,
           "estimate": true
         },
         "2015": {
-          "area": 3400,
+          "area": 3.4,
           "estimate": false,
           "repeated": true
         },
         "2016": {
-          "area": 3400,
+          "area": 3.4,
           "estimate": true,
           "repeated": true
         },
         "2017": {
-          "area": 3400,
+          "area": 3.4,
           "estimate": true,
           "repeated": true
         },
         "2018": {
-          "area": 3400,
+          "area": 3.4,
           "estimate": true,
           "repeated": true
         },
         "2019": {
-          "area": 3400,
+          "area": 3.4,
           "estimate": true,
           "repeated": true
         },
         "2020": {
-          "area": 3400,
+          "area": 3.4,
           "estimate": true,
           "repeated": true
         }
