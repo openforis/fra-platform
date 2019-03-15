@@ -46,10 +46,11 @@ const AssessmentFraPrintView = (props) => {
   const { i18n, match, getCountryName } = props
   const countryIso = match.params.countryIso
 
+  const country = getCountryName(countryIso, i18n.language)
   return  (
     <div>
 
-      <h1>{i18n.t('fraReportPrint.title', { country: getCountryName(countryIso, i18n.language) })}</h1>
+      <h1>{i18n.t('fraReportPrint.title')}  { country }</h1>
       <hr/>
 
       <ContactPersonsPrintView {...props}/>
