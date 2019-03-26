@@ -10,7 +10,7 @@ class ContactPersonsPrintView extends React.Component {
 
   componentDidMount () {
     const countryIso = this.props.match.params.countryIso
-    this.props.fetchUsers(countryIso)
+    this.props.fetchUsers(countryIso, true)
   }
 
   render () {

@@ -3,14 +3,14 @@ const Promise = require('bluebird')
 
 const db = require('../db/db')
 const userRepository = require('./userRepository')
-const {sendErr, sendOk, serverUrl, send404} = require('../utils/requestUtils')
+const { sendErr, sendOk, serverUrl, send404 } = require('../utils/requestUtils')
 
-const {AccessControlException, checkCountryAccessFromReqParams} = require('../utils/accessControl')
-const {sendInvitation} = require('./sendInvitation')
-const {rolesAllowedToChange} = require('../../common/userManagementAccessControl')
+const { AccessControlException, checkCountryAccessFromReqParams } = require('../utils/accessControl')
+const { sendInvitation } = require('./sendInvitation')
+const { rolesAllowedToChange } = require('../../common/userManagementAccessControl')
 
-const {isAdministrator, isNationalCorrespondent, isCollaborator, isAlternateNationalCorrespondent, getCountryRole} = require('../../common/countryRole')
-const {validate: validateUser, validEmail} = require('../../common/userUtils')
+const { isAdministrator, isNationalCorrespondent, isCollaborator, isAlternateNationalCorrespondent, getCountryRole, reviewer } = require('../../common/countryRole')
+const { validate: validateUser, validEmail } = require('../../common/userUtils')
 
 const filterAllowedUsers = (countryIso, user, users) => {
   const allowedRoles = rolesAllowedToChange(countryIso, user)
@@ -21,7 +21,7 @@ module.exports.init = app => {
 
   // get session user
   app.get('/loggedInUser/', (req, res) =>
-    res.json({userInfo: req.user})
+    res.json({ userInfo: req.user })
   )
 
   // update session user language
@@ -36,13 +36,16 @@ module.exports.init = app => {
     try {
       checkCountryAccessFromReqParams(req)
 
-      const countryIso = req.params.countryIso
+      const { countryIso } = req.params
+      const print = req.query.print === 'true'
       const url = serverUrl(req)
 
       const allCountryUsers = await userRepository.fetchUsersAndInvitations(countryIso, url)
-      const countryUsers = filterAllowedUsers(countryIso, req.user, allCountryUsers)
+      const countryUsers = print
+        ? R.reject(R.propEq('role', reviewer.role), allCountryUsers)
+        : filterAllowedUsers(countryIso, req.user, allCountryUsers)
 
-      res.json({countryUsers})
+      res.json({ countryUsers })
     } catch (err) {
       sendErr(res, err)
     }
@@ -57,7 +60,7 @@ module.exports.init = app => {
         const allUsers = await userRepository.fetchAllUsersAndInvitations(url)
         const userCounts = await userRepository.getUserCountsByRole()
 
-        res.json({allUsers, userCounts})
+        res.json({ allUsers, userCounts })
       } else {
         send404(res)
       }
@@ -93,12 +96,12 @@ module.exports.init = app => {
           // User already added to country
           throw new AccessControlException(
             'error.access.userAlreadyAddedToCountry',
-            {user: user.name + ' (' + user.email + ')', countryIso}
+            { user: user.name + ' (' + user.email + ')', countryIso }
           )
         } else {
           // adding country to user
           const profilePicture = await userRepository.getUserProfilePicture(user.id)
-          const rolesUpdated = R.append({countryIso, role: newUser.role}, user.roles)
+          const rolesUpdated = R.append({ countryIso, role: newUser.role }, user.roles)
           await db.transaction(userRepository.updateUser, [req.user, countryIso, R.assoc('roles', rolesUpdated, user), profilePicture])
         }
 
@@ -149,7 +152,7 @@ module.exports.init = app => {
 
       const user = await userRepository.findUserById(req.params.userId)
 
-      res.json({user})
+      res.json({ user })
 
     } catch (err) {
       sendErr(res, err)
@@ -196,14 +199,14 @@ module.exports.init = app => {
 
           const profilePictureFile = R.pipe(
             R.path(['files', 'profilePicture']),
-            R.defaultTo({data: profilePicture.data, name: profilePicture.name})
+            R.defaultTo({ data: profilePicture.data, name: profilePicture.name })
           )(req)
 
           await db.transaction(userRepository.updateUser, [user, countryIso, userToUpdate, profilePictureFile])
 
           sendOk(res)
         } else {
-          sendErr(res, {msg: 'Invalid User', ...validation})
+          sendErr(res, { msg: 'Invalid User', ...validation })
         }
 
       } else {
