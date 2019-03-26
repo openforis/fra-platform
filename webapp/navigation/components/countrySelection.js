@@ -4,8 +4,11 @@ import * as R from 'ramda'
 import { Link } from '../../reusableUiComponents/link'
 import Icon from '../../reusableUiComponents/icon'
 
+import { isAdministrator } from '../../../common/countryRole'
+
 import { getRelativeDate } from '../../utils/relativeDate'
 import { getRoleLabelKey } from '../../../common/countryRole'
+import { CSVLink } from 'react-csv'
 
 export default class CountrySelection extends React.Component {
 
@@ -28,48 +31,87 @@ export default class CountrySelection extends React.Component {
   render () {
     const countryIso = this.props.name
     const { role, i18n, getCountryName } = this.props
+    const { isOpen } = this.state
 
     const style = {
       backgroundImage: `url('/img/flags/1x1/${countryIso}.svg'), url('/img/flags/1x1/ATL.svg')`
     }
 
-    return <div className="nav__country" ref="navCountryItem" onClick={() => {
-      this.setState({ isOpen: R.not(this.state.isOpen) })
-    }}>
-      <div className="nav__country-flag" style={style}></div>
-      <div className="nav__country-info">
-        <span className="nav__country-name">{getCountryName(countryIso, i18n.language)}</span>
-        <span className="nav__country-role">{role}</span>
+    return (
+      <div className="nav__country" ref="navCountryItem" onClick={() => {
+        this.setState({ isOpen: R.not(this.state.isOpen) })
+      }}>
+        <div className="nav__country-flag" style={style}></div>
+        <div className="nav__country-info">
+          <span className="nav__country-name">{getCountryName(countryIso, i18n.language)}</span>
+          <span className="nav__country-role">{role}</span>
+        </div>
+        <Icon name="small-down"/>
+        {
+          isOpen &&
+          <CountryList
+            {...this.props}
+            isOpen={this.state.isOpen}
+            currentCountry={countryIso}
+          />
+        }
       </div>
-      <Icon name="small-down"/>
-      <CountryList
-        {...this.props}
-        isOpen={this.state.isOpen}
-        currentCountry={countryIso}
-      />
-    </div>
+    )
   }
 }
 
-const CountryList = ({ isOpen, countries, ...props }) => {
-  if (!isOpen) return null
-  return <div className="nav__country-list">
-    <div className="nav__country-list-content">
+const CountryList = ({ isOpen, countries, userInfo, ...props }) => {
+  const roleCountriesPair = R.toPairs(countries)
+  const { getCountryName, i18n } = props
+
+  return (
+    <div className="nav__country-list">
       {
-        R.pipe(
-          R.toPairs,
-          R.map(([role, roleCountries]) =>
-            <CountryRole
-              {...props}
-              key={role}
-              role={role}
-              roleCountries={roleCountries}
-            />
-          )
-        )(countries)
+        isAdministrator(userInfo) &&
+        <div className="nav__country-list-download">
+          <CSVLink
+            className="btn-s btn-primary"
+            target="_blank"
+            filename="FRA-Countries.csv"
+            data={
+              R.pipe(
+                R.map(
+                  ([role, roleCountries]) =>
+                    R.map(country => ({
+                      name: getCountryName(country.countryIso, i18n.language),
+                      status: i18n.t(`assessment.status.${country.fra2020Assessment}.label`),
+                      edited: getRelativeDate(country.lastEdit, i18n) || i18n.t('audit.notStarted'),
+                    }), roleCountries)
+                ),
+                R.flatten
+              )(roleCountriesPair)
+            }
+            headers={[
+              { label: i18n.t('admin.country'), key: 'name' },
+              { label: i18n.t('countryListing.fra2020'), key: 'status' },
+              { label: i18n.t('audit.edited'), key: 'edited' }
+            ]}>
+            <Icon className="icon-sub icon-white" name="hit-down"/>CSV
+          </CSVLink>
+        </div>
       }
+
+      <div className="nav__country-list-content">
+        {
+          R.map(
+            ([role, roleCountries]) =>
+              <CountryRole
+                {...props}
+                key={role}
+                role={role}
+                roleCountries={roleCountries}
+              />
+            , roleCountriesPair
+          )
+        }
+      </div>
     </div>
-  </div>
+  )
 }
 
 const CountryRole = ({ role, roleCountries, currentCountry, i18n, ...props }) =>
@@ -102,7 +144,7 @@ class CountryRow extends React.PureComponent {
   componentDidMount () {
     if (this.isSelected())
       this.refs.countryNameRef.scrollIntoView(
-        {behavior: "smooth", block: "center", inline: "nearest"}
+        { behavior: 'smooth', block: 'center', inline: 'nearest' }
       )
   }
 
