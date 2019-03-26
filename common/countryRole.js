@@ -3,15 +3,15 @@ const assert = require('assert')
 // The returned value is of the form:
 // {role: <ROLE>, label: <LABEL>}
 
-const administrator = {role: 'ADMINISTRATOR', labelKey: 'user.roles.administrator'}
-const reviewer = {role: 'REVIEWER', labelKey: 'user.roles.reviewer'}
-const nationalCorrespondent = {role: 'NATIONAL_CORRESPONDENT', labelKey: 'user.roles.nationalCorrespondent'}
+const administrator = { role: 'ADMINISTRATOR', labelKey: 'user.roles.administrator' }
+const reviewer = { role: 'REVIEWER', labelKey: 'user.roles.reviewer' }
+const nationalCorrespondent = { role: 'NATIONAL_CORRESPONDENT', labelKey: 'user.roles.nationalCorrespondent' }
 const alternateNationalCorrespondent = {
   role: 'ALTERNATE_NATIONAL_CORRESPONDENT',
   labelKey: 'user.roles.alternateNationalCorrespondent'
 }
-const collaborator = {role: 'COLLABORATOR', labelKey: 'user.roles.collaborator'}
-const noRole = {role: 'NONE', labelKey: 'user.roles.noRole'}
+const collaborator = { role: 'COLLABORATOR', labelKey: 'user.roles.collaborator' }
+const noRole = { role: 'NONE', labelKey: 'user.roles.noRole' }
 
 const roles = {
   [administrator.role]: administrator,

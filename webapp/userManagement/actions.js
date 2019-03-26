@@ -12,8 +12,8 @@ export const userManagementCollaboratorTableAccessUpdate = 'userManagement/table
 
 // list action creators
 
-export const fetchUsers = countryIso => dispatch =>
-  axios.get(`/api/users/${countryIso}`)
+export const fetchUsers = (countryIso, printView = false) => dispatch =>
+  axios.get(`/api/users/${countryIso}?print=${printView}`)
     .then(resp => dispatch({type: userManagementCountryUsersFetch, ...resp.data, newUser: newUser()}))
     .catch(err => dispatch(applicationError(err)))
 
