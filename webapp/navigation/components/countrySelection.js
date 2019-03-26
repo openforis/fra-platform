@@ -11,14 +11,14 @@ export default class CountrySelection extends React.Component {
 
   constructor (props) {
     super(props)
-    this.state = {isOpen: false}
+    this.state = { isOpen: false }
     this.outsideClick = this.outsideClick.bind(this)
     window.addEventListener('click', this.outsideClick)
   }
 
   outsideClick (evt) {
     if (!this.refs.navCountryItem.contains(evt.target))
-      this.setState({isOpen: false})
+      this.setState({ isOpen: false })
   }
 
   componentWillUnmount () {
@@ -27,14 +27,14 @@ export default class CountrySelection extends React.Component {
 
   render () {
     const countryIso = this.props.name
-    const {role, i18n, getCountryName} = this.props
+    const { role, i18n, getCountryName } = this.props
 
     const style = {
       backgroundImage: `url('/img/flags/1x1/${countryIso}.svg'), url('/img/flags/1x1/ATL.svg')`
     }
 
     return <div className="nav__country" ref="navCountryItem" onClick={() => {
-      this.setState({isOpen: R.not(this.state.isOpen)})
+      this.setState({ isOpen: R.not(this.state.isOpen) })
     }}>
       <div className="nav__country-flag" style={style}></div>
       <div className="nav__country-info">
@@ -51,7 +51,7 @@ export default class CountrySelection extends React.Component {
   }
 }
 
-const CountryList = ({isOpen, countries, ...props}) => {
+const CountryList = ({ isOpen, countries, ...props }) => {
   if (!isOpen) return null
   return <div className="nav__country-list">
     <div className="nav__country-list-content">
@@ -72,7 +72,7 @@ const CountryList = ({isOpen, countries, ...props}) => {
   </div>
 }
 
-const CountryRole = ({role, roleCountries, currentCountry, i18n, ...props}) =>
+const CountryRole = ({ role, roleCountries, currentCountry, i18n, ...props }) =>
   <div className="nav__country-list-section">
     <div className="nav__country-list-header">
       <span className="nav__country-list-primary-col">{i18n.t(getRoleLabelKey(role))}</span>
@@ -92,24 +92,46 @@ const CountryRole = ({role, roleCountries, currentCountry, i18n, ...props}) =>
     }
   </div>
 
-const CountryRow = ({selectedCountry, country, fetchAllCountryData, i18n, getCountryName}) => {
-  return <Link
-    to={`/country/${country.countryIso}`}
-    className={`nav__country-list-row ${R.equals(selectedCountry, country.countryIso) ? 'selected' : ''}`}
-    onClick={() => fetchAllCountryData(country.countryIso)}>
-    <span className="nav__country-list-primary-col">
-      {getCountryName(country.countryIso, i18n.language)}
-    </span>
-    {
-      country.fra2020Assessment
-        ? <span className="nav__country-list-secondary-col">
-            <div className={`status-${country.fra2020Assessment}`}/>
-          {i18n.t(`assessment.status.${country.fra2020Assessment}.label`)}
-          </span>
-        : null
-    }
-    <span className="nav__country-list-secondary-col">
-      {getRelativeDate(country.lastEdit, i18n) || i18n.t('audit.notStarted')}
-    </span>
-  </Link>
+class CountryRow extends React.PureComponent {
+
+  isSelected () {
+    const { selectedCountry, country } = this.props
+    return R.equals(selectedCountry, country.countryIso)
+  }
+
+  componentDidMount () {
+    if (this.isSelected())
+      this.refs.countryNameRef.scrollIntoView(
+        {behavior: "smooth", block: "center", inline: "nearest"}
+      )
+  }
+
+  render () {
+    const { country, fetchAllCountryData, i18n, getCountryName } = this.props
+
+    return (
+      <Link
+        to={`/country/${country.countryIso}`}
+        className={`nav__country-list-row ${this.isSelected() ? 'selected' : ''}`}
+        onClick={() => fetchAllCountryData(country.countryIso)}>
+
+        <span className="nav__country-list-primary-col" ref="countryNameRef">
+          {getCountryName(country.countryIso, i18n.language)}
+        </span>
+
+        {
+          country.fra2020Assessment ?
+            <span className="nav__country-list-secondary-col">
+              <div className={`status-${country.fra2020Assessment}`}/>
+              {i18n.t(`assessment.status.${country.fra2020Assessment}.label`)}
+            </span>
+            : null
+        }
+
+        <span className="nav__country-list-secondary-col">
+          {getRelativeDate(country.lastEdit, i18n) || i18n.t('audit.notStarted')}
+        </span>
+      </Link>
+    )
+  }
 }
