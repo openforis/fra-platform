@@ -41,8 +41,12 @@ module.exports.init = app => {
       const url = serverUrl(req)
 
       const allCountryUsers = await userRepository.fetchUsersAndInvitations(countryIso, url)
+
       const countryUsers = print
-        ? R.reject(R.propEq('role', reviewer.role), allCountryUsers)
+        ? R.reject(
+          user => R.propEq('role', reviewer.role, user) || R.equals(R.toLower(user.email), 'lucilla.marinaro@fao.org'),
+          allCountryUsers
+        )
         : filterAllowedUsers(countryIso, req.user, allCountryUsers)
 
       res.json({ countryUsers })
