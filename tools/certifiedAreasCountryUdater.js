@@ -20,18 +20,22 @@ const outputFile = process.argv[3]
 const countryIsoCol = 0
 
 const getCertifiedAreas = async (fileName) => {
-  const rawData = await fs.readFileAsync(fileName, {encoding: 'utf-8'})
+  const rawData = await fs.readFileAsync(fileName, { encoding: 'utf-8' })
   const parsedData = await csv.parseAsync(rawData)
   const data = R.slice(2, undefined, parsedData)
 
   const years = R.pipe(
-    R.slice(1, 2),
     R.head,
-    R.slice(1, undefined),
+    R.tail,
   )(parsedData)
+  //   R.pipe(
+  //   R.slice(1, 2),
+  //   R.head,
+  //   R.slice(1, undefined),
+  // )(parsedData)
 
   const getYearValues = obj => R.pipe(
-    years => years.map((y, i) => ({[`${y}`]: obj[i + 1]})),
+    years => years.map((y, i) => ({ [`${y}`]: obj[i + 1] })),
     R.mergeAll
   )(years)
 
@@ -44,7 +48,7 @@ const getCertifiedAreas = async (fileName) => {
       }
     })),
     R.mergeAll
-  )   (data)
+  )(data)
 
   return rowObjects
 }
@@ -52,7 +56,7 @@ const getCertifiedAreas = async (fileName) => {
 const update = async (inputCsvFile, outputFile) => {
   try {
     const inputData = await getCertifiedAreas(inputCsvFile)
-    const merged = R.mergeDeepRight(inputData, countryConfig)
+    const merged = R.mergeDeepLeft(inputData, countryConfig)
     fs.writeFileSync(outputFile, JSON.stringify(merged, null, '  '), 'utf8')
     console.log('Wrote merged values into: ', outputFile)
     console.log('You should manually copy them over the countryConfig values')
