@@ -94,7 +94,7 @@ export default i18n => ({
   <tr>
     <th className="fra-table__header-cell"/>
     <th className="fra-table__header-cell">{i18n.t('nonWoodForestProductsRemovals.nameOfProduct')}</th>
-    <th className="fra-table__header-cell">{i18n.t('nonWoodForestProductsRemovals.keySpecies')}</th>
+    <th className="fra-table__header-cell fra-table__nwfp-category-cell">{i18n.t('nonWoodForestProductsRemovals.keySpecies')}</th>
     <th className="fra-table__header-cell">{i18n.t('nonWoodForestProductsRemovals.quantity')}</th>
     <th className="fra-table__header-cell">{i18n.t('nonWoodForestProductsRemovals.unit')}</th>
     <th className="fra-table__header-cell">{i18n.t('nonWoodForestProductsRemovals.value')}</th>
