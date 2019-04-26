@@ -1,7 +1,7 @@
 import React from 'react'
 import R from 'ramda'
 
-const notSelectedOption = {name: 'notSelected', hidden: true}
+const notSelectedOption = { name: 'notSelected', hidden: true }
 
 const isHeadingOption = option => option.type === 'heading'
 
@@ -45,8 +45,12 @@ const TextSelectType = ({
             , [notSelectedOption, ...options])
         }
       </select>
-      <div className="text-input__readonly-view only-print">
-        {currentValue || '-'}
+      <div className="text-input__readonly-view only-print" style={{ textAlign: 'left' }}>
+        {
+          currentValue
+            ? optionLabel(R.find(R.propEq('name', currentValue), options), i18n, localizationPrefix)
+            : ''
+        }
       </div>
     </div>
   </td>
