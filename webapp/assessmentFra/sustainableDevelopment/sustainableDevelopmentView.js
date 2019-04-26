@@ -35,7 +35,7 @@ class SustainableDevelopmentView extends React.Component {
   }
 
   render () {
-    const {match, i18n, data, countryConfig, isEditDataDisabled} = this.props
+    const { match, i18n, data, countryConfig, isEditDataDisabled } = this.props
     const countryIso = match.params.countryIso
     const lang = i18n.language
     const years = R.drop(1, defaultYears)
@@ -60,7 +60,7 @@ class SustainableDevelopmentView extends React.Component {
                             lang={lang}/>
           </div>
 
-          <h3 className="subhead" style={{marginBottom: 16}}>{i18n.t('sustainableDevelopment.sdgIndicator1')}</h3>
+          <h3 className="subhead" style={{ marginBottom: 16 }}>{i18n.t('sustainableDevelopment.sdgIndicator1')}</h3>
 
           <Indicator i18n={i18n}
                      countryIso={countryIso}
@@ -69,13 +69,15 @@ class SustainableDevelopmentView extends React.Component {
                      countryConfig={countryConfig}
                      disabled={isEditDataDisabled}/>
 
-          <h3 className="subhead" style={{marginBottom: 16}}>{i18n.t('sustainableDevelopment.sdgIndicator2')}</h3>
+          <h3 className="subhead" style={{ marginBottom: 16 }}>{i18n.t('sustainableDevelopment.sdgIndicator2')}</h3>
 
           <SubIndicator1 i18n={i18n}
                          countryIso={countryIso}
                          data={data}
                          years={years}
                          disabled={isEditDataDisabled}/>
+
+          <div className="page-break"/>
           <SubIndicator2 i18n={i18n}
                          countryIso={countryIso}
                          data={data}
@@ -86,6 +88,8 @@ class SustainableDevelopmentView extends React.Component {
                          data={data}
                          years={years}
                          disabled={isEditDataDisabled}/>
+
+          <div className="page-break"/>
           <SubIndicator4 i18n={i18n}
                          countryIso={countryIso}
                          data={data}
@@ -109,4 +113,4 @@ const mapStateToProps = state => ({
   isEditDataDisabled: isFRA2020SectionEditDisabled(state, sectionName)
 })
 
-export default connect(mapStateToProps, {fetchLastSectionUpdateTimestamp, fetch})(SustainableDevelopmentView)
+export default connect(mapStateToProps, { fetchLastSectionUpdateTimestamp, fetch })(SustainableDevelopmentView)
