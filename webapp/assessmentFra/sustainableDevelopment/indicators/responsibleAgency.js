@@ -20,7 +20,7 @@ const TableIndicatorAgency = ({i18n, countryIso, tableSpecName, disabled}) => {
     }
   }
 
-  return <div className="fra-secondary-table__wrapper">
+  return <div className="sdg__responsible-agency-table">
     <TraditionalTable
       tableSpec={tableSpec}
       countryIso={countryIso}
