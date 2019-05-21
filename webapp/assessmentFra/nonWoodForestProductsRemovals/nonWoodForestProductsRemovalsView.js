@@ -60,6 +60,7 @@ class NonWoodForestProductsRemovalsView extends React.Component {
           <DefinitionLink className="align-left" document="faq" anchor="7c" title={i18n.t('definition.faqLabel')} lang={i18n.language}/>
         </div>
         <TraditionalTable tableSpec={mainTableSpecInstance} countryIso={match.params.countryIso} disabled={isEditDataDisabled}/>
+        <div className="page-break"/>
         <div className="fra-secondary-table__wrapper">
           <TraditionalTable tableSpec={currencyNameTableSpec(i18n)} countryIso={match.params.countryIso} disabled={isEditDataDisabled}/>
         </div>

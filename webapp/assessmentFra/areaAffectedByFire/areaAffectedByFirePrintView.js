@@ -32,6 +32,7 @@ const AreaAffectedByFirePrintView = props => {
       </div>
 
       <TraditionalTable tableSpec={tableSpecPrint1} countryIso={countryIso}/>
+      <div className="page-break"/>
       <TraditionalTable tableSpec={tableSpecPrint2} countryIso={countryIso}/>
 
       <GeneralComments section={tableProps.areaAffectedByFire.name} countryIso={countryIso}/>
