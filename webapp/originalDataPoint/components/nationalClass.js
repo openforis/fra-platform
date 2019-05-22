@@ -31,24 +31,35 @@ const NationalClass = props => {
       <td
         className={`fra-table__cell-left odp__nc-table__name ${getValidationStatusRow(odp, index).validClassName === false ? 'error' : ''}`}>
         <div className="odp__nc-table__input-container">
-          <input
-            className="odp__nc-table__input validation-error-sensitive-field"
-            type="text"
-            placeholder={placeHolder && index === 0 ? i18n.t('nationalDataPoint.enterOrCopyPasteNationalClasses') : ''}
-            value={className || ''}
-            onChange={(evt) =>
-              saveDraft(countryIso, originalDataPoint.updateNationalClass(odp, index, 'className', evt.target.value))}
-            onPaste={updatePastedValues({
-              odp,
-              countryIso,
-              rowIndex: index,
-              colIndex: 0,
-              columns: nationalClassCols,
-              saveDraft,
-              allowGrow: true
-            })}
-            disabled={printView}
-          />
+          {
+            printView
+              ? (
+                <div className="text-input__readonly-view only-print"
+                     style={{ paddingTop: 0, paddingBottom: 0 }}>
+                  {className || ''}
+                </div>
+              )
+              : (
+                <input
+                  className="odp__nc-table__input validation-error-sensitive-field"
+                  type="text"
+                  placeholder={placeHolder && index === 0 ? i18n.t('nationalDataPoint.enterOrCopyPasteNationalClasses') : ''}
+                  value={className || ''}
+                  onChange={(evt) =>
+                    saveDraft(countryIso, originalDataPoint.updateNationalClass(odp, index, 'className', evt.target.value))}
+                  onPaste={updatePastedValues({
+                    odp,
+                    countryIso,
+                    rowIndex: index,
+                    colIndex: 0,
+                    columns: nationalClassCols,
+                    saveDraft,
+                    allowGrow: true
+                  })}
+                  disabled={printView}
+                />
+              )
+          }
           {
             placeHolder || printView
               ? null //placeHolder-rows can't be removed
