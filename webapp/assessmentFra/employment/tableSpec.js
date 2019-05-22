@@ -60,8 +60,8 @@ export default (i18n, tableProp) => {
         R.map(year =>
             [
               <th key="total" className="fra-table__header-cell">{i18n.t('employment.total')}</th>,
-              <th key="female" className="fra-table__category-cell-right">{i18n.t('employment.female')}</th>,
-              <th key="male" className="fra-table__category-cell-right">{i18n.t('employment.male')}</th>
+              <th key="female" className="fra-table__header-cell" style={{fontWeight: 400}}>{i18n.t('employment.female')}</th>,
+              <th key="male" className="fra-table__header-cell" style={{fontWeight: 400}}>{i18n.t('employment.male')}</th>
             ]
           , years)
       }
