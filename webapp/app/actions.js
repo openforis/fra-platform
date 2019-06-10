@@ -14,6 +14,7 @@ export const fetchAllCountryData = countryIso => dispatch => {
   }
   fetchCountryOverviewStatus(countryIso)(dispatch)
   fetchItem('extentOfForest', countryIso)(dispatch)
+  fetchItem('forestCharacteristics', countryIso)(dispatch)
   getCountryList()(dispatch)
   getCountryConfig(countryIso)(dispatch)
   fetchGrowingStock(countryIso)(dispatch)
