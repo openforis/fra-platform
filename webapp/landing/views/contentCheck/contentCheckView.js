@@ -21,7 +21,6 @@ import disturbancesTableSpec from '../../../assessmentFra/disturbances/tableSpec
 import areaAffectedByFireTableSpec from '../../../assessmentFra/areaAffectedByFire/tableSpec'
 
 import { fetchTableData } from '../../../traditionalTable/actions'
-import { fetchItem } from '../../../tableWithOdp/actions'
 import { fetch } from '../../../assessmentFra/growingStock/actions'
 
 import defaultYears from '../../../../server/eof/defaultYears'
@@ -29,14 +28,24 @@ import defaultYears from '../../../../server/eof/defaultYears'
 class ContentCheckView extends React.Component {
 
   componentDidMount () {
+    this.fetchData()
+  }
+
+  componentDidUpdate (prevProps, prevState, snapshot) {
+    const { countryIso } = this.props
+    const { countryIso: countryIsoPrev } = prevProps
+    if (countryIso !== countryIsoPrev)
+      this.fetchData()
+  }
+
+  fetchData () {
     const {
-      fetchTableData, fetchItem,
+      fetchTableData,
       countryIso, i18n,
-      extentOfForest, forestCharacteristics, forestOwnership,
+      extentOfForest, forestCharacteristics,
     } = this.props
 
     //1
-    fetchItem('forestCharacteristics', countryIso)
     fetchTableData(countryIso, specificForestCategoriesTableSpec(i18n, extentOfForest, forestCharacteristics))
     //2
     fetch(countryIso)
@@ -50,7 +59,6 @@ class ContentCheckView extends React.Component {
     //5
     fetchTableData(countryIso, disturbancesTableSpec(i18n, extentOfForest, countryIso))
     fetchTableData(countryIso, areaAffectedByFireTableSpec(i18n))
-
   }
 
   render () {
@@ -76,7 +84,7 @@ class ContentCheckView extends React.Component {
       R.prop(variable),
     )(source)
 
-    const tableData5YearsMapping = {1990: 1, 2000: 2, 2010: 3, 2015: 4, 2020: 5}
+    const tableData5YearsMapping = { 1990: 1, 2000: 2, 2010: 3, 2015: 4, 2020: 5 }
 
     return forestCharacteristics && specificForestCategories &&
     growingStock && biomassStock && carbonStock &&
@@ -154,5 +162,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  {fetchTableData, fetchItem, fetch}
+  { fetchTableData, fetch }
 )(ContentCheckView)
