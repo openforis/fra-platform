@@ -231,6 +231,9 @@ const ExtentOfForest = (props) => {
       <DefinitionLink className="align-left no-print" document="faq" anchor="1a" title={i18n.t('definition.faqLabel')}
                       lang={i18n.language}/>
     </div>
+
+    <div className="page-break"/>
+
     <ChartWrapper
       fra={props.fra}
       trends={[
