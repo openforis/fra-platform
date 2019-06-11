@@ -11,7 +11,8 @@ const getOdpNationalClasses = async (client, odpVersionId) => {
       forest_plantation_percent, forest_plantation_introduced_percent, other_planted_forest_percent,
       uuid
     FROM odp_class
-    WHERE odp_version_id = $1`
+    WHERE odp_version_id = $1
+    ORDER BY id`
     ,
     [odpVersionId])
 
