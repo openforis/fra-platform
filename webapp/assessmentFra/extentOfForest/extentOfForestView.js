@@ -232,7 +232,7 @@ const ExtentOfForest = (props) => {
                       lang={i18n.language}/>
     </div>
 
-    <div className="page-break only-print"/>
+    <div className="page-break"/>
 
     <ChartWrapper
       fra={props.fra}

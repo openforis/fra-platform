@@ -266,7 +266,7 @@ const ForestCharacteristics = props => {
       <DefinitionLink className="align-left" document="faq" anchor="1b" title={i18n.t('definition.faqLabel')} lang={i18n.language} />
     </div>
 
-    <div className="page-break only-print"/>
+    <div className="page-break"/>
 
     <ChartWrapper
       fra={props.fra}
