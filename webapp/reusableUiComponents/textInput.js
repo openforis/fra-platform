@@ -1,12 +1,20 @@
 import React from 'react'
 import './textInput.less'
 import { isEmpty } from 'ramda'
+import { elementOffset } from '../utils/domUtils'
 
 export default class TextInput extends React.Component {
   constructor (props) {
     super(props)
-    const placeholder = this.props.placeholder ? this.props.placeholder : ''
-    this.state = {hasFocus: false, placeholder}
+    const placeholder = this.props.placeholder || ''
+    this.state = { hasFocus: false, placeholder }
+  }
+
+  componentDidUpdate (prevProps, prevState, snapshot) {
+    if (this.props.value) {
+      const { height } = elementOffset(this.refs.readOnlyElement)
+      this.refs.readOnlyElement.parentElement.parentElement.style.height = Math.max(height, 40) + 'px'
+    }
   }
 
   render () {
@@ -15,13 +23,14 @@ export default class TextInput extends React.Component {
 
     return <div className="text-input__container validation-error-sensitive-field">
       <div
+        ref="readOnlyElement"
         className={`text-input__readonly-view ${isValueEmpty ? 'placeholder' : ''}`}
-        style={{visibility: this.state.hasFocus ? 'hidden' : 'visible'}}>
+        style={{ visibility: this.state.hasFocus ? 'hidden' : 'visible' }}>
         {isValueEmpty ? this.state.placeholder : this.props.value}
       </div>
       <input
         type="text"
-        style={{opacity: this.state.hasFocus ? '1' : '0'}}
+        style={{ opacity: this.state.hasFocus ? '1' : '0' }}
         className="text-input__input-field no-print"
         ref="textInputField"
         value={this.props.value || ''}
@@ -29,11 +38,11 @@ export default class TextInput extends React.Component {
         onPaste={this.props.onPaste}
         onFocus={
           () => {
-            this.setState({hasFocus: true})
+            this.setState({ hasFocus: true })
             this.refs.textInputField.select()
           }
         }
-        onBlur={() => { this.setState({hasFocus: false}) }}
+        onBlur={() => { this.setState({ hasFocus: false }) }}
         placeholder={this.state.placeholder}
         disabled={disabled}
       />
