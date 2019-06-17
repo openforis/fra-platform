@@ -7,6 +7,7 @@ const AccessControl = require('../../utils/accessControl')
 
 const CountryService = require('../../country/countryService')
 const FraValueService = require('../../eof/fraValueService')
+const TraditionalTableService = require('../../traditionalTable/traditionalTableRepository')
 
 const getData = async user => {
   AccessControl.checkAdminAccess(user)
@@ -20,6 +21,9 @@ const getData = async user => {
     'forestArea', 'otherWoodedLand', 'landArea',
     //1b
     'naturallyRegeneratingForest', 'plantedForest', 'plantationForest', 'plantationForestIntroduced', 'otherPlantedForest',
+    //1e
+    'bamboos', 'mangroves', 'tempUnstocked', 'primary', 'rubber',
+
   ]
   const opts = { fields }
   const asyncParser = new AsyncParser(opts, {})
@@ -42,16 +46,17 @@ const getData = async user => {
       const countryIso = country.countryIso
       const [
         countryConfig,
-        eof, foc, //1
+        eof, foc, specificForestCategories,//1
       ] = await Promise.all([
         CountryService.getCountryConfigFull(countryIso),
         // 1
         FraValueService.getFraValues('extentOfForest', countryIso),
-        FraValueService.getFraValues('forestCharacteristics', countryIso)
+        FraValueService.getFraValues('forestCharacteristics', countryIso),
+        TraditionalTableService.read(countryIso, 'specificForestCategories')
       ])
 
       // iterate over years
-      fraYears.forEach(year => {
+      fraYears.forEach((year, yearIdx) => {
 
         const eofYear = R.pipe(
           R.prop('fra'),
@@ -91,7 +96,12 @@ const getData = async user => {
           plantationForest,
           plantationForestIntroduced,
           otherPlantedForest,
-
+          //1e
+          bamboos: R.path([0, yearIdx], specificForestCategories),
+          mangroves: R.path([1, yearIdx], specificForestCategories),
+          tempUnstocked: R.path([2, yearIdx], specificForestCategories),
+          primary: R.path([3, yearIdx], specificForestCategories),
+          rubber: R.path([4, yearIdx], specificForestCategories),
         }
 
         asyncParser.input.push(JSON.stringify(object))
