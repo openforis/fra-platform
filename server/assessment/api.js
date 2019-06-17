@@ -1,8 +1,11 @@
 const db = require('../db/db')
 const repository = require('./assessmentRepository')
-const {sendErr, sendOk, serverUrl} = require('../utils/requestUtils')
-const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
-const {sendAssessmentNotification} = require('./sendAssessmentNotification')
+const { sendErr, sendOk, serverUrl } = require('../utils/requestUtils')
+const { checkCountryAccessFromReqParams, checkAdminAccess } = require('../utils/accessControl')
+const { sendAssessmentNotification } = require('./sendAssessmentNotification')
+
+const fs = require('fs')
+const JSZip = require('jszip')
 
 module.exports.init = app => {
 
@@ -26,6 +29,26 @@ module.exports.init = app => {
       }
 
       sendOk(res)
+    } catch (err) {
+      sendErr(res, err)
+    }
+  })
+
+  app.get('/assessment/:countryIso/export', async (req, res) => {
+    try {
+      checkAdminAccess(req.user)
+
+      const zip = new JSZip()
+      zip.file('file.txt', 'a')
+      zip
+        .generateNodeStream({ type: 'nodebuffer', streamFiles: true })
+        .pipe(res)
+        .on('finish', function () {
+          // JSZip generates a readable stream with a "end" event,
+          // but is piped here in a writable stream which emits a "finish" event.
+          res.end()
+        })
+
     } catch (err) {
       sendErr(res, err)
     }

@@ -64,6 +64,7 @@
     "express-fileupload": "^0.3.0",
     "express-session": "^1.15.3",
     "i18next": "^8.4.3",
+    "jszip": "^3.2.1",
     "marked": "^0.3.6",
     "mocha-webpack": "^0.7.0",
     "nodemailer": "^4.3.1",
