@@ -85,6 +85,28 @@ const getAllCountries = role => {
     .then(handleCountryResult(() => role))
 }
 
+const getAllCountriesList = async () => {
+   const rs = await db.query(`
+    SELECT
+        c.country_iso, 
+        c.region, 
+        c.list_name_en, 
+        c.full_name_en, 
+        c.list_name_es, 
+        c.full_name_es, 
+        c.list_name_fr, 
+        c.full_name_fr, 
+        c.list_name_ru, 
+        c.full_name_ru, 
+        c.pan_european
+    FROM
+      country c
+    ORDER BY 
+        c.country_iso
+   `)
+  return camelize(rs.rows)
+}
+
 const getAllowedCountries = roles => {
   const hasRole = (role) => R.find(R.propEq('role', role), roles)
   if (hasRole('ADMINISTRATOR')) {
@@ -162,6 +184,7 @@ const getCountry = countryIso =>
     .then(res => getCountryProperties(camelize(res.rows[0])))
 
 module.exports.getAllowedCountries = getAllowedCountries
+module.exports.getAllCountriesList = getAllCountriesList
 module.exports.getDynamicCountryConfiguration = getDynamicCountryConfiguration
 module.exports.saveDynamicConfigurationVariable = saveDynamicConfigurationVariable
 module.exports.getFirstAllowedCountry = roles =>

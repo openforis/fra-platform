@@ -2,23 +2,23 @@ const Promise = require('bluebird')
 const R = require('ramda')
 const db = require('../db/db')
 
-const {sendErr} = require('../utils/requestUtils')
-const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
+const { sendErr } = require('../utils/requestUtils')
+const { checkCountryAccessFromReqParams } = require('../utils/accessControl')
 
 const countryRepository = require('./countryRepository')
 const reviewRepository = require('../review/reviewRepository')
 const odpRepository = require('../odp/odpRepository')
 const auditRepository = require('../audit/auditRepository')
 const assessmentRepository = require('../assessment/assessmentRepository')
-const {fetchCollaboratorCountryAccessTables} = require('./../collaborators/collaboratorsRepository')
+const { fetchCollaboratorCountryAccessTables } = require('./../collaborators/collaboratorsRepository')
 
 const {
   isUserRoleAllowedToEditAssessmentData,
   isUserRoleAllowedToEditAssessmentComments
 } = require('../../common/assessmentRoleAllowance')
-const {roleForCountry, isCollaborator} = require('../../common/countryRole')
+const { roleForCountry, isCollaborator } = require('../../common/countryRole')
 
-const countryConfig = require('./countryConfig')
+const CountryService = require('./countryService')
 
 module.exports.init = app => {
 
@@ -32,7 +32,7 @@ module.exports.init = app => {
     try {
       checkCountryAccessFromReqParams(req)
 
-      const {countryIso} = req.params
+      const { countryIso } = req.params
       const userInfo = req.user
 
       const odpDataPromise = odpRepository.listAndValidateOriginalDataPoints(countryIso)
@@ -100,9 +100,7 @@ module.exports.init = app => {
     try {
       checkCountryAccessFromReqParams(req)
 
-      const dynamicConfig = await countryRepository.getDynamicCountryConfiguration(req.params.countryIso)
-      const staticConfig = countryConfig[req.params.countryIso]
-      const fullConfig = R.mergeDeepRight(staticConfig, dynamicConfig)
+      const fullConfig = await CountryService.getCountryConfigFull(req.params.countryIso)
 
       res.json(fullConfig)
     } catch (e) {

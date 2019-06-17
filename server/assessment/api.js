@@ -4,7 +4,7 @@ const { sendErr, sendOk, serverUrl } = require('../utils/requestUtils')
 const { checkCountryAccessFromReqParams, checkAdminAccess } = require('../utils/accessControl')
 const { sendAssessmentNotification } = require('./sendAssessmentNotification')
 
-const fs = require('fs')
+const ExportService = require('./service/exportService')
 const JSZip = require('jszip')
 
 module.exports.init = app => {
@@ -34,12 +34,17 @@ module.exports.init = app => {
     }
   })
 
-  app.get('/assessment/:countryIso/export', async (req, res) => {
+  app.get('/assessment/admin/export', async (req, res) => {
     try {
-      checkAdminAccess(req.user)
+      const user = req.user
+      const countryIso = req.params.countryIso
+
+      checkAdminAccess(user)
+
+      const data = await ExportService.getData(user, countryIso)
 
       const zip = new JSZip()
-      zip.file('file.txt', 'a')
+      zip.file('FraYears.csv', data)
       zip
         .generateNodeStream({ type: 'nodebuffer', streamFiles: true })
         .pipe(res)
