@@ -1,6 +1,7 @@
 const Promise = require('bluebird')
 const R = require('ramda')
 const { AsyncParser } = require('json2csv')
+const { sum, toFixed } = require('../../../common/bignumberUtils')
 
 const AccessControl = require('../../utils/accessControl')
 
@@ -16,7 +17,9 @@ const getData = async user => {
     //country config
     'boreal', 'temperate', 'tropical', 'subtropical',
     //1a
-    'forestArea', 'otherWoodedLand', 'landArea'
+    'forestArea', 'otherWoodedLand', 'landArea',
+    //1b
+    'naturallyRegeneratingForest', 'plantedForest', 'plantationForest', 'plantationForestIntroduced', 'otherPlantedForest',
   ]
   const opts = { fields }
   const asyncParser = new AsyncParser(opts, {})
@@ -37,9 +40,14 @@ const getData = async user => {
 
       // read data for each country
       const countryIso = country.countryIso
-      const [countryConfig, eof] = await Promise.all([
+      const [
+        countryConfig,
+        eof, foc, //1
+      ] = await Promise.all([
         CountryService.getCountryConfigFull(countryIso),
-        FraValueService.getFraValues('extentOfForest', countryIso)
+        // 1
+        FraValueService.getFraValues('extentOfForest', countryIso),
+        FraValueService.getFraValues('forestCharacteristics', countryIso)
       ])
 
       // iterate over years
@@ -50,6 +58,19 @@ const getData = async user => {
           R.find(R.propEq('year', year)),
           R.defaultTo({})
         )(eof)
+
+        const focYear = R.pipe(
+          R.prop('fra'),
+          R.find(R.propEq('year', year)),
+          R.defaultTo({})
+        )(foc)
+
+        // 1b
+        const naturallyRegeneratingForest = R.prop('naturalForestArea', focYear)
+        const plantationForest = R.prop('plantationForestArea', focYear)
+        const plantationForestIntroduced = R.prop('plantationForestIntroducedArea', focYear)
+        const otherPlantedForest = R.prop('otherPlantedForestArea', focYear)
+        const plantedForest = toFixed(sum([plantationForest, otherPlantedForest]))
 
         // prepare output object
         const object = {
@@ -64,10 +85,16 @@ const getData = async user => {
           forestArea: R.prop('forestArea', eofYear),
           otherWoodedLand: R.prop('otherWoodedLand', eofYear),
           landArea: R.path(['faoStat', year, 'area'], countryConfig),
+          //1b
+          naturallyRegeneratingForest,
+          plantedForest,
+          plantationForest,
+          plantationForestIntroduced,
+          otherPlantedForest,
+
         }
 
         asyncParser.input.push(JSON.stringify(object))
-
 
         // const row = [country.region, country.countryIso, country.listNameEn, year]
         // data.push(row.join(',') + NEW_LINE)
