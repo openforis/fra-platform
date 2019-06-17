@@ -1,29 +1,9 @@
 const R = require('ramda')
 
+const FraTableExporter = require('./fraTableExporter')
 const TraditionalTableService = require('../../../traditionalTable/traditionalTableRepository')
 
-class TraditionalTableExporter {
-
-  constructor (tableName, fields) {
-    this.tableName = tableName
-    this.fields = fields
-  }
-
-  get tableName () {
-    return this._tableName
-  }
-
-  set tableName (tableName) {
-    this._tableName = tableName
-  }
-
-  get fields () {
-    return this._fields
-  }
-
-  set fields (fields) {
-    this._fields = fields
-  }
+class TraditionalTableExporter extends FraTableExporter {
 
   fetchData (countryIso) {
     return TraditionalTableService.read(countryIso, this.tableName)
