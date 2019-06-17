@@ -50,7 +50,7 @@ const getData = async user => {
   const countries = R.reject(R.propEq('region', 'atlantis'), countriesAll)
   const fraYears = [1990, 2000, 2010, 2015, 2020]
 
-  await Promise.all(
+  await Promise.each(
     countries.map(async country => {
       // read data for each country
       const [
@@ -60,25 +60,23 @@ const getData = async user => {
       ] = await fetchTablesData(country.countryIso)
 
       // iterate over years
-      fraYears.forEach((year, yearIdx) => {
+      return fraYears.map((year, yearIdx) => ({
+        ...country,
+        year,
+        //country config
+        ...CountryConfigExporter.parseResultRow(countryConfig, yearIdx, year),
+        //1a, 1b, 1e, 1f
+        ...ExtentOfForestExporter.parseResultRow(eof, yearIdx, year, countryConfig),
+        ...ForestCharacteristicsExporter.parseResultRow(foc, yearIdx, year),
+        ...SpecificForestCategoriesExporter.parseResultRow(specificForestCategories, yearIdx),
+        ...OtherLandWithTreeCoverExporter.parseResultRow(otherLandWithTreeCover, yearIdx),
+      }))
 
-        // prepare output object
-        const object = {
-          ...country,
-          year,
-          //country config
-          ...CountryConfigExporter.parseResultRow(countryConfig, yearIdx, year),
-          //1a, 1b, 1e, 1f
-          ...ExtentOfForestExporter.parseResultRow(eof, yearIdx, year, countryConfig),
-          ...ForestCharacteristicsExporter.parseResultRow(foc, yearIdx, year),
-          ...SpecificForestCategoriesExporter.parseResultRow(specificForestCategories, yearIdx),
-          ...OtherLandWithTreeCoverExporter.parseResultRow(otherLandWithTreeCover, yearIdx),
-        }
-
-        asyncParser.input.push(JSON.stringify(object))
-
-      })
     })
+    ,
+    countryResult => {
+      asyncParser.input.push(JSON.stringify(countryResult))
+    }
   )
 
   asyncParser.input.push(null)
