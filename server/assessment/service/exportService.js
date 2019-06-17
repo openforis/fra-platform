@@ -7,7 +7,16 @@ const AccessControl = require('../../utils/accessControl')
 
 const CountryService = require('../../country/countryService')
 const FraValueService = require('../../eof/fraValueService')
-const TraditionalTableService = require('../../traditionalTable/traditionalTableRepository')
+const SpecificForestCategoriesExporter = require('./_exportService/specificForestCategoriesExporter')
+const OtherLandWithTreeCoverExporter = require('./_exportService/otherLandWithTreeCoverExporter')
+
+const fieldsForestCharacteristics = [
+  'naturallyRegeneratingForest',
+  'plantedForest',
+  'plantationForest',
+  'plantationForestIntroduced',
+  'otherPlantedForest',
+]
 
 const getData = async user => {
   AccessControl.checkAdminAccess(user)
@@ -20,9 +29,11 @@ const getData = async user => {
     //1a
     'forestArea', 'otherWoodedLand', 'landArea',
     //1b
-    'naturallyRegeneratingForest', 'plantedForest', 'plantationForest', 'plantationForestIntroduced', 'otherPlantedForest',
+    ...fieldsForestCharacteristics,
     //1e
-    'bamboos', 'mangroves', 'tempUnstocked', 'primary', 'rubber',
+    ...SpecificForestCategoriesExporter.fields,
+    //1f
+    ...OtherLandWithTreeCoverExporter.fields,
 
   ]
   const opts = { fields }
@@ -41,18 +52,19 @@ const getData = async user => {
 
   await Promise.all(
     countries.map(async country => {
+      const countryIso = country.countryIso
 
       // read data for each country
-      const countryIso = country.countryIso
       const [
         countryConfig,
-        eof, foc, specificForestCategories,//1
+        eof, foc, specificForestCategories, otherLandWithTreeCover//1
       ] = await Promise.all([
         CountryService.getCountryConfigFull(countryIso),
         // 1
         FraValueService.getFraValues('extentOfForest', countryIso),
         FraValueService.getFraValues('forestCharacteristics', countryIso),
-        TraditionalTableService.read(countryIso, 'specificForestCategories')
+        SpecificForestCategoriesExporter.fetchData(countryIso),
+        OtherLandWithTreeCoverExporter.fetchData(countryIso),
       ])
 
       // iterate over years
@@ -97,11 +109,8 @@ const getData = async user => {
           plantationForestIntroduced,
           otherPlantedForest,
           //1e
-          bamboos: R.path([0, yearIdx], specificForestCategories),
-          mangroves: R.path([1, yearIdx], specificForestCategories),
-          tempUnstocked: R.path([2, yearIdx], specificForestCategories),
-          primary: R.path([3, yearIdx], specificForestCategories),
-          rubber: R.path([4, yearIdx], specificForestCategories),
+          ...SpecificForestCategoriesExporter.parseResultRow(specificForestCategories, yearIdx),
+          ...OtherLandWithTreeCoverExporter.parseResultRow(otherLandWithTreeCover, yearIdx),
         }
 
         asyncParser.input.push(JSON.stringify(object))
