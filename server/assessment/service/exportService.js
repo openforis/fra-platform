@@ -27,6 +27,8 @@ const DegradedForestExporter = require('./_exportService/section_5/degradedFores
 //6
 const PoliciesLegislationNationalPlatformExporter = require('./_exportService/section_6/policiesLegislationNationalPlatformExporter')
 const AreaOfPermanentForestEstateExporter = require('./_exportService/section_6/areaOfPermanentForestEstateExporter')
+//7
+const EmploymentInForestryAndLoggingExporter = require('./_exportService/section_7/employmentInForestryAndLoggingExporter')
 
 const YEARS_FRA = [1990, 2000, 2010, 2015, 2020]
 
@@ -61,6 +63,8 @@ const fetchCountryData = async countryIso => await Promise.all([
   //6a, 6b
   PoliciesLegislationNationalPlatformExporter.fetchData(countryIso),
   AreaOfPermanentForestEstateExporter.fetchData(countryIso),
+  //7a
+  EmploymentInForestryAndLoggingExporter.fetchData(countryIso),
 ])
 
 const getCountryData = async country => {
@@ -77,7 +81,9 @@ const getCountryData = async country => {
     //5c
     degradedForest,
     //6a, 6b
-    policiesLegislationNationalPlatform, areaOfPermanentForestEstate
+    policiesLegislationNationalPlatform, areaOfPermanentForestEstate,
+    //7a
+    employmentInForestryAndLogging
   ] = await fetchCountryData(country.countryIso)
 
   // iterate over years
@@ -107,6 +113,8 @@ const getCountryData = async country => {
     //6a, 6b
     ...PoliciesLegislationNationalPlatformExporter.parseResultRow(policiesLegislationNationalPlatform, yearIdx, year),
     ...AreaOfPermanentForestEstateExporter.parseResultRow(areaOfPermanentForestEstate, yearIdx, year),
+    //7a
+    ...EmploymentInForestryAndLoggingExporter.parseResultRow(employmentInForestryAndLogging, yearIdx, year),
   }))
 
 }
@@ -140,6 +148,8 @@ const getData = async user => {
     //6a, 6b
     ...getExporterFields(PoliciesLegislationNationalPlatformExporter),
     ...getExporterFields(AreaOfPermanentForestEstateExporter),
+    //7a
+    ...getExporterFields(EmploymentInForestryAndLoggingExporter),
 
   ]
   const opts = { fields }
