@@ -1,7 +1,6 @@
 const R = require('ramda')
 
 const { sub } = require('../../../../../common/bignumberUtils')
-const { getForestAreaForYear } = require('../../../../../common/extentOfForestHelper')
 
 const TraditionalTableExporter = require('../traditionalTableExporter')
 

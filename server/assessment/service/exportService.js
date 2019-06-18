@@ -22,6 +22,8 @@ const ForestAreaWithinProtectedAreasExporter = require('./_exportService/section
 //4
 const ForestOwnershipExporter = require('./_exportService/section_4/forestOwnershipExporter')
 const HolderOfManagementRightsExporter = require('./_exportService/section_4/holderOfManagementRightsExporter')
+//5
+const DegradedForestExporter = require('./_exportService/section_5/degradedForestExporter')
 
 const YEARS_FRA = [1990, 2000, 2010, 2015, 2020]
 
@@ -51,6 +53,8 @@ const fetchCountryData = async countryIso => await Promise.all([
   //4a, 4b
   ForestOwnershipExporter.fetchData(countryIso),
   HolderOfManagementRightsExporter.fetchData(countryIso),
+  //5c
+  DegradedForestExporter.fetchData(countryIso),
 ])
 
 const getCountryData = async country => {
@@ -63,7 +67,9 @@ const getCountryData = async country => {
     //3a, 3b
     designatedManagementObjective, forestAreaWithinProtectedAreas,
     //4a
-    forestOwnership, holderOfManagementRights
+    forestOwnership, holderOfManagementRights,
+    //5c
+    degradedForest,
   ] = await fetchCountryData(country.countryIso)
 
   // iterate over years
@@ -88,6 +94,8 @@ const getCountryData = async country => {
     //4a, 4b
     ...ForestOwnershipExporter.parseResultRow(forestOwnership, yearIdx, year, extentOfForest),
     ...HolderOfManagementRightsExporter.parseResultRow(holderOfManagementRights, yearIdx, year, forestOwnership),
+    //5c
+    ...DegradedForestExporter.parseResultRow(degradedForest, yearIdx, year),
   }))
 
 }
@@ -116,6 +124,8 @@ const getData = async user => {
     //4a, 4b
     ...getExporterFields(ForestOwnershipExporter),
     ...getExporterFields(HolderOfManagementRightsExporter),
+    //5c
+    ...getExporterFields(DegradedForestExporter),
 
   ]
   const opts = { fields }
