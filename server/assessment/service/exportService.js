@@ -15,6 +15,7 @@ const OtherLandWithTreeCoverExporter = require('./_exportService/section_1/other
 const GrowingStockExporter = require('./_exportService/section_2/growingStockExporter')
 const GrowingStockCompositionExporter = require('./_exportService/section_2/growingStockCompositionExporter')
 const BiomassStockExporter = require('./_exportService/section_2/biomassStockExporter')
+const CarbonStockExporter = require('./_exportService/section_2/carbonStockExporter')
 
 const YEARS_FRA = [1990, 2000, 2010, 2015, 2020]
 
@@ -33,10 +34,11 @@ const fetchCountryData = async countryIso => await Promise.all([
   ForestCharacteristicsExporter.fetchData(countryIso),
   SpecificForestCategoriesExporter.fetchData(countryIso),
   OtherLandWithTreeCoverExporter.fetchData(countryIso),
-  //2a, 2b, 2c
+  //2a, 2b, 2c, 2d
   GrowingStockExporter.fetchData(countryIso),
   GrowingStockCompositionExporter.fetchData(countryIso),
   BiomassStockExporter.fetchData(countryIso),
+  CarbonStockExporter.fetchData(countryIso),
 ])
 
 const getCountryData = async country => {
@@ -44,8 +46,8 @@ const getCountryData = async country => {
     countryConfig,
     //1a, 1b, 1e, 1f
     extentOfForest, forestCharacteristics, specificForestCategories, otherLandWithTreeCover,
-    //2a, 2b, 2c
-    growingStock, growingStockComposition, biomassStock
+    //2a, 2b, 2c, 2d
+    growingStock, growingStockComposition, biomassStock, carbonStock
   ] = await fetchCountryData(country.countryIso)
 
   // iterate over years
@@ -59,10 +61,11 @@ const getCountryData = async country => {
     ...ForestCharacteristicsExporter.parseResultRow(forestCharacteristics, yearIdx, year),
     ...SpecificForestCategoriesExporter.parseResultRow(specificForestCategories, yearIdx),
     ...OtherLandWithTreeCoverExporter.parseResultRow(otherLandWithTreeCover, yearIdx),
-    //2a, 2b, 2c
+    //2a, 2b, 2c, 2d
     ...GrowingStockExporter.parseResultRow(growingStock, yearIdx, year),
     ...GrowingStockCompositionExporter.parseResultRow(growingStockComposition, yearIdx, year),
     ...BiomassStockExporter.parseResultRow(biomassStock, yearIdx, year),
+    ...CarbonStockExporter.parseResultRow(carbonStock, yearIdx, year),
   }))
 
 }
@@ -80,10 +83,11 @@ const getData = async user => {
     ...getExporterFields(ForestCharacteristicsExporter),
     ...getExporterFields(SpecificForestCategoriesExporter),
     ...getExporterFields(OtherLandWithTreeCoverExporter),
-    //2a, 2b, 2c
+    //2a, 2b, 2c, 2d
     ...getExporterFields(GrowingStockExporter),
     ...getExporterFields(GrowingStockCompositionExporter),
     ...getExporterFields(BiomassStockExporter),
+    ...getExporterFields(CarbonStockExporter),
 
   ]
   const opts = { fields }
