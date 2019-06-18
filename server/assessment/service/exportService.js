@@ -19,6 +19,8 @@ const CarbonStockExporter = require('./_exportService/section_2/carbonStockExpor
 //3
 const DesignatedManagementObjectiveExporter = require('./_exportService/section_3/designatedManagementObjectiveExporter')
 const ForestAreaWithinProtectedAreasExporter = require('./_exportService/section_3/forestAreaWithinProtectedAreasExporter')
+//4
+const ForestOwnershipExporter = require('./_exportService/section_4/forestOwnershipExporter')
 
 const YEARS_FRA = [1990, 2000, 2010, 2015, 2020]
 
@@ -45,6 +47,8 @@ const fetchCountryData = async countryIso => await Promise.all([
   //3a, 3b
   DesignatedManagementObjectiveExporter.fetchData(countryIso),
   ForestAreaWithinProtectedAreasExporter.fetchData(countryIso),
+  //4a,
+  ForestOwnershipExporter.fetchData(countryIso),
 ])
 
 const getCountryData = async country => {
@@ -54,8 +58,10 @@ const getCountryData = async country => {
     extentOfForest, forestCharacteristics, specificForestCategories, otherLandWithTreeCover,
     //2a, 2b, 2c, 2d
     growingStock, growingStockComposition, biomassStock, carbonStock,
-    //3a
-    designatedManagementObjective, forestAreaWithinProtectedAreas
+    //3a, 3b
+    designatedManagementObjective, forestAreaWithinProtectedAreas,
+    //4a
+    forestOwnership
   ] = await fetchCountryData(country.countryIso)
 
   // iterate over years
@@ -77,6 +83,8 @@ const getCountryData = async country => {
     //3a, 3b
     ...DesignatedManagementObjectiveExporter.parseResultRow(designatedManagementObjective, yearIdx, year),
     ...ForestAreaWithinProtectedAreasExporter.parseResultRow(forestAreaWithinProtectedAreas, yearIdx, year),
+    //4a
+    ...ForestOwnershipExporter.parseResultRow(forestOwnership, yearIdx, year, extentOfForest),
   }))
 
 }
@@ -102,6 +110,8 @@ const getData = async user => {
     //3a, 3b
     ...getExporterFields(DesignatedManagementObjectiveExporter),
     ...getExporterFields(ForestAreaWithinProtectedAreasExporter),
+    //4a
+    ...getExporterFields(ForestOwnershipExporter),
 
   ]
   const opts = { fields }
