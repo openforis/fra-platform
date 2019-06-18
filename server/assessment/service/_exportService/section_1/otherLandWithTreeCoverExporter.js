@@ -1,4 +1,3 @@
-
 const TraditionalTableExporter = require('../traditionalTableExporter')
 
 class OtherLandWithTreeCoverExporter extends TraditionalTableExporter {
@@ -6,7 +5,8 @@ class OtherLandWithTreeCoverExporter extends TraditionalTableExporter {
   constructor () {
     super(
       'otherLandWithTreeCover',
-      ['palms', 'treeOrchards', 'agroforestry', 'treesUrbanSettings', 'other']
+      ['palms', 'treeOrchards', 'agroforestry', 'treesUrbanSettings', 'other'],
+      '1f'
     )
   }
 }

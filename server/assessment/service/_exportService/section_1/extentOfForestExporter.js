@@ -9,7 +9,8 @@ class ExtentOfForestExporter extends FraTableExporter {
   constructor () {
     super(
       'extentOfForest',
-      ['forestArea', 'otherWoodedLand', 'landArea']
+      ['forestArea', 'otherWoodedLand', 'landArea'],
+      '1a'
     )
   }
 
@@ -30,7 +31,6 @@ class ExtentOfForestExporter extends FraTableExporter {
       landArea: R.path(['faoStat', year, 'area'], countryConfig)
     })
   }
-
 }
 
 const instance = new ExtentOfForestExporter()

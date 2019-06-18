@@ -12,7 +12,8 @@ class GrowingStockExporter extends FraTableExporter {
       [
         'gs_ha_nat_reg', 'gs_ha_planted', 'gs_ha_plantation', 'gs_ha_other_planted', 'gs_ha_forest', 'gs_ha_owl',
         'gs_tot_nat_reg', 'gs_tot_planted', 'gs_tot_plantation', 'gs_tot_other_planted', 'gs_tot_forest', 'gs_tot_owl'
-      ]
+      ],
+      '2a'
     )
   }
 
