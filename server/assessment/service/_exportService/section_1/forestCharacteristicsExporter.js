@@ -16,7 +16,8 @@ class ForestCharacteristicsExporter extends FraTableExporter {
         'plantationForest',
         'plantationForestIntroduced',
         'otherPlantedForest',
-      ]
+      ],
+      '1b'
     )
   }
 

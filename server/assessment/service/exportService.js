@@ -16,6 +16,14 @@ const GrowingStockExporter = require('./_exportService/section_2/growingStockExp
 
 const YEARS_FRA = [1990, 2000, 2010, 2015, 2020]
 
+const getExporterFields = exporter =>
+  exporter.fields.map(field => ({
+    value: field,
+    label: R.isEmpty(exporter.tableNo)
+      ? field
+      : `${exporter.tableNo}_${field}`,
+  }))
+
 const fetchCountryData = async countryIso => await Promise.all([
   CountryConfigExporter.fetchData(countryIso),
   //1a, 1b, 1e, 1f
@@ -24,7 +32,7 @@ const fetchCountryData = async countryIso => await Promise.all([
   SpecificForestCategoriesExporter.fetchData(countryIso),
   OtherLandWithTreeCoverExporter.fetchData(countryIso),
   //2a
-  GrowingStockExporter.fetchData(countryIso)
+  GrowingStockExporter.fetchData(countryIso),
 ])
 
 const getCountryData = async country => {
@@ -60,14 +68,14 @@ const getData = async user => {
   const fields = [
     'region', 'countryIso', 'listNameEn', 'year',
     //country config
-    ...CountryConfigExporter.fields,
+    ...getExporterFields(CountryConfigExporter),
     //1a, 1b, 1e, 1f
-    ...ExtentOfForestExporter.fields,
-    ...ForestCharacteristicsExporter.fields,
-    ...SpecificForestCategoriesExporter.fields,
-    ...OtherLandWithTreeCoverExporter.fields,
+    ...getExporterFields(ExtentOfForestExporter),
+    ...getExporterFields(ForestCharacteristicsExporter),
+    ...getExporterFields(SpecificForestCategoriesExporter),
+    ...getExporterFields(OtherLandWithTreeCoverExporter),
     //2a
-    ...GrowingStockExporter.fields,
+    ...getExporterFields(GrowingStockExporter),
 
   ]
   const opts = { fields }

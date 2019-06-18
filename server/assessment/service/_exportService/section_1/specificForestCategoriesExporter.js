@@ -5,7 +5,8 @@ class SpecificForestCategoriesExporter extends TraditionalTableExporter {
   constructor () {
     super(
       'specificForestCategories',
-      ['bamboos', 'mangroves', 'tempUnstocked', 'primary', 'rubber']
+      ['bamboos', 'mangroves', 'tempUnstocked', 'primary', 'rubber'],
+      '1e'
     )
   }
 }

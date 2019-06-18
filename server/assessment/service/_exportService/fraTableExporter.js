@@ -1,8 +1,9 @@
 class FraTableExporter {
 
-  constructor (tableName, fields) {
+  constructor (tableName, fields, tableNo = '') {
     this.tableName = tableName
     this.fields = fields
+    this.tableNo = tableNo
   }
 
   get tableName () {
@@ -19,6 +20,14 @@ class FraTableExporter {
 
   set fields (fields) {
     this._fields = fields
+  }
+
+  get tableNo () {
+    return this._tableNo
+  }
+
+  set tableNo (tableNo) {
+    this._tableNo = tableNo
   }
 
   fetchData (countryIso) {
