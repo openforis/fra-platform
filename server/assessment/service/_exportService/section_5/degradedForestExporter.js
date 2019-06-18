@@ -1,3 +1,5 @@
+const R = require('ramda')
+
 const TraditionalTableExporter = require('../traditionalTableExporter')
 
 class DegradedForestExporter extends TraditionalTableExporter {
@@ -8,6 +10,18 @@ class DegradedForestExporter extends TraditionalTableExporter {
       ['y/n'],
       '5c'
     )
+  }
+
+  parseResultRow (result, yearIdx) {
+    let resultRow = {}
+
+    this.fields.forEach((field, fieldIdx) => {
+
+      resultRow[field] = R.path([fieldIdx, 0], result)
+
+    })
+
+    return resultRow
   }
 }
 
