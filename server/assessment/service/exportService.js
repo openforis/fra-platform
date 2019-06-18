@@ -16,6 +16,8 @@ const GrowingStockExporter = require('./_exportService/section_2/growingStockExp
 const GrowingStockCompositionExporter = require('./_exportService/section_2/growingStockCompositionExporter')
 const BiomassStockExporter = require('./_exportService/section_2/biomassStockExporter')
 const CarbonStockExporter = require('./_exportService/section_2/carbonStockExporter')
+//3
+const DesignatedManagementObjectiveExporter = require('./_exportService/section_3/designatedManagementObjectiveExporter')
 
 const YEARS_FRA = [1990, 2000, 2010, 2015, 2020]
 
@@ -39,6 +41,8 @@ const fetchCountryData = async countryIso => await Promise.all([
   GrowingStockCompositionExporter.fetchData(countryIso),
   BiomassStockExporter.fetchData(countryIso),
   CarbonStockExporter.fetchData(countryIso),
+  //3a
+  DesignatedManagementObjectiveExporter.fetchData(countryIso),
 ])
 
 const getCountryData = async country => {
@@ -47,7 +51,9 @@ const getCountryData = async country => {
     //1a, 1b, 1e, 1f
     extentOfForest, forestCharacteristics, specificForestCategories, otherLandWithTreeCover,
     //2a, 2b, 2c, 2d
-    growingStock, growingStockComposition, biomassStock, carbonStock
+    growingStock, growingStockComposition, biomassStock, carbonStock,
+    //3a
+    designatedManagementObjective,
   ] = await fetchCountryData(country.countryIso)
 
   // iterate over years
@@ -66,6 +72,8 @@ const getCountryData = async country => {
     ...GrowingStockCompositionExporter.parseResultRow(growingStockComposition, yearIdx, year),
     ...BiomassStockExporter.parseResultRow(biomassStock, yearIdx, year),
     ...CarbonStockExporter.parseResultRow(carbonStock, yearIdx, year),
+    //3a
+    ...DesignatedManagementObjectiveExporter.parseResultRow(designatedManagementObjective, yearIdx, year),
   }))
 
 }
@@ -88,6 +96,8 @@ const getData = async user => {
     ...getExporterFields(GrowingStockCompositionExporter),
     ...getExporterFields(BiomassStockExporter),
     ...getExporterFields(CarbonStockExporter),
+    //3a
+    ...getExporterFields(DesignatedManagementObjectiveExporter),
 
   ]
   const opts = { fields }
