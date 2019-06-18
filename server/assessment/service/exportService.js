@@ -7,19 +7,51 @@ const AccessControl = require('../../utils/accessControl')
 const CountryService = require('../../country/countryService')
 const CountryConfigExporter = require('./_exportService/countryConfigExporter')
 //1
-const ExtentOfForestExporter = require('./_exportService/extentOfForestExporter')
-const ForestCharacteristicsExporter = require('./_exportService/forestCharacteristicsExporter')
-const SpecificForestCategoriesExporter = require('./_exportService/specificForestCategoriesExporter')
-const OtherLandWithTreeCoverExporter = require('./_exportService/otherLandWithTreeCoverExporter')
+const ExtentOfForestExporter = require('./_exportService/section_1/extentOfForestExporter')
+const ForestCharacteristicsExporter = require('./_exportService/section_1/forestCharacteristicsExporter')
+const SpecificForestCategoriesExporter = require('./_exportService/section_1/specificForestCategoriesExporter')
+const OtherLandWithTreeCoverExporter = require('./_exportService/section_1/otherLandWithTreeCoverExporter')
+//2
+const GrowingStockExporter = require('./_exportService/section_2/growingStockExporter')
 
-const fetchTablesData = async countryIso => await Promise.all([
+const YEARS_FRA = [1990, 2000, 2010, 2015, 2020]
+
+const fetchCountryData = async countryIso => await Promise.all([
   CountryConfigExporter.fetchData(countryIso),
   //1a, 1b, 1e, 1f
   ExtentOfForestExporter.fetchData(countryIso),
   ForestCharacteristicsExporter.fetchData(countryIso),
   SpecificForestCategoriesExporter.fetchData(countryIso),
   OtherLandWithTreeCoverExporter.fetchData(countryIso),
+  //2a
+  GrowingStockExporter.fetchData(countryIso)
 ])
+
+const getCountryData = async country => {
+  const [
+    countryConfig,
+    //1a, 1b, 1e, 1f
+    eof, foc, specificForestCategories, otherLandWithTreeCover,
+    //2a
+    gs,
+  ] = await fetchCountryData(country.countryIso)
+
+  // iterate over years
+  return YEARS_FRA.map((year, yearIdx) => ({
+    ...country,
+    year,
+    //country config
+    ...CountryConfigExporter.parseResultRow(countryConfig, yearIdx, year),
+    //1a, 1b, 1e, 1f
+    ...ExtentOfForestExporter.parseResultRow(eof, yearIdx, year, countryConfig),
+    ...ForestCharacteristicsExporter.parseResultRow(foc, yearIdx, year),
+    ...SpecificForestCategoriesExporter.parseResultRow(specificForestCategories, yearIdx),
+    ...OtherLandWithTreeCoverExporter.parseResultRow(otherLandWithTreeCover, yearIdx),
+    //2a
+    ...GrowingStockExporter.parseResultRow(gs, yearIdx, year),
+  }))
+
+}
 
 const getData = async user => {
   AccessControl.checkAdminAccess(user)
@@ -34,6 +66,8 @@ const getData = async user => {
     ...ForestCharacteristicsExporter.fields,
     ...SpecificForestCategoriesExporter.fields,
     ...OtherLandWithTreeCoverExporter.fields,
+    //2a
+    ...GrowingStockExporter.fields,
 
   ]
   const opts = { fields }
@@ -48,32 +82,9 @@ const getData = async user => {
   // prepare data
   const countriesAll = await CountryService.getAllCountriesList()
   const countries = R.reject(R.propEq('region', 'atlantis'), countriesAll)
-  const fraYears = [1990, 2000, 2010, 2015, 2020]
 
   await Promise.each(
-    countries.map(async country => {
-      // read data for each country
-      const [
-        countryConfig,
-        //1a, 1b, 1e, 1f
-        eof, foc, specificForestCategories, otherLandWithTreeCover
-      ] = await fetchTablesData(country.countryIso)
-
-      // iterate over years
-      return fraYears.map((year, yearIdx) => ({
-        ...country,
-        year,
-        //country config
-        ...CountryConfigExporter.parseResultRow(countryConfig, yearIdx, year),
-        //1a, 1b, 1e, 1f
-        ...ExtentOfForestExporter.parseResultRow(eof, yearIdx, year, countryConfig),
-        ...ForestCharacteristicsExporter.parseResultRow(foc, yearIdx, year),
-        ...SpecificForestCategoriesExporter.parseResultRow(specificForestCategories, yearIdx),
-        ...OtherLandWithTreeCoverExporter.parseResultRow(otherLandWithTreeCover, yearIdx),
-      }))
-
-    })
-    ,
+    countries.map(getCountryData),
     countryResult => {
       asyncParser.input.push(JSON.stringify(countryResult))
     }
