@@ -18,6 +18,7 @@ const BiomassStockExporter = require('./_exportService/section_2/biomassStockExp
 const CarbonStockExporter = require('./_exportService/section_2/carbonStockExporter')
 //3
 const DesignatedManagementObjectiveExporter = require('./_exportService/section_3/designatedManagementObjectiveExporter')
+const ForestAreaWithinProtectedAreasExporter = require('./_exportService/section_3/forestAreaWithinProtectedAreasExporter')
 
 const YEARS_FRA = [1990, 2000, 2010, 2015, 2020]
 
@@ -41,8 +42,9 @@ const fetchCountryData = async countryIso => await Promise.all([
   GrowingStockCompositionExporter.fetchData(countryIso),
   BiomassStockExporter.fetchData(countryIso),
   CarbonStockExporter.fetchData(countryIso),
-  //3a
+  //3a, 3b
   DesignatedManagementObjectiveExporter.fetchData(countryIso),
+  ForestAreaWithinProtectedAreasExporter.fetchData(countryIso),
 ])
 
 const getCountryData = async country => {
@@ -53,7 +55,7 @@ const getCountryData = async country => {
     //2a, 2b, 2c, 2d
     growingStock, growingStockComposition, biomassStock, carbonStock,
     //3a
-    designatedManagementObjective,
+    designatedManagementObjective, forestAreaWithinProtectedAreas
   ] = await fetchCountryData(country.countryIso)
 
   // iterate over years
@@ -72,8 +74,9 @@ const getCountryData = async country => {
     ...GrowingStockCompositionExporter.parseResultRow(growingStockComposition, yearIdx, year),
     ...BiomassStockExporter.parseResultRow(biomassStock, yearIdx, year),
     ...CarbonStockExporter.parseResultRow(carbonStock, yearIdx, year),
-    //3a
+    //3a, 3b
     ...DesignatedManagementObjectiveExporter.parseResultRow(designatedManagementObjective, yearIdx, year),
+    ...ForestAreaWithinProtectedAreasExporter.parseResultRow(forestAreaWithinProtectedAreas, yearIdx, year),
   }))
 
 }
@@ -96,8 +99,9 @@ const getData = async user => {
     ...getExporterFields(GrowingStockCompositionExporter),
     ...getExporterFields(BiomassStockExporter),
     ...getExporterFields(CarbonStockExporter),
-    //3a
+    //3a, 3b
     ...getExporterFields(DesignatedManagementObjectiveExporter),
+    ...getExporterFields(ForestAreaWithinProtectedAreasExporter),
 
   ]
   const opts = { fields }
