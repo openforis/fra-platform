@@ -29,6 +29,7 @@ const PoliciesLegislationNationalPlatformExporter = require('./_exportService/se
 const AreaOfPermanentForestEstateExporter = require('./_exportService/section_6/areaOfPermanentForestEstateExporter')
 //7
 const EmploymentInForestryAndLoggingExporter = require('./_exportService/section_7/employmentInForestryAndLoggingExporter')
+const GraduationOfStudentsExporter = require('./_exportService/section_7/graduationOfStudentsExporter')
 
 const YEARS_FRA = [1990, 2000, 2010, 2015, 2020]
 
@@ -63,8 +64,9 @@ const fetchCountryData = async countryIso => await Promise.all([
   //6a, 6b
   PoliciesLegislationNationalPlatformExporter.fetchData(countryIso),
   AreaOfPermanentForestEstateExporter.fetchData(countryIso),
-  //7a
+  //7a, 7b
   EmploymentInForestryAndLoggingExporter.fetchData(countryIso),
+  GraduationOfStudentsExporter.fetchData(countryIso),
 ])
 
 const getCountryData = async country => {
@@ -82,8 +84,8 @@ const getCountryData = async country => {
     degradedForest,
     //6a, 6b
     policiesLegislationNationalPlatform, areaOfPermanentForestEstate,
-    //7a
-    employmentInForestryAndLogging
+    //7a, 7b
+    employmentInForestryAndLogging, graduationOfStudents
   ] = await fetchCountryData(country.countryIso)
 
   // iterate over years
@@ -113,8 +115,9 @@ const getCountryData = async country => {
     //6a, 6b
     ...PoliciesLegislationNationalPlatformExporter.parseResultRow(policiesLegislationNationalPlatform, yearIdx, year),
     ...AreaOfPermanentForestEstateExporter.parseResultRow(areaOfPermanentForestEstate, yearIdx, year),
-    //7a
+    //7a, 7b
     ...EmploymentInForestryAndLoggingExporter.parseResultRow(employmentInForestryAndLogging, yearIdx, year),
+    ...GraduationOfStudentsExporter.parseResultRow(graduationOfStudents, yearIdx, year),
   }))
 
 }
@@ -148,8 +151,9 @@ const getData = async user => {
     //6a, 6b
     ...getExporterFields(PoliciesLegislationNationalPlatformExporter),
     ...getExporterFields(AreaOfPermanentForestEstateExporter),
-    //7a
+    //7a, 7b
     ...getExporterFields(EmploymentInForestryAndLoggingExporter),
+    ...getExporterFields(GraduationOfStudentsExporter),
 
   ]
   const opts = { fields }
