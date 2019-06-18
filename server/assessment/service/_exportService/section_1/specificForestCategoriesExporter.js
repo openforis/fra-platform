@@ -1,4 +1,4 @@
-const TraditionalTableExporter = require('./traditionalTableExporter')
+const TraditionalTableExporter = require('../traditionalTableExporter')
 
 class SpecificForestCategoriesExporter extends TraditionalTableExporter {
 

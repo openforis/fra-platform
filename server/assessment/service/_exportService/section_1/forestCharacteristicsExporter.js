@@ -1,9 +1,9 @@
 const R = require('ramda')
 
-const FraTableExporter = require('./fraTableExporter')
+const FraTableExporter = require('../fraTableExporter')
 
-const FraValueService = require('../../../eof/fraValueService')
-const { sum, toFixed } = require('../../../../common/bignumberUtils')
+const FraValueService = require('../../../../eof/fraValueService')
+const { sum, toFixed } = require('../../../../../common/bignumberUtils')
 
 class ForestCharacteristicsExporter extends FraTableExporter {
 
