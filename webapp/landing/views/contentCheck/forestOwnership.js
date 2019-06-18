@@ -3,7 +3,7 @@ import R from 'ramda'
 
 import { formatDecimal } from '../../../utils/numberFormat'
 import { sub } from '../../../../common/bignumberUtils'
-import { getForestAreaForYear } from '../../../assessmentFra/extentOfForest/extentOfForestHelper'
+import { getForestAreaForYear } from '../../../../common/extentOfForestHelper'
 
 const ForestOwnership = (props) => {
   const {

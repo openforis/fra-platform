@@ -21,7 +21,7 @@ import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
 
 import { sum, formatNumber, greaterThanOrEqualTo, lessThanOrEqualTo, abs, sub } from '../../../common/bignumberUtils'
 import climaticDomainTableSpec from './climaticDomainTableSpec'
-import { hasOdps } from './extentOfForestHelper'
+import { hasOdps } from '../../../common/extentOfForestHelper'
 import { isFRA2020SectionEditDisabled } from '../../utils/assessmentAccess'
 import { isAdministrator } from '../../../common/countryRole'
 
