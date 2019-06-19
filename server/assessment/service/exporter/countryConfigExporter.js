@@ -1,6 +1,6 @@
 const R = require('ramda')
 
-const FraTableExporter = require('../exporter/fraTableExporter')
+const FraTableExporter = require('./fraTableExporter')
 
 const CountryService = require('../../../country/countryService')
 
