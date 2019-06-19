@@ -1,6 +1,6 @@
 const R = require('ramda')
 
-const FraTableExporter = require('../fraTableExporter')
+const FraTableExporter = require('../../exporter/fraTableExporter')
 
 const FraValueService = require('../../../../eof/fraValueService')
 const { sum, toFixed } = require('../../../../../common/bignumberUtils')

@@ -1,7 +1,7 @@
 const R = require('ramda')
 const { sum } = require('../../../../../common/bignumberUtils')
 
-const TraditionalTableExporter = require('../traditionalTableExporter')
+const TraditionalTableExporter = require('../../exporter/traditionalTableExporter')
 
 const fieldsIdx = {
   'native_#1': 0,

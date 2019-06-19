@@ -1,35 +1,37 @@
 const Promise = require('bluebird')
 const R = require('ramda')
+const CSVOutputFile = require('./csvOutputFile')
+
 const { AsyncParser } = require('json2csv')
 
 const AccessControl = require('../../utils/accessControl')
 
 const CountryService = require('../../country/countryService')
-const CountryConfigExporter = require('./_exportService/countryConfigExporter')
+const CountryConfigExporter = require('./fraYears/countryConfigExporter')
 //1
-const ExtentOfForestExporter = require('./_exportService/section_1/extentOfForestExporter')
-const ForestCharacteristicsExporter = require('./_exportService/section_1/forestCharacteristicsExporter')
-const SpecificForestCategoriesExporter = require('./_exportService/section_1/specificForestCategoriesExporter')
-const OtherLandWithTreeCoverExporter = require('./_exportService/section_1/otherLandWithTreeCoverExporter')
+const ExtentOfForestExporter = require('./fraYears/section_1/extentOfForestExporter')
+const ForestCharacteristicsExporter = require('./fraYears/section_1/forestCharacteristicsExporter')
+const SpecificForestCategoriesExporter = require('./fraYears/section_1/specificForestCategoriesExporter')
+const OtherLandWithTreeCoverExporter = require('./fraYears/section_1/otherLandWithTreeCoverExporter')
 //2
-const GrowingStockExporter = require('./_exportService/section_2/growingStockExporter')
-const GrowingStockCompositionExporter = require('./_exportService/section_2/growingStockCompositionExporter')
-const BiomassStockExporter = require('./_exportService/section_2/biomassStockExporter')
-const CarbonStockExporter = require('./_exportService/section_2/carbonStockExporter')
+const GrowingStockExporter = require('./fraYears/section_2/growingStockExporter')
+const GrowingStockCompositionExporter = require('./fraYears/section_2/growingStockCompositionExporter')
+const BiomassStockExporter = require('./fraYears/section_2/biomassStockExporter')
+const CarbonStockExporter = require('./fraYears/section_2/carbonStockExporter')
 //3
-const DesignatedManagementObjectiveExporter = require('./_exportService/section_3/designatedManagementObjectiveExporter')
-const ForestAreaWithinProtectedAreasExporter = require('./_exportService/section_3/forestAreaWithinProtectedAreasExporter')
+const DesignatedManagementObjectiveExporter = require('./fraYears/section_3/designatedManagementObjectiveExporter')
+const ForestAreaWithinProtectedAreasExporter = require('./fraYears/section_3/forestAreaWithinProtectedAreasExporter')
 //4
-const ForestOwnershipExporter = require('./_exportService/section_4/forestOwnershipExporter')
-const HolderOfManagementRightsExporter = require('./_exportService/section_4/holderOfManagementRightsExporter')
+const ForestOwnershipExporter = require('./fraYears/section_4/forestOwnershipExporter')
+const HolderOfManagementRightsExporter = require('./fraYears/section_4/holderOfManagementRightsExporter')
 //5
-const DegradedForestExporter = require('./_exportService/section_5/degradedForestExporter')
+const DegradedForestExporter = require('./fraYears/section_5/degradedForestExporter')
 //6
-const PoliciesLegislationNationalPlatformExporter = require('./_exportService/section_6/policiesLegislationNationalPlatformExporter')
-const AreaOfPermanentForestEstateExporter = require('./_exportService/section_6/areaOfPermanentForestEstateExporter')
+const PoliciesLegislationNationalPlatformExporter = require('./fraYears/section_6/policiesLegislationNationalPlatformExporter')
+const AreaOfPermanentForestEstateExporter = require('./fraYears/section_6/areaOfPermanentForestEstateExporter')
 //7
-const EmploymentInForestryAndLoggingExporter = require('./_exportService/section_7/employmentInForestryAndLoggingExporter')
-const GraduationOfStudentsExporter = require('./_exportService/section_7/graduationOfStudentsExporter')
+const EmploymentInForestryAndLoggingExporter = require('./fraYears/section_7/employmentInForestryAndLoggingExporter')
+const GraduationOfStudentsExporter = require('./fraYears/section_7/graduationOfStudentsExporter')
 
 const YEARS_FRA = [1990, 2000, 2010, 2015, 2020]
 
@@ -127,7 +129,7 @@ const getData = async user => {
 
   // prepare csv conversion
   const fields = [
-    'region', 'countryIso', 'listNameEn', 'year',
+    'year',
     //country config
     ...CountryConfigExporter.fields,
     //1a, 1b, 1e, 1f
@@ -156,14 +158,17 @@ const getData = async user => {
     ...getExporterFields(GraduationOfStudentsExporter),
 
   ]
-  const opts = { fields }
-  const asyncParser = new AsyncParser(opts, {})
 
-  let csv = ''
-  asyncParser.processor
-    .on('data', chunk => (csv += chunk.toString()))
-    // .on('end', () => console.log(csv))
-    .on('error', err => { throw new Error(err) })
+  const fraYears = new CSVOutputFile('FRA_Years', fields)
+
+  // const opts = { fields }
+  // const asyncParser = new AsyncParser(opts, {})
+  //
+  // let csv = ''
+  // asyncParser.processor
+  //   .on('data', chunk => (csv += chunk.toString()))
+  //   // .on('end', () => console.log(csv))
+  //   .on('error', err => { throw new Error(err) })
 
   // prepare data
   const countriesAll = await CountryService.getAllCountriesList()
@@ -172,13 +177,16 @@ const getData = async user => {
   await Promise.each(
     countries.map(getCountryData),
     countryResult => {
-      asyncParser.input.push(JSON.stringify(countryResult))
+      fraYears.pushContent(countryResult)
+      // asyncParser.input.push(JSON.stringify(countryResult))
     }
   )
 
-  asyncParser.input.push(null)
+  fraYears.pushContentDone()
 
-  return csv
+  // asyncParser.input.push(null)
+
+  return {fraYears}
 }
 
 module.exports = {

@@ -3,7 +3,7 @@ const Promise = require('bluebird')
 
 const TraditionalTableService = require('../../../../traditionalTable/traditionalTableRepository')
 
-const TraditionalTableExporter = require('../traditionalTableExporter')
+const TraditionalTableExporter = require('../../exporter/traditionalTableExporter')
 
 const yearsIdx = {
   '1990': 0,

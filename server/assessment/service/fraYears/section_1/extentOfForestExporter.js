@@ -2,7 +2,7 @@ const R = require('ramda')
 
 const FraValueService = require('../../../../eof/fraValueService')
 
-const FraTableExporter = require('../fraTableExporter')
+const FraTableExporter = require('../../exporter/fraTableExporter')
 
 class ExtentOfForestExporter extends FraTableExporter {
 
