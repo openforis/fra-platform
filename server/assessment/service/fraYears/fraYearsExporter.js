@@ -1,7 +1,7 @@
 const Promise = require('bluebird')
 const CSVOutputFile = require('../csvOutputFile')
 
-const CountryConfigExporter = require('./countryConfigExporter')
+const CountryConfigExporter = require('../exporter/countryConfigExporter')
 //1
 const ExtentOfForestExporter = require('./section_1/extentOfForestExporter')
 const ForestCharacteristicsExporter = require('./section_1/forestCharacteristicsExporter')
