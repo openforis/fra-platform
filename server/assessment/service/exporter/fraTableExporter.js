@@ -1,3 +1,5 @@
+const R = require('ramda')
+
 class FraTableExporter {
 
   constructor (tableName, fields, tableNo = '') {
@@ -28,6 +30,15 @@ class FraTableExporter {
 
   set tableNo (tableNo) {
     this._tableNo = tableNo
+  }
+
+  get fieldsWithLabels () {
+    return this.fields.map(field => ({
+      value: field,
+      label: R.isEmpty(this.tableNo)
+        ? field
+        : `${this.tableNo}_${field}`,
+    }))
   }
 
   fetchData (countryIso) {

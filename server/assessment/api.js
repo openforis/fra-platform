@@ -37,11 +37,10 @@ module.exports.init = app => {
   app.get('/assessment/admin/export', async (req, res) => {
     try {
       const user = req.user
-      const countryIso = req.params.countryIso
 
       checkAdminAccess(user)
 
-      const files = await ExportService.getData(user, countryIso)
+      const files = await ExportService.exportData(user)
 
       const zip = new JSZip()
 
