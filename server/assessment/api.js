@@ -40,7 +40,7 @@ module.exports.init = app => {
 
       checkAdminAccess(user)
 
-      const files = await ExportService.exportData(user)
+      const files = await ExportService.exportData(user, ExportService.EXPORT_TYPE.CSV)
 
       const zip = new JSZip()
 
