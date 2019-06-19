@@ -1,6 +1,6 @@
 const R = require('ramda')
 const Promise = require('bluebird')
-const CSVOutputFile = require('../csvOutputFile')
+const CSVOutput = require('../csvOutput')
 
 const CountryConfigExporter = require('../exporter/countryConfigExporter')
 //5
@@ -37,8 +37,7 @@ const getCountryData = async country => {
 
 }
 
-const exportData = async countries => {
-
+const getCsvOutput = () => {
   const fields = [
     'year',
     //country config
@@ -48,22 +47,10 @@ const exportData = async countries => {
     ...AreaAffectedByFireExporter.fieldsWithLabels,
   ]
 
-  const annual = new CSVOutputFile('Annual', fields)
-
-  await Promise.each(
-    countries.map(getCountryData),
-    countryResult => {
-      annual.pushContent(countryResult)
-    }
-  )
-
-  annual.pushContentDone()
-
-  return {
-    annual
-  }
+  return new CSVOutput('Annual', fields)
 }
 
 module.exports = {
-  exportData
+  getCountryData,
+  getCsvOutput,
 }

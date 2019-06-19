@@ -1,5 +1,5 @@
 const Promise = require('bluebird')
-const CSVOutputFile = require('../csvOutputFile')
+const CSVOutput = require('../csvOutput')
 
 const CountryConfigExporter = require('../exporter/countryConfigExporter')
 //1
@@ -41,8 +41,7 @@ const getCountryData = async country => {
 
 }
 
-const exportData = async countries => {
-
+const getCsvOutput = () => {
   const fields = [
     'year',
     //country config
@@ -52,22 +51,10 @@ const exportData = async countries => {
     ...AnnualReforestationExporter.fieldsWithLabels,
   ]
 
-  const intervals = new CSVOutputFile('Intervals', fields)
-
-  await Promise.each(
-    countries.map(getCountryData),
-    countryResult => {
-      intervals.pushContent(countryResult)
-    }
-  )
-
-  intervals.pushContentDone()
-
-  return {
-    intervals
-  }
+  return new CSVOutput('Intervals', fields)
 }
 
 module.exports = {
-  exportData
+  getCountryData,
+  getCsvOutput,
 }
