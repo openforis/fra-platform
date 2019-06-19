@@ -1,4 +1,4 @@
-const TraditionalTableExporter = require('../traditionalTableExporter')
+const TraditionalTableExporter = require('../../exporter/traditionalTableExporter')
 
 class OtherLandWithTreeCoverExporter extends TraditionalTableExporter {
 

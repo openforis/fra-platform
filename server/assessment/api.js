@@ -41,10 +41,16 @@ module.exports.init = app => {
 
       checkAdminAccess(user)
 
-      const data = await ExportService.getData(user, countryIso)
+      const files = await ExportService.getData(user, countryIso)
 
       const zip = new JSZip()
-      zip.file('FraYears.csv', data)
+
+      Object.values(files).forEach(file =>
+
+        zip.file(file.fileName, file.content)
+      )
+
+      // zip.file('FraYears.csv', data)
       zip
         .generateNodeStream({ type: 'nodebuffer', streamFiles: true })
         .pipe(res)

@@ -2,7 +2,7 @@ const R = require('ramda')
 
 const { sub } = require('../../../../../common/bignumberUtils')
 
-const TraditionalTableExporter = require('../traditionalTableExporter')
+const TraditionalTableExporter = require('../../exporter/traditionalTableExporter')
 
 class HolderOfManagementRightsExporter extends TraditionalTableExporter {
 

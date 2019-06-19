@@ -3,7 +3,7 @@ const Promise = require('bluebird')
 
 const TraditionalTableService = require('../../../../traditionalTable/traditionalTableRepository')
 
-const TraditionalTableExporter = require('../traditionalTableExporter')
+const TraditionalTableExporter = require('../../exporter/traditionalTableExporter')
 
 const fieldsPrimary = [
   'prim_prod', 'prim_prot', 'prim_biodiv', 'prim_socserv', 'prim_multi', 'prim_other'

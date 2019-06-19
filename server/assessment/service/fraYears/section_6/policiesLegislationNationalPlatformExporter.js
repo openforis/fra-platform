@@ -1,6 +1,6 @@
 const R = require('ramda')
 
-const TraditionalTableExporter = require('../traditionalTableExporter')
+const TraditionalTableExporter = require('../../exporter/traditionalTableExporter')
 
 class PoliciesLegislationNationalPlatformExporter extends TraditionalTableExporter {
 

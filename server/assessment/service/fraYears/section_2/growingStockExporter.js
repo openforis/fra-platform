@@ -2,7 +2,7 @@ const R = require('ramda')
 
 const GrowingStockService = require('../../../../growingStock/growingStockService')
 
-const FraTableExporter = require('../fraTableExporter')
+const FraTableExporter = require('../../exporter/fraTableExporter')
 
 class GrowingStockExporter extends FraTableExporter {
 
