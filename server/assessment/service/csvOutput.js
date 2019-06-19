@@ -1,9 +1,11 @@
-const R = require('ramda')
 const { AsyncParser } = require('json2csv')
 
-class CsvOutput {
+const ExportOutput = require('./exportOutput')
+
+class CsvOutput extends ExportOutput {
 
   constructor (fileName, fields) {
+    super()
 
     this.fileName = fileName + '.csv'
     this.content = ''

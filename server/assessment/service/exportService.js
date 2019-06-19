@@ -9,15 +9,24 @@ const FRAYearsExporter = require('./fraYears/fraYearsExporter')
 const IntervalYearsExporter = require('./intervals/intervalYearsExporter')
 const AnnualYearsExporter = require('./annual/annualYearsExporter')
 
-const exportData = async user => {
+const JSONOutput = require('./jsonOutput')
+
+const EXPORT_TYPE = {
+  JSON: 'json',
+  CSV: 'csv',
+}
+
+const exportData = async (user, exportType = EXPORT_TYPE.JSON) => {
   AccessControl.checkAdminAccess(user)
 
   const countriesAll = await CountryService.getAllCountriesList()
   const countries = R.reject(R.propEq('region', 'atlantis'), countriesAll)
 
-  const fraYearsOutput = FRAYearsExporter.getCsvOutput()
-  const intervalsOutput = IntervalYearsExporter.getCsvOutput()
-  const annualOutput = AnnualYearsExporter.getCsvOutput()
+  const isExportTypeJson = exportType === EXPORT_TYPE.JSON
+
+  const fraYearsOutput = isExportTypeJson ? new JSONOutput('fraYears') : FRAYearsExporter.getCsvOutput()
+  const intervalsOutput = isExportTypeJson ? new JSONOutput('intervals') : IntervalYearsExporter.getCsvOutput()
+  const annualOutput = isExportTypeJson ? new JSONOutput('annual') : AnnualYearsExporter.getCsvOutput()
 
   await Promise.each(
     countries.map(async country =>
@@ -47,5 +56,7 @@ const exportData = async user => {
 }
 
 module.exports = {
-  exportData
+  EXPORT_TYPE,
+
+  exportData,
 }
