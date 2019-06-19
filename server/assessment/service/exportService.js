@@ -15,20 +15,34 @@ const exportData = async user => {
   const countriesAll = await CountryService.getAllCountriesList()
   const countries = R.reject(R.propEq('region', 'atlantis'), countriesAll)
 
-  const [
-    fraYearsExport,
-    intervalsExport,
-    annualExport,
-  ] = await Promise.all([
-    FRAYearsExporter.exportData(countries),
-    IntervalYearsExporter.exportData(countries),
-    AnnualYearsExporter.exportData(countries),
-  ])
+  const fraYearsOutput = FRAYearsExporter.getCsvOutput()
+  const intervalsOutput = IntervalYearsExporter.getCsvOutput()
+  const annualOutput = AnnualYearsExporter.getCsvOutput()
+
+  await Promise.each(
+    countries.map(async country =>
+      await Promise.all([
+        FRAYearsExporter.getCountryData(country),
+        IntervalYearsExporter.getCountryData(country),
+        AnnualYearsExporter.getCountryData(country),
+      ])
+    ),
+
+    ([fraYearsRes, intervalsRes, annualRes]) => {
+      fraYearsOutput.pushContent(fraYearsRes)
+      intervalsOutput.pushContent(intervalsRes)
+      annualOutput.pushContent(annualRes)
+    }
+  )
+
+  fraYearsOutput.pushContentDone()
+  intervalsOutput.pushContentDone()
+  annualOutput.pushContentDone()
 
   return {
-    ...fraYearsExport,
-    ...intervalsExport,
-    ...annualExport,
+    ...fraYearsOutput.output,
+    ...intervalsOutput.output,
+    ...annualOutput.output,
   }
 }
 

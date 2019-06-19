@@ -1,11 +1,13 @@
+const R = require('ramda')
 const { AsyncParser } = require('json2csv')
 
-class CSVOutputFile {
+class CsvOutput {
 
   constructor (fileName, fields) {
 
     this.fileName = fileName + '.csv'
     this.content = ''
+    this._key = fileName.split('/').join('_')
 
     const opts = {
       fields: [
@@ -48,6 +50,15 @@ class CSVOutputFile {
     this._content = content
   }
 
+  get output () {
+    return {
+      [this._key]: {
+        fileName: this.fileName,
+        content: this.content
+      }
+    }
+  }
+
   pushContent (object) {
     this._asyncParser.input.push(JSON.stringify(object))
   }
@@ -57,4 +68,4 @@ class CSVOutputFile {
   }
 }
 
-module.exports = CSVOutputFile
+module.exports = CsvOutput

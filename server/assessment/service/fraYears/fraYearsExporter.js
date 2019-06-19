@@ -1,6 +1,7 @@
 const R = require('ramda')
 const Promise = require('bluebird')
-const CSVOutputFile = require('../csvOutputFile')
+const CSVOutput = require('../csvOutput')
+const FRAYearsCsvOutput = require('./fraYearsCsvOutput')
 
 const CountryConfigExporter = require('../exporter/countryConfigExporter')
 //1
@@ -111,8 +112,7 @@ const getCountryData = async country => {
 
 }
 
-const exportData = async countries => {
-
+const getCsvOutput = () => {
   const fieldsVariables = [
     //1a, 1b, 1e, 1f
     ...ExtentOfForestExporter.fieldsWithLabels,
@@ -149,65 +149,10 @@ const exportData = async countries => {
     ...fieldsVariables,
   ]
 
-  const fraYears = new CSVOutputFile('FRA_Years', fieldsFraYears)
-
-  // variable output fields
-  const variablesOutputFiles = {}
-  fieldsVariables.forEach(field => {
-    const variableOutputFile = new CSVOutputFile(
-      `fraYearVariables/${field.label}`,
-      [
-        ...fieldsCountryConfig,
-        ...YEARS_FRA.map(R.toString)
-      ]
-    )
-    variablesOutputFiles[field.label] = variableOutputFile
-  })
-
-  await Promise.each(
-    countries.map(getCountryData),
-    countryResult => {
-
-      // push content to fraYears output file
-      fraYears.pushContent(countryResult)
-
-      // push content to each variable output file
-      fieldsVariables.forEach(field => {
-
-        // create row for variable output file
-        const countryResultRowFirst = countryResult[0]
-        const rowVariableOutputFile = {
-          ...R.pick(
-            [
-              'region', 'countryIso', 'listNameEn',
-              ...fieldsCountryConfig.map(R.prop('value'))
-            ],
-            countryResultRowFirst
-          )
-        }
-
-        countryResult.forEach((rowResult, i) => {
-          const year = YEARS_FRA[i]
-          rowVariableOutputFile[R.toString(year)] = rowResult[field.value]
-        })
-
-        const variableOutputFile = variablesOutputFiles[field.label]
-        variableOutputFile.pushContent(rowVariableOutputFile)
-      })
-    }
-  )
-
-  fraYears.pushContentDone()
-  Object.values(variablesOutputFiles).forEach(variableOutputFiles => {
-    variableOutputFiles.pushContentDone()
-  })
-
-  return {
-    fraYears,
-    ...variablesOutputFiles
-  }
+  return new FRAYearsCsvOutput(fieldsFraYears, fieldsVariables, fieldsCountryConfig, YEARS_FRA)
 }
 
 module.exports = {
-  exportData
+  getCountryData,
+  getCsvOutput,
 }
