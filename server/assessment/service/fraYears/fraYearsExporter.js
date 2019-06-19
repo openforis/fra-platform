@@ -1,3 +1,4 @@
+const R = require('ramda')
 const Promise = require('bluebird')
 const CSVOutputFile = require('../csvOutputFile')
 
@@ -113,8 +114,6 @@ const getCountryData = async country => {
 const exportData = async countries => {
 
   const fieldsVariables = [
-    //country config
-    ...CountryConfigExporter.fields,
     //1a, 1b, 1e, 1f
     ...ExtentOfForestExporter.fieldsWithLabels,
     ...ForestCharacteristicsExporter.fieldsWithLabels,
@@ -141,26 +140,71 @@ const exportData = async countries => {
     ...GraduationOfStudentsExporter.fieldsWithLabels,
   ]
 
-  // prepare csv conversion
+  const fieldsCountryConfig = CountryConfigExporter.fieldsWithLabels
+
   const fieldsFraYears = [
     'year',
+    //country config
+    ...fieldsCountryConfig,
     ...fieldsVariables,
   ]
 
   const fraYears = new CSVOutputFile('FRA_Years', fieldsFraYears)
-  const variables = {}
+
+  // variable output fields
+  const variablesOutputFiles = {}
+  fieldsVariables.forEach(field => {
+    const variableOutputFile = new CSVOutputFile(
+      `fraYearVariables/${field.label}`,
+      [
+        ...fieldsCountryConfig,
+        ...YEARS_FRA.map(R.toString)
+      ]
+    )
+    variablesOutputFiles[field.label] = variableOutputFile
+  })
 
   await Promise.each(
     countries.map(getCountryData),
     countryResult => {
+
+      // push content to fraYears output file
       fraYears.pushContent(countryResult)
+
+      // push content to each variable output file
+      fieldsVariables.forEach(field => {
+
+        // create row for variable output file
+        const countryResultRowFirst = countryResult[0]
+        const rowVariableOutputFile = {
+          ...R.pick(
+            [
+              'region', 'countryIso', 'listNameEn',
+              ...fieldsCountryConfig.map(R.prop('value'))
+            ],
+            countryResultRowFirst
+          )
+        }
+
+        countryResult.forEach((rowResult, i) => {
+          const year = YEARS_FRA[i]
+          rowVariableOutputFile[R.toString(year)] = rowResult[field.value]
+        })
+
+        const variableOutputFile = variablesOutputFiles[field.label]
+        variableOutputFile.pushContent(rowVariableOutputFile)
+      })
     }
   )
 
   fraYears.pushContentDone()
+  Object.values(variablesOutputFiles).forEach(variableOutputFiles => {
+    variableOutputFiles.pushContentDone()
+  })
 
   return {
-    fraYears
+    fraYears,
+    ...variablesOutputFiles
   }
 }
 

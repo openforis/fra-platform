@@ -7,7 +7,7 @@ class DegradedForestExporter extends TraditionalTableExporter {
   constructor () {
     super(
       'degradedForest',
-      ['y/n'],
+      ['y_n'],
       '5c'
     )
   }
