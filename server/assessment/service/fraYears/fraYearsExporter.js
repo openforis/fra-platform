@@ -112,9 +112,7 @@ const getCountryData = async country => {
 
 const exportData = async countries => {
 
-  // prepare csv conversion
-  const fields = [
-    'year',
+  const fieldsVariables = [
     //country config
     ...CountryConfigExporter.fields,
     //1a, 1b, 1e, 1f
@@ -141,10 +139,16 @@ const exportData = async countries => {
     //7a, 7b
     ...EmploymentInForestryAndLoggingExporter.fieldsWithLabels,
     ...GraduationOfStudentsExporter.fieldsWithLabels,
-
   ]
 
-  const fraYears = new CSVOutputFile('FRA_Years', fields)
+  // prepare csv conversion
+  const fieldsFraYears = [
+    'year',
+    ...fieldsVariables,
+  ]
+
+  const fraYears = new CSVOutputFile('FRA_Years', fieldsFraYears)
+  const variables = {}
 
   await Promise.each(
     countries.map(getCountryData),

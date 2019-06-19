@@ -9,7 +9,18 @@ class CSVOutputFile {
 
     const opts = {
       fields: [
-        'region', 'countryIso', 'listNameEn',
+        {
+          value: 'region',
+          label: 'region',
+        },
+        {
+          value: 'countryIso',
+          label: 'iso3',
+        },
+        {
+          value: 'listNameEn',
+          label: 'name',
+        },
         ...fields
       ]
     }
