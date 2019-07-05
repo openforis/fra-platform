@@ -23,7 +23,7 @@ const getCountryConfigFull = async countryIso => {
   ])
 
   const climaticDomainPercents = {
-    boreal: (result && result[0][0]) || config.climaticDomainPercents2015.tropical,
+    boreal: (result && result[0][0]) || config.climaticDomainPercents2015.boreal,
     temperate: (result && result[1][0]) || config.climaticDomainPercents2015.temperate,
     subtropical: (result && result[2][0]) || config.climaticDomainPercents2015.subtropical,
     tropical: (result && result[3][0]) || config.climaticDomainPercents2015.tropical,
