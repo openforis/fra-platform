@@ -1,3 +1,5 @@
+const { format } = require('date-fns')
+
 const { AsyncParser } = require('json2csv')
 
 const ExportOutput = require('./exportOutput')
@@ -7,7 +9,7 @@ class CsvOutput extends ExportOutput {
   constructor (fileName, fields) {
     super()
 
-    this.fileName = fileName + '.csv'
+    this.fileName = `${fileName}_${format(new Date(), 'YYYY_MM_DD')}.csv`
     this.content = ''
     this._key = fileName.split('/').join('_')
 
