@@ -205,7 +205,7 @@ const listOriginalDataPoints = async countryIso => {
 
   return R.pipe(
     R.sortBy(R.prop('year')),
-    R.reverse
+    // R.reverse
   )(R.values(odps))
 }
 
