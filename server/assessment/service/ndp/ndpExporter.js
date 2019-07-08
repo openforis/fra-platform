@@ -6,33 +6,52 @@ const CsvOutput = require('../csvOutput')
 const fields = [
   'Year',
   'Reference',
-  'Methods used: National Forest Inventory',
-  'Methods used: Sample-based remote sensing assessment',
-  'Methods used: Full-cover forest/vegetation maps',
-  'Methods used: Registers/questionnaires',
-  'Methods used: Other',
+  'National Forest Inventory',
+  'Sample-based remote sensing assessment',
+  'Full-cover forest/vegetation maps',
+  'Registers/questionnaires',
+  'Other',
   'Additional comments',
 ]
 
 const ndpCSVOutput = new CsvOutput('NationalDataPoints', fields)
 
+const normalizeValue = R.pipe(
+  R.defaultTo(''),
+  // R.replace(/\n\r/g, ' '),
+  R.replace(/"/g, '\''),
+  R.split(/\r\n|\r|\n/g),
+  R.join(' '),
+)
+
 const getCountryData = async country => {
 
   const dataPoints = await NdpRepository.listOriginalDataPoints(country.countryIso)
 
+  const result = []
+
   const getMethodUsed = (ndp, value) => R.contains(value, ndp.dataSourceMethods || []) ? 'YES' : 'NO'
   //["nationalForestInventory","sampleBasedRemoteSensingAssessment","fullCoverMaps","registersQuestionnaires","other"]
-  const result = dataPoints.map(ndp => ({
-    ...country,
-    'Year': ndp.year,
-    'Reference': ndp.dataSourceReferences,
-    'Methods used: National Forest Inventory': getMethodUsed(ndp, 'nationalForestInventory'),
-    'Methods used: Sample-based remote sensing assessment': getMethodUsed(ndp, 'sampleBasedRemoteSensingAssessment'),
-    'Methods used: Full-cover forest/vegetation maps': getMethodUsed(ndp, 'fullCoverMaps'),
-    'Methods used: Registers/questionnaires': getMethodUsed(ndp, 'registersQuestionnaires'),
-    'Methods used: Other': getMethodUsed(ndp, 'other'),
-    'Additional comments': ndp.dataSourceAdditionalComments,
-  }))
+
+  dataPoints.forEach(ndp => {
+    const year = ndp.year
+    if (!(R.isNil(year) && R.isEmpty(year))) {
+
+      const row = {
+        ...country,
+        'Year': year,
+        'Reference': normalizeValue(ndp.dataSourceReferences),
+        'National Forest Inventory': getMethodUsed(ndp, 'nationalForestInventory'),
+        'Sample-based remote sensing assessment': getMethodUsed(ndp, 'sampleBasedRemoteSensingAssessment'),
+        'Full-cover forest/vegetation maps': getMethodUsed(ndp, 'fullCoverMaps'),
+        'Registers/questionnaires': getMethodUsed(ndp, 'registersQuestionnaires'),
+        'Other': getMethodUsed(ndp, 'other'),
+        'Additional comments': normalizeValue(ndp.dataSourceAdditionalComments),
+      }
+
+      result.push(row)
+    }
+  })
 
   return result
 }
