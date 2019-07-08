@@ -13,11 +13,11 @@ import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
 import { saveCountryConfigSetting } from '../../country/actions'
 import DefinitionLink from '../../reusableUiComponents/definitionLink'
 import { sum, formatNumber, greaterThanOrEqualTo, abs, sub, greaterThan } from '../../../common/bignumberUtils'
-import { getForestAreaForYear } from '../extentOfForest/extentOfForestHelper'
+import { getForestAreaForYear } from '../../../common/extentOfForestHelper'
 import ReviewIndicator from '../../review/reviewIndicator'
 import NationalDataPointsPrintView from '../../originalDataPoint/nationalDataPointsPrintView'
 
-import { hasOdps } from '../extentOfForest/extentOfForestHelper'
+import { hasOdps } from '../../../common/extentOfForestHelper'
 import { isFRA2020SectionEditDisabled } from '../../utils/assessmentAccess'
 import { isPrintingMode } from '../../printAssessment/printAssessment'
 

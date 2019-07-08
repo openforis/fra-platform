@@ -1,7 +1,7 @@
-const {roleForCountry, isReviewer} = require('../../common/countryRole')
+const { roleForCountry, isReviewer, isAdministrator } = require('../../common/countryRole')
 
 function AccessControlException (key, values) {
-  this.error = {key, values}
+  this.error = { key, values }
   Error.captureStackTrace(this, AccessControlException)
 }
 
@@ -14,7 +14,7 @@ AccessControlException.prototype.constructor = AccessControlException
 const checkCountryAccess = (countryIso, user) => {
   const role = roleForCountry(countryIso, user)
   if (role.role === 'NONE') {
-    throw new AccessControlException('error.access.countryRoleNotSpecified', {user: user.name, countryIso})
+    throw new AccessControlException('error.access.countryRoleNotSpecified', { user: user.name, countryIso })
   }
 }
 
@@ -22,7 +22,13 @@ const checkCountryAccess = (countryIso, user) => {
 // Throws a custom Error user has no access (handled in sendErr)
 const checkReviewerCountryAccess = (countryIso, user) => {
   if (!isReviewer(countryIso, user)) {
-    throw new AccessControlException('error.access.countryUserNotReviewer', {user: user.name, countryIso})
+    throw new AccessControlException('error.access.countryUserNotReviewer', { user: user.name, countryIso })
+  }
+}
+
+const checkAdminAccess = (user) => {
+  if (!isAdministrator(user)) {
+    throw new AccessControlException('error.access.userNotAdministrator', { user: user.name })
   }
 }
 
@@ -34,8 +40,8 @@ const checkCountryAccessFromReqParams = (req) => {
   if (req.query.countryIso) checkCountryAccess(req.query.countryIso, req.user)
 }
 
-
 module.exports.checkCountryAccess = checkCountryAccess
 module.exports.checkReviewerCountryAccess = checkReviewerCountryAccess
+module.exports.checkAdminAccess = checkAdminAccess
 module.exports.checkCountryAccessFromReqParams = checkCountryAccessFromReqParams
 module.exports.AccessControlException = AccessControlException

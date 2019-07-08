@@ -98,7 +98,8 @@ The FRA team fra@fao.org
       userManagement: 'Manage collaborators',
       externalData: 'External data',
       links: 'Links & Repository',
-      contentCheck: 'Content / Check'
+      contentCheck: 'Content / Check',
+      dataExport: 'Data export',
     },
     overview: {
       loadingMap: 'Loading map…',
@@ -218,6 +219,9 @@ The FRA team fra@fao.org
       managementRightsOfPublicForests: 'Management rights of public forests',
 
       disturbances: 'Disturbances',
+    },
+    dataExport:{
+      downloadData: 'Download data',
     }
   },
 
@@ -257,6 +261,7 @@ The FRA team
     access: {
       countryRoleNotSpecified: 'Error: User {{user}} tried to access {{countryIso}} but no role has been specified',
       countryUserNotReviewer: 'Error: User {{user}} tried to access {{countryIso}} of which is not reviewer',
+      userNotAdministrator: 'Error: User {{user}} tried to access a resource available only to administrators',
       roleChangeNotAllowed: 'Error: User {{user}} tried to set another user’s role to {{role}} which is not allowed for the logged in user',
       userAlreadyAddedToCountry: 'Error: User {{user}} is already added to country {{countryIso}}',
       invitationAlreadyUsed: 'Error: invitation {{invitationUuid}} has already been used, hijacking by {{loginEmail}} not allowed!',
@@ -974,7 +979,7 @@ The FRA team
     oneToOneMessages: 'One To One Messages'
   },
 
-  fraReportPrint:{
+  fraReportPrint: {
     title: 'FRA 2020 Report for',
   }
 }
