@@ -13,7 +13,8 @@ const fieldsIdx = {
   'phd_tot': 0, 'phd_fem': 0, 'phd_male': 0,
   'msc_tot': 1, 'msc_fem': 1, 'msc_male': 1,
   'ba_tot': 2, 'ba_fem': 2, 'ba_male': 2,
-  'tech_tot': 3, 'tech_fem': 3, 'tech_male': 3
+  'tech_tot': 3, 'tech_fem': 3, 'tech_male': 3,
+  'total_tot': 4, 'total_fem': 4, 'total_male': 4,
 }
 
 class GraduationOfStudentsExporter extends TraditionalTableExporter {
@@ -25,7 +26,8 @@ class GraduationOfStudentsExporter extends TraditionalTableExporter {
         'phd_tot', 'phd_fem', 'phd_male',
         'msc_tot', 'msc_fem', 'msc_male',
         'ba_tot', 'ba_fem', 'ba_male',
-        'tech_tot', 'tech_fem', 'tech_male'
+        'tech_tot', 'tech_fem', 'tech_male',
+        'total_tot', 'total_fem', 'total_male',
       ],
       '7b'
     )
