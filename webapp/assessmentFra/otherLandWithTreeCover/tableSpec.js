@@ -3,7 +3,7 @@ import R from 'ramda'
 import { formatDecimal } from '../../utils/numberFormat'
 import { totalSum } from '../../traditionalTable/aggregate'
 import { otherLandLessThanOrEqualToExtentOfForestValidator } from '../../traditionalTable/validators'
-import { getOtherLandAreaForYear } from '../extentOfForest/extentOfForestHelper'
+import { getOtherLandAreaForYear } from '../../../common/extentOfForestHelper'
 import { Link } from '../../reusableUiComponents/link'
 
 const mapIndexed = R.addIndex(R.map)

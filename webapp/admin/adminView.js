@@ -1,23 +1,24 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import * as R from 'ramda'
 
 import NotFound from '../app/notfound'
 import LoggedInPageTemplate from '../app/loggedInPageTemplate'
 
 import UsersManagementView from './components/usersManagementView'
+import DataExportView from './components/dataExportView'
 
 import { isAdministrator } from '../../common/countryRole'
 
 const sections = [
-  {name: 'usersManagementView', component: UsersManagementView, labelKey: 'landing.sections.userManagement'}
+  { name: 'usersManagementView', component: UsersManagementView, labelKey: 'landing.sections.userManagement' },
+  { name: 'dataExportView', component: DataExportView, labelKey: 'landing.sections.dataExport' }
 ]
 
-class EditUserView extends React.Component {
+class AdminView extends React.Component {
 
   constructor (props) {
     super(props)
-    this.state = {section: sections[0]}
+    this.state = { section: sections[0] }
   }
 
   isActiveSection (section) {
@@ -25,7 +26,7 @@ class EditUserView extends React.Component {
   }
 
   render () {
-    const {userInfo, countryIso, i18n} = this.props
+    const { userInfo, i18n } = this.props
 
     return isAdministrator(userInfo)
       ? <LoggedInPageTemplate>
@@ -40,7 +41,7 @@ class EditUserView extends React.Component {
                   <button key={section.name}
                           disabled={this.isActiveSection(section)}
                           className="landing__page-menu-button"
-                          onClick={e => this.setState({section})}>
+                          onClick={e => this.setState({ section })}>
                     {i18n.t(section.labelKey)}
                   </button>
                 )
@@ -50,7 +51,7 @@ class EditUserView extends React.Component {
           </div>
 
           {
-            React.createElement(this.state.section.component, {...this.props})
+            React.createElement(this.state.section.component, { ...this.props })
           }
 
         </div>
@@ -65,4 +66,4 @@ const mapStateToProps = (state, props) => ({
   countryIso: props.match.params.countryIso,
 })
 
-export default connect(mapStateToProps)(EditUserView)
+export default connect(mapStateToProps)(AdminView)

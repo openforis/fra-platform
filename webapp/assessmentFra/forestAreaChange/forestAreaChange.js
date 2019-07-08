@@ -4,7 +4,7 @@ import R from 'ramda'
 import { ThousandSeparatedDecimalInput } from '../../reusableUiComponents/thousandSeparatedDecimalInput'
 import * as table from '../../traditionalTable/table'
 import { div, add, sub, toFixed } from '../../../common/bignumberUtils'
-import { getForestAreaForYear } from '../extentOfForest/extentOfForestHelper'
+import { getForestAreaForYear } from '../../../common/extentOfForestHelper'
 import { acceptNextDecimal } from '../../utils/numberInput'
 
 const mapIndexed = R.addIndex(R.map)

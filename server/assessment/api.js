@@ -1,8 +1,11 @@
 const db = require('../db/db')
 const repository = require('./assessmentRepository')
-const {sendErr, sendOk, serverUrl} = require('../utils/requestUtils')
-const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
-const {sendAssessmentNotification} = require('./sendAssessmentNotification')
+const { sendErr, sendOk, serverUrl } = require('../utils/requestUtils')
+const { checkCountryAccessFromReqParams, checkAdminAccess } = require('../utils/accessControl')
+const { sendAssessmentNotification } = require('./sendAssessmentNotification')
+
+const ExportService = require('./service/exportService')
+const JSZip = require('jszip')
 
 module.exports.init = app => {
 
@@ -26,6 +29,36 @@ module.exports.init = app => {
       }
 
       sendOk(res)
+    } catch (err) {
+      sendErr(res, err)
+    }
+  })
+
+  app.get('/assessment/admin/export', async (req, res) => {
+    try {
+      const user = req.user
+
+      checkAdminAccess(user)
+
+      const files = await ExportService.exportData(user, ExportService.EXPORT_TYPE.CSV)
+
+      const zip = new JSZip()
+
+      Object.values(files).forEach(file =>
+
+        zip.file(file.fileName, file.content)
+      )
+
+      // zip.file('FraYears.csv', data)
+      zip
+        .generateNodeStream({ type: 'nodebuffer', streamFiles: true })
+        .pipe(res)
+        .on('finish', function () {
+          // JSZip generates a readable stream with a "end" event,
+          // but is piped here in a writable stream which emits a "finish" event.
+          res.end()
+        })
+
     } catch (err) {
       sendErr(res, err)
     }

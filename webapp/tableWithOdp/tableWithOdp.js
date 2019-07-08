@@ -11,7 +11,7 @@ import ReviewIndicator from '../review/reviewIndicator'
 import { readPasteClipboard } from '../utils/copyPasteUtil'
 import { acceptNextDecimal } from '../utils/numberInput'
 import { formatNumber, toFixed } from '../../common/bignumberUtils'
-import { hasOdps } from '../assessmentFra/extentOfForest/extentOfForestHelper'
+import { hasOdps } from '../../common/extentOfForestHelper'
 import defaultYears from '../../server/eof/defaultYears'
 
 const mapIndexed = R.addIndex(R.map)

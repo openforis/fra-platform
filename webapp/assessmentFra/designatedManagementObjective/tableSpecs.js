@@ -3,7 +3,7 @@ import R from 'ramda'
 import { formatDecimal } from '../../utils/numberFormat'
 import { totalSum } from '../../traditionalTable/aggregate'
 import { forestAreaSameAsExtentOfForestValidator } from '../../traditionalTable/validators'
-import { getForestAreaForYear } from '../extentOfForest/extentOfForestHelper'
+import { getForestAreaForYear } from '../../../common/extentOfForestHelper'
 import { Link } from '../../reusableUiComponents/link'
 import { sub } from '../../../common/bignumberUtils'
 
