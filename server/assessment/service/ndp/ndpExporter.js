@@ -35,7 +35,7 @@ const getCountryData = async country => {
 
   dataPoints.forEach(ndp => {
     const year = ndp.year
-    if (!(R.isNil(year) && R.isEmpty(year))) {
+    if (!(R.isNil(year) || R.isEmpty(year))) {
 
       const row = {
         ...country,
