@@ -95,7 +95,7 @@ const getCountryData = async country => {
     ...BiomassStockExporter.parseResultRow(biomassStock, yearIdx, year),
     ...CarbonStockExporter.parseResultRow(carbonStock, yearIdx, year),
     //3a, 3b
-    ...DesignatedManagementObjectiveExporter.parseResultRow(designatedManagementObjective, yearIdx, year),
+    ...DesignatedManagementObjectiveExporter.parseResultRow(designatedManagementObjective, yearIdx, year, extentOfForest),
     ...ForestAreaWithinProtectedAreasExporter.parseResultRow(forestAreaWithinProtectedAreas, yearIdx, year),
     //4a, 4b
     ...ForestOwnershipExporter.parseResultRow(forestOwnership, yearIdx, year, extentOfForest),

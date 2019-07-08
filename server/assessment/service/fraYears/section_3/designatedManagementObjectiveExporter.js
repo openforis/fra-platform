@@ -5,8 +5,11 @@ const TraditionalTableService = require('../../../../traditionalTable/traditiona
 
 const TraditionalTableExporter = require('../../exporter/traditionalTableExporter')
 
+const { sub } = require('../../../../../common/bignumberUtils')
+const { getForestAreaForYear } = require('../../../../../common/extentOfForestHelper')
+
 const fieldsPrimary = [
-  'prim_prod', 'prim_prot', 'prim_biodiv', 'prim_socserv', 'prim_multi', 'prim_other'
+  'prim_prod', 'prim_prot', 'prim_biodiv', 'prim_socserv', 'prim_multi', 'prim_other', 'prim_no_unknown'
 ]
 const fieldsTotalArea = [
   'tot_prod', 'tot_prot', 'tot_biodiv', 'tot_socserv', 'tot_other'
@@ -33,12 +36,28 @@ class DesignatedManagementObjectiveExporter extends TraditionalTableExporter {
     ])
   }
 
-  parseResultRow ([primary, totalArea], yearIdx, year) {
+  parseResultRow ([primary, totalArea], yearIdx, year, extentOfForest) {
     const resultRow = {}
 
     fieldsPrimary.forEach((field, fieldIdx) => {
       resultRow[field] = R.path([fieldIdx, yearIdx], primary)
     })
+
+    const unknownValue = R.reduce(
+      (value, row) => {
+
+        const rowValue = R.pipe(
+          R.path([row, yearIdx]),
+          R.defaultTo(0)
+        )(primary)
+
+        return sub(value, rowValue)
+      },
+      getForestAreaForYear(extentOfForest, year),
+      R.range(0, 6)
+    )
+
+    resultRow['prim_no_unknown'] = unknownValue
 
     fieldsTotalArea.forEach((field, fieldIdx) => {
       resultRow[field] = R.path([fieldIdx, yearIdx], totalArea)
