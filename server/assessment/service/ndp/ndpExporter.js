@@ -14,8 +14,6 @@ const fields = [
   'Additional comments',
 ]
 
-const ndpCSVOutput = new CsvOutput('NationalDataPoints', fields)
-
 const normalizeValue = R.pipe(
   R.defaultTo(''),
   // R.replace(/\n\r/g, ' '),
@@ -56,7 +54,9 @@ const getCountryData = async country => {
   return result
 }
 
-const getCsvOutput = () => ndpCSVOutput
+const getCsvOutput = () => {
+  return new CsvOutput('NationalDataPoints', fields)
+}
 
 module.exports = {
   getCountryData,
