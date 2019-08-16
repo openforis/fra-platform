@@ -14,7 +14,7 @@ const fieldsIdx = {
   'emp_forestry_tot': 1, 'emp_forestry_fem': 1, 'emp_forestry_male': 1,
   'emp_logging_tot': 2, 'emp_logging_fem': 2, 'emp_logging_male': 2,
   'emp_nwfp_tot': 3, 'emp_nwfp_fem': 3, 'emp_nwfp_male': 3,
-  'emp_support_tot': 3, 'emp_support_fem': 3, 'emp_support_male': 3,
+  'emp_support_tot': 4, 'emp_support_fem': 4, 'emp_support_male': 4,
 }
 
 
