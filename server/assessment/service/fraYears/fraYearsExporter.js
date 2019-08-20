@@ -1,7 +1,6 @@
 const R = require('ramda')
 const Promise = require('bluebird')
-const CSVOutput = require('../csvOutput')
-const FRAYearsCsvOutput = require('./fraYearsCsvOutput')
+const CSVOutputWithVariables = require('../csvOutputWithVariables')
 
 const CountryConfigExporter = require('../exporter/countryConfigExporter')
 //1
@@ -82,6 +81,7 @@ const getCountryData = async country => {
   return YEARS_FRA.map((year, yearIdx) => ({
     ...country,
     year,
+
     //forestArea2020
     forestArea2020: R.pipe(
       R.prop('fra'),
@@ -149,14 +149,7 @@ const getCsvOutput = () => {
 
   const fieldsCountryConfig = CountryConfigExporter.fieldsWithLabels
 
-  const fieldsFraYears = [
-    'year',
-    //country config
-    ...fieldsCountryConfig,
-    ...fieldsVariables,
-  ]
-
-  return new FRAYearsCsvOutput(fieldsFraYears, fieldsVariables, fieldsCountryConfig, YEARS_FRA)
+  return new CSVOutputWithVariables('FRA_Years', fieldsVariables, fieldsCountryConfig, YEARS_FRA)
 }
 
 module.exports = {
