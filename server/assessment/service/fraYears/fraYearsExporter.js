@@ -82,8 +82,15 @@ const getCountryData = async country => {
   return YEARS_FRA.map((year, yearIdx) => ({
     ...country,
     year,
+    //forestArea2020
+    forestArea2020: R.pipe(
+      R.prop('fra'),
+      R.find(R.propEq('year', 2020)),
+      R.propOr('', 'forestArea')
+    )(extentOfForest),
+
     //country config
-    ...CountryConfigExporter.parseResultRow(countryConfig, yearIdx, year),
+    ...CountryConfigExporter.parseResultRow(countryConfig, yearIdx, year, extentOfForest),
     //1a, 1b, 1e, 1f
     ...ExtentOfForestExporter.parseResultRow(extentOfForest, yearIdx, year, countryConfig),
     ...ForestCharacteristicsExporter.parseResultRow(forestCharacteristics, yearIdx, year),
