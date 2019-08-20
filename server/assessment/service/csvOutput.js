@@ -15,18 +15,7 @@ class CsvOutput extends ExportOutput {
 
     const opts = {
       fields: [
-        {
-          value: 'region',
-          label: 'region',
-        },
-        {
-          value: 'countryIso',
-          label: 'iso3',
-        },
-        {
-          value: 'listNameEn',
-          label: 'name',
-        },
+        ...this.fieldsCommon,
         ...fields
       ]
     }
@@ -36,6 +25,23 @@ class CsvOutput extends ExportOutput {
       .on('data', chunk => (this.content += chunk.toString()))
       // .on('end', () => console.log(csv))
       .on('error', err => { throw new Error(err) })
+  }
+
+  get fieldsCommon () {
+    return [
+      {
+        value: 'region',
+        label: 'region',
+      },
+      {
+        value: 'countryIso',
+        label: 'iso3',
+      },
+      {
+        value: 'listNameEn',
+        label: 'name',
+      }
+    ]
   }
 
   get fileName () {
