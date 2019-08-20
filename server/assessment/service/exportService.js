@@ -40,8 +40,8 @@ const exportData = async (user, exportType = EXPORT_TYPE.JSON) => {
       ])
     ),
 
-    ([fraYearsRes, intervalsRes, annualRes, ndps]) => {
-      fraYearsOutput.pushContent(fraYearsRes)
+    ([fraYearsRes, intervalsRes, annualRes, ndps], idx) => {
+      fraYearsOutput.pushContent(fraYearsRes, idx)
       intervalsOutput.pushContent(intervalsRes)
       annualOutput.pushContent(annualRes)
       ndpOutput.pushContent(ndps)
