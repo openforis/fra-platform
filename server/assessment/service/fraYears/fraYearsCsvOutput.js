@@ -1,5 +1,7 @@
 const R = require('ramda')
 const CsvOutput = require('../csvOutput')
+const { format } = require('date-fns')
+const variablesUnit = require('./variablesUnit')
 
 class FRAYearsCsvOutput extends CsvOutput {
 
@@ -17,7 +19,9 @@ class FRAYearsCsvOutput extends CsvOutput {
         `FRA_Years_variables/${field.label}`,
         [
           ...this._fieldsCountryConfig,
-          ...this._YEARS_FRA.map(R.toString)
+          ...this._YEARS_FRA.map(R.toString),
+          '',
+          field.label
         ]
       )
     })
@@ -37,7 +41,7 @@ class FRAYearsCsvOutput extends CsvOutput {
     return output
   }
 
-  pushContent (object) {
+  pushContent (object, idx) {
     super.pushContent(object)
 
     this._fieldsVariables.forEach(field => {
@@ -58,6 +62,12 @@ class FRAYearsCsvOutput extends CsvOutput {
         const year = this._YEARS_FRA[i]
         rowVariableOutputFile[R.toString(year)] = rowResult[field.value]
       })
+
+      if (idx === 0) {
+        rowVariableOutputFile[field.label] = format(new Date(), 'YYYY_MM_DD')
+      } else if (idx === 1) {
+        rowVariableOutputFile[field.label] = variablesUnit[field.label]
+      }
 
       const variableOutputFile = this._variablesOutputFiles[field.label]
       variableOutputFile.pushContent(rowVariableOutputFile)
