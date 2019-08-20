@@ -7,7 +7,7 @@ class FRAYearsCsvOutput extends CsvOutput {
     super('FRA_Years', fieldsFraYears)
 
     this._fieldsVariables = fieldsVariables
-    this._fieldsCountryConfig = fieldsCountryConfig
+    this._fieldsCountryConfig = R.prepend({ value: 'forestArea2020', label: 'Forest area 2020' }, fieldsCountryConfig)
     this._YEARS_FRA = YEARS_FRA
 
     // singe variable outout files
