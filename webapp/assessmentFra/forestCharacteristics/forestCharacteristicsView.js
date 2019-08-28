@@ -19,7 +19,7 @@ import NationalDataPointsPrintView from '../../originalDataPoint/nationalDataPoi
 
 import { hasOdps } from '../../../common/extentOfForestHelper'
 import { isFRA2020SectionEditDisabled } from '../../utils/assessmentAccess'
-import { isPrintingMode } from '../../printAssessment/printAssessment'
+import { isPrintingMode, isPrintingOnlyTables } from '../../printAssessment/printAssessment'
 
 import FraUtils from '../../../common/fraUtils'
 
@@ -266,16 +266,34 @@ const ForestCharacteristics = props => {
       <DefinitionLink className="align-left" document="faq" anchor="1b" title={i18n.t('definition.faqLabel')} lang={i18n.language} />
     </div>
 
-    <div className="page-break"/>
+    {
+      !isPrintingOnlyTables() &&
+      [
+        <div className="page-break" key={0}/>,
 
-    <ChartWrapper
-      fra={props.fra}
-      trends={[
-        {name:'naturalForestArea', label:props.i18n.t('forestCharacteristics.naturalForestArea'), color:'#0098a6'},
-        {name:'plantationForestArea', label:props.i18n.t('forestCharacteristics.plantationForestArea'), color:'#bf00af'},
-        {name:'otherPlantedForestArea', label:props.i18n.t('forestCharacteristics.otherPlantedForestArea'), color:'#f58833'}
-      ]}
-    />
+        <ChartWrapper
+          key={1}
+          fra={props.fra}
+          trends={[
+            {
+              name: 'naturalForestArea',
+              label: props.i18n.t('forestCharacteristics.naturalForestArea'),
+              color: '#0098a6'
+            },
+            {
+              name: 'plantationForestArea',
+              label: props.i18n.t('forestCharacteristics.plantationForestArea'),
+              color: '#bf00af'
+            },
+            {
+              name: 'otherPlantedForestArea',
+              label: props.i18n.t('forestCharacteristics.otherPlantedForestArea'),
+              color: '#f58833'
+            }
+          ]}
+        />
+      ]
+    }
     {
       props.useOriginalDataPointsInFoc && !isEditDataDisabled
       ? <div className="fra-view__section-toolbar no-print">

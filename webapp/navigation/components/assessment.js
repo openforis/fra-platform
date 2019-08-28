@@ -196,8 +196,8 @@ class AssessmentHeader extends React.Component {
           </button>
         </div>
         <Link className="btn-s btn-secondary" to={`/country/${countryIso}/print/${assessment.type}?onlyTables=true`} target="_blank">
-          <Icon name="single-folded-content" className="icon-no-margin"/>
-          <Icon name="small-print" className="icon-no-margin"/>
+          <Icon name="small-print" className="icon-margin-left" />
+          <Icon name="icon-table2" className="icon-no-margin"/>
         </Link>
         <Link className="btn-s btn-secondary" to={`/country/${countryIso}/print/${assessment.type}`} target="_blank">
           <Icon name="small-print" className="icon-no-margin"/>

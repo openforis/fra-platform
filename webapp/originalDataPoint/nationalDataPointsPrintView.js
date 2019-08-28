@@ -8,6 +8,7 @@ import ExtentOfForestSection from './components/originalData/extentOfForestSecti
 import ForestCharacteristicsSection from './components/originalData/forestCharacteristicsSection'
 
 import { fetchOdps } from './actions'
+import { isPrintingOnlyTables } from '../printAssessment/printAssessment'
 
 const DataSourcesPrintView = ({ ndps, ...props }) => (
   <div className="odp__section-print-mode">
@@ -60,31 +61,37 @@ const OriginalDataPrintView = ({ ndps, section, ...props }) => (
 class NationalDataPointsPrintView extends React.PureComponent {
 
   componentDidMount () {
-    const countryIso = this.props.match.params.countryIso
-    this.props.fetchOdps(countryIso)
+    if (!isPrintingOnlyTables()) {
+      const countryIso = this.props.match.params.countryIso
+      this.props.fetchOdps(countryIso)
+    }
   }
 
   render () {
     const { ndps, i18n } = this.props
 
     const data = ndps && !R.isEmpty(ndps)
-      ? ndps.sort((a, b) => Number(a.year) - Number(b.year))
+      ? ndps
+        .filter(ndp => !(R.isNil(ndp.year) || R.isEmpty(ndp.year)))
+        .sort((a, b) => Number(a.year) - Number(b.year))
       : null
 
-    return data
-      ? (
-        <div>
-          <h2 className="headline">{i18n.t('nationalDataPoint.nationalData')}</h2>
-          <DataSourcesPrintView {...this.props} ndps={data}/>
-          <NationalClassesPrintView {...this.props} ndps={data}/>
-          <OriginalDataPrintView {...this.props} ndps={data}/>
-        </div>
-      )
-      : (
-        <div>
-          <i>{i18n.t('description.loading')}</i>
-        </div>
-      )
+    return isPrintingOnlyTables()
+      ? null
+      : data
+        ? (
+          <div>
+            <h2 className="headline">{i18n.t('nationalDataPoint.nationalData')}</h2>
+            <DataSourcesPrintView {...this.props} ndps={data}/>
+            <NationalClassesPrintView {...this.props} ndps={data}/>
+            <OriginalDataPrintView {...this.props} ndps={data}/>
+          </div>
+        )
+        : (
+          <div>
+            <i>{i18n.t('description.loading')}</i>
+          </div>
+        )
   }
 }
 
