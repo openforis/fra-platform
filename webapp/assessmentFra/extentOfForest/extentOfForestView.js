@@ -26,7 +26,7 @@ import { isFRA2020SectionEditDisabled } from '../../utils/assessmentAccess'
 import { isAdministrator } from '../../../common/countryRole'
 
 import FraUtils from '../../../common/fraUtils'
-import { isPrintingMode } from '../../printAssessment/printAssessment'
+import { isPrintingMode, isPrintingOnlyTables } from '../../printAssessment/printAssessment'
 
 const sectionName = 'extentOfForest'
 const mapIndexed = R.addIndex(R.map)
@@ -203,8 +203,8 @@ const ExtentOfForest = (props) => {
     {
       hasNDPs
         ? isPrintingMode()
-          ? <NationalDataPointsPrintView {...props} section={sectionName} />
-          : null
+        ? <NationalDataPointsPrintView {...props} section={sectionName}/>
+        : null
         : [
           <NationalDataDescriptions key="ndd" section={sectionName} countryIso={props.countryIso}
                                     disabled={isEditDataDisabled}/>,
@@ -232,15 +232,22 @@ const ExtentOfForest = (props) => {
                       lang={i18n.language}/>
     </div>
 
-    <div className="page-break"/>
+    {
+      !isPrintingOnlyTables() &&
+      [
+        <div className="page-break" key={0}/>,
 
-    <ChartWrapper
-      fra={props.fra}
-      trends={[
-        { name: 'forestArea', label: i18n.t('fraClass.forest'), color: '#0098a6' },
-        { name: 'otherWoodedLand', label: i18n.t('fraClass.otherWoodedLand'), color: '#bf00af' }
-      ]}
-    />
+        <ChartWrapper
+          key={1}
+          fra={props.fra}
+          trends={[
+            { name: 'forestArea', label: i18n.t('fraClass.forest'), color: '#0098a6' },
+            { name: 'otherWoodedLand', label: i18n.t('fraClass.otherWoodedLand'), color: '#bf00af' }
+          ]}
+        />
+      ]
+    }
+
     {
       hasNDPs && showNDPs && !isEditDataDisabled
         ? <div className="fra-view__section-toolbar no-print">
