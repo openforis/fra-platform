@@ -195,6 +195,10 @@ class AssessmentHeader extends React.Component {
             <Icon name={isLocked ? 'lock-circle' : 'lock-circle-open'} className="icon-no-margin"/>
           </button>
         </div>
+        <Link className="btn-s btn-secondary" to={`/country/${countryIso}/print/${assessment.type}?onlyTables=true`} target="_blank">
+          <Icon name="single-folded-content" className="icon-no-margin"/>
+          <Icon name="small-print" className="icon-no-margin"/>
+        </Link>
         <Link className="btn-s btn-secondary" to={`/country/${countryIso}/print/${assessment.type}`} target="_blank">
           <Icon name="small-print" className="icon-no-margin"/>
         </Link>

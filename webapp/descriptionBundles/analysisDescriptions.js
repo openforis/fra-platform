@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import assert from 'assert'
 
 import CommentableDescription from '../description/commentableDescription'
-import { isPrintingMode } from '../printAssessment/printAssessment'
+import { isPrintingMode, isPrintingOnlyTables } from '../printAssessment/printAssessment'
 
 const assertProps = props =>
   assert(
@@ -14,23 +14,24 @@ const assertProps = props =>
 
 const AnalysisDescriptions = props => {
   assertProps(props)
-  return <div className="fra-description__container">
-    <h2 className="headline fra-description__group-header">{props.i18n.t('description.analysisAndProcessing')}</h2>
-    <CommentableDescription
-      title={props.i18n.t('description.estimationAndForecasting')}
-      name="estimationAndForecasting"
-      showAlertEmptyContent={!isPrintingMode()}
-      showDashEmptyContent={isPrintingMode()}
-      {...props}
-    />
-    <CommentableDescription
-      title={props.i18n.t('description.reclassification')}
-      name="reclassification"
-      showAlertEmptyContent={!isPrintingMode()}
-      showDashEmptyContent={isPrintingMode()}
-      {...props}
-    />
-  </div>
+  return !isPrintingOnlyTables() &&
+    <div className="fra-description__container">
+      <h2 className="headline fra-description__group-header">{props.i18n.t('description.analysisAndProcessing')}</h2>
+      <CommentableDescription
+        title={props.i18n.t('description.estimationAndForecasting')}
+        name="estimationAndForecasting"
+        showAlertEmptyContent={!isPrintingMode()}
+        showDashEmptyContent={isPrintingMode()}
+        {...props}
+      />
+      <CommentableDescription
+        title={props.i18n.t('description.reclassification')}
+        name="reclassification"
+        showAlertEmptyContent={!isPrintingMode()}
+        showDashEmptyContent={isPrintingMode()}
+        {...props}
+      />
+    </div>
 }
 
 const mapStateToProps = (state) => ({ i18n: state.user.i18n })
