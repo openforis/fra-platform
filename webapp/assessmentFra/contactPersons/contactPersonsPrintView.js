@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
+import camelize from 'camelize'
 
 import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
 
@@ -39,7 +40,7 @@ class ContactPersonsPrintView extends React.Component {
                   {i18n.t('userManagement.name')}
                 </th>
                 <th className="fra-table__header-cell">
-                  {i18n.t('editUser.institution')}
+                  {i18n.t('editUser.role')}
                 </th>
                 <th className="fra-table__header-cell">
                   {i18n.t('userManagement.email')}
@@ -61,7 +62,7 @@ class ContactPersonsPrintView extends React.Component {
                     </td>
                     <td className="fra-table__cell-left">
                       <div className="text-input__readonly-view">
-                        {u.institution}
+                        {i18n.t(`user.roles.${camelize(u.role.toLowerCase())}`)}
                       </div>
                     </td>
                     <td className="fra-table__cell-left">

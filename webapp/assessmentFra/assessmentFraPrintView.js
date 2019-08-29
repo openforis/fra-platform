@@ -64,7 +64,7 @@ class AssessmentFraPrintView extends React.Component {
       <div>
 
         <div style={{ display: 'flex', alignItems: 'center' }}>
-          <h1>{i18n.t('fraReportPrint.title')} {country}</h1>
+          <h1>{i18n.t('fraReportPrint.title', { country })}</h1>
           {
             R.propEq('deskStudy', true, assessment) &&
             <h2 style={{ marginLeft: '15px' }} className="desk-study">({i18n.t('assessment.deskStudy')})</h2>
