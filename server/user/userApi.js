@@ -44,7 +44,7 @@ module.exports.init = app => {
 
       const countryUsers = print
         ? R.reject(
-          user => R.propEq('role', reviewer.role, user) || R.equals(R.toLower(user.email), 'lucilla.marinaro@fao.org'),
+          user => R.propEq('role', reviewer.role, user) || R.contains(R.toLower(user.email), ['lucilla.marinaro@fao.org', 'niki.desy@wur.nl']),
           allCountryUsers
         )
         : filterAllowedUsers(countryIso, req.user, allCountryUsers)
