@@ -97,12 +97,13 @@ class BiomassStockView extends React.Component {
   }
 }
 
-const mapStateToProps = (state, { i18n }) => {
+const mapStateToProps = state => {
+  const i18n = state.user.i18n
   const tableSpecInstance = tableSpec(i18n)
 
   return {
     domain: R.path(['country', 'config', 'domain'], state),
-    i18n: state.user.i18n,
+    i18n,
     isEditDataDisabled: isFRA2020SectionEditDisabled(state, sectionName),
     tableSpecInstance,
     tableData: R.path(['traditionalTable', tableSpecInstance.name, 'tableData'], state) || table.createTableData(tableSpecInstance),
