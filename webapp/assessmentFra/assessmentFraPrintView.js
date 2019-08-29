@@ -27,16 +27,16 @@ import ForestAreaWithinProtectedAreasView
 import ForestOwnershipView from '../assessmentFra/forestOwnership/forestOwnershipView'
 import HolderOfManagementRightsView from '../assessmentFra/holderOfManagementRights/holderOfManagementRightsView'
 
-import DisturbancesPrintView from '../assessmentFra/disturbances/disturbancesPrintView'
-import AreaAffectedByFirePrintView from '../assessmentFra/areaAffectedByFire/areaAffectedByFirePrintView'
+import DisturbancesPrintView from '../assessmentFra/disturbances/disturbancesView'
+import AreaAffectedByFirePrintView from '../assessmentFra/areaAffectedByFire/areaAffectedByFireView'
 import DegradedForestView from '../assessmentFra/degradedForest/degradedForestView'
 
 import ForestPolicyView from '../assessmentFra/forestPolicy/forestPolicyView'
 import AreaOfPermanentForestEstateView
   from '../assessmentFra/areaOfPermanentForestEstate/areaOfPermanentForestEstateView'
 
-import EmploymentPrintView from '../assessmentFra/employment/employmentPrintView'
-import GraduationOfStudentsPrintView from '../assessmentFra/graduationOfStudents/graduationOfStudentsPrintView'
+import EmploymentPrintView from '../assessmentFra/employment/employmentView'
+import GraduationOfStudentsPrintView from '../assessmentFra/graduationOfStudents/graduationOfStudentsView'
 import NonWoodForestProductsRemovalsView
   from '../assessmentFra/nonWoodForestProductsRemovals/nonWoodForestProductsRemovalsView'
 
