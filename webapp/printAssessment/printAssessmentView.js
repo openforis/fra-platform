@@ -15,13 +15,13 @@ const PrintAssessmentView = (props) => {
 
   setPrintingMode()
 
-  const {match} = props
-  const {assessment} = match.params
+  const { match } = props
+  const { assessment } = match.params
 
-  const {component} = R.find(R.propEq('assessment', assessment), views)
+  const { component } = R.find(R.propEq('assessment', assessment), views)
 
   return <div className="fra-print__container">
-    {React.createElement(component, {...props})}
+    {React.createElement(component, { ...props })}
   </div>
 
 }
