@@ -67,12 +67,13 @@ class GrowingStockCompositionView extends React.Component {
 
 }
 
-const mapStateToProps = (state, { i18n }) => {
+const mapStateToProps = state => {
+  const i18n = state.user.i18n
   const growingStock = R.prop('growingStock', state)
   const tableSpecInstance = tableSpec(i18n, growingStock)
 
   return {
-    i18n: state.user.i18n,
+    i18n,
     isEditDataDisabled: isFRA2020SectionEditDisabled(state, sectionName),
     growingStock,
     tableSpecInstance,
