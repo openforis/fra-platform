@@ -7,11 +7,12 @@ import TraditionalTable from '../../traditionalTable/traditionalTable'
 import NationalDataDescriptions from '../../descriptionBundles/nationalDataDescriptions'
 import AnalysisDescriptions from '../../descriptionBundles/analysisDescriptions'
 import GeneralComments from '../../descriptionBundles/generalComments'
+import { isPrintingOnlyTables } from '../../printAssessment/printAssessment'
 
 const AreaAffectedByFirePrintView = props => {
 
-  const {i18n, match} = props
-  const {countryIso} = match.params
+  const { i18n, match } = props
+  const { countryIso } = match.params
   const tableSpecPrint1 = tableSpec(i18n, tableProps.areaAffectedByFirePrint1)
   const tableSpecPrint2 = tableSpec(i18n, tableProps.areaAffectedByFirePrint2)
 
@@ -32,7 +33,10 @@ const AreaAffectedByFirePrintView = props => {
       </div>
 
       <TraditionalTable tableSpec={tableSpecPrint1} countryIso={countryIso}/>
-      <div className="page-break"/>
+      {
+        !isPrintingOnlyTables() &&
+        <div className="page-break"/>
+      }
       <TraditionalTable tableSpec={tableSpecPrint2} countryIso={countryIso}/>
 
       <GeneralComments section={tableProps.areaAffectedByFire.name} countryIso={countryIso}/>
@@ -41,6 +45,6 @@ const AreaAffectedByFirePrintView = props => {
 
 }
 
-const mapStateToProps = state => ({i18n: state.user.i18n})
+const mapStateToProps = state => ({ i18n: state.user.i18n })
 
 export default connect(mapStateToProps)(AreaAffectedByFirePrintView)
