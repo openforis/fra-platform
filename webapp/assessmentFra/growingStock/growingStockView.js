@@ -21,12 +21,14 @@ import defaultYears from '../../../server/eof/defaultYears'
 import { isFRA2020SectionEditDisabled } from '../../utils/assessmentAccess'
 import { calculateAvgValue, calculateTotalValue, getTotalGrowingStockFieldsSum } from './growingStock'
 import { equalToTotalGrowingStock } from '../../traditionalTable/validators'
+import FraUtils from '../../../common/fraUtils'
+import { isPrintingOnlyTables } from '../../printAssessment/printAssessment'
 
 const sectionName = 'growingStock'
 const mapIndexed = R.addIndex(R.map)
 
 const InputRowAvg = (props) => {
-  const {isEditDataDisabled, validator, row} = props
+  const { isEditDataDisabled, validator, row } = props
   const thClassName = props.subCategory ? 'fra-table__subcategory-cell' : 'fra-table__category-cell'
   const target = props.row + 'Avg'
   return <tr>
@@ -61,7 +63,7 @@ const InputRowAvg = (props) => {
 }
 
 const InputRowTotal = (props) => {
-  const {countryIso, totalTable, subCategory, row, validator, isEditDataDisabled} = props
+  const { countryIso, totalTable, subCategory, row, validator, isEditDataDisabled } = props
 
   const thClassName = subCategory ? 'fra-table__subcategory-cell' : 'fra-table__category-cell'
   const target = row + 'Total'
@@ -97,7 +99,7 @@ const InputRowTotal = (props) => {
   </tr>
 }
 
-const ClipboardTable = ({tableValues}) =>
+const ClipboardTable = ({ tableValues }) =>
   <table>
     <tbody>
     {mapIndexed((row, i) =>
@@ -182,13 +184,13 @@ const totalValidator = (props, year, row) => {
 
   if (value) {
     return equals
-      ? {valid: true}
+      ? { valid: true }
       : {
         valid: false,
         message: props.i18n.t('generalValidation.valuesAreInconsistent1aOr1b')
       }
   } else {
-    return {valid: true}
+    return { valid: true }
   }
 }
 
@@ -201,18 +203,18 @@ const avgValidator = (props, year, row) => {
 
   if (value) {
     return equals
-      ? {valid: true}
+      ? { valid: true }
       : {
         valid: false,
         message: props.i18n.t('generalValidation.valuesAreInconsistent1aOr1b')
       }
   } else {
-    return {valid: true}
+    return { valid: true }
   }
 }
 
 const GrowingStock = (props) => {
-  const {i18n, countryIso, avgTable, totalTable, isEditDataDisabled} = props
+  const { i18n, countryIso, avgTable, totalTable, isEditDataDisabled } = props
 
   if (R.isNil(avgTable) || R.isNil(totalTable)) return null
 
@@ -399,12 +401,27 @@ class GrowingStockView extends React.Component {
     this.props.fetch(countryIso)
   }
 
+  hasData (table) {
+    return R.pipe(
+      R.values,
+      R.map(R.omit(['year'])),
+      R.map(R.values),
+      FraUtils.hasData
+    )(table)
+
+  }
+
   render () {
-    return <LoggedInPageTemplate commentsOpen={this.props.openCommentThread}>
-      <GrowingStock
-        countryIso={this.props.match.params.countryIso}
-        {...this.props}/>
-    </LoggedInPageTemplate>
+    const { totalTable, avgTable } = this.props
+
+    const render = isPrintingOnlyTables() ? this.hasData(totalTable) || this.hasData(avgTable) : true
+
+    return render &&
+      <LoggedInPageTemplate commentsOpen={this.props.openCommentThread}>
+        <GrowingStock
+          countryIso={this.props.match.params.countryIso}
+          {...this.props}/>
+      </LoggedInPageTemplate>
   }
 }
 
