@@ -1,7 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import * as R from 'ramda'
 
-import { getCountryName } from '../country/actions'
+import { getCountryName, fetchCountryOverviewStatus } from '../country/actions'
 
 import ContactPersonsPrintView from './contactPersons/contactPersonsPrintView'
 import IntroductionView from './contactPersons/contactPersonsView'
@@ -41,76 +42,102 @@ import NonWoodForestProductsRemovalsView
 
 import SustainableDevelopmentView from '../assessmentFra/sustainableDevelopment/sustainableDevelopmentView'
 
-const AssessmentFraPrintView = (props) => {
+class AssessmentFraPrintView extends React.Component {
 
-  const { i18n, match, getCountryName } = props
-  const countryIso = match.params.countryIso
+  getCountryIso () {
+    const { match } = this.props
+    const { countryIso } = match.params
+    return countryIso
+  }
 
-  const country = getCountryName(countryIso, i18n.language)
-  return  (
-    <div>
+  componentDidMount () {
+    const { fetchCountryOverviewStatus } = this.props
+    fetchCountryOverviewStatus(this.getCountryIso())
+  }
 
-      <h1>{i18n.t('fraReportPrint.title')}  { country }</h1>
-      <hr/>
+  render () {
 
-      <ContactPersonsPrintView {...props}/>
-      <IntroductionView {...props}/>
+    const { i18n, getCountryName, assessment } = this.props
 
-      <div className="page-break"/>
-      <ExtentOfForestView {...props}/>
-      <div className="page-break"/>
-      <ForestCharacteristicsView {...props}/>
-      <div className="page-break"/>
-      <ForestAreaChangeView {...props}/>
-      <div className="page-break"/>
-      <AnnualReforestationView {...props}/>
-      <div className="page-break"/>
-      <SpecificForestCategoriesView {...props}/>
-      <div className="page-break"/>
-      <OtherLandWithTreeCoverView {...props}/>
+    const country = getCountryName(this.getCountryIso(), i18n.language)
+    return (
+      <div>
 
-      <div className="page-break"/>
-      <GrowingStockView {...props}/>
-      <div className="page-break"/>
-      <GrowingStockCompositionView {...props}/>
-      <div className="page-break"/>
-      <BiomassStockView {...props}/>
-      <div className="page-break"/>
-      <CarbonStockView {...props}/>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <h1>{i18n.t('fraReportPrint.title')} {country}</h1>
+          {
+            R.propEq('deskStudy', true, assessment) &&
+            <h2 style={{ marginLeft: '15px' }} className="desk-study">({i18n.t('assessment.deskStudy')})</h2>
+          }
+        </div>
+        <hr/>
 
-      <div className="page-break"/>
-      <DesignatedManagementObjectiveView {...props}/>
-      <div className="page-break"/>
-      <ForestAreaWithinProtectedAreasView {...props}/>
+        <ContactPersonsPrintView {...this.props}/>
+        <IntroductionView {...this.props}/>
 
-      <div className="page-break"/>
-      <ForestOwnershipView {...props}/>
-      <div className="page-break"/>
-      <HolderOfManagementRightsView {...props}/>
+        <div className="page-break"/>
+        <ExtentOfForestView {...this.props}/>
+        <div className="page-break"/>
+        <ForestCharacteristicsView {...this.props}/>
+        <div className="page-break"/>
+        <ForestAreaChangeView {...this.props}/>
+        <div className="page-break"/>
+        <AnnualReforestationView {...this.props}/>
+        <div className="page-break"/>
+        <SpecificForestCategoriesView {...this.props}/>
+        <div className="page-break"/>
+        <OtherLandWithTreeCoverView {...this.props}/>
 
-      <div className="page-break"/>
-      <DisturbancesPrintView {...props}/>
-      <div className="page-break"/>
-      <AreaAffectedByFirePrintView {...props}/>
-      <div className="page-break"/>
-      <DegradedForestView {...props}/>
+        <div className="page-break"/>
+        <GrowingStockView {...this.props}/>
+        <div className="page-break"/>
+        <GrowingStockCompositionView {...this.props}/>
+        <div className="page-break"/>
+        <BiomassStockView {...this.props}/>
+        <div className="page-break"/>
+        <CarbonStockView {...this.props}/>
 
-      <div className="page-break"/>
-      <ForestPolicyView {...props}/>
-      <div className="page-break"/>
-      <AreaOfPermanentForestEstateView {...props}/>
+        <div className="page-break"/>
+        <DesignatedManagementObjectiveView {...this.props}/>
+        <div className="page-break"/>
+        <ForestAreaWithinProtectedAreasView {...this.props}/>
 
-      <div className="page-break"/>
-      <EmploymentPrintView {...props}/>
-      <div className="page-break"/>
-      <GraduationOfStudentsPrintView {...props}/>
-      <div className="page-break"/>
-      <NonWoodForestProductsRemovalsView {...props}/>
+        <div className="page-break"/>
+        <ForestOwnershipView {...this.props}/>
+        <div className="page-break"/>
+        <HolderOfManagementRightsView {...this.props}/>
 
-      <div className="page-break"/>
-      <SustainableDevelopmentView {...props}/>
-    </div>
-  )
+        <div className="page-break"/>
+        <DisturbancesPrintView {...this.props}/>
+        <div className="page-break"/>
+        <AreaAffectedByFirePrintView {...this.props}/>
+        <div className="page-break"/>
+        <DegradedForestView {...this.props}/>
+
+        <div className="page-break"/>
+        <ForestPolicyView {...this.props}/>
+        <div className="page-break"/>
+        <AreaOfPermanentForestEstateView {...this.props}/>
+
+        <div className="page-break"/>
+        <EmploymentPrintView {...this.props}/>
+        <div className="page-break"/>
+        <GraduationOfStudentsPrintView {...this.props}/>
+        <div className="page-break"/>
+        <NonWoodForestProductsRemovalsView {...this.props}/>
+
+        <div className="page-break"/>
+        <SustainableDevelopmentView {...this.props}/>
+      </div>
+    )
+  }
 }
 
-export default connect(null, { getCountryName })(AssessmentFraPrintView)
+const mapStateToProps = state => ({
+  assessment: R.path(['country', 'status', 'assessments', 'fra2020'], state)
+})
+
+export default connect(
+  mapStateToProps,
+  { getCountryName, fetchCountryOverviewStatus }
+)(AssessmentFraPrintView)
