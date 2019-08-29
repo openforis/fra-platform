@@ -15,14 +15,14 @@ const rowShouldBeHighlighted = (tableName, rowIdx, openCommentThreadTarget) =>
   R.equals(commentTarget(tableName, rowIdx), openCommentThreadTarget)
 
 const Cell = (props) => {
-  const {tableSpec, rowIdx, colIdx} = props
+  const { tableSpec, rowIdx, colIdx } = props
   const cellType = cellTypes.getCellType(tableSpec, rowIdx, colIdx)
   return cellType.render(props)
 }
 
 class ReviewWrapper extends React.Component {
   render () {
-    const {section, tableSpec, rowIdx, countryIso, disabled} = this.props
+    const { section, tableSpec, rowIdx, countryIso, disabled } = this.props
     return <td ref="rowAnchor" className="fra-table__row-anchor-cell">
       <div className="fra-table__review-indicator-anchor">
         {
@@ -147,4 +147,4 @@ const mapStateToProps = (state, props) => {
   }
 }
 
-export default connect(mapStateToProps, {tableValueChanged, tableChanged, fetchTableData})(FraTable)
+export default connect(mapStateToProps, { tableValueChanged, tableChanged, fetchTableData })(FraTable)
