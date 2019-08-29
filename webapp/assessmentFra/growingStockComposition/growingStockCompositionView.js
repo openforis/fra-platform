@@ -12,55 +12,75 @@ import NationalDataDescriptions from '../../descriptionBundles/nationalDataDescr
 import AnalysisDescriptions from '../../descriptionBundles/analysisDescriptions'
 import GeneralComments from '../../descriptionBundles/generalComments'
 import { isFRA2020SectionEditDisabled } from '../../utils/assessmentAccess'
+import * as table from '../../traditionalTable/table'
+import { isPrintingOnlyTables } from '../../printAssessment/printAssessment'
+import FraUtils from '../../../common/fraUtils'
+import { fetchTableData } from '../../traditionalTable/actions'
 
 class GrowingStockCompositionView extends React.Component {
 
-  constructor(props) {
-    super(props)
-    const {i18n, growingStock} = props
-    this.tableSpecInstance = tableSpec(i18n, growingStock)
-  }
+  componentWillMount () {
+    const countryIso = this.props.match.params.countryIso
+    const tableSpec = this.props.tableSpecInstance
 
-  componentWillMount() {
-    this.props.fetchLastSectionUpdateTimestamp(this.props.match.params.countryIso, this.tableSpecInstance.name)
+    this.props.fetchTableData(countryIso, tableSpec)
+    this.props.fetchLastSectionUpdateTimestamp(countryIso, tableSpec.name)
   }
 
   render () {
-    const {match, i18n, isEditDataDisabled} = this.props
+    const { match, i18n, isEditDataDisabled, tableData, tableSpecInstance } = this.props
 
-    return <LoggedInPageTemplate>
+    const render = isPrintingOnlyTables() ? FraUtils.hasData(tableData) : true
 
-      <h2 className="title only-print">
-        2b {i18n.t('growingStockComposition.growingStockComposition')}
-      </h2>
+    return render &&
+      <LoggedInPageTemplate>
 
-      <div className="fra-view__content growing-stock-composition-view">
-        <NationalDataDescriptions section={this.tableSpecInstance.name} countryIso={match.params.countryIso} disabled={isEditDataDisabled}/>
-        <AnalysisDescriptions section={this.tableSpecInstance.name} countryIso={match.params.countryIso} disabled={isEditDataDisabled}/>
-        <h2 className="headline no-print">
-          {i18n.t('growingStockComposition.growingStockComposition')}
+        <h2 className="title only-print">
+          2b {i18n.t('growingStockComposition.growingStockComposition')}
         </h2>
-        <div className="fra-view__section-toolbar">
-          <DefinitionLink className="margin-right-big" document="tad" anchor="2b" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
-          <DefinitionLink className="align-left" document="faq" anchor="2b" title={i18n.t('definition.faqLabel')} lang={i18n.language}/>
-          <div className="support-text">{i18n.t('growingStockComposition.rankingYear')}</div>
+
+        <div className="fra-view__content growing-stock-composition-view">
+          <NationalDataDescriptions section={tableSpecInstance.name} countryIso={match.params.countryIso}
+                                    disabled={isEditDataDisabled}/>
+          <AnalysisDescriptions section={tableSpecInstance.name} countryIso={match.params.countryIso}
+                                disabled={isEditDataDisabled}/>
+          <h2 className="headline no-print">
+            {i18n.t('growingStockComposition.growingStockComposition')}
+          </h2>
+          <div className="fra-view__section-toolbar">
+            <DefinitionLink className="margin-right-big" document="tad" anchor="2b"
+                            title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
+            <DefinitionLink className="align-left" document="faq" anchor="2b" title={i18n.t('definition.faqLabel')}
+                            lang={i18n.language}/>
+            <div className="support-text">{i18n.t('growingStockComposition.rankingYear')}</div>
+          </div>
+          <TraditionalTable tableSpec={tableSpecInstance} countryIso={match.params.countryIso}
+                            disabled={isEditDataDisabled}/>
+          <GeneralComments
+            section={tableSpecInstance.name}
+            countryIso={match.params.countryIso}
+            disabled={isEditDataDisabled}
+          />
         </div>
-        <TraditionalTable tableSpec={this.tableSpecInstance} countryIso={match.params.countryIso} disabled={isEditDataDisabled}/>
-        <GeneralComments
-          section={this.tableSpecInstance.name}
-          countryIso={match.params.countryIso}
-          disabled={isEditDataDisabled}
-        />
-      </div>
-    </LoggedInPageTemplate>
+      </LoggedInPageTemplate>
   }
 
 }
 
-const mapStateToProps = state => ({
-  i18n: state.user.i18n,
-  isEditDataDisabled: isFRA2020SectionEditDisabled(state, sectionName),
-  growingStock: R.prop('growingStock', state)
-})
+const mapStateToProps = (state, { i18n }) => {
+  const growingStock = R.prop('growingStock', state)
+  const tableSpecInstance = tableSpec(i18n, growingStock)
 
-export default connect(mapStateToProps, {fetchLastSectionUpdateTimestamp})(GrowingStockCompositionView)
+  return {
+    i18n: state.user.i18n,
+    isEditDataDisabled: isFRA2020SectionEditDisabled(state, sectionName),
+    growingStock,
+    tableSpecInstance,
+    tableData: R.path(['traditionalTable', tableSpecInstance.name, 'tableData'], state) || table.createTableData(tableSpecInstance),
+  }
+}
+
+export default connect(mapStateToProps, {
+  fetchLastSectionUpdateTimestamp,
+  fetchTableData
+})(GrowingStockCompositionView)
