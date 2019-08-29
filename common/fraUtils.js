@@ -16,7 +16,14 @@ const filterFraYears = data => data.filter(
   d => R.contains(Number(d.year), fraYears)
 )
 
+const hasData = R.pipe(
+  R.reject(R.all(R.or(R.isNil, R.isEmpty))),
+  R.isEmpty,
+  R.not,
+)
+
 module.exports = {
   fraYears,
   filterFraYears,
+  hasData,
 }

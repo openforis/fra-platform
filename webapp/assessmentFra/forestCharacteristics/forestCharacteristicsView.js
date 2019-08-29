@@ -29,7 +29,7 @@ const odpValueCellClass = (fraColumn) => fraColumn.type === 'odp' ? 'odp-value-c
 
 const ForestCharacteristics = props => {
 
-  const {i18n, isEditDataDisabled} = props
+  const { i18n, isEditDataDisabled } = props
 
   const totalForestArea = (fraColumn) =>
     sum([
@@ -163,12 +163,12 @@ const ForestCharacteristics = props => {
               ? i18n.t('generalValidation.subCategoryExceedsParent')
               : null,
             totalForestAreaNotEqualToExtentOfForest(eofForestArea, forestArea)
-              ? i18n.t ('generalValidation.forestAreaDoesNotMatchExtentOfForest')
+              ? i18n.t('generalValidation.forestAreaDoesNotMatchExtentOfForest')
               : null
           ]
         )
       return validationErrors
-    },R.values(fra))
+    }, R.values(fra))
 
   const focRows = [
     {
@@ -208,7 +208,9 @@ const ForestCharacteristics = props => {
     },
     {
       type: 'custom',
-      render: ()=> <tr><td rowSpan="2"></td></tr>
+      render: () => <tr>
+        <td rowSpan="2"></td>
+      </tr>
     },
     {
       type: 'validationErrors',
@@ -251,19 +253,23 @@ const ForestCharacteristics = props => {
     {
       props.useOriginalDataPointsInFoc
         ? isPrintingMode()
-          ? <NationalDataPointsPrintView {...props} section={sectionName} />
-          : null
+        ? <NationalDataPointsPrintView {...props} section={sectionName}/>
+        : null
         : [
-            <NationalDataDescriptions key="ndd" section={sectionName} countryIso={props.countryIso} disabled={isEditDataDisabled}/>,
-            <AnalysisDescriptions key="ad" section={sectionName} countryIso={props.countryIso} disabled={isEditDataDisabled}/>
-          ]
+          <NationalDataDescriptions key="ndd" section={sectionName} countryIso={props.countryIso}
+                                    disabled={isEditDataDisabled}/>,
+          <AnalysisDescriptions key="ad" section={sectionName} countryIso={props.countryIso}
+                                disabled={isEditDataDisabled}/>
+        ]
     }
     <h2 className="headline no-print">
       {i18n.t('forestCharacteristics.forestCharacteristics')}
     </h2>
     <div className="fra-view__section-toolbar no-print">
-      <DefinitionLink className="margin-right-big" document="tad" anchor="1b" title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
-      <DefinitionLink className="align-left" document="faq" anchor="1b" title={i18n.t('definition.faqLabel')} lang={i18n.language} />
+      <DefinitionLink className="margin-right-big" document="tad" anchor="1b"
+                      title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
+      <DefinitionLink className="align-left" document="faq" anchor="1b" title={i18n.t('definition.faqLabel')}
+                      lang={i18n.language}/>
     </div>
 
     {
@@ -296,17 +302,17 @@ const ForestCharacteristics = props => {
     }
     {
       props.useOriginalDataPointsInFoc && !isEditDataDisabled
-      ? <div className="fra-view__section-toolbar no-print">
+        ? <div className="fra-view__section-toolbar no-print">
           <GenerateFraValuesControl section={sectionName} rows={focRows} {...props} />
           {
             props.odpDirty
               ? <div className="support-text">
-                  {i18n.t('nationalDataPoint.remindDirtyOdp')}
-                </div>
+                {i18n.t('nationalDataPoint.remindDirtyOdp')}
+              </div>
               : null
           }
         </div>
-      : null
+        : null
     }
     <TableWithOdp
       section={sectionName}
@@ -336,11 +342,21 @@ class DataFetchingComponent extends React.Component {
     this.props.fetchItem(sectionName, countryIso)
   }
 
+  hasData (data) {
+    return R.pipe(
+      R.map(R.omit(['year', 'name', 'type'])),
+      R.map(R.values),
+      FraUtils.hasData,
+    )(data)
+  }
+
   render () {
     const { fra } = this.props
     const data = fra && isPrintingMode() ? FraUtils.filterFraYears(fra) : fra
 
-    return (
+    const render = isPrintingOnlyTables() ? this.hasData(data) : true
+
+    return render && (
       <LoggedInPageTemplate commentsOpen={this.props.openCommentThread}>
 
         <ForestCharacteristics
@@ -372,13 +388,13 @@ const mapStateToProps = state => {
 }
 
 export default connect(
-    mapStateToProps,
-    {
-      save,
-      saveMany,
-      fetchItem,
-      generateFraValues,
-      fetchLastSectionUpdateTimestamp,
-      saveCountryConfigSetting
-    }
-  )(DataFetchingComponent)
+  mapStateToProps,
+  {
+    save,
+    saveMany,
+    fetchItem,
+    generateFraValues,
+    fetchLastSectionUpdateTimestamp,
+    saveCountryConfigSetting
+  }
+)(DataFetchingComponent)
