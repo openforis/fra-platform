@@ -220,7 +220,7 @@ The FRA team fra@fao.org
 
       disturbances: 'Disturbances',
     },
-    dataExport:{
+    dataExport: {
       downloadData: 'Download data',
     }
   },
@@ -980,6 +980,7 @@ The FRA team
   },
 
   fraReportPrint: {
-    title: 'FRA 2020 Reporting tables for {{country}}',
+    title: 'FRA 2020 Report for {{country}}',
+    titleTables: 'FRA 2020 Reporting tables for {{country}}',
   }
 }
