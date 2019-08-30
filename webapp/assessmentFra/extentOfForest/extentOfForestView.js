@@ -30,7 +30,7 @@ import { isPrintingMode, isPrintingOnlyTables } from '../../printAssessment/prin
 
 const sectionName = 'extentOfForest'
 const mapIndexed = R.addIndex(R.map)
-const odpValueCellClass = (fraColumn) => fraColumn.type === 'odp' ? 'odp-value-cell-total' : 'fra-table__calculated-cell'
+const odpValueCellClass = (fraColumn) => fraColumn.type === 'odp' && !isPrintingMode() ? 'odp-value-cell-total' : 'fra-table__calculated-cell'
 
 const ExtentOfForest = (props) => {
 

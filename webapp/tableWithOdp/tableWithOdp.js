@@ -13,6 +13,7 @@ import { acceptNextDecimal } from '../utils/numberInput'
 import { formatNumber, toFixed } from '../../common/bignumberUtils'
 import { hasOdps } from '../../common/extentOfForestHelper'
 import defaultYears from '../../server/eof/defaultYears'
+import { isPrintingMode } from '../printAssessment/printAssessment'
 
 const mapIndexed = R.addIndex(R.map)
 
@@ -62,7 +63,7 @@ export class TableWithOdp extends React.Component {
   }
 
   render () {
-    const {copyValues = true, disabled = false} = this.props
+    const { copyValues = true, disabled = false } = this.props
 
     return <div className="fra-table__container table-with-odp">
       <div className="fra-table__scroll-wrapper">
@@ -85,7 +86,7 @@ export class TableWithOdp extends React.Component {
           <tr>
             {
               R.values(this.props.fra).map(value =>
-                <th className={value.type === 'odp' ? 'odp-header-cell' : 'fra-table__header-cell'}
+                <th className={value.type === 'odp' && !isPrintingMode() ? 'odp-header-cell' : 'fra-table__header-cell'}
                     key={`${value.type}_${value.name}`}>
                   {
                     value.type === 'odp'
@@ -113,7 +114,7 @@ export class GenerateFraValuesControl extends React.Component {
     super(props)
     this.fieldNames = R.reject(R.isNil, R.pluck('field', props.rows))
     const annualChangeRates = R.pipe(
-      R.map(fieldName => [fieldName, {ratePast: '', rateFuture: ''}]),
+      R.map(fieldName => [fieldName, { ratePast: '', rateFuture: '' }]),
       R.fromPairs
     )(this.fieldNames)
     this.state = {
@@ -123,12 +124,12 @@ export class GenerateFraValuesControl extends React.Component {
   }
 
   render () {
-    const {i18n, fra, generatingFraValues, rows, useOriginalDataPoints} = this.props
+    const { i18n, fra, generatingFraValues, rows, useOriginalDataPoints } = this.props
     return <div className="table-with-odp__generate-control">
       <select
         className="select-s"
         value={this.state.generateMethod}
-        onChange={evt => this.setState({...this.state, generateMethod: evt.target.value})}>
+        onChange={evt => this.setState({ ...this.state, generateMethod: evt.target.value })}>
         <option value='' disabled>{i18n.t('tableWithOdp.placeholderSelect')}</option>
         {
           hasOdps(fra) && !!useOriginalDataPoints
@@ -161,17 +162,17 @@ export class GenerateFraValuesControl extends React.Component {
   }
 
   rowSelections () {
-    const {i18n, rows} = this.props
+    const { i18n, rows } = this.props
     const rateValidationClass = rate => this.validRate(rate) || R.isEmpty(rate) ? '' : 'validation-error'
     const rowHeaders = R.reject(R.isNil, R.pluck('rowHeader', rows))
     return <table className="table-with-odp__generate-inputs-table">
       <tbody>
       {
         this.state.generateMethod === 'annualChange'
-        ? <tr>
-          <td colSpan={2}></td>
-          <td style={{textAlign:'center'}}>{i18n.t('tableWithOdp.placeholderPast')}</td>
-          <td style={{textAlign:'center'}}>{i18n.t('tableWithOdp.placeholderFuture')}</td>
+          ? <tr>
+            <td colSpan={2}></td>
+            <td style={{ textAlign: 'center' }}>{i18n.t('tableWithOdp.placeholderPast')}</td>
+            <td style={{ textAlign: 'center' }}>{i18n.t('tableWithOdp.placeholderFuture')}</td>
           </tr>
           : null
       }
@@ -187,7 +188,7 @@ export class GenerateFraValuesControl extends React.Component {
                         ...this.state,
                         selectedFields: R.reject(f => f === field, this.state.selectedFields)
                       })
-                      : this.setState({...this.state, selectedFields: R.append(field, this.state.selectedFields)})
+                      : this.setState({ ...this.state, selectedFields: R.append(field, this.state.selectedFields) })
                   }
                 />
               </td>
@@ -237,7 +238,7 @@ export class GenerateFraValuesControl extends React.Component {
   }
 
   generateFraValues (generateMethod) {
-    const {section, countryIso, i18n, fra, rows, generateFraValues} = this.props
+    const { section, countryIso, i18n, fra, rows, generateFraValues } = this.props
     const generateAnnualChange = () => {
       if (!this.validRates()) { throw new Error('Validation errors rates') }
       generateFraValues(
@@ -304,7 +305,7 @@ const buildRows = (rows, props) => {
     , rows)
 }
 
-const OdpHeading = ({countryIso, odpValue, section, disabled}) =>
+const OdpHeading = ({ countryIso, odpValue, section, disabled }) =>
   disabled
     ? <div>{odpValue.name}</div>
     : <Link className="link" to={`/country/${countryIso}/odp/${section}/${odpValue.odpId}`}>
@@ -343,7 +344,7 @@ const validationErrorRow = columnErrorMsgs => {
 
 const alwaysOkValidator = () => true
 
-const renderFieldRow = ({row, countryIso, fra, save, saveMany, pasteUpdate, rowIdx, openCommentThread, section, disabled}) => {
+const renderFieldRow = ({ row, countryIso, fra, save, saveMany, pasteUpdate, rowIdx, openCommentThread, section, disabled }) => {
   const {
     rowHeader,
     field,
@@ -362,7 +363,7 @@ const renderFieldRow = ({row, countryIso, fra, save, saveMany, pasteUpdate, rowI
         (fraColumn, colIdx) => {
 
           const className = 'fra-table__cell'
-            + (fraColumn.type === 'odp' ? ' odp-value-cell' : '')
+            + (fraColumn.type === 'odp' && !isPrintingMode() ? ' odp-value-cell' : '')
             + (validator(fraColumn, field) ? '' : ' validation-error')
 
           return (
@@ -402,8 +403,8 @@ const renderFieldRow = ({row, countryIso, fra, save, saveMany, pasteUpdate, rowI
 
 const rowRenderers = {
   field: renderFieldRow,
-  custom: ({row, fra}) => row.render(fra),
-  validationErrors: ({row, fra}) => validationErrorRow(row.validationErrorMessages(fra))
+  custom: ({ row, fra }) => row.render(fra),
+  validationErrors: ({ row, fra }) => validationErrorRow(row.validationErrorMessages(fra))
 }
 
 const TableRow = props => {
@@ -428,7 +429,7 @@ const updatePastedValues = (rowNames, evt, rowIdx, colIdx, fra) => {
     mapIndexed((c, j) => {
       const col = colIdx + j
       if (R.isNil(readFrom[col])) return
-      toPaste = R.mergeDeepRight({[readFrom[col].year]: {[rowNames[row]]: c}}, toPaste)
+      toPaste = R.mergeDeepRight({ [readFrom[col].year]: { [rowNames[row]]: c } }, toPaste)
     }, r)
   }, readPasteClipboard(evt, 'decimal'))
 
@@ -438,7 +439,7 @@ const updatePastedValues = (rowNames, evt, rowIdx, colIdx, fra) => {
       const acceptedValues = R.pipe(
         R.keys,
         R.map(k => {
-          return {[k]: acceptNextDecimal(String(toPaste[fra.year][k]), fra[k])}
+          return { [k]: acceptNextDecimal(String(toPaste[fra.year][k]), fra[k]) }
         }),
         R.reduce(R.merge, {})
       )(R.defaultTo({}, toPaste[fra.year]))
