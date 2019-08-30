@@ -18,6 +18,7 @@ import SubIndicator5 from './indicators/subIndicator5'
 import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
 import { fetch } from './actions'
 import { isFRA2020SectionEditDisabled } from '../../utils/assessmentAccess'
+import { isPrintingOnlyTables } from '../../printAssessment/printAssessment'
 
 const sectionName = 'sustainableDevelopment'
 
@@ -48,7 +49,7 @@ class SustainableDevelopmentView extends React.Component {
         <div className="fra-view__content fra-sustainable-dev__content">
 
           <h2 className="title only-print">
-            8a {i18n.t('sustainableDevelopment.sustainableDevelopment')}
+            {`${isPrintingOnlyTables() ? '' : '8a '}${i18n.t('sustainableDevelopment.sustainableDevelopment')}`}
           </h2>
 
           <h2 className="headline no-print">

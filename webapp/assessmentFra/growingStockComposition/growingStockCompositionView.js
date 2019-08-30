@@ -36,7 +36,7 @@ class GrowingStockCompositionView extends React.Component {
       <LoggedInPageTemplate>
 
         <h2 className="title only-print">
-          2b {i18n.t('growingStockComposition.growingStockComposition')}
+          {`${isPrintingOnlyTables() ? '' : '2b '}${i18n.t('growingStockComposition.growingStockComposition')}`}
         </h2>
 
         <div className="fra-view__content growing-stock-composition-view">

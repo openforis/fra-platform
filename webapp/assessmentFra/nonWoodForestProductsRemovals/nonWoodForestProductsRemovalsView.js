@@ -56,7 +56,7 @@ class NonWoodForestProductsRemovalsView extends React.Component {
       <LoggedInPageTemplate>
 
         <h2 className="title only-print">
-          7c {i18n.t('nonWoodForestProductsRemovals.nonWoodForestProductsRemovals')}
+          {`${isPrintingOnlyTables() ? '' : '7c '}${i18n.t('nonWoodForestProductsRemovals.nonWoodForestProductsRemovals')}`}
         </h2>
 
         <div className="fra-view__content">

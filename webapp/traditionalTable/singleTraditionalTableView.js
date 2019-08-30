@@ -18,11 +18,16 @@ import R from 'ramda'
 import * as table from './table'
 import { isPrintingOnlyTables } from '../printAssessment/printAssessment'
 import FraUtils from '../../common/fraUtils'
+import { fetchTableData } from './actions'
 
 class SingleTraditionalTableView extends React.Component {
 
   componentDidMount () {
-    this.props.fetchLastSectionUpdateTimestamp(this.props.match.params.countryIso, this.props.tableSpecInstance.name)
+    const { match, tableSpecInstance, fetchTableData, fetchLastSectionUpdateTimestamp } = this.props
+    const countryIso = match.params.countryIso
+
+    fetchTableData(countryIso, tableSpecInstance)
+    fetchLastSectionUpdateTimestamp(countryIso, tableSpecInstance.name)
   }
 
   render () {
@@ -49,8 +54,11 @@ class SingleTraditionalTableView extends React.Component {
       <LoggedInPageTemplate>
 
         <h2 className="title only-print">
-        <span
-          className="only-print">{`${sectionAnchor ? sectionAnchor : tadAnchor} `}</span> {i18n.t(headingLocalizationKey)}
+          {
+            !isPrintingOnlyTables() &&
+            <span className="only-print">{`${sectionAnchor ? sectionAnchor : tadAnchor} `}&nbsp;</span>
+          }
+          {i18n.t(headingLocalizationKey)}
           {headingDetailsLocalizationKey ? ` (${i18n.t(headingDetailsLocalizationKey)})` : null}
         </h2>
 
@@ -79,8 +87,10 @@ class SingleTraditionalTableView extends React.Component {
             <DefinitionLink className="align-left" document="faq" anchor={sectionAnchor ? sectionAnchor : faqAnchor}
                             title={i18n.t('definition.faqLabel')} lang={i18n.language}/>
           </div>
-          <TraditionalTable tableSpec={tableSpecInstance} countryIso={match.params.countryIso}
-                            disabled={isEditDataDisabled}/>
+          <TraditionalTable tableSpec={tableSpecInstance}
+                            countryIso={match.params.countryIso}
+                            disabled={isEditDataDisabled}
+                            tableDataFetched={true}/>
           <GeneralComments section={tableSpecInstance.name} countryIso={countryIso} disabled={isEditDataDisabled}/>
         </div>
 
@@ -99,4 +109,4 @@ const mapStateToProps = (state, props) => {
   }
 }
 
-export default connect(mapStateToProps, { fetchLastSectionUpdateTimestamp })(SingleTraditionalTableView)
+export default connect(mapStateToProps, { fetchLastSectionUpdateTimestamp, fetchTableData })(SingleTraditionalTableView)

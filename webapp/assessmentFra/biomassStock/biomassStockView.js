@@ -48,7 +48,7 @@ class BiomassStockView extends React.Component {
         <div className="fra-view__content">
 
           <h2 className="title only-print">
-            2c {i18n.t('biomassStock.biomassStock')}
+            {`${isPrintingOnlyTables() ? '' : '2c '}${i18n.t('biomassStock.biomassStock')}`}
           </h2>
 
           <NationalDataDescriptions section={sectionName} countryIso={countryIso} disabled={isEditDataDisabled}/>
