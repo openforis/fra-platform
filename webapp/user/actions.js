@@ -1,7 +1,8 @@
 import axios from 'axios'
 
-import {applicationError} from '../applicationError/actions'
-import {createI18nInstance} from '../../common/i18n/i18nFactory'
+import { applicationError } from '../applicationError/actions'
+import { createI18nInstance } from '../../common/i18n/i18nFactory'
+import { getRequestParam } from '../utils/urlUtils'
 
 export const userLoggedInUserLoaded = 'user/loggedInUser/loaded'
 export const userLoggedInUserSwitchLanguage = 'user/loggedInUser/switchLanguage'
@@ -9,12 +10,15 @@ export const userLoggedInUserSwitchLanguage = 'user/loggedInUser/switchLanguage'
 // logged in user action creators
 
 export const getLoggedinUserInfo = () => dispatch => {
+
+  const lang = getRequestParam('lang')
+
   axios.get(`/api/loggedInUser/`)
     .then(resp => {
       const userInfo = resp.data.userInfo
       createI18nInstance(
-        userInfo.lang,
-        i18n => dispatch({type: userLoggedInUserLoaded, userInfo, i18n})
+        lang || userInfo.lang,
+        i18n => dispatch({ type: userLoggedInUserLoaded, userInfo, i18n })
       )
     })
     .catch((err) => {
@@ -29,7 +33,7 @@ export const switchLanguage = lang => dispatch => {
 
   createI18nInstance(
     lang,
-    i18n => dispatch({type: userLoggedInUserSwitchLanguage, i18n})
+    i18n => dispatch({ type: userLoggedInUserSwitchLanguage, i18n })
   )
 }
 

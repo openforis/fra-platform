@@ -1,3 +1,5 @@
+import { getRequestParam } from '../utils/urlUtils'
+
 const printMode = 'print-mode'
 
 export const setPrintingMode = () =>
@@ -6,8 +8,5 @@ export const setPrintingMode = () =>
 export const isPrintingMode = () =>
   document.body.classList.contains(printMode)
 
-export const isPrintingOnlyTables = () => {
-  const url = new URL(window.location)
-  const params = new URLSearchParams(url.hash.substring(url.hash.indexOf('?') + 1))
-  return isPrintingMode() && params.get('onlyTables') === 'true'
-}
+export const isPrintingOnlyTables = () =>
+  isPrintingMode() && getRequestParam('onlyTables') === 'true'
