@@ -25,7 +25,7 @@ import FraUtils from '../../../common/fraUtils'
 
 const mapIndexed = R.addIndex(R.map)
 const sectionName = 'forestCharacteristics'
-const odpValueCellClass = (fraColumn) => fraColumn.type === 'odp' ? 'odp-value-cell-total' : 'fra-table__calculated-cell'
+const odpValueCellClass = (fraColumn) => fraColumn.type === 'odp' && !isPrintingMode() ? 'odp-value-cell-total' : 'fra-table__calculated-cell'
 
 const ForestCharacteristics = props => {
 
