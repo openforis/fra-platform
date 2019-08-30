@@ -122,10 +122,10 @@ class designatedManagementObjectiveView extends React.Component {
 const mapStateToProps = (state, { match }) => {
   const i18n = state.user.i18n
   const countryIso = match.params.countryIso
+  const extentOfForest = state.extentOfForest
   const primaryDmoTableSpec = primaryDesignatedManagementObjectiveTableSpec(i18n, extentOfForest, countryIso)
   const totalDmoTableSpec = totalAreaWithDesignatedManagementObjectiveTableSpec(i18n)
 
-  const extentOfForest = state.extentOfForest
   return {
     i18n,
     extentOfForest,
