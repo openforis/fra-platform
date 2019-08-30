@@ -230,7 +230,7 @@ const ForestCharacteristics = props => {
   return <div className='fra-view__content'>
 
     <h1 className="title only-print">
-      1b {i18n.t('forestCharacteristics.forestCharacteristics')}
+      {`${isPrintingOnlyTables() ? '' : '1b '}${i18n.t('forestCharacteristics.forestCharacteristics')}`}
     </h1>
 
     {

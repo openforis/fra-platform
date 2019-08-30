@@ -67,7 +67,7 @@ class CarbonStockView extends React.Component {
       <LoggedInPageTemplate>
 
         <h2 className="title only-print">
-          2d {i18n.t('carbonStock.carbonStock')}
+          {`${isPrintingOnlyTables() ? '' : '2d '}${i18n.t('carbonStock.carbonStock')}`}
         </h2>
 
         <div className="fra-view__content">

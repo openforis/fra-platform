@@ -221,7 +221,7 @@ const GrowingStock = (props) => {
   return <div className='fra-view__content'>
 
     <h2 className="title only-print">
-      2a {i18n.t('growingStock.growingStock')}
+      {`${isPrintingOnlyTables() ? '' : '2a '}${i18n.t('growingStock.growingStock')}`}
     </h2>
 
     <NationalDataDescriptions section={sectionName} countryIso={countryIso} disabled={isEditDataDisabled}/>

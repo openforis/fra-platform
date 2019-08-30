@@ -189,7 +189,7 @@ const ExtentOfForest = (props) => {
   return <div className='fra-view__content'>
 
     <h1 className="title only-print">
-      1a {i18n.t('extentOfForest.extentOfForest')}
+      {`${isPrintingOnlyTables() ? '' : '1a '}${i18n.t('extentOfForest.extentOfForest')}`}
     </h1>
 
     <Link className={`btn btn-primary no-print${isEditDataDisabled ? ' disabled' : ''}`}

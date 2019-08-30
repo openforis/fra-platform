@@ -53,7 +53,7 @@ class designatedManagementObjectiveView extends React.Component {
       <LoggedInPageTemplate>
 
         <h2 className="title only-print">
-          3a {i18n.t('designatedManagementObjective.designatedManagementObjective')}
+          {`${isPrintingOnlyTables() ? '' : '3a '}${i18n.t('designatedManagementObjective.designatedManagementObjective')}`}
         </h2>
 
         <div className="fra-view__content">
