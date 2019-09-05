@@ -904,5 +904,10 @@ module.exports.translation = {
     messageBoard: 'Доска сообщений',
     messageBoardDesc: 'Оставленные здесь сообщения видны всем участникам от страны',
     oneToOneMessages: 'Личные сообщения'
-  }
+  },
+
+  fraReportPrint: {
+    title: '{{country}} Доклад ОЛР–2020',
+    titleTables: '{{country}} Таблицы отчетности для ОЛР–2020',
+  },
 }

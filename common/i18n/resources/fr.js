@@ -888,5 +888,10 @@ L'équipe de FRA
     messageBoard: 'Panneau d\'affichage',
     messageBoardDesc: 'Les messages postés ici sont visibles par tous les membres du pays.',
     oneToOneMessages: 'Messages individuels'
-  }
+  },
+
+  fraReportPrint: {
+    title: '{{country}} Rapport FRA 2020',
+    titleTables: '{{country}} Tableaux du rapport FRA 2020',
+  },
 }
