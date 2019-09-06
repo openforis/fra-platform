@@ -12,7 +12,7 @@ const camelize = require('camelize')
 const determineCountryAssessmentStatus = (type, statuses) => R.pipe(
   R.filter(R.propEq('type', type)),
   R.head,
-  R.defaultTo({status: 'editing'}), //Initially, there are no rows for country's assessment,
+  R.defaultTo({ status: 'editing' }), //Initially, there are no rows for country's assessment,
   //this is also considered to be 'editing' status
   R.prop('status')
 )(statuses)
@@ -41,7 +41,7 @@ const getCountryProperties = country => ({
     fr: country.fullNameFr,
     ru: country.fullNameRu
   },
-  panEuropean : country.panEuropean,
+  panEuropean: country.panEuropean,
   lastEdit: country.lastEdited
 })
 
@@ -55,6 +55,11 @@ const handleCountryResult = resolveRole => result => {
           ...getCountryProperties(vals[0]),
           annualAssessment: determineCountryAssessmentStatus('annuallyUpdated', getStatuses(vals)),
           fra2020Assessment: determineCountryAssessmentStatus('fra2020', getStatuses(vals)),
+          fra2020DeskStudy: R.pipe(
+            R.find(R.propEq('type', 'fra2020')),
+            R.propOr(false, 'deskStudy'),
+            R.equals(true),
+          )(vals),
           role: resolveRole(countryIso),
         }
       }),
@@ -73,7 +78,7 @@ const getAllCountries = role => {
     )
     SELECT
       c.country_iso, c.region, c.list_name_en, c.full_name_en, c.list_name_es, c.full_name_es, c.list_name_fr, c.full_name_fr, c.list_name_ru, c.full_name_ru, c.pan_european,
-      a.type, a.status,
+      a.type, a.status, a.desk_study,
       fa.last_edited
     FROM
       country c
@@ -86,24 +91,21 @@ const getAllCountries = role => {
 }
 
 const getAllCountriesList = async () => {
-   const rs = await db.query(`
-    SELECT
-        c.country_iso, 
-        c.region, 
-        c.list_name_en, 
-        c.full_name_en, 
-        c.list_name_es, 
-        c.full_name_es, 
-        c.list_name_fr, 
-        c.full_name_fr, 
-        c.list_name_ru, 
-        c.full_name_ru, 
-        c.pan_european
-    FROM
-      country c
-    ORDER BY 
-        c.country_iso
-   `)
+  const rs = await db.query(`
+      SELECT c.country_iso,
+             c.region,
+             c.list_name_en,
+             c.full_name_en,
+             c.list_name_es,
+             c.full_name_es,
+             c.list_name_fr,
+             c.full_name_fr,
+             c.list_name_ru,
+             c.full_name_ru,
+             c.pan_european
+      FROM country c
+      ORDER BY c.country_iso
+  `)
   return camelize(rs.rows)
 }
 
@@ -125,7 +127,7 @@ const getAllowedCountries = roles => {
       )
       SELECT
         c.country_iso, c.region, c.list_name_en, c.full_name_en, c.list_name_es, c.full_name_es, c.list_name_fr, c.full_name_fr, c.list_name_ru, c.full_name_ru, c.pan_european,
-        a.type, a.status,
+        a.type, a.status, a.desk_study,
         fa.last_edited
       FROM
         country c
@@ -142,9 +144,9 @@ const getAllowedCountries = roles => {
 
 const getDynamicCountryConfiguration = async countryIso => {
   const result = await db.query(`
-      SELECT config
-        FROM dynamic_country_configuration
-        WHERE country_iso = $1
+              SELECT config
+              FROM dynamic_country_configuration
+              WHERE country_iso = $1
     `,
     [countryIso])
   if (result.rows.length === 0) return {}
@@ -158,29 +160,36 @@ const saveDynamicConfigurationVariable = async (client, countryIso, key, value) 
   )
   if (configResult.rows.length > 0) {
     await client.query(
-      `UPDATE dynamic_country_configuration
-       SET config = $1
-       WHERE country_iso = $2`,
-      [{...configResult.rows[0].config, [key]: value}, countryIso]
+        `UPDATE dynamic_country_configuration
+         SET config = $1
+         WHERE country_iso = $2`,
+      [{ ...configResult.rows[0].config, [key]: value }, countryIso]
     )
   } else {
     await client.query(
-      `INSERT INTO dynamic_country_configuration
-       (country_iso, config)
-       VALUES
-       ($1, $2)`,
-      [countryIso, {[key]: value}]
+        `INSERT INTO dynamic_country_configuration
+             (country_iso, config)
+         VALUES ($1, $2)`,
+      [countryIso, { [key]: value }]
     )
   }
 }
 
 const getCountry = countryIso =>
   db.query(`
-    SELECT
-      c.country_iso, c.list_name_en, c.full_name_en, c.list_name_es, c.full_name_es, c.list_name_fr, c.full_name_fr, c.list_name_ru, c.full_name_ru, c.pan_european
-    FROM country c
-    WHERE c.country_iso = $1
-  `,[countryIso])
+      SELECT c.country_iso,
+             c.list_name_en,
+             c.full_name_en,
+             c.list_name_es,
+             c.full_name_es,
+             c.list_name_fr,
+             c.full_name_fr,
+             c.list_name_ru,
+             c.full_name_ru,
+             c.pan_european
+      FROM country c
+      WHERE c.country_iso = $1
+  `, [countryIso])
     .then(res => getCountryProperties(camelize(res.rows[0])))
 
 module.exports.getAllowedCountries = getAllowedCountries

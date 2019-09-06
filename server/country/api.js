@@ -22,10 +22,14 @@ const CountryService = require('./countryService')
 
 module.exports.init = app => {
 
-  app.get('/country/all', (req, res) => {
-    countryRepository.getAllowedCountries(req.user.roles).then(result => {
+  app.get('/country/all', async (req, res) => {
+    try {
+      const result = await countryRepository.getAllowedCountries(req.user.roles)
+
       res.json(result)
-    }).catch(err => sendErr(res, err))
+    } catch (err) {
+      sendErr(res, err)
+    }
   })
 
   app.get('/country/overviewStatus/:countryIso', async (req, res) => {
