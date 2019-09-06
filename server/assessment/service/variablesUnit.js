@@ -78,7 +78,7 @@ module.exports = {
   '4a_bus_inst': 'Forest area (1000 ha)',
   '4a_indigenous': 'Forest area (1000 ha)',
   '4a_pub_own': 'Forest area (1000 ha)',
-  '4a_unknown': 'Forest area (1000 ha)',
+  '4a_fo_unknown': 'Forest area (1000 ha)',
   '4b_pub_admin': 'Forest area (1000 ha)',
   '4b_individuals': 'Forest area (1000 ha)',
   '4b_bus_inst': 'Forest area (1000 ha)',

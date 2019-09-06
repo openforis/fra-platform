@@ -11,7 +11,7 @@ class ForestOwnershipExporter extends TraditionalTableExporter {
     super(
       'forestOwnership',
       [
-        'priv_own', 'individ', 'bus_inst', 'indigenous', 'pub_own', 'unknown'
+        'priv_own', 'individ', 'bus_inst', 'indigenous', 'pub_own', 'fo_unknown'
       ],
       '4a'
     )
@@ -39,7 +39,7 @@ class ForestOwnershipExporter extends TraditionalTableExporter {
       [0, 4]
     )
 
-    resultRow['unknown'] = (year < 2020) ? unknownValue : null
+    resultRow['fo_unknown'] = (year < 2020) ? unknownValue : null
 
     return resultRow
   }
