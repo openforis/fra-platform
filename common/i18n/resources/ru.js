@@ -907,7 +907,7 @@ module.exports.translation = {
   },
 
   fraReportPrint: {
-    title: '{{country}} Доклад ОЛР–2020',
-    titleTables: '{{country}} Таблицы отчетности для ОЛР–2020',
+    title: 'Доклад ОЛР–2020',
+    titleTables: 'Таблицы отчетности для ОЛР–2020',
   },
 }

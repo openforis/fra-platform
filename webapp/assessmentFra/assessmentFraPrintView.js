@@ -64,12 +64,15 @@ class AssessmentFraPrintView extends React.Component {
     return (
       <div>
 
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          <h1>{i18n.t(`fraReportPrint.${isPrintingOnlyTables() ? 'titleTables' : 'title'}`, { country })}</h1>
-          {
-            R.propEq('deskStudy', true, assessment) &&
-            <h2 style={{ marginLeft: '15px' }} className="desk-study">({i18n.t('assessment.deskStudy')})</h2>
-          }
+        <div>
+          <div><h1>{i18n.t(`fraReportPrint.${isPrintingOnlyTables() ? 'titleTables' : 'title'}`)}</h1></div>
+          <div style={{ display: 'flex', alignItems: 'center', marginTop: '10px' }}>
+            <h1>{country}</h1>
+            {
+              R.propEq('deskStudy', true, assessment) &&
+              <h2 style={{ marginLeft: '10px' }} className="desk-study">({i18n.t('assessment.deskStudy')})</h2>
+            }
+          </div>
         </div>
         <hr/>
 

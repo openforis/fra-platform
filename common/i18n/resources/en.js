@@ -980,7 +980,7 @@ The FRA team
   },
 
   fraReportPrint: {
-    title: '{{country}} FRA 2020 report',
-    titleTables: '{{country}} FRA 2020 reporting tables',
+    title: 'FRA 2020 report',
+    titleTables: 'FRA 2020 reporting tables',
   },
 }

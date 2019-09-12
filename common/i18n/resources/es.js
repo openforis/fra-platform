@@ -891,7 +891,7 @@ El equipo de FRA
   },
 
   fraReportPrint: {
-    title: '{{country}} Informe FRA 2020',
-    titleTables: '{{country}} Tablas de informe FRA 2020',
+    title: 'Informe FRA 2020',
+    titleTables: 'Tablas de informe FRA 2020',
   },
 }
