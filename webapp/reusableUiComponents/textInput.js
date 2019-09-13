@@ -12,8 +12,10 @@ export default class TextInput extends React.Component {
 
   componentDidUpdate (prevProps, prevState, snapshot) {
     if (this.props.value) {
+      const row = this.refs.readOnlyElement.closest('tr')
       const { height } = elementOffset(this.refs.readOnlyElement)
-      this.refs.readOnlyElement.parentElement.parentElement.style.height = Math.max(height, 40) + 'px'
+      const { height: rowHeight } = elementOffset(row)
+      row.style.height = Math.max(height, rowHeight, 40) + 'px'
     }
   }
 
