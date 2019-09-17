@@ -73,7 +73,7 @@ class ContactPersonsPrintView extends React.Component {
                     <td className="fra-table__cell-left">
                       <div className="text-input__readonly-view">
                         {
-                          u.tables && !R.isEmpty(u.tables)
+                          u.tables && !R.isEmpty(u.tables) && u.tables[0].tableNo !== 'all'
                             ? u.tables.map(R.prop('tableNo')).join(', ')
                             : i18n.t('contactPersons.all')
                         }
