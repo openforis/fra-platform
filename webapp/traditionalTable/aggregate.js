@@ -1,13 +1,18 @@
-import R from 'ramda'
-import { sum } from '../../common/bignumberUtils'
-import { formatDecimal } from '../utils/numberFormat'
+const R = require('ramda')
+const { sum } = require('../../common/bignumberUtils')
+const { formatDecimal } = require('../utils/numberFormat')
 
-export const totalSum = (tableData, columnIndex, rowIndexes) =>
+const totalSum = (tableData, columnIndex, rowIndexes) =>
   R.pipe(
     R.map(r => tableData[r][columnIndex]),
     R.reject(v => !v),
     sum
   )(rowIndexes)
 
-export const totalSumFormatted = (tableData, columnIndex, rowIndexes, formatFunction = formatDecimal) =>
+const totalSumFormatted = (tableData, columnIndex, rowIndexes, formatFunction = formatDecimal) =>
   formatFunction(totalSum(tableData, columnIndex, rowIndexes))
+
+module.exports = {
+  totalSum,
+  totalSumFormatted
+}

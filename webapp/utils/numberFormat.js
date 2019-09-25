@@ -1,5 +1,10 @@
-import { formatNumber } from '../../common/bignumberUtils'
+const { formatNumber } = require('../../common/bignumberUtils')
 
-export const formatInteger = num => formatNumber(num, 0)
+const formatInteger = num => formatNumber(num, 0)
 
-export const formatDecimal = num => formatNumber(num, 2)
+const formatDecimal = num => formatNumber(num, 2)
+
+module.exports = {
+  formatDecimal,
+  formatInteger,
+}
