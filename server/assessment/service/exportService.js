@@ -10,6 +10,7 @@ const IntervalYearsExporter = require('./intervals/intervalYearsExporter')
 const AnnualYearsExporter = require('./annual/annualYearsExporter')
 const NdpExporter = require('./ndp/ndpExporter')
 const NwfpExporter = require('./nwfpAndGSComp/nwfpExporter')
+const GSCompExporter = require('./nwfpAndGSComp/gscompExporter')
 
 const JSONOutput = require('./jsonOutput')
 
@@ -31,6 +32,7 @@ const exportData = async (user, exportType = EXPORT_TYPE.JSON) => {
   const annualOutput = isExportTypeJson ? new JSONOutput('annual') : AnnualYearsExporter.getCsvOutput()
   const ndpOutput = isExportTypeJson ? new JSONOutput('ndp') : NdpExporter.getCsvOutput()
   const nwfpOutput = isExportTypeJson ? new JSONOutput('ndp') : NwfpExporter.getCsvOutput()
+  const gscompOutput = isExportTypeJson ? new JSONOutput('ndp') : GSCompExporter.getCsvOutput()
 
   await Promise.each(
     countries.map(async country =>
@@ -40,15 +42,17 @@ const exportData = async (user, exportType = EXPORT_TYPE.JSON) => {
         AnnualYearsExporter.getCountryData(country),
         NdpExporter.getCountryData(country),
         NwfpExporter.getCountryData(country),
+        GSCompExporter.getCountryData(country),
       ])
     ),
 
-    ([fraYearsRes, intervalsRes, annualRes, ndps, nwfp], idx) => {
+    ([fraYearsRes, intervalsRes, annualRes, ndps, nwfp, gsComp], idx) => {
       fraYearsOutput.pushContent(fraYearsRes, idx)
       intervalsOutput.pushContent(intervalsRes)
       annualOutput.pushContent(annualRes, idx)
       ndpOutput.pushContent(ndps)
       nwfpOutput.pushContent(nwfp)
+      gscompOutput.pushContent(gsComp)
     }
   )
 
@@ -57,6 +61,7 @@ const exportData = async (user, exportType = EXPORT_TYPE.JSON) => {
   annualOutput.pushContentDone()
   ndpOutput.pushContentDone()
   nwfpOutput.pushContentDone()
+  gscompOutput.pushContentDone()
 
   return {
     ...fraYearsOutput.output,
@@ -64,6 +69,7 @@ const exportData = async (user, exportType = EXPORT_TYPE.JSON) => {
     ...annualOutput.output,
     ...ndpOutput.output,
     ...nwfpOutput.output,
+    ...gscompOutput.output,
   }
 }
 
