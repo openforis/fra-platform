@@ -9,6 +9,7 @@ const FRAYearsExporter = require('./fraYears/fraYearsExporter')
 const IntervalYearsExporter = require('./intervals/intervalYearsExporter')
 const AnnualYearsExporter = require('./annual/annualYearsExporter')
 const NdpExporter = require('./ndp/ndpExporter')
+const NwfpExporter = require('./nwfpAndGSComp/nwfpExporter')
 
 const JSONOutput = require('./jsonOutput')
 
@@ -29,6 +30,7 @@ const exportData = async (user, exportType = EXPORT_TYPE.JSON) => {
   const intervalsOutput = isExportTypeJson ? new JSONOutput('intervals') : IntervalYearsExporter.getCsvOutput()
   const annualOutput = isExportTypeJson ? new JSONOutput('annual') : AnnualYearsExporter.getCsvOutput()
   const ndpOutput = isExportTypeJson ? new JSONOutput('ndp') : NdpExporter.getCsvOutput()
+  const nwfpOutput = isExportTypeJson ? new JSONOutput('ndp') : NwfpExporter.getCsvOutput()
 
   await Promise.each(
     countries.map(async country =>
@@ -37,14 +39,16 @@ const exportData = async (user, exportType = EXPORT_TYPE.JSON) => {
         IntervalYearsExporter.getCountryData(country),
         AnnualYearsExporter.getCountryData(country),
         NdpExporter.getCountryData(country),
+        NwfpExporter.getCountryData(country),
       ])
     ),
 
-    ([fraYearsRes, intervalsRes, annualRes, ndps], idx) => {
+    ([fraYearsRes, intervalsRes, annualRes, ndps, nwfp], idx) => {
       fraYearsOutput.pushContent(fraYearsRes, idx)
       intervalsOutput.pushContent(intervalsRes)
       annualOutput.pushContent(annualRes, idx)
       ndpOutput.pushContent(ndps)
+      nwfpOutput.pushContent(nwfp)
     }
   )
 
@@ -52,12 +56,14 @@ const exportData = async (user, exportType = EXPORT_TYPE.JSON) => {
   intervalsOutput.pushContentDone()
   annualOutput.pushContentDone()
   ndpOutput.pushContentDone()
+  nwfpOutput.pushContentDone()
 
   return {
     ...fraYearsOutput.output,
     ...intervalsOutput.output,
     ...annualOutput.output,
     ...ndpOutput.output,
+    ...nwfpOutput.output,
   }
 }
 
