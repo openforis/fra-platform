@@ -25,6 +25,15 @@ const getCountryData = async country => {
     R.prop(col)
   )(data)
 
+  const normalizeColValue = R.pipe(
+    getColValue,
+    R.defaultTo(''),
+    // R.replace(/\n\r/g, ' '),
+    R.replace(/"/g, '\''),
+    R.split(/\r\n|\r|\n/g),
+    R.join(' '),
+  )
+
   const colFields = fields.slice(1)
 
   //Native tree species
@@ -33,7 +42,7 @@ const getCountryData = async country => {
       ...country,
       FRA_categories: `#${i + 1} Ranked in terms of volume - Native`,
       ...colFields.reduce((acc, col, colIdx) => {
-        acc[col] = getColValue(i, colIdx)
+        acc[col] = normalizeColValue(i, colIdx)
         return acc
       }, {})
     }
@@ -46,7 +55,7 @@ const getCountryData = async country => {
     'scientific_name': '',
     'common_name': '',
     ...years.reduce((acc, year, idx) => {
-      acc[year] = getColValue(10, idx + 2)
+      acc[year] = normalizeColValue(10, idx + 2)
       return acc
     }, {})
   })
@@ -68,7 +77,7 @@ const getCountryData = async country => {
       ...country,
       FRA_categories: `#${i - 12} Ranked in terms of volume - Introduced`,
       ...colFields.reduce((acc, col, colIdx) => {
-        acc[col] = getColValue(i, colIdx)
+        acc[col] = normalizeColValue(i, colIdx)
         return acc
       }, {})
     }
@@ -81,7 +90,7 @@ const getCountryData = async country => {
     'scientific_name': '',
     'common_name': '',
     ...years.reduce((acc, year, idx) => {
-      acc[year] = getColValue(18, idx + 2)
+      acc[year] = normalizeColValue(18, idx + 2)
       return acc
     }, {})
   })
