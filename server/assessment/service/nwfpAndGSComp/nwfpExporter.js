@@ -26,13 +26,22 @@ const getCountryData = async country => {
     R.prop(col)
   )(data)
 
+  const normalizeColValue = R.pipe(
+    getColValue,
+    R.defaultTo(''),
+    // R.replace(/\n\r/g, ' '),
+    R.replace(/"/g, '\''),
+    R.split(/\r\n|\r|\n/g),
+    R.join(' '),
+  )
+
   const colFields = fields.slice(1)
   for (let i = 0; i < 10; i++) {
     const row = {
       ...country,
       product: `#${i + 1}`,
       ...colFields.reduce((acc, col, colIdx) => {
-        acc[col] = getColValue(i, colIdx)
+        acc[col] = normalizeColValue(i, colIdx)
         return acc
       }, {})
     }
@@ -46,7 +55,7 @@ const getCountryData = async country => {
     'key_species': '',
     'quantity': '',
     'unit': '',
-    'value': getColValue(10, 4),
+    'value': normalizeColValue(10, 4),
     'nwfp_category': '',
   })
 
@@ -57,7 +66,7 @@ const getCountryData = async country => {
     'key_species': '',
     'quantity': '',
     'unit': '',
-    'value': getColValue(10, 4),
+    'value': normalizeColValue(10, 4),
     'nwfp_category': '',
   })
 
