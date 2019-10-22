@@ -11,7 +11,7 @@ class ForestOwnershipExporter extends TraditionalTableExporter {
     super(
       'forestOwnership',
       [
-        'priv_own', 'individ', 'bus_inst', 'indigenous', 'pub_own', 'fo_unknown'
+        'priv_own', 'individ', 'bus_inst_fo', 'indigenous_fo', 'pub_own', 'fo_unknown'
       ],
       '4a'
     )

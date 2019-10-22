@@ -10,7 +10,7 @@ class HolderOfManagementRightsExporter extends TraditionalTableExporter {
     super(
       'holderOfManagementRights',
       [
-        'pub_admin', 'individuals', 'bus_inst', 'indigenous', 'unknown'
+        'pub_admin', 'individuals', 'bus_inst_mr', 'indigenous_mr', 'unknown'
       ],
       '4b'
     )
