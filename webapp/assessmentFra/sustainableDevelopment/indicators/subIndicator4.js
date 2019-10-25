@@ -3,17 +3,19 @@ import React from 'react'
 import ResponsibleAgency from './responsibleAgency'
 import ReviewIndicator from '../../../review/reviewIndicator'
 
-import { div, mul } from '../../../../common/bignumberUtils'
+import { div, mul, min } from '../../../../common/bignumberUtils'
 import { formatDecimal } from '../../../utils/numberFormat'
 import * as R from 'ramda'
 
 import { getForestArea } from './indicators'
 
-const SubIndicator4 = ({i18n, countryIso, data, years, disabled}) => {
+const SubIndicator4 = ({ i18n, countryIso, data, years, disabled }) => {
 
   const getValue = (year, field) => {
     const val = R.path(['forestAreaWithinProtectedAreas', field, year], data)
-    return mul(div(val, getForestArea(data, 2015)), 100)
+    const valuePercent = mul(div(val, getForestArea(data, 2015)), 100)
+    const value = min([valuePercent, 100])
+    return isNaN(value) ? null : value
   }
 
   const getValueForestManagement = year => getValue(year, 'forestAreaWithLongTermManagementPlan')
@@ -25,7 +27,7 @@ const SubIndicator4 = ({i18n, countryIso, data, years, disabled}) => {
         <thead>
         <tr>
           <th rowSpan="2" className="fra-table__header-cell-left">
-            {i18n.t('sustainableDevelopment.subIndicator', {no: 4})}
+            {i18n.t('sustainableDevelopment.subIndicator', { no: 4 })}
           </th>
           <th colSpan={years.length} className="fra-table__header-cell">
             {i18n.t('sustainableDevelopment.percent2015ForestAreaBaseline')}
