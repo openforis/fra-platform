@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 const Logos = ({i18n}) => <div className="landing__logos-container">
   <div className="landing__logos-inner-container">
     <img src="img/cfrq_logos.png" className="landing__logos"/>
+    <img src="img/nicfi_3.jpg" className="landing__logos landing__logos__nicfi" />
   </div>
   <div className="landing__logos-inner-container">
     <div style={{paddingRight:'14px'}}>{i18n.t('landing.overview.withFinancialSupportOf')}</div>
