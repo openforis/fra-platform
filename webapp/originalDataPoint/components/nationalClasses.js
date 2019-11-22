@@ -9,6 +9,7 @@ const NationalClasses = props => {
     odp, copyPreviousNationalClasses,
     copyDisabled, openThread, i18n,
     printView = false,
+    canEditData
   } = props
 
   const countryIso = match.params.countryIso
@@ -25,12 +26,15 @@ const NationalClasses = props => {
           <h3 className="subhead">
             {i18n.t('nationalDataPoint.nationalClasses')}
           </h3>
-          <button
-            className="btn-s btn-primary btn-copy-prev-values"
-            disabled={copyDisabled || copyPreviousClassesDisabled()}
-            onClick={() => copyPreviousNationalClasses(countryIso, odp)}>
-            {i18n.t('nationalDataPoint.copyPreviousValues')}
-          </button>
+            {
+            canEditData &&
+              <button
+                className="btn-s btn-primary btn-copy-prev-values"
+                disabled={copyDisabled || copyPreviousClassesDisabled()}
+                onClick={() => copyPreviousNationalClasses(countryIso, odp)}>
+                {i18n.t('nationalDataPoint.copyPreviousValues')}
+              </button>
+            }
         </div>
       }
 
@@ -61,6 +65,7 @@ const NationalClasses = props => {
                   openThread={openThread}
                   i18n={i18n}
                   printView={printView}
+                  canEditData={canEditData}
                   {...nationalClass}
                 />
               ))
