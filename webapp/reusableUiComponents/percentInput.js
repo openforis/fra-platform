@@ -11,7 +11,7 @@ export class PercentInput extends React.Component {
   }
 
   render () {
-    const {numberValue, onChange, onPaste} = this.props
+    const {numberValue, onChange, onPaste, disabled} = this.props
     const value = this.state.inputValue || numberValue
 
     return <div className="percent-input__container validation-error-sensitive-field" ref="wrapper">
@@ -19,6 +19,7 @@ export class PercentInput extends React.Component {
         {formatDecimal(numberValue)}
       </div>
       <input
+        disabled={disabled}
         type="text"
         maxLength="6"
         className="percent-input__input-field no-print"

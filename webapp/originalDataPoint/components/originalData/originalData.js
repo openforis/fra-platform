@@ -9,7 +9,7 @@ const OriginalData = props => {
 
   const {
     match, odp, i18n, useOriginalDataPointsInFoc,
-    saveDraft, openThread,
+    saveDraft, openThread, canEditData,
   } = props
 
   const { countryIso, tab } = match.params
@@ -42,6 +42,7 @@ const OriginalData = props => {
         tab === 'extentOfForest'
           ? (
             <ExtentOfForestSection
+              canEditData={canEditData}
               odp={odp}
               countryIso={countryIso}
               saveDraft={saveDraft}
@@ -51,6 +52,7 @@ const OriginalData = props => {
           )
           : (
             <ForestCharacteristicsSection
+              canEditData={canEditData}
               odp={odp}
               countryIso={countryIso}
               saveDraft={saveDraft}

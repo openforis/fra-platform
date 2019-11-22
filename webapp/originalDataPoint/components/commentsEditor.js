@@ -49,18 +49,23 @@ class CommentsEditor extends React.Component {
   }
 
   render () {
+    const { canEditData } = this.props
+
     return <div>
       <div className="fra-description__header-row">
         <h3 className="subhead fra-description__header">{this.props.title}</h3>
-        <div className="fra-description__link" onClick={e => {
-          this.state.open
-            ? this.setState({ open: false })
-            : this.setState({ open: true, shouldStealFocus: true })
-          e.stopPropagation()
+        {
+          canEditData &&
+            <div className="fra-description__link" onClick={e => {
+              this.state.open
+                ? this.setState({ open: false })
+                : this.setState({ open: true, shouldStealFocus: true })
+              e.stopPropagation()
+            }
+            }>
+              {this.state.open ? this.props.i18n.t('description.done') : this.props.i18n.t('description.edit')}
+            </div>
         }
-        }>
-          {this.state.open ? this.props.i18n.t('description.done') : this.props.i18n.t('description.edit')}
-        </div>
       </div>
       <div className="cke_wrapper" style={{ display: this.state.open ? 'block' : 'none' }}>
         <textarea ref="originalDataPointDescription"/>
@@ -75,6 +80,10 @@ class CommentsEditor extends React.Component {
     </div>
   }
 
+}
+
+CommentsEditor.defaultProps = {
+  canEditData: true
 }
 
 export default CommentsEditor

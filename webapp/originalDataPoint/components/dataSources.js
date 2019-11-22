@@ -10,10 +10,12 @@ const DataSources = props => {
   const {
     match, saveDraft,
     odp, i18n,
-    printView = false
+    printView = false,
+    canEditData
   } = props
   const countryIso = match.params.countryIso
-
+  const displayReviewIndicator = odp.odpId && !printView && canEditData
+  
   return (
     <div className="odp__section">
       {
@@ -36,12 +38,12 @@ const DataSources = props => {
                 <VerticallyGrowingTextField
                   value={odp.dataSourceReferences || ''}
                   onChange={(e) => saveDraft(countryIso, R.assoc('dataSourceReferences', e.target.value, odp))}
-                  disabled={printView}
+                  disabled={printView || !canEditData}
                 />
               </td>
               <td className="fra-table__row-anchor-cell">
                 {
-                  odp.odpId && !printView
+                  displayReviewIndicator
                     ? <div className="odp__review-indicator-row-anchor">
                       <ReviewIndicator
                         section='odp'
@@ -71,12 +73,12 @@ const DataSources = props => {
                   onChange={(values) =>
                     saveDraft(countryIso, R.assoc('dataSourceMethods', values, odp))
                   }
-                  disabled={printView}
+                  disabled={printView || !canEditData}
                 />
               </td>
               <td className="fra-table__row-anchor-cell">
                 {
-                  odp.odpId && !printView
+                  displayReviewIndicator
                     ? <div className="odp__review-indicator-row-anchor">
                       <ReviewIndicator
                         section='odp'
@@ -95,12 +97,12 @@ const DataSources = props => {
                 <VerticallyGrowingTextField
                   value={odp.dataSourceAdditionalComments || ''}
                   onChange={(e) => saveDraft(countryIso, R.assoc('dataSourceAdditionalComments', e.target.value, odp))}
-                  disabled={printView}
+                  disabled={printView || !canEditData}
                 />
               </td>
               <td className="fra-table__row-anchor-cell">
                 {
-                  odp.odpId && !printView
+                  displayReviewIndicator
                     ? <div className="odp__review-indicator-row-anchor">
                       <ReviewIndicator
                         section='odp'
