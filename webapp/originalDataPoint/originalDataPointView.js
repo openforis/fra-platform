@@ -33,7 +33,7 @@ const OriginalDataPoint = (props) => {
   const {
     match, i18n, odp,
     saveDraft, markAsActual, remove, cancelDraft, openThread,
-    autoSaving,
+    autoSaving, canEditData
   } = props
 
   const { countryIso, tab } = match.params
@@ -47,7 +47,7 @@ const OriginalDataPoint = (props) => {
       <div className="fra-view__page-header">
         <h1 className="title align-left">{i18n.t('nationalDataPoint.nationalDataPoint')}</h1>
         {
-          odp.editStatus && odp.editStatus !== 'newDraft'
+          canEditData && odp.editStatus && odp.editStatus !== 'newDraft'
             ? <button
               className="btn btn-secondary margin-right"
               disabled={saveControlsDisabled()}
@@ -56,28 +56,38 @@ const OriginalDataPoint = (props) => {
             </button>
             : null
         }
-        <button
-          className="btn btn-primary"
-          disabled={saveControlsDisabled()}
-          onClick={() => markAsActual(countryIso, odp, tab)}>
-          {i18n.t('nationalDataPoint.doneEditing')}
-        </button>
-        <div className="odp-v-divider"></div>
-        <button
-          className="btn btn-destructive"
-          disabled={saveControlsDisabled()}
-          onClick={() => window.confirm(i18n.t('nationalDataPoint.confirmDelete'))
-            ? remove(countryIso, odp.odpId, tab)
-            : null
-          }>
-          {i18n.t('nationalDataPoint.delete')}
-        </button>
+        {
+        canEditData &&
+          <button
+            className="btn btn-primary"
+            disabled={saveControlsDisabled()}
+            onClick={() => markAsActual(countryIso, odp, tab)}>
+            {i18n.t('nationalDataPoint.doneEditing')}
+          </button>
+        }
+        {
+          canEditData &&
+            <div className="odp-v-divider"></div>
+        }
+        {
+          canEditData &&
+          <button
+            className="btn btn-destructive"
+            disabled={saveControlsDisabled()}
+            onClick={() => window.confirm(i18n.t('nationalDataPoint.confirmDelete'))
+              ? remove(countryIso, odp.odpId, tab)
+              : null
+            }>
+            {i18n.t('nationalDataPoint.delete')}
+          </button>
+        }
       </div>
 
       <div className="odp__section">
         <h3 className="subhead">{i18n.t('nationalDataPoint.referenceYearData')}</h3>
         <div className={`odp__year-selection ${yearValidationStatusClass()}`}>
           <select
+            disabled={!canEditData}
             className="select validation-error-sensitive-field"
             value={odp.year || ''}
             onChange={
@@ -109,12 +119,17 @@ const OriginalDataPoint = (props) => {
               ? 'fra-description__wrapper fra-row-comments__open'
               : 'fra-description__wrapper'
           }>
-            <CommentsEditor odp={odp} match={match} saveDraft={saveDraft} i18n={i18n}
-                            title={i18n.t('review.comments')}/>
+            <CommentsEditor
+                  canEditData={canEditData}
+                  i18n={i18n}
+                  match={match}
+                  odp={odp}
+                  saveDraft={saveDraft}
+                  title={i18n.t('review.comments')} />
           </div>
           <div className="fra-description__review-indicator-wrapper">
             {
-              odp.odpId
+              odp.odpId && canEditData
                 ? <ReviewIndicator
                   section='odp'
                   title={i18n.t('nationalDataPoint.nationalDataPoint')}
@@ -126,34 +141,37 @@ const OriginalDataPoint = (props) => {
         </div>
       </div>
 
-      <div className="odp__bottom-buttons">
-        {
-          odp.editStatus && odp.editStatus !== 'newDraft'
-            ? <button
-              className="btn btn-secondary"
+      {
+        canEditData &&
+          <div className="odp__bottom-buttons">
+            {
+              odp.editStatus && odp.editStatus !== 'newDraft'
+                ? <button
+                  className="btn btn-secondary"
+                  disabled={saveControlsDisabled()}
+                  onClick={() => cancelDraft(countryIso, odp.odpId, tab)}>
+                  {i18n.t('nationalDataPoint.discardChanges')}
+                </button>
+                : null
+            }
+            <button
+              className="btn btn-primary"
               disabled={saveControlsDisabled()}
-              onClick={() => cancelDraft(countryIso, odp.odpId, tab)}>
-              {i18n.t('nationalDataPoint.discardChanges')}
+              onClick={() => markAsActual(countryIso, odp, tab)}>
+              {i18n.t('nationalDataPoint.doneEditing')}
             </button>
-            : null
+            <div className="odp-v-divider"></div>
+            <button
+              className="btn btn-destructive"
+              disabled={saveControlsDisabled()}
+              onClick={() => window.confirm(i18n.t('nationalDataPoint.confirmDelete'))
+                ? remove(countryIso, odp.odpId, tab)
+                : null
+              }>
+              {i18n.t('nationalDataPoint.delete')}
+            </button>
+          </div>
         }
-        <button
-          className="btn btn-primary"
-          disabled={saveControlsDisabled()}
-          onClick={() => markAsActual(countryIso, odp, tab)}>
-          {i18n.t('nationalDataPoint.doneEditing')}
-        </button>
-        <div className="odp-v-divider"></div>
-        <button
-          className="btn btn-destructive"
-          disabled={saveControlsDisabled()}
-          onClick={() => window.confirm(i18n.t('nationalDataPoint.confirmDelete'))
-            ? remove(countryIso, odp.odpId, tab)
-            : null
-          }>
-          {i18n.t('nationalDataPoint.delete')}
-        </button>
-      </div>
     </div>
   )
 }
@@ -195,7 +213,8 @@ const mapStateToProps = state => {
   const odp = state.originalDataPoint.active
   const openThread = R.defaultTo({ target: [], section: '' }, R.path(['review', 'openThread'], state))
   const useOriginalDataPointsInFoc = !!R.path(['country', 'config', 'useOriginalDataPointsInFoc'], state)
-  return { ...state.originalDataPoint, odp, autoSaving, openThread, i18n: state.user.i18n, useOriginalDataPointsInFoc }
+  const canEditData = R.path(['country','status','assessments','fra2020','canEditData'], state)
+  return { ...state.originalDataPoint, canEditData, odp, autoSaving, openThread, i18n: state.user.i18n, useOriginalDataPointsInFoc }
 }
 
 export default connect(mapStateToProps, {
