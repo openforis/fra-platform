@@ -23,7 +23,7 @@ const ForestCharacteristicsRow = props => {
   const {
     i18n, odp, area, countryIso, index, className,
     naturalForestPercent, plantationPercent, otherPlantedPercent,
-    saveDraft, openThread,
+    saveDraft, openThread, canEditData,
   } = props
 
   const numberUpdated = numberUpdateCreator(saveDraft)
@@ -41,6 +41,7 @@ const ForestCharacteristicsRow = props => {
           className={`fra-table__calculated-sub-cell fra-table__divider`}>{formatDecimal(area ? area * nationalClass.forestPercent / 100 : null)}</th>
         <td className={`fra-table__cell ${focStatusPercentage()}`}>
           <PercentInput
+            disabled={!canEditData}
             numberValue={naturalForestPercent}
             onChange={numberUpdated(countryIso, odp, index, 'naturalForestPercent', naturalForestPercent)}
             onPaste={updatePastedValues({
@@ -56,6 +57,7 @@ const ForestCharacteristicsRow = props => {
         </td>
         <td className={`fra-table__cell ${focStatusPercentage()}`}>
           <PercentInput
+            disabled={!canEditData}
             numberValue={plantationPercent}
             onChange={numberUpdated(countryIso, odp, index, 'plantationPercent', plantationPercent)}
             onPaste={updatePastedValues({
@@ -71,6 +73,7 @@ const ForestCharacteristicsRow = props => {
         </td>
         <td className={`fra-table__cell ${focStatusPercentage()}`}>
           <PercentInput
+            disabled={!canEditData}
             numberValue={otherPlantedPercent}
             onChange={numberUpdated(countryIso, odp, index, 'otherPlantedPercent', otherPlantedPercent)}
             onPaste={updatePastedValues({
@@ -86,7 +89,7 @@ const ForestCharacteristicsRow = props => {
         </td>
         <td className="fra-table__row-anchor-cell">
           {
-            odp.odpId &&
+            odp.odpId && canEditData &&
             <div className="odp__review-indicator-row-anchor">
               <ReviewIndicator
                 section='odp'
@@ -103,7 +106,7 @@ const ForestCharacteristicsRow = props => {
 
 const ForestCharacteristicsSection = props => {
   const {
-    odp, countryIso, saveDraft, openThread, i18n,
+    odp, countryIso, saveDraft, openThread, i18n, canEditData,
     printView = false
   } = props
 
@@ -163,6 +166,7 @@ const ForestCharacteristicsSection = props => {
             {
               nationalClasses.map((nationalClass, index) => (
                 <ForestCharacteristicsRow
+                  canEditData={canEditData}
                   key={index}
                   index={index}
                   odp={odp}

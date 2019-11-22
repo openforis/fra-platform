@@ -22,7 +22,8 @@ const NationalClass = props => {
     placeHolder,
     openThread,
     i18n,
-    printView
+    printView,
+    canEditData
   } = props
 
   return (
@@ -56,12 +57,12 @@ const NationalClass = props => {
                     saveDraft,
                     allowGrow: true
                   })}
-                  disabled={printView}
+                  disabled={printView || !canEditData}
                 />
               )
           }
           {
-            placeHolder || printView
+            placeHolder || !canEditData || printView
               ? null //placeHolder-rows can't be removed
               : <div
                 className="odp__nc-table__remove"
@@ -85,12 +86,12 @@ const NationalClass = props => {
             saveDraft,
             allowGrow: true
           })}
-          disabled={printView}
+          disabled={printView || !canEditData}
         />
       </td>
 
       {
-        !printView &&
+        !printView && canEditData &&
         <td className="fra-table__row-anchor-cell">
           {placeHolder || !odp.odpId
             ? null

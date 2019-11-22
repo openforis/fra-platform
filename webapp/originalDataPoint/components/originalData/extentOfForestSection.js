@@ -22,7 +22,7 @@ const ExtentOfForestRow = props => {
   const {
     odp, i18n, index, countryIso, className,
     area, forestPercent, otherWoodedLandPercent,
-    saveDraft, openThread,
+    saveDraft, openThread, canEditData,
   } = props
 
   const validationStatus = getValidationStatusRow(odp, index)
@@ -36,6 +36,7 @@ const ExtentOfForestRow = props => {
       <td
         className={`fra-table__cell fra-table__divider ${validationStatus.validArea === false ? 'error' : ''}`}>
         <ThousandSeparatedDecimalInput
+          disabled={!canEditData}
           numberValue={area}
           onChange={numberUpdated(countryIso, odp, index, 'area', area)}
           onPaste={updatePastedValues({
@@ -49,6 +50,7 @@ const ExtentOfForestRow = props => {
       </td>
       <td className={`fra-table__cell ${eofStatusPercentage()}`}>
         <PercentInput
+          disabled={!canEditData}
           numberValue={forestPercent}
           onChange={numberUpdated(countryIso, odp, index, 'forestPercent', forestPercent)}
           onPaste={updatePastedValues({
@@ -63,6 +65,7 @@ const ExtentOfForestRow = props => {
       </td>
       <td className={`fra-table__cell ${eofStatusPercentage()}`}>
         <PercentInput
+          disabled={!canEditData}
           numberValue={otherWoodedLandPercent}
           onChange={numberUpdated(countryIso, odp, index, 'otherWoodedLandPercent', otherWoodedLandPercent)}
           onPaste={updatePastedValues({
@@ -81,7 +84,7 @@ const ExtentOfForestRow = props => {
       </td>
       <td className="fra-table__row-anchor-cell">
         {
-          odp.odpId &&
+          odp.odpId && canEditData &&
           <div className="odp__review-indicator-row-anchor">
             <ReviewIndicator
               section='odp'
@@ -98,7 +101,7 @@ const ExtentOfForestRow = props => {
 const ExtentOfForestSection = props => {
 
   const {
-    odp, countryIso, saveDraft, openThread, i18n,
+    canEditData, odp, countryIso, saveDraft, openThread, i18n,
     printView = false
   } = props
 
@@ -144,6 +147,7 @@ const ExtentOfForestSection = props => {
             {
               nationalClasses.map((nationalClass, index) => (
                 <ExtentOfForestRow
+                  canEditData={canEditData}
                   key={index}
                   index={index}
                   odp={odp}

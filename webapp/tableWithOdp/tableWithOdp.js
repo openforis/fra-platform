@@ -305,10 +305,8 @@ const buildRows = (rows, props) => {
     , rows)
 }
 
-const OdpHeading = ({ countryIso, odpValue, section, disabled }) =>
-  disabled
-    ? <div>{odpValue.name}</div>
-    : <Link className="link" to={`/country/${countryIso}/odp/${section}/${odpValue.odpId}`}>
+const OdpHeading = ({ countryIso, odpValue, section }) =>
+    <Link className="link" to={`/country/${countryIso}/odp/${section}/${odpValue.odpId}`}>
       {odpValue.draft ? <Icon className="icon-sub icon-margin-right" name="pencil"/> : ''}
       {odpValue.name}
     </Link>
