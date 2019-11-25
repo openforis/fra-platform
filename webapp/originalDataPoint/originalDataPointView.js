@@ -213,7 +213,10 @@ const mapStateToProps = state => {
   const odp = state.originalDataPoint.active
   const openThread = R.defaultTo({ target: [], section: '' }, R.path(['review', 'openThread'], state))
   const useOriginalDataPointsInFoc = !!R.path(['country', 'config', 'useOriginalDataPointsInFoc'], state)
-  const canEditData = R.path(['country','status','assessments','fra2020','canEditData'], state)
+
+  const locked = R.path(['country','status','assessments','fra2020','locked'], state)
+  const canEditData = R.path(['country','status','assessments','fra2020','canEditData'], state) && !locked
+
   return { ...state.originalDataPoint, canEditData, odp, autoSaving, openThread, i18n: state.user.i18n, useOriginalDataPointsInFoc }
 }
 
