@@ -1,8 +1,7 @@
 const nodeExternals = require('webpack-node-externals')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
-module.exports = {
-  plugins: [new ExtractTextPlugin({filename: 'test-style.css'})],
+const webpackTestConfig = {
+  mode: 'development',
   target: 'node', // in order to ignore built-in modules like path, fs, etc.
   externals: [nodeExternals()], // in order to ignore all modules in node_modules folder
   module: {
@@ -13,18 +12,17 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['env', 'react'],
-            plugins: [require('babel-plugin-transform-object-rest-spread')]
+            presets: ['@babel/preset-env', '@babel/react'],
+            plugins: ['@babel/plugin-proposal-object-rest-spread', '@babel/plugin-syntax-dynamic-import']
           }
         }
       },
       {
-        test: /\.less$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: ['css-loader', 'less-loader']
-        })
+        test: /\.(less|css)$/,
+        loader: 'null-loader'
       }
     ]
   }
 }
+
+module.exports = webpackTestConfig
