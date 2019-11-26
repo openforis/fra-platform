@@ -31,7 +31,7 @@ const SubcategoryTableBody = props => (
 const SubcategoryRow = props => {
 
   const {
-    odp, i18n, index, countryIso, className, area,
+    canEditData, odp, i18n, index, countryIso, className, area,
     saveDraft, openThread,
     parentCategory, ancestorCategory = null, categoryColumns, targetSuffix,
     validationResultField, reviewTitleKey,
@@ -60,6 +60,7 @@ const SubcategoryRow = props => {
             const currentCol = categoryColumns[colIndex].name
             return <td key={colIndex} className={`fra-table__cell ${displayError()}`}>
               <PercentInput
+                disabled={!canEditData}
                 numberValue={nationalClass[currentCol]}
                 onChange={numberUpdated(countryIso, odp, index, currentCol, nationalClass[currentCol])}
                 onPaste={updatePastedValues({
@@ -76,15 +77,16 @@ const SubcategoryRow = props => {
           }, categoryColumns)
         }
         <td className="fra-table__row-anchor-cell">
-          {odp.odpId
-            ? <div className="odp__review-indicator-row-anchor">
+          {
+            odp.odpId && canEditData &&
+            <div className="odp__review-indicator-row-anchor">
               <ReviewIndicator
                 section='odp'
                 title={i18n.t('nationalDataPoint.' + reviewTitleKey)}
                 target={commentTarget}
                 countryIso={countryIso}/>
             </div>
-            : null}
+          }
         </td>
       </tr>
     )
@@ -93,7 +95,7 @@ const SubcategoryRow = props => {
 
 const ForestCharacteristicsPlantationSection = props => {
 
-  const { i18n, odp, countryIso, saveDraft, openThread } = props
+  const { i18n, odp, countryIso, saveDraft, openThread, canEditData } = props
 
   return (
     <div className="fra-table__container">
@@ -114,6 +116,7 @@ const ForestCharacteristicsPlantationSection = props => {
           </tr>
           </thead>
           <SubcategoryTableBody
+            canEditData={canEditData}
             odp={odp}
             countryIso={countryIso}
             saveDraft={saveDraft}
