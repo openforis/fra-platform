@@ -4,8 +4,8 @@ import uuidv4 from 'uuid/v4'
 
 import UglifyJsPlugin from 'uglifyjs-webpack-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
-import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin'
+import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 
 const lastCommit = process.env.SOURCE_VERSION || 'N/A'
 const platformVersion = lastCommit + '_' + new Date().toISOString()
@@ -17,7 +17,8 @@ const config = {
 
 const appConfig = {
   mode: config.mode,
-  entry: ['babel-polyfill', './webapp/app/main.js'],
+  devtool: 'source-map',
+  entry: ['./webapp/app/main.js'],
   output: {
     filename: 'bundle-[hash].js',
     path: config.path,
@@ -33,35 +34,34 @@ const appConfig = {
       {
         test: /partial\.lenses\.es\.js$/,
         loader: 'babel-loader',
-        query: {plugins: ['transform-es2015-modules-commonjs']}
+        query: { plugins: ['transform-es2015-modules-commonjs'] }
       },
       {
         test: /\.(js|jsx)$/,
-        exclude: /(node_modules|bower_components)/,
+        exclude: /(node_modules)/,
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['env', 'react'],
-            plugins: [require('babel-plugin-transform-object-rest-spread')]
+            presets: ['@babel/preset-env', '@babel/react'],
+            plugins: ['@babel/plugin-proposal-object-rest-spread', '@babel/plugin-syntax-dynamic-import']
           }
         }
       },
       {
-        test: /\.less$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: ['css-loader', 'less-loader']
-        })
+        test: /\.(less|css)$/,
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader
+          },
+          'css-loader',
+          'less-loader',
+        ]
       },
-      {
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader']
-      }
     ]
   },
   plugins: [
-    new ExtractTextPlugin({filename: 'styles-[hash].css'}),
-    new HtmlWebpackPlugin({template: './web-resources/index.html'}),
+    new MiniCssExtractPlugin({ filename: 'styles-[hash].css' }),
+    new HtmlWebpackPlugin({ template: './web-resources/index.html' }),
     new webpack.DefinePlugin({
       __PLATFORM_VERSION__: `"${platformVersion}"`,
       __BUST__: `"${uuidv4()}"`,
@@ -72,9 +72,9 @@ const appConfig = {
 
 // Refactor this
 const loginConfig = {
-  devtool: 'source-map',
   mode: config.mode,
-  entry: ['babel-polyfill', './webapp/login/login.js'],
+  devtool: 'source-map',
+  entry: ['./webapp/login/login.js'],
   output: {
     filename: 'login-[hash].js',
     path: config.path
@@ -83,10 +83,13 @@ const loginConfig = {
     rules: [
       {
         test: /\.less$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: ['css-loader', 'less-loader']
-        })
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader
+          },
+          'css-loader',
+          'less-loader',
+        ]
       },
       {
         test: /\.(js|jsx)$/,
@@ -94,16 +97,16 @@ const loginConfig = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['env', 'react'],
-            plugins: [require('babel-plugin-transform-object-rest-spread')]
+            presets: ['@babel/preset-env', '@babel/react'],
+            plugins: ['@babel/plugin-proposal-object-rest-spread', '@babel/plugin-syntax-dynamic-import']
           }
         }
       }
     ]
   },
-  plugins:[
-    new ExtractTextPlugin({filename: 'login-[hash].css'}),
-    new HtmlWebpackPlugin({template: './web-resources/login.html', filename: 'login.html'}),
+  plugins: [
+    new MiniCssExtractPlugin({ filename: 'login-[hash].css' }),
+    new HtmlWebpackPlugin({ template: './web-resources/login.html', filename: 'login.html' }),
     new webpack.DefinePlugin({
       __BUST__: `"${uuidv4()}"`,
     })
