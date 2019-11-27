@@ -8,6 +8,13 @@ replacement).
 Then, install [NodeJs](https://nodejs.org/en/download/) (currently the
 LTS version we are using is 6.x).
 
+## The .env file
+
+The .env file is needed for development and locally running the stack.
+
+It must be added to the root directory of the project and match the [.env.template](./.env.template)
+
+
 ## Building web application
 
 To build it once:
