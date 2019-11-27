@@ -4,7 +4,6 @@ node_modules
 *.iml
 dist
 .tmp
-.env
 
 ## FakeSMPT stuff ##
 fakeSMTP-2.0.jar
