@@ -26,6 +26,6 @@ describe('table', () => {
   it('Creates the full, larger data matrix from a slice and tableSpec', () => {
     const expected = [['', 'h1', 'h2'], ['rh1', 4, 5], ['rh2', 6, 7], ['total', 'tbd', 'tbd']]
     const actual = table.fillTableDatafromValueSlice(specWithSlice, dataToSlice, [[4, 5], [6, 7]])
-    assert(R.equals(expected, actual), `Expected ${JSON.stringify(dataToSlice)} actual ${JSON.stringify(actual)}`)
+    assert(R.equals(expected, actual), `Expected ${JSON.stringify(expected)} actual ${JSON.stringify(actual)}`)
   })
 })
