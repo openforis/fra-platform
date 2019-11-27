@@ -1,5 +1,4 @@
 import R from 'ramda'
-import * as L from "partial.lenses"
 import * as cellTypes from './cellTypes'
 
 export const createTableData = (tableSpec) =>
@@ -9,14 +8,6 @@ export const createTableData = (tableSpec) =>
 
 const update = (tableValues, rowIdx, colIdx, newValue) =>
   R.update(rowIdx, R.update(colIdx, newValue, tableValues[rowIdx]), tableValues)
-
-const getSliceLenses = (tableSpec) => {
-  const valueSlice = tableSpec.valueSlice || {} //Lenses work with undefined as default values nicely
-  return [
-    L.slice(valueSlice.rowStart, valueSlice.rowEnd),
-    L.slice(valueSlice.columnStart, valueSlice.columnEnd)
-  ]
-}
 
 export const updateCellValue = (tableSpec, tableValues, rowIdx, colIdx, newValue) => {
   const currentValue = tableValues[rowIdx][colIdx]
@@ -42,21 +33,39 @@ export const fillTableDataStartingFromCell = (startRowIdx, startColIdx, tableSpe
   }, tableData, newData)
 }
 
+const fillTableData = ({ valueSlice = {} }, fullTableData, valueSliceData = []) => {
+  const {
+    columnEnd,
+    columnStart = 0,
+  } = valueSlice
+
+  return [...fullTableData].map((row, i) => {
+    const start = row.slice(0, columnStart)
+    const mid = valueSliceData[i] ? valueSliceData[i] : []
+    const end = columnEnd ? row.slice(columnEnd) : []
+
+    const arr = [...start, ...mid , ...end]
+    return arr
+  })
+}
+
 export const fillTableDatafromValueSlice = (tableSpec, fullTableData, valueSliceData) => {
-  const [rowSliceLens, colSliceLens] = getSliceLenses(tableSpec)
-  const handleRow = (index, row, data) => {
-    const rowLens = [rowSliceLens, L.index(index)]
-    return L.set(rowLens, L.set(colSliceLens, row, L.get(rowLens, data)), data)
-  }
-  const reduceResult = R.reduce(
-    (accu, row) => ({data: handleRow(accu.index, row, accu.data), index: accu.index + 1}),
-    {index: 0, data: fullTableData},
-    valueSliceData
-  )
-  return reduceResult.data
+  return fillTableData(tableSpec, fullTableData, valueSliceData);
+}
+
+
+
+const getSlice = ({ valueSlice = {} }, table) => {
+  const {
+    columnEnd,
+    columnStart,
+    rowEnd,
+    rowStart
+  } = valueSlice
+
+  return table.slice(rowStart, rowEnd).map(i => i.slice(columnStart, columnEnd) )
 }
 
 export const getValueSliceFromTableData = (tableSpec, tableValues) => {
-  const [rowSliceLens, colSliceLens] = getSliceLenses(tableSpec)
-  return L.collect([rowSliceLens, L.elems, colSliceLens], tableValues)
+  return getSlice(tableSpec, tableValues)
 }
