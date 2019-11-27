@@ -25,17 +25,6 @@ const appConfig = {
   },
   module: {
     rules: [
-      /*
-        Minifying (production build) of partial lenses breaks without the below rule
-        with current webpack version. According to developer of partial.lenses, webpack 3.5.6
-        should have fixed this. Quick test with the new webpack version broke the svgo module though,
-        so webpack has not yet been upgraded and we need this rule.
-       */
-      {
-        test: /partial\.lenses\.es\.js$/,
-        loader: 'babel-loader',
-        query: { plugins: ['transform-es2015-modules-commonjs'] }
-      },
       {
         test: /\.(js|jsx)$/,
         exclude: /(node_modules)/,
