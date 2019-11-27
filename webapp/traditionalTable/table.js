@@ -33,20 +33,22 @@ export const fillTableDataStartingFromCell = (startRowIdx, startColIdx, tableSpe
   }, tableData, newData)
 }
 
-const fillTableData = ({ valueSlice = {} }, fullTableData, valueSliceData = []) => {
+const fillTableData = (tableSpec = {}, fullTableData = [], valueSliceData = []) => {
   const {
-    columnEnd,
     columnStart = 0,
-  } = valueSlice
+    rowStart = 0,
+    rowEnd = fullTableData.length
+  } = tableSpec.valueSlice || {}
 
-  return [...fullTableData].map((row, i) => {
-    const start = row.slice(0, columnStart)
-    const mid = valueSliceData[i] ? valueSliceData[i] : []
-    const end = columnEnd ? row.slice(columnEnd) : []
+  const arr = [...fullTableData]
+  const rowsHeader = arr.splice(0, rowStart)
+  const rowsFooter = arr.splice(rowEnd)
 
-    const arr = [...start, ...mid , ...end]
-    return arr
+  arr.forEach( (x,i) => {
+    return x.splice(columnStart, valueSliceData[i].length, ...valueSliceData[i])
   })
+
+  return [...rowsHeader, ...arr, ...rowsFooter]
 }
 
 export const fillTableDatafromValueSlice = (tableSpec, fullTableData, valueSliceData) => {
