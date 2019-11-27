@@ -28,7 +28,6 @@
     "@babel/register": "^7.7.0",
     "@babel/runtime-corejs3": "^7.6.3",
     "babel-loader": "^8.0.6",
-    "babel-polyfill": "^6.26.0",
     "chai": "^4.1.0",
     "css-loader": "^3.2.0",
     "csv": "^5.1.2",
@@ -50,7 +49,6 @@
   "dependencies": {
     "assert": "^1.4.1",
     "axios": "^0.16.1",
-    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
     "bcrypt": "^3.0.2",
     "bignumber.js": "^5.0.0",
     "bluebird": "^3.5.0",
@@ -78,7 +76,6 @@
     "marked": "^0.3.6",
     "nodemailer": "^4.3.1",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
-    "partial.lenses": "^14.17.0",
     "passport": "^0.3.2",
     "passport-google-oauth": "^1.0.0",
     "passport-local": "^1.0.0",
