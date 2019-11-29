@@ -158,7 +158,7 @@ const Users = ({countryIso, i18n, users, userInfo, openChat, closeChat, openCoun
 
 class OverviewView extends React.Component {
 
-  componentWillMount () {
+  componentDidMount () {
     this.getCountryOverview(this.props.match.params.countryIso)
   }
 

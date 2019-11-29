@@ -15,7 +15,7 @@ class SpecificForestCategories extends React.Component {
     this.props.fetchItem('forestCharacteristics', countryIso)
   }
 
-  componentWillMount () {
+  componentDidMount () {
     this.fetchForestCharacteristics(this.getCountryIso(this.props))
   }
 

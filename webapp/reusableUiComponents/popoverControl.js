@@ -12,15 +12,14 @@ export class PopoverControl extends React.Component {
     super(props)
     this.outsideClick = this.outsideClick.bind(this)
     window.addEventListener('click', this.outsideClick)
+    this.state = {
+      opened: false
+    }
   }
 
   outsideClick (evt) {
     if (!this.refs.popoverControl.contains(evt.target))
       this.setState({opened: false})
-  }
-
-  componentWillMount () {
-    this.setState({opened: false})
   }
 
   componentWillUnmount () {

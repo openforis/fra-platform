@@ -23,7 +23,7 @@ class Router extends React.Component {
     this.props.follow(location.hash)
   }
 
-  componentWillMount () {
+  componentDidMount () {
     window.onhashchange = () => {
       this.follow()
     }

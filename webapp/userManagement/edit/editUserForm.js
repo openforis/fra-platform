@@ -29,12 +29,8 @@ class EditUserForm extends React.Component {
     this.state = {user: null}
   }
 
-  loadUser (countryIso, userId) {
-    this.props.loadUserToEdit(countryIso, userId)
-  }
-
-  componentWillMount () {
-    this.loadUser(this.props.countryIso, this.props.userId)
+  componentDidMount () {
+    this.props.loadUser(this.props.countryIso, this.props.userId)
   }
 
   componentWillReceiveProps (nextProps) {

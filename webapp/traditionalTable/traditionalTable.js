@@ -121,7 +121,7 @@ const TableBody = props =>
 
 class FraTable extends UpdateOnResizeReactComponent {
 
-  componentWillMount () {
+  componentDidMount () {
     if (!this.props.tableDataFetched) {
       this.props.fetchTableData(this.props.countryIso, this.props.tableSpec)
     }

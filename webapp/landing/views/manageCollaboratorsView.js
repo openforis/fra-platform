@@ -27,7 +27,7 @@ class ManageCollaboratorsView extends React.Component {
     this.state = {}
   }
 
-  componentWillMount () {
+  componentDidMount () {
     this.fetch(this.props.match.params.countryIso)
   }
 

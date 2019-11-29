@@ -98,7 +98,7 @@ const ActivityItem = ({i18n, countryIso, item, fra}) => {
 
 class RecentActivityView extends React.Component {
 
-  componentWillMount () {
+  componentDidMount () {
     this.fetch(this.props.match.params.countryIso)
   }
 

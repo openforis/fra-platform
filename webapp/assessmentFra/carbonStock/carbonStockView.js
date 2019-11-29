@@ -45,7 +45,7 @@ class CarbonStockView extends React.Component {
     this.state = {}
   }
 
-  componentWillMount () {
+  componentDidMount () {
     const countryIso = this.props.match.params.countryIso
     const tableSpec = this.props.tableSpecInstance
 
