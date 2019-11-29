@@ -7,7 +7,7 @@ import forestOwnershipTableSpec from '../forestOwnership/tableSpec'
 
 class HolderOfManagementRightsView extends React.Component {
 
-  componentWillMount () {
+  componentDidMount () {
     this.props.fetchTableData(this.props.match.params.countryIso, forestOwnershipTableSpec(this.props.i18n))
   }
 

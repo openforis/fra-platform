@@ -13,7 +13,7 @@ import { uploadQuestionnaire, getUploadedQuestionareInfo, deleteQuestionare } fr
 
 class PanEuropeanIndicatorsView extends React.Component {
 
-  componentWillMount () {
+  componentDidMount () {
     this.props.fetchLastSectionUpdateTimestamp(this.props.countryIso, 'panEuropean')
     this.props.getUploadedQuestionareInfo(this.props.countryIso)
   }

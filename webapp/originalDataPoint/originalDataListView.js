@@ -104,7 +104,7 @@ const ODPListing = ({countryIso, odps = [], i18n, userInfo, removeFromList}) => 
 }
 
 class DataFetchingComponent extends React.Component {
-  componentWillMount () {
+  componentDidMount () {
     this.fetch(this.props.match.params.countryIso)
   }
 
