@@ -22,8 +22,11 @@ export const odpSaveDraftStart = 'originalDataPoint/saveDraft/start'
 export const odpSaveDraftCompleted = 'originalDataPoint/saveDraft/completed'
 
 export const saveDraft = (countryIso, obj) => dispatch => {
-  dispatch(autosave.start)
   dispatch(startSavingDraft(obj))
+  if (!obj.year) {
+    return
+  }
+  dispatch(autosave.start)
   dispatch(persistDraft(countryIso, obj))
   if (obj.validationStatus)
     dispatch(validationCompleted(validateDataPoint(obj)))
