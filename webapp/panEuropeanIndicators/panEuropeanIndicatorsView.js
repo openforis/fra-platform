@@ -18,10 +18,10 @@ class PanEuropeanIndicatorsView extends React.Component {
     this.props.getUploadedQuestionareInfo(this.props.countryIso)
   }
 
-  componentWillReceiveProps (nextProps) {
-    const status = this.props.status
-    const nextStatus = nextProps.status
-    if (!R.equals(status, nextStatus) && R.equals('complete', nextStatus)) {
+  componentDidUpdate(prevProps, prevState) {
+    const currentStatus = this.props.status
+    const previousStatus = prevProps.status
+    if (!R.equals(currentStatus, previousStatus) && R.equals('complete', currentStatus)) {
       this.refs.inputFile.value = ''
     }
   }

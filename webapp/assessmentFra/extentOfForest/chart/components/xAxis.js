@@ -8,8 +8,8 @@ class XAxis extends Component {
     this.renderAxis(this.props)
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.renderAxis(nextProps)
+  componentDidUpdate(prevProps, prevState) {
+    this.renderAxis(this.props)
   }
 
   renderAxis (props) {

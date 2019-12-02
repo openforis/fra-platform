@@ -23,9 +23,11 @@ class Description extends Component {
     this.fetchData(this.props.countryIso)
   }
 
-  componentWillReceiveProps (nextProps) {
-    if (!R.equals(this.props.countryIso, nextProps.countryIso))
-      this.fetchData(nextProps.countryIso)
+  componentDidUpdate(prevProps, prevState) {
+    const currentCountryIso = this.props.countryIso
+    const previousCountryIso = prevProps.countryIso
+    if (currentCountryIso !== previousCountryIso)
+      this.props.fetchData(nextCountryIso)
   }
 
   showEditorContent (isActive, showDash) {

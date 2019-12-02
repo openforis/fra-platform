@@ -102,9 +102,11 @@ class RecentActivityView extends React.Component {
     this.fetch(this.props.match.params.countryIso)
   }
 
-  componentWillReceiveProps (next) {
-    if (!R.equals(this.props.match.params.countryIso, next.match.params.countryIso))
-      this.fetch(next.match.params.countryIso)
+  componentDidUpdate(prevProps, prevState) {
+    const currentCountryIso = this.props.match.params.countryIso
+    const previousCountryIso = prevProps.match.params.countryIso
+    if (!R.equals(currentCountryIso, previousCountryIso))
+      this.fetch(currentCountryIso)
   }
 
   fetch (countryIso) {

@@ -12,10 +12,16 @@ import { getCountryName } from '../../country/actions'
 import { administrator } from '../../../common/countryRole'
 
 class UsersManagementView extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      editUserStatus: null,
+      editingUserId: null
+    }
+  }
 
-  componentWillReceiveProps (next) {
-    // edit user is completed, reloading users and resetting state
-    if (R.prop('editUserStatus', next) === 'completed' && R.prop('editUserStatus', this.props) === 'loaded') {
+  componentDidUpdate(prevProps, prevState) {
+    if (R.prop('editUserStatus', this.props) === 'completed' && R.prop('editUserStatus', prevProps) === 'loaded') {
       this.setState({editingUserId: null})
       this.fetchUsers()
     }
@@ -40,13 +46,13 @@ class UsersManagementView extends React.Component {
                       countryIso={countryIso}
                       onCancel={() => this.setState({editingUserId: null})}
       />
-      : <div>
+      : <>
         <UsersTableFilterWrapper {...this.props}
                                  isAdminTable={true}
                                  users={allUsers}
                                  onEditClick={onEditClick}/>
         <UsersCount i18n={i18n} userCounts={userCounts}/>
-      </div>
+      </>
   }
 
 }

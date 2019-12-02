@@ -59,17 +59,17 @@ class YAxis extends Component {
         .style('opacity', () => propsHasData ? 1 : 0)
   }
 
-  componentWillReceiveProps(nextProps) {
-    const propsHasData = hasData(this.props.data)
-    const nextPropsHasData = nextProps ? hasData(nextProps.data) : false
-    const domAxis = nextProps ? this.domAxis(nextProps) : this.domAxis(this.props)
+  componentDidUpdate(prevProps, prevState) {
+    const prevPropsHaveData = hasData(prevProps.data)
+    const currentPropsHaveData = this.props ? hasData(this.props.data) : false
+    const domAxis = this.props ? this.domAxis(this.props) : this.domAxis(prevProps)
 
     domAxis.selectAll('text')
       .transition()
         .ease(d3.easePolyOut)
         .duration(defaultTransitionDuration)
         .attrTween('fill', () =>
-          !propsHasData && nextPropsHasData
+          !prevPropsHaveData && currentPropsHaveData
             // enter
             ? d3.interpolateRgb('#ffffff', '#666666')
             // update
@@ -77,21 +77,21 @@ class YAxis extends Component {
       )
 
     //exit
-    if (!nextPropsHasData)
+    if (!currentPropsHaveData)
       domAxis.selectAll('text').remove()
 
     domAxis
       .transition()
         .ease(d3.easePolyOut)
         .duration(defaultTransitionDuration)
-        .attr('transform', d => `translate(${nextPropsHasData ? nextProps.left : '0'}, 0)`)
+        .attr('transform', d => `translate(${currentPropsHaveData ? this.props.left : '0'}, 0)`)
 
     d3.select(this.refs.unitLabel)
       .transition()
         .ease(d3.easePolyOut)
         .delay(100)
         .duration(defaultTransitionDuration)
-        .style('opacity', () => nextPropsHasData ? 1 : 0)
+        .style('opacity', () => currentPropsHaveData ? 1 : 0)
 
   }
 

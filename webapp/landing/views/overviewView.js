@@ -162,10 +162,13 @@ class OverviewView extends React.Component {
     this.getCountryOverview(this.props.match.params.countryIso)
   }
 
-  componentWillReceiveProps (next) {
-    if (!R.equals(this.props.match.params.countryIso, next.match.params.countryIso)) {
+  componentDidUpdate(prevProps, prevState) {
+    const currentCountryIso = this.props.match.params.countryIso
+    const previousCountryIso = prevProps.match.params.countryIso
+
+    if (!R.equals(previousCountryIso, currentCountryIso)) {
       this.props.closeChat()
-      this.getCountryOverview(next.match.params.countryIso)
+      this.getCountryOverview(currentCountryIso)
     }
   }
 

@@ -66,10 +66,11 @@ class Map extends React.Component {
     this.loadCountryShape(this.getCountryIso())
   }
 
-  componentWillReceiveProps (nextProps) {
-    const nextCountryIso = nextProps.match.params.countryIso
-    if (this.getCountryIso() !== nextCountryIso) {
-      this.loadCountryShape(nextCountryIso)
+  componentDidUpdate(prevProps, prevState) {
+    const currentCountryIso = this.props.match.params.countryIso
+    const previousCountryIso = prevProps.match.params.countryIso
+    if (currentCountryIso !== previousCountryIso) {
+      this.loadCountryShape(currentCountryIso)
     }
   }
 
