@@ -16,7 +16,9 @@
     "watch:server": "NODE_ENV=development nodemon -e js --watch server server/server.js",
     "watch:server-debug": "NODE_ENV=development nodemon -e js  --inspect --watch server server/serverLocal.js",
     "create-migration": "./server/db/migration/create-migration.sh",
-    "test": "mochapack --webpack-config webpack.config.babel.test.js \"test/unit/*.js\""
+    "test": "mochapack --webpack-config webpack.config.babel.test.js \"test/unit/*.js\"",
+    "preversion": "git diff --quiet || { echo \"Working directory is dirty\"; exit 1; }; yarn test",
+    "postversion": "git push --tags && git push && echo \"Successfully released version $npm_package_version!\""
   },
   "devDependencies": {
     "@babel/cli": "^7.6.3",
@@ -98,5 +100,6 @@
   },
   "browserslist": [
     "last 2 versions"
-  ]
+  ],
+  "version": "0.0.0"
 }
