@@ -55,8 +55,8 @@ class OdpTicks extends React.Component {
     this.update(this.props)
   }
 
-  componentWillReceiveProps (nextProps) {
-    this.update(nextProps)
+  componentDidUpdate(prevProps, prevState) {
+    this.update(this.props)
   }
 
   render () {

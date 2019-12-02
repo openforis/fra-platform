@@ -78,13 +78,13 @@ class NoDataPlaceholder extends React.Component {
     hasData(this.props.data) ? this.hidePlaceholder() : this.showPlaceholder()
   }
 
-  componentWillReceiveProps(nextProps) {
-    const propsHasData = hasData(this.props.data)
-    const nextPropsHasData = nextProps ? hasData(nextProps.data) : false
+  componentDidUpdate(prevProps, prevState) {
+    const prevPropsHaveData = hasData(prevProps.data)
+    const currentPropsHaveData = this.props ? hasData(this.props.data) : false
 
-    if (propsHasData && !nextPropsHasData) {
+    if (prevPropsHaveData && !currentPropsHaveData) {
       this.showPlaceholder()
-    } else if (!propsHasData && nextPropsHasData) {
+    } else if (!prevPropsHaveData && currentPropsHaveData) {
       this.hidePlaceholderAnimated()
     }
   }

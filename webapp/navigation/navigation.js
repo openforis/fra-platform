@@ -17,7 +17,7 @@ import {
   toggleAllNavigationGroupsCollapse
 } from './actions'
 
-import { getCountryList, getCountryName, isPanEuropeanCountry } from '../country/actions'
+import { getCountryName, isPanEuropeanCountry } from '../country/actions'
 import { fetchAllCountryData } from '../app/actions'
 import { assessments } from '../../common/assessmentSectionItems'
 import { roleForCountry } from '../../common/countryRole'
@@ -26,11 +26,6 @@ import { roleForCountry } from '../../common/countryRole'
 const roleLabel = (countryIso, userInfo, i18n) => i18n.t(roleForCountry(countryIso, userInfo).labelKey)
 
 class Nav extends React.Component {
-
-  // componentWillMount () {
-  //   this.props.getCountryList()
-  // }
-
   componentDidMount () {
     const content = ReactDOM.findDOMNode(this.refs.scroll_content)
     if (this.props.scrollPosition) {
@@ -134,7 +129,6 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps, {
   follow,
-  getCountryList,
   getCountryName,
   isPanEuropeanCountry,
   fetchAllCountryData,

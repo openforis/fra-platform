@@ -12,9 +12,9 @@ class MapViewContainer extends React.Component {
     this.state = {apiLoaded: false}
   }
 
-  componentWillReceiveProps (nextProps) {
-    const {isScriptLoaded, isScriptLoadSucceed} = nextProps
-    if (isScriptLoaded && !this.props.isScriptLoaded) { // load finished
+  componentDidUpdate(prevProps, prevState) {
+    const {isScriptLoaded, isScriptLoadSucceed} = this.props
+    if (isScriptLoaded && !prevProps.isScriptLoaded) { // load finished
       if (isScriptLoadSucceed) {
         this.setState({apiLoaded: true})
       }

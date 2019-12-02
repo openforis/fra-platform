@@ -158,14 +158,17 @@ const Users = ({countryIso, i18n, users, userInfo, openChat, closeChat, openCoun
 
 class OverviewView extends React.Component {
 
-  componentWillMount () {
+  componentDidMount () {
     this.getCountryOverview(this.props.match.params.countryIso)
   }
 
-  componentWillReceiveProps (next) {
-    if (!R.equals(this.props.match.params.countryIso, next.match.params.countryIso)) {
+  componentDidUpdate(prevProps, prevState) {
+    const currentCountryIso = this.props.match.params.countryIso
+    const previousCountryIso = prevProps.match.params.countryIso
+
+    if (!R.equals(previousCountryIso, currentCountryIso)) {
       this.props.closeChat()
-      this.getCountryOverview(next.match.params.countryIso)
+      this.getCountryOverview(currentCountryIso)
     }
   }
 

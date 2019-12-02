@@ -24,16 +24,17 @@ const sectionName = 'sustainableDevelopment'
 
 class SustainableDevelopmentView extends React.Component {
 
-  componentWillMount () {
+  componentDidMount () {
     const countryIso = this.props.match.params.countryIso
 
     this.props.fetchLastSectionUpdateTimestamp(countryIso, sectionName)
     this.props.fetch(countryIso)
   }
 
-  componentWillReceiveProps (nextProps) {
-    const nextCountryIso = nextProps.match.params.countryIso
-    if (nextCountryIso !== this.props.match.params.countryIso)
+  componentDidUpdate(prevProps, prevState) {
+    const currentCountryIso = this.props.match.params.countryIso
+    const previousCountryIso = prevProps.match.params.countryIso
+    if (currentCountryIso !== previousCountryIso)
       this.props.fetch(nextCountryIso)
   }
 

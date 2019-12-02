@@ -391,7 +391,7 @@ const GrowingStock = (props) => {
 }
 
 class GrowingStockView extends React.Component {
-  componentWillMount () {
+  componentDidMount () {
     const countryIso = this.props.match.params.countryIso
     this.fetch(countryIso)
     this.props.fetchLastSectionUpdateTimestamp(countryIso, sectionName)

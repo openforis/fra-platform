@@ -150,9 +150,9 @@ const ReviewHeader = ({title, close, userInfo, countryIso, section, target, issu
   </div>
 
 class ReviewPanel extends React.Component {
-  componentWillReceiveProps (next) {
-    if (!R.equals(this.props.country, next.country)) {
-      this.props.closeCommentThread(next.country)
+  componentDidUpdate(prevProps, prevState) {
+    if (!R.equals(this.props.country, prevProps.country)) {
+      this.props.closeCommentThread(this.props.country)
     }
   }
 
