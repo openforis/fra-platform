@@ -24,20 +24,25 @@ class ManageCollaboratorsView extends React.Component {
 
   constructor (props) {
     super(props)
-    this.state = {}
+    this.state = {
+      editingUserId: null
+    }
   }
 
   componentDidMount () {
     this.fetch(this.props.match.params.countryIso)
   }
 
-  componentWillReceiveProps (next) {
-    if (!R.equals(this.props.match.params.countryIso, next.match.params.countryIso))
-      this.fetch(next.match.params.countryIso)
+  componentDidUpdate(prevProps, prevState) {
+    const currentCountryIso = this.props.match.params.countryIso
+    const previousCountryIso = prevProps.match.params.countryIso
+
+    if (!R.equals(currentCountryIso, previousCountryIso))
+      this.fetch(currentCountryIso)
     // edit user is completed, reloading users and resetting state
-    if (R.prop('editUserStatus', next) === 'completed' && R.prop('editUserStatus', this.props) === 'loaded') {
+    if (R.prop('editUserStatus', this.props) === 'completed' && R.prop('editUserStatus', prevProps) === 'loaded') {
       this.setState({editingUserId: null})
-      this.fetch(next.match.params.countryIso)
+      this.fetch(currentCountryIso)
     }
   }
 

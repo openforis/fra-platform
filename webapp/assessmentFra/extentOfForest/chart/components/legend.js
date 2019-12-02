@@ -5,9 +5,8 @@ import * as R from 'ramda'
 import { styles, defaultTransitionDuration } from '../chart'
 
 class Legend extends Component {
-
-  componentWillReceiveProps (nextProps) {
-    this.update(nextProps)
+  componentDidUpdate(prevProps, prevState) {
+    this.update(this.props)
   }
 
   componentDidMount () {

@@ -38,10 +38,10 @@ class ReviewIndicator extends React.Component {
     this.getIssueSummary(this.props.countryIso, this.props.section, this.props.target)
   }
 
-  componentWillReceiveProps (next) {
+  componentDidUpdate(prevProps, prevState) {
     // changing country or target
-    if (next.countryIso !== this.props.countryIso || !R.equals(next.target, this.props.target)) {
-      this.getIssueSummary(next.countryIso, next.section, next.target)
+    if (prevProps.countryIso !== this.props.countryIso || !R.equals(prevProps.target, this.props.target)) {
+      this.getIssueSummary(this.props.countryIso, this.props.section, this.props.target)
     }
   }
 
