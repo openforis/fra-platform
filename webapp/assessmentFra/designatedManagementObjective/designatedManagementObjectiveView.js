@@ -24,7 +24,7 @@ const sectionName = 'designatedManagementObjective'
 
 class designatedManagementObjectiveView extends React.Component {
 
-  componentWillMount () {
+  componentDidMount () {
     const countryIso = this.props.match.params.countryIso
     const { primaryDmoTableSpec, totalDmoTableSpec } = this.props
 

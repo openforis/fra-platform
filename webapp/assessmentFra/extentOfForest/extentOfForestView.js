@@ -293,7 +293,7 @@ class DataFetchingComponent extends React.Component {
     this.state = { showNDPs: true }
   }
 
-  componentWillMount () {
+  componentDidMount () {
     const countryIso = this.props.match.params.countryIso
     this.fetch(countryIso)
     this.props.fetchLastSectionUpdateTimestamp(countryIso, sectionName)

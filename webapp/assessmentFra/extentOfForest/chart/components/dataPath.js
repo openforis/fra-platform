@@ -24,24 +24,24 @@ class DataPath extends Component {
         .attrTween('d', d => interpolatePath(previous, current))
   }
 
-  componentWillReceiveProps (nextProps) {
-    const {xScale, yScale, data} = this.props
-    const nextData = nextProps.data
+  componentDidUpdate(prevProps, prevState) {
+    const {xScale, yScale, data} = prevProps
+    const { data: currentData } = this.props
     // enter
-    if (nextData.length > 1 && data.length <= 1) {
-      const current = this.getPath({...nextProps})
+    if (currentData.length > 1 && data.length <= 1) {
+      const current = this.getPath({...this.props})
       const previous = this.getPath({
         xScale, yScale,
         data: [
-          {year: R.head(nextData).year, value: R.head(nextData).value},
-          {year: R.last(nextData).year, value: R.last(nextData).value}
+          {year: R.head(currentData).year, value: R.head(currentData).value},
+          {year: R.last(currentData).year, value: R.last(currentData).value}
         ]
       })
       this.interpolatePath(previous, current).style('opacity', 1)
     }
     // exit
-    else if (nextData.length <= 1 && data.length > 1) {
-      const current = this.getPath({...nextProps})
+    else if (currentData.length <= 1 && data.length > 1) {
+      const current = this.getPath({...this.props})
       const next = this.getPath({
         xScale, yScale,
         data: [
@@ -52,9 +52,9 @@ class DataPath extends Component {
       this.interpolatePath(current, next).style('opacity', 0)
     }
     // update
-    else if (nextData.length > 1 && data.length > 1) {
+    else if (currentData.length > 1 && data.length > 1) {
       const previous = ReactDOM.findDOMNode(this).getAttribute('d')
-      const current = this.getPath({...nextProps})
+      const current = this.getPath({...this.props})
       this.interpolatePath(previous, current)
     }
   }

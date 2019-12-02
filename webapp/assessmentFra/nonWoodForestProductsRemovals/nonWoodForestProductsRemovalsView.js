@@ -39,7 +39,7 @@ const currencyNameTableSpec = i18n => ({
 
 class NonWoodForestProductsRemovalsView extends React.Component {
 
-  componentWillMount () {
+  componentDidMount () {
     const countryIso = this.props.match.params.countryIso
     const tableSpec = this.props.tableSpecInstance
 

@@ -15,14 +15,15 @@ class SpecificForestCategories extends React.Component {
     this.props.fetchItem('forestCharacteristics', countryIso)
   }
 
-  componentWillMount () {
+  componentDidMount () {
     this.fetchForestCharacteristics(this.getCountryIso(this.props))
   }
 
-  componentWillReceiveProps (nextProps) {
-    const nextCountryIso = this.getCountryIso(nextProps)
-    if (nextCountryIso !== this.getCountryIso(this.props))
-      this.fetchForestCharacteristics(nextCountryIso)
+  componentDidUpdate(prevProps, prevState) {
+    const currentCountryIso = this.getCountryIso(this.props)
+    const previousCountryIso = this.getCountryIso(prevProps)
+    if (currentCountryIso !== previousCountryIso)
+      this.fetchForestCharacteristics(currentCountryIso)
   }
 
   render () {
