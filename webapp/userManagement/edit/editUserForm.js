@@ -30,18 +30,18 @@ class EditUserForm extends React.Component {
   }
 
   componentDidMount () {
-    this.props.loadUser(this.props.countryIso, this.props.userId)
+    this.props.loadUserToEdit(this.props.countryIso, this.props.userId)
   }
 
-  componentWillReceiveProps (nextProps) {
-    if (this.props.userId !== nextProps.userId ||
-      this.props.countryIso !== nextProps.countryIso
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.userId !== prevProps.userId ||
+      this.props.countryIso !== prevProps.countryIso
     ) {
-      this.loadUser(nextProps.countryIso, nextProps.userId)
+      this.props.loadUserToEdit(this.props.countryIso, this.props.userId)
     }
 
-    if (R.path(['user', 'id'], this.state) !== R.path(['user', 'id'], nextProps)) {
-      this.setState({user: nextProps.user})
+    if (R.path(['user', 'id'], this.state) !== R.path(['user', 'id'], this.props)) {
+      this.setState({user: this.props.user})
     }
   }
 
