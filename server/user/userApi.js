@@ -42,9 +42,12 @@ module.exports.init = app => {
 
       const allCountryUsers = await userRepository.fetchUsersAndInvitations(countryIso, url)
 
+      const fraReportCollaboratorsExcluded =
+        R.pathOr([], ['env', 'FRA_REPORT_COLLABORATORS_EXCLUDED'])(process)
+
       const countryUsers = print
         ? R.reject(
-          user => R.propEq('role', reviewer.role, user) || R.contains(R.toLower(user.email), ['lucilla.marinaro@fao.org', 'niki.desy@wur.nl']),
+          user => R.propEq('role', reviewer.role, user) || R.contains(R.toLower(user.email), fraReportCollaboratorsExcluded),
           allCountryUsers
         )
         : filterAllowedUsers(countryIso, req.user, allCountryUsers)
