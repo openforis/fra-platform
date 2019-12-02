@@ -11,3 +11,4 @@ received-emails/
 /tools/fraReport/userData/
 /tools/fraReport/output/
 /tools/fraReport/fraReportGenerator.js
+.env
