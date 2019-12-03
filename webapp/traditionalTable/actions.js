@@ -1,5 +1,5 @@
 import * as table from './table'
-import R from 'ramda'
+import * as R from 'ramda'
 import assert from 'assert'
 import axios from 'axios'
 import * as autosave from '../autosave/actions'

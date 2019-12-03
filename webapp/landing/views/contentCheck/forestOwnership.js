@@ -1,5 +1,5 @@
 import React from 'react'
-import R from 'ramda'
+import * as R from 'ramda'
 
 import { formatDecimal } from '../../../utils/numberFormat'
 import { sub } from '../../../../common/bignumberUtils'
