@@ -1,4 +1,4 @@
-import R from 'ramda'
+import * as R from 'ramda'
 
 const updateValue = (data, action) => {
   const {name, value} = action

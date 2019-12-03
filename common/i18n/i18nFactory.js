@@ -1,6 +1,8 @@
 const i18next = require('i18next')
 const Promise = require('bluebird')
 
+const createInstance = i18next.createInstance || i18next.default.createInstance
+
 const enTranslation = require('./resources/en').translation
 const frTranslation = require('./resources/fr').translation
 const esTranslation = require('./resources/es').translation
@@ -32,22 +34,19 @@ const createParams = lang => ({
   }
 })
 
-const createI18nInstance = (lang, callback) =>
-  i18next.createInstance(
-    createParams(lang),
-    (err, t) => callback({language: lang, t})
-  )
+const createI18nInstance = (lang, callback) => createInstance(
+  createParams(lang),
+  (err, t) => callback({ language: lang, t })
+)
 
-const createI18nPromise = (lang) => {
-  return new Promise((resolve, reject) => {
-    i18next.createInstance(
-      createParams(lang),
-      (err, t) => {
-        if (err) reject(err)
-        resolve({language: lang, t})
-      })
-  })
-}
+const createI18nPromise = lang => new Promise(
+  (resolve, reject) => createInstance(
+    createParams(lang),
+    (err, t) => {
+      if (err) reject(err)
+      resolve({ language: lang, t })
+    })
+)
 
 module.exports.createI18nInstance = createI18nInstance
 module.exports.createI18nPromise = createI18nPromise
