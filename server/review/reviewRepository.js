@@ -5,7 +5,7 @@ const Promise = require('bluebird')
 const auditRepository = require('./../audit/auditRepository')
 const {checkCountryAccess, checkReviewerCountryAccess, AccessControlException} = require('../utils/accessControl')
 const {isReviewer} = require('../../common/countryRole')
-const {parse, isBefore} = require('date-fns')
+const {parseISO, isBefore} = require('date-fns')
 
 const getIssueComments = (countryIso, section, user) =>
   db.query(`
@@ -64,7 +64,7 @@ const hasUnreadIssues = (user, issueComments) => R.pipe(
   R.map(comments => {
     const commentsByOthers = R.reject(c => c.userId === user.id, comments)
     const last = R.last(commentsByOthers)
-    const hasUnreadComments = last ? (last.issueReadTime ? isBefore(parse(last.issueReadTime), parse(last.addedTime)) : true) : false
+    const hasUnreadComments = last ? (last.issueReadTime ? isBefore(parseISO(last.issueReadTime), parseISO(last.addedTime)) : true) : false
     return {hasUnreadComments}
   }),
   R.filter(issue => issue.hasUnreadComments),
