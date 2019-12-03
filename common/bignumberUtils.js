@@ -38,21 +38,22 @@ const sum = array => R.isEmpty(array) || array.every(v => !v)
   ? null
   : R.reduce((total, f) => add(total, defaultTo0(f)), 0, array)
 
-const add = (x, y) => applyOperator(x, y, 'add')
+// API has changed, updated applyOperator params
+const add = (x, y) => applyOperator(x, y, 'plus')
 
-const sub = (x, y) => applyOperator(x, y, 'sub')
+const sub = (x, y) => applyOperator(x, y, 'minus')
 
-const mul = (x, y) => applyOperator(x, y, 'mul')
+const mul = (x, y) => applyOperator(x, y, 'times')
 
 const div = (x, y) => applyOperator(x, y, 'div')
 
-const greaterThanOrEqualTo = (x, y) => applyComparison(x, y, 'greaterThanOrEqualTo')
+const greaterThanOrEqualTo = (x, y) => applyComparison(x, y, 'gte')
 
-const lessThanOrEqualTo = (x, y) => applyComparison(x, y, 'lessThanOrEqualTo')
+const lessThanOrEqualTo = (x, y) => applyComparison(x, y, 'lte')
 
-const greaterThan = (x, y) => applyComparison(x, y, 'greaterThan')
+const greaterThan = (x, y) => applyComparison(x, y, 'gt')
 
-const lessThan = (x, y) => applyComparison(x, y, 'lessThan')
+const lessThan = (x, y) => applyComparison(x, y, 'lt')
 
 const eq = (x, y) => applyComparison(x, y, 'eq')
 
