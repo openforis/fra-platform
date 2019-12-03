@@ -1,5 +1,5 @@
 import * as d3 from 'd3'
-import R from 'ramda'
+import * as R from 'ramda'
 
 export const styles = {
   height: 330,

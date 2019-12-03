@@ -1,5 +1,5 @@
 import React from 'react'
-import R from 'ramda'
+import * as R from 'ramda'
 import { formatDecimal } from '../../utils/numberFormat'
 import { totalSum } from '../../traditionalTable/aggregate'
 import { forestAreaSameAsExtentOfForestValidator } from '../../traditionalTable/validators'

@@ -1,4 +1,4 @@
-import R from 'ramda'
+import * as R from 'ramda'
 import { applyReducerFunction } from '../utils/reduxUtils'
 import {
   changeAssessmentStatusInitiated,

@@ -3,7 +3,7 @@ import './style.less'
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
-import R from 'ramda'
+import * as R from 'ramda'
 
 import Icon from '../reusableUiComponents/icon'
 

@@ -1,4 +1,4 @@
-import R from 'ramda'
+import * as R from 'ramda'
 import * as types from './actions'
 import { applyReducerFunction } from '../utils/reduxUtils'
 import { emptyDataPoint } from './originalDataPoint'

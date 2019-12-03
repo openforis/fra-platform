@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import R from 'ramda'
+import * as R from 'ramda'
 import assert from 'assert'
 
 import * as table from './table'

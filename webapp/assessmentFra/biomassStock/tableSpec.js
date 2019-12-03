@@ -1,5 +1,5 @@
 import React from 'react'
-import R from 'ramda'
+import * as R from 'ramda'
 import defaultYears from '../../../server/eof/defaultYears'
 
 const inputColumns = R.times(() => ({type: 'decimalInput'}), 9)

@@ -1,6 +1,6 @@
 import './multiSelect.less'
 import React from 'react'
-import R from 'ramda'
+import * as R from 'ramda'
 
 const optionClick = (currentValues, onChange, option) => (evt) => {
   evt.stopPropagation()
