@@ -74,6 +74,7 @@ const formatNumber = (value, precision = 2) => R.isNil(value)
   ? null
   : toBigNumber(value).toFormat(precision)
 
+module.exports.groupSeparator = groupSeparator
 module.exports.sum = sum
 module.exports.add = add
 module.exports.sub = sub
