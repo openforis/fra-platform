@@ -1,4 +1,4 @@
-import R from 'ramda'
+import * as R from 'ramda'
 
 export const applicationErrorType = 'applicationError/error'
 export const clearApplicationErrorType = 'applicationError/clear'

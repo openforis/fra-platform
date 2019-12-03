@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { interpolatePath } from 'd3-interpolate-path'
 import * as d3 from 'd3'
-import R from 'ramda'
+import * as R from 'ramda'
 
 import { defaultTransitionDuration } from '../chart'
 

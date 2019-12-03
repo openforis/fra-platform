@@ -2,7 +2,7 @@
  * Module for validators which are reusable in multiple traditional tables (tableSpecs)
  * Don't put your verySpecificValidatorUsedInOnePlace here, leave it in tableSpec instead
  */
-import R from 'ramda'
+import * as R from 'ramda'
 import { abs, greaterThan, greaterThanOrEqualTo, lessThan, sub, eq } from '../../common/bignumberUtils'
 import { totalSum } from '../traditionalTable/aggregate'
 import { getForestAreaForYear, getOtherLandAreaForYear } from '../../common/extentOfForestHelper'

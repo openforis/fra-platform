@@ -1,5 +1,5 @@
 import React from 'react'
-import R from 'ramda'
+import * as R from 'ramda'
 import DataPath from './dataPath'
 import DataPoints from './dataPoints'
 
