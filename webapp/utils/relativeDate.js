@@ -1,6 +1,6 @@
 import * as R from 'ramda'
 import {
-  parse,
+  parseISO,
   differenceInMonths,
   differenceInWeeks,
   differenceInDays,
@@ -10,7 +10,7 @@ import {
 } from 'date-fns'
 
 export const getRelativeDate = (rawDate, i18n) => {
-  const timestamp = parse(rawDate)
+  const timestamp = parseISO(rawDate)
   const now = new Date()
   const formatDiff = (fn, unit) => i18n.t(`time.${unit}`, {count: fn(now, timestamp)})
 
