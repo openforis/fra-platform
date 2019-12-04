@@ -18,7 +18,7 @@ const config = {
 const appConfig = {
   mode: config.mode,
   devtool: 'source-map',
-  entry: ['./webapp/app/main.js'],
+  entry: ['./webapp/main.js'],
   output: {
     filename: 'bundle-[hash].js',
     path: config.path,
