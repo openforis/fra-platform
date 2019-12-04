@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
+import { useParams } from 'react-router-dom'
 
 import FraReviewFooter from '../review/reviewFooter'
 import Icon from '../reusableUiComponents/icon'
@@ -14,7 +15,7 @@ import {
   fetchAllCountryMessageBoardMessages,
 } from './actions'
 
-const MessageBoardHeader = ({i18n, closeCountryMessageBoard}) =>
+const MessageBoardHeader = ({ i18n, closeCountryMessageBoard }) =>
   <div className="fra-review__header">
     <div className="fra-review__header-title">{i18n.t('countryMessageBoard.messageBoard')}</div>
     <div className="fra-review__header-close-btn" onClick={() => closeCountryMessageBoard()}>
@@ -43,7 +44,7 @@ class MessageBoardMessages extends React.Component {
   }
 
   render () {
-    const {i18n, messages = [], countryIso, userInfo} = this.props
+    const { i18n, messages = [], countryIso, userInfo } = this.props
 
     return <div ref="container" className="fra-review__comment-thread">
       {
@@ -88,13 +89,13 @@ class MessageBoardMessages extends React.Component {
 class MessageBoardAddMessage extends React.Component {
 
   handleSendMessage (msg) {
-    const {countryIso, userInfo, sendCountryMessageBoard} = this.props
+    const { countryIso, userInfo, sendCountryMessageBoard } = this.props
 
     sendCountryMessageBoard(countryIso, msg, userInfo.id, userInfo.name)
   }
 
   render () {
-    const {i18n, closeCountryMessageBoard} = this.props
+    const { i18n, closeCountryMessageBoard } = this.props
 
     return <FraReviewFooter
       onSubmit={this.handleSendMessage.bind(this)}
@@ -108,33 +109,28 @@ class MessageBoardAddMessage extends React.Component {
   }
 }
 
-class MessageBoardView extends React.Component {
+const MessageBoardView = props => {
 
-  componentDidUpdate (prevProps) {
-    const {countryIso, fetchAllCountryMessageBoardMessages, showMessageBoard} = this.props
-    const {showMessageBoard: showMessageBoardPrev, countryIso: countryIsoPrev} = prevProps
+  const {
+    fetchAllCountryMessageBoardMessages, showMessageBoard
+  } = props
+  const { countryIso } = useParams()
 
-    if (showMessageBoard &&
-      (!showMessageBoardPrev || countryIso !== countryIsoPrev)) {
-
+  useEffect(() => {
+    if (showMessageBoard) {
       fetchAllCountryMessageBoardMessages(countryIso)
     }
-  }
+  }, [showMessageBoard, countryIso])
 
-  render () {
-
-    const {showMessageBoard} = this.props
-
-    return showMessageBoard
-      ? <div className="fra-review__container">
-        <div className="fra-review user-chat">
-          <MessageBoardHeader {...this.props}/>
-          <MessageBoardMessages {...this.props}/>
-          <MessageBoardAddMessage {...this.props}/>
-        </div>
+  return showMessageBoard && (
+    <div className="fra-review__container">
+      <div className="fra-review user-chat">
+        <MessageBoardHeader {...props} countryIso={countryIso}/>
+        <MessageBoardMessages {...props} countryIso={countryIso}/>
+        <MessageBoardAddMessage {...props} countryIso={countryIso}/>
       </div>
-      : null
-  }
+    </div>
+  )
 }
 
 const mapStateToProps = state => ({
@@ -146,5 +142,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  {closeCountryMessageBoard, sendCountryMessageBoard, fetchAllCountryMessageBoardMessages}
+  { closeCountryMessageBoard, sendCountryMessageBoard, fetchAllCountryMessageBoardMessages }
 )(MessageBoardView)

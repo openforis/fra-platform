@@ -131,7 +131,7 @@ class RecentActivityView extends React.Component {
               fra={extentOfForest.fra}
             />)
           : <div className="landing__activity-empty">
-            <img src="img/tucan.svg" height="72"/>
+            <img src="/img/tucan.svg" height="72"/>
             <p className="landing__activity-empty-title">{i18n.t('landing.recentActivity.noRecentActivityTitle')}</p>
             <p>{i18n.t('landing.recentActivity.noRecentActivityBody')}</p>
             <Link className="btn-s btn-primary"
