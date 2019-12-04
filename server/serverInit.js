@@ -25,6 +25,8 @@ module.exports = () => {
   accessControl.init(app)
 
   app.use(compression({threshold: 512}))
+  app.use('/style', express.static(`${__dirname}/../dist/style`))
+  app.use('/js', express.static(`${__dirname}/../dist/js`))
   app.use('/', express.static(`${__dirname}/../dist`))
   loginHandler.init(app)
 
