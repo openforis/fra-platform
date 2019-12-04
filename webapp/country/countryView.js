@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
-import { compose } from 'redux'
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 
 import * as R from 'ramda'
 
@@ -16,28 +15,26 @@ import { fetchInitialData } from '../app/actions'
 
 const CountryView = props => {
 
-  const {
-    match,
-    initialDataLoaded, fetchInitialData
-  } = props
+  const { initialDataLoaded, fetchInitialData } = props
+
+  const { countryIso } = useParams()
 
   useEffect(() => {
-    const countryIso = R.path(['params', 'countryIso'], match)
     fetchInitialData(countryIso)
-  }, [])
+  }, [countryIso])
 
   return initialDataLoaded && (
     <div className="app__root">
-      {/*<Navigation/>*/}
-      {/*<div className="fra-view__container">*/}
+      <Navigation/>
+      <div className="fra-view__container">
         OOOO
         {/*{children}*/}
-      {/*</div>*/}
-      {/*<Header/>*/}
-      {/*<Review/>*/}
-      {/*<UserChat/>*/}
-      {/*<CountryMessageBoardView/>*/}
-      {/*<ErrorComponent/>*/}
+      </div>
+      <Header/>
+      <Review/>
+      <UserChat/>
+      <CountryMessageBoardView/>
+      <ErrorComponent/>
     </div>
   )
 }
@@ -51,9 +48,4 @@ const mapStateToProps = state => {
   return { initialDataLoaded }
 }
 
-const enhance = compose(
-  withRouter,
-  connect(mapStateToProps, { fetchInitialData })
-)
-
-export default enhance(CountryView)
+export default connect(mapStateToProps, { fetchInitialData })(CountryView)
