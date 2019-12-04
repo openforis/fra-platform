@@ -22,6 +22,7 @@ const appConfig = {
   output: {
     filename: 'js/bundle-[hash].js',
     path: config.path,
+    publicPath: '/',
   },
   module: {
     rules: [
@@ -66,7 +67,8 @@ const loginConfig = {
   entry: ['./webapp/login/login.js'],
   output: {
     filename: 'js/login-[hash].js',
-    path: config.path
+    path: config.path,
+    publicPath: '/',
   },
   module: {
     rules: [

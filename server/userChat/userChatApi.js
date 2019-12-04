@@ -13,7 +13,7 @@ const {sendMail} = require('../email/sendMail')
 const {getChatMessages, addMessage, getChatUnreadMessages} = require('./userChatRepository')
 
 const createMail = async (country, i18n, sender, recipient, url) => {
-  const link = `${url}/#/country/${country.countryIso}`
+  const link = `${url}/country/${country.countryIso}/`
   const countryName = R.path(['listName', 'en'], country)
 
   return {
