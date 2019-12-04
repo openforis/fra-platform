@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Link } from '../../../reusableUiComponents/link'
+import { Link } from 'react-router-dom'
 
 import ExtentOfForestSection from './extentOfForestSection'
 import ForestCharacteristicsSection from './forestCharacteristicsSection'

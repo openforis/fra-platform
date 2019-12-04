@@ -4,7 +4,7 @@ import { formatDecimal } from '../../utils/numberFormat'
 import { totalSum } from '../../traditionalTable/aggregate'
 import { otherLandLessThanOrEqualToExtentOfForestValidator } from '../../traditionalTable/validators'
 import { getOtherLandAreaForYear } from '../../../common/extentOfForestHelper'
-import { Link } from '../../reusableUiComponents/link'
+import { Link } from 'react-router-dom'
 
 const mapIndexed = R.addIndex(R.map)
 const years = [1990, 2000, 2010, 2015, 2020]

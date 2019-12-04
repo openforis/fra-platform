@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
-import { Link } from '../../reusableUiComponents/link'
+import { Link } from 'react-router-dom'
 import { fetchItem, save, saveMany, generateFraValues } from '../../tableWithOdp/actions'
 import { TableWithOdp, GenerateFraValuesControl } from '../../tableWithOdp/tableWithOdp'
 import ChartWrapper from '../extentOfForest/chart/chartWrapper'
