@@ -10,7 +10,6 @@ import { div, greaterThan, sub, toFixed, add, formatNumber } from '../../../comm
 import { readPasteClipboard } from '../../utils/copyPasteUtil'
 
 import { ThousandSeparatedDecimalInput } from '../../reusableUiComponents/thousandSeparatedDecimalInput'
-import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
 import DefinitionLink from '../../reusableUiComponents/definitionLink'
 import ReviewIndicator from '../../review/reviewIndicator'
 import NationalDataDescriptions from '../../descriptionBundles/nationalDataDescriptions'
@@ -413,15 +412,9 @@ class GrowingStockView extends React.Component {
 
   render () {
     const { totalTable, avgTable } = this.props
-
     const render = isPrintingOnlyTables() ? this.hasData(totalTable) || this.hasData(avgTable) : true
-
-    return render &&
-      <LoggedInPageTemplate commentsOpen={this.props.openCommentThread}>
-        <GrowingStock
-          countryIso={this.props.match.params.countryIso}
-          {...this.props}/>
-      </LoggedInPageTemplate>
+    return render && <GrowingStock countryIso={this.props.match.params.countryIso} {...this.props}/>
+    
   }
 }
 

@@ -2,7 +2,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
 
-import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
 import TraditionalTable from '../../traditionalTable/traditionalTable'
 import tableSpec from './tableSpec'
 import NationalDataDescriptions from '../../descriptionBundles/nationalDataDescriptions'
@@ -64,7 +63,7 @@ class CarbonStockView extends React.Component {
     const render = isPrintingOnlyTables() ? FraUtils.hasData(tableData) : true
 
     return render &&
-      <LoggedInPageTemplate>
+      <>
 
         <h2 className="title only-print">
           {`${isPrintingOnlyTables() ? '' : '2d '}${i18n.t('carbonStock.carbonStock')}`}
@@ -116,7 +115,7 @@ class CarbonStockView extends React.Component {
             disabled={isEditDataDisabled}
           />
         </div>
-      </LoggedInPageTemplate>
+      </>
   }
 }
 

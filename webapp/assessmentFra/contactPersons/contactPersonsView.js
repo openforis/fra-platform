@@ -6,7 +6,6 @@ import * as R from 'ramda'
 
 import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
 
-import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
 import CommentableDescription from '../../description/commentableDescription.js'
 
 import { isFRA2020SectionEditDisabled } from '../../utils/assessmentAccess'
@@ -24,8 +23,7 @@ class ContactPersonsView extends React.Component {
 
     const {i18n, countryIso, isEditDataDisabled} = this.props
 
-    return <LoggedInPageTemplate commentsOpen={this.props.openCommentThread}>
-      <div className="fra-view__content">
+    return <div className="fra-view__content">
 
         <CommentableDescription
           section={sectionName}
@@ -37,7 +35,6 @@ class ContactPersonsView extends React.Component {
         />
 
       </div>
-    </LoggedInPageTemplate>
   }
 }
 

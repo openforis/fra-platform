@@ -3,7 +3,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
 
-import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
 import TraditionalTable from '../../traditionalTable/traditionalTable'
 import tableSpec, { sectionName } from './tableSpec'
 import DefinitionLink from '../../reusableUiComponents/definitionLink'
@@ -33,8 +32,7 @@ class GrowingStockCompositionView extends React.Component {
     const render = isPrintingOnlyTables() ? FraUtils.hasData(tableData) : true
 
     return render &&
-      <LoggedInPageTemplate>
-
+      <>
         <h2 className="title only-print">
           {`${isPrintingOnlyTables() ? '' : '2b '}${i18n.t('growingStockComposition.growingStockComposition')}`}
         </h2>
@@ -62,7 +60,7 @@ class GrowingStockCompositionView extends React.Component {
             disabled={isEditDataDisabled}
           />
         </div>
-      </LoggedInPageTemplate>
+      </>
   }
 
 }

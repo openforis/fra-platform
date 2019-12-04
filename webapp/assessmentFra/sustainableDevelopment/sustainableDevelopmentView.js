@@ -4,7 +4,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
 
-import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
 import DefinitionLink from '../../reusableUiComponents/definitionLink'
 import defaultYears from '../../../server/eof/defaultYears'
 
@@ -44,9 +43,8 @@ class SustainableDevelopmentView extends React.Component {
     const lang = i18n.language
     const years = R.drop(1, defaultYears)
 
-    return R.isEmpty(data)
-      ? null
-      : <LoggedInPageTemplate>
+    return !R.isEmpty(data) &&
+     <>
         <div className="fra-view__content fra-sustainable-dev__content">
 
           <h2 className="title only-print">
@@ -106,7 +104,7 @@ class SustainableDevelopmentView extends React.Component {
                          countryConfig={countryConfig}
                          disabled={isEditDataDisabled}/>
         </div>
-      </LoggedInPageTemplate>
+      </>
   }
 }
 

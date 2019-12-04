@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 
 import tableSpec, { tableProps } from './tableSpec'
 
-import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
 import TraditionalTable from '../../traditionalTable/traditionalTable'
 import NationalDataDescriptions from '../../descriptionBundles/nationalDataDescriptions'
 import GeneralComments from '../../descriptionBundles/generalComments'
@@ -15,7 +14,7 @@ const GraduationOfStudentsView = props => {
   const tableSpecPrint1 = tableSpec(i18n, tableProps.graduationOfStudentsPrint1)
   const tableSpecPrint2 = tableSpec(i18n, tableProps.graduationOfStudentsPrint2)
 
-  return <LoggedInPageTemplate>
+  return <>
 
     <h2 className="title only-print">
       7b {i18n.t('graduationOfStudents.graduationOfStudents')} ({i18n.t('graduationOfStudents.average')})
@@ -36,7 +35,7 @@ const GraduationOfStudentsView = props => {
 
       <GeneralComments section={tableProps.graduationOfStudents.name} countryIso={countryIso}/>
     </div>
-  </LoggedInPageTemplate>
+  </>
 
 }
 

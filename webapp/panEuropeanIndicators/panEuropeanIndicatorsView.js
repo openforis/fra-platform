@@ -4,7 +4,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
 
-import LoggedInPageTemplate from '../app/loggedInPageTemplate'
 import ReviewIndicator from '../review/reviewIndicator'
 import Icon from '../reusableUiComponents/icon'
 
@@ -32,7 +31,7 @@ class PanEuropeanIndicatorsView extends React.Component {
 
   render () {
     const {i18n, countryIso, status, questionnaireFileName, userInfo, panEuropean = {}} = this.props
-    return <LoggedInPageTemplate>
+    return <>
       <div className="fra-view__content">
         <div className="fra-view__page-header">
           <h2 className="headline">{i18n.t('panEuropeanIndicators.panEuropeanIndicators')}</h2>
@@ -96,7 +95,7 @@ class PanEuropeanIndicatorsView extends React.Component {
         </div>
 
       </div>
-    </LoggedInPageTemplate>
+    </>
   }
 
 }

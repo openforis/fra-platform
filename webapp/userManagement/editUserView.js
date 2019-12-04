@@ -2,7 +2,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import NotFound from '../app/notfound'
-import LoggedInPageTemplate from '../app/loggedInPageTemplate'
 import EditUserForm from './edit/editUserForm'
 
 import { isAdministrator } from '../../common/countryRole'
@@ -16,11 +15,9 @@ class EditUserView extends React.Component {
     const canEdit = isAdministrator(userInfo) || userInfo.id === userId
 
     return canEdit
-      ? <LoggedInPageTemplate>
-        <div className="fra-view__content">
+      ? <div className="fra-view__content">
           <EditUserForm userId={userId} countryIso={countryIso} />
         </div>
-      </LoggedInPageTemplate>
       : <NotFound/>
   }
 }

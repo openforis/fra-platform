@@ -4,7 +4,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
 
-import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
 import TraditionalTable from '../../traditionalTable/traditionalTable'
 import mainTableSpec, { sectionName } from './mainTableSpec'
 import DefinitionLink from '../../reusableUiComponents/definitionLink'
@@ -53,7 +52,7 @@ class NonWoodForestProductsRemovalsView extends React.Component {
     const render = isPrintingOnlyTables() ? FraUtils.hasData(tableData) : true
 
     return render &&
-      <LoggedInPageTemplate>
+      <>
 
         <h2 className="title only-print">
           {`${isPrintingOnlyTables() ? '' : '7c '}${i18n.t('nonWoodForestProductsRemovals.nonWoodForestProductsRemovals')}`}
@@ -84,7 +83,7 @@ class NonWoodForestProductsRemovalsView extends React.Component {
             disabled={isEditDataDisabled}
           />
         </div>
-      </LoggedInPageTemplate>
+      </>
   }
 }
 
