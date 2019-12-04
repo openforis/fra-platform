@@ -1,5 +1,5 @@
 module.exports = () => {
-
+  const path = require('path')
   const express = require('express')
   const bodyParser = require('body-parser')
   const compression = require('compression')
@@ -27,16 +27,18 @@ module.exports = () => {
   app.use(compression({threshold: 512}))
   app.use('/style', express.static(`${__dirname}/../dist/style`))
   app.use('/js', express.static(`${__dirname}/../dist/js`))
-  app.use('/', express.static(`${__dirname}/../dist`))
   loginHandler.init(app)
 
   app.use('/img/', express.static(`${__dirname}/../web-resources/img`))
   app.use('/css/', express.static(`${__dirname}/../web-resources/css`))
-  app.use('/ckeditor/', express.static(`${__dirname}/../web-resources/ckeditor`))
+  app.use('/ckeditor', express.static(`${__dirname}/../web-resources/ckeditor`), )
 
   app.use(fileUpload())
   app.use('/api', apiRouter.router)
-
+  // app.use('/', express.static(`${__dirname}/../dist`))
+  app.get('*', function(req, res) {
+    res.sendFile('index.html', {root: path.join(__dirname, '../dist/')});
+  });
   definitionsApi.init(app)
 
 // Custom error-handling for handling custom exceptions and
