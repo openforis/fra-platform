@@ -4,7 +4,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
 
-import LoggedInPageTemplate from '../app/loggedInPageTemplate'
 import { getCountryName } from '../country/actions'
 import { isAllowedToChangeRole } from '../../common/userManagementAccessControl'
 import { isReviewer } from '../../common/countryRole'
@@ -55,7 +54,7 @@ class LandingView extends React.Component {
     const countryIso = match.params.countryIso
     const sections = this.getSections()
 
-    return <LoggedInPageTemplate>
+    return
       <div className="fra-view__content">
 
         <div className="landing__page-header">
@@ -76,7 +75,6 @@ class LandingView extends React.Component {
         {React.createElement(this.getActiveSection(sections).component, {...this.props})}
 
       </div>
-    </LoggedInPageTemplate>
   }
 }
 

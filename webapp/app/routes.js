@@ -3,7 +3,7 @@ import React from 'react'
 // import Route from 'route-parser'
 import { Route } from "react-router-dom";
 
-import Router from '../router/router'
+// import Router from '../router/router'
 import LandingView from '../landing/landingView'
 import OriginalDataPointView from '../originalDataPoint/originalDataPointView'
 import OriginalDataListView from '../originalDataPoint/originalDataListView'
