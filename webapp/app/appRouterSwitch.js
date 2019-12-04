@@ -1,13 +1,13 @@
 import React from 'react'
 
 import { Route, Switch } from 'react-router-dom'
-import CountryView from '../country/countryView'
+import LoggedInView from '../loggedin/loggedInView'
 
 const AppRouterSwitch = () => (
   <Switch>
 
     <Route path="/country/:countryIso/">
-      <CountryView/>
+      <LoggedInView/>
     </Route>
 
   </Switch>

@@ -13,7 +13,7 @@ import ErrorComponent from '../applicationError/errorComponent'
 
 import { fetchInitialData } from '../app/actions'
 
-const CountryView = props => {
+const LoggedInView = props => {
 
   const { initialDataLoaded, fetchInitialData } = props
 
@@ -48,4 +48,4 @@ const mapStateToProps = state => {
   return { initialDataLoaded }
 }
 
-export default connect(mapStateToProps, { fetchInitialData })(CountryView)
+export default connect(mapStateToProps, { fetchInitialData })(LoggedInView)
