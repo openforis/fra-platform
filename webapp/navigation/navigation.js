@@ -59,7 +59,7 @@ const Nav = props => {
                 countryIso={countryIso}
                 i18n={i18n}
                 path={path}
-                pathTemplate="/country/:countryIso"
+                pathTemplate="/country/:countryIso/"
                 label={i18n.t('landing.home')}
               />
               <div className="nav__divider"></div>
@@ -85,7 +85,7 @@ const Nav = props => {
                       countryIso={countryIso}
                       i18n={i18n}
                       path={path}
-                      pathTemplate="/country/:countryIso/panEuropeanIndicators"
+                      pathTemplate="/country/:countryIso/panEuropeanIndicators/"
                       label={i18n.t('navigation.sectionHeaders.panEuropeanIndicators')}
                     />
                   </div>

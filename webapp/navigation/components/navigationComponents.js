@@ -1,20 +1,21 @@
 import React from 'react'
 import Route from 'route-parser'
 import * as R from 'ramda'
+import { Link } from 'react-router-dom'
+
 import Icon from '../../reusableUiComponents/icon'
-import { Link } from '../../reusableUiComponents/link'
 
 export const getLinkTo = (pathTemplate, countryIso) => {
   const route = new Route(pathTemplate)
-  return route.reverse({countryIso})
+  return route.reverse({ countryIso })
 }
 
-export const ReviewStatus = ({status}) =>
+export const ReviewStatus = ({ status }) =>
   status.issueStatus === 'opened'
     ? <div className={`nav__review-status--${status.hasUnreadIssues ? 'unread' : 'open'}`}/>
     : null
 
-export const NationalData = ({path, countryIso, pathTemplate, secondaryPathTemplate, status, label, userInfo}) => {
+export const NationalData = ({ path, countryIso, pathTemplate, secondaryPathTemplate, status, label, userInfo }) => {
   const linkTo = getLinkTo(pathTemplate, countryIso)
   const secondaryLinkTo = getLinkTo(secondaryPathTemplate, countryIso)
 
@@ -36,7 +37,7 @@ export const NationalData = ({path, countryIso, pathTemplate, secondaryPathTempl
   </Link>
 }
 
-export const SectionLink = ({countryIso, path, pathTemplate, label}) => {
+export const SectionLink = ({ countryIso, path, pathTemplate, label }) => {
   const linkTo = getLinkTo(pathTemplate, countryIso)
 
   return <Link
@@ -46,7 +47,7 @@ export const SectionLink = ({countryIso, path, pathTemplate, label}) => {
   </Link>
 }
 
-export const Footer = ({i18n, userInfo, countryIso, path}) => {
+export const Footer = ({ i18n, userInfo, countryIso, path }) => {
   const currentYear = new Date().getFullYear()
   const newLine = `%0D%0A`
   const subject = i18n.t('navigation.support.feedbackEmailSubject')

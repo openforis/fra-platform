@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 import * as R from 'ramda'
 import { isAdministrator } from '../../../common/countryRole'
@@ -8,7 +9,6 @@ import { getAllowedStatusTransitions } from '../../../common/assessment'
 import { PopoverControl } from '../../reusableUiComponents/popoverControl'
 import { Modal, ModalHeader, ModalBody, ModalFooter, ModalClose } from '../../reusableUiComponents/modal'
 import Icon from '../../reusableUiComponents/icon'
-import { Link } from '../../reusableUiComponents/link'
 import { ReviewStatus, getLinkTo } from './navigationComponents'
 
 import { canToggleAssessmentLock, isAssessmentLocked } from '../../utils/assessmentAccess'
