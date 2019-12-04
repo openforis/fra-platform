@@ -1,7 +1,7 @@
 import React from 'react'
 import * as R from 'ramda'
 
-import { Link } from '../reusableUiComponents/link'
+import { Link } from 'react-router-dom'
 
 import './popoverControl.less'
 

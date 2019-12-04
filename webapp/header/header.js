@@ -6,7 +6,7 @@ import * as R from 'ramda'
 
 import { PopoverControl } from '../reusableUiComponents/popoverControl'
 import Icon from '../reusableUiComponents/icon'
-import { Link } from '../reusableUiComponents/link'
+import { Link } from 'react-router-dom'
 
 import { logout, switchLanguage } from '../user/actions'
 import { toggleNavigationVisible } from '../navigation/actions'

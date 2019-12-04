@@ -6,7 +6,7 @@ import { formatDecimal } from '../../utils/numberFormat'
 import { formatNumber } from '../../../common/bignumberUtils'
 
 import { subCategoryValidator, positiveOrZero } from '../../traditionalTable/validators'
-import { Link } from '../../reusableUiComponents/link'
+import { Link } from 'react-router-dom'
 import { yearIntervals, decimalInputCell, eofNetChange, calculateMirrorValue, rowMirrors } from './forestAreaChange'
 
 const mapIndexed = R.addIndex(R.map)
