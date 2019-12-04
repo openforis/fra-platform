@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { Route, useParams } from 'react-router-dom'
 
 import * as R from 'ramda'
 
@@ -10,6 +10,8 @@ import Review from '../review/review'
 import UserChat from '../userChat/userChatView'
 import CountryMessageBoardView from '../countryMessageBoard/countryMessageBoardView'
 import ErrorComponent from '../applicationError/errorComponent'
+
+import routes from './routes'
 
 import { fetchInitialData } from '../app/actions'
 
@@ -27,8 +29,9 @@ const LoggedInView = props => {
     <div className="app__root">
       <Navigation/>
       <div className="fra-view__container">
-        OOOO
-        {/*{children}*/}
+        {
+          routes.map((route, i) => <Route exact key={i} {...route}/>)
+        }
       </div>
       <Header/>
       <Review/>

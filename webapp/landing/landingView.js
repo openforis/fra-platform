@@ -30,31 +30,31 @@ class LandingView extends React.Component {
   }
 
   getSections () {
-    const {userInfo, match} = this.props
+    const { userInfo, match } = this.props
     const countryIso = match.params.countryIso
 
     const defaultSections = [
-      {name: 'overview', component: OverviewView},
-      {name: 'recentActivity', component: RecentActivityView},
-      {name: 'about', component: AboutView},
-      {name: 'links', component: LinksView}
+      { name: 'overview', component: OverviewView },
+      { name: 'recentActivity', component: RecentActivityView },
+      { name: 'about', component: AboutView },
+      { name: 'links', component: LinksView }
     ]
 
     const sections = isAllowedToChangeRole(countryIso, userInfo)
-      ? R.insert(1, {name: 'userManagement', component: ManageCollaboratorsView}, defaultSections)
+      ? R.insert(1, { name: 'userManagement', component: ManageCollaboratorsView }, defaultSections)
       : defaultSections
 
     return isReviewer(countryIso, userInfo)
-      ? R.insert(1, {name: 'contentCheck', component: ContentCheckView}, sections)
+      ? R.insert(1, { name: 'contentCheck', component: ContentCheckView }, sections)
       : sections
   }
 
   render () {
-    const {i18n, getCountryName, match} = this.props
+    const { i18n, getCountryName, match } = this.props
     const countryIso = match.params.countryIso
     const sections = this.getSections()
 
-    return
+    return (
       <div className="fra-view__content">
 
         <div className="landing__page-header">
@@ -65,16 +65,17 @@ class LandingView extends React.Component {
                 key={section.name}
                 disabled={this.isActiveSection(sections, section)}
                 className="landing__page-menu-button"
-                onClick={e => this.setState({section})}>
+                onClick={e => this.setState({ section })}>
                 {i18n.t(`landing.sections.${section.name}`)}
               </button>
             )}
           </div>
         </div>
 
-        {React.createElement(this.getActiveSection(sections).component, {...this.props})}
+        {React.createElement(this.getActiveSection(sections).component, { ...this.props })}
 
       </div>
+    )
   }
 }
 

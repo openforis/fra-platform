@@ -1,9 +1,3 @@
-import * as R from 'ramda'
-import React from 'react'
-// import Route from 'route-parser'
-import { Route } from "react-router-dom";
-
-// import Router from '../router/router'
 import LandingView from '../landing/landingView'
 import OriginalDataPointView from '../originalDataPoint/originalDataPointView'
 import OriginalDataListView from '../originalDataPoint/originalDataListView'
@@ -41,8 +35,8 @@ import PrintAssessmentView from '../printAssessment/printAssessmentView'
 import AdminView from '../admin/adminView'
 
 const routes = [
-  { path: '/country/:countryIso/admin', component: AdminView },
   { path: '/country/:countryIso', component: LandingView },
+  { path: '/country/:countryIso/admin', component: AdminView },
   { path: '/country/:countryIso/odps', component: OriginalDataListView },
   { path: '/country/:countryIso/odp/:tab', component: OriginalDataPointView },
   { path: '/country/:countryIso/odp/:tab/:odpId', component: OriginalDataPointView },

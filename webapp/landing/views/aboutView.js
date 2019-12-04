@@ -1,21 +1,20 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-const Logos = ({i18n}) => <div className="landing__logos-container">
+const Logos = ({ i18n }) => <div className="landing__logos-container">
   <div className="landing__logos-inner-container">
-    <img src="img/cfrq_logos.png" className="landing__logos"/>
-    <img src="img/nicfi_3.jpg" className="landing__logos landing__logos__nicfi" />
+    <img src="/img/cfrq_logos.png" className="landing__logos"/>
+    <img src="/img/nicfi_3.jpg" className="landing__logos landing__logos__nicfi"/>
   </div>
   <div className="landing__logos-inner-container">
-    <div style={{paddingRight:'14px'}}>{i18n.t('landing.overview.withFinancialSupportOf')}</div>
-    <img src="/img/ec_logo.png" height="50" />
-    <img src="/img/mfafi_logo.png" height="80" />
-    <img src="/img/mmmfi_logo.png" height="50" />
+    <div style={{ paddingRight: '14px' }}>{i18n.t('landing.overview.withFinancialSupportOf')}</div>
+    <img src="/img/ec_logo.png" height="50"/>
+    <img src="/img/mfafi_logo.png" height="80"/>
+    <img src="/img/mmmfi_logo.png" height="50"/>
   </div>
 </div>
 
-
-const AboutView = ({i18n}) => <div className="landing__page-container">
+const AboutView = ({ i18n }) => <div className="landing__page-container">
 
   <div className="landing__page-container-item">
     <div className="landing__about-text">{i18n.t('landing.about.fraProcess')}</div>
