@@ -5,16 +5,16 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
-import AppCountryView from "./app/appCountryView"
+import AppRouterSwitch from './app/appRouterSwitch'
 
 import * as loginStatusChecker from './user/loginStatusChecker'
 import store from './state/store'
 
-function renderApp() {
+function renderApp () {
   ReactDOM.render(
     <Provider store={store}>
       <BrowserRouter>
-        <AppCountryView />
+        <AppRouterSwitch/>
       </BrowserRouter>
     </Provider>,
     document.querySelector('#main'),

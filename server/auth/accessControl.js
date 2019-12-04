@@ -2,6 +2,8 @@ const R = require('ramda')
 
 const allowedPaths = [
   /^\/login.*/,
+  /^\/js\/login*/,
+  /^\/style\/login*/,
   /^\/resetPassword.*/,
   /^\/img\//,
   /^\/css\//,
