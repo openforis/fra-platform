@@ -25,6 +25,7 @@ import {
 } from './actions'
 import { fetchCountryOverviewStatus } from '../country/actions'
 import { fetchLastSectionUpdateTimestamp } from '../audit/actions'
+import { isAssessmentLocked } from '../utils/assessmentAccess'
 
 const years = ['', ...R.pipe(R.range(1950), R.reverse)(2021)]
 
@@ -214,7 +215,7 @@ const mapStateToProps = state => {
   const openThread = R.defaultTo({ target: [], section: '' }, R.path(['review', 'openThread'], state))
   const useOriginalDataPointsInFoc = !!R.path(['country', 'config', 'useOriginalDataPointsInFoc'], state)
 
-  const locked = R.pathOr(true, ['country', 'status', 'assessments', 'fra2020', 'locked'], state)
+  const locked = isAssessmentLocked(state, 'fra2020')
   const canEditData = R.path(['country', 'status', 'assessments', 'fra2020', 'canEditData'], state) && !locked
 
   return {
