@@ -1,14 +1,14 @@
 import React from 'react'
 import * as R from 'ramda'
+import { Link } from 'react-router-dom'
+import { CSVLink } from 'react-csv'
 
-import { Link } from '../../reusableUiComponents/link'
 import Icon from '../../reusableUiComponents/icon'
 
 import { isAdministrator } from '../../../common/countryRole'
 
 import { getRelativeDate } from '../../utils/relativeDate'
 import { getRoleLabelKey } from '../../../common/countryRole'
-import { CSVLink } from 'react-csv'
 
 export default class CountrySelection extends React.Component {
 
@@ -151,13 +151,12 @@ class CountryRow extends React.PureComponent {
   }
 
   render () {
-    const { country, fetchAllCountryData, i18n, getCountryName } = this.props
+    const { country, i18n, getCountryName } = this.props
 
     return (
       <Link
-        to={`/country/${country.countryIso}`}
-        className={`nav__country-list-row ${this.isSelected() ? 'selected' : ''}`}
-        onClick={() => fetchAllCountryData(country.countryIso)}>
+        to={`/country/${country.countryIso}/`}
+        className={`nav__country-list-row ${this.isSelected() ? 'selected' : ''}`}>
 
         <span className="nav__country-list-primary-col" ref="countryNameRef">
           {getCountryName(country.countryIso, i18n.language)}
