@@ -2,7 +2,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import NotFound from '../app/notfound'
-import LoggedInPageTemplate from '../app/loggedInPageTemplate'
 
 import UsersManagementView from './components/usersManagementView'
 import DataExportView from './components/dataExportView'
@@ -27,36 +26,29 @@ class AdminView extends React.Component {
 
   render () {
     const { userInfo, i18n } = this.props
-
     return isAdministrator(userInfo)
-      ? <LoggedInPageTemplate>
-        <div className="fra-view__content">
+      ?  <div className="fra-view__content">
 
-          <div className="landing__page-header">
-            <h1 className="landing__page-title">{i18n.t('admin.admin')}</h1>
-
-            <div className="landing__page-menu">
-              {
-                sections.map(section =>
-                  <button key={section.name}
-                          disabled={this.isActiveSection(section)}
-                          className="landing__page-menu-button"
-                          onClick={e => this.setState({ section })}>
-                    {i18n.t(section.labelKey)}
-                  </button>
-                )
-              }
-            </div>
-
-          </div>
-
+      <div className="landing__page-header">
+        <h1 className="landing__page-title">{i18n.t('admin.admin')}</h1>
+        <div className="landing__page-menu">
           {
-            React.createElement(this.state.section.component, { ...this.props })
+            sections.map(section =>
+              <button key={section.name}
+                disabled={this.isActiveSection(section)}
+                className="landing__page-menu-button"
+                onClick={e => this.setState({ section })}>
+                {i18n.t(section.labelKey)}
+              </button>
+            )
           }
-
+          </div>
         </div>
-      </LoggedInPageTemplate>
-      : <NotFound/>
+        {React.createElement(this.state.section.component, { ...this.props })}
+
+      </div>
+
+      : <NotFound />
   }
 }
 

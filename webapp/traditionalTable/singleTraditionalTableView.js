@@ -6,7 +6,6 @@
 
 import React from 'react'
 import { connect } from 'react-redux'
-import LoggedInPageTemplate from '../app/loggedInPageTemplate'
 import TraditionalTable from '../traditionalTable/traditionalTable'
 import NationalDataDescriptions from '../descriptionBundles/nationalDataDescriptions'
 import AnalysisDescriptions from '../descriptionBundles/analysisDescriptions'
@@ -51,7 +50,7 @@ class SingleTraditionalTableView extends React.Component {
     const render = isPrintingOnlyTables() ? FraUtils.hasData(tableData) : true
 
     return render &&
-      <LoggedInPageTemplate>
+      <>
 
         <h2 className="title only-print">
           {
@@ -94,7 +93,7 @@ class SingleTraditionalTableView extends React.Component {
           <GeneralComments section={tableSpecInstance.name} countryIso={countryIso} disabled={isEditDataDisabled}/>
         </div>
 
-      </LoggedInPageTemplate>
+      </>
 
   }
 }

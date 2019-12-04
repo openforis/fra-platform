@@ -3,8 +3,6 @@ import { connect } from 'react-redux'
 import * as R from 'ramda'
 import camelize from 'camelize'
 
-import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
-
 import { fetchUsers } from '../../userManagement/actions'
 
 class ContactPersonsPrintView extends React.Component {
@@ -21,7 +19,7 @@ class ContactPersonsPrintView extends React.Component {
       ? countryUsers.filter(u => u.active)
       : null
 
-    return <LoggedInPageTemplate commentsOpen={this.props.openCommentThread}>
+    return <>
       <div className="fra-view__content">
         <h2 className="headline">
           {i18n.t('contactPersons.reportPreparationAndContactPersons')}
@@ -31,7 +29,7 @@ class ContactPersonsPrintView extends React.Component {
         </div>
 
         {
-          users ?
+          users &&
             <table className="fra-table">
 
               <thead>
@@ -86,10 +84,9 @@ class ContactPersonsPrintView extends React.Component {
 
 
             </table>
-            : null
         }
       </div>
-    </LoggedInPageTemplate>
+    </>
   }
 }
 

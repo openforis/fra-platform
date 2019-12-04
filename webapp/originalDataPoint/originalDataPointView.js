@@ -4,7 +4,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
 
-import LoggedInPageTemplate from '../app/loggedInPageTemplate'
 import ReviewIndicator from '../review/reviewIndicator'
 import DataSources from './components/dataSources'
 import NationalClasses from './components/nationalClasses'
@@ -192,8 +191,7 @@ class OriginalDataPointView extends React.Component {
   }
 
   render () {
-    return <LoggedInPageTemplate>
-
+    return <>
       {
         this.props.odp &&
         <OriginalDataPoint
@@ -203,8 +201,7 @@ class OriginalDataPointView extends React.Component {
             R.not(R.isNil(R.path(['match', 'params', 'odpId'], this.props))))}
           {...this.props}/>
       }
-
-    </LoggedInPageTemplate>
+    </>
   }
 }
 

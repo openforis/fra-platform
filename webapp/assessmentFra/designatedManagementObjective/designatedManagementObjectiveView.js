@@ -1,7 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
 import TraditionalTable from '../../traditionalTable/traditionalTable'
 import {
   primaryDesignatedManagementObjectiveTableSpec,
@@ -50,7 +49,7 @@ class designatedManagementObjectiveView extends React.Component {
     const renderTotal = isPrintingOnlyTables() ? totalHasData : true
 
     return (renderPrimary || renderTotal) &&
-      <LoggedInPageTemplate>
+      <>
 
         <h2 className="title only-print">
           {`${isPrintingOnlyTables() ? '' : '3a '}${i18n.t('designatedManagementObjective.designatedManagementObjective')}`}
@@ -115,7 +114,7 @@ class designatedManagementObjectiveView extends React.Component {
             disabled={isEditDataDisabled}
           />
         </div>
-      </LoggedInPageTemplate>
+      </>
   }
 }
 

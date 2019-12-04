@@ -5,7 +5,6 @@ import * as R from 'ramda'
 import { fetchOdps, removeFromList } from './actions'
 import { Link } from '../reusableUiComponents/link'
 import Icon from '../reusableUiComponents/icon'
-import LoggedInPageTemplate from '../app/loggedInPageTemplate'
 
 const TableRow = ({odp, i18n, countryIso, removeFromList}) => {
   const odpUrl = `/country/${countryIso}/odp/extentOfForest/${odp.odpId}`
@@ -120,9 +119,7 @@ class DataFetchingComponent extends React.Component {
   }
 
   render () {
-    return <LoggedInPageTemplate>
-      <ODPListing countryIso={this.props.match.params.countryIso} {...this.props} />
-    </LoggedInPageTemplate>
+    return <ODPListing countryIso={this.props.match.params.countryIso} {...this.props} />
   }
 }
 

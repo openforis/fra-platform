@@ -2,7 +2,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
 
-import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
 import { Link } from '../../reusableUiComponents/link'
 import Icon from '../../reusableUiComponents/icon'
 import DefinitionLink from '../../reusableUiComponents/definitionLink'
@@ -315,14 +314,12 @@ class DataFetchingComponent extends React.Component {
         ? fra
         : fraNoNDPs
 
-    return <LoggedInPageTemplate commentsOpen={this.props.openCommentThread}>
-      <ExtentOfForest {...this.props}
-                      countryIso={this.props.match.params.countryIso}
-                      fra={data}
-                      showNDPs={showNDPs}
-                      hasNDPs={hasNDPs}
-                      toggleNDPs={() => this.setState({ showNDPs: !showNDPs })}/>
-    </LoggedInPageTemplate>
+    return <ExtentOfForest {...this.props}
+      countryIso={this.props.match.params.countryIso}
+      fra={data}
+      showNDPs={showNDPs}
+      hasNDPs={hasNDPs}
+      toggleNDPs={() => this.setState({ showNDPs: !showNDPs })} />
   }
 }
 

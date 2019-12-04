@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import * as R from 'ramda'
 import { Link } from '../../reusableUiComponents/link'
 import { fetchItem, save, saveMany, generateFraValues } from '../../tableWithOdp/actions'
-import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
 import { TableWithOdp, GenerateFraValuesControl } from '../../tableWithOdp/tableWithOdp'
 import ChartWrapper from '../extentOfForest/chart/chartWrapper'
 import NationalDataDescriptions from '../../descriptionBundles/nationalDataDescriptions'
@@ -357,15 +356,12 @@ class DataFetchingComponent extends React.Component {
     const render = isPrintingOnlyTables() ? this.hasData(data) : true
 
     return render && (
-      <LoggedInPageTemplate commentsOpen={this.props.openCommentThread}>
-
         <ForestCharacteristics
           {...this.props}
           countryIso={this.props.match.params.countryIso}
           fra={data}
         />
 
-      </LoggedInPageTemplate>
     )
   }
 }

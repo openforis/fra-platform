@@ -2,7 +2,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 import tableSpec, { tableProps } from './tableSpec'
 
-import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
 import TraditionalTable from '../../traditionalTable/traditionalTable'
 import NationalDataDescriptions from '../../descriptionBundles/nationalDataDescriptions'
 import AnalysisDescriptions from '../../descriptionBundles/analysisDescriptions'
@@ -15,7 +14,7 @@ const DisturbancesPrintView = props => {
   const tableSpecPrint1 = tableSpec(i18n, extentOfForest, countryIso, tableProps.disturbancesPrint1)
   const tableSpecPrint2 = tableSpec(i18n, extentOfForest, countryIso, tableProps.disturbancesPrint2)
 
-  return <LoggedInPageTemplate>
+  return <>
 
     <h2 className="title only-print">
       5a {i18n.t('disturbances.disturbances')}
@@ -36,7 +35,7 @@ const DisturbancesPrintView = props => {
       <TraditionalTable tableSpec={tableSpecPrint2} countryIso={countryIso}/>
       <GeneralComments section={tableProps.disturbances.name} countryIso={countryIso}/>
     </div>
-  </LoggedInPageTemplate>
+  </>
 
 
 }
