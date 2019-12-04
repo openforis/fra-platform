@@ -1,6 +1,7 @@
 import * as R from 'ramda'
 import React from 'react'
-import Route from 'route-parser'
+// import Route from 'route-parser'
+import { Route } from "react-router-dom";
 
 import Router from '../router/router'
 import LandingView from '../landing/landingView'
@@ -39,46 +40,39 @@ import EditUserView from '../userManagement/editUserView'
 import PrintAssessmentView from '../printAssessment/printAssessmentView'
 import AdminView from '../admin/adminView'
 
-const routes = {
-  '/': () => <noscript/>, //This will get rendered first (it flashes), before we redirect to logged-in page or login page
-  '/version': () => <span>{__PLATFORM_VERSION__}</span>,
-  '/country/:countryIso/admin': AdminView,
-  '/country/:countryIso': LandingView,
-  '/country/:countryIso/odps': OriginalDataListView,
-  '/country/:countryIso/odp/:tab': OriginalDataPointView,
-  '/country/:countryIso/odp/:tab/:odpId': OriginalDataPointView,
-  '/country/:countryIso/extentOfForest': ExtentOfForestView,
-  '/country/:countryIso/growingStock': GrowingStockView,
-  '/country/:countryIso/specificForestCategories': SpecificForestCategoriesView,
-  '/country/:countryIso/growingStockComposition': GrowingStockCompositionView,
-  '/country/:countryIso/forestAreaChange': ForestAreaChangeView,
-  '/country/:countryIso/forestCharacteristics': ForestCharacteristicsView,
-  '/country/:countryIso/designatedManagementObjective': designatedManagementObjectiveView,
-  '/country/:countryIso/areaAffectedByFire': AreaAffecteByFireView,
-  '/country/:countryIso/degradedForest': DegradedForestView,
-  '/country/:countryIso/employment': EmploymentView,
-  '/country/:countryIso/graduationOfStudents': GraduationOfStudentsView,
-  '/country/:countryIso/nonWoodForestProductsRemovals': NonWoodForestProductsRemovalsView,
-  '/country/:countryIso/annualReforestation': AnnualReforestationView,
-  '/country/:countryIso/biomassStock': BiomassStockView,
-  '/country/:countryIso/carbonStock': CarbonStockView,
-  '/country/:countryIso/forestOwnership': ForestOwnershipView,
-  '/country/:countryIso/forestAreaWithinProtectedAreas': ForestAreaWithinProtectedAreasView,
-  '/country/:countryIso/holderOfManagementRights': HolderOfManagementRightsView,
-  '/country/:countryIso/disturbances': DisturbancesView,
-  '/country/:countryIso/areaOfPermanentForestEstateView': AreaOfPermanentForestEstateView,
-  '/country/:countryIso/forestPolicy': ForestPolicyView,
-  '/country/:countryIso/otherLandWithTreeCover': OtherLandWithTreeCoverView,
-  '/country/:countryIso/sustainableDevelopment': SustainableDevelopmentView,
-  '/country/:countryIso/contactPersons': ContactPersonsView,
-  '/country/:countryIso/panEuropeanIndicators': PanEuropeanIndicatorsView,
-  '/country/:countryIso/user/:userId': EditUserView,
-  '/country/:countryIso/print/:assessment': PrintAssessmentView
-}
+const routes = [
+  { path: '/country/:countryIso/admin', component: AdminView },
+  { path: '/country/:countryIso', component: LandingView },
+  { path: '/country/:countryIso/odps', component: OriginalDataListView },
+  { path: '/country/:countryIso/odp/:tab', component: OriginalDataPointView },
+  { path: '/country/:countryIso/odp/:tab/:odpId', component: OriginalDataPointView },
+  { path: '/country/:countryIso/extentOfForest', component: ExtentOfForestView },
+  { path: '/country/:countryIso/growingStock', component: GrowingStockView },
+  { path: '/country/:countryIso/specificForestCategories', component: SpecificForestCategoriesView },
+  { path: '/country/:countryIso/growingStockComposition', component: GrowingStockCompositionView },
+  { path: '/country/:countryIso/forestAreaChange', component: ForestAreaChangeView },
+  { path: '/country/:countryIso/forestCharacteristics', component: ForestCharacteristicsView },
+  { path: '/country/:countryIso/designatedManagementObjective', component: designatedManagementObjectiveView },
+  { path: '/country/:countryIso/areaAffectedByFire', component: AreaAffecteByFireView },
+  { path: '/country/:countryIso/degradedForest', component: DegradedForestView },
+  { path: '/country/:countryIso/employment', component: EmploymentView },
+  { path: '/country/:countryIso/graduationOfStudents', component: GraduationOfStudentsView },
+  { path: '/country/:countryIso/nonWoodForestProductsRemovals', component: NonWoodForestProductsRemovalsView },
+  { path: '/country/:countryIso/annualReforestation', component: AnnualReforestationView },
+  { path: '/country/:countryIso/biomassStock', component: BiomassStockView },
+  { path: '/country/:countryIso/carbonStock', component: CarbonStockView },
+  { path: '/country/:countryIso/forestOwnership', component: ForestOwnershipView },
+  { path: '/country/:countryIso/forestAreaWithinProtectedAreas', component: ForestAreaWithinProtectedAreasView },
+  { path: '/country/:countryIso/holderOfManagementRights', component: HolderOfManagementRightsView },
+  { path: '/country/:countryIso/disturbances', component: DisturbancesView },
+  { path: '/country/:countryIso/areaOfPermanentForestEstateView', component: AreaOfPermanentForestEstateView },
+  { path: '/country/:countryIso/forestPolicy', component: ForestPolicyView },
+  { path: '/country/:countryIso/otherLandWithTreeCover', component: OtherLandWithTreeCoverView },
+  { path: '/country/:countryIso/sustainableDevelopment', component: SustainableDevelopmentView },
+  { path: '/country/:countryIso/contactPersons', component: ContactPersonsView },
+  { path: '/country/:countryIso/panEuropeanIndicators', component: PanEuropeanIndicatorsView },
+  { path: '/country/:countryIso/user/:userId', component: EditUserView },
+  { path: '/country/:countryIso/print/:assessment', component: PrintAssessmentView }
+]
 
-const routeConfig = R.pipe(
-  R.keys,
-  R.map(k => ({route: new Route(k), component: routes[k]}))
-)(routes)
-
-export default ({path}) => <Router path={path} routes={routeConfig}/>
+export default routes
