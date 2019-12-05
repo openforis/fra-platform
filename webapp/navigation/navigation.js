@@ -9,7 +9,6 @@ import CountrySelection from './components/countrySelection'
 import Assessment from './components/assessment'
 import { SectionLink, Footer } from './components/navigationComponents'
 
-import { follow } from './../router/actions'
 import {
   changeAssessment,
   navigationScroll,
@@ -112,7 +111,6 @@ const mapStateToProps = state => ({
 })
 
 export default connect(mapStateToProps, {
-  follow,
   getCountryName,
   isPanEuropeanCountry,
   fetchAllCountryData,
