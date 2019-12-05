@@ -1,7 +1,8 @@
 import './style.less'
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
+import { useParams } from 'react-router-dom'
 import * as R from 'ramda'
 
 import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
@@ -12,37 +13,31 @@ import { isFRA2020SectionEditDisabled } from '../../utils/assessmentAccess'
 
 const sectionName = 'contactPersons'
 
-class ContactPersonsView extends React.Component {
+const ContactPersonsView = props => {
+  const { fetchLastSectionUpdateTimestamp, i18n, isEditDataDisabled } = props
+  const { countryIso } = useParams
 
-  componentDidMount () {
-    const countryIso = this.props.match.params.countryIso
-    this.props.fetchLastSectionUpdateTimestamp(countryIso, sectionName)
-  }
+  useEffect(() => {
+    fetchLastSectionUpdateTimestamp(countryIso, sectionName)
+  }, [])
 
-  render () {
-
-    const {i18n, countryIso, isEditDataDisabled} = this.props
-
-    return <div className="fra-view__content">
-
-        <CommentableDescription
-          section={sectionName}
-          title={i18n.t('contactPersons.introductoryText')}
-          name='introductoryText'
-          countryIso={countryIso}
-          template={i18n.t('contactPersons.introductoryTextSupport')}
-          disabled={isEditDataDisabled}
-        />
-
-      </div>
-  }
+  return <div className="fra-view__content">
+    <CommentableDescription
+      section={sectionName}
+      title={i18n.t('contactPersons.introductoryText')}
+      name='introductoryText'
+      countryIso={countryIso}
+      template={i18n.t('contactPersons.introductoryTextSupport')}
+      disabled={isEditDataDisabled}
+    />
+  </div>
 }
+
 
 const mapStateToProps = (state, props) => ({
   openCommentThread: state.review.openThread,
   i18n: state.user.i18n,
-  countryIso: R.path(['match', 'params', 'countryIso'], props),
   isEditDataDisabled: isFRA2020SectionEditDisabled(state, sectionName)
 })
 
-export default connect(mapStateToProps, {fetchLastSectionUpdateTimestamp})(ContactPersonsView)
+export default connect(mapStateToProps, { fetchLastSectionUpdateTimestamp })(ContactPersonsView)
