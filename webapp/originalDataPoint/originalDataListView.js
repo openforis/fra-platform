@@ -8,7 +8,7 @@ import Icon from '../reusableUiComponents/icon'
 
 const TableRow = ({odp, i18n, countryIso, removeFromList}) => {
   const odpUrl = `/country/${countryIso}/odp/extentOfForest/${odp.odpId}`
-  const navigateTo = (url) => window.location.href = '#' + url
+  const navigateTo = (url) => window.location.href = url
 
   return <tr className="odp-list__link-row">
     <td className="odp-list__year-cell" onClick={() => navigateTo(odpUrl)}>
