@@ -1,7 +1,8 @@
 import './sustainableDevelopmentView.less'
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
+import { useParams } from 'react-router-dom'
 import * as R from 'ramda'
 
 import DefinitionLink from '../../reusableUiComponents/definitionLink'
@@ -21,91 +22,82 @@ import { isPrintingOnlyTables } from '../../printAssessment/printAssessment'
 
 const sectionName = 'sustainableDevelopment'
 
-class SustainableDevelopmentView extends React.Component {
+const SustainableDevelopmentView = props => {
+  const { i18n, data, countryConfig, isEditDataDisabled } = props
+  const { countryIso } = useParams()
+  const lang = i18n.language
+  const years = R.drop(1, defaultYears)
 
-  componentDidMount () {
-    const countryIso = this.props.match.params.countryIso
+  useEffect(() => {
+    props.fetchLastSectionUpdateTimestamp(countryIso, sectionName)
+  }, [])
 
-    this.props.fetchLastSectionUpdateTimestamp(countryIso, sectionName)
-    this.props.fetch(countryIso)
-  }
+  useEffect(() => {
+    props.fetch(countryIso)
+  }, [countryIso])
 
-  componentDidUpdate(prevProps, prevState) {
-    const currentCountryIso = this.props.match.params.countryIso
-    const previousCountryIso = prevProps.match.params.countryIso
-    if (currentCountryIso !== previousCountryIso)
-      this.props.fetch(nextCountryIso)
-  }
+  return !R.isEmpty(data) &&
+    <>
+      <div className="fra-view__content fra-sustainable-dev__content">
 
-  render () {
-    const { match, i18n, data, countryConfig, isEditDataDisabled } = this.props
-    const countryIso = match.params.countryIso
-    const lang = i18n.language
-    const years = R.drop(1, defaultYears)
+        <h2 className="title only-print">
+          {`${isPrintingOnlyTables() ? '' : '8a '}${i18n.t('sustainableDevelopment.sustainableDevelopment')}`}
+        </h2>
 
-    return !R.isEmpty(data) &&
-     <>
-        <div className="fra-view__content fra-sustainable-dev__content">
+        <h2 className="headline no-print">
+          {i18n.t('sustainableDevelopment.sustainableDevelopment')}
+        </h2>
 
-          <h2 className="title only-print">
-            {`${isPrintingOnlyTables() ? '' : '8a '}${i18n.t('sustainableDevelopment.sustainableDevelopment')}`}
-          </h2>
-
-          <h2 className="headline no-print">
-            {i18n.t('sustainableDevelopment.sustainableDevelopment')}
-          </h2>
-
-          <div className="fra-view__section-toolbar">
-            <DefinitionLink className="margin-right-big" document="tad" anchor="8"
-                            title={i18n.t('definition.definitionLabel')} lang={lang}/>
-            <DefinitionLink className="align-left" document="faq" anchor="8" title={i18n.t('definition.faqLabel')}
-                            lang={lang}/>
-          </div>
-
-          <h3 className="subhead" style={{ marginBottom: 16 }}>{i18n.t('sustainableDevelopment.sdgIndicator1')}</h3>
-
-          <Indicator i18n={i18n}
-                     countryIso={countryIso}
-                     data={data}
-                     years={years}
-                     countryConfig={countryConfig}
-                     disabled={isEditDataDisabled}/>
-
-          <h3 className="subhead" style={{ marginBottom: 16 }}>{i18n.t('sustainableDevelopment.sdgIndicator2')}</h3>
-
-          <SubIndicator1 i18n={i18n}
-                         countryIso={countryIso}
-                         data={data}
-                         years={years}
-                         disabled={isEditDataDisabled}/>
-
-          <div className="page-break"/>
-          <SubIndicator2 i18n={i18n}
-                         countryIso={countryIso}
-                         data={data}
-                         years={years}
-                         disabled={isEditDataDisabled}/>
-          <SubIndicator3 i18n={i18n}
-                         countryIso={countryIso}
-                         data={data}
-                         years={years}
-                         disabled={isEditDataDisabled}/>
-
-          <div className="page-break"/>
-          <SubIndicator4 i18n={i18n}
-                         countryIso={countryIso}
-                         data={data}
-                         years={years}
-                         disabled={isEditDataDisabled}/>
-          <SubIndicator5 i18n={i18n}
-                         countryIso={countryIso}
-                         data={data}
-                         years={years}
-                         countryConfig={countryConfig}
-                         disabled={isEditDataDisabled}/>
+        <div className="fra-view__section-toolbar">
+          <DefinitionLink className="margin-right-big" document="tad" anchor="8"
+            title={i18n.t('definition.definitionLabel')} lang={lang} />
+          <DefinitionLink className="align-left" document="faq" anchor="8" title={i18n.t('definition.faqLabel')}
+            lang={lang} />
         </div>
-      </>
-  }
+
+        <h3 className="subhead" style={{ marginBottom: 16 }}>{i18n.t('sustainableDevelopment.sdgIndicator1')}</h3>
+
+        <Indicator i18n={i18n}
+          countryIso={countryIso}
+          data={data}
+          years={years}
+          countryConfig={countryConfig}
+          disabled={isEditDataDisabled} />
+
+        <h3 className="subhead" style={{ marginBottom: 16 }}>{i18n.t('sustainableDevelopment.sdgIndicator2')}</h3>
+
+        <SubIndicator1 i18n={i18n}
+          countryIso={countryIso}
+          data={data}
+          years={years}
+          disabled={isEditDataDisabled} />
+
+        <div className="page-break" />
+        <SubIndicator2 i18n={i18n}
+          countryIso={countryIso}
+          data={data}
+          years={years}
+          disabled={isEditDataDisabled} />
+        <SubIndicator3 i18n={i18n}
+          countryIso={countryIso}
+          data={data}
+          years={years}
+          disabled={isEditDataDisabled} />
+
+        <div className="page-break" />
+        <SubIndicator4 i18n={i18n}
+          countryIso={countryIso}
+          data={data}
+          years={years}
+          disabled={isEditDataDisabled} />
+        <SubIndicator5 i18n={i18n}
+          countryIso={countryIso}
+          data={data}
+          years={years}
+          countryConfig={countryConfig}
+          disabled={isEditDataDisabled} />
+      </div>
+    </>
 }
 
 const mapStateToProps = state => ({
