@@ -56,7 +56,6 @@ const BiomassStockView = props => {
     fetchLastSectionUpdateTimestamp(countryIso, tableSpecInstance.name)
   }, [])
 
-
   const render = isPrintingOnlyTables() ? FraUtils.hasData(tableData) : true
   if (!render) return null
   return <div className="fra-view__content">
