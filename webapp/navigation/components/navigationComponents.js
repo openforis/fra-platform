@@ -1,14 +1,10 @@
 import React from 'react'
-import Route from 'route-parser'
 import * as R from 'ramda'
 import { Link } from 'react-router-dom'
 
 import Icon from '../../reusableUiComponents/icon'
 
-export const getLinkTo = (pathTemplate, countryIso) => {
-  const route = new Route(pathTemplate)
-  return route.reverse({ countryIso })
-}
+export const getLinkTo = (pathTemplate, countryIso) => R.replace(/:countryIso/, countryIso, pathTemplate)
 
 export const ReviewStatus = ({ status }) =>
   status.issueStatus === 'opened'

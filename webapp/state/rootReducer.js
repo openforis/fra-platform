@@ -7,7 +7,6 @@ import growingStock from '../assessmentFra/growingStock/reducer'
 import originalDataPoint from '../originalDataPoint/reducers'
 import autoSave from '../autosave/reducer'
 import navigation from '../navigation/reducers'
-import router from '../router/reducers'
 import user from '../user/reducer'
 import traditionalTable from '../traditionalTable/reducer'
 import descriptions from '../description/reducers'
@@ -28,7 +27,6 @@ export default combineReducers({
   originalDataPoint,
   autoSave,
   navigation,
-  router,
   user,
   review,
   traditionalTable,
