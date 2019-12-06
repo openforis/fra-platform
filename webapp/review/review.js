@@ -1,89 +1,71 @@
 import './style.less'
 import * as R from 'ramda'
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import { connect } from 'react-redux'
+import { useLocation, useParams } from 'react-router'
 
 import { postComment, retrieveComments, closeCommentThread, markCommentAsDeleted, markIssueAsResolved } from './actions'
 import { getRelativeDate } from '../utils/relativeDate'
 import { isReviewer } from '../../common/countryRole'
-import {profilePictureUri} from '../../common/userUtils'
+import { profilePictureUri } from '../../common/userUtils'
 
 import FraReviewFooter from './reviewFooter'
 import Icon from '../reusableUiComponents/icon'
 
 const mapIndexed = R.addIndex(R.map)
 
-class AddComment extends React.Component {
+const AddComment = props => {
 
-  constructor () {
-    super()
+  const { i18n, userInfo, issueStatus, postComment, issueId, section, target, onCancel } = props
+  const { countryIso } = useParams()
 
-    this.handleAddComment = this.handleAddComment.bind(this)
-  }
+  const canAddComment = issueStatus !== 'resolved' || isReviewer(countryIso, userInfo)
 
-  handleAddComment (msg) {
-    const {postComment, issueId, countryIso, section, target} = this.props
+  return <FraReviewFooter
+    onSubmit={msg => postComment(issueId, countryIso, section, target, null, msg)}
+    onCancel={() => onCancel()}
+    placeholder={`${canAddComment ? i18n.t('review.writeComment') : i18n.t('review.commentingClosed')}`}
+    i18n={i18n}
+    submitBtnLabel={i18n.t('review.add')}
+    cancelBtnLabel={i18n.t('review.cancel')}
+    submitAllowed={canAddComment}
+  />
 
-    postComment(issueId, countryIso, section, target, null, msg)
-  }
-
-  render () {
-    const {i18n, countryIso, userInfo, issueStatus, onCancel} = this.props
-
-    const canAddComment = () => issueStatus !== 'resolved' || isReviewer(countryIso, userInfo)
-
-    return <FraReviewFooter
-      onSubmit={this.handleAddComment}
-      onCancel={() => onCancel()}
-      placeholder={`${canAddComment() ? this.props.i18n.t('review.writeComment') : this.props.i18n.t('review.commentingClosed')}`}
-      i18n={i18n}
-      submitBtnLabel={i18n.t('review.add')}
-      cancelBtnLabel={i18n.t('review.cancel')}
-      submitAllowed={canAddComment()}
-    />
-
-  }
 }
 
-class CommentThread extends React.Component {
+const CommentThread = props => {
+  const {
+    comments,
+    userInfo = {},
+    section,
+    target,
+    issueStatus,
+    markCommentAsDeleted,
+    i18n
+  } = props
 
-  scrollToBottom () {
-    if (this.refs.commentScroller) {
-      this.refs.commentScroller.scrollTop = this.refs.commentScroller.scrollHeight
+  const { countryIso } = useParams()
+  const commentScrollerRef = useRef(null)
+
+  useEffect(() => {
+    const element = commentScrollerRef.current
+    if (element) {
+      element.scrollTop = element.scrollHeight
     }
-  }
+  })
 
-  componentDidMount () {
-    this.scrollToBottom()
-  }
+  const isThisMe = R.pipe(R.prop('userId'), R.equals(userInfo.id))
+  const isCommentDeleted = R.propEq('deleted', true)
+  const isCommentStatusResolved = R.propEq('statusChanged', 'resolved')
 
-  componentDidUpdate () {
-    this.scrollToBottom()
-  }
-
-  render () {
-    const {
-      comments,
-      userInfo = {},
-      countryIso,
-      section,
-      target,
-      issueStatus,
-      markCommentAsDeleted,
-      i18n
-    } = this.props
-
-    const isThisMe = R.pipe(R.prop('userId'), R.equals(userInfo.id))
-    const isCommentDeleted = R.propEq('deleted', true)
-    const isCommentStatusResolved = R.propEq('statusChanged', 'resolved')
-
-    return <div ref="commentScroller" className="fra-review__comment-thread">
+  return (
+    <div ref={commentScrollerRef} className="fra-review__comment-thread">
       {
         R.isNil(comments)
           ? null
           : R.not(R.isEmpty(comments))
           ? mapIndexed((c, i) =>
-              <div key={i} className={`fra-review__comment ${ isCommentDeleted(c) ? 'fra-review__comment-deleted' : ''}`}>
+              <div key={i} className={`fra-review__comment ${isCommentDeleted(c) ? 'fra-review__comment-deleted' : ''}`}>
                 <div className="fra-review__comment-header">
                   <img className="fra-review__comment-avatar"
                        src={profilePictureUri(countryIso, c.userId)}/>
@@ -127,89 +109,87 @@ class CommentThread extends React.Component {
           </div>
       }
     </div>
-
-  }
+  )
 }
 
-const ReviewHeader = ({title, close, userInfo, countryIso, section, target, issueId, issueStatus, markIssueAsResolved, i18n}) =>
-  <div className="fra-review__header">
-    <div className="fra-review__header-title">{i18n.t('review.comments')}</div>
-    <div className="fra-review__header-close-btn" onClick={e => close(e)}>
-      <Icon name="remove"/>
-    </div>
-    {title ? <div className="fra-review__header-target">{title}</div> : null}
-    {issueId && isReviewer(countryIso, userInfo) && issueStatus !== 'resolved'
-      ? <div className="fra-review__header-button">
-        <button
-          className="btn btn-primary btn-s"
-          onClick={() => markIssueAsResolved(countryIso, section, target, issueId, userInfo.id)}>
-          {i18n.t('review.resolve')}
-        </button>
+const ReviewHeader = ({ title, close, userInfo, section, target, issueId, issueStatus, markIssueAsResolved, i18n }) => {
+  const { countryIso } = useParams()
+
+  return (
+    <div className="fra-review__header">
+      <div className="fra-review__header-title">{i18n.t('review.comments')}</div>
+      <div className="fra-review__header-close-btn" onClick={e => close(e)}>
+        <Icon name="remove"/>
       </div>
-      : null}
-  </div>
-
-class ReviewPanel extends React.Component {
-  componentDidUpdate(prevProps, prevState) {
-    if (!R.equals(this.props.country, prevProps.country)) {
-      this.props.closeCommentThread(this.props.country)
-    }
-  }
-
-  render () {
-    const isActive = R.pipe(R.defaultTo({}), R.isEmpty, R.not)(this.props.openThread)
-    const target = R.isNil(this.props.openThread) ? null : (this.props.openThread.target).join(',')
-    const section = R.isNil(this.props.openThread) ? '' : this.props.openThread.section
-    const title = R.isNil(this.props.openThread) ? '' : this.props.openThread.name
-    const comments = R.defaultTo([], target ? this.props[target].issue : [])
-    const issueId = comments && comments.length > 0 ? comments[0].issueId : null
-    const issueStatus = comments && comments.length > 0 ? comments[0].issueStatus : null
-    const close = R.partial(ctx => {
-      ctx.props.closeCommentThread(this.props.country, section, target)
-    }, [this])
-    const i18n = this.props.i18n
-
-    return isActive
-      ? <div className="fra-review__container">
-        <div className="fra-review">
-          <ReviewHeader
-            title={title}
-            close={close}
-            userInfo={this.props.userInfo}
-            countryIso={this.props.country}
-            section={section}
-            target={target}
-            issueId={issueId}
-            issueStatus={issueStatus}
-            markIssueAsResolved={this.props.markIssueAsResolved}
-            i18n={i18n}
-          />
-          <CommentThread
-            comments={comments}
-            userInfo={this.props.userInfo}
-            countryIso={this.props.country}
-            section={section}
-            target={target}
-            markCommentAsDeleted={this.props.markCommentAsDeleted}
-            issueStatus={issueStatus}
-            i18n={i18n}
-          />
-          <AddComment
-            issueId={issueId}
-            countryIso={this.props.country}
-            section={section}
-            target={target}
-            postComment={this.props.postComment}
-            onCancel={close}
-            isFirst={comments.length === 0}
-            userInfo={this.props.userInfo}
-            issueStatus={issueStatus}
-            i18n={i18n}
-          />
+      {title ? <div className="fra-review__header-target">{title}</div> : null}
+      {issueId && isReviewer(countryIso, userInfo) && issueStatus !== 'resolved'
+        ? <div className="fra-review__header-button">
+          <button
+            className="btn btn-primary btn-s"
+            onClick={() => markIssueAsResolved(countryIso, section, target, issueId, userInfo.id)}>
+            {i18n.t('review.resolve')}
+          </button>
         </div>
+        : null}
+    </div>
+  )
+}
+
+const ReviewPanel = props => {
+  const { i18n, userInfo, closeCommentThread } = props
+  const { countryIso } = useParams()
+  const location = useLocation()
+
+  useEffect(() => {
+    closeCommentThread(countryIso)
+  }, [countryIso, location])
+
+  const isActive = R.pipe(R.defaultTo({}), R.isEmpty, R.not)(props.openThread)
+  const target = R.isNil(props.openThread) ? null : (props.openThread.target).join(',')
+  const section = R.isNil(props.openThread) ? '' : props.openThread.section
+  const title = R.isNil(props.openThread) ? '' : props.openThread.name
+  const comments = R.defaultTo([], target ? props[target].issue : [])
+  const issueId = comments && comments.length > 0 ? comments[0].issueId : null
+  const issueStatus = comments && comments.length > 0 ? comments[0].issueStatus : null
+  const close = () => closeCommentThread(countryIso, section, target)
+
+  return isActive && (
+    <div className="fra-review__container">
+      <div className="fra-review">
+        <ReviewHeader
+          title={title}
+          close={close}
+          userInfo={userInfo}
+          section={section}
+          target={target}
+          issueId={issueId}
+          issueStatus={issueStatus}
+          markIssueAsResolved={props.markIssueAsResolved}
+          i18n={i18n}
+        />
+        <CommentThread
+          comments={comments}
+          userInfo={userInfo}
+          section={section}
+          target={target}
+          markCommentAsDeleted={props.markCommentAsDeleted}
+          issueStatus={issueStatus}
+          i18n={i18n}
+        />
+        <AddComment
+          issueId={issueId}
+          section={section}
+          target={target}
+          postComment={props.postComment}
+          onCancel={close}
+          isFirst={comments.length === 0}
+          userInfo={userInfo}
+          issueStatus={issueStatus}
+          i18n={i18n}
+        />
       </div>
-      : null
-  }
+    </div>
+  )
 }
 
 const mapSateToProps = state => R.pipe(R.prop('review'), R.defaultTo({}), R.merge(state.router), R.merge(state.user))(state)
