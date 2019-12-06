@@ -19,14 +19,14 @@ const MessageBoardHeader = ({ i18n, closeCountryMessageBoard }) =>
   <div className="fra-review__header">
     <div className="fra-review__header-title">{i18n.t('countryMessageBoard.messageBoard')}</div>
     <div className="fra-review__header-close-btn" onClick={() => closeCountryMessageBoard()}>
-      <Icon name="remove" />
+      <Icon name="remove"/>
     </div>
   </div>
 
 const NoMessages = ({ i18n }) =>
   <div className="fra-review__comment-thread">
     <div className='fra-review__comment-placeholder'>
-      <Icon className="fra-review__comment-placeholder-icon icon-24" name="chat-46" />
+      <Icon className="fra-review__comment-placeholder-icon icon-24" name="chat-46"/>
       <span className="fra-review__comment-placeholder-text">{i18n.t('userChat.noMessages')}</span>
     </div>
   </div>
@@ -34,28 +34,30 @@ const NoMessages = ({ i18n }) =>
 const MessageBoardMessages = props => {
   const { i18n, messages = [], userInfo } = props
   const { countryIso } = useParams()
-  const messageContainer = useRef()
+  const messageContainerRef = useRef(null)
 
   useEffect(() => {
     scrollToBottom()
   }, [messages])
 
   const scrollToBottom = () => {
-    if (messageContainer) {
-      messageContainer.scrollTop = messageContainer.scrollHeight
+    const messageContainerEl = messageContainerRef.current
+    if (messageContainerEl) {
+      messageContainerEl.scrollTop = messageContainerRef.scrollHeight
     }
   }
 
   if (R.isEmpty(messages)) {
-    return <NoMessages i18n={i18n} />
+    return <NoMessages i18n={i18n}/>
   }
-  return <div ref={messageContainer} className="fra-review__comment-thread">
+
+  return <div ref={messageContainerRef} className="fra-review__comment-thread">
     {
       messages.map((message, i) =>
         <div key={i} className={`fra-review__comment`}>
           <div className="fra-review__comment-header">
             <img className="fra-review__comment-avatar"
-              src={profilePictureUri(countryIso, message.fromUserId)} />
+                 src={profilePictureUri(countryIso, message.fromUserId)}/>
             <div className="fra-review__comment-author-section">
               <div
                 className={`fra-review__comment-author ${userInfo.id === message.fromUserId ? 'author-me' : ''}`}>
@@ -69,7 +71,7 @@ const MessageBoardMessages = props => {
           </div>
           <div className="fra-review__comment-text">
             {message.text.split('\n').map((item, key) =>
-              <span key={key}>{item}<br /></span>
+              <span key={key}>{item}<br/></span>
             )}
           </div>
         </div>
@@ -77,7 +79,6 @@ const MessageBoardMessages = props => {
     }
   </div>
 }
-
 
 const MessageBoardAddMessage = props => {
   const {
