@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
+import { useParams } from 'react-router-dom'
 import * as R from 'ramda'
 
 import { i18nUserRole, profilePictureUri } from '../../../common/userUtils'
@@ -14,27 +15,27 @@ import { openCountryMessageBoard, closeCountryMessageBoard } from '../../country
 const milestonesTableContent = [
   {
     year: '2018', milestones: [
-      {key: 'milestone1', date: 'date1'},
-      {key: 'milestone2', date: 'date2'},
-      {key: 'milestone3', date: 'date3'}
+      { key: 'milestone1', date: 'date1' },
+      { key: 'milestone2', date: 'date2' },
+      { key: 'milestone3', date: 'date3' }
     ]
   },
   {
     year: '2019', milestones: [
-      {key: 'milestone4', date: 'date4'},
-      {key: 'milestone7', date: 'date7'}
+      { key: 'milestone4', date: 'date4' },
+      { key: 'milestone7', date: 'date7' }
     ]
   },
   {
     year: '2020', milestones: [
-      {key: 'milestone5', date: 'date5'},
-      {key: 'milestone6', date: 'date6'},
-      {key: 'milestone8', date: 'date8'}
+      { key: 'milestone5', date: 'date5' },
+      { key: 'milestone6', date: 'date6' },
+      { key: 'milestone8', date: 'date8' }
     ]
   }
 ]
 
-const Milestones = ({i18n}) => <div className="landing__milestones-container">
+const Milestones = ({ i18n }) => <div className="landing__milestones-container">
   <div className="landing__page-container-header">
     <h3>{i18n.t('landing.milestones.milestones')}</h3>
   </div>
@@ -56,7 +57,7 @@ const Milestones = ({i18n}) => <div className="landing__milestones-container">
   </div>
 </div>
 
-const MessageBoard = ({countryIso, i18n, closeChat, openCountryMessageBoard, countryMessageBoardUnreadMessages = 0, countryMessageBoardOpened}) => (
+const MessageBoard = ({ countryIso, i18n, closeChat, openCountryMessageBoard, countryMessageBoardUnreadMessages = 0, countryMessageBoardOpened }) => (
   <div
     className="landing__users-container landing__message-board">
     <div className="landing__page-container-header">
@@ -88,7 +89,7 @@ const MessageBoard = ({countryIso, i18n, closeChat, openCountryMessageBoard, cou
                 }
               }}
             >
-              <Icon name="chat-46" className="icon-middle"/>
+              <Icon name="chat-46" className="icon-middle" />
               {i18n.t('landing.users.message')}
               {
                 countryMessageBoardUnreadMessages > 0
@@ -105,7 +106,7 @@ const MessageBoard = ({countryIso, i18n, closeChat, openCountryMessageBoard, cou
 
 )
 
-const Users = ({countryIso, i18n, users, userInfo, openChat, closeChat, openCountryMessageBoard, closeCountryMessageBoard, countryMessageBoardUnreadMessages = 0}) => (
+const Users = ({ countryIso, i18n, users, userInfo, openChat, closeChat, openCountryMessageBoard, closeCountryMessageBoard, countryMessageBoardUnreadMessages = 0 }) => (
   <div
     className="landing__users-container">
     <div className="landing__page-container-header">
@@ -120,7 +121,7 @@ const Users = ({countryIso, i18n, users, userInfo, openChat, closeChat, openCoun
             <div className="landing__user-header">
               <img
                 className="landing__user-avatar"
-                src={profilePictureUri(countryIso, user.id)}/>
+                src={profilePictureUri(countryIso, user.id)} />
               <div className="landing__user-info">
 
                 <div className={`landing__user-name${userInfo.id === user.id ? ' session-user' : ''}`}>
@@ -138,7 +139,7 @@ const Users = ({countryIso, i18n, users, userInfo, openChat, closeChat, openCoun
                         openChat(countryIso, userInfo, user)
                       }}
                     >
-                      <Icon name="chat-46" className="icon-middle"/>
+                      <Icon name="chat-46" className="icon-middle" />
                       {i18n.t('landing.users.message')}
                       {
                         user.chat.unreadMessages > 0
@@ -156,67 +157,60 @@ const Users = ({countryIso, i18n, users, userInfo, openChat, closeChat, openCoun
   </div>
 )
 
-class OverviewView extends React.Component {
+const OverviewView = props => {
+  const {
+    closeChat,
+    closeCountryMessageBoard,
+    countryMessageBoardOpened,
+    getCountryOverview,
+    i18n,
+    openChat,
+    openCountryMessageBoard,
+    overview,
+    userInfo,
+  } = props
+  const { countryIso } = useParams()
+  const users = overview && overview.users
+  const countryMessageBoardUnreadMessages = overview && overview.countryMessageBoardUnreadMessages
+  const shouldRenderUsers = !(R.isEmpty(users) || R.isNil(users))
 
-  componentDidMount () {
-    this.getCountryOverview(this.props.match.params.countryIso)
-  }
+  useEffect(() => {
+    getCountryOverview(countryIso)
+    return () => {
+      closeChat()
+      closeCountryMessageBoard()
+    };
+  }, [countryIso])
 
-  componentDidUpdate(prevProps, prevState) {
-    const currentCountryIso = this.props.match.params.countryIso
-    const previousCountryIso = prevProps.match.params.countryIso
 
-    if (!R.equals(previousCountryIso, currentCountryIso)) {
-      this.props.closeChat()
-      this.getCountryOverview(currentCountryIso)
-    }
-  }
 
-  componentWillUnmount () {
-    this.props.closeChat()
-    this.props.closeCountryMessageBoard()
-  }
+  return <div className="landing__page-container">
+    {/*<MapViewContainer {...this.props}/>*/}
+    <Milestones {...props} />
 
-  getCountryOverview (countryIso) {
-    this.props.getCountryOverview(countryIso)
-  }
-
-  render () {
-    const countryIso = this.props.match.params.countryIso
-    const {overview, i18n, userInfo, openChat, closeChat, openCountryMessageBoard, closeCountryMessageBoard, countryMessageBoardOpened} = this.props
-    const users = overview && overview.users
-    const countryMessageBoardUnreadMessages = overview && overview.countryMessageBoardUnreadMessages
-
-    return <div className="landing__page-container">
-      {/*<MapViewContainer {...this.props}/>*/}
-      <Milestones {...this.props} />
-
-      <div className="landing__message-board-container">
-        <MessageBoard countryIso={countryIso}
-                      i18n={i18n}
-                      userInfo={userInfo}
-                      closeChat={closeChat}
-                      openCountryMessageBoard={openCountryMessageBoard}
-                      closeCountryMessageBoard={closeCountryMessageBoard}
-                      countryMessageBoardUnreadMessages={countryMessageBoardUnreadMessages}
-                      countryMessageBoardOpened={countryMessageBoardOpened}/>
-        {
-          R.isEmpty(users) || R.isNil(users)
-            ? null
-            : <Users users={users}
-                     countryIso={countryIso}
-                     i18n={i18n}
-                     userInfo={userInfo}
-                     openChat={openChat}
-                     closeChat={closeChat}
-                     openCountryMessageBoard={openCountryMessageBoard}
-                     closeCountryMessageBoard={closeCountryMessageBoard}
-                     countryMessageBoardUnreadMessages={countryMessageBoardUnreadMessages}/>
-        }
-      </div>
-
+    <div className="landing__message-board-container">
+      <MessageBoard countryIso={countryIso}
+        i18n={i18n}
+        userInfo={userInfo}
+        closeChat={closeChat}
+        openCountryMessageBoard={openCountryMessageBoard}
+        closeCountryMessageBoard={closeCountryMessageBoard}
+        countryMessageBoardUnreadMessages={countryMessageBoardUnreadMessages}
+        countryMessageBoardOpened={countryMessageBoardOpened} />
+      {
+          shouldRenderUsers && <Users users={users}
+            countryIso={countryIso}
+            i18n={i18n}
+            userInfo={userInfo}
+            openChat={openChat}
+            closeChat={closeChat}
+            openCountryMessageBoard={openCountryMessageBoard}
+            closeCountryMessageBoard={closeCountryMessageBoard}
+            countryMessageBoardUnreadMessages={countryMessageBoardUnreadMessages} />
+      }
     </div>
-  }
+
+  </div>
 }
 
 const mapStateToProps = state => ({
