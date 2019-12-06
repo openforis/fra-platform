@@ -28,14 +28,13 @@ const CommentableDescription = props => {
     </div>
     <div className="fra-description__review-indicator-wrapper">
       {
-        disabled
-          ? null
-          : <ReviewIndicator
-            section={props.section}
-            title={props.title}
-            target={[props.name]}
-            countryIso={countryIso}
-          />
+        !disabled &&
+        <ReviewIndicator
+          section={props.section}
+          title={props.title}
+          target={[props.name]}
+          countryIso={countryIso}
+        />
       }
     </div>
   </div>
