@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useParams } from 'react-router-dom'
 import * as R from 'ramda'
 
 import { validField } from '../userManagement'
@@ -58,67 +59,63 @@ const UserRoleSelectCol = ({
     }
   </td>
 
-class AddUserForm extends React.Component {
+const AddUserForm = props => {
+  const { countryIso, i18n, user, updateNewUser, addNewUser } = props
+  const [adding, setAdding] = useState(false)
+  const invalidForm = adding &&
+    !(validField(user, 'name') &&
+      validField(user, 'role') &&
+      validField(user, 'email'))
 
-  constructor (props) {
-    super(props)
-    this.state = {adding: false}
-  }
+  return <div className="add-user__container">
+    {
+      invalidForm &&
+      <div className="add-user__error-container">
+        {i18n.t('userManagement.formErrors')}
+      </div>
+    }
 
-  render () {
-    const {countryIso, i18n, user, updateNewUser, addNewUser} = this.props
-    const invalidForm = this.state.adding &&
-      !(validField(user, 'name') && validField(user, 'role') && validField(user, 'email'))
-
-    return <div className="add-user__container">
-      {
-        invalidForm
-          ? <div className="add-user__error-container">{i18n.t('userManagement.formErrors')}</div>
-          : null
-      }
-
-      <table className="add-user__table">
-        <thead>
+    <table className="add-user__table">
+      <thead>
         <tr>
           <th className="user-list__header-cell">{i18n.t('userManagement.name')}</th>
           <th className="user-list__header-cell">{i18n.t('userManagement.role')}</th>
           <th className="user-list__header-cell">{i18n.t('userManagement.email')}</th>
         </tr>
-        </thead>
-        <tbody>
+      </thead>
+      <tbody>
         <tr>
           <UserTextFieldCol countryIso={countryIso}
-                            i18n={i18n}
-                            user={user}
-                            field="name" editing={true}
-                            updateUser={updateNewUser}
-                            validate={this.state.adding ? validField(user, 'name') : true}/>
+            i18n={i18n}
+            user={user}
+            field="name" editing={true}
+            updateUser={updateNewUser}
+            validate={adding ? validField(user, 'name') : true} />
           <UserRoleSelectCol
-            {...this.props}
+            {...props}
             field="role"
             editing={true}
             updateUser={updateNewUser}
-            validate={this.state.adding ? validField(user, 'role') : true}/>
+            validate={adding ? validField(user, 'role') : true} />
           <UserTextFieldCol countryIso={countryIso}
-                            i18n={i18n}
-                            user={user}
-                            field="email" editing={true}
-                            updateUser={updateNewUser}
-                            validate={this.state.adding ? validField(user, 'email') : true}/>
-          <td style={{padding: 0}}>
+            i18n={i18n}
+            user={user}
+            field="email" editing={true}
+            updateUser={updateNewUser}
+            validate={adding ? validField(user, 'email') : true} />
+          <td style={{ padding: 0 }}>
             <button className="btn btn-primary" onClick={() => {
-              this.setState({adding: true})
+              setAdding(true)
               addNewUser(countryIso)
-              this.setState({adding: false})
+              setAdding(false)
             }}>
               {i18n.t('userManagement.addUser')}
             </button>
           </td>
         </tr>
-        </tbody>
-      </table>
-    </div>
-  }
+      </tbody>
+    </table>
+  </div>
 }
 
 export default AddUserForm
