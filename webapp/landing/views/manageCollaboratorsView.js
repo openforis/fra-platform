@@ -1,7 +1,8 @@
 import '../../userManagement/style.less'
 
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
+import { useParams } from 'react-router-dom'
 import * as R from 'ramda'
 
 import AddUserForm from '../../userManagement/edit/addUserForm'
@@ -20,54 +21,45 @@ import {
   persistCollaboratorCountryAccess
 } from '../../userManagement/actions'
 
-class ManageCollaboratorsView extends React.Component {
+const ManageCollaboratorsView = props => {
+  const { countryUsers, newUser, allowedRoles, editUserStatus, fetchUsers } = props
+  const { countryIso } = useParams()
 
-  constructor (props) {
-    super(props)
-    this.state = {
-      editingUserId: null
+  const [editingUserId, setEditingUserId] = useState(null)
+
+  useEffect(() => {
+    fetchUsers(countryIso)
+  })
+
+  useEffect(() => {
+    if (editUserStatus === 'completed') {
+      setEditingUserId(null)
+      fetchUsers(countryIso)
     }
+
+  }, [countryIso, editUserStatus])
+
+  if (!countryUsers && !R.isEmpty(allowedRoles)) {
+    return null
   }
 
-  componentDidMount () {
-    this.fetch(this.props.match.params.countryIso)
+  if (editingUserId) {
+    return <EditUserForm
+      userId={editingUserId}
+      countryIso={countryIso}
+      onCancel={() => setEditingUserId(null)}
+    />
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    const currentCountryIso = this.props.match.params.countryIso
-    const previousCountryIso = prevProps.match.params.countryIso
-
-    if (!R.equals(currentCountryIso, previousCountryIso))
-      this.fetch(currentCountryIso)
-    // edit user is completed, reloading users and resetting state
-    if (R.prop('editUserStatus', this.props) === 'completed' && R.prop('editUserStatus', prevProps) === 'loaded') {
-      this.setState({editingUserId: null})
-      this.fetch(currentCountryIso)
-    }
-  }
-
-  fetch (countryIso) {
-    this.props.fetchUsers(countryIso)
-  }
-
-  render () {
-    const {countryUsers, newUser, allowedRoles, countryIso} = this.props
-
-    const onEditClick = (userId) => this.setState({editingUserId: userId})
-
-    return countryUsers && !R.isEmpty(allowedRoles)
-      ? this.state.editingUserId
-        ? <EditUserForm
-          userId={this.state.editingUserId}
-          countryIso={countryIso}
-          onCancel={() => this.setState({editingUserId: null})}
-        />
-        : <div>
-          <AddUserForm {...this.props} user={newUser} countryIso={countryIso}/>
-          <UsersTable {...this.props} users={countryUsers} onEditClick={onEditClick}/>
-        </div>
-      : null
-  }
+  return (
+    <>
+      <AddUserForm {...props} user={newUser} countryIso={countryIso} />
+      <UsersTable
+        {...props}
+        users={countryUsers}
+        onEditClick={userId => setEditingUserId(userId)} />
+    </>
+  )
 }
 
 const mapStateToProps = (state, props) =>
