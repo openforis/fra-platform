@@ -1,6 +1,7 @@
 import './style.less'
 import React from 'react'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router'
 import * as R from 'ramda'
 import { fetchOdps, removeFromList } from './actions'
 import { Link } from 'react-router-dom'
@@ -129,4 +130,4 @@ const mapStateToProps = state => ({
   userInfo: state.user.userInfo
 })
 
-export default connect(mapStateToProps, {fetchOdps, removeFromList})(DataFetchingComponent)
+export default withRouter(connect(mapStateToProps, {fetchOdps, removeFromList})(DataFetchingComponent))
