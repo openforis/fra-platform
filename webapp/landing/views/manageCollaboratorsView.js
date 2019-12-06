@@ -2,7 +2,7 @@ import '../../userManagement/style.less'
 
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { useParams, useLocation } from 'react-router-dom'
 import * as R from 'ramda'
 
 import AddUserForm from '../../userManagement/edit/addUserForm'
@@ -24,12 +24,12 @@ import {
 const ManageCollaboratorsView = props => {
   const { countryUsers, newUser, allowedRoles, editUserStatus, fetchUsers } = props
   const { countryIso } = useParams()
-
+  const { location } = useLocation()
   const [editingUserId, setEditingUserId] = useState(null)
 
   useEffect(() => {
     fetchUsers(countryIso)
-  })
+  }, [location])
 
   useEffect(() => {
     if (editUserStatus === 'completed') {
