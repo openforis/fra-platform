@@ -21,12 +21,12 @@ const sectionCommentsReceived = (section, target, dispatch) => resp => {
 }
 
 export const postComment = (issueId, countryIso, section, target, userId, msg) => dispatch => {
-  const api = issueId ? `api/review/${issueId}` : `api/review/${countryIso}/${section}?target=${target}`
+  const api = issueId ? `/api/review/${issueId}` : `/api/review/${countryIso}/${section}?target=${target}`
   axios.post(api, {msg}).then(() => {
       dispatch({target: target, type: issuePostCommentCompleted, status: 'completed'})
       getIssueSummary(countryIso, section, target)(dispatch)
       fetchCountryOverviewStatus(countryIso)(dispatch)
-      axios.get(`api/review/${countryIso}/${section}?target=${target}`)
+      axios.get(`/api/review/${countryIso}/${section}?target=${target}`)
         .then(sectionCommentsReceived(section, target, dispatch))
         .catch(err => dispatch(applicationError(err)))
     }
@@ -36,12 +36,12 @@ export const postComment = (issueId, countryIso, section, target, userId, msg) =
 
 export const retrieveComments = (countryIso, section, target) => dispatch => {
   dispatch({section: section, type: issueRetrieveCommentsStarted, status: 'started'})
-  axios.get(`api/review/${countryIso}/${section}?target=${target}`)
+  axios.get(`/api/review/${countryIso}/${section}?target=${target}`)
     .then(sectionCommentsReceived(section, target, dispatch))
 }
 
 export const getIssueSummary = (countryIso, section, target) => dispatch => {
-  axios.get(`api/review/${countryIso}/${section}/summary?target=${target}`)
+  axios.get(`/api/review/${countryIso}/${section}/summary?target=${target}`)
     .then(resp => {
       dispatch({
         type: issueGetSummaryCompleted,
@@ -67,7 +67,7 @@ export const closeCommentThread = (countryIso, section, target) => dispatch => {
 
 export const markCommentAsDeleted = (countryIso, section, target, commentId) => dispatch =>
   axios
-    .delete(`api/review/${countryIso}/comments/${commentId}`)
+    .delete(`/api/review/${countryIso}/comments/${commentId}`)
     .then(() => {
       retrieveComments(countryIso, section, target)(dispatch)
       getIssueSummary(countryIso, section, target)(dispatch)
