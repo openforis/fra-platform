@@ -1,19 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import assert from 'assert'
+import { useParams } from 'react-router-dom'
 
 import CommentableDescription from '../description/commentableDescription'
 import { isPrintingMode, isPrintingOnlyTables } from '../printAssessment/printAssessment'
 
-const assertProps = props =>
-  assert(
-    props.countryIso &&
-    props.section,
-    'Some property is missing for AnalysisDescriptions'
-  )
-
 const AnalysisDescriptions = props => {
-  assertProps(props)
+  const { countryIso } = useParams()
+
   return !isPrintingOnlyTables() &&
     <div className="fra-description__container">
       <h2 className="headline fra-description__group-header">{props.i18n.t('description.analysisAndProcessing')}</h2>
@@ -22,12 +16,14 @@ const AnalysisDescriptions = props => {
         name="estimationAndForecasting"
         showAlertEmptyContent={!isPrintingMode()}
         showDashEmptyContent={isPrintingMode()}
+        countryIso={countryIso}
         {...props}
       />
       <CommentableDescription
         title={props.i18n.t('description.reclassification')}
         name="reclassification"
         showAlertEmptyContent={!isPrintingMode()}
+        countryIso={countryIso}
         showDashEmptyContent={isPrintingMode()}
         {...props}
       />
