@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router'
 import * as R from 'ramda'
 
 import { i18nUserRole, profilePictureUri } from '../../../common/userUtils'
@@ -149,4 +150,4 @@ const mapStateToProps = state => ({
   extentOfForest: state.extentOfForest
 })
 
-export default connect(mapStateToProps, {fetchAuditFeed})(RecentActivityView)
+export default withRouter(connect(mapStateToProps, {fetchAuditFeed})(RecentActivityView))
