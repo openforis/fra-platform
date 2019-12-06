@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useState, useRef } from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
 import * as R from 'ramda'
 import { isAdministrator } from '../../../common/countryRole'
@@ -30,13 +30,13 @@ const AssessmentSection = ({ countryIso, item, assessment, i18n, ...props }) => 
 
   return <div className="nav__section">
     <div className="nav__section-header"
-         onClick={() => props.toggleNavigationGroupCollapse(assessment.type, item.sectionNo)}>
+      onClick={() => props.toggleNavigationGroupCollapse(assessment.type, item.sectionNo)}>
       <div className="nav__section-order">{item.sectionNo}</div>
       <div className="nav__section-label">{i18n.t(item.label)}</div>
       {isSectionExpanded
         ? null
         : <div className="nav__section-status-content">
-          <ReviewStatus status={getChildStatus()}/>
+          <ReviewStatus status={getChildStatus()} />
         </div>
       }
     </div>
@@ -52,7 +52,7 @@ const AssessmentSection = ({ countryIso, item, assessment, i18n, ...props }) => 
             <div className='nav__section-order'>{child.tableNo}</div>
             <div className='nav__section-label'>{i18n.t(child.label)}</div>
             <div className="nav__section-status-content">
-              <ReviewStatus status={props.getReviewStatus(child.section)}/>
+              <ReviewStatus status={props.getReviewStatus(child.section)} />
             </div>
           </Link>
         }, item.children)
@@ -61,181 +61,186 @@ const AssessmentSection = ({ countryIso, item, assessment, i18n, ...props }) => 
   </div>
 }
 
-class AssessmentChangeStatusConfirmationModal extends React.Component {
 
-  constructor (props) {
-    super(props)
-    this.state = { notifyUsers: true }
-  }
+const AssessmentChangeStatusConfirmationModal = props => {
+  const {
+    i18n,
+    userInfo,
+    assessment,
+    targetStatus,
+    changeAssessment,
+    onClose
+  } = props
+  const { countryIso } = useParams()
+  const [notifyUsers, setNotifyUsers] = useState(true)
+  const [textareaValue, setTextareaValue] = useState('')
 
-  render () {
-    const { countryIso, i18n, userInfo, assessment, targetStatus, changeAssessment, onClose } = this.props
-
-    return <Modal isOpen="true">
-      <ModalHeader>
-        <div className="modal-header-center">
-          {i18n.t(`assessment.status.${R.prop('transition', targetStatus)}.${R.prop('direction', targetStatus)}`)}
+  return <Modal isOpen="true">
+    <ModalHeader>
+      <div className="modal-header-center">
+        {i18n.t(`assessment.status.${R.prop('transition', targetStatus)}.${R.prop('direction', targetStatus)}`)}
+      </div>
+      <ModalClose onClose={onClose} />
+    </ModalHeader>
+    <ModalBody>
+      <div style={{ height: '160px' }}>
+        <textarea
+          autoFocus
+          className="nav__assessment-comment"
+          placeholder={i18n.t('navigation.changeStatusTextPlaceholder')}
+          onChange={({ target: { value } }) => setTextareaValue(value)}
+        />
+      </div>
+      { //administrator can disable email notification
+        isAdministrator(userInfo) &&
+        <div className="nav__assessment-notify-users"
+          onClick={() => setNotifyUsers(!notifyUsers)}>
+          <div className={`fra-checkbox${notifyUsers ? '' : ' checked'}`}></div>
+          {i18n.t('navigation.doNotNotifyUsers')}
         </div>
-        <ModalClose onClose={onClose}/>
-      </ModalHeader>
-      <ModalBody>
-        <div style={{ height: '160px' }}>
-            <textarea
-              className="nav__assessment-comment"
-              placeholder={i18n.t('navigation.changeStatusTextPlaceholder')}
-              ref="messageTextarea"
-            />
-        </div>
-        { //administrator can disable email notification
-          isAdministrator(userInfo)
-            ? <div className="nav__assessment-notify-users"
-                   onClick={() => this.setState({ notifyUsers: !this.state.notifyUsers })}>
-              <div className={`fra-checkbox${this.state.notifyUsers ? '' : ' checked'}`}></div>
-              {i18n.t('navigation.doNotNotifyUsers')}
-            </div>
-            : null
-        }
-      </ModalBody>
-      <ModalFooter>
-        <button className="btn btn-secondary modal-footer__item"
-                onClick={onClose}>
-          {i18n.t('navigation.cancel')}
-        </button>
-        <button className="btn btn-primary modal-footer__item"
-                onClick={() => {
-                  changeAssessment(
-                    countryIso,
-                    {
-                      ...assessment,
-                      status: targetStatus.transition,
-                      message: this.refs.messageTextarea.value
-                    },
-                    this.state.notifyUsers
-                  )
-                  onClose()
-                }}>
-          {i18n.t('navigation.submit')}
-        </button>
-      </ModalFooter>
-    </Modal>
-  }
+      }
+    </ModalBody>
+    <ModalFooter>
+      <button className="btn btn-secondary modal-footer__item"
+        onClick={onClose}>
+        {i18n.t('navigation.cancel')}
+      </button>
+      <button className="btn btn-primary modal-footer__item"
+        onClick={() => {
+          changeAssessment(
+            countryIso,
+            {
+              ...assessment,
+              status: targetStatus.transition,
+              message: textareaValue
+            },
+            notifyUsers
+          )
+          onClose()
+        }}>
+        {i18n.t('navigation.submit')}
+      </button>
+    </ModalFooter>
+  </Modal>
 }
 
-class AssessmentHeader extends React.Component {
+const AssessmentHeader = props => {
+  const {
+    assessment,
+    canToggleLock,
+    changeAssessment,
+    i18n,
+    isLocked,
+    lastUncollapseState,
+    toggleAllNavigationGroupsCollapse,
+    toggleAssessmentLock,
+    userInfo,
+  } = props
+  const { status: assessmentStatus } = assessment
+  const { countryIso } = useParams()
+  const [targetStatus, setTargetStatus] = useState(null)
 
-  constructor (props) {
-    super(props)
-    this.state = {}
-  }
+  const allowedTransitions = getAllowedStatusTransitions(countryIso, userInfo, assessmentStatus)
+  const possibleAssessmentStatuses = [
+    { direction: 'next', transition: allowedTransitions.next },
+    { direction: 'previous', transition: allowedTransitions.previous }
+  ]
 
-  render () {
-    const { assessment, countryIso, changeAssessment, userInfo, i18n, isLocked, canToggleLock, toggleAssessmentLock } = this.props
-    const assessmentStatus = assessment.status
+  const deskStudyItems = [{
+    divider: true
+  }, {
+    content: <div className="popover-control__checkbox-container">
+      <span
+        style={{ marginRight: '8px' }}
+        className={`fra-checkbox ${assessment.deskStudy ? 'checked' : ''}`}
+      >
+      </span>
+      <span>{i18n.t('assessment.deskStudy')}</span>
+    </div>,
+    onClick: () => changeAssessment(countryIso, { ...assessment, deskStudy: !assessment.deskStudy })
+  }]
 
-    const allowedTransitions = getAllowedStatusTransitions(countryIso, userInfo, assessmentStatus)
-    const possibleAssessmentStatuses = [
-      { direction: 'next', transition: allowedTransitions.next },
-      { direction: 'previous', transition: allowedTransitions.previous }
-    ]
+  const popoverItems = assessmentStatus === 'changing'
+    ? []
+    : R.pipe(
+      R.filter(R.prop('transition')),
+      R.map(targetStatus => ({
+        content: i18n.t(`assessment.status.${targetStatus.transition}.${targetStatus.direction}`),
+        onClick: () => setTargetStatus(targetStatus)
+      })),
+      //adding desk study option if user is administrator
+      items => isAdministrator(userInfo)
+        ? R.flatten(R.append(deskStudyItems, items))
+        : items
+    )(possibleAssessmentStatuses)
 
-    const deskStudyItems = [{
-      divider: true
-    }, {
-      content: <div className="popover-control__checkbox-container">
-        <span
-          style={{ marginRight: '8px' }}
-          className={`fra-checkbox ${assessment.deskStudy ? 'checked' : ''}`}
-        >
-        </span>
-        <span>{i18n.t('assessment.deskStudy')}</span>
-      </div>,
-      onClick: () => changeAssessment(countryIso, { ...assessment, deskStudy: !assessment.deskStudy })
-    }]
+  return <div className="nav__assessment-header">
 
-    const popoverItems = assessmentStatus === 'changing'
-      ? []
-      : R.pipe(
-        R.filter(R.prop('transition')),
-        R.map(targetStatus => ({
-          content: i18n.t(`assessment.status.${targetStatus.transition}.${targetStatus.direction}`),
-          onClick: () => this.setState({ targetStatus })
-        })),
-        //adding desk study option if user is administrator
-        items => isAdministrator(userInfo)
-          ? R.flatten(R.append(deskStudyItems, items))
-          : items
-      )(possibleAssessmentStatuses)
+    { // showing confirmation modal dialog before submitting the status change
+      !(R.isNil(targetStatus)) &&
+      <AssessmentChangeStatusConfirmationModal
+        countryIso={countryIso}
+        i18n={i18n}
+        assessment={assessment}
+        targetStatus={targetStatus}
+        changeAssessment={changeAssessment}
+        userInfo={userInfo}
+        onClose={() => setTargetStatus(null)}
+      />
+    }
 
-    return <div className="nav__assessment-header">
+    <div className="nav__assessment-label">
 
-      { // showing confirmation modal dialog before submitting the status change
-        R.isNil(R.prop('targetStatus', this.state))
-          ? null
-          : <AssessmentChangeStatusConfirmationModal
-            countryIso={countryIso}
-            i18n={i18n}
-            assessment={assessment}
-            targetStatus={R.prop('targetStatus', this.state)}
-            changeAssessment={changeAssessment}
-            userInfo={userInfo}
-            onClose={() => this.setState({ targetStatus: null })}
-          />
-      }
-
-      <div className="nav__assessment-label">
-
-        <div className="nav__assessment-lock">
-          <div>
-            {i18n.t('assessment.' + assessment.type)}
-            {
-              assessment.deskStudy &&
-              <div className="desk-study">({i18n.t('assessment.deskStudy')})</div>
-
-            }
-          </div>
-          <button className="btn-s btn-secondary nav__assessment-btn-lock"
-                  disabled={!canToggleLock}
-                  onClick={() => toggleAssessmentLock(assessment.type)}>
-            <Icon name={isLocked ? 'lock-circle' : 'lock-circle-open'} className="icon-no-margin"/>
-          </button>
-        </div>
-
+      <div className="nav__assessment-lock">
         <div>
-          <Link className="btn-s btn-secondary" to={`/country/${countryIso}/print/${assessment.type}?onlyTables=true`}
-                target="_blank">
-            <Icon name="small-print" className="icon-margin-left"/>
-            <Icon name="icon-table2" className="icon-no-margin"/>
-          </Link>
-          <Link className="btn-s btn-secondary" to={`/country/${countryIso}/print/${assessment.type}`} target="_blank">
-            <Icon name="small-print" className="icon-no-margin"/>
-          </Link>
-        </div>
-
-      </div>
-
-      <PopoverControl items={popoverItems}>
-        <div
-          className={`nav__assessment-status status-${assessmentStatus} actionable-${!R.isEmpty(popoverItems)}`}>
-          <span>{i18n.t(`assessment.status.${assessmentStatus}.label`)}</span>
+          {i18n.t('assessment.' + assessment.type)}
           {
-            !R.isEmpty(popoverItems)
-              ? <Icon className="icon-white icon-middle" name="small-down"/>
-              : null
+            assessment.deskStudy &&
+            <div className="desk-study">({i18n.t('assessment.deskStudy')})</div>
+
           }
         </div>
-      </PopoverControl>
+        <button className="btn-s btn-secondary nav__assessment-btn-lock"
+          disabled={!canToggleLock}
+          onClick={() => toggleAssessmentLock(assessment.type)}>
+          <Icon name={isLocked ? 'lock-circle' : 'lock-circle-open'} className="icon-no-margin" />
+        </button>
+      </div>
 
-      <button
-        className="btn-s nav__assessment-toggle"
-        onClick={() => this.props.toggleAllNavigationGroupsCollapse()}>
-        {
-          this.props.lastUncollapseState
-            ? i18n.t('navigation.hideAll')
-            : i18n.t('navigation.showAll')
-        }
-      </button>
+      <div>
+        <Link className="btn-s btn-secondary" to={`/country/${countryIso}/print/${assessment.type}?onlyTables=true`}
+          target="_blank">
+          <Icon name="small-print" className="icon-margin-left" />
+          <Icon name="icon-table2" className="icon-no-margin" />
+        </Link>
+        <Link className="btn-s btn-secondary" to={`/country/${countryIso}/print/${assessment.type}`} target="_blank">
+          <Icon name="small-print" className="icon-no-margin" />
+        </Link>
+      </div>
+
     </div>
-  }
+
+    <PopoverControl items={popoverItems}>
+      <div
+        className={`nav__assessment-status status-${assessmentStatus} actionable-${!R.isEmpty(popoverItems)}`}>
+        <span>{i18n.t(`assessment.status.${assessmentStatus}.label`)}</span>
+        {
+          !R.isEmpty(popoverItems) &&
+          <Icon className="icon-white icon-middle" name="small-down" />
+        }
+      </div>
+    </PopoverControl>
+
+    <button
+      className="btn-s nav__assessment-toggle"
+      onClick={() => toggleAllNavigationGroupsCollapse()}>
+      {
+        lastUncollapseState
+          ? i18n.t('navigation.hideAll')
+          : i18n.t('navigation.showAll')
+      }
+    </button>
+  </div>
 }
 
 const Assessment = (props) => {
@@ -243,17 +248,16 @@ const Assessment = (props) => {
 
   return <div className="nav__assessment">
     {
-      assessment
-        ? <AssessmentHeader {...props} />
-        : null
+      assessment &&
+      <AssessmentHeader {...props} />
     }
     {
       R.map(item =>
-          <AssessmentSection
-            key={item.label}
-            item={item}
-            {...props}
-          />
+        <AssessmentSection
+          key={item.label}
+          item={item}
+          {...props}
+        />
         , sections)
     }
   </div>
