@@ -1,21 +1,14 @@
 import React from 'react'
-import * as R from 'ramda'
-import assert from 'assert'
 import { connect } from 'react-redux'
+import { useParams } from 'react-router-dom'
+import * as R from 'ramda'
+
 import Description from './description'
 import ReviewIndicator from '../review/reviewIndicator'
 
-const assertProps = props => assert(
-  props.countryIso &&
-  props.section &&
-  props.name &&
-  props.title,
-  'Some property is missing for CommentableDescription'
-)
-
 const CommentableDescription = props => {
-  assertProps(props)
-  const {disabled = false} = props
+  const { disabled = false } = props
+  const { countryIso } = useParams()
 
   return <div className="fra-description">
     <div className={
@@ -27,11 +20,11 @@ const CommentableDescription = props => {
         title={props.title}
         section={props.section}
         name={props.name}
-        countryIso={props.countryIso}
+        countryIso={countryIso}
         template={props.template}
         disabled={disabled}
         showAlertEmptyContent={props.showAlertEmptyContent}
-        showDashEmptyContent={props.showDashEmptyContent}/>
+        showDashEmptyContent={props.showDashEmptyContent} />
     </div>
     <div className="fra-description__review-indicator-wrapper">
       {
@@ -41,7 +34,7 @@ const CommentableDescription = props => {
             section={props.section}
             title={props.title}
             target={[props.name]}
-            countryIso={props.countryIso}
+            countryIso={countryIso}
           />
       }
     </div>

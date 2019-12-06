@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Link, useParams } from 'react-router-dom'
 import * as R from 'ramda'
