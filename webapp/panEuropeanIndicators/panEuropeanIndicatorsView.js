@@ -2,6 +2,7 @@ import './style.less'
 
 import React from 'react'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router'
 import * as R from 'ramda'
 
 import ReviewIndicator from '../review/reviewIndicator'
@@ -109,9 +110,9 @@ const mapStateToProps = (state, props) => ({
   panEuropean: R.path(['country', 'config', 'panEuropean'], state)
 })
 
-export default connect(mapStateToProps, {
+export default withRouter(connect(mapStateToProps, {
   fetchLastSectionUpdateTimestamp,
   uploadQuestionnaire,
   getUploadedQuestionareInfo,
   deleteQuestionare
-})(PanEuropeanIndicatorsView)
+})(PanEuropeanIndicatorsView))
