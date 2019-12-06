@@ -2,6 +2,7 @@ import './style.less'
 
 import React from 'react'
 import { connect } from 'react-redux'
+import { useParams } from 'react-router-dom'
 import * as R from 'ramda'
 
 import { PopoverControl } from '../reusableUiComponents/popoverControl'
@@ -14,8 +15,8 @@ import { toggleNavigationVisible } from '../navigation/actions'
 import { getRelativeDate } from '../utils/relativeDate'
 import { isAdministrator } from '../../common/countryRole'
 
-const UserInfo = ({userInfo, i18n, country, logout}) => {
-
+const UserInfo = ({userInfo, i18n, logout}) => {
+  const { countryIso } = useParams()
   const userInfoItems = [{
     content: i18n.t('header.logout'),
     onClick: () => logout()
@@ -23,7 +24,7 @@ const UserInfo = ({userInfo, i18n, country, logout}) => {
     divider: true
   }, {
     content: i18n.t('header.editProfile'),
-    link: `/country/${country}/user/${userInfo.id}`,
+    link: `/country/${countryIso}/user/${userInfo.id}`,
   }]
 
   return <PopoverControl items={userInfoItems}>
@@ -67,9 +68,10 @@ const Header = ({
                   toggleNavigationVisible,
                   navigationVisible,
                   commentsOpen,
-                  country,
                   ...props
                 }) => {
+  const { countryIso } = useParams()
+
   const commentColumnCurrentWidth = commentsOpen ? 288 : 0
   const navigationCurrentWidth = navigationVisible ? 256 : 0
   const subtractFromHeaderWidth = commentColumnCurrentWidth + navigationCurrentWidth
@@ -92,13 +94,13 @@ const Header = ({
       }
       <div className="fra-header__menu">
         <LanguageSelection i18n={i18n} {...props}/>
-        <UserInfo userInfo={userInfo} i18n={i18n} country={country} {...props}/>
+        <UserInfo userInfo={userInfo} i18n={i18n} {...props}/>
         {
           isAdministrator(userInfo)
             ? [
               <div key="v-separator" className="fra-header__menu-item-separator" style={{margin: '0 20px'}}/>,
               <Link key="admin-link"
-                    to={`/country/${country}/admin`}
+                    to={`/country/${countryIso}/admin`}
                     className="fra-header__menu-item">
                 {i18n.t('admin.admin')}
               </Link>
