@@ -4,12 +4,10 @@ import { fetchCountryOverviewStatus, getCountryList } from '../country/actions'
 import * as R from 'ramda'
 
 export const changeAssessmentStatusInitiated = 'navigation/changeAssessmentStatusInitiated'
-export const navigationScrolled = 'navigation/scroll/end'
 export const toggleShowNavigation = 'navigation/toggleShow'
 export const toggleNavigationGroup = 'navigation/toggleGroup'
 export const toggleAllNavigationGroups = 'navigation/toggleAllGroups'
 
-export const navigationScroll = scrollPos => ({type: navigationScrolled, position: scrollPos})
 
 export const toggleNavigationVisible = () => ({type: toggleShowNavigation})
 
