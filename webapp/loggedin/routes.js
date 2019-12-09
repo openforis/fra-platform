@@ -33,6 +33,7 @@ import PanEuropeanIndicatorsView from '../panEuropeanIndicators/panEuropeanIndic
 import EditUserView from '../userManagement/editUserView'
 import PrintAssessmentView from '../printAssessment/printAssessmentView'
 import AdminView from '../admin/adminView'
+import NotFound from '../app/notfound'
 
 const routes = [
   { path: '/country/:countryIso/', component: LandingView },
@@ -66,7 +67,8 @@ const routes = [
   { path: '/country/:countryIso/contactPersons/', component: ContactPersonsView },
   { path: '/country/:countryIso/panEuropeanIndicators/', component: PanEuropeanIndicatorsView },
   { path: '/country/:countryIso/user/:userId/', component: EditUserView },
-  { path: '/country/:countryIso/print/:assessment/', component: PrintAssessmentView }
+  { path: '/country/:countryIso/print/:assessment/', component: PrintAssessmentView },
+  { path: '/country/:countryIso/*', component: NotFound },
 ]
 
 export default routes
