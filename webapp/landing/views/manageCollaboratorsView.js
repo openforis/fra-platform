@@ -32,12 +32,15 @@ const ManageCollaboratorsView = props => {
   }, [location])
 
   useEffect(() => {
-    if (editUserStatus === 'completed') {
-      setEditingUserId(null)
-      fetchUsers(countryIso)
-    }
+    fetchUsers(countryIso)
+  }, [countryIso])
 
-  }, [countryIso, editUserStatus])
+  useEffect(() => {
+    if (editUserStatus === 'completed'){
+      fetchUsers(countryIso)
+      setEditingUserId(null)
+    }
+  }, [editUserStatus])
 
   if (!countryUsers && !R.isEmpty(allowedRoles)) {
     return null
