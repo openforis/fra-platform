@@ -11,7 +11,6 @@ import { SectionLink, Footer } from './components/navigationComponents'
 
 import {
   changeAssessment,
-  navigationScroll,
   toggleNavigationGroupCollapse,
   toggleAllNavigationGroupsCollapse
 } from './actions'
@@ -115,7 +114,6 @@ export default connect(mapStateToProps, {
   isPanEuropeanCountry,
   fetchAllCountryData,
   changeAssessment,
-  navigationScroll,
   toggleNavigationGroupCollapse,
   toggleAllNavigationGroupsCollapse
 })(Nav)
