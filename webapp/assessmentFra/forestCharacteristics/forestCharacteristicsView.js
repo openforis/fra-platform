@@ -333,7 +333,7 @@ const ForestCharacteristics = props => {
 
 const DataFetchingComponent = props => {
   const { fra, fetchItem, fetchLastSectionUpdateTimestamp } = props
-  const { countryIso } = useParams
+  const { countryIso } = useParams()
 
   const hasData = (data) => {
     return R.pipe(
