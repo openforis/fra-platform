@@ -13,14 +13,14 @@ const CommentStatus = ({ count, active, issueStatus, hasUnreadIssues, ...props }
     issueStatus === 'resolved'
       ? 'issue-resolved'
       : hasUnreadIssues
-        ? 'unread-issue'
-        : ''
+      ? 'unread-issue'
+      : ''
 
   return <div {...props} className={`fra-review__issue-status${count > 0 ? '-opened' : ''}${active ? ' active' : ''}`}>
     {
       count > 0
-        ? <div className={`icon-container ${getIssueStatusCssClass()}`}><Icon name="chat-46" /></div>
-        : <Icon name="circle-add" />
+        ? <div className={`icon-container ${getIssueStatusCssClass()}`}><Icon name="chat-46"/></div>
+        : <Icon name="circle-add"/>
     }
   </div>
 }
@@ -36,11 +36,11 @@ const ReviewIndicator = props => {
     openThread
   } = props
 
-  useEffect(() => {
-    if (!isPrintingMode()) {
+  if (!isPrintingMode()) {
+    useEffect(() => {
       getIssueSummary(countryIso, section, target)
-    }
-  }, [countryIso, target])
+    }, [])
+  }
 
   const targetProps = props[target] || {}
   const count = R.isNil(targetProps) ? 0 : targetProps.issuesCount
