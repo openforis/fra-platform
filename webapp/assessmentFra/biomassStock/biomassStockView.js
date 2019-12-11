@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
+import { useParams } from 'react-router-dom'
 import * as R from 'ramda'
 
-import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
 import TraditionalTable from '../../traditionalTable/traditionalTable'
 import tableSpec from './tableSpec'
 import DefinitionLink from '../../reusableUiComponents/definitionLink'
@@ -17,84 +17,84 @@ import FraUtils from '../../../common/fraUtils'
 import { fetchTableData } from '../../traditionalTable/actions'
 
 const sectionName = 'biomassStock'
+const domains = ['boreal', 'temperate', 'subtropical', 'tropical']
+const downloadPath = (countryIso, selectedDomain, language) =>
+  `/api/biomassStock/${countryIso}/${selectedDomain}/${language}/download`
 
-class BiomassStockView extends React.Component {
+const Select = ({ i18n, selectedDomain, setSelectedDomain, ...props }) =>
+  <select
+    className="select-s margin-right"
+    value={selectedDomain}
+    onChange={({ target: { value } }) => setSelectedDomain(value)}>
+    {
+      domains.map(domain =>
+        <option value={domain} key={domain}>
+          {i18n.t(`climaticDomain.${domain}`)}
+          {domain === props.domain && ` (${i18n.t('climaticDomain.selectDefault')})`}
+        </option>
+      )
+    }
+  </select>
 
-  constructor (props) {
-    super(props)
-    this.state = {}
-  }
+const BiomassStockView = props => {
+  const {
+    i18n,
+    i18n: { language },
+    domain,
+    disabled,
+    tableSpecInstance,
+    tableData,
+    fetchTableData,
+    fetchLastSectionUpdateTimestamp
+  } = props
+  const { countryIso } = useParams()
+  const [selectedDomain, setSelectedDomain] = useState(domain)
+  const calculatorFilePath = downloadPath()
 
-  componentDidMount () {
-    const countryIso = this.props.match.params.countryIso
-    const tableSpec = this.props.tableSpecInstance
+  useEffect(() => {
+    fetchTableData(countryIso, tableSpecInstance)
+    fetchLastSectionUpdateTimestamp(countryIso, tableSpecInstance.name)
+  }, [])
 
-    this.props.fetchTableData(countryIso, tableSpec)
-    this.props.fetchLastSectionUpdateTimestamp(countryIso, tableSpec.name)
-  }
+  const render = isPrintingOnlyTables() ? FraUtils.hasData(tableData) : true
+  if (!render) return null
+  return <div className="fra-view__content">
 
-  render () {
-    const { match, i18n, isEditDataDisabled, tableSpecInstance, tableData } = this.props
-    const countryIso = match.params.countryIso
-    const lang = i18n.language
-    const countryDomain = this.state.selectedDomain || this.props.domain
-    const calculatorFilePath = `/api/biomassStock/${countryIso}/${countryDomain}/${lang}/download`
-    const climaticDomains = ['boreal', 'temperate', 'subtropical', 'tropical']
+    <h2 className="title only-print">
+      {`${isPrintingOnlyTables() ? '' : '2c '}${i18n.t('biomassStock.biomassStock')}`}
+    </h2>
 
-    const render = isPrintingOnlyTables() ? FraUtils.hasData(tableData) : true
+    <NationalDataDescriptions section={sectionName} countryIso={countryIso} disabled={disabled} />
+    <AnalysisDescriptions section={sectionName} countryIso={countryIso} disabled={disabled} />
 
-    return render &&
-      <LoggedInPageTemplate>
-        <div className="fra-view__content">
+    <h2 className="headline no-print">
+      {i18n.t('biomassStock.biomassStock')}
+    </h2>
 
-          <h2 className="title only-print">
-            {`${isPrintingOnlyTables() ? '' : '2c '}${i18n.t('biomassStock.biomassStock')}`}
-          </h2>
+    <div className="fra-view__section-toolbar" style={{ marginTop: '4px' }}>
+      <DefinitionLink className="margin-right-big" document="tad" anchor="2c"
+        title={i18n.t('definition.definitionLabel')} lang={language} />
+      <DefinitionLink className="align-left" document="faq" anchor="2c" title={i18n.t('definition.faqLabel')}
+        lang={language} />
 
-          <NationalDataDescriptions section={sectionName} countryIso={countryIso} disabled={isEditDataDisabled}/>
-          <AnalysisDescriptions section={sectionName} countryIso={countryIso} disabled={isEditDataDisabled}/>
-          <h2 className="headline no-print">
-            {i18n.t('biomassStock.biomassStock')}
-          </h2>
-          <div className="fra-view__section-toolbar" style={{ marginTop: '4px' }}>
-            <DefinitionLink className="margin-right-big" document="tad" anchor="2c"
-                            title={i18n.t('definition.definitionLabel')} lang={lang}/>
-            <DefinitionLink className="align-left" document="faq" anchor="2c" title={i18n.t('definition.faqLabel')}
-                            lang={lang}/>
+      <div className="no-print">
+        {
+          !R.isNil(domain) &&
+          <Select i18n={i18n} domain={domain} selectedDomain={selectedDomain} setSelectedDomain={setSelectedDomain} />
+        }
+        <a className="btn-s btn-primary" href={calculatorFilePath}>
+          {i18n.t('biomassStock.downloadExcel')}
+        </a>
+      </div>
+    </div>
 
-            <div className="no-print">
-              {
-                !R.isNil(this.props.domain)
-                  ? <select
-                    className="select-s margin-right"
-                    value={countryDomain}
-                    onChange={evt => this.setState({ selectedDomain: evt.target.value })}>
-                    {
-                      R.map(domain =>
-                          <option value={domain} key={domain}>
-                            {i18n.t(`climaticDomain.${domain}`)}
-                            {domain === this.props.domain ? ` (${i18n.t('climaticDomain.selectDefault')})` : null}
-                          </option>
-                        , climaticDomains)
-                    }
-                  </select>
-                  : null
-              }
-              <a className="btn-s btn-primary" href={calculatorFilePath}>
-                {i18n.t('biomassStock.downloadExcel')}
-              </a>
-            </div>
-          </div>
-
-          <TraditionalTable tableSpec={tableSpecInstance} countryIso={countryIso} disabled={isEditDataDisabled}/>
-          <GeneralComments
-            section={sectionName}
-            countryIso={countryIso}
-            disabled={isEditDataDisabled}
-          />
-        </div>
-      </LoggedInPageTemplate>
-  }
+    <TraditionalTable tableSpec={tableSpecInstance} countryIso={countryIso} disabled={disabled} />
+    <GeneralComments
+      section={sectionName}
+      countryIso={countryIso}
+      disabled={disabled}
+    />
+  </div >
 }
 
 const mapStateToProps = state => {
@@ -104,7 +104,7 @@ const mapStateToProps = state => {
   return {
     domain: R.path(['country', 'config', 'domain'], state),
     i18n,
-    isEditDataDisabled: isFRA2020SectionEditDisabled(state, sectionName),
+    disabled: isFRA2020SectionEditDisabled(state, sectionName),
     tableSpecInstance,
     tableData: R.path(['traditionalTable', tableSpecInstance.name, 'tableData'], state) || table.createTableData(tableSpecInstance),
   }

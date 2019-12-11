@@ -4,12 +4,12 @@ const R = require('ramda')
 const db = require('./../db/db')
 const authConfig = require('./authConfig')
 const countryRepository = require('../country/countryRepository')
-const {sendErr, serverUrl, appUri} = require('../utils/requestUtils')
-const {validEmail, validPassword} = require('../../common/userUtils')
+const { sendErr, serverUrl, appUri } = require('../utils/requestUtils')
+const { validEmail, validPassword } = require('../../common/userUtils')
 
-const {findLocalUserByEmail, findUserById, fetchInvitation, findUserByEmail} = require('../user/userRepository')
-const {createResetPassword, findResetPassword, changePassword} = require('../user/userResetPasswordRepository')
-const {sendResetPasswordEmail} = require('./resetPassword')
+const { findLocalUserByEmail, findUserById, fetchInvitation, findUserByEmail } = require('../user/userRepository')
+const { createResetPassword, findResetPassword, changePassword } = require('../user/userResetPasswordRepository')
+const { sendResetPasswordEmail } = require('./resetPassword')
 
 const authenticationFailed = (req, res) => {
   req.logout()
@@ -27,7 +27,7 @@ const authenticationSuccessful = (req, user, next, res, done) => {
         // More here:
         // https://github.com/voxpelli/node-connect-pg-simple/issues/31#issuecomment-230596077
         req.session.save(() => {
-          done(`${appUri}/#/country/${defaultCountry.countryIso}`)
+          done(`${appUri}/country/${defaultCountry.countryIso}/`)
         })
       }).catch(err => sendErr(res, err))
     }
@@ -42,7 +42,7 @@ module.exports.init = app => {
       const invitation = await fetchInvitation(req.params.uuid, '')
       if (invitation) {
         const user = await findUserByEmail(invitation.email)
-        res.json({invitation, user})
+        res.json({ invitation, user })
       }
     } catch (err) {
       sendErr(res, err)
@@ -53,7 +53,7 @@ module.exports.init = app => {
 
   app.get('/auth/google', (req, res) =>
     passport.authenticate('google',
-      {scope: ['https://www.googleapis.com/auth/plus.login', 'profile', 'email'], state: req.query.i}
+      { scope: ['https://www.googleapis.com/auth/plus.login', 'profile', 'email'], state: req.query.i }
     )(req, res)
   )
 
@@ -85,7 +85,7 @@ module.exports.init = app => {
         res.send(info)
       } else {
         authenticationSuccessful(req, user, next, res,
-          redirectUrl => res.send({redirectUrl})
+          redirectUrl => res.send({ redirectUrl })
         )
       }
     })(req, res, next)
@@ -99,20 +99,20 @@ module.exports.init = app => {
       const email = req.body.email
       //validation
       if (R.isEmpty(R.trim(email)))
-        res.send({error: 'Email cannot be empty'})
-      else if (!validEmail({email}))
-        res.send({error: 'Email not valid'})
+        res.send({ error: 'Email cannot be empty' })
+      else if (!validEmail({ email }))
+        res.send({ error: 'Email not valid' })
       else {
         const user = await findLocalUserByEmail(email)
         if (!user) {
-          res.send({error: 'We couldn\'t find any user matching this email.\nMake sure you have a valid FRA account.'})
+          res.send({ error: 'We couldn\'t find any user matching this email.\nMake sure you have a valid FRA account.' })
         } else {
           //reset password
           const resetPassword = await db.transaction(createResetPassword, [user.id])
           const url = serverUrl(req)
 
           await sendResetPasswordEmail(user, url, resetPassword.uuid)
-          res.send({message: `The request to reset your password has been successfully submitted.\nYou'll be shortly receiving an email with instructions`})
+          res.send({ message: `The request to reset your password has been successfully submitted.\nYou'll be shortly receiving an email with instructions` })
         }
       }
     } catch (err) {
@@ -126,7 +126,7 @@ module.exports.init = app => {
       const resetPassword = await db.transaction(findResetPassword, [req.params.uuid])
       if (resetPassword) {
         const user = await findUserById(resetPassword.userId)
-        res.json({...resetPassword, user})
+        res.json({ ...resetPassword, user })
       } else {
         res.json(null)
       }
@@ -139,9 +139,9 @@ module.exports.init = app => {
     try {
 
       const sendResp = (error = null, message = null) =>
-        res.json({error, message})
+        res.json({ error, message })
 
-      const {uuid, userId, password, password2} = req.body
+      const { uuid, userId, password, password2 } = req.body
       if (R.isEmpty(R.trim(password)) || R.isEmpty(R.trim(password2)))
         sendResp('Passwords cannot be empty')
       else if (R.trim(password) !== R.trim(password2))

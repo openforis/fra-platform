@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
+import { useParams } from 'react-router-dom'
 import * as R from 'ramda'
 
-import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
-import { Link } from '../../reusableUiComponents/link'
+import { Link } from 'react-router-dom'
 import Icon from '../../reusableUiComponents/icon'
 import DefinitionLink from '../../reusableUiComponents/definitionLink'
 import ChartWrapper from './chart/chartWrapper'
@@ -89,13 +89,11 @@ const ExtentOfForest = (props) => {
       <td className="fra-table__row-anchor-cell">
         <div className="fra-table__review-indicator-anchor">
           {
-            isEditDataDisabled
-              ? null
-              : <ReviewIndicator key="totalArea"
-                                 section={sectionName}
-                                 title={i18n.t('fraClass.otherLand')}
-                                 target={['otherLand']}
-                                 countryIso={props.countryIso}/>
+            !isEditDataDisabled && <ReviewIndicator key="totalArea"
+              section={sectionName}
+              title={i18n.t('fraClass.otherLand')}
+              target={['otherLand']}
+              countryIso={props.countryIso} />
           }
         </div>
       </td>
@@ -117,13 +115,12 @@ const ExtentOfForest = (props) => {
       <td className="fra-table__row-anchor-cell">
         <div className="fra-table__review-indicator-anchor">
           {
-            isEditDataDisabled
-              ? null
-              : <ReviewIndicator key="faoStat"
-                                 section={sectionName}
-                                 title={i18n.t('extentOfForest.totalLandArea')}
-                                 target={['faoStat']}
-                                 countryIso={props.countryIso}/>
+            !isEditDataDisabled &&
+            <ReviewIndicator key="faoStat"
+              section={sectionName}
+              title={i18n.t('extentOfForest.totalLandArea')}
+              target={['faoStat']}
+              countryIso={props.countryIso} />
           }
         </div>
       </td>
@@ -138,8 +135,8 @@ const ExtentOfForest = (props) => {
 
         !forestAreaComparedTo2015ValueValidator(fraColumn)
           ? props.i18n.t(
-          'extentOfForest.forestAreaDoesNotMatchPreviouslyReported',
-          { previous: getForestArea2015Value(fraColumn.name) }
+            'extentOfForest.forestAreaDoesNotMatchPreviouslyReported',
+            { previous: getForestArea2015Value(fraColumn.name) }
           )
           : null,
 
@@ -193,49 +190,46 @@ const ExtentOfForest = (props) => {
     </h1>
 
     <Link className={`btn btn-primary no-print${isEditDataDisabled ? ' disabled' : ''}`}
-          to={`/country/${props.countryIso}/odp/${sectionName}`}
-          style={{ marginRight: 16 }}>
-      <Icon className="icon-sub icon-white" name="small-add"/>
+      to={`/country/${props.countryIso}/odp/${sectionName}`}
+      style={{ marginRight: 16 }}>
+      <Icon className="icon-sub icon-white" name="small-add" />
       {i18n.t('nationalDataPoint.addNationalDataPoint')}
     </Link>
-    <hr className="no-print"/>
+    <hr className="no-print" />
 
     {
       hasNDPs
-        ? isPrintingMode()
-        ? <NationalDataPointsPrintView {...props} section={sectionName}/>
-        : null
-        : [
+        ? isPrintingMode() && <NationalDataPointsPrintView {...props} section={sectionName} />
+        : <>
           <NationalDataDescriptions key="ndd" section={sectionName} countryIso={props.countryIso}
-                                    disabled={isEditDataDisabled}/>,
+            disabled={isEditDataDisabled} />,
           <AnalysisDescriptions key="ad" section={sectionName} countryIso={props.countryIso}
-                                disabled={isEditDataDisabled}/>
-        ]
+            disabled={isEditDataDisabled} />
+        </>
     }
 
     <h2 className="headline no-print">
       {i18n.t('extentOfForest.extentOfForest')}
       {
-        isAdministrator(userInfo) && hasNDPs
-          ? <button className="btn-s btn-secondary"
-                    onClick={toggleNDPs}
-                    style={{ marginLeft: '12px' }}>
-            {i18n.t(`extentOfForest.${showNDPs ? 'hideNDPs' : 'showNDPs'}`)}
-          </button>
-          : null
+        isAdministrator(userInfo) && hasNDPs &&
+        <button className="btn-s btn-secondary"
+          onClick={toggleNDPs}
+          style={{ marginLeft: '12px' }}>
+          {i18n.t(`extentOfForest.${showNDPs ? 'hideNDPs' : 'showNDPs'}`)}
+        </button>
       }
     </h2>
     <div className="fra-view__section-toolbar">
       <DefinitionLink className="margin-right-big no-print" document="tad" anchor="1a"
-                      title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
+        title={i18n.t('definition.definitionLabel')} lang={i18n.language} />
       <DefinitionLink className="align-left no-print" document="faq" anchor="1a" title={i18n.t('definition.faqLabel')}
-                      lang={i18n.language}/>
+        lang={i18n.language} />
     </div>
 
     {
       !isPrintingOnlyTables() &&
       [
-        <div className="page-break" key={0}/>,
+        <div className="page-break" key={0} />,
 
         <ChartWrapper
           key={1}
@@ -249,18 +243,16 @@ const ExtentOfForest = (props) => {
     }
 
     {
-      hasNDPs && showNDPs && !isEditDataDisabled
-        ? <div className="fra-view__section-toolbar no-print">
-          <GenerateFraValuesControl section={sectionName} rows={eofRows} useOriginalDataPoints={true} {...props} />
-          {
-            props.odpDirty
-              ? <div className="support-text">
-                {i18n.t('nationalDataPoint.remindDirtyOdp')}
-              </div>
-              : null
-          }
-        </div>
-        : null
+      hasNDPs && showNDPs && !isEditDataDisabled &&
+      <div className="fra-view__section-toolbar no-print">
+        <GenerateFraValuesControl section={sectionName} rows={eofRows} useOriginalDataPoints={true} {...props} />
+        {
+          props.odpDirty &&
+          <div className="support-text">
+            {i18n.t('nationalDataPoint.remindDirtyOdp')}
+          </div>
+        }
+      </div>
     }
     <TableWithOdp
       section={sectionName}
@@ -286,44 +278,30 @@ const ExtentOfForest = (props) => {
   </div>
 }
 
-class DataFetchingComponent extends React.Component {
+const DataFetchingComponent = props => {
+  const { fra, fraNoNDPs, fetchItem, fetchLastSectionUpdateTimestamp } = props
+  const { countryIso } = useParams()
 
-  constructor () {
-    super()
-    this.state = { showNDPs: true }
-  }
+  const [showNDPs, setshowNDPs] = useState(true)
+  const hasNDPs = hasOdps(fra)
 
-  componentDidMount () {
-    const countryIso = this.props.match.params.countryIso
-    this.fetch(countryIso)
-    this.props.fetchLastSectionUpdateTimestamp(countryIso, sectionName)
-  }
+  useEffect(() => {
+    fetchItem(sectionName, countryIso)
+    fetchLastSectionUpdateTimestamp(countryIso, sectionName)
+  }, [])
 
-  fetch (countryIso) {
-    this.props.fetchItem(sectionName, countryIso)
-  }
+  const data = isPrintingMode()
+    ? FraUtils.filterFraYears(fra)
+    : showNDPs
+      ? fra
+      : fraNoNDPs
 
-  render () {
-    const { fra, fraNoNDPs } = this.props
-    const { showNDPs } = this.state
-
-    const hasNDPs = hasOdps(fra)
-
-    const data = isPrintingMode()
-      ? FraUtils.filterFraYears(fra)
-      : showNDPs
-        ? fra
-        : fraNoNDPs
-
-    return <LoggedInPageTemplate commentsOpen={this.props.openCommentThread}>
-      <ExtentOfForest {...this.props}
-                      countryIso={this.props.match.params.countryIso}
-                      fra={data}
-                      showNDPs={showNDPs}
-                      hasNDPs={hasNDPs}
-                      toggleNDPs={() => this.setState({ showNDPs: !showNDPs })}/>
-    </LoggedInPageTemplate>
-  }
+  return <ExtentOfForest {...props}
+    countryIso={countryIso}
+    fra={data}
+    showNDPs={showNDPs}
+    hasNDPs={hasNDPs}
+    toggleNDPs={() => setshowNDPs(!showNDPs)} />
 }
 
 const mapStateToProps = state =>

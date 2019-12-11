@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
+import { Link, useParams } from 'react-router-dom'
 import * as R from 'ramda'
-import { Link } from '../../reusableUiComponents/link'
+
 import { fetchItem, save, saveMany, generateFraValues } from '../../tableWithOdp/actions'
-import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
 import { TableWithOdp, GenerateFraValuesControl } from '../../tableWithOdp/tableWithOdp'
 import ChartWrapper from '../extentOfForest/chart/chartWrapper'
 import NationalDataDescriptions from '../../descriptionBundles/nationalDataDescriptions'
@@ -76,10 +76,10 @@ const ForestCharacteristics = props => {
             isEditDataDisabled
               ? null
               : <ReviewIndicator key="plantedForest"
-                                 section={sectionName}
-                                 title={i18n.t('forestCharacteristics.plantedForest')}
-                                 target={['plantedForest']}
-                                 countryIso={props.countryIso}/>
+                section={sectionName}
+                title={i18n.t('forestCharacteristics.plantedForest')}
+                target={['plantedForest']}
+                countryIso={props.countryIso} />
           }
         </div>
       </td>
@@ -109,10 +109,10 @@ const ForestCharacteristics = props => {
             isEditDataDisabled
               ? null
               : <ReviewIndicator key="total"
-                                 section={sectionName}
-                                 title={i18n.t('forestCharacteristics.total')}
-                                 target={['total']}
-                                 countryIso={props.countryIso}/>
+                section={sectionName}
+                title={i18n.t('forestCharacteristics.total')}
+                target={['total']}
+                countryIso={props.countryIso} />
           }
         </div>
       </td>
@@ -142,10 +142,10 @@ const ForestCharacteristics = props => {
             isEditDataDisabled
               ? null
               : <ReviewIndicator key="totalForestArea"
-                                 section={sectionName}
-                                 title={i18n.t('forestCharacteristics.totalForestArea')}
-                                 target={['totalForestArea']}
-                                 countryIso={props.countryIso}/>
+                section={sectionName}
+                title={i18n.t('forestCharacteristics.totalForestArea')}
+                target={['totalForestArea']}
+                countryIso={props.countryIso} />
           }
         </div>
       </td>
@@ -237,29 +237,29 @@ const ForestCharacteristics = props => {
       props.useOriginalDataPoints
         ? [
           <button key="odpButton"
-                  className={`btn btn-${props.useOriginalDataPointsInFoc ? 'secondary' : 'primary'} no-print`}
-                  onClick={() => handleOdpButtonClick()}
-                  disabled={isEditDataDisabled}>
+            className={`btn btn-${props.useOriginalDataPointsInFoc ? 'secondary' : 'primary'} no-print`}
+            onClick={() => handleOdpButtonClick()}
+            disabled={isEditDataDisabled}>
             {
               props.useOriginalDataPointsInFoc
                 ? i18n.t('forestCharacteristics.dontUseOriginalDataPoints')
                 : i18n.t('forestCharacteristics.useOriginalDataPoints')
             }
           </button>,
-          <hr key="separator" className="no-print"/>
+          <hr key="separator" className="no-print" />
         ]
         : null
     }
     {
       props.useOriginalDataPointsInFoc
         ? isPrintingMode()
-        ? <NationalDataPointsPrintView {...props} section={sectionName}/>
-        : null
+          ? <NationalDataPointsPrintView {...props} section={sectionName} />
+          : null
         : [
           <NationalDataDescriptions key="ndd" section={sectionName} countryIso={props.countryIso}
-                                    disabled={isEditDataDisabled}/>,
+            disabled={isEditDataDisabled} />,
           <AnalysisDescriptions key="ad" section={sectionName} countryIso={props.countryIso}
-                                disabled={isEditDataDisabled}/>
+            disabled={isEditDataDisabled} />
         ]
     }
     <h2 className="headline no-print">
@@ -267,15 +267,15 @@ const ForestCharacteristics = props => {
     </h2>
     <div className="fra-view__section-toolbar no-print">
       <DefinitionLink className="margin-right-big" document="tad" anchor="1b"
-                      title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
+        title={i18n.t('definition.definitionLabel')} lang={i18n.language} />
       <DefinitionLink className="align-left" document="faq" anchor="1b" title={i18n.t('definition.faqLabel')}
-                      lang={i18n.language}/>
+        lang={i18n.language} />
     </div>
 
     {
       !isPrintingOnlyTables() &&
       [
-        <div className="page-break" key={0}/>,
+        <div className="page-break" key={0} />,
 
         <ChartWrapper
           key={1}
@@ -331,18 +331,11 @@ const ForestCharacteristics = props => {
   </div>
 }
 
-class DataFetchingComponent extends React.Component {
-  componentDidMount () {
-    const countryIso = this.props.match.params.countryIso
-    this.fetch(countryIso)
-    this.props.fetchLastSectionUpdateTimestamp(countryIso, sectionName)
-  }
+const DataFetchingComponent = props => {
+  const { fra, fetchItem, fetchLastSectionUpdateTimestamp } = props
+  const { countryIso } = useParams()
 
-  fetch (countryIso) {
-    this.props.fetchItem(sectionName, countryIso)
-  }
-
-  hasData (data) {
+  const hasData = (data) => {
     return R.pipe(
       R.map(R.omit(['year', 'name', 'type'])),
       R.map(R.values),
@@ -350,24 +343,20 @@ class DataFetchingComponent extends React.Component {
     )(data)
   }
 
-  render () {
-    const { fra } = this.props
-    const data = fra && isPrintingMode() ? FraUtils.filterFraYears(fra) : fra
+  const data = fra && isPrintingMode() ? FraUtils.filterFraYears(fra) : fra
+  const render = isPrintingOnlyTables() ? hasData(data) : true
 
-    const render = isPrintingOnlyTables() ? this.hasData(data) : true
+  useEffect(() => {
+    fetchItem(sectionName, countryIso)
+    fetchLastSectionUpdateTimestamp(countryIso, sectionName)
+  }, [])
 
-    return render && (
-      <LoggedInPageTemplate commentsOpen={this.props.openCommentThread}>
-
-        <ForestCharacteristics
-          {...this.props}
-          countryIso={this.props.match.params.countryIso}
-          fra={data}
-        />
-
-      </LoggedInPageTemplate>
-    )
-  }
+  if (!render) return null
+  return <ForestCharacteristics
+    {...props}
+    countryIso={countryIso}
+    fra={data}
+  />
 }
 
 const mapStateToProps = state => {

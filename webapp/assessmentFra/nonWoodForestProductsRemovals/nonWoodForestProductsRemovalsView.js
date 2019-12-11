@@ -1,10 +1,10 @@
 import './style.less'
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
+import { useParams } from 'react-router-dom'
 import * as R from 'ramda'
 
-import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
 import TraditionalTable from '../../traditionalTable/traditionalTable'
 import mainTableSpec, { sectionName } from './mainTableSpec'
 import DefinitionLink from '../../reusableUiComponents/definitionLink'
@@ -19,7 +19,7 @@ import FraUtils from '../../../common/fraUtils'
 
 const currencyNameTableSpec = i18n => ({
   name: 'nonWoodForestProductsRemovalsCurrency',
-  header: <thead/>,
+  header: <thead />,
   disableReviewComments: true,
   rows: [
     [
@@ -37,55 +37,57 @@ const currencyNameTableSpec = i18n => ({
   }
 })
 
-class NonWoodForestProductsRemovalsView extends React.Component {
+const NonWoodForestProductsRemovalsView = props => {
+  const {
+    i18n,
+    disabled,
+    tableSpecInstance,
+    tableData,
+    fetchTableData,
+    fetchLastSectionUpdateTimestamp,
+  } = props
+  const { countryIso } = useParams()
 
-  componentDidMount () {
-    const countryIso = this.props.match.params.countryIso
-    const tableSpec = this.props.tableSpecInstance
+  const render = isPrintingOnlyTables() ? FraUtils.hasData(tableData) : true
 
-    this.props.fetchTableData(countryIso, tableSpec)
-    this.props.fetchLastSectionUpdateTimestamp(countryIso, tableSpec.name)
-  }
+  useEffect(() => {
+    fetchTableData(countryIso, tableSpecInstance)
+    fetchLastSectionUpdateTimestamp(countryIso, tableSpecInstance.name)
+  }, [])
 
-  render () {
-    const { match, i18n, isEditDataDisabled, tableSpecInstance, tableData } = this.props
+  if (!render) return null
+  return <>
 
-    const render = isPrintingOnlyTables() ? FraUtils.hasData(tableData) : true
+      <h2 className="title only-print">
+        {`${isPrintingOnlyTables() ? '' : '7c '}${i18n.t('nonWoodForestProductsRemovals.nonWoodForestProductsRemovals')}`}
+      </h2>
 
-    return render &&
-      <LoggedInPageTemplate>
-
-        <h2 className="title only-print">
-          {`${isPrintingOnlyTables() ? '' : '7c '}${i18n.t('nonWoodForestProductsRemovals.nonWoodForestProductsRemovals')}`}
+      <div className="fra-view__content">
+        <NationalDataDescriptions section={tableSpecInstance.name} countryIso={countryIso}
+          disabled={disabled} />
+        <h2 className="headline no-print">
+          {i18n.t('nonWoodForestProductsRemovals.nonWoodForestProductsRemovals')}
         </h2>
-
-        <div className="fra-view__content">
-          <NationalDataDescriptions section={tableSpecInstance.name} countryIso={match.params.countryIso}
-                                    disabled={isEditDataDisabled}/>
-          <h2 className="headline no-print">
-            {i18n.t('nonWoodForestProductsRemovals.nonWoodForestProductsRemovals')}
-          </h2>
-          <div className="fra-view__section-toolbar">
-            <DefinitionLink className="margin-right-big" document="tad" anchor="7c"
-                            title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
-            <DefinitionLink className="align-left" document="faq" anchor="7c" title={i18n.t('definition.faqLabel')}
-                            lang={i18n.language}/>
-          </div>
-          <TraditionalTable tableSpec={tableSpecInstance} countryIso={match.params.countryIso}
-                            disabled={isEditDataDisabled}/>
-          <div className="page-break"/>
-          <div className="fra-secondary-table__wrapper">
-            <TraditionalTable tableSpec={currencyNameTableSpec(i18n)} countryIso={match.params.countryIso}
-                              disabled={isEditDataDisabled}/>
-          </div>
-          <GeneralComments
-            section={tableSpecInstance.name}
-            countryIso={match.params.countryIso}
-            disabled={isEditDataDisabled}
-          />
+        <div className="fra-view__section-toolbar">
+          <DefinitionLink className="margin-right-big" document="tad" anchor="7c"
+            title={i18n.t('definition.definitionLabel')} lang={i18n.language} />
+          <DefinitionLink className="align-left" document="faq" anchor="7c" title={i18n.t('definition.faqLabel')}
+            lang={i18n.language} />
         </div>
-      </LoggedInPageTemplate>
-  }
+        <TraditionalTable tableSpec={tableSpecInstance} countryIso={countryIso}
+          disabled={disabled} />
+        <div className="page-break" />
+        <div className="fra-secondary-table__wrapper">
+          <TraditionalTable tableSpec={currencyNameTableSpec(i18n)} countryIso={countryIso}
+            disabled={disabled} />
+        </div>
+        <GeneralComments
+          section={tableSpecInstance.name}
+          countryIso={countryIso}
+          disabled={disabled}
+        />
+      </div>
+    </>
 }
 
 const mapStateToProps = state => {
@@ -94,7 +96,7 @@ const mapStateToProps = state => {
 
   return {
     i18n,
-    isEditDataDisabled: isFRA2020SectionEditDisabled(state, sectionName),
+    disabled: isFRA2020SectionEditDisabled(state, sectionName),
     tableSpecInstance,
     tableData: R.path(['traditionalTable', tableSpecInstance.name, 'tableData'], state) || table.createTableData(tableSpecInstance),
   }

@@ -4,7 +4,7 @@ import { totalSum } from '../../traditionalTable/aggregate'
 import { formatDecimal } from '../../utils/numberFormat'
 import { forestAreaLessThanOrEqualToExtentOfForestValidator } from '../../traditionalTable/validators'
 import { getForestAreaForYear } from '../../../common/extentOfForestHelper'
-import { Link } from '../../reusableUiComponents/link'
+import { Link } from 'react-router-dom'
 
 const mapIndexed = R.addIndex(R.map)
 const sumRows = R.range(0, 4)

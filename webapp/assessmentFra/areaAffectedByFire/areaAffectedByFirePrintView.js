@@ -2,7 +2,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 import tableSpec, { tableProps } from './tableSpec'
 
-import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
 import TraditionalTable from '../../traditionalTable/traditionalTable'
 import NationalDataDescriptions from '../../descriptionBundles/nationalDataDescriptions'
 import AnalysisDescriptions from '../../descriptionBundles/analysisDescriptions'
@@ -16,7 +15,7 @@ const AreaAffectedByFirePrintView = props => {
   const tableSpecPrint1 = tableSpec(i18n, tableProps.areaAffectedByFirePrint1)
   const tableSpecPrint2 = tableSpec(i18n, tableProps.areaAffectedByFirePrint2)
 
-  return <LoggedInPageTemplate>
+  return <>
 
     <h2 className="title only-print">
       5b {i18n.t('areaAffectedByFire.areaAffectedByFire')}
@@ -41,7 +40,7 @@ const AreaAffectedByFirePrintView = props => {
 
       <GeneralComments section={tableProps.areaAffectedByFire.name} countryIso={countryIso}/>
     </div>
-  </LoggedInPageTemplate>
+  </>
 
 }
 

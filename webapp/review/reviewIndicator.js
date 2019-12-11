@@ -1,12 +1,14 @@
-import * as R from 'ramda'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
+import { useParams } from 'react-router-dom'
+import * as R from 'ramda'
+
 import Icon from '../reusableUiComponents/icon'
 
 import { getIssueSummary, openCommentThread, closeCommentThread } from './actions'
 import { isPrintingMode } from '../printAssessment/printAssessment'
 
-const CommentStatus = ({count, active, issueStatus, hasUnreadIssues, ...props}) => {
+const CommentStatus = ({ count, active, issueStatus, hasUnreadIssues, ...props }) => {
   const getIssueStatusCssClass = () =>
     issueStatus === 'resolved'
       ? 'issue-resolved'
@@ -23,46 +25,40 @@ const CommentStatus = ({count, active, issueStatus, hasUnreadIssues, ...props}) 
   </div>
 }
 
-class ReviewIndicator extends React.Component {
+const ReviewIndicator = props => {
+  const {
+    countryIso,
+    section,
+    target,
+    openCommentThread,
+    title,
+    getIssueSummary,
+    openThread
+  } = props
 
-  constructor (props) {
-    super(props)
+  if (!isPrintingMode()) {
+    useEffect(() => {
+      getIssueSummary(countryIso, section, target)
+    }, [])
   }
 
-  getIssueSummary (countryIso, section, target) {
-    if (!isPrintingMode())
-      this.props.getIssueSummary(countryIso, section, target)
-  }
+  const targetProps = props[target] || {}
+  const count = R.isNil(targetProps) ? 0 : targetProps.issuesCount
+  const issueStatus = R.isNil(targetProps) ? null : targetProps.issueStatus
+  const hasUnreadIssues = R.isNil(targetProps) ? false : targetProps.hasUnreadIssues
+  const active = openThread &&
+    section == openThread.section &&
+    R.equals(target, openThread.target)
 
-  componentDidMount () {
-    this.getIssueSummary(this.props.countryIso, this.props.section, this.props.target)
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    // changing country or target
-    if (prevProps.countryIso !== this.props.countryIso || !R.equals(prevProps.target, this.props.target)) {
-      this.getIssueSummary(this.props.countryIso, this.props.section, this.props.target)
-    }
-  }
-
-  render () {
-    const targetProps = this.props[this.props.target] || {}
-    const count = R.isNil(targetProps) ? 0 : targetProps.issuesCount
-    const issueStatus = R.isNil(targetProps) ? null : targetProps.issueStatus
-    const hasUnreadIssues = R.isNil(targetProps) ? false : targetProps.hasUnreadIssues
-    const active = this.props.openThread && this.props.section == this.props.openThread.section && R.equals(this.props.target, this.props.openThread.target) ? true : false
-
-    return <div className="fra-review__add-issue no-print">
-      <CommentStatus
-        count={count}
-        active={active}
-        issueStatus={issueStatus}
-        hasUnreadIssues={hasUnreadIssues}
-        onClick={() => {
-          this.props.openCommentThread(this.props.countryIso, this.props.section, this.props.target, this.props.title)
-        }}/>
-    </div>
-  }
+  return <div className="fra-review__add-issue no-print">
+    <CommentStatus
+      count={count}
+      active={active}
+      issueStatus={issueStatus}
+      hasUnreadIssues={hasUnreadIssues}
+      onClick={() => openCommentThread(countryIso, section, target, title)}
+    />
+  </div>
 }
 
 const mapStateToProps = state => R.merge(state.review, state.user)

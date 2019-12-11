@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router'
+import { useParams } from 'react-router-dom'
 
-import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
 import TraditionalTable from '../../traditionalTable/traditionalTable'
 import {
   primaryDesignatedManagementObjectiveTableSpec,
@@ -22,101 +23,98 @@ import { fetchTableData } from '../../traditionalTable/actions'
 
 const sectionName = 'designatedManagementObjective'
 
-class designatedManagementObjectiveView extends React.Component {
+const designatedManagementObjectiveView = props => {
+  const {
+    disabled,
+    fetchLastSectionUpdateTimestamp,
+    fetchTableData,
+    i18n,
+    primaryDmoTableData,
+    primaryDmoTableSpec,
+    totalDmoTableData,
+    totalDmoTableSpec,
+  } = props
+  const { countryIso } = useParams()
 
-  componentDidMount () {
-    const countryIso = this.props.match.params.countryIso
-    const { primaryDmoTableSpec, totalDmoTableSpec } = this.props
+  useEffect(() => {
+    fetchTableData(countryIso, primaryDmoTableSpec)
+    fetchTableData(countryIso, totalDmoTableSpec)
+    fetchLastSectionUpdateTimestamp(countryIso, sectionName)
+  }, [])
 
-    this.props.fetchTableData(countryIso, primaryDmoTableSpec)
-    this.props.fetchTableData(countryIso, totalDmoTableSpec)
 
-    this.props.fetchLastSectionUpdateTimestamp(countryIso, sectionName)
+  const primaryHasData = FraUtils.hasData(primaryDmoTableData)
+  const totalHasData = FraUtils.hasData(totalDmoTableData)
 
-  }
+  const renderPrimary = isPrintingOnlyTables() ? primaryHasData : true
+  const renderTotal = isPrintingOnlyTables() ? totalHasData : true
+  if (!(renderPrimary || renderTotal)) return null
 
-  render () {
-    const {
-      match, i18n, isEditDataDisabled,
-      primaryDmoTableSpec, totalDmoTableSpec,
-      primaryDmoTableData, totalDmoTableData,
-    } = this.props
-    const countryIso = match.params.countryIso
+  return <>
+    <h2 className="title only-print">
+      {`${isPrintingOnlyTables() ? '' : '3a '}${i18n.t('designatedManagementObjective.designatedManagementObjective')}`}
+    </h2>
 
-    const primaryHasData = FraUtils.hasData(primaryDmoTableData)
-    const totalHasData = FraUtils.hasData(totalDmoTableData)
+    <div className="fra-view__content">
+      <NationalDataDescriptions section={sectionName} countryIso={countryIso} disabled={disabled} />
+      <AnalysisDescriptions section={sectionName} countryIso={countryIso} disabled={disabled} />
+      <h2 className="headline no-print">
+        {i18n.t('designatedManagementObjective.designatedManagementObjective')}
+      </h2>
+      <div className="fra-view__section-toolbar">
+        <DefinitionLink className="margin-right-big" document="tad" anchor="3a"
+          title={i18n.t('definition.definitionLabel')} lang={i18n.language} />
+        <DefinitionLink className="align-left" document="faq" anchor="3a" title={i18n.t('definition.faqLabel')}
+          lang={i18n.language} />
+      </div>
 
-    const renderPrimary = isPrintingOnlyTables() ? primaryHasData : true
-    const renderTotal = isPrintingOnlyTables() ? totalHasData : true
-
-    return (renderPrimary || renderTotal) &&
-      <LoggedInPageTemplate>
-
-        <h2 className="title only-print">
-          {`${isPrintingOnlyTables() ? '' : '3a '}${i18n.t('designatedManagementObjective.designatedManagementObjective')}`}
-        </h2>
-
-        <div className="fra-view__content">
-          <NationalDataDescriptions section={sectionName} countryIso={countryIso} disabled={isEditDataDisabled}/>
-          <AnalysisDescriptions section={sectionName} countryIso={countryIso} disabled={isEditDataDisabled}/>
-          <h2 className="headline no-print">
-            {i18n.t('designatedManagementObjective.designatedManagementObjective')}
-          </h2>
-          <div className="fra-view__section-toolbar">
-            <DefinitionLink className="margin-right-big" document="tad" anchor="3a"
-                            title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
-            <DefinitionLink className="align-left" document="faq" anchor="3a" title={i18n.t('definition.faqLabel')}
-                            lang={i18n.language}/>
-          </div>
-
-          {
-            renderPrimary &&
-            [
-              <h3 className="subhead" key={0}>
-                {i18n.t('designatedManagementObjective.primaryDesignatedManagementObjective')}
-              </h3>,
-              <div className="fra-view__section-toolbar" key={1}>
-                <div className="support-text no-print">
-                  {i18n.t('designatedManagementObjective.primaryDesignatedManagementObjectiveSupport')}
-                </div>
-              </div>,
-              <TraditionalTable
-                key={2}
-                tableSpec={primaryDmoTableSpec}
-                countryIso={countryIso}
-                section={sectionName}
-                disabled={isEditDataDisabled}/>
-            ]
-          }
-
-          {
-            renderTotal &&
-            [
-
-              <h3 className="subhead" key={0}>
-                {i18n.t('designatedManagementObjective.totalAreaWithDesignatedManagementObjective')}
-              </h3>,
-              <div className="fra-view__section-toolbar" key={1}>
-                <div className="support-text ">
-                  {i18n.t('designatedManagementObjective.totalAreaWithDesignatedManagementObjectiveSupport')}
-                </div>
-              </div>,
-              <TraditionalTable
-                key={2}
-                tableSpec={totalDmoTableSpec}
-                countryIso={countryIso}
-                section={sectionName}
-                disabled={isEditDataDisabled}/>
-            ]
-          }
-          <GeneralComments
-            section={sectionName}
+      {
+        renderPrimary &&
+        [
+          <h3 className="subhead" key={0}>
+            {i18n.t('designatedManagementObjective.primaryDesignatedManagementObjective')}
+          </h3>,
+          <div className="fra-view__section-toolbar" key={1}>
+            <div className="support-text no-print">
+              {i18n.t('designatedManagementObjective.primaryDesignatedManagementObjectiveSupport')}
+            </div>
+          </div>,
+          <TraditionalTable
+            key={2}
+            tableSpec={primaryDmoTableSpec}
             countryIso={countryIso}
-            disabled={isEditDataDisabled}
-          />
-        </div>
-      </LoggedInPageTemplate>
-  }
+            section={sectionName}
+            disabled={disabled} />
+        ]
+      }
+
+      {
+        renderTotal &&
+        [
+
+          <h3 className="subhead" key={0}>
+            {i18n.t('designatedManagementObjective.totalAreaWithDesignatedManagementObjective')}
+          </h3>,
+          <div className="fra-view__section-toolbar" key={1}>
+            <div className="support-text ">
+              {i18n.t('designatedManagementObjective.totalAreaWithDesignatedManagementObjectiveSupport')}
+            </div>
+          </div>,
+          <TraditionalTable
+            key={2}
+            tableSpec={totalDmoTableSpec}
+            countryIso={countryIso}
+            section={sectionName}
+            disabled={disabled} />
+        ]
+      }
+      <GeneralComments
+        section={sectionName}
+        countryIso={countryIso}
+        disabled={disabled}
+      />
+    </div>
+  </>
 }
 
 const mapStateToProps = (state, { match }) => {
@@ -129,7 +127,7 @@ const mapStateToProps = (state, { match }) => {
   return {
     i18n,
     extentOfForest,
-    isEditDataDisabled: isFRA2020SectionEditDisabled(state, sectionName),
+    disabled: isFRA2020SectionEditDisabled(state, sectionName),
     primaryDmoTableSpec,
     totalDmoTableSpec,
     primaryDmoTableData: R.path(['traditionalTable', primaryDmoTableSpec.name, 'tableData'], state) || table.createTableData(primaryDmoTableSpec),
@@ -137,7 +135,7 @@ const mapStateToProps = (state, { match }) => {
   }
 }
 
-export default connect(mapStateToProps, {
+export default withRouter(connect(mapStateToProps, {
   fetchLastSectionUpdateTimestamp,
   fetchTableData
-})(designatedManagementObjectiveView)
+})(designatedManagementObjectiveView))

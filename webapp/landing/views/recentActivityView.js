@@ -1,12 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router'
 import * as R from 'ramda'
 
 import { i18nUserRole, profilePictureUri } from '../../../common/userUtils'
 
 import { getRelativeDate } from '../../utils/relativeDate'
 import { fetchAuditFeed } from '../../audit/actions'
-import { Link } from '../../reusableUiComponents/link'
+import { Link } from 'react-router-dom'
 
 const getActionLocalizationKey = (message) => {
   const messageToKey = {
@@ -131,7 +132,7 @@ class RecentActivityView extends React.Component {
               fra={extentOfForest.fra}
             />)
           : <div className="landing__activity-empty">
-            <img src="img/tucan.svg" height="72"/>
+            <img src="/img/tucan.svg" height="72"/>
             <p className="landing__activity-empty-title">{i18n.t('landing.recentActivity.noRecentActivityTitle')}</p>
             <p>{i18n.t('landing.recentActivity.noRecentActivityBody')}</p>
             <Link className="btn-s btn-primary"
@@ -149,4 +150,4 @@ const mapStateToProps = state => ({
   extentOfForest: state.extentOfForest
 })
 
-export default connect(mapStateToProps, {fetchAuditFeed})(RecentActivityView)
+export default withRouter(connect(mapStateToProps, {fetchAuditFeed})(RecentActivityView))

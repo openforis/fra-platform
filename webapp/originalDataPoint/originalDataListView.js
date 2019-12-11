@@ -1,15 +1,15 @@
 import './style.less'
 import React from 'react'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router'
 import * as R from 'ramda'
 import { fetchOdps, removeFromList } from './actions'
-import { Link } from '../reusableUiComponents/link'
+import { Link } from 'react-router-dom'
 import Icon from '../reusableUiComponents/icon'
-import LoggedInPageTemplate from '../app/loggedInPageTemplate'
 
 const TableRow = ({odp, i18n, countryIso, removeFromList}) => {
   const odpUrl = `/country/${countryIso}/odp/extentOfForest/${odp.odpId}`
-  const navigateTo = (url) => window.location.href = '#' + url
+  const navigateTo = (url) => window.location.href = url
 
   return <tr className="odp-list__link-row">
     <td className="odp-list__year-cell" onClick={() => navigateTo(odpUrl)}>
@@ -120,9 +120,7 @@ class DataFetchingComponent extends React.Component {
   }
 
   render () {
-    return <LoggedInPageTemplate>
-      <ODPListing countryIso={this.props.match.params.countryIso} {...this.props} />
-    </LoggedInPageTemplate>
+    return <ODPListing countryIso={this.props.match.params.countryIso} {...this.props} />
   }
 }
 
@@ -132,4 +130,4 @@ const mapStateToProps = state => ({
   userInfo: state.user.userInfo
 })
 
-export default connect(mapStateToProps, {fetchOdps, removeFromList})(DataFetchingComponent)
+export default withRouter(connect(mapStateToProps, {fetchOdps, removeFromList})(DataFetchingComponent))

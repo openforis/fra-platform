@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
+import { useParams } from 'react-router-dom'
 import * as R from 'ramda'
 
 import DataSources from './components/dataSources'
@@ -21,7 +22,7 @@ const DataSourcesPrintView = ({ ndps, ...props }) => (
           key={i}
           {...props}
           odp={ndp}
-          printView={true}/>
+          printView={true} />
       )
     }
   </div>
@@ -38,7 +39,7 @@ const NationalClassesPrintView = ({ ndps, ...props }) => (
           key={i}
           {...props}
           odp={ndp}
-          printView={true}/>
+          printView={true} />
       )
     }
   </div>
@@ -58,41 +59,37 @@ const OriginalDataPrintView = ({ ndps, section, ...props }) => (
   </div>
 )
 
-class NationalDataPointsPrintView extends React.PureComponent {
-
-  componentDidMount () {
-    if (!isPrintingOnlyTables()) {
-      const countryIso = this.props.match.params.countryIso
-      this.props.fetchOdps(countryIso)
-    }
+const NationalDataPointsPrintView = props => {
+  if (isPrintingOnlyTables()) {
+    return null
   }
 
-  render () {
-    const { ndps, i18n } = this.props
+  const { ndps, i18n, fetchOdps } = props
+  const { countryIso } = useParams()
 
-    const data = ndps && !R.isEmpty(ndps)
-      ? ndps
-        .filter(ndp => !(R.isNil(ndp.year) || R.isEmpty(ndp.year)))
-        .sort((a, b) => Number(a.year) - Number(b.year))
-      : null
+  useEffect(() => {
+    fetchOdps(countryIso)
+  }, [])
 
-    return isPrintingOnlyTables()
-      ? null
-      : data
-        ? (
-          <div>
-            <h2 className="headline">{i18n.t('nationalDataPoint.nationalData')}</h2>
-            <DataSourcesPrintView {...this.props} ndps={data}/>
-            <NationalClassesPrintView {...this.props} ndps={data}/>
-            <OriginalDataPrintView {...this.props} ndps={data}/>
-          </div>
-        )
-        : (
-          <div>
-            <i>{i18n.t('description.loading')}</i>
-          </div>
-        )
+  const data = ndps && !R.isEmpty(ndps) &&
+    ndps
+      .filter(ndp => !(R.isNil(ndp.year) || R.isEmpty(ndp.year)))
+      .sort((a, b) => Number(a.year) - Number(b.year))
+
+  if (!data) {
+    return <div>
+      <i>{i18n.t('description.loading')}</i>
+    </div>
   }
+
+  return (
+    <div>
+      <h2 className="headline">{i18n.t('nationalDataPoint.nationalData')}</h2>
+      <DataSourcesPrintView {...this.props} ndps={data} />
+      <NationalClassesPrintView {...this.props} ndps={data} />
+      <OriginalDataPrintView {...this.props} ndps={data} />
+    </div>
+  )
 }
 
 const mapStateToProps = state => ({

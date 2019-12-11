@@ -2,9 +2,9 @@ import './style.less'
 
 import React from 'react'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router'
 import * as R from 'ramda'
 
-import LoggedInPageTemplate from '../app/loggedInPageTemplate'
 import ReviewIndicator from '../review/reviewIndicator'
 import Icon from '../reusableUiComponents/icon'
 
@@ -32,7 +32,7 @@ class PanEuropeanIndicatorsView extends React.Component {
 
   render () {
     const {i18n, countryIso, status, questionnaireFileName, userInfo, panEuropean = {}} = this.props
-    return <LoggedInPageTemplate>
+    return <>
       <div className="fra-view__content">
         <div className="fra-view__page-header">
           <h2 className="headline">{i18n.t('panEuropeanIndicators.panEuropeanIndicators')}</h2>
@@ -96,7 +96,7 @@ class PanEuropeanIndicatorsView extends React.Component {
         </div>
 
       </div>
-    </LoggedInPageTemplate>
+    </>
   }
 
 }
@@ -110,9 +110,9 @@ const mapStateToProps = (state, props) => ({
   panEuropean: R.path(['country', 'config', 'panEuropean'], state)
 })
 
-export default connect(mapStateToProps, {
+export default withRouter(connect(mapStateToProps, {
   fetchLastSectionUpdateTimestamp,
   uploadQuestionnaire,
   getUploadedQuestionareInfo,
   deleteQuestionare
-})(PanEuropeanIndicatorsView)
+})(PanEuropeanIndicatorsView))

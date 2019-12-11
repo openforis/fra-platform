@@ -11,7 +11,7 @@ const assessments = {
           tableNo: '',
           label: 'contactPersons.contactPersons',
           section: 'contactPersons',
-          pathTemplate: '/country/:countryIso/contactPersons'
+          pathTemplate: '/country/:countryIso/contactPersons/'
         }
       ]
     },
@@ -24,36 +24,36 @@ const assessments = {
           tableNo: '1a',
           label: 'extentOfForest.extentOfForest',
           section: 'extentOfForest',
-          pathTemplate: '/country/:countryIso/extentOfForest'
+          pathTemplate: '/country/:countryIso/extentOfForest/'
         },
         {
           tableNo: '1b',
           label: 'forestCharacteristics.forestCharacteristics',
-          pathTemplate: '/country/:countryIso/forestCharacteristics',
+          pathTemplate: '/country/:countryIso/forestCharacteristics/',
           section: 'forestCharacteristics'
         },
         {
           tableNo: '1c',
           label: 'forestAreaChange.forestAreaChange',
-          pathTemplate: '/country/:countryIso/forestAreaChange',
+          pathTemplate: '/country/:countryIso/forestAreaChange/',
           section: 'forestAreaChange'
         },
         {
           tableNo: '1d',
           label: 'annualReforestation.annualReforestation',
-          pathTemplate: '/country/:countryIso/annualReforestation',
+          pathTemplate: '/country/:countryIso/annualReforestation/',
           section: 'annualReforestation'
         },
         {
           tableNo: '1e',
           label: 'specificForestCategories.specificForestCategories',
-          pathTemplate: '/country/:countryIso/specificForestCategories',
+          pathTemplate: '/country/:countryIso/specificForestCategories/',
           section: 'specificForestCategories'
         },
         {
           tableNo: '1f',
           label: 'otherLandWithTreeCover.otherLandWithTreeCover',
-          pathTemplate: '/country/:countryIso/otherLandWithTreeCover',
+          pathTemplate: '/country/:countryIso/otherLandWithTreeCover/',
           section: 'otherLandWithTreeCover'
         }
       ]
@@ -67,25 +67,25 @@ const assessments = {
           tableNo: '2a',
           label: 'growingStock.growingStock',
           section: 'growingStock',
-          pathTemplate: '/country/:countryIso/growingStock'
+          pathTemplate: '/country/:countryIso/growingStock/'
         },
         {
           tableNo: '2b',
           label: 'growingStockComposition.growingStockComposition',
-          pathTemplate: '/country/:countryIso/growingStockComposition',
+          pathTemplate: '/country/:countryIso/growingStockComposition/',
           section: 'growingStockComposition'
         },
         {
           tableNo: '2c',
           label: 'biomassStock.biomassStock',
           section: 'biomassStock',
-          pathTemplate: '/country/:countryIso/biomassStock'
+          pathTemplate: '/country/:countryIso/biomassStock/'
         },
         {
           tableNo: '2d',
           label: 'carbonStock.carbonStock',
           section: 'carbonStock',
-          pathTemplate: '/country/:countryIso/carbonStock'
+          pathTemplate: '/country/:countryIso/carbonStock/'
         },
       ]
     },
@@ -97,13 +97,13 @@ const assessments = {
         {
           tableNo: '3a',
           label: 'designatedManagementObjective.designatedManagementObjective',
-          pathTemplate: '/country/:countryIso/designatedManagementObjective',
+          pathTemplate: '/country/:countryIso/designatedManagementObjective/',
           section: 'designatedManagementObjective'
         },
         {
           tableNo: '3b',
           label: 'forestAreaWithinProtectedAreas.forestAreaWithinProtectedAreas',
-          pathTemplate: '/country/:countryIso/forestAreaWithinProtectedAreas',
+          pathTemplate: '/country/:countryIso/forestAreaWithinProtectedAreas/',
           section: 'forestAreaWithinProtectedAreas'
         },
       ]
@@ -116,13 +116,13 @@ const assessments = {
         {
           tableNo: '4a',
           label: 'forestOwnership.forestOwnership',
-          pathTemplate: '/country/:countryIso/forestOwnership',
+          pathTemplate: '/country/:countryIso/forestOwnership/',
           section: 'forestOwnership'
         },
         {
           tableNo: '4b',
           label: 'holderOfManagementRights.holderOfManagementRights',
-          pathTemplate: '/country/:countryIso/holderOfManagementRights',
+          pathTemplate: '/country/:countryIso/holderOfManagementRights/',
           section: 'holderOfManagementRights'
         },
       ]
@@ -135,19 +135,19 @@ const assessments = {
         {
           tableNo: '5a',
           label: 'disturbances.disturbances',
-          pathTemplate: '/country/:countryIso/disturbances',
+          pathTemplate: '/country/:countryIso/disturbances/',
           section: 'disturbances'
         },
         {
           tableNo: '5b',
           label: 'areaAffectedByFire.areaAffectedByFire',
-          pathTemplate: '/country/:countryIso/areaAffectedByFire',
+          pathTemplate: '/country/:countryIso/areaAffectedByFire/',
           section: 'areaAffectedByFire'
         },
         {
           tableNo: '5c',
           label: 'degradedForest.degradedForest',
-          pathTemplate: '/country/:countryIso/degradedForest',
+          pathTemplate: '/country/:countryIso/degradedForest/',
           section: 'degradedForest'
         },
       ]
@@ -160,13 +160,13 @@ const assessments = {
         {
           tableNo: '6a',
           label: 'forestPolicy.forestPolicy',
-          pathTemplate: '/country/:countryIso/forestPolicy',
+          pathTemplate: '/country/:countryIso/forestPolicy/',
           section: 'forestPolicy'
         },
         {
           tableNo: '6b',
           label: 'areaOfPermanentForestEstate.areaOfPermanentForestEstate',
-          pathTemplate: '/country/:countryIso/areaOfPermanentForestEstateView',
+          pathTemplate: '/country/:countryIso/areaOfPermanentForestEstateView/',
           section: 'areaOfPermanentForestEstate'
         },
       ]
@@ -179,19 +179,19 @@ const assessments = {
         {
           tableNo: '7a',
           label: 'employment.employment',
-          pathTemplate: '/country/:countryIso/employment',
+          pathTemplate: '/country/:countryIso/employment/',
           section: 'employment'
         },
         {
           tableNo: '7b',
           label: 'graduationOfStudents.graduationOfStudents',
-          pathTemplate: '/country/:countryIso/graduationOfStudents',
+          pathTemplate: '/country/:countryIso/graduationOfStudents/',
           section: 'graduationOfStudents'
         },
         {
           tableNo: '7c',
           label: 'nonWoodForestProductsRemovals.nonWoodForestProductsRemovals',
-          pathTemplate: '/country/:countryIso/nonWoodForestProductsRemovals',
+          pathTemplate: '/country/:countryIso/nonWoodForestProductsRemovals/',
           section: 'nonWoodForestProductsRemovals'
         }
       ]
@@ -204,7 +204,7 @@ const assessments = {
         {
           tableNo: '8a',
           label: 'sustainableDevelopment.sustainableDevelopment',
-          pathTemplate: '/country/:countryIso/sustainableDevelopment',
+          pathTemplate: '/country/:countryIso/sustainableDevelopment/',
           section: 'sustainableDevelopment'
         }
       ]

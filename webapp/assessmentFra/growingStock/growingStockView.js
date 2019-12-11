@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
+import { useParams } from 'react-router-dom'
 import * as R from 'ramda'
 import ReactDOMServer from 'react-dom/server'
 import clipboard from 'clipboard-polyfill'
@@ -10,7 +11,6 @@ import { div, greaterThan, sub, toFixed, add, formatNumber } from '../../../comm
 import { readPasteClipboard } from '../../utils/copyPasteUtil'
 
 import { ThousandSeparatedDecimalInput } from '../../reusableUiComponents/thousandSeparatedDecimalInput'
-import LoggedInPageTemplate from '../../app/loggedInPageTemplate'
 import DefinitionLink from '../../reusableUiComponents/definitionLink'
 import ReviewIndicator from '../../review/reviewIndicator'
 import NationalDataDescriptions from '../../descriptionBundles/nationalDataDescriptions'
@@ -42,7 +42,7 @@ const InputRowAvg = (props) => {
             numberValue={value}
             onPaste={e => props.pasteAvgValue(props.countryIso, year, props.row, readPasteClipboard(e, 'decimal'))}
             onChange={e => props.changeAvgValue(props.countryIso, year, props.row, e.target.value)}
-            disabled={isEditDataDisabled}/>
+            disabled={isEditDataDisabled} />
         </td>
       }, defaultYears)
     }
@@ -52,10 +52,10 @@ const InputRowAvg = (props) => {
           isEditDataDisabled
             ? null
             : <ReviewIndicator key={target}
-                               section={sectionName}
-                               title={props.i18n.t(`growingStock.${props.row}`)}
-                               target={[target]}
-                               countryIso={props.countryIso}/>
+              section={sectionName}
+              title={props.i18n.t(`growingStock.${props.row}`)}
+              target={[target]}
+              countryIso={props.countryIso} />
         }
       </div>
     </td>
@@ -79,7 +79,7 @@ const InputRowTotal = (props) => {
             numberValue={value}
             onPaste={e => props.pasteTotalValue(countryIso, year, row, readPasteClipboard(e, 'decimal'))}
             onChange={e => props.changeTotalValue(countryIso, year, row, e.target.value)}
-            disabled={isEditDataDisabled}/>
+            disabled={isEditDataDisabled} />
         </td>
       }, defaultYears)
     }
@@ -89,10 +89,10 @@ const InputRowTotal = (props) => {
           isEditDataDisabled
             ? null
             : <ReviewIndicator key={target}
-                               section={sectionName}
-                               title={props.i18n.t(`growingStock.${props.row}`)}
-                               target={[target]}
-                               countryIso={props.countryIso}/>
+              section={sectionName}
+              title={props.i18n.t(`growingStock.${props.row}`)}
+              target={[target]}
+              countryIso={props.countryIso} />
         }
       </div>
     </td>
@@ -102,13 +102,13 @@ const InputRowTotal = (props) => {
 const ClipboardTable = ({ tableValues }) =>
   <table>
     <tbody>
-    {mapIndexed((row, i) =>
+      {mapIndexed((row, i) =>
         <tr key={i}>
           {mapIndexed((value, i) =>
-              <td key={i}> {toFixed(value)} </td>
+            <td key={i}> {toFixed(value)} </td>
             , row)}
         </tr>
-      , tableValues)}
+        , tableValues)}
     </tbody>
   </table>
 
@@ -119,7 +119,7 @@ const copyTableAsHtml = (tableData, i18n) => {
     R.map(R.values),
     R.transpose,
   )(tableData)
-  const htmlTable = ReactDOMServer.renderToString(<ClipboardTable tableValues={tableValues}/>)
+  const htmlTable = ReactDOMServer.renderToString(<ClipboardTable tableValues={tableValues} />)
   const dataTransfer = new clipboard.DT()
   dataTransfer.setData('text/plain', i18n.t('growingStock.growingStock'))
   dataTransfer.setData('text/html', htmlTable)
@@ -224,16 +224,16 @@ const GrowingStock = (props) => {
       {`${isPrintingOnlyTables() ? '' : '2a '}${i18n.t('growingStock.growingStock')}`}
     </h2>
 
-    <NationalDataDescriptions section={sectionName} countryIso={countryIso} disabled={isEditDataDisabled}/>
-    <AnalysisDescriptions section={sectionName} countryIso={countryIso} disabled={isEditDataDisabled}/>
+    <NationalDataDescriptions section={sectionName} countryIso={countryIso} disabled={isEditDataDisabled} />
+    <AnalysisDescriptions section={sectionName} countryIso={countryIso} disabled={isEditDataDisabled} />
     <h2 className="headline no-print">
       {i18n.t('growingStock.growingStock')}
     </h2>
     <div className="fra-view__section-toolbar">
       <DefinitionLink className="margin-right-big" document="tad" anchor="2a"
-                      title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
+        title={i18n.t('definition.definitionLabel')} lang={i18n.language} />
       <DefinitionLink className="align-left" document="faq" anchor="2a" title={i18n.t('definition.faqLabel')}
-                      lang={i18n.language}/>
+        lang={i18n.language} />
       <div className="support-text full-width no-print">{i18n.t('growingStock.supportText')}</div>
     </div>
 
@@ -242,71 +242,71 @@ const GrowingStock = (props) => {
       <div className="fra-table__scroll-wrapper">
         <table className="fra-table">
           <thead>
-          <tr>
-            <th className="fra-table__header-cell-left" rowSpan="2">{i18n.t('growingStock.categoryHeader')}</th>
-            <th className="fra-table__header-cell" colSpan={defaultYears.length}>
-              <div>
-                {props.i18n.t('growingStock.avgTableHeader')}
-                <button className="fra-table__header-button btn-xs btn-primary no-print"
-                        onClick={() => copyTableAsHtml(avgTable, i18n)}>
-                  {props.i18n.t('growingStock.copyToClipboard')}
-                </button>
-              </div>
-            </th>
-          </tr>
-          <tr>
-            {R.map(year => <th className="fra-table__header-cell" key={year}>{year}</th>, defaultYears)}
-          </tr>
+            <tr>
+              <th className="fra-table__header-cell-left" rowSpan="2">{i18n.t('growingStock.categoryHeader')}</th>
+              <th className="fra-table__header-cell" colSpan={defaultYears.length}>
+                <div>
+                  {props.i18n.t('growingStock.avgTableHeader')}
+                  <button className="fra-table__header-button btn-xs btn-primary no-print"
+                    onClick={() => copyTableAsHtml(avgTable, i18n)}>
+                    {props.i18n.t('growingStock.copyToClipboard')}
+                  </button>
+                </div>
+              </th>
+            </tr>
+            <tr>
+              {R.map(year => <th className="fra-table__header-cell" key={year}>{year}</th>, defaultYears)}
+            </tr>
           </thead>
           <tbody>
-          <InputRowAvg
-            row="naturallyRegeneratingForest"
-            validator={avgValidator}
-            {...props}
-          />
-          <InputRowAvg
-            row="plantedForest"
-            {...props}
-          />
-          <InputRowAvg
-            row="plantationForest"
-            validator={avgValidator}
-            subCategory={true}
-            {...props}
-          />
-          <InputRowAvg
-            row="otherPlantedForest"
-            validator={avgValidator}
-            subCategory={true}
-            {...props}
-          />
-          <InputRowAvg
-            row="forest"
-            validator={avgValidator}
-            {...props}
-          />
-          <InputRowAvg
-            row="otherWoodedLand"
-            validator={avgValidator}
-            {...props}
-          />
-          <tr className="no-print">
-            <td></td>
-            {
-              R.map(year => <td className="fra-table__validation-cell" key={year}>
-                <div className="fra-table__validation-container">
-                  {
-                    R.uniq([
-                      ...['naturallyRegeneratingForest', 'plantedForest', 'plantationForest', 'otherPlantedForest', 'forest', 'otherWoodedLand']
-                        .map(row => avgValidator(props, year, row).message)
-                    ]).map((m, i) =>
-                      <div key={i} className="fra-table__validation-error">{m}</div>
-                    )
-                  }
-                </div>
-              </td>, defaultYears)
-            }
-          </tr>
+            <InputRowAvg
+              row="naturallyRegeneratingForest"
+              validator={avgValidator}
+              {...props}
+            />
+            <InputRowAvg
+              row="plantedForest"
+              {...props}
+            />
+            <InputRowAvg
+              row="plantationForest"
+              validator={avgValidator}
+              subCategory={true}
+              {...props}
+            />
+            <InputRowAvg
+              row="otherPlantedForest"
+              validator={avgValidator}
+              subCategory={true}
+              {...props}
+            />
+            <InputRowAvg
+              row="forest"
+              validator={avgValidator}
+              {...props}
+            />
+            <InputRowAvg
+              row="otherWoodedLand"
+              validator={avgValidator}
+              {...props}
+            />
+            <tr className="no-print">
+              <td></td>
+              {
+                R.map(year => <td className="fra-table__validation-cell" key={year}>
+                  <div className="fra-table__validation-container">
+                    {
+                      R.uniq([
+                        ...['naturallyRegeneratingForest', 'plantedForest', 'plantationForest', 'otherPlantedForest', 'forest', 'otherWoodedLand']
+                          .map(row => avgValidator(props, year, row).message)
+                      ]).map((m, i) =>
+                        <div key={i} className="fra-table__validation-error">{m}</div>
+                      )
+                    }
+                  </div>
+                </td>, defaultYears)
+              }
+            </tr>
 
           </tbody>
         </table>
@@ -318,111 +318,99 @@ const GrowingStock = (props) => {
       <div className="fra-table__scroll-wrapper">
         <table className="fra-table">
           <thead>
-          <tr>
-            <th className="fra-table__header-cell-left" rowSpan="2">{i18n.t('growingStock.categoryHeader')}</th>
-            <th className="fra-table__header-cell"
+            <tr>
+              <th className="fra-table__header-cell-left" rowSpan="2">{i18n.t('growingStock.categoryHeader')}</th>
+              <th className="fra-table__header-cell"
                 colSpan={defaultYears.length}>{i18n.t('growingStock.totalTableHeader')}</th>
-          </tr>
-          <tr>
-            {R.map(year => <th className="fra-table__header-cell" key={year}>{year}</th>, defaultYears)}
-          </tr>
+            </tr>
+            <tr>
+              {R.map(year => <th className="fra-table__header-cell" key={year}>{year}</th>, defaultYears)}
+            </tr>
           </thead>
           <tbody>
-          <InputRowTotal
-            row="naturallyRegeneratingForest"
-            {...props}
-            validator={forestSubCategoryValidator}
-          />
-          <InputRowTotal
-            row="plantedForest"
-            {...props}
-            validator={forestSubCategoryValidator}
-          />
-          <InputRowTotal
-            row="plantationForest"
-            subCategory={true}
-            validator={plantedForestSubCategoryValidator}
-            {...props}
-          />
-          <InputRowTotal
-            row="otherPlantedForest"
-            subCategory={true}
-            validator={plantedForestSubCategoryValidator}
-            {...props}
-          />
-          <InputRowTotal
-            row="forest"
-            validator={totalValidator}
-            {...props}
-          />
-          <InputRowTotal
-            row="otherWoodedLand"
-            validator={totalValidator}
-            {...props}
-          />
-          <tr className="no-print">
-            <td></td>
-            {
-              R.map(year => <td className="fra-table__validation-cell" key={year}>
-                <div className="fra-table__validation-container">
-                  {
-                    R.uniq([
-                      forestSubCategoryValidator(props, year).message,
-                      plantedForestSubCategoryValidator(props, year).message,
-                      equalToTotalGrowingStockSubCategoryValidator(props, year).message,
-                      ...['naturallyRegeneratingForest', 'plantedForest', 'plantationForest', 'otherPlantedForest', 'forest', 'otherWoodedLand']
-                        .map(row => totalValidator(props, year, row).message)
-                    ]).map((m, i) =>
-                      <div key={i} className="fra-table__validation-error">{m}</div>
-                    )
-                  }
-                </div>
-              </td>, defaultYears)
-            }
-          </tr>
+            <InputRowTotal
+              row="naturallyRegeneratingForest"
+              {...props}
+              validator={forestSubCategoryValidator}
+            />
+            <InputRowTotal
+              row="plantedForest"
+              {...props}
+              validator={forestSubCategoryValidator}
+            />
+            <InputRowTotal
+              row="plantationForest"
+              subCategory={true}
+              validator={plantedForestSubCategoryValidator}
+              {...props}
+            />
+            <InputRowTotal
+              row="otherPlantedForest"
+              subCategory={true}
+              validator={plantedForestSubCategoryValidator}
+              {...props}
+            />
+            <InputRowTotal
+              row="forest"
+              validator={totalValidator}
+              {...props}
+            />
+            <InputRowTotal
+              row="otherWoodedLand"
+              validator={totalValidator}
+              {...props}
+            />
+            <tr className="no-print">
+              <td></td>
+              {
+                R.map(year => <td className="fra-table__validation-cell" key={year}>
+                  <div className="fra-table__validation-container">
+                    {
+                      R.uniq([
+                        forestSubCategoryValidator(props, year).message,
+                        plantedForestSubCategoryValidator(props, year).message,
+                        equalToTotalGrowingStockSubCategoryValidator(props, year).message,
+                        ...['naturallyRegeneratingForest', 'plantedForest', 'plantationForest', 'otherPlantedForest', 'forest', 'otherWoodedLand']
+                          .map(row => totalValidator(props, year, row).message)
+                      ]).map((m, i) =>
+                        <div key={i} className="fra-table__validation-error">{m}</div>
+                      )
+                    }
+                  </div>
+                </td>, defaultYears)
+              }
+            </tr>
 
           </tbody>
         </table>
       </div>
     </div>
 
-    <GeneralComments section={sectionName} countryIso={countryIso} disabled={isEditDataDisabled}/>
+    <GeneralComments section={sectionName} countryIso={countryIso} disabled={isEditDataDisabled} />
   </div>
 }
 
-class GrowingStockView extends React.Component {
-  componentDidMount () {
-    const countryIso = this.props.match.params.countryIso
-    this.fetch(countryIso)
-    this.props.fetchLastSectionUpdateTimestamp(countryIso, sectionName)
-  }
+const GrowingStockView = props => {
+  const { totalTable, avgTable, fetch, fetchLastSectionUpdateTimestamp } = props
+  const { countryIso } = useParams()
 
-  fetch (countryIso) {
-    this.props.fetch(countryIso)
-  }
-
-  hasData (table) {
+  const hasData = (table) => {
     return R.pipe(
       R.values,
       R.map(R.omit(['year'])),
       R.map(R.values),
       FraUtils.hasData
     )(table)
-
   }
 
-  render () {
-    const { totalTable, avgTable } = this.props
+  const render = isPrintingOnlyTables() ? hasData(totalTable) || hasData(avgTable) : true
 
-    const render = isPrintingOnlyTables() ? this.hasData(totalTable) || this.hasData(avgTable) : true
-
-    return render &&
-      <LoggedInPageTemplate commentsOpen={this.props.openCommentThread}>
-        <GrowingStock
-          countryIso={this.props.match.params.countryIso}
-          {...this.props}/>
-      </LoggedInPageTemplate>
-  }
+  useEffect(() => {
+    fetch(countryIso)
+    fetchLastSectionUpdateTimestamp(countryIso, sectionName)
+  }, [])
+  if (!render) return null
+  return <GrowingStock countryIso={countryIso} {...props} />
 }
 
 const mapStateToProps = state =>

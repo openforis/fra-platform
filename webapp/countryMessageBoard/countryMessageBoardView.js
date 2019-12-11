@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
+import { useParams } from 'react-router-dom'
 
 import FraReviewFooter from '../review/reviewFooter'
 import Icon from '../reusableUiComponents/icon'
@@ -14,7 +15,7 @@ import {
   fetchAllCountryMessageBoardMessages,
 } from './actions'
 
-const MessageBoardHeader = ({i18n, closeCountryMessageBoard}) =>
+const MessageBoardHeader = ({ i18n, closeCountryMessageBoard }) =>
   <div className="fra-review__header">
     <div className="fra-review__header-title">{i18n.t('countryMessageBoard.messageBoard')}</div>
     <div className="fra-review__header-close-btn" onClick={() => closeCountryMessageBoard()}>
@@ -22,129 +23,113 @@ const MessageBoardHeader = ({i18n, closeCountryMessageBoard}) =>
     </div>
   </div>
 
-class MessageBoardMessages extends React.Component {
+const NoMessages = ({ i18n }) =>
+  <div className="fra-review__comment-thread">
+    <div className='fra-review__comment-placeholder'>
+      <Icon className="fra-review__comment-placeholder-icon icon-24" name="chat-46"/>
+      <span className="fra-review__comment-placeholder-text">{i18n.t('userChat.noMessages')}</span>
+    </div>
+  </div>
 
-  scrollToBottom () {
-    if (this.refs.container) {
-      this.refs.container.scrollTop = this.refs.container.scrollHeight
+const MessageBoardMessages = props => {
+  const { i18n, messages = [], userInfo } = props
+  const { countryIso } = useParams()
+  const messageContainerRef = useRef(null)
+
+  useEffect(() => {
+    scrollToBottom()
+  }, [messages])
+
+  const scrollToBottom = () => {
+    const messageContainerEl = messageContainerRef.current
+    if (messageContainerEl) {
+      messageContainerEl.scrollTop = messageContainerRef.scrollHeight
     }
   }
 
-  componentDidMount () {
-    this.scrollToBottom()
+  if (R.isEmpty(messages)) {
+    return <NoMessages i18n={i18n}/>
   }
 
-  componentDidUpdate (prevProps) {
-    const messages = R.prop('messages')(this.props)
-    const prevMessages = R.prop('messages')(prevProps)
-
-    if (messages.length > prevMessages.length)
-      this.scrollToBottom()
-  }
-
-  render () {
-    const {i18n, messages = [], countryIso, userInfo} = this.props
-
-    return <div ref="container" className="fra-review__comment-thread">
-      {
-        R.isEmpty(messages)
-          ? (
-            <div className='fra-review__comment-placeholder'>
-              <Icon className="fra-review__comment-placeholder-icon icon-24" name="chat-46"/>
-              <span className="fra-review__comment-placeholder-text">{i18n.t('userChat.noMessages')}</span>
-            </div>
-          )
-          : (
-            messages.map((message, i) =>
-              <div key={i} className={`fra-review__comment`}>
-                <div className="fra-review__comment-header">
-                  <img className="fra-review__comment-avatar"
-                       src={profilePictureUri(countryIso, message.fromUserId)}/>
-                  <div className="fra-review__comment-author-section">
-                    <div
-                      className={`fra-review__comment-author ${userInfo.id === message.fromUserId ? 'author-me' : ''}`}>
-                      {message.fromUserName}
-                    </div>
-
-                    <div className="fra-review__comment-time">
-                      {(getRelativeDate(message.time, i18n) || i18n.t('time.aMomentAgo'))}
-                    </div>
-                  </div>
-                </div>
-                <div className="fra-review__comment-text">
-                  {message.text.split('\n').map((item, key) =>
-                    <span key={key}>{item}<br/></span>
-                  )}
-                </div>
+  return <div ref={messageContainerRef} className="fra-review__comment-thread">
+    {
+      messages.map((message, i) =>
+        <div key={i} className={`fra-review__comment`}>
+          <div className="fra-review__comment-header">
+            <img className="fra-review__comment-avatar"
+                 src={profilePictureUri(countryIso, message.fromUserId)}/>
+            <div className="fra-review__comment-author-section">
+              <div
+                className={`fra-review__comment-author ${userInfo.id === message.fromUserId ? 'author-me' : ''}`}>
+                {message.fromUserName}
               </div>
-            )
-          )
-      }
-    </div>
-  }
 
+              <div className="fra-review__comment-time">
+                {(getRelativeDate(message.time, i18n) || i18n.t('time.aMomentAgo'))}
+              </div>
+            </div>
+          </div>
+          <div className="fra-review__comment-text">
+            {message.text.split('\n').map((item, key) =>
+              <span key={key}>{item}<br/></span>
+            )}
+          </div>
+        </div>
+      )
+    }
+  </div>
 }
 
-class MessageBoardAddMessage extends React.Component {
+const MessageBoardAddMessage = props => {
+  const {
+    closeCountryMessageBoard,
+    i18n,
+    sendCountryMessageBoard,
+    userInfo,
+  } = props
+  const { countryIso } = useParams()
 
-  handleSendMessage (msg) {
-    const {countryIso, userInfo, sendCountryMessageBoard} = this.props
-
-    sendCountryMessageBoard(countryIso, msg, userInfo.id, userInfo.name)
-  }
-
-  render () {
-    const {i18n, closeCountryMessageBoard} = this.props
-
-    return <FraReviewFooter
-      onSubmit={this.handleSendMessage.bind(this)}
-      onCancel={() => closeCountryMessageBoard()}
-      placeholder={i18n.t('userChat.writeMessage')}
-      i18n={i18n}
-      submitBtnLabel={i18n.t('userChat.send')}
-      cancelBtnLabel={i18n.t('userChat.cancel')}
-    />
-
-  }
+  return <FraReviewFooter
+    onSubmit={(msg) => sendCountryMessageBoard(countryIso, msg, userInfo.id, userInfo.name)}
+    onCancel={() => closeCountryMessageBoard()}
+    placeholder={i18n.t('userChat.writeMessage')}
+    i18n={i18n}
+    submitBtnLabel={i18n.t('userChat.send')}
+    cancelBtnLabel={i18n.t('userChat.cancel')}
+  />
 }
 
-class MessageBoardView extends React.Component {
+const MessageBoardView = props => {
 
-  componentDidUpdate (prevProps) {
-    const {countryIso, fetchAllCountryMessageBoardMessages, showMessageBoard} = this.props
-    const {showMessageBoard: showMessageBoardPrev, countryIso: countryIsoPrev} = prevProps
+  const {
+    fetchAllCountryMessageBoardMessages, showMessageBoard
+  } = props
+  const { countryIso } = useParams()
 
-    if (showMessageBoard &&
-      (!showMessageBoardPrev || countryIso !== countryIsoPrev)) {
-
+  useEffect(() => {
+    if (showMessageBoard) {
       fetchAllCountryMessageBoardMessages(countryIso)
     }
-  }
+  }, [showMessageBoard, countryIso])
 
-  render () {
-
-    const {showMessageBoard} = this.props
-
-    return showMessageBoard
-      ? <div className="fra-review__container">
-        <div className="fra-review user-chat">
-          <MessageBoardHeader {...this.props}/>
-          <MessageBoardMessages {...this.props}/>
-          <MessageBoardAddMessage {...this.props}/>
-        </div>
+  return showMessageBoard && (
+    <div className="fra-review__container">
+      <div className="fra-review user-chat">
+        <MessageBoardHeader {...props} />
+        <MessageBoardMessages {...props} />
+        <MessageBoardAddMessage {...props} />
       </div>
-      : null
-  }
+    </div>
+  )
 }
 
 const mapStateToProps = state => ({
   showMessageBoard: R.pathEq(['countryMessageBoard', 'show'], true)(state),
   messages: R.path(['countryMessageBoard', 'messages'])(state),
   ...state.user,
-  countryIso: R.path(['router', 'country'], state)
 })
 
 export default connect(
   mapStateToProps,
-  {closeCountryMessageBoard, sendCountryMessageBoard, fetchAllCountryMessageBoardMessages}
+  { closeCountryMessageBoard, sendCountryMessageBoard, fetchAllCountryMessageBoardMessages }
 )(MessageBoardView)

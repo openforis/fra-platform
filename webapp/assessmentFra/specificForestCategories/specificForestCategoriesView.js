@@ -1,41 +1,29 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
+import { useParams } from 'react-router-dom'
 
 import SingleTraditionalTableView from '../../traditionalTable/singleTraditionalTableView'
 import tableSpec from './tableSpec'
 import { fetchItem } from '../../tableWithOdp/actions'
 
-class SpecificForestCategories extends React.Component {
+const SpecificForestCategories = props => {
+  const {
+    fetchItem,
+    i18n,
+    extentOfForest,
+    forestCharacteristics
+  } = props
+  const { countryIso } = useParams
 
-  getCountryIso (props) {
-    return props.match.params.countryIso
-  }
+  useEffect(() => {
+    fetchItem('forestCharacteristics', countryIso)
+  }, [countryIso])
 
-  fetchForestCharacteristics (countryIso) {
-    this.props.fetchItem('forestCharacteristics', countryIso)
-  }
-
-  componentDidMount () {
-    this.fetchForestCharacteristics(this.getCountryIso(this.props))
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    const currentCountryIso = this.getCountryIso(this.props)
-    const previousCountryIso = this.getCountryIso(prevProps)
-    if (currentCountryIso !== previousCountryIso)
-      this.fetchForestCharacteristics(currentCountryIso)
-  }
-
-  render () {
-    const {i18n, extentOfForest, forestCharacteristics} = this.props
-
-    return <SingleTraditionalTableView
-      {...this.props}
-      headingLocalizationKey="specificForestCategories.specificForestCategories"
-      sectionAnchor="1e"
-      tableSpecInstance={tableSpec(i18n, extentOfForest, forestCharacteristics)}/>
-  }
-
+  return <SingleTraditionalTableView
+    {...props}
+    headingLocalizationKey="specificForestCategories.specificForestCategories"
+    sectionAnchor="1e"
+    tableSpecInstance={tableSpec(i18n, extentOfForest, forestCharacteristics)} />
 }
 
 const mapStateToProps = state => ({
@@ -44,4 +32,4 @@ const mapStateToProps = state => ({
   forestCharacteristics: state.forestCharacteristics
 })
 
-export default connect(mapStateToProps, {fetchItem})(SpecificForestCategories)
+export default connect(mapStateToProps, { fetchItem })(SpecificForestCategories)

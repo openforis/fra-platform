@@ -18,10 +18,11 @@ const config = {
 const appConfig = {
   mode: config.mode,
   devtool: 'source-map',
-  entry: ['./webapp/app/main.js'],
+  entry: ['./webapp/main.js'],
   output: {
-    filename: 'bundle-[hash].js',
+    filename: 'js/bundle-[hash].js',
     path: config.path,
+    publicPath: '/',
   },
   module: {
     rules: [
@@ -49,7 +50,7 @@ const appConfig = {
     ]
   },
   plugins: [
-    new MiniCssExtractPlugin({ filename: 'styles-[hash].css' }),
+    new MiniCssExtractPlugin({ filename: 'style/styles-[hash].css' }),
     new HtmlWebpackPlugin({ template: './web-resources/index.html' }),
     new webpack.DefinePlugin({
       __PLATFORM_VERSION__: `"${platformVersion}"`,
@@ -65,8 +66,9 @@ const loginConfig = {
   devtool: 'source-map',
   entry: ['./webapp/login/login.js'],
   output: {
-    filename: 'login-[hash].js',
-    path: config.path
+    filename: 'js/login-[hash].js',
+    path: config.path,
+    publicPath: '/',
   },
   module: {
     rules: [
@@ -94,7 +96,7 @@ const loginConfig = {
     ]
   },
   plugins: [
-    new MiniCssExtractPlugin({ filename: 'login-[hash].css' }),
+    new MiniCssExtractPlugin({ filename: 'style/login-[hash].css' }),
     new HtmlWebpackPlugin({ template: './web-resources/login.html', filename: 'login.html' }),
     new webpack.DefinePlugin({
       __BUST__: `"${uuidv4()}"`,
