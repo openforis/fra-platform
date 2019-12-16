@@ -1,6 +1,7 @@
 import './style.less'
 
 import React from 'react'
+import { Route } from 'react-router-dom'
 import * as R from 'ramda'
 
 import LoginForm from './loginForm'
@@ -32,12 +33,12 @@ const LoginLegal = () =>
   </div>
 
 const loginComponents = [
-  {path: '/login', component: LoginForm},
-  {path: '/resetPassword', component: ResetPasswordForm}
+  {path: '/login/', component: LoginForm},
+  {path: '/resetPassword/', component: ResetPasswordForm}
 ]
 
 const LoginView = () => {
-  const {component} = R.find(R.propEq('path', location.pathname), loginComponents)
+  // const {component} = R.find(R.propEq('path', location.pathname), loginComponents)
 
   return <div>
     <div className="login__wrapper">
@@ -46,9 +47,17 @@ const LoginView = () => {
 
       <div className="login__box">
         <div className="login__top">
+          
+          <Route path="/login/">
+            <LoginForm />
+          </Route>
+          <Route path="/resetPassword/">
+            <ResetPasswordForm />
+          </Route>
+{/* 
           {
             React.createElement(component)
-          }
+          } */}
         </div>
 
         <div className="login__bottom">
