@@ -1,9 +1,9 @@
 import './style.less'
 import React from 'react'
+import PropTypes from 'prop-types'
 import * as R from 'ramda'
 import ReactDOMServer from 'react-dom/server'
 import clipboard from 'clipboard-polyfill'
-import assert from 'assert'
 import { Link } from 'react-router-dom'
 import { ThousandSeparatedDecimalInput } from '../reusableUiComponents/thousandSeparatedDecimalInput'
 import Icon from '../reusableUiComponents/icon'
@@ -408,8 +408,11 @@ const rowRenderers = {
 const TableRow = props => {
   const rowType = props.row.type
   const renderer = rowRenderers[rowType]
-  assert(renderer, `No renderer found for row type ${rowType}`)
   return renderer(props)
+}
+
+TableRow.propTypes = {
+  renderer: PropTypes.func.isRequired
 }
 
 const updatePastedValues = (rowNames, evt, rowIdx, colIdx, fra) => {
