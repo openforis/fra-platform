@@ -60,50 +60,6 @@ const appConfig = {
   ]
 }
 
-// Refactor this
-const loginConfig = {
-  mode: config.mode,
-  devtool: 'source-map',
-  entry: ['./webapp/login/login.js'],
-  output: {
-    filename: 'js/login-[hash].js',
-    path: config.path,
-    publicPath: '/',
-  },
-  module: {
-    rules: [
-      {
-        test: /\.less$/,
-        use: [
-          {
-            loader: MiniCssExtractPlugin.loader
-          },
-          'css-loader',
-          'less-loader',
-        ]
-      },
-      {
-        test: /\.(js|jsx)$/,
-        exclude: /(node_modules|bower_components)/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env', '@babel/react'],
-            plugins: ['@babel/plugin-proposal-object-rest-spread', '@babel/plugin-syntax-dynamic-import']
-          }
-        }
-      }
-    ]
-  },
-  plugins: [
-    new MiniCssExtractPlugin({ filename: 'style/login-[hash].css' }),
-    new HtmlWebpackPlugin({ template: './web-resources/login.html', filename: 'login.html' }),
-    new webpack.DefinePlugin({
-      __BUST__: `"${uuidv4()}"`,
-    })
-  ]
-}
-
 webpack.optimization = {
   minimizer: [
     new UglifyJsPlugin({
@@ -118,9 +74,4 @@ webpack.optimization = {
   ]
 }
 
-const webPackConfig = [
-  appConfig,
-  loginConfig
-]
-
-export default webPackConfig
+export default appConfig
