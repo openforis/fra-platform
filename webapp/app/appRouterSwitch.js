@@ -1,18 +1,41 @@
-import React from 'react'
-
+import React, { useEffect } from 'react'
+import { connect } from 'react-redux'
 import { Route, Switch } from 'react-router-dom'
-import LoggedInView from '../loggedin/loggedInView'
+import { initApp } from './actions'
 
-const AppRouterSwitch = () => (
-  <Switch>
-
-    <Route path="/country/:countryIso/">
-      <LoggedInView/>
-    </Route>
-
-  </Switch>
-)
-
-export default AppRouterSwitch
+import DynamicImport from '../commonComponents/dynamicImport'
+import LoginView from '../login/components/loginView'
 
 
+const AppRouterSwitch = props => {
+  const { loggedIn, initApp } = props
+
+  useEffect(() => {
+    initApp()
+  }, [])
+
+  return (
+    <Switch>
+      {
+        loggedIn ?
+          <Route
+            path="/country/:countryIso"
+            render={props => <DynamicImport {...props} load={() => import('../loggedin/appViewExport')} />}
+          />
+          :
+          <Route path="/login/">
+            <LoginView />
+          </Route>
+      }
+    </Switch>
+  )
+
+}
+
+const mapStateToProps = state => ({
+  loggedIn: !!state.user.userInfo
+})
+
+export default connect(mapStateToProps, {
+  initApp
+})(AppRouterSwitch)
