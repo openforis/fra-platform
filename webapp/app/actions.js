@@ -24,3 +24,8 @@ export const fetchInitialData = (countryIso) => dispatch => {
   getLoggedinUserInfo()(dispatch)
   fetchAllCountryData(countryIso)(dispatch)
 }
+
+
+export const initApp = () => dispatch => {
+  getLoggedinUserInfo()(dispatch)
+}
