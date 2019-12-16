@@ -1,18 +1,10 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import * as R from 'ramda'
-import assert from 'assert'
 import ReviewIndicator from '../review/reviewIndicator'
 import Description from '../description/description'
-
-const assertProps = props =>
-  assert(
-    props.name &&
-    props.countryIso &&
-    props.section,
-    'Some property is missing for DataSourceDescriptionAndComments'
-  )
 
 const dataSourcesEditorTemplate = (i18n) =>
   `<strong>${i18n.t('description.dataSources')}</strong>
@@ -29,7 +21,6 @@ const CommentableReviewDescriptions = props => {
   const dataSourcesTarget = [dataSources] // ?
   const generalComments = 'generalComments'
   const generalCommentsTarget = [generalComments]
-  assertProps(props)
 
   return <div className="fra-description__container">
     <div className="fra-description">
@@ -77,6 +68,12 @@ const CommentableReviewDescriptions = props => {
 }
 }
 
+CommentableReviewDescriptions.propTypes = {
+  name: PropTypes.any.isRequired,
+  section: PropTypes.any.isRequired,
+  countryIso: PropTypes.string.isRequired,
+}
+  
 const mapStateToProps = (state, props) => {
   return {
     ...props,
