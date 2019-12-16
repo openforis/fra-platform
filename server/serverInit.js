@@ -35,7 +35,7 @@ module.exports = () => {
   app.use(fileUpload())
   app.use('/api', apiRouter.router)
   definitionsApi.init(app)
-  loginHandler.init(app)
+  // loginHandler.init(app)
 
   app.use('/style', express.static(`${__dirname}/../dist/style`))
   app.use('/js', express.static(`${__dirname}/../dist/js`))
@@ -44,7 +44,7 @@ module.exports = () => {
       const defaultCountry = await countryRepository.getFirstAllowedCountry(req.user.roles)
       res.redirect(`${appUri}/country/${defaultCountry.countryIso}/`)
     } else {
-      res.redirect(`${appUri}/login`)
+      res.redirect(`${appUri}/login/`)
     }
   })
 
