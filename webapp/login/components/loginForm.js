@@ -90,9 +90,9 @@ class LoginForm extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  status: R.path(['login', 'status'], state),
-  invitation: R.path(['login', 'invitation'], state),
-  user: R.path(['login', 'user'], state)
+  status: R.path(['login', 'login', 'status'], state),
+  invitation: R.path(['login', 'login', 'invitation'], state),
+  user: R.path(['login', 'login', 'user'], state)
 })
 
 export default connect(mapStateToProps, {initLogin})(LoginForm)
