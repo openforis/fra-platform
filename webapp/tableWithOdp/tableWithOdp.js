@@ -408,11 +408,10 @@ const rowRenderers = {
 const TableRow = props => {
   const rowType = props.row.type
   const renderer = rowRenderers[rowType]
+  if (!renderer) {
+    console.error('Missing renderer for table row', renderer)
+  }
   return renderer(props)
-}
-
-TableRow.propTypes = {
-  renderer: PropTypes.func.isRequired
 }
 
 const updatePastedValues = (rowNames, evt, rowIdx, colIdx, fra) => {
