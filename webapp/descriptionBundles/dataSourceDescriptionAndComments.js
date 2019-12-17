@@ -75,7 +75,6 @@ const CommentableReviewDescriptions = props => {
     </div>
   </div>
 }
-}
 
 const mapStateToProps = (state, props) => {
   return {
