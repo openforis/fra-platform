@@ -1,7 +1,7 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
-import assert from 'assert'
 
 import * as table from './table'
 import * as cellTypes from './cellTypes'
@@ -66,7 +66,6 @@ const createValidationStatus = (props) => {
     mapIndexed(
       (value, colIdx) => {
         const cellSpec = props.tableSpec.rows[rowIdx][colIdx]
-        assert(cellSpec, `No cellspec for ${rowIdx} ${colIdx}`)
         return cellSpec.validator
           ? cellSpec.validator(R.merge(props, cellSpec), rowIdx, colIdx)
           : null
@@ -77,6 +76,9 @@ const createValidationStatus = (props) => {
     handleRow,
     props.tableData
   )
+}
+createValidationStatus.propTypes = {
+  cellSpec: PropTypes.any.isRequired
 }
 
 const validationErrorColumns = props => {
@@ -140,13 +142,18 @@ class FraTable extends UpdateOnResizeReactComponent {
 }
 
 const mapStateToProps = (state, props) => {
-  assert(props.tableSpec.name, 'tableSpec is missing name')
   return {
     ...props,
     tableData: R.path(['traditionalTable', props.tableSpec.name, 'tableData'], state) || table.createTableData(props.tableSpec),
     openCommentThreadTarget: state.review.openThread ? state.review.openThread.target : null,
     i18n: state.user.i18n
   }
+}
+
+FraTable.propTypes = {
+  tableSpec: PropTypes.shape({
+    name: PropTypes.string.isRequired
+  })
 }
 
 export default connect(mapStateToProps, { tableValueChanged, tableChanged, fetchTableData })(FraTable)

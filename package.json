@@ -81,6 +81,7 @@
     "passport-google-oauth": "^2.0.0",
     "passport-local": "^1.0.0",
     "pg": "^7.4.1",
+    "prop-types": "^15.7.2",
     "ramda": "^0.26.1",
     "react": "^16.12.0",
     "react-csv": "^1.0.14",

@@ -2,12 +2,12 @@ import './style.less'
 
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
 
 import Icon from '../reusableUiComponents/icon'
 
-import assert from 'assert'
 import ckEditorConfig from '../ckEditor/ckEditorConfig'
 import { saveDescriptions, fetchDescriptions, openEditor, closeEditor } from './actions'
 
@@ -45,8 +45,6 @@ class Description extends Component {
   }
 
   render () {
-    assert(this.props.section, 'No section given')
-
     const {
       i18n,
       title,
@@ -153,6 +151,10 @@ class DescriptionEditor extends Component {
       <textarea id={this.props.name} ref={this.props.name}/>
     </div>
   }
+}
+
+Description.propTypes = {
+  section: PropTypes.string.isRequired
 }
 
 const mapStateToProps = (state, props) => ({
