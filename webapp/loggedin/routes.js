@@ -36,7 +36,7 @@ import AdminView from '../admin/adminView'
 import NotFound from '../app/notfound'
 
 const routes = [
-  { path: '/country/:countryIso/', component: LandingView },
+  { path: '/country/:countryIso/', component: LandingView, exact: true },
   { path: '/country/:countryIso/admin/', component: AdminView },
   { path: '/country/:countryIso/odps/', component: OriginalDataListView },
   { path: '/country/:countryIso/odp/:tab/', component: OriginalDataPointView },
