@@ -4,7 +4,7 @@ const {format} = require('date-fns')
 const auditRepository = require('./../audit/auditRepository')
 
 const fileName = (fileName, countryIso) =>
-  `${fileName.substring(0, fileName.lastIndexOf('.'))}_${countryIso}_${format(new Date(), 'YYYYMMDD')}.${fileName.substring(fileName.lastIndexOf('.') + 1, fileName.length)}`
+  `${fileName.substring(0, fileName.lastIndexOf('.'))}_${countryIso}_${format(new Date(), 'yyyyMMdd')}.${fileName.substring(fileName.lastIndexOf('.') + 1, fileName.length)}`
 
 module.exports.persistPanEuropeanQuantitativeQuestionnaire = (client, user, countryIso, file) =>
   auditRepository

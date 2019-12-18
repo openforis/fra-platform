@@ -9,7 +9,7 @@ class CsvOutput extends ExportOutput {
   constructor (fileName, fields) {
     super()
 
-    this.fileName = `${fileName}_${format(new Date(), 'YYYY_MM_DD')}.csv`
+    this.fileName = `${fileName}_${format(new Date(), 'yyyy_MM_dd')}.csv`
     this.content = ''
     this._key = fileName.split('/').join('_')
 
