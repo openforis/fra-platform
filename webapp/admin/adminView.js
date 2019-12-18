@@ -12,6 +12,7 @@ import { isAdministrator } from '../../common/countryRole'
 import NotFound from '../app/notfound'
 import UsersManagementView from './components/usersManagementView'
 import DataExportView from './components/dataExportView'
+import VersioningView from './components/versioningView'
 
 const sections = [
   {
@@ -23,6 +24,11 @@ const sections = [
     name: 'dataExport',
     component: DataExportView,
     labelKey: 'landing.sections.dataExport'
+  },
+  {
+    name: 'versioning',
+    component: VersioningView,
+    labelKey: 'landing.sections.versioning'
   }
 ]
 
@@ -66,6 +72,9 @@ const AdminView = (props) => {
         </Route>
         <Route path={`${path}dataExport/`}>
           <DataExportView {...props} />
+        </Route>
+        <Route path={`${path}versioning/`}>
+          <VersioningView {...props} />
         </Route>
       </Switch>
 
