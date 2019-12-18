@@ -65,7 +65,7 @@ class CsvOutputWithVariables extends CsvOutput {
       })
 
       if (idx === 0) {
-        rowVariableOutputFile[field.label] = format(new Date(), 'YYYY_MM_DD')
+        rowVariableOutputFile[field.label] = format(new Date(), 'yyyy_MM_dd')
       } else if (idx === 1) {
         rowVariableOutputFile[field.label] = VariablesUnit[field.label]
       }
