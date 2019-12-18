@@ -15,6 +15,8 @@ import routes from './routes'
 
 import { fetchInitialData } from '../app/actions'
 
+import * as loginStatusChecker from '../user/loginStatusChecker'
+
 const LoggedInView = props => {
 
   const { initialDataLoaded, fetchInitialData } = props
@@ -22,24 +24,28 @@ const LoggedInView = props => {
   const { countryIso } = useParams()
 
   useEffect(() => {
+    loginStatusChecker.startPeriodicCheck(60 * 1000)
+  }, [])
+
+  useEffect(() => {
     fetchInitialData(countryIso)
   }, [countryIso])
 
   return initialDataLoaded && (
     <div className="app__root">
-      <Navigation/>
+      <Navigation />
       <div className="fra-view__container">
-      <Switch>
-        {
-          routes.map((route, i) => <Route key={i} {...route}/>)
-        }
-      </Switch>
+        <Switch>
+          {
+            routes.map((route, i) => <Route key={i} {...route} />)
+          }
+        </Switch>
       </div>
-      <Header/>
-      <Review/>
-      <UserChat/>
-      <CountryMessageBoardView/>
-      <ErrorComponent/>
+      <Header />
+      <Review />
+      <UserChat />
+      <CountryMessageBoardView />
+      <ErrorComponent />
     </div>
   )
 }
