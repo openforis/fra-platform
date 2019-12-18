@@ -1,18 +1,17 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import {
-  Link,
   Switch,
   Redirect,
   Route,
-  useRouteMatch
+  NavLink,
+  useRouteMatch,
 } from 'react-router-dom'
 
 import { isAdministrator } from '../../common/countryRole'
 import NotFound from '../app/notfound'
 import UsersManagementView from './components/usersManagementView'
 import DataExportView from './components/dataExportView'
-
 
 const sections = [
   {
@@ -28,28 +27,24 @@ const sections = [
 ]
 
 const AdminViewLink = ({ labelKey, name, i18n }) => {
-  let { url } = useRouteMatch();
-  // Check if the current url includes name-param
-  const disabled = location.pathname.includes(name)
+  let { url } = useRouteMatch()
 
-  return <Link
+  return <NavLink
     to={`${url}/${name}/`}
+    className="landing__page-menu-button"
+    activeClassName="disabled"
     key={name}>
-    <button
-      disabled={disabled}
-      className="landing__page-menu-button">
-      {i18n.t(labelKey)}
-    </button>
-  </Link>
+    {i18n.t(labelKey)}
+  </NavLink>
 }
 
 const AdminView = (props) => {
   const { userInfo, i18n } = props
-  let { path, url } = useRouteMatch();
+  let { path, url } = useRouteMatch()
 
   // Todo : redirect to /404 or /notfound
   if (!isAdministrator(userInfo)) {
-    return <NotFound />
+    return <NotFound/>
   }
 
   return (
@@ -64,7 +59,7 @@ const AdminView = (props) => {
 
       <Switch>
         <Route exact path={path}>
-          <Redirect to={`${url}usersManagement/`} />
+          <Redirect to={`${url}usersManagement/`}/>
         </Route>
         <Route path={`${path}usersManagement/`}>
           <UsersManagementView {...props} />
