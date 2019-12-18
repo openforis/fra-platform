@@ -2,8 +2,14 @@ import './style.less'
 
 import React from 'react'
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router'
-import * as R from 'ramda'
+import {
+  useParams,
+  Link,
+  Switch,
+  Redirect,
+  Route,
+  useRouteMatch
+} from 'react-router-dom'
 
 import { getCountryName } from '../country/actions'
 import { isAllowedToChangeRole } from '../../common/userManagementAccessControl'
@@ -16,76 +22,79 @@ import ManageCollaboratorsView from './views/manageCollaboratorsView'
 import LinksView from './views/linksView'
 import ContentCheckView from './views/contentCheck/contentCheckView'
 
-class LandingView extends React.Component {
+const getSections = (countryIso, userInfo) => {
+  const sections = [
+    { name: 'overview', component: OverviewView },
+    { name: 'recentActivity', component: RecentActivityView },
+    { name: 'about', component: AboutView },
+    { name: 'links', component: LinksView }
+  ]
 
-  getActiveSection (sections) {
-    return R.pipe(
-      R.defaultTo({}),
-      R.prop('section'),
-      R.defaultTo(sections[0])
-    )(this.state)
+  const userManagementSection = { name: 'userManagement', component: ManageCollaboratorsView }
+  const contentCheckSection = { name: 'contentCheck', component: ContentCheckView }
+
+  if (isAllowedToChangeRole(countryIso, userInfo)) {
+    sections.splice(1, 0, userManagementSection)
   }
 
-  isActiveSection (sections, section) {
-    return this.getActiveSection(sections).name === section.name
+  if (isReviewer(countryIso, userInfo)) {
+    sections.splice(1, 0, contentCheckSection)
   }
+  return sections
+}
 
-  getSections () {
-    const { userInfo, match } = this.props
-    const countryIso = match.params.countryIso
+const LandingViewLink = ({ name, i18n }) => {
+  let { url } = useRouteMatch();
+  // Check if the current url includes name-param
+  const disabled = location.pathname.includes(name)
 
-    const defaultSections = [
-      { name: 'overview', component: OverviewView },
-      { name: 'recentActivity', component: RecentActivityView },
-      { name: 'about', component: AboutView },
-      { name: 'links', component: LinksView }
-    ]
+  return <Link
+    to={`${url}/${name}/`}
+    key={name}>
+    <button
+      disabled={disabled}
+      className="landing__page-menu-button">
+      {i18n.t(`landing.sections.${name}`)}
+    </button>
+  </Link>
+}
 
-    const sections = isAllowedToChangeRole(countryIso, userInfo)
-      ? R.insert(1, { name: 'userManagement', component: ManageCollaboratorsView }, defaultSections)
-      : defaultSections
+const LandingView = (props) => {
+  const { userInfo, i18n, getCountryName } = props
+  const { countryIso } = useParams()
+  const { path, url } = useRouteMatch();
 
-    return isReviewer(countryIso, userInfo)
-      ? R.insert(1, { name: 'contentCheck', component: ContentCheckView }, sections)
-      : sections
-  }
+  const sections = getSections(countryIso, userInfo)
 
-  render () {
-    const { i18n, getCountryName, match } = this.props
-    const countryIso = match.params.countryIso
-    const sections = this.getSections()
+  return (
+    <div className="fra-view__content">
 
-    return (
-      <div className="fra-view__content">
-
-        <div className="landing__page-header">
-          <h1 className="landing__page-title">{getCountryName(countryIso, i18n.language)}</h1>
-          <div className="landing__page-menu">
-            {sections.map(section =>
-              <button
-                key={section.name}
-                disabled={this.isActiveSection(sections, section)}
-                className="landing__page-menu-button"
-                onClick={e => this.setState({ section })}>
-                {i18n.t(`landing.sections.${section.name}`)}
-              </button>
-            )}
-          </div>
+      <div className="landing__page-header">
+        <h1 className="landing__page-title">{getCountryName(countryIso, i18n.language)}</h1>
+        <div className="landing__page-menu">
+          {sections.map((section, i) => <LandingViewLink key={i} i18n={i18n} {...section} />)}
         </div>
-
-        {React.createElement(this.getActiveSection(sections).component, { ...this.props })}
-
       </div>
-    )
-  }
+
+      <Switch>
+        <Route exact path={path}>
+          <Redirect to={`${url}overview/`} />
+        </Route>
+        {
+          sections.map((section, i) =>
+            <Route key={i} path={`${path}${section.name}/`} component={section.component} />)
+        }
+      </Switch>
+
+    </div>
+  )
 }
 
 const mapStateToProps = state => ({
   i18n: state.user.i18n,
   userInfo: state.user.userInfo,
-  country: state.country
 })
 
-export default withRouter(connect(mapStateToProps, {
+export default connect(mapStateToProps, {
   getCountryName
-})(LandingView))
+})(LandingView)

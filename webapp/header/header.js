@@ -100,7 +100,7 @@ const Header = ({
             ? [
               <div key="v-separator" className="fra-header__menu-item-separator" style={{margin: '0 20px'}}/>,
               <Link key="admin-link"
-                    to={`/country/${countryIso}/admin`}
+                    to={`/country/${countryIso}/admin/`}
                     className="fra-header__menu-item">
                 {i18n.t('admin.admin')}
               </Link>

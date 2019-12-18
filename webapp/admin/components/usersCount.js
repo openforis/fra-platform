@@ -16,16 +16,14 @@ const roles = [
   reviewer.role
 ]
 
-const UsersCount = ({i18n, userCounts}) =>
+const UsersCount = ({ i18n, userCounts }) =>
   <div className="user-counts__container">
     {
-      userCounts
-        ? roles.map(role =>
-          <div key={role} className="user-counts__item">
-            {`${userCounts[role]} ${i18nUserRole(i18n, role, Number(userCounts[role]))}`}
-          </div>
-        )
-        : null
+      userCounts && roles.map(role =>
+        <div key={role} className="user-counts__item">
+          {`${userCounts[role]} ${i18nUserRole(i18n, role, Number(userCounts[role]))}`}
+        </div>
+      )
     }
   </div>
 

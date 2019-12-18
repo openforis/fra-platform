@@ -1,10 +1,9 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import CommentableDescription from '../description/commentableDescription'
 import { connect } from 'react-redux'
-import assert from 'assert'
 
 const GeneralComments = props => {
-  assert(props.countryIso && props.section, 'countryIso or section missing from GeneralComments properties')
   return <div className="fra-description__container">
     <CommentableDescription
       title={props.i18n.t('description.generalCommentsTitle')}
@@ -12,6 +11,11 @@ const GeneralComments = props => {
       {...props}
     />
   </div>
+}
+
+GeneralComments.propTypes = {
+  countryIso: PropTypes.string.isRequired,
+  section: PropTypes.string.isRequired
 }
 
 const mapStateToProps = (state) => ({i18n: state.user.i18n})
