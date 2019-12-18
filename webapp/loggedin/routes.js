@@ -36,7 +36,6 @@ import AdminView from '../admin/adminView'
 import NotFound from '../app/notfound'
 
 const routes = [
-  { path: '/country/:countryIso/', component: LandingView },
   { path: '/country/:countryIso/admin/', component: AdminView },
   { path: '/country/:countryIso/odps/', component: OriginalDataListView },
   { path: '/country/:countryIso/odp/:tab/', component: OriginalDataPointView },
@@ -68,7 +67,8 @@ const routes = [
   { path: '/country/:countryIso/panEuropeanIndicators/', component: PanEuropeanIndicatorsView },
   { path: '/country/:countryIso/user/:userId/', component: EditUserView },
   { path: '/country/:countryIso/print/:assessment/', component: PrintAssessmentView },
-  { path: '/country/:countryIso/*', component: NotFound },
+  { path: '/country/:countryIso/', component: LandingView },
+  { path: '/country/:countryIso/*', component: NotFound },  
 ]
 
 export default routes

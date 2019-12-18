@@ -31,7 +31,7 @@ const LoggedInView = props => {
       <div className="fra-view__container">
       <Switch>
         {
-          routes.map((route, i) => <Route exact key={i} {...route}/>)
+          routes.map((route, i) => <Route key={i} {...route}/>)
         }
       </Switch>
       </div>
