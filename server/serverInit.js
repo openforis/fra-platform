@@ -13,7 +13,6 @@ module.exports = () => {
   const resourceCacheControl = require('./resourceCacheControl')
   const definitionsApi = require('./definitions/api')
   const accessControl = require('./auth/accessControl')
-  const loginHandler = require('./auth/loginHandler')
   const { sendErr, appUri } = require('./utils/requestUtils')
 
   const app = express()
@@ -35,7 +34,6 @@ module.exports = () => {
   app.use(fileUpload())
   app.use('/api', apiRouter.router)
   definitionsApi.init(app)
-  // loginHandler.init(app)
 
   app.use('/style', express.static(`${__dirname}/../dist/style`))
   app.use('/js', express.static(`${__dirname}/../dist/js`))
