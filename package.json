@@ -8,6 +8,7 @@
   "scripts": {
     "build": "NODE_ENV=production webpack -p --config webpack.config.babel.js",
     "build:watch": "NODE_ENV=development webpack --config webpack.config.babel.js --watch",
+    "build:prod:report": "cross-env NODE_ENV=production BUILD_REPORT=true webpack --display-error-details -p --config webpack.config.babel.js",
     "clean": "rm -rf dist/",
     "start": "node server/server.js",
     "watch": "NODE_ENV=development yarn build:watch & yarn watch:server",
@@ -30,6 +31,7 @@
     "@babel/runtime-corejs3": "^7.6.3",
     "babel-loader": "^8.0.6",
     "chai": "^4.1.0",
+    "cross-env": "^6.0.3",
     "css-loader": "^3.2.1",
     "csv": "^5.1.2",
     "extract-text-webpack-plugin": "^4.0.0-alpha.0",
@@ -46,6 +48,7 @@
     "regenerator-runtime": "^0.13.3",
     "style-loader": "^1.0.1",
     "webpack": "^4.41.2",
+    "webpack-bundle-analyzer": "^3.6.0",
     "webpack-cli": "^3.3.10"
   },
   "dependencies": {
