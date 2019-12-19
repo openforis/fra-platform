@@ -13,7 +13,7 @@ const SpecificForestCategories = props => {
     extentOfForest,
     forestCharacteristics
   } = props
-  const { countryIso } = useParams
+  const { countryIso } = useParams()
 
   useEffect(() => {
     fetchItem('forestCharacteristics', countryIso)

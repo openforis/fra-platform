@@ -15,7 +15,7 @@ const sectionName = 'contactPersons'
 
 const ContactPersonsView = props => {
   const { fetchLastSectionUpdateTimestamp, i18n, isEditDataDisabled } = props
-  const { countryIso } = useParams
+  const { countryIso } = useParams()
 
   useEffect(() => {
     fetchLastSectionUpdateTimestamp(countryIso, sectionName)

@@ -8,7 +8,7 @@ import { fetchUsers } from '../../userManagement/actions'
 
 const ContactPersonsPrintView = props => {
   const { fetchUsers, countryUsers, i18n } = props
-  const { countryIso } = useParams
+  const { countryIso } = useParams()
 
   useEffect(() => {
     fetchUsers(countryIso, true)
