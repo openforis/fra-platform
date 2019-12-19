@@ -1,14 +1,14 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { connect, useSelector } from 'react-redux'
 import * as R from 'ramda'
 
 import Description from './description'
 import ReviewIndicator from '../review/reviewIndicator'
+import * as AppState from '../app/appState'
 
 const CommentableDescription = props => {
   const { disabled = false } = props
-  const { countryIso } = useParams()
+  const countryIso = useSelector(AppState.getCountryIso)
 
   return <div className="fra-description">
     <div className={
@@ -24,7 +24,7 @@ const CommentableDescription = props => {
         template={props.template}
         disabled={disabled}
         showAlertEmptyContent={props.showAlertEmptyContent}
-        showDashEmptyContent={props.showDashEmptyContent} />
+        showDashEmptyContent={props.showDashEmptyContent}/>
     </div>
     <div className="fra-description__review-indicator-wrapper">
       {

@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
-import { connect } from 'react-redux'
-import { Link, useParams } from 'react-router-dom'
+import { connect, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 import * as R from 'ramda'
 
-import { fetchItem, save, saveMany, generateFraValues } from '../../tableWithOdp/actions'
-import { TableWithOdp, GenerateFraValuesControl } from '../../tableWithOdp/tableWithOdp'
+import { fetchItem, generateFraValues, save, saveMany } from '../../tableWithOdp/actions'
+import { GenerateFraValuesControl, TableWithOdp } from '../../tableWithOdp/tableWithOdp'
 import ChartWrapper from '../extentOfForest/chart/chartWrapper'
 import NationalDataDescriptions from '../../descriptionBundles/nationalDataDescriptions'
 import AnalysisDescriptions from '../../descriptionBundles/analysisDescriptions'
@@ -12,16 +12,15 @@ import GeneralComments from '../../descriptionBundles/generalComments'
 import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
 import { saveCountryConfigSetting } from '../../country/actions'
 import DefinitionLink from '../../reusableUiComponents/definitionLink'
-import { sum, formatNumber, greaterThanOrEqualTo, abs, sub, greaterThan } from '../../../common/bignumberUtils'
-import { getForestAreaForYear } from '../../../common/extentOfForestHelper'
+import { abs, formatNumber, greaterThan, greaterThanOrEqualTo, sub, sum } from '../../../common/bignumberUtils'
+import { getForestAreaForYear, hasOdps } from '../../../common/extentOfForestHelper'
 import ReviewIndicator from '../../review/reviewIndicator'
 import NationalDataPointsPrintView from '../../originalDataPoint/nationalDataPointsPrintView'
-
-import { hasOdps } from '../../../common/extentOfForestHelper'
 import { isFRA2020SectionEditDisabled } from '../../utils/assessmentAccess'
 import { isPrintingMode, isPrintingOnlyTables } from '../../printAssessment/printAssessment'
 
 import FraUtils from '../../../common/fraUtils'
+import * as AppState from '../../app/appState'
 
 const mapIndexed = R.addIndex(R.map)
 const sectionName = 'forestCharacteristics'
@@ -76,10 +75,10 @@ const ForestCharacteristics = props => {
             isEditDataDisabled
               ? null
               : <ReviewIndicator key="plantedForest"
-                section={sectionName}
-                title={i18n.t('forestCharacteristics.plantedForest')}
-                target={['plantedForest']}
-                countryIso={props.countryIso} />
+                                 section={sectionName}
+                                 title={i18n.t('forestCharacteristics.plantedForest')}
+                                 target={['plantedForest']}
+                                 countryIso={props.countryIso}/>
           }
         </div>
       </td>
@@ -109,10 +108,10 @@ const ForestCharacteristics = props => {
             isEditDataDisabled
               ? null
               : <ReviewIndicator key="total"
-                section={sectionName}
-                title={i18n.t('forestCharacteristics.total')}
-                target={['total']}
-                countryIso={props.countryIso} />
+                                 section={sectionName}
+                                 title={i18n.t('forestCharacteristics.total')}
+                                 target={['total']}
+                                 countryIso={props.countryIso}/>
           }
         </div>
       </td>
@@ -142,10 +141,10 @@ const ForestCharacteristics = props => {
             isEditDataDisabled
               ? null
               : <ReviewIndicator key="totalForestArea"
-                section={sectionName}
-                title={i18n.t('forestCharacteristics.totalForestArea')}
-                target={['totalForestArea']}
-                countryIso={props.countryIso} />
+                                 section={sectionName}
+                                 title={i18n.t('forestCharacteristics.totalForestArea')}
+                                 target={['totalForestArea']}
+                                 countryIso={props.countryIso}/>
           }
         </div>
       </td>
@@ -237,29 +236,29 @@ const ForestCharacteristics = props => {
       props.useOriginalDataPoints
         ? [
           <button key="odpButton"
-            className={`btn btn-${props.useOriginalDataPointsInFoc ? 'secondary' : 'primary'} no-print`}
-            onClick={() => handleOdpButtonClick()}
-            disabled={isEditDataDisabled}>
+                  className={`btn btn-${props.useOriginalDataPointsInFoc ? 'secondary' : 'primary'} no-print`}
+                  onClick={() => handleOdpButtonClick()}
+                  disabled={isEditDataDisabled}>
             {
               props.useOriginalDataPointsInFoc
                 ? i18n.t('forestCharacteristics.dontUseOriginalDataPoints')
                 : i18n.t('forestCharacteristics.useOriginalDataPoints')
             }
           </button>,
-          <hr key="separator" className="no-print" />
+          <hr key="separator" className="no-print"/>
         ]
         : null
     }
     {
       props.useOriginalDataPointsInFoc
         ? isPrintingMode()
-          ? <NationalDataPointsPrintView {...props} section={sectionName} />
-          : null
+        ? <NationalDataPointsPrintView {...props} section={sectionName}/>
+        : null
         : [
           <NationalDataDescriptions key="ndd" section={sectionName} countryIso={props.countryIso}
-            disabled={isEditDataDisabled} />,
+                                    disabled={isEditDataDisabled}/>,
           <AnalysisDescriptions key="ad" section={sectionName} countryIso={props.countryIso}
-            disabled={isEditDataDisabled} />
+                                disabled={isEditDataDisabled}/>
         ]
     }
     <h2 className="headline no-print">
@@ -267,15 +266,15 @@ const ForestCharacteristics = props => {
     </h2>
     <div className="fra-view__section-toolbar no-print">
       <DefinitionLink className="margin-right-big" document="tad" anchor="1b"
-        title={i18n.t('definition.definitionLabel')} lang={i18n.language} />
+                      title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
       <DefinitionLink className="align-left" document="faq" anchor="1b" title={i18n.t('definition.faqLabel')}
-        lang={i18n.language} />
+                      lang={i18n.language}/>
     </div>
 
     {
       !isPrintingOnlyTables() &&
       [
-        <div className="page-break" key={0} />,
+        <div className="page-break" key={0}/>,
 
         <ChartWrapper
           key={1}
@@ -333,7 +332,7 @@ const ForestCharacteristics = props => {
 
 const DataFetchingComponent = props => {
   const { fra, fetchItem, fetchLastSectionUpdateTimestamp } = props
-  const { countryIso } = useParams()
+  const countryIso = useSelector(AppState.getCountryIso)
 
   const hasData = (data) => {
     return R.pipe(

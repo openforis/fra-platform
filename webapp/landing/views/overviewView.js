@@ -1,16 +1,15 @@
 import React, { useEffect } from 'react'
-import { connect } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { connect, useSelector } from 'react-redux'
 import * as R from 'ramda'
 
 import { i18nUserRole, profilePictureUri } from '../../../common/userUtils'
 
 import Icon from '../../reusableUiComponents/icon'
-// import MapViewContainer from './countryMap/mapViewContainer'
-
 import { getCountryOverview } from '../actions'
-import { openChat, closeChat } from '../../userChat/actions'
-import { openCountryMessageBoard, closeCountryMessageBoard } from '../../countryMessageBoard/actions'
+import { closeChat, openChat } from '../../userChat/actions'
+import { closeCountryMessageBoard, openCountryMessageBoard } from '../../countryMessageBoard/actions'
+import * as AppState from '../../app/appState'
+// import MapViewContainer from './countryMap/mapViewContainer'
 
 const milestonesTableContent = [
   {
@@ -89,7 +88,7 @@ const MessageBoard = ({ countryIso, i18n, closeChat, openCountryMessageBoard, co
                 }
               }}
             >
-              <Icon name="chat-46" className="icon-middle" />
+              <Icon name="chat-46" className="icon-middle"/>
               {i18n.t('landing.users.message')}
               {
                 countryMessageBoardUnreadMessages > 0
@@ -121,7 +120,7 @@ const Users = ({ countryIso, i18n, users, userInfo, openChat, closeChat, openCou
             <div className="landing__user-header">
               <img
                 className="landing__user-avatar"
-                src={profilePictureUri(countryIso, user.id)} />
+                src={profilePictureUri(countryIso, user.id)}/>
               <div className="landing__user-info">
 
                 <div className={`landing__user-name${userInfo.id === user.id ? ' session-user' : ''}`}>
@@ -139,7 +138,7 @@ const Users = ({ countryIso, i18n, users, userInfo, openChat, closeChat, openCou
                         openChat(countryIso, userInfo, user)
                       }}
                     >
-                      <Icon name="chat-46" className="icon-middle" />
+                      <Icon name="chat-46" className="icon-middle"/>
                       {i18n.t('landing.users.message')}
                       {
                         user.chat.unreadMessages > 0
@@ -169,7 +168,7 @@ const OverviewView = props => {
     overview,
     userInfo,
   } = props
-  const { countryIso } = useParams()
+  const countryIso = useSelector(AppState.getCountryIso)
   const users = overview && overview.users
   const countryMessageBoardUnreadMessages = overview && overview.countryMessageBoardUnreadMessages
   const shouldRenderUsers = !(R.isEmpty(users) || R.isNil(users))
@@ -179,10 +178,8 @@ const OverviewView = props => {
     return () => {
       closeChat()
       closeCountryMessageBoard()
-    };
+    }
   }, [countryIso])
-
-
 
   return <div className="landing__page-container">
     {/*<MapViewContainer {...this.props}/>*/}
@@ -190,23 +187,23 @@ const OverviewView = props => {
 
     <div className="landing__message-board-container">
       <MessageBoard countryIso={countryIso}
-        i18n={i18n}
-        userInfo={userInfo}
-        closeChat={closeChat}
-        openCountryMessageBoard={openCountryMessageBoard}
-        closeCountryMessageBoard={closeCountryMessageBoard}
-        countryMessageBoardUnreadMessages={countryMessageBoardUnreadMessages}
-        countryMessageBoardOpened={countryMessageBoardOpened} />
+                    i18n={i18n}
+                    userInfo={userInfo}
+                    closeChat={closeChat}
+                    openCountryMessageBoard={openCountryMessageBoard}
+                    closeCountryMessageBoard={closeCountryMessageBoard}
+                    countryMessageBoardUnreadMessages={countryMessageBoardUnreadMessages}
+                    countryMessageBoardOpened={countryMessageBoardOpened}/>
       {
-          shouldRenderUsers && <Users users={users}
-            countryIso={countryIso}
-            i18n={i18n}
-            userInfo={userInfo}
-            openChat={openChat}
-            closeChat={closeChat}
-            openCountryMessageBoard={openCountryMessageBoard}
-            closeCountryMessageBoard={closeCountryMessageBoard}
-            countryMessageBoardUnreadMessages={countryMessageBoardUnreadMessages} />
+        shouldRenderUsers && <Users users={users}
+                                    countryIso={countryIso}
+                                    i18n={i18n}
+                                    userInfo={userInfo}
+                                    openChat={openChat}
+                                    closeChat={closeChat}
+                                    openCountryMessageBoard={openCountryMessageBoard}
+                                    closeCountryMessageBoard={closeCountryMessageBoard}
+                                    countryMessageBoardUnreadMessages={countryMessageBoardUnreadMessages}/>
       }
     </div>
 

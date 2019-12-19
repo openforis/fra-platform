@@ -1,8 +1,7 @@
 import './sustainableDevelopmentView.less'
 
 import React, { useEffect } from 'react'
-import { connect } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { connect, useSelector } from 'react-redux'
 import * as R from 'ramda'
 
 import DefinitionLink from '../../reusableUiComponents/definitionLink'
@@ -19,12 +18,13 @@ import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
 import { fetch } from './actions'
 import { isFRA2020SectionEditDisabled } from '../../utils/assessmentAccess'
 import { isPrintingOnlyTables } from '../../printAssessment/printAssessment'
+import * as AppState from '../../app/appState'
 
 const sectionName = 'sustainableDevelopment'
 
 const SustainableDevelopmentView = props => {
   const { i18n, data, countryConfig, isEditDataDisabled } = props
-  const { countryIso } = useParams()
+  const countryIso = useSelector(AppState.getCountryIso)
   const lang = i18n.language
   const years = R.drop(1, defaultYears)
 
@@ -50,52 +50,52 @@ const SustainableDevelopmentView = props => {
 
         <div className="fra-view__section-toolbar">
           <DefinitionLink className="margin-right-big" document="tad" anchor="8"
-            title={i18n.t('definition.definitionLabel')} lang={lang} />
+                          title={i18n.t('definition.definitionLabel')} lang={lang}/>
           <DefinitionLink className="align-left" document="faq" anchor="8" title={i18n.t('definition.faqLabel')}
-            lang={lang} />
+                          lang={lang}/>
         </div>
 
         <h3 className="subhead" style={{ marginBottom: 16 }}>{i18n.t('sustainableDevelopment.sdgIndicator1')}</h3>
 
         <Indicator i18n={i18n}
-          countryIso={countryIso}
-          data={data}
-          years={years}
-          countryConfig={countryConfig}
-          disabled={isEditDataDisabled} />
+                   countryIso={countryIso}
+                   data={data}
+                   years={years}
+                   countryConfig={countryConfig}
+                   disabled={isEditDataDisabled}/>
 
         <h3 className="subhead" style={{ marginBottom: 16 }}>{i18n.t('sustainableDevelopment.sdgIndicator2')}</h3>
 
         <SubIndicator1 i18n={i18n}
-          countryIso={countryIso}
-          data={data}
-          years={years}
-          disabled={isEditDataDisabled} />
+                       countryIso={countryIso}
+                       data={data}
+                       years={years}
+                       disabled={isEditDataDisabled}/>
 
-        <div className="page-break" />
+        <div className="page-break"/>
         <SubIndicator2 i18n={i18n}
-          countryIso={countryIso}
-          data={data}
-          years={years}
-          disabled={isEditDataDisabled} />
+                       countryIso={countryIso}
+                       data={data}
+                       years={years}
+                       disabled={isEditDataDisabled}/>
         <SubIndicator3 i18n={i18n}
-          countryIso={countryIso}
-          data={data}
-          years={years}
-          disabled={isEditDataDisabled} />
+                       countryIso={countryIso}
+                       data={data}
+                       years={years}
+                       disabled={isEditDataDisabled}/>
 
-        <div className="page-break" />
+        <div className="page-break"/>
         <SubIndicator4 i18n={i18n}
-          countryIso={countryIso}
-          data={data}
-          years={years}
-          disabled={isEditDataDisabled} />
+                       countryIso={countryIso}
+                       data={data}
+                       years={years}
+                       disabled={isEditDataDisabled}/>
         <SubIndicator5 i18n={i18n}
-          countryIso={countryIso}
-          data={data}
-          years={years}
-          countryConfig={countryConfig}
-          disabled={isEditDataDisabled} />
+                       countryIso={countryIso}
+                       data={data}
+                       years={years}
+                       countryConfig={countryConfig}
+                       disabled={isEditDataDisabled}/>
       </div>
     </>
 }

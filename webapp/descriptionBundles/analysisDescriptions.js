@@ -1,12 +1,12 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { connect, useSelector } from 'react-redux'
 
 import CommentableDescription from '../description/commentableDescription'
 import { isPrintingMode, isPrintingOnlyTables } from '../printAssessment/printAssessment'
+import * as AppState from '../app/appState'
 
 const AnalysisDescriptions = props => {
-  const { countryIso } = useParams()
+  const countryIso = useSelector(AppState.getCountryIso)
 
   return !isPrintingOnlyTables() &&
     <div className="fra-description__container">

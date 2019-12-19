@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
-import { connect } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { connect, useSelector } from 'react-redux'
 import * as R from 'ramda'
 
 import DataSources from './components/dataSources'
@@ -10,6 +9,7 @@ import ForestCharacteristicsSection from './components/originalData/forestCharac
 
 import { fetchOdps } from './actions'
 import { isPrintingOnlyTables } from '../printAssessment/printAssessment'
+import * as AppState from '../app/appState'
 
 const DataSourcesPrintView = ({ ndps, ...props }) => (
   <div className="odp__section-print-mode">
@@ -22,7 +22,7 @@ const DataSourcesPrintView = ({ ndps, ...props }) => (
           key={i}
           {...props}
           odp={ndp}
-          printView={true} />
+          printView={true}/>
       )
     }
   </div>
@@ -39,7 +39,7 @@ const NationalClassesPrintView = ({ ndps, ...props }) => (
           key={i}
           {...props}
           odp={ndp}
-          printView={true} />
+          printView={true}/>
       )
     }
   </div>
@@ -65,7 +65,7 @@ const NationalDataPointsPrintView = props => {
   }
 
   const { ndps, i18n, fetchOdps } = props
-  const { countryIso } = useParams()
+  const countryIso = useSelector(AppState.getCountryIso)
 
   useEffect(() => {
     fetchOdps(countryIso)
@@ -85,9 +85,9 @@ const NationalDataPointsPrintView = props => {
   return (
     <div>
       <h2 className="headline">{i18n.t('nationalDataPoint.nationalData')}</h2>
-      <DataSourcesPrintView {...this.props} ndps={data} />
-      <NationalClassesPrintView {...this.props} ndps={data} />
-      <OriginalDataPrintView {...this.props} ndps={data} />
+      <DataSourcesPrintView {...props} ndps={data}/>
+      <NationalClassesPrintView {...props} ndps={data}/>
+      <OriginalDataPrintView {...props} ndps={data}/>
     </div>
   )
 }

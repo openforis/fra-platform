@@ -32,7 +32,7 @@ const LoginLegal = () =>
   </div>
 
 const LoginView = () => {
-  return <div>
+  return <div className="login__container">
     <div className="login__wrapper">
       <img src="/img/fao_logo.svg" className="login__logo" height="60"/>
       <img src="/img/tucan.svg" className="login__tucan"/>

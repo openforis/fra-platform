@@ -1,22 +1,22 @@
 import './style.less'
 
 import React from 'react'
-import { connect } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { connect, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 import * as R from 'ramda'
 
 import { PopoverControl } from '../reusableUiComponents/popoverControl'
 import Icon from '../reusableUiComponents/icon'
-import { Link } from 'react-router-dom'
 
 import { logout, switchLanguage } from '../user/actions'
 import { toggleNavigationVisible } from '../navigation/actions'
 
 import { getRelativeDate } from '../utils/relativeDate'
 import { isAdministrator } from '../../common/countryRole'
+import * as AppState from '../app/appState'
 
-const UserInfo = ({userInfo, i18n, logout}) => {
-  const { countryIso } = useParams()
+const UserInfo = ({ userInfo, i18n, logout }) => {
+  const countryIso = useSelector(AppState.getCountryIso)
   const userInfoItems = [{
     content: i18n.t('header.logout'),
     onClick: () => logout()
@@ -35,7 +35,7 @@ const UserInfo = ({userInfo, i18n, logout}) => {
   </PopoverControl>
 }
 
-const LanguageSelection = ({i18n, switchLanguage}) => {
+const LanguageSelection = ({ i18n, switchLanguage }) => {
   const supportedLangs = ['en', 'fr', 'es', 'ru']
   const selectableLangs = R.reject(l => l === i18n.language, supportedLangs)
   const languageSelectionItems = R.map(lang =>
@@ -70,7 +70,7 @@ const Header = ({
                   commentsOpen,
                   ...props
                 }) => {
-  const { countryIso } = useParams()
+  const countryIso = useSelector(AppState.getCountryIso)
 
   const commentColumnCurrentWidth = commentsOpen ? 288 : 0
   const navigationCurrentWidth = navigationVisible ? 256 : 0
@@ -98,7 +98,7 @@ const Header = ({
         {
           isAdministrator(userInfo)
             ? [
-              <div key="v-separator" className="fra-header__menu-item-separator" style={{margin: '0 20px'}}/>,
+              <div key="v-separator" className="fra-header__menu-item-separator" style={{ margin: '0 20px' }}/>,
               <Link key="admin-link"
                     to={`/country/${countryIso}/admin/`}
                     className="fra-header__menu-item">
@@ -128,4 +128,4 @@ const mapStateToProps = state => ({
   navigationVisible: state.navigation.navigationVisible
 })
 
-export default connect(mapStateToProps, {logout, switchLanguage, toggleNavigationVisible})(Header)
+export default connect(mapStateToProps, { logout, switchLanguage, toggleNavigationVisible })(Header)

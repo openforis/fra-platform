@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { connect } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { connect, useSelector } from 'react-redux'
 import * as R from 'ramda'
 
 import UsersTableFilterWrapper from '../../userManagement/list/usersTableFilterWrapper'
@@ -11,6 +10,7 @@ import EditUserForm from '../../userManagement/edit/editUserForm'
 import { fetchAllUsers, removeUser, sendInvitationEmail } from '../../userManagement/actions'
 import { getCountryName } from '../../country/actions'
 import { administrator } from '../../../common/countryRole'
+import * as AppState from '../../app/appState'
 
 const UsersManagementView = props => {
   const {
@@ -20,7 +20,7 @@ const UsersManagementView = props => {
     allUsers,
     userCounts,
   } = props
-  const { countryIso } = useParams()
+  const countryIso = useSelector(AppState.getCountryIso)
   const [editingUserId, setEditingUserId] = useState(null)
 
   useEffect(() => {
@@ -43,17 +43,17 @@ const UsersManagementView = props => {
   // }
   if (editingUserId) {
     return <EditUserForm userId={editingUserId}
-      countryIso={countryIso}
-      onCancel={userId => setEditingUserId(null)}
+                         countryIso={countryIso}
+                         onCancel={userId => setEditingUserId(null)}
     />
   }
 
   return <>
     <UsersTableFilterWrapper {...props}
-      isAdminTable={true}
-      users={allUsers}
-      onEditClick={userId => setEditingUserId(userId)} />
-    <UsersCount i18n={i18n} userCounts={userCounts} />
+                             isAdminTable={true}
+                             users={allUsers}
+                             onEditClick={userId => setEditingUserId(userId)}/>
+    <UsersCount i18n={i18n} userCounts={userCounts}/>
   </>
 }
 

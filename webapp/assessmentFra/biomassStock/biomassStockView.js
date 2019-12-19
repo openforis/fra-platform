@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { connect } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { connect, useSelector } from 'react-redux'
 import * as R from 'ramda'
 
 import TraditionalTable from '../../traditionalTable/traditionalTable'
@@ -15,6 +14,7 @@ import * as table from '../../traditionalTable/table'
 import { isPrintingOnlyTables } from '../../printAssessment/printAssessment'
 import FraUtils from '../../../common/fraUtils'
 import { fetchTableData } from '../../traditionalTable/actions'
+import * as AppState from '../../app/appState'
 
 const sectionName = 'biomassStock'
 const domains = ['boreal', 'temperate', 'subtropical', 'tropical']
@@ -47,7 +47,7 @@ const BiomassStockView = props => {
     fetchTableData,
     fetchLastSectionUpdateTimestamp
   } = props
-  const { countryIso } = useParams()
+  const countryIso = useSelector(AppState.getCountryIso)
   const [selectedDomain, setSelectedDomain] = useState(domain)
   const calculatorFilePath = downloadPath()
 
@@ -64,8 +64,8 @@ const BiomassStockView = props => {
       {`${isPrintingOnlyTables() ? '' : '2c '}${i18n.t('biomassStock.biomassStock')}`}
     </h2>
 
-    <NationalDataDescriptions section={sectionName} countryIso={countryIso} disabled={disabled} />
-    <AnalysisDescriptions section={sectionName} countryIso={countryIso} disabled={disabled} />
+    <NationalDataDescriptions section={sectionName} countryIso={countryIso} disabled={disabled}/>
+    <AnalysisDescriptions section={sectionName} countryIso={countryIso} disabled={disabled}/>
 
     <h2 className="headline no-print">
       {i18n.t('biomassStock.biomassStock')}
@@ -73,14 +73,14 @@ const BiomassStockView = props => {
 
     <div className="fra-view__section-toolbar" style={{ marginTop: '4px' }}>
       <DefinitionLink className="margin-right-big" document="tad" anchor="2c"
-        title={i18n.t('definition.definitionLabel')} lang={language} />
+                      title={i18n.t('definition.definitionLabel')} lang={language}/>
       <DefinitionLink className="align-left" document="faq" anchor="2c" title={i18n.t('definition.faqLabel')}
-        lang={language} />
+                      lang={language}/>
 
       <div className="no-print">
         {
           !R.isNil(domain) &&
-          <Select i18n={i18n} domain={domain} selectedDomain={selectedDomain} setSelectedDomain={setSelectedDomain} />
+          <Select i18n={i18n} domain={domain} selectedDomain={selectedDomain} setSelectedDomain={setSelectedDomain}/>
         }
         <a className="btn-s btn-primary" href={calculatorFilePath}>
           {i18n.t('biomassStock.downloadExcel')}
@@ -88,13 +88,13 @@ const BiomassStockView = props => {
       </div>
     </div>
 
-    <TraditionalTable tableSpec={tableSpecInstance} countryIso={countryIso} disabled={disabled} />
+    <TraditionalTable tableSpec={tableSpecInstance} countryIso={countryIso} disabled={disabled}/>
     <GeneralComments
       section={sectionName}
       countryIso={countryIso}
       disabled={disabled}
     />
-  </div >
+  </div>
 }
 
 const mapStateToProps = state => {
