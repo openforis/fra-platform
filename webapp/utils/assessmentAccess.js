@@ -6,7 +6,7 @@ import { assessmentStatus } from '../../common/assessment'
 import { isPrintingMode } from '../printAssessment/printAssessment'
 
 const getUserInfo = R.path(['user', 'userInfo'])
-const getCountryIso = R.path(['router', 'country'])
+const getCountryIso = R.path(['app', 'countryIso'])
 
 const getAssessment = name => R.pipe(
   R.path(['country', 'status', 'assessments', name]),
