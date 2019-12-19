@@ -1,8 +1,8 @@
 import '../../userManagement/style.less'
 
-import React, { useState, useEffect } from 'react'
-import { connect } from 'react-redux'
-import { useParams, useLocation } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { connect, useSelector } from 'react-redux'
+import { useLocation } from 'react-router-dom'
 import * as R from 'ramda'
 
 import AddUserForm from '../../userManagement/edit/addUserForm'
@@ -13,17 +13,18 @@ import { rolesAllowedToChange } from '../../../common/userManagementAccessContro
 
 import { getCountryName } from '../../country/actions'
 import {
-  fetchUsers,
-  removeUser,
-  updateNewUser,
   addNewUser,
+  fetchUsers,
+  persistCollaboratorCountryAccess,
+  removeUser,
   sendInvitationEmail,
-  persistCollaboratorCountryAccess
+  updateNewUser
 } from '../../userManagement/actions'
+import * as AppState from '../../app/appState'
 
 const ManageCollaboratorsView = props => {
   const { countryUsers, newUser, allowedRoles, editUserStatus, fetchUsers } = props
-  const { countryIso } = useParams()
+  const countryIso = useSelector(AppState.getCountryIso)
   const { location } = useLocation()
   const [editingUserId, setEditingUserId] = useState(null)
 
@@ -36,7 +37,7 @@ const ManageCollaboratorsView = props => {
   }, [countryIso])
 
   useEffect(() => {
-    if (editUserStatus === 'completed'){
+    if (editUserStatus === 'completed') {
       fetchUsers(countryIso)
       setEditingUserId(null)
     }
@@ -56,11 +57,11 @@ const ManageCollaboratorsView = props => {
 
   return (
     <>
-      <AddUserForm {...props} user={newUser} countryIso={countryIso} />
+      <AddUserForm {...props} user={newUser} countryIso={countryIso}/>
       <UsersTable
         {...props}
         users={countryUsers}
-        onEditClick={userId => setEditingUserId(userId)} />
+        onEditClick={userId => setEditingUserId(userId)}/>
     </>
   )
 }

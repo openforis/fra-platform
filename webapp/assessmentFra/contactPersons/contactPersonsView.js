@@ -1,21 +1,20 @@
 import './style.less'
 
 import React, { useEffect } from 'react'
-import { connect } from 'react-redux'
-import { useParams } from 'react-router-dom'
-import * as R from 'ramda'
+import { connect, useSelector } from 'react-redux'
 
 import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
 
 import CommentableDescription from '../../description/commentableDescription.js'
 
 import { isFRA2020SectionEditDisabled } from '../../utils/assessmentAccess'
+import * as AppState from '../../app/appState'
 
 const sectionName = 'contactPersons'
 
 const ContactPersonsView = props => {
   const { fetchLastSectionUpdateTimestamp, i18n, isEditDataDisabled } = props
-  const { countryIso } = useParams()
+  const countryIso = useSelector(AppState.getCountryIso)
 
   useEffect(() => {
     fetchLastSectionUpdateTimestamp(countryIso, sectionName)
@@ -32,7 +31,6 @@ const ContactPersonsView = props => {
     />
   </div>
 }
-
 
 const mapStateToProps = (state, props) => ({
   openCommentThread: state.review.openThread,

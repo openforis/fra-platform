@@ -3,9 +3,11 @@ import login from '../login/reducer'
 import user from '../user/reducer'
 import app from '../app/reducer'
 
+import * as AppState from '../app/appState'
+
 export default {
   applicationError,
-  app,
+  [AppState.stateKey]: app,
   login,
   user
 }

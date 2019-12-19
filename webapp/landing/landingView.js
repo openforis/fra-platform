@@ -1,15 +1,8 @@
 import './style.less'
 
 import React from 'react'
-import { connect } from 'react-redux'
-import {
-  useParams,
-  Link,
-  Switch,
-  Redirect,
-  Route,
-  useRouteMatch
-} from 'react-router-dom'
+import { connect, useSelector } from 'react-redux'
+import { Link, Redirect, Route, Switch, useRouteMatch } from 'react-router-dom'
 
 import { getCountryName } from '../country/actions'
 import { isAllowedToChangeRole } from '../../common/userManagementAccessControl'
@@ -21,6 +14,7 @@ import RecentActivityView from './views/recentActivityView'
 import ManageCollaboratorsView from './views/manageCollaboratorsView'
 import LinksView from './views/linksView'
 import ContentCheckView from './views/contentCheck/contentCheckView'
+import * as AppState from '../app/appState'
 
 const getSections = (countryIso, userInfo) => {
   const sections = [
@@ -44,7 +38,7 @@ const getSections = (countryIso, userInfo) => {
 }
 
 const LandingViewLink = ({ name, i18n }) => {
-  let { url } = useRouteMatch();
+  let { url } = useRouteMatch()
   // Check if the current url includes name-param
   const disabled = location.pathname.includes(name)
 
@@ -61,8 +55,8 @@ const LandingViewLink = ({ name, i18n }) => {
 
 const LandingView = (props) => {
   const { userInfo, i18n, getCountryName } = props
-  const { countryIso } = useParams()
-  const { path, url } = useRouteMatch();
+  const countryIso = useSelector(AppState.getCountryIso)
+  const { path, url } = useRouteMatch()
 
   const sections = getSections(countryIso, userInfo)
 
@@ -78,11 +72,11 @@ const LandingView = (props) => {
 
       <Switch>
         <Route exact path={path}>
-          <Redirect to={`${url}overview/`} />
+          <Redirect to={`${url}overview/`}/>
         </Route>
         {
           sections.map((section, i) =>
-            <Route key={i} path={`${path}${section.name}/`} component={section.component} />)
+            <Route key={i} path={`${path}${section.name}/`} component={section.component}/>)
         }
       </Switch>
 

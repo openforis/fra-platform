@@ -15,13 +15,11 @@ export const fetchAllCountryData = countryIso => dispatch => {
   fetchGrowingStock(countryIso)(dispatch)
 }
 
-export const fetchInitialData = (countryIso) => dispatch => {
-  dispatch({type: appCountryIsoUpdate, countryIso})
-  getLoggedinUserInfo()(dispatch)
-  fetchAllCountryData(countryIso)(dispatch)
+export const fetchInitialData = countryIso => dispatch => {
+  dispatch({ type: appCountryIsoUpdate, countryIso })
+
+  dispatch(getLoggedinUserInfo())
+  dispatch(fetchAllCountryData(countryIso))
 }
 
-
-export const initApp = () => dispatch => {
-  getLoggedinUserInfo()(dispatch)
-}
+export const initApp = () => dispatch => dispatch(getLoggedinUserInfo())

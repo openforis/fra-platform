@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
-import { connect } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { connect, useSelector } from 'react-redux'
 
 import * as R from 'ramda'
 import Extent from './extent'
@@ -25,6 +24,7 @@ import { fetchTableData } from '../../../traditionalTable/actions'
 import { fetch } from '../../../assessmentFra/growingStock/actions'
 
 import defaultYears from '../../../../server/eof/defaultYears'
+import * as AppState from '../../../app/appState'
 
 const ContentCheckView = props => {
 
@@ -43,7 +43,7 @@ const ContentCheckView = props => {
     //8
     certifiedAreas,
   } = props
-  const { countryIso } = useParams()
+  const countryIso = useSelector(AppState.getCountryIso)
 
   const fetchData = () => {
     //1

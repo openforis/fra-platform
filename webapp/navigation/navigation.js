@@ -1,24 +1,20 @@
 import './style.less'
 
 import React from 'react'
-import { connect } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { connect, useSelector } from 'react-redux'
 import * as R from 'ramda'
 
 import CountrySelection from './components/countrySelection'
 import Assessment from './components/assessment'
-import { SectionLink, Footer } from './components/navigationComponents'
+import { Footer, SectionLink } from './components/navigationComponents'
 
-import {
-  changeAssessment,
-  toggleNavigationGroupCollapse,
-  toggleAllNavigationGroupsCollapse
-} from './actions'
+import { changeAssessment, toggleAllNavigationGroupsCollapse, toggleNavigationGroupCollapse } from './actions'
 
 import { getCountryName, isPanEuropeanCountry } from '../country/actions'
 import { fetchAllCountryData } from '../app/actions'
 import { assessments } from '../../common/assessmentSectionItems'
 import { roleForCountry } from '../../common/countryRole'
+import * as AppState from '../app/appState'
 
 const roleLabel = (countryIso, userInfo, i18n) => i18n.t(roleForCountry(countryIso, userInfo).labelKey)
 
@@ -32,7 +28,7 @@ const Nav = props => {
 
   if (!navigationVisible) return null
 
-  const { countryIso } = useParams()
+  const countryIso = useSelector(AppState.getCountryIso)
 
   const getReviewStatus = section => R.pipe(
     R.defaultTo({}),

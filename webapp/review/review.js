@@ -1,23 +1,24 @@
 import './style.less'
 import * as R from 'ramda'
 import React, { useEffect, useRef } from 'react'
-import { connect } from 'react-redux'
-import { useLocation, useParams } from 'react-router'
+import { connect, useSelector } from 'react-redux'
+import { useLocation } from 'react-router'
 
-import { postComment, retrieveComments, closeCommentThread, markCommentAsDeleted, markIssueAsResolved } from './actions'
+import { closeCommentThread, markCommentAsDeleted, markIssueAsResolved, postComment, retrieveComments } from './actions'
 import { getRelativeDate } from '../utils/relativeDate'
 import { isReviewer } from '../../common/countryRole'
 import { profilePictureUri } from '../../common/userUtils'
 
 import FraReviewFooter from './reviewFooter'
 import Icon from '../reusableUiComponents/icon'
+import * as AppState from '../app/appState'
 
 const mapIndexed = R.addIndex(R.map)
 
 const AddComment = props => {
 
   const { i18n, userInfo, issueStatus, postComment, issueId, section, target, onCancel } = props
-  const { countryIso } = useParams()
+  const countryIso = useSelector(AppState.getCountryIso)
 
   const canAddComment = issueStatus !== 'resolved' || isReviewer(countryIso, userInfo)
 
@@ -44,7 +45,7 @@ const CommentThread = props => {
     i18n
   } = props
 
-  const { countryIso } = useParams()
+  const countryIso = useSelector(AppState.getCountryIso)
   const commentScrollerRef = useRef(null)
 
   useEffect(() => {
@@ -113,7 +114,7 @@ const CommentThread = props => {
 }
 
 const ReviewHeader = ({ title, close, userInfo, section, target, issueId, issueStatus, markIssueAsResolved, i18n }) => {
-  const { countryIso } = useParams()
+  const countryIso = useSelector(AppState.getCountryIso)
 
   return (
     <div className="fra-review__header">
@@ -137,7 +138,7 @@ const ReviewHeader = ({ title, close, userInfo, section, target, issueId, issueS
 
 const ReviewPanel = props => {
   const { i18n, userInfo, closeCommentThread } = props
-  const { countryIso } = useParams()
+  const countryIso = useSelector(AppState.getCountryIso)
   const location = useLocation()
 
   useEffect(() => {

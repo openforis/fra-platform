@@ -3,6 +3,8 @@ import './style.less'
 import React from 'react'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
+import { useParams } from 'react-router-dom'
+
 import { setPrintingMode } from './printAssessment'
 
 import AssessmentFraPrintView from './../assessmentFra/assessmentFraPrintView'
@@ -15,8 +17,7 @@ const PrintAssessmentView = (props) => {
 
   setPrintingMode()
 
-  const { match } = props
-  const { assessment } = match.params
+  const { assessment } = useParams()
 
   const { component } = R.find(R.propEq('assessment', assessment), views)
 

@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react'
-import { useParams } from 'react-router-dom'
-import { connect } from 'react-redux'
+import { connect, useSelector } from 'react-redux'
 import * as R from 'ramda'
 
-import { getCountryName, fetchCountryOverviewStatus } from '../country/actions'
+import { fetchCountryOverviewStatus, getCountryName } from '../country/actions'
 
 import ContactPersonsPrintView from './contactPersons/contactPersonsPrintView'
 import IntroductionView from './contactPersons/contactPersonsView'
@@ -43,10 +42,11 @@ import NonWoodForestProductsRemovalsView
 
 import SustainableDevelopmentView from '../assessmentFra/sustainableDevelopment/sustainableDevelopmentView'
 import { isPrintingOnlyTables } from '../printAssessment/printAssessment'
+import * as AppState from '../app/appState'
 
 const AssessmentFraPrintView = props => {
   const { i18n, getCountryName, assessment, fetchCountryOverviewStatus } = props
-  const { countryIso } = useParams()
+  const countryIso = useSelector(AppState.getCountryIso)
   const country = getCountryName(countryIso, i18n.language)
 
   useEffect(() => {
@@ -68,68 +68,67 @@ const AssessmentFraPrintView = props => {
           <h1>{i18n.t(`fraReportPrint.${isPrintingOnlyTables() ? 'titleTables' : 'title'}`)}</h1>
         </div>
       </div>
-      <hr />
+      <hr/>
 
       <ContactPersonsPrintView {...props} />
       <IntroductionView {...props} />
 
-      <div className="page-break" />
+      <div className="page-break"/>
       <ExtentOfForestView {...props} />
-      <div className="page-break" />
+      <div className="page-break"/>
       <ForestCharacteristicsView {...props} />
-      <div className="page-break" />
+      <div className="page-break"/>
       <ForestAreaChangeView {...props} />
-      <div className="page-break" />
+      <div className="page-break"/>
       <AnnualReforestationView {...props} />
-      <div className="page-break" />
+      <div className="page-break"/>
       <SpecificForestCategoriesView {...props} />
-      <div className="page-break" />
+      <div className="page-break"/>
       <OtherLandWithTreeCoverView {...props} />
 
-      <div className="page-break" />
+      <div className="page-break"/>
       <GrowingStockView {...props} />
-      <div className="page-break" />
+      <div className="page-break"/>
       <GrowingStockCompositionView {...props} />
-      <div className="page-break" />
+      <div className="page-break"/>
       <BiomassStockView {...props} />
-      <div className="page-break" />
+      <div className="page-break"/>
       <CarbonStockView {...props} />
 
-      <div className="page-break" />
+      <div className="page-break"/>
       <DesignatedManagementObjectiveView {...props} />
-      <div className="page-break" />
+      <div className="page-break"/>
       <ForestAreaWithinProtectedAreasView {...props} />
 
-      <div className="page-break" />
+      <div className="page-break"/>
       <ForestOwnershipView {...props} />
-      <div className="page-break" />
+      <div className="page-break"/>
       <HolderOfManagementRightsView {...props} />
 
-      <div className="page-break" />
+      <div className="page-break"/>
       <DisturbancesPrintView {...props} />
-      <div className="page-break" />
+      <div className="page-break"/>
       <AreaAffectedByFirePrintView {...props} />
-      <div className="page-break" />
+      <div className="page-break"/>
       <DegradedForestView {...props} />
 
-      <div className="page-break" />
+      <div className="page-break"/>
       <ForestPolicyView {...props} />
-      <div className="page-break" />
+      <div className="page-break"/>
       <AreaOfPermanentForestEstateView {...props} />
 
-      <div className="page-break" />
+      <div className="page-break"/>
       <EmploymentPrintView {...props} />
-      <div className="page-break" />
+      <div className="page-break"/>
       <GraduationOfStudentsPrintView {...props} />
-      <div className="page-break" />
+      <div className="page-break"/>
       <NonWoodForestProductsRemovalsView {...props} />
 
-      <div className="page-break" />
+      <div className="page-break"/>
       <SustainableDevelopmentView {...props} />
     </div>
   )
 }
-
 
 const mapStateToProps = state => ({
   assessment: R.path(['country', 'status', 'assessments', 'fra2020'], state)

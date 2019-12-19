@@ -1,8 +1,10 @@
 import React from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import * as AppState from './appState'
 
 const Notfound = () => {
-  const { countryIso } = useParams()
+  const countryIso = useSelector(AppState.getCountryIso)
 
   return (
     <div className="notfound">
