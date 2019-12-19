@@ -1,6 +1,5 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { connect, useSelector } from 'react-redux'
 import * as R from 'ramda'
 
 import FraReviewFooter from '../review/reviewFooter'
@@ -10,28 +9,29 @@ import { closeChat, sendMessage } from './actions'
 
 import { getRelativeDate } from '../utils/relativeDate'
 import { profilePictureUri } from '../../common/userUtils'
+import * as AppState from '../app/appState'
 
 const UserChatHeader = ({ i18n, chat, closeChat }) =>
   <div className="fra-review__header">
     <div className="fra-review__header-title">{i18n.t('userChat.chatHeader', { user: chat.recipientUser.name })}</div>
     <div className="fra-review__header-close-btn" onClick={() => closeChat()}>
-      <Icon name="remove" />
+      <Icon name="remove"/>
     </div>
   </div>
 
 class UserChatMessages extends React.Component {
 
-  scrollToBottom() {
+  scrollToBottom () {
     if (this.refs.container) {
       this.refs.container.scrollTop = this.refs.container.scrollHeight
     }
   }
 
-  componentDidMount() {
+  componentDidMount () {
     this.scrollToBottom()
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate (prevProps) {
     const messages = R.path(['chat', 'messages'])(this.props)
     const prevMessages = R.path(['chat', 'messages'])(prevProps)
 
@@ -39,7 +39,7 @@ class UserChatMessages extends React.Component {
       this.scrollToBottom()
   }
 
-  render() {
+  render () {
     const { i18n, chat, countryIso } = this.props
     const { messages, sessionUser, recipientUser } = chat
 
@@ -54,14 +54,14 @@ class UserChatMessages extends React.Component {
       {
         R.isEmpty(messages)
           ? <div className='fra-review__comment-placeholder'>
-            <Icon className="fra-review__comment-placeholder-icon icon-24" name="chat-46" />
+            <Icon className="fra-review__comment-placeholder-icon icon-24" name="chat-46"/>
             <span className="fra-review__comment-placeholder-text">{i18n.t('userChat.noMessages')}</span>
           </div>
           : messages.map((message, i) =>
             <div key={i} className={`fra-review__comment`}>
               <div className="fra-review__comment-header">
                 <img className="fra-review__comment-avatar"
-                  src={profilePictureUri(countryIso, messageUser(message).id)} />
+                     src={profilePictureUri(countryIso, messageUser(message).id)}/>
                 <div className="fra-review__comment-author-section">
                   <div className={`fra-review__comment-author ${isSessionUserMessageSender(message) ? 'author-me' : ''}`}>
                     {messageUser(message).name}
@@ -74,7 +74,7 @@ class UserChatMessages extends React.Component {
               </div>
               <div className="fra-review__comment-text">
                 {message.text.split('\n').map((item, key) =>
-                  <span key={key}>{item}<br /></span>
+                  <span key={key}>{item}<br/></span>
                 )}
               </div>
             </div>
@@ -87,19 +87,19 @@ class UserChatMessages extends React.Component {
 
 class UsersChatAddMessage extends React.Component {
 
-  constructor() {
+  constructor () {
     super()
     this.handleSendMessage = this.handleSendMessage.bind(this)
   }
 
-  handleSendMessage(msg) {
+  handleSendMessage (msg) {
     const { countryIso, chat, sendMessage } = this.props
     const { sessionUser, recipientUser } = chat
 
     sendMessage(countryIso, sessionUser.id, recipientUser.id, msg)
   }
 
-  render() {
+  render () {
     const { i18n, chat, closeChat } = this.props
 
     const { sessionUser, recipientUser } = chat
@@ -119,28 +119,28 @@ class UsersChatAddMessage extends React.Component {
 }
 
 const UserChatView = props => {
-    const { chat, i18n, closeChat, sendMessage } = props
-    const { countryIso } = useParams()
+  const { chat, i18n, closeChat, sendMessage } = props
+  const countryIso = useSelector(AppState.getCountryIso)
 
-    if (R.isNil(chat)) {
-      return null
-    }
-
-    return (
-      <div className="fra-review__container">
-        <div className="fra-review user-chat">
-          <UserChatHeader i18n={i18n} chat={chat} closeChat={closeChat} />
-          <UserChatMessages i18n={i18n} chat={chat} countryIso={countryIso} />
-          <UsersChatAddMessage i18n={i18n} chat={chat} closeChat={closeChat} sendMessage={sendMessage}
-            countryIso={countryIso} />
-        </div>
-      </div>
-    )
+  if (R.isNil(chat)) {
+    return null
   }
 
-  const mapStateToProps = state => ({
-    ...state.userChat,
-    ...state.user,
-  })
+  return (
+    <div className="fra-review__container">
+      <div className="fra-review user-chat">
+        <UserChatHeader i18n={i18n} chat={chat} closeChat={closeChat}/>
+        <UserChatMessages i18n={i18n} chat={chat} countryIso={countryIso}/>
+        <UsersChatAddMessage i18n={i18n} chat={chat} closeChat={closeChat} sendMessage={sendMessage}
+                             countryIso={countryIso}/>
+      </div>
+    </div>
+  )
+}
 
-  export default connect(mapStateToProps, { closeChat, sendMessage })(UserChatView)
+const mapStateToProps = state => ({
+  ...state.userChat,
+  ...state.user,
+})
+
+export default connect(mapStateToProps, { closeChat, sendMessage })(UserChatView)

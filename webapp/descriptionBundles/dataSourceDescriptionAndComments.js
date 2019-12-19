@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { connect, useSelector } from 'react-redux'
 import * as R from 'ramda'
 import ReviewIndicator from '../review/reviewIndicator'
 import Description from '../description/description'
+import * as AppState from '../app/appState'
 
 const dataSourcesEditorTemplate = (i18n) =>
   `<strong>${i18n.t('description.dataSources')}</strong>
@@ -15,8 +15,8 @@ const dataSourcesEditorTemplate = (i18n) =>
   <p></p>`
 
 const CommentableReviewDescriptions = props => {
-  const { section, openCommentThreadTarget, i18n,  } = props
-  const { countryIso } = useParams()
+  const { section, openCommentThreadTarget, i18n, } = props
+  const countryIso = useSelector(AppState.getCountryIso)
   const dataSources = 'dataSources'
   const dataSourcesTarget = [dataSources] // ?
   const generalComments = 'generalComments'
@@ -34,14 +34,14 @@ const CommentableReviewDescriptions = props => {
           section={section}
           name={dataSources}
           template={dataSourcesEditorTemplate(i18n)}
-          countryIso={countryIso} />
+          countryIso={countryIso}/>
       </div>
       <div className="fra-description__review-indicator-wrapper">
         <ReviewIndicator
           section={section}
           title={i18n.t('description.dataSourcesTitle')}
           target={dataSourcesTarget}
-          countryIso={countryIso} />
+          countryIso={countryIso}/>
       </div>
     </div>
     <div className="fra-description">
@@ -54,14 +54,14 @@ const CommentableReviewDescriptions = props => {
           title={i18n.t('description.generalCommentsTitle')}
           section={section}
           name={generalComments}
-          countryIso={countryIso} />
+          countryIso={countryIso}/>
       </div>
       <div className="fra-description__review-indicator-wrapper">
         <ReviewIndicator
           section={section}
           title={i18n.t('description.generalCommentsTitle')}
           target={generalCommentsTarget}
-          countryIso={countryIso} />
+          countryIso={countryIso}/>
       </div>
     </div>
   </div>
@@ -72,7 +72,7 @@ CommentableReviewDescriptions.propTypes = {
   section: PropTypes.any.isRequired,
   countryIso: PropTypes.string.isRequired,
 }
-  
+
 const mapStateToProps = (state, props) => {
   return {
     ...props,

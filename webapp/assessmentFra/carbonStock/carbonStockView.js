@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { connect } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { connect, useSelector } from 'react-redux'
 import * as R from 'ramda'
 
 import TraditionalTable from '../../traditionalTable/traditionalTable'
@@ -15,6 +14,7 @@ import { isPrintingOnlyTables } from '../../printAssessment/printAssessment'
 import FraUtils from '../../../common/fraUtils'
 import * as table from '../../traditionalTable/table'
 import { fetchTableData } from '../../traditionalTable/actions'
+import * as AppState from '../../app/appState'
 
 const sectionName = 'carbonStock'
 const domains = ['boreal', 'temperate', 'subtropical', 'tropical']
@@ -38,7 +38,7 @@ const Select = ({ i18n, selectedDomain, setSelectedDomain, ...props }) =>
 
 const soilDepthTableSpec = i18n => ({
   name: 'carbonStockSoilDepth',
-  header: <thead />,
+  header: <thead/>,
   disableReviewComments: true,
   rows: [
     [
@@ -67,7 +67,7 @@ const CarbonStockView = props => {
     fetchTableData,
     fetchLastSectionUpdateTimestamp
   } = props
-  const { countryIso } = useParams()
+  const countryIso = useSelector(AppState.getCountryIso)
   const [selectedDomain, setSelectedDomain] = useState(domain)
   const calculatorFilePath = downloadPath(countryIso, selectedDomain, language)
 
@@ -85,20 +85,20 @@ const CarbonStockView = props => {
     </h2>
 
     <div className="fra-view__content">
-      <NationalDataDescriptions section={sectionName} countryIso={countryIso} disabled={disabled} />
-      <AnalysisDescriptions section={sectionName} countryIso={countryIso} disabled={disabled} />
+      <NationalDataDescriptions section={sectionName} countryIso={countryIso} disabled={disabled}/>
+      <AnalysisDescriptions section={sectionName} countryIso={countryIso} disabled={disabled}/>
       <h2 className="headline no-print">
         {i18n.t('carbonStock.carbonStock')}
       </h2>
       <div className="fra-view__section-toolbar" style={{ marginTop: '4px' }}>
         <DefinitionLink className="margin-right-big" document="tad" anchor="2d"
-          title={i18n.t('definition.definitionLabel')} lang={language} />
+                        title={i18n.t('definition.definitionLabel')} lang={language}/>
         <DefinitionLink className="align-left" document="faq" anchor="2c" title={i18n.t('definition.faqLabel')}
-          lang={language} />
+                        lang={language}/>
         <div className="no-print">
           {
             !R.isNil(domain) &&
-            <Select i18n={i18n} domain={domain} selectedDomain={selectedDomain} setSelectedDomain={setSelectedDomain} />
+            <Select i18n={i18n} domain={domain} selectedDomain={selectedDomain} setSelectedDomain={setSelectedDomain}/>
           }
           <a className="btn-s btn-primary" href={calculatorFilePath}>
             {i18n.t('biomassStock.downloadExcel')}
@@ -106,10 +106,10 @@ const CarbonStockView = props => {
         </div>
 
       </div>
-      <TraditionalTable tableSpec={tableSpecInstance} countryIso={countryIso} disabled={disabled} />
+      <TraditionalTable tableSpec={tableSpecInstance} countryIso={countryIso} disabled={disabled}/>
       <div className="fra-secondary-table__wrapper">
         <TraditionalTable tableSpec={soilDepthTableSpec(i18n)} countryIso={countryIso}
-          disabled={disabled} />
+                          disabled={disabled}/>
       </div>
       <GeneralComments
         section={sectionName}

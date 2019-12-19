@@ -7,7 +7,12 @@ const allowedPaths = [
   /^\/resetPassword.*/,
   /^\/img\//,
   /^\/css\//,
-  /^\/auth\/google.*/]
+  /^\/ckeditor\//,
+  /^\/js\//,
+  /^\/style\//,
+  /^\/favicon.ico\/?$/,
+  /^\/auth\/google.*/
+]
 
 const checkAuth = (req, res, next) => {
   if (!req.user) {
@@ -15,7 +20,7 @@ const checkAuth = (req, res, next) => {
     if (acceptHeader && acceptHeader.indexOf('application/json') !== -1) {
       res.status(401).json({error: 'Not logged in'})
     } else {
-      res.redirect('/login')
+      res.redirect('/login/')
     }
   } else {
     next()

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { Switch, Route, useParams } from 'react-router-dom'
+import { Route, Switch, useParams } from 'react-router-dom'
 
 import * as R from 'ramda'
 
@@ -15,6 +15,9 @@ import routes from './routes'
 
 import { fetchInitialData } from '../app/actions'
 
+import * as loginStatusChecker from '../user/loginStatusChecker'
+import PrintAssessmentView from '../printAssessment/printAssessmentView'
+
 const LoggedInView = props => {
 
   const { initialDataLoaded, fetchInitialData } = props
@@ -22,25 +25,34 @@ const LoggedInView = props => {
   const { countryIso } = useParams()
 
   useEffect(() => {
+    loginStatusChecker.startPeriodicCheck(60 * 1000)
+  }, [])
+
+  useEffect(() => {
     fetchInitialData(countryIso)
   }, [countryIso])
 
   return initialDataLoaded && (
-    <div className="app__root">
-      <Navigation/>
-      <div className="fra-view__container">
-      <Switch>
-        {
-          routes.map((route, i) => <Route key={i} {...route}/>)
-        }
-      </Switch>
-      </div>
-      <Header/>
-      <Review/>
-      <UserChat/>
-      <CountryMessageBoardView/>
-      <ErrorComponent/>
-    </div>
+    <Switch>
+      <Route exact path="/country/:countryIso/print/:assessment/" component={PrintAssessmentView}/>
+      <Route>
+        <div className="app__root">
+          <Navigation/>
+          <div className="fra-view__container">
+            <Switch>
+              {
+                routes.map((route, i) => <Route key={i} {...route} />)
+              }
+            </Switch>
+          </div>
+          <Header/>
+          <Review/>
+          <UserChat/>
+          <CountryMessageBoardView/>
+          <ErrorComponent/>
+        </div>
+      </Route>
+    </Switch>
   )
 }
 

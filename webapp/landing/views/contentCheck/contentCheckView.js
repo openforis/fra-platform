@@ -1,7 +1,7 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import * as R from 'ramda'
+import React, { useEffect } from 'react'
+import { connect, useSelector } from 'react-redux'
 
+import * as R from 'ramda'
 import Extent from './extent'
 import PeriodicChangeRate from './periodicChangeRate'
 import ForestGSBiomassCarbon from './forestGSBiomassCarbon'
@@ -24,27 +24,28 @@ import { fetchTableData } from '../../../traditionalTable/actions'
 import { fetch } from '../../../assessmentFra/growingStock/actions'
 
 import defaultYears from '../../../../server/eof/defaultYears'
+import * as AppState from '../../../app/appState'
 
-class ContentCheckView extends React.Component {
+const ContentCheckView = props => {
 
-  componentDidMount () {
-    this.fetchData()
-  }
+  const {
+    i18n, fetchTableData, fetch,
+    //1
+    extentOfForest, forestCharacteristics, specificForestCategories,
+    //2
+    growingStock, biomassStock, carbonStock,
+    //3
+    forestAreaWithinProtectedAreas,
+    //4
+    forestOwnership,
+    //5
+    disturbances, areaAffectedByFire,
+    //8
+    certifiedAreas,
+  } = props
+  const countryIso = useSelector(AppState.getCountryIso)
 
-  componentDidUpdate (prevProps, prevState, snapshot) {
-    const { countryIso } = this.props
-    const { countryIso: countryIsoPrev } = prevProps
-    if (countryIso !== countryIsoPrev)
-      this.fetchData()
-  }
-
-  fetchData () {
-    const {
-      fetchTableData,
-      countryIso, i18n,
-      extentOfForest, forestCharacteristics,
-    } = this.props
-
+  const fetchData = () => {
     //1
     fetchTableData(countryIso, specificForestCategoriesTableSpec(i18n, extentOfForest, forestCharacteristics))
     //2
@@ -61,85 +62,69 @@ class ContentCheckView extends React.Component {
     fetchTableData(countryIso, areaAffectedByFireTableSpec(i18n))
   }
 
-  render () {
-    const {
-      countryIso, i18n,
-      //1
-      extentOfForest, forestCharacteristics, specificForestCategories,
-      //2
-      growingStock, biomassStock, carbonStock,
-      //3
-      forestAreaWithinProtectedAreas,
-      //4
-      forestOwnership,
-      //5
-      disturbances, areaAffectedByFire,
-      //8
-      certifiedAreas
-    } = this.props
+  useEffect(fetchData, [countryIso])
 
-    const getFraValue = (variable, year, source = extentOfForest) => R.pipe(
-      R.prop('fra'),
-      R.find(R.propEq('year', year)),
-      R.prop(variable),
-    )(source)
+  const getFraValue = (variable, year, source = extentOfForest) => R.pipe(
+    R.prop('fra'),
+    R.find(R.propEq('year', year)),
+    R.prop(variable),
+  )(source)
 
-    const tableData5YearsMapping = { 1990: 1, 2000: 2, 2010: 3, 2015: 4, 2020: 5 }
+  const tableData5YearsMapping = { 1990: 1, 2000: 2, 2010: 3, 2015: 4, 2020: 5 }
 
-    return forestCharacteristics && specificForestCategories &&
-    growingStock && biomassStock && carbonStock &&
-    forestAreaWithinProtectedAreas &&
-    forestOwnership &&
-    disturbances && areaAffectedByFire
-      ? (
-        <div>
+  return forestCharacteristics && specificForestCategories &&
+  growingStock && biomassStock && carbonStock &&
+  forestAreaWithinProtectedAreas &&
+  forestOwnership &&
+  disturbances && areaAffectedByFire
+    ? (
+      <div>
 
-          <Extent i18n={i18n} years={defaultYears}
-                  getFraValue={getFraValue} tableData5YearsMapping={tableData5YearsMapping}
-                  extentOfForest={extentOfForest}
-                  specificForestCategories={specificForestCategories}
-                  forestAreaWithinProtectedAreas={forestAreaWithinProtectedAreas}
-                  certifiedAreas={certifiedAreas}/>
+        <Extent i18n={i18n} years={defaultYears}
+                getFraValue={getFraValue} tableData5YearsMapping={tableData5YearsMapping}
+                extentOfForest={extentOfForest}
+                specificForestCategories={specificForestCategories}
+                forestAreaWithinProtectedAreas={forestAreaWithinProtectedAreas}
+                certifiedAreas={certifiedAreas}/>
 
 
-          <PeriodicChangeRate i18n={i18n} years={defaultYears}
-                              getFraValue={getFraValue} tableData5YearsMapping={tableData5YearsMapping}
-                              extentOfForest={extentOfForest} forestCharacteristics={forestCharacteristics}
-                              specificForestCategories={specificForestCategories}/>
+        <PeriodicChangeRate i18n={i18n} years={defaultYears}
+                            getFraValue={getFraValue} tableData5YearsMapping={tableData5YearsMapping}
+                            extentOfForest={extentOfForest} forestCharacteristics={forestCharacteristics}
+                            specificForestCategories={specificForestCategories}/>
 
-          <ForestGSBiomassCarbon i18n={i18n} years={defaultYears}
-                                 biomassStock={biomassStock}
-                                 growingStock={growingStock}
-                                 carbonStock={carbonStock}/>
+        <ForestGSBiomassCarbon i18n={i18n} years={defaultYears}
+                               biomassStock={biomassStock}
+                               growingStock={growingStock}
+                               carbonStock={carbonStock}/>
 
-          <PrimaryDesignatedManagementObjectiveView i18n={i18n} countryIso={countryIso}
-                                                    years={defaultYears}
-                                                    extentOfForest={extentOfForest}/>
+        <PrimaryDesignatedManagementObjectiveView i18n={i18n} countryIso={countryIso}
+                                                  years={defaultYears}
+                                                  extentOfForest={extentOfForest}/>
 
-          <TotalAreaDesignatedManagementObjectiveView i18n={i18n} countryIso={countryIso}
-                                                      years={defaultYears}/>
+        <TotalAreaDesignatedManagementObjectiveView i18n={i18n} countryIso={countryIso}
+                                                    years={defaultYears}/>
 
-          <ForestOwnership i18n={i18n} countryIso={countryIso}
-                           years={defaultYears}
-                           extentOfForest={extentOfForest}
-                           forestOwnership={forestOwnership}/>
+        <ForestOwnership i18n={i18n} countryIso={countryIso}
+                         years={defaultYears}
+                         extentOfForest={extentOfForest}
+                         forestOwnership={forestOwnership}/>
 
-          <ManagementRightsOfPublicForests i18n={i18n} countryIso={countryIso}
-                                           years={defaultYears}
-                                           forestOwnership={forestOwnership}/>
+        <ManagementRightsOfPublicForests i18n={i18n} countryIso={countryIso}
+                                         years={defaultYears}
+                                         forestOwnership={forestOwnership}/>
 
-          <Disturbances i18n={i18n} countryIso={countryIso}
-                        disturbances={disturbances} areaAffectedByFire={areaAffectedByFire}/>
+        <Disturbances i18n={i18n} countryIso={countryIso}
+                      disturbances={disturbances} areaAffectedByFire={areaAffectedByFire}/>
 
-        </div>
-      )
-      : null
-  }
+      </div>
+    )
+    : null
+
 }
 
 const mapStateToProps = state => ({
   i18n: state.user.i18n,
-  countryIso: R.path(['router', 'country'])(state),
 
   extentOfForest: R.prop('extentOfForest')(state), //1a
   forestCharacteristics: R.prop('forestCharacteristics')(state), //1b

@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react'
-import { connect } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { connect, useSelector } from 'react-redux'
 
 import SingleTraditionalTableView from '../../traditionalTable/singleTraditionalTableView'
 import tableSpec from './tableSpec'
 import { fetchItem } from '../../tableWithOdp/actions'
+import * as AppState from '../../app/appState'
 
 const SpecificForestCategories = props => {
   const {
@@ -13,7 +13,7 @@ const SpecificForestCategories = props => {
     extentOfForest,
     forestCharacteristics
   } = props
-  const { countryIso } = useParams
+  const countryIso = useSelector(AppState.getCountryIso)
 
   useEffect(() => {
     fetchItem('forestCharacteristics', countryIso)
@@ -23,7 +23,7 @@ const SpecificForestCategories = props => {
     {...props}
     headingLocalizationKey="specificForestCategories.specificForestCategories"
     sectionAnchor="1e"
-    tableSpecInstance={tableSpec(i18n, extentOfForest, forestCharacteristics)} />
+    tableSpecInstance={tableSpec(i18n, extentOfForest, forestCharacteristics)}/>
 }
 
 const mapStateToProps = state => ({

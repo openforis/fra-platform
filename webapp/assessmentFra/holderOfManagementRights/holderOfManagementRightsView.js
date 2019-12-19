@@ -1,15 +1,16 @@
 import React, { useEffect } from 'react'
-import { connect } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { connect, useSelector } from 'react-redux'
 
 import SingleTraditionalTableView from '../../traditionalTable/singleTraditionalTableView'
 import { fetchTableData } from '../../traditionalTable/actions'
 import tableSpec from './tableSpec'
 import forestOwnershipTableSpec from '../forestOwnership/tableSpec'
 
+import * as AppState from '../../app/appState'
+
 const HolderOfManagementRightsView = props => {
   const { forestOwnershipTableData, fetchTableData, i18n } = props
-  const { countryIso } = useParams()
+  const countryIso = useSelector(AppState.getCountryIso)
 
   useEffect(() => {
     fetchTableData(countryIso, forestOwnershipTableSpec(i18n))
@@ -20,7 +21,7 @@ const HolderOfManagementRightsView = props => {
     headingLocalizationKey="holderOfManagementRights.holderOfManagementRights"
     tadAnchor="4b"
     faqAnchor="4a"
-    tableSpecInstance={tableSpec(i18n, forestOwnershipTableData, countryIso)} />
+    tableSpecInstance={tableSpec(i18n, forestOwnershipTableData, countryIso)}/>
 }
 
 const mapStateToProps = state => ({

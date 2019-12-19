@@ -1,4 +1,4 @@
-import { createStore, applyMiddleware, compose } from 'redux'
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import createDebounce from 'redux-debounced'
 import reducer from './rootReducer'
@@ -16,6 +16,19 @@ const enhancer = composeEnhancers(
     applyMiddleware(...middleware),
 )
 
-const store = createStore(reducer, enhancer)
+const createReducer = asyncReducers =>
+  combineReducers({
+    ...reducer,
+    ...asyncReducers,
+  })
+
+const store = createStore(createReducer({}), enhancer)
 
 export default store
+
+store.asyncReducers = {}
+
+export const injectReducers = (name, asyncReducer) => {
+  store.asyncReducers[name] = asyncReducer
+  store.replaceReducer(createReducer(store.asyncReducers))
+}

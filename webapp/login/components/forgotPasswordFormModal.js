@@ -80,8 +80,8 @@ class ForgotPasswordFormModal extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  error: R.path(['localLogin', 'resetPassword', 'error'], state),
-  message: R.path(['localLogin', 'resetPassword', 'message'], state)
+  error: R.path(['login', 'localLogin', 'resetPassword', 'error'], state),
+  message: R.path(['login', 'localLogin', 'resetPassword', 'message'], state)
 })
 
 export default connect(mapStateToProps, {resetPassword, resetPasswordFormReset})(ForgotPasswordFormModal)

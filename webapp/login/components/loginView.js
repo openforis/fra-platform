@@ -1,7 +1,7 @@
 import './style.less'
 
 import React from 'react'
-import * as R from 'ramda'
+import { Route } from 'react-router-dom'
 
 import LoginForm from './loginForm'
 import ResetPasswordForm from './resetPasswordForm'
@@ -31,24 +31,22 @@ const LoginLegal = () =>
     </p>
   </div>
 
-const loginComponents = [
-  {path: '/login', component: LoginForm},
-  {path: '/resetPassword', component: ResetPasswordForm}
-]
-
 const LoginView = () => {
-  const {component} = R.find(R.propEq('path', location.pathname), loginComponents)
-
-  return <div>
+  return <div className="login__container">
     <div className="login__wrapper">
       <img src="/img/fao_logo.svg" className="login__logo" height="60"/>
       <img src="/img/tucan.svg" className="login__tucan"/>
 
       <div className="login__box">
         <div className="login__top">
-          {
-            React.createElement(component)
-          }
+          
+          <Route path="/login/">
+            <LoginForm />
+          </Route>
+          <Route path="/resetPassword/">
+            <ResetPasswordForm />
+          </Route>
+
         </div>
 
         <div className="login__bottom">

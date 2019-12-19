@@ -92,7 +92,7 @@ class LocalLoginForm extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  message: R.path(['localLogin', 'message'], state)
+  message: R.path(['login', 'localLogin', 'message'], state)
 })
 
 export default connect(mapStateToProps, {loginUserPropChange, localLoginSubmit, localLoginReset})(LocalLoginForm)

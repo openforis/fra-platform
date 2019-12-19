@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
-import { connect } from 'react-redux'
+import { connect, useSelector } from 'react-redux'
 import { withRouter } from 'react-router'
-import { useParams } from 'react-router-dom'
 
 import TraditionalTable from '../../traditionalTable/traditionalTable'
 import {
@@ -21,6 +20,8 @@ import { isPrintingOnlyTables } from '../../printAssessment/printAssessment'
 import FraUtils from '../../../common/fraUtils'
 import { fetchTableData } from '../../traditionalTable/actions'
 
+import * as AppState from '../../app/appState'
+
 const sectionName = 'designatedManagementObjective'
 
 const designatedManagementObjectiveView = props => {
@@ -34,7 +35,7 @@ const designatedManagementObjectiveView = props => {
     totalDmoTableData,
     totalDmoTableSpec,
   } = props
-  const { countryIso } = useParams()
+  const countryIso = useSelector(AppState.getCountryIso)
 
   useEffect(() => {
     fetchTableData(countryIso, primaryDmoTableSpec)
