@@ -1,12 +1,14 @@
 import * as R from 'ramda'
 
+import * as AppState from '../app/appState'
+
 import { isCollaborator, isReviewer, isAdministrator } from '../../common/countryRole'
 import { isCollaboratorAllowedToEditSectionData } from '../../common/assessmentRoleAllowance'
 import { assessmentStatus } from '../../common/assessment'
 import { isPrintingMode } from '../printAssessment/printAssessment'
 
 const getUserInfo = R.path(['user', 'userInfo'])
-const getCountryIso = R.path(['app', 'countryIso'])
+const getCountryIso = AppState.getCountryIso
 
 const getAssessment = name => R.pipe(
   R.path(['country', 'status', 'assessments', name]),
