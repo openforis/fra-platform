@@ -1,7 +1,7 @@
 import React from 'react'
-import UpdateOnResizeReactComponent from '../../../reusableUiComponents/updateOnResizeReactComponent'
+import UpdateOnResizeReactComponent from '@webapp/components/updateOnResizeReactComponent'
 import ChartContainer from './chartContainer'
-import { isPrintingMode } from '../../../printAssessment/printAssessment'
+import { isPrintingMode } from '@webapp/loggedin/printAssessment/printAssessment'
 
 class ChartWrapper extends UpdateOnResizeReactComponent {
   componentDidUpdate () {

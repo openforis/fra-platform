@@ -6,16 +6,16 @@ import * as R from 'ramda'
 
 import TraditionalTable from '../../traditionalTable/traditionalTable'
 import mainTableSpec, { sectionName } from './mainTableSpec'
-import DefinitionLink from '../../reusableUiComponents/definitionLink'
+import DefinitionLink from '@webapp/components/definitionLink'
 import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
 import NationalDataDescriptions from '../../descriptionBundles/nationalDataDescriptions'
 import GeneralComments from '../../descriptionBundles/generalComments'
-import { isFRA2020SectionEditDisabled } from '../../utils/assessmentAccess'
+import { isFRA2020SectionEditDisabled } from '@webapp/utils/assessmentAccess'
 import { fetchTableData } from '../../traditionalTable/actions'
 import * as table from '../../traditionalTable/table'
-import { isPrintingOnlyTables } from '../../printAssessment/printAssessment'
-import FraUtils from '../../../common/fraUtils'
-import * as AppState from '../../app/appState'
+import { isPrintingOnlyTables } from '@webapp/loggedin/printAssessment/printAssessment'
+import FraUtils from '@common/fraUtils'
+import * as AppState from '@webapp/app/appState'
 
 const currencyNameTableSpec = i18n => ({
   name: 'nonWoodForestProductsRemovalsCurrency',

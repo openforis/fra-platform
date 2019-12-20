@@ -1,5 +1,5 @@
 import * as R from 'ramda'
-import { div, mul, sum, toString } from '../../../common/bignumberUtils'
+import { div, mul, sum, toString } from '@common/bignumberUtils'
 
 const baseValueKeysMapping = {
   'naturallyRegeneratingForest': 'naturalForestArea',

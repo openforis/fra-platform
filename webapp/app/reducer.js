@@ -1,9 +1,9 @@
 import * as AppState from './appState'
 
-import { exportReducer } from '../utils/reduxUtils'
+import { exportReducer } from '@webapp/utils/reduxUtils'
 
 import { appCountryIsoUpdate } from './actions'
-import { appUserLogout } from '../user/actions'
+import { appUserLogout } from '@webapp/user/actions'
 
 const actionHandlers = {
 

@@ -1,11 +1,11 @@
 import React from 'react'
 import * as R from 'ramda'
 
-import { ThousandSeparatedDecimalInput } from '../../reusableUiComponents/thousandSeparatedDecimalInput'
+import { ThousandSeparatedDecimalInput } from '@webapp/components/thousandSeparatedDecimalInput'
 import * as table from '../../traditionalTable/table'
-import { div, add, sub, toFixed } from '../../../common/bignumberUtils'
-import { getForestAreaForYear } from '../../../common/extentOfForestHelper'
-import { acceptNextDecimal } from '../../utils/numberInput'
+import { div, add, sub, toFixed } from '@common/bignumberUtils'
+import { getForestAreaForYear } from '@common/extentOfForestHelper'
+import { acceptNextDecimal } from '@webapp/utils/numberInput'
 
 const mapIndexed = R.addIndex(R.map)
 

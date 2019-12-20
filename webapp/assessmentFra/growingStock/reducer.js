@@ -1,6 +1,6 @@
 import * as R from 'ramda'
 import * as types from './actions'
-import { applyReducerFunction } from '../../utils/reduxUtils'
+import { applyReducerFunction } from '@webapp/utils/reduxUtils'
 
 const actionHandlers = {
   [types.growingStockFetchCompleted]: (state, action) => ({...state, ...action.data}),

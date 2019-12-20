@@ -3,7 +3,7 @@
  */
 
 import * as R from 'ramda'
-import { sum, mul, sub, add } from '../../common/bignumberUtils'
+import { sum, mul, sub, add } from '@common/bignumberUtils'
 
 const uuidv4 = require('uuid/v4')
 

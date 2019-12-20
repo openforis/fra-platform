@@ -5,7 +5,7 @@ import {
   nationalCorrespondent,
   alternateNationalCorrespondent,
   collaborator
-} from '../../common/countryRole'
+} from '@common/countryRole'
 
 const roles = [reviewer.role, nationalCorrespondent.role, alternateNationalCorrespondent.role, collaborator.role]
 

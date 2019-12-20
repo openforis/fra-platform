@@ -3,9 +3,9 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import * as R from 'ramda'
 
-import { i18nUserRole, profilePictureUri } from '../../../common/userUtils'
+import { i18nUserRole, profilePictureUri } from '@common/userUtils'
 
-import { getRelativeDate } from '../../utils/relativeDate'
+import { getRelativeDate } from '@webapp/utils/relativeDate'
 import { fetchAuditFeed } from '../../audit/actions'
 import { Link } from 'react-router-dom'
 

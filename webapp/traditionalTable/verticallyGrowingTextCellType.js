@@ -1,6 +1,6 @@
 import React from 'react'
 import { handlePaste } from './paste'
-import VerticallyGrowingTextField from '../reusableUiComponents/verticallyGrowingTextField'
+import VerticallyGrowingTextField from '@webapp/components/verticallyGrowingTextField'
 
 const VerticallyGrowingTextCell = ({
                                      countryIso,

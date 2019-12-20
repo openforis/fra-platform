@@ -1,7 +1,7 @@
 import React from 'react'
 import * as R from 'ramda'
 import { totalSumFormatted } from '../../traditionalTable/aggregate'
-import { formatInteger } from '../../utils/numberFormat'
+import { formatInteger } from '@webapp/utils/numberFormat'
 
 const fillerCell = () => ({
   type: 'readOnly',

@@ -2,14 +2,14 @@ import React from 'react'
 import * as R from 'ramda'
 
 import UsersTableCSVExportButton from './usersTableCVS'
-import Icon from '../../reusableUiComponents/icon'
+import Icon from '@webapp/components/icon'
 import MultiSelect from './collaboratorsTableMultiSelect'
 
 import {
   administrator,
   collaborator,
   getRoleLabelKey
-} from '../../../common/countryRole'
+} from '@common/countryRole'
 import { getFilterRoles } from './filter'
 
 const UsersTable = ({users, i18n, isAdminTable = false, ...props}) =>

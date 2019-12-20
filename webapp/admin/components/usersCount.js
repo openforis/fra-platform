@@ -5,9 +5,9 @@ import {
   collaborator,
   nationalCorrespondent,
   reviewer
-} from '../../../common/countryRole'
+} from '@common/countryRole'
 
-import { i18nUserRole } from '../../../common/userUtils'
+import { i18nUserRole } from '@common/userUtils'
 
 const roles = [
   nationalCorrespondent.role,

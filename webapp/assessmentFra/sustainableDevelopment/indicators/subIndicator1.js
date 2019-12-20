@@ -1,10 +1,10 @@
 import React from 'react'
 
 import ResponsibleAgency from './responsibleAgency'
-import ReviewIndicator from '../../../review/reviewIndicator'
+import ReviewIndicator from '@webapp/loggedin/review/reviewIndicator'
 
-import { div, mul, sub } from '../../../../common/bignumberUtils'
-import { formatDecimal } from '../../../utils/numberFormat'
+import { div, mul, sub } from '@common/bignumberUtils'
+import { formatDecimal } from '@webapp/utils/numberFormat'
 import * as R from 'ramda'
 
 import { getForestArea } from './indicators'

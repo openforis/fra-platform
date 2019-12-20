@@ -3,8 +3,8 @@ import './components/style.less'
 import React from 'react'
 import { Route } from 'react-router-dom'
 
-import LoginForm from './loginForm'
-import ResetPasswordForm from './resetPasswordForm'
+import LoginForm from './components/loginForm'
+import ResetPasswordForm from './components/resetPasswordForm'
 
 const LoginLegal = () =>
   <div className="login__legal">

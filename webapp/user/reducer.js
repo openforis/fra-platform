@@ -6,7 +6,7 @@ import {
   userLoggedInUserSwitchLanguage,
 } from './actions'
 
-import { exportReducer } from '../utils/reduxUtils'
+import { exportReducer } from '@webapp/utils/reduxUtils'
 
 const actionHandlers = {
   [userLoggedInUserLoaded]: (state, action) =>

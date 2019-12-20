@@ -1,6 +1,6 @@
 import axios from 'axios'
 import * as R from 'ramda'
-import { applicationError } from '../applicationError/actions'
+import { applicationError } from '@webapp/loggedin/applicationError/actions'
 
 export const lastSectionUpdateTimestampReceived = 'audit/lastSectionUpdateTimestampReceived'
 export const lastAuditFeedReceived = 'audit/lastAuditFeedReceived'

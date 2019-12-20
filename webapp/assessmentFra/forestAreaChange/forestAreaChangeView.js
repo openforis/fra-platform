@@ -2,7 +2,7 @@ import React from 'react'
 import tableSpec, { sectionName } from './tableSpec'
 import { connect } from 'react-redux'
 import SingleTraditionalTableView from '../../traditionalTable/singleTraditionalTableView'
-import { isFRA2020SectionEditDisabled } from '../../utils/assessmentAccess'
+import { isFRA2020SectionEditDisabled } from '@webapp/utils/assessmentAccess'
 
 const ForestAreaChangeView = props =>
   <SingleTraditionalTableView

@@ -1,8 +1,8 @@
 import React from 'react'
 
-import Icon from '../../reusableUiComponents/icon'
-import VerticallyGrowingTextField from '../../reusableUiComponents/verticallyGrowingTextField'
-import ReviewIndicator from '../../review/reviewIndicator'
+import Icon from '@webapp/components/icon'
+import VerticallyGrowingTextField from '@webapp/components/verticallyGrowingTextField'
+import ReviewIndicator from '@webapp/loggedin/review/reviewIndicator'
 
 import * as originalDataPoint from '../originalDataPoint'
 

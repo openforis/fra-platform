@@ -1,11 +1,11 @@
 import React from 'react'
 import * as R from 'ramda'
 
-import { formatDecimal } from '../../utils/numberFormat'
+import { formatDecimal } from '@webapp/utils/numberFormat'
 import { subCategoryValidator, positiveOrZero } from '../../traditionalTable/validators'
-import { getForestAreaForYear } from '../../../common/extentOfForestHelper'
+import { getForestAreaForYear } from '@common/extentOfForestHelper'
 import { Link } from 'react-router-dom'
-import { sub } from '../../../common/bignumberUtils'
+import { sub } from '@common/bignumberUtils'
 
 const mapIndexed = R.addIndex(R.map)
 

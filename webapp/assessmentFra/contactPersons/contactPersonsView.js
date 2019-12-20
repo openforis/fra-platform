@@ -7,8 +7,8 @@ import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
 
 import CommentableDescription from '../../description/commentableDescription.js'
 
-import { isFRA2020SectionEditDisabled } from '../../utils/assessmentAccess'
-import * as AppState from '../../app/appState'
+import { isFRA2020SectionEditDisabled } from '@webapp/utils/assessmentAccess'
+import * as AppState from '@webapp/app/appState'
 
 const sectionName = 'contactPersons'
 

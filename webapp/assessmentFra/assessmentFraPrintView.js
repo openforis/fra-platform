@@ -7,42 +7,42 @@ import { fetchCountryOverviewStatus, getCountryName } from '../country/actions'
 import ContactPersonsPrintView from './contactPersons/contactPersonsPrintView'
 import IntroductionView from './contactPersons/contactPersonsView'
 
-import ExtentOfForestView from '../assessmentFra/extentOfForest/extentOfForestView'
-import ForestCharacteristicsView from '../assessmentFra/forestCharacteristics/forestCharacteristicsView'
-import ForestAreaChangeView from '../assessmentFra/forestAreaChange/forestAreaChangeView'
-import AnnualReforestationView from '../assessmentFra/annualReforestation/annualReforestationView'
-import SpecificForestCategoriesView from '../assessmentFra/specificForestCategories/specificForestCategoriesView'
-import OtherLandWithTreeCoverView from '../assessmentFra/otherLandWithTreeCover/otherLandWithTreeCoverView'
+import ExtentOfForestView from '@webapp/assessmentFra/extentOfForest/extentOfForestView'
+import ForestCharacteristicsView from '@webapp/assessmentFra/forestCharacteristics/forestCharacteristicsView'
+import ForestAreaChangeView from '@webapp/assessmentFra/forestAreaChange/forestAreaChangeView'
+import AnnualReforestationView from '@webapp/assessmentFra/annualReforestation/annualReforestationView'
+import SpecificForestCategoriesView from '@webapp/assessmentFra/specificForestCategories/specificForestCategoriesView'
+import OtherLandWithTreeCoverView from '@webapp/assessmentFra/otherLandWithTreeCover/otherLandWithTreeCoverView'
 
-import GrowingStockView from '../assessmentFra/growingStock/growingStockView'
-import GrowingStockCompositionView from '../assessmentFra/growingStockComposition/growingStockCompositionView'
-import BiomassStockView from '../assessmentFra/biomassStock/biomassStockView'
-import CarbonStockView from '../assessmentFra/carbonStock/carbonStockView'
+import GrowingStockView from '@webapp/assessmentFra/growingStock/growingStockView'
+import GrowingStockCompositionView from '@webapp/assessmentFra/growingStockComposition/growingStockCompositionView'
+import BiomassStockView from '@webapp/assessmentFra/biomassStock/biomassStockView'
+import CarbonStockView from '@webapp/assessmentFra/carbonStock/carbonStockView'
 
 import DesignatedManagementObjectiveView
-  from '../assessmentFra/designatedManagementObjective/designatedManagementObjectiveView'
+  from '@webapp/assessmentFra/designatedManagementObjective/designatedManagementObjectiveView'
 import ForestAreaWithinProtectedAreasView
-  from '../assessmentFra/forestAreaWithinProtectedAreas/forestAreaWithinprotectedAreasView'
+  from '@webapp/assessmentFra/forestAreaWithinProtectedAreas/forestAreaWithinprotectedAreasView'
 
-import ForestOwnershipView from '../assessmentFra/forestOwnership/forestOwnershipView'
-import HolderOfManagementRightsView from '../assessmentFra/holderOfManagementRights/holderOfManagementRightsView'
+import ForestOwnershipView from '@webapp/assessmentFra/forestOwnership/forestOwnershipView'
+import HolderOfManagementRightsView from '@webapp/assessmentFra/holderOfManagementRights/holderOfManagementRightsView'
 
-import DisturbancesPrintView from '../assessmentFra/disturbances/disturbancesView'
-import AreaAffectedByFirePrintView from '../assessmentFra/areaAffectedByFire/areaAffectedByFireView'
-import DegradedForestView from '../assessmentFra/degradedForest/degradedForestView'
+import DisturbancesPrintView from '@webapp/assessmentFra/disturbances/disturbancesView'
+import AreaAffectedByFirePrintView from '@webapp/assessmentFra/areaAffectedByFire/areaAffectedByFireView'
+import DegradedForestView from '@webapp/assessmentFra/degradedForest/degradedForestView'
 
-import ForestPolicyView from '../assessmentFra/forestPolicy/forestPolicyView'
+import ForestPolicyView from '@webapp/assessmentFra/forestPolicy/forestPolicyView'
 import AreaOfPermanentForestEstateView
-  from '../assessmentFra/areaOfPermanentForestEstate/areaOfPermanentForestEstateView'
+  from '@webapp/assessmentFra/areaOfPermanentForestEstate/areaOfPermanentForestEstateView'
 
-import EmploymentPrintView from '../assessmentFra/employment/employmentView'
-import GraduationOfStudentsPrintView from '../assessmentFra/graduationOfStudents/graduationOfStudentsView'
+import EmploymentPrintView from '@webapp/assessmentFra/employment/employmentView'
+import GraduationOfStudentsPrintView from '@webapp/assessmentFra/graduationOfStudents/graduationOfStudentsView'
 import NonWoodForestProductsRemovalsView
-  from '../assessmentFra/nonWoodForestProductsRemovals/nonWoodForestProductsRemovalsView'
+  from '@webapp/assessmentFra/nonWoodForestProductsRemovals/nonWoodForestProductsRemovalsView'
 
-import SustainableDevelopmentView from '../assessmentFra/sustainableDevelopment/sustainableDevelopmentView'
-import { isPrintingOnlyTables } from '../printAssessment/printAssessment'
-import * as AppState from '../app/appState'
+import SustainableDevelopmentView from '@webapp/assessmentFra/sustainableDevelopment/sustainableDevelopmentView'
+import { isPrintingOnlyTables } from '@webapp/loggedin/printAssessment/printAssessment'
+import * as AppState from '@webapp/app/appState'
 
 const AssessmentFraPrintView = props => {
   const { i18n, getCountryName, assessment, fetchCountryOverviewStatus } = props

@@ -418,7 +418,7 @@ For the view to be accessible from a url we need to create a route for it in
 Next, we import the view
 
 ```
-import designatedManagementObjectiveView from '../assessmentFra/designatedManagementObjective/designatedManagementObjectiveView'
+import designatedManagementObjectiveView from '@webapp/assessmentFra/designatedManagementObjective/designatedManagementObjectiveView'
 ```
 
 Next, we add a route
@@ -436,7 +436,7 @@ Now that we have a url for the view we need to add it to the navigation, open `w
 Next, import the table spec
 
 ```
-import designatedManagementObjectiveTableSpec from '../assessmentFra/designatedManagementObjective/tableSpec'
+import designatedManagementObjectiveTableSpec from '@webapp/assessmentFra/designatedManagementObjective/tableSpec'
 ```
 
 Next, we add it to the navigation

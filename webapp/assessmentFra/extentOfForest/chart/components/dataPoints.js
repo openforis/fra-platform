@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import * as R from 'ramda'
 import * as d3 from 'd3'
 import d3Tip from 'd3-tip'
-import { formatNumber } from '../../../../../common/bignumberUtils'
+import { formatNumber } from '@common/bignumberUtils'
 import { defaultTransitionDuration } from '../chart'
 
 class DataPoint extends Component {

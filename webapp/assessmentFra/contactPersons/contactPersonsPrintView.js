@@ -4,7 +4,7 @@ import * as R from 'ramda'
 
 import camelize from 'camelize'
 import { fetchUsers } from '../../userManagement/actions'
-import * as AppState from '../../app/appState'
+import * as AppState from '@webapp/app/appState'
 
 const ContactPersonsPrintView = props => {
   const { fetchUsers, countryUsers, i18n } = props

@@ -1,8 +1,8 @@
 import axios from 'axios'
 
-import { applicationError } from '../applicationError/actions'
-import { createI18nInstance } from '../../common/i18n/i18nFactory'
-import { getRequestParam } from '../utils/urlUtils'
+import { applicationError } from '@webapp/loggedin/applicationError/actions'
+import { createI18nInstance } from '@common/i18n/i18nFactory'
+import { getRequestParam } from '@webapp/utils/urlUtils'
 
 export const appUserLogout = 'app/user/logout'
 

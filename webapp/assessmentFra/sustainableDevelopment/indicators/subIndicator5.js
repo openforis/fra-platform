@@ -1,8 +1,8 @@
 import React from 'react'
 
-import ReviewIndicator from '../../../review/reviewIndicator'
+import ReviewIndicator from '@webapp/loggedin/review/reviewIndicator'
 
-import { formatDecimal } from '../../../utils/numberFormat'
+import { formatDecimal } from '@webapp/utils/numberFormat'
 import * as R from 'ramda'
 
 const SubIndicator5 = ({i18n, countryIso, years, countryConfig, disabled}) => {

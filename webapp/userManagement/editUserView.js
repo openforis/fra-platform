@@ -2,10 +2,10 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { useParams } from 'react-router-dom'
 
-import NotFound from '../app/notfound'
+import NotFound from '@webapp/app/notfound'
 import EditUserForm from './edit/editUserForm'
 
-import { isAdministrator } from '../../common/countryRole'
+import { isAdministrator } from '@common/countryRole'
 
 function canEdit(userInfo, userId) {
   return isAdministrator(userInfo) || userInfo.id === userId

@@ -1,8 +1,8 @@
 import React from 'react'
 import * as R from 'ramda'
 
-import { formatDecimal } from '../../../utils/numberFormat'
-import { div, mul, sub, sum } from '../../../../common/bignumberUtils'
+import { formatDecimal } from '@webapp/utils/numberFormat'
+import { div, mul, sub, sum } from '@common/bignumberUtils'
 
 const PeriodicChangeRate = (props) => {
   const {

@@ -11,20 +11,20 @@ import ForestOwnership from './forestOwnership'
 import ManagementRightsOfPublicForests from './managementRightsOfPublicForests'
 import Disturbances from './disturbances'
 
-import forestAreaWithinProtectedAreasTableSpec from '../../../assessmentFra/forestAreaWithinProtectedAreas/tableSpec'
-import specificForestCategoriesTableSpec from '../../../assessmentFra/specificForestCategories/tableSpec'
-import biomassStockTableSpec from '../../../assessmentFra/biomassStock/tableSpec'
-import carbonStockTableSpec from '../../../assessmentFra/carbonStock/tableSpec'
-import forestOwnershipTableSpec from '../../../assessmentFra/forestOwnership/tableSpec'
-// import holderOfManagementRightsTableSpec from '../../../assessmentFra/holderOfManagementRights/tableSpec'
-import disturbancesTableSpec from '../../../assessmentFra/disturbances/tableSpec'
-import areaAffectedByFireTableSpec from '../../../assessmentFra/areaAffectedByFire/tableSpec'
+import forestAreaWithinProtectedAreasTableSpec from '@webapp/assessmentFra/forestAreaWithinProtectedAreas/tableSpec'
+import specificForestCategoriesTableSpec from '@webapp/assessmentFra/specificForestCategories/tableSpec'
+import biomassStockTableSpec from '@webapp/assessmentFra/biomassStock/tableSpec'
+import carbonStockTableSpec from '@webapp/assessmentFra/carbonStock/tableSpec'
+import forestOwnershipTableSpec from '@webapp/assessmentFra/forestOwnership/tableSpec'
+// import holderOfManagementRightsTableSpec from '@webapp/assessmentFra/holderOfManagementRights/tableSpec'
+import disturbancesTableSpec from '@webapp/assessmentFra/disturbances/tableSpec'
+import areaAffectedByFireTableSpec from '@webapp/assessmentFra/areaAffectedByFire/tableSpec'
 
 import { fetchTableData } from '../../../traditionalTable/actions'
-import { fetch } from '../../../assessmentFra/growingStock/actions'
+import { fetch } from '@webapp/assessmentFra/growingStock/actions'
 
 import defaultYears from '../../../../server/eof/defaultYears'
-import * as AppState from '../../../app/appState'
+import * as AppState from '@webapp/app/appState'
 
 const ContentCheckView = props => {
 

@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Route, Switch } from 'react-router-dom'
 import { initApp } from './actions'
 
-import DynamicImport from '../commonComponents/dynamicImport'
+import DynamicImport from '../components/dynamicImport'
 import LoginView from '../login/loginView'
 
 

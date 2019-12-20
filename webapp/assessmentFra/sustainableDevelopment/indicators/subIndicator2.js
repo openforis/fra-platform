@@ -1,10 +1,10 @@
 import React from 'react'
 
 import ResponsibleAgency from './responsibleAgency'
-import ReviewIndicator from '../../../review/reviewIndicator'
+import ReviewIndicator from '@webapp/loggedin/review/reviewIndicator'
 
 import * as R from 'ramda'
-import { formatDecimal } from '../../../utils/numberFormat'
+import { formatDecimal } from '@webapp/utils/numberFormat'
 
 const SubIndicator2 = ({i18n, countryIso, data, years, disabled}) => {
 

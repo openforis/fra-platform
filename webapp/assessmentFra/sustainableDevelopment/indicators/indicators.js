@@ -1,5 +1,5 @@
 import * as R from 'ramda'
-import { eq } from '../../../../common/bignumberUtils'
+import { eq } from '@common/bignumberUtils'
 
 export const getDataPoint = (data, year) => R.pipe(
   R.prop('extentOfForest'),

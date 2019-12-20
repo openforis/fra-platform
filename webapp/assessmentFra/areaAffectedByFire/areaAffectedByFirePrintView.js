@@ -6,7 +6,7 @@ import TraditionalTable from '../../traditionalTable/traditionalTable'
 import NationalDataDescriptions from '../../descriptionBundles/nationalDataDescriptions'
 import AnalysisDescriptions from '../../descriptionBundles/analysisDescriptions'
 import GeneralComments from '../../descriptionBundles/generalComments'
-import { isPrintingOnlyTables } from '../../printAssessment/printAssessment'
+import { isPrintingOnlyTables } from '@webapp/loggedin/printAssessment/printAssessment'
 
 const AreaAffectedByFirePrintView = props => {
 

@@ -1,9 +1,9 @@
 import React from 'react'
 import * as R from 'ramda'
-import { formatDecimal } from '../../utils/numberFormat'
+import { formatDecimal } from '@webapp/utils/numberFormat'
 import { totalSum } from '../../traditionalTable/aggregate'
 import { otherLandLessThanOrEqualToExtentOfForestValidator } from '../../traditionalTable/validators'
-import { getOtherLandAreaForYear } from '../../../common/extentOfForestHelper'
+import { getOtherLandAreaForYear } from '@common/extentOfForestHelper'
 import { Link } from 'react-router-dom'
 
 const mapIndexed = R.addIndex(R.map)

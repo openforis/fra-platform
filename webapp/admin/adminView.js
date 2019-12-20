@@ -8,8 +8,8 @@ import {
   useRouteMatch,
 } from 'react-router-dom'
 
-import { isAdministrator } from '../../common/countryRole'
-import NotFound from '../app/notfound'
+import { isAdministrator } from '@common/countryRole'
+import NotFound from '@webapp/app/notfound'
 import UsersManagementView from './components/usersManagementView'
 import DataExportView from './components/dataExportView'
 

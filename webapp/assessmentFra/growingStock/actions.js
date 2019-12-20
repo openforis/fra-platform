@@ -1,9 +1,9 @@
 import axios from 'axios'
 import * as R from 'ramda'
-import { applicationError } from '../../applicationError/actions'
+import { applicationError } from '@webapp/loggedin/applicationError/actions'
 import * as autosave from '../../autosave/actions'
 
-import { acceptNextDecimal } from '../../utils/numberInput'
+import { acceptNextDecimal } from '@webapp/utils/numberInput'
 import { calculateTotalValue, calculateAvgValue } from './growingStock'
 
 export const growingStockFetchCompleted = 'growingStock/fetch/completed'

@@ -5,17 +5,17 @@ import * as R from 'ramda'
 
 import TraditionalTable from '../../traditionalTable/traditionalTable'
 import tableSpec, { sectionName } from './tableSpec'
-import DefinitionLink from '../../reusableUiComponents/definitionLink'
+import DefinitionLink from '@webapp/components/definitionLink'
 import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
 import NationalDataDescriptions from '../../descriptionBundles/nationalDataDescriptions'
 import AnalysisDescriptions from '../../descriptionBundles/analysisDescriptions'
 import GeneralComments from '../../descriptionBundles/generalComments'
-import { isFRA2020SectionEditDisabled } from '../../utils/assessmentAccess'
+import { isFRA2020SectionEditDisabled } from '@webapp/utils/assessmentAccess'
 import * as table from '../../traditionalTable/table'
-import { isPrintingOnlyTables } from '../../printAssessment/printAssessment'
-import FraUtils from '../../../common/fraUtils'
+import { isPrintingOnlyTables } from '@webapp/loggedin/printAssessment/printAssessment'
+import FraUtils from '@common/fraUtils'
 import { fetchTableData } from '../../traditionalTable/actions'
-import * as AppState from '../../app/appState'
+import * as AppState from '@webapp/app/appState'
 
 const GrowingStockCompositionView = props => {
   const { i18n, isEditDataDisabled, tableData, tableSpecInstance } = props

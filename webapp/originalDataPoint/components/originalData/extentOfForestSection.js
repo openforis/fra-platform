@@ -1,15 +1,15 @@
 import React from 'react'
 
-import DefinitionLink from '../../../reusableUiComponents/definitionLink'
-import ThousandSeparatedDecimalInput from '../../../reusableUiComponents/thousandSeparatedDecimalInput'
-import PercentInput from '../../../reusableUiComponents/percentInput'
-import ReviewIndicator from '../../../review/reviewIndicator'
+import DefinitionLink from '@webapp/components/definitionLink'
+import ThousandSeparatedDecimalInput from '@webapp/components/thousandSeparatedDecimalInput'
+import PercentInput from '@webapp/components/percentInput'
+import ReviewIndicator from '@webapp/loggedin/review/reviewIndicator'
 
 import * as originalDataPoint from '../../originalDataPoint'
 import { getValidationStatusRow, isCommentsOpen, numberUpdateCreator, updatePastedValues } from '../commonFunctions'
 
-import { formatDecimal } from '../../../utils/numberFormat'
-import { add, sub } from '../../../../common/bignumberUtils'
+import { formatDecimal } from '@webapp/utils/numberFormat'
+import { add, sub } from '@common/bignumberUtils'
 
 const extentOfForestCols = [
   { name: 'area', type: 'decimal' },

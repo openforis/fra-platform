@@ -4,7 +4,7 @@ import React, { useEffect } from 'react'
 import { connect, useSelector } from 'react-redux'
 import * as R from 'ramda'
 
-import DefinitionLink from '../../reusableUiComponents/definitionLink'
+import DefinitionLink from '@webapp/components/definitionLink'
 import defaultYears from '../../../server/eof/defaultYears'
 
 import Indicator from './indicators/indicator'
@@ -16,9 +16,9 @@ import SubIndicator5 from './indicators/subIndicator5'
 
 import { fetchLastSectionUpdateTimestamp } from '../../audit/actions'
 import { fetch } from './actions'
-import { isFRA2020SectionEditDisabled } from '../../utils/assessmentAccess'
-import { isPrintingOnlyTables } from '../../printAssessment/printAssessment'
-import * as AppState from '../../app/appState'
+import { isFRA2020SectionEditDisabled } from '@webapp/utils/assessmentAccess'
+import { isPrintingOnlyTables } from '@webapp/loggedin/printAssessment/printAssessment'
+import * as AppState from '@webapp/app/appState'
 
 const sectionName = 'sustainableDevelopment'
 

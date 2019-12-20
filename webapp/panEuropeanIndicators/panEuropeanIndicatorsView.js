@@ -5,8 +5,8 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import * as R from 'ramda'
 
-import ReviewIndicator from '../review/reviewIndicator'
-import Icon from '../reusableUiComponents/icon'
+import ReviewIndicator from '@webapp/loggedin/review/reviewIndicator'
+import Icon from '@webapp/components/icon'
 
 import { fetchLastSectionUpdateTimestamp } from '../audit/actions'
 import { uploadQuestionnaire, getUploadedQuestionareInfo, deleteQuestionare } from './actions'

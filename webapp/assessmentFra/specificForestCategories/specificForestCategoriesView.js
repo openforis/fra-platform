@@ -4,7 +4,7 @@ import { connect, useSelector } from 'react-redux'
 import SingleTraditionalTableView from '../../traditionalTable/singleTraditionalTableView'
 import tableSpec from './tableSpec'
 import { fetchItem } from '../../tableWithOdp/actions'
-import * as AppState from '../../app/appState'
+import * as AppState from '@webapp/app/appState'
 
 const SpecificForestCategories = props => {
   const {

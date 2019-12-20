@@ -1,6 +1,6 @@
 import * as R from 'ramda'
 
-import { roleKeys } from '../../../common/countryRole'
+import { roleKeys } from '@common/countryRole'
 
 export const defaultFilter = {
   countries: [],

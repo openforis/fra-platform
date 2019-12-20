@@ -11,12 +11,12 @@ import NationalDataDescriptions from '../descriptionBundles/nationalDataDescript
 import AnalysisDescriptions from '../descriptionBundles/analysisDescriptions'
 import GeneralComments from '../descriptionBundles/generalComments'
 import { fetchLastSectionUpdateTimestamp } from '../audit/actions'
-import DefinitionLink from '../reusableUiComponents/definitionLink'
-import { isFRA2020SectionEditDisabled } from '../utils/assessmentAccess'
+import DefinitionLink from '@webapp/components/definitionLink'
+import { isFRA2020SectionEditDisabled } from '@webapp/utils/assessmentAccess'
 import * as R from 'ramda'
 import * as table from './table'
-import { isPrintingOnlyTables } from '../printAssessment/printAssessment'
-import FraUtils from '../../common/fraUtils'
+import { isPrintingOnlyTables } from '@webapp/loggedin/printAssessment/printAssessment'
+import FraUtils from '@common/fraUtils'
 import { fetchTableData } from './actions'
 
 class SingleTraditionalTableView extends React.Component {

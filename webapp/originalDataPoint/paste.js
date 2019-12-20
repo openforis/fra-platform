@@ -1,5 +1,5 @@
 import * as R from 'ramda'
-import { acceptNextInteger, acceptNextDecimal } from '../utils/numberInput'
+import { acceptNextInteger, acceptNextDecimal } from '@webapp/utils/numberInput'
 import * as originalDataPoint from './originalDataPoint'
 
 const mapIndexed = R.addIndex(R.map)

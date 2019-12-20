@@ -1,9 +1,9 @@
 import React from 'react'
 import * as R from 'ramda'
 
-import { acceptNextDecimal } from '../../utils/numberInput'
-import { formatDecimal } from '../../utils/numberFormat'
-import { formatNumber } from '../../../common/bignumberUtils'
+import { acceptNextDecimal } from '@webapp/utils/numberInput'
+import { formatDecimal } from '@webapp/utils/numberFormat'
+import { formatNumber } from '@common/bignumberUtils'
 
 import { subCategoryValidator, positiveOrZero } from '../../traditionalTable/validators'
 import { Link } from 'react-router-dom'

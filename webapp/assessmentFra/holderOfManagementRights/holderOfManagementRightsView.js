@@ -6,7 +6,7 @@ import { fetchTableData } from '../../traditionalTable/actions'
 import tableSpec from './tableSpec'
 import forestOwnershipTableSpec from '../forestOwnership/tableSpec'
 
-import * as AppState from '../../app/appState'
+import * as AppState from '@webapp/app/appState'
 
 const HolderOfManagementRightsView = props => {
   const { forestOwnershipTableData, fetchTableData, i18n } = props

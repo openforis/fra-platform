@@ -1,8 +1,8 @@
 import React from 'react'
 import { forestAreaLessThanOrEqualToExtentOfForestValidator } from '../../traditionalTable/validators'
 
-import { getValueForYear } from '../../../common/extentOfForestHelper'
-import { sub, greaterThan } from '../../../common/bignumberUtils'
+import { getValueForYear } from '@common/extentOfForestHelper'
+import { sub, greaterThan } from '@common/bignumberUtils'
 
 const years = [1990, 2000, 2010, 2015, 2020]
 

@@ -1,6 +1,6 @@
 import * as R from 'ramda'
 
-import { exportReducer } from '../utils/reduxUtils'
+import { exportReducer } from '@webapp/utils/reduxUtils'
 
 import {
   loginInitLoaded,
