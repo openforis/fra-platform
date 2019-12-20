@@ -1,4 +1,4 @@
-import './style.less'
+import './components/style.less'
 
 import React from 'react'
 import { Route } from 'react-router-dom'
@@ -39,7 +39,7 @@ const LoginView = () => {
 
       <div className="login__box">
         <div className="login__top">
-          
+
           <Route path="/login/">
             <LoginForm />
           </Route>
