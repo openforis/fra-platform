@@ -1,37 +1,34 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { connect } from 'react-redux'
+import { Route, Link, useRouteMatch, useHistory } from 'react-router-dom'
+
+import { getVersions } from '../actions'
+
 import Icon from '../../reusableUiComponents/icon'
 
-const versions = [
-  {
-    version: '1.0.0',
-    timestamp: '1576677210872',
-    createdBy: 'Admin User',
-    status: 'pending'
-  },
-  {
-    version: '2.0.0',
-    timestamp: '1576677210872',
-    createdBy: 'Admin User2',
-    status: 'pending'
-  }
-]
+const classNames = {
+  table: 'fra-table',
+  th: 'fra-table__header-cell',
+  td: 'fra-table__cell-left',
+}
 
 const VersioningViewTableRow = ({ version, timestamp, createdBy, status }) => {
   return <tr>
-    <td>{version}</td>
-    <td>{timestamp}</td>
-    <td>{createdBy}</td>
-    <td>{status}</td>
-    <td>remove []</td>
+    <td className={classNames.td}>{version}</td>
+    <td className={classNames.td}>{timestamp}</td>
+    <td className={classNames.td}>{createdBy}</td>
+    <td className={classNames.td}>{status}</td>
+    <td className={classNames.td}>remove []</td>
   </tr>
 }
 
-const VersioningViewTable = () => {
+const VersioningViewTable = (props) => {
+  const { versions } = props
   const thead = ['Version Number', 'Timestamp', 'Created By', 'Status', '']
-  return <table border='1'>
+  return <table style={{ maxWidth: 700 }} className={classNames.table}>
     <thead>
       <tr>
-        {thead.map((title, i) => <th key={i}>{title}</th>)}
+        {thead.map((title, i) => <th className={classNames.th} key={i}>{title}</th>)}
       </tr>
     </thead>
     <tbody>
@@ -41,20 +38,64 @@ const VersioningViewTable = () => {
 }
 
 const NewVersionButton = () => {
-  return <Icon className="icon-sub icon-white" name="plus"/>
+
+  const { url } = useRouteMatch()
+
+  return <Link to={`${url}new/`}>
+    <Icon title="foo" className="icon-new-version icon-red" name="circle-add" />
+  </Link>
 }
 
-const VerisoningView = () => {
-  const versionsExist = versions.length > 0
-  if (!versionsExist) {
-    return <h1>No versions yet</h1>
+const NewVersionForm = () => {
+  const { url } = useRouteMatch()
+  const history = useHistory()
+  const goBack = (e) => {
+    e.preventDefault()
+    history.goBack()
   }
+
+  return <form>
+    <label>Version</label>
+    <input type="text" name="version" /><br />
+    <label>Date</label>
+    <input type="date" name="timestamp_date" />
+    <label>Time</label>
+    <input type="time" name="timestamp_time" /><br />
+    <button onClick={goBack}>Cancel</button> <button>Submit</button>
+  </form>
+}
+
+const VersioningView = (props) => {
+  const { getVersions, versions } = props
+  const { path } = useRouteMatch()
+  const versionsExist = versions.length > 0
+
+  useEffect(() => {
+    getVersions()
+  }, [])
+
   return (
     <div>
-      <VersioningViewTable />
-      <NewVersionButton />
+      <Route exact path={path}>
+        {versionsExist ?
+          <VersioningViewTable versions={versions} getVersions={getVersions} />
+          :
+          <h1>No versions yet</h1>}
+        <NewVersionButton />
+      </Route>
+      <Route path={`${path}new/`}>
+        <NewVersionForm />
+      </Route>
     </div>
   )
 }
 
-export default VerisoningView
+VersioningView.defaultProps = {
+  versions: []
+}
+
+const mapStateToProps = (state) => ({
+  versions: state.admin.versions
+})
+
+export default connect(mapStateToProps, { getVersions })(VersioningView)

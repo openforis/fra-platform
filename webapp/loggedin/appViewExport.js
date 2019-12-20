@@ -16,6 +16,7 @@ import landing from '../landing/reducer'
 import panEuropeanIndicators from '../panEuropeanIndicators/reducer'
 import userChat from '../userChat/reducer'
 import countryMessageBoard from '../countryMessageBoard/reducer'
+import admin from '../admin/reducer'
 
 // TODO: Add for each file '<module>/state.js and add state key as ex.: 
 // { name: HomeState.stateKey, fn: homeReducer },
@@ -37,6 +38,7 @@ const reducers = [
   { name: 'panEuropeanIndicators', fn: panEuropeanIndicators },
   { name: 'userChat', fn: userChat },
   { name: 'countryMessageBoard', fn: countryMessageBoard },
+  { name: 'admin', fn: admin },
 ]
 
 export { component, reducers }
