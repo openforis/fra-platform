@@ -1,6 +1,6 @@
 import { autoSaveStart, autoSaveComplete } from './actions'
 import { applyReducerFunction } from '@webapp/utils/reduxUtils'
-import { lastSectionUpdateTimestampReceived } from '../audit/actions'
+import { lastSectionUpdateTimestampReceived } from '@webapp/audit/actions'
 
 import { status } from './autosave'
 

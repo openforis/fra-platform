@@ -4,9 +4,9 @@
  */
 import * as R from 'ramda'
 import { abs, greaterThan, greaterThanOrEqualTo, lessThan, sub, eq } from '@common/bignumberUtils'
-import { totalSum } from '../traditionalTable/aggregate'
+import { totalSum } from '@webapp/traditionalTable/aggregate'
 import { getForestAreaForYear, getOtherLandAreaForYear } from '@common/extentOfForestHelper'
-import { getTotalGrowingStockInForest } from '@webapp/assessmentFra/growingStock/growingStock'
+import { getTotalGrowingStockInForest } from '@webapp/loggedin/assessmentFra/growingStock/growingStock'
 
 export const subCategoryValidator = (totalRowIndex, rowIndexes) =>
   (props, currentFieldRowIdx, currentFieldColumnIdx) => {

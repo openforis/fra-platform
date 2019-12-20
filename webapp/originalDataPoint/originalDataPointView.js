@@ -23,7 +23,7 @@ import {
   cancelDraft
 } from './actions'
 import { fetchCountryOverviewStatus } from '../country/actions'
-import { fetchLastSectionUpdateTimestamp } from '../audit/actions'
+import { fetchLastSectionUpdateTimestamp } from '@webapp/audit/actions'
 import { isAssessmentLocked } from '@webapp/utils/assessmentAccess'
 
 const years = ['', ...R.pipe(R.range(1950), R.reverse)(2021)]

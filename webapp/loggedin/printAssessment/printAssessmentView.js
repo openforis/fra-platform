@@ -7,7 +7,7 @@ import { useParams } from 'react-router-dom'
 
 import { setPrintingMode } from './printAssessment'
 
-import AssessmentFraPrintView from '@webapp/assessmentFra/assessmentFraPrintView'
+import AssessmentFraPrintView from '@webapp/loggedin/assessmentFra/assessmentFraPrintView'
 
 const views = [{
   assessment: 'fra2020', component: AssessmentFraPrintView

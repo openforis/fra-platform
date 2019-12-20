@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect, useSelector } from 'react-redux'
 
-import CommentableDescription from '../description/commentableDescription'
+import CommentableDescription from '@webapp/description/commentableDescription'
 import { isPrintingMode, isPrintingOnlyTables } from '@webapp/loggedin/printAssessment/printAssessment'
 import * as AppState from '@webapp/app/appState'
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import CommentableDescription from '../description/commentableDescription'
+import CommentableDescription from '@webapp/description/commentableDescription'
 import { connect } from 'react-redux'
 
 const GeneralComments = props => {

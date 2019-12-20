@@ -8,7 +8,7 @@ import * as R from 'ramda'
 import ReviewIndicator from '@webapp/loggedin/review/reviewIndicator'
 import Icon from '@webapp/components/icon'
 
-import { fetchLastSectionUpdateTimestamp } from '../audit/actions'
+import { fetchLastSectionUpdateTimestamp } from '@webapp/audit/actions'
 import { uploadQuestionnaire, getUploadedQuestionareInfo, deleteQuestionare } from './actions'
 
 class PanEuropeanIndicatorsView extends React.Component {

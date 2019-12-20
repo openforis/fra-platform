@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect, useSelector } from 'react-redux'
 import * as R from 'ramda'
 import ReviewIndicator from '@webapp/loggedin/review/reviewIndicator'
-import Description from '../description/description'
+import Description from '@webapp/description/description'
 import * as AppState from '@webapp/app/appState'
 
 const dataSourcesEditorTemplate = (i18n) =>

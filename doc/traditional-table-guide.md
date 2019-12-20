@@ -394,7 +394,7 @@ Next, we need to import the tableSpec we just created:
 And the TraditionalTable component:
 
 ```
-import TraditionalTable from '../traditionalTable/traditionalTable'
+import TraditionalTable from '@webapp/traditionalTable/traditionalTable'
 ```
 
 Now we can use the TraditionalTable component in our render-method or
