@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { Route, Link, useRouteMatch, useHistory } from 'react-router-dom'
+import { Switch, Route, Link, useRouteMatch, useHistory } from 'react-router-dom'
 
-import { getVersions } from '../actions'
+import { getVersions, createVersion, onChangeNewVersionForm } from '../actions'
 
 import Icon from '../../reusableUiComponents/icon'
 
@@ -28,6 +28,9 @@ const VersioningViewTable = (props) => {
   return <table style={{ maxWidth: 700 }} className={classNames.table}>
     <thead>
       <tr>
+        <th className={classNames.th} colSpan="5">Database Versions</th>
+      </tr>
+      <tr>
         {thead.map((title, i) => <th className={classNames.th} key={i}>{title}</th>)}
       </tr>
     </thead>
@@ -46,27 +49,32 @@ const NewVersionButton = () => {
   </Link>
 }
 
-const NewVersionForm = () => {
-  const { url } = useRouteMatch()
+const NewVersionForm = (props) => {
+  const { onSubmit, onChange } = props
   const history = useHistory()
   const goBack = (e) => {
     e.preventDefault()
     history.goBack()
   }
 
-  return <form>
+  // TODO : Go back on submit
+  return <form onSubmit={onSubmit}>
     <label>Version</label>
-    <input type="text" name="version" /><br />
+    <input onChange={onChange} placeholder="Ex. 1.0.0" type="text" name="version" /> <br />
     <label>Date</label>
-    <input type="date" name="timestamp_date" />
-    <label>Time</label>
-    <input type="time" name="timestamp_time" /><br />
-    <button onClick={goBack}>Cancel</button> <button>Submit</button>
-  </form>
+    <input onChange={onChange} type="datetime-local" name="timestamp" /> <br />
+    <button onClick={goBack}>Cancel</button>
+    <input type="submit" />
+  </form >
 }
 
 const VersioningView = (props) => {
-  const { getVersions, versions } = props
+  const {
+    getVersions,
+    versions,
+    createVersion,
+    onChangeNewVersionForm
+  } = props
   const { path } = useRouteMatch()
   const versionsExist = versions.length > 0
 
@@ -75,7 +83,7 @@ const VersioningView = (props) => {
   }, [])
 
   return (
-    <div>
+    <Switch>
       <Route exact path={path}>
         {versionsExist ?
           <VersioningViewTable versions={versions} getVersions={getVersions} />
@@ -84,9 +92,9 @@ const VersioningView = (props) => {
         <NewVersionButton />
       </Route>
       <Route path={`${path}new/`}>
-        <NewVersionForm />
+        <NewVersionForm onChange={onChangeNewVersionForm} onSubmit={createVersion} />
       </Route>
-    </div>
+    </Switch>
   )
 }
 
@@ -98,4 +106,10 @@ const mapStateToProps = (state) => ({
   versions: state.admin.versions
 })
 
-export default connect(mapStateToProps, { getVersions })(VersioningView)
+export default connect(mapStateToProps,
+  {
+    getVersions,
+    createVersion,
+    onChangeNewVersionForm
+  })(VersioningView)
+
