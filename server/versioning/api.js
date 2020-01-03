@@ -1,27 +1,21 @@
-const db = require('../db/db')
-const { sendErr, sendOk } = require('../utils/requestUtils')
-const versions = [
-  {
-    version: '1.0.0',
-    timestamp: '1576677210872',
-    createdBy: 'Admin User',
-    status: 'pending'
-  },
-  {
-    version: '2.0.0',
-    timestamp: '1576677210872',
-    createdBy: 'Admin User2',
-    status: 'pending'
-  }
-]
+const { getAllVersions, addVersion } = require('./versioningRepository')
+const { sendErr } = require('../utils/requestUtils')
 
+// TODO: add authentication
 module.exports.init = app => {
-
   app.post('/versioning/', async (req, res) => {
+    const userId = req.user.id
+    const { version, timestamp } = req.body
     try {
-      const version = '';
-      // Create new schema
-      console.log(req.body)
+      if (!version || !timestamp) {
+        console.log({
+          version,
+          timestamp
+        })
+        throw "Param null at POST/versioninig/"
+      }
+      addVersion(userId, version, timestamp)
+      const versions = await getAllVersions();
       res.json(versions)
     } catch (err) {
       console.log(err)
@@ -30,6 +24,7 @@ module.exports.init = app => {
   })
 
   app.get('/versioning/', async (req, res) => {
+    const versions = await getAllVersions();
     res.json(versions)
   })
 
