@@ -12,11 +12,13 @@ const classNames = {
   td: 'fra-table__cell-left',
 }
 
-const VersioningViewTableRow = ({ version, timestamp, createdBy, status }) => {
+const VersioningViewTableRow = ({ version, timestamp, name, email, status }) => {
   return <tr>
     <td className={classNames.td}>{version}</td>
     <td className={classNames.td}>{timestamp}</td>
-    <td className={classNames.td}>{createdBy}</td>
+    <td className={classNames.td}>
+      <a href={`mailto:${email}`}>{name}</a>
+    </td>
     <td className={classNames.td}>{status}</td>
     <td className={classNames.td}>remove []</td>
   </tr>
