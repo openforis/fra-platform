@@ -19,7 +19,8 @@ const actionHandlers = {
   )(state),
 
   [versioningUpdateForm]: (state, action) => R.pipe(
-    R.assocPath(['newVersionForm'], { ...state.newVersionForm, ...action.payload })
+    R.assocPath(['newVersionForm'], { ...state.newVersionForm, ...action.payload }),
+    R.dissocPath(['newVersionForm', 'error']),
   )(state),
 
   [versioningGetSuccess]: (state, action) => R.pipe(
