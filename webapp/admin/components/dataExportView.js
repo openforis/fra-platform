@@ -1,5 +1,5 @@
 import React from 'react'
-import Icon from '../../reusableUiComponents/icon'
+import Icon from '@webapp/components/icon'
 
 const DataExportView = (props) => {
   const { i18n } = props

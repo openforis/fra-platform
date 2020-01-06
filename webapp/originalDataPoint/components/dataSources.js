@@ -1,9 +1,9 @@
 import React from 'react'
 import * as R from 'ramda'
 
-import VerticallyGrowingTextField from '../../reusableUiComponents/verticallyGrowingTextField'
-import MultiSelect from '../../reusableUiComponents/multiSelect'
-import ReviewIndicator from '../../review/reviewIndicator'
+import VerticallyGrowingTextField from '@webapp/components/verticallyGrowingTextField'
+import MultiSelect from '@webapp/components/multiSelect'
+import ReviewIndicator from '@webapp/loggedin/review/reviewIndicator'
 
 const DataSources = props => {
 
@@ -15,7 +15,7 @@ const DataSources = props => {
   } = props
   const countryIso = match.params.countryIso
   const displayReviewIndicator = odp.odpId && !printView && canEditData
-  
+
   return (
     <div className="odp__section">
       {

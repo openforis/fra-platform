@@ -1,15 +1,15 @@
 import React from 'react'
 
-import DefinitionLink from '../../../reusableUiComponents/definitionLink'
-import ReviewIndicator from '../../../review/reviewIndicator'
-import PercentInput from '../../../reusableUiComponents/percentInput'
+import DefinitionLink from '@webapp/components/definitionLink'
+import ReviewIndicator from '@webapp/loggedin/review/reviewIndicator'
+import PercentInput from '@webapp/components/percentInput'
 import ForestCharacteristicsPlantationSection from './forestCharacteristicsPlantationSection'
 
 import * as originalDataPoint from '../../originalDataPoint'
 import { getValidationStatusRow, isCommentsOpen, numberUpdateCreator, updatePastedValues } from '../commonFunctions'
 
-import { greaterThan } from '../../../../common/bignumberUtils'
-import { formatDecimal } from '../../../utils/numberFormat'
+import { greaterThan } from '@common/bignumberUtils'
+import { formatDecimal } from '@webapp/utils/numberFormat'
 
 const forestCharacteristicsCols = [
   { name: 'area', type: 'decimal' },

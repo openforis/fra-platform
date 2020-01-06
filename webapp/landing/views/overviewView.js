@@ -2,13 +2,13 @@ import React, { useEffect } from 'react'
 import { connect, useSelector } from 'react-redux'
 import * as R from 'ramda'
 
-import { i18nUserRole, profilePictureUri } from '../../../common/userUtils'
+import { i18nUserRole, profilePictureUri } from '@common/userUtils'
 
-import Icon from '../../reusableUiComponents/icon'
+import Icon from '@webapp/components/icon'
 import { getCountryOverview } from '../actions'
-import { closeChat, openChat } from '../../userChat/actions'
-import { closeCountryMessageBoard, openCountryMessageBoard } from '../../countryMessageBoard/actions'
-import * as AppState from '../../app/appState'
+import { closeChat, openChat } from '@webapp/loggedin/userChat/actions'
+import { closeCountryMessageBoard, openCountryMessageBoard } from '@webapp/loggedin/countryMessageBoard/actions'
+import * as AppState from '@webapp/app/appState'
 // import MapViewContainer from './countryMap/mapViewContainer'
 
 const milestonesTableContent = [

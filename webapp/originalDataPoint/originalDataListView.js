@@ -5,7 +5,7 @@ import { withRouter } from 'react-router'
 import * as R from 'ramda'
 import { fetchOdps, removeFromList } from './actions'
 import { Link } from 'react-router-dom'
-import Icon from '../reusableUiComponents/icon'
+import Icon from '@webapp/components/icon'
 
 const TableRow = ({odp, i18n, countryIso, removeFromList}) => {
   const odpUrl = `/country/${countryIso}/odp/extentOfForest/${odp.odpId}`

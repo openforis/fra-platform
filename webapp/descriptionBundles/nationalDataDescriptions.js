@@ -1,9 +1,9 @@
 import React from 'react'
 import { connect, useSelector } from 'react-redux'
 
-import CommentableDescription from '../description/commentableDescription'
-import { isPrintingMode, isPrintingOnlyTables } from '../printAssessment/printAssessment'
-import * as AppState from '../app/appState'
+import CommentableDescription from '@webapp/description/commentableDescription'
+import { isPrintingMode, isPrintingOnlyTables } from '@webapp/loggedin/printAssessment/printAssessment'
+import * as AppState from '@webapp/app/appState'
 
 const NationalDataDescriptions = props => {
   const countryIso = useSelector(AppState.getCountryIso)

@@ -1,8 +1,8 @@
 import React from 'react'
 import * as R from 'ramda'
 
-import TraditionalTable from '../../../traditionalTable/traditionalTable'
-import tableSpecFn from '../../../assessmentFra/holderOfManagementRights/tableSpec'
+import TraditionalTable from '@webapp/traditionalTable/traditionalTable'
+import tableSpecFn from '@webapp/loggedin/assessmentFra/holderOfManagementRights/tableSpec'
 
 const ManagementRightsOfPublicForests = (props) => {
   const {years, countryIso, i18n, forestOwnership} = props

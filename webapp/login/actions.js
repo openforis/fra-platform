@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { getUrlParameter } from '../utils/urlUtils'
+import { getUrlParameter } from '@webapp/utils/urlUtils'
 
 export const loginInitLoaded = 'login/init/loaded'
 export const loginUserPropChanged = 'login/userProp/changed'

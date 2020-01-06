@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import { loginUserPropChange, localLoginSubmit, localLoginReset } from './../actions'
 
 import ForgotPasswordFormModal from './forgotPasswordFormModal'
-import Icon from '../../reusableUiComponents/icon'
+import Icon from '@webapp/components/icon'
 
 class LocalLoginForm extends React.Component {
 

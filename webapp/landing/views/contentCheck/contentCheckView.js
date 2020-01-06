@@ -11,20 +11,20 @@ import ForestOwnership from './forestOwnership'
 import ManagementRightsOfPublicForests from './managementRightsOfPublicForests'
 import Disturbances from './disturbances'
 
-import forestAreaWithinProtectedAreasTableSpec from '../../../assessmentFra/forestAreaWithinProtectedAreas/tableSpec'
-import specificForestCategoriesTableSpec from '../../../assessmentFra/specificForestCategories/tableSpec'
-import biomassStockTableSpec from '../../../assessmentFra/biomassStock/tableSpec'
-import carbonStockTableSpec from '../../../assessmentFra/carbonStock/tableSpec'
-import forestOwnershipTableSpec from '../../../assessmentFra/forestOwnership/tableSpec'
-// import holderOfManagementRightsTableSpec from '../../../assessmentFra/holderOfManagementRights/tableSpec'
-import disturbancesTableSpec from '../../../assessmentFra/disturbances/tableSpec'
-import areaAffectedByFireTableSpec from '../../../assessmentFra/areaAffectedByFire/tableSpec'
+import forestAreaWithinProtectedAreasTableSpec from '@webapp/loggedin/assessmentFra/forestAreaWithinProtectedAreas/tableSpec'
+import specificForestCategoriesTableSpec from '@webapp/loggedin/assessmentFra/specificForestCategories/tableSpec'
+import biomassStockTableSpec from '@webapp/loggedin/assessmentFra/biomassStock/tableSpec'
+import carbonStockTableSpec from '@webapp/loggedin/assessmentFra/carbonStock/tableSpec'
+import forestOwnershipTableSpec from '@webapp/loggedin/assessmentFra/forestOwnership/tableSpec'
+// import holderOfManagementRightsTableSpec from '@webapp/assessmentFra/holderOfManagementRights/tableSpec'
+import disturbancesTableSpec from '@webapp/loggedin/assessmentFra/disturbances/tableSpec'
+import areaAffectedByFireTableSpec from '@webapp/loggedin/assessmentFra/areaAffectedByFire/tableSpec'
 
-import { fetchTableData } from '../../../traditionalTable/actions'
-import { fetch } from '../../../assessmentFra/growingStock/actions'
+import { fetchTableData } from '@webapp/traditionalTable/actions'
+import { fetch } from '@webapp/loggedin/assessmentFra/growingStock/actions'
 
 import defaultYears from '../../../../server/eof/defaultYears'
-import * as AppState from '../../../app/appState'
+import * as AppState from '@webapp/app/appState'
 
 const ContentCheckView = props => {
 

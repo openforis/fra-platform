@@ -9,8 +9,8 @@ import EditUserForm from '../../userManagement/edit/editUserForm'
 
 import { fetchAllUsers, removeUser, sendInvitationEmail } from '../../userManagement/actions'
 import { getCountryName } from '../../country/actions'
-import { administrator } from '../../../common/countryRole'
-import * as AppState from '../../app/appState'
+import { administrator } from '@common/countryRole'
+import * as AppState from '@webapp/app/appState'
 
 const UsersManagementView = props => {
   const {

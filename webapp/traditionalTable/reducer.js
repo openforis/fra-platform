@@ -1,5 +1,5 @@
 import * as actions from './actions'
-import { applyReducerFunction } from '../utils/reduxUtils'
+import { applyReducerFunction } from '@webapp/utils/reduxUtils'
 
 const actionHandlers = {
   [actions.tableValueChangedAction]: (state, action) => {

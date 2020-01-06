@@ -1,5 +1,5 @@
 import React from 'react'
-import TextInput from '../reusableUiComponents/textInput'
+import TextInput from '@webapp/components/textInput'
 import { handlePaste } from './paste'
 
 const TextInputTableCell = ({

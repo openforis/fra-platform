@@ -2,8 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
 
-import { Modal, ModalBody } from '../../reusableUiComponents/modal'
-import Icon from '../../reusableUiComponents/icon'
+import { Modal, ModalBody } from '@webapp/components/modal'
+import Icon from '@webapp/components/icon'
 
 import { resetPassword, resetPasswordFormReset } from './../actions'
 

@@ -1,7 +1,7 @@
 import React from 'react'
 
-import { ThousandSeparatedDecimalInput } from '../reusableUiComponents/thousandSeparatedDecimalInput'
-import { acceptNextDecimal, acceptableAsDecimal } from '../utils/numberInput'
+import { ThousandSeparatedDecimalInput } from '@webapp/components/thousandSeparatedDecimalInput'
+import { acceptNextDecimal, acceptableAsDecimal } from '@webapp/utils/numberInput'
 import { handlePaste } from './paste'
 
 const DecimalCellType = props => {

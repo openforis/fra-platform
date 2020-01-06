@@ -3,8 +3,8 @@ import { connect } from 'react-redux'
 import { Route, Switch } from 'react-router-dom'
 import { initApp } from './actions'
 
-import DynamicImport from '../commonComponents/dynamicImport'
-import LoginView from '../login/components/loginView'
+import DynamicImport from '../components/dynamicImport'
+import LoginView from '../login/loginView'
 
 
 const AppRouterSwitch = props => {

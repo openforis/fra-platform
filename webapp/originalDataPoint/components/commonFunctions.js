@@ -1,7 +1,7 @@
 import * as R from 'ramda'
 
-import { readPasteClipboard } from '../../utils/copyPasteUtil'
-import { acceptNextDecimal } from '../../utils/numberInput'
+import { readPasteClipboard } from '@webapp/utils/copyPasteUtil'
+import { acceptNextDecimal } from '@webapp/utils/numberInput'
 
 import handlePaste from '../paste'
 import * as originalDataPoint from '../originalDataPoint'

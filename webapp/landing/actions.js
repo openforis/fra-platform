@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { applicationError } from '../applicationError/actions'
+import { applicationError } from '@webapp/loggedin/applicationError/actions'
 import * as autosave from '../autosave/actions'
 
 export const countryOverviewLoaded = 'landing/country/OverviewLoaded'

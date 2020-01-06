@@ -1,7 +1,7 @@
 import React from 'react'
 import * as R from 'ramda'
 
-import { assessments } from '../../../common/assessmentSectionItems'
+import { assessments } from '@common/assessmentSectionItems'
 
 const optionAll = {tableNo: 'all', section: 'all', label: 'contactPersons.all'}
 const optionNone = {tableNo: 'none', section: 'none', label: 'contactPersons.none'}

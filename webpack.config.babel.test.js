@@ -1,9 +1,20 @@
+const path = require('path')
+
 const nodeExternals = require('webpack-node-externals')
 
 const webpackTestConfig = {
   mode: 'development',
   target: 'node', // in order to ignore built-in modules like path, fs, etc.
   externals: [nodeExternals()], // in order to ignore all modules in node_modules folder
+  resolve: {
+    extensions: ['.webpack-loader.js', '.web-loader.js', '.loader.js', '.js', '.jsx'],
+    alias: {
+      '@common': path.resolve(__dirname, 'common/'),
+      '@server': path.resolve(__dirname, 'server/'),
+      '@webapp': path.resolve(__dirname, 'webapp/'),
+      '@test': path.resolve(__dirname, 'test/'),
+    },
+  },
   module: {
     rules: [
       {

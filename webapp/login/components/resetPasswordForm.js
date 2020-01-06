@@ -2,9 +2,9 @@ import React from 'react'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
 
-import Icon from './../../reusableUiComponents/icon'
+import Icon from '@webapp/components/icon'
 
-import { getUrlParameter } from '../../utils/urlUtils'
+import { getUrlParameter } from '@webapp/utils/urlUtils'
 import { findResetPassword, changePassword } from './../actions'
 
 const ResetPasswordNotFound = () =>

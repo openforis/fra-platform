@@ -2,9 +2,9 @@ import React from 'react'
 import * as R from 'ramda'
 
 import { CSVLink } from 'react-csv'
-import Icon from '../../reusableUiComponents/icon'
+import Icon from '@webapp/components/icon'
 
-import { administrator, getRoleLabelKey } from '../../../common/countryRole'
+import { administrator, getRoleLabelKey } from '@common/countryRole'
 import { getFilterRoles, filterUserCountryRoles } from './filter'
 
 const UsersTableCSVExportButton = ({users, i18n, isAdminTable = false, filter = {}, userInfo, getCountryName}) =>
