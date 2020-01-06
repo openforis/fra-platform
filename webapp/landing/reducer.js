@@ -1,9 +1,9 @@
 import * as R from 'ramda'
 
-import { exportReducer } from '../utils/reduxUtils'
+import { exportReducer } from '@webapp/utils/reduxUtils'
 import { countryOverviewLoaded, fileRepositoryFilesListLoad } from './actions'
-import { lastAuditFeedReceived } from '../audit/actions'
-import { countryMessageBoardAllMessagesLoad } from '../countryMessageBoard/actions'
+import { lastAuditFeedReceived } from '@webapp/audit/actions'
+import { countryMessageBoardAllMessagesLoad } from '@webapp/loggedin/countryMessageBoard/actions'
 
 const actionHandlers = {
 

@@ -2,12 +2,12 @@ import React from 'react'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
 
-import { userType } from '../../../common/userUtils'
+import { userType } from '@common/userUtils'
 
 import { initLogin } from '../actions'
-import { getUrlParameter } from '../../utils/urlUtils'
+import { getUrlParameter } from '@webapp/utils/urlUtils'
 
-import Icon from '../../reusableUiComponents/icon'
+import Icon from '@webapp/components/icon'
 
 import LocalLoginForm from './localLoginForm'
 

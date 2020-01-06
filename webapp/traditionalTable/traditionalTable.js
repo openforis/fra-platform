@@ -6,8 +6,8 @@ import * as R from 'ramda'
 import * as table from './table'
 import * as cellTypes from './cellTypes'
 import { tableValueChanged, tableChanged, fetchTableData } from './actions'
-import ReviewIndicator from '../review/reviewIndicator'
-import UpdateOnResizeReactComponent from '../reusableUiComponents/updateOnResizeReactComponent'
+import ReviewIndicator from '@webapp/loggedin/review/reviewIndicator'
+import UpdateOnResizeReactComponent from '@webapp/components/updateOnResizeReactComponent'
 
 const mapIndexed = R.addIndex(R.map)
 const commentTarget = (tableName, rowIdx) => [tableName, 'row', `${rowIdx}`]

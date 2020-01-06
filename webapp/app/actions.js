@@ -1,8 +1,8 @@
-import { getLoggedinUserInfo } from '../user/actions'
+import { getLoggedinUserInfo } from '@webapp/user/actions'
 import { fetchItem } from '../tableWithOdp/actions'
 import { fetchCountryOverviewStatus } from '../country/actions'
 import { getCountryConfig, getCountryList } from '../country/actions'
-import { fetch as fetchGrowingStock } from '../assessmentFra/growingStock/actions'
+import { fetch as fetchGrowingStock } from '@webapp/loggedin/assessmentFra/growingStock/actions'
 
 export const appCountryIsoUpdate = 'app/countryIso/update'
 

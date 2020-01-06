@@ -1,7 +1,7 @@
 import axios from 'axios'
 import * as R from 'ramda'
 
-import { applicationError } from '../applicationError/actions'
+import { applicationError } from '@webapp/loggedin/applicationError/actions'
 import * as autosave from '../autosave/actions'
 export const listCountries = 'country/country/list'
 export const fetchCountryOverviewStatusCompleted = 'country/status/completed'

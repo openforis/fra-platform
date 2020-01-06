@@ -1,9 +1,9 @@
-import applicationError from '../applicationError/reducer'// Reducers available before login
+import applicationError from '@webapp/loggedin/applicationError/reducer'// Reducers available before login
 import login from '../login/reducer'
-import user from '../user/reducer'
-import app from '../app/reducer'
+import user from '@webapp/user/reducer'
+import app from '@webapp/app/reducer'
 
-import * as AppState from '../app/appState'
+import * as AppState from '@webapp/app/appState'
 
 export default {
   applicationError,

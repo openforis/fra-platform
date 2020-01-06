@@ -1,9 +1,9 @@
 import React from 'react'
 import * as R from 'ramda'
 
-import { formatDecimal } from '../../../utils/numberFormat'
-import { sub } from '../../../../common/bignumberUtils'
-import { getForestAreaForYear } from '../../../../common/extentOfForestHelper'
+import { formatDecimal } from '@webapp/utils/numberFormat'
+import { sub } from '@common/bignumberUtils'
+import { getForestAreaForYear } from '@common/extentOfForestHelper'
 
 const ForestOwnership = (props) => {
   const {

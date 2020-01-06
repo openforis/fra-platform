@@ -5,8 +5,8 @@ import { connect, useSelector } from 'react-redux'
 import { Link, Redirect, Route, Switch, useRouteMatch } from 'react-router-dom'
 
 import { getCountryName } from '../country/actions'
-import { isAllowedToChangeRole } from '../../common/userManagementAccessControl'
-import { isReviewer } from '../../common/countryRole'
+import { isAllowedToChangeRole } from '@common/userManagementAccessControl'
+import { isReviewer } from '@common/countryRole'
 
 import OverviewView from './views/overviewView'
 import AboutView from './views/aboutView'
@@ -14,7 +14,7 @@ import RecentActivityView from './views/recentActivityView'
 import ManageCollaboratorsView from './views/manageCollaboratorsView'
 import LinksView from './views/linksView'
 import ContentCheckView from './views/contentCheck/contentCheckView'
-import * as AppState from '../app/appState'
+import * as AppState from '@webapp/app/appState'
 
 const getSections = (countryIso, userInfo) => {
   const sections = [

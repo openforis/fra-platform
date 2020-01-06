@@ -4,19 +4,19 @@ import { Route, Switch, useParams } from 'react-router-dom'
 
 import * as R from 'ramda'
 
-import Navigation from '../navigation/navigation'
-import Header from '../header/header'
-import Review from '../review/review'
-import UserChat from '../userChat/userChatView'
-import CountryMessageBoardView from '../countryMessageBoard/countryMessageBoardView'
-import ErrorComponent from '../applicationError/errorComponent'
+import Navigation from './navigation/navigation'
+import Header from './header/header'
+import Review from './review/review'
+import UserChat from './userChat/userChatView'
+import CountryMessageBoardView from './countryMessageBoard/countryMessageBoardView'
+import ErrorComponent from './applicationError/errorComponent'
 
 import routes from './routes'
 
-import { fetchInitialData } from '../app/actions'
+import { fetchInitialData } from '@webapp/app/actions'
 
-import * as loginStatusChecker from '../user/loginStatusChecker'
-import PrintAssessmentView from '../printAssessment/printAssessmentView'
+import * as loginStatusChecker from '@webapp/user/loginStatusChecker'
+import PrintAssessmentView from './printAssessment/printAssessmentView'
 
 const LoggedInView = props => {
 

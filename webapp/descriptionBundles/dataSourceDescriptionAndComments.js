@@ -2,9 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect, useSelector } from 'react-redux'
 import * as R from 'ramda'
-import ReviewIndicator from '../review/reviewIndicator'
-import Description from '../description/description'
-import * as AppState from '../app/appState'
+import ReviewIndicator from '@webapp/loggedin/review/reviewIndicator'
+import Description from '@webapp/description/description'
+import * as AppState from '@webapp/app/appState'
 
 const dataSourcesEditorTemplate = (i18n) =>
   `<strong>${i18n.t('description.dataSources')}</strong>

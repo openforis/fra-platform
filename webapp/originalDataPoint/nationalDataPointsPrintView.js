@@ -8,8 +8,8 @@ import ExtentOfForestSection from './components/originalData/extentOfForestSecti
 import ForestCharacteristicsSection from './components/originalData/forestCharacteristicsSection'
 
 import { fetchOdps } from './actions'
-import { isPrintingOnlyTables } from '../printAssessment/printAssessment'
-import * as AppState from '../app/appState'
+import { isPrintingOnlyTables } from '@webapp/loggedin/printAssessment/printAssessment'
+import * as AppState from '@webapp/app/appState'
 
 const DataSourcesPrintView = ({ ndps, ...props }) => (
   <div className="odp__section-print-mode">

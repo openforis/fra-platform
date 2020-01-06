@@ -4,7 +4,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
 
-import ReviewIndicator from '../review/reviewIndicator'
+import ReviewIndicator from '@webapp/loggedin/review/reviewIndicator'
 import DataSources from './components/dataSources'
 import NationalClasses from './components/nationalClasses'
 import OriginalData from './components/originalData/originalData'
@@ -23,8 +23,8 @@ import {
   cancelDraft
 } from './actions'
 import { fetchCountryOverviewStatus } from '../country/actions'
-import { fetchLastSectionUpdateTimestamp } from '../audit/actions'
-import { isAssessmentLocked } from '../utils/assessmentAccess'
+import { fetchLastSectionUpdateTimestamp } from '@webapp/audit/actions'
+import { isAssessmentLocked } from '@webapp/utils/assessmentAccess'
 
 const years = ['', ...R.pipe(R.range(1950), R.reverse)(2021)]
 

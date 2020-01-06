@@ -6,12 +6,12 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
 
-import Icon from '../reusableUiComponents/icon'
+import Icon from '@webapp/components/icon'
 
 import ckEditorConfig from '../ckEditor/ckEditorConfig'
 import { saveDescriptions, fetchDescriptions, openEditor, closeEditor } from './actions'
 
-import { elementOffset } from '../utils/domUtils'
+import { elementOffset } from '@webapp/utils/domUtils'
 
 class Description extends Component {
 

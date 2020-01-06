@@ -12,13 +12,13 @@ import {
   nationalCorrespondent,
   alternateNationalCorrespondent,
   collaborator
-} from '../../../common/countryRole'
-import { i18nUserRole, validate, profilePictureUri } from '../../../common/userUtils'
+} from '@common/countryRole'
+import { i18nUserRole, validate, profilePictureUri } from '@common/userUtils'
 
 import { loadUserToEdit, persistUser } from '../actions'
 import { getCountryName } from '../../country/actions'
 
-import TextInput from '../../reusableUiComponents/textInput'
+import TextInput from '@webapp/components/textInput'
 import CountrySelectionModal from './countrySelectionModal'
 
 class EditUserForm extends React.Component {

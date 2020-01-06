@@ -5,10 +5,10 @@ import * as R from 'ramda'
 import camelize from 'camelize'
 import snake from 'to-snake-case'
 
-import MultiSelect from '../../reusableUiComponents/multiSelect'
+import MultiSelect from '@webapp/components/multiSelect'
 import CountrySelectionModal from '../edit/countrySelectionModal'
 
-import { roleKeys } from '../../../common/countryRole'
+import { roleKeys } from '@common/countryRole'
 
 const roleToValue = role => camelize(role.toLowerCase())
 const valueToRole = value => snake(value).toUpperCase()

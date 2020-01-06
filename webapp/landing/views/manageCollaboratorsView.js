@@ -9,7 +9,7 @@ import AddUserForm from '../../userManagement/edit/addUserForm'
 import EditUserForm from '../../userManagement/edit/editUserForm'
 import UsersTable from '../../userManagement/list/usersTable'
 
-import { rolesAllowedToChange } from '../../../common/userManagementAccessControl'
+import { rolesAllowedToChange } from '@common/userManagementAccessControl'
 
 import { getCountryName } from '../../country/actions'
 import {
@@ -20,7 +20,7 @@ import {
   sendInvitationEmail,
   updateNewUser
 } from '../../userManagement/actions'
-import * as AppState from '../../app/appState'
+import * as AppState from '@webapp/app/appState'
 
 const ManageCollaboratorsView = props => {
   const { countryUsers, newUser, allowedRoles, editUserStatus, fetchUsers } = props

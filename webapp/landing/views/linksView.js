@@ -2,12 +2,12 @@ import React from 'react'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
 
-import { isAdministrator } from '../../../common/countryRole'
+import { isAdministrator } from '@common/countryRole'
 
 import { isStatusSaving } from '../../autosave/autosave'
 import { getFilesList, uploadFile, deleteFile } from '../actions'
 
-import Icon from '../../reusableUiComponents/icon'
+import Icon from '@webapp/components/icon'
 
 const links = [
   {href: 'http://unfccc.int/parties_observers/parties/national_focal_points/items/9336.php', key: 'unfcccFocalPoints'},

@@ -1,14 +1,14 @@
 import axios from 'axios'
 import * as R from 'ramda'
 
-import { applicationError } from '../applicationError/actions'
+import { applicationError } from '@webapp/loggedin/applicationError/actions'
 import * as autosave from '../autosave/actions'
 import {
   removeClassPlaceholder,
   addNationalClassPlaceHolder,
   copyNationalClassDefinitions
 } from './originalDataPoint'
-import { validateDataPoint } from '../../common/validateOriginalDataPoint'
+import { validateDataPoint } from '@common/validateOriginalDataPoint'
 import { fetchCountryOverviewStatus } from '../country/actions'
 import { markOdpDirty } from '../tableWithOdp/actions'
 

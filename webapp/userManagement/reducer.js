@@ -9,7 +9,7 @@ import {
   userManagementEditUserComplete
 } from './actions'
 
-import { applyReducerFunction } from '../utils/reduxUtils'
+import { applyReducerFunction } from '@webapp/utils/reduxUtils'
 
 const sortUsers = users => R.sortBy(R.compose(R.toLower, R.prop('name')), users)
 

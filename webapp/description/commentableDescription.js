@@ -3,8 +3,8 @@ import { connect, useSelector } from 'react-redux'
 import * as R from 'ramda'
 
 import Description from './description'
-import ReviewIndicator from '../review/reviewIndicator'
-import * as AppState from '../app/appState'
+import ReviewIndicator from '@webapp/loggedin/review/reviewIndicator'
+import * as AppState from '@webapp/app/appState'
 
 const CommentableDescription = props => {
   const { disabled = false } = props

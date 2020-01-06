@@ -1,13 +1,13 @@
 import React from 'react'
 import * as R from 'ramda'
 
-import PercentInput from '../../../reusableUiComponents/percentInput'
-import ReviewIndicator from '../../../review/reviewIndicator'
+import PercentInput from '@webapp/components/percentInput'
+import ReviewIndicator from '@webapp/loggedin/review/reviewIndicator'
 
 import * as originalDataPoint from '../../originalDataPoint'
 import { getValidationStatusRow, isCommentsOpen, numberUpdateCreator, updatePastedValues } from '../commonFunctions'
 
-import { formatDecimal } from '../../../utils/numberFormat'
+import { formatDecimal } from '@webapp/utils/numberFormat'
 
 const mapIndexed = R.addIndex(R.map)
 

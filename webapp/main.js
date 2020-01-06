@@ -6,7 +6,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
-import AppRouterSwitch from './app/appRouterSwitch'
+import AppRouterSwitch from '@webapp/app/appRouterSwitch'
 
 import store from './state/store'
 

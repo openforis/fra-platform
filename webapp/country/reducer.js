@@ -1,4 +1,4 @@
-import { applyReducerFunction } from '../utils/reduxUtils'
+import { applyReducerFunction } from '@webapp/utils/reduxUtils'
 import * as R from 'ramda'
 
 import {
@@ -7,7 +7,7 @@ import {
   countryConfig,
   changeCountryConfigSetting
 } from './actions'
-import { toggleAssessmentLockChange } from '../navigation/actions'
+import { toggleAssessmentLockChange } from '@webapp/loggedin/navigation/actions'
 
 const actionHandlers = {
   [listCountries]: (state, action) =>

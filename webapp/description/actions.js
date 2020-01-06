@@ -1,6 +1,6 @@
 import axios from 'axios'
 import * as autosave from '../autosave/actions'
-import { applicationError } from '../applicationError/actions'
+import { applicationError } from '@webapp/loggedin/applicationError/actions'
 
 export const descriptionsFetched = 'descriptions/fetched'
 

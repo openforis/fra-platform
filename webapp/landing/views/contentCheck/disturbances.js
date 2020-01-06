@@ -1,7 +1,7 @@
 import React from 'react'
 import * as R from 'ramda'
 
-import { formatDecimal } from '../../../utils/numberFormat'
+import { formatDecimal } from '@webapp/utils/numberFormat'
 
 const Disturbances = (props) => {
 

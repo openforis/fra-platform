@@ -1,7 +1,7 @@
 import React from 'react'
 
-import { ThousandSeparatedIntegerInput } from '../reusableUiComponents/thousandSeparatedIntegerInput'
-import { acceptNextInteger, acceptableAsInteger } from '../utils/numberInput'
+import { ThousandSeparatedIntegerInput } from '@webapp/components/thousandSeparatedIntegerInput'
+import { acceptNextInteger, acceptableAsInteger } from '@webapp/utils/numberInput'
 import { handlePaste } from './paste'
 
 const IntegerInput = props => {

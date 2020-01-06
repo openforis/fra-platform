@@ -1,11 +1,11 @@
 import * as R from 'ramda'
 
-import * as AppState from '../app/appState'
+import * as AppState from '@webapp/app/appState'
 
-import { isCollaborator, isReviewer, isAdministrator } from '../../common/countryRole'
-import { isCollaboratorAllowedToEditSectionData } from '../../common/assessmentRoleAllowance'
-import { assessmentStatus } from '../../common/assessment'
-import { isPrintingMode } from '../printAssessment/printAssessment'
+import { isCollaborator, isReviewer, isAdministrator } from '@common/countryRole'
+import { isCollaboratorAllowedToEditSectionData } from '@common/assessmentRoleAllowance'
+import { assessmentStatus } from '@common/assessment'
+import { isPrintingMode } from '@webapp/loggedin/printAssessment/printAssessment'
 
 const getUserInfo = R.path(['user', 'userInfo'])
 const getCountryIso = AppState.getCountryIso

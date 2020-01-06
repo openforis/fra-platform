@@ -1,7 +1,7 @@
 import React from 'react'
 import * as R from 'ramda'
 
-import { Modal, ModalBody, ModalClose, ModalFooter, ModalHeader } from '../../reusableUiComponents/modal'
+import { Modal, ModalBody, ModalClose, ModalFooter, ModalHeader } from '@webapp/components/modal'
 
 class CountrySelectionModal extends React.Component {
 
