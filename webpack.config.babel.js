@@ -75,7 +75,8 @@ const appConfig = {
       },
     ]
   },
-  plugins
+  plugins,
+  stats: { children: false },
 }
 
 webpack.optimization = {
