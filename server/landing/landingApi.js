@@ -21,7 +21,7 @@ const getUsersOverview = async (sessionUserId, dbUsers) => {
   return users
 }
 
-const sdgContactsFileName = 'NSO_SDG_Contact_Persons_20171213.xlsx'
+const sdgContactsFileName = 'NSO_SDG_Contact_Persons_20191230.xlsx'
 
 module.exports.init = app => {
 
