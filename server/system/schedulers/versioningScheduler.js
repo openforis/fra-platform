@@ -47,15 +47,11 @@ const init = async () => {
       return
     }
 
-    versions.forEach(async (version) => {
+    for (const version of versions) {
       console.log('New version pending creation:')
       console.table(version)
-
-      handleNewVersion(version)
-
-    });
-
-
+      await handleNewVersion(version)
+    }
   })
 }
 
