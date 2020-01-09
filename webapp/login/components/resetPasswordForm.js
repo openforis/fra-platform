@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
 
@@ -14,43 +14,46 @@ const ResetPasswordNotFound = () =>
     </div>
     <div>
       Ooops. It looks like the link you clicked is expired or not valid.<br/>
-      To reset your password go to the <a href="/login" style={{fontWeight: 'bold', color: 'white'}}>login page</a>
+      To reset your password go to the <a href="/login" style={{ fontWeight: 'bold', color: 'white' }}>login page</a>
     </div>
   </div>
 
-class ResetPasswordForm extends React.Component {
+const ResetPasswordForm = props => {
 
-  constructor () {
-    super()
-    this.state = {password: '', password2: ''}
-  }
+  const {
+    status = '', resetPassword = {}, changePasswordResponse = {},
+    changePassword, findResetPassword
+  } = props
 
-  componentDidMount () {
+  useEffect(() => {
     const uuid = getUrlParameter('k')
-    this.props.findResetPassword(uuid)
-  }
+    findResetPassword(uuid)
+  }, [])
 
-  render () {
+  const [password, setPassword] = useState('')
+  const [password2, setPassword2] = useState('')
 
-    const {resetPassword = {}, changePasswordResponse = {}, changePassword} = this.props
-
-    return changePasswordResponse.message
-      ? <div className="alert-confirmation-message">
+  return changePasswordResponse.message
+    ? (
+      <div className="alert-confirmation-message">
         <div>{changePasswordResponse.message}</div>
-        <div><a href="/login" style={{fontWeight: 'bold', color: 'white'}}>Click here to access the login page</a></div>
+        <div><a href="/login" style={{ fontWeight: 'bold', color: 'white' }}>Click here to access the login page</a>
+        </div>
       </div>
-      : R.propEq('status', 'loaded', this.props) && !R.isNil(R.prop('user', resetPassword))
-        ? <div className="login__form">
+    )
+    : R.equals(status, 'loaded') && !R.isNil(R.prop('user', resetPassword))
+      ? (
+        <div className="login__form">
 
           <input type="text" name="email" value={resetPassword.user.email} disabled={true}/>
           <input type="password"
-                 value={this.state.password}
+                 value={password}
                  placeholder="Password"
-                 onChange={e => this.setState({password: e.target.value})}/>
+                 onChange={e => setPassword(e.target.value)}/>
           <input type="password"
-                 value={this.state.password2}
+                 value={password2}
                  placeholder="Repeat password"
-                 onChange={e => this.setState({password2: e.target.value})}
+                 onChange={e => setPassword2(e.target.value)}
           />
           {
             changePasswordResponse.error
@@ -70,24 +73,25 @@ class ResetPasswordForm extends React.Component {
                       changePassword(
                         resetPassword.uuid,
                         resetPassword.user.id,
-                        this.state.password,
-                        this.state.password2
+                        password,
+                        password2
                       )
                     }}>
               Change password
             </button>
           </div>
         </div>
-        : R.isNil(this.props.status)
-          ? null
-          : <ResetPasswordNotFound/>
-  }
+      )
+      : R.isNil(status)
+        ? null
+        : <ResetPasswordNotFound/>
+
 }
 
 const mapStateToProps = state => ({
-  status: R.path(['resetPassword', 'status'], state),
-  resetPassword: R.path(['resetPassword', 'data'], state),
-  changePasswordResponse: R.prop('changePassword', state)
+  status: R.path(['login', 'resetPassword', 'status'], state),
+  resetPassword: R.path(['login', 'resetPassword', 'data'], state),
+  changePasswordResponse: R.path(['login', 'changePassword'], state)
 })
 
-export default connect(mapStateToProps, {findResetPassword, changePassword})(ResetPasswordForm)
+export default connect(mapStateToProps, { findResetPassword, changePassword })(ResetPasswordForm)
