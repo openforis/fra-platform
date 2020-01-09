@@ -6,7 +6,6 @@ import { initApp } from './actions'
 import DynamicImport from '../components/dynamicImport'
 import LoginView from '../login/loginView'
 
-
 const AppRouterSwitch = props => {
   const { loggedIn, initApp } = props
 
@@ -20,11 +19,11 @@ const AppRouterSwitch = props => {
         loggedIn ?
           <Route
             path="/country/:countryIso"
-            render={props => <DynamicImport {...props} load={() => import('../loggedin/appViewExport')} />}
+            render={props => <DynamicImport {...props} load={() => import('../loggedin/appViewExport')}/>}
           />
           :
-          <Route path="/login/">
-            <LoginView />
+          <Route>
+            <LoginView/>
           </Route>
       }
     </Switch>

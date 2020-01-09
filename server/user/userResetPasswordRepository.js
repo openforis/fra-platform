@@ -1,6 +1,6 @@
 const camelize = require('camelize')
 const R = require('ramda')
-const {differenceInSeconds} = require('date-fns')
+const {differenceInSeconds, parseISO} = require('date-fns')
 const {toUTCSelectParam} = require('../db/queryHelper')
 
 const createResetPassword = async (client, userId) => {
@@ -45,7 +45,7 @@ const findResetPassword = async (client, uuid) => {
     const resetPassword = camelize(res.rows[0])
 
     const oneWeek = 1 * 60 * 60 * 24 * 7
-    if (differenceInSeconds(resetPassword.createdTime, new Date().toISOString()) > oneWeek + 1) {
+    if (differenceInSeconds(parseISO(resetPassword.createdTime), new Date()) > oneWeek + 1) {
       // if reset password is older than one week, invalidate the reset password request
       await invalidateResetPassword(client, resetPassword.uuid)
 
