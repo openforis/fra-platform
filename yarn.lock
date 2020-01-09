@@ -2065,6 +2065,14 @@ create-hmac@^1.1.0, create-hmac@^1.1.2, create-hmac@^1.1.4:
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
 
+cron-parser@^2.7.3:
+  version "2.13.0"
+  resolved "https://registry.yarnpkg.com/cron-parser/-/cron-parser-2.13.0.tgz#6f930bb6f2931790d2a9eec83b3ec276e27a6725"
+  integrity sha512-UWeIpnRb0eyoWPVk+pD3TDpNx3KCFQeezO224oJIkktBrcW6RoAPOx5zIKprZGfk6vcYSmA8yQXItejSaDBhbQ==
+  dependencies:
+    is-nan "^1.2.1"
+    moment-timezone "^0.5.25"
+
 cross-env@^6.0.3:
   version "6.0.3"
   resolved "https://registry.yarnpkg.com/cross-env/-/cross-env-6.0.3.tgz#4256b71e49b3a40637a0ce70768a6ef5c72ae941"
@@ -4713,6 +4721,11 @@ log-symbols@2.2.0:
     sprintf-kit "^2.0.0"
     type "^1.0.1"
 
+long-timeout@0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/long-timeout/-/long-timeout-0.1.1.tgz#9721d788b47e0bcb5a24c2e2bee1a0da55dab514"
+  integrity sha1-lyHXiLR+C8taJMLivuGg2lXatRQ=
+
 loose-envify@^1.0.0, loose-envify@^1.1.0, loose-envify@^1.2.0, loose-envify@^1.3.1, loose-envify@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/loose-envify/-/loose-envify-1.4.0.tgz#71ee51fa7be4caec1a63839f7e682d8132d30caf"
@@ -5064,6 +5077,18 @@ mochapack@^1.1.13:
     toposort "^2.0.2"
     yargs "14.0.0"
 
+moment-timezone@^0.5.25:
+  version "0.5.27"
+  resolved "https://registry.yarnpkg.com/moment-timezone/-/moment-timezone-0.5.27.tgz#73adec8139b6fe30452e78f210f27b1f346b8877"
+  integrity sha512-EIKQs7h5sAsjhPCqN6ggx6cEbs94GK050254TIJySD1bzoM5JTYDwAU1IoVOeTOL6Gm27kYJ51/uuvq1kIlrbw==
+  dependencies:
+    moment ">= 2.9.0"
+
+"moment@>= 2.9.0":
+  version "2.24.0"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.24.0.tgz#0d055d53f5052aa653c9f6eb68bb5d12bf5c2b5b"
+  integrity sha512-bV7f+6l2QigeBBZSM/6yTNq4P2fNpSWj/0e7jQcy87A8e7o2nAfP/34/2ky5Vw4B9S446EtIhodAzkFCcR4dQg==
+
 "mongodb-uri@>= 0.9.7":
   version "0.9.7"
   resolved "https://registry.yarnpkg.com/mongodb-uri/-/mongodb-uri-0.9.7.tgz#0f771ad16f483ae65f4287969428e9fbc4aa6181"
@@ -5249,6 +5274,15 @@ node-releases@^1.1.41:
   integrity sha512-+IctMa7wIs8Cfsa8iYzeaLTFwv5Y4r5jZud+4AnfymzeEXKBCavFX0KBgzVaPVqf0ywa6PrO8/b+bPqdwjGBSg==
   dependencies:
     semver "^6.3.0"
+
+node-schedule@^1.3.2:
+  version "1.3.2"
+  resolved "https://registry.yarnpkg.com/node-schedule/-/node-schedule-1.3.2.tgz#d774b383e2a6f6ade59eecc62254aea07cd758cb"
+  integrity sha512-GIND2pHMHiReSZSvS6dpZcDH7pGPGFfWBIEud6S00Q8zEIzAs9ommdyRK1ZbQt8y1LyZsJYZgPnyi7gpU2lcdw==
+  dependencies:
+    cron-parser "^2.7.3"
+    long-timeout "0.1.1"
+    sorted-array-functions "^1.0.0"
 
 nodemailer@^6.3.1:
   version "6.3.1"
@@ -7094,6 +7128,11 @@ sort-keys@^1.0.0:
   integrity sha1-RBttTTRnmPG05J6JIK37oOVD+a0=
   dependencies:
     is-plain-obj "^1.0.0"
+
+sorted-array-functions@^1.0.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/sorted-array-functions/-/sorted-array-functions-1.2.0.tgz#43265b21d6e985b7df31621b1c11cc68d8efc7c3"
+  integrity sha512-sWpjPhIZJtqO77GN+LD8dDsDKcWZ9GCOJNqKzi1tvtjGIzwfoyuRH8S0psunmc6Z5P+qfDqztSbwYR5X/e1UTg==
 
 source-list-map@^2.0.0:
   version "2.0.1"
