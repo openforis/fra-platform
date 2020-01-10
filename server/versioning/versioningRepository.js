@@ -16,7 +16,8 @@ const getAllVersions = async () => {
              v.status,
              v.publish_time as timestamp,
              u.name,
-             u.email
+             u.email,
+             u.id as uid
       FROM fra_version v
       INNER JOIN fra_user u ON v.created_by = u.id
       ORDER BY v.publish_time;
@@ -99,6 +100,13 @@ const newSchemaVersion = async (to, from = 'public') => {
   await db.query(query, [from.replace(/\./g, '_'), to.replace(/\./g, '_')])
 }
 
+const deleteVersion = async (id) => {
+  const query = `DROP SCHEMA IF EXISTS schema_name CASCADE`
+  await db.query(query, [`public_${id.replace(/\./g, '_')}`])
+  const query2 = `DELETE FROM fra_version WHERE id = $1;`
+  await db.query(query2, [id])
+}
+
 module.exports = {
   addVersion,
   getAllVersions,
@@ -106,5 +114,6 @@ module.exports = {
   newSchemaVersion,
   updateVersionStatus,
   getAllPendingVersions,
-  getRunningVersions
+  getRunningVersions,
+  deleteVersion
 }
