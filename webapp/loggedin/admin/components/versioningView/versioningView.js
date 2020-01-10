@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Switch, Route, useRouteMatch } from 'react-router-dom'
-import { getVersions, createVersion, onChangeNewVersionForm } from '../../actions'
-
+import { getVersions, createVersion, deleteVersion, onChangeNewVersionForm } from '../../actions'
 
 import './versioningViewStyle.less'
 import { NewVersionButton } from './NewVersionButton'
@@ -14,6 +13,7 @@ const VersioningView = (props) => {
     getVersions,
     versions,
     createVersion,
+    deleteVersion,
     onChangeNewVersionForm
   } = props
   const { path } = useRouteMatch()
@@ -27,7 +27,10 @@ const VersioningView = (props) => {
     <Switch>
       <Route exact path={path}>
         {versionsExist ?
-          <VersioningViewTable versions={versions} getVersions={getVersions} />
+          <VersioningViewTable
+            deleteVersion={deleteVersion}
+            versions={versions}
+            getVersions={getVersions} />
           :
           <h1>No versions yet</h1>}
         <NewVersionButton />
@@ -51,6 +54,7 @@ export default connect(mapStateToProps,
   {
     getVersions,
     createVersion,
+    deleteVersion,
     onChangeNewVersionForm
   })(VersioningView)
 
