@@ -1,4 +1,6 @@
 import axios from 'axios'
+import { applicationError } from '@webapp/loggedin/applicationError/actions'
+
 export const versioningGetSuccess = 'versioning/get/success'
 export const versioningDeleteSuccess = 'versioning/get/success'
 export const versioningPostMissingData = 'versioning/post/missingdata'
@@ -12,7 +14,7 @@ export const getVersions = () => dispatch => {
       type: versioningGetSuccess,
       versions: data
     })
-  }).catch(console.error)
+  }).catch(err => dispatch(applicationError(err)))
 }
 
 export const createVersion = (e) => (dispatch, getState) => {
@@ -48,17 +50,17 @@ export const createVersion = (e) => (dispatch, getState) => {
       type: versioningPostSuccess,
       versions: res.data
     })
-  }).catch(console.error)
+  }).catch(err => dispatch(applicationError(err)))
 }
 export const deleteVersion = (id) => (dispatch, getState) => {
   console.log(id)
-  axios.delete(`/api/versioning/`, id).then(res => {
+  axios.delete(`/api/versioning/${id}`).then(res => {
     console.log(res)
     return dispatch({
       type: versioningDeleteSuccess,
       versions: res.data
     })
-  }).catch(console.error)
+  }).catch(err => dispatch(applicationError(err)))
 }
 
 export const onChangeNewVersionForm = (e) => dispatch => {
