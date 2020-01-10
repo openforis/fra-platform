@@ -101,10 +101,23 @@ const newSchemaVersion = async (to, from = 'public') => {
 }
 
 const deleteVersion = async (id) => {
-  const query = `DROP SCHEMA IF EXISTS schema_name CASCADE`
-  await db.query(query, [`public_${id.replace(/\./g, '_')}`])
-  const query2 = `DELETE FROM fra_version WHERE id = $1;`
-  await db.query(query2, [id])
+  try {
+    const query = `SELECT version_number FROM fra_version WHERE id = $1;`
+    const result = await db.query(query, [id])
+    const { version_number } = result.rows[0]
+    const schemaName = `public_${version_number.replace(/\./g, '_')}`
+  
+    // Using the parameter in the query works,
+    // passing the parameter (with $1) throws error
+    const query2 = `DROP SCHEMA ${schemaName} CASCADE;`
+    await db.query(query2)
+    
+    const query3 = `DELETE FROM fra_version WHERE id = $1;`
+    await db.query(query3, [id])
+
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 module.exports = {

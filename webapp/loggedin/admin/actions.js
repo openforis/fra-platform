@@ -52,6 +52,7 @@ export const createVersion = (e) => (dispatch, getState) => {
     })
   }).catch(err => dispatch(applicationError(err)))
 }
+
 export const deleteVersion = (id) => (dispatch, getState) => {
   console.log(id)
   axios.delete(`/api/versioning/${id}`).then(res => {
