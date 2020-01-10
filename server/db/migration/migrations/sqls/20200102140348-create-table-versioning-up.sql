@@ -14,6 +14,6 @@ CREATE TABLE fra_version(
   version_number VARCHAR(255) NOT NULL,
   status fra_version_status NOT NULL,
   publish_time TIMESTAMP NOT NULL,
-  created_at TIMESTAMP DEFAULT Now() NOT NULL,
-  updated_at TIMESTAMP DEFAULT Now() NOT NULL
+  created_at TIMESTAMP DEFAULT (now() AT TIME ZONE 'UTC') NOT NULL,
+  updated_at TIMESTAMP DEFAULT (now() AT TIME ZONE 'UTC') NOT NULL
 );
