@@ -1,3 +1,6 @@
+@import (reference) "../../../../app-styles/config.less";
+@import (reference) "../../../../app-styles/inputMixins.less";
+
 .btn-delete {
   background-color: indianred;
   color: rgba(255, 255, 255, 1);
@@ -19,4 +22,40 @@
   color: #0098a6;
   width: 64px !important;
   height: 64px !important;
+}
+
+.new-version__container {
+  max-width: 700px;
+  margin: 0 auto;
+  background-color: @ui-bg;
+  padding: 20px 8px;
+  margin-bottom: 24px;
+  border-radius: 2px;
+  
+  .new-version__title {
+    padding: .5rem 0;
+  }
+
+  .new-version__input {
+    width: 50%;
+    color: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    text-align: inherit;
+    padding: 10px 10px 10px 10px;
+  }
+
+  .new-version__label {
+    font-size: 14px;
+    font-weight: bold;
+  }
+
+  .new-version__button-container {
+    padding: 1rem;
+    margin-bottom: 2rem;
+    .btn {
+      float: right;
+    }
+  }
+
 }
