@@ -100,6 +100,7 @@ The FRA team fra@fao.org
       links: 'Links & Repository',
       contentCheck: 'Content / Check',
       dataExport: 'Data export',
+      versioning: 'Versioning',
     },
     overview: {
       loadingMap: 'Loading map…',
@@ -222,6 +223,29 @@ The FRA team fra@fao.org
     },
     dataExport: {
       downloadData: 'Download data',
+    },
+    versioning: {
+      status: {
+        pending: 'Pending',
+        running: 'Running',
+        completed: 'Completed',
+        failed: 'Failed'
+      },
+      form: {
+        newVersion: 'New version',
+        version: 'Version',
+        date: 'Date',
+        cancel: 'Cancel'
+      },
+      table: {
+        databaseVersions: 'Database Versions',
+        versionNumber: 'Version Number',
+        timestamp: 'Timestamp',
+        createdBy: 'Created By',
+        status: 'Status',
+        delete: 'Delete',
+        scheduledAt: 'Scheduled at'
+      }
     }
   },
 
