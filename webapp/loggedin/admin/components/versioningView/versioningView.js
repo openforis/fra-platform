@@ -15,7 +15,8 @@ const VersioningView = (props) => {
     versions,
     createVersion,
     deleteVersion,
-    onChangeNewVersionForm
+    onChangeNewVersionForm,
+    i18n
   } = props
   const { path } = useRouteMatch()
   const versionsExist = versions.length > 0
@@ -29,6 +30,7 @@ const VersioningView = (props) => {
       <Route exact path={path}>
         {versionsExist ?
           <VersioningViewTable
+            i18n={i18n}
             deleteVersion={deleteVersion}
             versions={versions}
             getVersions={getVersions} />
@@ -37,7 +39,7 @@ const VersioningView = (props) => {
         <NewVersionButton />
       </Route>
       <Route path={`${path}new/`}>
-        <NewVersionForm onChange={onChangeNewVersionForm} onSubmit={createVersion} />
+        <NewVersionForm i18n={i18n} onChange={onChangeNewVersionForm} onSubmit={createVersion} />
       </Route>
     </Switch>
   )
@@ -48,7 +50,8 @@ VersioningView.defaultProps = {
 }
 
 const mapStateToProps = (state) => ({
-  versions: state.admin.versions
+  versions: state.admin.versions,
+  i18n: state.user.i18n,
 })
 
 export default connect(mapStateToProps,
