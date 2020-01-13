@@ -44,6 +44,10 @@ export const createVersion = (e) => (dispatch, getState) => {
     return
   }
 
+  newVersionForm.timestamp = new Date(newVersionForm.timestamp).toISOString()
+
+  console.log({ newVersionForm })
+
   axios.post(`/api/versioning/`, newVersionForm).then(res => {
     console.log(res)
     return dispatch({
