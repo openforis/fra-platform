@@ -3,23 +3,23 @@ import { Link, useParams } from 'react-router-dom'
 import Icon from '@webapp/components/icon'
 import { classNames, sortVersions, formatDate } from './versioningViewUtils'
 
-const VersioningViewTableRow = ({ deleteVersion, id, uid, version, timestamp, name, status }) => {
+const VersioningViewTableRow = ({ i18n, deleteVersion, id, uid, version, timestamp, name, status }) => {
   const { countryIso } = useParams()
   return <tr className={`tr-${status}`}>
     <td className={classNames.td}>{version}</td>
     <td className={classNames.td}>
-      {status === 'pending' ? 'Scheduled at:' : ''}
+      {status === 'pending' ? `${i18n.t('landing.versioning.table.scheduledAt')}:` : ''}
       {formatDate(timestamp)}
     </td>
     <td className={classNames.td}>
       <Link to={`/country/${countryIso}/user/${uid}`}>{name}</Link>
     </td>
-    <td className={classNames.td}>{status}</td>
+    <td className={classNames.td}>{i18n.t(`landing.versioning.status.${status}`)}</td>
     <td className={classNames.td}>
       {
         status !== 'pending' &&
         <button onClick={() => deleteVersion(id)} className={classNames.button}>
-          <Icon className={classNames.icon} name="remove" /> Delete
+          <Icon className={classNames.icon} name="remove" /> {i18n.t('landing.versioning.table.delete')}
         </button>
       }
     </td>
@@ -27,15 +27,22 @@ const VersioningViewTableRow = ({ deleteVersion, id, uid, version, timestamp, na
 }
 
 export const VersioningViewTable = (props) => {
-  const { versions, deleteVersion } = props;
-  const thead = ['Version Number', 'Timestamp', 'Created By', 'Status', ''];
+  const { versions, deleteVersion, i18n } = props;
+  const thead = [
+    i18n.t('landing.versioning.table.versionNumber'),
+    i18n.t('landing.versioning.table.timestamp'),
+    i18n.t('landing.versioning.table.createdBy'),
+    i18n.t('landing.versioning.table.status'),
+    ''];
   return (
     <div className="fra-table__container">
       <div className="fra-table__scroll-wrapper">
         <table style={{ maxWidth: 700 }} className={classNames.table}>
           <thead>
             <tr>
-              <th className={classNames.th} colSpan="5">Database Versions</th>
+              <th className={classNames.th} colSpan="5">
+                {i18n.t('landing.versioning.table.databaseVersions')}
+              </th>
             </tr>
             <tr>
               {thead.map((title, i) => <th className={classNames.th} key={i}>{title}</th>)}
@@ -43,7 +50,7 @@ export const VersioningViewTable = (props) => {
           </thead>
           <tbody>
             {sortVersions(versions).map((version, i) =>
-              <VersioningViewTableRow deleteVersion={deleteVersion} key={i} {...version} />)}
+              <VersioningViewTableRow i18n={i18n} deleteVersion={deleteVersion} key={i} {...version} />)}
           </tbody>
         </table>
       </div>
