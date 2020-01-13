@@ -18,8 +18,6 @@ export const getVersions = () => dispatch => {
 }
 
 export const createVersion = (e) => (dispatch, getState) => {
-  // Prevent <form> element doing page refresh on submit
-  e.preventDefault();
   const state = getState();
   const { newVersionForm } = state.admin
   // Required fields for new version: version number and timestamp
@@ -44,12 +42,10 @@ export const createVersion = (e) => (dispatch, getState) => {
     return
   }
 
+  // use iso-String, for correct date/time in db
   newVersionForm.timestamp = new Date(newVersionForm.timestamp).toISOString()
 
-  console.log({ newVersionForm })
-
   axios.post(`/api/versioning/`, newVersionForm).then(res => {
-    console.log(res)
     return dispatch({
       type: versioningPostSuccess,
       versions: res.data
@@ -60,7 +56,6 @@ export const createVersion = (e) => (dispatch, getState) => {
 export const deleteVersion = (id) => (dispatch, getState) => {
   console.log(id)
   axios.delete(`/api/versioning/${id}`).then(res => {
-    console.log(res)
     return dispatch({
       type: versioningDeleteSuccess,
       versions: res.data
