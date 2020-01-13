@@ -13,7 +13,7 @@ CREATE TABLE fra_version(
   created_by INTEGER REFERENCES fra_user(id),
   version_number VARCHAR(255) NOT NULL,
   status fra_version_status NOT NULL,
-  publish_time TIMESTAMP NOT NULL,
+  published_at TIMESTAMP NOT NULL,
   created_at TIMESTAMP DEFAULT (now() AT TIME ZONE 'UTC') NOT NULL,
   updated_at TIMESTAMP DEFAULT (now() AT TIME ZONE 'UTC') NOT NULL
 );

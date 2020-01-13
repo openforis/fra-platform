@@ -14,27 +14,27 @@ const getAllVersions = async () => {
       SELECT v.id,
              v.version_number as version,
              v.status,
-             v.publish_time as timestamp,
+             v.published_at as timestamp,
              u.name,
              u.email,
              u.id as uid
       FROM fra_version v
       INNER JOIN fra_user u ON v.created_by = u.id
-      ORDER BY v.publish_time;
+      ORDER BY v.published_at;
   `)
   return camelize(result.rows)
 }
 
 // Returns all pending versions from fra_version
-// that have publish_time (timestamp) in next 5 minutes
+// that have published_at (timestamp) in next 5 minutes
 const getPendingVersions = async () => {
   const result = await db.query(`
     SELECT *
     FROM fra_version v
-    WHERE v.publish_time > NOW() - interval '1 minute'
-      AND v.publish_time <= NOW() + interval '5 minute'
+    WHERE v.published_at > NOW() - interval '1 minute'
+      AND v.published_at <= NOW() + interval '5 minute'
       AND v.status = 'pending'
-    ORDER BY v.publish_time;
+    ORDER BY v.published_at;
   `)
   return camelize(result.rows)
 }
@@ -45,7 +45,7 @@ const getAllPendingVersions = async () => {
     SELECT *
     FROM fra_version v
     WHERE v.status = 'pending'
-    ORDER BY v.publish_time;
+    ORDER BY v.published_at;
   `)
   return camelize(result.rows)
 }
@@ -56,7 +56,7 @@ const getRunningVersions = async () => {
     SELECT *
     FROM fra_version v
     WHERE v.status = 'running'
-    ORDER BY v.publish_time;
+    ORDER BY v.published_at;
   `)
   return camelize(result.rows)
 }
@@ -74,7 +74,7 @@ const updateVersionStatus = async (id, status) => {
 
 const addVersion = async (userId, version, timestamp) => {
   const query = `
-    INSERT INTO fra_version (created_by, version_number, status, publish_time)
+    INSERT INTO fra_version (created_by, version_number, status, published_at)
     VALUES ($1,
             $2,
             'pending',
