@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom'
 import Icon from '@webapp/components/icon'
 import { classNames, sortVersions, formatDate } from './versioningViewUtils'
 
-const VersioningViewTableRow = ({ i18n, deleteVersion, id, uid, version, timestamp, name, status }) => {
+const VersioningViewTableRow = ({ i18n, deleteVersion, id, userId, version, timestamp, userName, status }) => {
   const { countryIso } = useParams()
   return <tr className={`tr-${status}`}>
     <td className={classNames.td}>{version}</td>
@@ -12,7 +12,7 @@ const VersioningViewTableRow = ({ i18n, deleteVersion, id, uid, version, timesta
       {formatDate(timestamp)}
     </td>
     <td className={classNames.td}>
-      <Link to={`/country/${countryIso}/user/${uid}`}>{name}</Link>
+      <Link to={`/country/${countryIso}/user/${userId}`}>{userName}</Link>
     </td>
     <td className={classNames.td}>{i18n.t(`landing.versioning.status.${status}`)}</td>
     <td className={classNames.td}>

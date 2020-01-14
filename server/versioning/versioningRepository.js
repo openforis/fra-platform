@@ -15,9 +15,9 @@ const getAllVersions = async () => {
              v.version_number as version,
              v.status,
              v.published_at as timestamp,
-             u.name,
-             u.email,
-             u.id as uid
+             u.name as user_name,
+             u.email as user_email,
+             u.id as user_id
       FROM fra_version v
       INNER JOIN fra_user u ON v.created_by = u.id
       ORDER BY v.published_at;
