@@ -1,4 +1,4 @@
-const { getAllVersions, addVersion, deleteVersion } = require('./versioningRepository')
+const { getVersionById, getAllVersions, addVersion, deleteVersion, getSchemaByName } = require('./versioningRepository')
 const { sendErr } = require('../utils/requestUtils')
 
 // TODO: add authentication
@@ -32,11 +32,16 @@ module.exports.init = app => {
 
   app.delete('/versioning/:id', async (req, res) => {
     const { id } = req.params
-    console.log({ id })
     if (!id) {
       return
     }
-    await deleteVersion(id)
+
+    try {
+      await deleteVersion(id)
+    } catch (error) {
+      sendErr(res, error)
+    }
+
     const versions = await getAllVersions();
     res.json(versions)
   })

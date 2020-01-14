@@ -102,31 +102,59 @@ const newSchemaVersion = async (to, from = 'public') => {
 
 const deleteVersion = async (id) => {
   try {
-    const query = `SELECT version_number FROM fra_version WHERE id = $1;`
-    const result = await db.query(query, [id])
-    const { version_number } = result.rows[0]
-    const schemaName = `public_${version_number.replace(/\./g, '_')}`
-  
-    // Using the parameter in the query works,
-    // passing the parameter (with $1) throws error
-    const query2 = `DROP SCHEMA ${schemaName} CASCADE;`
-    await db.query(query2)
-    
-    const query3 = `DELETE FROM fra_version WHERE id = $1;`
-    await db.query(query3, [id])
+    const result = await getVersionById(id)
+    const { versionNumber } = result[0]
+    const schemaName = `public_${versionNumber.replace(/\./g, '_')}`
+
+    const result2 = await getSchemaByName(schemaName)
+
+    // If a schema exists, delete it
+    if (result2.length > 0) {
+      // Using the parameter in the query works,
+      // passing the parameter (with $1) throws error
+      const query = `DROP SCHEMA ${schemaName} CASCADE;`
+      await db.query(query)
+    }
+
+    // Delete the table entry from fra_version table
+    const query2 = `DELETE FROM fra_version WHERE id = $1;`
+    await db.query(query2, [id])
 
   } catch (error) {
     console.log(error)
   }
 }
 
+// Used to check if certain schema exists
+const getSchemaByName = async (name) => {
+  const query = `
+    SELECT schema_name
+    FROM information_schema.schemata
+    WHERE schema_name = $1;
+  `
+  const result = await db.query(query, [name])
+  return camelize(result.rows)
+}
+
+// Used to check if certain schema exists
+const getVersionById = async (id) => {
+  const result = await db.query(`
+        SELECT *
+        FROM fra_version
+        WHERE id = $1
+    `, [id])
+  return camelize(result.rows)
+}
+
 module.exports = {
   addVersion,
+  deleteVersion,
+  getAllPendingVersions,
   getAllVersions,
   getPendingVersions,
+  getRunningVersions,
+  getSchemaByName,
+  getVersionById,
   newSchemaVersion,
   updateVersionStatus,
-  getAllPendingVersions,
-  getRunningVersions,
-  deleteVersion
 }
