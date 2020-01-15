@@ -54,7 +54,7 @@ export const compareVersion = (v1, v2) => {
   return v1.length == v2.length ? 0 : (v1.length < v2.length ? -1 : 1);
 }
 
-const validVersion = {
+const validatorFunctions = {
   // Version should match major.minor.patch -style
   version: ({ version }) => /\d+\.\d+\.\d+/.test(version),
   // Check given date is after today
@@ -62,7 +62,7 @@ const validVersion = {
 }
 
 export const validField = (newVersionForm, field) =>
-  validVersion[field](newVersionForm)
+  validatorFunctions[field](newVersionForm)
 
 export const versionIsGreater = (versions, version) => {
   if (typeof version !== 'string') return false;
