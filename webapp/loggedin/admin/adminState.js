@@ -10,8 +10,8 @@ const keys = {
 const getState = R.prop(stateKey)
 
 // === READ
-export const getVersions = R.pipe(getState, R.propOr(null, keys.versions))
-export const getNewVersionForm = R.pipe(getState, R.propOr(null, keys.newVersionForm))
+export const getVersions = R.pipe(getState, R.propOr([], keys.versions))
+export const getNewVersionForm = R.pipe(getState, R.propOr({}, keys.newVersionForm))
 
 // === UPDATE
 export const assocVersions = R.assoc(keys.versions)
