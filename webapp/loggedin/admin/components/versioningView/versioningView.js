@@ -9,6 +9,8 @@ import { NewVersionButton } from './NewVersionButton'
 import { NewVersionForm } from './NewVersionForm'
 import { VersioningViewTable } from './VersioningViewTable'
 
+import * as AdminState from '@webapp/loggedin/admin/adminState'
+
 const VersioningView = (props) => {
   const {
     getVersions,
@@ -50,7 +52,7 @@ VersioningView.defaultProps = {
 }
 
 const mapStateToProps = (state) => ({
-  versions: state.admin.versions,
+  versions: AdminState.getVersions(state),
   i18n: state.user.i18n,
 })
 
