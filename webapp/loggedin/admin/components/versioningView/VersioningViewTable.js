@@ -17,7 +17,7 @@ const VersioningViewTableRow = ({ i18n, deleteVersion, id, userId, version, time
     <td className={classNames.td}>{i18n.t(`landing.versioning.status.${status}`)}</td>
     <td className={classNames.td}>
       {
-        status !== 'pending' &&
+        // status !== 'pending' &&
         <button onClick={() => deleteVersion(id)} className={classNames.button}>
           <Icon className={classNames.icon} name="remove" /> {i18n.t('landing.versioning.table.delete')}
         </button>
