@@ -15,8 +15,8 @@ export const changeAssessment = (countryIso, assessment, notifyUsers) => dispatc
   dispatch({type: changeAssessmentStatusInitiated, assessmentType: assessment.type})
   axios.post(`/api/assessment/${countryIso}?notifyUsers=${notifyUsers}`, assessment)
     .then(() => {
-      getCountryList()(dispatch)
-      fetchCountryOverviewStatus(countryIso)(dispatch)
+      dispatch(getCountryList())
+      dispatch(fetchCountryOverviewStatus(countryIso))
     })
     .catch((err) => dispatch(applicationError(err)))
 }
