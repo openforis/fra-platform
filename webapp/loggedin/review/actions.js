@@ -24,8 +24,8 @@ export const postComment = (issueId, countryIso, section, target, userId, msg) =
   const api = issueId ? `/api/review/${issueId}` : `/api/review/${countryIso}/${section}?target=${target}`
   axios.post(api, {msg}).then(() => {
       dispatch({target: target, type: issuePostCommentCompleted, status: 'completed'})
-      getIssueSummary(countryIso, section, target)(dispatch)
-      fetchCountryOverviewStatus(countryIso)(dispatch)
+      dispatch(getIssueSummary(countryIso, section, target))
+      dispatch(fetchCountryOverviewStatus(countryIso))
       axios.get(`/api/review/${countryIso}/${section}?target=${target}`)
         .then(sectionCommentsReceived(section, target, dispatch))
         .catch(err => dispatch(applicationError(err)))
@@ -56,12 +56,12 @@ export const getIssueSummary = (countryIso, section, target) => dispatch => {
 }
 
 export const openCommentThread = (countryIso, section, target, title) => dispatch => {
-  retrieveComments(countryIso, section, target)(dispatch)
+  dispatch(retrieveComments(countryIso, section, target))
   dispatch({type: issueOpenCommentThread, target, section, title})
 }
 export const closeCommentThread = (countryIso, section, target) => dispatch => {
-  getIssueSummary(countryIso, section, target)(dispatch)
-  fetchCountryOverviewStatus(countryIso)(dispatch)
+  dispatch(getIssueSummary(countryIso, section, target))
+  dispatch(fetchCountryOverviewStatus(countryIso))
   dispatch({type: issueCloseCommentThread})
 }
 
@@ -69,9 +69,9 @@ export const markCommentAsDeleted = (countryIso, section, target, commentId) => 
   axios
     .delete(`/api/review/${countryIso}/comments/${commentId}`)
     .then(() => {
-      retrieveComments(countryIso, section, target)(dispatch)
-      getIssueSummary(countryIso, section, target)(dispatch)
-      fetchCountryOverviewStatus(countryIso)(dispatch)
+      dispatch(retrieveComments(countryIso, section, target))
+      dispatch(getIssueSummary(countryIso, section, target))
+      dispatch(fetchCountryOverviewStatus(countryIso))
     })
     .catch(err => dispatch(applicationError(err)))
 
@@ -79,9 +79,9 @@ export const markCommentAsDeleted = (countryIso, section, target, commentId) => 
 export const markIssueAsResolved = (countryIso, section, target, issueId) => dispatch => {
   axios.post(`/api/issue/markAsResolved?issueId=${issueId}`)
     .then(() => {
-      retrieveComments(countryIso, section, target)(dispatch)
-      getIssueSummary(countryIso, section, target)(dispatch)
-      fetchCountryOverviewStatus(countryIso)(dispatch)
+      dispatch(retrieveComments(countryIso, section, target))
+      dispatch(getIssueSummary(countryIso, section, target))
+      dispatch(fetchCountryOverviewStatus(countryIso))
     })
     .catch(err => dispatch(applicationError(err)))
 

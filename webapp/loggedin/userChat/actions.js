@@ -30,7 +30,7 @@ export const openChat = (countryIso, sessionUser, recipientUser) => dispatch => 
         dispatch(getChatNewMessages(countryIso, sessionUser, recipientUser))
 
         // when opening chat, unread messages are marked as read, therefore reloading country overview is needed
-        getCountryOverview(countryIso)(dispatch)
+        dispatch(getCountryOverview(countryIso))
       }
     )
     .catch(e => applicationError(e))

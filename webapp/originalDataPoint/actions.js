@@ -66,7 +66,7 @@ export const remove = (countryIso, odpId, destination) => dispatch => {
   axios.delete(`/api/odp/?odpId=${odpId}&countryIso=${countryIso}`)
     .then(() => {
       dispatch({type: odpClearActiveAction})
-      fetchCountryOverviewStatus(countryIso)(dispatch)
+      dispatch(fetchCountryOverviewStatus(countryIso))
       window.location = `/country/${countryIso}/${destination}/`
     }).catch(err => dispatch(applicationError(err))
   )
@@ -75,8 +75,8 @@ export const remove = (countryIso, odpId, destination) => dispatch => {
 export const removeFromList = (countryIso, odpId) => dispatch => {
   axios.delete(`/api/odp/?odpId=${odpId}&countryIso=${countryIso}`)
     .then(() => {
-      fetchCountryOverviewStatus(countryIso)(dispatch)
-      fetchOdps(countryIso)(dispatch)
+      dispatch(fetchCountryOverviewStatus(countryIso))
+      dispatch(fetchOdps(countryIso))
     }).catch(err => dispatch(applicationError(err))
   )
 }
@@ -93,7 +93,7 @@ export const markAsActual = (countryIso, odp, destination) => dispatch => {
     axios.post(`/api/odp/markAsActual/?odpId=${odp.odpId}&countryIso=${countryIso}`).then(resp => {
       dispatch(autosave.complete)
       dispatch({type: odpClearActiveAction})
-      fetchCountryOverviewStatus(countryIso)(dispatch)
+      dispatch(fetchCountryOverviewStatus(countryIso))
       window.location = `/country/${countryIso}/${destination}/`
     }).catch(err =>
       dispatch(applicationError(err))
@@ -131,7 +131,7 @@ export const copyPreviousNationalClasses = (countryIso, odp) => dispatch => {
   axios.get(`/api/prevOdp/${countryIso}/${odp.year}?countryIso=${countryIso}`).then(resp => {
     const prevOdp = resp.data
     if (prevOdp.nationalClasses) {
-      saveDraft(countryIso, copyNationalClassDefinitions(odp, prevOdp))(dispatch)
+      dispatch(saveDraft(countryIso, copyNationalClassDefinitions(odp, prevOdp)))
     }
     else
       dispatch(applicationError({key: 'error.ndp.previousNdpNotFound', values: {year: odp.year}}))
