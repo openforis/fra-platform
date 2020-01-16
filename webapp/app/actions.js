@@ -7,7 +7,6 @@ import { fetch as fetchGrowingStock } from '@webapp/loggedin/assessmentFra/growi
 export const appCountryIsoUpdate = 'app/countryIso/update'
 
 export const fetchAllCountryData = countryIso => dispatch => {
-  console.log('fetchAllCountryData')
   dispatch(fetchCountryOverviewStatus(countryIso))
   dispatch(fetchItem('extentOfForest', countryIso))
   dispatch(fetchItem('forestCharacteristics', countryIso))
