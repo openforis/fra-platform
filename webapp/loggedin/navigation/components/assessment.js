@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 import { connect, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import {
+  Link,
+  NavLink,
+} from 'react-router-dom'
 
 import * as R from 'ramda'
 import { isAdministrator } from '@common/countryRole'
@@ -15,6 +18,24 @@ import { canToggleAssessmentLock, isAssessmentLocked } from '@webapp/utils/asses
 
 import { toggleAssessmentLock } from '../actions'
 import * as AppState from '@webapp/app/appState'
+
+
+
+const MenuLink = ({ child, to, key, i18n, getReviewStatus }) => {
+  return <NavLink
+    to={to}
+    className={`nav__section-item`}
+    activeClassName="selected"
+    key={key}>
+    <div className='nav__section-order'>{child.tableNo}</div>
+    <div className='nav__section-label'>{i18n.t(child.label)}</div>
+    <div className="nav__section-status-content">
+      <ReviewStatus status={getReviewStatus(child.section)} />
+    </div>
+  </NavLink>
+}
+
+
 
 const AssessmentSection = ({ countryIso, item, assessment, i18n, ...props }) => {
 
@@ -31,31 +52,26 @@ const AssessmentSection = ({ countryIso, item, assessment, i18n, ...props }) => 
 
   return <div className="nav__section">
     <div className="nav__section-header"
-         onClick={() => props.toggleNavigationGroupCollapse(assessment.type, item.sectionNo)}>
+      onClick={() => props.toggleNavigationGroupCollapse(assessment.type, item.sectionNo)}>
       <div className="nav__section-order">{item.sectionNo}</div>
       <div className="nav__section-label">{i18n.t(item.label)}</div>
       {isSectionExpanded
         ? null
         : <div className="nav__section-status-content">
-          <ReviewStatus status={getChildStatus()}/>
+          <ReviewStatus status={getChildStatus()} />
         </div>
       }
     </div>
     <div className={isSectionExpanded ? 'nav__section-items--visible' : 'nav__section-items--hidden'}>
       {
-        R.map(child => {
+        R.map((child, i) => {
           const linkTo = getLinkTo(child.pathTemplate, countryIso)
-
-          return <Link
-            key={child.tableNo}
-            className={`nav__section-item ${R.equals(props.path, linkTo) ? 'selected' : ''}`}
-            to={linkTo}>
-            <div className='nav__section-order'>{child.tableNo}</div>
-            <div className='nav__section-label'>{i18n.t(child.label)}</div>
-            <div className="nav__section-status-content">
-              <ReviewStatus status={props.getReviewStatus(child.section)}/>
-            </div>
-          </Link>
+          return <MenuLink
+            getReviewStatus={props.getReviewStatus}
+            i18n={i18n}
+            child={child}
+            to={linkTo}
+            key={child.tableNo} />
         }, item.children)
       }
     </div>
@@ -80,7 +96,7 @@ const AssessmentChangeStatusConfirmationModal = props => {
       <div className="modal-header-center">
         {i18n.t(`assessment.status.${R.prop('transition', targetStatus)}.${R.prop('direction', targetStatus)}`)}
       </div>
-      <ModalClose onClose={onClose}/>
+      <ModalClose onClose={onClose} />
     </ModalHeader>
     <ModalBody>
       <div style={{ height: '160px' }}>
@@ -94,7 +110,7 @@ const AssessmentChangeStatusConfirmationModal = props => {
       { //administrator can disable email notification
         isAdministrator(userInfo) &&
         <div className="nav__assessment-notify-users"
-             onClick={() => setNotifyUsers(!notifyUsers)}>
+          onClick={() => setNotifyUsers(!notifyUsers)}>
           <div className={`fra-checkbox${notifyUsers ? '' : ' checked'}`}></div>
           {i18n.t('navigation.doNotNotifyUsers')}
         </div>
@@ -102,22 +118,22 @@ const AssessmentChangeStatusConfirmationModal = props => {
     </ModalBody>
     <ModalFooter>
       <button className="btn btn-secondary modal-footer__item"
-              onClick={onClose}>
+        onClick={onClose}>
         {i18n.t('navigation.cancel')}
       </button>
       <button className="btn btn-primary modal-footer__item"
-              onClick={() => {
-                changeAssessment(
-                  countryIso,
-                  {
-                    ...assessment,
-                    status: targetStatus.transition,
-                    message: textareaValue
-                  },
-                  notifyUsers
-                )
-                onClose()
-              }}>
+        onClick={() => {
+          changeAssessment(
+            countryIso,
+            {
+              ...assessment,
+              status: targetStatus.transition,
+              message: textareaValue
+            },
+            notifyUsers
+          )
+          onClose()
+        }}>
         {i18n.t('navigation.submit')}
       </button>
     </ModalFooter>
@@ -201,20 +217,20 @@ const AssessmentHeader = props => {
           }
         </div>
         <button className="btn-s btn-secondary nav__assessment-btn-lock"
-                disabled={!canToggleLock}
-                onClick={() => toggleAssessmentLock(assessment.type)}>
-          <Icon name={isLocked ? 'lock-circle' : 'lock-circle-open'} className="icon-no-margin"/>
+          disabled={!canToggleLock}
+          onClick={() => toggleAssessmentLock(assessment.type)}>
+          <Icon name={isLocked ? 'lock-circle' : 'lock-circle-open'} className="icon-no-margin" />
         </button>
       </div>
 
       <div>
         <Link className="btn-s btn-secondary" to={`/country/${countryIso}/print/${assessment.type}?onlyTables=true`}
-              target="_blank">
-          <Icon name="small-print" className="icon-margin-left"/>
-          <Icon name="icon-table2" className="icon-no-margin"/>
+          target="_blank">
+          <Icon name="small-print" className="icon-margin-left" />
+          <Icon name="icon-table2" className="icon-no-margin" />
         </Link>
         <Link className="btn-s btn-secondary" to={`/country/${countryIso}/print/${assessment.type}`} target="_blank">
-          <Icon name="small-print" className="icon-no-margin"/>
+          <Icon name="small-print" className="icon-no-margin" />
         </Link>
       </div>
 
@@ -226,7 +242,7 @@ const AssessmentHeader = props => {
         <span>{i18n.t(`assessment.status.${assessmentStatus}.label`)}</span>
         {
           !R.isEmpty(popoverItems) &&
-          <Icon className="icon-white icon-middle" name="small-down"/>
+          <Icon className="icon-white icon-middle" name="small-down" />
         }
       </div>
     </PopoverControl>
@@ -253,11 +269,11 @@ const Assessment = (props) => {
     }
     {
       R.map(item =>
-          <AssessmentSection
-            key={item.label}
-            item={item}
-            {...props}
-          />
+        <AssessmentSection
+          key={item.label}
+          item={item}
+          {...props}
+        />
         , sections)
     }
   </div>
