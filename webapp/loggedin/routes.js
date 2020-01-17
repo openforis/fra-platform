@@ -37,8 +37,8 @@ import NotFound from '@webapp/app/notfound'
 const routes = [
   { path: '/country/:countryIso/admin/', component: AdminView },
   { path: '/country/:countryIso/odps/', component: OriginalDataListView },
-  { path: '/country/:countryIso/odp/:tab/', component: OriginalDataPointView },
   { path: '/country/:countryIso/odp/:tab/:odpId/', component: OriginalDataPointView },
+  { path: '/country/:countryIso/odp/:tab/', component: OriginalDataPointView },
   { path: '/country/:countryIso/extentOfForest/', component: ExtentOfForestView },
   { path: '/country/:countryIso/growingStock/', component: GrowingStockView },
   { path: '/country/:countryIso/specificForestCategories/', component: SpecificForestCategoriesView },
