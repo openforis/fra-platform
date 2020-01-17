@@ -2,7 +2,7 @@ import './style.less'
 
 import React from 'react'
 import { connect, useSelector } from 'react-redux'
-import { Link, Redirect, Route, Switch, useRouteMatch } from 'react-router-dom'
+import { NavLink, Redirect, Route, Switch, useRouteMatch } from 'react-router-dom'
 
 import { getCountryName } from '../country/actions'
 import { isAllowedToChangeRole } from '@common/userManagementAccessControl'
@@ -37,20 +37,18 @@ const getSections = (countryIso, userInfo) => {
   return sections
 }
 
-const LandingViewLink = ({ name, i18n }) => {
-  let { url } = useRouteMatch()
-  // Check if the current url includes name-param
-  const disabled = location.pathname.includes(name)
 
-  return <Link
+const LandingViewLink = ({ labelKey, name, i18n }) => {
+  let { url } = useRouteMatch()
+
+  return <NavLink
     to={`${url}/${name}/`}
+    className="landing__page-menu-button"
+    activeClassName="disabled"
     key={name}>
-    <button
-      disabled={disabled}
-      className="landing__page-menu-button">
-      {i18n.t(`landing.sections.${name}`)}
-    </button>
-  </Link>
+
+    {i18n.t(`landing.sections.${name}`)}
+  </NavLink>
 }
 
 const LandingView = (props) => {
@@ -72,11 +70,11 @@ const LandingView = (props) => {
 
       <Switch>
         <Route exact path={path}>
-          <Redirect to={`${url}overview/`}/>
+          <Redirect to={`${url}overview/`} />
         </Route>
         {
           sections.map((section, i) =>
-            <Route key={i} path={`${path}${section.name}/`} component={section.component}/>)
+            <Route key={i} path={`${path}${section.name}/`} component={section.component} />)
         }
       </Switch>
 
