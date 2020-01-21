@@ -66,7 +66,6 @@ export const validField = (newVersionForm, field) =>
 
 export const versionIsGreater = (versions, version) => {
   if (typeof version !== 'string') return false;
-  console.log(version)
 
   if (!Array.isArray(versions) || !versions.length) {
     return true

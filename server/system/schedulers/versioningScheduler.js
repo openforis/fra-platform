@@ -41,8 +41,6 @@ const init = async () => {
     }
 
     for (const version of versions) {
-      console.log('New version pending creation:')
-      console.table(version)
       await handleNewVersion(version)
     }
   })
