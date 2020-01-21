@@ -2,6 +2,7 @@ import './style.less'
 
 import React from 'react'
 import { connect } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import * as R from 'ramda'
 
 import ReviewIndicator from '@webapp/loggedin/review/reviewIndicator'
@@ -35,12 +36,15 @@ const OriginalDataPoint = (props) => {
     saveDraft, markAsActual, remove, cancelDraft, openThread,
     autoSaving, canEditData
   } = props
-
   const { countryIso, tab } = match.params
-
+  const history = useHistory()
   const saveControlsDisabled = () => !odp.odpId || autoSaving
   const yearValidationStatusClass = () => odp.validationStatus && !odp.validationStatus.year.valid ? 'error' : ''
   const unselectable = R.defaultTo([], odp.reservedYears)
+
+  const handleSave = () => {
+    markAsActual(countryIso, odp, history)
+  }  
 
   return (
     <div className="fra-view__content">
@@ -61,7 +65,7 @@ const OriginalDataPoint = (props) => {
           <button
             className="btn btn-primary"
             disabled={saveControlsDisabled()}
-            onClick={() => markAsActual(countryIso, odp, tab)}>
+            onClick={handleSave}>
             {i18n.t('nationalDataPoint.doneEditing')}
           </button>
         }
@@ -157,7 +161,7 @@ const OriginalDataPoint = (props) => {
           <button
             className="btn btn-primary"
             disabled={saveControlsDisabled()}
-            onClick={() => markAsActual(countryIso, odp, tab)}>
+            onClick={handleSave}>
             {i18n.t('nationalDataPoint.doneEditing')}
           </button>
           <div className="odp-v-divider"></div>

@@ -83,18 +83,18 @@ export const removeFromList = (countryIso, odpId) => dispatch => {
 
 // Marking drafts
 
-export const markAsActual = (countryIso, odp, destination) => dispatch => {
+export const markAsActual = (countryIso, odp, history) => dispatch => {
   const validationStatus = validateDataPoint(odp)
   dispatch(validationCompleted(validationStatus))
   dispatch(markOdpDirty)
-
+  
   if (validationStatus.valid) {
     dispatch(autosave.start)
     axios.post(`/api/odp/markAsActual/?odpId=${odp.odpId}&countryIso=${countryIso}`).then(resp => {
       dispatch(autosave.complete)
       dispatch({type: odpClearActiveAction})
       dispatch(fetchCountryOverviewStatus(countryIso))
-      window.location = `/country/${countryIso}/${destination}/`
+      history.goBack()
     }).catch(err =>
       dispatch(applicationError(err))
     )
