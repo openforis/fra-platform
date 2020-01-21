@@ -64,7 +64,7 @@ const AssessmentSection = ({ countryIso, item, assessment, i18n, ...props }) => 
     </div>
     <div className={isSectionExpanded ? 'nav__section-items--visible' : 'nav__section-items--hidden'}>
       {
-        R.map((child, i) => {
+        R.map(child => {
           const linkTo = getLinkTo(child.pathTemplate, countryIso)
           return <MenuLink
             getReviewStatus={props.getReviewStatus}
