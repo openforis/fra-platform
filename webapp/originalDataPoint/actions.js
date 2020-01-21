@@ -94,7 +94,6 @@ export const markAsActual = (countryIso, odp, destination) => dispatch => {
       dispatch(autosave.complete)
       dispatch({type: odpClearActiveAction})
       dispatch(fetchCountryOverviewStatus(countryIso))
-      window.location = `/country/${countryIso}/${destination}/`
     }).catch(err =>
       dispatch(applicationError(err))
     )
