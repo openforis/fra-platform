@@ -2,47 +2,38 @@ const { getAllVersions, addVersion, deleteVersion } = require('./versioningRepos
 const { isAdministrator } = require("../../common/countryRole")
 const { sendErr, getUser, send404 } = require('../utils/requestUtils')
 
-// TODO: add authentication
-module.exports.init = app => {
-  app.get('/versioning/', async (req, res) => {
-    const user = getUser(req)
+const checkAdmin = (req, res) => {
+  const user = getUser(req)
     if (!isAdministrator(user)) {
       send404(res)
     }
+}
+
+module.exports.init = app => {
+  app.get('/versioning/', async (req, res) => {
+    checkAdmin(req, res)
     const versions = await getAllVersions()
     res.json(versions)
   })
 
   app.post('/versioning/', async (req, res) => {
-    const user  = getUser(req)
-    const { userId } = user
-    
-    if (!isAdministrator(user)) {
-      send404(res)
-    }
+    checkAdmin(req, res)
+    const { userId } = getUser(req)
     const { version, timestamp } = req.body
     try {
       if (!version || !timestamp) {
-        console.log({
-          version,
-          timestamp
-        })
         throw "Param null at POST/versioninig/"
       }
       addVersion(userId, version, timestamp)
       const versions = await getAllVersions();
       res.json(versions)
     } catch (err) {
-      console.log(err)
       sendErr(res, err)
     }
   })
 
   app.delete('/versioning/:id', async (req, res) => {
-    const user = getUser(req)
-    if (!isAdministrator(user)) {
-      send404(res)
-    }
+    checkAdmin(req, res)
     const { id } = req.params
     if (!id) {
       return
