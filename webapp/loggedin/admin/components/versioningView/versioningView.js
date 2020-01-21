@@ -37,7 +37,7 @@ const VersioningView = (props) => {
             versions={versions}
             getVersions={getVersions} />
           :
-          <h1>No versions yet</h1>}
+          <h1>{i18n.t('landing.versioning.table.noVersions')}</h1>}
         <NewVersionButton />
       </Route>
       <Route path={`${path}new/`}>

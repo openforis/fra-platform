@@ -239,6 +239,7 @@ The FRA team fra@fao.org
         error: 'There are errors in the form. Please, fix them and submit it again.',
       },
       table: {
+        noVersions: 'No versions yet',
         databaseVersions: 'Database Versions',
         versionNumber: 'Version Number',
         timestamp: 'Timestamp',
