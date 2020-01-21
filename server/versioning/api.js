@@ -1,6 +1,6 @@
 const { getAllVersions, addVersion, deleteVersion } = require('./versioningRepository')
 const { isAdministrator } = require("../../common/countryRole")
-const { sendErr, getUser, send404 } = require('../utils/requestUtils')
+const { sendErr, getUser, getUserId, send404 } = require('../utils/requestUtils')
 
 const checkAdmin = (req, res) => {
   const user = getUser(req)
@@ -18,11 +18,11 @@ module.exports.init = app => {
 
   app.post('/versioning/', async (req, res) => {
     checkAdmin(req, res)
-    const { userId } = getUser(req)
+    const userId = getUserId(req)
     const { version, timestamp } = req.body
     try {
-      if (!version || !timestamp) {
-        throw "Param null at POST/versioninig/"
+      if (!version || !timestamp || !userId) {
+        sendErr(res)
       }
       addVersion(userId, version, timestamp)
       const versions = await getAllVersions();

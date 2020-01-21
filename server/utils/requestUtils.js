@@ -12,6 +12,7 @@ const sendErr = (res, err) => {
 
 // Return request user
 const getUser = req => req.user;
+const getUserId = req => getUser(req).id
 
 // Sends an empty JSON message with status 200
 const sendOk = res => res.json({})
@@ -31,4 +32,5 @@ module.exports = {
   serverUrl,
   appUri,
   getUser,
+  getUserId
 }
