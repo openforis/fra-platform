@@ -1,16 +1,25 @@
-const { getVersionById, getAllVersions, addVersion, deleteVersion, getSchemaByName } = require('./versioningRepository')
-const { sendErr } = require('../utils/requestUtils')
+const { getAllVersions, addVersion, deleteVersion } = require('./versioningRepository')
+const { isAdministrator } = require("../../common/countryRole")
+const { sendErr, getUser, send404 } = require('../utils/requestUtils')
 
 // TODO: add authentication
 module.exports.init = app => {
-
   app.get('/versioning/', async (req, res) => {
-    const versions = await getAllVersions();
+    const user = getUser(req)
+    if (!isAdministrator(user)) {
+      send404(res)
+    }
+    const versions = await getAllVersions()
     res.json(versions)
   })
 
   app.post('/versioning/', async (req, res) => {
-    const userId = req.user.id
+    const user  = getUser(req)
+    const { userId } = user
+    
+    if (!isAdministrator(user)) {
+      send404(res)
+    }
     const { version, timestamp } = req.body
     try {
       if (!version || !timestamp) {
@@ -29,8 +38,11 @@ module.exports.init = app => {
     }
   })
 
-
   app.delete('/versioning/:id', async (req, res) => {
+    const user = getUser(req)
+    if (!isAdministrator(user)) {
+      send404(res)
+    }
     const { id } = req.params
     if (!id) {
       return
