@@ -14,6 +14,7 @@ import country from '../country/reducer'
 import sustainableDevelopment from '@webapp/loggedin/assessmentFra/sustainableDevelopment/reducer'
 import landing from '../landing/reducer'
 import panEuropeanIndicators from '../panEuropeanIndicators/reducer'
+import admin from './admin/reducer'
 import userChat from './userChat/reducer'
 import countryMessageBoard from './countryMessageBoard/reducer'
 
@@ -37,6 +38,7 @@ const reducers = [
   { name: 'panEuropeanIndicators', fn: panEuropeanIndicators },
   { name: 'userChat', fn: userChat },
   { name: 'countryMessageBoard', fn: countryMessageBoard },
+  { name: 'admin', fn: admin },
 ]
 
 export { component, reducers }

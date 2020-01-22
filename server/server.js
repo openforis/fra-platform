@@ -6,6 +6,8 @@ const serverInit = require('./serverInit')
 
 const cluster = require('cluster')
 
+const VersioningScheduler = require('./system/schedulers/versioningScheduler')
+
 if (cluster.isMaster) {
 
   // check db migrations in master process
@@ -28,6 +30,13 @@ if (cluster.isMaster) {
     console.log('Starting a new worker')
     cluster.fork()
   })
+
+  // ====== schedulers
+  const createSchedulers = async () => {
+    await VersioningScheduler.init()
+  } 
+  createSchedulers()
+
 } else {
   serverInit()
 }

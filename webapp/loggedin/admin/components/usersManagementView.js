@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { connect, useSelector } from 'react-redux'
 import * as R from 'ramda'
 
-import UsersTableFilterWrapper from '../../userManagement/list/usersTableFilterWrapper'
+import UsersTableFilterWrapper from '@webapp/userManagement/list/usersTableFilterWrapper'
 import UsersCount from './usersCount'
 
-import EditUserForm from '../../userManagement/edit/editUserForm'
+import EditUserForm from '@webapp/userManagement/edit/editUserForm'
 
-import { fetchAllUsers, removeUser, sendInvitationEmail } from '../../userManagement/actions'
-import { getCountryName } from '../../country/actions'
+import { fetchAllUsers, removeUser, sendInvitationEmail } from '../../../userManagement/actions'
+import { getCountryName } from '@webapp/country/actions'
 import { administrator } from '@common/countryRole'
 import * as AppState from '@webapp/app/appState'
 

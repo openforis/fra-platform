@@ -31,7 +31,7 @@ import SustainableDevelopmentView from '@webapp/loggedin/assessmentFra/sustainab
 import ContactPersonsView from '@webapp/loggedin/assessmentFra/contactPersons/contactPersonsView'
 import PanEuropeanIndicatorsView from '../panEuropeanIndicators/panEuropeanIndicatorsView'
 import EditUserView from '../userManagement/editUserView'
-import AdminView from '../admin/adminView'
+import AdminView from '@webapp/loggedin/admin/adminView'
 import NotFound from '@webapp/app/notfound'
 
 const routes = [
