@@ -1,11 +1,8 @@
-import { format, isAfter } from 'date-fns'
+import { isAfter } from 'date-fns'
+import { getRelativeDate } from '@webapp/utils/relativeDate'
 
-export const formatDate = (_date) => {
-  const [time, date] = _date.split('T')
-  return format(
-    new Date(`${date} ${time}`),
-    'dd/MM/yyyy\tHH:mm'
-  )
+export const formatDate = (_date, i18n) => {
+  return getRelativeDate(_date, i18n)
 }
 
 export const classNames = {

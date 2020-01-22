@@ -14,7 +14,7 @@ const getAllVersions = async () => {
       SELECT v.id,
              v.version_number as version,
              v.status,
-             v.published_at as timestamp,
+             to_char(v.published_at,'YYYY-MM-DD"T"HH24:MI:ssZ') as timestamp,
              u.name as user_name,
              u.email as user_email,
              u.id as user_id
@@ -29,7 +29,14 @@ const getAllVersions = async () => {
 // that have published_at (timestamp) in next 5 minutes
 const getPendingVersions = async () => {
   const result = await db.query(`
-    SELECT *
+    SELECT
+      id,
+      created_by,
+      version_number as version,
+      status,
+      to_char(v.published_at,'YYYY-MM-DD"T"HH24:MI:ssZ') as timestamp,
+      to_char(v.created_at,'YYYY-MM-DD"T"HH24:MI:ssZ') as created_at,
+      to_char(v.updated_at,'YYYY-MM-DD"T"HH24:MI:ssZ') as updated_at
     FROM fra_version v
     WHERE v.published_at > NOW() - interval '1 minute'
       AND v.published_at <= NOW() + interval '5 minute'
@@ -42,7 +49,14 @@ const getPendingVersions = async () => {
 // Returns all pending versions from fra_version
 const getAllPendingVersions = async () => {
   const result = await db.query(`
-    SELECT *
+    SELECT
+      id,
+      created_by,
+      version_number as version,
+      status,
+      to_char(v.published_at,'YYYY-MM-DD"T"HH24:MI:ssZ') as timestamp,
+      to_char(v.created_at,'YYYY-MM-DD"T"HH24:MI:ssZ') as created_at,
+      to_char(v.updated_at,'YYYY-MM-DD"T"HH24:MI:ssZ') as updated_at
     FROM fra_version v
     WHERE v.status = 'pending'
     ORDER BY v.published_at;
@@ -53,7 +67,14 @@ const getAllPendingVersions = async () => {
 // Returns all running versions from fra_version
 const getRunningVersions = async () => {
   const result = await db.query(`
-    SELECT *
+    SELECT
+      id,
+      created_by,
+      version_number as version,
+      status,
+      to_char(v.published_at,'YYYY-MM-DD"T"HH24:MI:ssZ') as timestamp,
+      to_char(v.created_at,'YYYY-MM-DD"T"HH24:MI:ssZ') as created_at,
+      to_char(v.updated_at,'YYYY-MM-DD"T"HH24:MI:ssZ') as updated_at
     FROM fra_version v
     WHERE v.status = 'running'
     ORDER BY v.published_at;
@@ -139,8 +160,15 @@ const getSchemaByName = async (name) => {
 // Used to check if certain schema exists
 const getVersionById = async (id) => {
   const result = await db.query(`
-        SELECT *
-        FROM fra_version
+        SELECT 
+          id,
+          created_by,
+          version_number as version,
+          status,
+          to_char(v.published_at,'YYYY-MM-DD"T"HH24:MI:ssZ') as timestamp,
+          to_char(v.created_at,'YYYY-MM-DD"T"HH24:MI:ssZ') as created_at,
+          to_char(v.updated_at,'YYYY-MM-DD"T"HH24:MI:ssZ') as updated_at
+        FROM fra_version v
         WHERE id = $1
     `, [id])
   return camelize(result.rows)

@@ -9,7 +9,7 @@ const VersioningViewTableRow = ({ i18n, deleteVersion, id, userId, version, time
     <td className={classNames.td}>{version}</td>
     <td className={classNames.td}>
       {status === 'pending' ? `${i18n.t('landing.versioning.table.scheduledAt')}:` : ''}
-      {formatDate(timestamp)}
+      {formatDate(timestamp, i18n)}
     </td>
     <td className={classNames.td}>
       <Link to={`/country/${countryIso}/user/${userId}`}>{userName}</Link>
