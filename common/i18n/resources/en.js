@@ -242,7 +242,7 @@ The FRA team fra@fao.org
         noVersions: 'No versions yet',
         databaseVersions: 'Database Versions',
         versionNumber: 'Version Number',
-        timestamp: 'Timestamp',
+        timestamp: 'Scheduled Time',
         createdBy: 'Created By',
         status: 'Status',
         delete: 'Delete',
