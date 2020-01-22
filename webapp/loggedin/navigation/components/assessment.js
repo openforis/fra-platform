@@ -21,12 +21,11 @@ import * as AppState from '@webapp/app/appState'
 
 
 
-const MenuLink = ({ child, to, key, i18n, getReviewStatus }) => {
+const MenuLink = ({ child, to, i18n, getReviewStatus }) => {
   return <NavLink
     to={to}
     className={`nav__section-item`}
-    activeClassName="selected"
-    key={key}>
+    activeClassName="selected">
     <div className='nav__section-order'>{child.tableNo}</div>
     <div className='nav__section-label'>{i18n.t(child.label)}</div>
     <div className="nav__section-status-content">
@@ -64,15 +63,17 @@ const AssessmentSection = ({ countryIso, item, assessment, i18n, ...props }) => 
     </div>
     <div className={isSectionExpanded ? 'nav__section-items--visible' : 'nav__section-items--hidden'}>
       {
-        R.map(child => {
-          const linkTo = getLinkTo(child.pathTemplate, countryIso)
-          return <MenuLink
-            getReviewStatus={props.getReviewStatus}
-            i18n={i18n}
-            child={child}
-            to={linkTo}
-            key={child.tableNo} />
-        }, item.children)
+        item.children.map(
+          (child, i) => {
+            const linkTo = getLinkTo(child.pathTemplate, countryIso)
+            return <MenuLink
+              getReviewStatus={props.getReviewStatus}
+              i18n={i18n}
+              child={child}
+              to={linkTo}
+              key={i} />
+          }
+        )
       }
     </div>
   </div>
