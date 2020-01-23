@@ -7,6 +7,7 @@ import * as AppState from '@webapp/app/appState'
 import * as AdminState from '@webapp/loggedin/admin/adminState'
 
 import { validField, versionIsGreater } from './versioningViewUtils'
+import * as FRAVersion from '@common/versioning/fraVersion'
 
 const DateInput = (props) => {
   const { onChange } = props
@@ -22,7 +23,7 @@ const DateInput = (props) => {
     max={maxDate}
     onChange={onChange}
     type="datetime-local"
-    name="publishedAt" />
+    name={FRAVersion.keys.publishedAt} />
 }
 
 const VersionInput = (props) => {
@@ -32,7 +33,7 @@ const VersionInput = (props) => {
     onChange={onChange}
     placeholder="Ex. 1.0.0"
     type="text"
-    name="versionNumber" />
+    name={FRAVersion.keys.versionNumber} />
 }
 
 const NewVersionForm = (props) => {
@@ -54,7 +55,7 @@ const NewVersionForm = (props) => {
     if (!(
       validField(newVersionForm, 'versionNumber') &&
       validField(newVersionForm, 'date') &&
-      versionIsGreater(versions, newVersionForm.versionNumber)
+      versionIsGreater(versions, FRAVersion.getVersionNumber(newVersionForm))
     )) {
       setError(true)
       return
@@ -76,9 +77,9 @@ const NewVersionForm = (props) => {
     <form onSubmit={onFormSubmit}>
       <h3 className="new-version__title">{i18n.t('landing.versioning.form.newVersion')}</h3>
       <label className="new-version__label">{i18n.t('landing.versioning.form.versionNumber')}</label><br />
-      <VersionInput value={newVersionForm.versionNumber} onChange={onChange} /><br />
+      <VersionInput value={FRAVersion.getVersionNumber(newVersionForm)} onChange={onChange} /><br />
       <label className="new-version__label">{i18n.t('landing.versioning.form.date')}</label><br />
-      <DateInput value={newVersionForm.publishedAt} onChange={onChange} /> <br />
+      <DateInput value={FRAVersion.getPublishedAt(newVersionForm)} onChange={onChange} /> <br />
       <div className="new-version__button-container">
         <button className="btn btn-secondary" onClick={goBack}>{i18n.t('landing.versioning.form.cancel')}</button>
         <input className="btn btn-primary" type="submit" />
@@ -86,7 +87,6 @@ const NewVersionForm = (props) => {
 
     </form>
   </div>
-    ;
 };
 
 export default NewVersionForm

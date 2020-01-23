@@ -1,5 +1,6 @@
 import { isAfter } from 'date-fns'
 import { getRelativeDate } from '@webapp/utils/relativeDate'
+import * as FRAVersion from '@common/versioning/fraVersion'
 
 export const formatDate = (_date, i18n) => {
   return getRelativeDate(_date, i18n)
@@ -16,11 +17,13 @@ export const classNames = {
 // Simple sort function.
 export const sortVersions = versions => {
   const pendingVersions = getPendingVersions(versions).sort(
-    (a, b) => compareVersion(b.versionNumber, a.versionNumber)
-  )
+    (a, b) => compareVersion(
+      FRAVersion.getVersionNumber(b), FRAVersion.getVersionNumber(a)
+    ))
   const nonPendingVersions = getNonPendingVersions(versions).sort(
-    (a, b) => compareVersion(b.versionNumber, a.versionNumber)
-  )
+    (a, b) => compareVersion(
+      FRAVersion.getVersionNumber(b), FRAVersion.getVersionNumber(a)
+    ))
   return [
     ...pendingVersions,
     ...nonPendingVersions
@@ -28,11 +31,11 @@ export const sortVersions = versions => {
 }
 
 const getPendingVersions = (versions) => {
-  return versions.filter(version => version.status === 'pending')
+  return versions.filter(version => FRAVersion.getStatus(version) === FRAVersion.status.pending)
 }
 
 const getNonPendingVersions = (versions) => {
-  return versions.filter(version => version.status !== 'pending')
+  return versions.filter(version => FRAVersion.getStatus(version) !== 'pending')
 }
 
 //https://helloacm.com/the-javascript-function-to-compare-version-number-strings/
@@ -70,6 +73,9 @@ export const versionIsGreater = (versions, versionNumber) => {
 
   // Sort mutates, make clone
   const _versions = [...versions]
-  _versions.sort((a, b) => compareVersion(b.versionNumber, a.versionNumber))
-  return compareVersion(versionNumber, _versions[0].versionNumber) > 0 ? true : false;
+  _versions.sort((a, b) =>
+    compareVersion(
+      FRAVersion.getVersionNumber(b), FRAVersion.getVersionNumber(a)
+    ))
+  return compareVersion(versionNumber, FRAVersion.getVersionNumber(_versions[0])) > 0 ? true : false;
 }

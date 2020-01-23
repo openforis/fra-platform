@@ -4,7 +4,7 @@ import Icon from '@webapp/components/icon';
 const NewVersionButton = () => {
   const { url } = useRouteMatch();
   return <Link to={`${url}new/`}>
-    <Icon title="foo" className="icon-new-version" name="circle-add" />
+    <Icon className="icon-new-version" name="circle-add" />
   </Link>;
 };
 
