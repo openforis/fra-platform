@@ -1,11 +1,14 @@
 import React from 'react';
 import { Link, useParams } from 'react-router-dom'
 import Icon from '@webapp/components/icon'
+import useI18n from '@webapp/hooks/useI18n'
 import { classNames, sortVersions, formatDate } from './versioningViewUtils'
 import * as FRAVersion from '@common/versioning/fraVersion'
 
-const VersioningViewTableRow = ({ i18n, deleteVersion, version}) => {
+const VersioningViewTableRow = ({ deleteVersion, version}) => {
   const { countryIso } = useParams()
+  const i18n = useI18n()
+
   return <tr className={`tr-${status}`}>
     <td className={classNames.td}>{FRAVersion.getVersionNumber(version)}</td>
     <td className={classNames.td}>
@@ -28,7 +31,8 @@ const VersioningViewTableRow = ({ i18n, deleteVersion, version}) => {
 }
 
 const VersioningViewTable = (props) => {
-  const { versions, deleteVersion, i18n } = props;
+  const { versions, deleteVersion } = props;
+  const i18n = useI18n()
   const thead = [
     i18n.t('landing.versioning.table.versionNumber'),
     i18n.t('landing.versioning.table.publishedAt'),
@@ -51,7 +55,7 @@ const VersioningViewTable = (props) => {
           </thead>
           <tbody>
             {sortVersions(versions).map((version, i) =>
-              <VersioningViewTableRow i18n={i18n} deleteVersion={deleteVersion} key={i} version={version} />)}
+              <VersioningViewTableRow deleteVersion={deleteVersion} key={i} version={version} />)}
           </tbody>
         </table>
       </div>
