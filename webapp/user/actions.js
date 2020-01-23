@@ -6,6 +6,7 @@ import { getRequestParam } from '@webapp/utils/urlUtils'
 
 export const appUserLogout = 'app/user/logout'
 
+export const userInitDone = 'user/init/done'
 export const userLoggedInUserLoaded = 'user/loggedInUser/loaded'
 export const userLoggedInUserSwitchLanguage = 'user/loggedInUser/switchLanguage'
 
@@ -22,9 +23,15 @@ export const getLoggedinUserInfo = () => dispatch => {
         lang || userInfo.lang,
         i18n => dispatch({ type: userLoggedInUserLoaded, userInfo, i18n })
       )
+      dispatch({ type: userInitDone })
     })
     .catch((err) => {
-      dispatch(applicationError(err))
+      // 401 (Unauthorized) | Display error if any other status
+      if (err.response && err.response.status !== 401) {
+        dispatch(applicationError(err))
+      }
+
+      dispatch({ type: userInitDone })
     })
 }
 
