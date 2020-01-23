@@ -35,7 +35,7 @@ const VersionInput = (props) => {
     name="versionNumber" />
 }
 
-export const NewVersionForm = (props) => {
+const NewVersionForm = (props) => {
   const { onSubmit, onChange, i18n } = props;
   const [error, setError] = useState(null)
   const countryIso = useSelector(AppState.getCountryIso)
@@ -88,3 +88,5 @@ export const NewVersionForm = (props) => {
   </div>
     ;
 };
+
+export default NewVersionForm

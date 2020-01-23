@@ -26,7 +26,7 @@ const VersioningViewTableRow = ({ i18n, deleteVersion, id, userId, versionNumber
   </tr >
 }
 
-export const VersioningViewTable = (props) => {
+const VersioningViewTable = (props) => {
   const { versions, deleteVersion, i18n } = props;
   const thead = [
     i18n.t('landing.versioning.table.versionNumber'),
@@ -57,3 +57,5 @@ export const VersioningViewTable = (props) => {
     </div>
   )
 };
+
+export default VersioningViewTable

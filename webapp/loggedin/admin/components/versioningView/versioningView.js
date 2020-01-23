@@ -5,9 +5,9 @@ import { connect } from 'react-redux'
 import { Switch, Route, useRouteMatch } from 'react-router-dom'
 import { getVersions, createVersion, deleteVersion, onChangeNewVersionForm } from '../../actions'
 
-import { NewVersionButton } from './NewVersionButton'
-import { NewVersionForm } from './NewVersionForm'
-import { VersioningViewTable } from './VersioningViewTable'
+import NewVersionButton from './NewVersionButton'
+import NewVersionForm from './NewVersionForm'
+import VersioningViewTable from './VersioningViewTable'
 
 import * as AdminState from '@webapp/loggedin/admin/adminState'
 
