@@ -233,7 +233,7 @@ The FRA team fra@fao.org
       },
       form: {
         newVersion: 'New version',
-        version: 'Version',
+        versionNumber: 'Version',
         date: 'Date',
         cancel: 'Cancel',
         error: 'There are errors in the form. Please, fix them and submit it again.',
@@ -242,7 +242,7 @@ The FRA team fra@fao.org
         noVersions: 'No versions yet',
         databaseVersions: 'Database Versions',
         versionNumber: 'Version Number',
-        timestamp: 'Scheduled Time',
+        publishedAt: 'Scheduled Time',
         createdBy: 'Created By',
         status: 'Status',
         delete: 'Delete',

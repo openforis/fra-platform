@@ -3,13 +3,13 @@ import { Link, useParams } from 'react-router-dom'
 import Icon from '@webapp/components/icon'
 import { classNames, sortVersions, formatDate } from './versioningViewUtils'
 
-const VersioningViewTableRow = ({ i18n, deleteVersion, id, userId, version, timestamp, userName, status }) => {
+const VersioningViewTableRow = ({ i18n, deleteVersion, id, userId, versionNumber, publishedAt, userName, status }) => {
   const { countryIso } = useParams()
   return <tr className={`tr-${status}`}>
-    <td className={classNames.td}>{version}</td>
+    <td className={classNames.td}>{versionNumber}</td>
     <td className={classNames.td}>
       {status === 'pending' ? `${i18n.t('landing.versioning.table.scheduledAt')}:` : ''}
-      {formatDate(timestamp, i18n)}
+      {formatDate(publishedAt, i18n)}
     </td>
     <td className={classNames.td}>
       <Link to={`/country/${countryIso}/user/${userId}`}>{userName}</Link>
@@ -30,7 +30,7 @@ export const VersioningViewTable = (props) => {
   const { versions, deleteVersion, i18n } = props;
   const thead = [
     i18n.t('landing.versioning.table.versionNumber'),
-    i18n.t('landing.versioning.table.timestamp'),
+    i18n.t('landing.versioning.table.publishedAt'),
     i18n.t('landing.versioning.table.createdBy'),
     i18n.t('landing.versioning.table.status'),
     ''];

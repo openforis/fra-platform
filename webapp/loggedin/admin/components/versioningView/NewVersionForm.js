@@ -22,7 +22,7 @@ const DateInput = (props) => {
     max={maxDate}
     onChange={onChange}
     type="datetime-local"
-    name="timestamp" />
+    name="publishedAt" />
 }
 
 const VersionInput = (props) => {
@@ -32,7 +32,7 @@ const VersionInput = (props) => {
     onChange={onChange}
     placeholder="Ex. 1.0.0"
     type="text"
-    name="version" />
+    name="versionNumber" />
 }
 
 export const NewVersionForm = (props) => {
@@ -52,9 +52,9 @@ export const NewVersionForm = (props) => {
     // Prevent <form> element doing page refresh on submit
     e.preventDefault();
     if (!(
-      validField(newVersionForm, 'version') &&
+      validField(newVersionForm, 'versionNumber') &&
       validField(newVersionForm, 'date') &&
-      versionIsGreater(versions, newVersionForm.version)
+      versionIsGreater(versions, newVersionForm.versionNumber)
     )) {
       setError(true)
       return
@@ -75,10 +75,10 @@ export const NewVersionForm = (props) => {
 
     <form onSubmit={onFormSubmit}>
       <h3 className="new-version__title">{i18n.t('landing.versioning.form.newVersion')}</h3>
-      <label className="new-version__label">{i18n.t('landing.versioning.form.version')}</label><br />
-      <VersionInput value={newVersionForm.version} onChange={onChange} /><br />
+      <label className="new-version__label">{i18n.t('landing.versioning.form.versionNumber')}</label><br />
+      <VersionInput value={newVersionForm.versionNumber} onChange={onChange} /><br />
       <label className="new-version__label">{i18n.t('landing.versioning.form.date')}</label><br />
-      <DateInput value={newVersionForm.timestamp} onChange={onChange} /> <br />
+      <DateInput value={newVersionForm.publishedAt} onChange={onChange} /> <br />
       <div className="new-version__button-container">
         <button className="btn btn-secondary" onClick={goBack}>{i18n.t('landing.versioning.form.cancel')}</button>
         <input className="btn btn-primary" type="submit" />

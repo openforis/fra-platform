@@ -19,12 +19,12 @@ module.exports.init = app => {
   app.post('/versioning/', async (req, res) => {
     checkAdmin(req, res)
     const userId = getUserId(req)
-    const { version, timestamp } = req.body
+    const { versionNumber, publishedAt } = req.body
     try {
-      if (!version || !timestamp || !userId) {
+      if (!versionNumber || !publishedAt || !userId) {
         sendErr(res)
       }
-      addVersion(userId, version, timestamp)
+      addVersion(userId, versionNumber, publishedAt)
       const versions = await getAllVersions();
       res.json(versions)
     } catch (err) {
