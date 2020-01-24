@@ -12,7 +12,7 @@ import { isAdministrator } from '@common/countryRole'
 import NotFound from '@webapp/app/notfound'
 import UsersManagementView from './components/usersManagementView'
 import DataExportView from './components/dataExportView'
-import VersioningView from './components/versioningView'
+import VersioningView from './components/versioning/versioningView'
 
 const sections = [
   {
