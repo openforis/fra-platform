@@ -13,8 +13,9 @@ const SubIndicator4 = ({ i18n, countryIso, data, years, disabled }) => {
 
   const getValue = (year, field) => {
     const val = R.path(['forestAreaWithinProtectedAreas', field, year], data)
-    const valuePercent = mul(div(val, getForestArea(data, 2015)), 100)
-    const value = min([valuePercent, 100])
+    const forestArea = getForestArea(data, 2015)
+    const valuePercent = mul(div(val, forestArea), 100)
+    const value = min(valuePercent, 100)
     return isNaN(value) ? null : value
   }
 
