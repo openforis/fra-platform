@@ -1,2 +1,1 @@
-import VersioningView from './versioningView'
-export default VersioningView
+export { default } from './VersioningView';

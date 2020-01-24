@@ -33,7 +33,7 @@ const getUserEmail = R.prop(keys.userEmail)
 
 module.exports = {
   status,
-
+  keys,
   getId,
   getCreatedBy,
   getVersionNumber,

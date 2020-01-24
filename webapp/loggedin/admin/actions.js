@@ -1,6 +1,9 @@
 import axios from 'axios'
 import { applicationError } from '@webapp/loggedin/applicationError/actions'
 
+import FRAVersion from '@common/versioning/fraVersion'
+import * as AdminState from '@webapp/loggedin/admin/adminState'
+
 export const versioningGetSuccess = 'versioning/get/success'
 export const versioningDeleteSuccess = 'versioning/get/success'
 export const versioningPostMissingData = 'versioning/post/missingdata'
@@ -19,9 +22,10 @@ export const getVersions = () => dispatch => {
 
 export const createVersion = (e) => (dispatch, getState) => {
   const state = getState();
-  const { newVersionForm } = state.admin
-  // Required fields for new version: version number and timestamp
-  const validForm = newVersionForm && newVersionForm.version && newVersionForm.timestamp
+  const newVersionForm = AdminState.getNewVersionForm(state)
+
+  // Required fields for new version: version number and publishedAt
+  const validForm = FRAVersion.getVersionNumber(newVersionForm) && FRAVersion.getPublishedAt(newVersionForm)
 
   // Form missing data?
   if (!validForm) {
@@ -34,7 +38,7 @@ export const createVersion = (e) => (dispatch, getState) => {
   // Versioning in correct format
   // Major.Minor.Patch
   // <num>.<num>.<num> ex. 1.0.0
-  const versionValid = /\d+\.\d+\.\d+/.test(newVersionForm.version)
+  const versionValid = /\d+\.\d+\.\d+/.test(FRAVersion.getVersionNumber(newVersionForm))
   if (!versionValid) {
     dispatch({
       type: versioningPostMissingData
@@ -43,7 +47,7 @@ export const createVersion = (e) => (dispatch, getState) => {
   }
 
   // use iso-String, for correct date/time in db
-  newVersionForm.timestamp = new Date(newVersionForm.timestamp).toISOString()
+  newVersionForm.publishedAt = new Date(FRAVersion.getPublishedAt(newVersionForm)).toISOString()
 
   axios.post(`/api/versioning/`, newVersionForm).then(res => {
     return dispatch({

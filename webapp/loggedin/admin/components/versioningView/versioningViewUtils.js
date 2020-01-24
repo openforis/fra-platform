@@ -1,5 +1,6 @@
 import { isAfter } from 'date-fns'
 import { getRelativeDate } from '@webapp/utils/relativeDate'
+import * as FRAVersion from '@common/versioning/fraVersion'
 
 export const formatDate = (_date, i18n) => {
   return getRelativeDate(_date, i18n)
@@ -16,11 +17,13 @@ export const classNames = {
 // Simple sort function.
 export const sortVersions = versions => {
   const pendingVersions = getPendingVersions(versions).sort(
-    (a, b) => compareVersion(b.version, a.version)
-  )
+    (a, b) => compareVersion(
+      FRAVersion.getVersionNumber(b), FRAVersion.getVersionNumber(a)
+    ))
   const nonPendingVersions = getNonPendingVersions(versions).sort(
-    (a, b) => compareVersion(b.version, a.version)
-  )
+    (a, b) => compareVersion(
+      FRAVersion.getVersionNumber(b), FRAVersion.getVersionNumber(a)
+    ))
   return [
     ...pendingVersions,
     ...nonPendingVersions
@@ -28,11 +31,11 @@ export const sortVersions = versions => {
 }
 
 const getPendingVersions = (versions) => {
-  return versions.filter(version => version.status === 'pending')
+  return versions.filter(version => FRAVersion.getStatus(version) === FRAVersion.status.pending)
 }
 
 const getNonPendingVersions = (versions) => {
-  return versions.filter(version => version.status !== 'pending')
+  return versions.filter(version => FRAVersion.getStatus(version) !== 'pending')
 }
 
 //https://helloacm.com/the-javascript-function-to-compare-version-number-strings/
@@ -52,17 +55,17 @@ export const compareVersion = (v1, v2) => {
 }
 
 const validatorFunctions = {
-  // Version should match major.minor.patch -style
-  version: ({ version }) => /\d+\.\d+\.\d+/.test(version),
+  // Version number should match major.minor.patch -style
+  versionNumber: ({ versionNumber }) => /\d+\.\d+\.\d+/.test(versionNumber),
   // Check given date is after today
-  date: ({ timestamp }) => isAfter(new Date(timestamp), new Date())
+  date: ({ publishedAt }) => isAfter(new Date(publishedAt), new Date())
 }
 
 export const validField = (newVersionForm, field) =>
   validatorFunctions[field](newVersionForm)
 
-export const versionIsGreater = (versions, version) => {
-  if (typeof version !== 'string') return false;
+export const versionIsGreater = (versions, versionNumber) => {
+  if (typeof versionNumber !== 'string') return false;
 
   if (!Array.isArray(versions) || !versions.length) {
     return true
@@ -70,6 +73,9 @@ export const versionIsGreater = (versions, version) => {
 
   // Sort mutates, make clone
   const _versions = [...versions]
-  _versions.sort((a, b) => compareVersion(b.version, a.version))
-  return compareVersion(version, _versions[0].version) > 0 ? true : false;
+  _versions.sort((a, b) =>
+    compareVersion(
+      FRAVersion.getVersionNumber(b), FRAVersion.getVersionNumber(a)
+    ))
+  return compareVersion(versionNumber, FRAVersion.getVersionNumber(_versions[0])) > 0 ? true : false;
 }

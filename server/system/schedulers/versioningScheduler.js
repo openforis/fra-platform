@@ -29,6 +29,7 @@ const handleNewVersion = async (version) => {
 
 const init = async () => {
   // Check every 5 minutes for new entries/if we need to do something
+  // For debugging, it is suggested to add a star in the end for 5 sec interval
   schedule.scheduleJob('*/5 * * * *', async () => {
     /* 
       3. lock system

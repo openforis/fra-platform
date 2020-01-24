@@ -12,9 +12,9 @@ const camelize = require('camelize')
 const getAllVersions = async () => {
   const result = await db.query(`
       SELECT v.id,
-             v.version_number as version,
+             v.version_number,
              v.status,
-             to_char(v.published_at,'YYYY-MM-DD"T"HH24:MI:ssZ') as timestamp,
+             to_char(v.published_at,'YYYY-MM-DD"T"HH24:MI:ssZ') as published_at,
              u.name as user_name,
              u.email as user_email,
              u.id as user_id
@@ -26,15 +26,15 @@ const getAllVersions = async () => {
 }
 
 // Returns all pending versions from fra_version
-// that have published_at (timestamp) in next 5 minutes
+// that have published_at in next 5 minutes
 const getPendingVersions = async () => {
   const result = await db.query(`
     SELECT
       id,
       created_by,
-      version_number as version,
+      version_number,
       status,
-      to_char(v.published_at,'YYYY-MM-DD"T"HH24:MI:ssZ') as timestamp,
+      to_char(v.published_at,'YYYY-MM-DD"T"HH24:MI:ssZ') as published_at,
       to_char(v.created_at,'YYYY-MM-DD"T"HH24:MI:ssZ') as created_at,
       to_char(v.updated_at,'YYYY-MM-DD"T"HH24:MI:ssZ') as updated_at
     FROM fra_version v
@@ -52,9 +52,9 @@ const getAllPendingVersions = async () => {
     SELECT
       id,
       created_by,
-      version_number as version,
+      version_number,
       status,
-      to_char(v.published_at,'YYYY-MM-DD"T"HH24:MI:ssZ') as timestamp,
+      to_char(v.published_at,'YYYY-MM-DD"T"HH24:MI:ssZ') as published_at,
       to_char(v.created_at,'YYYY-MM-DD"T"HH24:MI:ssZ') as created_at,
       to_char(v.updated_at,'YYYY-MM-DD"T"HH24:MI:ssZ') as updated_at
     FROM fra_version v
@@ -70,9 +70,9 @@ const getRunningVersions = async () => {
     SELECT
       id,
       created_by,
-      version_number as version,
+      version_number,
       status,
-      to_char(v.published_at,'YYYY-MM-DD"T"HH24:MI:ssZ') as timestamp,
+      to_char(v.published_at,'YYYY-MM-DD"T"HH24:MI:ssZ') as published_at,
       to_char(v.created_at,'YYYY-MM-DD"T"HH24:MI:ssZ') as created_at,
       to_char(v.updated_at,'YYYY-MM-DD"T"HH24:MI:ssZ') as updated_at
     FROM fra_version v
@@ -93,7 +93,7 @@ const updateVersionStatus = async (id, status) => {
   `, [id, status])
 }
 
-const addVersion = async (userId, version, timestamp) => {
+const addVersion = async (userId, versionNumber, publishedAt) => {
   const query = `
     INSERT INTO fra_version (created_by, version_number, status, published_at)
     VALUES ($1,
@@ -101,7 +101,7 @@ const addVersion = async (userId, version, timestamp) => {
             'pending',
             $3);
   `
-  await db.query(query, [userId, version, timestamp])
+  await db.query(query, [userId, versionNumber, publishedAt])
 }
 
 const newSchemaVersion = async (to, from = 'public') => {
@@ -112,7 +112,7 @@ const newSchemaVersion = async (to, from = 'public') => {
     return
   }
 
-  console.log(`Creating new schema version from ${from} to ${to}`);
+  console.log(`Creating new schema version from ${from} to ${to.replace(/\./g, '_')}`);
 
   const query = `
     SELECT clone_schema($1, $2);
@@ -163,9 +163,9 @@ const getVersionById = async (id) => {
         SELECT 
           id,
           created_by,
-          version_number as version,
+          version_number,
           status,
-          to_char(v.published_at,'YYYY-MM-DD"T"HH24:MI:ssZ') as timestamp,
+          to_char(v.published_at,'YYYY-MM-DD"T"HH24:MI:ssZ') as published_at,
           to_char(v.created_at,'YYYY-MM-DD"T"HH24:MI:ssZ') as created_at,
           to_char(v.updated_at,'YYYY-MM-DD"T"HH24:MI:ssZ') as updated_at
         FROM fra_version v
