@@ -39,7 +39,6 @@ const Select = ({ i18n, selectedDomain, setSelectedDomain, ...props }) =>
 const BiomassStockView = props => {
   const {
     i18n,
-    i18n: { language },
     domain,
     disabled,
     tableSpecInstance,
@@ -47,9 +46,11 @@ const BiomassStockView = props => {
     fetchTableData,
     fetchLastSectionUpdateTimestamp
   } = props
+
+  const { language } = i18n
   const countryIso = useSelector(AppState.getCountryIso)
   const [selectedDomain, setSelectedDomain] = useState(domain)
-  const calculatorFilePath = downloadPath()
+  const calculatorFilePath = downloadPath(countryIso, selectedDomain, language)
 
   useEffect(() => {
     fetchTableData(countryIso, tableSpecInstance)
