@@ -11,6 +11,7 @@ const AnnualYearsExporter = require('./annual/annualYearsExporter')
 const NdpExporter = require('./ndp/ndpExporter')
 const NwfpExporter = require('./nwfpAndGSComp/nwfpExporter')
 const GSCompExporter = require('./nwfpAndGSComp/gscompExporter')
+const SDGExporter = require('./sdg/sdgExporter')
 
 const JSONOutput = require('./jsonOutput')
 
@@ -31,8 +32,9 @@ const exportData = async (user, exportType = EXPORT_TYPE.JSON) => {
   const intervalsOutput = isExportTypeJson ? new JSONOutput('intervals') : IntervalYearsExporter.getCsvOutput()
   const annualOutput = isExportTypeJson ? new JSONOutput('annual') : AnnualYearsExporter.getCsvOutput()
   const ndpOutput = isExportTypeJson ? new JSONOutput('ndp') : NdpExporter.getCsvOutput()
-  const nwfpOutput = isExportTypeJson ? new JSONOutput('ndp') : NwfpExporter.getCsvOutput()
-  const gscompOutput = isExportTypeJson ? new JSONOutput('ndp') : GSCompExporter.getCsvOutput()
+  const nwfpOutput = isExportTypeJson ? new JSONOutput('nwfp') : NwfpExporter.getCsvOutput()
+  const gscompOutput = isExportTypeJson ? new JSONOutput('gscomp') : GSCompExporter.getCsvOutput()
+  const sdgOutput = isExportTypeJson ? new JSONOutput('sdg') : SDGExporter.getCsvOutput()
 
   await Promise.each(
     countries.map(async country =>
@@ -43,16 +45,18 @@ const exportData = async (user, exportType = EXPORT_TYPE.JSON) => {
         NdpExporter.getCountryData(country),
         NwfpExporter.getCountryData(country),
         GSCompExporter.getCountryData(country),
+        SDGExporter.getCountryData(country),
       ])
     ),
 
-    ([fraYearsRes, intervalsRes, annualRes, ndps, nwfp, gsComp], idx) => {
+    ([fraYearsRes, intervalsRes, annualRes, ndps, nwfp, gsComp, sdg], idx) => {
       fraYearsOutput.pushContent(fraYearsRes, idx)
       intervalsOutput.pushContent(intervalsRes)
       annualOutput.pushContent(annualRes, idx)
       ndpOutput.pushContent(ndps)
       nwfpOutput.pushContent(nwfp)
       gscompOutput.pushContent(gsComp)
+      sdgOutput.pushContent(sdg)
     }
   )
 
@@ -62,6 +66,7 @@ const exportData = async (user, exportType = EXPORT_TYPE.JSON) => {
   ndpOutput.pushContentDone()
   nwfpOutput.pushContentDone()
   gscompOutput.pushContentDone()
+  sdgOutput.pushContentDone()
 
   return {
     ...fraYearsOutput.output,
@@ -70,6 +75,7 @@ const exportData = async (user, exportType = EXPORT_TYPE.JSON) => {
     ...ndpOutput.output,
     ...nwfpOutput.output,
     ...gscompOutput.output,
+    ...sdgOutput.output,
   }
 }
 
