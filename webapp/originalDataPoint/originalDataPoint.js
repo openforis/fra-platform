@@ -3,7 +3,7 @@
  */
 
 import * as R from 'ramda'
-import { sum, mul, sub, add } from '@common/bignumberUtils'
+import { sum, mul, sub, add, div } from '@common/bignumberUtils'
 
 const uuidv4 = require('uuid/v4')
 
@@ -74,14 +74,23 @@ export const otherLandTotalArea = (odp) => {
 export const subClassTotalArea = (odp, percentFieldName, subClassPercentFieldName) =>
   R.pipe(
     R.filter(nationalClass => nationalClass.area && nationalClass[percentFieldName] && nationalClass[subClassPercentFieldName]),
-    R.map(nationalClass => mul(nationalClass.area, nationalClass[percentFieldName]).mul(nationalClass[subClassPercentFieldName]).div(10000.0)),
+    R.map(nationalClass => {
+      const x = mul(nationalClass.area, nationalClass[percentFieldName])
+      const y = mul(x, nationalClass[subClassPercentFieldName])
+      return div(y, 10000.0)
+    }),
     sum
   )(odp.nationalClasses)
 
 export const subSubClassTotalArea = (odp, percentFieldName, subClassPercentFieldName, subSubClassPercentFieldName) =>
   R.pipe(
     R.filter(nationalClass => nationalClass.area && nationalClass[percentFieldName] && nationalClass[subClassPercentFieldName] && nationalClass[subSubClassPercentFieldName]),
-    R.map(nationalClass => mul(nationalClass.area, nationalClass[percentFieldName]).mul(nationalClass[subClassPercentFieldName]).mul(nationalClass[subSubClassPercentFieldName]).div(1000000.0)),
+    R.map(nationalClass => {
+      const x = mul(nationalClass.area, nationalClass[percentFieldName])
+      const y = mul(x, nationalClass[subClassPercentFieldName])
+      const z = mul(y, nationalClass[subSubClassPercentFieldName])
+      return div(z, 1000000.0)
+    }),
     sum
   )(odp.nationalClasses)
 
