@@ -9,6 +9,10 @@ import { getFilesList, uploadFile, deleteFile } from '../actions'
 
 import Icon from '@webapp/components/icon'
 
+import * as UserState from '@webapp/user/userState'
+import * as AutosaveState from '@webapp/autosave/autosaveState'
+import UsersTableFilter from '@webapp/userManagement/list/usersTableFilter'
+
 const links = [
   {href: 'http://unfccc.int/parties_observers/parties/national_focal_points/items/9336.php', key: 'unfcccFocalPoints'},
   {href: '/api/landing/sdgFocalPoints', key: 'sdgFocalPoints'},
@@ -136,9 +140,9 @@ class LinksView extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  i18n: state.user.i18n,
-  userInfo: state.user.userInfo,
-  status: state.autoSave.status,
+  i18n: UserState.getI18n(state),
+  userInfo: UserState.getUserInfo(state),
+  status: AutosaveState.getStatus(state),
   ...state.landing.repository,
 })
 

@@ -14,7 +14,9 @@ import RecentActivityView from './views/recentActivityView'
 import ManageCollaboratorsView from './views/manageCollaboratorsView'
 import LinksView from './views/linksView'
 import ContentCheckView from './views/contentCheck/contentCheckView'
+
 import * as AppState from '@webapp/app/appState'
+import * as UserState from '@webapp/user/userState'
 
 const getSections = (countryIso, userInfo) => {
   const sections = [
@@ -83,8 +85,8 @@ const LandingView = (props) => {
 }
 
 const mapStateToProps = state => ({
-  i18n: state.user.i18n,
-  userInfo: state.user.userInfo,
+  i18n: UserState.getI18n(state),
+  userInfo: UserState.getUserInfo(state),
 })
 
 export default connect(mapStateToProps, {
