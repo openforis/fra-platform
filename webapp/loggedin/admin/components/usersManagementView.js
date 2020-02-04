@@ -66,7 +66,7 @@ const mapStateToProps = (state, props) =>
     userInfo: UserState.getUserInfo(state),
     allUsers: UserManagementState.getAllUsers(state),
     userCounts: UserManagementState.getUserCounts(state),
-    editUserStatus: R.prop('status', UserManagementState.getEditUser(state)),
+    editUserStatus: UserManagementState.getEditUserStatus(state),
     countries: R.path(['country', 'countries', administrator.role], state)
   })
 

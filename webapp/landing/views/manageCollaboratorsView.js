@@ -76,7 +76,7 @@ const mapStateToProps = (state, props) =>
     allowedRoles: rolesAllowedToChange(AppState.getCountryIso(state), UserState.getUserInfo(state)),
     countryUsers: UserManagementState.getCountryUsers(state),
     newUser: UserManagementState.getNewUser(state),
-    editUserStatus: R.prop('status', UserManagementState.getEditUser(state)),
+    editUserStatus: UserManagementState.getEditUserStatus(state),
     countryIso: AppState.getCountryIso(state),
   })
 

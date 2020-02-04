@@ -19,6 +19,8 @@ export const getEditUser = R.pipe(getState, R.propOr(null, keys.editUser))
 export const getAllUsers = R.pipe(getState, R.propOr([], keys.allUsers))
 export const getUserCounts = R.pipe(getState, R.propOr(null, keys.userCounts))
 
+export const getEditUserStatus = R.pipe(getEditUser, R.prop('status'))
+
 // === UPDATE
 export const assocCountryUsers = R.assoc(keys.countryUsers)
 export const assocNewUser = R.assoc(keys.newUser)
