@@ -10,6 +10,11 @@ const keys = {
   userCounts: 'userCounts',
 }
 
+const keysEditUser = {
+  user: 'user',
+  status: 'status',
+}
+
 const getState = R.prop(stateKey)
 
 // === READ
@@ -29,5 +34,5 @@ export const assocAllUsers = R.assoc(keys.allUsers)
 export const assocUserCounts = R.assoc(keys.userCounts)
 
 // edit user functions
-export const assocEditUserUser = R.assocPath([keys.editUser, 'user'])
-export const assocEditUserStatus = R.assocPath([keys.editUser, 'status'])
+export const assocEditUserUser = R.assocPath([keys.editUser, keysEditUser.user])
+export const assocEditUserStatus = R.assocPath([keys.editUser, keysEditUser.status])
