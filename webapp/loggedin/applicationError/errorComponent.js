@@ -2,7 +2,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { clearApplicationError } from './actions'
 import Icon from '@webapp/components/icon'
-import * as R from 'ramda'
 import './style.less'
 
 import * as ApplicationErrorState from '@webapp/loggedin/applicationError/applicationErrorState'
