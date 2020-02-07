@@ -1,5 +1,4 @@
 import React from 'react'
-import * as R from 'ramda'
 import { connect } from 'react-redux'
 import SingleTraditionalTableView from '@webapp/traditionalTable/singleTraditionalTableView'
 import tableSpec from './tableSpec'

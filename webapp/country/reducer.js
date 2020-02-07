@@ -1,5 +1,4 @@
 import { applyReducerFunction } from '@webapp/utils/reduxUtils'
-import * as R from 'ramda'
 
 import {
   listCountries,
