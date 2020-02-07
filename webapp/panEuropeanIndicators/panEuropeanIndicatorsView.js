@@ -11,6 +11,10 @@ import Icon from '@webapp/components/icon'
 import { fetchLastSectionUpdateTimestamp } from '@webapp/audit/actions'
 import { uploadQuestionnaire, getUploadedQuestionareInfo, deleteQuestionare } from './actions'
 
+import * as AppState from '@webapp/app/appState'
+import * as UserState from '@webapp/user/userState'
+import * as AutosaveState from '@webapp/autosave/autosaveState'
+
 class PanEuropeanIndicatorsView extends React.Component {
 
   componentDidMount () {
@@ -101,11 +105,11 @@ class PanEuropeanIndicatorsView extends React.Component {
 
 }
 
-const mapStateToProps = (state, props) => ({
-  i18n: state.user.i18n,
-  userInfo: state.user.userInfo,
-  countryIso: props.match.params.countryIso,
-  status: state.autoSave.status,
+const mapStateToProps = (state) => ({
+  i18n: UserState.getI18n(state),
+  userInfo: UserState.getUserInfo(state),
+  countryIso: AppState.getCountryIso(state),
+  status: AutosaveState.getStatus(state),
   questionnaireFileName: state.panEuropeanIndicators.questionnaireFileName,
   panEuropean: R.path(['country', 'config', 'panEuropean'], state)
 })

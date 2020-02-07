@@ -14,6 +14,8 @@ import Legend from './components/legend'
 
 import { getChartData, getXScale, getYScale, styles, getTrendOdps } from './chart'
 
+import * as UserState from '@webapp/user/userState'
+
 class Chart extends Component {
 
   shouldComponentUpdate (nextProps) {
@@ -66,7 +68,7 @@ const mapStateToProps = (state, props) => {
     const xScale = getXScale(props.wrapperWidth, data)
     const yScale = getYScale(data)
 
-    return {data, xScale, yScale, i18n: state.user.i18n}
+    return {data, xScale, yScale, i18n: UserState.getI18n(state)}
   }
   return {}
 }

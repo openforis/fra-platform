@@ -21,6 +21,7 @@ import FraUtils from '@common/fraUtils'
 import { fetchTableData } from '@webapp/traditionalTable/actions'
 
 import * as AppState from '@webapp/app/appState'
+import * as UserState from '@webapp/user/userState'
 
 const sectionName = 'designatedManagementObjective'
 
@@ -119,7 +120,7 @@ const designatedManagementObjectiveView = props => {
 }
 
 const mapStateToProps = (state, { match }) => {
-  const i18n = state.user.i18n
+  const i18n = UserState.getI18n(state)
   const countryIso = match.params.countryIso
   const extentOfForest = state.extentOfForest
   const primaryDmoTableSpec = primaryDesignatedManagementObjectiveTableSpec(i18n, extentOfForest, countryIso)

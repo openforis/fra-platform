@@ -7,15 +7,18 @@ import {
 } from './actions'
 
 import { exportReducer } from '@webapp/utils/reduxUtils'
+import * as UserState from '@webapp/user/userState'
 
 const actionHandlers = {
-  [userLoggedInUserLoaded]: (state, action) =>
-    ({ ...state, userInfo: action.userInfo, i18n: action.i18n }),
+  [userLoggedInUserLoaded]: (state, { userInfo, i18n }) => R.pipe(
+    UserState.assocI18n(i18n),
+    UserState.assocUserInfo(userInfo),
+  )(state),
 
-  [userLoggedInUserSwitchLanguage]: (state, action) =>
+  [userLoggedInUserSwitchLanguage]: (state, { i18n }) =>
     R.pipe(
-      R.assoc('i18n', action.i18n),
-      R.assocPath(['userInfo', 'lang'], action.i18n.language)
+      UserState.assocI18n(i18n),
+      UserState.assocUserInfoLang(i18n.language)
     )(state),
 
   [appUserLogout]: () => ({}),

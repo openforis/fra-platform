@@ -16,3 +16,6 @@ export const getUserInfo = R.pipe(getState, R.propOr(null, keys.userInfo))
 // === UPDATE
 export const assocI18n = R.assoc(keys.i18n)
 export const assocUserInfo = R.assoc(keys.userInfo)
+
+// User Info functions
+export const assocUserInfoLang = R.assocPath([keys.userInfo, 'lang'])

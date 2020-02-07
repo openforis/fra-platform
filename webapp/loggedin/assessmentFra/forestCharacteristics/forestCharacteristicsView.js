@@ -21,6 +21,7 @@ import { isPrintingMode, isPrintingOnlyTables } from '@webapp/loggedin/printAsse
 
 import FraUtils from '@common/fraUtils'
 import * as AppState from '@webapp/app/appState'
+import * as UserState from '@webapp/user/userState'
 
 const mapIndexed = R.addIndex(R.map)
 const sectionName = 'forestCharacteristics'
@@ -366,7 +367,7 @@ const mapStateToProps = state => {
   return {
     ...state.forestCharacteristics,
     openCommentThread: state.review.openThread,
-    i18n: state.user.i18n,
+    i18n: UserState.getI18n(state),
     extentOfForest: state.extentOfForest,
     useOriginalDataPoints: useOriginalDataPoints,
     // Only if ODPs are enabled system-wide and ALSO locally, they are enabled:

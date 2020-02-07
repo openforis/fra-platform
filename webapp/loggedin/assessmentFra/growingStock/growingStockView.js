@@ -23,6 +23,7 @@ import { equalToTotalGrowingStock } from '@webapp/traditionalTable/validators'
 import FraUtils from '@common/fraUtils'
 import { isPrintingOnlyTables } from '@webapp/loggedin/printAssessment/printAssessment'
 import * as AppState from '@webapp/app/appState'
+import * as UserState from '@webapp/user/userState'
 
 const sectionName = 'growingStock'
 const mapIndexed = R.addIndex(R.map)
@@ -419,7 +420,7 @@ const mapStateToProps = state =>
     avgTable: state.growingStock.avgTable,
     baseTable: state.growingStock.baseTable,
     openCommentThread: state.review.openThread,
-    i18n: state.user.i18n,
+    i18n: UserState.getI18n(state),
     isEditDataDisabled: isFRA2020SectionEditDisabled(state, sectionName)
   })
 

@@ -9,6 +9,8 @@ import { tableValueChanged, tableChanged, fetchTableData } from './actions'
 import ReviewIndicator from '@webapp/loggedin/review/reviewIndicator'
 import UpdateOnResizeReactComponent from '@webapp/components/updateOnResizeReactComponent'
 
+import * as UserState from '@webapp/user/userState'
+
 const mapIndexed = R.addIndex(R.map)
 const commentTarget = (tableName, rowIdx) => [tableName, 'row', `${rowIdx}`]
 const rowShouldBeHighlighted = (tableName, rowIdx, openCommentThreadTarget) =>
@@ -146,7 +148,7 @@ const mapStateToProps = (state, props) => {
     ...props,
     tableData: R.path(['traditionalTable', props.tableSpec.name, 'tableData'], state) || table.createTableData(props.tableSpec),
     openCommentThreadTarget: state.review.openThread ? state.review.openThread.target : null,
-    i18n: state.user.i18n
+    i18n: UserState.getI18n(state)
   }
 }
 

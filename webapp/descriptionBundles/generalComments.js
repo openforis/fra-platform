@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import CommentableDescription from '@webapp/description/commentableDescription'
 import { connect } from 'react-redux'
+import * as UserState from '@webapp/user/userState'
 
 const GeneralComments = props => {
   return <div className="fra-description__container">
@@ -18,6 +19,6 @@ GeneralComments.propTypes = {
   section: PropTypes.string.isRequired
 }
 
-const mapStateToProps = (state) => ({i18n: state.user.i18n})
+const mapStateToProps = (state) => ({i18n: UserState.getI18n(state)})
 
 export default connect(mapStateToProps, {})(GeneralComments)

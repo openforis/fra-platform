@@ -11,18 +11,20 @@ import {
 
 import { applyReducerFunction } from '@webapp/utils/reduxUtils'
 
+import * as UserManagementState from '@webapp/userManagement/userManagementState'
+
 const sortUsers = users => R.sortBy(R.compose(R.toLower, R.prop('name')), users)
 
 const actionHandlers = {
   //users list
-  [userManagementCountryUsersFetch]: (state, action) => R.pipe(
-    R.assoc('countryUsers', sortUsers(action.countryUsers)),
-    R.assoc('newUser', action.newUser),
+  [userManagementCountryUsersFetch]: (state, { countryUsers, newUser }) => R.pipe(
+    UserManagementState.assocCountryUsers(sortUsers(countryUsers)),
+    UserManagementState.assocNewUser(newUser),
   )(state),
 
-  [userManagementAllUsersFetch]: (state, action) => R.pipe(
-    R.assoc('allUsers', sortUsers(action.allUsers)),
-    R.assoc('userCounts', action.userCounts),
+  [userManagementAllUsersFetch]: (state, { allUsers, userCounts }) => R.pipe(
+    UserManagementState.assocAllUsers(sortUsers(allUsers)),
+    UserManagementState.assocUserCounts(userCounts),
   )(state),
 
   // collaborator table access update
@@ -32,16 +34,16 @@ const actionHandlers = {
   },
 
   // new user
-  [userManagementNewUserUpdate]: (state, action) => R.assoc('newUser', action.user, state),
+  [userManagementNewUserUpdate]: (state, { user }) => UserManagementState.assocNewUser(user)(state),
+  
 
   // edit user functions
-  [userManagementEditUserLoad]: (state, action) => R.pipe(
-    R.assocPath(['editUser', 'user'], action.user),
-    R.assocPath(['editUser', 'status'], 'loaded')
+  [userManagementEditUserLoad]: (state, { user }) => R.pipe(
+    UserManagementState.assocEditUserUser(user),
+    UserManagementState.assocEditUserStatus('loaded')
   )(state),
 
-  [userManagementEditUserComplete]: (state, action) =>
-    R.assocPath(['editUser', 'status'], 'completed', state)
+  [userManagementEditUserComplete]: (state, action) => UserManagementState.assocEditUserStatus('completed')(state)
 }
 
 export default (state = {}, action) => applyReducerFunction(actionHandlers, state, action)
