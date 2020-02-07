@@ -16,6 +16,7 @@ import * as table from '@webapp/traditionalTable/table'
 import { isPrintingOnlyTables } from '@webapp/loggedin/printAssessment/printAssessment'
 import FraUtils from '@common/fraUtils'
 import * as AppState from '@webapp/app/appState'
+import * as UserState from '@webapp/user/userState'
 
 const currencyNameTableSpec = i18n => ({
   name: 'nonWoodForestProductsRemovalsCurrency',
@@ -91,7 +92,7 @@ const NonWoodForestProductsRemovalsView = props => {
 }
 
 const mapStateToProps = state => {
-  const i18n = state.user.i18n
+  const i18n = UserState.getI18n(state)
   const tableSpecInstance = mainTableSpec(i18n)
 
   return {

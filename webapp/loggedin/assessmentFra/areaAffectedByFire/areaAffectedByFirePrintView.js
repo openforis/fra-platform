@@ -7,6 +7,7 @@ import NationalDataDescriptions from '@webapp/descriptionBundles/nationalDataDes
 import AnalysisDescriptions from '@webapp/descriptionBundles/analysisDescriptions'
 import GeneralComments from '@webapp/descriptionBundles/generalComments'
 import { isPrintingOnlyTables } from '@webapp/loggedin/printAssessment/printAssessment'
+import * as UserState from '@webapp/user/userState'
 
 const AreaAffectedByFirePrintView = props => {
 
@@ -44,6 +45,7 @@ const AreaAffectedByFirePrintView = props => {
 
 }
 
-const mapStateToProps = state => ({ i18n: state.user.i18n })
+ 
+const mapStateToProps = state => ({  i18n: UserState.getI18n(state) })
 
 export default connect(mapStateToProps)(AreaAffectedByFirePrintView)

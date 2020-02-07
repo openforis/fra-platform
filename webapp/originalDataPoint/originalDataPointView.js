@@ -31,6 +31,7 @@ import * as OriginalDataPointState from '@webapp/originalDataPoint/originalDataP
 import * as AutosaveState from '@webapp/autosave/autosaveState'
 import * as ReviewState from '@webapp/loggedin/review/reviewState'
 import * as CountryState from '@webapp/country/countryState'
+import * as UserState from '@webapp/user/userState'
 
 const years = ['', ...R.pipe(R.range(1950), R.reverse)(2021)]
 
@@ -232,7 +233,7 @@ const mapStateToProps = state => {
     odp,
     autoSaving,
     openThread,
-    i18n: state.user.i18n,
+    i18n: UserState.getI18n(state),
     useOriginalDataPointsInFoc
   }
 }

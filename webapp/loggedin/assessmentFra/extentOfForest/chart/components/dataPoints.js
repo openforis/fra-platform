@@ -8,6 +8,7 @@ import d3Tip from 'd3-tip'
 import { formatNumber } from '@common/bignumberUtils'
 import { defaultTransitionDuration } from '../chart'
 
+import * as UserState from '@webapp/user/userState'
 class DataPoint extends Component {
 
   update (props) {
@@ -113,6 +114,6 @@ class DataPoint extends Component {
 
 }
 
-const mapStateToProps = state => ({i18n: state.user.i18n})
+const mapStateToProps = state => ({i18n: UserState.getI18n(state)})
 
 export default connect(mapStateToProps)(DataPoint)

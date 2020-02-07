@@ -7,6 +7,8 @@ import TraditionalTable from '@webapp/traditionalTable/traditionalTable'
 import NationalDataDescriptions from '@webapp/descriptionBundles/nationalDataDescriptions'
 import GeneralComments from '@webapp/descriptionBundles/generalComments'
 
+import * as UserState from '@webapp/user/userState'
+
 const GraduationOfStudentsView = props => {
 
   const { i18n, match } = props
@@ -39,6 +41,6 @@ const GraduationOfStudentsView = props => {
 
 }
 
-const mapStateToProps = state => ({ i18n: state.user.i18n })
+const mapStateToProps = state => ({ i18n: UserState.getI18n(state) })
 
 export default connect(mapStateToProps)(GraduationOfStudentsView)

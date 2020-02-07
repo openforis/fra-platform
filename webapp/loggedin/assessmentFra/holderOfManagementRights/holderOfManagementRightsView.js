@@ -7,6 +7,7 @@ import tableSpec from './tableSpec'
 import forestOwnershipTableSpec from '../forestOwnership/tableSpec'
 
 import * as AppState from '@webapp/app/appState'
+import * as UserState from '@webapp/user/userState'
 
 const HolderOfManagementRightsView = props => {
   const { forestOwnershipTableData, fetchTableData, i18n } = props
@@ -25,7 +26,7 @@ const HolderOfManagementRightsView = props => {
 }
 
 const mapStateToProps = state => ({
-  i18n: state.user.i18n,
+  i18n: UserState.getI18n(state),
   forestOwnershipTableData: state.traditionalTable.forestOwnership
 })
 

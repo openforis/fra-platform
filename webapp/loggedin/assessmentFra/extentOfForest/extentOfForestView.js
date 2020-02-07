@@ -312,7 +312,7 @@ const mapStateToProps = state =>
     faoStat: R.path(['country', 'config', 'faoStat'], state),
     fra2015ForestAreas: R.path(['country', 'config', 'fra2015ForestAreas'], state),
     climaticDomainPercents2015: R.path(['country', 'config', 'climaticDomainPercents2015'], state),
-    i18n: state.user.i18n,
+    i18n: UserState.getI18n(state),
     isEditDataDisabled: isFRA2020SectionEditDisabled(state, sectionName),
     userInfo: UserState.getUserInfo(state)
   })

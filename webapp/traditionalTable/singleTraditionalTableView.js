@@ -19,6 +19,7 @@ import { isPrintingOnlyTables } from '@webapp/loggedin/printAssessment/printAsse
 import FraUtils from '@common/fraUtils'
 import { fetchTableData } from './actions'
 
+import * as UserState from '@webapp/user/userState'
 class SingleTraditionalTableView extends React.Component {
 
   componentDidMount () {
@@ -99,9 +100,9 @@ class SingleTraditionalTableView extends React.Component {
 }
 
 const mapStateToProps = (state, props) => {
-  const tableSpecInstance = props.tableSpecInstance || props.tableSpec(state.user.i18n)
+  const tableSpecInstance = props.tableSpecInstance || props.tableSpec(UserState.getI18n(state))
   return {
-    i18n: state.user.i18n,
+    i18n: UserState.getI18n(state),
     tableSpecInstance,
     isEditDataDisabled: isFRA2020SectionEditDisabled(state, tableSpecInstance.name),
     tableData: R.path(['traditionalTable', tableSpecInstance.name, 'tableData'], state) || table.createTableData(tableSpecInstance),

@@ -127,7 +127,7 @@ class DataFetchingComponent extends React.Component {
 
 const mapStateToProps = state => ({
   ...state.originalDataPoint,
-  i18n: state.user.i18n,
+  i18n: UserState.getI18n(state),
   userInfo: UserState.getUserInfo(state),
 })
 

@@ -9,6 +9,7 @@ import CommentableDescription from '@webapp/description/commentableDescription.j
 
 import { isFRA2020SectionEditDisabled } from '@webapp/utils/assessmentAccess'
 import * as AppState from '@webapp/app/appState'
+import * as UserState from '@webapp/user/userState'
 
 const sectionName = 'contactPersons'
 
@@ -34,7 +35,7 @@ const ContactPersonsView = props => {
 
 const mapStateToProps = (state, props) => ({
   openCommentThread: state.review.openThread,
-  i18n: state.user.i18n,
+  i18n: UserState.getI18n(state),
   isEditDataDisabled: isFRA2020SectionEditDisabled(state, sectionName)
 })
 

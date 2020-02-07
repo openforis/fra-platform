@@ -6,6 +6,7 @@ import TraditionalTable from '@webapp/traditionalTable/traditionalTable'
 import NationalDataDescriptions from '@webapp/descriptionBundles/nationalDataDescriptions'
 import AnalysisDescriptions from '@webapp/descriptionBundles/analysisDescriptions'
 import GeneralComments from '@webapp/descriptionBundles/generalComments'
+import * as UserState from '@webapp/user/userState'
 
 const DisturbancesPrintView = props => {
 
@@ -40,6 +41,6 @@ const DisturbancesPrintView = props => {
 
 }
 
-const mapStateToProps = state => ({i18n: state.user.i18n, extentOfForest: state.extentOfForest})
+const mapStateToProps = state => ({i18n: UserState.getI18n(state), extentOfForest: state.extentOfForest})
 
 export default connect(mapStateToProps)(DisturbancesPrintView)
