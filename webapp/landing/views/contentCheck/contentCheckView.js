@@ -25,6 +25,7 @@ import { fetch } from '@webapp/loggedin/assessmentFra/growingStock/actions'
 
 import defaultYears from '../../../../server/eof/defaultYears'
 import * as AppState from '@webapp/app/appState'
+import * as CountryState from '@webapp/country/countryState'
 
 const ContentCheckView = props => {
 
@@ -142,7 +143,7 @@ const mapStateToProps = state => ({
   disturbances: R.path(['traditionalTable', 'disturbances'])(state),//5a
   areaAffectedByFire: R.path(['traditionalTable', 'areaAffectedByFire'])(state),//5b
 
-  certifiedAreas: R.path(['country', 'config', 'certifiedAreas'])(state), //8a
+  certifiedAreas: CountryState.getConfigCertifiedAreas(state),
 })
 
 export default connect(

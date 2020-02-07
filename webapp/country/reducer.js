@@ -9,21 +9,21 @@ import {
 } from './actions'
 import { toggleAssessmentLockChange } from '@webapp/loggedin/navigation/actions'
 
+import * as CountryState from '@webapp/country/countryState'
+
 const actionHandlers = {
-  [listCountries]: (state, action) =>
-    ({...state, countries: action.countries}),
+  [listCountries]: (state, { countries }) => CountryState.assocCountries(countries)(state),
 
-  [fetchCountryOverviewStatusCompleted]: (state, action) =>
-    ({...state, status: action.status}),
+  [fetchCountryOverviewStatusCompleted]: (state, { status }) => CountryState.assocStatus(status)(state),
 
-  [countryConfig]: (state, action) =>
-    ({...state, config: action.config}),
+  [countryConfig]: (state, { config }) => CountryState.assocConfig(config)(state),
 
-  [changeCountryConfigSetting]: (state, action) =>
-    ({...state, config: {...state.config, [action.key]: action.value}}),
+  [changeCountryConfigSetting]: (state, { key, value }) => CountryState.assocConfig(
+    { ...state.config, [key]: value }
+  )(state),
 
-  [toggleAssessmentLockChange]: (state, action) =>
-    R.assocPath(['status', 'assessments', action.assessmentName, 'locked'], action.locked)(state)
+  [toggleAssessmentLockChange]: (state, { assessmentName, locked }) =>
+    CountryState.assocStatusAssessmentsNameLocked(assessmentName, locked)(state)
 }
 
 export default (state = {}, action) => applyReducerFunction(actionHandlers, state, action)

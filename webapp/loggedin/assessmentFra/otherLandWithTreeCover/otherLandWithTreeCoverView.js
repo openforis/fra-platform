@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 import SingleTraditionalTableView from '@webapp/traditionalTable/singleTraditionalTableView'
 import tableSpec from './tableSpec'
 
+import * as CountryState from '@webapp/country/countryState'
+
 const OtherLandWithTreeCoverView = props =>
   <SingleTraditionalTableView
     {...props}
@@ -16,7 +18,7 @@ const OtherLandWithTreeCoverView = props =>
 const mapStateToProps = state => ({
   i18n: state.user.i18n,
   extentOfForest: state.extentOfForest,
-  faoStat: R.path(['country', 'config', 'faoStat'], state)
+  faoStat: CountryState.getConfigFaoStat(state),
 })
 
 export default connect(mapStateToProps)(OtherLandWithTreeCoverView)
