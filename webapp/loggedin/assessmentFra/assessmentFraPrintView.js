@@ -43,6 +43,7 @@ import NonWoodForestProductsRemovalsView
 import SustainableDevelopmentView from '@webapp/loggedin/assessmentFra/sustainableDevelopment/sustainableDevelopmentView'
 import { isPrintingOnlyTables } from '@webapp/loggedin/printAssessment/printAssessment'
 import * as AppState from '@webapp/app/appState'
+import * as CountryState from '@webapp/country/countryState'
 
 const AssessmentFraPrintView = props => {
   const { i18n, getCountryName, assessment, fetchCountryOverviewStatus } = props
@@ -131,7 +132,7 @@ const AssessmentFraPrintView = props => {
 }
 
 const mapStateToProps = state => ({
-  assessment: R.path(['country', 'status', 'assessments', 'fra2020'], state)
+  assessment: CountryState.getStatusAssessmentFra2020(state),
 })
 
 export default connect(

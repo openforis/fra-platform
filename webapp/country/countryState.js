@@ -31,4 +31,5 @@ export const getConfigpanEuropean = R.pipe(getState, getConfig, R.prop(['panEuro
 export const getConfigUseOriginalDataPointsInFoc = R.pipe(getState, getConfig, R.prop(['useOriginalDataPointsInFoc']))
 
 // status functions
+export const getStatusAssessmentFra2020 = R.pipe(getState, R.pathOr({}, ['status', 'assessments', 'fra2020']))
 export const assocStatusAssessmentsNameLocked = (name,locked) => R.assocPath([keys.status,'assessments', name, 'locked'])(locked)
