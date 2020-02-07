@@ -26,6 +26,7 @@ import { isAdministrator } from '@common/countryRole'
 import FraUtils from '@common/fraUtils'
 import { isPrintingMode, isPrintingOnlyTables } from '@webapp/loggedin/printAssessment/printAssessment'
 import * as AppState from '@webapp/app/appState'
+import * as ReviewState from '@webapp/loggedin/review/reviewState'
 
 const sectionName = 'extentOfForest'
 const mapIndexed = R.addIndex(R.map)
@@ -306,7 +307,7 @@ const DataFetchingComponent = props => {
 const mapStateToProps = state =>
   ({
     ...state.extentOfForest,
-    openCommentThread: state.review.openThread,
+    openCommentThread: ReviewState.getOpenThreadTarget(state),
     faoStat: R.path(['country', 'config', 'faoStat'], state),
     fra2015ForestAreas: R.path(['country', 'config', 'fra2015ForestAreas'], state),
     climaticDomainPercents2015: R.path(['country', 'config', 'climaticDomainPercents2015'], state),
