@@ -5,6 +5,9 @@ import Icon from '@webapp/components/icon'
 import * as R from 'ramda'
 import './style.less'
 
+import * as ApplicationErrorState from '@webapp/loggedin/applicationError/applicationErrorState'
+import * as UserState from '@webapp/user/userState'
+
 const ErrorBox = ({error, i18n, clearApplicationError}) =>
   <div className="alert-container">
     <div className="alert-error">
@@ -24,6 +27,9 @@ const ErrorBox = ({error, i18n, clearApplicationError}) =>
 
 const ErrorComponent = props => props.error ? <ErrorBox {...props}/> : null
 
-const mapStateToProps = state => ({error: R.path(['applicationError', 'error'], state), i18n: state.user.i18n})
+const mapStateToProps = state => ({
+  error: ApplicationErrorState.getError(state),
+  i18n: UserState.getI18n(state),
+})
 
 export default connect(mapStateToProps, {clearApplicationError})(ErrorComponent)

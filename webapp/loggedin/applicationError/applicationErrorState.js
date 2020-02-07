@@ -1,6 +1,6 @@
 import * as R from 'ramda'
 
-export const stateKey = 'app'
+export const stateKey = 'applicationError'
 
 const keys = {
   error: 'error',
@@ -9,7 +9,7 @@ const keys = {
 const getState = R.prop(stateKey)
 
 // === READ
-export const getError = R.pipe(getState, R.propOr(null, keys.error))
+export const getError = R.pipe(getState, R.prop(keys.error))
 
 // === UPDATE
 export const assocError = R.assoc(keys.error)
