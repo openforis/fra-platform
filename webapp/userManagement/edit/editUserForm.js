@@ -279,7 +279,7 @@ const mapStateToProps = (state, props) => ({
   userInfo: UserState.getUserInfo(state),
   ...state.userManagement.editUser,
   //get countries if is admin.
-  countries: isAdministrator(state.user.userInfo)
+  countries: isAdministrator(UserState.getI18n(state))
     ? R.path(['country', 'countries', administrator.role], state)
     : null
 })

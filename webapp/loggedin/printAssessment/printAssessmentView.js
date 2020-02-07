@@ -9,6 +9,8 @@ import { setPrintingMode } from './printAssessment'
 
 import AssessmentFraPrintView from '@webapp/loggedin/assessmentFra/assessmentFraPrintView'
 
+import * as UserState from '@webapp/user/userState'
+
 const views = [{
   assessment: 'fra2020', component: AssessmentFraPrintView
 }]
@@ -28,7 +30,7 @@ const PrintAssessmentView = (props) => {
 }
 
 const mapStateToProps = state => ({
-  i18n: state.user.i18n
+  i18n: UserState.getI18n(state)
 })
 
 export default connect(mapStateToProps)(PrintAssessmentView)

@@ -312,7 +312,7 @@ const mapStateToProps = state =>
     faoStat: CountryState.getConfigFaoStat(state),
     fra2015ForestAreas: CountryState.getConfigFra2015ForestAreas(state),
     climaticDomainPercents2015: CountryState.getConfigClimaticDomainPercents2015(state),
-    i18n: state.user.i18n,
+    i18n: UserState.getI18n(state),
     isEditDataDisabled: isFRA2020SectionEditDisabled(state, sectionName),
     userInfo: UserState.getUserInfo(state)
   })
