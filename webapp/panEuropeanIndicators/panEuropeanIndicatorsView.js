@@ -104,7 +104,7 @@ class PanEuropeanIndicatorsView extends React.Component {
 
 }
 
-const mapStateToProps = (state, props) => ({
+const mapStateToProps = (state) => ({
   i18n: UserState.getI18n(state),
   userInfo: UserState.getUserInfo(state),
   countryIso: AppState.getCountryIso(state),
