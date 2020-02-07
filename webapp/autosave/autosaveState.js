@@ -4,6 +4,7 @@ export const stateKey = 'autosave'
 
 const keys = {
   status: 'status',
+  lastSaveTimeStamp: 'lastSaveTimeStamp',
 }
 
 const getState = R.prop(stateKey)
@@ -13,3 +14,4 @@ export const getStatus = R.pipe(getState, R.propOr(null, keys.status))
 
 // === UPDATE
 export const assocStatus = R.assoc(keys.status)
+export const assocLastSaveTimeStamp = R.assoc(keys.lastSaveTimeStamp)
