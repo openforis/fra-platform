@@ -20,7 +20,10 @@ import {
   sendInvitationEmail,
   updateNewUser
 } from '../../userManagement/actions'
+
 import * as AppState from '@webapp/app/appState'
+import * as UserState from '@webapp/user/userState'
+import * as UserManagementState from '@webapp/userManagement/userManagementState'
 
 const ManageCollaboratorsView = props => {
   const { countryUsers, newUser, allowedRoles, editUserStatus, fetchUsers } = props
@@ -68,13 +71,13 @@ const ManageCollaboratorsView = props => {
 
 const mapStateToProps = (state, props) =>
   ({
-    i18n: state.user.i18n,
-    userInfo: state.user.userInfo,
-    allowedRoles: rolesAllowedToChange(props.match.params.countryIso, R.path(['user', 'userInfo'], state)),
-    countryUsers: state.userManagement.countryUsers,
-    newUser: state.userManagement.newUser,
-    editUserStatus: R.path(['userManagement', 'editUser', 'status'], state),
-    countryIso: R.path(['match', 'params', 'countryIso'], props)
+    i18n: UserState.getI18n(state),
+    userInfo: UserState.getUserInfo(state),
+    allowedRoles: rolesAllowedToChange(AppState.getCountryIso(state), UserState.getUserInfo(state)),
+    countryUsers: UserManagementState.getCountryUsers(state),
+    newUser: UserManagementState.getNewUser(state),
+    editUserStatus: UserManagementState.getEditUserStatus(state),
+    countryIso: AppState.getCountryIso(state),
   })
 
 export default connect(mapStateToProps, {

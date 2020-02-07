@@ -14,6 +14,8 @@ import UsersManagementView from './components/usersManagementView'
 import DataExportView from './components/dataExportView'
 import VersioningView from './components/versioning/versioningView'
 
+import * as UserState from '@webapp/user/userState'
+
 const sections = [
   {
     name: 'usersManagement',
@@ -83,8 +85,8 @@ const AdminView = (props) => {
 }
 
 const mapStateToProps = (state) => ({
-  i18n: state.user.i18n,
-  userInfo: state.user.userInfo,
+  i18n: UserState.getI18n(state),
+  userInfo: UserState.getUserInfo(state),
 })
 
 export default connect(mapStateToProps)(AdminView)

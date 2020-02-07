@@ -27,6 +27,11 @@ import { fetchCountryOverviewStatus } from '../country/actions'
 import { fetchLastSectionUpdateTimestamp } from '@webapp/audit/actions'
 import { isAssessmentLocked } from '@webapp/utils/assessmentAccess'
 
+import * as OriginalDataPointState from '@webapp/originalDataPoint/originalDataPointState'
+import * as AutosaveState from '@webapp/autosave/autosaveState'
+import * as ReviewState from '@webapp/loggedin/review/reviewState'
+import * as CountryState from '@webapp/country/countryState'
+
 const years = ['', ...R.pipe(R.range(1950), R.reverse)(2021)]
 
 const OriginalDataPoint = (props) => {
@@ -211,13 +216,15 @@ class OriginalDataPointView extends React.Component {
 }
 
 const mapStateToProps = state => {
-  const autoSaving = state.autoSave.status === 'saving'
-  const odp = state.originalDataPoint.active
-  const openThread = R.defaultTo({ target: [], section: '' }, R.path(['review', 'openThread'], state))
-  const useOriginalDataPointsInFoc = !!R.path(['country', 'config', 'useOriginalDataPointsInFoc'], state)
+  const autoSaving = AutosaveState.getStatus()
+  const odp = OriginalDataPointState.getActiveOriginalDataPoint(state)
+  const openThread = ReviewState.getOpenThread(state)
+  const countryConfig = CountryState.getConfig(state)
+
+  const useOriginalDataPointsInFoc = !!countryConfig.useOriginalDataPointsInFoc
 
   const locked = isAssessmentLocked(state, 'fra2020')
-  const canEditData = R.path(['country', 'status', 'assessments', 'fra2020', 'canEditData'], state) && !locked
+  const canEditData = CountryState.getCanEditData(state) && !locked
 
   return {
     ...state.originalDataPoint,
