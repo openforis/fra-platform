@@ -7,6 +7,8 @@ import EditUserForm from './edit/editUserForm'
 
 import { isAdministrator } from '@common/countryRole'
 
+import * as UserState from '@webapp/user/userState'
+
 function canEdit(userInfo, userId) {
   return isAdministrator(userInfo) || userInfo.id === userId
 }
@@ -21,7 +23,7 @@ const EditUserView = ({ userInfo }) => {
     : <NotFound />
 }
 const mapStateToProps = (state) => ({
-  userInfo: state.user.userInfo
+  userInfo: UserState.getUserInfo(state),
 })
 
 export default connect(mapStateToProps)(EditUserView)

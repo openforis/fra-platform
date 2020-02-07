@@ -8,6 +8,7 @@ import LoginView from '../login/loginView'
 import Loading from '@webapp/components/loading'
 
 import * as AppState from '@webapp/app/appState'
+import * as UserState from '@webapp/user/userState'
 
 const AppRouterSwitch = props => {
   const { loggedIn, initApp, applicationStatus } = props
@@ -39,7 +40,7 @@ const AppRouterSwitch = props => {
 }
 
 const mapStateToProps = state => ({
-  loggedIn: !!state.user.userInfo,
+  loggedIn: !!UserState.getUserInfo(state),
   applicationStatus: AppState.getApplicationStatus(state),
 })
 

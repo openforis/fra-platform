@@ -27,3 +27,7 @@ export const assocNewUser = R.assoc(keys.newUser)
 export const assocEditUser = R.assoc(keys.editUser)
 export const assocAllUsers = R.assoc(keys.allUsers)
 export const assocUserCounts = R.assoc(keys.userCounts)
+
+// edit user functions
+export const assocEditUserUser = R.assocPath([keys.editUser, 'user'])
+export const assocEditUserStatus = R.assocPath([keys.editUser, 'status'])

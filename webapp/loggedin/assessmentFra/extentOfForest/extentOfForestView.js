@@ -26,6 +26,8 @@ import { isAdministrator } from '@common/countryRole'
 import FraUtils from '@common/fraUtils'
 import { isPrintingMode, isPrintingOnlyTables } from '@webapp/loggedin/printAssessment/printAssessment'
 import * as AppState from '@webapp/app/appState'
+import * as UserState from '@webapp/user/userState'
+
 
 const sectionName = 'extentOfForest'
 const mapIndexed = R.addIndex(R.map)
@@ -312,7 +314,7 @@ const mapStateToProps = state =>
     climaticDomainPercents2015: R.path(['country', 'config', 'climaticDomainPercents2015'], state),
     i18n: state.user.i18n,
     isEditDataDisabled: isFRA2020SectionEditDisabled(state, sectionName),
-    userInfo: R.path(['user', 'userInfo'], state)
+    userInfo: UserState.getUserInfo(state)
   })
 
 export default connect(
