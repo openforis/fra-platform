@@ -15,6 +15,7 @@ import FraUtils from '@common/fraUtils'
 import * as table from '@webapp/traditionalTable/table'
 import { fetchTableData } from '@webapp/traditionalTable/actions'
 import * as AppState from '@webapp/app/appState'
+import * as CountryState from '@webapp/country/countryState'
 import * as UserState from '@webapp/user/userState'
 
 const sectionName = 'carbonStock'
@@ -127,7 +128,7 @@ const mapStateToProps = state => {
   const tableSpecInstance = tableSpec(i18n)
 
   return {
-    domain: R.path(['country', 'config', 'domain'], state),
+    domain: CountryState.getConfigDomain(state),
     i18n,
     disabled: isFRA2020SectionEditDisabled(state, sectionName),
     tableSpecInstance,

@@ -13,6 +13,7 @@ import { uploadQuestionnaire, getUploadedQuestionareInfo, deleteQuestionare } fr
 
 import * as AppState from '@webapp/app/appState'
 import * as UserState from '@webapp/user/userState'
+import * as CountryState from '@webapp/country/countryState'
 import * as AutosaveState from '@webapp/autosave/autosaveState'
 
 class PanEuropeanIndicatorsView extends React.Component {
@@ -111,7 +112,7 @@ const mapStateToProps = (state) => ({
   countryIso: AppState.getCountryIso(state),
   status: AutosaveState.getStatus(state),
   questionnaireFileName: state.panEuropeanIndicators.questionnaireFileName,
-  panEuropean: R.path(['country', 'config', 'panEuropean'], state)
+  panEuropean: CountryState.getConfigpanEuropean(state),
 })
 
 export default withRouter(connect(mapStateToProps, {
