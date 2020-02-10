@@ -1,8 +1,10 @@
 import React from 'react'
-import * as R from 'ramda'
 import { connect } from 'react-redux'
 import SingleTraditionalTableView from '@webapp/traditionalTable/singleTraditionalTableView'
 import tableSpec from './tableSpec'
+
+import * as CountryState from '@webapp/country/countryState'
+import * as UserState from '@webapp/user/userState'
 
 const OtherLandWithTreeCoverView = props =>
   <SingleTraditionalTableView
@@ -14,9 +16,9 @@ const OtherLandWithTreeCoverView = props =>
   />
 
 const mapStateToProps = state => ({
-  i18n: state.user.i18n,
+  i18n: UserState.getI18n(state),
   extentOfForest: state.extentOfForest,
-  faoStat: R.path(['country', 'config', 'faoStat'], state)
+  faoStat: CountryState.getConfigFaoStat(state),
 })
 
 export default connect(mapStateToProps)(OtherLandWithTreeCoverView)

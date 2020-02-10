@@ -18,6 +18,9 @@ import { fetchInitialData } from '@webapp/app/actions'
 import * as loginStatusChecker from '@webapp/user/loginStatusChecker'
 import PrintAssessmentView from './printAssessment/printAssessmentView'
 
+import * as CountryState from '@webapp/country/countryState'
+import * as UserState from '@webapp/user/userState'
+
 const LoggedInView = props => {
 
   const { initialDataLoaded, fetchInitialData } = props
@@ -57,8 +60,8 @@ const LoggedInView = props => {
 }
 
 const mapStateToProps = state => {
-  const initialDataLoaded = !!state.user.userInfo
-    && !!R.path(['country', 'countries'], state)
+  const initialDataLoaded = !!UserState.getUserInfo(state)
+    && !!CountryState.getCountries(state)
     && !R.isEmpty(state.extentOfForest)
     && !R.isEmpty(state.growingStock)
 

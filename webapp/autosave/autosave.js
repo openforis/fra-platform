@@ -1,6 +1,7 @@
 export const status = {
   saving: 'saving',
-  complete: 'complete'
+  complete: 'complete',
+  lastSaveTimestampReceived: 'lastSaveTimestampReceived'
 }
 
 export const isStatusSaving = s => s === status.saving

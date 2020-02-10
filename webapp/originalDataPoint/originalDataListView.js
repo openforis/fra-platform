@@ -6,6 +6,7 @@ import * as R from 'ramda'
 import { fetchOdps, removeFromList } from './actions'
 import { Link } from 'react-router-dom'
 import Icon from '@webapp/components/icon'
+import * as UserState from '@webapp/user/userState'
 
 const TableRow = ({odp, i18n, countryIso, removeFromList}) => {
   const odpUrl = `/country/${countryIso}/odp/extentOfForest/${odp.odpId}`
@@ -126,8 +127,8 @@ class DataFetchingComponent extends React.Component {
 
 const mapStateToProps = state => ({
   ...state.originalDataPoint,
-  i18n: state.user.i18n,
-  userInfo: state.user.userInfo
+  i18n: UserState.getI18n(state),
+  userInfo: UserState.getUserInfo(state),
 })
 
 export default withRouter(connect(mapStateToProps, {fetchOdps, removeFromList})(DataFetchingComponent))

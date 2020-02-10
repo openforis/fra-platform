@@ -5,6 +5,7 @@ import SingleTraditionalTableView from '@webapp/traditionalTable/singleTradition
 import tableSpec from './tableSpec'
 import { fetchItem } from '../../../tableWithOdp/actions'
 import * as AppState from '@webapp/app/appState'
+import * as UserState from '@webapp/user/userState'
 
 const SpecificForestCategories = props => {
   const {
@@ -27,7 +28,7 @@ const SpecificForestCategories = props => {
 }
 
 const mapStateToProps = state => ({
-  i18n: state.user.i18n,
+  i18n: UserState.getI18n(state),
   extentOfForest: state.extentOfForest,
   forestCharacteristics: state.forestCharacteristics
 })

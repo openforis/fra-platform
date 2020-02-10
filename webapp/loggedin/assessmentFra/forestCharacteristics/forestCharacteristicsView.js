@@ -21,6 +21,8 @@ import { isPrintingMode, isPrintingOnlyTables } from '@webapp/loggedin/printAsse
 
 import FraUtils from '@common/fraUtils'
 import * as AppState from '@webapp/app/appState'
+import * as CountryState from '@webapp/country/countryState'
+import * as UserState from '@webapp/user/userState'
 
 const mapIndexed = R.addIndex(R.map)
 const sectionName = 'forestCharacteristics'
@@ -361,12 +363,12 @@ const DataFetchingComponent = props => {
 const mapStateToProps = state => {
   //System-wide data-point enabling for country is done  by adding one or more ODPs in table 1a
   const useOriginalDataPoints = hasOdps(R.path(['extentOfForest', 'fra'], state))
-  const useOriginalDataPointsInFoc = !!R.path(['country', 'config', 'useOriginalDataPointsInFoc'], state)
+  const useOriginalDataPointsInFoc = !!CountryState.getConfigUseOriginalDataPointsInFoc(state)
 
   return {
     ...state.forestCharacteristics,
     openCommentThread: state.review.openThread,
-    i18n: state.user.i18n,
+    i18n: UserState.getI18n(state),
     extentOfForest: state.extentOfForest,
     useOriginalDataPoints: useOriginalDataPoints,
     // Only if ODPs are enabled system-wide and ALSO locally, they are enabled:

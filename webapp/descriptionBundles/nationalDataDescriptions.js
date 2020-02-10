@@ -4,6 +4,7 @@ import { connect, useSelector } from 'react-redux'
 import CommentableDescription from '@webapp/description/commentableDescription'
 import { isPrintingMode, isPrintingOnlyTables } from '@webapp/loggedin/printAssessment/printAssessment'
 import * as AppState from '@webapp/app/appState'
+import * as UserState from '@webapp/user/userState'
 
 const NationalDataDescriptions = props => {
   const countryIso = useSelector(AppState.getCountryIso)
@@ -37,6 +38,6 @@ const NationalDataDescriptions = props => {
     </div>
 }
 
-const mapStateToProps = (state) => ({ i18n: state.user.i18n })
+const mapStateToProps = (state) => ({i18n: UserState.getI18n(state)})
 
 export default connect(mapStateToProps, {})(NationalDataDescriptions)
