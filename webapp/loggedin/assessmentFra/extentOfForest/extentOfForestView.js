@@ -73,7 +73,7 @@ const ExtentOfForest = (props) => {
   const otherLandValidationClass = fraColumn =>
     fedAreasNotExceedingTotalLandAreaValidator(fraColumn) ? '' : 'validation-error'
 
-  const rowHighlightClass = (target) => props.openCommentThread && R.isEmpty(R.difference(props.openCommentThread.target, [target])) ? 'fra-row-comments__open' : ''
+  const rowHighlightClass = (target) => props.openCommentThread && props.openCommentThread.target && R.isEmpty(R.difference(props.openCommentThread.target, [target])) ? 'fra-row-comments__open' : ''
 
   const otherLandRow = fra =>
     <tr className={rowHighlightClass('otherLand')}>

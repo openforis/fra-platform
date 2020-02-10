@@ -352,7 +352,7 @@ const renderFieldRow = ({ row, countryIso, fra, save, saveMany, pasteUpdate, row
   const validator = row.validator || alwaysOkValidator
   return <tr
     key={field}
-    className={`${openCommentThread && R.isEmpty(R.difference(openCommentThread.target, [field])) ? 'fra-row-comments__open' : ''}`}>
+    className={`${openCommentThread && openCommentThread.target && R.isEmpty(R.difference(openCommentThread.target, [field])) ? 'fra-row-comments__open' : ''}`}>
     <th className={className ? className : 'fra-table__category-cell'}>
       {rowHeader} {rowVariable}
     </th>
