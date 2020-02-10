@@ -10,6 +10,7 @@ import ReviewIndicator from '@webapp/loggedin/review/reviewIndicator'
 import UpdateOnResizeReactComponent from '@webapp/components/updateOnResizeReactComponent'
 
 import * as UserState from '@webapp/user/userState'
+import * as ReviewState from '@webapp/loggedin/review/reviewState'
 
 const mapIndexed = R.addIndex(R.map)
 const commentTarget = (tableName, rowIdx) => [tableName, 'row', `${rowIdx}`]
@@ -147,7 +148,7 @@ const mapStateToProps = (state, props) => {
   return {
     ...props,
     tableData: R.path(['traditionalTable', props.tableSpec.name, 'tableData'], state) || table.createTableData(props.tableSpec),
-    openCommentThreadTarget: state.review.openThread ? state.review.openThread.target : null,
+    openCommentThreadTarget: ReviewState.getOpenThreadTarget(state),
     i18n: UserState.getI18n(state)
   }
 }

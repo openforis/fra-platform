@@ -23,6 +23,7 @@ import FraUtils from '@common/fraUtils'
 import * as AppState from '@webapp/app/appState'
 import * as CountryState from '@webapp/country/countryState'
 import * as UserState from '@webapp/user/userState'
+import * as ReviewState from '@webapp/loggedin/review/reviewState'
 
 const mapIndexed = R.addIndex(R.map)
 const sectionName = 'forestCharacteristics'
@@ -367,7 +368,7 @@ const mapStateToProps = state => {
 
   return {
     ...state.forestCharacteristics,
-    openCommentThread: state.review.openThread,
+    openCommentThread: ReviewState.getOpenThread(state),
     i18n: UserState.getI18n(state),
     extentOfForest: state.extentOfForest,
     useOriginalDataPoints: useOriginalDataPoints,
