@@ -36,7 +36,7 @@ const odpValueCellClass = (fraColumn) => fraColumn.type === 'odp' && !isPrinting
 
 const ExtentOfForest = (props) => {
 
-  const { i18n, isEditDataDisabled, userInfo, showNDPs, toggleNDPs, hasNDPs } = props
+  const { i18n, isEditDataDisabled, userInfo, showNDPs, toggleNDPs, hasNDPs, fra, hasData } = props
 
   const getFaostatValue = year => R.path(['faoStat', year, 'area'], props)
   const getForestArea2015Value = year => R.path(['fra2015ForestAreas', year], props)
@@ -229,19 +229,18 @@ const ExtentOfForest = (props) => {
     </div>
 
     {
-      !isPrintingOnlyTables() &&
-      [
-        <div className="page-break" key={0}/>,
+      (!isPrintingMode() || (!isPrintingOnlyTables() && hasData)) &&
+      <>
+        <div className="page-break" />
 
         <ChartWrapper
-          key={1}
-          fra={props.fra}
+          fra={fra}
           trends={[
             { name: 'forestArea', label: i18n.t('fraClass.forest'), color: '#0098a6' },
             { name: 'otherWoodedLand', label: i18n.t('fraClass.otherWoodedLand'), color: '#bf00af' }
           ]}
         />
-      ]
+      </>
     }
 
     {
@@ -262,7 +261,7 @@ const ExtentOfForest = (props) => {
       tableHeader={props.i18n.t('extentOfForest.areaUnitLabel')}
       categoryHeader={props.i18n.t('extentOfForest.categoryHeader')}
       {...props}
-      fra={props.fra}
+      fra={fra}
       copyValues={false}
       disabled={isEditDataDisabled}
     />
@@ -298,7 +297,16 @@ const DataFetchingComponent = props => {
       ? fra
       : fraNoNDPs
 
+  const hasData = (data) => {
+    return R.pipe(
+      R.map(R.omit(['year', 'name', 'type'])),
+      R.map(R.values),
+      FraUtils.hasData,
+    )(data)
+  }
+
   return <ExtentOfForest {...props}
+                         hasData={hasData(data)}
                          countryIso={countryIso}
                          fra={data}
                          showNDPs={showNDPs}

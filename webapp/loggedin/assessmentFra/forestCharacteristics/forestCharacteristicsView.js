@@ -31,7 +31,7 @@ const odpValueCellClass = (fraColumn) => fraColumn.type === 'odp' && !isPrinting
 
 const ForestCharacteristics = props => {
 
-  const { i18n, isEditDataDisabled } = props
+  const { i18n, isEditDataDisabled, fra, hasData } = props
 
   const totalForestArea = (fraColumn) =>
     sum([
@@ -237,9 +237,8 @@ const ForestCharacteristics = props => {
 
     {
       props.useOriginalDataPoints
-        ? [
-          <button key="odpButton"
-                  className={`btn btn-${props.useOriginalDataPointsInFoc ? 'secondary' : 'primary'} no-print`}
+        ? <>
+          <button className={`btn btn-${props.useOriginalDataPointsInFoc ? 'secondary' : 'primary'} no-print`}
                   onClick={() => handleOdpButtonClick()}
                   disabled={isEditDataDisabled}>
             {
@@ -247,9 +246,9 @@ const ForestCharacteristics = props => {
                 ? i18n.t('forestCharacteristics.dontUseOriginalDataPoints')
                 : i18n.t('forestCharacteristics.useOriginalDataPoints')
             }
-          </button>,
-          <hr key="separator" className="no-print"/>
-        ]
+          </button>
+          <hr className="no-print"/>
+        </>
         : null
     }
     {
@@ -257,12 +256,12 @@ const ForestCharacteristics = props => {
         ? isPrintingMode()
         ? <NationalDataPointsPrintView {...props} section={sectionName}/>
         : null
-        : [
-          <NationalDataDescriptions key="ndd" section={sectionName} countryIso={props.countryIso}
-                                    disabled={isEditDataDisabled}/>,
-          <AnalysisDescriptions key="ad" section={sectionName} countryIso={props.countryIso}
+        : <>
+          <NationalDataDescriptions section={sectionName} countryIso={props.countryIso}
+                                    disabled={isEditDataDisabled}/>
+          <AnalysisDescriptions section={sectionName} countryIso={props.countryIso}
                                 disabled={isEditDataDisabled}/>
-        ]
+        </>
     }
     <h2 className="headline no-print">
       {i18n.t('forestCharacteristics.forestCharacteristics')}
@@ -275,13 +274,12 @@ const ForestCharacteristics = props => {
     </div>
 
     {
-      !isPrintingOnlyTables() &&
-      [
-        <div className="page-break" key={0}/>,
+      (!isPrintingMode() || (!isPrintingOnlyTables() && hasData)) &&
+      <>
+        <div className="page-break" />
 
         <ChartWrapper
-          key={1}
-          fra={props.fra}
+          fra={fra}
           trends={[
             {
               name: 'naturalForestArea',
@@ -300,7 +298,7 @@ const ForestCharacteristics = props => {
             }
           ]}
         />
-      ]
+      </>
     }
     {
       props.useOriginalDataPointsInFoc && !isEditDataDisabled
@@ -322,7 +320,7 @@ const ForestCharacteristics = props => {
       tableHeader={i18n.t('forestCharacteristics.areaUnitLabel')}
       categoryHeader={i18n.t('forestCharacteristics.categoryHeader')}
       {...props}
-      fra={props.fra}
+      fra={fra}
       disabled={isEditDataDisabled}
     />
     <GeneralComments
@@ -356,6 +354,7 @@ const DataFetchingComponent = props => {
   if (!render) return null
   return <ForestCharacteristics
     {...props}
+    hasData={hasData(data)}
     countryIso={countryIso}
     fra={data}
   />
