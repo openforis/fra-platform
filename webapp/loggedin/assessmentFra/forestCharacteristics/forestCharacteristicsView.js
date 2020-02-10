@@ -369,6 +369,7 @@ const mapStateToProps = state => {
   return {
     ...state.forestCharacteristics,
     openCommentThread: ReviewState.getOpenThread(state),
+    openCommentThreadTarget: ReviewState.getOpenThreadTarget(state),
     i18n: UserState.getI18n(state),
     extentOfForest: state.extentOfForest,
     useOriginalDataPoints: useOriginalDataPoints,

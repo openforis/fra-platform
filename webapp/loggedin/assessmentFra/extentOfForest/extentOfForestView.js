@@ -310,6 +310,7 @@ const mapStateToProps = state =>
   ({
     ...state.extentOfForest,
     openCommentThread: ReviewState.getOpenThreadTarget(state),
+    openCommentThreadTarget: ReviewState.getOpenThreadTarget(state),
     faoStat: CountryState.getConfigFaoStat(state),
     fra2015ForestAreas: CountryState.getConfigFra2015ForestAreas(state),
     climaticDomainPercents2015: CountryState.getConfigClimaticDomainPercents2015(state),

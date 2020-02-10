@@ -342,7 +342,7 @@ const validationErrorRow = columnErrorMsgs => {
 
 const alwaysOkValidator = () => true
 
-const renderFieldRow = ({ row, countryIso, fra, save, saveMany, pasteUpdate, rowIdx, openCommentThread, section, disabled }) => {
+const renderFieldRow = ({ row, countryIso, fra, save, saveMany, pasteUpdate, rowIdx, openCommentThreadTarget, section, disabled }) => {
   const {
     rowHeader,
     field,
@@ -352,7 +352,7 @@ const renderFieldRow = ({ row, countryIso, fra, save, saveMany, pasteUpdate, row
   const validator = row.validator || alwaysOkValidator
   return <tr
     key={field}
-    className={`${openCommentThread && openCommentThread.target && R.isEmpty(R.difference(openCommentThread.target, [field])) ? 'fra-row-comments__open' : ''}`}>
+    className={`${!R.isEmpty(openCommentThreadTarget) && R.isEmpty(R.difference(openCommentThreadTarget, [field])) ? 'fra-row-comments__open' : ''}`}>
     <th className={className ? className : 'fra-table__category-cell'}>
       {rowHeader} {rowVariable}
     </th>
