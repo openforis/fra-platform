@@ -36,7 +36,7 @@ const odpValueCellClass = (fraColumn) => fraColumn.type === 'odp' && !isPrinting
 
 const ExtentOfForest = (props) => {
 
-  const { i18n, isEditDataDisabled, userInfo, showNDPs, toggleNDPs, hasNDPs, fra, hasData } = props
+  const { i18n, isEditDataDisabled, userInfo, showNDPs, toggleNDPs, hasNDPs, fra, hasData, openCommentThreadTarget } = props
 
   const getFaostatValue = year => R.path(['faoStat', year, 'area'], props)
   const getForestArea2015Value = year => R.path(['fra2015ForestAreas', year], props)
@@ -73,7 +73,7 @@ const ExtentOfForest = (props) => {
   const otherLandValidationClass = fraColumn =>
     fedAreasNotExceedingTotalLandAreaValidator(fraColumn) ? '' : 'validation-error'
 
-  const rowHighlightClass = (target) => props.openCommentThread && props.openCommentThread.target && R.isEmpty(R.difference(props.openCommentThread.target, [target])) ? 'fra-row-comments__open' : ''
+  const rowHighlightClass = (target) => !R.isEmpty(openCommentThreadTarget) && R.isEmpty(R.difference(openCommentThreadTarget, [target])) ? 'fra-row-comments__open' : ''
 
   const otherLandRow = fra =>
     <tr className={rowHighlightClass('otherLand')}>

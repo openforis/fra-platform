@@ -31,7 +31,7 @@ const odpValueCellClass = (fraColumn) => fraColumn.type === 'odp' && !isPrinting
 
 const ForestCharacteristics = props => {
 
-  const { i18n, isEditDataDisabled, fra, hasData } = props
+  const { i18n, isEditDataDisabled, fra, hasData, openCommentThreadTarget } = props
 
   const totalForestArea = (fraColumn) =>
     sum([
@@ -57,7 +57,7 @@ const ForestCharacteristics = props => {
     return greaterThan(difference, tolerance)
   }
 
-  const rowHighlightClass = (target) => props.openCommentThread && R.isEmpty(R.difference(props.openCommentThread.target, [target])) ? 'fra-row-comments__open' : ''
+  const rowHighlightClass = (target) => !R.isEmpty(openCommentThreadTarget) && R.isEmpty(R.difference(openCommentThreadTarget, [target])) ? 'fra-row-comments__open' : ''
 
   const plantedForestRow = fra =>
     <tr className={rowHighlightClass('plantedForest')}>

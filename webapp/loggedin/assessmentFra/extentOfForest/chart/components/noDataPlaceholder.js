@@ -5,7 +5,7 @@ import { hasData, defaultTransitionDuration } from '../chart'
 
 const Text = ({ text, width, y }) =>
   <foreignObject data-y={y} width={width} height="25" y={y} style={{ textAlign: 'center' }}>
-    <text style={{ fontSize: '14px', color: '#999999' }} x="0" y="0">{text}</text>
+    <span style={{ fontSize: '14px', color: '#999999' }} x="0" y="0">{text}</span>
   </foreignObject>
 
 const tucanY = 20
