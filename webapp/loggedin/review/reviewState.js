@@ -9,8 +9,9 @@ const keys = {
 const getState = R.prop(stateKey)
 
 // === READ
-export const getOpenThread = R.pipe(getState, R.propOr({ target: [], section: '' }, keys.openThread))
-export const getOpenThreadTarget = R.pipe(getState, R.pathOr(null, ['openThread', 'target']))
+// openThread = { target: [], section: '' },
+export const getOpenThread = R.pipe(getState, R.prop( keys.openThread))
+export const getOpenThreadTarget = R.pipe(getState, R.pathOr([], ['openThread', 'target']))
 
 // === UPDATE
 export const assocOpenThread = R.assoc(keys.openThread)
