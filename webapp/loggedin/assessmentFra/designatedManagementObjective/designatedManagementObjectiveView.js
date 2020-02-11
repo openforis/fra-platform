@@ -22,6 +22,7 @@ import { fetchTableData } from '@webapp/traditionalTable/actions'
 
 import * as AppState from '@webapp/app/appState'
 import * as UserState from '@webapp/user/userState'
+import { div } from '@common/bignumberUtils'
 
 const sectionName = 'designatedManagementObjective'
 
@@ -69,6 +70,11 @@ const designatedManagementObjectiveView = props => {
         <DefinitionLink className="align-left" document="faq" anchor="3a" title={i18n.t('definition.faqLabel')}
           lang={i18n.language} />
       </div>
+
+      {
+        !isPrintingOnlyTables() &&
+        <div className="page-break" />
+      }
 
       {
         renderPrimary &&

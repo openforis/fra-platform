@@ -17,6 +17,7 @@ import FraUtils from '@common/fraUtils'
 import { fetchTableData } from '@webapp/traditionalTable/actions'
 import * as AppState from '@webapp/app/appState'
 import * as UserState from '@webapp/user/userState'
+import { div } from '@common/bignumberUtils'
 
 const GrowingStockCompositionView = props => {
   const { i18n, isEditDataDisabled, tableData, tableSpecInstance } = props
@@ -50,6 +51,12 @@ const GrowingStockCompositionView = props => {
                         lang={i18n.language}/>
         <div className="support-text">{i18n.t('growingStockComposition.rankingYear')}</div>
       </div>
+
+      {
+        !isPrintingOnlyTables() &&
+        <div className="page-break" />
+      }
+
       <TraditionalTable tableSpec={tableSpecInstance} countryIso={countryIso}
                         disabled={isEditDataDisabled}/>
       <GeneralComments

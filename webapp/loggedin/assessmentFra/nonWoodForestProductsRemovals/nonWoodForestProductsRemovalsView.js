@@ -17,6 +17,7 @@ import { isPrintingOnlyTables } from '@webapp/loggedin/printAssessment/printAsse
 import FraUtils from '@common/fraUtils'
 import * as AppState from '@webapp/app/appState'
 import * as UserState from '@webapp/user/userState'
+import { div } from '@common/bignumberUtils'
 
 const currencyNameTableSpec = i18n => ({
   name: 'nonWoodForestProductsRemovalsCurrency',
@@ -75,6 +76,12 @@ const NonWoodForestProductsRemovalsView = props => {
         <DefinitionLink className="align-left" document="faq" anchor="7c" title={i18n.t('definition.faqLabel')}
                         lang={i18n.language}/>
       </div>
+
+      {
+        !isPrintingOnlyTables() &&
+        <div className="page-break" />
+      }
+
       <TraditionalTable tableSpec={tableSpecInstance} countryIso={countryIso}
                         disabled={disabled}/>
       <div className="page-break"/>

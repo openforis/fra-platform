@@ -7,6 +7,6 @@ export const getUrlParameter = name => {
 
 export const getRequestParam = name => {
   const url = new URL(window.location)
-  const params = new URLSearchParams(url.hash.substring(url.hash.indexOf('?') + 1))
+  const params = new URLSearchParams(url.href.substring(url.href.indexOf('?') + 1))
   return params.get(name)
 }
