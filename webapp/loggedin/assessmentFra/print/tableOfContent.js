@@ -10,7 +10,7 @@ const getAssessmentHeaders = ({ fra2020 }) => fra2020.filter(x =>
 const TableOfContentLink = ({ children, i }) => <li><a href={`#section${i + 1}`}>{children}</a></li>
 const TableOfContent = props => {
   const { i18n } = props
-  // add 8 main levels with inner links
+
   return (
     <ol className="table-of-content">
       {
