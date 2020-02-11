@@ -78,7 +78,7 @@ const AssessmentFraPrintView = props => {
 
       {
         !isPrintingOnlyTables() &&
-        <TableOfContent/>
+        <TableOfContent i18n={i18n} />
       }
       <hr/>
 
@@ -98,46 +98,46 @@ const AssessmentFraPrintView = props => {
       <div className="page-break"/>
       <OtherLandWithTreeCoverView {...props} />
 
-      {/*<div id="section2" className="page-break"/>*/}
-      {/*<GrowingStockView {...props} />*/}
-      {/*<div className="page-break"/>*/}
-      {/*<GrowingStockCompositionView {...props} />*/}
-      {/*<div className="page-break"/>*/}
-      {/*<BiomassStockView {...props} />*/}
-      {/*<div className="page-break"/>*/}
-      {/*<CarbonStockView {...props} />*/}
+      <div id="section2" className="page-break"/>
+      <GrowingStockView {...props} />
+      <div className="page-break"/>
+      <GrowingStockCompositionView {...props} />
+      <div className="page-break"/>
+      <BiomassStockView {...props} />
+      <div className="page-break"/>
+      <CarbonStockView {...props} />
 
-      {/*<div id="section3" className="page-break"/>*/}
-      {/*<DesignatedManagementObjectiveView {...props} />*/}
-      {/*<div className="page-break"/>*/}
-      {/*<ForestAreaWithinProtectedAreasView {...props} />*/}
+      <div id="section3" className="page-break"/>
+      <DesignatedManagementObjectiveView {...props} />
+      <div className="page-break"/>
+      <ForestAreaWithinProtectedAreasView {...props} />
 
-      {/*<div id="section4" className="page-break"/>*/}
-      {/*<ForestOwnershipView {...props} />*/}
-      {/*<div className="page-break"/>*/}
-      {/*<HolderOfManagementRightsView {...props} />*/}
+      <div id="section4" className="page-break"/>
+      <ForestOwnershipView {...props} />
+      <div className="page-break"/>
+      <HolderOfManagementRightsView {...props} />
 
-      {/*<div id="section5" className="page-break"/>*/}
-      {/*<DisturbancesPrintView {...props} />*/}
-      {/*<div className="page-break"/>*/}
-      {/*<AreaAffectedByFirePrintView {...props} />*/}
-      {/*<div className="page-break"/>*/}
-      {/*<DegradedForestView {...props} />*/}
+      <div id="section5" className="page-break"/>
+      <DisturbancesPrintView {...props} />
+      <div className="page-break"/>
+      <AreaAffectedByFirePrintView {...props} />
+      <div className="page-break"/>
+      <DegradedForestView {...props} />
 
-      {/*<div id="section6" className="page-break"/>*/}
-      {/*<ForestPolicyView {...props} />*/}
-      {/*<div className="page-break"/>*/}
-      {/*<AreaOfPermanentForestEstateView {...props} />*/}
+      <div id="section6" className="page-break"/>
+      <ForestPolicyView {...props} />
+      <div className="page-break"/>
+      <AreaOfPermanentForestEstateView {...props} />
 
-      {/*<div id="section7" className="page-break"/>*/}
-      {/*<EmploymentPrintView {...props} />*/}
-      {/*<div className="page-break"/>*/}
-      {/*<GraduationOfStudentsPrintView {...props} />*/}
-      {/*<div className="page-break"/>*/}
-      {/*<NonWoodForestProductsRemovalsView {...props} />*/}
+      <div id="section7" className="page-break"/>
+      <EmploymentPrintView {...props} />
+      <div className="page-break"/>
+      <GraduationOfStudentsPrintView {...props} />
+      <div className="page-break"/>
+      <NonWoodForestProductsRemovalsView {...props} />
 
-      {/*<div id="section8" className="page-break"/>*/}
-      {/*<SustainableDevelopmentView {...props} />*/}
+      <div id="section8" className="page-break"/>
+      <SustainableDevelopmentView {...props} />
     </div>
   )
 }
