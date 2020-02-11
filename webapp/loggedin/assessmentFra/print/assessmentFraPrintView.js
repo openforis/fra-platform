@@ -11,11 +11,14 @@ import ExtentOfForestView from '@webapp/loggedin/assessmentFra/extentOfForest/ex
 import ForestCharacteristicsView from '@webapp/loggedin/assessmentFra/forestCharacteristics/forestCharacteristicsView'
 import ForestAreaChangeView from '@webapp/loggedin/assessmentFra/forestAreaChange/forestAreaChangeView'
 import AnnualReforestationView from '@webapp/loggedin/assessmentFra/annualReforestation/annualReforestationView'
-import SpecificForestCategoriesView from '@webapp/loggedin/assessmentFra/specificForestCategories/specificForestCategoriesView'
-import OtherLandWithTreeCoverView from '@webapp/loggedin/assessmentFra/otherLandWithTreeCover/otherLandWithTreeCoverView'
+import SpecificForestCategoriesView
+  from '@webapp/loggedin/assessmentFra/specificForestCategories/specificForestCategoriesView'
+import OtherLandWithTreeCoverView
+  from '@webapp/loggedin/assessmentFra/otherLandWithTreeCover/otherLandWithTreeCoverView'
 
 import GrowingStockView from '@webapp/loggedin/assessmentFra/growingStock/growingStockView'
-import GrowingStockCompositionView from '@webapp/loggedin/assessmentFra/growingStockComposition/growingStockCompositionView'
+import GrowingStockCompositionView
+  from '@webapp/loggedin/assessmentFra/growingStockComposition/growingStockCompositionView'
 import BiomassStockView from '@webapp/loggedin/assessmentFra/biomassStock/biomassStockView'
 import CarbonStockView from '@webapp/loggedin/assessmentFra/carbonStock/carbonStockView'
 
@@ -25,7 +28,8 @@ import ForestAreaWithinProtectedAreasView
   from '@webapp/loggedin/assessmentFra/forestAreaWithinProtectedAreas/forestAreaWithinprotectedAreasView'
 
 import ForestOwnershipView from '@webapp/loggedin/assessmentFra/forestOwnership/forestOwnershipView'
-import HolderOfManagementRightsView from '@webapp/loggedin/assessmentFra/holderOfManagementRights/holderOfManagementRightsView'
+import HolderOfManagementRightsView
+  from '@webapp/loggedin/assessmentFra/holderOfManagementRights/holderOfManagementRightsView'
 
 import DisturbancesPrintView from '@webapp/loggedin/assessmentFra/disturbances/disturbancesView'
 import AreaAffectedByFirePrintView from '@webapp/loggedin/assessmentFra/areaAffectedByFire/areaAffectedByFireView'
@@ -40,10 +44,12 @@ import GraduationOfStudentsPrintView from '@webapp/loggedin/assessmentFra/gradua
 import NonWoodForestProductsRemovalsView
   from '@webapp/loggedin/assessmentFra/nonWoodForestProductsRemovals/nonWoodForestProductsRemovalsView'
 
-import SustainableDevelopmentView from '@webapp/loggedin/assessmentFra/sustainableDevelopment/sustainableDevelopmentView'
+import SustainableDevelopmentView
+  from '@webapp/loggedin/assessmentFra/sustainableDevelopment/sustainableDevelopmentView'
 import { isPrintingOnlyTables } from '@webapp/loggedin/printAssessment/printAssessment'
 import * as AppState from '@webapp/app/appState'
 import * as CountryState from '@webapp/country/countryState'
+import TableOfContent from '@webapp/loggedin/assessmentFra/print/tableOfContent'
 
 const AssessmentFraPrintView = props => {
   const { i18n, getCountryName, assessment, fetchCountryOverviewStatus } = props
@@ -69,12 +75,17 @@ const AssessmentFraPrintView = props => {
           <h1>{i18n.t(`fraReportPrint.${isPrintingOnlyTables() ? 'titleTables' : 'title'}`)}</h1>
         </div>
       </div>
+
+      {
+        !isPrintingOnlyTables() &&
+        <TableOfContent/>
+      }
       <hr/>
 
       <ContactPersonsPrintView {...props} />
       <IntroductionView {...props} />
 
-      <div className="page-break"/>
+      <div id="section1" className="page-break"/>
       <ExtentOfForestView {...props} />
       <div className="page-break"/>
       <ForestCharacteristicsView {...props} />
@@ -87,46 +98,46 @@ const AssessmentFraPrintView = props => {
       <div className="page-break"/>
       <OtherLandWithTreeCoverView {...props} />
 
-      <div className="page-break"/>
-      <GrowingStockView {...props} />
-      <div className="page-break"/>
-      <GrowingStockCompositionView {...props} />
-      <div className="page-break"/>
-      <BiomassStockView {...props} />
-      <div className="page-break"/>
-      <CarbonStockView {...props} />
+      {/*<div id="section2" className="page-break"/>*/}
+      {/*<GrowingStockView {...props} />*/}
+      {/*<div className="page-break"/>*/}
+      {/*<GrowingStockCompositionView {...props} />*/}
+      {/*<div className="page-break"/>*/}
+      {/*<BiomassStockView {...props} />*/}
+      {/*<div className="page-break"/>*/}
+      {/*<CarbonStockView {...props} />*/}
 
-      <div className="page-break"/>
-      <DesignatedManagementObjectiveView {...props} />
-      <div className="page-break"/>
-      <ForestAreaWithinProtectedAreasView {...props} />
+      {/*<div id="section3" className="page-break"/>*/}
+      {/*<DesignatedManagementObjectiveView {...props} />*/}
+      {/*<div className="page-break"/>*/}
+      {/*<ForestAreaWithinProtectedAreasView {...props} />*/}
 
-      <div className="page-break"/>
-      <ForestOwnershipView {...props} />
-      <div className="page-break"/>
-      <HolderOfManagementRightsView {...props} />
+      {/*<div id="section4" className="page-break"/>*/}
+      {/*<ForestOwnershipView {...props} />*/}
+      {/*<div className="page-break"/>*/}
+      {/*<HolderOfManagementRightsView {...props} />*/}
 
-      <div className="page-break"/>
-      <DisturbancesPrintView {...props} />
-      <div className="page-break"/>
-      <AreaAffectedByFirePrintView {...props} />
-      <div className="page-break"/>
-      <DegradedForestView {...props} />
+      {/*<div id="section5" className="page-break"/>*/}
+      {/*<DisturbancesPrintView {...props} />*/}
+      {/*<div className="page-break"/>*/}
+      {/*<AreaAffectedByFirePrintView {...props} />*/}
+      {/*<div className="page-break"/>*/}
+      {/*<DegradedForestView {...props} />*/}
 
-      <div className="page-break"/>
-      <ForestPolicyView {...props} />
-      <div className="page-break"/>
-      <AreaOfPermanentForestEstateView {...props} />
+      {/*<div id="section6" className="page-break"/>*/}
+      {/*<ForestPolicyView {...props} />*/}
+      {/*<div className="page-break"/>*/}
+      {/*<AreaOfPermanentForestEstateView {...props} />*/}
 
-      <div className="page-break"/>
-      <EmploymentPrintView {...props} />
-      <div className="page-break"/>
-      <GraduationOfStudentsPrintView {...props} />
-      <div className="page-break"/>
-      <NonWoodForestProductsRemovalsView {...props} />
+      {/*<div id="section7" className="page-break"/>*/}
+      {/*<EmploymentPrintView {...props} />*/}
+      {/*<div className="page-break"/>*/}
+      {/*<GraduationOfStudentsPrintView {...props} />*/}
+      {/*<div className="page-break"/>*/}
+      {/*<NonWoodForestProductsRemovalsView {...props} />*/}
 
-      <div className="page-break"/>
-      <SustainableDevelopmentView {...props} />
+      {/*<div id="section8" className="page-break"/>*/}
+      {/*<SustainableDevelopmentView {...props} />*/}
     </div>
   )
 }
