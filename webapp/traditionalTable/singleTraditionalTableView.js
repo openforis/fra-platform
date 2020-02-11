@@ -20,6 +20,7 @@ import FraUtils from '@common/fraUtils'
 import { fetchTableData } from './actions'
 
 import * as UserState from '@webapp/user/userState'
+import { div } from '@common/bignumberUtils'
 class SingleTraditionalTableView extends React.Component {
 
   componentDidMount () {
@@ -87,6 +88,12 @@ class SingleTraditionalTableView extends React.Component {
             <DefinitionLink className="align-left" document="faq" anchor={sectionAnchor ? sectionAnchor : faqAnchor}
                             title={i18n.t('definition.faqLabel')} lang={i18n.language}/>
           </div>
+
+          {
+            !isPrintingOnlyTables() &&
+            <div className="page-break" />
+          }
+
           <TraditionalTable tableSpec={tableSpecInstance}
                             countryIso={match.params.countryIso}
                             disabled={isEditDataDisabled}

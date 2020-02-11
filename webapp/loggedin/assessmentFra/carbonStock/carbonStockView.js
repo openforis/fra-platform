@@ -17,6 +17,7 @@ import { fetchTableData } from '@webapp/traditionalTable/actions'
 import * as AppState from '@webapp/app/appState'
 import * as CountryState from '@webapp/country/countryState'
 import * as UserState from '@webapp/user/userState'
+import { div } from '@common/bignumberUtils'
 
 const sectionName = 'carbonStock'
 const domains = ['boreal', 'temperate', 'subtropical', 'tropical']
@@ -109,6 +110,12 @@ const CarbonStockView = props => {
         </div>
 
       </div>
+
+      {
+        !isPrintingOnlyTables() &&
+        <div className="page-break" />
+      }
+
       <TraditionalTable tableSpec={tableSpecInstance} countryIso={countryIso} disabled={disabled}/>
       <div className="fra-secondary-table__wrapper">
         <TraditionalTable tableSpec={soilDepthTableSpec(i18n)} countryIso={countryIso}

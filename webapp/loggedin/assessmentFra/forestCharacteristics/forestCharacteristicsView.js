@@ -12,7 +12,7 @@ import GeneralComments from '@webapp/descriptionBundles/generalComments'
 import { fetchLastSectionUpdateTimestamp } from '@webapp/audit/actions'
 import { saveCountryConfigSetting } from '../../../country/actions'
 import DefinitionLink from '@webapp/components/definitionLink'
-import { abs, formatNumber, greaterThan, greaterThanOrEqualTo, sub, sum } from '@common/bignumberUtils'
+import { abs, div, formatNumber, greaterThan, greaterThanOrEqualTo, sub, sum } from '@common/bignumberUtils'
 import { getForestAreaForYear, hasOdps } from '@common/extentOfForestHelper'
 import ReviewIndicator from '@webapp/loggedin/review/reviewIndicator'
 import NationalDataPointsPrintView from '../../../originalDataPoint/nationalDataPointsPrintView'
@@ -313,6 +313,12 @@ const ForestCharacteristics = props => {
         </div>
         : null
     }
+
+    {
+      !isPrintingOnlyTables() &&
+      <div className="page-break" />
+    }
+
     <TableWithOdp
       section={sectionName}
       rows={focRows}
