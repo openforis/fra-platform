@@ -24,7 +24,7 @@ class NoDataPlaceholder extends React.Component {
 
   texts () {
     let textWrappers = d3.select(this.refs.container).selectAll('foreignObject')
-    return textWrappers.selectAll('text')
+    return textWrappers.selectAll('span')
   }
 
   hidePlaceholderAnimated () {
