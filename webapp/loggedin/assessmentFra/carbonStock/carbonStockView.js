@@ -17,7 +17,6 @@ import { fetchTableData } from '@webapp/traditionalTable/actions'
 import * as AppState from '@webapp/app/appState'
 import * as CountryState from '@webapp/country/countryState'
 import * as UserState from '@webapp/user/userState'
-import { div } from '@common/bignumberUtils'
 
 const sectionName = 'carbonStock'
 const domains = ['boreal', 'temperate', 'subtropical', 'tropical']

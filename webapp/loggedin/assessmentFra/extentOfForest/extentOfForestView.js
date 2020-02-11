@@ -17,7 +17,7 @@ import { saveCountryConfigSetting } from '../../../country/actions'
 import { fetchItem, generateFraValues, save, saveMany } from '../../../tableWithOdp/actions'
 import { fetchLastSectionUpdateTimestamp } from '@webapp/audit/actions'
 
-import { abs, div, formatNumber, greaterThanOrEqualTo, lessThanOrEqualTo, sub, sum } from '@common/bignumberUtils'
+import { abs, formatNumber, greaterThanOrEqualTo, lessThanOrEqualTo, sub, sum } from '@common/bignumberUtils'
 import climaticDomainTableSpec from './climaticDomainTableSpec'
 import { hasOdps } from '@common/extentOfForestHelper'
 import { isFRA2020SectionEditDisabled } from '@webapp/utils/assessmentAccess'

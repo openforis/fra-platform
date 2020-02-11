@@ -17,7 +17,6 @@ import { isPrintingOnlyTables } from '@webapp/loggedin/printAssessment/printAsse
 import FraUtils from '@common/fraUtils'
 import * as AppState from '@webapp/app/appState'
 import * as UserState from '@webapp/user/userState'
-import { div } from '@common/bignumberUtils'
 
 const currencyNameTableSpec = i18n => ({
   name: 'nonWoodForestProductsRemovalsCurrency',

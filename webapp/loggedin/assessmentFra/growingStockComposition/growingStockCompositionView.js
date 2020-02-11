@@ -17,7 +17,6 @@ import FraUtils from '@common/fraUtils'
 import { fetchTableData } from '@webapp/traditionalTable/actions'
 import * as AppState from '@webapp/app/appState'
 import * as UserState from '@webapp/user/userState'
-import { div } from '@common/bignumberUtils'
 
 const GrowingStockCompositionView = props => {
   const { i18n, isEditDataDisabled, tableData, tableSpecInstance } = props

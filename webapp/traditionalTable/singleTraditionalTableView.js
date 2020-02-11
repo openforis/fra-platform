@@ -20,7 +20,7 @@ import FraUtils from '@common/fraUtils'
 import { fetchTableData } from './actions'
 
 import * as UserState from '@webapp/user/userState'
-import { div } from '@common/bignumberUtils'
+
 class SingleTraditionalTableView extends React.Component {
 
   componentDidMount () {
