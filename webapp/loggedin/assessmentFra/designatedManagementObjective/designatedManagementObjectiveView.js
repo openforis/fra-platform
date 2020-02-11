@@ -71,6 +71,11 @@ const designatedManagementObjectiveView = props => {
       </div>
 
       {
+        !isPrintingOnlyTables() &&
+        <div className="page-break" />
+      }
+
+      {
         renderPrimary &&
         [
           <h3 className="subhead" key={0}>

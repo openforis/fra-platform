@@ -75,6 +75,12 @@ const NonWoodForestProductsRemovalsView = props => {
         <DefinitionLink className="align-left" document="faq" anchor="7c" title={i18n.t('definition.faqLabel')}
                         lang={i18n.language}/>
       </div>
+
+      {
+        !isPrintingOnlyTables() &&
+        <div className="page-break" />
+      }
+
       <TraditionalTable tableSpec={tableSpecInstance} countryIso={countryIso}
                         disabled={disabled}/>
       <div className="page-break"/>

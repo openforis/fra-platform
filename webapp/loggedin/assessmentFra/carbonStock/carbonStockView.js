@@ -109,6 +109,12 @@ const CarbonStockView = props => {
         </div>
 
       </div>
+
+      {
+        !isPrintingOnlyTables() &&
+        <div className="page-break" />
+      }
+
       <TraditionalTable tableSpec={tableSpecInstance} countryIso={countryIso} disabled={disabled}/>
       <div className="fra-secondary-table__wrapper">
         <TraditionalTable tableSpec={soilDepthTableSpec(i18n)} countryIso={countryIso}

@@ -50,6 +50,12 @@ const GrowingStockCompositionView = props => {
                         lang={i18n.language}/>
         <div className="support-text">{i18n.t('growingStockComposition.rankingYear')}</div>
       </div>
+
+      {
+        !isPrintingOnlyTables() &&
+        <div className="page-break" />
+      }
+
       <TraditionalTable tableSpec={tableSpecInstance} countryIso={countryIso}
                         disabled={isEditDataDisabled}/>
       <GeneralComments

@@ -239,6 +239,11 @@ const GrowingStock = (props) => {
       <div className="support-text full-width no-print">{i18n.t('growingStock.supportText')}</div>
     </div>
 
+    {
+      !isPrintingOnlyTables() &&
+      <div className="page-break" />
+    }
+
     {/*AVG Table*/}
     <div className="fra-table__container">
       <div className="fra-table__scroll-wrapper">

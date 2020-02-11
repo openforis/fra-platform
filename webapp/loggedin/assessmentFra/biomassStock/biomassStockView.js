@@ -91,6 +91,11 @@ const BiomassStockView = props => {
       </div>
     </div>
 
+    {
+      !isPrintingOnlyTables() &&
+      <div className="page-break" />
+    }
+
     <TraditionalTable tableSpec={tableSpecInstance} countryIso={countryIso} disabled={disabled}/>
     <GeneralComments
       section={sectionName}

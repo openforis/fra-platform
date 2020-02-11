@@ -314,6 +314,12 @@ const ForestCharacteristics = props => {
         </div>
         : null
     }
+
+    {
+      !isPrintingOnlyTables() &&
+      <div className="page-break" />
+    }
+
     <TableWithOdp
       section={sectionName}
       rows={focRows}

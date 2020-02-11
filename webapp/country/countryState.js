@@ -21,15 +21,16 @@ export const assocConfig = R.assoc(keys.config)
 export const assocCountries = R.assoc(keys.countries)
 export const assocStatus = R.assoc(keys.status)
 
-// config functions 
-export const getConfigCertifiedAreas = R.pipe(getState, getConfig, R.prop(['certifiedAreas']))
-export const getConfigClimaticDomainPercents2015 = R.pipe(getState, getConfig, R.prop(['climaticDomainPercents2015']))
-export const getConfigDomain = R.pipe(getState, getConfig, R.prop(['domain']))
-export const getConfigFaoStat = R.pipe(getState, getConfig, R.prop(['faoStat']))
-export const getConfigFra2015ForestAreas = R.pipe(getState, getConfig, R.prop(['fra2015ForestAreas']))
-export const getConfigpanEuropean = R.pipe(getState, getConfig, R.prop(['panEuropean']))
-export const getConfigUseOriginalDataPointsInFoc = R.pipe(getState, getConfig, R.prop(['useOriginalDataPointsInFoc']))
+// config functions
+const _getConfigProp = prop => R.pipe(getConfig, R.prop(prop))
+export const getConfigCertifiedAreas = _getConfigProp('certifiedAreas')
+export const getConfigClimaticDomainPercents2015 = _getConfigProp('climaticDomainPercents2015')
+export const getConfigDomain = _getConfigProp('domain')
+export const getConfigFaoStat = _getConfigProp('faoStat')
+export const getConfigFra2015ForestAreas = _getConfigProp('fra2015ForestAreas')
+export const getConfigpanEuropean = _getConfigProp('panEuropean')
+export const getConfigUseOriginalDataPointsInFoc = _getConfigProp('useOriginalDataPointsInFoc')
 
 // status functions
-export const getStatusAssessmentFra2020 = R.pipe(getState, R.pathOr({}, ['status', 'assessments', 'fra2020']))
-export const assocStatusAssessmentsNameLocked = (name,locked) => R.assocPath([keys.status,'assessments', name, 'locked'])(locked)
+export const getStatusAssessmentFra2020 = R.pipe(getStatus, R.pathOr({}, ['assessments', 'fra2020']))
+export const assocStatusAssessmentsNameLocked = (name, locked) => R.assocPath([keys.status, 'assessments', name, 'locked'])(locked)

@@ -255,6 +255,12 @@ const ExtentOfForest = (props) => {
         }
       </div>
     }
+
+    {
+      !isPrintingOnlyTables() &&
+      <div className="page-break" />
+    }
+
     <TableWithOdp
       section={sectionName}
       rows={eofRows}
