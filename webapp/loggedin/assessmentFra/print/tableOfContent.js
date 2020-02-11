@@ -1,26 +1,21 @@
 import './tableOfContent.less'
 
 import React from 'react'
-const TableOfContentItems = [
-  'navigation.sectionHeaders.forestExtentCharacteristicsAndChanges',
-  'navigation.sectionHeaders.forestGrowingStockBiomassAndCarbon',
-  'navigation.sectionHeaders.forestDesignationAndManagement',
-  'navigation.sectionHeaders.forestOwnershipAndManagementRights',
-  'navigation.sectionHeaders.forestDisturbances',
-  'navigation.sectionHeaders.forestPolicyAndLegislation',
-  'navigation.sectionHeaders.employmentEducationAndNwfp',
-  'navigation.sectionHeaders.sustainableDevelopment',
-]
+import { assessments } from '@common/assessmentSectionItems'
 
-const TableOfContentLink = ({ children, i }) => <li><a href={`#section${i+1}`}>{children}</a></li>
+const getAssessmentHeaders = ({ fra2020 }) => fra2020.filter(x =>
+  !x.label.includes('introduction') && Number(x.sectionNo) > 0
+)
+
+const TableOfContentLink = ({ children, i }) => <li><a href={`#section${i + 1}`}>{children}</a></li>
 const TableOfContent = props => {
   const { i18n } = props
   // add 8 main levels with inner links
   return (
     <ol className="table-of-content">
       {
-        TableOfContentItems.map(
-          (label, i) => <TableOfContentLink key={i} i={i} >{i18n.t(label)}</TableOfContentLink>
+        getAssessmentHeaders(assessments).map(
+          (section, i) => <TableOfContentLink key={i} i={i} >{i18n.t(section.label)}</TableOfContentLink>
         )
       }
     </ol>
