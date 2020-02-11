@@ -26,6 +26,7 @@ import { isAdministrator } from '@common/countryRole'
 import FraUtils from '@common/fraUtils'
 import { isPrintingMode, isPrintingOnlyTables } from '@webapp/loggedin/printAssessment/printAssessment'
 import * as AppState from '@webapp/app/appState'
+import * as ReviewState from '@webapp/loggedin/review/reviewState'
 import * as UserState from '@webapp/user/userState'
 import * as CountryState from '@webapp/country/countryState'
 
@@ -35,7 +36,7 @@ const odpValueCellClass = (fraColumn) => fraColumn.type === 'odp' && !isPrinting
 
 const ExtentOfForest = (props) => {
 
-  const { i18n, isEditDataDisabled, userInfo, showNDPs, toggleNDPs, hasNDPs, fra, hasData } = props
+  const { i18n, isEditDataDisabled, userInfo, showNDPs, toggleNDPs, hasNDPs, fra, hasData, openCommentThreadTarget } = props
 
   const getFaostatValue = year => R.path(['faoStat', year, 'area'], props)
   const getForestArea2015Value = year => R.path(['fra2015ForestAreas', year], props)
@@ -72,7 +73,7 @@ const ExtentOfForest = (props) => {
   const otherLandValidationClass = fraColumn =>
     fedAreasNotExceedingTotalLandAreaValidator(fraColumn) ? '' : 'validation-error'
 
-  const rowHighlightClass = (target) => props.openCommentThread && R.isEmpty(R.difference(props.openCommentThread.target, [target])) ? 'fra-row-comments__open' : ''
+  const rowHighlightClass = (target) => !R.isEmpty(openCommentThreadTarget) && R.isEmpty(R.difference(openCommentThreadTarget, [target])) ? 'fra-row-comments__open' : ''
 
   const otherLandRow = fra =>
     <tr className={rowHighlightClass('otherLand')}>
@@ -322,7 +323,8 @@ const DataFetchingComponent = props => {
 const mapStateToProps = state =>
   ({
     ...state.extentOfForest,
-    openCommentThread: state.review.openThread,
+    openCommentThread: ReviewState.getOpenThreadTarget(state),
+    openCommentThreadTarget: ReviewState.getOpenThreadTarget(state),
     faoStat: CountryState.getConfigFaoStat(state),
     fra2015ForestAreas: CountryState.getConfigFra2015ForestAreas(state),
     climaticDomainPercents2015: CountryState.getConfigClimaticDomainPercents2015(state),

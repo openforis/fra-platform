@@ -16,6 +16,8 @@ import * as AppState from '@webapp/app/appState'
 import { logout, switchLanguage } from '@webapp/user/actions'
 import { toggleNavigationVisible } from '@webapp/loggedin/navigation/actions'
 
+import * as ReviewState from '@webapp/loggedin/review/reviewState'
+
 const UserInfo = ({ userInfo, i18n, logout }) => {
   const countryIso = useSelector(AppState.getCountryIso)
   const userInfoItems = [{
@@ -125,7 +127,7 @@ const mapStateToProps = state => ({
   ...state.autoSave,
   ...state.user,
   ...state.router,
-  commentsOpen: state.review.openThread,
+  commentsOpen: ReviewState.getOpenThread(state),
   navigationVisible: state.navigation.navigationVisible
 })
 

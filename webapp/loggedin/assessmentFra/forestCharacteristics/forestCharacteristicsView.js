@@ -23,6 +23,7 @@ import FraUtils from '@common/fraUtils'
 import * as AppState from '@webapp/app/appState'
 import * as CountryState from '@webapp/country/countryState'
 import * as UserState from '@webapp/user/userState'
+import * as ReviewState from '@webapp/loggedin/review/reviewState'
 
 const mapIndexed = R.addIndex(R.map)
 const sectionName = 'forestCharacteristics'
@@ -30,7 +31,7 @@ const odpValueCellClass = (fraColumn) => fraColumn.type === 'odp' && !isPrinting
 
 const ForestCharacteristics = props => {
 
-  const { i18n, isEditDataDisabled, fra, hasData } = props
+  const { i18n, isEditDataDisabled, fra, hasData, openCommentThreadTarget } = props
 
   const totalForestArea = (fraColumn) =>
     sum([
@@ -56,7 +57,7 @@ const ForestCharacteristics = props => {
     return greaterThan(difference, tolerance)
   }
 
-  const rowHighlightClass = (target) => props.openCommentThread && R.isEmpty(R.difference(props.openCommentThread.target, [target])) ? 'fra-row-comments__open' : ''
+  const rowHighlightClass = (target) => !R.isEmpty(openCommentThreadTarget) && R.isEmpty(R.difference(openCommentThreadTarget, [target])) ? 'fra-row-comments__open' : ''
 
   const plantedForestRow = fra =>
     <tr className={rowHighlightClass('plantedForest')}>
@@ -372,7 +373,8 @@ const mapStateToProps = state => {
 
   return {
     ...state.forestCharacteristics,
-    openCommentThread: state.review.openThread,
+    openCommentThread: ReviewState.getOpenThread(state),
+    openCommentThreadTarget: ReviewState.getOpenThreadTarget(state),
     i18n: UserState.getI18n(state),
     extentOfForest: state.extentOfForest,
     useOriginalDataPoints: useOriginalDataPoints,

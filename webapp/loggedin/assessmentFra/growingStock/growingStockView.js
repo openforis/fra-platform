@@ -24,6 +24,7 @@ import FraUtils from '@common/fraUtils'
 import { isPrintingOnlyTables } from '@webapp/loggedin/printAssessment/printAssessment'
 import * as AppState from '@webapp/app/appState'
 import * as UserState from '@webapp/user/userState'
+import * as ReviewState from '@webapp/loggedin/review/reviewState'
 
 const sectionName = 'growingStock'
 const mapIndexed = R.addIndex(R.map)
@@ -424,7 +425,7 @@ const mapStateToProps = state =>
     totalTable: state.growingStock.totalTable,
     avgTable: state.growingStock.avgTable,
     baseTable: state.growingStock.baseTable,
-    openCommentThread: state.review.openThread,
+    openCommentThread: ReviewState.getOpenThread(state),
     i18n: UserState.getI18n(state),
     isEditDataDisabled: isFRA2020SectionEditDisabled(state, sectionName)
   })

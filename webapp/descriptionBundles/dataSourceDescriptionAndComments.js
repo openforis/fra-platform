@@ -5,6 +5,7 @@ import * as R from 'ramda'
 import ReviewIndicator from '@webapp/loggedin/review/reviewIndicator'
 import Description from '@webapp/description/description'
 import * as AppState from '@webapp/app/appState'
+import * as ReviewState from '@webapp/loggedin/review/reviewState'
 
 const dataSourcesEditorTemplate = (i18n) =>
   `<strong>${i18n.t('description.dataSources')}</strong>
@@ -76,7 +77,7 @@ CommentableReviewDescriptions.propTypes = {
 const mapStateToProps = (state, props) => {
   return {
     ...props,
-    openCommentThreadTarget: state.review.openThread ? state.review.openThread.target : null
+    openCommentThreadTarget: ReviewState.getOpenThreadTarget(state)
   }
 }
 
