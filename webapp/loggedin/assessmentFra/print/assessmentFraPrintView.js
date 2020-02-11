@@ -2,10 +2,10 @@ import React, { useEffect } from 'react'
 import { connect, useSelector } from 'react-redux'
 import * as R from 'ramda'
 
-import { fetchCountryOverviewStatus, getCountryName } from '../../country/actions'
+import { fetchCountryOverviewStatus, getCountryName } from '@webapp/country/actions'
 
-import ContactPersonsPrintView from './contactPersons/contactPersonsPrintView'
-import IntroductionView from './contactPersons/contactPersonsView'
+import ContactPersonsPrintView from '../contactPersons/contactPersonsPrintView'
+import IntroductionView from '../contactPersons/contactPersonsView'
 
 import ExtentOfForestView from '@webapp/loggedin/assessmentFra/extentOfForest/extentOfForestView'
 import ForestCharacteristicsView from '@webapp/loggedin/assessmentFra/forestCharacteristics/forestCharacteristicsView'

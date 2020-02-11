@@ -2,12 +2,12 @@ import './style.less'
 
 import React from 'react'
 import { connect } from 'react-redux'
-import * as R from 'ramda'
 import { useParams } from 'react-router-dom'
+import * as R from 'ramda'
 
 import { setPrintingMode } from './printAssessment'
 
-import AssessmentFraPrintView from '@webapp/loggedin/assessmentFra/assessmentFraPrintView'
+import AssessmentFraPrintView from '@webapp/loggedin/assessmentFra/print/assessmentFraPrintView'
 
 import * as UserState from '@webapp/user/userState'
 

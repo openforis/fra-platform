@@ -19,21 +19,27 @@ const AppRouterSwitch = props => {
 
   // If application is not yet loaded, display Loading tucan bird
   if (applicationStatus !== AppState.stateLoadedKey) {
-    return <Loading />
+    return <Loading/>
   }
+
+  const { path, publicView } = loggedIn
+    ? { path: '/country/:countryIso', publicView: false }
+    : { path: '/public', publicView: true }
 
   return (
     <Switch>
-      {
-        loggedIn ?
-          <Route
-            path="/country/:countryIso"
-            render={props => <DynamicImport {...props} load={() => import('../loggedin/appViewExport')} />}
-          />
-          :
-          <Route>
-            <LoginView />
-          </Route>
+      <Route
+        path={path}
+        render={props => (
+          <DynamicImport
+            {...props}
+            public={publicView}
+            load={() => import('../loggedin/appViewExport')}/>
+        )}
+      />
+      <Route path="/login">
+        <LoginView/>
+      </Route>
       }
     </Switch>
   )
