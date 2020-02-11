@@ -4,10 +4,12 @@ import user from '@webapp/user/reducer'
 import app from '@webapp/app/reducer'
 
 import * as AppState from '@webapp/app/appState'
+import * as ApplicationErrorState from '@webapp/loggedin/applicationError/applicationErrorState'
+import * as UserState from '@webapp/user/userState'
 
 export default {
-  applicationError,
+  [ApplicationErrorState.stateKey]: applicationError,
   [AppState.stateKey]: app,
   login,
-  user
+  [UserState.stateKey]: user,
 }

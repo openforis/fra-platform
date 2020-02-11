@@ -5,6 +5,7 @@ import * as R from 'ramda'
 import Description from './description'
 import ReviewIndicator from '@webapp/loggedin/review/reviewIndicator'
 import * as AppState from '@webapp/app/appState'
+import * as ReviewState from '@webapp/loggedin/review/reviewState'
 
 const CommentableDescription = props => {
   const { disabled = false } = props
@@ -24,7 +25,7 @@ const CommentableDescription = props => {
         template={props.template}
         disabled={disabled}
         showAlertEmptyContent={props.showAlertEmptyContent}
-        showDashEmptyContent={props.showDashEmptyContent}/>
+        showDashEmptyContent={props.showDashEmptyContent} />
     </div>
     <div className="fra-description__review-indicator-wrapper">
       {
@@ -40,9 +41,6 @@ const CommentableDescription = props => {
   </div>
 }
 
-const mapStateToProps = state =>
-  ({
-    openCommentThreadTarget: state.review.openThread ? state.review.openThread.target : null
-  })
+const mapStateToProps = state => ({ openCommentThreadTarget: ReviewState.getOpenThreadTarget(state) })
 
 export default connect(mapStateToProps, {})(CommentableDescription)
