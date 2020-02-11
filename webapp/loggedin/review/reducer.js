@@ -35,7 +35,7 @@ const actionHandlers = {
 
   [issueOpenCommentThread]: (state, { target, section, title }) =>
     ReviewState.assocOpenThread({ target, section, name: title })(state),
-  [issueCloseCommentThread]: state => ReviewState.omitOpenThread()(state),
+  [issueCloseCommentThread]: state => ReviewState.omitOpenThread(state),
 
 }
 
