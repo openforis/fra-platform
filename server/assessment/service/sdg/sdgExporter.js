@@ -4,9 +4,14 @@ const CSVOutputWithVariables = require('../csvOutputWithVariables')
 
 const CountryConfigExporter = require('../exporter/countryConfigExporter')
 //1
-const ExtentOfForestExporter = require('./section_1/extentOfForestExporter')
+const ExtentOfForestExporter = require('../fraYears/section_1/extentOfForestExporter')
+const ForestCharacteristicsExporter = require('./section_1/forestCharacteristicsExporter')
+const SpecificForestCategoriesExporter = require('./section_1/specificForestCategoriesExporter')
+
 //2
+const GrowingStockExporter = require('./section_2/growingStockExporter')
 const BiomassStockExporter = require('./section_2/biomassStockExporter')
+const CarbonStockExporter = require('./section_2/carbonStockExporter')
 //3
 const ForestAreaWithinProtectedAreasExporter = require('./section_3/forestAreaWithinProtectedAreasExporter')
 
@@ -14,10 +19,14 @@ const YEARS = [1990, 2000, 2010, 2015, 2016, 2017, 2018, 2019, 2020]
 
 const fetchCountryData = async countryIso => await Promise.all([
   CountryConfigExporter.fetchData(countryIso),
-  //1a
+  //1a, 1b, 1e
   ExtentOfForestExporter.fetchData(countryIso),
-  //2c
+  ForestCharacteristicsExporter.fetchData(countryIso),
+  SpecificForestCategoriesExporter.fetchData(countryIso),
+  //2a, 2c, 2d
+  GrowingStockExporter.fetchData(countryIso),
   BiomassStockExporter.fetchData(countryIso),
+  CarbonStockExporter.fetchData(countryIso),
   //3b
   ForestAreaWithinProtectedAreasExporter.fetchData(countryIso),
 ])
@@ -25,12 +34,12 @@ const fetchCountryData = async countryIso => await Promise.all([
 const getCountryData = async country => {
   const [
     countryConfig,
-    //1a
-    extentOfForest,
-    //2c
-    biomassStock,
+    //1a, 1b, 1e
+    extentOfForest, forestCharacteristics, specificForestCategories,
+    //2a, 2c
+    growingStock, biomassStock, carbonStock,
     //3b
-     forestAreaWithinProtectedAreas,
+    forestAreaWithinProtectedAreas,
   ] = await fetchCountryData(country.countryIso)
 
   // iterate over years
@@ -47,10 +56,14 @@ const getCountryData = async country => {
 
     //country config
     ...CountryConfigExporter.parseResultRow(countryConfig, yearIdx, year, extentOfForest),
-    //1a
+    //1a, 1b, 1e
     ...ExtentOfForestExporter.parseResultRow(extentOfForest, yearIdx, year, countryConfig),
-    //2c
+    ...ForestCharacteristicsExporter.parseResultRow(forestCharacteristics, yearIdx, year),
+    ...SpecificForestCategoriesExporter.parseResultRow(specificForestCategories, yearIdx),
+    //2a, 2c, 2d
+    ...GrowingStockExporter.parseResultRow(growingStock, yearIdx, year),
     ...BiomassStockExporter.parseResultRow(biomassStock, yearIdx, year),
+    ...CarbonStockExporter.parseResultRow(carbonStock, yearIdx, year),
     //3b
     ...ForestAreaWithinProtectedAreasExporter.parseResultRow(forestAreaWithinProtectedAreas, yearIdx, year),
   }))
@@ -59,10 +72,14 @@ const getCountryData = async country => {
 
 const getCsvOutput = () => {
   const fieldsVariables = [
-    //1a
+    //1a, 1b, 1e
     ...ExtentOfForestExporter.fieldsWithLabels,
-    //2c
+    ...ForestCharacteristicsExporter.fieldsWithLabels,
+    ...SpecificForestCategoriesExporter.fieldsWithLabels,
+    //2a, 2c, 2d
+    ...GrowingStockExporter.fieldsWithLabels,
     ...BiomassStockExporter.fieldsWithLabels,
+    ...CarbonStockExporter.fieldsWithLabels,
     //3b
     ...ForestAreaWithinProtectedAreasExporter.fieldsWithLabels,
   ]
