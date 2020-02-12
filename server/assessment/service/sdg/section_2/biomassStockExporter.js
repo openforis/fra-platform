@@ -19,7 +19,7 @@ class BiomassStockExporter extends TraditionalTableExporter {
   constructor () {
     super(
       'biomassStock',
-      ['agb'],
+      ['agb', 'bgb'],
       '2c'
     )
   }
