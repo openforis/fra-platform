@@ -22,7 +22,7 @@ class GrowingStockExporter extends FraTableExporter {
 
   parseResultRow (result, yearIdx, year) {
 
-    const { avgTable, totalTable } = result
+    const { avgTable } = result
 
     return ({
       gs_ha_nat_reg: R.path([year, 'naturallyRegeneratingForest'], avgTable),
