@@ -1,8 +1,6 @@
 import React from 'react'
 import { CSVLink } from 'react-csv'
 import Icon from '../icon'
-import cheerio from 'cheerio'
-import cheerioTableparser from 'cheerio-tableparser'
 
 import * as Utils from './utils'
 
