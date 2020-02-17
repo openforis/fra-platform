@@ -6,9 +6,10 @@ import clipboard from 'clipboard-polyfill'
 
 import { fetchLastSectionUpdateTimestamp } from '@webapp/audit/actions'
 import { changeAvgValue, changeTotalValue, fetch, pasteAvgValue, pasteTotalValue } from './actions'
-import { add, div, formatNumber, greaterThan, sub, toFixed } from '@common/bignumberUtils'
+import { add, formatNumber, greaterThan, sub, toFixed } from '@common/bignumberUtils'
 import { readPasteClipboard } from '@webapp/utils/copyPasteUtil'
 
+import ButtonTableExport from '@webapp/components/buttonTableExport'
 import { ThousandSeparatedDecimalInput } from '@webapp/components/thousandSeparatedDecimalInput'
 import DefinitionLink from '@webapp/components/definitionLink'
 import ReviewIndicator from '@webapp/loggedin/review/reviewIndicator'
