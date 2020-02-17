@@ -11,6 +11,7 @@ import UpdateOnResizeReactComponent from '@webapp/components/updateOnResizeReact
 
 import * as UserState from '@webapp/user/userState'
 import * as ReviewState from '@webapp/loggedin/review/reviewState'
+import ButtonTableExport from '@webapp/components/buttonTableExport'
 
 const mapIndexed = R.addIndex(R.map)
 const commentTarget = (tableName, rowIdx) => [tableName, 'row', `${rowIdx}`]
@@ -24,7 +25,7 @@ const Cell = (props) => {
 }
 
 class ReviewWrapper extends React.Component {
-  render () {
+  render() {
     const { section, tableSpec, rowIdx, countryIso, disabled } = this.props
     return <td ref="rowAnchor" className="fra-table__row-anchor-cell">
       <div className="fra-table__review-indicator-anchor">
@@ -32,9 +33,9 @@ class ReviewWrapper extends React.Component {
           disabled
             ? null
             : <ReviewIndicator section={section || tableSpec.name}
-                               title=""
-                               target={commentTarget(tableSpec.name, rowIdx)}
-                               countryIso={countryIso}/>
+              title=""
+              target={commentTarget(tableSpec.name, rowIdx)}
+              countryIso={countryIso} />
         }
       </div>
     </td>
@@ -45,19 +46,19 @@ const tableRows = (props) => {
   return mapIndexed(
     (rowSpec, rowIdx) =>
       <tr key={rowIdx}
-          className={rowShouldBeHighlighted(props.tableSpec.name, rowIdx, props.openCommentThreadTarget) ? 'fra-row-comments__open' : ''}>
+        className={rowShouldBeHighlighted(props.tableSpec.name, rowIdx, props.openCommentThreadTarget) ? 'fra-row-comments__open' : ''}>
         {
           mapIndexed(
             (cellSpec, colIdx) => <Cell key={`${rowIdx}-${colIdx}`}
-                                        rowIdx={rowIdx}
-                                        colIdx={colIdx}
-                                        {...props}/>,
+              rowIdx={rowIdx}
+              colIdx={colIdx}
+              {...props} />,
             rowSpec
           )
         }
         {
           !props.tableSpec.disableReviewComments
-            ? <ReviewWrapper {...props} rowIdx={rowIdx}/>
+            ? <ReviewWrapper {...props} rowIdx={rowIdx} />
             : null
         }
       </tr>,
@@ -101,7 +102,7 @@ const validationErrorColumns = props => {
         <div className="fra-table__validation-container">
           {
             mapIndexed((errorMsg, j) =>
-                <div key={j} className="fra-table__validation-error">{errorMsg}</div>
+              <div key={j} className="fra-table__validation-error">{errorMsg}</div>
               , columnErrorMsgs)
           }
         </div>
@@ -120,22 +121,34 @@ const validationErrorRow = props => {
 
 const TableBody = props =>
   <tbody>
-  {tableRows(props)}
-  {!props.skipValidation && validationErrorRow(props)}
+    {tableRows(props)}
+    {!props.skipValidation && validationErrorRow(props)}
   </tbody>
 
 class FraTable extends UpdateOnResizeReactComponent {
 
-  componentDidMount () {
+  constructor(props) {
+    super(props)
+    this.tableRef = React.createRef()
+  }
+
+  componentDidMount() {
     if (!this.props.tableDataFetched) {
       this.props.fetchTableData(this.props.countryIso, this.props.tableSpec)
     }
   }
 
-  render () {
+  render() {
+    const { sectionAnchor } = this.props
+
     return <div ref="traditionalTable" className="fra-table__container">
       <div className="fra-table__scroll-wrapper">
-        <table className="fra-table">
+        <ButtonTableExport
+          right={true}
+          tableRef={this.tableRef}
+          filename={sectionAnchor}
+        />
+        <table ref={this.tableRef} className="fra-table">
           {this.props.tableSpec.header}
           <TableBody {...this.props} />
         </table>

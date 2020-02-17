@@ -94,10 +94,13 @@ class SingleTraditionalTableView extends React.Component {
             <div className="page-break" />
           }
 
-          <TraditionalTable tableSpec={tableSpecInstance}
-                            countryIso={match.params.countryIso}
-                            disabled={isEditDataDisabled}
-                            tableDataFetched={true}/>
+          <TraditionalTable 
+            tableSpec={tableSpecInstance}
+            countryIso={match.params.countryIso}
+            disabled={isEditDataDisabled}
+            tableDataFetched={true}
+            sectionAnchor={sectionAnchor}
+            />
           <GeneralComments section={tableSpecInstance.name} countryIso={countryIso} disabled={isEditDataDisabled}/>
         </div>
 

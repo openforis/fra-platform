@@ -14,7 +14,7 @@ import { formatNumber, toFixed } from '@common/bignumberUtils'
 import { hasOdps } from '@common/extentOfForestHelper'
 import defaultYears from '../../server/eof/defaultYears'
 import { isPrintingMode } from '@webapp/loggedin/printAssessment/printAssessment'
-
+import ButtonTableExport from '@webapp/components/buttonTableExport'
 const mapIndexed = R.addIndex(R.map)
 
 const getFraValues = (fra, rows) => {
@@ -38,6 +38,10 @@ const hasTableValues = (fra, rows) => {
 }
 
 export class TableWithOdp extends React.Component {
+  constructor(props) {
+    super(props)
+    this.tableRef = React.createRef()
+  }
 
   clipboardTable (tableValues) {
     return <table>
@@ -63,11 +67,16 @@ export class TableWithOdp extends React.Component {
   }
 
   render () {
-    const { copyValues = true, disabled = false } = this.props
+    const { copyValues = true, disabled = false, sectionAnchor } = this.props
 
     return <div className="fra-table__container table-with-odp">
       <div className="fra-table__scroll-wrapper">
-        <table className="fra-table">
+      <ButtonTableExport
+          right={true}
+          tableRef={this.tableRef}
+          fileName={sectionAnchor}
+        />
+        <table ref={this.tableRef} className="fra-table">
           <thead>
           <tr>
             <th className="fra-table__header-cell-left" rowSpan="2">{this.props.categoryHeader}</th>
