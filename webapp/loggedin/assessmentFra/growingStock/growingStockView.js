@@ -252,7 +252,7 @@ const GrowingStock = (props) => {
       <div className="fra-table__scroll-wrapper">
         <ButtonTableExport
           right={true}
-          tableRef={tableRefTotal}
+          tableRef={tableRefAvg}
           fileName={'avg'}
         />
         <table ref={tableRefAvg} id="growing_stock_avg_table" className="fra-table">
