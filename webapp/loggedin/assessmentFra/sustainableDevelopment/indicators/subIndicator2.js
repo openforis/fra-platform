@@ -6,13 +6,20 @@ import ReviewIndicator from '@webapp/loggedin/review/reviewIndicator'
 import * as R from 'ramda'
 import { formatDecimal } from '@webapp/utils/numberFormat'
 
+import ButtonTableExport from '@webapp/components/buttonTableExport'
+
 const SubIndicator2 = ({i18n, countryIso, data, years, disabled}) => {
+  const tableRef = React.useRef(null)
 
   const getBiomassStock = year => R.path(['biomassStock', year], data)
 
   return <div className="fra-table__container">
     <div className="fra-table__scroll-wrapper">
-      <table className="fra-table">
+      <ButtonTableExport
+        right={true}
+        tableRef={tableRef}
+      />
+      <table ref={tableRef} className="fra-table">
         <thead>
         <tr>
           <th rowSpan="2" className="fra-table__header-cell-left">

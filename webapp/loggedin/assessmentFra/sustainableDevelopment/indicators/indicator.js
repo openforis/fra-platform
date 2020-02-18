@@ -9,14 +9,21 @@ import * as R from 'ramda'
 
 import { getForestArea } from './indicators'
 
+import ButtonTableExport from '@webapp/components/buttonTableExport'
+
 const Indicator = ({i18n, countryIso, countryConfig, data, years, disabled}) => {
+  const tableRef = React.useRef(null)
 
   const area2015 = R.path(['faoStat', 2015, 'area'], countryConfig)
   const getValueByYear = year => mul(div(getForestArea(data, year), area2015), 100)
 
   return <div className="fra-table__container">
     <div className="fra-table__scroll-wrapper">
-      <table className="fra-table">
+      <ButtonTableExport
+        right={true}
+        tableRef={tableRef}
+      />
+      <table ref={tableRef} className="fra-table">
         <thead>
           <tr>
             <th rowSpan="2" className="fra-table__header-cell-left">{i18n.t('sustainableDevelopment.indicator')}</th>

@@ -5,7 +5,10 @@ import ReviewIndicator from '@webapp/loggedin/review/reviewIndicator'
 import { formatDecimal } from '@webapp/utils/numberFormat'
 import * as R from 'ramda'
 
+import ButtonTableExport from '@webapp/components/buttonTableExport'
+
 const SubIndicator5 = ({i18n, countryIso, years, countryConfig, disabled}) => {
+  const tableRef = React.useRef(null)
 
   const indicatorYears = R.reject(y => y === '1990', years)
 
@@ -13,7 +16,11 @@ const SubIndicator5 = ({i18n, countryIso, years, countryConfig, disabled}) => {
 
   return <div className="fra-table__container">
     <div className="fra-table__scroll-wrapper">
-      <table className="fra-table">
+      <ButtonTableExport
+        right={true}
+        tableRef={tableRef}
+      />
+      <table ref={tableRef} className="fra-table">
         <thead>
         <tr>
           <th rowSpan="2" className="fra-table__header-cell-left">

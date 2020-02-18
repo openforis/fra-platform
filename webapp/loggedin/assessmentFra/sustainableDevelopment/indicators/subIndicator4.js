@@ -9,7 +9,10 @@ import * as R from 'ramda'
 
 import { getForestArea } from './indicators'
 
+import ButtonTableExport from '@webapp/components/buttonTableExport'
+
 const SubIndicator4 = ({ i18n, countryIso, data, years, disabled }) => {
+  const tableRef = React.useRef(null)
 
   const getValue = (year, field) => {
     const val = R.path(['forestAreaWithinProtectedAreas', field, year], data)
@@ -23,7 +26,11 @@ const SubIndicator4 = ({ i18n, countryIso, data, years, disabled }) => {
 
   return <div className="fra-table__container">
     <div className="fra-table__scroll-wrapper">
-      <table className="fra-table">
+      <ButtonTableExport
+        right={true}
+        tableRef={tableRef}
+      />
+      <table ref={tableRef} className="fra-table">
 
         <thead>
         <tr>
