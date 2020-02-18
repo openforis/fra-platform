@@ -74,7 +74,7 @@ export class TableWithOdp extends React.Component {
       <ButtonTableExport
           right={true}
           tableRef={this.tableRef}
-          fileName={sectionAnchor}
+          filename={sectionAnchor}
         />
         <table ref={this.tableRef} className="fra-table">
           <thead>

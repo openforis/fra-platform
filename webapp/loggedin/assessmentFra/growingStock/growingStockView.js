@@ -253,7 +253,7 @@ const GrowingStock = (props) => {
         <ButtonTableExport
           right={true}
           tableRef={tableRefAvg}
-          fileName={'avg'}
+          filename='avg'
         />
         <table ref={tableRefAvg} id="growing_stock_avg_table" className="fra-table">
           <thead>
@@ -334,7 +334,7 @@ const GrowingStock = (props) => {
       <ButtonTableExport
           right={true}
           tableRef={tableRefTotal}
-          fileName={'total'}
+          filename='total'
         />
         <table ref={tableRefTotal} id="growing_stock_total_table" className="fra-table">
           <thead>
