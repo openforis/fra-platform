@@ -218,6 +218,8 @@ const avgValidator = (props, year, row) => {
 
 const GrowingStock = (props) => {
   const { i18n, countryIso, avgTable, totalTable, isEditDataDisabled } = props
+  const tableRefTotal = React.useRef(null);
+  const tableRefAvg = React.useRef(null);
 
   if (R.isNil(avgTable) || R.isNil(totalTable)) return null
 
@@ -248,7 +250,12 @@ const GrowingStock = (props) => {
     {/*AVG Table*/}
     <div className="fra-table__container">
       <div className="fra-table__scroll-wrapper">
-        <table className="fra-table">
+        <ButtonTableExport
+          right={true}
+          tableRef={tableRefTotal}
+          fileName={'avg'}
+        />
+        <table ref={tableRefAvg} id="growing_stock_avg_table" className="fra-table">
           <thead>
           <tr>
             <th className="fra-table__header-cell-left" rowSpan="2">{i18n.t('growingStock.categoryHeader')}</th>
@@ -324,7 +331,12 @@ const GrowingStock = (props) => {
     {/*TOTAL Table*/}
     <div className="fra-table__container">
       <div className="fra-table__scroll-wrapper">
-        <table className="fra-table">
+      <ButtonTableExport
+          right={true}
+          tableRef={tableRefTotal}
+          fileName={'total'}
+        />
+        <table ref={tableRefTotal} id="growing_stock_total_table" className="fra-table">
           <thead>
           <tr>
             <th className="fra-table__header-cell-left" rowSpan="2">{i18n.t('growingStock.categoryHeader')}</th>
