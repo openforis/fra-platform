@@ -4,7 +4,7 @@ import Icon from '../icon'
 
 import * as Utils from './utils'
 
-const ButtontableExport = props => {
+const ButtonTableExport = props => {
   const { filename, tableRef, right } = props
 
   const buttonStyleRight = {
@@ -26,4 +26,4 @@ const ButtontableExport = props => {
   )
 }
 
-export default ButtontableExport
+export default ButtonTableExport
