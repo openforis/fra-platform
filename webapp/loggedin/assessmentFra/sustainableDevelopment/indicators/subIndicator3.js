@@ -24,7 +24,6 @@ const SubIndicator3 = ({i18n, countryIso, data, years, disabled}) => {
   return <div className="fra-table__container">
     <div className="fra-table__scroll-wrapper">
       <ButtonTableExport
-        right={true}
         tableRef={tableRef}
       />
       <table ref={tableRef} className="fra-table">

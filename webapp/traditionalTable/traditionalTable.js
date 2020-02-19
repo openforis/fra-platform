@@ -144,7 +144,6 @@ class FraTable extends UpdateOnResizeReactComponent {
     return <div ref="traditionalTable" className="fra-table__container">
       <div className="fra-table__scroll-wrapper">
         <ButtonTableExport
-          right={true}
           tableRef={this.tableRef}
           filename={sectionAnchor}
         />

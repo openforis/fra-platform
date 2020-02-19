@@ -72,7 +72,6 @@ export class TableWithOdp extends React.Component {
     return <div className="fra-table__container table-with-odp">
       <div className="fra-table__scroll-wrapper">
       <ButtonTableExport
-          right={true}
           tableRef={this.tableRef}
           filename={sectionAnchor}
         />
