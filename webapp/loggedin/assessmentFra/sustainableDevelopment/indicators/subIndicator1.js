@@ -8,9 +8,10 @@ import { formatDecimal } from '@webapp/utils/numberFormat'
 import * as R from 'ramda'
 
 import { getForestArea } from './indicators'
+import ButtonTableExport from '@webapp/components/buttonTableExport'
 
 const SubIndicator1 = ({i18n, countryIso, data, years, disabled}) => {
-
+  const tableRef = React.useRef(null)
   const getValue1YearDiff = (year1, year2) => {
     const forest1 = getForestArea(data, year1)
     const forest2 = getForestArea(data, year2)
@@ -42,7 +43,10 @@ const SubIndicator1 = ({i18n, countryIso, data, years, disabled}) => {
 
   return <div className="fra-table__container">
     <div className="fra-table__scroll-wrapper">
-      <table className="fra-table">
+      <ButtonTableExport
+        tableRef={tableRef}
+      />
+      <table ref={tableRef} className="fra-table">
         <thead>
         <tr>
           <th rowSpan="2" className="fra-table__header-cell-left">

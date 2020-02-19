@@ -26,6 +26,7 @@ import * as UserState from '@webapp/user/userState'
 import * as ReviewState from '@webapp/loggedin/review/reviewState'
 
 const mapIndexed = R.addIndex(R.map)
+const anchorName = '1b'
 const sectionName = 'forestCharacteristics'
 const odpValueCellClass = (fraColumn) => fraColumn.type === 'odp' && !isPrintingMode() ? 'odp-value-cell-total' : 'fra-table__calculated-cell'
 
@@ -267,9 +268,9 @@ const ForestCharacteristics = props => {
       {i18n.t('forestCharacteristics.forestCharacteristics')}
     </h2>
     <div className="fra-view__section-toolbar no-print">
-      <DefinitionLink className="margin-right-big" document="tad" anchor="1b"
+      <DefinitionLink className="margin-right-big" document="tad" anchor={anchorName}
                       title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
-      <DefinitionLink className="align-left" document="faq" anchor="1b" title={i18n.t('definition.faqLabel')}
+      <DefinitionLink className="align-left" document="faq" anchor={anchorName} title={i18n.t('definition.faqLabel')}
                       lang={i18n.language}/>
     </div>
 
@@ -321,6 +322,7 @@ const ForestCharacteristics = props => {
     }
 
     <TableWithOdp
+      sectionAnchor={anchorName}
       section={sectionName}
       rows={focRows}
       tableHeader={i18n.t('forestCharacteristics.areaUnitLabel')}

@@ -30,6 +30,7 @@ import * as ReviewState from '@webapp/loggedin/review/reviewState'
 import * as UserState from '@webapp/user/userState'
 import * as CountryState from '@webapp/country/countryState'
 
+const anchorName = '1a'
 const sectionName = 'extentOfForest'
 const mapIndexed = R.addIndex(R.map)
 const odpValueCellClass = (fraColumn) => fraColumn.type === 'odp' && !isPrintingMode() ? 'odp-value-cell-total' : 'fra-table__calculated-cell'
@@ -222,9 +223,9 @@ const ExtentOfForest = (props) => {
       }
     </h2>
     <div className="fra-view__section-toolbar">
-      <DefinitionLink className="margin-right-big no-print" document="tad" anchor="1a"
+      <DefinitionLink className="margin-right-big no-print" document="tad" anchor={anchorName}
                       title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
-      <DefinitionLink className="align-left no-print" document="faq" anchor="1a" title={i18n.t('definition.faqLabel')}
+      <DefinitionLink className="align-left no-print" document="faq" anchor={anchorName} title={i18n.t('definition.faqLabel')}
                       lang={i18n.language}/>
     </div>
 
@@ -262,6 +263,7 @@ const ExtentOfForest = (props) => {
     }
 
     <TableWithOdp
+      sectionAnchor={anchorName}
       section={sectionName}
       rows={eofRows}
       tableHeader={props.i18n.t('extentOfForest.areaUnitLabel')}
@@ -272,6 +274,7 @@ const ExtentOfForest = (props) => {
       disabled={isEditDataDisabled}
     />
     <TraditionalTable
+      sectionAnchor={anchorName}
       tableSpec={climaticDomainTableSpec(props.i18n, props.climaticDomainPercents2015)}
       countryIso={props.countryIso}
       section={sectionName}
