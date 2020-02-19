@@ -1,5 +1,8 @@
 // Inspiration/base from cheerio-tableparser
-// 
+//
+
+import { groupSeparator } from '@common/bignumberUtils'
+
 export const getData = (
   tableElement,
   dupCols = true,
@@ -22,7 +25,7 @@ export const getData = (
     // Handle both table haders and table cells
     Array.from(row.cells).forEach(column => {
       const { rowSpan, colSpan } = column
-      const content = textMode ? column.innerText.trim() : column.innerHTML
+      const content = textMode ? column.innerText.trim().replace(/\s/g, ' ') : column.innerHTML
 
       // Handle spanning cells
       for (let x = 0; x < rowSpan; x++) {
@@ -39,11 +42,11 @@ export const getData = (
           }
 
           const condition = (x === 0 || dupRows) && (y === 0 || dupCols)
-          columns[currentY + y][currentX + x] = condition ? content : ""
+          columns[currentY + y][currentX + x] = condition ? content : ''
 
         }
       }
-      currentY += 1;
+      currentY += 1
     })
     currentX += 1
   })

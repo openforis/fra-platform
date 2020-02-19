@@ -10,12 +10,12 @@ const ButtonTableExport = props => {
   const buttonStyleRight = {
     position: 'absolute',
     right: 1,
-    top: -27,
+    top: -24,
   }
 
   return (
     <CSVLink
-      className="btn-s btn-primary"
+      className="btn-xs btn-primary"
       style={right ? buttonStyleRight : {}}
       target="_blank"
       filename={filename || 'tabledata'}
