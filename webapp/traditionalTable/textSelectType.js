@@ -23,6 +23,17 @@ const TextSelectType = ({
                           disabled
                         }) => {
   const currentValue = tableData[rowIdx][colIdx]
+
+  // If disabled: display only value
+  // This is required for the CSV download to work correctly
+  if (disabled) {
+    return <td className="fra-table__cell">
+      <div className="fra-table__select-container">
+        {currentValue && optionLabel(R.find(R.propEq('name', currentValue), options), i18n, localizationPrefix)}
+      </div>
+    </td>
+  }
+
   return <td className="fra-table__cell">
     <div className="fra-table__select-container">
       <select
