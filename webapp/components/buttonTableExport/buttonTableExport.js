@@ -2,6 +2,8 @@ import React from 'react'
 import { CSVLink } from 'react-csv'
 import Icon from '../icon'
 
+import { isPrintingMode } from '@webapp/loggedin/printAssessment/printAssessment'
+
 import * as Utils from './utils'
 
 import useIsAssessmentLocked from '@webapp/hooks/useIsAssessmentLocked'
@@ -9,6 +11,10 @@ import useIsAssessmentLocked from '@webapp/hooks/useIsAssessmentLocked'
 const ButtonTableExport = props => {
   const { filename, tableRef } = props
 
+  if (isPrintingMode()) {
+    return null
+  }
+  
   const isLocked = useIsAssessmentLocked()
 
   const style = {
