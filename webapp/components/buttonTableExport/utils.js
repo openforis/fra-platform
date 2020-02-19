@@ -1,8 +1,6 @@
 // Inspiration/base from cheerio-tableparser
 //
 
-import { groupSeparator } from '@common/bignumberUtils'
-
 export const getData = (
   tableElement,
   dupCols = true,
