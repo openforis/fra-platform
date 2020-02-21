@@ -3,7 +3,8 @@ const {sendErr, sendOk} = require('../utils/requestUtils')
 const repository = require('./descriptionsRepository')
 const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
 const auditRepository = require('./../audit/auditRepository')
-const {allowedToEditDataCheck} = require('../assessment/assessmentEditAccessControl')
+
+const Auth = require('../auth/authApiMiddleware')
 
 module.exports.init = app => {
 
@@ -20,13 +21,10 @@ module.exports.init = app => {
     }
   )
 
-  app.post('/country/descriptions/:countryIso/:section/:name', async (req, res) => {
+  app.post('/country/descriptions/:countryIso/:section/:name', Auth.requireCountryEditPermission, async (req, res) => {
       const countryIso = req.params.countryIso
       const section = req.params.section
       try {
-        checkCountryAccessFromReqParams(req)
-        await allowedToEditDataCheck(countryIso, req.user, section)
-
         await db.transaction(
           auditRepository.insertAudit,
           [req.user.id, 'saveDescriptions', countryIso, section]

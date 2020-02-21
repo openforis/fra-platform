@@ -2,7 +2,7 @@ const db = require('../db/db')
 const { sendErr } = require('../utils/requestUtils')
 const { checkCountryAccessFromReqParams } = require('../utils/accessControl')
 const repository = require('./growingStockRepository')
-const { allowedToEditDataCheck } = require('../assessment/assessmentEditAccessControl')
+const Auth = require('../auth/authApiMiddleware')
 
 const GrowingStockService = require('./growingStockService')
 
@@ -20,10 +20,8 @@ module.exports.init = app => {
     }
   })
 
-  app.post('/growingStock/:countryIso', async (req, res) => {
+  app.post('/growingStock/:countryIso', Auth.requireCountryEditPermission, async (req, res) => {
     try {
-      checkCountryAccessFromReqParams(req)
-      await allowedToEditDataCheck(req.params.countryIso, req.user, 'growingStock')
 
       await db.transaction(repository.persistBothGrowingStock, [req.user, req.params.countryIso, req.body])
       res.json({})

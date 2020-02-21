@@ -3,6 +3,8 @@ const db = require('../db/db')
 const {sendErr} = require('../utils/requestUtils')
 const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
 
+const Auth = require('../auth/authApiMiddleware')
+
 const {persistFile, getFilesList, getFile, deleteFile} = require('./fileRepositoryRepository')
 
 const {fileTypes, downloadFile} = require('./fileRepository')
@@ -21,10 +23,8 @@ module.exports.init = app => {
   })
 
   // upload new file
-  app.post('/fileRepository/:countryIso/upload', async (req, res) => {
+  app.post('/fileRepository/:countryIso/upload', Auth.requireCountryEditPermission, async (req, res) => {
     try {
-      checkCountryAccessFromReqParams(req)
-
       const globalFile = req.body.global === 'true'
 
       const countryIso = req.params.countryIso

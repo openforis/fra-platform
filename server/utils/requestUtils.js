@@ -11,8 +11,9 @@ const sendErr = (res, err) => {
 }
 
 // Return request user
-const getUser = req => req.user;
-const getUserId = req => getUser(req).id
+const getUser = R.prop('user')
+const getUserId = R.pipe(getUser, R.prop('id'))
+const getUserName = R.pipe(getUser, R.prop('name'))
 
 // Sends an empty JSON message with status 200
 const sendOk = res => res.json({})
@@ -32,5 +33,6 @@ module.exports = {
   serverUrl,
   appUri,
   getUser,
-  getUserId
+  getUserId,
+  getUserName,
 }

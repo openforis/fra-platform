@@ -3,12 +3,12 @@ const repository = require('./traditionalTableRepository')
 const {sendErr, sendOk} = require('../utils/requestUtils')
 const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
 
+const Auth = require('../auth/authApiMiddleware')
+
 module.exports.init = app => {
 
-  app.post('/traditionalTable/:countryIso/:tableSpecName', async (req, res) => {
+  app.post('/traditionalTable/:countryIso/:tableSpecName', Auth.requireCountryEditPermission, async (req, res) => {
     try {
-      checkCountryAccessFromReqParams(req)
-
       const tableSpecName = req.params.tableSpecName
       const countryIso = req.params.countryIso
 

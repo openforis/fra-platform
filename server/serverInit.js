@@ -23,7 +23,7 @@ module.exports = () => {
 //Not part of apiRouter because of special urls (starting from root)
   sessionInit.init(app)
   authApi.init(app)
-  accessControl.init(app)
+  // accessControl.init(app)
 
   app.use(compression({ threshold: 512 }))
 

@@ -6,12 +6,12 @@ const {sendErr} = require('../utils/requestUtils')
 const reviewRepository = require('./reviewRepository')
 const {allowedToEditCommentsCheck} = require('../assessment/assessmentEditAccessControl')
 
+const Auth = require('../auth/authApiMiddleware')
+
 module.exports.init = app => {
 
-  app.post('/review/:issueId', async (req, res) => {
+  app.post('/review/:issueId', Auth.requireCountryEditPermission, async (req, res) => {
     try {
-      checkCountryAccessFromReqParams(req)
-
       const commentInfo = await reviewRepository.getIssueCountryAndSection(req.params.issueId)
       await allowedToEditCommentsCheck(commentInfo.countryIso, req.user, commentInfo.section)
       await db.transaction(
@@ -36,10 +36,9 @@ module.exports.init = app => {
     }
   })
 
-  app.post('/review/:countryIso/:section', async (req, res) => {
+  app.post('/review/:countryIso/:section', Auth.requireCountryEditPermission, async (req, res) => {
     try {
-      checkCountryAccessFromReqParams(req)
-
+      // TODO: Should this be handled elsewhere?
       await allowedToEditCommentsCheck(req.params.countryIso, req.user, req.params.section)
       const target = req.query.target ? req.query.target.split(',') : []
       await db.transaction(
@@ -88,10 +87,8 @@ module.exports.init = app => {
     }
   })
 
-  app.post('/issue/markAsResolved', async (req, res) => {
+  app.post('/issue/markAsResolved', Auth.requireCountryEditPermission, async (req, res) => {
     try {
-      checkCountryAccessFromReqParams(req)
-
       const commentInfo = await reviewRepository.getIssueCountryAndSection(req.query.issueId)
       await allowedToEditCommentsCheck(commentInfo.countryIso, req.user, commentInfo.section)
       await db.transaction(reviewRepository.markIssueAsResolved, [commentInfo.countryIso, commentInfo.section, req.query.issueId, req.user])
