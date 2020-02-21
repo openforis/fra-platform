@@ -10,7 +10,6 @@ module.exports.init = app => {
   })
 
   app.post('/versioning/', Auth.requireAdminPermission, async (req, res) => {
-    checkAdmin(req, res)
     const userId = getUserId(req)
     const { versionNumber, publishedAt } = req.body
     try {
