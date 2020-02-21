@@ -8,7 +8,7 @@ import * as R from 'ramda'
 
 import Icon from '@webapp/components/icon'
 
-import ckEditorConfig from '../ckEditor/ckEditorConfig'
+import ckEditorConfig from '../components/ckEditor/ckEditorConfig'
 import { saveDescriptions, fetchDescriptions, openEditor, closeEditor } from './actions'
 
 import { elementOffset } from '@webapp/utils/domUtils'

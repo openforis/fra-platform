@@ -1,6 +1,6 @@
 import React from 'react'
 
-import ckEditorConfig from '../../ckEditor/ckEditorConfig'
+import ckEditorConfig from '../../components/ckEditor/ckEditorConfig'
 
 class CommentsEditor extends React.Component {
 
