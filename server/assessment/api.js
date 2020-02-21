@@ -1,7 +1,6 @@
 const db = require('../db/db')
 const repository = require('./assessmentRepository')
 const { sendErr, sendOk, serverUrl } = require('../utils/requestUtils')
-const { checkAdminAccess } = require('../utils/accessControl')
 const { sendAssessmentNotification } = require('./sendAssessmentNotification')
 
 const Auth = require('../auth/authApiMiddleware')

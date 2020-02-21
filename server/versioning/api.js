@@ -1,5 +1,5 @@
 const { getAllVersions, addVersion, deleteVersion } = require('./versioningRepository')
-const { sendErr, getUserId, send404 } = require('../utils/requestUtils')
+const { sendErr, getUserId } = require('../utils/requestUtils')
 
 const Auth = require('../auth/authApiMiddleware')
 

@@ -3,7 +3,7 @@ const Promise = require('bluebird')
 
 const db = require('../db/db')
 const userRepository = require('./userRepository')
-const { sendErr, sendOk, serverUrl, send404 } = require('../utils/requestUtils')
+const { sendErr, sendOk, serverUrl } = require('../utils/requestUtils')
 
 const { AccessControlException, checkCountryAccessFromReqParams } = require('../utils/accessControl')
 const { sendInvitation } = require('./sendInvitation')
