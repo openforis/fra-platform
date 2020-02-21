@@ -4,7 +4,7 @@ import Icon from '../icon'
 
 import * as Utils from './utils'
 
-import useIsAssessmentLocked from '@webapp/hooks/useIsAssessmentLocked'
+import useIsAssessmentLocked from '@webapp/components/hooks/useIsAssessmentLocked'
 
 const ButtonTableExport = props => {
   const { filename, tableRef } = props

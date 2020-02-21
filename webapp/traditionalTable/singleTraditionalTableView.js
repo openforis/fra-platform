@@ -21,8 +21,8 @@ import { fetchTableData } from './actions'
 
 import * as UserState from '@webapp/user/userState'
 
-import useCountryIso from '@webapp/hooks/useCountryIso'
-import useI18n from '@webapp/hooks/useI18n'
+import useCountryIso from '@webapp/components/hooks/useCountryIso'
+import useI18n from '@webapp/components/hooks/useI18n'
 
 const SingleTraditionalTableView = props => {
 

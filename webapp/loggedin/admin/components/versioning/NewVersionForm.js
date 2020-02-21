@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { format } from 'date-fns'
-import useI18n from '@webapp/hooks/useI18n'
+import useI18n from '@webapp/components/hooks/useI18n'
 
 import * as AppState from '@webapp/app/appState'
 import * as AdminState from '@webapp/loggedin/admin/adminState'
