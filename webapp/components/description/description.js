@@ -1,4 +1,4 @@
-import './style.less'
+import './description.less'
 
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
@@ -7,8 +7,8 @@ import { connect } from 'react-redux'
 import * as R from 'ramda'
 
 import Icon from '@webapp/components/icon'
+import ckEditorConfig from '@webapp/components/ckEditor/ckEditorConfig'
 
-import ckEditorConfig from '../ckEditor/ckEditorConfig'
 import { saveDescriptions, fetchDescriptions, openEditor, closeEditor } from './actions'
 
 import { elementOffset } from '@webapp/utils/domUtils'

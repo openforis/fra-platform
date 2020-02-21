@@ -3,9 +3,9 @@ import { connect } from 'react-redux'
 import tableSpec, { tableProps } from './tableSpec'
 
 import TraditionalTable from '@webapp/traditionalTable/traditionalTable'
-import NationalDataDescriptions from '@webapp/descriptionBundles/nationalDataDescriptions'
-import AnalysisDescriptions from '@webapp/descriptionBundles/analysisDescriptions'
-import GeneralComments from '@webapp/descriptionBundles/generalComments'
+import NationalDataDescriptions from '@webapp/components/description/nationalDataDescriptions'
+import AnalysisDescriptions from '@webapp/components/description/analysisDescriptions'
+import GeneralComments from '@webapp/components/description/generalComments'
 import { isPrintingOnlyTables } from '@webapp/loggedin/printAssessment/printAssessment'
 import * as UserState from '@webapp/user/userState'
 

@@ -7,9 +7,9 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import TraditionalTable from '@webapp/traditionalTable/traditionalTable'
-import NationalDataDescriptions from '@webapp/descriptionBundles/nationalDataDescriptions'
-import AnalysisDescriptions from '@webapp/descriptionBundles/analysisDescriptions'
-import GeneralComments from '@webapp/descriptionBundles/generalComments'
+import NationalDataDescriptions from '@webapp/components/description/nationalDataDescriptions'
+import AnalysisDescriptions from '@webapp/components/description/analysisDescriptions'
+import GeneralComments from '@webapp/components/description/generalComments'
 import { fetchLastSectionUpdateTimestamp } from '@webapp/audit/actions'
 import DefinitionLink from '@webapp/components/definitionLink'
 import { isFRA2020SectionEditDisabled } from '@webapp/utils/assessmentAccess'
@@ -21,8 +21,8 @@ import { fetchTableData } from './actions'
 
 import * as UserState from '@webapp/user/userState'
 
-import useCountryIso from '@webapp/hooks/useCountryIso'
-import useI18n from '@webapp/hooks/useI18n'
+import useCountryIso from '@webapp/components/hooks/useCountryIso'
+import useI18n from '@webapp/components/hooks/useI18n'
 
 const SingleTraditionalTableView = props => {
 
