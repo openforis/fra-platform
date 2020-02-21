@@ -1,4 +1,4 @@
-import './style.less'
+import './description.less'
 
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
