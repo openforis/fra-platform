@@ -5,7 +5,7 @@ import { connect, useSelector } from 'react-redux'
 
 import { fetchLastSectionUpdateTimestamp } from '@webapp/audit/actions'
 
-import CommentableDescription from '@webapp/description/commentableDescription.js'
+import CommentableDescription from '@webapp/components/description/commentableDescription.js'
 
 import { isFRA2020SectionEditDisabled } from '@webapp/utils/assessmentAccess'
 import * as AppState from '@webapp/app/appState'
