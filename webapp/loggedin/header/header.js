@@ -63,56 +63,79 @@ const autosaveStatusText = (i18n, status, lastSaveTimeStamp) => {
     : statusTextTranslation
 }
 
-const Header = ({
-                  status,
-                  userInfo,
-                  lastSaveTimeStamp,
-                  i18n,
-                  toggleNavigationVisible,
-                  navigationVisible,
-                  commentsOpen,
-                  ...props
-                }) => {
+const Header = props => {
+  const {
+    status, userInfo, i18n, commentsOpen, lastSaveTimeStamp,
+    navigationVisible, toggleNavigationVisible,
+    ...rest
+  } = props
   const countryIso = useSelector(AppState.getCountryIso)
 
+  // TODO use navigation state
+  const navigationShow = navigationVisible && countryIso
+
   const commentColumnCurrentWidth = commentsOpen ? 288 : 0
-  const navigationCurrentWidth = navigationVisible ? 256 : 0
+  const navigationCurrentWidth = navigationShow ? 256 : 0
   const subtractFromHeaderWidth = commentColumnCurrentWidth + navigationCurrentWidth
 
   const style = {
     left: `${navigationCurrentWidth}px`,
     width: `calc(100vw - ${subtractFromHeaderWidth}px)`
   }
-  return <div className="fra-header__container no-print" style={style}>
-    <div className="fra-header">
-      <ToggleNavigationControl
-        toggleNavigationVisible={toggleNavigationVisible}
-        navigationVisible={navigationVisible}
-        i18n={i18n}/>
-      {R.isNil(status)
-        ? null
-        : <div className={`fra-header__autosave status-${status}`}>
-          {autosaveStatusText(i18n, status, lastSaveTimeStamp)}
-        </div>
-      }
-      <div className="fra-header__menu">
-        <LanguageSelection i18n={i18n} {...props}/>
-        <UserInfo userInfo={userInfo} i18n={i18n} {...props}/>
+  return (
+    <div className="fra-header__container no-print" style={style}>
+      <div className="fra-header">
         {
-          isAdministrator(userInfo)
-            ? [
-              <div key="v-separator" className="fra-header__menu-item-separator" style={{ margin: '0 20px' }}/>,
+          countryIso
+            ? (
+              <ToggleNavigationControl
+                toggleNavigationVisible={toggleNavigationVisible}
+                navigationVisible={navigationShow}
+                i18n={i18n}/>
+            )
+            : (
+              <div></div> //TODO add country selection
+            )
+        }
+
+        {
+          !R.isNil(status) &&
+          <div className={`fra-header__autosave status-${status}`}>
+            {autosaveStatusText(i18n, status, lastSaveTimeStamp)}
+          </div>
+        }
+
+        <div className="fra-header__menu">
+          <LanguageSelection i18n={i18n} {...rest}/>
+          {
+            userInfo &&
+            <UserInfo userInfo={userInfo} i18n={i18n} {...rest}/>
+          }
+
+          {
+            userInfo && isAdministrator(userInfo) &&
+            <>
+              <div key="v-separator" className="fra-header__menu-item-separator" style={{ margin: '0 20px' }}/>
               <Link key="admin-link"
                     to={`/country/${countryIso}/admin/`}
                     className="fra-header__menu-item">
                 {i18n.t('admin.admin')}
               </Link>
-            ]
-            : null
-        }
+            </>
+          }
+
+          {
+            !userInfo &&
+            <Link key="admin-link"
+                  to={`/login/`}
+                  className="fra-header__menu-item">
+              {i18n.t('common.login')}
+            </Link>
+          }
+        </div>
       </div>
     </div>
-  </div>
+  )
 }
 
 const ToggleNavigationControl = (props) => {

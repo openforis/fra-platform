@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 import { applicationError } from '@webapp/loggedin/applicationError/actions'
-import { createI18nInstance } from '@common/i18n/i18nFactory'
+import { createI18nInstance, createI18nPromise } from '@common/i18n/i18nFactory'
 import { getRequestParam } from '@webapp/utils/urlUtils'
 
 export const appUserLogout = 'app/user/logout'
@@ -12,27 +12,21 @@ export const userLoggedInUserSwitchLanguage = 'user/loggedInUser/switchLanguage'
 
 // logged in user action creators
 
-export const getLoggedinUserInfo = () => dispatch => {
-
-  const lang = getRequestParam('lang')
-
-  axios.get(`/api/loggedInUser/`)
-    .then(resp => {
-      const userInfo = resp.data.userInfo
-      createI18nInstance(
-        lang || userInfo.lang,
-        i18n => dispatch({ type: userLoggedInUserLoaded, userInfo, i18n })
-      )
-      dispatch({ type: userInitDone })
-    })
-    .catch((err) => {
-      // 401 (Unauthorized) | Display error if any other status
-      if (err.response && err.response.status !== 401) {
-        dispatch(applicationError(err))
-      }
-
-      dispatch({ type: userInitDone })
-    })
+export const getLoggedinUserInfo = () => async dispatch => {
+  try {
+    const lang = getRequestParam('lang')
+    const { data } = await axios.get(`/api/loggedInUser/`)
+    const { userInfo } = data
+    const i18n = await createI18nPromise(lang || userInfo ? userInfo.lang : 'en')
+    await dispatch({ type: userLoggedInUserLoaded, userInfo, i18n })
+    dispatch({ type: userInitDone })
+  } catch (err) {
+    // 401 (Unauthorized) | Display error if any other status
+    if (err.response && err.response.status !== 401) {
+      dispatch(applicationError(err))
+    }
+    dispatch({ type: userInitDone })
+  }
 }
 
 export const switchLanguage = lang => dispatch => {
@@ -50,7 +44,7 @@ export const logout = () => dispatch => {
   axios.post(`/auth/logout`)
     .then(() => {
       dispatch({ type: appUserLogout })
-      window.location = '/login/'
+      window.location = '/'
     })
     .catch((err) => {
       dispatch(applicationError(err))

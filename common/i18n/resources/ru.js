@@ -7,6 +7,10 @@ module.exports.translation = {
     ru: 'Русский'
   },
 
+  common: {
+    fraPlatform: 'Платформой ОЛР',
+  },
+
   definition: {
     definitionLabel: 'См. определения',
     faqLabel: 'Часто задаваемые вопросы'
