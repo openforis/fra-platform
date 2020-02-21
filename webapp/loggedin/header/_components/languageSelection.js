@@ -4,14 +4,13 @@ import * as R from 'ramda'
 
 import { PopoverControl } from '@webapp/components/popoverControl'
 import Icon from '@webapp/components/icon'
-
-import * as UserState from '@webapp/user/userState'
+import useI18n from '@webapp/components/hooks/useI18n'
 
 import { switchLanguage } from '@webapp/user/actions'
 
 const LanguageSelection = () => {
   const dispatch = useDispatch()
-  const i18n = useSelector(UserState.getI18n)
+  const i18n = useI18n()
 
   const supportedLangs = ['en', 'fr', 'es', 'ru']
   const languageSelectionItems = R.pipe(

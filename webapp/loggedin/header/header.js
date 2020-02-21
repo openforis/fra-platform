@@ -9,6 +9,7 @@ import LanguageSelection from '@webapp/loggedin/header/_components/languageSelec
 import AdminLinks from '@webapp/loggedin/header/_components/adminLinks'
 import AutoSaveStatusText from '@webapp/loggedin/header/_components/autoSaveStatusText'
 import ToggleNavigationControl from '@webapp/loggedin/header/_components/toggleNavigationControl'
+import useI18n from '@webapp/components/hooks/useI18n'
 
 import * as AppState from '@webapp/app/appState'
 import * as UserState from '@webapp/user/userState'
@@ -16,9 +17,9 @@ import * as ReviewState from '@webapp/loggedin/review/reviewState'
 
 const Header = () => {
   const userInfo = useSelector(UserState.getUserInfo)
-  const i18n = useSelector(UserState.getI18n)
   const countryIso = useSelector(AppState.getCountryIso)
   const commentsOpen = useSelector(ReviewState.getOpenThread)
+  const i18n = useI18n()
   // TODO use navigation state
   const navigationVisible = useSelector(state => countryIso ? state.navigation.navigationVisible : false)
 

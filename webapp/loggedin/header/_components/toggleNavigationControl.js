@@ -2,14 +2,13 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import Icon from '@webapp/components/icon'
-
-import * as UserState from '@webapp/user/userState'
+import useI18n from '@webapp/components/hooks/useI18n'
 
 import { toggleNavigationVisible } from '@webapp/loggedin/navigation/actions'
 
 const ToggleNavigationControl = () => {
   const dispatch = useDispatch()
-  const i18n = useSelector(UserState.getI18n)
+  const i18n = useI18n()
 
   // TODO use navigationState
   const navigationVisible = useSelector(state => state.navigation.navigationVisible)

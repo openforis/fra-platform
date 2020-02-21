@@ -4,10 +4,10 @@ import * as R from 'ramda'
 
 import { getRelativeDate } from '@webapp/utils/relativeDate'
 
-import * as UserState from '@webapp/user/userState'
+import useI18n from '@webapp/components/hooks/useI18n'
 
 const AutoSaveStatusText = () => {
-  const i18n = useSelector(UserState.getI18n)
+  const i18n = useI18n()
   //TODO use autoSaveStatus
   const lastSaveTimeStamp = useSelector(R.path(['autosave', 'lastSaveTimeStamp']))
   const status = useSelector(R.path(['autosave', 'status']))

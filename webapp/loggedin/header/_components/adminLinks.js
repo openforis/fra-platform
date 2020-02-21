@@ -4,14 +4,15 @@ import { useSelector } from 'react-redux'
 import { isAdministrator } from '@common/countryRole'
 
 import { Link } from 'react-router-dom'
+import useI18n from '@webapp/components/hooks/useI18n'
 
 import * as UserState from '@webapp/user/userState'
 import * as AppState from '@webapp/app/appState'
 
 const AdminLinks = () => {
   const userInfo = useSelector(UserState.getUserInfo)
-  const i18n = useSelector(UserState.getI18n)
   const countryIso = useSelector(AppState.getCountryIso)
+  const i18n = useI18n()
 
   return userInfo && isAdministrator(userInfo) && (
     <>

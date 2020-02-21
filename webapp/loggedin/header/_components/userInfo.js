@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { PopoverControl } from '@webapp/components/popoverControl'
 import Icon from '@webapp/components/icon'
+import useI18n from '@webapp/components/hooks/useI18n'
 
 import * as AppState from '@webapp/app/appState'
 import * as UserState from '@webapp/user/userState'
@@ -12,8 +13,8 @@ import { logout } from '@webapp/user/actions'
 const UserInfoLinks = () => {
   const dispatch = useDispatch()
   const userInfo = useSelector(UserState.getUserInfo)
-  const i18n = useSelector(UserState.getI18n)
   const countryIso = useSelector(AppState.getCountryIso)
+  const i18n = useI18n()
 
   return userInfo && (
     <PopoverControl
