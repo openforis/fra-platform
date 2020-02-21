@@ -12,7 +12,7 @@ module.exports = () => {
   const authApi = require('./auth/authApi')
   const resourceCacheControl = require('./resourceCacheControl')
   const definitionsApi = require('./definitions/api')
-  const accessControl = require('./auth/accessControl')
+  // const accessControl = require('./auth/accessControl')
   const { sendErr, appUri } = require('./utils/requestUtils')
 
   const app = express()

@@ -17,7 +17,7 @@ import * as UserState from '@webapp/user/userState'
 
 import { fetchInitialData } from '@webapp/app/actions'
 
-import * as loginStatusChecker from '@webapp/user/loginStatusChecker'
+// import * as loginStatusChecker from '@webapp/user/loginStatusChecker'
 
 const LoggedInView = props => {
 

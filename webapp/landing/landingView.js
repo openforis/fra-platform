@@ -67,8 +67,7 @@ const LandingView = () => {
                 key={i}
                 to={`${url}/${name}/`}
                 className="landing__page-menu-button"
-                activeClassName="disabled"
-                key={name}>
+                activeClassName="disabled">
                 {i18n.t(`landing.sections.${name}`)}
               </NavLink>
             ))
