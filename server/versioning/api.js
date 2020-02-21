@@ -1,22 +1,15 @@
 const { getAllVersions, addVersion, deleteVersion } = require('./versioningRepository')
-const { isAdministrator } = require("../../common/countryRole")
-const { sendErr, getUser, getUserId, send404 } = require('../utils/requestUtils')
+const { sendErr, getUserId, send404 } = require('../utils/requestUtils')
 
-const checkAdmin = (req, res) => {
-  const user = getUser(req)
-    if (!isAdministrator(user)) {
-      send404(res)
-    }
-}
+const Auth = require('../auth/authApiMiddleware')
 
 module.exports.init = app => {
-  app.get('/versioning/', async (req, res) => {
-    checkAdmin(req, res)
+  app.get('/versioning/', Auth.requireAdminPermission, async (req, res) => {
     const versions = await getAllVersions()
     res.json(versions)
   })
 
-  app.post('/versioning/', async (req, res) => {
+  app.post('/versioning/', Auth.requireAdminPermission, async (req, res) => {
     checkAdmin(req, res)
     const userId = getUserId(req)
     const { versionNumber, publishedAt } = req.body
@@ -32,8 +25,7 @@ module.exports.init = app => {
     }
   })
 
-  app.delete('/versioning/:id', async (req, res) => {
-    checkAdmin(req, res)
+  app.delete('/versioning/:id', Auth.requireAdminPermission, async (req, res) => {
     const { id } = req.params
     if (!id) {
       return

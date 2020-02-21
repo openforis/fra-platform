@@ -1,4 +1,4 @@
-const { checkCountryAccessFromReqParams } = require('../utils/accessControl')
+const { checkCountryAccessFromReqParams, checkAdminAccess } = require('../utils/accessControl')
 const { getUser } = require('../utils/requestUtils')
 const { allowedToEditDataCheck } = require('../assessment/assessmentEditAccessControl')
 
@@ -17,7 +17,13 @@ const requireCountryEditPermission = async (req, res, next) => {
 }
 
 const requireAdminPermission = async (req, res, next) => {
-  console.log({ req, res, next })
+  const user = getUser(req)
+  try {
+    checkAdminAccess(user)
+    next()
+  } catch (error) {
+    next(error)
+  }
 }
 
 module.exports = {
