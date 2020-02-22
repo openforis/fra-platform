@@ -4,11 +4,11 @@ import { applicationError } from '@webapp/loggedin/applicationError/actions'
 
 export const appUserLogout = 'app/user/logout'
 
-export const logout = () => dispatch => {
+export const logout = history => dispatch => {
   axios.post(`/auth/logout`)
     .then(() => {
       dispatch({ type: appUserLogout })
-      window.location = '/'
+      history.push('/')
     })
     .catch((err) => {
       dispatch(applicationError(err))

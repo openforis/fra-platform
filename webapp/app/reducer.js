@@ -12,7 +12,8 @@ const actionHandlers = {
 
   [appI18nUpdate]: (state, { i18n }) => AppState.assocI18n(i18n)(state),
 
-  [appUserLogout]: () => ({}),
+  // On user logout,reset only country iso
+  [appUserLogout]: AppState.assocCountryIso(null),
 }
 
 export default exportReducer(actionHandlers)
