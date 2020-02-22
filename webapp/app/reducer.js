@@ -2,18 +2,17 @@ import * as AppState from './appState'
 
 import { exportReducer } from '@webapp/utils/reduxUtils'
 
-import { appCountryIsoUpdate } from './actions'
+import { appCountryIsoUpdate, appI18nUpdate, appInitDone } from './actions'
 import { appUserLogout } from '@webapp/user/actions'
-import { userInitDone } from '@webapp/user/actions'
 
 const actionHandlers = {
-
-  [appUserLogout]: () => ({}),
+  [appInitDone]: (state, { i18n }) => AppState.setAppStatusLoaded(i18n)(state),
 
   [appCountryIsoUpdate]: (state, { countryIso }) => AppState.assocCountryIso(countryIso)(state),
 
-  [userInitDone]: (state) => AppState.assocLoadStatus(AppState.stateLoadedKey)(state)
+  [appI18nUpdate]: (state, { i18n }) => AppState.assocI18n(i18n)(state),
 
+  [appUserLogout]: () => ({}),
 }
 
 export default exportReducer(actionHandlers)

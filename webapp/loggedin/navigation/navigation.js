@@ -7,6 +7,7 @@ import * as R from 'ramda'
 import { assessments } from '@common/assessmentSectionItems'
 import { roleForCountry } from '@common/countryRole'
 import CountrySelection from '@webapp/loggedin/navigation/components/countrySelection'
+import useI18n from '@webapp/components/hooks/useI18n'
 
 import Assessment from '@webapp/loggedin/navigation/components/assessment'
 import { Footer, SectionLink } from '@webapp/loggedin/navigation/components/navigationComponents'
@@ -26,7 +27,7 @@ const roleLabel = (countryIso, userInfo, i18n) => i18n.t(roleForCountry(countryI
 const Nav = props => {
 
   const {
-    userInfo, i18n, path, countries, changeAssessment, isPanEuropeanCountry,
+    userInfo, path, countries, changeAssessment, isPanEuropeanCountry,
     status = {},
     navigationVisible
   } = props
@@ -34,6 +35,7 @@ const Nav = props => {
   if (!navigationVisible) return null
 
   const countryIso = useSelector(AppState.getCountryIso)
+  const i18n = useI18n()
 
   const getReviewStatus = section => R.pipe(
     R.defaultTo({}),
@@ -49,6 +51,7 @@ const Nav = props => {
           : <div className="fra-nav">
             <CountrySelection
               {...props}
+              i18n={i18n}
               name={countryIso}
               countries={countries}
               role={roleLabel(countryIso, userInfo, i18n)}
@@ -94,6 +97,7 @@ const Nav = props => {
 
               <Footer
                 countryIso={countryIso}
+                i18n={i18n}
                 {...props}/>
             </div>
           </div>

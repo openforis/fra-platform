@@ -84,7 +84,10 @@ const mapStateToProps = state => {
     !R.isEmpty(state.extentOfForest) &&
     !R.isEmpty(state.growingStock)
 
-  return { initialDataLoaded }
+  return {
+    userInfo: UserState.getUserInfo(state),
+    initialDataLoaded
+  }
 }
 
 export default connect(mapStateToProps, { fetchInitialData })(LoggedInView)

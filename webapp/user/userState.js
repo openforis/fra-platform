@@ -1,21 +1,24 @@
 import * as R from 'ramda'
 
+import * as AppState from '@webapp/app/appState'
+
 export const stateKey = 'user'
 
 const keys = {
-  i18n: 'i18n',
   userInfo: 'userInfo',
 }
 
 const getState = R.prop(stateKey)
 
 // === READ
-export const getI18n = R.pipe(getState, R.propOr(null, keys.i18n))
+export const getI18n = AppState.getI18n //TODO remove. always use directly AppState.getI18n
 export const getUserInfo = R.pipe(getState, R.propOr(null, keys.userInfo))
 
 // === UPDATE
-export const assocI18n = R.assoc(keys.i18n)
 export const assocUserInfo = R.assoc(keys.userInfo)
-
-// User Info functions
-export const assocUserInfoLang = R.assocPath([keys.userInfo, 'lang'])
+export const assocUserInfoLang = lang => state => {
+  const userInfo = R.propOr(null, keys.userInfo, state)
+  return userInfo
+    ? R.assocPath([keys.userInfo, 'lang'], lang, state)
+    : state
+}

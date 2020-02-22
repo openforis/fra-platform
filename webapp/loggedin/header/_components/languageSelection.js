@@ -6,7 +6,7 @@ import { PopoverControl } from '@webapp/components/popoverControl'
 import Icon from '@webapp/components/icon'
 import useI18n from '@webapp/components/hooks/useI18n'
 
-import { switchLanguage } from '@webapp/user/actions'
+import { switchLanguage } from '@webapp/app/actions'
 
 const LanguageSelection = () => {
   const dispatch = useDispatch()
