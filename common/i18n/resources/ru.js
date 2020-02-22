@@ -9,6 +9,7 @@ module.exports.translation = {
 
   common: {
     fraPlatform: 'Платформой ОЛР',
+    login: 'Логин',
   },
 
   definition: {

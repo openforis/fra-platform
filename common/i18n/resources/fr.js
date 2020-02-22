@@ -9,6 +9,7 @@ module.exports.translation = {
 
   common: {
     fraPlatform: 'Plateforme de FRA',
+    login: 'Connexion',
   },
 
   definition: {
