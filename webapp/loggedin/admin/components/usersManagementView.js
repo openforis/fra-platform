@@ -10,8 +10,8 @@ import EditUserForm from '@webapp/userManagement/edit/editUserForm'
 import { fetchAllUsers, removeUser, sendInvitationEmail } from '../../../userManagement/actions'
 import { getCountryName } from '@webapp/country/actions'
 import { administrator } from '@common/countryRole'
-import * as AppState from '@webapp/app/appState'
 
+import * as AppState from '@webapp/app/appState'
 import * as UserState from '@webapp/user/userState'
 import * as UserManagementState from '@webapp/userManagement/userManagementState'
 
@@ -60,15 +60,14 @@ const UsersManagementView = props => {
   </>
 }
 
-const mapStateToProps = (state, props) =>
-  ({
-    i18n: UserState.getI18n(state),
-    userInfo: UserState.getUserInfo(state),
-    allUsers: UserManagementState.getAllUsers(state),
-    userCounts: UserManagementState.getUserCounts(state),
-    editUserStatus: UserManagementState.getEditUserStatus(state),
-    countries: R.path(['country', 'countries', administrator.role], state)
-  })
+const mapStateToProps = (state) => ({
+  i18n: AppState.getI18n(state),
+  userInfo: UserState.getUserInfo(state),
+  allUsers: UserManagementState.getAllUsers(state),
+  userCounts: UserManagementState.getUserCounts(state),
+  editUserStatus: UserManagementState.getEditUserStatus(state),
+  countries: R.path(['country', 'countries', administrator.role], state)
+})
 
 export default connect(
   mapStateToProps,

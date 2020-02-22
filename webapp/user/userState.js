@@ -11,7 +11,6 @@ const keys = {
 const getState = R.prop(stateKey)
 
 // === READ
-export const getI18n = AppState.getI18n //TODO remove. always use directly AppState.getI18n
 export const getUserInfo = R.pipe(getState, R.propOr(null, keys.userInfo))
 
 // === UPDATE

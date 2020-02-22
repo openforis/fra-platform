@@ -18,9 +18,9 @@ import { fetchLastSectionUpdateTimestamp } from '@webapp/audit/actions'
 import { fetch } from './actions'
 import { isFRA2020SectionEditDisabled } from '@webapp/utils/assessmentAccess'
 import { isPrintingOnlyTables } from '@webapp/loggedin/printAssessment/printAssessment'
+
 import * as AppState from '@webapp/app/appState'
 import * as CountryState from '@webapp/country/countryState'
-import * as UserState from '@webapp/user/userState'
 
 const sectionName = 'sustainableDevelopment'
 
@@ -103,7 +103,7 @@ const SustainableDevelopmentView = props => {
 }
 
 const mapStateToProps = state => ({
-  i18n: UserState.getI18n(state),
+  i18n: AppState.getI18n(state),
   data: state.sustainableDevelopment,
   countryConfig: CountryState.getConfig(state),
   isEditDataDisabled: isFRA2020SectionEditDisabled(state, sectionName)
