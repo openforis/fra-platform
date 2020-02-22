@@ -9,8 +9,9 @@ import useI18n from '@webapp/components/hooks/useI18n'
 // import MapViewContainer from './countryMap/mapViewContainer'
 
 import * as AppState from '@webapp/app/appState'
+import * as UserState from '@webapp/user/userState'
 
-import { getCountryOverview } from '../actions'
+import { getCountryOverview } from '@webapp/landing/actions'
 import { closeChat, openChat } from '@webapp/loggedin/userChat/actions'
 import { closeCountryMessageBoard, openCountryMessageBoard } from '@webapp/loggedin/countryMessageBoard/actions'
 
@@ -216,7 +217,7 @@ const OverviewView = props => {
 
 const mapStateToProps = state => ({
   ...state.landing,
-  ...state.user,
+  userInfo: UserState.getUserInfo(state),
   countryMessageBoardOpened: R.pathEq(['countryMessageBoard', 'show'], true)(state)
 })
 

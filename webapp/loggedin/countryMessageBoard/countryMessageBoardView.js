@@ -4,12 +4,15 @@ import * as R from 'ramda'
 
 import FraReviewFooter from '../review/reviewFooter'
 import Icon from '@webapp/components/icon'
+import useI18n from '@webapp/components/hooks/useI18n'
 
 import { getRelativeDate } from '@webapp/utils/relativeDate'
 import { profilePictureUri } from '@common/userUtils'
 
-import { closeCountryMessageBoard, fetchAllCountryMessageBoardMessages, sendCountryMessageBoard, } from './actions'
 import * as AppState from '@webapp/app/appState'
+import * as UserState from '@webapp/user/userState'
+
+import { closeCountryMessageBoard, fetchAllCountryMessageBoardMessages, sendCountryMessageBoard, } from './actions'
 
 const MessageBoardHeader = ({ i18n, closeCountryMessageBoard }) =>
   <div className="fra-review__header">
@@ -98,6 +101,7 @@ const MessageBoardView = props => {
     fetchAllCountryMessageBoardMessages, showMessageBoard
   } = props
   const countryIso = useSelector(AppState.getCountryIso)
+  const i18n = useI18n()
 
   useEffect(() => {
     if (showMessageBoard) {
@@ -108,9 +112,9 @@ const MessageBoardView = props => {
   return showMessageBoard && (
     <div className="fra-review__container">
       <div className="fra-review user-chat">
-        <MessageBoardHeader {...props} />
-        <MessageBoardMessages {...props} />
-        <MessageBoardAddMessage {...props} />
+        <MessageBoardHeader {...props} i18n={i18n} />
+        <MessageBoardMessages {...props} i18n={i18n} />
+        <MessageBoardAddMessage {...props} i18n={i18n} />
       </div>
     </div>
   )
@@ -119,7 +123,7 @@ const MessageBoardView = props => {
 const mapStateToProps = state => ({
   showMessageBoard: R.pathEq(['countryMessageBoard', 'show'], true)(state),
   messages: R.path(['countryMessageBoard', 'messages'])(state),
-  ...state.user,
+  userInfo: UserState.getUserInfo(state),
 })
 
 export default connect(

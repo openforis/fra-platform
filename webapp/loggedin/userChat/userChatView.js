@@ -4,6 +4,7 @@ import * as R from 'ramda'
 
 import FraReviewFooter from '../review/reviewFooter'
 import Icon from '@webapp/components/icon'
+import useI18n from '@webapp/components/hooks/useI18n'
 
 import { closeChat, sendMessage } from './actions'
 
@@ -119,8 +120,9 @@ class UsersChatAddMessage extends React.Component {
 }
 
 const UserChatView = props => {
-  const { chat, i18n, closeChat, sendMessage } = props
+  const { chat, closeChat, sendMessage } = props
   const countryIso = useSelector(AppState.getCountryIso)
+  const i18n = useI18n()
 
   if (R.isNil(chat)) {
     return null
@@ -140,7 +142,6 @@ const UserChatView = props => {
 
 const mapStateToProps = state => ({
   ...state.userChat,
-  ...state.user,
 })
 
 export default connect(mapStateToProps, { closeChat, sendMessage })(UserChatView)

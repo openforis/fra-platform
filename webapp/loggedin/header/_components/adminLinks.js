@@ -14,16 +14,18 @@ const AdminLinks = () => {
   const countryIso = useSelector(AppState.getCountryIso)
   const i18n = useI18n()
 
-  return userInfo && isAdministrator(userInfo) && (
-    <>
-      <div key="v-separator" className="fra-header__menu-item-separator" style={{ margin: '0 20px' }}/>
-      <Link key="admin-link"
-            to={`/country/${countryIso}/admin/`}
-            className="fra-header__menu-item">
-        {i18n.t('admin.admin')}
-      </Link>
-    </>
-  )
+  return userInfo && isAdministrator(userInfo)
+    ? (
+      <>
+        <div key="v-separator" className="fra-header__menu-item-separator" style={{ margin: '0 20px' }}/>
+        <Link key="admin-link"
+              to={`/country/${countryIso}/admin/`}
+              className="fra-header__menu-item">
+          {i18n.t('admin.admin')}
+        </Link>
+      </>
+    )
+    : null
 }
 
 export default AdminLinks

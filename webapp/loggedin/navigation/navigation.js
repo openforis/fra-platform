@@ -13,6 +13,7 @@ import Assessment from '@webapp/loggedin/navigation/components/assessment'
 import { Footer, SectionLink } from '@webapp/loggedin/navigation/components/navigationComponents'
 
 import * as AppState from '@webapp/app/appState'
+import * as UserState from '@webapp/user/userState'
 
 import {
   changeAssessment,
@@ -111,7 +112,7 @@ const mapStateToProps = state => ({
   ...state.navigation,
   ...state.country,
   ...state.router,
-  ...state.user
+  userInfo: UserState.getUserInfo(state),
 })
 
 export default connect(mapStateToProps, {
