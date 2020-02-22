@@ -4,19 +4,21 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink, Redirect, Route, Switch, useRouteMatch } from 'react-router-dom'
 
-import { getCountryName } from '../country/actions'
 import { isAllowedToChangeRole } from '@common/userManagementAccessControl'
 import { isReviewer } from '@common/countryRole'
 
-import OverviewView from './views/overviewView'
-import AboutView from './views/aboutView'
-import RecentActivityView from './views/recentActivityView'
-import ManageCollaboratorsView from './views/manageCollaboratorsView'
-import LinksView from './views/linksView'
-import ContentCheckView from './views/contentCheck/contentCheckView'
+import OverviewView from '@webapp/landing/views/overviewView'
+import AboutView from '@webapp/landing/views/aboutView'
+import RecentActivityView from '@webapp/landing/views/recentActivityView'
+import ManageCollaboratorsView from '@webapp/landing/views/manageCollaboratorsView'
+import LinksView from '@webapp/landing/views/linksView'
+import ContentCheckView from '@webapp/landing/views/contentCheck/contentCheckView'
+import useI18n from '@webapp/components/hooks/useI18n'
 
 import * as AppState from '@webapp/app/appState'
 import * as UserState from '@webapp/user/userState'
+
+import { getCountryName } from '@webapp/country/actions'
 
 const getSections = (countryIso, userInfo) => {
   const sections = [
@@ -45,7 +47,7 @@ const LandingView = () => {
 
   const countryIso = useSelector(AppState.getCountryIso)
   const userInfo = useSelector(UserState.getUserInfo)
-  const i18n = useSelector(UserState.getI18n)
+  const i18n = useI18n()
 
   const sections = userInfo ? getSections(countryIso, userInfo) : []
 

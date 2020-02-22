@@ -3,27 +3,29 @@ import { connect, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import * as R from 'ramda'
 
-import { fetchItem, generateFraValues, save, saveMany } from '../../../tableWithOdp/actions'
-import { GenerateFraValuesControl, TableWithOdp } from '../../../tableWithOdp/tableWithOdp'
-import ChartWrapper from '../extentOfForest/chart/chartWrapper'
+import { abs, formatNumber, greaterThan, greaterThanOrEqualTo, sub, sum } from '@common/bignumberUtils'
+import { isFRA2020SectionEditDisabled } from '@webapp/utils/assessmentAccess'
+import { isPrintingMode, isPrintingOnlyTables } from '@webapp/loggedin/printAssessment/printAssessment'
+import { getForestAreaForYear, hasOdps } from '@common/extentOfForestHelper'
+
+import { GenerateFraValuesControl,TableWithOdp } from '@webapp/tableWithOdp/tableWithOdp'
+import ChartWrapper from '@webapp/loggedin/assessmentFra/extentOfForest/chart/chartWrapper'
 import NationalDataDescriptions from '@webapp/components/description/nationalDataDescriptions'
 import AnalysisDescriptions from '@webapp/components/description/analysisDescriptions'
 import GeneralComments from '@webapp/components/description/generalComments'
-import { fetchLastSectionUpdateTimestamp } from '@webapp/audit/actions'
-import { saveCountryConfigSetting } from '../../../country/actions'
 import DefinitionLink from '@webapp/components/definitionLink'
-import { abs, formatNumber, greaterThan, greaterThanOrEqualTo, sub, sum } from '@common/bignumberUtils'
-import { getForestAreaForYear, hasOdps } from '@common/extentOfForestHelper'
 import ReviewIndicator from '@webapp/loggedin/review/reviewIndicator'
-import NationalDataPointsPrintView from '../../../originalDataPoint/nationalDataPointsPrintView'
-import { isFRA2020SectionEditDisabled } from '@webapp/utils/assessmentAccess'
-import { isPrintingMode, isPrintingOnlyTables } from '@webapp/loggedin/printAssessment/printAssessment'
+import NationalDataPointsPrintView from '@webapp/originalDataPoint/nationalDataPointsPrintView'
+import useI18n from '@webapp/components/hooks/useI18n'
 
 import FraUtils from '@common/fraUtils'
 import * as AppState from '@webapp/app/appState'
 import * as CountryState from '@webapp/country/countryState'
-import * as UserState from '@webapp/user/userState'
 import * as ReviewState from '@webapp/loggedin/review/reviewState'
+
+import { fetchItem, generateFraValues, save, saveMany} from '@webapp/tableWithOdp/actions'
+import { fetchLastSectionUpdateTimestamp } from '@webapp/audit/actions'
+import { saveCountryConfigSetting } from '@webapp/country/actions'
 
 const mapIndexed = R.addIndex(R.map)
 const anchorName = '1b'
@@ -342,6 +344,7 @@ const ForestCharacteristics = props => {
 const DataFetchingComponent = props => {
   const { fra, fetchItem, fetchLastSectionUpdateTimestamp } = props
   const countryIso = useSelector(AppState.getCountryIso)
+  const i18n = useI18n()
 
   const hasData = (data) => {
     return R.pipe(
@@ -365,6 +368,7 @@ const DataFetchingComponent = props => {
     hasData={hasData(data)}
     countryIso={countryIso}
     fra={data}
+    i18n={i18n}
   />
 }
 
@@ -377,7 +381,6 @@ const mapStateToProps = state => {
     ...state.forestCharacteristics,
     openCommentThread: ReviewState.getOpenThread(state),
     openCommentThreadTarget: ReviewState.getOpenThreadTarget(state),
-    i18n: UserState.getI18n(state),
     extentOfForest: state.extentOfForest,
     useOriginalDataPoints: useOriginalDataPoints,
     // Only if ODPs are enabled system-wide and ALSO locally, they are enabled:
