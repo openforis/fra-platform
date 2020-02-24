@@ -4,11 +4,11 @@ const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
 const {sendErr} = require('../utils/requestUtils')
 const fileName = 'calculator'
 
-module.exports.init = app => {
-  app.get('/biomassStock/:countryIso/:domain/:lang/download', (req, res) => {
-    try {
-      checkCountryAccessFromReqParams(req)
+const Auth = require('../auth/authApiMiddleware')
 
+module.exports.init = app => {
+  app.get('/biomassStock/:countryIso/:domain/:lang/download', Auth.requireCountryEditPermission, (req, res) => {
+    try {
       const availableLanguages = ['en', 'fr', 'es', 'ru']
       const countryDomain = req.params.domain
       if (R.isNil(countryDomain)) {

@@ -8,9 +8,8 @@ const {persistMessage, fetchCountryMessages, fetchCountryUnreadMessages} = requi
 const Auth = require('../auth/authApiMiddleware')
 
 module.exports.init = app => {
-  app.get('/countryMessageBoard/:countryIso/messages/all', async (req, res) => {
+  app.get('/countryMessageBoard/:countryIso/messages/all', Auth.requireCountryEditPermission, async (req, res) => {
     try {
-      checkCountryAccessFromReqParams(req)
       const {countryIso} = req.params
       const userId = req.user.id
 
@@ -23,9 +22,8 @@ module.exports.init = app => {
     }
   })
 
-  app.get('/countryMessageBoard/:countryIso/messages/new', async (req, res) => {
+  app.get('/countryMessageBoard/:countryIso/messages/new', Auth.requireCountryEditPermission, async (req, res) => {
     try {
-      checkCountryAccessFromReqParams(req)
       const {countryIso} = req.params
       const userId = req.user.id
 

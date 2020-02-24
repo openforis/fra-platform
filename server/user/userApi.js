@@ -34,7 +34,7 @@ module.exports.init = app => {
   })
 
   // get users and invitations list
-  app.get('/users/:countryIso', async (req, res) => {
+  app.get('/users/:countryIso', Auth.requireCountryEditPermission, async (req, res) => {
     try {
       checkCountryAccessFromReqParams(req)
 

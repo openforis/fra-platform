@@ -2,11 +2,11 @@ const auditRepository = require('./auditRepository')
 const {sendErr} = require('../utils/requestUtils')
 const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
 
-module.exports.init = app => {
-  app.get('/audit/getLatestAuditLogTimestamp/:countryIso', async (req, res) => {
-    try {
-      checkCountryAccessFromReqParams(req)
+const Auth = require('../auth/authApiMiddleware')
 
+module.exports.init = app => {
+  app.get('/audit/getLatestAuditLogTimestamp/:countryIso', Auth.requireCountryEditPermission, async (req, res) => {
+    try {
       const timeStamp = await auditRepository.getLastAuditTimeStampForSection(req.params.countryIso, req.query.section)
 
       res.json({timeStamp})
@@ -15,10 +15,8 @@ module.exports.init = app => {
     }
   })
 
-  app.get('/audit/getAuditFeed/:countryIso', async (req, res) => {
+  app.get('/audit/getAuditFeed/:countryIso', Auth.requireCountryEditPermission, async (req, res) => {
     try {
-      checkCountryAccessFromReqParams(req)
-
       const feed = await auditRepository.getAuditFeed(req.params.countryIso)
 
       res.json({feed})
