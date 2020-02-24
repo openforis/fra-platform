@@ -1,22 +1,24 @@
 import './style.less'
 
 import React from 'react'
-import { connect, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { NavLink, Redirect, Route, Switch, useRouteMatch } from 'react-router-dom'
 
-import { getCountryName } from '../country/actions'
 import { isAllowedToChangeRole } from '@common/userManagementAccessControl'
 import { isReviewer } from '@common/countryRole'
 
-import OverviewView from './views/overviewView'
-import AboutView from './views/aboutView'
-import RecentActivityView from './views/recentActivityView'
-import ManageCollaboratorsView from './views/manageCollaboratorsView'
-import LinksView from './views/linksView'
-import ContentCheckView from './views/contentCheck/contentCheckView'
+import OverviewView from '@webapp/landing/views/overviewView'
+import AboutView from '@webapp/landing/views/aboutView'
+import RecentActivityView from '@webapp/landing/views/recentActivityView'
+import ManageCollaboratorsView from '@webapp/landing/views/manageCollaboratorsView'
+import LinksView from '@webapp/landing/views/linksView'
+import ContentCheckView from '@webapp/landing/views/contentCheck/contentCheckView'
+import useI18n from '@webapp/components/hooks/useI18n'
 
 import * as AppState from '@webapp/app/appState'
 import * as UserState from '@webapp/user/userState'
+
+import { getCountryName } from '@webapp/country/actions'
 
 const getSections = (countryIso, userInfo) => {
   const sections = [
@@ -39,56 +41,62 @@ const getSections = (countryIso, userInfo) => {
   return sections
 }
 
-
-const LandingViewLink = ({ labelKey, name, i18n }) => {
-  let { url } = useRouteMatch()
-
-  return <NavLink
-    to={`${url}/${name}/`}
-    className="landing__page-menu-button"
-    activeClassName="disabled"
-    key={name}>
-
-    {i18n.t(`landing.sections.${name}`)}
-  </NavLink>
-}
-
-const LandingView = (props) => {
-  const { userInfo, i18n, getCountryName } = props
-  const countryIso = useSelector(AppState.getCountryIso)
+const LandingView = () => {
+  const dispatch = useDispatch()
   const { path, url } = useRouteMatch()
 
-  const sections = getSections(countryIso, userInfo)
+  const countryIso = useSelector(AppState.getCountryIso)
+  const userInfo = useSelector(UserState.getUserInfo)
+  const i18n = useI18n()
+
+  const sections = userInfo ? getSections(countryIso, userInfo) : []
 
   return (
     <div className="fra-view__content">
 
       <div className="landing__page-header">
-        <h1 className="landing__page-title">{getCountryName(countryIso, i18n.language)}</h1>
+        <h1 className="landing__page-title">
+          {
+            countryIso
+              ? dispatch(getCountryName(countryIso, i18n.language))
+              : i18n.t('common.fraPlatform')
+          }
+        </h1>
         <div className="landing__page-menu">
-          {sections.map((section, i) => <LandingViewLink key={i} i18n={i18n} {...section} />)}
+          {
+            userInfo && sections.map(({ name }, i) => (
+              <NavLink
+                key={i}
+                to={`${url}/${name}/`}
+                className="landing__page-menu-button"
+                activeClassName="disabled">
+                {i18n.t(`landing.sections.${name}`)}
+              </NavLink>
+            ))
+          }
         </div>
       </div>
 
-      <Switch>
-        <Route exact path={path}>
-          <Redirect to={`${url}overview/`} />
-        </Route>
-        {
-          sections.map((section, i) =>
-            <Route key={i} path={`${path}${section.name}/`} component={section.component} />)
-        }
-      </Switch>
+      {
+        userInfo
+          ? (
+            <Switch>
+              <Route exact path={path}>
+                <Redirect to={`${url}overview/`}/>
+              </Route>
+              {
+                sections.map((section, i) =>
+                  <Route key={i} path={`${path}${section.name}/`} component={section.component}/>)
+              }
+            </Switch>
+          )
+          : (
+            <AboutView/>
+          )
+      }
 
     </div>
   )
 }
 
-const mapStateToProps = state => ({
-  i18n: UserState.getI18n(state),
-  userInfo: UserState.getUserInfo(state),
-})
-
-export default connect(mapStateToProps, {
-  getCountryName
-})(LandingView)
+export default LandingView

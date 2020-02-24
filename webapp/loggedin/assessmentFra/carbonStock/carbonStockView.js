@@ -14,9 +14,10 @@ import { isPrintingOnlyTables } from '@webapp/loggedin/printAssessment/printAsse
 import FraUtils from '@common/fraUtils'
 import * as table from '@webapp/traditionalTable/table'
 import { fetchTableData } from '@webapp/traditionalTable/actions'
+
 import * as AppState from '@webapp/app/appState'
 import * as CountryState from '@webapp/country/countryState'
-import * as UserState from '@webapp/user/userState'
+
 
 const sectionName = 'carbonStock'
 const domains = ['boreal', 'temperate', 'subtropical', 'tropical']
@@ -130,7 +131,7 @@ const CarbonStockView = props => {
 }
 
 const mapStateToProps = state => {
-  const i18n = UserState.getI18n(state)
+  const i18n = AppState.getI18n(state)
   const tableSpecInstance = tableSpec(i18n)
 
   return {

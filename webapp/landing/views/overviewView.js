@@ -5,11 +5,15 @@ import * as R from 'ramda'
 import { i18nUserRole, profilePictureUri } from '@common/userUtils'
 
 import Icon from '@webapp/components/icon'
-import { getCountryOverview } from '../actions'
+import useI18n from '@webapp/components/hooks/useI18n'
+// import MapViewContainer from './countryMap/mapViewContainer'
+
+import * as AppState from '@webapp/app/appState'
+import * as UserState from '@webapp/user/userState'
+
+import { getCountryOverview } from '@webapp/landing/actions'
 import { closeChat, openChat } from '@webapp/loggedin/userChat/actions'
 import { closeCountryMessageBoard, openCountryMessageBoard } from '@webapp/loggedin/countryMessageBoard/actions'
-import * as AppState from '@webapp/app/appState'
-// import MapViewContainer from './countryMap/mapViewContainer'
 
 const milestonesTableContent = [
   {
@@ -162,13 +166,14 @@ const OverviewView = props => {
     closeCountryMessageBoard,
     countryMessageBoardOpened,
     getCountryOverview,
-    i18n,
     openChat,
     openCountryMessageBoard,
     overview,
     userInfo,
   } = props
   const countryIso = useSelector(AppState.getCountryIso)
+  const i18n = useI18n()
+
   const users = overview && overview.users
   const countryMessageBoardUnreadMessages = overview && overview.countryMessageBoardUnreadMessages
   const shouldRenderUsers = !(R.isEmpty(users) || R.isNil(users))
@@ -183,7 +188,7 @@ const OverviewView = props => {
 
   return <div className="landing__page-container">
     {/*<MapViewContainer {...this.props}/>*/}
-    <Milestones {...props} />
+    <Milestones i18n={i18n} />
 
     <div className="landing__message-board-container">
       <MessageBoard countryIso={countryIso}
@@ -212,7 +217,7 @@ const OverviewView = props => {
 
 const mapStateToProps = state => ({
   ...state.landing,
-  ...state.user,
+  userInfo: UserState.getUserInfo(state),
   countryMessageBoardOpened: R.pathEq(['countryMessageBoard', 'show'], true)(state)
 })
 

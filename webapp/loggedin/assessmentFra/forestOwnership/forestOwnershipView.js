@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import SingleTraditionalTableView from '@webapp/traditionalTable/singleTraditionalTableView'
 import tableSpec from './tableSpec'
 
-import * as UserState from '@webapp/user/userState'
+import * as AppState from '@webapp/app/appState'
 
 const ForestOwnershipView = props =>
   <SingleTraditionalTableView
@@ -12,6 +12,6 @@ const ForestOwnershipView = props =>
     sectionAnchor="4a"
     tableSpecInstance={tableSpec(props.i18n, props.extentOfForest, props.match.params.countryIso)}/>
 
-const mapStateToProps = state => ({i18n: UserState.getI18n(state), extentOfForest: state.extentOfForest})
+const mapStateToProps = state => ({i18n: AppState.getI18n(state), extentOfForest: state.extentOfForest})
 
 export default connect(mapStateToProps)(ForestOwnershipView)

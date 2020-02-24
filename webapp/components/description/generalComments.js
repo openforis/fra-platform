@@ -1,24 +1,25 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+
 import CommentableDescription from '@webapp/components/description/commentableDescription'
-import { connect } from 'react-redux'
-import * as UserState from '@webapp/user/userState'
+import useI18n from '@webapp/components/hooks/useI18n'
 
 const GeneralComments = props => {
-  return <div className="fra-description__container">
-    <CommentableDescription
-      title={props.i18n.t('description.generalCommentsTitle')}
-      name="generalComments"
-      {...props}
-    />
-  </div>
+  const i18n = useI18n()
+
+  return (
+    <div className="fra-description__container">
+      <CommentableDescription
+        title={i18n.t('description.generalCommentsTitle')}
+        name="generalComments"
+        {...props}
+      />
+    </div>
+  )
 }
 
 GeneralComments.propTypes = {
-  countryIso: PropTypes.string.isRequired,
   section: PropTypes.string.isRequired
 }
 
-const mapStateToProps = (state) => ({i18n: UserState.getI18n(state)})
-
-export default connect(mapStateToProps, {})(GeneralComments)
+export default GeneralComments

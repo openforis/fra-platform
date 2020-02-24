@@ -4,8 +4,8 @@ import { clearApplicationError } from './actions'
 import Icon from '@webapp/components/icon'
 import './style.less'
 
+import * as AppState from '@webapp/app/appState'
 import * as ApplicationErrorState from '@webapp/loggedin/applicationError/applicationErrorState'
-import * as UserState from '@webapp/user/userState'
 
 const ErrorBox = ({error, i18n, clearApplicationError}) =>
   <div className="alert-container">
@@ -28,7 +28,7 @@ const ErrorComponent = props => props.error ? <ErrorBox {...props}/> : null
 
 const mapStateToProps = state => ({
   error: ApplicationErrorState.getError(state),
-  i18n: UserState.getI18n(state),
+  i18n: AppState.getI18n(state),
 })
 
 export default connect(mapStateToProps, {clearApplicationError})(ErrorComponent)

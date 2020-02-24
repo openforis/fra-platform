@@ -1,5 +1,5 @@
 import React from 'react'
-import { connect } from 'react-redux'
+import { useSelector } from 'react-redux'
 import {
   Switch,
   Redirect,
@@ -7,6 +7,8 @@ import {
   NavLink,
   useRouteMatch,
 } from 'react-router-dom'
+
+import useI18n from '@webapp/components/hooks/useI18n'
 
 import { isAdministrator } from '@common/countryRole'
 import NotFound from '@webapp/app/notfound'
@@ -47,7 +49,8 @@ const AdminViewLink = ({ labelKey, name, i18n }) => {
 }
 
 const AdminView = (props) => {
-  const { userInfo, i18n } = props
+  const userInfo = useSelector(UserState.getUserInfo)
+  const i18n = useI18n()
   let { path, url } = useRouteMatch()
 
   // Todo : redirect to /404 or /notfound
@@ -73,7 +76,7 @@ const AdminView = (props) => {
           <UsersManagementView {...props} />
         </Route>
         <Route path={`${path}dataExport/`}>
-          <DataExportView {...props} />
+          <DataExportView i18n={i18n} />
         </Route>
         <Route path={`${path}versioning/`}>
           <VersioningView {...props} />
@@ -84,9 +87,4 @@ const AdminView = (props) => {
   )
 }
 
-const mapStateToProps = (state) => ({
-  i18n: UserState.getI18n(state),
-  userInfo: UserState.getUserInfo(state),
-})
-
-export default connect(mapStateToProps)(AdminView)
+export default AdminView

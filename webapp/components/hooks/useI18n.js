@@ -1,4 +1,5 @@
 import { useSelector } from 'react-redux'
-import * as UserState from '@webapp/user/userState'
 
-export default () => useSelector(UserState.getI18n)
+import * as AppState from '@webapp/app/appState'
+
+export default () => useSelector(AppState.getI18n)

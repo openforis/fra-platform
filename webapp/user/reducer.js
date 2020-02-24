@@ -1,25 +1,14 @@
-import * as R from 'ramda'
-
-import {
-  appUserLogout,
-  userLoggedInUserLoaded,
-  userLoggedInUserSwitchLanguage,
-} from './actions'
-
 import { exportReducer } from '@webapp/utils/reduxUtils'
+
 import * as UserState from '@webapp/user/userState'
 
-const actionHandlers = {
-  [userLoggedInUserLoaded]: (state, { userInfo, i18n }) => R.pipe(
-    UserState.assocI18n(i18n),
-    UserState.assocUserInfo(userInfo),
-  )(state),
+import { appI18nUpdate, appInitDone } from '@webapp/app/actions'
+import { appUserLogout } from '@webapp/user/actions'
 
-  [userLoggedInUserSwitchLanguage]: (state, { i18n }) =>
-    R.pipe(
-      UserState.assocI18n(i18n),
-      UserState.assocUserInfoLang(i18n.language)
-    )(state),
+const actionHandlers = {
+  [appInitDone]: (state, { userInfo }) => UserState.assocUserInfo(userInfo)(state),
+
+  [appI18nUpdate]: (state, { i18n }) => UserState.assocUserInfoLang(i18n.language)(state),
 
   [appUserLogout]: () => ({}),
 }
