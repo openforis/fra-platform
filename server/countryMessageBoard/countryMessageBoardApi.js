@@ -1,5 +1,4 @@
 const {sendErr, sendOk} = require('../utils/requestUtils')
-const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
 
 const db = require('../db/db')
 

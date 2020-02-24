@@ -1,4 +1,4 @@
-const { getAllVersions, addVersion, deleteVersion } = require('./versioningRepository')
+const { getAllVersions, addVersion, deleteVersion, getLatestSchemaVersion } = require('./versioningRepository')
 const { sendErr, getUserId } = require('../utils/requestUtils')
 
 const Auth = require('../auth/authApiMiddleware')
@@ -40,4 +40,8 @@ module.exports.init = app => {
     res.json(versions)
   })
 
+  app.get('/versioning/latest', Auth.requireAdminPermission, async (req, res) => {
+    const version = await getLatestSchemaVersion()
+    res.json(version)
+  })
 }

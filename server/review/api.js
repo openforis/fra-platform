@@ -1,7 +1,6 @@
 const R = require('ramda')
 
 const db = require('../db/db')
-const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
 const {sendErr} = require('../utils/requestUtils')
 const reviewRepository = require('./reviewRepository')
 const {allowedToEditCommentsCheck} = require('../assessment/assessmentEditAccessControl')

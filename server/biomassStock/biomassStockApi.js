@@ -1,6 +1,5 @@
 const R = require('ramda')
 const fs = require('fs')
-const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
 const {sendErr} = require('../utils/requestUtils')
 const fileName = 'calculator'
 

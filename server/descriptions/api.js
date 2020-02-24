@@ -1,7 +1,6 @@
 const db = require('../db/db')
 const {sendErr, sendOk} = require('../utils/requestUtils')
 const repository = require('./descriptionsRepository')
-const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
 const auditRepository = require('./../audit/auditRepository')
 
 const Auth = require('../auth/authApiMiddleware')
