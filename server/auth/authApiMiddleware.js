@@ -9,7 +9,9 @@ const requireCountryEditPermission = async (req, res, next) => {
 
   try {
     checkCountryAccessFromReqParams(req)
-    await allowedToEditDataCheck(countryIso, user, section)
+    if (section) {
+      await allowedToEditDataCheck(countryIso, user, section)
+    }
     next()
   } catch (error) {
     next(error)
