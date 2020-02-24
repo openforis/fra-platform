@@ -73,10 +73,8 @@ module.exports.init = app => {
   })
 
   // delete file
-  app.delete('/fileRepository/:countryIso/file/:fileId', async (req, res) => {
+  app.delete('/fileRepository/:countryIso/file/:fileId', Auth.requireCountryEditPermission, async (req, res) => {
     try {
-      checkCountryAccessFromReqParams(req)
-
       const filesList = await db.transaction(deleteFile, [req.user, req.params.countryIso, req.params.fileId])
 
       res.json(filesList)

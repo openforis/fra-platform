@@ -71,10 +71,8 @@ module.exports.init = app => {
     }
   })
 
-  app.delete('/review/:countryIso/comments/:commentId', async (req, res) => {
+  app.delete('/review/:countryIso/comments/:commentId', Auth.requireCountryEditPermission, async (req, res) => {
     try {
-      checkCountryAccessFromReqParams(req)
-
       const commentInfo = await reviewRepository.getCommentCountryAndSection(req.params.commentId)
       await allowedToEditCommentsCheck(commentInfo.countryIso, req.user, commentInfo.section)
       await db.transaction(

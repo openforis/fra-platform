@@ -29,7 +29,7 @@ module.exports.init = app => {
     }
   })
 
-  app.delete('/panEuropean/:countryIso', async (req, res) => {
+  app.delete('/panEuropean/:countryIso', Auth.requireCountryEditPermission, async (req, res) => {
     try {
       checkCountryAccessFromReqParams(req)
       await db.transaction(deletePanEuropeanQuantitativeQuestionnaire, [req.params.countryIso])

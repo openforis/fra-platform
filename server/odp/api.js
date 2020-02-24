@@ -61,10 +61,8 @@ module.exports.init = app => {
     }
   )
 
-  app.delete('/odp', async (req, res) => {
+  app.delete('/odp', Auth.requireCountryEditPermission, async (req, res) => {
     try {
-      checkCountryAccessFromReqParams(req)
-
       const countryIso = req.query.countryIso
       await allowedToEditDataCheck(countryIso, req.user, 'extentOfForest')
 
@@ -87,10 +85,8 @@ module.exports.init = app => {
     }
   })
 
-  app.delete('/odp/draft', async (req, res) => {
+  app.delete('/odp/draft', Auth.requireCountryEditPermission, async (req, res) => {
     try {
-      checkCountryAccessFromReqParams(req)
-
       const countryIso = req.query.countryIso
       await allowedToEditDataCheck(countryIso, req.user, 'extentOfForest')
 
