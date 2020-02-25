@@ -1,5 +1,6 @@
-import './app-styles/style.less'
-import './ckEditor/style.less'
+import '@webapp/app-styles/style.less'
+import '@webapp/components/ckEditor/style.less'
+
 import 'regenerator-runtime/runtime'
 
 import React from 'react'

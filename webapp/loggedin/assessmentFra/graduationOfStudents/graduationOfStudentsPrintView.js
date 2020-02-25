@@ -4,10 +4,10 @@ import { connect } from 'react-redux'
 import tableSpec, { tableProps } from './tableSpec'
 
 import TraditionalTable from '@webapp/traditionalTable/traditionalTable'
-import NationalDataDescriptions from '@webapp/descriptionBundles/nationalDataDescriptions'
-import GeneralComments from '@webapp/descriptionBundles/generalComments'
+import NationalDataDescriptions from '@webapp/components/description/nationalDataDescriptions'
+import GeneralComments from '@webapp/components/description/generalComments'
 
-import * as UserState from '@webapp/user/userState'
+import * as AppState from '@webapp/app/appState'
 
 const GraduationOfStudentsView = props => {
 
@@ -41,6 +41,6 @@ const GraduationOfStudentsView = props => {
 
 }
 
-const mapStateToProps = state => ({ i18n: UserState.getI18n(state) })
+const mapStateToProps = state => ({ i18n: AppState.getI18n(state) })
 
 export default connect(mapStateToProps)(GraduationOfStudentsView)

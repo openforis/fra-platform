@@ -13,9 +13,9 @@ import ButtonTableExport from '@webapp/components/buttonTableExport'
 import { ThousandSeparatedDecimalInput } from '@webapp/components/thousandSeparatedDecimalInput'
 import DefinitionLink from '@webapp/components/definitionLink'
 import ReviewIndicator from '@webapp/loggedin/review/reviewIndicator'
-import NationalDataDescriptions from '@webapp/descriptionBundles/nationalDataDescriptions'
-import AnalysisDescriptions from '@webapp/descriptionBundles/analysisDescriptions'
-import GeneralComments from '@webapp/descriptionBundles/generalComments'
+import NationalDataDescriptions from '@webapp/components/description/nationalDataDescriptions'
+import AnalysisDescriptions from '@webapp/components/description/analysisDescriptions'
+import GeneralComments from '@webapp/components/description/generalComments'
 
 import defaultYears from '@server/eof/defaultYears'
 import { isFRA2020SectionEditDisabled } from '@webapp/utils/assessmentAccess'
@@ -23,8 +23,8 @@ import { calculateAvgValue, calculateTotalValue, getTotalGrowingStockFieldsSum }
 import { equalToTotalGrowingStock } from '@webapp/traditionalTable/validators'
 import FraUtils from '@common/fraUtils'
 import { isPrintingOnlyTables } from '@webapp/loggedin/printAssessment/printAssessment'
+
 import * as AppState from '@webapp/app/appState'
-import * as UserState from '@webapp/user/userState'
 import * as ReviewState from '@webapp/loggedin/review/reviewState'
 
 const sectionName = 'growingStock'
@@ -437,7 +437,7 @@ const mapStateToProps = state =>
     avgTable: state.growingStock.avgTable,
     baseTable: state.growingStock.baseTable,
     openCommentThread: ReviewState.getOpenThread(state),
-    i18n: UserState.getI18n(state),
+    i18n: AppState.getI18n(state),
     isEditDataDisabled: isFRA2020SectionEditDisabled(state, sectionName)
   })
 

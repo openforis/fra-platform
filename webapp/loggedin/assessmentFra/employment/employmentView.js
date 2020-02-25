@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import SingleTraditionalTableView from '@webapp/traditionalTable/singleTraditionalTableView'
 import tableSpec, { tableProps } from './tableSpec'
 
-import * as UserState from '@webapp/user/userState'
+import * as AppState from '@webapp/app/appState'
 
 const EmploymentView = props =>
   <SingleTraditionalTableView
@@ -15,6 +15,6 @@ const EmploymentView = props =>
     tableSpecInstance={tableSpec(props.i18n, tableProps.employment)}
     useAnalysisDescriptions={false}/>
 
-const mapStateToProps = state => ({i18n: UserState.getI18n(state)})
+const mapStateToProps = state => ({i18n: AppState.getI18n(state)})
 
 export default connect(mapStateToProps)(EmploymentView)

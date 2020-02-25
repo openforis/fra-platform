@@ -9,9 +9,9 @@ import {
 } from './tableSpecs'
 import DefinitionLink from '@webapp/components/definitionLink'
 import { fetchLastSectionUpdateTimestamp } from '@webapp/audit/actions'
-import NationalDataDescriptions from '@webapp/descriptionBundles/nationalDataDescriptions'
-import AnalysisDescriptions from '@webapp/descriptionBundles/analysisDescriptions'
-import GeneralComments from '@webapp/descriptionBundles/generalComments'
+import NationalDataDescriptions from '@webapp/components/description/nationalDataDescriptions'
+import AnalysisDescriptions from '@webapp/components/description/analysisDescriptions'
+import GeneralComments from '@webapp/components/description/generalComments'
 
 import { isFRA2020SectionEditDisabled } from '@webapp/utils/assessmentAccess'
 import * as R from 'ramda'
@@ -21,7 +21,6 @@ import FraUtils from '@common/fraUtils'
 import { fetchTableData } from '@webapp/traditionalTable/actions'
 
 import * as AppState from '@webapp/app/appState'
-import * as UserState from '@webapp/user/userState'
 
 const sectionName = 'designatedManagementObjective'
 
@@ -125,7 +124,7 @@ const designatedManagementObjectiveView = props => {
 }
 
 const mapStateToProps = (state, { match }) => {
-  const i18n = UserState.getI18n(state)
+  const i18n = AppState.getI18n(state)
   const countryIso = match.params.countryIso
   const extentOfForest = state.extentOfForest
   const primaryDmoTableSpec = primaryDesignatedManagementObjectiveTableSpec(i18n, extentOfForest, countryIso)

@@ -7,6 +7,11 @@ module.exports.translation = {
     ru: 'Русский'
   },
 
+  common: {
+    fraPlatform: 'Plateforme de FRA',
+    login: 'Connexion',
+  },
+
   definition: {
     definitionLabel: 'Voir les définitions',
     faqLabel: 'Q&R'

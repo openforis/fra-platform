@@ -9,7 +9,7 @@ import { tableValueChanged, tableChanged, fetchTableData } from './actions'
 import ReviewIndicator from '@webapp/loggedin/review/reviewIndicator'
 import UpdateOnResizeReactComponent from '@webapp/components/updateOnResizeReactComponent'
 
-import * as UserState from '@webapp/user/userState'
+import * as AppState from '@webapp/app/appState'
 import * as ReviewState from '@webapp/loggedin/review/reviewState'
 import ButtonTableExport from '@webapp/components/buttonTableExport'
 
@@ -161,7 +161,7 @@ const mapStateToProps = (state, props) => {
     ...props,
     tableData: R.path(['traditionalTable', props.tableSpec.name, 'tableData'], state) || table.createTableData(props.tableSpec),
     openCommentThreadTarget: ReviewState.getOpenThreadTarget(state),
-    i18n: UserState.getI18n(state)
+    i18n: AppState.getI18n(state)
   }
 }
 

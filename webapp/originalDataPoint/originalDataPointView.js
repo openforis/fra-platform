@@ -27,11 +27,11 @@ import { fetchCountryOverviewStatus } from '../country/actions'
 import { fetchLastSectionUpdateTimestamp } from '@webapp/audit/actions'
 import { isAssessmentLocked } from '@webapp/utils/assessmentAccess'
 
+import * as AppState from '@webapp/app/appState'
 import * as OriginalDataPointState from '@webapp/originalDataPoint/originalDataPointState'
 import * as AutosaveState from '@webapp/autosave/autosaveState'
 import * as ReviewState from '@webapp/loggedin/review/reviewState'
 import * as CountryState from '@webapp/country/countryState'
-import * as UserState from '@webapp/user/userState'
 
 const years = ['', ...R.pipe(R.range(1950), R.reverse)(2021)]
 
@@ -233,7 +233,7 @@ const mapStateToProps = state => {
     odp,
     autoSaving,
     openThread,
-    i18n: UserState.getI18n(state),
+    i18n: AppState.getI18n(state),
     useOriginalDataPointsInFoc
   }
 }

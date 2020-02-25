@@ -6,9 +6,9 @@ import Icon from '@webapp/components/icon'
 import DefinitionLink from '@webapp/components/definitionLink'
 import ChartWrapper from './chart/chartWrapper'
 import { GenerateFraValuesControl, TableWithOdp } from '../../../tableWithOdp/tableWithOdp'
-import NationalDataDescriptions from '@webapp/descriptionBundles/nationalDataDescriptions'
-import AnalysisDescriptions from '@webapp/descriptionBundles/analysisDescriptions'
-import GeneralComments from '@webapp/descriptionBundles/generalComments'
+import NationalDataDescriptions from '@webapp/components/description/nationalDataDescriptions'
+import AnalysisDescriptions from '@webapp/components/description/analysisDescriptions'
+import GeneralComments from '@webapp/components/description/generalComments'
 import ReviewIndicator from '@webapp/loggedin/review/reviewIndicator'
 import TraditionalTable from '@webapp/traditionalTable/traditionalTable'
 import NationalDataPointsPrintView from '../../../originalDataPoint/nationalDataPointsPrintView'
@@ -25,6 +25,7 @@ import { isAdministrator } from '@common/countryRole'
 
 import FraUtils from '@common/fraUtils'
 import { isPrintingMode, isPrintingOnlyTables } from '@webapp/loggedin/printAssessment/printAssessment'
+
 import * as AppState from '@webapp/app/appState'
 import * as ReviewState from '@webapp/loggedin/review/reviewState'
 import * as UserState from '@webapp/user/userState'
@@ -331,7 +332,7 @@ const mapStateToProps = state =>
     faoStat: CountryState.getConfigFaoStat(state),
     fra2015ForestAreas: CountryState.getConfigFra2015ForestAreas(state),
     climaticDomainPercents2015: CountryState.getConfigClimaticDomainPercents2015(state),
-    i18n: UserState.getI18n(state),
+    i18n: AppState.getI18n(state),
     isEditDataDisabled: isFRA2020SectionEditDisabled(state, sectionName),
     userInfo: UserState.getUserInfo(state)
   })

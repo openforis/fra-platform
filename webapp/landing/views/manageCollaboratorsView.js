@@ -71,7 +71,7 @@ const ManageCollaboratorsView = props => {
 
 const mapStateToProps = (state, props) =>
   ({
-    i18n: UserState.getI18n(state),
+    i18n: AppState.getI18n(state),
     userInfo: UserState.getUserInfo(state),
     allowedRoles: rolesAllowedToChange(AppState.getCountryIso(state), UserState.getUserInfo(state)),
     countryUsers: UserManagementState.getCountryUsers(state),
