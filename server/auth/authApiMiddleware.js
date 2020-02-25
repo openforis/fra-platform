@@ -1,11 +1,11 @@
+const Request = require('../utils/requestUtils')
+
 const { checkCountryAccessFromReqParams, checkAdminAccess } = require('../utils/accessControl')
-const { getUser } = require('../utils/requestUtils')
 const { allowedToEditDataCheck } = require('../assessment/assessmentEditAccessControl')
 
 const requireCountryEditPermission = async (req, res, next) => {
-  const section = req.params.section || req.query.section
-  const countryIso = req.params.countryIso || req.query.countryIso
-  const user = getUser(req)
+  const { countryIso, section } = Request.getParams(req)
+  const user = Request.getUser(req)
 
   try {
     checkCountryAccessFromReqParams(req)
@@ -19,7 +19,7 @@ const requireCountryEditPermission = async (req, res, next) => {
 }
 
 const requireAdminPermission = async (req, res, next) => {
-  const user = getUser(req)
+  const user = Request.getUser(req)
   try {
     checkAdminAccess(user)
     next()
