@@ -2,7 +2,7 @@ const Promise = require('bluebird')
 const R = require('ramda')
 const db = require('../db/db')
 
-const { sendErr } = require('../utils/requestUtils')
+const Request = require('../utils/requestUtils')
 const { checkCountryAccessFromReqParams } = require('../utils/accessControl')
 
 const countryRepository = require('./countryRepository')
@@ -25,11 +25,12 @@ module.exports.init = app => {
 
   app.get('/country/all', async (req, res) => {
     try {
-      const result = await countryRepository.getAllowedCountries(req.user.roles)
+      const userRoles = Request.getUserRoles(req)
+      const result = await countryRepository.getAllowedCountries(userRoles)
 
       res.json(result)
     } catch (err) {
-      sendErr(res, err)
+      Request.sendErr(res, err)
     }
   })
 
@@ -79,7 +80,7 @@ module.exports.init = app => {
       })
 
     } catch (err) {
-      sendErr(res, err)
+      Request.sendErr(res, err)
     }
   })
 
@@ -95,7 +96,7 @@ module.exports.init = app => {
       )
       res.json({})
     } catch (e) {
-      sendErr(res, e)
+      Request.sendErr(res, e)
     }
   })
 
@@ -107,7 +108,7 @@ module.exports.init = app => {
 
       res.json(fullConfig)
     } catch (e) {
-      sendErr(res, e)
+      Request.sendErr(res, e)
     }
   })
 }
