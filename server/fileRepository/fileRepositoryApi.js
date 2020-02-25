@@ -1,7 +1,6 @@
 const db = require('../db/db')
 
 const {sendErr} = require('../utils/requestUtils')
-const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
 
 const Auth = require('../auth/authApiMiddleware')
 
@@ -12,10 +11,8 @@ const {fileTypes, downloadFile} = require('./fileRepository')
 module.exports.init = app => {
 
   // get user guide
-  app.get('/fileRepository/userGuide/:lang', (req, res) => {
+  app.get('/fileRepository/userGuide/:lang', Auth.requireCountryEditPermission, async (req, res) => {
     try {
-      checkCountryAccessFromReqParams(req)
-
       downloadFile(res, fileTypes.userGuide, req.params.lang)
     } catch (err) {
       sendErr(res, err)
@@ -40,10 +37,8 @@ module.exports.init = app => {
   })
 
   // get files list
-  app.get('/fileRepository/:countryIso/filesList', async (req, res) => {
+  app.get('/fileRepository/:countryIso/filesList', Auth.requireCountryEditPermission, async (req, res) => {
     try {
-      checkCountryAccessFromReqParams(req)
-
       const filesList = await getFilesList(req.params.countryIso)
 
       res.json(filesList)
@@ -54,10 +49,8 @@ module.exports.init = app => {
   })
 
   // get file
-  app.get('/fileRepository/:countryIso/file/:fileId', async (req, res) => {
+  app.get('/fileRepository/:countryIso/file/:fileId', Auth.requireCountryEditPermission, async (req, res) => {
     try {
-      checkCountryAccessFromReqParams(req)
-
       const file = await getFile(req.params.fileId)
 
       if (file) {

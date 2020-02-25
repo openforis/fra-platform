@@ -34,7 +34,7 @@ module.exports.init = app => {
   })
 
   // get users and invitations list
-  app.get('/users/:countryIso', async (req, res) => {
+  app.get('/users/:countryIso', Auth.requireCountryEditPermission, async (req, res) => {
     try {
       checkCountryAccessFromReqParams(req)
 
@@ -62,12 +62,14 @@ module.exports.init = app => {
 
   // get all users / only admin can access it
   app.get('/users', Auth.requireAdminPermission, async (req, res) => {
-    const url = serverUrl(req)
-
-    const allUsers = await userRepository.fetchAllUsersAndInvitations(url)
-    const userCounts = await userRepository.getUserCountsByRole()
-
-    res.json({ allUsers, userCounts })
+    try {
+      const url = serverUrl(req)
+      const allUsers = await userRepository.fetchAllUsersAndInvitations(url)
+      const userCounts = await userRepository.getUserCountsByRole()
+      res.json({ allUsers, userCounts })
+    } catch (err) {
+      sendErr(res, err)
+    }
   })
 
   // add new user
@@ -225,24 +227,28 @@ module.exports.init = app => {
   })
 
   app.get('/users/invitations/send', Auth.requireAdminPermission, async (req, res) => {
-    const url = serverUrl(req)
+    try {
+      const url = serverUrl(req)
 
-    const invitations = await userRepository.fetchAllInvitations(url)
-    const sendInvitationPromises = invitations.map(async invitation => {
-
-      if (validEmail(invitation)) {
-        await sendInvitation(invitation.countryIso, invitation, req.user, url)
-        return `<p>Email sent to ${invitation.name} (${invitation.email}) invited as ${invitation.role} for ${invitation.countryIso}</p>`
-
-      } else {
-        return `<p style="color:red">Email could not be sent to ${invitation.name} (${invitation.email}) invited as ${invitation.role} for ${invitation.countryIso}</p>`
-      }
-
-    })
-
-    const sendInvitations = await Promise.all(sendInvitationPromises)
-
-    res.send(sendInvitations.join('<br/><br/>'))
+      const invitations = await userRepository.fetchAllInvitations(url)
+      const sendInvitationPromises = invitations.map(async invitation => {
+  
+        if (validEmail(invitation)) {
+          await sendInvitation(invitation.countryIso, invitation, req.user, url)
+          return `<p>Email sent to ${invitation.name} (${invitation.email}) invited as ${invitation.role} for ${invitation.countryIso}</p>`
+  
+        } else {
+          return `<p style="color:red">Email could not be sent to ${invitation.name} (${invitation.email}) invited as ${invitation.role} for ${invitation.countryIso}</p>`
+        }
+  
+      })
+  
+      const sendInvitations = await Promise.all(sendInvitationPromises)
+  
+      res.send(sendInvitations.join('<br/><br/>'))
+    } catch (error) {
+      sendErr(res, error)
+    }
   })
 
 }

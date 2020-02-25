@@ -1,17 +1,14 @@
 const db = require('../db/db')
 const {sendErr, sendOk} = require('../utils/requestUtils')
 const repository = require('./descriptionsRepository')
-const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
 const auditRepository = require('./../audit/auditRepository')
 
 const Auth = require('../auth/authApiMiddleware')
 
 module.exports.init = app => {
 
-  app.get('/country/descriptions/:countryIso/:section/:name', async (req, res) => {
+  app.get('/country/descriptions/:countryIso/:section/:name', Auth.requireCountryEditPermission, async (req, res) => {
       try {
-        checkCountryAccessFromReqParams(req)
-
         const result = await db.transaction(repository.readDescriptions, [req.params.countryIso, req.params.section, req.params.name])
 
         res.json(result)

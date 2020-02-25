@@ -1,7 +1,6 @@
 const R = require('ramda')
 
 const db = require('../db/db')
-const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
 const {sendErr} = require('../utils/requestUtils')
 const reviewRepository = require('./reviewRepository')
 const {allowedToEditCommentsCheck} = require('../assessment/assessmentEditAccessControl')
@@ -24,12 +23,9 @@ module.exports.init = app => {
     }
   })
 
-  app.get('/review/:countryIso/:section/summary', async (req, res) => {
+  app.get('/review/:countryIso/:section/summary', Auth.requireCountryEditPermission, async (req, res) => {
     try {
-      checkCountryAccessFromReqParams(req)
-
       const result = await reviewRepository.getIssuesSummary(req.params.countryIso, req.params.section, req.query.target, req.user)
-
       res.json(result)
     } catch (err) {
       sendErr(res, err)
@@ -51,10 +47,8 @@ module.exports.init = app => {
     }
   })
 
-  app.get('/review/:countryIso/:section', async (req, res) => {
+  app.get('/review/:countryIso/:section',  Auth.requireCountryEditPermission, async (req, res) => {
     try {
-      checkCountryAccessFromReqParams(req)
-
       const result = await reviewRepository.getIssueComments(req.params.countryIso, req.params.section, req.user)
 
       const target = req.query.target && req.query.target.split(',')
