@@ -9,6 +9,8 @@ const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
 
 const {fileTypes, downloadFile} = require('../fileRepository/fileRepository')
 
+const Auth = require('../auth/authApiMiddleware')
+
 module.exports.init = app => {
 
   const isPanEuropeanCountry = async (res, countryIso) => {
@@ -27,7 +29,7 @@ module.exports.init = app => {
     }
   })
 
-  app.delete('/panEuropean/:countryIso', async (req, res) => {
+  app.delete('/panEuropean/:countryIso', Auth.requireCountryEditPermission, async (req, res) => {
     try {
       checkCountryAccessFromReqParams(req)
       await db.transaction(deletePanEuropeanQuantitativeQuestionnaire, [req.params.countryIso])
@@ -37,10 +39,8 @@ module.exports.init = app => {
     }
   })
 
-  app.post('/panEuropean/:countryIso/upload', async (req, res) => {
+  app.post('/panEuropean/:countryIso/upload', Auth.requireCountryEditPermission, async (req, res) => {
     try {
-      checkCountryAccessFromReqParams(req)
-
       const isPanEuropean = await isPanEuropeanCountry(res, req.params.countryIso)
       if (isPanEuropean) {
         await db.transaction(persistPanEuropeanQuantitativeQuestionnaire, [req.user, req.params.countryIso, req.files.file])

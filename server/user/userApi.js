@@ -3,7 +3,7 @@ const Promise = require('bluebird')
 
 const db = require('../db/db')
 const userRepository = require('./userRepository')
-const { sendErr, sendOk, serverUrl, send404 } = require('../utils/requestUtils')
+const { sendErr, sendOk, serverUrl } = require('../utils/requestUtils')
 
 const { AccessControlException, checkCountryAccessFromReqParams } = require('../utils/accessControl')
 const { sendInvitation } = require('./sendInvitation')
@@ -11,6 +11,8 @@ const { rolesAllowedToChange } = require('../../common/userManagementAccessContr
 
 const { isAdministrator, isNationalCorrespondent, isCollaborator, isAlternateNationalCorrespondent, getCountryRole, reviewer } = require('../../common/countryRole')
 const { validate: validateUser, validEmail } = require('../../common/userUtils')
+
+const Auth = require('../auth/authApiMiddleware')
 
 const filterAllowedUsers = (countryIso, user, users) => {
   const allowedRoles = rolesAllowedToChange(countryIso, user)
@@ -32,7 +34,7 @@ module.exports.init = app => {
   })
 
   // get users and invitations list
-  app.get('/users/:countryIso', async (req, res) => {
+  app.get('/users/:countryIso', Auth.requireCountryEditPermission, async (req, res) => {
     try {
       checkCountryAccessFromReqParams(req)
 
@@ -59,28 +61,20 @@ module.exports.init = app => {
   })
 
   // get all users / only admin can access it
-  app.get('/users', async (req, res) => {
+  app.get('/users', Auth.requireAdminPermission, async (req, res) => {
     try {
-      if (isAdministrator(req.user)) {
-        const url = serverUrl(req)
-
-        const allUsers = await userRepository.fetchAllUsersAndInvitations(url)
-        const userCounts = await userRepository.getUserCountsByRole()
-
-        res.json({ allUsers, userCounts })
-      } else {
-        send404(res)
-      }
+      const url = serverUrl(req)
+      const allUsers = await userRepository.fetchAllUsersAndInvitations(url)
+      const userCounts = await userRepository.getUserCountsByRole()
+      res.json({ allUsers, userCounts })
     } catch (err) {
       sendErr(res, err)
     }
   })
 
   // add new user
-  app.post('/users/:countryIso', async (req, res) => {
+  app.post('/users/:countryIso', Auth.requireCountryEditPermission, async (req, res) => {
     try {
-      checkCountryAccessFromReqParams(req)
-
       const newUser = req.body
       const countryIso = req.params.countryIso
 
@@ -135,10 +129,8 @@ module.exports.init = app => {
   })
 
   // remove user
-  app.delete('/users/:countryIso/', async (req, res) => {
+  app.delete('/users/:countryIso/', Auth.requireCountryEditPermission, async (req, res) => {
     try {
-      checkCountryAccessFromReqParams(req)
-
       if (req.query.id) {
         await db.transaction(userRepository.removeUser, [req.user, req.params.countryIso, req.query.id])
       } else if (req.query.invitationUuid) {
@@ -153,10 +145,8 @@ module.exports.init = app => {
   })
 
   // get user for editing page
-  app.get('/users/:countryIso/user/edit/:userId', async (req, res) => {
+  app.get('/users/:countryIso/user/edit/:userId', Auth.requireCountryEditPermission, async (req, res) => {
     try {
-      checkCountryAccessFromReqParams(req)
-
       const user = await userRepository.findUserById(req.params.userId)
 
       res.json({ user })
@@ -167,10 +157,8 @@ module.exports.init = app => {
   })
 
   // get user profile picture
-  app.get('/users/:countryIso/user/:userId/profilePicture', async (req, res) => {
+  app.get('/users/:countryIso/user/:userId/profilePicture', Auth.requireCountryEditPermission, async (req, res) => {
     try {
-      checkCountryAccessFromReqParams(req)
-
       const profilePicture = await userRepository.getUserProfilePicture(req.params.userId)
 
       profilePicture && profilePicture.data
@@ -183,10 +171,8 @@ module.exports.init = app => {
   })
 
   // update user
-  app.post('/users/:countryIso/user/edit/', async (req, res) => {
+  app.post('/users/:countryIso/user/edit/', Auth.requireCountryEditPermission, async (req, res) => {
     try {
-      checkCountryAccessFromReqParams(req)
-
       const user = req.user
       const userToUpdate = JSON.parse(req.body.user)
       const countryIso = req.params.countryIso
@@ -225,10 +211,8 @@ module.exports.init = app => {
     }
   })
 
-  app.get('/users/:countryIso/invitations/:invitationUuid/send', async (req, res) => {
+  app.get('/users/:countryIso/invitations/:invitationUuid/send', Auth.requireCountryEditPermission, async (req, res) => {
     try {
-      checkCountryAccessFromReqParams(req)
-
       const url = serverUrl(req)
 
       const invitation = await userRepository.fetchInvitation(req.params.invitationUuid, url)
@@ -242,34 +226,28 @@ module.exports.init = app => {
     }
   })
 
-  app.get('/users/invitations/send', async (req, res) => {
+  app.get('/users/invitations/send', Auth.requireAdminPermission, async (req, res) => {
     try {
-      if (isAdministrator(req.user)) {
-        const url = serverUrl(req)
+      const url = serverUrl(req)
 
-        const invitations = await userRepository.fetchAllInvitations(url)
-        const sendInvitationPromises = invitations.map(async invitation => {
-
-          if (validEmail(invitation)) {
-            await sendInvitation(invitation.countryIso, invitation, req.user, url)
-            return `<p>Email sent to ${invitation.name} (${invitation.email}) invited as ${invitation.role} for ${invitation.countryIso}</p>`
-
-          } else {
-            return `<p style="color:red">Email could not be sent to ${invitation.name} (${invitation.email}) invited as ${invitation.role} for ${invitation.countryIso}</p>`
-          }
-
-        })
-
-        const sendInvitations = await Promise.all(sendInvitationPromises)
-
-        res.send(sendInvitations.join('<br/><br/>'))
-
-      } else {
-        res.status(404).send('404 / Page not found')
-      }
-
-    } catch (err) {
-      sendErr(res, err)
+      const invitations = await userRepository.fetchAllInvitations(url)
+      const sendInvitationPromises = invitations.map(async invitation => {
+  
+        if (validEmail(invitation)) {
+          await sendInvitation(invitation.countryIso, invitation, req.user, url)
+          return `<p>Email sent to ${invitation.name} (${invitation.email}) invited as ${invitation.role} for ${invitation.countryIso}</p>`
+  
+        } else {
+          return `<p style="color:red">Email could not be sent to ${invitation.name} (${invitation.email}) invited as ${invitation.role} for ${invitation.countryIso}</p>`
+        }
+  
+      })
+  
+      const sendInvitations = await Promise.all(sendInvitationPromises)
+  
+      res.send(sendInvitations.join('<br/><br/>'))
+    } catch (error) {
+      sendErr(res, error)
     }
   })
 

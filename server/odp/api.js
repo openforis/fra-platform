@@ -10,6 +10,8 @@ const {sendErr, sendOk} = require('../utils/requestUtils')
 const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
 const {allowedToEditDataCheck} = require('../assessment/assessmentEditAccessControl')
 
+const Auth = require('../auth/authApiMiddleware')
+
 module.exports.init = app => {
 
   app.get('/odp', async (req, res) => {
@@ -59,10 +61,8 @@ module.exports.init = app => {
     }
   )
 
-  app.delete('/odp', async (req, res) => {
+  app.delete('/odp', Auth.requireCountryEditPermission, async (req, res) => {
     try {
-      checkCountryAccessFromReqParams(req)
-
       const countryIso = req.query.countryIso
       await allowedToEditDataCheck(countryIso, req.user, 'extentOfForest')
 
@@ -74,13 +74,9 @@ module.exports.init = app => {
     }
   })
 
-  app.post('/odp/draft', async (req, res) => {
+  app.post('/odp/draft', Auth.requireCountryEditPermission, async (req, res) => {
     try {
-      checkCountryAccessFromReqParams(req)
-
       const countryIso = req.query.countryIso
-      await allowedToEditDataCheck(countryIso, req.user, 'extentOfForest')
-
       const result = await db.transaction(odpRepository.saveDraft, [countryIso, req.user, req.body])
       res.json(result)
 
@@ -89,10 +85,8 @@ module.exports.init = app => {
     }
   })
 
-  app.delete('/odp/draft', async (req, res) => {
+  app.delete('/odp/draft', Auth.requireCountryEditPermission, async (req, res) => {
     try {
-      checkCountryAccessFromReqParams(req)
-
       const countryIso = req.query.countryIso
       await allowedToEditDataCheck(countryIso, req.user, 'extentOfForest')
 
@@ -131,13 +125,8 @@ module.exports.init = app => {
     }
   })
 
-  app.post('/odp/markAsActual', async (req, res) => {
+  app.post('/odp/markAsActual', Auth.requireCountryEditPermission, async (req, res) => {
     try {
-      checkCountryAccessFromReqParams(req)
-
-      const countryIso = req.query.countryIso
-      await allowedToEditDataCheck(countryIso, req.user, 'extentOfForest')
-
       await db.transaction(odpRepository.markAsActual, [req.query.odpId, req.user])
 
       sendOk(res)

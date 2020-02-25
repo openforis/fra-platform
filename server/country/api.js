@@ -11,6 +11,7 @@ const odpRepository = require('../odp/odpRepository')
 const auditRepository = require('../audit/auditRepository')
 const assessmentRepository = require('../assessment/assessmentRepository')
 const { fetchCollaboratorCountryAccessTables } = require('./../collaborators/collaboratorsRepository')
+const Auth = require('../auth/authApiMiddleware')
 
 const {
   isUserRoleAllowedToEditAssessmentData,
@@ -83,10 +84,8 @@ module.exports.init = app => {
   })
 
   // Changes one key/value pair
-  app.post('/country/config/:countryIso', async (req, res) => {
+  app.post('/country/config/:countryIso', Auth.requireCountryEditPermission, async (req, res) => {ß
     try {
-      checkCountryAccessFromReqParams(req)
-
       await db.transaction(countryRepository.saveDynamicConfigurationVariable,
         [
           req.params.countryIso,
