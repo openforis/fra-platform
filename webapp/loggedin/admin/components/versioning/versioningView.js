@@ -4,7 +4,7 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Switch, Route, useRouteMatch } from 'react-router-dom'
 import { getVersions, createVersion, deleteVersion, onChangeNewVersionForm } from '../../actions'
-import useI18n from '@webapp/hooks/useI18n'
+import useI18n from '@webapp/components/hooks/useI18n'
 
 import NewVersionButton from './NewVersionButton'
 import NewVersionForm from './NewVersionForm'

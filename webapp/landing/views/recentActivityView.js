@@ -9,7 +9,7 @@ import { getRelativeDate } from '@webapp/utils/relativeDate'
 import { fetchAuditFeed } from '@webapp/audit/actions'
 import { Link } from 'react-router-dom'
 
-import * as UserState from '@webapp/user/userState'
+import * as AppState from '@webapp/app/appState'
 import * as LandingState from '@webapp/landing/landingState'
 
 const getActionLocalizationKey = (message) => {
@@ -148,7 +148,7 @@ class RecentActivityView extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  i18n: UserState.getI18n(state),
+  i18n: AppState.getI18n(state),
   feed: LandingState.getFeed(state),
   extentOfForest: state.extentOfForest
 })

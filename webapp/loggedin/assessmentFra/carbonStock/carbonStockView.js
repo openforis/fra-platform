@@ -4,9 +4,9 @@ import * as R from 'ramda'
 
 import TraditionalTable from '@webapp/traditionalTable/traditionalTable'
 import tableSpec from './tableSpec'
-import NationalDataDescriptions from '@webapp/descriptionBundles/nationalDataDescriptions'
-import AnalysisDescriptions from '@webapp/descriptionBundles/analysisDescriptions'
-import GeneralComments from '@webapp/descriptionBundles/generalComments'
+import NationalDataDescriptions from '@webapp/components/description/nationalDataDescriptions'
+import AnalysisDescriptions from '@webapp/components/description/analysisDescriptions'
+import GeneralComments from '@webapp/components/description/generalComments'
 import DefinitionLink from '@webapp/components/definitionLink'
 import { fetchLastSectionUpdateTimestamp } from '@webapp/audit/actions'
 import { isFRA2020SectionEditDisabled } from '@webapp/utils/assessmentAccess'
@@ -14,9 +14,10 @@ import { isPrintingOnlyTables } from '@webapp/loggedin/printAssessment/printAsse
 import FraUtils from '@common/fraUtils'
 import * as table from '@webapp/traditionalTable/table'
 import { fetchTableData } from '@webapp/traditionalTable/actions'
+
 import * as AppState from '@webapp/app/appState'
 import * as CountryState from '@webapp/country/countryState'
-import * as UserState from '@webapp/user/userState'
+
 
 const sectionName = 'carbonStock'
 const domains = ['boreal', 'temperate', 'subtropical', 'tropical']
@@ -130,7 +131,7 @@ const CarbonStockView = props => {
 }
 
 const mapStateToProps = state => {
-  const i18n = UserState.getI18n(state)
+  const i18n = AppState.getI18n(state)
   const tableSpecInstance = tableSpec(i18n)
 
   return {

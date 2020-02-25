@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useParams } from 'react-router-dom'
 import Icon from '@webapp/components/icon'
-import useI18n from '@webapp/hooks/useI18n'
+import useI18n from '@webapp/components/hooks/useI18n'
 import { classNames, sortVersions, formatDate } from './versioningViewUtils'
 import * as FRAVersion from '@common/versioning/fraVersion'
 

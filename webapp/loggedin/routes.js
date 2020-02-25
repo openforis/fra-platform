@@ -66,6 +66,7 @@ const routes = [
   { path: '/country/:countryIso/panEuropeanIndicators/', component: PanEuropeanIndicatorsView },
   { path: '/country/:countryIso/user/:userId/', component: EditUserView },
   { path: '/country/:countryIso/', component: LandingView },
+  { path: '/', component: LandingView },
   { path: '/country/:countryIso/*', component: NotFound },
 ]
 

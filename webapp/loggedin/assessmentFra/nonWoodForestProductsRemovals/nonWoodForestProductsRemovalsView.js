@@ -8,15 +8,14 @@ import TraditionalTable from '@webapp/traditionalTable/traditionalTable'
 import mainTableSpec, { sectionName } from './mainTableSpec'
 import DefinitionLink from '@webapp/components/definitionLink'
 import { fetchLastSectionUpdateTimestamp } from '@webapp/audit/actions'
-import NationalDataDescriptions from '@webapp/descriptionBundles/nationalDataDescriptions'
-import GeneralComments from '@webapp/descriptionBundles/generalComments'
+import NationalDataDescriptions from '@webapp/components/description/nationalDataDescriptions'
+import GeneralComments from '@webapp/components/description/generalComments'
 import { isFRA2020SectionEditDisabled } from '@webapp/utils/assessmentAccess'
 import { fetchTableData } from '@webapp/traditionalTable/actions'
 import * as table from '@webapp/traditionalTable/table'
 import { isPrintingOnlyTables } from '@webapp/loggedin/printAssessment/printAssessment'
 import FraUtils from '@common/fraUtils'
 import * as AppState from '@webapp/app/appState'
-import * as UserState from '@webapp/user/userState'
 
 const currencyNameTableSpec = i18n => ({
   name: 'nonWoodForestProductsRemovalsCurrency',
@@ -98,7 +97,7 @@ const NonWoodForestProductsRemovalsView = props => {
 }
 
 const mapStateToProps = state => {
-  const i18n = UserState.getI18n(state)
+  const i18n = AppState.getI18n(state)
   const tableSpecInstance = mainTableSpec(i18n)
 
   return {

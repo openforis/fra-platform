@@ -2,6 +2,8 @@ const R = require('ramda')
 const db = require('../db/db')
 const camelize = require('camelize')
 
+const CountryRole = require('../../common/countryRole')
+
 /*
  * Determine the "overall status" from multiple statuses.
  * For example, one review is enough to determine that overall
@@ -110,9 +112,12 @@ const getAllCountriesList = async () => {
 }
 
 const getAllowedCountries = roles => {
-  const hasRole = (role) => R.find(R.propEq('role', role), roles)
-  if (hasRole('ADMINISTRATOR')) {
-    return getAllCountries('ADMINISTRATOR')
+  const isAdmin = R.find(R.propEq('role', CountryRole.administrator.role), roles)
+
+  if (R.isEmpty(roles)) {
+    return getAllCountries(CountryRole.noRole.role)
+  } else if (isAdmin) {
+    return getAllCountries(CountryRole.administrator.role)
   } else {
     const excludedMsgs = ['createIssue', 'createComment', 'deleteComment']
     const allowedCountryIsos = R.pipe(R.map(R.prop('countryIso')), R.reject(R.isNil))(roles)

@@ -3,9 +3,9 @@ import { connect, useSelector } from 'react-redux'
 
 import SingleTraditionalTableView from '@webapp/traditionalTable/singleTraditionalTableView'
 import tableSpec from './tableSpec'
-import { fetchItem } from '../../../tableWithOdp/actions'
+import { fetchItem } from '@webapp/tableWithOdp/actions'
+
 import * as AppState from '@webapp/app/appState'
-import * as UserState from '@webapp/user/userState'
 
 const SpecificForestCategories = props => {
   const {
@@ -28,7 +28,7 @@ const SpecificForestCategories = props => {
 }
 
 const mapStateToProps = state => ({
-  i18n: UserState.getI18n(state),
+  i18n: AppState.getI18n(state),
   extentOfForest: state.extentOfForest,
   forestCharacteristics: state.forestCharacteristics
 })

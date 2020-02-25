@@ -1,4 +1,7 @@
 const R = require('ramda')
+
+const User = require('../../common/user/user')
+
 const { AccessControlException } = require('./accessControl')
 
 const appUri = process.env.APP_URI ? process.env.APP_URI : ''
@@ -20,11 +23,6 @@ const sendErr = (res, err) => {
 
 /* Request Utils  */
 
-// User helper functions
-const getUser = R.prop('user')
-const getUserId = R.pipe(getUser, R.prop('id'))
-const getUserName = R.pipe(getUser, R.prop('name'))
-
 const getParams = req =>
   R.pipe(
     R.mergeLeft(R.prop('query', req)),
@@ -38,14 +36,24 @@ const serverUrl = req => R.isEmpty(appUri)
   ? req.protocol + '://' + req.get('host')
   : appUri
 
+// User helper functions
+const getUser = R.prop('user')
+const getUserId = R.pipe(getUser, User.getId)
+const getUserName = R.pipe(getUser, User.getName)
+const getUserRoles = R.pipe(getUser, User.getRoles)
+
 module.exports = {
   appUri,
-  getUser,
-  getUserId,
-  getUserName,
+
   getParams,
   send404,
   sendErr,
   sendOk,
   serverUrl,
+
+  // User
+  getUser,
+  getUserId,
+  getUserName,
+  getUserRoles,
 }

@@ -2,14 +2,15 @@ import React, { useEffect } from 'react'
 import { connect, useSelector } from 'react-redux'
 
 import * as R from 'ramda'
-import Extent from './extent'
-import PeriodicChangeRate from './periodicChangeRate'
-import ForestGSBiomassCarbon from './forestGSBiomassCarbon'
-import PrimaryDesignatedManagementObjectiveView from './primaryDesignatedManagementObjective'
-import TotalAreaDesignatedManagementObjectiveView from './totalAreaDesignatedManagementObjective'
-import ForestOwnership from './forestOwnership'
-import ManagementRightsOfPublicForests from './managementRightsOfPublicForests'
-import Disturbances from './disturbances'
+import Extent from '@webapp/landing/views/contentCheck/extent'
+import PeriodicChangeRate from '@webapp/landing/views/contentCheck/periodicChangeRate'
+import ForestGSBiomassCarbon from '@webapp/landing/views/contentCheck/forestGSBiomassCarbon'
+import PrimaryDesignatedManagementObjectiveView from '@webapp/landing/views/contentCheck/primaryDesignatedManagementObjective'
+import TotalAreaDesignatedManagementObjectiveView from '@webapp/landing/views/contentCheck/totalAreaDesignatedManagementObjective'
+import ForestOwnership from '@webapp/landing/views/contentCheck/forestOwnership'
+import ManagementRightsOfPublicForests from '@webapp/landing/views/contentCheck/managementRightsOfPublicForests'
+import Disturbances from '@webapp/landing/views/contentCheck/disturbances'
+import useI18n from '@webapp/components/hooks/useI18n'
 
 import forestAreaWithinProtectedAreasTableSpec from '@webapp/loggedin/assessmentFra/forestAreaWithinProtectedAreas/tableSpec'
 import specificForestCategoriesTableSpec from '@webapp/loggedin/assessmentFra/specificForestCategories/tableSpec'
@@ -20,18 +21,19 @@ import forestOwnershipTableSpec from '@webapp/loggedin/assessmentFra/forestOwner
 import disturbancesTableSpec from '@webapp/loggedin/assessmentFra/disturbances/tableSpec'
 import areaAffectedByFireTableSpec from '@webapp/loggedin/assessmentFra/areaAffectedByFire/tableSpec'
 
+
+import defaultYears from '@server/eof/defaultYears'
+import * as AppState from '@webapp/app/appState'
+import * as CountryState from '@webapp/country/countryState'
+
 import { fetchTableData } from '@webapp/traditionalTable/actions'
 import { fetch } from '@webapp/loggedin/assessmentFra/growingStock/actions'
 
-import defaultYears from '../../../../server/eof/defaultYears'
-import * as AppState from '@webapp/app/appState'
-import * as CountryState from '@webapp/country/countryState'
-import * as UserState from '@webapp/user/userState'
-
 const ContentCheckView = props => {
+  const i18n = useI18n()
 
   const {
-    i18n, fetchTableData, fetch,
+    fetchTableData, fetch,
     //1
     extentOfForest, forestCharacteristics, specificForestCategories,
     //2
@@ -126,8 +128,6 @@ const ContentCheckView = props => {
 }
 
 const mapStateToProps = state => ({
-  i18n: UserState.getI18n(state),
-
   extentOfForest: R.prop('extentOfForest')(state), //1a
   forestCharacteristics: R.prop('forestCharacteristics')(state), //1b
   specificForestCategories: R.path(['traditionalTable', 'specificForestCategories'])(state),//1e

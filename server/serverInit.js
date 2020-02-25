@@ -35,12 +35,13 @@ module.exports = () => {
 
   app.use('/style', express.static(`${__dirname}/../dist/style`))
   app.use('/js', express.static(`${__dirname}/../dist/js`))
-  app.use(/^\/$/, async (req, res) => {
+  app.use(/^\/$/, async (req, res, next) => {
     if (req.user) {
       const defaultCountry = await countryRepository.getFirstAllowedCountry(req.user.roles)
       res.redirect(`${appUri}/country/${defaultCountry.countryIso}/`)
     } else {
-      res.redirect(`${appUri}/login/`)
+      next()
+      // res.redirect(`${appUri}/login/`)
     }
   })
 

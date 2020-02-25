@@ -9,8 +9,10 @@ import { getRelativeDate } from '@webapp/utils/relativeDate'
 import { isReviewer } from '@common/countryRole'
 import { profilePictureUri } from '@common/userUtils'
 
-import FraReviewFooter from './reviewFooter'
+import FraReviewFooter from '@webapp/loggedin/review/reviewFooter'
 import Icon from '@webapp/components/icon'
+import useI18n from '@webapp/components/hooks/useI18n'
+
 import * as AppState from '@webapp/app/appState'
 
 const mapIndexed = R.addIndex(R.map)
@@ -137,8 +139,9 @@ const ReviewHeader = ({ title, close, userInfo, section, target, issueId, issueS
 }
 
 const ReviewPanel = props => {
-  const { i18n, userInfo, closeCommentThread } = props
+  const { userInfo, closeCommentThread } = props
   const countryIso = useSelector(AppState.getCountryIso)
+  const i18n = useI18n()
   const location = useLocation()
 
   useEffect(() => {

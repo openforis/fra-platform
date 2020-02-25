@@ -1,4 +1,4 @@
-import './style.less'
+import './description.less'
 
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
@@ -7,8 +7,10 @@ import { connect } from 'react-redux'
 import * as R from 'ramda'
 
 import Icon from '@webapp/components/icon'
+import ckEditorConfig from '@webapp/components/ckEditor/ckEditorConfig'
 
-import ckEditorConfig from '../ckEditor/ckEditorConfig'
+import * as AppState from '@webapp/app/appState'
+
 import { saveDescriptions, fetchDescriptions, openEditor, closeEditor } from './actions'
 
 import { elementOffset } from '@webapp/utils/domUtils'
@@ -23,7 +25,7 @@ class Description extends Component {
     this.fetchData(this.props.countryIso)
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate (prevProps, prevState) {
     const currentCountryIso = this.props.countryIso
     const previousCountryIso = prevProps.countryIso
     if (currentCountryIso !== previousCountryIso)
@@ -31,16 +33,16 @@ class Description extends Component {
   }
 
   showEditorContent (isActive, showDash) {
-    if(showDash)
+    if (showDash)
       return <div>-</div>
     if (R.isNil(this.props.content))
       return null
     if (isActive)
       return <DescriptionEditor {...this.props} />
     if (this.props.content)
-      return <div className="fra-description__preview" dangerouslySetInnerHTML={{__html: this.props.content}}/>
+      return <div className="fra-description__preview" dangerouslySetInnerHTML={{ __html: this.props.content }}/>
     if (this.props.template)
-      return <div className="fra-description__preview" dangerouslySetInnerHTML={{__html: this.props.template}}/>
+      return <div className="fra-description__preview" dangerouslySetInnerHTML={{ __html: this.props.template }}/>
     return null
   }
 
@@ -68,7 +70,7 @@ class Description extends Component {
             className={`subhead fra-description__header${showError ? ' icon-red' : ''}`}
             onMouseOver={e => {
               if (showError) {
-                const {descriptionHeader, tooltipError} = this.refs
+                const { descriptionHeader, tooltipError } = this.refs
 
                 const headerOffset = elementOffset(descriptionHeader)
                 const left = headerOffset.left + descriptionHeader.offsetWidth / 2
@@ -158,9 +160,9 @@ Description.propTypes = {
 }
 
 const mapStateToProps = (state, props) => ({
-  ...state.user,
+  i18n: AppState.getI18n(state),
   content: R.pathOr('', ['descriptions', props.section, props.name, 'content'], state),
   editing: R.pathOr(false, ['descriptions', 'editing'], state)
 })
 
-export default connect(mapStateToProps, {fetchDescriptions, saveDescriptions, openEditor, closeEditor})(Description)
+export default connect(mapStateToProps, { fetchDescriptions, saveDescriptions, openEditor, closeEditor })(Description)
