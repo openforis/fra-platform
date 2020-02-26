@@ -1,4 +1,4 @@
-import './style.less'
+import './navigation.less'
 
 import React from 'react'
 import { connect, useSelector } from 'react-redux'
@@ -6,7 +6,7 @@ import * as R from 'ramda'
 
 import { assessments } from '@common/assessmentSectionItems'
 import { roleForCountry } from '@common/countryRole'
-import CountrySelection from '@webapp/loggedin/navigation/components/countrySelection'
+import CountrySelection from '@webapp/loggedin/countrySelection'
 import useI18n from '@webapp/components/hooks/useI18n'
 
 import Assessment from '@webapp/loggedin/navigation/components/assessment'
