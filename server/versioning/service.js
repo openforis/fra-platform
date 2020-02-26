@@ -14,8 +14,7 @@ const getDatabaseSchema = async (req) => {
     return defaultSchema
   }
 
-  // Destruct array => object => string
-  const [{schemaName}] = await getLatestSchemaVersion()
+  const schemaName = await getLatestSchemaVersion()
   return schemaName
 }
 

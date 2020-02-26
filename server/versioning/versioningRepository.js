@@ -166,7 +166,11 @@ const getLatestSchemaVersion = async () => {
       LIMIT 1;
   `
   const result = await db.query(query)
-  return camelize(result.rows)
+  if (result.rows.length > 0) {
+    const { schemaName } = camelize(result.rows[0])
+    return schemaName
+  }
+  return 'public'
 }
 
 // Used to check if certain schema exists
