@@ -84,7 +84,6 @@ const LoggedInView = props => {
 
 const mapStateToProps = state => {
   const initialDataLoaded =
-    !!UserState.getUserInfo(state) &&
     !!CountryState.getCountries(state) &&
     !R.isEmpty(state.extentOfForest) &&
     !R.isEmpty(state.growingStock)
