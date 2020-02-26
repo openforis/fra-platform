@@ -29,11 +29,8 @@ export const initApp = () => async dispatch => {
   }
 }
 
-export const fetchAllCountryData = countryIso => (dispatch, getState) => {
-  const userInfo = UserState.getUserInfo(getState())
-  if (userInfo) {
-    dispatch(fetchCountryOverviewStatus(countryIso))
-  }
+export const fetchAllCountryData = countryIso => dispatch => {
+  dispatch(fetchCountryOverviewStatus(countryIso))
   dispatch(fetchItem('extentOfForest', countryIso))
   dispatch(fetchItem('forestCharacteristics', countryIso))
   dispatch(getCountryConfig(countryIso))

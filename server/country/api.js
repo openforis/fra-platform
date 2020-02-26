@@ -37,48 +37,72 @@ module.exports.init = app => {
 
   app.get('/country/overviewStatus/:countryIso', async (req, res) => {
     try {
-      checkCountryAccessFromReqParams(req)
+      //TODO - REFACTOR
 
       const { countryIso } = req.params
       const userInfo = req.user
 
-      const odpDataPromise = odpRepository.listAndValidateOriginalDataPoints(countryIso)
-      const reviewStatusPromise = reviewRepository.getCountryIssuesSummary(countryIso, userInfo)
       const assessmentsPromise = assessmentRepository.getAssessments(countryIso)
+      if (userInfo) {
+        checkCountryAccessFromReqParams(req)
 
-      const [odps, reviewStatus, assessmentsDB] = await Promise.all([odpDataPromise, reviewStatusPromise, assessmentsPromise])
+        const odpDataPromise = odpRepository.listAndValidateOriginalDataPoints(countryIso)
+        const reviewStatusPromise = reviewRepository.getCountryIssuesSummary(countryIso, userInfo)
 
-      const userRole = roleForCountry(countryIso, userInfo)
-      const assessments = R.reduce(
-        (assessmentsObj, assessmentKey) => {
-          const assessment = R.pipe(
-            R.prop(assessmentKey),
-            a => ({
-              ...a,
-              canEditData: isUserRoleAllowedToEditAssessmentData(userRole, a.status),
-              canEditComments: isUserRoleAllowedToEditAssessmentComments(userRole, a.status)
-            })
-          )(assessmentsDB)
-          return R.assoc(assessmentKey, assessment, assessmentsObj)
-        },
-        {},
-        R.keys(assessmentsDB)
-      )
-      if (isCollaborator(countryIso, userInfo)) {
-        const tables = await fetchCollaboratorCountryAccessTables(countryIso, userInfo.id)
-        assessments.fra2020.tablesAccess = tables
+        const [odps, reviewStatus, assessmentsDB] = await Promise.all([odpDataPromise, reviewStatusPromise, assessmentsPromise])
+
+        const userRole = roleForCountry(countryIso, userInfo)
+        const assessments = R.reduce(
+          (assessmentsObj, assessmentKey) => {
+            const assessment = R.pipe(
+              R.prop(assessmentKey),
+              a => ({
+                ...a,
+                canEditData: isUserRoleAllowedToEditAssessmentData(userRole, a.status),
+                canEditComments: isUserRoleAllowedToEditAssessmentComments(userRole, a.status)
+              })
+            )(assessmentsDB)
+            return R.assoc(assessmentKey, assessment, assessmentsObj)
+          },
+          {},
+          R.keys(assessmentsDB)
+        )
+        if (isCollaborator(countryIso, userInfo)) {
+          const tables = await fetchCollaboratorCountryAccessTables(countryIso, userInfo.id)
+          assessments.fra2020.tablesAccess = tables
+        }
+
+        const odpStatus = {
+          count: odps.length,
+          errors: R.filter(o => !o.validationStatus.valid, odps).length !== 0,
+        }
+
+        res.json({
+          odpStatus,
+          reviewStatus,
+          assessments
+        })
+      } else {
+
+        const assessmentsDB = await assessmentsPromise
+
+        const assessments = R.reduce(
+          (assessmentsObj, assessmentKey) => {
+            const assessment = R.pipe(
+              R.prop(assessmentKey),
+              a => ({
+                ...a,
+                canEditData: false,
+                canEditComments: false
+              })
+            )(assessmentsDB)
+            return R.assoc(assessmentKey, assessment, assessmentsObj)
+          },
+          {},
+          R.keys(assessmentsDB)
+        )
+        res.json({ assessments })
       }
-
-      const odpStatus = {
-        count: odps.length,
-        errors: R.filter(o => !o.validationStatus.valid, odps).length !== 0,
-      }
-
-      res.json({
-        odpStatus,
-        reviewStatus,
-        assessments
-      })
 
     } catch (err) {
       Request.sendErr(res, err)
@@ -86,7 +110,7 @@ module.exports.init = app => {
   })
 
   // Changes one key/value pair
-  app.post('/country/config/:countryIso', Auth.requireCountryEditPermission, async (req, res) => {ß
+  app.post('/country/config/:countryIso', Auth.requireCountryEditPermission, async (req, res) => {
     try {
       await db.transaction(countryRepository.saveDynamicConfigurationVariable,
         [
