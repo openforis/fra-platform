@@ -25,9 +25,9 @@ const createRowData = (countryIso, mapping, rowIndex, rawRow) => {
 
 const getMapping = (tableSpecName) => tableMappings.getMapping(tableSpecName)
 
-const createSelect = (countryIso, tableSpecName) => {
+const createSelect = (countryIso, tableSpecName, schemaName = 'public') => {
   const mapping = getMapping(tableSpecName)
-  return [`SELECT ${createColumnNames(mapping)} FROM ${mapping.tableName} WHERE country_iso = $1`, [countryIso]]
+  return [`SELECT ${createColumnNames(mapping)} FROM ${schemaName}.${mapping.tableName} WHERE country_iso = $1`, [countryIso]]
 }
 
 const createDelete = (countryIso, tableSpecName) => {

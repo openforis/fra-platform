@@ -151,10 +151,11 @@ const getAllowedCountries = (roles, schemaName = 'public') => {
   }
 }
 
-const getDynamicCountryConfiguration = async countryIso => {
+const getDynamicCountryConfiguration = async (countryIso, schemaName = 'public') => {
+  const tableName = `${schemaName}.dynamic_country_configuration`
   const result = await db.query(`
               SELECT config
-              FROM dynamic_country_configuration
+              FROM ${tableName}
               WHERE country_iso = $1
     `,
     [countryIso])

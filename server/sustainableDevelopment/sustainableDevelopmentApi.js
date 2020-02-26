@@ -1,19 +1,19 @@
 const R = require('ramda')
 
-const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
 const {sendErr} = require('../utils/requestUtils')
 
 const {getFraValues} = require('../eof/fraValueService')
 const {readObject} = require('../traditionalTable/traditionalTableRepository')
 
+const VersionService = require('../versioning/service')
+
 module.exports.init = app => {
 
   app.get('/sustainableDevelopment/:countryIso', async (req, res) => {
     try {
-      checkCountryAccessFromReqParams(req)
-
+      const schemaName = await VersionService.getDatabaseSchema(req)
       const countryIso = req.params.countryIso
-      const extentOfForest = await getFraValues('extentOfForest', countryIso)
+      const extentOfForest = await getFraValues('extentOfForest', countryIso, schemaName)
       const bioMass = await readObject(countryIso, 'biomassStock')
       const aboveGroundOnlyBiomass = R.path(['forestAboveGround'], bioMass)
       const forestAreaWithinProtectedAreasAllFields = await readObject(countryIso, 'forestAreaWithinProtectedAreas')

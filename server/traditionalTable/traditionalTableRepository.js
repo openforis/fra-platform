@@ -40,8 +40,8 @@ const handleRow = mapping => (tableData, row) => {
   )
 }
 
-const rawRead = async (countryIso, tableSpecName) => {
-  const [selectQuery, selectParams] = sqlCreator.createSelect(countryIso, tableSpecName)
+const rawRead = async (countryIso, tableSpecName, schemaName = 'public') => {
+  const [selectQuery, selectParams] = sqlCreator.createSelect(countryIso, tableSpecName, schemaName)
   const result = await db.query(selectQuery, selectParams)
   if (result.rowCount === 0) return null
   return result.rows
@@ -61,8 +61,8 @@ module.exports.read = async (countryIso, tableSpecName) => {
 // Read an object instead of the matrix that plain read returns.
 // This can be used when you need programmatical access to the data
 // outside of the automated traditionalTable FW (in other views or calculations)
-module.exports.readObject = async (countryIso, tableSpecName) => {
-  const rows = await rawRead(countryIso, tableSpecName)
+module.exports.readObject = async (countryIso, tableSpecName, schemaName = 'public') => {
+  const rows = await rawRead(countryIso, tableSpecName, schemaName)
   if (rows === null) return null
   return R.pipe(
     R.values,

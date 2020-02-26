@@ -23,12 +23,12 @@ const odpsInUse = {
   'forestCharacteristics': (config) => config.useOriginalDataPointsInFoc === true
 }
 
-const getOdps = async (section, countryIso) => {
-  const dynamicConfig = await getDynamicCountryConfiguration(countryIso)
+const getOdps = async (section, countryIso, schemaName = 'public') => {
+  const dynamicConfig = await getDynamicCountryConfiguration(countryIso, schemaName)
   const useOdps = odpsInUse[section](dynamicConfig)
   const readOdp = odpReaders[section]
   if (useOdps) {
-    const odps = await readOdp(countryIso)
+    const odps = await readOdp(countryIso, schemaName)
     return odps
   } else {
     return []
@@ -52,13 +52,13 @@ const getFraValuesResult = async (fra, odp, defaultResponse) => {
   )(fra)
 }
 
-const getFraValues = async (section, countryIso) => {
+const getFraValues = async (section, countryIso, schemaName = 'public') => {
   const readFra = fraReaders[section]
 
   const defaultResponse = defaultResponses[section]
 
-  const fra = await readFra(countryIso)
-  const odp = await getOdps(section, countryIso)
+  const fra = await readFra(countryIso, schemaName)
+  const odp = await getOdps(section, countryIso, schemaName)
 
   const result = await getFraValuesResult(fra, odp, defaultResponse)
   const resultNoNDPs = await getFraValuesResult(fra, [], defaultResponse)
