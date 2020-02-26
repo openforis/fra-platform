@@ -12,11 +12,11 @@ const CountryListRoleSection = props => {
 
   return (
 
-    <div className="nav__country-list-section">
-      <div className="nav__country-list-header">
-        <span className="nav__country-list-primary-col">{i18n.t(getRoleLabelKey(role))}</span>
-        <span className="nav__country-list-secondary-col">{i18n.t('countryListing.fra2020')}</span>
-        <span className="nav__country-list-secondary-col">{i18n.t('audit.edited')}</span>
+    <div className="country-selection-list__section">
+      <div className="country-selection-list__header">
+        <span className="country-selection-list__primary-col">{i18n.t(getRoleLabelKey(role))}</span>
+        <span className="country-selection-list__secondary-col">{i18n.t('countryListing.fra2020')}</span>
+        <span className="country-selection-list__secondary-col">{i18n.t('audit.edited')}</span>
       </div>
       {
         roleCountries.map((country, i) =>

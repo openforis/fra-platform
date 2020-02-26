@@ -1,3 +1,5 @@
+import './countryList.less'
+
 import React from 'react'
 import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux'
@@ -23,10 +25,10 @@ const CountryList = props => {
   const i18n = useI18n()
 
   return (
-    <div className="nav__country-list">
+    <div className="country-selection-list">
       {
         isAdministrator(userInfo) &&
-        <div className="nav__country-list-download">
+        <div className="country-selection-list-download">
           <CSVLink
             className="btn-s btn-primary"
             target="_blank"
@@ -56,7 +58,7 @@ const CountryList = props => {
         </div>
       }
 
-      <div className="nav__country-list-content">
+      <div className="country-selection-list__content">
         {
           roleCountriesPair.map(([role, roleCountries]) =>
             <CountryListRoleSection

@@ -1,3 +1,5 @@
+import './countrySelection.less'
+
 import React, { useEffect, useRef, useState } from 'react'
 import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux'
@@ -40,17 +42,17 @@ const CountrySelection = ({ countries }) => {
   }
 
   return (
-    <div className="nav__country"
+    <div className="country-selection"
          ref={countrySelectionRef}
          onClick={() => setOpen(!open)}>
-      <div className="nav__country-flag" style={style}/>
-      <div className="nav__country-info">
-        <span className="nav__country-name">
+      <div className="country-selection__flag" style={style}/>
+      <div className="country-selection__info">
+        <span className="country-selection__country-name">
           {
             dispatch(getCountryName(countryIso, i18n.language))
           }
         </span>
-        <span className="nav__country-role">
+        <span className="country-selection__user-role">
           {
             i18n.t(getRoleForCountryLabelKey(countryIso, userInfo))
           }

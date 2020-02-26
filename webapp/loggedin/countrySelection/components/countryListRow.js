@@ -31,9 +31,9 @@ const CountryListRow = props => {
   return (
     <Link
       to={`/country/${country.countryIso}/`}
-      className={`nav__country-list-row${selected ? ' selected' : ''}`}>
+      className={`country-selection-list__row${selected ? ' selected' : ''}`}>
 
-        <span className="nav__country-list-primary-col" ref={countryNameRef}>
+        <span className="country-selection-list__primary-col" ref={countryNameRef}>
           {
             dispatch(getCountryName(country.countryIso, i18n.language))
           }
@@ -41,7 +41,7 @@ const CountryListRow = props => {
 
       {
         country.fra2020Assessment ?
-          <span className="nav__country-list-secondary-col">
+          <span className="country-selection-list__secondary-col">
               <div className={`status-${country.fra2020Assessment}`}/>
             {
               i18n.t(`assessment.status.${country.fra2020Assessment}.label`)
@@ -50,7 +50,7 @@ const CountryListRow = props => {
           : null
       }
 
-      <span className="nav__country-list-secondary-col">
+      <span className="country-selection-list__secondary-col">
           {
             getRelativeDate(country.lastEdit, i18n) || i18n.t('audit.notStarted')
           }
