@@ -9,6 +9,7 @@ import LanguageSelection from '@webapp/loggedin/header/_components/languageSelec
 import AdminLinks from '@webapp/loggedin/header/_components/adminLinks'
 import AutoSaveStatusText from '@webapp/loggedin/header/_components/autoSaveStatusText'
 import ToggleNavigationControl from '@webapp/loggedin/header/_components/toggleNavigationControl'
+import CountrySelection from '@webapp/loggedin/countrySelection'
 import useI18n from '@webapp/components/hooks/useI18n'
 
 import * as AppState from '@webapp/app/appState'
@@ -37,7 +38,7 @@ const Header = () => {
         {
           countryIso
             ? <ToggleNavigationControl/>
-            : <div></div> //TODO add country selection
+            : <CountrySelection/>
         }
         <AutoSaveStatusText/>
 

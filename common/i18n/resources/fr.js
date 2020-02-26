@@ -12,6 +12,10 @@ module.exports.translation = {
     login: 'Connexion',
   },
 
+  countrySelection: {
+    selectCountry: 'Choisissez le pays'
+  },
+
   definition: {
     definitionLabel: 'Voir les définitions',
     faqLabel: 'Q&R'

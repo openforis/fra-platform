@@ -14,7 +14,7 @@ const AdminLinks = () => {
   const countryIso = useSelector(AppState.getCountryIso)
   const i18n = useI18n()
 
-  return userInfo && isAdministrator(userInfo)
+  return isAdministrator(userInfo)
     ? (
       <>
         <div key="v-separator" className="fra-header__menu-item-separator" style={{ margin: '0 20px' }}/>
