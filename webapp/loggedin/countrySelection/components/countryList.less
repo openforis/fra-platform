@@ -1,0 +1,85 @@
+@import (reference) "~@webapp/app-styles/config";
+@import (reference) "~@webapp/app-styles/statusMixins";
+
+// Country list popover
+
+.country-selection-list {
+  display: block;
+  position: absolute;
+  top: 60px;
+  left: 16px;
+  background: white;
+  border-radius: 2px;
+  box-shadow: @shadow-3;
+  z-index: 10;
+}
+
+.country-selection-list__content {
+  max-height: 560px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.country-selection-list__section {
+  border-bottom: @ui-thin-border;
+  padding: 8px 0;
+
+  &:last-of-type {
+    border: none;
+  }
+}
+
+.country-selection-list__primary-col {
+  min-width: 192px;
+  width: 100%;
+}
+
+.country-selection-list__secondary-col {
+  margin-left: 16px;
+  min-width: 128px;
+  width: 100%;
+  white-space: nowrap;
+}
+
+.country-selection-list__header,
+.country-selection-list__row {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  line-height: 16px;
+  padding: 8px 16px;
+}
+
+.country-selection-list__header {
+  color: @text-mute;
+}
+
+.country-selection-list__row {
+  color: @text-body;
+  text-decoration: none;
+
+  &:hover {
+    background-color: darken(@ui-bg, 4%);
+    color: inherit;
+  }
+
+  &.selected {
+    background-color: @ui-accent-light;
+    color: inherit;
+  }
+
+  .status-editing {
+    .mixin-status-base(@ui-status-editing);
+    margin-right: 8px;
+  }
+
+  .status-review {
+    .mixin-status-base(@ui-status-review);
+    margin-right: 8px;
+  }
+
+  .status-accepted {
+    .mixin-status-base(@ui-status-accepted);
+    margin-right: 8px;
+  }
+}

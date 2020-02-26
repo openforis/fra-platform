@@ -193,7 +193,7 @@ module.exports.readFraForestAreas = (countryIso, schemaName = 'public') => {
   ).then((result) => R.reduce(forestAreaReducer, [], result.rows))
 }
 
-module.exports.readFraForestCharacteristics = (countryIso, schemaName) => {
+module.exports.readFraForestCharacteristics = (countryIso, schemaName = 'public') => {
   const tableName = `${schemaName}.foc_fra_values`
   return db.query(
     `SELECT

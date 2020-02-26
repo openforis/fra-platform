@@ -1,0 +1,21 @@
+@import (reference) "~@webapp/app-styles/config";
+
+.mixin-status-content-base() {
+  display: flex;
+  flex-flow: row-reverse nowrap;
+  align-items: center;
+  margin-left: auto;
+
+  div {
+    margin-left: 4px;
+  }
+}
+
+.mixin-status-base(@color) {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background-color: @color;
+  border-radius: 100%;
+  flex: 0 0 auto;
+}

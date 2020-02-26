@@ -1,4 +1,5 @@
-@import (reference) "../../app-styles/config";
+@import (reference) "~@webapp/app-styles/config";
+@import (reference) "~@webapp/app-styles/statusMixins";
 
 .fra-nav__container {
   position: relative;
@@ -36,144 +37,6 @@
 
 .nav__review-status--unread {
   .mixin-status-base(@ui-alert);
-}
-
-// Country selection
-
-.nav__country {
-  display: flex;
-  position: relative;
-  flex-flow: row nowrap;
-  align-items: center;
-  padding: 4px 12px 4px 16px;
-  min-height: 64px;
-  border-bottom: 1px solid @ui-border;
-  background-color: @ui-bg;
-  transition: @ease-out;
-
-  &:hover {
-    background-color: darken(@ui-bg, 4%);
-    cursor: pointer;
-  }
-}
-
-.nav__country-flag {
-  background-repeat: no-repeat;
-  background-size: cover;
-  width: 32px;
-  min-width: 32px;
-  height: 32px;
-  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .15);
-  border-radius: 2px;
-}
-
-.nav__country-info {
-  flex-grow: 1;
-  margin-left: 8px;
-  margin-right: 4px;
-}
-
-.nav__country-name {
-  color: @text-body;
-  display: block;
-  font-weight: 700;
-  line-height: 16px;
-  margin-bottom: 4px;
-}
-
-.nav__country-role {
-  color: @text-mute;
-  display: block;
-  font-size: @font-s;
-  line-height: 16px;
-}
-
-// Country list popover
-
-.nav__country-list {
-  display: block;
-  position: absolute;
-  top: 60px;
-  left: 16px;
-  background: white;
-  border-radius: 2px;
-  box-shadow: @shadow-3;
-  z-index: 10;
-}
-
-.nav__country-list-download {
-  display: grid;
-  justify-items: right;
-}
-
-.nav__country-list-content {
-  max-height: 560px;
-  overflow-y: auto;
-  overflow-x: hidden;
-}
-
-.nav__country-list-section {
-  border-bottom: @ui-thin-border;
-  padding: 8px 0;
-
-  &:last-of-type {
-    border: none;
-  }
-}
-
-.nav__country-list-primary-col {
-  min-width: 192px;
-  width: 100%;
-}
-
-.nav__country-list-secondary-col {
-  margin-left: 16px;
-  min-width: 128px;
-  width: 100%;
-  white-space: nowrap;
-}
-
-.nav__country-list-header,
-.nav__country-list-row {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  line-height: 16px;
-  padding: 8px 16px;
-}
-
-.nav__country-list-header {
-  color: @text-mute;
-}
-
-.nav__country-list-row {
-  color: @text-body;
-  text-decoration: none;
-
-  &:hover {
-    background-color: darken(@ui-bg, 4%);
-    color: inherit;
-  }
-
-  &.selected {
-    background-color: @ui-accent-light;
-    color: inherit;
-  }
-
-  .status-editing {
-    .mixin-status-base(@ui-status-editing);
-    margin-right: 8px;
-  }
-
-  .status-review {
-    .mixin-status-base(@ui-status-review);
-    margin-right: 8px;
-  }
-
-  .status-accepted {
-    .mixin-status-base(@ui-status-accepted);
-    margin-right: 8px;
-  }
 }
 
 // Basic link item
@@ -422,24 +285,4 @@
       background-color: @ui-accent-light;
     }
   }
-}
-
-.mixin-status-content-base() {
-  display: flex;
-  flex-flow: row-reverse nowrap;
-  align-items: center;
-  margin-left: auto;
-
-  div {
-    margin-left: 4px;
-  }
-}
-
-.mixin-status-base(@color) {
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-  background-color: @color;
-  border-radius: 100%;
-  flex: 0 0 auto;
 }
