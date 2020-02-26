@@ -14,9 +14,9 @@ module.exports.init = app => {
       const schemaName = await VersionService.getDatabaseSchema(req)
       const countryIso = req.params.countryIso
       const extentOfForest = await getFraValues('extentOfForest', countryIso, schemaName)
-      const bioMass = await readObject(countryIso, 'biomassStock')
+      const bioMass = await readObject(countryIso, 'biomassStock', schemaName)
       const aboveGroundOnlyBiomass = R.path(['forestAboveGround'], bioMass)
-      const forestAreaWithinProtectedAreasAllFields = await readObject(countryIso, 'forestAreaWithinProtectedAreas')
+      const forestAreaWithinProtectedAreasAllFields = await readObject(countryIso, 'forestAreaWithinProtectedAreas', schemaName)
       const forestAreaWithinProtectedAreas = R.pick(
         [
           'forestAreaWithinProtectedAreas',
