@@ -1,50 +1,66 @@
-import React from 'react'
-import * as R from 'ramda'
+import React, { useEffect, useRef } from 'react'
+import PropTypes from 'prop-types'
+import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
+import * as R from 'ramda'
 
 import { getRelativeDate } from '@webapp/utils/relativeDate'
 
-class CountryListRow extends React.PureComponent {
+import useI18n from '@webapp/components/hooks/useI18n'
+import useCountryIso from '@webapp/components/hooks/useCountryIso'
 
-  isSelected () {
-    const { selectedCountry, country } = this.props
-    return R.equals(selectedCountry, country.countryIso)
-  }
+import { getCountryName } from '@webapp/country/actions'
 
-  componentDidMount () {
-    if (this.isSelected())
-      this.refs.countryNameRef.scrollIntoView(
-        { behavior: 'smooth', block: 'center', inline: 'nearest' }
-      )
-  }
+const CountryListRow = props => {
 
-  render () {
-    const { country, i18n, getCountryName } = this.props
+  const { country } = props
 
-    return (
-      <Link
-        to={`/country/${country.countryIso}/`}
-        className={`nav__country-list-row ${this.isSelected() ? 'selected' : ''}`}>
+  const i18n = useI18n()
+  const countryIso = useCountryIso()
+  const dispatch = useDispatch()
+  const countryNameRef = useRef(null)
 
-        <span className="nav__country-list-primary-col" ref="countryNameRef">
-          {getCountryName(country.countryIso, i18n.language)}
+  const selected = R.equals(countryIso, country.countryIso)
+
+  useEffect(() => {
+    if (selected) {
+      countryNameRef.current.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' })
+    }
+  }, [])
+
+  return (
+    <Link
+      to={`/country/${country.countryIso}/`}
+      className={`nav__country-list-row${selected ? ' selected' : ''}`}>
+
+        <span className="nav__country-list-primary-col" ref={countryNameRef}>
+          {
+            dispatch(getCountryName(country.countryIso, i18n.language))
+          }
         </span>
 
-        {
-          country.fra2020Assessment ?
-            <span className="nav__country-list-secondary-col">
+      {
+        country.fra2020Assessment ?
+          <span className="nav__country-list-secondary-col">
               <div className={`status-${country.fra2020Assessment}`}/>
-              {i18n.t(`assessment.status.${country.fra2020Assessment}.label`)}
+            {
+              i18n.t(`assessment.status.${country.fra2020Assessment}.label`)
+            }
             </span>
-            : null
-        }
+          : null
+      }
 
-        <span className="nav__country-list-secondary-col">
-          {getRelativeDate(country.lastEdit, i18n) || i18n.t('audit.notStarted')}
+      <span className="nav__country-list-secondary-col">
+          {
+            getRelativeDate(country.lastEdit, i18n) || i18n.t('audit.notStarted')
+          }
         </span>
-      </Link>
-    )
-  }
+    </Link>
+  )
+}
+
+CountryListRow.propTypes = {
+  country: PropTypes.object.isRequired,
 }
 
 export default CountryListRow

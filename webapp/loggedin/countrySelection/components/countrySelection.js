@@ -1,57 +1,76 @@
-import React, { useEffect, useState } from 'react'
-import * as R from 'ramda'
+import React, { useEffect, useRef, useState } from 'react'
+import PropTypes from 'prop-types'
+import { useDispatch } from 'react-redux'
+
+import { getRoleForCountryLabelKey } from '@common/countryRole'
 
 import Icon from '@webapp/components/icon'
 import CountryList from '@webapp/loggedin/countrySelection/components/countryList'
+import useCountryIso from '@webapp/components/hooks/useCountryIso'
+import useI18n from '@webapp/components/hooks/useI18n'
+import useUserInfo from '@webapp/components/hooks/useUserInfo'
 
-class CountrySelection extends React.Component {
+import { getCountryName } from '@webapp/country/actions'
 
-  constructor (props) {
-    super(props)
-    this.state = { isOpen: false }
-    this.outsideClick = this.outsideClick.bind(this)
-    window.addEventListener('click', this.outsideClick)
+const CountrySelection = ({ countries }) => {
+
+  const dispatch = useDispatch()
+  const countryIso = useCountryIso()
+  const userInfo = useUserInfo()
+  const i18n = useI18n()
+
+  const countrySelectionRef = useRef(null)
+  const [open, setOpen] = useState(false)
+
+  const outsideClick = (evt) => {
+    if (!countrySelectionRef.current.contains(evt.target))
+      setOpen(false)
   }
 
-  outsideClick (evt) {
-    if (!this.refs.navCountryItem.contains(evt.target))
-      this.setState({ isOpen: false })
-  }
+  useEffect(() => {
+    window.addEventListener('click', outsideClick)
 
-  componentWillUnmount () {
-    window.removeEventListener('click', this.outsideClick)
-  }
-
-  render () {
-    const countryIso = this.props.name
-    const { role, i18n, getCountryName } = this.props
-    const { isOpen } = this.state
-
-    const style = {
-      backgroundImage: `url('/img/flags/1x1/${countryIso}.svg'), url('/img/flags/1x1/ATL.svg')`
+    return () => {
+      window.removeEventListener('click', outsideClick)
     }
+  }, [])
 
-    return (
-      <div className="nav__country" ref="navCountryItem" onClick={() => {
-        this.setState({ isOpen: R.not(this.state.isOpen) })
-      }}>
-        <div className="nav__country-flag" style={style}></div>
-        <div className="nav__country-info">
-          <span className="nav__country-name">{getCountryName(countryIso, i18n.language)}</span>
-          <span className="nav__country-role">{role}</span>
-        </div>
-        <Icon name="small-down"/>
-        {
-          isOpen &&
-          <CountryList
-            {...this.props}
-            isOpen={this.state.isOpen}
-            currentCountry={countryIso}
-          />
-        }
-      </div>
-    )
+  const style = {
+    backgroundImage: `url('/img/flags/1x1/${countryIso}.svg'), url('/img/flags/1x1/ATL.svg')`
   }
+
+  return (
+    <div className="nav__country"
+         ref={countrySelectionRef}
+         onClick={() => setOpen(!open)}>
+      <div className="nav__country-flag" style={style}/>
+      <div className="nav__country-info">
+        <span className="nav__country-name">
+          {
+            dispatch(getCountryName(countryIso, i18n.language))
+          }
+        </span>
+        <span className="nav__country-role">
+          {
+            i18n.t(getRoleForCountryLabelKey(countryIso, userInfo))
+          }
+        </span>
+      </div>
+
+      <Icon name="small-down"/>
+
+      {
+        open &&
+        <CountryList
+          countries={countries}
+        />
+      }
+    </div>
+  )
+}
+
+CountrySelection.propTypes = {
+  countries: PropTypes.object.isRequired,
 }
 
 export default CountrySelection

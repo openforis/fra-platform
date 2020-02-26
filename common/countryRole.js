@@ -44,6 +44,11 @@ const roleForCountry = (countryIso, userInfo) => {
   return roleObj
 }
 
+const getRoleForCountryLabelKey = R.pipe(
+  roleForCountry,
+  R.prop('labelKey')
+)
+
 const hasUserRole = (countryIso, userInfo, roleObj) => roleForCountry(countryIso, userInfo).role === roleObj.role
 
 const isReviewer = (countryIso, userInfo) => hasUserRole(countryIso, userInfo, reviewer) || hasUserRole(countryIso, userInfo, administrator)
@@ -56,6 +61,7 @@ const isAdministrator = userInfo => hasRole('ADMINISTRATOR', userInfo.roles)
 
 module.exports.getCountryRole = getCountryRole
 module.exports.roleForCountry = roleForCountry
+module.exports.getRoleForCountryLabelKey = getRoleForCountryLabelKey
 
 module.exports.isReviewer = isReviewer
 module.exports.isNationalCorrespondent = isNationalCorrespondent

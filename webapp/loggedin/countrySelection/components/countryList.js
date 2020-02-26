@@ -1,16 +1,26 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+import { useDispatch } from 'react-redux'
 import * as R from 'ramda'
-import { CSVLink } from 'react-csv'
-
-import Icon from '@webapp/components/icon'
-import CountryListRoleSection from '@webapp/loggedin/countrySelection/components/countryListRoleSection'
 
 import { isAdministrator } from '@common/countryRole'
 import { getRelativeDate } from '@webapp/utils/relativeDate'
 
-const CountryList = ({ isOpen, countries, userInfo, ...props }) => {
+import { CSVLink } from 'react-csv'
+import Icon from '@webapp/components/icon'
+import CountryListRoleSection from '@webapp/loggedin/countrySelection/components/countryListRoleSection'
+import useUserInfo from '@webapp/components/hooks/useUserInfo'
+import useI18n from '@webapp/components/hooks/useI18n'
+
+import { getCountryName } from '@webapp/country/actions'
+
+const CountryList = props => {
+  const { countries } = props
   const roleCountriesPair = R.toPairs(countries)
-  const { getCountryName, i18n } = props
+
+  const dispatch = useDispatch()
+  const userInfo = useUserInfo()
+  const i18n = useI18n()
 
   return (
     <div className="nav__country-list">
@@ -24,9 +34,9 @@ const CountryList = ({ isOpen, countries, userInfo, ...props }) => {
             data={
               R.pipe(
                 R.map(
-                  ([role, roleCountries]) =>
+                  ([_, roleCountries]) =>
                     R.map(country => ({
-                      name: getCountryName(country.countryIso, i18n.language),
+                      name: dispatch(getCountryName(country.countryIso, i18n.language)),
                       status: i18n.t(`assessment.status.${country.fra2020Assessment}.label`),
                       edited: getRelativeDate(country.lastEdit, i18n) || i18n.t('audit.notStarted'),
                       deskStudy: i18n.t(`yesNoTextSelect.${R.propEq('fra2020DeskStudy', true, country) ? 'yes' : 'no'}`)
@@ -48,20 +58,22 @@ const CountryList = ({ isOpen, countries, userInfo, ...props }) => {
 
       <div className="nav__country-list-content">
         {
-          R.map(
-            ([role, roleCountries]) =>
-              <CountryListRoleSection
-                {...props}
-                key={role}
-                role={role}
-                roleCountries={roleCountries}
-              />
-            , roleCountriesPair
+          roleCountriesPair.map(([role, roleCountries]) =>
+            <CountryListRoleSection
+              key={role}
+              i18n={i18n}
+              role={role}
+              roleCountries={roleCountries}
+            />
           )
         }
       </div>
     </div>
   )
+}
+
+CountryList.propTypes = {
+  countries: PropTypes.object.isRequired,
 }
 
 export default CountryList

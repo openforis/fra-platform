@@ -1,28 +1,38 @@
 import React from 'react'
-import * as R from 'ramda'
-
-import CountryListRow from '@webapp/loggedin/countrySelection/components/countryListRow'
+import PropTypes from 'prop-types'
 
 import { getRoleLabelKey } from '@common/countryRole'
 
-const CountryListRoleSection = ({ role, roleCountries, currentCountry, i18n, ...props }) =>
-  <div className="nav__country-list-section">
-    <div className="nav__country-list-header">
-      <span className="nav__country-list-primary-col">{i18n.t(getRoleLabelKey(role))}</span>
-      <span className="nav__country-list-secondary-col">{i18n.t('countryListing.fra2020')}</span>
-      <span className="nav__country-list-secondary-col">{i18n.t('audit.edited')}</span>
-    </div>
-    {
-      R.map(country =>
+import CountryListRow from '@webapp/loggedin/countrySelection/components/countryListRow'
+import useI18n from '@webapp/components/hooks/useI18n'
+
+const CountryListRoleSection = props => {
+  const { role, roleCountries } = props
+  const i18n = useI18n()
+
+  return (
+
+    <div className="nav__country-list-section">
+      <div className="nav__country-list-header">
+        <span className="nav__country-list-primary-col">{i18n.t(getRoleLabelKey(role))}</span>
+        <span className="nav__country-list-secondary-col">{i18n.t('countryListing.fra2020')}</span>
+        <span className="nav__country-list-secondary-col">{i18n.t('audit.edited')}</span>
+      </div>
+      {
+        roleCountries.map((country, i) =>
           <CountryListRow
-            {...props}
-            key={country.countryIso}
+            key={i}
             country={country}
-            i18n={i18n}
-            selectedCountry={currentCountry}
           />
-        , roleCountries)
-    }
-  </div>
+        )
+      }
+    </div>
+  )
+}
+
+CountryListRoleSection.propTypes = {
+  role: PropTypes.string.isRequired,
+  roleCountries: PropTypes.array.isRequired,
+}
 
 export default CountryListRoleSection
