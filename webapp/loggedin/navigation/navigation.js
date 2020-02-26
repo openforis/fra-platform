@@ -5,7 +5,6 @@ import { connect, useSelector } from 'react-redux'
 import * as R from 'ramda'
 
 import { assessments } from '@common/assessmentSectionItems'
-import { roleForCountry } from '@common/countryRole'
 import CountrySelection from '@webapp/loggedin/countrySelection'
 import useI18n from '@webapp/components/hooks/useI18n'
 
@@ -14,6 +13,7 @@ import { Footer, SectionLink } from '@webapp/loggedin/navigation/components/navi
 
 import * as AppState from '@webapp/app/appState'
 import * as UserState from '@webapp/user/userState'
+import * as CountryState from '@webapp/country/countryState'
 
 import {
   changeAssessment,
@@ -23,19 +23,18 @@ import {
 import { getCountryName, isPanEuropeanCountry } from '@webapp/country/actions'
 import { fetchAllCountryData } from '@webapp/app/actions'
 
-const roleLabel = (countryIso, userInfo, i18n) => i18n.t(roleForCountry(countryIso, userInfo).labelKey)
-
 const Nav = props => {
 
   const {
-    userInfo, path, countries, changeAssessment, isPanEuropeanCountry,
-    status = {},
+    userInfo, path, changeAssessment, isPanEuropeanCountry,
     navigationVisible
   } = props
 
   if (!navigationVisible) return null
 
   const countryIso = useSelector(AppState.getCountryIso)
+  const countries = useSelector(CountryState.getCountries)
+  const status = useSelector(CountryState.getStatus)
   const i18n = useI18n()
 
   const getReviewStatus = section => R.pipe(
@@ -49,9 +48,7 @@ const Nav = props => {
       {
         !(R.isNil(countries) || R.isEmpty(status)) &&
         <div className="fra-nav">
-          <CountrySelection
-            countries={countries}
-          />
+          <CountrySelection/>
           <div className="nav__scroll-content">
             <SectionLink
               countryIso={countryIso}
@@ -60,7 +57,7 @@ const Nav = props => {
               pathTemplate="/country/:countryIso/"
               label={i18n.t('landing.home')}
             />
-            <div className="nav__divider"></div>
+            <div className="nav__divider"/>
             {
               R.map(([assessment, sections]) =>
                   <Assessment
@@ -104,7 +101,6 @@ const Nav = props => {
 const mapStateToProps = state => ({
   // showOriginalDataPoints: hasOdps(R.path(['extentOfForest', 'fra'], state)),
   ...state.navigation,
-  ...state.country,
   ...state.router,
   userInfo: UserState.getUserInfo(state),
 })

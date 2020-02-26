@@ -1,7 +1,6 @@
 import './countrySelection.less'
 
 import React, { useEffect, useRef, useState } from 'react'
-import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux'
 
 import { getRoleForCountryLabelKey } from '@common/countryRole'
@@ -14,7 +13,7 @@ import useUserInfo from '@webapp/components/hooks/useUserInfo'
 
 import { getCountryName } from '@webapp/country/actions'
 
-const CountrySelection = ({ countries }) => {
+const CountrySelection = () => {
 
   const dispatch = useDispatch()
   const countryIso = useCountryIso()
@@ -37,42 +36,47 @@ const CountrySelection = ({ countries }) => {
     }
   }, [])
 
-  const style = {
-    backgroundImage: `url('/img/flags/1x1/${countryIso}.svg'), url('/img/flags/1x1/ATL.svg')`
-  }
-
   return (
     <div className="country-selection"
          ref={countrySelectionRef}
          onClick={() => setOpen(!open)}>
-      <div className="country-selection__flag" style={style}/>
+
+      {
+        countryIso &&
+        <div className="country-selection__flag"
+             style={{
+               backgroundImage: `url('/img/flags/1x1/${countryIso}.svg'), url('/img/flags/1x1/ATL.svg')`
+             }}/>
+      }
+
       <div className="country-selection__info">
         <span className="country-selection__country-name">
           {
-            dispatch(getCountryName(countryIso, i18n.language))
+            countryIso
+              ? dispatch(getCountryName(countryIso, i18n.language))
+              : <b>{i18n.t('countrySelection.selectCountry')}</b>
           }
         </span>
-        <span className="country-selection__user-role">
+
+        {
+          userInfo &&
+          <span className="country-selection__user-role">
           {
             i18n.t(getRoleForCountryLabelKey(countryIso, userInfo))
           }
         </span>
+        }
+
       </div>
 
       <Icon name="small-down"/>
 
       {
         open &&
-        <CountryList
-          countries={countries}
-        />
+        <CountryList/>
       }
     </div>
   )
-}
-
-CountrySelection.propTypes = {
-  countries: PropTypes.object.isRequired,
 }
 
 export default CountrySelection

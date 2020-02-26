@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import * as R from 'ramda'
 
+import { noRole } from '@common/countryRole'
 import { getRelativeDate } from '@webapp/utils/relativeDate'
 
 import useI18n from '@webapp/components/hooks/useI18n'
@@ -13,7 +14,8 @@ import { getCountryName } from '@webapp/country/actions'
 
 const CountryListRow = props => {
 
-  const { country } = props
+  const { role, country } = props
+  const hasRole = role !== noRole.role
 
   const i18n = useI18n()
   const countryIso = useCountryIso()
@@ -40,26 +42,30 @@ const CountryListRow = props => {
         </span>
 
       {
-        country.fra2020Assessment ?
-          <span className="country-selection-list__secondary-col">
+        hasRole && country.fra2020Assessment &&
+        <span className="country-selection-list__secondary-col">
               <div className={`status-${country.fra2020Assessment}`}/>
-            {
-              i18n.t(`assessment.status.${country.fra2020Assessment}.label`)
-            }
+          {
+            i18n.t(`assessment.status.${country.fra2020Assessment}.label`)
+          }
             </span>
-          : null
       }
 
-      <span className="country-selection-list__secondary-col">
+      {
+        hasRole &&
+        <span className="country-selection-list__secondary-col">
           {
             getRelativeDate(country.lastEdit, i18n) || i18n.t('audit.notStarted')
           }
         </span>
+      }
+
     </Link>
   )
 }
 
 CountryListRow.propTypes = {
+  role: PropTypes.string.isRequired,
   country: PropTypes.object.isRequired,
 }
 

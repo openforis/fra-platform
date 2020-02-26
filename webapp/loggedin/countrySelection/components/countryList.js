@@ -1,8 +1,7 @@
 import './countryList.less'
 
 import React from 'react'
-import PropTypes from 'prop-types'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import * as R from 'ramda'
 
 import { isAdministrator } from '@common/countryRole'
@@ -14,15 +13,16 @@ import CountryListRoleSection from '@webapp/loggedin/countrySelection/components
 import useUserInfo from '@webapp/components/hooks/useUserInfo'
 import useI18n from '@webapp/components/hooks/useI18n'
 
+import * as CountryState from '@webapp/country/countryState'
+
 import { getCountryName } from '@webapp/country/actions'
 
-const CountryList = props => {
-  const { countries } = props
-  const roleCountriesPair = R.toPairs(countries)
-
+const CountryList = () => {
   const dispatch = useDispatch()
   const userInfo = useUserInfo()
   const i18n = useI18n()
+  const countries = useSelector(CountryState.getCountries)
+  const roleCountriesPair = R.toPairs(countries)
 
   return (
     <div className="country-selection-list">
@@ -72,10 +72,6 @@ const CountryList = props => {
       </div>
     </div>
   )
-}
-
-CountryList.propTypes = {
-  countries: PropTypes.object.isRequired,
 }
 
 export default CountryList

@@ -12,6 +12,10 @@ module.exports.translation = {
     login: 'Логин',
   },
 
+  countrySelection: {
+    selectCountry: 'Выберите страну'
+  },
+
   definition: {
     definitionLabel: 'См. определения',
     faqLabel: 'Часто задаваемые вопросы'

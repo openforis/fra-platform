@@ -57,7 +57,7 @@ const isAlternateNationalCorrespondent = (countryIso, userInfo) => hasUserRole(c
 const isCollaborator = (countryIso, userInfo) => hasUserRole(countryIso, userInfo, collaborator)
 const hasNoRole = (countryIso, userInfo) => hasUserRole(countryIso, userInfo, noRole)
 
-const isAdministrator = userInfo => hasRole('ADMINISTRATOR', userInfo.roles)
+const isAdministrator = userInfo => userInfo && hasRole('ADMINISTRATOR', userInfo.roles)
 
 module.exports.getCountryRole = getCountryRole
 module.exports.roleForCountry = roleForCountry

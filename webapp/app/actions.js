@@ -3,7 +3,7 @@ import axios from 'axios'
 import * as UserState from '@webapp/user/userState'
 
 import { fetchItem } from '@webapp/tableWithOdp/actions'
-import { fetchCountryOverviewStatus, getCountryConfig, getCountryList } from '@webapp/country/actions'
+import { fetchCountryOverviewStatus, getCountryConfig } from '@webapp/country/actions'
 import { fetch as fetchGrowingStock } from '@webapp/loggedin/assessmentFra/growingStock/actions'
 import { applicationError } from '@webapp/loggedin/applicationError/actions'
 import { createI18nPromise } from '@common/i18n/i18nFactory'
@@ -33,7 +33,6 @@ export const fetchAllCountryData = countryIso => dispatch => {
   dispatch(fetchCountryOverviewStatus(countryIso))
   dispatch(fetchItem('extentOfForest', countryIso))
   dispatch(fetchItem('forestCharacteristics', countryIso))
-  dispatch(getCountryList())
   dispatch(getCountryConfig(countryIso))
   dispatch(fetchGrowingStock(countryIso))
 }

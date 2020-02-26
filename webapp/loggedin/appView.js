@@ -16,21 +16,26 @@ import * as CountryState from '@webapp/country/countryState'
 import * as UserState from '@webapp/user/userState'
 
 import { fetchInitialData } from '@webapp/app/actions'
+import { getCountryList } from '@webapp/country/actions'
 
 // import * as loginStatusChecker from '@webapp/user/loginStatusChecker'
 
 const LoggedInView = props => {
 
-  const { userInfo, initialDataLoaded, fetchInitialData } = props
+  const {
+    userInfo, initialDataLoaded,
+    fetchInitialData, getCountryList
+  } = props
 
   const { countryIso } = useParams()
 
-  useEffect(() => {
-    // TODO check if this should be removed
-    // loginStatusChecker.startPeriodicCheck(60 * 1000)
-  }, [])
+  // useEffect(() => {
+  // TODO check if this should be removed
+  // loginStatusChecker.startPeriodicCheck(60 * 1000)
+  // }, [])
 
   useEffect(() => {
+    getCountryList()
     if (countryIso) {
       fetchInitialData(countryIso)
     }
@@ -90,4 +95,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, { fetchInitialData })(LoggedInView)
+export default connect(mapStateToProps, { fetchInitialData, getCountryList })(LoggedInView)
