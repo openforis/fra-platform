@@ -8,7 +8,6 @@ const { checkCountryAccessFromReqParams } = require('../utils/accessControl')
 const countryRepository = require('./countryRepository')
 const reviewRepository = require('../review/reviewRepository')
 const odpRepository = require('../odp/odpRepository')
-const auditRepository = require('../audit/auditRepository')
 const assessmentRepository = require('../assessment/assessmentRepository')
 const { fetchCollaboratorCountryAccessTables } = require('./../collaborators/collaboratorsRepository')
 const Auth = require('../auth/authApiMiddleware')
@@ -20,13 +19,15 @@ const {
 const { roleForCountry, isCollaborator } = require('../../common/countryRole')
 
 const CountryService = require('./countryService')
+const VersionService = require('../versioning/service')
 
 module.exports.init = app => {
 
   app.get('/country/all', async (req, res) => {
     try {
+      const schmeName = await VersionService.getDatabaseSchema(req)
       const userRoles = Request.getUserRoles(req)
-      const result = await countryRepository.getAllowedCountries(userRoles)
+      const result = await countryRepository.getAllowedCountries(userRoles, schmeName)
 
       res.json(result)
     } catch (err) {

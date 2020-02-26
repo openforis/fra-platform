@@ -95,23 +95,28 @@ const deleteOdp = async (client, odpId, user) => {
 
 }
 
-const getOdpVersionId = async (client, odpId) => {
+const getOdpVersionId = async (client, odpId, schemaName = 'public') => {
+  const tableName = `${schemaName}.odp`
+  
   const res = await client.query(`
     SELECT
       CASE WHEN draft_id IS NULL
         THEN actual_id
         ELSE draft_id
       END AS version_id
-    FROM odp
+    FROM ${tableName}
     WHERE id = $1`
     , [odpId])
 
   return res.rows[0].version_id
 }
 
-const getOdp = async odpId => {
-  const versionId = await getOdpVersionId(db, odpId)
-  const nationalClasses = await getOdpNationalClasses(db, versionId)
+const getOdp = async (odpId, schemaName = 'public') => {
+  const versionId = await getOdpVersionId(db, odpId, schemaName)
+  const tableNameOdp = `${schemaName}.odp`
+  const tableNameOdpVersion = `${schemaName}.odp_version`
+
+  const nationalClasses = await getOdpNationalClasses(db, versionId, schemaName)
 
   const resEditStatus = await db.query(
     `SELECT
@@ -128,8 +133,8 @@ const getOdp = async odpId => {
             WHEN (p.draft_id IS NULL) AND (p.actual_id IS NOT NULL) THEN 'noChanges'
             ELSE 'unknown' -- Should never happen
           END AS edit_status
-        FROM odp p
-        JOIN odp_version v
+        FROM ${tableNameOdp} p
+        JOIN ${tableNameOdpVersion} v
         ON v.id = $2
         WHERE p.id = $1
         `, [odpId, versionId])
@@ -199,9 +204,14 @@ const readFocOdps = async (countryIso) => {
   return R.reduce(focReducer, [], res.rows)
 }
 
-const listOriginalDataPoints = async countryIso => {
-  const res = await db.query(`SELECT p.id as odp_id FROM odp p WHERE country_iso = $1`, [countryIso])
-  const odps = await Promise.all(res.rows.map(r => getOdp(r.odp_id)))
+const listOriginalDataPoints = async (countryIso, schemaName = 'public') => {
+  const tableName = `${schemaName}.odp`
+  const res = await db.query(`
+    SELECT p.id as odp_id
+    FROM ${tableName} p
+    WHERE country_iso = $1
+  `, [countryIso])
+  const odps = await Promise.all(res.rows.map(r => getOdp(r.odp_id, schemaName)))
 
   return R.pipe(
     R.sortBy(R.prop('year')),

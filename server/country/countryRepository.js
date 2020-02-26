@@ -69,12 +69,16 @@ const handleCountryResult = resolveRole => result => {
   )(grouped)
 }
 
-const getAllCountries = role => {
+const getAllCountries = (role, schemaName = 'public') => {
   const excludedMsgs = ['createIssue', 'createComment', 'deleteComment']
+  const tableNameFraAudit = `${schemaName}.fra_audit`
+  const tableNameCountry = `${schemaName}.country`
+  const tableNameAssessment = `${schemaName}.assessment`
+  
   return db.query(`
     WITH fa AS (
       SELECT country_iso, to_char(max(time), 'YYYY-MM-DD"T"HH24:MI:ssZ') as last_edited
-      FROM fra_audit
+      FROM ${tableNameFraAudit}
       WHERE NOT (message in ($1))
       GROUP BY country_iso
     )
@@ -83,9 +87,9 @@ const getAllCountries = role => {
       a.type, a.status, a.desk_study,
       fa.last_edited
     FROM
-      country c
+      ${tableNameCountry} c
     LEFT OUTER JOIN
-      assessment a ON c.country_iso = a.country_iso
+      ${tableNameAssessment} a ON c.country_iso = a.country_iso
     LEFT OUTER JOIN
       fa ON fa.country_iso = c.country_iso
     ORDER BY list_name_en ASC`, [excludedMsgs])
@@ -111,11 +115,11 @@ const getAllCountriesList = async () => {
   return camelize(rs.rows)
 }
 
-const getAllowedCountries = roles => {
+const getAllowedCountries = (roles, schemaName = 'public') => {
   const isAdmin = R.find(R.propEq('role', CountryRole.administrator.role), roles)
 
   if (R.isEmpty(roles)) {
-    return getAllCountries(CountryRole.noRole.role)
+    return getAllCountries(CountryRole.noRole.role, schemaName)
   } else if (isAdmin) {
     return getAllCountries(CountryRole.administrator.role)
   } else {

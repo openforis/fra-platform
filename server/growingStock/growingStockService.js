@@ -3,10 +3,10 @@ const {getFraValues} = require('../eof/fraValueService')
 const repository = require('./growingStockRepository')
 const {add, defaultTo0} = require('../../common/bignumberUtils')
 
-
-const getGrowingStock = async countryIso => {
-  const growingStockTotal = await repository.readGrowingStock(countryIso, 'growing_stock_total')
-  const growingStockAvg = await repository.readGrowingStock(countryIso, 'growing_stock_avg')
+// Schema name set to default public to get around GrowingStockExporter limitations
+const getGrowingStock = async (countryIso, schemaName = 'public') => {
+  const growingStockTotal = await repository.readGrowingStock(countryIso, `${schemaName}.growing_stock_total`)
+  const growingStockAvg = await repository.readGrowingStock(countryIso, `${schemaName}.growing_stock_avg`)
 
   const pairTable = (table) => R.pipe(
     R.map(v => [v.year, v]),

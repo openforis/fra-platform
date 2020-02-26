@@ -157,6 +157,22 @@ const getSchemaByName = async (name) => {
   return camelize(result.rows)
 }
 
+const getLatestSchemaVersion = async () => {
+  const query = `
+      SELECT s.schema_name
+      FROM information_schema.schemata s
+      WHERE s.schema_name ILIKE 'public_%'
+      ORDER BY s.schema_name DESC 
+      LIMIT 1;
+  `
+  const result = await db.query(query)
+  if (result.rows.length > 0) {
+    const { schemaName } = camelize(result.rows[0])
+    return schemaName
+  }
+  return 'public'
+}
+
 // Used to check if certain schema exists
 const getVersionById = async (id) => {
   const result = await db.query(`
@@ -182,6 +198,7 @@ module.exports = {
   getPendingVersions,
   getRunningVersions,
   getSchemaByName,
+  getLatestSchemaVersion,
   getVersionById,
   newSchemaVersion,
   updateVersionStatus,

@@ -10,16 +10,21 @@ const {sendErr, sendOk} = require('../utils/requestUtils')
 const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
 const {allowedToEditDataCheck} = require('../assessment/assessmentEditAccessControl')
 
+const VersionService = require('../versioning/service')
+
 const Auth = require('../auth/authApiMiddleware')
 
 module.exports.init = app => {
 
   app.get('/odp', async (req, res) => {
     try {
-      checkCountryAccessFromReqParams(req)
+      const schemaName = await VersionService.getDatabaseSchema(req)
 
-      const odp = R.isNil(req.query.odpId) ? Promise.resolve({}) : odpRepository.getOdp(req.query.odpId)
-      const odps = odpRepository.listOriginalDataPoints(req.query.countryIso)
+      const odp = R.isNil(req.query.odpId)
+        ? Promise.resolve({})
+        : odpRepository.getOdp(req.query.odpId, schemaName)
+      
+        const odps = odpRepository.listOriginalDataPoints(req.query.countryIso, schemaName)
 
       const [odpResult, odpsResult] = await Promise.all([odp, odps])
 
