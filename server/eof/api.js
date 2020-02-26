@@ -1,7 +1,6 @@
 const R = require('ramda')
 
 const db = require('../db/db')
-const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
 const {sendErr, sendOk} = require('../utils/requestUtils')
 
 const fraRepository = require('./fraRepository')
@@ -13,6 +12,7 @@ const fraValueService = require('./fraValueService')
 const defaultYears = require('./defaultYears')
 
 const Auth = require('../auth/authApiMiddleware')
+const VersionService = require('../versioning/service')
 
 const fraWriters = {
   'extentOfForest': fraRepository.persistEofValues,
@@ -68,10 +68,12 @@ module.exports.init = app => {
 
   app.get('/nde/:section/:countryIso', async (req, res) => {
     try {
-      checkCountryAccessFromReqParams(req)
-      const fra = await fraValueService.getFraValues(req.params.section, req.params.countryIso)
+      const schemaName = await VersionService.getDatabaseSchema(req)
+      const fra = await fraValueService.getFraValues(req.params.section, req.params.countryIso, schemaName)
       res.json(fra)
-    } catch (err) { sendErr(res, err) }
+    } catch (err) {
+      sendErr(res, err)
+    }
   })
 
   app.post('/nde/:section/generateFraValues/:countryIso',  Auth.requireCountryEditPermission, async (req, res) => {
