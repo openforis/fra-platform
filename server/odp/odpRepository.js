@@ -144,7 +144,11 @@ const getOdp = async (odpId, schemaName = 'public') => {
   return {...editStatus, nationalClasses, dataSourceMethods}
 }
 
-const readEofOdps = async (countryIso) => {
+const readEofOdps = async (countryIso, schemaName = 'public') => {
+  const tableNameOdp = `${schemaName}.odp`
+  const tableNameOdpVersion = `${schemaName}.odp_version`
+  const tableNameOdpClass = `${schemaName}.odp_class`
+
   const res = await db.query(`
     SELECT
       p.id as odp_id,
@@ -157,14 +161,14 @@ const readEofOdps = async (countryIso) => {
         THEN FALSE
         ELSE TRUE
       END AS draft
-    FROM odp p
-    JOIN odp_version v
+    FROM ${tableNameOdp} p
+    JOIN ${tableNameOdpVersion} v
     ON v.id =
       CASE WHEN p.draft_id IS NULL
       THEN p.actual_id
       ELSE p.draft_id
     END
-    LEFT OUTER JOIN odp_class c
+    LEFT OUTER JOIN ${tableNameOdpClass} c
       ON c.odp_version_id = v.id
     WHERE p.country_iso = $1 AND year IS NOT NULL
     GROUP BY odp_id, v.year, v.data_source_methods, draft`
@@ -173,7 +177,11 @@ const readEofOdps = async (countryIso) => {
   return R.reduce(eofReducer, [], res.rows)
 }
 
-const readFocOdps = async (countryIso) => {
+const readFocOdps = async (countryIso, schemaName = 'public') => {
+  const tableNameOdp = `${schemaName}.odp`
+  const tableNameOdpVersion = `${schemaName}.odp_version`
+  const tableNameOdpClass = `${schemaName}.odp_class`
+
   const res = await db.query(`
     SELECT
       p.id as odp_id,
@@ -188,14 +196,14 @@ const readFocOdps = async (countryIso) => {
       THEN FALSE
       ELSE TRUE
     END AS draft
-    FROM odp p
-    JOIN odp_version v
+    FROM ${tableNameOdp} p
+    JOIN ${tableNameOdpVersion} v
     ON v.id =
       CASE WHEN p.draft_id IS NULL
       THEN p.actual_id
       ELSE p.draft_id
     END
-    LEFT OUTER JOIN odp_class c
+    LEFT OUTER JOIN ${tableNameOdpClass} c
       ON c.odp_version_id = v.id
     WHERE p.country_iso = $1 AND year IS NOT NULL
     GROUP BY odp_id, v.year, v.data_source_methods, draft`
