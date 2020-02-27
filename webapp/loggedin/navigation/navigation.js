@@ -28,7 +28,7 @@ import { fetchAllCountryData } from '@webapp/app/actions'
 const Nav = props => {
 
   const {
-    userInfo, path, changeAssessment,
+    userInfo, changeAssessment,
     navigationVisible
   } = props
 

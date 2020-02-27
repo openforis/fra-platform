@@ -38,8 +38,6 @@ const MenuLink = ({ child, to, i18n, getReviewStatus }) => {
 
 const AssessmentSection = ({ countryIso, item, assessment, i18n, ...props }) => {
 
-  const isSectionExpanded = props.navigationGroupCollapseState[assessment.type][item.sectionNo]
-
   const getChildStatus = () => R.pipe(
     R.map(child => props.getReviewStatus(child.section)),
     // filtering all opened statuses
