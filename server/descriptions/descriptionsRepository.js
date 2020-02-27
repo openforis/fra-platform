@@ -1,8 +1,10 @@
-module.exports.readDescriptions = (client, countryIso, section, name) =>
-  client.query(
-    `SELECT content FROM descriptions WHERE country_iso = $1 AND section = $2 AND name = $3`,
+module.exports.readDescriptions = (client, countryIso, section, name, schemaName = 'public') => {
+  const tableName = `${schemaName}.descriptions`
+  return client.query(
+    `SELECT content FROM ${tableName} WHERE country_iso = $1 AND section = $2 AND name = $3`,
     [countryIso, section, name]
   ).then(result => ({[name]: {content: result.rows[0] ? result.rows[0].content : ''}}))
+}
 
 const isEmptyDescriptions = (client, countryIso, section, name) =>
   client.query(
