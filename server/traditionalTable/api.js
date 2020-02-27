@@ -4,6 +4,7 @@ const {sendErr, sendOk} = require('../utils/requestUtils')
 const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
 
 const Auth = require('../auth/authApiMiddleware')
+const VersionService = require('../versioning/service')
 
 module.exports.init = app => {
 
@@ -25,9 +26,8 @@ module.exports.init = app => {
 
   app.get('/traditionalTable/:countryIso/:tableSpecName', async (req, res) => {
     try {
-      checkCountryAccessFromReqParams(req)
-
-      const result = await repository.read(req.params.countryIso, req.params.tableSpecName)
+      const schemaName = await VersionService.getDatabaseSchema(req)
+      const result = await repository.read(req.params.countryIso, req.params.tableSpecName, schemaName)
       res.json(result)
     } catch (err) {
       sendErr(res, err)
