@@ -317,7 +317,7 @@ const buildRows = (rows, props) => {
 
 const OdpHeading = ({ countryIso, odpValue, section, i18n }) =>
   <Tooltip text={
-    i18n.t('generalValidation.clickOnNDP')
+    i18n.t('nationalDataPoint.clickOnNDP')
     }>
     <Link className="link" to={`/country/${countryIso}/odp/${section}/${odpValue.odpId}`}>
       {odpValue.draft ? <Icon className="icon-sub icon-margin-right" name="pencil" /> : ''}
