@@ -10,7 +10,7 @@ import CountrySelection from '@webapp/loggedin/countrySelection'
 import NavLinkLanding from '@webapp/loggedin/navigation/components/navLinkLanding'
 import Assessment from '@webapp/loggedin/navigation/components/assessment'
 import NavLinkPanEuropeanIndicators from '@webapp/loggedin/navigation/components/navLinkPanEuropeanIndicators'
-import { Footer } from '@webapp/loggedin/navigation/components/navigationComponents'
+import NavigationFooter from '@webapp/loggedin/navigation/components/navigationFooter'
 import useI18n from '@webapp/components/hooks/useI18n'
 
 import * as AppState from '@webapp/app/appState'
@@ -77,13 +77,7 @@ const Nav = props => {
 
             <div className="nav__divider"/>
 
-            {
-              userInfo &&
-              <Footer
-                countryIso={countryIso}
-                i18n={i18n}
-                {...props}/>
-            }
+            <NavigationFooter/>
           </div>
         </div>
       }
