@@ -10,6 +10,7 @@ const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
 const {fileTypes, downloadFile} = require('../fileRepository/fileRepository')
 
 const Auth = require('../auth/authApiMiddleware')
+const VersionService = require('../versioning/service')
 
 module.exports.init = app => {
 
@@ -20,8 +21,8 @@ module.exports.init = app => {
 
   app.get('/panEuropean/:countryIso/uploadedQuestionareInfo', async (req, res) => {
     try {
-      checkCountryAccessFromReqParams(req)
-      const questionnaire = await getPanEuropeanQuantitativeQuestionnaire(req.params.countryIso)
+      const schemaName = await VersionService.getDatabaseSchema(req)
+      const questionnaire = await getPanEuropeanQuantitativeQuestionnaire(req.params.countryIso, schemaName)
       const questionnaireFileName = R.path(['quantitativeQuestionnaireName'], questionnaire)
       res.json({questionnaireFileName})
     } catch (err) {
