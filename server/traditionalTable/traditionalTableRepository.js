@@ -47,8 +47,8 @@ const rawRead = async (countryIso, tableSpecName, schemaName = 'public') => {
   return result.rows
 }
 
-module.exports.read = async (countryIso, tableSpecName) => {
-  const rows = await rawRead(countryIso, tableSpecName)
+module.exports.read = async (countryIso, tableSpecName, schemaName = 'public') => {
+  const rows = await rawRead(countryIso, tableSpecName, schemaName)
   if (rows === null) return null
   const mapping = tableMappings.getMapping(tableSpecName)
   const emptyTableData = createTableData(

@@ -6,8 +6,8 @@ const countryConfig = require('./countryConfig')
 const countryRepository = require('./countryRepository')
 const traditionalTableRepository = require('../traditionalTable/traditionalTableRepository')
 
-const getCountryConfig = async countryIso => {
-  const dynamicConfig = await countryRepository.getDynamicCountryConfiguration(countryIso)
+const getCountryConfig = async (countryIso, schemaName = 'public') => {
+  const dynamicConfig = await countryRepository.getDynamicCountryConfiguration(countryIso, schemaName)
 
   const staticConfig = countryConfig[countryIso]
 
@@ -16,10 +16,10 @@ const getCountryConfig = async countryIso => {
   return fullConfig
 }
 
-const getCountryConfigFull = async countryIso => {
+const getCountryConfigFull = async (countryIso, schemaName = 'public') => {
   const [config, result] = await Promise.all([
-    getCountryConfig(countryIso),
-    traditionalTableRepository.read(countryIso, 'climaticDomain')
+    getCountryConfig(countryIso, schemaName),
+    traditionalTableRepository.read(countryIso, 'climaticDomain', schemaName)
   ])
 
   const climaticDomainPercents = {
