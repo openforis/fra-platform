@@ -62,7 +62,8 @@ const NavigationFooter = () => {
         </>
       }
 
-      <span className="nav__footer-copyright">&copy; {currentYear} FAO</span>
+      <span className="nav__footer-copyright">&copy; {currentYear} FAO <br/>{i18n.t('navigation.support.platformVersion')} {__APPLICATION_VERSION__}
+</span>
     </div>
   )
 }

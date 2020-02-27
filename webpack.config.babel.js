@@ -11,9 +11,6 @@ import GitRevisionPlugin from 'git-revision-webpack-plugin'
 
 const buildReport = process.env.BUILD_REPORT === 'true'
 
-const lastCommit = process.env.SOURCE_VERSION || 'N/A'
-const platformVersion = lastCommit + '_' + new Date().toISOString()
-
 const config = {
   mode: process.env.NODE_ENV || 'development',
   path: path.resolve(__dirname, 'dist')
@@ -26,7 +23,6 @@ const plugins = [
   new MiniCssExtractPlugin({ filename: 'style/styles-[hash].css' }),
   new HtmlWebpackPlugin({ template: './web-resources/index.html' }),
   new webpack.DefinePlugin({
-    __PLATFORM_VERSION__: `"${platformVersion}"`,
     __BUST__: `"${uuidv4()}"`,
     __GOOGLE_API__: JSON.stringify(process.env.FRA_GOOGLE_API),
     __APPLICATION_VERSION__: JSON.stringify(gitRevisionPlugin.version()),
