@@ -7,9 +7,10 @@ import * as R from 'ramda'
 import { assessments } from '@common/assessmentSectionItems'
 
 import CountrySelection from '@webapp/loggedin/countrySelection'
-import NavLinkLanding from '@webapp/loggedin/navigation/components/NavLinkLanding'
+import NavLinkLanding from '@webapp/loggedin/navigation/components/navLinkLanding'
 import Assessment from '@webapp/loggedin/navigation/components/assessment'
-import { Footer, SectionLink } from '@webapp/loggedin/navigation/components/navigationComponents'
+import NavLinkPanEuropeanIndicators from '@webapp/loggedin/navigation/components/navLinkPanEuropeanIndicators'
+import { Footer } from '@webapp/loggedin/navigation/components/navigationComponents'
 import useI18n from '@webapp/components/hooks/useI18n'
 
 import * as AppState from '@webapp/app/appState'
@@ -21,13 +22,13 @@ import {
   toggleAllNavigationGroupsCollapse,
   toggleNavigationGroupCollapse
 } from '@webapp/loggedin/navigation/actions'
-import { getCountryName, isPanEuropeanCountry } from '@webapp/country/actions'
+import { getCountryName } from '@webapp/country/actions'
 import { fetchAllCountryData } from '@webapp/app/actions'
 
 const Nav = props => {
 
   const {
-    userInfo, path, changeAssessment, isPanEuropeanCountry,
+    userInfo, path, changeAssessment,
     navigationVisible
   } = props
 
@@ -57,7 +58,8 @@ const Nav = props => {
             <div className="nav__divider"/>
 
             {
-              R.map(([assessment, sections]) =>
+              Object.entries(assessments).map(
+                ([assessment, sections]) =>
                   <Assessment
                     {...props}
                     key={assessment}
@@ -68,21 +70,11 @@ const Nav = props => {
                     sections={sections}
                     getReviewStatus={getReviewStatus}
                     i18n={i18n}/>
-                , R.toPairs(assessments))
+              )
             }
-            {
-              isPanEuropeanCountry(countryIso) &&
-              <div>
-                <div className="nav__divider"/>
-                <SectionLink
-                  countryIso={countryIso}
-                  i18n={i18n}
-                  path={path}
-                  pathTemplate="/country/:countryIso/panEuropeanIndicators/"
-                  label={i18n.t('navigation.sectionHeaders.panEuropeanIndicators')}
-                />
-              </div>
-            }
+
+            <NavLinkPanEuropeanIndicators/>
+
             <div className="nav__divider"/>
 
             {
@@ -102,13 +94,11 @@ const Nav = props => {
 const mapStateToProps = state => ({
   // showOriginalDataPoints: hasOdps(R.path(['extentOfForest', 'fra'], state)),
   ...state.navigation,
-  ...state.router,
   userInfo: UserState.getUserInfo(state),
 })
 
 export default connect(mapStateToProps, {
   getCountryName,
-  isPanEuropeanCountry,
   fetchAllCountryData,
   changeAssessment,
   toggleNavigationGroupCollapse,

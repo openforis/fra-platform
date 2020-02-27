@@ -1,4 +1,5 @@
 import * as R from 'ramda'
+import * as Country from '@common/country/country'
 
 export const stateKey = 'country'
 
@@ -13,6 +14,7 @@ const getState = R.prop(stateKey)
 // === READ
 export const getCountries = R.pipe(getState, R.prop(keys.countries))
 export const getCountriesList = R.pipe(getCountries, R.values, R.flatten)
+export const getCountryByCountryIso = countryIso => R.pipe(getCountriesList, R.find(R.propEq(Country.keys.countryIso, countryIso)))
 export const getConfig = R.pipe(getState, R.propOr({}, keys.config))
 export const getStatus = R.pipe(getState, R.propOr({}, keys.status))
 export const getCanEditData = R.pipe(getState, R.pathOr(null, ['status', 'assessments', 'fra2020', 'canEditData']))

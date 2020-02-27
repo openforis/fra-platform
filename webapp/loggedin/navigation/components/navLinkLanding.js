@@ -1,8 +1,6 @@
 import React from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
 
-import { getLinkTo } from '@webapp/loggedin/navigation/components/navigationComponents'
-
 import useI18n from '@webapp/components/hooks/useI18n'
 import useCountryIso from '@webapp/components/hooks/useCountryIso'
 import useLandingViewSections from '@webapp/landing/useLandingViewSections'
@@ -20,7 +18,7 @@ const NavLinkLanding = () => {
   return (
     <NavLink
       className="nav__link"
-      to={getLinkTo('/country/:countryIso/', countryIso)}
+      to={`/country/${countryIso}/`}
       activeClassName="selected"
       isActive={isActive}>
       <div className='nav__link-label'>
