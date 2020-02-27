@@ -1,9 +1,9 @@
 import './countryListDownload.less'
 
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import * as R from 'ramda'
+import { useSelector } from 'react-redux'
 
+import * as Country from '@common/country/country'
 import { isAdministrator } from '@common/countryRole'
 import { getRelativeDate } from '@webapp/utils/relativeDate'
 
@@ -14,8 +14,6 @@ import useI18n from '@webapp/components/hooks/useI18n'
 
 import * as CountryState from '@webapp/country/countryState'
 
-import { getCountryName } from '@webapp/country/actions'
-
 const CountryListDownload = () => {
 
   const userInfo = useUserInfo()
@@ -23,22 +21,15 @@ const CountryListDownload = () => {
     return null
   }
 
-  const dispatch = useDispatch()
   const i18n = useI18n()
-  const countries = useSelector(CountryState.getCountries)
+  const countries = useSelector(CountryState.getCountriesList)
 
-  const data = R.pipe(
-    R.values,
-    R.flatten,
-    R.map(
-      country => ({
-        name: dispatch(getCountryName(country.countryIso, i18n.language)),
-        status: i18n.t(`assessment.status.${country.fra2020Assessment}.label`),
-        edited: getRelativeDate(country.lastEdit, i18n) || i18n.t('audit.notStarted'),
-        deskStudy: i18n.t(`yesNoTextSelect.${R.propEq('fra2020DeskStudy', true, country) ? 'yes' : 'no'}`)
-      })
-    ),
-  )(countries)
+  const data = countries.map(country => ({
+    name: Country.getListName(i18n.language)(country),
+    status: i18n.t(`assessment.status.${Country.getFra2020Assessment(country)}.label`),
+    edited: getRelativeDate(Country.getLastEdit(country), i18n) || i18n.t('audit.notStarted'),
+    deskStudy: i18n.t(`yesNoTextSelect.${Country.isFra2020DeskStudy(country) ? 'yes' : 'no'}`)
+  }))
 
   const headers = [
     { label: i18n.t('admin.country'), key: 'name' },

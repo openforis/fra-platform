@@ -35,6 +35,7 @@ export const saveCountryConfigSetting = (countryIso, key, value, onComplete = nu
   }
 }
 
+//Methods below are DEPRECATED - use them from country model object
 const getCountry = countryIso => R.pipe(
   R.path(['country', 'countries']),
   R.values,
