@@ -28,7 +28,7 @@ const getOdps = async (section, countryIso, schemaName = 'public') => {
   const useOdps = odpsInUse[section](dynamicConfig)
   const readOdp = odpReaders[section]
   if (useOdps) {
-    const odps = await readOdp(countryIso)
+    const odps = await readOdp(countryIso, schemaName)
     return odps
   } else {
     return []
@@ -57,7 +57,7 @@ const getFraValues = async (section, countryIso, schemaName = 'public') => {
 
   const defaultResponse = defaultResponses[section]
 
-  const fra = await readFra(countryIso)
+  const fra = await readFra(countryIso, schemaName)
   const odp = await getOdps(section, countryIso, schemaName)
 
   const result = await getFraValuesResult(fra, odp, defaultResponse)

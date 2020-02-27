@@ -144,10 +144,11 @@ const getOdp = async (odpId, schemaName = 'public') => {
   return {...editStatus, nationalClasses, dataSourceMethods}
 }
 
-const readEofOdps = async (countryIso, schemaName = 'public' ) => {
+const readEofOdps = async (countryIso, schemaName = 'public') => {
   const tableNameOdp = `${schemaName}.odp`
   const tableNameOdpVersion = `${schemaName}.odp_version`
   const tableNameOdpClass = `${schemaName}.odp_class`
+
   const res = await db.query(`
     SELECT
       p.id as odp_id,
@@ -176,10 +177,11 @@ const readEofOdps = async (countryIso, schemaName = 'public' ) => {
   return R.reduce(eofReducer, [], res.rows)
 }
 
-const readFocOdps = async (countryIso, schemaName = 'public' ) => {
+const readFocOdps = async (countryIso, schemaName = 'public') => {
   const tableNameOdp = `${schemaName}.odp`
   const tableNameOdpVersion = `${schemaName}.odp_version`
   const tableNameOdpClass = `${schemaName}.odp_class`
+
   const res = await db.query(`
     SELECT
       p.id as odp_id,
