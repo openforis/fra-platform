@@ -227,8 +227,8 @@ const listOriginalDataPoints = async (countryIso, schemaName = 'public') => {
   )(R.values(odps))
 }
 
-const listAndValidateOriginalDataPoints = async countryIso => {
-  const odps = await listOriginalDataPoints(countryIso)
+const listAndValidateOriginalDataPoints = async (countryIso, schemaName = 'public') => {
+  const odps = await listOriginalDataPoints(countryIso, schemaName)
   return R.map(odp => R.assoc('validationStatus', validateDataPoint(odp), odp), odps)
 }
 

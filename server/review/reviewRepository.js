@@ -7,8 +7,13 @@ const {checkCountryAccess, checkReviewerCountryAccess, AccessControlException} =
 const {isReviewer} = require('../../common/countryRole')
 const {parseISO, isBefore} = require('date-fns')
 
-const getIssueComments = (countryIso, section, user) =>
-  db.query(`
+const getIssueComments = (countryIso, section, user, schemaName = 'public') => {
+  const tableNameIssue = `${schemaName}.issue`
+  const tableNameFraComment = `${schemaName}.fra_comment`
+  const tableNameFraUser = `${schemaName}.fra_user`
+  const tableNameUserIssue = `${schemaName}.user_issue`
+
+  return db.query(`
     SELECT 
       i.id as issue_id, i.target, i.status as issue_status, i.section,
       u.email, u.name as username,
@@ -25,12 +30,12 @@ const getIssueComments = (countryIso, section, user) =>
         ELSE null
       END as issue_read_time  
     FROM 
-      issue i
-    JOIN fra_comment c 
+      ${tableNameIssue} i
+    JOIN ${tableNameFraComment} c 
       ON (c.issue_id = i.id)
-    JOIN fra_user u 
+    JOIN ${tableNameFraUser} u 
       ON (u.id = c.user_id)
-    LEFT OUTER JOIN user_issue ui
+    LEFT OUTER JOIN ${tableNameUserIssue} ui
       ON ui.user_id = $1
       AND ui.issue_id = i.id      
     WHERE 
@@ -39,7 +44,7 @@ const getIssueComments = (countryIso, section, user) =>
       c.id  
   `, section ? [user.id, countryIso, section] : [user.id, countryIso])
     .then(res => camelize(res.rows))
-
+}
 module.exports.getIssueComments = getIssueComments
 
 
@@ -83,8 +88,8 @@ const getIssuesSummary = (user, issueComments) => R.pipe(
   })
 )(issueComments)
 
-module.exports.getIssuesSummary = (countryIso, section, targetParam, user, rejectResolved = false) =>
-  getIssueComments(countryIso, section, user)
+module.exports.getIssuesSummary = (countryIso, section, targetParam, user, rejectResolved = false, schemaName = 'public') =>
+  getIssueComments(countryIso, section, user, schemaName)
     .then(issueComments => {
       const target = targetParam && targetParam.split(',')
 

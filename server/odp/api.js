@@ -49,12 +49,12 @@ module.exports.init = app => {
   app.get('/odps/:countryIso', async (req, res) => {
       try {
         checkCountryAccessFromReqParams(req)
-
-        const odps = await odpRepository.listAndValidateOriginalDataPoints(req.params.countryIso)
+        const schemaName = await VersionService.getDatabaseSchema(req)
+        const odps = await odpRepository.listAndValidateOriginalDataPoints(req.params.countryIso, schemaName)
 
         const issues = odps.map(odp =>
           reviewRepository
-            .getIssuesSummary(req.params.countryIso, 'odp', odp.odpId, req.user, true)
+            .getIssuesSummary(req.params.countryIso, 'odp', odp.odpId, req.user, true, schemaName)
             .then(issues => R.assoc('issuesSummary', issues, odp))
         )
         const odpsWithIssues = await Promise.all(issues)
