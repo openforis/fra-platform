@@ -1,7 +1,6 @@
 const db = require('../db/db')
 const repository = require('./traditionalTableRepository')
 const {sendErr, sendOk} = require('../utils/requestUtils')
-const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
 
 const Auth = require('../auth/authApiMiddleware')
 const VersionService = require('../versioning/service')
