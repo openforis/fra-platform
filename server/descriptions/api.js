@@ -4,12 +4,14 @@ const repository = require('./descriptionsRepository')
 const auditRepository = require('./../audit/auditRepository')
 
 const Auth = require('../auth/authApiMiddleware')
+const VersionService = require('../versioning/service')
 
 module.exports.init = app => {
 
-  app.get('/country/descriptions/:countryIso/:section/:name', Auth.requireCountryEditPermission, async (req, res) => {
+  app.get('/country/descriptions/:countryIso/:section/:name', async (req, res) => {
       try {
-        const result = await db.transaction(repository.readDescriptions, [req.params.countryIso, req.params.section, req.params.name])
+        const schemaName = await VersionService.getDatabaseSchema(req)
+        const result = await db.transaction(repository.readDescriptions, [req.params.countryIso, req.params.section, req.params.name, schemaName])
 
         res.json(result)
       } catch (err) {
