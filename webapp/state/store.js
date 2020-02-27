@@ -1,19 +1,21 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import createDebounce from 'redux-debounced'
+
 import reducer from './rootReducer'
+import axiosErrorsMiddleware from '@webapp/state/axiosErrorMiddleware'
 
 const composeEnhancers =
-    process.env.NODE_ENV === 'development' &&
-        typeof window === 'object' &&
-        window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
-        window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
-            // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
-        }) : compose
+  process.env.NODE_ENV === 'development' &&
+  typeof window === 'object' &&
+  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+      // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
+    }) : compose
 
-const middleware = [createDebounce(), thunkMiddleware]
+const middleware = [createDebounce(), thunkMiddleware, axiosErrorsMiddleware]
 const enhancer = composeEnhancers(
-    applyMiddleware(...middleware),
+  applyMiddleware(...middleware),
 )
 
 const createReducer = asyncReducers =>
