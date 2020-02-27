@@ -5,11 +5,13 @@ import { connect, useSelector } from 'react-redux'
 import * as R from 'ramda'
 
 import { assessments } from '@common/assessmentSectionItems'
-import CountrySelection from '@webapp/loggedin/countrySelection'
-import useI18n from '@webapp/components/hooks/useI18n'
 
+import CountrySelection from '@webapp/loggedin/countrySelection'
+import NavLinkLanding from '@webapp/loggedin/navigation/components/navLinkLanding'
 import Assessment from '@webapp/loggedin/navigation/components/assessment'
-import { Footer, SectionLink } from '@webapp/loggedin/navigation/components/navigationComponents'
+import NavLinkPanEuropeanIndicators from '@webapp/loggedin/navigation/components/navLinkPanEuropeanIndicators'
+import NavigationFooter from '@webapp/loggedin/navigation/components/navigationFooter'
+import useI18n from '@webapp/components/hooks/useI18n'
 
 import * as AppState from '@webapp/app/appState'
 import * as UserState from '@webapp/user/userState'
@@ -20,13 +22,13 @@ import {
   toggleAllNavigationGroupsCollapse,
   toggleNavigationGroupCollapse
 } from '@webapp/loggedin/navigation/actions'
-import { getCountryName, isPanEuropeanCountry } from '@webapp/country/actions'
+import { getCountryName } from '@webapp/country/actions'
 import { fetchAllCountryData } from '@webapp/app/actions'
 
 const Nav = props => {
 
   const {
-    userInfo, path, changeAssessment, isPanEuropeanCountry,
+    userInfo, changeAssessment,
     navigationVisible
   } = props
 
@@ -49,17 +51,15 @@ const Nav = props => {
         !(R.isNil(countries) || R.isEmpty(status)) &&
         <div className="fra-nav">
           <CountrySelection/>
+
           <div className="nav__scroll-content">
-            <SectionLink
-              countryIso={countryIso}
-              i18n={i18n}
-              path={path}
-              pathTemplate="/country/:countryIso/"
-              label={i18n.t('landing.home')}
-            />
+
+            <NavLinkLanding/>
             <div className="nav__divider"/>
+
             {
-              R.map(([assessment, sections]) =>
+              Object.entries(assessments).map(
+                ([assessment, sections]) =>
                   <Assessment
                     {...props}
                     key={assessment}
@@ -70,30 +70,14 @@ const Nav = props => {
                     sections={sections}
                     getReviewStatus={getReviewStatus}
                     i18n={i18n}/>
-                , R.toPairs(assessments))
+              )
             }
-            {
-              isPanEuropeanCountry(countryIso) &&
-              <div>
-                <div className="nav__divider"/>
-                <SectionLink
-                  countryIso={countryIso}
-                  i18n={i18n}
-                  path={path}
-                  pathTemplate="/country/:countryIso/panEuropeanIndicators/"
-                  label={i18n.t('navigation.sectionHeaders.panEuropeanIndicators')}
-                />
-              </div>
-            }
+
+            <NavLinkPanEuropeanIndicators/>
+
             <div className="nav__divider"/>
 
-            {
-              userInfo &&
-              <Footer
-                countryIso={countryIso}
-                i18n={i18n}
-                {...props}/>
-            }
+            <NavigationFooter/>
           </div>
         </div>
       }
@@ -104,13 +88,11 @@ const Nav = props => {
 const mapStateToProps = state => ({
   // showOriginalDataPoints: hasOdps(R.path(['extentOfForest', 'fra'], state)),
   ...state.navigation,
-  ...state.router,
   userInfo: UserState.getUserInfo(state),
 })
 
 export default connect(mapStateToProps, {
   getCountryName,
-  isPanEuropeanCountry,
   fetchAllCountryData,
   changeAssessment,
   toggleNavigationGroupCollapse,
