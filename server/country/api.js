@@ -127,10 +127,8 @@ module.exports.init = app => {
 
   app.get('/country/config/:countryIso', async (req, res) => {
     try {
-      checkCountryAccessFromReqParams(req)
-
-      const fullConfig = await CountryService.getCountryConfigFull(req.params.countryIso)
-
+      const schemaName = await VersionService.getDatabaseSchema(req)
+      const fullConfig = await CountryService.getCountryConfigFull(req.params.countryIso, schemaName)
       res.json(fullConfig)
     } catch (e) {
       Request.sendErr(res, e)
