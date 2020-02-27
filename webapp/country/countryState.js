@@ -9,6 +9,10 @@ const keys = {
   countries: 'countries',
 }
 
+const keysStatus = {
+  assessments: 'assessments'
+}
+
 const getState = R.prop(stateKey)
 
 // === READ
@@ -17,12 +21,14 @@ export const getCountriesList = R.pipe(getCountries, R.values, R.flatten)
 export const getCountryByCountryIso = countryIso => R.pipe(getCountriesList, R.find(R.propEq(Country.keys.countryIso, countryIso)))
 export const getConfig = R.pipe(getState, R.propOr({}, keys.config))
 export const getStatus = R.pipe(getState, R.propOr({}, keys.status))
-export const getCanEditData = R.pipe(getState, R.pathOr(null, ['status', 'assessments', 'fra2020', 'canEditData']))
+export const getAssessments = R.pipe(getStatus, R.propOr({}, keysStatus.assessments))
 
 // === UPDATE
 export const assocConfig = R.assoc(keys.config)
 export const assocCountries = R.assoc(keys.countries)
 export const assocStatus = R.assoc(keys.status)
+
+export const assocStatusAssessmentsNameLocked = (name, locked) => R.assocPath([keys.status, keysStatus.assessments, name, 'locked'])(locked)
 
 // config functions
 const _getConfigProp = prop => R.pipe(getConfig, R.prop(prop))
@@ -34,6 +40,7 @@ export const getConfigFra2015ForestAreas = _getConfigProp('fra2015ForestAreas')
 export const getConfigpanEuropean = _getConfigProp('panEuropean')
 export const getConfigUseOriginalDataPointsInFoc = _getConfigProp('useOriginalDataPointsInFoc')
 
+//TODO Move to assessmentState
 // status functions
-export const getStatusAssessmentFra2020 = R.pipe(getStatus, R.pathOr({}, ['assessments', 'fra2020']))
-export const assocStatusAssessmentsNameLocked = (name, locked) => R.assocPath([keys.status, 'assessments', name, 'locked'])(locked)
+export const getStatusAssessmentFra2020 = R.pipe(getAssessments, R.propOr({}, 'fra2020'))
+export const getCanEditData = R.pipe(getStatusAssessmentFra2020, R.propOr(null, 'canEditData'))

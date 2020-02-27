@@ -1,10 +1,15 @@
+/**
+ * @deprecated
+ * This file is deprecated.
+ * Use AssessmentState
+ */
+
 import * as R from 'ramda'
 
 import * as AppState from '@webapp/app/appState'
 
 import { isCollaborator, isReviewer, isAdministrator } from '@common/countryRole'
 import { isCollaboratorAllowedToEditSectionData } from '@common/assessmentRoleAllowance'
-import { assessmentStatus } from '@common/assessment'
 import { isPrintingMode } from '@webapp/loggedin/printAssessment/printAssessment'
 
 const getUserInfo = R.path(['user', 'userInfo'])
@@ -33,21 +38,6 @@ export const isAssessmentLocked = (state, assessmentName) => {
   }
 
   return !canEdit
-}
-
-export const canToggleAssessmentLock = (state, assessmentName) => {
-  const userInfo = getUserInfo(state)
-  const countryIso = getCountryIso(state)
-
-  if (isAdministrator(userInfo)) {
-    return true
-  }
-  if (isReviewer(countryIso, userInfo)) {
-    const status = getAssessmentProp(assessmentName, 'status', '')(state)
-    return R.contains(status, [assessmentStatus.editing, assessmentStatus.review])
-  }
-
-  return false
 }
 
 const fra2020 = 'fra2020'
