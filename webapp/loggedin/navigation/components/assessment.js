@@ -24,7 +24,7 @@ import * as AppState from '@webapp/app/appState'
 const MenuLink = ({ child, to, i18n, getReviewStatus }) => {
   return <NavLink
     to={to}
-    className={`nav__section-item`}
+    className="nav__section-item"
     activeClassName="selected">
     <div className='nav__section-order'>{child.tableNo}</div>
     <div className='nav__section-label'>{i18n.t(child.label)}</div>
@@ -49,21 +49,23 @@ const AssessmentSection = ({ countryIso, item, assessment, i18n, ...props }) => 
     R.defaultTo({})
   )(item.children)
 
+  const [expanded,setExpanded] = useState(false)
+
   return <div className="nav__section">
     <div className="nav__section-header"
-      onClick={() => props.toggleNavigationGroupCollapse(assessment.type, item.sectionNo)}>
+      onClick={() => setExpanded(!expanded)}>
       <div className="nav__section-order">{item.sectionNo}</div>
       <div className="nav__section-label">{i18n.t(item.label)}</div>
-      {isSectionExpanded
+      {expanded
         ? null
         : <div className="nav__section-status-content">
           <ReviewStatus status={getChildStatus()} />
         </div>
       }
     </div>
-    <div className={isSectionExpanded ? 'nav__section-items--visible' : 'nav__section-items--hidden'}>
+    <div className={expanded ? 'nav__section-items--visible' : 'nav__section-items--hidden'}>
       {
-        item.children.map(
+        expanded && item.children.map(
           (child, i) => {
             const linkTo = getLinkTo(child.pathTemplate, countryIso)
             return <MenuLink
@@ -99,6 +101,7 @@ const AssessmentChangeStatusConfirmationModal = props => {
       </div>
       <ModalClose onClose={onClose} />
     </ModalHeader>
+
     <ModalBody>
       <div style={{ height: '160px' }}>
         <textarea
@@ -108,6 +111,7 @@ const AssessmentChangeStatusConfirmationModal = props => {
           onChange={({ target: { value } }) => setTextareaValue(value)}
         />
       </div>
+
       { //administrator can disable email notification
         isAdministrator(userInfo) &&
         <div className="nav__assessment-notify-users"
@@ -117,6 +121,7 @@ const AssessmentChangeStatusConfirmationModal = props => {
         </div>
       }
     </ModalBody>
+
     <ModalFooter>
       <button className="btn btn-secondary modal-footer__item"
         onClick={onClose}>

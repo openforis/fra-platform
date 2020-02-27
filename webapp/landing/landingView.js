@@ -4,41 +4,13 @@ import React from 'react'
 import { useDispatch } from 'react-redux'
 import { NavLink, Redirect, Route, Switch, useRouteMatch } from 'react-router-dom'
 
-import { isAllowedToChangeRole } from '@common/userManagementAccessControl'
-import { isReviewer } from '@common/countryRole'
-
-import OverviewView from '@webapp/landing/views/overviewView'
 import AboutView from '@webapp/landing/views/aboutView'
-import RecentActivityView from '@webapp/landing/views/recentActivityView'
-import ManageCollaboratorsView from '@webapp/landing/views/manageCollaboratorsView'
-import LinksView from '@webapp/landing/views/linksView'
-import ContentCheckView from '@webapp/landing/views/contentCheck/contentCheckView'
 import useCountryIso from '@webapp/components/hooks/useCountryIso'
 import useI18n from '@webapp/components/hooks/useI18n'
 import useUserInfo from '@webapp/components/hooks/useUserInfo'
+import useLandingViewSections from '@webapp/landing/useLandingViewSections'
 
 import { getCountryName } from '@webapp/country/actions'
-
-const getSections = (countryIso, userInfo) => {
-  const sections = [
-    { name: 'overview', component: OverviewView },
-    { name: 'recentActivity', component: RecentActivityView },
-    { name: 'about', component: AboutView },
-    { name: 'links', component: LinksView }
-  ]
-
-  const userManagementSection = { name: 'userManagement', component: ManageCollaboratorsView }
-  const contentCheckSection = { name: 'contentCheck', component: ContentCheckView }
-
-  if (isAllowedToChangeRole(countryIso, userInfo)) {
-    sections.splice(1, 0, userManagementSection)
-  }
-
-  if (isReviewer(countryIso, userInfo)) {
-    sections.splice(1, 0, contentCheckSection)
-  }
-  return sections
-}
 
 const LandingView = () => {
   const dispatch = useDispatch()
@@ -48,7 +20,7 @@ const LandingView = () => {
   const userInfo = useUserInfo()
   const i18n = useI18n()
 
-  const sections = userInfo ? getSections(countryIso, userInfo) : []
+  const sections = useLandingViewSections()
 
   return (
     <div className="fra-view__content">
