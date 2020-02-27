@@ -7,6 +7,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'
 import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
+import GitRevisionPlugin from 'git-revision-webpack-plugin'
 
 const buildReport = process.env.BUILD_REPORT === 'true'
 
@@ -18,13 +19,17 @@ const config = {
   path: path.resolve(__dirname, 'dist')
 }
 
+const gitRevisionPlugin = new GitRevisionPlugin()
+
 const plugins = [
+  gitRevisionPlugin,
   new MiniCssExtractPlugin({ filename: 'style/styles-[hash].css' }),
   new HtmlWebpackPlugin({ template: './web-resources/index.html' }),
   new webpack.DefinePlugin({
     __PLATFORM_VERSION__: `"${platformVersion}"`,
     __BUST__: `"${uuidv4()}"`,
-    __GOOGLE_API__: JSON.stringify(process.env.FRA_GOOGLE_API)
+    __GOOGLE_API__: JSON.stringify(process.env.FRA_GOOGLE_API),
+    __APPLICATION_VERSION__: JSON.stringify(gitRevisionPlugin.version()),
   })
 ]
 

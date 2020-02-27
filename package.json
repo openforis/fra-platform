@@ -75,6 +75,7 @@
     "express": "^4.15.2",
     "express-fileupload": "^1.1.6",
     "express-session": "^1.15.3",
+    "git-revision-webpack-plugin": "^3.0.4",
     "i18next": "^19.1.0",
     "json2csv": "^4.5.1",
     "jszip": "^3.2.1",
