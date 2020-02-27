@@ -953,6 +953,7 @@ The FRA team
     mustBeEqualToTotalGrowingStock: 'Value should be equal to Total Growing Stock (2a)',
     valuesAreInconsistentWithNetChange: 'Values are inconsistent with Forest area net change',
     valuesAreInconsistent1aOr1b: 'Values are inconsistent with Areas reported in tables 1a or 1b',
+    clickOnNDP: "Click on the year to access the National Data Point"
   },
 
   emoji: {

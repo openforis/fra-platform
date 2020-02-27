@@ -15,6 +15,8 @@ import { hasOdps } from '@common/extentOfForestHelper'
 import defaultYears from '../../server/eof/defaultYears'
 import { isPrintingMode } from '@webapp/loggedin/printAssessment/printAssessment'
 import ButtonTableExport from '@webapp/components/buttonTableExport'
+import Tooltip from '@webapp/components/tooltip'
+
 const mapIndexed = R.addIndex(R.map)
 
 const getFraValues = (fra, rows) => {
@@ -67,7 +69,7 @@ export class TableWithOdp extends React.Component {
   }
 
   render () {
-    const { copyValues = true, disabled = false, sectionAnchor } = this.props
+    const { copyValues = true, disabled = false, sectionAnchor, i18n } = this.props
 
     return <div className="fra-table__container table-with-odp">
       <div className="fra-table__scroll-wrapper">
@@ -98,7 +100,7 @@ export class TableWithOdp extends React.Component {
                     key={`${value.type}_${value.name}`}>
                   {
                     value.type === 'odp'
-                      ? <OdpHeading countryIso={this.props.countryIso} odpValue={value} section={this.props.section}
+                      ? <OdpHeading i18n={i18n} countryIso={this.props.countryIso} odpValue={value} section={this.props.section}
                                     disabled={disabled}/>
                       : value.name
                   }
@@ -313,11 +315,15 @@ const buildRows = (rows, props) => {
     , rows)
 }
 
-const OdpHeading = ({ countryIso, odpValue, section }) =>
+const OdpHeading = ({ countryIso, odpValue, section, i18n }) =>
+  <Tooltip text={
+    i18n.t('generalValidation.clickOnNDP')
+    }>
     <Link className="link" to={`/country/${countryIso}/odp/${section}/${odpValue.odpId}`}>
-      {odpValue.draft ? <Icon className="icon-sub icon-margin-right" name="pencil"/> : ''}
+      {odpValue.draft ? <Icon className="icon-sub icon-margin-right" name="pencil" /> : ''}
       {odpValue.name}
     </Link>
+  </Tooltip>
 
 const fraValueCell = (fraValue, fra, countryIso, save, saveMany, pasteUpdate, field, rowIdx, colIdx, disabled) =>
   <ThousandSeparatedDecimalInput
