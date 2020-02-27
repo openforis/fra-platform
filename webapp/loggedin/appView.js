@@ -59,14 +59,16 @@ const LoggedInView = props => {
           <div className="fra-view__container">
             <Switch>
               {
-                routes.map((route, i) => <Route key={i} {...route} />)
+                routes.map((route, i) =>
+                  <Route key={i} {...route} />
+                )
               }
             </Switch>
           </div>
           <Header/>
 
           {
-            userInfo &&
+            userInfo && countryIso &&
             <>
               <Review/>
               <UserChat/>
@@ -84,7 +86,6 @@ const LoggedInView = props => {
 
 const mapStateToProps = state => {
   const initialDataLoaded =
-    !!UserState.getUserInfo(state) &&
     !!CountryState.getCountries(state) &&
     !R.isEmpty(state.extentOfForest) &&
     !R.isEmpty(state.growingStock)

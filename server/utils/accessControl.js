@@ -39,6 +39,8 @@ const checkCountryAccessFromReqParams = (req) => {
   if (req.user) {
     if (req.params.countryIso) checkCountryAccess(req.params.countryIso, req.user)
     if (req.query.countryIso) checkCountryAccess(req.query.countryIso, req.user)
+  } else {
+    throw new AccessControlException('error.access.userNotSpecified')
   }
 }
 

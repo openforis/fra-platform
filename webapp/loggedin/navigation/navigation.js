@@ -87,10 +87,13 @@ const Nav = props => {
             }
             <div className="nav__divider"/>
 
-            <Footer
-              countryIso={countryIso}
-              i18n={i18n}
-              {...props}/>
+            {
+              userInfo &&
+              <Footer
+                countryIso={countryIso}
+                i18n={i18n}
+                {...props}/>
+            }
           </div>
         </div>
       }

@@ -1,7 +1,7 @@
 import './style.less'
 
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { NavLink, Redirect, Route, Switch, useRouteMatch } from 'react-router-dom'
 
 import { isAllowedToChangeRole } from '@common/userManagementAccessControl'
@@ -13,10 +13,9 @@ import RecentActivityView from '@webapp/landing/views/recentActivityView'
 import ManageCollaboratorsView from '@webapp/landing/views/manageCollaboratorsView'
 import LinksView from '@webapp/landing/views/linksView'
 import ContentCheckView from '@webapp/landing/views/contentCheck/contentCheckView'
+import useCountryIso from '@webapp/components/hooks/useCountryIso'
 import useI18n from '@webapp/components/hooks/useI18n'
-
-import * as AppState from '@webapp/app/appState'
-import * as UserState from '@webapp/user/userState'
+import useUserInfo from '@webapp/components/hooks/useUserInfo'
 
 import { getCountryName } from '@webapp/country/actions'
 
@@ -45,8 +44,8 @@ const LandingView = () => {
   const dispatch = useDispatch()
   const { path, url } = useRouteMatch()
 
-  const countryIso = useSelector(AppState.getCountryIso)
-  const userInfo = useSelector(UserState.getUserInfo)
+  const countryIso = useCountryIso()
+  const userInfo = useUserInfo()
   const i18n = useI18n()
 
   const sections = userInfo ? getSections(countryIso, userInfo) : []
