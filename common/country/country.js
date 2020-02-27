@@ -19,6 +19,8 @@ const isFra2020DeskStudy = R.propEq(keys.fra2020DeskStudy, true)
 const isPanEuropean = R.propEq(keys.panEuropean, true)
 
 module.exports = {
+  keys,
+
   getFullName,
   getListName,
   getLastEdit,
