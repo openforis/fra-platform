@@ -297,6 +297,7 @@ El equipo de FRA
   },
 
   nationalDataPoint: {
+    clickOnNDP: 'Haga clic en el año para acceder a los datos originales',
     nationalDataPoint: 'Punto de datos nacionales',
     addNationalDataPoint: 'Añadir un punto de datos nacionales',
     noNationalDataAdded: 'No se ha añadido ningún punto de datos nacionales',

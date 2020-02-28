@@ -311,6 +311,7 @@ module.exports.translation = {
   },
 
   nationalDataPoint: {
+    clickOnNDP: 'Нажмите на год, чтобы получить доступ к исходным данным',
     nationalDataPoint: 'Национальный отчетный год',
     addNationalDataPoint: 'Добавить национальный отчетный год',
     noNationalDataAdded: 'Национальные данные не добавлены',
