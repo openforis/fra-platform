@@ -2,14 +2,14 @@
 @import (reference) "~@webapp/app-styles/statusMixins";
 @import (reference) "~@webapp/loggedin/navigation/navigationMixins.less";
 
-.fra-nav__container {
+.nav__container {
   position: relative;
   width: 256px;
   z-index: 1;
   flex-shrink: 0;
 }
 
-.fra-nav {
+.nav {
   background-color: @ui-bg;
   border-right: @ui-thin-border;
   position: fixed;
@@ -30,16 +30,6 @@
   padding-bottom: 8px;
 }
 
-// Review status
-
-.nav__review-status--open {
-  .mixin-status-base(@ui-accent);
-}
-
-.nav__review-status--unread {
-  .mixin-status-base(@ui-alert);
-}
-
 // Basic link item
 
 .nav__link {
@@ -57,33 +47,4 @@
 
 .nav__link-status-content {
   .mixin-status-content-base;
-}
-
-// Navigation Footer
-
-.nav__footer {
-  padding: 0px 12px 12px 16px;
-  font-size: @font-s;
-  display: flex;
-  flex-direction: column;
-}
-
-.nav__footer-link {
-  margin-top: 8px;
-  color: @text-mute;
-  display: inline-block;
-  font-weight: bold;
-  padding: 1px 8px 1px 0;
-  text-decoration: none;
-
-  &:hover {
-    color: @text-body;
-  }
-}
-
-.nav__footer-copyright {
-  display: block;
-  color: @text-mute;
-  font-size: @font-xs;
-  margin-top: 8px;
 }

@@ -5,7 +5,7 @@ import useI18n from '@webapp/components/hooks/useI18n'
 import useCountryIso from '@webapp/components/hooks/useCountryIso'
 import useLandingViewSections from '@webapp/landing/useLandingViewSections'
 
-const NavLinkLanding = () => {
+const LinkLanding = () => {
 
   const i18n = useI18n()
   const countryIso = useCountryIso()
@@ -29,4 +29,4 @@ const NavLinkLanding = () => {
 
 }
 
-export default NavLinkLanding
+export default LinkLanding

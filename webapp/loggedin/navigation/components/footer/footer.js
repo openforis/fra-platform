@@ -1,14 +1,16 @@
+import './footer.less'
+
 import React from 'react'
 
 import useI18n from '@webapp/components/hooks/useI18n'
 import useUserInfo from '@webapp/components/hooks/useUserInfo'
 
-const NavigationFooterUserGuide = props => {
+const UserGuide = props => {
   const { i18n, userInfo } = props
   return (
     <div>
       <a
-        className="nav__footer-link"
+        className="nav-footer__link"
         target="_top"
         href={`/api/fileRepository/userGuide/${userInfo.lang}`}>
         {i18n.t('navigation.support.userGuide')}
@@ -17,7 +19,7 @@ const NavigationFooterUserGuide = props => {
   )
 }
 
-const NavigationFooterSendFeedback = props => {
+const SendFeedback = props => {
   const { i18n, userInfo } = props
 
   const newLine = `%0D%0A`
@@ -36,7 +38,7 @@ ${i18n.t('navigation.support.userAgent')}: ${navigator.userAgent}
   return (
     <div>
       <a
-        className="nav__footer-link"
+        className="nav-footer__link"
         target="_top"
         href={`mailto:fra@fao.org?subject=${subject}&body=${body}`}>
         {i18n.t('navigation.support.sendFeedback')}
@@ -45,7 +47,7 @@ ${i18n.t('navigation.support.userAgent')}: ${navigator.userAgent}
   )
 }
 
-const NavigationFooter = () => {
+const Footer = () => {
 
   const i18n = useI18n()
   const userInfo = useUserInfo()
@@ -53,18 +55,18 @@ const NavigationFooter = () => {
   const currentYear = new Date().getFullYear()
 
   return (
-    <div className="nav__footer">
+    <div className="nav-footer">
       {
         userInfo &&
         <>
-          <NavigationFooterUserGuide i18n={i18n} userInfo={userInfo}/>
-          <NavigationFooterSendFeedback i18n={i18n} userInfo={userInfo}/>
+          <UserGuide i18n={i18n} userInfo={userInfo}/>
+          <SendFeedback i18n={i18n} userInfo={userInfo}/>
         </>
       }
 
-      <span className="nav__footer-copyright">&copy; {currentYear} FAO</span>
+      <span className="nav-footer__copyright">&copy; {currentYear} FAO</span>
     </div>
   )
 }
 
-export default NavigationFooter
+export default Footer
