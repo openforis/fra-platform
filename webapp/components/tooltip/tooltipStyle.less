@@ -1,3 +1,5 @@
+@import (reference) "~@webapp/app-styles/config";
+
 /* 
   Inspiration from:
   https://codepen.io/cbracco/pen/qzukg
@@ -32,7 +34,7 @@
   padding: 7px;
   width: 240px;
   border-radius: 3px;
-  background-color: #0098a6;
+  background-color: @ui-accent;
   color: #fff;
   content: attr(data-tooltip);
   text-align: center;
@@ -48,7 +50,7 @@
   left: 50%;
   margin-left: -5px;
   width: 0;
-  border-top: 5px solid #0098a6;
+  border-top: 5px solid @ui-accent;
   border-right: 5px solid transparent;
   border-left: 5px solid transparent;
   content: " ";
@@ -65,9 +67,9 @@
 
 .error[data-tooltip]:before {
   color: #fff;
-  background-color: #d0021b;
+  background-color: @ui-destructive;
 }
 
 .error[data-tooltip]:after {
-  border-top: 5px solid #d0021b;
+  border-top: 5px solid @ui-destructive;
 }
