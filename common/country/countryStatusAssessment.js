@@ -24,6 +24,8 @@ const assocStatus = R.assoc(keys.status)
 const assocDeskStudy = R.assoc(keys.deskStudy)
 
 module.exports = {
+  keys,
+
   getStatus,
   getType,
   getLocked,

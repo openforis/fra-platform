@@ -9,7 +9,7 @@ import useCountryIso from '@webapp/components/hooks/useCountryIso'
 
 import * as CountryState from '@webapp/country/countryState'
 
-const NavLinkPanEuropeanIndicators = () => {
+const LinkPanEuropeanIndicators = () => {
 
   const countryIso = useCountryIso()
   const i18n = useI18n()
@@ -35,4 +35,4 @@ const NavLinkPanEuropeanIndicators = () => {
   )
 }
 
-export default NavLinkPanEuropeanIndicators
+export default LinkPanEuropeanIndicators

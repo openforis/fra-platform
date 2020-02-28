@@ -1,22 +1,22 @@
-import component from './appView'
+import component from '@webapp/loggedin/appView'
 
 import extentOfForest from '@webapp/loggedin/assessmentFra/extentOfForest/reducers'
 import forestCharacteristics from '@webapp/loggedin/assessmentFra/forestCharacteristics/reducer'
 import growingStock from '@webapp/loggedin/assessmentFra/growingStock/reducer'
-import originalDataPoint from '../originalDataPoint/reducers'
-import autoSave from '../autosave/reducer'
-import navigation from './navigation/reducers'
+import originalDataPoint from '@webapp/originalDataPoint/reducers'
+import autoSave from '@webapp/autosave/reducer'
+import navigation from '@webapp/loggedin/navigation/reducer'
 import traditionalTable from '@webapp/traditionalTable/reducer'
 import descriptions from '@webapp/components/description/reducers'
-import review from './review/reducer'
-import userManagement from '../userManagement/reducer'
-import country from '../country/reducer'
+import review from '@webapp/loggedin/review/reducer'
+import userManagement from '@webapp/userManagement/reducer'
+import country from '@webapp/country/reducer'
 import sustainableDevelopment from '@webapp/loggedin/assessmentFra/sustainableDevelopment/reducer'
-import landing from '../landing/reducer'
-import panEuropeanIndicators from '../panEuropeanIndicators/reducer'
-import admin from './admin/reducer'
-import userChat from './userChat/reducer'
-import countryMessageBoard from './countryMessageBoard/reducer'
+import landing from '@webapp/landing/reducer'
+import panEuropeanIndicators from '@webapp/panEuropeanIndicators/reducer'
+import admin from '@webapp/loggedin/admin/reducer'
+import userChat from '@webapp/loggedin/userChat/reducer'
+import countryMessageBoard from '@webapp/loggedin/countryMessageBoard/reducer'
 
 import * as OriginalDataPointState from '@webapp/originalDataPoint/originalDataPointState'
 import * as AutosaveState from '@webapp/autosave/autosaveState'
@@ -26,6 +26,8 @@ import * as UserManagementState from '@webapp/userManagement/userManagementState
 import * as CountryState from '@webapp/country/countryState'
 import * as LandingState from '@webapp/landing/landingState'
 import * as AdminState from '@webapp/loggedin/admin/adminState'
+import * as NavigationState from '@webapp/loggedin/navigation/navigationState'
+
 // TODO: Add for each file '<module>/state.js and add state key as ex.:
 // { name: HomeState.stateKey, fn: homeReducer },
 
@@ -37,7 +39,7 @@ const reducers = [
   { name: OriginalDataPointState.stateKey, fn: originalDataPoint },
   { name: AutosaveState.stateKey, fn: autoSave },
 
-  { name: 'navigation', fn: navigation },
+  { name: NavigationState.stateKey, fn: navigation },
   { name: 'traditionalTable', fn: traditionalTable },
   { name: 'descriptions', fn: descriptions },
   { name: ReviewState.stateKey, fn: review },

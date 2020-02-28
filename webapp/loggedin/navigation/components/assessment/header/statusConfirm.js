@@ -13,7 +13,7 @@ import useCountryIso from '@webapp/components/hooks/useCountryIso'
 import useI18n from '@webapp/components/hooks/useI18n'
 import useUserInfo from '@webapp/components/hooks/useUserInfo'
 
-import { changeAssessment } from '@webapp/loggedin/navigation/actions'
+import { changeAssessment } from '@webapp/country/actions'
 
 const StatusConfirm = props => {
   const { assessment, targetStatus, onClose } = props

@@ -1,3 +1,5 @@
+import './reviewStatus.less'
+
 import React from 'react'
 import PropTypes from 'prop-types'
 
@@ -11,7 +13,7 @@ const ReviewStatus = props => {
     return null
   }
 
-  const className = `nav__review-status--${status[ReviewStatusState.keys.hasUnreadIssues] ? 'unread' : 'open'}`
+  const className = `nav-review-status__${status[ReviewStatusState.keys.hasUnreadIssues] ? 'unread' : 'open'}`
 
   return (
     <div className={className}/>

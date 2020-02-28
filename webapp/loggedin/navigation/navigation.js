@@ -7,33 +7,34 @@ import * as R from 'ramda'
 import { assessments } from '@common/assessmentSectionItems'
 
 import CountrySelection from '@webapp/loggedin/countrySelection'
-import NavLinkLanding from '@webapp/loggedin/navigation/components/navLinkLanding'
 import Assessment from '@webapp/loggedin/navigation/components/assessment'
-import NavLinkPanEuropeanIndicators from '@webapp/loggedin/navigation/components/navLinkPanEuropeanIndicators'
-import NavigationFooter from '@webapp/loggedin/navigation/components/navigationFooter'
+import LinkLanding from '@webapp/loggedin/navigation/components/linkLanding'
+import LinkPanEuropeanIndicators from '@webapp/loggedin/navigation/components/linkPanEuropeanIndicators'
+import Footer from '@webapp/loggedin/navigation/components/footer'
 
 import * as CountryState from '@webapp/country/countryState'
+import * as NavigationState from '@webapp/loggedin/navigation/navigationState'
 
 const Navigation = () => {
 
   const countries = useSelector(CountryState.getCountries)
   const status = useSelector(CountryState.getStatus)
-  const navigationVisible = true // use NavigationState
+  const navigationVisible = useSelector(NavigationState.isVisible)
 
   if (!(navigationVisible || R.isNil(countries) || R.isEmpty(status))) {
     return null
   }
 
   return (
-    <div className="fra-nav__container no-print">
+    <div className="nav__container no-print">
       {
         !(R.isNil(countries) || R.isEmpty(status)) &&
-        <div className="fra-nav">
+        <div className="nav">
           <CountrySelection/>
 
           <div className="nav__scroll-content">
 
-            <NavLinkLanding/>
+            <LinkLanding/>
             <div className="nav__divider"/>
 
             {
@@ -46,11 +47,11 @@ const Navigation = () => {
               )
             }
 
-            <NavLinkPanEuropeanIndicators/>
+            <LinkPanEuropeanIndicators/>
 
             <div className="nav__divider"/>
 
-            <NavigationFooter/>
+            <Footer/>
           </div>
         </div>
       }
