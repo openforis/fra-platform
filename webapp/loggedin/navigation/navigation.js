@@ -8,7 +8,7 @@ import { assessments } from '@common/assessmentSectionItems'
 
 import CountrySelection from '@webapp/loggedin/countrySelection'
 import NavLinkLanding from '@webapp/loggedin/navigation/components/navLinkLanding'
-import Assessment from '@webapp/loggedin/navigation/components/assessment'
+import NavAssessment from '@webapp/loggedin/navigation/components/navAssessment/navAssessment'
 import NavLinkPanEuropeanIndicators from '@webapp/loggedin/navigation/components/navLinkPanEuropeanIndicators'
 import NavigationFooter from '@webapp/loggedin/navigation/components/navigationFooter'
 import useI18n from '@webapp/components/hooks/useI18n'
@@ -58,16 +58,15 @@ const Nav = props => {
             <div className="nav__divider"/>
 
             {
-              Object.entries(assessments).map(
-                ([assessment, sections]) =>
-                  <Assessment
+              Object.keys(assessments).map(
+                (name,i) =>
+                  <NavAssessment
                     {...props}
-                    key={assessment}
-                    assessment={status.assessments[assessment]}
+                    key={i}
+                    name={name}
                     countryIso={countryIso}
                     changeAssessment={changeAssessment}
                     userInfo={userInfo}
-                    sections={sections}
                     getReviewStatus={getReviewStatus}
                     i18n={i18n}/>
               )
