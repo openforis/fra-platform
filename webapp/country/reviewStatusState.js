@@ -27,15 +27,15 @@ export const getStatusSection = name => R.pipe(
 export const getStatusSectionChildren = section => state => R.pipe(
   R.propOr([], 'children'),
   R.reduce(
-    (statusesAgg, child) => {
+    (statuses, child) => {
       const status = getStatusSection(child.section)(state)
       const issuesCount = R.prop(keys.issuesCount)(status)
       const issueStatus = R.prop(keys.issueStatus)(status)
       // filtering all opened statuses
       if (!(issuesCount === 0 || issueStatus !== keysIssueStatus.opened)) {
-        statusesAgg.push(status)
+        statuses.push(status)
       }
-      return statusesAgg
+      return statuses
     },
     []
   ),
