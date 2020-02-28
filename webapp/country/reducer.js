@@ -1,13 +1,15 @@
 import { applyReducerFunction } from '@webapp/utils/reduxUtils'
 
+import * as CountryState from '@webapp/country/countryState'
+
 import {
   listCountries,
   fetchCountryOverviewStatusCompleted,
   countryConfig,
-  changeCountryConfigSetting, countryAssessmentLockChange
+  changeCountryConfigSetting,
+  countryAssessmentLockChange,
+  countryAssessmentStatusChanging
 } from './actions'
-
-import * as CountryState from '@webapp/country/countryState'
 
 const actionHandlers = {
   [listCountries]: (state, { countries }) => CountryState.assocCountries(countries)(state),
@@ -20,8 +22,13 @@ const actionHandlers = {
     { ...state.config, [key]: value }
   )(state),
 
+  //====== assessment actions
   [countryAssessmentLockChange]: (state, { assessmentName, locked }) =>
-    CountryState.assocStatusAssessmentLocked(assessmentName, locked)(state)
+    CountryState.assocStatusAssessmentLocked(assessmentName, locked)(state),
+
+  [countryAssessmentStatusChanging]: (state, { assessmentName }) =>
+    CountryState.assocStatusAssessmentChanging(assessmentName)(state)
+
 }
 
 export default (state = {}, action) => applyReducerFunction(actionHandlers, state, action)

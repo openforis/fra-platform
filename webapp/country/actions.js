@@ -37,9 +37,18 @@ export const saveCountryConfigSetting = (countryIso, key, value, onComplete = nu
 
 //====== Assessment actions
 export const countryAssessmentLockChange = 'country/assessment/toggleLock'
+export const countryAssessmentStatusChanging = 'country/assessment/status/changing'
 
-export const toggleAssessmentLock = (assessmentName, locked) => dispatch =>
-  dispatch({ type: countryAssessmentLockChange, assessmentName, locked })
+export const toggleAssessmentLock = (assessmentName, locked) =>
+  ({ type: countryAssessmentLockChange, assessmentName, locked })
+
+export const changeAssessment = (countryIso, assessment, notifyUsers) => async dispatch => {
+  dispatch({ type: countryAssessmentStatusChanging, assessmentName: assessment.type })
+  await axios.post(`/api/assessment/${countryIso}?notifyUsers=${notifyUsers}`, assessment)
+
+  dispatch(getCountryList())
+  dispatch(fetchCountryOverviewStatus(countryIso))
+}
 
 //====== Methods below are DEPRECATED - use them from country model object
 /**

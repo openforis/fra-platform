@@ -1,6 +1,8 @@
 import * as R from 'ramda'
+
 import * as Country from '@common/country/country'
 import * as CountryStatusAssessment from '@common/country/countryStatusAssessment'
+import { assessmentStatus } from '@common/assessment'
 
 export const stateKey = 'country'
 
@@ -31,7 +33,8 @@ export const assocConfig = R.assoc(keys.config)
 export const assocCountries = R.assoc(keys.countries)
 export const assocStatus = R.assoc(keys.status)
 
-export const assocStatusAssessmentLocked = (name, locked) => R.assocPath([keys.status, keysStatus.assessments, name, CountryStatusAssessment.keys.locked])(locked)
+export const assocStatusAssessmentLocked = (name, locked) => R.assocPath([keys.status, keysStatus.assessments, name, CountryStatusAssessment.keys.locked], locked)
+export const assocStatusAssessmentChanging = name => R.assocPath([keys.status, keysStatus.assessments, name, CountryStatusAssessment.keys.status], assessmentStatus.changing)
 
 // config functions
 const _getConfigProp = prop => R.pipe(getConfig, R.prop(prop))
