@@ -1,5 +1,6 @@
 @import (reference) "~@webapp/app-styles/config";
 @import (reference) "~@webapp/app-styles/statusMixins";
+@import (reference) "~@webapp/loggedin/navigation/navigationMixins.less";
 
 .fra-nav__container {
   position: relative;
@@ -58,46 +59,6 @@
   .mixin-status-content-base;
 }
 
-// Assessment Section
-
-.nav__section-header {
-  .mixin-nav-secondary-base(8px, true);
-  font-weight: 700;
-  cursor: pointer;
-}
-
-.nav__section-order {
-  flex: 0 0 auto;
-  width: 20px;
-  margin-right: 4px;
-  font-size: @font-s;
-}
-
-.nav__section-label {
-  margin-right: 4px;
-  font-size: @font-s;
-}
-
-.nav__section-status-content {
-  .mixin-status-content-base;
-}
-
-.nav__section-item {
-  .mixin-nav-secondary-base(8px, true);
-}
-
-.nav__section-items--hidden {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.15s ease-out;
-}
-
-.nav__section-items--visible {
-  max-height: 500px;
-  overflow: hidden;
-  transition: max-height 0.25s ease-out;
-}
-
 // Navigation Footer
 
 .nav__footer {
@@ -125,27 +86,4 @@
   color: @text-mute;
   font-size: @font-xs;
   margin-top: 8px;
-}
-
-// Mixins
-
-.mixin-nav-secondary-base(@padding, @hover: false) {
-  display: flex;
-  align-items: stretch;
-  flex-flow: row nowrap;
-  padding: @padding 12px @padding 16px;
-  text-decoration: none;
-  color: @text-body;
-
-  & when (@hover=true) {
-    &:hover {
-      color: inherit;
-      background-color: darken(@ui-bg, 4%);
-      transition: @ease-out;
-    }
-
-    &.selected {
-      background-color: @ui-accent-light;
-    }
-  }
 }
