@@ -15,16 +15,6 @@ const actionHandlers = {
 
   [toggleShowNavigation]: (state) => ({...state, navigationVisible: !state.navigationVisible}),
 
-  [toggleNavigationGroup]: (state, action) => {
-    const path = ['navigationGroupCollapseState', action.assessment, action.sectionNo]
-    return R.assocPath(path, !R.path(path, state), state)
-  },
-
-  [toggleAllNavigationGroups]: (state) => ({
-    ...state,
-    lastUncollapseState: !state.lastUncollapseState,
-    navigationGroupCollapseState: createNavigationGroupCollapseState(!state.lastUncollapseState)
-  })
 }
 
 const createNavigationGroupCollapseState = (bool = false) => {

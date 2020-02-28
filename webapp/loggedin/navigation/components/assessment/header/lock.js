@@ -8,9 +8,9 @@ import Icon from '@webapp/components/icon'
 import useI18n from '@webapp/components/hooks/useI18n'
 import useUserInfo from '@webapp/components/hooks/useUserInfo'
 
-import { toggleAssessmentLock } from '@webapp/loggedin/navigation/actions'
-
 import * as AssessmentState from '@webapp/country/assessmentState'
+
+import { toggleAssessmentLock } from '@webapp/country/actions'
 
 const Lock = props => {
   const { assessment } = props
@@ -41,7 +41,7 @@ const Lock = props => {
         userInfo &&
         <button className="btn-s btn-secondary nav-assessment-header__btn-lock"
                 disabled={!canToggleLock}
-                onClick={() => dispatch(toggleAssessmentLock(type))}>
+                onClick={() => dispatch(toggleAssessmentLock(type, !locked))}>
           <Icon name={locked ? 'lock-circle' : 'lock-circle-open'} className="icon-no-margin"/>
         </button>
       }

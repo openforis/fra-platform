@@ -4,9 +4,8 @@ import {
   listCountries,
   fetchCountryOverviewStatusCompleted,
   countryConfig,
-  changeCountryConfigSetting
+  changeCountryConfigSetting, countryAssessmentLockChange
 } from './actions'
-import { toggleAssessmentLockChange } from '@webapp/loggedin/navigation/actions'
 
 import * as CountryState from '@webapp/country/countryState'
 
@@ -21,7 +20,7 @@ const actionHandlers = {
     { ...state.config, [key]: value }
   )(state),
 
-  [toggleAssessmentLockChange]: (state, { assessmentName, locked }) =>
+  [countryAssessmentLockChange]: (state, { assessmentName, locked }) =>
     CountryState.assocStatusAssessmentsNameLocked(assessmentName, locked)(state)
 }
 

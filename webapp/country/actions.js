@@ -35,14 +35,25 @@ export const saveCountryConfigSetting = (countryIso, key, value, onComplete = nu
   }
 }
 
-//Methods below are DEPRECATED - use them from country model object
+//====== Assessment actions
+export const countryAssessmentLockChange = 'country/assessment/toggleLock'
+
+export const toggleAssessmentLock = (assessmentName, locked) => dispatch =>
+  dispatch({ type: countryAssessmentLockChange, assessmentName, locked })
+
+//====== Methods below are DEPRECATED - use them from country model object
+/**
+ * @deprecated
+ */
 const getCountry = countryIso => R.pipe(
   R.path(['country', 'countries']),
   R.values,
   R.flatten,
   R.find(R.propEq('countryIso', countryIso)),
 )
-
+/**
+ * @deprecated
+ */
 export const getCountryName = (countryIso, lang) => (dispatch, getState) => R.pipe(
   getCountry(countryIso),
   R.path(['listName', lang])
