@@ -71,7 +71,7 @@ class Description extends Component {
           {
             showError ?
               <Tooltip error text={i18n.t('generalValidation.emptyField')}>
-                {title} {showError && <Icon key="icon-error" className="icon-margin-left icon-red" name="alert" />}
+                {title} <Icon key="icon-error" className="icon-margin-left icon-red" name="alert" />
               </Tooltip>
               :
               <>{title}</>
