@@ -1,4 +1,4 @@
-import './navAssessmentHeader.less'
+import './header.less'
 
 import React from 'react'
 import PropTypes from 'prop-types'
@@ -7,14 +7,12 @@ import * as CountryStatusAssessment from '@common/country/countryStatusAssessmen
 
 import Icon from '@webapp/components/icon'
 import { Link } from 'react-router-dom'
-import NavAssessmentHeaderLock
-  from '@webapp/loggedin/navigation/components/navAssessment/header/navAssessmentHeaderLock'
-import NavAssessmentHeaderStatus
-  from '@webapp/loggedin/navigation/components/navAssessment/header/navAssessmentHeaderStatus'
+import Lock from '@webapp/loggedin/navigation/components/assessment/header/lock'
+import Status from '@webapp/loggedin/navigation/components/assessment/header/status'
 import useCountryIso from '@webapp/components/hooks/useCountryIso'
 import useI18n from '@webapp/components/hooks/useI18n'
 
-const NavAssessmentHeader = props => {
+const Header = props => {
 
   const { assessment, showSections, setShowSections } = props
   const type = CountryStatusAssessment.getType(assessment)
@@ -27,7 +25,7 @@ const NavAssessmentHeader = props => {
 
       <div className="nav-assessment-header__label">
 
-        <NavAssessmentHeaderLock assessment={assessment}/>
+        <Lock assessment={assessment}/>
 
         <div>
           <Link
@@ -47,7 +45,7 @@ const NavAssessmentHeader = props => {
 
       </div>
 
-      <NavAssessmentHeaderStatus assessment={assessment}/>
+      <Status assessment={assessment}/>
 
       <button
         className="btn-s nav-assessment-header__btn-toggle-sections"
@@ -60,10 +58,10 @@ const NavAssessmentHeader = props => {
   )
 }
 
-NavAssessmentHeader.propTypes = {
+Header.propTypes = {
   assessment: PropTypes.object.isRequired,
   showSections: PropTypes.bool.isRequired,
   setShowSections: PropTypes.func.isRequired,
 }
 
-export default NavAssessmentHeader
+export default Header

@@ -4,12 +4,12 @@ import { useSelector } from 'react-redux'
 
 import { assessments } from '@common/assessmentSectionItems'
 
-import NavAssessmentHeader from '@webapp/loggedin/navigation/components/navAssessment/header/navAssessmentHeader'
-import NavAssessmentSection from '@webapp/loggedin/navigation/components/navAssessment/navAssessmentSection'
+import Header from '@webapp/loggedin/navigation/components/assessment/header'
+import Section from '@webapp/loggedin/navigation/components/assessment/section'
 
 import * as AssessmentState from '@webapp/country/assessmentState'
 
-const NavAssessment = props => {
+const Assessment = props => {
   const { name } = props
 
   const assessment = useSelector(AssessmentState.getAssessment(name))
@@ -20,7 +20,7 @@ const NavAssessment = props => {
   return (
     <div className="nav-assessment">
 
-      <NavAssessmentHeader
+      <Header
         assessment={assessment}
         showSections={showSections}
         setShowSections={setShowSections}
@@ -29,7 +29,7 @@ const NavAssessment = props => {
       {
         sections.map(
           (item, i) => (
-            <NavAssessmentSection
+            <Section
               key={i}
               item={item}
               assessment={assessment}
@@ -43,11 +43,11 @@ const NavAssessment = props => {
   )
 }
 
-NavAssessment.propTypes = {
+Assessment.propTypes = {
   name: PropTypes.string.isRequired
 }
 
-export default NavAssessment
+export default Assessment
 
 
 

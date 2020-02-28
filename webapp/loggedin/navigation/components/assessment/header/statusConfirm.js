@@ -1,4 +1,4 @@
-import './navAssessmentStatusConfirm.less'
+import './statusConfirm.less'
 
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
@@ -15,7 +15,7 @@ import useUserInfo from '@webapp/components/hooks/useUserInfo'
 
 import { changeAssessment } from '@webapp/loggedin/navigation/actions'
 
-const NavAssessmentStatusConfirm = props => {
+const StatusConfirm = props => {
   const { assessment, targetStatus, onClose } = props
 
   const dispatch = useDispatch()
@@ -75,10 +75,10 @@ const NavAssessmentStatusConfirm = props => {
   )
 }
 
-NavAssessmentStatusConfirm.propTypes = {
+StatusConfirm.propTypes = {
   assessment: PropTypes.object.isRequired,
   targetStatus: PropTypes.object.isRequired,
   onClose: PropTypes.func.isRequired,
 }
 
-export default NavAssessmentStatusConfirm
+export default StatusConfirm

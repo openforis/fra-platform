@@ -10,7 +10,7 @@ export const ReviewStatus = ({ status }) =>
     ? <div className={`nav__review-status--${status.hasUnreadIssues ? 'unread' : 'open'}`}/>
     : null
 
-const NavAssessmentSection = props => {
+const Section = props => {
 
   const { countryIso, item, assessment, i18n, showSections } = props
 
@@ -63,9 +63,9 @@ const NavAssessmentSection = props => {
   </div>
 }
 
-NavAssessmentSection.propTypes = {
+Section.propTypes = {
   assessment: PropTypes.object.isRequired,
   showSections: PropTypes.bool.isRequired,
 }
 
-export default NavAssessmentSection
+export default Section

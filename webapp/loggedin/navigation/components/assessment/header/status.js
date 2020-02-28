@@ -9,14 +9,14 @@ import * as CountryStatusAssessment from '@common/country/countryStatusAssessmen
 
 import Icon from '@webapp/components/icon'
 import { PopoverControl } from '@webapp/components/popoverControl'
-import NavAssessmentStatusConfirm from '@webapp/loggedin/navigation/components/navAssessment/header/navAssessmentStatusConfirm'
+import StatusConfirm from '@webapp/loggedin/navigation/components/assessment/header/statusConfirm'
 import useCountryIso from '@webapp/components/hooks/useCountryIso'
 import useI18n from '@webapp/components/hooks/useI18n'
 import useUserInfo from '@webapp/components/hooks/useUserInfo'
 
 import { changeAssessment } from '@webapp/loggedin/navigation/actions'
 
-const NavAssessmentHeaderStatus = props => {
+const Status = props => {
   const { assessment } = props
   const status = CountryStatusAssessment.getStatus(assessment)
   const deskStudy = CountryStatusAssessment.getDeskStudy(assessment)
@@ -72,7 +72,7 @@ const NavAssessmentHeaderStatus = props => {
     <>
       { // showing confirmation modal dialog before submitting the status change
         targetStatus &&
-        <NavAssessmentStatusConfirm
+        <StatusConfirm
           assessment={assessment}
           targetStatus={targetStatus}
           onClose={() => setTargetStatus(null)}
@@ -91,8 +91,8 @@ const NavAssessmentHeaderStatus = props => {
   )
 }
 
-NavAssessmentHeaderStatus.propTypes = {
+Status.propTypes = {
   assessment: PropTypes.object.isRequired,
 }
 
-export default NavAssessmentHeaderStatus
+export default Status

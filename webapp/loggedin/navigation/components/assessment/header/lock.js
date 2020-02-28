@@ -12,7 +12,7 @@ import { toggleAssessmentLock } from '@webapp/loggedin/navigation/actions'
 
 import * as AssessmentState from '@webapp/country/assessmentState'
 
-const NavAssessmentHeaderLock = props => {
+const Lock = props => {
   const { assessment } = props
   const type = CountryStatusAssessment.getType(assessment)
   const deskStudy = CountryStatusAssessment.getDeskStudy(assessment)
@@ -49,8 +49,8 @@ const NavAssessmentHeaderLock = props => {
   )
 }
 
-NavAssessmentHeaderLock.propTypes = {
+Lock.propTypes = {
   assessment: PropTypes.object.isRequired,
 }
 
-export default NavAssessmentHeaderLock
+export default Lock
