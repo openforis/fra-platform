@@ -1,6 +1,6 @@
 @import (reference) "~@webapp/app-styles/config";
 
-/* 
+/*
   Inspiration from:
   https://codepen.io/cbracco/pen/qzukg
 */
@@ -18,9 +18,9 @@
 /* Hide the tooltip content by default */
 [data-tooltip]:before,
 [data-tooltip]:after {
-  visibility: hidden;
   opacity: 0;
   pointer-events: none;
+  transition: opacity .2s ease-out .1s;
 }
 
 /* Position tooltip above the element */
@@ -61,7 +61,6 @@
 /* Show tooltip content on hover */
 [data-tooltip]:hover:before,
 [data-tooltip]:hover:after {
-  visibility: visible;
   opacity: 1;
 }
 
