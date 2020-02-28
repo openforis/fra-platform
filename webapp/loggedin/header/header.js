@@ -11,18 +11,18 @@ import AutoSaveStatusText from '@webapp/loggedin/header/_components/autoSaveStat
 import ToggleNavigationControl from '@webapp/loggedin/header/_components/toggleNavigationControl'
 import CountrySelection from '@webapp/loggedin/countrySelection'
 import useI18n from '@webapp/components/hooks/useI18n'
+import useCountryIso from '@webapp/components/hooks/useCountryIso'
+import useUserInfo from '@webapp/components/hooks/useUserInfo'
 
-import * as AppState from '@webapp/app/appState'
-import * as UserState from '@webapp/user/userState'
 import * as ReviewState from '@webapp/loggedin/review/reviewState'
+import * as NavigationState from '@webapp/loggedin/navigation/navigationState'
 
 const Header = () => {
-  const userInfo = useSelector(UserState.getUserInfo)
-  const countryIso = useSelector(AppState.getCountryIso)
-  const commentsOpen = useSelector(ReviewState.getOpenThread)
+  const userInfo = useUserInfo()
+  const countryIso = useCountryIso()
   const i18n = useI18n()
-  // TODO use navigation state
-  const navigationVisible = useSelector(state => countryIso ? state.navigation.navigationVisible : false)
+  const commentsOpen = useSelector(ReviewState.getOpenThread)
+  const navigationVisible = useSelector(NavigationState.isVisible)
 
   const commentColumnCurrentWidth = commentsOpen ? 288 : 0
   const navigationCurrentWidth = navigationVisible ? 256 : 0

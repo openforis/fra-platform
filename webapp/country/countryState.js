@@ -31,7 +31,7 @@ export const assocConfig = R.assoc(keys.config)
 export const assocCountries = R.assoc(keys.countries)
 export const assocStatus = R.assoc(keys.status)
 
-export const assocStatusAssessmentsNameLocked = (name, locked) => R.assocPath([keys.status, keysStatus.assessments, name, CountryStatusAssessment.keys.locked])(locked)
+export const assocStatusAssessmentLocked = (name, locked) => R.assocPath([keys.status, keysStatus.assessments, name, CountryStatusAssessment.keys.locked])(locked)
 
 // config functions
 const _getConfigProp = prop => R.pipe(getConfig, R.prop(prop))

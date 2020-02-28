@@ -21,7 +21,7 @@ const actionHandlers = {
   )(state),
 
   [countryAssessmentLockChange]: (state, { assessmentName, locked }) =>
-    CountryState.assocStatusAssessmentsNameLocked(assessmentName, locked)(state)
+    CountryState.assocStatusAssessmentLocked(assessmentName, locked)(state)
 }
 
 export default (state = {}, action) => applyReducerFunction(actionHandlers, state, action)

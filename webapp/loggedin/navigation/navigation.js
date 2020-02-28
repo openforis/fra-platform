@@ -13,12 +13,13 @@ import NavLinkPanEuropeanIndicators from '@webapp/loggedin/navigation/components
 import NavigationFooter from '@webapp/loggedin/navigation/components/navigationFooter'
 
 import * as CountryState from '@webapp/country/countryState'
+import * as NavigationState from '@webapp/loggedin/navigation/navigationState'
 
 const Navigation = () => {
 
   const countries = useSelector(CountryState.getCountries)
   const status = useSelector(CountryState.getStatus)
-  const navigationVisible = true // use NavigationState
+  const navigationVisible = useSelector(NavigationState.isVisible)
 
   if (!(navigationVisible || R.isNil(countries) || R.isEmpty(status))) {
     return null
