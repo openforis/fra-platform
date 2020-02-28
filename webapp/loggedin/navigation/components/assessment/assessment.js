@@ -1,32 +1,39 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
 
 import { assessments } from '@common/assessmentSectionItems'
 
-import NavAssessmentHeader from '@webapp/loggedin/navigation/components/navAssessment/navAssessmentHeader'
-import NavAssessmentSection from '@webapp/loggedin/navigation/components/navAssessment/navAssessmentSection'
+import Header from '@webapp/loggedin/navigation/components/assessment/header'
+import Section from '@webapp/loggedin/navigation/components/assessment/section'
 
 import * as AssessmentState from '@webapp/country/assessmentState'
 
-const NavAssessment = (props) => {
+const Assessment = props => {
   const { name } = props
 
   const assessment = useSelector(AssessmentState.getAssessment(name))
   const sections = assessments[name]
 
-  return (
-    <div className="nav__assessment">
+  const [showSections, setShowSections] = useState(false)
 
-      <NavAssessmentHeader {...props} assessment={assessment}/>
+  return (
+    <div className="nav-assessment">
+
+      <Header
+        assessment={assessment}
+        showSections={showSections}
+        setShowSections={setShowSections}
+      />
 
       {
         sections.map(
           (item, i) => (
-            <NavAssessmentSection
+            <Section
               key={i}
               item={item}
               assessment={assessment}
+              showSections={showSections}
               {...props}
             />
           )
@@ -36,11 +43,11 @@ const NavAssessment = (props) => {
   )
 }
 
-NavAssessment.propTypes = {
+Assessment.propTypes = {
   name: PropTypes.string.isRequired
 }
 
-export default NavAssessment
+export default Assessment
 
 
 
