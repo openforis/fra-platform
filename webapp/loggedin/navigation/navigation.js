@@ -1,7 +1,7 @@
 import './navigation.less'
 
 import React from 'react'
-import { connect, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import * as R from 'ramda'
 
 import { assessments } from '@common/assessmentSectionItems'
