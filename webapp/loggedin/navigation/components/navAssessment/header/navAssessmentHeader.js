@@ -7,16 +7,20 @@ import * as CountryStatusAssessment from '@common/country/countryStatusAssessmen
 
 import Icon from '@webapp/components/icon'
 import { Link } from 'react-router-dom'
-import NavAssessmentHeaderLock from '@webapp/loggedin/navigation/components/navAssessment/header/navAssessmentHeaderLock'
-import NavAssessmentHeaderStatus from '@webapp/loggedin/navigation/components/navAssessment/header/navAssessmentHeaderStatus'
+import NavAssessmentHeaderLock
+  from '@webapp/loggedin/navigation/components/navAssessment/header/navAssessmentHeaderLock'
+import NavAssessmentHeaderStatus
+  from '@webapp/loggedin/navigation/components/navAssessment/header/navAssessmentHeaderStatus'
 import useCountryIso from '@webapp/components/hooks/useCountryIso'
+import useI18n from '@webapp/components/hooks/useI18n'
 
 const NavAssessmentHeader = props => {
 
-  const { assessment } = props
+  const { assessment, showSections, setShowSections } = props
   const type = CountryStatusAssessment.getType(assessment)
 
   const countryIso = useCountryIso()
+  const i18n = useI18n()
 
   return (
     <div className="nav-assessment-header">
@@ -45,21 +49,21 @@ const NavAssessmentHeader = props => {
 
       <NavAssessmentHeaderStatus assessment={assessment}/>
 
-      {/*<button*/}
-      {/*  className="btn-s nav-assessment-header__btn-toggle-sections"*/}
-      {/*  onClick={() => toggleAllNavigationGroupsCollapse()}>*/}
-      {/*  {*/}
-      {/*    lastUncollapseState*/}
-      {/*      ? i18n.t('navigation.hideAll')*/}
-      {/*      : i18n.t('navigation.showAll')*/}
-      {/*  }*/}
-      {/*</button>*/}
+      <button
+        className="btn-s nav-assessment-header__btn-toggle-sections"
+        onClick={() => setShowSections(!showSections)}>
+        {
+          i18n.t(`navigation.${showSections ? 'hideAll' : 'showAll'}`)
+        }
+      </button>
     </div>
   )
 }
 
 NavAssessmentHeader.propTypes = {
   assessment: PropTypes.object.isRequired,
+  showSections: PropTypes.bool.isRequired,
+  setShowSections: PropTypes.func.isRequired,
 }
 
 export default NavAssessmentHeader

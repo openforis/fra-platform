@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
 
@@ -15,10 +15,16 @@ const NavAssessment = props => {
   const assessment = useSelector(AssessmentState.getAssessment(name))
   const sections = assessments[name]
 
+  const [showSections, setShowSections] = useState(false)
+
   return (
     <div className="nav-assessment">
 
-      <NavAssessmentHeader assessment={assessment}/>
+      <NavAssessmentHeader
+        assessment={assessment}
+        showSections={showSections}
+        setShowSections={setShowSections}
+      />
 
       {
         sections.map(
@@ -27,6 +33,7 @@ const NavAssessment = props => {
               key={i}
               item={item}
               assessment={assessment}
+              showSections={showSections}
               {...props}
             />
           )

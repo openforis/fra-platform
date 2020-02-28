@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
-import * as R from 'ramda'
-
+import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
+import PropTypes from 'prop-types'
+import * as R from 'ramda'
 
 export const getLinkTo = (pathTemplate, countryIso) => R.replace(/:countryIso/, countryIso, pathTemplate)
 
@@ -10,7 +10,9 @@ export const ReviewStatus = ({ status }) =>
     ? <div className={`nav__review-status--${status.hasUnreadIssues ? 'unread' : 'open'}`}/>
     : null
 
-const NavAssessmentSection = ({ countryIso, item, assessment, i18n, ...props }) => {
+const NavAssessmentSection = props => {
+
+  const { countryIso, item, assessment, i18n, showSections } = props
 
   const getChildStatus = () => R.pipe(
     R.map(child => props.getReviewStatus(child.section)),
@@ -22,6 +24,10 @@ const NavAssessmentSection = ({ countryIso, item, assessment, i18n, ...props }) 
   )(item.children)
 
   const [expanded, setExpanded] = useState(false)
+
+  useEffect(() => {
+    setExpanded(showSections)
+  }, [showSections])
 
   return <div className="nav__section">
     <div className="nav__section-header"
@@ -55,6 +61,11 @@ const NavAssessmentSection = ({ countryIso, item, assessment, i18n, ...props }) 
       }
     </div>
   </div>
+}
+
+NavAssessmentSection.propTypes = {
+  assessment: PropTypes.object.isRequired,
+  showSections: PropTypes.bool.isRequired,
 }
 
 export default NavAssessmentSection
