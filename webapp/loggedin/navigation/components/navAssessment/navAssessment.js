@@ -4,21 +4,21 @@ import { useSelector } from 'react-redux'
 
 import { assessments } from '@common/assessmentSectionItems'
 
-import NavAssessmentHeader from '@webapp/loggedin/navigation/components/navAssessment/navAssessmentHeader'
+import NavAssessmentHeader from '@webapp/loggedin/navigation/components/navAssessment/header/navAssessmentHeader'
 import NavAssessmentSection from '@webapp/loggedin/navigation/components/navAssessment/navAssessmentSection'
 
 import * as AssessmentState from '@webapp/country/assessmentState'
 
-const NavAssessment = (props) => {
+const NavAssessment = props => {
   const { name } = props
 
   const assessment = useSelector(AssessmentState.getAssessment(name))
   const sections = assessments[name]
 
   return (
-    <div className="nav__assessment">
+    <div className="nav-assessment">
 
-      <NavAssessmentHeader {...props} assessment={assessment}/>
+      <NavAssessmentHeader assessment={assessment}/>
 
       {
         sections.map(
