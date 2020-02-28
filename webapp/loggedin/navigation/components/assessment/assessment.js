@@ -28,13 +28,11 @@ const Assessment = props => {
 
       {
         sections.map(
-          (item, i) => (
+          (section, i) => (
             <Section
               key={i}
-              item={item}
-              assessment={assessment}
+              section={section}
               showSections={showSections}
-              {...props}
             />
           )
         )

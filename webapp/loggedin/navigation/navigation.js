@@ -1,7 +1,7 @@
 import './navigation.less'
 
 import React from 'react'
-import { connect, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import * as R from 'ramda'
 
 import { assessments } from '@common/assessmentSectionItems'
@@ -11,39 +11,18 @@ import NavLinkLanding from '@webapp/loggedin/navigation/components/navLinkLandin
 import Assessment from '@webapp/loggedin/navigation/components/assessment'
 import NavLinkPanEuropeanIndicators from '@webapp/loggedin/navigation/components/navLinkPanEuropeanIndicators'
 import NavigationFooter from '@webapp/loggedin/navigation/components/navigationFooter'
-import useI18n from '@webapp/components/hooks/useI18n'
 
-import * as AppState from '@webapp/app/appState'
-import * as UserState from '@webapp/user/userState'
 import * as CountryState from '@webapp/country/countryState'
 
-import {
-  changeAssessment,
-  toggleAllNavigationGroupsCollapse,
-  toggleNavigationGroupCollapse
-} from '@webapp/loggedin/navigation/actions'
-import { getCountryName } from '@webapp/country/actions'
-import { fetchAllCountryData } from '@webapp/app/actions'
+const Navigation = () => {
 
-const Nav = props => {
-
-  const {
-    userInfo, changeAssessment,
-    navigationVisible
-  } = props
-
-  if (!navigationVisible) return null
-
-  const countryIso = useSelector(AppState.getCountryIso)
   const countries = useSelector(CountryState.getCountries)
   const status = useSelector(CountryState.getStatus)
-  const i18n = useI18n()
+  const navigationVisible = true // use NavigationState
 
-  const getReviewStatus = section => R.pipe(
-    R.defaultTo({}),
-    R.prop(section),
-    R.defaultTo({ issuesCount: 0 })
-  )(status.reviewStatus)
+  if (!(navigationVisible || R.isNil(countries) || R.isEmpty(status))) {
+    return null
+  }
 
   return (
     <div className="fra-nav__container no-print">
@@ -59,16 +38,11 @@ const Nav = props => {
 
             {
               Object.keys(assessments).map(
-                (name,i) =>
+                (name, i) =>
                   <Assessment
-                    {...props}
                     key={i}
                     name={name}
-                    countryIso={countryIso}
-                    changeAssessment={changeAssessment}
-                    userInfo={userInfo}
-                    getReviewStatus={getReviewStatus}
-                    i18n={i18n}/>
+                  />
               )
             }
 
@@ -84,16 +58,4 @@ const Nav = props => {
   )
 }
 
-const mapStateToProps = state => ({
-  // showOriginalDataPoints: hasOdps(R.path(['extentOfForest', 'fra'], state)),
-  ...state.navigation,
-  userInfo: UserState.getUserInfo(state),
-})
-
-export default connect(mapStateToProps, {
-  getCountryName,
-  fetchAllCountryData,
-  changeAssessment,
-  toggleNavigationGroupCollapse,
-  toggleAllNavigationGroupsCollapse
-})(Nav)
+export default Navigation

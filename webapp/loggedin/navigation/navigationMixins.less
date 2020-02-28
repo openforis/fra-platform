@@ -1,0 +1,23 @@
+@import (reference) "~@webapp/app-styles/config";
+@import (reference) "~@webapp/app-styles/statusMixins";
+
+.mixin-nav-secondary-base(@padding, @hover: false) {
+  display: flex;
+  align-items: stretch;
+  flex-flow: row nowrap;
+  padding: @padding 12px @padding 16px;
+  text-decoration: none;
+  color: @text-body;
+
+  & when (@hover=true) {
+    &:hover {
+      color: inherit;
+      background-color: darken(@ui-bg, 4%);
+      transition: @ease-out;
+    }
+
+    &.selected {
+      background-color: @ui-accent-light;
+    }
+  }
+}

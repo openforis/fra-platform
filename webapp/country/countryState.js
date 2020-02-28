@@ -10,7 +10,8 @@ const keys = {
 }
 
 const keysStatus = {
-  assessments: 'assessments'
+  assessments: 'assessments',
+  reviewStatus: 'reviewStatus',
 }
 
 const getState = R.prop(stateKey)
@@ -22,6 +23,7 @@ export const getCountryByCountryIso = countryIso => R.pipe(getCountriesList, R.f
 export const getConfig = R.pipe(getState, R.propOr({}, keys.config))
 export const getStatus = R.pipe(getState, R.propOr({}, keys.status))
 export const getAssessments = R.pipe(getStatus, R.propOr({}, keysStatus.assessments))
+export const getReviewStatus = R.pipe(getStatus, R.propOr({}, keysStatus.reviewStatus))
 
 // === UPDATE
 export const assocConfig = R.assoc(keys.config)
