@@ -7,32 +7,31 @@ import { connect } from 'react-redux'
 import * as R from 'ramda'
 
 import Icon from '@webapp/components/icon'
+import Tooltip from '@webapp/components/tooltip'
 import ckEditorConfig from '@webapp/components/ckEditor/ckEditorConfig'
 
 import * as AppState from '@webapp/app/appState'
 
 import { saveDescriptions, fetchDescriptions, openEditor, closeEditor } from './actions'
 
-import { elementOffset } from '@webapp/utils/domUtils'
-
 class Description extends Component {
 
-  fetchData (countryIso) {
+  fetchData(countryIso) {
     this.props.fetchDescriptions(countryIso, this.props.section, this.props.name)
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.fetchData(this.props.countryIso)
   }
 
-  componentDidUpdate (prevProps, prevState) {
+  componentDidUpdate(prevProps, prevState) {
     const currentCountryIso = this.props.countryIso
     const previousCountryIso = prevProps.countryIso
     if (currentCountryIso !== previousCountryIso)
       this.props.fetchData(nextCountryIso)
   }
 
-  showEditorContent (isActive, showDash) {
+  showEditorContent(isActive, showDash) {
     if (showDash)
       return <div>-</div>
     if (R.isNil(this.props.content))
@@ -40,13 +39,13 @@ class Description extends Component {
     if (isActive)
       return <DescriptionEditor {...this.props} />
     if (this.props.content)
-      return <div className="fra-description__preview" dangerouslySetInnerHTML={{ __html: this.props.content }}/>
+      return <div className="fra-description__preview" dangerouslySetInnerHTML={{ __html: this.props.content }} />
     if (this.props.template)
-      return <div className="fra-description__preview" dangerouslySetInnerHTML={{ __html: this.props.template }}/>
+      return <div className="fra-description__preview" dangerouslySetInnerHTML={{ __html: this.props.template }} />
     return null
   }
 
-  render () {
+  render() {
     const {
       i18n,
       title,
@@ -66,47 +65,23 @@ class Description extends Component {
 
     return <div>
       <div className="fra-description__header-row">
-        <h3 ref="descriptionHeader"
+          <h3 ref="descriptionHeader"
             className={`subhead fra-description__header${showError ? ' icon-red' : ''}`}
-            onMouseOver={e => {
-              if (showError) {
-                const { descriptionHeader, tooltipError } = this.refs
+          >
+          <Tooltip error text={i18n.t('generalValidation.emptyField')}>
+            {title} {showError && <Icon key="icon-error" className="icon-margin-left icon-red" name="alert" />}
+          </Tooltip>
 
-                const headerOffset = elementOffset(descriptionHeader)
-                const left = headerOffset.left + descriptionHeader.offsetWidth / 2
-                const top = headerOffset.top
-
-                tooltipError.style.top = top
-                tooltipError.style.left = left
-                tooltipError.style.opacity = 1
-              }
-            }}
-            onMouseOut={e => {
-              if (showError)
-                this.refs.tooltipError.style.opacity = 0
-            }}
-        >
-          {title}
-          {
-            showError
-              ? [
-                <Icon key="icon-error" className="icon-margin-left icon-red" name="alert"/>,
-                <div key="tooltip-error" ref="tooltipError"
-                     className="fra-description__tooltip-error">{i18n.t('generalValidation.emptyField')}</div>
-              ]
-              : null
-          }
-        </h3>
+          </h3>
         {
-          disabled
-            ? null
-            : <div className="fra-description__link no-print"
-                   onClick={e => {
-                     isActive ? closeEditor() : openEditor(name)
-                     e.stopPropagation()
-                   }}>
-              {isActive ? i18n.t('description.done') : i18n.t('description.edit')}
-            </div>
+          !disabled
+          && <div className="fra-description__link no-print"
+            onClick={e => {
+              isActive ? closeEditor() : openEditor(name)
+              e.stopPropagation()
+            }}>
+            {isActive ? i18n.t('description.done') : i18n.t('description.edit')}
+          </div>
         }
 
       </div>

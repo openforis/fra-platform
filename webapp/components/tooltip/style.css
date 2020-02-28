@@ -10,7 +10,6 @@
 /* Add this attribute to the element that needs a tooltip */
 [data-tooltip] {
   position: relative;
-  z-index: 20;
   cursor: pointer;
 }
 
@@ -44,6 +43,7 @@
 /* Triangle hack to make tooltip look like a speech bubble */
 [data-tooltip]:after {
   position: absolute;
+  z-index: 10;
   bottom: 75%;
   left: 50%;
   margin-left: -5px;
@@ -61,4 +61,13 @@
 [data-tooltip]:hover:after {
   visibility: visible;
   opacity: 1;
+}
+
+.error[data-tooltip]:before {
+  color: #fff;
+  background-color: #d0021b;
+}
+
+.error[data-tooltip]:after {
+  border-top: 5px solid #d0021b;
 }
