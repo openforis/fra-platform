@@ -8,7 +8,7 @@ import { Modal, ModalBody, ModalClose, ModalFooter, ModalHeader } from '@webapp/
 
 import * as AppState from '@webapp/app/appState'
 
-const AssessmentChangeStatusConfirmationModal = props => {
+const NavAssessmentStatusConfirm = props => {
   const {
     i18n,
     userInfo,
@@ -73,4 +73,4 @@ const AssessmentChangeStatusConfirmationModal = props => {
   </Modal>
 }
 
-export default AssessmentChangeStatusConfirmationModal
+export default NavAssessmentStatusConfirm

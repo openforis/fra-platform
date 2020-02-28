@@ -6,8 +6,7 @@ import { getAllowedStatusTransitions } from '@common/assessment'
 import { isAdministrator } from '@common/countryRole'
 
 import Icon from '@webapp/components/icon'
-import AssessmentChangeStatusConfirmationModal
-  from '@webapp/loggedin/navigation/components/assessment/assessmentChangeStatusConfirmationModal'
+import NavAssessmentStatusConfirm from '@webapp/loggedin/navigation/components/navAssessment/navAssessmentStatusConfirm'
 import { Link } from 'react-router-dom'
 import { PopoverControl } from '@webapp/components/popoverControl'
 import useI18n from '@webapp/components/hooks/useI18n'
@@ -16,9 +15,9 @@ import useUserInfo from '@webapp/components/hooks/useUserInfo'
 import * as AppState from '@webapp/app/appState'
 import * as AssessmentState from '@webapp/country/assessmentState'
 
-import {toggleAssessmentLock } from '@webapp/loggedin/navigation/actions'
+import { toggleAssessmentLock } from '@webapp/loggedin/navigation/actions'
 
-const AssessmentHeader = props => {
+const NavAssessmentHeader = props => {
   const {
     assessment,
     changeAssessment,
@@ -75,7 +74,7 @@ const AssessmentHeader = props => {
 
     { // showing confirmation modal dialog before submitting the status change
       !(R.isNil(targetStatus)) &&
-      <AssessmentChangeStatusConfirmationModal
+      <NavAssessmentStatusConfirm
         countryIso={countryIso}
         i18n={i18n}
         assessment={assessment}
@@ -105,12 +104,17 @@ const AssessmentHeader = props => {
       </div>
 
       <div>
-        <Link className="btn-s btn-secondary" to={`/country/${countryIso}/print/${assessment.type}?onlyTables=true`}
-              target="_blank">
+        <Link
+          className="btn-s btn-secondary"
+          to={`/country/${countryIso}/print/${assessment.type}?onlyTables=true`}
+          target="_blank">
           <Icon name="small-print" className="icon-margin-left"/>
           <Icon name="icon-table2" className="icon-no-margin"/>
         </Link>
-        <Link className="btn-s btn-secondary" to={`/country/${countryIso}/print/${assessment.type}`} target="_blank">
+        <Link
+          className="btn-s btn-secondary"
+          to={`/country/${countryIso}/print/${assessment.type}`}
+          target="_blank">
           <Icon name="small-print" className="icon-no-margin"/>
         </Link>
       </div>
@@ -140,4 +144,4 @@ const AssessmentHeader = props => {
   </div>
 }
 
-export default AssessmentHeader
+export default NavAssessmentHeader

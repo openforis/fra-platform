@@ -10,7 +10,7 @@ export const ReviewStatus = ({ status }) =>
     ? <div className={`nav__review-status--${status.hasUnreadIssues ? 'unread' : 'open'}`}/>
     : null
 
-const AssessmentSection = ({ countryIso, item, assessment, i18n, ...props }) => {
+const NavAssessmentSection = ({ countryIso, item, assessment, i18n, ...props }) => {
 
   const getChildStatus = () => R.pipe(
     R.map(child => props.getReviewStatus(child.section)),
@@ -57,4 +57,4 @@ const AssessmentSection = ({ countryIso, item, assessment, i18n, ...props }) => 
   </div>
 }
 
-export default AssessmentSection
+export default NavAssessmentSection
