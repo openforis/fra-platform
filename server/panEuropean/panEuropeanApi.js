@@ -14,7 +14,7 @@ const VersionService = require('../versioning/service')
 
 module.exports.init = app => {
 
-  const isPanEuropeanCountry = async (res, countryIso) => {
+  const isPanEuropeanCountry = async (countryIso) => {
     const country = await getCountry(countryIso)
     return country.panEuropean
   }
@@ -42,7 +42,7 @@ module.exports.init = app => {
 
   app.post('/panEuropean/:countryIso/upload', Auth.requireCountryEditPermission, async (req, res) => {
     try {
-      const isPanEuropean = await isPanEuropeanCountry(res, req.params.countryIso)
+      const isPanEuropean = await isPanEuropeanCountry(req.params.countryIso)
       if (isPanEuropean) {
         await db.transaction(persistPanEuropeanQuantitativeQuestionnaire, [req.user, req.params.countryIso, req.files.file])
         res.json({})
@@ -58,7 +58,7 @@ module.exports.init = app => {
     try {
       checkCountryAccessFromReqParams(req)
 
-      const isPanEuropean = await isPanEuropeanCountry(res, req.params.countryIso)
+      const isPanEuropean = await isPanEuropeanCountry(req.params.countryIso)
 
       isPanEuropean
         ? downloadFile(res, fileTypes.panEuropeanQuestionnaire, req.params.lang)
@@ -73,7 +73,7 @@ module.exports.init = app => {
     try {
       checkCountryAccessFromReqParams(req)
 
-      const isPanEuropean = await isPanEuropeanCountry(res, req.params.countryIso)
+      const isPanEuropean = await isPanEuropeanCountry(req.params.countryIso)
       if (isPanEuropean) {
         const questionnaire = await getPanEuropeanQuantitativeQuestionnaire(req.params.countryIso)
         res.setHeader('Content-Disposition', 'attachment; filename=' + questionnaire.quantitativeQuestionnaireName)

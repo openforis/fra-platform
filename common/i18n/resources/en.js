@@ -408,6 +408,7 @@ The FRA team
   },
 
   nationalDataPoint: {
+    clickOnNDP: "Click on the year to access original data",
     nationalDataPoint: 'National data point',
     addNationalDataPoint: 'Add national data point',
     noNationalDataAdded: 'No national data added',
