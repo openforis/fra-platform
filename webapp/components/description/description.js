@@ -68,9 +68,14 @@ class Description extends Component {
           <h3 ref="descriptionHeader"
             className={`subhead fra-description__header${showError ? ' icon-red' : ''}`}
           >
-          <Tooltip error text={i18n.t('generalValidation.emptyField')}>
-            {title} {showError && <Icon key="icon-error" className="icon-margin-left icon-red" name="alert" />}
-          </Tooltip>
+          {
+            showError ?
+              <Tooltip error text={i18n.t('generalValidation.emptyField')}>
+                {title} {showError && <Icon key="icon-error" className="icon-margin-left icon-red" name="alert" />}
+              </Tooltip>
+              :
+              <>{title}</>
+          }
 
           </h3>
         {
