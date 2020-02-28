@@ -46,7 +46,7 @@ const AboutView = () => {
 
     <Logos i18n={i18n}/>
 
-    <div className="landing__version">{i18n.t('navigation.support.platformVersion')} {__PLATFORM_VERSION__}</div>
+    <div className="landing__version">{i18n.t('navigation.support.platformVersion')} {__APPLICATION_VERSION__}</div>
   </div>
   )
 }
