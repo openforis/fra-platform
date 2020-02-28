@@ -27,34 +27,31 @@ const Navigation = () => {
 
   return (
     <div className="nav__container no-print">
-      {
-        !(R.isNil(countries) || R.isEmpty(status)) &&
-        <div className="nav">
-          <CountrySelection/>
+      <div className="nav">
+        <CountrySelection/>
 
-          <div className="nav__scroll-content">
+        <div className="nav__scroll-content">
 
-            <LinkLanding/>
-            <div className="nav__divider"/>
+          <LinkLanding/>
+          <div className="nav__divider"/>
 
-            {
-              Object.keys(assessments).map(
-                (name, i) =>
-                  <Assessment
-                    key={i}
-                    name={name}
-                  />
-              )
-            }
+          {
+            Object.keys(assessments).map(
+              (name, i) =>
+                <Assessment
+                  key={i}
+                  name={name}
+                />
+            )
+          }
 
-            <LinkPanEuropeanIndicators/>
+          <LinkPanEuropeanIndicators/>
 
-            <div className="nav__divider"/>
+          <div className="nav__divider"/>
 
-            <Footer/>
-          </div>
+          <Footer/>
         </div>
-      }
+      </div>
     </div>
   )
 }
