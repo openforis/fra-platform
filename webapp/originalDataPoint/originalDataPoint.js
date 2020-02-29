@@ -5,7 +5,7 @@
 import * as R from 'ramda'
 import { sum, mul, sub, add, div } from '@common/bignumberUtils'
 
-const uuidv4 = require('uuid/v4')
+const { v4:uuidv4 } = require('uuid')
 
 export const updateNationalClass = (odp, index, field, value) => {
   const nationalClassToUpdate = odp.nationalClasses[index]
