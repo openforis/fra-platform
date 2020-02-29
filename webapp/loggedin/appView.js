@@ -18,10 +18,10 @@ import useUserInfo from '@webapp/components/hooks/useUserInfo'
 import routes from './routes'
 
 import * as CountryState from '@webapp/country/countryState'
+import * as NavigationState from '@webapp/loggedin/navigation/navigationState'
 
 import { fetchInitialData } from '@webapp/app/actions'
 import { getCountryList } from '@webapp/country/actions'
-import * as NavigationState from '@webapp/loggedin/navigation/navigationState'
 
 // import * as loginStatusChecker from '@webapp/user/loginStatusChecker'
 

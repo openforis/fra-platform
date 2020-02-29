@@ -193,13 +193,18 @@ const ExtentOfForest = (props) => {
       {`${isPrintingOnlyTables() ? '' : '1a '}${i18n.t('extentOfForest.extentOfForest')}`}
     </h1>
 
-    <Link className={`btn btn-primary no-print${isEditDataDisabled ? ' disabled' : ''}`}
-          to={`/country/${props.countryIso}/odp/${sectionName}`}
-          style={{ marginRight: 16 }}>
-      <Icon className="icon-sub icon-white" name="small-add"/>
-      {i18n.t('nationalDataPoint.addNationalDataPoint')}
-    </Link>
-    <hr className="no-print"/>
+    {
+      userInfo &&
+      <>
+        <Link className={`btn btn-primary no-print${isEditDataDisabled ? ' disabled' : ''}`}
+              to={`/country/${props.countryIso}/odp/${sectionName}`}
+              style={{ marginRight: 16 }}>
+          <Icon className="icon-sub icon-white" name="small-add"/>
+          {i18n.t('nationalDataPoint.addNationalDataPoint')}
+        </Link>
+        <hr className="no-print"/>
+      </>
+    }
 
     {
       hasNDPs
