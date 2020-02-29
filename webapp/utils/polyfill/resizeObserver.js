@@ -1,26 +1,31 @@
 import { elementOffset } from '../domUtils'
 
+/**
+ * @typedef Observable
+ * @type {object}
+ * @property {HTMLElement} el - a dom node
+ * @property {{height: number, width: number}} size - the size of the observed element
+ */
 // ResizeObserver polyfill
 export default class ResizeObserver {
-  constructor(callback) {
+  constructor (callback) {
+    /**
+     * Array of observed elements
+     * @type {Observable[]}
+     */
     this.observables = []
-    // Array of observed elements that looks like this:
-    // [{
-    //   el: domNode,
-    //   size: {height: x, width: y}
-    // }]
     this.checkSize = this.checkSize.bind(this)
     this.callback = callback
 
     this.checkSize()
   }
 
-  getElementSize(el) {
+  getElementSize (el) {
     const { width, height, x, y } = el.getBBox ? el.getBBox() : elementOffset(el)
     return { width, height, x, y }
   }
 
-  observe(el) {
+  observe (el) {
     if (!this.observables.some(observable => observable.el === el)) {
       this.observables.push({
         el,
@@ -29,16 +34,16 @@ export default class ResizeObserver {
     }
   }
 
-  unobserve(el) {
+  unobserve (el) {
     this.observables = this.observables.filter(obj => obj.el !== el)
   }
 
-  disconnect() {
+  disconnect () {
     this.observables = []
     window.cancelAnimationFrame(this.af)
   }
 
-  checkSize() {
+  checkSize () {
     const changedEntries = this.observables
       .filter(obj => {
         const { width, height, x, y } = this.getElementSize(obj.el)
