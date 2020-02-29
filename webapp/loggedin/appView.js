@@ -77,10 +77,7 @@ const LoggedInView = () => {
         <div className={`app-view${navigationVisible ? ' navigation-on' : countryIso ? ' navigation-off' : ''}`}>
           <CountrySelection className={navigationVisible ? 'nav-base' : ''}/>
           <Header/>
-          {
-            navigationVisible &&
-            <Navigation/>
-          }
+          <Navigation/>
           <Switch>
             {
               routes.map((route, i) =>

@@ -2,20 +2,20 @@
 
 .app-view {
   display: grid;
-  grid-template-columns: 256px 1fr;
+  grid-template-columns: 0 256px 1fr;
   grid-template-rows: 64px 1fr;
-  grid-template-areas: "country-selection header" "content content";
+  grid-template-areas: "country-selection country-selection header" "navigation content content";
   height: 100vh;
   width: 100vw;
   overflow: hidden;
 
   &.navigation-on {
-    grid-template-areas: "country-selection header" "navigation content";
+    grid-template-areas: "country-selection country-selection header" "navigation navigation content";
   }
 
   &.navigation-off {
-    grid-template-columns: 0px 1fr;
-    grid-template-areas: "country-selection header" "content content";
+    grid-template-columns: 0 0 1fr;
+    grid-template-areas: "country-selection country-selection header" "navigation navigation content";
   }
 }
 

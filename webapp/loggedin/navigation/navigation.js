@@ -8,29 +8,38 @@ import Assessment from '@webapp/loggedin/navigation/components/assessment'
 import LinkLanding from '@webapp/loggedin/navigation/components/linkLanding'
 import LinkPanEuropeanIndicators from '@webapp/loggedin/navigation/components/linkPanEuropeanIndicators'
 import Footer from '@webapp/loggedin/navigation/components/footer'
+import useCountryIso from '@webapp/components/hooks/useCountryIso'
 
-const Navigation = () => (
-  <div className="nav no-print">
+const Navigation = () => {
+  const countryIso = useCountryIso()
 
-    <LinkLanding/>
-    <div className="nav__divider"/>
+  return (
+    <div className="nav no-print">
+      {
+        countryIso &&
+        <>
+          <LinkLanding/>
+          <div className="nav__divider"/>
 
-    {
-      Object.keys(assessments).map(
-        (name, i) =>
-          <Assessment
-            key={i}
-            name={name}
-          />
-      )
-    }
+          {
+            Object.keys(assessments).map(
+              (name, i) =>
+                <Assessment
+                  key={i}
+                  name={name}
+                />
+            )
+          }
 
-    <LinkPanEuropeanIndicators/>
+          <LinkPanEuropeanIndicators/>
 
-    <div className="nav__divider"/>
+          <div className="nav__divider"/>
 
-    <Footer/>
-  </div>
-)
+          <Footer/>
+        </>
+      }
+    </div>
+  )
+}
 
 export default Navigation
