@@ -3,6 +3,7 @@ import './section.less'
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
+import { matchPath, useLocation } from 'react-router-dom'
 
 import ReviewStatus from '@webapp/loggedin/navigation/components/assessment/section/reviewStatus'
 import Item from '@webapp/loggedin/navigation/components/assessment/section/item'
@@ -11,18 +12,26 @@ import useI18n from '@webapp/components/hooks/useI18n'
 import * as ReviewStatusState from '@webapp/country/reviewStatusState'
 
 const Section = props => {
-
   const { section, showSections } = props
 
   const i18n = useI18n()
-
+  const { pathname } = useLocation()
   const childStatus = useSelector(ReviewStatusState.getStatusSectionChildren(section))
-
   const [expanded, setExpanded] = useState(false)
 
   useEffect(() => {
     setExpanded(showSections)
   }, [showSections])
+
+  // On mount check whether the location matches a child path
+  useEffect(() => {
+    const match = section.children.find(
+      ({ pathTemplate: path }) => matchPath(pathname, { path })
+    )
+    if (match) {
+      setExpanded(true)
+    }
+  }, [])
 
   return (
     <div className="nav-section">
