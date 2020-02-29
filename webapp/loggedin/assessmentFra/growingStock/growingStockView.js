@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { connect, useSelector } from 'react-redux'
+import { connect } from 'react-redux'
 import * as R from 'ramda'
 import ReactDOMServer from 'react-dom/server'
 import clipboard from 'clipboard-polyfill'
@@ -16,6 +16,8 @@ import ReviewIndicator from '@webapp/loggedin/review/reviewIndicator'
 import NationalDataDescriptions from '@webapp/components/description/nationalDataDescriptions'
 import AnalysisDescriptions from '@webapp/components/description/analysisDescriptions'
 import GeneralComments from '@webapp/components/description/generalComments'
+import useCountryIso from '@webapp/components/hooks/useCountryIso'
+import useUserInfo from '@webapp/components/hooks/useUserInfo'
 
 import defaultYears from '@server/eof/defaultYears'
 import { isFRA2020SectionEditDisabled } from '@webapp/utils/assessmentAccess'
@@ -217,7 +219,7 @@ const avgValidator = (props, year, row) => {
 }
 
 const GrowingStock = (props) => {
-  const { i18n, countryIso, avgTable, totalTable, isEditDataDisabled } = props
+  const { i18n, countryIso, userInfo, avgTable, totalTable, isEditDataDisabled } = props
   const tableRefTotal = React.useRef(null);
   const tableRefAvg = React.useRef(null);
 
@@ -261,10 +263,13 @@ const GrowingStock = (props) => {
             <th className="fra-table__header-cell" colSpan={defaultYears.length}>
               <div>
                 {props.i18n.t('growingStock.avgTableHeader')}
-                <button className="fra-table__header-button btn-xs btn-primary no-print"
-                        onClick={() => copyTableAsHtml(avgTable, i18n)}>
-                  {props.i18n.t('growingStock.copyToClipboard')}
-                </button>
+                {
+                  userInfo &&
+                  <button className="fra-table__header-button btn-xs btn-primary no-print"
+                          onClick={() => copyTableAsHtml(avgTable, i18n)}>
+                    {props.i18n.t('growingStock.copyToClipboard')}
+                  </button>
+                }
               </div>
             </th>
           </tr>
@@ -410,7 +415,8 @@ const GrowingStock = (props) => {
 
 const GrowingStockView = props => {
   const { totalTable, avgTable, fetch, fetchLastSectionUpdateTimestamp } = props
-  const countryIso = useSelector(AppState.getCountryIso)
+  const countryIso = useCountryIso()
+  const userInfo = useUserInfo()
 
   const hasData = (table) => {
     return R.pipe(
@@ -427,8 +433,16 @@ const GrowingStockView = props => {
     fetch(countryIso)
     fetchLastSectionUpdateTimestamp(countryIso, sectionName)
   }, [])
+
   if (!render) return null
-  return <GrowingStock countryIso={countryIso} {...props} />
+
+  return (
+    <GrowingStock
+      countryIso={countryIso}
+      userInfo={userInfo}
+      {...props}
+    />
+  )
 }
 
 const mapStateToProps = state =>

@@ -17,6 +17,7 @@ import DefinitionLink from '@webapp/components/definitionLink'
 import ReviewIndicator from '@webapp/loggedin/review/reviewIndicator'
 import NationalDataPointsPrintView from '@webapp/originalDataPoint/nationalDataPointsPrintView'
 import useI18n from '@webapp/components/hooks/useI18n'
+import useUserInfo from '@webapp/components/hooks/useUserInfo'
 
 import FraUtils from '@common/fraUtils'
 import * as AppState from '@webapp/app/appState'
@@ -344,6 +345,7 @@ const ForestCharacteristics = props => {
 const DataFetchingComponent = props => {
   const { fra, fetchItem, fetchLastSectionUpdateTimestamp } = props
   const countryIso = useSelector(AppState.getCountryIso)
+  const userInfo = useUserInfo()
   const i18n = useI18n()
 
   const hasData = (data) => {
@@ -367,6 +369,7 @@ const DataFetchingComponent = props => {
     {...props}
     hasData={hasData(data)}
     countryIso={countryIso}
+    userInfo={userInfo}
     fra={data}
     i18n={i18n}
   />

@@ -1,6 +1,5 @@
 import './style.less'
 import React from 'react'
-import PropTypes from 'prop-types'
 import * as R from 'ramda'
 import ReactDOMServer from 'react-dom/server'
 import clipboard from 'clipboard-polyfill'
@@ -69,7 +68,7 @@ export class TableWithOdp extends React.Component {
   }
 
   render () {
-    const { copyValues = true, disabled = false, sectionAnchor, i18n } = this.props
+    const { copyValues = true, disabled = false, sectionAnchor, i18n, userInfo } = this.props
 
     return <div className="fra-table__container table-with-odp">
       <div className="fra-table__scroll-wrapper">
@@ -84,12 +83,13 @@ export class TableWithOdp extends React.Component {
             <th className="fra-table__header-cell" colSpan={R.values(this.props.fra).length}>
               <div>
                 {this.props.tableHeader}
-                {copyValues
-                  ? <button className="fra-table__header-button btn-xs btn-primary no-print"
-                            onClick={() => this.copyTableAsHtml()}>
+                {
+                  copyValues && userInfo &&
+                  <button className="fra-table__header-button btn-xs btn-primary no-print"
+                          onClick={() => this.copyTableAsHtml()}>
                     {this.props.i18n.t('tableWithOdp.copyToClipboard')}
                   </button>
-                  : null}
+                }
               </div>
             </th>
           </tr>
