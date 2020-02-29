@@ -1,4 +1,4 @@
-@import (reference) "../../app-styles/config";
+@import (reference) "~@webapp/app-styles/config";
 
 // Add button + indicator
 
@@ -66,15 +66,16 @@
 // Commenting panel
 
 .fra-review__container {
-  position: relative;
-  width: 288px;
+  position: fixed;
+  right: 0;
+  height: 100vh;
+  width: @ui-app-review-width;
   z-index: 1;
   flex-shrink: 0;
 }
 
 .fra-review {
-  position: fixed;
-  width: 288px;
+  width: @ui-app-review-width;
   height: 100%;
   display: flex;
   flex-flow: column nowrap;

@@ -2,18 +2,19 @@
 @import (reference) "~@webapp/app-styles/statusMixins";
 @import (reference) "~@webapp/loggedin/navigation/navigationMixins.less";
 
-.nav__container {
-  position: relative;
-  width: 256px;
-  z-index: 1;
-  flex-shrink: 0;
+.nav-base {
+  background-color: @ui-bg;
+  border-right: @ui-thin-border;
 }
 
 .nav {
-  background-color: @ui-bg;
-  border-right: @ui-thin-border;
-  position: fixed;
-  width: 256px;
+  &:extend(.nav-base);
+  grid-area: navigation;
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: 100%;
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 
 .nav__divider {

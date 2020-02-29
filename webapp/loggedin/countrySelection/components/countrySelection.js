@@ -1,6 +1,7 @@
 import './countrySelection.less'
 
 import React, { useEffect, useRef, useState } from 'react'
+import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
 
 import { getRoleForCountryLabelKey } from '@common/countryRole'
@@ -14,7 +15,8 @@ import useUserInfo from '@webapp/components/hooks/useUserInfo'
 
 import * as CountryState from '@webapp/country/countryState'
 
-const CountrySelection = () => {
+const CountrySelection = props => {
+  const { className } = props
 
   const countryIso = useCountryIso()
   const userInfo = useUserInfo()
@@ -38,7 +40,7 @@ const CountrySelection = () => {
   }, [])
 
   return (
-    <div className="country-selection"
+    <div className={`country-selection no-print ${className}`}
          ref={countrySelectionRef}
          onClick={() => setOpen(!open)}>
 
@@ -78,6 +80,10 @@ const CountrySelection = () => {
       }
     </div>
   )
+}
+
+CountrySelection.propTypes = {
+  className: PropTypes.string.isRequired
 }
 
 export default CountrySelection

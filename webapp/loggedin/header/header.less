@@ -1,9 +1,8 @@
 @import (reference) "~@webapp/app-styles/config";
 
 .app-header {
-  height: @ui-app-header-height;
+  grid-area: header;
   border-bottom: @ui-thin-border;
-  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -91,8 +90,12 @@
 }
 
 @keyframes fadeOutCheck {
-  0% { opacity: 1 }
-  95% { opacity: 0}
+  0% {
+    opacity: 1
+  }
+  95% {
+    opacity: 0
+  }
   100% {
     width: 0;
     margin-right: 0;

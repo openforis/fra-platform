@@ -1,54 +1,36 @@
 import './navigation.less'
 
 import React from 'react'
-import { useSelector } from 'react-redux'
 
 import { assessments } from '@common/assessmentSectionItems'
 
-import CountrySelection from '@webapp/loggedin/countrySelection'
 import Assessment from '@webapp/loggedin/navigation/components/assessment'
 import LinkLanding from '@webapp/loggedin/navigation/components/linkLanding'
 import LinkPanEuropeanIndicators from '@webapp/loggedin/navigation/components/linkPanEuropeanIndicators'
 import Footer from '@webapp/loggedin/navigation/components/footer'
 
-import * as NavigationState from '@webapp/loggedin/navigation/navigationState'
+const Navigation = () => (
+  <div className="nav no-print">
 
-const Navigation = () => {
-  const navigationVisible = useSelector(NavigationState.isVisible)
+    <LinkLanding/>
+    <div className="nav__divider"/>
 
-  if (!navigationVisible) {
-    return null
-  }
+    {
+      Object.keys(assessments).map(
+        (name, i) =>
+          <Assessment
+            key={i}
+            name={name}
+          />
+      )
+    }
 
-  return (
-    <div className="nav__container no-print">
-      <div className="nav">
-        <CountrySelection/>
+    <LinkPanEuropeanIndicators/>
 
-        <div className="nav__scroll-content">
+    <div className="nav__divider"/>
 
-          <LinkLanding/>
-          <div className="nav__divider"/>
-
-          {
-            Object.keys(assessments).map(
-              (name, i) =>
-                <Assessment
-                  key={i}
-                  name={name}
-                />
-            )
-          }
-
-          <LinkPanEuropeanIndicators/>
-
-          <div className="nav__divider"/>
-
-          <Footer/>
-        </div>
-      </div>
-    </div>
-  )
-}
+    <Footer/>
+  </div>
+)
 
 export default Navigation

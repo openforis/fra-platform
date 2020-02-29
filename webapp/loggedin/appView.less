@@ -1,21 +1,34 @@
 @import (reference) "~@webapp/app-styles/config";
 
 .app-view {
-  display: flex;
-  flex-flow: row nowrap;
+  display: grid;
+  grid-template-columns: 256px 1fr;
+  grid-template-rows: 64px 1fr;
+  grid-template-areas: "country-selection header" "content content";
   height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+
+  &.navigation-on {
+    grid-template-areas: "country-selection header" "navigation content";
+  }
+
+  &.navigation-off {
+    grid-template-columns: 0px 1fr;
+    grid-template-areas: "country-selection header" "content content";
+  }
 }
 
-.app-view__container {
-  width: 100%;
-  overflow: hidden;
+.fra-review__container + .app-view {
+  width: ~"calc(100vw - @{ui-app-review-width})";
 }
 
 .app-view__content {
+  grid-area: content;
+  height: 100%;
   padding: 28px 32px 48px 32px;
   overflow-x: hidden;
   overflow-y: auto;
-  height: ~"calc(100vh - @{ui-app-header-height})";
 }
 
 .app-view__page-header {
