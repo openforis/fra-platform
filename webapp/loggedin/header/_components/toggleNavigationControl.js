@@ -15,7 +15,7 @@ const ToggleNavigationControl = () => {
 
   const localisationKey = navigationVisible ? 'hideSidebar' : 'showSidebar'
   return (
-    <div className="fra-header__toggle-navigation-visible"
+    <div className="app-header__toggle-navigation-visible"
          onClick={() => dispatch(toggleNavigation())}>
       <Icon className="icon-sub" name="menu-left"/>
       {i18n.t('header.' + localisationKey)}

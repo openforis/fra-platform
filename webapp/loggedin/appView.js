@@ -36,6 +36,9 @@ const LoggedInView = props => {
 
   useEffect(() => {
     getCountryList()
+  }, [])
+
+  useEffect(() => {
     if (countryIso) {
       fetchInitialData(countryIso)
     }
@@ -57,6 +60,7 @@ const LoggedInView = props => {
             <Navigation/>
           }
           <div className="fra-view__container">
+            <Header/>
             <Switch>
               {
                 routes.map((route, i) =>
@@ -65,7 +69,6 @@ const LoggedInView = props => {
               }
             </Switch>
           </div>
-          <Header/>
 
           {
             userInfo && countryIso &&

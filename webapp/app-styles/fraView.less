@@ -1,14 +1,15 @@
-// Fra view classes
+@import (reference) "~@webapp/app-styles/config";
 
 .fra-view__container {
   width: 100%;
-  overflow-x: hidden;
-  overflow-y: auto;
-  margin-top: 64px;
+  overflow: hidden;
 }
 
 .fra-view__content {
   padding: 28px 32px 48px 32px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: ~"calc(100vh - @{ui-app-header-height})";
 }
 
 .fra-view__page-header {
