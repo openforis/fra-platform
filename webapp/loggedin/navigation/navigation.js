@@ -2,7 +2,6 @@ import './navigation.less'
 
 import React from 'react'
 import { useSelector } from 'react-redux'
-import * as R from 'ramda'
 
 import { assessments } from '@common/assessmentSectionItems'
 
@@ -12,16 +11,12 @@ import LinkLanding from '@webapp/loggedin/navigation/components/linkLanding'
 import LinkPanEuropeanIndicators from '@webapp/loggedin/navigation/components/linkPanEuropeanIndicators'
 import Footer from '@webapp/loggedin/navigation/components/footer'
 
-import * as CountryState from '@webapp/country/countryState'
 import * as NavigationState from '@webapp/loggedin/navigation/navigationState'
 
 const Navigation = () => {
-
-  const countries = useSelector(CountryState.getCountries)
-  const status = useSelector(CountryState.getStatus)
   const navigationVisible = useSelector(NavigationState.isVisible)
 
-  if (!(navigationVisible || R.isNil(countries) || R.isEmpty(status))) {
+  if (!navigationVisible) {
     return null
   }
 

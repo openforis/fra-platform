@@ -19,12 +19,15 @@ const keysStatus = {
 
 const getState = R.prop(stateKey)
 
+const _isNotEmpty = R.pipe(R.isEmpty, R.not)
 // === READ
-export const getCountries = R.pipe(getState, R.prop(keys.countries))
+export const getCountries = R.pipe(getState, R.propOr({}, keys.countries))
+export const hasCountries = R.pipe(getCountries, _isNotEmpty)
 export const getCountriesList = R.pipe(getCountries, R.values, R.flatten)
 export const getCountryByCountryIso = countryIso => R.pipe(getCountriesList, R.find(R.propEq(Country.keys.countryIso, countryIso)))
 export const getConfig = R.pipe(getState, R.propOr({}, keys.config))
 export const getStatus = R.pipe(getState, R.propOr({}, keys.status))
+export const hasStatus = R.pipe(getStatus, _isNotEmpty)
 export const getAssessments = R.pipe(getStatus, R.propOr({}, keysStatus.assessments))
 export const getReviewStatus = R.pipe(getStatus, R.propOr({}, keysStatus.reviewStatus))
 
