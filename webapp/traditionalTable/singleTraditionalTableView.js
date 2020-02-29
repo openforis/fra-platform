@@ -65,7 +65,7 @@ const SingleTraditionalTableView = props => {
         {headingDetailsLocalizationKey ? ` (${i18n.t(headingDetailsLocalizationKey)})` : null}
       </h2>
 
-      <div className="fra-view__content">
+      <div className="app-view__content">
         {
           useNationalDataDescriptions === false
             ? null
@@ -83,7 +83,7 @@ const SingleTraditionalTableView = props => {
           {i18n.t(headingLocalizationKey)}
           {headingDetailsLocalizationKey ? ` (${i18n.t(headingDetailsLocalizationKey)})` : null}
         </h2>
-        <div className="fra-view__section-toolbar">
+        <div className="app-view__section-toolbar">
           <DefinitionLink className="margin-right-big" document="tad"
             anchor={sectionAnchor ? sectionAnchor : tadAnchor}
             title={i18n.t('definition.definitionLabel')} lang={i18n.language} />

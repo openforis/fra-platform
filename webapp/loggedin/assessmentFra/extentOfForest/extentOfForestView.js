@@ -187,7 +187,7 @@ const ExtentOfForest = (props) => {
     }
   ]
 
-  return <div className='fra-view__content'>
+  return <div className='app-view__content'>
 
     <h1 className="title only-print">
       {`${isPrintingOnlyTables() ? '' : '1a '}${i18n.t('extentOfForest.extentOfForest')}`}
@@ -223,7 +223,7 @@ const ExtentOfForest = (props) => {
         </button>
       }
     </h2>
-    <div className="fra-view__section-toolbar">
+    <div className="app-view__section-toolbar">
       <DefinitionLink className="margin-right-big no-print" document="tad" anchor={anchorName}
                       title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
       <DefinitionLink className="align-left no-print" document="faq" anchor={anchorName} title={i18n.t('definition.faqLabel')}
@@ -247,7 +247,7 @@ const ExtentOfForest = (props) => {
 
     {
       hasNDPs && showNDPs && !isEditDataDisabled &&
-      <div className="fra-view__section-toolbar no-print">
+      <div className="app-view__section-toolbar no-print">
         <GenerateFraValuesControl section={sectionName} rows={eofRows} useOriginalDataPoints={true} {...props} />
         {
           props.odpDirty &&

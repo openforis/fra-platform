@@ -23,7 +23,7 @@ const LandingView = () => {
   const sections = useLandingViewSections()
 
   return (
-    <div className="fra-view__content">
+    <div className="app-view__content">
 
       <div className="landing__page-header">
         <h1 className="landing__page-title">

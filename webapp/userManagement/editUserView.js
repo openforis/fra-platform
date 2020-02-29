@@ -17,7 +17,7 @@ const EditUserView = ({ userInfo }) => {
   const { countryIso, userId } = useParams()
 
   return canEdit(userInfo, userId) ?
-    <div className="fra-view__content">
+    <div className="app-view__content">
       <EditUserForm userId={userId} countryIso={countryIso} />
     </div>
     : <NotFound />

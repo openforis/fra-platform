@@ -88,13 +88,13 @@ const CarbonStockView = props => {
       {`${isPrintingOnlyTables() ? '' : '2d '}${i18n.t('carbonStock.carbonStock')}`}
     </h2>
 
-    <div className="fra-view__content">
+    <div className="app-view__content">
       <NationalDataDescriptions section={sectionName} countryIso={countryIso} disabled={disabled}/>
       <AnalysisDescriptions section={sectionName} countryIso={countryIso} disabled={disabled}/>
       <h2 className="headline no-print">
         {i18n.t('carbonStock.carbonStock')}
       </h2>
-      <div className="fra-view__section-toolbar" style={{ marginTop: '4px' }}>
+      <div className="app-view__section-toolbar" style={{ marginTop: '4px' }}>
         <DefinitionLink className="margin-right-big" document="tad" anchor="2d"
                         title={i18n.t('definition.definitionLabel')} lang={language}/>
         <DefinitionLink className="align-left" document="faq" anchor="2c" title={i18n.t('definition.faqLabel')}

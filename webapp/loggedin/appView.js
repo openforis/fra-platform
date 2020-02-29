@@ -1,3 +1,5 @@
+import './appView.less'
+
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Route, Switch, useParams } from 'react-router-dom'
@@ -54,12 +56,12 @@ const LoggedInView = props => {
       />
 
       <Route>
-        <div className="app__root">
+        <div className="app-view">
           {
             countryIso &&
             <Navigation/>
           }
-          <div className="fra-view__container">
+          <div className="app-view__container">
             <Header/>
             <Switch>
               {

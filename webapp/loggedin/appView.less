@@ -1,18 +1,24 @@
 @import (reference) "~@webapp/app-styles/config";
 
-.fra-view__container {
+.app-view {
+  display: flex;
+  flex-flow: row nowrap;
+  height: 100vh;
+}
+
+.app-view__container {
   width: 100%;
   overflow: hidden;
 }
 
-.fra-view__content {
+.app-view__content {
   padding: 28px 32px 48px 32px;
   overflow-x: hidden;
   overflow-y: auto;
   height: ~"calc(100vh - @{ui-app-header-height})";
 }
 
-.fra-view__page-header {
+.app-view__page-header {
   display: flex;
   flex-flow: row wrap;
   align-items: center;
@@ -21,7 +27,7 @@
   .mixin-header-items;
 }
 
-.fra-view__section-toolbar {
+.app-view__section-toolbar {
   display: flex;
   flex-flow: row wrap;
   align-items: center;

@@ -35,7 +35,7 @@ const GrowingStockCompositionView = props => {
       {`${isPrintingOnlyTables() ? '' : '2b '}${i18n.t('growingStockComposition.growingStockComposition')}`}
     </h2>
 
-    <div className="fra-view__content growing-stock-composition-view">
+    <div className="app-view__content growing-stock-composition-view">
       <NationalDataDescriptions section={tableSpecInstance.name} countryIso={countryIso}
                                 disabled={isEditDataDisabled}/>
       <AnalysisDescriptions section={tableSpecInstance.name} countryIso={countryIso}
@@ -43,7 +43,7 @@ const GrowingStockCompositionView = props => {
       <h2 className="headline no-print">
         {i18n.t('growingStockComposition.growingStockComposition')}
       </h2>
-      <div className="fra-view__section-toolbar">
+      <div className="app-view__section-toolbar">
         <DefinitionLink className="margin-right-big" document="tad" anchor="2b"
                         title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
         <DefinitionLink className="align-left" document="faq" anchor="2b" title={i18n.t('definition.faqLabel')}

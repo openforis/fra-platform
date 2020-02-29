@@ -19,7 +19,7 @@ const ContactPersonsPrintView = props => {
     : null
 
   return <>
-    <div className="fra-view__content">
+    <div className="app-view__content">
       <h2 className="headline">
         {i18n.t('contactPersons.reportPreparationAndContactPersons')}
       </h2>

@@ -62,13 +62,13 @@ const NonWoodForestProductsRemovalsView = props => {
       {`${isPrintingOnlyTables() ? '' : '7c '}${i18n.t('nonWoodForestProductsRemovals.nonWoodForestProductsRemovals')}`}
     </h2>
 
-    <div className="fra-view__content">
+    <div className="app-view__content">
       <NationalDataDescriptions section={tableSpecInstance.name} countryIso={countryIso}
                                 disabled={disabled}/>
       <h2 className="headline no-print">
         {i18n.t('nonWoodForestProductsRemovals.nonWoodForestProductsRemovals')}
       </h2>
-      <div className="fra-view__section-toolbar">
+      <div className="app-view__section-toolbar">
         <DefinitionLink className="margin-right-big" document="tad" anchor="7c"
                         title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
         <DefinitionLink className="align-left" document="faq" anchor="7c" title={i18n.t('definition.faqLabel')}

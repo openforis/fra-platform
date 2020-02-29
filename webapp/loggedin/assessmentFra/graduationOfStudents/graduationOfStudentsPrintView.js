@@ -22,13 +22,13 @@ const GraduationOfStudentsView = props => {
       7b {i18n.t('graduationOfStudents.graduationOfStudents')} ({i18n.t('graduationOfStudents.average')})
     </h2>
 
-    <div className="fra-view__content">
+    <div className="app-view__content">
       <NationalDataDescriptions section={tableProps.graduationOfStudents.name} countryIso={countryIso}/>
 
       <h2 className="headline no-print">
         {i18n.t('graduationOfStudents.graduationOfStudents')} ({i18n.t('graduationOfStudents.average')})
       </h2>
-      <div className="fra-view__section-toolbar">
+      <div className="app-view__section-toolbar">
       </div>
 
       <TraditionalTable tableSpec={tableSpecPrint1} countryIso={countryIso}/>

@@ -62,7 +62,7 @@ const BiomassStockView = props => {
 
   const render = isPrintingOnlyTables() ? FraUtils.hasData(tableData) : true
   if (!render) return null
-  return <div className="fra-view__content">
+  return <div className="app-view__content">
 
     <h2 className="title only-print">
       {`${isPrintingOnlyTables() ? '' : '2c '}${i18n.t('biomassStock.biomassStock')}`}
@@ -75,7 +75,7 @@ const BiomassStockView = props => {
       {i18n.t('biomassStock.biomassStock')}
     </h2>
 
-    <div className="fra-view__section-toolbar" style={{ marginTop: '4px' }}>
+    <div className="app-view__section-toolbar" style={{ marginTop: '4px' }}>
       <DefinitionLink className="margin-right-big" document="tad" anchor="2c"
                       title={i18n.t('definition.definitionLabel')} lang={language}/>
       <DefinitionLink className="align-left" document="faq" anchor="2c" title={i18n.t('definition.faqLabel')}

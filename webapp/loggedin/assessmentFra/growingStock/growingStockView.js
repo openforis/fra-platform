@@ -223,7 +223,7 @@ const GrowingStock = (props) => {
 
   if (R.isNil(avgTable) || R.isNil(totalTable)) return null
 
-  return <div className='fra-view__content'>
+  return <div className='app-view__content'>
 
     <h2 className="title only-print">
       {`${isPrintingOnlyTables() ? '' : '2a '}${i18n.t('growingStock.growingStock')}`}
@@ -234,7 +234,7 @@ const GrowingStock = (props) => {
     <h2 className="headline no-print">
       {i18n.t('growingStock.growingStock')}
     </h2>
-    <div className="fra-view__section-toolbar">
+    <div className="app-view__section-toolbar">
       <DefinitionLink className="margin-right-big" document="tad" anchor="2a"
                       title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
       <DefinitionLink className="align-left" document="faq" anchor="2a" title={i18n.t('definition.faqLabel')}

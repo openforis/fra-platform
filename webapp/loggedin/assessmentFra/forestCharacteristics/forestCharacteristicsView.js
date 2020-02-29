@@ -232,7 +232,7 @@ const ForestCharacteristics = props => {
     )
   }
 
-  return <div className='fra-view__content'>
+  return <div className='app-view__content'>
 
     <h1 className="title only-print">
       {`${isPrintingOnlyTables() ? '' : '1b '}${i18n.t('forestCharacteristics.forestCharacteristics')}`}
@@ -269,7 +269,7 @@ const ForestCharacteristics = props => {
     <h2 className="headline no-print">
       {i18n.t('forestCharacteristics.forestCharacteristics')}
     </h2>
-    <div className="fra-view__section-toolbar no-print">
+    <div className="app-view__section-toolbar no-print">
       <DefinitionLink className="margin-right-big" document="tad" anchor={anchorName}
                       title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
       <DefinitionLink className="align-left" document="faq" anchor={anchorName} title={i18n.t('definition.faqLabel')}
@@ -305,7 +305,7 @@ const ForestCharacteristics = props => {
     }
     {
       props.useOriginalDataPointsInFoc && !isEditDataDisabled
-        ? <div className="fra-view__section-toolbar no-print">
+        ? <div className="app-view__section-toolbar no-print">
           <GenerateFraValuesControl section={sectionName} rows={focRows} {...props} />
           {
             props.odpDirty
