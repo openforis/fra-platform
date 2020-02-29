@@ -30,7 +30,7 @@ const Status = props => {
 
   //  Hidden in public view
   if (!userInfo) {
-    return null
+    return <div/>
   }
 
   const deskStudyItems = [
