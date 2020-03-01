@@ -25,7 +25,7 @@ const AutoSaveStatusText = () => {
     : ''
 
   return hasStatus && (
-    <div className={`fra-header__autosave status-${status}`}>
+    <div className={`app-header__autosave status-${status}`}>
       {statusText}
     </div>
   )
