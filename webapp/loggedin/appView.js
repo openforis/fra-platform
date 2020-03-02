@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Route, Switch, useParams } from 'react-router-dom'
 import * as R from 'ramda'
 
-// import Loading from '@webapp/components/loading'
 import CountrySelection from '@webapp/loggedin/countrySelection'
 import Header from './header/header'
 import Navigation from './navigation/navigation'
@@ -43,10 +42,6 @@ const LoggedInView = () => {
 
   if (countryIso && !initialDataLoaded) {
     return null
-    // TODO: Check if it looks nice
-    // return (
-    // <Loading/>
-    // )
   }
 
   return (
