@@ -1,0 +1,38 @@
+- main (ex app)
+    - style (ex app-styles)
+- app
+    - admin
+    - autosave (move audit functions to autosave)
+    - error
+    - navigation
+    - landing
+        - messageBoard
+        - feed
+        - overview 
+        - repository
+        - admin
+            - versions
+    - assessment
+        - descriptions
+        - review
+        - traditionalTable
+        - [fra2020]
+            - components
+                - tableWithOdp
+            - sections
+                - extentOfForest
+                - forestCharacteristics
+                - growingStock
+                - originalDataPoint
+                - sustainableDevelopment
+                - ... all tables
+        - [panEuropean]
+            - sections
+                - panEuropeanIndicators
+    - user
+        - userChat
+        - userManagement or users or userList
+- country
+- components
+- login
+- utils
