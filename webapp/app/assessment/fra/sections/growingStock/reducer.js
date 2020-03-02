@@ -1,4 +1,3 @@
-import * as R from 'ramda'
 import * as types from './actions'
 import { applyReducerFunction } from '@webapp/utils/reduxUtils'
 

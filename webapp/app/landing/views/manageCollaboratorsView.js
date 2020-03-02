@@ -69,7 +69,7 @@ const ManageCollaboratorsView = props => {
   )
 }
 
-const mapStateToProps = (state, props) =>
+const mapStateToProps = state =>
   ({
     i18n: AppState.getI18n(state),
     userInfo: UserState.getUserInfo(state),

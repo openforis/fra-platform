@@ -36,7 +36,7 @@ export default class MultiSelect extends React.Component {
   }
 
   toggleOpen () {
-    this.setState({open: !this.state.open})
+    this.setState((state) => ({ open: !state.open }))
   }
 
   localizeOption (option) {

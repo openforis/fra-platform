@@ -2,8 +2,6 @@ import React from 'react'
 import * as R from 'ramda'
 import { Link } from 'react-router-dom'
 import { formatDecimal } from '@common/numberFormat'
-import { totalSum } from '@common/aggregate'
-import { forestAreaSameAsExtentOfForestValidator } from '@webapp/app/assessment/components/traditionalTable/validators'
 import { getForestAreaForYear } from '@common/extentOfForestHelper'
 import { sub } from '@common/bignumberUtils'
 
@@ -15,8 +13,6 @@ const createDmoInputRow = (rowHeader) => [
 ]
 
 const years = [1990, 2000, 2010, 2015, 2020]
-const sumRows = R.range(0, 7)
-const totalForestArea = (tableData, column) => totalSum(tableData, column, sumRows)
 
 const thead = i18n =>
   <thead>
@@ -71,22 +67,6 @@ export const primaryDesignatedManagementObjectiveTableSpec = (i18n, extentOfFore
           valueFormatter: formatDecimal
         }), years)
     ],
-    // [
-    //   {
-    //     type: 'readOnly',
-    //     jsx:
-    //       <th className="fra-table__header-cell-left">
-    //         {i18n.t('designatedManagementObjective.total')} (a+b+c+d+e+f+g)
-    //       </th>
-    //   },
-    //   ...mapIndexed((year, i) =>
-    //     ({
-    //       type: 'calculated',
-    //       calculateValue: props => totalForestArea(props.tableData, i + 1),
-    //       valueFormatter: formatDecimal,
-    //       validator: forestAreaSameAsExtentOfForestValidator(year, extentOfForest, sumRows)
-    //     }), years)
-    // ],
     [
       {
         type: 'readOnly',

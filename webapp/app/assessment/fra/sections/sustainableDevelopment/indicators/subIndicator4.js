@@ -59,7 +59,7 @@ const SubIndicator4 = ({ i18n, countryIso, data, years, disabled }) => {
           {
             years.map((year, i) =>
               <td key={`${year}h`} className="fra-table__calculated-cell">
-                {formatDecimal(getValueForestManagement(year, i))}
+                {formatDecimal(getValueForestManagement(year))}
               </td>
             )
           }

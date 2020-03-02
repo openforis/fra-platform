@@ -134,7 +134,7 @@ export class GenerateFraValuesControl extends React.Component {
   }
 
   render () {
-    const { i18n, fra, generatingFraValues, rows, useOriginalDataPoints } = this.props
+    const { i18n, fra, generatingFraValues, useOriginalDataPoints } = this.props
     return <div className="table-with-odp__generate-control">
       <select
         className="select-s"

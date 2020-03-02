@@ -1,4 +1,3 @@
-import React from 'react'
 import assert from 'assert'
 import IntegerCellType from './integerCellType'
 import DecimalCellType from './decimalCellType'

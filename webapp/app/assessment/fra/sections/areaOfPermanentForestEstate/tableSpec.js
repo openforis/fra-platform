@@ -1,18 +1,14 @@
-import * as R from 'ramda'
 import React from 'react'
 import { forestAreaLessThanOrEqualToExtentOfForestValidator } from '@webapp/app/assessment/components/traditionalTable/validators'
-
-const mapIndexed = R.addIndex(R.map)
 
 const years = [1990, 2000, 2010, 2015, 2020]
 
 export default (i18n, extentOfForest) => {
-  const inputColumns = R.map(
+  const inputColumns = years.map(
     year => ({
       type: 'decimalInput',
       validator: forestAreaLessThanOrEqualToExtentOfForestValidator(year, extentOfForest)
-    }),
-    years
+    })
   )
 
   return {
@@ -25,7 +21,7 @@ export default (i18n, extentOfForest) => {
     <tr>
       <th className="fra-table__header-cell">{i18n.t('areaOfPermanentForestEstate.applicable')}</th>
       {
-        R.map(year => <th key={year} className="fra-table__header-cell">{year}</th>, years)
+        years.map(year => <th key={year} className="fra-table__header-cell">{year}</th>)
       }
     </tr>
     </thead>,

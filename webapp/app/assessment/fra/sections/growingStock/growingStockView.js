@@ -148,9 +148,7 @@ const subCategoryValidator = (parentField, childFields) =>
 
     return {
       valid: valid,
-      message: valid
-        ? ''
-        : props.i18n.t('generalValidation.subCategoryExceedsParent')
+]      props.i18n.t('generalValidation.subCategoryExceedsParent')
     }
   }
 

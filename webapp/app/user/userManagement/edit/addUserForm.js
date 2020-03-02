@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { useParams } from 'react-router-dom'
 import * as R from 'ramda'
 
 import { validField } from '../userManagement'

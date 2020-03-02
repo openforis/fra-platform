@@ -15,7 +15,7 @@ export const tableProps = {
     years: [2010, 2015]
   }
 }
-const yearFields = (rowIdx, validator) => yearIdx => [
+const yearFields = (_, validator) => () => [
   {type: 'integerInput', validator: validator},
   {type: 'integerInput', validator: validator},
   {type: 'integerInput', validator: validator}

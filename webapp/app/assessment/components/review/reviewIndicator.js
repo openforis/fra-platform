@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { useParams } from 'react-router-dom'
 import * as R from 'ramda'
 
 import Icon from '@webapp/components/icon'

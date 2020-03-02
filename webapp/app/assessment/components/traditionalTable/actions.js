@@ -8,9 +8,6 @@ export const tableValueChangedAction = 'traditionalTable/tableValueChanged'
 
 const createNewTableState = (tableSpec, rowIdx, colIdx, newValue, getState) => {
   const traditionalTableState = getState().traditionalTable
-  if (tableSpec && !tableSpec.name) {
-    console.error('tableSpec missing name')
-  }
   const tableValues = R.path([tableSpec.name, 'tableData'], traditionalTableState) || table.createTableData(tableSpec)
   return table.updateCellValue(tableSpec, tableValues, rowIdx, colIdx, newValue)
 }

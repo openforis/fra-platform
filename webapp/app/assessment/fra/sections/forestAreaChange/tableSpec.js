@@ -3,11 +3,10 @@ import * as R from 'ramda'
 
 import { acceptNextDecimal } from '@webapp/utils/numberInput'
 import { formatDecimal } from '@common/numberFormat'
-import { formatNumber } from '@common/bignumberUtils'
 
 import { subCategoryValidator, positiveOrZero } from '@webapp/app/assessment/components/traditionalTable/validators'
 import { Link } from 'react-router-dom'
-import { yearIntervals, decimalInputCell, eofNetChange, calculateMirrorValue, rowMirrors } from './forestAreaChange'
+import { yearIntervals, decimalInputCell, eofNetChange } from './forestAreaChange'
 
 const mapIndexed = R.addIndex(R.map)
 const ofWhichRows = R.range(1, 3)

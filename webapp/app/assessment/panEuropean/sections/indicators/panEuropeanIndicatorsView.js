@@ -54,17 +54,22 @@ class PanEuropeanIndicatorsView extends React.Component {
               <Icon name="single-folded-content" className="icon-24 icon-middle icon-margin-right"/>
               {
                 R.isNil(questionnaireFileName)
-                  ? <span
-                    className="pan-european__file-name pan-european__file-placeholder">{i18n.t('panEuropeanIndicators.noQuestionnaire')}</span>
-                  : [
-                    <span className="pan-european__file-name">{questionnaireFileName}</span>,
-                    <a className="btn btn-link" href={`/api/panEuropean/${countryIso}/download`} target="_blank">
-                      {i18n.t('panEuropeanIndicators.download')}
-                    </a>,
-                    <button className="btn btn-link-destructive" onClick={() => this.props.deleteQuestionare(countryIso)}>
-                      {i18n.t('panEuropeanIndicators.remove')}
-                    </button>
-                  ]
+                  ? (
+                    <span className="pan-european__file-name pan-european__file-placeholder">
+                      {i18n.t('panEuropeanIndicators.noQuestionnaire')}
+                    </span>
+                  ) : (
+                    <>
+                      <span className="pan-european__file-name">{questionnaireFileName}</span>
+                      <a className="btn btn-link" href={`/api/panEuropean/${countryIso}/download`} target="_blank">
+                        {i18n.t('panEuropeanIndicators.download')}
+                      </a>,
+                      <button className="btn btn-link-destructive"
+                              onClick={() => this.props.deleteQuestionare(countryIso)}>
+                        {i18n.t('panEuropeanIndicators.remove')}
+                      </button>
+                    </>
+                  )
               }
             </div>
             <input

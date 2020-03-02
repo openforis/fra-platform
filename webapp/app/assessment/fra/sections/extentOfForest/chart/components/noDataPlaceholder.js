@@ -1,6 +1,5 @@
 import React from 'react'
 import * as d3 from 'd3'
-import * as R from 'ramda'
 import { hasData, defaultTransitionDuration } from '../chart'
 
 const Text = ({ text, width, y }) =>

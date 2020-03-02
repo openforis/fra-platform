@@ -15,8 +15,6 @@ const valueToRole = value => snake(value).toUpperCase()
 
 const roles = R.map(roleToValue, roleKeys)
 
-const languages = ['en', 'es', 'fr', 'ru']
-
 class UsersTableFilter extends React.Component {
 
   render () {

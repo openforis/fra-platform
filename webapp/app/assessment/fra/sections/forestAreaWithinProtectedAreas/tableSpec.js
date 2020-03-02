@@ -6,8 +6,6 @@ import {
 } from '@webapp/app/assessment/components/traditionalTable/validators'
 import defaultYears from '@server/eof/defaultYears'
 
-const mapIndexed = R.addIndex(R.map)
-
 export default (i18n, extentOfForest) => {
   const inputColumns = R.map(
     year => ({

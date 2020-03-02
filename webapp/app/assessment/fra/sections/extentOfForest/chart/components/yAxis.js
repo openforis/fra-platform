@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import * as d3 from 'd3'
-import {hasData, defaultTransitionDuration, styles} from '../chart'
+import {hasData, defaultTransitionDuration} from '../chart'
 
 const replaceCommasWithSpaces = v => d3.format(',')(v).replace(/,/g, ' ')
 

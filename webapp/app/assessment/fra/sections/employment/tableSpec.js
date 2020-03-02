@@ -20,7 +20,7 @@ export const tableProps = {
 
 const genderOfWhichValitor = subCategoryValidator(0, R.range(1, 5))
 
-const yearFields = (rowIdx, validator) => yearIdx => [
+const yearFields = (_, validator) => () => [
   {type: 'decimalInput', validator: validator},
   {type: 'decimalInput', validator: validator},
   {type: 'decimalInput', validator: validator}

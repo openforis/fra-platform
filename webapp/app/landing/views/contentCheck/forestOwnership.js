@@ -7,7 +7,7 @@ import { getForestAreaForYear } from '@common/extentOfForestHelper'
 
 const ForestOwnership = (props) => {
   const {
-    years, countryIso, i18n,
+    years, i18n,
     extentOfForest, forestOwnership
   } = props
 

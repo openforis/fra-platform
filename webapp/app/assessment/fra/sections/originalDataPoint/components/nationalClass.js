@@ -57,7 +57,7 @@ const NationalClass = props => {
                     saveDraft,
                     allowGrow: true
                   })}
-                  disabled={printView || !canEditData}
+                  disabled={!canEditData}
                 />
               )
           }

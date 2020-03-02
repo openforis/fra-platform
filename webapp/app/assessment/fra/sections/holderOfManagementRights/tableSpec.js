@@ -1,13 +1,11 @@
 import React from 'react'
 import * as R from 'ramda'
 import { formatDecimal } from '@common/numberFormat'
-import { totalSum } from '@common/aggregate'
-import { sub, abs, lessThan } from '@common/bignumberUtils'
+import { sub } from '@common/bignumberUtils'
 import { Link } from 'react-router-dom'
 
 const mapIndexed = R.addIndex(R.map)
 const years = [1990, 2000, 2010, 2015]
-const sumRows = R.range(0, 5)
 
 const createInputRow = (rowHeader, cname = 'fra-table__category-cell') => [
   {type: 'readOnly', jsx: <th className={`${cname}`}>{rowHeader}</th>},
@@ -19,20 +17,6 @@ const getTotalPublicOwnershipForColumn = (forestOwnership, column) => {
   return areaForYear
 }
 
-const totalAreaSameAsTotalPublicOwnershipValidator = (column, forestOwnership, sumRows) => (props) => {
-  const areaForYear = getTotalPublicOwnershipForColumn(forestOwnership, column)
-  const sumForYear = totalSum(props.tableData, column, sumRows)
-  if (!areaForYear || !sumForYear) return {valid: true}
-  const tolerance = 1
-  const absDifference = abs(sub(areaForYear, sumForYear))
-  const result = lessThan(absDifference, tolerance)
-  return {
-    valid: result,
-    message: result
-      ? null
-      : props.i18n.t('holderOfManagementRights.publicOwnershipDoesNotMatch')
-  }
-}
 
 export default (i18n, forestOwnership, countryIso) => ({
   name: 'holderOfManagementRights',
