@@ -36,12 +36,13 @@ class PanEuropeanIndicatorsView extends React.Component {
   }
 
   render () {
-    const {i18n, countryIso, status, questionnaireFileName, userInfo, panEuropean = {}} = this.props
+    const { i18n, countryIso, status, questionnaireFileName, panEuropean = {} } = this.props
+    const { language } = i18n
     return <>
       <div className="app-view__content">
         <div className="app-view__page-header">
           <h2 className="headline">{i18n.t('panEuropeanIndicators.panEuropeanIndicators')}</h2>
-          <a className="btn-s btn-primary" href={`/api/panEuropean/${countryIso}/downloadEmpty/${userInfo.lang}`} target="_blank">
+          <a className="btn-s btn-primary" href={`/api/panEuropean/${countryIso}/downloadEmpty/${language}`} target="_blank">
             <Icon className="icon-sub icon-white" name="hit-down"/>
             {i18n.t('panEuropeanIndicators.downloadQuestionnaire')}
           </a>
