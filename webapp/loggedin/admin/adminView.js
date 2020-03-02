@@ -59,7 +59,7 @@ const AdminView = (props) => {
   }
 
   return (
-    <div className="fra-view__content">
+    <div className="app-view__content">
 
       <div className="landing__page-header">
         <h1 className="landing__page-title">{i18n.t('admin.admin')}</h1>

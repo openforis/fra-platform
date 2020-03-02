@@ -38,8 +38,8 @@ class PanEuropeanIndicatorsView extends React.Component {
   render () {
     const {i18n, countryIso, status, questionnaireFileName, userInfo, panEuropean = {}} = this.props
     return <>
-      <div className="fra-view__content">
-        <div className="fra-view__page-header">
+      <div className="app-view__content">
+        <div className="app-view__page-header">
           <h2 className="headline">{i18n.t('panEuropeanIndicators.panEuropeanIndicators')}</h2>
           <a className="btn-s btn-primary" href={`/api/panEuropean/${countryIso}/downloadEmpty/${userInfo.lang}`} target="_blank">
             <Icon className="icon-sub icon-white" name="hit-down"/>
@@ -91,7 +91,7 @@ class PanEuropeanIndicatorsView extends React.Component {
         </div>
 
         <div className="pan-european__qualitative-questionnaire-container">
-          <div className="fra-view__page-header">
+          <div className="app-view__page-header">
             <h2 className="headline">{i18n.t('panEuropeanIndicators.panEuropeanQualitativeIndicators')}</h2>
           </div>
           <hr/>

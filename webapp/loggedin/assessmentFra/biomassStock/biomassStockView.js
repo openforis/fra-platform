@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { connect, useSelector } from 'react-redux'
 import * as R from 'ramda'
 
@@ -9,6 +9,7 @@ import { fetchLastSectionUpdateTimestamp } from '@webapp/audit/actions'
 import NationalDataDescriptions from '@webapp/components/description/nationalDataDescriptions'
 import AnalysisDescriptions from '@webapp/components/description/analysisDescriptions'
 import GeneralComments from '@webapp/components/description/generalComments'
+import ExcelCalculatorDownload from '@webapp/loggedin/assessmentFra/biomassStock/excelCalculatorDownload'
 import { isFRA2020SectionEditDisabled } from '@webapp/utils/assessmentAccess'
 import * as table from '@webapp/traditionalTable/table'
 import { isPrintingOnlyTables } from '@webapp/loggedin/printAssessment/printAssessment'
@@ -16,33 +17,12 @@ import FraUtils from '@common/fraUtils'
 import { fetchTableData } from '@webapp/traditionalTable/actions'
 
 import * as AppState from '@webapp/app/appState'
-import * as CountryState from '@webapp/country/countryState'
-
 
 const sectionName = 'biomassStock'
-const domains = ['boreal', 'temperate', 'subtropical', 'tropical']
-const downloadPath = (countryIso, selectedDomain, language) =>
-  `/api/biomassStock/${countryIso}/${selectedDomain}/${language}/download`
-
-const Select = ({ i18n, selectedDomain, setSelectedDomain, ...props }) =>
-  <select
-    className="select-s margin-right"
-    value={selectedDomain}
-    onChange={({ target: { value } }) => setSelectedDomain(value)}>
-    {
-      domains.map(domain =>
-        <option value={domain} key={domain}>
-          {i18n.t(`climaticDomain.${domain}`)}
-          {domain === props.domain && ` (${i18n.t('climaticDomain.selectDefault')})`}
-        </option>
-      )
-    }
-  </select>
 
 const BiomassStockView = props => {
   const {
     i18n,
-    domain,
     disabled,
     tableSpecInstance,
     tableData,
@@ -52,8 +32,6 @@ const BiomassStockView = props => {
 
   const { language } = i18n
   const countryIso = useSelector(AppState.getCountryIso)
-  const [selectedDomain, setSelectedDomain] = useState(domain)
-  const calculatorFilePath = downloadPath(countryIso, selectedDomain, language)
 
   useEffect(() => {
     fetchTableData(countryIso, tableSpecInstance)
@@ -62,7 +40,7 @@ const BiomassStockView = props => {
 
   const render = isPrintingOnlyTables() ? FraUtils.hasData(tableData) : true
   if (!render) return null
-  return <div className="fra-view__content">
+  return <div className="app-view__content">
 
     <h2 className="title only-print">
       {`${isPrintingOnlyTables() ? '' : '2c '}${i18n.t('biomassStock.biomassStock')}`}
@@ -75,26 +53,18 @@ const BiomassStockView = props => {
       {i18n.t('biomassStock.biomassStock')}
     </h2>
 
-    <div className="fra-view__section-toolbar" style={{ marginTop: '4px' }}>
+    <div className="app-view__section-toolbar" style={{ marginTop: '4px' }}>
       <DefinitionLink className="margin-right-big" document="tad" anchor="2c"
                       title={i18n.t('definition.definitionLabel')} lang={language}/>
       <DefinitionLink className="align-left" document="faq" anchor="2c" title={i18n.t('definition.faqLabel')}
                       lang={language}/>
 
-      <div className="no-print">
-        {
-          !R.isNil(domain) &&
-          <Select i18n={i18n} domain={domain} selectedDomain={selectedDomain} setSelectedDomain={setSelectedDomain}/>
-        }
-        <a className="btn-s btn-primary" href={calculatorFilePath}>
-          {i18n.t('biomassStock.downloadExcel')}
-        </a>
-      </div>
+      <ExcelCalculatorDownload/>
     </div>
 
     {
       !isPrintingOnlyTables() &&
-      <div className="page-break" />
+      <div className="page-break"/>
     }
 
     <TraditionalTable tableSpec={tableSpecInstance} countryIso={countryIso} disabled={disabled}/>
@@ -111,7 +81,6 @@ const mapStateToProps = state => {
   const tableSpecInstance = tableSpec(i18n)
 
   return {
-    domain: CountryState.getConfigDomain(state),
     i18n,
     disabled: isFRA2020SectionEditDisabled(state, sectionName),
     tableSpecInstance,

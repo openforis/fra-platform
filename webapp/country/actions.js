@@ -2,16 +2,15 @@ import axios from 'axios'
 import * as R from 'ramda'
 
 import * as autosave from '@webapp/autosave/actions'
+import { appCountryIsoUpdate } from '@webapp/app/actions'
+
+import { fetchItem } from '@webapp/tableWithOdp/actions'
+import { fetch as fetchGrowingStock } from '@webapp/loggedin/assessmentFra/growingStock/actions'
 
 export const listCountries = 'country/country/list'
 export const fetchCountryOverviewStatusCompleted = 'country/status/completed'
 export const countryConfig = 'country/countryConfig'
 export const changeCountryConfigSetting = '/country/changeSetting'
-
-export const getCountryList = () => async dispatch => {
-  const { data: countries } = await axios.get('/api/country/all')
-  dispatch({ type: listCountries, countries })
-}
 
 export const fetchCountryOverviewStatus = countryIso => async dispatch => {
   const { data: status } = await axios.get(`/api/country/overviewStatus/${countryIso}`)
@@ -21,6 +20,21 @@ export const fetchCountryOverviewStatus = countryIso => async dispatch => {
 export const getCountryConfig = countryIso => async dispatch => {
   const { data: config } = await axios.get(`/api/country/config/${countryIso}`)
   dispatch({ type: countryConfig, config })
+}
+
+export const fetchCountryInitialData = countryIso => dispatch => {
+  dispatch({ type: appCountryIsoUpdate, countryIso })
+
+  dispatch(fetchCountryOverviewStatus(countryIso))
+  dispatch(fetchItem('extentOfForest', countryIso))
+  dispatch(fetchItem('forestCharacteristics', countryIso))
+  dispatch(getCountryConfig(countryIso))
+  dispatch(fetchGrowingStock(countryIso))
+}
+
+export const fetchCountryList = () => async dispatch => {
+  const { data: countries } = await axios.get('/api/country/all')
+  dispatch({ type: listCountries, countries })
 }
 
 export const saveCountryConfigSetting = (countryIso, key, value, onComplete = null) => async dispatch => {
@@ -46,7 +60,7 @@ export const changeAssessment = (countryIso, assessment, notifyUsers) => async d
   dispatch({ type: countryAssessmentStatusChanging, assessmentName: assessment.type })
   await axios.post(`/api/assessment/${countryIso}?notifyUsers=${notifyUsers}`, assessment)
 
-  dispatch(getCountryList())
+  dispatch(fetchCountryList())
   dispatch(fetchCountryOverviewStatus(countryIso))
 }
 

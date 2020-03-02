@@ -16,7 +16,11 @@ const UserInfoLinks = () => {
   const countryIso = useSelector(AppState.getCountryIso)
   const i18n = useI18n()
 
-  return userInfo && (
+  if (!userInfo) {
+    return null
+  }
+
+  return (
     <PopoverControl
       items={[{
         content: i18n.t('header.logout'),
@@ -28,7 +32,7 @@ const UserInfoLinks = () => {
         link: `/country/${countryIso}/user/${userInfo.id}`,
       }]}>
 
-      <div className="fra-header__menu-item">
+      <div className="app-header__menu-item">
         {userInfo.name}
         <Icon className="icon-middle" name="small-down"/>
       </div>

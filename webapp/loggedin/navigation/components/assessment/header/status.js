@@ -30,7 +30,8 @@ const Status = props => {
 
   //  Hidden in public view
   if (!userInfo) {
-    return null
+    // Return an element as placeholder to maintain order of parent flex display
+    return <div/>
   }
 
   const deskStudyItems = [

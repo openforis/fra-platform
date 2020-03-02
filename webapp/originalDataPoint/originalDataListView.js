@@ -64,8 +64,8 @@ const TableRow = ({odp, i18n, countryIso, removeFromList}) => {
 }
 
 const ODPListing = ({countryIso, odps = [], i18n, userInfo, removeFromList}) => {
-  return <div className="fra-view__content">
-    <div className="fra-view__page-header">
+  return <div className="app-view__content">
+    <div className="app-view__page-header">
       <h1 className="title">{i18n.t('nationalDataPoint.nationalData')}</h1>
       <Link className="btn btn-primary" to={`/country/${countryIso}/odp/extentOfForest`}>
         <Icon className="icon-sub icon-white" name="small-add"/>

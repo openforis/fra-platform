@@ -187,19 +187,24 @@ const ExtentOfForest = (props) => {
     }
   ]
 
-  return <div className='fra-view__content'>
+  return <div className='app-view__content'>
 
     <h1 className="title only-print">
       {`${isPrintingOnlyTables() ? '' : '1a '}${i18n.t('extentOfForest.extentOfForest')}`}
     </h1>
 
-    <Link className={`btn btn-primary no-print${isEditDataDisabled ? ' disabled' : ''}`}
-          to={`/country/${props.countryIso}/odp/${sectionName}`}
-          style={{ marginRight: 16 }}>
-      <Icon className="icon-sub icon-white" name="small-add"/>
-      {i18n.t('nationalDataPoint.addNationalDataPoint')}
-    </Link>
-    <hr className="no-print"/>
+    {
+      userInfo &&
+      <>
+        <Link className={`btn btn-primary no-print${isEditDataDisabled ? ' disabled' : ''}`}
+              to={`/country/${props.countryIso}/odp/${sectionName}`}
+              style={{ marginRight: 16 }}>
+          <Icon className="icon-sub icon-white" name="small-add"/>
+          {i18n.t('nationalDataPoint.addNationalDataPoint')}
+        </Link>
+        <hr className="no-print"/>
+      </>
+    }
 
     {
       hasNDPs
@@ -223,7 +228,7 @@ const ExtentOfForest = (props) => {
         </button>
       }
     </h2>
-    <div className="fra-view__section-toolbar">
+    <div className="app-view__section-toolbar">
       <DefinitionLink className="margin-right-big no-print" document="tad" anchor={anchorName}
                       title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
       <DefinitionLink className="align-left no-print" document="faq" anchor={anchorName} title={i18n.t('definition.faqLabel')}
@@ -247,7 +252,7 @@ const ExtentOfForest = (props) => {
 
     {
       hasNDPs && showNDPs && !isEditDataDisabled &&
-      <div className="fra-view__section-toolbar no-print">
+      <div className="app-view__section-toolbar no-print">
         <GenerateFraValuesControl section={sectionName} rows={eofRows} useOriginalDataPoints={true} {...props} />
         {
           props.odpDirty &&

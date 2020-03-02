@@ -17,6 +17,7 @@ import DefinitionLink from '@webapp/components/definitionLink'
 import ReviewIndicator from '@webapp/loggedin/review/reviewIndicator'
 import NationalDataPointsPrintView from '@webapp/originalDataPoint/nationalDataPointsPrintView'
 import useI18n from '@webapp/components/hooks/useI18n'
+import useUserInfo from '@webapp/components/hooks/useUserInfo'
 
 import FraUtils from '@common/fraUtils'
 import * as AppState from '@webapp/app/appState'
@@ -232,7 +233,7 @@ const ForestCharacteristics = props => {
     )
   }
 
-  return <div className='fra-view__content'>
+  return <div className='app-view__content'>
 
     <h1 className="title only-print">
       {`${isPrintingOnlyTables() ? '' : '1b '}${i18n.t('forestCharacteristics.forestCharacteristics')}`}
@@ -269,7 +270,7 @@ const ForestCharacteristics = props => {
     <h2 className="headline no-print">
       {i18n.t('forestCharacteristics.forestCharacteristics')}
     </h2>
-    <div className="fra-view__section-toolbar no-print">
+    <div className="app-view__section-toolbar no-print">
       <DefinitionLink className="margin-right-big" document="tad" anchor={anchorName}
                       title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
       <DefinitionLink className="align-left" document="faq" anchor={anchorName} title={i18n.t('definition.faqLabel')}
@@ -305,7 +306,7 @@ const ForestCharacteristics = props => {
     }
     {
       props.useOriginalDataPointsInFoc && !isEditDataDisabled
-        ? <div className="fra-view__section-toolbar no-print">
+        ? <div className="app-view__section-toolbar no-print">
           <GenerateFraValuesControl section={sectionName} rows={focRows} {...props} />
           {
             props.odpDirty
@@ -344,6 +345,7 @@ const ForestCharacteristics = props => {
 const DataFetchingComponent = props => {
   const { fra, fetchItem, fetchLastSectionUpdateTimestamp } = props
   const countryIso = useSelector(AppState.getCountryIso)
+  const userInfo = useUserInfo()
   const i18n = useI18n()
 
   const hasData = (data) => {
@@ -367,6 +369,7 @@ const DataFetchingComponent = props => {
     {...props}
     hasData={hasData(data)}
     countryIso={countryIso}
+    userInfo={userInfo}
     fra={data}
     i18n={i18n}
   />

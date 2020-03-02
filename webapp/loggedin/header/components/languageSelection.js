@@ -23,7 +23,7 @@ const LanguageSelection = () => {
 
   return (
     <PopoverControl items={languageSelectionItems}>
-      <div className="fra-header__menu-item">
+      <div className="app-header__menu-item">
         {i18n.t(`language.${i18n.language}`)}
         <Icon className="icon-middle" name="small-down"/>
       </div>

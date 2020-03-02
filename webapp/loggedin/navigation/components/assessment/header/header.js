@@ -24,7 +24,6 @@ const Header = props => {
     <div className="nav-assessment-header">
 
       <div className="nav-assessment-header__label">
-
         <Lock assessment={assessment}/>
 
         <div>
@@ -42,18 +41,20 @@ const Header = props => {
             <Icon name="small-print" className="icon-no-margin"/>
           </Link>
         </div>
-
       </div>
 
-      <Status assessment={assessment}/>
+      <div className="nav-assessment-header__status-container">
+        <Status assessment={assessment}/>
 
-      <button
-        className="btn-s nav-assessment-header__btn-toggle-sections"
-        onClick={() => setShowSections(!showSections)}>
-        {
-          i18n.t(`navigation.${showSections ? 'hideAll' : 'showAll'}`)
-        }
-      </button>
+        <button
+          className="btn-s nav-assessment-header__btn-toggle-sections"
+          onClick={() => setShowSections(!showSections)}>
+          {
+            i18n.t(`navigation.${showSections ? 'hideAll' : 'showAll'}`)
+          }
+        </button>
+      </div>
+
     </div>
   )
 }

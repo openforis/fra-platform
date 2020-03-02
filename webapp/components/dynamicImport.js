@@ -6,7 +6,7 @@ const DynamicImport = props => {
   const [component, setComponent] = useState(null)
 
   useEffect(() => {
-    const init = async () => {
+    (async () => {
       const module = await load()
       const { component, reducers } = module
       if (reducers) {
@@ -18,10 +18,7 @@ const DynamicImport = props => {
       setComponent(
         component ? component : module.default,
       )
-    }
-    // Needed to run async function inside of useEffect
-    init()
-
+    })()
   }, [])
 
   return component ? React.createElement(component, rest) : null

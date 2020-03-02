@@ -40,7 +40,7 @@ const SustainableDevelopmentView = props => {
 
   return !R.isEmpty(data) &&
     <>
-      <div className="fra-view__content fra-sustainable-dev__content">
+      <div className="app-view__content fra-sustainable-dev__content">
 
         <h2 className="title only-print">
           {`${isPrintingOnlyTables() ? '' : '8a '}${i18n.t('sustainableDevelopment.sustainableDevelopment')}`}
@@ -50,7 +50,7 @@ const SustainableDevelopmentView = props => {
           {i18n.t('sustainableDevelopment.sustainableDevelopment')}
         </h2>
 
-        <div className="fra-view__section-toolbar">
+        <div className="app-view__section-toolbar">
           <DefinitionLink className="margin-right-big" document="tad" anchor="8"
                           title={i18n.t('definition.definitionLabel')} lang={lang}/>
           <DefinitionLink className="align-left" document="faq" anchor="8" title={i18n.t('definition.faqLabel')}

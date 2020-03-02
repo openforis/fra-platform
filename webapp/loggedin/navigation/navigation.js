@@ -1,59 +1,42 @@
 import './navigation.less'
 
 import React from 'react'
-import { useSelector } from 'react-redux'
-import * as R from 'ramda'
 
 import { assessments } from '@common/assessmentSectionItems'
 
-import CountrySelection from '@webapp/loggedin/countrySelection'
 import Assessment from '@webapp/loggedin/navigation/components/assessment'
 import LinkLanding from '@webapp/loggedin/navigation/components/linkLanding'
 import LinkPanEuropeanIndicators from '@webapp/loggedin/navigation/components/linkPanEuropeanIndicators'
 import Footer from '@webapp/loggedin/navigation/components/footer'
-
-import * as CountryState from '@webapp/country/countryState'
-import * as NavigationState from '@webapp/loggedin/navigation/navigationState'
+import useCountryIso from '@webapp/components/hooks/useCountryIso'
 
 const Navigation = () => {
-
-  const countries = useSelector(CountryState.getCountries)
-  const status = useSelector(CountryState.getStatus)
-  const navigationVisible = useSelector(NavigationState.isVisible)
-
-  if (!(navigationVisible || R.isNil(countries) || R.isEmpty(status))) {
-    return null
-  }
+  const countryIso = useCountryIso()
 
   return (
-    <div className="nav__container no-print">
+    <div className="nav no-print">
       {
-        !(R.isNil(countries) || R.isEmpty(status)) &&
-        <div className="nav">
-          <CountrySelection/>
+        countryIso &&
+        <>
+          <LinkLanding/>
+          <div className="nav__divider"/>
 
-          <div className="nav__scroll-content">
+          {
+            Object.keys(assessments).map(
+              (name, i) =>
+                <Assessment
+                  key={i}
+                  name={name}
+                />
+            )
+          }
 
-            <LinkLanding/>
-            <div className="nav__divider"/>
+          <LinkPanEuropeanIndicators/>
 
-            {
-              Object.keys(assessments).map(
-                (name, i) =>
-                  <Assessment
-                    key={i}
-                    name={name}
-                  />
-              )
-            }
+          <div className="nav__divider"/>
 
-            <LinkPanEuropeanIndicators/>
-
-            <div className="nav__divider"/>
-
-            <Footer/>
-          </div>
-        </div>
+          <Footer/>
+        </>
       }
     </div>
   )

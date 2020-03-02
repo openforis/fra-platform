@@ -22,7 +22,7 @@ const ContactPersonsView = props => {
     fetchLastSectionUpdateTimestamp(countryIso, sectionName)
   }, [])
 
-  return <div className="fra-view__content">
+  return <div className="app-view__content">
     <CommentableDescription
       section={sectionName}
       title={i18n.t('contactPersons.introductoryText')}

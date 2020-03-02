@@ -53,8 +53,8 @@ const OriginalDataPoint = (props) => {
   }  
 
   return (
-    <div className="fra-view__content">
-      <div className="fra-view__page-header">
+    <div className="app-view__content">
+      <div className="app-view__page-header">
         <h1 className="title align-left">{i18n.t('nationalDataPoint.nationalDataPoint')}</h1>
         {
           canEditData && odp.editStatus && odp.editStatus !== 'newDraft'

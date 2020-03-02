@@ -1,49 +1,51 @@
-import React, { useEffect } from 'react'
-import { connect } from 'react-redux'
+import './appView.less'
+
+import React, { useEffect, memo } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Route, Switch, useParams } from 'react-router-dom'
 import * as R from 'ramda'
 
-import Navigation from './navigation/navigation'
+import CountrySelection from '@webapp/loggedin/countrySelection'
 import Header from './header/header'
+import Navigation from './navigation/navigation'
 import Review from './review/review'
 import UserChat from './userChat/userChatView'
 import CountryMessageBoardView from './countryMessageBoard/countryMessageBoardView'
 import ErrorComponent from './applicationError/errorComponent'
 import PrintAssessmentView from './printAssessment/printAssessmentView'
+import useUserInfo from '@webapp/components/hooks/useUserInfo'
 import routes from './routes'
 
 import * as CountryState from '@webapp/country/countryState'
-import * as UserState from '@webapp/user/userState'
+import * as NavigationState from '@webapp/loggedin/navigation/navigationState'
 
-import { fetchInitialData } from '@webapp/app/actions'
-import { getCountryList } from '@webapp/country/actions'
+import { fetchCountryInitialData, fetchCountryList } from '@webapp/country/actions'
 
-// import * as loginStatusChecker from '@webapp/user/loginStatusChecker'
+const isInitialDataLoaded = state => CountryState.hasCountries(state) && CountryState.hasStatus(state) && !R.isEmpty(state.extentOfForest) && !R.isEmpty(state.growingStock)
 
-const LoggedInView = props => {
-
-  const {
-    userInfo, initialDataLoaded,
-    fetchInitialData, getCountryList
-  } = props
-
+const LoggedInView = () => {
+  const dispatch = useDispatch()
   const { countryIso } = useParams()
-
-  // useEffect(() => {
-  // TODO check if this should be removed
-  // loginStatusChecker.startPeriodicCheck(60 * 1000)
-  // }, [])
+  const userInfo = useUserInfo()
+  const initialDataLoaded = useSelector(isInitialDataLoaded)
+  const navigationVisible = useSelector(NavigationState.isVisible)
 
   useEffect(() => {
-    getCountryList()
+    dispatch(fetchCountryList())
+  }, [])
+
+  useEffect(() => {
     if (countryIso) {
-      fetchInitialData(countryIso)
+      dispatch(fetchCountryInitialData(countryIso))
     }
   }, [countryIso])
 
-  return (!countryIso || (countryIso && initialDataLoaded)) && (
-    <Switch>
+  if (countryIso && !initialDataLoaded) {
+    return null
+  }
 
+  return (
+    <Switch>
       <Route
         exact
         path="/country/:countryIso/print/:assessment/"
@@ -51,49 +53,32 @@ const LoggedInView = props => {
       />
 
       <Route>
-        <div className="app__root">
-          {
-            countryIso &&
-            <Navigation/>
-          }
-          <div className="fra-view__container">
-            <Switch>
-              {
-                routes.map((route, i) =>
-                  <Route key={i} {...route} />
-                )
-              }
-            </Switch>
-          </div>
+        {
+          userInfo &&
+          <>
+            <Review/>
+            <UserChat/>
+            <CountryMessageBoardView/>
+          </>
+        }
+        <div className={`app-view${navigationVisible ? ' navigation-on' : countryIso ? ' navigation-off' : ''}`}>
+          <CountrySelection className={navigationVisible ? 'nav-base' : ''}/>
           <Header/>
-
-          {
-            userInfo && countryIso &&
-            <>
-              <Review/>
-              <UserChat/>
-              <CountryMessageBoardView/>
-            </>
-          }
-
-          <ErrorComponent/>
+          <Navigation/>
+          <Switch>
+            {
+              routes.map((route, i) =>
+                <Route key={i} {...route} />
+              )
+            }
+          </Switch>
         </div>
+        <ErrorComponent/>
       </Route>
 
     </Switch>
   )
+
 }
 
-const mapStateToProps = state => {
-  const initialDataLoaded =
-    !!CountryState.getCountries(state) &&
-    !R.isEmpty(state.extentOfForest) &&
-    !R.isEmpty(state.growingStock)
-
-  return {
-    userInfo: UserState.getUserInfo(state),
-    initialDataLoaded
-  }
-}
-
-export default connect(mapStateToProps, { fetchInitialData, getCountryList })(LoggedInView)
+export default memo(LoggedInView)
