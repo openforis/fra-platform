@@ -40,7 +40,7 @@ export default class ResizeObserver {
 
   disconnect () {
     this.observables = []
-    window.cancelAnimationFrame(this.af)
+    window.cancelAnimationFrame(this.animationFrame)
   }
 
   checkSize () {
@@ -62,6 +62,6 @@ export default class ResizeObserver {
       this.callback(changedEntries)
     }
 
-    this.af = window.requestAnimationFrame(this.checkSize)
+    this.animationFrame = window.requestAnimationFrame(this.checkSize)
   }
 }

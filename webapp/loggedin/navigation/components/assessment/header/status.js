@@ -30,6 +30,7 @@ const Status = props => {
 
   //  Hidden in public view
   if (!userInfo) {
+    // Return an element as placeholder to maintain order of parent flex display
     return <div/>
   }
 
