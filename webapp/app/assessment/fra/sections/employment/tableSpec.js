@@ -21,22 +21,22 @@ export const tableProps = {
 const genderOfWhichValitor = subCategoryValidator(0, R.range(1, 5))
 
 const yearFields = (validator) => () => [
-  {type: 'decimalInput', validator: validator},
-  {type: 'decimalInput', validator: validator},
-  {type: 'decimalInput', validator: validator}
+  { type: 'decimalInput', validator: validator },
+  { type: 'decimalInput', validator: validator },
+  { type: 'decimalInput', validator: validator }
 ]
 
 const rowHeading = (i18n, localizationKey) =>
-  ({type: 'readOnly', jsx: <th className="fra-table__category-cell">{i18n.t(localizationKey)}</th>})
+  ({ type: 'readOnly', jsx: <th className="fra-table__category-cell">{i18n.t(localizationKey)}</th> })
 
 const rowSubHeading = (i18n, localizationKey) =>
-  ({type: 'readOnly', jsx: <th className="fra-table__subcategory-cell">{i18n.t(localizationKey)}</th>})
+  ({ type: 'readOnly', jsx: <th className="fra-table__subcategory-cell">{i18n.t(localizationKey)}</th> })
 
 export default (i18n, tableProp) => {
 
-  const {name, years} = tableProp
+  const { name, years } = tableProp
 
-  const inputRow = (rowIdx, rowHeaderCell, validator) => [
+  const inputRow = (rowHeaderCell, validator) => [
     rowHeaderCell,
     ...R.flatten(R.map(yearFields(validator), years))
   ]
@@ -50,29 +50,31 @@ export default (i18n, tableProp) => {
     </tr>
     <tr>
       {
-        R.map(year =>
-            <th key={year} colSpan="3" className="fra-table__header-cell">{year}</th>
-          , years)
+        years.map(year =>
+          <th key={year} colSpan="3" className="fra-table__header-cell">{year}</th>
+        )
       }
     </tr>
     <tr>
       {
-        R.map(year =>
-            [
-              <th key="total" className="fra-table__header-cell">{i18n.t('employment.total')}</th>,
-              <th key="female" className="fra-table__header-cell" style={{fontWeight: 400}}>{i18n.t('employment.female')}</th>,
-              <th key="male" className="fra-table__header-cell" style={{fontWeight: 400}}>{i18n.t('employment.male')}</th>
-            ]
-          , years)
+        years.map(() =>
+          [
+            <th key="total" className="fra-table__header-cell">{i18n.t('employment.total')}</th>,
+            <th key="female" className="fra-table__header-cell"
+                style={{ fontWeight: 400 }}>{i18n.t('employment.female')}</th>,
+            <th key="male" className="fra-table__header-cell"
+                style={{ fontWeight: 400 }}>{i18n.t('employment.male')}</th>
+          ]
+        )
       }
     </tr>
     </thead>,
     rows: [
-      inputRow(0, rowHeading(i18n, 'employment.inForestry')),
-      inputRow(1, rowSubHeading(i18n, 'employment.ofWhichSilviculture'), genderOfWhichValitor),
-      inputRow(2, rowSubHeading(i18n, 'employment.ofWhichLogging'), genderOfWhichValitor),
-      inputRow(3, rowSubHeading(i18n, 'employment.ofWhichGathering'), genderOfWhichValitor),
-      inputRow(4, rowSubHeading(i18n, 'employment.ofWhichSupport'), genderOfWhichValitor)
+      inputRow(rowHeading(i18n, 'employment.inForestry')),
+      inputRow(rowSubHeading(i18n, 'employment.ofWhichSilviculture'), genderOfWhichValitor),
+      inputRow(rowSubHeading(i18n, 'employment.ofWhichLogging'), genderOfWhichValitor),
+      inputRow(rowSubHeading(i18n, 'employment.ofWhichGathering'), genderOfWhichValitor),
+      inputRow(rowSubHeading(i18n, 'employment.ofWhichSupport'), genderOfWhichValitor)
     ],
     valueSlice: {
       columnStart: 1

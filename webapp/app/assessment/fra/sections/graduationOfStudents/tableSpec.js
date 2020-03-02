@@ -28,7 +28,7 @@ export default (i18n, tableProp) => {
 
   const {name, years} = tableProp
 
-  const inputRow = (rowIdx, rowHeaderCell, validator) => [
+  const inputRow = (rowHeaderCell, validator) => [
     rowHeaderCell,
     ...R.flatten(R.map(yearFields(validator), years))
   ]
@@ -50,7 +50,7 @@ export default (i18n, tableProp) => {
     </tr>
     <tr>
       {
-        R.map(year =>
+        R.map(() =>
             [
               <th key="total" className="fra-table__header-cell">{i18n.t('graduationOfStudents.total')}</th>,
               <th key="female" className="fra-table__category-cell-right">{i18n.t('graduationOfStudents.female')}</th>,
@@ -61,11 +61,11 @@ export default (i18n, tableProp) => {
     </tr>
     </thead>,
     rows: [
-      inputRow(0, inputRowHeading(i18n, 'graduationOfStudents.doctoralDegree')),
-      inputRow(1, inputRowHeading(i18n, 'graduationOfStudents.mastersDegree')),
-      inputRow(2, inputRowHeading(i18n, 'graduationOfStudents.bachelorsDegree')),
-      inputRow(3, inputRowHeading(i18n, 'graduationOfStudents.technicianCertificate')),
-      inputRow(4, inputRowHeading(i18n, 'graduationOfStudents.total')),
+      inputRow(inputRowHeading(i18n, 'graduationOfStudents.doctoralDegree')),
+      inputRow(inputRowHeading(i18n, 'graduationOfStudents.mastersDegree')),
+      inputRow(inputRowHeading(i18n, 'graduationOfStudents.bachelorsDegree')),
+      inputRow(inputRowHeading(i18n, 'graduationOfStudents.technicianCertificate')),
+      inputRow(inputRowHeading(i18n, 'graduationOfStudents.total')),
     ],
     valueSlice: {
       columnStart: 1
