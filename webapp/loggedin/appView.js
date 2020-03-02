@@ -22,8 +22,6 @@ import * as NavigationState from '@webapp/loggedin/navigation/navigationState'
 
 import { fetchCountryInitialData, fetchCountryList } from '@webapp/country/actions'
 
-// import * as loginStatusChecker from '@webapp/user/loginStatusChecker'
-
 const isInitialDataLoaded = state => CountryState.hasCountries(state) && CountryState.hasStatus(state) && !R.isEmpty(state.extentOfForest) && !R.isEmpty(state.growingStock)
 
 const LoggedInView = () => {
@@ -32,11 +30,6 @@ const LoggedInView = () => {
   const userInfo = useUserInfo()
   const initialDataLoaded = useSelector(isInitialDataLoaded)
   const navigationVisible = useSelector(NavigationState.isVisible)
-
-  // useEffect(() => {
-  // TODO check if this should be removed
-  // loginStatusChecker.startPeriodicCheck(60 * 1000)
-  // }, [])
 
   useEffect(() => {
     dispatch(fetchCountryList())
