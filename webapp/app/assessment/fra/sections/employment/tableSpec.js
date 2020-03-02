@@ -20,7 +20,7 @@ export const tableProps = {
 
 const genderOfWhichValitor = subCategoryValidator(0, R.range(1, 5))
 
-const yearFields = (_, validator) => () => [
+const yearFields = (validator) => () => [
   {type: 'decimalInput', validator: validator},
   {type: 'decimalInput', validator: validator},
   {type: 'decimalInput', validator: validator}
@@ -38,7 +38,7 @@ export default (i18n, tableProp) => {
 
   const inputRow = (rowIdx, rowHeaderCell, validator) => [
     rowHeaderCell,
-    ...R.flatten(R.map(yearFields(rowIdx, validator), years))
+    ...R.flatten(R.map(yearFields(validator), years))
   ]
 
   return {
