@@ -36,8 +36,9 @@ class PanEuropeanIndicatorsView extends React.Component {
   }
 
   render () {
-    const { i18n, countryIso, status, questionnaireFileName, panEuropean = {} } = this.props
+    const { i18n, countryIso, userInfo, status, questionnaireFileName, panEuropean = {} } = this.props
     const { language } = i18n
+
     return <>
       <div className="app-view__content">
         <div className="app-view__page-header">
@@ -88,12 +89,15 @@ class PanEuropeanIndicatorsView extends React.Component {
             </button>
           </div>
 
-          <ReviewIndicator
-            section={'panEuropeanIndicators'}
-            title={i18n.t('panEuropeanIndicators.panEuropeanIndicators')}
-            target={['uploadQuestionnaire']}
-            countryIso={countryIso}
-          />
+          {
+            userInfo &&
+            <ReviewIndicator
+              section={'panEuropeanIndicators'}
+              title={i18n.t('panEuropeanIndicators.panEuropeanIndicators')}
+              target={['uploadQuestionnaire']}
+              countryIso={countryIso}
+            />
+          }
         </div>
 
         <div className="pan-european__qualitative-questionnaire-container">
