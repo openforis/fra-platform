@@ -1,6 +1,6 @@
-@import (reference) "../app-styles/config";
-@import (reference) "../app-styles/style";
-@import (reference) "../app-styles/buttons";
+@import (reference) "~@webapp/main/styles/config";
+@import (reference) "~@webapp/main/styles/style";
+@import (reference) "~@webapp/main/styles/buttons";
 
 .landing__page-header {
   margin: auto;
@@ -178,6 +178,7 @@
 
 .landing__user-name {
   font-weight: bold;
+
   &.session-user {
     color: @ui-accent;
   }
@@ -219,6 +220,7 @@
 .landing__logos {
   max-width: 40%;
 }
+
 .landing__logos__nicfi {
   margin-top: 5px;
   margin-left: 15px;
@@ -303,6 +305,7 @@
     transition: all 0.1s ease-out;
     font-weight: bold;
     color: @text-mute;
+
     &:hover {
       color: @ui-accent;
     }

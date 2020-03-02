@@ -8,9 +8,9 @@ import Loading from '@webapp/components/loading'
 
 import * as AppState from '@webapp/app/appState'
 
-import { initApp } from './actions'
+import { initApp } from '@webapp/app/actions'
 
-const AppRouterSwitch = () => {
+const Routes = () => {
   const dispatch = useDispatch()
   const appStatus = useSelector(AppState.getApplicationStatus)
 
@@ -41,4 +41,4 @@ const AppRouterSwitch = () => {
   )
 }
 
-export default AppRouterSwitch
+export default Routes
