@@ -1,7 +1,7 @@
 import React from 'react'
 import * as R from 'ramda'
 import './percentInput.less'
-import { formatDecimal } from '@webapp/utils/numberFormat'
+import { formatDecimal } from '@common/numberFormat'
 import { acceptableAsDecimal } from '@webapp/utils/numberInput'
 
 export class PercentInput extends React.Component {

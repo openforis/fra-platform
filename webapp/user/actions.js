@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import { applicationError } from '@webapp/loggedin/applicationError/actions'
+import { applicationError } from '@webapp/app/components/error/actions'
 
 export const appUserLogout = 'app/user/logout'
 

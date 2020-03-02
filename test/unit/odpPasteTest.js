@@ -1,6 +1,6 @@
 const R = require('ramda')
 const assert = require('chai').assert
-const handlePaste = require('../../webapp/originalDataPoint/paste').default
+const handlePaste = require('../../webapp/app/assessment/fra/sections/originalDataPoint/paste').default
 
 /*
  * NOTE: This test uses otherLand-concepts which are no longer actually used in

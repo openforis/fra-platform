@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { isPrintingMode, isPrintingOnlyTables } from '@webapp/loggedin/printAssessment/printAssessment'
+import { isPrintingMode, isPrintingOnlyTables } from '@webapp/app/assessment/components/print/printAssessment'
 
 import CommentableDescription from '@webapp/components/description/commentableDescription'
 import useI18n from '@webapp/components/hooks/useI18n'

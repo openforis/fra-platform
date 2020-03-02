@@ -33,7 +33,7 @@ const Routes = () => {
         render={props => (
           <DynamicImport
             {...props}
-            load={() => import('../loggedin/appViewExport')}/>
+            load={() => import('../app/appViewExport')}/>
         )}
       />
       }

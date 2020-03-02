@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-import * as autosave from '@webapp/autosave/actions'
-import { applicationError } from '@webapp/loggedin/applicationError/actions'
+import * as autosave from '@webapp/app/components/autosave/actions'
+import { applicationError } from '@webapp/app/components/error/actions'
 
 export const descriptionsFetched = 'descriptions/fetched'
 

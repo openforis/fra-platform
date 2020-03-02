@@ -10,7 +10,7 @@ import * as AppState from '@webapp/app/appState'
 
 import { isCollaborator, isReviewer, isAdministrator } from '@common/countryRole'
 import { isCollaboratorAllowedToEditSectionData } from '@common/assessmentRoleAllowance'
-import { isPrintingMode } from '@webapp/loggedin/printAssessment/printAssessment'
+import { isPrintingMode } from '@webapp/app/assessment/components/print/printAssessment'
 
 const getUserInfo = R.path(['user', 'userInfo'])
 const getCountryIso = AppState.getCountryIso

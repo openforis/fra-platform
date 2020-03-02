@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { injectReducers } from '../state/store'
+import { injectReducers } from '../main/store'
 
 const DynamicImport = props => {
   const { module: _module, load, ...rest } = props
