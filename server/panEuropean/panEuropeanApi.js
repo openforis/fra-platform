@@ -5,7 +5,6 @@ const {persistPanEuropeanQuantitativeQuestionnaire, getPanEuropeanQuantitativeQu
 const {getCountry} = require('./../country/countryRepository')
 
 const {sendErr} = require('../utils/requestUtils')
-const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
 
 const {fileTypes, downloadFile} = require('../fileRepository/fileRepository')
 
@@ -32,7 +31,6 @@ module.exports.init = app => {
 
   app.delete('/panEuropean/:countryIso', Auth.requireCountryEditPermission, async (req, res) => {
     try {
-      checkCountryAccessFromReqParams(req)
       await db.transaction(deletePanEuropeanQuantitativeQuestionnaire, [req.params.countryIso])
       res.json({})
     } catch (err) {
@@ -54,10 +52,8 @@ module.exports.init = app => {
     }
   })
 
-  app.get('/panEuropean/:countryIso/downloadEmpty/:lang', async (req, res) => {
+  app.get('/panEuropean/:countryIso/downloadEmpty/:lang', Auth.requireCountryEditPermission, async (req, res) => {
     try {
-      checkCountryAccessFromReqParams(req)
-
       const isPanEuropean = await isPanEuropeanCountry(req.params.countryIso)
 
       isPanEuropean
@@ -71,11 +67,10 @@ module.exports.init = app => {
 
   app.get('/panEuropean/:countryIso/download', async (req, res) => {
     try {
-      checkCountryAccessFromReqParams(req)
-
       const isPanEuropean = await isPanEuropeanCountry(req.params.countryIso)
       if (isPanEuropean) {
-        const questionnaire = await getPanEuropeanQuantitativeQuestionnaire(req.params.countryIso)
+        const schemaName = await VersionService.getDatabaseSchema(req)
+        const questionnaire = await getPanEuropeanQuantitativeQuestionnaire(req.params.countryIso, schemaName)
         res.setHeader('Content-Disposition', 'attachment; filename=' + questionnaire.quantitativeQuestionnaireName)
         res.end(questionnaire.quantitativeQuestionnaire, 'binary')
       } else {
