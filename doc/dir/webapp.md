@@ -2,21 +2,27 @@
     - style (ex app-styles)
 - app
     - admin
-    - autosave (move audit functions to autosave)
-    - error
-    - navigation
+    - country
+    - components
+        - autosave 
+        - header
+        - countrySelection
+        - error
+        - navigation
     - landing
         - messageBoard
         - feed
         - overview 
         - repository
-        - admin
-            - versions
+    - admin
+        - versions
     - assessment
-        - descriptions
-        - review
-        - traditionalTable
-        - [fra2020]
+        - components
+            - descriptions
+            - review
+            - traditionalTable
+            - print
+        - [fra]
             - components
                 - tableWithOdp
             - sections
@@ -28,11 +34,16 @@
                 - ... all tables
         - [panEuropean]
             - sections
-                - panEuropeanIndicators
+                - indicators
     - user
-        - userChat
-        - userManagement or users or userList
-- country
+        - chat
+        - list
+        - profile
 - components
 - login
 - utils
+
+# TODO 
+- merge /user with /app/user
+- refactor /app/user/userManagement in /app/user/list and /app/user/profile
+- merge /app/components/audit/actions into /app/components/autosave/actions

@@ -2,7 +2,7 @@ import React from 'react'
 import * as R from 'ramda'
 
 import './numberInput.less'
-import { formatDecimal } from '@webapp/utils/numberFormat'
+import { formatDecimal } from '@common/numberFormat'
 import { acceptableAsDecimal } from '@webapp/utils/numberInput'
 
 export class ThousandSeparatedDecimalInput extends React.Component {

@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 import * as UserState from '@webapp/user/userState'
-import { applicationError } from '@webapp/loggedin/applicationError/actions'
+import { applicationError } from '@webapp/app/components/error/actions'
 import { createI18nPromise } from '@common/i18n/i18nFactory'
 
 import { getRequestParam } from '@webapp/utils/urlUtils'

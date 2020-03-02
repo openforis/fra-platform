@@ -1,4 +1,4 @@
-import '@webapp/app-styles/style.less'
+import '@webapp/main/styles/style.less'
 import '@webapp/components/ckEditor/style.less'
 
 import '@webapp/utils/polyfill/polyfill'
@@ -9,15 +9,15 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
-import AppRouterSwitch from '@webapp/app/appRouterSwitch'
+import Routes from '@webapp/main/routes'
 
-import store from './state/store'
+import store from './main/store'
 
 function renderApp () {
   ReactDOM.render(
     <Provider store={store}>
       <BrowserRouter>
-        <AppRouterSwitch/>
+        <Routes/>
       </BrowserRouter>
     </Provider>,
     document.querySelector('#main'),

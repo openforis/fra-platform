@@ -1,0 +1,215 @@
+@import (reference) "~@webapp/main/styles/config";
+@import (reference) "~@webapp/main/styles/form";
+@import (reference) "~@webapp/main/styles/inputMixins";
+@import (reference) "~@webapp/main/styles/fraValidation";
+
+.fra-table__container {
+  position: relative;
+  margin-bottom: 28px;
+}
+
+.fra-table__scroll-wrapper {
+  overflow-x: auto;
+  width: 100%;
+}
+
+.fra-table {
+  border-collapse: collapse;
+  font-size: @font-s;
+  line-height: 19px;
+  width: 100%;
+}
+
+// Cells
+
+.fra-table {
+  th {
+    background-color: fade(black, 4%);
+  }
+
+  tbody {
+    th {
+      min-width: 160px;
+      max-width: 240px;
+    }
+  }
+}
+
+.fra-table__header-cell {
+  .mixin-table-cell(700, center, 10px);
+}
+
+.fra-table__header-cell-left {
+  .mixin-table-cell(700, left, 10px);
+}
+
+.fra-table__category-cell {
+  .mixin-table-cell(400, left, 10px);
+}
+
+.fra-table__category-cell-right {
+  .mixin-table-cell(400, right, 10px);
+}
+
+.fra-table__subcategory-cell {
+  .mixin-table-cell(400, left, 10px 10px 10px 20px);
+  font-size: @font-xs;
+  color: @text-mute;
+}
+
+.fra-table__cell {
+  .mixin-table-cell(400, right, 0, true);
+}
+
+.fra-table__cell-left {
+  .mixin-table-cell(400, left, 0, true);
+}
+
+.fra-table__calculated-cell {
+  .mixin-table-cell(700, right, 10px, true);
+  cursor: default;
+
+  &:empty:after {
+    content: '\2212';
+    color: @text-disabled;
+    font-weight: 400;
+    padding-right: 2px;
+  }
+
+  &.error {
+    .validation-error;
+  }
+}
+
+.fra-table__calculated-sub-cell {
+  .mixin-table-cell(400, right, 10px, true);
+  cursor: default;
+}
+
+// Helper cells
+
+.fra-table__filler-first {
+  border-right: none;
+  border-bottom: 1px solid @ui-border;
+  background-color: @ui-bg;
+}
+
+.fra-table__filler {
+  border-right: none;
+  border-bottom: 1px solid @ui-border;
+  background-color: @ui-bg;
+}
+
+.fra-table__filler-last {
+  border-bottom: 1px solid @ui-border;
+  border-right: 1px solid @ui-border;
+  background-color: @ui-bg;
+}
+
+.fra-table__row-anchor-cell {
+  padding: 0;
+  width: 1px;
+  vertical-align: top;
+}
+
+.fra-table__review-indicator-anchor {
+  position: absolute;
+  right: 0;
+}
+
+.fra-table__hidden-cell {
+  display: none;
+}
+
+.fra-table__divider {
+  border-right: 3px double @ui-border;
+}
+
+// Select cell
+.fra-table__select-container {
+  .mixin-input-container;
+}
+
+.fra-table__select {
+  .mixin-select-base(10px, none, 0);
+  font-size: @font-s;
+  height: 100%;
+  min-width: 100%;
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 1px @text-body;
+  }
+
+  &:disabled {
+    background-image: none;
+    cursor: default;
+  }
+}
+
+// Header button
+
+.fra-table {
+  .fra-table__header-button {
+    line-height: 16px;
+    vertical-align: inherit;
+    margin-left: 8px;
+  }
+}
+
+.fra-table__notice-message-cell {
+  padding: 8px 4px;
+  vertical-align: top;
+}
+
+// Validation
+
+.fra-table__validation-cell {
+  padding: 0;
+  vertical-align: top;
+}
+
+.fra-table__validation-container {
+  padding-top: 4px;
+  min-width: 100%;
+  width: 1px;
+}
+
+.fra-table__validation-error {
+  color: @ui-destructive;
+  font-size: @font-xs;
+  line-height: 18px;
+  margin: 8px;
+  word-wrap: break-word;
+}
+
+// Mixins
+
+.mixin-table-cell(@fontWeight, @align, @padding, @cell: false) {
+  border: @ui-thin-border;
+  font-weight: @fontWeight;
+  padding: @padding;
+  text-align: @align;
+
+  & when (@cell=true) {
+    white-space: nowrap;
+    min-width: 72px;
+    position: relative;
+  }
+}
+
+// fra secondary table
+.fra-secondary-table__wrapper {
+  margin-top: 16px;
+  width: 50%;
+  min-width: 320px;
+
+  table {
+    table-layout: fixed;
+  }
+}
+
+.fra-secondary-table__heading-cell {
+  .mixin-table-cell(700, left, 10px);
+}
+
