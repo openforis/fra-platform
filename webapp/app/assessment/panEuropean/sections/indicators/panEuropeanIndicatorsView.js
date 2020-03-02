@@ -36,19 +36,29 @@ class PanEuropeanIndicatorsView extends React.Component {
   }
 
   render () {
-    const { i18n, countryIso, status, questionnaireFileName, panEuropean = {} } = this.props
+    const { i18n, countryIso, userInfo, status, questionnaireFileName, panEuropean = {} } = this.props
     const { language } = i18n
+
     return <>
       <div className="app-view__content">
         <div className="app-view__page-header">
           <h2 className="headline">{i18n.t('panEuropeanIndicators.panEuropeanIndicators')}</h2>
-          <a className="btn-s btn-primary" href={`/api/panEuropean/${countryIso}/downloadEmpty/${language}`} target="_blank">
-            <Icon className="icon-sub icon-white" name="hit-down"/>
-            {i18n.t('panEuropeanIndicators.downloadQuestionnaire')}
-          </a>
+          {
+            userInfo &&
+            <a className="btn-s btn-primary" href={`/api/panEuropean/${countryIso}/downloadEmpty/${language}`}
+               target="_blank">
+              <Icon className="icon-sub icon-white" name="hit-down"/>
+              {i18n.t('panEuropeanIndicators.downloadQuestionnaire')}
+            </a>
+          }
         </div>
         <hr/>
-        <h3 className="subhead">{i18n.t('panEuropeanIndicators.uploadQuestionnaire')}</h3>
+
+        {
+          userInfo &&
+          <h3 className="subhead">{i18n.t('panEuropeanIndicators.uploadQuestionnaire')}</h3>
+        }
+
         <div className="pan-european__container">
           <div className="pan-european__file-input">
             <div className="pan-european__file">
@@ -64,36 +74,47 @@ class PanEuropeanIndicatorsView extends React.Component {
                       <span className="pan-european__file-name">{questionnaireFileName}</span>
                       <a className="btn btn-link" href={`/api/panEuropean/${countryIso}/download`} target="_blank">
                         {i18n.t('panEuropeanIndicators.download')}
-                      </a>,
-                      <button className="btn btn-link-destructive"
-                              onClick={() => this.props.deleteQuestionare(countryIso)}>
-                        {i18n.t('panEuropeanIndicators.remove')}
-                      </button>
+                      </a>
+                      {
+                        userInfo &&
+                        <button className="btn btn-link-destructive"
+                                onClick={() => this.props.deleteQuestionare(countryIso)}>
+                          {i18n.t('panEuropeanIndicators.remove')}
+                        </button>
+                      }
                     </>
                   )
               }
             </div>
-            <input
-              ref="inputFile"
-              type="file"
-              style={{display: 'none'}}
-              onChange={() => this.onFileSelected()}
-              accept=".xls,.xlsx"
-            />
-            <button
-              className="btn btn-primary"
-              onClick={() => this.refs.inputFile.dispatchEvent(new MouseEvent('click'))}
-              disabled={R.equals('saving', status)}>
-              {i18n.t('panEuropeanIndicators.chooseFile')}
-            </button>
+            {
+              userInfo &&
+              <>
+                <input
+                  ref="inputFile"
+                  type="file"
+                  style={{ display: 'none' }}
+                  onChange={() => this.onFileSelected()}
+                  accept=".xls,.xlsx"
+                />
+                <button
+                  className="btn btn-primary"
+                  onClick={() => this.refs.inputFile.dispatchEvent(new MouseEvent('click'))}
+                  disabled={R.equals('saving', status)}>
+                  {i18n.t('panEuropeanIndicators.chooseFile')}
+                </button>
+              </>
+            }
           </div>
 
-          <ReviewIndicator
-            section={'panEuropeanIndicators'}
-            title={i18n.t('panEuropeanIndicators.panEuropeanIndicators')}
-            target={['uploadQuestionnaire']}
-            countryIso={countryIso}
-          />
+          {
+            userInfo &&
+            <ReviewIndicator
+              section={'panEuropeanIndicators'}
+              title={i18n.t('panEuropeanIndicators.panEuropeanIndicators')}
+              target={['uploadQuestionnaire']}
+              countryIso={countryIso}
+            />
+          }
         </div>
 
         <div className="pan-european__qualitative-questionnaire-container">
