@@ -1,4 +1,4 @@
-const uuidv4 = require('uuid/v4')
+const { v4:uuidv4 } = require('uuid')
 
 let bustString = uuidv4()
 // For some reason, incremental build with watch loses
