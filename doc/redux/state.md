@@ -1,0 +1,51 @@
+**between [] dynamic names**
+
+-------------------
+
+- app
+    - i18n
+    - countryIso
+    - `//// following with combineReducers`
+    - autosave
+    - error
+    - navigation
+    - landing
+        - messageBoard
+        - feed
+        - overview 
+        - repository
+- admin
+    - versions
+- assessment
+    - [fra2020]
+        - config (ex country/status/assessment/[assessment])
+        - lock
+        - reviewStatus (ex country/status/reviewStatus)
+        - sections
+            - [extentOfForest]
+                - data
+                - descriptions
+                    - [nationalClassificationAndDefinitions]
+                    - [originalData]
+                    - [estimationAndForecasting]
+                    - [reclassification]
+                    - [generalComments]
+                - review
+                    - [dataSources]
+            - [forestCharacteristics]
+            - [growingStock]
+            - [originalDataPoint]
+            - [sustainableDevelopment]
+            - [... traditionalTables]
+    - [otherAssessment]
+        - sections
+        - config
+        - lock
+- country
+    - config
+    - countries
+- login
+- user
+    - userInfo
+    - chat
+    - userManagement or users or userList
