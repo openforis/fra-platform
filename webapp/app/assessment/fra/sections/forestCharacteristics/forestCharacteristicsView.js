@@ -24,7 +24,7 @@ import * as AppState from '@webapp/app/appState'
 import * as CountryState from '@webapp/app/country/countryState'
 import * as ReviewState from '@webapp/app/assessment/components/review/reviewState'
 
-import { fetchItem, generateFraValues, save, saveMany} from '@webapp/app/assessment/fra/components/tableWithOdp/actions'
+import { fetchItem, generateFraValues } from '@webapp/app/assessment/fra/components/tableWithOdp/actions'
 import { fetchLastSectionUpdateTimestamp } from '@webapp/app/components/audit/actions'
 import { saveCountryConfigSetting } from '@webapp/app/country/actions'
 
@@ -325,14 +325,13 @@ const ForestCharacteristics = props => {
     }
 
     <TableWithOdp
-      sectionAnchor={anchorName}
-      section={sectionName}
-      rows={focRows}
-      tableHeader={i18n.t('forestCharacteristics.areaUnitLabel')}
-      categoryHeader={i18n.t('forestCharacteristics.categoryHeader')}
-      {...props}
       fra={fra}
+      rows={focRows}
+      section={sectionName}
+      sectionAnchor={anchorName}
       disabled={isEditDataDisabled}
+      tableHeaderLabel={i18n.t('forestCharacteristics.areaUnitLabel')}
+      categoryHeaderLabel={i18n.t('forestCharacteristics.categoryHeader')}
     />
     <GeneralComments
       section={sectionName}
@@ -395,8 +394,6 @@ const mapStateToProps = state => {
 export default connect(
   mapStateToProps,
   {
-    save,
-    saveMany,
     fetchItem,
     generateFraValues,
     fetchLastSectionUpdateTimestamp,

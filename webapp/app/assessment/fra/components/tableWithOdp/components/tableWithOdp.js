@@ -1,10 +1,10 @@
 import './tableWithOdp.less'
 
-import React from 'react'
+import React, { useRef } from 'react'
 import PropTypes from 'prop-types'
 import ReactDOMServer from 'react-dom/server'
 import * as R from 'ramda'
-import clipboard from 'clipboard-polyfill'
+import * as clipboard from 'clipboard-polyfill'
 
 import { readPasteClipboard } from '@webapp/utils/copyPasteUtil'
 import { acceptNextDecimal } from '@webapp/utils/numberInput'
@@ -14,6 +14,8 @@ import defaultYears from '@server/eof/defaultYears'
 import ButtonTableExport from '@webapp/components/buttonTableExport'
 import TableHeaderCell from '@webapp/app/assessment/fra/components/tableWithOdp/components/tableHeaderCell'
 import TableBodyRow from '@webapp/app/assessment/fra/components/tableWithOdp/components/tableBodyRow'
+import useI18n from '@webapp/components/hooks/useI18n'
+import useUserInfo from '@webapp/components/hooks/useUserInfo'
 
 const mapIndexed = R.addIndex(R.map)
 
@@ -26,121 +28,130 @@ const getFraValues = (fra, rows) => {
   return fraValues
 }
 
-export class TableWithOdp extends React.Component {
-  constructor (props) {
-    super(props)
-    this.tableRef = React.createRef()
-  }
+const clipboardTable = (tableValues) => {
+  return <table>
+    <tbody>
+    {
+      tableValues.map((row, i) =>
+        <tr key={i}>
+          {mapIndexed((value, i) =>
+              <td key={i}> {toFixed(value)} </td>
+            , row)}
+        </tr>
+      )
+    }
+    </tbody>
+  </table>
+}
 
-  clipboardTable (tableValues) {
-    return <table>
-      <tbody>
-      {mapIndexed((row, i) =>
-          <tr key={i}>
-            {mapIndexed((value, i) =>
-                <td key={i}> {toFixed(value)} </td>
-              , row)}
+const copyTableAsHtml = (i18n, data, rows) => {
+  const transposedFraValues = R.transpose(getFraValues(data, rows))
+  const htmlTable = ReactDOMServer.renderToString(clipboardTable(transposedFraValues))
+  const dataTransfer = new clipboard.DT()
+  dataTransfer.setData('text/plain', i18n.t('forestCharacteristics.forestCharacteristics'))
+  dataTransfer.setData('text/html', htmlTable)
+  clipboard.write(dataTransfer)
+}
+
+const TableWithOdp = props => {
+
+  const {
+    fra, //TODO rename in data
+    rows, section, sectionAnchor,
+    copyValues, disabled,
+    tableHeaderLabel, categoryHeaderLabel,
+    save, saveMany,
+
+  } = props
+
+  const i18n = useI18n()
+  const userInfo = useUserInfo()
+  const tableRef = useRef(null)
+
+  const dataValues = Object.values(fra)
+
+  return (
+    <div className="fra-table__container table-with-odp">
+      <div className="fra-table__scroll-wrapper">
+        <ButtonTableExport
+          tableRef={tableRef}
+          filename={sectionAnchor}
+        />
+        <table ref={tableRef} className="fra-table">
+          <thead>
+          <tr>
+            <th className="fra-table__header-cell-left" rowSpan="2">
+              {categoryHeaderLabel}
+            </th>
+            <th className="fra-table__header-cell" colSpan={dataValues.length}>
+              <div>
+
+                {
+                  tableHeaderLabel
+                }
+
+                {
+                  copyValues && userInfo &&
+                  <button className="fra-table__header-button btn-xs btn-primary no-print"
+                          onClick={() => copyTableAsHtml(i18n, fra, rows)}>
+                    {i18n.t('tableWithOdp.copyToClipboard')}
+                  </button>
+                }
+              </div>
+            </th>
           </tr>
-        , tableValues)}
-      </tbody>
-    </table>
-  }
-
-  copyTableAsHtml () {
-    const transposedFraValues = R.transpose(getFraValues(this.props.fra, this.props.rows))
-    const htmlTable = ReactDOMServer.renderToString(this.clipboardTable(transposedFraValues))
-    const dataTransfer = new clipboard.DT()
-    dataTransfer.setData('text/plain', this.props.i18n.t('forestCharacteristics.forestCharacteristics'))
-    dataTransfer.setData('text/html', htmlTable)
-    clipboard.write(dataTransfer)
-  }
-
-  render () {
-    const {
-      copyValues = true, disabled = false, section, sectionAnchor,
-      i18n, userInfo,
-      save, saveMany, countryIso,
-      rows,
-      fra //TODO rename in data
-    } = this.props
-
-    console.log(this.props)
-
-    const dataValues = Object.values(fra)
-
-    return (
-      <div className="fra-table__container table-with-odp">
-        <div className="fra-table__scroll-wrapper">
-          <ButtonTableExport
-            tableRef={this.tableRef}
-            filename={sectionAnchor}
-          />
-          <table ref={this.tableRef} className="fra-table">
-            <thead>
-            <tr>
-              <th className="fra-table__header-cell-left" rowSpan="2">{this.props.categoryHeader}</th>
-              <th className="fra-table__header-cell" colSpan={dataValues.length}>
-                <div>
-
-                  {
-                    this.props.tableHeader
-                  }
-
-                  {
-                    copyValues && userInfo &&
-                    <button className="fra-table__header-button btn-xs btn-primary no-print"
-                            onClick={() => this.copyTableAsHtml()}>
-                      {this.props.i18n.t('tableWithOdp.copyToClipboard')}
-                    </button>
-                  }
-                </div>
-              </th>
-            </tr>
-            <tr>
-              {
-                dataValues.map((datum, i) => (
-                  <TableHeaderCell
-                    key={i}
-                    datum={datum}
-                    section={section}
-                  />
-                ))
-              }
-            </tr>
-            </thead>
-            <tbody>
+          <tr>
             {
-              rows.map((row, i) => (
-                <TableBodyRow
-                  {...this.props}
+              dataValues.map((datum, i) => (
+                <TableHeaderCell
                   key={i}
-                  row={row}
-                  save={R.partial(save, [section])}
-                  saveMany={R.partial(saveMany, [section])}
-                  pasteUpdate={R.partial(updatePastedValues, [R.pluck('field', rows)])}
-                  rowIdx={i}
+                  datum={datum}
+                  section={section}
                 />
               ))
             }
-            </tbody>
-          </table>
-        </div>
+          </tr>
+          </thead>
+          <tbody>
+          {
+            rows.map((row, i) => (
+              <TableBodyRow
+                key={i}
+                fra={fra}
+                section={section}
+                row={row}
+                rowIdx={i}
+                disabled={disabled}
+                pasteUpdate={R.partial(updatePastedValues, [R.pluck('field', rows)])}
+              />
+            ))
+          }
+          </tbody>
+        </table>
       </div>
-    )
-  }
+    </div>
+  )
 }
 
 TableWithOdp.propTypes = {
+  // data
   fra: PropTypes.array.isRequired,
   rows: PropTypes.array.isRequired,
   section: PropTypes.string.isRequired,
   sectionAnchor: PropTypes.string.isRequired,
 
-  copyValues: PropTypes.bool.isRequired
+  // boolean checks
+  copyValues: PropTypes.bool.isRequired,
+  disabled: PropTypes.bool.isRequired,
+
+  // labels
+  tableHeaderLabel: PropTypes.string.isRequired,
+  categoryHeaderLabel: PropTypes.string.isRequired,
 }
 
 TableWithOdp.defaultProps = {
-  copyValues: false
+  copyValues: true,
+  disabled: false,
 }
 
 export default TableWithOdp
@@ -172,10 +183,10 @@ const updatePastedValues = (rowNames, evt, rowIdx, colIdx, fra) => {
         R.map(k => {
           return { [k]: acceptNextDecimal(String(toPaste[fra.year][k]), fra[k]) }
         }),
-        R.reduce(R.merge, {})
+        R.reduce(R.mergeLeft, {})
       )(R.defaultTo({}, toPaste[fra.year]))
 
-      return toPaste[fra.year] ? R.merge(fra, acceptedValues) : null
+      return toPaste[fra.year] ? R.mergeRight(fra, acceptedValues) : null
     }),
     R.reject(R.isNil))(fra)
 

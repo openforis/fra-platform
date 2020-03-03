@@ -25,8 +25,10 @@ const TableBodyRow = props => {
 
 TableBodyRow.propTypes = {
   fra: PropTypes.array.isRequired,
+  section: PropTypes.string.isRequired,
   row: PropTypes.object.isRequired,
   rowIdx: PropTypes.number.isRequired,
+  disabled: PropTypes.bool.isRequired,
 }
 
 export default TableBodyRow

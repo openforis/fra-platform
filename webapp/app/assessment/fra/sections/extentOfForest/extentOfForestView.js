@@ -13,8 +13,8 @@ import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndi
 import TraditionalTable from '@webapp/app/assessment/components/traditionalTable/traditionalTable'
 import NationalDataPointsPrintView from '../originalDataPoint/nationalDataPointsPrintView'
 
-import { saveCountryConfigSetting } from '../../../../country/actions'
-import { fetchItem, generateFraValues, save, saveMany } from '../../components/tableWithOdp/actions'
+import { saveCountryConfigSetting } from '@webapp/app/country/actions'
+import { fetchItem, generateFraValues } from '@webapp/app/assessment/fra/components/tableWithOdp/actions'
 import { fetchLastSectionUpdateTimestamp } from '@webapp/app/components/audit/actions'
 
 import { abs, formatNumber, greaterThanOrEqualTo, lessThanOrEqualTo, sub, sum } from '@common/bignumberUtils'
@@ -269,15 +269,14 @@ const ExtentOfForest = (props) => {
     }
 
     <TableWithOdp
-      sectionAnchor={anchorName}
-      section={sectionName}
-      rows={eofRows}
-      tableHeader={props.i18n.t('extentOfForest.areaUnitLabel')}
-      categoryHeader={props.i18n.t('extentOfForest.categoryHeader')}
-      {...props}
       fra={fra}
+      rows={eofRows}
+      section={sectionName}
+      sectionAnchor={anchorName}
       copyValues={false}
       disabled={isEditDataDisabled}
+      tableHeaderLabel={props.i18n.t('extentOfForest.areaUnitLabel')}
+      categoryHeaderLabel={props.i18n.t('extentOfForest.categoryHeader')}
     />
     <TraditionalTable
       sectionAnchor={anchorName}
@@ -345,8 +344,6 @@ const mapStateToProps = state =>
 export default connect(
   mapStateToProps,
   {
-    save,
-    saveMany,
     fetchItem,
     generateFraValues,
     fetchLastSectionUpdateTimestamp,
