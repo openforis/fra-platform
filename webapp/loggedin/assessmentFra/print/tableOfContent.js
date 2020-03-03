@@ -12,13 +12,16 @@ const TableOfContent = props => {
   const { i18n } = props
 
   return (
-    <ol className="table-of-content">
-      {
-        getAssessmentHeaders(assessments).map(
-          (section, i) => <TableOfContentLink key={i} i={i} >{i18n.t(section.label)}</TableOfContentLink>
-        )
-      }
-    </ol>
+    <>
+      <ol className="table-of-content">
+        {
+          getAssessmentHeaders(assessments).map(
+            (section, i) => <TableOfContentLink key={i} i={i}>{i18n.t(section.label)}</TableOfContentLink>
+          )
+        }
+      </ol>
+      <div className="page-break"/>
+    </>
   )
 }
 
