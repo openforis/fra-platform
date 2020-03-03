@@ -132,7 +132,7 @@ const OriginalDataPoint = (props) => {
             <CommentsEditor
               canEditData={canEditData}
               odp={odp}
-              title={i18n.t('review.comments')}/>
+              />
           </div>
           <div className="fra-description__review-indicator-wrapper">
             {

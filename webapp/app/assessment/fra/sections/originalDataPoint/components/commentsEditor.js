@@ -7,7 +7,7 @@ import { saveDraft } from '@webapp/app/assessment/fra/sections/originalDataPoint
 import ckEditorConfig from '@webapp/components/ckEditor/ckEditorConfig'
 
 const CommentsEditor = props => {
-  const { canEditData, odp, title } = props
+  const { canEditData, odp } = props
   const [open, setOpen] = useState(false)
   const textareaRef = useRef(null)
   const dispatch = useDispatch()
@@ -57,7 +57,9 @@ const CommentsEditor = props => {
 
   return <div>
     <div className="fra-description__header-row">
-      <h3 className="subhead fra-description__header">{title}</h3>
+      <h3 className="subhead fra-description__header">
+        {i18n.t('review.comments')}
+      </h3>
       {
         canEditData &&
         <div className="fra-description__link" onClick={() => setOpen(!open)}>
@@ -89,7 +91,6 @@ CommentsEditor.defaultProps = {
 CommentsEditor.propTypes = {
   canEditData: PropTypes.bool,
   odp: PropTypes.object,
-  title: PropTypes.string,
 }
 
 export default CommentsEditor
