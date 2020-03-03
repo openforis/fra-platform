@@ -21,7 +21,6 @@ const CommentableDescription = props => {
         title={props.title}
         section={props.section}
         name={props.name}
-        countryIso={countryIso}
         template={props.template}
         disabled={disabled}
         showAlertEmptyContent={props.showAlertEmptyContent}

@@ -34,8 +34,7 @@ const CommentableReviewDescriptions = props => {
           title={i18n.t('description.dataSourcesTitle')}
           section={section}
           name={dataSources}
-          template={dataSourcesEditorTemplate(i18n)}
-          countryIso={countryIso}/>
+          template={dataSourcesEditorTemplate(i18n)} />
       </div>
       <div className="fra-description__review-indicator-wrapper">
         <ReviewIndicator
@@ -54,8 +53,7 @@ const CommentableReviewDescriptions = props => {
         <Description
           title={i18n.t('description.generalCommentsTitle')}
           section={section}
-          name={generalComments}
-          countryIso={countryIso}/>
+          name={generalComments}/>
       </div>
       <div className="fra-description__review-indicator-wrapper">
         <ReviewIndicator
