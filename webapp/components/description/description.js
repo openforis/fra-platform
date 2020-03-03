@@ -11,6 +11,7 @@ import ckEditorConfig from '@webapp/components/ckEditor/ckEditorConfig'
 
 import useI18n from '@webapp/components/hooks/useI18n'
 import useCountryIso from '@webapp/components/hooks/useCountryIso'
+import useUserInfo from '@webapp/components/hooks/useUserInfo'
 import * as DescriptionState from '@webapp/components/description/descriptionState'
 
 import { saveDescriptions, fetchDescriptions, openEditor, closeEditor } from './actions'
@@ -33,6 +34,7 @@ const Description = props => {
 
   const i18n = useI18n()
   const countryIso = useCountryIso()
+  const userInfo = useUserInfo()
 
   useEffect(() => {
     dispatch(fetchDescriptions(countryIso, section, name))
@@ -64,7 +66,7 @@ const Description = props => {
   }
 
   const isActive = editing === name
-  const showError = showAlertEmptyContent && !content
+  const showError = userInfo && showAlertEmptyContent && !content
   const showDash = showDashEmptyContent && !content
 
   return <div className="fra-description__header-row">
