@@ -1,89 +1,96 @@
-import React from 'react'
-
+import React, { useState, useEffect, useRef } from 'react'
+import { useDispatch } from 'react-redux'
+import PropTypes from 'prop-types'
+import useCountryIso from '@webapp/components/hooks/useCountryIso'
+import useI18n from '@webapp/components/hooks/useI18n'
+import { saveDraft } from '@webapp/app/assessment/fra/sections/originalDataPoint/actions'
 import ckEditorConfig from '@webapp/components/ckEditor/ckEditorConfig'
 
-class CommentsEditor extends React.Component {
+const CommentsEditor = props => {
+  const { canEditData, odp } = props
+  const [open, setOpen] = useState(false)
+  const textareaRef = useRef(null)
+  const dispatch = useDispatch()
+  const countryIso = useCountryIso()
+  const i18n = useI18n()
 
-  constructor (props) {
-    super(props)
-    this.state = { open: false }
-  }
+  let descriptionEditor = useRef(null)
 
-  initCKeditor () {
-    if (this.props.match.params.odpId) {
-      this.descriptionEditor.setData(
-        this.props.odp.description,
-        { callback: () => this.initCkeditorChangeListener() })
+  const initCKeditor = () => {
+    if (odp.odpId) {
+      descriptionEditor.current.setData(
+        odp.description,
+        { callback: () => initCkeditorChangeListener() })
     } else {
-      this.initCkeditorChangeListener()
+      initCkeditorChangeListener()
     }
   }
 
-  initCkeditorChangeListener () {
-    this.descriptionEditor.on('change', (evt) => {
-        this.props.saveDraft(
-          this.props.match.params.countryIso,
-          { ...this.props.odp, description: evt.editor.getData() })
-      }
-    )
+  const initCkeditorChangeListener = () => {
+    descriptionEditor.current.on('change', (evt) => {
+      dispatch(saveDraft(countryIso,
+        {
+          ...odp,
+          description: evt.editor.getData()
+        }
+      ))
+    })
   }
 
-  componentWillUnmount () {
-    this.descriptionEditor.destroy(false)
-    this.descriptionEditor = null
-  }
-
-  componentDidMount () {
-    this.descriptionEditor = CKEDITOR.replace(this.refs.originalDataPointDescription, ckEditorConfig)
+  useEffect(() => {
+    descriptionEditor.current = CKEDITOR.replace(textareaRef.current, ckEditorConfig)
     // We need to fetch the data only after CKEDITOR instance is ready :(
     // Otherwise there is no guarantee that the setData()-method succeeds in
     // setting pre-existing html-content
-    this.descriptionEditor.on('instanceReady', () => this.initCKeditor())
-  }
-
-  componentDidUpdate () {
-    if (this.state.open && this.state.shouldStealFocus) {
-      this.descriptionEditor.focus()
-      this.setState({ ...this.state, shouldStealFocus: false })
+    descriptionEditor.current.on('instanceReady', () => initCKeditor())
+    return () => {
+      descriptionEditor.current.destroy(false)
+      descriptionEditor = null
     }
-  }
+  }, [])
 
-  render () {
-    const { canEditData } = this.props
+  useEffect(() => {
+    if (open) {
+      descriptionEditor.current.focus()
+    }
+  }, [open])
 
-    return <div>
-      <div className="fra-description__header-row">
-        <h3 className="subhead fra-description__header">{this.props.title}</h3>
-        {
-          canEditData &&
-            <div className="fra-description__link" onClick={e => {
-              this.state.open
-                ? this.setState({ open: false })
-                : this.setState({ open: true, shouldStealFocus: true })
-              e.stopPropagation()
-            }
-            }>
-              {this.state.open ? this.props.i18n.t('description.done') : this.props.i18n.t('description.edit')}
-            </div>
-        }
-      </div>
-      <div className="cke_wrapper" style={{ display: this.state.open ? 'block' : 'none' }}>
-        <textarea ref="originalDataPointDescription"/>
-      </div>
+  return <div>
+    <div className="fra-description__header-row">
+      <h3 className="subhead fra-description__header">
+        {i18n.t('review.comments')}
+      </h3>
       {
-        this.props.odp.description
-          ? <div className="fra-description__preview" style={{ display: this.state.open ? 'none' : 'block' }}
-                 dangerouslySetInnerHTML={{ __html: this.props.odp.description }}/>
-          : null
+        canEditData &&
+        <div className="fra-description__link" onClick={() => setOpen(!open)}>
+          {open ? i18n.t('description.done') : i18n.t('description.edit')}
+        </div>
       }
-
     </div>
-  }
 
+    <div className="cke_wrapper" style={{ display: open ? 'block' : 'none' }}>
+      <textarea ref={textareaRef}/>
+    </div>
+
+    {
+      odp.description &&
+      <div
+        className="fra-description__preview"
+        style={{ display: open ? 'none' : 'block' }}
+        dangerouslySetInnerHTML={{ __html: odp.description }}
+      />
+    }
+
+  </div>
 }
 
 CommentsEditor.defaultProps = {
   canEditData: true
+}
+
+CommentsEditor.propTypes = {
+  canEditData: PropTypes.bool,
+  odp: PropTypes.object,
 }
 
 export default CommentsEditor
