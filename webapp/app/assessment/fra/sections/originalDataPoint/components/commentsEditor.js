@@ -1,16 +1,20 @@
 import React, { useState, useEffect, useRef } from 'react'
+import { useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
 import useCountryIso from '@webapp/components/hooks/useCountryIso'
-
+import useI18n from '@webapp/components/hooks/useI18n'
+import { saveDraft } from '@webapp/app/assessment/fra/sections/originalDataPoint/actions'
 import ckEditorConfig from '@webapp/components/ckEditor/ckEditorConfig'
 
 const CommentsEditor = props => {
-  const { canEditData, odp, title, i18n, saveDraft } = props
+  const { canEditData, odp, title } = props
   const [open, setOpen] = useState(false)
   const textareaRef = useRef(null)
-  const countryIso = useCountryIso();
+  const dispatch = useDispatch()
+  const countryIso = useCountryIso()
+  const i18n = useI18n()
 
-  let descriptionEditor;
+  let descriptionEditor
 
   const handleOnClick = e => {
     setOpen(!open)
@@ -30,11 +34,12 @@ const CommentsEditor = props => {
 
   const initCkeditorChangeListener = () => {
     descriptionEditor.on('change', (evt) => {
-      saveDraft(countryIso,
+      dispatch(saveDraft(countryIso,
         {
           ...odp,
           description: evt.editor.getData()
-        })
+        }
+      ))
     })
   }
 
@@ -86,7 +91,6 @@ CommentsEditor.propTypes = {
   odp: PropTypes.object,
   title: PropTypes.string,
   i18n: PropTypes.object,
-  saveDraft: PropTypes.func,
 }
 
 export default CommentsEditor
