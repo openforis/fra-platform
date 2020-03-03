@@ -12,6 +12,7 @@ import ckEditorConfig from '@webapp/components/ckEditor/ckEditorConfig'
 import useI18n from '@webapp/components/hooks/useI18n'
 import useCountryIso from '@webapp/components/hooks/useCountryIso'
 import * as AppState from '@webapp/app/appState'
+import * as DescriptionState from '@webapp/components/description/descriptionState'
 
 import { saveDescriptions, fetchDescriptions, openEditor, closeEditor } from './actions'
 
@@ -137,8 +138,8 @@ const DescriptionEditor = props => {
 
 const mapStateToProps = (state, props) => ({
   i18n: AppState.getI18n(state),
-  content: R.pathOr('', ['descriptions', props.section, props.name, 'content'], state),
-  editing: R.pathOr(false, ['descriptions', 'editing'], state)
+  content: DescriptionState.getSectionNameContent(props.section, props.name)(state),
+  editing: DescriptionState.getEditing(state)
 })
 
 export default connect(mapStateToProps, { fetchDescriptions, saveDescriptions, openEditor, closeEditor })(Description)
