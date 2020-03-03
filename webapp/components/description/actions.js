@@ -1,14 +1,12 @@
 import axios from 'axios'
 
 import * as autosave from '@webapp/app/components/autosave/actions'
-import { applicationError } from '@webapp/app/components/error/actions'
 
 export const descriptionsFetched = 'descriptions/fetched'
 
-export const fetchDescriptions = (countryIso, section, name) => dispatch => {
-  axios.get(`/api/country/descriptions/${countryIso}/${section}/${name}`)
-    .then(resp => dispatch({type: descriptionsFetched, section, name, data: resp.data}))
-    .catch(err => dispatch(applicationError(err)))
+export const fetchDescriptions = (countryIso, section, name) => async dispatch => {
+  const { data } = await axios.get(`/api/country/descriptions/${countryIso}/${section}/${name}`)
+  dispatch({ type: descriptionsFetched, section, name, data })
 }
 
 export const descriptionsChangeStart = 'descriptions/change/start'
@@ -19,19 +17,18 @@ export const saveDescriptions = (countryIso, section, name, content) => dispatch
   dispatch(changeDescriptions(countryIso, section, name, content))
 }
 
-const startSaveDescriptions = (section, name, content) => ({type: descriptionsChangeStart, section, name, content})
+const startSaveDescriptions = (section, name, content) =>
+({ type: descriptionsChangeStart, section, name, content })
 
 export const openEditorStart = 'descriptions/editor/open'
 export const closeEditorStart = 'descriptions/editor/close'
-export const openEditor = (name) => ({type: openEditorStart, name})
-export const closeEditor = () => ({type: closeEditorStart })
+export const openEditor = (name) => ({ type: openEditorStart, name })
+export const closeEditor = () => ({ type: closeEditorStart })
 
 const changeDescriptions = (countryIso, section, name, content) => {
   const dispatched = dispatch => {
-    return axios.post(`/api/country/descriptions/${countryIso}/${section}/${name}`, {content}).then(() => {
+    return axios.post(`/api/country/descriptions/${countryIso}/${section}/${name}`, { content }).then(() => {
       dispatch(autosave.complete)
-    }).catch((err) => {
-      dispatch(applicationError(err))
     })
   }
   dispatched.meta = {
