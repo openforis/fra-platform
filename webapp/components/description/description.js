@@ -2,7 +2,7 @@ import './description.less'
 
 import React, { useRef, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import * as R from 'ramda'
 
 import Icon from '@webapp/components/icon'
@@ -11,7 +11,6 @@ import ckEditorConfig from '@webapp/components/ckEditor/ckEditorConfig'
 
 import useI18n from '@webapp/components/hooks/useI18n'
 import useCountryIso from '@webapp/components/hooks/useCountryIso'
-import * as AppState from '@webapp/app/appState'
 import * as DescriptionState from '@webapp/components/description/descriptionState'
 
 import { saveDescriptions, fetchDescriptions, openEditor, closeEditor } from './actions'
@@ -19,39 +18,48 @@ import { saveDescriptions, fetchDescriptions, openEditor, closeEditor } from './
 const Description = props => {
   const {
     title,
-    content,
-    editing,
     name,
-    closeEditor,
-    openEditor,
+    section,
+    template,
     disabled,
     showAlertEmptyContent = false,
     showDashEmptyContent = false,
-    fetchDescriptions,
-    section,
   } = props
+
+  const editing = useSelector(DescriptionState.getEditing)
+  const content = useSelector(DescriptionState.getSectionNameContent(section, name))
+
+  const dispatch = useDispatch()
+
   const i18n = useI18n()
   const countryIso = useCountryIso()
 
   useEffect(() => {
-    fetchDescriptions(countryIso, section, name)
+    dispatch(fetchDescriptions(countryIso, section, name))
   }, [])
 
   useEffect(() => {
-    fetchDescriptions(countryIso, section, name)
+    dispatch(fetchDescriptions(countryIso, section, name))
   }, [countryIso])
 
   const showEditorContent = (isActive, showDash) => {
     if (showDash)
       return <div>-</div>
-    if (R.isNil(props.content))
+    if (R.isNil(content))
       return null
     if (isActive)
-      return <DescriptionEditor {...props} />
-    if (props.content)
-      return <div className="fra-description__preview" dangerouslySetInnerHTML={{ __html: props.content }} />
-    if (props.template)
-      return <div className="fra-description__preview" dangerouslySetInnerHTML={{ __html: props.template }} />
+      return (
+        <DescriptionEditor
+          section={section}
+          name={name}
+          template={template}
+          content={content}
+        />
+      )
+    if (content)
+      return <div className="fra-description__preview" dangerouslySetInnerHTML={{ __html: content }} />
+    if (template)
+      return <div className="fra-description__preview" dangerouslySetInnerHTML={{ __html: template }} />
     return null
   }
 
@@ -71,10 +79,9 @@ const Description = props => {
       }
     </h3>
     {
-      !disabled
-      && <div className="fra-description__link no-print"
+      !disabled && <div className="fra-description__link no-print"
         onClick={e => {
-          isActive ? closeEditor() : openEditor(name)
+          isActive ? dispatch(closeEditor()) : dispatch(openEditor(name))
           e.stopPropagation()
         }}>
         {isActive ? i18n.t('description.done') : i18n.t('description.edit')}
@@ -94,9 +101,9 @@ const DescriptionEditor = props => {
     section,
     name,
     template,
-    saveDescriptions,
     content
   } = props
+  const dispatch = useDispatch()
 
   const textareaRef = useRef(null)
   let editor = useRef(null)
@@ -105,7 +112,7 @@ const DescriptionEditor = props => {
 
   const initCkeditorChangeListener = () => {
     editor.current.on('change', (evt) =>
-      saveDescriptions(countryIso, section, name, evt.editor.getData())
+      dispatch(saveDescriptions(countryIso, section, name, evt.editor.getData()))
     )
   }
 
@@ -136,10 +143,4 @@ const DescriptionEditor = props => {
 
 }
 
-const mapStateToProps = (state, props) => ({
-  i18n: AppState.getI18n(state),
-  content: DescriptionState.getSectionNameContent(props.section, props.name)(state),
-  editing: DescriptionState.getEditing(state)
-})
-
-export default connect(mapStateToProps, { fetchDescriptions, saveDescriptions, openEditor, closeEditor })(Description)
+export default Description

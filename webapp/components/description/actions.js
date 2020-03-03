@@ -24,7 +24,7 @@ const startSaveDescriptions = (section, name, content) => ({type: descriptionsCh
 export const openEditorStart = 'descriptions/editor/open'
 export const closeEditorStart = 'descriptions/editor/close'
 export const openEditor = (name) => ({type: openEditorStart, name})
-export const closeEditor = (name) => ({type: closeEditorStart, name})
+export const closeEditor = () => ({type: closeEditorStart })
 
 const changeDescriptions = (countryIso, section, name, content) => {
   const dispatched = dispatch => {
