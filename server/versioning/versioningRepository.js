@@ -38,8 +38,8 @@ const getPendingVersions = async () => {
       to_char(v.created_at,'YYYY-MM-DD"T"HH24:MI:ssZ') as created_at,
       to_char(v.updated_at,'YYYY-MM-DD"T"HH24:MI:ssZ') as updated_at
     FROM fra_version v
-    WHERE v.published_at > NOW() - interval '1 minute'
-      AND v.published_at <= NOW() + interval '5 minute'
+    WHERE v.published_at > NOW() - interval '6 minute'
+      AND v.published_at <= NOW() + interval '6 minute'
       AND v.status = 'pending'
     ORDER BY v.published_at;
   `)
