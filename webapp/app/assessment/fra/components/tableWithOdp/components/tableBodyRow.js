@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import TableBodyRowField from '@webapp/app/assessment/fra/components/tableWithOdp/components/tableBodyRowField'
 import TableBodyRowValidation
   from '@webapp/app/assessment/fra/components/tableWithOdp/components/tableBodyRowValidation'
+import useUserInfo from '@webapp/components/hooks/useUserInfo'
 
 const rowRenderers = {
   field: TableBodyRowField,
@@ -12,9 +13,15 @@ const rowRenderers = {
 }
 
 const TableBodyRow = props => {
-  const { row } = props
+  const userInfo = useUserInfo()
 
+  const { row } = props
   const { type } = row
+
+  // validation error rows are hidden in public view
+  if (type === 'validationErrors' && !userInfo) {
+    return null
+  }
 
   const renderer = rowRenderers[type]
   if (!renderer) {
@@ -29,6 +36,7 @@ TableBodyRow.propTypes = {
   row: PropTypes.object.isRequired,
   rowIdx: PropTypes.number.isRequired,
   disabled: PropTypes.bool.isRequired,
+  pasteUpdate: PropTypes.func.isRequired,
 }
 
 export default TableBodyRow

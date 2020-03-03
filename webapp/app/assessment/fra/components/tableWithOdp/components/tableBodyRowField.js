@@ -10,7 +10,6 @@ import * as ReviewState from '@webapp/app/assessment/components/review/reviewSta
 
 import TableBodyCell from '@webapp/app/assessment/fra/components/tableWithOdp/components/tableBodyCell'
 
-
 const TableBodyRowField = props => {
   const countryIso = useCountryIso()
 
@@ -76,6 +75,7 @@ TableBodyRowField.propTypes = {
   row: PropTypes.object.isRequired,
   rowIdx: PropTypes.number.isRequired,
   disabled: PropTypes.bool.isRequired,
+  pasteUpdate: PropTypes.func.isRequired,
 }
 
 export default TableBodyRowField

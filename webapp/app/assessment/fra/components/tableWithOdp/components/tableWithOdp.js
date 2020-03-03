@@ -18,7 +18,7 @@ import {
 const TableWithOdp = props => {
 
   const {
-    fra, //TODO rename in data
+    fra,
     rows, section, sectionAnchor,
     copyValues, disabled,
     tableHeaderLabel, categoryHeaderLabel,

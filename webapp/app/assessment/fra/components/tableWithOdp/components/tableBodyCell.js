@@ -10,19 +10,18 @@ import { ThousandSeparatedDecimalInput } from '@webapp/components/thousandSepara
 import useCountryIso from '@webapp/components/hooks/useCountryIso'
 
 import { save, saveMany } from '@webapp/app/assessment/fra/components/tableWithOdp/actions'
+import useUserInfo from '@webapp/components/hooks/useUserInfo'
 
 const TableBodyCell = props => {
   const dispatch = useDispatch()
   const countryIso = useCountryIso()
+  const userInfo = useUserInfo()
 
-  const {
-    fra, section, disabled, field, datum, validator, rowIdx, colIdx
-    , pasteUpdate
-  } = props
+  const { fra, section, disabled, field, datum, validator, rowIdx, colIdx, pasteUpdate } = props
 
   const className = 'fra-table__cell'
     + (datum.type === 'odp' && !isPrintingMode() ? ' odp-value-cell' : '')
-    + (validator(datum, field) ? '' : ' validation-error')
+    + (!userInfo || validator(datum, field) ? '' : ' validation-error')
 
   return (
     <td className={className} key={colIdx}>
@@ -49,7 +48,6 @@ const TableBodyCell = props => {
               disabled={disabled}
             />
           )
-
       }
     </td>
   )
@@ -64,6 +62,7 @@ TableBodyCell.propTypes = {
   validator: PropTypes.func.isRequired,
   rowIdx: PropTypes.number.isRequired,
   colIdx: PropTypes.number.isRequired,
+  pasteUpdate: PropTypes.func.isRequired,
 }
 
 TableBodyCell.defaultProps = {
