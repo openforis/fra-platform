@@ -14,16 +14,11 @@ const CommentsEditor = props => {
   const countryIso = useCountryIso()
   const i18n = useI18n()
 
-  let descriptionEditor
-
-  const handleOnClick = e => {
-    setOpen(!open)
-    e.stopPropagation()
-  }
+  let descriptionEditor = useRef(null)
 
   const initCKeditor = () => {
     if (odp.odpId) {
-      descriptionEditor.setData(
+      descriptionEditor.current.setData(
         odp.description,
         { callback: () => initCkeditorChangeListener() })
     } else {
@@ -31,9 +26,8 @@ const CommentsEditor = props => {
     }
   }
 
-
   const initCkeditorChangeListener = () => {
-    descriptionEditor.on('change', (evt) => {
+    descriptionEditor.current.on('change', (evt) => {
       dispatch(saveDraft(countryIso,
         {
           ...odp,
@@ -44,30 +38,36 @@ const CommentsEditor = props => {
   }
 
   useEffect(() => {
-    descriptionEditor = CKEDITOR.replace(textareaRef.current, ckEditorConfig)
+    descriptionEditor.current = CKEDITOR.replace(textareaRef.current, ckEditorConfig)
     // We need to fetch the data only after CKEDITOR instance is ready :(
     // Otherwise there is no guarantee that the setData()-method succeeds in
     // setting pre-existing html-content
-    descriptionEditor.on('instanceReady', () => initCKeditor())
+    descriptionEditor.current.on('instanceReady', () => initCKeditor())
     return () => {
-      descriptionEditor.destroy(false)
+      descriptionEditor.current.destroy(false)
       descriptionEditor = null
-    };
+    }
   }, [])
+
+  useEffect(() => {
+    if (open) {
+      descriptionEditor.current.focus()
+    }
+  }, [open])
 
   return <div>
     <div className="fra-description__header-row">
       <h3 className="subhead fra-description__header">{title}</h3>
       {
         canEditData &&
-        <div className="fra-description__link" onClick={handleOnClick}>
+        <div className="fra-description__link" onClick={() => setOpen(!open)}>
           {open ? i18n.t('description.done') : i18n.t('description.edit')}
         </div>
       }
     </div>
 
     <div className="cke_wrapper" style={{ display: open ? 'block' : 'none' }}>
-      <textarea ref={textareaRef} />
+      <textarea ref={textareaRef}/>
     </div>
 
     {
