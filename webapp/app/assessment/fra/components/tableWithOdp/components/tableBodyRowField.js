@@ -1,14 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useSelector } from 'react-redux'
-import * as R from 'ramda'
 
 import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
 import useCountryIso from '@webapp/components/hooks/useCountryIso'
 
-import * as ReviewState from '@webapp/app/assessment/components/review/reviewState'
-
 import TableBodyCell from '@webapp/app/assessment/fra/components/tableWithOdp/components/tableBodyCell'
+import useTableRowCssClass
+  from '@webapp/app/assessment/fra/components/tableWithOdp/components/hooks/useTableRowCssClass'
 
 const TableBodyRowField = props => {
   const countryIso = useCountryIso()
@@ -20,15 +18,12 @@ const TableBodyRowField = props => {
 
   const { rowHeader, field, className, rowVariable, validator } = row
 
-  const commentsOpen = useSelector(state => {
-    const openThreadTarget = ReviewState.getOpenThreadTarget(state)
-    return !R.isEmpty(openThreadTarget) && R.isEmpty(R.difference(openThreadTarget, [field]))
-  })
+  const classNameRow = useTableRowCssClass(field)
 
   return (
     <tr
       key={field}
-      className={`${commentsOpen ? 'fra-row-comments__open' : ''}`}>
+      className={classNameRow}>
       <th className={className ? className : 'fra-table__category-cell'}>
         {rowHeader} {rowVariable}
       </th>
