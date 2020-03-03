@@ -3,18 +3,19 @@ import React from 'react'
 import * as R from 'ramda'
 import ReactDOMServer from 'react-dom/server'
 import clipboard from 'clipboard-polyfill'
-import { Link } from 'react-router-dom'
+
 import { ThousandSeparatedDecimalInput } from '@webapp/components/thousandSeparatedDecimalInput'
-import Icon from '@webapp/components/icon'
+
 import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
 import { readPasteClipboard } from '@webapp/utils/copyPasteUtil'
 import { acceptNextDecimal } from '@webapp/utils/numberInput'
 import { formatNumber, toFixed } from '@common/bignumberUtils'
-import { hasOdps } from '@common/extentOfForestHelper'
-import defaultYears from '../../../../../../../server/eof/defaultYears'
+
+import defaultYears from '@server/eof/defaultYears'
 import { isPrintingMode } from '@webapp/app/assessment/components/print/printAssessment'
 import ButtonTableExport from '@webapp/components/buttonTableExport'
-import Tooltip from '@webapp/components/tooltip'
+
+import TableColumnHeader from '@webapp/app/assessment/fra/components/tableWithOdp/components/tableColumnHeader'
 
 const mapIndexed = R.addIndex(R.map)
 
@@ -27,9 +28,8 @@ const getFraValues = (fra, rows) => {
   return fraValues
 }
 
-
 export class TableWithOdp extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.tableRef = React.createRef()
   }
@@ -58,79 +58,81 @@ export class TableWithOdp extends React.Component {
   }
 
   render () {
-    const { copyValues = true, disabled = false, sectionAnchor, i18n, userInfo } = this.props
+    const {
+      copyValues = true, disabled = false, section, sectionAnchor,
+      i18n, userInfo,
+      save, saveMany, countryIso,
+      rows,
+      fra //TODO rename in data
+    } = this.props
 
+    console.log(this.props)
 
-    return <div className="fra-table__container table-with-odp">
-      <div className="fra-table__scroll-wrapper">
-      <ButtonTableExport
-          tableRef={this.tableRef}
-          filename={sectionAnchor}
-        />
-        <table ref={this.tableRef} className="fra-table">
-          <thead>
-          <tr>
-            <th className="fra-table__header-cell-left" rowSpan="2">{this.props.categoryHeader}</th>
-            <th className="fra-table__header-cell" colSpan={R.values(this.props.fra).length}>
-              <div>
-                {this.props.tableHeader}
-                {
-                  copyValues && userInfo &&
-                  <button className="fra-table__header-button btn-xs btn-primary no-print"
-                          onClick={() => this.copyTableAsHtml()}>
-                    {this.props.i18n.t('tableWithOdp.copyToClipboard')}
-                  </button>
-                }
-              </div>
-            </th>
-          </tr>
-          <tr>
-            {
-              R.values(this.props.fra).map(value =>
-                <th className={value.type === 'odp' && !isPrintingMode() ? 'odp-header-cell' : 'fra-table__header-cell'}
-                    key={`${value.type}_${value.name}`}>
+    const dataValues = Object.values(fra)
+
+    return (
+      <div className="fra-table__container table-with-odp">
+        <div className="fra-table__scroll-wrapper">
+          <ButtonTableExport
+            tableRef={this.tableRef}
+            filename={sectionAnchor}
+          />
+          <table ref={this.tableRef} className="fra-table">
+            <thead>
+            <tr>
+              <th className="fra-table__header-cell-left" rowSpan="2">{this.props.categoryHeader}</th>
+              <th className="fra-table__header-cell" colSpan={dataValues.length}>
+                <div>
+
                   {
-                    value.type === 'odp'
-                      ? <OdpHeading i18n={i18n} countryIso={this.props.countryIso} odpValue={value} section={this.props.section}
-                                    disabled={disabled}/>
-                      : value.name
+                    this.props.tableHeader
                   }
-                </th>
-              )
+
+                  {
+                    copyValues && userInfo &&
+                    <button className="fra-table__header-button btn-xs btn-primary no-print"
+                            onClick={() => this.copyTableAsHtml()}>
+                      {this.props.i18n.t('tableWithOdp.copyToClipboard')}
+                    </button>
+                  }
+                </div>
+              </th>
+            </tr>
+            <tr>
+              {
+                dataValues.map((datum, i) => (
+                  <TableColumnHeader
+                    key={i}
+                    datum={datum}
+                    section={section}
+                  />
+                ))
+              }
+            </tr>
+            </thead>
+            <tbody>
+            {
+              rows.map((row, i) => (
+                <TableRow
+                  {...this.props}
+                  key={i}
+                  row={row}
+                  save={R.partial(save, [section])}
+                  saveMany={R.partial(saveMany, [section])}
+                  pasteUpdate={R.partial(updatePastedValues, [R.pluck('field', rows)])}
+                  rowIdx={i}
+                />
+              ))
             }
-          </tr>
-          </thead>
-          <tbody>
-          {buildRows(this.props.rows, this.props)}
-          </tbody>
-        </table>
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
+    )
   }
 }
 
 export default TableWithOdp
-
-const buildRows = (rows, props) => {
-  const save = R.partial(props.save, [props.section])
-  const saveMany = R.partial(props.saveMany, [props.section])
-  const pasteUpdate = R.partial(updatePastedValues, [R.pluck('field', rows)])
-
-  return mapIndexed((row, rowIdx) =>
-      <TableRow {...props} key={rowIdx} row={row} save={save} saveMany={saveMany} pasteUpdate={pasteUpdate}
-                rowIdx={rowIdx}/>
-    , rows)
-}
-
-const OdpHeading = ({ countryIso, odpValue, section, i18n }) =>
-  <Tooltip text={
-    i18n.t('nationalDataPoint.clickOnNDP')
-    }>
-    <Link className="link" to={`/country/${countryIso}/odp/${section}/${odpValue.odpId}`}>
-      {odpValue.draft ? <Icon className="icon-sub icon-margin-right" name="pencil" /> : ''}
-      {odpValue.name}
-    </Link>
-  </Tooltip>
 
 const fraValueCell = (fraValue, fra, countryIso, save, saveMany, pasteUpdate, field, rowIdx, colIdx, disabled) =>
   <ThousandSeparatedDecimalInput
