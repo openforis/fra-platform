@@ -90,7 +90,6 @@ CommentsEditor.propTypes = {
   canEditData: PropTypes.bool,
   odp: PropTypes.object,
   title: PropTypes.string,
-  i18n: PropTypes.object,
 }
 
 export default CommentsEditor
