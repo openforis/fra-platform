@@ -1,28 +1,26 @@
 import './tableWithOdp.less'
+
 import React from 'react'
-import * as R from 'ramda'
+import PropTypes from 'prop-types'
 import ReactDOMServer from 'react-dom/server'
+import * as R from 'ramda'
 import clipboard from 'clipboard-polyfill'
 
-import { ThousandSeparatedDecimalInput } from '@webapp/components/thousandSeparatedDecimalInput'
-
-import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
 import { readPasteClipboard } from '@webapp/utils/copyPasteUtil'
 import { acceptNextDecimal } from '@webapp/utils/numberInput'
-import { formatNumber, toFixed } from '@common/bignumberUtils'
-
+import { toFixed } from '@common/bignumberUtils'
 import defaultYears from '@server/eof/defaultYears'
-import { isPrintingMode } from '@webapp/app/assessment/components/print/printAssessment'
-import ButtonTableExport from '@webapp/components/buttonTableExport'
 
-import TableColumnHeader from '@webapp/app/assessment/fra/components/tableWithOdp/components/tableColumnHeader'
+import ButtonTableExport from '@webapp/components/buttonTableExport'
+import TableHeaderCell from '@webapp/app/assessment/fra/components/tableWithOdp/components/tableHeaderCell'
+import TableBodyRow from '@webapp/app/assessment/fra/components/tableWithOdp/components/tableBodyRow'
 
 const mapIndexed = R.addIndex(R.map)
 
 const getFraValues = (fra, rows) => {
   const valueFieldNames = R.reject(R.isNil, R.pluck('field', rows))
   const fraValues = R.pipe(
-    R.filter(value => R.contains(value.year, defaultYears)),
+    R.filter(value => R.includes(value.year, defaultYears)),
     R.map(column => R.props(valueFieldNames, column))
   )(fra)
   return fraValues
@@ -101,7 +99,7 @@ export class TableWithOdp extends React.Component {
             <tr>
               {
                 dataValues.map((datum, i) => (
-                  <TableColumnHeader
+                  <TableHeaderCell
                     key={i}
                     datum={datum}
                     section={section}
@@ -113,7 +111,7 @@ export class TableWithOdp extends React.Component {
             <tbody>
             {
               rows.map((row, i) => (
-                <TableRow
+                <TableBodyRow
                   {...this.props}
                   key={i}
                   row={row}
@@ -132,110 +130,20 @@ export class TableWithOdp extends React.Component {
   }
 }
 
+TableWithOdp.propTypes = {
+  fra: PropTypes.array.isRequired,
+  rows: PropTypes.array.isRequired,
+  section: PropTypes.string.isRequired,
+  sectionAnchor: PropTypes.string.isRequired,
+
+  copyValues: PropTypes.bool.isRequired
+}
+
+TableWithOdp.defaultProps = {
+  copyValues: false
+}
+
 export default TableWithOdp
-
-const fraValueCell = (fraValue, fra, countryIso, save, saveMany, pasteUpdate, field, rowIdx, colIdx, disabled) =>
-  <ThousandSeparatedDecimalInput
-    numberValue={fraValue[field]}
-    onPaste={e => saveMany(countryIso, pasteUpdate(e, rowIdx, colIdx, fra))}
-    onChange={e => { save(countryIso, fraValue.name, e.target.value, fraValue, field, acceptNextDecimal) }}
-    disabled={disabled}/>
-
-const validationErrorRow = columnErrorMsgs => {
-  if (R.all(R.isNil, columnErrorMsgs)) return null
-  return <tr key="validationError" className="no-print">
-    {
-      mapIndexed((errorMsgs, colIdx) =>
-          <td className="fra-table__validation-cell" key={colIdx}>
-            <div className="fra-table__validation-container">
-              {
-                mapIndexed(
-                  (errorMsg, errorIdx) =>
-                    <div className="fra-table__validation-error" key={errorIdx}>{errorMsg}</div>
-                  ,
-                  errorMsgs
-                )
-              }
-            </div>
-          </td>
-        , columnErrorMsgs)
-    }
-  </tr>
-}
-
-const alwaysOkValidator = () => true
-
-const renderFieldRow = ({ row, countryIso, fra, save, saveMany, pasteUpdate, rowIdx, openCommentThreadTarget, section, disabled }) => {
-  const {
-    rowHeader,
-    field,
-    className,
-    rowVariable
-  } = row
-  const validator = row.validator || alwaysOkValidator
-  return <tr
-    key={field}
-    className={`${!R.isEmpty(openCommentThreadTarget) && R.isEmpty(R.difference(openCommentThreadTarget, [field])) ? 'fra-row-comments__open' : ''}`}>
-    <th className={className ? className : 'fra-table__category-cell'}>
-      {rowHeader} {rowVariable}
-    </th>
-    {
-      mapIndexed(
-        (fraColumn, colIdx) => {
-
-          const className = 'fra-table__cell'
-            + (fraColumn.type === 'odp' && !isPrintingMode() ? ' odp-value-cell' : '')
-            + (validator(fraColumn, field) ? '' : ' validation-error')
-
-          return (
-            <td className={className} key={`${fraColumn.type}_${fraColumn.name}`}>
-              {
-                fraColumn.type === 'odp'
-                  ? (
-                    <div className="number-input__container validation-error-sensitive-field">
-                      <div className="number-input__readonly-view">
-                        {formatNumber(fraColumn[field])}
-                      </div>
-                    </div>
-                  )
-                  : fraValueCell(fraColumn, fra, countryIso, save, saveMany, pasteUpdate, field, rowIdx, colIdx, disabled)
-              }
-            </td>
-          )
-        },
-        R.values(fra))
-    }
-    <td className="fra-table__row-anchor-cell">
-      <div className="fra-table__review-indicator-anchor">
-        {
-          disabled
-            ? null
-            : <ReviewIndicator key={`${field}_ri`}
-                               section={section}
-                               title={rowHeader}
-                               target={[field]}
-                               countryIso={countryIso}/>
-        }
-
-      </div>
-    </td>
-  </tr>
-}
-
-const rowRenderers = {
-  field: renderFieldRow,
-  custom: ({ row, fra }) => row.render(fra),
-  validationErrors: ({ row, fra }) => validationErrorRow(row.validationErrorMessages(fra))
-}
-
-const TableRow = props => {
-  const rowType = props.row.type
-  const renderer = rowRenderers[rowType]
-  if (!renderer) {
-    console.error('Missing renderer for table row', renderer)
-  }
-  return renderer(props)
-}
 
 const updatePastedValues = (rowNames, evt, rowIdx, colIdx, fra) => {
   // Pasted values are not to be consumed if column is odp -- i.e. odp columns are to be skipped.
