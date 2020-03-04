@@ -9,21 +9,20 @@ import useUserInfo from '@webapp/components/hooks/useUserInfo'
 const rowRenderers = {
   field: TableBodyRowField,
   validationErrors: TableBodyRowValidation,
-  custom: ({ row, fra }) => row.render(fra),
 }
 
 const TableBodyRow = props => {
   const userInfo = useUserInfo()
 
   const { row } = props
-  const { type } = row
+  const { type, render } = row
 
   // validation error rows are hidden in public view
   if (type === 'validationErrors' && !userInfo) {
     return null
   }
 
-  const renderer = rowRenderers[type]
+  const renderer = type === 'custom' ? render :rowRenderers[type]
   if (!renderer) {
     console.error('Missing renderer for table row', renderer)
   }

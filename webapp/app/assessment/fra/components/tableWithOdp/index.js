@@ -1,3 +1,3 @@
-export { default } from './components/tableWithOdp'
+export { default } from './components/table'
 
 export { default as GenerateFraValuesControl } from './components/generateValues'

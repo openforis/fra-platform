@@ -5,7 +5,7 @@ import * as R from 'ramda'
 import Icon from '@webapp/components/icon'
 import DefinitionLink from '@webapp/components/definitionLink'
 import ChartWrapper from './chart/chartWrapper'
-import TableWithOdp, { GenerateFraValuesControl } from '@webapp/app/assessment/fra/components/tableWithOdp'
+import Table, { GenerateFraValuesControl } from '@webapp/app/assessment/fra/components/tableWithOdp'
 import NationalDataDescriptions from '@webapp/components/description/nationalDataDescriptions'
 import AnalysisDescriptions from '@webapp/components/description/analysisDescriptions'
 import GeneralComments from '@webapp/components/description/generalComments'
@@ -31,8 +31,10 @@ import * as ReviewState from '@webapp/app/assessment/components/review/reviewSta
 import * as UserState from '@webapp/user/userState'
 import * as CountryState from '@webapp/app/country/countryState'
 
+import tableRows from '@webapp/app/assessment/fra/sections/extentOfForest/tableRows'
 const anchorName = '1a'
 const sectionName = 'extentOfForest'
+
 const mapIndexed = R.addIndex(R.map)
 const odpValueCellClass = (fraColumn) => fraColumn.type === 'odp' && !isPrintingMode() ? 'odp-value-cell-total' : 'fra-table__calculated-cell'
 
@@ -228,11 +230,23 @@ const ExtentOfForest = (props) => {
         </button>
       }
     </h2>
+
     <div className="app-view__section-toolbar">
-      <DefinitionLink className="margin-right-big no-print" document="tad" anchor={anchorName}
-                      title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
-      <DefinitionLink className="align-left no-print" document="faq" anchor={anchorName} title={i18n.t('definition.faqLabel')}
-                      lang={i18n.language}/>
+      <DefinitionLink
+        className="margin-right-big no-print"
+        document="tad"
+        anchor={anchorName}
+
+        title={i18n.t('definition.definitionLabel')}
+        lang={i18n.language}
+      />
+      <DefinitionLink
+        className="align-left no-print"
+        document="faq"
+        anchor={anchorName}
+        title={i18n.t('definition.faqLabel')}
+        lang={i18n.language}
+      />
     </div>
 
     {
@@ -251,16 +265,16 @@ const ExtentOfForest = (props) => {
     }
 
     {
-      hasNDPs && showNDPs && !isEditDataDisabled &&
-      <div className="app-view__section-toolbar no-print">
-        <GenerateFraValuesControl section={sectionName} rows={eofRows} useOriginalDataPoints={true} {...props} />
-        {
-          props.odpDirty &&
-          <div className="support-text">
-            {i18n.t('nationalDataPoint.remindDirtyOdp')}
-          </div>
-        }
-      </div>
+      // hasNDPs && showNDPs && !isEditDataDisabled &&
+      // <div className="app-view__section-toolbar no-print">
+      //   <GenerateFraValuesControl section={sectionName} rows={eofRows} useOriginalDataPoints={true} {...props} />
+      //   {
+      //     props.odpDirty &&
+      //     <div className="support-text">
+      //       {i18n.t('nationalDataPoint.remindDirtyOdp')}
+      //     </div>
+      //   }
+      // </div>
     }
 
     {
@@ -268,9 +282,9 @@ const ExtentOfForest = (props) => {
       <div className="page-break" />
     }
 
-    <TableWithOdp
+    <Table
       fra={fra}
-      rows={eofRows}
+      rows={tableRows}
       section={sectionName}
       sectionAnchor={anchorName}
       copyValues={false}

@@ -1,4 +1,4 @@
-import './tableWithOdp.less'
+import './table.less'
 
 import React, { useRef } from 'react'
 import PropTypes from 'prop-types'
@@ -15,7 +15,7 @@ import {
   updatePastedValues
 } from '@webapp/app/assessment/fra/components/tableWithOdp/components/copyPasteUtils'
 
-const TableWithOdp = props => {
+const Table = props => {
 
   const {
     fra,
@@ -93,7 +93,7 @@ const TableWithOdp = props => {
   )
 }
 
-TableWithOdp.propTypes = {
+Table.propTypes = {
   // data
   fra: PropTypes.array.isRequired,
   rows: PropTypes.array.isRequired,
@@ -109,10 +109,10 @@ TableWithOdp.propTypes = {
   categoryHeaderLabel: PropTypes.string.isRequired,
 }
 
-TableWithOdp.defaultProps = {
+Table.defaultProps = {
   copyValues: true,
   disabled: false,
 }
 
-export default TableWithOdp
+export default Table
 

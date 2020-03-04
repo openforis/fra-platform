@@ -8,7 +8,7 @@ import { isFRA2020SectionEditDisabled } from '@webapp/utils/assessmentAccess'
 import { isPrintingMode, isPrintingOnlyTables } from '@webapp/app/assessment/components/print/printAssessment'
 import { getForestAreaForYear, hasOdps } from '@common/extentOfForestHelper'
 
-import TableWithOdp, { GenerateFraValuesControl } from '@webapp/app/assessment/fra/components/tableWithOdp'
+import Table, { GenerateFraValuesControl } from '@webapp/app/assessment/fra/components/tableWithOdp'
 import ChartWrapper from '@webapp/app/assessment/fra/sections/extentOfForest/chart/chartWrapper'
 import NationalDataDescriptions from '@webapp/components/description/nationalDataDescriptions'
 import AnalysisDescriptions from '@webapp/components/description/analysisDescriptions'
@@ -324,7 +324,7 @@ const ForestCharacteristics = props => {
       <div className="page-break" />
     }
 
-    <TableWithOdp
+    <Table
       fra={fra}
       rows={focRows}
       section={sectionName}

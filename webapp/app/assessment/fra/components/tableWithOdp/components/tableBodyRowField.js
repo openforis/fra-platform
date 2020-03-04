@@ -1,29 +1,30 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
-import useCountryIso from '@webapp/components/hooks/useCountryIso'
-
 import TableBodyCell from '@webapp/app/assessment/fra/components/tableWithOdp/components/tableBodyCell'
 import useTableRowCssClass
   from '@webapp/app/assessment/fra/components/tableWithOdp/components/hooks/useTableRowCssClass'
+import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
+import useI18n from '@webapp/components/hooks/useI18n'
+import useCountryIso from '@webapp/components/hooks/useCountryIso'
 
 const TableBodyRowField = props => {
   const countryIso = useCountryIso()
+  const i18n = useI18n()
 
   const {
     fra, section, row, rowIdx, disabled,
     pasteUpdate,
   } = props
 
-  const { rowHeader, field, className, rowVariable, validator } = row
-
-  const classNameRow = useTableRowCssClass(field)
+  const { rowHeaderLabelKey, field, className, rowVariable, validator } = row
+  const rowHeader = i18n.t(rowHeaderLabelKey)
+  const rowCssClass = useTableRowCssClass(field)
 
   return (
     <tr
       key={field}
-      className={classNameRow}>
+      className={rowCssClass}>
       <th className={className ? className : 'fra-table__category-cell'}>
         {rowHeader} {rowVariable}
       </th>

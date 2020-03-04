@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { isPrintingMode } from '@webapp/app/assessment/components/print/printAssessment'
 import { formatNumber } from '@common/bignumberUtils'
@@ -13,15 +13,21 @@ import { save, saveMany } from '@webapp/app/assessment/fra/components/tableWithO
 import useUserInfo from '@webapp/components/hooks/useUserInfo'
 
 const TableBodyCell = props => {
+  const { fra, section, disabled, field, datum, validator, rowIdx, colIdx, pasteUpdate } = props
+
   const dispatch = useDispatch()
   const countryIso = useCountryIso()
   const userInfo = useUserInfo()
-
-  const { fra, section, disabled, field, datum, validator, rowIdx, colIdx, pasteUpdate } = props
+  const valid = useSelector(state => {
+    if (!userInfo || !validator) {
+      return true
+    }
+    return validator(datum)(state)
+  })
 
   const className = 'fra-table__cell'
     + (datum.type === 'odp' && !isPrintingMode() ? ' odp-value-cell' : '')
-    + (!userInfo || validator(datum, field) ? '' : ' validation-error')
+    + (valid ? '' : ' validation-error')
 
   return (
     <td className={className} key={colIdx}>
@@ -59,14 +65,10 @@ TableBodyCell.propTypes = {
   disabled: PropTypes.bool.isRequired,
   field: PropTypes.string.isRequired,
   datum: PropTypes.object.isRequired,
-  validator: PropTypes.func.isRequired,
+  validator: PropTypes.func,
   rowIdx: PropTypes.number.isRequired,
   colIdx: PropTypes.number.isRequired,
   pasteUpdate: PropTypes.func.isRequired,
-}
-
-TableBodyCell.defaultProps = {
-  validator: () => true
 }
 
 export default TableBodyCell
