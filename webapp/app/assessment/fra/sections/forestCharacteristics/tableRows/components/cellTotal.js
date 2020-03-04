@@ -8,8 +8,10 @@ import useUserInfo from '@webapp/components/hooks/useUserInfo'
 import useTableCellClassOdp
   from '@webapp/app/assessment/fra/components/tableWithOdp/components/hooks/useTableCellCssClassOdp'
 
-import * as ForestCharacteristicsState from '@webapp/app/assessment/fra/sections/forestCharacteristics/forestCharacteristicsState'
-import * as ForestCharacteristicsValidatorState from '@webapp/app/assessment/fra/sections/forestCharacteristics/forestCharacteristicsValidatorState'
+import * as ForestCharacteristicsState
+  from '@webapp/app/assessment/fra/sections/forestCharacteristics/forestCharacteristicsState'
+import * as ForestCharacteristicsValidatorState
+  from '@webapp/app/assessment/fra/sections/forestCharacteristics/forestCharacteristicsValidatorState'
 
 const CellTotal = props => {
   const { datum } = props
@@ -17,7 +19,7 @@ const CellTotal = props => {
 
   const userInfo = useUserInfo()
   const totalForestArea = useSelector(ForestCharacteristicsState.getTotalForestAreaByYear(year))
-  const valid = useSelector(ForestCharacteristicsValidatorState.totalForestAreaNotEqualToExtentOfForest(datum))
+  const valid = useSelector(ForestCharacteristicsValidatorState.totalForestAreaNotEqualToExtentOfForestValidator(datum))
 
   // validation error is hidden in public view
   const cssClassValidation = !userInfo || valid ? '' : 'validation-error'

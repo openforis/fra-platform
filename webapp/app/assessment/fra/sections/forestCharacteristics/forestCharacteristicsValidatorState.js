@@ -20,19 +20,19 @@ export const plantationForestValidator = datum => () => {
   return greaterThan(difference, tolerance)
 }
 
-export const totalForestAreaNotEqualToExtentOfForest = datum => state => {
+export const totalForestAreaNotEqualToExtentOfForestValidator = datum => state => {
   const { name: year } = datum
 
   const forestArea = ExtentOfForestState.getForestAreaByYear(year)(state)
   const totalForestArea = ForestCharacteristicsState.getTotalForestAreaByYear(year)(state)
 
   if (R.isNil(forestArea) || R.isNil(totalForestArea)) {
-    return false
+    return true
   }
 
   const tolerance = 1
   const absDifference = abs(sub(forestArea, totalForestArea))
-  return greaterThanOrEqualTo(absDifference, tolerance)
+  return !greaterThanOrEqualTo(absDifference, tolerance)
 }
 
 //==== Validation messages
@@ -44,7 +44,7 @@ export const getValidationMessages = data => state =>
       messages.push({ key: 'generalValidation.subCategoryExceedsParent' })
     }
 
-    if (!totalForestAreaNotEqualToExtentOfForest(datum)(state)) {
+    if (!totalForestAreaNotEqualToExtentOfForestValidator(datum)(state)) {
       messages.push({ key: 'generalValidation.forestAreaDoesNotMatchExtentOfForest' })
     }
 
