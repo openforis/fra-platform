@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { connect, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import * as R from 'ramda'
 import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
 import Description from '@webapp/components/description/description'
@@ -71,7 +71,6 @@ const DataSourceDescriptionAndComments = props => {
 }
 
 DataSourceDescriptionAndComments.propTypes = {
-  name: PropTypes.any.isRequired,
   section: PropTypes.any.isRequired,
 }
 
