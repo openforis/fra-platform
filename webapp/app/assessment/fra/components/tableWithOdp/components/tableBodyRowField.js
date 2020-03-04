@@ -29,7 +29,7 @@ const TableBodyRowField = props => {
         {rowHeader} {rowVariable}
       </th>
       {
-        Object.values(fra).map((datum, colIdx) => (
+        fra.map((datum, colIdx) => (
             <TableBodyCell
               key={colIdx}
               colIdx={colIdx}

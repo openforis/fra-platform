@@ -27,6 +27,9 @@ const getOtherLandAreaForYear = (extentOfForest, faoStat, year) => {
   return sub(faoStatLandArea, sum([forestArea, otherWoodedLand]))
 }
 
+/**
+ * @deprecated (TODO Move to state)
+ */
 const hasOdps = (fra) => {
   if (R.isNil(fra)) return false
   const odps = R.filter(row => row.type === 'odp', fra)

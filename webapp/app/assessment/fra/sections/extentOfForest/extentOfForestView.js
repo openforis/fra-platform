@@ -6,7 +6,7 @@ import * as R from 'ramda'
 import Icon from '@webapp/components/icon'
 import DefinitionLink from '@webapp/components/definitionLink'
 import ChartWrapper from './chart/chartWrapper'
-import Table, { GenerateFraValuesControl } from '@webapp/app/assessment/fra/components/tableWithOdp'
+import TableWithOdp  from '@webapp/app/assessment/fra/components/tableWithOdp'
 import NationalDataDescriptions from '@webapp/components/description/nationalDataDescriptions'
 import AnalysisDescriptions from '@webapp/components/description/analysisDescriptions'
 import GeneralComments from '@webapp/components/description/generalComments'
@@ -116,31 +116,15 @@ const ExtentOfForest = (props) => {
       </>
     }
 
-    {
-      // hasNDPs && showNDPs && !isEditDataDisabled &&
-      // <div className="app-view__section-toolbar no-print">
-      //   <GenerateFraValuesControl section={sectionName} rows={eofRows} useOriginalDataPoints={true} {...props} />
-      //   {
-      //     props.odpDirty &&
-      //     <div className="support-text">
-      //       {i18n.t('nationalDataPoint.remindDirtyOdp')}
-      //     </div>
-      //   }
-      // </div>
-    }
-
-    {
-      !isPrintingOnlyTables() &&
-      <div className="page-break"/>
-    }
-
-    <Table
+    <TableWithOdp
       fra={fra}
       rows={tableRows}
       section={sectionName}
       sectionAnchor={anchorName}
       copyValues={false}
       disabled={isEditDataDisabled}
+      generateValues={hasNDPs && showNDPs}
+      useOriginalDataPoints={true}
       tableHeaderLabel={i18n.t('extentOfForest.areaUnitLabel')}
       categoryHeaderLabel={i18n.t('extentOfForest.categoryHeader')}
     />

@@ -1,7 +1,12 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import * as R from 'ramda'
 
 import { hasOdps } from '@common/extentOfForestHelper'
+
+import * as TableWithOdpState from '@webapp/app/assessment/fra/components/tableWithOdp/tableWithOdpState'
+
+import { generateFraValues } from '@webapp/app/assessment/fra/components/tableWithOdp/actions'
 
 const mapIndexed = R.addIndex(R.map)
 
@@ -15,7 +20,6 @@ const hasTableValues = (fra, rows) => {
   )(fra)
   return flattenedFraValues.length > 0
 }
-
 
 export class GenerateValues extends React.Component {
 
@@ -73,7 +77,7 @@ export class GenerateValues extends React.Component {
   rowSelections () {
     const { i18n, rows } = this.props
     const rateValidationClass = rate => this.validRate(rate) || R.isEmpty(rate) ? '' : 'validation-error'
-    const rowHeaders = R.reject(R.isNil, R.pluck('rowHeader', rows))
+    const rowHeaders = R.reject(R.isNil, R.pluck('rowHeaderLabelKey', rows))
     return <table className="table-with-odp__generate-inputs-table">
       <tbody>
       {
@@ -101,7 +105,11 @@ export class GenerateValues extends React.Component {
                   }
                 />
               </td>
-              <td className="table-with-odp__generate-input-header">{rowHeaders[i]}</td>
+              <td className="table-with-odp__generate-input-header">
+                {
+                  i18n.t(rowHeaders[i])
+                }
+              </td>
               {
                 this.state.generateMethod === 'annualChange'
                   ? [
@@ -203,4 +211,8 @@ export class GenerateValues extends React.Component {
   }
 }
 
-export default GenerateValues
+const mapStateToProps = (state, { section }) => ({
+  generatingFraValues: TableWithOdpState.isGeneratingFraValues(section)(state)
+})
+
+export default connect(mapStateToProps, { generateFraValues })(GenerateValues)

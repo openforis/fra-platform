@@ -6,13 +6,14 @@ import { isFRA2020SectionEditDisabled } from '@webapp/utils/assessmentAccess'
 import { isPrintingMode, isPrintingOnlyTables } from '@webapp/app/assessment/components/print/printAssessment'
 import { hasOdps } from '@common/extentOfForestHelper'
 
-import Table, { GenerateFraValuesControl } from '@webapp/app/assessment/fra/components/tableWithOdp'
+import TableWithOdp from '@webapp/app/assessment/fra/components/tableWithOdp'
 import ChartWrapper from '@webapp/app/assessment/fra/sections/extentOfForest/chart/chartWrapper'
 import NationalDataDescriptions from '@webapp/components/description/nationalDataDescriptions'
 import AnalysisDescriptions from '@webapp/components/description/analysisDescriptions'
 import GeneralComments from '@webapp/components/description/generalComments'
 import DefinitionLink from '@webapp/components/definitionLink'
-import NationalDataPointsPrintView from '@webapp/app/assessment/fra/sections/originalDataPoint/nationalDataPointsPrintView'
+import NationalDataPointsPrintView
+  from '@webapp/app/assessment/fra/sections/originalDataPoint/nationalDataPointsPrintView'
 import useI18n from '@webapp/components/hooks/useI18n'
 import useUserInfo from '@webapp/components/hooks/useUserInfo'
 
@@ -32,13 +33,13 @@ const sectionName = 'forestCharacteristics'
 
 const ForestCharacteristics = props => {
 
-  const { i18n, isEditDataDisabled, fra, hasData } = props
+  const { i18n, isEditDataDisabled, fra, hasData, useOriginalDataPoints, useOriginalDataPointsInFoc } = props
 
   const handleOdpButtonClick = () => {
     props.saveCountryConfigSetting(
       props.countryIso,
       'useOriginalDataPointsInFoc',
-      !props.useOriginalDataPointsInFoc,
+      !useOriginalDataPointsInFoc,
       () => props.fetchItem(sectionName, props.countryIso)
     )
   }
@@ -50,13 +51,13 @@ const ForestCharacteristics = props => {
     </h1>
 
     {
-      props.useOriginalDataPoints
+      useOriginalDataPoints
         ? <>
-          <button className={`btn btn-${props.useOriginalDataPointsInFoc ? 'secondary' : 'primary'} no-print`}
+          <button className={`btn btn-${useOriginalDataPointsInFoc ? 'secondary' : 'primary'} no-print`}
                   onClick={() => handleOdpButtonClick()}
                   disabled={isEditDataDisabled}>
             {
-              props.useOriginalDataPointsInFoc
+              useOriginalDataPointsInFoc
                 ? i18n.t('forestCharacteristics.dontUseOriginalDataPoints')
                 : i18n.t('forestCharacteristics.useOriginalDataPoints')
             }
@@ -66,7 +67,7 @@ const ForestCharacteristics = props => {
         : null
     }
     {
-      props.useOriginalDataPointsInFoc
+      useOriginalDataPointsInFoc
         ? isPrintingMode()
         ? <NationalDataPointsPrintView {...props} section={sectionName}/>
         : null
@@ -90,7 +91,7 @@ const ForestCharacteristics = props => {
     {
       (!isPrintingMode() || (!isPrintingOnlyTables() && hasData)) &&
       <>
-        <div className="page-break" />
+        <div className="page-break"/>
 
         <ChartWrapper
           fra={fra}
@@ -114,32 +115,15 @@ const ForestCharacteristics = props => {
         />
       </>
     }
-    {
-      // props.useOriginalDataPointsInFoc && !isEditDataDisabled
-      //   ? <div className="app-view__section-toolbar no-print">
-      //     <GenerateFraValuesControl section={sectionName} rows={focRows} {...props} />
-      //     {
-      //       props.odpDirty
-      //         ? <div className="support-text">
-      //           {i18n.t('nationalDataPoint.remindDirtyOdp')}
-      //         </div>
-      //         : null
-      //     }
-      //   </div>
-      //   : null
-    }
 
-    {
-      !isPrintingOnlyTables() &&
-      <div className="page-break" />
-    }
-
-    <Table
+    <TableWithOdp
       fra={fra}
       rows={tableRows}
       section={sectionName}
       sectionAnchor={anchorName}
       disabled={isEditDataDisabled}
+      generateValues={useOriginalDataPointsInFoc}
+      useOriginalDataPoints={useOriginalDataPoints}
       tableHeaderLabel={i18n.t('forestCharacteristics.areaUnitLabel')}
       categoryHeaderLabel={i18n.t('forestCharacteristics.categoryHeader')}
     />
