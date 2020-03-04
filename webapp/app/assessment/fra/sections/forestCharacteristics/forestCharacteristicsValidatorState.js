@@ -1,19 +1,52 @@
 import * as R from 'ramda'
-import { abs, greaterThan, greaterThanOrEqualTo, lessThanOrEqualTo, sub, sum } from '@common/bignumberUtils'
 
-const totalForestAreaNotEqualToExtentOfForest = (eofForestArea, totalForestArea) => {
-  if (R.isNil(eofForestArea)) return false
-  if (R.isNil(totalForestArea)) return false
+import { abs, greaterThan, greaterThanOrEqualTo, sub } from '@common/bignumberUtils'
+
+import * as ExtentOfForestState from '@webapp/app/assessment/fra/sections/extentOfForest/extentOfForestState'
+import * as ForestCharacteristicsState
+  from '@webapp/app/assessment/fra/sections/forestCharacteristics/forestCharacteristicsState'
+
+// ==== Datum validator functions
+
+export const plantationForestValidator = datum => () => {
+  const { plantationForestArea, plantationForestIntroducedArea } = datum
+
+  if (R.isNil(plantationForestArea) || R.isNil(plantationForestIntroducedArea)) {
+    return true
+  }
+
+  const tolerance = -1
+  const difference = sub(plantationForestArea, plantationForestIntroducedArea)
+  return greaterThan(difference, tolerance)
+}
+
+export const totalForestAreaNotEqualToExtentOfForest = datum => state => {
+  const { name: year } = datum
+
+  const forestArea = ExtentOfForestState.getForestAreaByYear(year)(state)
+  const totalForestArea = ForestCharacteristicsState.getTotalForestAreaByYear(year)(state)
+
+  if (R.isNil(forestArea) || R.isNil(totalForestArea)) {
+    return false
+  }
+
   const tolerance = 1
-  const absDifference = abs(sub(eofForestArea, totalForestArea))
+  const absDifference = abs(sub(forestArea, totalForestArea))
   return greaterThanOrEqualTo(absDifference, tolerance)
 }
 
-const plantationForestValidator = fraColumn => {
-  const plantationForest = fraColumn.plantationForestArea
-  const introduced = fraColumn.plantationForestIntroducedArea
-  if (R.isNil(plantationForest) || R.isNil(introduced)) return true
-  const tolerance = -1
-  const difference = sub(plantationForest, introduced)
-  return greaterThan(difference, tolerance)
-}
+//==== Validation messages
+export const getValidationMessages = data => state =>
+  data.map(datum => {
+    const messages = []
+
+    if (!plantationForestValidator(datum)(state)) {
+      messages.push({ key: 'generalValidation.subCategoryExceedsParent' })
+    }
+
+    if (!totalForestAreaNotEqualToExtentOfForest(datum)(state)) {
+      messages.push({ key: 'generalValidation.forestAreaDoesNotMatchExtentOfForest' })
+    }
+
+    return messages
+  })

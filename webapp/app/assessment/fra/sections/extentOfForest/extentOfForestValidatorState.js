@@ -1,5 +1,5 @@
 import * as R from 'ramda'
-import { abs, greaterThanOrEqualTo, lessThanOrEqualTo, sub, sum } from '@common/bignumberUtils'
+import { abs, greaterThanOrEqualTo, lessThanOrEqualTo, sub } from '@common/bignumberUtils'
 
 import * as ExtentOfForestState from '@webapp/app/assessment/fra/sections/extentOfForest/extentOfForestState'
 

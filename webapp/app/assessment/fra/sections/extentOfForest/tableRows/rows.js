@@ -1,5 +1,3 @@
-import React from 'react'
-
 import RowOtherLand from '@webapp/app/assessment/fra/sections/extentOfForest/tableRows/components/rowOtherLand'
 import RowTotalLand from '@webapp/app/assessment/fra/sections/extentOfForest/tableRows/components/rowTotalLand'
 import RowNoticeMessage from '@webapp/app/assessment/fra/sections/extentOfForest/tableRows/components/rowNoticeMessage'

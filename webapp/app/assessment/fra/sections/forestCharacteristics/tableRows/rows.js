@@ -1,50 +1,61 @@
-import useI18n from '@webapp/components/hooks/useI18n'
+import React from 'react'
+
+import RowPlantedForest
+  from '@webapp/app/assessment/fra/sections/forestCharacteristics/tableRows/components/rowPlantedForest'
+import RowTotalForest
+  from '@webapp/app/assessment/fra/sections/forestCharacteristics/tableRows/components/rowTotalForest'
+import RowTotal from '@webapp/app/assessment/fra/sections/forestCharacteristics/tableRows/components/rowTotal'
+
+import * as ForestCharacteristicsValidatorState
+  from '@webapp/app/assessment/fra/sections/forestCharacteristics/forestCharacteristicsValidatorState'
 
 const tableRows = [
   {
     type: 'field',
     field: 'naturalForestArea',
-    rowHeader: i18n.t('forestCharacteristics.naturalForestArea'),
+    rowHeaderLabelKey: 'forestCharacteristics.naturalForestArea',
     rowVariable: '(a)'
   },
   {
     type: 'custom',
-    render: plantedForestRow
+    render: RowPlantedForest
   },
   {
     type: 'field',
     field: 'plantationForestArea',
-    rowHeader: i18n.t('forestCharacteristics.plantationForestArea')
+    rowHeaderLabelKey: 'forestCharacteristics.plantationForestArea'
   },
   {
     type: 'field',
     field: 'plantationForestIntroducedArea',
-    validator: plantationForestValidator,
+    validator: ForestCharacteristicsValidatorState.plantationForestValidator,
     className: 'fra-table__subcategory-cell',
-    rowHeader: i18n.t('forestCharacteristics.plantationForestIntroducedArea')
+    rowHeaderLabelKey: 'forestCharacteristics.plantationForestIntroducedArea'
   },
   {
     type: 'field',
     field: 'otherPlantedForestArea',
-    rowHeader: i18n.t('forestCharacteristics.otherPlantedForestArea')
+    rowHeaderLabelKey: 'forestCharacteristics.otherPlantedForestArea'
   },
   {
     type: 'custom',
-    render: totalRow
+    render: RowTotal
   },
   {
     type: 'custom',
-    render: totalForestAreaRow
+    render: RowTotalForest
   },
   {
     type: 'custom',
-    render: () => <tr>
-      <td rowSpan="2"></td>
-    </tr>
+    render: () => (
+      <tr>
+        <td rowSpan="2"/>
+      </tr>
+    )
   },
   {
     type: 'validationErrors',
-    validationErrorMessages
+    validationMessages: ForestCharacteristicsValidatorState.getValidationMessages
   }
 ]
 
