@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux';
 import ckEditorConfig from '@webapp/components/ckEditor/ckEditorConfig'
 import useCountryIso from '@webapp/components/hooks/useCountryIso'
-import { saveDescriptions } from '@webapp/components/description/actions'
+import { saveDescriptions } from '@webapp/app/assessment/components/description/actions'
 
 const DescriptionEditor = props => {
   const { section, name, template, content } = props

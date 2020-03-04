@@ -7,7 +7,7 @@ import originalDataPoint from '@webapp/app/assessment/fra/sections/originalDataP
 import autoSave from '@webapp/app/components/autosave/reducer'
 import navigation from '@webapp/app/components/navigation/reducer'
 import traditionalTable from '@webapp/app/assessment/components/traditionalTable/reducer'
-import descriptions from '@webapp/components/description/reducers'
+import descriptions from '@webapp/app/assessment/components/description/reducers'
 import review from '@webapp/app/assessment/components/review/reducer'
 import userManagement from '@webapp/app/user/userManagement/reducer'
 import country from '@webapp/app/country/reducer'

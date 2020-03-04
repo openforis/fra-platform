@@ -11,13 +11,13 @@ import Tooltip from '@webapp/components/tooltip'
 import useI18n from '@webapp/components/hooks/useI18n'
 import useCountryIso from '@webapp/components/hooks/useCountryIso'
 import useUserInfo from '@webapp/components/hooks/useUserInfo'
-import * as DescriptionState from '@webapp/components/description/descriptionState'
+import * as DescriptionState from '@webapp/app/assessment/components/description/descriptionState'
 
 import {
   fetchDescriptions,
   openEditor,
   closeEditor
-} from '@webapp/components/description/actions'
+} from '@webapp/app/assessment/components/description/actions'
 import DescriptionEditor from './DescriptionEditor'
 
 const Description = props => {

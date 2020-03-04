@@ -1,7 +1,7 @@
 import * as types from './actions'
 import { applyReducerFunction } from '@webapp/utils/reduxUtils'
 
-import * as DescriptionState from '@webapp/components/description/descriptionState'
+import * as DescriptionState from '@webapp/app/assessment/components/description/descriptionState'
 
 const actionHandlers = {
   [types.descriptionsFetched]: (state, { section, name, data }) =>
