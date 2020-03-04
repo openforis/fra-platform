@@ -1,38 +1,46 @@
 import React from 'react'
-import { connect, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import * as R from 'ramda'
 
 import Description from './description'
 import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
-import * as AppState from '@webapp/app/appState'
 import * as ReviewState from '@webapp/app/assessment/components/review/reviewState'
+import useCountryIso from '@webapp/components/hooks/useCountryIso'
 
 const CommentableDescription = props => {
-  const { disabled = false } = props
-  const countryIso = useSelector(AppState.getCountryIso)
+  const { disabled = false,
+    title,
+    section,
+    name,
+    template,
+    showAlertEmptyContent,
+    showDashEmptyContent,
+  } = props
+  const openCommentThreadTarget = useSelector(ReviewState.getOpenThreadTarget)
+  const countryIso = useCountryIso()
 
   return <div className="fra-description">
     <div className={
-      R.equals(props.openCommentThreadTarget, [props.name])
+      R.equals(openCommentThreadTarget, [name])
         ? 'fra-description__wrapper fra-row-comments__open'
         : 'fra-description__wrapper'
     }>
       <Description
-        title={props.title}
-        section={props.section}
-        name={props.name}
-        template={props.template}
+        title={title}
+        section={section}
+        name={name}
+        template={template}
         disabled={disabled}
-        showAlertEmptyContent={props.showAlertEmptyContent}
-        showDashEmptyContent={props.showDashEmptyContent} />
+        showAlertEmptyContent={showAlertEmptyContent}
+        showDashEmptyContent={showDashEmptyContent} />
     </div>
     <div className="fra-description__review-indicator-wrapper">
       {
         !disabled &&
         <ReviewIndicator
-          section={props.section}
-          title={props.title}
-          target={[props.name]}
+          section={section}
+          title={title}
+          target={[name]}
           countryIso={countryIso}
         />
       }
@@ -40,6 +48,4 @@ const CommentableDescription = props => {
   </div>
 }
 
-const mapStateToProps = state => ({ openCommentThreadTarget: ReviewState.getOpenThreadTarget(state) })
-
-export default connect(mapStateToProps, {})(CommentableDescription)
+export default CommentableDescription
