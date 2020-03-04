@@ -1,43 +1,43 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react'
 import PropTypes from 'prop-types'
 
 import { useDispatch } from 'react-redux';
-import ckEditorConfig from '@webapp/components/ckEditor/ckEditorConfig';
-import useCountryIso from '@webapp/components/hooks/useCountryIso';
-import { saveDescriptions } from '@webapp/components/description/actions';
+import ckEditorConfig from '@webapp/components/ckEditor/ckEditorConfig'
+import useCountryIso from '@webapp/components/hooks/useCountryIso'
+import { saveDescriptions } from '@webapp/components/description/actions'
 
 const DescriptionEditor = props => {
-  const { section, name, template, content } = props;
-  const dispatch = useDispatch();
-  const textareaRef = useRef(null);
-  let editor = useRef(null);
-  const countryIso = useCountryIso();
+  const { section, name, template, content } = props
+  const dispatch = useDispatch()
+  const textareaRef = useRef(null)
+  let editor = useRef(null)
+  const countryIso = useCountryIso()
   const initCkeditorChangeListener = () => {
-    editor.current.on('change', (evt) => dispatch(saveDescriptions(countryIso, section, name, evt.editor.getData())));
-  };
+    editor.current.on('change', (evt) => dispatch(saveDescriptions(countryIso, section, name, evt.editor.getData())))
+  }
   const setEditorContent = (content) => {
     editor.current.setData(content, {
       callback: () => {
         if (!editor.current.hasListeners('change'))
-          initCkeditorChangeListener();
+          initCkeditorChangeListener()
       }
-    });
-  };
+    })
+  }
   useEffect(() => {
-    editor.current = CKEDITOR.replace(textareaRef.current, ckEditorConfig);
+    editor.current = CKEDITOR.replace(textareaRef.current, ckEditorConfig)
     // Data fetching is necessary when CKEDITOR instances are ready
     editor.current.on('instanceReady', () => {
-      setEditorContent(content || template);
-    });
+      setEditorContent(content || template)
+    })
     return () => {
-      editor.current.destroy(false);
-      editor = null;
-    };
-  }, []);
+      editor.current.destroy(false)
+      editor = null
+    }
+  }, [])
   return <div className="cke_wrapper">
     <textarea id={name} ref={textareaRef} />
-  </div>;
-};
+  </div>
+}
 
 DescriptionEditor.propTypes = {
   name: PropTypes.string,
@@ -45,4 +45,5 @@ DescriptionEditor.propTypes = {
   section: PropTypes.string.isRequired,
   content: PropTypes.string,
 }
+
 export default DescriptionEditor
