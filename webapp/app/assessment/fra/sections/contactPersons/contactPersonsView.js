@@ -27,7 +27,6 @@ const ContactPersonsView = props => {
       section={sectionName}
       title={i18n.t('contactPersons.introductoryText')}
       name='introductoryText'
-      countryIso={countryIso}
       template={i18n.t('contactPersons.introductoryTextSupport')}
       disabled={isEditDataDisabled}
     />

@@ -4,8 +4,9 @@ import { connect, useSelector } from 'react-redux'
 import * as R from 'ramda'
 import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
 import Description from '@webapp/components/description/description'
-import * as AppState from '@webapp/app/appState'
 import * as ReviewState from '@webapp/app/assessment/components/review/reviewState'
+import useCountryIso from '@webapp/components/hooks/useCountryIso'
+import useI18n from '@webapp/components/hooks/useI18n'
 
 const dataSourcesEditorTemplate = (i18n) =>
   `<strong>${i18n.t('description.dataSources')}</strong>
@@ -15,9 +16,12 @@ const dataSourcesEditorTemplate = (i18n) =>
   <strong>${i18n.t('description.nationalClassificationAndDefinitions')}</strong>
   <p></p>`
 
-const CommentableReviewDescriptions = props => {
-  const { section, openCommentThreadTarget, i18n, } = props
-  const countryIso = useSelector(AppState.getCountryIso)
+const DataSourceDescriptionAndComments = props => {
+  const { section } = props
+  const openCommentThreadTarget = useSelector(ReviewState.getOpenThreadTarget)
+  const countryIso = useCountryIso();
+  const i18n = useI18n();
+
   const dataSources = 'dataSources'
   const dataSourcesTarget = [dataSources] // ?
   const generalComments = 'generalComments'
@@ -66,17 +70,9 @@ const CommentableReviewDescriptions = props => {
   </div>
 }
 
-CommentableReviewDescriptions.propTypes = {
+DataSourceDescriptionAndComments.propTypes = {
   name: PropTypes.any.isRequired,
   section: PropTypes.any.isRequired,
-  countryIso: PropTypes.string.isRequired,
 }
 
-const mapStateToProps = (state, props) => {
-  return {
-    ...props,
-    openCommentThreadTarget: ReviewState.getOpenThreadTarget(state)
-  }
-}
-
-export const DataSourceDescriptionAndComments = connect(mapStateToProps, {})(CommentableReviewDescriptions)
+export default DataSourceDescriptionAndComments

@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
 import * as R from 'ramda'
 
@@ -8,7 +9,8 @@ import * as ReviewState from '@webapp/app/assessment/components/review/reviewSta
 import useCountryIso from '@webapp/components/hooks/useCountryIso'
 
 const CommentableDescription = props => {
-  const { disabled = false,
+  const { 
+    disabled,
     title,
     section,
     name,
@@ -46,6 +48,20 @@ const CommentableDescription = props => {
       }
     </div>
   </div>
+}
+
+CommentableDescription.defaultProps = {
+  disabled: false
+}
+
+CommentableDescription.propTypes = {
+  disabled: PropTypes.bool,
+  title: PropTypes.string,
+  section: PropTypes.string,
+  name: PropTypes.string,
+  template: PropTypes.string,
+  showAlertEmptyContent: PropTypes.bool,
+  showDashEmptyContent: PropTypes.bool,
 }
 
 export default CommentableDescription
