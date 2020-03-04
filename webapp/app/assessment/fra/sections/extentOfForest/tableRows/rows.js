@@ -1,8 +1,11 @@
 import React from 'react'
-import useI18n from '@webapp/components/hooks/useI18n'
 
 import RowOtherLand from '@webapp/app/assessment/fra/sections/extentOfForest/tableRows/components/rowOtherLand'
-import * as ExtentOfForestValidator from '@webapp/app/assessment/fra/sections/extentOfForest/extentOfForestValidatorState'
+import RowTotalLand from '@webapp/app/assessment/fra/sections/extentOfForest/tableRows/components/rowTotalLand'
+import RowNoticeMessage from '@webapp/app/assessment/fra/sections/extentOfForest/tableRows/components/rowNoticeMessage'
+
+import * as ExtentOfForestValidator
+  from '@webapp/app/assessment/fra/sections/extentOfForest/extentOfForestValidatorState'
 
 const tableRows = [
   {
@@ -23,27 +26,18 @@ const tableRows = [
     type: 'custom',
     render: RowOtherLand
   },
-  // {
-  //   type: 'custom',
-  //   render: faoStatTotalLandAreaRow
-  // },
   {
     type: 'custom',
-    render: () => {
-      const i18n = useI18n()
-      return (
-        <tr>
-          <td className="fra-table__notice-message-cell" rowSpan="2">
-            {i18n.t('extentOfForest.tableNoticeMessage')}
-          </td>
-        </tr>
-      )
-    }
+    render: RowTotalLand
   },
-  // {
-  //   type: 'validationErrors',
-  //   validationErrorMessages
-  // }
+  {
+    type: 'custom',
+    render: RowNoticeMessage
+  },
+  {
+    type: 'validationErrors',
+    validationMessages: ExtentOfForestValidator.getValidationMessages
+  }
 ]
 
 export default tableRows

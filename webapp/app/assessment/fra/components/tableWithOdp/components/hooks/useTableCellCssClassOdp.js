@@ -2,6 +2,7 @@ import { isPrintingMode } from '@webapp/app/assessment/components/print/printAss
 
 export default datum => {
   const { type } = datum
+
   const cssClass = type === 'odp' && !isPrintingMode()
     ? 'odp-value-cell-total'
     : 'fra-table__calculated-cell'

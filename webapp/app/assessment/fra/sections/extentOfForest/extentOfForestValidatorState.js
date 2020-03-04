@@ -1,17 +1,13 @@
 import * as R from 'ramda'
 import { abs, greaterThanOrEqualTo, lessThanOrEqualTo, sub, sum } from '@common/bignumberUtils'
 
-import * as CountryState from '@webapp/app/country/countryState'
 import * as ExtentOfForestState from '@webapp/app/assessment/fra/sections/extentOfForest/extentOfForestState'
 
-const getForestArea2015Value = year => R.pipe(
-  CountryState.getConfigFra2015ForestAreas,
-  R.prop(year),
-)
+// ==== Datum validator functions
 
 const forestAreaComparedTo2015Validator = datum => state => {
   const { name: year, forestArea } = datum
-  const forestArea2015 = getForestArea2015Value(year)(state)
+  const forestArea2015 = ExtentOfForestState.getForestArea2015Value(year)(state)
 
   if (R.isNil(forestArea2015) || R.isNil(forestArea)) {
     return true
@@ -53,3 +49,28 @@ export const otherWoodedLandValidator = datum => state => {
 
   return areasNotExceedingTotalLandArea && hasValue
 }
+
+//==== Validation messages
+
+export const getValidationMessages = data => state =>
+  data.map(datum => {
+    const { type, forestArea, name: year } = datum
+    const messages = []
+
+    if (type === 'odp' && R.isNil(forestArea)) {
+      messages.push({ key: 'extentOfForest.ndpMissingValues' })
+    }
+
+    if (!forestAreaComparedTo2015Validator(datum)(state)) {
+      messages.push({
+        key: 'extentOfForest.forestAreaDoesNotMatchPreviouslyReported',
+        params: { previous: ExtentOfForestState.getForestArea2015Value(year)(state) }
+      })
+    }
+
+    if (!areasNotExceedingTotalLandAreaValidator(datum)(state)) {
+      messages.push({ key: 'extentOfForest.fedAreasExceedTotalLandArea' })
+    }
+
+    return messages
+  })

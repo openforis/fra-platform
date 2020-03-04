@@ -1,25 +1,30 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { useSelector } from 'react-redux'
 import * as R from 'ramda'
+
+import useI18n from '@webapp/components/hooks/useI18n'
 
 const TableBodyRowValidation = props => {
   const { row, fra } = props
-  const validationErrorMessages = row.validationErrorMessages(fra)
 
-  if (R.all(R.isNil, validationErrorMessages)) {
+  const i18n = useI18n()
+  const validationMessages = useSelector(row.validationMessages(fra))
+
+  if (R.all(R.isNil, validationMessages) || R.isEmpty(validationMessages)) {
     return null
   }
 
   return (
     <tr key="validationError" className="no-print">
       {
-        validationErrorMessages.map((errorMsgs, colIdx) =>
+        validationMessages.map((errorMsgs, colIdx) =>
           <td className="fra-table__validation-cell" key={colIdx}>
             <div className="fra-table__validation-container">
               {
-                errorMsgs.map((errorMsg, errorIdx) => (
+                errorMsgs.map(({ key, params = {} }, errorIdx) => (
                     <div className="fra-table__validation-error" key={errorIdx}>
-                      {errorMsg}
+                      {i18n.t(key, { ...params })}
                     </div>
                   )
                 )

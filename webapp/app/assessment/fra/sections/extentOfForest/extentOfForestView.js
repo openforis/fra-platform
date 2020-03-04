@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { connect, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import * as R from 'ramda'
+
 import Icon from '@webapp/components/icon'
 import DefinitionLink from '@webapp/components/definitionLink'
 import ChartWrapper from './chart/chartWrapper'
@@ -9,15 +10,17 @@ import Table, { GenerateFraValuesControl } from '@webapp/app/assessment/fra/comp
 import NationalDataDescriptions from '@webapp/components/description/nationalDataDescriptions'
 import AnalysisDescriptions from '@webapp/components/description/analysisDescriptions'
 import GeneralComments from '@webapp/components/description/generalComments'
-import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
 import TraditionalTable from '@webapp/app/assessment/components/traditionalTable/traditionalTable'
-import NationalDataPointsPrintView from '../originalDataPoint/nationalDataPointsPrintView'
+import NationalDataPointsPrintView
+  from '@webapp/app/assessment/fra/sections/originalDataPoint/nationalDataPointsPrintView'
+import useCountryIso from '@webapp/components/hooks/useCountryIso'
+import useUserInfo from '@webapp/components/hooks/useUserInfo'
+import useI18n from '@webapp/components/hooks/useI18n'
 
 import { saveCountryConfigSetting } from '@webapp/app/country/actions'
 import { fetchItem, generateFraValues } from '@webapp/app/assessment/fra/components/tableWithOdp/actions'
 import { fetchLastSectionUpdateTimestamp } from '@webapp/app/components/audit/actions'
 
-import { abs, formatNumber, greaterThanOrEqualTo, lessThanOrEqualTo, sub, sum } from '@common/bignumberUtils'
 import climaticDomainTableSpec from './climaticDomainTableSpec'
 import { hasOdps } from '@common/extentOfForestHelper'
 import { isFRA2020SectionEditDisabled } from '@webapp/utils/assessmentAccess'
@@ -26,168 +29,17 @@ import { isAdministrator } from '@common/countryRole'
 import FraUtils from '@common/fraUtils'
 import { isPrintingMode, isPrintingOnlyTables } from '@webapp/app/assessment/components/print/printAssessment'
 
-import * as AppState from '@webapp/app/appState'
 import * as ReviewState from '@webapp/app/assessment/components/review/reviewState'
-import * as UserState from '@webapp/user/userState'
 import * as CountryState from '@webapp/app/country/countryState'
 
 import tableRows from '@webapp/app/assessment/fra/sections/extentOfForest/tableRows'
+
 const anchorName = '1a'
 const sectionName = 'extentOfForest'
 
-const mapIndexed = R.addIndex(R.map)
-const odpValueCellClass = (fraColumn) => fraColumn.type === 'odp' && !isPrintingMode() ? 'odp-value-cell-total' : 'fra-table__calculated-cell'
-
 const ExtentOfForest = (props) => {
 
-  const { i18n, isEditDataDisabled, userInfo, showNDPs, toggleNDPs, hasNDPs, fra, hasData, openCommentThreadTarget } = props
-
-  const getFaostatValue = year => R.path(['faoStat', year, 'area'], props)
-  const getForestArea2015Value = year => R.path(['fra2015ForestAreas', year], props)
-
-  const forestAreaComparedTo2015ValueValidator = fraColumn => {
-    const forestAreaFromFra2015 = getForestArea2015Value(fraColumn.name)
-    if (R.isNil(forestAreaFromFra2015) || R.isNil(fraColumn.forestArea)) return true
-    const tolerance = 1
-    const absDifference = abs(sub(forestAreaFromFra2015, fraColumn.forestArea))
-    return lessThanOrEqualTo(absDifference, tolerance)
-  }
-
-  const calculateOtherLandArea = (fraColumn) => {
-    const faoStatLandArea = getFaostatValue(fraColumn.name)
-    return sub(faoStatLandArea, sum([fraColumn.forestArea, fraColumn.otherWoodedLand]))
-  }
-
-  const fedAreasNotExceedingTotalLandAreaValidator = fraColumn => {
-    const otherLandArea = calculateOtherLandArea(fraColumn)
-    const faoStatLandArea = getFaostatValue(fraColumn.name)
-    if (R.isNil(faoStatLandArea) || R.isNil(otherLandArea)) return true
-    return greaterThanOrEqualTo(otherLandArea, 0)
-  }
-
-  const forestAreaValidator = fraColumn =>
-    forestAreaComparedTo2015ValueValidator(fraColumn) &&
-    fedAreasNotExceedingTotalLandAreaValidator(fraColumn) &&
-    (fraColumn.type === 'odp' ? !R.isNil(fraColumn.forestArea) : true)
-
-  const otherWoodedLandValidator = fraColumn =>
-    fedAreasNotExceedingTotalLandAreaValidator(fraColumn) &&
-    (fraColumn.type === 'odp' ? !R.isNil(fraColumn.otherWoodedLand) : true)
-
-  const otherLandValidationClass = fraColumn =>
-    fedAreasNotExceedingTotalLandAreaValidator(fraColumn) ? '' : 'validation-error'
-
-  const rowHighlightClass = (target) => !R.isEmpty(openCommentThreadTarget) && R.isEmpty(R.difference(openCommentThreadTarget, [target])) ? 'fra-row-comments__open' : ''
-
-  const otherLandRow = fra =>
-    <tr className={rowHighlightClass('otherLand')}>
-      <th className="fra-table__header-cell-left">
-        {i18n.t('fraClass.otherLand')} (c-a-b)
-      </th>
-      {
-        mapIndexed((fraColumn, i) => {
-          const otherLandArea = calculateOtherLandArea(fraColumn)
-          return <td className={`${odpValueCellClass(fraColumn)} ${otherLandValidationClass(fraColumn)}`} key={i}>
-            {formatNumber(otherLandArea)}
-          </td>
-        }, R.values(fra))
-      }
-      <td className="fra-table__row-anchor-cell">
-        <div className="fra-table__review-indicator-anchor">
-          {
-            !isEditDataDisabled && <ReviewIndicator key="totalArea"
-                                                    section={sectionName}
-                                                    title={i18n.t('fraClass.otherLand')}
-                                                    target={['otherLand']}
-                                                    countryIso={props.countryIso}/>
-          }
-        </div>
-      </td>
-    </tr>
-
-  const faoStatTotalLandAreaRow = fra =>
-    <tr className={rowHighlightClass('faoStat')}>
-      <th className="fra-table__header-cell-left">
-        {props.i18n.t('extentOfForest.totalLandArea')} (c)
-      </th>
-      {
-        mapIndexed((faoStatColumn, i) => {
-          const faoStatLandArea = getFaostatValue(faoStatColumn.name)
-          return <td className={odpValueCellClass(faoStatColumn)} key={i}>
-            {formatNumber(faoStatLandArea)}
-          </td>
-        }, R.values(fra))
-      }
-      <td className="fra-table__row-anchor-cell">
-        <div className="fra-table__review-indicator-anchor">
-          {
-            !isEditDataDisabled &&
-            <ReviewIndicator key="faoStat"
-                             section={sectionName}
-                             title={i18n.t('extentOfForest.totalLandArea')}
-                             target={['faoStat']}
-                             countryIso={props.countryIso}/>
-          }
-        </div>
-      </td>
-    </tr>
-
-  const validationErrorMessages = fra =>
-    R.map(fraColumn => {
-      const validationErrors = [
-        fraColumn.type === 'odp' && R.isNil(fraColumn.forestArea)
-          ? props.i18n.t('extentOfForest.ndpMissingValues')
-          : null,
-
-        !forestAreaComparedTo2015ValueValidator(fraColumn)
-          ? props.i18n.t(
-          'extentOfForest.forestAreaDoesNotMatchPreviouslyReported',
-          { previous: getForestArea2015Value(fraColumn.name) }
-          )
-          : null,
-
-        !fedAreasNotExceedingTotalLandAreaValidator(fraColumn)
-          ? props.i18n.t('extentOfForest.fedAreasExceedTotalLandArea')
-          : null
-      ]
-
-      return R.reject(R.isNil, validationErrors)
-    }, R.values(fra))
-
-  const eofRows = [
-    {
-      type: 'field',
-      field: 'forestArea',
-      validator: forestAreaValidator,
-      rowHeader: i18n.t('extentOfForest.forestArea'),
-      rowVariable: '(a)'
-    },
-    {
-      type: 'field',
-      field: 'otherWoodedLand',
-      validator: otherWoodedLandValidator,
-      rowHeader: i18n.t('fraClass.otherWoodedLand'),
-      rowVariable: '(b)'
-    },
-    {
-      type: 'custom',
-      render: otherLandRow
-    },
-    {
-      type: 'custom',
-      render: faoStatTotalLandAreaRow
-    },
-    {
-      type: 'custom',
-      render: () => <tr>
-        <td className="fra-table__notice-message-cell" rowSpan="2">{i18n.t('extentOfForest.tableNoticeMessage')}</td>
-      </tr>
-    },
-    {
-      type: 'validationErrors',
-      validationErrorMessages
-    }
-  ]
+  const { i18n, isEditDataDisabled, userInfo, showNDPs, toggleNDPs, hasNDPs, fra, hasData, countryIso } = props
 
   return <div className='app-view__content'>
 
@@ -252,7 +104,7 @@ const ExtentOfForest = (props) => {
     {
       (!isPrintingMode() || (!isPrintingOnlyTables() && hasData)) &&
       <>
-        <div className="page-break" />
+        <div className="page-break"/>
 
         <ChartWrapper
           fra={fra}
@@ -279,7 +131,7 @@ const ExtentOfForest = (props) => {
 
     {
       !isPrintingOnlyTables() &&
-      <div className="page-break" />
+      <div className="page-break"/>
     }
 
     <Table
@@ -289,19 +141,19 @@ const ExtentOfForest = (props) => {
       sectionAnchor={anchorName}
       copyValues={false}
       disabled={isEditDataDisabled}
-      tableHeaderLabel={props.i18n.t('extentOfForest.areaUnitLabel')}
-      categoryHeaderLabel={props.i18n.t('extentOfForest.categoryHeader')}
+      tableHeaderLabel={i18n.t('extentOfForest.areaUnitLabel')}
+      categoryHeaderLabel={i18n.t('extentOfForest.categoryHeader')}
     />
     <TraditionalTable
       sectionAnchor={anchorName}
-      tableSpec={climaticDomainTableSpec(props.i18n, props.climaticDomainPercents2015)}
-      countryIso={props.countryIso}
+      tableSpec={climaticDomainTableSpec(i18n, props.climaticDomainPercents2015)}
+      countryIso={countryIso}
       section={sectionName}
       disabled={isEditDataDisabled}
     />
     <GeneralComments
       section={sectionName}
-      countryIso={props.match.params.countryIso}
+      countryIso={countryIso}
       disabled={isEditDataDisabled}
     />
   </div>
@@ -309,7 +161,10 @@ const ExtentOfForest = (props) => {
 
 const DataFetchingComponent = props => {
   const { fra, fraNoNDPs, fetchItem, fetchLastSectionUpdateTimestamp } = props
-  const countryIso = useSelector(AppState.getCountryIso)
+
+  const i18n = useI18n()
+  const countryIso = useCountryIso()
+  const userInfo = useUserInfo()
 
   const [showNDPs, setshowNDPs] = useState(true)
   const hasNDPs = hasOdps(fra)
@@ -333,13 +188,19 @@ const DataFetchingComponent = props => {
     )(data)
   }
 
-  return <ExtentOfForest {...props}
-                         hasData={hasData(data)}
-                         countryIso={countryIso}
-                         fra={data}
-                         showNDPs={showNDPs}
-                         hasNDPs={hasNDPs}
-                         toggleNDPs={() => setshowNDPs(!showNDPs)}/>
+  return (
+    <ExtentOfForest
+      {...props}
+      hasData={hasData(data)}
+      i18n={i18n}
+      countryIso={countryIso}
+      userInfo={userInfo}
+      fra={data}
+      showNDPs={showNDPs}
+      hasNDPs={hasNDPs}
+      toggleNDPs={() => setshowNDPs(!showNDPs)}
+    />
+  )
 }
 
 const mapStateToProps = state =>
@@ -350,9 +211,7 @@ const mapStateToProps = state =>
     faoStat: CountryState.getConfigFaoStat(state),
     fra2015ForestAreas: CountryState.getConfigFra2015ForestAreas(state),
     climaticDomainPercents2015: CountryState.getConfigClimaticDomainPercents2015(state),
-    i18n: AppState.getI18n(state),
     isEditDataDisabled: isFRA2020SectionEditDisabled(state, sectionName),
-    userInfo: UserState.getUserInfo(state)
   })
 
 export default connect(

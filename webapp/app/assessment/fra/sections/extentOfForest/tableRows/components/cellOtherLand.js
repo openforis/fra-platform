@@ -10,14 +10,17 @@ import * as ExtentOfForestValidatorState
 
 import useTableCellClassOdp
   from '@webapp/app/assessment/fra/components/tableWithOdp/components/hooks/useTableCellCssClassOdp'
+import useUserInfo from '@webapp/components/hooks/useUserInfo'
 
 const CellOtherLand = props => {
   const { datum } = props
+  const userInfo = useUserInfo()
 
   const otherLandArea = useSelector(ExtentOfForestState.getOtherLandArea(datum))
   const areasNotExceedingTotalLandArea = useSelector(ExtentOfForestValidatorState.areasNotExceedingTotalLandAreaValidator(datum))
 
-  const cssClassValidation = areasNotExceedingTotalLandArea ? '' : 'validation-error'
+  // validation error is hidden in public view
+  const cssClassValidation = !userInfo || areasNotExceedingTotalLandArea ? '' : 'validation-error'
   const cssClassOdp = useTableCellClassOdp(datum)
 
   return (
