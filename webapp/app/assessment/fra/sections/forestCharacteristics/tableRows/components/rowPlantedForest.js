@@ -6,7 +6,6 @@ import useTableRowCssClass
   from '@webapp/app/assessment/fra/components/tableWithOdp/components/hooks/useTableRowCssClass'
 import useI18n from '@webapp/components/hooks/useI18n'
 import useCountryIso from '@webapp/components/hooks/useCountryIso'
-import CellOtherLand from '@webapp/app/assessment/fra/sections/extentOfForest/tableRows/components/cellOtherLand'
 import CellPlantedForest
   from '@webapp/app/assessment/fra/sections/forestCharacteristics/tableRows/components/cellPlantedForest'
 

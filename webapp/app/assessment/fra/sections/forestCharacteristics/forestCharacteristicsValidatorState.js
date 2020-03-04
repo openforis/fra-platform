@@ -40,7 +40,7 @@ export const getValidationMessages = data => state =>
   data.map(datum => {
     const messages = []
 
-    if (!plantationForestValidator(datum)(state)) {
+    if (!plantationForestValidator(datum)()) {
       messages.push({ key: 'generalValidation.subCategoryExceedsParent' })
     }
 
