@@ -22,7 +22,7 @@ const rowShouldBeHighlighted = (tableName, rowIdx, openCommentThreadTarget) =>
 const Cell = (props) => {
   const { tableSpec, rowIdx, colIdx } = props
   const userInfo = useUserInfo()
-  const cellType = cellTypes.getCellType(tableSpec, rowIdx, colIdx, userInfo)
+  const cellType = cellTypes.getCellType(tableSpec, rowIdx, colIdx)
   return cellType.render(props)
 }
 
