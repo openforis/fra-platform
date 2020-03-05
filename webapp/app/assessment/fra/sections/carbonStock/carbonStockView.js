@@ -10,13 +10,13 @@ import GeneralComments from '@webapp/app/assessment/components/description/gener
 import DefinitionLink from '@webapp/components/definitionLink'
 import ExcelCalculatorDownload from '@webapp/app/assessment/fra/sections/biomassStock/excelCalculatorDownload'
 import { fetchLastSectionUpdateTimestamp } from '@webapp/app/components/audit/actions'
-import { isFRA2020SectionEditDisabled } from '@webapp/utils/assessmentAccess'
 import { isPrintingOnlyTables } from '@webapp/app/assessment/components/print/printAssessment'
 import FraUtils from '@common/fraUtils'
 import * as table from '@webapp/app/assessment/components/traditionalTable/table'
 import { fetchTableData } from '@webapp/app/assessment/components/traditionalTable/actions'
 
 import * as AppState from '@webapp/app/appState'
+import * as FraState from '@webapp/app/assessment/fra/fraState'
 
 const sectionName = 'carbonStock'
 
@@ -108,7 +108,7 @@ const mapStateToProps = state => {
 
   return {
     i18n,
-    disabled: isFRA2020SectionEditDisabled(state, sectionName),
+    disabled: FraState.isSectionEditDisabled(sectionName)(state),
     tableSpecInstance,
     tableData: R.path(['traditionalTable', tableSpecInstance.name, 'tableData'], state) || table.createTableData(tableSpecInstance),
   }

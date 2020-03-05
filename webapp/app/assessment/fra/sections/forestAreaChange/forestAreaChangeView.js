@@ -2,9 +2,9 @@ import React from 'react'
 import tableSpec, { sectionName } from './tableSpec'
 import { connect } from 'react-redux'
 import SingleTraditionalTableView from '@webapp/app/assessment/components/traditionalTable/singleTraditionalTableView'
-import { isFRA2020SectionEditDisabled } from '@webapp/utils/assessmentAccess'
 
 import * as AppState from '@webapp/app/appState'
+import * as FraState from '@webapp/app/assessment/fra/fraState'
 
 const ForestAreaChangeView = props =>
   <SingleTraditionalTableView
@@ -16,7 +16,7 @@ const ForestAreaChangeView = props =>
 const mapStateToProps = state => ({
   i18n: AppState.getI18n(state),
   extentOfForest: state.extentOfForest,
-  isEditDataDisabled: isFRA2020SectionEditDisabled(state, sectionName)
+  isEditDataDisabled: FraState.isSectionEditDisabled(sectionName)(state)
 })
 
 export default connect(mapStateToProps)(ForestAreaChangeView)

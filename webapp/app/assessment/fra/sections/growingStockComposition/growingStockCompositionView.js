@@ -10,13 +10,13 @@ import { fetchLastSectionUpdateTimestamp } from '@webapp/app/components/audit/ac
 import NationalDataDescriptions from '@webapp/app/assessment/components/description/nationalDataDescriptions'
 import AnalysisDescriptions from '@webapp/app/assessment/components/description/analysisDescriptions'
 import GeneralComments from '@webapp/app/assessment/components/description/generalComments'
-import { isFRA2020SectionEditDisabled } from '@webapp/utils/assessmentAccess'
 import * as table from '@webapp/app/assessment/components/traditionalTable/table'
 import { isPrintingOnlyTables } from '@webapp/app/assessment/components/print/printAssessment'
 import FraUtils from '@common/fraUtils'
 import { fetchTableData } from '@webapp/app/assessment/components/traditionalTable/actions'
 
 import * as AppState from '@webapp/app/appState'
+import * as FraState from '@webapp/app/assessment/fra/fraState'
 
 const GrowingStockCompositionView = props => {
   const { i18n, isEditDataDisabled, tableData, tableSpecInstance } = props
@@ -75,7 +75,7 @@ const mapStateToProps = state => {
 
   return {
     i18n,
-    isEditDataDisabled: isFRA2020SectionEditDisabled(state, sectionName),
+    isEditDataDisabled: FraState.isSectionEditDisabled(sectionName)(state),
     growingStock,
     tableSpecInstance,
     tableData: R.path(['traditionalTable', tableSpecInstance.name, 'tableData'], state) || table.createTableData(tableSpecInstance),

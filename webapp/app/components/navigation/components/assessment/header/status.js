@@ -5,7 +5,7 @@ import * as R from 'ramda'
 
 import { getAllowedStatusTransitions } from '@common/assessment'
 import { isAdministrator } from '@common/countryRole'
-import * as CountryStatusAssessment from '@common/country/countryStatusAssessment'
+import * as Assessment from '@common/assessment/assessment'
 
 import Icon from '@webapp/components/icon'
 import { PopoverControl } from '@webapp/components/popoverControl'
@@ -18,8 +18,8 @@ import { changeAssessment } from '@webapp/app/country/actions'
 
 const Status = props => {
   const { assessment } = props
-  const status = CountryStatusAssessment.getStatus(assessment)
-  const deskStudy = CountryStatusAssessment.getDeskStudy(assessment)
+  const status = Assessment.getStatus(assessment)
+  const deskStudy = Assessment.getDeskStudy(assessment)
 
   const dispatch = useDispatch()
   const countryIso = useCountryIso()
@@ -44,13 +44,13 @@ const Status = props => {
         </div>
       ),
       onClick: () => dispatch(
-        changeAssessment(countryIso, CountryStatusAssessment.assocDeskStudy(!deskStudy)(assessment))
+        changeAssessment(countryIso, Assessment.assocDeskStudy(!deskStudy)(assessment))
       )
     }
   ]
 
   const items = R.unless(
-    R.always(CountryStatusAssessment.isStatusChanging(assessment)),
+    R.always(Assessment.isStatusChanging(assessment)),
     R.pipe(
       _ => getAllowedStatusTransitions(countryIso, userInfo, status),
       allowedTransitions => [

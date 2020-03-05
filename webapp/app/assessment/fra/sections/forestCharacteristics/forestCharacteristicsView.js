@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import { connect, useSelector } from 'react-redux'
 import * as R from 'ramda'
 
-import { isFRA2020SectionEditDisabled } from '@webapp/utils/assessmentAccess'
 import { isPrintingMode, isPrintingOnlyTables } from '@webapp/app/assessment/components/print/printAssessment'
 import { hasOdps } from '@common/extentOfForestHelper'
 
@@ -21,6 +20,7 @@ import FraUtils from '@common/fraUtils'
 import * as AppState from '@webapp/app/appState'
 import * as CountryState from '@webapp/app/country/countryState'
 import * as ReviewState from '@webapp/app/assessment/components/review/reviewState'
+import * as FraState from '@webapp/app/assessment/fra/fraState'
 
 import { fetchItem, generateFraValues } from '@webapp/app/assessment/fra/components/tableWithOdp/actions'
 import { fetchLastSectionUpdateTimestamp } from '@webapp/app/components/audit/actions'
@@ -181,7 +181,7 @@ const mapStateToProps = state => {
     useOriginalDataPoints: useOriginalDataPoints,
     // Only if ODPs are enabled system-wide and ALSO locally, they are enabled:
     useOriginalDataPointsInFoc: useOriginalDataPoints && useOriginalDataPointsInFoc,
-    isEditDataDisabled: isFRA2020SectionEditDisabled(state, sectionName)
+    isEditDataDisabled: FraState.isSectionEditDisabled(sectionName)(state)
   }
 }
 

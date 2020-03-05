@@ -143,7 +143,7 @@ const AssessmentFraPrintView = props => {
 }
 
 const mapStateToProps = state => ({
-  assessment: CountryState.getStatusAssessmentFra2020(state),
+  assessment: CountryState.getAssessmentFra2020(state),
 })
 
 export default connect(

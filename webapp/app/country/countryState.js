@@ -1,7 +1,7 @@
 import * as R from 'ramda'
 
 import * as Country from '@common/country/country'
-import * as CountryStatusAssessment from '@common/country/countryStatusAssessment'
+import * as Assessment from '@common/assessment/assessment'
 import { assessmentStatus } from '@common/assessment'
 
 export const stateKey = 'country'
@@ -36,9 +36,6 @@ export const assocConfig = R.assoc(keys.config)
 export const assocCountries = R.assoc(keys.countries)
 export const assocStatus = R.assoc(keys.status)
 
-export const assocStatusAssessmentLocked = (name, locked) => R.assocPath([keys.status, keysStatus.assessments, name, CountryStatusAssessment.keys.locked], locked)
-export const assocStatusAssessmentChanging = name => R.assocPath([keys.status, keysStatus.assessments, name, CountryStatusAssessment.keys.status], assessmentStatus.changing)
-
 // config functions
 const _getConfigProp = prop => R.pipe(getConfig, R.prop(prop))
 export const getConfigCertifiedAreas = _getConfigProp('certifiedAreas')
@@ -49,7 +46,9 @@ export const getConfigFra2015ForestAreas = _getConfigProp('fra2015ForestAreas')
 export const getConfigpanEuropean = _getConfigProp('panEuropean')
 export const getConfigUseOriginalDataPointsInFoc = _getConfigProp('useOriginalDataPointsInFoc')
 
-//TODO Move to assessmentState
+// ====== TODO Move to assessmentState
+export const assocStatusAssessmentChanging = name => R.assocPath([keys.status, keysStatus.assessments, name, Assessment.keys.status], assessmentStatus.changing)
+
 // status functions
-export const getStatusAssessmentFra2020 = R.pipe(getAssessments, R.propOr({}, 'fra2020'))
-export const getCanEditData = R.pipe(getStatusAssessmentFra2020, R.propOr(null, 'canEditData'))
+export const getAssessmentFra2020 = R.pipe(getAssessments, R.propOr({}, 'fra2020'))
+export const getCanEditData = R.pipe(getAssessmentFra2020, R.propOr(null, 'canEditData'))

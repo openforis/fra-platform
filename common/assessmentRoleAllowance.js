@@ -45,7 +45,7 @@ const roleAllowances = {
 const isUserRoleAllowedToEdit = (role, assessmentStatus, editType) => {
   if (R.isNil(role) || R.isNil(role.role)) return false
   const allowedStatusesForRole = R.path([role.role, editType], roleAllowances)
-  return R.contains(assessmentStatus, allowedStatusesForRole)
+  return R.includes(assessmentStatus, allowedStatusesForRole)
 }
 
 const isUserRoleAllowedToEditAssessmentComments = (role, assessmentStatus) =>
@@ -57,7 +57,7 @@ const isUserRoleAllowedToEditAssessmentData = (role, assessmentStatus) =>
 const isCollaboratorAllowedToEditSectionData = (section, allowedTables) => {
   const allowedSections = allowedTables.map(t => t.section)
 
-  if (R.contains('all', allowedSections) || R.contains(section, allowedSections))
+  if (R.includes('all', allowedSections) || R.includes(section, allowedSections))
     return true
   return false
 }

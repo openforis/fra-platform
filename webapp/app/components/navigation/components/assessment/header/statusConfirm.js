@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux'
 import * as R from 'ramda'
 
 import { isAdministrator } from '@common/countryRole'
-import * as CountryStatusAssessment from '@common/country/countryStatusAssessment'
+import * as Assessment from '@common/assessment/assessment'
 
 import { Modal, ModalBody, ModalClose, ModalFooter, ModalHeader } from '@webapp/components/modal'
 import useCountryIso from '@webapp/components/hooks/useCountryIso'
@@ -62,7 +62,7 @@ const StatusConfirm = props => {
         <button className="btn btn-primary modal-footer__item"
                 onClick={() => {
                   const assessmentUpdate = R.pipe(
-                    CountryStatusAssessment.assocStatus(targetStatus.transition),
+                    Assessment.assocStatus(targetStatus.transition),
                     R.assoc('message', textareaValue)
                   )(assessment)
                   dispatch(changeAssessment(countryIso, assessmentUpdate, notifyUsers))

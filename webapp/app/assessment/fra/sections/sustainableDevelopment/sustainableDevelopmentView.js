@@ -16,11 +16,11 @@ import SubIndicator5 from '@webapp/app/assessment/fra/sections/sustainableDevelo
 
 import { fetchLastSectionUpdateTimestamp } from '@webapp/app/components/audit/actions'
 import { fetch } from './actions'
-import { isFRA2020SectionEditDisabled } from '@webapp/utils/assessmentAccess'
 import { isPrintingOnlyTables } from '@webapp/app/assessment/components/print/printAssessment'
 
 import * as AppState from '@webapp/app/appState'
 import * as CountryState from '@webapp/app/country/countryState'
+import * as FraState from '@webapp/app/assessment/fra/fraState'
 
 const sectionName = 'sustainableDevelopment'
 
@@ -106,7 +106,7 @@ const mapStateToProps = state => ({
   i18n: AppState.getI18n(state),
   data: state.sustainableDevelopment,
   countryConfig: CountryState.getConfig(state),
-  isEditDataDisabled: isFRA2020SectionEditDisabled(state, sectionName)
+  isEditDataDisabled: FraState.isSectionEditDisabled(sectionName)(state)
 })
 
 export default connect(mapStateToProps, { fetchLastSectionUpdateTimestamp, fetch })(SustainableDevelopmentView)

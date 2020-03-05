@@ -12,7 +12,6 @@ import AnalysisDescriptions from '@webapp/app/assessment/components/description/
 import GeneralComments from '@webapp/app/assessment/components/description/generalComments'
 import { fetchLastSectionUpdateTimestamp } from '@webapp/app/components/audit/actions'
 import DefinitionLink from '@webapp/components/definitionLink'
-import { isFRA2020SectionEditDisabled } from '@webapp/utils/assessmentAccess'
 import * as R from 'ramda'
 import * as table from './table'
 import { isPrintingOnlyTables } from '@webapp/app/assessment/components/print/printAssessment'
@@ -20,6 +19,7 @@ import FraUtils from '@common/fraUtils'
 import { fetchTableData } from './actions'
 
 import * as AppState from '@webapp/app/appState'
+import * as FraState from '@webapp/app/assessment/fra/fraState'
 
 import useCountryIso from '@webapp/components/hooks/useCountryIso'
 import useI18n from '@webapp/components/hooks/useI18n'
@@ -114,7 +114,7 @@ const mapStateToProps = (state, props) => {
   const tableSpecInstance = props.tableSpecInstance || props.tableSpec(AppState.getI18n(state))
   return {
     tableSpecInstance,
-    isEditDataDisabled: isFRA2020SectionEditDisabled(state, tableSpecInstance.name),
+    isEditDataDisabled: FraState.isSectionEditDisabled(tableSpecInstance.name)(state),
     tableData: R.path(['traditionalTable', tableSpecInstance.name, 'tableData'], state) || table.createTableData(tableSpecInstance),
   }
 }
