@@ -3,6 +3,7 @@ import React from 'react'
 import { ThousandSeparatedDecimalInput } from '@webapp/components/thousandSeparatedDecimalInput'
 import { acceptNextDecimal, acceptableAsDecimal } from '@webapp/utils/numberInput'
 import { handlePaste } from './paste'
+import useUserInfo from '@webapp/components/hooks/useUserInfo'
 
 const DecimalCellType = props => {
   const {
@@ -16,8 +17,10 @@ const DecimalCellType = props => {
     validator,
     disabled
   } = props
+  const userInfo = useUserInfo()
+  
   const currentValue = tableData[rowIdx][colIdx]
-  const valid = validator ? validator(props, rowIdx, colIdx).valid : true
+  const valid = userInfo && validator ? validator(props, rowIdx, colIdx).valid : true
   return <td className={`fra-table__cell ${valid ? '' : 'error'}`}>
     <ThousandSeparatedDecimalInput numberValue={ currentValue }
                                    onChange={

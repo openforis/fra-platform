@@ -6,6 +6,7 @@ import * as table from '@webapp/app/assessment/components/traditionalTable/table
 import { div, add, sub, toFixed } from '@common/bignumberUtils'
 import { getForestAreaForYear } from '@common/extentOfForestHelper'
 import { acceptNextDecimal } from '@webapp/utils/numberInput'
+import useUserInfo from '@webapp/components/hooks/useUserInfo'
 
 const mapIndexed = R.addIndex(R.map)
 
@@ -59,7 +60,9 @@ export const decimalInputCell = (props, extentOfForest, validator, disabled = fa
     tableChanged
   } = props
 
-  const valid = validator ? validator(props, rowIdx, colIdx).valid : true
+  // If user not logged, hide validation (error) message
+  const userInfo = useUserInfo()
+  const valid = userInfo && validator ? validator(props, rowIdx, colIdx).valid : true
   return <td className={`fra-table__cell ${valid ? '' : 'error'}`}>
     <ThousandSeparatedDecimalInput
       numberValue={tableData[rowIdx][colIdx]}

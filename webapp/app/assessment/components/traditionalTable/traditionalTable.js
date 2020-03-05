@@ -12,6 +12,7 @@ import UpdateOnResizeReactComponent from '@webapp/components/updateOnResizeReact
 import * as AppState from '@webapp/app/appState'
 import * as ReviewState from '@webapp/app/assessment/components/review/reviewState'
 import ButtonTableExport from '@webapp/components/buttonTableExport'
+import useUserInfo from '@webapp/components/hooks/useUserInfo'
 
 const mapIndexed = R.addIndex(R.map)
 const commentTarget = (tableName, rowIdx) => [tableName, 'row', `${rowIdx}`]
@@ -81,6 +82,7 @@ const createValidationStatus = (props) => {
     props.tableData
   )
 }
+
 createValidationStatus.propTypes = {
   cellSpec: PropTypes.any.isRequired
 }
@@ -119,11 +121,15 @@ const validationErrorRow = props => {
   </tr>
 }
 
-const TableBody = props =>
-  <tbody>
+const TableBody = props => {
+  // If user not logged, hide validation (error) message
+  const userInfo = useUserInfo()
+  const showValidation = !props.skipValidation && userInfo
+  return <tbody>
     {tableRows(props)}
-    {!props.skipValidation && validationErrorRow(props)}
+    {showValidation && validationErrorRow(props)}
   </tbody>
+}
 
 class FraTable extends UpdateOnResizeReactComponent {
 

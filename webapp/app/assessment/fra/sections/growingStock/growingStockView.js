@@ -34,6 +34,7 @@ const mapIndexed = R.addIndex(R.map)
 
 const InputRowAvg = (props) => {
   const { isEditDataDisabled, validator, row } = props
+  const userInfo = useUserInfo()
   const thClassName = props.subCategory ? 'fra-table__subcategory-cell' : 'fra-table__category-cell'
   const target = props.row + 'Avg'
   return <tr>
@@ -41,7 +42,7 @@ const InputRowAvg = (props) => {
     {
       R.map(year => {
         const value = R.path([year, props.row], props.avgTable)
-        const valid = validator ? validator(props, year, row).valid : true
+        const valid = userInfo && validator ? validator(props, year, row).valid : true
         return <td className={`fra-table__cell${valid ? '' : ' error'}`} key={year}>
           <ThousandSeparatedDecimalInput
             numberValue={value}
@@ -69,6 +70,7 @@ const InputRowAvg = (props) => {
 
 const InputRowTotal = (props) => {
   const { countryIso, totalTable, subCategory, row, validator, isEditDataDisabled } = props
+  const userInfo = useUserInfo()
 
   const thClassName = subCategory ? 'fra-table__subcategory-cell' : 'fra-table__category-cell'
   const target = row + 'Total'
@@ -78,7 +80,7 @@ const InputRowTotal = (props) => {
     {
       R.map(year => {
         const value = R.path([year, row], totalTable)
-        const valid = validator ? validator(props, year, row).valid : true
+        const valid = userInfo && validator ? validator(props, year, row).valid : true
         return <td className={`fra-table__cell${valid ? '' : ' error'}`} key={year}>
           <ThousandSeparatedDecimalInput
             numberValue={value}
@@ -307,24 +309,26 @@ const GrowingStock = (props) => {
             validator={avgValidator}
             {...props}
           />
-          <tr className="no-print">
-            <td></td>
             {
-              R.map(year => <td className="fra-table__validation-cell" key={year}>
-                <div className="fra-table__validation-container">
-                  {
-                    R.uniq([
-                      ...['naturallyRegeneratingForest', 'plantedForest', 'plantationForest', 'otherPlantedForest', 'forest', 'otherWoodedLand']
-                        .map(row => avgValidator(props, year, row).message)
-                    ]).map((m, i) =>
-                      <div key={i} className="fra-table__validation-error">{m}</div>
-                    )
-                  }
-                </div>
-              </td>, defaultYears)
+              userInfo &&
+              <tr className="no-print">
+                <td></td>
+                {
+                  R.map(year => <td className="fra-table__validation-cell" key={year}>
+                    <div className="fra-table__validation-container">
+                      {
+                        R.uniq([
+                          ...['naturallyRegeneratingForest', 'plantedForest', 'plantationForest', 'otherPlantedForest', 'forest', 'otherWoodedLand']
+                            .map(row => avgValidator(props, year, row).message)
+                        ]).map((m, i) =>
+                          <div key={i} className="fra-table__validation-error">{m}</div>
+                        )
+                      }
+                    </div>
+                  </td>, defaultYears)
+                }
+              </tr>
             }
-          </tr>
-
           </tbody>
         </table>
       </div>
@@ -381,26 +385,29 @@ const GrowingStock = (props) => {
             validator={totalValidator}
             {...props}
           />
-          <tr className="no-print">
-            <td></td>
             {
-              R.map(year => <td className="fra-table__validation-cell" key={year}>
-                <div className="fra-table__validation-container">
-                  {
-                    R.uniq([
-                      forestSubCategoryValidator(props, year).message,
-                      plantedForestSubCategoryValidator(props, year).message,
-                      equalToTotalGrowingStockSubCategoryValidator(props, year).message,
-                      ...['naturallyRegeneratingForest', 'plantedForest', 'plantationForest', 'otherPlantedForest', 'forest', 'otherWoodedLand']
-                        .map(row => totalValidator(props, year, row).message)
-                    ]).map((m, i) =>
-                      <div key={i} className="fra-table__validation-error">{m}</div>
-                    )
-                  }
-                </div>
-              </td>, defaultYears)
+              userInfo &&
+              <tr className="no-print">
+                <td></td>
+                {
+                  R.map(year => <td className="fra-table__validation-cell" key={year}>
+                    <div className="fra-table__validation-container">
+                      {
+                        R.uniq([
+                          forestSubCategoryValidator(props, year).message,
+                          plantedForestSubCategoryValidator(props, year).message,
+                          equalToTotalGrowingStockSubCategoryValidator(props, year).message,
+                          ...['naturallyRegeneratingForest', 'plantedForest', 'plantationForest', 'otherPlantedForest', 'forest', 'otherWoodedLand']
+                            .map(row => totalValidator(props, year, row).message)
+                        ]).map((m, i) =>
+                          <div key={i} className="fra-table__validation-error">{m}</div>
+                        )
+                      }
+                    </div>
+                  </td>, defaultYears)
+                }
+              </tr>
             }
-          </tr>
 
           </tbody>
         </table>
