@@ -3,10 +3,8 @@ import { NavLink } from 'react-router-dom';
 
 const AppLinks = ({ i18n }) => {
 
-  const isActive = (match, { pathname }) => {
-    console.log({ match, location })
-    return !pathname.includes('statisticalFactsheets') || match && match.isExact
-  }
+  const isActive = (match, { pathname }) => !pathname.includes('statisticalFactsheets') ||
+    match && match.isExact
 
   return <>
     <NavLink
