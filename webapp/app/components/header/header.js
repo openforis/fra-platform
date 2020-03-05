@@ -13,7 +13,7 @@ import useI18n from '@webapp/components/hooks/useI18n'
 import useCountryIso from '@webapp/components/hooks/useCountryIso'
 import useUserInfo from '@webapp/components/hooks/useUserInfo'
 
-const AdminLink = ({ i18n }) =>
+const LoginLink = ({ i18n }) =>
   <Link key="admin-link"
     to={`/login/`}
     className="app-header__menu-item">
@@ -26,7 +26,7 @@ const HeaderLinks = ({ i18n, userInfo }) => <>
   <AdminLinks />
   {
     !userInfo &&
-    <AdminLink i18n={i18n} />
+    <LoginLink i18n={i18n} />
   }
 </>
 

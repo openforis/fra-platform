@@ -1,3 +1,4 @@
+import 'dotenv/config'
 import path from 'path'
 import webpack from 'webpack'
 import uuidv4 from 'uuid/v4'
@@ -26,6 +27,7 @@ const plugins = [
     __BUST__: `"${uuidv4()}"`,
     __GOOGLE_API__: JSON.stringify(process.env.FRA_GOOGLE_API),
     __APPLICATION_VERSION__: JSON.stringify(gitRevisionPlugin.version()),
+    __URL_STATISTICAL_FACTSHEETS__: JSON.stringify(process.env.URL_STATISTICAL_FACTSHEETS),
   })
 ]
 
