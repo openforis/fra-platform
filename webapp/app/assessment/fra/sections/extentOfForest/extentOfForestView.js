@@ -30,9 +30,9 @@ import { isPrintingMode, isPrintingOnlyTables } from '@webapp/app/assessment/com
 
 import * as ReviewState from '@webapp/app/assessment/components/review/reviewState'
 import * as CountryState from '@webapp/app/country/countryState'
+import * as FraState from '@webapp/app/assessment/fra/fraState'
 
 import tableRows from '@webapp/app/assessment/fra/sections/extentOfForest/tableRows'
-import { isSectionEditDisabled } from '@webapp/app/assessment/fra/fraState'
 
 const anchorName = '1a'
 const sectionName = 'extentOfForest'
@@ -194,7 +194,7 @@ const mapStateToProps = state =>
     faoStat: CountryState.getConfigFaoStat(state),
     fra2015ForestAreas: CountryState.getConfigFra2015ForestAreas(state),
     climaticDomainPercents2015: CountryState.getConfigClimaticDomainPercents2015(state),
-    isEditDataDisabled: isSectionEditDisabled(state, sectionName),
+    isEditDataDisabled: FraState.isSectionEditDisabled(sectionName)(state),
   })
 
 export default connect(

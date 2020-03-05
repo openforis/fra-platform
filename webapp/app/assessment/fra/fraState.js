@@ -38,4 +38,4 @@ const canEditSection = (section = 'all') => state => {
 
 }
 
-export const isSectionEditDisabled = (state, section) => isPrintingMode() || !canEditSection(section)(state)
+export const isSectionEditDisabled = section => state => isPrintingMode() || !canEditSection(section)(state)

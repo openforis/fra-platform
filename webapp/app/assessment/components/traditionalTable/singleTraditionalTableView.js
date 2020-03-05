@@ -19,10 +19,10 @@ import FraUtils from '@common/fraUtils'
 import { fetchTableData } from './actions'
 
 import * as AppState from '@webapp/app/appState'
+import * as FraState from '@webapp/app/assessment/fra/fraState'
 
 import useCountryIso from '@webapp/components/hooks/useCountryIso'
 import useI18n from '@webapp/components/hooks/useI18n'
-import { isSectionEditDisabled } from '@webapp/app/assessment/fra/fraState'
 
 const SingleTraditionalTableView = props => {
 
@@ -114,7 +114,7 @@ const mapStateToProps = (state, props) => {
   const tableSpecInstance = props.tableSpecInstance || props.tableSpec(AppState.getI18n(state))
   return {
     tableSpecInstance,
-    isEditDataDisabled: isSectionEditDisabled(state, tableSpecInstance.name),
+    isEditDataDisabled: FraState.isSectionEditDisabled(tableSpecInstance.name)(state),
     tableData: R.path(['traditionalTable', tableSpecInstance.name, 'tableData'], state) || table.createTableData(tableSpecInstance),
   }
 }

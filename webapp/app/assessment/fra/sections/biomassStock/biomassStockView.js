@@ -16,7 +16,7 @@ import FraUtils from '@common/fraUtils'
 import { fetchTableData } from '@webapp/app/assessment/components/traditionalTable/actions'
 
 import * as AppState from '@webapp/app/appState'
-import { isSectionEditDisabled } from '@webapp/app/assessment/fra/fraState'
+import * as FraState from '@webapp/app/assessment/fra/fraState'
 
 const sectionName = 'biomassStock'
 
@@ -82,7 +82,7 @@ const mapStateToProps = state => {
 
   return {
     i18n,
-    disabled: isSectionEditDisabled(state, sectionName),
+    disabled: FraState.isSectionEditDisabled(sectionName)(state),
     tableSpecInstance,
     tableData: R.path(['traditionalTable', tableSpecInstance.name, 'tableData'], state) || table.createTableData(tableSpecInstance),
   }

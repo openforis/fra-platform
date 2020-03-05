@@ -9,7 +9,7 @@ import CommentableDescription from '@webapp/app/assessment/components/descriptio
 
 import * as AppState from '@webapp/app/appState'
 import * as ReviewState from '@webapp/app/assessment/components/review/reviewState'
-import { isSectionEditDisabled } from '@webapp/app/assessment/fra/fraState'
+import * as FraState from '@webapp/app/assessment/fra/fraState'
 
 const sectionName = 'contactPersons'
 
@@ -35,7 +35,7 @@ const ContactPersonsView = props => {
 const mapStateToProps = (state) => ({
   openCommentThread: ReviewState.getOpenThreadTarget(state),
   i18n: AppState.getI18n(state),
-  isEditDataDisabled: isSectionEditDisabled(state, sectionName)
+  isEditDataDisabled: FraState.isSectionEditDisabled(sectionName)(state),
 })
 
 export default connect(mapStateToProps, { fetchLastSectionUpdateTimestamp })(ContactPersonsView)

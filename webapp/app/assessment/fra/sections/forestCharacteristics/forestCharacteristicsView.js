@@ -20,13 +20,13 @@ import FraUtils from '@common/fraUtils'
 import * as AppState from '@webapp/app/appState'
 import * as CountryState from '@webapp/app/country/countryState'
 import * as ReviewState from '@webapp/app/assessment/components/review/reviewState'
+import * as FraState from '@webapp/app/assessment/fra/fraState'
 
 import { fetchItem, generateFraValues } from '@webapp/app/assessment/fra/components/tableWithOdp/actions'
 import { fetchLastSectionUpdateTimestamp } from '@webapp/app/components/audit/actions'
 import { saveCountryConfigSetting } from '@webapp/app/country/actions'
 
 import tableRows from '@webapp/app/assessment/fra/sections/forestCharacteristics/tableRows'
-import { isSectionEditDisabled } from '@webapp/app/assessment/fra/fraState'
 
 const anchorName = '1b'
 const sectionName = 'forestCharacteristics'
@@ -181,7 +181,7 @@ const mapStateToProps = state => {
     useOriginalDataPoints: useOriginalDataPoints,
     // Only if ODPs are enabled system-wide and ALSO locally, they are enabled:
     useOriginalDataPointsInFoc: useOriginalDataPoints && useOriginalDataPointsInFoc,
-    isEditDataDisabled: isSectionEditDisabled(state, sectionName)
+    isEditDataDisabled: FraState.isSectionEditDisabled(sectionName)(state)
   }
 }
 

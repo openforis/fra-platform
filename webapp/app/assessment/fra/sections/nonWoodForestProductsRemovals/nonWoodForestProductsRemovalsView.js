@@ -15,7 +15,7 @@ import * as table from '@webapp/app/assessment/components/traditionalTable/table
 import { isPrintingOnlyTables } from '@webapp/app/assessment/components/print/printAssessment'
 import FraUtils from '@common/fraUtils'
 import * as AppState from '@webapp/app/appState'
-import { isSectionEditDisabled } from '@webapp/app/assessment/fra/fraState'
+import * as FraState from '@webapp/app/assessment/fra/fraState'
 
 const currencyNameTableSpec = i18n => ({
   name: 'nonWoodForestProductsRemovalsCurrency',
@@ -102,7 +102,7 @@ const mapStateToProps = state => {
 
   return {
     i18n,
-    disabled: isSectionEditDisabled(state, sectionName),
+    disabled: FraState.isSectionEditDisabled(sectionName)(state),
     tableSpecInstance,
     tableData: R.path(['traditionalTable', tableSpecInstance.name, 'tableData'], state) || table.createTableData(tableSpecInstance),
   }

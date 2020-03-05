@@ -20,7 +20,7 @@ import FraUtils from '@common/fraUtils'
 import { fetchTableData } from '@webapp/app/assessment/components/traditionalTable/actions'
 
 import * as AppState from '@webapp/app/appState'
-import { isSectionEditDisabled } from '@webapp/app/assessment/fra/fraState'
+import * as FraState from '@webapp/app/assessment/fra/fraState'
 
 const sectionName = 'designatedManagementObjective'
 
@@ -43,7 +43,6 @@ const designatedManagementObjectiveView = props => {
     fetchLastSectionUpdateTimestamp(countryIso, sectionName)
   }, [])
 
-
   const primaryHasData = FraUtils.hasData(primaryDmoTableData)
   const totalHasData = FraUtils.hasData(totalDmoTableData)
 
@@ -57,21 +56,21 @@ const designatedManagementObjectiveView = props => {
     </h2>
 
     <div className="app-view__content">
-      <NationalDataDescriptions section={sectionName} countryIso={countryIso} disabled={disabled} />
-      <AnalysisDescriptions section={sectionName} countryIso={countryIso} disabled={disabled} />
+      <NationalDataDescriptions section={sectionName} countryIso={countryIso} disabled={disabled}/>
+      <AnalysisDescriptions section={sectionName} countryIso={countryIso} disabled={disabled}/>
       <h2 className="headline no-print">
         {i18n.t('designatedManagementObjective.designatedManagementObjective')}
       </h2>
       <div className="app-view__section-toolbar">
         <DefinitionLink className="margin-right-big" document="tad" anchor="3a"
-          title={i18n.t('definition.definitionLabel')} lang={i18n.language} />
+                        title={i18n.t('definition.definitionLabel')} lang={i18n.language}/>
         <DefinitionLink className="align-left" document="faq" anchor="3a" title={i18n.t('definition.faqLabel')}
-          lang={i18n.language} />
+                        lang={i18n.language}/>
       </div>
 
       {
         !isPrintingOnlyTables() &&
-        <div className="page-break" />
+        <div className="page-break"/>
       }
 
       {
@@ -90,7 +89,7 @@ const designatedManagementObjectiveView = props => {
             tableSpec={primaryDmoTableSpec}
             countryIso={countryIso}
             section={sectionName}
-            disabled={disabled} />
+            disabled={disabled}/>
         ]
       }
 
@@ -111,7 +110,7 @@ const designatedManagementObjectiveView = props => {
             tableSpec={totalDmoTableSpec}
             countryIso={countryIso}
             section={sectionName}
-            disabled={disabled} />
+            disabled={disabled}/>
         ]
       }
       <GeneralComments
@@ -133,7 +132,7 @@ const mapStateToProps = (state, { match }) => {
   return {
     i18n,
     extentOfForest,
-    disabled: isSectionEditDisabled(state, sectionName),
+    disabled: FraState.isSectionEditDisabled(sectionName)(state),
     primaryDmoTableSpec,
     totalDmoTableSpec,
     primaryDmoTableData: R.path(['traditionalTable', primaryDmoTableSpec.name, 'tableData'], state) || table.createTableData(primaryDmoTableSpec),

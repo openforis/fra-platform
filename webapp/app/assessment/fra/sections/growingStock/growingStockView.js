@@ -27,7 +27,7 @@ import { isPrintingOnlyTables } from '@webapp/app/assessment/components/print/pr
 
 import * as AppState from '@webapp/app/appState'
 import * as ReviewState from '@webapp/app/assessment/components/review/reviewState'
-import { isSectionEditDisabled } from '@webapp/app/assessment/fra/fraState'
+import * as FraState from '@webapp/app/assessment/fra/fraState'
 
 const sectionName = 'growingStock'
 const mapIndexed = R.addIndex(R.map)
@@ -450,7 +450,7 @@ const mapStateToProps = state =>
     baseTable: state.growingStock.baseTable,
     openCommentThread: ReviewState.getOpenThread(state),
     i18n: AppState.getI18n(state),
-    isEditDataDisabled: isSectionEditDisabled(state, sectionName)
+    isEditDataDisabled: FraState.isSectionEditDisabled(sectionName)(state)
   })
 
 export default connect(

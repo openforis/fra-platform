@@ -16,7 +16,7 @@ import FraUtils from '@common/fraUtils'
 import { fetchTableData } from '@webapp/app/assessment/components/traditionalTable/actions'
 
 import * as AppState from '@webapp/app/appState'
-import { isSectionEditDisabled } from '@webapp/app/assessment/fra/fraState'
+import * as FraState from '@webapp/app/assessment/fra/fraState'
 
 const GrowingStockCompositionView = props => {
   const { i18n, isEditDataDisabled, tableData, tableSpecInstance } = props
@@ -75,7 +75,7 @@ const mapStateToProps = state => {
 
   return {
     i18n,
-    isEditDataDisabled: isSectionEditDisabled(state, sectionName),
+    isEditDataDisabled: FraState.isSectionEditDisabled(sectionName)(state),
     growingStock,
     tableSpecInstance,
     tableData: R.path(['traditionalTable', tableSpecInstance.name, 'tableData'], state) || table.createTableData(tableSpecInstance),

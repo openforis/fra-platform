@@ -20,7 +20,7 @@ import { isPrintingOnlyTables } from '@webapp/app/assessment/components/print/pr
 
 import * as AppState from '@webapp/app/appState'
 import * as CountryState from '@webapp/app/country/countryState'
-import { isSectionEditDisabled } from '@webapp/app/assessment/fra/fraState'
+import * as FraState from '@webapp/app/assessment/fra/fraState'
 
 const sectionName = 'sustainableDevelopment'
 
@@ -106,7 +106,7 @@ const mapStateToProps = state => ({
   i18n: AppState.getI18n(state),
   data: state.sustainableDevelopment,
   countryConfig: CountryState.getConfig(state),
-  isEditDataDisabled: isSectionEditDisabled(state, sectionName)
+  isEditDataDisabled: FraState.isSectionEditDisabled(sectionName)(state)
 })
 
 export default connect(mapStateToProps, { fetchLastSectionUpdateTimestamp, fetch })(SustainableDevelopmentView)
