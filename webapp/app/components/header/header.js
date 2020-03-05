@@ -6,12 +6,12 @@ import { Link } from 'react-router-dom'
 import UserInfoLinks from '@webapp/app/components/header/components/userInfo'
 import LanguageSelection from '@webapp/app/components/header/components/languageSelection'
 import AdminLinks from '@webapp/app/components/header/components/adminLinks'
+import AppLinks from '@webapp/app/components/header/components/AppLinks'
 import AutoSaveStatusText from '@webapp/app/components/header/components/autoSaveStatusText'
 import ToggleNavigationControl from '@webapp/app/components/header/components/toggleNavigationControl'
 import useI18n from '@webapp/components/hooks/useI18n'
 import useCountryIso from '@webapp/components/hooks/useCountryIso'
 import useUserInfo from '@webapp/components/hooks/useUserInfo'
-import AppLinks from './AppLinks'
 
 const AdminLink = ({ i18n }) =>
   <Link key="admin-link"
