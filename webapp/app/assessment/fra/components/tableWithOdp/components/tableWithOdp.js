@@ -83,6 +83,7 @@ TableWithOdp.propTypes = {
 TableWithOdp.defaultProps = {
   copyValues: true,
   disabled: false,
+  useOriginalDataPoints: true,
 }
 
 export default TableWithOdp

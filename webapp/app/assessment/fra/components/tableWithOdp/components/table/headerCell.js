@@ -8,10 +8,12 @@ import Icon from '@webapp/components/icon'
 import Tooltip from '@webapp/components/tooltip'
 import useCountryIso from '@webapp/components/hooks/useCountryIso'
 import useI18n from '@webapp/components/hooks/useI18n'
+import useUserInfo from '@webapp/components/hooks/useUserInfo'
 
 const HeaderCell = props => {
   const countryIso = useCountryIso()
   const i18n = useI18n()
+  const userInfo = useUserInfo()
 
   const { datum, section } = props
   const { name, type, draft, odpId } = datum
@@ -30,7 +32,7 @@ const HeaderCell = props => {
                 className="link"
                 to={`/country/${countryIso}/odp/${section}/${odpId}`}>
                 {
-                  draft &&
+                  draft && userInfo &&
                   <Icon className="icon-sub icon-margin-right" name="pencil"/>
                 }
                 {

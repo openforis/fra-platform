@@ -124,7 +124,6 @@ const ExtentOfForest = (props) => {
       copyValues={false}
       disabled={isEditDataDisabled}
       generateValues={hasNDPs && showNDPs}
-      useOriginalDataPoints={true}
       tableHeaderLabel={i18n.t('extentOfForest.areaUnitLabel')}
       categoryHeaderLabel={i18n.t('extentOfForest.categoryHeader')}
     />
