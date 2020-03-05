@@ -1,5 +1,6 @@
 import React from 'react'
 import * as R from 'ramda'
+import useUserInfo from '@webapp/components/hooks/useUserInfo'
 
 const CalculatedCell = props => {
   const {
@@ -8,7 +9,9 @@ const CalculatedCell = props => {
     validator,
     calculateValue
   } = props
-  const valid = validator ? validator(props, rowIdx, colIdx).valid : true
+  const userInfo = useUserInfo()
+  
+  const valid = userInfo && validator ? validator(props, rowIdx, colIdx).valid : true
   const valueFormatter = props.valueFormatter|| R.identity
   return <td className={`fra-table__calculated-cell ${valid ? '' : 'validation-error'}`}>
     {valueFormatter(calculateValue(props))}
