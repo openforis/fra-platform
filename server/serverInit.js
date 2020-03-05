@@ -5,14 +5,12 @@ module.exports = () => {
   const compression = require('compression')
   const fileUpload = require('express-fileupload')
 
-  const countryRepository = require('./country/countryRepository')
-
   const sessionInit = require('./sessionInit')
   const apiRouter = require('./apiRouter')
   const authApi = require('./auth/authApi')
   const resourceCacheControl = require('./resourceCacheControl')
   const definitionsApi = require('./definitions/api')
-  const { sendErr, appUri } = require('./utils/requestUtils')
+  const { sendErr } = require('./utils/requestUtils')
 
   const app = express()
 
