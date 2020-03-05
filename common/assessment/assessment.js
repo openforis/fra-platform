@@ -6,17 +6,17 @@ const keys = {
   status: 'status',
   type: 'type',
   deskStudy: 'deskStudy',
-  locked: 'locked',
   canEditData: 'canEditData',
   canEditComments: 'canEditComments',
+  tablesAccess: 'tablesAccess',
 }
 
 //====== READ
 const getStatus = R.propOr('', keys.status)
 const getType = R.prop(keys.type)
-const getLocked = R.propOr(true, keys.locked)
 const getDeskStudy = R.propEq(keys.deskStudy, true)
 const getCanEditData = R.propEq(keys.canEditData, true)
+const getTablesAccess = R.propOr([], keys.tablesAccess)
 const isStatusChanging = R.pipe(getStatus, R.equals(assessmentStatus.changing))
 
 //====== UPDATE
@@ -28,9 +28,9 @@ module.exports = {
 
   getStatus,
   getType,
-  getLocked,
   getDeskStudy,
   getCanEditData,
+  getTablesAccess,
   isStatusChanging,
 
   assocStatus,

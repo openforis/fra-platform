@@ -23,7 +23,6 @@ import { fetchLastSectionUpdateTimestamp } from '@webapp/app/components/audit/ac
 
 import climaticDomainTableSpec from './climaticDomainTableSpec'
 import { hasOdps } from '@common/extentOfForestHelper'
-import { isFRA2020SectionEditDisabled } from '@webapp/utils/assessmentAccess'
 import { isAdministrator } from '@common/countryRole'
 
 import FraUtils from '@common/fraUtils'
@@ -33,6 +32,7 @@ import * as ReviewState from '@webapp/app/assessment/components/review/reviewSta
 import * as CountryState from '@webapp/app/country/countryState'
 
 import tableRows from '@webapp/app/assessment/fra/sections/extentOfForest/tableRows'
+import { isSectionEditDisabled } from '@webapp/app/assessment/fra/fraState'
 
 const anchorName = '1a'
 const sectionName = 'extentOfForest'
@@ -194,7 +194,7 @@ const mapStateToProps = state =>
     faoStat: CountryState.getConfigFaoStat(state),
     fra2015ForestAreas: CountryState.getConfigFra2015ForestAreas(state),
     climaticDomainPercents2015: CountryState.getConfigClimaticDomainPercents2015(state),
-    isEditDataDisabled: isFRA2020SectionEditDisabled(state, sectionName),
+    isEditDataDisabled: isSectionEditDisabled(state, sectionName),
   })
 
 export default connect(

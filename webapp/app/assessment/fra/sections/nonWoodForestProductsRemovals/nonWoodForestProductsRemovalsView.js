@@ -10,12 +10,12 @@ import DefinitionLink from '@webapp/components/definitionLink'
 import { fetchLastSectionUpdateTimestamp } from '@webapp/app/components/audit/actions'
 import NationalDataDescriptions from '@webapp/app/assessment/components/description/nationalDataDescriptions'
 import GeneralComments from '@webapp/app/assessment/components/description/generalComments'
-import { isFRA2020SectionEditDisabled } from '@webapp/utils/assessmentAccess'
 import { fetchTableData } from '@webapp/app/assessment/components/traditionalTable/actions'
 import * as table from '@webapp/app/assessment/components/traditionalTable/table'
 import { isPrintingOnlyTables } from '@webapp/app/assessment/components/print/printAssessment'
 import FraUtils from '@common/fraUtils'
 import * as AppState from '@webapp/app/appState'
+import { isSectionEditDisabled } from '@webapp/app/assessment/fra/fraState'
 
 const currencyNameTableSpec = i18n => ({
   name: 'nonWoodForestProductsRemovalsCurrency',
@@ -102,7 +102,7 @@ const mapStateToProps = state => {
 
   return {
     i18n,
-    disabled: isFRA2020SectionEditDisabled(state, sectionName),
+    disabled: isSectionEditDisabled(state, sectionName),
     tableSpecInstance,
     tableData: R.path(['traditionalTable', tableSpecInstance.name, 'tableData'], state) || table.createTableData(tableSpecInstance),
   }

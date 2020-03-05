@@ -20,7 +20,6 @@ import useCountryIso from '@webapp/components/hooks/useCountryIso'
 import useUserInfo from '@webapp/components/hooks/useUserInfo'
 
 import defaultYears from '@server/eof/defaultYears'
-import { isFRA2020SectionEditDisabled } from '@webapp/utils/assessmentAccess'
 import { calculateAvgValue, calculateTotalValue, getTotalGrowingStockFieldsSum } from './growingStock'
 import { equalToTotalGrowingStock } from '@webapp/app/assessment/components/traditionalTable/validators'
 import FraUtils from '@common/fraUtils'
@@ -28,6 +27,7 @@ import { isPrintingOnlyTables } from '@webapp/app/assessment/components/print/pr
 
 import * as AppState from '@webapp/app/appState'
 import * as ReviewState from '@webapp/app/assessment/components/review/reviewState'
+import { isSectionEditDisabled } from '@webapp/app/assessment/fra/fraState'
 
 const sectionName = 'growingStock'
 const mapIndexed = R.addIndex(R.map)
@@ -450,7 +450,7 @@ const mapStateToProps = state =>
     baseTable: state.growingStock.baseTable,
     openCommentThread: ReviewState.getOpenThread(state),
     i18n: AppState.getI18n(state),
-    isEditDataDisabled: isFRA2020SectionEditDisabled(state, sectionName)
+    isEditDataDisabled: isSectionEditDisabled(state, sectionName)
   })
 
 export default connect(

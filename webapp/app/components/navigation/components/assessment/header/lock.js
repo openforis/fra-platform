@@ -2,20 +2,20 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 
-import * as CountryStatusAssessment from '@common/country/countryStatusAssessment'
+import * as Assessment from '@common/assessment/assessment'
 
 import Icon from '@webapp/components/icon'
 import useI18n from '@webapp/components/hooks/useI18n'
 import useUserInfo from '@webapp/components/hooks/useUserInfo'
 
-import * as AssessmentState from '@webapp/app/country/assessmentState'
+import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 
-import { toggleAssessmentLock } from '@webapp/app/country/actions'
+import { toggleAssessmentLock } from '@webapp/app/assessment/actions'
 
 const Lock = props => {
   const { assessment } = props
-  const type = CountryStatusAssessment.getType(assessment)
-  const deskStudy = CountryStatusAssessment.getDeskStudy(assessment)
+  const type = Assessment.getType(assessment)
+  const deskStudy = Assessment.getDeskStudy(assessment)
 
   const dispatch = useDispatch()
   const i18n = useI18n()

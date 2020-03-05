@@ -1,10 +1,7 @@
-/**
- * This is a sub state of CountryState
- */
-
 import * as R from 'ramda'
 
-import * as CountryStatusAssessment from '@common/country/countryStatusAssessment'
+import * as Assessment from '@common/assessment/assessment'
+
 import { isReviewer, isAdministrator } from '@common/countryRole'
 import { assessmentStatus } from '@common/assessment'
 
@@ -12,17 +9,32 @@ import * as AppState from '@webapp/app/appState'
 import * as CountryState from '@webapp/app/country/countryState'
 import * as UserState from '@webapp/user/userState'
 
+export const stateKey = 'assessment'
+
+const keys = {
+  lock: 'lock',
+}
+
+// TODO: Now assessment is part of country status - refactor it
 export const getAssessment = name => R.pipe(CountryState.getAssessments, R.propOr({}, name))
 
+const getState = R.propOr({}, stateKey)
+
+const getStateAssessment = type => R.pipe(getState, R.propOr({}, type))
+
+const _isLocked = type => R.pipe(getStateAssessment(type), R.propOr(true, keys.lock))
+
 // ==== Lock functions
+
 export const isLocked = assessment => state => {
   const countryIso = AppState.getCountryIso(state)
   const userInfo = UserState.getUserInfo(state)
 
   if (isReviewer(countryIso, userInfo) || isAdministrator(userInfo)) {
-    return CountryStatusAssessment.getLocked(assessment)
+    const type = Assessment.getType(assessment)
+    return _isLocked(type)(state)
   } else {
-    return !CountryStatusAssessment.getCanEditData(assessment)
+    return !Assessment.getCanEditData(assessment)
   }
 }
 
@@ -34,9 +46,11 @@ export const canToggleLock = assessment => state => {
     return true
   }
   if (isReviewer(countryIso, userInfo)) {
-    const status = CountryStatusAssessment.getStatus(assessment)
+    const status = Assessment.getStatus(assessment)
     return R.includes(status, [assessmentStatus.editing, assessmentStatus.review])
   }
 
   return false
 }
+
+export const assocLock = (type, lock) => R.assocPath([type, keys.lock], lock)

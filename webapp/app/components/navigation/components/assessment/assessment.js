@@ -7,7 +7,7 @@ import { assessments } from '@common/assessmentSectionItems'
 import Header from '@webapp/app/components/navigation/components/assessment/header'
 import Section from '@webapp/app/components/navigation/components/assessment/section'
 
-import * as AssessmentState from '@webapp/app/country/assessmentState'
+import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 
 const Assessment = props => {
   const { name } = props

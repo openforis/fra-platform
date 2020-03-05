@@ -1,5 +1,6 @@
 import component from '@webapp/app/appView'
 
+import assessment from '@webapp/app/assessment/reducer'
 import extentOfForest from '@webapp/app/assessment/fra/sections/extentOfForest/reducers'
 import forestCharacteristics from '@webapp/app/assessment/fra/sections/forestCharacteristics/reducer'
 import growingStock from '@webapp/app/assessment/fra/sections/growingStock/reducer'
@@ -18,6 +19,7 @@ import admin from '@webapp/app/admin/reducer'
 import userChat from '@webapp/app/user/chat/reducer'
 import countryMessageBoard from '@webapp/app/landing/messageBoard/reducer'
 
+import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 import * as OriginalDataPointState from '@webapp/app/assessment/fra/sections/originalDataPoint/originalDataPointState'
 import * as AutosaveState from '@webapp/app/components/autosave/autosaveState'
 // import * as DescriptionState from '@webapp/description/descriptionState'
@@ -32,6 +34,7 @@ import * as NavigationState from '@webapp/app/components/navigation/navigationSt
 // { name: HomeState.stateKey, fn: homeReducer },
 
 const reducers = [
+  { name: AssessmentState.stateKey, fn: assessment },
   { name: 'extentOfForest', fn: extentOfForest },
   { name: 'forestCharacteristics', fn: forestCharacteristics },
   { name: 'growingStock', fn: growingStock },

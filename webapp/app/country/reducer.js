@@ -7,7 +7,6 @@ import {
   fetchCountryOverviewStatusCompleted,
   countryConfig,
   changeCountryConfigSetting,
-  countryAssessmentLockChange,
   countryAssessmentStatusChanging
 } from './actions'
 
@@ -23,8 +22,6 @@ const actionHandlers = {
   )(state),
 
   //====== assessment actions
-  [countryAssessmentLockChange]: (state, { assessmentName, locked }) =>
-    CountryState.assocStatusAssessmentLocked(assessmentName, locked)(state),
 
   [countryAssessmentStatusChanging]: (state, { assessmentName }) =>
     CountryState.assocStatusAssessmentChanging(assessmentName)(state)

@@ -3,7 +3,7 @@ import './header.less'
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import * as CountryStatusAssessment from '@common/country/countryStatusAssessment'
+import * as Assessment from '@common/assessment/assessment'
 
 import Icon from '@webapp/components/icon'
 import { Link } from 'react-router-dom'
@@ -15,7 +15,7 @@ import useI18n from '@webapp/components/hooks/useI18n'
 const Header = props => {
 
   const { assessment, showSections, setShowSections } = props
-  const type = CountryStatusAssessment.getType(assessment)
+  const type = Assessment.getType(assessment)
 
   const countryIso = useCountryIso()
   const i18n = useI18n()

@@ -13,7 +13,6 @@ import NationalDataDescriptions from '@webapp/app/assessment/components/descript
 import AnalysisDescriptions from '@webapp/app/assessment/components/description/analysisDescriptions'
 import GeneralComments from '@webapp/app/assessment/components/description/generalComments'
 
-import { isFRA2020SectionEditDisabled } from '@webapp/utils/assessmentAccess'
 import * as R from 'ramda'
 import * as table from '@webapp/app/assessment/components/traditionalTable/table'
 import { isPrintingOnlyTables } from '@webapp/app/assessment/components/print/printAssessment'
@@ -21,6 +20,7 @@ import FraUtils from '@common/fraUtils'
 import { fetchTableData } from '@webapp/app/assessment/components/traditionalTable/actions'
 
 import * as AppState from '@webapp/app/appState'
+import { isSectionEditDisabled } from '@webapp/app/assessment/fra/fraState'
 
 const sectionName = 'designatedManagementObjective'
 
@@ -133,7 +133,7 @@ const mapStateToProps = (state, { match }) => {
   return {
     i18n,
     extentOfForest,
-    disabled: isFRA2020SectionEditDisabled(state, sectionName),
+    disabled: isSectionEditDisabled(state, sectionName),
     primaryDmoTableSpec,
     totalDmoTableSpec,
     primaryDmoTableData: R.path(['traditionalTable', primaryDmoTableSpec.name, 'tableData'], state) || table.createTableData(primaryDmoTableSpec),

@@ -25,13 +25,13 @@ import {
 } from './actions'
 import { fetchCountryOverviewStatus } from '@webapp/app/country/actions'
 import { fetchLastSectionUpdateTimestamp } from '@webapp/app/components/audit/actions'
-import { isAssessmentLocked } from '@webapp/utils/assessmentAccess'
 
 import * as AppState from '@webapp/app/appState'
 import * as OriginalDataPointState from '@webapp/app/assessment/fra/sections/originalDataPoint/originalDataPointState'
 import * as AutosaveState from '@webapp/app/components/autosave/autosaveState'
 import * as ReviewState from '@webapp/app/assessment/components/review/reviewState'
 import * as CountryState from '@webapp/app/country/countryState'
+import * as FraState from '@webapp/app/assessment/fra/fraState'
 
 const years = ['', ...R.pipe(R.range(1950), R.reverse)(2021)]
 
@@ -132,7 +132,7 @@ const OriginalDataPoint = (props) => {
             <CommentsEditor
               canEditData={canEditData}
               odp={odp}
-              />
+            />
           </div>
           <div className="fra-description__review-indicator-wrapper">
             {
@@ -221,7 +221,7 @@ const mapStateToProps = state => {
 
   const useOriginalDataPointsInFoc = !!countryConfig.useOriginalDataPointsInFoc
 
-  const locked = isAssessmentLocked(state, 'fra2020')
+  const locked = FraState.isLocked(state)
   const canEditData = CountryState.getCanEditData(state) && !locked
 
   return {
