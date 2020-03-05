@@ -19,19 +19,19 @@ const forestAreaComparedTo2015Validator = datum => state => {
 }
 
 export const areasNotExceedingTotalLandAreaValidator = datum => state => {
-  const { name: year } = datum
-  const otherLandArea = ExtentOfForestState.getOtherLandArea(datum)(state)
-  const faoStatLandArea = ExtentOfForestState.getFaoStatArea(year)(state)
+  const otherLand = ExtentOfForestState.getOtherLand(datum)(state)
+  const faoStatArea = ExtentOfForestState.getFaoStatArea(datum)(state)
 
-  if (R.isNil(faoStatLandArea) || R.isNil(otherLandArea)) {
+  if (R.isNil(faoStatArea) || R.isNil(otherLand)) {
     return true
   }
-  return greaterThanOrEqualTo(otherLandArea, 0)
+  return greaterThanOrEqualTo(otherLand, 0)
 }
 
 //==== a
 export const forestAreaValidator = datum => state => {
-  const { forestArea, type } = datum
+  const { type } = datum
+  const forestArea = ExtentOfForestState.getForest(datum)()
 
   const comparedTo2015Area = forestAreaComparedTo2015Validator(datum)(state)
   const areasNotExceedingTotalLandArea = areasNotExceedingTotalLandAreaValidator(datum)(state)

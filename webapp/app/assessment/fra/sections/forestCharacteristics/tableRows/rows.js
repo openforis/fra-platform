@@ -1,11 +1,12 @@
 import React from 'react'
 
-import RowPlantedForest
-  from '@webapp/app/assessment/fra/sections/forestCharacteristics/tableRows/components/rowPlantedForest'
-import RowTotalForest
-  from '@webapp/app/assessment/fra/sections/forestCharacteristics/tableRows/components/rowTotalForest'
-import RowTotal from '@webapp/app/assessment/fra/sections/forestCharacteristics/tableRows/components/rowTotal'
+import { Link } from 'react-router-dom'
+import useI18n from '@webapp/components/hooks/useI18n'
+import useCountryIso from '@webapp/components/hooks/useCountryIso'
 
+import * as ExtentOfForestState from '@webapp/app/assessment/fra/sections/extentOfForest/extentOfForestState'
+import * as ForestCharacteristicsState
+  from '@webapp/app/assessment/fra/sections/forestCharacteristics/forestCharacteristicsState'
 import * as ForestCharacteristicsValidatorState
   from '@webapp/app/assessment/fra/sections/forestCharacteristics/forestCharacteristicsValidatorState'
 
@@ -17,8 +18,13 @@ const tableRows = [
     rowVariable: '(a)'
   },
   {
-    type: 'custom',
-    render: RowPlantedForest
+    type: 'field',
+    field: 'plantedForest',
+    className: 'fra-table__header-cell-left',
+    rowHeaderLabelKey: 'forestCharacteristics.plantedForest',
+    rowVariable: '(b)',
+    calculated: true,
+    calculateFn: ForestCharacteristicsState.getPlantedForest,
   },
   {
     type: 'field',
@@ -38,12 +44,43 @@ const tableRows = [
     rowHeaderLabelKey: 'forestCharacteristics.otherPlantedForestArea'
   },
   {
-    type: 'custom',
-    render: RowTotal
+    type: 'field',
+    field: 'total',
+    validator: ForestCharacteristicsValidatorState.totalForestAreaNotEqualToExtentOfForestValidator,
+    className: 'fra-table__header-cell-left',
+    rowHeaderLabelKey: 'forestCharacteristics.total',
+    rowVariable: '(a+b)',
+    calculated: true,
+    calculateFn: ForestCharacteristicsState.getTotalForest,
+
   },
   {
-    type: 'custom',
-    render: RowTotalForest
+    type: 'field',
+    field: 'totalForestArea',
+    className: 'fra-table__header-cell-left',
+    rowHeaderLabelKey: 'forestCharacteristics.totalForestArea',
+    calculated: true,
+    calculateFn: datum => state => ExtentOfForestState.getForestByYear(datum.name)(state),
+    rowHeaderComponent: () => {
+      const i18n = useI18n()
+      const countryIso = useCountryIso()
+
+      return (
+        <>
+          <div className="only-print">
+            {
+              i18n.t('forestCharacteristics.totalForestArea')
+            }
+          </div>
+          <Link to={`/country/${countryIso}/extentOfForest`} className="link no-print">
+            {
+              i18n.t('forestCharacteristics.totalForestArea')
+            }
+          </Link>
+
+        </>
+      )
+    }
   },
   {
     type: 'custom',

@@ -8,12 +8,19 @@ import { acceptNextDecimal } from '@webapp/utils/numberInput'
 
 import { ThousandSeparatedDecimalInput } from '@webapp/components/thousandSeparatedDecimalInput'
 import useCountryIso from '@webapp/components/hooks/useCountryIso'
+import useUserInfo from '@webapp/components/hooks/useUserInfo'
+import useTableCellClassOdp
+  from '@webapp/app/assessment/fra/components/tableWithOdp/components/hooks/useTableCellCssClassOdp'
 
 import { save, saveMany } from '@webapp/app/assessment/fra/components/tableWithOdp/actions'
-import useUserInfo from '@webapp/components/hooks/useUserInfo'
 
 const TableBodyCell = props => {
-  const { fra, section, disabled, field, datum, validator, rowIdx, colIdx, pasteUpdate } = props
+  const {
+    fra, section, disabled, field,
+    datum, validator, rowIdx, colIdx,
+    calculated, calculateFn,
+    pasteUpdate,
+  } = props
 
   const dispatch = useDispatch()
   const countryIso = useCountryIso()
@@ -25,14 +32,23 @@ const TableBodyCell = props => {
     return validator(datum)(state)
   })
 
-  const className = 'fra-table__cell'
+  const cssClassCalculated = useTableCellClassOdp(datum)
+
+  let className = calculated
+    ? cssClassCalculated
+    : 'fra-table__cell'
     + (datum.type === 'odp' && !isPrintingMode() ? ' odp-value-cell' : '')
-    + (valid ? '' : ' validation-error')
+
+  className += valid ? '' : ' validation-error'
 
   return (
     <td className={className} key={colIdx}>
       {
-        datum.type === 'odp'
+        calculated
+          ? (
+            formatNumber(useSelector(calculateFn(datum)))
+          )
+          : datum.type === 'odp'
           ? (
             <div className="number-input__container validation-error-sensitive-field">
               <div className="number-input__readonly-view">
@@ -69,6 +85,13 @@ TableBodyCell.propTypes = {
   rowIdx: PropTypes.number.isRequired,
   colIdx: PropTypes.number.isRequired,
   pasteUpdate: PropTypes.func.isRequired,
+
+  calculated: PropTypes.bool.isRequired,
+  calculateFn: PropTypes.func,
+}
+
+TableBodyCell.defaultProps = {
+  calculated: false,
 }
 
 export default TableBodyCell

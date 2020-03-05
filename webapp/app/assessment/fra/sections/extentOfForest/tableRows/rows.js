@@ -1,7 +1,8 @@
-import RowOtherLand from '@webapp/app/assessment/fra/sections/extentOfForest/tableRows/components/rowOtherLand'
-import RowTotalLand from '@webapp/app/assessment/fra/sections/extentOfForest/tableRows/components/rowTotalLand'
-import RowNoticeMessage from '@webapp/app/assessment/fra/sections/extentOfForest/tableRows/components/rowNoticeMessage'
+import React from 'react'
 
+import useI18n from '@webapp/components/hooks/useI18n'
+
+import * as ExtentOfForestState from '@webapp/app/assessment/fra/sections/extentOfForest/extentOfForestState'
 import * as ExtentOfForestValidator
   from '@webapp/app/assessment/fra/sections/extentOfForest/extentOfForestValidatorState'
 
@@ -21,16 +22,35 @@ const tableRows = [
     rowVariable: '(b)'
   },
   {
-    type: 'custom',
-    render: RowOtherLand
+    type: 'field',
+    field: 'otherLand',
+    validator: ExtentOfForestValidator.areasNotExceedingTotalLandAreaValidator,
+    className: 'fra-table__header-cell-left',
+    rowHeaderLabelKey: 'fraClass.otherLand',
+    rowVariable: '(c-a-b)',
+    calculated: true,
+    calculateFn: ExtentOfForestState.getOtherLand,
+  },
+  {
+    type: 'field',
+    field: 'faoStat',
+    className: 'fra-table__header-cell-left',
+    rowHeaderLabelKey: 'extentOfForest.totalLandArea',
+    rowVariable: '(c)',
+    calculated: true,
+    calculateFn: ExtentOfForestState.getFaoStatArea,
   },
   {
     type: 'custom',
-    render: RowTotalLand
-  },
-  {
-    type: 'custom',
-    render: RowNoticeMessage
+    render: () => (
+      <tr>
+        <td className="fra-table__notice-message-cell" rowSpan="2">
+          {
+            useI18n().t('extentOfForest.tableNoticeMessage')
+          }
+        </td>
+      </tr>
+    )
   },
   {
     type: 'validationErrors',

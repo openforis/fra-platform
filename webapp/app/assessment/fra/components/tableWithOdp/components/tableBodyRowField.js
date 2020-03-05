@@ -17,7 +17,10 @@ const TableBodyRowField = props => {
     pasteUpdate,
   } = props
 
-  const { rowHeaderLabelKey, field, className, rowVariable, validator } = row
+  const {
+    rowHeaderLabelKey, field, className, rowVariable = '', rowHeaderComponent, validator,
+    calculated, calculateFn,
+  } = row
   const rowHeader = i18n.t(rowHeaderLabelKey)
   const rowCssClass = useTableRowCssClass(field)
 
@@ -26,7 +29,11 @@ const TableBodyRowField = props => {
       key={field}
       className={rowCssClass}>
       <th className={className ? className : 'fra-table__category-cell'}>
-        {rowHeader} {rowVariable}
+        {
+          rowHeaderComponent
+            ? React.createElement(rowHeaderComponent)
+            : `${rowHeader} ${rowVariable}`
+        }
       </th>
       {
         fra.map((datum, colIdx) => (
@@ -41,6 +48,8 @@ const TableBodyRowField = props => {
               rowIdx={rowIdx}
               validator={validator}
               pasteUpdate={pasteUpdate}
+              calculated={calculated}
+              calculateFn={calculateFn}
             />
           )
         )
@@ -72,6 +81,10 @@ TableBodyRowField.propTypes = {
   rowIdx: PropTypes.number.isRequired,
   disabled: PropTypes.bool.isRequired,
   pasteUpdate: PropTypes.func.isRequired,
+
+  rowHeaderComponent: PropTypes.func,
+  calculated: PropTypes.bool,
+  calculateFn: PropTypes.func,
 }
 
 export default TableBodyRowField

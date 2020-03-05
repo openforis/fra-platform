@@ -9,33 +9,34 @@ import * as ForestCharacteristicsState
 // ==== Datum validator functions
 
 export const plantationForestValidator = datum => () => {
-  const { plantationForestArea, plantationForestIntroducedArea } = datum
+  const plantationForest = ForestCharacteristicsState.getPlantationForest(datum)()
+  const plantationForestIntroduced = ForestCharacteristicsState.getPlantationForestIntroduced(datum)()
 
-  if (R.isNil(plantationForestArea) || R.isNil(plantationForestIntroducedArea)) {
+  if (R.isNil(plantationForest) || R.isNil(plantationForestIntroduced)) {
     return true
   }
 
   const tolerance = -1
-  const difference = sub(plantationForestArea, plantationForestIntroducedArea)
+  const difference = sub(plantationForest, plantationForestIntroduced)
   return greaterThan(difference, tolerance)
 }
 
 export const totalForestAreaNotEqualToExtentOfForestValidator = datum => state => {
   const { name: year } = datum
+  const forest = ExtentOfForestState.getForestByYear(year)(state)
+  const totalForest = ForestCharacteristicsState.getTotalForest(datum)(state)
 
-  const forestArea = ExtentOfForestState.getForestAreaByYear(year)(state)
-  const totalForestArea = ForestCharacteristicsState.getTotalForestAreaByYear(year)(state)
-
-  if (R.isNil(forestArea) || R.isNil(totalForestArea)) {
+  if (R.isNil(forest) || R.isNil(totalForest)) {
     return true
   }
 
   const tolerance = 1
-  const absDifference = abs(sub(forestArea, totalForestArea))
+  const absDifference = abs(sub(forest, totalForest))
   return !greaterThanOrEqualTo(absDifference, tolerance)
 }
 
 //==== Validation messages
+
 export const getValidationMessages = data => state =>
   data.map(datum => {
     const messages = []

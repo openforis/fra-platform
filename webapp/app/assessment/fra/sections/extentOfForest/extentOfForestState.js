@@ -14,29 +14,25 @@ export const getForestArea2015Value = year => R.pipe(
   R.prop(year),
 )
 
-export const getFaoStatArea = year => R.pipe(
-  CountryState.getConfigFaoStat,
-  R.path([year, 'area']),
-)
-
 // ==== Datum getter functions
 
-export const getOtherLandArea = datum => state => {
-  const { name: year, forestArea, otherWoodedLand } = datum
-  const faoStatLandArea = getFaoStatArea(year)(state)
-  return sub(faoStatLandArea, sum([forestArea, otherWoodedLand]))
+export const getFaoStatArea = datum => R.pipe(
+  CountryState.getConfigFaoStat,
+  R.path([datum.name, 'area']),
+)
+
+export const getForest = datum => () => R.propOr(null, 'forestArea', datum)
+
+export const getOtherWoodedLand = datum => () => R.propOr(null, 'otherWoodedLand', datum)
+
+export const getOtherLand = datum => state => {
+  const forestArea = getForest(datum)()
+  const otherWoodedLand = getOtherWoodedLand(datum)()
+  const faoStatArea = getFaoStatArea(datum)(state)
+
+  return sub(faoStatArea, sum([forestArea, otherWoodedLand]))
 }
 
 // ==== By Year getter functions
 
-export const getForestAreaByYear = year => TableWithOdpState.getFieldByYear(section, 'forestArea', year)
-
-export const getOtherWoodedLandByYear = year => TableWithOdpState.getFieldByYear(section, 'otherWoodedLand', year)
-
-export const getOtherLandAreaByYear = year => state => {
-  const forestArea = getForestAreaByYear(year)(state)
-  const otherWoodedLand = getOtherWoodedLandByYear(year)(state)
-  const faoStatLandArea = getFaoStatArea(year)(state)
-
-  return sub(faoStatLandArea, sum([forestArea, otherWoodedLand]))
-}
+export const getForestByYear = year => TableWithOdpState.getFieldByYear(section, 'forestArea', year)

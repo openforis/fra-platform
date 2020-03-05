@@ -1,19 +1,25 @@
+import * as R from 'ramda'
+
 import { sum } from '@common/bignumberUtils'
 
-import * as TableWithOdpState from '@webapp/app/assessment/fra/components/tableWithOdp/tableWithOdpState'
+// const section = 'forestCharacteristics'
 
-const section = 'forestCharacteristics'
+export const getNaturalForest = datum => () => R.propOr(null, 'naturalForestArea', datum)
 
-// ==== By Year getter functions
+export const getPlantationForest = datum => () => R.propOr(null, 'plantationForestArea', datum)
 
-export const getPlantationForestAreaByYear = year => TableWithOdpState.getFieldByYear(section, 'plantationForestArea', year)
-export const getOtherPlantedForestAreaByYear = year => TableWithOdpState.getFieldByYear(section, 'otherPlantedForestArea', year)
-export const getNaturalForestAreaByYear = year => TableWithOdpState.getFieldByYear(section, 'naturalForestArea', year)
+export const getPlantationForestIntroduced = datum => () => R.propOr(null, 'plantationForestIntroducedArea', datum)
 
-export const getTotalForestAreaByYear = year => state => {
-  const plantation = getPlantationForestAreaByYear(year)(state)
-  const otherPlanted = getOtherPlantedForestAreaByYear(year)(state)
-  const naturalForest = getNaturalForestAreaByYear(year)(state)
+export const getOtherPlantedForest = datum => () => R.propOr(null, 'otherPlantedForestArea', datum)
 
-  return sum([plantation, otherPlanted, naturalForest])
+export const getPlantedForest = datum => () => {
+  const plantationForest = getPlantationForest(datum)()
+  const otherPlantedForest = getOtherPlantedForest(datum)()
+  return sum([plantationForest, otherPlantedForest])
+}
+
+export const getTotalForest = datum => () => {
+  const naturalForest = getNaturalForest(datum)()
+  const plantedForest = getPlantedForest(datum)()
+  return sum([naturalForest, plantedForest])
 }
