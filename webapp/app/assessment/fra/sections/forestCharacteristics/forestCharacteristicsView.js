@@ -1,21 +1,19 @@
 import React, { useEffect } from 'react'
 import { connect, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
 import * as R from 'ramda'
 
-import { abs, formatNumber, greaterThan, greaterThanOrEqualTo, sub, sum } from '@common/bignumberUtils'
 import { isFRA2020SectionEditDisabled } from '@webapp/utils/assessmentAccess'
 import { isPrintingMode, isPrintingOnlyTables } from '@webapp/app/assessment/components/print/printAssessment'
-import { getForestAreaForYear, hasOdps } from '@common/extentOfForestHelper'
+import { hasOdps } from '@common/extentOfForestHelper'
 
-import { GenerateFraValuesControl,TableWithOdp } from '@webapp/app/assessment/fra/components/tableWithOdp/tableWithOdp'
+import TableWithOdp from '@webapp/app/assessment/fra/components/tableWithOdp'
 import ChartWrapper from '@webapp/app/assessment/fra/sections/extentOfForest/chart/chartWrapper'
 import NationalDataDescriptions from '@webapp/app/assessment/components/description/nationalDataDescriptions'
 import AnalysisDescriptions from '@webapp/app/assessment/components/description/analysisDescriptions'
 import GeneralComments from '@webapp/app/assessment/components/description/generalComments'
 import DefinitionLink from '@webapp/components/definitionLink'
-import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
-import NationalDataPointsPrintView from '@webapp/app/assessment/fra/sections/originalDataPoint/nationalDataPointsPrintView'
+import NationalDataPointsPrintView
+  from '@webapp/app/assessment/fra/sections/originalDataPoint/nationalDataPointsPrintView'
 import useI18n from '@webapp/components/hooks/useI18n'
 import useUserInfo from '@webapp/components/hooks/useUserInfo'
 
@@ -24,211 +22,24 @@ import * as AppState from '@webapp/app/appState'
 import * as CountryState from '@webapp/app/country/countryState'
 import * as ReviewState from '@webapp/app/assessment/components/review/reviewState'
 
-import { fetchItem, generateFraValues, save, saveMany} from '@webapp/app/assessment/fra/components/tableWithOdp/actions'
+import { fetchItem, generateFraValues } from '@webapp/app/assessment/fra/components/tableWithOdp/actions'
 import { fetchLastSectionUpdateTimestamp } from '@webapp/app/components/audit/actions'
 import { saveCountryConfigSetting } from '@webapp/app/country/actions'
 
-const mapIndexed = R.addIndex(R.map)
+import tableRows from '@webapp/app/assessment/fra/sections/forestCharacteristics/tableRows'
+
 const anchorName = '1b'
 const sectionName = 'forestCharacteristics'
-const odpValueCellClass = (fraColumn) => fraColumn.type === 'odp' && !isPrintingMode() ? 'odp-value-cell-total' : 'fra-table__calculated-cell'
 
 const ForestCharacteristics = props => {
 
-  const { i18n, isEditDataDisabled, fra, hasData, openCommentThreadTarget } = props
-
-  const totalForestArea = (fraColumn) =>
-    sum([
-      fraColumn.plantationForestArea,
-      fraColumn.otherPlantedForestArea,
-      fraColumn.naturalForestArea
-    ])
-
-  const totalForestAreaNotEqualToExtentOfForest = (eofForestArea, totalForestArea) => {
-    if (R.isNil(eofForestArea)) return false
-    if (R.isNil(totalForestArea)) return false
-    const tolerance = 1
-    const absDifference = abs(sub(eofForestArea, totalForestArea))
-    return greaterThanOrEqualTo(absDifference, tolerance)
-  }
-
-  const plantationForestValidator = fraColumn => {
-    const plantationForest = fraColumn.plantationForestArea
-    const introduced = fraColumn.plantationForestIntroducedArea
-    if (R.isNil(plantationForest) || R.isNil(introduced)) return true
-    const tolerance = -1
-    const difference = sub(plantationForest, introduced)
-    return greaterThan(difference, tolerance)
-  }
-
-  const rowHighlightClass = (target) => !R.isEmpty(openCommentThreadTarget) && R.isEmpty(R.difference(openCommentThreadTarget, [target])) ? 'fra-row-comments__open' : ''
-
-  const plantedForestRow = fra =>
-    <tr className={rowHighlightClass('plantedForest')}>
-      <th className="fra-table__header-cell-left">
-        {i18n.t('forestCharacteristics.plantedForest')} (b)
-      </th>
-      {
-        mapIndexed((fraColumn, i) => {
-          const plantedForestArea = sum([fraColumn.plantationForestArea, fraColumn.otherPlantedForestArea])
-          return <td className={odpValueCellClass(fraColumn)} key={i}>
-            {formatNumber(plantedForestArea)}
-          </td>
-        }, R.values(fra))
-      }
-      <td className="fra-table__row-anchor-cell">
-        <div className="fra-table__review-indicator-anchor">
-          {
-            isEditDataDisabled
-              ? null
-              : <ReviewIndicator key="plantedForest"
-                                 section={sectionName}
-                                 title={i18n.t('forestCharacteristics.plantedForest')}
-                                 target={['plantedForest']}
-                                 countryIso={props.countryIso}/>
-          }
-        </div>
-      </td>
-    </tr>
-
-  const totalRow = fra =>
-    <tr className={rowHighlightClass('total')}>
-      <th className="fra-table__header-cell-left">
-        {i18n.t('forestCharacteristics.total')} (a+b)
-      </th>
-      {
-        mapIndexed((fraColumn, i) => {
-          const forestArea = totalForestArea(fraColumn)
-          const eofForestArea = getForestAreaForYear(props.extentOfForest, fraColumn.name)
-          const validationErrorClass =
-            totalForestAreaNotEqualToExtentOfForest(eofForestArea, forestArea)
-              ? 'validation-error'
-              : ''
-          return <td className={`${odpValueCellClass(fraColumn)} ${validationErrorClass}`} key={i}>
-            {formatNumber(forestArea)}
-          </td>
-        }, R.values(fra))
-      }
-      <td className="fra-table__row-anchor-cell">
-        <div className="fra-table__review-indicator-anchor">
-          {
-            isEditDataDisabled
-              ? null
-              : <ReviewIndicator key="total"
-                                 section={sectionName}
-                                 title={i18n.t('forestCharacteristics.total')}
-                                 target={['total']}
-                                 countryIso={props.countryIso}/>
-          }
-        </div>
-      </td>
-    </tr>
-
-  const totalForestAreaRow = fra =>
-    <tr className={rowHighlightClass('totalForestArea')}>
-      <th className="fra-table__header-cell-left">
-        <div className="only-print">
-          {i18n.t('forestCharacteristics.totalForestArea')}
-        </div>
-        <Link to={`/country/${props.countryIso}/extentOfForest`} className="link no-print">
-          {i18n.t('forestCharacteristics.totalForestArea')}
-        </Link>
-      </th>
-      {
-        mapIndexed((fraColumn, i) => {
-          const eofForestArea = getForestAreaForYear(props.extentOfForest, fraColumn.name)
-          return <td className={`${odpValueCellClass(fraColumn)}`} key={i}>
-            {formatNumber(eofForestArea)}
-          </td>
-        }, R.values(fra))
-      }
-      <td className="fra-table__row-anchor-cell">
-        <div className="fra-table__review-indicator-anchor">
-          {
-            isEditDataDisabled
-              ? null
-              : <ReviewIndicator key="totalForestArea"
-                                 section={sectionName}
-                                 title={i18n.t('forestCharacteristics.totalForestArea')}
-                                 target={['totalForestArea']}
-                                 countryIso={props.countryIso}/>
-          }
-        </div>
-      </td>
-    </tr>
-
-  const validationErrorMessages = fra =>
-    R.map(fraColumn => {
-      const forestArea = totalForestArea(fraColumn)
-      const eofForestArea = getForestAreaForYear(props.extentOfForest, fraColumn.name)
-      const validationErrors =
-        R.reject(
-          R.isNil,
-          [
-            !plantationForestValidator(fraColumn)
-              ? i18n.t('generalValidation.subCategoryExceedsParent')
-              : null,
-            totalForestAreaNotEqualToExtentOfForest(eofForestArea, forestArea)
-              ? i18n.t('generalValidation.forestAreaDoesNotMatchExtentOfForest')
-              : null
-          ]
-        )
-      return validationErrors
-    }, R.values(fra))
-
-  const focRows = [
-    {
-      type: 'field',
-      field: 'naturalForestArea',
-      rowHeader: i18n.t('forestCharacteristics.naturalForestArea'),
-      rowVariable: '(a)'
-    },
-    {
-      type: 'custom',
-      render: plantedForestRow
-    },
-    {
-      type: 'field',
-      field: 'plantationForestArea',
-      rowHeader: i18n.t('forestCharacteristics.plantationForestArea')
-    },
-    {
-      type: 'field',
-      field: 'plantationForestIntroducedArea',
-      validator: plantationForestValidator,
-      className: 'fra-table__subcategory-cell',
-      rowHeader: i18n.t('forestCharacteristics.plantationForestIntroducedArea')
-    },
-    {
-      type: 'field',
-      field: 'otherPlantedForestArea',
-      rowHeader: i18n.t('forestCharacteristics.otherPlantedForestArea')
-    },
-    {
-      type: 'custom',
-      render: totalRow
-    },
-    {
-      type: 'custom',
-      render: totalForestAreaRow
-    },
-    {
-      type: 'custom',
-      render: () => <tr>
-        <td rowSpan="2"></td>
-      </tr>
-    },
-    {
-      type: 'validationErrors',
-      validationErrorMessages
-    }
-  ]
+  const { i18n, isEditDataDisabled, fra, hasData, useOriginalDataPoints, useOriginalDataPointsInFoc } = props
 
   const handleOdpButtonClick = () => {
     props.saveCountryConfigSetting(
       props.countryIso,
       'useOriginalDataPointsInFoc',
-      !props.useOriginalDataPointsInFoc,
+      !useOriginalDataPointsInFoc,
       () => props.fetchItem(sectionName, props.countryIso)
     )
   }
@@ -240,13 +51,13 @@ const ForestCharacteristics = props => {
     </h1>
 
     {
-      props.useOriginalDataPoints
+      useOriginalDataPoints
         ? <>
-          <button className={`btn btn-${props.useOriginalDataPointsInFoc ? 'secondary' : 'primary'} no-print`}
+          <button className={`btn btn-${useOriginalDataPointsInFoc ? 'secondary' : 'primary'} no-print`}
                   onClick={() => handleOdpButtonClick()}
                   disabled={isEditDataDisabled}>
             {
-              props.useOriginalDataPointsInFoc
+              useOriginalDataPointsInFoc
                 ? i18n.t('forestCharacteristics.dontUseOriginalDataPoints')
                 : i18n.t('forestCharacteristics.useOriginalDataPoints')
             }
@@ -256,7 +67,7 @@ const ForestCharacteristics = props => {
         : null
     }
     {
-      props.useOriginalDataPointsInFoc
+      useOriginalDataPointsInFoc
         ? isPrintingMode()
         ? <NationalDataPointsPrintView {...props} section={sectionName}/>
         : null
@@ -280,7 +91,7 @@ const ForestCharacteristics = props => {
     {
       (!isPrintingMode() || (!isPrintingOnlyTables() && hasData)) &&
       <>
-        <div className="page-break" />
+        <div className="page-break"/>
 
         <ChartWrapper
           fra={fra}
@@ -304,35 +115,17 @@ const ForestCharacteristics = props => {
         />
       </>
     }
-    {
-      props.useOriginalDataPointsInFoc && !isEditDataDisabled
-        ? <div className="app-view__section-toolbar no-print">
-          <GenerateFraValuesControl section={sectionName} rows={focRows} {...props} />
-          {
-            props.odpDirty
-              ? <div className="support-text">
-                {i18n.t('nationalDataPoint.remindDirtyOdp')}
-              </div>
-              : null
-          }
-        </div>
-        : null
-    }
-
-    {
-      !isPrintingOnlyTables() &&
-      <div className="page-break" />
-    }
 
     <TableWithOdp
-      sectionAnchor={anchorName}
-      section={sectionName}
-      rows={focRows}
-      tableHeader={i18n.t('forestCharacteristics.areaUnitLabel')}
-      categoryHeader={i18n.t('forestCharacteristics.categoryHeader')}
-      {...props}
       fra={fra}
+      rows={tableRows}
+      section={sectionName}
+      sectionAnchor={anchorName}
       disabled={isEditDataDisabled}
+      generateValues={useOriginalDataPointsInFoc}
+      useOriginalDataPoints={useOriginalDataPoints}
+      tableHeaderLabel={i18n.t('forestCharacteristics.areaUnitLabel')}
+      categoryHeaderLabel={i18n.t('forestCharacteristics.categoryHeader')}
     />
     <GeneralComments
       section={sectionName}
@@ -395,8 +188,6 @@ const mapStateToProps = state => {
 export default connect(
   mapStateToProps,
   {
-    save,
-    saveMany,
     fetchItem,
     generateFraValues,
     fetchLastSectionUpdateTimestamp,
