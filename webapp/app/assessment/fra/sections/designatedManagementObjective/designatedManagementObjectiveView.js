@@ -9,9 +9,9 @@ import {
 } from './tableSpecs'
 import DefinitionLink from '@webapp/components/definitionLink'
 import { fetchLastSectionUpdateTimestamp } from '@webapp/app/components/audit/actions'
-import NationalDataDescriptions from '@webapp/components/description/nationalDataDescriptions'
-import AnalysisDescriptions from '@webapp/components/description/analysisDescriptions'
-import GeneralComments from '@webapp/components/description/generalComments'
+import NationalDataDescriptions from '@webapp/app/assessment/components/description/nationalDataDescriptions'
+import AnalysisDescriptions from '@webapp/app/assessment/components/description/analysisDescriptions'
+import GeneralComments from '@webapp/app/assessment/components/description/generalComments'
 
 import { isFRA2020SectionEditDisabled } from '@webapp/utils/assessmentAccess'
 import * as R from 'ramda'
