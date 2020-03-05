@@ -24,7 +24,7 @@ export const plantationForestValidator = datum => () => {
 export const totalForestAreaNotEqualToExtentOfForestValidator = datum => state => {
   const { name: year } = datum
   const forest = ExtentOfForestState.getForestByYear(year)(state)
-  const totalForest = ForestCharacteristicsState.getTotalForest(datum)(state)
+  const totalForest = ForestCharacteristicsState.getTotalForest(datum)()
 
   if (R.isNil(forest) || R.isNil(totalForest)) {
     return true

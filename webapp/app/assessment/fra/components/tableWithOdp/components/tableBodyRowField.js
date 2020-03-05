@@ -81,10 +81,6 @@ TableBodyRowField.propTypes = {
   rowIdx: PropTypes.number.isRequired,
   disabled: PropTypes.bool.isRequired,
   pasteUpdate: PropTypes.func.isRequired,
-
-  rowHeaderComponent: PropTypes.func,
-  calculated: PropTypes.bool,
-  calculateFn: PropTypes.func,
 }
 
 export default TableBodyRowField
