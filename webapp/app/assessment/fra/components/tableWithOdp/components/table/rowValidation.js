@@ -5,7 +5,7 @@ import * as R from 'ramda'
 
 import useI18n from '@webapp/components/hooks/useI18n'
 
-const TableBodyRowValidation = props => {
+const RowValidation = props => {
   const { row, fra } = props
 
   const i18n = useI18n()
@@ -37,9 +37,9 @@ const TableBodyRowValidation = props => {
   )
 }
 
-TableBodyRowValidation.propTypes = {
+RowValidation.propTypes = {
   fra: PropTypes.array.isRequired,
   row: PropTypes.object.isRequired,
 }
 
-export default TableBodyRowValidation
+export default RowValidation

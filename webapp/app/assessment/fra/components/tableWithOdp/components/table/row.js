@@ -1,17 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import TableBodyRowField from '@webapp/app/assessment/fra/components/tableWithOdp/components/tableBodyRowField'
-import TableBodyRowValidation
-  from '@webapp/app/assessment/fra/components/tableWithOdp/components/tableBodyRowValidation'
+import RowField from '@webapp/app/assessment/fra/components/tableWithOdp/components/table/rowField'
+import RowValidation
+  from '@webapp/app/assessment/fra/components/tableWithOdp/components/table/rowValidation'
 import useUserInfo from '@webapp/components/hooks/useUserInfo'
 
 const rowRenderers = {
-  field: TableBodyRowField,
-  validationErrors: TableBodyRowValidation,
+  field: RowField,
+  validationErrors: RowValidation,
 }
 
-const TableBodyRow = props => {
+const Row = props => {
   const userInfo = useUserInfo()
 
   const { row } = props
@@ -29,7 +29,7 @@ const TableBodyRow = props => {
   return React.createElement(renderer, props)
 }
 
-TableBodyRow.propTypes = {
+Row.propTypes = {
   fra: PropTypes.array.isRequired,
   section: PropTypes.string.isRequired,
   row: PropTypes.object.isRequired,
@@ -38,4 +38,4 @@ TableBodyRow.propTypes = {
   pasteUpdate: PropTypes.func.isRequired,
 }
 
-export default TableBodyRow
+export default Row

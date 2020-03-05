@@ -9,7 +9,7 @@ import Tooltip from '@webapp/components/tooltip'
 import useCountryIso from '@webapp/components/hooks/useCountryIso'
 import useI18n from '@webapp/components/hooks/useI18n'
 
-const TableHeaderCell = props => {
+const HeaderCell = props => {
   const countryIso = useCountryIso()
   const i18n = useI18n()
 
@@ -46,9 +46,9 @@ const TableHeaderCell = props => {
   )
 }
 
-TableHeaderCell.propTypes = {
+HeaderCell.propTypes = {
   datum: PropTypes.object.isRequired,
   section: PropTypes.string.isRequired,
 }
 
-export default TableHeaderCell
+export default HeaderCell

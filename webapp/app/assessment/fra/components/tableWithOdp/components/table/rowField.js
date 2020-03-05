@@ -1,14 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import TableBodyCell from '@webapp/app/assessment/fra/components/tableWithOdp/components/tableBodyCell'
+import Cell from '@webapp/app/assessment/fra/components/tableWithOdp/components/table/cell'
 import useTableRowCssClass
   from '@webapp/app/assessment/fra/components/tableWithOdp/components/hooks/useTableRowCssClass'
 import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
 import useI18n from '@webapp/components/hooks/useI18n'
 import useCountryIso from '@webapp/components/hooks/useCountryIso'
 
-const TableBodyRowField = props => {
+const RowField = props => {
   const countryIso = useCountryIso()
   const i18n = useI18n()
 
@@ -37,7 +37,7 @@ const TableBodyRowField = props => {
       </th>
       {
         fra.map((datum, colIdx) => (
-            <TableBodyCell
+            <Cell
               key={colIdx}
               colIdx={colIdx}
               datum={datum}
@@ -74,7 +74,7 @@ const TableBodyRowField = props => {
   )
 }
 
-TableBodyRowField.propTypes = {
+RowField.propTypes = {
   fra: PropTypes.array.isRequired,
   section: PropTypes.string.isRequired,
   row: PropTypes.object.isRequired,
@@ -83,4 +83,4 @@ TableBodyRowField.propTypes = {
   pasteUpdate: PropTypes.func.isRequired,
 }
 
-export default TableBodyRowField
+export default RowField

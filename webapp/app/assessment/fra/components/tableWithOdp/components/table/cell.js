@@ -14,7 +14,7 @@ import useTableCellClassOdp
 
 import { save, saveMany } from '@webapp/app/assessment/fra/components/tableWithOdp/actions'
 
-const TableBodyCell = props => {
+const Cell = props => {
   const {
     fra, section, disabled, field,
     datum, validator, rowIdx, colIdx,
@@ -75,7 +75,7 @@ const TableBodyCell = props => {
   )
 }
 
-TableBodyCell.propTypes = {
+Cell.propTypes = {
   fra: PropTypes.array.isRequired,
   section: PropTypes.string.isRequired,
   disabled: PropTypes.bool.isRequired,
@@ -90,8 +90,8 @@ TableBodyCell.propTypes = {
   calculateFn: PropTypes.func,
 }
 
-TableBodyCell.defaultProps = {
+Cell.defaultProps = {
   calculated: false,
 }
 
-export default TableBodyCell
+export default Cell
