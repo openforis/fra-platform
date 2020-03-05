@@ -21,6 +21,7 @@ const LandingView = () => {
   const i18n = useI18n()
 
   const sections = useLandingViewSections()
+  const userAndCountry = userInfo && countryIso
 
   return (
     <div className="app-view__content">
@@ -35,7 +36,7 @@ const LandingView = () => {
         </h1>
         <div className="landing__page-menu">
           {
-            userInfo && sections.map(({ name }, i) => (
+            userAndCountry && sections.map(({ name }, i) => (
               <NavLink
                 key={i}
                 to={`${url}/${name}/`}
@@ -49,11 +50,11 @@ const LandingView = () => {
       </div>
 
       {
-        userInfo
+        userAndCountry
           ? (
             <Switch>
-              <Route exact path={path}>
-                <Redirect to={`${url}overview/`}/>
+              <Route exact path="/">
+                <Redirect to={`/country/${countryIso}/overview`}/>
               </Route>
               {
                 sections.map((section, i) =>
