@@ -62,7 +62,7 @@ const CountrySelection = props => {
         </span>
 
         {
-          userInfo &&
+          userInfo && country &&
           <span className="country-selection__user-role">
           {
             i18n.t(getRoleForCountryLabelKey(countryIso, userInfo))
