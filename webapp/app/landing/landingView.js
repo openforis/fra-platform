@@ -53,8 +53,8 @@ const LandingView = () => {
         userAndCountry
           ? (
             <Switch>
-              <Route exact path={path}>
-                <Redirect to={`/country/${countryIso}/overview/`}/>
+              <Route exact path="/">
+                <Redirect to={`/country/${countryIso}/overview`}/>
               </Route>
               {
                 sections.map((section, i) =>
