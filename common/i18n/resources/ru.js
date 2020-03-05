@@ -10,6 +10,7 @@ module.exports.translation = {
   common: {
     fraPlatform: 'Платформой ОЛР',
     login: 'Логин',
+    statisticalFactsheets: 'Статистические бюллетени',
   },
 
   countrySelection: {

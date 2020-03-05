@@ -10,6 +10,7 @@ module.exports.translation = {
   common: {
     fraPlatform: 'Plataforma de FRA',
     login: 'Entrar',
+    statisticalFactsheets: 'Fichas estadísticas',
   },
 
   countrySelection: {
