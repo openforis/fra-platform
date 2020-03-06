@@ -6,11 +6,11 @@ const { allowedToEditDataCheck } = require('../assessment/assessmentEditAccessCo
 const requireCountryEditPermission = async (req, res, next) => {
   const { countryIso, section } = Request.getParams(req)
   const user = Request.getUser(req)
-
   try {
     checkCountryAccessFromReqParams(req)
     // Section is returned as string, check if it's not 'undefined'
-    if (section && section !== 'undefined') {
+    const validSection = section && section !== 'undefined'
+    if (validSection && !Request.isGet(req)) {
       await allowedToEditDataCheck(countryIso, user, section)
     }
     next()
