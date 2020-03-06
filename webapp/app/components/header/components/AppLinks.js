@@ -18,7 +18,7 @@ const AppLinks = ({ i18n }) => {
       isActive={isActive}
       to={`/`}
       className="app-header__menu-item">
-      FRA Platform
+      {i18n.t('common.fraPlatform')}
     </NavLink>
     <div className="nav__divider"/>
   </>
