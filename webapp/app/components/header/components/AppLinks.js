@@ -20,7 +20,7 @@ const AppLinks = ({ i18n }) => {
       className="app-header__menu-item">
       {i18n.t('common.fraPlatform')}
     </NavLink>
-    <div className="nav__divider"/>
+    <div className="app-header__menu-item-separator" />
   </>
 }
 
