@@ -9,7 +9,8 @@ const requireCountryEditPermission = async (req, res, next) => {
   try {
     checkCountryAccessFromReqParams(req)
     // Section is returned as string, check if it's not 'undefined'
-    if (section && section !== 'undefined' && (user && Request.getMethod(req) != 'GET')) {
+    const validSection = section && section !== 'undefined'
+    if (validSection && !Request.isGet(req)) {
       await allowedToEditDataCheck(countryIso, user, section)
     }
     next()

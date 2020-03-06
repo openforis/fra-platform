@@ -22,7 +22,13 @@ const sendErr = (res, err) => {
 }
 
 /* Request Utils  */
+const methods = {
+  GET: 'GET'
+}
+
 const getMethod = req => R.prop('method', req)
+const isGet = req => getMethod(req) === methods.GET
+
 const getParams = req =>
   R.pipe(
     R.mergeLeft(R.prop('query', req)),
@@ -45,6 +51,7 @@ const getUserRoles = R.pipe(getUser, User.getRoles)
 module.exports = {
   appUri,
 
+  isGet,
   getMethod,
   getParams,
   send404,
