@@ -20,7 +20,7 @@ const AdminLinks = () => {
 
   return (
     <>
-      <div key="v-separator" className="app-header__menu-item-separator" style={{ margin: '0 20px' }}/>
+      <div key="v-separator" className="app-header__menu-item-separator"/>
       <Link key="admin-link"
             to={`/country/${countryIso}/admin/`}
             className="app-header__menu-item">
