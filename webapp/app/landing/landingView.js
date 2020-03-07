@@ -2,7 +2,7 @@ import './style.less'
 
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { NavLink, Redirect, Route, Switch, useRouteMatch } from 'react-router-dom'
+import { NavLink, Redirect, Route, Switch } from 'react-router-dom'
 
 import AboutView from '@webapp/app/landing/views/aboutView'
 import useCountryIso from '@webapp/components/hooks/useCountryIso'
@@ -14,12 +14,12 @@ import { getCountryName } from '@webapp/app/country/actions'
 
 const LandingView = () => {
   const dispatch = useDispatch()
-  const { path, url } = useRouteMatch()
 
   const countryIso = useCountryIso()
   const userInfo = useUserInfo()
   const i18n = useI18n()
 
+  const url = `/country/${countryIso}/`
   const sections = useLandingViewSections()
   const userAndCountry = userInfo && countryIso
 
@@ -39,7 +39,7 @@ const LandingView = () => {
             userAndCountry && sections.map(({ name }, i) => (
               <NavLink
                 key={i}
-                to={`${url}/${name}/`}
+                to={`${url}${name}/`}
                 className="landing__page-menu-button"
                 activeClassName="disabled">
                 {i18n.t(`landing.sections.${name}`)}
@@ -53,12 +53,12 @@ const LandingView = () => {
         userAndCountry
           ? (
             <Switch>
-              <Route exact path="/">
-                <Redirect to={`/country/${countryIso}/overview`}/>
+              <Route exact path={['/', url]}>
+                <Redirect to={`${url}overview/`}/>
               </Route>
               {
                 sections.map((section, i) =>
-                  <Route key={i} path={`${path}${section.name}/`} component={section.component}/>)
+                  <Route key={i} path={`${url}${section.name}/`} component={section.component}/>)
               }
             </Switch>
           )
