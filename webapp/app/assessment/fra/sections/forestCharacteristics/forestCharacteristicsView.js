@@ -33,7 +33,7 @@ const sectionName = 'forestCharacteristics'
 
 const ForestCharacteristics = props => {
 
-  const { i18n, isEditDataDisabled, fra, hasData, useOriginalDataPoints, useOriginalDataPointsInFoc } = props
+  const { i18n, userInfo, isEditDataDisabled, fra, hasData, useOriginalDataPoints, useOriginalDataPointsInFoc } = props
 
   const handleOdpButtonClick = () => {
     props.saveCountryConfigSetting(
@@ -51,21 +51,21 @@ const ForestCharacteristics = props => {
     </h1>
 
     {
-      useOriginalDataPoints
-        ? <>
-          <button className={`btn btn-${useOriginalDataPointsInFoc ? 'secondary' : 'primary'} no-print`}
-                  onClick={() => handleOdpButtonClick()}
-                  disabled={isEditDataDisabled}>
-            {
-              useOriginalDataPointsInFoc
-                ? i18n.t('forestCharacteristics.dontUseOriginalDataPoints')
-                : i18n.t('forestCharacteristics.useOriginalDataPoints')
-            }
-          </button>
-          <hr className="no-print"/>
-        </>
-        : null
+      useOriginalDataPoints && userInfo &&
+      <>
+        <button className={`btn btn-${useOriginalDataPointsInFoc ? 'secondary' : 'primary'} no-print`}
+                onClick={() => handleOdpButtonClick()}
+                disabled={isEditDataDisabled}>
+          {
+            useOriginalDataPointsInFoc
+              ? i18n.t('forestCharacteristics.dontUseOriginalDataPoints')
+              : i18n.t('forestCharacteristics.useOriginalDataPoints')
+          }
+        </button>
+        <hr className="no-print"/>
+      </>
     }
+
     {
       useOriginalDataPointsInFoc
         ? isPrintingMode()
