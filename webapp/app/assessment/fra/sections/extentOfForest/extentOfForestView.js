@@ -65,7 +65,7 @@ const ExtentOfForest = (props) => {
         ? isPrintingMode() && <NationalDataPointsPrintView {...props} section={sectionName}/>
         : <>
           <NationalDataDescriptions key="ndd" section={sectionName} countryIso={props.countryIso}
-                                    disabled={isEditDataDisabled}/>,
+                                    disabled={isEditDataDisabled}/>
           <AnalysisDescriptions key="ad" section={sectionName} countryIso={props.countryIso}
                                 disabled={isEditDataDisabled}/>
         </>
