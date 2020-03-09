@@ -96,8 +96,6 @@ const assessments = {
       children: [
         {
           tableNo: '3a',
-          label: 'designatedManagementObjective.designatedManagementObjective',
-          pathTemplate: '/country/:countryIso/designatedManagementObjective/',
           section: 'designatedManagementObjective'
         },
         {

@@ -23,7 +23,7 @@ const Item = props => {
       className="nav-section__item"
       activeClassName="selected">
       <div className='nav-section__order'>{tableNo}</div>
-      <div className='nav-section__label'>{i18n.t(label)}</div>
+      <div className='nav-section__label'>{i18n.t(`${section}.${section}`)}</div>
       <div className="nav-section__status-content">
         <ReviewStatus status={reviewStatus}/>
       </div>
