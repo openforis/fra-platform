@@ -33,8 +33,10 @@ import PanEuropeanIndicatorsView from './assessment/panEuropean/sections/indicat
 import EditUserView from './user/userManagement/editUserView'
 import AdminView from '@webapp/app/admin/adminView'
 import NotFound from '@webapp/app/notfound'
+import AssessmentSectionView from '@webapp/app/assessment/components/section/assessmentSectionView'
 
 const routes = [
+  { path: '/assessment/:countryIso/:assessmentType/:section', component: AssessmentSectionView },
   { path: '/country/:countryIso/admin/', component: AdminView },
   { path: '/country/:countryIso/odps/', component: OriginalDataListView },
   { path: '/country/:countryIso/odp/:tab/:odpId/', component: OriginalDataPointView },

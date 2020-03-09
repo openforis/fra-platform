@@ -29,7 +29,7 @@ const Routes = () => {
         <LoginView/>
       </Route>
       <Route
-        path={['/country/:countryIso/', '/']}
+        path={['/:app/:countryIso/', '/']}
         render={props => (
           <DynamicImport
             {...props}

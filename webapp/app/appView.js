@@ -31,7 +31,7 @@ const LoggedInView = () => {
   const userInfo = useUserInfo()
   const initialDataLoaded = useSelector(isInitialDataLoaded)
   const navigationVisible = useSelector(NavigationState.isVisible)
-  
+
   useEffect(() => {
     dispatch(fetchCountryList())
   }, [])
@@ -46,7 +46,6 @@ const LoggedInView = () => {
     return null
   }
 
-
   return (
     <Switch>
       <Route
@@ -54,7 +53,7 @@ const LoggedInView = () => {
         path="/country/:countryIso/print/:assessment/"
         component={PrintAssessmentView}
       />
-      
+
       <Route path="/statisticalFactsheets" component={StatisticalFactsheets}/>
 
       <Route>

@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
-import * as R from 'ramda'
 
 import { NavLink } from 'react-router-dom'
 import ReviewStatus from '@webapp/app/components/navigation/components/assessment/section/reviewStatus'
@@ -10,19 +9,17 @@ import useI18n from '@webapp/components/hooks/useI18n'
 
 import * as ReviewStatusState from '@webapp/app/country/reviewStatusState'
 
-const getLinkTo = (pathTemplate, countryIso) => R.replace(/:countryIso/, countryIso, pathTemplate)
-
 const Item = props => {
   const countryIso = useCountryIso()
   const i18n = useI18n()
 
-  const { item } = props
-  const { section, pathTemplate, tableNo, label } = item
+  const { assessmentType, item } = props
+  const { section, tableNo, label } = item
   const reviewStatus = useSelector(ReviewStatusState.getStatusSection(section))
 
   return (
     <NavLink
-      to={getLinkTo(pathTemplate, countryIso)}
+      to={`/assessment/${countryIso}/${assessmentType}/${section}/`}
       className="nav-section__item"
       activeClassName="selected">
       <div className='nav-section__order'>{tableNo}</div>
@@ -35,6 +32,7 @@ const Item = props => {
 }
 
 Item.propTypes = {
+  assessmentType: PropTypes.string.isRequired,
   item: PropTypes.object.isRequired
 }
 
