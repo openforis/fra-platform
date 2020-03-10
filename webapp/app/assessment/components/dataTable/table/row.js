@@ -30,6 +30,7 @@ const Row = props => {
 
 Row.propTypes = {
   data: PropTypes.array.isRequired,
+  assessmentType: PropTypes.string.isRequired,
   sectionName: PropTypes.string.isRequired,
   tableName: PropTypes.string.isRequired,
   row: PropTypes.object.isRequired,

@@ -61,7 +61,7 @@ const AssessmentSectionView = () => {
   return (
     <>
       <h2 className="title only-print">
-        {`${isPrintingOnlyTables() ? '' : sectionAnchor}${i18n.t(`${sectionName}.${sectionName}`)}`}
+        {`${isPrintingOnlyTables() ? '' : sectionAnchor + ' '}${i18n.t(`${sectionName}.${sectionName}`)}`}
       </h2>
 
       <div className="app-view__content">

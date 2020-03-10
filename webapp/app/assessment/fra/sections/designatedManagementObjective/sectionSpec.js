@@ -51,6 +51,7 @@ const tableSection1 = SectionSpec.newTableSection(
           'designatedManagementObjective.totalForestArea',
           FRA.years.map(() => SectionSpec.newColCalculated(ExtentOfForestState.getForestByYearFraIdx)),
           null,
+          FRA.sections['1'].children.a.name
         ),
       ]
     )

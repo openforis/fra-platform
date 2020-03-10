@@ -30,11 +30,11 @@ export const newRowHeader = cols => ({
   cols,
 })
 
-export const newRowData = (labelKey, cols, variableNo = null) => ({
+export const newRowData = (labelKey, cols, variableNo = null, linkToSection = null) => ({
   type: 'data',
   cols: [
     {
-      type: 'header', labelKey, variableNo, className: 'fra-table__category-cell'
+      type: 'header', labelKey, variableNo, linkToSection, className: 'fra-table__category-cell'
     },
     ...cols
   ]

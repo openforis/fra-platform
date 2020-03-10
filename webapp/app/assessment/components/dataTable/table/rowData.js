@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import { Link } from 'react-router-dom'
 import Cell from '@webapp/app/assessment/components/dataTable/table/cell'
 import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
 import useI18n from '@webapp/components/hooks/useI18n'
@@ -12,7 +13,7 @@ const RowData = props => {
   const i18n = useI18n()
 
   const {
-    data, sectionName, tableName, row, rowIdx, disabled,
+    data, assessmentType, sectionName, tableName, row, rowIdx, disabled,
     pasteUpdate,
   } = props
 
@@ -25,11 +26,29 @@ const RowData = props => {
   const reviewTarget = [tableName, 'row', `${rowIdx}`]
   const className = useRowClassName(reviewTarget)
 
+  const colHeaderValue = `${colHeaderLabel} ${colHeader.variableNo ? '(' + colHeader.variableNo + ')' : ''}`
   return (
     <tr className={className}>
 
       <th className={colHeader.className}>
-        {colHeaderLabel} {colHeader.variableNo ? '(' + colHeader.variableNo + ')' : ''}
+        {
+          colHeader.linkToSection
+            ? (
+              <>
+                <div className="only-print">
+                  {colHeaderValue}
+                </div>
+                <Link
+                  to={`/assessment/${countryIso}/${assessmentType}/${colHeader.linkToSection}/`}
+                  className="link no-print">
+                  {colHeaderValue}
+                </Link>
+              </>
+            )
+            : (
+              colHeaderValue
+            )
+        }
       </th>
 
       {
@@ -37,7 +56,9 @@ const RowData = props => {
           <Cell
             key={colIdx}
             data={data}
+            assessmentType={assessmentType}
             sectionName={sectionName}
+            tableName={tableName}
             disabled={disabled}
             rowIdx={rowIdx}
             colIdx={colIdx}
@@ -66,6 +87,7 @@ const RowData = props => {
 
 RowData.propTypes = {
   data: PropTypes.array.isRequired,
+  assessmentType: PropTypes.string.isRequired,
   sectionName: PropTypes.string.isRequired,
   tableName: PropTypes.string.isRequired,
   row: PropTypes.object.isRequired,

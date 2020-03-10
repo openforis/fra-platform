@@ -25,6 +25,7 @@ const DataTable = props => {
       <div className="fra-table__container">
         <div className="fra-table__scroll-wrapper">
           <Table
+            assessmentType={assessmentType}
             sectionName={sectionName}
             sectionAnchor={sectionAnchor}
             tableName={tableName}

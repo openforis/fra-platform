@@ -54,7 +54,11 @@ const LoggedInView = () => {
         component={PrintAssessmentView}
       />
 
-      <Route path="/statisticalFactsheets" component={StatisticalFactsheets}/>
+      <Route
+        exact
+        path="/statisticalFactsheets"
+        component={StatisticalFactsheets}
+      />
 
       <Route>
         {

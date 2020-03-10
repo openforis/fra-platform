@@ -2,6 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
 
+import { getAssessmentSectionLink } from '@common/assessment/assessmentSections'
+
 import { NavLink } from 'react-router-dom'
 import ReviewStatus from '@webapp/app/components/navigation/components/assessment/section/reviewStatus'
 import useCountryIso from '@webapp/components/hooks/useCountryIso'
@@ -19,7 +21,7 @@ const Item = props => {
 
   return (
     <NavLink
-      to={`/assessment/${countryIso}/${assessmentType}/${section}/`}
+      to={getAssessmentSectionLink(countryIso, assessmentType, section)}
       className="nav-section__item"
       activeClassName="selected">
       <div className='nav-section__order'>{tableNo}</div>

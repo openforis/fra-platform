@@ -15,122 +15,123 @@ import Row from '@webapp/app/assessment/components/dataTable/table/row'
 const Table = props => {
 
   const {
-    sectionName, sectionAnchor, tableName, rows, data,
+    assessmentType, sectionName, sectionAnchor, tableName, rows, data,
     copyValues, disabled,
   } = props
 
   const rowsHeader = rows.filter(row => row.type === 'header')
-  const rowsData = rows.filter(row => row.type === 'data')
+  const rowsData = rows.filter(row => row.type !== 'header')
 
   const i18n = useI18n()
   const userInfo = useUserInfo()
   const tableRef = useRef(null)
 
   return (
-    <div className="fra-table__container">
-      <div className="fra-table__scroll-wrapper">
-        <ButtonTableExport
-          tableRef={tableRef}
-          filename={sectionAnchor}
-        />
+    <>
+      <ButtonTableExport
+        tableRef={tableRef}
+        filename={sectionAnchor}
+      />
 
-        <table ref={tableRef} className="fra-table">
-          <thead>
-          {
-            rowsHeader.map((row, i) => (
-              <tr key={i}>
-                {
-                  row.cols.map((col, j) => (
-                    <th key={j} className={col.className} colSpan={col.colSpan} rowSpan={col.rowSpan}>
-                      {
-                        col.labelKey
-                          ? i18n.t(col.labelKey)
-                          : col.label
-                      }
-                    </th>
-                  ))
-                }
-              </tr>
-            ))
-          }
-          </thead>
-          <tbody>
-          {
-            rowsData.map((row, i) =>
-              <Row
-                key={i}
-                sectionName={sectionName}
-                tableName={tableName}
-                data={data}
-                row={row}
-                rowIdx={i}
-                disabled={disabled}
-                pasteUpdate={() => {}}
-              />
-            )
-          }
-          </tbody>
-          {/*<thead>*/}
-          {/*<tr>*/}
-          {/*  <th className="fra-table__header-cell-left" rowSpan="2">*/}
-          {/*    {categoryHeaderLabel}*/}
-          {/*  </th>*/}
-          {/*  <th className="fra-table__header-cell" colSpan={fra.length}>*/}
-          {/*    <div>*/}
+      <table ref={tableRef} className="fra-table">
+        <thead>
+        {
+          rowsHeader.map((row, i) => (
+            <tr key={i}>
+              {
+                row.cols.map((col, j) => (
+                  <th key={j} className={col.className} colSpan={col.colSpan} rowSpan={col.rowSpan}>
+                    {
+                      col.labelKey
+                        ? i18n.t(col.labelKey)
+                        : col.label
+                    }
+                  </th>
+                ))
+              }
+            </tr>
+          ))
+        }
+        </thead>
+        <tbody>
+        {
+          rowsData.map((row, i) =>
+            <Row
+              assessmentType={assessmentType}
+              key={i}
+              sectionName={sectionName}
+              tableName={tableName}
+              data={data}
+              row={row}
+              rowIdx={i}
+              disabled={disabled}
+              pasteUpdate={() => {}}
+            />
+          )
+        }
+        </tbody>
+        {/*<thead>*/}
+        {/*<tr>*/}
+        {/*  <th className="fra-table__header-cell-left" rowSpan="2">*/}
+        {/*    {categoryHeaderLabel}*/}
+        {/*  </th>*/}
+        {/*  <th className="fra-table__header-cell" colSpan={fra.length}>*/}
+        {/*    <div>*/}
 
-          {/*      {*/}
-          {/*        tableHeaderLabel*/}
-          {/*      }*/}
+        {/*      {*/}
+        {/*        tableHeaderLabel*/}
+        {/*      }*/}
 
-          {/*      {*/}
-          {/*        copyValues && userInfo &&*/}
-          {/*        <button className="fra-table__header-button btn-xs btn-primary no-print"*/}
-          {/*                onClick={() => copyTableAsHtml(i18n, fra, rows)}>*/}
-          {/*          {i18n.t('tableWithOdp.copyToClipboard')}*/}
-          {/*        </button>*/}
-          {/*      }*/}
-          {/*    </div>*/}
-          {/*  </th>*/}
-          {/*</tr>*/}
-          {/*<tr>*/}
-          {/*  {*/}
-          {/*    fra.map((datum, i) => (*/}
-          {/*      <HeaderCell*/}
-          {/*        key={i}*/}
-          {/*        datum={datum}*/}
-          {/*        section={section}*/}
-          {/*      />*/}
-          {/*    ))*/}
-          {/*  }*/}
-          {/*</tr>*/}
-          {/*</thead>*/}
-          {/*<tbody>*/}
-          {/*{*/}
-          {/*  rows.map((row, i) => (*/}
-          {/*    <Row*/}
-          {/*      key={i}*/}
-          {/*      fra={fra}*/}
-          {/*      section={section}*/}
-          {/*      row={row}*/}
-          {/*      rowIdx={i}*/}
-          {/*      disabled={disabled}*/}
-          {/*      pasteUpdate={R.partial(updatePastedValues, [R.pluck('field', rows)])}*/}
-          {/*    />*/}
-          {/*  ))*/}
-          {/*}*/}
-          {/*</tbody>*/}
-        </table>
-      </div>
-    </div>
+        {/*      {*/}
+        {/*        copyValues && userInfo &&*/}
+        {/*        <button className="fra-table__header-button btn-xs btn-primary no-print"*/}
+        {/*                onClick={() => copyTableAsHtml(i18n, fra, rows)}>*/}
+        {/*          {i18n.t('tableWithOdp.copyToClipboard')}*/}
+        {/*        </button>*/}
+        {/*      }*/}
+        {/*    </div>*/}
+        {/*  </th>*/}
+        {/*</tr>*/}
+        {/*<tr>*/}
+        {/*  {*/}
+        {/*    fra.map((datum, i) => (*/}
+        {/*      <HeaderCell*/}
+        {/*        key={i}*/}
+        {/*        datum={datum}*/}
+        {/*        section={section}*/}
+        {/*      />*/}
+        {/*    ))*/}
+        {/*  }*/}
+        {/*</tr>*/}
+        {/*</thead>*/}
+        {/*<tbody>*/}
+        {/*{*/}
+        {/*  rows.map((row, i) => (*/}
+        {/*    <Row*/}
+        {/*      key={i}*/}
+        {/*      fra={fra}*/}
+        {/*      section={section}*/}
+        {/*      row={row}*/}
+        {/*      rowIdx={i}*/}
+        {/*      disabled={disabled}*/}
+        {/*      pasteUpdate={R.partial(updatePastedValues, [R.pluck('field', rows)])}*/}
+        {/*    />*/}
+        {/*  ))*/}
+        {/*}*/}
+        {/*</tbody>*/}
+      </table>
+    </>
   )
 }
 
 Table.propTypes = {
-  // data
+  // metadata
+  assessmentType: PropTypes.string.isRequired,
   sectionName: PropTypes.string.isRequired,
   sectionAnchor: PropTypes.string.isRequired,
   tableName: PropTypes.string.isRequired,
   rows: PropTypes.array.isRequired,
+  //data
   data: PropTypes.array.isRequired,
 
   // boolean checks

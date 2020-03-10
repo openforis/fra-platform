@@ -10,6 +10,6 @@ import designatedManagementObjective
 export default {
   [FRA.type]: {
     // section 3
-    [designatedManagementObjective.sectionName]: designatedManagementObjective
+    [FRA.sections['3'].children.a.name]: designatedManagementObjective
   }
 }

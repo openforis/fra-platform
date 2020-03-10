@@ -13,7 +13,7 @@ const ComponentsByType = {
 
 const Cell = props => {
   const {
-    data, sectionName, disabled,
+    data, assessmentType, sectionName, tableName, disabled,
     rowIdx, colIdx, col,
     // pasteUpdate,
   } = props
@@ -28,7 +28,7 @@ const Cell = props => {
       {
         React.createElement(
           ComponentsByType[type],
-          { datum, sectionName, disabled, col, colIdx, rowIdx }
+          { datum, assessmentType, sectionName, tableName, disabled, col, colIdx, rowIdx }
         )
       }
     </td>
@@ -37,7 +37,9 @@ const Cell = props => {
 
 Cell.propTypes = {
   data: PropTypes.array.isRequired,
+  assessmentType: PropTypes.string.isRequired,
   sectionName: PropTypes.string.isRequired,
+  tableName: PropTypes.string.isRequired,
   disabled: PropTypes.bool.isRequired,
   rowIdx: PropTypes.number.isRequired,
   colIdx: PropTypes.number.isRequired,

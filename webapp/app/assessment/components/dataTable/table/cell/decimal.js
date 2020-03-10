@@ -1,11 +1,20 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { useDispatch } from 'react-redux'
+
+import { acceptNextDecimal } from '@webapp/utils/numberInput'
 
 import { ThousandSeparatedDecimalInput } from '@webapp/components/thousandSeparatedDecimalInput'
+import { updateTableData } from '@webapp/app/assessment/components/dataTable/actions'
 
 const Decimal = props => {
 
-  const { datum, disabled } = props
+  const {
+    assessmentType, sectionName, tableName, rowIdx, colIdx,
+    datum, disabled
+  } = props
+
+  const dispatch = useDispatch()
 
   return (
     <ThousandSeparatedDecimalInput
@@ -15,21 +24,35 @@ const Decimal = props => {
       // saveMany(sectionName, countryIso, pasteUpdate(e, rowIdx, colIdx, fra))
       // )
       // }
-      onChange={e => console.log(e.target.value)
-        // dispatch(
-        // save(sectionName, countryIso, datum.name, e.target.value, datum, field, acceptNextDecimal)
-        // )
-      }
+      onChange={e => {
+        const value = e.target.value
+        const newValue = acceptNextDecimal(value, datum)
+
+        dispatch(
+          updateTableData(
+            assessmentType,
+            sectionName,
+            tableName,
+            rowIdx,
+            colIdx,
+            newValue && String(newValue)
+          )
+        )
+      }}
       disabled={disabled}
     />
   )
 }
 
 Decimal.propTypes = {
-  datum: PropTypes.any,
-  col: PropTypes.object.isRequired,
+  assessmentType: PropTypes.string.isRequired,
+  sectionName: PropTypes.string.isRequired,
+  tableName: PropTypes.string.isRequired,
   colIdx: PropTypes.number.isRequired,
+  rowIdx: PropTypes.number.isRequired,
+  col: PropTypes.object.isRequired,
   disabled: PropTypes.bool.isRequired,
+  datum: PropTypes.any,
 }
 
 export default Decimal
