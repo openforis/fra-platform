@@ -37,6 +37,8 @@ import AssessmentSectionView from '@webapp/app/assessment/components/section/ass
 
 const routes = [
   { path: '/assessment/:countryIso/:assessmentType/:section', component: AssessmentSectionView },
+
+  // === Routes to be removed or updated
   { path: '/country/:countryIso/admin/', component: AdminView },
   { path: '/country/:countryIso/odps/', component: OriginalDataListView },
   { path: '/country/:countryIso/odp/:tab/:odpId/', component: OriginalDataPointView },

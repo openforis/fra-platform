@@ -1,4 +1,5 @@
 import * as R from 'ramda'
+import * as FRA from '@common/assessment/assessmentFra'
 
 import { sub, sum } from '@common/bignumberUtils'
 
@@ -36,3 +37,7 @@ export const getOtherLand = datum => state => {
 // ==== By Year getter functions
 
 export const getForestByYear = year => TableWithOdpState.getFieldByYear(section, 'forestArea', year)
+
+// ==== By Year index getter functions
+
+export const getForestByYearFraIdx = idx => getForestByYear(FRA.years[idx])

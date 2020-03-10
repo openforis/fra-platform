@@ -14,7 +14,7 @@ const Item = props => {
   const i18n = useI18n()
 
   const { assessmentType, item } = props
-  const { section, tableNo, label } = item
+  const { section, tableNo } = item
   const reviewStatus = useSelector(ReviewStatusState.getStatusSection(section))
 
   return (
