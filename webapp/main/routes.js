@@ -25,11 +25,11 @@ const Routes = () => {
 
   return (
     <Switch>
-      <Route path="/login">
+      <Route exact path="/login">
         <LoginView/>
       </Route>
       <Route
-        path={['/:app/:countryIso/', '/']}
+        path={['/:countryIso/', '/:app/:countryIso/', '/']}
         render={props => (
           <DynamicImport
             {...props}

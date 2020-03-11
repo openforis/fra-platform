@@ -45,6 +45,8 @@ import AssessmentSectionView from '@webapp/app/assessment/components/section/ass
 
 const routes = [
   { path: assessmentSectionPath, component: AssessmentSectionView },
+  { path: '/', component: LandingView },
+  { path: '/:countryIso/', component: LandingView },
 
   // === Routes to be removed or updated
   { path: '/country/:countryIso/admin/', component: AdminView },
@@ -78,7 +80,6 @@ const routes = [
   { path: '/country/:countryIso/panEuropeanIndicators/', component: PanEuropeanIndicatorsView },
   { path: '/country/:countryIso/user/:userId/', component: EditUserView },
   { path: '/country/:countryIso/', component: LandingView },
-  { path: '/', component: LandingView },
   { path: '/country/:countryIso/*', component: NotFound },
 ]
 
