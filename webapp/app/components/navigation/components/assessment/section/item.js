@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
 
-import { getAssessmentSectionLink } from '@common/assessment/assessmentSections'
+import { getSectionLink } from '@common/assessment/sections'
 
 import { NavLink } from 'react-router-dom'
 import ReviewStatus from '@webapp/app/components/navigation/components/assessment/section/reviewStatus'
@@ -21,13 +21,14 @@ const Item = props => {
 
   return (
     <NavLink
-      to={getAssessmentSectionLink(countryIso, assessmentType, section)}
+      to={getSectionLink(countryIso, assessmentType, section)}
       className="nav-section__item"
-      activeClassName="selected">
-      <div className='nav-section__order'>{tableNo}</div>
-      <div className='nav-section__label'>{i18n.t(`${section}.${section}`)}</div>
+      activeClassName="selected"
+    >
+      <div className="nav-section__order">{tableNo}</div>
+      <div className="nav-section__label">{i18n.t(`${section}.${section}`)}</div>
       <div className="nav-section__status-content">
-        <ReviewStatus status={reviewStatus}/>
+        <ReviewStatus status={reviewStatus} />
       </div>
     </NavLink>
   )
@@ -35,7 +36,7 @@ const Item = props => {
 
 Item.propTypes = {
   assessmentType: PropTypes.string.isRequired,
-  item: PropTypes.object.isRequired
+  item: PropTypes.object.isRequired,
 }
 
 export default Item

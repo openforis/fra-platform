@@ -1,50 +1,40 @@
-import { assessmentSectionPath } from '@common/assessment/assessmentSections'
+import { sectionPath } from '@common/assessment/sections'
 
-import LandingView from './landing/landingView'
-import OriginalDataPointView from './assessment/fra/sections/originalDataPoint/originalDataPointView'
-import OriginalDataListView from './assessment/fra/sections/originalDataPoint/originalDataListView'
 import ExtentOfForestView from '@webapp/app/assessment/fra/sections/extentOfForest/extentOfForestView'
 import GrowingStockView from '@webapp/app/assessment/fra/sections/growingStock/growingStockView'
-import SpecificForestCategoriesView
-  from '@webapp/app/assessment/fra/sections/specificForestCategories/specificForestCategoriesView'
-import GrowingStockCompositionView
-  from '@webapp/app/assessment/fra/sections/growingStockComposition/growingStockCompositionView'
-import designatedManagementObjectiveView
-  from '@webapp/app/assessment/fra/sections/designatedManagementObjective/designatedManagementObjectiveView'
+import SpecificForestCategoriesView from '@webapp/app/assessment/fra/sections/specificForestCategories/specificForestCategoriesView'
+import GrowingStockCompositionView from '@webapp/app/assessment/fra/sections/growingStockComposition/growingStockCompositionView'
+import designatedManagementObjectiveView from '@webapp/app/assessment/fra/sections/designatedManagementObjective/designatedManagementObjectiveView'
 import ForestAreaChangeView from '@webapp/app/assessment/fra/sections/forestAreaChange/forestAreaChangeView'
 import AreaAffecteByFireView from '@webapp/app/assessment/fra/sections/areaAffectedByFire/areaAffectedByFireView'
 import DegradedForestView from '@webapp/app/assessment/fra/sections/degradedForest/degradedForestView'
 import EmploymentView from '@webapp/app/assessment/fra/sections/employment/employmentView'
 import GraduationOfStudentsView from '@webapp/app/assessment/fra/sections/graduationOfStudents/graduationOfStudentsView'
-import ForestCharacteristicsView
-  from '@webapp/app/assessment/fra/sections/forestCharacteristics/forestCharacteristicsView'
-import NonWoodForestProductsRemovalsView
-  from '@webapp/app/assessment/fra/sections/nonWoodForestProductsRemovals/nonWoodForestProductsRemovalsView'
+import ForestCharacteristicsView from '@webapp/app/assessment/fra/sections/forestCharacteristics/forestCharacteristicsView'
+import NonWoodForestProductsRemovalsView from '@webapp/app/assessment/fra/sections/nonWoodForestProductsRemovals/nonWoodForestProductsRemovalsView'
 import AnnualReforestationView from '@webapp/app/assessment/fra/sections/annualReforestation/annualReforestationView'
 import BiomassStockView from '@webapp/app/assessment/fra/sections/biomassStock/biomassStockView'
 import CarbonStockView from '@webapp/app/assessment/fra/sections/carbonStock/carbonStockView'
 import ForestOwnershipView from '@webapp/app/assessment/fra/sections/forestOwnership/forestOwnershipView'
-import ForestAreaWithinProtectedAreasView
-  from '@webapp/app/assessment/fra/sections/forestAreaWithinProtectedAreas/forestAreaWithinprotectedAreasView'
-import HolderOfManagementRightsView
-  from '@webapp/app/assessment/fra/sections/holderOfManagementRights/holderOfManagementRightsView'
+import ForestAreaWithinProtectedAreasView from '@webapp/app/assessment/fra/sections/forestAreaWithinProtectedAreas/forestAreaWithinprotectedAreasView'
+import HolderOfManagementRightsView from '@webapp/app/assessment/fra/sections/holderOfManagementRights/holderOfManagementRightsView'
 import DisturbancesView from '@webapp/app/assessment/fra/sections/disturbances/disturbancesView'
-import AreaOfPermanentForestEstateView
-  from '@webapp/app/assessment/fra/sections/areaOfPermanentForestEstate/areaOfPermanentForestEstateView'
+import AreaOfPermanentForestEstateView from '@webapp/app/assessment/fra/sections/areaOfPermanentForestEstate/areaOfPermanentForestEstateView'
 import ForestPolicyView from '@webapp/app/assessment/fra/sections/forestPolicy/forestPolicyView'
-import OtherLandWithTreeCoverView
-  from '@webapp/app/assessment/fra/sections/otherLandWithTreeCover/otherLandWithTreeCoverView'
-import SustainableDevelopmentView
-  from '@webapp/app/assessment/fra/sections/sustainableDevelopment/sustainableDevelopmentView'
+import OtherLandWithTreeCoverView from '@webapp/app/assessment/fra/sections/otherLandWithTreeCover/otherLandWithTreeCoverView'
+import SustainableDevelopmentView from '@webapp/app/assessment/fra/sections/sustainableDevelopment/sustainableDevelopmentView'
 import ContactPersonsView from '@webapp/app/assessment/fra/sections/contactPersons/contactPersonsView'
-import PanEuropeanIndicatorsView from './assessment/panEuropean/sections/indicators/panEuropeanIndicatorsView'
-import EditUserView from './user/userManagement/editUserView'
 import AdminView from '@webapp/app/admin/adminView'
 import NotFound from '@webapp/app/notfound'
 import AssessmentSectionView from '@webapp/app/assessment/components/section/assessmentSectionView'
+import EditUserView from './user/userManagement/editUserView'
+import PanEuropeanIndicatorsView from './assessment/panEuropean/sections/indicators/panEuropeanIndicatorsView'
+import OriginalDataListView from './assessment/fra/sections/originalDataPoint/originalDataListView'
+import OriginalDataPointView from './assessment/fra/sections/originalDataPoint/originalDataPointView'
+import LandingView from './landing/landingView'
 
 const routes = [
-  { path: assessmentSectionPath, component: AssessmentSectionView },
+  { path: sectionPath, component: AssessmentSectionView },
   { path: '/', component: LandingView },
   { path: '/:countryIso/', component: LandingView },
 

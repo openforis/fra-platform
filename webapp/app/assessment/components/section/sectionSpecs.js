@@ -2,7 +2,7 @@
  * This file contains all section specs for all assessments
  */
 
-import * as FRA from '@common/assessment/assessmentFra'
+import * as FRA from '@common/assessment/fra'
 
 import designatedManagementObjective from '@webapp/app/assessment/fra/sections/designatedManagementObjective/sectionSpec'
 
