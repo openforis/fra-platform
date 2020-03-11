@@ -22,28 +22,25 @@ import { fetchTableData } from '@webapp/app/assessment/components/dataTable/acti
 import { fetchLastSectionUpdateTimestamp } from '@webapp/app/components/audit/actions'
 
 const AssessmentSectionView = () => {
-
   const { assessmentType, section } = useParams()
   const sectionSpec = R.path([assessmentType, section], sectionSpecs)
   const { sectionName, sectionAnchor, tableSections, descriptions } = sectionSpec
 
   const { introductoryText, nationalData, analysisAndProcessing, comments } = descriptions
-  const tableNames = tableSections.map(tableSection =>
-    tableSection.tableSpecs.map(tableSpec =>
-      tableSpec.name
-    )
-  ).flat(Infinity)
+  const tableNames = tableSections
+    .map(tableSection => tableSection.tableSpecs.map(tableSpec => tableSpec.name))
+    .flat(Infinity)
 
   const dispatch = useDispatch()
   const countryIso = useCountryIso()
   const i18n = useI18n()
   const disabled = useSelector(FraState.isSectionEditDisabled(sectionName))
 
-  const dataEmpties = useSelector(state => tableNames.map(tableName =>
-    AssessmentState.isSectionDataEmpty(assessmentType, sectionName, tableNames)(state)
-  ))
+  const dataEmpties = useSelector(state =>
+    tableNames.map(tableName => AssessmentState.isSectionDataEmpty(assessmentType, sectionName, tableName)(state))
+  )
 
-  //==== Data fetching effect
+  // ==== Data fetching effect
   useEffect(() => {
     tableNames.forEach(tableName => {
       dispatch(fetchTableData(assessmentType, sectionName, tableName))
@@ -52,8 +49,8 @@ const AssessmentSectionView = () => {
     dispatch(fetchLastSectionUpdateTimestamp(countryIso, sectionName))
   }, [sectionName, countryIso])
 
-  // TODO check where the below commented check should go. maybe with
-  //==== When printing only tables, component renders if at least one table has data
+  // TODO check where the below commented check should go. maybe in print view directly
+  // ==== When printing only tables, component renders if at least one table has data
   if (isPrintingOnlyTables() && R.all(R.identity, dataEmpties)) {
     return null
   }
@@ -61,43 +58,26 @@ const AssessmentSectionView = () => {
   return (
     <>
       <h2 className="title only-print">
-        {`${isPrintingOnlyTables() ? '' : sectionAnchor + ' '}${i18n.t(`${sectionName}.${sectionName}`)}`}
+        {`${isPrintingOnlyTables() ? '' : `${sectionAnchor} `}${i18n.t(`${sectionName}.${sectionName}`)}`}
       </h2>
 
       <div className="app-view__content">
-        {/*descriptions components*/}
-        {
-          nationalData &&
-          <NationalDataDescriptions
-            section={sectionName}
-            countryIso={countryIso}
-            disabled={disabled}
-          />
-        }
-        {
-          analysisAndProcessing &&
-          <AnalysisDescriptions
-            section={sectionName}
-            countryIso={countryIso}
-            disabled={disabled}
-          />
-        }
-        {
-          introductoryText &&
+        {/* descriptions components */}
+        {nationalData && <NationalDataDescriptions section={sectionName} countryIso={countryIso} disabled={disabled} />}
+        {analysisAndProcessing && (
+          <AnalysisDescriptions section={sectionName} countryIso={countryIso} disabled={disabled} />
+        )}
+        {introductoryText && (
           <CommentableDescription
             section={sectionName}
             title={i18n.t('contactPersons.introductoryText')}
-            name='introductoryText'
+            name="introductoryText"
             template={i18n.t('contactPersons.introductoryTextSupport')}
             disabled={disabled}
           />
-        }
+        )}
 
-        <h2 className="headline no-print">
-          {
-            i18n.t(`${sectionName}.${sectionName}`)
-          }
-        </h2>
+        <h2 className="headline no-print">{i18n.t(`${sectionName}.${sectionName}`)}</h2>
 
         <div className="app-view__section-toolbar">
           <DefinitionLink
@@ -116,64 +96,35 @@ const AssessmentSectionView = () => {
           />
         </div>
 
-        {
-          !isPrintingOnlyTables() &&
-          <div className="page-break"/>
-        }
+        {!isPrintingOnlyTables() && <div className="page-break" />}
 
-        {
-          tableSections.map((tableSection, i) => (
-            <div key={i}>
-              {
-                tableSection.titleKey &&
-                <h3 className="subhead">
-                  {
-                    i18n.t(tableSection.titleKey)
-                  }
-                </h3>
-              }
-              {
-                tableSection.descriptionKey &&
-                <div className="app-view__section-toolbar">
-                  <div className="support-text no-print">
-                    {
-                      i18n.t(tableSection.descriptionKey)
-                    }
-                  </div>
-                </div>
-              }
+        {tableSections.map(tableSection => (
+          <div key={tableSection.idx}>
+            {tableSection.titleKey && <h3 className="subhead">{i18n.t(tableSection.titleKey)}</h3>}
+            {tableSection.descriptionKey && (
+              <div className="app-view__section-toolbar">
+                <div className="support-text no-print">{i18n.t(tableSection.descriptionKey)}</div>
+              </div>
+            )}
 
-              {
-                tableSection.tableSpecs.map((tableSpec, j) => (
-                  <DataTable
-                    key={tableSpec.name}
-                    assessmentType={assessmentType}
-                    sectionName={sectionName}
-                    sectionAnchor={sectionAnchor}
-                    tableSpec={tableSpec}
-                    copyValues={false}
-                    disabled={disabled}
-                  />
-                ))
-              }
-            </div>
-          ))
-        }
+            {tableSection.tableSpecs.map(tableSpec => (
+              <DataTable
+                key={tableSpec.name}
+                assessmentType={assessmentType}
+                sectionName={sectionName}
+                sectionAnchor={sectionAnchor}
+                tableSpec={tableSpec}
+                copyValues={false}
+                disabled={disabled}
+              />
+            ))}
+          </div>
+        ))}
 
-        {
-          comments &&
-          <GeneralComments
-            section={sectionName}
-            countryIso={countryIso}
-            disabled={disabled}
-          />
-        }
-
+        {comments && <GeneralComments section={sectionName} countryIso={countryIso} disabled={disabled} />}
       </div>
-
     </>
   )
-
 }
 
 export default AssessmentSectionView

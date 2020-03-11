@@ -6,27 +6,26 @@ const FRA = {
     1: {
       label: 'navigation.sectionHeaders.forestExtentCharacteristicsAndChanges',
       children: {
-        'a': {
+        a: {
           name: 'extentOfForest',
           anchor: '1a',
-        }
-      }
+        },
+      },
     },
     3: {
       label: 'navigation.sectionHeaders.forestDesignationAndManagement',
       children: {
-        'a': {
+        a: {
           name: 'designatedManagementObjective',
           anchor: '3a',
           tables: {
             primaryDesignatedManagementObjective: 'primaryDesignatedManagementObjective',
             totalAreaWithDesignatedManagementObjective: 'totalAreaWithDesignatedManagementObjective',
-
-          }
+          },
         },
-      }
+      },
     },
-  }
+  },
 }
 
 module.exports = FRA

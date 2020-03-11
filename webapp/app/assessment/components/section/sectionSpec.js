@@ -9,7 +9,7 @@ const descriptionsDefault = {
 export const newSectionSpec = (sectionName = '', sectionAnchor = '', tableSections = [], descriptions = {}) => ({
   sectionName,
   sectionAnchor,
-  tableSections,
+  tableSections: tableSections.map((s, idx) => ({ idx, ...s })),
   descriptions: { ...descriptionsDefault, ...descriptions },
 })
 
