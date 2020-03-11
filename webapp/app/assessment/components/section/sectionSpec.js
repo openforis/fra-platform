@@ -23,39 +23,42 @@ export const newTableSection = (tableSpecs = [], titleKey, descriptionKey) => ({
 
 // ===== Table
 
-export const newTableSpec = (name, rows) => ({ name, rows })
+export const newTableSpec = (name, rows) => ({ name, rows: rows.map((row, idx) => ({ idx, ...row })) })
 
 export const newRowHeader = cols => ({
   type: 'header',
-  cols,
+  cols: cols.map((col, idx) => ({ idx, ...col })),
 })
 
 export const newRowData = (labelKey, cols, variableNo = null, linkToSection = null) => ({
   type: 'data',
   cols: [
     {
-      type: 'header', labelKey, variableNo, linkToSection, className: 'fra-table__category-cell'
+      idx: 0,
+      type: 'header',
+      labelKey,
+      variableNo,
+      linkToSection,
+      className: 'fra-table__category-cell',
     },
-    ...cols
-  ]
+    ...cols.map((col, idx) => ({ idx: idx + 1, ...col })),
+  ],
 })
 
 export const newColHeader = (labelKey = null, label = null, rowSpan = 1, colSpan = 1, left = false) => ({
   type: 'header',
   labelKey,
   label,
-  className: 'fra-table__header-cell' + (left ? '-left' : ''),
+  className: `fra-table__header-cell${left ? '-left' : ''}`,
   rowSpan,
-  colSpan
+  colSpan,
 })
 
 export const newColDecimal = () => ({
   type: 'decimal',
 })
 
-export const newColCalculated = (calculateFn) => ({
+export const newColCalculated = calculateFn => ({
   type: 'calculated',
   calculateFn,
 })
-
-

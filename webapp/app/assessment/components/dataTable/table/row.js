@@ -13,7 +13,7 @@ const rowRenderers = {
 const Row = props => {
   const userInfo = useUserInfo()
 
-  const { row } = props
+  const { data, assessmentType, sectionName, tableName, row, rowIdx, disabled } = props
   const { type, render } = row
 
   // validation error rows are hidden in public view
@@ -25,7 +25,8 @@ const Row = props => {
   if (!renderer) {
     console.error('Missing renderer for table row', renderer)
   }
-  return React.createElement(renderer, props)
+
+  return React.createElement(renderer, { data, assessmentType, sectionName, tableName, row, rowIdx, disabled })
 }
 
 Row.propTypes = {
@@ -36,7 +37,6 @@ Row.propTypes = {
   row: PropTypes.object.isRequired,
   rowIdx: PropTypes.number.isRequired,
   disabled: PropTypes.bool.isRequired,
-  pasteUpdate: PropTypes.func.isRequired, //TODO - check
 }
 
 export default Row
