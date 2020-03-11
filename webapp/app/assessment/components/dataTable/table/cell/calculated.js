@@ -5,23 +5,16 @@ import { useSelector } from 'react-redux'
 import { formatNumber } from '@common/bignumberUtils'
 
 const Calculated = props => {
-  const { col, colIdx } = props
+  const { col } = props
   const { calculateFn } = col
 
-  const value = useSelector(calculateFn(colIdx))
+  const value = useSelector(calculateFn(col.idx))
 
-  return (
-    <div>
-      {
-        formatNumber(value)
-      }
-    </div>
-  )
+  return <div>{formatNumber(value)}</div>
 }
 
 Calculated.propTypes = {
   col: PropTypes.object.isRequired,
-  colIdx: PropTypes.number.isRequired,
 }
 
 export default Calculated

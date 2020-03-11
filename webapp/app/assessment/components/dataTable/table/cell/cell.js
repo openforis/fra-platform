@@ -7,30 +7,38 @@ import Decimal from '@webapp/app/assessment/components/dataTable/table/cell/deci
 import useCellClassName from '@webapp/app/assessment/components/dataTable/table/cell/useCellClassName'
 
 const ComponentsByType = {
-  'calculated': Calculated,
-  'decimal': Decimal,
+  calculated: Calculated,
+  decimal: Decimal,
 }
 
 const Cell = props => {
   const {
-    data, assessmentType, sectionName, tableName, disabled,
-    rowIdx, colIdx, col,
+    data,
+    assessmentType,
+    sectionName,
+    tableName,
+    disabled,
+    rowIdx,
+    col,
     // pasteUpdate,
   } = props
 
   const { type } = col
-  const datum = R.pathOr(null, [rowIdx, colIdx])(data)
+  const datum = R.pathOr(null, [rowIdx, col.idx])(data)
 
   const className = useCellClassName(col, datum)
 
   return (
     <td className={className}>
-      {
-        React.createElement(
-          ComponentsByType[type],
-          { datum, assessmentType, sectionName, tableName, disabled, col, colIdx, rowIdx }
-        )
-      }
+      {React.createElement(ComponentsByType[type], {
+        datum,
+        assessmentType,
+        sectionName,
+        tableName,
+        disabled,
+        col,
+        rowIdx,
+      })}
     </td>
   )
 }
@@ -42,7 +50,6 @@ Cell.propTypes = {
   tableName: PropTypes.string.isRequired,
   disabled: PropTypes.bool.isRequired,
   rowIdx: PropTypes.number.isRequired,
-  colIdx: PropTypes.number.isRequired,
   col: PropTypes.object.isRequired,
 }
 

@@ -25,7 +25,7 @@ const RowData = props => {
   const reviewTarget = [tableName, 'row', `${rowIdx}`]
   const className = useRowClassName(reviewTarget)
 
-  const colHeaderValue = `${colHeaderLabel}${colHeader.variableNo ? ` $(colHeader.variableNo})` : ''}`
+  const colHeaderValue = `${colHeaderLabel}${colHeader.variableNo ? ` (${colHeader.variableNo})` : ''}`
   return (
     <tr className={className}>
       <th className={colHeader.className}>
@@ -50,7 +50,6 @@ const RowData = props => {
           tableName={tableName}
           disabled={disabled}
           rowIdx={rowIdx}
-          colIdx={col.idx}
           col={col}
         />
       ))}

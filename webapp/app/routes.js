@@ -35,8 +35,6 @@ import LandingView from './landing/landingView'
 
 const routes = [
   { path: sectionPath, component: AssessmentSectionView },
-  { path: '/', component: LandingView },
-  { path: '/:countryIso/', component: LandingView },
 
   // === Routes to be removed or updated
   { path: '/country/:countryIso/admin/', component: AdminView },
@@ -71,6 +69,10 @@ const routes = [
   { path: '/country/:countryIso/user/:userId/', component: EditUserView },
   { path: '/country/:countryIso/', component: LandingView },
   { path: '/country/:countryIso/*', component: NotFound },
+  // === End Routes to be removed or updated
+
+  { path: '/', component: LandingView },
+  { path: '/:countryIso/', component: LandingView },
 ]
 
 export default routes

@@ -8,11 +8,7 @@ import { ThousandSeparatedDecimalInput } from '@webapp/components/thousandSepara
 import { updateTableData } from '@webapp/app/assessment/components/dataTable/actions'
 
 const Decimal = props => {
-
-  const {
-    assessmentType, sectionName, tableName, rowIdx, colIdx,
-    datum, disabled
-  } = props
+  const { assessmentType, sectionName, tableName, rowIdx, col, datum, disabled } = props
 
   const dispatch = useDispatch()
 
@@ -25,19 +21,10 @@ const Decimal = props => {
       // )
       // }
       onChange={e => {
-        const value = e.target.value
+        const { value } = e.target
         const newValue = acceptNextDecimal(value, datum)
 
-        dispatch(
-          updateTableData(
-            assessmentType,
-            sectionName,
-            tableName,
-            rowIdx,
-            colIdx,
-            newValue && String(newValue)
-          )
-        )
+        dispatch(updateTableData(assessmentType, sectionName, tableName, rowIdx, col.idx, newValue && String(newValue)))
       }}
       disabled={disabled}
     />
@@ -48,11 +35,14 @@ Decimal.propTypes = {
   assessmentType: PropTypes.string.isRequired,
   sectionName: PropTypes.string.isRequired,
   tableName: PropTypes.string.isRequired,
-  colIdx: PropTypes.number.isRequired,
   rowIdx: PropTypes.number.isRequired,
   col: PropTypes.object.isRequired,
   disabled: PropTypes.bool.isRequired,
   datum: PropTypes.any,
+}
+
+Decimal.defaultProps = {
+  datum: null,
 }
 
 export default Decimal

@@ -23,7 +23,22 @@ export const newTableSection = (tableSpecs = [], titleKey, descriptionKey) => ({
 
 // ===== Table
 
-export const newTableSpec = (name, rows) => ({ name, rows: rows.map((row, idx) => ({ idx, ...row })) })
+export const newTableSpec = (name, rows) => {
+  let idxHeader = -1
+  let idxData = -1
+  return {
+    name,
+    rows: rows.map(row => {
+      const header = row.type === 'header'
+      idxHeader += header ? 1 : 0
+      idxData += header ? 0 : 1
+      return {
+        idx: header ? `header_${idxHeader}` : idxData,
+        ...row,
+      }
+    }),
+  }
+}
 
 export const newRowHeader = cols => ({
   type: 'header',
@@ -34,14 +49,14 @@ export const newRowData = (labelKey, cols, variableNo = null, linkToSection = nu
   type: 'data',
   cols: [
     {
-      idx: 0,
+      idx: `header_0`,
       type: 'header',
       labelKey,
       variableNo,
       linkToSection,
       className: 'fra-table__category-cell',
     },
-    ...cols.map((col, idx) => ({ idx: idx + 1, ...col })),
+    ...cols.map((col, idx) => ({ idx, ...col })),
   ],
 })
 
