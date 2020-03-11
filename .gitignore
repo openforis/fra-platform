@@ -12,3 +12,6 @@ received-emails/
 /tools/fraReport/output/
 /tools/fraReport/fraReportGenerator.js
 .env
+
+#Eslint
+.eslintcache

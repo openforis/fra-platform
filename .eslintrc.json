@@ -10,5 +10,12 @@
   "plugins": ["prettier"],
   "rules": {
     "prettier/prettier": "error"
+  },
+  "settings": {
+    "import/resolver": {
+      "webpack": {
+        "config": "babel.config.js"
+      }
+    }
   }
 }

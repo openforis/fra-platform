@@ -29,10 +29,11 @@ const Routes = () => {
         <LoginView/>
       </Route>
       <Route
-        path={['/:countryIso/', '/:app/:countryIso/', '/']}
+        path={['/statisticalFactsheets/', '/:countryIso/', '/:app/:countryIso/', '/']}
         render={props => (
           <DynamicImport
             {...props}
+            // eslint-disable-next-line
             load={() => import('../app/appViewExport')}/>
         )}
       />
