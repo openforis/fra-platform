@@ -1,4 +1,4 @@
-import { sectionPath } from '@common/assessment/sections'
+import basePaths from '@webapp/main/basePaths'
 
 import ExtentOfForestView from '@webapp/app/assessment/fra/sections/extentOfForest/extentOfForestView'
 import GrowingStockView from '@webapp/app/assessment/fra/sections/growingStock/growingStockView'
@@ -34,7 +34,7 @@ import OriginalDataPointView from './assessment/fra/sections/originalDataPoint/o
 import LandingView from './landing/landingView'
 
 const routes = [
-  { path: sectionPath, component: AssessmentSectionView },
+  { path: basePaths.assessmentSection, component: AssessmentSectionView },
 
   // === Routes to be removed or updated
   { path: '/country/:countryIso/admin/', component: AdminView },
@@ -71,8 +71,7 @@ const routes = [
   { path: '/country/:countryIso/*', component: NotFound },
   // === End Routes to be removed or updated
 
-  { path: '/', component: LandingView },
-  { path: '/:countryIso/', component: LandingView },
+  { path: [basePaths.root, basePaths.country], component: LandingView },
 ]
 
 export default routes

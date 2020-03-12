@@ -1,7 +1,10 @@
 import './header.less'
 
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
+
+import basePaths from '@webapp/main/basePaths'
 
 import UserInfoLinks from '@webapp/app/components/header/components/userInfo'
 import LanguageSelection from '@webapp/app/components/header/components/languageSelection'
@@ -13,23 +16,6 @@ import useI18n from '@webapp/components/hooks/useI18n'
 import useCountryIso from '@webapp/components/hooks/useCountryIso'
 import useUserInfo from '@webapp/components/hooks/useUserInfo'
 
-const LoginLink = ({ i18n }) =>
-  <Link key="admin-link"
-    to={`/login/`}
-    className="app-header__menu-item">
-    {i18n.t('common.login')}
-  </Link>
-
-const HeaderLinks = ({ i18n, userInfo }) => <>
-  <LanguageSelection />
-  <UserInfoLinks />
-  <AdminLinks />
-  {
-    !userInfo &&
-    <LoginLink i18n={i18n} />
-  }
-</>
-
 const Header = ({ hideLinks, hideNavigationControl }) => {
   const userInfo = useUserInfo()
   const countryIso = useCountryIso()
@@ -37,27 +23,37 @@ const Header = ({ hideLinks, hideNavigationControl }) => {
 
   return (
     <div className="app-header no-print">
-      {
-        countryIso && !hideNavigationControl
-          ? <ToggleNavigationControl />
-          : <div />
-      }
+      {countryIso && !hideNavigationControl ? <ToggleNavigationControl /> : <div />}
 
       <AutoSaveStatusText />
 
       <div className="app-header__menu">
         <AppLinks i18n={i18n} />
-        {
-          !hideLinks && <HeaderLinks i18n={i18n} userInfo={userInfo} />
-        }
+        {!hideLinks && (
+          <>
+            <LanguageSelection />
+            <UserInfoLinks />
+            <AdminLinks />
+            {!userInfo && (
+              <Link key="admin-link" to={basePaths.login} className="app-header__menu-item">
+                {i18n.t('common.login')}
+              </Link>
+            )}
+          </>
+        )}
       </div>
     </div>
   )
 }
 
+Header.propTypes = {
+  hideLinks: PropTypes.bool,
+  hideNavigationControl: PropTypes.bool,
+}
+
 Header.defaultProps = {
   hideLinks: false,
-  hideNavigationControl: false
+  hideNavigationControl: false,
 }
 
 export default Header
