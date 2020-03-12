@@ -1,5 +1,8 @@
 const {isAdministrator, isNationalCorrespondent, isAlternateNationalCorrespondent, isReviewer, isCollaborator} = require('./countryRole')
 
+/**
+ * @deprecated
+ */
 const assessmentStatus = {
   editing: 'editing',
   review: 'review',
@@ -8,6 +11,9 @@ const assessmentStatus = {
   changing: 'changing'
 }
 
+/**
+ * @deprecated
+ */
 const getAllowedStatusTransitions = (countryIso, userInfo, currentState) => {
   // collaborator cannot change the status of the assessment
   if (!userInfo || isCollaborator(countryIso, userInfo))
@@ -45,6 +51,13 @@ const getAllowedStatusTransitions = (countryIso, userInfo, currentState) => {
 }
 
 module.exports = {
+  /**
+   * @deprecated
+   */
   assessmentStatus,
+
+  /**
+   * @deprecated
+   */
   getAllowedStatusTransitions
 }

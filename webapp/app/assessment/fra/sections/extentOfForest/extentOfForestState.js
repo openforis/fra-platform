@@ -1,4 +1,5 @@
 import * as R from 'ramda'
+import * as FRA from '@common/assessment/fra'
 
 import { sub, sum } from '@common/bignumberUtils'
 
@@ -9,17 +10,11 @@ const section = 'extentOfForest'
 
 // ==== Assessment Fra config areas getter functions
 
-export const getForestArea2015Value = year => R.pipe(
-  CountryState.getConfigFra2015ForestAreas,
-  R.prop(year),
-)
+export const getForestArea2015Value = year => R.pipe(CountryState.getConfigFra2015ForestAreas, R.prop(year))
 
 // ==== Datum getter functions
 
-export const getFaoStatArea = datum => R.pipe(
-  CountryState.getConfigFaoStat,
-  R.path([datum.name, 'area']),
-)
+export const getFaoStatArea = datum => R.pipe(CountryState.getConfigFaoStat, R.path([datum.name, 'area']))
 
 export const getForest = datum => () => R.propOr(null, 'forestArea', datum)
 
@@ -36,3 +31,7 @@ export const getOtherLand = datum => state => {
 // ==== By Year getter functions
 
 export const getForestByYear = year => TableWithOdpState.getFieldByYear(section, 'forestArea', year)
+
+// ==== By Year index getter functions
+
+export const getForestByYearFraIdx = idx => getForestByYear(FRA.years[idx])

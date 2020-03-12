@@ -30,6 +30,7 @@ const Assessment = props => {
         sections.map(
           (section, i) => (
             <Section
+              assessmentType={name}
               key={i}
               section={section}
               showSections={showSections}

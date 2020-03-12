@@ -6,27 +6,19 @@ import useCountryIso from '@webapp/components/hooks/useCountryIso'
 import useLandingViewSections from '@webapp/app/landing/useLandingViewSections'
 
 const LinkLanding = () => {
-
   const i18n = useI18n()
   const countryIso = useCountryIso()
   const location = useLocation()
   const sections = useLandingViewSections()
 
-  const isActive = match => match &&
-    (match.isExact || sections.find(section => location.pathname.indexOf(section.name) > 0))
+  const isActive = match =>
+    match && (match.isExact || sections.find(section => location.pathname.indexOf(section.name) > 0))
 
   return (
-    <NavLink
-      className="nav__link"
-      to={`/country/${countryIso}/`}
-      activeClassName="selected"
-      isActive={isActive}>
-      <div className='nav__link-label'>
-        {i18n.t('landing.home')}
-      </div>
+    <NavLink className="nav__link" to={`/${countryIso}/`} activeClassName="selected" isActive={isActive}>
+      <div className="nav__link-label">{i18n.t('landing.home')}</div>
     </NavLink>
   )
-
 }
 
 export default LinkLanding

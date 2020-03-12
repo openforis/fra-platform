@@ -20,20 +20,22 @@ const Routes = () => {
 
   // If application is not yet loaded, display Loading tucan bird
   if (appStatus !== AppState.stateLoadedKey) {
-    return <Loading/>
+    return <Loading />
   }
 
   return (
     <Switch>
-      <Route path="/login">
-        <LoginView/>
+      <Route exact path="/login">
+        <LoginView />
       </Route>
       <Route
-        path={['/country/:countryIso/', '/']}
+        path={['/statisticalFactsheets/', '/country/:countryIso/', '/:countryIso/', '/']}
         render={props => (
           <DynamicImport
             {...props}
-            load={() => import('../app/appViewExport')}/>
+            // eslint-disable-next-line
+            load={() => import('../app/appViewExport')}
+          />
         )}
       />
       }

@@ -12,7 +12,7 @@ import useI18n from '@webapp/components/hooks/useI18n'
 import * as ReviewStatusState from '@webapp/app/country/reviewStatusState'
 
 const Section = props => {
-  const { section, showSections } = props
+  const { assessmentType, section, showSections } = props
 
   const i18n = useI18n()
   const { pathname } = useLocation()
@@ -26,7 +26,7 @@ const Section = props => {
   // On mount check whether the location matches a child path
   useEffect(() => {
     const match = section.children.find(
-      ({ pathTemplate: path }) => matchPath(pathname, { path })
+      ({ section }) => matchPath(pathname, { path: `/assessment/:countryIso/:assessmentType/${section}` })
     )
     if (match) {
       setExpanded(true)
@@ -51,6 +51,7 @@ const Section = props => {
           expanded && section.children.map(
             (item, i) => (
               <Item
+                assessmentType={assessmentType}
                 key={i}
                 item={item}
               />
@@ -63,6 +64,7 @@ const Section = props => {
 }
 
 Section.propTypes = {
+  assessmentType: PropTypes.string.isRequired,
   section: PropTypes.object.isRequired,
   showSections: PropTypes.bool.isRequired,
 }
