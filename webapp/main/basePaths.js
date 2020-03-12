@@ -1,16 +1,10 @@
-const country = '/:countryIso/'
+// ==== application paths
+export const root = '/'
+export const login = '/login/'
+export const country = '/:countryIso/'
+export const statisticalFactsheets = '/statisticalFactsheets/'
+export const assessmentSection = `${country}assessment/:assessmentType/:section/`
 
-const basePaths = {
-  // ==== application paths
-  root: '/',
-  country,
-  login: '/login/',
-  statisticalFactsheets: '/statisticalFactsheets/',
-  assessmentSection: `${country}assessment/:assessmentType/:section/`,
-
-  // ==== getter utilities
-  getAssessmentSectionLink: (countryIso, assessmentType, sectionName) =>
-    `/${countryIso}/assessment/${assessmentType}/${sectionName}/`,
-}
-
-export default basePaths
+// ==== getter utilities
+export const getAssessmentSectionLink = (countryIso, assessmentType, sectionName) =>
+  `/${countryIso}/assessment/${assessmentType}/${sectionName}/`

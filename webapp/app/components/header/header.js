@@ -4,7 +4,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 
-import basePaths from '@webapp/main/basePaths'
+import * as BasePaths from '@webapp/main/basePaths'
 
 import UserInfoLinks from '@webapp/app/components/header/components/userInfo'
 import LanguageSelection from '@webapp/app/components/header/components/languageSelection'
@@ -35,7 +35,7 @@ const Header = ({ hideLinks, hideNavigationControl }) => {
             <UserInfoLinks />
             <AdminLinks />
             {!userInfo && (
-              <Link key="admin-link" to={basePaths.login} className="app-header__menu-item">
+              <Link key="admin-link" to={BasePaths.login} className="app-header__menu-item">
                 {i18n.t('common.login')}
               </Link>
             )}

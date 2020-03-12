@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Route, Switch } from 'react-router-dom'
 
-import basePaths from '@webapp/main/basePaths'
+import * as BasePaths from '@webapp/main/basePaths'
 
 import DynamicImport from '@webapp/components/dynamicImport'
 import LoginView from '@webapp/login/loginView'
@@ -27,11 +27,11 @@ const Routes = () => {
 
   return (
     <Switch>
-      <Route exact path={basePaths.login}>
+      <Route exact path={BasePaths.login}>
         <LoginView />
       </Route>
       <Route
-        path={[basePaths.statisticalFactsheets, `/country${basePaths.country}`, basePaths.country, basePaths.root]}
+        path={[BasePaths.statisticalFactsheets, `/country${BasePaths.country}`, BasePaths.country, BasePaths.root]}
         render={props => (
           <DynamicImport
             {...props}
