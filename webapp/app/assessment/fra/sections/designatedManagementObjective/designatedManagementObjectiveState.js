@@ -8,7 +8,7 @@ import * as ExtentOfForestState from '@webapp/app/assessment/fra/sections/extent
 
 const section = FRA.sections['3'].children.a
 
-export const getPrimaryDesignatedManagementObjectiveData = AssessmentState.getSectionData(
+const getPrimaryDesignatedManagementObjectiveData = AssessmentState.getSectionData(
   FRA.type,
   section.name,
   section.tables.primaryDesignatedManagementObjective
