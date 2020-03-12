@@ -8,7 +8,7 @@ import useUserInfo from '@webapp/components/hooks/useUserInfo'
 
 const rowRenderers = {
   data: RowData,
-  validationErrors: RowValidation,
+  validationMessages: RowValidation,
   noticeMessage: RowNoticeMessage,
 }
 

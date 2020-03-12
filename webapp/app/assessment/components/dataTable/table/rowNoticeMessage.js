@@ -13,7 +13,7 @@ const RowNoticeMessage = props => {
       {cols.map(col => {
         const { labelKey, rowSpan, colSpan } = col
         return (
-          <td key={labelKey} rowSpan={rowSpan} colSpan={colSpan}>
+          <td key={labelKey} className="fra-table__notice-message-cell" rowSpan={rowSpan} colSpan={colSpan}>
             {i18n.t(labelKey)}
           </td>
         )

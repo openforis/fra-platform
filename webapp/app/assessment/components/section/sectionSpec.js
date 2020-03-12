@@ -86,6 +86,11 @@ export const newRowNoticeMessage = (labelKey, rowSpan = 1, colSpan = 1) => ({
   ],
 })
 
+export const newRowValidationMessages = getValidationMessages => ({
+  type: 'validationMessages',
+  getValidationMessages,
+})
+
 export const newColHeader = (labelKey = null, label = null, rowSpan = 1, colSpan = 1, left = false) => ({
   type: 'header',
   labelKey,

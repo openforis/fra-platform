@@ -48,6 +48,8 @@ const rowsEOF = [
   ),
 
   SectionSpec.newRowNoticeMessage('extentOfForest.tableNoticeMessage', 2),
+
+  SectionSpec.newRowValidationMessages(ExtentOfForestValidator.getValidationMessages),
 ]
 const tableSpecs = [
   SectionSpec.newTableSpec(section.tables.extentOfForest, rowsEOF, ExtentOfForestState.getSectionData, true),
