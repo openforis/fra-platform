@@ -70,4 +70,9 @@ const tableSection2 = SectionSpec.newTableSection(
   'designatedManagementObjective.totalAreaWithDesignatedManagementObjectiveSupport'
 )
 
-export default SectionSpec.newSectionSpec(section.name, section.anchor, [tableSection1, tableSection2])
+const designatedManagementObjective = SectionSpec.newSectionSpec(section.name, section.anchor, [
+  tableSection1,
+  tableSection2,
+])
+
+export default designatedManagementObjective
