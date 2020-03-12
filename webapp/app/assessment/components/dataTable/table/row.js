@@ -3,17 +3,19 @@ import PropTypes from 'prop-types'
 
 import RowData from '@webapp/app/assessment/components/dataTable/table/rowData'
 import RowValidation from '@webapp/app/assessment/components/dataTable/table/rowValidation'
+import RowNoticeMessage from '@webapp/app/assessment/components/dataTable/table/rowNoticeMessage'
 import useUserInfo from '@webapp/components/hooks/useUserInfo'
 
 const rowRenderers = {
   data: RowData,
   validationErrors: RowValidation,
+  noticeMessage: RowNoticeMessage,
 }
 
 const Row = props => {
   const userInfo = useUserInfo()
 
-  const { data, assessmentType, sectionName, tableName, row, rowIdx, disabled } = props
+  const { data, assessmentType, sectionName, tableName, odp, row, disabled } = props
   const { type, render } = row
 
   // validation error rows are hidden in public view
@@ -26,7 +28,7 @@ const Row = props => {
     console.error('Missing renderer for table row', renderer)
   }
 
-  return React.createElement(renderer, { data, assessmentType, sectionName, tableName, row, rowIdx, disabled })
+  return React.createElement(renderer, { data, assessmentType, sectionName, tableName, odp, row, disabled })
 }
 
 Row.propTypes = {
@@ -34,8 +36,8 @@ Row.propTypes = {
   assessmentType: PropTypes.string.isRequired,
   sectionName: PropTypes.string.isRequired,
   tableName: PropTypes.string.isRequired,
+  odp: PropTypes.bool.isRequired,
   row: PropTypes.object.isRequired,
-  rowIdx: PropTypes.number.isRequired,
   disabled: PropTypes.bool.isRequired,
 }
 

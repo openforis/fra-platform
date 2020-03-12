@@ -49,8 +49,17 @@ export const newRowHeader = cols => ({
   cols: cols.map((col, idx) => ({ idx, ...col })),
 })
 
-export const newRowData = (labelKey, cols, variableNo = null, linkToSection = null) => ({
+export const newRowData = (
+  labelKey,
+  cols,
+  variableNo = null,
+  linkToSection = null,
+  validator = null,
+  variableName = null
+) => ({
   type: 'data',
+  validator,
+  variableName,
   cols: [
     {
       idx: `header_0`,
@@ -61,6 +70,17 @@ export const newRowData = (labelKey, cols, variableNo = null, linkToSection = nu
       className: 'fra-table__category-cell',
     },
     ...cols.map((col, idx) => ({ idx, ...col })),
+  ],
+})
+
+export const newRowNoticeMessage = (labelKey, rowSpan = 1, colSpan = 1) => ({
+  type: 'noticeMessage',
+  cols: [
+    {
+      labelKey,
+      rowSpan,
+      colSpan,
+    },
   ],
 })
 

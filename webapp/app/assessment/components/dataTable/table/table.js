@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import ButtonTableExport from '@webapp/components/buttonTableExport'
 import Row from '@webapp/app/assessment/components/dataTable/table/row'
 import useI18n from '@webapp/components/hooks/useI18n'
-import CellHeaderOdp from '@webapp/app/assessment/components/dataTable/table/cell/cellHeaderOdp'
+import CellOdpHeader from '@webapp/app/assessment/components/dataTable/table/cell/cellOdpHeader'
 
 const Table = props => {
   const { assessmentType, sectionName, sectionAnchor, tableName, odp, rows, data, disabled } = props
@@ -26,7 +26,12 @@ const Table = props => {
               {row.cols.map(col => {
                 const { idx, className, colSpan, rowSpan, labelKey, label } = col
                 return (
-                  <th key={idx} className={className} colSpan={odp ? data.length : colSpan} rowSpan={rowSpan}>
+                  <th
+                    key={idx}
+                    className={className}
+                    colSpan={odp && !colSpan ? data.length : colSpan}
+                    rowSpan={rowSpan}
+                  >
                     {labelKey ? i18n.t(labelKey) : label}
                   </th>
                 )
@@ -36,7 +41,7 @@ const Table = props => {
           {odp && (
             <tr>
               {data.map(datum => (
-                <CellHeaderOdp key={datum.name} sectionName={sectionName} datum={datum} />
+                <CellOdpHeader key={datum.name} sectionName={sectionName} datum={datum} />
               ))}
             </tr>
           )}
@@ -48,9 +53,9 @@ const Table = props => {
               assessmentType={assessmentType}
               sectionName={sectionName}
               tableName={tableName}
+              odp={odp}
               data={data}
               row={row}
-              rowIdx={row.idx}
               disabled={disabled}
               pasteUpdate={() => {}}
             />

@@ -10,7 +10,7 @@ import useCountryIso from '@webapp/components/hooks/useCountryIso'
 import useI18n from '@webapp/components/hooks/useI18n'
 import useUserInfo from '@webapp/components/hooks/useUserInfo'
 
-const CellHeaderOdp = props => {
+const CellOdpHeader = props => {
   const countryIso = useCountryIso()
   const i18n = useI18n()
   const userInfo = useUserInfo()
@@ -37,9 +37,9 @@ const CellHeaderOdp = props => {
   )
 }
 
-CellHeaderOdp.propTypes = {
+CellOdpHeader.propTypes = {
   datum: PropTypes.object.isRequired,
   sectionName: PropTypes.string.isRequired,
 }
 
-export default CellHeaderOdp
+export default CellOdpHeader

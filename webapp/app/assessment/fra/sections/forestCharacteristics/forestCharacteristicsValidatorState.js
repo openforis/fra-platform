@@ -2,7 +2,7 @@ import * as R from 'ramda'
 
 import { abs, greaterThan, greaterThanOrEqualTo, sub } from '@common/bignumberUtils'
 
-import * as ExtentOfForestState from '@webapp/app/assessment/fra/sections/extentOfForest/extentOfForestStateOLD'
+import * as ExtentOfForestState from '@webapp/app/assessment/fra/sections/extentOfForest/extentOfForestState'
 import * as ForestCharacteristicsState from '@webapp/app/assessment/fra/sections/forestCharacteristics/forestCharacteristicsState'
 
 // ==== Datum validator functions
