@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
 
-import { getSectionLink } from '@common/assessment/sections'
+import * as BasePaths from '@webapp/main/basePaths'
 
 import { NavLink } from 'react-router-dom'
 import ReviewStatus from '@webapp/app/components/navigation/components/assessment/section/reviewStatus'
@@ -21,7 +21,7 @@ const Item = props => {
 
   return (
     <NavLink
-      to={getSectionLink(countryIso, assessmentType, section)}
+      to={BasePaths.getAssessmentSectionLink(countryIso, assessmentType, section)}
       className="nav-section__item"
       activeClassName="selected"
     >

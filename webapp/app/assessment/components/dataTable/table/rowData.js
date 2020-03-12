@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { getSectionLink } from '@common/assessment/sections'
+import * as BasePaths from '@webapp/main/basePaths'
 
 import { Link } from 'react-router-dom'
 import Cell from '@webapp/app/assessment/components/dataTable/table/cell'
@@ -32,7 +32,10 @@ const RowData = props => {
         {colHeader.linkToSection ? (
           <>
             <div className="only-print">{colHeaderValue}</div>
-            <Link to={getSectionLink(countryIso, assessmentType, colHeader.linkToSection)} className="link no-print">
+            <Link
+              to={BasePaths.getAssessmentSectionLink(countryIso, assessmentType, colHeader.linkToSection)}
+              className="link no-print"
+            >
               {colHeaderValue}
             </Link>
           </>
