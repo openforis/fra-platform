@@ -27,6 +27,26 @@ const rowsEOF = [
     ExtentOfForestValidator.otherWoodedLandValidator,
     'otherWoodedLand'
   ),
+
+  SectionSpec.newRowData(
+    'fraClass.otherLand',
+    [],
+    'c-a-b',
+    null,
+    ExtentOfForestValidator.areasNotExceedingTotalLandAreaValidator,
+    'otherLand',
+    ExtentOfForestState.getOtherLand
+  ),
+  SectionSpec.newRowData(
+    'extentOfForest.totalLandArea',
+    [],
+    'c',
+    null,
+    null,
+    'faoStat',
+    ExtentOfForestState.getFaoStatArea
+  ),
+
   SectionSpec.newRowNoticeMessage('extentOfForest.tableNoticeMessage', 2),
 ]
 const tableSpecs = [

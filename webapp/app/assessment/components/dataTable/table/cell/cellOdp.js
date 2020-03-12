@@ -22,7 +22,6 @@ const CellOdp = props => {
     validator,
     // rowIdx,
     // colIdx,
-    calculated,
     calculateFn,
     // pasteUpdate,
   } = props
@@ -37,6 +36,7 @@ const CellOdp = props => {
     return validator(datum)(state)
   })
 
+  const calculated = !!calculateFn
   const { type } = datum
   const odp = type === 'odp'
 
@@ -81,14 +81,11 @@ CellOdp.propTypes = {
   // rowIdx: PropTypes.number.isRequired,
   // colIdx: PropTypes.number.isRequired,
   // pasteUpdate: PropTypes.func.isRequired,
-
-  calculated: PropTypes.bool,
   calculateFn: PropTypes.func,
 }
 
 CellOdp.defaultProps = {
   validator: null,
-  calculated: false,
   calculateFn: null,
 }
 

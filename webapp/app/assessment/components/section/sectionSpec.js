@@ -55,11 +55,13 @@ export const newRowData = (
   variableNo = null,
   linkToSection = null,
   validator = null,
-  variableName = null
+  variableName = null,
+  calculateFn = null
 ) => ({
   type: 'data',
   validator,
   variableName,
+  calculateFn,
   cols: [
     {
       idx: `header_0`,
@@ -67,7 +69,7 @@ export const newRowData = (
       labelKey,
       variableNo,
       linkToSection,
-      className: 'fra-table__category-cell',
+      className: calculateFn ? 'fra-table__header-cell-left' : 'fra-table__category-cell',
     },
     ...cols.map((col, idx) => ({ idx, ...col })),
   ],

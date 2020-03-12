@@ -17,7 +17,7 @@ const RowData = props => {
 
   const { data, assessmentType, sectionName, tableName, odp, row, disabled } = props
 
-  const { idx: rowIdx, cols, validator, variableName } = row
+  const { idx: rowIdx, cols, validator, calculateFn, variableName } = row
 
   const colHeader = cols.find(col => col.type === 'header')
   const colHeaderLabel = i18n.t(colHeader.labelKey)
@@ -54,6 +54,7 @@ const RowData = props => {
               datum={datum}
               sectionName={sectionName}
               validator={validator}
+              calculateFn={calculateFn}
               variableName={variableName}
               rowIdx={rowIdx}
               colIdx={i}
