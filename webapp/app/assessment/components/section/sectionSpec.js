@@ -1,4 +1,6 @@
 // ===== Section
+import * as AssessmentState from '@webapp/app/assessment/assessmentState'
+
 const descriptionsDefault = {
   introductoryText: false,
   nationalData: true,
@@ -23,11 +25,13 @@ export const newTableSection = (tableSpecs = [], titleKey, descriptionKey) => ({
 
 // ===== Table
 
-export const newTableSpec = (name, rows) => {
+export const newTableSpec = (name, rows, getSectionData = AssessmentState.getSectionData, odp = false) => {
   let idxHeader = -1
   let idxData = -1
   return {
     name,
+    odp,
+    getSectionData,
     rows: rows.map(row => {
       const header = row.type === 'header'
       idxHeader += header ? 1 : 0

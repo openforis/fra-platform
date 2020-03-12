@@ -2,7 +2,7 @@ import * as FRA from '@common/assessment/fra'
 
 import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
 
-import * as ExtentOfForestState from '@webapp/app/assessment/fra/sections/extentOfForest/extentOfForestState'
+import * as ExtentOfForestState from '@webapp/app/assessment/fra/sections/extentOfForest/extentOfForestStateOLD'
 import * as DesignatedManagementObjectiveState from '@webapp/app/assessment/fra/sections/designatedManagementObjective/designatedManagementObjectiveState'
 
 const section = FRA.sections['3'].children.a

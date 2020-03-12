@@ -8,12 +8,17 @@ import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 
 export const assessmentSectionDataUpdate = 'assessment/section/data/update'
 
-export const fetchTableData = (assessmentType, sectionName, tableName) => async (dispatch, getState) => {
+// ====== READ
+
+export const fetchTableData = (assessmentType, sectionName, tableName, odp = false) => async (dispatch, getState) => {
   const countryIso = AppState.getCountryIso(getState())
-  const { data } = await axios.get(`/api/traditionalTable/${countryIso}/${tableName}`)
+  const url = odp ? `/api/nde/${tableName}/${countryIso}` : `/api/traditionalTable/${countryIso}/${tableName}`
+  const { data } = await axios.get(url)
 
   dispatch({ type: assessmentSectionDataUpdate, assessmentType, sectionName, tableName, data })
 }
+
+// ====== UPDATE
 
 const _postTableData = (tableName, data) => {
   const debounced = async (dispatch, getState) => {
@@ -25,14 +30,17 @@ const _postTableData = (tableName, data) => {
   debounced.meta = {
     debounce: {
       time: 800,
-      key: 'assessmentSectionDataUpdate-' + tableName
-    }
+      key: `${assessmentSectionDataUpdate}/${tableName}`,
+    },
   }
 
   return debounced
 }
 
-export const updateTableData = (assessmentType, sectionName, tableName, rowIdx, colIdx, value) => async (dispatch, getState) => {
+export const updateTableData = (assessmentType, sectionName, tableName, rowIdx, colIdx, value) => async (
+  dispatch,
+  getState
+) => {
   dispatch(autosave.start)
 
   const data = R.pipe(

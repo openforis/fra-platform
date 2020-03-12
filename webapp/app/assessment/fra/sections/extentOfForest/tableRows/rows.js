@@ -2,9 +2,8 @@ import React from 'react'
 
 import useI18n from '@webapp/components/hooks/useI18n'
 
-import * as ExtentOfForestState from '@webapp/app/assessment/fra/sections/extentOfForest/extentOfForestState'
-import * as ExtentOfForestValidator
-  from '@webapp/app/assessment/fra/sections/extentOfForest/extentOfForestValidatorState'
+import * as ExtentOfForestState from '@webapp/app/assessment/fra/sections/extentOfForest/extentOfForestStateOLD'
+import * as ExtentOfForestValidator from '@webapp/app/assessment/fra/sections/extentOfForest/extentOfForestValidatorState'
 
 const tableRows = [
   {
@@ -12,14 +11,14 @@ const tableRows = [
     field: 'forestArea',
     validator: ExtentOfForestValidator.forestAreaValidator,
     rowHeaderLabelKey: 'extentOfForest.forestArea',
-    rowVariable: '(a)'
+    rowVariable: '(a)',
   },
   {
     type: 'field',
     field: 'otherWoodedLand',
     validator: ExtentOfForestValidator.otherWoodedLandValidator,
     rowHeaderLabelKey: 'fraClass.otherWoodedLand',
-    rowVariable: '(b)'
+    rowVariable: '(b)',
   },
   {
     type: 'field',
@@ -45,17 +44,15 @@ const tableRows = [
     render: () => (
       <tr>
         <td className="fra-table__notice-message-cell" rowSpan="2">
-          {
-            useI18n().t('extentOfForest.tableNoticeMessage')
-          }
+          {useI18n().t('extentOfForest.tableNoticeMessage')}
         </td>
       </tr>
-    )
+    ),
   },
   {
     type: 'validationErrors',
-    validationMessages: ExtentOfForestValidator.getValidationMessages
-  }
+    validationMessages: ExtentOfForestValidator.getValidationMessages,
+  },
 ]
 
 export default tableRows

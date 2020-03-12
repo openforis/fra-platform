@@ -4,7 +4,7 @@ import * as FRA from '@common/assessment/fra'
 import { sub } from '@common/bignumberUtils'
 
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
-import * as ExtentOfForestState from '@webapp/app/assessment/fra/sections/extentOfForest/extentOfForestState'
+import * as ExtentOfForestState from '@webapp/app/assessment/fra/sections/extentOfForest/extentOfForestStateOLD'
 
 const section = FRA.sections['3'].children.a
 

@@ -1,7 +1,7 @@
 import * as R from 'ramda'
 import { abs, greaterThanOrEqualTo, lessThanOrEqualTo, sub } from '@common/bignumberUtils'
 
-import * as ExtentOfForestState from '@webapp/app/assessment/fra/sections/extentOfForest/extentOfForestState'
+import * as ExtentOfForestState from '@webapp/app/assessment/fra/sections/extentOfForest/extentOfForestStateOLD'
 
 // ==== Datum validator functions
 
@@ -28,7 +28,7 @@ export const areasNotExceedingTotalLandAreaValidator = datum => state => {
   return greaterThanOrEqualTo(otherLand, 0)
 }
 
-//==== a
+//= === a
 export const forestAreaValidator = datum => state => {
   const { type } = datum
   const forestArea = ExtentOfForestState.getForest(datum)()
@@ -40,7 +40,7 @@ export const forestAreaValidator = datum => state => {
   return comparedTo2015Area && areasNotExceedingTotalLandArea && hasValue
 }
 
-//==== b
+//= === b
 export const otherWoodedLandValidator = datum => state => {
   const { otherWoodedLand, type } = datum
 
@@ -50,7 +50,7 @@ export const otherWoodedLandValidator = datum => state => {
   return areasNotExceedingTotalLandArea && hasValue
 }
 
-//==== Validation messages
+//= === Validation messages
 
 export const getValidationMessages = data => state =>
   data.map(datum => {
@@ -64,7 +64,7 @@ export const getValidationMessages = data => state =>
     if (!forestAreaComparedTo2015Validator(datum)(state)) {
       messages.push({
         key: 'extentOfForest.forestAreaDoesNotMatchPreviouslyReported',
-        params: { previous: ExtentOfForestState.getForestArea2015Value(year)(state) }
+        params: { previous: ExtentOfForestState.getForestArea2015Value(year)(state) },
       })
     }
 

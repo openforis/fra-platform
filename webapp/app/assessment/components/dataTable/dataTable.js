@@ -4,17 +4,12 @@ import { useSelector } from 'react-redux'
 
 import Table from '@webapp/app/assessment/components/dataTable/table'
 
-import * as AssessmentState from '@webapp/app/assessment/assessmentState'
-
 const DataTable = props => {
-  const {
-    assessmentType, sectionName, sectionAnchor, tableSpec,
-    copyValues, disabled,
-  } = props
+  const { assessmentType, sectionName, sectionAnchor, tableSpec, copyValues, disabled } = props
 
-  const { name: tableName, rows } = tableSpec
+  const { name: tableName, rows, getSectionData, odp } = tableSpec
 
-  const data = useSelector(AssessmentState.getSectionData(assessmentType, sectionName, tableName))
+  const data = useSelector(getSectionData(assessmentType, sectionName, tableName))
 
   if (!data) {
     return null
@@ -24,21 +19,24 @@ const DataTable = props => {
     <>
       <div className="fra-table__container">
         <div className="fra-table__scroll-wrapper">
-          <Table
-            assessmentType={assessmentType}
-            sectionName={sectionName}
-            sectionAnchor={sectionAnchor}
-            tableName={tableName}
-            rows={rows}
-            data={data}
-            copyValues={copyValues}
-            disabled={disabled}
-          />
+          {odp ? (
+            <div />
+          ) : (
+            <Table
+              assessmentType={assessmentType}
+              sectionName={sectionName}
+              sectionAnchor={sectionAnchor}
+              tableName={tableName}
+              rows={rows}
+              data={data}
+              copyValues={copyValues}
+              disabled={disabled}
+            />
+          )}
         </div>
       </div>
     </>
   )
-
 }
 
 DataTable.propTypes = {
