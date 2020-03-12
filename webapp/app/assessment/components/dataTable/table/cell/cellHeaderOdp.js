@@ -10,12 +10,12 @@ import useCountryIso from '@webapp/components/hooks/useCountryIso'
 import useI18n from '@webapp/components/hooks/useI18n'
 import useUserInfo from '@webapp/components/hooks/useUserInfo'
 
-const HeaderCell = props => {
+const CellHeaderOdp = props => {
   const countryIso = useCountryIso()
   const i18n = useI18n()
   const userInfo = useUserInfo()
 
-  const { datum, section } = props
+  const { datum, sectionName } = props
   const { name, type, draft, odpId } = datum
   const odp = type === 'odp'
 
@@ -25,7 +25,7 @@ const HeaderCell = props => {
     <th className={className}>
       {odp ? (
         <Tooltip text={i18n.t('nationalDataPoint.clickOnNDP')}>
-          <Link className="link" to={`/country/${countryIso}/odp/${section}/${odpId}`}>
+          <Link className="link" to={`/country/${countryIso}/odp/${sectionName}/${odpId}`}>
             {draft && userInfo && <Icon className="icon-sub icon-margin-right" name="pencil" />}
             {name}
           </Link>
@@ -37,9 +37,9 @@ const HeaderCell = props => {
   )
 }
 
-HeaderCell.propTypes = {
+CellHeaderOdp.propTypes = {
   datum: PropTypes.object.isRequired,
-  section: PropTypes.string.isRequired,
+  sectionName: PropTypes.string.isRequired,
 }
 
-export default HeaderCell
+export default CellHeaderOdp

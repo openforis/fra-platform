@@ -5,8 +5,14 @@ import * as ExtentOfForestState from '@webapp/app/assessment/fra/sections/extent
 
 const section = FRA.sections['1'].children.a
 
+const rowsEOF = [
+  SectionSpec.newRowHeader([
+    SectionSpec.newColHeader('extentOfForest.categoryHeader', null, 2),
+    SectionSpec.newColHeader('extentOfForest.areaUnitLabel'),
+  ]),
+]
 const tableSpecs = [
-  SectionSpec.newTableSpec(section.tables.extentOfForest, [], ExtentOfForestState.getSectionData, true),
+  SectionSpec.newTableSpec(section.tables.extentOfForest, rowsEOF, ExtentOfForestState.getSectionData, true),
 ]
 const tableSection = SectionSpec.newTableSection(tableSpecs)
 

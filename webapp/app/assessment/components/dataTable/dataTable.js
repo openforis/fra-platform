@@ -1,3 +1,5 @@
+import './dataTable.less'
+
 import React from 'react'
 import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
@@ -19,20 +21,17 @@ const DataTable = props => {
     <>
       <div className="fra-table__container">
         <div className="fra-table__scroll-wrapper">
-          {odp ? (
-            <div />
-          ) : (
-            <Table
-              assessmentType={assessmentType}
-              sectionName={sectionName}
-              sectionAnchor={sectionAnchor}
-              tableName={tableName}
-              rows={rows}
-              data={data}
-              copyValues={copyValues}
-              disabled={disabled}
-            />
-          )}
+          <Table
+            assessmentType={assessmentType}
+            sectionName={sectionName}
+            sectionAnchor={sectionAnchor}
+            tableName={tableName}
+            odp={odp}
+            rows={rows}
+            data={data}
+            copyValues={copyValues}
+            disabled={disabled}
+          />
         </div>
       </div>
     </>
