@@ -28,7 +28,6 @@ export const areasNotExceedingTotalLandAreaValidator = datum => state => {
   return greaterThanOrEqualTo(otherLand, 0)
 }
 
-//= === a
 export const forestAreaValidator = datum => state => {
   const { type } = datum
   const forestArea = ExtentOfForestState.getForest(datum)()
@@ -40,7 +39,6 @@ export const forestAreaValidator = datum => state => {
   return comparedTo2015Area && areasNotExceedingTotalLandArea && hasValue
 }
 
-//= === b
 export const otherWoodedLandValidator = datum => state => {
   const { otherWoodedLand, type } = datum
 
@@ -50,7 +48,7 @@ export const otherWoodedLandValidator = datum => state => {
   return areasNotExceedingTotalLandArea && hasValue
 }
 
-//= === Validation messages
+// ==== Validation messages
 
 export const getValidationMessages = data => state =>
   data.map(datum => {

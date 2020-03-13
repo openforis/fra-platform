@@ -32,10 +32,6 @@ const AssessmentSectionView = () => {
   const i18n = useI18n()
   const disabled = useSelector(FraState.isSectionEditDisabled(sectionName))
 
-  // const dataEmpties = useSelector(state =>
-  //   tableNames.map(tableName => AssessmentState.isSectionDataEmpty(assessmentType, sectionName, tableName)(state))
-  // )
-
   // ==== Data fetching effect
   useEffect(() => {
     tableSections.map(tableSection =>
@@ -47,12 +43,6 @@ const AssessmentSectionView = () => {
 
     dispatch(fetchLastSectionUpdateTimestamp(countryIso, sectionName))
   }, [sectionName, countryIso])
-
-  // TODO check where the below commented check should go. maybe in print view directly
-  // ==== When printing only tables, component renders if at least one table has data
-  // if (isPrintingOnlyTables() && R.all(R.identity, dataEmpties)) {
-  //   return null
-  // }
 
   return (
     <>

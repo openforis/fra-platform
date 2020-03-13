@@ -23,11 +23,7 @@ const Row = props => {
     return null
   }
 
-  const renderer = type === 'custom' ? render : rowRenderers[type]
-  if (!renderer) {
-    console.error('Missing renderer for table row', renderer)
-  }
-
+  const renderer = type === 'custom' ? render : rowRenderers[type]``
   return React.createElement(renderer, { data, assessmentType, sectionName, tableName, odp, row, disabled })
 }
 
