@@ -62,22 +62,12 @@ const rowsClimaticDomain = [
     SectionSpec.newColHeader('climaticDomain.percentOfForestArea2015'),
     SectionSpec.newColHeader('climaticDomain.percentOfForestArea2015Override'),
   ]),
-  SectionSpec.newRowData('climaticDomain.boreal', [
-    SectionSpec.newColCalculated(ExtentOfForestState.getClimaticDomainConfigValue),
-    SectionSpec.newColDecimal(),
-  ]),
-  SectionSpec.newRowData('climaticDomain.temperate', [
-    SectionSpec.newColCalculated(ExtentOfForestState.getClimaticDomainConfigValue),
-    SectionSpec.newColDecimal(),
-  ]),
-  SectionSpec.newRowData('climaticDomain.subtropical', [
-    SectionSpec.newColCalculated(ExtentOfForestState.getClimaticDomainConfigValue),
-    SectionSpec.newColDecimal(),
-  ]),
-  SectionSpec.newRowData('climaticDomain.tropical', [
-    SectionSpec.newColCalculated(ExtentOfForestState.getClimaticDomainConfigValue),
-    SectionSpec.newColDecimal(),
-  ]),
+  ...ExtentOfForestState.rowsClimaticDomain.map(row =>
+    SectionSpec.newRowData(`climaticDomain.${row}`, [
+      SectionSpec.newColCalculated(ExtentOfForestState.getClimaticDomainConfigValue),
+      SectionSpec.newColDecimal(),
+    ])
+  ),
 ]
 
 const tableSpecs = [
