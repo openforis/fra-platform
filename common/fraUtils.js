@@ -1,26 +1,11 @@
 const R = require('ramda')
+const FRA = require('./assessment/fra')
 
-const fraYears = [
-  1990,
-  2000,
-  2010,
-  2015,
-  2016,
-  2017,
-  2018,
-  2019,
-  2020
-]
+const fraYears = [1990, 2000, 2010, 2015, 2016, 2017, 2018, 2019, 2020]
 
-const filterFraYears = data => data.filter(
-  d => R.contains(Number(d.year), fraYears)
-)
+const filterFraYears = R.filter(d => R.includes(Number(d.year), FRA.years))
 
-const hasData = R.pipe(
-  R.reject(R.all(R.or(R.isNil, R.isEmpty))),
-  R.isEmpty,
-  R.not,
-)
+const hasData = R.pipe(R.reject(R.all(R.or(R.isNil, R.isEmpty))), R.isEmpty, R.not)
 
 module.exports = {
   fraYears,

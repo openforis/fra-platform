@@ -15,7 +15,7 @@ const getPrimaryDesignatedManagementObjectiveData = AssessmentState.getSectionDa
 )
 
 export const getUnknown = colIdx => state => {
-  const year = FRA.years[colIdx]
+  const year = FRA.yearsTable[colIdx]
   const forestArea = ExtentOfForestState.getForestByYear(year)(state)
   const primaryDesignatedManagementObjective = getPrimaryDesignatedManagementObjectiveData(state)
 

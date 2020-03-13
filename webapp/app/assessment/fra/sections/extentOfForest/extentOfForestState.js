@@ -1,7 +1,9 @@
 import * as R from 'ramda'
 import * as FRA from '@common/assessment/fra'
 
+import FraUtils from '@common/fraUtils'
 import { sub, sum } from '@common/bignumberUtils'
+import { isPrintingMode } from '@webapp/app/assessment/components/print/printAssessment'
 
 import * as CountryState from '@webapp/app/country/countryState'
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
@@ -41,7 +43,11 @@ export const isSectionDataEmpty = () =>
     R.isEmpty
   )
 
-export const getExtentOfForestData = () => R.ifElse(showOriginalDataPoints, getFra, getFraNoOdps)
+export const getExtentOfForestData = () =>
+  R.pipe(
+    R.ifElse(showOriginalDataPoints, getFra, getFraNoOdps),
+    R.when(R.always(isPrintingMode()), FraUtils.filterFraYears)
+  )
 
 // ==== Assessment Fra config areas getter functions
 
@@ -69,7 +75,7 @@ export const getForestByYear = year => TableWithOdpState.getFieldByYear(section.
 
 // ==== By Year index getter functions
 
-export const getForestByYearFraIdx = idx => getForestByYear(FRA.years[idx])
+export const getForestByYearFraIdx = idx => getForestByYear(FRA.yearsTable[idx])
 
 // ====== Climatic domain table functions
 
