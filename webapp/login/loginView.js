@@ -40,7 +40,7 @@ const LoginView = () => {
       <div className="login__box">
         <div className="login__top">
           
-          <Route path="/login/resetPassword/">
+          <Route exact path="/login/resetPassword/">
             <ResetPasswordForm />
           </Route>
 
