@@ -17,6 +17,16 @@ export const getSectionData = (assessmentType, sectionName, tableName) => state 
   return data
 }
 
+export const isSectionDataEmpty = (assessmentType, sectionName, tableName) =>
+  R.pipe(
+    getSectionData(assessmentType, sectionName, tableName),
+    R.defaultTo([]),
+    R.map(R.omit(['year', 'name', 'type'])),
+    R.map(R.values),
+    R.flatten,
+    R.reject(R.isNil),
+    R.isEmpty
+  )
 // ==== Assessment Fra config areas getter functions
 
 export const getForestArea2015Value = year => R.pipe(CountryState.getConfigFra2015ForestAreas, R.prop(year))

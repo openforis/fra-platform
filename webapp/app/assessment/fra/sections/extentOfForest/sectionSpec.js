@@ -17,7 +17,9 @@ const rowsEOF = [
     'a',
     null,
     ExtentOfForestValidator.forestAreaValidator,
-    'forestArea'
+    'forestArea',
+    null,
+    { labelKey: 'fraClass.forest', color: '#0098a6' }
   ),
   SectionSpec.newRowData(
     'fraClass.otherWoodedLand',
@@ -25,7 +27,9 @@ const rowsEOF = [
     'a',
     null,
     ExtentOfForestValidator.otherWoodedLandValidator,
-    'otherWoodedLand'
+    'otherWoodedLand',
+    null,
+    { labelKey: 'fraClass.otherWoodedLand', color: '#bf00af' }
   ),
 
   SectionSpec.newRowData(
@@ -52,7 +56,13 @@ const rowsEOF = [
   SectionSpec.newRowValidationMessages(ExtentOfForestValidator.getValidationMessages),
 ]
 const tableSpecs = [
-  SectionSpec.newTableSpec(section.tables.extentOfForest, rowsEOF, ExtentOfForestState.getSectionData, true),
+  SectionSpec.newTableSpec(
+    section.tables.extentOfForest,
+    rowsEOF,
+    ExtentOfForestState.getSectionData,
+    ExtentOfForestState.isSectionDataEmpty,
+    true
+  ),
 ]
 const tableSection = SectionSpec.newTableSection(tableSpecs)
 

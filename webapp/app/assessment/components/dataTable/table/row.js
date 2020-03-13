@@ -23,7 +23,7 @@ const Row = props => {
     return null
   }
 
-  const renderer = type === 'custom' ? render : rowRenderers[type]``
+  const renderer = type === 'custom' ? render : rowRenderers[type]
   return React.createElement(renderer, { data, assessmentType, sectionName, tableName, odp, row, disabled })
 }
 

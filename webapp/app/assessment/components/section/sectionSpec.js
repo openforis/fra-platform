@@ -25,13 +25,20 @@ export const newTableSection = (tableSpecs = [], titleKey, descriptionKey) => ({
 
 // ===== Table
 
-export const newTableSpec = (name, rows, getSectionData = AssessmentState.getSectionData, odp = false) => {
+export const newTableSpec = (
+  name,
+  rows,
+  getSectionData = AssessmentState.getSectionData,
+  isSectionDataEmpty = AssessmentState.isSectionDataEmpty,
+  odp = false
+) => {
   let idxHeader = -1
   let idxData = -1
   return {
     name,
-    odp,
     getSectionData,
+    isSectionDataEmpty,
+    odp,
     rows: rows.map(row => {
       const header = row.type === 'header'
       idxHeader += header ? 1 : 0
@@ -56,12 +63,14 @@ export const newRowData = (
   linkToSection = null,
   validator = null,
   variableName = null,
-  calculateFn = null
+  calculateFn = null,
+  chartProps = null
 ) => ({
   type: 'data',
   validator,
   variableName,
   calculateFn,
+  chartProps,
   cols: [
     {
       idx: `header_0`,
