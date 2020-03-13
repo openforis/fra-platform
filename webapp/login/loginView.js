@@ -39,12 +39,13 @@ const LoginView = () => {
 
       <div className="login__box">
         <div className="login__top">
+          
+          <Route path="/login/resetPassword/">
+            <ResetPasswordForm />
+          </Route>
 
           <Route path="/login/">
             <LoginForm />
-          </Route>
-          <Route path="/resetPassword/">
-            <ResetPasswordForm />
           </Route>
 
         </div>
