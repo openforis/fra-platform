@@ -80,7 +80,17 @@ export const newRowData = (
       linkToSection,
       className: calculateFn ? 'fra-table__header-cell-left' : 'fra-table__category-cell',
     },
-    ...cols.map((col, idx) => ({ idx, ...col })),
+    ...cols.map(col => {
+      let idxHeader = -1
+      let idxData = -1
+      const header = col.type === 'calculated'
+      idxHeader += header ? 1 : 0
+      idxData += header ? 0 : 1
+      return {
+        idx: header ? `header_${idxHeader}` : idxData,
+        ...col,
+      }
+    }),
   ],
 })
 

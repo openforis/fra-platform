@@ -55,6 +55,31 @@ const rowsEOF = [
 
   SectionSpec.newRowValidationMessages(ExtentOfForestValidator.getValidationMessages),
 ]
+
+const rowsClimaticDomain = [
+  SectionSpec.newRowHeader([
+    SectionSpec.newColHeader('climaticDomain.climaticDomain'),
+    SectionSpec.newColHeader('climaticDomain.percentOfForestArea2015'),
+    SectionSpec.newColHeader('climaticDomain.percentOfForestArea2015Override'),
+  ]),
+  SectionSpec.newRowData('climaticDomain.boreal', [
+    SectionSpec.newColCalculated(ExtentOfForestState.getClimaticDomainConfigValue),
+    SectionSpec.newColDecimal(),
+  ]),
+  SectionSpec.newRowData('climaticDomain.temperate', [
+    SectionSpec.newColCalculated(ExtentOfForestState.getClimaticDomainConfigValue),
+    SectionSpec.newColDecimal(),
+  ]),
+  SectionSpec.newRowData('climaticDomain.subtropical', [
+    SectionSpec.newColCalculated(ExtentOfForestState.getClimaticDomainConfigValue),
+    SectionSpec.newColDecimal(),
+  ]),
+  SectionSpec.newRowData('climaticDomain.tropical', [
+    SectionSpec.newColCalculated(ExtentOfForestState.getClimaticDomainConfigValue),
+    SectionSpec.newColDecimal(),
+  ]),
+]
+
 const tableSpecs = [
   SectionSpec.newTableSpec(
     section.tables.extentOfForest,
@@ -63,6 +88,7 @@ const tableSpecs = [
     ExtentOfForestState.isSectionDataEmpty,
     true
   ),
+  SectionSpec.newTableSpec(section.tables.climaticDomain, rowsClimaticDomain),
 ]
 const tableSection = SectionSpec.newTableSection(tableSpecs)
 

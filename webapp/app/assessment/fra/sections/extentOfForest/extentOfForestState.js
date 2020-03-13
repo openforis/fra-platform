@@ -54,3 +54,10 @@ export const getForestByYear = year => TableWithOdpState.getFieldByYear(section,
 // ==== By Year index getter functions
 
 export const getForestByYearFraIdx = idx => getForestByYear(FRA.years[idx])
+
+// ====== Climatic domain table functions
+
+export const rowsClimaticDomain = ['boreal', 'temperate', 'subtropical', 'tropical']
+
+export const getClimaticDomainConfigValue = (colIdx, rowIdx) =>
+  R.pipe(CountryState.getConfigClimaticDomainPercents2015, R.prop(rowsClimaticDomain[rowIdx]))
