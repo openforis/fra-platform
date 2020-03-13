@@ -74,7 +74,7 @@ const tableSpecs = [
   SectionSpec.newTableSpec(
     section.tables.extentOfForest,
     rowsEOF,
-    ExtentOfForestState.getSectionData,
+    ExtentOfForestState.getExtentOfForestData,
     ExtentOfForestState.isSectionDataEmpty,
     true
   ),

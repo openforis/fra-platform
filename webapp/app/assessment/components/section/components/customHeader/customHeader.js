@@ -4,7 +4,7 @@ import * as R from 'ramda'
 
 import * as FRA from '@common/assessment/fra'
 
-import ExtentOfForest from '@webapp/app/assessment/components/section/customHeader/extentOfForest'
+import ExtentOfForest from '@webapp/app/assessment/components/section/components/customHeader/extentOfForest'
 
 const components = {
   [FRA.type]: {

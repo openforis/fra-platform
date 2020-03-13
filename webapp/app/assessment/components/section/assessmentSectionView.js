@@ -7,7 +7,8 @@ import * as ObjectUtils from '@common/objectUtils'
 import { isPrintingOnlyTables } from '@webapp/app/assessment/components/print/printAssessment'
 import sectionSpecs from '@webapp/app/assessment/components/section/sectionSpecs'
 
-import CustomHeader from '@webapp/app/assessment/components/section/customHeader'
+import CustomHeader from '@webapp/app/assessment/components/section/components/customHeader'
+import Title from '@webapp/app/assessment/components/section/components/title'
 import DefinitionLink from '@webapp/components/definitionLink'
 import NationalDataDescriptions from '@webapp/app/assessment/components/description/nationalDataDescriptions'
 import AnalysisDescriptions from '@webapp/app/assessment/components/description/analysisDescriptions'
@@ -84,7 +85,7 @@ const AssessmentSectionView = () => {
         />
       )}
 
-      <h2 className="headline no-print">{i18n.t(`${sectionName}.${sectionName}`)}</h2>
+      <Title assessmentType={assessmentType} sectionName={sectionName} />
 
       <div className="app-view__section-toolbar">
         <DefinitionLink

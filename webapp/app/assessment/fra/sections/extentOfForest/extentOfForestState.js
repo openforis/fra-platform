@@ -7,19 +7,32 @@ import * as CountryState from '@webapp/app/country/countryState'
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 import * as TableWithOdpState from '@webapp/app/assessment/fra/components/tableWithOdp/tableWithOdpState'
 
-const section = FRA.sections['1'].children.a
-
-export const getFra = (assessmentType, sectionName, tableName) =>
-  R.pipe(AssessmentState.getSectionData(assessmentType, sectionName, tableName), R.propOr(null, 'fra'))
-
-export const getSectionData = (assessmentType, sectionName, tableName) => state => {
-  // TODO: add show/hide ndps
-  return getFra(assessmentType, sectionName, tableName)(state)
+export const keys = {
+  showOdps: 'showOdps',
 }
 
-export const isSectionDataEmpty = (assessmentType, sectionName, tableName) =>
+const section = FRA.sections['1'].children.a
+
+export const getSectionData = AssessmentState.getSectionData(FRA.type, section.name, section.tables.extentOfForest)
+
+const _getSectionDataProp = (propName, defaultTo = null) => R.pipe(getSectionData, R.propOr(defaultTo, propName))
+
+const getFra = _getSectionDataProp('fra', null)
+const getFraNoOdps = _getSectionDataProp('fraNoNDPs', null)
+
+const _hasFraOriginalDataPoints = R.pipe(R.defaultTo([]), R.filter(R.propEq('type', 'odp')), R.length, R.lt(0))
+
+export const hasOriginalDataPoints = R.pipe(getFra, _hasFraOriginalDataPoints)
+
+export const useDescriptions = R.pipe(getFra, R.ifElse(R.isNil, R.F, R.pipe(_hasFraOriginalDataPoints, R.not)))
+
+export const showOriginalDataPoints = R.pipe(getSectionData, R.propOr(true, keys.showOdps))
+
+// ==== AssessmentSectionState functions
+
+export const isSectionDataEmpty = () =>
   R.pipe(
-    getFra(assessmentType, sectionName, tableName),
+    getFra,
     R.defaultTo([]),
     R.map(R.omit(['year', 'name', 'type'])),
     R.map(R.values),
@@ -28,17 +41,7 @@ export const isSectionDataEmpty = (assessmentType, sectionName, tableName) =>
     R.isEmpty
   )
 
-const _hasFraOriginalDataPoints = R.pipe(R.defaultTo([]), R.filter(R.propEq('type', 'odp')), R.length, R.lt(0))
-
-export const hasOriginalDataPoints = R.pipe(
-  getFra(FRA.type, section.name, section.tables.extentOfForest),
-  _hasFraOriginalDataPoints
-)
-
-export const useDescriptions = R.pipe(
-  getFra(FRA.type, section.name, section.tables.extentOfForest),
-  R.ifElse(R.isNil, R.F, R.pipe(_hasFraOriginalDataPoints, R.not))
-)
+export const getExtentOfForestData = () => R.ifElse(showOriginalDataPoints, getFra, getFraNoOdps)
 
 // ==== Assessment Fra config areas getter functions
 
