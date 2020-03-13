@@ -19,7 +19,7 @@ const ResetPasswordNotFound = () =>
   </div>
 
 const ResetPasswordForm = props => {
-
+  
   const {
     status = '', resetPassword = {}, changePasswordResponse = {},
     changePassword, findResetPassword
