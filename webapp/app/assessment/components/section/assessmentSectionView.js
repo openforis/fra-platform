@@ -7,6 +7,7 @@ import * as ObjectUtils from '@common/objectUtils'
 import { isPrintingOnlyTables } from '@webapp/app/assessment/components/print/printAssessment'
 import sectionSpecs from '@webapp/app/assessment/components/section/sectionSpecs'
 
+import CustomHeader from '@webapp/app/assessment/components/section/customHeader'
 import DefinitionLink from '@webapp/components/definitionLink'
 import NationalDataDescriptions from '@webapp/app/assessment/components/description/nationalDataDescriptions'
 import AnalysisDescriptions from '@webapp/app/assessment/components/description/analysisDescriptions'
@@ -55,76 +56,76 @@ const AssessmentSectionView = () => {
   }, [sectionName, countryIso])
 
   return (
-    <>
+    <div className="app-view__content">
       <h2 className="title only-print">
         {`${isPrintingOnlyTables() ? '' : `${sectionAnchor} `}${i18n.t(`${sectionName}.${sectionName}`)}`}
       </h2>
 
-      <div className="app-view__content">
-        {/* descriptions components */}
-        {useNationalData && (
-          <NationalDataDescriptions section={sectionName} countryIso={countryIso} disabled={disabled} />
-        )}
-        {useAnalysisAndProcessing && (
-          <AnalysisDescriptions section={sectionName} countryIso={countryIso} disabled={disabled} />
-        )}
-        {introductoryText && (
-          <CommentableDescription
-            section={sectionName}
-            title={i18n.t('contactPersons.introductoryText')}
-            name="introductoryText"
-            template={i18n.t('contactPersons.introductoryTextSupport')}
-            disabled={disabled}
-          />
-        )}
+      <CustomHeader assessmentType={assessmentType} sectionName={sectionName} disabled={disabled} />
 
-        <h2 className="headline no-print">{i18n.t(`${sectionName}.${sectionName}`)}</h2>
+      {/* descriptions components */}
+      {useNationalData && (
+        <NationalDataDescriptions section={sectionName} countryIso={countryIso} disabled={disabled} />
+      )}
+      {useAnalysisAndProcessing && (
+        <AnalysisDescriptions section={sectionName} countryIso={countryIso} disabled={disabled} />
+      )}
+      {introductoryText && (
+        <CommentableDescription
+          section={sectionName}
+          title={i18n.t('contactPersons.introductoryText')}
+          name="introductoryText"
+          template={i18n.t('contactPersons.introductoryTextSupport')}
+          disabled={disabled}
+        />
+      )}
 
-        <div className="app-view__section-toolbar">
-          <DefinitionLink
-            className="margin-right-big"
-            document="tad"
-            anchor={sectionAnchor}
-            title={i18n.t('definition.definitionLabel')}
-            lang={i18n.language}
-          />
-          <DefinitionLink
-            className="align-left"
-            document="faq"
-            anchor={sectionAnchor}
-            title={i18n.t('definition.faqLabel')}
-            lang={i18n.language}
-          />
-        </div>
+      <h2 className="headline no-print">{i18n.t(`${sectionName}.${sectionName}`)}</h2>
 
-        {!isPrintingOnlyTables() && <div className="page-break" />}
-
-        {tableSections.map(tableSection => (
-          <div key={tableSection.idx}>
-            {tableSection.titleKey && <h3 className="subhead">{i18n.t(tableSection.titleKey)}</h3>}
-            {tableSection.descriptionKey && (
-              <div className="app-view__section-toolbar">
-                <div className="support-text no-print">{i18n.t(tableSection.descriptionKey)}</div>
-              </div>
-            )}
-
-            {tableSection.tableSpecs.map(tableSpec => (
-              <DataTable
-                key={tableSpec.name}
-                assessmentType={assessmentType}
-                sectionName={sectionName}
-                sectionAnchor={sectionAnchor}
-                tableSpec={tableSpec}
-                copyValues={false}
-                disabled={disabled}
-              />
-            ))}
-          </div>
-        ))}
-
-        {comments && <GeneralComments section={sectionName} countryIso={countryIso} disabled={disabled} />}
+      <div className="app-view__section-toolbar">
+        <DefinitionLink
+          className="margin-right-big"
+          document="tad"
+          anchor={sectionAnchor}
+          title={i18n.t('definition.definitionLabel')}
+          lang={i18n.language}
+        />
+        <DefinitionLink
+          className="align-left"
+          document="faq"
+          anchor={sectionAnchor}
+          title={i18n.t('definition.faqLabel')}
+          lang={i18n.language}
+        />
       </div>
-    </>
+
+      {!isPrintingOnlyTables() && <div className="page-break" />}
+
+      {tableSections.map(tableSection => (
+        <div key={tableSection.idx}>
+          {tableSection.titleKey && <h3 className="subhead">{i18n.t(tableSection.titleKey)}</h3>}
+          {tableSection.descriptionKey && (
+            <div className="app-view__section-toolbar">
+              <div className="support-text no-print">{i18n.t(tableSection.descriptionKey)}</div>
+            </div>
+          )}
+
+          {tableSection.tableSpecs.map(tableSpec => (
+            <DataTable
+              key={tableSpec.name}
+              assessmentType={assessmentType}
+              sectionName={sectionName}
+              sectionAnchor={sectionAnchor}
+              tableSpec={tableSpec}
+              copyValues={false}
+              disabled={disabled}
+            />
+          ))}
+        </div>
+      ))}
+
+      {comments && <GeneralComments section={sectionName} countryIso={countryIso} disabled={disabled} />}
+    </div>
   )
 }
 
