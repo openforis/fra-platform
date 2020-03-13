@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux'
 import { isPrintingMode, isPrintingOnlyTables } from '@webapp/app/assessment/components/print/printAssessment'
 
 import Table from '@webapp/app/assessment/components/dataTable/table'
-import ChartWrapper from '@webapp/app/assessment/fra/sections/extentOfForest/chart/chartWrapper'
+import Chart from '@webapp/app/assessment/components/dataTable/chart'
 import useI18n from '@webapp/components/hooks/useI18n'
 
 const DataTable = props => {
@@ -28,7 +28,7 @@ const DataTable = props => {
       {odp && (!isPrintingMode() || (!isPrintingOnlyTables() && !dataEmpty)) && (
         <>
           <div className="page-break" />
-          <ChartWrapper
+          <Chart
             fra={data}
             trends={rows
               .filter(row => !!row.chartProps)
