@@ -82,6 +82,9 @@ const tableSpecs = [
 ]
 const tableSection = SectionSpec.newTableSection(tableSpecs)
 
-const extentOfForest = SectionSpec.newSectionSpec(section.name, section.anchor, [tableSection])
+const extentOfForest = SectionSpec.newSectionSpec(section.name, section.anchor, [tableSection], {
+  nationalData: ExtentOfForestState.useDescriptions,
+  analysisAndProcessing: ExtentOfForestState.useDescriptions,
+})
 
 export default extentOfForest

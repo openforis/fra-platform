@@ -7,19 +7,19 @@ import * as CountryState from '@webapp/app/country/countryState'
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 import * as TableWithOdpState from '@webapp/app/assessment/fra/components/tableWithOdp/tableWithOdpState'
 
-const section = 'extentOfForest'
+const section = FRA.sections['1'].children.a
+
+export const getFra = (assessmentType, sectionName, tableName) =>
+  R.pipe(AssessmentState.getSectionData(assessmentType, sectionName, tableName), R.propOr(null, 'fra'))
 
 export const getSectionData = (assessmentType, sectionName, tableName) => state => {
-  const data = R.pipe(
-    AssessmentState.getSectionData(assessmentType, sectionName, tableName),
-    R.propOr(null, 'fra')
-  )(state)
-  return data
+  // TODO: add show/hide ndps
+  return getFra(assessmentType, sectionName, tableName)(state)
 }
 
 export const isSectionDataEmpty = (assessmentType, sectionName, tableName) =>
   R.pipe(
-    getSectionData(assessmentType, sectionName, tableName),
+    getFra(assessmentType, sectionName, tableName),
     R.defaultTo([]),
     R.map(R.omit(['year', 'name', 'type'])),
     R.map(R.values),
@@ -27,6 +27,17 @@ export const isSectionDataEmpty = (assessmentType, sectionName, tableName) =>
     R.reject(R.isNil),
     R.isEmpty
   )
+
+export const hasOriginalDataPoints = R.pipe(
+  getFra(FRA.type, section.name, section.tables.extentOfForest),
+  R.defaultTo([]),
+  R.filter(R.propEq('type', 'odp')),
+  R.length,
+  R.lt(0)
+)
+
+export const useDescriptions = R.pipe(hasOriginalDataPoints, R.not)
+
 // ==== Assessment Fra config areas getter functions
 
 export const getForestArea2015Value = year => R.pipe(CountryState.getConfigFra2015ForestAreas, R.prop(year))
@@ -49,7 +60,7 @@ export const getOtherLand = datum => state => {
 
 // ==== By Year getter functions
 
-export const getForestByYear = year => TableWithOdpState.getFieldByYear(section, 'forestArea', year)
+export const getForestByYear = year => TableWithOdpState.getFieldByYear(section.name, 'forestArea', year)
 
 // ==== By Year index getter functions
 
