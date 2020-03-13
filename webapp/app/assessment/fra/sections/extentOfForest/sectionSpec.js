@@ -17,7 +17,9 @@ const rowsEOF = [
     'a',
     null,
     ExtentOfForestValidator.forestAreaValidator,
-    'forestArea'
+    'forestArea',
+    null,
+    { labelKey: 'fraClass.forest', color: '#0098a6' }
   ),
   SectionSpec.newRowData(
     'fraClass.otherWoodedLand',
@@ -25,7 +27,9 @@ const rowsEOF = [
     'a',
     null,
     ExtentOfForestValidator.otherWoodedLandValidator,
-    'otherWoodedLand'
+    'otherWoodedLand',
+    null,
+    { labelKey: 'fraClass.otherWoodedLand', color: '#bf00af' }
   ),
 
   SectionSpec.newRowData(
@@ -51,11 +55,36 @@ const rowsEOF = [
 
   SectionSpec.newRowValidationMessages(ExtentOfForestValidator.getValidationMessages),
 ]
+
+const rowsClimaticDomain = [
+  SectionSpec.newRowHeader([
+    SectionSpec.newColHeader('climaticDomain.climaticDomain'),
+    SectionSpec.newColHeader('climaticDomain.percentOfForestArea2015'),
+    SectionSpec.newColHeader('climaticDomain.percentOfForestArea2015Override'),
+  ]),
+  ...ExtentOfForestState.rowsClimaticDomain.map(row =>
+    SectionSpec.newRowData(`climaticDomain.${row}`, [
+      SectionSpec.newColCalculated(ExtentOfForestState.getClimaticDomainConfigValue),
+      SectionSpec.newColDecimal(),
+    ])
+  ),
+]
+
 const tableSpecs = [
-  SectionSpec.newTableSpec(section.tables.extentOfForest, rowsEOF, ExtentOfForestState.getSectionData, true),
+  SectionSpec.newTableSpec(
+    section.tables.extentOfForest,
+    rowsEOF,
+    ExtentOfForestState.getSectionData,
+    ExtentOfForestState.isSectionDataEmpty,
+    true
+  ),
+  SectionSpec.newTableSpec(section.tables.climaticDomain, rowsClimaticDomain),
 ]
 const tableSection = SectionSpec.newTableSection(tableSpecs)
 
-const extentOfForest = SectionSpec.newSectionSpec(section.name, section.anchor, [tableSection])
+const extentOfForest = SectionSpec.newSectionSpec(section.name, section.anchor, [tableSection], {
+  nationalData: ExtentOfForestState.useDescriptions,
+  analysisAndProcessing: ExtentOfForestState.useDescriptions,
+})
 
 export default extentOfForest

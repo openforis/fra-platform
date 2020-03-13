@@ -5,7 +5,7 @@ import * as R from 'ramda'
 
 import Icon from '@webapp/components/icon'
 import DefinitionLink from '@webapp/components/definitionLink'
-import ChartWrapper from '@webapp/app/assessment/fra/sections/extentOfForest/chart/chartWrapper'
+import ChartWrapper from '@webapp/app/assessment/components/dataTable/chart/chartWrapper'
 import TableWithOdp  from '@webapp/app/assessment/fra/components/tableWithOdp'
 import NationalDataDescriptions from '@webapp/app/assessment/components/description/nationalDataDescriptions'
 import AnalysisDescriptions from '@webapp/app/assessment/components/description/analysisDescriptions'

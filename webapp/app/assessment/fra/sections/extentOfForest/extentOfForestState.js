@@ -7,15 +7,38 @@ import * as CountryState from '@webapp/app/country/countryState'
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 import * as TableWithOdpState from '@webapp/app/assessment/fra/components/tableWithOdp/tableWithOdpState'
 
-const section = 'extentOfForest'
+const section = FRA.sections['1'].children.a
+
+export const getFra = (assessmentType, sectionName, tableName) =>
+  R.pipe(AssessmentState.getSectionData(assessmentType, sectionName, tableName), R.propOr(null, 'fra'))
 
 export const getSectionData = (assessmentType, sectionName, tableName) => state => {
-  const data = R.pipe(
-    AssessmentState.getSectionData(assessmentType, sectionName, tableName),
-    R.propOr(null, 'fra')
-  )(state)
-  return data
+  // TODO: add show/hide ndps
+  return getFra(assessmentType, sectionName, tableName)(state)
 }
+
+export const isSectionDataEmpty = (assessmentType, sectionName, tableName) =>
+  R.pipe(
+    getFra(assessmentType, sectionName, tableName),
+    R.defaultTo([]),
+    R.map(R.omit(['year', 'name', 'type'])),
+    R.map(R.values),
+    R.flatten,
+    R.reject(R.isNil),
+    R.isEmpty
+  )
+
+const _hasFraOriginalDataPoints = R.pipe(R.defaultTo([]), R.filter(R.propEq('type', 'odp')), R.length, R.lt(0))
+
+export const hasOriginalDataPoints = R.pipe(
+  getFra(FRA.type, section.name, section.tables.extentOfForest),
+  _hasFraOriginalDataPoints
+)
+
+export const useDescriptions = R.pipe(
+  getFra(FRA.type, section.name, section.tables.extentOfForest),
+  R.ifElse(R.isNil, R.F, R.pipe(_hasFraOriginalDataPoints, R.not))
+)
 
 // ==== Assessment Fra config areas getter functions
 
@@ -39,8 +62,15 @@ export const getOtherLand = datum => state => {
 
 // ==== By Year getter functions
 
-export const getForestByYear = year => TableWithOdpState.getFieldByYear(section, 'forestArea', year)
+export const getForestByYear = year => TableWithOdpState.getFieldByYear(section.name, 'forestArea', year)
 
 // ==== By Year index getter functions
 
 export const getForestByYearFraIdx = idx => getForestByYear(FRA.years[idx])
+
+// ====== Climatic domain table functions
+
+export const rowsClimaticDomain = ['boreal', 'temperate', 'subtropical', 'tropical']
+
+export const getClimaticDomainConfigValue = (colIdx, rowIdx) =>
+  R.pipe(CountryState.getConfigClimaticDomainPercents2015, R.prop(rowsClimaticDomain[rowIdx]))

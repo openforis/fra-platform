@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router'
 import * as R from 'ramda'
 
+import * as ObjectUtils from '@common/objectUtils'
 import { isPrintingOnlyTables } from '@webapp/app/assessment/components/print/printAssessment'
 import sectionSpecs from '@webapp/app/assessment/components/section/sectionSpecs'
 
@@ -32,6 +33,15 @@ const AssessmentSectionView = () => {
   const i18n = useI18n()
   const disabled = useSelector(FraState.isSectionEditDisabled(sectionName))
 
+  // ==== Check whether to use descriptions
+  const useNationalData = useSelector(state =>
+    ObjectUtils.isFunction(nationalData) ? nationalData(state) : nationalData
+  )
+
+  const useAnalysisAndProcessing = useSelector(state =>
+    ObjectUtils.isFunction(analysisAndProcessing) ? analysisAndProcessing(state) : analysisAndProcessing
+  )
+
   // ==== Data fetching effect
   useEffect(() => {
     tableSections.map(tableSection =>
@@ -52,8 +62,10 @@ const AssessmentSectionView = () => {
 
       <div className="app-view__content">
         {/* descriptions components */}
-        {nationalData && <NationalDataDescriptions section={sectionName} countryIso={countryIso} disabled={disabled} />}
-        {analysisAndProcessing && (
+        {useNationalData && (
+          <NationalDataDescriptions section={sectionName} countryIso={countryIso} disabled={disabled} />
+        )}
+        {useAnalysisAndProcessing && (
           <AnalysisDescriptions section={sectionName} countryIso={countryIso} disabled={disabled} />
         )}
         {introductoryText && (
