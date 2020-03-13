@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router'
 import * as R from 'ramda'
@@ -33,6 +33,7 @@ const AssessmentSectionView = () => {
   const countryIso = useCountryIso()
   const i18n = useI18n()
   const disabled = useSelector(FraState.isSectionEditDisabled(sectionName))
+  const appViewRef = useRef(null)
 
   // ==== Check whether to use descriptions
   const useNationalData = useSelector(state =>
@@ -53,10 +54,13 @@ const AssessmentSectionView = () => {
     )
 
     dispatch(fetchLastSectionUpdateTimestamp(countryIso, sectionName))
+
+    // on section or ocuntry change, scroll to top
+    appViewRef.current.scrollTop = 0
   }, [sectionName, countryIso])
 
   return (
-    <div className="app-view__content">
+    <div className="app-view__content" ref={appViewRef}>
       <h2 className="title only-print">
         {`${isPrintingOnlyTables() ? '' : `${sectionAnchor} `}${i18n.t(`${sectionName}.${sectionName}`)}`}
       </h2>
