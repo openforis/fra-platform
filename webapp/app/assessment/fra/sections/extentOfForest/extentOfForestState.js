@@ -4,9 +4,18 @@ import * as FRA from '@common/assessment/fra'
 import { sub, sum } from '@common/bignumberUtils'
 
 import * as CountryState from '@webapp/app/country/countryState'
+import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 import * as TableWithOdpState from '@webapp/app/assessment/fra/components/tableWithOdp/tableWithOdpState'
 
 const section = 'extentOfForest'
+
+export const getSectionData = (assessmentType, sectionName, tableName) => state => {
+  const data = R.pipe(
+    AssessmentState.getSectionData(assessmentType, sectionName, tableName),
+    R.propOr(null, 'fra')
+  )(state)
+  return data
+}
 
 // ==== Assessment Fra config areas getter functions
 

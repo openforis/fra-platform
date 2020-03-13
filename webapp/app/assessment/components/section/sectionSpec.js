@@ -1,4 +1,6 @@
 // ===== Section
+import * as AssessmentState from '@webapp/app/assessment/assessmentState'
+
 const descriptionsDefault = {
   introductoryText: false,
   nationalData: true,
@@ -23,11 +25,13 @@ export const newTableSection = (tableSpecs = [], titleKey, descriptionKey) => ({
 
 // ===== Table
 
-export const newTableSpec = (name, rows) => {
+export const newTableSpec = (name, rows, getSectionData = AssessmentState.getSectionData, odp = false) => {
   let idxHeader = -1
   let idxData = -1
   return {
     name,
+    odp,
+    getSectionData,
     rows: rows.map(row => {
       const header = row.type === 'header'
       idxHeader += header ? 1 : 0
@@ -45,8 +49,19 @@ export const newRowHeader = cols => ({
   cols: cols.map((col, idx) => ({ idx, ...col })),
 })
 
-export const newRowData = (labelKey, cols, variableNo = null, linkToSection = null) => ({
+export const newRowData = (
+  labelKey,
+  cols,
+  variableNo = null,
+  linkToSection = null,
+  validator = null,
+  variableName = null,
+  calculateFn = null
+) => ({
   type: 'data',
+  validator,
+  variableName,
+  calculateFn,
   cols: [
     {
       idx: `header_0`,
@@ -54,10 +69,26 @@ export const newRowData = (labelKey, cols, variableNo = null, linkToSection = nu
       labelKey,
       variableNo,
       linkToSection,
-      className: 'fra-table__category-cell',
+      className: calculateFn ? 'fra-table__header-cell-left' : 'fra-table__category-cell',
     },
     ...cols.map((col, idx) => ({ idx, ...col })),
   ],
+})
+
+export const newRowNoticeMessage = (labelKey, rowSpan = 1, colSpan = 1) => ({
+  type: 'noticeMessage',
+  cols: [
+    {
+      labelKey,
+      rowSpan,
+      colSpan,
+    },
+  ],
+})
+
+export const newRowValidationMessages = getValidationMessages => ({
+  type: 'validationMessages',
+  getValidationMessages,
 })
 
 export const newColHeader = (labelKey = null, label = null, rowSpan = 1, colSpan = 1, left = false) => ({

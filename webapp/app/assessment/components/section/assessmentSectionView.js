@@ -16,7 +16,6 @@ import useCountryIso from '@webapp/components/hooks/useCountryIso'
 import useI18n from '@webapp/components/hooks/useI18n'
 
 import * as FraState from '@webapp/app/assessment/fra/fraState'
-import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 
 import { fetchTableData } from '@webapp/app/assessment/components/dataTable/actions'
 import { fetchLastSectionUpdateTimestamp } from '@webapp/app/components/audit/actions'
@@ -27,33 +26,23 @@ const AssessmentSectionView = () => {
   const { sectionName, sectionAnchor, tableSections, descriptions } = sectionSpec
 
   const { introductoryText, nationalData, analysisAndProcessing, comments } = descriptions
-  const tableNames = tableSections
-    .map(tableSection => tableSection.tableSpecs.map(tableSpec => tableSpec.name))
-    .flat(Infinity)
 
   const dispatch = useDispatch()
   const countryIso = useCountryIso()
   const i18n = useI18n()
   const disabled = useSelector(FraState.isSectionEditDisabled(sectionName))
 
-  const dataEmpties = useSelector(state =>
-    tableNames.map(tableName => AssessmentState.isSectionDataEmpty(assessmentType, sectionName, tableName)(state))
-  )
-
   // ==== Data fetching effect
   useEffect(() => {
-    tableNames.forEach(tableName => {
-      dispatch(fetchTableData(assessmentType, sectionName, tableName))
-    })
+    tableSections.map(tableSection =>
+      tableSection.tableSpecs.map(tableSpec => {
+        const { name: tableName, odp } = tableSpec
+        return dispatch(fetchTableData(assessmentType, sectionName, tableName, odp))
+      })
+    )
 
     dispatch(fetchLastSectionUpdateTimestamp(countryIso, sectionName))
   }, [sectionName, countryIso])
-
-  // TODO check where the below commented check should go. maybe in print view directly
-  // ==== When printing only tables, component renders if at least one table has data
-  if (isPrintingOnlyTables() && R.all(R.identity, dataEmpties)) {
-    return null
-  }
 
   return (
     <>

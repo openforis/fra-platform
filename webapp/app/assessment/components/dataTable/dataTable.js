@@ -1,20 +1,17 @@
+import './dataTable.less'
+
 import React from 'react'
 import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
 
 import Table from '@webapp/app/assessment/components/dataTable/table'
 
-import * as AssessmentState from '@webapp/app/assessment/assessmentState'
-
 const DataTable = props => {
-  const {
-    assessmentType, sectionName, sectionAnchor, tableSpec,
-    copyValues, disabled,
-  } = props
+  const { assessmentType, sectionName, sectionAnchor, tableSpec, copyValues, disabled } = props
 
-  const { name: tableName, rows } = tableSpec
+  const { name: tableName, rows, getSectionData, odp } = tableSpec
 
-  const data = useSelector(AssessmentState.getSectionData(assessmentType, sectionName, tableName))
+  const data = useSelector(getSectionData(assessmentType, sectionName, tableName))
 
   if (!data) {
     return null
@@ -29,6 +26,7 @@ const DataTable = props => {
             sectionName={sectionName}
             sectionAnchor={sectionAnchor}
             tableName={tableName}
+            odp={odp}
             rows={rows}
             data={data}
             copyValues={copyValues}
@@ -38,7 +36,6 @@ const DataTable = props => {
       </div>
     </>
   )
-
 }
 
 DataTable.propTypes = {

@@ -9,6 +9,10 @@ const FRA = {
         a: {
           name: 'extentOfForest',
           anchor: '1a',
+          tables: {
+            extentOfForest: 'extentOfForest',
+            climaticDomain: 'climaticDomain',
+          },
         },
       },
     },

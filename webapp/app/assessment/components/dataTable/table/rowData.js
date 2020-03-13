@@ -9,14 +9,15 @@ import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndi
 import useI18n from '@webapp/components/hooks/useI18n'
 import useCountryIso from '@webapp/components/hooks/useCountryIso'
 import useRowClassName from '@webapp/app/assessment/components/dataTable/table/useRowClassName'
+import CellOdp from '@webapp/app/assessment/components/dataTable/table/cell/cellOdp'
 
 const RowData = props => {
   const countryIso = useCountryIso()
   const i18n = useI18n()
 
-  const { data, assessmentType, sectionName, tableName, row, rowIdx, disabled } = props
+  const { data, assessmentType, sectionName, tableName, odp, row, disabled } = props
 
-  const { cols } = row
+  const { idx: rowIdx, cols, validator, calculateFn, variableName } = row
 
   const colHeader = cols.find(col => col.type === 'header')
   const colHeaderLabel = i18n.t(colHeader.labelKey)
@@ -44,18 +45,33 @@ const RowData = props => {
         )}
       </th>
 
-      {colsData.map(col => (
-        <Cell
-          key={col.idx}
-          data={data}
-          assessmentType={assessmentType}
-          sectionName={sectionName}
-          tableName={tableName}
-          disabled={disabled}
-          rowIdx={rowIdx}
-          col={col}
-        />
-      ))}
+      {odp
+        ? data.map((datum, i) => (
+            <CellOdp
+              key={datum.name}
+              disabled={disabled}
+              data={data}
+              datum={datum}
+              sectionName={sectionName}
+              validator={validator}
+              calculateFn={calculateFn}
+              variableName={variableName}
+              rowIdx={rowIdx}
+              colIdx={i}
+            />
+          ))
+        : colsData.map(col => (
+            <Cell
+              key={col.idx}
+              data={data}
+              assessmentType={assessmentType}
+              sectionName={sectionName}
+              tableName={tableName}
+              disabled={disabled}
+              rowIdx={rowIdx}
+              col={col}
+            />
+          ))}
 
       <td className="fra-table__row-anchor-cell">
         <div className="fra-table__review-indicator-anchor">
@@ -78,8 +94,8 @@ RowData.propTypes = {
   assessmentType: PropTypes.string.isRequired,
   sectionName: PropTypes.string.isRequired,
   tableName: PropTypes.string.isRequired,
+  odp: PropTypes.bool.isRequired,
   row: PropTypes.object.isRequired,
-  rowIdx: PropTypes.number.isRequired,
   disabled: PropTypes.bool.isRequired,
 }
 
