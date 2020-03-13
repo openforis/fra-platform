@@ -6,7 +6,7 @@ import RowValidation from '@webapp/app/assessment/components/dataTable/table/row
 import RowNoticeMessage from '@webapp/app/assessment/components/dataTable/table/rowNoticeMessage'
 import useUserInfo from '@webapp/components/hooks/useUserInfo'
 
-const rowRenderers = {
+const componentsByType = {
   data: RowData,
   validationMessages: RowValidation,
   noticeMessage: RowNoticeMessage,
@@ -16,15 +16,15 @@ const Row = props => {
   const userInfo = useUserInfo()
 
   const { data, assessmentType, sectionName, tableName, odp, row, disabled } = props
-  const { type, render } = row
+  const { type } = row
 
   // validation error rows are hidden in public view
-  if (type === 'validationErrors' && !userInfo) {
+  if (type === 'validationMessages' && !userInfo) {
     return null
   }
 
-  const renderer = type === 'custom' ? render : rowRenderers[type]
-  return React.createElement(renderer, { data, assessmentType, sectionName, tableName, odp, row, disabled })
+  const component = componentsByType[type]
+  return React.createElement(component, { data, assessmentType, sectionName, tableName, odp, row, disabled })
 }
 
 Row.propTypes = {

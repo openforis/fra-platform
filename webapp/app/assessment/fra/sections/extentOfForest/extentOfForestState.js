@@ -28,15 +28,17 @@ export const isSectionDataEmpty = (assessmentType, sectionName, tableName) =>
     R.isEmpty
   )
 
+const _hasFraOriginalDataPoints = R.pipe(R.defaultTo([]), R.filter(R.propEq('type', 'odp')), R.length, R.lt(0))
+
 export const hasOriginalDataPoints = R.pipe(
   getFra(FRA.type, section.name, section.tables.extentOfForest),
-  R.defaultTo([]),
-  R.filter(R.propEq('type', 'odp')),
-  R.length,
-  R.lt(0)
+  _hasFraOriginalDataPoints
 )
 
-export const useDescriptions = R.pipe(hasOriginalDataPoints, R.not)
+export const useDescriptions = R.pipe(
+  getFra(FRA.type, section.name, section.tables.extentOfForest),
+  R.ifElse(R.isNil, R.F, R.pipe(_hasFraOriginalDataPoints, R.not))
+)
 
 // ==== Assessment Fra config areas getter functions
 
