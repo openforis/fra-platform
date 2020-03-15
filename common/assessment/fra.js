@@ -15,6 +15,13 @@ const FRA = {
             climaticDomain: 'climaticDomain',
           },
         },
+        b: {
+          name: 'forestCharacteristics',
+          anchor: '1b',
+          tables: {
+            forestCharacteristics: 'forestCharacteristics',
+          },
+        },
       },
     },
     3: {
