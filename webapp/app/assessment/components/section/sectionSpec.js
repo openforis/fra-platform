@@ -60,16 +60,31 @@ export const newRowHeader = cols => ({
 
 export const newRowData = (
   labelKey,
-  cols,
+  cols = null,
   variableNo = null,
   linkToSection = null,
   validator = null,
+  subcategory = false,
   variableName = null,
   calculateFn = null,
   chartProps = null
 ) => {
   let idxHeader = -1
   let idxData = -1
+
+  let colHeaderClassName = 'fra-table__category-cell'
+  colHeaderClassName = calculateFn ? 'fra-table__header-cell-left' : colHeaderClassName
+  colHeaderClassName = subcategory ? 'fra-table__subcategory-cell' : colHeaderClassName
+
+  const colHeader = {
+    idx: `header_0`,
+    type: 'header',
+    labelKey,
+    variableNo,
+    linkToSection,
+    className: colHeaderClassName,
+  }
+
   const row = {
     type: 'data',
     validator,
@@ -77,23 +92,18 @@ export const newRowData = (
     calculateFn,
     chartProps,
     cols: [
-      {
-        idx: `header_0`,
-        type: 'header',
-        labelKey,
-        variableNo,
-        linkToSection,
-        className: calculateFn ? 'fra-table__header-cell-left' : 'fra-table__category-cell',
-      },
-      ...cols.map(col => {
-        const header = col.type === 'calculated'
-        idxHeader += header ? 1 : 0
-        idxData += header ? 0 : 1
-        return {
-          idx: header ? `header_${idxHeader}` : idxData,
-          ...col,
-        }
-      }),
+      colHeader,
+      ...(cols
+        ? cols.map(col => {
+            const header = col.type === 'calculated'
+            idxHeader += header ? 1 : 0
+            idxData += header ? 0 : 1
+            return {
+              idx: header ? `header_${idxHeader}` : idxData,
+              ...col,
+            }
+          })
+        : []),
     ],
   }
   return row
