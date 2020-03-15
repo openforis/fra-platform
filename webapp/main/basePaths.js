@@ -7,6 +7,9 @@ export const assessmentSection = `${country}assessment/:assessmentType/:section/
 export const odp = `${country}odp/:tab/`
 
 // ==== getter utilities
+
+export const getCountryHomeLink = countryIso => `/${countryIso}/`
+
 export const getAssessmentSectionLink = (countryIso, assessmentType, sectionName) =>
   `/${countryIso}/assessment/${assessmentType}/${sectionName}/`
 
