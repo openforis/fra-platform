@@ -21,6 +21,11 @@ const keysSection = {
   generatingValues: 'generatingValues',
 }
 
+export const keysDataTableWithOdp = {
+  fra: 'fra',
+  fraNoNDPs: 'fraNoNDPs',
+}
+
 // TODO: Now assessment is part of country status - refactor it
 export const getAssessment = name => R.pipe(CountryState.getAssessments, R.propOr({}, name))
 
@@ -98,6 +103,12 @@ export const getSectionData = (assessmentType, sectionName, tableName) =>
 
 export const isSectionDataEmpty = (assessmentType, sectionName, tableName) =>
   R.pipe(getSectionData(assessmentType, sectionName, tableName), FRAUtils.isTableEmpty)
+
+export const getFra = (assessmentType, sectionName, tableName) =>
+  R.pipe(getSectionData(assessmentType, sectionName, tableName), R.propOr(null, keysDataTableWithOdp.fra))
+
+export const getFraNoNDPs = (assessmentType, sectionName, tableName) =>
+  R.pipe(getSectionData(assessmentType, sectionName, tableName), R.propOr(null, keysDataTableWithOdp.fraNoNDPs))
 
 // ====== Section - Generating Values
 

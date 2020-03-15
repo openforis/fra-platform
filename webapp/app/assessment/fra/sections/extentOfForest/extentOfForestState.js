@@ -19,14 +19,8 @@ const section = FRA.sections['1'].children.a
 const _getSectionProp = (propName, defaultValue = null) =>
   AssessmentState.getSectionProp(FRA.type, section.name, propName, defaultValue)
 
-const _getExtentOfForestDataProp = (propName, defaultTo = null) =>
-  R.pipe(
-    AssessmentState.getSectionData(FRA.type, section.name, section.tables.extentOfForest),
-    R.propOr(defaultTo, propName)
-  )
-
-const _getFra = _getExtentOfForestDataProp('fra', null)
-const _getFraNoOdps = _getExtentOfForestDataProp('fraNoNDPs', null)
+const _getFra = AssessmentState.getFra(FRA.type, section.name, section.tables.extentOfForest)
+const _getFraNoOdps = AssessmentState.getFraNoNDPs(FRA.type, section.name, section.tables.extentOfForest)
 
 export const hasOriginalDataPoints = R.pipe(_getFra, FraUtils.hasOdps)
 

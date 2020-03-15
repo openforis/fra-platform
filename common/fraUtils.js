@@ -30,6 +30,12 @@ const isTableWithOdpEmpty = R.pipe(
   isTableEmpty
 )
 
+const updateTableWithOdpDatum = datum => data => {
+  const { name } = datum
+  const idx = R.findIndex(v => v.name === name && v.type === 'fra', data)
+  return R.update(idx, datum, data)
+}
+
 module.exports = {
   /**
    * @deprecated
@@ -48,4 +54,5 @@ module.exports = {
   getOdps,
   hasOdps,
   isTableWithOdpEmpty,
+  updateTableWithOdpDatum,
 }

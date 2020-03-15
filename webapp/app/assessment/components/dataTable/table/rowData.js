@@ -46,18 +46,17 @@ const RowData = props => {
       </th>
 
       {odp
-        ? data.map((datum, i) => (
+        ? data.map(datum => (
             <CellOdp
               key={datum.name}
-              disabled={disabled}
-              data={data}
-              datum={datum}
+              assessmentType={assessmentType}
               sectionName={sectionName}
+              tableName={tableName}
+              variableName={variableName}
+              disabled={disabled}
+              datum={datum}
               validator={validator}
               calculateFn={calculateFn}
-              variableName={variableName}
-              rowIdx={rowIdx}
-              colIdx={i}
             />
           ))
         : colsData.map(col => (

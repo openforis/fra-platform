@@ -22,11 +22,10 @@ const Decimal = props => {
       // }
       onChange={e => {
         const { value } = e.target
-        const newValue = acceptNextDecimal(value, datum)
+        let valueUpdate = acceptNextDecimal(value, datum)
+        valueUpdate = valueUpdate && String(valueUpdate)
 
-        dispatch(
-          updateTableDataCell(assessmentType, sectionName, tableName, rowIdx, col.idx, newValue && String(newValue))
-        )
+        dispatch(updateTableDataCell(assessmentType, sectionName, tableName, rowIdx, col.idx, valueUpdate))
       }}
       disabled={disabled}
     />

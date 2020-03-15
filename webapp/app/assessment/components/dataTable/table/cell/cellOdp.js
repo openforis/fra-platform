@@ -1,32 +1,20 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { isPrintingMode } from '@webapp/app/assessment/components/print/printAssessment'
 import { formatNumber } from '@common/bignumberUtils'
-// import { acceptNextDecimal } from '@webapp/utils/numberInput'
+import { acceptNextDecimal } from '@webapp/utils/numberInput'
 
 import { ThousandSeparatedDecimalInput } from '@webapp/components/thousandSeparatedDecimalInput'
-// import useCountryIso from '@webapp/components/hooks/useCountryIso'
 import useUserInfo from '@webapp/components/hooks/useUserInfo'
 
-// import { save, saveMany } from '@webapp/app/assessment/fra/components/tableWithOdp/actions'
+import { updateTableWithOdpCell } from '@webapp/app/assessment/components/dataTable/actions'
 
 const CellOdp = props => {
-  const {
-    // data,
-    // sectionName,
-    disabled,
-    variableName,
-    datum,
-    validator,
-    // rowIdx,
-    // colIdx,
-    calculateFn,
-    // pasteUpdate,
-  } = props
+  const { assessmentType, sectionName, tableName, variableName, disabled, datum, validator, calculateFn } = props
 
-  // const dispatch = useDispatch()
+  const dispatch = useDispatch()
   // const countryIso = useCountryIso()
   const userInfo = useUserInfo()
   const valid = useSelector(state => {
@@ -36,6 +24,7 @@ const CellOdp = props => {
     return validator(datum)(state)
   })
 
+  const datumValue = datum[variableName]
   const calculated = !!calculateFn
   const { type } = datum
   const odp = type === 'odp'
@@ -51,19 +40,25 @@ const CellOdp = props => {
 
       {!calculated && odp && (
         <div className="number-input__container validation-error-sensitive-field">
-          <div className="number-input__readonly-view">{formatNumber(datum[variableName])}</div>
+          <div className="number-input__readonly-view">{formatNumber(datumValue)}</div>
         </div>
       )}
 
       {!calculated && !odp && (
         <ThousandSeparatedDecimalInput
-          numberValue={datum[variableName]}
-          // onPaste={e => dispatch(
-          //   saveMany(section, countryIso, pasteUpdate(e, rowIdx, colIdx, fra))
-          // )}
-          // onChange={e => dispatch(
-          //   save(section, countryIso, datum.name, e.target.value, datum, field, acceptNextDecimal)
-          // )}
+          numberValue={datumValue}
+          onPaste={() => {
+            // TODO
+          }}
+          onChange={e => {
+            const { value } = e.target
+
+            let valueUpdate = acceptNextDecimal(value, datumValue)
+            valueUpdate = valueUpdate && String(valueUpdate)
+            const datumUpdate = { ...datum, [variableName]: valueUpdate, [`${variableName}Estimated`]: false }
+
+            dispatch(updateTableWithOdpCell(assessmentType, sectionName, tableName, datumUpdate))
+          }}
           disabled={disabled}
         />
       )}
@@ -72,15 +67,13 @@ const CellOdp = props => {
 }
 
 CellOdp.propTypes = {
-  // data: PropTypes.array.isRequired,
-  // sectionName: PropTypes.string.isRequired,
-  disabled: PropTypes.bool.isRequired,
+  assessmentType: PropTypes.string.isRequired,
+  sectionName: PropTypes.string.isRequired,
+  tableName: PropTypes.string.isRequired,
   variableName: PropTypes.string.isRequired,
+  disabled: PropTypes.bool.isRequired,
   datum: PropTypes.object.isRequired,
   validator: PropTypes.func,
-  // rowIdx: PropTypes.number.isRequired,
-  // colIdx: PropTypes.number.isRequired,
-  // pasteUpdate: PropTypes.func.isRequired,
   calculateFn: PropTypes.func,
 }
 
