@@ -1,7 +1,8 @@
 import * as R from 'ramda'
 import * as FRA from '@common/assessment/fra'
 
-import FraUtils from '@common/fraUtils'
+import * as FraUtils from '@common/fraUtils'
+
 import { sub, sum } from '@common/bignumberUtils'
 import { isPrintingMode } from '@webapp/app/assessment/components/print/printAssessment'
 
@@ -15,37 +16,29 @@ export const keys = {
 
 const section = FRA.sections['1'].children.a
 
-export const getSectionData = AssessmentState.getSectionData(FRA.type, section.name, section.tables.extentOfForest)
+const _getSectionProp = (propName, defaultValue = null) =>
+  AssessmentState.getSectionProp(FRA.type, section.name, propName, defaultValue)
 
-const _getSectionDataProp = (propName, defaultTo = null) => R.pipe(getSectionData, R.propOr(defaultTo, propName))
-
-const getFra = _getSectionDataProp('fra', null)
-const getFraNoOdps = _getSectionDataProp('fraNoNDPs', null)
-
-const _hasFraOriginalDataPoints = R.pipe(R.defaultTo([]), R.filter(R.propEq('type', 'odp')), R.length, R.lt(0))
-
-export const hasOriginalDataPoints = R.pipe(getFra, _hasFraOriginalDataPoints)
-
-export const useDescriptions = R.pipe(getFra, R.ifElse(R.isNil, R.F, R.pipe(_hasFraOriginalDataPoints, R.not)))
-
-export const showOriginalDataPoints = R.pipe(getSectionData, R.propOr(true, keys.showOdps))
-
-// ==== AssessmentSectionState functions
-
-export const isSectionDataEmpty = () =>
+const _getExtentOfForestDataProp = (propName, defaultTo = null) =>
   R.pipe(
-    getFra,
-    R.defaultTo([]),
-    R.map(R.omit(['year', 'name', 'type'])),
-    R.map(R.values),
-    R.flatten,
-    R.reject(R.isNil),
-    R.isEmpty
+    AssessmentState.getSectionData(FRA.type, section.name, section.tables.extentOfForest),
+    R.propOr(defaultTo, propName)
   )
+
+const _getFra = _getExtentOfForestDataProp('fra', null)
+const _getFraNoOdps = _getExtentOfForestDataProp('fraNoNDPs', null)
+
+export const hasOriginalDataPoints = R.pipe(_getFra, FraUtils.hasOdps)
+
+export const useDescriptions = R.pipe(_getFra, R.ifElse(R.isNil, R.F, R.pipe(FraUtils.hasOdps, R.not)))
+
+export const showOriginalDataPoints = _getSectionProp(keys.showOdps, true)
+
+export const isExtentOfForestEmpty = () => R.pipe(_getFra, FraUtils.isTableWithOdpEmpty)
 
 export const getExtentOfForestData = () =>
   R.pipe(
-    R.ifElse(showOriginalDataPoints, getFra, getFraNoOdps),
+    R.ifElse(showOriginalDataPoints, _getFra, _getFraNoOdps),
     R.when(R.always(isPrintingMode()), FraUtils.filterFraYears)
   )
 

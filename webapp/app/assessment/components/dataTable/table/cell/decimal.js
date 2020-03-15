@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux'
 import { acceptNextDecimal } from '@webapp/utils/numberInput'
 
 import { ThousandSeparatedDecimalInput } from '@webapp/components/thousandSeparatedDecimalInput'
-import { updateTableData } from '@webapp/app/assessment/components/dataTable/actions'
+import { updateTableDataCell } from '@webapp/app/assessment/components/dataTable/actions'
 
 const Decimal = props => {
   const { assessmentType, sectionName, tableName, rowIdx, col, datum, disabled } = props
@@ -24,7 +24,9 @@ const Decimal = props => {
         const { value } = e.target
         const newValue = acceptNextDecimal(value, datum)
 
-        dispatch(updateTableData(assessmentType, sectionName, tableName, rowIdx, col.idx, newValue && String(newValue)))
+        dispatch(
+          updateTableDataCell(assessmentType, sectionName, tableName, rowIdx, col.idx, newValue && String(newValue))
+        )
       }}
       disabled={disabled}
     />

@@ -30,7 +30,8 @@ export const newTableSpec = (
   rows,
   getSectionData = AssessmentState.getSectionData,
   isSectionDataEmpty = AssessmentState.isSectionDataEmpty,
-  odp = false
+  odp = false,
+  canGenerateValues = null
 ) => {
   let idxHeader = -1
   let idxData = -1
@@ -39,6 +40,7 @@ export const newTableSpec = (
     getSectionData,
     isSectionDataEmpty,
     odp,
+    canGenerateValues,
     rows: rows.map(row => {
       const header = row.type === 'header'
       idxHeader += header ? 1 : 0

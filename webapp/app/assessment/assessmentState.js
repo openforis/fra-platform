@@ -1,7 +1,7 @@
 import * as R from 'ramda'
 
 import * as Assessment from '@common/assessment/assessment'
-
+import * as FRAUtils from '@common/fraUtils'
 import { isReviewer, isAdministrator } from '@common/countryRole'
 import { assessmentStatus } from '@common/assessment'
 
@@ -18,6 +18,7 @@ const keys = {
 
 const keysSection = {
   data: 'data',
+  generatingValues: 'generatingValues',
 }
 
 // TODO: Now assessment is part of country status - refactor it
@@ -60,27 +61,48 @@ export const canToggleLock = assessment => state => {
 
 export const assocLock = (assessmentType, lock) => R.assocPath([assessmentType, keys.lock], lock)
 
-// ====== Section data
+// ====== Section
 
-const _getSectionDataPath = (assessmentType, sectionName, tableName) => [
-  assessmentType,
-  keys.sections,
-  sectionName,
-  keysSection.data,
+const _getSectionPath = (assessmentType, sectionName) => [assessmentType, keys.sections, sectionName]
+
+// ====== Section - Prop
+
+const _getSectionPropPath = (assessmentType, sectionName, propName) => [
+  ..._getSectionPath(assessmentType, sectionName),
+  propName,
+]
+
+export const assocSectionProp = (assessmentType, sectionName, propName, value) =>
+  R.assocPath(_getSectionPropPath(assessmentType, sectionName, propName), value)
+
+export const getSectionProp = (assessmentType, sectionName, propName, defaultValue = null) =>
+  R.pipe(getState, R.pathOr(defaultValue, _getSectionPropPath(assessmentType, sectionName, propName)))
+
+// ====== Section - Data Table
+
+const _getTableDataPath = (assessmentType, sectionName, tableName) => [
+  ..._getSectionPropPath(assessmentType, sectionName, keysSection.data),
+  tableName,
+]
+
+const _getTableGeneratingPath = (assessmentType, sectionName, tableName) => [
+  ..._getSectionPropPath(assessmentType, sectionName, keysSection.generatingValues),
   tableName,
 ]
 
 export const assocSectionData = (assessmentType, sectionName, tableName, data) =>
-  R.assocPath(_getSectionDataPath(assessmentType, sectionName, tableName), data)
+  R.assocPath(_getTableDataPath(assessmentType, sectionName, tableName), data)
 
 export const getSectionData = (assessmentType, sectionName, tableName) =>
-  R.pipe(getState, R.pathOr(null, _getSectionDataPath(assessmentType, sectionName, tableName)))
+  R.pipe(getState, R.pathOr(null, _getTableDataPath(assessmentType, sectionName, tableName)))
 
 export const isSectionDataEmpty = (assessmentType, sectionName, tableName) =>
-  R.pipe(
-    getSectionData(assessmentType, sectionName, tableName),
-    R.defaultTo([]),
-    R.flatten,
-    R.reject(R.isNil),
-    R.isEmpty
-  )
+  R.pipe(getSectionData(assessmentType, sectionName, tableName), FRAUtils.isTableEmpty)
+
+// ====== Section - Generating Values
+
+export const assocSectionDataGeneratingValues = (assessmentType, sectionName, tableName, generating) =>
+  R.assocPath(_getTableGeneratingPath(assessmentType, sectionName, tableName), generating)
+
+export const getSectionDataGeneratingValues = (assessmentType, sectionName, tableName) =>
+  R.pipe(getState, R.pathOr(false, _getTableGeneratingPath(assessmentType, sectionName, tableName)))
