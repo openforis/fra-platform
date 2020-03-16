@@ -13,20 +13,22 @@ const rowsEOF = [
   ]),
   SectionSpec.newRowData(
     'extentOfForest.forestArea',
-    [],
+    null,
     'a',
     null,
     ExtentOfForestValidator.forestAreaValidator,
+    false,
     'forestArea',
     null,
     { labelKey: 'fraClass.forest', color: '#0098a6' }
   ),
   SectionSpec.newRowData(
     'fraClass.otherWoodedLand',
-    [],
+    null,
     'a',
     null,
     ExtentOfForestValidator.otherWoodedLandValidator,
+    false,
     'otherWoodedLand',
     null,
     { labelKey: 'fraClass.otherWoodedLand', color: '#bf00af' }
@@ -34,19 +36,21 @@ const rowsEOF = [
 
   SectionSpec.newRowData(
     'fraClass.otherLand',
-    [],
+    null,
     'c-a-b',
     null,
     ExtentOfForestValidator.areasNotExceedingTotalLandAreaValidator,
+    false,
     'otherLand',
     ExtentOfForestState.getOtherLand
   ),
   SectionSpec.newRowData(
     'extentOfForest.totalLandArea',
-    [],
+    null,
     'c',
     null,
     null,
+    false,
     'faoStat',
     ExtentOfForestState.getFaoStatArea
   ),

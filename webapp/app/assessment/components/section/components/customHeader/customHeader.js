@@ -5,10 +5,12 @@ import * as R from 'ramda'
 import * as FRA from '@common/assessment/fra'
 
 import ExtentOfForest from '@webapp/app/assessment/components/section/components/customHeader/extentOfForest'
+import ForestCharacteristics from '@webapp/app/assessment/components/section/components/customHeader/forestCharacteristics'
 
 const components = {
   [FRA.type]: {
     [FRA.sections['1'].children.a.name]: ExtentOfForest,
+    [FRA.sections['1'].children.b.name]: ForestCharacteristics,
   },
 }
 
