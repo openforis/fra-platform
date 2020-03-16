@@ -1,87 +1,97 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import * as R from 'ramda'
+import React from "react";
+import { connect } from "react-redux";
+import * as R from "ramda";
 
-import { Modal, ModalBody } from '@webapp/components/modal'
-import Icon from '@webapp/components/icon'
+import { Modal, ModalBody } from "@webapp/components/modal";
+import Icon from "@webapp/components/icon";
 
-import { resetPassword, resetPasswordFormReset } from './../actions'
+import { resetPassword, resetPasswordFormReset } from "./../actions";
 
 class ForgotPasswordFormModal extends React.Component {
-
-  componentDidMount () {
-    this.props.resetPasswordFormReset()
+  componentDidMount() {
+    this.props.resetPasswordFormReset();
   }
 
-  render () {
+  render() {
+    const { onClose, resetPassword, error, message } = this.props;
+    let messages = [];
 
-    const {onClose, resetPassword, error, message} = this.props
+    if (typeof message == "string") {
+      messages = message.split("\n");
+    }
 
-    return <Modal isOpen="true">
-
-      <ModalBody>
-        {
-          message
-
-            ? <div className="alert-confirmation-message">
-              {
-                message.split('\n').map((item, i) =>
-                  <span key={i}>{item}<br/></span>
-                )
-              }
+    return (
+      <Modal isOpen="true">
+        <ModalBody>
+          {messages.length > 0 ? (
+            <div className="alert-confirmation-message">
+              {messages.map((item, i) => (
+                <span key={i}>
+                  {item}
+                  <br />
+                </span>
+              ))}
             </div>
-
-            : <div className="login__box" style={{border: 0, boxShadow: 'none'}}>
-
+          ) : (
+            <div
+              className="login__box"
+              style={{ border: 0, boxShadow: "none" }}
+            >
               <div className="login__top">
-                <h3>Enter your email and submit the form.<br/>
+                <h3>
+                  Enter your email and submit the form.
+                  <br />
                   Your will receive the instructions via email
                 </h3>
 
                 <div className="login__form">
-                  <input type="text" ref="email" placeholder="Email"/>
+                  <input type="text" ref="email" placeholder="Email" />
                 </div>
 
-                {
-                  error
-                    ? <div className="alert-error">
-                      <div className="alert-icon">
-                        <Icon name="alert"/>
-                      </div>
-                      <div className="alert-message">{
-                        error.split('\n').map((item, i) =>
-                          <span key={i}>{item}<br/></span>
-                        )
-                      }</div>
+                {error ? (
+                  <div className="alert-error">
+                    <div className="alert-icon">
+                      <Icon name="alert" />
                     </div>
-                    : null
-                }
+                    <div className="alert-message">
+                      {error.split("\n").map((item, i) => (
+                        <span key={i}>
+                          {item}
+                          <br />
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                ) : null}
 
                 <div className="login__buttons">
-                  <button className="btn"
-                          onClick={onClose}>
+                  <button className="btn" onClick={onClose}>
                     Cancel
                   </button>
-                  <button className="btn"
-                          onClick={() => {
-                            resetPassword(this.refs.email.value)
-                          }}>
+                  <button
+                    className="btn"
+                    onClick={() => {
+                      resetPassword(this.refs.email.value);
+                    }}
+                  >
                     Submit
                   </button>
                 </div>
-
               </div>
             </div>
-        }
-      </ModalBody>
-
-    </Modal>
+          )}
+        </ModalBody>
+      </Modal>
+    );
   }
 }
 
 const mapStateToProps = state => ({
-  error: R.path(['login', 'localLogin', 'resetPassword', 'error'], state),
-  message: R.path(['login', 'localLogin', 'resetPassword', 'message'], state)
-})
+  error: R.path(["login", "localLogin", "resetPassword", "error"], state),
+  message: R.path(["login", "localLogin", "resetPassword", "message"], state)
+});
 
-export default connect(mapStateToProps, {resetPassword, resetPasswordFormReset})(ForgotPasswordFormModal)
+export default connect(mapStateToProps, {
+  resetPassword,
+  resetPasswordFormReset
+})(ForgotPasswordFormModal);

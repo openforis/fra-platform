@@ -2,7 +2,7 @@ const {createI18nPromise} = require('./../../common/i18n/i18nFactory')
 const {sendMail} = require('./../email/sendMail')
 
 const createMail = (i18n, user, url, uuid) => {
-  const link = url + '/resetPassword?k=' + uuid
+  const link = url + '/login/resetPassword?k=' + uuid
 
   return {
     to: user.email,
