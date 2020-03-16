@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import * as BasePaths from '@webapp/main/basePaths'
+
 import { isPrintingMode } from '@webapp/app/assessment/components/print/printAssessment'
 
 import { Link } from 'react-router-dom'
@@ -25,7 +27,7 @@ const CellOdpHeader = props => {
     <th className={className}>
       {odp ? (
         <Tooltip text={i18n.t('nationalDataPoint.clickOnNDP')}>
-          <Link className="link" to={`/country/${countryIso}/odp/${sectionName}/${odpId}`}>
+          <Link className="link" to={BasePaths.getOdpLink(countryIso, sectionName, odpId)}>
             {draft && userInfo && <Icon className="icon-sub icon-margin-right" name="pencil" />}
             {name}
           </Link>

@@ -1,12 +1,24 @@
 import axios from 'axios'
 import * as R from 'ramda'
+import { batch } from 'react-redux'
 
-import * as autosave from '@webapp/app/components/autosave/actions'
+import * as FRAUtils from '@common/fraUtils'
 
 import * as AppState from '@webapp/app/appState'
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 
+import * as autosave from '@webapp/app/components/autosave/actions'
+
 export const assessmentSectionDataUpdate = 'assessment/section/data/update'
+export const assessmentSectionDataGeneratingValuesUpdate = 'assessment/section/data/generatingValues/update'
+
+export const updateTableData = (assessmentType, sectionName, tableName, data) => ({
+  type: assessmentSectionDataUpdate,
+  assessmentType,
+  sectionName,
+  tableName,
+  data,
+})
 
 // ====== READ
 
@@ -15,15 +27,20 @@ export const fetchTableData = (assessmentType, sectionName, tableName, odp = fal
   const url = odp ? `/api/nde/${tableName}/${countryIso}` : `/api/traditionalTable/${countryIso}/${tableName}`
   const { data } = await axios.get(url)
 
-  dispatch({ type: assessmentSectionDataUpdate, assessmentType, sectionName, tableName, data })
+  dispatch(updateTableData(assessmentType, sectionName, tableName, data))
 }
 
 // ====== UPDATE
 
-const _postTableData = (tableName, data) => {
+const _postTableData = (tableName, data, odp = false) => {
   const debounced = async (dispatch, getState) => {
     const countryIso = AppState.getCountryIso(getState())
-    await axios.post(`/api/traditionalTable/${countryIso}/${tableName}`, data)
+
+    const url = odp
+      ? `/api/nde/${tableName}/country/${countryIso}/${data.name}`
+      : `/api/traditionalTable/${countryIso}/${tableName}`
+    await axios.post(url, data)
+
     dispatch(autosave.complete)
   }
 
@@ -37,17 +54,78 @@ const _postTableData = (tableName, data) => {
   return debounced
 }
 
-export const updateTableData = (assessmentType, sectionName, tableName, rowIdx, colIdx, value) => async (
+// ====== Update Cell value
+
+export const updateTableDataCell = (assessmentType, sectionName, tableName, rowIdx, colIdx, value) => async (
   dispatch,
   getState
 ) => {
-  dispatch(autosave.start)
-
   const data = R.pipe(
     AssessmentState.getSectionData(assessmentType, sectionName, tableName),
     R.assocPath([rowIdx, colIdx], value)
   )(getState())
 
-  dispatch({ type: assessmentSectionDataUpdate, assessmentType, sectionName, tableName, data })
-  dispatch(_postTableData(tableName, data))
+  batch(() => {
+    dispatch(autosave.start)
+    dispatch(updateTableData(assessmentType, sectionName, tableName, data))
+    dispatch(_postTableData(tableName, data))
+  })
+}
+
+export const updateTableWithOdpCell = (assessmentType, sectionName, tableName, datum) => (dispatch, getState) => {
+  const state = getState()
+
+  const fra = R.pipe(
+    AssessmentState.getFra(assessmentType, sectionName, tableName),
+    FRAUtils.updateTableWithOdpDatum(datum)
+  )(state)
+  const fraNoNdps = R.pipe(
+    AssessmentState.getFraNoNDPs(assessmentType, sectionName, tableName),
+    FRAUtils.updateTableWithOdpDatum(datum)
+  )(state)
+
+  const data = {
+    [AssessmentState.keysDataTableWithOdp.fra]: fra,
+    [AssessmentState.keysDataTableWithOdp.fraNoNDPs]: fraNoNdps,
+  }
+
+  batch(() => {
+    dispatch(autosave.start)
+    dispatch(updateTableData(assessmentType, sectionName, tableName, data))
+    dispatch(_postTableData(sectionName, datum, true))
+  })
+}
+
+// ====== Generate values action
+
+export const generateTableData = (assessmentType, sectionName, tableName, method, fields, changeRates) => async (
+  dispatch,
+  getState
+) => {
+  const countryIso = AppState.getCountryIso(getState())
+
+  batch(() => {
+    dispatch({
+      type: assessmentSectionDataGeneratingValuesUpdate,
+      assessmentType,
+      sectionName,
+      tableName,
+      generating: true,
+    })
+    dispatch(autosave.start)
+  })
+
+  await axios.post(`/api/nde/${sectionName}/generateFraValues/${countryIso}`, { method, fields, changeRates })
+
+  batch(() => {
+    dispatch(fetchTableData(assessmentType, sectionName, tableName, true))
+    dispatch({
+      type: assessmentSectionDataGeneratingValuesUpdate,
+      assessmentType,
+      sectionName,
+      tableName,
+      generating: false,
+    })
+    dispatch(autosave.complete)
+  })
 }

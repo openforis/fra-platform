@@ -1,44 +1,40 @@
 import * as R from 'ramda'
 import * as FRA from '@common/assessment/fra'
 
+import * as FraUtils from '@common/fraUtils'
+
 import { sub, sum } from '@common/bignumberUtils'
+import { isPrintingMode } from '@webapp/app/assessment/components/print/printAssessment'
 
 import * as CountryState from '@webapp/app/country/countryState'
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 import * as TableWithOdpState from '@webapp/app/assessment/fra/components/tableWithOdp/tableWithOdpState'
 
-const section = FRA.sections['1'].children.a
-
-export const getFra = (assessmentType, sectionName, tableName) =>
-  R.pipe(AssessmentState.getSectionData(assessmentType, sectionName, tableName), R.propOr(null, 'fra'))
-
-export const getSectionData = (assessmentType, sectionName, tableName) => state => {
-  // TODO: add show/hide ndps
-  return getFra(assessmentType, sectionName, tableName)(state)
+export const keys = {
+  showOdps: 'showOdps',
 }
 
-export const isSectionDataEmpty = (assessmentType, sectionName, tableName) =>
+const section = FRA.sections['1'].children.a
+
+const _getSectionProp = (propName, defaultValue = null) =>
+  AssessmentState.getSectionProp(FRA.type, section.name, propName, defaultValue)
+
+const _getFra = AssessmentState.getFra(FRA.type, section.name, section.tables.extentOfForest)
+const _getFraNoOdps = AssessmentState.getFraNoNDPs(FRA.type, section.name, section.tables.extentOfForest)
+
+export const hasOriginalDataPoints = R.pipe(_getFra, FraUtils.hasOdps)
+
+export const useDescriptions = R.pipe(_getFra, R.ifElse(R.isNil, R.F, R.pipe(FraUtils.hasOdps, R.not)))
+
+export const showOriginalDataPoints = _getSectionProp(keys.showOdps, true)
+
+export const isExtentOfForestEmpty = () => R.pipe(_getFra, FraUtils.isTableWithOdpEmpty)
+
+export const getExtentOfForestData = () =>
   R.pipe(
-    getFra(assessmentType, sectionName, tableName),
-    R.defaultTo([]),
-    R.map(R.omit(['year', 'name', 'type'])),
-    R.map(R.values),
-    R.flatten,
-    R.reject(R.isNil),
-    R.isEmpty
+    R.ifElse(showOriginalDataPoints, _getFra, _getFraNoOdps),
+    R.when(R.always(isPrintingMode()), FraUtils.filterFraYears)
   )
-
-const _hasFraOriginalDataPoints = R.pipe(R.defaultTo([]), R.filter(R.propEq('type', 'odp')), R.length, R.lt(0))
-
-export const hasOriginalDataPoints = R.pipe(
-  getFra(FRA.type, section.name, section.tables.extentOfForest),
-  _hasFraOriginalDataPoints
-)
-
-export const useDescriptions = R.pipe(
-  getFra(FRA.type, section.name, section.tables.extentOfForest),
-  R.ifElse(R.isNil, R.F, R.pipe(_hasFraOriginalDataPoints, R.not))
-)
 
 // ==== Assessment Fra config areas getter functions
 
@@ -66,7 +62,7 @@ export const getForestByYear = year => TableWithOdpState.getFieldByYear(section.
 
 // ==== By Year index getter functions
 
-export const getForestByYearFraIdx = idx => getForestByYear(FRA.years[idx])
+export const getForestByYearFraIdx = idx => getForestByYear(FRA.yearsTable[idx])
 
 // ====== Climatic domain table functions
 

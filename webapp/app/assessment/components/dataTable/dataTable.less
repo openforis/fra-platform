@@ -1,5 +1,5 @@
-@import (reference) "~@webapp/main/styles/config";
-@import (reference) "~@webapp/main/styles/fraTable";
+@import (reference) '~@webapp/main/styles/config';
+@import (reference) '~@webapp/main/styles/fraTable';
 
 .data-table {
   .odp-header-cell {
@@ -25,47 +25,3 @@
     background-color: fade(@ui-destructive, 10%);
   }
 }
-
-// Generate
-
-.table-with-odp__generate-control {
-  .select-s {
-    width: 180px;
-  }
-
-  .btn-s {
-    margin-left: 8px;
-  }
-}
-
-.table-with-odp__generate-inputs-table {
-  border-collapse: collapse;
-  font-size: @font-s;
-  margin-top: 8px;
-}
-
-.table-with-odp__generate-inputs-row-selection-cell {
-  width: 20px;
-  height: 32px;
-}
-
-.table-with-odp__generate-input-header {
-  padding: 2px 8px 2px 2px;
-  width: 164px;
-}
-
-.table-with-odp__generate-input-cell {
-  padding: 2px 0 2px 4px;
-  width: 62px;
-
-  .text-input-s {
-    width: 100%;
-  }
-}
-
-.table-with-odp__generate-comment-cell {
-  font-size: @font-xxs;
-  padding: 0 4px;
-  color: @text-mute;
-}
-

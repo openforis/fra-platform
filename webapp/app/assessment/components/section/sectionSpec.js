@@ -30,7 +30,8 @@ export const newTableSpec = (
   rows,
   getSectionData = AssessmentState.getSectionData,
   isSectionDataEmpty = AssessmentState.isSectionDataEmpty,
-  odp = false
+  odp = false,
+  canGenerateValues = null
 ) => {
   let idxHeader = -1
   let idxData = -1
@@ -39,6 +40,7 @@ export const newTableSpec = (
     getSectionData,
     isSectionDataEmpty,
     odp,
+    canGenerateValues,
     rows: rows.map(row => {
       const header = row.type === 'header'
       idxHeader += header ? 1 : 0
@@ -65,34 +67,37 @@ export const newRowData = (
   variableName = null,
   calculateFn = null,
   chartProps = null
-) => ({
-  type: 'data',
-  validator,
-  variableName,
-  calculateFn,
-  chartProps,
-  cols: [
-    {
-      idx: `header_0`,
-      type: 'header',
-      labelKey,
-      variableNo,
-      linkToSection,
-      className: calculateFn ? 'fra-table__header-cell-left' : 'fra-table__category-cell',
-    },
-    ...cols.map(col => {
-      let idxHeader = -1
-      let idxData = -1
-      const header = col.type === 'calculated'
-      idxHeader += header ? 1 : 0
-      idxData += header ? 0 : 1
-      return {
-        idx: header ? `header_${idxHeader}` : idxData,
-        ...col,
-      }
-    }),
-  ],
-})
+) => {
+  let idxHeader = -1
+  let idxData = -1
+  const row = {
+    type: 'data',
+    validator,
+    variableName,
+    calculateFn,
+    chartProps,
+    cols: [
+      {
+        idx: `header_0`,
+        type: 'header',
+        labelKey,
+        variableNo,
+        linkToSection,
+        className: calculateFn ? 'fra-table__header-cell-left' : 'fra-table__category-cell',
+      },
+      ...cols.map(col => {
+        const header = col.type === 'calculated'
+        idxHeader += header ? 1 : 0
+        idxData += header ? 0 : 1
+        return {
+          idx: header ? `header_${idxHeader}` : idxData,
+          ...col,
+        }
+      }),
+    ],
+  }
+  return row
+}
 
 export const newRowNoticeMessage = (labelKey, rowSpan = 1, colSpan = 1) => ({
   type: 'noticeMessage',

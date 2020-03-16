@@ -74,9 +74,10 @@ const tableSpecs = [
   SectionSpec.newTableSpec(
     section.tables.extentOfForest,
     rowsEOF,
-    ExtentOfForestState.getSectionData,
-    ExtentOfForestState.isSectionDataEmpty,
-    true
+    ExtentOfForestState.getExtentOfForestData,
+    ExtentOfForestState.isExtentOfForestEmpty,
+    true,
+    ExtentOfForestState.hasOriginalDataPoints
   ),
   SectionSpec.newTableSpec(section.tables.climaticDomain, rowsClimaticDomain),
 ]

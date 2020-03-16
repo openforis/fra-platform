@@ -10,9 +10,9 @@ const section = FRA.sections['3'].children.a
 const rowsHeader = [
   SectionSpec.newRowHeader([
     SectionSpec.newColHeader('designatedManagementObjective.categoryHeader', null, 2, 1, true),
-    SectionSpec.newColHeader('designatedManagementObjective.areaUnitLabel', null, 1, FRA.years.length),
+    SectionSpec.newColHeader('designatedManagementObjective.areaUnitLabel', null, 1, FRA.yearsTable.length),
   ]),
-  SectionSpec.newRowHeader(FRA.years.map(y => SectionSpec.newColHeader(null, y))),
+  SectionSpec.newRowHeader(FRA.yearsTable.map(y => SectionSpec.newColHeader(null, y))),
 ]
 
 const rowsData = [
@@ -31,18 +31,18 @@ const tableSection1 = SectionSpec.newTableSection(
       ...rowsData.map(r =>
         SectionSpec.newRowData(
           r.labelKey,
-          FRA.years.map(() => SectionSpec.newColDecimal()),
+          FRA.yearsTable.map(() => SectionSpec.newColDecimal()),
           r.variableNo
         )
       ),
       SectionSpec.newRowData(
         'designatedManagementObjective.unknown',
-        FRA.years.map(() => SectionSpec.newColCalculated(DesignatedManagementObjectiveState.getUnknown)),
+        FRA.yearsTable.map(() => SectionSpec.newColCalculated(DesignatedManagementObjectiveState.getUnknown)),
         'g'
       ),
       SectionSpec.newRowData(
         'designatedManagementObjective.totalForestArea',
-        FRA.years.map(() => SectionSpec.newColCalculated(ExtentOfForestState.getForestByYearFraIdx)),
+        FRA.yearsTable.map(() => SectionSpec.newColCalculated(ExtentOfForestState.getForestByYearFraIdx)),
         null,
         FRA.sections['1'].children.a.name
       ),
@@ -61,7 +61,7 @@ const tableSection2 = SectionSpec.newTableSection(
         .map(r =>
           SectionSpec.newRowData(
             r.labelKey,
-            FRA.years.map(() => SectionSpec.newColDecimal())
+            FRA.yearsTable.map(() => SectionSpec.newColDecimal())
           )
         ),
     ]),

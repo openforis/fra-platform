@@ -35,6 +35,7 @@ import LandingView from './landing/landingView'
 
 const routes = [
   { path: BasePaths.assessmentSection, component: AssessmentSectionView },
+  { path: [`${BasePaths.odp}:odpId/`, BasePaths.odp], component: OriginalDataPointView },
 
   // === Routes to be removed or updated
   { path: '/country/:countryIso/admin/', component: AdminView },
