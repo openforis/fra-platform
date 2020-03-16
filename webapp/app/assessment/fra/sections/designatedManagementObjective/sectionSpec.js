@@ -10,12 +10,19 @@ const section = FRA.sections['3'].children.a
 const rowsHeader = [
   SectionSpec.newRowHeader({
     [SectionSpec.KEYS_ROW.cols]: [
-      SectionSpec.newColHeader('designatedManagementObjective.categoryHeader', null, 2, 1, true),
-      SectionSpec.newColHeader('designatedManagementObjective.areaUnitLabel', null, 1, FRA.yearsTable.length),
+      SectionSpec.newColHeader({
+        [SectionSpec.KEYS_COL.labelKey]: 'designatedManagementObjective.categoryHeader',
+        [SectionSpec.KEYS_COL.rowSpan]: 2,
+        [SectionSpec.KEYS_COL.left]: true,
+      }),
+      SectionSpec.newColHeader({
+        [SectionSpec.KEYS_COL.labelKey]: 'designatedManagementObjective.areaUnitLabel',
+        [SectionSpec.KEYS_COL.colSpan]: FRA.yearsTable.length,
+      }),
     ],
   }),
   SectionSpec.newRowHeader({
-    [SectionSpec.KEYS_ROW.cols]: FRA.yearsTable.map(y => SectionSpec.newColHeader(null, y)),
+    [SectionSpec.KEYS_ROW.cols]: FRA.yearsTable.map(y => SectionSpec.newColHeader({ [SectionSpec.KEYS_COL.label]: y })),
   }),
 ]
 
@@ -42,14 +49,18 @@ const tableSpec1 = SectionSpec.newTableSpec({
     SectionSpec.newRowData({
       [SectionSpec.KEYS_ROW.labelKey]: 'designatedManagementObjective.unknown',
       [SectionSpec.KEYS_ROW.cols]: FRA.yearsTable.map(() =>
-        SectionSpec.newColCalculated(DesignatedManagementObjectiveState.getUnknown)
+        SectionSpec.newColCalculated({
+          [SectionSpec.KEYS_COL.calculateFn]: DesignatedManagementObjectiveState.getUnknown,
+        })
       ),
       [SectionSpec.KEYS_ROW.variableNo]: 'g',
     }),
     SectionSpec.newRowData({
       [SectionSpec.KEYS_ROW.labelKey]: 'designatedManagementObjective.totalForestArea',
       [SectionSpec.KEYS_ROW.cols]: FRA.yearsTable.map(() =>
-        SectionSpec.newColCalculated(ExtentOfForestState.getForestByYearFraIdx)
+        SectionSpec.newColCalculated({
+          [SectionSpec.KEYS_COL.calculateFn]: ExtentOfForestState.getForestByYearFraIdx,
+        })
       ),
       [SectionSpec.KEYS_ROW.linkToSection]: FRA.sections['1'].children.a.name,
     }),

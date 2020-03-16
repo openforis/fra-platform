@@ -8,6 +8,7 @@ export const TYPES = {
   noticeMessage: 'noticeMessage',
   validationMessages: 'validationMessages',
   calculated: 'calculated',
+  decimal: 'decimal',
 }
 
 const _isType = type => R.propEq(TYPE, type)

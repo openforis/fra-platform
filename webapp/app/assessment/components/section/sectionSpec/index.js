@@ -1,11 +1,4 @@
-export {
-  KEYS_SECTION,
-  KEYS_SECTION_DESCRIPTIONS,
-  newSectionSpec,
-  newColCalculated,
-  newColHeader,
-  newColDecimal,
-} from './sectionSpec'
+export { KEYS_SECTION, KEYS_SECTION_DESCRIPTIONS, newSectionSpec } from './sectionSpec'
 
 export {
   KEYS_TABLE_SECTION,
@@ -22,3 +15,10 @@ export {
   newRowValidationMessages,
   newRowNoticeMessage,
 } from '@webapp/app/assessment/components/section/sectionSpec/rowSpec'
+
+export {
+  KEYS_COL,
+  newColCalculated,
+  newColHeader,
+  newColDecimal,
+} from '@webapp/app/assessment/components/section/sectionSpec/colSpec'

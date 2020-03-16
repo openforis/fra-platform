@@ -9,8 +9,14 @@ const section = FRA.sections['1'].children.a
 const rowsEOF = [
   SectionSpec.newRowHeader({
     [SectionSpec.KEYS_ROW.cols]: [
-      SectionSpec.newColHeader('extentOfForest.categoryHeader', null, 2),
-      SectionSpec.newColHeader('extentOfForest.areaUnitLabel', null, 1, null),
+      SectionSpec.newColHeader({
+        [SectionSpec.KEYS_COL.labelKey]: 'extentOfForest.categoryHeader',
+        [SectionSpec.KEYS_COL.rowSpan]: 2,
+      }),
+      SectionSpec.newColHeader({
+        [SectionSpec.KEYS_COL.labelKey]: 'extentOfForest.areaUnitLabel',
+        [SectionSpec.KEYS_COL.colSpan]: null,
+      }),
     ],
   }),
   SectionSpec.newRowData({
@@ -58,16 +64,24 @@ const rowsEOF = [
 const rowsClimaticDomain = [
   SectionSpec.newRowHeader({
     [SectionSpec.KEYS_ROW.cols]: [
-      SectionSpec.newColHeader('climaticDomain.climaticDomain'),
-      SectionSpec.newColHeader('climaticDomain.percentOfForestArea2015'),
-      SectionSpec.newColHeader('climaticDomain.percentOfForestArea2015Override'),
+      SectionSpec.newColHeader({
+        [SectionSpec.KEYS_COL.labelKey]: 'climaticDomain.climaticDomain',
+      }),
+      SectionSpec.newColHeader({
+        [SectionSpec.KEYS_COL.labelKey]: 'climaticDomain.percentOfForestArea2015',
+      }),
+      SectionSpec.newColHeader({
+        [SectionSpec.KEYS_COL.labelKey]: 'climaticDomain.percentOfForestArea2015Override',
+      }),
     ],
   }),
   ...ExtentOfForestState.rowsClimaticDomain.map(row =>
     SectionSpec.newRowData({
       [SectionSpec.KEYS_ROW.labelKey]: `climaticDomain.${row}`,
       [SectionSpec.KEYS_ROW.cols]: [
-        SectionSpec.newColCalculated(ExtentOfForestState.getClimaticDomainConfigValue),
+        SectionSpec.newColCalculated({
+          [SectionSpec.KEYS_COL.calculateFn]: ExtentOfForestState.getClimaticDomainConfigValue,
+        }),
         SectionSpec.newColDecimal(),
       ],
     })

@@ -11,8 +11,14 @@ const section = FRA.sections['1'].children.b
 const rows = [
   SectionSpec.newRowHeader({
     [SectionSpec.KEYS_ROW.cols]: [
-      SectionSpec.newColHeader('forestCharacteristics.areaUnitLabel', null, 2),
-      SectionSpec.newColHeader('forestCharacteristics.categoryHeader', null, 1, null),
+      SectionSpec.newColHeader({
+        [SectionSpec.KEYS_COL.labelKey]: 'forestCharacteristics.areaUnitLabel',
+        [SectionSpec.KEYS_COL.rowSpan]: 2,
+      }),
+      SectionSpec.newColHeader({
+        [SectionSpec.KEYS_COL.labelKey]: 'forestCharacteristics.categoryHeader',
+        [SectionSpec.KEYS_COL.colSpan]: null,
+      }),
     ],
   }),
   SectionSpec.newRowData({
