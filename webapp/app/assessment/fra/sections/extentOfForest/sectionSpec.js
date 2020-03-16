@@ -85,11 +85,16 @@ const tableSpecs = [
   ),
   SectionSpec.newTableSpec(section.tables.climaticDomain, rowsClimaticDomain),
 ]
-const tableSection = SectionSpec.newTableSection(tableSpecs)
+const tableSection = SectionSpec.newTableSection({ [SectionSpec.KEYS_TABLE_SECTION.tableSpecs]: tableSpecs })
 
-const extentOfForest = SectionSpec.newSectionSpec(section.name, section.anchor, [tableSection], {
-  nationalData: ExtentOfForestState.useDescriptions,
-  analysisAndProcessing: ExtentOfForestState.useDescriptions,
+const extentOfForest = SectionSpec.newSectionSpec({
+  [SectionSpec.KEYS_SECTION.sectionName]: section.name,
+  [SectionSpec.KEYS_SECTION.sectionAnchor]: section.anchor,
+  [SectionSpec.KEYS_SECTION.tableSections]: [tableSection],
+  [SectionSpec.KEYS_SECTION.descriptions]: {
+    [SectionSpec.KEYS_SECTION_DESCRIPTIONS.nationalData]: ExtentOfForestState.useDescriptions,
+    [SectionSpec.KEYS_SECTION_DESCRIPTIONS.analysisAndProcessing]: ExtentOfForestState.useDescriptions,
+  },
 })
 
 export default extentOfForest

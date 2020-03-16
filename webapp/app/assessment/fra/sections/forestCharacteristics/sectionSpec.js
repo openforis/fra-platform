@@ -103,11 +103,16 @@ const tableSpecs = [
     ForestCharacteristicsState.hasOriginalDataPoints
   ),
 ]
-const tableSection = SectionSpec.newTableSection(tableSpecs)
+const tableSection = SectionSpec.newTableSection({ [SectionSpec.KEYS_TABLE_SECTION.tableSpecs]: tableSpecs })
 
-const forestCharacteristics = SectionSpec.newSectionSpec(section.name, section.anchor, [tableSection], {
-  nationalData: ForestCharacteristicsState.useDescriptions,
-  analysisAndProcessing: ForestCharacteristicsState.useDescriptions,
+const forestCharacteristics = SectionSpec.newSectionSpec({
+  [SectionSpec.KEYS_SECTION.sectionName]: section.name,
+  [SectionSpec.KEYS_SECTION.sectionAnchor]: section.anchor,
+  [SectionSpec.KEYS_SECTION.tableSections]: [tableSection],
+  [SectionSpec.KEYS_SECTION.descriptions]: {
+    [SectionSpec.KEYS_SECTION_DESCRIPTIONS.nationalData]: ForestCharacteristicsState.useDescriptions,
+    [SectionSpec.KEYS_SECTION_DESCRIPTIONS.analysisAndProcessing]: ForestCharacteristicsState.useDescriptions,
+  },
 })
 
 export default forestCharacteristics

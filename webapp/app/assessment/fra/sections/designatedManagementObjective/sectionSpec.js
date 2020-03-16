@@ -24,8 +24,8 @@ const rowsData = [
   { labelKey: 'designatedManagementObjective.other', variableNo: 'f' },
 ]
 
-const tableSection1 = SectionSpec.newTableSection(
-  [
+const tableSection1 = SectionSpec.newTableSection({
+  [SectionSpec.KEYS_TABLE_SECTION.tableSpecs]: [
     SectionSpec.newTableSpec(section.tables.primaryDesignatedManagementObjective, [
       ...rowsHeader,
       ...rowsData.map(r =>
@@ -48,12 +48,13 @@ const tableSection1 = SectionSpec.newTableSection(
       ),
     ]),
   ],
-  'designatedManagementObjective.primaryDesignatedManagementObjective',
-  'designatedManagementObjective.primaryDesignatedManagementObjectiveSupport'
-)
+  [SectionSpec.KEYS_TABLE_SECTION.titleKey]: 'designatedManagementObjective.primaryDesignatedManagementObjective',
+  [SectionSpec.KEYS_TABLE_SECTION.descriptionKey]:
+    'designatedManagementObjective.primaryDesignatedManagementObjectiveSupport',
+})
 
-const tableSection2 = SectionSpec.newTableSection(
-  [
+const tableSection2 = SectionSpec.newTableSection({
+  [SectionSpec.KEYS_TABLE_SECTION.tableSpecs]: [
     SectionSpec.newTableSpec(section.tables.totalAreaWithDesignatedManagementObjective, [
       ...rowsHeader,
       ...rowsData
@@ -66,13 +67,15 @@ const tableSection2 = SectionSpec.newTableSection(
         ),
     ]),
   ],
-  'designatedManagementObjective.totalAreaWithDesignatedManagementObjective',
-  'designatedManagementObjective.totalAreaWithDesignatedManagementObjectiveSupport'
-)
+  [SectionSpec.KEYS_TABLE_SECTION.titleKey]: 'designatedManagementObjective.totalAreaWithDesignatedManagementObjective',
+  [SectionSpec.KEYS_TABLE_SECTION.descriptionKey]:
+    'designatedManagementObjective.totalAreaWithDesignatedManagementObjectiveSupport',
+})
 
-const designatedManagementObjective = SectionSpec.newSectionSpec(section.name, section.anchor, [
-  tableSection1,
-  tableSection2,
-])
+const designatedManagementObjective = SectionSpec.newSectionSpec({
+  [SectionSpec.KEYS_SECTION.sectionName]: section.name,
+  [SectionSpec.KEYS_SECTION.sectionAnchor]: section.anchor,
+  [SectionSpec.KEYS_SECTION.tableSections]: [tableSection1, tableSection2],
+})
 
 export default designatedManagementObjective

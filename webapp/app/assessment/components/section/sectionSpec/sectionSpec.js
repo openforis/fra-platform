@@ -1,27 +1,42 @@
-// ===== Section
+import * as R from 'ramda'
+
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 
-const descriptionsDefault = {
-  introductoryText: false,
-  nationalData: true,
-  analysisAndProcessing: true,
-  comments: true,
+export const KEYS_SECTION = {
+  sectionName: 'sectionName',
+  sectionAnchor: 'sectionAnchor',
+  tableSections: 'tableSections',
+  descriptions: 'descriptions',
 }
 
-export const newSectionSpec = (sectionName = '', sectionAnchor = '', tableSections = [], descriptions = {}) => ({
-  sectionName,
-  sectionAnchor,
-  tableSections: tableSections.map((s, idx) => ({ idx, ...s })),
-  descriptions: { ...descriptionsDefault, ...descriptions },
-})
+export const KEYS_SECTION_DESCRIPTIONS = {
+  introductoryText: 'introductoryText',
+  nationalData: 'nationalData',
+  analysisAndProcessing: 'analysisAndProcessing',
+  comments: 'comments',
+}
 
-// ===== Table section
+const sectionSpecDefault = {
+  [KEYS_SECTION.sectionName]: '',
+  [KEYS_SECTION.sectionAnchor]: '',
+  [KEYS_SECTION.tableSections]: [],
+  [KEYS_SECTION.descriptions]: {
+    [KEYS_SECTION_DESCRIPTIONS.introductoryText]: false,
+    [KEYS_SECTION_DESCRIPTIONS.nationalData]: true,
+    [KEYS_SECTION_DESCRIPTIONS.analysisAndProcessing]: true,
+    [KEYS_SECTION_DESCRIPTIONS.comments]: true,
+  },
+}
 
-export const newTableSection = (tableSpecs = [], titleKey, descriptionKey) => ({
-  tableSpecs,
-  titleKey,
-  descriptionKey,
-})
+const assocTableSections = sectionSpec => {
+  const tableSections = R.prop(KEYS_SECTION.tableSections, sectionSpec)
+  return R.assoc(
+    KEYS_SECTION.tableSections,
+    tableSections.map((tableSection, idx) => ({ idx, ...tableSection }))
+  )(sectionSpec)
+}
+
+export const newSectionSpec = R.pipe(R.mergeDeepRight(sectionSpecDefault), assocTableSections)
 
 // ===== Table
 
