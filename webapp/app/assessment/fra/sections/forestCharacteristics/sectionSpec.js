@@ -9,88 +9,69 @@ import * as ExtentOfForestState from '@webapp/app/assessment/fra/sections/extent
 const section = FRA.sections['1'].children.b
 
 const rows = [
-  SectionSpec.newRowHeader([
-    SectionSpec.newColHeader('forestCharacteristics.areaUnitLabel', null, 2),
-    SectionSpec.newColHeader('forestCharacteristics.categoryHeader', null, 1, null),
-  ]),
-  SectionSpec.newRowData(
-    'forestCharacteristics.naturalForestArea',
-    null,
-    'a',
-    null,
-    null,
-    false,
-    'naturalForestArea',
-    null,
-    {
-      labelKey: 'forestCharacteristics.naturalForestArea',
-      color: '#0098a6',
-    }
-  ),
-  SectionSpec.newRowData(
-    'forestCharacteristics.plantedForest',
-    null,
-    'b',
-    null,
-    null,
-    false,
-    'plantedForest',
-    ForestCharacteristicsState.getPlantedForest
-  ),
-  SectionSpec.newRowData(
-    'forestCharacteristics.plantationForestArea',
-    null,
-    null,
-    null,
-    null,
-    false,
-    'plantationForestArea',
-    null,
-    { labelKey: 'forestCharacteristics.plantationForestArea', color: '#bf00af' }
-  ),
-  SectionSpec.newRowData(
-    'forestCharacteristics.plantationForestIntroducedArea',
-    null,
-    null,
-    null,
-    ForestCharacteristicsValidatorState.plantationForestValidator,
-    true,
-    'plantationForestIntroducedArea',
-    null
-  ),
-  SectionSpec.newRowData(
-    'forestCharacteristics.otherPlantedForestArea',
-    null,
-    null,
-    null,
-    null,
-    false,
-    'otherPlantedForestArea',
-    null,
-    { labelKey: 'forestCharacteristics.otherPlantedForestArea', color: '#f58833' }
-  ),
-  SectionSpec.newRowData(
-    'forestCharacteristics.total',
-    null,
-    'a+b',
-    null,
-    ForestCharacteristicsValidatorState.totalForestAreaNotEqualToExtentOfForestValidator,
-    false,
-    'total',
-    ForestCharacteristicsState.getTotalForest
-  ),
-  SectionSpec.newRowData(
-    'forestCharacteristics.totalForestArea',
-    null,
-    null,
-    FRA.sections['1'].children.a.name,
-    null,
-    false,
-    'totalForestArea',
-    datum => state => ExtentOfForestState.getForestByYear(datum.name)(state)
-  ),
-  SectionSpec.newRowNoticeMessage(null, 2),
-  SectionSpec.newRowValidationMessages(ForestCharacteristicsValidatorState.getValidationMessages),
+  SectionSpec.newRowHeader({
+    [SectionSpec.KEYS_ROW.cols]: [
+      SectionSpec.newColHeader('forestCharacteristics.areaUnitLabel', null, 2),
+      SectionSpec.newColHeader('forestCharacteristics.categoryHeader', null, 1, null),
+    ],
+  }),
+  SectionSpec.newRowData({
+    [SectionSpec.KEYS_ROW.labelKey]: 'forestCharacteristics.naturalForestArea',
+    [SectionSpec.KEYS_ROW.variableNo]: 'a',
+    [SectionSpec.KEYS_ROW.variableName]: 'naturalForestArea',
+    [SectionSpec.KEYS_ROW.chartProps]: {
+      [SectionSpec.KEYS_ROW_CHART.labelKey]: 'forestCharacteristics.naturalForestArea',
+      [SectionSpec.KEYS_ROW_CHART.color]: '#0098a6',
+    },
+  }),
+  SectionSpec.newRowData({
+    [SectionSpec.KEYS_ROW.labelKey]: 'forestCharacteristics.plantedForest',
+    [SectionSpec.KEYS_ROW.variableNo]: 'b',
+    [SectionSpec.KEYS_ROW.variableName]: 'plantedForest',
+    [SectionSpec.KEYS_ROW.calculateFn]: ForestCharacteristicsState.getPlantedForest,
+  }),
+  SectionSpec.newRowData({
+    [SectionSpec.KEYS_ROW.labelKey]: 'forestCharacteristics.plantationForestArea',
+    [SectionSpec.KEYS_ROW.variableName]: 'plantationForestArea',
+    [SectionSpec.KEYS_ROW.chartProps]: {
+      [SectionSpec.KEYS_ROW_CHART.labelKey]: 'forestCharacteristics.plantationForestArea',
+      [SectionSpec.KEYS_ROW_CHART.color]: '#bf00af',
+    },
+  }),
+  SectionSpec.newRowData({
+    [SectionSpec.KEYS_ROW.labelKey]: 'forestCharacteristics.plantationForestIntroducedArea',
+    [SectionSpec.KEYS_ROW.validator]: ForestCharacteristicsValidatorState.plantationForestValidator,
+    [SectionSpec.KEYS_ROW.variableName]: 'plantationForestIntroducedArea',
+    [SectionSpec.KEYS_ROW.subcategory]: true,
+  }),
+  SectionSpec.newRowData({
+    [SectionSpec.KEYS_ROW.labelKey]: 'forestCharacteristics.otherPlantedForestArea',
+    [SectionSpec.KEYS_ROW.variableName]: 'otherPlantedForestArea',
+    [SectionSpec.KEYS_ROW.chartProps]: {
+      [SectionSpec.KEYS_ROW_CHART.labelKey]: 'forestCharacteristics.otherPlantedForestArea',
+      [SectionSpec.KEYS_ROW_CHART.color]: '#f58833',
+    },
+  }),
+  SectionSpec.newRowData({
+    [SectionSpec.KEYS_ROW.labelKey]: 'forestCharacteristics.total',
+    [SectionSpec.KEYS_ROW.variableNo]: 'a+b',
+    [SectionSpec.KEYS_ROW.validator]:
+      ForestCharacteristicsValidatorState.totalForestAreaNotEqualToExtentOfForestValidator,
+    [SectionSpec.KEYS_ROW.variableName]: 'total',
+    [SectionSpec.KEYS_ROW.calculateFn]: ForestCharacteristicsState.getTotalForest,
+  }),
+  SectionSpec.newRowData({
+    [SectionSpec.KEYS_ROW.labelKey]: 'forestCharacteristics.totalForestArea',
+    [SectionSpec.KEYS_ROW.linkToSection]: FRA.sections['1'].children.a.name,
+    [SectionSpec.KEYS_ROW.variableName]: 'totalForestArea',
+    [SectionSpec.KEYS_ROW.calculateFn]: datum => state => ExtentOfForestState.getForestByYear(datum.name)(state),
+  }),
+  SectionSpec.newRowNoticeMessage({
+    [SectionSpec.KEYS_ROW.rowSpan]: 2,
+  }),
+  SectionSpec.newRowValidationMessages({
+    [SectionSpec.KEYS_ROW.getValidationMessages]: ForestCharacteristicsValidatorState.getValidationMessages,
+  }),
 ]
 
 const tableSpec = SectionSpec.newTableSpec({

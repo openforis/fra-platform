@@ -2,12 +2,8 @@ export {
   KEYS_SECTION,
   KEYS_SECTION_DESCRIPTIONS,
   newSectionSpec,
-  newRowNoticeMessage,
   newColCalculated,
-  newRowData,
   newColHeader,
-  newRowHeader,
-  newRowValidationMessages,
   newColDecimal,
 } from './sectionSpec'
 
@@ -17,3 +13,12 @@ export {
 } from '@webapp/app/assessment/components/section/sectionSpec/tableSectionSpec'
 
 export { KEYS_TABLE, newTableSpec } from '@webapp/app/assessment/components/section/sectionSpec/tableSpec'
+
+export {
+  KEYS_ROW,
+  KEYS_ROW_CHART,
+  newRowHeader,
+  newRowData,
+  newRowValidationMessages,
+  newRowNoticeMessage,
+} from '@webapp/app/assessment/components/section/sectionSpec/rowSpec'

@@ -8,11 +8,15 @@ import * as DesignatedManagementObjectiveState from '@webapp/app/assessment/fra/
 const section = FRA.sections['3'].children.a
 
 const rowsHeader = [
-  SectionSpec.newRowHeader([
-    SectionSpec.newColHeader('designatedManagementObjective.categoryHeader', null, 2, 1, true),
-    SectionSpec.newColHeader('designatedManagementObjective.areaUnitLabel', null, 1, FRA.yearsTable.length),
-  ]),
-  SectionSpec.newRowHeader(FRA.yearsTable.map(y => SectionSpec.newColHeader(null, y))),
+  SectionSpec.newRowHeader({
+    [SectionSpec.KEYS_ROW.cols]: [
+      SectionSpec.newColHeader('designatedManagementObjective.categoryHeader', null, 2, 1, true),
+      SectionSpec.newColHeader('designatedManagementObjective.areaUnitLabel', null, 1, FRA.yearsTable.length),
+    ],
+  }),
+  SectionSpec.newRowHeader({
+    [SectionSpec.KEYS_ROW.cols]: FRA.yearsTable.map(y => SectionSpec.newColHeader(null, y)),
+  }),
 ]
 
 const rowsData = [
@@ -29,23 +33,26 @@ const tableSpec1 = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.rows]: [
     ...rowsHeader,
     ...rowsData.map(r =>
-      SectionSpec.newRowData(
-        r.labelKey,
-        FRA.yearsTable.map(() => SectionSpec.newColDecimal()),
-        r.variableNo
-      )
+      SectionSpec.newRowData({
+        [SectionSpec.KEYS_ROW.labelKey]: r.labelKey,
+        [SectionSpec.KEYS_ROW.cols]: FRA.yearsTable.map(() => SectionSpec.newColDecimal()),
+        [SectionSpec.KEYS_ROW.variableNo]: r.variableNo,
+      })
     ),
-    SectionSpec.newRowData(
-      'designatedManagementObjective.unknown',
-      FRA.yearsTable.map(() => SectionSpec.newColCalculated(DesignatedManagementObjectiveState.getUnknown)),
-      'g'
-    ),
-    SectionSpec.newRowData(
-      'designatedManagementObjective.totalForestArea',
-      FRA.yearsTable.map(() => SectionSpec.newColCalculated(ExtentOfForestState.getForestByYearFraIdx)),
-      null,
-      FRA.sections['1'].children.a.name
-    ),
+    SectionSpec.newRowData({
+      [SectionSpec.KEYS_ROW.labelKey]: 'designatedManagementObjective.unknown',
+      [SectionSpec.KEYS_ROW.cols]: FRA.yearsTable.map(() =>
+        SectionSpec.newColCalculated(DesignatedManagementObjectiveState.getUnknown)
+      ),
+      [SectionSpec.KEYS_ROW.variableNo]: 'g',
+    }),
+    SectionSpec.newRowData({
+      [SectionSpec.KEYS_ROW.labelKey]: 'designatedManagementObjective.totalForestArea',
+      [SectionSpec.KEYS_ROW.cols]: FRA.yearsTable.map(() =>
+        SectionSpec.newColCalculated(ExtentOfForestState.getForestByYearFraIdx)
+      ),
+      [SectionSpec.KEYS_ROW.linkToSection]: FRA.sections['1'].children.a.name,
+    }),
   ],
 })
 
@@ -63,10 +70,10 @@ const tableSpec2 = SectionSpec.newTableSpec({
     ...rowsData
       .filter(r => r.variableNo !== 'e')
       .map(r =>
-        SectionSpec.newRowData(
-          r.labelKey,
-          FRA.yearsTable.map(() => SectionSpec.newColDecimal())
-        )
+        SectionSpec.newRowData({
+          [SectionSpec.KEYS_ROW.labelKey]: r.labelKey,
+          [SectionSpec.KEYS_ROW.cols]: FRA.yearsTable.map(() => SectionSpec.newColDecimal()),
+        })
       ),
   ],
 })
