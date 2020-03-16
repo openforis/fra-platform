@@ -39,21 +39,3 @@ const assocTableSections = sectionSpec => {
 }
 
 export const newSectionSpec = R.pipe(R.mergeDeepRight(sectionSpecDefault), assocTableSections)
-
-export const newColHeader = (labelKey = null, label = null, rowSpan = 1, colSpan = 1, left = false) => ({
-  type: 'header',
-  labelKey,
-  label,
-  className: `fra-table__header-cell${left ? '-left' : ''}`,
-  rowSpan,
-  colSpan,
-})
-
-export const newColDecimal = () => ({
-  type: 'decimal',
-})
-
-export const newColCalculated = calculateFn => ({
-  type: 'calculated',
-  calculateFn,
-})
