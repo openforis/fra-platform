@@ -24,49 +24,55 @@ const rowsData = [
   { labelKey: 'designatedManagementObjective.other', variableNo: 'f' },
 ]
 
-const tableSection1 = SectionSpec.newTableSection({
-  [SectionSpec.KEYS_TABLE_SECTION.tableSpecs]: [
-    SectionSpec.newTableSpec(section.tables.primaryDesignatedManagementObjective, [
-      ...rowsHeader,
-      ...rowsData.map(r =>
-        SectionSpec.newRowData(
-          r.labelKey,
-          FRA.yearsTable.map(() => SectionSpec.newColDecimal()),
-          r.variableNo
-        )
-      ),
+const tableSpec1 = SectionSpec.newTableSpec({
+  [SectionSpec.KEYS_TABLE.name]: section.tables.primaryDesignatedManagementObjective,
+  [SectionSpec.KEYS_TABLE.rows]: [
+    ...rowsHeader,
+    ...rowsData.map(r =>
       SectionSpec.newRowData(
-        'designatedManagementObjective.unknown',
-        FRA.yearsTable.map(() => SectionSpec.newColCalculated(DesignatedManagementObjectiveState.getUnknown)),
-        'g'
-      ),
-      SectionSpec.newRowData(
-        'designatedManagementObjective.totalForestArea',
-        FRA.yearsTable.map(() => SectionSpec.newColCalculated(ExtentOfForestState.getForestByYearFraIdx)),
-        null,
-        FRA.sections['1'].children.a.name
-      ),
-    ]),
+        r.labelKey,
+        FRA.yearsTable.map(() => SectionSpec.newColDecimal()),
+        r.variableNo
+      )
+    ),
+    SectionSpec.newRowData(
+      'designatedManagementObjective.unknown',
+      FRA.yearsTable.map(() => SectionSpec.newColCalculated(DesignatedManagementObjectiveState.getUnknown)),
+      'g'
+    ),
+    SectionSpec.newRowData(
+      'designatedManagementObjective.totalForestArea',
+      FRA.yearsTable.map(() => SectionSpec.newColCalculated(ExtentOfForestState.getForestByYearFraIdx)),
+      null,
+      FRA.sections['1'].children.a.name
+    ),
   ],
+})
+
+const tableSection1 = SectionSpec.newTableSection({
+  [SectionSpec.KEYS_TABLE_SECTION.tableSpecs]: [tableSpec1],
   [SectionSpec.KEYS_TABLE_SECTION.titleKey]: 'designatedManagementObjective.primaryDesignatedManagementObjective',
   [SectionSpec.KEYS_TABLE_SECTION.descriptionKey]:
     'designatedManagementObjective.primaryDesignatedManagementObjectiveSupport',
 })
 
-const tableSection2 = SectionSpec.newTableSection({
-  [SectionSpec.KEYS_TABLE_SECTION.tableSpecs]: [
-    SectionSpec.newTableSpec(section.tables.totalAreaWithDesignatedManagementObjective, [
-      ...rowsHeader,
-      ...rowsData
-        .filter(r => r.variableNo !== 'e')
-        .map(r =>
-          SectionSpec.newRowData(
-            r.labelKey,
-            FRA.yearsTable.map(() => SectionSpec.newColDecimal())
-          )
-        ),
-    ]),
+const tableSpec2 = SectionSpec.newTableSpec({
+  [SectionSpec.KEYS_TABLE.name]: section.tables.totalAreaWithDesignatedManagementObjective,
+  [SectionSpec.KEYS_TABLE.rows]: [
+    ...rowsHeader,
+    ...rowsData
+      .filter(r => r.variableNo !== 'e')
+      .map(r =>
+        SectionSpec.newRowData(
+          r.labelKey,
+          FRA.yearsTable.map(() => SectionSpec.newColDecimal())
+        )
+      ),
   ],
+})
+
+const tableSection2 = SectionSpec.newTableSection({
+  [SectionSpec.KEYS_TABLE_SECTION.tableSpecs]: [tableSpec2],
   [SectionSpec.KEYS_TABLE_SECTION.titleKey]: 'designatedManagementObjective.totalAreaWithDesignatedManagementObjective',
   [SectionSpec.KEYS_TABLE_SECTION.descriptionKey]:
     'designatedManagementObjective.totalAreaWithDesignatedManagementObjectiveSupport',

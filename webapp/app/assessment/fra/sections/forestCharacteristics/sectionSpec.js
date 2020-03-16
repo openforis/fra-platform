@@ -93,17 +93,16 @@ const rows = [
   SectionSpec.newRowValidationMessages(ForestCharacteristicsValidatorState.getValidationMessages),
 ]
 
-const tableSpecs = [
-  SectionSpec.newTableSpec(
-    section.tables.forestCharacteristics,
-    rows,
-    ForestCharacteristicsState.getForestCharacteristicsData,
-    ForestCharacteristicsState.isForestCharacteristicsDataEmpty,
-    true,
-    ForestCharacteristicsState.hasOriginalDataPoints
-  ),
-]
-const tableSection = SectionSpec.newTableSection({ [SectionSpec.KEYS_TABLE_SECTION.tableSpecs]: tableSpecs })
+const tableSpec = SectionSpec.newTableSpec({
+  [SectionSpec.KEYS_TABLE.name]: section.tables.forestCharacteristics,
+  [SectionSpec.KEYS_TABLE.rows]: rows,
+  [SectionSpec.KEYS_TABLE.getSectionData]: ForestCharacteristicsState.getForestCharacteristicsData,
+  [SectionSpec.KEYS_TABLE.isSectionDataEmpty]: ForestCharacteristicsState.isForestCharacteristicsDataEmpty,
+  [SectionSpec.KEYS_TABLE.odp]: true,
+  [SectionSpec.KEYS_TABLE.canGenerateValues]: ForestCharacteristicsState.hasOriginalDataPoints,
+})
+
+const tableSection = SectionSpec.newTableSection({ [SectionSpec.KEYS_TABLE_SECTION.tableSpecs]: [tableSpec] })
 
 const forestCharacteristics = SectionSpec.newSectionSpec({
   [SectionSpec.KEYS_SECTION.sectionName]: section.name,

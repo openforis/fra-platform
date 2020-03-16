@@ -74,18 +74,23 @@ const rowsClimaticDomain = [
   ),
 ]
 
-const tableSpecs = [
-  SectionSpec.newTableSpec(
-    section.tables.extentOfForest,
-    rowsEOF,
-    ExtentOfForestState.getExtentOfForestData,
-    ExtentOfForestState.isExtentOfForestEmpty,
-    true,
-    ExtentOfForestState.hasOriginalDataPoints
-  ),
-  SectionSpec.newTableSpec(section.tables.climaticDomain, rowsClimaticDomain),
-]
-const tableSection = SectionSpec.newTableSection({ [SectionSpec.KEYS_TABLE_SECTION.tableSpecs]: tableSpecs })
+const tableSpec1 = SectionSpec.newTableSpec({
+  [SectionSpec.KEYS_TABLE.name]: section.tables.extentOfForest,
+  [SectionSpec.KEYS_TABLE.rows]: rowsEOF,
+  [SectionSpec.KEYS_TABLE.getSectionData]: ExtentOfForestState.getExtentOfForestData,
+  [SectionSpec.KEYS_TABLE.isSectionDataEmpty]: ExtentOfForestState.isExtentOfForestEmpty,
+  [SectionSpec.KEYS_TABLE.odp]: true,
+  [SectionSpec.KEYS_TABLE.canGenerateValues]: ExtentOfForestState.hasOriginalDataPoints,
+})
+
+const tableSpec2 = SectionSpec.newTableSpec({
+  [SectionSpec.KEYS_TABLE.name]: section.tables.climaticDomain,
+  [SectionSpec.KEYS_TABLE.rows]: rowsClimaticDomain,
+})
+
+const tableSection = SectionSpec.newTableSection({
+  [SectionSpec.KEYS_TABLE_SECTION.tableSpecs]: [tableSpec1, tableSpec2],
+})
 
 const extentOfForest = SectionSpec.newSectionSpec({
   [SectionSpec.KEYS_SECTION.sectionName]: section.name,

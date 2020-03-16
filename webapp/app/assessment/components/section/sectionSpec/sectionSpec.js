@@ -1,7 +1,5 @@
 import * as R from 'ramda'
 
-import * as AssessmentState from '@webapp/app/assessment/assessmentState'
-
 export const KEYS_SECTION = {
   sectionName: 'sectionName',
   sectionAnchor: 'sectionAnchor',
@@ -29,44 +27,18 @@ const sectionSpecDefault = {
 }
 
 const assocTableSections = sectionSpec => {
-  const tableSections = R.prop(KEYS_SECTION.tableSections, sectionSpec)
-  return R.assoc(
-    KEYS_SECTION.tableSections,
-    tableSections.map((tableSection, idx) => ({ idx, ...tableSection }))
-  )(sectionSpec)
+  const tableSections = sectionSpec[KEYS_SECTION.tableSections].map((tableSection, idx) => ({
+    idx,
+    ...tableSection,
+  }))
+
+  return {
+    ...sectionSpec,
+    [KEYS_SECTION.tableSections]: tableSections,
+  }
 }
 
 export const newSectionSpec = R.pipe(R.mergeDeepRight(sectionSpecDefault), assocTableSections)
-
-// ===== Table
-
-export const newTableSpec = (
-  name,
-  rows,
-  getSectionData = AssessmentState.getSectionData,
-  isSectionDataEmpty = AssessmentState.isSectionDataEmpty,
-  odp = false,
-  canGenerateValues = null
-) => {
-  let idxHeader = -1
-  let idxData = -1
-  return {
-    name,
-    getSectionData,
-    isSectionDataEmpty,
-    odp,
-    canGenerateValues,
-    rows: rows.map(row => {
-      const header = row.type === 'header'
-      idxHeader += header ? 1 : 0
-      idxData += header ? 0 : 1
-      return {
-        idx: header ? `header_${idxHeader}` : idxData,
-        ...row,
-      }
-    }),
-  }
-}
 
 export const newRowHeader = cols => ({
   type: 'header',
