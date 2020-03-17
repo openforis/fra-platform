@@ -56,12 +56,10 @@ const GenerateValues = props => {
 }
 
 GenerateValues.propTypes = {
-  // metadata
   assessmentType: PropTypes.string.isRequired,
   sectionName: PropTypes.string.isRequired,
   tableName: PropTypes.string.isRequired,
   rows: PropTypes.array.isRequired,
-  // data
   data: PropTypes.array.isRequired,
 }
 

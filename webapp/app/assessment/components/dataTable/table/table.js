@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'
 
 import ButtonTableExport from '@webapp/components/buttonTableExport'
 import Row from '@webapp/app/assessment/components/dataTable/table/row'
-import useI18n from '@webapp/components/hooks/useI18n'
 import CellOdpHeader from '@webapp/app/assessment/components/dataTable/table/cell/cellOdpHeader'
+import useI18n from '@webapp/components/hooks/useI18n'
 
 const Table = props => {
   const { assessmentType, sectionName, sectionAnchor, tableName, odp, rows, data, disabled } = props
@@ -67,17 +67,13 @@ const Table = props => {
 }
 
 Table.propTypes = {
-  // metadata
   assessmentType: PropTypes.string.isRequired,
   sectionName: PropTypes.string.isRequired,
   sectionAnchor: PropTypes.string.isRequired,
   tableName: PropTypes.string.isRequired,
   odp: PropTypes.bool.isRequired,
   rows: PropTypes.array.isRequired,
-  // data
   data: PropTypes.array.isRequired,
-
-  // boolean checks
   disabled: PropTypes.bool.isRequired,
 }
 

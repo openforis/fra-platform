@@ -122,7 +122,6 @@ const AssessmentSectionView = () => {
               sectionName={sectionName}
               sectionAnchor={sectionAnchor}
               tableSpec={tableSpec}
-              copyValues={false}
               disabled={disabled}
             />
           ))}

@@ -12,7 +12,7 @@ import GenerateValues from '@webapp/app/assessment/components/dataTable/generate
 import useI18n from '@webapp/components/hooks/useI18n'
 
 const DataTable = props => {
-  const { assessmentType, sectionName, sectionAnchor, tableSpec, copyValues, disabled } = props
+  const { assessmentType, sectionName, sectionAnchor, tableSpec, disabled } = props
 
   const { name: tableName, rows, getSectionData, isSectionDataEmpty, odp, canGenerateValues } = tableSpec
 
@@ -63,7 +63,6 @@ const DataTable = props => {
             odp={odp}
             rows={rows}
             data={data}
-            copyValues={copyValues}
             disabled={disabled}
           />
         </div>
@@ -73,14 +72,10 @@ const DataTable = props => {
 }
 
 DataTable.propTypes = {
-  // metadata
   assessmentType: PropTypes.string.isRequired,
   sectionName: PropTypes.string.isRequired,
   sectionAnchor: PropTypes.string.isRequired,
   tableSpec: PropTypes.object.isRequired,
-
-  // boolean checks
-  copyValues: PropTypes.bool.isRequired,
   disabled: PropTypes.bool.isRequired,
 }
 
