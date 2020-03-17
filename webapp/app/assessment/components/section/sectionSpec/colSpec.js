@@ -11,6 +11,7 @@ export const KEYS_COL = {
   colSpan: 'colSpan',
   left: 'left',
   calculateFn: 'calculateFn',
+  validator: 'validator',
 }
 
 const colHeaderDefault = {

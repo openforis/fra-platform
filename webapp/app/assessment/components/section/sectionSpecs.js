@@ -11,6 +11,7 @@ import forestCharacteristics from '@webapp/app/assessment/fra/sections/forestCha
 // 2
 // 3
 import designatedManagementObjective from '@webapp/app/assessment/fra/sections/designatedManagementObjective/sectionSpec'
+import forestAreaWithinProtectedAreas from '@webapp/app/assessment/fra/sections/forestAreaWithinProtectedAreas/sectionSpec'
 // 4
 // 5
 // 6
@@ -25,6 +26,7 @@ export default {
     // 2
     // 3
     [designatedManagementObjective.sectionName]: designatedManagementObjective,
+    [forestAreaWithinProtectedAreas.sectionName]: forestAreaWithinProtectedAreas,
     // 4
     // 5
     // 6

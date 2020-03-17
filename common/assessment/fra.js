@@ -35,6 +35,13 @@ const FRA = {
             totalAreaWithDesignatedManagementObjective: 'totalAreaWithDesignatedManagementObjective',
           },
         },
+        b: {
+          name: 'forestAreaWithinProtectedAreas',
+          anchor: '3b',
+          tables: {
+            forestAreaWithinProtectedAreas: 'forestAreaWithinProtectedAreas',
+          },
+        },
       },
     },
   },

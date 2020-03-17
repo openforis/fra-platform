@@ -1,10 +1,8 @@
 import { useSelector } from 'react-redux'
 
-import { isPrintingMode } from '@webapp/app/assessment/components/print/printAssessment'
-
 import useUserInfo from '@webapp/components/hooks/useUserInfo'
 
-export default (col, datum) => {
+export default (col, rowIdx) => {
   const { type, validator } = col
   const userInfo = useUserInfo()
 
@@ -12,16 +10,11 @@ export default (col, datum) => {
     if (!userInfo || !validator) {
       return true
     }
-    return validator(datum)(state)
+    return validator(col.idx, rowIdx)(state)
   })
 
-  let cssClass = type === 'odp' && !isPrintingMode()
-    ? 'odp-value-cell-total'
-    : type === 'calculated'
-      ? 'fra-table__calculated-cell'
-      : 'fra-table__cell'
+  let className = type === 'calculated' ? 'fra-table__calculated-cell' : 'fra-table__cell'
+  className += valid ? '' : ' validation-error'
 
-  cssClass += valid ? '' : ' validation-error'
-
-  return cssClass
+  return className
 }
