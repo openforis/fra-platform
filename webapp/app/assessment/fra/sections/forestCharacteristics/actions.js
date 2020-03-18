@@ -11,6 +11,6 @@ export const toggleUseOriginalDataPoints = use => dispatch =>
     saveCountryConfigSetting(
       'useOriginalDataPointsInFoc',
       use,
-      fetchTableData(assessmentType, section.name, section.tables.forestCharacteristics, true)
+      fetchTableData(assessmentType, section.name, section.tables.forestCharacteristics)
     )
   )

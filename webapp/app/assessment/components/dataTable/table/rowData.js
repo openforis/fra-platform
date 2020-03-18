@@ -48,7 +48,7 @@ const RowData = props => {
       {odp
         ? data.map(datum => (
             <CellOdp
-              key={datum.name}
+              key={datum.name || datum.year}
               assessmentType={assessmentType}
               sectionName={sectionName}
               tableName={tableName}

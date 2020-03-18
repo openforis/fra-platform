@@ -86,6 +86,7 @@ const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.getSectionData]: ForestCharacteristicsState.getForestCharacteristicsData,
   [SectionSpec.KEYS_TABLE.isSectionDataEmpty]: ForestCharacteristicsState.isForestCharacteristicsDataEmpty,
   [SectionSpec.KEYS_TABLE.odp]: true,
+  [SectionSpec.KEYS_TABLE.showOdpChart]: true,
   [SectionSpec.KEYS_TABLE.canGenerateValues]: ForestCharacteristicsState.hasOriginalDataPoints,
 })
 

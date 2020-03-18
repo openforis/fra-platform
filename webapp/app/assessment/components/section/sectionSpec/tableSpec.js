@@ -8,6 +8,7 @@ export const KEYS_TABLE = {
   getSectionData: 'getSectionData',
   isSectionDataEmpty: 'isSectionDataEmpty',
   odp: 'odp',
+  showOdpChart: 'showOdpChart',
   canGenerateValues: 'canGenerateValues',
 }
 
@@ -17,6 +18,7 @@ const tableDefault = {
   [KEYS_TABLE.getSectionData]: AssessmentState.getSectionData,
   [KEYS_TABLE.isSectionDataEmpty]: AssessmentState.isSectionDataEmpty,
   [KEYS_TABLE.odp]: false,
+  [KEYS_TABLE.showOdpChart]: false,
   [KEYS_TABLE.canGenerateValues]: null,
 }
 

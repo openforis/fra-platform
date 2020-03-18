@@ -94,6 +94,7 @@ const tableSpec1 = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.getSectionData]: ExtentOfForestState.getExtentOfForestData,
   [SectionSpec.KEYS_TABLE.isSectionDataEmpty]: ExtentOfForestState.isExtentOfForestEmpty,
   [SectionSpec.KEYS_TABLE.odp]: true,
+  [SectionSpec.KEYS_TABLE.showOdpChart]: true,
   [SectionSpec.KEYS_TABLE.canGenerateValues]: ExtentOfForestState.hasOriginalDataPoints,
 })
 

@@ -41,7 +41,7 @@ const Table = props => {
           {odp && (
             <tr>
               {data.map(datum => (
-                <CellOdpHeader key={datum.name} sectionName={sectionName} datum={datum} />
+                <CellOdpHeader key={datum.name || datum.year} sectionName={sectionName} datum={datum} />
               ))}
             </tr>
           )}
