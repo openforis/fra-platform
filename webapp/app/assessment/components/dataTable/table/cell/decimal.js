@@ -5,10 +5,9 @@ import { useDispatch } from 'react-redux'
 import { acceptNextDecimal } from '@webapp/utils/numberInput'
 
 import { ThousandSeparatedDecimalInput } from '@webapp/components/thousandSeparatedDecimalInput'
-import { updateTableDataCell } from '@webapp/app/assessment/components/dataTable/actions'
 
 const Decimal = props => {
-  const { assessmentType, sectionName, tableName, rowIdx, col, datum, disabled } = props
+  const { assessmentType, sectionName, tableName, updateTableDataCell, rowIdx, col, datum, disabled } = props
 
   const dispatch = useDispatch()
 
@@ -40,6 +39,7 @@ Decimal.propTypes = {
   col: PropTypes.object.isRequired,
   disabled: PropTypes.bool.isRequired,
   datum: PropTypes.any,
+  updateTableDataCell: PropTypes.func.isRequired,
 }
 
 Decimal.defaultProps = {

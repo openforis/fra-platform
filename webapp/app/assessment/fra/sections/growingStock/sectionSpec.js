@@ -47,7 +47,6 @@ const tableSection1 = SectionSpec.newTableSection({
 })
 
 const table2 = SectionSpec.newTableSpec({
-  [SectionSpec.KEYS_TABLE.name]: '',
   [SectionSpec.KEYS_TABLE.odp]: true,
   [SectionSpec.KEYS_TABLE.getSectionData]: GrowingStockState.getTableDataTotal,
   [SectionSpec.KEYS_TABLE.rows]: [

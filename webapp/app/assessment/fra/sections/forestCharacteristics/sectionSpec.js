@@ -6,6 +6,8 @@ import * as ForestCharacteristicsState from '@webapp/app/assessment/fra/sections
 import * as ForestCharacteristicsValidatorState from '@webapp/app/assessment/fra/sections/forestCharacteristics/forestCharacteristicsValidatorState'
 import * as ExtentOfForestState from '@webapp/app/assessment/fra/sections/extentOfForest/extentOfForestState'
 
+import { updateTableWithOdpCell } from '@webapp/app/assessment/components/dataTable/actions'
+
 const section = FRA.sections['1'].children.b
 
 const rows = [
@@ -88,6 +90,7 @@ const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.odp]: true,
   [SectionSpec.KEYS_TABLE.showOdpChart]: true,
   [SectionSpec.KEYS_TABLE.canGenerateValues]: ForestCharacteristicsState.hasOriginalDataPoints,
+  [SectionSpec.KEYS_TABLE.updateTableDataCell]: updateTableWithOdpCell,
 })
 
 const tableSection = SectionSpec.newTableSection({ [SectionSpec.KEYS_TABLE_SECTION.tableSpecs]: [tableSpec] })

@@ -15,7 +15,16 @@ import useI18n from '@webapp/components/hooks/useI18n'
 const DataTable = props => {
   const { assessmentType, sectionName, sectionAnchor, tableSpec, disabled } = props
 
-  const { name: tableName, rows, getSectionData, isSectionDataEmpty, odp, showOdpChart, canGenerateValues } = tableSpec
+  const {
+    name: tableName,
+    rows,
+    getSectionData,
+    isSectionDataEmpty,
+    odp,
+    showOdpChart,
+    canGenerateValues,
+    updateTableDataCell,
+  } = tableSpec
 
   const i18n = useI18n()
   const data = useSelector(getSectionData(assessmentType, sectionName, tableName))
@@ -67,6 +76,7 @@ const DataTable = props => {
             rows={rows}
             data={data}
             disabled={disabled}
+            updateTableDataCell={updateTableDataCell}
           />
         </div>
       </div>
