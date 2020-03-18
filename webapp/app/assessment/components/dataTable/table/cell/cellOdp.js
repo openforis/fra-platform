@@ -65,7 +65,7 @@ const CellOdp = props => {
             valueUpdate = valueUpdate && String(valueUpdate)
             const datumUpdate = { ...datum, [variableName]: valueUpdate, [`${variableName}Estimated`]: false }
 
-            dispatch(updateTableDataCell(assessmentType, sectionName, tableName, datumUpdate))
+            dispatch(updateTableDataCell(assessmentType, sectionName, tableName, datumUpdate, variableName))
           }}
           disabled={disabled}
         />

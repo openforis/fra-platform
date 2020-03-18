@@ -1,10 +1,21 @@
 import axios from 'axios'
 import * as R from 'ramda'
+import { batch } from 'react-redux'
+
+import * as FRA from '@common/assessment/fra'
+
+import * as AppState from '@webapp/app/appState'
+import * as AssessmentState from '@webapp/app/assessment/assessmentState'
+import * as GrowingStockState from '@webapp/app/assessment/fra/sections/growingStock/growingStockState'
+
 import { applicationError } from '@webapp/app/components/error/actions'
-import * as autosave from '../../../../components/autosave/actions'
+import * as autosave from '@webapp/app/components/autosave/actions'
 
 import { acceptNextDecimal } from '@webapp/utils/numberInput'
-import { calculateTotalValue, calculateAvgValue } from './growingStock'
+import { calculateTotalValue, calculateAvgValue } from '@webapp/app/assessment/fra/sections/growingStock/growingStock'
+import { updateTableData, postTableData } from '@webapp/app/assessment/components/dataTable/actions'
+
+const section = FRA.sections['2'].children.a
 
 export const growingStockFetchCompleted = 'growingStock/fetch/completed'
 export const growingStockChanged = 'growingStock/changed'
@@ -18,7 +29,7 @@ const pasteYearMapping = {
   5: '2017',
   6: '2018',
   7: '2019',
-  8: '2020'
+  8: '2020',
 }
 
 const pasteRowMapping = {
@@ -27,12 +38,15 @@ const pasteRowMapping = {
   2: 'plantationForest',
   3: 'otherPlantedForest',
   4: 'forest',
-  5: 'otherWoodedLand'
+  5: 'otherWoodedLand',
 }
 
 const yearToColumn = R.invertObj(pasteYearMapping)
 const rowToIndex = R.invertObj(pasteRowMapping)
 
+/**
+ * @deprecated
+ */
 const updateAvg = (growingStockState, year, row, newValue) => {
   const currentValue = R.path(['avgTable', year, row], growingStockState)
   const sanitizedValue = acceptNextDecimal(newValue, currentValue)
@@ -44,6 +58,9 @@ const updateAvg = (growingStockState, year, row, newValue) => {
   return updatedValue
 }
 
+/**
+ * @deprecated
+ */
 const updateTotal = (growingStockState, year, row, newValue) => {
   const currentValue = R.path(['totalTableTable', year, row], growingStockState)
   const sanitizedValue = acceptNextDecimal(newValue, currentValue)
@@ -57,6 +74,9 @@ const updateTotal = (growingStockState, year, row, newValue) => {
   return updatedValue
 }
 
+/**
+ * @deprecated
+ */
 const updatePasteData = (growingStockState, year, row, pastedData, malvFunc) => {
   const colOffset = Number(yearToColumn[year])
   const rowOffset = Number(rowToIndex[row])
@@ -68,64 +88,37 @@ const updatePasteData = (growingStockState, year, row, pastedData, malvFunc) => 
         if (R.isNil(yearToUpdate) || R.isNil(rowToUpdate)) return accu
         return {
           result: malvFunc(accu.result, yearToUpdate, rowToUpdate, pastedColumnValue),
-          colIndex: accu.colIndex + 1
+          colIndex: accu.colIndex + 1,
         }
       },
-      {result: result, colIndex: 0},
-      pastedRow).result
-
-  const updatedGrowingStock =
-    R.reduce(
-      (accu, pastedRow) =>
-        ({
-          result: handleRow(accu.pastedRowIndex, pastedRow, accu.result),
-          pastedRowIndex: accu.pastedRowIndex + 1
-        }),
-      {result: growingStockState, pastedRowIndex: 0},
-      pastedData
+      { result, colIndex: 0 },
+      pastedRow
     ).result
+
+  const updatedGrowingStock = R.reduce(
+    (accu, pastedRow) => ({
+      result: handleRow(accu.pastedRowIndex, pastedRow, accu.result),
+      pastedRowIndex: accu.pastedRowIndex + 1,
+    }),
+    { result: growingStockState, pastedRowIndex: 0 },
+    pastedData
+  ).result
 
   return updatedGrowingStock
 }
 
-export const fetch = (countryIso) => dispatch =>
+/**
+ * @deprecated
+ */
+export const fetch = countryIso => dispatch =>
   axios
     .get(`/api/growingStock/${countryIso}`)
-    .then(resp => dispatch({type: growingStockFetchCompleted, data: resp.data}))
+    .then(resp => dispatch({ type: growingStockFetchCompleted, data: resp.data }))
     .catch(err => dispatch(applicationError(err)))
 
-export const changeAvgValue = (countryIso, year, row, newValue) => (dispatch, getState) => {
-  const growingStockState = getState().growingStock
-  const updatedValue = updateAvg(growingStockState, year, row, newValue)
-  dispatch(autosave.start)
-  dispatch({type: growingStockChanged, data: updatedValue})
-  dispatch(persistValues(countryIso, updatedValue))
-}
-
-export const changeTotalValue = (countryIso, year, row, newValue) => (dispatch, getState) => {
-  const growingStockState = getState().growingStock
-  const updatedValue = updateTotal(growingStockState, year, row, newValue)
-  dispatch(autosave.start)
-  dispatch({type: growingStockChanged, data: updatedValue})
-  dispatch(persistValues(countryIso, updatedValue))
-}
-
-export const pasteAvgValue = (countryIso, year, row, pastedData) => (dispatch, getState) => {
-  const growingStockState = getState().growingStock
-  const updatedValues = updatePasteData(growingStockState, year, row, pastedData, updateAvg)
-  dispatch(autosave.start)
-  dispatch({type: growingStockChanged, data: updatedValues})
-  dispatch(persistValues(countryIso, updatedValues))
-}
-
-export const pasteTotalValue = (countryIso, year, row, pastedData) => (dispatch, getState) => {
-  const growingStockState = getState().growingStock
-  const updatedValues = updatePasteData(growingStockState, year, row, pastedData, updateTotal)
-  dispatch(autosave.start)
-  dispatch({type: growingStockChanged, data: updatedValues})
-  dispatch(persistValues(countryIso, updatedValues))
-}
-
+/**
+ * @deprecated
+ */
 export const persistValues = (countryIso, values) => {
   const dispatched = dispatch => {
     axios
@@ -137,8 +130,92 @@ export const persistValues = (countryIso, values) => {
   dispatched.meta = {
     debounce: {
       time: 400,
-      key: growingStockChanged
-    }
+      key: growingStockChanged,
+    },
   }
   return dispatched
+}
+
+/**
+ * @deprecated
+ */
+export const changeAvgValue = (countryIso, year, row, newValue) => (dispatch, getState) => {
+  const growingStockState = getState().growingStock
+  const updatedValue = updateAvg(growingStockState, year, row, newValue)
+  dispatch(autosave.start)
+  dispatch({ type: growingStockChanged, data: updatedValue })
+  dispatch(persistValues(countryIso, updatedValue))
+}
+
+/**
+ * @deprecated
+ */
+export const changeTotalValue = (countryIso, year, row, newValue) => (dispatch, getState) => {
+  const growingStockState = getState().growingStock
+  const updatedValue = updateTotal(growingStockState, year, row, newValue)
+  dispatch(autosave.start)
+  dispatch({ type: growingStockChanged, data: updatedValue })
+  dispatch(persistValues(countryIso, updatedValue))
+}
+
+/**
+ * @deprecated
+ */
+export const pasteAvgValue = (countryIso, year, row, pastedData) => (dispatch, getState) => {
+  const growingStockState = getState().growingStock
+  const updatedValues = updatePasteData(growingStockState, year, row, pastedData, updateAvg)
+  dispatch(autosave.start)
+  dispatch({ type: growingStockChanged, data: updatedValues })
+  dispatch(persistValues(countryIso, updatedValues))
+}
+
+/**
+ * @deprecated
+ */
+export const pasteTotalValue = (countryIso, year, row, pastedData) => (dispatch, getState) => {
+  const growingStockState = getState().growingStock
+  const updatedValues = updatePasteData(growingStockState, year, row, pastedData, updateTotal)
+  dispatch(autosave.start)
+  dispatch({ type: growingStockChanged, data: updatedValues })
+  dispatch(persistValues(countryIso, updatedValues))
+}
+
+// ====== Update
+
+const updateGrowingStockCells = (year, variableName, avgValue, totalValue) => (dispatch, getState) => {
+  const state = getState()
+  const data = R.pipe(
+    AssessmentState.getSectionData(FRA.type, section.name, section.name),
+    R.assocPath([section.tables.avgTable, year, variableName], avgValue),
+    R.assocPath([section.tables.totalTable, year, variableName], totalValue)
+  )(state)
+  const countryIso = AppState.getCountryIso(state)
+
+  batch(() => {
+    dispatch(autosave.start)
+    dispatch(updateTableData(FRA.type, section.name, section.name, data))
+    dispatch(postTableData(section.name, data, `/api/growingStock/${countryIso}`))
+  })
+}
+
+export const updateGrowingStockAvgCell = (assessmentType, sectionName, tableName, datum, variableName) => (
+  dispatch,
+  getState
+) => {
+  const { year } = datum
+  const avgValue = datum[variableName]
+  const totalValue = GrowingStockState.calculateTotalValue(year, variableName, avgValue)(getState())
+
+  dispatch(updateGrowingStockCells(year, variableName, avgValue, totalValue))
+}
+
+export const updateGrowingStockTotalCell = (assessmentType, sectionName, tableName, datum, variableName) => (
+  dispatch,
+  getState
+) => {
+  const { year } = datum
+  const totalValue = datum[variableName]
+  const avgValue = GrowingStockState.calculateAvgValue(year, variableName, totalValue)(getState())
+
+  dispatch(updateGrowingStockCells(year, variableName, avgValue, totalValue))
 }

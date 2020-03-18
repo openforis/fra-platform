@@ -3,21 +3,18 @@ import * as FRA from '@common/assessment/fra'
 import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
 import * as GrowingStockState from '@webapp/app/assessment/fra/sections/growingStock/growingStockState'
 
-const section = FRA.sections['2'].children.a
+import {
+  updateGrowingStockAvgCell,
+  updateGrowingStockTotalCell,
+} from '@webapp/app/assessment/fra/sections/growingStock/actions'
 
-const variables = {
-  naturallyRegeneratingForest: {},
-  plantedForest: {},
-  plantationForest: { subcategory: true },
-  otherPlantedForest: { subcategory: true },
-  forest: {},
-  otherWoodedLand: {},
-}
+const section = FRA.sections['2'].children.a
 
 const table1 = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.name,
   [SectionSpec.KEYS_TABLE.odp]: true,
   [SectionSpec.KEYS_TABLE.getSectionData]: GrowingStockState.getTableDataAvg,
+  [SectionSpec.KEYS_TABLE.updateTableDataCell]: updateGrowingStockAvgCell,
   [SectionSpec.KEYS_TABLE.rows]: [
     SectionSpec.newRowHeader({
       [SectionSpec.KEYS_ROW.cols]: [
@@ -31,7 +28,7 @@ const table1 = SectionSpec.newTableSpec({
         }),
       ],
     }),
-    ...Object.entries(variables).map(([variableName, variableProps]) =>
+    ...Object.entries(GrowingStockState.variables).map(([variableName, variableProps]) =>
       SectionSpec.newRowData({
         [SectionSpec.KEYS_ROW.variableName]: variableName,
         [SectionSpec.KEYS_ROW.labelKey]: `growingStock.${variableName}`,
@@ -49,6 +46,7 @@ const tableSection1 = SectionSpec.newTableSection({
 const table2 = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.odp]: true,
   [SectionSpec.KEYS_TABLE.getSectionData]: GrowingStockState.getTableDataTotal,
+  [SectionSpec.KEYS_TABLE.updateTableDataCell]: updateGrowingStockTotalCell,
   [SectionSpec.KEYS_TABLE.rows]: [
     SectionSpec.newRowHeader({
       [SectionSpec.KEYS_ROW.cols]: [
@@ -62,7 +60,7 @@ const table2 = SectionSpec.newTableSpec({
         }),
       ],
     }),
-    ...Object.entries(variables).map(([variableName, variableProps]) =>
+    ...Object.entries(GrowingStockState.variables).map(([variableName, variableProps]) =>
       SectionSpec.newRowData({
         [SectionSpec.KEYS_ROW.variableName]: variableName,
         [SectionSpec.KEYS_ROW.labelKey]: `growingStock.${variableName}`,

@@ -49,15 +49,9 @@ export const fetchTableData = (assessmentType, sectionName, tableName) => async 
 
 // ====== UPDATE
 
-const _postTableData = (tableName, data, odp = false) => {
-  const debounced = async (dispatch, getState) => {
-    const countryIso = AppState.getCountryIso(getState())
-
-    const url = odp
-      ? `/api/nde/${tableName}/country/${countryIso}/${data.name}`
-      : `/api/traditionalTable/${countryIso}/${tableName}`
+export const postTableData = (tableName, data, url) => {
+  const debounced = async dispatch => {
     await axios.post(url, data)
-
     dispatch(autosave.complete)
   }
 
@@ -71,21 +65,21 @@ const _postTableData = (tableName, data, odp = false) => {
   return debounced
 }
 
-// ====== Update Cell value
-
 export const updateTableDataCell = (assessmentType, sectionName, tableName, rowIdx, colIdx, value) => async (
   dispatch,
   getState
 ) => {
+  const state = getState()
   const data = R.pipe(
     AssessmentState.getSectionData(assessmentType, sectionName, tableName),
     R.assocPath([rowIdx, colIdx], value)
-  )(getState())
+  )(state)
+  const countryIso = AppState.getCountryIso(state)
 
   batch(() => {
     dispatch(autosave.start)
     dispatch(updateTableData(assessmentType, sectionName, tableName, data))
-    dispatch(_postTableData(tableName, data))
+    dispatch(postTableData(tableName, data, `/api/traditionalTable/${countryIso}/${tableName}`))
   })
 }
 
@@ -105,11 +99,12 @@ export const updateTableWithOdpCell = (assessmentType, sectionName, tableName, d
     [AssessmentState.keysDataTableWithOdp.fra]: fra,
     [AssessmentState.keysDataTableWithOdp.fraNoNDPs]: fraNoNdps,
   }
+  const countryIso = AppState.getCountryIso(state)
 
   batch(() => {
     dispatch(autosave.start)
     dispatch(updateTableData(assessmentType, sectionName, tableName, data))
-    dispatch(_postTableData(sectionName, datum, true))
+    dispatch(postTableData(sectionName, datum, `/api/nde/${tableName}/country/${countryIso}/${data.name}`))
   })
 }
 
