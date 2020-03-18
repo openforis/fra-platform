@@ -2,6 +2,7 @@ import * as FRA from '@common/assessment/fra'
 
 import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
 import * as GrowingStockState from '@webapp/app/assessment/fra/sections/growingStock/growingStockState'
+import * as GrowingStockValidatorState from '@webapp/app/assessment/fra/sections/growingStock/growingStockValidatorState'
 
 import {
   updateGrowingStockAvgCell,
@@ -9,6 +10,19 @@ import {
 } from '@webapp/app/assessment/fra/sections/growingStock/actions'
 
 const section = FRA.sections['2'].children.a
+
+const variables = {
+  [GrowingStockState.variables.naturallyRegeneratingForest]: {
+    totalValidator: GrowingStockValidatorState.growingStockTotalForestValidator,
+  },
+  [GrowingStockState.variables.plantedForest]: {
+    totalValidator: GrowingStockValidatorState.growingStockTotalForestValidator,
+  },
+  [GrowingStockState.variables.plantationForest]: { subcategory: true },
+  [GrowingStockState.variables.otherPlantedForest]: { subcategory: true },
+  [GrowingStockState.variables.forest]: {},
+  [GrowingStockState.variables.otherWoodedLand]: {},
+}
 
 const table1 = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.name,
@@ -28,7 +42,7 @@ const table1 = SectionSpec.newTableSpec({
         }),
       ],
     }),
-    ...Object.entries(GrowingStockState.variables).map(([variableName, variableProps]) =>
+    ...Object.entries(variables).map(([variableName, variableProps]) =>
       SectionSpec.newRowData({
         [SectionSpec.KEYS_ROW.variableName]: variableName,
         [SectionSpec.KEYS_ROW.labelKey]: `growingStock.${variableName}`,
@@ -60,11 +74,12 @@ const table2 = SectionSpec.newTableSpec({
         }),
       ],
     }),
-    ...Object.entries(GrowingStockState.variables).map(([variableName, variableProps]) =>
+    ...Object.entries(variables).map(([variableName, variableProps]) =>
       SectionSpec.newRowData({
         [SectionSpec.KEYS_ROW.variableName]: variableName,
         [SectionSpec.KEYS_ROW.labelKey]: `growingStock.${variableName}`,
         [SectionSpec.KEYS_ROW.subcategory]: !!variableProps.subcategory,
+        [SectionSpec.KEYS_ROW.validator]: variableProps.totalValidator || null,
       })
     ),
   ],

@@ -8,21 +8,21 @@ import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 const section = FRA.sections['2'].children.a
 
 export const variables = {
-  naturallyRegeneratingForest: {},
-  plantedForest: {},
-  plantationForest: { subcategory: true },
-  otherPlantedForest: { subcategory: true },
-  forest: {},
-  otherWoodedLand: {},
+  naturallyRegeneratingForest: 'naturallyRegeneratingForest',
+  plantedForest: 'plantedForest',
+  plantationForest: 'plantationForest',
+  otherPlantedForest: 'otherPlantedForest',
+  forest: 'forest',
+  otherWoodedLand: 'otherWoodedLand',
 }
 
 const baseValueVariablesMapping = {
-  naturallyRegeneratingForest: 'naturalForestArea',
-  plantedForest: 'plantedForestArea',
-  plantationForest: 'plantationForestArea',
-  otherPlantedForest: 'otherPlantedForestArea',
-  forest: 'forestArea',
-  otherWoodedLand: 'otherWoodedLand',
+  [variables.naturallyRegeneratingForest]: 'naturalForestArea',
+  [variables.plantedForest]: 'plantedForestArea',
+  [variables.plantationForest]: 'plantationForestArea',
+  [variables.otherPlantedForest]: 'otherPlantedForestArea',
+  [variables.forest]: 'forestArea',
+  [variables.otherWoodedLand]: 'otherWoodedLand',
 }
 
 const _getTableData = tableName => () =>
