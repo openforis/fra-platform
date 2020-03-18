@@ -26,7 +26,7 @@ const Cell = props => {
   const { type } = col
   const datum = R.pathOr(null, [rowIdx, col.idx])(data)
 
-  const className = useCellClassName(col, datum)
+  const className = useCellClassName(col, rowIdx)
 
   return (
     <td className={className}>
