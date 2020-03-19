@@ -22,14 +22,10 @@ import { fetchLastSectionUpdateTimestamp } from '@webapp/app/components/audit/ac
 
 const AssessmentSectionView = () => {
   const { assessmentType, section } = useParams()
-  const sectionSpec = R.path([assessmentType, section], sectionSpecs)
+  const sectionSpec = R.pathOr({}, [assessmentType, section], sectionSpecs)
+  const sectionSpecEmpty = R.isEmpty(sectionSpec)
 
-  if (!sectionSpec) {
-    return <Notfound />
-  }
   const { sectionName, sectionAnchor, tableSections, showTitle, descriptions } = sectionSpec
-
-  const { comments } = descriptions
 
   const dispatch = useDispatch()
   const countryIso = useCountryIso()
@@ -39,18 +35,24 @@ const AssessmentSectionView = () => {
 
   // ==== Data fetching effect
   useEffect(() => {
-    tableSections.map(tableSection =>
-      tableSection.tableSpecs.map(tableSpec => {
-        const { name: tableName } = tableSpec
-        return dispatch(fetchTableData(assessmentType, sectionName, tableName))
-      })
-    )
+    if (!sectionSpecEmpty) {
+      tableSections.map(tableSection =>
+        tableSection.tableSpecs.map(tableSpec => {
+          const { name: tableName } = tableSpec
+          return dispatch(fetchTableData(assessmentType, sectionName, tableName))
+        })
+      )
 
-    dispatch(fetchLastSectionUpdateTimestamp(countryIso, sectionName))
+      dispatch(fetchLastSectionUpdateTimestamp(countryIso, sectionName))
 
-    // on section or ocuntry change, scroll to top
-    appViewRef.current.scrollTop = 0
+      // on section or country change, scroll to top
+      appViewRef.current.scrollTop = 0
+    }
   }, [sectionName, countryIso])
+
+  if (sectionSpecEmpty) {
+    return <Notfound />
+  }
 
   return (
     <div className="app-view__content" ref={appViewRef}>
@@ -88,7 +90,7 @@ const AssessmentSectionView = () => {
         </div>
       ))}
 
-      {comments && <GeneralComments section={sectionName} countryIso={countryIso} disabled={disabled} />}
+      {sectionSpec.comments && <GeneralComments section={sectionName} countryIso={countryIso} disabled={disabled} />}
     </div>
   )
 }
