@@ -3,18 +3,15 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router'
 import * as R from 'ramda'
 
-import * as ObjectUtils from '@common/objectUtils'
 import { isPrintingOnlyTables } from '@webapp/app/assessment/components/print/printAssessment'
 import sectionSpecs from '@webapp/app/assessment/components/section/sectionSpecs'
 
 import Notfound from '@webapp/app/notfound'
 import CustomHeader from '@webapp/app/assessment/components/section/components/customHeader'
 import Title from '@webapp/app/assessment/components/section/components/title'
-import NationalDataDescriptions from '@webapp/app/assessment/components/description/nationalDataDescriptions'
-import AnalysisDescriptions from '@webapp/app/assessment/components/description/analysisDescriptions'
-import GeneralComments from '@webapp/app/assessment/components/description/generalComments'
-import CommentableDescription from '@webapp/app/assessment/components/description/commentableDescription'
+import Descriptions from '@webapp/app/assessment/components/section/components/descriptions'
 import DataTable from '@webapp/app/assessment/components/dataTable'
+import GeneralComments from '@webapp/app/assessment/components/description/generalComments'
 import useCountryIso from '@webapp/components/hooks/useCountryIso'
 import useI18n from '@webapp/components/hooks/useI18n'
 
@@ -32,22 +29,13 @@ const AssessmentSectionView = () => {
   }
   const { sectionName, sectionAnchor, tableSections, showTitle, descriptions } = sectionSpec
 
-  const { introductoryText, nationalData, analysisAndProcessing, comments } = descriptions
+  const { comments } = descriptions
 
   const dispatch = useDispatch()
   const countryIso = useCountryIso()
   const i18n = useI18n()
   const disabled = useSelector(FraState.isSectionEditDisabled(sectionName))
   const appViewRef = useRef(null)
-
-  // ==== Check whether to use descriptions
-  const useNationalData = useSelector(state =>
-    ObjectUtils.isFunction(nationalData) ? nationalData(state) : nationalData
-  )
-
-  const useAnalysisAndProcessing = useSelector(state =>
-    ObjectUtils.isFunction(analysisAndProcessing) ? analysisAndProcessing(state) : analysisAndProcessing
-  )
 
   // ==== Data fetching effect
   useEffect(() => {
@@ -72,22 +60,7 @@ const AssessmentSectionView = () => {
 
       <CustomHeader assessmentType={assessmentType} sectionName={sectionName} disabled={disabled} />
 
-      {/* descriptions components */}
-      {useNationalData && (
-        <NationalDataDescriptions section={sectionName} countryIso={countryIso} disabled={disabled} />
-      )}
-      {useAnalysisAndProcessing && (
-        <AnalysisDescriptions section={sectionName} countryIso={countryIso} disabled={disabled} />
-      )}
-      {introductoryText && (
-        <CommentableDescription
-          section={sectionName}
-          title={i18n.t('contactPersons.introductoryText')}
-          name="introductoryText"
-          template={i18n.t('contactPersons.introductoryTextSupport')}
-          disabled={disabled}
-        />
-      )}
+      <Descriptions sectionName={sectionName} descriptions={descriptions} disabled={disabled} />
 
       {showTitle && <Title assessmentType={assessmentType} sectionName={sectionName} sectionAnchor={sectionAnchor} />}
 
