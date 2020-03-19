@@ -13,6 +13,7 @@ const components = {
   [FRA.type]: {
     [FRA.sections['1'].children.a.name]: ExtentOfForest,
     [FRA.sections['2'].children.c.name]: TitleWithExcelCalculator,
+    [FRA.sections['2'].children.d.name]: TitleWithExcelCalculator,
   },
 }
 

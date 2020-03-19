@@ -18,6 +18,7 @@ const DataTable = props => {
   const {
     name: tableName,
     rows,
+    secondary,
     getSectionData,
     isSectionDataEmpty,
     odp,
@@ -65,7 +66,7 @@ const DataTable = props => {
         />
       )}
 
-      <div className="fra-table__container">
+      <div className={`fra-table__container${secondary ? ' fra-secondary-table__wrapper' : ''}`}>
         <div className="fra-table__scroll-wrapper">
           <Table
             assessmentType={assessmentType}
@@ -77,6 +78,7 @@ const DataTable = props => {
             data={data}
             disabled={disabled}
             updateTableDataCell={updateTableDataCell}
+            secondary={secondary}
           />
         </div>
       </div>
