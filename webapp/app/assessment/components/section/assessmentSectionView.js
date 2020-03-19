@@ -10,7 +10,6 @@ import sectionSpecs from '@webapp/app/assessment/components/section/sectionSpecs
 import Notfound from '@webapp/app/notfound'
 import CustomHeader from '@webapp/app/assessment/components/section/components/customHeader'
 import Title from '@webapp/app/assessment/components/section/components/title'
-import DefinitionLink from '@webapp/components/definitionLink'
 import NationalDataDescriptions from '@webapp/app/assessment/components/description/nationalDataDescriptions'
 import AnalysisDescriptions from '@webapp/app/assessment/components/description/analysisDescriptions'
 import GeneralComments from '@webapp/app/assessment/components/description/generalComments'
@@ -31,7 +30,7 @@ const AssessmentSectionView = () => {
   if (!sectionSpec) {
     return <Notfound />
   }
-  const { sectionName, sectionAnchor, tableSections, descriptions } = sectionSpec
+  const { sectionName, sectionAnchor, tableSections, showTitle, descriptions } = sectionSpec
 
   const { introductoryText, nationalData, analysisAndProcessing, comments } = descriptions
 
@@ -90,24 +89,7 @@ const AssessmentSectionView = () => {
         />
       )}
 
-      <Title assessmentType={assessmentType} sectionName={sectionName} />
-
-      <div className="app-view__section-toolbar">
-        <DefinitionLink
-          className="margin-right-big"
-          document="tad"
-          anchor={sectionAnchor}
-          title={i18n.t('definition.definitionLabel')}
-          lang={i18n.language}
-        />
-        <DefinitionLink
-          className="align-left"
-          document="faq"
-          anchor={sectionAnchor}
-          title={i18n.t('definition.faqLabel')}
-          lang={i18n.language}
-        />
-      </div>
+      {showTitle && <Title assessmentType={assessmentType} sectionName={sectionName} sectionAnchor={sectionAnchor} />}
 
       {!isPrintingOnlyTables() && <div className="page-break" />}
 

@@ -5,6 +5,8 @@
 import * as FRA from '@common/assessment/fra'
 
 // ======= FRA section specs
+// 0
+import contactPersons from '@webapp/app/assessment/fra/sections/contactPersons/sectionSpec'
 // 1
 import extentOfForest from '@webapp/app/assessment/fra/sections/extentOfForest/sectionSpec'
 import forestCharacteristics from '@webapp/app/assessment/fra/sections/forestCharacteristics/sectionSpec'
@@ -22,6 +24,8 @@ import forestAreaWithinProtectedAreas from '@webapp/app/assessment/fra/sections/
 
 export default {
   [FRA.type]: {
+    // 0
+    [contactPersons.sectionName]: contactPersons,
     // 1
     [extentOfForest.sectionName]: extentOfForest,
     [forestCharacteristics.sectionName]: forestCharacteristics,

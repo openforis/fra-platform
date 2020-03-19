@@ -4,6 +4,7 @@ import * as R from 'ramda'
 
 import * as FRA from '@common/assessment/fra'
 
+import DefinitionLink from '@webapp/components/definitionLink'
 import ExtentOfForest from '@webapp/app/assessment/components/section/components/title/extentOfForest'
 import useI18n from '@webapp/components/hooks/useI18n'
 
@@ -13,31 +14,42 @@ const components = {
   },
 }
 
-const TitleDefault = props => {
-  const { sectionName } = props
-  const i18n = useI18n()
-
-  return <h2 className="headline no-print">{i18n.t(`${sectionName}.${sectionName}`)}</h2>
-}
-
-TitleDefault.propTypes = {
-  sectionName: PropTypes.string.isRequired,
-}
-
 const Title = props => {
-  const { assessmentType, sectionName } = props
-  const component = R.pathOr(TitleDefault, [assessmentType, sectionName])(components)
+  const i18n = useI18n()
+  const { assessmentType, sectionName, sectionAnchor } = props
+  const component = R.pipe(
+    R.path([assessmentType, sectionName]),
+    R.defaultTo(() => <h2 className="headline no-print">{i18n.t(`${sectionName}.${sectionName}`)}</h2>)
+  )(components)
 
-  if (!component) {
-    return null
-  }
+  return (
+    <>
+      {React.createElement(component, { assessmentType, sectionName })}
 
-  return React.createElement(component, { assessmentType, sectionName })
+      <div className="app-view__section-toolbar">
+        <DefinitionLink
+          className="margin-right-big"
+          document="tad"
+          anchor={sectionAnchor}
+          title={i18n.t('definition.definitionLabel')}
+          lang={i18n.language}
+        />
+        <DefinitionLink
+          className="align-left"
+          document="faq"
+          anchor={sectionAnchor}
+          title={i18n.t('definition.faqLabel')}
+          lang={i18n.language}
+        />
+      </div>
+    </>
+  )
 }
 
 Title.propTypes = {
   assessmentType: PropTypes.string.isRequired,
   sectionName: PropTypes.string.isRequired,
+  sectionAnchor: PropTypes.string.isRequired,
 }
 
 export default Title
