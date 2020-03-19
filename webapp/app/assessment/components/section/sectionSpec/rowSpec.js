@@ -1,5 +1,6 @@
 import * as R from 'ramda'
-import { TYPE, TYPES, isCalculated } from '@webapp/app/assessment/components/section/sectionSpec/keysType'
+import { TYPE, TYPES } from '@webapp/app/assessment/components/section/sectionSpec/keysType'
+import { KEYS_COL } from '@webapp/app/assessment/components/section/sectionSpec/colSpec'
 
 export const KEYS_ROW = {
   type: TYPE,
@@ -13,12 +14,13 @@ export const KEYS_ROW = {
   // keys of row validation messages
   getValidationMessages: 'getValidationMessages',
   // keys of col header row data
+  mainCategory: 'mainCategory',
   subcategory: 'subcategory',
   variableNo: 'variableNo',
   linkToSection: 'linkToSection',
   // keys of col row notice message
   rowSpan: 'rowSpan',
-  colsSpan: 'colSpan',
+  colSpan: 'colSpan',
 }
 
 export const KEYS_ROW_CHART = {
@@ -38,9 +40,11 @@ const rowDataDefault = {
   // col header keys
   [KEYS_ROW.labelKey]: null,
   [KEYS_ROW.labelParams]: {},
+  [KEYS_ROW.colSpan]: 1,
   [KEYS_ROW.variableNo]: null,
   [KEYS_ROW.linkToSection]: null,
   [KEYS_ROW.subcategory]: false,
+  [KEYS_ROW.mainCategory]: false,
 }
 
 const rowValidationMessagesDefault = {
@@ -53,25 +57,28 @@ const rowNoticeMessageDefault = {
   [KEYS_ROW.labelKey]: null,
   [KEYS_ROW.cols]: [],
   [KEYS_ROW.rowSpan]: 1,
-  [KEYS_ROW.colsSpan]: 1,
+  [KEYS_ROW.colSpan]: 1,
 }
 
 const assocColHeader = row => {
   const labelKey = row[KEYS_ROW.labelKey]
   const labelParams = row[KEYS_ROW.labelParams]
+  const colSpan = row[KEYS_ROW.colSpan]
   const variableNo = row[KEYS_ROW.variableNo]
   const linkToSection = row[KEYS_ROW.linkToSection]
   const calculateFn = row[KEYS_ROW.calculateFn]
   const subcategory = row[KEYS_ROW.subcategory]
+  const mainCategory = row[KEYS_ROW.mainCategory]
   const cols = [...row[KEYS_ROW.cols]]
 
   let className = 'fra-table__category-cell'
-  className = calculateFn ? 'fra-table__header-cell-left' : className
+  className = calculateFn || mainCategory ? 'fra-table__header-cell-left' : className
   className = subcategory ? 'fra-table__subcategory-cell' : className
 
   const colHeader = {
     idx: `header_0`,
     type: 'header',
+    colSpan,
     labelKey,
     labelParams,
     variableNo,
@@ -94,27 +101,17 @@ const assocColHeader = row => {
 }
 
 const assocCols = row => {
-  let idxCalculated = -1
-  let idxData = -1
-
-  const cols = row[KEYS_ROW.cols].map(col => {
-    const calculated = isCalculated(col)
-    idxCalculated += calculated ? 1 : 0
-    idxData += calculated ? 0 : 1
-
-    return {
-      idx: calculated ? `calculated_${idxCalculated}` : idxData,
-      ...col,
-    }
-  })
-
+  const cols = row[KEYS_ROW.cols].map((col, i) => ({
+    ...col,
+    [KEYS_COL.idx]: R.when(R.isNil, R.always(i))(col[KEYS_COL.idx]),
+  }))
   return { ...row, [KEYS_ROW.cols]: cols }
 }
 
 const assocColNoticeMessage = row => {
   const labelKey = row[KEYS_ROW.labelKey]
   const rowSpan = row[KEYS_ROW.rowSpan]
-  const colSpan = row[KEYS_ROW.colsSpan]
+  const colSpan = row[KEYS_ROW.colSpan]
   const cols = [{ labelKey, rowSpan, colSpan }]
   return {
     ...R.pick([KEYS_ROW.type])(row),

@@ -4,6 +4,7 @@ import { TYPE, TYPES } from '@webapp/app/assessment/components/section/sectionSp
 
 export const KEYS_COL = {
   type: TYPE,
+  idx: 'idx',
   labelKey: 'labelKey',
   label: 'label',
   className: 'className',
@@ -16,6 +17,7 @@ export const KEYS_COL = {
 
 const colHeaderDefault = {
   [KEYS_COL.type]: TYPES.header,
+  [KEYS_COL.idx]: null,
   [KEYS_COL.labelKey]: null,
   [KEYS_COL.label]: null,
   [KEYS_COL.className]: '',
@@ -24,11 +26,20 @@ const colHeaderDefault = {
   [KEYS_COL.left]: false,
 }
 
-const colDecimalDefault = { [KEYS_COL.type]: TYPES.decimal }
+const colDecimalDefault = {
+  [KEYS_COL.idx]: null,
+  [KEYS_COL.type]: TYPES.decimal,
+}
 
-const colTextDefault = { [KEYS_COL.type]: TYPES.text }
+const colTextDefault = {
+  [KEYS_COL.idx]: null,
+  [KEYS_COL.type]: TYPES.text,
+}
 
-const colCalculatedDefault = { [KEYS_COL.type]: TYPES.calculated }
+const colCalculatedDefault = {
+  [KEYS_COL.idx]: null,
+  [KEYS_COL.type]: TYPES.calculated,
+}
 
 const assocHeaderClassName = col => {
   const left = col[KEYS_COL.left]

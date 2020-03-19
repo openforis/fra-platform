@@ -29,7 +29,7 @@ const RowData = props => {
   const colHeaderValue = `${colHeaderLabel}${colHeader.variableNo ? ` (${colHeader.variableNo})` : ''}`
   return (
     <tr className={className}>
-      <th className={colHeader.className}>
+      <th className={colHeader.className} colSpan={colHeader.colSpan}>
         {colHeader.linkToSection ? (
           <>
             <div className="only-print">{colHeaderValue}</div>
