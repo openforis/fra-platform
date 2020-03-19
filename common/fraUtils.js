@@ -1,5 +1,6 @@
 const R = require('ramda')
 const FRA = require('./assessment/fra')
+const NumberUtils = require('./bignumberUtils')
 
 /**
  * @deprecated
@@ -14,6 +15,13 @@ const hasData = R.pipe(R.reject(R.all(R.or(R.isNil, R.isEmpty))), R.isEmpty, R.n
 // ====== Table  methods
 
 const isTableEmpty = R.pipe(R.defaultTo([]), R.flatten, R.reject(R.isNil), R.isEmpty)
+
+const sumTableColumn = (columnIndex, rowIndexes) => data =>
+  R.pipe(
+    R.map(rowIdx => R.pathOr(null, [rowIdx, columnIndex])(data)),
+    R.reject(R.isNil),
+    NumberUtils.sum
+  )(rowIndexes)
 
 // ====== Table with odp methods
 
@@ -37,17 +45,12 @@ const updateTableWithOdpDatum = datum => data => {
 }
 
 module.exports = {
-  /**
-   * @deprecated
-   */
   fraYears,
-  /**
-   * @deprecated
-   */
   hasData,
 
   // Table
   isTableEmpty,
+  sumTableColumn,
 
   // Table with odp
   filterFraYears,

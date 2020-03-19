@@ -36,6 +36,13 @@ const FRA = {
             baseTable: 'baseTable',
           },
         },
+        b: {
+          name: 'growingStockComposition',
+          anchor: '2b',
+          tables: {
+            growingStockComposition: 'growingStockComposition',
+          },
+        },
       },
     },
     3: {

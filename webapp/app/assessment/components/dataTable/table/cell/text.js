@@ -2,24 +2,19 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux'
 
-import { acceptNextDecimal } from '@webapp/utils/numberInput'
+import TextInput from '@webapp/components/textInput'
 
-import { ThousandSeparatedDecimalInput } from '@webapp/components/thousandSeparatedDecimalInput'
-
-const Decimal = props => {
+const Text = props => {
   const { assessmentType, sectionName, tableName, updateTableDataCell, rowIdx, col, datum, disabled } = props
 
   const dispatch = useDispatch()
 
   return (
-    <ThousandSeparatedDecimalInput
-      numberValue={datum}
+    <TextInput
+      value={datum}
       onChange={e => {
         const { value } = e.target
-        let valueUpdate = acceptNextDecimal(value, datum)
-        valueUpdate = valueUpdate && String(valueUpdate)
-
-        dispatch(updateTableDataCell(assessmentType, sectionName, tableName, rowIdx, col.idx, valueUpdate))
+        dispatch(updateTableDataCell(assessmentType, sectionName, tableName, rowIdx, col.idx, value))
       }}
       onPaste={() => {
         // TODO
@@ -29,7 +24,7 @@ const Decimal = props => {
   )
 }
 
-Decimal.propTypes = {
+Text.propTypes = {
   assessmentType: PropTypes.string.isRequired,
   sectionName: PropTypes.string.isRequired,
   tableName: PropTypes.string.isRequired,
@@ -40,8 +35,8 @@ Decimal.propTypes = {
   updateTableDataCell: PropTypes.func.isRequired,
 }
 
-Decimal.defaultProps = {
+Text.defaultProps = {
   datum: null,
 }
 
-export default Decimal
+export default Text

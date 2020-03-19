@@ -1,5 +1,7 @@
 import { useSelector } from 'react-redux'
 
+import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
+
 import useUserInfo from '@webapp/components/hooks/useUserInfo'
 
 export default (col, rowIdx) => {
@@ -14,6 +16,7 @@ export default (col, rowIdx) => {
   })
 
   let className = type === 'calculated' ? 'fra-table__calculated-cell' : 'fra-table__cell'
+  className += type === SectionSpec.TYPES.text ? '-left' : ''
   className += valid ? '' : ' validation-error'
 
   return className

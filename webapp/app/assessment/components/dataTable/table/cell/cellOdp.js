@@ -23,7 +23,6 @@ const CellOdp = props => {
   } = props
 
   const dispatch = useDispatch()
-  // const countryIso = useCountryIso()
   const userInfo = useUserInfo()
   const valid = useSelector(state => {
     if (!userInfo || !validator) {

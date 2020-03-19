@@ -83,8 +83,11 @@ const rowsClimaticDomain = [
       [SectionSpec.KEYS_ROW.cols]: [
         SectionSpec.newColCalculated({
           [SectionSpec.KEYS_COL.calculateFn]: ExtentOfForestState.getClimaticDomainConfigValue,
+          [SectionSpec.KEYS_COL.idx]: -1,
         }),
-        SectionSpec.newColDecimal(),
+        SectionSpec.newColDecimal({
+          [SectionSpec.KEYS_COL.idx]: 0,
+        }),
       ],
     })
   ),
