@@ -7,7 +7,17 @@ import CellOdpHeader from '@webapp/app/assessment/components/dataTable/table/cel
 import useI18n from '@webapp/components/hooks/useI18n'
 
 const Table = props => {
-  const { assessmentType, sectionName, sectionAnchor, tableName, odp, rows, data, disabled } = props
+  const {
+    assessmentType,
+    sectionName,
+    sectionAnchor,
+    tableName,
+    odp,
+    rows,
+    data,
+    disabled,
+    updateTableDataCell,
+  } = props
 
   const rowsHeader = rows.filter(row => row.type === 'header')
   const rowsData = rows.filter(row => row.type !== 'header')
@@ -41,7 +51,7 @@ const Table = props => {
           {odp && (
             <tr>
               {data.map(datum => (
-                <CellOdpHeader key={datum.name} sectionName={sectionName} datum={datum} />
+                <CellOdpHeader key={datum.name || datum.year} sectionName={sectionName} datum={datum} />
               ))}
             </tr>
           )}
@@ -58,6 +68,7 @@ const Table = props => {
               row={row}
               disabled={disabled}
               pasteUpdate={() => {}}
+              updateTableDataCell={updateTableDataCell}
             />
           ))}
         </tbody>
@@ -75,6 +86,7 @@ Table.propTypes = {
   rows: PropTypes.array.isRequired,
   data: PropTypes.array.isRequired,
   disabled: PropTypes.bool.isRequired,
+  updateTableDataCell: PropTypes.func.isRequired,
 }
 
 export default Table

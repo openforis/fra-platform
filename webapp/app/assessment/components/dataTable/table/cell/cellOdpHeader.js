@@ -18,7 +18,8 @@ const CellOdpHeader = props => {
   const userInfo = useUserInfo()
 
   const { datum, sectionName } = props
-  const { name, type, draft, odpId } = datum
+  const { name, year, type, draft, odpId } = datum
+  const label = name || year
   const odp = type === 'odp'
 
   const className = odp && !isPrintingMode() ? 'odp-header-cell' : 'fra-table__header-cell'
@@ -29,11 +30,11 @@ const CellOdpHeader = props => {
         <Tooltip text={i18n.t('nationalDataPoint.clickOnNDP')}>
           <Link className="link" to={BasePaths.getOdpLink(countryIso, sectionName, odpId)}>
             {draft && userInfo && <Icon className="icon-sub icon-margin-right" name="pencil" />}
-            {name}
+            {label}
           </Link>
         </Tooltip>
       ) : (
-        name
+        label
       )}
     </th>
   )

@@ -15,7 +15,7 @@ const componentsByType = {
 const Row = props => {
   const userInfo = useUserInfo()
 
-  const { data, assessmentType, sectionName, tableName, odp, row, disabled } = props
+  const { data, assessmentType, sectionName, tableName, updateTableDataCell, odp, row, disabled } = props
   const { type } = row
 
   // validation error rows are hidden in public view
@@ -24,7 +24,16 @@ const Row = props => {
   }
 
   const component = componentsByType[type]
-  return React.createElement(component, { data, assessmentType, sectionName, tableName, odp, row, disabled })
+  return React.createElement(component, {
+    data,
+    assessmentType,
+    sectionName,
+    tableName,
+    updateTableDataCell,
+    odp,
+    row,
+    disabled,
+  })
 }
 
 Row.propTypes = {
@@ -35,6 +44,7 @@ Row.propTypes = {
   odp: PropTypes.bool.isRequired,
   row: PropTypes.object.isRequired,
   disabled: PropTypes.bool.isRequired,
+  updateTableDataCell: PropTypes.func.isRequired,
 }
 
 export default Row

@@ -9,10 +9,18 @@ import { acceptNextDecimal } from '@webapp/utils/numberInput'
 import { ThousandSeparatedDecimalInput } from '@webapp/components/thousandSeparatedDecimalInput'
 import useUserInfo from '@webapp/components/hooks/useUserInfo'
 
-import { updateTableWithOdpCell } from '@webapp/app/assessment/components/dataTable/actions'
-
 const CellOdp = props => {
-  const { assessmentType, sectionName, tableName, variableName, disabled, datum, validator, calculateFn } = props
+  const {
+    assessmentType,
+    sectionName,
+    tableName,
+    updateTableDataCell,
+    variableName,
+    disabled,
+    datum,
+    validator,
+    calculateFn,
+  } = props
 
   const dispatch = useDispatch()
   // const countryIso = useCountryIso()
@@ -57,7 +65,7 @@ const CellOdp = props => {
             valueUpdate = valueUpdate && String(valueUpdate)
             const datumUpdate = { ...datum, [variableName]: valueUpdate, [`${variableName}Estimated`]: false }
 
-            dispatch(updateTableWithOdpCell(assessmentType, sectionName, tableName, datumUpdate))
+            dispatch(updateTableDataCell(assessmentType, sectionName, tableName, datumUpdate, variableName))
           }}
           disabled={disabled}
         />
@@ -75,6 +83,7 @@ CellOdp.propTypes = {
   datum: PropTypes.object.isRequired,
   validator: PropTypes.func,
   calculateFn: PropTypes.func,
+  updateTableDataCell: PropTypes.func.isRequired,
 }
 
 CellOdp.defaultProps = {

@@ -2,6 +2,7 @@ import axios from 'axios'
 import * as R from 'ramda'
 import { batch } from 'react-redux'
 
+import * as FRA from '@common/assessment/fra'
 import * as FRAUtils from '@common/fraUtils'
 
 import * as AppState from '@webapp/app/appState'
@@ -22,25 +23,35 @@ export const updateTableData = (assessmentType, sectionName, tableName, data) =>
 
 // ====== READ
 
-export const fetchTableData = (assessmentType, sectionName, tableName, odp = false) => async (dispatch, getState) => {
-  const countryIso = AppState.getCountryIso(getState())
-  const url = odp ? `/api/nde/${tableName}/${countryIso}` : `/api/traditionalTable/${countryIso}/${tableName}`
-  const { data } = await axios.get(url)
+const urlFetchData = {
+  // 1a
+  [FRA.sections['1'].children.a.tables
+    .extentOfForest]: `/api/nde/${FRA.sections['1'].children.a.tables.extentOfForest}/`,
+  // 1b
+  [FRA.sections['1'].children.b.tables
+    .forestCharacteristics]: `/api/nde/${FRA.sections['1'].children.b.tables.forestCharacteristics}/`,
+  // 2a
+  [FRA.sections['2'].children.a.name]: `/api/growingStock/`,
+}
 
-  dispatch(updateTableData(assessmentType, sectionName, tableName, data))
+export const fetchTableData = (assessmentType, sectionName, tableName) => async (dispatch, getState) => {
+  const countryIso = AppState.getCountryIso(getState())
+
+  if (!R.isEmpty(tableName)) {
+    let url = urlFetchData[tableName]
+    url = url ? `${url}${countryIso}` : `/api/traditionalTable/${countryIso}/${tableName}`
+
+    const { data } = await axios.get(url)
+
+    dispatch(updateTableData(assessmentType, sectionName, tableName, data))
+  }
 }
 
 // ====== UPDATE
 
-const _postTableData = (tableName, data, odp = false) => {
-  const debounced = async (dispatch, getState) => {
-    const countryIso = AppState.getCountryIso(getState())
-
-    const url = odp
-      ? `/api/nde/${tableName}/country/${countryIso}/${data.name}`
-      : `/api/traditionalTable/${countryIso}/${tableName}`
+export const postTableData = (tableName, data, url) => {
+  const debounced = async dispatch => {
     await axios.post(url, data)
-
     dispatch(autosave.complete)
   }
 
@@ -54,21 +65,21 @@ const _postTableData = (tableName, data, odp = false) => {
   return debounced
 }
 
-// ====== Update Cell value
-
 export const updateTableDataCell = (assessmentType, sectionName, tableName, rowIdx, colIdx, value) => async (
   dispatch,
   getState
 ) => {
+  const state = getState()
   const data = R.pipe(
     AssessmentState.getSectionData(assessmentType, sectionName, tableName),
     R.assocPath([rowIdx, colIdx], value)
-  )(getState())
+  )(state)
+  const countryIso = AppState.getCountryIso(state)
 
   batch(() => {
     dispatch(autosave.start)
     dispatch(updateTableData(assessmentType, sectionName, tableName, data))
-    dispatch(_postTableData(tableName, data))
+    dispatch(postTableData(tableName, data, `/api/traditionalTable/${countryIso}/${tableName}`))
   })
 }
 
@@ -88,11 +99,12 @@ export const updateTableWithOdpCell = (assessmentType, sectionName, tableName, d
     [AssessmentState.keysDataTableWithOdp.fra]: fra,
     [AssessmentState.keysDataTableWithOdp.fraNoNDPs]: fraNoNdps,
   }
+  const countryIso = AppState.getCountryIso(state)
 
   batch(() => {
     dispatch(autosave.start)
     dispatch(updateTableData(assessmentType, sectionName, tableName, data))
-    dispatch(_postTableData(sectionName, datum, true))
+    dispatch(postTableData(sectionName, datum, `/api/nde/${tableName}/country/${countryIso}/${datum.name}`))
   })
 }
 
@@ -118,7 +130,7 @@ export const generateTableData = (assessmentType, sectionName, tableName, method
   await axios.post(`/api/nde/${sectionName}/generateFraValues/${countryIso}`, { method, fields, changeRates })
 
   batch(() => {
-    dispatch(fetchTableData(assessmentType, sectionName, tableName, true))
+    dispatch(fetchTableData(assessmentType, sectionName, tableName))
     dispatch({
       type: assessmentSectionDataGeneratingValuesUpdate,
       assessmentType,

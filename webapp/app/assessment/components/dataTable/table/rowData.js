@@ -15,7 +15,7 @@ const RowData = props => {
   const countryIso = useCountryIso()
   const i18n = useI18n()
 
-  const { data, assessmentType, sectionName, tableName, odp, row, disabled } = props
+  const { data, assessmentType, sectionName, tableName, updateTableDataCell, odp, row, disabled } = props
 
   const { idx: rowIdx, cols, validator, calculateFn, variableName } = row
 
@@ -48,7 +48,7 @@ const RowData = props => {
       {odp
         ? data.map(datum => (
             <CellOdp
-              key={datum.name}
+              key={datum.name || datum.year}
               assessmentType={assessmentType}
               sectionName={sectionName}
               tableName={tableName}
@@ -57,6 +57,7 @@ const RowData = props => {
               datum={datum}
               validator={validator}
               calculateFn={calculateFn}
+              updateTableDataCell={updateTableDataCell}
             />
           ))
         : colsData.map(col => (
@@ -69,6 +70,7 @@ const RowData = props => {
               disabled={disabled}
               rowIdx={rowIdx}
               col={col}
+              updateTableDataCell={updateTableDataCell}
             />
           ))}
 
@@ -96,6 +98,7 @@ RowData.propTypes = {
   odp: PropTypes.bool.isRequired,
   row: PropTypes.object.isRequired,
   disabled: PropTypes.bool.isRequired,
+  updateTableDataCell: PropTypes.func.isRequired,
 }
 
 export default RowData

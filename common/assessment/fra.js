@@ -24,6 +24,20 @@ const FRA = {
         },
       },
     },
+    2: {
+      label: 'navigation.sectionHeaders.forestGrowingStockBiomassAndCarbon',
+      children: {
+        a: {
+          name: 'growingStock',
+          anchor: '2a',
+          tables: {
+            totalTable: 'totalTable',
+            avgTable: 'avgTable',
+            baseTable: 'baseTable',
+          },
+        },
+      },
+    },
     3: {
       label: 'navigation.sectionHeaders.forestDesignationAndManagement',
       children: {

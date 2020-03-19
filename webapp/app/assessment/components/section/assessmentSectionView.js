@@ -49,8 +49,8 @@ const AssessmentSectionView = () => {
   useEffect(() => {
     tableSections.map(tableSection =>
       tableSection.tableSpecs.map(tableSpec => {
-        const { name: tableName, odp } = tableSpec
-        return dispatch(fetchTableData(assessmentType, sectionName, tableName, odp))
+        const { name: tableName } = tableSpec
+        return dispatch(fetchTableData(assessmentType, sectionName, tableName))
       })
     )
 

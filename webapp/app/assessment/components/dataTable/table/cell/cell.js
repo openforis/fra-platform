@@ -20,6 +20,7 @@ const Cell = props => {
     disabled,
     rowIdx,
     col,
+    updateTableDataCell,
     // pasteUpdate,
   } = props
 
@@ -38,6 +39,7 @@ const Cell = props => {
         disabled,
         col,
         rowIdx,
+        updateTableDataCell,
       })}
     </td>
   )
@@ -51,6 +53,7 @@ Cell.propTypes = {
   disabled: PropTypes.bool.isRequired,
   rowIdx: PropTypes.number.isRequired,
   col: PropTypes.object.isRequired,
+  updateTableDataCell: PropTypes.func.isRequired,
 }
 
 export default Cell

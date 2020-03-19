@@ -4,6 +4,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
 
+import * as ObjectUtils from '@common/objectUtils'
 import { isPrintingMode, isPrintingOnlyTables } from '@webapp/app/assessment/components/print/printAssessment'
 
 import Table from '@webapp/app/assessment/components/dataTable/table'
@@ -14,12 +15,23 @@ import useI18n from '@webapp/components/hooks/useI18n'
 const DataTable = props => {
   const { assessmentType, sectionName, sectionAnchor, tableSpec, disabled } = props
 
-  const { name: tableName, rows, getSectionData, isSectionDataEmpty, odp, canGenerateValues } = tableSpec
+  const {
+    name: tableName,
+    rows,
+    getSectionData,
+    isSectionDataEmpty,
+    odp,
+    showOdpChart,
+    canGenerateValues,
+    updateTableDataCell,
+  } = tableSpec
 
   const i18n = useI18n()
   const data = useSelector(getSectionData(assessmentType, sectionName, tableName))
   const dataEmpty = useSelector(isSectionDataEmpty(assessmentType, sectionName, tableName))
-  const generateValues = useSelector(state => odp && !disabled && canGenerateValues(state))
+  const generateValues = useSelector(
+    state => odp && !disabled && ObjectUtils.isFunction(canGenerateValues) && canGenerateValues(state)
+  )
 
   if (!data) {
     return null
@@ -27,7 +39,7 @@ const DataTable = props => {
 
   return (
     <>
-      {odp && (!isPrintingMode() || (!isPrintingOnlyTables() && !dataEmpty)) && (
+      {showOdpChart && (!isPrintingMode() || (!isPrintingOnlyTables() && !dataEmpty)) && (
         <>
           <div className="page-break" />
           <Chart
@@ -64,6 +76,7 @@ const DataTable = props => {
             rows={rows}
             data={data}
             disabled={disabled}
+            updateTableDataCell={updateTableDataCell}
           />
         </div>
       </div>
