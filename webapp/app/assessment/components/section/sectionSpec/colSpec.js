@@ -1,5 +1,7 @@
 import * as R from 'ramda'
 
+import * as NumberUtils from '@common/bignumberUtils'
+
 import { TYPE, TYPES } from '@webapp/app/assessment/components/section/sectionSpec/keysType'
 
 export const KEYS_COL = {
@@ -13,6 +15,7 @@ export const KEYS_COL = {
   left: 'left',
   calculateFn: 'calculateFn',
   validator: 'validator',
+  formatFn: 'formatFn',
 }
 
 const colHeaderDefault = {
@@ -39,6 +42,7 @@ const colTextDefault = {
 const colCalculatedDefault = {
   [KEYS_COL.idx]: null,
   [KEYS_COL.type]: TYPES.calculated,
+  [KEYS_COL.formatFn]: NumberUtils.formatNumber,
 }
 
 const assocHeaderClassName = col => {
