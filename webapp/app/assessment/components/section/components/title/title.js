@@ -6,11 +6,13 @@ import * as FRA from '@common/assessment/fra'
 
 import DefinitionLink from '@webapp/components/definitionLink'
 import ExtentOfForest from '@webapp/app/assessment/components/section/components/title/extentOfForest'
+import TitleWithExcelCalculator from '@webapp/app/assessment/components/section/components/title/titleWithExcelCalculator'
 import useI18n from '@webapp/components/hooks/useI18n'
 
 const components = {
   [FRA.type]: {
     [FRA.sections['1'].children.a.name]: ExtentOfForest,
+    [FRA.sections['2'].children.c.name]: TitleWithExcelCalculator,
   },
 }
 
