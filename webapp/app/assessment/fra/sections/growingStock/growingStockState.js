@@ -41,6 +41,7 @@ export const getTableDataBase = _getTableData(section.tables.baseTable)
 const _getTableValue = (getTableDataFn, year, variableName) =>
   R.pipe(
     getTableDataFn(),
+    R.defaultTo([]),
     R.find(datum => String(datum.year) === String(year)),
     R.prop(variableName)
   )

@@ -2,6 +2,7 @@ import * as FRA from '@common/assessment/fra'
 import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
 
 import * as GrowingStockCompositionState from '@webapp/app/assessment/fra/sections/growingStockComposition/growingStockCompositionState'
+import * as GrowingStockCompositionValidatorState from '@webapp/app/assessment/fra/sections/growingStockComposition/growingStockCompositionValidatorState'
 
 const section = FRA.sections['2'].children.b
 const years = FRA.yearsTable
@@ -118,18 +119,25 @@ const tableSpec = SectionSpec.newTableSpec({
         })
       ),
     }),
-
     // Total row
     SectionSpec.newRowData({
-      [SectionSpec.KEYS_ROW.labelKey]: 'growingStockComposition.totalIntroduced',
+      [SectionSpec.KEYS_ROW.labelKey]: 'growingStockComposition.totalGrowingStock',
       [SectionSpec.KEYS_ROW.colSpan]: 3,
       [SectionSpec.KEYS_ROW.mainCategory]: true,
       [SectionSpec.KEYS_ROW.cols]: years.map((year, idx) =>
         SectionSpec.newColCalculated({
           [SectionSpec.KEYS_COL.calculateFn]: GrowingStockCompositionState.getTotalGrowingStock,
           [SectionSpec.KEYS_COL.idx]: idx + 2,
+          [SectionSpec.KEYS_COL.validator]: GrowingStockCompositionValidatorState.totalGrowingStockValidator,
         })
       ),
+    }),
+    // Validation rows
+    SectionSpec.newRowNoticeMessage({
+      [SectionSpec.KEYS_ROW.rowSpan]: 2,
+    }),
+    SectionSpec.newRowValidationMessages({
+      [SectionSpec.KEYS_ROW.getValidationMessages]: GrowingStockCompositionValidatorState.getValidationMessages,
     }),
   ],
 })
