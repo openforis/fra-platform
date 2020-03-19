@@ -7,6 +7,7 @@ import * as ObjectUtils from '@common/objectUtils'
 import { isPrintingOnlyTables } from '@webapp/app/assessment/components/print/printAssessment'
 import sectionSpecs from '@webapp/app/assessment/components/section/sectionSpecs'
 
+import Notfound from '@webapp/app/notfound'
 import CustomHeader from '@webapp/app/assessment/components/section/components/customHeader'
 import Title from '@webapp/app/assessment/components/section/components/title'
 import DefinitionLink from '@webapp/components/definitionLink'
@@ -26,6 +27,10 @@ import { fetchLastSectionUpdateTimestamp } from '@webapp/app/components/audit/ac
 const AssessmentSectionView = () => {
   const { assessmentType, section } = useParams()
   const sectionSpec = R.path([assessmentType, section], sectionSpecs)
+
+  if (!sectionSpec) {
+    return <Notfound />
+  }
   const { sectionName, sectionAnchor, tableSections, descriptions } = sectionSpec
 
   const { introductoryText, nationalData, analysisAndProcessing, comments } = descriptions
