@@ -26,6 +26,8 @@ const colHeaderDefault = {
 
 const colDecimalDefault = { [KEYS_COL.type]: TYPES.decimal }
 
+const colTextDefault = { [KEYS_COL.type]: TYPES.text }
+
 const colCalculatedDefault = { [KEYS_COL.type]: TYPES.calculated }
 
 const assocHeaderClassName = col => {
@@ -42,3 +44,5 @@ export const newColHeader = R.pipe(R.mergeDeepRight(colHeaderDefault), assocHead
 export const newColDecimal = R.pipe(R.defaultTo({}), R.mergeDeepRight(colDecimalDefault))
 
 export const newColCalculated = R.mergeDeepRight(colCalculatedDefault)
+
+export const newColText = R.pipe(R.defaultTo({}), R.mergeDeepRight(colTextDefault))

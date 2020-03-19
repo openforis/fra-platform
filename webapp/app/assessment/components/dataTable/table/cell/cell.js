@@ -2,27 +2,21 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import * as R from 'ramda'
 
+import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
+
 import Calculated from '@webapp/app/assessment/components/dataTable/table/cell/calculated'
 import Decimal from '@webapp/app/assessment/components/dataTable/table/cell/decimal'
+import Text from '@webapp/app/assessment/components/dataTable/table/cell/text'
 import useCellClassName from '@webapp/app/assessment/components/dataTable/table/cell/useCellClassName'
 
 const ComponentsByType = {
-  calculated: Calculated,
-  decimal: Decimal,
+  [SectionSpec.TYPES.calculated]: Calculated,
+  [SectionSpec.TYPES.decimal]: Decimal,
+  [SectionSpec.TYPES.text]: Text,
 }
 
 const Cell = props => {
-  const {
-    data,
-    assessmentType,
-    sectionName,
-    tableName,
-    disabled,
-    rowIdx,
-    col,
-    updateTableDataCell,
-    // pasteUpdate,
-  } = props
+  const { data, assessmentType, sectionName, tableName, disabled, rowIdx, col, updateTableDataCell } = props
 
   const { type } = col
   const datum = R.pathOr(null, [rowIdx, col.idx])(data)

@@ -1,15 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
+
 import RowData from '@webapp/app/assessment/components/dataTable/table/rowData'
 import RowValidation from '@webapp/app/assessment/components/dataTable/table/rowValidation'
 import RowNoticeMessage from '@webapp/app/assessment/components/dataTable/table/rowNoticeMessage'
 import useUserInfo from '@webapp/components/hooks/useUserInfo'
 
 const componentsByType = {
-  data: RowData,
-  validationMessages: RowValidation,
-  noticeMessage: RowNoticeMessage,
+  [SectionSpec.TYPES.data]: RowData,
+  [SectionSpec.TYPES.validationMessages]: RowValidation,
+  [SectionSpec.TYPES.noticeMessage]: RowNoticeMessage,
 }
 
 const Row = props => {
@@ -19,7 +21,7 @@ const Row = props => {
   const { type } = row
 
   // validation error rows are hidden in public view
-  if (type === 'validationMessages' && !userInfo) {
+  if (type === SectionSpec.TYPES.validationMessages && !userInfo) {
     return null
   }
 

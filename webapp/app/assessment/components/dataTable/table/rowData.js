@@ -20,7 +20,7 @@ const RowData = props => {
   const { idx: rowIdx, cols, validator, calculateFn, variableName } = row
 
   const colHeader = cols.find(col => col.type === 'header')
-  const colHeaderLabel = i18n.t(colHeader.labelKey)
+  const colHeaderLabel = i18n.t(colHeader.labelKey, colHeader.labelParams)
   const colsData = cols.filter(col => col.type !== 'header')
 
   const reviewTarget = [tableName, 'row', `${rowIdx}`]

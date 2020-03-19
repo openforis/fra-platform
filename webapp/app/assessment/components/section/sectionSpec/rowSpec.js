@@ -9,6 +9,7 @@ export const KEYS_ROW = {
   calculateFn: 'calculateFn',
   chartProps: 'chartProps',
   labelKey: 'labelKey',
+  labelParams: 'labelParams',
   // keys of row validation messages
   getValidationMessages: 'getValidationMessages',
   // keys of col header row data
@@ -36,6 +37,7 @@ const rowDataDefault = {
   [KEYS_ROW.chartProps]: null,
   // col header keys
   [KEYS_ROW.labelKey]: null,
+  [KEYS_ROW.labelParams]: {},
   [KEYS_ROW.variableNo]: null,
   [KEYS_ROW.linkToSection]: null,
   [KEYS_ROW.subcategory]: false,
@@ -56,6 +58,7 @@ const rowNoticeMessageDefault = {
 
 const assocColHeader = row => {
   const labelKey = row[KEYS_ROW.labelKey]
+  const labelParams = row[KEYS_ROW.labelParams]
   const variableNo = row[KEYS_ROW.variableNo]
   const linkToSection = row[KEYS_ROW.linkToSection]
   const calculateFn = row[KEYS_ROW.calculateFn]
@@ -70,6 +73,7 @@ const assocColHeader = row => {
     idx: `header_0`,
     type: 'header',
     labelKey,
+    labelParams,
     variableNo,
     linkToSection,
     className,
