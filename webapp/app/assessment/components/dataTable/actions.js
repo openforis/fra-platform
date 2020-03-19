@@ -104,7 +104,7 @@ export const updateTableWithOdpCell = (assessmentType, sectionName, tableName, d
   batch(() => {
     dispatch(autosave.start)
     dispatch(updateTableData(assessmentType, sectionName, tableName, data))
-    dispatch(postTableData(sectionName, datum, `/api/nde/${tableName}/country/${countryIso}/${data.name}`))
+    dispatch(postTableData(sectionName, datum, `/api/nde/${tableName}/country/${countryIso}/${datum.name}`))
   })
 }
 
