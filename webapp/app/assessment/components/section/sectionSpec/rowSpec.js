@@ -103,7 +103,7 @@ const assocColHeader = row => {
 const assocCols = row => {
   const cols = row[KEYS_ROW.cols].map((col, i) => ({
     ...col,
-    [KEYS_COL.idx]: R.when(R.isNil, R.always(i))(col[KEYS_COL.idx]),
+    [KEYS_COL.idx]: R.defaultTo(i, col[KEYS_COL.idx]),
   }))
   return { ...row, [KEYS_ROW.cols]: cols }
 }
