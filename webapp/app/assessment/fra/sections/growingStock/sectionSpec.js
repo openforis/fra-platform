@@ -13,13 +13,19 @@ const section = FRA.sections['2'].children.a
 
 const variables = {
   [GrowingStockState.variables.naturallyRegeneratingForest]: {
-    totalValidator: GrowingStockValidatorState.growingStockTotalForestValidator,
+    totalValidator: GrowingStockValidatorState.totalForestValidator,
   },
   [GrowingStockState.variables.plantedForest]: {
-    totalValidator: GrowingStockValidatorState.growingStockTotalForestValidator,
+    totalValidator: GrowingStockValidatorState.totalForestValidator,
   },
-  [GrowingStockState.variables.plantationForest]: { subcategory: true },
-  [GrowingStockState.variables.otherPlantedForest]: { subcategory: true },
+  [GrowingStockState.variables.plantationForest]: {
+    subcategory: true,
+    totalValidator: GrowingStockValidatorState.totalPlantedForestValidator,
+  },
+  [GrowingStockState.variables.otherPlantedForest]: {
+    subcategory: true,
+    totalValidator: GrowingStockValidatorState.totalPlantedForestValidator,
+  },
   [GrowingStockState.variables.forest]: {},
   [GrowingStockState.variables.otherWoodedLand]: {},
 }
@@ -82,6 +88,12 @@ const table2 = SectionSpec.newTableSpec({
         [SectionSpec.KEYS_ROW.validator]: variableProps.totalValidator || null,
       })
     ),
+    SectionSpec.newRowNoticeMessage({
+      [SectionSpec.KEYS_ROW.rowSpan]: 2,
+    }),
+    SectionSpec.newRowValidationMessages({
+      [SectionSpec.KEYS_ROW.getValidationMessages]: GrowingStockValidatorState.getValidationMessages,
+    }),
   ],
 })
 

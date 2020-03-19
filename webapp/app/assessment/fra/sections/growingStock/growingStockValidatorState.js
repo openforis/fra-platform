@@ -4,7 +4,17 @@ import { abs, add, eq, greaterThan, sub } from '@common/bignumberUtils'
 
 import * as GrowingStockState from '@webapp/app/assessment/fra/sections/growingStock/growingStockState'
 
-const subCategoryValidator = (parentVariable, childVariables, datum) => state => {
+export const equalToTotalGrowingStockValidator = (year, value) => state => {
+  const totalForest = GrowingStockState.getTotalTableValue(year, GrowingStockState.variables.forest)(state)
+
+  const tolerance = 1
+  const difference = sub(totalForest, value)
+  const result = !greaterThan(abs(difference), tolerance)
+
+  return R.isNil(value) || eq(totalForest, 0) || result
+}
+
+const subCategoryValidator = (parentVariable, childVariables) => datum => state => {
   const { year } = datum
   const parentValue = GrowingStockState.getTotalTableValue(year, parentVariable)(state)
   const childValues = childVariables.reduce((childValuesTotal, childVariable) => {
@@ -14,23 +24,7 @@ const subCategoryValidator = (parentVariable, childVariables, datum) => state =>
 
   const tolerance = -1
   const difference = sub(parentValue, childValues)
-  const valid = parentValue ? greaterThan(difference, tolerance) : true
-
-  // generalValidation.subCategoryExceedsParent
-  return valid
-}
-
-export const equalToTotalGrowingStockValidator = (year, value) => state => {
-  const totalForest = GrowingStockState.getTotalTableValue(year, GrowingStockState.variables.forest)(state)
-
-  const tolerance = 1
-  const difference = sub(totalForest, value)
-  const result = !greaterThan(abs(difference), tolerance)
-
-  const valid = R.isNil(value) || eq(totalForest, 0) || result
-
-  // generalValidation.mustBeEqualToTotalGrowingStock
-  return valid
+  return parentValue ? greaterThan(difference, tolerance) : true
 }
 
 const equalToTotalGrowingStockSubCategoryValidator = datum => state => {
@@ -48,12 +42,32 @@ const equalToTotalGrowingStockSubCategoryValidator = datum => state => {
   return equalToTotalGrowingStockValidator(year, add(plantedForest, naturallyRegeneratingForest))(state)
 }
 
-export const growingStockTotalForestValidator = datum => state => {
-  const forestValidator = subCategoryValidator(
-    GrowingStockState.variables.forest,
-    [GrowingStockState.variables.plantedForest, GrowingStockState.variables.naturallyRegeneratingForest],
-    datum
-  )(state)
-  const equalToTotal = equalToTotalGrowingStockSubCategoryValidator(datum)(state)
-  return forestValidator && equalToTotal
-}
+const totalForestSubCategoryValidator = subCategoryValidator(GrowingStockState.variables.forest, [
+  GrowingStockState.variables.plantedForest,
+  GrowingStockState.variables.naturallyRegeneratingForest,
+])
+
+export const totalForestValidator = datum => state =>
+  totalForestSubCategoryValidator(datum)(state) && equalToTotalGrowingStockSubCategoryValidator(datum)(state)
+
+export const totalPlantedForestValidator = subCategoryValidator(GrowingStockState.variables.plantedForest, [
+  GrowingStockState.variables.plantationForest,
+  GrowingStockState.variables.otherPlantedForest,
+])
+
+// ==== Validation messages
+
+export const getValidationMessages = data => state =>
+  data.map(datum => {
+    const messages = []
+
+    if (!equalToTotalGrowingStockSubCategoryValidator(datum)(state)) {
+      messages.push({ key: 'generalValidation.mustBeEqualToTotalGrowingStock' })
+    }
+
+    if (!totalForestSubCategoryValidator(datum)(state) || !totalPlantedForestValidator(datum)(state)) {
+      messages.push({ key: 'generalValidation.subCategoryExceedsParent' })
+    }
+
+    return messages
+  })
