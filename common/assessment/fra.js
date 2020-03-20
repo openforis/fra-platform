@@ -2,6 +2,7 @@ const FRA = {
   type: 'fra2020',
   yearsTable: [1990, 2000, 2010, 2015, 2020],
   years: [1990, 2000, 2010, 2015, 2016, 2017, 2018, 2019, 2020],
+  yearsRange: ['1990-2000', '2000-2010', '2010-2015', '2015-2020'],
 
   sections: {
     0: {
@@ -29,6 +30,13 @@ const FRA = {
           anchor: '1b',
           tables: {
             forestCharacteristics: 'forestCharacteristics',
+          },
+        },
+        c: {
+          name: 'forestAreaChange',
+          anchor: '1c',
+          tables: {
+            forestAreaChange: 'forestAreaChange',
           },
         },
       },
