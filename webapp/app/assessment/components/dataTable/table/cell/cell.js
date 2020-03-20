@@ -23,18 +23,20 @@ const Cell = props => {
 
   const className = useCellClassName(col, rowIdx)
 
+  const component = ComponentsByType[type]
   return (
     <td className={className}>
-      {React.createElement(ComponentsByType[type], {
-        datum,
-        assessmentType,
-        sectionName,
-        tableName,
-        disabled,
-        col,
-        rowIdx,
-        updateTableDataCell,
-      })}
+      {component &&
+        React.createElement(component, {
+          datum,
+          assessmentType,
+          sectionName,
+          tableName,
+          disabled,
+          col,
+          rowIdx,
+          updateTableDataCell,
+        })}
     </td>
   )
 }

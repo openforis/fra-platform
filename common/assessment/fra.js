@@ -89,6 +89,18 @@ const FRA = {
         },
       },
     },
+    7: {
+      label: 'navigation.sectionHeaders.employmentEducationAndNwfp',
+      children: {
+        c: {
+          name: 'nonWoodForestProductsRemovals',
+          anchor: '7c',
+          tables: {
+            nonWoodForestProductsRemovals: 'nonWoodForestProductsRemovals',
+          },
+        },
+      },
+    },
   },
 }
 

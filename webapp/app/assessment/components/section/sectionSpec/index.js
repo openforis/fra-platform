@@ -24,4 +24,5 @@ export {
   newColHeader,
   newColDecimal,
   newColText,
+  newColPlaceholder,
 } from '@webapp/app/assessment/components/section/sectionSpec/colSpec'

@@ -10,6 +10,7 @@ export const TYPES = {
   calculated: 'calculated',
   decimal: 'decimal',
   text: 'text',
+  placeholder: 'placeholder',
 }
 
 const _isType = type => R.propEq(TYPE, type)
