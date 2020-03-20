@@ -3,6 +3,8 @@ import * as FRA from '@common/assessment/fra'
 import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
 
 import * as ForestAreaChangeState from '@webapp/app/assessment/fra/sections/forestAreaChange/forestAreaChangeState'
+import * as ForestAreaChangeValidatorState from '@webapp/app/assessment/fra/sections/forestAreaChange/forestAreaChangeValidatorState'
+
 import { updateForestAreaChangeCell } from '@webapp/app/assessment/fra/sections/forestAreaChange/actions'
 
 const section = FRA.sections['1'].children.c
@@ -35,22 +37,38 @@ const tableSpec = SectionSpec.newTableSpec({
     SectionSpec.newRowData({
       [SectionSpec.KEYS_ROW.labelKey]: `forestAreaChange.forestExpansion`,
       [SectionSpec.KEYS_ROW.variableNo]: 'a',
-      [SectionSpec.KEYS_ROW.cols]: yearsRange.map(() => SectionSpec.newColDecimal()),
+      [SectionSpec.KEYS_ROW.cols]: yearsRange.map(() =>
+        SectionSpec.newColDecimal({
+          [SectionSpec.KEYS_COL.validator]: ForestAreaChangeValidatorState.positiveOrZeroValidator,
+        })
+      ),
     }),
     SectionSpec.newRowData({
       [SectionSpec.KEYS_ROW.labelKey]: `forestAreaChange.ofWhichAfforestation`,
       [SectionSpec.KEYS_ROW.subcategory]: true,
-      [SectionSpec.KEYS_ROW.cols]: yearsRange.map(() => SectionSpec.newColDecimal()),
+      [SectionSpec.KEYS_ROW.cols]: yearsRange.map(() =>
+        SectionSpec.newColDecimal({
+          [SectionSpec.KEYS_COL.validator]: ForestAreaChangeValidatorState.forestExpansionValidator,
+        })
+      ),
     }),
     SectionSpec.newRowData({
       [SectionSpec.KEYS_ROW.labelKey]: `forestAreaChange.ofWhichNaturalExpansion`,
       [SectionSpec.KEYS_ROW.subcategory]: true,
-      [SectionSpec.KEYS_ROW.cols]: yearsRange.map(() => SectionSpec.newColDecimal()),
+      [SectionSpec.KEYS_ROW.cols]: yearsRange.map(() =>
+        SectionSpec.newColDecimal({
+          [SectionSpec.KEYS_COL.validator]: ForestAreaChangeValidatorState.forestExpansionValidator,
+        })
+      ),
     }),
     SectionSpec.newRowData({
       [SectionSpec.KEYS_ROW.labelKey]: `forestAreaChange.deforestation`,
       [SectionSpec.KEYS_ROW.variableNo]: 'b',
-      [SectionSpec.KEYS_ROW.cols]: yearsRange.map(() => SectionSpec.newColDecimal()),
+      [SectionSpec.KEYS_ROW.cols]: yearsRange.map(() =>
+        SectionSpec.newColDecimal({
+          [SectionSpec.KEYS_COL.validator]: ForestAreaChangeValidatorState.positiveOrZeroValidator,
+        })
+      ),
     }),
     SectionSpec.newRowData({
       [SectionSpec.KEYS_ROW.labelKey]: 'forestAreaChange.forestAreaNetChange',
@@ -61,6 +79,12 @@ const tableSpec = SectionSpec.newTableSpec({
           [SectionSpec.KEYS_COL.calculateFn]: ForestAreaChangeState.getExtentOfForestChange,
         })
       ),
+    }),
+    SectionSpec.newRowNoticeMessage({
+      [SectionSpec.KEYS_ROW.rowSpan]: 2,
+    }),
+    SectionSpec.newRowValidationMessages({
+      [SectionSpec.KEYS_ROW.getValidationMessages]: ForestAreaChangeValidatorState.getValidationMessages,
     }),
   ],
 })
