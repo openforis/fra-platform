@@ -1,11 +1,11 @@
 import * as FRA from '@common/assessment/fra'
 
 import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
-import { eofNetChange } from './forestAreaChange'
+
+import * as ForestAreaChangeState from '@webapp/app/assessment/fra/sections/forestAreaChange/forestAreaChangeState'
 
 const section = FRA.sections['1'].children.c
 const { yearsRange } = FRA
-const variables = ['forestExpansion', 'ofWhichAfforestation', 'deforestation', 'forestAreaNetChange']
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.forestAreaChange,
@@ -15,6 +15,7 @@ const tableSpec = SectionSpec.newTableSpec({
         SectionSpec.newColHeader({
           [SectionSpec.KEYS_COL.labelKey]: 'forestAreaChange.categoryHeader',
           [SectionSpec.KEYS_COL.rowSpan]: 2,
+          [SectionSpec.KEYS_COL.left]: true,
         }),
         SectionSpec.newColHeader({
           [SectionSpec.KEYS_COL.labelKey]: 'forestAreaChange.areaUnitLabel',
@@ -29,17 +30,35 @@ const tableSpec = SectionSpec.newTableSpec({
         })
       ),
     }),
-    ...variables.map(variable =>
-      SectionSpec.newRowData({
-        [SectionSpec.KEYS_ROW.labelKey]: `forestAreaChange.${variable}`,
-        [SectionSpec.KEYS_ROW.cols]: yearsRange.map(() => SectionSpec.newColDecimal()),
-      })
-    ),
+    SectionSpec.newRowData({
+      [SectionSpec.KEYS_ROW.labelKey]: `forestAreaChange.forestExpansion`,
+      [SectionSpec.KEYS_ROW.variableNo]: 'a',
+      [SectionSpec.KEYS_ROW.cols]: yearsRange.map(() => SectionSpec.newColDecimal()),
+    }),
+    SectionSpec.newRowData({
+      [SectionSpec.KEYS_ROW.labelKey]: `forestAreaChange.ofWhichAfforestation`,
+      [SectionSpec.KEYS_ROW.subcategory]: true,
+      [SectionSpec.KEYS_ROW.cols]: yearsRange.map(() => SectionSpec.newColDecimal()),
+    }),
+    SectionSpec.newRowData({
+      [SectionSpec.KEYS_ROW.labelKey]: `forestAreaChange.ofWhichNaturalExpansion`,
+      [SectionSpec.KEYS_ROW.subcategory]: true,
+      [SectionSpec.KEYS_ROW.cols]: yearsRange.map(() => SectionSpec.newColDecimal()),
+    }),
+    SectionSpec.newRowData({
+      [SectionSpec.KEYS_ROW.labelKey]: `forestAreaChange.deforestation`,
+      [SectionSpec.KEYS_ROW.variableNo]: 'b',
+      [SectionSpec.KEYS_ROW.cols]: yearsRange.map(() => SectionSpec.newColDecimal()),
+    }),
     SectionSpec.newRowData({
       [SectionSpec.KEYS_ROW.labelKey]: 'forestAreaChange.forestAreaNetChange',
-      [SectionSpec.KEYS_ROW.linkToSection]: FRA.sections['1'].children.c.name,
-      [SectionSpec.KEYS_ROW.calculateFn]: eofNetChange,
-      [SectionSpec.KEYS_ROW.cols]: yearsRange.map(() => SectionSpec.newColDecimal()),
+      [SectionSpec.KEYS_ROW.variableNo]: 'a-b',
+      [SectionSpec.KEYS_ROW.linkToSection]: FRA.sections['1'].children.a.name,
+      [SectionSpec.KEYS_ROW.cols]: yearsRange.map(() =>
+        SectionSpec.newColCalculated({
+          [SectionSpec.KEYS_COL.calculateFn]: ForestAreaChangeState.getExtentOfForestChange,
+        })
+      ),
     }),
   ],
 })
