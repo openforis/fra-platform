@@ -15,6 +15,7 @@ const tableSpec = SectionSpec.newTableSpec({
         SectionSpec.newColHeader({
           [SectionSpec.KEYS_COL.labelKey]: 'growingStockComposition.categoryHeader',
           [SectionSpec.KEYS_COL.rowSpan]: 2,
+          [SectionSpec.KEYS_COL.left]: true,
         }),
         SectionSpec.newColHeader({
           [SectionSpec.KEYS_COL.labelKey]: 'growingStockComposition.scientificName',

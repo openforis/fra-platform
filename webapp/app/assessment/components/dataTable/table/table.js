@@ -17,6 +17,7 @@ const Table = props => {
     data,
     disabled,
     updateTableDataCell,
+    secondary,
   } = props
 
   const rowsHeader = rows.filter(row => row.type === 'header')
@@ -27,7 +28,7 @@ const Table = props => {
 
   return (
     <>
-      <ButtonTableExport tableRef={tableRef} filename={sectionAnchor} />
+      {!secondary && <ButtonTableExport tableRef={tableRef} filename={sectionAnchor} />}
 
       <table ref={tableRef} className="fra-table data-table">
         <thead>
@@ -87,6 +88,7 @@ Table.propTypes = {
   data: PropTypes.array.isRequired,
   disabled: PropTypes.bool.isRequired,
   updateTableDataCell: PropTypes.func.isRequired,
+  secondary: PropTypes.bool.isRequired,
 }
 
 export default Table

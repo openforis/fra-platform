@@ -59,6 +59,14 @@ const FRA = {
             biomassStock: 'biomassStock',
           },
         },
+        d: {
+          name: 'carbonStock',
+          anchor: '2d',
+          tables: {
+            carbonStock: 'carbonStock',
+            carbonStockSoilDepth: 'carbonStockSoilDepth',
+          },
+        },
       },
     },
     3: {
