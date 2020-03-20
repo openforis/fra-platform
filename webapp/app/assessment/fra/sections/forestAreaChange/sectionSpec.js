@@ -3,12 +3,14 @@ import * as FRA from '@common/assessment/fra'
 import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
 
 import * as ForestAreaChangeState from '@webapp/app/assessment/fra/sections/forestAreaChange/forestAreaChangeState'
+import { updateForestAreaChangeCell } from '@webapp/app/assessment/fra/sections/forestAreaChange/actions'
 
 const section = FRA.sections['1'].children.c
 const { yearsRange } = FRA
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.forestAreaChange,
+  [SectionSpec.KEYS_TABLE.updateTableDataCell]: updateForestAreaChangeCell,
   [SectionSpec.KEYS_TABLE.rows]: [
     SectionSpec.newRowHeader({
       [SectionSpec.KEYS_ROW.cols]: [
