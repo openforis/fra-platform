@@ -52,6 +52,13 @@ const FRA = {
             growingStockComposition: 'growingStockComposition',
           },
         },
+        c: {
+          name: 'biomassStock',
+          anchor: '2c',
+          tables: {
+            biomassStock: 'biomassStock',
+          },
+        },
       },
     },
     3: {

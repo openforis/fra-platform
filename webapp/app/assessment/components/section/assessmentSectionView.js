@@ -90,7 +90,7 @@ const AssessmentSectionView = () => {
         </div>
       ))}
 
-      {sectionSpec.comments && <GeneralComments section={sectionName} countryIso={countryIso} disabled={disabled} />}
+      {descriptions.comments && <GeneralComments section={sectionName} countryIso={countryIso} disabled={disabled} />}
     </div>
   )
 }
