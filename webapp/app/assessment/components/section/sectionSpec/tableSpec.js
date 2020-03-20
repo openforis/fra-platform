@@ -9,6 +9,7 @@ export const KEYS_TABLE = {
   rows: 'rows',
   odp: 'odp',
   showOdpChart: 'showOdpChart',
+  secondary: 'secondary',
   // Functions
   getSectionData: 'getSectionData',
   isSectionDataEmpty: 'isSectionDataEmpty',
@@ -19,6 +20,7 @@ export const KEYS_TABLE = {
 const tableDefault = {
   [KEYS_TABLE.name]: '',
   [KEYS_TABLE.rows]: [],
+  [KEYS_TABLE.secondary]: false,
   [KEYS_TABLE.getSectionData]: AssessmentState.getSectionData,
   [KEYS_TABLE.isSectionDataEmpty]: AssessmentState.isSectionDataEmpty,
   [KEYS_TABLE.odp]: false,

@@ -14,11 +14,12 @@ const rows = [
   SectionSpec.newRowHeader({
     [SectionSpec.KEYS_ROW.cols]: [
       SectionSpec.newColHeader({
-        [SectionSpec.KEYS_COL.labelKey]: 'forestCharacteristics.areaUnitLabel',
+        [SectionSpec.KEYS_COL.labelKey]: 'forestCharacteristics.categoryHeader',
         [SectionSpec.KEYS_COL.rowSpan]: 2,
+        [SectionSpec.KEYS_COL.left]: true,
       }),
       SectionSpec.newColHeader({
-        [SectionSpec.KEYS_COL.labelKey]: 'forestCharacteristics.categoryHeader',
+        [SectionSpec.KEYS_COL.labelKey]: 'forestCharacteristics.areaUnitLabel',
         [SectionSpec.KEYS_COL.colSpan]: null,
       }),
     ],
