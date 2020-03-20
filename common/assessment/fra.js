@@ -4,6 +4,15 @@ const FRA = {
   years: [1990, 2000, 2010, 2015, 2016, 2017, 2018, 2019, 2020],
 
   sections: {
+    0: {
+      label: 'navigation.sectionHeaders.introduction',
+      children: {
+        a: {
+          name: 'contactPersons',
+          anchor: '',
+        },
+      },
+    },
     1: {
       label: 'navigation.sectionHeaders.forestExtentCharacteristicsAndChanges',
       children: {

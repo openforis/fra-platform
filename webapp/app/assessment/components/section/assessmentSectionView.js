@@ -3,18 +3,15 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router'
 import * as R from 'ramda'
 
-import * as ObjectUtils from '@common/objectUtils'
 import { isPrintingOnlyTables } from '@webapp/app/assessment/components/print/printAssessment'
 import sectionSpecs from '@webapp/app/assessment/components/section/sectionSpecs'
 
+import Notfound from '@webapp/app/notfound'
 import CustomHeader from '@webapp/app/assessment/components/section/components/customHeader'
 import Title from '@webapp/app/assessment/components/section/components/title'
-import DefinitionLink from '@webapp/components/definitionLink'
-import NationalDataDescriptions from '@webapp/app/assessment/components/description/nationalDataDescriptions'
-import AnalysisDescriptions from '@webapp/app/assessment/components/description/analysisDescriptions'
-import GeneralComments from '@webapp/app/assessment/components/description/generalComments'
-import CommentableDescription from '@webapp/app/assessment/components/description/commentableDescription'
+import Descriptions from '@webapp/app/assessment/components/section/components/descriptions'
 import DataTable from '@webapp/app/assessment/components/dataTable'
+import GeneralComments from '@webapp/app/assessment/components/description/generalComments'
 import useCountryIso from '@webapp/components/hooks/useCountryIso'
 import useI18n from '@webapp/components/hooks/useI18n'
 
@@ -25,10 +22,10 @@ import { fetchLastSectionUpdateTimestamp } from '@webapp/app/components/audit/ac
 
 const AssessmentSectionView = () => {
   const { assessmentType, section } = useParams()
-  const sectionSpec = R.path([assessmentType, section], sectionSpecs)
-  const { sectionName, sectionAnchor, tableSections, descriptions } = sectionSpec
+  const sectionSpec = R.pathOr({}, [assessmentType, section], sectionSpecs)
+  const sectionSpecEmpty = R.isEmpty(sectionSpec)
 
-  const { introductoryText, nationalData, analysisAndProcessing, comments } = descriptions
+  const { sectionName, sectionAnchor, tableSections, showTitle, descriptions } = sectionSpec
 
   const dispatch = useDispatch()
   const countryIso = useCountryIso()
@@ -36,29 +33,26 @@ const AssessmentSectionView = () => {
   const disabled = useSelector(FraState.isSectionEditDisabled(sectionName))
   const appViewRef = useRef(null)
 
-  // ==== Check whether to use descriptions
-  const useNationalData = useSelector(state =>
-    ObjectUtils.isFunction(nationalData) ? nationalData(state) : nationalData
-  )
-
-  const useAnalysisAndProcessing = useSelector(state =>
-    ObjectUtils.isFunction(analysisAndProcessing) ? analysisAndProcessing(state) : analysisAndProcessing
-  )
-
   // ==== Data fetching effect
   useEffect(() => {
-    tableSections.map(tableSection =>
-      tableSection.tableSpecs.map(tableSpec => {
-        const { name: tableName } = tableSpec
-        return dispatch(fetchTableData(assessmentType, sectionName, tableName))
-      })
-    )
+    if (!sectionSpecEmpty) {
+      tableSections.map(tableSection =>
+        tableSection.tableSpecs.map(tableSpec => {
+          const { name: tableName } = tableSpec
+          return dispatch(fetchTableData(assessmentType, sectionName, tableName))
+        })
+      )
 
-    dispatch(fetchLastSectionUpdateTimestamp(countryIso, sectionName))
+      dispatch(fetchLastSectionUpdateTimestamp(countryIso, sectionName))
 
-    // on section or ocuntry change, scroll to top
-    appViewRef.current.scrollTop = 0
+      // on section or country change, scroll to top
+      appViewRef.current.scrollTop = 0
+    }
   }, [sectionName, countryIso])
+
+  if (sectionSpecEmpty) {
+    return <Notfound />
+  }
 
   return (
     <div className="app-view__content" ref={appViewRef}>
@@ -68,41 +62,9 @@ const AssessmentSectionView = () => {
 
       <CustomHeader assessmentType={assessmentType} sectionName={sectionName} disabled={disabled} />
 
-      {/* descriptions components */}
-      {useNationalData && (
-        <NationalDataDescriptions section={sectionName} countryIso={countryIso} disabled={disabled} />
-      )}
-      {useAnalysisAndProcessing && (
-        <AnalysisDescriptions section={sectionName} countryIso={countryIso} disabled={disabled} />
-      )}
-      {introductoryText && (
-        <CommentableDescription
-          section={sectionName}
-          title={i18n.t('contactPersons.introductoryText')}
-          name="introductoryText"
-          template={i18n.t('contactPersons.introductoryTextSupport')}
-          disabled={disabled}
-        />
-      )}
+      <Descriptions sectionName={sectionName} descriptions={descriptions} disabled={disabled} />
 
-      <Title assessmentType={assessmentType} sectionName={sectionName} />
-
-      <div className="app-view__section-toolbar">
-        <DefinitionLink
-          className="margin-right-big"
-          document="tad"
-          anchor={sectionAnchor}
-          title={i18n.t('definition.definitionLabel')}
-          lang={i18n.language}
-        />
-        <DefinitionLink
-          className="align-left"
-          document="faq"
-          anchor={sectionAnchor}
-          title={i18n.t('definition.faqLabel')}
-          lang={i18n.language}
-        />
-      </div>
+      {showTitle && <Title assessmentType={assessmentType} sectionName={sectionName} sectionAnchor={sectionAnchor} />}
 
       {!isPrintingOnlyTables() && <div className="page-break" />}
 
@@ -128,7 +90,7 @@ const AssessmentSectionView = () => {
         </div>
       ))}
 
-      {comments && <GeneralComments section={sectionName} countryIso={countryIso} disabled={disabled} />}
+      {sectionSpec.comments && <GeneralComments section={sectionName} countryIso={countryIso} disabled={disabled} />}
     </div>
   )
 }

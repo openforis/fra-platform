@@ -4,6 +4,7 @@ export const KEYS_SECTION = {
   sectionName: 'sectionName',
   sectionAnchor: 'sectionAnchor',
   tableSections: 'tableSections',
+  showTitle: 'showTitle',
   descriptions: 'descriptions',
 }
 
@@ -18,6 +19,7 @@ const sectionSpecDefault = {
   [KEYS_SECTION.sectionName]: '',
   [KEYS_SECTION.sectionAnchor]: '',
   [KEYS_SECTION.tableSections]: [],
+  [KEYS_SECTION.showTitle]: true,
   [KEYS_SECTION.descriptions]: {
     [KEYS_SECTION_DESCRIPTIONS.introductoryText]: false,
     [KEYS_SECTION_DESCRIPTIONS.nationalData]: true,
