@@ -97,6 +97,18 @@ const FRA = {
         },
       },
     },
+    5: {
+      label: 'navigation.sectionHeaders.forestDisturbances',
+      children: {
+        c: {
+          name: 'degradedForest',
+          anchor: '5c',
+          tables: {
+            degradedForest: 'degradedForest',
+          },
+        },
+      },
+    },
     7: {
       label: 'navigation.sectionHeaders.employmentEducationAndNwfp',
       children: {

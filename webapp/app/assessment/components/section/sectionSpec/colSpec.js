@@ -48,6 +48,11 @@ const colTextDefault = {
   [KEYS_COL.type]: TYPES.text,
 }
 
+const colTextAreaDefault = {
+  [KEYS_COL.idx]: null,
+  [KEYS_COL.type]: TYPES.textarea,
+}
+
 const colCalculatedDefault = {
   [KEYS_COL.idx]: null,
   [KEYS_COL.type]: TYPES.calculated,
@@ -64,6 +69,13 @@ const colSelectDefault = {
   [KEYS_COL.type]: TYPES.select,
   [KEYS_COL.options]: [],
   [KEYS_COL.optionsLabelKeyPrefix]: '',
+}
+
+const colSelectYesNoDefault = {
+  [KEYS_COL.idx]: null,
+  [KEYS_COL.type]: TYPES.select,
+  [KEYS_COL.optionsLabelKeyPrefix]: 'yesNoTextSelect',
+  [KEYS_COL.options]: [{ [KEYS_COL.optionName]: 'yes' }, { [KEYS_COL.optionName]: 'no' }],
 }
 
 const assocHeaderClassName = col => {
@@ -88,6 +100,10 @@ export const newColCalculated = R.mergeDeepRight(colCalculatedDefault)
 
 export const newColText = R.pipe(R.defaultTo({}), R.mergeDeepRight(colTextDefault))
 
+export const newColTextArea = R.pipe(R.defaultTo({}), R.mergeDeepRight(colTextAreaDefault))
+
 export const newColSelect = R.pipe(R.defaultTo({}), R.mergeDeepRight(colSelectDefault))
+
+export const newColSelectYesNo = R.pipe(R.defaultTo({}), R.mergeDeepRight(colSelectYesNoDefault))
 
 export const newColPlaceholder = R.pipe(R.defaultTo({}), R.mergeDeepRight(colPlaceholderDefault))

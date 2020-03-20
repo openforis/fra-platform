@@ -66,6 +66,7 @@ const assocColHeader = row => {
   const labelParams = row[KEYS_ROW.labelParams]
   const label = row[KEYS_ROW.label]
   const colSpan = row[KEYS_ROW.colSpan]
+  const rowSpan = row[KEYS_ROW.rowSpan]
   const variableNo = row[KEYS_ROW.variableNo]
   const linkToSection = row[KEYS_ROW.linkToSection]
   const calculateFn = row[KEYS_ROW.calculateFn]
@@ -79,8 +80,9 @@ const assocColHeader = row => {
 
   const colHeader = {
     idx: `header_0`,
-    type: 'header',
+    type: TYPES.header,
     colSpan,
+    rowSpan,
     labelKey,
     labelParams,
     label,

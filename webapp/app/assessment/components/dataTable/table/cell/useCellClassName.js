@@ -17,8 +17,8 @@ export default (col, rowIdx) => {
 
   let className = 'fra-table__cell'
   if (type === SectionSpec.TYPES.calculated) className = 'fra-table__calculated-cell'
-  if (type === SectionSpec.TYPES.text) className = 'fra-table__cell-left'
-  if (type === SectionSpec.TYPES.placeholder) className = 'fra-table__filler-last'
+  if ([SectionSpec.TYPES.text, SectionSpec.TYPES.textarea].includes(type)) className = 'fra-table__cell-left'
+  if (type === SectionSpec.TYPES.placeholder) className = 'fra-table__category-cell fra-table__filler-last'
 
   className += valid ? '' : ' validation-error'
 
