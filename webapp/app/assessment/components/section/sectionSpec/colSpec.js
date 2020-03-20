@@ -16,6 +16,10 @@ export const KEYS_COL = {
   calculateFn: 'calculateFn',
   validator: 'validator',
   formatFn: 'formatFn',
+  // select
+  options: 'options',
+  optionsLabelKeyPrefix: 'optionsLabelKeyPrefix',
+  optionName: 'optionName',
 }
 
 const colHeaderDefault = {
@@ -23,7 +27,7 @@ const colHeaderDefault = {
   [KEYS_COL.type]: TYPES.header,
   [KEYS_COL.labelKey]: null,
   [KEYS_COL.label]: null,
-  [KEYS_COL.className]: '',
+  [KEYS_COL.className]: null,
   [KEYS_COL.rowSpan]: 1,
   [KEYS_COL.colSpan]: 1,
   [KEYS_COL.left]: false,
@@ -32,6 +36,11 @@ const colHeaderDefault = {
 const colDecimalDefault = {
   [KEYS_COL.idx]: null,
   [KEYS_COL.type]: TYPES.decimal,
+}
+
+const colIntegerDefault = {
+  [KEYS_COL.idx]: null,
+  [KEYS_COL.type]: TYPES.integer,
 }
 
 const colTextDefault = {
@@ -50,9 +59,19 @@ const colPlaceholderDefault = {
   [KEYS_COL.type]: TYPES.placeholder,
 }
 
+const colSelectDefault = {
+  [KEYS_COL.idx]: null,
+  [KEYS_COL.type]: TYPES.select,
+  [KEYS_COL.options]: [],
+  [KEYS_COL.optionsLabelKeyPrefix]: '',
+}
+
 const assocHeaderClassName = col => {
   const left = col[KEYS_COL.left]
-  const className = `fra-table__header-cell${left ? '-left' : ''}`
+  let className = 'fra-table__header-cell'
+  if (left) className += '-left'
+  if (col[KEYS_COL.className]) className += ` ${col[KEYS_COL.className]}`
+
   return {
     ...R.omit([KEYS_COL.left])(col),
     [KEYS_COL.className]: className,
@@ -63,8 +82,12 @@ export const newColHeader = R.pipe(R.mergeDeepRight(colHeaderDefault), assocHead
 
 export const newColDecimal = R.pipe(R.defaultTo({}), R.mergeDeepRight(colDecimalDefault))
 
+export const newColInteger = R.pipe(R.defaultTo({}), R.mergeDeepRight(colIntegerDefault))
+
 export const newColCalculated = R.mergeDeepRight(colCalculatedDefault)
 
 export const newColText = R.pipe(R.defaultTo({}), R.mergeDeepRight(colTextDefault))
+
+export const newColSelect = R.pipe(R.defaultTo({}), R.mergeDeepRight(colSelectDefault))
 
 export const newColPlaceholder = R.pipe(R.defaultTo({}), R.mergeDeepRight(colPlaceholderDefault))

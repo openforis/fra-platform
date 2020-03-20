@@ -9,7 +9,9 @@ export const TYPES = {
   validationMessages: 'validationMessages',
   calculated: 'calculated',
   decimal: 'decimal',
+  integer: 'integer',
   text: 'text',
+  select: 'select',
   placeholder: 'placeholder',
 }
 

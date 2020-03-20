@@ -19,6 +19,7 @@ const tableSpec = SectionSpec.newTableSpec({
         }),
         SectionSpec.newColHeader({
           [SectionSpec.KEYS_COL.labelKey]: 'nonWoodForestProductsRemovals.keySpecies',
+          [SectionSpec.KEYS_COL.className]: 'fra-table__nwfp-category-cell',
         }),
         SectionSpec.newColHeader({
           [SectionSpec.KEYS_COL.labelKey]: 'nonWoodForestProductsRemovals.quantity',
@@ -31,6 +32,7 @@ const tableSpec = SectionSpec.newTableSpec({
         }),
         SectionSpec.newColHeader({
           [SectionSpec.KEYS_COL.labelKey]: 'nonWoodForestProductsRemovals.category',
+          [SectionSpec.KEYS_COL.className]: 'fra-table__nwfp-category-cell',
         }),
       ],
     }),
@@ -40,10 +42,32 @@ const tableSpec = SectionSpec.newTableSpec({
         [SectionSpec.KEYS_ROW.cols]: [
           SectionSpec.newColText(),
           SectionSpec.newColText(),
-          SectionSpec.newColDecimal(),
+          SectionSpec.newColInteger(),
           SectionSpec.newColText(),
-          SectionSpec.newColDecimal(),
-          SectionSpec.newColText(),
+          SectionSpec.newColInteger(),
+          SectionSpec.newColSelect({
+            [SectionSpec.KEYS_COL.optionsLabelKeyPrefix]: 'nonWoodForestProductsRemovals',
+            [SectionSpec.KEYS_COL.options]: [
+              { [SectionSpec.KEYS_COL.optionName]: 'plantProductsSelectHeading', type: SectionSpec.TYPES.header },
+              { [SectionSpec.KEYS_COL.optionName]: 'food' },
+              { [SectionSpec.KEYS_COL.optionName]: 'fodder' },
+              { [SectionSpec.KEYS_COL.optionName]: 'rawMaterialForMedicine' },
+              { [SectionSpec.KEYS_COL.optionName]: 'rawMaterialForColorants' },
+              { [SectionSpec.KEYS_COL.optionName]: 'rawMaterialForUtensils' },
+              { [SectionSpec.KEYS_COL.optionName]: 'ornamentalPlants' },
+              { [SectionSpec.KEYS_COL.optionName]: 'exudates' },
+              { [SectionSpec.KEYS_COL.optionName]: 'otherPlantProducts' },
+              { [SectionSpec.KEYS_COL.optionName]: 'animalProductsSelectHeading', type: SectionSpec.TYPES.header },
+              { [SectionSpec.KEYS_COL.optionName]: 'livingAnimals' },
+              { [SectionSpec.KEYS_COL.optionName]: 'hidesSkins' },
+              { [SectionSpec.KEYS_COL.optionName]: 'wildHoney' },
+              { [SectionSpec.KEYS_COL.optionName]: 'wildMeat' },
+              { [SectionSpec.KEYS_COL.optionName]: 'animalRawMaterialForMedicine' },
+              { [SectionSpec.KEYS_COL.optionName]: 'animalRawMaterialForColorants' },
+              { [SectionSpec.KEYS_COL.optionName]: 'otherEdibleAnimalProducts' },
+              { [SectionSpec.KEYS_COL.optionName]: 'otherNonEdibleAnimalProducts' },
+            ],
+          }),
         ],
       })
     ),
@@ -51,13 +75,13 @@ const tableSpec = SectionSpec.newTableSpec({
       [SectionSpec.KEYS_ROW.labelKey]: 'nonWoodForestProductsRemovals.allOtherPlantProducts',
       [SectionSpec.KEYS_ROW.colSpan]: 5,
       [SectionSpec.KEYS_ROW.mainCategory]: true,
-      [SectionSpec.KEYS_ROW.cols]: [SectionSpec.newColDecimal(), SectionSpec.newColPlaceholder()],
+      [SectionSpec.KEYS_ROW.cols]: [SectionSpec.newColInteger(), SectionSpec.newColPlaceholder()],
     }),
     SectionSpec.newRowData({
       [SectionSpec.KEYS_ROW.labelKey]: 'nonWoodForestProductsRemovals.allOtherAnimalProducts',
       [SectionSpec.KEYS_ROW.colSpan]: 5,
       [SectionSpec.KEYS_ROW.mainCategory]: true,
-      [SectionSpec.KEYS_ROW.cols]: [SectionSpec.newColDecimal(), SectionSpec.newColPlaceholder()],
+      [SectionSpec.KEYS_ROW.cols]: [SectionSpec.newColInteger(), SectionSpec.newColPlaceholder()],
     }),
     SectionSpec.newRowData({
       [SectionSpec.KEYS_ROW.labelKey]: 'nonWoodForestProductsRemovals.total',
