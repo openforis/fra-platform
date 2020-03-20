@@ -70,6 +70,7 @@ const Table = props => {
               disabled={disabled}
               pasteUpdate={() => {}}
               updateTableDataCell={updateTableDataCell}
+              secondary={secondary}
             />
           ))}
         </tbody>

@@ -17,7 +17,7 @@ const componentsByType = {
 const Row = props => {
   const userInfo = useUserInfo()
 
-  const { data, assessmentType, sectionName, tableName, updateTableDataCell, odp, row, disabled } = props
+  const { data, assessmentType, sectionName, tableName, updateTableDataCell, odp, row, disabled, secondary } = props
   const { type } = row
 
   // validation error rows are hidden in public view
@@ -35,6 +35,7 @@ const Row = props => {
     odp,
     row,
     disabled,
+    secondary,
   })
 }
 
@@ -47,6 +48,7 @@ Row.propTypes = {
   row: PropTypes.object.isRequired,
   disabled: PropTypes.bool.isRequired,
   updateTableDataCell: PropTypes.func.isRequired,
+  secondary: PropTypes.bool.isRequired,
 }
 
 export default Row

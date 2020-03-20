@@ -105,6 +105,7 @@ const FRA = {
           anchor: '7c',
           tables: {
             nonWoodForestProductsRemovals: 'nonWoodForestProductsRemovals',
+            nonWoodForestProductsRemovalsCurrency: 'nonWoodForestProductsRemovalsCurrency',
           },
         },
       },

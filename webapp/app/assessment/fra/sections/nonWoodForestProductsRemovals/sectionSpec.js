@@ -8,7 +8,7 @@ import * as NonWoodForestProductsRemovalsState from '@webapp/app/assessment/fra/
 
 const section = FRA.sections['7'].children.c
 
-const tableSpec = SectionSpec.newTableSpec({
+const tableSpec1 = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.nonWoodForestProductsRemovals,
   [SectionSpec.KEYS_TABLE.rows]: [
     SectionSpec.newRowHeader({
@@ -75,13 +75,19 @@ const tableSpec = SectionSpec.newTableSpec({
       [SectionSpec.KEYS_ROW.labelKey]: 'nonWoodForestProductsRemovals.allOtherPlantProducts',
       [SectionSpec.KEYS_ROW.colSpan]: 5,
       [SectionSpec.KEYS_ROW.mainCategory]: true,
-      [SectionSpec.KEYS_ROW.cols]: [SectionSpec.newColInteger(), SectionSpec.newColPlaceholder()],
+      [SectionSpec.KEYS_ROW.cols]: [
+        SectionSpec.newColInteger({ [SectionSpec.KEYS_COL.idx]: 4 }),
+        SectionSpec.newColPlaceholder(),
+      ],
     }),
     SectionSpec.newRowData({
       [SectionSpec.KEYS_ROW.labelKey]: 'nonWoodForestProductsRemovals.allOtherAnimalProducts',
       [SectionSpec.KEYS_ROW.colSpan]: 5,
       [SectionSpec.KEYS_ROW.mainCategory]: true,
-      [SectionSpec.KEYS_ROW.cols]: [SectionSpec.newColInteger(), SectionSpec.newColPlaceholder()],
+      [SectionSpec.KEYS_ROW.cols]: [
+        SectionSpec.newColInteger({ [SectionSpec.KEYS_COL.idx]: 4 }),
+        SectionSpec.newColPlaceholder(),
+      ],
     }),
     SectionSpec.newRowData({
       [SectionSpec.KEYS_ROW.labelKey]: 'nonWoodForestProductsRemovals.total',
@@ -91,6 +97,7 @@ const tableSpec = SectionSpec.newTableSpec({
         SectionSpec.newColCalculated({
           [SectionSpec.KEYS_COL.calculateFn]: NonWoodForestProductsRemovalsState.getNonWoodForestProductsTotal,
           [SectionSpec.KEYS_COL.formatFn]: NumberFormat.formatInteger,
+          [SectionSpec.KEYS_COL.idx]: 4,
         }),
         SectionSpec.newColPlaceholder(),
       ],
@@ -98,8 +105,20 @@ const tableSpec = SectionSpec.newTableSpec({
   ],
 })
 
+const tableSpec2 = SectionSpec.newTableSpec({
+  [SectionSpec.KEYS_TABLE.name]: section.tables.nonWoodForestProductsRemovalsCurrency,
+  [SectionSpec.KEYS_TABLE.secondary]: true,
+  [SectionSpec.KEYS_TABLE.rows]: [
+    SectionSpec.newRowData({
+      [SectionSpec.KEYS_ROW.labelKey]: 'nonWoodForestProductsRemovals.currency',
+      [SectionSpec.KEYS_ROW.mainCategory]: true,
+      [SectionSpec.KEYS_ROW.cols]: [SectionSpec.newColText()],
+    }),
+  ],
+})
+
 const tableSection = SectionSpec.newTableSection({
-  [SectionSpec.KEYS_TABLE_SECTION.tableSpecs]: [tableSpec],
+  [SectionSpec.KEYS_TABLE_SECTION.tableSpecs]: [tableSpec1, tableSpec2],
 })
 
 const nonWoodForestProductsRemovals = SectionSpec.newSectionSpec({
