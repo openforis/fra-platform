@@ -19,6 +19,7 @@ const fileRepositoryApi = require('./fileRepository/fileRepositoryApi')
 const collaboratorsApi = require('./collaborators/collaboratorsApi')
 const countryMessageBoardApi = require('./countryMessageBoard/countryMessageBoardApi')
 const versioningApi = require('./versioning/api')
+const statisticalFactsheetsApi = require('./statistical_factsheets/api')
 
 const apiRouter = express.Router()
 //Nothing should be cached by default with the APIs
@@ -46,5 +47,6 @@ fileRepositoryApi.init(apiRouter)
 collaboratorsApi.init(apiRouter)
 countryMessageBoardApi.init(apiRouter)
 versioningApi.init(apiRouter)
+statisticalFactsheetsApi.init(apiRouter)
 
 module.exports.router = apiRouter
