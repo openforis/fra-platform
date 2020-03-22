@@ -110,6 +110,13 @@ const FRA = {
             disturbances: 'disturbances',
           },
         },
+        b: {
+          name: 'areaAffectedByFire',
+          anchor: '5b',
+          tables: {
+            areaAffectedByFire: 'areaAffectedByFire',
+          },
+        },
         c: {
           name: 'degradedForest',
           anchor: '5c',

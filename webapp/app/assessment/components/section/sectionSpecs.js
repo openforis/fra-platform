@@ -22,6 +22,7 @@ import forestAreaWithinProtectedAreas from '@webapp/app/assessment/fra/sections/
 // 4
 // 5
 import disturbances from '@webapp/app/assessment/fra/sections/disturbances/sectionSpec'
+import areaAffectedByFire from '@webapp/app/assessment/fra/sections/areaAffectedByFire/sectionSpec'
 import degradedForest from '@webapp/app/assessment/fra/sections/degradedForest/sectionSpec'
 // 6
 // 7
@@ -47,6 +48,7 @@ export default {
     // 4
     // 5
     [disturbances.sectionName]: disturbances,
+    [areaAffectedByFire.sectionName]: areaAffectedByFire,
     [degradedForest.sectionName]: degradedForest,
     // 6
     // 7
