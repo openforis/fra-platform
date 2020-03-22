@@ -64,6 +64,8 @@ export const getForestByYear = year => TableWithOdpState.getFieldByYear(section.
 
 export const getForestByYearFraIdx = idx => getForestByYear(FRA.yearsTable[idx])
 
+export const getForestByYearAnnualIdx = idx => getForestByYear(FRA.yearsAnnual[idx])
+
 // ====== Climatic domain table functions
 
 export const rowsClimaticDomain = ['boreal', 'temperate', 'subtropical', 'tropical']

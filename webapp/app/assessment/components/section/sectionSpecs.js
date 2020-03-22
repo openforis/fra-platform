@@ -21,6 +21,7 @@ import designatedManagementObjective from '@webapp/app/assessment/fra/sections/d
 import forestAreaWithinProtectedAreas from '@webapp/app/assessment/fra/sections/forestAreaWithinProtectedAreas/sectionSpec'
 // 4
 // 5
+import disturbances from '@webapp/app/assessment/fra/sections/disturbances/sectionSpec'
 import degradedForest from '@webapp/app/assessment/fra/sections/degradedForest/sectionSpec'
 // 6
 // 7
@@ -45,6 +46,7 @@ export default {
     [forestAreaWithinProtectedAreas.sectionName]: forestAreaWithinProtectedAreas,
     // 4
     // 5
+    [disturbances.sectionName]: disturbances,
     [degradedForest.sectionName]: degradedForest,
     // 6
     // 7
