@@ -26,6 +26,7 @@ import areaAffectedByFire from '@webapp/app/assessment/fra/sections/areaAffected
 import degradedForest from '@webapp/app/assessment/fra/sections/degradedForest/sectionSpec'
 // 6
 // 7
+import employment from '@webapp/app/assessment/fra/sections/employment/sectionSpec'
 import nonWoodForestProductsRemovals from '@webapp/app/assessment/fra/sections/nonWoodForestProductsRemovals/sectionSpec'
 // 8
 
@@ -52,6 +53,7 @@ export default {
     [degradedForest.sectionName]: degradedForest,
     // 6
     // 7
+    [employment.sectionName]: employment,
     [nonWoodForestProductsRemovals.sectionName]: nonWoodForestProductsRemovals,
     // 8
   },

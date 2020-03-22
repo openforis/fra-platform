@@ -2,8 +2,8 @@ const R = require('ramda')
 
 const FRA = {
   type: 'fra2020',
-  yearsTable: [1990, 2000, 2010, 2015, 2020],
   years: [1990, 2000, 2010, 2015, 2016, 2017, 2018, 2019, 2020],
+  yearsTable: [1990, 2000, 2010, 2015, 2020],
   yearsRange: ['1990-2000', '2000-2010', '2010-2015', '2015-2020'],
   yearsAnnual: R.range(2000, 2018),
 
@@ -129,6 +129,13 @@ const FRA = {
     7: {
       label: 'navigation.sectionHeaders.employmentEducationAndNwfp',
       children: {
+        a: {
+          name: 'employment',
+          anchor: '7a',
+          tables: {
+            employment: 'employment',
+          },
+        },
         c: {
           name: 'nonWoodForestProductsRemovals',
           anchor: '7c',

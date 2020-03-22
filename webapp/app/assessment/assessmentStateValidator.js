@@ -3,14 +3,16 @@ import * as NumberUtils from '@common/bignumberUtils'
 
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 
-export const subCategoryValidator = (
-  assessmentType,
-  sectionName,
-  tableName,
-  rowTotalIdx,
-  rowIdxs
-) => colIdx => state => {
+export const subCategoryValidator = (assessmentType, sectionName, tableName, rowTotalIdx, rowIdxs) => (
+  colIdx,
+  rowIdx
+) => state => {
   const data = AssessmentState.getSectionData(assessmentType, sectionName, tableName)(state)
+  const cellValue = R.pathOr(0, [rowIdx, colIdx])(data)
+
+  if (!cellValue) {
+    return true
+  }
 
   const totalValue = R.pathOr(0, [rowTotalIdx, colIdx])(data)
   const values = rowIdxs.reduce((total, idx) => {
