@@ -27,6 +27,7 @@ import degradedForest from '@webapp/app/assessment/fra/sections/degradedForest/s
 // 6
 // 7
 import employment from '@webapp/app/assessment/fra/sections/employment/sectionSpec'
+import graduationOfStudents from '@webapp/app/assessment/fra/sections/graduationOfStudents/sectionSpec'
 import nonWoodForestProductsRemovals from '@webapp/app/assessment/fra/sections/nonWoodForestProductsRemovals/sectionSpec'
 // 8
 
@@ -54,6 +55,7 @@ export default {
     // 6
     // 7
     [employment.sectionName]: employment,
+    [graduationOfStudents.sectionName]: graduationOfStudents,
     [nonWoodForestProductsRemovals.sectionName]: nonWoodForestProductsRemovals,
     // 8
   },

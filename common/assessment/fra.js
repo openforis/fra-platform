@@ -136,6 +136,13 @@ const FRA = {
             employment: 'employment',
           },
         },
+        b: {
+          name: 'graduationOfStudents',
+          anchor: '7b',
+          tables: {
+            graduationOfStudents: 'graduationOfStudents',
+          },
+        },
         c: {
           name: 'nonWoodForestProductsRemovals',
           anchor: '7c',
