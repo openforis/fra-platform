@@ -3,6 +3,7 @@ import * as R from 'ramda'
 import * as NumberUtils from '@common/bignumberUtils'
 import * as FRA from '@common/assessment/fra'
 
+import * as CountryState from '@webapp/app/country/countryState'
 import * as ExtentOfForestState from '@webapp/app/assessment/fra/sections/extentOfForest/extentOfForestState'
 import * as BiomassStockState from '@webapp/app/assessment/fra/sections/biomassStock/biomassStockState'
 import * as ForestAreaWithinProtectedAreasState from '@webapp/app/assessment/fra/sections/forestAreaWithinProtectedAreas/forestAreaWithinProtectedAreasState'
@@ -72,3 +73,6 @@ export const getForestAreaProportionLongTermForestManagement = colIdx => state =
   const proportion = NumberUtils.mul(NumberUtils.div(forestAreaLongTermForestManagementPlan, forestArea2015), 100)
   return proportion ? NumberUtils.min(proportion, 100) : null
 }
+
+// SDG 15.2.1 - sub-indicator 5
+export const getCertifiedArea = colIdx => CountryState.getConfigCertifiedAreaByYear(years[colIdx])

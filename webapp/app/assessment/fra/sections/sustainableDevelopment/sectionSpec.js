@@ -138,10 +138,31 @@ const tableSection5 = SectionSpec.newTableSection({
   ],
 })
 
+// SDG 15.2.1 - sub-indicator 5
+const tableSection6 = SectionSpec.newTableSection({
+  [SectionSpec.KEYS_TABLE_SECTION.tableSpecs]: [
+    newTableSDGIndicator(
+      SustainableDevelopmentState.years,
+      'sustainableDevelopment.subIndicator',
+      'sustainableDevelopment.forestArea1000Ha',
+      'sustainableDevelopment.forestAreaVerifiedForestManagement',
+      SustainableDevelopmentState.getCertifiedArea,
+      { no: 5 }
+    ),
+  ],
+})
+
 const sustainableDevelopment = SectionSpec.newSectionSpec({
   [SectionSpec.KEYS_SECTION.sectionName]: section.name,
   [SectionSpec.KEYS_SECTION.sectionAnchor]: section.anchor,
-  [SectionSpec.KEYS_SECTION.tableSections]: [tableSection1, tableSection2, tableSection3, tableSection4, tableSection5],
+  [SectionSpec.KEYS_SECTION.tableSections]: [
+    tableSection1,
+    tableSection2,
+    tableSection3,
+    tableSection4,
+    tableSection5,
+    tableSection6,
+  ],
   [SectionSpec.KEYS_SECTION.descriptions]: {
     [SectionSpec.KEYS_SECTION_DESCRIPTIONS.nationalData]: false,
     [SectionSpec.KEYS_SECTION_DESCRIPTIONS.analysisAndProcessing]: false,
