@@ -23,7 +23,7 @@ export const getValidationMessages = data => state => {
     messages.push(colMessages)
 
     for (let rowIdx = 1; rowIdx < data.length; rowIdx += 1) {
-      if (!genderSubCategoryValidator(colIdx)(state)) {
+      if (!genderSubCategoryValidator(colIdx, rowIdx)(state)) {
         colMessages.push({ key: 'generalValidation.subCategoryExceedsParent' })
         break
       }

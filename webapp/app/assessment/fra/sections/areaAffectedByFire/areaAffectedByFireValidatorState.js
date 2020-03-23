@@ -21,7 +21,7 @@ export const getValidationMessages = data => state => {
     messages.push(colMessages)
 
     for (let rowIdx = 0; rowIdx < data.length; rowIdx += 1) {
-      if (!totalForestLandAreaAreaValidator(colIdx)(state)) {
+      if (!totalForestLandAreaAreaValidator(colIdx, rowIdx)(state)) {
         colMessages.push({ key: 'generalValidation.subCategoryExceedsParent' })
         break
       }
