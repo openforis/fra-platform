@@ -5,14 +5,17 @@ import * as R from 'ramda'
 import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
 
 import Calculated from '@webapp/app/assessment/components/dataTable/table/cell/calculated'
-import Decimal from '@webapp/app/assessment/components/dataTable/table/cell/decimal'
+import Number from '@webapp/app/assessment/components/dataTable/table/cell/number'
 import Text from '@webapp/app/assessment/components/dataTable/table/cell/text'
+import Select from '@webapp/app/assessment/components/dataTable/table/cell/select'
 import useCellClassName from '@webapp/app/assessment/components/dataTable/table/cell/useCellClassName'
 
 const ComponentsByType = {
   [SectionSpec.TYPES.calculated]: Calculated,
-  [SectionSpec.TYPES.decimal]: Decimal,
   [SectionSpec.TYPES.text]: Text,
+  [SectionSpec.TYPES.decimal]: Number,
+  [SectionSpec.TYPES.integer]: Number,
+  [SectionSpec.TYPES.select]: Select,
 }
 
 const Cell = props => {
@@ -23,18 +26,20 @@ const Cell = props => {
 
   const className = useCellClassName(col, rowIdx)
 
+  const component = ComponentsByType[type]
   return (
     <td className={className}>
-      {React.createElement(ComponentsByType[type], {
-        datum,
-        assessmentType,
-        sectionName,
-        tableName,
-        disabled,
-        col,
-        rowIdx,
-        updateTableDataCell,
-      })}
+      {component &&
+        React.createElement(component, {
+          datum,
+          assessmentType,
+          sectionName,
+          tableName,
+          disabled,
+          col,
+          rowIdx,
+          updateTableDataCell,
+        })}
     </td>
   )
 }

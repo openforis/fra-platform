@@ -23,6 +23,7 @@ import forestAreaWithinProtectedAreas from '@webapp/app/assessment/fra/sections/
 // 5
 // 6
 // 7
+import nonWoodForestProductsRemovals from '@webapp/app/assessment/fra/sections/nonWoodForestProductsRemovals/sectionSpec'
 // 8
 
 export default {
@@ -45,6 +46,7 @@ export default {
     // 5
     // 6
     // 7
+    [nonWoodForestProductsRemovals.sectionName]: nonWoodForestProductsRemovals,
     // 8
   },
 }

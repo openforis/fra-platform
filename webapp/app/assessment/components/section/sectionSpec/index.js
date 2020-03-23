@@ -1,4 +1,4 @@
-export { TYPES } from './keysType'
+export { TYPES, TYPE } from './keysType'
 
 export { KEYS_SECTION, KEYS_SECTION_DESCRIPTIONS, newSectionSpec } from './sectionSpec'
 
@@ -23,5 +23,8 @@ export {
   newColCalculated,
   newColHeader,
   newColDecimal,
+  newColInteger,
   newColText,
+  newColSelect,
+  newColPlaceholder,
 } from '@webapp/app/assessment/components/section/sectionSpec/colSpec'

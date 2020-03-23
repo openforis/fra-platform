@@ -15,8 +15,11 @@ export default (col, rowIdx) => {
     return validator(col.idx, rowIdx)(state)
   })
 
-  let className = type === 'calculated' ? 'fra-table__calculated-cell' : 'fra-table__cell'
-  className += type === SectionSpec.TYPES.text ? '-left' : ''
+  let className = 'fra-table__cell'
+  if (type === SectionSpec.TYPES.calculated) className = 'fra-table__calculated-cell'
+  if (type === SectionSpec.TYPES.text) className = 'fra-table__cell-left'
+  if (type === SectionSpec.TYPES.placeholder) className = 'fra-table__filler-last'
+
   className += valid ? '' : ' validation-error'
 
   return className

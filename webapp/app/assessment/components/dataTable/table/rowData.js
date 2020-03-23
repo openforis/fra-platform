@@ -15,12 +15,12 @@ const RowData = props => {
   const countryIso = useCountryIso()
   const i18n = useI18n()
 
-  const { data, assessmentType, sectionName, tableName, updateTableDataCell, odp, row, disabled } = props
+  const { data, assessmentType, sectionName, tableName, updateTableDataCell, odp, row, disabled, secondary } = props
 
   const { idx: rowIdx, cols, validator, calculateFn, variableName } = row
 
   const colHeader = cols.find(col => col.type === 'header')
-  const colHeaderLabel = i18n.t(colHeader.labelKey, colHeader.labelParams)
+  const colHeaderLabel = colHeader.label ? colHeader.label : i18n.t(colHeader.labelKey, colHeader.labelParams)
   const colsData = cols.filter(col => col.type !== 'header')
 
   const reviewTarget = [tableName, 'row', `${rowIdx}`]
@@ -76,7 +76,7 @@ const RowData = props => {
 
       <td className="fra-table__row-anchor-cell">
         <div className="fra-table__review-indicator-anchor">
-          {!disabled && (
+          {!disabled && !secondary && (
             <ReviewIndicator
               section={sectionName}
               title={colHeaderLabel}
@@ -99,6 +99,7 @@ RowData.propTypes = {
   row: PropTypes.object.isRequired,
   disabled: PropTypes.bool.isRequired,
   updateTableDataCell: PropTypes.func.isRequired,
+  secondary: PropTypes.bool.isRequired,
 }
 
 export default RowData
