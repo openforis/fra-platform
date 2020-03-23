@@ -60,3 +60,15 @@ export const getForestAreaProportionProtectedAreas = colIdx => state => {
   // forestAreaWithinProtectedAreas / forestArea2015 * 100
   return NumberUtils.mul(NumberUtils.div(forestAreaWithinProtectedAreas, forestArea2015), 100)
 }
+
+// SDG 15.2.1 - sub-indicator 4
+export const getForestAreaProportionLongTermForestManagement = colIdx => state => {
+  const forestAreaLongTermForestManagementPlan = ForestAreaWithinProtectedAreasState.getForestAreaLongTermForestManagementPlanByYear(
+    years[colIdx]
+  )(state)
+  const forestArea2015 = ExtentOfForestState.getForestByYear(2015)(state)
+
+  // MIN(forestAreaLongTermForestManagementPlan / forestArea2015 * 100, 100)
+  const proportion = NumberUtils.mul(NumberUtils.div(forestAreaLongTermForestManagementPlan, forestArea2015), 100)
+  return proportion ? NumberUtils.min(proportion, 100) : null
+}

@@ -171,6 +171,7 @@ const FRA = {
             sustainableDevelopmentAgencySubIndicator1: 'sustainableDevelopmentAgencySubIndicator1',
             sustainableDevelopmentAgencySubIndicator2: 'sustainableDevelopmentAgencySubIndicator2',
             sustainableDevelopmentAgencySubIndicator3: 'sustainableDevelopmentAgencySubIndicator3',
+            sustainableDevelopmentAgencySubIndicator4: 'sustainableDevelopmentAgencySubIndicator4',
           },
         },
       },
