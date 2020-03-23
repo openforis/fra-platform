@@ -25,7 +25,7 @@ const newTableSDGIndicator = (
   labelKeyHeader2,
   labelKeyRowData,
   calculateFnRowData,
-  labelParamsRowData = {}
+  labelHeader1Params = {}
 ) =>
   SectionSpec.newTableSpec({
     [SectionSpec.KEYS_TABLE.getSectionData]: () => () => [],
@@ -34,6 +34,7 @@ const newTableSDGIndicator = (
         [SectionSpec.KEYS_ROW.cols]: [
           SectionSpec.newColHeader({
             [SectionSpec.KEYS_COL.labelKey]: labelKeyHeader1,
+            [SectionSpec.KEYS_COL.labelParams]: labelHeader1Params,
             [SectionSpec.KEYS_COL.rowSpan]: 2,
             [SectionSpec.KEYS_COL.left]: true,
           }),
@@ -51,8 +52,7 @@ const newTableSDGIndicator = (
         ),
       }),
       SectionSpec.newRowData({
-        [SectionSpec.KEYS_ROW.labelKey]: 'sustainableDevelopment.forestAreaProportionLandArea2015',
-        [SectionSpec.KEYS_ROW.labelParams]: labelParamsRowData,
+        [SectionSpec.KEYS_ROW.labelKey]: labelKeyRowData,
         [SectionSpec.KEYS_ROW.cols]: yearsTable.map(() =>
           SectionSpec.newColCalculated({
             [SectionSpec.KEYS_COL.calculateFn]: calculateFnRowData,
@@ -91,10 +91,24 @@ const tableSection2 = SectionSpec.newTableSection({
   [SectionSpec.KEYS_TABLE_SECTION.titleKey]: 'sustainableDevelopment.sdgIndicator2',
 })
 
+const tableSection3 = SectionSpec.newTableSection({
+  [SectionSpec.KEYS_TABLE_SECTION.tableSpecs]: [
+    newTableSDGIndicator(
+      SustainableDevelopmentState.years,
+      'sustainableDevelopment.subIndicator',
+      'biomassStock.tableHeader',
+      'sustainableDevelopment.aboveGroundBiomassStockForests',
+      SustainableDevelopmentState.getBiomassStock,
+      { no: 2 }
+    ),
+    newTableSpecResponsibleAgency(section.tables.sustainableDevelopmentAgencySubIndicator1),
+  ],
+})
+
 const sustainableDevelopment = SectionSpec.newSectionSpec({
   [SectionSpec.KEYS_SECTION.sectionName]: section.name,
   [SectionSpec.KEYS_SECTION.sectionAnchor]: section.anchor,
-  [SectionSpec.KEYS_SECTION.tableSections]: [tableSection1, tableSection2],
+  [SectionSpec.KEYS_SECTION.tableSections]: [tableSection1, tableSection2, tableSection3],
   [SectionSpec.KEYS_SECTION.descriptions]: {
     [SectionSpec.KEYS_SECTION_DESCRIPTIONS.nationalData]: false,
     [SectionSpec.KEYS_SECTION_DESCRIPTIONS.analysisAndProcessing]: false,

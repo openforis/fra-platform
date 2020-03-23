@@ -4,6 +4,7 @@ import * as NumberUtils from '@common/bignumberUtils'
 import * as FRA from '@common/assessment/fra'
 
 import * as ExtentOfForestState from '@webapp/app/assessment/fra/sections/extentOfForest/extentOfForestState'
+import * as BiomassStockState from '@webapp/app/assessment/fra/sections/biomassStock/biomassStockState'
 
 export const years = FRA.years.slice(1, FRA.years.length)
 export const yearsRange = years.reduce((ranges, year, idx) => {
@@ -21,7 +22,7 @@ export const getForestAreaProportionLandArea2015 = colIdx => state => {
   return NumberUtils.mul(NumberUtils.div(forestArea, faoStatArea), 100)
 }
 
-// SDG 15.2.1
+// SDG 15.2.1 - sub-indicator 2
 export const getForestAreaAnnualNetChangeRate = colIdx => state => {
   const range = yearsRange[colIdx].split('-')
   const yearFrom = Number(range[0])
@@ -45,4 +46,5 @@ export const getForestAreaAnnualNetChangeRate = colIdx => state => {
   return NumberUtils.mul(NumberUtils.sub(forestProportion ** coeff, 1), 100)
 }
 
-// SDG 15.2.2
+// SDG 15.2.1 - sub-indicator 2
+export const getBiomassStock = colIdx => BiomassStockState.getAboveGroundBiomassByYear(years[colIdx])

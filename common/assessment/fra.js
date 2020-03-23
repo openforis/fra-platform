@@ -169,6 +169,7 @@ const FRA = {
           tables: {
             sustainableDevelopmentAgencyIndicator: 'sustainableDevelopmentAgencyIndicator',
             sustainableDevelopmentAgencySubIndicator1: 'sustainableDevelopmentAgencySubIndicator1',
+            sustainableDevelopmentAgencySubIndicator2: 'sustainableDevelopmentAgencySubIndicator2',
           },
         },
       },

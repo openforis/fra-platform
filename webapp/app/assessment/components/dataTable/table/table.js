@@ -35,7 +35,7 @@ const Table = props => {
           {rowsHeader.map(row => (
             <tr key={row.idx}>
               {row.cols.map(col => {
-                const { idx, className, colSpan, rowSpan, labelKey, label } = col
+                const { idx, className, colSpan, rowSpan, labelKey, labelParams, label } = col
                 return (
                   <th
                     key={idx}
@@ -43,7 +43,7 @@ const Table = props => {
                     colSpan={odp && !colSpan ? data.length : colSpan}
                     rowSpan={rowSpan}
                   >
-                    {labelKey ? i18n.t(labelKey) : label}
+                    {labelKey ? i18n.t(labelKey, labelParams) : label}
                   </th>
                 )
               })}
