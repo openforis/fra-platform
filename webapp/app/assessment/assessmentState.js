@@ -1,6 +1,7 @@
 import * as R from 'ramda'
 
 import * as Assessment from '@common/assessment/assessment'
+import * as FRA from '@common/assessment/fra'
 import * as FRAUtils from '@common/fraUtils'
 import { isReviewer, isAdministrator } from '@common/countryRole'
 import { assessmentStatus } from '@common/assessment'
@@ -109,6 +110,11 @@ export const getFra = (assessmentType, sectionName, tableName) =>
 
 export const getFraNoNDPs = (assessmentType, sectionName, tableName) =>
   R.pipe(getSectionData(assessmentType, sectionName, tableName), R.propOr(null, keysDataTableWithOdp.fraNoNDPs))
+
+// ==== By Years getter
+
+export const getTableDataCellByFRAYear = ({ assessmentType, sectionName, tableName, year, rowIdx }) =>
+  R.pipe(getSectionData(assessmentType, sectionName, tableName), R.pathOr(null, [rowIdx, FRA.years.indexOf(year)]))
 
 // ====== Section - Generating Values
 

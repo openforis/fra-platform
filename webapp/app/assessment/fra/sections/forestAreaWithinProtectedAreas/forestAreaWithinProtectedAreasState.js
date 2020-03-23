@@ -2,7 +2,7 @@ import * as FRA from '@common/assessment/fra'
 
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 
-const section = FRA.sections['2'].children.c
+const section = FRA.sections['3'].children.b
 
 // ==== By Year getters
 
@@ -10,9 +10,11 @@ const _getValueByYear = (year, rowIdx) =>
   AssessmentState.getTableDataCellByFRAYear({
     assessmentType: FRA.type,
     sectionName: section.name,
-    tableName: section.tables.biomassStock,
+    tableName: section.tables.forestAreaWithinProtectedAreas,
     year,
     rowIdx,
   })
 
-export const getAboveGroundBiomassByYear = year => _getValueByYear(year, 0)
+export const getForestAreaWithinProtectedAreasByYear = year => _getValueByYear(year, 0)
+
+export const getForestAreaLongTermForestManagementPlanByYear = year => _getValueByYear(year, 1)

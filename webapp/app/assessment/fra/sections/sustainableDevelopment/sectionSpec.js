@@ -62,6 +62,7 @@ const newTableSDGIndicator = (
     ],
   })
 
+// SDG 15.1.1
 const tableSection1 = SectionSpec.newTableSection({
   [SectionSpec.KEYS_TABLE_SECTION.tableSpecs]: [
     newTableSDGIndicator(
@@ -76,6 +77,7 @@ const tableSection1 = SectionSpec.newTableSection({
   [SectionSpec.KEYS_TABLE_SECTION.titleKey]: 'sustainableDevelopment.sdgIndicator1',
 })
 
+// SDG 15.2.1 - sub-indicator 1
 const tableSection2 = SectionSpec.newTableSection({
   [SectionSpec.KEYS_TABLE_SECTION.tableSpecs]: [
     newTableSDGIndicator(
@@ -91,6 +93,7 @@ const tableSection2 = SectionSpec.newTableSection({
   [SectionSpec.KEYS_TABLE_SECTION.titleKey]: 'sustainableDevelopment.sdgIndicator2',
 })
 
+// SDG 15.2.1 - sub-indicator 2
 const tableSection3 = SectionSpec.newTableSection({
   [SectionSpec.KEYS_TABLE_SECTION.tableSpecs]: [
     newTableSDGIndicator(
@@ -101,14 +104,29 @@ const tableSection3 = SectionSpec.newTableSection({
       SustainableDevelopmentState.getBiomassStock,
       { no: 2 }
     ),
-    newTableSpecResponsibleAgency(section.tables.sustainableDevelopmentAgencySubIndicator1),
+    newTableSpecResponsibleAgency(section.tables.sustainableDevelopmentAgencySubIndicator2),
+  ],
+})
+
+// SDG 15.2.1 - sub-indicator 3
+const tableSection4 = SectionSpec.newTableSection({
+  [SectionSpec.KEYS_TABLE_SECTION.tableSpecs]: [
+    newTableSDGIndicator(
+      SustainableDevelopmentState.years,
+      'sustainableDevelopment.subIndicator',
+      'sustainableDevelopment.percent2015ForestAreaBaseline',
+      'sustainableDevelopment.proportionForestAreaLegallyEstablishedProtectedAreas',
+      SustainableDevelopmentState.getForestAreaProportionProtectedAreas,
+      { no: 3 }
+    ),
+    newTableSpecResponsibleAgency(section.tables.sustainableDevelopmentAgencySubIndicator3),
   ],
 })
 
 const sustainableDevelopment = SectionSpec.newSectionSpec({
   [SectionSpec.KEYS_SECTION.sectionName]: section.name,
   [SectionSpec.KEYS_SECTION.sectionAnchor]: section.anchor,
-  [SectionSpec.KEYS_SECTION.tableSections]: [tableSection1, tableSection2, tableSection3],
+  [SectionSpec.KEYS_SECTION.tableSections]: [tableSection1, tableSection2, tableSection3, tableSection4],
   [SectionSpec.KEYS_SECTION.descriptions]: {
     [SectionSpec.KEYS_SECTION_DESCRIPTIONS.nationalData]: false,
     [SectionSpec.KEYS_SECTION_DESCRIPTIONS.analysisAndProcessing]: false,
