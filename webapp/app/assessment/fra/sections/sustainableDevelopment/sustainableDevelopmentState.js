@@ -1,0 +1,48 @@
+import * as R from 'ramda'
+
+import * as NumberUtils from '@common/bignumberUtils'
+import * as FRA from '@common/assessment/fra'
+
+import * as ExtentOfForestState from '@webapp/app/assessment/fra/sections/extentOfForest/extentOfForestState'
+
+export const years = FRA.years.slice(1, FRA.years.length)
+export const yearsRange = years.reduce((ranges, year, idx) => {
+  if (idx !== years.length - 1) {
+    ranges.push(`${year}-${years[idx + 1]}`)
+  }
+  return ranges
+}, [])
+
+// SDG 15.1.1
+export const getForestAreaProportionLandArea2015 = colIdx => state => {
+  const year = years[colIdx]
+  const faoStatArea = ExtentOfForestState.getFaoStatAreaByYear(2015)(state)
+  const forestArea = ExtentOfForestState.getForestByYear(year)(state)
+  return NumberUtils.mul(NumberUtils.div(forestArea, faoStatArea), 100)
+}
+
+// SDG 15.2.1
+export const getForestAreaAnnualNetChangeRate = colIdx => state => {
+  const range = yearsRange[colIdx].split('-')
+  const yearFrom = Number(range[0])
+  const yearTo = Number(range[1])
+  const yearsDiff = NumberUtils.sub(yearTo, yearFrom).toNumber()
+
+  const forestAreaFrom = ExtentOfForestState.getForestByYear(yearFrom)(state)
+  const forestAreaTo = ExtentOfForestState.getForestByYear(yearTo)(state)
+
+  // (forestAreaTo - forestAreaFrom) / forestAreaTo * 100
+  if (yearsDiff === 1) {
+    return NumberUtils.mul(NumberUtils.div(NumberUtils.sub(forestAreaTo, forestAreaFrom), forestAreaTo), 100)
+  }
+
+  // (((forestAreaTo / forestAreaFrom) ^ coeff) - 1) * 100
+  const coeff = yearsDiff === 10 ? 0.1 : 0.2
+  const forestProportion = NumberUtils.div(forestAreaTo, forestAreaFrom)
+  if (R.isNil(forestProportion)) {
+    return null
+  }
+  return NumberUtils.mul(NumberUtils.sub(forestProportion ** coeff, 1), 100)
+}
+
+// SDG 15.2.2

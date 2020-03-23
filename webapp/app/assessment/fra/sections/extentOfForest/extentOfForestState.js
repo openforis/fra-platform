@@ -40,9 +40,15 @@ export const getExtentOfForestData = () =>
 
 export const getForestArea2015Value = year => R.pipe(CountryState.getConfigFra2015ForestAreas, R.prop(year))
 
+// ==== By Year getter functions
+
+export const getFaoStatAreaByYear = year => R.pipe(CountryState.getConfigFaoStat, R.path([year, 'area']))
+
+export const getForestByYear = year => TableWithOdpState.getFieldByYear(section.name, 'forestArea', year)
+
 // ==== Datum getter functions
 
-export const getFaoStatArea = datum => R.pipe(CountryState.getConfigFaoStat, R.path([datum.name, 'area']))
+export const getFaoStatArea = datum => getFaoStatAreaByYear(datum.name)
 
 export const getForest = datum => () => R.propOr(null, 'forestArea', datum)
 
@@ -55,10 +61,6 @@ export const getOtherLand = datum => state => {
 
   return sub(faoStatArea, sum([forestArea, otherWoodedLand]))
 }
-
-// ==== By Year getter functions
-
-export const getForestByYear = year => TableWithOdpState.getFieldByYear(section.name, 'forestArea', year)
 
 // ==== By Year index getter functions
 
