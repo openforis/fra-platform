@@ -1,5 +1,6 @@
 import * as R from 'ramda'
 import * as NumberUtils from '@common/bignumberUtils'
+import * as FRAUtils from '@common/fraUtils'
 
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 
@@ -8,20 +9,17 @@ export const subCategoryValidator = (assessmentType, sectionName, tableName, row
   rowIdx
 ) => state => {
   const data = AssessmentState.getSectionData(assessmentType, sectionName, tableName)(state)
-  const cellValue = R.pathOr(0, [rowIdx, colIdx])(data)
+  const valueCell = R.pathOr(0, [rowIdx, colIdx])(data)
 
-  if (!cellValue) {
+  if (!valueCell) {
     return true
   }
 
-  const totalValue = R.pathOr(0, [rowTotalIdx, colIdx])(data)
-  const values = rowIdxs.reduce((total, idx) => {
-    const value = R.pathOr(0, [idx, colIdx])(data)
-    return NumberUtils.add(total, value)
-  }, 0)
+  const valueCellTotal = R.pathOr(0, [rowTotalIdx, colIdx])(data)
+  const valueRowsSum = FRAUtils.sumTableColumn(colIdx, rowIdxs)(data)
 
   const tolerance = -1
-  const difference = NumberUtils.sub(totalValue, values)
+  const difference = NumberUtils.sub(valueCellTotal, valueRowsSum)
   return NumberUtils.greaterThan(difference, tolerance)
 }
 
