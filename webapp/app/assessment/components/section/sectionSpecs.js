@@ -21,8 +21,13 @@ import designatedManagementObjective from '@webapp/app/assessment/fra/sections/d
 import forestAreaWithinProtectedAreas from '@webapp/app/assessment/fra/sections/forestAreaWithinProtectedAreas/sectionSpec'
 // 4
 // 5
+import disturbances from '@webapp/app/assessment/fra/sections/disturbances/sectionSpec'
+import areaAffectedByFire from '@webapp/app/assessment/fra/sections/areaAffectedByFire/sectionSpec'
+import degradedForest from '@webapp/app/assessment/fra/sections/degradedForest/sectionSpec'
 // 6
 // 7
+import employment from '@webapp/app/assessment/fra/sections/employment/sectionSpec'
+import graduationOfStudents from '@webapp/app/assessment/fra/sections/graduationOfStudents/sectionSpec'
 import nonWoodForestProductsRemovals from '@webapp/app/assessment/fra/sections/nonWoodForestProductsRemovals/sectionSpec'
 // 8
 
@@ -44,8 +49,13 @@ export default {
     [forestAreaWithinProtectedAreas.sectionName]: forestAreaWithinProtectedAreas,
     // 4
     // 5
+    [disturbances.sectionName]: disturbances,
+    [areaAffectedByFire.sectionName]: areaAffectedByFire,
+    [degradedForest.sectionName]: degradedForest,
     // 6
     // 7
+    [employment.sectionName]: employment,
+    [graduationOfStudents.sectionName]: graduationOfStudents,
     [nonWoodForestProductsRemovals.sectionName]: nonWoodForestProductsRemovals,
     // 8
   },

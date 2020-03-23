@@ -8,14 +8,17 @@ import Calculated from '@webapp/app/assessment/components/dataTable/table/cell/c
 import Number from '@webapp/app/assessment/components/dataTable/table/cell/number'
 import Text from '@webapp/app/assessment/components/dataTable/table/cell/text'
 import Select from '@webapp/app/assessment/components/dataTable/table/cell/select'
+import Placeholder from '@webapp/app/assessment/components/dataTable/table/cell/placeholder'
 import useCellClassName from '@webapp/app/assessment/components/dataTable/table/cell/useCellClassName'
 
 const ComponentsByType = {
   [SectionSpec.TYPES.calculated]: Calculated,
   [SectionSpec.TYPES.text]: Text,
+  [SectionSpec.TYPES.textarea]: Text,
   [SectionSpec.TYPES.decimal]: Number,
   [SectionSpec.TYPES.integer]: Number,
   [SectionSpec.TYPES.select]: Select,
+  [SectionSpec.TYPES.placeholder]: Placeholder,
 }
 
 const Cell = props => {

@@ -18,7 +18,7 @@ const Number = props => {
   const { type } = col
   const dispatch = useDispatch()
 
-  const [Component, acceptNexValue, acceptableAsValue, valueProps] =
+  const [Component, acceptNexValue, acceptableAsValue, componentProps] =
     type === SectionSpec.TYPES.decimal
       ? [ThousandSeparatedDecimalInput, acceptNextDecimal, acceptableAsDecimal, { numberValue: datum }]
       : [ThousandSeparatedIntegerInput, acceptNextInteger, acceptableAsInteger, { integerValue: datum }]
@@ -36,7 +36,7 @@ const Number = props => {
     // TODO
   }
 
-  return React.createElement(Component, { ...valueProps, onChange, onPaste, disabled })
+  return React.createElement(Component, { ...componentProps, onChange, onPaste, disabled })
 }
 
 Number.propTypes = {

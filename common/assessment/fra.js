@@ -1,8 +1,11 @@
+const R = require('ramda')
+
 const FRA = {
   type: 'fra2020',
-  yearsTable: [1990, 2000, 2010, 2015, 2020],
   years: [1990, 2000, 2010, 2015, 2016, 2017, 2018, 2019, 2020],
+  yearsTable: [1990, 2000, 2010, 2015, 2020],
   yearsRange: ['1990-2000', '2000-2010', '2010-2015', '2015-2020'],
+  yearsAnnual: R.range(2000, 2018),
 
   sections: {
     0: {
@@ -97,9 +100,49 @@ const FRA = {
         },
       },
     },
+    5: {
+      label: 'navigation.sectionHeaders.forestDisturbances',
+      children: {
+        a: {
+          name: 'disturbances',
+          anchor: '5a',
+          tables: {
+            disturbances: 'disturbances',
+          },
+        },
+        b: {
+          name: 'areaAffectedByFire',
+          anchor: '5b',
+          tables: {
+            areaAffectedByFire: 'areaAffectedByFire',
+          },
+        },
+        c: {
+          name: 'degradedForest',
+          anchor: '5c',
+          tables: {
+            degradedForest: 'degradedForest',
+          },
+        },
+      },
+    },
     7: {
       label: 'navigation.sectionHeaders.employmentEducationAndNwfp',
       children: {
+        a: {
+          name: 'employment',
+          anchor: '7a',
+          tables: {
+            employment: 'employment',
+          },
+        },
+        b: {
+          name: 'graduationOfStudents',
+          anchor: '7b',
+          tables: {
+            graduationOfStudents: 'graduationOfStudents',
+          },
+        },
         c: {
           name: 'nonWoodForestProductsRemovals',
           anchor: '7c',

@@ -11,7 +11,9 @@ export const TYPES = {
   decimal: 'decimal',
   integer: 'integer',
   text: 'text',
+  textarea: 'textarea',
   select: 'select',
+  selectYesNo: 'selectYesNo',
   placeholder: 'placeholder',
 }
 

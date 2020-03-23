@@ -19,9 +19,9 @@ const RowData = props => {
 
   const { idx: rowIdx, cols, validator, calculateFn, variableName } = row
 
-  const colHeader = cols.find(col => col.type === 'header')
+  const colHeader = cols[0]
   const colHeaderLabel = colHeader.label ? colHeader.label : i18n.t(colHeader.labelKey, colHeader.labelParams)
-  const colsData = cols.filter(col => col.type !== 'header')
+  const colsData = cols.slice(1, cols.length)
 
   const reviewTarget = [tableName, 'row', `${rowIdx}`]
   const className = useRowClassName(reviewTarget)
@@ -29,7 +29,7 @@ const RowData = props => {
   const colHeaderValue = `${colHeaderLabel}${colHeader.variableNo ? ` (${colHeader.variableNo})` : ''}`
   return (
     <tr className={className}>
-      <th className={colHeader.className} colSpan={colHeader.colSpan}>
+      <th className={colHeader.className} colSpan={colHeader.colSpan} rowSpan={colHeader.rowSpan}>
         {colHeader.linkToSection ? (
           <>
             <div className="only-print">{colHeaderValue}</div>
