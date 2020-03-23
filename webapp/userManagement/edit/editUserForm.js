@@ -21,6 +21,7 @@ import { getCountryName } from '../../country/actions'
 import TextInput from '@webapp/components/textInput'
 import CountrySelectionModal from './countrySelectionModal'
 
+import * as CountryState from '@webapp/country/countryState'
 import * as UserState from '@webapp/user/userState'
 
 class EditUserForm extends React.Component {
@@ -279,8 +280,8 @@ const mapStateToProps = (state, props) => ({
   userInfo: UserState.getUserInfo(state),
   ...state.userManagement.editUser,
   //get countries if is admin.
-  countries: isAdministrator(UserState.getI18n(state))
-    ? R.path(['country', 'countries', administrator.role], state)
+  countries: isAdministrator(UserState.getUserInfo(state))
+    ? R.pipe(CountryState.getCountries, R.prop(administrator.role))(state)
     : null
 })
 
