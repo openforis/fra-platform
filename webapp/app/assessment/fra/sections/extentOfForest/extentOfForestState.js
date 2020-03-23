@@ -1,25 +1,48 @@
 import * as R from 'ramda'
+import * as FRA from '@common/assessment/fra'
+
+import * as FraUtils from '@common/fraUtils'
 
 import { sub, sum } from '@common/bignumberUtils'
+import { isPrintingMode } from '@webapp/app/assessment/components/print/printAssessment'
 
 import * as CountryState from '@webapp/app/country/countryState'
+import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 import * as TableWithOdpState from '@webapp/app/assessment/fra/components/tableWithOdp/tableWithOdpState'
 
-const section = 'extentOfForest'
+export const keys = {
+  showOdps: 'showOdps',
+}
+
+const section = FRA.sections['1'].children.a
+
+const _getSectionProp = (propName, defaultValue = null) =>
+  AssessmentState.getSectionProp(FRA.type, section.name, propName, defaultValue)
+
+const _getFra = AssessmentState.getFra(FRA.type, section.name, section.tables.extentOfForest)
+const _getFraNoOdps = AssessmentState.getFraNoNDPs(FRA.type, section.name, section.tables.extentOfForest)
+
+export const hasOriginalDataPoints = R.pipe(_getFra, FraUtils.hasOdps)
+
+export const useDescriptions = R.pipe(_getFra, R.ifElse(R.isNil, R.F, R.pipe(FraUtils.hasOdps, R.not)))
+
+export const showOriginalDataPoints = _getSectionProp(keys.showOdps, true)
+
+export const isExtentOfForestEmpty = () => R.pipe(_getFra, FraUtils.isTableWithOdpEmpty)
+
+export const getExtentOfForestData = () =>
+  R.pipe(
+    R.ifElse(showOriginalDataPoints, _getFra, _getFraNoOdps),
+    R.when(R.always(isPrintingMode()), FraUtils.filterFraYears)
+  )
 
 // ==== Assessment Fra config areas getter functions
 
-export const getForestArea2015Value = year => R.pipe(
-  CountryState.getConfigFra2015ForestAreas,
-  R.prop(year),
-)
+export const getForestArea2015Value = year => R.pipe(CountryState.getConfigFra2015ForestAreas, R.prop(year))
 
 // ==== Datum getter functions
 
-export const getFaoStatArea = datum => R.pipe(
-  CountryState.getConfigFaoStat,
-  R.path([datum.name, 'area']),
-)
+export const getFaoStatArea = datum => R.pipe(CountryState.getConfigFaoStat, R.path([datum.name, 'area']))
 
 export const getForest = datum => () => R.propOr(null, 'forestArea', datum)
 
@@ -35,4 +58,17 @@ export const getOtherLand = datum => state => {
 
 // ==== By Year getter functions
 
-export const getForestByYear = year => TableWithOdpState.getFieldByYear(section, 'forestArea', year)
+export const getForestByYear = year => TableWithOdpState.getFieldByYear(section.name, 'forestArea', year)
+
+// ==== By Year index getter functions
+
+export const getForestByYearFraIdx = idx => getForestByYear(FRA.yearsTable[idx])
+
+export const getForestByYearAnnualIdx = idx => getForestByYear(FRA.yearsAnnual[idx])
+
+// ====== Climatic domain table functions
+
+export const rowsClimaticDomain = ['boreal', 'temperate', 'subtropical', 'tropical']
+
+export const getClimaticDomainConfigValue = (colIdx, rowIdx) =>
+  R.pipe(CountryState.getConfigClimaticDomainPercents2015, R.prop(rowsClimaticDomain[rowIdx]))

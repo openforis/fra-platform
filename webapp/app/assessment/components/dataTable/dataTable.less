@@ -1,0 +1,27 @@
+@import (reference) '~@webapp/main/styles/config';
+@import (reference) '~@webapp/main/styles/fraTable';
+
+.data-table {
+  .odp-header-cell {
+    .mixin-table-cell(700, center, 0);
+    background-color: fade(@ui-accent, 10%);
+
+    .link {
+      padding: 8px;
+      text-decoration: underline;
+    }
+  }
+
+  .odp-value-cell {
+    background-color: fade(@ui-accent, 5%);
+  }
+
+  .odp-value-cell-total {
+    .mixin-table-cell(700, right, 10px, true);
+    background-color: fade(@ui-accent, 5%);
+  }
+
+  .validation-error {
+    background-color: fade(@ui-destructive, 10%);
+  }
+}

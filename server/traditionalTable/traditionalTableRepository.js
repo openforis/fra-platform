@@ -43,13 +43,13 @@ const handleRow = mapping => (tableData, row) => {
 const rawRead = async (countryIso, tableSpecName, schemaName = 'public') => {
   const [selectQuery, selectParams] = sqlCreator.createSelect(countryIso, tableSpecName, schemaName)
   const result = await db.query(selectQuery, selectParams)
-  if (result.rowCount === 0) return null
+  if (result.rowCount === 0) return []
   return result.rows
 }
 
 module.exports.read = async (countryIso, tableSpecName, schemaName = 'public') => {
   const rows = await rawRead(countryIso, tableSpecName, schemaName)
-  if (rows === null) return null
+  // if (rows === null) return null
   const mapping = tableMappings.getMapping(tableSpecName)
   const emptyTableData = createTableData(
     mapping.getFullColumnCount(),

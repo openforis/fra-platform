@@ -1,11 +1,15 @@
-@import (reference) "~@webapp/main/styles/config";
-@import (reference) "~@webapp/main/styles/statusMixins";
-@import (reference) "~@webapp/app/components/navigation/navigationMixins.less";
+@import (reference) '~@webapp/main/styles/config';
+@import (reference) '~@webapp/main/styles/statusMixins';
+@import (reference) '~@webapp/app/components/navigation/navigationMixins.less';
 
 .nav-section__header {
   .mixin-nav-secondary-base(8px, true);
   font-weight: 700;
   cursor: pointer;
+
+  &:focus {
+    outline: none;
+  }
 }
 
 .nav-section__order {

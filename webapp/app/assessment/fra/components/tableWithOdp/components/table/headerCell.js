@@ -23,27 +23,16 @@ const HeaderCell = props => {
 
   return (
     <th className={className}>
-      {
-        odp
-          ? (
-            <Tooltip
-              text={i18n.t('nationalDataPoint.clickOnNDP')}>
-              <Link
-                className="link"
-                to={`/country/${countryIso}/odp/${section}/${odpId}`}>
-                {
-                  draft && userInfo &&
-                  <Icon className="icon-sub icon-margin-right" name="pencil"/>
-                }
-                {
-                  name
-                }
-              </Link>
-            </Tooltip>
-          ) : (
-            name
-          )
-      }
+      {odp ? (
+        <Tooltip text={i18n.t('nationalDataPoint.clickOnNDP')}>
+          <Link className="link" to={`/country/${countryIso}/odp/${section}/${odpId}`}>
+            {draft && userInfo && <Icon className="icon-sub icon-margin-right" name="pencil" />}
+            {name}
+          </Link>
+        </Tooltip>
+      ) : (
+        name
+      )}
     </th>
   )
 }

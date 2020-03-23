@@ -5,17 +5,15 @@ import useI18n from '@webapp/components/hooks/useI18n'
 import useCountryIso from '@webapp/components/hooks/useCountryIso'
 
 import * as ExtentOfForestState from '@webapp/app/assessment/fra/sections/extentOfForest/extentOfForestState'
-import * as ForestCharacteristicsState
-  from '@webapp/app/assessment/fra/sections/forestCharacteristics/forestCharacteristicsState'
-import * as ForestCharacteristicsValidatorState
-  from '@webapp/app/assessment/fra/sections/forestCharacteristics/forestCharacteristicsValidatorState'
+import * as ForestCharacteristicsState from '@webapp/app/assessment/fra/sections/forestCharacteristics/forestCharacteristicsState'
+import * as ForestCharacteristicsValidatorState from '@webapp/app/assessment/fra/sections/forestCharacteristics/forestCharacteristicsValidatorState'
 
 const tableRows = [
   {
     type: 'field',
     field: 'naturalForestArea',
     rowHeaderLabelKey: 'forestCharacteristics.naturalForestArea',
-    rowVariable: '(a)'
+    rowVariable: '(a)',
   },
   {
     type: 'field',
@@ -29,19 +27,19 @@ const tableRows = [
   {
     type: 'field',
     field: 'plantationForestArea',
-    rowHeaderLabelKey: 'forestCharacteristics.plantationForestArea'
+    rowHeaderLabelKey: 'forestCharacteristics.plantationForestArea',
   },
   {
     type: 'field',
     field: 'plantationForestIntroducedArea',
     validator: ForestCharacteristicsValidatorState.plantationForestValidator,
     className: 'fra-table__subcategory-cell',
-    rowHeaderLabelKey: 'forestCharacteristics.plantationForestIntroducedArea'
+    rowHeaderLabelKey: 'forestCharacteristics.plantationForestIntroducedArea',
   },
   {
     type: 'field',
     field: 'otherPlantedForestArea',
-    rowHeaderLabelKey: 'forestCharacteristics.otherPlantedForestArea'
+    rowHeaderLabelKey: 'forestCharacteristics.otherPlantedForestArea',
   },
   {
     type: 'field',
@@ -52,7 +50,6 @@ const tableRows = [
     rowVariable: '(a+b)',
     calculated: true,
     calculateFn: ForestCharacteristicsState.getTotalForest,
-
   },
   {
     type: 'field',
@@ -67,33 +64,26 @@ const tableRows = [
 
       return (
         <>
-          <div className="only-print">
-            {
-              i18n.t('forestCharacteristics.totalForestArea')
-            }
-          </div>
+          <div className="only-print">{i18n.t('forestCharacteristics.totalForestArea')}</div>
           <Link to={`/country/${countryIso}/extentOfForest`} className="link no-print">
-            {
-              i18n.t('forestCharacteristics.totalForestArea')
-            }
+            {i18n.t('forestCharacteristics.totalForestArea')}
           </Link>
-
         </>
       )
-    }
+    },
   },
   {
     type: 'custom',
     render: () => (
       <tr>
-        <td rowSpan="2"/>
+        <td rowSpan="2" />
       </tr>
-    )
+    ),
   },
   {
     type: 'validationErrors',
-    validationMessages: ForestCharacteristicsValidatorState.getValidationMessages
-  }
+    validationMessages: ForestCharacteristicsValidatorState.getValidationMessages,
+  },
 ]
 
 export default tableRows

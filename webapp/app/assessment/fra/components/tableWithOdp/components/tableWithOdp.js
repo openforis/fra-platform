@@ -11,12 +11,17 @@ import Table from '@webapp/app/assessment/fra/components/tableWithOdp/components
 import useCountryIso from '@webapp/components/hooks/useCountryIso'
 
 const TableWithOdp = props => {
-
   const {
     fra,
-    rows, section, sectionAnchor,
-    copyValues, disabled, generateValues, useOriginalDataPoints,
-    tableHeaderLabel, categoryHeaderLabel,
+    rows,
+    section,
+    sectionAnchor,
+    copyValues,
+    disabled,
+    generateValues,
+    useOriginalDataPoints,
+    tableHeaderLabel,
+    categoryHeaderLabel,
   } = props
 
   const i18n = useI18n()
@@ -24,9 +29,7 @@ const TableWithOdp = props => {
 
   return (
     <>
-
-      {
-        !disabled && generateValues &&
+      {!disabled && generateValues && (
         <div className="app-view__section-toolbar no-print">
           <GenerateValues
             i18n={i18n}
@@ -37,12 +40,9 @@ const TableWithOdp = props => {
             useOriginalDataPoints={useOriginalDataPoints}
           />
         </div>
-      }
+      )}
 
-      {
-        !isPrintingOnlyTables() &&
-        <div className="page-break"/>
-      }
+      {!isPrintingOnlyTables() && <div className="page-break" />}
 
       <div className="fra-table__container table-with-odp">
         <div className="fra-table__scroll-wrapper">
@@ -70,10 +70,10 @@ TableWithOdp.propTypes = {
   sectionAnchor: PropTypes.string.isRequired,
 
   // boolean checks
-  copyValues: PropTypes.bool.isRequired,
-  disabled: PropTypes.bool.isRequired,
+  copyValues: PropTypes.bool,
+  disabled: PropTypes.bool,
   generateValues: PropTypes.bool.isRequired,
-  useOriginalDataPoints: PropTypes.bool.isRequired,
+  useOriginalDataPoints: PropTypes.bool,
 
   // labels
   tableHeaderLabel: PropTypes.string.isRequired,
@@ -87,4 +87,3 @@ TableWithOdp.defaultProps = {
 }
 
 export default TableWithOdp
-

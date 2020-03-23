@@ -1,7 +1,7 @@
 import * as R from 'ramda'
 
 import * as Assessment from '@common/assessment/assessment'
-
+import * as FRAUtils from '@common/fraUtils'
 import { isReviewer, isAdministrator } from '@common/countryRole'
 import { assessmentStatus } from '@common/assessment'
 
@@ -13,6 +13,17 @@ export const stateKey = 'assessment'
 
 const keys = {
   lock: 'lock',
+  sections: 'sections',
+}
+
+const keysSection = {
+  data: 'data',
+  generatingValues: 'generatingValues',
+}
+
+export const keysDataTableWithOdp = {
+  fra: 'fra',
+  fraNoNDPs: 'fraNoNDPs',
 }
 
 // TODO: Now assessment is part of country status - refactor it
@@ -24,7 +35,7 @@ const getStateAssessment = type => R.pipe(getState, R.propOr({}, type))
 
 const _isLocked = type => R.pipe(getStateAssessment(type), R.propOr(true, keys.lock))
 
-// ==== Lock functions
+// ======  Lock functions
 
 export const isLocked = assessment => state => {
   const countryIso = AppState.getCountryIso(state)
@@ -33,9 +44,9 @@ export const isLocked = assessment => state => {
   if (isReviewer(countryIso, userInfo) || isAdministrator(userInfo)) {
     const type = Assessment.getType(assessment)
     return _isLocked(type)(state)
-  } else {
-    return !Assessment.getCanEditData(assessment)
   }
+
+  return !Assessment.getCanEditData(assessment)
 }
 
 export const canToggleLock = assessment => state => {
@@ -53,4 +64,56 @@ export const canToggleLock = assessment => state => {
   return false
 }
 
-export const assocLock = (type, lock) => R.assocPath([type, keys.lock], lock)
+export const assocLock = (assessmentType, lock) => R.assocPath([assessmentType, keys.lock], lock)
+
+// ====== Section
+
+const _getSectionPath = (assessmentType, sectionName) => [assessmentType, keys.sections, sectionName]
+
+// ====== Section - Prop
+
+const _getSectionPropPath = (assessmentType, sectionName, propName) => [
+  ..._getSectionPath(assessmentType, sectionName),
+  propName,
+]
+
+export const assocSectionProp = (assessmentType, sectionName, propName, value) =>
+  R.assocPath(_getSectionPropPath(assessmentType, sectionName, propName), value)
+
+export const getSectionProp = (assessmentType, sectionName, propName, defaultValue = null) =>
+  R.pipe(getState, R.pathOr(defaultValue, _getSectionPropPath(assessmentType, sectionName, propName)))
+
+// ====== Section - Data Table
+
+const _getTableDataPath = (assessmentType, sectionName, tableName) => [
+  ..._getSectionPropPath(assessmentType, sectionName, keysSection.data),
+  tableName,
+]
+
+const _getTableGeneratingPath = (assessmentType, sectionName, tableName) => [
+  ..._getSectionPropPath(assessmentType, sectionName, keysSection.generatingValues),
+  tableName,
+]
+
+export const assocSectionData = (assessmentType, sectionName, tableName, data) =>
+  R.assocPath(_getTableDataPath(assessmentType, sectionName, tableName), data)
+
+export const getSectionData = (assessmentType, sectionName, tableName) =>
+  R.pipe(getState, R.pathOr(null, _getTableDataPath(assessmentType, sectionName, tableName)))
+
+export const isSectionDataEmpty = (assessmentType, sectionName, tableName) =>
+  R.pipe(getSectionData(assessmentType, sectionName, tableName), FRAUtils.isTableEmpty)
+
+export const getFra = (assessmentType, sectionName, tableName) =>
+  R.pipe(getSectionData(assessmentType, sectionName, tableName), R.propOr(null, keysDataTableWithOdp.fra))
+
+export const getFraNoNDPs = (assessmentType, sectionName, tableName) =>
+  R.pipe(getSectionData(assessmentType, sectionName, tableName), R.propOr(null, keysDataTableWithOdp.fraNoNDPs))
+
+// ====== Section - Generating Values
+
+export const assocSectionDataGeneratingValues = (assessmentType, sectionName, tableName, generating) =>
+  R.assocPath(_getTableGeneratingPath(assessmentType, sectionName, tableName), generating)
+
+export const getSectionDataGeneratingValues = (assessmentType, sectionName, tableName) =>
+  R.pipe(getState, R.pathOr(false, _getTableGeneratingPath(assessmentType, sectionName, tableName)))
