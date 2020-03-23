@@ -30,7 +30,7 @@ export const getValidationMessages = data => state => {
     if (!positiveOrZeroValidator(colIdx, 0)(state) || !positiveOrZeroValidator(colIdx, 3)(state)) {
       colMessages.push({ key: 'generalValidation.valueMustBePositive' })
     }
-    if (!forestExpansionValidator(colIdx)(state)) {
+    if (!forestExpansionValidator(colIdx, 1)(state) || !forestExpansionValidator(colIdx, 2)(state)) {
       colMessages.push({ key: 'generalValidation.subCategoryExceedsParent' })
     }
   }
