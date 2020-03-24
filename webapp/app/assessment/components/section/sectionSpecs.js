@@ -12,6 +12,7 @@ import extentOfForest from '@webapp/app/assessment/fra/sections/extentOfForest/s
 import forestCharacteristics from '@webapp/app/assessment/fra/sections/forestCharacteristics/sectionSpec'
 import forestAreaChange from '@webapp/app/assessment/fra/sections/forestAreaChange/sectionSpec'
 import annualReforestation from '@webapp/app/assessment/fra/sections/annualReforestation/sectionSpec'
+import specificForestCategories from '@webapp/app/assessment/fra/sections/specificForestCategories/sectionSpec'
 // 2
 import growingStock from '@webapp/app/assessment/fra/sections/growingStock/sectionSpec'
 import growingStockComposition from '@webapp/app/assessment/fra/sections/growingStockComposition/sectionSpec'
@@ -41,6 +42,7 @@ export default {
     [forestCharacteristics.sectionName]: forestCharacteristics,
     [forestAreaChange.sectionName]: forestAreaChange,
     [annualReforestation.sectionName]: annualReforestation,
+    [specificForestCategories.sectionName]: specificForestCategories,
     // 2
     [growingStock.sectionName]: growingStock,
     [growingStockComposition.sectionName]: growingStockComposition,
