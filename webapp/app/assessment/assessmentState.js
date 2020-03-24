@@ -111,10 +111,13 @@ export const getFra = (assessmentType, sectionName, tableName) =>
 export const getFraNoNDPs = (assessmentType, sectionName, tableName) =>
   R.pipe(getSectionData(assessmentType, sectionName, tableName), R.propOr(null, keysDataTableWithOdp.fraNoNDPs))
 
-// ==== By Years getter
+// ==== Table Data Cell getters
+
+export const getTableDataCell = ({ assessmentType, sectionName, tableName, colIdx, rowIdx }) =>
+  R.pipe(getSectionData(assessmentType, sectionName, tableName), R.pathOr(null, [rowIdx, colIdx]))
 
 export const getTableDataCellByFRAYear = ({ assessmentType, sectionName, tableName, year, rowIdx }) =>
-  R.pipe(getSectionData(assessmentType, sectionName, tableName), R.pathOr(null, [rowIdx, FRA.years.indexOf(year)]))
+  getTableDataCell({ assessmentType, sectionName, tableName, colIdx: FRA.years.indexOf(year), rowIdx })
 
 // ====== Section - Generating Values
 

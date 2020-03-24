@@ -2,6 +2,7 @@ import * as FRA from '@common/assessment/fra'
 
 import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
 
+import * as ExtentOfForestState from '@webapp/app/assessment/fra/sections/extentOfForest/extentOfForestState'
 import * as ForestOwnershipState from '@webapp/app/assessment/fra/sections/forestOwnership/forestOwnershipState'
 import * as ForestOwnershipValidatorState from '@webapp/app/assessment/fra/sections/forestOwnership/forestOwnershipValidatorState'
 
@@ -75,8 +76,24 @@ const tableSpec = SectionSpec.newTableSpec({
       [SectionSpec.KEYS_ROW.cols]: years.map(() =>
         SectionSpec.newColCalculated({
           [SectionSpec.KEYS_COL.calculateFn]: ForestOwnershipState.getOtherOrUnknown,
+          [SectionSpec.KEYS_COL.validator]: ForestOwnershipValidatorState.otherOrUnknownValidator,
         })
       ),
+    }),
+    SectionSpec.newRowData({
+      [SectionSpec.KEYS_ROW.labelKey]: 'forestOwnership.totalForestArea',
+      [SectionSpec.KEYS_ROW.linkToSection]: FRA.sections['1'].children.a.name,
+      [SectionSpec.KEYS_ROW.cols]: years.map(() =>
+        SectionSpec.newColCalculated({
+          [SectionSpec.KEYS_COL.calculateFn]: colIdx => ExtentOfForestState.getForestByYearFraIdx(colIdx),
+        })
+      ),
+    }),
+    SectionSpec.newRowNoticeMessage({
+      [SectionSpec.KEYS_ROW.rowSpan]: 2,
+    }),
+    SectionSpec.newRowValidationMessages({
+      [SectionSpec.KEYS_ROW.getValidationMessages]: ForestOwnershipValidatorState.getValidationMessages,
     }),
   ],
 })

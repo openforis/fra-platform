@@ -38,7 +38,9 @@ const tableSpec = SectionSpec.newTableSpec({
         })
       ),
     }),
-    SectionSpec.newRowNoticeMessage({}),
+    SectionSpec.newRowNoticeMessage({
+      [SectionSpec.KEYS_ROW.rowSpan]: 2,
+    }),
     SectionSpec.newRowValidationMessages({
       [SectionSpec.KEYS_ROW.getValidationMessages]: AnnualReforestationValidatorState.getValidationMessages,
     }),
