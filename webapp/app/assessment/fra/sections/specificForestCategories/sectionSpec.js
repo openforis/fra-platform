@@ -2,7 +2,7 @@ import * as FRA from '@common/assessment/fra'
 
 import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
 
-import * as SpecificForestCategoriesValidatorState from './specificForestCategoriesValidatorState'
+// import * as SpecificForestCategoriesValidatorState from './specificForestCategoriesValidatorState'
 
 const section = FRA.sections['1'].children.e
 const { yearsTable } = FRA
@@ -50,12 +50,13 @@ const tableSpec = SectionSpec.newTableSpec({
       [SectionSpec.KEYS_ROW.labelKey]: `specificForestCategories.rubberWood`,
       [SectionSpec.KEYS_ROW.cols]: yearsTable.map(() => SectionSpec.newColDecimal({})),
     }),
-    SectionSpec.newRowNoticeMessage({
-      [SectionSpec.KEYS_ROW.rowSpan]: 2,
-    }),
-    SectionSpec.newRowValidationMessages({
-      [SectionSpec.KEYS_ROW.getValidationMessages]: SpecificForestCategoriesValidatorState.getValidationMessages,
-    }),
+    // TODO add forestAreaLessThanOrEqualToExtentOfForestValidator
+    // SectionSpec.newRowNoticeMessage({
+    //   [SectionSpec.KEYS_ROW.rowSpan]: 2,
+    // }),
+    // SectionSpec.newRowValidationMessages({
+    //   [SectionSpec.KEYS_ROW.getValidationMessages]: SpecificForestCategoriesValidatorState.getValidationMessages,
+    // }),
   ],
 })
 

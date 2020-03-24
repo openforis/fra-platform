@@ -1,14 +1,12 @@
 import * as R from 'ramda'
+
 import * as FRA from '@common/assessment/fra'
-
 import * as FraUtils from '@common/fraUtils'
-
-import { sub, sum } from '@common/bignumberUtils'
+import * as NumberUtils from '@common/bignumberUtils'
 import { isPrintingMode } from '@webapp/app/assessment/components/print/printAssessment'
 
 import * as CountryState from '@webapp/app/country/countryState'
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
-import * as TableWithOdpState from '@webapp/app/assessment/fra/components/tableWithOdp/tableWithOdpState'
 
 export const keys = {
   showOdps: 'showOdps',
@@ -40,15 +38,11 @@ export const getExtentOfForestData = () =>
 
 export const getForestArea2015Value = year => R.pipe(CountryState.getConfigFra2015ForestAreas, R.prop(year))
 
-// ==== By Year getter functions
-
 export const getFaoStatAreaByYear = year => R.pipe(CountryState.getConfigFaoStat, R.path([year, 'area']))
 
-export const getForestByYear = year => TableWithOdpState.getFieldByYear(section.name, 'forestArea', year)
+export const getFaoStatArea = datum => getFaoStatAreaByYear(datum.name)
 
 // ==== Datum getter functions
-
-export const getFaoStatArea = datum => getFaoStatAreaByYear(datum.name)
 
 export const getForest = datum => () => R.propOr(null, 'forestArea', datum)
 
@@ -59,8 +53,17 @@ export const getOtherLand = datum => state => {
   const otherWoodedLand = getOtherWoodedLand(datum)()
   const faoStatArea = getFaoStatArea(datum)(state)
 
-  return sub(faoStatArea, sum([forestArea, otherWoodedLand]))
+  return NumberUtils.sub(faoStatArea, NumberUtils.sum([forestArea, otherWoodedLand]))
 }
+
+// ==== By Year getter functions
+
+const _getDatumValueByYear = (year, getDatumValueFn) => state =>
+  R.pipe(getExtentOfForestData(), FraUtils.getDatumByYear(year), datum => getDatumValueFn(datum)(state))(state)
+
+export const getForestByYear = year => _getDatumValueByYear(year, getForest)
+
+export const getOtherLandByYear = year => _getDatumValueByYear(year, getOtherLand)
 
 // ==== By Year index getter functions
 

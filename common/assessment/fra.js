@@ -56,6 +56,13 @@ const FRA = {
             specificForestCategories: 'specificForestCategories',
           },
         },
+        f: {
+          name: 'otherLandWithTreeCover',
+          anchor: '1f',
+          tables: {
+            otherLandWithTreeCover: 'otherLandWithTreeCover',
+          },
+        },
       },
     },
     2: {
