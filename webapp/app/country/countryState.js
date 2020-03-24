@@ -24,7 +24,8 @@ const _isNotEmpty = R.pipe(R.isEmpty, R.not)
 export const getCountries = R.pipe(getState, R.propOr({}, keys.countries))
 export const hasCountries = R.pipe(getCountries, _isNotEmpty)
 export const getCountriesList = R.pipe(getCountries, R.values, R.flatten)
-export const getCountryByCountryIso = countryIso => R.pipe(getCountriesList, R.find(R.propEq(Country.keys.countryIso, countryIso)))
+export const getCountryByCountryIso = countryIso =>
+  R.pipe(getCountriesList, R.find(R.propEq(Country.keys.countryIso, countryIso)))
 export const getConfig = R.pipe(getState, R.propOr({}, keys.config))
 export const getStatus = R.pipe(getState, R.propOr({}, keys.status))
 export const hasStatus = R.pipe(getStatus, _isNotEmpty)
@@ -46,8 +47,11 @@ export const getConfigFra2015ForestAreas = _getConfigProp('fra2015ForestAreas')
 export const getConfigpanEuropean = _getConfigProp('panEuropean')
 export const getConfigUseOriginalDataPointsInFoc = _getConfigProp('useOriginalDataPointsInFoc')
 
+export const getConfigCertifiedAreaByYear = year => R.pipe(getConfigCertifiedAreas, R.propOr(null, String(year)))
+
 // ====== TODO Move to assessmentState
-export const assocStatusAssessmentChanging = name => R.assocPath([keys.status, keysStatus.assessments, name, Assessment.keys.status], assessmentStatus.changing)
+export const assocStatusAssessmentChanging = name =>
+  R.assocPath([keys.status, keysStatus.assessments, name, Assessment.keys.status], assessmentStatus.changing)
 
 // status functions
 export const getAssessmentFra2020 = R.pipe(getAssessments, R.propOr({}, 'fra2020'))

@@ -31,6 +31,7 @@ import employment from '@webapp/app/assessment/fra/sections/employment/sectionSp
 import graduationOfStudents from '@webapp/app/assessment/fra/sections/graduationOfStudents/sectionSpec'
 import nonWoodForestProductsRemovals from '@webapp/app/assessment/fra/sections/nonWoodForestProductsRemovals/sectionSpec'
 // 8
+import sustainableDevelopment from '@webapp/app/assessment/fra/sections/sustainableDevelopment/sectionSpec'
 
 export default {
   [FRA.type]: {
@@ -60,5 +61,6 @@ export default {
     [graduationOfStudents.sectionName]: graduationOfStudents,
     [nonWoodForestProductsRemovals.sectionName]: nonWoodForestProductsRemovals,
     // 8
+    [sustainableDevelopment.sectionName]: sustainableDevelopment,
   },
 }
