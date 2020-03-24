@@ -107,6 +107,25 @@ const FRA = {
         },
       },
     },
+    4: {
+      label: 'navigation.sectionHeaders.forestOwnershipAndManagementRights',
+      children: {
+        a: {
+          name: 'forestOwnership',
+          anchor: '4a',
+          tables: {
+            forestOwnership: 'forestOwnership',
+          },
+        },
+        b: {
+          name: 'holderOfManagementRights',
+          anchor: '4b',
+          tables: {
+            holderOfManagementRights: 'holderOfManagementRights',
+          },
+        },
+      },
+    },
     5: {
       label: 'navigation.sectionHeaders.forestDisturbances',
       children: {
