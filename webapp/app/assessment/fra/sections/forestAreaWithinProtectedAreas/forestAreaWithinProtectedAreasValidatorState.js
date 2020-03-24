@@ -20,11 +20,9 @@ export const getValidationMessages = data => state => {
     const colMessages = []
     messages.push(colMessages)
 
-    for (let rowIdx = 0; rowIdx < data.length; rowIdx += 1) {
-      if (!protectedAreaValidator(colIdx, rowIdx)(state)) {
-        colMessages.push({ key: 'generalValidation.subCategoryExceedsParent' })
-        break
-      }
+    if (!protectedAreaValidator(colIdx, 2)(state)) {
+      colMessages.push({ key: 'generalValidation.subCategoryExceedsParent' })
+      break
     }
   }
 
