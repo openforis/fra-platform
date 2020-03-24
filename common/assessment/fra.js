@@ -152,6 +152,25 @@ const FRA = {
         },
       },
     },
+    6: {
+      label: 'navigation.sectionHeaders.forestPolicyAndLegislation',
+      children: {
+        a: {
+          name: 'forestPolicy',
+          anchor: '6a',
+          tables: {
+            forestPolicy: 'forestPolicy',
+          },
+        },
+        b: {
+          name: 'areaOfPermanentForestEstate',
+          anchor: '6b',
+          tables: {
+            areaOfPermanentForestEstate: 'areaOfPermanentForestEstate',
+          },
+        },
+      },
+    },
     7: {
       label: 'navigation.sectionHeaders.employmentEducationAndNwfp',
       children: {

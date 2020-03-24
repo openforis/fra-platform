@@ -28,6 +28,7 @@ import disturbances from '@webapp/app/assessment/fra/sections/disturbances/secti
 import areaAffectedByFire from '@webapp/app/assessment/fra/sections/areaAffectedByFire/sectionSpec'
 import degradedForest from '@webapp/app/assessment/fra/sections/degradedForest/sectionSpec'
 // 6
+import forestPolicy from '@webapp/app/assessment/fra/sections/forestPolicy/sectionSpec'
 // 7
 import employment from '@webapp/app/assessment/fra/sections/employment/sectionSpec'
 import graduationOfStudents from '@webapp/app/assessment/fra/sections/graduationOfStudents/sectionSpec'
@@ -60,6 +61,7 @@ export default {
     [areaAffectedByFire.sectionName]: areaAffectedByFire,
     [degradedForest.sectionName]: degradedForest,
     // 6
+    [forestPolicy.sectionName]: forestPolicy,
     // 7
     [employment.sectionName]: employment,
     [graduationOfStudents.sectionName]: graduationOfStudents,
