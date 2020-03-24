@@ -179,6 +179,22 @@ const FRA = {
         },
       },
     },
+    8: {
+      label: 'navigation.sectionHeaders.sustainableDevelopment',
+      children: {
+        a: {
+          name: 'sustainableDevelopment',
+          anchor: '8a',
+          tables: {
+            sustainableDevelopmentAgencyIndicator: 'sustainableDevelopmentAgencyIndicator',
+            sustainableDevelopmentAgencySubIndicator1: 'sustainableDevelopmentAgencySubIndicator1',
+            sustainableDevelopmentAgencySubIndicator2: 'sustainableDevelopmentAgencySubIndicator2',
+            sustainableDevelopmentAgencySubIndicator3: 'sustainableDevelopmentAgencySubIndicator3',
+            sustainableDevelopmentAgencySubIndicator4: 'sustainableDevelopmentAgencySubIndicator4',
+          },
+        },
+      },
+    },
   },
 }
 

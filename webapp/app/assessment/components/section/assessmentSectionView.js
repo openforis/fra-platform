@@ -1,3 +1,5 @@
+import './assessmentSectionView.less'
+
 import React, { useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router'
@@ -55,7 +57,7 @@ const AssessmentSectionView = () => {
   }
 
   return (
-    <div className="app-view__content" ref={appViewRef}>
+    <div className={`app-view__content assessment-section__${sectionName}`} ref={appViewRef}>
       <h2 className="title only-print">
         {`${isPrintingOnlyTables() ? '' : `${sectionAnchor} `}${i18n.t(`${sectionName}.${sectionName}`)}`}
       </h2>
