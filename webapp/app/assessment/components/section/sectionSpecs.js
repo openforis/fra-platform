@@ -22,6 +22,7 @@ import designatedManagementObjective from '@webapp/app/assessment/fra/sections/d
 import forestAreaWithinProtectedAreas from '@webapp/app/assessment/fra/sections/forestAreaWithinProtectedAreas/sectionSpec'
 // 4
 import forestOwnership from '@webapp/app/assessment/fra/sections/forestOwnership/sectionSpec'
+import holderOfManagementRights from '@webapp/app/assessment/fra/sections/holderOfManagementRights/sectionSpec'
 // 5
 import disturbances from '@webapp/app/assessment/fra/sections/disturbances/sectionSpec'
 import areaAffectedByFire from '@webapp/app/assessment/fra/sections/areaAffectedByFire/sectionSpec'
@@ -53,6 +54,7 @@ export default {
     [forestAreaWithinProtectedAreas.sectionName]: forestAreaWithinProtectedAreas,
     // 4
     [forestOwnership.sectionName]: forestOwnership,
+    [holderOfManagementRights.sectionName]: holderOfManagementRights,
     // 5
     [disturbances.sectionName]: disturbances,
     [areaAffectedByFire.sectionName]: areaAffectedByFire,

@@ -121,7 +121,7 @@ const FRA = {
           name: 'holderOfManagementRights',
           anchor: '4b',
           tables: {
-            forestOwnership: 'holderOfManagementRights',
+            holderOfManagementRights: 'holderOfManagementRights',
           },
         },
       },
