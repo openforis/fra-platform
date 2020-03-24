@@ -49,6 +49,13 @@ const FRA = {
             annualReforestation: 'annualReforestation',
           },
         },
+        e: {
+          name: 'specificForestCategories',
+          anchor: '1e',
+          tables: {
+            specificForestCategories: 'specificForestCategories',
+          },
+        },
       },
     },
     2: {
