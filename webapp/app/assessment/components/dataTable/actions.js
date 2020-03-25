@@ -35,15 +35,19 @@ const urlFetchData = {
 }
 
 export const fetchTableData = (assessmentType, sectionName, tableName) => async (dispatch, getState) => {
-  const countryIso = AppState.getCountryIso(getState())
+  const state = getState()
+  const dataInStore = AssessmentState.getSectionData(assessmentType, sectionName, tableName)(state)
+  if (R.isNil(dataInStore)) {
+    const countryIso = AppState.getCountryIso(state)
 
-  if (!R.isEmpty(tableName)) {
-    let url = urlFetchData[tableName]
-    url = url ? `${url}${countryIso}` : `/api/traditionalTable/${countryIso}/${tableName}`
+    if (!R.isEmpty(tableName)) {
+      let url = urlFetchData[tableName]
+      url = url ? `${url}${countryIso}` : `/api/traditionalTable/${countryIso}/${tableName}`
 
-    const { data } = await axios.get(url)
+      const { data } = await axios.get(url)
 
-    dispatch(updateTableData(assessmentType, sectionName, tableName, data))
+      dispatch(updateTableData(assessmentType, sectionName, tableName, data))
+    }
   }
 }
 
