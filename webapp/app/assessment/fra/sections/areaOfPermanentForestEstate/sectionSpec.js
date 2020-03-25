@@ -9,6 +9,13 @@ const { yearsTable } = FRA
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.areaOfPermanentForestEstate,
+  [SectionSpec.KEYS_TABLE.tableDataRequired]: [
+    {
+      [SectionSpec.KEYS_TABLE_DATA_REQUIRED.assessmentType]: FRA.type,
+      [SectionSpec.KEYS_TABLE_DATA_REQUIRED.sectionName]: FRA.sections['1'].children.a.name,
+      [SectionSpec.KEYS_TABLE_DATA_REQUIRED.tableName]: FRA.sections['1'].children.a.tables.extentOfForest,
+    },
+  ],
   [SectionSpec.KEYS_TABLE.rows]: [
     SectionSpec.newRowHeader({
       [SectionSpec.KEYS_ROW.cols]: [
