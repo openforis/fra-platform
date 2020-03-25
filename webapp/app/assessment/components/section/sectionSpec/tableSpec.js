@@ -10,6 +10,7 @@ export const KEYS_TABLE = {
   odp: 'odp',
   showOdpChart: 'showOdpChart',
   secondary: 'secondary',
+  tableDataRequired: 'tableDataRequired',
   // Functions
   getSectionData: 'getSectionData',
   isSectionDataEmpty: 'isSectionDataEmpty',
@@ -17,10 +18,17 @@ export const KEYS_TABLE = {
   updateTableDataCell: 'updateTableDataCell',
 }
 
+export const KEYS_TABLE_DATA_REQUIRED = {
+  assessmentType: 'assessmentType',
+  sectionName: 'sectionName',
+  tableName: 'tableName',
+}
+
 const tableDefault = {
   [KEYS_TABLE.name]: '',
   [KEYS_TABLE.rows]: [],
   [KEYS_TABLE.secondary]: false,
+  [KEYS_TABLE.tableDataRequired]: [],
   [KEYS_TABLE.getSectionData]: AssessmentState.getSectionData,
   [KEYS_TABLE.isSectionDataEmpty]: AssessmentState.isSectionDataEmpty,
   [KEYS_TABLE.odp]: false,

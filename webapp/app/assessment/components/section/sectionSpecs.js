@@ -1,7 +1,7 @@
 /**
  * This file contains all section specs for all assessments
  */
-
+import * as R from 'ramda'
 import * as FRA from '@common/assessment/fra'
 
 // ======= FRA section specs
@@ -39,7 +39,9 @@ import nonWoodForestProductsRemovals from '@webapp/app/assessment/fra/sections/n
 // 8
 import sustainableDevelopment from '@webapp/app/assessment/fra/sections/sustainableDevelopment/sectionSpec'
 
-export default {
+import * as SectionSpec from './sectionSpec'
+
+const sectionSpecs = {
   [FRA.type]: {
     // 0
     [contactPersons.sectionName]: contactPersons,
@@ -75,4 +77,19 @@ export default {
     // 8
     [sustainableDevelopment.sectionName]: sustainableDevelopment,
   },
+}
+
+export const getSectionSpec = (assessmentType, sectionName) => R.pathOr({}, [assessmentType, sectionName], sectionSpecs)
+
+export const getTableSpec = (assessmentType, sectionName, tableName) => {
+  const sectionSpec = getSectionSpec(assessmentType, sectionName)
+  const tableSectionSpecs = sectionSpec[SectionSpec.KEYS_SECTION.tableSections]
+  let tableSpec = null
+  for (let i = 0; i < tableSectionSpecs.length; i += 1) {
+    const tableSectionSpec = tableSectionSpecs[i]
+    const tableSpecs = tableSectionSpec[SectionSpec.KEYS_TABLE_SECTION.tableSpecs]
+    tableSpec = tableSpecs.find(R.propEq(SectionSpec.KEYS_TABLE.name, tableName))
+    if (tableSpec) break
+  }
+  return tableSpec
 }
