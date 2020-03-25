@@ -65,13 +65,33 @@ const newTableSDGIndicator = (
 // SDG 15.1.1
 const tableSection1 = SectionSpec.newTableSection({
   [SectionSpec.KEYS_TABLE_SECTION.tableSpecs]: [
-    newTableSDGIndicator(
-      SustainableDevelopmentState.years,
-      'sustainableDevelopment.indicator',
-      'sustainableDevelopment.percent',
-      'sustainableDevelopment.forestAreaProportionLandArea2015',
-      SustainableDevelopmentState.getForestAreaProportionLandArea2015
-    ),
+    {
+      ...newTableSDGIndicator(
+        SustainableDevelopmentState.years,
+        'sustainableDevelopment.indicator',
+        'sustainableDevelopment.percent',
+        'sustainableDevelopment.forestAreaProportionLandArea2015',
+        SustainableDevelopmentState.getForestAreaProportionLandArea2015
+      ),
+      [SectionSpec.KEYS_TABLE.tableDataRequired]: [
+        {
+          [SectionSpec.KEYS_TABLE_DATA_REQUIRED.assessmentType]: FRA.type,
+          [SectionSpec.KEYS_TABLE_DATA_REQUIRED.sectionName]: FRA.sections['1'].children.a.name,
+          [SectionSpec.KEYS_TABLE_DATA_REQUIRED.tableName]: FRA.sections['1'].children.a.tables.extentOfForest,
+        },
+        {
+          [SectionSpec.KEYS_TABLE_DATA_REQUIRED.assessmentType]: FRA.type,
+          [SectionSpec.KEYS_TABLE_DATA_REQUIRED.sectionName]: FRA.sections['2'].children.c.name,
+          [SectionSpec.KEYS_TABLE_DATA_REQUIRED.tableName]: FRA.sections['2'].children.c.tables.biomassStock,
+        },
+        {
+          [SectionSpec.KEYS_TABLE_DATA_REQUIRED.assessmentType]: FRA.type,
+          [SectionSpec.KEYS_TABLE_DATA_REQUIRED.sectionName]: FRA.sections['3'].children.b.name,
+          [SectionSpec.KEYS_TABLE_DATA_REQUIRED.tableName]:
+            FRA.sections['3'].children.b.tables.forestAreaWithinProtectedAreas,
+        },
+      ],
+    },
     newTableSpecResponsibleAgency(section.tables.sustainableDevelopmentAgencyIndicator),
   ],
   [SectionSpec.KEYS_TABLE_SECTION.titleKey]: 'sustainableDevelopment.sdgIndicator1',

@@ -3,7 +3,6 @@ import { batch } from 'react-redux'
 
 import * as NumberUtils from '@common/bignumberUtils'
 
-import * as AppState from '@webapp/app/appState'
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 import * as ForestAreaChangeState from '@webapp/app/assessment/fra/sections/forestAreaChange/forestAreaChangeState'
 
@@ -33,11 +32,10 @@ export const updateForestAreaChangeCell = (assessmentType, sectionName, tableNam
     // update Forest expansion
     R.when(R.always(rowIdx === 3), calculateMirrorValue(colIdx, rowIdx, 0, NumberUtils.add, state))
   )(state)
-  const countryIso = AppState.getCountryIso(state)
 
   batch(() => {
     dispatch(autosave.start)
     dispatch(updateTableData(assessmentType, sectionName, tableName, data))
-    dispatch(postTableData(tableName, data, `/api/traditionalTable/${countryIso}/${tableName}`))
+    dispatch(postTableData(tableName, data))
   })
 }
