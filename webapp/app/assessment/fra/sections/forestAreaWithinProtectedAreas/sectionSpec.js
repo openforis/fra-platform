@@ -33,11 +33,19 @@ const tableSpec1 = SectionSpec.newTableSpec({
     ...rowsHeader,
     SectionSpec.newRowData({
       [SectionSpec.KEYS_ROW.labelKey]: 'forestAreaWithinProtectedAreas.header',
-      [SectionSpec.KEYS_ROW.cols]: FRA.years.map(() => SectionSpec.newColDecimal()),
+      [SectionSpec.KEYS_ROW.cols]: FRA.years.map(() =>
+        SectionSpec.newColDecimal({
+          [SectionSpec.KEYS_COL.validator]: ForestAreaWithinProtectedAreasValidatorState.forestAreaValidator,
+        })
+      ),
     }),
     SectionSpec.newRowData({
       [SectionSpec.KEYS_ROW.labelKey]: 'forestAreaWithinProtectedAreas.forestAreaWithLongTermManagementPlan',
-      [SectionSpec.KEYS_ROW.cols]: FRA.years.map(() => SectionSpec.newColDecimal()),
+      [SectionSpec.KEYS_ROW.cols]: FRA.years.map(() =>
+        SectionSpec.newColDecimal({
+          [SectionSpec.KEYS_COL.validator]: ForestAreaWithinProtectedAreasValidatorState.forestAreaValidator,
+        })
+      ),
     }),
     SectionSpec.newRowData({
       [SectionSpec.KEYS_ROW.labelKey]: 'forestAreaWithinProtectedAreas.ofWhichInProtectedAreas',
