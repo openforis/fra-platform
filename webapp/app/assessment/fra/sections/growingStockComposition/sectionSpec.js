@@ -9,6 +9,13 @@ const years = FRA.yearsTable
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.growingStockComposition,
+  [SectionSpec.KEYS_TABLE.tableDataRequired]: [
+    {
+      [SectionSpec.KEYS_TABLE_DATA_REQUIRED.assessmentType]: FRA.type,
+      [SectionSpec.KEYS_TABLE_DATA_REQUIRED.sectionName]: FRA.sections['2'].children.a.name,
+      [SectionSpec.KEYS_TABLE_DATA_REQUIRED.tableName]: FRA.sections['2'].children.a.name,
+    },
+  ],
   [SectionSpec.KEYS_TABLE.rows]: [
     SectionSpec.newRowHeader({
       [SectionSpec.KEYS_ROW.cols]: [
