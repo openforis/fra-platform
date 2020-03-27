@@ -3,20 +3,20 @@
  */
 import * as ObjectUtils from '@common/objectUtils'
 
-export const BATCH = 'BATCHING.BATCH'
-export const PUSH = 'BATCHING.PUSH'
-export const POP = 'BATCHING.POP'
+export const BATCH = 'batching/batch'
+export const PUSH = 'batching/push'
+export const POP = 'batching/pop'
 
-export const batchActions = actions => ({ type: BATCH, payload: actions })
+export const batchActions = (actions) => ({ type: BATCH, payload: actions })
 
-export const batchMiddleware = store => next => action => {
+export const batchMiddleware = (store) => (next) => (action) => {
   const { dispatch } = store
 
   let result = null
   ;(async () => {
     if (action.type === BATCH) {
       dispatch({ type: PUSH })
-      result = await Promise.all(action.payload.map(batchedAction => dispatch(batchedAction)))
+      result = await Promise.all(action.payload.map((batchedAction) => dispatch(batchedAction)))
       dispatch({ type: POP })
     } else {
       result = next(action)
@@ -25,7 +25,7 @@ export const batchMiddleware = store => next => action => {
   return result
 }
 
-export const batchStoreEnhancer = next => {
+export const batchStoreEnhancer = (next) => {
   let currentListeners = []
   let nextListeners = currentListeners
 
@@ -35,7 +35,7 @@ export const batchStoreEnhancer = next => {
     }
   }
 
-  const subscribe = listener => {
+  const subscribe = (listener) => {
     if (!ObjectUtils.isFunction(listener)) {
       throw new Error('Expected listener to be a function.')
     }
@@ -60,7 +60,7 @@ export const batchStoreEnhancer = next => {
 
   const notifyListeners = () => {
     currentListeners = nextListeners
-    currentListeners.forEach(listener => listener())
+    currentListeners.forEach((listener) => listener())
   }
 
   return (...args) => {
@@ -69,7 +69,7 @@ export const batchStoreEnhancer = next => {
 
     let batchDepth = 0
     const dispatch = (...dispatchArgs) => {
-      dispatchArgs.forEach(arg => {
+      dispatchArgs.forEach((arg) => {
         const { type } = arg
         if (type) {
           if (type === PUSH) {
