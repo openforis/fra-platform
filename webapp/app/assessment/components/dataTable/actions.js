@@ -1,9 +1,9 @@
 import axios from 'axios'
 import * as R from 'ramda'
-import { batch } from 'react-redux'
 
 import * as FRA from '@common/assessment/fra'
 import * as FRAUtils from '@common/fraUtils'
+import { batchActions } from '@webapp/main/reduxBatch'
 
 import * as AppState from '@webapp/app/appState'
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
@@ -80,11 +80,8 @@ export const updateTableDataCell = (assessmentType, sectionName, tableName, rowI
     R.assocPath([rowIdx, colIdx], value)
   )(state)
 
-  batch(() => {
-    dispatch(autosave.start)
-    dispatch(updateTableData(assessmentType, sectionName, tableName, data))
-    dispatch(postTableData(tableName, data))
-  })
+  dispatch(batchActions([autosave.start, updateTableData(assessmentType, sectionName, tableName, data)]))
+  dispatch(postTableData(tableName, data))
 }
 
 export const updateTableWithOdpCell = (assessmentType, sectionName, tableName, datum) => (dispatch, getState) => {
@@ -105,11 +102,8 @@ export const updateTableWithOdpCell = (assessmentType, sectionName, tableName, d
   }
   const countryIso = AppState.getCountryIso(state)
 
-  batch(() => {
-    dispatch(autosave.start)
-    dispatch(updateTableData(assessmentType, sectionName, tableName, data))
-    dispatch(postTableData(sectionName, datum, `/api/nde/${tableName}/country/${countryIso}/${datum.name}`))
-  })
+  dispatch(batchActions([autosave.start, updateTableData(assessmentType, sectionName, tableName, data)]))
+  dispatch(postTableData(sectionName, datum, `/api/nde/${tableName}/country/${countryIso}/${datum.name}`))
 }
 
 // ====== Generate values action
@@ -120,28 +114,36 @@ export const generateTableData = (assessmentType, sectionName, tableName, method
 ) => {
   const countryIso = AppState.getCountryIso(getState())
 
-  batch(() => {
-    dispatch({
-      type: assessmentSectionDataGeneratingValuesUpdate,
-      assessmentType,
-      sectionName,
-      tableName,
-      generating: true,
-    })
-    dispatch(autosave.start)
+  dispatch(
+    batchActions([
+      {
+        type: assessmentSectionDataGeneratingValuesUpdate,
+        assessmentType,
+        sectionName,
+        tableName,
+        generating: true,
+      },
+      autosave.start,
+    ])
+  )
+
+  const { data } = await axios.post(`/api/nde/${sectionName}/generateFraValues/${countryIso}`, {
+    method,
+    fields,
+    changeRates,
   })
 
-  await axios.post(`/api/nde/${sectionName}/generateFraValues/${countryIso}`, { method, fields, changeRates })
-
-  batch(() => {
-    dispatch(fetchTableData(assessmentType, sectionName, tableName))
-    dispatch({
-      type: assessmentSectionDataGeneratingValuesUpdate,
-      assessmentType,
-      sectionName,
-      tableName,
-      generating: false,
-    })
-    dispatch(autosave.complete)
-  })
+  dispatch(
+    batchActions([
+      updateTableData(assessmentType, sectionName, tableName, data),
+      {
+        type: assessmentSectionDataGeneratingValuesUpdate,
+        assessmentType,
+        sectionName,
+        tableName,
+        generating: false,
+      },
+      autosave.complete,
+    ])
+  )
 }

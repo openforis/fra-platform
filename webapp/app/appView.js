@@ -4,6 +4,8 @@ import React, { useEffect, memo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Route, Switch, useParams } from 'react-router-dom'
 
+import { batchActions } from '@webapp/main/reduxBatch'
+
 import CountrySelection from '@webapp/app/components/countrySelection'
 import Header from '@webapp/app/components/header/header'
 import Navigation from '@webapp/app/components/navigation/navigation'
@@ -22,23 +24,24 @@ import { fetchCountryInitialData, fetchCountryList } from '@webapp/app/country/a
 
 import routes from './routes'
 
-const isInitialDataLoaded = state => CountryState.hasCountries(state) && CountryState.hasStatus(state)
-
 const LoggedInView = () => {
-  const dispatch = useDispatch()
   const { countryIso } = useParams()
+  const dispatch = useDispatch()
   const userInfo = useUserInfo()
-  const initialDataLoaded = useSelector(isInitialDataLoaded)
+  const countriesLoaded = useSelector(CountryState.hasCountries)
+  const countryStatusLoaded = useSelector(CountryState.hasStatus)
+  const initialDataLoaded = countriesLoaded && countryStatusLoaded
   const navigationVisible = useSelector(NavigationState.isVisible)
 
   useEffect(() => {
-    dispatch(fetchCountryList())
-  }, [])
-
-  useEffect(() => {
-    if (countryIso) {
-      dispatch(fetchCountryInitialData(countryIso))
+    const actions = []
+    if (!countriesLoaded) {
+      actions.push(fetchCountryList())
     }
+    if (countryIso) {
+      actions.push(fetchCountryInitialData(countryIso))
+    }
+    dispatch(batchActions(actions))
   }, [countryIso])
 
   if (countryIso && !initialDataLoaded) {

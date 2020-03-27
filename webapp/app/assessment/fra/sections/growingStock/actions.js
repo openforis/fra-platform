@@ -1,8 +1,8 @@
 import axios from 'axios'
 import * as R from 'ramda'
-import { batch } from 'react-redux'
 
 import * as FRA from '@common/assessment/fra'
+import { batchActions } from '@webapp/main/reduxBatch'
 
 import * as AppState from '@webapp/app/appState'
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
@@ -191,11 +191,8 @@ const updateGrowingStockCells = (year, variableName, avgValue, totalValue) => (d
   )(state)
   const countryIso = AppState.getCountryIso(state)
 
-  batch(() => {
-    dispatch(autosave.start)
-    dispatch(updateTableData(FRA.type, section.name, section.name, data))
-    dispatch(postTableData(section.name, data, `/api/growingStock/${countryIso}`))
-  })
+  dispatch(batchActions([autosave.start, updateTableData(FRA.type, section.name, section.name, data)]))
+  dispatch(postTableData(section.name, data, `/api/growingStock/${countryIso}`))
 }
 
 export const updateGrowingStockAvgCell = (assessmentType, sectionName, tableName, datum, variableName) => (

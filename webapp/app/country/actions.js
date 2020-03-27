@@ -1,6 +1,7 @@
 import axios from 'axios'
 import * as R from 'ramda'
-import { batch } from 'react-redux'
+
+import { batchActions } from '@webapp/main/reduxBatch'
 
 import * as AppState from '@webapp/app/appState'
 
@@ -23,11 +24,13 @@ export const getCountryConfig = countryIso => async dispatch => {
 }
 
 export const fetchCountryInitialData = countryIso => dispatch => {
-  batch(() => {
-    dispatch({ type: appCountryIsoUpdate, countryIso })
-    dispatch(fetchCountryOverviewStatus(countryIso))
-    dispatch(getCountryConfig(countryIso))
-  })
+  dispatch(
+    batchActions([
+      { type: appCountryIsoUpdate, countryIso },
+      fetchCountryOverviewStatus(countryIso),
+      getCountryConfig(countryIso),
+    ])
+  )
 }
 
 export const fetchCountryList = () => async dispatch => {
@@ -35,22 +38,14 @@ export const fetchCountryList = () => async dispatch => {
   dispatch({ type: listCountries, countries })
 }
 
-export const saveCountryConfigSetting = (key, value, onComplete) => async (dispatch, getState) => {
+export const saveCountryConfigSetting = (key, value) => async (dispatch, getState) => {
   const countryIso = AppState.getCountryIso(getState())
 
-  batch(() => {
-    dispatch(autosave.start)
-    dispatch({ type: changeCountryConfigSetting, key, value })
-  })
+  dispatch(batchActions([autosave.start, { type: changeCountryConfigSetting, key, value }]))
 
   await axios.post(`/api/country/config/${countryIso}`, { key, value })
 
-  batch(() => {
-    dispatch(autosave.complete)
-    if (onComplete) {
-      dispatch(onComplete)
-    }
-  })
+  dispatch(autosave.complete)
 }
 
 export const countryAssessmentStatusChanging = 'country/assessment/status/changing'
