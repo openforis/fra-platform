@@ -36,8 +36,8 @@ const urlFetchData = {
 
 export const fetchTableData = (assessmentType, sectionName, tableName) => async (dispatch, getState) => {
   const state = getState()
-  const dataInStore = AssessmentState.getSectionData(assessmentType, sectionName, tableName)(state)
-  if (R.isNil(dataInStore)) {
+  const dataLoaded = AssessmentState.isSectionDataLoaded(assessmentType, sectionName, tableName)(state)
+  if (!dataLoaded) {
     const countryIso = AppState.getCountryIso(state)
 
     if (!R.isEmpty(tableName)) {
