@@ -4,7 +4,8 @@ import PropTypes from 'prop-types'
 import Icon from '@webapp/components/icon'
 import Tooltip from '@webapp/components/tooltip'
 
-const Title = ({ error, title, i18n }) => {
+const Title = props => {
+  const { error, title, i18n } = props
   return (
     <h3 className={`subhead fra-description__header${error ? ' icon-red' : ''}`}>
       {error ? (

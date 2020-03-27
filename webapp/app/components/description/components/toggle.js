@@ -1,7 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const Toggle = ({ setOpen, open, i18n }) => {
+const Toggle = props => {
+  const { setOpen, open, i18n } = props
   return (
     <span
       role="button"
