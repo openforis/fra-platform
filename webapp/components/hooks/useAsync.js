@@ -31,7 +31,7 @@ export default (promiseFn, promiseArgs) => {
   }
 
   const setState = stateUpdate => {
-    _dispatch({ type: 0, payload: stateUpdate })
+    _dispatch({ type: 1, payload: stateUpdate })
   }
 
   return {

@@ -2,19 +2,18 @@ import React, { useRef, useEffect } from 'react'
 import PropTypes from 'prop-types'
 
 import ckEditorConfig from '@webapp/components/ckEditor/ckEditorConfig'
-import useCountryIso from '@webapp/components/hooks/useCountryIso'
-import usePostRequest from '@webapp/components/hooks/usePostRequest'
-
-// TODO refactor this away from here
-const getUrl = (countryIso, section, name) => `/api/country/descriptions/${countryIso}/${section}/${name}`
 
 const RichTextEditor = props => {
-  const { section, name, template, content } = props
+  const { name, value, onChange } = props
+
   const textareaRef = useRef(null)
   let editor = useRef(null)
-  const countryIso = useCountryIso()
+
   const initCkeditorChangeListener = () => {
-    editor.current.on('change', evt => usePostRequest(getUrl(countryIso, section, name), evt.editor.getData()))
+    editor.current.on('change', evt => {
+      const editorData = evt.editor.getData()
+      onChange(editorData)
+    })
   }
 
   const setEditorContent = _content => {
@@ -29,7 +28,7 @@ const RichTextEditor = props => {
     editor.current = window.CKEDITOR.replace(textareaRef.current, ckEditorConfig)
     // Data fetching is necessary when CKEDITOR instances are ready
     editor.current.on('instanceReady', () => {
-      setEditorContent(content || template)
+      setEditorContent(value)
     })
 
     return () => {
@@ -46,14 +45,13 @@ const RichTextEditor = props => {
 
 RichTextEditor.propTypes = {
   name: PropTypes.string.isRequired,
-  template: PropTypes.string,
-  section: PropTypes.string.isRequired,
-  content: PropTypes.string,
+  value: PropTypes.string,
+  onChange: PropTypes.func,
 }
 
 RichTextEditor.defaultProps = {
-  template: '',
-  content: '',
+  value: '',
+  onChange: () => {},
 }
 
 export default RichTextEditor

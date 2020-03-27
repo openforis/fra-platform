@@ -8,7 +8,6 @@ import originalDataPoint from '@webapp/app/assessment/fra/sections/originalDataP
 import autoSave from '@webapp/app/components/autosave/reducer'
 import navigation from '@webapp/app/components/navigation/reducer'
 import traditionalTable from '@webapp/app/assessment/components/traditionalTable/reducer'
-import descriptions from '@webapp/app/assessment/components/description/reducers'
 import review from '@webapp/app/assessment/components/review/reducer'
 import userManagement from '@webapp/app/user/userManagement/reducer'
 import country from '@webapp/app/country/reducer'
@@ -22,7 +21,6 @@ import countryMessageBoard from '@webapp/app/landing/messageBoard/reducer'
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 import * as OriginalDataPointState from '@webapp/app/assessment/fra/sections/originalDataPoint/originalDataPointState'
 import * as AutosaveState from '@webapp/app/components/autosave/autosaveState'
-// import * as DescriptionState from '@webapp/description/descriptionState'
 import * as ReviewState from '@webapp/app/assessment/components/review/reviewState'
 import * as UserManagementState from '@webapp/app/user/userManagement/userManagementState'
 import * as CountryState from '@webapp/app/country/countryState'
@@ -44,7 +42,6 @@ const reducers = [
 
   { name: NavigationState.stateKey, fn: navigation },
   { name: 'traditionalTable', fn: traditionalTable },
-  { name: 'descriptions', fn: descriptions },
   { name: ReviewState.stateKey, fn: review },
   { name: UserManagementState.stateKey, fn: userManagement },
   { name: CountryState.stateKey, fn: country },
