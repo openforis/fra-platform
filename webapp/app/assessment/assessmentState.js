@@ -102,6 +102,9 @@ export const assocSectionData = (assessmentType, sectionName, tableName, data) =
 export const getSectionData = (assessmentType, sectionName, tableName) =>
   R.pipe(getState, R.pathOr(null, _getTableDataPath(assessmentType, sectionName, tableName)))
 
+export const isSectionDataLoaded = (assessmentType, sectionName, tableName) =>
+  R.pipe(getSectionData(assessmentType, sectionName, tableName), R.isNil, R.not)
+
 export const isSectionDataEmpty = (assessmentType, sectionName, tableName) =>
   R.pipe(getSectionData(assessmentType, sectionName, tableName), FRAUtils.isTableEmpty)
 
