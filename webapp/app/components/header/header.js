@@ -8,7 +8,6 @@ import * as BasePaths from '@webapp/main/basePaths'
 
 import UserInfoLinks from '@webapp/app/components/header/components/userInfo'
 import LanguageSelection from '@webapp/app/components/header/components/languageSelection'
-import AdminLinks from '@webapp/app/components/header/components/adminLinks'
 import AppLinks from '@webapp/app/components/header/components/AppLinks'
 import AutoSaveStatusText from '@webapp/app/components/header/components/autoSaveStatusText'
 import ToggleNavigationControl from '@webapp/app/components/header/components/toggleNavigationControl'
@@ -35,7 +34,6 @@ const Header = props => {
           <>
             <LanguageSelection />
             <UserInfoLinks />
-            <AdminLinks />
             {!userInfo && (
               <Link key="admin-link" to={BasePaths.login} className="app-header__menu-item">
                 {i18n.t('common.login')}
