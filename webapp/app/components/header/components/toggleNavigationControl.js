@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import Icon from '@webapp/components/icon'
@@ -12,14 +12,24 @@ const ToggleNavigationControl = () => {
   const dispatch = useDispatch()
   const i18n = useI18n()
   const navigationVisible = useSelector(NavigationState.isVisible)
+  const [showLabel, setShowLabel] = useState(false)
 
-  const localisationKey = navigationVisible ? 'hideSidebar' : 'showSidebar'
   return (
-    <div className="app-header__toggle-navigation-visible"
-         onClick={() => dispatch(toggleNavigation())}>
-      <Icon className="icon-sub" name="menu-left"/>
-      {i18n.t('header.' + localisationKey)}
-    </div>
+    <button
+      type="button"
+      className="btn app-header__toggle-navigation-visible"
+      onClick={() => {
+        setShowLabel(false)
+        dispatch(toggleNavigation())
+      }}
+      onMouseEnter={() => setShowLabel(true)}
+      onMouseLeave={() => setShowLabel(false)}
+    >
+      <Icon className="icon-sub" name="menu-left" />
+      <span className={`label${showLabel ? ' show' : ''}`}>
+        {i18n.t(`header.${navigationVisible ? 'hideSidebar' : 'showSidebar'}`)}
+      </span>
+    </button>
   )
 }
 
