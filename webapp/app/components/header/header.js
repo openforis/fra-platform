@@ -16,7 +16,9 @@ import useI18n from '@webapp/components/hooks/useI18n'
 import useCountryIso from '@webapp/components/hooks/useCountryIso'
 import useUserInfo from '@webapp/components/hooks/useUserInfo'
 
-const Header = ({ hideLinks, hideNavigationControl }) => {
+const Header = props => {
+  const { hideLinks, hideNavigationControl } = props
+
   const userInfo = useUserInfo()
   const countryIso = useCountryIso()
   const i18n = useI18n()
