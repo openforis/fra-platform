@@ -9,7 +9,7 @@ import * as SectionSpec from '@webapp/app/assessment/components/section/sectionS
 import * as SectionSpecs from '@webapp/app/assessment/components/section/sectionSpecs'
 
 import { fetchTableData } from '@webapp/app/assessment/components/dataTable/actions'
-import { fetchLastSectionUpdateTimestamp } from '@webapp/app/components/audit/actions'
+import { fetchLastSectionUpdateTimestamp, resetSectionUpdateTimestamp } from '@webapp/app/components/audit/actions'
 import useCountryIso from '@webapp/components/hooks/useCountryIso'
 
 const getTables = (assessmentType, sectionName, tableName) => {
@@ -58,6 +58,10 @@ const useDataTableFetch = (assessmentType, sectionName, tableName) => {
         fetchLastSectionUpdateTimestamp(countryIso, sectionName),
       ])
     )
+
+    return () => {
+      dispatch(resetSectionUpdateTimestamp())
+    }
   }, [])
 }
 
