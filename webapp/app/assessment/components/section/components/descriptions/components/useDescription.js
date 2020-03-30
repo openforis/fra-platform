@@ -29,7 +29,7 @@ export default (name, section, template) => {
   const onChange = content => {
     dispatch(autosave.start)
     setState({ data: { [name]: { content } } })
-    debounce(postData, 'postDescriptionData', 800)()
+    debounce(postData, `postDescriptionData-${section}-${name}`, 800)()
   }
 
   // on mount fetch data
