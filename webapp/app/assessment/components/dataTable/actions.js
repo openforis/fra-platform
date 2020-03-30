@@ -1,9 +1,9 @@
 import axios from 'axios'
 import * as R from 'ramda'
-import { batch } from 'react-redux'
 
 import * as FRA from '@common/assessment/fra'
 import * as FRAUtils from '@common/fraUtils'
+import { batchActions } from '@webapp/main/reduxBatch'
 
 import * as AppState from '@webapp/app/appState'
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
@@ -13,13 +13,30 @@ import * as autosave from '@webapp/app/components/autosave/actions'
 export const assessmentSectionDataUpdate = 'assessment/section/data/update'
 export const assessmentSectionDataGeneratingValuesUpdate = 'assessment/section/data/generatingValues/update'
 
-export const updateTableData = (assessmentType, sectionName, tableName, data) => ({
-  type: assessmentSectionDataUpdate,
+export const updateTableData = ({
   assessmentType,
   sectionName,
   tableName,
   data,
-})
+  autoSaveStart,
+  autoSaveComplete,
+}) => dispatch => {
+  const actions = []
+
+  if (autoSaveStart) actions.push(autosave.start)
+
+  actions.push({
+    type: assessmentSectionDataUpdate,
+    assessmentType,
+    sectionName,
+    tableName,
+    data,
+  })
+
+  if (autoSaveComplete) actions.push(autosave.complete)
+
+  dispatch(batchActions(actions))
+}
 
 // ====== READ
 
@@ -46,7 +63,7 @@ export const fetchTableData = (assessmentType, sectionName, tableName) => async 
 
       const { data } = await axios.get(url)
 
-      dispatch(updateTableData(assessmentType, sectionName, tableName, data))
+      dispatch(updateTableData({ assessmentType, sectionName, tableName, data }))
     }
   }
 }
@@ -80,11 +97,8 @@ export const updateTableDataCell = (assessmentType, sectionName, tableName, rowI
     R.assocPath([rowIdx, colIdx], value)
   )(state)
 
-  batch(() => {
-    dispatch(autosave.start)
-    dispatch(updateTableData(assessmentType, sectionName, tableName, data))
-    dispatch(postTableData(tableName, data))
-  })
+  dispatch(updateTableData({ assessmentType, sectionName, tableName, data, autoSaveStart: true }))
+  dispatch(postTableData(tableName, data))
 }
 
 export const updateTableWithOdpCell = (assessmentType, sectionName, tableName, datum) => (dispatch, getState) => {
@@ -105,11 +119,8 @@ export const updateTableWithOdpCell = (assessmentType, sectionName, tableName, d
   }
   const countryIso = AppState.getCountryIso(state)
 
-  batch(() => {
-    dispatch(autosave.start)
-    dispatch(updateTableData(assessmentType, sectionName, tableName, data))
-    dispatch(postTableData(sectionName, datum, `/api/nde/${tableName}/country/${countryIso}/${datum.name}`))
-  })
+  dispatch(updateTableData({ assessmentType, sectionName, tableName, data, autoSaveStart: true }))
+  dispatch(postTableData(sectionName, datum, `/api/nde/${tableName}/country/${countryIso}/${datum.name}`))
 }
 
 // ====== Generate values action
@@ -120,28 +131,35 @@ export const generateTableData = (assessmentType, sectionName, tableName, method
 ) => {
   const countryIso = AppState.getCountryIso(getState())
 
-  batch(() => {
-    dispatch({
-      type: assessmentSectionDataGeneratingValuesUpdate,
-      assessmentType,
-      sectionName,
-      tableName,
-      generating: true,
-    })
-    dispatch(autosave.start)
+  dispatch(
+    batchActions([
+      {
+        type: assessmentSectionDataGeneratingValuesUpdate,
+        assessmentType,
+        sectionName,
+        tableName,
+        generating: true,
+      },
+      autosave.start,
+    ])
+  )
+
+  const { data } = await axios.post(`/api/nde/${sectionName}/generateFraValues/${countryIso}`, {
+    method,
+    fields,
+    changeRates,
   })
 
-  await axios.post(`/api/nde/${sectionName}/generateFraValues/${countryIso}`, { method, fields, changeRates })
-
-  batch(() => {
-    dispatch(fetchTableData(assessmentType, sectionName, tableName))
-    dispatch({
-      type: assessmentSectionDataGeneratingValuesUpdate,
-      assessmentType,
-      sectionName,
-      tableName,
-      generating: false,
-    })
-    dispatch(autosave.complete)
-  })
+  dispatch(
+    batchActions([
+      dispatch(updateTableData({ assessmentType, sectionName, tableName, data, autoSaveComplete: true })),
+      {
+        type: assessmentSectionDataGeneratingValuesUpdate,
+        assessmentType,
+        sectionName,
+        tableName,
+        generating: false,
+      },
+    ])
+  )
 }

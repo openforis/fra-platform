@@ -1,12 +1,10 @@
 import * as R from 'ramda'
-import { batch } from 'react-redux'
 
 import * as NumberUtils from '@common/bignumberUtils'
 
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 import * as ForestAreaChangeState from '@webapp/app/assessment/fra/sections/forestAreaChange/forestAreaChangeState'
 
-import * as autosave from '@webapp/app/components/autosave/actions'
 import { postTableData, updateTableData } from '@webapp/app/assessment/components/dataTable/actions'
 
 const calculateMirrorValue = (colIdx, rowIdx, rowIdxMirror, fn, state) => data => {
@@ -33,9 +31,6 @@ export const updateForestAreaChangeCell = (assessmentType, sectionName, tableNam
     R.when(R.always(rowIdx === 3), calculateMirrorValue(colIdx, rowIdx, 0, NumberUtils.add, state))
   )(state)
 
-  batch(() => {
-    dispatch(autosave.start)
-    dispatch(updateTableData(assessmentType, sectionName, tableName, data))
-    dispatch(postTableData(tableName, data))
-  })
+  dispatch(updateTableData({ assessmentType, sectionName, tableName, data, autoSaveStart: true }))
+  dispatch(postTableData(tableName, data))
 }

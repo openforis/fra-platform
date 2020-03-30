@@ -1,5 +1,8 @@
 import { useEffect } from 'react'
-import { useDispatch, batch } from 'react-redux'
+import { useDispatch } from 'react-redux'
+
+import { batchActions } from '@webapp/main/reduxBatch'
+
 import * as R from 'ramda'
 
 import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
@@ -43,18 +46,18 @@ const useDataTableFetch = (assessmentType, sectionName, tableName) => {
   const countryIso = useCountryIso()
 
   useEffect(() => {
-    batch(() => {
-      tables.forEach(table => {
-        dispatch(
+    dispatch(
+      batchActions([
+        ...tables.map(table =>
           fetchTableData(
             table[SectionSpec.KEYS_TABLE_DATA_REQUIRED.assessmentType],
             table[SectionSpec.KEYS_TABLE_DATA_REQUIRED.sectionName],
             table[SectionSpec.KEYS_TABLE_DATA_REQUIRED.tableName]
           )
-        )
-      })
-      dispatch(fetchLastSectionUpdateTimestamp(countryIso, sectionName))
-    })
+        ),
+        fetchLastSectionUpdateTimestamp(countryIso, sectionName),
+      ])
+    )
 
     return () => {
       dispatch(resetSectionUpdateTimestamp())
