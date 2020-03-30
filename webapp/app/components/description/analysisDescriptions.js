@@ -6,7 +6,8 @@ import { isPrintingMode, isPrintingOnlyTables } from '@webapp/app/assessment/com
 import CommentableDescription from '@webapp/app/components/description/commentableDescription'
 import useI18n from '@webapp/components/hooks/useI18n'
 
-const AnalysisDescriptions = ({ section }) => {
+const AnalysisDescriptions = props => {
+  const { section, disabled } = props
   const i18n = useI18n()
 
   return (
@@ -15,6 +16,7 @@ const AnalysisDescriptions = ({ section }) => {
         <h2 className="headline fra-description__group-header">{i18n.t('description.analysisAndProcessing')}</h2>
         <CommentableDescription
           title={i18n.t('description.estimationAndForecasting')}
+          disabled={disabled}
           section={section}
           name="estimationAndForecasting"
           showAlertEmptyContent={!isPrintingMode()}
@@ -22,6 +24,7 @@ const AnalysisDescriptions = ({ section }) => {
         />
         <CommentableDescription
           title={i18n.t('description.reclassification')}
+          disabled={disabled}
           section={section}
           name="reclassification"
           showAlertEmptyContent={!isPrintingMode()}
@@ -34,6 +37,7 @@ const AnalysisDescriptions = ({ section }) => {
 
 AnalysisDescriptions.propTypes = {
   section: PropTypes.string.isRequired,
+  disabled: PropTypes.bool.isRequired,
 }
 
 export default AnalysisDescriptions

@@ -7,7 +7,7 @@ import CommentableDescription from '@webapp/app/components/description/commentab
 import useI18n from '@webapp/components/hooks/useI18n'
 
 const NationalDataDescriptions = props => {
-  const { section } = props
+  const { section, disabled } = props
   const i18n = useI18n()
 
   return (
@@ -16,6 +16,7 @@ const NationalDataDescriptions = props => {
         <h2 className="headline fra-description__group-header">{i18n.t('description.nationalData')}</h2>
         <CommentableDescription
           title={i18n.t('description.dataSourcesPlus')}
+          disabled={disabled}
           section={section}
           name="dataSources"
           showAlertEmptyContent={!isPrintingMode()}
@@ -23,6 +24,7 @@ const NationalDataDescriptions = props => {
         />
         <CommentableDescription
           title={i18n.t('description.nationalClassificationAndDefinitions')}
+          disabled={disabled}
           section={section}
           name="nationalClassificationAndDefinitions"
           showAlertEmptyContent={!isPrintingMode()}
@@ -30,6 +32,7 @@ const NationalDataDescriptions = props => {
         />
         <CommentableDescription
           title={i18n.t('description.originalData')}
+          disabled={disabled}
           section={section}
           name="originalData"
           showAlertEmptyContent={!isPrintingMode()}
@@ -42,6 +45,7 @@ const NationalDataDescriptions = props => {
 
 NationalDataDescriptions.propTypes = {
   section: PropTypes.string.isRequired,
+  disabled: PropTypes.bool.isRequired,
 }
 
 export default NationalDataDescriptions

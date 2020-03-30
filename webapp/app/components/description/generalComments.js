@@ -5,7 +5,7 @@ import CommentableDescription from '@webapp/app/components/description/commentab
 import useI18n from '@webapp/components/hooks/useI18n'
 
 const GeneralComments = props => {
-  const { section } = props
+  const { section, disabled } = props
   const i18n = useI18n()
 
   return (
@@ -14,6 +14,7 @@ const GeneralComments = props => {
         section={section}
         title={i18n.t('description.generalCommentsTitle')}
         name="generalComments"
+        disabled={disabled}
       />
     </div>
   )
@@ -21,6 +22,7 @@ const GeneralComments = props => {
 
 GeneralComments.propTypes = {
   section: PropTypes.string.isRequired,
+  disabled: PropTypes.bool.isRequired,
 }
 
 export default GeneralComments
