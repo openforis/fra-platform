@@ -16,25 +16,29 @@ const getData = name => R.pathOr(null, [name, 'content'])
 export default (name, section, template) => {
   const dispatch = useDispatch()
   const countryIso = useCountryIso()
+
+  // ====== data read
   const { data = template || null, setState, loading, dispatch: fetchData } = useGetRequest(
     getUrl(countryIso, section, name)
   )
-
-  useEffect(fetchData, [section, countryIso])
-
-  const { dispatch: postData } = usePostRequest(getUrl(countryIso, section, name), {
+  // ====== data update
+  const { dispatch: postData, loaded: postDataLoaded } = usePostRequest(getUrl(countryIso, section, name), {
     content: getData(name)(data),
   })
 
-  useOnUpdate(() => {
-    dispatch(autosave.start)
-    debounce(postData, 'postDescriptionData', 800)()
-    dispatch(autosave.complete)
-  }, [data])
-
   const onChange = content => {
+    dispatch(autosave.start)
     setState({ data: { [name]: { content } } })
+    debounce(postData, 'postDescriptionData', 800)()
   }
+
+  // on mount fetch data
+  useEffect(fetchData, [section, countryIso])
+
+  // on post data loaded, dispatch autosave complete
+  useOnUpdate(() => {
+    dispatch(autosave.complete)
+  }, [postDataLoaded])
 
   return {
     value: getData(name)(data),
