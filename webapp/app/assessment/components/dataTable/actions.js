@@ -13,13 +13,30 @@ import * as autosave from '@webapp/app/components/autosave/actions'
 export const assessmentSectionDataUpdate = 'assessment/section/data/update'
 export const assessmentSectionDataGeneratingValuesUpdate = 'assessment/section/data/generatingValues/update'
 
-export const updateTableData = (assessmentType, sectionName, tableName, data) => ({
-  type: assessmentSectionDataUpdate,
+export const updateTableData = ({
   assessmentType,
   sectionName,
   tableName,
   data,
-})
+  autoSaveStart,
+  autoSaveComplete,
+}) => dispatch => {
+  const actions = []
+
+  if (autoSaveStart) actions.push(autosave.start)
+
+  actions.push({
+    type: assessmentSectionDataUpdate,
+    assessmentType,
+    sectionName,
+    tableName,
+    data,
+  })
+
+  if (autoSaveComplete) actions.push(autosave.complete)
+
+  dispatch(batchActions(actions))
+}
 
 // ====== READ
 
@@ -46,7 +63,7 @@ export const fetchTableData = (assessmentType, sectionName, tableName) => async 
 
       const { data } = await axios.get(url)
 
-      dispatch(updateTableData(assessmentType, sectionName, tableName, data))
+      dispatch(updateTableData({ assessmentType, sectionName, tableName, data }))
     }
   }
 }
@@ -80,7 +97,7 @@ export const updateTableDataCell = (assessmentType, sectionName, tableName, rowI
     R.assocPath([rowIdx, colIdx], value)
   )(state)
 
-  dispatch(batchActions([autosave.start, updateTableData(assessmentType, sectionName, tableName, data)]))
+  dispatch(updateTableData({ assessmentType, sectionName, tableName, data, autoSaveStart: true }))
   dispatch(postTableData(tableName, data))
 }
 
@@ -102,7 +119,7 @@ export const updateTableWithOdpCell = (assessmentType, sectionName, tableName, d
   }
   const countryIso = AppState.getCountryIso(state)
 
-  dispatch(batchActions([autosave.start, updateTableData(assessmentType, sectionName, tableName, data)]))
+  dispatch(updateTableData({ assessmentType, sectionName, tableName, data, autoSaveStart: true }))
   dispatch(postTableData(sectionName, datum, `/api/nde/${tableName}/country/${countryIso}/${datum.name}`))
 }
 
@@ -135,7 +152,7 @@ export const generateTableData = (assessmentType, sectionName, tableName, method
 
   dispatch(
     batchActions([
-      updateTableData(assessmentType, sectionName, tableName, data),
+      dispatch(updateTableData({ assessmentType, sectionName, tableName, data, autoSaveComplete: true })),
       {
         type: assessmentSectionDataGeneratingValuesUpdate,
         assessmentType,
@@ -143,7 +160,6 @@ export const generateTableData = (assessmentType, sectionName, tableName, method
         tableName,
         generating: false,
       },
-      autosave.complete,
     ])
   )
 }
