@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import CommentableDescription from '@webapp/app/components/description/commentableDescription'
+import CommentableDescription from '@webapp/app/assessment/components/section/components/descriptions/components/commentableDescription'
 import useI18n from '@webapp/components/hooks/useI18n'
 
 const GeneralComments = props => {

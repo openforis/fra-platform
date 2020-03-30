@@ -4,9 +4,9 @@ import { useSelector } from 'react-redux'
 
 import * as ObjectUtils from '@common/objectUtils'
 
-import NationalDataDescriptions from '@webapp/app/components/description/nationalDataDescriptions'
-import AnalysisDescriptions from '@webapp/app/components/description/analysisDescriptions'
-import CommentableDescription from '@webapp/app/components/description/commentableDescription'
+import NationalDataDescriptions from '@webapp/app/assessment/components/section/components/descriptions/components/nationalDataDescriptions'
+import AnalysisDescriptions from '@webapp/app/assessment/components/section/components/descriptions/components/analysisDescriptions'
+import CommentableDescription from '@webapp/app/assessment/components/section/components/descriptions/components/commentableDescription'
 import useI18n from '@webapp/components/hooks/useI18n'
 
 const Descriptions = props => {

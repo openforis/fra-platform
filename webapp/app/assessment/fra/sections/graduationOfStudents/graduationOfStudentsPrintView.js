@@ -4,8 +4,8 @@ import { connect } from 'react-redux'
 import tableSpec, { tableProps } from './tableSpec'
 
 import TraditionalTable from '@webapp/app/assessment/components/traditionalTable/traditionalTable'
-import NationalDataDescriptions from '@webapp/app/components/description/nationalDataDescriptions'
-import GeneralComments from '@webapp/app/components/description/generalComments'
+import NationalDataDescriptions from '@webapp/app/assessment/components/section/components/descriptions/components/nationalDataDescriptions'
+import GeneralComments from '@webapp/app/assessment/components/section/components/descriptions/components/generalComments'
 
 import * as AppState from '@webapp/app/appState'
 

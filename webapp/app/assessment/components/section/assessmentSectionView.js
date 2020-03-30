@@ -13,7 +13,7 @@ import CustomHeader from '@webapp/app/assessment/components/section/components/c
 import Title from '@webapp/app/assessment/components/section/components/title'
 import Descriptions from '@webapp/app/assessment/components/section/components/descriptions'
 import DataTable from '@webapp/app/assessment/components/dataTable'
-import GeneralComments from '@webapp/app/components/description/generalComments'
+import GeneralComments from '@webapp/app/assessment/components/section/components/descriptions/components/generalComments'
 import useCountryIso from '@webapp/components/hooks/useCountryIso'
 import useI18n from '@webapp/components/hooks/useI18n'
 
