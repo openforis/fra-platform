@@ -23,7 +23,7 @@ const GraduationOfStudentsView = props => {
     </h2>
 
     <div className="app-view__content">
-      <NationalDataDescriptions section={tableProps.graduationOfStudents.name} countryIso={countryIso}/>
+      <NationalDataDescriptions section={tableProps.graduationOfStudents.name} countryIso={countryIso} disabled={true}/>
 
       <h2 className="headline no-print">
         {i18n.t('graduationOfStudents.graduationOfStudents')} ({i18n.t('graduationOfStudents.average')})
@@ -35,7 +35,7 @@ const GraduationOfStudentsView = props => {
       <div className="page-break"/>
       <TraditionalTable tableSpec={tableSpecPrint2} countryIso={countryIso}/>
 
-      <GeneralComments section={tableProps.graduationOfStudents.name} countryIso={countryIso}/>
+      <GeneralComments section={tableProps.graduationOfStudents.name} countryIso={countryIso} disabled={true}/>
     </div>
   </>
 

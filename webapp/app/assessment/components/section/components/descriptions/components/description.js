@@ -35,7 +35,7 @@ const Description = props => {
 }
 
 Description.defaultProps = {
-  disabled: true,
+  disabled: false,
   template: null,
   showAlertEmptyContent: false,
   showDashEmptyContent: false,
