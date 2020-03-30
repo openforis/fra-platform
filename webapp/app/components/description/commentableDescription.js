@@ -4,8 +4,10 @@ import { useSelector } from 'react-redux'
 import * as R from 'ramda'
 
 import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
-import * as ReviewState from '@webapp/app/assessment/components/review/reviewState'
 import useCountryIso from '@webapp/components/hooks/useCountryIso'
+
+import * as ReviewState from '@webapp/app/assessment/components/review/reviewState'
+
 import Description from './description'
 
 const CommentableDescription = props => {

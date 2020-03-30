@@ -4,7 +4,8 @@ import PropTypes from 'prop-types'
 import CommentableDescription from '@webapp/app/components/description/commentableDescription'
 import useI18n from '@webapp/components/hooks/useI18n'
 
-const GeneralComments = ({ section }) => {
+const GeneralComments = props => {
+  const { section } = props
   const i18n = useI18n()
 
   return (
