@@ -35,13 +35,14 @@ const Description = props => {
 }
 
 Description.defaultProps = {
+  disabled: true,
   template: null,
   showAlertEmptyContent: false,
   showDashEmptyContent: false,
 }
 
 Description.propTypes = {
-  disabled: PropTypes.bool.isRequired,
+  disabled: PropTypes.bool,
   title: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   template: PropTypes.string,
