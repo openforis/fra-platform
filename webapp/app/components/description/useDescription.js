@@ -8,7 +8,6 @@ import usePostRequest from '@webapp/components/hooks/usePostRequest'
 import useCountryIso from '@webapp/components/hooks/useCountryIso'
 import useOnUpdate from '@webapp/components/hooks/useOnUpdate'
 
-const ID = 'postDescriptionData'
 const getUrl = (countryIso, section, name) => `/api/country/descriptions/${countryIso}/${section}/${name}`
 const getData = name => R.pathOr(null, [name, 'content'])
 
@@ -25,7 +24,7 @@ export default (name, section, template) => {
   })
 
   useOnUpdate(() => {
-    debounce(postData, ID, 800)()
+    debounce(postData, 'postDescriptionData', 800)()
   }, [data])
 
   const onChange = content => {

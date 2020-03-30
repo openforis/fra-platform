@@ -26,7 +26,6 @@ const RichTextEditor = props => {
 
   useEffect(() => {
     editor.current = window.CKEDITOR.replace(textareaRef.current, ckEditorConfig)
-    // Data fetching is necessary when CKEDITOR instances are ready
     editor.current.on('instanceReady', () => {
       setEditorContent(value)
     })
