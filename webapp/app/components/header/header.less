@@ -13,9 +13,17 @@
 
 .app-header__toggle-navigation-visible {
   .mixin-header-menu-item;
+  font-size: 1rem;
+  font-weight: 400;
 
-  .icon {
-    margin-right: 8px;
+  .label {
+    margin-left: 8px;
+    opacity: 0;
+    transition: opacity 0.1s ease-in;
+
+    &.show {
+      opacity: 1;
+    }
   }
 }
 
@@ -68,14 +76,31 @@
   }
 }
 
-.app-header__menu-item.hidden {
-  display: none;
-}
-
 .app-header__menu-item-separator {
   border-right: 1px solid @ui-border;
   height: 30px;
   width: 1px;
+}
+
+.app-header__app-link {
+  .mixin-header-menu-item;
+  font-weight: bold;
+  color: @text-mute;
+}
+
+.app-header__menu-item-user {
+  display: flex;
+  align-items: center;
+  padding: 15px 6px;
+  cursor: pointer;
+
+  img {
+    border: @ui-thin-border;
+    padding: 2px;
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+  }
 }
 
 @keyframes fadeInComplete {
