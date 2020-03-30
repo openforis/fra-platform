@@ -7,9 +7,9 @@ import { hasOdps } from '@common/extentOfForestHelper'
 
 import TableWithOdp from '@webapp/app/assessment/fra/components/tableWithOdp'
 import ChartWrapper from '@webapp/app/assessment/components/dataTable/chart/chartWrapper'
-import NationalDataDescriptions from '@webapp/app/assessment/components/description/nationalDataDescriptions'
-import AnalysisDescriptions from '@webapp/app/assessment/components/description/analysisDescriptions'
-import GeneralComments from '@webapp/app/assessment/components/description/generalComments'
+import NationalDataDescriptions from '@webapp/app/components/description/nationalDataDescriptions'
+import AnalysisDescriptions from '@webapp/app/components/description/analysisDescriptions'
+import GeneralComments from '@webapp/app/components/description/generalComments'
 import DefinitionLink from '@webapp/components/definitionLink'
 import NationalDataPointsPrintView
   from '@webapp/app/assessment/fra/sections/originalDataPoint/nationalDataPointsPrintView'

@@ -9,9 +9,9 @@ import {
 } from './tableSpecs'
 import DefinitionLink from '@webapp/components/definitionLink'
 import { fetchLastSectionUpdateTimestamp } from '@webapp/app/components/audit/actions'
-import NationalDataDescriptions from '@webapp/app/assessment/components/description/nationalDataDescriptions'
-import AnalysisDescriptions from '@webapp/app/assessment/components/description/analysisDescriptions'
-import GeneralComments from '@webapp/app/assessment/components/description/generalComments'
+import NationalDataDescriptions from '@webapp/app/components/description/nationalDataDescriptions'
+import AnalysisDescriptions from '@webapp/app/components/description/analysisDescriptions'
+import GeneralComments from '@webapp/app/components/description/generalComments'
 
 import * as R from 'ramda'
 import * as table from '@webapp/app/assessment/components/traditionalTable/table'
