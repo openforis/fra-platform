@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 import useI18n from '@webapp/components/hooks/useI18n'
 import useUserInfo from '@webapp/components/hooks/useUserInfo'
 
-import RichTextEditor from '@webapp/app/components/richTextEditor'
+import RichTextEditor from '@webapp/components/richTextEditor'
 import Title from './components/title'
 import Toggle from './components/toggle'
 import useDescription from './useDescription'
