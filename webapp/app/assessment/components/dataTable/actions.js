@@ -35,23 +35,28 @@ const urlFetchData = {
 }
 
 export const fetchTableData = (assessmentType, sectionName, tableName) => async (dispatch, getState) => {
-  const countryIso = AppState.getCountryIso(getState())
+  const state = getState()
+  const dataLoaded = AssessmentState.isSectionDataLoaded(assessmentType, sectionName, tableName)(state)
+  if (!dataLoaded) {
+    const countryIso = AppState.getCountryIso(state)
 
-  if (!R.isEmpty(tableName)) {
-    let url = urlFetchData[tableName]
-    url = url ? `${url}${countryIso}` : `/api/traditionalTable/${countryIso}/${tableName}`
+    if (!R.isEmpty(tableName)) {
+      let url = urlFetchData[tableName]
+      url = url ? `${url}${countryIso}` : `/api/traditionalTable/${countryIso}/${tableName}`
 
-    const { data } = await axios.get(url)
+      const { data } = await axios.get(url)
 
-    dispatch(updateTableData(assessmentType, sectionName, tableName, data))
+      dispatch(updateTableData(assessmentType, sectionName, tableName, data))
+    }
   }
 }
 
 // ====== UPDATE
 
-export const postTableData = (tableName, data, url) => {
-  const debounced = async dispatch => {
-    await axios.post(url, data)
+export const postTableData = (tableName, data, url = null) => {
+  const debounced = async (dispatch, getState) => {
+    const urlPost = url || `/api/traditionalTable/${AppState.getCountryIso(getState())}/${tableName}`
+    await axios.post(urlPost, data)
     dispatch(autosave.complete)
   }
 
@@ -74,12 +79,11 @@ export const updateTableDataCell = (assessmentType, sectionName, tableName, rowI
     AssessmentState.getSectionData(assessmentType, sectionName, tableName),
     R.assocPath([rowIdx, colIdx], value)
   )(state)
-  const countryIso = AppState.getCountryIso(state)
 
   batch(() => {
     dispatch(autosave.start)
     dispatch(updateTableData(assessmentType, sectionName, tableName, data))
-    dispatch(postTableData(tableName, data, `/api/traditionalTable/${countryIso}/${tableName}`))
+    dispatch(postTableData(tableName, data))
   })
 }
 

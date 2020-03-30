@@ -1,8 +1,9 @@
 import * as FRA from '@common/assessment/fra'
 import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
 
-import * as DisturbancesState from '@webapp/app/assessment/fra/sections/disturbances/disturbancesState'
 import * as ExtentOfForestState from '@webapp/app/assessment/fra/sections/extentOfForest/extentOfForestState'
+import * as DisturbancesState from '@webapp/app/assessment/fra/sections/disturbances/disturbancesState'
+import * as DisturbancesValidatorState from '@webapp/app/assessment/fra/sections/disturbances/disturbancesValidatorState'
 
 const section = FRA.sections['5'].children.a
 
@@ -15,6 +16,13 @@ const variables = {
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.disturbances,
+  [SectionSpec.KEYS_TABLE.tableDataRequired]: [
+    {
+      [SectionSpec.KEYS_TABLE_DATA_REQUIRED.assessmentType]: FRA.type,
+      [SectionSpec.KEYS_TABLE_DATA_REQUIRED.sectionName]: FRA.sections['1'].children.a.name,
+      [SectionSpec.KEYS_TABLE_DATA_REQUIRED.tableName]: FRA.sections['1'].children.a.tables.extentOfForest,
+    },
+  ],
   [SectionSpec.KEYS_TABLE.rows]: [
     SectionSpec.newRowHeader({
       [SectionSpec.KEYS_ROW.cols]: [
@@ -51,6 +59,7 @@ const tableSpec = SectionSpec.newTableSpec({
       [SectionSpec.KEYS_ROW.cols]: FRA.yearsAnnual.map(() =>
         SectionSpec.newColCalculated({
           [SectionSpec.KEYS_COL.calculateFn]: DisturbancesState.getDisturbancesTotal,
+          [SectionSpec.KEYS_COL.validator]: DisturbancesValidatorState.disturbancesTotalValidator,
         })
       ),
     }),
@@ -62,6 +71,12 @@ const tableSpec = SectionSpec.newTableSpec({
           [SectionSpec.KEYS_COL.calculateFn]: ExtentOfForestState.getForestByYearAnnualIdx,
         })
       ),
+    }),
+    SectionSpec.newRowNoticeMessage({
+      [SectionSpec.KEYS_ROW.rowSpan]: 2,
+    }),
+    SectionSpec.newRowValidationMessages({
+      [SectionSpec.KEYS_ROW.getValidationMessages]: DisturbancesValidatorState.getValidationMessages,
     }),
   ],
 })

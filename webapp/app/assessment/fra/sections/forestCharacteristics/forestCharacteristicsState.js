@@ -14,9 +14,7 @@ const section = FRA.sections['1'].children.b
 // ==== State getter functions
 
 const _getFra = AssessmentState.getFra(FRA.type, section.name, section.tables.forestCharacteristics)
-
-export const getForestCharacteristicsData = () =>
-  R.pipe(_getFra, R.when(R.always(isPrintingMode()), FraUtils.filterFraYears))
+const _getFraNoOdps = AssessmentState.getFraNoNDPs(FRA.type, section.name, section.tables.forestCharacteristics)
 
 export const isForestCharacteristicsDataEmpty = () => R.pipe(_getFra, FraUtils.isTableWithOdpEmpty)
 
@@ -26,7 +24,17 @@ export const hasOriginalDataPoints = state => {
   return extentOfForestHasOdps && useOriginalDataPointsInFoc
 }
 
-export const useDescriptions = R.pipe(_getFra, R.ifElse(R.isNil, R.F, R.pipe(FraUtils.hasOdps, R.not)))
+export const useDescriptions = R.ifElse(
+  AssessmentState.isSectionDataLoaded(FRA.type, section.name, section.tables.forestCharacteristics),
+  R.pipe(hasOriginalDataPoints, R.not),
+  R.always(false)
+)
+
+export const getForestCharacteristicsData = () =>
+  R.pipe(
+    R.ifElse(hasOriginalDataPoints, _getFra, _getFraNoOdps),
+    R.when(R.always(isPrintingMode()), FraUtils.filterFraYears)
+  )
 
 // ==== Datum getter functions
 

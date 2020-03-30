@@ -11,6 +11,7 @@ import Table from '@webapp/app/assessment/components/dataTable/table'
 import Chart from '@webapp/app/assessment/components/dataTable/chart'
 import GenerateValues from '@webapp/app/assessment/components/dataTable/generateValues'
 import useI18n from '@webapp/components/hooks/useI18n'
+import useDataTableFetch from '@webapp/app/assessment/components/dataTable/useDataTableFetch'
 
 const DataTable = props => {
   const { assessmentType, sectionName, sectionAnchor, tableSpec, disabled } = props
@@ -27,6 +28,7 @@ const DataTable = props => {
     updateTableDataCell,
   } = tableSpec
 
+  useDataTableFetch(assessmentType, sectionName, tableName)
   const i18n = useI18n()
   const data = useSelector(getSectionData(assessmentType, sectionName, tableName))
   const dataEmpty = useSelector(isSectionDataEmpty(assessmentType, sectionName, tableName))

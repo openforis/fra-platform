@@ -32,11 +32,19 @@ const tableSpec = SectionSpec.newTableSpec({
     }),
     SectionSpec.newRowData({
       [SectionSpec.KEYS_ROW.labelKey]: `specificForestCategories.bamboo`,
-      [SectionSpec.KEYS_ROW.cols]: yearsTable.map(() => SectionSpec.newColDecimal({})),
+      [SectionSpec.KEYS_ROW.cols]: yearsTable.map(() =>
+        SectionSpec.newColDecimal({
+          [SectionSpec.KEYS_COL.validator]: SpecificForestCategoriesValidatorState.forestAreaValidator,
+        })
+      ),
     }),
     SectionSpec.newRowData({
       [SectionSpec.KEYS_ROW.labelKey]: `specificForestCategories.mangroves`,
-      [SectionSpec.KEYS_ROW.cols]: yearsTable.map(() => SectionSpec.newColDecimal({})),
+      [SectionSpec.KEYS_ROW.cols]: yearsTable.map(() =>
+        SectionSpec.newColDecimal({
+          [SectionSpec.KEYS_COL.validator]: SpecificForestCategoriesValidatorState.forestAreaValidator,
+        })
+      ),
     }),
     SectionSpec.newRowData({
       [SectionSpec.KEYS_ROW.labelKey]: `specificForestCategories.temporarilyUnstocked`,
@@ -48,7 +56,11 @@ const tableSpec = SectionSpec.newTableSpec({
     }),
     SectionSpec.newRowData({
       [SectionSpec.KEYS_ROW.labelKey]: `specificForestCategories.rubberWood`,
-      [SectionSpec.KEYS_ROW.cols]: yearsTable.map(() => SectionSpec.newColDecimal({})),
+      [SectionSpec.KEYS_ROW.cols]: yearsTable.map(() =>
+        SectionSpec.newColDecimal({
+          [SectionSpec.KEYS_COL.validator]: SpecificForestCategoriesValidatorState.forestAreaValidator,
+        })
+      ),
     }),
     SectionSpec.newRowNoticeMessage({
       [SectionSpec.KEYS_ROW.rowSpan]: 2,

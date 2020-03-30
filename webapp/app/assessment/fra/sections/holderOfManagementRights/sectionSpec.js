@@ -9,6 +9,13 @@ const { years } = HolderOfManagementRightsState
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.holderOfManagementRights,
+  [SectionSpec.KEYS_TABLE.tableDataRequired]: [
+    {
+      [SectionSpec.KEYS_TABLE_DATA_REQUIRED.assessmentType]: FRA.type,
+      [SectionSpec.KEYS_TABLE_DATA_REQUIRED.sectionName]: FRA.sections['4'].children.a.name,
+      [SectionSpec.KEYS_TABLE_DATA_REQUIRED.tableName]: FRA.sections['4'].children.a.tables.forestOwnership,
+    },
+  ],
   [SectionSpec.KEYS_TABLE.rows]: [
     SectionSpec.newRowHeader({
       [SectionSpec.KEYS_ROW.cols]: [

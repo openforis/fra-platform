@@ -38,6 +38,9 @@ const isTableWithOdpEmpty = R.pipe(
   isTableEmpty
 )
 
+const getDatumByYear = year =>
+  R.pipe(R.defaultTo([]), R.find(R.propEq('name', String(year))), R.defaultTo({}))
+
 const updateTableWithOdpDatum = datum => data => {
   const { name } = datum
   const idx = R.findIndex(v => v.name === name && v.type === 'fra', data)
@@ -57,5 +60,6 @@ module.exports = {
   getOdps,
   hasOdps,
   isTableWithOdpEmpty,
+  getDatumByYear,
   updateTableWithOdpDatum,
 }

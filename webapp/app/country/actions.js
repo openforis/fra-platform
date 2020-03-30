@@ -7,9 +7,6 @@ import * as AppState from '@webapp/app/appState'
 import * as autosave from '@webapp/app/components/autosave/actions'
 import { appCountryIsoUpdate } from '@webapp/app/actions'
 
-import { fetchItem } from '@webapp/app/assessment/fra/components/tableWithOdp/actions'
-import { fetch as fetchGrowingStock } from '@webapp/app/assessment/fra/sections/growingStock/actions'
-
 export const listCountries = 'country/country/list'
 export const fetchCountryOverviewStatusCompleted = 'country/status/completed'
 export const countryConfig = 'country/countryConfig'
@@ -26,13 +23,11 @@ export const getCountryConfig = countryIso => async dispatch => {
 }
 
 export const fetchCountryInitialData = countryIso => dispatch => {
-  dispatch({ type: appCountryIsoUpdate, countryIso })
-
-  dispatch(fetchCountryOverviewStatus(countryIso))
-  dispatch(fetchItem('extentOfForest', countryIso))
-  dispatch(fetchItem('forestCharacteristics', countryIso))
-  dispatch(getCountryConfig(countryIso))
-  dispatch(fetchGrowingStock(countryIso))
+  batch(() => {
+    dispatch({ type: appCountryIsoUpdate, countryIso })
+    dispatch(fetchCountryOverviewStatus(countryIso))
+    dispatch(getCountryConfig(countryIso))
+  })
 }
 
 export const fetchCountryList = () => async dispatch => {

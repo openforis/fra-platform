@@ -7,7 +7,11 @@ export {
   newTableSection,
 } from '@webapp/app/assessment/components/section/sectionSpec/tableSectionSpec'
 
-export { KEYS_TABLE, newTableSpec } from '@webapp/app/assessment/components/section/sectionSpec/tableSpec'
+export {
+  KEYS_TABLE,
+  KEYS_TABLE_DATA_REQUIRED,
+  newTableSpec,
+} from '@webapp/app/assessment/components/section/sectionSpec/tableSpec'
 
 export {
   KEYS_ROW,

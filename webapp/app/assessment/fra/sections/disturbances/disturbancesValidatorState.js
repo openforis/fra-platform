@@ -1,20 +1,12 @@
 import * as FRA from '@common/assessment/fra'
 
-import * as AssessmentState from '@webapp/app/assessment/assessmentState'
+import * as DisturbancesState from '@webapp/app/assessment/fra/sections/disturbances/disturbancesState'
 import * as ExtentOfForestValidatorState from '@webapp/app/assessment/fra/sections/extentOfForest/extentOfForestValidatorState'
 
-const section = FRA.sections['1'].children.e
-
-export const forestAreaValidator = (colIdx, rowIdx) => state =>
+export const disturbancesTotalValidator = colIdx => state =>
   ExtentOfForestValidatorState.lessThanOrEqualToForestValidator(
-    FRA.yearsTable[colIdx],
-    AssessmentState.getTableDataCell({
-      assessmentType: FRA.type,
-      sectionName: section.name,
-      tableName: section.tables.specificForestCategories,
-      rowIdx,
-      colIdx,
-    })(state)
+    FRA.yearsAnnual[colIdx],
+    DisturbancesState.getDisturbancesTotal(colIdx)(state)
   )(state)
 
 export const getValidationMessages = data => state => {
@@ -25,11 +17,7 @@ export const getValidationMessages = data => state => {
     const colMessages = []
     messages.push(colMessages)
 
-    if (
-      !forestAreaValidator(colIdx, 0)(state) ||
-      !forestAreaValidator(colIdx, 1)(state) ||
-      !forestAreaValidator(colIdx, 4)(state)
-    ) {
+    if (!disturbancesTotalValidator(colIdx)(state)) {
       colMessages.push({ key: 'generalValidation.forestAreaExceedsExtentOfForest' })
     }
   }
