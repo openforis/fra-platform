@@ -1,5 +1,8 @@
 const R = require('ramda')
 
+/**
+ * @deprecated
+ */
 const assessments = {
   'fra2020': [
     {
@@ -96,8 +99,6 @@ const assessments = {
       children: [
         {
           tableNo: '3a',
-          label: 'designatedManagementObjective.designatedManagementObjective',
-          pathTemplate: '/country/:countryIso/designatedManagementObjective/',
           section: 'designatedManagementObjective'
         },
         {
@@ -212,6 +213,9 @@ const assessments = {
   ]
 }
 
+/**
+ * @deprecated
+ */
 const sectionsFromItems = items =>
   R.flatten(
     R.map(
@@ -220,6 +224,9 @@ const sectionsFromItems = items =>
     )
   )
 
+/**
+ * @deprecated
+ */
 const convertToAssessmentSections = assessments =>
   R.pipe(
     R.toPairs,
@@ -227,7 +234,17 @@ const convertToAssessmentSections = assessments =>
     R.fromPairs
   )(assessments)
 
+/**
+ * @deprecated
+ */
 const assessmentSections = convertToAssessmentSections(assessments)
 
+/**
+ * @deprecated
+ */
 module.exports.assessments = assessments
+
+/**
+ * @deprecated
+ */
 module.exports.assessmentSections = assessmentSections

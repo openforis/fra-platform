@@ -1,8 +1,11 @@
 import axios from 'axios'
 import * as R from 'ramda'
 
+import * as FRA from '@common/assessment/fra'
+import * as BasePaths from '@webapp/main/basePaths'
+
 import { applicationError } from '@webapp/app/components/error/actions'
-import * as autosave from '../../../../components/autosave/actions'
+import * as autosave from '@webapp/app/components/autosave/actions'
 import {
   removeClassPlaceholder,
   addNationalClassPlaceHolder,
@@ -67,7 +70,7 @@ export const remove = (countryIso, odpId, destination) => dispatch => {
     .then(() => {
       dispatch({type: odpClearActiveAction})
       dispatch(fetchCountryOverviewStatus(countryIso))
-      window.location = `/country/${countryIso}/${destination}/`
+      window.location = BasePaths.getAssessmentSectionLink(countryIso, FRA.type, destination)
     }).catch(err => dispatch(applicationError(err))
   )
 }
@@ -141,8 +144,8 @@ export const copyPreviousNationalClasses = (countryIso, odp) => dispatch => {
 export const cancelDraft = (countryIso, odpId, destination) => dispatch => {
   if (odpId)
     axios.delete(`/api/odp/draft/?odpId=${odpId}&countryIso=${countryIso}`)
-      .then(() => window.location = `/country/${countryIso}/${destination}/`)
+      .then(() => BasePaths.getAssessmentSectionLink(countryIso, FRA.type, destination))
       .catch((err) => dispatch(applicationError(err)))
   else
-    window.location = `/country/${countryIso}/`
+    window.location = BasePaths.getCountryHomeLink(countryIso)
 }

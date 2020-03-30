@@ -144,18 +144,20 @@ const ReviewPanel = props => {
   const i18n = useI18n()
   const location = useLocation()
 
-  useEffect(() => {
-    closeCommentThread(countryIso)
-  }, [countryIso, location])
-
   const isActive = R.pipe(R.defaultTo({}), R.isEmpty, R.not)(props.openThread)
-  const target = R.isNil(props.openThread) ? null : (props.openThread.target).join(',')
+  const target = R.isNil(props.openThread) ? null : props.openThread.target.join(',')
   const section = R.isNil(props.openThread) ? '' : props.openThread.section
   const title = R.isNil(props.openThread) ? '' : props.openThread.name
   const comments = R.defaultTo([], target ? props[target].issue : [])
   const issueId = comments && comments.length > 0 ? comments[0].issueId : null
   const issueStatus = comments && comments.length > 0 ? comments[0].issueStatus : null
   const close = () => closeCommentThread(countryIso, section, target)
+
+  useEffect(() => {
+    if (isActive) {
+      closeCommentThread(countryIso)
+    }
+  }, [countryIso, location])
 
   return isActive && (
     <div className="fra-review__container">

@@ -26,6 +26,7 @@ import defaultYears from '@server/eof/defaultYears'
 import * as AppState from '@webapp/app/appState'
 import * as CountryState from '@webapp/app/country/countryState'
 
+import { fetchItem } from '@webapp/app/assessment/fra/components/tableWithOdp/actions'
 import { fetchTableData } from '@webapp/app/assessment/components/traditionalTable/actions'
 import { fetch } from '@webapp/app/assessment/fra/sections/growingStock/actions'
 
@@ -33,7 +34,7 @@ const ContentCheckView = props => {
   const i18n = useI18n()
 
   const {
-    fetchTableData, fetch,
+    fetchItem, fetchTableData, fetch,
     //1
     extentOfForest, forestCharacteristics, specificForestCategories,
     //2
@@ -51,6 +52,8 @@ const ContentCheckView = props => {
 
   const fetchData = () => {
     //1
+    fetchItem('extentOfForest', countryIso)
+    fetchItem('forestCharacteristics', countryIso)
     fetchTableData(countryIso, specificForestCategoriesTableSpec(i18n, extentOfForest, forestCharacteristics))
     //2
     fetch(countryIso)
@@ -149,5 +152,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { fetchTableData, fetch }
+  { fetchItem, fetchTableData, fetch }
 )(ContentCheckView)

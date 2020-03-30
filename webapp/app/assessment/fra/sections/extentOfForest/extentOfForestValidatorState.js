@@ -1,5 +1,5 @@
 import * as R from 'ramda'
-import { abs, greaterThanOrEqualTo, lessThanOrEqualTo, sub } from '@common/bignumberUtils'
+import * as NumberUtils from '@common/bignumberUtils'
 
 import * as ExtentOfForestState from '@webapp/app/assessment/fra/sections/extentOfForest/extentOfForestState'
 
@@ -14,8 +14,8 @@ const forestAreaComparedTo2015Validator = datum => state => {
   }
 
   const tolerance = 1
-  const absDifference = abs(sub(forestArea2015, forestArea))
-  return lessThanOrEqualTo(absDifference, tolerance)
+  const absDifference = NumberUtils.abs(NumberUtils.sub(forestArea2015, forestArea))
+  return NumberUtils.lessThanOrEqualTo(absDifference, tolerance)
 }
 
 export const areasNotExceedingTotalLandAreaValidator = datum => state => {
@@ -25,10 +25,9 @@ export const areasNotExceedingTotalLandAreaValidator = datum => state => {
   if (R.isNil(faoStatArea) || R.isNil(otherLand)) {
     return true
   }
-  return greaterThanOrEqualTo(otherLand, 0)
+  return NumberUtils.greaterThanOrEqualTo(otherLand, 0)
 }
 
-//==== a
 export const forestAreaValidator = datum => state => {
   const { type } = datum
   const forestArea = ExtentOfForestState.getForest(datum)()
@@ -40,7 +39,6 @@ export const forestAreaValidator = datum => state => {
   return comparedTo2015Area && areasNotExceedingTotalLandArea && hasValue
 }
 
-//==== b
 export const otherWoodedLandValidator = datum => state => {
   const { otherWoodedLand, type } = datum
 
@@ -50,7 +48,20 @@ export const otherWoodedLandValidator = datum => state => {
   return areasNotExceedingTotalLandArea && hasValue
 }
 
-//==== Validation messages
+// ==== Common validator
+
+export const lessThanOrEqualToForestValidator = (year, value) => state => {
+  const forest = ExtentOfForestState.getForestByYear(year)(state)
+
+  if (R.isNil(value) || R.isNil(forest)) {
+    return true
+  }
+  const tolerance = -1
+  const difference = NumberUtils.sub(forest, value)
+  return NumberUtils.greaterThan(difference, tolerance)
+}
+
+// ==== Validation messages
 
 export const getValidationMessages = data => state =>
   data.map(datum => {
@@ -64,7 +75,7 @@ export const getValidationMessages = data => state =>
     if (!forestAreaComparedTo2015Validator(datum)(state)) {
       messages.push({
         key: 'extentOfForest.forestAreaDoesNotMatchPreviouslyReported',
-        params: { previous: ExtentOfForestState.getForestArea2015Value(year)(state) }
+        params: { previous: ExtentOfForestState.getForestArea2015Value(year)(state) },
       })
     }
 

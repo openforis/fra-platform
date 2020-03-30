@@ -3,8 +3,7 @@ import * as R from 'ramda'
 import { abs, greaterThan, greaterThanOrEqualTo, sub } from '@common/bignumberUtils'
 
 import * as ExtentOfForestState from '@webapp/app/assessment/fra/sections/extentOfForest/extentOfForestState'
-import * as ForestCharacteristicsState
-  from '@webapp/app/assessment/fra/sections/forestCharacteristics/forestCharacteristicsState'
+import * as ForestCharacteristicsState from '@webapp/app/assessment/fra/sections/forestCharacteristics/forestCharacteristicsState'
 
 // ==== Datum validator functions
 
@@ -35,7 +34,7 @@ export const totalForestAreaNotEqualToExtentOfForestValidator = datum => state =
   return !greaterThanOrEqualTo(absDifference, tolerance)
 }
 
-//==== Validation messages
+//= === Validation messages
 
 export const getValidationMessages = data => state =>
   data.map(datum => {

@@ -19,7 +19,7 @@ const LandingView = () => {
   const userInfo = useUserInfo()
   const i18n = useI18n()
 
-  const url = `/country/${countryIso}/`
+  const url = `/${countryIso}/`
   const sections = useLandingViewSections()
   const userAndCountry = userInfo && countryIso
 

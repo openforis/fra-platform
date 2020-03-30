@@ -1,11 +1,11 @@
 import axios from 'axios'
 import * as R from 'ramda'
+import { batch } from 'react-redux'
+
+import * as AppState from '@webapp/app/appState'
 
 import * as autosave from '@webapp/app/components/autosave/actions'
 import { appCountryIsoUpdate } from '@webapp/app/actions'
-
-import { fetchItem } from '@webapp/app/assessment/fra/components/tableWithOdp/actions'
-import { fetch as fetchGrowingStock } from '@webapp/app/assessment/fra/sections/growingStock/actions'
 
 export const listCountries = 'country/country/list'
 export const fetchCountryOverviewStatusCompleted = 'country/status/completed'
@@ -23,13 +23,11 @@ export const getCountryConfig = countryIso => async dispatch => {
 }
 
 export const fetchCountryInitialData = countryIso => dispatch => {
-  dispatch({ type: appCountryIsoUpdate, countryIso })
-
-  dispatch(fetchCountryOverviewStatus(countryIso))
-  dispatch(fetchItem('extentOfForest', countryIso))
-  dispatch(fetchItem('forestCharacteristics', countryIso))
-  dispatch(getCountryConfig(countryIso))
-  dispatch(fetchGrowingStock(countryIso))
+  batch(() => {
+    dispatch({ type: appCountryIsoUpdate, countryIso })
+    dispatch(fetchCountryOverviewStatus(countryIso))
+    dispatch(getCountryConfig(countryIso))
+  })
 }
 
 export const fetchCountryList = () => async dispatch => {
@@ -37,16 +35,22 @@ export const fetchCountryList = () => async dispatch => {
   dispatch({ type: listCountries, countries })
 }
 
-export const saveCountryConfigSetting = (countryIso, key, value, onComplete = null) => async dispatch => {
-  dispatch(autosave.start)
-  dispatch({ type: changeCountryConfigSetting, key, value })
+export const saveCountryConfigSetting = (key, value, onComplete) => async (dispatch, getState) => {
+  const countryIso = AppState.getCountryIso(getState())
+
+  batch(() => {
+    dispatch(autosave.start)
+    dispatch({ type: changeCountryConfigSetting, key, value })
+  })
 
   await axios.post(`/api/country/config/${countryIso}`, { key, value })
 
-  dispatch(autosave.complete)
-  if (onComplete) {
-    onComplete()
-  }
+  batch(() => {
+    dispatch(autosave.complete)
+    if (onComplete) {
+      dispatch(onComplete)
+    }
+  })
 }
 
 export const countryAssessmentStatusChanging = 'country/assessment/status/changing'
@@ -59,20 +63,14 @@ export const changeAssessment = (countryIso, assessment, notifyUsers) => async d
   dispatch(fetchCountryOverviewStatus(countryIso))
 }
 
-//====== Methods below are DEPRECATED - use them from country model object
+// ====== Methods below are DEPRECATED - use them from country model object
 /**
  * @deprecated
  */
-const getCountry = countryIso => R.pipe(
-  R.path(['country', 'countries']),
-  R.values,
-  R.flatten,
-  R.find(R.propEq('countryIso', countryIso)),
-)
+const getCountry = countryIso =>
+  R.pipe(R.path(['country', 'countries']), R.values, R.flatten, R.find(R.propEq('countryIso', countryIso)))
 /**
  * @deprecated
  */
-export const getCountryName = (countryIso, lang) => (dispatch, getState) => R.pipe(
-  getCountry(countryIso),
-  R.path(['listName', lang])
-)(getState())
+export const getCountryName = (countryIso, lang) => (dispatch, getState) =>
+  R.pipe(getCountry(countryIso), R.path(['listName', lang]))(getState())

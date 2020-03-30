@@ -32,7 +32,7 @@ const CountryListRow = props => {
 
   return (
     <Link
-      to={`/country/${country.countryIso}/`}
+      to={`/${country.countryIso}/`}
       className={`country-selection-list__row${selected ? ' selected' : ''}`}>
 
         <span className="country-selection-list__primary-col" ref={countryNameRef}>

@@ -1,7 +1,7 @@
-@import (reference) "~@webapp/main/styles/config";
-@import (reference) "~@webapp/main/styles/form";
-@import (reference) "~@webapp/main/styles/inputMixins";
-@import (reference) "~@webapp/main/styles/fraValidation";
+@import (reference) '~@webapp/main/styles/config';
+@import (reference) '~@webapp/main/styles/form';
+@import (reference) '~@webapp/main/styles/inputMixins';
+@import (reference) '~@webapp/main/styles/fraValidation';
 
 .fra-table__container {
   position: relative;
@@ -35,6 +35,12 @@
   }
 }
 
+.fra-secondary-table__wrapper {
+  th {
+    background-color: white;
+  }
+}
+
 .fra-table__header-cell {
   .mixin-table-cell(700, center, 10px);
 }
@@ -45,6 +51,10 @@
 
 .fra-table__category-cell {
   .mixin-table-cell(400, left, 10px);
+
+  .link {
+    font-weight: 700;
+  }
 }
 
 .fra-table__category-cell-right {
@@ -128,6 +138,9 @@
 // Select cell
 .fra-table__select-container {
   .mixin-input-container;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .fra-table__select {
@@ -158,8 +171,10 @@
 }
 
 .fra-table__notice-message-cell {
-  padding: 8px 4px;
-  vertical-align: top;
+  .message {
+    padding: 8px 4px;
+    vertical-align: top;
+  }
 }
 
 // Validation
@@ -173,6 +188,10 @@
   padding-top: 4px;
   min-width: 100%;
   width: 1px;
+
+  &:empty {
+    padding: 0;
+  }
 }
 
 .fra-table__validation-error {
@@ -212,4 +231,3 @@
 .fra-secondary-table__heading-cell {
   .mixin-table-cell(700, left, 10px);
 }
-
