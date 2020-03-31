@@ -35,8 +35,13 @@ const AnalysisDescriptions = (props) => {
 AnalysisDescriptions.propTypes = {
   section: PropTypes.string.isRequired,
   disabled: PropTypes.bool.isRequired,
-  showAlertEmptyContent: PropTypes.bool.isRequired,
-  showDashEmptyContent: PropTypes.bool.isRequired,
+  showAlertEmptyContent: PropTypes.bool,
+  showDashEmptyContent: PropTypes.bool,
+}
+
+AnalysisDescriptions.defaultProps = {
+  showAlertEmptyContent: false,
+  showDashEmptyContent: false,
 }
 
 export default AnalysisDescriptions

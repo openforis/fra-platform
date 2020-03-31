@@ -43,8 +43,13 @@ const NationalDataDescriptions = (props) => {
 NationalDataDescriptions.propTypes = {
   section: PropTypes.string.isRequired,
   disabled: PropTypes.bool.isRequired,
-  showAlertEmptyContent: PropTypes.bool.isRequired,
-  showDashEmptyContent: PropTypes.bool.isRequired,
+  showAlertEmptyContent: PropTypes.bool,
+  showDashEmptyContent: PropTypes.bool,
+}
+
+NationalDataDescriptions.defaultProps = {
+  showAlertEmptyContent: false,
+  showDashEmptyContent: false,
 }
 
 export default NationalDataDescriptions
