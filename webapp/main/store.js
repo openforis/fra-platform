@@ -16,7 +16,7 @@ const composeEnhancers =
 const middleware = [createDebounce(), thunkMiddleware, axiosErrorsMiddleware, batchMiddleware]
 const enhancer = composeEnhancers(applyMiddleware(...middleware), batchStoreEnhancer)
 
-const createReducer = asyncReducers =>
+const createReducer = (asyncReducers) =>
   combineReducers({
     ...reducer,
     ...asyncReducers,

@@ -11,9 +11,8 @@ import Table from '@webapp/app/assessment/components/dataTable/table'
 import Chart from '@webapp/app/assessment/components/dataTable/chart'
 import GenerateValues from '@webapp/app/assessment/components/dataTable/generateValues'
 import useI18n from '@webapp/components/hooks/useI18n'
-import useDataTableFetch from '@webapp/app/assessment/components/dataTable/useDataTableFetch'
 
-const DataTable = props => {
+const DataTable = (props) => {
   const { assessmentType, sectionName, sectionAnchor, tableSpec, disabled } = props
 
   const {
@@ -28,14 +27,12 @@ const DataTable = props => {
     updateTableDataCell,
   } = tableSpec
 
-  useDataTableFetch(assessmentType, sectionName, tableName)
   const i18n = useI18n()
   const data = useSelector(getSectionData(assessmentType, sectionName, tableName))
   const dataEmpty = useSelector(isSectionDataEmpty(assessmentType, sectionName, tableName))
   const generateValues = useSelector(
-    state => odp && !disabled && ObjectUtils.isFunction(canGenerateValues) && canGenerateValues(state)
+    (state) => odp && !disabled && ObjectUtils.isFunction(canGenerateValues) && canGenerateValues(state)
   )
-
   if (!data) {
     return null
   }
@@ -48,8 +45,8 @@ const DataTable = props => {
           <Chart
             fra={data}
             trends={rows
-              .filter(row => !!row.chartProps)
-              .map(row => ({
+              .filter((row) => !!row.chartProps)
+              .map((row) => ({
                 name: row.variableName,
                 label: i18n.t(row.chartProps.labelKey),
                 color: row.chartProps.color,

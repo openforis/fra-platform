@@ -13,17 +13,17 @@ export const fetchCountryOverviewStatusCompleted = 'country/status/completed'
 export const countryConfig = 'country/countryConfig'
 export const changeCountryConfigSetting = '/country/changeSetting'
 
-export const fetchCountryOverviewStatus = countryIso => async dispatch => {
+export const fetchCountryOverviewStatus = (countryIso) => async (dispatch) => {
   const { data: status } = await axios.get(`/api/country/overviewStatus/${countryIso}`)
   dispatch({ type: fetchCountryOverviewStatusCompleted, status })
 }
 
-export const getCountryConfig = countryIso => async dispatch => {
+export const getCountryConfig = (countryIso) => async (dispatch) => {
   const { data: config } = await axios.get(`/api/country/config/${countryIso}`)
   dispatch({ type: countryConfig, config })
 }
 
-export const fetchCountryInitialData = countryIso => dispatch => {
+export const fetchCountryInitialData = (countryIso) => (dispatch) => {
   dispatch(
     batchActions([
       { type: appCountryIsoUpdate, countryIso },
@@ -33,7 +33,7 @@ export const fetchCountryInitialData = countryIso => dispatch => {
   )
 }
 
-export const fetchCountryList = () => async dispatch => {
+export const fetchCountryList = () => async (dispatch) => {
   const { data: countries } = await axios.get('/api/country/all')
   dispatch({ type: listCountries, countries })
 }
@@ -50,7 +50,7 @@ export const saveCountryConfigSetting = (key, value) => async (dispatch, getStat
 
 export const countryAssessmentStatusChanging = 'country/assessment/status/changing'
 
-export const changeAssessment = (countryIso, assessment, notifyUsers) => async dispatch => {
+export const changeAssessment = (countryIso, assessment, notifyUsers) => async (dispatch) => {
   dispatch({ type: countryAssessmentStatusChanging, assessmentName: assessment.type })
   await axios.post(`/api/assessment/${countryIso}?notifyUsers=${notifyUsers}`, assessment)
 
@@ -62,7 +62,7 @@ export const changeAssessment = (countryIso, assessment, notifyUsers) => async d
 /**
  * @deprecated
  */
-const getCountry = countryIso =>
+const getCountry = (countryIso) =>
   R.pipe(R.path(['country', 'countries']), R.values, R.flatten, R.find(R.propEq('countryIso', countryIso)))
 /**
  * @deprecated
