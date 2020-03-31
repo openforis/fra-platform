@@ -1,38 +1,36 @@
 import React, { useRef, useState } from 'react'
 import PropTypes from 'prop-types'
+import { useSelector } from 'react-redux'
 
-import { isPrintingMode } from '@webapp/app/assessment/components/print/printAssessment'
 import { elementOffset } from '@webapp/utils/domUtils'
 
-import ChartContainer from './chartContainer'
+import * as AppState from '@webapp/app/appState'
+
 import useOnResize from '@webapp/components/hooks/useOnResize'
 
-const ChartWrapper = props => {
+import ChartContainer from './chartContainer'
+
+const ChartWrapper = (props) => {
   const { fra, trends } = props
+
+  const printView = useSelector(AppState.isPrintView)
 
   const chartRef = useRef(null)
   const [width, setWidth] = useState(null)
 
   // on mount and on resize, update width
   useOnResize(() => {
-    if (isPrintingMode()) {
+    if (printView) {
       setWidth(960)
     } else {
-      const { width } = elementOffset(chartRef.current)
-      setWidth(width)
+      const { width: widthUpdate } = elementOffset(chartRef.current)
+      setWidth(widthUpdate)
     }
   }, chartRef)
 
   return (
     <div ref={chartRef} className="chart__container">
-      {
-        width &&
-        <ChartContainer
-          fra={fra}
-          wrapperWidth={width}
-          trends={trends}
-        />
-      }
+      {width && <ChartContainer fra={fra} wrapperWidth={width} trends={trends} />}
     </div>
   )
 }

@@ -2,14 +2,15 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { isPrintingMode } from '@webapp/app/assessment/components/print/printAssessment'
 import { formatNumber } from '@common/bignumberUtils'
 import { acceptNextDecimal } from '@webapp/utils/numberInput'
+
+import * as AppState from '@webapp/app/appState'
 
 import { ThousandSeparatedDecimalInput } from '@webapp/components/thousandSeparatedDecimalInput'
 import useUserInfo from '@webapp/components/hooks/useUserInfo'
 
-const CellOdp = props => {
+const CellOdp = (props) => {
   const {
     assessmentType,
     sectionName,
@@ -24,19 +25,20 @@ const CellOdp = props => {
 
   const dispatch = useDispatch()
   const userInfo = useUserInfo()
-  const valid = useSelector(state => {
+  const valid = useSelector((state) => {
     if (!userInfo || !validator) {
       return true
     }
     return validator(datum)(state)
   })
+  const printView = useSelector(AppState.isPrintView)
 
   const datumValue = datum[variableName]
   const calculated = !!calculateFn
   const { type } = datum
   const odp = type === 'odp'
 
-  const odpCssCheck = odp && !isPrintingMode()
+  const odpCssCheck = odp && !printView
   let className = calculated ? 'fra-table__calculated-cell' : 'fra-table__cell'
   className += odpCssCheck ? ' odp-value-cell' : ''
   className += valid ? '' : ' validation-error'
@@ -57,7 +59,7 @@ const CellOdp = props => {
           onPaste={() => {
             // TODO
           }}
-          onChange={e => {
+          onChange={(e) => {
             const { value } = e.target
 
             let valueUpdate = acceptNextDecimal(value, datumValue)

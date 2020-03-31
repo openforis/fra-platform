@@ -5,7 +5,8 @@ import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
 
 import * as ObjectUtils from '@common/objectUtils'
-import { isPrintingMode, isPrintingOnlyTables } from '@webapp/app/assessment/components/print/printAssessment'
+
+import * as AppState from '@webapp/app/appState'
 
 import Table from '@webapp/app/assessment/components/dataTable/table'
 import Chart from '@webapp/app/assessment/components/dataTable/chart'
@@ -33,13 +34,16 @@ const DataTable = (props) => {
   const generateValues = useSelector(
     (state) => odp && !disabled && ObjectUtils.isFunction(canGenerateValues) && canGenerateValues(state)
   )
+  const printView = useSelector(AppState.isPrintView)
+  const printOnlyTablesView = useSelector(AppState.isPrintOnlyTablesView)
+
   if (!data) {
     return null
   }
 
   return (
     <>
-      {showOdpChart && (!isPrintingMode() || (!isPrintingOnlyTables() && !dataEmpty)) && (
+      {showOdpChart && (!printView || (!printOnlyTablesView && !dataEmpty)) && (
         <>
           <div className="page-break" />
           <Chart
