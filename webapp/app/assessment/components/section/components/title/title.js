@@ -17,7 +17,7 @@ const components = {
   },
 }
 
-const Title = props => {
+const Title = (props) => {
   const i18n = useI18n()
   const { assessmentType, sectionName, sectionAnchor } = props
   const component = R.pipe(
@@ -29,7 +29,7 @@ const Title = props => {
     <>
       {React.createElement(component, { assessmentType, sectionName })}
 
-      <div className="app-view__section-toolbar">
+      <div className="app-view__section-toolbar no-print">
         <DefinitionLink
           className="margin-right-big"
           document="tad"

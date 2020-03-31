@@ -45,7 +45,6 @@ const DataTable = (props) => {
     <>
       {showOdpChart && (!printView || (!printOnlyTablesView && !dataEmpty)) && (
         <>
-          <div className="page-break" />
           <Chart
             fra={data}
             trends={rows
@@ -56,6 +55,7 @@ const DataTable = (props) => {
                 color: row.chartProps.color,
               }))}
           />
+          <div className="page-break" />
         </>
       )}
 

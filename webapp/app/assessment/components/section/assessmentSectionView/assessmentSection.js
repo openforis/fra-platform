@@ -46,8 +46,8 @@ const AssessmentSection = forwardRef((props, ref) => {
         <div key={tableSection.idx}>
           {tableSection.titleKey && <h3 className="subhead">{i18n.t(tableSection.titleKey)}</h3>}
           {tableSection.descriptionKey && (
-            <div className="app-view__section-toolbar">
-              <div className="support-text no-print">{i18n.t(tableSection.descriptionKey)}</div>
+            <div className="app-view__section-toolbar no-print">
+              <div className="support-text">{i18n.t(tableSection.descriptionKey)}</div>
             </div>
           )}
 
