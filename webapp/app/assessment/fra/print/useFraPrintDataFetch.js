@@ -11,6 +11,7 @@ import * as SectionSpec from '@webapp/app/assessment/components/section/sectionS
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 import { fetchTableData } from '@webapp/app/assessment/components/dataTable/actions'
 import { fetchUsers } from '@webapp/app/user/userManagement/actions'
+import { fetchOdps } from '@webapp/app/assessment/fra/sections/originalDataPoint/actions'
 
 const useFraPrintDataFetch = (countryIso) => {
   const dispatch = useDispatch()
@@ -32,12 +33,19 @@ const useFraPrintDataFetch = (countryIso) => {
   useEffect(() => {
     const actions = tables.map((table) => fetchTableData(FRA.type, table.sectionName, table.tableName))
     actions.push(fetchUsers(countryIso, true))
+    actions.push(fetchOdps(countryIso))
 
     dispatch(batchActions(actions))
   }, [])
 
-  const dataLoaded = useSelector((state) =>
-    tables.every((table) => AssessmentState.isSectionDataLoaded(FRA.type, table.sectionName, table.tableName)(state))
+  const dataLoaded = useSelector(
+    (state) =>
+      tables.every((table) =>
+        AssessmentState.isSectionDataLoaded(FRA.type, table.sectionName, table.tableName)(state)
+      ) &&
+      // TODO add state objects
+      state.userManagement.countryUsers &&
+      state.originalDataPoint.odps
   )
 
   return {

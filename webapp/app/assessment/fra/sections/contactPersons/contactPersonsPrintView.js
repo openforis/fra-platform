@@ -9,8 +9,7 @@ const ContactPersonsPrintView = () => {
   const i18n = useI18n()
 
   const users = useSelector((state) => {
-    const countryUsers = state.userManagement.countryUsers || []
-    return countryUsers.filter((u) => u.active)
+    return state.userManagement.countryUsers.filter((u) => u.active)
   })
 
   return (
