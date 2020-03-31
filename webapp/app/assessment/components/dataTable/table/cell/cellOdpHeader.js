@@ -28,7 +28,7 @@ const CellOdpHeader = (props) => {
 
   return (
     <th className={className}>
-      {odp ? (
+      {odp && !printView ? (
         <Tooltip text={i18n.t('nationalDataPoint.clickOnNDP')}>
           <Link className="link" to={BasePaths.getOdpLink(countryIso, sectionName, odpId)}>
             {draft && userInfo && <Icon className="icon-sub icon-margin-right" name="pencil" />}
