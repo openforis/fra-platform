@@ -81,15 +81,17 @@ const sectionSpecs = {
 
 export const getSectionSpec = (assessmentType, sectionName) => R.pathOr({}, [assessmentType, sectionName], sectionSpecs)
 
-export const getTableSpec = (assessmentType, sectionName, tableName) => {
+export const getTableSectionSpecs = (assessmentType, sectionName) => {
   const sectionSpec = getSectionSpec(assessmentType, sectionName)
-  const tableSectionSpecs = sectionSpec[SectionSpec.KEYS_SECTION.tableSections]
-  let tableSpec = null
-  for (let i = 0; i < tableSectionSpecs.length; i += 1) {
-    const tableSectionSpec = tableSectionSpecs[i]
-    const tableSpecs = tableSectionSpec[SectionSpec.KEYS_TABLE_SECTION.tableSpecs]
-    tableSpec = tableSpecs.find(R.propEq(SectionSpec.KEYS_TABLE.name, tableName))
-    if (tableSpec) break
-  }
-  return tableSpec
+  return sectionSpec[SectionSpec.KEYS_SECTION.tableSections]
+}
+
+export const getTableSpecs = (assessmentType, sectionName) => {
+  const tableSectionSpecs = getTableSectionSpecs(assessmentType, sectionName)
+  return tableSectionSpecs.map((tableSectionSpec) => tableSectionSpec[SectionSpec.KEYS_TABLE_SECTION.tableSpecs]).flat()
+}
+
+export const getTableSpec = (assessmentType, sectionName, tableName) => {
+  const tableSpecs = getTableSpecs(assessmentType, sectionName)
+  return tableSpecs.find(R.propEq(SectionSpec.KEYS_TABLE.name, tableName))
 }
