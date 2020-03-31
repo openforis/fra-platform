@@ -4,8 +4,8 @@ import { connect } from 'react-redux'
 import tableSpec, { tableProps } from './tableSpec'
 
 import TraditionalTable from '@webapp/app/assessment/components/traditionalTable/traditionalTable'
-import NationalDataDescriptions from '@webapp/app/assessment/components/description/nationalDataDescriptions'
-import GeneralComments from '@webapp/app/assessment/components/description/generalComments'
+import NationalDataDescriptions from '@webapp/app/assessment/components/section/components/descriptions/components/nationalDataDescriptions'
+import GeneralComments from '@webapp/app/assessment/components/section/components/descriptions/components/generalComments'
 
 import * as AppState from '@webapp/app/appState'
 
@@ -23,7 +23,7 @@ const GraduationOfStudentsView = props => {
     </h2>
 
     <div className="app-view__content">
-      <NationalDataDescriptions section={tableProps.graduationOfStudents.name} countryIso={countryIso}/>
+      <NationalDataDescriptions section={tableProps.graduationOfStudents.name} countryIso={countryIso} disabled={true}/>
 
       <h2 className="headline no-print">
         {i18n.t('graduationOfStudents.graduationOfStudents')} ({i18n.t('graduationOfStudents.average')})
@@ -35,7 +35,7 @@ const GraduationOfStudentsView = props => {
       <div className="page-break"/>
       <TraditionalTable tableSpec={tableSpecPrint2} countryIso={countryIso}/>
 
-      <GeneralComments section={tableProps.graduationOfStudents.name} countryIso={countryIso}/>
+      <GeneralComments section={tableProps.graduationOfStudents.name} countryIso={countryIso} disabled={true}/>
     </div>
   </>
 
