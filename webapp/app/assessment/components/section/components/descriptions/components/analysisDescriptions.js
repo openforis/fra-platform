@@ -6,7 +6,7 @@ import { isPrintingMode, isPrintingOnlyTables } from '@webapp/app/assessment/com
 import CommentableDescription from '@webapp/app/assessment/components/section/components/descriptions/components/commentableDescription'
 import useI18n from '@webapp/components/hooks/useI18n'
 
-const AnalysisDescriptions = props => {
+const AnalysisDescriptions = (props) => {
   const { section, disabled } = props
   const i18n = useI18n()
 

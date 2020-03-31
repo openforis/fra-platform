@@ -10,7 +10,7 @@ import * as ReviewState from '@webapp/app/assessment/components/review/reviewSta
 
 import Description from './description'
 
-const CommentableDescription = props => {
+const CommentableDescription = (props) => {
   const { disabled, title, section, name, template, showAlertEmptyContent, showDashEmptyContent } = props
   const openCommentThreadTarget = useSelector(ReviewState.getOpenThreadTarget)
   const countryIso = useCountryIso()
