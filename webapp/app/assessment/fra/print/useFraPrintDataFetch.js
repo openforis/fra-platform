@@ -10,8 +10,9 @@ import * as SectionSpec from '@webapp/app/assessment/components/section/sectionS
 
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 import { fetchTableData } from '@webapp/app/assessment/components/dataTable/actions'
+import { fetchUsers } from '@webapp/app/user/userManagement/actions'
 
-const useFraPrintDataFetch = () => {
+const useFraPrintDataFetch = (countryIso) => {
   const dispatch = useDispatch()
 
   const tables = Object.values(FRA.sections)
@@ -30,6 +31,8 @@ const useFraPrintDataFetch = () => {
 
   useEffect(() => {
     const actions = tables.map((table) => fetchTableData(FRA.type, table.sectionName, table.tableName))
+    actions.push(fetchUsers(countryIso, true))
+
     dispatch(batchActions(actions))
   }, [])
 

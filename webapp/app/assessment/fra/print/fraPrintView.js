@@ -12,6 +12,7 @@ import * as CountryState from '@webapp/app/country/countryState'
 
 import Loading from '@webapp/components/loading'
 import AssessmentSection from '@webapp/app/assessment/components/section/assessmentSectionView/assessmentSection'
+import ContactPersonsPrintView from '@webapp/app/assessment/fra/sections/contactPersons/contactPersonsPrintView'
 import useCountryIso from '@webapp/components/hooks/useCountryIso'
 import useI18n from '@webapp/components/hooks/useI18n'
 
@@ -27,7 +28,7 @@ const FraPrintView = () => {
   const assessment = useSelector(CountryState.getAssessmentFra2020)
   const deskStudy = Assessment.getDeskStudy(assessment)
 
-  const { dataLoaded } = useFraPrintDataFetch()
+  const { dataLoaded } = useFraPrintDataFetch(countryIso)
 
   if (!dataLoaded) {
     return <Loading />
@@ -50,6 +51,9 @@ const FraPrintView = () => {
           <div className="page-break" />
         </>
       )}
+
+      <ContactPersonsPrintView />
+      <div className="page-break" />
 
       {Object.values(FRA.sections).map((section) => (
         <div key={section.label}>

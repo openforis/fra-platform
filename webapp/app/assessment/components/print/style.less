@@ -63,14 +63,22 @@
   .page-break {
     display: none;
   }
+
+  .fra-print__container {
+    .page-break {
+      display: block;
+      height: 1px;
+      margin: 30px 0;
+    }
+  }
 }
 
 @media print {
   .fra-print__container {
     padding: 0;
-  }
 
-  .page-break {
-    page-break-after: always;
+    .page-break {
+      page-break-after: always;
+    }
   }
 }
