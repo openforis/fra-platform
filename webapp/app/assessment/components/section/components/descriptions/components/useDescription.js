@@ -1,6 +1,5 @@
 import { useEffect, useRef } from 'react'
 import { useDispatch } from 'react-redux'
-import * as R from 'ramda'
 
 import { debounce } from '@webapp/utils/functionUtils'
 
@@ -18,15 +17,14 @@ export default (name, section, template) => {
 
   // ====== data read
   const { data = template || null, setState, loading, dispatch: fetchData } = useGetRequest(url)
-  const value = R.pathOr(null, [name, 'content'])(data)
 
   // ====== data update
-  const { dispatch: postData, loaded: postDataLoaded } = usePostRequest(url, { content: value })
+  const { dispatch: postData, loaded: postDataLoaded } = usePostRequest(url, { content: data })
 
   const onChange = content => {
     dispatch(autosave.start)
     canPostData.current = true
-    setState({ data: { [name]: { content } } })
+    setState({ data: content })
   }
 
   // on mount fetch data
@@ -37,7 +35,7 @@ export default (name, section, template) => {
     if (canPostData.current) {
       debounce(postData, `postDescriptionData-${section}-${name}`, 800)()
     }
-  }, [value])
+  }, [data])
 
   // on post data loaded, dispatch autosave complete
   useOnUpdate(() => {
@@ -45,7 +43,7 @@ export default (name, section, template) => {
   }, [postDataLoaded])
 
   return {
-    value,
+    value: data,
     onChange,
     loading,
   }
