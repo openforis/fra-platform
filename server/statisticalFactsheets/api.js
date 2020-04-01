@@ -11,12 +11,21 @@ const VersionService = require('../versioning/service')
 module.exports.init = app => {
   app.get('/statisticalFactsheets/', async (req, res) => {
     const schemaName = await VersionService.getDatabaseSchema()
-    const growingStockTotal = await getGrowingStockTotal(schemaName)
-    const carbonStock = await getCarbonStock(schemaName)
-    const specificForestCategories = await getSpecificForestCategories(schemaName)
-    const forestAreaWithinProtectedAreas = await getForestAreaWithinProtectedAreas(schemaName)
-    const primaryDesignatedManagementObjective = await getPrimaryDesignatedManagementObjective(schemaName)
-    const forestOwnership = await getForestOwnership(schemaName)
+    const [
+      growingStockTotal,
+      carbonStock,
+      specificForestCategories,
+      forestAreaWithinProtectedAreas,
+      primaryDesignatedManagementObjective,
+      forestOwnership,
+    ] = await Promise.all([
+      getGrowingStockTotal(schemaName),
+      getCarbonStock(schemaName),
+      getSpecificForestCategories(schemaName),
+      getForestAreaWithinProtectedAreas(schemaName),
+      getPrimaryDesignatedManagementObjective(schemaName),
+      getForestOwnership(schemaName)
+    ])
 
     res.json({
       growingStockTotal,
