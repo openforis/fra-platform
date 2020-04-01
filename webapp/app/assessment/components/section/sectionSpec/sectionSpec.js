@@ -28,7 +28,7 @@ const sectionSpecDefault = {
   },
 }
 
-const assocTableSections = sectionSpec => {
+const assocTableSections = (sectionSpec) => {
   const tableSections = sectionSpec[KEYS_SECTION.tableSections].map((tableSection, idx) => ({
     idx,
     ...tableSection,

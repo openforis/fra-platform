@@ -23,6 +23,9 @@ const tableSpec = SectionSpec.newTableSpec({
       [SectionSpec.KEYS_TABLE_DATA_REQUIRED.tableName]: FRA.sections['1'].children.a.tables.extentOfForest,
     },
   ],
+  [SectionSpec.KEYS_TABLE.print]: {
+    [SectionSpec.KEYS_TABLE_PRINT.colBreakPoints]: [0, 9],
+  },
   [SectionSpec.KEYS_TABLE.rows]: [
     SectionSpec.newRowHeader({
       [SectionSpec.KEYS_ROW.cols]: [
@@ -38,7 +41,7 @@ const tableSpec = SectionSpec.newTableSpec({
       ],
     }),
     SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: FRA.yearsAnnual.map(year =>
+      [SectionSpec.KEYS_ROW.cols]: FRA.yearsAnnual.map((year) =>
         SectionSpec.newColHeader({
           [SectionSpec.KEYS_COL.label]: year,
         })
