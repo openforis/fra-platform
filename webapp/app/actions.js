@@ -10,10 +10,13 @@ export const appCountryIsoUpdate = 'app/countryIso/update'
 export const appInitDone = 'app/init/done'
 export const appI18nUpdate = 'app/i18n/update'
 
-export const initApp = () => async dispatch => {
+export const initApp = () => async (dispatch) => {
+  const lang = getRequestParam('lang')
+
   try {
-    const lang = getRequestParam('lang')
-    const { data: { userInfo = null } } = await axios.get(`/api/loggedInUser/`)
+    const {
+      data: { userInfo = null },
+    } = await axios.get(`/api/loggedInUser/`)
     const i18n = await createI18nPromise(lang || userInfo ? userInfo.lang : 'en')
     dispatch({ type: appInitDone, userInfo, i18n })
   } catch (err) {
@@ -21,11 +24,11 @@ export const initApp = () => async dispatch => {
     if (err.response && err.response.status !== 401) {
       dispatch(applicationError(err))
     }
-    dispatch({ type: appInitDone })
+    dispatch({ type: appInitDone, i18n: await createI18nPromise(lang || 'en') })
   }
 }
 
-export const switchLanguage = lang => async (dispatch, getState) => {
+export const switchLanguage = (lang) => async (dispatch, getState) => {
   try {
     const userInfo = UserState.getUserInfo(getState())
     if (userInfo) {

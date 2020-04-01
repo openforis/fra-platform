@@ -8,7 +8,6 @@ const keys = {
   status: 'status',
   i18n: 'i18n',
   printView: 'printView',
-  printOnlyTablesView: 'printOnlyTablesView',
 }
 
 const keysPrintView = {
@@ -24,9 +23,9 @@ export const getI18n = R.pipe(getState, R.propOr(null, keys.i18n))
 
 const getPrintView = R.pipe(getState, R.propOr(null, keys.printView))
 export const isPrintView = R.pipe(getPrintView, R.isNil, R.not)
-export const isPrintOnlyTablesView = R.pipe(
-  R.ifElse(isPrintView),
-  R.propEq(keysPrintView.onlyTables, true),
+export const isPrintOnlyTablesView = R.ifElse(
+  isPrintView,
+  R.pipe(getPrintView, R.propEq(keysPrintView.onlyTables, true)),
   R.always(false)
 )
 

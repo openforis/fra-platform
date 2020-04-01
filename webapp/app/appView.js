@@ -37,11 +37,11 @@ const LoggedInView = () => {
   const printView = !!matchPath(pathname, { path: BasePaths.assessmentPrint })
   const printOnlyTablesView = !!matchPath(pathname, { path: BasePaths.assessmentPrintOnlyTables, exact: true })
 
-  const initialDataLoaded = countryStatusLoaded && (printView || countriesLoaded)
+  const initialDataLoaded = countryStatusLoaded && countriesLoaded
 
   useEffect(() => {
     const actions = []
-    if (!countriesLoaded && !printView) {
+    if (!countriesLoaded) {
       actions.push(fetchCountryList())
     }
     if (countryIso) {
