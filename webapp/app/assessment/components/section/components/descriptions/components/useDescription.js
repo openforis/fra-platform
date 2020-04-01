@@ -21,7 +21,7 @@ export default (name, section, template) => {
   // ====== data update
   const { dispatch: postData, loaded: postDataLoaded } = usePostRequest(url, { content: data })
 
-  const onChange = content => {
+  const onChange = (content) => {
     dispatch(autosave.start)
     canPostData.current = true
     setState({ data: content })

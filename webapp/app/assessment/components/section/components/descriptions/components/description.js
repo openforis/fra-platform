@@ -11,7 +11,7 @@ import Title from './components/title'
 import Toggle from './components/toggle'
 import useDescription from './useDescription'
 
-const Description = props => {
+const Description = (props) => {
   const { title, name, section, template, disabled, showAlertEmptyContent, showDashEmptyContent } = props
   const i18n = useI18n()
   const userInfo = useUserInfo()

@@ -5,7 +5,7 @@ const db = require('../db/db')
 const userRepository = require('./userRepository')
 const { sendErr, sendOk, serverUrl } = require('../utils/requestUtils')
 
-const { AccessControlException, checkCountryAccessFromReqParams } = require('../utils/accessControl')
+const { AccessControlException } = require('../utils/accessControl')
 const { sendInvitation } = require('./sendInvitation')
 const { rolesAllowedToChange } = require('../../common/userManagementAccessControl')
 
@@ -34,10 +34,8 @@ module.exports.init = app => {
   })
 
   // get users and invitations list
-  app.get('/users/:countryIso', Auth.requireCountryEditPermission, async (req, res) => {
+  app.get('/users/:countryIso', async (req, res) => {
     try {
-      checkCountryAccessFromReqParams(req)
-
       const { countryIso } = req.params
       const print = req.query.print === 'true'
       const url = serverUrl(req)
@@ -232,19 +230,19 @@ module.exports.init = app => {
 
       const invitations = await userRepository.fetchAllInvitations(url)
       const sendInvitationPromises = invitations.map(async invitation => {
-  
+
         if (validEmail(invitation)) {
           await sendInvitation(invitation.countryIso, invitation, req.user, url)
           return `<p>Email sent to ${invitation.name} (${invitation.email}) invited as ${invitation.role} for ${invitation.countryIso}</p>`
-  
+
         } else {
           return `<p style="color:red">Email could not be sent to ${invitation.name} (${invitation.email}) invited as ${invitation.role} for ${invitation.countryIso}</p>`
         }
-  
+
       })
-  
+
       const sendInvitations = await Promise.all(sendInvitationPromises)
-  
+
       res.send(sendInvitations.join('<br/><br/>'))
     } catch (error) {
       sendErr(res, error)

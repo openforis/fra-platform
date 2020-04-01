@@ -5,12 +5,11 @@ import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
 
 import * as ObjectUtils from '@common/objectUtils'
-import { isPrintingMode, isPrintingOnlyTables } from '@webapp/app/assessment/components/print/printAssessment'
 
 import Table from '@webapp/app/assessment/components/dataTable/table'
 import Chart from '@webapp/app/assessment/components/dataTable/chart'
 import GenerateValues from '@webapp/app/assessment/components/dataTable/generateValues'
-import useI18n from '@webapp/components/hooks/useI18n'
+import { useI18n, usePrintView } from '@webapp/components/hooks'
 
 const DataTable = (props) => {
   const { assessmentType, sectionName, sectionAnchor, tableSpec, disabled } = props
@@ -33,15 +32,16 @@ const DataTable = (props) => {
   const generateValues = useSelector(
     (state) => odp && !disabled && ObjectUtils.isFunction(canGenerateValues) && canGenerateValues(state)
   )
+  const [printView, printOnlyTablesView] = usePrintView()
+
   if (!data) {
     return null
   }
 
   return (
     <>
-      {showOdpChart && (!isPrintingMode() || (!isPrintingOnlyTables() && !dataEmpty)) && (
+      {showOdpChart && (!printView || (!printOnlyTablesView && !dataEmpty)) && (
         <>
-          <div className="page-break" />
           <Chart
             fra={data}
             trends={rows
@@ -52,6 +52,7 @@ const DataTable = (props) => {
                 color: row.chartProps.color,
               }))}
           />
+          <div className="page-break" />
         </>
       )}
 

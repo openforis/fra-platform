@@ -4,7 +4,6 @@ import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
 
-import { isPrintingOnlyTables } from '@webapp/app/assessment/components/print/printAssessment'
 import * as SectionSpecs from '@webapp/app/assessment/components/section/sectionSpecs'
 
 import CustomHeader from '@webapp/app/assessment/components/section/components/customHeader'
@@ -12,7 +11,7 @@ import Title from '@webapp/app/assessment/components/section/components/title'
 import Descriptions from '@webapp/app/assessment/components/section/components/descriptions'
 import DataTable from '@webapp/app/assessment/components/dataTable'
 import GeneralComments from '@webapp/app/assessment/components/section/components/descriptions/components/generalComments'
-import useI18n from '@webapp/components/hooks/useI18n'
+import { useI18n, usePrintView } from '@webapp/components/hooks'
 
 import * as FraState from '@webapp/app/assessment/fra/fraState'
 
@@ -23,13 +22,16 @@ const AssessmentSection = forwardRef((props, ref) => {
   const { sectionAnchor, tableSections, showTitle, descriptions } = sectionSpec
 
   const i18n = useI18n()
+  const [, printOnlyTablesView] = usePrintView()
   const disabled = useSelector(FraState.isSectionEditDisabled(sectionName))
 
   return (
     <div className={`app-view__content assessment-section__${sectionName}`} ref={ref}>
-      <h2 className="title only-print">
-        {`${isPrintingOnlyTables() ? '' : `${sectionAnchor} `}${i18n.t(`${sectionName}.${sectionName}`)}`}
-      </h2>
+      {showTitle && (
+        <h2 className="title only-print">
+          {`${printOnlyTablesView ? '' : `${sectionAnchor} `}${i18n.t(`${sectionName}.${sectionName}`)}`}
+        </h2>
+      )}
 
       <CustomHeader assessmentType={assessmentType} sectionName={sectionName} disabled={disabled} />
 
@@ -37,14 +39,14 @@ const AssessmentSection = forwardRef((props, ref) => {
 
       {showTitle && <Title assessmentType={assessmentType} sectionName={sectionName} sectionAnchor={sectionAnchor} />}
 
-      {!isPrintingOnlyTables() && <div className="page-break" />}
+      {!printOnlyTablesView && <div className="page-break" />}
 
       {tableSections.map((tableSection) => (
         <div key={tableSection.idx}>
           {tableSection.titleKey && <h3 className="subhead">{i18n.t(tableSection.titleKey)}</h3>}
           {tableSection.descriptionKey && (
-            <div className="app-view__section-toolbar">
-              <div className="support-text no-print">{i18n.t(tableSection.descriptionKey)}</div>
+            <div className="app-view__section-toolbar no-print">
+              <div className="support-text">{i18n.t(tableSection.descriptionKey)}</div>
             </div>
           )}
 
@@ -62,6 +64,8 @@ const AssessmentSection = forwardRef((props, ref) => {
       ))}
 
       {descriptions.comments && <GeneralComments section={sectionName} disabled={disabled} />}
+
+      <div className="page-break" />
     </div>
   )
 })

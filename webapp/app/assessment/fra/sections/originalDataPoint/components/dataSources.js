@@ -4,16 +4,17 @@ import * as R from 'ramda'
 import VerticallyGrowingTextField from '@webapp/components/verticallyGrowingTextField'
 import MultiSelect from '@webapp/components/multiSelect'
 import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
+import useCountryIso from '@webapp/components/hooks/useCountryIso'
 
 const DataSources = props => {
 
   const {
-    match, saveDraft,
+    saveDraft,
     odp, i18n,
     printView = false,
     canEditData
   } = props
-  const countryIso = match.params.countryIso
+  const countryIso = useCountryIso()
   const displayReviewIndicator = odp.odpId && !printView && canEditData
 
   return (

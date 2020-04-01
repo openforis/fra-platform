@@ -4,28 +4,47 @@ import { useSelector } from 'react-redux'
 
 import * as ObjectUtils from '@common/objectUtils'
 
-import NationalDataDescriptions from '@webapp/app/assessment/components/section/components/descriptions/components/nationalDataDescriptions'
-import AnalysisDescriptions from '@webapp/app/assessment/components/section/components/descriptions/components/analysisDescriptions'
-import CommentableDescription from '@webapp/app/assessment/components/section/components/descriptions/components/commentableDescription'
-import useI18n from '@webapp/components/hooks/useI18n'
+import { useI18n, usePrintView } from '@webapp/components/hooks'
 
-const Descriptions = props => {
+import NationalDataDescriptions from './components/nationalDataDescriptions'
+import AnalysisDescriptions from './components/analysisDescriptions'
+import CommentableDescription from './components/commentableDescription'
+
+const Descriptions = (props) => {
   const { sectionName, descriptions, disabled } = props
   const { introductoryText, nationalData, analysisAndProcessing } = descriptions
 
-  const useNationalData = useSelector(state =>
-    ObjectUtils.isFunction(nationalData) ? nationalData(state) : nationalData
-  )
-  const useAnalysisAndProcessing = useSelector(state =>
-    ObjectUtils.isFunction(analysisAndProcessing) ? analysisAndProcessing(state) : analysisAndProcessing
-  )
-
   const i18n = useI18n()
+  const [printView, printOnlyTablesView] = usePrintView()
+  const [useNationalData, useAnalysisAndProcessing] = useSelector((state) => {
+    if (printOnlyTablesView) {
+      return [false, false]
+    }
+
+    return [
+      ObjectUtils.isFunction(nationalData) ? nationalData(state) : nationalData,
+      ObjectUtils.isFunction(analysisAndProcessing) ? analysisAndProcessing(state) : analysisAndProcessing,
+    ]
+  })
 
   return (
     <>
-      {useNationalData && <NationalDataDescriptions section={sectionName} disabled={disabled} />}
-      {useAnalysisAndProcessing && <AnalysisDescriptions section={sectionName} disabled={disabled} />}
+      {useNationalData && (
+        <NationalDataDescriptions
+          section={sectionName}
+          disabled={disabled}
+          showAlertEmptyContent={!printView}
+          showDashEmptyContent={printView}
+        />
+      )}
+      {useAnalysisAndProcessing && (
+        <AnalysisDescriptions
+          section={sectionName}
+          disabled={disabled}
+          showAlertEmptyContent={!printView}
+          showDashEmptyContent={printView}
+        />
+      )}
       {introductoryText && (
         <CommentableDescription
           section={sectionName}

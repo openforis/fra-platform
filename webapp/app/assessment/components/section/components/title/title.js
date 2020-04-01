@@ -5,19 +5,22 @@ import * as R from 'ramda'
 import * as FRA from '@common/assessment/fra'
 
 import DefinitionLink from '@webapp/components/definitionLink'
-import ExtentOfForest from '@webapp/app/assessment/components/section/components/title/extentOfForest'
-import TitleWithExcelCalculator from '@webapp/app/assessment/components/section/components/title/titleWithExcelCalculator'
 import useI18n from '@webapp/components/hooks/useI18n'
+
+import ExtentOfForest from './extentOfForest'
+import ForestCharacteristics from './forestCharacteristics'
+import TitleWithExcelCalculator from './titleWithExcelCalculator'
 
 const components = {
   [FRA.type]: {
     [FRA.sections['1'].children.a.name]: ExtentOfForest,
+    [FRA.sections['1'].children.b.name]: ForestCharacteristics,
     [FRA.sections['2'].children.c.name]: TitleWithExcelCalculator,
     [FRA.sections['2'].children.d.name]: TitleWithExcelCalculator,
   },
 }
 
-const Title = props => {
+const Title = (props) => {
   const i18n = useI18n()
   const { assessmentType, sectionName, sectionAnchor } = props
   const component = R.pipe(
@@ -29,7 +32,7 @@ const Title = props => {
     <>
       {React.createElement(component, { assessmentType, sectionName })}
 
-      <div className="app-view__section-toolbar">
+      <div className="app-view__section-toolbar no-print">
         <DefinitionLink
           className="margin-right-big"
           document="tad"

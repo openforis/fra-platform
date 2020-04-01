@@ -6,7 +6,7 @@ import Row from '@webapp/app/assessment/components/dataTable/table/row'
 import CellOdpHeader from '@webapp/app/assessment/components/dataTable/table/cell/cellOdpHeader'
 import useI18n from '@webapp/components/hooks/useI18n'
 
-const Table = props => {
+const Table = (props) => {
   const {
     assessmentType,
     sectionName,
@@ -20,8 +20,8 @@ const Table = props => {
     secondary,
   } = props
 
-  const rowsHeader = rows.filter(row => row.type === 'header')
-  const rowsData = rows.filter(row => row.type !== 'header')
+  const rowsHeader = rows.filter((row) => row.type === 'header')
+  const rowsData = rows.filter((row) => row.type !== 'header')
 
   const i18n = useI18n()
   const tableRef = useRef(null)
@@ -32,9 +32,9 @@ const Table = props => {
 
       <table ref={tableRef} className="fra-table data-table">
         <thead>
-          {rowsHeader.map(row => (
+          {rowsHeader.map((row) => (
             <tr key={row.idx}>
-              {row.cols.map(col => {
+              {row.cols.map((col) => {
                 const { idx, className, colSpan, rowSpan, labelKey, labelParams, label } = col
                 return (
                   <th
@@ -51,14 +51,14 @@ const Table = props => {
           ))}
           {odp && (
             <tr>
-              {data.map(datum => (
+              {data.map((datum) => (
                 <CellOdpHeader key={datum.name || datum.year} sectionName={sectionName} datum={datum} />
               ))}
             </tr>
           )}
         </thead>
         <tbody>
-          {rowsData.map(row => (
+          {rowsData.map((row) => (
             <Row
               key={row.idx}
               assessmentType={assessmentType}

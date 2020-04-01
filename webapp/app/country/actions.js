@@ -23,10 +23,10 @@ export const getCountryConfig = (countryIso) => async (dispatch) => {
   dispatch({ type: countryConfig, config })
 }
 
-export const fetchCountryInitialData = (countryIso) => (dispatch) => {
+export const fetchCountryInitialData = (countryIso, printView, printOnlyTablesView) => (dispatch) => {
   dispatch(
     batchActions([
-      { type: appCountryIsoUpdate, countryIso },
+      { type: appCountryIsoUpdate, countryIso, printView, printOnlyTablesView },
       fetchCountryOverviewStatus(countryIso),
       getCountryConfig(countryIso),
     ])
