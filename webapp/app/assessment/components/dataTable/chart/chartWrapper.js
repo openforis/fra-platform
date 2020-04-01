@@ -1,19 +1,16 @@
 import React, { useRef, useState } from 'react'
 import PropTypes from 'prop-types'
-import { useSelector } from 'react-redux'
 
 import { elementOffset } from '@webapp/utils/domUtils'
 
-import * as AppState from '@webapp/app/appState'
-
-import useOnResize from '@webapp/components/hooks/useOnResize'
+import { useOnResize, usePrintView } from '@webapp/components/hooks'
 
 import ChartContainer from './chartContainer'
 
 const ChartWrapper = (props) => {
   const { fra, trends } = props
 
-  const printView = useSelector(AppState.isPrintView)
+  const [printView] = usePrintView()
 
   const chartRef = useRef(null)
   const [width, setWidth] = useState(null)

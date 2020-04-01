@@ -7,14 +7,12 @@ import * as Country from '@common/country/country'
 import * as Assessment from '@common/assessment/assessment'
 import * as FRA from '@common/assessment/fra'
 
-import * as AppState from '@webapp/app/appState'
 import * as CountryState from '@webapp/app/country/countryState'
 
 import Loading from '@webapp/components/loading'
 import AssessmentSection from '@webapp/app/assessment/components/section/assessmentSectionView/assessmentSection'
 import ContactPersonsPrintView from '@webapp/app/assessment/fra/sections/contactPersons/contactPersonsPrintView'
-import useCountryIso from '@webapp/components/hooks/useCountryIso'
-import useI18n from '@webapp/components/hooks/useI18n'
+import { useCountryIso, useI18n, usePrintView } from '@webapp/components/hooks'
 
 import TableOfContent from './tableOfContent'
 import useFraPrintDataFetch from './useFraPrintDataFetch'
@@ -23,7 +21,7 @@ const FraPrintView = () => {
   const countryIso = useCountryIso()
   const i18n = useI18n()
 
-  const printOnlyTablesView = useSelector(AppState.isPrintOnlyTablesView)
+  const printOnlyTablesView = usePrintView()
   const country = useSelector(CountryState.getCountryByCountryIso(countryIso))
   const assessment = useSelector(CountryState.getAssessmentFra2020)
   const deskStudy = Assessment.getDeskStudy(assessment)

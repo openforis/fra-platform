@@ -6,12 +6,10 @@ import { useSelector } from 'react-redux'
 
 import * as ObjectUtils from '@common/objectUtils'
 
-import * as AppState from '@webapp/app/appState'
-
 import Table from '@webapp/app/assessment/components/dataTable/table'
 import Chart from '@webapp/app/assessment/components/dataTable/chart'
 import GenerateValues from '@webapp/app/assessment/components/dataTable/generateValues'
-import useI18n from '@webapp/components/hooks/useI18n'
+import { useI18n, usePrintView } from '@webapp/components/hooks'
 
 const DataTable = (props) => {
   const { assessmentType, sectionName, sectionAnchor, tableSpec, disabled } = props
@@ -34,8 +32,7 @@ const DataTable = (props) => {
   const generateValues = useSelector(
     (state) => odp && !disabled && ObjectUtils.isFunction(canGenerateValues) && canGenerateValues(state)
   )
-  const printView = useSelector(AppState.isPrintView)
-  const printOnlyTablesView = useSelector(AppState.isPrintOnlyTablesView)
+  const [printView, printOnlyTablesView] = usePrintView()
 
   if (!data) {
     return null

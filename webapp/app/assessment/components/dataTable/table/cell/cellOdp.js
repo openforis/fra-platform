@@ -5,10 +5,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { formatNumber } from '@common/bignumberUtils'
 import { acceptNextDecimal } from '@webapp/utils/numberInput'
 
-import * as AppState from '@webapp/app/appState'
-
 import { ThousandSeparatedDecimalInput } from '@webapp/components/thousandSeparatedDecimalInput'
-import useUserInfo from '@webapp/components/hooks/useUserInfo'
+import { usePrintView, useUserInfo } from '@webapp/components/hooks'
 
 const CellOdp = (props) => {
   const {
@@ -25,13 +23,13 @@ const CellOdp = (props) => {
 
   const dispatch = useDispatch()
   const userInfo = useUserInfo()
+  const [printView] = usePrintView()
   const valid = useSelector((state) => {
     if (!userInfo || !validator) {
       return true
     }
     return validator(datum)(state)
   })
-  const printView = useSelector(AppState.isPrintView)
 
   const datumValue = datum[variableName]
   const calculated = !!calculateFn

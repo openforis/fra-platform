@@ -1,23 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useSelector } from 'react-redux'
 
 import * as BasePaths from '@webapp/main/basePaths'
-
-import * as AppState from '@webapp/app/appState'
 
 import { Link } from 'react-router-dom'
 import Icon from '@webapp/components/icon'
 import Tooltip from '@webapp/components/tooltip'
-import useCountryIso from '@webapp/components/hooks/useCountryIso'
-import useI18n from '@webapp/components/hooks/useI18n'
-import useUserInfo from '@webapp/components/hooks/useUserInfo'
+import { useCountryIso, useI18n, usePrintView, useUserInfo } from '@webapp/components/hooks'
 
 const CellOdpHeader = (props) => {
   const countryIso = useCountryIso()
   const i18n = useI18n()
   const userInfo = useUserInfo()
-  const printView = useSelector(AppState.isPrintView)
+  const [printView] = usePrintView()
 
   const { datum, sectionName } = props
   const { name, year, type, draft, odpId } = datum

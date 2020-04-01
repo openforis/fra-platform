@@ -11,9 +11,8 @@ import Title from '@webapp/app/assessment/components/section/components/title'
 import Descriptions from '@webapp/app/assessment/components/section/components/descriptions'
 import DataTable from '@webapp/app/assessment/components/dataTable'
 import GeneralComments from '@webapp/app/assessment/components/section/components/descriptions/components/generalComments'
-import useI18n from '@webapp/components/hooks/useI18n'
+import { useI18n, usePrintView } from '@webapp/components/hooks'
 
-import * as AppState from '@webapp/app/appState'
 import * as FraState from '@webapp/app/assessment/fra/fraState'
 
 const AssessmentSection = forwardRef((props, ref) => {
@@ -23,8 +22,8 @@ const AssessmentSection = forwardRef((props, ref) => {
   const { sectionAnchor, tableSections, showTitle, descriptions } = sectionSpec
 
   const i18n = useI18n()
+  const [, printOnlyTablesView] = usePrintView()
   const disabled = useSelector(FraState.isSectionEditDisabled(sectionName))
-  const printOnlyTablesView = useSelector(AppState.isPrintOnlyTablesView)
 
   return (
     <div className={`app-view__content assessment-section__${sectionName}`} ref={ref}>

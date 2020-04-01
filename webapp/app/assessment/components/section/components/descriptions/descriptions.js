@@ -4,9 +4,7 @@ import { useSelector } from 'react-redux'
 
 import * as ObjectUtils from '@common/objectUtils'
 
-import * as AppState from '@webapp/app/appState'
-
-import useI18n from '@webapp/components/hooks/useI18n'
+import { useI18n, usePrintView } from '@webapp/components/hooks'
 
 import NationalDataDescriptions from './components/nationalDataDescriptions'
 import AnalysisDescriptions from './components/analysisDescriptions'
@@ -17,8 +15,9 @@ const Descriptions = (props) => {
   const { introductoryText, nationalData, analysisAndProcessing } = descriptions
 
   const i18n = useI18n()
+  const [printView, printOnlyTablesView] = usePrintView()
   const [useNationalData, useAnalysisAndProcessing] = useSelector((state) => {
-    if (AppState.isPrintOnlyTablesView(state)) {
+    if (printOnlyTablesView) {
       return [false, false]
     }
 
@@ -27,7 +26,6 @@ const Descriptions = (props) => {
       ObjectUtils.isFunction(analysisAndProcessing) ? analysisAndProcessing(state) : analysisAndProcessing,
     ]
   })
-  const printView = useSelector(AppState.isPrintView)
 
   return (
     <>

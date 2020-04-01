@@ -11,21 +11,31 @@ const keys = {
   printOnlyTablesView: 'printOnlyTablesView',
 }
 
+const keysPrintView = {
+  onlyTables: 'onlyTables',
+}
+
 const getState = R.prop(stateKey)
 
 // === READ
 export const getCountryIso = R.pipe(getState, R.propOr(null, keys.countryIso))
 export const getApplicationStatus = R.pipe(getState, R.propOr(null, keys.status))
 export const getI18n = R.pipe(getState, R.propOr(null, keys.i18n))
-export const isPrintView = R.pipe(getState, R.propEq(keys.printView, true))
-export const isPrintOnlyTablesView = R.pipe(getState, R.propEq(keys.printOnlyTablesView, true))
+
+const getPrintView = R.pipe(getState, R.propOr(null, keys.printView))
+export const isPrintView = R.pipe(getPrintView, R.isNil, R.not)
+export const isPrintOnlyTablesView = R.pipe(
+  R.ifElse(isPrintView),
+  R.propEq(keysPrintView.onlyTables, true),
+  R.always(false)
+)
 
 // === UPDATE
+
 export const assocCountryIso = (countryIso, printView, printOnlyTablesView) =>
   R.pipe(
     R.assoc(keys.countryIso, countryIso),
-    R.assoc(keys.printView, printView),
-    R.assoc(keys.printOnlyTablesView, printOnlyTablesView)
+    R.when(R.always(printView), R.assoc(keys.printView, { [keysPrintView.onlyTables]: printOnlyTablesView }))
   )
 
 export const assocI18n = R.assoc(keys.i18n)
