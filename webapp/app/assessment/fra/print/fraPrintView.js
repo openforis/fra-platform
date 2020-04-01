@@ -35,8 +35,10 @@ const FraPrintView = () => {
   return (
     <div>
       <div className="fra-print__header">
-        <h1>{Country.getListName(i18n.language)(country)}</h1>
-        <h2>{deskStudy ? i18n.t('assessment.deskStudy') : null}</h2>
+        <h1>
+          {Country.getListName(i18n.language)(country)}
+          {deskStudy && <span className="desk-study">({i18n.t('assessment.deskStudy')})</span>}
+        </h1>
         <h1>{i18n.t(`fraReportPrint.${printOnlyTablesView ? 'titleTables' : 'title'}`)}</h1>
       </div>
 
