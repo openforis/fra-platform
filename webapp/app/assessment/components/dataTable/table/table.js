@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import ButtonTableExport from '@webapp/components/buttonTableExport'
 import Row from '@webapp/app/assessment/components/dataTable/table/row'
 import CellOdpHeader from '@webapp/app/assessment/components/dataTable/table/cell/cellOdpHeader'
-import useI18n from '@webapp/components/hooks/useI18n'
+import { useI18n, usePrintView } from '@webapp/components/hooks'
 
 const Table = (props) => {
   const {
@@ -24,11 +24,12 @@ const Table = (props) => {
   const rowsData = rows.filter((row) => row.type !== 'header')
 
   const i18n = useI18n()
+  const [printView] = usePrintView()
   const tableRef = useRef(null)
 
   return (
     <>
-      {!secondary && <ButtonTableExport tableRef={tableRef} filename={sectionAnchor} />}
+      {!secondary && !printView && <ButtonTableExport tableRef={tableRef} filename={sectionAnchor} />}
 
       <table ref={tableRef} className="fra-table data-table">
         <thead>
