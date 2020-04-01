@@ -17,6 +17,11 @@ export const TYPES = {
   placeholder: 'placeholder',
 }
 
-const _isType = type => R.propEq(TYPE, type)
+const _isType = (type) => R.propEq(TYPE, type)
+const _isNotType = (type) => R.pipe(_isType(type), R.not)
 
 export const isCalculated = _isType(TYPES.calculated)
+export const isData = _isType(TYPES.data)
+export const isNotData = _isNotType(TYPES.data)
+export const isHeader = _isType(TYPES.header)
+export const isNotHeader = _isNotType(TYPES.header)

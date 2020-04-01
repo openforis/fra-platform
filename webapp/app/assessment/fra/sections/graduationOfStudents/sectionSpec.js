@@ -10,6 +10,9 @@ const getDataCols = () => years.map(() => categories.map(() => SectionSpec.newCo
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.graduationOfStudents,
+  [SectionSpec.KEYS_TABLE.print]: {
+    [SectionSpec.KEYS_TABLE_PRINT.colBreakPoints]: [0, 6],
+  },
   [SectionSpec.KEYS_TABLE.rows]: [
     SectionSpec.newRowHeader({
       [SectionSpec.KEYS_ROW.cols]: [
@@ -25,7 +28,7 @@ const tableSpec = SectionSpec.newTableSpec({
       ],
     }),
     SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: years.map(year =>
+      [SectionSpec.KEYS_ROW.cols]: years.map((year) =>
         SectionSpec.newColHeader({
           [SectionSpec.KEYS_COL.label]: year,
           [SectionSpec.KEYS_COL.colSpan]: categories.length,
@@ -35,7 +38,7 @@ const tableSpec = SectionSpec.newTableSpec({
     SectionSpec.newRowHeader({
       [SectionSpec.KEYS_ROW.cols]: years
         .map(() =>
-          categories.map(category =>
+          categories.map((category) =>
             SectionSpec.newColHeader({
               [SectionSpec.KEYS_COL.labelKey]: `graduationOfStudents.${category}`,
             })
@@ -43,7 +46,7 @@ const tableSpec = SectionSpec.newTableSpec({
         )
         .flat(),
     }),
-    ...['doctoralDegree', 'mastersDegree', 'bachelorsDegree', 'technicianCertificate', 'total'].map(variable =>
+    ...['doctoralDegree', 'mastersDegree', 'bachelorsDegree', 'technicianCertificate', 'total'].map((variable) =>
       SectionSpec.newRowData({
         [SectionSpec.KEYS_ROW.labelKey]: `graduationOfStudents.${variable}`,
         [SectionSpec.KEYS_ROW.cols]: getDataCols(),

@@ -80,7 +80,7 @@ const colSelectYesNoDefault = {
   [KEYS_COL.options]: [{ [KEYS_COL.optionName]: 'yes' }, { [KEYS_COL.optionName]: 'no' }],
 }
 
-const assocHeaderClassName = col => {
+const assocHeaderClassName = (col) => {
   const left = col[KEYS_COL.left]
   let className = 'fra-table__header-cell'
   if (left) className += '-left'

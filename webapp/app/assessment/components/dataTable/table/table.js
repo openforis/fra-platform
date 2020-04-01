@@ -28,55 +28,57 @@ const Table = (props) => {
   const tableRef = useRef(null)
 
   return (
-    <>
-      {!secondary && !printView && <ButtonTableExport tableRef={tableRef} filename={sectionAnchor} />}
+    <div className={`fra-table__container${secondary ? ' fra-secondary-table__wrapper' : ''}`}>
+      <div className="fra-table__scroll-wrapper">
+        {!secondary && !printView && <ButtonTableExport tableRef={tableRef} filename={sectionAnchor} />}
 
-      <table ref={tableRef} className="fra-table data-table">
-        <thead>
-          {rowsHeader.map((row) => (
-            <tr key={row.idx}>
-              {row.cols.map((col) => {
-                const { idx, className, colSpan, rowSpan, labelKey, labelParams, label } = col
-                return (
-                  <th
-                    key={idx}
-                    className={className}
-                    colSpan={odp && !colSpan ? data.length : colSpan}
-                    rowSpan={rowSpan}
-                  >
-                    {labelKey ? i18n.t(labelKey, labelParams) : label}
-                  </th>
-                )
-              })}
-            </tr>
-          ))}
-          {odp && (
-            <tr>
-              {data.map((datum) => (
-                <CellOdpHeader key={datum.name || datum.year} sectionName={sectionName} datum={datum} />
-              ))}
-            </tr>
-          )}
-        </thead>
-        <tbody>
-          {rowsData.map((row) => (
-            <Row
-              key={row.idx}
-              assessmentType={assessmentType}
-              sectionName={sectionName}
-              tableName={tableName}
-              odp={odp}
-              data={data}
-              row={row}
-              disabled={disabled}
-              pasteUpdate={() => {}}
-              updateTableDataCell={updateTableDataCell}
-              secondary={secondary}
-            />
-          ))}
-        </tbody>
-      </table>
-    </>
+        <table ref={tableRef} className="fra-table data-table">
+          <thead>
+            {rowsHeader.map((row) => (
+              <tr key={row.idx}>
+                {row.cols.map((col) => {
+                  const { idx, className, colSpan, rowSpan, labelKey, labelParams, label } = col
+                  return (
+                    <th
+                      key={idx}
+                      className={className}
+                      colSpan={odp && !colSpan ? data.length : colSpan}
+                      rowSpan={rowSpan}
+                    >
+                      {labelKey ? i18n.t(labelKey, labelParams) : label}
+                    </th>
+                  )
+                })}
+              </tr>
+            ))}
+            {odp && (
+              <tr>
+                {data.map((datum) => (
+                  <CellOdpHeader key={datum.name || datum.year} sectionName={sectionName} datum={datum} />
+                ))}
+              </tr>
+            )}
+          </thead>
+          <tbody>
+            {rowsData.map((row) => (
+              <Row
+                key={row.idx}
+                assessmentType={assessmentType}
+                sectionName={sectionName}
+                tableName={tableName}
+                odp={odp}
+                data={data}
+                row={row}
+                disabled={disabled}
+                pasteUpdate={() => {}}
+                updateTableDataCell={updateTableDataCell}
+                secondary={secondary}
+              />
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
   )
 }
 

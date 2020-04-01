@@ -5,26 +5,28 @@ import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
 
 import * as ObjectUtils from '@common/objectUtils'
+import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
 
-import Table from '@webapp/app/assessment/components/dataTable/table'
-import Chart from '@webapp/app/assessment/components/dataTable/chart'
-import GenerateValues from '@webapp/app/assessment/components/dataTable/generateValues'
 import { useI18n, usePrintView } from '@webapp/components/hooks'
+
+import Table from './table'
+import Chart from './chart'
+import GenerateValues from './generateValues'
+import { getRowsSliced } from './printUtils'
 
 const DataTable = (props) => {
   const { assessmentType, sectionName, sectionAnchor, tableSpec, disabled } = props
 
-  const {
-    name: tableName,
-    rows,
-    secondary,
-    getSectionData,
-    isSectionDataEmpty,
-    odp,
-    showOdpChart,
-    canGenerateValues,
-    updateTableDataCell,
-  } = tableSpec
+  const tableName = tableSpec[SectionSpec.KEYS_TABLE.name]
+  const rows = tableSpec[SectionSpec.KEYS_TABLE.rows]
+  const secondary = tableSpec[SectionSpec.KEYS_TABLE.secondary]
+  const getSectionData = tableSpec[SectionSpec.KEYS_TABLE.getSectionData]
+  const isSectionDataEmpty = tableSpec[SectionSpec.KEYS_TABLE.isSectionDataEmpty]
+  const odp = tableSpec[SectionSpec.KEYS_TABLE.odp]
+  const showOdpChart = tableSpec[SectionSpec.KEYS_TABLE.showOdpChart]
+  const canGenerateValues = tableSpec[SectionSpec.KEYS_TABLE.canGenerateValues]
+  const updateTableDataCell = tableSpec[SectionSpec.KEYS_TABLE.updateTableDataCell]
+  const breakPointsColsPrint = tableSpec[SectionSpec.KEYS_TABLE.print][SectionSpec.KEYS_TABLE_PRINT.colBreakPoints]
 
   const i18n = useI18n()
   const data = useSelector(getSectionData(assessmentType, sectionName, tableName))
@@ -66,22 +68,39 @@ const DataTable = (props) => {
         />
       )}
 
-      <div className={`fra-table__container${secondary ? ' fra-secondary-table__wrapper' : ''}`}>
-        <div className="fra-table__scroll-wrapper">
-          <Table
-            assessmentType={assessmentType}
-            sectionName={sectionName}
-            sectionAnchor={sectionAnchor}
-            tableName={tableName}
-            odp={odp}
-            rows={rows}
-            data={data}
-            disabled={disabled}
-            updateTableDataCell={updateTableDataCell}
-            secondary={secondary}
-          />
-        </div>
-      </div>
+      {printView && breakPointsColsPrint.length > 0 ? (
+        breakPointsColsPrint.map((breakPoint, breakPointIdx) => {
+          const rowsSliced = getRowsSliced(breakPointsColsPrint, breakPointIdx, rows)
+          return (
+            <Table
+              key={breakPoint}
+              assessmentType={assessmentType}
+              sectionName={sectionName}
+              sectionAnchor={sectionAnchor}
+              tableName={tableName}
+              odp={odp}
+              rows={rowsSliced}
+              data={data}
+              disabled={disabled}
+              updateTableDataCell={updateTableDataCell}
+              secondary={secondary}
+            />
+          )
+        })
+      ) : (
+        <Table
+          assessmentType={assessmentType}
+          sectionName={sectionName}
+          sectionAnchor={sectionAnchor}
+          tableName={tableName}
+          odp={odp}
+          rows={rows}
+          data={data}
+          disabled={disabled}
+          updateTableDataCell={updateTableDataCell}
+          secondary={secondary}
+        />
+      )}
     </>
   )
 }

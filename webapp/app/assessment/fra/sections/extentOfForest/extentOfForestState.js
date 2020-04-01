@@ -59,7 +59,7 @@ export const getOtherLand = (datum) => (state) => {
 // ==== By Year getter functions
 
 const _getDatumValueByYear = (year, getDatumValueFn) => (state) =>
-  R.pipe(getExtentOfForestData(), FraUtils.getDatumByYear(year), (datum) => getDatumValueFn(datum)(state))(state)
+  R.pipe(_getFra, FraUtils.getDatumByYear(year), (datum) => getDatumValueFn(datum)(state))(state)
 
 export const getForestByYear = (year) => _getDatumValueByYear(year, getForest)
 
