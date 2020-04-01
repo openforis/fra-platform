@@ -21,7 +21,7 @@ const FraPrintView = () => {
   const countryIso = useCountryIso()
   const i18n = useI18n()
 
-  const printOnlyTablesView = usePrintView()
+  const [, printOnlyTablesView] = usePrintView()
   const country = useSelector(CountryState.getCountryByCountryIso(countryIso))
   const assessment = useSelector(CountryState.getAssessmentFra2020)
   const deskStudy = Assessment.getDeskStudy(assessment)
@@ -53,8 +53,14 @@ const FraPrintView = () => {
       <ContactPersonsPrintView />
       <div className="page-break" />
 
-      {Object.values(FRA.sections).map((section) => (
-        <div key={section.label}>
+      {Object.entries(FRA.sections).map(([key, section]) => (
+        <div key={section.label} id={`section${key}`}>
+          {Number(key) !== 0 && !printOnlyTablesView && (
+            <h1 className="title only-print">
+              {key} {i18n.t(section.label)}
+            </h1>
+          )}
+
           {Object.values(section.children).map((sectionItem) => (
             <AssessmentSection key={sectionItem.name} assessmentType={FRA.type} sectionName={sectionItem.name} />
           ))}
