@@ -23,9 +23,6 @@ const tableSpec = SectionSpec.newTableSpec({
       [SectionSpec.KEYS_TABLE_DATA_REQUIRED.tableName]: FRA.sections['1'].children.a.tables.extentOfForest,
     },
   ],
-  [SectionSpec.KEYS_TABLE.print]: {
-    [SectionSpec.KEYS_TABLE_PRINT.colBreakPoints]: [0, 9],
-  },
   [SectionSpec.KEYS_TABLE.rows]: [
     SectionSpec.newRowHeader({
       [SectionSpec.KEYS_ROW.cols]: [

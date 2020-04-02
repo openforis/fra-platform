@@ -7,9 +7,6 @@ const section = FRA.sections['5'].children.b
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.areaAffectedByFire,
-  [SectionSpec.KEYS_TABLE.print]: {
-    [SectionSpec.KEYS_TABLE_PRINT.colBreakPoints]: [0, 9],
-  },
   [SectionSpec.KEYS_TABLE.rows]: [
     SectionSpec.newRowHeader({
       [SectionSpec.KEYS_ROW.cols]: [
