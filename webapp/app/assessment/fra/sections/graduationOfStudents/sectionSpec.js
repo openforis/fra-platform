@@ -10,9 +10,6 @@ const getDataCols = () => years.map(() => categories.map(() => SectionSpec.newCo
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.graduationOfStudents,
-  [SectionSpec.KEYS_TABLE.print]: {
-    [SectionSpec.KEYS_TABLE_PRINT.colBreakPoints]: [0, 6],
-  },
   [SectionSpec.KEYS_TABLE.rows]: [
     SectionSpec.newRowHeader({
       [SectionSpec.KEYS_ROW.cols]: [

@@ -8,9 +8,7 @@ dist
 ## FakeSMPT stuff ##
 fakeSMTP-2.0.jar
 received-emails/
-/tools/fraReport/userData/
-/tools/fraReport/output/
-/tools/fraReport/fraReportGenerator.js
+/tools/fraReport/
 .env
 
 #Eslint

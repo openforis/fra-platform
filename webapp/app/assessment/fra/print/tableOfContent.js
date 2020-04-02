@@ -12,8 +12,8 @@ const TableOfContent = () => {
   return (
     <ol className="table-of-content">
       {Object.entries(FRA.sections).map(([key, section]) => (
-        <li key={key}>
-          <a href={`#section${Number(key) + 1}`}>{i18n.t(section.label)}</a>
+        <li key={key} data-idx={key}>
+          <a href={`#section${key}`}>{i18n.t(section.label)}</a>
         </li>
       ))}
     </ol>

@@ -1,7 +1,16 @@
+@import (reference) '~@webapp/main/styles/config';
+
 .fra-print__header {
   display: grid;
   align-items: center;
-  grid-template-columns: auto auto;
-  grid-column-gap: 10px;
   grid-row-gap: 10px;
+
+  > * {
+    display: flex;
+    align-items: center;
+  }
+  .desk-study {
+    margin-left: 10px;
+    font-size: 21px;
+  }
 }

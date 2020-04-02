@@ -21,9 +21,6 @@ const getDataCols = (validator = null) =>
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.employment,
-  [SectionSpec.KEYS_TABLE.print]: {
-    [SectionSpec.KEYS_TABLE_PRINT.colBreakPoints]: [0, 6],
-  },
   [SectionSpec.KEYS_TABLE.rows]: [
     SectionSpec.newRowHeader({
       [SectionSpec.KEYS_ROW.cols]: [
