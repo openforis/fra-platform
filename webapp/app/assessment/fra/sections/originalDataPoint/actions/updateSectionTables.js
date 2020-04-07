@@ -14,7 +14,7 @@ const getUpdateSectionTable = (state, sectionName, tableName, odp, odpFields, dr
     const { odpId, year } = odp
     const odpUpdate = {
       odpId,
-      name: year,
+      name: String(year),
       type: 'odp',
       draft,
       year: Number(year),

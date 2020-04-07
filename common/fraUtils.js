@@ -48,15 +48,14 @@ const updateTableWithOdpDatum = (datum) => (data) => {
 
 const updateTableWithOdpDatumOdp = (datum) => (data) => {
   const { name } = datum
-  const idx = R.findIndex((v) => v.name === name && v.type === 'odp', data)
+  const idx = R.findIndex((v) => v.name === name, data)
   if (idx >= 0) {
     return R.update(idx, datum, data)
-  } else {
-    return R.pipe(
-      R.append(datum),
-      R.sort((a, b) => Number(a.name) - Number(b.name))
-    )(data)
   }
+  return R.pipe(
+    R.append(datum),
+    R.sort((a, b) => Number(a.name) - Number(b.name))
+  )(data)
 }
 
 module.exports = {

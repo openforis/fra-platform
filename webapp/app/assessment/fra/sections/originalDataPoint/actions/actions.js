@@ -45,11 +45,12 @@ export const odpSaveDraftStart = 'originalDataPoint/saveDraft/start'
 export const odpSaveDraftCompleted = 'originalDataPoint/saveDraft/completed'
 
 const persistDraft = (countryIso, odp) => {
-  const dispatched = async (dispatch) => {
+  const dispatched = async (dispatch, getState) => {
     const {
       data: { odpId },
     } = await axios.post(`/api/odp/draft/?countryIso=${countryIso}`, ODP.removeClassPlaceholder(odp))
-    dispatch(batchActions([autosave.complete, { type: odpSaveDraftCompleted, odpId }]))
+    const updateTablesWithOdp = getUpdateTablesWithOdp(getState(), { ...odp, odpId })
+    dispatch(batchActions([autosave.complete, { type: odpSaveDraftCompleted, odpId }, ...updateTablesWithOdp]))
   }
   dispatched.meta = {
     debounce: {
