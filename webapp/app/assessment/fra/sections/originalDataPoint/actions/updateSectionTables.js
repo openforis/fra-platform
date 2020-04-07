@@ -5,14 +5,15 @@ import * as FRA from '@common/assessment/fra'
 
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 import { updateTableData } from '@webapp/app/assessment/components/dataTable/actions'
-import * as ODP from '@webapp/app/assessment/fra/sections/originalDataPoint/originalDataPoint'
+
+import * as ODP from '../originalDataPoint'
 
 const getUpdateSectionTable = (state, sectionName, tableName, odp, odpFields, draft) => {
   const assessmentType = FRA.type
 
   if (AssessmentState.isSectionDataLoaded(assessmentType, sectionName, tableName)(state)) {
     const { odpId, year } = odp
-    const odpUpdate = {
+    const datumOdp = {
       odpId,
       name: String(year),
       type: 'odp',
@@ -20,11 +21,11 @@ const getUpdateSectionTable = (state, sectionName, tableName, odp, odpFields, dr
       year: Number(year),
     }
     Object.entries(odpFields).forEach(([name, value]) => {
-      odpUpdate[name] = value && value.toString()
+      datumOdp[name] = value && value.toString()
     })
     const fra = R.pipe(
       AssessmentState.getFra(assessmentType, sectionName, tableName),
-      FRAUtils.updateTableWithOdpDatumOdp(odpUpdate)
+      FRAUtils.updateTableWithOdpDatumOdp(datumOdp)
     )(state)
     const fraNoNDPs = AssessmentState.getFraNoNDPs(assessmentType, sectionName, tableName)(state)
     const data = {
