@@ -24,9 +24,9 @@ module.exports.persistEofValues = async (countryIso, year, values) => {
     // This merge is signifcant when we are generating values,
     // then we are only choosing only some of the rows and should
     // leave the rest as they are
-    updateEof(countryIso, year, R.merge(existingValues, values))
+    await updateEof(countryIso, year, R.merge(existingValues, values))
   } else {
-    insertEof(countryIso, year, values)
+    await insertEof(countryIso, year, values)
   }
 }
 
@@ -87,9 +87,9 @@ const existingFocValues = async (countryIso, year) => {
 module.exports.persistFocValues = async (countryIso, year, fraValues) => {
   const existingValues = await existingFocValues(countryIso, year)
   if (existingValues) {
-    updateFoc(countryIso, year, R.merge(existingValues, fraValues))
+    await updateFoc(countryIso, year, R.merge(existingValues, fraValues))
   } else {
-    insertFoc(countryIso, year, fraValues)
+    await insertFoc(countryIso, year, fraValues)
   }
 }
 
