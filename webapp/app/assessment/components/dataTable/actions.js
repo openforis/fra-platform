@@ -146,7 +146,7 @@ export const generateTableData = (assessmentType, sectionName, tableName, method
 
   dispatch(
     batchActions([
-      dispatch(updateTableData({ assessmentType, sectionName, tableName, data, autoSaveComplete: true })),
+      updateTableData({ assessmentType, sectionName, tableName, data, autoSaveComplete: true }),
       {
         type: assessmentSectionDataGeneratingValuesUpdate,
         assessmentType,

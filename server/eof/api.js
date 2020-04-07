@@ -82,7 +82,7 @@ module.exports.init = app => {
 
     try {
 
-      db.transaction(
+      await db.transaction(
         auditRepository.insertAudit,
         [req.user.id, 'generateFraValues', countryIso, section]
       )

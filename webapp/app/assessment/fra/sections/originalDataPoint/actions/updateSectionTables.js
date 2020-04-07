@@ -8,19 +8,19 @@ import { updateTableData } from '@webapp/app/assessment/components/dataTable/act
 
 import * as ODP from '../originalDataPoint'
 
-const getUpdateSectionTable = (state, sectionName, tableName, odp, odpFields, draft) => {
+const getUpdateSectionTable = (state, sectionName, tableName, odp, datumFields, draft) => {
   const assessmentType = FRA.type
 
   if (AssessmentState.isSectionDataLoaded(assessmentType, sectionName, tableName)(state)) {
     const { odpId, year } = odp
     const datumOdp = {
       odpId,
-      name: String(year),
       type: 'odp',
       draft,
+      name: String(year),
       year: Number(year),
     }
-    Object.entries(odpFields).forEach(([name, value]) => {
+    Object.entries(datumFields).forEach(([name, value]) => {
       datumOdp[name] = value && value.toString()
     })
     const fra = R.pipe(
@@ -40,51 +40,38 @@ const getUpdateSectionTable = (state, sectionName, tableName, odp, odpFields, dr
 
 const getUpdateExtentOfForest = (state, odp, draft) => {
   const section = FRA.sections['1'].children.a
-  const sectionName = section.name
-  const tableName = section.tables.extentOfForest
-  if (AssessmentState.isSectionDataLoaded(FRA.type, sectionName, tableName)(state)) {
-    const forestArea = ODP.classTotalArea(odp, 'forestPercent')
-    const otherWoodedLand = ODP.classTotalArea(odp, 'otherWoodedLandPercent')
-    const odpFields = { forestArea, otherWoodedLand }
 
-    return getUpdateSectionTable(state, sectionName, tableName, odp, odpFields, draft)
-  }
-  return null
+  const forestArea = ODP.classTotalArea(odp, 'forestPercent')
+  const otherWoodedLand = ODP.classTotalArea(odp, 'otherWoodedLandPercent')
+  const datumFields = { forestArea, otherWoodedLand }
+
+  return getUpdateSectionTable(state, section.name, section.tables.extentOfForest, odp, datumFields, draft)
 }
 
 const getUpdateForestCharacteristics = (state, odp, draft) => {
   const section = FRA.sections['1'].children.b
-  const sectionName = section.name
-  const tableName = section.tables.forestCharacteristics
-  if (AssessmentState.isSectionDataLoaded(FRA.type, sectionName, tableName)(state)) {
-    const naturalForestArea = ODP.subClassTotalArea(odp, 'forestPercent', 'naturalForestPercent')
-    const plantationForestArea = ODP.subClassTotalArea(odp, 'forestPercent', 'plantationPercent')
-    const plantationForestIntroducedArea = ODP.subSubClassTotalArea(
-      odp,
-      'forestPercent',
-      'plantationPercent',
-      'plantationIntroducedPercent'
-    )
-    const otherPlantedForestArea = ODP.subClassTotalArea(odp, 'forestPercent', 'otherPlantedPercent')
-    const odpFields = {
-      naturalForestArea,
-      plantationForestArea,
-      plantationForestIntroducedArea,
-      otherPlantedForestArea,
-    }
-    return getUpdateSectionTable(state, sectionName, tableName, odp, odpFields, draft)
+
+  const naturalForestArea = ODP.subClassTotalArea(odp, 'forestPercent', 'naturalForestPercent')
+  const plantationForestArea = ODP.subClassTotalArea(odp, 'forestPercent', 'plantationPercent')
+  const plantationForestIntroducedArea = ODP.subSubClassTotalArea(
+    odp,
+    'forestPercent',
+    'plantationPercent',
+    'plantationIntroducedPercent'
+  )
+  const otherPlantedForestArea = ODP.subClassTotalArea(odp, 'forestPercent', 'otherPlantedPercent')
+  const datumFields = {
+    naturalForestArea,
+    plantationForestArea,
+    plantationForestIntroducedArea,
+    otherPlantedForestArea,
   }
-  return null
+  return getUpdateSectionTable(state, section.name, section.tables.forestCharacteristics, odp, datumFields, draft)
 }
 
 export const getUpdateTablesWithOdp = (state, odp, draft = true) => {
   const actions = []
-
-  const updateExtentOfForest = getUpdateExtentOfForest(state, odp, draft)
-  if (updateExtentOfForest) actions.push(updateExtentOfForest)
-
-  const updateForestCharacteristics = getUpdateForestCharacteristics(state, odp, draft)
-  if (updateForestCharacteristics) actions.push(updateForestCharacteristics)
-
-  return actions
+  actions.push(getUpdateExtentOfForest(state, odp, draft))
+  actions.push(getUpdateForestCharacteristics(state, odp, draft))
+  return actions.filter((action) => !!action)
 }
