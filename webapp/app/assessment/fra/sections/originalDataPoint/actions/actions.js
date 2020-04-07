@@ -85,12 +85,16 @@ export const cancelDraft = (countryIso, odpId, destination) => async () => {
   }
 }
 
-export const markAsActual = (countryIso, odp, history, destination) => async (dispatch) => {
+export const markAsActual = (countryIso, odp, history, destination) => async (dispatch, getState) => {
   const validationStatus = validateDataPoint(odp)
   const { valid } = validationStatus
 
   const actions = [validationCompleted(validationStatus)]
-  if (valid) actions.push(autosave.start)
+  if (valid) {
+    actions.push(autosave.start)
+    // Update tables 1a and 1b
+    actions.push(...getUpdateTablesWithOdp(getState(), odp, false))
+  }
   dispatch(batchActions(actions))
 
   if (valid) {

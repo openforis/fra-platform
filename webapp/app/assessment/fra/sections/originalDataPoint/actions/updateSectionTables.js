@@ -7,7 +7,7 @@ import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 import { updateTableData } from '@webapp/app/assessment/components/dataTable/actions'
 import * as ODP from '@webapp/app/assessment/fra/sections/originalDataPoint/originalDataPoint'
 
-const getUpdateSectionTable = (state, sectionName, tableName, odp, odpFields) => {
+const getUpdateSectionTable = (state, sectionName, tableName, odp, odpFields, draft) => {
   const assessmentType = FRA.type
 
   if (AssessmentState.isSectionDataLoaded(assessmentType, sectionName, tableName)(state)) {
@@ -16,7 +16,7 @@ const getUpdateSectionTable = (state, sectionName, tableName, odp, odpFields) =>
       odpId,
       name: year,
       type: 'odp',
-      draft: true,
+      draft,
       year: Number(year),
     }
     Object.entries(odpFields).forEach(([name, value]) => {
@@ -37,7 +37,7 @@ const getUpdateSectionTable = (state, sectionName, tableName, odp, odpFields) =>
   return null
 }
 
-const getUpdateExtentOfForest = (state, odp) => {
+const getUpdateExtentOfForest = (state, odp, draft) => {
   const section = FRA.sections['1'].children.a
   const sectionName = section.name
   const tableName = section.tables.extentOfForest
@@ -46,12 +46,12 @@ const getUpdateExtentOfForest = (state, odp) => {
     const otherWoodedLand = ODP.classTotalArea(odp, 'otherWoodedLandPercent')
     const odpFields = { forestArea, otherWoodedLand }
 
-    return getUpdateSectionTable(state, sectionName, tableName, odp, odpFields)
+    return getUpdateSectionTable(state, sectionName, tableName, odp, odpFields, draft)
   }
   return null
 }
 
-const getUpdateForestCharacteristics = (state, odp) => {
+const getUpdateForestCharacteristics = (state, odp, draft) => {
   const section = FRA.sections['1'].children.b
   const sectionName = section.name
   const tableName = section.tables.forestCharacteristics
@@ -71,18 +71,18 @@ const getUpdateForestCharacteristics = (state, odp) => {
       plantationForestIntroducedArea,
       otherPlantedForestArea,
     }
-    return getUpdateSectionTable(state, sectionName, tableName, odp, odpFields)
+    return getUpdateSectionTable(state, sectionName, tableName, odp, odpFields, draft)
   }
   return null
 }
 
-export const getUpdateTablesWithOdp = (state, odp) => {
+export const getUpdateTablesWithOdp = (state, odp, draft = true) => {
   const actions = []
 
-  const updateExtentOfForest = getUpdateExtentOfForest(state, odp)
+  const updateExtentOfForest = getUpdateExtentOfForest(state, odp, draft)
   if (updateExtentOfForest) actions.push(updateExtentOfForest)
 
-  const updateForestCharacteristics = getUpdateForestCharacteristics(state, odp)
+  const updateForestCharacteristics = getUpdateForestCharacteristics(state, odp, draft)
   if (updateForestCharacteristics) actions.push(updateForestCharacteristics)
 
   return actions

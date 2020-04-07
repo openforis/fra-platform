@@ -22,8 +22,8 @@ export {
   // update
   saveDraft,
   cancelDraft,
-  copyPreviousNationalClasses,
   markAsActual,
+  copyPreviousNationalClasses,
   // delete
   remove,
   removeFromList,
