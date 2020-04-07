@@ -4,14 +4,14 @@ import * as R from 'ramda'
 import * as FRA from '@common/assessment/fra'
 import * as BasePaths from '@webapp/main/basePaths'
 import { batchActions } from '@webapp/main/reduxBatch'
+import { validateDataPoint } from '@common/validateOriginalDataPoint'
 
 import { applicationError } from '@webapp/app/components/error/actions'
 import * as autosave from '@webapp/app/components/autosave/actions'
-import { validateDataPoint } from '@common/validateOriginalDataPoint'
 import { fetchCountryOverviewStatus } from '@webapp/app/country/actions'
 
-import { removeClassPlaceholder, addNationalClassPlaceHolder, copyNationalClassDefinitions } from './originalDataPoint'
-import { markOdpDirty } from '../../components/tableWithOdp/actions'
+import * as ODP from '../originalDataPoint'
+import { getUpdateTablesWithOdp } from './updateSectionTables'
 
 // ====== Validation
 export const odpValidationCompleted = 'originalDataPoint/validationStatus/completed'
@@ -30,7 +30,7 @@ export const fetch = (odpId, countryIso) => async (dispatch) => {
   if (R.isNil(odpId)) {
     dispatch(clearActive())
   } else {
-    const odp = addNationalClassPlaceHolder(data)
+    const odp = ODP.addNationalClassPlaceHolder(data)
     dispatch(batchActions([{ type: odpFetchCompleted, active: odp }, validationCompleted(validateDataPoint(odp))]))
   }
 }
@@ -48,7 +48,7 @@ const persistDraft = (countryIso, odp) => {
   const dispatched = async (dispatch) => {
     const {
       data: { odpId },
-    } = await axios.post(`/api/odp/draft/?countryIso=${countryIso}`, removeClassPlaceholder(odp))
+    } = await axios.post(`/api/odp/draft/?countryIso=${countryIso}`, ODP.removeClassPlaceholder(odp))
     dispatch(batchActions([autosave.complete, { type: odpSaveDraftCompleted, odpId }]))
   }
   dispatched.meta = {
@@ -60,19 +60,24 @@ const persistDraft = (countryIso, odp) => {
   return dispatched
 }
 
-export const saveDraft = (countryIso, obj) => (dispatch) => {
-  if (!obj.year) {
+export const saveDraft = (countryIso, odp) => (dispatch, getState) => {
+  if (!odp.year) {
     return
   }
-  const actions = [{ type: odpSaveDraftStart, active: obj }, autosave.start]
-  if (obj.validationStatus) actions.push(validationCompleted(validateDataPoint(obj)))
-  dispatch(batchActions(actions))
+  const actions = [{ type: odpSaveDraftStart, active: odp }, autosave.start]
+  if (odp.validationStatus) actions.push(validationCompleted(validateDataPoint(odp)))
 
-  dispatch(persistDraft(countryIso, obj))
+  // Update tables 1a and 1b
+  actions.push(...getUpdateTablesWithOdp(getState(), odp))
+
+  dispatch(batchActions(actions))
+  dispatch(persistDraft(countryIso, odp))
 }
 
 export const cancelDraft = (countryIso, odpId, destination) => async () => {
   if (odpId) {
+    // TODO on issue: https://github.com/openforis/fra-platform/issues/154
+    // when canceling draft, delete request should respond with odp and then update tables with odp state
     await axios.delete(`/api/odp/draft/?odpId=${odpId}&countryIso=${countryIso}`)
     window.location = BasePaths.getAssessmentSectionLink(countryIso, FRA.type, destination)
   } else {
@@ -80,32 +85,34 @@ export const cancelDraft = (countryIso, odpId, destination) => async () => {
   }
 }
 
-export const copyPreviousNationalClasses = (countryIso, odp) => async (dispatch) => {
-  const { data: prevOdp } = await axios.get(`/api/prevOdp/${countryIso}/${odp.year}?countryIso=${countryIso}`)
-  if (prevOdp.nationalClasses) {
-    dispatch(saveDraft(countryIso, copyNationalClassDefinitions(odp, prevOdp)))
-  } else {
-    dispatch(applicationError({ key: 'error.ndp.previousNdpNotFound', values: { year: odp.year } }))
-  }
-}
-
-export const markAsActual = (countryIso, odp, history) => async (dispatch) => {
+export const markAsActual = (countryIso, odp, history, destination) => async (dispatch) => {
   const validationStatus = validateDataPoint(odp)
   const { valid } = validationStatus
 
-  const actions = [validationCompleted(validationStatus), markOdpDirty]
+  const actions = [validationCompleted(validationStatus)]
   if (valid) actions.push(autosave.start)
   dispatch(batchActions(actions))
 
   if (valid) {
     await axios.post(`/api/odp/markAsActual/?odpId=${odp.odpId}&countryIso=${countryIso}`)
-    dispatch(batchActions(autosave.complete, clearActive(), fetchCountryOverviewStatus(countryIso)))
-    history.goBack()
+    dispatch(batchActions([autosave.complete, clearActive(), fetchCountryOverviewStatus(countryIso)]))
+    history.push(BasePaths.getAssessmentSectionLink(countryIso, FRA.type, destination))
+  }
+}
+
+export const copyPreviousNationalClasses = (countryIso, odp) => async (dispatch) => {
+  const { data: prevOdp } = await axios.get(`/api/prevOdp/${countryIso}/${odp.year}?countryIso=${countryIso}`)
+  if (prevOdp.nationalClasses) {
+    dispatch(saveDraft(countryIso, ODP.copyNationalClassDefinitions(odp, prevOdp)))
+  } else {
+    dispatch(applicationError({ key: 'error.ndp.previousNdpNotFound', values: { year: odp.year } }))
   }
 }
 
 // ====== Delete
 export const remove = (countryIso, odpId, destination) => async (dispatch) => {
+  // TODO on issue: https://github.com/openforis/fra-platform/issues/154
+  // when deleting odp, update tables with odp state
   await axios.delete(`/api/odp/?odpId=${odpId}&countryIso=${countryIso}`)
   dispatch(batchActions([{ type: odpClearActiveAction }, fetchCountryOverviewStatus(countryIso)]))
   window.location = BasePaths.getAssessmentSectionLink(countryIso, FRA.type, destination)
