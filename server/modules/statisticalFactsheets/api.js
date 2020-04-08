@@ -5,13 +5,18 @@ const {
   getForestAreaWithinProtectedAreas,
   getPrimaryDesignatedManagementObjective,
   getForestOwnership,
+  // getExtentOfForest,
 } = require('./repository')
-const VersionService = require('../versioning/service')
+const {
+  foo
+} = require('./manager')
+const VersionService = require('../../versioning/service')
 
 module.exports.init = app => {
   app.get('/statisticalFactsheets/', async (req, res) => {
     const schemaName = await VersionService.getDatabaseSchema()
     const [
+      extentOfForest,
       growingStockTotal,
       carbonStock,
       specificForestCategories,
@@ -19,21 +24,32 @@ module.exports.init = app => {
       primaryDesignatedManagementObjective,
       forestOwnership,
     ] = await Promise.all([
+      getExtentOfForest(schemaName),
       getGrowingStockTotal(schemaName),
       getCarbonStock(schemaName),
       getSpecificForestCategories(schemaName),
       getForestAreaWithinProtectedAreas(schemaName),
       getPrimaryDesignatedManagementObjective(schemaName),
-      getForestOwnership(schemaName)
+      getForestOwnership(schemaName),
     ])
 
     res.json({
+      extentOfForest,
       growingStockTotal,
       carbonStock,
       specificForestCategories,
       forestAreaWithinProtectedAreas,
       primaryDesignatedManagementObjective,
       forestOwnership,
+    })
+  })
+
+  app.get('/statisticalFactsheets/extentOfForest', async (req, res) => {
+    const schemaName = await VersionService.getDatabaseSchema()
+    const extentOfForest = await foo(schemaName)
+
+    res.json({
+      extentOfForest,
     })
   })
 
