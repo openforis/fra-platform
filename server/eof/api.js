@@ -1,7 +1,7 @@
 const R = require('ramda')
 
 const db = require('../db/db')
-const {sendErr, sendOk} = require('../utils/requestUtils')
+const { sendErr, sendOk } = require('../utils/requestUtils')
 
 const fraRepository = require('./fraRepository')
 const odpRepository = require('../odp/odpRepository')
@@ -15,27 +15,23 @@ const Auth = require('../auth/authApiMiddleware')
 const VersionService = require('../versioning/service')
 
 const fraWriters = {
-  'extentOfForest': fraRepository.persistEofValues,
-  'forestCharacteristics': fraRepository.persistFocValues
+  extentOfForest: fraRepository.persistEofValues,
+  forestCharacteristics: fraRepository.persistFocValues,
 }
 const odpReaders = {
-  'extentOfForest': odpRepository.readEofOdps,
-  'forestCharacteristics': odpRepository.readFocOdps
+  extentOfForest: odpRepository.readEofOdps,
+  forestCharacteristics: odpRepository.readFocOdps,
 }
 
-module.exports.init = app => {
-
+module.exports.init = (app) => {
   app.post('/nde/:section/:countryIso', Auth.requireCountryEditPermission, async (req, res) => {
     const section = req.params.section
     const countryIso = req.params.countryIso
     try {
-      await db.transaction(
-        auditRepository.insertAudit,
-        [req.user.id, 'saveFraValues', countryIso, req.params.section]
-      )
+      await db.transaction(auditRepository.insertAudit, [req.user.id, 'saveFraValues', countryIso, req.params.section])
 
       const writer = fraWriters[section]
-      const updates = R.map(c => writer(countryIso, c.year, c), req.body.columns)
+      const updates = R.map((c) => writer(countryIso, c.year, c), req.body.columns)
       for (let update of updates) {
         await update
       }
@@ -51,11 +47,7 @@ module.exports.init = app => {
     const section = req.params.section
     const countryIso = req.params.countryIso
     try {
-
-      await db.transaction(
-        auditRepository.insertAudit,
-        [req.user.id, 'saveFraValues', countryIso, section]
-      )
+      await db.transaction(auditRepository.insertAudit, [req.user.id, 'saveFraValues', countryIso, section])
 
       const writer = fraWriters[section]
       await writer(countryIso, req.params.year, req.body)
@@ -76,28 +68,18 @@ module.exports.init = app => {
     }
   })
 
-  app.post('/nde/:section/generateFraValues/:countryIso',  Auth.requireCountryEditPermission, async (req, res) => {
+  app.post('/nde/:section/generateFraValues/:countryIso', Auth.requireCountryEditPermission, async (req, res) => {
     const section = req.params.section
     const countryIso = req.params.countryIso
 
     try {
-
-      db.transaction(
-        auditRepository.insertAudit,
-        [req.user.id, 'generateFraValues', countryIso, section]
-      )
+      await db.transaction(auditRepository.insertAudit, [req.user.id, 'generateFraValues', countryIso, section])
 
       const readOdp = odpReaders[section]
       const writer = fraWriters[section]
       const generateSpec = req.body
 
-      await estimationEngine.estimateAndWrite(
-        readOdp,
-        writer,
-        countryIso,
-        defaultYears,
-        generateSpec
-      )
+      await estimationEngine.estimateAndWrite(readOdp, writer, countryIso, defaultYears, generateSpec)
 
       const schemaName = await VersionService.getDatabaseSchema(req)
       const fra = await fraValueService.getFraValues(req.params.section, req.params.countryIso, schemaName)

@@ -3,32 +3,26 @@ import { useSelector } from 'react-redux'
 import * as R from 'ramda'
 
 import { getRelativeDate } from '@webapp/utils/relativeDate'
+import { useI18n, useUserInfo } from '@webapp/components/hooks'
 
-import useI18n from '@webapp/components/hooks/useI18n'
-import useUserInfo from '@webapp/components/hooks/useUserInfo'
+import * as AutoSaveState from '@webapp/app/components/autosave/autosaveState'
 
 const AutoSaveStatusText = () => {
   const i18n = useI18n()
   const userInfo = useUserInfo()
 
-  //TODO use autoSaveStatus
-  const lastSaveTimeStamp = useSelector(R.path(['autosave', 'lastSaveTimeStamp']))
-  const status = useSelector(R.path(['autosave', 'status']))
-  const hasStatus = userInfo && !R.isNil(status) && !R.isNil(lastSaveTimeStamp)
+  const lastSaveTimeStamp = useSelector(AutoSaveState.getLastSaveTimeStamp)
+  const status = useSelector(AutoSaveState.getStatus)
+  const hasStatus = userInfo && !R.isNil(status)
 
-  const statusTextTranslation = i18n.t(`header.autoSave.${status}`)
+  if (!hasStatus) {
+    return null
+  }
 
-  const statusText = hasStatus
-    ? status === 'lastSaveTimestampReceived'
-      ? statusTextTranslation + getRelativeDate(lastSaveTimeStamp, i18n).toLowerCase()
-      : statusTextTranslation
-    : ''
+  let statusText = i18n.t(`header.autoSave.${status}`)
+  if (status === 'lastSaveTimestampReceived') statusText += getRelativeDate(lastSaveTimeStamp, i18n).toLowerCase()
 
-  return hasStatus && (
-    <div className={`app-header__autosave status-${status}`}>
-      {statusText}
-    </div>
-  )
+  return <div className={`app-header__autosave status-${status}`}>{statusText}</div>
 }
 
 export default AutoSaveStatusText
