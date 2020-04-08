@@ -7,27 +7,40 @@ import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 import { updateTableData } from '@webapp/app/assessment/components/dataTable/actions'
 
 import * as ODP from '../originalDataPoint'
+import * as OriginalDataPointStateState from '../originalDataPointState'
+
+const getDatumOdp = (state, odp, datumFields, draft) => {
+  const odpOrig = OriginalDataPointStateState.getActiveOriginalDataPoint(state)
+  const { odpId, year } = odp
+  const { year: yearPrev } = odpOrig
+
+  const datumOdp = {
+    odpId,
+    type: 'odp',
+    draft,
+    name: String(year),
+    namePrev: String(yearPrev),
+    year: Number(year),
+  }
+  Object.entries(datumFields).forEach(([name, value]) => {
+    datumOdp[name] = value && value.toString()
+  })
+
+  return datumOdp
+}
 
 const getUpdateSectionTable = (state, sectionName, tableName, odp, datumFields, draft) => {
   const assessmentType = FRA.type
 
   if (AssessmentState.isSectionDataLoaded(assessmentType, sectionName, tableName)(state)) {
-    const { odpId, year } = odp
-    const datumOdp = {
-      odpId,
-      type: 'odp',
-      draft,
-      name: String(year),
-      year: Number(year),
-    }
-    Object.entries(datumFields).forEach(([name, value]) => {
-      datumOdp[name] = value && value.toString()
-    })
+    const datumOdp = getDatumOdp(state, odp, datumFields, draft)
+    // const isNotDatumFraYear = FRA.years.indexOf(Number(year)) < 0
+    const fraNoNDPs = AssessmentState.getFraNoNDPs(assessmentType, sectionName, tableName)(state)
+    // const datumNoFraYear =
     const fra = R.pipe(
       AssessmentState.getFra(assessmentType, sectionName, tableName),
-      FRAUtils.updateTableWithOdpDatumOdp(datumOdp)
+      FRAUtils.updateTableWithOdpDatumOdp(datumOdp, fraNoNDPs)
     )(state)
-    const fraNoNDPs = AssessmentState.getFraNoNDPs(assessmentType, sectionName, tableName)(state)
     const data = {
       [AssessmentState.keysDataTableWithOdp.fra]: fra,
       [AssessmentState.keysDataTableWithOdp.fraNoNDPs]: fraNoNDPs,

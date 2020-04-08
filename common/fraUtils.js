@@ -46,16 +46,28 @@ const updateTableWithOdpDatum = (datum) => (data) => {
   return R.update(idx, datum, data)
 }
 
-const updateTableWithOdpDatumOdp = (datum) => (data) => {
-  const { name } = datum
-  const idx = R.findIndex((v) => v.name === name, data)
+const updateTableWithOdpDatumOdp = (datum, dataNoNDPs) => (data) => {
+  const { name, namePrev } = datum
+  const dataUpdate = [...data]
+  const idx = data.findIndex((d) => d.name === name)
+  const idxPrev = data.findIndex((d) => d.name === namePrev)
+
   if (idx >= 0) {
-    return R.update(idx, datum, data)
+    // update old value
+    dataUpdate.splice(idx, 1, datum)
+    // if year has changed and previously was fraYear
+    // previous year datum must be updated with value from data with no Odp
+    const wasFraYear = FRA.years.findIndex((y) => y === Number(namePrev)) >= 0
+    if (name !== namePrev && wasFraYear) {
+      const datumNoOdpFraYear = dataNoNDPs.find((d) => d.name === namePrev)
+      dataUpdate.splice(idxPrev, 1, datumNoOdpFraYear)
+    }
+  } else {
+    // insert new value
+    dataUpdate.push(datum)
   }
-  return R.pipe(
-    R.append(datum),
-    R.sort((a, b) => Number(a.name) - Number(b.name))
-  )(data)
+
+  return dataUpdate.sort((a, b) => Number(a.name) - Number(b.name))
 }
 
 module.exports = {

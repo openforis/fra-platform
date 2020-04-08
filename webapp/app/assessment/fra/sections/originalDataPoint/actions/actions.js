@@ -10,6 +10,7 @@ import { applicationError } from '@webapp/app/components/error/actions'
 import * as autosave from '@webapp/app/components/autosave/actions'
 import { fetchCountryOverviewStatus } from '@webapp/app/country/actions'
 
+import * as OriginalDataPointStateState from '../originalDataPointState'
 import * as ODP from '../originalDataPoint'
 import { getUpdateTablesWithOdp } from './updateSectionTables'
 
@@ -49,8 +50,13 @@ const persistDraft = (countryIso, odp) => {
     const {
       data: { odpId },
     } = await axios.post(`/api/odp/draft/?countryIso=${countryIso}`, ODP.removeClassPlaceholder(odp))
-    const updateTablesWithOdp = getUpdateTablesWithOdp(getState(), { ...odp, odpId })
-    dispatch(batchActions([autosave.complete, { type: odpSaveDraftCompleted, odpId }, ...updateTablesWithOdp]))
+    const state = getState()
+    const actions = [autosave.complete, { type: odpSaveDraftCompleted, odpId }]
+    const isNew = !OriginalDataPointStateState.getActiveOriginalDataPoint(state).odpId
+    if (isNew) {
+      actions.push(...getUpdateTablesWithOdp(state, { ...odp, odpId }))
+    }
+    dispatch(batchActions(actions))
   }
   dispatched.meta = {
     debounce: {
