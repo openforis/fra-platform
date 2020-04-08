@@ -17,13 +17,13 @@
 html {
   box-sizing: border-box;
   height: 100%;
+  font-size: @font-m;
 }
 
 body {
   color: @text-body;
   font-family: @font-family-1;
   font-weight: 400;
-  font-size: @font-m;
   line-height: 20px;
   margin: 0;
   height: 100%;
@@ -62,9 +62,13 @@ a:hover {
 }
 
 hr {
-  border: 0px;
+  border: 0;
   border-top: 1px solid @ui-border;
   margin: 24px 0;
+}
+
+.hidden {
+  display: none;
 }
 
 .notfound {

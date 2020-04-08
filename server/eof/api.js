@@ -99,7 +99,9 @@ module.exports.init = app => {
         generateSpec
       )
 
-      sendOk(res)
+      const schemaName = await VersionService.getDatabaseSchema(req)
+      const fra = await fraValueService.getFraValues(req.params.section, req.params.countryIso, schemaName)
+      res.json(fra)
     } catch (err) {
       sendErr(res, err)
     }

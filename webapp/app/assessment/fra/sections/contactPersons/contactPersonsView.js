@@ -5,7 +5,7 @@ import { connect, useSelector } from 'react-redux'
 
 import { fetchLastSectionUpdateTimestamp } from '@webapp/app/components/audit/actions'
 
-import CommentableDescription from '@webapp/app/assessment/components/description/commentableDescription.js'
+import CommentableDescription from '@webapp/app/assessment/components/section/components/descriptions/components/commentableDescription'
 
 import * as AppState from '@webapp/app/appState'
 import * as ReviewState from '@webapp/app/assessment/components/review/reviewState'

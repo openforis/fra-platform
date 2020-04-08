@@ -8,7 +8,6 @@ import * as BasePaths from '@webapp/main/basePaths'
 
 import UserInfoLinks from '@webapp/app/components/header/components/userInfo'
 import LanguageSelection from '@webapp/app/components/header/components/languageSelection'
-import AdminLinks from '@webapp/app/components/header/components/adminLinks'
 import AppLinks from '@webapp/app/components/header/components/AppLinks'
 import AutoSaveStatusText from '@webapp/app/components/header/components/autoSaveStatusText'
 import ToggleNavigationControl from '@webapp/app/components/header/components/toggleNavigationControl'
@@ -16,7 +15,9 @@ import useI18n from '@webapp/components/hooks/useI18n'
 import useCountryIso from '@webapp/components/hooks/useCountryIso'
 import useUserInfo from '@webapp/components/hooks/useUserInfo'
 
-const Header = ({ hideLinks, hideNavigationControl }) => {
+const Header = props => {
+  const { hideLinks, hideNavigationControl } = props
+
   const userInfo = useUserInfo()
   const countryIso = useCountryIso()
   const i18n = useI18n()
@@ -33,7 +34,6 @@ const Header = ({ hideLinks, hideNavigationControl }) => {
           <>
             <LanguageSelection />
             <UserInfoLinks />
-            <AdminLinks />
             {!userInfo && (
               <Link key="admin-link" to={BasePaths.login} className="app-header__menu-item">
                 {i18n.t('common.login')}

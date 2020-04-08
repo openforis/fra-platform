@@ -1,27 +1,23 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { NavLink, useLocation } from 'react-router-dom'
+import { matchPath, NavLink } from 'react-router-dom'
 
 import * as BasePaths from '@webapp/main/basePaths'
 
-const isStatisticalFactsheets = pathname => pathname.includes('statisticalFactsheets')
+const AppLinks = props => {
+  const { i18n } = props
 
-const AppLinks = ({ i18n }) => {
-  const { pathname } = useLocation()
-  const hideDivider = isStatisticalFactsheets(pathname)
-
-  const isActive = (match, { pathname: path }) => !isStatisticalFactsheets(path) || (match && match.isExact)
+  const isActive = (match, { pathname }) => !matchPath(pathname, { path: BasePaths.statisticalFactsheets })
 
   return (
     <>
-      <NavLink activeClassName="hidden" to={BasePaths.statisticalFactsheets} className="app-header__menu-item">
+      <NavLink activeClassName="hidden" to={BasePaths.statisticalFactsheets} className="app-header__app-link">
         {i18n.t('common.statisticalFactsheets')}
       </NavLink>
 
-      <NavLink activeClassName="hidden" isActive={isActive} to={BasePaths.root} className="app-header__menu-item">
+      <NavLink activeClassName="hidden" isActive={isActive} to={BasePaths.root} className="app-header__app-link">
         {i18n.t('common.fraPlatform')}
       </NavLink>
-      {!hideDivider && <div className="app-header__menu-item-separator" />}
     </>
   )
 }
