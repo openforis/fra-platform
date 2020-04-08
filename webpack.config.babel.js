@@ -38,7 +38,7 @@ if (buildReport) {
 const appConfig = {
   mode: config.mode,
   devtool: 'source-map',
-  entry: ['./webapp/main.js'],
+  entry: ['regenerator-runtime/runtime', './webapp/main.js'],
   resolve: {
     extensions: ['.webpack-loader.js', '.web-loader.js', '.loader.js', '.js', '.jsx'],
     alias: {
