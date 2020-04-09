@@ -61,7 +61,7 @@ const rowNoticeMessageDefault = {
   [KEYS_ROW.colSpan]: 1,
 }
 
-const assocColHeader = row => {
+const assocColHeader = (row) => {
   const labelKey = row[KEYS_ROW.labelKey]
   const labelParams = row[KEYS_ROW.labelParams]
   const label = row[KEYS_ROW.label]
@@ -105,7 +105,7 @@ const assocColHeader = row => {
   }
 }
 
-const assocCols = row => {
+const assocCols = (row) => {
   const cols = row[KEYS_ROW.cols].map((col, i) => ({
     ...col,
     [KEYS_COL.idx]: R.defaultTo(i, col[KEYS_COL.idx]),
@@ -113,7 +113,7 @@ const assocCols = row => {
   return { ...row, [KEYS_ROW.cols]: cols }
 }
 
-const assocColNoticeMessage = row => {
+const assocColNoticeMessage = (row) => {
   const labelKey = row[KEYS_ROW.labelKey]
   const rowSpan = row[KEYS_ROW.rowSpan]
   const colSpan = row[KEYS_ROW.colSpan]

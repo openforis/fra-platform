@@ -13,26 +13,20 @@ import * as autosave from '@webapp/app/components/autosave/actions'
 export const assessmentSectionDataUpdate = 'assessment/section/data/update'
 export const assessmentSectionDataGeneratingValuesUpdate = 'assessment/section/data/generatingValues/update'
 
-export const updateTableData = ({
-  assessmentType,
-  sectionName,
-  tableName,
-  data,
-  autoSaveStart,
-  autoSaveComplete,
-}) => dispatch => {
-  const actions = []
+export const updateTableData = ({ assessmentType, sectionName, tableName, data, autoSaveStart, autoSaveComplete }) => (
+  dispatch
+) => {
+  const actions = [
+    {
+      type: assessmentSectionDataUpdate,
+      assessmentType,
+      sectionName,
+      tableName,
+      data,
+    },
+  ]
 
   if (autoSaveStart) actions.push(autosave.start)
-
-  actions.push({
-    type: assessmentSectionDataUpdate,
-    assessmentType,
-    sectionName,
-    tableName,
-    data,
-  })
-
   if (autoSaveComplete) actions.push(autosave.complete)
 
   dispatch(batchActions(actions))
@@ -152,7 +146,7 @@ export const generateTableData = (assessmentType, sectionName, tableName, method
 
   dispatch(
     batchActions([
-      dispatch(updateTableData({ assessmentType, sectionName, tableName, data, autoSaveComplete: true })),
+      updateTableData({ assessmentType, sectionName, tableName, data, autoSaveComplete: true }),
       {
         type: assessmentSectionDataGeneratingValuesUpdate,
         assessmentType,

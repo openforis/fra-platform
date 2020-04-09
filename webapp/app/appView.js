@@ -2,8 +2,9 @@ import './appView.less'
 
 import React, { useEffect, memo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Route, Switch, useParams } from 'react-router-dom'
+import { matchPath, Route, Switch, useLocation, useParams } from 'react-router-dom'
 
+import * as BasePaths from '@webapp/main/basePaths'
 import { batchActions } from '@webapp/main/reduxBatch'
 
 import CountrySelection from '@webapp/app/components/countrySelection'
@@ -13,7 +14,7 @@ import Review from '@webapp/app/assessment/components/review/review'
 import UserChat from '@webapp/app/user/chat/userChatView'
 import CountryMessageBoardView from '@webapp/app/landing/messageBoard/countryMessageBoardView'
 import ErrorComponent from '@webapp/app/components/error/errorComponent'
-import PrintAssessmentView from '@webapp/app/assessment/components/print/printAssessmentView'
+import AssessmentPrintView from '@webapp/app/assessment/components/print/assessmentPrintView'
 import StatisticalFactsheets from '@webapp/app/statisticalFactsheets'
 import useUserInfo from '@webapp/components/hooks/useUserInfo'
 
@@ -25,13 +26,18 @@ import { fetchCountryInitialData, fetchCountryList } from '@webapp/app/country/a
 import routes from './routes'
 
 const LoggedInView = () => {
-  const { countryIso } = useParams()
   const dispatch = useDispatch()
+  const { pathname } = useLocation()
+  const { countryIso } = useParams()
   const userInfo = useUserInfo()
   const countriesLoaded = useSelector(CountryState.hasCountries)
   const countryStatusLoaded = useSelector(CountryState.hasStatus)
-  const initialDataLoaded = countriesLoaded && countryStatusLoaded
   const navigationVisible = useSelector(NavigationState.isVisible)
+
+  const printView = !!matchPath(pathname, { path: BasePaths.assessmentPrint })
+  const printOnlyTablesView = !!matchPath(pathname, { path: BasePaths.assessmentPrintOnlyTables, exact: true })
+
+  const initialDataLoaded = countryStatusLoaded && countriesLoaded
 
   useEffect(() => {
     const actions = []
@@ -39,7 +45,7 @@ const LoggedInView = () => {
       actions.push(fetchCountryList())
     }
     if (countryIso) {
-      actions.push(fetchCountryInitialData(countryIso))
+      actions.push(fetchCountryInitialData(countryIso, printView, printOnlyTablesView))
     }
     dispatch(batchActions(actions))
   }, [countryIso])
@@ -54,9 +60,13 @@ const LoggedInView = () => {
 
   return (
     <Switch>
-      <Route exact path="/country/:countryIso/print/:assessment/" component={PrintAssessmentView} />
+      <Route
+        exact
+        path={[BasePaths.assessmentPrint, BasePaths.assessmentPrintOnlyTables]}
+        component={AssessmentPrintView}
+      />
 
-      <Route exact path="/statisticalFactsheets" component={StatisticalFactsheets} />
+      <Route exact path={BasePaths.statisticalFactsheets} component={StatisticalFactsheets} />
 
       <Route>
         {userInfo && (
@@ -71,7 +81,7 @@ const LoggedInView = () => {
           <Header />
           <Navigation />
           <Switch>
-            {routes.map(route => (
+            {routes.map((route) => (
               <Route key={route.path} path={route.path} component={route.component} />
             ))}
           </Switch>

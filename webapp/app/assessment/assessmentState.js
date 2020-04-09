@@ -28,17 +28,17 @@ export const keysDataTableWithOdp = {
 }
 
 // TODO: Now assessment is part of country status - refactor it
-export const getAssessment = name => R.pipe(CountryState.getAssessments, R.propOr({}, name))
+export const getAssessment = (name) => R.pipe(CountryState.getAssessments, R.propOr({}, name))
 
 const getState = R.propOr({}, stateKey)
 
-const getStateAssessment = type => R.pipe(getState, R.propOr({}, type))
+const getStateAssessment = (type) => R.pipe(getState, R.propOr({}, type))
 
-const _isLocked = type => R.pipe(getStateAssessment(type), R.propOr(true, keys.lock))
+const _isLocked = (type) => R.pipe(getStateAssessment(type), R.propOr(true, keys.lock))
 
 // ======  Lock functions
 
-export const isLocked = assessment => state => {
+export const isLocked = (assessment) => (state) => {
   const countryIso = AppState.getCountryIso(state)
   const userInfo = UserState.getUserInfo(state)
 
@@ -50,7 +50,7 @@ export const isLocked = assessment => state => {
   return !Assessment.getCanEditData(assessment)
 }
 
-export const canToggleLock = assessment => state => {
+export const canToggleLock = (assessment) => (state) => {
   const countryIso = AppState.getCountryIso(state)
   const userInfo = UserState.getUserInfo(state)
 

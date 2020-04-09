@@ -3,24 +3,22 @@ import '@webapp/components/ckEditor/style.less'
 
 import '@webapp/utils/polyfill/polyfill'
 
-import 'regenerator-runtime/runtime'
-
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
-import Routes from '@webapp/main/routes'
 
+import Routes from './main/routes'
 import store from './main/store'
 
-function renderApp () {
+function renderApp() {
   ReactDOM.render(
     <Provider store={store}>
       <BrowserRouter>
-        <Routes/>
+        <Routes />
       </BrowserRouter>
     </Provider>,
-    document.querySelector('#main'),
+    document.querySelector('#main')
   )
 }
 

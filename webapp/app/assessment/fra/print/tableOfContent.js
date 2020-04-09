@@ -1,27 +1,22 @@
 import './tableOfContent.less'
 
 import React from 'react'
-import { assessments } from '@common/assessmentSectionItems'
 
-const getAssessmentHeaders = ({ fra2020 }) => fra2020.filter(x =>
-  !x.label.includes('introduction') && Number(x.sectionNo) > 0
-)
+import * as FRA from '@common/assessment/fra'
 
-const TableOfContentLink = ({ children, i }) => <li><a href={`#section${i + 1}`}>{children}</a></li>
-const TableOfContent = props => {
-  const { i18n } = props
+import useI18n from '@webapp/components/hooks/useI18n'
+
+const TableOfContent = () => {
+  const i18n = useI18n()
 
   return (
-    <>
-      <ol className="table-of-content">
-        {
-          getAssessmentHeaders(assessments).map(
-            (section, i) => <TableOfContentLink key={i} i={i}>{i18n.t(section.label)}</TableOfContentLink>
-          )
-        }
-      </ol>
-      <div className="page-break"/>
-    </>
+    <ol className="table-of-content">
+      {Object.entries(FRA.sections).map(([key, section]) => (
+        <li key={key} data-idx={key}>
+          <a href={`#section${key}`}>{i18n.t(section.label)}</a>
+        </li>
+      ))}
+    </ol>
   )
 }
 

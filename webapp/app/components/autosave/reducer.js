@@ -1,19 +1,26 @@
 import * as R from 'ramda'
+import { exportReducer } from '@webapp/utils/reduxUtils'
+import {
+  lastSectionUpdateTimestampReceived,
+  lastSectionUpdateTimestampReset,
+} from '@webapp/app/components/audit/actions'
+
+import * as AutosaveState from './autosaveState'
 import { autoSaveStart, autoSaveComplete } from './actions'
-import { applyReducerFunction } from '@webapp/utils/reduxUtils'
-import { lastSectionUpdateTimestampReceived } from '@webapp/app/components/audit/actions'
-
 import { status } from './autosave'
-
-import * as AutosaveState from '@webapp/app/components/autosave/autosaveState'
 
 const actionHandlers = {
   [autoSaveStart]: (state) => AutosaveState.assocStatus(status.saving)(state),
   [autoSaveComplete]: (state) => AutosaveState.assocStatus(status.complete)(state),
-  [lastSectionUpdateTimestampReceived]: (state, { timeStamp }) => R.pipe(
-    AutosaveState.assocStatus(status.lastSaveTimestampReceived),
-    AutosaveState.assocLastSaveTimeStamp(timeStamp)
-  )(state)
+
+  [lastSectionUpdateTimestampReceived]: (state, { timeStamp }) =>
+    R.pipe(
+      AutosaveState.assocStatus(status.lastSaveTimestampReceived),
+      AutosaveState.assocLastSaveTimeStamp(timeStamp)
+    )(state),
+
+  [lastSectionUpdateTimestampReset]: (state) =>
+    R.pipe(AutosaveState.assocStatus(null), AutosaveState.assocLastSaveTimeStamp(null))(state),
 }
 
-export default (state = {}, action) => applyReducerFunction(actionHandlers, state, action)
+export default exportReducer(actionHandlers)

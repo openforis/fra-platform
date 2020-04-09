@@ -1,4 +1,4 @@
-export { TYPES, TYPE } from './keysType'
+export { TYPES, TYPE, isData, isNotData, isHeader, isNotHeader } from './keysType'
 
 export { KEYS_SECTION, KEYS_SECTION_DESCRIPTIONS, newSectionSpec } from './sectionSpec'
 
@@ -10,6 +10,7 @@ export {
 export {
   KEYS_TABLE,
   KEYS_TABLE_DATA_REQUIRED,
+  KEYS_TABLE_PRINT,
   newTableSpec,
 } from '@webapp/app/assessment/components/section/sectionSpec/tableSpec'
 

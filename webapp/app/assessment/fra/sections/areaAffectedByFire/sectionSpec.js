@@ -22,7 +22,7 @@ const tableSpec = SectionSpec.newTableSpec({
       ],
     }),
     SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: FRA.yearsAnnual.map(year =>
+      [SectionSpec.KEYS_ROW.cols]: FRA.yearsAnnual.map((year) =>
         SectionSpec.newColHeader({
           [SectionSpec.KEYS_COL.label]: year,
         })

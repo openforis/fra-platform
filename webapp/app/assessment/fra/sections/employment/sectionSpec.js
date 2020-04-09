@@ -36,7 +36,7 @@ const tableSpec = SectionSpec.newTableSpec({
       ],
     }),
     SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: years.map(year =>
+      [SectionSpec.KEYS_ROW.cols]: years.map((year) =>
         SectionSpec.newColHeader({
           [SectionSpec.KEYS_COL.label]: year,
           [SectionSpec.KEYS_COL.colSpan]: categories.length,
@@ -46,7 +46,7 @@ const tableSpec = SectionSpec.newTableSpec({
     SectionSpec.newRowHeader({
       [SectionSpec.KEYS_ROW.cols]: years
         .map(() =>
-          categories.map(category =>
+          categories.map((category) =>
             SectionSpec.newColHeader({
               [SectionSpec.KEYS_COL.labelKey]: `employment.${category}`,
             })
@@ -58,7 +58,7 @@ const tableSpec = SectionSpec.newTableSpec({
       [SectionSpec.KEYS_ROW.labelKey]: 'employment.inForestry',
       [SectionSpec.KEYS_ROW.cols]: getDataCols(),
     }),
-    ...['ofWhichSilviculture', 'ofWhichLogging', 'ofWhichGathering', 'ofWhichSupport'].map(subcateogry =>
+    ...['ofWhichSilviculture', 'ofWhichLogging', 'ofWhichGathering', 'ofWhichSupport'].map((subcateogry) =>
       SectionSpec.newRowData({
         [SectionSpec.KEYS_ROW.labelKey]: `employment.${subcateogry}`,
         [SectionSpec.KEYS_ROW.subcategory]: true,

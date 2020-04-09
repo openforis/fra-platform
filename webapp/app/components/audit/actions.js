@@ -2,7 +2,8 @@ import axios from 'axios'
 
 import * as UserState from '@webapp/user/userState'
 
-export const lastSectionUpdateTimestampReceived = 'audit/lastSectionUpdateTimestampReceived'
+export const lastSectionUpdateTimestampReceived = 'audit/lastSectionUpdate/timestamp/received'
+export const lastSectionUpdateTimestampReset = 'audit/lastSectionUpdate/timestamp/reset'
 export const lastAuditFeedReceived = 'audit/lastAuditFeedReceived'
 
 export const fetchLastSectionUpdateTimestamp = (countryIso, section) => async (dispatch, getState) => {
@@ -15,9 +16,9 @@ export const fetchLastSectionUpdateTimestamp = (countryIso, section) => async (d
   }
 }
 
-export const resetSectionUpdateTimestamp = () => ({ type: lastSectionUpdateTimestampReceived, timeStamp: null })
+export const resetSectionUpdateTimestamp = () => ({ type: lastSectionUpdateTimestampReset })
 
-export const fetchAuditFeed = countryIso => async dispatch => {
+export const fetchAuditFeed = (countryIso) => async (dispatch) => {
   const {
     data: { feed },
   } = await axios.get(`/api/audit/getAuditFeed/${countryIso}`)

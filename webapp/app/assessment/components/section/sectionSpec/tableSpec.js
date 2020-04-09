@@ -11,6 +11,8 @@ export const KEYS_TABLE = {
   showOdpChart: 'showOdpChart',
   secondary: 'secondary',
   tableDataRequired: 'tableDataRequired',
+  // print props
+  print: 'print',
   // Functions
   getSectionData: 'getSectionData',
   isSectionDataEmpty: 'isSectionDataEmpty',
@@ -24,11 +26,16 @@ export const KEYS_TABLE_DATA_REQUIRED = {
   tableName: 'tableName',
 }
 
+export const KEYS_TABLE_PRINT = {
+  colBreakPoints: 'colBreakPoints',
+}
+
 const tableDefault = {
   [KEYS_TABLE.name]: '',
   [KEYS_TABLE.rows]: [],
   [KEYS_TABLE.secondary]: false,
   [KEYS_TABLE.tableDataRequired]: [],
+  [KEYS_TABLE.print]: { [KEYS_TABLE_PRINT.colBreakPoints]: [] },
   [KEYS_TABLE.getSectionData]: AssessmentState.getSectionData,
   [KEYS_TABLE.isSectionDataEmpty]: AssessmentState.isSectionDataEmpty,
   [KEYS_TABLE.odp]: false,
@@ -37,11 +44,11 @@ const tableDefault = {
   [KEYS_TABLE.updateTableDataCell]: updateTableDataCell,
 }
 
-const assocRows = tableSpec => {
+const assocRows = (tableSpec) => {
   let idxHeader = -1
   let idxData = -1
 
-  const rows = tableSpec[KEYS_TABLE.rows].map(row => {
+  const rows = tableSpec[KEYS_TABLE.rows].map((row) => {
     const header = row.type === 'header'
     idxHeader += header ? 1 : 0
     idxData += header ? 0 : 1

@@ -49,7 +49,7 @@ const OriginalDataPoint = (props) => {
   const unselectable = R.defaultTo([], odp.reservedYears)
 
   const handleSave = () => {
-    markAsActual(countryIso, odp, history)
+    markAsActual(countryIso, odp, history, tab)
   }
 
   return (

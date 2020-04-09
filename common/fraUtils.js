@@ -16,16 +16,16 @@ const hasData = R.pipe(R.reject(R.all(R.or(R.isNil, R.isEmpty))), R.isEmpty, R.n
 
 const isTableEmpty = R.pipe(R.defaultTo([]), R.flatten, R.reject(R.isNil), R.isEmpty)
 
-const sumTableColumn = (columnIndex, rowIndexes) => data =>
+const sumTableColumn = (columnIndex, rowIndexes) => (data) =>
   R.pipe(
-    R.map(rowIdx => R.pathOr(null, [rowIdx, columnIndex])(data)),
+    R.map((rowIdx) => R.pathOr(null, [rowIdx, columnIndex])(data)),
     R.reject(R.isNil),
     NumberUtils.sum
   )(rowIndexes)
 
 // ====== Table with odp methods
 
-const filterFraYears = R.filter(d => R.includes(Number(d.year), FRA.years))
+const filterFraYears = R.filter((d) => R.includes(Number(d.year), FRA.years))
 
 const getOdps = R.pipe(R.defaultTo([]), R.filter(R.propEq('type', 'odp')))
 
@@ -38,13 +38,36 @@ const isTableWithOdpEmpty = R.pipe(
   isTableEmpty
 )
 
-const getDatumByYear = year =>
-  R.pipe(R.defaultTo([]), R.find(R.propEq('name', String(year))), R.defaultTo({}))
+const getDatumByYear = (year) => R.pipe(R.defaultTo([]), R.find(R.propEq('name', String(year))), R.defaultTo({}))
 
-const updateTableWithOdpDatum = datum => data => {
+const updateTableWithOdpDatum = (datum) => (data) => {
   const { name } = datum
-  const idx = R.findIndex(v => v.name === name && v.type === 'fra', data)
+  const idx = R.findIndex((v) => v.name === name && v.type === 'fra', data)
   return R.update(idx, datum, data)
+}
+
+const updateTableWithOdpDatumOdp = (datum, dataNoNDPs) => (data) => {
+  const { name, namePrev } = datum
+  const dataUpdate = [...data]
+  const idx = data.findIndex((d) => d.name === name)
+  const idxPrev = data.findIndex((d) => d.name === namePrev)
+
+  if (idx >= 0) {
+    // update old value
+    dataUpdate.splice(idx, 1, datum)
+    // if year has changed and previously was fraYear
+    // previous year datum must be updated with value from data with no Odp
+    const wasFraYear = FRA.years.findIndex((y) => y === Number(namePrev)) >= 0
+    if (name !== namePrev && wasFraYear) {
+      const datumNoOdpFraYear = dataNoNDPs.find((d) => d.name === namePrev)
+      dataUpdate.splice(idxPrev, 1, datumNoOdpFraYear)
+    }
+  } else {
+    // insert new value
+    dataUpdate.push(datum)
+  }
+
+  return dataUpdate.sort((a, b) => Number(a.name) - Number(b.name))
 }
 
 module.exports = {
@@ -62,4 +85,5 @@ module.exports = {
   isTableWithOdpEmpty,
   getDatumByYear,
   updateTableWithOdpDatum,
+  updateTableWithOdpDatumOdp,
 }

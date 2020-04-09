@@ -1,18 +1,19 @@
 import React from 'react'
 
+import useCountryIso from '@webapp/components/hooks/useCountryIso'
 import NationalClass from './nationalClass'
 
 const NationalClasses = props => {
 
   const {
-    match, saveDraft, autoSaving,
+    saveDraft, autoSaving,
     odp, copyPreviousNationalClasses,
     copyDisabled, openThread, i18n,
     printView = false,
     canEditData
   } = props
 
-  const countryIso = match.params.countryIso
+  const countryIso = useCountryIso()
   const copyPreviousClassesDisabled = () => odp.year && !autoSaving ? false : true
 
   const nationalClasses = odp.nationalClasses
