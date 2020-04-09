@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
 
 import * as SectionSpecs from '@webapp/app/assessment/components/section/sectionSpecs'
+import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
 
 import CustomHeader from '@webapp/app/assessment/components/section/components/customHeader'
 import Title from '@webapp/app/assessment/components/section/components/title'
@@ -49,14 +50,18 @@ const AssessmentSection = forwardRef((props, ref) => {
           )}
 
           {tableSection.tableSpecs.map((tableSpec) => (
-            <DataTable
-              key={tableSpec.name}
-              assessmentType={assessmentType}
-              sectionName={sectionName}
-              sectionAnchor={sectionAnchor}
-              tableSpec={tableSpec}
-              disabled={disabled}
-            />
+            <React.Fragment key={tableSpec.name}>
+              <DataTable
+                assessmentType={assessmentType}
+                sectionName={sectionName}
+                sectionAnchor={sectionAnchor}
+                tableSpec={tableSpec}
+                disabled={disabled}
+              />
+              {tableSpec[SectionSpec.KEYS_TABLE.print][SectionSpec.KEYS_TABLE_PRINT.pageBreakAfter] && (
+                <div className="page-break" />
+              )}
+            </React.Fragment>
           ))}
         </div>
       ))}
