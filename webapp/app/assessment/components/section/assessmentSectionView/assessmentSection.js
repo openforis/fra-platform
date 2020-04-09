@@ -22,12 +22,12 @@ const AssessmentSection = forwardRef((props, ref) => {
   const { sectionAnchor, tableSections, showTitle, descriptions } = sectionSpec
 
   const i18n = useI18n()
-  const [, printOnlyTablesView] = usePrintView()
+  const [printView, printOnlyTablesView] = usePrintView()
   const disabled = useSelector(FraState.isSectionEditDisabled(sectionName))
 
   return (
     <div className={`app-view__content assessment-section__${sectionName}`} ref={ref}>
-      {showTitle && (
+      {showTitle && printView && (
         <h2 className="title only-print">
           {`${printOnlyTablesView ? '' : `${sectionAnchor} `}${i18n.t(`${sectionName}.${sectionName}`)}`}
         </h2>
@@ -38,8 +38,6 @@ const AssessmentSection = forwardRef((props, ref) => {
       <Descriptions sectionName={sectionName} descriptions={descriptions} disabled={disabled} />
 
       {showTitle && <Title assessmentType={assessmentType} sectionName={sectionName} sectionAnchor={sectionAnchor} />}
-
-      {!printOnlyTablesView && <div className="page-break" />}
 
       {tableSections.map((tableSection) => (
         <div key={tableSection.idx}>
