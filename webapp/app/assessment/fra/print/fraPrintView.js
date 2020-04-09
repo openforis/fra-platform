@@ -54,16 +54,15 @@ const FraPrintView = () => {
         </>
       )}
 
-      <ContactPersonsPrintView />
-      <div className="page-break" />
-
       {Object.entries(FRA.sections).map(([key, section]) => (
         <div key={section.label} id={`section${key}`}>
-          {Number(key) !== 0 && !printOnlyTablesView && (
+          {!printOnlyTablesView && (
             <h1 className="title only-print">
-              {key} {i18n.t(section.label)}
+              {Number(key) === 0 ? '' : key} {i18n.t(section.label)}
             </h1>
           )}
+
+          {Number(key) === 0 && <ContactPersonsPrintView />}
 
           {Object.values(section.children).map((sectionItem) => (
             <AssessmentSection key={sectionItem.name} assessmentType={FRA.type} sectionName={sectionItem.name} />
