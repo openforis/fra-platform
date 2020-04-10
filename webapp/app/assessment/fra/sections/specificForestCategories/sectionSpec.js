@@ -9,6 +9,13 @@ const { yearsTable } = FRA
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.specificForestCategories,
+  [SectionSpec.KEYS_TABLE.tableDataRequired]: [
+    {
+      [SectionSpec.KEYS_TABLE_DATA_REQUIRED.assessmentType]: FRA.type,
+      [SectionSpec.KEYS_TABLE_DATA_REQUIRED.sectionName]: FRA.sections['1'].children.b.name,
+      [SectionSpec.KEYS_TABLE_DATA_REQUIRED.tableName]: FRA.sections['1'].children.b.tables.forestCharacteristics,
+    },
+  ],
   [SectionSpec.KEYS_TABLE.rows]: [
     SectionSpec.newRowHeader({
       [SectionSpec.KEYS_ROW.cols]: [
@@ -24,7 +31,7 @@ const tableSpec = SectionSpec.newTableSpec({
       ],
     }),
     SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: yearsTable.map(yearRange =>
+      [SectionSpec.KEYS_ROW.cols]: yearsTable.map((yearRange) =>
         SectionSpec.newColHeader({
           [SectionSpec.KEYS_COL.label]: yearRange,
         })
@@ -52,7 +59,11 @@ const tableSpec = SectionSpec.newTableSpec({
     }),
     SectionSpec.newRowData({
       [SectionSpec.KEYS_ROW.labelKey]: `specificForestCategories.primaryForest`,
-      [SectionSpec.KEYS_ROW.cols]: yearsTable.map(() => SectionSpec.newColDecimal({})),
+      [SectionSpec.KEYS_ROW.cols]: yearsTable.map(() =>
+        SectionSpec.newColDecimal({
+          [SectionSpec.KEYS_COL.validator]: SpecificForestCategoriesValidatorState.primaryForestValidator,
+        })
+      ),
     }),
     SectionSpec.newRowData({
       [SectionSpec.KEYS_ROW.labelKey]: `specificForestCategories.rubberWood`,
