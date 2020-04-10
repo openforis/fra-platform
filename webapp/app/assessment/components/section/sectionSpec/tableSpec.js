@@ -28,6 +28,7 @@ export const KEYS_TABLE_DATA_REQUIRED = {
 
 export const KEYS_TABLE_PRINT = {
   colBreakPoints: 'colBreakPoints',
+  pageBreakAfter: 'pageBreakAfter',
 }
 
 const tableDefault = {
@@ -35,7 +36,7 @@ const tableDefault = {
   [KEYS_TABLE.rows]: [],
   [KEYS_TABLE.secondary]: false,
   [KEYS_TABLE.tableDataRequired]: [],
-  [KEYS_TABLE.print]: { [KEYS_TABLE_PRINT.colBreakPoints]: [] },
+  [KEYS_TABLE.print]: { [KEYS_TABLE_PRINT.colBreakPoints]: [], [KEYS_TABLE_PRINT.pageBreakAfter]: false },
   [KEYS_TABLE.getSectionData]: AssessmentState.getSectionData,
   [KEYS_TABLE.isSectionDataEmpty]: AssessmentState.isSectionDataEmpty,
   [KEYS_TABLE.odp]: false,

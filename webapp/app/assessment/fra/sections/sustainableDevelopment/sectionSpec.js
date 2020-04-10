@@ -6,10 +6,13 @@ import * as SustainableDevelopmentState from '@webapp/app/assessment/fra/section
 
 const section = FRA.sections['8'].children.a
 
-const newTableSpecResponsibleAgency = tableName =>
+const newTableSpecResponsibleAgency = (tableName, printPageBreakAfter = false) =>
   SectionSpec.newTableSpec({
     [SectionSpec.KEYS_TABLE.name]: tableName,
     [SectionSpec.KEYS_TABLE.secondary]: true,
+    [SectionSpec.KEYS_TABLE.print]: {
+      [SectionSpec.KEYS_TABLE_PRINT.pageBreakAfter]: printPageBreakAfter,
+    },
     [SectionSpec.KEYS_TABLE.rows]: [
       SectionSpec.newRowData({
         [SectionSpec.KEYS_ROW.labelKey]: 'sustainableDevelopment.nameOfAgencyResponsible',
@@ -45,7 +48,7 @@ const newTableSDGIndicator = (
         ],
       }),
       SectionSpec.newRowHeader({
-        [SectionSpec.KEYS_ROW.cols]: yearsTable.map(year =>
+        [SectionSpec.KEYS_ROW.cols]: yearsTable.map((year) =>
           SectionSpec.newColHeader({
             [SectionSpec.KEYS_COL.label]: year,
           })
@@ -124,7 +127,7 @@ const tableSection3 = SectionSpec.newTableSection({
       SustainableDevelopmentState.getBiomassStock,
       { no: 2 }
     ),
-    newTableSpecResponsibleAgency(section.tables.sustainableDevelopmentAgencySubIndicator2),
+    newTableSpecResponsibleAgency(section.tables.sustainableDevelopmentAgencySubIndicator2, true),
   ],
 })
 
