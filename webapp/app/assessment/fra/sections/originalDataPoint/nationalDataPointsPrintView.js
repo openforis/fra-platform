@@ -7,8 +7,8 @@ import useI18n from '@webapp/components/hooks/useI18n'
 
 import DataSources from './originalDataPointView/components/dataSources'
 import NationalClasses from './originalDataPointView/components/nationalClasses'
-import ExtentOfForestSection from './originalDataPointView/components/originalData/extentOfForestSection'
-import ForestCharacteristicsSection from './originalDataPointView/components/originalData/forestCharacteristicsSection'
+import ExtentOfForest from './originalDataPointView/components/originalData/extentOfForest'
+import ForestCharacteristics from './originalDataPointView/components/originalData/forestCharacteristics'
 
 const NationalDataPointsPrintView = (props) => {
   const { section } = props
@@ -41,7 +41,7 @@ const NationalDataPointsPrintView = (props) => {
       <div className="odp__section-print-mode">
         <h3 className="subhead">{i18n.t('nationalDataPoint.reclassificationLabel')}</h3>
         {data.map((odp) => {
-          const component = section === 'extentOfForest' ? ExtentOfForestSection : ForestCharacteristicsSection
+          const component = section === 'extentOfForest' ? ExtentOfForest : ForestCharacteristics
           return React.createElement(component, { key: odp.odpId, ...props, odp })
         })}
       </div>

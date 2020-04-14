@@ -5,7 +5,7 @@ import * as OriginalDataPointState from '../../originalDataPointState'
 
 export default (index) =>
   useSelector((state) => {
-    const odp = OriginalDataPointState.getActiveOriginalDataPoint(state)
+    const odp = OriginalDataPointState.getActive(state)
 
     let validationResult = null
     if (odp.validationStatus) {

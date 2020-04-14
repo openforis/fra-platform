@@ -10,7 +10,7 @@ import * as ODP from '../originalDataPoint'
 import * as OriginalDataPointStateState from '../originalDataPointState'
 
 const getDatumOdp = (state, odp, datumFields, draft) => {
-  const odpOrig = OriginalDataPointStateState.getActiveOriginalDataPoint(state)
+  const odpOrig = OriginalDataPointStateState.getActive(state)
   const { odpId, year } = odp
   const { year: yearPrev } = odpOrig
 

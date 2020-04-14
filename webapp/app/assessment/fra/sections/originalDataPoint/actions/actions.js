@@ -1,11 +1,12 @@
 import axios from 'axios'
 import * as R from 'ramda'
 
+import { validateDataPoint } from '@common/validateOriginalDataPoint'
 import * as FRA from '@common/assessment/fra'
 import * as BasePaths from '@webapp/main/basePaths'
 import { batchActions } from '@webapp/main/reduxBatch'
-import { validateDataPoint } from '@common/validateOriginalDataPoint'
 import { readPasteClipboard } from '@webapp/utils/copyPasteUtil'
+import { acceptNextDecimal } from '@webapp/utils/numberInput'
 
 import * as AppState from '@webapp/app/appState'
 import { applicationError } from '@webapp/app/components/error/actions'
@@ -55,7 +56,7 @@ const persistDraft = (countryIso, odp) => {
     } = await axios.post(`/api/odp/draft/?countryIso=${countryIso}`, ODP.removeClassPlaceholder(odp))
     const state = getState()
     const actions = [autosave.complete, { type: odpSaveDraftCompleted, odpId }]
-    const isNew = !OriginalDataPointState.getActiveOriginalDataPoint(state).odpId
+    const isNew = !OriginalDataPointState.getActive(state).odpId
     if (isNew) {
       actions.push(...getUpdateTablesWithOdp(state, { ...odp, odpId }))
     }
@@ -123,10 +124,18 @@ export const copyPreviousNationalClasses = (countryIso, odp) => async (dispatch)
   }
 }
 
-// ====== Paste
-export const pasteValues = (props) => (dispatch, getState) => {
+export const updateNationalClassValue = (index, fieldName, valueCurrent, valueUpdate) => (dispatch, getState) => {
   const state = getState()
-  const odp = OriginalDataPointState.getActiveOriginalDataPoint(state)
+  const odp = OriginalDataPointState.getActive(state)
+  const countryIso = AppState.getCountryIso(state)
+  const odpUpdate = ODP.updateNationalClass(odp, index, fieldName, acceptNextDecimal(valueUpdate, valueCurrent))
+  dispatch(saveDraft(countryIso, odpUpdate))
+}
+
+// ====== Paste
+export const pasteNationalClassValues = (props) => (dispatch, getState) => {
+  const state = getState()
+  const odp = OriginalDataPointState.getActive(state)
   const countryIso = AppState.getCountryIso(state)
   const { evt, rowIndex, colIndex, columns, allowGrow = false, allowedClass = () => true } = props
 
@@ -140,7 +149,7 @@ export const remove = (countryIso, odpId, destination) => async (dispatch) => {
   // TODO on issue: https://github.com/openforis/fra-platform/issues/154
   // when deleting odp, update tables with odp state
   await axios.delete(`/api/odp/?odpId=${odpId}&countryIso=${countryIso}`)
-  dispatch(batchActions([{ type: odpClearActiveAction }, fetchCountryOverviewStatus(countryIso)]))
+  dispatch(batchActions([clearActive(), fetchCountryOverviewStatus(countryIso)]))
   window.location = BasePaths.getAssessmentSectionLink(countryIso, FRA.type, destination)
 }
 

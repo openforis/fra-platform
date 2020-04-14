@@ -11,7 +11,7 @@ import * as originalDataPoint from '../../originalDataPoint'
 
 import useClassNameComments from './useClassNameComments'
 import useValidationNationalClass from './useValidationNationalClass'
-import { saveDraft, pasteValues } from '../../actions'
+import { saveDraft, pasteNationalClassValues } from '../../actions'
 
 const nationalClassCols = [
   { name: 'className', type: 'text' },
@@ -57,7 +57,7 @@ const NationalClass = (props) => {
               }}
               onPaste={(evt) => {
                 dispatch(
-                  pasteValues({
+                  pasteNationalClassValues({
                     evt,
                     rowIndex: index,
                     colIndex: 0,
@@ -92,7 +92,7 @@ const NationalClass = (props) => {
           }}
           onPaste={(evt) => {
             dispatch(
-              pasteValues({
+              pasteNationalClassValues({
                 evt,
                 rowIndex: index,
                 colIndex: 1,

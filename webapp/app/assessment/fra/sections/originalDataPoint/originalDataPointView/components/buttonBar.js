@@ -1,10 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useHistory, useParams } from 'react-router'
 
-import { useCountryIso, useI18n } from '@webapp/components/hooks'
-import * as AutosaveState from '@webapp/app/components/autosave/autosaveState'
+import { useCountryIso, useI18n, useIsAutoSaveSaving } from '@webapp/components/hooks'
 
 import { cancelDraft, markAsActual, remove } from '../../actions'
 
@@ -16,7 +15,7 @@ const ButtonBar = (props) => {
   const { tab } = useParams()
   const i18n = useI18n()
   const countryIso = useCountryIso()
-  const disabled = useSelector(AutosaveState.getStatus) || !odp.id
+  const disabled = useIsAutoSaveSaving() || !odp.odpId
 
   if (!canEditData) {
     return null
@@ -27,7 +26,7 @@ const ButtonBar = (props) => {
       {odp.editStatus && odp.editStatus !== 'newDraft' && (
         <button
           type="button"
-          className="btn btn-secondary"
+          className="btn btn-secondary margin-right"
           disabled={disabled}
           onClick={() => dispatch(cancelDraft(countryIso, odp.odpId, tab))}
         >

@@ -32,10 +32,6 @@
   justify-content: flex-end;
   align-items: center;
 
-  .btn-primary {
-    margin-left: 8px;
-  }
-
   &:empty {
     display: none;
   }
@@ -76,6 +72,10 @@
     border-bottom-color: transparent;
     border-top-color: @ui-accent;
     color: @text-body;
+  }
+
+  &.disabled {
+    pointer-events: none;
   }
 }
 

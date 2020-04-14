@@ -1,70 +1,64 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+import { useSelector } from 'react-redux'
+import { Route, Switch } from 'react-router'
+import { NavLink } from 'react-router-dom'
 
-import { Link } from 'react-router-dom'
+import * as FRA from '@common/assessment/fra'
+import * as BasePaths from '@webapp/main/basePaths'
+import { useCountryIso, useI18n } from '@webapp/components/hooks'
 
-import ExtentOfForestSection from './extentOfForestSection'
-import ForestCharacteristicsSection from './forestCharacteristicsSection'
+import * as CountryState from '@webapp/app/country/countryState'
 
-const OriginalData = props => {
+import ExtentOfForest from './extentOfForest'
+import ForestCharacteristics from './forestCharacteristics'
 
-  const {
-    match, odp, i18n, useOriginalDataPointsInFoc,
-    saveDraft, openThread, canEditData,
-  } = props
+const extentOfForest = FRA.sections['1'].children.a
+const forestCharacteristics = FRA.sections['1'].children.b
 
-  const { countryIso, tab } = match.params
+const OriginalData = (props) => {
+  const { canEditData, odp } = props
+  const { odpId } = odp
+  const i18n = useI18n()
+  const countryIso = useCountryIso()
+  const useOriginalDataPointsInFoc = useSelector(CountryState.getConfigUseOriginalDataPointsInFoc)
 
   return (
     <div>
       <h2 className="headline">{i18n.t('nationalDataPoint.reclassificationLabel')}</h2>
 
       <div className="odp__tab-controller">
-        <Link
-          className={`odp__tab-item ${tab === 'extentOfForest' ? 'active' : null}`}
-          to={`/country/${countryIso}/odp/extentOfForest/${odp.odpId ? odp.odpId : null}`}>
-          1a {i18n.t('nationalDataPoint.forestCategoriesLabel')}
-        </Link>
-        {
-          useOriginalDataPointsInFoc
-            ? <Link
-              className={`odp__tab-item ${tab === 'forestCharacteristics' ? 'active' : null}`}
-              to={`/country/${countryIso}/odp/forestCharacteristics/${odp.odpId ? odp.odpId : null}`}>
-              1b {i18n.t('nationalDataPoint.forestCharacteristics')}
-            </Link>
-            : <span className="odp__tab-item">
-            1b {i18n.t('nationalDataPoint.forestCharacteristics')}
-              <span className="odp__tab-item-support">({i18n.t('nationalDataPoint.disabled')})</span>
-          </span>
-        }
+        <NavLink
+          className="odp__tab-item"
+          activeClassName="active"
+          to={BasePaths.getOdpLink(countryIso, extentOfForest.name, odpId)}
+        >
+          {`${extentOfForest.anchor} ${i18n.t('nationalDataPoint.forestCategoriesLabel')}`}
+        </NavLink>
+        <NavLink
+          className={`odp__tab-item${useOriginalDataPointsInFoc ? '' : ' disabled'}`}
+          activeClassName="active"
+          to={BasePaths.getOdpLink(countryIso, forestCharacteristics.name, odpId)}
+        >
+          {`${forestCharacteristics.anchor} ${i18n.t('nationalDataPoint.forestCharacteristics')}`}
+        </NavLink>
       </div>
 
-      {
-        tab === 'extentOfForest'
-          ? (
-            <ExtentOfForestSection
-              canEditData={canEditData}
-              odp={odp}
-              countryIso={countryIso}
-              saveDraft={saveDraft}
-              openThread={openThread}
-              i18n={i18n}
-            />
-          )
-          : (
-            <ForestCharacteristicsSection
-              canEditData={canEditData}
-              odp={odp}
-              countryIso={countryIso}
-              saveDraft={saveDraft}
-              openThread={openThread}
-              i18n={i18n}
-            />
-          )
-      }
-
+      <Switch>
+        <Route path={BasePaths.getOdpLink(':countryIso', extentOfForest.name, ':odpId')} exact>
+          <ExtentOfForest canEditData={canEditData} odp={odp} />
+        </Route>
+        <Route path={BasePaths.getOdpLink(':countryIso', forestCharacteristics.name, ':odpId')} exact>
+          <ForestCharacteristics canEditData={canEditData} odp={odp} />
+        </Route>
+      </Switch>
     </div>
   )
+}
 
+OriginalData.propTypes = {
+  canEditData: PropTypes.bool.isRequired,
+  odp: PropTypes.object.isRequired,
 }
 
 export default OriginalData
