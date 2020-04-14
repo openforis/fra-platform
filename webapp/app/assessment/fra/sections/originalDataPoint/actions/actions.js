@@ -56,10 +56,13 @@ const persistDraft = (countryIso, odp) => {
     } = await axios.post(`/api/odp/draft/?countryIso=${countryIso}`, ODP.removeClassPlaceholder(odp))
     const state = getState()
     const actions = [autosave.complete, { type: odpSaveDraftCompleted, odpId }]
+
+    // if original data point has just been created, the odpId must be added to odp state active object
     const isNew = !OriginalDataPointState.getActive(state).odpId
     if (isNew) {
       actions.push(...getUpdateTablesWithOdp(state, { ...odp, odpId }))
     }
+
     dispatch(batchActions(actions))
   }
   dispatched.meta = {
