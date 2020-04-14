@@ -14,7 +14,7 @@ import { fetchCountryOverviewStatus } from '@webapp/app/country/actions'
 
 import ButtonBar from './components/buttonBar'
 import YearSelection from './components/yearSelection'
-// import DataSources from './components/dataSources'
+import DataSources from './components/dataSources'
 // import NationalClasses from './components/nationalClasses'
 // import OriginalData from './components/originalData/originalData'
 import Comments from './components/comments'
@@ -50,12 +50,11 @@ const OriginalDataPointView = () => {
       </div>
 
       <YearSelection canEditData={canEditData} odp={odp} />
+      <DataSources canEditData={canEditData} odp={odp} />
 
-      {/*<DataSources {...props} />*/}
+      {/* <NationalClasses {...props} /> */}
 
-      {/*<NationalClasses {...props} />*/}
-
-      {/*<OriginalData {...props} />*/}
+      {/* <OriginalData {...props} /> */}
 
       <Comments canEditData={canEditData} odp={odp} />
 

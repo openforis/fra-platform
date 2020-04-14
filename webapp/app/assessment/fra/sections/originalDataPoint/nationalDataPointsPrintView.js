@@ -27,14 +27,14 @@ const NationalDataPointsPrintView = (props) => {
       <div className="odp__section-print-mode">
         <h3 className="subhead">{i18n.t('nationalDataPoint.dataSources')}</h3>
         {data.map((odp) => (
-          <DataSources key={odp.odpId} odp={odp} i18n={i18n} printView />
+          <DataSources key={odp.odpId} odp={odp} i18n={i18n} />
         ))}
       </div>
 
       <div className="odp__section-print-mode">
         <h3 className="subhead">{i18n.t('nationalDataPoint.nationalClasses')}</h3>
         {data.map((odp) => (
-          <NationalClasses key={odp.odpId} i18n={i18n} odp={odp} printView />
+          <NationalClasses key={odp.odpId} i18n={i18n} odp={odp} />
         ))}
       </div>
 
@@ -42,7 +42,7 @@ const NationalDataPointsPrintView = (props) => {
         <h3 className="subhead">{i18n.t('nationalDataPoint.reclassificationLabel')}</h3>
         {data.map((odp) => {
           const component = section === 'extentOfForest' ? ExtentOfForestSection : ForestCharacteristicsSection
-          return React.createElement(component, { key: odp.odpId, ...props, odp, printView: true })
+          return React.createElement(component, { key: odp.odpId, ...props, odp })
         })}
       </div>
     </div>
