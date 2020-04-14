@@ -27,14 +27,14 @@ const NationalDataPointsPrintView = (props) => {
       <div className="odp__section-print-mode">
         <h3 className="subhead">{i18n.t('nationalDataPoint.dataSources')}</h3>
         {data.map((odp) => (
-          <DataSources key={odp.odpId} odp={odp} i18n={i18n} />
+          <DataSources key={odp.odpId} canEditData={false} odp={odp} />
         ))}
       </div>
 
       <div className="odp__section-print-mode">
         <h3 className="subhead">{i18n.t('nationalDataPoint.nationalClasses')}</h3>
         {data.map((odp) => (
-          <NationalClasses key={odp.odpId} i18n={i18n} odp={odp} />
+          <NationalClasses key={odp.odpId} canEditData={false} odp={odp} />
         ))}
       </div>
 
