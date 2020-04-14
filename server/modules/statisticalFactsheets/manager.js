@@ -88,6 +88,6 @@ module.exports = {
   getForestCharacteristics,
   getForestOwnership,
   getGrowingStockTotal,
-  getSample,
+  // getSample,
   getSpecificForestCategories,
 }
