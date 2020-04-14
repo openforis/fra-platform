@@ -27,6 +27,7 @@ module.exports.init = app => {
 
   app.get('/landing/:countryIso/overview', async (req, res) => {
     try {
+      // TODO: Fix this
       checkCountryAccessFromReqParams(req)
 
       const countryIso = req.params.countryIso
@@ -44,6 +45,8 @@ module.exports.init = app => {
 
   app.get('/landing/sdgFocalPoints', async (req, res) => {
     try {
+      // TODO: Fix this
+
       checkCountryAccessFromReqParams(req)
 
       const filePath = `${__dirname}/${sdgContactsFileName}`

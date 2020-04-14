@@ -71,6 +71,7 @@ module.exports.init = app => {
 
   app.get('/userChat/:countryIso/messages/new', async (req, res) => {
     try {
+      // TODO: Fix this
       checkCountryAccessFromReqParams(req)
 
       const messages = await db.transaction(getChatUnreadMessages, [req.query.otherUserId, req.query.sessionUserId, true])
