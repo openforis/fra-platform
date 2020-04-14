@@ -110,12 +110,4 @@ module.exports.init = (app) => {
       forestOwnership,
     })
   })
-
-  app.get('/statisticalFactsheets/sample', async (req, res) => {
-    const sample = await Manager.getSample()
-
-    res.json({
-      sample,
-    })
-  })
 }

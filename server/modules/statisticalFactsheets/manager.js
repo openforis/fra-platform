@@ -73,12 +73,12 @@ const getPrimaryDesignatedManagementObjective = async (schemaName = 'public') =>
   return utils.yearsToRowValue(forestOwnership)
 }
 
-const getSample = async () => {
-  return Object.keys(countryConfig).map((key) => ({
-    countryIso: key,
-    [KEYS.totalArea]: _getTotalArea({ countryIso: key, year: 2015 }),
-  }))
-}
+// const getSample = async () => {
+//   return Object.keys(countryConfig).map((key) => ({
+//     countryIso: key,
+//     [KEYS.totalArea]: _getTotalArea({ countryIso: key, year: 2015 }),
+//   }))
+// }
 
 module.exports = {
   getPrimaryDesignatedManagementObjective,
