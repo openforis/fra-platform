@@ -5,7 +5,7 @@ import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndi
 import { useCountryIso, useI18n } from '@webapp/components/hooks'
 
 import CommentsEditor from './commentsEditor'
-import useRowCommentsClassName from './useRowCommentsClassName'
+import useClassNameComments from './useClassNameComments'
 
 const Comments = (props) => {
   const { odp, canEditData } = props
@@ -14,7 +14,7 @@ const Comments = (props) => {
   const countryIso = useCountryIso()
 
   const target = [`${odp.odpId}`, 'comments']
-  const className = useRowCommentsClassName(target)
+  const className = useClassNameComments(target)
 
   return (
     <div className="odp__section">

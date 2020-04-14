@@ -1,83 +1,69 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+import { useDispatch } from 'react-redux'
 
-import useCountryIso from '@webapp/components/hooks/useCountryIso'
+import { useCountryIso, useI18n, useIsAutoSaveSaving, usePrintView } from '@webapp/components/hooks'
+
+import * as ODP from '../../originalDataPoint'
+import { copyPreviousNationalClasses } from '../../actions'
 import NationalClass from './nationalClass'
 
-const NationalClasses = props => {
+const NationalClasses = (props) => {
+  const { canEditData, odp } = props
+  const { nationalClasses, odpId, year } = odp
 
-  const {
-    saveDraft, autoSaving,
-    odp, copyPreviousNationalClasses,
-    copyDisabled, openThread, i18n,
-    printView = false,
-    canEditData
-  } = props
-
+  const dispatch = useDispatch()
+  const i18n = useI18n()
   const countryIso = useCountryIso()
-  const copyPreviousClassesDisabled = () => odp.year && !autoSaving ? false : true
-
-  const nationalClasses = odp.nationalClasses
+  const [printView] = usePrintView()
+  const saving = useIsAutoSaveSaving()
+  const copyDisabled = !odpId || !year || !ODP.allowCopyingOfPreviousValues(odp) || saving
 
   return (
     <div className="odp__section">
-
-      {
-        !printView &&
+      {!printView && (
         <div className="odp__section-header">
-          <h3 className="subhead">
-            {i18n.t('nationalDataPoint.nationalClasses')}
-          </h3>
-            {
-            canEditData &&
-              <button
-                className="btn-s btn-primary btn-copy-prev-values"
-                disabled={copyDisabled || copyPreviousClassesDisabled()}
-                onClick={() => copyPreviousNationalClasses(countryIso, odp)}>
-                {i18n.t('nationalDataPoint.copyPreviousValues')}
-              </button>
-            }
+          <h3 className="subhead">{i18n.t('nationalDataPoint.nationalClasses')}</h3>
+          {canEditData && (
+            <button
+              type="button"
+              className="btn-s btn-primary btn-copy-prev-values"
+              disabled={copyDisabled}
+              onClick={() => dispatch(copyPreviousNationalClasses(countryIso, odp))}
+            >
+              {i18n.t('nationalDataPoint.copyPreviousValues')}
+            </button>
+          )}
         </div>
-      }
+      )}
 
       <div className="fra-table__container">
         <div className="fra-table__scroll-wrapper">
           <table className="fra-table odp__nc-table">
             <tbody>
-
-            <tr>
-              {
-                printView &&
-                <th className="fra-table__header-cell odp__year-column"
-                    rowSpan={nationalClasses.length + 1}>
-                  {odp.year}
-                </th>
-              }
-              <th className="fra-table__header-cell-left">{i18n.t('nationalDataPoint.nationalClass')}</th>
-              <th className="fra-table__header-cell-left">{i18n.t('nationalDataPoint.definition')}</th>
-            </tr>
-            {
-              nationalClasses.map((nationalClass, i) => (
-                <NationalClass
-                  key={i}
-                  index={i}
-                  odp={odp}
-                  saveDraft={saveDraft}
-                  countryIso={countryIso}
-                  openThread={openThread}
-                  i18n={i18n}
-                  printView={printView}
-                  canEditData={canEditData}
-                  {...nationalClass}
-                />
-              ))
-            }
+              <tr>
+                {printView && (
+                  <th className="fra-table__header-cell odp__year-column" rowSpan={nationalClasses.length + 1}>
+                    {odp.year}
+                  </th>
+                )}
+                <th className="fra-table__header-cell-left">{i18n.t('nationalDataPoint.nationalClass')}</th>
+                <th className="fra-table__header-cell-left">{i18n.t('nationalDataPoint.definition')}</th>
+              </tr>
+              {nationalClasses.map((nationalClass, i) => (
+                <NationalClass key={nationalClass.uuid} index={i} odp={odp} canEditData={canEditData} />
+              ))}
             </tbody>
           </table>
         </div>
       </div>
-
     </div>
   )
+}
+
+NationalClasses.propTypes = {
+  canEditData: PropTypes.bool.isRequired,
+  odp: PropTypes.object.isRequired,
 }
 
 export default NationalClasses

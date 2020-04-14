@@ -6,14 +6,23 @@ import { acceptNextDecimal } from '@webapp/utils/numberInput'
 import handlePaste from '../paste'
 import * as ODP from '../originalDataPoint'
 
+/**
+ * @deprecated
+ */
 export const isCommentsOpen = (target, openThread = {}) =>
   R.equals('odp', openThread.section) && R.isEmpty(R.difference(openThread.target, target))
 
+/**
+ * @deprecated
+ */
 export const getValidationStatusRow = (odp, index) =>
   odp.validationStatus
     ? R.defaultTo({}, R.find(R.propEq('uuid', odp.nationalClasses[index].uuid), odp.validationStatus.nationalClasses))
     : {}
 
+/**
+ * @deprecated
+ */
 export const updatePastedValues = (props) => (evt) => {
   const {
     odp,

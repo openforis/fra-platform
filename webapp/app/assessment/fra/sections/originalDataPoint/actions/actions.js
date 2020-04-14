@@ -5,13 +5,16 @@ import * as FRA from '@common/assessment/fra'
 import * as BasePaths from '@webapp/main/basePaths'
 import { batchActions } from '@webapp/main/reduxBatch'
 import { validateDataPoint } from '@common/validateOriginalDataPoint'
+import { readPasteClipboard } from '@webapp/utils/copyPasteUtil'
 
+import * as AppState from '@webapp/app/appState'
 import { applicationError } from '@webapp/app/components/error/actions'
 import * as autosave from '@webapp/app/components/autosave/actions'
 import { fetchCountryOverviewStatus } from '@webapp/app/country/actions'
 
-import * as OriginalDataPointStateState from '../originalDataPointState'
+import * as OriginalDataPointState from '../originalDataPointState'
 import * as ODP from '../originalDataPoint'
+import handlePaste from '../paste'
 import { getUpdateTablesWithOdp } from './updateSectionTables'
 
 // ====== Validation
@@ -52,7 +55,7 @@ const persistDraft = (countryIso, odp) => {
     } = await axios.post(`/api/odp/draft/?countryIso=${countryIso}`, ODP.removeClassPlaceholder(odp))
     const state = getState()
     const actions = [autosave.complete, { type: odpSaveDraftCompleted, odpId }]
-    const isNew = !OriginalDataPointStateState.getActiveOriginalDataPoint(state).odpId
+    const isNew = !OriginalDataPointState.getActiveOriginalDataPoint(state).odpId
     if (isNew) {
       actions.push(...getUpdateTablesWithOdp(state, { ...odp, odpId }))
     }
@@ -118,6 +121,18 @@ export const copyPreviousNationalClasses = (countryIso, odp) => async (dispatch)
   } else {
     dispatch(applicationError({ key: 'error.ndp.previousNdpNotFound', values: { year: odp.year } }))
   }
+}
+
+// ====== Paste
+export const pasteValues = (props) => (dispatch, getState) => {
+  const state = getState()
+  const odp = OriginalDataPointState.getActiveOriginalDataPoint(state)
+  const countryIso = AppState.getCountryIso(state)
+  const { evt, rowIndex, colIndex, columns, allowGrow = false, allowedClass = () => true } = props
+
+  const rawPastedData = readPasteClipboard(evt, 'string')
+  const { updatedOdp } = handlePaste(columns, allowedClass, odp, allowGrow, rawPastedData, rowIndex, colIndex)
+  dispatch(saveDraft(countryIso, updatedOdp))
 }
 
 // ====== Delete

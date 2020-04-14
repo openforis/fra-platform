@@ -1,9 +1,18 @@
+/**
+ * @deprecated
+ */
 export const status = {
   saving: 'saving',
   complete: 'complete',
-  lastSaveTimestampReceived: 'lastSaveTimestampReceived'
+  lastSaveTimestampReceived: 'lastSaveTimestampReceived',
 }
 
-export const isStatusSaving = s => s === status.saving
+/**
+ * @deprecated
+ */
+export const isStatusSaving = (s) => s === status.saving
 
-export const isStatusComplete = s => s === status.complete
+/**
+ * @deprecated
+ */
+export const isStatusComplete = (s) => s === status.complete

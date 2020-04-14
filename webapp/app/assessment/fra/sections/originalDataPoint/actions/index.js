@@ -24,6 +24,7 @@ export {
   cancelDraft,
   markAsActual,
   copyPreviousNationalClasses,
+  pasteValues,
   // delete
   remove,
   removeFromList,

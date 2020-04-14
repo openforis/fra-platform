@@ -7,6 +7,12 @@ const keys = {
   lastSaveTimeStamp: 'lastSaveTimeStamp',
 }
 
+export const status = {
+  saving: 'saving',
+  complete: 'complete',
+  lastSaveTimestampReceived: 'lastSaveTimestampReceived',
+}
+
 const getState = R.prop(stateKey)
 
 // === READ
