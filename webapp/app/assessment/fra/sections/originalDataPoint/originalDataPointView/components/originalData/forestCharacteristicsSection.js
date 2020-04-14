@@ -5,8 +5,8 @@ import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndi
 import PercentInput from '@webapp/components/percentInput'
 import ForestCharacteristicsPlantationSection from './forestCharacteristicsPlantationSection'
 
-import * as originalDataPoint from '../../originalDataPoint'
-import { getValidationStatusRow, isCommentsOpen, numberUpdateCreator, updatePastedValues } from '../commonFunctions'
+import * as originalDataPoint from '../../../originalDataPoint'
+import { getValidationStatusRow, isCommentsOpen, numberUpdateCreator, updatePastedValues } from '../../commonFunctions'
 
 import { greaterThan } from '@common/bignumberUtils'
 import { formatDecimal } from '@common/numberFormat'

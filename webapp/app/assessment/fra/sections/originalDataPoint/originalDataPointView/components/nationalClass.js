@@ -4,11 +4,11 @@ import Icon from '@webapp/components/icon'
 import VerticallyGrowingTextField from '@webapp/components/verticallyGrowingTextField'
 import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
 
-import * as originalDataPoint from '../originalDataPoint'
+import * as originalDataPoint from '../../originalDataPoint'
 
 const nationalClassCols = [{ name: 'className', type: 'text' }, { name: 'definition', type: 'text' }]
 
-import { isCommentsOpen, getValidationStatusRow, updatePastedValues } from './commonFunctions'
+import { isCommentsOpen, getValidationStatusRow, updatePastedValues } from '../commonFunctions'
 
 const NationalClass = props => {
 

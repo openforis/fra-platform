@@ -1,12 +1,12 @@
 import React from 'react'
 
 import DefinitionLink from '@webapp/components/definitionLink'
-import ThousandSeparatedDecimalInput from '@webapp/components/thousandSeparatedDecimalInput'
-import PercentInput from '@webapp/components/percentInput'
+import { ThousandSeparatedDecimalInput } from '@webapp/components/thousandSeparatedDecimalInput'
+import { PercentInput } from '@webapp/components/percentInput'
 import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
 
-import * as originalDataPoint from '../../originalDataPoint'
-import { getValidationStatusRow, isCommentsOpen, numberUpdateCreator, updatePastedValues } from '../commonFunctions'
+import * as originalDataPoint from '../../../originalDataPoint'
+import { getValidationStatusRow, isCommentsOpen, numberUpdateCreator, updatePastedValues } from '../../commonFunctions'
 
 import { formatDecimal } from '@common/numberFormat'
 import { add, sub } from '@common/bignumberUtils'

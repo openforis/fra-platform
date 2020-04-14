@@ -5,10 +5,10 @@ import * as R from 'ramda'
 
 import useI18n from '@webapp/components/hooks/useI18n'
 
-import DataSources from './components/dataSources'
-import NationalClasses from './components/nationalClasses'
-import ExtentOfForestSection from './components/originalData/extentOfForestSection'
-import ForestCharacteristicsSection from './components/originalData/forestCharacteristicsSection'
+import DataSources from './originalDataPointView/components/dataSources'
+import NationalClasses from './originalDataPointView/components/nationalClasses'
+import ExtentOfForestSection from './originalDataPointView/components/originalData/extentOfForestSection'
+import ForestCharacteristicsSection from './originalDataPointView/components/originalData/forestCharacteristicsSection'
 
 const NationalDataPointsPrintView = (props) => {
   const { section } = props

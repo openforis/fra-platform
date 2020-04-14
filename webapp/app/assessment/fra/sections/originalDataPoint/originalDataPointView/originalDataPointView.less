@@ -1,12 +1,13 @@
-@import (reference) "~@webapp/main/styles/config";
-@import (reference) "~@webapp/main/styles/fraTable";
-@import (reference) "~@webapp/main/styles/inputMixins";
+@import (reference) '~@webapp/main/styles/config';
+@import (reference) '~@webapp/main/styles/fraTable';
+@import (reference) '~@webapp/main/styles/inputMixins';
 
 .odp__section {
   margin-top: 32px;
   margin-bottom: 32px;
 
-  > .subhead, > .headline {
+  > .subhead,
+  > .headline {
     margin-bottom: 16px;
   }
 }
@@ -33,6 +34,10 @@
 
   .btn-primary {
     margin-left: 8px;
+  }
+
+  &:empty {
+    display: none;
   }
 }
 
@@ -247,7 +252,6 @@
 
 // ===== print view
 .odp__section-print-mode {
-
   .odp__section {
     margin: 0px;
   }
