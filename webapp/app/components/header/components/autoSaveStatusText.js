@@ -14,13 +14,15 @@ const AutoSaveStatusText = () => {
   const lastSaveTimeStamp = useSelector(AutoSaveState.getLastSaveTimeStamp)
   const status = useSelector(AutoSaveState.getStatus)
   const hasStatus = userInfo && !R.isNil(status)
+  const islastSaveTimestampReceived = status === 'lastSaveTimestampReceived'
 
-  if (!hasStatus) {
+  // Note: Status can be also 'Saving'
+  if (!hasStatus || (islastSaveTimestampReceived && !lastSaveTimeStamp)) {
     return null
   }
 
   let statusText = i18n.t(`header.autoSave.${status}`)
-  if (status === 'lastSaveTimestampReceived') statusText += getRelativeDate(lastSaveTimeStamp, i18n).toLowerCase()
+  if (islastSaveTimestampReceived) statusText += getRelativeDate(lastSaveTimeStamp, i18n).toLowerCase()
 
   return <div className={`app-header__autosave status-${status}`}>{statusText}</div>
 }

@@ -54,6 +54,9 @@ const Descriptions = (props) => {
           disabled={disabled}
         />
       )}
+      {printView && !printOnlyTablesView && (useNationalData || useAnalysisAndProcessing) && (
+        <div className="page-break" />
+      )}
     </>
   )
 }
