@@ -20,3 +20,6 @@ export const getAssessmentPrintLink = (countryIso, assessmentType, onlyTables = 
 
 export const getOdpLink = (countryIso, sectionName, odpId = null) =>
   `/${countryIso}/odp/${sectionName}/${odpId ? `${odpId}/` : ''}`
+
+export const getUserProfilePictureLink = (countryIso, userId) =>
+  `/api/users/${countryIso}/user/${userId}/profilePicture`

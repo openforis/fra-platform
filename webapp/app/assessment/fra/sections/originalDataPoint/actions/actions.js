@@ -1,17 +1,21 @@
 import axios from 'axios'
 import * as R from 'ramda'
 
+import { validateDataPoint } from '@common/validateOriginalDataPoint'
 import * as FRA from '@common/assessment/fra'
 import * as BasePaths from '@webapp/main/basePaths'
 import { batchActions } from '@webapp/main/reduxBatch'
-import { validateDataPoint } from '@common/validateOriginalDataPoint'
+import { readPasteClipboard } from '@webapp/utils/copyPasteUtil'
+import { acceptNextDecimal } from '@webapp/utils/numberInput'
 
+import * as AppState from '@webapp/app/appState'
 import { applicationError } from '@webapp/app/components/error/actions'
 import * as autosave from '@webapp/app/components/autosave/actions'
 import { fetchCountryOverviewStatus } from '@webapp/app/country/actions'
 
-import * as OriginalDataPointStateState from '../originalDataPointState'
+import * as OriginalDataPointState from '../originalDataPointState'
 import * as ODP from '../originalDataPoint'
+import handlePaste from '../paste'
 import { getUpdateTablesWithOdp } from './updateSectionTables'
 
 // ====== Validation
@@ -52,10 +56,13 @@ const persistDraft = (countryIso, odp) => {
     } = await axios.post(`/api/odp/draft/?countryIso=${countryIso}`, ODP.removeClassPlaceholder(odp))
     const state = getState()
     const actions = [autosave.complete, { type: odpSaveDraftCompleted, odpId }]
-    const isNew = !OriginalDataPointStateState.getActiveOriginalDataPoint(state).odpId
+
+    // if original data point has just been created, the odpId must be added to odp state active object
+    const isNew = !OriginalDataPointState.getActive(state).odpId
     if (isNew) {
       actions.push(...getUpdateTablesWithOdp(state, { ...odp, odpId }))
     }
+
     dispatch(batchActions(actions))
   }
   dispatched.meta = {
@@ -120,12 +127,32 @@ export const copyPreviousNationalClasses = (countryIso, odp) => async (dispatch)
   }
 }
 
+export const updateNationalClassValue = (index, fieldName, valueCurrent, valueUpdate) => (dispatch, getState) => {
+  const state = getState()
+  const odp = OriginalDataPointState.getActive(state)
+  const countryIso = AppState.getCountryIso(state)
+  const odpUpdate = ODP.updateNationalClass(odp, index, fieldName, acceptNextDecimal(valueUpdate, valueCurrent))
+  dispatch(saveDraft(countryIso, odpUpdate))
+}
+
+// ====== Paste
+export const pasteNationalClassValues = (props) => (dispatch, getState) => {
+  const state = getState()
+  const odp = OriginalDataPointState.getActive(state)
+  const countryIso = AppState.getCountryIso(state)
+  const { event, rowIndex, colIndex, columns, allowGrow = false, allowedClass = () => true } = props
+
+  const rawPastedData = readPasteClipboard(event, 'string')
+  const { updatedOdp } = handlePaste(columns, allowedClass, odp, allowGrow, rawPastedData, rowIndex, colIndex)
+  dispatch(saveDraft(countryIso, updatedOdp))
+}
+
 // ====== Delete
 export const remove = (countryIso, odpId, destination) => async (dispatch) => {
   // TODO on issue: https://github.com/openforis/fra-platform/issues/154
   // when deleting odp, update tables with odp state
   await axios.delete(`/api/odp/?odpId=${odpId}&countryIso=${countryIso}`)
-  dispatch(batchActions([{ type: odpClearActiveAction }, fetchCountryOverviewStatus(countryIso)]))
+  dispatch(batchActions([clearActive(), fetchCountryOverviewStatus(countryIso)]))
   window.location = BasePaths.getAssessmentSectionLink(countryIso, FRA.type, destination)
 }
 
