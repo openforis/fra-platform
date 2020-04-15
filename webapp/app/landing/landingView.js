@@ -25,48 +25,38 @@ const LandingView = () => {
 
   return (
     <div className="app-view__content">
-
       <div className="landing__page-header">
         <h1 className="landing__page-title">
-          {
-            countryIso
-              ? dispatch(getCountryName(countryIso, i18n.language))
-              : i18n.t('common.fraPlatform')
-          }
+          {countryIso ? dispatch(getCountryName(countryIso, i18n.language)) : i18n.t('common.fraPlatform')}
         </h1>
-        <div className="landing__page-menu">
-          {
-            userAndCountry && sections.map(({ name }, i) => (
+        {userAndCountry && (
+          <div className="landing__page-menu">
+            {sections.map(({ name }) => (
               <NavLink
-                key={i}
+                key={name}
                 to={`${url}${name}/`}
                 className="landing__page-menu-button"
-                activeClassName="disabled">
+                activeClassName="disabled"
+              >
                 {i18n.t(`landing.sections.${name}`)}
               </NavLink>
-            ))
-          }
-        </div>
+            ))}
+          </div>
+        )}
       </div>
 
-      {
-        userAndCountry
-          ? (
-            <Switch>
-              <Route exact path={['/', url]}>
-                <Redirect to={`${url}overview/`}/>
-              </Route>
-              {
-                sections.map((section, i) =>
-                  <Route key={i} path={`${url}${section.name}/`} component={section.component}/>)
-              }
-            </Switch>
-          )
-          : (
-            <AboutView/>
-          )
-      }
-
+      {userAndCountry ? (
+        <Switch>
+          <Route exact path={['/', url]}>
+            <Redirect to={`${url}overview/`} />
+          </Route>
+          {sections.map((section) => (
+            <Route key={section.name} path={`${url}${section.name}/`} component={section.component} />
+          ))}
+        </Switch>
+      ) : (
+        <AboutView />
+      )}
     </div>
   )
 }
