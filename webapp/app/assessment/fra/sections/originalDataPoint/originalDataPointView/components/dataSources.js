@@ -37,8 +37,8 @@ const DataSources = (props) => {
                 <td className="fra-table__cell-left odp__data-source-input-column">
                   <VerticallyGrowingTextField
                     value={odp.dataSourceReferences || ''}
-                    onChange={(e) => {
-                      dispatch(saveDraft(countryIso, R.assoc('dataSourceReferences', e.target.value, odp)))
+                    onChange={(event) => {
+                      dispatch(saveDraft(countryIso, R.assoc('dataSourceReferences', event.target.value, odp)))
                     }}
                     disabled={printView || !canEditData}
                   />
@@ -96,8 +96,8 @@ const DataSources = (props) => {
                 <td className="fra-table__cell-left odp__data-source-input-column">
                   <VerticallyGrowingTextField
                     value={odp.dataSourceAdditionalComments || ''}
-                    onChange={(e) => {
-                      dispatch(saveDraft(countryIso, R.assoc('dataSourceAdditionalComments', e.target.value, odp)))
+                    onChange={(event) => {
+                      dispatch(saveDraft(countryIso, R.assoc('dataSourceAdditionalComments', event.target.value, odp)))
                     }}
                     disabled={printView || !canEditData}
                   />

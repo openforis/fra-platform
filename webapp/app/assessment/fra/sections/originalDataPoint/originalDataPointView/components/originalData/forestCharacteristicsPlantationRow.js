@@ -47,20 +47,20 @@ const ForestCharacteristicsPlantationRow = (props) => {
         <PercentInput
           disabled={!canEditData}
           numberValue={plantationIntroducedPercent}
-          onChange={(e) => {
+          onChange={(event) => {
             dispatch(
               updateNationalClassValue(
                 index,
                 'plantationIntroducedPercent',
                 plantationIntroducedPercent,
-                e.target.value
+                event.target.value
               )
             )
           }}
-          onPaste={(evt) => {
+          onPaste={(event) => {
             dispatch(
               pasteNationalClassValues({
-                evt,
+                event,
                 rowIndex: index,
                 colIndex: 0,
                 columns,

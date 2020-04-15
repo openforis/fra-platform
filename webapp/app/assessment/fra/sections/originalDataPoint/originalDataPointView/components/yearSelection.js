@@ -26,9 +26,12 @@ const YearSelection = (props) => {
           disabled={!canEditData}
           className="select validation-error-sensitive-field"
           value={odp.year || ''}
-          onChange={(e) =>
+          onChange={(event) =>
             dispatch(
-              saveDraft(countryIso, R.assoc('year', R.isEmpty(e.target.value) ? null : Number(e.target.value), odp))
+              saveDraft(
+                countryIso,
+                R.assoc('year', R.isEmpty(event.target.value) ? null : Number(event.target.value), odp)
+              )
             )
           }
         >

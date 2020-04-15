@@ -41,13 +41,13 @@ const ExtentOfForestRow = (props) => {
         <ThousandSeparatedDecimalInput
           disabled={!canEditData}
           numberValue={area}
-          onChange={(e) => {
-            dispatch(updateNationalClassValue(index, 'area', area, e.target.value))
+          onChange={(event) => {
+            dispatch(updateNationalClassValue(index, 'area', area, event.target.value))
           }}
-          onPaste={(evt) => {
+          onPaste={(event) => {
             dispatch(
               pasteNationalClassValues({
-                evt,
+                event,
                 rowIndex: index,
                 colIndex: 0,
                 columns,
@@ -60,13 +60,13 @@ const ExtentOfForestRow = (props) => {
         <PercentInput
           disabled={!canEditData}
           numberValue={forestPercent}
-          onChange={(e) => {
-            dispatch(updateNationalClassValue(index, 'forestPercent', forestPercent, e.target.value))
+          onChange={(event) => {
+            dispatch(updateNationalClassValue(index, 'forestPercent', forestPercent, event.target.value))
           }}
-          onPaste={(evt) => {
+          onPaste={(event) => {
             dispatch(
               pasteNationalClassValues({
-                evt,
+                event,
                 rowIndex: index,
                 colIndex: 1,
                 columns,
@@ -79,13 +79,15 @@ const ExtentOfForestRow = (props) => {
         <PercentInput
           disabled={!canEditData}
           numberValue={otherWoodedLandPercent}
-          onChange={(e) => {
-            dispatch(updateNationalClassValue(index, 'otherWoodedLandPercent', otherWoodedLandPercent, e.target.value))
+          onChange={(event) => {
+            dispatch(
+              updateNationalClassValue(index, 'otherWoodedLandPercent', otherWoodedLandPercent, event.target.value)
+            )
           }}
-          onPaste={(evt) => {
+          onPaste={(event) => {
             dispatch(
               pasteNationalClassValues({
-                evt,
+                event,
                 rowIndex: index,
                 colIndex: 2,
                 columns,

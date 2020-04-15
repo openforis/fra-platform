@@ -140,9 +140,9 @@ export const pasteNationalClassValues = (props) => (dispatch, getState) => {
   const state = getState()
   const odp = OriginalDataPointState.getActive(state)
   const countryIso = AppState.getCountryIso(state)
-  const { evt, rowIndex, colIndex, columns, allowGrow = false, allowedClass = () => true } = props
+  const { event, rowIndex, colIndex, columns, allowGrow = false, allowedClass = () => true } = props
 
-  const rawPastedData = readPasteClipboard(evt, 'string')
+  const rawPastedData = readPasteClipboard(event, 'string')
   const { updatedOdp } = handlePaste(columns, allowedClass, odp, allowGrow, rawPastedData, rowIndex, colIndex)
   dispatch(saveDraft(countryIso, updatedOdp))
 }

@@ -47,18 +47,18 @@ const NationalClass = (props) => {
                 placeHolder && index === 0 ? i18n.t('nationalDataPoint.enterOrCopyPasteNationalClasses') : ''
               }
               value={className || ''}
-              onChange={(evt) => {
+              onChange={(event) => {
                 dispatch(
                   saveDraft(
                     countryIso,
-                    originalDataPoint.updateNationalClass(odp, index, 'className', evt.target.value)
+                    originalDataPoint.updateNationalClass(odp, index, 'className', event.target.value)
                   )
                 )
               }}
-              onPaste={(evt) => {
+              onPaste={(event) => {
                 dispatch(
                   pasteNationalClassValues({
-                    evt,
+                    event,
                     rowIndex: index,
                     colIndex: 0,
                     columns: nationalClassCols,
@@ -85,15 +85,15 @@ const NationalClass = (props) => {
       <td className="fra-table__cell-left odp__nc-table__def">
         <VerticallyGrowingTextField
           value={definition || ''}
-          onChange={(evt) => {
+          onChange={(event) => {
             dispatch(
-              saveDraft(countryIso, originalDataPoint.updateNationalClass(odp, index, 'definition', evt.target.value))
+              saveDraft(countryIso, originalDataPoint.updateNationalClass(odp, index, 'definition', event.target.value))
             )
           }}
-          onPaste={(evt) => {
+          onPaste={(event) => {
             dispatch(
               pasteNationalClassValues({
-                evt,
+                event,
                 rowIndex: index,
                 colIndex: 1,
                 columns: nationalClassCols,

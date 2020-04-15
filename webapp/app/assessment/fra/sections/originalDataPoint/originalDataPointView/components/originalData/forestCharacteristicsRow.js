@@ -49,13 +49,13 @@ const ForestCharacteristicsRow = (props) => {
         <PercentInput
           disabled={!canEditData}
           numberValue={naturalForestPercent}
-          onChange={(e) => {
-            dispatch(updateNationalClassValue(index, 'naturalForestPercent', naturalForestPercent, e.target.value))
+          onChange={(event) => {
+            dispatch(updateNationalClassValue(index, 'naturalForestPercent', naturalForestPercent, event.target.value))
           }}
-          onPaste={(evt) => {
+          onPaste={(event) => {
             dispatch(
               pasteNationalClassValues({
-                evt,
+                event,
                 rowIndex: index,
                 colIndex: 1,
                 columns,
@@ -69,13 +69,13 @@ const ForestCharacteristicsRow = (props) => {
         <PercentInput
           disabled={!canEditData}
           numberValue={plantationPercent}
-          onChange={(e) => {
-            dispatch(updateNationalClassValue(index, 'plantationPercent', plantationPercent, e.target.value))
+          onChange={(event) => {
+            dispatch(updateNationalClassValue(index, 'plantationPercent', plantationPercent, event.target.value))
           }}
-          onPaste={(evt) => {
+          onPaste={(event) => {
             dispatch(
               pasteNationalClassValues({
-                evt,
+                event,
                 rowIndex: index,
                 colIndex: 2,
                 columns,
@@ -89,13 +89,13 @@ const ForestCharacteristicsRow = (props) => {
         <PercentInput
           disabled={!canEditData}
           numberValue={otherPlantedPercent}
-          onChange={(e) => {
-            dispatch(updateNationalClassValue(index, 'otherPlantedPercent', otherPlantedPercent, e.target.value))
+          onChange={(event) => {
+            dispatch(updateNationalClassValue(index, 'otherPlantedPercent', otherPlantedPercent, event.target.value))
           }}
-          onPaste={(evt) => {
+          onPaste={(event) => {
             dispatch(
               pasteNationalClassValues({
-                evt,
+                event,
                 rowIndex: index,
                 colIndex: 3,
                 columns,
