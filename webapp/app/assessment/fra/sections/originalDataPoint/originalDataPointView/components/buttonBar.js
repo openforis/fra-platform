@@ -28,7 +28,7 @@ const ButtonBar = (props) => {
           type="button"
           className="btn btn-secondary margin-right"
           disabled={disabled}
-          onClick={() => dispatch(cancelDraft(countryIso, odp.odpId, tab))}
+          onClick={() => dispatch(cancelDraft(countryIso, odp.odpId, tab, history))}
         >
           {i18n.t('nationalDataPoint.discardChanges')}
         </button>

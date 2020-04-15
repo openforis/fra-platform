@@ -88,14 +88,14 @@ export const saveDraft = (countryIso, odp) => (dispatch, getState) => {
   dispatch(persistDraft(countryIso, odp))
 }
 
-export const cancelDraft = (countryIso, odpId, destination) => async () => {
+export const cancelDraft = (countryIso, odpId, destination, history) => async () => {
   if (odpId) {
     // TODO on issue: https://github.com/openforis/fra-platform/issues/154
     // when canceling draft, delete request should respond with odp and then update tables with odp state
     await axios.delete(`/api/odp/draft/?odpId=${odpId}&countryIso=${countryIso}`)
-    window.location = BasePaths.getAssessmentSectionLink(countryIso, FRA.type, destination)
+    history.push(BasePaths.getAssessmentSectionLink(countryIso, FRA.type, destination))
   } else {
-    window.location = BasePaths.getCountryHomeLink(countryIso)
+    history.push(BasePaths.getCountryHomeLink(countryIso))
   }
 }
 
