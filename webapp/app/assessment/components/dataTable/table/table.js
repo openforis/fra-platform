@@ -26,11 +26,12 @@ const Table = (props) => {
   const i18n = useI18n()
   const [printView] = usePrintView()
   const tableRef = useRef(null)
+  const displayTableExportButton = !secondary && !printView && tableRef.current != null
 
   return (
     <div className={`fra-table__container${secondary ? ' fra-secondary-table__wrapper' : ''}`}>
       <div className="fra-table__scroll-wrapper">
-        {!secondary && !printView && <ButtonTableExport tableRef={tableRef} filename={sectionAnchor} />}
+        {displayTableExportButton && <ButtonTableExport tableRef={tableRef} filename={sectionAnchor} />}
 
         <table ref={tableRef} className="fra-table data-table">
           <thead>
