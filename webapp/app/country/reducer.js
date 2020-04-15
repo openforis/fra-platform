@@ -7,7 +7,7 @@ import {
   fetchCountryOverviewStatusCompleted,
   countryConfig,
   changeCountryConfigSetting,
-  countryAssessmentStatusChanging
+  countryAssessmentStatusChanging,
 } from './actions'
 
 const actionHandlers = {
@@ -17,15 +17,12 @@ const actionHandlers = {
 
   [countryConfig]: (state, { config }) => CountryState.assocConfig(config)(state),
 
-  [changeCountryConfigSetting]: (state, { key, value }) => CountryState.assocConfig(
-    { ...state.config, [key]: value }
-  )(state),
+  [changeCountryConfigSetting]: (state, { key, value }) =>
+    CountryState.assocConfig({ ...state.config, [key]: value })(state),
 
-  //====== assessment actions
-
+  // ====== assessment actions
   [countryAssessmentStatusChanging]: (state, { assessmentName }) =>
-    CountryState.assocStatusAssessmentChanging(assessmentName)(state)
-
+    CountryState.assocStatusAssessmentChanging(assessmentName)(state),
 }
 
 export default (state = {}, action) => applyReducerFunction(actionHandlers, state, action)

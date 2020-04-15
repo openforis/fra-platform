@@ -1,12 +1,13 @@
-@import (reference) "~@webapp/main/styles/config";
-@import (reference) "~@webapp/main/styles/fraTable";
-@import (reference) "~@webapp/main/styles/inputMixins";
+@import (reference) '~@webapp/main/styles/config';
+@import (reference) '~@webapp/main/styles/fraTable';
+@import (reference) '~@webapp/main/styles/inputMixins';
 
 .odp__section {
   margin-top: 32px;
   margin-bottom: 32px;
 
-  > .subhead, > .headline {
+  > .subhead,
+  > .headline {
     margin-bottom: 16px;
   }
 }
@@ -31,8 +32,8 @@
   justify-content: flex-end;
   align-items: center;
 
-  .btn-primary {
-    margin-left: 8px;
+  &:empty {
+    display: none;
   }
 }
 
@@ -71,6 +72,10 @@
     border-bottom-color: transparent;
     border-top-color: @ui-accent;
     color: @text-body;
+  }
+
+  &.disabled {
+    pointer-events: none;
   }
 }
 
@@ -137,7 +142,8 @@
     top: 50%;
     left: 4px;
     margin-top: -8px;
-    cursor: pointer;
+    padding: 0;
+    border: none;
   }
 }
 
@@ -247,7 +253,6 @@
 
 // ===== print view
 .odp__section-print-mode {
-
   .odp__section {
     margin: 0px;
   }

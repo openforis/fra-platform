@@ -7,15 +7,14 @@ import {
 
 import * as AutosaveState from './autosaveState'
 import { autoSaveStart, autoSaveComplete } from './actions'
-import { status } from './autosave'
 
 const actionHandlers = {
-  [autoSaveStart]: (state) => AutosaveState.assocStatus(status.saving)(state),
-  [autoSaveComplete]: (state) => AutosaveState.assocStatus(status.complete)(state),
+  [autoSaveStart]: (state) => AutosaveState.assocStatus(AutosaveState.status.saving)(state),
+  [autoSaveComplete]: (state) => AutosaveState.assocStatus(AutosaveState.status.complete)(state),
 
   [lastSectionUpdateTimestampReceived]: (state, { timeStamp }) =>
     R.pipe(
-      AutosaveState.assocStatus(status.lastSaveTimestampReceived),
+      AutosaveState.assocStatus(AutosaveState.status.lastSaveTimestampReceived),
       AutosaveState.assocLastSaveTimeStamp(timeStamp)
     )(state),
 

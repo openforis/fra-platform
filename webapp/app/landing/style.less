@@ -1,11 +1,8 @@
-@import (reference) "~@webapp/main/styles/config";
-@import (reference) "~@webapp/main/styles/style";
-@import (reference) "~@webapp/main/styles/buttons";
+@import (reference) '~@webapp/main/styles/config';
+@import (reference) '~@webapp/main/styles/style';
+@import (reference) '~@webapp/main/styles/buttons';
 
 .landing__page-header {
-  margin: auto;
-  display: flex;
-  justify-content: space-between;
   padding-bottom: 24px;
 }
 
@@ -15,16 +12,19 @@
 
 .landing__page-menu {
   display: flex;
-  justify-content: flex-end;
+  padding-top: 9px;
+  align-items: start;
 }
 
 .landing__page-menu-button {
   .btn;
+  border-radius: unset;
+  border: unset;
   font-size: @font-l;
   font-weight: bold;
   margin: 0;
   color: @text-mute;
-  border-bottom: 2px solid transparent;
+  border-bottom: 2px solid @ui-border;
 
   &:hover {
     color: @ui-accent;
@@ -244,6 +244,11 @@
   margin: 0 8px;
   word-break: break-word;
   width: 100%;
+
+  .link.disabled {
+    color: @text-body;
+    pointer-events: none;
+  }
 }
 
 .landing__activity-item:not(:first-of-type) {
@@ -260,7 +265,8 @@
 }
 
 .landing__activity-name {
-  span, strong {
+  span,
+  strong {
     margin-right: 4px;
   }
 }
@@ -348,7 +354,8 @@
   line-height: 20px;
   width: 100%;
 
-  td, th {
+  td,
+  th {
     padding: 10px 20px 10px 0;
     text-align: left;
     vertical-align: top;
@@ -411,4 +418,3 @@
   width: 100%;
   text-align: center;
 }
-
