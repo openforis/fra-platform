@@ -1,14 +1,17 @@
+import './buttonTableExport.less'
+
 import React from 'react'
+import PropTypes from 'prop-types'
+
 import { CSVLink } from 'react-csv'
-import Icon from '../icon'
 
 import { isPrintingMode } from '@webapp/app/assessment/components/print/printAssessment'
-
-import * as Utils from './utils'
-
 import useIsAssessmentLocked from '@webapp/components/hooks/useIsAssessmentLocked'
 
-const ButtonTableExport = props => {
+import Icon from '../icon'
+import * as Utils from './utils'
+
+const ButtonTableExport = (props) => {
   const { filename, tableRef } = props
 
   if (isPrintingMode()) {
@@ -17,23 +20,25 @@ const ButtonTableExport = props => {
 
   const isLocked = useIsAssessmentLocked()
 
-  const style = {
-    position: 'absolute',
-    right: 1,
-    top: -24,
-  }
-
   return (
     <CSVLink
-      className={`btn-xs btn-primary${isLocked ? '' : ' disabled'}`}
-      style={style}
+      className={`fra-table__btn-export btn-xs btn-primary${isLocked ? '' : ' disabled'}`}
       target="_blank"
-      filename={filename || 'tabledata'}
+      filename={filename}
       data={Utils.getData(tableRef.current)}
     >
-      <Icon className="icon-sub icon-white" name="hit-down"/>CSV
+      <Icon className="icon-sub icon-white" name="hit-down" />
+      CSV
     </CSVLink>
   )
+}
+
+ButtonTableExport.defaultProps = {
+  filename: 'tableData',
+}
+ButtonTableExport.propTypes = {
+  filename: PropTypes.string,
+  tableRef: PropTypes.object.isRequired,
 }
 
 export default ButtonTableExport
