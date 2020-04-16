@@ -7,7 +7,7 @@ export const assessmentSection = `${country}assessment/:assessmentType/:section/
 export const assessmentPrint = `${country}print/:assessmentType/`
 export const assessmentPrintOnlyTables = `${country}print/:assessmentType/onlyTables/`
 export const odp = `${country}odp/:tab/`
-
+export const user = '/users/:userId/'
 // ==== getter utilities
 
 export const getCountryHomeLink = (countryIso) => `/${countryIso}/`
