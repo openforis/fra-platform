@@ -10,26 +10,24 @@ import useCountryIso from '@webapp/components/hooks/useCountryIso'
 import * as CountryState from '@webapp/app/country/countryState'
 
 const LinkPanEuropeanIndicators = () => {
-
   const countryIso = useCountryIso()
   const i18n = useI18n()
   const country = useSelector(CountryState.getCountryByCountryIso(countryIso))
 
-  if (!Country.isPanEuropean(country)) {
+  if (!country || !Country.isPanEuropean(country)) {
     return null
   }
 
   return (
     <>
-      <div className="nav__divider"/>
+      <div className="nav__divider" />
       <NavLink
         className="nav__link"
         to={`/country/${countryIso}/panEuropeanIndicators/`}
         activeClassName="selected"
-        exact={true}>
-        <div className='nav__link-label'>
-          {i18n.t('navigation.sectionHeaders.panEuropeanIndicators')}
-        </div>
+        exact
+      >
+        <div className="nav__link-label">{i18n.t('navigation.sectionHeaders.panEuropeanIndicators')}</div>
       </NavLink>
     </>
   )
