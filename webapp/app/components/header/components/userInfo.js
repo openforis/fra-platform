@@ -26,7 +26,7 @@ const UserInfoLinks = () => {
   const items = [
     {
       content: i18n.t('header.editProfile'),
-      link: `/country/${countryIso}/user/${userInfo.id}`,
+      link: `/users/${userInfo.id}`,
     },
   ]
 
