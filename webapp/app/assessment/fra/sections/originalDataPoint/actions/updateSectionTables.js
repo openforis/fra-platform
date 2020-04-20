@@ -88,3 +88,54 @@ export const getUpdateTablesWithOdp = (state, odp, draft = true) => {
   actions.push(getUpdateForestCharacteristics(state, odp, draft))
   return actions.filter((action) => !!action)
 }
+
+const getUpdateSectionTableNoNDP = (state, sectionName, tableName, year) => {
+  const assessmentType = FRA.type
+
+  if (!AssessmentState.isSectionDataLoaded(assessmentType, sectionName, tableName)(state)) {
+    return null
+  }
+
+  const fraNoNDPs = AssessmentState.getFraNoNDPs(assessmentType, sectionName, tableName)(state)
+  const fraObject = R.find(R.propEq('year', year))(fraNoNDPs)
+
+  const fra = R.pipe(
+    AssessmentState.getFra(assessmentType, sectionName, tableName),
+    FRAUtils.updateTableWithOdpDatumOdp(fraObject, fraNoNDPs)
+  )(state)
+
+  const data = {
+    [AssessmentState.keysDataTableWithOdp.fra]: fra,
+    [AssessmentState.keysDataTableWithOdp.fraNoNDPs]: fraNoNDPs,
+  }
+
+  return updateTableData({ assessmentType, sectionName, tableName, data })
+}
+
+const _isFraYear = (year) => FRA.years.includes(year)
+
+const extentOfForestOdpToNoOdp = (state, year) => {
+  const section = FRA.sections['1'].children.b
+  const sectionName = section.name
+  const tableName = section.tables.forestCharacteristics
+
+  return getUpdateSectionTableNoNDP(state, sectionName, tableName, year)
+}
+
+const forestCharacteristicsOdpToNoOdp = (state, year) => {
+  const section = FRA.sections['1'].children.a
+  const sectionName = section.name
+  const tableName = section.tables.extentOfForest
+
+  return getUpdateSectionTableNoNDP(state, sectionName, tableName, year)
+}
+
+export const getUpdateTablesWithNotOdp = (state, year) => {
+  if (!_isFraYear(year)) {
+    return null
+  }
+  const actions = []
+  actions.push(extentOfForestOdpToNoOdp(state, year))
+  actions.push(forestCharacteristicsOdpToNoOdp(state, year))
+  return actions.filter((action) => !!action)
+}

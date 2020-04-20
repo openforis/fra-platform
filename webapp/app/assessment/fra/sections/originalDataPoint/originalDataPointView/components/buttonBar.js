@@ -53,7 +53,7 @@ const ButtonBar = (props) => {
         disabled={disabled}
         onClick={() => {
           if (window.confirm(i18n.t('nationalDataPoint.confirmDelete'))) {
-            dispatch(remove(countryIso, odp.odpId, tab))
+            dispatch(remove(countryIso, odp.odpId, tab, history))
           }
         }}
       >

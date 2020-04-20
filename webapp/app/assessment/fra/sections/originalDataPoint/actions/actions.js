@@ -16,7 +16,7 @@ import { fetchCountryOverviewStatus } from '@webapp/app/country/actions'
 import * as OriginalDataPointState from '../originalDataPointState'
 import * as ODP from '../originalDataPoint'
 import handlePaste from '../paste'
-import { getUpdateTablesWithOdp } from './updateSectionTables'
+import { getUpdateTablesWithOdp, getUpdateTablesWithNotOdp } from './updateSectionTables'
 
 // ====== Validation
 export const odpValidationCompleted = 'originalDataPoint/validationStatus/completed'
@@ -88,11 +88,15 @@ export const saveDraft = (countryIso, odp) => (dispatch, getState) => {
   dispatch(persistDraft(countryIso, odp))
 }
 
-export const cancelDraft = (countryIso, odpId, destination, history) => async () => {
+export const cancelDraft = (countryIso, odpId, destination, history) => async (dispatch, getState) => {
   if (odpId) {
     // TODO on issue: https://github.com/openforis/fra-platform/issues/154
     // when canceling draft, delete request should respond with odp and then update tables with odp state
-    await axios.delete(`/api/odp/draft/?odpId=${odpId}&countryIso=${countryIso}`)
+    const {
+      data: { odp },
+    } = await axios.delete(`/api/odp/draft/?odpId=${odpId}&countryIso=${countryIso}`)
+
+    dispatch(batchActions(getUpdateTablesWithOdp(getState(), odp)))
     history.push(BasePaths.getAssessmentSectionLink(countryIso, FRA.type, destination))
   } else {
     history.push(BasePaths.getCountryHomeLink(countryIso))
@@ -148,12 +152,21 @@ export const pasteNationalClassValues = (props) => (dispatch, getState) => {
 }
 
 // ====== Delete
-export const remove = (countryIso, odpId, destination) => async (dispatch) => {
-  // TODO on issue: https://github.com/openforis/fra-platform/issues/154
-  // when deleting odp, update tables with odp state
-  await axios.delete(`/api/odp/?odpId=${odpId}&countryIso=${countryIso}`)
-  dispatch(batchActions([clearActive(), fetchCountryOverviewStatus(countryIso)]))
-  window.location = BasePaths.getAssessmentSectionLink(countryIso, FRA.type, destination)
+export const remove = (countryIso, odpId, destination, history) => async (dispatch, getState) => {
+  const state = getState()
+  const {
+    data: { odp },
+  } = axios.delete(`/api/odp/?odpId=${odpId}&countryIso=${countryIso}`)
+
+  // If we delete ODP that has a FRA year, get the corresponding FRA object and update state
+  const actions = [
+    clearActive(),
+    fetchCountryOverviewStatus(countryIso),
+    ...getUpdateTablesWithNotOdp(state, Number(odp.year)),
+  ]
+  dispatch(batchActions(actions))
+
+  history.push(BasePaths.getAssessmentSectionLink(countryIso, FRA.type, destination))
 }
 
 export const removeFromList = (countryIso, odpId) => async (dispatch) => {
