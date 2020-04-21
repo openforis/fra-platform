@@ -17,7 +17,7 @@ const getOptionLabel = (option, i18n, optionsLabelKeyPrefix) => {
 
 const optionNotSelected = { [SectionSpec.KEYS_COL.optionName]: 'notSelected', hidden: true }
 
-const Select = props => {
+const Select = (props) => {
   const { assessmentType, sectionName, tableName, updateTableDataCell, rowIdx, col, datum, disabled } = props
   const { options, optionsLabelKeyPrefix } = col
   const optionSelected = options.find(R.propEq(SectionSpec.KEYS_COL.optionName, datum))
@@ -27,8 +27,10 @@ const Select = props => {
 
   if (disabled) {
     return (
-      <div className="fra-table__select-container">
-        {datum && getOptionLabel(optionSelected, i18n, optionsLabelKeyPrefix)}
+      <div className="text-input__container">
+        <div className="text-input__readonly-view">
+          {datum && getOptionLabel(optionSelected, i18n, optionsLabelKeyPrefix)}
+        </div>
       </div>
     )
   }
@@ -39,12 +41,12 @@ const Select = props => {
         className="fra-table__select no-print"
         value={datum || optionNotSelected[SectionSpec.KEYS_COL.optionName]}
         disabled={disabled}
-        onChange={e => {
-          const { value } = e.target
+        onChange={(event) => {
+          const { value } = event.target
           dispatch(updateTableDataCell(assessmentType, sectionName, tableName, rowIdx, col.idx, value))
         }}
       >
-        {[optionNotSelected, ...options].map(option => {
+        {[optionNotSelected, ...options].map((option) => {
           const { hidden } = option
           const optionName = option[SectionSpec.KEYS_COL.optionName]
           return (

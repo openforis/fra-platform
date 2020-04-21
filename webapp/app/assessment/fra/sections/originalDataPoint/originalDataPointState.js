@@ -11,6 +11,7 @@ const getState = R.prop(stateKey)
 
 // === READ
 export const getActive = R.pipe(getState, R.propOr(null, keys.active))
+export const getOdps = R.pipe(getState, R.propOr([], keys.odps))
 
 // === UPDATE
 export const assocActive = R.assoc(keys.active)

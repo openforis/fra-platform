@@ -4,12 +4,12 @@ import * as R from 'ramda'
 
 import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
 
-import Calculated from '@webapp/app/assessment/components/dataTable/table/cell/calculated'
-import Number from '@webapp/app/assessment/components/dataTable/table/cell/number'
-import Text from '@webapp/app/assessment/components/dataTable/table/cell/text'
-import Select from '@webapp/app/assessment/components/dataTable/table/cell/select'
-import Placeholder from '@webapp/app/assessment/components/dataTable/table/cell/placeholder'
-import useCellClassName from '@webapp/app/assessment/components/dataTable/table/cell/useCellClassName'
+import Calculated from './calculated'
+import Number from './number'
+import Text from './text'
+import Select from './select'
+import Placeholder from './placeholder'
+import useCellClassName from './useCellClassName'
 
 const ComponentsByType = {
   [SectionSpec.TYPES.calculated]: Calculated,
@@ -21,7 +21,7 @@ const ComponentsByType = {
   [SectionSpec.TYPES.placeholder]: Placeholder,
 }
 
-const Cell = props => {
+const Cell = (props) => {
   const { data, assessmentType, sectionName, tableName, disabled, rowIdx, col, updateTableDataCell } = props
 
   const { type } = col

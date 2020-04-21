@@ -96,9 +96,9 @@ class NoDataPlaceholder extends React.Component {
     const { wrapperWidth, i18n } = this.props
 
     return <g className="chart__no-data-placeholder" ref="container">
-      <image ref="tucan" href="/img/tucan.svg" width={tucanWidth} height={tucanHeight} x={this.getTucanX()} y={tucanY}/>
-      <Text text={i18n.t('extentOfForest.chart.placeholderLine1')} width={wrapperWidth} y="144"/>
-      <Text text={i18n.t('extentOfForest.chart.placeholderLine2')} width={wrapperWidth} y="164"/>
+      <image ref="tucan" href="/img/tucan.svg" width={tucanWidth} height={tucanHeight} x={this.getTucanX()} y={tucanY} style={{opacity: 0}}/>
+      <Text text={i18n.t('extentOfForest.chart.placeholderLine1')} width={wrapperWidth} y="144" style={{opacity: 0}}/>
+      <Text text={i18n.t('extentOfForest.chart.placeholderLine2')} width={wrapperWidth} y="164" style={{opacity: 0}}/>
     </g>
   }
 }
