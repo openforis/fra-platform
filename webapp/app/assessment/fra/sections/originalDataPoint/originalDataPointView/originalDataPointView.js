@@ -21,6 +21,7 @@ import Comments from './components/comments'
 
 import * as OriginalDataPointState from '../originalDataPointState'
 import { fetch, clearActive } from '../actions'
+import { fetchExtentOfForest } from '../../extentOfForest/actions'
 
 const OriginalDataPointView = () => {
   const dispatch = useDispatch()
@@ -32,7 +33,7 @@ const OriginalDataPointView = () => {
   const canEditData = useSelector((state) => CountryState.getCanEditData(state) && !FraState.isLocked(state))
 
   useEffect(() => {
-    dispatch(fetch(odpId, countryIso))
+    dispatch(batchActions([fetch(odpId, countryIso), fetchExtentOfForest()]))
     return () => {
       dispatch(batchActions([fetchCountryOverviewStatus(countryIso), clearActive()]))
     }

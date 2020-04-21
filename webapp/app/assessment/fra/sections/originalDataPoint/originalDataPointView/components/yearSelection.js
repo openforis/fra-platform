@@ -1,7 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import * as R from 'ramda'
+
+import * as FRAUtils from '@common/fraUtils'
+import * as ExtentOfForestState from '@webapp/app/assessment/fra/sections/extentOfForest/extentOfForestState'
 
 import { useCountryIso, useI18n } from '@webapp/components/hooks'
 
@@ -17,6 +20,8 @@ const YearSelection = (props) => {
   const countryIso = useCountryIso()
 
   const classNameYearSelection = odp.validationStatus && !odp.validationStatus.year.valid ? 'error' : ''
+
+  const reservedYears = useSelector(R.pipe(ExtentOfForestState.getFra, FRAUtils.getOdps, R.map(R.prop('name'))))
 
   return (
     <div className="odp__section">
@@ -36,12 +41,7 @@ const YearSelection = (props) => {
           }
         >
           {years.map((year) => (
-            <option
-              key={year}
-              value={year}
-              disabled={R.includes(year.toString(), R.propOr([], 'reservedYears', odp))}
-              hidden={!year}
-            >
+            <option key={year} value={year} disabled={R.includes(year.toString(), reservedYears)} hidden={!year}>
               {year || i18n.t('nationalDataPoint.selectYear')}
             </option>
           ))}
