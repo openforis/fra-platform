@@ -17,20 +17,20 @@ const section = FRA.sections['1'].children.a
 const _getSectionProp = (propName, defaultValue = null) =>
   AssessmentState.getSectionProp(FRA.type, section.name, propName, defaultValue)
 
-const _getFra = AssessmentState.getFra(FRA.type, section.name, section.tables.extentOfForest)
+export const getFra = AssessmentState.getFra(FRA.type, section.name, section.tables.extentOfForest)
 const _getFraNoOdps = AssessmentState.getFraNoNDPs(FRA.type, section.name, section.tables.extentOfForest)
 
-export const hasOriginalDataPoints = R.pipe(_getFra, FraUtils.hasOdps)
+export const hasOriginalDataPoints = R.pipe(getFra, FraUtils.hasOdps)
 
-export const useDescriptions = R.pipe(_getFra, R.ifElse(R.isNil, R.F, R.pipe(FraUtils.hasOdps, R.not)))
+export const useDescriptions = R.pipe(getFra, R.ifElse(R.isNil, R.F, R.pipe(FraUtils.hasOdps, R.not)))
 
 export const showOriginalDataPoints = _getSectionProp(keys.showOdps, true)
 
-export const isExtentOfForestEmpty = () => R.pipe(_getFra, FraUtils.isTableWithOdpEmpty)
+export const isExtentOfForestEmpty = () => R.pipe(getFra, FraUtils.isTableWithOdpEmpty)
 
 export const getExtentOfForestData = () => (state) =>
   R.pipe(
-    R.ifElse(showOriginalDataPoints, _getFra, _getFraNoOdps),
+    R.ifElse(showOriginalDataPoints, getFra, _getFraNoOdps),
     R.when(R.always(AppState.isPrintView(state)), FraUtils.filterFraYears)
   )(state)
 
@@ -59,7 +59,7 @@ export const getOtherLand = (datum) => (state) => {
 // ==== By Year getter functions
 
 const _getDatumValueByYear = (year, getDatumValueFn) => (state) =>
-  R.pipe(_getFra, FraUtils.getDatumByYear(year), (datum) => getDatumValueFn(datum)(state))(state)
+  R.pipe(getFra, FraUtils.getDatumByYear(year), (datum) => getDatumValueFn(datum)(state))(state)
 
 export const getForestByYear = (year) => _getDatumValueByYear(year, getForest)
 
