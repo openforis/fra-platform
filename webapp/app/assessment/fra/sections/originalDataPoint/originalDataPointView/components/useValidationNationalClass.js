@@ -1,10 +1,17 @@
 import { useSelector } from 'react-redux'
 import * as R from 'ramda'
 
+import { usePrintView } from '@webapp/components/hooks'
+
 import * as OriginalDataPointState from '../../originalDataPointState'
 
-export default (index) =>
-  useSelector((state) => {
+export default (index) => {
+  const [printView] = usePrintView()
+  if (printView) {
+    return {}
+  }
+
+  return useSelector((state) => {
     const odp = OriginalDataPointState.getActive(state)
 
     let validationResult = null
@@ -16,3 +23,4 @@ export default (index) =>
 
     return validationResult || {}
   })
+}
