@@ -41,8 +41,8 @@ const Select = (props) => {
         className="fra-table__select no-print"
         value={datum || optionNotSelected[SectionSpec.KEYS_COL.optionName]}
         disabled={disabled}
-        onChange={(e) => {
-          const { value } = e.target
+        onChange={(event) => {
+          const { value } = event.target
           dispatch(updateTableDataCell(assessmentType, sectionName, tableName, rowIdx, col.idx, value))
         }}
       >
