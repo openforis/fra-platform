@@ -23,3 +23,5 @@ export const getOdpLink = (countryIso, sectionName, odpId = null) =>
 
 export const getUserProfilePictureLink = (countryIso, userId) =>
   `/api/users/${countryIso}/user/${userId}/profilePicture`
+
+export const getUserLink = (userId) => `/users/${userId}`

@@ -10,6 +10,7 @@ import useI18n from '@webapp/components/hooks/useI18n'
 
 import * as AppState from '@webapp/app/appState'
 import * as UserState from '@webapp/user/userState'
+import * as BasePaths from '@webapp/main/basePaths'
 
 import { logout } from '@webapp/user/actions'
 
@@ -26,7 +27,7 @@ const UserInfoLinks = () => {
   const items = [
     {
       content: i18n.t('header.editProfile'),
-      link: `/users/${userInfo.id}`,
+      link: BasePaths.getUserLink(userInfo.id),
     },
   ]
 
