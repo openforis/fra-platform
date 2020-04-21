@@ -67,11 +67,11 @@ const routes = [
   { path: '/country/:countryIso/sustainableDevelopment/', component: SustainableDevelopmentView },
   { path: '/country/:countryIso/contactPersons/', component: ContactPersonsView },
   { path: '/country/:countryIso/panEuropeanIndicators/', component: PanEuropeanIndicatorsView },
-  { path: '/country/:countryIso/user/:userId/', component: EditUserView },
   { path: '/country/:countryIso/', component: LandingView },
   { path: '/country/:countryIso/*', component: NotFound },
   // === End Routes to be removed or updated
 
+  { path: BasePaths.user, component: EditUserView },
   { path: [BasePaths.root, BasePaths.country], component: LandingView },
 ]
 
