@@ -25,7 +25,7 @@ const ChartContainer = (props) => {
   return (
     <div>
       <svg width={wrapperWidth} height={height}>
-        <Legend trends={trends} wrapperWidth={wrapperWidth} />
+        <Legend data={data} trends={trends} wrapperWidth={wrapperWidth} />
         <YAxis data={data} left={left} yScale={yScale} wrapperWidth={wrapperWidth} />
         <XAxis data={data} bottom={bottom} height={height} xScale={xScale} />
         {/* odp ticks must be positioned behind all data points */}
