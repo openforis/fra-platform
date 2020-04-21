@@ -9,6 +9,14 @@ import { updateTableData } from '@webapp/app/assessment/components/dataTable/act
 import * as ODP from '../originalDataPoint'
 import * as OriginalDataPointStateState from '../originalDataPointState'
 
+const extentOfForest = FRA.sections['1'].children.a
+const extentOfForestSectionName = extentOfForest.name
+const extentOfForestTableName = extentOfForest.tables.extentOfForest
+
+const forestCharacteristics = FRA.sections['1'].children.b
+const forestCharacteristicsSectionName = forestCharacteristics.name
+const forestCharacteristicsTableName = forestCharacteristics.tables.extentOfForest
+
 const getDatumOdp = (state, odp, datumFields, draft) => {
   const odpOriginal = OriginalDataPointStateState.getActive(state)
   const { odpId, year } = odp
@@ -29,14 +37,11 @@ const getDatumOdp = (state, odp, datumFields, draft) => {
   return datumOdp
 }
 
-const getUpdateSectionTable = (state, sectionName, tableName, odp, datumFields, draft) => {
+const getUpdateSectionTable = (state, sectionName, tableName, datumOdp) => {
   const assessmentType = FRA.type
-
   if (AssessmentState.isSectionDataLoaded(assessmentType, sectionName, tableName)(state)) {
-    const datumOdp = getDatumOdp(state, odp, datumFields, draft)
-    // const isNotDatumFraYear = FRA.years.indexOf(Number(year)) < 0
     const fraNoNDPs = AssessmentState.getFraNoNDPs(assessmentType, sectionName, tableName)(state)
-    // const datumNoFraYear =
+
     const fra = R.pipe(
       AssessmentState.getFra(assessmentType, sectionName, tableName),
       FRAUtils.updateTableWithOdpDatumOdp(datumOdp, fraNoNDPs)
@@ -45,25 +50,21 @@ const getUpdateSectionTable = (state, sectionName, tableName, odp, datumFields, 
       [AssessmentState.keysDataTableWithOdp.fra]: fra,
       [AssessmentState.keysDataTableWithOdp.fraNoNDPs]: fraNoNDPs,
     }
-
     return updateTableData({ assessmentType, sectionName, tableName, data })
   }
   return null
 }
 
 const getUpdateExtentOfForest = (state, odp, draft) => {
-  const section = FRA.sections['1'].children.a
-
   const forestArea = ODP.classTotalArea(odp, 'forestPercent')
   const otherWoodedLand = ODP.classTotalArea(odp, 'otherWoodedLandPercent')
   const datumFields = { forestArea, otherWoodedLand }
+  const datumOdp = getDatumOdp(state, odp, datumFields, draft)
 
-  return getUpdateSectionTable(state, section.name, section.tables.extentOfForest, odp, datumFields, draft)
+  return getUpdateSectionTable(state, extentOfForestSectionName, extentOfForestTableName, datumOdp)
 }
 
 const getUpdateForestCharacteristics = (state, odp, draft) => {
-  const section = FRA.sections['1'].children.b
-
   const naturalForestArea = ODP.subClassTotalArea(odp, 'forestPercent', 'naturalForestPercent')
   const plantationForestArea = ODP.subClassTotalArea(odp, 'forestPercent', 'plantationPercent')
   const plantationForestIntroducedArea = ODP.subSubClassTotalArea(
@@ -79,12 +80,37 @@ const getUpdateForestCharacteristics = (state, odp, draft) => {
     plantationForestIntroducedArea,
     otherPlantedForestArea,
   }
-  return getUpdateSectionTable(state, section.name, section.tables.forestCharacteristics, odp, datumFields, draft)
+
+  const datumOdp = getDatumOdp(state, odp, datumFields, draft)
+  return getUpdateSectionTable(state, forestCharacteristicsSectionName, forestCharacteristicsTableName, datumOdp)
 }
 
 export const getUpdateTablesWithOdp = (state, odp, draft = true) => {
   const actions = []
   actions.push(getUpdateExtentOfForest(state, odp, draft))
   actions.push(getUpdateForestCharacteristics(state, odp, draft))
+  return actions.filter((action) => !!action)
+}
+
+// ====== No Original Data Point
+
+const _getUpdateTablesWithNotOdp = (state, year, sectionName, tableName) => {
+  const fraNoNDPs = AssessmentState.getFraNoNDPs(FRA.type, sectionName, tableName)(state)
+  if (!fraNoNDPs) {
+    return null
+  }
+  const datumOdp = R.find(R.propEq('year', year))(fraNoNDPs)
+  return getUpdateSectionTable(state, sectionName, tableName, datumOdp)
+}
+
+export const getUpdateTablesWithNotOdp = (state, year) => {
+  if (!FRA.years.includes(year)) {
+    return null
+  }
+  const actions = []
+  actions.push(_getUpdateTablesWithNotOdp(state, year, extentOfForestSectionName, extentOfForestTableName))
+  actions.push(
+    _getUpdateTablesWithNotOdp(state, year, forestCharacteristicsSectionName, forestCharacteristicsTableName)
+  )
   return actions.filter((action) => !!action)
 }

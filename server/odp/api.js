@@ -99,9 +99,10 @@ module.exports.init = app => {
       const countryIso = req.query.countryIso
       await allowedToEditDataCheck(countryIso, req.user, 'extentOfForest')
 
-      await db.transaction(odpRepository.deleteDraft, [req.query.odpId, req.user])
+      const { odpId } = await db.transaction(odpRepository.deleteDraft, [req.query.odpId, req.user])
+      const odp = await odpRepository.getOdp(odpId)
 
-      sendOk(res)
+      res.json({ odp })
     } catch (err) {
       sendErr(res, err)
     }
