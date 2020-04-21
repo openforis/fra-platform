@@ -90,8 +90,6 @@ export const saveDraft = (countryIso, odp) => (dispatch, getState) => {
 
 export const cancelDraft = (countryIso, odpId, destination, history) => async (dispatch, getState) => {
   if (odpId) {
-    // TODO on issue: https://github.com/openforis/fra-platform/issues/154
-    // when canceling draft, delete request should respond with odp and then update tables with odp state
     const {
       data: { odp },
     } = await axios.delete(`/api/odp/draft/?odpId=${odpId}&countryIso=${countryIso}`)
@@ -152,20 +150,18 @@ export const pasteNationalClassValues = (props) => (dispatch, getState) => {
 }
 
 // ====== Delete
-export const remove = (countryIso, odpId, destination, history) => async (dispatch, getState) => {
-  const state = getState()
-  const {
-    data: { odp },
-  } = axios.delete(`/api/odp/?odpId=${odpId}&countryIso=${countryIso}`)
+export const remove = (countryIso, odp, destination, history) => async (dispatch, getState) => {
+  // If we delete ODP that has a FRA year,
+  // get the corresponding FRA object and update state
+  await axios.delete(`/api/odp/?odpId=${odp.odpId}&countryIso=${countryIso}`)
 
-  // If we delete ODP that has a FRA year, get the corresponding FRA object and update state
   const actions = [
     clearActive(),
     fetchCountryOverviewStatus(countryIso),
-    ...getUpdateTablesWithNotOdp(state, Number(odp.year)),
+    ...getUpdateTablesWithNotOdp(getState(), Number(odp.year)),
   ]
-  dispatch(batchActions(actions))
 
+  dispatch(batchActions(actions))
   history.push(BasePaths.getAssessmentSectionLink(countryIso, FRA.type, destination))
 }
 
