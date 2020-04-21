@@ -33,8 +33,7 @@ const OriginalDataPointView = () => {
   const canEditData = useSelector((state) => CountryState.getCanEditData(state) && !FraState.isLocked(state))
 
   useEffect(() => {
-    dispatch(fetch(odpId, countryIso))
-    dispatch(fetchExtentOfForest())
+    dispatch(batchActions([fetch(odpId, countryIso), fetchExtentOfForest()]))
     return () => {
       dispatch(batchActions([fetchCountryOverviewStatus(countryIso), clearActive()]))
     }
