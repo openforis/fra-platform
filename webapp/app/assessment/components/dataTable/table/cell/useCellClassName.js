@@ -8,7 +8,7 @@ export default (col, rowIdx) => {
   const { type, validator } = col
   const userInfo = useUserInfo()
 
-  const valid = useSelector(state => {
+  const valid = useSelector((state) => {
     if (!userInfo || !validator) {
       return true
     }
@@ -17,7 +17,8 @@ export default (col, rowIdx) => {
 
   let className = 'fra-table__cell'
   if (type === SectionSpec.TYPES.calculated) className = 'fra-table__calculated-cell'
-  if ([SectionSpec.TYPES.text, SectionSpec.TYPES.textarea].includes(type)) className = 'fra-table__cell-left'
+  if ([SectionSpec.TYPES.text, SectionSpec.TYPES.textarea, SectionSpec.TYPES.select].includes(type))
+    className = 'fra-table__cell-left'
   if (type === SectionSpec.TYPES.placeholder) className = 'fra-table__category-cell fra-table__filler-last'
 
   className += valid ? '' : ' validation-error'

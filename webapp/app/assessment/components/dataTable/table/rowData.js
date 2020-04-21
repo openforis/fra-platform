@@ -11,7 +11,7 @@ import useCountryIso from '@webapp/components/hooks/useCountryIso'
 import useRowClassName from '@webapp/app/assessment/components/dataTable/table/useRowClassName'
 import CellOdp from '@webapp/app/assessment/components/dataTable/table/cell/cellOdp'
 
-const RowData = props => {
+const RowData = (props) => {
   const countryIso = useCountryIso()
   const i18n = useI18n()
 
@@ -46,7 +46,7 @@ const RowData = props => {
       </th>
 
       {odp
-        ? data.map(datum => (
+        ? data.map((datum) => (
             <CellOdp
               key={datum.name || datum.year}
               assessmentType={assessmentType}
@@ -60,7 +60,7 @@ const RowData = props => {
               updateTableDataCell={updateTableDataCell}
             />
           ))
-        : colsData.map(col => (
+        : colsData.map((col) => (
             <Cell
               key={col.idx}
               data={data}
