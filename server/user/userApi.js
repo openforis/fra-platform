@@ -3,34 +3,38 @@ const Promise = require('bluebird')
 
 const db = require('../db/db')
 const userRepository = require('./userRepository')
-const { sendErr, sendOk, serverUrl } = require('../utils/requestUtils')
+const Request = require('../utils/requestUtils')
 
 const { AccessControlException } = require('../utils/accessControl')
 const { sendInvitation } = require('./sendInvitation')
 const { rolesAllowedToChange } = require('../../common/userManagementAccessControl')
 
-const { isAdministrator, isNationalCorrespondent, isCollaborator, isAlternateNationalCorrespondent, getCountryRole, reviewer } = require('../../common/countryRole')
+const {
+  isAdministrator,
+  isNationalCorrespondent,
+  isCollaborator,
+  isAlternateNationalCorrespondent,
+  getCountryRole,
+  reviewer,
+} = require('../../common/countryRole')
 const { validate: validateUser, validEmail } = require('../../common/userUtils')
 
 const Auth = require('../auth/authApiMiddleware')
 
 const filterAllowedUsers = (countryIso, user, users) => {
   const allowedRoles = rolesAllowedToChange(countryIso, user)
-  return R.filter(userInList => R.contains(userInList.role, allowedRoles), users)
+  return R.filter((userInList) => R.contains(userInList.role, allowedRoles), users)
 }
 
-module.exports.init = app => {
-
+module.exports.init = (app) => {
   // get session user
-  app.get('/loggedInUser/', (req, res) =>
-    res.json({ userInfo: req.user })
-  )
+  app.get('/loggedInUser/', (req, res) => res.json({ userInfo: req.user }))
 
   // update session user language
   app.post('/user/lang', (req, res) => {
     db.transaction(userRepository.updateLanguage, [req.query.lang, req.user])
       .then(() => res.json({}))
-      .catch(err => sendErr(res, err))
+      .catch((err) => Request.sendErr(res, err))
   })
 
   // get users and invitations list
@@ -38,35 +42,36 @@ module.exports.init = app => {
     try {
       const { countryIso } = req.params
       const print = req.query.print === 'true'
-      const url = serverUrl(req)
+      const url = Request.serverUrl(req)
 
       const allCountryUsers = await userRepository.fetchUsersAndInvitations(countryIso, url)
 
-      const fraReportCollaboratorsExcluded =
-        R.pathOr([], ['env', 'FRA_REPORT_COLLABORATORS_EXCLUDED'])(process)
+      const fraReportCollaboratorsExcluded = R.pathOr([], ['env', 'FRA_REPORT_COLLABORATORS_EXCLUDED'])(process)
 
       const countryUsers = print
         ? R.reject(
-          user => R.propEq('role', reviewer.role, user) || R.contains(R.toLower(user.email), fraReportCollaboratorsExcluded),
-          allCountryUsers
-        )
+            (user) =>
+              R.propEq('role', reviewer.role, user) ||
+              R.contains(R.toLower(user.email), fraReportCollaboratorsExcluded),
+            allCountryUsers
+          )
         : filterAllowedUsers(countryIso, req.user, allCountryUsers)
 
       res.json({ countryUsers })
     } catch (err) {
-      sendErr(res, err)
+      Request.sendErr(res, err)
     }
   })
 
   // get all users / only admin can access it
   app.get('/users', Auth.requireAdminPermission, async (req, res) => {
     try {
-      const url = serverUrl(req)
+      const url = Request.serverUrl(req)
       const allUsers = await userRepository.fetchAllUsersAndInvitations(url)
       const userCounts = await userRepository.getUserCountsByRole()
       res.json({ allUsers, userCounts })
     } catch (err) {
-      sendErr(res, err)
+      Request.sendErr(res, err)
     }
   })
 
@@ -80,7 +85,7 @@ module.exports.init = app => {
       if (!R.contains(newUser.role, allowedRoles)) {
         throw new AccessControlException('error.access.roleChangeNotAllowed', {
           user: req.user.name,
-          role: newUser.role
+          role: newUser.role,
         })
       }
 
@@ -93,36 +98,43 @@ module.exports.init = app => {
 
         if (countryRole) {
           // User already added to country
-          throw new AccessControlException(
-            'error.access.userAlreadyAddedToCountry',
-            { user: user.name + ' (' + user.email + ')', countryIso }
-          )
+          throw new AccessControlException('error.access.userAlreadyAddedToCountry', {
+            user: user.name + ' (' + user.email + ')',
+            countryIso,
+          })
         } else {
           // adding country to user
           const profilePicture = await userRepository.getUserProfilePicture(user.id)
           const rolesUpdated = R.append({ countryIso, role: newUser.role }, user.roles)
-          await db.transaction(userRepository.updateUser, [req.user, countryIso, R.assoc('roles', rolesUpdated, user), profilePicture])
+          await db.transaction(userRepository.updateUser, [
+            req.user,
+            countryIso,
+            R.assoc('roles', rolesUpdated, user),
+            profilePicture,
+          ])
         }
 
         // NEW USER
       } else {
-
-        const persistFunction = newUser.invitationUuid
-          ? userRepository.updateInvitation
-          : userRepository.addInvitation
+        const persistFunction = newUser.invitationUuid ? userRepository.updateInvitation : userRepository.addInvitation
 
         invitationUuid = await db.transaction(persistFunction, [req.user, countryIso, newUser])
       }
 
-      const url = serverUrl(req)
-      await sendInvitation(countryIso, {
-        ...newUser,
-        invitationUuid
-      }, req.user, url)
+      const url = Request.serverUrl(req)
+      await sendInvitation(
+        countryIso,
+        {
+          ...newUser,
+          invitationUuid,
+        },
+        req.user,
+        url
+      )
 
-      sendOk(res)
+      Request.sendOk(res)
     } catch (err) {
-      sendErr(res, err)
+      Request.sendErr(res, err)
     }
   })
 
@@ -132,13 +144,17 @@ module.exports.init = app => {
       if (req.query.id) {
         await db.transaction(userRepository.removeUser, [req.user, req.params.countryIso, req.query.id])
       } else if (req.query.invitationUuid) {
-        await db.transaction(userRepository.removeInvitation, [req.user, req.params.countryIso, req.query.invitationUuid])
+        await db.transaction(userRepository.removeInvitation, [
+          req.user,
+          req.params.countryIso,
+          req.query.invitationUuid,
+        ])
       } else {
-        sendErr(res, 'No id or invitationUuid given')
+        Request.sendErr(res, 'No id or invitationUuid given')
       }
-      sendOk(res)
+      Request.sendOk(res)
     } catch (err) {
-      sendErr(res, err)
+      Request.sendErr(res, err)
     }
   })
 
@@ -148,23 +164,23 @@ module.exports.init = app => {
       const user = await userRepository.findUserById(req.params.userId)
 
       res.json({ user })
-
     } catch (err) {
-      sendErr(res, err)
+      Request.sendErr(res, err)
     }
   })
 
   // get user profile picture
-  app.get('/users/:countryIso/user/:userId/profilePicture', Auth.requireCountryEditPermission, async (req, res) => {
+  app.get('/users/:countryIso/user/:userId/profilePicture/', Auth.requireCountryEditPermission, async (req, res) => {
     try {
       const profilePicture = await userRepository.getUserProfilePicture(req.params.userId)
 
-      profilePicture && profilePicture.data
-        ? res.end(profilePicture.data, 'binary')
-        : res.sendFile(`${__dirname}/avatar.png`)
-
+      if (profilePicture && profilePicture.data) {
+        res.end(profilePicture.data, 'binary')
+      } else {
+        res.sendFile(`${__dirname}/avatar.png`)
+      }
     } catch (err) {
-      sendErr(res, err)
+      Request.sendErr(res, err)
     }
   })
 
@@ -177,12 +193,10 @@ module.exports.init = app => {
 
       // checking permission to edit user
       if (
-        isAdministrator(user)
-        || user.id === userToUpdate.id
-        || (
-          (isNationalCorrespondent(countryIso, user) || isAlternateNationalCorrespondent(countryIso, userToUpdate)) &&
-          isCollaborator(countryIso, userToUpdate)
-        )
+        isAdministrator(user) ||
+        user.id === userToUpdate.id ||
+        ((isNationalCorrespondent(countryIso, user) || isAlternateNationalCorrespondent(countryIso, userToUpdate)) &&
+          isCollaborator(countryIso, userToUpdate))
       ) {
         const validation = validateUser(userToUpdate)
         if (validation.valid) {
@@ -195,58 +209,55 @@ module.exports.init = app => {
 
           await db.transaction(userRepository.updateUser, [user, countryIso, userToUpdate, profilePictureFile])
 
-          sendOk(res)
+          Request.sendOk(res)
         } else {
-          sendErr(res, { msg: 'Invalid User', ...validation })
+          Request.sendErr(res, { msg: 'Invalid User', ...validation })
         }
-
       } else {
-        sendErr(res, 'Operation not allowed')
+        Request.sendErr(res, 'Operation not allowed')
       }
-
     } catch (err) {
-      sendErr(res, err)
+      Request.sendErr(res, err)
     }
   })
 
-  app.get('/users/:countryIso/invitations/:invitationUuid/send', Auth.requireCountryEditPermission, async (req, res) => {
-    try {
-      const url = serverUrl(req)
+  app.get(
+    '/users/:countryIso/invitations/:invitationUuid/send',
+    Auth.requireCountryEditPermission,
+    async (req, res) => {
+      try {
+        const url = Request.serverUrl(req)
 
-      const invitation = await userRepository.fetchInvitation(req.params.invitationUuid, url)
+        const invitation = await userRepository.fetchInvitation(req.params.invitationUuid, url)
 
-      if (invitation)
-        await sendInvitation(invitation.countryIso, invitation, req.user, url)
+        if (invitation) await sendInvitation(invitation.countryIso, invitation, req.user, url)
 
-      sendOk(res)
-    } catch (err) {
-      sendErr(res, err)
+        Request.sendOk(res)
+      } catch (err) {
+        Request.sendErr(res, err)
+      }
     }
-  })
+  )
 
   app.get('/users/invitations/send', Auth.requireAdminPermission, async (req, res) => {
     try {
-      const url = serverUrl(req)
+      const url = Request.serverUrl(req)
 
       const invitations = await userRepository.fetchAllInvitations(url)
-      const sendInvitationPromises = invitations.map(async invitation => {
-
+      const sendInvitationPromises = invitations.map(async (invitation) => {
         if (validEmail(invitation)) {
           await sendInvitation(invitation.countryIso, invitation, req.user, url)
           return `<p>Email sent to ${invitation.name} (${invitation.email}) invited as ${invitation.role} for ${invitation.countryIso}</p>`
-
         } else {
           return `<p style="color:red">Email could not be sent to ${invitation.name} (${invitation.email}) invited as ${invitation.role} for ${invitation.countryIso}</p>`
         }
-
       })
 
       const sendInvitations = await Promise.all(sendInvitationPromises)
 
       res.send(sendInvitations.join('<br/><br/>'))
     } catch (error) {
-      sendErr(res, error)
+      Request.sendErr(res, error)
     }
   })
-
 }
