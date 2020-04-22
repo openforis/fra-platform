@@ -27,15 +27,14 @@ const UserInfoLinks = () => {
   const items = [
     {
       content: i18n.t('header.editProfile'),
-      link: BasePaths.getUserLink(userInfo.id),
+      link: BasePaths.getUserProfileLink(userInfo.id),
     },
   ]
 
   if (isAdministrator(userInfo)) {
-    // TODO update path - see https://github.com/openforis/fra-platform/issues/139
     items.push({
       content: i18n.t('admin.admin'),
-      link: `/country/${countryIso}/admin/`,
+      link: BasePaths.admin,
     })
   }
 
