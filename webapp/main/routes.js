@@ -31,8 +31,8 @@ const Routes = () => {
         <LoginView />
       </Route>
       <Route
-        path={[BasePaths.statisticalFactsheets, `/country${BasePaths.country}`, BasePaths.country, BasePaths.root]}
-        render={props => (
+        path={[BasePaths.statisticalFactsheets, BasePaths.user, `/country${BasePaths.country}`, BasePaths.country, BasePaths.root]}
+        render={(props) => (
           <DynamicImport
             {...props}
             // eslint-disable-next-line
