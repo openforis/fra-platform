@@ -1,80 +1,63 @@
-import React, { Component } from 'react'
-import ReactDOM from 'react-dom'
-import { interpolatePath } from 'd3-interpolate-path'
-import * as d3 from 'd3'
+import React, { useEffect, useRef } from 'react'
+import PropTypes from 'prop-types'
 import * as R from 'ramda'
+import * as d3 from 'd3'
+import { interpolatePath } from 'd3-interpolate-path'
 
-import { defaultTransitionDuration } from '../chart'
+import { usePrevious } from '@webapp/components/hooks'
 
-class DataPath extends Component {
+import * as Chart from '../chart'
 
-  getPath ({xScale, yScale, data}) {
-    return d3.line()
+const DataPath = (props) => {
+  const { data, xScale, yScale, style } = props
+  const dataPrev = usePrevious(data, data)
+  const pathElementRef = useRef(null)
+
+  const getPath = (dataPath) =>
+    d3
+      .line()
       .x((d) => xScale(d.year))
       .y((d) => yScale(d.value))
-      .curve(d3.curveLinear)
-      (data)
-  }
+      .curve(d3.curveLinear)(dataPath)
 
-  interpolatePath (previous, current) {
-    return d3.select(ReactDOM.findDOMNode(this))
-      .transition()
+  const getPathDefault = (dataPath) =>
+    getPath([
+      { year: R.head(dataPath).year, value: 0 },
+      { year: R.last(dataPath).year, value: 0 },
+    ])
+
+  useEffect(() => {
+    const pathElement = pathElementRef.current.getAttribute('d')
+    const hasData = data.length > 1
+    const hasPrevData = dataPrev.length > 1
+
+    let pathNext = null
+    if (hasData) pathNext = getPath(data) // interpolating to next data
+    if (!hasData && hasPrevData) pathNext = getPathDefault(dataPrev) // exiting from view
+
+    let pathPrev = pathElement
+    if (!pathPrev && hasData) pathPrev = getPathDefault(data) // first interpolation
+
+    const opacity = hasData ? 1 : 0
+
+    if (pathNext && pathPrev) {
+      d3.select(pathElementRef.current)
+        .transition()
         .ease(d3.easePolyOut)
-        .duration(defaultTransitionDuration)
-        .attrTween('d', d => interpolatePath(previous, current))
-  }
+        .duration(Chart.defaultTransitionDuration)
+        .attrTween('d', () => interpolatePath(pathPrev, pathNext))
+        .style('opacity', opacity)
+    }
+  }, [data])
 
-  componentDidUpdate(prevProps, prevState) {
-    const {xScale, yScale, data} = prevProps
-    const { data: currentData } = this.props
-    // enter
-    if (currentData.length > 1 && data.length <= 1) {
-      const current = this.getPath({...this.props})
-      const previous = this.getPath({
-        xScale, yScale,
-        data: [
-          {year: R.head(currentData).year, value: R.head(currentData).value},
-          {year: R.last(currentData).year, value: R.last(currentData).value}
-        ]
-      })
-      this.interpolatePath(previous, current).style('opacity', 1)
-    }
-    // exit
-    else if (currentData.length <= 1 && data.length > 1) {
-      const current = this.getPath({...this.props})
-      const next = this.getPath({
-        xScale, yScale,
-        data: [
-          {year: R.head(data).year, value: 0},
-          {year: R.last(data).year, value: 0}
-        ]
-      })
-      this.interpolatePath(current, next).style('opacity', 0)
-    }
-    // update
-    else if (currentData.length > 1 && data.length > 1) {
-      const previous = ReactDOM.findDOMNode(this).getAttribute('d')
-      const current = this.getPath({...this.props})
-      this.interpolatePath(previous, current)
-    }
-  }
+  return <path ref={pathElementRef} style={{ ...style, opacity: 0 }} className="chart__data-path" d={null} />
+}
 
-  componentDidMount () {
-    const {xScale, yScale, data} = this.props
-    if (data.length > 1) {
-      const current = this.getPath({...this.props})
-      const previous = this.getPath({
-        xScale,
-        yScale,
-        data: [{year: R.head(data).year, value: 0}, {year: R.last(data).year, value: 0}]
-      })
-      this.interpolatePath(previous, current).style('opacity', 1)
-    }
-  }
-
-  render () {
-    return <path style={{...this.props.style, opacity: 0}} className="chart__data-path"></path>
-  }
+DataPath.propTypes = {
+  data: PropTypes.array.isRequired,
+  style: PropTypes.object.isRequired,
+  xScale: PropTypes.func.isRequired,
+  yScale: PropTypes.func.isRequired,
 }
 
 export default DataPath
