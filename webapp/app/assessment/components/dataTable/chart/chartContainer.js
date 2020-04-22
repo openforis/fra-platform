@@ -1,10 +1,10 @@
 import './style.less'
 
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-
 import * as R from 'ramda'
+import React, { memo } from 'react'
+import PropTypes from 'prop-types'
 
+import { useI18n, usePrintView } from '@webapp/components/hooks'
 import NoDataPlaceholder from './components/noDataPlaceholder'
 import DataTrend from './components/dataTrend'
 import XAxis from './components/xAxis'
@@ -12,65 +12,55 @@ import YAxis from './components/yAxis'
 import OdpTicks from './components/odpTicks'
 import Legend from './components/legend'
 
-import { getChartData, getXScale, getYScale, styles, getTrendOdps } from './chart'
+import * as Chart from './chart'
+import useChartData from './useChartData'
 
-import * as AppState from '@webapp/app/appState'
+const ChartContainer = (props) => {
+  const { fra, trends, wrapperWidth } = props
+  const i18n = useI18n()
+  const [printView] = usePrintView()
+  const { xScale, yScale, data } = useChartData(fra, trends, wrapperWidth)
+  const { left, height, bottom } = Chart.styles
 
-class Chart extends Component {
-
-  shouldComponentUpdate (nextProps) {
-    const isDataEqual = R.equals(this.props.data, nextProps.data)
-    const isWidthTheSame = this.props.wrapperWidth === nextProps.wrapperWidth
-    const languageChanged = this.props.i18n ? this.props.i18n.language !== nextProps.i18n.language : false
-    return !isDataEqual || !isWidthTheSame || languageChanged
-  }
-
-  render () {
-    return <div ref="chartContainer">
-      {this.props.data
-        ? <svg width={this.props.wrapperWidth} height={styles.height}>
-          <Legend {...this.props} />
-          <YAxis {...this.props} {...styles} />
-          <XAxis {...this.props} {...styles} />
-          {/*odp ticks must be positioned behind all data points*/}
-          {this.props.trends.map(t =>
-            <OdpTicks
-              key={`odp-ticks-${t.name}`}
-              className={`chart__odp-ticks-${t.name}`}
-              {...this.props}
-              {...t}
-              data={getTrendOdps(this.props.data[t.name])}/>
-          )}
-          {this.props.trends.map(t =>
-            <DataTrend
-              key={`data-trend-${t.name}`}
-              className={`chart__data-trend-${t.name}`}
-              {...this.props}
-              {...styles}
-              {...t}
-              data={this.props.data[t.name]}
-            />
-          )}
-          <NoDataPlaceholder {...this.props} {...styles} />
-        </svg>
-        : null}
+  return (
+    <div>
+      <svg width={wrapperWidth} height={height}>
+        <Legend data={data} trends={trends} wrapperWidth={wrapperWidth} />
+        <YAxis data={data} left={left} yScale={yScale} wrapperWidth={wrapperWidth} />
+        <XAxis data={data} bottom={bottom} height={height} xScale={xScale} />
+        {/* odp ticks must be positioned behind all data points */}
+        {trends.map((t) => (
+          <OdpTicks
+            key={`odp-ticks-${t.name}`}
+            className={`chart__odp-ticks-${t.name}`}
+            xScale={xScale}
+            yScale={yScale}
+            data={Chart.getTrendOdps(data[t.name])}
+          />
+        ))}
+        {trends.map((t) => (
+          <DataTrend
+            key={`data-trend-${t.name}`}
+            className={`chart__data-trend-${t.name}`}
+            color={t.color}
+            data={data[t.name]}
+            xScale={xScale}
+            yScale={yScale}
+          />
+        ))}
+        {!printView && <NoDataPlaceholder data={data} i18n={i18n} wrapperWidth={wrapperWidth} />}
+      </svg>
     </div>
-  }
+  )
 }
 
-const mapStateToProps = (state, props) => {
-  if (props.fra) {
-    const data = R.pipe(
-      R.map(t => ({[t.name]: getChartData(props.fra, t.name)})),
-      R.mergeAll
-    )(props.trends)
-
-    const xScale = getXScale(props.wrapperWidth, data)
-    const yScale = getYScale(data)
-
-    return {data, xScale, yScale, i18n: AppState.getI18n(state)}
-  }
-  return {}
+ChartContainer.propTypes = {
+  fra: PropTypes.array.isRequired,
+  trends: PropTypes.array.isRequired,
+  wrapperWidth: PropTypes.number.isRequired,
 }
 
-export default connect(mapStateToProps)(Chart)
+const areEqual = (prevProps, nextProps) =>
+  R.equals(prevProps.fra, nextProps.fra) && prevProps.wrapperWidth === nextProps.wrapperWidth
+
+export default memo(ChartContainer, areEqual)
