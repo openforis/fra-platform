@@ -13,3 +13,4 @@ received-emails/
 
 #Eslint
 .eslintcache
+.vscode
