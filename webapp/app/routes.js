@@ -38,7 +38,6 @@ const routes = [
   { path: [`${BasePaths.odp}:odpId/`, BasePaths.odp], component: OriginalDataPointView },
 
   // === Routes to be removed or updated
-  { path: '/country/:countryIso/admin/', component: AdminView },
   { path: '/country/:countryIso/odps/', component: OriginalDataListView },
   { path: '/country/:countryIso/odp/:tab/:odpId/', component: OriginalDataPointView },
   { path: '/country/:countryIso/odp/:tab/', component: OriginalDataPointView },
@@ -71,6 +70,7 @@ const routes = [
   { path: '/country/:countryIso/*', component: NotFound },
   // === End Routes to be removed or updated
 
+  { path: BasePaths.admin, component: AdminView },
   { path: BasePaths.user, component: EditUserView },
   { path: [BasePaths.root, BasePaths.country], component: LandingView },
 ]

@@ -1,27 +1,97 @@
+const pathFragments = {
+  admin: 'admin',
+  api: 'api',
+  assessment: 'assessment',
+  login: 'login',
+  odp: 'odp',
+  onlyTables: 'onlyTables',
+  print: 'print',
+  profilePicture: 'profilePicture',
+  statisticalFactsheets: 'statisticalFactsheets',
+  user: 'user',
+  users: 'users',
+  versioning: 'versioning',
+  params: {
+    countryIso: ':countryIso',
+    assessmentType: ':assessmentType',
+    section: ':section',
+    userId: ':userId',
+    tab: ':tab',
+  },
+}
+
+/**
+ * Returns consistent URL strings starting and ending with /
+ *
+ * @param {string[]} parts - url parts from which the url is generated
+ */
+const _pathGenerator = (...parts) => `/${parts.filter((p) => !!p).join('/')}/`
+
 // ==== application paths
 export const root = '/'
-export const login = '/login/'
-export const statisticalFactsheets = '/statisticalFactsheets/'
-export const country = '/:countryIso/'
-export const assessmentSection = `${country}assessment/:assessmentType/:section/`
-export const assessmentPrint = `${country}print/:assessmentType/`
-export const assessmentPrintOnlyTables = `${country}print/:assessmentType/onlyTables/`
-export const odp = `${country}odp/:tab/`
-export const user = '/users/:userId/'
+export const login = _pathGenerator(pathFragments.login)
+export const statisticalFactsheets = _pathGenerator(pathFragments.statisticalFactsheets)
+export const country = _pathGenerator(pathFragments.params.countryIso)
+export const admin = _pathGenerator(pathFragments.admin)
+
+// /:countryIso/assessment/:assessmentType/:section/
+export const assessmentSection = _pathGenerator(
+  pathFragments.params.countryIso,
+  pathFragments.assessment,
+  pathFragments.params.assessmentType,
+  pathFragments.params.section
+)
+
+// /:countryIso/print/:assessmentType/
+export const assessmentPrint = _pathGenerator(
+  pathFragments.params.countryIso,
+  pathFragments.print,
+  pathFragments.params.assessmentType
+)
+
+// /:countryIso/print/:assessmentType/onlyTables/
+export const assessmentPrintOnlyTables = _pathGenerator(
+  pathFragments.params.countryIso,
+  pathFragments.print,
+  pathFragments.params.assessmentType,
+  pathFragments.onlyTables
+)
+
+// /:countryIso/odp/:tab/
+export const odp = _pathGenerator(pathFragments.params.countryIso, pathFragments.odp, pathFragments.params.tab)
+
+// /users/:userId/
+export const user = _pathGenerator(pathFragments.users, pathFragments.params.userId)
+
 // ==== getter utilities
+// /:countryIso
+export const getCountryHomeLink = (countryIso) => _pathGenerator(countryIso)
 
-export const getCountryHomeLink = (countryIso) => `/${countryIso}/`
-
+// /:countryIso/assessment/:assessmentType/:sectionName/
 export const getAssessmentSectionLink = (countryIso, assessmentType, sectionName) =>
-  `/${countryIso}/assessment/${assessmentType}/${sectionName}/`
+  _pathGenerator(countryIso, pathFragments.assessment, assessmentType, sectionName)
 
+// /:countryIso/print/:assessmentType/
 export const getAssessmentPrintLink = (countryIso, assessmentType, onlyTables = false) =>
-  `/${countryIso}/print/${assessmentType}/${onlyTables ? 'onlyTables/' : ''}`
+  _pathGenerator(countryIso, pathFragments.print, assessmentType, onlyTables && pathFragments.onlyTables)
 
-export const getOdpLink = (countryIso, sectionName, odpId = null) =>
-  `/${countryIso}/odp/${sectionName}/${odpId ? `${odpId}/` : ''}`
+// /:countryIso/print/:assessmentType/onlyTables/
+export const getOdpLink = (countryIso, sectionName, odpId) =>
+  _pathGenerator(countryIso, pathFragments.odp, sectionName, odpId)
 
+// /api/users/:countryIso/user/:userId/profilePicture
 export const getUserProfilePictureLink = (countryIso, userId) =>
-  `/api/users/${countryIso}/user/${userId}/profilePicture`
+  _pathGenerator(
+    pathFragments.api,
+    pathFragments.users,
+    countryIso,
+    pathFragments.user,
+    userId,
+    pathFragments.profilePicture
+  )
 
-export const getUserLink = (userId) => `/users/${userId}/`
+// /users/:userId/
+export const getUserProfileLink = (userId) => _pathGenerator(pathFragments.users, userId)
+
+// /admin/versioning/
+export const getAdminVersioningLink = () => _pathGenerator(pathFragments.admin, pathFragments.versioning)
