@@ -20,7 +20,9 @@ const VersioningViewTableRow = (props) => {
         {formatDate(FRAVersion.getPublishedAt(version), i18n)}
       </td>
       <td className={classNames.td}>
-        <Link to={`${BasePaths.getUserLink(FRAVersion.getUserId(version))}`}>{FRAVersion.getUserName(version)}</Link>
+        <Link to={`${BasePaths.getUserProfileLink(FRAVersion.getUserId(version))}`}>
+          {FRAVersion.getUserName(version)}
+        </Link>
       </td>
       <td className={classNames.td}>{i18n.t(`landing.versioning.status.${FRAVersion.getStatus(version)}`)}</td>
       <td className={classNames.td}>
