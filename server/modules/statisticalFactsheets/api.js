@@ -3,7 +3,7 @@ const VersionService = require('../../versioning/service')
 
 module.exports.init = (app) => {
   app.get('/statisticalFactsheets/', async (req, res) => {
-    const schemaName = await VersionService.getDatabaseSchema()
+    const schemaName = await VersionService.getDatabaseSchema(req)
     const [
       extentOfForest,
       growingStockTotal,
@@ -37,7 +37,7 @@ module.exports.init = (app) => {
   })
 
   app.get('/statisticalFactsheets/forestCharacteristics', async (req, res) => {
-    const schemaName = await VersionService.getDatabaseSchema()
+    const schemaName = await VersionService.getDatabaseSchema(req)
     const forestCharacteristics = await Manager.getForestCharacteristics(schemaName)
 
     res.json({
@@ -46,7 +46,7 @@ module.exports.init = (app) => {
   })
 
   app.get('/statisticalFactsheets/extentOfForest', async (req, res) => {
-    const schemaName = await VersionService.getDatabaseSchema()
+    const schemaName = await VersionService.getDatabaseSchema(req)
     const extentOfForest = await Manager.getExtentOfForest(schemaName)
 
     res.json({
@@ -55,7 +55,7 @@ module.exports.init = (app) => {
   })
 
   app.get('/statisticalFactsheets/growingStockTotal', async (req, res) => {
-    const schemaName = await VersionService.getDatabaseSchema()
+    const schemaName = await VersionService.getDatabaseSchema(req)
     const growingStockTotal = await Manager.getGrowingStockTotal(schemaName)
 
     res.json({
@@ -64,7 +64,7 @@ module.exports.init = (app) => {
   })
 
   app.get('/statisticalFactsheets/carbonStock', async (req, res) => {
-    const schemaName = await VersionService.getDatabaseSchema()
+    const schemaName = await VersionService.getDatabaseSchema(req)
     const carbonStock = await Manager.getCarbonStock(schemaName)
     // Note:
     // statisticalFactsheets: carbon stock in biomass (Gt) is:
@@ -76,7 +76,7 @@ module.exports.init = (app) => {
   })
 
   app.get('/statisticalFactsheets/specificForestCategories', async (req, res) => {
-    const schemaName = await VersionService.getDatabaseSchema()
+    const schemaName = await VersionService.getDatabaseSchema(req)
     const specificForestCategories = await Manager.getSpecificForestCategories(schemaName)
 
     res.json({
@@ -85,7 +85,7 @@ module.exports.init = (app) => {
   })
 
   app.get('/statisticalFactsheets/forestAreaWithinProtectedAreas', async (req, res) => {
-    const schemaName = await VersionService.getDatabaseSchema()
+    const schemaName = await VersionService.getDatabaseSchema(req)
     const forestAreaWithinProtectedAreas = await Manager.getForestAreaWithinProtectedAreas(schemaName)
 
     res.json({
@@ -94,7 +94,7 @@ module.exports.init = (app) => {
   })
 
   app.get('/statisticalFactsheets/primaryDesignatedManagementObjective', async (req, res) => {
-    const schemaName = await VersionService.getDatabaseSchema()
+    const schemaName = await VersionService.getDatabaseSchema(req)
     const primaryDesignatedManagementObjective = await Manager.getPrimaryDesignatedManagementObjective(schemaName)
 
     res.json({
@@ -103,7 +103,7 @@ module.exports.init = (app) => {
   })
 
   app.get('/statisticalFactsheets/forestOwnership', async (req, res) => {
-    const schemaName = await VersionService.getDatabaseSchema()
+    const schemaName = await VersionService.getDatabaseSchema(req)
     const forestOwnership = await Manager.getForestOwnership(schemaName)
 
     res.json({
