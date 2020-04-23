@@ -9,7 +9,7 @@ import Number from './number'
 import Text from './text'
 import Select from './select'
 import Placeholder from './placeholder'
-import useCellClassName from './useCellClassName'
+import useClassName from './useClassName'
 
 const ComponentsByType = {
   [SectionSpec.TYPES.calculated]: Calculated,
@@ -27,7 +27,9 @@ const Cell = (props) => {
   const { type } = col
   const datum = R.pathOr(null, [rowIdx, col.idx])(data)
 
-  const className = useCellClassName(col, rowIdx)
+  const className = useClassName(col, rowIdx)
+
+  const onPaste = () => {}
 
   const component = ComponentsByType[type]
   return (
@@ -42,6 +44,7 @@ const Cell = (props) => {
           col,
           rowIdx,
           updateTableDataCell,
+          onPaste,
         })}
     </td>
   )

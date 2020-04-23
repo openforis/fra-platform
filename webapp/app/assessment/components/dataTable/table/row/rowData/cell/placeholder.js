@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 
 import useI18n from '@webapp/components/hooks/useI18n'
 
-const Placeholder = props => {
+const Placeholder = (props) => {
   const { col } = props
   const { label, labelKey, labelParams } = col
 

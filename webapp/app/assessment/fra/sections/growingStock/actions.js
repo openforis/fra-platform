@@ -12,7 +12,7 @@ import * as autosave from '@webapp/app/components/autosave/actions'
 
 import { acceptNextDecimal } from '@webapp/utils/numberInput'
 import { calculateTotalValue, calculateAvgValue } from '@webapp/app/assessment/fra/sections/growingStock/growingStock'
-import { updateTableData, postTableData } from '@webapp/app/assessment/components/dataTable/actions'
+import { updateTableData, persistTableData } from '@webapp/app/assessment/components/dataTable/actions'
 
 const section = FRA.sections['2'].children.a
 
@@ -109,21 +109,21 @@ const updatePasteData = (growingStockState, year, row, pastedData, malvFunc) => 
 /**
  * @deprecated
  */
-export const fetch = countryIso => dispatch =>
+export const fetch = (countryIso) => (dispatch) =>
   axios
     .get(`/api/growingStock/${countryIso}`)
-    .then(resp => dispatch({ type: growingStockFetchCompleted, data: resp.data }))
-    .catch(err => dispatch(applicationError(err)))
+    .then((resp) => dispatch({ type: growingStockFetchCompleted, data: resp.data }))
+    .catch((err) => dispatch(applicationError(err)))
 
 /**
  * @deprecated
  */
 export const persistValues = (countryIso, values) => {
-  const dispatched = dispatch => {
+  const dispatched = (dispatch) => {
     axios
       .post(`/api/growingStock/${countryIso}`, values)
       .then(() => dispatch(autosave.complete))
-      .catch(err => dispatch(applicationError(err)))
+      .catch((err) => dispatch(applicationError(err)))
   }
 
   dispatched.meta = {
@@ -199,7 +199,7 @@ const updateGrowingStockCells = (year, variableName, avgValue, totalValue) => (d
       autoSaveStart: true,
     })
   )
-  dispatch(postTableData(section.name, data, `/api/growingStock/${countryIso}`))
+  dispatch(persistTableData(section.name, data, `/api/growingStock/${countryIso}`))
 }
 
 export const updateGrowingStockAvgCell = (assessmentType, sectionName, tableName, datum, variableName) => (

@@ -3,13 +3,13 @@ import PropTypes from 'prop-types'
 
 import * as BasePaths from '@webapp/main/basePaths'
 
+import { useCountryIso, useI18n } from '@webapp/components/hooks'
 import { Link } from 'react-router-dom'
-import Cell from '@webapp/app/assessment/components/dataTable/table/cell'
 import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
-import useI18n from '@webapp/components/hooks/useI18n'
-import useCountryIso from '@webapp/components/hooks/useCountryIso'
-import useRowClassName from '@webapp/app/assessment/components/dataTable/table/useRowClassName'
-import CellOdp from '@webapp/app/assessment/components/dataTable/table/cell/cellOdp'
+
+import useClassName from './useClassName'
+import Cell from './cell'
+import CellOdp from './cellOdp'
 
 const RowData = (props) => {
   const countryIso = useCountryIso()
@@ -24,7 +24,7 @@ const RowData = (props) => {
   const colsData = cols.slice(1, cols.length)
 
   const reviewTarget = [tableName, 'row', `${rowIdx}`]
-  const className = useRowClassName(reviewTarget)
+  const className = useClassName(reviewTarget)
 
   const colHeaderValue = `${colHeaderLabel}${colHeader.variableNo ? ` (${colHeader.variableNo})` : ''}`
   return (

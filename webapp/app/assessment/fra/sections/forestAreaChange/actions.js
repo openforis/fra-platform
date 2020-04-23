@@ -5,9 +5,9 @@ import * as NumberUtils from '@common/bignumberUtils'
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 import * as ForestAreaChangeState from '@webapp/app/assessment/fra/sections/forestAreaChange/forestAreaChangeState'
 
-import { postTableData, updateTableData } from '@webapp/app/assessment/components/dataTable/actions'
+import { persistTableData, updateTableData } from '@webapp/app/assessment/components/dataTable/actions'
 
-const calculateMirrorValue = (colIdx, rowIdx, rowIdxMirror, fn, state) => data => {
+const calculateMirrorValue = (colIdx, rowIdx, rowIdxMirror, fn, state) => (data) => {
   const value = data[rowIdx][colIdx]
   const netChange = ForestAreaChangeState.getExtentOfForestChange(colIdx)(state)
 
@@ -32,5 +32,5 @@ export const updateForestAreaChangeCell = (assessmentType, sectionName, tableNam
   )(state)
 
   dispatch(updateTableData({ assessmentType, sectionName, tableName, data, autoSaveStart: true }))
-  dispatch(postTableData(tableName, data))
+  dispatch(persistTableData(tableName, data))
 }
