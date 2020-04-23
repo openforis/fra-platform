@@ -1,4 +1,3 @@
-import axios from 'axios'
 import * as R from 'ramda'
 import * as FRAUtils from '@common/fraUtils'
 
@@ -7,6 +6,7 @@ import * as autosave from '@webapp/app/components/autosave/actions'
 
 import * as AppState from '@webapp/app/appState'
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
+import { persistTableData } from './persist'
 
 export const assessmentSectionDataUpdate = 'assessment/section/data/update'
 
@@ -29,23 +29,6 @@ export const updateTableData = ({ assessmentType, sectionName, tableName, data, 
   dispatch(batchActions(actions))
 }
 
-export const postTableData = (tableName, data, url = null) => {
-  const debounced = async (dispatch, getState) => {
-    const urlPost = url || `/api/traditionalTable/${AppState.getCountryIso(getState())}/${tableName}`
-    await axios.post(urlPost, data)
-    dispatch(autosave.complete)
-  }
-
-  debounced.meta = {
-    debounce: {
-      time: 800,
-      key: `${assessmentSectionDataUpdate}/${tableName}`,
-    },
-  }
-
-  return debounced
-}
-
 export const updateTableDataCell = (assessmentType, sectionName, tableName, rowIdx, colIdx, value) => async (
   dispatch,
   getState
@@ -57,7 +40,7 @@ export const updateTableDataCell = (assessmentType, sectionName, tableName, rowI
   )(state)
 
   dispatch(updateTableData({ assessmentType, sectionName, tableName, data, autoSaveStart: true }))
-  dispatch(postTableData(tableName, data))
+  dispatch(persistTableData(tableName, data))
 }
 
 export const updateTableWithOdpCell = (assessmentType, sectionName, tableName, datum) => (dispatch, getState) => {
@@ -79,5 +62,5 @@ export const updateTableWithOdpCell = (assessmentType, sectionName, tableName, d
   const countryIso = AppState.getCountryIso(state)
 
   dispatch(updateTableData({ assessmentType, sectionName, tableName, data, autoSaveStart: true }))
-  dispatch(postTableData(sectionName, datum, `/api/nde/${tableName}/country/${countryIso}/${datum.name}`))
+  dispatch(persistTableData(sectionName, datum, `/api/nde/${tableName}/country/${countryIso}/${datum.name}`))
 }

@@ -5,7 +5,7 @@ import * as R from 'ramda'
 
 import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
 
-import useI18n from '@webapp/components/hooks/useI18n'
+import { useI18n } from '@webapp/components/hooks'
 
 const isOptionHeader = R.propEq(SectionSpec.TYPE, SectionSpec.TYPES.header)
 

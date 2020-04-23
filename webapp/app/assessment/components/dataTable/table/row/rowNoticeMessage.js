@@ -3,14 +3,14 @@ import PropTyeps from 'prop-types'
 
 import useI18n from '@webapp/components/hooks/useI18n'
 
-const RowNoticeMessage = props => {
+const RowNoticeMessage = (props) => {
   const { row } = props
   const { cols } = row
   const i18n = useI18n()
 
   return (
     <tr>
-      {cols.map(col => {
+      {cols.map((col) => {
         const { labelKey, rowSpan, colSpan } = col
         const label = labelKey ? i18n.t(labelKey) : null
         return (

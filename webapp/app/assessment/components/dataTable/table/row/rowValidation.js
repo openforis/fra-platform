@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
 import * as R from 'ramda'
 
-import useI18n from '@webapp/components/hooks/useI18n'
+import { useI18n } from '@webapp/components/hooks'
 
-const RowValidation = props => {
+const RowValidation = (props) => {
   const { row, data } = props
   const { getValidationMessages } = row
 
@@ -18,7 +18,7 @@ const RowValidation = props => {
 
   return (
     <tr key="validationError" className="no-print">
-      {validationMessages.map(errorMsgs => (
+      {validationMessages.map((errorMsgs) => (
         <td className="fra-table__validation-cell" key={Math.random()}>
           <div className="fra-table__validation-container">
             {errorMsgs.map(({ key, params = {} }) => (

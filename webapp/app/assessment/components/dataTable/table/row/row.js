@@ -3,10 +3,10 @@ import PropTypes from 'prop-types'
 
 import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
 
-import RowData from '@webapp/app/assessment/components/dataTable/table/rowData'
-import RowValidation from '@webapp/app/assessment/components/dataTable/table/rowValidation'
-import RowNoticeMessage from '@webapp/app/assessment/components/dataTable/table/rowNoticeMessage'
-import useUserInfo from '@webapp/components/hooks/useUserInfo'
+import { useUserInfo } from '@webapp/components/hooks'
+import RowData from './rowData'
+import RowValidation from './rowValidation'
+import RowNoticeMessage from './rowNoticeMessage'
 
 const componentsByType = {
   [SectionSpec.TYPES.data]: RowData,

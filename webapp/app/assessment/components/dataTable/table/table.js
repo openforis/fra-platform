@@ -1,10 +1,10 @@
 import React, { useRef } from 'react'
 import PropTypes from 'prop-types'
 
-import ButtonTableExport from '@webapp/components/buttonTableExport'
-import Row from '@webapp/app/assessment/components/dataTable/table/row'
-import CellOdpHeader from '@webapp/app/assessment/components/dataTable/table/cell/cellOdpHeader'
 import { useI18n, usePrintView } from '@webapp/components/hooks'
+import ButtonTableExport from '@webapp/components/buttonTableExport'
+import Row from './row'
+import CellOdpHeader from './cellOdpHeader'
 
 const Table = (props) => {
   const {
