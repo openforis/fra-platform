@@ -1,4 +1,4 @@
-export { TYPES, TYPE, isData, isNotData, isHeader, isNotHeader } from './keysType'
+export { TYPES, TYPE, isData, isNotData, isHeader, isNotHeader, isDecimal, isText } from './keysType'
 
 export { KEYS_SECTION, KEYS_SECTION_DESCRIPTIONS, newSectionSpec } from './sectionSpec'
 

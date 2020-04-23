@@ -3,7 +3,6 @@ import * as R from 'ramda'
 
 import * as FRA from '@common/assessment/fra'
 
-import * as AppState from '@webapp/app/appState'
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 import * as GrowingStockState from '@webapp/app/assessment/fra/sections/growingStock/growingStockState'
 
@@ -12,7 +11,6 @@ import * as autosave from '@webapp/app/components/autosave/actions'
 
 import { acceptNextDecimal } from '@webapp/utils/numberInput'
 import { calculateTotalValue, calculateAvgValue } from '@webapp/app/assessment/fra/sections/growingStock/growingStock'
-import { updateTableData, persistTableData } from '@webapp/app/assessment/components/dataTable/actions'
 
 const section = FRA.sections['2'].children.a
 
@@ -181,45 +179,26 @@ export const pasteTotalValue = (countryIso, year, row, pastedData) => (dispatch,
 
 // ====== Update
 
-const updateGrowingStockCells = (year, variableName, avgValue, totalValue) => (dispatch, getState) => {
-  const state = getState()
-  const data = R.pipe(
+const updateGrowingStockCells = ({ year, variableName, avgValue, totalValue }) =>
+  R.pipe(
     AssessmentState.getSectionData(FRA.type, section.name, section.name),
     R.assocPath([section.tables.avgTable, year, variableName], avgValue),
-    R.assocPath([section.tables.totalTable, year, variableName], totalValue)
-  )(state)
-  const countryIso = AppState.getCountryIso(state)
-
-  dispatch(
-    updateTableData({
-      assessmentType: FRA.type,
-      sectionName: section.name,
-      tableName: section.name,
-      data,
-      autoSaveStart: true,
-    })
+    R.assocPath([section.tables.totalTable, year, variableName], totalValue),
+    (data) => ({ data })
   )
-  dispatch(persistTableData(section.name, data, `/api/growingStock/${countryIso}`))
-}
 
-export const updateGrowingStockAvgCell = (assessmentType, sectionName, tableName, datum, variableName) => (
-  dispatch,
-  getState
-) => {
+export const updateGrowingStockAvgCell = ({ datum, variableName }) => (state) => {
   const { year } = datum
   const avgValue = datum[variableName]
-  const totalValue = GrowingStockState.calculateTotalValue(year, variableName, avgValue)(getState())
+  const totalValue = GrowingStockState.calculateTotalValue(year, variableName, avgValue)(state)
 
-  dispatch(updateGrowingStockCells(year, variableName, avgValue, totalValue))
+  return updateGrowingStockCells({ year, variableName, avgValue, totalValue })(state)
 }
 
-export const updateGrowingStockTotalCell = (assessmentType, sectionName, tableName, datum, variableName) => (
-  dispatch,
-  getState
-) => {
+export const updateGrowingStockTotalCell = ({ datum, variableName }) => (state) => {
   const { year } = datum
   const totalValue = datum[variableName]
-  const avgValue = GrowingStockState.calculateAvgValue(year, variableName, totalValue)(getState())
+  const avgValue = GrowingStockState.calculateAvgValue(year, variableName, totalValue)(state)
 
-  dispatch(updateGrowingStockCells(year, variableName, avgValue, totalValue))
+  return updateGrowingStockCells({ year, variableName, avgValue, totalValue })(state)
 }

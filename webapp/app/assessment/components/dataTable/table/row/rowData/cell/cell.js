@@ -24,18 +24,15 @@ const ComponentsByType = {
 const Cell = (props) => {
   const { data, assessmentType, sectionName, tableName, disabled, rowIdx, col, updateTableDataCell } = props
 
-  const { type } = col
-  const datum = R.pathOr(null, [rowIdx, col.idx])(data)
+  const datum = R.pathOr(null, [rowIdx, col[SectionSpec.KEYS_COL.idx]])(data)
 
   const className = useClassName(col, rowIdx)
 
-  const onPaste = () => {}
-
-  const component = ComponentsByType[type]
+  const Component = ComponentsByType[col[SectionSpec.KEYS_COL.type]]
   return (
     <td className={className}>
-      {component &&
-        React.createElement(component, {
+      {Component &&
+        React.createElement(Component, {
           datum,
           assessmentType,
           sectionName,
@@ -44,7 +41,6 @@ const Cell = (props) => {
           col,
           rowIdx,
           updateTableDataCell,
-          onPaste,
         })}
     </td>
   )

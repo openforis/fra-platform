@@ -1,27 +1,22 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useDispatch } from 'react-redux'
 
 import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
 
 import TextInput from '@webapp/components/textInput'
 import VerticallyGrowingTextField from '@webapp/components/verticallyGrowingTextField'
 
+import useOnChange from './useOnChange'
+
 const Text = (props) => {
-  const { assessmentType, sectionName, tableName, updateTableDataCell, onPaste, rowIdx, col, datum, disabled } = props
-  const { type } = col
+  const { assessmentType, sectionName, tableName, updateTableDataCell, rowIdx, col, datum, disabled } = props
+  const onChange = useOnChange({ assessmentType, sectionName, tableName, updateTableDataCell, rowIdx, col, datum })
 
-  const dispatch = useDispatch()
+  const [Component, componentProps] = SectionSpec.isText(col)
+    ? [TextInput, {}]
+    : [VerticallyGrowingTextField, { minWidth: 350 }]
 
-  const [Component, componentProps] =
-    type === SectionSpec.TYPES.text ? [TextInput, {}] : [VerticallyGrowingTextField, { minWidth: 350 }]
-
-  const onChange = (event) => {
-    const { value } = event.target
-    dispatch(updateTableDataCell(assessmentType, sectionName, tableName, rowIdx, col.idx, value))
-  }
-
-  return React.createElement(Component, { ...componentProps, value: datum || '', onChange, onPaste, disabled })
+  return React.createElement(Component, { ...componentProps, value: datum || '', onChange, disabled })
 }
 
 Text.propTypes = {
@@ -33,7 +28,6 @@ Text.propTypes = {
   disabled: PropTypes.bool.isRequired,
   datum: PropTypes.any,
   updateTableDataCell: PropTypes.func.isRequired,
-  onPaste: PropTypes.func.isRequired,
 }
 
 Text.defaultProps = {

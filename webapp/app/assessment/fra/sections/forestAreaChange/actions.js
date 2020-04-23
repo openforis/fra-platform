@@ -5,8 +5,6 @@ import * as NumberUtils from '@common/bignumberUtils'
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 import * as ForestAreaChangeState from '@webapp/app/assessment/fra/sections/forestAreaChange/forestAreaChangeState'
 
-import { persistTableData, updateTableData } from '@webapp/app/assessment/components/dataTable/actions'
-
 const calculateMirrorValue = (colIdx, rowIdx, rowIdxMirror, fn, state) => (data) => {
   const value = data[rowIdx][colIdx]
   const netChange = ForestAreaChangeState.getExtentOfForestChange(colIdx)(state)
@@ -17,20 +15,15 @@ const calculateMirrorValue = (colIdx, rowIdx, rowIdxMirror, fn, state) => (data)
   return R.assocPath([rowIdxMirror, colIdx], valueMirror)(data)
 }
 
-export const updateForestAreaChangeCell = (assessmentType, sectionName, tableName, rowIdx, colIdx, value) => async (
-  dispatch,
-  getState
-) => {
-  const state = getState()
-  const data = R.pipe(
+export const updateForestAreaChangeCell = ({ assessmentType, sectionName, tableName, rowIdx, colIdx, value }) => (
+  state
+) =>
+  R.pipe(
     AssessmentState.getSectionData(assessmentType, sectionName, tableName),
     R.assocPath([rowIdx, colIdx], value),
     // update Deforestation
     R.when(R.always(rowIdx === 0), calculateMirrorValue(colIdx, rowIdx, 3, NumberUtils.sub, state)),
     // update Forest expansion
-    R.when(R.always(rowIdx === 3), calculateMirrorValue(colIdx, rowIdx, 0, NumberUtils.add, state))
+    R.when(R.always(rowIdx === 3), calculateMirrorValue(colIdx, rowIdx, 0, NumberUtils.add, state)),
+    (data) => ({ data })
   )(state)
-
-  dispatch(updateTableData({ assessmentType, sectionName, tableName, data, autoSaveStart: true }))
-  dispatch(persistTableData(tableName, data))
-}
