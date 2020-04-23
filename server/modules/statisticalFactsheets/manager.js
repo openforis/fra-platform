@@ -19,7 +19,7 @@ const KEYS = {
 
 const _getTotalArea = ({ countryIso, year }) => R.pathOr(0, [countryIso, KEYS.faoStat, year, KEYS.area], countryConfig)
 
-const getExtentOfForest = async (schemaName = 'public') => {
+const getExtentOfForest = async (schemaName) => {
   const extentOfForest = await ExtentOfForestRepository.getExtentOfForestView(schemaName)
 
   return extentOfForest.map((element) => ({
@@ -28,30 +28,30 @@ const getExtentOfForest = async (schemaName = 'public') => {
   }))
 }
 
-const getGrowingStockTotal = async (schemaName = 'public') => {
+const getGrowingStockTotal = async (schemaName) => {
   const growingStockTotal = await GrowingStockRepository.getGrowingStockTotal(schemaName)
 
   return Utils.yearsToRowValue(growingStockTotal)
 }
 
-const getCarbonStock = async (schemaName = 'public') => {
+const getCarbonStock = async (schemaName) => {
   const carbonStock = await CarbonStockRepository.getCarbonStock(schemaName)
 
   return Utils.yearsToRowValue(carbonStock)
 }
 
-const getForestCharacteristics = async (schemaName = 'public') => {
+const getForestCharacteristics = async (schemaName) => {
   const forestCharacteristics = await ForestCharacteristicsRepository.getForestCharacteristicsView(schemaName)
   return forestCharacteristics
 }
 
-const getSpecificForestCategories = async (schemaName = 'public') => {
+const getSpecificForestCategories = async (schemaName) => {
   const specificForestCategories = await SpecificForestCategoriesRepository.getSpecificForestCategories(schemaName)
 
   return Utils.yearsToRowValue(specificForestCategories)
 }
 
-const getForestAreaWithinProtectedAreas = async (schemaName = 'public') => {
+const getForestAreaWithinProtectedAreas = async (schemaName) => {
   const specificForestCategories = await ForestAreaWithinProtectedAreasRepository.getForestAreaWithinProtectedAreas(
     schemaName
   )
@@ -59,13 +59,13 @@ const getForestAreaWithinProtectedAreas = async (schemaName = 'public') => {
   return Utils.yearsToRowValue(specificForestCategories)
 }
 
-const getForestOwnership = async (schemaName = 'public') => {
+const getForestOwnership = async (schemaName) => {
   const forestOwnership = await ForestOwnershipRepository.getForestOwnership(schemaName)
 
   return Utils.yearsToRowValue(forestOwnership)
 }
 
-const getPrimaryDesignatedManagementObjective = async (schemaName = 'public') => {
+const getPrimaryDesignatedManagementObjective = async (schemaName) => {
   const forestOwnership = await PrimaryDesignatedManagementObjectiveRepository.getPrimaryDesignatedManagementObjective(
     schemaName
   )
