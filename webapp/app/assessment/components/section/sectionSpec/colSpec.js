@@ -2,7 +2,9 @@ import * as R from 'ramda'
 
 import * as NumberUtils from '@common/bignumberUtils'
 
-import { TYPE, TYPES } from '@webapp/app/assessment/components/section/sectionSpec/keysType'
+import { TYPE, TYPES, getType } from './keysType'
+
+export { getType }
 
 export const KEYS_COL = {
   type: TYPE,
@@ -109,3 +111,7 @@ export const newColSelect = R.pipe(R.defaultTo({}), R.mergeDeepRight(colSelectDe
 export const newColSelectYesNo = R.pipe(R.defaultTo({}), R.mergeDeepRight(colSelectYesNoDefault))
 
 export const newColPlaceholder = R.pipe(R.defaultTo({}), R.mergeDeepRight(colPlaceholderDefault))
+
+export const isReadOnly = R.pipe(R.prop(TYPE), (type) =>
+  R.includes(type, [TYPES.calculated, TYPES.header, TYPES.placeholder])
+)

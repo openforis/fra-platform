@@ -131,3 +131,7 @@ export const newRowData = R.pipe(R.mergeDeepRight(rowDataDefault), assocCols, as
 export const newRowNoticeMessage = R.pipe(R.mergeDeepRight(rowNoticeMessageDefault), assocColNoticeMessage)
 
 export const newRowValidationMessages = R.mergeDeepRight(rowValidationMessagesDefault)
+
+export const getCols = R.propOr([], KEYS_ROW.cols)
+
+export const getColByIdx = (idx) => R.pipe(getCols, R.find(R.propEq(KEYS_COL.idx, idx)))

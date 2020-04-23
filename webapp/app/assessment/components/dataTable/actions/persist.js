@@ -37,22 +37,7 @@ const getPostData = ({ sectionName, data, datum }) => {
   return data
 }
 
-export const persistTableData = (tableName, data, url = null) => {
-  const debounced = async (dispatch, getState) => {
-    const urlPost = url || `/api/traditionalTable/${AppState.getCountryIso(getState())}/${tableName}`
-    await axios.post(urlPost, data)
-    dispatch(autosave.complete)
-  }
-  debounced.meta = {
-    debounce: {
-      time: 800,
-      key: `persistTableData/${tableName}`,
-    },
-  }
-  return debounced
-}
-
-const _persistTableData = ({ sectionName, tableName, data, datum }) => {
+const postTableData = ({ sectionName, tableName, data, datum }) => {
   const debounced = async (dispatch, getState) => {
     const countryIso = AppState.getCountryIso(getState())
     const url = getPostUrl({ countryIso, sectionName, tableName, datum })
@@ -68,11 +53,7 @@ const _persistTableData = ({ sectionName, tableName, data, datum }) => {
   return debounced
 }
 
-export const persistTableDataCell = (params) => (dispatch, getState) => {
-  const { assessmentType, sectionName, tableName, updateTableDataCell } = params
-
-  const { data, datum } = updateTableDataCell(params)(getState())
-
+export const persistTableData = ({ assessmentType, sectionName, tableName, data, datum }) => (dispatch) => {
   dispatch(updateTableData({ assessmentType, sectionName, tableName, data, autoSaveStart: true }))
-  dispatch(_persistTableData({ data, datum, sectionName, tableName }))
+  dispatch(postTableData({ sectionName, tableName, data, datum }))
 }

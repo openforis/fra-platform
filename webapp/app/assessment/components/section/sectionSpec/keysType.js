@@ -17,6 +17,8 @@ export const TYPES = {
   placeholder: 'placeholder',
 }
 
+export const getType = R.prop(TYPE)
+
 const _isType = (type) => R.propEq(TYPE, type)
 const _isNotType = (type) => R.pipe(_isType(type), R.not)
 

@@ -5,7 +5,6 @@ import * as R from 'ramda'
 import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
 
 import { useI18n } from '@webapp/components/hooks'
-import useOnChange from './useOnChange'
 
 const isOptionHeader = R.propEq(SectionSpec.TYPE, SectionSpec.TYPES.header)
 
@@ -18,11 +17,9 @@ const getOptionLabel = (option, i18n, optionsLabelKeyPrefix) => {
 const optionNotSelected = { [SectionSpec.KEYS_COL.optionName]: 'notSelected', hidden: true }
 
 const Select = (props) => {
-  const { assessmentType, sectionName, tableName, updateTableDataCell, rowIdx, col, datum, disabled } = props
+  const { onChange, onPaste, col, datum, disabled } = props
   const { options, optionsLabelKeyPrefix } = col
   const optionSelected = options.find(R.propEq(SectionSpec.KEYS_COL.optionName, datum))
-
-  const onChange = useOnChange({ assessmentType, sectionName, tableName, updateTableDataCell, rowIdx, col, datum })
 
   const i18n = useI18n()
 
@@ -43,6 +40,7 @@ const Select = (props) => {
         value={datum || optionNotSelected[SectionSpec.KEYS_COL.optionName]}
         disabled={disabled}
         onChange={onChange}
+        onPaste={onPaste}
       >
         {[optionNotSelected, ...options].map((option) => {
           const { hidden } = option
@@ -62,14 +60,11 @@ const Select = (props) => {
 }
 
 Select.propTypes = {
-  assessmentType: PropTypes.string.isRequired,
-  sectionName: PropTypes.string.isRequired,
-  tableName: PropTypes.string.isRequired,
-  rowIdx: PropTypes.number.isRequired,
   col: PropTypes.object.isRequired,
   disabled: PropTypes.bool.isRequired,
   datum: PropTypes.any,
-  updateTableDataCell: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onPaste: PropTypes.func.isRequired,
 }
 
 Select.defaultProps = {

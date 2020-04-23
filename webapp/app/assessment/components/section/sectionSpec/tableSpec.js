@@ -4,6 +4,8 @@ import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 
 import { updateTableDataCell } from '@webapp/app/assessment/components/dataTable/actions'
 
+import { isHeader } from './keysType'
+
 export const KEYS_TABLE = {
   name: 'name',
   rows: 'rows',
@@ -66,3 +68,6 @@ const assocRows = (tableSpec) => {
 }
 
 export const newTableSpec = R.pipe(R.mergeDeepRight(tableDefault), assocRows)
+
+export const getRowsHeader = R.pipe(R.prop(KEYS_TABLE.rows), R.filter(isHeader))
+export const getRowsData = R.pipe(R.prop(KEYS_TABLE.rows), R.reject(isHeader))

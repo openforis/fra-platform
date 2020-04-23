@@ -3,7 +3,6 @@ import * as R from 'ramda'
 
 import * as FRA from '@common/assessment/fra'
 
-import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 import * as GrowingStockState from '@webapp/app/assessment/fra/sections/growingStock/growingStockState'
 
 import { applicationError } from '@webapp/app/components/error/actions'
@@ -181,24 +180,23 @@ export const pasteTotalValue = (countryIso, year, row, pastedData) => (dispatch,
 
 const updateGrowingStockCells = ({ year, variableName, avgValue, totalValue }) =>
   R.pipe(
-    AssessmentState.getSectionData(FRA.type, section.name, section.name),
     R.assocPath([section.tables.avgTable, year, variableName], avgValue),
     R.assocPath([section.tables.totalTable, year, variableName], totalValue),
     (data) => ({ data })
   )
 
-export const updateGrowingStockAvgCell = ({ datum, variableName }) => (state) => {
+export const updateGrowingStockAvgCell = ({ state, datum, variableName }) => (data) => {
   const { year } = datum
   const avgValue = datum[variableName]
   const totalValue = GrowingStockState.calculateTotalValue(year, variableName, avgValue)(state)
 
-  return updateGrowingStockCells({ year, variableName, avgValue, totalValue })(state)
+  return updateGrowingStockCells({ year, variableName, avgValue, totalValue })(data)
 }
 
-export const updateGrowingStockTotalCell = ({ datum, variableName }) => (state) => {
+export const updateGrowingStockTotalCell = ({ state, datum, variableName }) => (data) => {
   const { year } = datum
   const totalValue = datum[variableName]
   const avgValue = GrowingStockState.calculateAvgValue(year, variableName, totalValue)(state)
 
-  return updateGrowingStockCells({ year, variableName, avgValue, totalValue })(state)
+  return updateGrowingStockCells({ year, variableName, avgValue, totalValue })(data)
 }
