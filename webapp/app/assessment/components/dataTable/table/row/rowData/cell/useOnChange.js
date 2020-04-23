@@ -2,7 +2,7 @@ import { useDispatch } from 'react-redux'
 
 import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
 
-import { persistTableTableCell } from '../../../../actions/persist'
+import { persistTableDataCell } from '../../../../actions/persist'
 import * as Sanitizer from './sanitizer'
 
 export default (props) => {
@@ -19,7 +19,7 @@ export default (props) => {
     const { value } = event.target
     if (Sanitizer.isAcceptable(type, value)) {
       const valueUpdate = Sanitizer.sanitize(type, value, datum, options)
-      dispatch(persistTableTableCell({ ...params, value: valueUpdate }))
+      dispatch(persistTableDataCell({ ...params, value: valueUpdate }))
     }
   }
 }

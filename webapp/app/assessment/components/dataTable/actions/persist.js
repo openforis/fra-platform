@@ -68,7 +68,7 @@ const _persistTableData = ({ sectionName, tableName, data, datum }) => {
   return debounced
 }
 
-export const persistTableTableCell = (params) => (dispatch, getState) => {
+export const persistTableDataCell = (params) => (dispatch, getState) => {
   const { assessmentType, sectionName, tableName, updateTableDataCell } = params
 
   const { data, datum } = updateTableDataCell(params)(getState())
