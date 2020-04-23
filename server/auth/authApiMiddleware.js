@@ -31,5 +31,5 @@ const requireAdminPermission = async (req, res, next) => {
 
 module.exports = {
   requireCountryEditPermission,
-  requireAdminPermission
+  requireAdminPermission,
 }
