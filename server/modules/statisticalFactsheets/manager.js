@@ -9,7 +9,7 @@ const ForestOwnershipRepository = require('../forestOwnership/repository/forestO
 const PrimaryDesignatedManagementObjectiveRepository = require('../primaryDesignatedManagementObjective/repository/primaryDesignatedManagementObjective')
 const countryConfig = require('../../country/countryConfig')
 
-const utils = require('./utils')
+const Utils = require('./utils')
 
 const KEYS = {
   faoStat: 'faoStat',
@@ -31,13 +31,13 @@ const getExtentOfForest = async (schemaName = 'public') => {
 const getGrowingStockTotal = async (schemaName = 'public') => {
   const growingStockTotal = await GrowingStockRepository.getGrowingStockTotal(schemaName)
 
-  return utils.yearsToRowValue(growingStockTotal)
+  return Utils.yearsToRowValue(growingStockTotal)
 }
 
 const getCarbonStock = async (schemaName = 'public') => {
   const carbonStock = await CarbonStockRepository.getCarbonStock(schemaName)
 
-  return utils.yearsToRowValue(carbonStock)
+  return Utils.yearsToRowValue(carbonStock)
 }
 
 const getForestCharacteristics = async (schemaName = 'public') => {
@@ -48,7 +48,7 @@ const getForestCharacteristics = async (schemaName = 'public') => {
 const getSpecificForestCategories = async (schemaName = 'public') => {
   const specificForestCategories = await SpecificForestCategoriesRepository.getSpecificForestCategories(schemaName)
 
-  return utils.yearsToRowValue(specificForestCategories)
+  return Utils.yearsToRowValue(specificForestCategories)
 }
 
 const getForestAreaWithinProtectedAreas = async (schemaName = 'public') => {
@@ -56,13 +56,13 @@ const getForestAreaWithinProtectedAreas = async (schemaName = 'public') => {
     schemaName
   )
 
-  return utils.yearsToRowValue(specificForestCategories)
+  return Utils.yearsToRowValue(specificForestCategories)
 }
 
 const getForestOwnership = async (schemaName = 'public') => {
   const forestOwnership = await ForestOwnershipRepository.getForestOwnership(schemaName)
 
-  return utils.yearsToRowValue(forestOwnership)
+  return Utils.yearsToRowValue(forestOwnership)
 }
 
 const getPrimaryDesignatedManagementObjective = async (schemaName = 'public') => {
@@ -70,7 +70,7 @@ const getPrimaryDesignatedManagementObjective = async (schemaName = 'public') =>
     schemaName
   )
 
-  return utils.yearsToRowValue(forestOwnership)
+  return Utils.yearsToRowValue(forestOwnership)
 }
 
 // const getSample = async () => {
