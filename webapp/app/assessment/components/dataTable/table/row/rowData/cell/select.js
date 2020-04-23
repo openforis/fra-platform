@@ -1,11 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useDispatch } from 'react-redux'
 import * as R from 'ramda'
 
 import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
 
 import { useI18n } from '@webapp/components/hooks'
+import useOnChange from './useOnChange'
 
 const isOptionHeader = R.propEq(SectionSpec.TYPE, SectionSpec.TYPES.header)
 
@@ -22,7 +22,8 @@ const Select = (props) => {
   const { options, optionsLabelKeyPrefix } = col
   const optionSelected = options.find(R.propEq(SectionSpec.KEYS_COL.optionName, datum))
 
-  const dispatch = useDispatch()
+  const onChange = useOnChange({ assessmentType, sectionName, tableName, updateTableDataCell, rowIdx, col, datum })
+
   const i18n = useI18n()
 
   if (disabled) {
@@ -41,10 +42,7 @@ const Select = (props) => {
         className="fra-table__select no-print"
         value={datum || optionNotSelected[SectionSpec.KEYS_COL.optionName]}
         disabled={disabled}
-        onChange={(event) => {
-          const { value } = event.target
-          dispatch(updateTableDataCell(assessmentType, sectionName, tableName, rowIdx, col.idx, value))
-        }}
+        onChange={onChange}
       >
         {[optionNotSelected, ...options].map((option) => {
           const { hidden } = option

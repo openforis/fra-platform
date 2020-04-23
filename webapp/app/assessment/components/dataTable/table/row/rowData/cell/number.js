@@ -1,39 +1,21 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useDispatch } from 'react-redux'
 
-import {
-  acceptNextDecimal,
-  acceptableAsDecimal,
-  acceptNextInteger,
-  acceptableAsInteger,
-} from '@webapp/utils/numberInput'
 import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
 
 import { ThousandSeparatedDecimalInput } from '@webapp/components/thousandSeparatedDecimalInput'
 import { ThousandSeparatedIntegerInput } from '@webapp/components/thousandSeparatedIntegerInput'
+import useOnChange from './useOnChange'
 
 const Number = (props) => {
-  const { assessmentType, sectionName, tableName, updateTableDataCell, onPaste, rowIdx, col, datum, disabled } = props
-  const { type } = col
-  const dispatch = useDispatch()
+  const { assessmentType, sectionName, tableName, updateTableDataCell, rowIdx, col, datum, disabled } = props
+  const onChange = useOnChange({ assessmentType, sectionName, tableName, updateTableDataCell, rowIdx, col, datum })
 
-  const [Component, acceptNexValue, acceptableAsValue, componentProps] =
-    type === SectionSpec.TYPES.decimal
-      ? [ThousandSeparatedDecimalInput, acceptNextDecimal, acceptableAsDecimal, { numberValue: datum }]
-      : [ThousandSeparatedIntegerInput, acceptNextInteger, acceptableAsInteger, { integerValue: datum }]
+  const [Component, componentProps] = SectionSpec.isDecimal(col)
+    ? [ThousandSeparatedDecimalInput, { numberValue: datum }]
+    : [ThousandSeparatedIntegerInput, { integerValue: datum }]
 
-  const onChange = (event) => {
-    const { value } = event.target
-    if (acceptableAsValue(value)) {
-      let valueUpdate = acceptNexValue(value, datum)
-      valueUpdate = valueUpdate && String(valueUpdate)
-
-      dispatch(updateTableDataCell(assessmentType, sectionName, tableName, rowIdx, col.idx, valueUpdate))
-    }
-  }
-
-  return React.createElement(Component, { ...componentProps, onChange, onPaste, disabled })
+  return React.createElement(Component, { ...componentProps, onChange, disabled })
 }
 
 Number.propTypes = {
@@ -45,7 +27,6 @@ Number.propTypes = {
   disabled: PropTypes.bool.isRequired,
   datum: PropTypes.any,
   updateTableDataCell: PropTypes.func.isRequired,
-  onPaste: PropTypes.func.isRequired,
 }
 
 Number.defaultProps = {

@@ -4,9 +4,7 @@ import * as FRAUtils from '@common/fraUtils'
 import { batchActions } from '@webapp/main/reduxBatch'
 import * as autosave from '@webapp/app/components/autosave/actions'
 
-import * as AppState from '@webapp/app/appState'
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
-import { persistTableData } from './persist'
 
 export const assessmentSectionDataUpdate = 'assessment/section/data/update'
 
@@ -29,23 +27,14 @@ export const updateTableData = ({ assessmentType, sectionName, tableName, data, 
   dispatch(batchActions(actions))
 }
 
-export const updateTableDataCell = (assessmentType, sectionName, tableName, rowIdx, colIdx, value) => async (
-  dispatch,
-  getState
-) => {
-  const state = getState()
-  const data = R.pipe(
+export const updateTableDataCell = ({ assessmentType, sectionName, tableName, rowIdx, colIdx, value }) =>
+  R.pipe(
     AssessmentState.getSectionData(assessmentType, sectionName, tableName),
-    R.assocPath([rowIdx, colIdx], value)
-  )(state)
+    R.assocPath([rowIdx, colIdx], value),
+    (data) => ({ data })
+  )
 
-  dispatch(updateTableData({ assessmentType, sectionName, tableName, data, autoSaveStart: true }))
-  dispatch(persistTableData(tableName, data))
-}
-
-export const updateTableWithOdpCell = (assessmentType, sectionName, tableName, datum) => (dispatch, getState) => {
-  const state = getState()
-
+export const updateTableWithOdpCell = (assessmentType, sectionName, tableName, datum) => (state) => {
   const fra = R.pipe(
     AssessmentState.getFra(assessmentType, sectionName, tableName),
     FRAUtils.updateTableWithOdpDatum(datum)
@@ -59,8 +48,5 @@ export const updateTableWithOdpCell = (assessmentType, sectionName, tableName, d
     [AssessmentState.keysDataTableWithOdp.fra]: fra,
     [AssessmentState.keysDataTableWithOdp.fraNoNDPs]: fraNoNdps,
   }
-  const countryIso = AppState.getCountryIso(state)
-
-  dispatch(updateTableData({ assessmentType, sectionName, tableName, data, autoSaveStart: true }))
-  dispatch(persistTableData(sectionName, datum, `/api/nde/${tableName}/country/${countryIso}/${datum.name}`))
+  return { data, datum }
 }
