@@ -69,15 +69,15 @@ module.exports.init = app => {
     }
   })
 
-  app.get('/userChat/:countryIso/messages/new', async (req, res) => {
+  app.get('/userChat/:countryIso/messages/new', Auth.requireCountryEditPermission, async (req, res) => {
     try {
-      // TODO: Fix this
-      checkCountryAccessFromReqParams(req)
-
-      const messages = await db.transaction(getChatUnreadMessages, [req.query.otherUserId, req.query.sessionUserId, true])
+      const messages = await db.transaction(getChatUnreadMessages, [
+        req.query.otherUserId,
+        req.query.sessionUserId,
+        true,
+      ])
 
       res.json(messages)
-
     } catch (e) {
       sendErr(res, e)
     }
