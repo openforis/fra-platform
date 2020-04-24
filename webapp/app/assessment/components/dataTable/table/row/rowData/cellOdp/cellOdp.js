@@ -1,12 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 import { formatNumber } from '@common/bignumberUtils'
-import { acceptNextDecimal } from '@webapp/utils/numberInput'
 
 import { ThousandSeparatedDecimalInput } from '@webapp/components/thousandSeparatedDecimalInput'
 import { usePrintView, useUserInfo } from '@webapp/components/hooks'
+
+import useOnChange from './useOnChange'
 
 const CellOdp = (props) => {
   const {
@@ -21,7 +22,6 @@ const CellOdp = (props) => {
     calculateFn,
   } = props
 
-  const dispatch = useDispatch()
   const userInfo = useUserInfo()
   const [printView] = usePrintView()
   const valid = useSelector((state) => {
@@ -30,7 +30,14 @@ const CellOdp = (props) => {
     }
     return validator(datum)(state)
   })
-
+  const { onChange } = useOnChange({
+    assessmentType,
+    sectionName,
+    tableName,
+    updateTableDataCell,
+    variableName,
+    datum,
+  })
   const datumValue = datum[variableName]
   const calculated = !!calculateFn
   const { type } = datum
@@ -57,15 +64,7 @@ const CellOdp = (props) => {
           onPaste={() => {
             // TODO
           }}
-          onChange={(e) => {
-            const { value } = e.target
-
-            let valueUpdate = acceptNextDecimal(value, datumValue)
-            valueUpdate = valueUpdate && String(valueUpdate)
-            const datumUpdate = { ...datum, [variableName]: valueUpdate, [`${variableName}Estimated`]: false }
-
-            dispatch(updateTableDataCell(assessmentType, sectionName, tableName, datumUpdate, variableName))
-          }}
+          onChange={onChange}
           disabled={disabled}
         />
       )}

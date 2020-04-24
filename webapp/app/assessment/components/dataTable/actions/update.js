@@ -29,16 +29,13 @@ export const updateTableData = ({ assessmentType, sectionName, tableName, data, 
 
 export const updateTableDataCell = ({ rowIdx, colIdx, value }) => R.assocPath([rowIdx, colIdx], value)
 
-export const updateTableWithOdpCell = ({ datum }) => (data) => {
-  const dataUpdate = {
-    [AssessmentState.keysDataTableWithOdp.fra]: R.pipe(
-      R.prop(AssessmentState.keysDataTableWithOdp.fra),
-      FRAUtils.updateTableWithOdpDatum(datum)
-    )(data),
-    [AssessmentState.keysDataTableWithOdp.fraNoNDPs]: R.pipe(
-      R.prop(AssessmentState.keysDataTableWithOdp.fraNoNDPs),
-      FRAUtils.updateTableWithOdpDatum(datum)
-    )(data),
-  }
-  return { data: dataUpdate, datum }
-}
+export const updateTableWithOdpCell = ({ datum }) => (data) => ({
+  [AssessmentState.keysDataTableWithOdp.fra]: R.pipe(
+    R.prop(AssessmentState.keysDataTableWithOdp.fra),
+    FRAUtils.updateTableWithOdpDatum(datum)
+  )(data),
+  [AssessmentState.keysDataTableWithOdp.fraNoNDPs]: R.pipe(
+    R.prop(AssessmentState.keysDataTableWithOdp.fraNoNDPs),
+    FRAUtils.updateTableWithOdpDatum(datum)
+  )(data),
+})

@@ -181,8 +181,7 @@ export const pasteTotalValue = (countryIso, year, row, pastedData) => (dispatch,
 const updateGrowingStockCells = ({ year, variableName, avgValue, totalValue }) =>
   R.pipe(
     R.assocPath([section.tables.avgTable, year, variableName], avgValue),
-    R.assocPath([section.tables.totalTable, year, variableName], totalValue),
-    (data) => ({ data })
+    R.assocPath([section.tables.totalTable, year, variableName], totalValue)
   )
 
 export const updateGrowingStockAvgCell = ({ state, datum, variableName }) => (data) => {
