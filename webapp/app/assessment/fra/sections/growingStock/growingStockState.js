@@ -25,7 +25,7 @@ const baseValueVariablesMapping = {
   [variables.otherWoodedLand]: 'otherWoodedLand',
 }
 
-const _getTableData = tableName => () =>
+const _getTableData = (tableName) => () =>
   R.pipe(
     AssessmentState.getSectionData(FRA.type, section.name, section.name),
     R.propOr(null, tableName),
@@ -42,7 +42,7 @@ const _getTableValue = (getTableDataFn, year, variableName) =>
   R.pipe(
     getTableDataFn(),
     R.defaultTo([]),
-    R.find(datum => String(datum.year) === String(year)),
+    R.find((datum) => String(datum.year) === String(year)),
     R.prop(variableName)
   )
 
@@ -53,13 +53,13 @@ export const getAvgTableValue = (year, variableName) => _getTableValue(getTableD
 
 export const getTotalTableValue = (year, variableName) => _getTableValue(getTableDataTotal, year, variableName)
 
-export const calculateTotalValue = (year, variableName, avgValue) => state => {
+export const calculateTotalValue = (year, variableName, avgValue) => (state) => {
   const baseValue = _getBaseTableValue(year, variableName)(state)
   const value = NumberUtils.toString(NumberUtils.div(NumberUtils.mul(avgValue, baseValue), 1000))
   return value
 }
 
-export const calculateAvgValue = (year, variableName, totalValue) => state => {
+export const calculateAvgValue = (year, variableName, totalValue) => (state) => {
   const baseValue = _getBaseTableValue(year, variableName)(state)
   const value = NumberUtils.toString(NumberUtils.div(NumberUtils.mul(totalValue, 1000), baseValue))
   return value

@@ -6,28 +6,22 @@ import * as SectionSpec from '@webapp/app/assessment/components/section/sectionS
 import TextInput from '@webapp/components/textInput'
 import VerticallyGrowingTextField from '@webapp/components/verticallyGrowingTextField'
 
-import useOnChange from './useOnChange'
-
 const Text = (props) => {
-  const { assessmentType, sectionName, tableName, updateTableDataCell, rowIdx, col, datum, disabled } = props
-  const onChange = useOnChange({ assessmentType, sectionName, tableName, updateTableDataCell, rowIdx, col, datum })
+  const { onChange, onPaste, col, datum, disabled } = props
 
   const [Component, componentProps] = SectionSpec.isText(col)
     ? [TextInput, {}]
     : [VerticallyGrowingTextField, { minWidth: 350 }]
 
-  return React.createElement(Component, { ...componentProps, value: datum || '', onChange, disabled })
+  return React.createElement(Component, { ...componentProps, value: datum || '', onChange, onPaste, disabled })
 }
 
 Text.propTypes = {
-  assessmentType: PropTypes.string.isRequired,
-  sectionName: PropTypes.string.isRequired,
-  tableName: PropTypes.string.isRequired,
-  rowIdx: PropTypes.number.isRequired,
   col: PropTypes.object.isRequired,
   disabled: PropTypes.bool.isRequired,
   datum: PropTypes.any,
-  updateTableDataCell: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onPaste: PropTypes.func.isRequired,
 }
 
 Text.defaultProps = {

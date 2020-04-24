@@ -1,18 +1,18 @@
+import * as TableSpec from './tableSpec'
+import * as RowSpec from './rowSpec'
+import * as ColSpec from './colSpec'
+
+export { TableSpec }
+export { RowSpec }
+export { ColSpec }
+
 export { TYPES, TYPE, isData, isNotData, isHeader, isNotHeader, isDecimal, isText } from './keysType'
 
 export { KEYS_SECTION, KEYS_SECTION_DESCRIPTIONS, newSectionSpec } from './sectionSpec'
 
-export {
-  KEYS_TABLE_SECTION,
-  newTableSection,
-} from '@webapp/app/assessment/components/section/sectionSpec/tableSectionSpec'
+export { KEYS_TABLE_SECTION, newTableSection } from './tableSectionSpec'
 
-export {
-  KEYS_TABLE,
-  KEYS_TABLE_DATA_REQUIRED,
-  KEYS_TABLE_PRINT,
-  newTableSpec,
-} from '@webapp/app/assessment/components/section/sectionSpec/tableSpec'
+export { KEYS_TABLE, KEYS_TABLE_DATA_REQUIRED, KEYS_TABLE_PRINT, newTableSpec } from './tableSpec'
 
 export {
   KEYS_ROW,
@@ -21,7 +21,7 @@ export {
   newRowData,
   newRowValidationMessages,
   newRowNoticeMessage,
-} from '@webapp/app/assessment/components/section/sectionSpec/rowSpec'
+} from './rowSpec'
 
 export {
   KEYS_COL,
@@ -34,4 +34,4 @@ export {
   newColSelect,
   newColSelectYesNo,
   newColPlaceholder,
-} from '@webapp/app/assessment/components/section/sectionSpec/colSpec'
+} from './colSpec'

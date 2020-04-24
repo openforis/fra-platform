@@ -10,6 +10,7 @@ import Text from './text'
 import Select from './select'
 import Placeholder from './placeholder'
 import useClassName from './useClassName'
+import useOnChange from './useOnChange'
 
 const ComponentsByType = {
   [SectionSpec.TYPES.calculated]: Calculated,
@@ -28,6 +29,9 @@ const Cell = (props) => {
 
   const className = useClassName(col, rowIdx)
 
+  const propsOnChange = { assessmentType, sectionName, tableName, updateTableDataCell, rowIdx, col, datum }
+  const { onChange, onPaste } = useOnChange(propsOnChange)
+
   const Component = ComponentsByType[col[SectionSpec.KEYS_COL.type]]
   return (
     <td className={className}>
@@ -40,7 +44,8 @@ const Cell = (props) => {
           disabled,
           col,
           rowIdx,
-          updateTableDataCell,
+          onChange,
+          onPaste: disabled ? () => {} : onPaste,
         })}
     </td>
   )
