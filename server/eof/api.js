@@ -31,7 +31,7 @@ module.exports.init = (app) => {
       await db.transaction(auditRepository.insertAudit, [req.user.id, 'saveFraValues', countryIso, req.params.section])
 
       const writer = fraWriters[section]
-      const updates = R.map((c) => writer(countryIso, c.year, c), req.body.columns)
+      const updates = R.map((c) => writer(countryIso, c.year, c), req.body)
       for (let update of updates) {
         await update
       }

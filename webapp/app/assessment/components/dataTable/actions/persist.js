@@ -2,12 +2,13 @@ import axios from 'axios'
 import * as AppState from '@webapp/app/appState'
 
 import * as FRA from '@common/assessment/fra'
+import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 
 import * as autosave from '@webapp/app/components/autosave/actions'
 import { updateTableData } from './update'
 
 const extentOfForest = FRA.sections['1'].children.a
-const forestCharacteristics = FRA.sections['1'].children.a
+const forestCharacteristics = FRA.sections['1'].children.b
 const growingStock = FRA.sections['2'].children.a
 
 /**
@@ -15,9 +16,9 @@ const growingStock = FRA.sections['2'].children.a
  * Now the endpoint is not consistent. That is why it's needed to get different url based on section.
  * TODO: Make api endpoints consistent and remove this function.
  */
-const getPostUrl = ({ countryIso, sectionName, tableName, datum }) => {
+const getPostUrl = ({ countryIso, sectionName, tableName }) => {
   if ([extentOfForest.name, forestCharacteristics.name].includes(sectionName)) {
-    return `/api/nde/${sectionName}/country/${countryIso}/${datum.name}`
+    return `/api/nde/${sectionName}/${countryIso}`
   }
   if (growingStock.name === sectionName) {
     return `/api/growingStock/${countryIso}`
@@ -30,18 +31,18 @@ const getPostUrl = ({ countryIso, sectionName, tableName, datum }) => {
  * Now the endpoint is not consistent. That is why it's needed to get different data to post based on section.
  * TODO: Make api endpoints consistent and remove this function.
  */
-const getPostData = ({ sectionName, data, datum }) => {
+const getPostData = ({ sectionName, data }) => {
   if ([extentOfForest.name, forestCharacteristics.name].includes(sectionName)) {
-    return datum
+    return data[AssessmentState.keysDataTableWithOdp.fraNoNDPs]
   }
   return data
 }
 
-const postTableData = ({ sectionName, tableName, data, datum }) => {
+const postTableData = ({ sectionName, tableName, data }) => {
   const debounced = async (dispatch, getState) => {
     const countryIso = AppState.getCountryIso(getState())
-    const url = getPostUrl({ countryIso, sectionName, tableName, datum })
-    await axios.post(url, getPostData({ sectionName, data, datum }))
+    const url = getPostUrl({ countryIso, sectionName, tableName })
+    await axios.post(url, getPostData({ sectionName, data }))
     dispatch(autosave.complete)
   }
   debounced.meta = {
@@ -53,7 +54,7 @@ const postTableData = ({ sectionName, tableName, data, datum }) => {
   return debounced
 }
 
-export const persistTableData = ({ assessmentType, sectionName, tableName, data, datum }) => (dispatch) => {
+export const persistTableData = ({ assessmentType, sectionName, tableName, data }) => (dispatch) => {
   dispatch(updateTableData({ assessmentType, sectionName, tableName, data, autoSaveStart: true }))
-  dispatch(postTableData({ sectionName, tableName, data, datum }))
+  dispatch(postTableData({ sectionName, tableName, data }))
 }

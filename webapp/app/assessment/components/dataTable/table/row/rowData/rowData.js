@@ -58,6 +58,7 @@ const RowData = (props) => {
               tableSpec={tableSpec}
               variableName={variableName}
               disabled={disabled}
+              data={data}
               datum={datum}
               validator={validator}
               calculateFn={calculateFn}

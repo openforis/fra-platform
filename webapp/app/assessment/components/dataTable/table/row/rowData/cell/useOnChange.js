@@ -51,8 +51,7 @@ export default (props) => {
         const rowSpec = rowSpecs[rowIdxCurrent]
         if (!rowSpec) break
 
-        const row = rows[i]
-        const columns = row.getElementsByTagName('td')
+        const columns = rows[i].getElementsByTagName('td')
         for (let j = 0; j < columns.length; j += 1) {
           const colIdxCurrent = j + colIdx
           const colSpec = RowSpec.getColByIdx(colIdxCurrent)(rowSpec)
