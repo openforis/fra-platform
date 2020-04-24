@@ -5,7 +5,9 @@ import * as BasePaths from '@webapp/main/basePaths'
 
 import { useCountryIso, useI18n } from '@webapp/components/hooks'
 import { Link } from 'react-router-dom'
+
 import ReviewIndicator from '@webapp/app/assessment/components/review/reviewIndicator'
+import { TableSpec } from '@webapp/app/assessment/components/section/sectionSpec'
 
 import useClassName from './useClassName'
 import Cell from './cell'
@@ -15,8 +17,10 @@ const RowData = (props) => {
   const countryIso = useCountryIso()
   const i18n = useI18n()
 
-  const { data, assessmentType, sectionName, tableName, updateTableDataCell, odp, row, disabled, secondary } = props
-
+  const { data, assessmentType, sectionName, tableSpec, row, disabled } = props
+  const tableName = TableSpec.getName(tableSpec)
+  const odp = TableSpec.isOdp(tableSpec)
+  const secondary = TableSpec.isSecondary(tableSpec)
   const { idx: rowIdx, cols, validator, calculateFn, variableName } = row
 
   const colHeader = cols[0]
@@ -51,13 +55,12 @@ const RowData = (props) => {
               key={datum.name || datum.year}
               assessmentType={assessmentType}
               sectionName={sectionName}
-              tableName={tableName}
+              tableSpec={tableSpec}
               variableName={variableName}
               disabled={disabled}
               datum={datum}
               validator={validator}
               calculateFn={calculateFn}
-              updateTableDataCell={updateTableDataCell}
             />
           ))
         : colsData.map((col) => (
@@ -66,11 +69,10 @@ const RowData = (props) => {
               data={data}
               assessmentType={assessmentType}
               sectionName={sectionName}
-              tableName={tableName}
+              tableSpec={tableSpec}
               disabled={disabled}
               rowIdx={rowIdx}
               col={col}
-              updateTableDataCell={updateTableDataCell}
             />
           ))}
 
@@ -94,12 +96,9 @@ RowData.propTypes = {
   data: PropTypes.array.isRequired,
   assessmentType: PropTypes.string.isRequired,
   sectionName: PropTypes.string.isRequired,
-  tableName: PropTypes.string.isRequired,
-  odp: PropTypes.bool.isRequired,
+  tableSpec: PropTypes.object.isRequired,
   row: PropTypes.object.isRequired,
   disabled: PropTypes.bool.isRequired,
-  updateTableDataCell: PropTypes.func.isRequired,
-  secondary: PropTypes.bool.isRequired,
 }
 
 export default RowData

@@ -10,6 +10,7 @@ export const KEYS_TABLE = {
   name: 'name',
   rows: 'rows',
   odp: 'odp',
+  odpVariables: 'odpVariables',
   showOdpChart: 'showOdpChart',
   secondary: 'secondary',
   tableDataRequired: 'tableDataRequired',
@@ -42,6 +43,7 @@ const tableDefault = {
   [KEYS_TABLE.getSectionData]: AssessmentState.getSectionData,
   [KEYS_TABLE.isSectionDataEmpty]: AssessmentState.isSectionDataEmpty,
   [KEYS_TABLE.odp]: false,
+  [KEYS_TABLE.odpVariables]: {},
   [KEYS_TABLE.showOdpChart]: false,
   [KEYS_TABLE.canGenerateValues]: null,
   [KEYS_TABLE.updateTableDataCell]: updateTableDataCell,
@@ -71,3 +73,7 @@ export const newTableSpec = R.pipe(R.mergeDeepRight(tableDefault), assocRows)
 
 export const getRowsHeader = R.pipe(R.prop(KEYS_TABLE.rows), R.filter(isHeader))
 export const getRowsData = R.pipe(R.prop(KEYS_TABLE.rows), R.reject(isHeader))
+export const getName = R.prop(KEYS_TABLE.name)
+export const getUpdateTableDataCell = R.prop(KEYS_TABLE.updateTableDataCell)
+export const isOdp = R.propEq(KEYS_TABLE.odp, true)
+export const isSecondary = R.propEq(KEYS_TABLE.secondary, true)

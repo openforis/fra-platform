@@ -1,19 +1,19 @@
 import { useDispatch, useSelector } from 'react-redux'
 
-import * as SectionSpecs from '@webapp/app/assessment/components/section/sectionSpecs'
-import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
-import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 import { TableSpec, RowSpec, ColSpec } from '@webapp/app/assessment/components/section/sectionSpec'
+import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 
 import { persistTableData } from '../../../../actions'
 import * as Sanitizer from './sanitizer'
 
 export default (props) => {
-  const { assessmentType, sectionName, tableName, updateTableDataCell, rowIdx, col, datum: valuePrev } = props
+  const { assessmentType, sectionName, tableSpec, rowIdx, col, datum: valuePrev } = props
+  const tableName = TableSpec.getName(tableSpec)
+  const updateTableDataCell = TableSpec.getUpdateTableDataCell(tableSpec)
 
   const type = ColSpec.getType(col)
-  const colIdx = col[SectionSpec.KEYS_COL.idx]
-  const options = col[SectionSpec.KEYS_COL.options]
+  const colIdx = ColSpec.getIdx(col)
+  const options = ColSpec.getOptions(col)
 
   const dispatch = useDispatch()
   const state = useSelector((_state) => _state)
@@ -41,7 +41,6 @@ export default (props) => {
     el.innerHTML = clipboardData.getData('text/html')
 
     const rows = el.getElementsByTagName('tr')
-    const tableSpec = SectionSpecs.getTableSpec(assessmentType, sectionName, tableName)
     const rowSpecs = TableSpec.getRowsData(tableSpec)
 
     if (rows.length > 0) {

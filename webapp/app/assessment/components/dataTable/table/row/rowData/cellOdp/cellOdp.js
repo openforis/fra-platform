@@ -10,17 +10,7 @@ import { usePrintView, useUserInfo } from '@webapp/components/hooks'
 import useOnChange from './useOnChange'
 
 const CellOdp = (props) => {
-  const {
-    assessmentType,
-    sectionName,
-    tableName,
-    updateTableDataCell,
-    variableName,
-    disabled,
-    datum,
-    validator,
-    calculateFn,
-  } = props
+  const { assessmentType, sectionName, tableSpec, variableName, disabled, datum, validator, calculateFn } = props
 
   const userInfo = useUserInfo()
   const [printView] = usePrintView()
@@ -30,14 +20,7 @@ const CellOdp = (props) => {
     }
     return validator(datum)(state)
   })
-  const { onChange } = useOnChange({
-    assessmentType,
-    sectionName,
-    tableName,
-    updateTableDataCell,
-    variableName,
-    datum,
-  })
+  const { onChange } = useOnChange({ assessmentType, sectionName, tableSpec, variableName, datum })
   const datumValue = datum[variableName]
   const calculated = !!calculateFn
   const { type } = datum
@@ -75,13 +58,12 @@ const CellOdp = (props) => {
 CellOdp.propTypes = {
   assessmentType: PropTypes.string.isRequired,
   sectionName: PropTypes.string.isRequired,
-  tableName: PropTypes.string.isRequired,
+  tableSpec: PropTypes.object.isRequired,
   variableName: PropTypes.string.isRequired,
   disabled: PropTypes.bool.isRequired,
   datum: PropTypes.object.isRequired,
   validator: PropTypes.func,
   calculateFn: PropTypes.func,
-  updateTableDataCell: PropTypes.func.isRequired,
 }
 
 CellOdp.defaultProps = {

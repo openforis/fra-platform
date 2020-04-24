@@ -19,13 +19,11 @@ const DataTable = (props) => {
 
   const tableName = tableSpec[SectionSpec.KEYS_TABLE.name]
   const rows = tableSpec[SectionSpec.KEYS_TABLE.rows]
-  const secondary = tableSpec[SectionSpec.KEYS_TABLE.secondary]
   const getSectionData = tableSpec[SectionSpec.KEYS_TABLE.getSectionData]
   const isSectionDataEmpty = tableSpec[SectionSpec.KEYS_TABLE.isSectionDataEmpty]
   const odp = tableSpec[SectionSpec.KEYS_TABLE.odp]
   const showOdpChart = tableSpec[SectionSpec.KEYS_TABLE.showOdpChart]
   const canGenerateValues = tableSpec[SectionSpec.KEYS_TABLE.canGenerateValues]
-  const updateTableDataCell = tableSpec[SectionSpec.KEYS_TABLE.updateTableDataCell]
   const breakPointsColsPrint = tableSpec[SectionSpec.KEYS_TABLE.print][SectionSpec.KEYS_TABLE_PRINT.colBreakPoints]
 
   const i18n = useI18n()
@@ -77,13 +75,10 @@ const DataTable = (props) => {
               assessmentType={assessmentType}
               sectionName={sectionName}
               sectionAnchor={sectionAnchor}
-              tableName={tableName}
-              odp={odp}
+              tableSpec={tableSpec}
               rows={rowsSliced}
               data={data}
               disabled={disabled}
-              updateTableDataCell={updateTableDataCell}
-              secondary={secondary}
             />
           )
         })
@@ -92,13 +87,10 @@ const DataTable = (props) => {
           assessmentType={assessmentType}
           sectionName={sectionName}
           sectionAnchor={sectionAnchor}
-          tableName={tableName}
-          odp={odp}
+          tableSpec={tableSpec}
           rows={rows}
           data={data}
           disabled={disabled}
-          updateTableDataCell={updateTableDataCell}
-          secondary={secondary}
         />
       )}
     </>

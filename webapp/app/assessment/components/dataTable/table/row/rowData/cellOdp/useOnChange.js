@@ -1,15 +1,15 @@
 import { useDispatch, useSelector } from 'react-redux'
 
-import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
+import { TableSpec, ColSpec } from '@webapp/app/assessment/components/section/sectionSpec'
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
-
 import { persistTableData } from '../../../../actions'
 import * as Sanitizer from '../cell/sanitizer'
 
 export default (props) => {
-  const { assessmentType, sectionName, tableName, updateTableDataCell, variableName, datum } = props
-
-  const type = SectionSpec.TYPES.decimal
+  const { assessmentType, sectionName, tableSpec, variableName, datum } = props
+  const tableName = TableSpec.getName(tableSpec)
+  const updateTableDataCell = TableSpec.getUpdateTableDataCell(tableSpec)
+  const type = ColSpec.TYPES.decimal
 
   const dispatch = useDispatch()
   const state = useSelector((_state) => _state)

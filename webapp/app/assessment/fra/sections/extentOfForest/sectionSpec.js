@@ -78,7 +78,7 @@ const rowsClimaticDomain = [
       }),
     ],
   }),
-  ...ExtentOfForestState.rowsClimaticDomain.map(row =>
+  ...ExtentOfForestState.rowsClimaticDomain.map((row) =>
     SectionSpec.newRowData({
       [SectionSpec.KEYS_ROW.labelKey]: `climaticDomain.${row}`,
       [SectionSpec.KEYS_ROW.cols]: [
@@ -100,6 +100,7 @@ const tableSpec1 = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.getSectionData]: ExtentOfForestState.getExtentOfForestData,
   [SectionSpec.KEYS_TABLE.isSectionDataEmpty]: ExtentOfForestState.isExtentOfForestEmpty,
   [SectionSpec.KEYS_TABLE.odp]: true,
+  [SectionSpec.KEYS_TABLE.odpVariables]: ExtentOfForestState.variables,
   [SectionSpec.KEYS_TABLE.showOdpChart]: true,
   [SectionSpec.KEYS_TABLE.canGenerateValues]: ExtentOfForestState.hasOriginalDataPoints,
   [SectionSpec.KEYS_TABLE.updateTableDataCell]: updateTableWithOdpCell,

@@ -33,6 +33,7 @@ const variables = {
 const table1 = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.name,
   [SectionSpec.KEYS_TABLE.odp]: true,
+  [SectionSpec.KEYS_TABLE.odpVariables]: GrowingStockState.variables,
   [SectionSpec.KEYS_TABLE.getSectionData]: GrowingStockState.getTableDataAvg,
   [SectionSpec.KEYS_TABLE.updateTableDataCell]: updateGrowingStockAvgCell,
   [SectionSpec.KEYS_TABLE.rows]: [
@@ -67,6 +68,7 @@ const tableSection1 = SectionSpec.newTableSection({
 const table2 = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.name,
   [SectionSpec.KEYS_TABLE.odp]: true,
+  [SectionSpec.KEYS_TABLE.odpVariables]: GrowingStockState.variables,
   [SectionSpec.KEYS_TABLE.getSectionData]: GrowingStockState.getTableDataTotal,
   [SectionSpec.KEYS_TABLE.updateTableDataCell]: updateGrowingStockTotalCell,
   [SectionSpec.KEYS_TABLE.rows]: [

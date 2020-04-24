@@ -1,24 +1,18 @@
 import React, { useRef } from 'react'
 import PropTypes from 'prop-types'
 
+import { TableSpec } from '@webapp/app/assessment/components/section/sectionSpec'
+
 import { useI18n, usePrintView } from '@webapp/components/hooks'
 import ButtonTableExport from '@webapp/components/buttonTableExport'
 import Row from './row'
 import CellOdpHeader from './cellOdpHeader'
 
 const Table = (props) => {
-  const {
-    assessmentType,
-    sectionName,
-    sectionAnchor,
-    tableName,
-    odp,
-    rows,
-    data,
-    disabled,
-    updateTableDataCell,
-    secondary,
-  } = props
+  const { assessmentType, sectionName, sectionAnchor, tableSpec, rows, data, disabled } = props
+
+  const odp = TableSpec.isOdp(tableSpec)
+  const secondary = TableSpec.isSecondary(tableSpec)
 
   const rowsHeader = rows.filter((row) => row.type === 'header')
   const rowsData = rows.filter((row) => row.type !== 'header')
@@ -66,14 +60,10 @@ const Table = (props) => {
                 key={row.idx}
                 assessmentType={assessmentType}
                 sectionName={sectionName}
-                tableName={tableName}
-                odp={odp}
+                tableSpec={tableSpec}
                 data={data}
                 row={row}
                 disabled={disabled}
-                pasteUpdate={() => {}}
-                updateTableDataCell={updateTableDataCell}
-                secondary={secondary}
               />
             ))}
           </tbody>
@@ -87,13 +77,10 @@ Table.propTypes = {
   assessmentType: PropTypes.string.isRequired,
   sectionName: PropTypes.string.isRequired,
   sectionAnchor: PropTypes.string.isRequired,
-  tableName: PropTypes.string.isRequired,
-  odp: PropTypes.bool.isRequired,
+  tableSpec: PropTypes.object.isRequired,
   rows: PropTypes.array.isRequired,
   data: PropTypes.array.isRequired,
   disabled: PropTypes.bool.isRequired,
-  updateTableDataCell: PropTypes.func.isRequired,
-  secondary: PropTypes.bool.isRequired,
 }
 
 export default Table
