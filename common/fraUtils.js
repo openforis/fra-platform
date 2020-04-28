@@ -33,7 +33,7 @@ const hasOdps = R.pipe(getOdps, R.isEmpty, R.not)
 
 const isTableWithOdpEmpty = R.pipe(
   R.defaultTo([]),
-  R.map(R.omit(['year', 'name', 'type'])),
+  R.map(R.pickBy((val, key) => !['year', 'name', 'type'].includes(key) && !key.endsWith('Estimated'))),
   R.map(R.values),
   isTableEmpty
 )

@@ -32,7 +32,7 @@ const DataTable = (props) => {
   const generateValues = useSelector(
     (state) => odp && !disabled && ObjectUtils.isFunction(canGenerateValues) && canGenerateValues(state)
   )
-  const [printView, printOnlyTablesView] = usePrintView()
+  const [printView] = usePrintView()
 
   if (!data) {
     return null
@@ -40,7 +40,7 @@ const DataTable = (props) => {
 
   return (
     <>
-      {showOdpChart && (!printView || (!printOnlyTablesView && !dataEmpty)) && (
+      {showOdpChart && (!printView || !dataEmpty) && (
         <>
           <Chart
             fra={data}
