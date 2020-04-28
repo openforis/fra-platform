@@ -11,22 +11,21 @@ import useI18n from '@webapp/components/hooks/useI18n'
 
 import * as ReviewStatusState from '@webapp/app/country/reviewStatusState'
 
-const Item = props => {
+const Subsection = (props) => {
+  const { assessmentType, sectionName, prefix } = props
   const countryIso = useCountryIso()
   const i18n = useI18n()
 
-  const { assessmentType, item } = props
-  const { section, tableNo } = item
-  const reviewStatus = useSelector(ReviewStatusState.getStatusSection(section))
+  const reviewStatus = useSelector(ReviewStatusState.getStatusSection(sectionName))
 
   return (
     <NavLink
-      to={BasePaths.getAssessmentSectionLink(countryIso, assessmentType, section)}
+      to={BasePaths.getAssessmentSectionLink(countryIso, assessmentType, sectionName)}
       className="nav-section__item"
       activeClassName="selected"
     >
-      <div className="nav-section__order">{tableNo}</div>
-      <div className="nav-section__label">{i18n.t(`${section}.${section}`)}</div>
+      <div className="nav-section__order">{prefix}</div>
+      <div className="nav-section__label">{i18n.t(`${sectionName}.${sectionName}`)}</div>
       <div className="nav-section__status-content">
         <ReviewStatus status={reviewStatus} />
       </div>
@@ -34,9 +33,10 @@ const Item = props => {
   )
 }
 
-Item.propTypes = {
+Subsection.propTypes = {
   assessmentType: PropTypes.string.isRequired,
-  item: PropTypes.object.isRequired,
+  sectionName: PropTypes.string.isRequired,
+  prefix: PropTypes.string.isRequired,
 }
 
-export default Item
+export default Subsection
