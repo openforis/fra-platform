@@ -52,6 +52,7 @@ const greaterThanOrEqualTo = (x, y) => applyComparison(x, y, 'gte')
 const lessThanOrEqualTo = (x, y) => applyComparison(x, y, 'lte')
 
 const greaterThan = (x, y) => applyComparison(x, y, 'gt')
+const greaterThanWithTolerance = (x, y, tolerance = -1) => greaterThan(sub(x,y), tolerance)
 
 const lessThan = (x, y) => applyComparison(x, y, 'lt')
 
@@ -87,6 +88,7 @@ module.exports.min = BigNumber.min
 module.exports.greaterThanOrEqualTo = greaterThanOrEqualTo
 module.exports.lessThanOrEqualTo = lessThanOrEqualTo
 module.exports.greaterThan = greaterThan
+module.exports.greaterThanWithTolerance = greaterThanWithTolerance
 module.exports.lessThan = lessThan
 module.exports.toFixed = toFixed
 module.exports.toString = toString

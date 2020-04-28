@@ -4,7 +4,7 @@ import * as NumberUtils from '@common/bignumberUtils'
 
 import * as OtherLandWithTreeCoverState from '@webapp/app/assessment/fra/sections/otherLandWithTreeCover/otherLandWithTreeCoverState'
 
-export const otherLandWithTreeCoverTotalValidator = colIdx => state => {
+export const otherLandWithTreeCoverTotalValidator = (colIdx) => (state) => {
   const otherLand = OtherLandWithTreeCoverState.getOtherLand(colIdx)(state)
   const otherLandWithTreeCoverTotal = OtherLandWithTreeCoverState.getOtherLandWithTreeCoverTotal(colIdx)(state)
 
@@ -12,12 +12,10 @@ export const otherLandWithTreeCoverTotalValidator = colIdx => state => {
     return true
   }
 
-  const tolerance = -1
-  const difference = NumberUtils.sub(otherLand, otherLandWithTreeCoverTotal)
-  return NumberUtils.greaterThan(difference, tolerance)
+  return NumberUtils.greaterThanWithTolerance(otherLand, otherLandWithTreeCoverTotal)
 }
 
-export const getValidationMessages = data => state => {
+export const getValidationMessages = (data) => (state) => {
   const colNo = data[0].length
   const messages = []
 
