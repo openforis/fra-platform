@@ -14,21 +14,19 @@ export const keys = {
 }
 
 export const keysIssueStatus = {
-  opened: 'opened'
+  opened: 'opened',
 }
 
 const defaultSectionStatus = { [keys.issuesCount]: 0 }
 
-export const getStatusSection = name => R.pipe(
-  CountryState.getReviewStatus,
-  R.propOr(defaultSectionStatus, name)
-)
+export const getStatusSection = (name) => R.pipe(CountryState.getReviewStatus, R.propOr(defaultSectionStatus, name))
 
-export const getStatusSectionChildren = section => state => R.pipe(
-  R.propOr([], 'children'),
-  R.reduce(
-    (statuses, child) => {
-      const status = getStatusSection(child.section)(state)
+export const getStatusSectionChildren = (section) => (state) =>
+  R.pipe(
+    R.propOr({}, 'children'),
+    R.values,
+    R.reduce((statuses, child) => {
+      const status = getStatusSection(child.name)(state)
       const issuesCount = R.prop(keys.issuesCount)(status)
       const issueStatus = R.prop(keys.issueStatus)(status)
       // filtering all opened statuses
@@ -36,13 +34,8 @@ export const getStatusSectionChildren = section => state => R.pipe(
         statuses.push(status)
       }
       return statuses
-    },
-    []
-  ),
-  // checking if there's an open status with unread issues
-  R.or(
-    R.find(R.propEq(keys.hasUnreadIssues), true),
-    R.head
-  ),
-  R.defaultTo({})
-)(section)
+    }, []),
+    // checking if there's an open status with unread issues
+    R.or(R.find(R.propEq(keys.hasUnreadIssues), true), R.head),
+    R.defaultTo({})
+  )(section)
