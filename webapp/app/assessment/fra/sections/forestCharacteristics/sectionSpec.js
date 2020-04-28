@@ -73,7 +73,7 @@ const rows = [
     [SectionSpec.KEYS_ROW.labelKey]: 'forestCharacteristics.totalForestArea',
     [SectionSpec.KEYS_ROW.linkToSection]: FRA.sections['1'].children.a.name,
     [SectionSpec.KEYS_ROW.variableName]: 'totalForestArea',
-    [SectionSpec.KEYS_ROW.calculateFn]: datum => state => ExtentOfForestState.getForestByYear(datum.name)(state),
+    [SectionSpec.KEYS_ROW.calculateFn]: (datum) => (state) => ExtentOfForestState.getForestByYear(datum.name)(state),
   }),
   SectionSpec.newRowNoticeMessage({
     [SectionSpec.KEYS_ROW.rowSpan]: 2,
@@ -89,6 +89,7 @@ const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.getSectionData]: ForestCharacteristicsState.getForestCharacteristicsData,
   [SectionSpec.KEYS_TABLE.isSectionDataEmpty]: ForestCharacteristicsState.isForestCharacteristicsDataEmpty,
   [SectionSpec.KEYS_TABLE.odp]: true,
+  [SectionSpec.KEYS_TABLE.odpVariables]: ForestCharacteristicsState.variables,
   [SectionSpec.KEYS_TABLE.showOdpChart]: true,
   [SectionSpec.KEYS_TABLE.canGenerateValues]: ForestCharacteristicsState.hasOriginalDataPoints,
   [SectionSpec.KEYS_TABLE.updateTableDataCell]: updateTableWithOdpCell,

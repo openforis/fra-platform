@@ -11,6 +11,13 @@ import * as ExtentOfForestState from '@webapp/app/assessment/fra/sections/extent
 
 const section = FRA.sections['1'].children.b
 
+export const variables = {
+  naturalForestArea: 'naturalForestArea',
+  plantationForestArea: 'plantationForestArea',
+  plantationForestIntroducedArea: 'plantationForestIntroducedArea',
+  otherPlantedForestArea: 'otherPlantedForestArea',
+}
+
 // ==== State getter functions
 
 const _getFra = AssessmentState.getFra(FRA.type, section.name, section.tables.forestCharacteristics)

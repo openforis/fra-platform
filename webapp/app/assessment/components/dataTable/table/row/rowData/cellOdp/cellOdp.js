@@ -1,27 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 import { formatNumber } from '@common/bignumberUtils'
-import { acceptNextDecimal } from '@webapp/utils/numberInput'
 
 import { ThousandSeparatedDecimalInput } from '@webapp/components/thousandSeparatedDecimalInput'
 import { usePrintView, useUserInfo } from '@webapp/components/hooks'
 
-const CellOdp = (props) => {
-  const {
-    assessmentType,
-    sectionName,
-    tableName,
-    updateTableDataCell,
-    variableName,
-    disabled,
-    datum,
-    validator,
-    calculateFn,
-  } = props
+import useOnChange from './useOnChange'
 
-  const dispatch = useDispatch()
+const CellOdp = (props) => {
+  const { assessmentType, sectionName, tableSpec, variableName, disabled, data, datum, validator, calculateFn } = props
+
   const userInfo = useUserInfo()
   const [printView] = usePrintView()
   const valid = useSelector((state) => {
@@ -30,7 +20,7 @@ const CellOdp = (props) => {
     }
     return validator(datum)(state)
   })
-
+  const { onChange, onPaste } = useOnChange({ assessmentType, sectionName, tableSpec, variableName, data, datum })
   const datumValue = datum[variableName]
   const calculated = !!calculateFn
   const { type } = datum
@@ -54,18 +44,8 @@ const CellOdp = (props) => {
       {!calculated && !odp && (
         <ThousandSeparatedDecimalInput
           numberValue={datumValue}
-          onPaste={() => {
-            // TODO
-          }}
-          onChange={(e) => {
-            const { value } = e.target
-
-            let valueUpdate = acceptNextDecimal(value, datumValue)
-            valueUpdate = valueUpdate && String(valueUpdate)
-            const datumUpdate = { ...datum, [variableName]: valueUpdate, [`${variableName}Estimated`]: false }
-
-            dispatch(updateTableDataCell(assessmentType, sectionName, tableName, datumUpdate, variableName))
-          }}
+          onPaste={onPaste}
+          onChange={onChange}
           disabled={disabled}
         />
       )}
@@ -76,13 +56,13 @@ const CellOdp = (props) => {
 CellOdp.propTypes = {
   assessmentType: PropTypes.string.isRequired,
   sectionName: PropTypes.string.isRequired,
-  tableName: PropTypes.string.isRequired,
+  tableSpec: PropTypes.object.isRequired,
   variableName: PropTypes.string.isRequired,
   disabled: PropTypes.bool.isRequired,
+  data: PropTypes.array.isRequired,
   datum: PropTypes.object.isRequired,
   validator: PropTypes.func,
   calculateFn: PropTypes.func,
-  updateTableDataCell: PropTypes.func.isRequired,
 }
 
 CellOdp.defaultProps = {

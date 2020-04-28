@@ -1,5 +1,5 @@
 import * as R from 'ramda'
-import { TYPE, TYPES } from '@webapp/app/assessment/components/section/sectionSpec/keysType'
+import { TYPE, TYPES, getType } from '@webapp/app/assessment/components/section/sectionSpec/keysType'
 import { KEYS_COL } from '@webapp/app/assessment/components/section/sectionSpec/colSpec'
 
 export const KEYS_ROW = {
@@ -132,6 +132,6 @@ export const newRowNoticeMessage = R.pipe(R.mergeDeepRight(rowNoticeMessageDefau
 
 export const newRowValidationMessages = R.mergeDeepRight(rowValidationMessagesDefault)
 
+export { getType, TYPES }
 export const getCols = R.propOr([], KEYS_ROW.cols)
-
 export const getColByIdx = (idx) => R.pipe(getCols, R.find(R.propEq(KEYS_COL.idx, idx)))

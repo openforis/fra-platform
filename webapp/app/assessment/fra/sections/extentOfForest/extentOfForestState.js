@@ -8,6 +8,11 @@ import * as AppState from '@webapp/app/appState'
 import * as CountryState from '@webapp/app/country/countryState'
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 
+export const variables = {
+  forestArea: 'forestArea',
+  otherWoodedLand: 'otherWoodedLand',
+}
+
 export const keys = {
   showOdps: 'showOdps',
 }

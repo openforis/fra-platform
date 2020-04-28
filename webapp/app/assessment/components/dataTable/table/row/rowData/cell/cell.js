@@ -23,13 +23,13 @@ const ComponentsByType = {
 }
 
 const Cell = (props) => {
-  const { data, assessmentType, sectionName, tableName, disabled, rowIdx, col, updateTableDataCell } = props
+  const { data, assessmentType, sectionName, tableSpec, disabled, rowIdx, col } = props
 
   const datum = R.pathOr(null, [rowIdx, col[SectionSpec.KEYS_COL.idx]])(data)
 
   const className = useClassName(col, rowIdx)
 
-  const propsOnChange = { assessmentType, sectionName, tableName, updateTableDataCell, rowIdx, col, datum }
+  const propsOnChange = { assessmentType, sectionName, tableSpec, rowIdx, col, datum }
   const { onChange, onPaste } = useOnChange(propsOnChange)
 
   const Component = ComponentsByType[col[SectionSpec.KEYS_COL.type]]
@@ -40,7 +40,7 @@ const Cell = (props) => {
           datum,
           assessmentType,
           sectionName,
-          tableName,
+          tableSpec,
           disabled,
           col,
           rowIdx,
@@ -55,11 +55,10 @@ Cell.propTypes = {
   data: PropTypes.array.isRequired,
   assessmentType: PropTypes.string.isRequired,
   sectionName: PropTypes.string.isRequired,
-  tableName: PropTypes.string.isRequired,
+  tableSpec: PropTypes.object.isRequired,
   disabled: PropTypes.bool.isRequired,
   rowIdx: PropTypes.number.isRequired,
   col: PropTypes.object.isRequired,
-  updateTableDataCell: PropTypes.func.isRequired,
 }
 
 export default Cell

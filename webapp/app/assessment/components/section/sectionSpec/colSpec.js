@@ -4,8 +4,6 @@ import * as NumberUtils from '@common/bignumberUtils'
 
 import { TYPE, TYPES, getType } from './keysType'
 
-export { getType }
-
 export const KEYS_COL = {
   type: TYPE,
   idx: 'idx',
@@ -95,23 +93,18 @@ const assocHeaderClassName = (col) => {
 }
 
 export const newColHeader = R.pipe(R.mergeDeepRight(colHeaderDefault), assocHeaderClassName)
-
 export const newColDecimal = R.pipe(R.defaultTo({}), R.mergeDeepRight(colDecimalDefault))
-
 export const newColInteger = R.pipe(R.defaultTo({}), R.mergeDeepRight(colIntegerDefault))
-
 export const newColCalculated = R.mergeDeepRight(colCalculatedDefault)
-
 export const newColText = R.pipe(R.defaultTo({}), R.mergeDeepRight(colTextDefault))
-
 export const newColTextArea = R.pipe(R.defaultTo({}), R.mergeDeepRight(colTextAreaDefault))
-
 export const newColSelect = R.pipe(R.defaultTo({}), R.mergeDeepRight(colSelectDefault))
-
 export const newColSelectYesNo = R.pipe(R.defaultTo({}), R.mergeDeepRight(colSelectYesNoDefault))
-
 export const newColPlaceholder = R.pipe(R.defaultTo({}), R.mergeDeepRight(colPlaceholderDefault))
 
+export { getType, TYPES }
+export const getIdx = R.prop(KEYS_COL.idx)
+export const getOptions = R.prop(KEYS_COL.options)
 export const isReadOnly = R.pipe(R.prop(TYPE), (type) =>
   R.includes(type, [TYPES.calculated, TYPES.header, TYPES.placeholder])
 )
