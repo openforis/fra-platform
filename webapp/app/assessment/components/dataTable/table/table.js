@@ -27,7 +27,7 @@ const Table = (props) => {
       <div className="fra-table__scroll-wrapper">
         {displayTableExportButton && <ButtonTableExport tableRef={tableRef} filename={sectionAnchor} />}
 
-        <table ref={tableRef} className="fra-table data-table">
+        <table id={tableName} ref={tableRef} className="fra-table data-table">
           <thead>
             {rowsHeader.map((row) => (
               <tr key={row.idx}>
