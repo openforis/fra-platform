@@ -30,9 +30,7 @@ export const primaryForestValidator = (colIdx) => (state) => {
     return true
   }
 
-  const tolerance = -1
-  const difference = NumberUtils.sub(naturalForest, primaryForest)
-  return NumberUtils.greaterThan(difference, tolerance)
+  return NumberUtils.greaterThanWithTolerance(naturalForest, primaryForest)
 }
 
 export const getValidationMessages = (data) => (state) => {
