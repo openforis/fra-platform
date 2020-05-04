@@ -9,5 +9,6 @@ CREATE TABLE statistical_factisheets_table_agg(
     "2010" decimal,
     "2015" decimal,
     "2020" decimal,
-    data_availability text
+    data_availability decimal,
+    UNIQUE(level, variable)
 );
