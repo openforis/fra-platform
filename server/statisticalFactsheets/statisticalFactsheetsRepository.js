@@ -1,7 +1,7 @@
 const camelize = require('camelize')
 const db = require('../db/db')
 
-const getStatisticalFactsheetTableAgg = async (schemaName = 'public') => {
+const getStatisticalFactsheetTableAgg = async (schemaName) => {
   const result = await db.query(`
   SELECT
     *
