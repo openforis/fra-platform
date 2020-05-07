@@ -21,7 +21,7 @@ WITH extent_of_forest AS (
     ) AS q
 )
 SELECT e.country_iso,
-       'other_wooded_land'                                   AS variable,
+       'other_wooded_land'                                   AS row_name,
        SUM(e.other_wooded_land) FILTER (WHERE e.year = 1990) AS "1990",
        SUM(e.other_wooded_land) FILTER (WHERE e.year = 2000) AS "2000",
        SUM(e.other_wooded_land) FILTER (WHERE e.year = 2010) AS "2010",
@@ -32,7 +32,7 @@ WHERE e.row_number = 1
 GROUP BY e.country_iso
 UNION
 SELECT e.country_iso,
-       'forest_area'                                   AS variable,
+       'forest_area'                                   AS row_name,
        SUM(e.forest_area) FILTER (WHERE e.year = 1990) AS "1990",
        SUM(e.forest_area) FILTER (WHERE e.year = 2000) AS "2000",
        SUM(e.forest_area) FILTER (WHERE e.year = 2010) AS "2010",
