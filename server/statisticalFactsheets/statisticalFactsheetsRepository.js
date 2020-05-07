@@ -38,21 +38,7 @@ const getStatisticalFactsheetTableAgg = async (schemaName) => {
     FROM ${schemaName}.forest_characteristics_view
     WHERE row_name = 'natural_forest_area'
        OR row_name = 'plantation_forest_area'
-    UNION
-    SELECT country_iso,
-           'planted_forest'                                               AS row_name,
-           SUM("1990") FILTER (WHERE row_name = 'other_planted_forest_area' OR
-                                     row_name = 'plantation_forest_area') AS "1990",
-           SUM("2000") FILTER (WHERE row_name = 'other_planted_forest_area' OR
-                                     row_name = 'plantation_forest_area') AS "2000",
-           SUM("2010") FILTER (WHERE row_name = 'other_planted_forest_area' OR
-                                     row_name = 'plantation_forest_area') AS "2010",
-           SUM("2015") FILTER (WHERE row_name = 'other_planted_forest_area' OR
-                                     row_name = 'plantation_forest_area') AS "2015",
-           SUM("2020") FILTER (WHERE row_name = 'other_planted_forest_area' OR
-                                     row_name = 'plantation_forest_area') AS "2020"
-    FROM ${schemaName}.forest_characteristics_view
-    GROUP BY 1
+       OR row_name = 'planted_forest'
     UNION
     SELECT *
     FROM ${schemaName}.specific_forest_categories
