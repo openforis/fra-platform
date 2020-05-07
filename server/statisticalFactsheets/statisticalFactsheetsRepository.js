@@ -3,23 +3,6 @@ const db = require('../db/db')
 
 const getStatisticalFactsheetTableAgg = async (schemaName) => {
   const result = await db.query(`
-  SELECT
-  level,
-  row_name,
-  "1990",
-  "2000",
-  "2010",
-  "2015",
-  "2020",
-  data_availability
-  FROM
-    ${schemaName}.statistical_factisheets_table_agg
-  ORDER BY
-    level ASC
-  `)
-
-  // get all single countries
-  const result2 = await db.query(`
   WITH s AS (
     SELECT *
     FROM ${schemaName}.extent_of_forest_view eof
@@ -75,10 +58,23 @@ const getStatisticalFactsheetTableAgg = async (schemaName) => {
 FROM ${schemaName}.country c
 LEFT JOIN s
 ON s.country_iso = c.country_iso
-ORDER BY c.country_iso;
+UNION
+SELECT
+level,
+row_name,
+"1990",
+"2000",
+"2010",
+"2015",
+"2020",
+data_availability
+FROM
+  ${schemaName}.statistical_factisheets_table_agg
+ORDER BY
+  level ASC;
   `)
 
-  return camelize([...result.rows, ...result2.rows])
+  return camelize([...result.rows])
 }
 
 module.exports = {
