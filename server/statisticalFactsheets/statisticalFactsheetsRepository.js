@@ -27,7 +27,7 @@ const getStatisticalFactsheetTableAgg = async (schemaName) => {
     UNION
     SELECT *
     FROM ${schemaName}.growing_stock_total_view gst
-    WHERE row_name::TEXT = 'growing_stock_total'
+    WHERE row_name = 'growing_stock_total'
     UNION
     SELECT *
     FROM ${schemaName}.carbon_stock_view
