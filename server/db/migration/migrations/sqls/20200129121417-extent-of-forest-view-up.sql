@@ -19,28 +19,44 @@ WITH extent_of_forest AS (
         FROM eof_fra_values f
         ORDER BY 1, 2, 3
     ) AS q
-)
-SELECT e.country_iso,
-       'other_wooded_land'                                   AS row_name,
-       SUM(e.other_wooded_land) FILTER (WHERE e.year = 1990) AS "1990",
-       SUM(e.other_wooded_land) FILTER (WHERE e.year = 2000) AS "2000",
-       SUM(e.other_wooded_land) FILTER (WHERE e.year = 2010) AS "2010",
-       SUM(e.other_wooded_land) FILTER (WHERE e.year = 2015) AS "2015",
-       SUM(e.other_wooded_land) FILTER (WHERE e.year = 2020) AS "2020"
-FROM extent_of_forest e
-WHERE e.row_number = 1
-GROUP BY e.country_iso
+),
+     q2 AS (
+         SELECT e.country_iso,
+                'other_wooded_land'                                   AS row_name,
+                SUM(e.other_wooded_land) FILTER (WHERE e.year = 1990) AS "1990",
+                SUM(e.other_wooded_land) FILTER (WHERE e.year = 2000) AS "2000",
+                SUM(e.other_wooded_land) FILTER (WHERE e.year = 2010) AS "2010",
+                SUM(e.other_wooded_land) FILTER (WHERE e.year = 2015) AS "2015",
+                SUM(e.other_wooded_land) FILTER (WHERE e.year = 2020) AS "2020"
+         FROM extent_of_forest e
+         WHERE e.row_number = 1
+         GROUP BY e.country_iso
+         UNION
+         SELECT e.country_iso,
+                'forest_area'                                   AS row_name,
+                SUM(e.forest_area) FILTER (WHERE e.year = 1990) AS "1990",
+                SUM(e.forest_area) FILTER (WHERE e.year = 2000) AS "2000",
+                SUM(e.forest_area) FILTER (WHERE e.year = 2010) AS "2010",
+                SUM(e.forest_area) FILTER (WHERE e.year = 2015) AS "2015",
+                SUM(e.forest_area) FILTER (WHERE e.year = 2020) AS "2020"
+         FROM extent_of_forest e
+         WHERE e.row_number = 1
+         GROUP BY e.country_iso
+         ORDER BY 1, 2
+     )
+SELECT *
+FROM q2
 UNION
-SELECT e.country_iso,
-       'forest_area'                                   AS row_name,
-       SUM(e.forest_area) FILTER (WHERE e.year = 1990) AS "1990",
-       SUM(e.forest_area) FILTER (WHERE e.year = 2000) AS "2000",
-       SUM(e.forest_area) FILTER (WHERE e.year = 2010) AS "2010",
-       SUM(e.forest_area) FILTER (WHERE e.year = 2015) AS "2015",
-       SUM(e.forest_area) FILTER (WHERE e.year = 2020) AS "2020"
-FROM extent_of_forest e
-WHERE e.row_number = 1
-GROUP BY e.country_iso
-ORDER BY 1, 2
+SELECT q2.country_iso,
+       'forest_area_percent'                                                                 AS row_name,
+       ROUND((100 * ("1990" / NULLIF((c.config -> 'faoStat' -> '1990' -> 'area')::TEXT::FLOAT, 0)))::numeric,2) AS "1990",
+       ROUND((100 * ("2000" / NULLIF((c.config -> 'faoStat' -> '2000' -> 'area')::TEXT::FLOAT, 0)))::numeric,2) AS "2000",
+       ROUND((100 * ("2010" / NULLIF((c.config -> 'faoStat' -> '2010' -> 'area')::TEXT::FLOAT, 0)))::numeric,2) AS "2010",
+       ROUND((100 * ("2015" / NULLIF((c.config -> 'faoStat' -> '2015' -> 'area')::TEXT::FLOAT, 0)))::numeric,2) AS "2015",
+       ROUND((100 * ("2020" / NULLIF((c.config -> 'faoStat' -> '2020' -> 'area')::TEXT::FLOAT, 0)))::numeric,2) AS "2020"
+FROM q2
+INNER JOIN country c
+ON q2.country_iso = c.country_iso
+WHERE q2.row_name = 'forest_area'
+ORDER BY country_iso
     );
-  
