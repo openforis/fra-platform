@@ -27,7 +27,7 @@ const getStatisticalFactsheetTableAgg = async (schemaName) => {
     OR row_name = 'Total carbon stock (Gt)';
   `)
 
-  return camelize([...result.rows])
+  return camelize(result.rows)
 }
 
 module.exports = {
