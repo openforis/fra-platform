@@ -1,6 +1,6 @@
-DROP TABLE IF EXISTS statistical_factisheets_table_agg;
+DROP TABLE IF EXISTS statistical_factsheets_table_agg;
 
-CREATE TABLE statistical_factisheets_table_agg(
+CREATE TABLE statistical_factsheets_table_agg(
     id serial PRIMARY KEY,
     level text NOT NULL,
     row_name text NOT NULL,

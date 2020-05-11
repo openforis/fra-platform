@@ -134,7 +134,7 @@ SELECT level,
        "2015" * 1000,
        "2020" * 1000,
        data_availability
-FROM statistical_factisheets_table_agg
+FROM statistical_factsheets_table_agg
 WHERE row_name LIKE '% ha)'
 UNION
 SELECT level,
@@ -145,7 +145,7 @@ SELECT level,
        "2015" * 1000,
        "2020" * 1000,
        data_availability
-FROM statistical_factisheets_table_agg
+FROM statistical_factsheets_table_agg
 WHERE row_name LIKE '%billion m3%'
 UNION
 SELECT level,
@@ -156,7 +156,7 @@ SELECT level,
        "2015",
        "2020",
        data_availability
-FROM statistical_factisheets_table_agg
+FROM statistical_factsheets_table_agg
 WHERE row_name NOT LIKE '% ha)'
   AND row_name NOT LIKE '%billion m3%'
 ORDER BY level ASC, row_name)   SELECT * FROM s2
