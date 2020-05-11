@@ -21,6 +21,6 @@ SELECT f.country_iso                                                     AS coun
            ELSE (coalesce(f."2020", 0) - coalesce(f."2015", 0)) / 5 END  AS "2015_2020"
 FROM extent_of_forest_view f
 WHERE f.row_name = 'forest_area'
-ORDER BY 1
+ORDER BY 1, 2
     )
 ;
