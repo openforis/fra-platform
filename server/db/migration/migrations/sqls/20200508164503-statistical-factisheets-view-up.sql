@@ -6,11 +6,11 @@ WITH s AS (
                WHEN (row_name = 'forest_area_percent') THEN 'Forest area (% of land area)'
                END
                             AS row_name,
-           ROUND("1990", 2) AS "1990",
-           ROUND("2000", 2) AS "2000",
-           ROUND("2010", 2) AS "2010",
-           ROUND("2015", 2) AS "2015",
-           ROUND("2020", 2) AS "2020"
+           "1990"::NUMERIC(100, 2) AS "1990",
+           "2000"::NUMERIC(100, 2) AS "2000",
+           "2010"::NUMERIC(100, 2) AS "2010",
+           "2015"::NUMERIC(100, 2) AS "2015",
+           "2020"::NUMERIC(100, 2) AS "2020"
     FROM extent_of_forest_view eof
     WHERE row_name = 'forest_area'
        OR row_name = 'forest_area_percent'

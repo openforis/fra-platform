@@ -1,4 +1,4 @@
-DROP VIEW IF EXISTS extent_of_forest_view;
+DROP VIEW IF EXISTS extent_of_forest_view CASCADE;
 CREATE VIEW extent_of_forest_view AS
 (
 WITH extent_of_forest AS (
@@ -42,18 +42,31 @@ WITH extent_of_forest AS (
          FROM extent_of_forest e
          WHERE e.row_number = 1
          GROUP BY e.country_iso
+         UNION
+         SELECT e.country_iso,
+                'total_land_area'                                AS row_name,
+                (c.config #> '{faoStat,1990,area}')::TEXT::FLOAT AS "1990",
+                (c.config #> '{faoStat,2000,area}')::TEXT::FLOAT AS "2000",
+                (c.config #> '{faoStat,2010,area}')::TEXT::FLOAT AS "2010",
+                (c.config #> '{faoStat,2015,area}')::TEXT::FLOAT AS "2015",
+                (c.config #> '{faoStat,2020,area}')::TEXT::FLOAT AS "2020"
+         FROM extent_of_forest e
+         INNER JOIN country c
+         ON e.country_iso = c.country_iso
+         WHERE e.row_number = 1
+         GROUP BY e.country_iso, c.config
          ORDER BY 1, 2
      )
 SELECT *
 FROM q2
 UNION
 SELECT q2.country_iso,
-       'forest_area_percent'                                                                 AS row_name,
-       ROUND((100 * ("1990" / NULLIF((c.config -> 'faoStat' -> '1990' -> 'area')::TEXT::FLOAT, 0)))::numeric,2) AS "1990",
-       ROUND((100 * ("2000" / NULLIF((c.config -> 'faoStat' -> '2000' -> 'area')::TEXT::FLOAT, 0)))::numeric,2) AS "2000",
-       ROUND((100 * ("2010" / NULLIF((c.config -> 'faoStat' -> '2010' -> 'area')::TEXT::FLOAT, 0)))::numeric,2) AS "2010",
-       ROUND((100 * ("2015" / NULLIF((c.config -> 'faoStat' -> '2015' -> 'area')::TEXT::FLOAT, 0)))::numeric,2) AS "2015",
-       ROUND((100 * ("2020" / NULLIF((c.config -> 'faoStat' -> '2020' -> 'area')::TEXT::FLOAT, 0)))::numeric,2) AS "2020"
+       'forest_area_percent'                                                                             AS row_name,
+       ROUND((100 * ("1990" / NULLIF((c.config #> '{faoStat,1990,area}')::TEXT::FLOAT, 0)))::NUMERIC, 2) AS "1990",
+       ROUND((100 * ("2000" / NULLIF((c.config #> '{faoStat,2000,area}')::TEXT::FLOAT, 0)))::NUMERIC, 2) AS "2000",
+       ROUND((100 * ("2010" / NULLIF((c.config #> '{faoStat,2010,area}')::TEXT::FLOAT, 0)))::NUMERIC, 2) AS "2010",
+       ROUND((100 * ("2015" / NULLIF((c.config #> '{faoStat,2015,area}')::TEXT::FLOAT, 0)))::NUMERIC, 2) AS "2015",
+       ROUND((100 * ("2020" / NULLIF((c.config #> '{faoStat,2020,area}')::TEXT::FLOAT, 0)))::NUMERIC, 2) AS "2020"
 FROM q2
 INNER JOIN country c
 ON q2.country_iso = c.country_iso
