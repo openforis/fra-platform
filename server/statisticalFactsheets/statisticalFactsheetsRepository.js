@@ -3,13 +3,10 @@ const db = require('../db/db')
 
 const getStatisticalFactsheetTableAgg = async (schemaName) => {
   const result = await db.query(`
-  SELECT
-    *
-  FROM
-    ${schemaName}.statistical_factisheets_table_agg
-  ORDER BY
-    level ASC
+  SELECT *
+  FROM ${schemaName}.statistical_factsheets_view
   `)
+
   return camelize(result.rows)
 }
 
