@@ -1,3 +1,4 @@
+import * as R from 'ramda'
 import * as NumberUtils from '@common/bignumberUtils'
 import * as FRA from '@common/assessment/fra'
 
@@ -17,11 +18,11 @@ const _getTableDataCell = (colIdx, rowIdx) =>
     rowIdx,
   })
 
-export const getTotalPublicOwnership = colIdx => ForestOwnershipState.getPublicOwnership(colIdx)
+export const getTotalPublicOwnership = (colIdx) => ForestOwnershipState.getPublicOwnership(colIdx)
 
-export const getOther = colIdx => state => {
+export const getOther = (colIdx) => (state) => {
   const totalPublicOwnership = getTotalPublicOwnership(colIdx)(state)
   return [0, 1, 2, 3].reduce((value, rowIdx) => {
-    return NumberUtils.sub(value, _getTableDataCell(colIdx, rowIdx)(state))
+    return NumberUtils.sub(value, R.pipe(_getTableDataCell(colIdx, rowIdx), R.defaultTo(0))(state))
   }, totalPublicOwnership)
 }
