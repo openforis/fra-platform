@@ -9,7 +9,6 @@ script:
 deploy:
   - provider: heroku
     app: dev-fra-platform
-    strategy: git
     on:
       branch: heroku-test
     api_key:

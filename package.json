@@ -18,8 +18,9 @@
     "watch:server-debug": "NODE_ENV=development nodemon -e js  --inspect --watch server server/serverLocal.js",
     "create-migration": "./server/db/migration/create-migration.sh",
     "test": "mochapack --webpack-config webpack.config.babel.test.js \"test/unit/*.js\"",
+    "app:version": "heroku config:set APP_VERSION=$npm_package_version --app=dev-fra-platform && heroku config:set APP_VERSION=$npm_package_version --app=fra-platform",
     "preversion": "git diff --quiet || { echo \"Working directory is dirty\"; exit 1; }; yarn test",
-    "postversion": "git push --tags --force && git push --force && echo \"Successfully released version $npm_package_version!\""
+    "postversion": "yarn app:version && && git push --tags --force && git push --force && echo \"Successfully released version $npm_package_version!\""
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",

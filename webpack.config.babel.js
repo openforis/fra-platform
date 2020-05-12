@@ -26,7 +26,9 @@ const plugins = [
   new webpack.DefinePlugin({
     __BUST__: `"${uuidv4()}"`,
     __GOOGLE_API__: JSON.stringify(process.env.FRA_GOOGLE_API),
-    __APPLICATION_VERSION__: JSON.stringify(gitRevisionPlugin.version()),
+    __APPLICATION_VERSION__: JSON.stringify(
+      config.mode === 'production' ? process.env.APP_VERSION : gitRevisionPlugin.version()
+    ),
     __URL_STATISTICAL_FACTSHEETS__: JSON.stringify(process.env.URL_STATISTICAL_FACTSHEETS),
   }),
 ]
