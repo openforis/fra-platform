@@ -261,6 +261,7 @@ class EditUserForm extends React.Component {
 
 const mapStateToProps = (state) => ({
   i18n: AppState.getI18n(state),
+  countryIso: AppState.getCountryIso(state),
   userInfo: UserState.getUserInfo(state),
   ...state.userManagement.editUser,
   // get countries if is admin.

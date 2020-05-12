@@ -111,6 +111,7 @@ module.exports.init = (app) => {
             countryIso,
             R.assoc('roles', rolesUpdated, user),
             profilePicture,
+            true,
           ])
         }
 
@@ -190,11 +191,12 @@ module.exports.init = (app) => {
       const user = req.user
       const userToUpdate = JSON.parse(req.body.user)
       const countryIso = req.params.countryIso
+      const editingSelf = user.id === userToUpdate.id
 
       // checking permission to edit user
       if (
         isAdministrator(user) ||
-        user.id === userToUpdate.id ||
+        editingSelf ||
         ((isNationalCorrespondent(countryIso, user) || isAlternateNationalCorrespondent(countryIso, userToUpdate)) &&
           isCollaborator(countryIso, userToUpdate))
       ) {
@@ -207,7 +209,7 @@ module.exports.init = (app) => {
             R.defaultTo({ data: profilePicture.data, name: profilePicture.name })
           )(req)
 
-          await db.transaction(userRepository.updateUser, [user, countryIso, userToUpdate, profilePictureFile])
+          await db.transaction(userRepository.updateUser, [user, countryIso, userToUpdate, profilePictureFile, !editingSelf])
 
           Request.sendOk(res)
         } else {
