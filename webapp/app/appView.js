@@ -16,6 +16,7 @@ import CountryMessageBoardView from '@webapp/app/landing/messageBoard/countryMes
 import ErrorComponent from '@webapp/app/components/error/errorComponent'
 import AssessmentPrintView from '@webapp/app/assessment/components/print/assessmentPrintView'
 import StatisticalFactsheets from '@webapp/app/statisticalFactsheets'
+import DataExport from '@webapp/app/dataExport'
 import useUserInfo from '@webapp/components/hooks/useUserInfo'
 
 import * as CountryState from '@webapp/app/country/countryState'
@@ -66,6 +67,7 @@ const LoggedInView = () => {
         component={AssessmentPrintView}
       />
 
+      <Route exact path={BasePaths.dataExport} component={DataExport} />
       <Route exact path={BasePaths.statisticalFactsheets} component={StatisticalFactsheets} />
 
       <Route>

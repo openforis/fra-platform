@@ -4,13 +4,21 @@ import { matchPath, NavLink } from 'react-router-dom'
 
 import * as BasePaths from '@webapp/main/basePaths'
 
-const AppLinks = props => {
+const AppLinks = (props) => {
   const { i18n } = props
 
-  const isActive = (match, { pathname }) => !matchPath(pathname, { path: BasePaths.statisticalFactsheets })
+  const isActive = (match, { pathname }) =>
+    !(
+      matchPath(pathname, { path: BasePaths.statisticalFactsheets }) ||
+      matchPath(pathname, { path: BasePaths.dataExport })
+    )
 
   return (
     <>
+      <NavLink activeClassName="hidden" to={BasePaths.dataExport} className="app-header__app-link">
+        {i18n.t('common.dataExport')}
+      </NavLink>
+
       <NavLink activeClassName="hidden" to={BasePaths.statisticalFactsheets} className="app-header__app-link">
         {i18n.t('common.statisticalFactsheets')}
       </NavLink>
