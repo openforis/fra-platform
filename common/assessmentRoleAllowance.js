@@ -10,6 +10,9 @@ const {
   administrator
 } = require('./countryRole')
 
+/**
+ * @deprecated
+ */
 const roleAllowances = {
   [noRole.role]: {
     comments: [],
@@ -42,29 +45,53 @@ const roleAllowances = {
   }
 }
 
+/**
+ * @deprecated
+ */
 const isUserRoleAllowedToEdit = (role, assessmentStatus, editType) => {
   if (R.isNil(role) || R.isNil(role.role)) return false
   const allowedStatusesForRole = R.path([role.role, editType], roleAllowances)
-  return R.contains(assessmentStatus, allowedStatusesForRole)
+  return R.includes(assessmentStatus, allowedStatusesForRole)
 }
 
+/**
+ * @deprecated
+ */
 const isUserRoleAllowedToEditAssessmentComments = (role, assessmentStatus) =>
   isUserRoleAllowedToEdit(role, assessmentStatus, 'comments')
 
+/**
+ * @deprecated
+ */
 const isUserRoleAllowedToEditAssessmentData = (role, assessmentStatus) =>
   isUserRoleAllowedToEdit(role, assessmentStatus, 'data')
 
+/**
+ * @deprecated
+ */
 const isCollaboratorAllowedToEditSectionData = (section, allowedTables) => {
   const allowedSections = allowedTables.map(t => t.section)
 
-  if (R.contains('all', allowedSections) || R.contains(section, allowedSections))
+  if (R.includes('all', allowedSections) || R.includes(section, allowedSections))
     return true
   return false
 }
 
 module.exports = {
+  /**
+   * @deprecated
+   */
   isUserRoleAllowedToEdit,
+  /**
+   * @deprecated
+   */
   isUserRoleAllowedToEditAssessmentComments,
+  /**
+   * @deprecated
+   */
   isUserRoleAllowedToEditAssessmentData,
+  /**
+   * @deprecated
+   */
   isCollaboratorAllowedToEditSectionData
 }

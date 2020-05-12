@@ -1,20 +1,29 @@
 module.exports.translation = {
-
   language: {
     en: 'English',
     es: 'Español',
     fr: 'Français',
-    ru: 'Русский'
+    ru: 'Русский',
+  },
+
+  common: {
+    fraPlatform: 'Plateforme de FRA',
+    login: 'Connexion',
+    statisticalFactsheets: 'Fiches statistiques',
+  },
+
+  countrySelection: {
+    selectCountry: 'Choisissez le pays',
   },
 
   definition: {
     definitionLabel: 'Voir les définitions',
-    faqLabel: 'Q&R'
+    faqLabel: 'Q&R',
   },
 
   audit: {
     notStarted: 'Pas commencé',
-    edited: 'Modifié'
+    edited: 'Modifié',
   },
 
   yesNoTextSelect: {
@@ -34,14 +43,14 @@ module.exports.translation = {
       collaborator: 'Collaborateur',
       collaborator_plural: 'Collaborateurs',
       administrator: 'Administrateur',
-      noRole: 'N/A'
-    }
+      noRole: 'N/A',
+    },
   },
 
   fraClass: {
     forest: 'Forêt',
     otherWoodedLand: 'Autre terre boisée',
-    otherLand: 'Autre terre'
+    otherLand: 'Autre terre',
   },
 
   fraForestCharacteristicsClass: {
@@ -49,14 +58,14 @@ module.exports.translation = {
     plantationForest: 'Forêt de plantation',
     ofWhichIntroduced: '…dont introduite',
     otherPlantedForest: 'Autre forêt plantée',
-    totalForest: 'Forêt totale'
+    totalForest: 'Forêt totale',
   },
 
   fraOtherLandClass: {
     palms: '…dont palmiers (huile, noix de coco, dattes, etc)',
     treeOrchards: '…dont vergers (inclut fruits, fruits à coque, olives, etc)',
     agroforestry: '…dont système agroforestier',
-    treesUrbanSettings: '…dont arbres en milieu urbain'
+    treesUrbanSettings: '…dont arbres en milieu urbain',
   },
 
   landing: {
@@ -67,11 +76,11 @@ module.exports.translation = {
       recentActivity: 'Activité récente',
       userManagement: 'Gérer collaborateurs',
       externalData: 'Données externes',
-      links: 'Liens et Référentiel'
+      links: 'Liens et Référentiel',
     },
     overview: {
       loadingMap: 'Chargement carte…',
-      withFinancialSupportOf: 'Avec le soutien financier de '
+      withFinancialSupportOf: 'Avec le soutien financier de ',
     },
     milestones: {
       milestones: 'Étapes importantes',
@@ -82,7 +91,7 @@ module.exports.translation = {
       milestone5: 'Conclusions préliminaires de FRA 2020',
       milestone6: 'Rapport principal de FRA 2020',
       milestone7: 'Analyse des données et élaboration du rapport',
-      milestone8: 'Lancement de la plateforme d\'analyse et de diffusion',
+      milestone8: "Lancement de la plateforme d'analyse et de diffusion",
       date1: 'Mars',
       date2: 'Avril – Septembre',
       date3: 'Octobre',
@@ -90,24 +99,26 @@ module.exports.translation = {
       date5: 'Mars',
       date6: 'Juillet',
       date7: 'Mars - Décembre',
-      date8: 'Août'
+      date8: 'Août',
     },
     users: {
       users: 'Contacts',
-      message: 'Message'
+      message: 'Message',
     },
     about: {
       contact: 'Contact',
       seniorForestryOfficer: 'Forestier principal',
       faoForestryDepartment: 'Département des forêts de la FAO',
       email: 'Email',
-      fraProcess: 'Depuis 1946, la FAO assure un suivi des ressources forestières mondiales tous les 5 à 10 ans. Les évaluations des ressources forestières mondiales (FRA) sont désormais produites tous les cinq ans afin de fournir une approche cohérente pour décrire les forêts du monde et leur mode d\'évolution. L\'évaluation repose sur deux sources de données principales: les rapports nationaux préparés par les Correspondants nationaux et des analyses par télédétection menées par la FAO en collaboration avec les points de contact nationaux et des partenaires régionaux. Le champ d\'application de FRA évolue régulièrement depuis la première évaluation publiée en 1948. Ces évaluations tracent une histoire intéressante de l\'intérêt accordé aux ressources forestières mondiales en ce qui concerne le contenu concret et l\'évolution du champ d\'application.',
+      fraProcess:
+        "Depuis 1946, la FAO assure un suivi des ressources forestières mondiales tous les 5 à 10 ans. Les évaluations des ressources forestières mondiales (FRA) sont désormais produites tous les cinq ans afin de fournir une approche cohérente pour décrire les forêts du monde et leur mode d'évolution. L'évaluation repose sur deux sources de données principales: les rapports nationaux préparés par les Correspondants nationaux et des analyses par télédétection menées par la FAO en collaboration avec les points de contact nationaux et des partenaires régionaux. Le champ d'application de FRA évolue régulièrement depuis la première évaluation publiée en 1948. Ces évaluations tracent une histoire intéressante de l'intérêt accordé aux ressources forestières mondiales en ce qui concerne le contenu concret et l'évolution du champ d'application.",
       linkFraProcess: 'En savoir davantage sur le processus de FRA',
-      or: 'Ou'
+      or: 'Ou',
     },
     recentActivity: {
-      noRecentActivityTitle: 'Visiblement, il n\'y a pas d\'activité récente',
-      noRecentActivityBody: 'Les modifications apportées dans la plateforme apparaissent ici pour vous permettre de savoir ce qui se passe quand vous n\'êtes pas en ligne.',
+      noRecentActivityTitle: "Visiblement, il n'y a pas d'activité récente",
+      noRecentActivityBody:
+        "Les modifications apportées dans la plateforme apparaissent ici pour vous permettre de savoir ce qui se passe quand vous n'êtes pas en ligne.",
       getStarted: 'Commencer',
       actions: {
         added: 'a ajouté',
@@ -123,23 +134,24 @@ module.exports.translation = {
         removeUser: 'a éliminé {{user}}',
         acceptInvitation: 'est devenu membre en tant que {{role}}',
         addInvitation: 'a invité {{user}} en tant que {{role}}',
-        removeInvitation: 'a révoqué l\'invitation de {{user}} en tant que {{role}}',
-        updateInvitation: 'a mise à jour l\'invitation pour {{user}} en tant que {{role}}',
-        updateAssessmentStatus: 'a changé le statut de {{assessment}} à {{status}}'
+        removeInvitation: "a révoqué l'invitation de {{user}} en tant que {{role}}",
+        updateInvitation: "a mise à jour l'invitation pour {{user}} en tant que {{role}}",
+        updateAssessmentStatus: 'a changé le statut de {{assessment}} à {{status}}',
       },
-      fraProcess: 'Depuis 1946, la FAO assure le suivi des ressources forestières mondiales tous les 5 à 10 ans. Les évaluations des ressources forestières mondiales (FRA) sont désormais produites tous les cinq ans afin de fournir une approche cohérente pour décrire les forêts du monde et leur mode d\'évolution. L\'évaluation repose sur deux sources de données principales: les rapports nationaux préparés par les Correspondants nationaux et des analyses par télédétection menées par la FAO en collaboration avec les points de contact nationaux et des partenaires régionaux. Le champ d\'application de FRA évolue régulièrement depuis la première évaluation publiée en 1948. Ces évaluations tracent une histoire intéressante de l\'intérêt accordé aux ressources forestières mondiales en ce qui concerne le contenu concret et l\'évolution du champ d\'application.',
-      linkFraProcess: 'En savoir davantage sur le processus de FRA'
+      fraProcess:
+        "Depuis 1946, la FAO assure le suivi des ressources forestières mondiales tous les 5 à 10 ans. Les évaluations des ressources forestières mondiales (FRA) sont désormais produites tous les cinq ans afin de fournir une approche cohérente pour décrire les forêts du monde et leur mode d'évolution. L'évaluation repose sur deux sources de données principales: les rapports nationaux préparés par les Correspondants nationaux et des analyses par télédétection menées par la FAO en collaboration avec les points de contact nationaux et des partenaires régionaux. Le champ d'application de FRA évolue régulièrement depuis la première évaluation publiée en 1948. Ces évaluations tracent une histoire intéressante de l'intérêt accordé aux ressources forestières mondiales en ce qui concerne le contenu concret et l'évolution du champ d'application.",
+      linkFraProcess: 'En savoir davantage sur le processus de FRA',
     },
     links: {
       links: 'Liens',
       unfcccFocalPoints: 'Points focaux de la CCNUCC',
       sdgFocalPoints: 'Points focaux nationaux pour les ODD',
-      reddPortal: 'Systèmes de surveillance des terres par satellite (SSTS), habilité par l\'ONU-REDD/FAO',
+      reddPortal: "Systèmes de surveillance des terres par satellite (SSTS), habilité par l'ONU-REDD/FAO",
       fraGeoSpatialTools: 'Outils géospatiaux de FRA',
       repository: 'Référentiel',
       uploadFile: 'Mettre en ligne un fichier',
       confirmDelete: 'Supprimer {{file}}? Cette action ne peut pas être annulée.',
-    }
+    },
   },
 
   userChat: {
@@ -169,38 +181,47 @@ L'équipe de FRA
 L'équipe de FRA
 <br/>
 {{- url}}
-    `
-    }
+    `,
+    },
   },
 
   // error messages
   error: {
     access: {
-      countryRoleNotSpecified: 'Erreur: L\'utilisateur {{user}} a essayé d\'accéder à {{countryIso}} mais aucun rôle n\'a été précisé',
-      countryUserNotReviewer: 'Erreur: L\'utilisateur {{user}} a essayé d\'accéder à {{countryIso}} dont il n\'est pas examinateur',
-      roleChangeNotAllowed: 'Erreur: L\'utilisateur {{user}} a essayé de configurer un autre profil d\'utilisateur à {{role}} ce qui n\'est pas autorisé pour l\'utilisateur connecté',
-      invitationAlreadyUsed: 'Erreur: L\'invitation {{invitationUuid}} a déjà été utilisée, détournement par {{loginEmail}} non autorisé!',
+      countryRoleNotSpecified:
+        "Erreur: L'utilisateur {{user}} a essayé d'accéder à {{countryIso}} mais aucun rôle n'a été précisé",
+      countryUserNotReviewer:
+        "Erreur: L'utilisateur {{user}} a essayé d'accéder à {{countryIso}} dont il n'est pas examinateur",
+      roleChangeNotAllowed:
+        "Erreur: L'utilisateur {{user}} a essayé de configurer un autre profil d'utilisateur à {{role}} ce qui n'est pas autorisé pour l'utilisateur connecté",
+      invitationAlreadyUsed:
+        "Erreur: L'invitation {{invitationUuid}} a déjà été utilisée, détournement par {{loginEmail}} non autorisé!",
       countryDoesNotMatch: 'Erreur: Le pays {{countyryIso}} ne correspond pas',
-      assessmentEditingNotAllowed: 'Erreur: L\'utilisateur {{user}} dans le rôle {{role}} ne peut pas modifier l\'évaluation en {{assessmentStatus}} pour le pays {{countryIso}}',
-      assessmentCommentingNotAllowed: 'Erreur: L\'utilisateur {{user}} dans le rôle {{role}} ne peut pas commenter l\'évaluation en {{assessmentStatus}} pour le pays {{countryIso}}'
+      assessmentEditingNotAllowed:
+        "Erreur: L'utilisateur {{user}} dans le rôle {{role}} ne peut pas modifier l'évaluation en {{assessmentStatus}} pour le pays {{countryIso}}",
+      assessmentCommentingNotAllowed:
+        "Erreur: L'utilisateur {{user}} dans le rôle {{role}} ne peut pas commenter l'évaluation en {{assessmentStatus}} pour le pays {{countryIso}}",
     },
     assessment: {
-      transitionNotAllowed: 'Erreur: La transition depuis {{currentStatus}} à {{status}} n\'est pas autorisée pour le rôle {{role}}',
-      deskStudyNotAllowed: 'Erreur: Seulement l\'administrateur peut changer le statut de l\'étude théorique'
+      transitionNotAllowed:
+        "Erreur: La transition depuis {{currentStatus}} à {{status}} n'est pas autorisée pour le rôle {{role}}",
+      deskStudyNotAllowed: "Erreur: Seulement l'administrateur peut changer le statut de l'étude théorique",
     },
     review: {
-      commentDeleteNotOwner: 'Erreur: L\'utilisateur {{user}} a essayé de supprimer un commentaire qui ne lui appartient pas',
-      commentEnterResolvedIssue: 'Erreur: L\'utilisateur {{user}} a essayé de saisir un commentaire sur une question résolue'
+      commentDeleteNotOwner:
+        "Erreur: L'utilisateur {{user}} a essayé de supprimer un commentaire qui ne lui appartient pas",
+      commentEnterResolvedIssue:
+        "Erreur: L'utilisateur {{user}} a essayé de saisir un commentaire sur une question résolue",
     },
     ndp: {
-      previousNdpNotFound: 'Pas trouvé de point des données nationales avant {{year}}'
-    }
+      previousNdpNotFound: 'Pas trouvé de point des données nationales avant {{year}}',
+    },
   },
   // components
 
   countryListing: {
     annuallyUpdated: 'Mis à jour annuellement',
-    fra2020: 'FRA 2020'
+    fra2020: 'FRA 2020',
   },
 
   navigation: {
@@ -214,7 +235,7 @@ L'équipe de FRA
       userAgent: 'Agent utilisateur',
       user: 'Utilisateur',
       manageCollaborators: 'Gérer collaborateurs',
-      userGuide: 'Guide de l\'utilisateur'
+      userGuide: "Guide de l'utilisateur",
     },
     sectionHeaders: {
       introduction: 'Introduction',
@@ -226,12 +247,12 @@ L'équipe de FRA
       forestPolicyAndLegislation: 'Politiques et dispositions législatives sur les forêts',
       employmentEducationAndNwfp: 'Emploi, enseignement et PFNL',
       sustainableDevelopment: 'Objectif de développement durable 15',
-      panEuropeanIndicators: 'Indicateurs paneuropéens'
+      panEuropeanIndicators: 'Indicateurs paneuropéens',
     },
     submit: 'Envoyer',
     cancel: 'Annuler',
     changeStatusTextPlaceholder: 'Ajouter un message facultatif',
-    doNotNotifyUsers: 'Ne pas notifier les utilisateurs'
+    doNotNotifyUsers: 'Ne pas notifier les utilisateurs',
   },
 
   header: {
@@ -242,8 +263,8 @@ L'équipe de FRA
     autoSave: {
       saving: 'Enregistrement…',
       complete: 'Modifications enregistrées',
-      lastSaveTimestampReceived: 'Dernière modification'
-    }
+      lastSaveTimestampReceived: 'Dernière modification',
+    },
   },
 
   time: {
@@ -253,7 +274,7 @@ L'équipe de FRA
     day_plural: 'Il y a {{count}} jours',
     week: 'Il y a {{count}} semaine',
     week_plural: 'Il y a {{count}} semaines',
-    aMomentAgo: 'Il y a un moment'
+    aMomentAgo: 'Il y a un moment',
   },
 
   review: {
@@ -267,7 +288,7 @@ L'équipe de FRA
     writeComment: 'Écrire un commentaire…',
     commentingClosed: 'Période de commentaires terminée',
     add: 'Ajouter',
-    cancel: 'Effacer'
+    cancel: 'Effacer',
   },
 
   description: {
@@ -284,10 +305,11 @@ L'équipe de FRA
     nationalData: 'Données nationales',
     analysisAndProcessing: 'Analyse et traitement des données nationales',
     estimationAndForecasting: 'Estimation et prévision',
-    reclassification: 'Reclassification dans les catégories de FRA 2020'
+    reclassification: 'Reclassification dans les catégories de FRA 2020',
   },
 
   nationalDataPoint: {
+    clickOnNDP: `Cliquez sur l'année pour accéder aux données originales`,
     nationalDataPoint: 'Point des données nationales',
     addNationalDataPoint: 'Ajouter point des données nationales',
     noNationalDataAdded: 'Pas de donnée nationale ajoutée',
@@ -325,16 +347,16 @@ L'équipe de FRA
     disabled: 'Désactivé, activer dans la section 1b',
     dataSourceMethodsOptions: {
       nationalForestInventory: 'Inventaire national des forêts',
-      sampleBasedRemoteSensingAssessment: 'Évaluation d\'échantillons par télédétection',
+      sampleBasedRemoteSensingAssessment: "Évaluation d'échantillons par télédétection",
       fullCoverMaps: 'Cartes complètes des forêts/de la végétation',
       registersQuestionnaires: 'Répertoires/questionnaires',
-      other: 'Autre (préciser dans les commentaires)'
+      other: 'Autre (préciser dans les commentaires)',
     },
     appliesToVariablesOptions: {
       forest: 'Forêt',
       otherWoodedLand: 'Autre terre boisée',
-      otherLand: 'Autre terre'
-    }
+      otherLand: 'Autre terre',
+    },
   },
 
   userManagement: {
@@ -349,14 +371,14 @@ L'équipe de FRA
     done: 'Terminé',
     edit: 'Modifier',
     addUser: 'Ajouter collaborateur',
-    formErrors: 'Il y a des erreurs dans le formulaire. S\'il vous plaît, réparez-les et soumettez-le à nouveau.',
+    formErrors: "Il y a des erreurs dans le formulaire. S'il vous plaît, réparez-les et soumettez-le à nouveau.",
     insufficientPrivileges: 'Privilèges insuffisants',
     confirmDelete: 'Éliminer {{user}}?',
     allUsers: 'Tous les collaborateurs',
     info: 'Info',
     tableAccess: 'Accès aux tables',
-    invitationLink: 'Lien d\'invitation',
-    sendInvitation: 'Envoyer un email d\'invitation',
+    invitationLink: "Lien d'invitation",
+    sendInvitation: "Envoyer un email d'invitation",
     invitationEmail: {
       subject: 'Invitation à la plateforme de FRA',
       textMessage: `Cher {{invitedUser}},
@@ -382,8 +404,8 @@ Bon travail!
 L'équipe de FRA fra@fao.org
 <br/>
 {{- url}}
-    `
-    }
+    `,
+    },
   },
 
   // FRA 2020 questionare
@@ -393,15 +415,15 @@ L'équipe de FRA fra@fao.org
     reportPreparationAndContactPersons: 'Préparation du rapport et personnes de contact',
     contactPersons: 'Introduction',
     contactPersonsSupport: 'Le présent rapport a été préparé par la(les) personne(s) suivante(s)',
-    introductoryText: 'Texte d\'introduction',
-    introductoryTextSupport: 'Placer un texte d\'introduction sur le contenu de ce rapport',
+    introductoryText: "Texte d'introduction",
+    introductoryTextSupport: "Placer un texte d'introduction sur le contenu de ce rapport",
     firstName: 'Prénom',
     lastName: 'Nom de famille',
     institution: 'Institution/adresse',
     email: 'Email',
     tables: 'Tableaux',
     all: 'Toutes',
-    none: 'Aucune'
+    none: 'Aucune',
   },
 
   extentOfForest: {
@@ -412,20 +434,23 @@ L'équipe de FRA fra@fao.org
     forestArea: 'Forêt',
     chart: {
       placeholderLine1: 'Pour commencer, ajouter de nouveaux points de données nationales et les utiliser',
-      placeholderLine2: 'pour générer automatiquement les valeurs de FRA.'
+      placeholderLine2: 'pour générer automatiquement les valeurs de FRA.',
     },
-    otherLandCategories: 'Catégories d\'autres terres',
+    otherLandCategories: "Catégories d'autres terres",
     ofWhichPalms: '…dont palmiers (huile, noix de coco, dattes, etc.)',
     ofWhichTreeOrchards: '…dont vergers (inclut fruits, fruits à coque, olives, etc.)',
     ofWhichAgroforestry: '…dont systèmes agroforestier',
     ofWhichTreesUrbanSettings: '…dont arbres en milieu urbain',
     totalLandArea: 'Total des terres émergées',
-    fedAreasExceedTotalLandArea: 'La superficie des forêts et des autres terres boisées est supérieure au total des terres émergées',
-    forestAreaDoesNotMatchPreviouslyReported: 'La superficie de forêt ne correspond pas à la superficie de FRA 2015: {{previous}}',
+    fedAreasExceedTotalLandArea:
+      'La superficie des forêts et des autres terres boisées est supérieure au total des terres émergées',
+    forestAreaDoesNotMatchPreviouslyReported:
+      'La superficie de forêt ne correspond pas à la superficie de FRA 2015: {{previous}}',
     useOriginalDataPoints: 'Utiliser les points de données nationales',
     dontUseOriginalDataPoints: 'Ne pas utiliser les points de données nationales',
-    whatIsThis: 'Qu\'est-ce-que c\'est?',
-    tableNoticeMessage: 'La superficie des terres enregistrée par FAOSTAT pour l\'année 2015 est utilisée pour toutes les années de référence',
+    whatIsThis: "Qu'est-ce-que c'est?",
+    tableNoticeMessage:
+      "La superficie des terres enregistrée par FAOSTAT pour l'année 2015 est utilisée pour toutes les années de référence",
     ndpMissingValues: 'Le point de données nationales a des valeurs manquantes',
     showNDPs: 'Afficher les points de données nationaux',
     hideNDPs: 'Cacher les points de données nationaux',
@@ -439,7 +464,7 @@ L'équipe de FRA fra@fao.org
     boreal: 'Boréal',
     temperate: 'Tempéré',
     subtropical: 'Sous-tropical',
-    tropical: 'Tropical'
+    tropical: 'Tropical',
   },
 
   forestCharacteristics: {
@@ -449,13 +474,13 @@ L'équipe de FRA fra@fao.org
     areaUnitLabel: 'Superficie forestière (1000 ha)',
     naturalForestArea: 'Forêt naturellement régénérée',
     plantationForestArea: 'Forêt de plantation',
-    plantationForestIntroducedArea: '…dont d\'espèces introduites',
+    plantationForestIntroducedArea: "…dont d'espèces introduites",
     otherPlantedForestArea: 'Autre forêt plantée',
     plantedForest: 'Forêt plantée',
     totalForestArea: 'Total superficie forestière',
     total: 'Total',
     useOriginalDataPoints: 'Utiliser points de données nationaux',
-    dontUseOriginalDataPoints: 'Ne pas utiliser points de données nationaux'
+    dontUseOriginalDataPoints: 'Ne pas utiliser points de données nationaux',
   },
 
   tableWithOdp: {
@@ -469,7 +494,7 @@ L'équipe de FRA fra@fao.org
     clearTable: 'Vider tableau',
     copyToClipboard: 'Copier valeurs',
     placeholderSelect: 'Estimation et prévision',
-    _1000haYear: '1000 ha/an'
+    _1000haYear: '1000 ha/an',
   },
 
   forestAreaChange: {
@@ -481,14 +506,14 @@ L'équipe de FRA fra@fao.org
     ofWhichNaturalExpansion: '…dont expansion naturelle',
     deforestation: 'Déforestation',
     forestAreaNetChange: 'Changement net de la superficie forestière',
-    netChangeDoesNotMatch: 'Ne correspond pas au changement net de la superficie forestière'
+    netChangeDoesNotMatch: 'Ne correspond pas au changement net de la superficie forestière',
   },
 
   annualReforestation: {
     annualReforestation: 'Reboisement annuel',
     categoryHeader: 'Catégories de FRA',
     areaUnitLabel: 'Superficie (1000 ha/an)',
-    reforestation: 'Reboisement'
+    reforestation: 'Reboisement',
   },
 
   specificForestCategories: {
@@ -500,7 +525,7 @@ L'équipe de FRA fra@fao.org
     temporarilyUnstocked: 'Temporairement non boisée et/ou récemment régénérée',
     primaryForest: 'Forêt primaire',
     exceedsNaturallyRegeneratingForest: 'Supérieur aux forêts naturellement régénérées (1b)',
-    rubberWood: 'Bois de caoutchouc'
+    rubberWood: 'Bois de caoutchouc',
   },
 
   otherLandWithTreeCover: {
@@ -512,13 +537,13 @@ L'équipe de FRA fra@fao.org
     agroforestry: 'Système agroforestier',
     treesinurbansettings: 'Arbres en milieu urbain',
     total: 'Total',
-    otherLandArea: 'Superficie d\'autre terre',
-    other: 'Autre (préciser dans les commentaires)'
+    otherLandArea: "Superficie d'autre terre",
+    other: 'Autre (préciser dans les commentaires)',
   },
 
   growingStock: {
     growingStock: 'Matériel sur pied',
-    supportText: 'Contrôler d\'avoir introduit les données dans les tableaux 1a & 1b avant de modifier ce tableau',
+    supportText: "Contrôler d'avoir introduit les données dans les tableaux 1a & 1b avant de modifier ce tableau",
     categoryHeader: 'Catégories de FRA',
     avgTableHeader: 'Matériel sur pied m³/ha (sur écorce)',
     totalTableHeader: 'Total matériel sur pied (millions m³ sur écorce)',
@@ -528,24 +553,24 @@ L'équipe de FRA fra@fao.org
     otherPlantedForest: '…dont autre forêt plantée',
     forest: 'Forêt',
     otherWoodedLand: 'Autre terre boisée',
-    copyToClipboard: 'Copier valeurs'
+    copyToClipboard: 'Copier valeurs',
   },
 
   growingStockComposition: {
     growingStockComposition: 'Composition du matériel sur pied',
     categoryHeader: 'Catégories de FRA',
-    nativeTreeSpecies: 'Espèce d\'arbre indigène',
-    introducedTreeSpecies: 'Espèce d\'arbre introduite',
+    nativeTreeSpecies: "Espèce d'arbre indigène",
+    introducedTreeSpecies: "Espèce d'arbre introduite",
     areaUnitLabel: 'Matériel sur pied dans la forêt (millions m³ sur écorce)',
     scientificName: 'Dénomination scientifique',
     commonName: 'Dénomication usuelle',
-    rank: 'Classé(e) en volume',
-    remainingNative: 'Espèces d\'arbres indigènes restantes',
-    remainingIntroduced: 'Espèces d\'arbres introduites restantes',
-    totalNative: 'Volume total espèces d\'arbres indigènes',
-    totalIntroduced: 'Volume total espèces d\'arbres introduites',
+    rank: '#{{idx}} Classé(e) en volume',
+    remainingNative: "Espèces d'arbres indigènes restantes",
+    remainingIntroduced: "Espèces d'arbres introduites restantes",
+    totalNative: "Volume total espèces d'arbres indigènes",
+    totalIntroduced: "Volume total espèces d'arbres introduites",
     totalGrowingStock: 'Total matériel sur pied',
-    rankingYear: 'Année de classement 2015'
+    rankingYear: 'Année de classement 2015',
   },
 
   biomassStock: {
@@ -555,7 +580,7 @@ L'équipe de FRA fra@fao.org
     aboveGround: 'Biomasse aérienne',
     belowGround: 'Biomasse souterraine',
     deadWood: 'Bois mort',
-    downloadExcel: 'Télécharger calculateur excel'
+    downloadExcel: 'Télécharger calculateur excel',
   },
 
   carbonStock: {
@@ -573,29 +598,32 @@ L'équipe de FRA fra@fao.org
   designatedManagementObjective: {
     designatedManagementObjective: 'Objectif de gestion désigné',
     primaryDesignatedManagementObjective: 'Objectif de gestion désigné principal',
-    primaryDesignatedManagementObjectiveSupport: 'L\'objectif de gestion désigné principal est sensiblement plus important que les autres objectifs de gestion. Les différents objectifs de gestion principaux sont *exclusifs* et la superficie déclarée dans un des objectifs de gestion principaux ne devra pas être déclarée dans aucun des autres objectifs de gestion principaux. La somme des différents objectifs de gestion devra correspondre à la superficie de forêt.',
+    primaryDesignatedManagementObjectiveSupport:
+      "L'objectif de gestion désigné principal est sensiblement plus important que les autres objectifs de gestion. Les différents objectifs de gestion principaux sont *exclusifs* et la superficie déclarée dans un des objectifs de gestion principaux ne devra pas être déclarée dans aucun des autres objectifs de gestion principaux. La somme des différents objectifs de gestion devra correspondre à la superficie de forêt.",
     totalAreaWithDesignatedManagementObjective: 'Superficie totale avec un objectif de gestion désigné',
-    totalAreaWithDesignatedManagementObjectiveSupport: 'Objectif de gestion désigné, qu\'il soit primaire ou pas. Les différentes catégories de désignation sont *non exclusives*. Les superficies peuvent donc être déclarées plus d\'une fois. Par exemple, dans le cas d\'une superficie forestière avec des "usages multiples" comme objectif de gestion principal, il faudra rendre compte de chacun de ses objectifs de gestion. Ainsi la somme des différents objectifs de gestion peut être supérieure à la superficie totale de forêt.',
+    totalAreaWithDesignatedManagementObjectiveSupport:
+      "Objectif de gestion désigné, qu'il soit primaire ou pas. Les différentes catégories de désignation sont *non exclusives*. Les superficies peuvent donc être déclarées plus d'une fois. Par exemple, dans le cas d'une superficie forestière avec des \"usages multiples\" comme objectif de gestion principal, il faudra rendre compte de chacun de ses objectifs de gestion. Ainsi la somme des différents objectifs de gestion peut être supérieure à la superficie totale de forêt.",
     categoryHeader: 'Catégories de FRA 2020',
     areaUnitLabel: 'Superficie forestière (1000 ha)',
     production: 'Production',
-    soilWaterProtection: 'Protection du sol et de l\'eau',
+    soilWaterProtection: "Protection du sol et de l'eau",
     biodiversityConservation: 'Conservation de la biodiversité',
     socialServices: 'Services sociaux',
     multipleUse: 'Usages multiples',
     other: 'Autre (à préciser dans les commentaires)',
     unknown: 'Aucune fonction/Fonction inconnue',
     totalForestArea: 'Superficie forestière totale',
-    total: 'Total'
+    total: 'Total',
   },
 
   forestAreaWithinProtectedAreas: {
-    forestAreaWithinProtectedAreas: 'Superficie forestière se trouvant à l\'intérieur d\'aires protégées juridiquement constituées et superficie forestière soumise à des plans de gestion forestière à long-terme',
+    forestAreaWithinProtectedAreas:
+      "Superficie forestière se trouvant à l'intérieur d'aires protégées juridiquement constituées et superficie forestière soumise à des plans de gestion forestière à long-terme",
     categoryHeader: 'Catégories de FRA',
     areaUnitLabel: 'Superficie (1000 ha)',
-    header: 'Superficie forestière à l\'intérieur d\'aires protégées juridiquement constituées',
+    header: "Superficie forestière à l'intérieur d'aires protégées juridiquement constituées",
     forestAreaWithLongTermManagementPlan: 'Superficie forestière soumise à un plan de gestion forestière à long-terme',
-    ofWhichInProtectedAreas: '…dont dans des aires protégées'
+    ofWhichInProtectedAreas: '…dont dans des aires protégées',
   },
 
   forestOwnership: {
@@ -609,7 +637,7 @@ L'équipe de FRA fra@fao.org
     publicOwnership: 'Propriété publique',
     otherOrUnknown: 'Inconnue/Autre (à préciser dans les commentaires)',
     totalForestArea: 'Superficie forestière totale',
-    total: 'Total'
+    total: 'Total',
   },
 
   holderOfManagementRights: {
@@ -623,7 +651,7 @@ L'équipe de FRA fra@fao.org
     other: 'Inconnue/Autre (à préciser dans les commentaires)',
     totalPublicOwnership: 'Propriété publique totale',
     total: 'Total',
-    publicOwnershipDoesNotMatch: 'Ne correspond pas à la propriété publique totale'
+    publicOwnershipDoesNotMatch: 'Ne correspond pas à la propriété publique totale',
   },
 
   disturbances: {
@@ -635,7 +663,7 @@ L'équipe de FRA fra@fao.org
     severeWeatherEvents: 'Événements météorologiques graves',
     other: 'Autre (à préciser dans les commentaires)',
     totalForestArea: 'Superficie forestière totale',
-    total: 'Total'
+    total: 'Total',
   },
 
   areaAffectedByFire: {
@@ -643,7 +671,7 @@ L'équipe de FRA fra@fao.org
     categoryHeader: 'Catégories de FRA',
     areaUnitLabel: 'Superficie (1000 ha)',
     totalLandAreaAffectedByFire: 'Superficie totale de terre touchée par les incendies',
-    ofWhichForest: '…dont de forêt'
+    ofWhichForest: '…dont de forêt',
   },
 
   degradedForest: {
@@ -655,43 +683,45 @@ L'équipe de FRA fra@fao.org
   },
 
   forestPolicy: {
-    forestPolicy: 'Politiques, législation et plateforme nationale de participation des parties prenantes aux politiques forestières',
-    categoryHeader: 'Indiquer l\'existence de',
+    forestPolicy:
+      'Politiques, législation et plateforme nationale de participation des parties prenantes aux politiques forestières',
+    categoryHeader: "Indiquer l'existence de",
     areaUnitLabel: 'Booléen (Oui/Non)',
     national: 'Nationales',
     subnational: 'Sous-nationales',
     policiesSFM: 'Politiques en faveur de la GDF',
     legislationsSFM: 'Législations ou règlements en faveur de la GDF',
-    stakeholderParticipation: 'Plateforme favorisant ou permettant la participation des parties prenantes à l\'élaboration des politiques forestières',
-    existenceOfTraceabilitySystem: 'Système(s) de traçabilité des produits ligneux'
+    stakeholderParticipation:
+      "Plateforme favorisant ou permettant la participation des parties prenantes à l'élaboration des politiques forestières",
+    existenceOfTraceabilitySystem: 'Système(s) de traçabilité des produits ligneux',
   },
 
   areaOfPermanentForestEstate: {
     areaOfPermanentForestEstate: 'Superficie de domaine forestier permanent',
     categoryHeader: 'Catégories de FRA 2020',
     areaUnitLabel: 'Superficie forestière (1000 ha)',
-    applicable: 'Applicable?'
+    applicable: 'Applicable?',
   },
 
   employment: {
-    employment: 'Emploi dans la sylviculture et l\'exploitation forestière',
+    employment: "Emploi dans la sylviculture et l'exploitation forestière",
     average: 'Moyenne triannuelle',
     categoryHeader: 'Catégories de FRA 2020',
     unitHeader: 'Équivalent plein-temps (1000 EPT)',
-    inForestry: 'Emploi dans la sylviculture et l\'exploitation forestière',
-    ofWhichSilviculture: '…dont dans la sylviculture et d\'autres activités d\'exploitation forestière',
-    ofWhichLogging: '…dont dans l\'exploitation forestière',
+    inForestry: "Emploi dans la sylviculture et l'exploitation forestière",
+    ofWhichSilviculture: "…dont dans la sylviculture et d'autres activités d'exploitation forestière",
+    ofWhichLogging: "…dont dans l'exploitation forestière",
     ofWhichGathering: '…dont dans la collecte de produits forestiers non ligneux',
-    ofWhichSupport: '…dont dans les services d\'appui à la sylviculture',
+    ofWhichSupport: "…dont dans les services d'appui à la sylviculture",
     total: 'Total',
     female: 'Femmes',
-    male: 'Hommes'
+    male: 'Hommes',
   },
 
   graduationOfStudents: {
-    graduationOfStudents: 'Obtention de diplômes liés à l\'enseignement forestier',
+    graduationOfStudents: "Obtention de diplômes liés à l'enseignement forestier",
     average: 'Moyenne triannuelle',
-    numberOfStudents: 'Nombre d\'étudiants diplômés',
+    numberOfStudents: "Nombre d'étudiants diplômés",
     fra2020Categories: 'Catégories de FRA 2020',
     doctoralDegree: 'Doctorat',
     mastersDegree: 'Master',
@@ -699,7 +729,7 @@ L'équipe de FRA fra@fao.org
     technicianCertificate: 'Diplôme/brevet de technicien',
     total: 'Total',
     female: 'Femmes',
-    male: 'Hommes'
+    male: 'Hommes',
   },
 
   nonWoodForestProductsRemovals: {
@@ -710,36 +740,36 @@ L'équipe de FRA fra@fao.org
     unit: 'Unité',
     value: 'Valeur (1000 monnaie nationale)',
     category: 'Catégorie de PFNL',
-    plantProductsSelectHeading: 'Produits d\'origine végétale / matières premières',
+    plantProductsSelectHeading: "Produits d'origine végétale / matières premières",
     food: '1 Aliments',
     fodder: '2 Fourrage',
     rawMaterialForMedicine: '3 Matières premières pour les médicaments et les produits aromatiques',
     rawMaterialForColorants: '4 Matières premières pour les colorants et les teintures',
-    rawMaterialForUtensils: '5 Matières premières pour les ustensiles, l\'artisanat, la construction',
+    rawMaterialForUtensils: "5 Matières premières pour les ustensiles, l'artisanat, la construction",
     ornamentalPlants: '6 Plantes ornementales',
     exudates: '7 Exsudats',
-    otherPlantProducts: '8 Autres produits d\'origine végétale',
-    animalProductsSelectHeading: 'Produits d\'origine animale / matières premières',
+    otherPlantProducts: "8 Autres produits d'origine végétale",
+    animalProductsSelectHeading: "Produits d'origine animale / matières premières",
     livingAnimals: '9 Animaux vivants',
     hidesSkins: '10 Cuirs, peaux et trophées',
-    wildHoney: '11 Miel et cire d\'abeille',
+    wildHoney: "11 Miel et cire d'abeille",
     wildMeat: '12 Gibier',
     animalRawMaterialForMedicine: '13 Matières premières pour les médicaments',
     animalRawMaterialForColorants: '14 Matières premières pour les colorants',
-    otherEdibleAnimalProducts: '15 Autres produits d\'origine animale comestibles',
-    otherNonEdibleAnimalProducts: '16 Autres produits d\'origine animale non-comestibles',
-    allOtherPlantProducts: 'Tous les autres produits d\'origine végétale',
-    allOtherAnimalProducts: 'Tous les autres produits d\'origine animale',
+    otherEdibleAnimalProducts: "15 Autres produits d'origine animale comestibles",
+    otherNonEdibleAnimalProducts: "16 Autres produits d'origine animale non-comestibles",
+    allOtherPlantProducts: "Tous les autres produits d'origine végétale",
+    allOtherAnimalProducts: "Tous les autres produits d'origine animale",
     total: 'Total',
     currency: 'Dénomination monnaie nationale',
-    notSelected: ''
+    notSelected: '',
   },
 
   sustainableDevelopment: {
     sustainableDevelopment: 'Objectif de développement durable 15',
     indicator: 'Indicateur',
     percent: 'Pourcentage',
-    nameOfAgencyResponsible: 'Nom de l\'agence responsable',
+    nameOfAgencyResponsible: "Nom de l'agence responsable",
     sdgIndicator1: 'Indicateur ODD 15.1.1 Superficie forestière comme pourcentage du total des terres émergées 2015',
     sdgIndicator2: 'Indicateur ODD 15.2.1 Progrès réalisés dans la gestion durable des forêts',
     forestAreaProportionLandArea2015: 'Superficie forestière comme pourcentage du total des terres émergées 2015',
@@ -747,10 +777,13 @@ L'équipe de FRA fra@fao.org
     forestAreaAnnualNetChangeRate: 'Taux annuel de changement de la superficie forestière',
     aboveGroundBiomassStockForests: 'Biomasse aérienne dans les forêts',
     percent2015ForestAreaBaseline: 'Pourcentage (Superficie forestière de référence 2015)',
-    proportionForestAreaLegallyEstablishedProtectedAreas: 'Pourcentage de superficie forestière se trouvant dans des aires protégées juridiquement constituées',
-    proportionForestAreaLongTermForestManagement: 'Pourcentage de superficie forestière soumise à une gestion à long-terme',
+    proportionForestAreaLegallyEstablishedProtectedAreas:
+      'Pourcentage de superficie forestière se trouvant dans des aires protégées juridiquement constituées',
+    proportionForestAreaLongTermForestManagement:
+      'Pourcentage de superficie forestière soumise à une gestion à long-terme',
     forestArea1000Ha: 'Superficie forestière (1000 ha)',
-    forestAreaVerifiedForestManagement: 'Superficie forestière soumise à des systèmes de certification de gestion durable vérifiés indépendants'
+    forestAreaVerifiedForestManagement:
+      'Superficie forestière soumise à des systèmes de certification de gestion durable vérifiés indépendants',
   },
 
   panEuropeanIndicators: {
@@ -762,16 +795,15 @@ L'équipe de FRA fra@fao.org
     remove: 'Supprimer',
     noQuestionnaire: 'Aucun questionnaire sélectionné',
     panEuropeanQualitativeIndicators: 'Indicateurs qualitatifs paneuropéens sur la gestion forestière durable',
-    accessReportingPage: 'Accéder à la page des rapports'
+    accessReportingPage: 'Accéder à la page des rapports',
   },
 
   assessment: {
     fra2020: 'FRA 2020',
     deskStudy: 'Étude théorique',
-    statusChangeNotification:
-      {
-        subject: 'Le statut de {{country}} a été changé à {{status}} dans la plateforme de FRA',
-        textMessage: `Cher {{recipientName}},
+    statusChangeNotification: {
+      subject: 'Le statut de {{country}} a été changé à {{status}} dans la plateforme de FRA',
+      textMessage: `Cher {{recipientName}},
 
 {{changer}} a changé le statut de {{assessment}} à "{{status}}" pour {{country}} dans la plateforme de FRA.
 
@@ -781,7 +813,7 @@ Se rendre sur la plateforme à l'adresse: {{- serverUrl}}
 
 L'équipe de FRA
 {{- serverUrl}}`,
-        htmlMessage: `Cher {{recipientName}},
+      htmlMessage: `Cher {{recipientName}},
 <br/><br/>
 {{changer}} a changé le statut de {{assessment}} à "{{status}}" pour {{country}} dans la plateforme de FRA.
 <br/><br/>
@@ -791,36 +823,36 @@ L'équipe de FRA
 <br/><br/>
 L'équipe de FRA
 <br/>
-{{- serverUrl}}`
-      },
+{{- serverUrl}}`,
+    },
     status: {
       changing: {
-        label: 'Changement…'
+        label: 'Changement…',
       },
       editing: {
         label: 'Modifier',
-        previous: 'Retour à modifier'
+        previous: 'Retour à modifier',
       },
       review: {
-        label: 'À l\'étude',
+        label: "À l'étude",
         next: 'Transmettre pour examen',
         previous: 'Retour à examen',
       },
       approval: {
-        label: 'Attente d\'approbation',
+        label: "Attente d'approbation",
         next: 'Transmettre pour approbation',
-        previous: 'Retour à approbation'
+        previous: 'Retour à approbation',
       },
       accepted: {
         label: 'Accepté',
         next: 'Accepter',
-        previous: ''
-      }
-    }
+        previous: '',
+      },
+    },
   },
 
   multiSelect: {
-    placeholder: 'Choisir…'
+    placeholder: 'Choisir…',
   },
 
   generalValidation: {
@@ -847,12 +879,12 @@ L'équipe de FRA
         objects: 'Objets',
         symbols: 'Symboles',
         flags: 'Drapeaux',
-      }
-    }
+      },
+    },
   },
 
   editUser: {
-    chooseProfilePicture: 'Choisir l\'image',
+    chooseProfilePicture: "Choisir l'image",
     name: 'Nom',
     role: 'Rôle',
     email: 'Email',
@@ -861,7 +893,7 @@ L'équipe de FRA
     position: 'Position',
     done: 'Enregistrer',
     cancel: 'Effacer',
-    picture1MbMax: 'L\'image de profil ne peut pas dépasser 1 Mo'
+    picture1MbMax: "L'image de profil ne peut pas dépasser 1 Mo",
   },
 
   country: {
@@ -872,8 +904,8 @@ L'équipe de FRA
       north_and_central_america: 'Amérique du Nord et Centrale',
       south_america: 'Amérique du sud',
       africa: 'Afrique',
-      atlantis: 'Atlantis'
-    }
+      atlantis: 'Atlantis',
+    },
   },
 
   admin: {
@@ -881,13 +913,13 @@ L'équipe de FRA
     filter: 'Filtrer par',
     language: 'Langue',
     country: 'Pays',
-    invitationPending: 'Invitation en attente'
+    invitationPending: 'Invitation en attente',
   },
 
   countryMessageBoard: {
-    messageBoard: 'Panneau d\'affichage',
+    messageBoard: "Panneau d'affichage",
     messageBoardDesc: 'Les messages postés ici sont visibles par tous les membres du pays.',
-    oneToOneMessages: 'Messages individuels'
+    oneToOneMessages: 'Messages individuels',
   },
 
   fraReportPrint: {

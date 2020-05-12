@@ -1,7 +1,7 @@
 import React from 'react'
 import * as R from 'ramda'
 import './numberInput.less'
-import { formatInteger } from '@webapp/utils/numberFormat'
+import { formatInteger } from '@common/numberFormat'
 
 export class ThousandSeparatedIntegerInput extends React.Component {
   constructor () {

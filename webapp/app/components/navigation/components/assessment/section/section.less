@@ -1,0 +1,45 @@
+@import (reference) '~@webapp/main/styles/config';
+@import (reference) '~@webapp/main/styles/statusMixins';
+@import (reference) '~@webapp/app/components/navigation/navigationMixins.less';
+
+.nav-section__header {
+  .mixin-nav-secondary-base(8px, true);
+  font-weight: 700;
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.nav-section__order {
+  flex: 0 0 auto;
+  width: 20px;
+  margin-right: 4px;
+  font-size: @font-s;
+}
+
+.nav-section__label {
+  margin-right: 4px;
+  font-size: @font-s;
+}
+
+.nav-section__status-content {
+  .mixin-status-content-base;
+}
+
+.nav-section__item {
+  .mixin-nav-secondary-base(8px, true);
+}
+
+.nav-section__items-hidden {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.15s ease-out;
+}
+
+.nav-section__items-visible {
+  max-height: 500px;
+  overflow: hidden;
+  transition: max-height 0.25s ease-out;
+}

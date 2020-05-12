@@ -1,6 +1,6 @@
 const { roleForCountry, isReviewer, isAdministrator } = require('../../common/countryRole')
 
-function AccessControlException (key, values) {
+function AccessControlException(key, values) {
   this.error = { key, values }
   Error.captureStackTrace(this, AccessControlException)
 }
@@ -36,8 +36,12 @@ const checkAdminAccess = (user) => {
 // WARNING: the param name needs to be exactly 'countryIso'
 // If it's not, use checkCountryAccess instead
 const checkCountryAccessFromReqParams = (req) => {
-  if (req.params.countryIso) checkCountryAccess(req.params.countryIso, req.user)
-  if (req.query.countryIso) checkCountryAccess(req.query.countryIso, req.user)
+  if (req.user) {
+    if (req.params.countryIso) checkCountryAccess(req.params.countryIso, req.user)
+    if (req.query.countryIso) checkCountryAccess(req.query.countryIso, req.user)
+  } else {
+    throw new AccessControlException('error.access.userNotSpecified')
+  }
 }
 
 module.exports.checkCountryAccess = checkCountryAccess

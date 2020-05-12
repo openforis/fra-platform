@@ -37,7 +37,12 @@ const getAssessmentStatus = async (countryIso, section) => {
 const allowedToEditDataCheck = async (countryIso, user, section) => {
   const assessmentStatus = await getAssessmentStatus(countryIso, section)
   const role = roleForCountry(countryIso, user)
-  if (R.isNil(assessmentStatus)) return //Until we're sure this doesn't break anything
+  if (!user) {
+    throw new AccessControlException(
+      'error.access.assessmentEditingNotAllowed',
+      {user: 'NO_USER', role: 'NO_ROLE', countryIso, assessmentStatus})
+  }
+  if (R.isNil(assessmentStatus)) return //Until we're sure this doesn't break anything // are we sure yet?
 
   // first check access for all users
   if (!isUserRoleAllowedToEditAssessmentData(role, assessmentStatus)) {

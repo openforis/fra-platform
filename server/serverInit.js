@@ -5,15 +5,12 @@ module.exports = () => {
   const compression = require('compression')
   const fileUpload = require('express-fileupload')
 
-  const countryRepository = require('./country/countryRepository')
-
   const sessionInit = require('./sessionInit')
   const apiRouter = require('./apiRouter')
   const authApi = require('./auth/authApi')
   const resourceCacheControl = require('./resourceCacheControl')
   const definitionsApi = require('./definitions/api')
-  const accessControl = require('./auth/accessControl')
-  const { sendErr, appUri } = require('./utils/requestUtils')
+  const { sendErr } = require('./utils/requestUtils')
 
   const app = express()
 
@@ -23,7 +20,6 @@ module.exports = () => {
 //Not part of apiRouter because of special urls (starting from root)
   sessionInit.init(app)
   authApi.init(app)
-  accessControl.init(app)
 
   app.use(compression({ threshold: 512 }))
 
@@ -37,14 +33,6 @@ module.exports = () => {
 
   app.use('/style', express.static(`${__dirname}/../dist/style`))
   app.use('/js', express.static(`${__dirname}/../dist/js`))
-  app.use(/^\/$/, async (req, res) => {
-    if (req.user) {
-      const defaultCountry = await countryRepository.getFirstAllowedCountry(req.user.roles)
-      res.redirect(`${appUri}/country/${defaultCountry.countryIso}/`)
-    } else {
-      res.redirect(`${appUri}/login/`)
-    }
-  })
 
   app.use('/*', express.static(path.resolve(__dirname, '..', 'dist')))
 

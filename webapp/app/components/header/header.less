@@ -1,0 +1,151 @@
+@import (reference) "~@webapp/main/styles/config";
+
+.app-header {
+  grid-area: header;
+  border-bottom: @ui-thin-border;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: white;
+  color: @text-mute;
+  padding: 0 20px;
+}
+
+.app-header__toggle-navigation-visible {
+  .mixin-header-menu-item;
+  font-size: 1rem;
+  font-weight: 400;
+
+  .label {
+    margin-left: 8px;
+    opacity: 0;
+    transition: opacity 0.1s ease-in;
+
+    &.show {
+      opacity: 1;
+    }
+  }
+}
+
+.app-header__autosave {
+  display: inline-block;
+  line-height: 16px;
+  padding: 8px;
+  position: relative;
+  border-radius: 2px;
+  white-space: nowrap;
+
+  &.status-saving {
+    font-style: italic;
+  }
+
+  &.status-complete {
+    opacity: 0;
+    animation: 3s ease-in-out fadeInComplete forwards;
+
+    &::before {
+      content: '';
+      display: inline-block;
+      vertical-align: sub;
+      margin-right: 6px;
+      width: 16px;
+      height: 16px;
+      background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+QXJ0Ym9hcmQ8L3RpdGxlPjxwYXRoIGQ9Ik04IDBDMy42IDAgMCAzLjYgMCA4czMuNiA4IDggOCA4LTMuNiA4LTgtMy42LTgtOC04ek03IDExLjRMMy42IDggNSA2LjZsMiAyIDQtNEwxMi40IDYgNyAxMS40eiIgZmlsbD0iIzZCNiIvPjwvc3ZnPg==);
+      animation: 0.6s ease-out 2.4s fadeOutCheck forwards;
+    }
+  }
+}
+
+.app-header__menu {
+  display: flex;
+  align-items: center;
+
+  .popover-control__menu {
+    top: 60px;
+    right: 12px;
+    text-align: right;
+    width: 160px;
+  }
+}
+
+.app-header__menu-item {
+  .mixin-header-menu-item;
+
+  .icon {
+    margin-left: 4px;
+  }
+}
+
+.app-header__menu-item-separator {
+  border-right: 1px solid @ui-border;
+  height: 30px;
+  width: 1px;
+}
+
+.app-header__app-link {
+  .mixin-header-menu-item;
+  font-weight: bold;
+  color: @text-mute;
+}
+
+.app-header__menu-item-user {
+  display: flex;
+  align-items: center;
+  padding: 15px 6px;
+  cursor: pointer;
+
+  img {
+    border: @ui-thin-border;
+    padding: 2px;
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+  }
+}
+
+@keyframes fadeInComplete {
+  0% {
+    background-color: white;
+    opacity: 0;
+  }
+  10%, 80% {
+    background-color: fade(@ui-status-accepted, 10%);
+    opacity: 1;
+  }
+  100% {
+    background-color: white;
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOutCheck {
+  0% {
+    opacity: 1
+  }
+  95% {
+    opacity: 0
+  }
+  100% {
+    width: 0;
+    margin-right: 0;
+  }
+}
+
+
+.mixin-header-menu-item() {
+  padding: 20px 12px;
+  cursor: pointer;
+  transition: @ease-out;
+  white-space: nowrap;
+  color: inherit;
+  text-decoration: none;
+
+  &:hover,
+  &.active {
+    color: @text-body;
+
+    .icon {
+      color: @text-body;
+    }
+  }
+}

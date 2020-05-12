@@ -12,6 +12,8 @@ const {sendMail} = require('../email/sendMail')
 
 const {getChatMessages, addMessage, getChatUnreadMessages} = require('./userChatRepository')
 
+const Auth = require('../auth/authApiMiddleware')
+
 const createMail = async (country, i18n, sender, recipient, url) => {
   const link = `${url}/country/${country.countryIso}/`
   const countryName = R.path(['listName', 'en'], country)
@@ -86,10 +88,8 @@ module.exports.init = app => {
       await sendNotificationEmail(req, fromUserId, toUserId)
   }
 
-  app.post('/userChat/:countryIso/message', async (req, res) => {
+  app.post('/userChat/:countryIso/message', Auth.requireCountryEditPermission, async (req, res) => {
     try {
-      checkCountryAccessFromReqParams(req)
-
       const {message, fromUserId, toUserId} = req.body
 
       const messageDb = await db.transaction(addMessage, [message, fromUserId, toUserId])

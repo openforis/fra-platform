@@ -1,0 +1,269 @@
+@import (reference) '~@webapp/main/styles/config';
+@import (reference) '~@webapp/main/styles/fraTable';
+@import (reference) '~@webapp/main/styles/inputMixins';
+
+.odp__section {
+  margin-top: 32px;
+  margin-bottom: 32px;
+
+  > .subhead,
+  > .headline {
+    margin-bottom: 16px;
+  }
+}
+
+.odp__section-header {
+  display: flex;
+  align-items: baseline;
+  margin-bottom: 16px;
+
+  > * {
+    margin-right: 16px;
+  }
+}
+
+.odp__year-selection {
+  margin-bottom: 16px;
+}
+
+.odp__bottom-buttons {
+  margin-top: 24px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  &:empty {
+    display: none;
+  }
+}
+
+.odp__cke_wrapper {
+  display: flex;
+
+  .cke_wrapper {
+    flex-grow: 1;
+  }
+}
+
+// Tabs
+
+.odp__tab-controller {
+  display: flex;
+  flex-wrap: nowrap;
+  margin-top: 24px;
+}
+
+.odp__tab-item {
+  border: 1px solid transparent;
+  border-bottom-color: @ui-border;
+  border-top-width: 2px;
+  color: @text-disabled;
+  font-weight: 700;
+  line-height: 16px;
+  margin-left: -1px;
+  outline: none;
+  padding: 11px;
+  text-align: center;
+  text-decoration: none;
+  width: 100%;
+
+  &.active {
+    border-color: @ui-border;
+    border-bottom-color: transparent;
+    border-top-color: @ui-accent;
+    color: @text-body;
+  }
+
+  &.disabled {
+    pointer-events: none;
+  }
+}
+
+.odp__tab-item-support {
+  font-weight: 400;
+  font-size: @font-xs;
+  margin-left: 8px;
+}
+
+// Custom table styles
+
+.odp__data-source-input-column {
+  width: 75%;
+}
+
+// This is a workaround for MultiSelect problem (multiselect increases vertical scroll
+// instead of popping out of the wrapper
+.fra-table__scroll-wrapper.odp__data-source-table-wrapper {
+  overflow-x: visible;
+}
+
+.fra-table__cell.odp__data-source-input-column {
+  white-space: normal;
+}
+
+.odp__review-indicator-row-anchor {
+  position: absolute;
+  right: 0;
+}
+
+.odp__sub-table {
+  line-height: 15px;
+  margin-top: 24px;
+
+  .fra-review__issue-status {
+    height: 37px;
+  }
+}
+
+.odp__nc-table {
+  .odp__nc-table__name {
+    width: 40%;
+    min-width: 240px;
+  }
+
+  .odp__nc-table__def {
+    width: 60%;
+    min-width: 240px;
+  }
+
+  .odp__nc-table__input-container {
+    .mixin-input-container;
+  }
+
+  .odp__nc-table__input {
+    .mixin-input-field;
+    padding-left: 24px;
+  }
+
+  .odp__nc-table__remove {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 50%;
+    left: 4px;
+    margin-top: -8px;
+    padding: 0;
+    border: none;
+  }
+}
+
+// List view
+
+.odp-list__list-table {
+  table-layout: fixed;
+  border-collapse: collapse;
+  color: @text-body;
+  line-height: 19px;
+  width: 100%;
+}
+
+.odp-list__link-row {
+  cursor: pointer;
+}
+
+.odp-list__header-cell {
+  border-bottom: @ui-thin-border;
+  font-size: @font-m;
+  padding: 12px;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.odp-list__year-column {
+  width: 160px;
+}
+
+.odp-list__notification-column {
+  width: 80px;
+}
+
+.odp-list__edit-column {
+  width: 120px;
+}
+
+.odp-list__year-cell {
+  .mixin-odp-list-cell;
+  width: 48px;
+}
+
+.odp-list__method-cell {
+  .mixin-odp-list-cell(8px 12px);
+}
+
+.odp-list__notification-cell {
+  .mixin-odp-list-cell;
+}
+
+.odp-list__edit-cell {
+  .mixin-odp-list-cell(0, right);
+}
+
+.odp-list__empty-cell {
+  .mixin-odp-list-cell;
+  color: @text-disabled;
+}
+
+.odp-list__footnotes {
+  .mixin-odp-list-cell;
+  color: @text-disabled;
+  border: none;
+}
+
+.odp-list__dirty-odp {
+  font-size: 18px;
+  margin: 0 2px;
+  vertical-align: sub;
+  line-height: 1;
+}
+
+.odp-list__notification-container {
+  display: flex;
+  align-items: center;
+
+  .icon,
+  .open-issues {
+    margin: 0 4px;
+  }
+
+  .open-issues {
+    background-color: @ui-accent;
+    border-radius: 100%;
+    height: 10px;
+    width: 10px;
+
+    &.unread-issues {
+      background-color: @ui-alert;
+    }
+  }
+}
+
+.mixin-odp-list-cell(@padding: 12px, @align: left) {
+  border-bottom: @ui-thin-border;
+  font-size: @font-s;
+  padding: @padding;
+  text-align: @align;
+}
+
+.odp-v-divider {
+  border-left: @ui-thin-border;
+  height: 20px;
+  width: 1px;
+  margin: 0 8px;
+}
+
+// ===== print view
+.odp__section-print-mode {
+  .odp__section {
+    margin: 0px;
+  }
+
+  .subhead {
+    margin: 16px 0;
+  }
+
+  .odp__year-column {
+    width: 150px !important;
+    min-width: 150px !important;
+    max-width: 150px !important;
+  }
+}

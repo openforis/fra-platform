@@ -1,7 +1,8 @@
 const db = require('../db/db')
 
 const {sendErr} = require('../utils/requestUtils')
-const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
+
+const Auth = require('../auth/authApiMiddleware')
 
 const {persistFile, getFilesList, getFile, deleteFile} = require('./fileRepositoryRepository')
 
@@ -10,10 +11,8 @@ const {fileTypes, downloadFile} = require('./fileRepository')
 module.exports.init = app => {
 
   // get user guide
-  app.get('/fileRepository/userGuide/:lang', (req, res) => {
+  app.get('/fileRepository/userGuide/:lang', Auth.requireCountryEditPermission, async (req, res) => {
     try {
-      checkCountryAccessFromReqParams(req)
-
       downloadFile(res, fileTypes.userGuide, req.params.lang)
     } catch (err) {
       sendErr(res, err)
@@ -21,10 +20,8 @@ module.exports.init = app => {
   })
 
   // upload new file
-  app.post('/fileRepository/:countryIso/upload', async (req, res) => {
+  app.post('/fileRepository/:countryIso/upload', Auth.requireCountryEditPermission, async (req, res) => {
     try {
-      checkCountryAccessFromReqParams(req)
-
       const globalFile = req.body.global === 'true'
 
       const countryIso = req.params.countryIso
@@ -40,10 +37,8 @@ module.exports.init = app => {
   })
 
   // get files list
-  app.get('/fileRepository/:countryIso/filesList', async (req, res) => {
+  app.get('/fileRepository/:countryIso/filesList', Auth.requireCountryEditPermission, async (req, res) => {
     try {
-      checkCountryAccessFromReqParams(req)
-
       const filesList = await getFilesList(req.params.countryIso)
 
       res.json(filesList)
@@ -54,10 +49,8 @@ module.exports.init = app => {
   })
 
   // get file
-  app.get('/fileRepository/:countryIso/file/:fileId', async (req, res) => {
+  app.get('/fileRepository/:countryIso/file/:fileId', Auth.requireCountryEditPermission, async (req, res) => {
     try {
-      checkCountryAccessFromReqParams(req)
-
       const file = await getFile(req.params.fileId)
 
       if (file) {
@@ -73,10 +66,8 @@ module.exports.init = app => {
   })
 
   // delete file
-  app.delete('/fileRepository/:countryIso/file/:fileId', async (req, res) => {
+  app.delete('/fileRepository/:countryIso/file/:fileId', Auth.requireCountryEditPermission, async (req, res) => {
     try {
-      checkCountryAccessFromReqParams(req)
-
       const filesList = await db.transaction(deleteFile, [req.user, req.params.countryIso, req.params.fileId])
 
       res.json(filesList)

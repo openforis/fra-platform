@@ -8,6 +8,13 @@ const frTranslation = require('./resources/fr').translation
 const esTranslation = require('./resources/es').translation
 const ruTranslation = require('./resources/ru').translation
 
+const translationsFiles = {
+  'en': enTranslation,
+  'es': esTranslation,
+  'fr': frTranslation,
+  'ru': ruTranslation
+}
+
 const createParams = lang => ({
   fallbackLng: 'en',
   debug: false,
@@ -19,17 +26,8 @@ const createParams = lang => ({
   },
   lng: lang,
   resources: {
-    en: {
-      translation: enTranslation
-    },
-    fr: {
-      translation: frTranslation
-    },
-    es: {
-      translation: esTranslation
-    },
-    ru: {
-      translation: ruTranslation
+    [lang]: {
+      translation: translationsFiles[lang]
     }
   }
 })

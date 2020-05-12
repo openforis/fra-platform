@@ -24,9 +24,9 @@ module.exports.persistEofValues = async (countryIso, year, values) => {
     // This merge is signifcant when we are generating values,
     // then we are only choosing only some of the rows and should
     // leave the rest as they are
-    updateEof(countryIso, year, R.merge(existingValues, values))
+    await updateEof(countryIso, year, R.merge(existingValues, values))
   } else {
-    insertEof(countryIso, year, values)
+    await insertEof(countryIso, year, values)
   }
 }
 
@@ -87,9 +87,9 @@ const existingFocValues = async (countryIso, year) => {
 module.exports.persistFocValues = async (countryIso, year, fraValues) => {
   const existingValues = await existingFocValues(countryIso, year)
   if (existingValues) {
-    updateFoc(countryIso, year, R.merge(existingValues, fraValues))
+    await updateFoc(countryIso, year, R.merge(existingValues, fraValues))
   } else {
-    insertFoc(countryIso, year, fraValues)
+    await insertFoc(countryIso, year, fraValues)
   }
 }
 
@@ -178,8 +178,9 @@ const forestCharacteristicsReducer = (results, row, type = 'fra') =>
     }
   ]
 
-module.exports.readFraForestAreas = (countryIso) =>
-  db.query(`
+module.exports.readFraForestAreas = (countryIso, schemaName = 'public') => {
+  const tableName = `${schemaName}.eof_fra_values`
+  return db.query(`
     SELECT
       year,
       forest_area,
@@ -187,12 +188,14 @@ module.exports.readFraForestAreas = (countryIso) =>
       forest_area_estimated,
       other_wooded_land_estimated
     FROM
-      eof_fra_values WHERE country_iso = $1`,
+      ${tableName} WHERE country_iso = $1`,
     [countryIso]
   ).then((result) => R.reduce(forestAreaReducer, [], result.rows))
+}
 
-module.exports.readFraForestCharacteristics = countryIso =>
-  db.query(
+module.exports.readFraForestCharacteristics = (countryIso, schemaName = 'public') => {
+  const tableName = `${schemaName}.foc_fra_values`
+  return db.query(
     `SELECT
         year,
         natural_forest_area,
@@ -203,7 +206,8 @@ module.exports.readFraForestCharacteristics = countryIso =>
         plantation_forest_area_estimated,
         plantation_forest_introduced_area_estimated,
         other_planted_forest_area_estimated
-      FROM foc_fra_values
+      FROM ${tableName}
       WHERE country_iso = $1`,
     [countryIso]
   ).then((result) => R.reduce(forestCharacteristicsReducer, [], result.rows))
+}

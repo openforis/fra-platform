@@ -1,0 +1,30 @@
+@import (reference) "~@webapp/main/styles/config";
+
+.users__table-filter {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-column-gap: 10px;
+  //margin: 0 25%;
+
+  border-radius: 3px;
+  margin: 10px 20% 20px;
+  padding: 20px;
+  background-color: @ui-bg;
+}
+
+.users__table-filter-title {
+  justify-self: center;
+  margin-bottom: 10px;
+}
+
+.users__table-filter-item {
+  display: grid;
+  grid-template-columns: 20% auto;
+  align-items: center;
+  grid-column-gap: 10px;
+}
+
+.users__table-filter-item-label {
+  align-self: center;
+  justify-self: right;
+}

@@ -1,17 +1,17 @@
 const db = require('../db/db')
 const repository = require('./assessmentRepository')
 const { sendErr, sendOk, serverUrl } = require('../utils/requestUtils')
-const { checkCountryAccessFromReqParams, checkAdminAccess } = require('../utils/accessControl')
 const { sendAssessmentNotification } = require('./sendAssessmentNotification')
+
+const Auth = require('../auth/authApiMiddleware')
 
 const ExportService = require('./service/exportService')
 const JSZip = require('jszip')
 
 module.exports.init = app => {
 
-  app.post('/assessment/:countryIso', async (req, res) => {
+  app.post('/assessment/:countryIso', Auth.requireCountryEditPermission, async (req, res) => {
     try {
-      checkCountryAccessFromReqParams(req)
       const assessment = req.body
       const notifyUsers = req.query.notifyUsers === 'true'
 
@@ -34,11 +34,9 @@ module.exports.init = app => {
     }
   })
 
-  app.get('/assessment/admin/export', async (req, res) => {
+  app.get('/assessment/admin/export', Auth.requireAdminPermission, async (req, res) => {
     try {
       const user = req.user
-
-      checkAdminAccess(user)
 
       const files = await ExportService.exportData(user, ExportService.EXPORT_TYPE.CSV)
 

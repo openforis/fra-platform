@@ -1,23 +1,24 @@
-import './app-styles/style.less'
-import './ckEditor/style.less'
-import 'regenerator-runtime/runtime'
+import '@webapp/main/styles/style.less'
+import '@webapp/components/ckEditor/style.less'
+
+import '@webapp/utils/polyfill/polyfill'
 
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
-import AppRouterSwitch from '@webapp/app/appRouterSwitch'
 
-import store from './state/store'
+import Routes from './main/routes'
+import store from './main/store'
 
-function renderApp () {
+function renderApp() {
   ReactDOM.render(
     <Provider store={store}>
       <BrowserRouter>
-        <AppRouterSwitch/>
+        <Routes />
       </BrowserRouter>
     </Provider>,
-    document.querySelector('#main'),
+    document.querySelector('#main')
   )
 }
 

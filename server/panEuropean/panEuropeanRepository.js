@@ -36,12 +36,13 @@ const updatePanEuropeanQuantitativeQuestionnaire = (client, countryIso, file) =>
       country_iso = $3
     `, [file.data, fileName(file.name, countryIso), countryIso])
 
-module.exports.getPanEuropeanQuantitativeQuestionnaire = countryIso =>
-  db.query(`
+module.exports.getPanEuropeanQuantitativeQuestionnaire = (countryIso, schemaName = 'public') => {
+  const tableName = `${schemaName}.pan_european`
+  return db.query(`
     SELECT
       id, quantitative_questionnaire, quantitative_questionnaire_name
     FROM
-      pan_european
+      ${tableName}
     WHERE
       country_iso = $1
     `, [countryIso])
@@ -52,6 +53,7 @@ module.exports.getPanEuropeanQuantitativeQuestionnaire = countryIso =>
         quantitativeQuestionnaireName: resp.rows[0].quantitative_questionnaire_name,
       }
     )
+}
 
 module.exports.deletePanEuropeanQuantitativeQuestionnaire = (client, countryIso) =>
   client.query(`

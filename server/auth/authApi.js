@@ -11,6 +11,8 @@ const { findLocalUserByEmail, findUserById, fetchInvitation, findUserByEmail } =
 const { createResetPassword, findResetPassword, changePassword } = require('../user/userResetPasswordRepository')
 const { sendResetPasswordEmail } = require('./resetPassword')
 
+const Auth = require('./authApiMiddleware')
+
 const authenticationFailed = (req, res) => {
   req.logout()
   res.redirect('/login?loginFailed=true')
@@ -27,7 +29,7 @@ const authenticationSuccessful = (req, user, next, res, done) => {
         // More here:
         // https://github.com/voxpelli/node-connect-pg-simple/issues/31#issuecomment-230596077
         req.session.save(() => {
-          done(`${appUri}/country/${defaultCountry.countryIso}/`)
+          done(`${appUri}/${defaultCountry.countryIso}/`)
         })
       }).catch(err => sendErr(res, err))
     }
@@ -93,7 +95,7 @@ module.exports.init = app => {
 
   // reset / change passwords apis
 
-  app.post('/auth/local/resetPassword', async (req, res) => {
+  app.post('/auth/local/resetPassword', Auth.requireCountryEditPermission, async (req, res) => {
     try {
 
       const email = req.body.email
@@ -135,7 +137,7 @@ module.exports.init = app => {
     }
   })
 
-  app.post('/auth/local/changePassword', async (req, res) => {
+  app.post('/auth/local/changePassword', Auth.requireCountryEditPermission, async (req, res) => {
     try {
 
       const sendResp = (error = null, message = null) =>
