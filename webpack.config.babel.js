@@ -17,18 +17,16 @@ const config = {
   path: path.resolve(__dirname, 'dist'),
 }
 
-const gitRevisionPlugin = new GitRevisionPlugin()
+const gitRevisionPlugin = config.mode === 'production' ? new GitRevisionPlugin() : null
 
 const plugins = [
-  gitRevisionPlugin,
+  ...(gitRevisionPlugin ? [gitRevisionPlugin] : []),
   new MiniCssExtractPlugin({ filename: 'style/styles-[hash].css' }),
   new HtmlWebpackPlugin({ template: './web-resources/index.html' }),
   new webpack.DefinePlugin({
     __BUST__: `"${uuidv4()}"`,
     __GOOGLE_API__: JSON.stringify(process.env.FRA_GOOGLE_API),
-    __APPLICATION_VERSION__: JSON.stringify(
-      config.mode === 'production' ? process.env.APP_VERSION : gitRevisionPlugin.version()
-    ),
+    __APPLICATION_VERSION__: JSON.stringify(gitRevisionPlugin ? gitRevisionPlugin.version() : process.env.APP_VERSION),
     __URL_STATISTICAL_FACTSHEETS__: JSON.stringify(process.env.URL_STATISTICAL_FACTSHEETS),
   }),
 ]
