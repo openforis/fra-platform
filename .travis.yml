@@ -9,7 +9,7 @@ script:
 deploy:
   - provider: heroku
     app: dev-fra-platform
-    before_deploy: heroku config:set APP_VERSION=$(node -p -e "require('./package.json').version") --app=dev-fra-platform
+    script: heroku config:set APP_VERSION=$(node -p -e "require('./package.json').version") --app=dev-fra-platform
     on:
       branch: heroku-test
     api_key:
