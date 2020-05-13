@@ -22,8 +22,10 @@ import * as CountryState from '@webapp/app/country/countryState'
 import * as NavigationState from '@webapp/app/components/navigation/navigationState'
 
 import { fetchCountryInitialData, fetchCountryList } from '@webapp/app/country/actions'
+import { useDataExportView } from '@webapp/components/hooks'
 
 import routes from './routes'
+import LinkLanding from './components/navigation/components/linkLanding'
 
 const LoggedInView = () => {
   const dispatch = useDispatch()
@@ -33,6 +35,7 @@ const LoggedInView = () => {
   const countriesLoaded = useSelector(CountryState.hasCountries)
   const countryStatusLoaded = useSelector(CountryState.hasStatus)
   const navigationVisible = useSelector(NavigationState.isVisible)
+  const isDataExport = useDataExportView()
 
   const printView = !!matchPath(pathname, { path: BasePaths.assessmentPrint })
   const printOnlyTablesView = !!matchPath(pathname, { path: BasePaths.assessmentPrintOnlyTables, exact: true })
@@ -77,7 +80,8 @@ const LoggedInView = () => {
           </>
         )}
         <div className={classNameAppView}>
-          <CountrySelection className={navigationVisible ? 'nav-base' : ''} />
+          {!isDataExport && <CountrySelection className={navigationVisible ? 'nav-base' : ''} />}
+          {isDataExport && <LinkLanding />}
           <Header />
           <Navigation />
           <Switch>

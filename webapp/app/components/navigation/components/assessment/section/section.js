@@ -14,6 +14,7 @@ import useI18n from '@webapp/components/hooks/useI18n'
 import * as ReviewStatusState from '@webapp/app/country/reviewStatusState'
 
 import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpecs'
+import { useDataExportView } from '@webapp/components/hooks'
 
 const Section = (props) => {
   const { assessmentType, section, showSections, prefix } = props
@@ -40,7 +41,8 @@ const Section = (props) => {
     }
   }, [])
 
-  const isDataExport = matchPath(pathname, { path: BasePaths.dataExport })
+  const isDataExport = useDataExportView()
+
   const visible = (subsection) =>
     matchPath(pathname, { path: BasePaths.dataExport }) &&
     SectionSpec.getSectionSpec(assessmentType, subsection.name).dataExport.included

@@ -6,9 +6,7 @@ import Header from '@webapp/app/components/navigation/components/assessment/head
 import Section from '@webapp/app/components/navigation/components/assessment/section'
 
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
-import { useLocation, matchPath } from 'react-router'
-
-import * as BasePaths from '@webapp/main/basePaths'
+import { useDataExportView } from '@webapp/components/hooks'
 
 const Assessment = (props) => {
   const { name, sections } = props
@@ -17,8 +15,7 @@ const Assessment = (props) => {
 
   const [showSections, setShowSections] = useState(false)
 
-  const { pathname } = useLocation()
-  const isDataExport = matchPath(pathname, { path: BasePaths.dataExport })
+  const isDataExport = useDataExportView()
 
   return (
     <div className="nav-assessment">
