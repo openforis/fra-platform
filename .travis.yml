@@ -6,6 +6,9 @@ cache:
     - node_modules
 script:
   - yarn test
+before_deploy:
+  - if [ "$TRAVIS_TAG" != "" ]; then heroku config:set APP_VERSION=$(git describe --always) --app=dev-fra-platform; fi
+  - if [ "$TRAVIS_BRANCH" = "production" ]; then heroku config:set APP_VERSION=$(git describe --always) --app=fra-platform; fi
 deploy:
   - provider: heroku
     app: dev-fra-platform
