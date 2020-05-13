@@ -19,7 +19,7 @@ const Navigation = () => {
     <div className="nav no-print">
       {(countryIso || isDataExport) && (
         <>
-          <LinkLanding />
+          {!isDataExport && <LinkLanding />}
           <div className="nav__divider" />
           <Assessment name={FRA.type} sections={FRA.sections} />
           <LinkPanEuropeanIndicators />
