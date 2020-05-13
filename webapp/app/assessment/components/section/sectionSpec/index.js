@@ -8,7 +8,7 @@ export { ColSpec }
 
 export { TYPES, TYPE, isData, isNotData, isHeader, isNotHeader, isDecimal, isText } from './keysType'
 
-export { KEYS_SECTION, KEYS_SECTION_DESCRIPTIONS, newSectionSpec } from './sectionSpec'
+export { KEYS_SECTION, KEYS_SECTION_DESCRIPTIONS, KEYS_DATA_EXPORT, newSectionSpec } from './sectionSpec'
 
 export { KEYS_TABLE_SECTION, newTableSection } from './tableSectionSpec'
 

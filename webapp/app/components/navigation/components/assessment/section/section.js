@@ -13,6 +13,8 @@ import useI18n from '@webapp/components/hooks/useI18n'
 
 import * as ReviewStatusState from '@webapp/app/country/reviewStatusState'
 
+import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpecs'
+
 const Section = (props) => {
   const { assessmentType, section, showSections, prefix } = props
 
@@ -23,7 +25,6 @@ const Section = (props) => {
   const { pathname } = useLocation()
   const childStatus = useSelector(ReviewStatusState.getStatusSectionChildren(section))
   const [expanded, setExpanded] = useState(false)
-
   useEffect(() => {
     setExpanded(showSections)
   }, [showSections])
@@ -38,6 +39,20 @@ const Section = (props) => {
       setExpanded(true)
     }
   }, [])
+
+  const isDataExport = matchPath(pathname, { path: BasePaths.dataExport })
+  const visible = (subsection) =>
+    matchPath(pathname, { path: BasePaths.dataExport }) &&
+    SectionSpec.getSectionSpec(assessmentType, subsection.name).dataExport.included
+
+  const filterDataExportChildren = (children) => children.filter((x) => visible(x))
+  const children = Object.values(section.children)
+  const filteredChildren = isDataExport ? filterDataExportChildren(children) : children
+
+  if (!filteredChildren.length) {
+    return null
+  }
+
   return (
     <div className="nav-section">
       <div
@@ -58,7 +73,7 @@ const Section = (props) => {
       </div>
       <div className={`nav-section__items-${expanded ? 'visible' : 'hidden'}`}>
         {expanded &&
-          Object.entries(section.children).map(([_, subsection]) => (
+          filteredChildren.map((subsection) => (
             <Subsection
               prefix={subsection.anchor}
               assessmentType={assessmentType}

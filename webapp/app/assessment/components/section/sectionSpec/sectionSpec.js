@@ -6,6 +6,7 @@ export const KEYS_SECTION = {
   tableSections: 'tableSections',
   showTitle: 'showTitle',
   descriptions: 'descriptions',
+  dataExport: 'dataExport',
 }
 
 export const KEYS_SECTION_DESCRIPTIONS = {
@@ -13,6 +14,9 @@ export const KEYS_SECTION_DESCRIPTIONS = {
   nationalData: 'nationalData',
   analysisAndProcessing: 'analysisAndProcessing',
   comments: 'comments',
+}
+export const KEYS_DATA_EXPORT = {
+  included: 'included',
 }
 
 const sectionSpecDefault = {
@@ -26,6 +30,7 @@ const sectionSpecDefault = {
     [KEYS_SECTION_DESCRIPTIONS.analysisAndProcessing]: true,
     [KEYS_SECTION_DESCRIPTIONS.comments]: true,
   },
+  [KEYS_SECTION.dataExport]: { [KEYS_DATA_EXPORT.included]: true },
 }
 
 const assocTableSections = (sectionSpec) => {
