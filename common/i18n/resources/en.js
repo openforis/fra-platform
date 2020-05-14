@@ -10,6 +10,7 @@ module.exports.translation = {
     fraPlatform: 'Fra platform',
     login: 'Login',
     statisticalFactsheets: 'Statistical factsheets',
+    dataExport: 'Data Export',
   },
 
   countrySelection: {
