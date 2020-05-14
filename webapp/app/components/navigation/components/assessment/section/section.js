@@ -14,18 +14,19 @@ import useI18n from '@webapp/components/hooks/useI18n'
 import * as ReviewStatusState from '@webapp/app/country/reviewStatusState'
 
 import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpecs'
-import { useDataExportView } from '@webapp/components/hooks'
+import { useIsDataExportView } from '@webapp/components/hooks'
 
 const Section = (props) => {
   const { assessmentType, section, showSections, prefix } = props
 
   const i18n = useI18n()
-
-  const sectionLabel = i18n.t(section.label)
-
+  const isDataExport = useIsDataExportView()
   const { pathname } = useLocation()
   const childStatus = useSelector(ReviewStatusState.getStatusSectionChildren(section))
   const [expanded, setExpanded] = useState(false)
+
+  const sectionLabel = i18n.t(section.label)
+
   useEffect(() => {
     setExpanded(showSections)
   }, [showSections])
@@ -40,8 +41,6 @@ const Section = (props) => {
       setExpanded(true)
     }
   }, [])
-
-  const isDataExport = useDataExportView()
 
   const visible = (subsection) =>
     matchPath(pathname, { path: BasePaths.dataExport }) &&
@@ -67,7 +66,7 @@ const Section = (props) => {
       >
         <div className="nav-section__order">{prefix}</div>
         <div className="nav-section__label">{sectionLabel}</div>
-        {!expanded && (
+        {!expanded && !isDataExport && (
           <div className="nav-section__status-content">
             <ReviewStatus status={childStatus} />
           </div>

@@ -44,6 +44,16 @@
   }
 }
 
+.app-view.data-export {
+  grid-template-areas: 'navigation header' 'navigation content';
+  &.navigation-on {
+    grid-template-columns: 256px 1fr;
+  }
+  &.navigation-off {
+    grid-template-columns: 0px 1fr;
+  }
+}
+
 .fra-review__container + .app-view {
   width: ~'calc(100vw - @{ui-app-review-width})';
 }
