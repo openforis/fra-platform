@@ -36,7 +36,7 @@ const tableSpec1 = SectionSpec.newTableSpec({
         }),
       ],
     }),
-    ...R.range(1, 11).map(idx =>
+    ...R.range(1, 11).map((idx) =>
       SectionSpec.newRowData({
         [SectionSpec.KEYS_ROW.label]: `#${idx}`,
         [SectionSpec.KEYS_ROW.cols]: [
@@ -124,6 +124,7 @@ const tableSection = SectionSpec.newTableSection({
 const nonWoodForestProductsRemovals = SectionSpec.newSectionSpec({
   [SectionSpec.KEYS_SECTION.sectionName]: section.name,
   [SectionSpec.KEYS_SECTION.sectionAnchor]: section.anchor,
+  [SectionSpec.KEYS_SECTION.dataExport]: { [SectionSpec.KEYS_DATA_EXPORT.included]: false },
   [SectionSpec.KEYS_SECTION.descriptions]: {
     [SectionSpec.KEYS_SECTION_DESCRIPTIONS.analysisAndProcessing]: false,
   },

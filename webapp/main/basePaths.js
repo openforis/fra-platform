@@ -8,6 +8,7 @@ const pathFragments = {
   print: 'print',
   profilePicture: 'profilePicture',
   statisticalFactsheets: 'statisticalFactsheets',
+  export: 'export',
   user: 'user',
   users: 'users',
   versioning: 'versioning',
@@ -31,6 +32,7 @@ const _pathGenerator = (...parts) => `/${parts.filter((p) => !!p).join('/')}/`
 export const root = '/'
 export const login = _pathGenerator(pathFragments.login)
 export const statisticalFactsheets = _pathGenerator(pathFragments.statisticalFactsheets)
+export const dataExport = _pathGenerator(pathFragments.export)
 export const country = _pathGenerator(pathFragments.params.countryIso)
 export const admin = _pathGenerator(pathFragments.admin)
 

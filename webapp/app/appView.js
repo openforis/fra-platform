@@ -22,6 +22,7 @@ import * as CountryState from '@webapp/app/country/countryState'
 import * as NavigationState from '@webapp/app/components/navigation/navigationState'
 
 import { fetchCountryInitialData, fetchCountryList } from '@webapp/app/country/actions'
+import { useIsDataExportView } from '@webapp/components/hooks'
 
 import routes from './routes'
 
@@ -32,7 +33,8 @@ const LoggedInView = () => {
   const userInfo = useUserInfo()
   const countriesLoaded = useSelector(CountryState.hasCountries)
   const countryStatusLoaded = useSelector(CountryState.hasStatus)
-  const navigationVisible = useSelector(NavigationState.isVisible)
+  const isDataExport = useIsDataExportView()
+  const navigationVisible = useSelector(NavigationState.isVisible) || isDataExport
 
   const printView = !!matchPath(pathname, { path: BasePaths.assessmentPrint })
   const printOnlyTablesView = !!matchPath(pathname, { path: BasePaths.assessmentPrintOnlyTables, exact: true })
@@ -55,6 +57,8 @@ const LoggedInView = () => {
   }
 
   let classNameAppView = 'app-view'
+
+  classNameAppView += isDataExport ? ' data-export' : ''
   classNameAppView += navigationVisible ? ' navigation-on' : ''
   classNameAppView += !navigationVisible && countryIso ? ' navigation-off' : ''
 
@@ -77,7 +81,7 @@ const LoggedInView = () => {
           </>
         )}
         <div className={classNameAppView}>
-          <CountrySelection className={navigationVisible ? 'nav-base' : ''} />
+          {!isDataExport && <CountrySelection className={navigationVisible ? 'nav-base' : ''} />}
           <Header />
           <Navigation />
           <Switch>

@@ -10,11 +10,13 @@ import useCountryIso from '@webapp/components/hooks/useCountryIso'
 import useI18n from '@webapp/components/hooks/useI18n'
 
 import * as ReviewStatusState from '@webapp/app/country/reviewStatusState'
+import { useIsDataExportView } from '@webapp/components/hooks'
 
 const Subsection = (props) => {
   const { assessmentType, sectionName, prefix } = props
   const countryIso = useCountryIso()
   const i18n = useI18n()
+  const isDataExport = useIsDataExportView()
 
   const reviewStatus = useSelector(ReviewStatusState.getStatusSection(sectionName))
 
@@ -26,9 +28,11 @@ const Subsection = (props) => {
     >
       <div className="nav-section__order">{prefix}</div>
       <div className="nav-section__label">{i18n.t(`${sectionName}.${sectionName}`)}</div>
-      <div className="nav-section__status-content">
-        <ReviewStatus status={reviewStatus} />
-      </div>
+      {!isDataExport && (
+        <div className="nav-section__status-content">
+          <ReviewStatus status={reviewStatus} />
+        </div>
+      )}
     </NavLink>
   )
 }

@@ -9,17 +9,24 @@ import LinkLanding from '@webapp/app/components/navigation/components/linkLandin
 import LinkPanEuropeanIndicators from '@webapp/app/components/navigation/components/linkPanEuropeanIndicators'
 import Footer from '@webapp/app/components/navigation/components/footer'
 import useCountryIso from '@webapp/components/hooks/useCountryIso'
+import { useIsDataExportView } from '@webapp/components/hooks'
 
 const Navigation = () => {
   const countryIso = useCountryIso()
+  const isDataExport = useIsDataExportView()
+
   return (
     <div className="nav no-print">
-      {countryIso && (
+      {(countryIso || isDataExport) && (
         <>
-          <LinkLanding />
-          <div className="nav__divider" />
-          <Assessment name={FRA.type} sections={FRA.sections} />
-          <LinkPanEuropeanIndicators />
+          {!isDataExport && (
+            <>
+              <LinkLanding />
+              <div className="nav__divider" />
+            </>
+          )}
+          <Assessment assessmentType={FRA.type} sections={FRA.sections} />
+          {!isDataExport && <LinkPanEuropeanIndicators />}
           <div className="nav__divider" />
           <Footer />
         </>

@@ -13,16 +13,19 @@ import useI18n from '@webapp/components/hooks/useI18n'
 
 import * as ReviewStatusState from '@webapp/app/country/reviewStatusState'
 
+import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpecs'
+import { useIsDataExportView } from '@webapp/components/hooks'
+
 const Section = (props) => {
   const { assessmentType, section, showSections, prefix } = props
 
   const i18n = useI18n()
-
-  const sectionLabel = i18n.t(section.label)
-
+  const isDataExport = useIsDataExportView()
   const { pathname } = useLocation()
   const childStatus = useSelector(ReviewStatusState.getStatusSectionChildren(section))
   const [expanded, setExpanded] = useState(false)
+
+  const sectionLabel = i18n.t(section.label)
 
   useEffect(() => {
     setExpanded(showSections)
@@ -38,6 +41,19 @@ const Section = (props) => {
       setExpanded(true)
     }
   }, [])
+
+  const visible = (subsection) =>
+    matchPath(pathname, { path: BasePaths.dataExport }) &&
+    SectionSpec.getSectionSpec(assessmentType, subsection.name).dataExport.included
+
+  const filterDataExportChildren = (children) => children.filter((x) => visible(x))
+  const children = Object.values(section.children)
+  const filteredChildren = isDataExport ? filterDataExportChildren(children) : children
+
+  if (!filteredChildren.length) {
+    return null
+  }
+
   return (
     <div className="nav-section">
       <div
@@ -50,7 +66,7 @@ const Section = (props) => {
       >
         <div className="nav-section__order">{prefix}</div>
         <div className="nav-section__label">{sectionLabel}</div>
-        {!expanded && (
+        {!expanded && !isDataExport && (
           <div className="nav-section__status-content">
             <ReviewStatus status={childStatus} />
           </div>
@@ -58,7 +74,7 @@ const Section = (props) => {
       </div>
       <div className={`nav-section__items-${expanded ? 'visible' : 'hidden'}`}>
         {expanded &&
-          Object.entries(section.children).map(([_, subsection]) => (
+          filteredChildren.map((subsection) => (
             <Subsection
               prefix={subsection.anchor}
               assessmentType={assessmentType}

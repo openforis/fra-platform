@@ -178,6 +178,7 @@ const tableSection6 = SectionSpec.newTableSection({
 const sustainableDevelopment = SectionSpec.newSectionSpec({
   [SectionSpec.KEYS_SECTION.sectionName]: section.name,
   [SectionSpec.KEYS_SECTION.sectionAnchor]: section.anchor,
+  [SectionSpec.KEYS_SECTION.dataExport]: { [SectionSpec.KEYS_DATA_EXPORT.included]: false },
   [SectionSpec.KEYS_SECTION.tableSections]: [
     tableSection1,
     tableSection2,

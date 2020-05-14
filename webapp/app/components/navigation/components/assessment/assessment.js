@@ -8,19 +8,24 @@ import Section from '@webapp/app/components/navigation/components/assessment/sec
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 
 const Assessment = (props) => {
-  const { name, sections } = props
+  const { assessmentType, sections } = props
 
-  const assessment = useSelector(AssessmentState.getAssessment(name))
+  const assessment = useSelector(AssessmentState.getAssessment(assessmentType))
 
   const [showSections, setShowSections] = useState(false)
 
   return (
     <div className="nav-assessment">
-      <Header assessment={assessment} showSections={showSections} setShowSections={setShowSections} />
+      <Header
+        assessmentType={assessmentType}
+        assessment={assessment}
+        showSections={showSections}
+        setShowSections={setShowSections}
+      />
 
       {Object.entries(sections).map(([key, section]) => (
         <Section
-          assessmentType={name}
+          assessmentType={assessmentType}
           prefix={key > 0 ? key : ''}
           key={key}
           section={section}
@@ -32,7 +37,7 @@ const Assessment = (props) => {
 }
 
 Assessment.propTypes = {
-  name: PropTypes.string.isRequired,
+  assessmentType: PropTypes.string.isRequired,
   sections: PropTypes.object.isRequired,
 }
 
