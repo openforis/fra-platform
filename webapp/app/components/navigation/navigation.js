@@ -26,7 +26,7 @@ const Navigation = () => {
             </>
           )}
           <Assessment assessmentType={FRA.type} sections={FRA.sections} />
-          <LinkPanEuropeanIndicators />
+          {!isDataExport && <LinkPanEuropeanIndicators />}
           <div className="nav__divider" />
           <Footer />
         </>
