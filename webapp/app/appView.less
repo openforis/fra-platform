@@ -3,7 +3,7 @@
 .app-view {
   display: grid;
   grid-template-columns: 0 256px 1fr;
-  grid-template-rows: 64px 1fr;
+  grid-template-rows: 64px calc(100% - 64px);
   grid-template-areas: 'country-selection country-selection header' 'navigation content content';
   height: 100vh;
   width: 100vw;
