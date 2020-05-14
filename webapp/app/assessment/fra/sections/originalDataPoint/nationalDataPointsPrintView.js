@@ -24,6 +24,8 @@ const NationalDataPointsPrintView = (props) => {
       .sort((a, b) => Number(a.year) - Number(b.year))
   )
 
+  if (data.length === 0) return null
+
   return (
     <div>
       <h2 className="headline">{i18n.t('nationalDataPoint.nationalData')}</h2>
@@ -49,6 +51,8 @@ const NationalDataPointsPrintView = (props) => {
           return React.createElement(component, { key: odp.odpId, ...props, odp, canEditData: false })
         })}
       </div>
+
+      <div className="page-break" />
     </div>
   )
 }

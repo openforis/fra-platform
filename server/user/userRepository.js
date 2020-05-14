@@ -359,21 +359,24 @@ const updateUserFields = (client, userToUpdate, profilePictureFile) =>
     ]
   )
 
-const updateUser = async (client, user, countryIso, userToUpdate, profilePictureFile) => {
+const updateUser = async (client, user, countryIso, userToUpdate, profilePictureFile, updateRoles = false) => {
   await updateUserFields(client, userToUpdate, profilePictureFile)
-  // removing old roles
-  await client.query(`DELETE FROM user_country_role WHERE user_id = $1`, [userToUpdate.id])
-  // adding new roles
-  const userRolePromises = userToUpdate.roles.map(userRole =>
-    client.query(`
-      INSERT INTO user_country_role
-      (user_id, country_iso, role)
-      VALUES($1, $2, $3)`
-      , [userToUpdate.id, userRole.countryIso, userRole.role])
-  )
-  await Promise.all(userRolePromises)
-  // insert audit
-  await auditRepository.insertAudit(client, user.id, 'updateUser', countryIso, 'users', {user: userToUpdate.name})
+  if (updateRoles) {
+    // removing old roles
+    await client.query(`DELETE FROM user_country_role WHERE user_id = $1`, [userToUpdate.id])
+    // adding new roles
+    const userRolePromises = userToUpdate.roles.map((userRole) =>
+      client.query(
+        `INSERT INTO user_country_role
+        (user_id, country_iso, role)
+        VALUES($1, $2, $3)`,
+        [userToUpdate.id, userRole.countryIso, userRole.role]
+      )
+    )
+    await Promise.all(userRolePromises)
+    // insert audit
+    await auditRepository.insertAudit(client, user.id, 'updateUser', countryIso, 'users', { user: userToUpdate.name })
+  }
 }
 
 const removeUser = async (client, user, countryIso, userId) => {
