@@ -15,16 +15,16 @@ const AppLinks = (props) => {
 
   return (
     <>
-      <NavLink activeClassName="hidden" to={BasePaths.dataExport} className="app-header__app-link">
-        {i18n.t('common.dataExport')}
+      <NavLink activeClassName="hidden" isActive={isActive} to={BasePaths.root} className="app-header__app-link">
+        {i18n.t('common.fraPlatform')}
       </NavLink>
 
       <NavLink activeClassName="hidden" to={BasePaths.statisticalFactsheets} className="app-header__app-link">
         {i18n.t('common.statisticalFactsheets')}
       </NavLink>
 
-      <NavLink activeClassName="hidden" isActive={isActive} to={BasePaths.root} className="app-header__app-link">
-        {i18n.t('common.fraPlatform')}
+      <NavLink activeClassName="hidden" to={BasePaths.dataExport} className="app-header__app-link">
+        {i18n.t('common.dataExport')}
       </NavLink>
     </>
   )
