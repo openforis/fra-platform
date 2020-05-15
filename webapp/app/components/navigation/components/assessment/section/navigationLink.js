@@ -19,13 +19,12 @@ const Subsection = (props) => {
   const isDataExport = useIsDataExportView()
 
   const reviewStatus = useSelector(ReviewStatusState.getStatusSection(sectionName))
+  const to = isDataExport
+    ? BasePaths.getDataExportSectionLink(sectionName)
+    : BasePaths.getAssessmentSectionLink(countryIso, assessmentType, sectionName)
 
   return (
-    <NavLink
-      to={BasePaths.getAssessmentSectionLink(countryIso, assessmentType, sectionName)}
-      className="nav-section__item"
-      activeClassName="selected"
-    >
+    <NavLink to={to} className="nav-section__item" activeClassName="selected">
       <div className="nav-section__order">{prefix}</div>
       <div className="nav-section__label">{i18n.t(`${sectionName}.${sectionName}`)}</div>
       {!isDataExport && (

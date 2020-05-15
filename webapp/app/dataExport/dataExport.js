@@ -1,11 +1,11 @@
 import React from 'react'
+import { Redirect } from 'react-router'
+
+import * as BasePaths from '@webapp/main/basePaths'
+import * as FRA from '@common/assessment/fra'
 
 const DataExport = () => {
-  return (
-    <div className="app-view__content">
-      <h1>DataExport</h1>
-    </div>
-  )
+  return <Redirect to={BasePaths.getDataExportSectionLink(Object.values(FRA.sections['1'].children)[0].name)} />
 }
 
 export default DataExport
