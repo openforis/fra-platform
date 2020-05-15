@@ -6,10 +6,10 @@ const AssessmentTitle = (props) => {
   const { type, deskStudy } = props
   const i18n = useI18n()
   return (
-    <>
+    <div>
       {i18n.t(`assessment.${type}`)}
       {deskStudy && <div className="desk-study">({i18n.t('assessment.deskStudy')})</div>}
-    </>
+    </div>
   )
 }
 
