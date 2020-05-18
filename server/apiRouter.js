@@ -20,9 +20,10 @@ const collaboratorsApi = require('./collaborators/collaboratorsApi')
 const countryMessageBoardApi = require('./countryMessageBoard/countryMessageBoardApi')
 const versioningApi = require('./versioning/api')
 const statisticalFactsheetsApi = require('./statisticalFactsheets/api')
+const dataExportApi = require('./dataExport/api')
 
 const apiRouter = express.Router()
-//Nothing should be cached by default with the APIs
+// Nothing should be cached by default with the APIs
 apiRouter.use((req, res, next) => {
   res.set('Cache-Control', 'no-store')
   next()
@@ -48,5 +49,6 @@ collaboratorsApi.init(apiRouter)
 countryMessageBoardApi.init(apiRouter)
 versioningApi.init(apiRouter)
 statisticalFactsheetsApi.init(apiRouter)
+dataExportApi.init(apiRouter)
 
 module.exports.router = apiRouter
