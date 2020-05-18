@@ -97,3 +97,6 @@ export const getUserProfileLink = (userId) => _pathGenerator(pathFragments.users
 
 // /admin/versioning/
 export const getAdminVersioningLink = () => _pathGenerator(pathFragments.admin, pathFragments.versioning)
+
+// /export/:section/
+export const getDataExportSectionLink = (section) => _pathGenerator(pathFragments.export, section)
