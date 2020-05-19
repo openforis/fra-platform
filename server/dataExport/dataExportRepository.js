@@ -28,17 +28,15 @@ const KEYS_TABLE = {
 const getExportData = async (table, variable, countries, columns) => {
   // Add "" around year columns
   const columnsJoined = columns.map((x) => `"${x}"`).join(',')
+  const countriesJoined = countries.map((x) => `'${x}'`).join(',')
 
   const query = `
     SELECT country_iso, row_name, ${columnsJoined}
     FROM ${KEYS_TABLE[table]} t
-    WHERE t.country_iso IN ($1)
-    AND t.row_name = $2
+    WHERE t.country_iso IN (${countriesJoined})
+    AND t.row_name = $1
   `
-
-  const result = await db.query(query, [countries, variable])
-  console.log(result, query)
-
+  const result = await db.query(query, [variable])
   return camelize(result.rows)
 }
 

@@ -14,7 +14,6 @@ module.exports.init = (app) => {
 
     // const result = await DataExportRepository.getExportData(table, variable, JSON.parse(countries), JSON.parse(columns))
     const result = await DataExportRepository.getExportData(table, variable, countries, columns)
-
     res.json(result)
   })
 }
