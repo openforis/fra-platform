@@ -57,7 +57,6 @@ const LoggedInView = () => {
   }
 
   let classNameAppView = 'app-view'
-
   classNameAppView += isDataExport ? ' data-export' : ''
   classNameAppView += navigationVisible ? ' navigation-on' : ''
   classNameAppView += !navigationVisible && countryIso ? ' navigation-off' : ''
