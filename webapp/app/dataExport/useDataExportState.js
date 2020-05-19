@@ -13,8 +13,7 @@ export default () => {
     variable: '',
   })
 
-  const url = `/api/country/all`
-  const { data: countries, dispatch: fetchCountries } = useGetRequest(url)
+  const { data: countries = [], dispatch: fetchCountries } = useGetRequest(`/api/countries`)
 
   useEffect(() => {
     fetchCountries()
@@ -26,10 +25,12 @@ export default () => {
       variable: '',
       columns: [],
     })
+    setVariables([])
+    setColumns([])
   }, [section])
 
-  const setSelectionCountries = (value) => setSelection({ ...selection, countries: [...selection.countries, value] })
-  const setSelectionColumns = (value) => setSelection({ ...selection, columns: [...selection.columns, value] })
+  const setSelectionCountries = (value) => setSelection({ ...selection, countries: value })
+  const setSelectionColumns = (value) => setSelection({ ...selection, columns: value })
   const setSelectionVariable = (value) => setSelection({ ...selection, variable: value })
 
   return { countries, columns, selection, variables, setSelectionCountries, setSelectionColumns, setSelectionVariable }
