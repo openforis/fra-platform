@@ -66,7 +66,7 @@ export const odp = _pathGenerator(pathFragments.params.countryIso, pathFragments
 export const user = _pathGenerator(pathFragments.users, pathFragments.params.userId)
 
 // ==== getter utilities
-// /:countryIso
+// /:countryIso/
 export const getCountryHomeLink = (countryIso) => _pathGenerator(countryIso)
 
 // /:countryIso/assessment/:assessmentType/:sectionName/
@@ -77,7 +77,7 @@ export const getAssessmentSectionLink = (countryIso, assessmentType, sectionName
 export const getAssessmentPrintLink = (countryIso, assessmentType, onlyTables = false) =>
   _pathGenerator(countryIso, pathFragments.print, assessmentType, onlyTables && pathFragments.onlyTables)
 
-// /:countryIso/print/:assessmentType/onlyTables/
+// /:countryIso/odp/:sectionName/:odpId/
 export const getOdpLink = (countryIso, sectionName, odpId) =>
   _pathGenerator(countryIso, pathFragments.odp, sectionName, odpId)
 

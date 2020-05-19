@@ -11,6 +11,8 @@ module.exports.translation = {
     login: 'Login',
     statisticalFactsheets: 'Statistical factsheets',
     dataExport: 'Data Export',
+    selectAll: 'Select all',
+    unselectAll: 'Unselect all',
   },
 
   countrySelection: {
