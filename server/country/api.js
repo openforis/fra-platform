@@ -37,7 +37,8 @@ module.exports.init = app => {
 
   app.get('/countries', async (req, res) => {
     try {
-      const countries = await CountryService.getAllCountriesList()
+      // This endpoint does not return Atlantis countries (first countryIso character = X)
+      const countries = (await CountryService.getAllCountriesList()).filter((country) => country.countryIso[0] !== 'X')
       res.json(countries)
     } catch (err) {
       Request.sendErr(res, err)
