@@ -34,8 +34,9 @@ const Section = (props) => {
   // On mount check whether the location matches a child path
   useEffect(() => {
     const match = Object.entries(section.children).find(([_, subsection]) => {
-      const path = BasePaths.assessmentSection.replace(':section', subsection.name)
-      return matchPath(pathname, { path })
+      const pathDataEntry = BasePaths.assessmentSection.replace(':section', subsection.name)
+      const pathDataExport = BasePaths.getDataExportSectionLink(subsection.name)
+      return matchPath(pathname, { path: [pathDataEntry, pathDataExport] })
     })
     if (match) {
       setExpanded(true)
