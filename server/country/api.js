@@ -9,7 +9,7 @@ const countryRepository = require('./countryRepository')
 const reviewRepository = require('../review/reviewRepository')
 const odpRepository = require('../odp/odpRepository')
 const assessmentRepository = require('../assessment/assessmentRepository')
-const { fetchCollaboratorCountryAccessTables } = require('./../collaborators/collaboratorsRepository')
+const { fetchCollaboratorCountryAccessTables } = require('../collaborators/collaboratorsRepository')
 const Auth = require('../auth/authApiMiddleware')
 
 const {
@@ -30,6 +30,15 @@ module.exports.init = app => {
       const result = await countryRepository.getAllowedCountries(userRoles, schmeName)
 
       res.json(result)
+    } catch (err) {
+      Request.sendErr(res, err)
+    }
+  })
+
+  app.get('/countries', async (req, res) => {
+    try {
+      const countries = await CountryService.getAllCountriesList()
+      res.json(countries)
     } catch (err) {
       Request.sendErr(res, err)
     }

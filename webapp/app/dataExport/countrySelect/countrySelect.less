@@ -1,0 +1,34 @@
+.export-country-select {
+  overflow-y: hidden;
+  display: grid;
+  grid-template-rows: 50px 1fr;
+}
+
+.export-country-select__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+
+  .text-input {
+    padding: 3px 9px;
+  }
+}
+
+.export-country-select__countries {
+  display: grid;
+  justify-items: start;
+  height: calc(100% - 50px);
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  .btn-country {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 400;
+
+    .fra-checkbox {
+      margin-right: 8px;
+    }
+  }
+}
