@@ -1,5 +1,4 @@
 import './appView.less'
-
 import React, { useEffect, memo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { matchPath, Route, Switch, useLocation, useParams } from 'react-router-dom'
@@ -7,6 +6,7 @@ import { matchPath, Route, Switch, useLocation, useParams } from 'react-router-d
 import * as BasePaths from '@webapp/main/basePaths'
 import { batchActions } from '@webapp/main/reduxBatch'
 
+import { useIsDataExportView, useNavigationVisible } from '@webapp/components/hooks'
 import CountrySelection from '@webapp/app/components/countrySelection'
 import Header from '@webapp/app/components/header/header'
 import Navigation from '@webapp/app/components/navigation/navigation'
@@ -19,10 +19,7 @@ import StatisticalFactsheets from '@webapp/app/statisticalFactsheets'
 import useUserInfo from '@webapp/components/hooks/useUserInfo'
 
 import * as CountryState from '@webapp/app/country/countryState'
-import * as NavigationState from '@webapp/app/components/navigation/navigationState'
-
 import { fetchCountryInitialData, fetchCountryList } from '@webapp/app/country/actions'
-import { useIsDataExportView } from '@webapp/components/hooks'
 
 import routes from './routes'
 
@@ -34,7 +31,7 @@ const LoggedInView = () => {
   const countriesLoaded = useSelector(CountryState.hasCountries)
   const countryStatusLoaded = useSelector(CountryState.hasStatus)
   const isDataExport = useIsDataExportView()
-  const navigationVisible = useSelector(NavigationState.isVisible) || isDataExport
+  const navigationVisible = useNavigationVisible()
 
   const printView = !!matchPath(pathname, { path: BasePaths.assessmentPrint })
   const printOnlyTablesView = !!matchPath(pathname, { path: BasePaths.assessmentPrintOnlyTables, exact: true })
@@ -59,7 +56,7 @@ const LoggedInView = () => {
   let classNameAppView = 'app-view'
   classNameAppView += isDataExport ? ' data-export' : ''
   classNameAppView += navigationVisible ? ' navigation-on' : ''
-  classNameAppView += !navigationVisible && countryIso ? ' navigation-off' : ''
+  classNameAppView += !navigationVisible && (countryIso || isDataExport) ? ' navigation-off' : ''
 
   return (
     <Switch>

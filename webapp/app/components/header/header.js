@@ -6,25 +6,22 @@ import { Link } from 'react-router-dom'
 
 import * as BasePaths from '@webapp/main/basePaths'
 
-import UserInfoLinks from '@webapp/app/components/header/components/userInfo'
-import LanguageSelection from '@webapp/app/components/header/components/languageSelection'
-import AppLinks from '@webapp/app/components/header/components/AppLinks'
-import AutoSaveStatusText from '@webapp/app/components/header/components/autoSaveStatusText'
-import ToggleNavigationControl from '@webapp/app/components/header/components/toggleNavigationControl'
-import useI18n from '@webapp/components/hooks/useI18n'
-import useCountryIso from '@webapp/components/hooks/useCountryIso'
-import useUserInfo from '@webapp/components/hooks/useUserInfo'
+import { useI18n, useUserInfo } from '@webapp/components/hooks'
+import UserInfoLinks from './components/userInfo'
+import LanguageSelection from './components/languageSelection'
+import AppLinks from './components/AppLinks'
+import AutoSaveStatusText from './components/autoSaveStatusText'
+import ToggleNavigationControl from './components/toggleNavigationControl'
 
-const Header = props => {
+const Header = (props) => {
   const { hideLinks, hideNavigationControl } = props
 
   const userInfo = useUserInfo()
-  const countryIso = useCountryIso()
   const i18n = useI18n()
 
   return (
     <div className="app-header no-print">
-      {countryIso && !hideNavigationControl ? <ToggleNavigationControl /> : <div />}
+      {hideNavigationControl ? <div /> : <ToggleNavigationControl />}
 
       <AutoSaveStatusText />
 
