@@ -23,7 +23,7 @@ const CountrySelect = (props) => {
           className="text-input"
           placeholder={i18n.t('emoji.picker.search')}
           onChange={(event) => {
-            const value = event.target.value.trim().toLocaleLowerCase()
+            const value = event.target.value.trim().toLowerCase()
             if (value === '') {
               setCountriesFiltered(countries)
             } else {
