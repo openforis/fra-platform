@@ -107,6 +107,7 @@ const tableSpec1 = SectionSpec.newTableSpec({
 })
 
 const tableSpec2 = SectionSpec.newTableSpec({
+  [SectionSpec.KEYS_TABLE.dataExport]: false,
   [SectionSpec.KEYS_TABLE.name]: section.tables.climaticDomain,
   [SectionSpec.KEYS_TABLE.rows]: rowsClimaticDomain,
 })
