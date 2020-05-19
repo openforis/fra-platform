@@ -1,7 +1,29 @@
+@import 'webapp/main/styles/config';
+
 .export-country-select {
   overflow-y: hidden;
   display: grid;
-  grid-template-rows: 50px 1fr;
+  grid-template-rows: 50px 29px 1px 1fr;
+
+  .btn-country {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 400;
+
+    .fra-checkbox {
+      margin-right: 8px;
+    }
+  }
+
+  .btn-all {
+    height: 29px;
+    justify-self: start;
+  }
+
+  .divider {
+    border-bottom: 1px solid @ui-border-light;
+  }
 }
 
 .export-country-select__header {
@@ -19,18 +41,7 @@
   align-items: start;
   align-content: start;
   justify-items: start;
-  height: calc(100% - 50px);
+  height: auto;
   overflow-y: auto;
   overflow-x: hidden;
-
-  .btn-country {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 400;
-
-    .fra-checkbox {
-      margin-right: 8px;
-    }
-  }
 }

@@ -33,6 +33,23 @@ const CountrySelect = (props) => {
         />
       </div>
 
+      <button
+        type="button"
+        className="btn-s btn-country btn-all"
+        onClick={() => {
+          if (selectionCountries.length > 0) setSelectionCountries([])
+          else setSelectionCountries(countries.map((country) => country.countryIso))
+        }}
+      >
+        <div
+          className={`fra-checkbox${
+            selectionCountries.length > 0 && selectionCountries.length === countries.length ? ' checked' : ''
+          }`}
+        />
+        <div>{i18n.t(selectionCountries.length > 0 ? 'common.unselectAll' : 'common.selectAll')}</div>
+      </button>
+      <div className="divider" />
+
       <div className="export-country-select__countries">
         {countriesFiltered.map((country) => {
           const { countryIso } = country
