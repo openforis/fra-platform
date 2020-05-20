@@ -40,7 +40,7 @@ const tableSpec = SectionSpec.newTableSpec({
     }),
     SectionSpec.newRowHeader({
       [SectionSpec.KEYS_ROW.cols]: [
-        ...years.map(year =>
+        ...years.map((year) =>
           SectionSpec.newColHeader({
             [SectionSpec.KEYS_COL.label]: year,
           })
@@ -57,9 +57,10 @@ const tableSpec = SectionSpec.newTableSpec({
         }),
       ],
     }),
-    ...GrowingStockCompositionState.rowIndexes.native.map(idx =>
+    ...GrowingStockCompositionState.rowIndexes.native.map((idx) =>
       SectionSpec.newRowData({
         [SectionSpec.KEYS_ROW.labelKey]: 'growingStockComposition.rank',
+        [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES[`native_rank${idx + 1}`],
         [SectionSpec.KEYS_ROW.labelParams]: { idx: idx + 1 },
         [SectionSpec.KEYS_ROW.cols]: [
           SectionSpec.newColText(),
@@ -70,6 +71,7 @@ const tableSpec = SectionSpec.newTableSpec({
     ),
     SectionSpec.newRowData({
       [SectionSpec.KEYS_ROW.labelKey]: 'growingStockComposition.remainingNative',
+      [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.remaining_native,
       [SectionSpec.KEYS_ROW.colSpan]: 3,
       [SectionSpec.KEYS_ROW.mainCategory]: true,
       [SectionSpec.KEYS_ROW.cols]: years.map((year, idx) =>
@@ -80,6 +82,7 @@ const tableSpec = SectionSpec.newTableSpec({
     }),
     SectionSpec.newRowData({
       [SectionSpec.KEYS_ROW.labelKey]: 'growingStockComposition.totalNative',
+      [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.total_native,
       [SectionSpec.KEYS_ROW.colSpan]: 3,
       [SectionSpec.KEYS_ROW.mainCategory]: true,
       [SectionSpec.KEYS_ROW.cols]: years.map((year, idx) =>
@@ -98,6 +101,7 @@ const tableSpec = SectionSpec.newTableSpec({
     ...GrowingStockCompositionState.rowIndexes.introduced.map((rowIdx, idx) =>
       SectionSpec.newRowData({
         [SectionSpec.KEYS_ROW.labelKey]: 'growingStockComposition.rank',
+        [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES[`introduced_rank${idx + 1}`],
         [SectionSpec.KEYS_ROW.labelParams]: { idx: idx + 1 },
         [SectionSpec.KEYS_ROW.cols]: [
           SectionSpec.newColText(),
@@ -108,6 +112,7 @@ const tableSpec = SectionSpec.newTableSpec({
     ),
     SectionSpec.newRowData({
       [SectionSpec.KEYS_ROW.labelKey]: 'growingStockComposition.remainingIntroduced',
+      [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.remaining_introduced_placeholder,
       [SectionSpec.KEYS_ROW.colSpan]: 3,
       [SectionSpec.KEYS_ROW.mainCategory]: true,
       [SectionSpec.KEYS_ROW.cols]: years.map((year, idx) =>
@@ -118,6 +123,8 @@ const tableSpec = SectionSpec.newTableSpec({
     }),
     SectionSpec.newRowData({
       [SectionSpec.KEYS_ROW.labelKey]: 'growingStockComposition.totalIntroduced',
+      [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.total_introduced,
+
       [SectionSpec.KEYS_ROW.colSpan]: 3,
       [SectionSpec.KEYS_ROW.mainCategory]: true,
       [SectionSpec.KEYS_ROW.cols]: years.map((year, idx) =>
