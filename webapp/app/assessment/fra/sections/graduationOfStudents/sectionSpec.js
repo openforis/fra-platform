@@ -5,6 +5,13 @@ import * as SectionSpec from '@webapp/app/assessment/components/section/sectionS
 const section = FRA.sections['7'].children.b
 const years = FRA.yearsTable.slice(0, FRA.yearsTable.length - 1)
 const categories = ['total', 'female', 'male']
+const variableMappings = {
+  doctoralDegree: SectionSpec.VARIABLES.doctoral_degree,
+  mastersDegree: SectionSpec.VARIABLES.masters_degree,
+  bachelorsDegree: SectionSpec.VARIABLES.bachelors_degree,
+  technicianCertificate: SectionSpec.VARIABLES.technician_certificate,
+  total: SectionSpec.VARIABLES.total,
+}
 
 const getDataCols = () => years.map(() => categories.map(() => SectionSpec.newColDecimal())).flat()
 
@@ -46,6 +53,7 @@ const tableSpec = SectionSpec.newTableSpec({
     ...['doctoralDegree', 'mastersDegree', 'bachelorsDegree', 'technicianCertificate', 'total'].map((variable) =>
       SectionSpec.newRowData({
         [SectionSpec.KEYS_ROW.labelKey]: `graduationOfStudents.${variable}`,
+        [SectionSpec.KEYS_ROW.variableExport]: variableMappings[variable],
         [SectionSpec.KEYS_ROW.cols]: getDataCols(),
       })
     ),
