@@ -123,7 +123,7 @@ const tableSpec = SectionSpec.newTableSpec({
     }),
     SectionSpec.newRowData({
       [SectionSpec.KEYS_ROW.labelKey]: 'growingStockComposition.totalIntroduced',
-      [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.total_introduced,
+      [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.total_remaining,
 
       [SectionSpec.KEYS_ROW.colSpan]: 3,
       [SectionSpec.KEYS_ROW.mainCategory]: true,

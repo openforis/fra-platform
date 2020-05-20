@@ -40,7 +40,6 @@ const variables = {
   // planted_forest: 'planted_forest',
   forest: 'forest',
   // 2b
-  totalIntroduced: 'total_introduced',
   introduced_rank1: 'introduced_rank1',
   introduced_rank2: 'introduced_rank2',
   introduced_rank3: 'introduced_rank3',
