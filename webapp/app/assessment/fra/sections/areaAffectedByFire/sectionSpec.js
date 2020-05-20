@@ -30,10 +30,12 @@ const tableSpec = SectionSpec.newTableSpec({
     }),
     SectionSpec.newRowData({
       [SectionSpec.KEYS_ROW.labelKey]: 'areaAffectedByFire.totalLandAreaAffectedByFire',
+      [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.total_land_area_affected_by_fire,
       [SectionSpec.KEYS_ROW.cols]: FRA.yearsAnnual.map(() => SectionSpec.newColDecimal()),
     }),
     SectionSpec.newRowData({
       [SectionSpec.KEYS_ROW.labelKey]: 'areaAffectedByFire.ofWhichForest',
+      [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.of_which_on_forest,
       [SectionSpec.KEYS_ROW.subcategory]: true,
       [SectionSpec.KEYS_ROW.cols]: FRA.yearsAnnual.map(() =>
         SectionSpec.newColDecimal({
