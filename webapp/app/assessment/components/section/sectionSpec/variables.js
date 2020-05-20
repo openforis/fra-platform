@@ -3,6 +3,7 @@ const variables = {
   forest_area: 'forest_area',
   total_land_area: 'total_land_area',
   forest_area_percent: 'forest_area_percent',
+  other_land: 'other_land',
   other_wooded_land: 'other_wooded_land',
   // 1b
   plantation_forest_introduced_area: 'plantation_forest_introduced_area',

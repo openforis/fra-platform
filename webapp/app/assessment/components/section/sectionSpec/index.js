@@ -35,3 +35,5 @@ export {
   newColSelectYesNo,
   newColPlaceholder,
 } from './colSpec'
+
+export { default as VARIABLES } from './variables'

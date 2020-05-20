@@ -22,6 +22,7 @@ export const KEYS_ROW = {
   // keys of col row notice message
   rowSpan: 'rowSpan',
   colSpan: 'colSpan',
+  variableExport: 'variableExport',
 }
 
 export const KEYS_ROW_CHART = {
@@ -46,6 +47,7 @@ const rowDataDefault = {
   [KEYS_ROW.linkToSection]: null,
   [KEYS_ROW.subcategory]: false,
   [KEYS_ROW.mainCategory]: false,
+  [KEYS_ROW.variableExport]: null,
 }
 
 const rowValidationMessagesDefault = {
