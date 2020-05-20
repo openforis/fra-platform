@@ -8,12 +8,14 @@ const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.rows]: [
     SectionSpec.newRowData({
       [SectionSpec.KEYS_ROW.labelKey]: 'degradedForest.doesYourCountryMonitor',
+      [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.does_country_monitor,
       [SectionSpec.KEYS_ROW.colSpan]: 2,
       [SectionSpec.KEYS_ROW.mainCategory]: true,
       [SectionSpec.KEYS_ROW.cols]: [SectionSpec.newColSelectYesNo()],
     }),
     SectionSpec.newRowData({
       [SectionSpec.KEYS_ROW.labelKey]: 'degradedForest.ifYes',
+      [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.national_definition,
       [SectionSpec.KEYS_ROW.rowSpan]: 2,
       [SectionSpec.KEYS_ROW.cols]: [
         SectionSpec.newColPlaceholder({
@@ -27,6 +29,7 @@ const tableSpec = SectionSpec.newTableSpec({
     }),
     SectionSpec.newRowData({
       [SectionSpec.KEYS_ROW.labelKey]: 'degradedForest.howMonitored',
+      [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.how_monitored,
       [SectionSpec.KEYS_ROW.cols]: [
         SectionSpec.newColTextArea({
           [SectionSpec.KEYS_COL.idx]: 0,
