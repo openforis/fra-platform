@@ -12,6 +12,14 @@ const variables = [
   'carbonSoil',
 ]
 
+const variablesMappings = {
+  carbonAboveGroundBiomass: SectionSpec.VARIABLES.carbon_forest_above_ground,
+  carbonBelowGroundBiomass: SectionSpec.VARIABLES.carbon_forest_below_ground,
+  carbonDeadwood: SectionSpec.VARIABLES.carbon_forest_deadwood,
+  carbonLitter: SectionSpec.VARIABLES.carbon_forest_litter,
+  carbonSoil: SectionSpec.VARIABLES.carbon_forest_soil,
+}
+
 const tableSpec1 = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.carbonStock,
   [SectionSpec.KEYS_TABLE.rows]: [
@@ -29,14 +37,15 @@ const tableSpec1 = SectionSpec.newTableSpec({
       ],
     }),
     SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: years.map(year =>
+      [SectionSpec.KEYS_ROW.cols]: years.map((year) =>
         SectionSpec.newColHeader({
           [SectionSpec.KEYS_COL.label]: year,
         })
       ),
     }),
-    ...variables.map(variable =>
+    ...variables.map((variable) =>
       SectionSpec.newRowData({
+        [SectionSpec.KEYS_ROW.variableExport]: variablesMappings[variable],
         [SectionSpec.KEYS_ROW.labelKey]: `carbonStock.${variable}`,
         [SectionSpec.KEYS_ROW.cols]: years.map(() => SectionSpec.newColDecimal()),
       })
