@@ -5,6 +5,11 @@ import * as SectionSpec from '@webapp/app/assessment/components/section/sectionS
 const section = FRA.sections['2'].children.c
 const { years } = FRA
 const variables = ['aboveGround', 'belowGround', 'deadWood']
+const variablesMappings = {
+  aboveGround: SectionSpec.VARIABLES.forest_above_ground,
+  belowGround: SectionSpec.VARIABLES.forest_below_ground,
+  deadwood: SectionSpec.VARIABLES.forest_deadwood,
+}
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.biomassStock,
@@ -23,15 +28,16 @@ const tableSpec = SectionSpec.newTableSpec({
       ],
     }),
     SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: years.map(year =>
+      [SectionSpec.KEYS_ROW.cols]: years.map((year) =>
         SectionSpec.newColHeader({
           [SectionSpec.KEYS_COL.label]: year,
         })
       ),
     }),
-    ...variables.map(variable =>
+    ...variables.map((variable) =>
       SectionSpec.newRowData({
         [SectionSpec.KEYS_ROW.labelKey]: `biomassStock.${variable}`,
+        [SectionSpec.KEYS_ROW.variableExport]: variablesMappings[variable],
         [SectionSpec.KEYS_ROW.cols]: years.map(() => SectionSpec.newColDecimal()),
       })
     ),
