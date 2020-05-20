@@ -22,17 +22,43 @@ const rowsHeader = [
     ],
   }),
   SectionSpec.newRowHeader({
-    [SectionSpec.KEYS_ROW.cols]: FRA.yearsTable.map(y => SectionSpec.newColHeader({ [SectionSpec.KEYS_COL.label]: y })),
+    [SectionSpec.KEYS_ROW.cols]: FRA.yearsTable.map((y) =>
+      SectionSpec.newColHeader({ [SectionSpec.KEYS_COL.label]: y })
+    ),
   }),
 ]
 
 const rowsData = [
-  { labelKey: 'designatedManagementObjective.production', variableNo: 'a' },
-  { labelKey: 'designatedManagementObjective.soilWaterProtection', variableNo: 'b' },
-  { labelKey: 'designatedManagementObjective.biodiversityConservation', variableNo: 'c' },
-  { labelKey: 'designatedManagementObjective.socialServices', variableNo: 'd' },
-  { labelKey: 'designatedManagementObjective.multipleUse', variableNo: 'e' },
-  { labelKey: 'designatedManagementObjective.other', variableNo: 'f' },
+  {
+    labelKey: 'designatedManagementObjective.production',
+    variableNo: 'a',
+    variableExport: SectionSpec.VARIABLES.production,
+  },
+  {
+    labelKey: 'designatedManagementObjective.soilWaterProtection',
+    variableNo: 'b',
+    variableExport: SectionSpec.VARIABLES.protection_of_soil_and_water,
+  },
+  {
+    labelKey: 'designatedManagementObjective.biodiversityConservation',
+    variableNo: 'c',
+    variableExport: SectionSpec.VARIABLES.conservation_of_biodiversity,
+  },
+  {
+    labelKey: 'designatedManagementObjective.socialServices',
+    variableNo: 'd',
+    variableExport: SectionSpec.VARIABLES.social_services,
+  },
+  {
+    labelKey: 'designatedManagementObjective.multipleUse',
+    variableNo: 'e',
+    variableExport: SectionSpec.VARIABLES.multiple_use,
+  },
+  {
+    labelKey: 'designatedManagementObjective.other',
+    variableNo: 'f',
+    variableExport: SectionSpec.VARIABLES.other,
+  },
 ]
 
 const tableSpec1 = SectionSpec.newTableSpec({
@@ -46,15 +72,17 @@ const tableSpec1 = SectionSpec.newTableSpec({
   ],
   [SectionSpec.KEYS_TABLE.rows]: [
     ...rowsHeader,
-    ...rowsData.map(r =>
+    ...rowsData.map((r) =>
       SectionSpec.newRowData({
         [SectionSpec.KEYS_ROW.labelKey]: r.labelKey,
         [SectionSpec.KEYS_ROW.cols]: FRA.yearsTable.map(() => SectionSpec.newColDecimal()),
         [SectionSpec.KEYS_ROW.variableNo]: r.variableNo,
+        [SectionSpec.KEYS_ROW.variableExport]: r.variableExport,
       })
     ),
     SectionSpec.newRowData({
       [SectionSpec.KEYS_ROW.labelKey]: 'designatedManagementObjective.unknown',
+      [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.no_unknown,
       [SectionSpec.KEYS_ROW.cols]: FRA.yearsTable.map(() =>
         SectionSpec.newColCalculated({
           [SectionSpec.KEYS_COL.calculateFn]: DesignatedManagementObjectiveState.getUnknown,
@@ -86,8 +114,8 @@ const tableSpec2 = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.rows]: [
     ...rowsHeader,
     ...rowsData
-      .filter(r => r.variableNo !== 'e')
-      .map(r =>
+      .filter((r) => r.variableNo !== 'e')
+      .map((r) =>
         SectionSpec.newRowData({
           [SectionSpec.KEYS_ROW.labelKey]: r.labelKey,
           [SectionSpec.KEYS_ROW.cols]: FRA.yearsTable.map(() => SectionSpec.newColDecimal()),

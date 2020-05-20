@@ -35,7 +35,7 @@ const tableSpec = SectionSpec.newTableSpec({
       ],
     }),
     SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: yearsRange.map(yearRange =>
+      [SectionSpec.KEYS_ROW.cols]: yearsRange.map((yearRange) =>
         SectionSpec.newColHeader({
           [SectionSpec.KEYS_COL.label]: yearRange,
         })
@@ -43,6 +43,7 @@ const tableSpec = SectionSpec.newTableSpec({
     }),
     SectionSpec.newRowData({
       [SectionSpec.KEYS_ROW.labelKey]: `forestAreaChange.forestExpansion`,
+      [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.forest_expansion,
       [SectionSpec.KEYS_ROW.variableNo]: 'a',
       [SectionSpec.KEYS_ROW.cols]: yearsRange.map(() =>
         SectionSpec.newColDecimal({
@@ -52,6 +53,7 @@ const tableSpec = SectionSpec.newTableSpec({
     }),
     SectionSpec.newRowData({
       [SectionSpec.KEYS_ROW.labelKey]: `forestAreaChange.ofWhichAfforestation`,
+      [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.afforestation,
       [SectionSpec.KEYS_ROW.subcategory]: true,
       [SectionSpec.KEYS_ROW.cols]: yearsRange.map(() =>
         SectionSpec.newColDecimal({
@@ -61,6 +63,7 @@ const tableSpec = SectionSpec.newTableSpec({
     }),
     SectionSpec.newRowData({
       [SectionSpec.KEYS_ROW.labelKey]: `forestAreaChange.ofWhichNaturalExpansion`,
+      [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.natural_expansion,
       [SectionSpec.KEYS_ROW.subcategory]: true,
       [SectionSpec.KEYS_ROW.cols]: yearsRange.map(() =>
         SectionSpec.newColDecimal({
@@ -70,6 +73,7 @@ const tableSpec = SectionSpec.newTableSpec({
     }),
     SectionSpec.newRowData({
       [SectionSpec.KEYS_ROW.labelKey]: `forestAreaChange.deforestation`,
+      [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.deforestation,
       [SectionSpec.KEYS_ROW.variableNo]: 'b',
       [SectionSpec.KEYS_ROW.cols]: yearsRange.map(() =>
         SectionSpec.newColDecimal({
@@ -79,6 +83,7 @@ const tableSpec = SectionSpec.newTableSpec({
     }),
     SectionSpec.newRowData({
       [SectionSpec.KEYS_ROW.labelKey]: 'forestAreaChange.forestAreaNetChange',
+      [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.forest_area_net_change,
       [SectionSpec.KEYS_ROW.variableNo]: 'a-b',
       [SectionSpec.KEYS_ROW.linkToSection]: FRA.sections['1'].children.a.name,
       [SectionSpec.KEYS_ROW.cols]: yearsRange.map(() =>

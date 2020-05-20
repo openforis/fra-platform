@@ -21,6 +21,7 @@ export const KEYS_TABLE = {
   isSectionDataEmpty: 'isSectionDataEmpty',
   canGenerateValues: 'canGenerateValues',
   updateTableDataCell: 'updateTableDataCell',
+  dataExport: 'dataExport',
 }
 
 export const KEYS_TABLE_DATA_REQUIRED = {
@@ -47,6 +48,7 @@ const tableDefault = {
   [KEYS_TABLE.showOdpChart]: false,
   [KEYS_TABLE.canGenerateValues]: null,
   [KEYS_TABLE.updateTableDataCell]: updateTableDataCell,
+  [KEYS_TABLE.dataExport]: true,
 }
 
 const assocRows = (tableSpec) => {

@@ -31,7 +31,7 @@ const tableSpec = SectionSpec.newTableSpec({
       ],
     }),
     SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: years.map(year =>
+      [SectionSpec.KEYS_ROW.cols]: years.map((year) =>
         SectionSpec.newColHeader({
           [SectionSpec.KEYS_COL.label]: year,
         })
@@ -40,26 +40,31 @@ const tableSpec = SectionSpec.newTableSpec({
 
     SectionSpec.newRowData({
       [SectionSpec.KEYS_ROW.labelKey]: 'holderOfManagementRights.publicAdministration',
+      [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.public_administration,
       [SectionSpec.KEYS_ROW.variableNo]: 'a',
       [SectionSpec.KEYS_ROW.cols]: years.map(() => SectionSpec.newColDecimal()),
     }),
     SectionSpec.newRowData({
       [SectionSpec.KEYS_ROW.labelKey]: 'holderOfManagementRights.individuals',
+      [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.individuals,
       [SectionSpec.KEYS_ROW.variableNo]: 'b',
       [SectionSpec.KEYS_ROW.cols]: years.map(() => SectionSpec.newColDecimal()),
     }),
     SectionSpec.newRowData({
       [SectionSpec.KEYS_ROW.labelKey]: 'holderOfManagementRights.privateBusinesses',
+      [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.private_businesses,
       [SectionSpec.KEYS_ROW.variableNo]: 'c',
       [SectionSpec.KEYS_ROW.cols]: years.map(() => SectionSpec.newColDecimal()),
     }),
     SectionSpec.newRowData({
       [SectionSpec.KEYS_ROW.labelKey]: 'holderOfManagementRights.communities',
+      [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.communities,
       [SectionSpec.KEYS_ROW.variableNo]: 'd',
       [SectionSpec.KEYS_ROW.cols]: years.map(() => SectionSpec.newColDecimal()),
     }),
     SectionSpec.newRowData({
       [SectionSpec.KEYS_ROW.labelKey]: 'holderOfManagementRights.other',
+      [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.other_or_unknown,
       [SectionSpec.KEYS_ROW.variableNo]: 'e',
       [SectionSpec.KEYS_ROW.cols]: years.map(() =>
         SectionSpec.newColCalculated({

@@ -27,6 +27,7 @@ const rowsEOF = [
     [SectionSpec.KEYS_ROW.variableNo]: 'a',
     [SectionSpec.KEYS_ROW.validator]: ExtentOfForestValidator.forestAreaValidator,
     [SectionSpec.KEYS_ROW.variableName]: 'forestArea',
+    [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.forest_area,
     [SectionSpec.KEYS_ROW.chartProps]: {
       [SectionSpec.KEYS_ROW_CHART.labelKey]: 'fraClass.forest',
       [SectionSpec.KEYS_ROW_CHART.color]: '#0098a6',
@@ -37,6 +38,7 @@ const rowsEOF = [
     [SectionSpec.KEYS_ROW.variableNo]: 'a',
     [SectionSpec.KEYS_ROW.validator]: ExtentOfForestValidator.otherWoodedLandValidator,
     [SectionSpec.KEYS_ROW.variableName]: 'otherWoodedLand',
+    [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.other_wooded_land,
     [SectionSpec.KEYS_ROW.chartProps]: {
       [SectionSpec.KEYS_ROW_CHART.labelKey]: 'fraClass.otherWoodedLand',
       [SectionSpec.KEYS_ROW_CHART.color]: '#bf00af',
@@ -47,12 +49,14 @@ const rowsEOF = [
     [SectionSpec.KEYS_ROW.variableNo]: 'c-a-b',
     [SectionSpec.KEYS_ROW.validator]: ExtentOfForestValidator.areasNotExceedingTotalLandAreaValidator,
     [SectionSpec.KEYS_ROW.variableName]: 'otherLand',
+    [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.other_land,
     [SectionSpec.KEYS_ROW.calculateFn]: ExtentOfForestState.getOtherLand,
   }),
   SectionSpec.newRowData({
     [SectionSpec.KEYS_ROW.labelKey]: 'extentOfForest.totalLandArea',
     [SectionSpec.KEYS_ROW.variableNo]: 'c',
     [SectionSpec.KEYS_ROW.variableName]: 'faoStat',
+    [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.total_land_area,
     [SectionSpec.KEYS_ROW.calculateFn]: ExtentOfForestState.getFaoStatArea,
   }),
   SectionSpec.newRowNoticeMessage({
@@ -107,6 +111,7 @@ const tableSpec1 = SectionSpec.newTableSpec({
 })
 
 const tableSpec2 = SectionSpec.newTableSpec({
+  [SectionSpec.KEYS_TABLE.dataExport]: false,
   [SectionSpec.KEYS_TABLE.name]: section.tables.climaticDomain,
   [SectionSpec.KEYS_TABLE.rows]: rowsClimaticDomain,
 })

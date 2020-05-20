@@ -35,7 +35,7 @@ const tableSpec = SectionSpec.newTableSpec({
         SectionSpec.newColHeader({
           [SectionSpec.KEYS_COL.labelKey]: 'areaOfPermanentForestEstate.applicable',
         }),
-        ...yearsTable.map(year =>
+        ...yearsTable.map((year) =>
           SectionSpec.newColHeader({
             [SectionSpec.KEYS_COL.label]: year,
           })
@@ -45,6 +45,7 @@ const tableSpec = SectionSpec.newTableSpec({
 
     SectionSpec.newRowData({
       [SectionSpec.KEYS_ROW.labelKey]: 'areaOfPermanentForestEstate.areaOfPermanentForestEstate',
+      [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.area_of_permanent_forest_estate,
       [SectionSpec.KEYS_ROW.cols]: [
         SectionSpec.newColSelectYesNo(),
         ...yearsTable.map(() =>

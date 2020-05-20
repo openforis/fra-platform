@@ -24,7 +24,7 @@ const tableSpec = SectionSpec.newTableSpec({
       ],
     }),
     SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: yearsRange.map(yearRange =>
+      [SectionSpec.KEYS_ROW.cols]: yearsRange.map((yearRange) =>
         SectionSpec.newColHeader({
           [SectionSpec.KEYS_COL.label]: yearRange,
         })
@@ -32,6 +32,7 @@ const tableSpec = SectionSpec.newTableSpec({
     }),
     SectionSpec.newRowData({
       [SectionSpec.KEYS_ROW.labelKey]: `annualReforestation.reforestation`,
+      [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.reforestation,
       [SectionSpec.KEYS_ROW.cols]: yearsRange.map(() =>
         SectionSpec.newColDecimal({
           [SectionSpec.KEYS_COL.validator]: AnnualReforestationValidatorState.positiveOrZeroValidator,

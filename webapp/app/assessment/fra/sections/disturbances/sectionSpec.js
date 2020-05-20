@@ -8,10 +8,22 @@ import * as DisturbancesValidatorState from '@webapp/app/assessment/fra/sections
 const section = FRA.sections['5'].children.a
 
 const variables = {
-  insects: { [SectionSpec.KEYS_ROW.variableNo]: 'a' },
-  diseases: { [SectionSpec.KEYS_ROW.variableNo]: 'b' },
-  severeWeatherEvents: { [SectionSpec.KEYS_ROW.variableNo]: 'c' },
-  other: { [SectionSpec.KEYS_ROW.variableNo]: 'd' },
+  insects: {
+    [SectionSpec.KEYS_ROW.variableNo]: 'a',
+    [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.insects,
+  },
+  diseases: {
+    [SectionSpec.KEYS_ROW.variableNo]: 'b',
+    [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.diseases,
+  },
+  severeWeatherEvents: {
+    [SectionSpec.KEYS_ROW.variableNo]: 'c',
+    [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.severe_weather_events,
+  },
+  other: {
+    [SectionSpec.KEYS_ROW.variableNo]: 'd',
+    [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.other,
+  },
 }
 
 const tableSpec = SectionSpec.newTableSpec({
@@ -54,6 +66,7 @@ const tableSpec = SectionSpec.newTableSpec({
 
     SectionSpec.newRowData({
       [SectionSpec.KEYS_ROW.labelKey]: `disturbances.total`,
+      [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.total,
       [SectionSpec.KEYS_ROW.variableNo]: 'a+b+c+d',
       [SectionSpec.KEYS_ROW.mainCategory]: true,
       [SectionSpec.KEYS_ROW.cols]: FRA.yearsAnnual.map(() =>

@@ -14,26 +14,35 @@ const section = FRA.sections['2'].children.a
 const variables = {
   [GrowingStockState.variables.naturallyRegeneratingForest]: {
     totalValidator: GrowingStockValidatorState.totalForestValidator,
+    variableExport: SectionSpec.VARIABLES.naturally_regenerating_forest,
   },
   [GrowingStockState.variables.plantedForest]: {
     totalValidator: GrowingStockValidatorState.totalForestValidator,
+    variableExport: SectionSpec.VARIABLES.planted_forest,
   },
   [GrowingStockState.variables.plantationForest]: {
     subcategory: true,
     totalValidator: GrowingStockValidatorState.totalPlantedForestValidator,
+    variableExport: SectionSpec.VARIABLES.plantation_forest,
   },
   [GrowingStockState.variables.otherPlantedForest]: {
     subcategory: true,
     totalValidator: GrowingStockValidatorState.totalPlantedForestValidator,
+    variableExport: SectionSpec.VARIABLES.other_planted_forest,
   },
-  [GrowingStockState.variables.forest]: {},
-  [GrowingStockState.variables.otherWoodedLand]: {},
+  [GrowingStockState.variables.forest]: {
+    variableExport: SectionSpec.VARIABLES.forest,
+  },
+  [GrowingStockState.variables.otherWoodedLand]: {
+    variableExport: SectionSpec.VARIABLES.other_wooded_land,
+  },
 }
 
 const table1 = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.name,
   [SectionSpec.KEYS_TABLE.odp]: true,
   [SectionSpec.KEYS_TABLE.odpVariables]: GrowingStockState.variables,
+  [SectionSpec.KEYS_TABLE.dataExport]: false,
   [SectionSpec.KEYS_TABLE.getSectionData]: GrowingStockState.getTableDataAvg,
   [SectionSpec.KEYS_TABLE.updateTableDataCell]: updateGrowingStockAvgCell,
   [SectionSpec.KEYS_TABLE.rows]: [
@@ -88,6 +97,7 @@ const table2 = SectionSpec.newTableSpec({
     ...Object.entries(variables).map(([variableName, variableProps]) =>
       SectionSpec.newRowData({
         [SectionSpec.KEYS_ROW.variableName]: variableName,
+        [SectionSpec.KEYS_ROW.variableExport]: variableProps.variableExport,
         [SectionSpec.KEYS_ROW.labelKey]: `growingStock.${variableName}`,
         [SectionSpec.KEYS_ROW.subcategory]: !!variableProps.subcategory,
         [SectionSpec.KEYS_ROW.validator]: variableProps.totalValidator || null,

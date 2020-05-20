@@ -31,7 +31,7 @@ const tableSpec = SectionSpec.newTableSpec({
       ],
     }),
     SectionSpec.newRowHeader({
-      [SectionSpec.KEYS_ROW.cols]: yearsTable.map(yearRange =>
+      [SectionSpec.KEYS_ROW.cols]: yearsTable.map((yearRange) =>
         SectionSpec.newColHeader({
           [SectionSpec.KEYS_COL.label]: yearRange,
         })
@@ -39,26 +39,31 @@ const tableSpec = SectionSpec.newTableSpec({
     }),
     SectionSpec.newRowData({
       [SectionSpec.KEYS_ROW.labelKey]: 'otherLandWithTreeCover.palms',
+      [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.palms,
       [SectionSpec.KEYS_ROW.variableNo]: 'a',
       [SectionSpec.KEYS_ROW.cols]: yearsTable.map(() => SectionSpec.newColDecimal({})),
     }),
     SectionSpec.newRowData({
       [SectionSpec.KEYS_ROW.labelKey]: 'otherLandWithTreeCover.treeorchards',
+      [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.tree_orchards,
       [SectionSpec.KEYS_ROW.variableNo]: 'b',
       [SectionSpec.KEYS_ROW.cols]: yearsTable.map(() => SectionSpec.newColDecimal({})),
     }),
     SectionSpec.newRowData({
       [SectionSpec.KEYS_ROW.labelKey]: 'otherLandWithTreeCover.agroforestry',
+      [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.agroforestry,
       [SectionSpec.KEYS_ROW.variableNo]: 'c',
       [SectionSpec.KEYS_ROW.cols]: yearsTable.map(() => SectionSpec.newColDecimal({})),
     }),
     SectionSpec.newRowData({
       [SectionSpec.KEYS_ROW.labelKey]: 'otherLandWithTreeCover.treesinurbansettings',
+      [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.trees_in_urban_settings,
       [SectionSpec.KEYS_ROW.variableNo]: 'd',
       [SectionSpec.KEYS_ROW.cols]: yearsTable.map(() => SectionSpec.newColDecimal({})),
     }),
     SectionSpec.newRowData({
       [SectionSpec.KEYS_ROW.labelKey]: 'otherLandWithTreeCover.other',
+      [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.other,
       [SectionSpec.KEYS_ROW.variableNo]: 'e',
       [SectionSpec.KEYS_ROW.cols]: yearsTable.map(() => SectionSpec.newColDecimal({})),
     }),

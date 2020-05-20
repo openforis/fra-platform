@@ -3,6 +3,12 @@ import * as FRA from '@common/assessment/fra'
 import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
 
 const section = FRA.sections['6'].children.a
+const variableMappings = {
+  policiesSFM: SectionSpec.VARIABLES.policies_supporting_SFM,
+  legislationsSFM: SectionSpec.VARIABLES.legislations_supporting_SFM,
+  stakeholderParticipation: SectionSpec.VARIABLES.platform_for_stakeholder_participation,
+  existenceOfTraceabilitySystem: SectionSpec.VARIABLES.existence_of_traceability_system,
+}
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.forestPolicy,
@@ -31,9 +37,11 @@ const tableSpec = SectionSpec.newTableSpec({
       ],
     }),
 
-    ...['policiesSFM', 'legislationsSFM', 'stakeholderParticipation', 'existenceOfTraceabilitySystem'].map(variable =>
+    ...['policiesSFM', 'legislationsSFM', 'stakeholderParticipation', 'existenceOfTraceabilitySystem'].map((variable) =>
       SectionSpec.newRowData({
         [SectionSpec.KEYS_ROW.labelKey]: `forestPolicy.${variable}`,
+        [SectionSpec.KEYS_ROW.variableExport]: variableMappings[variable],
+        [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.total_land_area_affected_by_fire,
         [SectionSpec.KEYS_ROW.cols]: [SectionSpec.newColSelectYesNo(), SectionSpec.newColSelectYesNo()],
       })
     ),
