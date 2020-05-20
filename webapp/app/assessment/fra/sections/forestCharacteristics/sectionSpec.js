@@ -28,6 +28,7 @@ const rows = [
     [SectionSpec.KEYS_ROW.labelKey]: 'forestCharacteristics.naturalForestArea',
     [SectionSpec.KEYS_ROW.variableNo]: 'a',
     [SectionSpec.KEYS_ROW.variableName]: 'naturalForestArea',
+    [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.natural_forest_area,
     [SectionSpec.KEYS_ROW.chartProps]: {
       [SectionSpec.KEYS_ROW_CHART.labelKey]: 'forestCharacteristics.naturalForestArea',
       [SectionSpec.KEYS_ROW_CHART.color]: '#0098a6',
@@ -37,11 +38,13 @@ const rows = [
     [SectionSpec.KEYS_ROW.labelKey]: 'forestCharacteristics.plantedForest',
     [SectionSpec.KEYS_ROW.variableNo]: 'b',
     [SectionSpec.KEYS_ROW.variableName]: 'plantedForest',
+    [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.planted_forest,
     [SectionSpec.KEYS_ROW.calculateFn]: ForestCharacteristicsState.getPlantedForest,
   }),
   SectionSpec.newRowData({
     [SectionSpec.KEYS_ROW.labelKey]: 'forestCharacteristics.plantationForestArea',
     [SectionSpec.KEYS_ROW.variableName]: 'plantationForestArea',
+    [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.plantation_forest_area,
     [SectionSpec.KEYS_ROW.chartProps]: {
       [SectionSpec.KEYS_ROW_CHART.labelKey]: 'forestCharacteristics.plantationForestArea',
       [SectionSpec.KEYS_ROW_CHART.color]: '#bf00af',
@@ -51,11 +54,13 @@ const rows = [
     [SectionSpec.KEYS_ROW.labelKey]: 'forestCharacteristics.plantationForestIntroducedArea',
     [SectionSpec.KEYS_ROW.validator]: ForestCharacteristicsValidatorState.plantationForestValidator,
     [SectionSpec.KEYS_ROW.variableName]: 'plantationForestIntroducedArea',
+    [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.plantation_forest_introduced_area,
     [SectionSpec.KEYS_ROW.subcategory]: true,
   }),
   SectionSpec.newRowData({
     [SectionSpec.KEYS_ROW.labelKey]: 'forestCharacteristics.otherPlantedForestArea',
     [SectionSpec.KEYS_ROW.variableName]: 'otherPlantedForestArea',
+    [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.other_planted_forest_area,
     [SectionSpec.KEYS_ROW.chartProps]: {
       [SectionSpec.KEYS_ROW_CHART.labelKey]: 'forestCharacteristics.otherPlantedForestArea',
       [SectionSpec.KEYS_ROW_CHART.color]: '#f58833',
