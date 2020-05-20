@@ -21,7 +21,7 @@ const rowsHeader = [
     ],
   }),
   SectionSpec.newRowHeader({
-    [SectionSpec.KEYS_ROW.cols]: FRA.years.map(year =>
+    [SectionSpec.KEYS_ROW.cols]: FRA.years.map((year) =>
       SectionSpec.newColHeader({ [SectionSpec.KEYS_COL.label]: year })
     ),
   }),
@@ -40,6 +40,7 @@ const tableSpec = SectionSpec.newTableSpec({
     ...rowsHeader,
     SectionSpec.newRowData({
       [SectionSpec.KEYS_ROW.labelKey]: 'forestAreaWithinProtectedAreas.header',
+      [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.forest_area_within_protected_areas,
       [SectionSpec.KEYS_ROW.cols]: FRA.years.map(() =>
         SectionSpec.newColDecimal({
           [SectionSpec.KEYS_COL.validator]: ForestAreaWithinProtectedAreasValidatorState.forestAreaValidator,
@@ -48,6 +49,7 @@ const tableSpec = SectionSpec.newTableSpec({
     }),
     SectionSpec.newRowData({
       [SectionSpec.KEYS_ROW.labelKey]: 'forestAreaWithinProtectedAreas.forestAreaWithLongTermManagementPlan',
+      [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.forest_area_with_long_term_management_plan,
       [SectionSpec.KEYS_ROW.cols]: FRA.years.map(() =>
         SectionSpec.newColDecimal({
           [SectionSpec.KEYS_COL.validator]: ForestAreaWithinProtectedAreasValidatorState.forestAreaValidator,
@@ -56,6 +58,7 @@ const tableSpec = SectionSpec.newTableSpec({
     }),
     SectionSpec.newRowData({
       [SectionSpec.KEYS_ROW.labelKey]: 'forestAreaWithinProtectedAreas.ofWhichInProtectedAreas',
+      [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.of_which_in_protected_areas,
       [SectionSpec.KEYS_ROW.cols]: FRA.years.map(() =>
         SectionSpec.newColDecimal({
           [SectionSpec.KEYS_COL.validator]: ForestAreaWithinProtectedAreasValidatorState.protectedAreaValidator,
