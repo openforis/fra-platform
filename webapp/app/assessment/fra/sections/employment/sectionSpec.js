@@ -8,6 +8,13 @@ const section = FRA.sections['7'].children.a
 const years = FRA.yearsTable.slice(0, FRA.yearsTable.length - 1)
 const categories = ['total', 'female', 'male']
 
+const variableMappings = {
+  ofWhichSilviculture: SectionSpec.VARIABLES.of_which_silviculture_and_other_forestry_activities,
+  ofWhichLogging: SectionSpec.VARIABLES.of_which_logging,
+  ofWhichGathering: SectionSpec.VARIABLES.of_which_gathering_of_non_wood_forest_products,
+  ofWhichSupport: SectionSpec.VARIABLES.of_which_support_services_to_forestry,
+}
+
 const getDataCols = (validator = null) =>
   years
     .map(() =>
@@ -56,11 +63,13 @@ const tableSpec = SectionSpec.newTableSpec({
     }),
     SectionSpec.newRowData({
       [SectionSpec.KEYS_ROW.labelKey]: 'employment.inForestry',
+      [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.employment_in_forestry_and_logging,
       [SectionSpec.KEYS_ROW.cols]: getDataCols(),
     }),
     ...['ofWhichSilviculture', 'ofWhichLogging', 'ofWhichGathering', 'ofWhichSupport'].map((subcateogry) =>
       SectionSpec.newRowData({
         [SectionSpec.KEYS_ROW.labelKey]: `employment.${subcateogry}`,
+        [SectionSpec.KEYS_ROW.variableExport]: variableMappings[subcateogry],
         [SectionSpec.KEYS_ROW.subcategory]: true,
         [SectionSpec.KEYS_ROW.cols]: getDataCols(EmploymentValidatorState.genderSubCategoryValidator),
       })
