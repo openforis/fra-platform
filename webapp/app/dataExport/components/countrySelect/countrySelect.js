@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import camelize from 'camelize'
 
 import { useI18n } from '@webapp/components/hooks'
+import ButtonCheckBox from '@webapp/components/buttonCheckBox'
 
 const CountrySelect = (props) => {
   const { countries, selectionCountries, setSelectionCountries } = props
@@ -33,21 +34,16 @@ const CountrySelect = (props) => {
         />
       </div>
 
-      <button
-        type="button"
-        className="btn-s btn-country btn-all"
+      <ButtonCheckBox
+        className="btn-all"
+        checked={selectionCountries.length > 0 && selectionCountries.length === countries.length}
+        label={selectionCountries.length > 0 ? 'common.unselectAll' : 'common.selectAll'}
         onClick={() => {
           if (selectionCountries.length > 0) setSelectionCountries([])
           else setSelectionCountries(countries.map((country) => country.countryIso))
         }}
-      >
-        <div
-          className={`fra-checkbox${
-            selectionCountries.length > 0 && selectionCountries.length === countries.length ? ' checked' : ''
-          }`}
-        />
-        <div>{i18n.t(selectionCountries.length > 0 ? 'common.unselectAll' : 'common.selectAll')}</div>
-      </button>
+      />
+
       <div className="divider" />
 
       <div className="export-country-select__countries">
@@ -55,10 +51,10 @@ const CountrySelect = (props) => {
           const { countryIso } = country
           const selected = selectionCountries.includes(countryIso)
           return (
-            <button
-              type="button"
-              className="btn-s btn-country"
+            <ButtonCheckBox
               key={countryIso}
+              checked={selected}
+              label={country[propName]}
               onClick={() => {
                 if (selected) {
                   const selectionCountriesUpdate = [...selectionCountries]
@@ -68,10 +64,7 @@ const CountrySelect = (props) => {
                   setSelectionCountries([...selectionCountries, countryIso])
                 }
               }}
-            >
-              <div className={`fra-checkbox${selected ? ' checked' : ''}`} />
-              <div>{country[propName]}</div>
-            </button>
+            />
           )
         })}
       </div>
