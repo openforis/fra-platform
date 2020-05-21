@@ -15,6 +15,10 @@ module.exports.translation = {
     unselectAll: 'Unselect all',
   },
 
+  variableSelection: {
+    variable: 'Variable',
+  },
+
   countrySelection: {
     selectCountry: 'Select country',
   },

@@ -95,3 +95,6 @@ export const getTableSpec = (assessmentType, sectionName, tableName) => {
   const tableSpecs = getTableSpecs(assessmentType, sectionName)
   return tableSpecs.find(R.propEq(SectionSpec.KEYS_TABLE.name, tableName))
 }
+
+export const getTableSpecExport = (assessmentType, sectionName) =>
+  getTableSpecs(assessmentType, sectionName).find((tableSpec) => tableSpec[SectionSpec.KEYS_TABLE.dataExport] === true)

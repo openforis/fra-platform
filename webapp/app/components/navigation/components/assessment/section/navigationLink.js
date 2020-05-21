@@ -20,7 +20,7 @@ const Subsection = (props) => {
 
   const reviewStatus = useSelector(ReviewStatusState.getStatusSection(sectionName))
   const to = isDataExport
-    ? BasePaths.getDataExportSectionLink(sectionName)
+    ? BasePaths.getDataExportSectionLink(assessmentType, sectionName)
     : BasePaths.getAssessmentSectionLink(countryIso, assessmentType, sectionName)
 
   return (

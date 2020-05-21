@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 import useGetRequest from '@webapp/components/hooks/useGetRequest'
+import * as SectionSpecs from '@webapp/app/assessment/components/section/sectionSpecs'
+import { TableSpec } from '@webapp/app/assessment/components/section/sectionSpec'
 
 export default () => {
-  const { section } = useParams()
+  const { section, assessmentType } = useParams()
   const [variables, setVariables] = useState([])
   const [columns, setColumns] = useState('')
 
@@ -25,7 +27,13 @@ export default () => {
       variable: '',
       columns: [],
     })
-    setVariables([])
+
+    if (assessmentType && section) {
+      const tableSpec = SectionSpecs.getTableSpecExport(assessmentType, section)
+      const rowsExport = TableSpec.getRowsExport(tableSpec)
+      setVariables(rowsExport)
+    }
+
     setColumns([])
   }, [section])
 
