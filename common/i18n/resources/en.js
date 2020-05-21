@@ -13,9 +13,6 @@ module.exports.translation = {
     dataExport: 'Data Export',
     selectAll: 'Select all',
     unselectAll: 'Unselect all',
-  },
-
-  variableSelection: {
     variable: 'Variable',
   },
 

@@ -13,12 +13,12 @@ const VariableSelect = (props) => {
   return (
     <div className="export-variable-select">
       <div className="export-variable-select__header">
-        <h4>{i18n.t('variableSelection.variable')}</h4>
+        <h4>{i18n.t('common.variable')}</h4>
       </div>
 
       <div className="divider" />
 
-      <div className="export-variable-select__countries">
+      <div className="export-variable-select__variables">
         {variables.map((variable) => {
           const selected = variable.variableExport === selectedVariable
           return (
