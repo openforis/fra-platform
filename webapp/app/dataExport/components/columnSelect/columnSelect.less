@@ -1,0 +1,27 @@
+@import (reference) 'webapp/main/styles/config';
+
+.export-column-select {
+  overflow-y: hidden;
+  display: grid;
+  grid-template-rows: 50px 30px 1fr;
+
+  .divider {
+    border-bottom: 1px solid @ui-border-light;
+  }
+}
+
+.export-variable-select__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.export-column-select__columns {
+  display: grid;
+  align-items: start;
+  align-content: start;
+  justify-items: start;
+  height: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
