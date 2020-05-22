@@ -7,6 +7,7 @@ const section = FRA.sections['5'].children.b
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.areaAffectedByFire,
+  [SectionSpec.KEYS_TABLE.columnsExport]: FRA.yearsAnnual,
   [SectionSpec.KEYS_TABLE.rows]: [
     SectionSpec.newRowHeader({
       [SectionSpec.KEYS_ROW.cols]: [

@@ -111,6 +111,7 @@ const tableSection = SectionSpec.newTableSection({ [SectionSpec.KEYS_TABLE_SECTI
 
 const forestCharacteristics = SectionSpec.newSectionSpec({
   [SectionSpec.KEYS_SECTION.sectionName]: section.name,
+  [SectionSpec.KEYS_TABLE.columnsExport]: FRA.years,
   [SectionSpec.KEYS_SECTION.sectionAnchor]: section.anchor,
   [SectionSpec.KEYS_SECTION.tableSections]: [tableSection],
   [SectionSpec.KEYS_SECTION.descriptions]: {

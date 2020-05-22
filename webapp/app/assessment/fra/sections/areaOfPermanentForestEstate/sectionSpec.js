@@ -16,6 +16,7 @@ const tableSpec = SectionSpec.newTableSpec({
       [SectionSpec.KEYS_TABLE_DATA_REQUIRED.tableName]: FRA.sections['1'].children.a.tables.extentOfForest,
     },
   ],
+  [SectionSpec.KEYS_TABLE.columnsExport]: yearsTable,
   [SectionSpec.KEYS_TABLE.rows]: [
     SectionSpec.newRowHeader({
       [SectionSpec.KEYS_ROW.cols]: [
