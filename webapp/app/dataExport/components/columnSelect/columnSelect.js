@@ -1,9 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 
-import ButtonCheckBox from '@webapp/components/buttonCheckBox'
-
 import { useI18n } from '@webapp/components/hooks'
+import ButtonCheckBox from '@webapp/components/buttonCheckBox'
 
 const i18nMappings = {
   common_name: 'growingStockComposition.commonName',
@@ -12,21 +11,9 @@ const i18nMappings = {
   subnational: 'forestPolicy.subnational',
 }
 
-const getMapping = (column) => i18nMappings[column] || String(column)
-
 const ColumnSelect = (props) => {
-  const { setSelectionColumns, columns } = props
+  const { setSelectionColumns, columns, selectionColumns } = props
   const i18n = useI18n()
-
-  const [selectedColumns, setSelectedColumns] = useState([])
-  const columnIsSelected = (column) => selectedColumns.includes(column)
-
-  const onClick = (column) => {
-    const isSelected = columnIsSelected(column)
-    const newSelection = isSelected ? selectedColumns.filter((col) => col !== column) : [...selectedColumns, column]
-    setSelectedColumns(newSelection)
-    setSelectionColumns(newSelection)
-  }
 
   return (
     <div className="export__form-section">
@@ -38,12 +25,19 @@ const ColumnSelect = (props) => {
 
       <div className="export__form-section-variables">
         {columns.map((column) => {
+          const selected = selectionColumns.includes(column)
+          const label = i18nMappings[column] || String(column)
           return (
             <ButtonCheckBox
               key={column}
-              checked={columnIsSelected(column)}
-              label={getMapping(column)}
-              onClick={() => onClick(column)}
+              checked={selected}
+              label={label}
+              onClick={() => {
+                const selectionColumnsUpdate = selected
+                  ? selectionColumns.filter((col) => col !== column)
+                  : [...selectionColumns, column]
+                setSelectionColumns(selectionColumnsUpdate)
+              }}
             />
           )
         })}
@@ -54,6 +48,7 @@ const ColumnSelect = (props) => {
 
 ColumnSelect.propTypes = {
   columns: PropTypes.array.isRequired,
+  selectionColumns: PropTypes.arrayOf(String).isRequired,
   setSelectionColumns: PropTypes.func.isRequired,
 }
 
