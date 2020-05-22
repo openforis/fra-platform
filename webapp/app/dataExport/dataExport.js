@@ -6,11 +6,20 @@ import * as BasePaths from '@webapp/main/basePaths'
 import * as FRA from '@common/assessment/fra'
 
 import VariableSelect from '@webapp/app/dataExport/components/variableSelect'
+import ColumnSelect from '@webapp/app/dataExport/components/columnSelect'
 import useDataExportState from './useDataExportState'
 import CountrySelect from './components/countrySelect'
 
 const DataExport = () => {
-  const { countries, selection, variables, setSelectionCountries, setSelectionVariable } = useDataExportState()
+  const {
+    countries,
+    selection,
+    variables,
+    columns,
+    setSelectionCountries,
+    setSelectionVariable,
+    setSelectionColumns,
+  } = useDataExportState()
 
   return (
     <Switch>
@@ -29,6 +38,7 @@ const DataExport = () => {
               setSelectionCountries={setSelectionCountries}
             />
             <VariableSelect variables={variables} setSelectionVariable={setSelectionVariable} />
+            <ColumnSelect columns={columns} setSelectionColumns={setSelectionColumns} />
           </div>
           <div className="export__table" />
         </div>
