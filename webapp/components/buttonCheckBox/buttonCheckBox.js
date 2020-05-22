@@ -13,10 +13,14 @@ const ButtonCheckBox = (props) => {
   )
 }
 
+ButtonCheckBox.defaultProps = {
+  className: '',
+}
+
 ButtonCheckBox.propTypes = {
   onClick: PropTypes.func.isRequired,
   label: PropTypes.string.isRequired,
-  className: PropTypes.string.isRequired,
+  className: PropTypes.string,
   checked: PropTypes.bool.isRequired,
 }
 
