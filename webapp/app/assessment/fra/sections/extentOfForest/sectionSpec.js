@@ -100,6 +100,7 @@ const rowsClimaticDomain = [
 
 const tableSpec1 = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.extentOfForest,
+  [SectionSpec.KEYS_TABLE.columnsExport]: FRA.years,
   [SectionSpec.KEYS_TABLE.rows]: rowsEOF,
   [SectionSpec.KEYS_TABLE.getSectionData]: ExtentOfForestState.getExtentOfForestData,
   [SectionSpec.KEYS_TABLE.isSectionDataEmpty]: ExtentOfForestState.isExtentOfForestEmpty,

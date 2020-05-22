@@ -28,6 +28,7 @@ const variables = {
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.disturbances,
+  [SectionSpec.KEYS_TABLE.columnsExport]: FRA.yearsAnnual,
   [SectionSpec.KEYS_TABLE.tableDataRequired]: [
     {
       [SectionSpec.KEYS_TABLE_DATA_REQUIRED.assessmentType]: FRA.type,

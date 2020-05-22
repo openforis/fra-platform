@@ -12,6 +12,7 @@ const variableMappings = {
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.forestPolicy,
+  [SectionSpec.KEYS_TABLE.columnsExport]: ['national', 'subnational'],
   [SectionSpec.KEYS_TABLE.rows]: [
     SectionSpec.newRowHeader({
       [SectionSpec.KEYS_ROW.cols]: [
