@@ -1,4 +1,3 @@
-import './columnSelect.less'
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
@@ -30,14 +29,14 @@ const ColumnSelect = (props) => {
   }
 
   return (
-    <div className="export-column-select">
-      <div className="export-variable-select__header">
+    <div className="export__form-section">
+      <div className="export__form-section-header">
         <h4>{i18n.t('common.column')}</h4>
       </div>
 
       <div className="divider" />
 
-      <div className="export-column-select__columns">
+      <div className="export__form-section-variables">
         {columns.map((column) => {
           return (
             <ButtonCheckBox
