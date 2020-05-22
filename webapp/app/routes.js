@@ -74,7 +74,7 @@ const routes = [
 
   { path: BasePaths.admin, component: AdminView },
   { path: BasePaths.user, component: EditUserView },
-  { path: BasePaths.dataExport, component: DataExport },
+  { path: [BasePaths.dataExportSection, BasePaths.dataExport], component: DataExport },
   { path: [BasePaths.root, BasePaths.country], component: LandingView },
 ]
 

@@ -4,6 +4,7 @@ import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 
 import { updateTableDataCell } from '@webapp/app/assessment/components/dataTable/actions'
 
+import { KEYS_ROW } from '@webapp/app/assessment/components/section/sectionSpec/rowSpec'
 import { isHeader } from './keysType'
 
 export const KEYS_TABLE = {
@@ -80,3 +81,7 @@ export const getUpdateTableDataCell = R.prop(KEYS_TABLE.updateTableDataCell)
 export const getOdpVariables = R.prop(KEYS_TABLE.odpVariables)
 export const isOdp = R.propEq(KEYS_TABLE.odp, true)
 export const isSecondary = R.propEq(KEYS_TABLE.secondary, true)
+export const getRowsExport = R.pipe(
+  getRowsData,
+  R.filter((row) => !!row[KEYS_ROW.variableExport])
+)
