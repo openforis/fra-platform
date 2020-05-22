@@ -23,6 +23,7 @@ export const KEYS_TABLE = {
   canGenerateValues: 'canGenerateValues',
   updateTableDataCell: 'updateTableDataCell',
   dataExport: 'dataExport',
+  columnsExport: 'columnsExport',
 }
 
 export const KEYS_TABLE_DATA_REQUIRED = {
@@ -50,6 +51,7 @@ const tableDefault = {
   [KEYS_TABLE.canGenerateValues]: null,
   [KEYS_TABLE.updateTableDataCell]: updateTableDataCell,
   [KEYS_TABLE.dataExport]: true,
+  [KEYS_TABLE.columnsExport]: null,
 }
 
 const assocRows = (tableSpec) => {
