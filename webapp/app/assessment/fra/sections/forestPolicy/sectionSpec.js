@@ -42,7 +42,6 @@ const tableSpec = SectionSpec.newTableSpec({
       SectionSpec.newRowData({
         [SectionSpec.KEYS_ROW.labelKey]: `forestPolicy.${variable}`,
         [SectionSpec.KEYS_ROW.variableExport]: variableMappings[variable],
-        [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.total_land_area_affected_by_fire,
         [SectionSpec.KEYS_ROW.cols]: [SectionSpec.newColSelectYesNo(), SectionSpec.newColSelectYesNo()],
       })
     ),
