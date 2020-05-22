@@ -3,8 +3,7 @@ import './description.less'
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
-import useI18n from '@webapp/components/hooks/useI18n'
-import useUserInfo from '@webapp/components/hooks/useUserInfo'
+import { useI18n, usePrintView, useUserInfo } from '@webapp/components/hooks'
 
 import RichTextEditor from '@webapp/components/richTextEditor'
 import Title from './components/title'
@@ -15,13 +14,14 @@ const Description = (props) => {
   const { title, name, section, template, disabled, showAlertEmptyContent, showDashEmptyContent } = props
   const i18n = useI18n()
   const userInfo = useUserInfo()
-
+  const [printView] = usePrintView()
   const [open, setOpen] = useState(false)
 
   const { value, loading, onChange } = useDescription(name, section, template)
   const error = userInfo && showAlertEmptyContent && !value && !loading
 
-  const __html = value || template
+  let __html = value || template
+  if (printView) __html = __html.split('<p>&nbsp;</p>').join('') // Hack to replace empty lines in print view
 
   return (
     <div className="fra-description__header-row">

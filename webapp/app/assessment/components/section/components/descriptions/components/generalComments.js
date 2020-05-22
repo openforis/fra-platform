@@ -9,7 +9,7 @@ const GeneralComments = (props) => {
   const i18n = useI18n()
 
   return (
-    <div className="fra-description__container general-comments">
+    <div className="fra-description__container">
       <CommentableDescription
         section={section}
         title={i18n.t('description.generalCommentsTitle')}
