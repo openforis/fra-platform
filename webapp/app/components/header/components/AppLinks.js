@@ -23,7 +23,7 @@ const AppLinks = (props) => {
         {i18n.t('common.statisticalFactsheets')}
       </NavLink>
 
-      <NavLink activeClassName="hidden" to={BasePaths.dataExport} className="app-header__app-link">
+      <NavLink activeClassName="hidden" to={BasePaths.getDataExportSectionLink()} className="app-header__app-link">
         {i18n.t('common.dataExport')}
       </NavLink>
     </>

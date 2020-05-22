@@ -102,6 +102,7 @@ const assocColHeader = (row) => {
       KEYS_ROW.variableName,
       KEYS_ROW.calculateFn,
       KEYS_ROW.chartProps,
+      KEYS_ROW.variableExport,
     ])(row),
     [KEYS_ROW.cols]: cols,
   }

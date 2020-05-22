@@ -35,7 +35,7 @@ const Section = (props) => {
   useEffect(() => {
     const match = Object.entries(section.children).find(([_, subsection]) => {
       const pathDataEntry = BasePaths.assessmentSection.replace(':section', subsection.name)
-      const pathDataExport = BasePaths.getDataExportSectionLink(subsection.name)
+      const pathDataExport = BasePaths.getDataExportSectionLink(assessmentType, subsection.name)
       return matchPath(pathname, { path: [pathDataEntry, pathDataExport] })
     })
     if (match) {
