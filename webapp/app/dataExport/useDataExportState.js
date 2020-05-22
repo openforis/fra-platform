@@ -7,7 +7,7 @@ import { TableSpec } from '@webapp/app/assessment/components/section/sectionSpec
 export default () => {
   const { section, assessmentType } = useParams()
   const [variables, setVariables] = useState([])
-  const [columns, setColumns] = useState('')
+  const [columns, setColumns] = useState([])
 
   const [selection, setSelection] = useState({
     countries: [],
@@ -31,10 +31,10 @@ export default () => {
     if (assessmentType && section) {
       const tableSpec = SectionSpecs.getTableSpecExport(assessmentType, section)
       const rowsExport = TableSpec.getRowsExport(tableSpec)
+      const colsExport = TableSpec.getColumnsExport(tableSpec)
       setVariables(rowsExport)
+      setColumns(colsExport)
     }
-
-    setColumns([])
   }, [section])
 
   const setSelectionCountries = (value) => setSelection({ ...selection, countries: value })

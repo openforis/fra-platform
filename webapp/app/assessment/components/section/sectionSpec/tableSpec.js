@@ -87,3 +87,4 @@ export const getRowsExport = R.pipe(
   getRowsData,
   R.filter((row) => !!row[KEYS_ROW.variableExport])
 )
+export const getColumnsExport = R.prop(KEYS_TABLE.columnsExport)
