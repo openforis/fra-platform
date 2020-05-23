@@ -16,8 +16,8 @@ const CountrySelect = (props) => {
   useEffect(() => setCountriesFiltered(countries), [countries])
 
   return (
-    <div className="export-country-select">
-      <div className="export-country-select__header">
+    <div className="export__form-section export-country-select">
+      <div className="export__form-section-header">
         <h4>{i18n.t('admin.country')}</h4>
         <input
           type="text"
@@ -46,7 +46,7 @@ const CountrySelect = (props) => {
 
       <div className="divider" />
 
-      <div className="export-country-select__countries">
+      <div className="export__form-section-variables">
         {countriesFiltered.map((country) => {
           const { countryIso } = country
           const selected = selectionCountries.includes(countryIso)
