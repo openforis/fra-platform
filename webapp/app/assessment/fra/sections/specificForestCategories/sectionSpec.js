@@ -39,6 +39,20 @@ const tableSpec = SectionSpec.newTableSpec({
       ),
     }),
     SectionSpec.newRowData({
+      [SectionSpec.KEYS_ROW.labelKey]: `specificForestCategories.primaryForest`,
+      [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.primary_forest,
+      [SectionSpec.KEYS_ROW.cols]: yearsTable.map(() =>
+        SectionSpec.newColDecimal({
+          [SectionSpec.KEYS_COL.validator]: SpecificForestCategoriesValidatorState.primaryForestValidator,
+        })
+      ),
+    }),
+    SectionSpec.newRowData({
+      [SectionSpec.KEYS_ROW.labelKey]: `specificForestCategories.temporarilyUnstocked`,
+      [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.temporarily_unstocked,
+      [SectionSpec.KEYS_ROW.cols]: yearsTable.map(() => SectionSpec.newColDecimal({})),
+    }),
+    SectionSpec.newRowData({
       [SectionSpec.KEYS_ROW.labelKey]: `specificForestCategories.bamboo`,
       [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.bamboo,
       [SectionSpec.KEYS_ROW.cols]: yearsTable.map(() =>
@@ -53,20 +67,6 @@ const tableSpec = SectionSpec.newTableSpec({
       [SectionSpec.KEYS_ROW.cols]: yearsTable.map(() =>
         SectionSpec.newColDecimal({
           [SectionSpec.KEYS_COL.validator]: SpecificForestCategoriesValidatorState.forestAreaValidator,
-        })
-      ),
-    }),
-    SectionSpec.newRowData({
-      [SectionSpec.KEYS_ROW.labelKey]: `specificForestCategories.temporarilyUnstocked`,
-      [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.temporarily_unstocked,
-      [SectionSpec.KEYS_ROW.cols]: yearsTable.map(() => SectionSpec.newColDecimal({})),
-    }),
-    SectionSpec.newRowData({
-      [SectionSpec.KEYS_ROW.labelKey]: `specificForestCategories.primaryForest`,
-      [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES.primary_forest,
-      [SectionSpec.KEYS_ROW.cols]: yearsTable.map(() =>
-        SectionSpec.newColDecimal({
-          [SectionSpec.KEYS_COL.validator]: SpecificForestCategoriesValidatorState.primaryForestValidator,
         })
       ),
     }),
