@@ -517,7 +517,7 @@ L'équipe de FRA fra@fao.org
   },
 
   specificForestCategories: {
-    specificForestCategories: 'Catégories spécifiques de forêts',
+    specificForestCategories: 'Forêt primaire et catégories spéciales de forêts',
     categoryHeader: 'Catégories de FRA',
     areaUnitLabel: 'Superficie (1000 ha)',
     bamboo: 'Bambous',

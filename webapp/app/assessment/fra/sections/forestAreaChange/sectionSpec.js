@@ -7,7 +7,7 @@ import * as ForestAreaChangeValidatorState from '@webapp/app/assessment/fra/sect
 
 import { updateForestAreaChangeCell } from '@webapp/app/assessment/fra/sections/forestAreaChange/actions'
 
-const section = FRA.sections['1'].children.c
+const section = FRA.sections['1'].children.d
 const { yearsRange } = FRA
 
 const tableSpec = SectionSpec.newTableSpec({

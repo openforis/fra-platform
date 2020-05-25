@@ -4,7 +4,7 @@ import * as SectionSpec from '@webapp/app/assessment/components/section/sectionS
 
 import * as SpecificForestCategoriesValidatorState from './specificForestCategoriesValidatorState'
 
-const section = FRA.sections['1'].children.e
+const section = FRA.sections['1'].children.c
 const { yearsTable } = FRA
 
 const tableSpec = SectionSpec.newTableSpec({
