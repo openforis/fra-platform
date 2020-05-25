@@ -513,7 +513,7 @@ El equipo de FRA
   },
 
   specificForestCategories: {
-    specificForestCategories: 'Categorías específicas de los bosques',
+    specificForestCategories: 'Bosque primario y categorías especiales de los bosques',
     categoryHeader: 'Categorías de FRA',
     areaUnitLabel: 'Área (1000 ha)',
     bamboo: 'Bambúes',
