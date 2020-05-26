@@ -15,19 +15,19 @@ const views = [
 
 const getExportData = async (table, variable, countries, columns) => {
   // Add "" around year columns
-  const columnsJoined = columns.map((x) => `"${x}"`).join(',')
+  const columnsJoined = columns.map((x) => `'${x}', t."${x}"`).join(',')
   const countriesJoined = countries.map((x) => `'${x}'`).join(',')
   // check if table exists in views array
   const tableName = views.includes(table) ? `${table}_view` : table
 
   const query = `
-    SELECT country_iso, row_name, ${columnsJoined}
+    SELECT json_object_agg(t.country_iso, json_build_object(${columnsJoined}))
     FROM ${tableName} t
     WHERE t.country_iso IN (${countriesJoined})
     AND t.row_name = $1
   `
   const result = await db.query(query, [variable])
-  return camelize(result.rows)
+  return camelize(result.rows[0].json_object_agg)
 }
 
 module.exports = {
