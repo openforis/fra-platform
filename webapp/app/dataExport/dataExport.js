@@ -5,6 +5,7 @@ import { Redirect, Route, Switch } from 'react-router'
 import * as BasePaths from '@webapp/main/basePaths'
 import * as FRA from '@common/assessment/fra'
 
+import ResultsTable from '@webapp/app/dataExport/components/resultsTable'
 import useDataExportState from './useDataExportState'
 import CountrySelect from './components/countrySelect'
 import VariableSelect from './components/variableSelect'
@@ -16,10 +17,12 @@ const DataExport = () => {
     selection,
     variables,
     columns,
+    results,
     setSelectionCountries,
     setSelectionVariable,
     setSelectionColumns,
   } = useDataExportState()
+  const displayTable = Object.keys(results).length > 0
 
   return (
     <Switch>
@@ -48,7 +51,9 @@ const DataExport = () => {
               setSelectionColumns={setSelectionColumns}
             />
           </div>
-          <div className="export__table" />
+          <div className="export__table">
+            {displayTable && <ResultsTable selection={selection} results={results} />}
+          </div>
         </div>
       </Route>
     </Switch>
