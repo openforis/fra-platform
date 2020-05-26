@@ -3,18 +3,13 @@ const R = require('ramda')
 const TraditionalTableExporter = require('../../exporter/traditionalTableExporter')
 
 class SpecificForestCategoriesExporter extends TraditionalTableExporter {
-
-  constructor () {
-    super(
-      'specificForestCategories',
-      ['mangroves'],
-      '1e'
-    )
+  constructor() {
+    super('specificForestCategories', ['mangroves'], '1c')
   }
 
-  parseResultRow (result, yearIdx) {
+  parseResultRow(result, yearIdx) {
     const resultRow = {
-      mangroves: R.path([1, yearIdx], result)
+      mangroves: R.path([3, yearIdx], result),
     }
 
     return resultRow

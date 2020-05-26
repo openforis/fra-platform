@@ -525,7 +525,7 @@ module.exports.translation = {
   },
 
   specificForestCategories: {
-    specificForestCategories: 'Специальные категории леса',
+    specificForestCategories: 'Девственные леса и специальные категории лесов',
     categoryHeader: 'Категории ОЛР',
     areaUnitLabel: 'Площадь (1000 га)',
     bamboo: 'Бамбуковые леса',

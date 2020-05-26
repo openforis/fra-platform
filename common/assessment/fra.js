@@ -36,24 +36,24 @@ const FRA = {
           },
         },
         c: {
-          name: 'forestAreaChange',
+          name: 'specificForestCategories',
           anchor: '1c',
+          tables: {
+            specificForestCategories: 'specificForestCategories',
+          },
+        },
+        d: {
+          name: 'forestAreaChange',
+          anchor: '1d',
           tables: {
             forestAreaChange: 'forestAreaChange',
           },
         },
-        d: {
-          name: 'annualReforestation',
-          anchor: '1d',
-          tables: {
-            annualReforestation: 'annualReforestation',
-          },
-        },
         e: {
-          name: 'specificForestCategories',
+          name: 'annualReforestation',
           anchor: '1e',
           tables: {
-            specificForestCategories: 'specificForestCategories',
+            annualReforestation: 'annualReforestation',
           },
         },
         f: {

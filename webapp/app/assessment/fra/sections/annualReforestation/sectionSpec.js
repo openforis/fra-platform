@@ -4,7 +4,7 @@ import * as SectionSpec from '@webapp/app/assessment/components/section/sectionS
 
 import * as AnnualReforestationValidatorState from './annualReforestationValidatorState'
 
-const section = FRA.sections['1'].children.d
+const section = FRA.sections['1'].children.e
 const { yearsRange } = FRA
 
 const tableSpec = SectionSpec.newTableSpec({
