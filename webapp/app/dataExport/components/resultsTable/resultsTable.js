@@ -18,8 +18,9 @@ const ResultsTable = (props) => {
       <table ref={tableRef} className="fra-table data-table">
         <thead>
           <tr>
-            {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
-            <th className="fra-table__header-cell-left" colSpan="1" rowSpan="2" />
+            <th className="fra-table__header-cell-left" colSpan="1" rowSpan="2">
+              &nbsp;
+            </th>
             <th className="fra-table__header-cell" colSpan={selection.columns.length + 1}>
               {i18n.t(selection.variable.label)}
             </th>
@@ -55,6 +56,7 @@ const ResultsTable = (props) => {
           ))}
         </tbody>
       </table>
+      <p>&copy; FAO {`${new Date().getFullYear()}`}</p>
     </div>
   )
 }
