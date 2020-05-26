@@ -1,9 +1,10 @@
+import './resultsTable.less'
 import React, { useRef } from 'react'
 import PropTypes from 'prop-types'
-import { useI18n } from '@webapp/components/hooks'
-import ButtonTableExport from '@webapp/components/buttonTableExport'
 import { useParams } from 'react-router'
 
+import { useI18n } from '@webapp/components/hooks'
+import ButtonTableExport from '@webapp/components/buttonTableExport'
 import * as NumberUtils from '@common/bignumberUtils'
 
 const ResultsTable = (props) => {
@@ -13,7 +14,7 @@ const ResultsTable = (props) => {
   const i18n = useI18n()
 
   return (
-    <div style={{ position: 'relative' }}>
+    <div className="results-table">
       <ButtonTableExport tableRef={tableRef} filename={`${assessmentType}-${section}`} />
       <table ref={tableRef} className="fra-table data-table">
         <thead>
@@ -56,7 +57,7 @@ const ResultsTable = (props) => {
           ))}
         </tbody>
       </table>
-      <p>&copy; FAO {`${new Date().getFullYear()}`}</p>
+      <p className="copyright">&copy; FRA {`${new Date().getFullYear()}`}</p>
     </div>
   )
 }
