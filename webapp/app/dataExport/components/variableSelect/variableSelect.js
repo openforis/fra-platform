@@ -19,14 +19,14 @@ const VariableSelect = (props) => {
       <div className="export__form-section-variables">
         {variables.map((variable) => {
           const { cols, variableExport } = variable
-          const selected = variableExport === selectionVariable
+          const selected = variableExport === selectionVariable.param
           return (
             <ButtonCheckBox
               key={variableExport}
               checked={selected}
               label={cols[0].labelKey}
               onClick={() => {
-                setSelectionVariable(selected ? '' : variableExport)
+                setSelectionVariable(selected ? {} : { param: variableExport, label: cols[0].labelKey })
               }}
             />
           )
@@ -38,7 +38,7 @@ const VariableSelect = (props) => {
 
 VariableSelect.propTypes = {
   variables: PropTypes.array.isRequired,
-  selectionVariable: PropTypes.string.isRequired,
+  selectionVariable: PropTypes.object.isRequired,
   setSelectionVariable: PropTypes.func.isRequired,
 }
 

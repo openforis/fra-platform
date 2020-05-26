@@ -25,17 +25,17 @@ const ColumnSelect = (props) => {
 
       <div className="export__form-section-variables">
         {columns.map((column) => {
-          const selected = selectionColumns.includes(column)
+          const selected = !!selectionColumns.find(({ param }) => param === column)
           const label = i18nMappings[column] || String(column)
           return (
             <ButtonCheckBox
-              key={column}
+              key={String(column)}
               checked={selected}
               label={label}
               onClick={() => {
                 const selectionColumnsUpdate = selected
-                  ? selectionColumns.filter((col) => col !== column)
-                  : [...selectionColumns, column]
+                  ? selectionColumns.filter((col) => col.param !== column)
+                  : [...selectionColumns, { label, param: column }]
                 setSelectionColumns(selectionColumnsUpdate)
               }}
             />
