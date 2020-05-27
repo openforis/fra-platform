@@ -1,1 +1,1 @@
-export { default } from './columnSelect'
+export { default, getLabel } from './columnSelect'
