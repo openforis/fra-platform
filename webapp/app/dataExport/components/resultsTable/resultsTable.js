@@ -6,12 +6,15 @@ import { useParams } from 'react-router'
 import { useI18n } from '@webapp/components/hooks'
 import ButtonTableExport from '@webapp/components/buttonTableExport'
 import * as NumberUtils from '@common/bignumberUtils'
+import { getLabel as getColumnLabel } from '../columnSelect'
 
 const ResultsTable = (props) => {
-  const { results, selection } = props
+  const { results, selection, columns } = props
   const { assessmentType, section } = useParams()
   const tableRef = useRef(null)
   const i18n = useI18n()
+
+  const filteredColumns = columns.filter((x) => selection.columns.map((y) => y.param).includes(x))
 
   return (
     <div className="results-table">
@@ -27,12 +30,9 @@ const ResultsTable = (props) => {
             </th>
           </tr>
           <tr>
-            {/*
-              use all columns filtered
-            */}
-            {selection.columns.map((column) => (
-              <th key={column.param} className="fra-table__header-cell">
-                {i18n.t(column.label)}
+            {filteredColumns.map((column) => (
+              <th key={column} className="fra-table__header-cell">
+                {i18n.t(getColumnLabel(column))}
               </th>
             ))}
           </tr>
@@ -64,6 +64,7 @@ const ResultsTable = (props) => {
 
 ResultsTable.propTypes = {
   results: PropTypes.object.isRequired,
+  columns: PropTypes.array.isRequired,
   selection: PropTypes.object.isRequired,
 }
 

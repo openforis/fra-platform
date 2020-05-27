@@ -11,6 +11,8 @@ const i18nMappings = {
   subnational: 'forestPolicy.subnational',
 }
 
+export const getLabel = (column) => i18nMappings[column] || String(column)
+
 const ColumnSelect = (props) => {
   const { setSelectionColumns, columns, selectionColumns } = props
   const i18n = useI18n()
@@ -26,7 +28,7 @@ const ColumnSelect = (props) => {
       <div className="export__form-section-variables">
         {columns.map((column) => {
           const selected = !!selectionColumns.find(({ param }) => param === column)
-          const label = i18nMappings[column] || String(column)
+          const label = getLabel(column)
           return (
             <ButtonCheckBox
               key={String(column)}
