@@ -55,9 +55,15 @@ const ResultsTable = (props) => {
                 })}
             </tr>
           ))}
+          <tr>
+            <td colSpan={selection.columns.length + 1} className="fra-table__validation-cell">
+              <div className="fra-table__validation-container copyright">
+                &copy; FRA {`${new Date().getFullYear()}`}
+              </div>
+            </td>
+          </tr>
         </tbody>
       </table>
-      <p className="copyright">&copy; FRA {`${new Date().getFullYear()}`}</p>
     </div>
   )
 }
