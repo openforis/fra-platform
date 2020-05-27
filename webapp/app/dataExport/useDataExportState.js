@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
-import axios from 'axios'
+import snake from 'to-snake-case'
 
 import useGetRequest from '@webapp/components/hooks/useGetRequest'
 import * as SectionSpecs from '@webapp/app/assessment/components/section/sectionSpecs'
@@ -10,7 +10,6 @@ export default () => {
   const { section, assessmentType } = useParams()
   const [variables, setVariables] = useState([])
   const [columns, setColumns] = useState([])
-  const [results, setResults] = useState({})
 
   const [selection, setSelection] = useState({
     countries: [],
@@ -20,6 +19,16 @@ export default () => {
   })
 
   const { data: countries = [], dispatch: fetchCountries } = useGetRequest(`/api/countries`)
+  const { data: results = [], dispatch: fetchResults, setState: setResultState } = useGetRequest(
+    `/api/export/${snake(section)}`,
+    {
+      params: {
+        columns: selection.columns.map(({ param }) => param),
+        countries: selection.countries.map(({ param }) => param),
+        variable: selection.variable.param,
+      },
+    }
+  )
 
   useEffect(() => {
     fetchCountries()
@@ -30,6 +39,7 @@ export default () => {
       variable: {},
       columns: [],
     })
+    setResultState([])
 
     if (assessmentType && section) {
       const tableSpec = SectionSpecs.getTableSpecExport(assessmentType, section)
@@ -43,22 +53,7 @@ export default () => {
     if (!section || !selection.countries.length || !selection.columns.length || !selection.variable.param) {
       return
     }
-    // format section camelCase to snake_case
-    const fetchResultsUrl = `/api/export/${section
-      .split(/(?=[A-Z])/)
-      .join('_')
-      .toLowerCase()}`
-    axios
-      .get(fetchResultsUrl, {
-        params: {
-          columns: selection.columns.map(({ param }) => param),
-          countries: selection.countries.map(({ param }) => param),
-          variable: selection.variable.param,
-        },
-      })
-      .then(({ data }) => {
-        setResults(data)
-      })
+    fetchResults()
   }, [section, selection.countries, selection.columns, selection.variable])
 
   const setSelectionCountries = (value) => setSelection({ ...selection, countries: value })
