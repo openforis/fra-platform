@@ -49,7 +49,7 @@ module.exports.init = app => {
   })
 
   // get file
-  app.get('/fileRepository/:countryIso/file/:fileId', Auth.requireCountryEditPermission, async (req, res) => {
+  app.get('/fileRepository/:countryIso/file/:fileId', async (req, res) => {
     try {
       const file = await getFile(req.params.fileId)
 
