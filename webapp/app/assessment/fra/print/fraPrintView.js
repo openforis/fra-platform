@@ -32,6 +32,8 @@ const FraPrintView = () => {
     return <Loading />
   }
 
+  window.isReadyForPDF = true
+
   let title = ''
   if (printOnlyTablesView) title = i18n.t('fraReportPrint.titleTables')
   if (!printOnlyTablesView && deskStudy) title = `${i18n.t('assessment.fra2020')} ${i18n.t('assessment.deskStudy')}`
