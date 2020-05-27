@@ -1,16 +1,18 @@
 //===WARNING====
 // DO NOT IMPORT SPECIFIC COMPONENT STYLES HERE,
 // ONLY MORE GENERAL STUFF USED IN MANY PLACES
-@import "~@webapp/main/styles/config";
+@import 'webapp/main/styles/config';
 //Import all common application styles
-@import "~@webapp/main/styles/buttons";
-@import "~@webapp/main/styles/checkbox";
-@import "~@webapp/main/styles/icon";
-@import "~@webapp/main/styles/form";
-@import "~@webapp/main/styles/fraTable";
-@import "~@webapp/main/styles/fraValidation";
+@import 'webapp/main/styles/buttons';
+@import 'webapp/main/styles/checkbox';
+@import 'webapp/main/styles/icon';
+@import 'webapp/main/styles/form';
+@import 'webapp/main/styles/fraTable';
+@import 'webapp/main/styles/fraValidation';
 
-*, *:before, *:after {
+*,
+*:before,
+*:after {
   box-sizing: inherit;
 }
 
@@ -29,7 +31,11 @@ body {
   height: 100%;
 }
 
-h1, h2, h3, h4, h5 {
+h1,
+h2,
+h3,
+h4,
+h5 {
   color: @text-heading;
   font-weight: 700;
   line-height: 1.25;
@@ -39,10 +45,6 @@ h1, h2, h3, h4, h5 {
 
 .title {
   font-size: @font-xxl;
-
-  &.only-print {
-    margin-bottom: 24px;
-  }
 }
 
 h1.title {
@@ -88,15 +90,15 @@ hr {
 
 @keyframes wobble {
   0% {
-    transform: rotate(0deg)
+    transform: rotate(0deg);
   }
   25% {
-    transform: rotate(5deg)
+    transform: rotate(5deg);
   }
   75% {
-    transform: rotate(-5deg)
+    transform: rotate(-5deg);
   }
   100% {
-    transform: rotate(0deg)
+    transform: rotate(0deg);
   }
 }
