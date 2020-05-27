@@ -3,9 +3,9 @@ import { useReducer } from 'react'
 import useIsMounted from './useIsMounted'
 
 const useAsyncActionHandlers = [
-  data => ({ ...data, loading: true, loaded: false }),
-  data => ({ ...data, loading: false, loaded: true }),
-  error => ({ error, loading: false, loaded: false }),
+  (data) => ({ ...data, loading: true, loaded: false }),
+  (data) => ({ ...data, loading: false, loaded: true }),
+  (error) => ({ error, loading: false, loaded: false }),
 ]
 
 export default (promiseFn, promiseArgs) => {
@@ -30,7 +30,7 @@ export default (promiseFn, promiseArgs) => {
     })()
   }
 
-  const setState = stateUpdate => {
+  const setState = (stateUpdate) => {
     _dispatch({ type: 1, payload: stateUpdate })
   }
 
