@@ -14,7 +14,7 @@ const ResultsTable = (props) => {
   const tableRef = useRef(null)
   const i18n = useI18n()
 
-  const filteredColumns = columns.filter((x) => selection.columns.map((y) => y.param).includes(x))
+  const filteredColumns = columns.filter((column) => selection.columns.map(({ param }) => param).includes(column))
 
   return (
     <div className="results-table">
