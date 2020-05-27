@@ -37,6 +37,8 @@ const sustainableDevelopmentAgencySubIndicator2 = require('./mappings/sustainabl
 const sustainableDevelopmentAgencySubIndicator3 = require('./mappings/sustainableDevelopmentAgencySubIndicator3')
 const sustainableDevelopmentAgencySubIndicator4 = require('./mappings/sustainableDevelopmentAgencySubIndicator4')
 
+const panEuropean = require('./mappings/panEuropean')
+
 const mappings = {
   specificForestCategories,
   forestAreaChange,
@@ -73,7 +75,9 @@ const mappings = {
   sustainableDevelopmentAgencySubIndicator1,
   sustainableDevelopmentAgencySubIndicator2,
   sustainableDevelopmentAgencySubIndicator3,
-  sustainableDevelopmentAgencySubIndicator4
+  sustainableDevelopmentAgencySubIndicator4,
+
+  ...panEuropean,
 }
 
 const getRowIndex = (name, names) => {
@@ -88,16 +92,15 @@ const getColumnName = (idx, columns) => R.path([idx, 'name'], columns)
 const getColumnIndex = (name, columns) => R.findIndex((x) => x.name === name, columns)
 
 const Mapping = (mapping) =>
-  R.merge(mapping,
-    {
-      getRowName: (idx) => getRowName(idx, mapping.rows.names),
-      getRowIndex: (name) => getRowIndex(name, mapping.rows.names),
-      getFullRowCount: () => mapping.rows.names.length,
-      getColumn: (idx) => mapping.columns[idx],
-      getColumnName: (idx) => getColumnName(idx, mapping.columns),
-      getColumnIndex: (name) => getColumnIndex(name, mapping.columns),
-      getFullColumnCount: () => mapping.columns.length
-    })
+  R.merge(mapping, {
+    getRowName: (idx) => getRowName(idx, mapping.rows.names),
+    getRowIndex: (name) => getRowIndex(name, mapping.rows.names),
+    getFullRowCount: () => mapping.rows.names.length,
+    getColumn: (idx) => mapping.columns[idx],
+    getColumnName: (idx) => getColumnName(idx, mapping.columns),
+    getColumnIndex: (name) => getColumnIndex(name, mapping.columns),
+    getFullColumnCount: () => mapping.columns.length,
+  })
 
 const assertSanity = (mappingObj) => {
   const errMsg = 'Malformed FRA table mapping'
