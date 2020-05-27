@@ -22,7 +22,7 @@ const DataExport = () => {
     setSelectionVariable,
     setSelectionColumns,
   } = useDataExportState()
-  const displayTable = Object.keys(results).length > 0
+  const displayTable = results && Object.keys(results).length > 0
 
   return (
     <Switch>
