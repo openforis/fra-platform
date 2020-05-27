@@ -52,7 +52,7 @@ const DataExport = () => {
             />
           </div>
           <div className="export__table">
-            {displayTable && <ResultsTable selection={selection} results={results} />}
+            {displayTable && <ResultsTable columns={columns} selection={selection} results={results} />}
           </div>
         </div>
       </Route>
