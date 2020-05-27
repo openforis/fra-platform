@@ -563,7 +563,7 @@ L'équipe de FRA fra@fao.org
     introducedTreeSpecies: "Espèce d'arbre introduite",
     areaUnitLabel: 'Matériel sur pied dans la forêt (millions m³ sur écorce)',
     scientificName: 'Dénomination scientifique',
-    commonName: 'Dénomication usuelle',
+    commonName: 'Dénomination usuelle',
     rank: '#{{idx}} Classé(e) en volume',
     remainingNative: "Espèces d'arbres indigènes restantes",
     remainingIntroduced: "Espèces d'arbres introduites restantes",
