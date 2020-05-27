@@ -40,7 +40,8 @@ const CountrySelect = (props) => {
         label={selectionCountries.length > 0 ? 'common.unselectAll' : 'common.selectAll'}
         onClick={() => {
           if (selectionCountries.length > 0) setSelectionCountries([])
-          else setSelectionCountries(countries.map((country) => country.countryIso))
+          else
+            setSelectionCountries(countries.map((country) => ({ label: country[propName], param: country.countryIso })))
         }}
       />
 
@@ -57,7 +58,7 @@ const CountrySelect = (props) => {
               label={country[propName]}
               onClick={() => {
                 const selectionCountriesUpdate = selected
-                  ? selectionCountries.filter(({ param }) => param !== country)
+                  ? selectionCountries.filter(({ param }) => param !== country.countryIso)
                   : [...selectionCountries, { label: country[propName], param: countryIso }]
                 setSelectionCountries(selectionCountriesUpdate)
               }}
