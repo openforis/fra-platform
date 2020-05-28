@@ -11,10 +11,10 @@ module.exports.translation = {
     login: 'Entrar',
     statisticalFactsheets: 'Fichas estadísticas',
     dataExport: 'Exportación de datos',
-    selectAll: 'seleccionar todo',
-    unselectAll: 'deseleccionar todo',
-    variable: 'variable',
-    column: 'columna',
+    selectAll: 'Seleccionar todo',
+    unselectAll: 'Deseleccionar todo',
+    variable: 'Variable',
+    column: 'Columna',
   },
 
   countrySelection: {
