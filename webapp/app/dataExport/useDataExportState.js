@@ -5,9 +5,10 @@ import snake from 'to-snake-case'
 import useGetRequest from '@webapp/components/hooks/useGetRequest'
 import * as SectionSpecs from '@webapp/app/assessment/components/section/sectionSpecs'
 import { TableSpec } from '@webapp/app/assessment/components/section/sectionSpec'
+import { throttle } from '@webapp/utils/functionUtils'
 
 export default () => {
-  const { section, assessmentType } = useParams()
+  const { section = '', assessmentType } = useParams()
   const [variables, setVariables] = useState([])
   const [columns, setColumns] = useState([])
 
@@ -53,7 +54,7 @@ export default () => {
     if (!section || !selection.countries.length || !selection.columns.length || !selection.variable.param) {
       return
     }
-    fetchResults()
+    throttle(fetchResults, `fetchDataExportResults`, 800)()
   }, [section, selection.countries, selection.columns, selection.variable])
 
   const setSelectionCountries = (value) => setSelection({ ...selection, countries: value })
