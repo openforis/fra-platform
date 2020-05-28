@@ -1036,4 +1036,22 @@ The FRA team
     title: 'FRA 2020 report',
     titleTables: 'FRA 2020 reporting tables',
   },
+
+  panEuropean: {
+    // navigation
+    navigation: {
+      forestResourcesAndCarbon: 'Forest Resources and Carbon',
+    },
+    // table 1.1a
+    forestArea: {
+      categoryYear: 'Category - Year',
+      area: 'Area (1000 ha)',
+      forest: 'Forest - {{year}}',
+      _of_which_available_for_wood_supply: '… of which available for wood supply - {{year}}',
+      other_wooded_land: 'Other wooded land - {{year}}',
+      total_forest_and_other_wooded_land: 'Total forest and other wooded land - {{year}}',
+      other_land: 'Other land - {{year}}',
+      _of_which_with_tree_cover: '… of which with tree cover - {{year}}',
+    },
+  },
 }
