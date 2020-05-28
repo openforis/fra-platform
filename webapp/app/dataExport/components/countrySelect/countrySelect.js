@@ -40,7 +40,8 @@ const CountrySelect = (props) => {
         label={selectionCountries.length > 0 ? 'common.unselectAll' : 'common.selectAll'}
         onClick={() => {
           if (selectionCountries.length > 0) setSelectionCountries([])
-          else setSelectionCountries(countries.map((country) => country.countryIso))
+          else
+            setSelectionCountries(countries.map((country) => ({ label: country[propName], param: country.countryIso })))
         }}
       />
 
@@ -49,20 +50,17 @@ const CountrySelect = (props) => {
       <div className="export__form-section-variables">
         {countriesFiltered.map((country) => {
           const { countryIso } = country
-          const selected = selectionCountries.includes(countryIso)
+          const selected = selectionCountries.filter(({ param }) => param === country.countryIso).length > 0
           return (
             <ButtonCheckBox
               key={countryIso}
               checked={selected}
               label={country[propName]}
               onClick={() => {
-                if (selected) {
-                  const selectionCountriesUpdate = [...selectionCountries]
-                  selectionCountriesUpdate.splice(selectionCountriesUpdate.indexOf(countryIso), 1)
-                  setSelectionCountries(selectionCountriesUpdate)
-                } else {
-                  setSelectionCountries([...selectionCountries, countryIso])
-                }
+                const selectionCountriesUpdate = selected
+                  ? selectionCountries.filter(({ param }) => param !== country.countryIso)
+                  : [...selectionCountries, { label: country[propName], param: countryIso }]
+                setSelectionCountries(selectionCountriesUpdate)
               }}
             />
           )

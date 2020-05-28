@@ -10,6 +10,11 @@ module.exports.translation = {
     fraPlatform: 'Plataforma de FRA',
     login: 'Entrar',
     statisticalFactsheets: 'Fichas estadísticas',
+    dataExport: 'Exportación de datos',
+    selectAll: 'Seleccionar todo',
+    unselectAll: 'Deseleccionar todo',
+    variable: 'Variable',
+    column: 'Columna',
   },
 
   countrySelection: {

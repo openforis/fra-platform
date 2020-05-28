@@ -46,6 +46,7 @@ const tableSection = SectionSpec.newTableSection({
 const degradedForest = SectionSpec.newSectionSpec({
   [SectionSpec.KEYS_SECTION.sectionName]: section.name,
   [SectionSpec.KEYS_SECTION.sectionAnchor]: section.anchor,
+  [SectionSpec.KEYS_SECTION.dataExport]: { [SectionSpec.KEYS_DATA_EXPORT.included]: false },
   [SectionSpec.KEYS_SECTION.descriptions]: {
     [SectionSpec.KEYS_SECTION_DESCRIPTIONS.nationalData]: false,
     [SectionSpec.KEYS_SECTION_DESCRIPTIONS.analysisAndProcessing]: false,

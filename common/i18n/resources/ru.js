@@ -10,6 +10,11 @@ module.exports.translation = {
     fraPlatform: 'Платформой ОЛР',
     login: 'Логин',
     statisticalFactsheets: 'Статистические бюллетени',
+    dataExport: 'Экспорт данных',
+    selectAll: 'Выделить все',
+    unselectAll: 'Снять выделение',
+    variable: 'Переменная',
+    column: 'Столбец',
   },
 
   countrySelection: {
@@ -137,7 +142,7 @@ module.exports.translation = {
         edited: 'отредактировал',
         resolved: 'разрешил проблему в',
         status: 'изменил статус на',
-        addUser: 'добавил {{user}} как {{role}}', //Legacy, no longer created
+        addUser: 'добавил {{user}} как {{role}}', // Legacy, no longer created
         updateUser: 'отредактировал {{user}}',
         removeUser: 'удалил {{user}}',
         acceptInvitation: 'присоединился как {{role}}',

@@ -10,6 +10,11 @@ module.exports.translation = {
     fraPlatform: 'Plateforme de FRA',
     login: 'Connexion',
     statisticalFactsheets: 'Fiches statistiques',
+    dataExport: 'Exportation de données',
+    selectAll: 'Tout sélectionner',
+    unselectAll: 'Tout déselectionner',
+    variable: 'Variable',
+    column: 'Colonne',
   },
 
   countrySelection: {
@@ -129,7 +134,7 @@ module.exports.translation = {
         edited: 'a modifié',
         resolved: 'a résolu',
         status: 'changer le statut à',
-        addUser: '{{user}} a été ajouté comme {{role}}', //Legacy, no longer created
+        addUser: '{{user}} a été ajouté comme {{role}}', // Legacy, no longer created
         updateUser: 'a modifié {{user}}',
         removeUser: 'a éliminé {{user}}',
         acceptInvitation: 'est devenu membre en tant que {{role}}',

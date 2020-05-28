@@ -27,6 +27,10 @@ WITH extent_of_forest AS (
                 sum(e.forest_area) FILTER ( WHERE e.year = 2000 ) AS "2000",
                 sum(e.forest_area) FILTER ( WHERE e.year = 2010 ) AS "2010",
                 sum(e.forest_area) FILTER ( WHERE e.year = 2015 ) AS "2015",
+                sum(e.forest_area) FILTER ( WHERE e.year = 2016 ) AS "2016",
+                sum(e.forest_area) FILTER ( WHERE e.year = 2017 ) AS "2017",
+                sum(e.forest_area) FILTER ( WHERE e.year = 2018 ) AS "2018",
+                sum(e.forest_area) FILTER ( WHERE e.year = 2019 ) AS "2019",
                 sum(e.forest_area) FILTER ( WHERE e.year = 2020 ) AS "2020"
          FROM extent_of_forest e
          WHERE e.row_number = 1
@@ -39,6 +43,10 @@ WITH extent_of_forest AS (
                 sum(e.other_wooded_land) FILTER ( WHERE e.year = 2000 ) AS "2000",
                 sum(e.other_wooded_land) FILTER ( WHERE e.year = 2010 ) AS "2010",
                 sum(e.other_wooded_land) FILTER ( WHERE e.year = 2015 ) AS "2015",
+                sum(e.other_wooded_land) FILTER ( WHERE e.year = 2016 ) AS "2016",
+                sum(e.other_wooded_land) FILTER ( WHERE e.year = 2017 ) AS "2017",
+                sum(e.other_wooded_land) FILTER ( WHERE e.year = 2018 ) AS "2018",
+                sum(e.other_wooded_land) FILTER ( WHERE e.year = 2019 ) AS "2019",
                 sum(e.other_wooded_land) FILTER ( WHERE e.year = 2020 ) AS "2020"
          FROM extent_of_forest e
          WHERE e.row_number = 1
@@ -51,6 +59,10 @@ WITH extent_of_forest AS (
                 (c.config #>> '{faoStat,2000,area}')::NUMERIC AS "2000",
                 (c.config #>> '{faoStat,2010,area}')::NUMERIC AS "2010",
                 (c.config #>> '{faoStat,2015,area}')::NUMERIC AS "2015",
+                (c.config #>> '{faoStat,2016,area}')::NUMERIC AS "2016",
+                (c.config #>> '{faoStat,2017,area}')::NUMERIC AS "2017",
+                (c.config #>> '{faoStat,2018,area}')::NUMERIC AS "2018",
+                (c.config #>> '{faoStat,2019,area}')::NUMERIC AS "2019",
                 (c.config #>> '{faoStat,2020,area}')::NUMERIC AS "2020"
          FROM country c
      )
@@ -69,6 +81,10 @@ SELECT t.country_iso,
        f."2000" / NULLIF(t."2000", 0) * 100 AS "2000",
        f."2010" / NULLIF(t."2010", 0) * 100 AS "2010",
        f."2015" / NULLIF(t."2015", 0) * 100 AS "2015",
+       f."2015" / NULLIF(t."2016", 0) * 100 AS "2016",
+       f."2015" / NULLIF(t."2017", 0) * 100 AS "2017",
+       f."2015" / NULLIF(t."2018", 0) * 100 AS "2018",
+       f."2015" / NULLIF(t."2019", 0) * 100 AS "2019",
        f."2020" / NULLIF(t."2020", 0) * 100 AS "2020"
 FROM total_land_area t
 LEFT JOIN forest_area f
@@ -80,6 +96,10 @@ SELECT t.country_iso,
        t."2000" - f."2000" - o."2000" AS "2000",
        t."2010" - f."2010" - o."2010" AS "2010",
        t."2015" - f."2015" - o."2015" AS "2015",
+       t."2016" - f."2016" - o."2016" AS "2016",
+       t."2017" - f."2017" - o."2017" AS "2017",
+       t."2018" - f."2018" - o."2018" AS "2018",
+       t."2019" - f."2019" - o."2019" AS "2019",
        t."2020" - f."2020" - o."2020" AS "2020"
 FROM total_land_area t
 LEFT JOIN forest_area f
