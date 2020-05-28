@@ -15,7 +15,6 @@ const ResultsTable = (props) => {
   const i18n = useI18n()
 
   const filteredColumns = columns.filter((column) => selection.columns.map(({ param }) => param).includes(column))
-
   return (
     <div className="results-table">
       <ButtonTableExport tableRef={tableRef} filename={`${assessmentType}-${section}`} />
@@ -44,9 +43,10 @@ const ResultsTable = (props) => {
                 {i18n.t(label)}
               </th>
               {results[countryIso] &&
-                Object.entries(results[countryIso]).map(([year, value]) => {
+                filteredColumns.map((column) => {
+                  const value = results[countryIso][column]
                   return (
-                    <td key={`${countryIso}${year}${value}`} className="fra-table__cell">
+                    <td key={`${countryIso}${column}${value}`} className="fra-table__cell">
                       <div className="number-input__readonly-view">
                         {Number.isNaN(value) ? value : NumberUtils.formatNumber(value)}
                       </div>
