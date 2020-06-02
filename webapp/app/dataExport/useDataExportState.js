@@ -61,12 +61,15 @@ export default () => {
   const setSelectionColumns = (value) => setSelection({ ...selection, columns: value })
   const setSelectionVariable = (value) => setSelection({ ...selection, variable: value })
 
+  const hasSelection = !!(selection.countries.length && selection.columns.length && selection.variable.param)
+
   return {
     results,
     countries,
     columns,
     selection,
     variables,
+    hasSelection,
     setSelectionCountries,
     setSelectionColumns,
     setSelectionVariable,
