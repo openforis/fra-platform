@@ -22,7 +22,7 @@ WITH s AS (
            ROUND("2010", 2)             AS "2010",
            ROUND("2015", 2)             AS "2015",
            ROUND("2020", 2)             AS "2020"
-    FROM growing_stock_total_view gst
+    FROM growing_stock_view gst
     WHERE row_name = 'growing_stock_total'
     UNION
     SELECT country_iso,
