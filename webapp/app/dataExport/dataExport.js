@@ -18,11 +18,12 @@ const DataExport = () => {
     variables,
     columns,
     results,
+    hasSelection,
     setSelectionCountries,
     setSelectionVariable,
     setSelectionColumns,
   } = useDataExportState()
-  const displayTable = results && Object.keys(results).length > 0
+  const displayTable = results && Object.keys(results).length > 0 && hasSelection
 
   return (
     <Switch>
