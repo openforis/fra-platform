@@ -44,7 +44,7 @@ const ResultsTable = (props) => {
               </th>
               {filteredColumns.map((column) => {
                 let value = results[countryIso] && results[countryIso][column]
-                if (!Number.isNaN()) value = NumberUtils.formatNumber(value)
+                if (!Number.isNaN(value)) value = NumberUtils.formatNumber(value)
                 if (value === 'NaN') value = ''
 
                 return (
