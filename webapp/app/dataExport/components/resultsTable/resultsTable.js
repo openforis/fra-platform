@@ -46,7 +46,6 @@ const ResultsTable = (props) => {
                 let value = results[countryIso] && results[countryIso][column]
                 if (!Number.isNaN()) value = NumberUtils.formatNumber(value)
                 if (value === 'NaN') value = ''
-                // value = Number.isNaN(value) ? value : NumberUtils.formatNumber(value)
 
                 return (
                   <td key={`${countryIso}${column}${value}`} className="fra-table__cell">
