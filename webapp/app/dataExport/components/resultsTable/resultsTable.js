@@ -42,17 +42,16 @@ const ResultsTable = (props) => {
               <th className="fra-table__category-cell" colSpan="1">
                 {i18n.t(label)}
               </th>
-              {results[countryIso] &&
-                filteredColumns.map((column) => {
-                  const value = results[countryIso][column]
-                  return (
-                    <td key={`${countryIso}${column}${value}`} className="fra-table__cell">
-                      <div className="number-input__readonly-view">
-                        {Number.isNaN(value) ? value : NumberUtils.formatNumber(value)}
-                      </div>
-                    </td>
-                  )
-                })}
+              {filteredColumns.map((column) => {
+                const value = results[countryIso][column] || ''
+                return (
+                  <td key={`${countryIso}${column}${value}`} className="fra-table__cell">
+                    <div className="number-input__readonly-view">
+                      {Number.isNaN(value) ? value : NumberUtils.formatNumber(value)}
+                    </div>
+                  </td>
+                )
+              })}
             </tr>
           ))}
           <tr>
