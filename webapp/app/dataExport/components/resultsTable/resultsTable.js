@@ -1,5 +1,5 @@
 import './resultsTable.less'
-import React, { useRef } from 'react'
+import React, { useLayoutEffect, useRef, useState } from 'react'
 import PropTypes from 'prop-types'
 import { useParams } from 'react-router'
 
@@ -9,15 +9,21 @@ import * as NumberUtils from '@common/bignumberUtils'
 import { getLabel as getColumnLabel } from '../columnSelect'
 
 const ResultsTable = (props) => {
-  const { results, selection, columns } = props
-  const { assessmentType, section } = useParams()
-  const tableRef = useRef(null)
-  const i18n = useI18n()
-
+  const { results, selection, columns, fetchingResults } = props
   const filteredColumns = columns.filter((column) => selection.columns.map(({ param }) => param).includes(column))
+
+  const { assessmentType, section } = useParams()
+  const i18n = useI18n()
+  const tableRef = useRef(null)
+  const [exportDisabled, setExportDisabled] = useState(true)
+
+  useLayoutEffect(() => {
+    setExportDisabled(fetchingResults)
+  }, [fetchingResults])
+
   return (
     <div className="results-table">
-      <ButtonTableExport tableRef={tableRef} filename={`${assessmentType}-${section}`} />
+      <ButtonTableExport tableRef={tableRef} filename={`${assessmentType}-${section}`} disabled={exportDisabled} />
       <table ref={tableRef} className="fra-table data-table">
         <thead>
           <tr>
@@ -69,6 +75,7 @@ const ResultsTable = (props) => {
 }
 
 ResultsTable.propTypes = {
+  fetchingResults: PropTypes.bool.isRequired,
   results: PropTypes.object.isRequired,
   columns: PropTypes.array.isRequired,
   selection: PropTypes.object.isRequired,
