@@ -3,18 +3,12 @@ import PropTypes from 'prop-types'
 
 import { useI18n } from '@webapp/components/hooks'
 import ButtonCheckBox from '@webapp/components/buttonCheckBox'
-
-const i18nMappings = {
-  common_name: 'growingStockComposition.commonName',
-  scientific_name: 'growingStockComposition.scientificName',
-  national: 'forestPolicy.national',
-  subnational: 'forestPolicy.subnational',
-}
-
-export const getLabel = (column) => i18nMappings[column] || String(column)
+import { useParams } from 'react-router'
+import { getI18nKey } from '../../utils/format'
 
 const ColumnSelect = (props) => {
   const { setSelectionColumns, columns, selectionColumns } = props
+  const { section } = useParams()
   const i18n = useI18n()
 
   return (
@@ -28,7 +22,7 @@ const ColumnSelect = (props) => {
       <div className="export__form-section-variables">
         {columns.map((column) => {
           const selected = !!selectionColumns.find(({ param }) => param === column)
-          const label = getLabel(column)
+          const label = getI18nKey(column, section)
           return (
             <ButtonCheckBox
               key={String(column)}
