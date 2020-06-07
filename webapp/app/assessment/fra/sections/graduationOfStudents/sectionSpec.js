@@ -17,7 +17,7 @@ const getDataCols = () => years.map(() => categories.map(() => SectionSpec.newCo
 
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.graduationOfStudents,
-  [SectionSpec.KEYS_TABLE.columnsExport]: years,
+  [SectionSpec.KEYS_TABLE.columnsExport]: years.flatMap((year) => categories.map((category) => `${year}_${category}`)),
   [SectionSpec.KEYS_TABLE.rows]: [
     SectionSpec.newRowHeader({
       [SectionSpec.KEYS_ROW.cols]: [
