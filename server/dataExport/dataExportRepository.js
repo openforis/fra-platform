@@ -1,4 +1,3 @@
-const camelize = require('camelize')
 const db = require('../db/db')
 
 // Some data is fetched from views
@@ -27,7 +26,7 @@ const getExportData = async (table, variable, countries, columns) => {
     AND t.row_name = $1
   `
   const result = await db.query(query, [variable])
-  return camelize(result.rows[0].json_object_agg)
+  return result.rows[0].json_object_agg
 }
 
 module.exports = {
