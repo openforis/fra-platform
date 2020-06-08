@@ -5,24 +5,22 @@ import PropTypes from 'prop-types'
 
 import { CSVLink } from 'react-csv'
 
-import { isPrintingMode } from '@webapp/app/assessment/components/print/printAssessment'
-import useIsAssessmentLocked from '@webapp/components/hooks/useIsAssessmentLocked'
+import { useIsAssessmentLocked, usePrintView } from '@webapp/components/hooks'
 
 import Icon from '../icon'
 import * as Utils from './utils'
 
 const ButtonTableExport = (props) => {
-  const { filename, tableRef } = props
+  const { disabled, filename, tableRef } = props
 
-  if (isPrintingMode()) {
-    return null
-  }
-
+  const [printView] = usePrintView()
   const isLocked = useIsAssessmentLocked()
+
+  if (printView) return null
 
   return (
     <CSVLink
-      className={`fra-table__btn-export btn-xs btn-primary${isLocked ? '' : ' disabled'}`}
+      className={`fra-table__btn-export btn-xs btn-primary${isLocked && !disabled ? '' : ' disabled'}`}
       target="_blank"
       filename={filename}
       data={Utils.getData(tableRef.current)}
@@ -34,9 +32,12 @@ const ButtonTableExport = (props) => {
 }
 
 ButtonTableExport.defaultProps = {
+  disabled: false,
   filename: 'tableData',
 }
+
 ButtonTableExport.propTypes = {
+  disabled: PropTypes.bool,
   filename: PropTypes.string,
   tableRef: PropTypes.object.isRequired,
 }
