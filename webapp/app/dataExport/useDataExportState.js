@@ -7,6 +7,8 @@ import * as SectionSpecs from '@webapp/app/assessment/components/section/section
 import { TableSpec } from '@webapp/app/assessment/components/section/sectionSpec'
 import { throttle } from '@webapp/utils/functionUtils'
 
+import { formatColumn, formatSection } from '@webapp/app/dataExport/utils/format'
+
 export default () => {
   const { section = '', assessmentType } = useParams()
   const [variables, setVariables] = useState([])
@@ -20,14 +22,17 @@ export default () => {
   })
 
   const { data: countries = [], dispatch: fetchCountries } = useGetRequest(`/api/countries`)
+
+  const hasSelection = !!(selection.countries.length && selection.columns.length && selection.variable.param)
+
   const {
-    data: results = [],
+    data: results = {},
     dispatch: fetchResults,
     setState: setResultState,
-    loading: fetchingResults,
-  } = useGetRequest(`/api/export/${snake(section)}`, {
+    loading: resultsLoading,
+  } = useGetRequest(`/api/export/${snake(formatSection(section))}`, {
     params: {
-      columns: selection.columns.map(({ param }) => param),
+      columns: selection.columns.map(({ param }) => param).map((column) => formatColumn(column, section)),
       countries: selection.countries.map(({ param }) => param),
       variable: selection.variable.param,
     },
@@ -36,6 +41,7 @@ export default () => {
   useEffect(() => {
     fetchCountries()
   }, [])
+
   useEffect(() => {
     setSelection({
       ...selection,
@@ -52,22 +58,20 @@ export default () => {
       setColumns(colsExport)
     }
   }, [section])
+
   useEffect(() => {
-    if (!section || !selection.countries.length || !selection.columns.length || !selection.variable.param) {
-      return
+    if (section && hasSelection) {
+      throttle(fetchResults, `fetchDataExportResults`, 800)()
     }
-    throttle(fetchResults, `fetchDataExportResults`, 800)()
-  }, [section, selection.countries, selection.columns, selection.variable])
+  }, [selection.countries, selection.columns, selection.variable])
 
   const setSelectionCountries = (value) => setSelection({ ...selection, countries: value })
   const setSelectionColumns = (value) => setSelection({ ...selection, columns: value })
   const setSelectionVariable = (value) => setSelection({ ...selection, variable: value })
 
-  const hasSelection = !!(selection.countries.length && selection.columns.length && selection.variable.param)
-
   return {
-    fetchingResults,
     results,
+    resultsLoading,
     countries,
     columns,
     selection,

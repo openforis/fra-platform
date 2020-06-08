@@ -1,3 +1,5 @@
+DROP VIEW IF EXISTS growing_stock_view CASCADE ;
+
 CREATE VIEW growing_stock_view AS
 (
 SELECT gst.country_iso,

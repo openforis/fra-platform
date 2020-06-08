@@ -17,14 +17,13 @@ const DataExport = () => {
     selection,
     variables,
     columns,
-    fetchingResults,
     results,
+    resultsLoading,
     hasSelection,
     setSelectionCountries,
     setSelectionVariable,
     setSelectionColumns,
   } = useDataExportState()
-  const displayTable = results && Object.keys(results).length > 0 && hasSelection
 
   return (
     <Switch>
@@ -54,13 +53,8 @@ const DataExport = () => {
             />
           </div>
           <div className="export__table">
-            {displayTable && (
-              <ResultsTable
-                columns={columns}
-                selection={selection}
-                results={results}
-                fetchingResults={fetchingResults}
-              />
+            {hasSelection && (
+              <ResultsTable resultsLoading={resultsLoading} columns={columns} selection={selection} results={results} />
             )}
           </div>
         </div>
