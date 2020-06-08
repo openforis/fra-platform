@@ -84,7 +84,7 @@ export const getValue = (column, countryIso, results, section) => {
   if (isForestPolicySection(section)) columnKey = forestPolicy[column]
   if (isYearRange(column)) columnKey = yearRangeToUnderscore(column)
 
-  let value = results[countryIso] && results[countryIso][columnKey]
+  let value = results && results[countryIso] && results[countryIso][columnKey]
   // Convert value to string and check if it's a number
   if (!Number.isNaN(+value)) value = NumberUtils.formatNumber(value)
   if (value === 'NaN') value = ''
