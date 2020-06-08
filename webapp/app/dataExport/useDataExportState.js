@@ -20,16 +20,18 @@ export default () => {
   })
 
   const { data: countries = [], dispatch: fetchCountries } = useGetRequest(`/api/countries`)
-  const { data: results = [], dispatch: fetchResults, setState: setResultState } = useGetRequest(
-    `/api/export/${snake(section)}`,
-    {
-      params: {
-        columns: selection.columns.map(({ param }) => param),
-        countries: selection.countries.map(({ param }) => param),
-        variable: selection.variable.param,
-      },
-    }
-  )
+  const {
+    data: results = [],
+    dispatch: fetchResults,
+    setState: setResultState,
+    loading: fetchingResults,
+  } = useGetRequest(`/api/export/${snake(section)}`, {
+    params: {
+      columns: selection.columns.map(({ param }) => param),
+      countries: selection.countries.map(({ param }) => param),
+      variable: selection.variable.param,
+    },
+  })
 
   useEffect(() => {
     fetchCountries()
@@ -64,6 +66,7 @@ export default () => {
   const hasSelection = !!(selection.countries.length && selection.columns.length && selection.variable.param)
 
   return {
+    fetchingResults,
     results,
     countries,
     columns,
