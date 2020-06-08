@@ -8,7 +8,7 @@ const config = process.env.DATABASE_URL
       connectionString: process.env.DATABASE_URL,
       max: 10, // max number of clients in the pool
       idleTimeoutMillis: 30000, // how long a client is allowed to remain idle before being closed
-      ssl: process.env.PGSSL === 'true' ? { require: true, rejectUnauthorized: false } : false,
+      ssl: { rejectUnauthorized: false },
     }
   : {
       user: process.env.PGUSER,
@@ -18,7 +18,6 @@ const config = process.env.DATABASE_URL
       port: process.env.PGPORT,
       max: 10, // max number of clients in the pool
       idleTimeoutMillis: 30000, // how long a client is allowed to remain idle before being closed
-      ssl: process.env.PGSSL === 'true' ? { require: true, rejectUnauthorized: false } : false,
     }
 
 const pool = promise.promisifyAll(new pg.Pool(config))
