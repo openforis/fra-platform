@@ -1,3 +1,5 @@
+ALTER TABLE country DROP COLUMN IF EXISTS config;
+
 ALTER TABLE country
     ADD config JSONB DEFAULT NULL;
 
