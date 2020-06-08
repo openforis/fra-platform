@@ -18,6 +18,7 @@ const DataExport = () => {
     variables,
     columns,
     results,
+    resultsLoading,
     hasSelection,
     setSelectionCountries,
     setSelectionVariable,
@@ -53,7 +54,9 @@ const DataExport = () => {
             />
           </div>
           <div className="export__table">
-            {displayTable && <ResultsTable columns={columns} selection={selection} results={results} />}
+            {displayTable && (
+              <ResultsTable resultsLoading={resultsLoading} columns={columns} selection={selection} results={results} />
+            )}
           </div>
         </div>
       </Route>
