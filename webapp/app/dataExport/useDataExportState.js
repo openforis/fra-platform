@@ -26,7 +26,7 @@ export default () => {
   const hasSelection = !!(selection.countries.length && selection.columns.length && selection.variable.param)
 
   const {
-    data: results = [],
+    data: results = {},
     dispatch: fetchResults,
     setState: setResultState,
     loading: resultsLoading,
