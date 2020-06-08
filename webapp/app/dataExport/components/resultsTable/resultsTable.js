@@ -5,16 +5,16 @@ import { useParams } from 'react-router'
 
 import { useI18n } from '@webapp/components/hooks'
 import ButtonTableExport from '@webapp/components/buttonTableExport'
-import * as NumberUtils from '@common/bignumberUtils'
-import { getLabel as getColumnLabel } from '../columnSelect'
+import { getValue, getI18nKey } from '../../utils/format'
 
 const ResultsTable = (props) => {
-  const { results, selection, columns } = props
+  const { results, selection, columns, resultsLoading } = props
   const { assessmentType, section } = useParams()
   const tableRef = useRef(null)
   const i18n = useI18n()
 
   const filteredColumns = columns.filter((column) => selection.columns.map(({ param }) => param).includes(column))
+
   return (
     <div className="results-table">
       <ButtonTableExport tableRef={tableRef} filename={`${assessmentType}-${section}`} />
@@ -25,13 +25,15 @@ const ResultsTable = (props) => {
               &nbsp;
             </th>
             <th className="fra-table__header-cell" colSpan={selection.columns.length + 1}>
-              {i18n.t(selection.variable.label)}
+              {resultsLoading
+                ? i18n.t('description.loading')
+                : i18n.t(selection.variable.label, selection.variable.labelParam)}
             </th>
           </tr>
           <tr>
             {filteredColumns.map((column) => (
               <th key={column} className="fra-table__header-cell">
-                {i18n.t(getColumnLabel(column))}
+                {getI18nKey(column, section).map((key) => `${i18n.t(key)} `)}
               </th>
             ))}
           </tr>
@@ -43,12 +45,9 @@ const ResultsTable = (props) => {
                 {i18n.t(label)}
               </th>
               {filteredColumns.map((column) => {
-                let value = results[countryIso] && results[countryIso][column]
-                if (!Number.isNaN(value)) value = NumberUtils.formatNumber(value)
-                if (value === 'NaN') value = ''
-
+                const { columnKey, value } = getValue(column, countryIso, results, section)
                 return (
-                  <td key={`${countryIso}${column}${value}`} className="fra-table__cell">
+                  <td key={`${countryIso}${columnKey}${value}`} className="fra-table__cell">
                     <div className="number-input__readonly-view">{value}</div>
                   </td>
                 )
@@ -69,6 +68,7 @@ const ResultsTable = (props) => {
 }
 
 ResultsTable.propTypes = {
+  resultsLoading: PropTypes.bool.isRequired,
   results: PropTypes.object.isRequired,
   columns: PropTypes.array.isRequired,
   selection: PropTypes.object.isRequired,
