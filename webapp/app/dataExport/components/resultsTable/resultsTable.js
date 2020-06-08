@@ -46,8 +46,9 @@ const ResultsTable = (props) => {
               </th>
               {filteredColumns.map((column) => {
                 const { columnKey, value } = getValue(column, countryIso, results, section)
+
                 return (
-                  <td key={`${countryIso}${columnKey}${value}`} className="fra-table__cell">
+                  <td key={`${countryIso}${columnKey || column}`} className="fra-table__cell">
                     <div className="number-input__readonly-view">{value}</div>
                   </td>
                 )
@@ -67,9 +68,13 @@ const ResultsTable = (props) => {
   )
 }
 
+ResultsTable.defaultProps = {
+  results: null,
+}
+
 ResultsTable.propTypes = {
   resultsLoading: PropTypes.bool.isRequired,
-  results: PropTypes.object.isRequired,
+  results: PropTypes.object,
   columns: PropTypes.array.isRequired,
   selection: PropTypes.object.isRequired,
 }
