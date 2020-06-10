@@ -17,7 +17,7 @@ module.exports = () => {
   app.use(bodyParser.json({ limit: '5000kb' }))
 
   resourceCacheControl.init(app)
-//Not part of apiRouter because of special urls (starting from root)
+  // Not part of apiRouter because of special urls (starting from root)
   sessionInit.init(app)
   authApi.init(app)
 
@@ -25,7 +25,7 @@ module.exports = () => {
 
   app.use('/img/', express.static(`${__dirname}/../web-resources/img`))
   app.use('/css/', express.static(`${__dirname}/../web-resources/css`))
-  app.use('/ckeditor', express.static(`${__dirname}/../web-resources/ckeditor`),)
+  app.use('/ckeditor', express.static(`${__dirname}/../web-resources/ckeditor`))
 
   app.use(fileUpload())
   app.use('/api', apiRouter.router)
@@ -36,15 +36,16 @@ module.exports = () => {
 
   app.use('/*', express.static(path.resolve(__dirname, '..', 'dist')))
 
-// Custom error-handling for handling custom exceptions and
-// sending the uncaught errors as json instead of HTML
-// http://expressjs.com/en/guide/error-handling.html
-  app.use((err, req, res, next) => {
+  // Custom error-handling for handling custom exceptions and
+  // sending the uncaught errors as json instead of HTML
+  // http://expressjs.com/en/guide/error-handling.html
+  app.use((err, req, res) => {
     if (err) sendErr(res, err)
   })
+
+  app.enable('trust proxy')
 
   app.listen(process.env.PORT, () => {
     console.log('FRA Platform server listening on port ', process.env.PORT, ' with pid: ', process.pid)
   })
-
 }
