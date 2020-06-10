@@ -1,3 +1,5 @@
+DROP VIEW IF EXISTS statistical_factsheets_view;
+
 CREATE VIEW statistical_factsheets_view AS
 WITH s AS (
     SELECT country_iso,
