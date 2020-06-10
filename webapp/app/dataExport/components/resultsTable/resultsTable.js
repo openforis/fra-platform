@@ -27,7 +27,7 @@ const ResultsTableTitle = (props) => {
     <>
       {i18n.t(label, labelParam)}
       {baseUnit && (
-        <select defaultValue={baseUnit} onChange={(event) => setSelected(event.target.value)}>
+        <select className="select-s" defaultValue={baseUnit} onChange={(event) => setSelected(event.target.value)}>
           <option value={baseUnit}>{baseUnit}</option>
           {Object.keys(UnitSpec.factors[baseUnit]).map((unit) => (
             <option key={unit} value={unit}>
