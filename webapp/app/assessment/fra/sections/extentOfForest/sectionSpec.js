@@ -109,6 +109,7 @@ const tableSpec1 = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.showOdpChart]: true,
   [SectionSpec.KEYS_TABLE.canGenerateValues]: ExtentOfForestState.hasOriginalDataPoints,
   [SectionSpec.KEYS_TABLE.updateTableDataCell]: updateTableWithOdpCell,
+  [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.units.haThousand,
 })
 
 const tableSpec2 = SectionSpec.newTableSpec({

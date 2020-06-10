@@ -10,6 +10,7 @@ const { yearsTable } = FRA
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.otherLandWithTreeCover,
   [SectionSpec.KEYS_TABLE.columnsExport]: yearsTable,
+  [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.units.haThousand,
   [SectionSpec.KEYS_TABLE.tableDataRequired]: [
     {
       [SectionSpec.KEYS_TABLE_DATA_REQUIRED.assessmentType]: FRA.type,
