@@ -15,6 +15,7 @@ export const KEYS_TABLE = {
   showOdpChart: 'showOdpChart',
   secondary: 'secondary',
   tableDataRequired: 'tableDataRequired',
+  unit: 'unit',
   // print props
   print: 'print',
   // Functions
@@ -42,6 +43,7 @@ const tableDefault = {
   [KEYS_TABLE.rows]: [],
   [KEYS_TABLE.secondary]: false,
   [KEYS_TABLE.tableDataRequired]: [],
+  [KEYS_TABLE.unit]: null,
   [KEYS_TABLE.print]: { [KEYS_TABLE_PRINT.colBreakPoints]: [], [KEYS_TABLE_PRINT.pageBreakAfter]: false },
   [KEYS_TABLE.getSectionData]: AssessmentState.getSectionData,
   [KEYS_TABLE.isSectionDataEmpty]: AssessmentState.isSectionDataEmpty,
@@ -88,3 +90,4 @@ export const getRowsExport = R.pipe(
   R.filter((row) => !!row[KEYS_ROW.variableExport])
 )
 export const getColumnsExport = R.prop(KEYS_TABLE.columnsExport)
+export const getUnit = R.prop(KEYS_TABLE.unit)
