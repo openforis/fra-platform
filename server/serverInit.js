@@ -43,6 +43,7 @@ module.exports = () => {
     if (err) sendErr(res, err)
   })
 
+  // allowing to let passportjs to use https in heroku - see https://stackoverflow.com/questions/20739744/passportjs-callback-switch-between-http-and-https
   app.enable('trust proxy')
 
   app.listen(process.env.PORT, () => {
