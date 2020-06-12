@@ -55,7 +55,7 @@ const ResultsTable = (props) => {
   const i18n = useI18n()
   const tableRef = useRef(null)
   const [exportDisabled, setExportDisabled] = useState(true)
-  const [showTableExport, setShowTableExport] = useState(false)
+  const [hideTableExport, setHideTableExport] = useState(true)
 
   // Unit consts
   const tableSpec = SectionSpecs.getTableSpecExport(assessmentType, section)
@@ -63,21 +63,23 @@ const ResultsTable = (props) => {
   const [unit, setUnit] = useState(baseUnit)
 
   const onUnitChange = (value) => {
-    setShowTableExport(true)
+    setHideTableExport(true)
     setUnit(value)
   }
 
   useLayoutEffect(() => {
-    setShowTableExport(false)
+    setHideTableExport(false)
   }, [unit])
 
   useLayoutEffect(() => {
     setExportDisabled(resultsLoading)
   }, [resultsLoading])
 
+  const showTableExport = !hideTableExport && tableRef.current != null
+
   return (
     <div className="results-table">
-      {!showTableExport && tableRef.current != null && (
+      {showTableExport && (
         <ButtonTableExport tableRef={tableRef} filename={`${assessmentType}-${section}`} disabled={exportDisabled} />
       )}
       <table ref={tableRef} className="fra-table data-table">
