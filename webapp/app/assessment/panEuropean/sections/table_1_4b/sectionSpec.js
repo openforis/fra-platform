@@ -28,7 +28,7 @@ const tableSpec = SectionSpec.newTableSpec({
 
     // rows data
     ...variables.flatMap((variable) =>
-      PanEuropean.years.reverse().map((year) =>
+      PanEuropean.years90_15.reverse().map((year) =>
         SectionSpec.newRowData({
           [SectionSpec.KEYS_ROW.labelKey]: `panEuropean.carbonStockInHarvestedWoodProductsHWP.${variable}`,
           [SectionSpec.KEYS_ROW.labelParams]: { year },

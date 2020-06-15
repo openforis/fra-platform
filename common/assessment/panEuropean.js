@@ -1,6 +1,7 @@
 const PanEuropean = {
   type: 'panEuropean',
   years: [1990, 2000, 2005, 2010, 2015, 2020],
+  years90_15: [1990, 2000, 2005, 2010, 2015],
 
   sections: {
     1: {
@@ -26,6 +27,7 @@ const PanEuropean = {
       },
     },
   },
+  
 }
 
 module.exports = PanEuropean

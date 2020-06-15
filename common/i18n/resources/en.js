@@ -1041,6 +1041,7 @@ The FRA team
     // navigation
     navigation: {
       forestResourcesAndCarbon: 'Forest Resources and Carbon',
+      socioEconomicFunctionsAndConditions: 'Socio-economic functions and conditions'
     },
 
 	// table 1.1a
@@ -1054,7 +1055,7 @@ The FRA team
       other_land: 'Other land - {{year}}',
       _of_which_with_tree_cover: '… of which with tree cover - {{year}}',
     },
-	
+
 	// table 1.4b
     carbonStockInHarvestedWoodProductsHWP: {
       categoryYear: 'Category - Year',
