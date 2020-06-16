@@ -1035,6 +1035,7 @@ The FRA team
   fraReportPrint: {
     title: 'FRA 2020 report',
     titleTables: 'FRA 2020 reporting tables',
+    tableOfContent: 'Table of contents',
   },
 
   panEuropean: {

@@ -930,5 +930,6 @@ L'équipe de FRA
   fraReportPrint: {
     title: 'Rapport FRA 2020',
     titleTables: 'Tableaux du rapport FRA 2020',
+    tableOfContent: 'Table des matières',
   },
 }
