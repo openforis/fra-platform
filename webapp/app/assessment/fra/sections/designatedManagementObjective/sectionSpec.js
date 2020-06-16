@@ -64,6 +64,7 @@ const rowsData = [
 const tableSpec1 = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.primaryDesignatedManagementObjective,
   [SectionSpec.KEYS_TABLE.columnsExport]: FRA.yearsTable,
+  [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.units.haThousand,
   [SectionSpec.KEYS_TABLE.tableDataRequired]: [
     {
       [SectionSpec.KEYS_TABLE_DATA_REQUIRED.assessmentType]: FRA.type,
