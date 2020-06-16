@@ -1041,8 +1041,10 @@ The FRA team
     // navigation
     navigation: {
       forestResourcesAndCarbon: 'Forest Resources and Carbon',
+      socioEconomicFunctionsAndConditions: 'Socio-economic functions and conditions'
     },
-    // table 1.1a
+
+	// table 1.1a
     forestArea: {
       categoryYear: 'Category - Year',
       area: 'Area (1000 ha)',
@@ -1053,5 +1055,20 @@ The FRA team
       other_land: 'Other land - {{year}}',
       _of_which_with_tree_cover: '… of which with tree cover - {{year}}',
     },
+
+	// table 1.4b
+    carbonStockInHarvestedWoodProductsHWP: {
+      categoryYear: 'Category - Year',
+      total_carbon_stock_in_hwp: 'Total carbon stock in HWP (million metric tonnes)',
+      harvested_wood_products: 'Harvested wood products - {{year}}',
+    },
+	
+	// table 6.4b
+    totalFixedCapitalConsumptionInForestsAndForestry: {
+      categoryYear: 'Category - Year',
+      fixed_capital_consumption: 'Fixed capital consumption (million national currency)',
+      forestry_isic_nace_02: 'Forestry (ISIC/NACE 02) - {{year}}',
+    },
+	
   },
 }
