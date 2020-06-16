@@ -4,6 +4,7 @@
  * "hotfix"
  */
 import * as NumberUtils from '@common/bignumberUtils'
+import { UnitSpec } from '@webapp/app/assessment/components/section/sectionSpec'
 
 export const regex = {
   yearRange: /\d{4}-\d{4}/,
@@ -91,6 +92,9 @@ export const getValue = (column, countryIso, results, section) => {
 
   return { columnKey, value }
 }
+
+export const valueConverted = (value, base, unit) =>
+  base && base !== unit ? UnitSpec.convert(value, base, unit) : value
 
 const sections = {
   designatedManagementObjective: 'primary_designated_management_objective',
