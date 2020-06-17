@@ -1,3 +1,5 @@
+import './columnSelect.less'
+
 import React from 'react'
 import PropTypes from 'prop-types'
 
@@ -12,10 +14,20 @@ const ColumnSelect = (props) => {
   const i18n = useI18n()
 
   return (
-    <div className="export__form-section">
+    <div className="export__form-section export-column-select">
       <div className="export__form-section-header">
         <h4>{i18n.t('common.column')}</h4>
       </div>
+
+      <ButtonCheckBox
+        className="btn-all"
+        checked={selectionColumns.length > 0 && selectionColumns.length === columns.length}
+        label={selectionColumns.length > 0 ? 'common.unselectAll' : 'common.selectAll'}
+        onClick={() => {
+          if (selectionColumns.length > 0) setSelectionColumns([])
+          else setSelectionColumns(columns.map((column) => ({ label: getI18nKey(column, section), param: column })))
+        }}
+      />
 
       <div className="divider" />
 
