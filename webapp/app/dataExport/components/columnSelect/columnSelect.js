@@ -1,5 +1,3 @@
-import './columnSelect.less'
-
 import React from 'react'
 import PropTypes from 'prop-types'
 
@@ -14,7 +12,7 @@ const ColumnSelect = (props) => {
   const i18n = useI18n()
 
   return (
-    <div className="export__form-section export-column-select">
+    <div className="export__form-section export-select-all">
       <div className="export__form-section-header">
         <h4>{i18n.t('common.column')}</h4>
       </div>
