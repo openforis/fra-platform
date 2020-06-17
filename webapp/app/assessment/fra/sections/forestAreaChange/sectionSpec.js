@@ -13,6 +13,7 @@ const { yearsRange } = FRA
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.forestAreaChange,
   [SectionSpec.KEYS_TABLE.columnsExport]: yearsRange,
+  [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.units.haThousandPerYear,
   [SectionSpec.KEYS_TABLE.updateTableDataCell]: updateForestAreaChangeCell,
   [SectionSpec.KEYS_TABLE.tableDataRequired]: [
     {

@@ -2,6 +2,7 @@ import * as NumberUtils from '@common/bignumberUtils'
 
 export const units = {
   haThousand: '1000ha',
+  haThousandPerYear: '1000 ha/year',
 }
 
 export const factors = {
