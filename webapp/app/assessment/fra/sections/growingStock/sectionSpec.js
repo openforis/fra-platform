@@ -77,7 +77,7 @@ const tableSection1 = SectionSpec.newTableSection({
 const table2 = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.name,
   [SectionSpec.KEYS_TABLE.columnsExport]: FRA.years,
-  [SectionSpec.KEYS_TABLE.unit]: 'million m³ over bark',
+  [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.units.millionsCubicMeterOverBark,
   [SectionSpec.KEYS_TABLE.odp]: true,
   [SectionSpec.KEYS_TABLE.odpVariables]: GrowingStockState.variables,
   [SectionSpec.KEYS_TABLE.getSectionData]: GrowingStockState.getTableDataTotal,
