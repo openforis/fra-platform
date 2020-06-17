@@ -1,4 +1,3 @@
-import './countrySelect.less'
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import camelize from 'camelize'
@@ -16,7 +15,7 @@ const CountrySelect = (props) => {
   useEffect(() => setCountriesFiltered(countries), [countries])
 
   return (
-    <div className="export__form-section export-country-select">
+    <div className="export__form-section export-select-all">
       <div className="export__form-section-header">
         <h4>{i18n.t('admin.country')}</h4>
         <input
