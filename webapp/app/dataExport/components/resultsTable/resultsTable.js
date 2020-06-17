@@ -5,7 +5,47 @@ import { useParams } from 'react-router'
 
 import { useI18n } from '@webapp/components/hooks'
 import ButtonTableExport from '@webapp/components/buttonTableExport'
-import { getValue, getI18nKey } from '../../utils/format'
+import * as SectionSpecs from '@webapp/app/assessment/components/section/sectionSpecs'
+import { UnitSpec } from '@webapp/app/assessment/components/section/sectionSpec'
+import { getValue, getI18nKey, valueConverted } from '../../utils/format'
+
+const ResultsTableTitle = (props) => {
+  const {
+    baseUnit,
+    selection: {
+      variable: { label, labelParam },
+    },
+    resultsLoading,
+    setSelected,
+  } = props
+
+  const i18n = useI18n()
+
+  return resultsLoading ? (
+    i18n.t('description.loading')
+  ) : (
+    <>
+      {i18n.t(label, labelParam)}
+      {baseUnit && (
+        <select className="select-s" defaultValue={baseUnit} onChange={(event) => setSelected(event.target.value)}>
+          <option value={baseUnit}>{baseUnit}</option>
+          {Object.keys(UnitSpec.factors[baseUnit]).map((unit) => (
+            <option key={unit} value={unit}>
+              {unit}
+            </option>
+          ))}
+        </select>
+      )}
+    </>
+  )
+}
+
+ResultsTableTitle.propTypes = {
+  baseUnit: PropTypes.string.isRequired,
+  selection: PropTypes.object.isRequired,
+  resultsLoading: PropTypes.bool.isRequired,
+  setSelected: PropTypes.func.isRequired,
+}
 
 const ResultsTable = (props) => {
   const { results, selection, columns, resultsLoading } = props
@@ -15,6 +55,20 @@ const ResultsTable = (props) => {
   const i18n = useI18n()
   const tableRef = useRef(null)
   const [exportDisabled, setExportDisabled] = useState(true)
+
+  // Unit consts
+  const tableSpec = SectionSpecs.getTableSpecExport(assessmentType, section)
+  const baseUnit = tableSpec.unit
+  const [unit, setUnit] = useState(baseUnit)
+
+  const onUnitChange = (value) => {
+    setExportDisabled(true)
+    setUnit(value)
+  }
+
+  useLayoutEffect(() => {
+    setExportDisabled(false)
+  }, [unit])
 
   useLayoutEffect(() => {
     setExportDisabled(resultsLoading)
@@ -30,9 +84,13 @@ const ResultsTable = (props) => {
               &nbsp;
             </th>
             <th className="fra-table__header-cell" colSpan={selection.columns.length + 1}>
-              {resultsLoading
-                ? i18n.t('description.loading')
-                : i18n.t(selection.variable.label, selection.variable.labelParam)}
+              <ResultsTableTitle
+                baseUnit={baseUnit}
+                selected={unit}
+                setSelected={onUnitChange}
+                resultsLoading={resultsLoading}
+                selection={selection}
+              />
             </th>
           </tr>
           <tr>
@@ -54,7 +112,7 @@ const ResultsTable = (props) => {
 
                 return (
                   <td key={`${countryIso}${columnKey || column}`} className="fra-table__cell">
-                    <div className="number-input__readonly-view">{value}</div>
+                    <div className="number-input__readonly-view">{valueConverted(value, baseUnit, unit)}</div>
                   </td>
                 )
               })}
