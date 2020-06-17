@@ -20,21 +20,28 @@ const ResultsTableTitle = (props) => {
   } = props
 
   const i18n = useI18n()
+  const getUnitText = (unit) => (unit ? <span>{` (${unit})`}</span> : '')
 
   return resultsLoading ? (
     i18n.t('description.loading')
   ) : (
     <>
       {i18n.t(label, labelParam)}
-      {baseUnit && (
-        <select className="select-s" defaultValue={baseUnit} onChange={(event) => setSelected(event.target.value)}>
-          <option value={baseUnit}>{baseUnit}</option>
-          {Object.keys(UnitSpec.factors[baseUnit]).map((unit) => (
-            <option key={unit} value={unit}>
-              {unit}
-            </option>
-          ))}
-        </select>
+      {Object.keys(UnitSpec.factors).includes(baseUnit) ? (
+        <>
+          <span> (</span>
+          <select className="select-s" defaultValue={baseUnit} onChange={(event) => setSelected(event.target.value)}>
+            <option value={baseUnit}>{baseUnit}</option>
+            {Object.keys(UnitSpec.factors[baseUnit]).map((unit) => (
+              <option key={unit} value={unit}>
+                {unit}
+              </option>
+            ))}
+          </select>
+          <span> )</span>
+        </>
+      ) : (
+        getUnitText(baseUnit)
       )}
     </>
   )

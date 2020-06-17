@@ -10,6 +10,7 @@ const years = FRA.yearsTable
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.growingStockComposition,
   [SectionSpec.KEYS_TABLE.columnsExport]: ['common_name', 'scientific_name', ...years],
+  [SectionSpec.KEYS_TABLE.unit]: SectionSpec.UnitSpec.units.millionsCubicMeterOverBark,
   [SectionSpec.KEYS_TABLE.tableDataRequired]: [
     {
       [SectionSpec.KEYS_TABLE_DATA_REQUIRED.assessmentType]: FRA.type,
