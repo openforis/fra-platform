@@ -48,13 +48,7 @@ const FraPrintView = () => {
 
       <hr />
 
-      {!printOnlyTablesView && (
-        <>
-          <div className="page-break" />
-          <TableOfContent />
-          <div className="page-break" />
-        </>
-      )}
+      {!printOnlyTablesView && <TableOfContent deskStudy={deskStudy} />}
 
       {Object.entries(FRA.sections).map(([key, section]) => (
         <div key={section.label} id={`section${key}`}>
