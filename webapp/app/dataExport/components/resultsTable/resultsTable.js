@@ -29,7 +29,7 @@ const ResultsTableTitle = (props) => {
       {i18n.t(label, labelParam)}
       {Object.keys(UnitSpec.factors).includes(baseUnit) ? (
         <>
-          <span> (</span>
+          <span> ( </span>
           <select className="select-s" defaultValue={baseUnit} onChange={(event) => setSelected(event.target.value)}>
             <option value={baseUnit}>{baseUnit}</option>
             {Object.keys(UnitSpec.factors[baseUnit]).map((unit) => (
@@ -126,7 +126,7 @@ const ResultsTable = (props) => {
             </tr>
           ))}
           <tr>
-            <td colSpan={selection.columns.length + 1} className="fra-table__validation-cell">
+            <td className="fra-table__validation-cell">
               <div className="fra-table__validation-container copyright">
                 &copy; FRA {`${new Date().getFullYear()}`}
               </div>
