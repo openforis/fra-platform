@@ -7,18 +7,6 @@ const { roleForCountry, isAdministrator } = require('../../common/countryRole')
 const { getAllowedStatusTransitions } = require('../../common/assessment')
 const { AccessControlException } = require('../utils/accessControl')
 
-module.exports.getAllDeskStudies = async () => {
-  const result = await db.query(
-    `SELECT 
-       country_iso,
-       desk_study
-     FROM 
-       assessment`
-  )
-  if (result.rows.length === 0) return null
-  return camelize(result.rows)
-}
-
 const checkStatusTransitionAllowance = (currentStatus, newStatus, countryIso, user) => {
   const allowed = getAllowedStatusTransitions(countryIso, user, currentStatus)
   if (!R.contains(newStatus, R.values(allowed))) {

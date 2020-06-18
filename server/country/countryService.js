@@ -38,25 +38,8 @@ const getCountryConfigFull = async (countryIso, schemaName = 'public') => {
   return config
 }
 
-const getAllCountriesList = async () => {
-  const allCountries = await countryRepository.getAllCountriesList()
-  const allDeskStudies = await assessmentRepository.getAllDeskStudies()
-  const deskStudies = {}
-  allDeskStudies.forEach(({ countryIso, deskStudy }) => {
-    deskStudies[countryIso] = deskStudy
-  })
-
-  return allCountries.map((country) => ({
-    ...country,
-    assessment: {
-      fra: {
-        deskStudy: deskStudies[country.countryIso],
-      },
-    },
-  }))
-}
-
 module.exports = {
   getCountryConfigFull,
-  getAllCountriesList,
+
+  getAllCountriesList: countryRepository.getAllCountriesList,
 }
