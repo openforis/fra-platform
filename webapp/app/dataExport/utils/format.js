@@ -95,7 +95,7 @@ export const getValue = (column, countryIso, results, section) => {
 }
 
 export const valueConverted = (value, base, unit) =>
-  base && base !== unit ? UnitSpec.convert(value, base, unit) : value
+  base && base !== unit && Object.keys(UnitSpec.factors).includes(base) ? UnitSpec.convert(value, base, unit) : value
 
 const sections = {
   designatedManagementObjective: 'primary_designated_management_objective',
