@@ -5,6 +5,7 @@
  */
 import * as NumberUtils from '@common/bignumberUtils'
 import { UnitSpec } from '@webapp/app/assessment/components/section/sectionSpec'
+import { format } from 'date-fns'
 
 export const regex = {
   yearRange: /\d{4}-\d{4}/,
@@ -106,3 +107,10 @@ const sections = {
  * @returns {*}
  */
 export const formatSection = (section) => (sections[section] ? sections[section] : section)
+
+/**
+ * Get timestamp for today in given format or default YYYY-MM-DD
+ * @param formatStr {string} - format string for
+ * @returns {*} - return new timestamp
+ */
+export const getTimeStamp = (formatStr = 'yyyy-MM-dd') => format(new Date(), formatStr)
