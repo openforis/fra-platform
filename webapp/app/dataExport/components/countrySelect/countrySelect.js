@@ -12,8 +12,12 @@ const CountrySelect = (props) => {
   const [countriesFiltered, setCountriesFiltered] = useState(countries)
   const propName = camelize(`list_name_${i18n.language}`)
 
-  const isDeskStudy = (country) => country.assessment.fra.deskStudy
+  const isDeskStudy = (country) => country.assessment.fra2020.deskStudy
   const getDeskStudyValue = (country) => (isDeskStudy(country) ? ` (${i18n.t('assessment.deskStudy')})` : null)
+
+  const normalizeString = (str) => str.trim().toLowerCase().replace(/\s/g, '')
+  const checkMatch = (country, value) =>
+    normalizeString(`${country[propName]}${getDeskStudyValue(country)}`).includes(value)
 
   useEffect(() => setCountriesFiltered(countries), [countries])
 
@@ -26,11 +30,15 @@ const CountrySelect = (props) => {
           className="text-input"
           placeholder={i18n.t('emoji.picker.search')}
           onChange={(event) => {
-            const value = event.target.value.trim().toLowerCase()
+            const value = normalizeString(event.target.value)
             if (value === '') {
               setCountriesFiltered(countries)
             } else {
-              setCountriesFiltered(countries.filter((country) => country[propName].toLowerCase().includes(value)))
+              setCountriesFiltered(
+                countries.filter((country) => {
+                  return checkMatch(country, value)
+                })
+              )
             }
           }}
         />
