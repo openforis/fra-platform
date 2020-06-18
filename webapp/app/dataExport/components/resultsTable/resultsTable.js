@@ -47,7 +47,7 @@ const ResultsTableTitle = (props) => {
           <span> )</span>
         </>
       ) : (
-        <span>{` (${baseUnit})`}</span>
+        <span>{baseUnit ? ` (${baseUnit})` : ''}</span>
       )}
     </>
   )
