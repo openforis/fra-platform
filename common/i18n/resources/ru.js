@@ -13,7 +13,7 @@ module.exports.translation = {
     dataExport: 'Экспорт данных',
     selectAll: 'Выделить все',
     unselectAll: 'Снять выделение',
-    variable: 'Переменная',
+    variable: 'ОЛР Переменная',
     column: 'Столбец',
   },
 
