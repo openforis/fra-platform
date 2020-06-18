@@ -5,7 +5,6 @@ const countryConfig = require('./countryConfig')
 
 const countryRepository = require('./countryRepository')
 const traditionalTableRepository = require('../traditionalTable/traditionalTableRepository')
-const assessmentRepository = require('../assessment/assessmentRepository')
 
 const getCountryConfig = async (countryIso, schemaName = 'public') => {
   const dynamicConfig = await countryRepository.getDynamicCountryConfiguration(countryIso, schemaName)
