@@ -109,10 +109,10 @@ const ResultsTable = (props) => {
           </tr>
         </thead>
         <tbody>
-          {selection.countries.map(({ param: countryIso, label }) => (
+          {selection.countries.map(({ param: countryIso, label, deskStudy }) => (
             <tr key={label}>
               <th className="fra-table__category-cell" colSpan="1">
-                {i18n.t(label)}
+                {i18n.t(label)} {deskStudy && `(${i18n.t('assessment.deskStudy')})`}
               </th>
               {filteredColumns.map((column) => {
                 const { columnKey, value } = getValue(column, countryIso, results, section)

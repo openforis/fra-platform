@@ -12,8 +12,8 @@ const CountrySelect = (props) => {
   const [countriesFiltered, setCountriesFiltered] = useState(countries)
   const propName = camelize(`list_name_${i18n.language}`)
 
-  const getDeskStudyValue = (country) =>
-    country.assessment.fra.deskStudy ? ` (${i18n.t('assessment.deskStudy')})` : null
+  const isDeskStudy = (country) => country.assessment.fra.deskStudy
+  const getDeskStudyValue = (country) => (isDeskStudy(country) ? ` (${i18n.t('assessment.deskStudy')})` : null)
 
   useEffect(() => setCountriesFiltered(countries), [countries])
 
@@ -43,7 +43,13 @@ const CountrySelect = (props) => {
         onClick={() => {
           if (selectionCountries.length > 0) setSelectionCountries([])
           else
-            setSelectionCountries(countries.map((country) => ({ label: country[propName], param: country.countryIso })))
+            setSelectionCountries(
+              countries.map((country) => ({
+                label: country[propName],
+                param: country.countryIso,
+                deskStudy: isDeskStudy(country),
+              }))
+            )
         }}
       />
 
@@ -62,7 +68,10 @@ const CountrySelect = (props) => {
               onClick={() => {
                 const selectionCountriesUpdate = selected
                   ? selectionCountries.filter(({ param }) => param !== country.countryIso)
-                  : [...selectionCountries, { label: country[propName], param: countryIso }]
+                  : [
+                      ...selectionCountries,
+                      { label: country[propName], param: countryIso, deskStudy: isDeskStudy(country) },
+                    ]
                 setSelectionCountries(selectionCountriesUpdate)
               }}
             />
