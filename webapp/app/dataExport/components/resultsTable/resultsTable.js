@@ -7,7 +7,7 @@ import { useI18n } from '@webapp/components/hooks'
 import ButtonTableExport from '@webapp/components/buttonTableExport'
 import * as SectionSpecs from '@webapp/app/assessment/components/section/sectionSpecs'
 import { UnitSpec } from '@webapp/app/assessment/components/section/sectionSpec'
-import { getValue, getI18nKey, valueConverted, getTimeStamp } from '../../utils/format'
+import { getValue, getI18nKey, valueConverted, getTimeStamp, getCustomVariableI18nMappings } from '../../utils/format'
 
 const ResultsTableTitle = (props) => {
   const {
@@ -26,7 +26,7 @@ const ResultsTableTitle = (props) => {
     i18n.t('description.loading')
   ) : (
     <>
-      {i18n.t(label, labelParam)}
+      {i18n.t(getCustomVariableI18nMappings(label), labelParam)}
       {Object.keys(UnitSpec.factors).includes(baseUnit) ? (
         <>
           <span> ( </span>
@@ -47,8 +47,12 @@ const ResultsTableTitle = (props) => {
   )
 }
 
+ResultsTableTitle.defaultProps = {
+  baseUnit: null,
+}
+
 ResultsTableTitle.propTypes = {
-  baseUnit: PropTypes.string.isRequired,
+  baseUnit: PropTypes.string,
   selection: PropTypes.object.isRequired,
   resultsLoading: PropTypes.bool.isRequired,
   setSelected: PropTypes.func.isRequired,

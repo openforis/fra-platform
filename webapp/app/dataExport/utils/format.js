@@ -114,3 +114,20 @@ export const formatSection = (section) => (sections[section] ? sections[section]
  * @returns {*} - return new timestamp
  */
 export const getTimeStamp = (formatStr = 'yyyy-MM-dd') => format(new Date(), formatStr)
+
+const variableI18nMappings = {
+  other: 'common.other',
+  otherOrUnknown: 'common.unknown',
+}
+
+/**
+ * Some variable's might have custom mappings, check for the special cases and return accordingly
+ * @param i18nKey - i18n key of format 'foo.bar' to check for custom mapping(s)
+ * @returns {*} - return either the original i18nKey or new key from variableI18nMappings
+ */
+export const getCustomVariableI18nMappings = (i18nKey) => {
+  // get the last part of the i18n key,
+  // ex: foo.bar.other => other
+  const key = i18nKey.split('.').pop()
+  return variableI18nMappings[key] ? variableI18nMappings[key] : i18nKey
+}
