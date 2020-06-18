@@ -27,6 +27,9 @@ module.exports.translation = {
     acre1000: '1000 acres',
     acre: 'acre',
     haMillion: 'million hectares',
+    haThousandPerYear: '1000 ha/year',
+    tonnesPerHa: 'tonnes/ha',
+    millionsCubicMeterOverBark: 'million m³ over bark',
   },
 
   countrySelection: {
