@@ -7,7 +7,14 @@ import { useI18n } from '@webapp/components/hooks'
 import ButtonTableExport from '@webapp/components/buttonTableExport'
 import * as SectionSpecs from '@webapp/app/assessment/components/section/sectionSpecs'
 import { UnitSpec } from '@webapp/app/assessment/components/section/sectionSpec'
-import { getValue, getI18nKey, valueConverted, getTimeStamp, getCustomVariableI18nMappings } from '../../utils/format'
+import {
+  getValue,
+  getI18nKey,
+  valueConverted,
+  getTimeStamp,
+  getCustomVariableI18nMappings,
+  getUnitI18nMappings,
+} from '../../utils/format'
 
 const ResultsTableTitle = (props) => {
   const {
@@ -20,7 +27,6 @@ const ResultsTableTitle = (props) => {
   } = props
 
   const i18n = useI18n()
-  const getUnitText = (unit) => (unit ? <span>{` (${unit})`}</span> : '')
 
   return resultsLoading ? (
     i18n.t('description.loading')
@@ -31,17 +37,17 @@ const ResultsTableTitle = (props) => {
         <>
           <span> ( </span>
           <select className="select-s" defaultValue={baseUnit} onChange={(event) => setSelected(event.target.value)}>
-            <option value={baseUnit}>{baseUnit}</option>
+            <option value={baseUnit}>{i18n.t(getUnitI18nMappings(baseUnit))}</option>
             {Object.keys(UnitSpec.factors[baseUnit]).map((unit) => (
               <option key={unit} value={unit}>
-                {unit}
+                {i18n.t(getUnitI18nMappings(unit))}
               </option>
             ))}
           </select>
           <span> )</span>
         </>
       ) : (
-        getUnitText(baseUnit)
+        <span>{` (${baseUnit})`}</span>
       )}
     </>
   )
