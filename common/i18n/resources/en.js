@@ -13,7 +13,7 @@ module.exports.translation = {
     dataExport: 'Data Export',
     selectAll: 'Select all',
     unselectAll: 'Unselect all',
-    variable: 'Variable',
+    variable: 'FRA Variable',
     column: 'Column',
   },
 
