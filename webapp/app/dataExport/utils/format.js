@@ -131,3 +131,15 @@ export const getCustomVariableI18nMappings = (i18nKey) => {
   const key = i18nKey.split('.').pop()
   return variableI18nMappings[key] ? variableI18nMappings[key] : i18nKey
 }
+
+const unitI18nMappings = {
+  ha: 'ha',
+  kmSq: 'kmSq',
+  mileSq: 'mileSq',
+  acre1000: 'acre1000',
+  acre: 'acre',
+  haMillion: 'haMillion',
+  [UnitSpec.units.haThousand]: UnitSpec.units.haThousand,
+}
+
+export const getUnitI18nMappings = (unit) => (unitI18nMappings[unit] ? `unit.${unitI18nMappings[unit]}` : unit)
