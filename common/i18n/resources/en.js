@@ -20,7 +20,7 @@ module.exports.translation = {
   },
 
   unit: {
-    '1000ha': '1000 ha',
+    haThousand: '1000 ha',
     ha: 'ha',
     kmSq: 'km²',
     mileSq: 'mi²',

@@ -38,16 +38,19 @@ const ResultsTableTitle = (props) => {
           <span> ( </span>
           <select className="select-s" defaultValue={baseUnit} onChange={(event) => setSelected(event.target.value)}>
             <option value={baseUnit}>{i18n.t(getUnitI18nMappings(baseUnit))}</option>
-            {Object.keys(UnitSpec.factors[baseUnit]).map((unit) => (
-              <option key={unit} value={unit}>
-                {i18n.t(getUnitI18nMappings(unit))}
-              </option>
-            ))}
+            {Object.keys(UnitSpec.factors[baseUnit]).map(
+              (unit) =>
+                unit !== baseUnit && (
+                  <option key={unit} value={unit}>
+                    {i18n.t(getUnitI18nMappings(unit))}
+                  </option>
+                )
+            )}
           </select>
           <span> )</span>
         </>
       ) : (
-        <span>{baseUnit ? ` (${baseUnit})` : ''}</span>
+        <span>{baseUnit ? ` (${i18n.t(`unit.${baseUnit}`)})` : ''}</span>
       )}
     </>
   )
