@@ -7,7 +7,7 @@ import { useI18n } from '@webapp/components/hooks'
 import ButtonTableExport from '@webapp/components/buttonTableExport'
 import * as SectionSpecs from '@webapp/app/assessment/components/section/sectionSpecs'
 import { UnitSpec } from '@webapp/app/assessment/components/section/sectionSpec'
-import { getValue, getI18nKey, valueConverted } from '../../utils/format'
+import { getValue, getI18nKey, valueConverted, getTimeStamp } from '../../utils/format'
 
 const ResultsTableTitle = (props) => {
   const {
@@ -130,6 +130,11 @@ const ResultsTable = (props) => {
               <div className="fra-table__validation-container copyright">
                 &copy; FRA {`${new Date().getFullYear()}`}
               </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span className="timestamp">{`${getTimeStamp()}`}</span>
             </td>
           </tr>
         </tbody>
