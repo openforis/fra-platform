@@ -12,6 +12,9 @@ const CountrySelect = (props) => {
   const [countriesFiltered, setCountriesFiltered] = useState(countries)
   const propName = camelize(`list_name_${i18n.language}`)
 
+  const getDeskStudyValue = (country) =>
+    country.assessment.fra.deskStudy ? ` (${i18n.t('assessment.deskStudy')})` : null
+
   useEffect(() => setCountriesFiltered(countries), [countries])
 
   return (
@@ -55,6 +58,7 @@ const CountrySelect = (props) => {
               key={countryIso}
               checked={selected}
               label={country[propName]}
+              suffix={getDeskStudyValue(country)}
               onClick={() => {
                 const selectionCountriesUpdate = selected
                   ? selectionCountries.filter(({ param }) => param !== country.countryIso)
