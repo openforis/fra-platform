@@ -97,7 +97,15 @@ const getAllCountries = (role, schemaName = 'public') => {
 }
 
 const getAllCountriesList = async () => {
-  const rs = await db.query(`SELECT c.country_iso,
+  const rs = await db.query(`
+WITH assessment AS (
+    SELECT a.country_iso,
+           json_object_agg(a.type::TEXT,
+                           json_build_object('desk_study', a.desk_study, 'status', a.status)) AS assessment
+    FROM assessment a
+    GROUP BY a.country_iso
+)
+SELECT c.country_iso,
        c.region,
        c.list_name_en,
        c.full_name_en,
@@ -108,17 +116,10 @@ const getAllCountriesList = async () => {
        c.list_name_ru,
        c.full_name_ru,
        c.pan_european,
-
-       json_build_object(
-               'fra',
-               json_build_object(
-                       'desk_study', a.desk_study
-                   )
-           ) assessment
+       a.assessment
 FROM country c
 LEFT JOIN assessment a
 ON c.country_iso = a.country_iso
-GROUP BY a.desk_study, c.country_iso
 ORDER BY c.country_iso
   `)
   return camelize(rs.rows)
