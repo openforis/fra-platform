@@ -15,6 +15,8 @@ module.exports.translation = {
     unselectAll: 'Снять выделение',
     variable: 'Переменная',
     column: 'Столбец',
+    other: 'Другое',
+    unknown: 'Отсутствует/неизвестна',
   },
 
   countrySelection: {

@@ -15,6 +15,8 @@ module.exports.translation = {
     unselectAll: 'Unselect all',
     variable: 'Variable',
     column: 'Column',
+    other: 'Other',
+    unknown: 'None/unknown',
   },
 
   countrySelection: {
