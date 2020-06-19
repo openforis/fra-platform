@@ -12,20 +12,22 @@ import NaturallyRegeneratingForest from './NaturallyRegeneratingForest'
 import PrimaryDesignatedManagementObjective from './PrimaryDesignatedManagementObjective'
 
 const StatisticalFactsheets = () => {
+  const levelIso = 'WO' // This is now hardcoded
+
   return (
     <>
       <Header hideNavigationControl hideLinks />
       <div className="statistical-factsheets">
-        <ForestArea />
-        <CarbonGrowingStock />
+        <ForestArea levelIso={levelIso} />
+        <CarbonGrowingStock levelIso={levelIso} />
 
-        <ForestAreaPercent />
-        <PrimaryForest />
-        <ForestOwnership />
+        <ForestAreaPercent levelIso={levelIso} />
+        <PrimaryForest levelIso={levelIso} />
+        <ForestOwnership levelIso={levelIso} />
 
-        <ForestAreaWithinProtectedAreas />
-        <NaturallyRegeneratingForest />
-        <PrimaryDesignatedManagementObjective />
+        <ForestAreaWithinProtectedAreas levelIso={levelIso} />
+        <NaturallyRegeneratingForest levelIso={levelIso} />
+        <PrimaryDesignatedManagementObjective levelIso={levelIso} />
       </div>
     </>
   )
