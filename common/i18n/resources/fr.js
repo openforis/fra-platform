@@ -29,7 +29,7 @@ module.exports.translation = {
     haMillion: "millions d'hectares",
     haThousandPerYear: '1000 ha / an',
     tonnesPerHa: 'tonnes / ha',
-    millionsCubicMeterOverBark: "millions de m³ sur l'écorce",
+    millionsCubicMeterOverBark: 'millions de m³ sur écorce',
   },
 
   countrySelection: {
