@@ -8,6 +8,7 @@ import ForestAreaPercent from './ForestAreaPercent'
 import PrimaryForest from './PrimaryForest'
 import ForestOwnership from './ForestOwnership'
 import ForestAreaWithinProtectedAreas from './ForestAreaWithinProtectedAreas'
+import NaturallyRegeneratingForest from './NaturallyRegeneratingForest'
 
 const StatisticalFactsheets = () => {
   return (
@@ -22,6 +23,7 @@ const StatisticalFactsheets = () => {
         <ForestOwnership />
 
         <ForestAreaWithinProtectedAreas />
+        <NaturallyRegeneratingForest />
       </div>
     </>
   )
