@@ -5,6 +5,7 @@ import Header from '@webapp/app/components/header/header'
 import ForestArea from './ForestArea'
 import CarbonGrowingStock from './CarbonGrowingStock'
 import ForestAreaPercent from './ForestAreaPercent'
+import PrimaryForest from './PrimaryForest'
 
 const StatisticalFactsheets = () => {
   return (
@@ -15,6 +16,7 @@ const StatisticalFactsheets = () => {
         <CarbonGrowingStock />
 
         <ForestAreaPercent />
+        <PrimaryForest />
       </div>
     </>
   )
