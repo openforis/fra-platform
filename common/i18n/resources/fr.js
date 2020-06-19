@@ -19,6 +19,19 @@ module.exports.translation = {
     unknown: 'Aucune fonction/Fonction inconnue',
   },
 
+  unit: {
+    haThousand: '1000 ha',
+    ha: 'ha',
+    kmSq: 'km²',
+    mileSq: 'mi²',
+    acre1000: '1000 acres',
+    acre: 'acre',
+    haMillion: "millions d'hectares",
+    haThousandPerYear: '1000 ha / an',
+    tonnesPerHa: 'tonnes / ha',
+    millionsCubicMeterOverBark: 'millions de m³ sur écorce',
+  },
+
   countrySelection: {
     selectCountry: 'Choisissez le pays',
   },

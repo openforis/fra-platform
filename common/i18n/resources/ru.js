@@ -19,6 +19,10 @@ module.exports.translation = {
     unknown: 'Отсутствует/неизвестна',
   },
 
+  unit: {
+    kmSq: 'км²',
+  },
+
   countrySelection: {
     selectCountry: 'Выберите страну',
   },

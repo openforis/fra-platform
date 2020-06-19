@@ -2,18 +2,18 @@ const db = require('../db/db')
 const camelize = require('camelize')
 const R = require('ramda')
 
-const {insertAudit} = require('../audit/auditRepository')
-const {roleForCountry, isAdministrator} = require('../../common/countryRole')
-const {getAllowedStatusTransitions} = require('../../common/assessment')
-const {AccessControlException} = require('../utils/accessControl')
+const { insertAudit } = require('../audit/auditRepository')
+const { roleForCountry, isAdministrator } = require('../../common/countryRole')
+const { getAllowedStatusTransitions } = require('../../common/assessment')
+const { AccessControlException } = require('../utils/accessControl')
 
 const checkStatusTransitionAllowance = (currentStatus, newStatus, countryIso, user) => {
   const allowed = getAllowedStatusTransitions(countryIso, user, currentStatus)
   if (!R.contains(newStatus, R.values(allowed))) {
     throw new AccessControlException('error.assessment.transitionNotAllowed', {
-      currentStatus: currentStatus,
+      currentStatus,
       status: newStatus,
-      role: roleForCountry(countryIso, user).role
+      role: roleForCountry(countryIso, user).role,
     })
   }
 }
@@ -55,44 +55,41 @@ const updateAssessment = (client, countryIso, assessment) =>
 
 // Returns a boolean telling whether status was changed
 // (used to determine whether we should send a status-change email)
-module.exports.changeAssessment =
-  async (client, countryIso, user, newAssessment) => {
-    const currentAssessmentFromDb = await getAssessment(client, countryIso, newAssessment.type)
-    const existsInDb = !!currentAssessmentFromDb
-    const currentAssessment = existsInDb
-      ? currentAssessmentFromDb
-      : defaultAssessment(newAssessment.assessment)
-    let isStatusChange = currentAssessment.status !== newAssessment.status
-    if (isStatusChange) {
-      checkStatusTransitionAllowance(currentAssessment.status, newAssessment.status, countryIso, user)
-    }
-    if (currentAssessment.deskStudy !== newAssessment.deskStudy && !isAdministrator(user)) {
-      throw new AccessControlException('error.assessment.deskStudyNotAllowed')
-    }
-    if (existsInDb) {
-      await updateAssessment(client, countryIso, newAssessment)
-    } else {
-      await addAssessment(client, countryIso, newAssessment)
-    }
-    // insert audit log
-    if (isStatusChange)
-      insertAudit(client, user.id, 'updateAssessmentStatus', countryIso, 'assessment', {
-        assessment: newAssessment.type,
-        status: newAssessment.status
-      })
-
-    return isStatusChange
+module.exports.changeAssessment = async (client, countryIso, user, newAssessment) => {
+  const currentAssessmentFromDb = await getAssessment(client, countryIso, newAssessment.type)
+  const existsInDb = !!currentAssessmentFromDb
+  const currentAssessment = existsInDb ? currentAssessmentFromDb : defaultAssessment(newAssessment.assessment)
+  const isStatusChange = currentAssessment.status !== newAssessment.status
+  if (isStatusChange) {
+    checkStatusTransitionAllowance(currentAssessment.status, newAssessment.status, countryIso, user)
   }
+  if (currentAssessment.deskStudy !== newAssessment.deskStudy && !isAdministrator(user)) {
+    throw new AccessControlException('error.assessment.deskStudyNotAllowed')
+  }
+  if (existsInDb) {
+    await updateAssessment(client, countryIso, newAssessment)
+  } else {
+    await addAssessment(client, countryIso, newAssessment)
+  }
+  // insert audit log
+  if (isStatusChange)
+    insertAudit(client, user.id, 'updateAssessmentStatus', countryIso, 'assessment', {
+      assessment: newAssessment.type,
+      status: newAssessment.status,
+    })
+
+  return isStatusChange
+}
 
 const defaultAssessment = (assessmentType) => ({
   status: 'editing',
   deskStudy: false,
-  //TODO remove usage of type as property throughout the code
-  type: assessmentType
+  // TODO remove usage of type as property throughout the code
+  type: assessmentType,
 })
 
 const defaultStatuses = R.pipe(
-  R.map(assessmentType => [assessmentType, defaultAssessment(assessmentType)]),
+  R.map((assessmentType) => [assessmentType, defaultAssessment(assessmentType)]),
   R.fromPairs
 )(['annuallyUpdated', 'fra2020'])
 

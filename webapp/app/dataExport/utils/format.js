@@ -5,6 +5,7 @@
  */
 import * as NumberUtils from '@common/bignumberUtils'
 import { UnitSpec } from '@webapp/app/assessment/components/section/sectionSpec'
+import { format } from 'date-fns'
 
 export const regex = {
   yearRange: /\d{4}-\d{4}/,
@@ -94,7 +95,7 @@ export const getValue = (column, countryIso, results, section) => {
 }
 
 export const valueConverted = (value, base, unit) =>
-  base && base !== unit ? UnitSpec.convert(value, base, unit) : value
+  base && base !== unit && Object.keys(UnitSpec.factors).includes(base) ? UnitSpec.convert(value, base, unit) : value
 
 const sections = {
   designatedManagementObjective: 'primary_designated_management_objective',
@@ -106,6 +107,13 @@ const sections = {
  * @returns {*}
  */
 export const formatSection = (section) => (sections[section] ? sections[section] : section)
+
+/**
+ * Get timestamp for today in given format or default YYYY-MM-DD
+ * @param formatStr {string} - format string for
+ * @returns {*} - return new timestamp
+ */
+export const getTimeStamp = (formatStr = 'yyyy-MM-dd') => format(new Date(), formatStr)
 
 const variableI18nMappings = {
   other: 'common.other',
@@ -123,3 +131,15 @@ export const getCustomVariableI18nMappings = (i18nKey) => {
   const key = i18nKey.split('.').pop()
   return variableI18nMappings[key] ? variableI18nMappings[key] : i18nKey
 }
+
+const unitI18nMappings = {
+  ha: 'ha',
+  kmSq: 'kmSq',
+  mileSq: 'mileSq',
+  acre1000: 'acre1000',
+  acre: 'acre',
+  haMillion: 'haMillion',
+  [UnitSpec.units.haThousand]: UnitSpec.units.haThousand,
+}
+
+export const getUnitI18nMappings = (unit) => (unitI18nMappings[unit] ? `unit.${unitI18nMappings[unit]}` : unit)
