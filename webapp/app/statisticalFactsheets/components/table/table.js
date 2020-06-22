@@ -28,9 +28,9 @@ const Table = (props) => {
       </thead>
       <tbody>
         {data.map((row) => (
-          <tr>
+          <tr key={row.rowName}>
             {tableHeads.map((key) => (
-              <td key={row[key]} className="fra-table__calculated-cell">
+              <td key={`${row.rowName}-${row[key]}-${key}`} className="fra-table__calculated-cell">
                 {i18n.t(row[key])}
               </td>
             ))}
