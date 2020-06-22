@@ -20,7 +20,16 @@ module.exports.translation = {
   },
 
   unit: {
-    kmSq: 'км²',
+    haThousand: '1000 га',
+    ha: 'га',
+    kmSq: 'кв. км (км²)',
+    mileSq: 'кв. миль',
+    acre1000: '1000 акров',
+    acre: 'акр',
+    haMillion: "millions d'hectares",
+    haThousandPerYear: 'млн. га',
+    tonnesPerHa: '1000 га/год',
+    millionsCubicMeterOverBark: 'тонн/га',
   },
 
   countrySelection: {
