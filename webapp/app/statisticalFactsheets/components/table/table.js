@@ -1,13 +1,18 @@
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { useI18n } from '@webapp/components/hooks'
-import useGetRequest from '@webapp/components/hooks/useGetRequest'
+import { useI18n, useGetRequest } from '@webapp/components/hooks'
+
+import * as APIUtils from '../../utils/apiUtils'
 
 const Table = (props) => {
   const i18n = useI18n()
-  const { url, tableHeads, section } = props
+  const { tableHeads, section, levelIso } = props
+  const url = APIUtils.getUrl(levelIso)
+  const params = APIUtils.getParams(section)
 
-  const { data, dispatch: fetchData } = useGetRequest(url)
+  const { data, dispatch: fetchData } = useGetRequest(url, {
+    params,
+  })
 
   useEffect(fetchData, [url])
 
@@ -45,7 +50,7 @@ const Table = (props) => {
 
 Table.propTypes = {
   tableHeads: PropTypes.array.isRequired,
-  url: PropTypes.string.isRequired,
+  levelIso: PropTypes.string.isRequired,
   section: PropTypes.string.isRequired,
 }
 
