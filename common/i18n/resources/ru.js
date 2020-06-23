@@ -26,10 +26,10 @@ module.exports.translation = {
     mileSq: 'кв. миль',
     acre1000: '1000 акров',
     acre: 'акр',
-    haMillion: "millions d'hectares",
-    haThousandPerYear: 'млн. га',
-    tonnesPerHa: '1000 га/год',
-    millionsCubicMeterOverBark: 'тонн/га',
+    haMillion: 'млн. га',
+    haThousandPerYear: '1000 га/год',
+    tonnesPerHa: 'тонн/га',
+    millionsCubicMeterOverBark: 'млн. м³ с корой',
   },
 
   countrySelection: {
