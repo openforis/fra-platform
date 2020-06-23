@@ -19,6 +19,47 @@ module.exports.translation = {
     unknown: 'None/unknown',
   },
 
+  statisticalFactsheets: {
+    category: {
+      title: 'Select category and level',
+      WO: 'World',
+    },
+    forestArea: {
+      title: 'Forest Area (1990 - 2020)',
+    },
+    carbonAndGrowingStock: {
+      title: 'Carbon and Growing Stock (1990 - 2020)',
+      rowName: '',
+      carbon_stock_biomass_total: 'Carbon stock in biomass',
+      carbon_stock_total: 'Total carbon stock',
+      growing_stock_total: 'Growing stock',
+    },
+    forestAreaPercent: {
+      title: 'Forest Area',
+    },
+    primaryForest: {
+      title: 'Primary forest % of forest area (2020)',
+    },
+    forestOwnership: {
+      title: 'Forest Ownership (2015)',
+    },
+    forestAreaWithinProtectedAreas: {
+      title: 'Forest Area within Protected Areas (1990 - 2020)',
+    },
+    primaryDesignatedManagementObjective: {
+      title: 'Primary Designated Management Objective (1990 - 2020)',
+      rowName: '',
+      multiple_use: 'Multiple use',
+      other: 'Other',
+      production: 'Production',
+      protection_of_soil_and_water: 'Protection of soil and water',
+      social_services: 'Social services',
+    },
+    naturallyRegenerating: {
+      title: 'Naturally regenerating forest and planted forest (1990 - 2020)',
+    },
+  },
+
   unit: {
     haThousand: '1000 ha',
     ha: 'ha',
