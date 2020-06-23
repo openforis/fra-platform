@@ -6,7 +6,7 @@ import * as APIUtils from '../../utils/apiUtils'
 
 const Table = (props) => {
   const i18n = useI18n()
-  const { tableHeads, section, levelIso } = props
+  const { tableColumns, tableRows, section, levelIso } = props
   const url = APIUtils.getUrl(levelIso)
   const params = APIUtils.getParams(section)
 
@@ -21,12 +21,11 @@ const Table = (props) => {
   }
 
   const t = (value) => (Number.isNaN(+value) ? i18n.t(`statisticalFactsheets.${section}.${value}`) : value)
-
   return (
     <table className="fra-table">
       <thead>
         <tr>
-          {tableHeads.map((key) => (
+          {tableColumns.map((key) => (
             <th key={key} className="fra-table__header-cell">
               {i18n.t(t(key))}
             </th>
@@ -34,22 +33,27 @@ const Table = (props) => {
         </tr>
       </thead>
       <tbody>
-        {data.map((row) => (
-          <tr key={row.rowName}>
-            {tableHeads.map((key) => (
-              <td key={`${row.rowName}-${row[key]}-${key}`} className="fra-table__calculated-cell">
-                {t(row[key])}
-              </td>
-            ))}
-          </tr>
-        ))}
+        {tableRows.map((tableRow) => {
+          const row = data.find((entry) => entry.rowName === tableRow)
+          if (!row) return null
+          return (
+            <tr key={row.rowName}>
+              {tableColumns.map((key) => (
+                <td key={`${row.rowName}-${row[key]}-${key}`} className="fra-table__calculated-cell">
+                  {t(row[key])}
+                </td>
+              ))}
+            </tr>
+          )
+        })}
       </tbody>
     </table>
   )
 }
 
 Table.propTypes = {
-  tableHeads: PropTypes.array.isRequired,
+  tableColumns: PropTypes.array.isRequired,
+  tableRows: PropTypes.array.isRequired,
   levelIso: PropTypes.string.isRequired,
   section: PropTypes.string.isRequired,
 }

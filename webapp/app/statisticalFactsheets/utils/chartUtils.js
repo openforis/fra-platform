@@ -52,7 +52,7 @@ export const getData = (fetchedData, chartHeads, chartName, loaded, i18n) => {
   if (!loaded) return {}
 
   const datasets = fetchedData
-    .map((entry) => getDatasetAndLabel(entry, chartHeads, i18n))
+    .map((entry) => getDatasetAndLabel(entry, chartHeads))
     .map(({ data, label }, i) => ({
       ...preferences[i],
       label: i18n ? i18n.t(i18n.t(`statisticalFactsheets.rowName.${label}`)) : label,
