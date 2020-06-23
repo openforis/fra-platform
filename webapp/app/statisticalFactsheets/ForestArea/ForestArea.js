@@ -27,10 +27,7 @@ const ForestArea = (props) => {
   return (
     <div className="statistical-factsheets-forest-area">
       <h3 className="header">{i18n.t(`statisticalFactsheets.${section}.title`)}</h3>
-      <Bar
-        data={ChartUtils.getData(data, chartHeads, section, loaded)}
-        options={ChartUtils.getOptions('bar', loaded)}
-      />
+      <Bar data={ChartUtils.getData(data, chartHeads, section, loaded)} options={ChartUtils.getOptions('bar')} />
     </div>
   )
 }
