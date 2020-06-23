@@ -1,32 +1,61 @@
 const colors = {
+  // Greens
   green: 'rgb(0,141,156)',
   darkGreen: 'rgb(0,107,118)',
   greenHover: 'rgba(0,141,156, .7)',
   darkGreenHover: 'rgba(0,107,118, .7)',
+  // Oranges
+  orange: 'rgb(227,97,48)',
+  darkOrange: 'rgb(187,80,39)',
+  orangeHover: 'rgba(227,97,48, .7)',
+  darkOrangeHover: 'rgba(187,80,39, .7)',
 }
 
-const getValues = (data, chartHeads) => {
-  return (
+const commonPreferences = {
+  borderWidth: 1,
+}
+
+const preferences = [
+  {
+    ...commonPreferences,
+    backgroundColor: colors.green,
+    borderColor: colors.darkGreen,
+    hoverBackgroundColor: colors.greenHover,
+    hoverBorderColor: colors.darkGreenHover,
+  },
+  {
+    backgroundColor: colors.orange,
+    borderColor: colors.darkOrange,
+    hoverBackgroundColor: colors.orangeHover,
+    hoverBorderColor: colors.darkOrange,
+  },
+]
+
+const arrayHasKey = (array, key) => array.includes(key)
+
+const getDatasetAndLabel = (data, chartHeads) => {
+  const filteredData = Object.fromEntries(
     Object.entries(data)
-      // Filter away values not needed / check they exist in chartHeads
-      .filter(([key, value]) => !!value && chartHeads.includes(key))
-      // Return only the value
-      .map(([_, value]) => value)
+      // Filter away values not needed / check they exist in chartHeads, save rowName for label
+      .filter(([key, _]) => arrayHasKey([...chartHeads, 'rowName'], key))
   )
+
+  return {
+    data: Object.entries(filteredData)
+      .filter(([key, _]) => arrayHasKey(chartHeads, key))
+      .map(([_, value]) => value),
+    label: filteredData.rowName,
+  }
 }
 
-export const getData = (data, chartHeads, chartName, loaded) => {
+export const getData = (fetchedData, chartHeads, chartName, loaded, i18n) => {
   const sample = {
     labels: chartHeads,
 
     datasets: [
       {
+        ...preferences[0],
         label: 'Loading',
-        backgroundColor: colors.green,
-        borderColor: colors.darkGreen,
-        borderWidth: 1,
-        hoverBackgroundColor: colors.greenHover,
-        hoverBorderColor: colors.darkGreenHover,
         data: chartHeads.map(() => Math.random() * chartHeads.length),
       },
     ],
@@ -35,21 +64,17 @@ export const getData = (data, chartHeads, chartName, loaded) => {
   if (!loaded) {
     return sample
   }
+  const datasets = fetchedData
+    .map((entry) => getDatasetAndLabel(entry, chartHeads, i18n))
+    .map(({ data, label }, i) => ({
+      ...preferences[i],
+      label: i18n ? i18n.t(i18n.t(`statisticalFactsheets.rowName.${label}`)) : label,
+      data,
+    }))
 
   return {
     labels: chartHeads,
-
-    datasets: [
-      {
-        label: chartName,
-        backgroundColor: colors.green,
-        borderColor: colors.darkGreen,
-        borderWidth: 1,
-        hoverBackgroundColor: colors.greenHover,
-        hoverBorderColor: colors.darkGreenHover,
-        data: data.flatMap((entry) => getValues(entry, chartHeads)),
-      },
-    ],
+    datasets,
   }
 }
 
@@ -61,6 +86,24 @@ const chartOptions = {
     ...commonOptions,
     legend: {
       display: !loaded,
+    },
+  }),
+  stackedBar: (loaded) => ({
+    ...commonOptions,
+    legend: {
+      display: !loaded,
+    },
+    scales: {
+      xAxes: [
+        {
+          stacked: true,
+        },
+      ],
+      yAxes: [
+        {
+          stacked: true,
+        },
+      ],
     },
   }),
 }

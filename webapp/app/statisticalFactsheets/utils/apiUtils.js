@@ -15,7 +15,7 @@ const sections = {
     'protection_of_soil_and_water',
     'social_services',
   ],
-  naturallyRegenerating: ['natural_forest_area', 'planted_forest'],
+  naturallyRegeneratingForest: ['natural_forest_area', 'planted_forest'],
 }
 
 export const getParams = (section) => {
