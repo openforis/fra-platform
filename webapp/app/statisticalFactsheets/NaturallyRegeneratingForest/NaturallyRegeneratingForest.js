@@ -21,13 +21,16 @@ const NaturallyRegeneratingForest = (props) => {
   })
 
   useEffect(fetchData, [url])
+
   return (
     <div className="statistical-factsheets-naturally-regenerating-forest">
       <h3 className="header">{i18n.t(`statisticalFactsheets.${section}.title`)}</h3>
-      <Bar
-        data={ChartUtils.getData(data, chartHeads, section, loaded, i18n)}
-        options={ChartUtils.getOptions('stackedBar', loaded)}
-      />
+      {loaded && (
+        <Bar
+          data={ChartUtils.getData(data, chartHeads, section, loaded, i18n)}
+          options={ChartUtils.getOptions('stackedBar')}
+        />
+      )}
     </div>
   )
 }

@@ -49,21 +49,8 @@ const getDatasetAndLabel = (data, chartHeads) => {
 }
 
 export const getData = (fetchedData, chartHeads, chartName, loaded, i18n) => {
-  const sample = {
-    labels: chartHeads,
+  if (!loaded) return {}
 
-    datasets: [
-      {
-        ...preferences[0],
-        label: 'Loading',
-        data: chartHeads.map(() => Math.random() * chartHeads.length),
-      },
-    ],
-  }
-  // still fetching data, show skeleton
-  if (!loaded) {
-    return sample
-  }
   const datasets = fetchedData
     .map((entry) => getDatasetAndLabel(entry, chartHeads, i18n))
     .map(({ data, label }, i) => ({
@@ -82,16 +69,16 @@ const commonOptions = {
   maintainAspectRatio: false,
 }
 const chartOptions = {
-  bar: (loaded) => ({
+  bar: {
     ...commonOptions,
     legend: {
-      display: !loaded,
+      display: false,
     },
-  }),
-  stackedBar: (loaded) => ({
+  },
+  stackedBar: {
     ...commonOptions,
     legend: {
-      display: !loaded,
+      display: false,
     },
     scales: {
       xAxes: [
@@ -105,7 +92,7 @@ const chartOptions = {
         },
       ],
     },
-  }),
+  },
 }
 
-export const getOptions = (chartType, loaded) => (chartOptions[chartType] ? chartOptions[chartType](loaded) : {})
+export const getOptions = (chartType) => (chartOptions[chartType] ? chartOptions[chartType] : {})
