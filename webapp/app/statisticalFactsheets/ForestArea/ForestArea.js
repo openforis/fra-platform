@@ -1,12 +1,11 @@
 import './forestArea.less'
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Bar } from 'react-chartjs-2'
 
 import { useI18n } from '@webapp/components/hooks'
-
 import * as ChartUtils from '../utils/chartUtils'
 import useStatisticalFactsheetsState from '../hooks/useStatisticalFactsheetsState'
+import Chart from '../components/chart'
 
 const ForestArea = (props) => {
   const { levelIso } = props
@@ -19,7 +18,13 @@ const ForestArea = (props) => {
   return (
     <div className="statistical-factsheets-forest-area">
       <h3 className="header">{i18n.t(`statisticalFactsheets.${section}.title`)}</h3>
-      <Bar data={ChartUtils.getData(data, chartHeads, section, loaded)} options={ChartUtils.getOptions('bar')} />
+      {loaded && (
+        <Chart
+          type="bar"
+          data={ChartUtils.getData(data, chartHeads, section, loaded, i18n)}
+          options={ChartUtils.getOptions('bar')}
+        />
+      )}
     </div>
   )
 }

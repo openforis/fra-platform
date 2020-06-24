@@ -1,10 +1,10 @@
 import './naturallyRegeneratingForest.less'
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Bar } from 'react-chartjs-2'
 import { useI18n } from '@webapp/components/hooks'
 import * as ChartUtils from '../utils/chartUtils'
 import useStatisticalFactsheetsState from '../hooks/useStatisticalFactsheetsState'
+import Chart from '../components/chart'
 
 const NaturallyRegeneratingForest = (props) => {
   const { levelIso } = props
@@ -18,7 +18,8 @@ const NaturallyRegeneratingForest = (props) => {
     <div className="statistical-factsheets-naturally-regenerating-forest">
       <h3 className="header">{i18n.t(`statisticalFactsheets.${section}.title`)}</h3>
       {loaded && (
-        <Bar
+        <Chart
+          type="bar"
           data={ChartUtils.getData(data, chartHeads, section, loaded, i18n)}
           options={ChartUtils.getOptions('stackedBar')}
         />
