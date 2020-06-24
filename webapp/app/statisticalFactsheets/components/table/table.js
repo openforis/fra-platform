@@ -6,7 +6,7 @@ import * as APIUtils from '../../utils/apiUtils'
 
 const Table = (props) => {
   const i18n = useI18n()
-  const { tableColumns, tableRows, section, levelIso } = props
+  const { columns, rows, section, levelIso } = props
   const url = APIUtils.getUrl(levelIso)
   const params = APIUtils.getParams(section)
 
@@ -25,7 +25,7 @@ const Table = (props) => {
     <table className="fra-table">
       <thead>
         <tr>
-          {tableColumns.map((key) => (
+          {columns.map((key) => (
             <th key={key} className="fra-table__header-cell">
               {i18n.t(t(key))}
             </th>
@@ -33,12 +33,12 @@ const Table = (props) => {
         </tr>
       </thead>
       <tbody>
-        {tableRows.map((tableRow) => {
+        {rows.map((tableRow) => {
           const row = data.find((entry) => entry.rowName === tableRow)
           if (!row) return null
           return (
             <tr key={row.rowName}>
-              {tableColumns.map((key) => (
+              {columns.map((key) => (
                 <td key={`${row.rowName}-${row[key]}-${key}`} className="fra-table__calculated-cell">
                   {t(row[key])}
                 </td>
@@ -52,8 +52,8 @@ const Table = (props) => {
 }
 
 Table.propTypes = {
-  tableColumns: PropTypes.array.isRequired,
-  tableRows: PropTypes.array.isRequired,
+  columns: PropTypes.array.isRequired,
+  rows: PropTypes.array.isRequired,
   levelIso: PropTypes.string.isRequired,
   section: PropTypes.string.isRequired,
 }

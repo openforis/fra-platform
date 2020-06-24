@@ -8,8 +8,8 @@ const PrimaryDesignatedManagementObjective = (props) => {
   const { levelIso } = props
   const i18n = useI18n()
 
-  const tableColumns = ['rowName', '1990', '2000', '2010', '2020']
-  const tableRows = [
+  const columns = ['rowName', '1990', '2000', '2010', '2020']
+  const rows = [
     'production',
     'multiple_use',
     'conservation',
@@ -23,7 +23,7 @@ const PrimaryDesignatedManagementObjective = (props) => {
     <div className="statistical-factsheets-naturally-primary-designated-management-objective">
       <h3 className="header">{i18n.t(`statisticalFactsheets.${section}.title`)}</h3>
 
-      <Table tableRows={tableRows} tableColumns={tableColumns} section={section} levelIso={levelIso} />
+      <Table rows={rows} columns={columns} section={section} levelIso={levelIso} />
     </div>
   )
 }

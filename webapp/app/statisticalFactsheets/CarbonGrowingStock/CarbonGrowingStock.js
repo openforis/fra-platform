@@ -8,15 +8,15 @@ const CarbonGrowingStock = (props) => {
   const { levelIso } = props
   const i18n = useI18n()
 
-  const tableColumns = ['rowName', '1990', '2000', '2010', '2020']
-  const tableRows = ['carbon_stock_biomass_total', 'growing_stock_total', 'carbon_stock_total']
+  const columns = ['rowName', '1990', '2000', '2010', '2020']
+  const rows = ['carbon_stock_biomass_total', 'growing_stock_total', 'carbon_stock_total']
   const section = 'carbonAndGrowingStock'
 
   return (
     <div className="statistical-factsheets-carbon-growing-stock">
       <h3 className="header">{i18n.t(`statisticalFactsheets.${section}.title`)}</h3>
 
-      <Table tableColumns={tableColumns} tableRows={tableRows} section={section} levelIso={levelIso} />
+      <Table columns={columns} rows={rows} section={section} levelIso={levelIso} />
     </div>
   )
 }
