@@ -28,6 +28,7 @@ module.exports.translation = {
       forest_area: 'Forest area',
       natural_forest_area: 'Natural forest area',
       planted_forest: 'Planted forest',
+      forest_area_within_protected_areas: 'Forest Area within Protected Areas',
     },
     forestArea: {
       title: 'Forest Area (1990 - 2020)',
