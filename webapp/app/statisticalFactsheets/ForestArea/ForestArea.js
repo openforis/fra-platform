@@ -1,13 +1,12 @@
 import './forestArea.less'
-import React, { useEffect } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { Bar } from 'react-chartjs-2'
 
-import { useGetRequest, useI18n } from '@webapp/components/hooks'
+import { useI18n } from '@webapp/components/hooks'
 
-import * as APIUtils from '../utils/apiUtils'
 import * as ChartUtils from '../utils/chartUtils'
-import { getParams } from '../utils/apiUtils'
+import useStatisticalFactsheetsState from '../hooks/useStatisticalFactsheetsState'
 
 const ForestArea = (props) => {
   const { levelIso } = props
@@ -15,14 +14,7 @@ const ForestArea = (props) => {
   const section = 'forestArea'
   const chartHeads = ['1990', '2000', '2010', '2020']
 
-  const url = APIUtils.getUrl(levelIso)
-  const params = getParams(section)
-
-  const { data, dispatch: fetchData, loaded } = useGetRequest(url, {
-    params,
-  })
-
-  useEffect(fetchData, [url])
+  const { data, loaded } = useStatisticalFactsheetsState(section, levelIso)
 
   return (
     <div className="statistical-factsheets-forest-area">

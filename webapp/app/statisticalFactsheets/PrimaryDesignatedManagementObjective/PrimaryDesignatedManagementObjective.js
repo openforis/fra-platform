@@ -7,7 +7,6 @@ import Table from '../components/table'
 const PrimaryDesignatedManagementObjective = (props) => {
   const { levelIso } = props
   const i18n = useI18n()
-
   const columns = ['rowName', '1990', '2000', '2010', '2020']
   const rows = [
     'production',

@@ -1,22 +1,16 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
-import { useI18n, useGetRequest } from '@webapp/components/hooks'
+import { useI18n } from '@webapp/components/hooks'
 
-import * as APIUtils from '../../utils/apiUtils'
+import useStatisticalFactsheetsState from '../../hooks/useStatisticalFactsheetsState'
 
 const Table = (props) => {
   const i18n = useI18n()
   const { columns, rows, section, levelIso } = props
-  const url = APIUtils.getUrl(levelIso)
-  const params = APIUtils.getParams(section)
 
-  const { data, dispatch: fetchData } = useGetRequest(url, {
-    params,
-  })
+  const { data, loaded } = useStatisticalFactsheetsState(section, levelIso)
 
-  useEffect(fetchData, [url])
-
-  if (!data) {
+  if (!loaded) {
     return null
   }
 
