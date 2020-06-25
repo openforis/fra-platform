@@ -12,16 +12,16 @@ import NaturallyRegeneratingForest from './NaturallyRegeneratingForest'
 import PrimaryDesignatedManagementObjective from './PrimaryDesignatedManagementObjective'
 
 const StatisticalFactsheets = () => {
-  // const levelIso = 'WO' // This is now hardcoded
-  const [levelIso, setLevelIso] = useState('WO')
+  const levelIso = 'WO' // This is now hardcoded
+  // const [levelIso, setLevelIso] = useState('WO')
   return (
     <>
       <Header hideNavigationControl hideLinks />
-      <select onChange={(e) => setLevelIso(e.target.value)}>
-        <option>WO</option>
-        <option>EU</option>
-        <option>AS</option>
-      </select>
+      {/*<select onChange={(e) => setLevelIso(e.target.value)}>*/}
+      {/*  <option>WO</option>*/}
+      {/*  <option>EU</option>*/}
+      {/*  <option>AS</option>*/}
+      {/*</select>*/}
       <div className="statistical-factsheets">
         <ForestArea levelIso={levelIso} />
         <CarbonGrowingStock levelIso={levelIso} />
