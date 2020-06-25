@@ -76,6 +76,10 @@ const commonOptions = {
   maintainAspectRatio: false,
 }
 const chartOptions = {
+  pie: {
+    ...commonOptions,
+    height: 350,
+  },
   bar: {
     ...commonOptions,
     legend: {
