@@ -1,5 +1,5 @@
 import './statisticalFactsheets.less'
-import React, { useState } from 'react'
+import React from 'react'
 import Header from '@webapp/app/components/header/header'
 
 import ForestArea from './ForestArea'
@@ -17,11 +17,6 @@ const StatisticalFactsheets = () => {
   return (
     <>
       <Header hideNavigationControl hideLinks />
-      {/*<select onChange={(e) => setLevelIso(e.target.value)}>*/}
-      {/*  <option>WO</option>*/}
-      {/*  <option>EU</option>*/}
-      {/*  <option>AS</option>*/}
-      {/*</select>*/}
       <div className="statistical-factsheets">
         <ForestArea levelIso={levelIso} />
         <CarbonGrowingStock levelIso={levelIso} />
