@@ -16,6 +16,11 @@ export const colors = {
   grayHover: 'rgba(162,164,167,.7)',
   darkGray: 'rgb(124,126,128)',
   darkGrayHover: 'rgba(124,126,128,.7)',
+  // Purples
+  purple: '#600470',
+  purpleHover: 'rgba(96,4,112,0.7)',
+  darkPurple: '#40034b',
+  darkPurpleHover: 'rgba(64,3,75,0.7)',
 }
 
 const commonPreferences = {

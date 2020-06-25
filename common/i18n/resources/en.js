@@ -30,7 +30,10 @@ module.exports.translation = {
       planted_forest: 'Planted forest',
       forest_area_within_protected_areas: 'Forest Area within Protected Areas',
       land_area: 'Land Area',
-      primary_forest: 'Primary Forest'
+      primary_forest: 'Primary Forest',
+      private_ownership: 'Private ownership',
+      public_ownership: 'Public ownership',
+      other_or_unknown: 'Other or unknown',
     },
     forestArea: {
       title: 'Forest Area (1990 - 2020)',
