@@ -29,6 +29,7 @@ module.exports.translation = {
       natural_forest_area: 'Natural forest area',
       planted_forest: 'Planted forest',
       forest_area_within_protected_areas: 'Forest Area within Protected Areas',
+      land_area: 'Land Area',
     },
     forestArea: {
       title: 'Forest Area (1990 - 2020)',
@@ -41,7 +42,7 @@ module.exports.translation = {
       growing_stock_total: 'Growing stock',
     },
     forestAreaPercent: {
-      title: 'Forest Area',
+      title: 'Forest Area (2020)',
     },
     primaryForest: {
       title: 'Primary forest % of forest area (2020)',
