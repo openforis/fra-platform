@@ -25,10 +25,9 @@ const PrimaryForest = (props) => {
     datasets: [
       {
         data: [forestArea, primaryForest],
+        borderWidth: 0,
         backgroundColor: [ChartUtils.colors.green, ChartUtils.colors.lightGreen],
-        borderColor: [ChartUtils.colors.darkGreen, ChartUtils.colors.green],
         hoverBackgroundColor: [ChartUtils.colors.greenHover, ChartUtils.colors.lightGreenHover],
-        hoverBorderColor: [ChartUtils.colors.darkGreenHover, ChartUtils.colors.darkGreenHover],
       },
     ],
 

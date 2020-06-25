@@ -24,7 +24,7 @@ export const colors = {
 }
 
 const commonPreferences = {
-  borderWidth: 1,
+  borderWidth: 0,
 }
 
 const preferences = [

@@ -28,16 +28,11 @@ const ForestOwnership = (props) => {
       {
         data: [publicOwnership, privateOwnership, otherOrUnknown],
         backgroundColor: [ChartUtils.colors.purple, ChartUtils.colors.orange, ChartUtils.colors.green],
-        borderColor: [ChartUtils.colors.darkPurple, ChartUtils.colors.darkOrange, ChartUtils.colors.darkGreen],
+        borderWidth: 0,
         hoverBackgroundColor: [
           ChartUtils.colors.purpleHover,
           ChartUtils.colors.orangeHover,
           ChartUtils.colors.greenHover,
-        ],
-        hoverBorderColor: [
-          ChartUtils.colors.darkPurpleHover,
-          ChartUtils.colors.darkOrangeHover,
-          ChartUtils.colors.darkGreenHover,
         ],
       },
     ],

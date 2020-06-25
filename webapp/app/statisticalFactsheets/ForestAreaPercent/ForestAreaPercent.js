@@ -25,10 +25,9 @@ const ForestAreaPercent = (props) => {
     datasets: [
       {
         data: [forestArea, landArea],
+        borderWidth: 0,
         backgroundColor: [ChartUtils.colors.green, ChartUtils.colors.gray],
-        borderColor: [ChartUtils.colors.darkGreen, ChartUtils.colors.darkGray],
         hoverBackgroundColor: [ChartUtils.colors.greenHover, ChartUtils.colors.grayHover],
-        hoverBorderColor: [ChartUtils.colors.darkGreenHover, ChartUtils.colors.darkGrayHover],
       },
     ],
 
