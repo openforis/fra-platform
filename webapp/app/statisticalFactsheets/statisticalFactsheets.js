@@ -13,7 +13,7 @@ import PrimaryDesignatedManagementObjective from './PrimaryDesignatedManagementO
 
 const StatisticalFactsheets = () => {
   const levelIso = 'WO' // This is now hardcoded
-
+  // const [levelIso, setLevelIso] = useState('WO')
   return (
     <>
       <Header hideNavigationControl hideLinks />
