@@ -24,6 +24,12 @@ module.exports.translation = {
       title: 'Select category and level',
       WO: 'World',
     },
+    rowName: {
+      forest_area: 'Forest area',
+      natural_forest_area: 'Natural forest area',
+      planted_forest: 'Planted forest',
+      forest_area_within_protected_areas: 'Forest Area within Protected Areas',
+    },
     forestArea: {
       title: 'Forest Area (1990 - 2020)',
     },
@@ -55,7 +61,7 @@ module.exports.translation = {
       protection_of_soil_and_water: 'Protection of soil and water',
       social_services: 'Social services',
     },
-    naturallyRegenerating: {
+    naturallyRegeneratingForest: {
       title: 'Naturally regenerating forest and planted forest (1990 - 2020)',
     },
   },

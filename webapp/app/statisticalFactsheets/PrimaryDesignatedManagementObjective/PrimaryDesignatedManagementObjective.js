@@ -7,15 +7,22 @@ import Table from '../components/table'
 const PrimaryDesignatedManagementObjective = (props) => {
   const { levelIso } = props
   const i18n = useI18n()
-
-  const tableHeads = ['rowName', '1990', '2000', '2010', '2020']
+  const columns = ['rowName', '1990', '2000', '2010', '2020']
+  const rows = [
+    'production',
+    'multiple_use',
+    'conservation',
+    'other',
+    'protection_of_soil_and_water',
+    'social_services',
+  ]
   const section = 'primaryDesignatedManagementObjective'
 
   return (
     <div className="statistical-factsheets-naturally-primary-designated-management-objective">
       <h3 className="header">{i18n.t(`statisticalFactsheets.${section}.title`)}</h3>
 
-      <Table tableHeads={tableHeads} section={section} levelIso={levelIso} />
+      <Table rows={rows} columns={columns} section={section} levelIso={levelIso} />
     </div>
   )
 }

@@ -1,32 +1,25 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
-import { useI18n, useGetRequest } from '@webapp/components/hooks'
+import { useI18n } from '@webapp/components/hooks'
 
-import * as APIUtils from '../../utils/apiUtils'
+import useStatisticalFactsheetsState from '../../hooks/useStatisticalFactsheetsState'
 
 const Table = (props) => {
   const i18n = useI18n()
-  const { tableHeads, section, levelIso } = props
-  const url = APIUtils.getUrl(levelIso)
-  const params = APIUtils.getParams(section)
+  const { columns, rows, section, levelIso } = props
 
-  const { data, dispatch: fetchData } = useGetRequest(url, {
-    params,
-  })
+  const { data, loaded } = useStatisticalFactsheetsState(section, levelIso)
 
-  useEffect(fetchData, [url])
-
-  if (!data) {
+  if (!loaded) {
     return null
   }
 
   const t = (value) => (Number.isNaN(+value) ? i18n.t(`statisticalFactsheets.${section}.${value}`) : value)
-
   return (
     <table className="fra-table">
       <thead>
         <tr>
-          {tableHeads.map((key) => (
+          {columns.map((key) => (
             <th key={key} className="fra-table__header-cell">
               {i18n.t(t(key))}
             </th>
@@ -34,22 +27,27 @@ const Table = (props) => {
         </tr>
       </thead>
       <tbody>
-        {data.map((row) => (
-          <tr key={row.rowName}>
-            {tableHeads.map((key) => (
-              <td key={`${row.rowName}-${row[key]}-${key}`} className="fra-table__calculated-cell">
-                {t(row[key])}
-              </td>
-            ))}
-          </tr>
-        ))}
+        {rows.map((tableRow) => {
+          const row = data.find((entry) => entry.rowName === tableRow)
+          if (!row) return null
+          return (
+            <tr key={row.rowName}>
+              {columns.map((key) => (
+                <td key={`${row.rowName}-${row[key]}-${key}`} className="fra-table__calculated-cell">
+                  {t(row[key])}
+                </td>
+              ))}
+            </tr>
+          )
+        })}
       </tbody>
     </table>
   )
 }
 
 Table.propTypes = {
-  tableHeads: PropTypes.array.isRequired,
+  columns: PropTypes.array.isRequired,
+  rows: PropTypes.array.isRequired,
   levelIso: PropTypes.string.isRequired,
   section: PropTypes.string.isRequired,
 }

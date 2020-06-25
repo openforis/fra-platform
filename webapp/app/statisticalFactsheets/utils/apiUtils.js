@@ -9,13 +9,14 @@ const sections = {
   forestOwnership: ['private_ownership', 'public_ownership', 'other_or_unknown'],
   forestAreaWithinProtectedAreas: ['forest_area_within_protected_areas'],
   primaryDesignatedManagementObjective: [
-    'multiple_use',
-    'other',
     'production',
+    'multiple_use',
+    'conservation',
+    'other',
     'protection_of_soil_and_water',
     'social_services',
   ],
-  naturallyRegenerating: ['natural_forest_area', 'planted_forest'],
+  naturallyRegeneratingForest: ['natural_forest_area', 'planted_forest'],
 }
 
 export const getParams = (section) => {
