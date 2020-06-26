@@ -90,6 +90,21 @@ const chartOptions = {
     legend: {
       display: false,
     },
+    scales: {
+      xAxes: [
+        {
+          stacked: true,
+        },
+      ],
+      yAxes: [
+        {
+          ticks: {
+            maxTicksLimit: 6,
+            beginAtZero: true,
+          },
+        },
+      ],
+    },
   },
   stackedBar: {
     ...commonOptions,
@@ -105,6 +120,10 @@ const chartOptions = {
       yAxes: [
         {
           stacked: true,
+          ticks: {
+            maxTicksLimit: 6,
+            beginAtZero: true,
+          },
         },
       ],
     },
