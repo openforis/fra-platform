@@ -32,11 +32,17 @@ const Table = (props) => {
           if (!row) return null
           return (
             <tr key={row.rowName}>
-              {columns.map((key) => (
-                <td key={`${row.rowName}-${row[key]}-${key}`} className="fra-table__calculated-cell">
-                  {t(row[key])}
-                </td>
-              ))}
+              {columns.map((key, i) =>
+                i === 0 ? (
+                  <th key={`${row.rowName}-${row[key]}-${key}`} className="fra-table__category-cell">
+                    {t(row[key])}
+                  </th>
+                ) : (
+                  <td key={`${row.rowName}-${row[key]}-${key}`} className="fra-table__calculated-cell">
+                    {t(row[key])}
+                  </td>
+                )
+              )}
             </tr>
           )
         })}
