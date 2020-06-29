@@ -3,6 +3,7 @@ import './navigation.less'
 import React from 'react'
 
 import * as FRA from '@common/assessment/fra'
+import * as PanEuropean from '@common/assessment/panEuropean'
 
 import Assessment from '@webapp/app/components/navigation/components/assessment'
 import LinkLanding from '@webapp/app/components/navigation/components/linkLanding'
@@ -25,8 +26,10 @@ const Navigation = () => {
               <div className="nav__divider" />
             </>
           )}
-          <Assessment assessmentType={FRA.type} sections={FRA.sections} />
+          <Assessment assessment={FRA} />
           {!isDataExport && <LinkPanEuropeanIndicators />}
+          <div className="nav__divider" />
+          <Assessment assessment={PanEuropean} />
           <div className="nav__divider" />
           <Footer />
         </>

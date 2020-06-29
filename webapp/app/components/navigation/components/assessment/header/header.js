@@ -12,11 +12,16 @@ import { useIsDataExportView } from '@webapp/components/hooks'
 
 import Lock from './lock'
 import Status from './status'
-import AssessmentTitle from './titleAssessment'
+import AssessmentTitle from './title'
 import ToggleAllButton from './buttonToggleAll'
 
 const Header = (props) => {
-  const { assessment, assessmentType, showSections, setShowSections } = props
+  const {
+    assessment,
+    assessment: { type: assessmentType },
+    showSections,
+    setShowSections,
+  } = props
 
   const countryIso = useCountryIso()
   if (useIsDataExportView()) {
@@ -63,7 +68,6 @@ const Header = (props) => {
 }
 
 Header.propTypes = {
-  assessmentType: PropTypes.string.isRequired,
   assessment: PropTypes.object.isRequired,
   showSections: PropTypes.bool.isRequired,
   setShowSections: PropTypes.func.isRequired,
