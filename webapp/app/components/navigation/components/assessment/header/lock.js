@@ -10,7 +10,7 @@ import useUserInfo from '@webapp/components/hooks/useUserInfo'
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 
 import { toggleAssessmentLock } from '@webapp/app/assessment/actions'
-import AssessmentTitle from './titleAssessment'
+import AssessmentTitle from './title'
 
 const Lock = (props) => {
   const { assessment } = props
