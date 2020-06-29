@@ -23,6 +23,12 @@ module.exports.translation = {
     category: {
       title: 'Select category and level',
       WO: 'World',
+      AF: 'Africa',
+      AS: 'Asia',
+      EU: 'Europe',
+      NA: 'North America',
+      OC: 'Oceania',
+      SA: 'South America',
     },
     rowName: {
       forest_area: 'Forest area',
