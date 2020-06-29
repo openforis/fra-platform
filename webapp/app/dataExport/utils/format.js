@@ -6,6 +6,7 @@
 import * as NumberUtils from '@common/bignumberUtils'
 import { UnitSpec } from '@webapp/app/assessment/components/section/sectionSpec'
 import { format } from 'date-fns'
+import { getPanEuropeanTableMapping, isPanEuropean } from '@webapp/app/dataExport/utils/panEuropean'
 
 export const regex = {
   yearRange: /\d{4}-\d{4}/,
@@ -33,9 +34,14 @@ export const getColumnLabel = (column, section) =>
  * Returns the possible i18n mapping
  * @param column - column value
  * @param section - url params: current section
+ * @param assessmentType - type, ex. fra2020 / panEuropean
  * @returns {array} - i18n keys
  */
-export const getI18nKey = (column, section) => {
+export const getI18nKey = (column, section, assessmentType) => {
+  if (isPanEuropean(assessmentType)) {
+    return [`${assessmentType}.${section}.${column}`]
+  }
+
   if (isYearWithWord(column)) {
     const [year, word] = splitYearWithWord(column)
     return [year, `${section}.${word}`]
@@ -104,9 +110,15 @@ const sections = {
 /**
  * Helper function to handle datamase mapping for table names
  * @param section
+ * @param assessmentType
  * @returns {*}
  */
-export const formatSection = (section) => (sections[section] ? sections[section] : section)
+export const formatSection = (section, assessmentType) => {
+  if (isPanEuropean(assessmentType)) {
+    return getPanEuropeanTableMapping(section)
+  }
+  return sections[section] ? sections[section] : section
+}
 
 /**
  * Get timestamp for today in given format or default YYYY-MM-DD
