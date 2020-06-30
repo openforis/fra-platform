@@ -20,7 +20,7 @@ const LevelSelection = () => {
   const i18n = useI18n()
   const { levelIso } = useParams()
 
-  const { data, dispatch: fetchLevelIso } = useGetRequest('/api/statisticalFactsheets/levelIso')
+  const { data = [], dispatch: fetchLevelIso } = useGetRequest('/api/statisticalFactsheets/levelIso')
 
   const countrySelectionRef = useRef(null)
   const [open, setOpen] = useState(false)

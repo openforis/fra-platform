@@ -17,11 +17,12 @@ const ListItem = (props) => {
   const { item } = props
   const i18n = useI18n()
   const getLabel = (key) => {
+    if (!key) return null
     if (key === levels.global || levels.region.includes(key)) {
       return i18n.t(`statisticalFactsheets.category.${key}`)
     }
     const country = useSelector(CountryState.getCountryByCountryIso(key))
-    return country.listName[i18n.language]
+    return country ? country.listName[i18n.language] : null
   }
 
   return (
@@ -48,7 +49,8 @@ const List = (props) => {
             <ListItem key={region} item={region} />
           ))}
           <hr />
-          {countries.map((country) => !levels.region.includes(country) && <ListItem key={country} item={country} />)}
+          {countries.length > 0 &&
+            countries.map((country) => !levels.region.includes(country) && <ListItem key={country} item={country} />)}
         </div>
       </div>
     </div>
