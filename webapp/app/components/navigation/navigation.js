@@ -11,10 +11,14 @@ import LinkPanEuropeanIndicators from '@webapp/app/components/navigation/compone
 import Footer from '@webapp/app/components/navigation/components/footer'
 import useCountryIso from '@webapp/components/hooks/useCountryIso'
 import { useIsDataExportView } from '@webapp/components/hooks'
+import * as Country from '@common/country/country'
+import { useSelector } from 'react-redux'
+import * as CountryState from '@webapp/app/country/countryState'
 
 const Navigation = () => {
   const countryIso = useCountryIso()
   const isDataExport = useIsDataExportView()
+  const country = useSelector(CountryState.getCountryByCountryIso(countryIso))
 
   return (
     <div className="nav no-print">
@@ -29,8 +33,12 @@ const Navigation = () => {
           <Assessment assessment={FRA} />
           {!isDataExport && <LinkPanEuropeanIndicators />}
           <div className="nav__divider" />
-          <Assessment assessment={PanEuropean} />
-          <div className="nav__divider" />
+          {Country.isPanEuropean(country) && (
+            <>
+              <Assessment assessment={PanEuropean} />
+              <div className="nav__divider" />
+            </>
+          )}
           <Footer />
         </>
       )}

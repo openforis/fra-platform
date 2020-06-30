@@ -24,7 +24,7 @@ const Header = (props) => {
   } = props
 
   const countryIso = useCountryIso()
-  if (useIsDataExportView()) {
+  if (useIsDataExportView() || assessmentType === 'panEuropean') {
     return (
       <div className="nav-assessment-header">
         <div className="nav-assessment-header__label">
