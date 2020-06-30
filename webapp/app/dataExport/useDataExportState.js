@@ -8,7 +8,8 @@ import { TableSpec } from '@webapp/app/assessment/components/section/sectionSpec
 import { throttle } from '@webapp/utils/functionUtils'
 
 import { formatColumn, formatSection } from '@webapp/app/dataExport/utils/format'
-import { isPanEuropean } from '@webapp/app/dataExport/utils/panEuropean'
+import Assessment from '@common/assessment/assessment'
+import * as Country from '@common/country/country'
 
 const initialSelection = {
   countries: [],
@@ -78,11 +79,8 @@ export default () => {
   const setSelectionColumns = (value) => setSelection({ ...selection, columns: value })
   const setSelectionVariable = (value) => setSelection({ ...selection, variable: value })
 
-  // Handle pan european countries
-  // const isPaneuropean = (country) => country.panEuropean
-  const isPanEuropeanAssessment = assessmentType === 'panEuropean'
-  const panEuropeanCountries = allCountries.filter(isPanEuropean)
-  const countries = isPanEuropeanAssessment ? panEuropeanCountries : allCountries
+  const panEuropeanCountries = allCountries.filter(Country.isPanEuropean)
+  const countries = Assessment.isPanEuropean(assessmentType) ? panEuropeanCountries : allCountries
 
   return {
     results,

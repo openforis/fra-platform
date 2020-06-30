@@ -11,7 +11,7 @@ import useI18n from '@webapp/components/hooks/useI18n'
 
 import * as ReviewStatusState from '@webapp/app/country/reviewStatusState'
 import { useIsDataExportView } from '@webapp/components/hooks'
-import { isPanEuropean } from '@webapp/app/dataExport/utils/panEuropean'
+import { isPanEuropean } from '@common/assessment/assessment'
 
 const Subsection = (props) => {
   const { assessmentType, sectionName, prefix } = props

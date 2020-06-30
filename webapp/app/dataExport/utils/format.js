@@ -6,7 +6,8 @@
 import * as NumberUtils from '@common/bignumberUtils'
 import { UnitSpec } from '@webapp/app/assessment/components/section/sectionSpec'
 import { format } from 'date-fns'
-import { getPanEuropeanTableMapping, isPanEuropean } from '@webapp/app/dataExport/utils/panEuropean'
+import { getPanEuropeanTableMapping } from '@webapp/app/dataExport/utils/panEuropean'
+import { isPanEuropean } from '@common/assessment/assessment'
 
 export const regex = {
   yearRange: /\d{4}-\d{4}/,
