@@ -33,7 +33,7 @@ const Navigation = () => {
           <Assessment assessment={FRA} />
           {!isDataExport && <LinkPanEuropeanIndicators />}
           <div className="nav__divider" />
-          {Country.isPanEuropean(country) && (
+          {country && Country.isPanEuropean(country) && (
             <>
               <Assessment assessment={PanEuropean} />
               <div className="nav__divider" />
