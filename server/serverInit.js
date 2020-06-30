@@ -4,7 +4,6 @@ module.exports = () => {
   const bodyParser = require('body-parser')
   const compression = require('compression')
   const fileUpload = require('express-fileupload')
-  const morgan = require('morgan')
 
   const sessionInit = require('./sessionInit')
   const apiRouter = require('./apiRouter')
@@ -14,7 +13,11 @@ module.exports = () => {
   const { sendErr } = require('./utils/requestUtils')
 
   const app = express()
-  app.use(morgan('dev'))
+
+  if (process.env.NODE_ENV === 'development') {
+    const morgan = require('morgan')
+    app.use(morgan('dev'))
+  }
 
   app.use(bodyParser.json({ limit: '5000kb' }))
 
