@@ -33,7 +33,7 @@ const tableSpec = SectionSpec.newTableSpec({
 
     // rows data
     ...variables.flatMap((variable) =>
-      PanEuropean.years.reverse().map((year) =>
+      PanEuropean.years90_20.reverse().map((year) =>
         SectionSpec.newRowData({
           [SectionSpec.KEYS_ROW.labelKey]: `panEuropean.forestArea.${variable}`,
           [SectionSpec.KEYS_ROW.labelParams]: { year },
