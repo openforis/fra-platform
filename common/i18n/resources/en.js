@@ -13,8 +13,23 @@ module.exports.translation = {
     dataExport: 'Data Export',
     selectAll: 'Select all',
     unselectAll: 'Unselect all',
-    variable: 'Variable',
+    variable: 'FRA Variable',
     column: 'Column',
+    other: 'Other',
+    unknown: 'None/unknown',
+  },
+
+  unit: {
+    haThousand: '1000 ha',
+    ha: 'ha',
+    kmSq: 'km²',
+    mileSq: 'mi²',
+    acre1000: '1000 acres',
+    acre: 'acre',
+    haMillion: 'million hectares',
+    haThousandPerYear: '1000 ha/year',
+    tonnesPerHa: 'tonnes/ha',
+    millionsCubicMeterOverBark: 'million m³ over bark',
   },
 
   countrySelection: {

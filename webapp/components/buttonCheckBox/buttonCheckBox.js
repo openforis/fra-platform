@@ -6,7 +6,7 @@ import { useI18n } from '@webapp/components/hooks'
 
 const ButtonCheckBox = (props) => {
   const i18n = useI18n()
-  const { onClick, checked, className, labelParam } = props
+  const { onClick, checked, className, labelParam, suffix } = props
   let { label } = props
   label = Array.isArray(label) ? label : [label]
 
@@ -14,6 +14,7 @@ const ButtonCheckBox = (props) => {
     <button type="button" className={`btn-s btn-checkbox ${className}`} onClick={onClick}>
       <div className={`fra-checkbox${checked ? ' checked' : ''}`} />
       <div>{label.map((key) => `${labelParam ? i18n.t(key, labelParam) : i18n.t(key)} `)}</div>
+      {suffix && <span className="suffix">{suffix}</span>}
     </button>
   )
 }
@@ -21,6 +22,7 @@ const ButtonCheckBox = (props) => {
 ButtonCheckBox.defaultProps = {
   className: '',
   labelParam: null,
+  suffix: null,
 }
 
 ButtonCheckBox.propTypes = {
@@ -29,6 +31,7 @@ ButtonCheckBox.propTypes = {
   labelParam: PropTypes.object,
   className: PropTypes.string,
   checked: PropTypes.bool.isRequired,
+  suffix: PropTypes.string,
 }
 
 export default ButtonCheckBox

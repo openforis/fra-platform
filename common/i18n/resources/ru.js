@@ -13,8 +13,14 @@ module.exports.translation = {
     dataExport: 'Экспорт данных',
     selectAll: 'Выделить все',
     unselectAll: 'Снять выделение',
-    variable: 'Переменная',
+    variable: 'ОЛР Переменная',
     column: 'Столбец',
+    other: 'Другое',
+    unknown: 'Отсутствует/неизвестна',
+  },
+
+  unit: {
+    kmSq: 'км²',
   },
 
   countrySelection: {
