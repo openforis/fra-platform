@@ -19,7 +19,7 @@ const getDeskStudy = R.propEq(keys.deskStudy, true)
 const getCanEditData = R.propEq(keys.canEditData, true)
 const getTablesAccess = R.propOr([], keys.tablesAccess)
 const isStatusChanging = R.pipe(getStatus, R.equals(assessmentStatus.changing))
-const isPanEuropean = R.equals(keys.panEuropean)
+const isTypePanEuropean = R.equals(keys.panEuropean)
 
 // ====== UPDATE
 const assocStatus = R.assoc(keys.status)
@@ -34,7 +34,7 @@ module.exports = {
   getCanEditData,
   getTablesAccess,
   isStatusChanging,
-  isPanEuropean,
+  isTypePanEuropean,
 
   assocStatus,
   assocDeskStudy,

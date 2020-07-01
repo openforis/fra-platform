@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom'
 import useCountryIso from '@webapp/components/hooks/useCountryIso'
 import { useIsDataExportView } from '@webapp/components/hooks'
 
+import { isTypePanEuropean } from '@common/assessment/assessment'
 import Lock from './lock'
 import Status from './status'
 import AssessmentTitle from './title'
@@ -24,7 +25,7 @@ const Header = (props) => {
   } = props
 
   const countryIso = useCountryIso()
-  if (useIsDataExportView() || assessmentType === 'panEuropean') {
+  if (useIsDataExportView() || isTypePanEuropean(assessmentType)) {
     return (
       <div className="nav-assessment-header">
         <div className="nav-assessment-header__label">

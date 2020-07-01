@@ -5,6 +5,8 @@ const { sendErr, sendOk } = require('../utils/requestUtils')
 const Auth = require('../auth/authApiMiddleware')
 const VersionService = require('../versioning/service')
 
+const Assessment = require('../../common/assessment/assessment')
+
 module.exports.init = (app) => {
   app.post('/traditionalTable/:countryIso/:tableSpecName', Auth.requireCountryEditPermission, async (req, res) => {
     try {
@@ -27,7 +29,9 @@ module.exports.init = (app) => {
       const {
         params: { assessmentType, countryIso, tableSpecName },
       } = req
-      const schemaName = assessmentType === 'panEuropean' ? 'pan_european' : await VersionService.getDatabaseSchema(req)
+      const schemaName = Assessment.isTypePanEuropean(assessmentType)
+        ? 'pan_european'
+        : await VersionService.getDatabaseSchema(req)
       const result = await repository.read(countryIso, tableSpecName, schemaName)
       res.json(result)
     } catch (err) {

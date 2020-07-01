@@ -11,7 +11,7 @@ import useI18n from '@webapp/components/hooks/useI18n'
 
 import * as ReviewStatusState from '@webapp/app/country/reviewStatusState'
 import { useIsDataExportView } from '@webapp/components/hooks'
-import { isPanEuropean } from '@common/assessment/assessment'
+import { isTypePanEuropean } from '@common/assessment/assessment'
 
 const Subsection = (props) => {
   const { assessmentType, sectionName, prefix } = props
@@ -24,7 +24,7 @@ const Subsection = (props) => {
     ? BasePaths.getDataExportSectionLink(assessmentType, sectionName)
     : BasePaths.getAssessmentSectionLink(countryIso, assessmentType, sectionName)
 
-  const labelPrefix = isPanEuropean(assessmentType) ? 'panEuropean.' : ''
+  const labelPrefix = isTypePanEuropean(assessmentType) ? 'panEuropean.' : ''
   const label = i18n.t(`${labelPrefix}${sectionName}.${sectionName}`)
 
   return (

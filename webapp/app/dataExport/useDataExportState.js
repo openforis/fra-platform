@@ -80,7 +80,7 @@ export default () => {
   const setSelectionVariable = (value) => setSelection({ ...selection, variable: value })
 
   const panEuropeanCountries = allCountries.filter(Country.isPanEuropean)
-  const countries = Assessment.isPanEuropean(assessmentType) ? panEuropeanCountries : allCountries
+  const countries = Assessment.isTypePanEuropean(assessmentType) ? panEuropeanCountries : allCountries
 
   return {
     results,

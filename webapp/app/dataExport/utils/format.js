@@ -7,7 +7,7 @@ import * as NumberUtils from '@common/bignumberUtils'
 import { UnitSpec } from '@webapp/app/assessment/components/section/sectionSpec'
 import { format } from 'date-fns'
 import { getPanEuropeanTableMapping } from '@webapp/app/dataExport/utils/panEuropean'
-import { isPanEuropean } from '@common/assessment/assessment'
+import { isTypePanEuropean } from '@common/assessment/assessment'
 
 export const regex = {
   yearRange: /\d{4}-\d{4}/,
@@ -39,7 +39,7 @@ export const getColumnLabel = (column, section) =>
  * @returns {array} - i18n keys
  */
 export const getI18nKey = (column, section, assessmentType) => {
-  if (isPanEuropean(assessmentType)) {
+  if (isTypePanEuropean(assessmentType)) {
     return [`${assessmentType}.${section}.${column}`]
   }
 
@@ -115,7 +115,7 @@ const sections = {
  * @returns {*}
  */
 export const formatSection = (section, assessmentType) => {
-  if (isPanEuropean(assessmentType)) {
+  if (isTypePanEuropean(assessmentType)) {
     return getPanEuropeanTableMapping(section)
   }
   return sections[section] ? sections[section] : section

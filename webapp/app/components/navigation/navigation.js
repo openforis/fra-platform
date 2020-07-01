@@ -20,6 +20,8 @@ const Navigation = () => {
   const isDataExport = useIsDataExportView()
   const country = useSelector(CountryState.getCountryByCountryIso(countryIso))
 
+  const showPanEuropean = (country && Country.isPanEuropean(country)) || isDataExport
+
   return (
     <div className="nav no-print">
       {(countryIso || isDataExport) && (
@@ -33,7 +35,7 @@ const Navigation = () => {
           <Assessment assessment={FRA} />
           {!isDataExport && <LinkPanEuropeanIndicators />}
           <div className="nav__divider" />
-          {country && Country.isPanEuropean(country) && (
+          {showPanEuropean && (
             <>
               <Assessment assessment={PanEuropean} />
               <div className="nav__divider" />
