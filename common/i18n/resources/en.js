@@ -1126,7 +1126,8 @@ The FRA team
     },
 
 	// table 1.2a
-    forestArea: {
+    growingStock: {
+      growingStock: 'Growing Stock',
       categoryYear: 'Category - Year',
       total: 'Total',
       coniferous: 'Coniferous',

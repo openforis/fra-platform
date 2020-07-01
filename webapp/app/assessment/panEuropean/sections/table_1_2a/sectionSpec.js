@@ -22,6 +22,18 @@ const tableSpec = SectionSpec.newTableSpec({
     SectionSpec.newRowHeader({
       [SectionSpec.KEYS_ROW.cols]: [
         SectionSpec.newColHeader({
+          [SectionSpec.KEYS_COL.rowSpan]: 2,
+          [SectionSpec.KEYS_COL.left]: true,
+        }),
+        SectionSpec.newColHeader({
+          [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.growingStock.growingStock',
+          [SectionSpec.KEYS_COL.colSpan]: 4,
+        }),
+      ],
+    }),
+    SectionSpec.newRowHeader({
+      [SectionSpec.KEYS_ROW.cols]: [
+        SectionSpec.newColHeader({
           [SectionSpec.KEYS_COL.labelKey]: 'panEuropean.growingStock.categoryYear',
           [SectionSpec.KEYS_COL.left]: true,
         }),
@@ -44,7 +56,12 @@ const tableSpec = SectionSpec.newTableSpec({
           [SectionSpec.KEYS_ROW.labelKey]: `panEuropean.growingStock.${variable}`,
           [SectionSpec.KEYS_ROW.labelParams]: { year },
           [SectionSpec.KEYS_ROW.variableExport]: `${variable}_${year}`,
-          [SectionSpec.KEYS_ROW.cols]: [SectionSpec.newColDecimal()],
+          [SectionSpec.KEYS_ROW.cols]: [
+            SectionSpec.newColDecimal(),
+            SectionSpec.newColDecimal(),
+            SectionSpec.newColDecimal(),
+            SectionSpec.newColDecimal(),
+          ],
         })
       )
     ),
