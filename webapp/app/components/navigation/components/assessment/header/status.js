@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import * as R from 'ramda'
 
 import { getAllowedStatusTransitions } from '@common/assessment'
@@ -15,9 +15,13 @@ import useI18n from '@webapp/components/hooks/useI18n'
 import useUserInfo from '@webapp/components/hooks/useUserInfo'
 
 import { changeAssessment } from '@webapp/app/country/actions'
+import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 
-const Status = props => {
-  const { assessment } = props
+const Status = (props) => {
+  const {
+    assessment: { type },
+  } = props
+  const assessment = useSelector(AssessmentState.getAssessment(type))
   const status = Assessment.getStatus(assessment)
   const deskStudy = Assessment.getDeskStudy(assessment)
 
@@ -31,7 +35,7 @@ const Status = props => {
   //  Hidden in public view
   if (!userInfo) {
     // Return an element as placeholder to maintain order of parent flex display
-    return <div/>
+    return <div />
   }
 
   const deskStudyItems = [
@@ -39,53 +43,43 @@ const Status = props => {
     {
       content: (
         <div className="popover-control__checkbox-container">
-          <span style={{ marginRight: '8px' }} className={`fra-checkbox ${assessment.deskStudy ? 'checked' : ''}`}/>
+          <span style={{ marginRight: '8px' }} className={`fra-checkbox ${assessment.deskStudy ? 'checked' : ''}`} />
           <span>{i18n.t('assessment.deskStudy')}</span>
         </div>
       ),
-      onClick: () => dispatch(
-        changeAssessment(countryIso, Assessment.assocDeskStudy(!deskStudy)(assessment))
-      )
-    }
+      onClick: () => dispatch(changeAssessment(countryIso, Assessment.assocDeskStudy(!deskStudy)(assessment))),
+    },
   ]
 
   const items = R.unless(
     R.always(Assessment.isStatusChanging(assessment)),
     R.pipe(
-      _ => getAllowedStatusTransitions(countryIso, userInfo, status),
-      allowedTransitions => [
+      (_) => getAllowedStatusTransitions(countryIso, userInfo, status),
+      (allowedTransitions) => [
         { direction: 'next', transition: allowedTransitions.next },
-        { direction: 'previous', transition: allowedTransitions.previous }
+        { direction: 'previous', transition: allowedTransitions.previous },
       ],
       R.filter(R.prop('transition')),
-      R.map(statusTarget => ({
+      R.map((statusTarget) => ({
         content: i18n.t(`assessment.status.${statusTarget.transition}.${statusTarget.direction}`),
-        onClick: () => setTargetStatus(statusTarget)
+        onClick: () => setTargetStatus(statusTarget),
       })),
-      R.when(
-        R.always(isAdministrator(userInfo)),
-        items => [...items, ...deskStudyItems]
-      )
+      R.when(R.always(isAdministrator(userInfo)), (_items) => [..._items, ...deskStudyItems])
     )
   )([])
 
   return (
     <>
-      { // showing confirmation modal dialog before submitting the status change
-        targetStatus &&
-        <StatusConfirm
-          assessment={assessment}
-          targetStatus={targetStatus}
-          onClose={() => setTargetStatus(null)}
-        />
+      {
+        // showing confirmation modal dialog before submitting the status change
+        targetStatus && (
+          <StatusConfirm assessment={assessment} targetStatus={targetStatus} onClose={() => setTargetStatus(null)} />
+        )
       }
       <PopoverControl items={items}>
         <div className={`nav-assessment-header__status status-${status} actionable-${!R.isEmpty(items)}`}>
           <span>{i18n.t(`assessment.status.${status}.label`)}</span>
-          {
-            !R.isEmpty(items) &&
-            <Icon className="icon-white icon-middle" name="small-down"/>
-          }
+          {!R.isEmpty(items) && <Icon className="icon-white icon-middle" name="small-down" />}
         </div>
       </PopoverControl>
     </>

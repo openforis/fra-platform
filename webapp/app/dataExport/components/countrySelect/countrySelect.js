@@ -4,15 +4,18 @@ import camelize from 'camelize'
 
 import { useI18n } from '@webapp/components/hooks'
 import ButtonCheckBox from '@webapp/components/buttonCheckBox'
+import { useParams } from 'react-router'
+import { isTypePanEuropean } from '@common/assessment/assessment'
 
 const CountrySelect = (props) => {
   const { countries, selectionCountries, setSelectionCountries } = props
+  const { assessmentType } = useParams()
 
   const i18n = useI18n()
   const [countriesFiltered, setCountriesFiltered] = useState(countries)
   const propName = camelize(`list_name_${i18n.language}`)
 
-  const isDeskStudy = (country) => country.assessment.fra2020.deskStudy
+  const isDeskStudy = (country) => !isTypePanEuropean(assessmentType) && country.assessment.fra2020.deskStudy
   const getDeskStudyValue = (country) => (isDeskStudy(country) ? ` (${i18n.t('assessment.deskStudy')})` : null)
 
   const normalizeString = (str) => str.trim().toLowerCase().replace(/\s/g, '')

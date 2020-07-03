@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { useI18n } from '@webapp/components/hooks'
 
-const AssessmentTitle = (props) => {
+const Title = (props) => {
   const { type, deskStudy } = props
   const i18n = useI18n()
   return (
@@ -13,12 +13,12 @@ const AssessmentTitle = (props) => {
   )
 }
 
-AssessmentTitle.defaultProps = {
+Title.defaultProps = {
   deskStudy: false,
 }
-AssessmentTitle.propTypes = {
+Title.propTypes = {
   type: PropTypes.string.isRequired,
   deskStudy: PropTypes.bool,
 }
 
-export default AssessmentTitle
+export default Title
