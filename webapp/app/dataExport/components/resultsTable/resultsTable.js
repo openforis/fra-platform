@@ -116,7 +116,7 @@ const ResultsTable = (props) => {
           <tr>
             {filteredColumns.map((column) => (
               <th key={column} className="fra-table__header-cell">
-                {getI18nKey(column, section).map((key) => `${i18n.t(key)} `)}
+                {getI18nKey(column, section, assessmentType).map((key) => `${i18n.t(key)} `)}
               </th>
             ))}
           </tr>

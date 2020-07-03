@@ -973,6 +973,7 @@ The FRA team fra@fao.org
 
   assessment: {
     fra2020: 'FRA 2020',
+    panEuropean: 'Pan European',
     deskStudy: 'Desk study',
     statusChangeNotification: {
       subject: '{{country}} status changed to {{status}} on FRA Platform',
@@ -1115,6 +1116,7 @@ The FRA team
     },
     // table 1.1a
     forestArea: {
+      forestArea: 'Forest Area',
       categoryYear: 'Category - Year',
       area: 'Area (1000 ha)',
       forest: 'Forest - {{year}}',

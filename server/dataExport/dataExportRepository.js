@@ -12,7 +12,11 @@ const views = [
   'disturbances',
 ]
 
-const getExportData = async (table, variable, countries, columns) => {
+// schemaName can be either:
+// - the latest "frozen"/versioned schema
+// - if previous not found then public
+// - if assessmentType is panEuropean: pan_european
+const getExportData = async (schemaName, table, variable, countries, columns) => {
   // Add "" around year columns
   const columnsJoined = columns.map((x) => `'${x}', t."${x}"`).join(',')
   const countriesJoined = countries.map((x) => `'${x}'`).join(',')
@@ -21,7 +25,7 @@ const getExportData = async (table, variable, countries, columns) => {
 
   const query = `
     SELECT json_object_agg(t.country_iso, json_build_object(${columnsJoined}))
-    FROM ${tableName} t
+    FROM ${schemaName}.${tableName} t
     WHERE t.country_iso IN (${countriesJoined})
     AND t.row_name = $1
   `
