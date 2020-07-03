@@ -95,7 +95,7 @@ WITH s AS (
     GROUP BY country_iso, row_name
     ORDER BY country_iso),
      s2 AS (
-         SELECT c.list_name_en AS level,
+         SELECT c.country_iso AS level,
                 s.row_name,
                 s."1990",
                 s."2000",
