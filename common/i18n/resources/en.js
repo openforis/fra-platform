@@ -24,15 +24,6 @@ module.exports.translation = {
   },
 
   statisticalFactsheets: {
-    category: {
-      WO: 'World',
-      AF: 'Africa',
-      AS: 'Asia',
-      EU: 'Europe',
-      NA: 'North America',
-      OC: 'Oceania',
-      SA: 'South America',
-    },
     rowName: {
       forest_area: 'Forest area',
       natural_forest_area: 'Natural forest area',
