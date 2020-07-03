@@ -21,7 +21,6 @@ module.exports.translation = {
 
   statisticalFactsheets: {
     category: {
-      title: 'Select category and level',
       WO: 'World',
       AF: 'Africa',
       AS: 'Asia',
