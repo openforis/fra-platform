@@ -1,4 +1,8 @@
+const area = require('./en/area')
+
 module.exports.translation = {
+  area,
+
   language: {
     en: 'English',
     es: 'Español',
@@ -20,10 +24,6 @@ module.exports.translation = {
   },
 
   statisticalFactsheets: {
-    category: {
-      title: 'Select category and level',
-      WO: 'World',
-    },
     rowName: {
       forest_area: 'Forest area',
       natural_forest_area: 'Natural forest area',
