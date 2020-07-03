@@ -18,6 +18,7 @@ const pathFragments = {
     section: ':section',
     userId: ':userId',
     tab: ':tab',
+    levelIso: ':levelIso',
   },
 }
 
@@ -32,6 +33,11 @@ const _pathGenerator = (...parts) => `/${parts.filter((p) => !!p).join('/')}/`
 export const root = '/'
 export const login = _pathGenerator(pathFragments.login)
 export const statisticalFactsheets = _pathGenerator(pathFragments.statisticalFactsheets)
+export const statisticalFactsheetsLevelIso = _pathGenerator(
+  pathFragments.statisticalFactsheets,
+  pathFragments.params.levelIso
+)
+
 export const dataExport = _pathGenerator(pathFragments.export)
 export const dataExportSection = _pathGenerator(
   pathFragments.export,
@@ -106,3 +112,6 @@ export const getAdminVersioningLink = () => _pathGenerator(pathFragments.admin, 
 // /export/:assessmentType/:section/
 export const getDataExportSectionLink = (assessmentType, section) =>
   _pathGenerator(pathFragments.export, assessmentType, section)
+
+export const getStatisticalFactsheetsWithLevelIso = (levelIso) =>
+  _pathGenerator(pathFragments.statisticalFactsheets, levelIso)

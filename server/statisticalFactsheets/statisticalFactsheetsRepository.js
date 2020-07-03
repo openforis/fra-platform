@@ -10,6 +10,28 @@ const getStatisticalFactsheetTableAgg = async (schemaName) => {
   return camelize(result.rows)
 }
 
+const getStatisticalFactsheetData = async (schemaName, level, rowNames) => {
+  const rowNamesJoined = rowNames.map((rowName) => `'${rowName}'`).join(', ')
+  const result = await db.query(`
+   SELECT *
+    FROM ${schemaName}.statistical_factsheets_view
+    WHERE level   = '${level}'
+    AND row_name IN (${rowNamesJoined})
+    `)
+
+  return camelize(result.rows)
+}
+
+const getStatisticalFactsheetLevelISOs = async (schemaName) => {
+  const result = await db.query(
+    `select distinct level from ${schemaName}.statistical_factsheets_view where level not like 'X%' order by level`
+  )
+
+  return result.rows.map((row) => row.level)
+}
+
 module.exports = {
   getStatisticalFactsheetTableAgg,
+  getStatisticalFactsheetLevelISOs,
+  getStatisticalFactsheetData,
 }
