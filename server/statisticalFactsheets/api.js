@@ -1,15 +1,15 @@
 const {
   getStatisticalFactsheetTableAgg,
   getStatisticalFactsheetData,
-  getStatisticalFactsheetLevelIso,
+  getStatisticalFactsheetLevelISOs,
 } = require('./statisticalFactsheetsRepository')
 
 const VersionService = require('../versioning/service')
 
 module.exports.init = (app) => {
-  app.get('/statisticalFactsheets/levelIso', async (req, res) => {
+  app.get('/statisticalFactsheets/levelISOs', async (req, res) => {
     const schemaName = await VersionService.getDatabaseSchema(req)
-    const statisticalFactsheetLevelIso = await getStatisticalFactsheetLevelIso(schemaName)
+    const statisticalFactsheetLevelIso = await getStatisticalFactsheetLevelISOs(schemaName)
     res.json(statisticalFactsheetLevelIso)
   })
 
