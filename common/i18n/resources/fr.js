@@ -225,7 +225,7 @@ L'équipe de FRA
     assessment: {
       transitionNotAllowed:
         "Erreur: La transition depuis {{currentStatus}} à {{status}} n'est pas autorisée pour le rôle {{role}}",
-      deskStudyNotAllowed: "Erreur: Seulement l'administrateur peut changer le statut de l'étude théorique",
+      deskStudyNotAllowed: "Erreur: Seulement l'administrateur peut changer le statut de l'étude de bureau",
     },
     review: {
       commentDeleteNotOwner:
@@ -820,7 +820,7 @@ L'équipe de FRA fra@fao.org
 
   assessment: {
     fra2020: 'FRA 2020',
-    deskStudy: 'Étude théorique',
+    deskStudy: 'Étude de bureau',
     statusChangeNotification: {
       subject: 'Le statut de {{country}} a été changé à {{status}} dans la plateforme de FRA',
       textMessage: `Cher {{recipientName}},
