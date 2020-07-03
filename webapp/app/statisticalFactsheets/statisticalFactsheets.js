@@ -14,14 +14,13 @@ import ForestAreaWithinProtectedAreas from './ForestAreaWithinProtectedAreas'
 import NaturallyRegeneratingForest from './NaturallyRegeneratingForest'
 import PrimaryDesignatedManagementObjective from './PrimaryDesignatedManagementObjective'
 import LevelSelection from './components/levelSelection'
-
-const defaultLevelIso = 'WO'
+import { levels } from './common/levels'
 
 const StatisticalFactsheets = () => {
   const { levelIso } = useParams()
 
   if (!levelIso) {
-    return <Redirect to={BasePaths.getStatisticalFactsheetsWithLevelIso(defaultLevelIso)} />
+    return <Redirect to={BasePaths.getStatisticalFactsheetsWithLevelIso(levels.global)} />
   }
 
   return (

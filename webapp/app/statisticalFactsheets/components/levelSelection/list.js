@@ -1,40 +1,8 @@
 import '@webapp/app/components/countrySelection/components/countryList.less'
-
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useI18n } from '@webapp/components/hooks'
-import * as BasePaths from '@webapp/main/basePaths'
-import { Link } from 'react-router-dom'
-import { useSelector } from 'react-redux'
-import * as CountryState from '@webapp/app/country/countryState'
-
-const levels = {
-  global: 'WO',
-  region: ['AF', 'AS', 'EU', 'NA', 'OC', 'SA'],
-}
-
-const ListItem = (props) => {
-  const { item } = props
-  const i18n = useI18n()
-  const getLabel = (key) => {
-    if (!key) return null
-    if (key === levels.global || levels.region.includes(key)) {
-      return i18n.t(`statisticalFactsheets.category.${key}`)
-    }
-    const country = useSelector(CountryState.getCountryByCountryIso(key))
-    return country ? country.listName[i18n.language] : null
-  }
-
-  return (
-    <Link to={BasePaths.getStatisticalFactsheetsWithLevelIso(item)} className="country-selection-list__row">
-      <span className="country-selection-list__primary-col">{getLabel(item)}</span>
-    </Link>
-  )
-}
-
-ListItem.propTypes = {
-  item: PropTypes.string.isRequired,
-}
+import { levels } from '@webapp/app/statisticalFactsheets/common/levels'
+import ListItem from './listItem'
 
 const List = (props) => {
   const { countries = [] } = props
