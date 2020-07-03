@@ -1,4 +1,8 @@
+const area = require('./es/area')
+
 module.exports.translation = {
+  area,
+
   language: {
     en: 'English',
     es: 'Español',
