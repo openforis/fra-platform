@@ -58,7 +58,7 @@ const FraPrintView = () => {
             </h1>
           )}
 
-          {Number(key) === 0 && <ContactPersonsPrintView />}
+          {Number(key) === 0 && !deskStudy && <ContactPersonsPrintView />}
 
           {Object.values(section.children).map((sectionItem) => (
             <AssessmentSection key={sectionItem.name} assessmentType={FRA.type} sectionName={sectionItem.name} />
