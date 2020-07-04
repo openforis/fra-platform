@@ -13,18 +13,12 @@ const CountryList = () => {
 
   return (
     <div className="country-selection-list">
-      <CountryListDownload/>
+      <CountryListDownload />
 
       <div className="country-selection-list__content">
-        {
-          Object.keys(countries).map(role =>
-            <CountryListRoleSection
-              key={role}
-              role={role}
-              roleCountries={countries[role]}
-            />
-          )
-        }
+        {Object.keys(countries).map((role) => (
+          <CountryListRoleSection key={role} role={role} roleCountries={countries[role]} />
+        ))}
       </div>
     </div>
   )
