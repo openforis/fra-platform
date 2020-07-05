@@ -55,7 +55,7 @@ const CountrySelection = (props) => {
 
         <div className="country-selection__info">
           <span className="country-selection__country-name">
-            {country ? i18n.t(`area.${countryIso}.listName`) : i18n.t('countrySelection.selectCountry')}
+            {countryIso ? i18n.t(`area.${countryIso}.listName`) : i18n.t('countrySelection.selectCountry')}
           </span>
 
           {userInfo && country && (
