@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 
 import { Country } from '@common/country'
 import { noRole } from '@common/countryRole'
+import * as BasePaths from '@webapp/main/basePaths'
 import { getRelativeDate } from '@webapp/utils/relativeDate'
 
 import useI18n from '@webapp/components/hooks/useI18n'
@@ -29,8 +30,8 @@ const CountryListRow = (props) => {
 
   return (
     <Link
-      to={`/${countryIsoCurrent}/`}
-      className={`country-selection-list__row${countryIsoCurrent === countryIso ? ' selected' : ''}`}
+      to={BasePaths.getCountryHomeLink(countryIsoCurrent)}
+      className={`country-selection-list__row${selected ? ' selected' : ''}`}
     >
       <span className="country-selection-list__primary-col" ref={countryNameRef}>
         {i18n.t(`area.${countryIsoCurrent}.listName`)}
