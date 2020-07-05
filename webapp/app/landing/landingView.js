@@ -1,7 +1,6 @@
 import './style.less'
 
 import React from 'react'
-import { useDispatch } from 'react-redux'
 import { NavLink, Redirect, Route, Switch } from 'react-router-dom'
 
 import AboutView from '@webapp/app/landing/views/aboutView'
@@ -10,11 +9,7 @@ import useI18n from '@webapp/components/hooks/useI18n'
 import useUserInfo from '@webapp/components/hooks/useUserInfo'
 import useLandingViewSections from '@webapp/app/landing/useLandingViewSections'
 
-import { getCountryName } from '@webapp/app/country/actions'
-
 const LandingView = () => {
-  const dispatch = useDispatch()
-
   const countryIso = useCountryIso()
   const userInfo = useUserInfo()
   const i18n = useI18n()
@@ -27,7 +22,7 @@ const LandingView = () => {
     <div className="app-view__content">
       <div className="landing__page-header">
         <h1 className="landing__page-title">
-          {countryIso ? dispatch(getCountryName(countryIso, i18n.language)) : i18n.t('common.fraPlatform')}
+          {countryIso ? i18n.t(`area.${countryIso}.listName`) : i18n.t('common.fraPlatform')}
         </h1>
         {userAndCountry && (
           <div className="landing__page-menu">
