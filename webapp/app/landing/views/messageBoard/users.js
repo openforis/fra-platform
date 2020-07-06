@@ -17,7 +17,7 @@ const Users = () => {
   const dispatch = useDispatch()
   const { userInfo, users } = useSelector((state) => ({
     userInfo: UserState.getUserInfo(state),
-    users: LandingState.getOverviewUsers(state),
+    users: LandingState.getUsers(state),
   }))
 
   if (!users || !userInfo) {
