@@ -20,7 +20,8 @@ const Navigation = () => {
   const isDataExport = useIsDataExportView()
   const country = useSelector(CountryState.getCountryByCountryIso(countryIso))
 
-  const showPanEuropean = (country && Country.isPanEuropean(country)) || isDataExport
+  // TODO: To enable Pan European navigation remove false &&
+  const showPanEuropean = false && ((country && Country.isPanEuropean(country)) || isDataExport)
 
   return (
     <div className="nav no-print">
