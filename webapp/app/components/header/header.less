@@ -1,7 +1,6 @@
-@import (reference) "~@webapp/main/styles/config";
+@import (reference) 'webapp/main/styles/config';
 
 .app-header {
-  grid-area: header;
   border-bottom: @ui-thin-border;
   display: flex;
   align-items: center;
@@ -108,7 +107,8 @@
     background-color: white;
     opacity: 0;
   }
-  10%, 80% {
+  10%,
+  80% {
     background-color: fade(@ui-status-accepted, 10%);
     opacity: 1;
   }
@@ -120,17 +120,16 @@
 
 @keyframes fadeOutCheck {
   0% {
-    opacity: 1
+    opacity: 1;
   }
   95% {
-    opacity: 0
+    opacity: 0;
   }
   100% {
     width: 0;
     margin-right: 0;
   }
 }
-
 
 .mixin-header-menu-item() {
   padding: 20px 12px;

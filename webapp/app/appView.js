@@ -6,8 +6,7 @@ import { matchPath, Route, Switch, useLocation, useParams } from 'react-router-d
 import * as BasePaths from '@webapp/main/basePaths'
 import { batchActions } from '@webapp/main/reduxBatch'
 
-import { useIsDataExportView, useNavigationVisible } from '@webapp/components/hooks'
-import CountrySelection from '@webapp/app/components/countrySelection'
+import { useNavigationVisible, useUserInfo } from '@webapp/components/hooks'
 import Header from '@webapp/app/components/header/header'
 import Navigation from '@webapp/app/components/navigation/navigation'
 import Review from '@webapp/app/assessment/components/review/review'
@@ -15,8 +14,6 @@ import UserChat from '@webapp/app/user/chat/userChatView'
 import CountryMessageBoardView from '@webapp/app/landing/messageBoard/countryMessageBoardView'
 import ErrorComponent from '@webapp/app/components/error/errorComponent'
 import AssessmentPrintView from '@webapp/app/assessment/components/print/assessmentPrintView'
-import StatisticalFactsheets from '@webapp/app/statisticalFactsheets'
-import useUserInfo from '@webapp/components/hooks/useUserInfo'
 
 import * as CountryState from '@webapp/app/country/countryState'
 import { fetchCountryInitialData, fetchCountryList } from '@webapp/app/country/actions'
@@ -30,7 +27,6 @@ const LoggedInView = () => {
   const userInfo = useUserInfo()
   const countriesLoaded = useSelector(CountryState.hasCountries)
   const countryStatusLoaded = useSelector(CountryState.hasStatus)
-  const isDataExport = useIsDataExportView()
   const navigationVisible = useNavigationVisible()
 
   const printView = !!matchPath(pathname, { path: BasePaths.assessmentPrint })
@@ -53,23 +49,12 @@ const LoggedInView = () => {
     return null
   }
 
-  let classNameAppView = 'app-view'
-  classNameAppView += isDataExport ? ' data-export' : ''
-  classNameAppView += navigationVisible ? ' navigation-on' : ''
-  classNameAppView += !navigationVisible && (countryIso || isDataExport) ? ' navigation-off' : ''
-
   return (
     <Switch>
       <Route
         exact
         path={[BasePaths.assessmentPrint, BasePaths.assessmentPrintOnlyTables]}
         component={AssessmentPrintView}
-      />
-
-      <Route
-        exact
-        path={[BasePaths.statisticalFactsheets, BasePaths.statisticalFactsheetsLevelIso]}
-        component={StatisticalFactsheets}
       />
 
       <Route>
@@ -80,15 +65,16 @@ const LoggedInView = () => {
             <CountryMessageBoardView />
           </>
         )}
-        <div className={classNameAppView}>
-          {!isDataExport && <CountrySelection className={navigationVisible ? 'nav-base' : ''} />}
+        <div className="app-view">
           <Header />
-          <Navigation />
-          <Switch>
-            {routes.map((route) => (
-              <Route key={route.path} path={route.path} component={route.component} />
-            ))}
-          </Switch>
+          <div className={`app-view__container ${navigationVisible ? ' navigation-on' : ''}`}>
+            <Navigation />
+            <Switch>
+              {routes.map((route) => (
+                <Route key={route.path} path={route.path} component={route.component} />
+              ))}
+            </Switch>
+          </div>
         </div>
         <ErrorComponent />
       </Route>
