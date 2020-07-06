@@ -10,7 +10,7 @@ import AboutView from '@webapp/app/landing/views/aboutView'
 import LinksView from '@webapp/app/landing/views/linksView'
 import ManageCollaboratorsView from '@webapp/app/landing/views/manageCollaboratorsView'
 import ContentCheckView from '@webapp/app/landing/views/contentCheck/contentCheckView'
-import StatisticalFactsheets from '@webapp/app/statisticalFactsheets'
+import StatisticalFactsheets from '@webapp/app/landing/views/statisticalFactsheets'
 
 const getSections = (countryIso, userInfo) => {
   const sections = [

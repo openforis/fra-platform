@@ -15,7 +15,7 @@ import UserChat from '@webapp/app/user/chat/userChatView'
 import CountryMessageBoardView from '@webapp/app/landing/messageBoard/countryMessageBoardView'
 import ErrorComponent from '@webapp/app/components/error/errorComponent'
 import AssessmentPrintView from '@webapp/app/assessment/components/print/assessmentPrintView'
-import StatisticalFactsheets from '@webapp/app/statisticalFactsheets'
+import StatisticalFactsheets from '@webapp/app/landing/views/statisticalFactsheets'
 import useUserInfo from '@webapp/components/hooks/useUserInfo'
 
 import * as CountryState from '@webapp/app/country/countryState'
