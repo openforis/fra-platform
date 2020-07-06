@@ -99,6 +99,7 @@ module.exports.translation = {
     home: 'Inicio',
     sections: {
       overview: 'Visión general',
+      messageBoard: 'Tablero de mensajes',
       about: 'Acerca de FRA',
       recentActivity: 'Actividad reciente',
       userManagement: 'Gestionar colaboradores',

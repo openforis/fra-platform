@@ -3,6 +3,8 @@ import './style.less'
 import React from 'react'
 import { NavLink, Redirect, Route, Switch } from 'react-router-dom'
 
+import * as BasePaths from '@webapp/main/basePaths'
+
 import AboutView from '@webapp/app/landing/views/aboutView'
 import useCountryIso from '@webapp/components/hooks/useCountryIso'
 import useI18n from '@webapp/components/hooks/useI18n'
@@ -26,14 +28,14 @@ const LandingView = () => {
         </h1>
         {userAndCountry && (
           <div className="landing__page-menu">
-            {sections.map(({ name }) => (
+            {sections.map(({ name: section }) => (
               <NavLink
-                key={name}
-                to={`${url}${name}/`}
+                key={section}
+                to={BasePaths.getCountrySectionLink(countryIso, section)}
                 className="landing__page-menu-button"
                 activeClassName="disabled"
               >
-                {i18n.t(`landing.sections.${name}`)}
+                {i18n.t(`landing.sections.${section}`)}
               </NavLink>
             ))}
           </div>
@@ -43,10 +45,10 @@ const LandingView = () => {
       {userAndCountry ? (
         <Switch>
           <Route exact path={['/', url]}>
-            <Redirect to={`${url}overview/`} />
+            <Redirect to={BasePaths.getCountrySectionLink(countryIso, 'overview')} />
           </Route>
-          {sections.map((section) => (
-            <Route key={section.name} path={`${url}${section.name}/`} component={section.component} />
+          {sections.map(({ name: section, component }) => (
+            <Route key={section} path={BasePaths.getCountrySectionLink(countryIso, section)} component={component} />
           ))}
         </Switch>
       ) : (
