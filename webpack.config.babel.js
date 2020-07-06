@@ -9,6 +9,7 @@ import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
 import GitRevisionPlugin from 'git-revision-webpack-plugin'
+import GoogleFontsPlugin from 'google-fonts-plugin'
 
 const buildReport = process.env.BUILD_REPORT === 'true'
 
@@ -30,6 +31,15 @@ const plugins = [
       ? JSON.stringify(gitRevisionPlugin.version())
       : JSON.stringify(process.env.APP_VERSION),
     __URL_STATISTICAL_FACTSHEETS__: JSON.stringify(process.env.URL_STATISTICAL_FACTSHEETS),
+  }),
+  new GoogleFontsPlugin({
+    fonts: [
+      {
+        family: 'Open Sans',
+        variants: ['300', '400', '600', '700'],
+      },
+    ],
+    formats: ['woff2'],
   }),
 ]
 
