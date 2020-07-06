@@ -2,6 +2,7 @@ import './primaryForest.less'
 import React from 'react'
 import PropTypes from 'prop-types'
 import { useI18n } from '@webapp/components/hooks'
+import * as APIUtils from '@webapp/app/statisticalFactsheets/utils/apiUtils'
 import * as ChartUtils from '../utils/chartUtils'
 import useStatisticalFactsheetsState from '../hooks/useStatisticalFactsheetsState'
 import Chart from '../components/chart'
@@ -20,7 +21,7 @@ const PrimaryForest = (props) => {
 
   // Get the value for year 2020
   const year = '2020'
-  const propNames = ['forest_area', 'primary_forest']
+  const { rowNames: propNames } = APIUtils.getParams('primaryForest')
 
   const [forestArea, primaryForest] = getPropsForYearAsNumbers(data, year, propNames)
 

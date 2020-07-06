@@ -7,6 +7,8 @@ import { useI18n } from '@webapp/components/hooks'
 import useStatisticalFactsheetsState from '@webapp/app/statisticalFactsheets/hooks/useStatisticalFactsheetsState'
 import { getPropsForYearAsNumbers } from '../utils/propUtils'
 
+import * as APIUtils from '../utils/apiUtils'
+
 const ForestOwnership = (props) => {
   const { levelIso } = props
   const i18n = useI18n()
@@ -20,8 +22,7 @@ const ForestOwnership = (props) => {
 
   // Get the value for year
   const year = '2015'
-  const propNames = ['private_ownership', 'public_ownership', 'other_or_unknown']
-
+  const { rowNames: propNames } = APIUtils.getParams('forestOwnership')
   const [privateOwnership, publicOwnership, otherOrUnknown] = getPropsForYearAsNumbers(data, year, propNames)
 
   const chartData = {
