@@ -5,6 +5,7 @@ import { useI18n } from '@webapp/components/hooks'
 import * as ChartUtils from '../utils/chartUtils'
 import useStatisticalFactsheetsState from '../hooks/useStatisticalFactsheetsState'
 import Chart from '../components/chart'
+import { getPropsForYearAsNumbers } from '../utils/propUtils'
 
 const PrimaryForest = (props) => {
   const { levelIso } = props
@@ -18,8 +19,10 @@ const PrimaryForest = (props) => {
   }
 
   // Get the value for year 2020
-  const forestArea = Number(data.find((entry) => entry.rowName === 'forest_area')['2020'])
-  const primaryForest = Number(data.find((entry) => entry.rowName === 'primary_forest')['2020'])
+  const year = '2020'
+  const propNames = ['forest_area', 'primary_forest']
+
+  const [forestArea, primaryForest] = getPropsForYearAsNumbers(data, year, propNames)
 
   const chartData = {
     datasets: [

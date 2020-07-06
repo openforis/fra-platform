@@ -5,6 +5,7 @@ import Chart from '@webapp/app/statisticalFactsheets/components/chart/Chart'
 import * as ChartUtils from '@webapp/app/statisticalFactsheets/utils/chartUtils'
 import { useI18n } from '@webapp/components/hooks'
 import useStatisticalFactsheetsState from '@webapp/app/statisticalFactsheets/hooks/useStatisticalFactsheetsState'
+import { getPropsForYearAsNumbers } from '../utils/propUtils'
 
 const ForestOwnership = (props) => {
   const { levelIso } = props
@@ -19,9 +20,9 @@ const ForestOwnership = (props) => {
 
   // Get the value for year
   const year = '2015'
-  const privateOwnership = Number(data.find((entry) => entry.rowName === 'private_ownership')[year])
-  const publicOwnership = Number(data.find((entry) => entry.rowName === 'public_ownership')[year])
-  const otherOrUnknown = Number(data.find((entry) => entry.rowName === 'other_or_unknown')[year])
+  const propNames = ['private_ownership', 'public_ownership', 'other_or_unknown']
+
+  const [privateOwnership, publicOwnership, otherOrUnknown] = getPropsForYearAsNumbers(data, year, propNames)
 
   const chartData = {
     datasets: [
