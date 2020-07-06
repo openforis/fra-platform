@@ -174,6 +174,7 @@ The FRA team fra@fao.org
     home: 'Home',
     sections: {
       overview: 'Overview',
+      messageBoard: 'Message board',
       about: 'About FRA',
       recentActivity: 'Recent activity',
       userManagement: 'Manage collaborators',

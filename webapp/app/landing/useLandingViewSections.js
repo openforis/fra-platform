@@ -14,33 +14,31 @@ import ContentCheckView from '@webapp/app/landing/views/contentCheck/contentChec
 const getSections = (countryIso, userInfo) => {
   const sections = [
     { name: 'overview', component: OverviewView },
+    { name: 'messageBoard', component: OverviewView },
     { name: 'recentActivity', component: RecentActivityView },
     { name: 'about', component: AboutView },
-    { name: 'links', component: LinksView }
+    { name: 'links', component: LinksView },
   ]
 
   const userManagementSection = { name: 'userManagement', component: ManageCollaboratorsView }
   const contentCheckSection = { name: 'contentCheck', component: ContentCheckView }
 
   if (isAllowedToChangeRole(countryIso, userInfo)) {
-    sections.splice(1, 0, userManagementSection)
+    sections.splice(2, 0, userManagementSection)
   }
 
   if (isReviewer(countryIso, userInfo)) {
-    sections.splice(1, 0, contentCheckSection)
+    sections.splice(2, 0, contentCheckSection)
   }
   return sections
 }
 
 export default () => {
-
   const userInfo = useUserInfo()
   const countryIso = useCountryIso()
 
   if (userInfo) {
     return getSections(countryIso, userInfo)
-  } else {
-    return []
   }
-
+  return []
 }
