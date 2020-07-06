@@ -57,12 +57,12 @@ const CountrySelection = () => {
 
         <div className="country-selection__info">
           <span className="country-selection__country-name">
-            {countryIso ? i18n.t(`area.${countryIso}.listName`) : ` - ${i18n.t('common.select')} - `}
+            {countryIso ? i18n.t(`area.${countryIso}.listName`) : `- ${i18n.t('common.select')} -`}
           </span>
 
           {userInfo && country && (
             <span className="country-selection__user-role">
-              {i18n.t(getRoleForCountryLabelKey(countryIso, userInfo))}
+              {` - ${i18n.t(getRoleForCountryLabelKey(countryIso, userInfo))}`}
             </span>
           )}
         </div>
