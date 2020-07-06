@@ -1,28 +1,26 @@
 import React, { useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
-import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
-import * as R from 'ramda'
 
+import { Country } from '@common/country'
 import { noRole } from '@common/countryRole'
+import * as BasePaths from '@webapp/main/basePaths'
 import { getRelativeDate } from '@webapp/utils/relativeDate'
 
 import useI18n from '@webapp/components/hooks/useI18n'
 import useCountryIso from '@webapp/components/hooks/useCountryIso'
 
-import { getCountryName } from '@webapp/app/country/actions'
-
-const CountryListRow = props => {
-
+const CountryListRow = (props) => {
   const { role, country } = props
   const hasRole = role !== noRole.role
 
   const i18n = useI18n()
   const countryIso = useCountryIso()
-  const dispatch = useDispatch()
+  const countryIsoCurrent = Country.getCountryIso(country)
+  const fra2020Assessment = Country.getFra2020Assessment(country)
   const countryNameRef = useRef(null)
 
-  const selected = R.equals(countryIso, country.countryIso)
+  const selected = countryIsoCurrent === countryIso
 
   useEffect(() => {
     if (selected) {
@@ -32,34 +30,25 @@ const CountryListRow = props => {
 
   return (
     <Link
-      to={`/${country.countryIso}/`}
-      className={`country-selection-list__row${selected ? ' selected' : ''}`}>
+      to={BasePaths.getCountryHomeLink(countryIsoCurrent)}
+      className={`country-selection-list__row${selected ? ' selected' : ''}`}
+    >
+      <span className="country-selection-list__primary-col" ref={countryNameRef}>
+        {i18n.t(`area.${countryIsoCurrent}.listName`)}
+      </span>
 
-        <span className="country-selection-list__primary-col" ref={countryNameRef}>
-          {
-            dispatch(getCountryName(country.countryIso, i18n.language))
-          }
-        </span>
-
-      {
-        hasRole && country.fra2020Assessment &&
+      {hasRole && fra2020Assessment && (
         <span className="country-selection-list__secondary-col">
-              <div className={`status-${country.fra2020Assessment}`}/>
-          {
-            i18n.t(`assessment.status.${country.fra2020Assessment}.label`)
-          }
-            </span>
-      }
-
-      {
-        hasRole &&
-        <span className="country-selection-list__secondary-col">
-          {
-            getRelativeDate(country.lastEdit, i18n) || i18n.t('audit.notStarted')
-          }
+          <div className={`status-${fra2020Assessment}`} />
+          {i18n.t(`assessment.status.${fra2020Assessment}.label`)}
         </span>
-      }
+      )}
 
+      {hasRole && (
+        <span className="country-selection-list__secondary-col">
+          {getRelativeDate(country.lastEdit, i18n) || i18n.t('audit.notStarted')}
+        </span>
+      )}
     </Link>
   )
 }

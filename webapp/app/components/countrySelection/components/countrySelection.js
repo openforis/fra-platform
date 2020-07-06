@@ -5,17 +5,15 @@ import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
 
 import { getRoleForCountryLabelKey } from '@common/countryRole'
-import * as Country from '@common/country/country'
+import { Area } from '@common/country'
 
+import { useCountryIso, useI18n, useUserInfo } from '@webapp/components/hooks'
 import Icon from '@webapp/components/icon'
 import CountryList from '@webapp/app/components/countrySelection/components/countryList'
-import useCountryIso from '@webapp/components/hooks/useCountryIso'
-import useI18n from '@webapp/components/hooks/useI18n'
-import useUserInfo from '@webapp/components/hooks/useUserInfo'
 
 import * as CountryState from '@webapp/app/country/countryState'
 
-const CountrySelection = props => {
+const CountrySelection = (props) => {
   const { className } = props
 
   const countryIso = useCountryIso()
@@ -27,8 +25,7 @@ const CountrySelection = props => {
   const [open, setOpen] = useState(false)
 
   const outsideClick = (evt) => {
-    if (!countrySelectionRef.current.contains(evt.target))
-      setOpen(false)
+    if (!countrySelectionRef.current.contains(evt.target)) setOpen(false)
   }
 
   useEffect(() => {
@@ -40,51 +37,43 @@ const CountrySelection = props => {
   }, [])
 
   return (
-    <div className={`country-selection no-print ${className}`}
-         ref={countrySelectionRef}
-         onClick={() => setOpen(!open)}>
+    <>
+      <button
+        type="button"
+        className={`btn country-selection no-print ${className}`}
+        ref={countrySelectionRef}
+        onClick={() => setOpen(!open)}
+      >
+        {countryIso && Area.isISOCountry(countryIso) && (
+          <div
+            className="country-selection__flag"
+            style={{
+              backgroundImage: `url('/img/flags/1x1/${countryIso}.svg'), url('/img/flags/1x1/ATL.svg')`,
+            }}
+          />
+        )}
 
-      {
-        countryIso &&
-        <div className="country-selection__flag"
-             style={{
-               backgroundImage: `url('/img/flags/1x1/${countryIso}.svg'), url('/img/flags/1x1/ATL.svg')`
-             }}/>
-      }
+        <div className="country-selection__info">
+          <span className="country-selection__country-name">
+            {country ? i18n.t(`area.${countryIso}.listName`) : i18n.t('countrySelection.selectCountry')}
+          </span>
 
-      <div className="country-selection__info">
-        <span className="country-selection__country-name">
-          {
-            country
-              ? Country.getListName(i18n.language)(country)
-              : <b>{i18n.t('countrySelection.selectCountry')}</b>
-          }
-        </span>
+          {userInfo && country && (
+            <span className="country-selection__user-role">
+              {i18n.t(getRoleForCountryLabelKey(countryIso, userInfo))}
+            </span>
+          )}
+        </div>
 
-        {
-          userInfo && country &&
-          <span className="country-selection__user-role">
-          {
-            i18n.t(getRoleForCountryLabelKey(countryIso, userInfo))
-          }
-        </span>
-        }
-
-      </div>
-
-      <Icon name="small-down"/>
-
-      {
-        open &&
-        <CountryList/>
-      }
-    </div>
+        <Icon name="small-down" />
+      </button>
+      {open && <CountryList />}
+    </>
   )
 }
 
 CountrySelection.propTypes = {
-  className: PropTypes.string.isRequired
+  className: PropTypes.string.isRequired,
 }
 
 export default CountrySelection
-
