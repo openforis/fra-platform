@@ -80,6 +80,9 @@ export const user = _pathGenerator(pathFragments.users, pathFragments.params.use
 // /:countryIso/
 export const getCountryHomeLink = (countryIso) => _pathGenerator(countryIso)
 
+// /:countryIso/:section
+export const getCountrySectionLink = (countryIso, section) => _pathGenerator(countryIso, section)
+
 // /:countryIso/assessment/:assessmentType/:sectionName/
 export const getAssessmentSectionLink = (countryIso, assessmentType, sectionName) =>
   _pathGenerator(countryIso, pathFragments.assessment, assessmentType, sectionName)

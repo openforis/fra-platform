@@ -1,10 +1,10 @@
 import './forestOwnership.less'
 import React from 'react'
 import PropTypes from 'prop-types'
-import Chart from '@webapp/app/statisticalFactsheets/components/chart/Chart'
-import * as ChartUtils from '@webapp/app/statisticalFactsheets/utils/chartUtils'
+import Chart from '@webapp/app/landing/views/statisticalFactsheets/components/chart/Chart'
+import * as ChartUtils from '@webapp/app/landing/views/statisticalFactsheets/utils/chartUtils'
 import { useI18n } from '@webapp/components/hooks'
-import useStatisticalFactsheetsState from '@webapp/app/statisticalFactsheets/hooks/useStatisticalFactsheetsState'
+import useStatisticalFactsheetsState from '@webapp/app/landing/views/statisticalFactsheets/hooks/useStatisticalFactsheetsState'
 import { getVariableValuesByYear } from '../utils/propUtils'
 
 import * as APIUtils from '../utils/apiUtils'
