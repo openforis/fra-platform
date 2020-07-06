@@ -10,7 +10,7 @@ import { getCountryOverview } from '@webapp/app/landing/actions'
 import MessageBoard from './messageBoard'
 import Users from './users'
 
-const OverviewView = () => {
+const MessageBoardView = () => {
   const countryIso = useSelector(AppState.getCountryIso)
   const dispatch = useDispatch()
 
@@ -32,4 +32,4 @@ const OverviewView = () => {
   )
 }
 
-export default OverviewView
+export default MessageBoardView
