@@ -104,6 +104,7 @@ module.exports.translation = {
     home: 'Главная',
     sections: {
       overview: 'Обзор',
+      messageBoard: 'Доска сообщений',
       about: 'Информация об ОЛР',
       recentActivity: 'Недавняя активность',
       userManagement: 'Координировать сотрудников',

@@ -1,9 +1,7 @@
 import './statisticalFactsheets.less'
 import React from 'react'
-import { Redirect, useParams } from 'react-router'
-import * as BasePaths from '@webapp/main/basePaths'
 
-import Header from '@webapp/app/components/header/header'
+import { useCountryIso } from '@webapp/components/hooks'
 
 import ForestArea from './ForestArea'
 import CarbonGrowingStock from './CarbonGrowingStock'
@@ -13,20 +11,12 @@ import ForestOwnership from './ForestOwnership'
 import ForestAreaWithinProtectedAreas from './ForestAreaWithinProtectedAreas'
 import NaturallyRegeneratingForest from './NaturallyRegeneratingForest'
 import PrimaryDesignatedManagementObjective from './PrimaryDesignatedManagementObjective'
-import LevelSelection from './components/levelSelection'
-import { levels } from './common/levels'
 
 const StatisticalFactsheets = () => {
-  const { levelIso } = useParams()
-
-  if (!levelIso) {
-    return <Redirect to={BasePaths.getStatisticalFactsheetsWithLevelIso(levels.global)} />
-  }
+  const levelIso = useCountryIso()
 
   return (
     <>
-      <Header hideNavigationControl hideLinks />
-      <LevelSelection />
       <div className="statistical-factsheets">
         <ForestArea levelIso={levelIso} />
         <CarbonGrowingStock levelIso={levelIso} />

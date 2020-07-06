@@ -1,7 +1,7 @@
 import '@webapp/app/components/countrySelection/components/countryList.less'
 import React from 'react'
 import PropTypes from 'prop-types'
-import { levels } from '@webapp/app/statisticalFactsheets/common/levels'
+import { levels } from '@webapp/app/landing/views/statisticalFactsheets/common/levels'
 import ListItem from './listItem'
 
 const List = (props) => {
