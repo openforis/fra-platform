@@ -1,1 +1,1 @@
-export { default } from './overviewView'
+export { default } from './messageBoardView'
