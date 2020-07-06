@@ -68,8 +68,9 @@ const CountrySelection = () => {
         </div>
 
         <Icon name="small-down" />
+
+        {open && <CountryList />}
       </button>
-      {open && <CountryList />}
     </div>
   )
 }
