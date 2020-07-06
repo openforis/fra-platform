@@ -1,5 +1,5 @@
-@import (reference) "~@webapp/main/styles/config";
-@import (reference) "~@webapp/main/styles/statusMixins";
+@import (reference) 'webapp/main/styles/config';
+@import (reference) 'webapp/main/styles/statusMixins';
 
 // Country list popover
 
@@ -18,6 +18,14 @@
   max-height: 560px;
   overflow-y: auto;
   overflow-x: hidden;
+}
+
+.country-selection-list__global {
+  margin-top: 12px;
+
+  hr {
+    margin: 12px 0;
+  }
 }
 
 .country-selection-list__section {
