@@ -16,7 +16,11 @@ const Header = () => {
 
   return (
     <div className="app-header no-print">
-      <div />
+      <img alt="FAO" src={`/img/FAO${i18n.language}.svg`} />
+
+      <div className="app-header__separator" />
+
+      <div className="app-header__global-fra">{i18n.t('common.globalFRA')}</div>
 
       <AutoSaveStatusText />
 

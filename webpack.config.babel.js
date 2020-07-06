@@ -10,6 +10,7 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
 import GitRevisionPlugin from 'git-revision-webpack-plugin'
 import GoogleFontsPlugin from 'google-fonts-plugin'
+import { CleanWebpackPlugin } from 'clean-webpack-plugin'
 
 const buildReport = process.env.BUILD_REPORT === 'true'
 
@@ -21,6 +22,15 @@ const config = {
 const gitRevisionPlugin = config.mode === 'production' ? null : new GitRevisionPlugin()
 
 const plugins = [
+  new GoogleFontsPlugin({
+    fonts: [
+      {
+        family: 'Open Sans',
+        variants: ['300', '400', '600', '700'],
+      },
+    ],
+    formats: ['woff2'],
+  }),
   ...(gitRevisionPlugin ? [gitRevisionPlugin] : []),
   new MiniCssExtractPlugin({ filename: 'style/styles-[hash].css' }),
   new HtmlWebpackPlugin({ template: './web-resources/index.html' }),
@@ -32,15 +42,7 @@ const plugins = [
       : JSON.stringify(process.env.APP_VERSION),
     __URL_STATISTICAL_FACTSHEETS__: JSON.stringify(process.env.URL_STATISTICAL_FACTSHEETS),
   }),
-  new GoogleFontsPlugin({
-    fonts: [
-      {
-        family: 'Open Sans',
-        variants: ['300', '400', '600', '700'],
-      },
-    ],
-    formats: ['woff2'],
-  }),
+  new CleanWebpackPlugin(),
 ]
 
 if (buildReport) {

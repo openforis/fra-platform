@@ -2,7 +2,7 @@
 
 .app-view {
   display: grid;
-  grid-template-rows: @headerHeight calc(100% - 64px);
+  grid-template-rows: @ui-app-header-height calc(100% - @ui-app-header-height);
   height: 100vh;
   width: 100vw;
   overflow-y: hidden;
@@ -44,7 +44,7 @@
   grid-template-areas: 'navigation country-selection' 'navigation content';
 
   &.navigation-on {
-    grid-template-columns: 256px 1fr;
+    grid-template-columns: @ui-app-navigation-width 1fr;
   }
 }
 

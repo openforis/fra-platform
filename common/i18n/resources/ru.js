@@ -12,6 +12,7 @@ module.exports.translation = {
 
   common: {
     fraPlatform: 'Платформой ОЛР',
+    globalFRA: 'Глобальная оценка лесных ресурсов',
     login: 'Логин',
     statisticalFactsheets: 'Статистические бюллетени',
     dataExport: 'Экспорт данных',
@@ -20,6 +21,8 @@ module.exports.translation = {
     variable: 'ОЛР Переменная',
     column: 'Столбец',
     other: 'Другое',
+    select: 'Select',
+    selectArea: 'Select geographical area',
     unknown: 'Отсутствует/неизвестна',
   },
 

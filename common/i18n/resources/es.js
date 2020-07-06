@@ -12,6 +12,7 @@ module.exports.translation = {
 
   common: {
     fraPlatform: 'Plataforma de FRA',
+    globalFRA: 'Evaluación de los recursos forestales mundiales',
     login: 'Entrar',
     statisticalFactsheets: 'Fichas estadísticas',
     dataExport: 'Exportación de datos',
@@ -20,6 +21,8 @@ module.exports.translation = {
     variable: 'FRA Variable',
     column: 'Columna',
     other: 'Otros',
+    select: 'Seleccionar',
+    selectArea: 'Seleccionar área geográfica',
     unknown: 'Ninguno/desconocido',
   },
 
