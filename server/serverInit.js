@@ -38,6 +38,7 @@ module.exports = () => {
 
   app.use('/style', express.static(`${__dirname}/../dist/style`))
   app.use('/js', express.static(`${__dirname}/../dist/js`))
+  app.use('/font/woff2.css', express.static(`${__dirname}/../dist/woff2.css`))
 
   app.use('/*', express.static(path.resolve(__dirname, '..', 'dist')))
 
