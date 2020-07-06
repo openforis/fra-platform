@@ -33,23 +33,15 @@
   }
 }
 
-.app-view.data-export {
-  grid-template-areas: 'navigation header' 'navigation content';
-  &.navigation-on {
-    grid-template-columns: 256px 1fr;
-  }
-  &.navigation-off {
-    grid-template-columns: 0 1fr;
-  }
-}
-
 .fra-review__container + .app-view {
   width: ~'calc(100vw - @{ui-app-review-width})';
 }
 
 .app-view__container {
   display: grid;
-  grid-template-columns: 0px 1fr;
+  grid-template-columns: 0 1fr;
+  grid-template-rows: 61px 1fr;
+  grid-template-areas: 'navigation country-selection' 'navigation content';
 
   &.navigation-on {
     grid-template-columns: 256px 1fr;
@@ -57,6 +49,7 @@
 }
 
 .app-view__content {
+  grid-area: content;
   height: 100%;
   padding: 28px 32px 48px 32px;
   overflow-x: hidden;

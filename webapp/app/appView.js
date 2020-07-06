@@ -8,6 +8,7 @@ import { batchActions } from '@webapp/main/reduxBatch'
 
 import { useNavigationVisible, useUserInfo } from '@webapp/components/hooks'
 import Header from '@webapp/app/components/header/header'
+import CountrySelection from '@webapp/app/components/countrySelection'
 import Navigation from '@webapp/app/components/navigation/navigation'
 import Review from '@webapp/app/assessment/components/review/review'
 import UserChat from '@webapp/app/user/chat/userChatView'
@@ -69,6 +70,7 @@ const LoggedInView = () => {
           <Header />
           <div className={`app-view__container ${navigationVisible ? ' navigation-on' : ''}`}>
             <Navigation />
+            <CountrySelection />
             <Switch>
               {routes.map((route) => (
                 <Route key={route.path} path={route.path} component={route.component} />
