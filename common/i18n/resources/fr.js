@@ -96,6 +96,7 @@ module.exports.translation = {
     home: 'Accueil',
     sections: {
       overview: 'Aperçu',
+      messageBoard: "Panneau d'affichage",
       about: 'À propos de FRA',
       recentActivity: 'Activité récente',
       userManagement: 'Gérer collaborateurs',
