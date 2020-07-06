@@ -1,21 +1,19 @@
 import './countrySelection.less'
-
 import React, { useEffect, useRef, useState } from 'react'
-import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
 
 import { getRoleForCountryLabelKey } from '@common/countryRole'
 import { Area } from '@common/country'
 
-import { useCountryIso, useI18n, useUserInfo } from '@webapp/components/hooks'
-import Icon from '@webapp/components/icon'
-import CountryList from '@webapp/app/components/countrySelection/components/countryList'
-
 import * as CountryState from '@webapp/app/country/countryState'
 
-const CountrySelection = (props) => {
-  const { className } = props
+import { useCountryIso, useI18n, useUserInfo } from '@webapp/components/hooks'
+import Icon from '@webapp/components/icon'
 
+import CountryList from './countryList'
+import ToggleNavigationControl from './toggleNavigationControl'
+
+const CountrySelection = () => {
   const countryIso = useCountryIso()
   const userInfo = useUserInfo()
   const i18n = useI18n()
@@ -37,10 +35,12 @@ const CountrySelection = (props) => {
   }, [])
 
   return (
-    <>
+    <div className="country-selection">
+      <ToggleNavigationControl />
+
       <button
         type="button"
-        className={`btn country-selection no-print ${className}`}
+        className="btn btn-country-selection no-print"
         ref={countrySelectionRef}
         onClick={() => setOpen(!open)}
       >
@@ -68,12 +68,8 @@ const CountrySelection = (props) => {
         <Icon name="small-down" />
       </button>
       {open && <CountryList />}
-    </>
+    </div>
   )
-}
-
-CountrySelection.propTypes = {
-  className: PropTypes.string.isRequired,
 }
 
 export default CountrySelection
