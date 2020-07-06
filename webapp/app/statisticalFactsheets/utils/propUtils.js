@@ -1,20 +1,20 @@
 const findPropFromArray = (data, propName) => data.find((entry) => entry.rowName === propName)
 
 const safeProp = (propName, data, year) => {
-  let found
+  let value
   if (Array.isArray(data)) {
-    found = findPropFromArray(data, propName)
+    value = findPropFromArray(data, propName)
   } else {
-    found = data && data[propName]
+    value = data && data[propName]
   }
   if (year) {
-    found = found && found[year]
+    value = value && value[year]
   }
-  return found
+  return value
 }
 
 const safePropAsNumber = (data, year, propName) => Number(safeProp(propName, data, year)) || undefined
 
-export const getPropsForYearAsNumbers = (data, year, propNames) => {
-  return propNames.map((propName) => safePropAsNumber(data, year, propName))
+export const getVariableValuesByYear = ({ data, variables, year }) => {
+  return variables.map((variable) => safePropAsNumber(data, year, variable))
 }

@@ -5,7 +5,7 @@ import Chart from '@webapp/app/statisticalFactsheets/components/chart/Chart'
 import * as ChartUtils from '@webapp/app/statisticalFactsheets/utils/chartUtils'
 import { useI18n } from '@webapp/components/hooks'
 import useStatisticalFactsheetsState from '@webapp/app/statisticalFactsheets/hooks/useStatisticalFactsheetsState'
-import { getPropsForYearAsNumbers } from '../utils/propUtils'
+import { getVariableValuesByYear } from '../utils/propUtils'
 
 import * as APIUtils from '../utils/apiUtils'
 
@@ -22,8 +22,8 @@ const ForestOwnership = (props) => {
 
   // Get the value for year
   const year = '2015'
-  const { rowNames: propNames } = APIUtils.getParams('forestOwnership')
-  const [privateOwnership, publicOwnership, otherOrUnknown] = getPropsForYearAsNumbers(data, year, propNames)
+  const { rowNames: variables } = APIUtils.getParams('forestOwnership')
+  const [privateOwnership, publicOwnership, otherOrUnknown] = getVariableValuesByYear({ data, variables, year })
 
   const chartData = {
     datasets: [
