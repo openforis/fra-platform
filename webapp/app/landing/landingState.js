@@ -13,12 +13,13 @@ const getState = R.prop(stateKey)
 
 // === READ
 export const getFeed = R.pipe(getState, R.propOr(null, keys.feed))
-const getOverview = R.pipe(getState, R.prop(keys.overview))
-export const getOverviewUsers = R.pipe(getOverview, R.prop(keys.users))
+export const getOverviewUsers = R.pipe(getState, R.prop(keys.users))
 export const getCountryMessageBoardUnreadMessages = R.pipe(
-  getOverview,
+  getState,
   R.propOr(0, keys.countryMessageBoardUnreadMessages)
 )
 
 // === UPDATE
 export const assocFeed = R.assoc(keys.feed)
+export const assocUsers = R.assoc(keys.users)
+export const assocCountryMessageBoardUnreadMessages = R.assoc(keys.countryMessageBoardUnreadMessages)
