@@ -13,7 +13,7 @@ import * as UserState from '@webapp/user/userState'
 import * as AutosaveState from '@webapp/app/components/autosave/autosaveState'
 import * as AppState from '@webapp/app/appState'
 
-import { getFilesList, uploadFile, deleteFile } from '@webapp/app/landing/actions'
+import { getFilesList, uploadFile, deleteFile } from '@webapp/app/countryLanding/actions'
 
 const links = [
   {

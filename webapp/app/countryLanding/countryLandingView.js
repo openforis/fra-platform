@@ -5,23 +5,24 @@ import { NavLink, Redirect, Route, Switch } from 'react-router-dom'
 
 import * as BasePaths from '@webapp/main/basePaths'
 
-import AboutView from '@webapp/app/landing/views/aboutView'
 import useCountryIso from '@webapp/components/hooks/useCountryIso'
 import useI18n from '@webapp/components/hooks/useI18n'
 import useUserInfo from '@webapp/components/hooks/useUserInfo'
-import useLandingViewSections from '@webapp/app/landing/useLandingViewSections'
-import StatisticalFactsheets from '@webapp/app/landing/views/statisticalFactsheets'
+import useCountryLandingSections from '@webapp/app/countryLanding/useCountryLandingSections'
+import StatisticalFactsheets from '@webapp/app/countryLanding/views/statisticalFactsheets'
 
 import * as Area from '@common/country/area'
 
-const LandingView = () => {
+const CountryLandingView = () => {
   const countryIso = useCountryIso()
   const userInfo = useUserInfo()
   const i18n = useI18n()
 
-  const url = `/${countryIso}/`
-  const sections = useLandingViewSections()
+  const url = BasePaths.getCountryHomeLink(countryIso)
+  const sections = useCountryLandingSections()
   const userAndCountry = userInfo && countryIso
+
+  // tabs are available when user is logged-in and selected area is country
   const displayTabs = userAndCountry && Area.isISOCountry(countryIso)
 
   return (
@@ -30,6 +31,7 @@ const LandingView = () => {
         <h1 className="landing__page-title">
           {countryIso ? i18n.t(`area.${countryIso}.listName`) : i18n.t('common.fraPlatform')}
         </h1>
+
         {displayTabs && (
           <div className="landing__page-menu">
             {sections.map(({ name: section }) => (
@@ -46,7 +48,7 @@ const LandingView = () => {
         )}
       </div>
 
-      {userAndCountry && (
+      {displayTabs ? (
         <Switch>
           <Route exact path={['/', url]}>
             <Redirect to={BasePaths.getCountrySectionLink(countryIso, 'overview')} />
@@ -55,11 +57,11 @@ const LandingView = () => {
             <Route key={section} path={BasePaths.getCountrySectionLink(countryIso, section)} component={component} />
           ))}
         </Switch>
+      ) : (
+        <StatisticalFactsheets />
       )}
-      {!userAndCountry && !countryIso && <AboutView />}
-      {!userAndCountry && countryIso && <StatisticalFactsheets />}
     </div>
   )
 }
 
-export default LandingView
+export default CountryLandingView
