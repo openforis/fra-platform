@@ -5,13 +5,13 @@
   display: grid;
   grid-column-gap: 40px;
   grid-row-gap: 80px;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   grid-template-rows: 250px 250px 200px 340px;
   grid-template-areas:
-    'forest-area forest-area forest-area carbon-growing-stock carbon-growing-stock carbon-growing-stock'
-    'forest-area-percent forest-area-percent primary-forest primary-forest forest-ownership forest-ownership'
-    'forest-area-protected-areas forest-area-protected-areas forest-area-protected-areas naturally-regenerating-forest naturally-regenerating-forest naturally-regenerating-forest'
-    'primary-designated-management-objective primary-designated-management-objective primary-designated-management-objective naturally-regenerating-forest naturally-regenerating-forest naturally-regenerating-forest';
+    'forest-area carbon-growing-stock'
+    'forest-area-percent primary-forest'
+    'forest-area-protected-areas forest-ownership'
+    'primary-designated-management-objective naturally-regenerating-forest';
 
   > div {
     position: relative;
