@@ -1,0 +1,21 @@
+@import (reference) 'webapp/main/styles/config';
+
+.app-header-link-home {
+  margin-left: 18px;
+  margin-top: 4px;
+  color: @text-link;
+  transition: all 0.2s;
+
+  svg {
+    height: 22px;
+  }
+
+  &:hover {
+    color: @ui-accent-dark;
+  }
+
+  &.active {
+    color: @ui-accent;
+    pointer-events: none;
+  }
+}

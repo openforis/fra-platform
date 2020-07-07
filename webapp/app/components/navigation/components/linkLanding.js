@@ -18,14 +18,11 @@ const LinkLanding = () => {
     match && (match.isExact || sections.find((section) => location.pathname.indexOf(section.name) > 0))
 
   return (
-    <NavLink
-      className="nav__link"
-      to={BasePaths.getCountryHomeLink(countryIso)}
-      activeClassName="selected"
-      isActive={isActive}
-    >
-      <div className="nav__link-label">{i18n.t('landing.home')}</div>
-    </NavLink>
+    <div className="nav__link-landing">
+      <NavLink to={BasePaths.getCountryHomeLink(countryIso)} activeClassName="selected" isActive={isActive}>
+        <div className="nav__link-label">{i18n.t('landing.home')}</div>
+      </NavLink>
+    </div>
   )
 }
 
