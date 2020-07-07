@@ -184,7 +184,6 @@ The FRA team fra@fao.org
       externalData: 'External data',
       links: 'Links & Repository',
       contentCheck: 'Content / Check',
-      dataExport: 'Data export',
       versioning: 'Versioning',
     },
     overview: {

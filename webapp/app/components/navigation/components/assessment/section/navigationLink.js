@@ -6,11 +6,9 @@ import * as BasePaths from '@webapp/main/basePaths'
 
 import { NavLink } from 'react-router-dom'
 import ReviewStatus from '@webapp/app/components/navigation/components/assessment/section/reviewStatus'
-import useCountryIso from '@webapp/components/hooks/useCountryIso'
-import useI18n from '@webapp/components/hooks/useI18n'
+import { useCountryIso, useI18n, useIsDataExportView } from '@webapp/components/hooks'
 
 import * as ReviewStatusState from '@webapp/app/country/reviewStatusState'
-import { useIsDataExportView } from '@webapp/components/hooks'
 import { isTypePanEuropean } from '@common/assessment/assessment'
 
 const Subsection = (props) => {
@@ -20,15 +18,16 @@ const Subsection = (props) => {
   const isDataExport = useIsDataExportView()
 
   const reviewStatus = useSelector(ReviewStatusState.getStatusSection(sectionName))
-  const to = isDataExport
-    ? BasePaths.getDataExportSectionLink(assessmentType, sectionName)
-    : BasePaths.getAssessmentSectionLink(countryIso, assessmentType, sectionName)
 
   const labelPrefix = isTypePanEuropean(assessmentType) ? 'panEuropean.' : ''
   const label = i18n.t(`${labelPrefix}${sectionName}.${sectionName}`)
 
   return (
-    <NavLink to={to} className="nav-section__item" activeClassName="selected">
+    <NavLink
+      to={BasePaths.getAssessmentSectionLink(countryIso, assessmentType, sectionName)}
+      className="nav-section__item"
+      activeClassName="selected"
+    >
       <div className="nav-section__order">{prefix}</div>
       <div className="nav-section__label">{label}</div>
       {!isDataExport && (

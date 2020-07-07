@@ -1,49 +1,43 @@
 import './navigation.less'
 
 import React from 'react'
+// import { useSelector } from 'react-redux'
 
 import * as FRA from '@common/assessment/fra'
 // import * as PanEuropean from '@common/assessment/panEuropean'
-
-import Assessment from '@webapp/app/components/navigation/components/assessment'
-import LinkLanding from '@webapp/app/components/navigation/components/linkLanding'
-import LinkPanEuropeanIndicators from '@webapp/app/components/navigation/components/linkPanEuropeanIndicators'
-import Footer from '@webapp/app/components/navigation/components/footer'
-import useCountryIso from '@webapp/components/hooks/useCountryIso'
-import { useIsDataExportView } from '@webapp/components/hooks'
 // import * as Country from '@common/country/country'
-// import { useSelector } from 'react-redux'
+
+// import { useCountryIso } from '@webapp/components/hooks'
 // import * as CountryState from '@webapp/app/country/countryState'
 
-const Navigation = () => {
-  const countryIso = useCountryIso()
-  const isDataExport = useIsDataExportView()
-  // const country = useSelector(CountryState.getCountryByCountryIso(countryIso))
+import Assessment from './components/assessment'
+import LinkLanding from './components/linkLanding'
+import LinkPanEuropeanIndicators from './components/linkPanEuropeanIndicators'
+import Footer from './components/footer'
 
-  // const showPanEuropean = false && ((country && Country.isPanEuropean(country)) || isDataExport)
+const Navigation = () => {
+  // const countryIso = useCountryIso()
+  // const country = useSelector(CountryState.getCountryByCountryIso(countryIso))
+  // const showPanEuropean = country && Country.isPanEuropean(country)
 
   return (
     <div className="nav no-print">
-      {(countryIso || isDataExport) && (
-        <>
-          {!isDataExport && (
-            <>
-              <LinkLanding />
-              <div className="nav__divider" />
-            </>
-          )}
-          <Assessment assessment={FRA} />
-          {!isDataExport && <LinkPanEuropeanIndicators />}
-          <div className="nav__divider" />
-          {/* {showPanEuropean && ( */}
-          {/*   <> */}
-          {/*     <Assessment assessment={PanEuropean} /> */}
-          {/*     <div className="nav__divider" /> */}
-          {/*   </> */}
-          {/* )} */}
-          <Footer />
-        </>
-      )}
+      <LinkLanding />
+      <div className="nav__divider" />
+
+      <Assessment assessment={FRA} />
+
+      <LinkPanEuropeanIndicators />
+      <div className="nav__divider" />
+
+      {/* {showPanEuropean && ( */}
+      {/*   <> */}
+      {/*     <Assessment assessment={PanEuropean} /> */}
+      {/*     <div className="nav__divider" /> */}
+      {/*   </> */}
+      {/* )} */}
+
+      <Footer />
     </div>
   )
 }
