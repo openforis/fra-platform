@@ -16,7 +16,7 @@ import landing from '@webapp/app/landing/reducer'
 import panEuropeanIndicators from '@webapp/app/assessment/panEuropean/sections/indicators/reducer'
 import admin from '@webapp/app/admin/reducer'
 import userChat from '@webapp/app/user/chat/reducer'
-import countryMessageBoard from '@webapp/app/landing/messageBoard/reducer'
+import countryMessageBoard from '@webapp/app/landing/views/messageBoard/reducer'
 
 import * as AssessmentState from '@webapp/app/assessment/assessmentState'
 import * as OriginalDataPointState from '@webapp/app/assessment/fra/sections/originalDataPoint/originalDataPointState'

@@ -9,7 +9,7 @@ import Icon from '@webapp/components/icon'
 import * as UserState from '@webapp/user/userState'
 
 import { openChat } from '@webapp/app/user/chat/actions'
-import { closeCountryMessageBoard } from '@webapp/app/landing/messageBoard/actions'
+import { closeCountryMessageBoard } from '@webapp/app/landing/views/messageBoard/actions'
 
 const Users = () => {
   const countryIso = useCountryIso()
