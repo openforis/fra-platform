@@ -63,6 +63,7 @@ module.exports.translation = {
     primaryDesignatedManagementObjective: {
       title: 'Primary Designated Management Objective (1990 - 2020)',
       rowName: '',
+      conservation: 'Conservation',
       multiple_use: 'Multiple use',
       other: 'Other',
       production: 'Production',

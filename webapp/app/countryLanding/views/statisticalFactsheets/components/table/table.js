@@ -33,18 +33,17 @@ const Table = (props) => {
           </thead>
           <tbody>
             {rows.map((tableRow) => {
-              const row = data.find((entry) => entry.rowName === tableRow)
-              if (!row) return null
+              const row = data.find((entry) => entry.rowName === tableRow) || {}
               return (
-                <tr key={row.rowName}>
-                  {columns.map((key, i) =>
+                <tr key={tableRow}>
+                  {columns.map((column, i) =>
                     i === 0 ? (
-                      <th key={`${row.rowName}-${row[key]}-${key}`} className="fra-table__category-cell">
-                        {t(row[key])}
+                      <th key={`${tableRow}-${column}`} className="fra-table__category-cell">
+                        {t(tableRow)}
                       </th>
                     ) : (
-                      <td key={`${row.rowName}-${row[key]}-${key}`} className="fra-table__cell">
-                        {t(row[key])}
+                      <td key={`${tableRow}-${column}`} className="fra-table__cell">
+                        {t(row[column] || '')}
                       </td>
                     )
                   )}
