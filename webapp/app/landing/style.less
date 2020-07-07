@@ -1,6 +1,6 @@
-@import (reference) '~@webapp/main/styles/config';
-@import (reference) '~@webapp/main/styles/style';
-@import (reference) '~@webapp/main/styles/buttons';
+@import (reference) 'webapp/main/styles/config';
+@import (reference) 'webapp/main/styles/style';
+@import (reference) 'webapp/main/styles/buttons';
 
 .landing__page-header {
   padding-bottom: 24px;
@@ -14,16 +14,19 @@
   display: flex;
   padding-top: 9px;
   align-items: start;
+  overflow-x: auto;
 }
 
 .landing__page-menu-button {
   .btn;
   border-radius: unset;
-  border: unset;
   font-size: @font-l;
-  font-weight: bold;
+  font-weight: normal;
   margin: 0;
-  color: @text-mute;
+  color: @text-link;
+  border-top: unset;
+  border-right: unset;
+  border-left: unset;
   border-bottom: 2px solid @ui-border;
 
   &:hover {
