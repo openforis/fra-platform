@@ -1,11 +1,8 @@
 import './countrySelection.less'
 import React, { useEffect, useRef, useState } from 'react'
-import { useSelector } from 'react-redux'
 
 import { getRoleForCountryLabelKey } from '@common/countryRole'
 import { Area } from '@common/country'
-
-import * as CountryState from '@webapp/app/country/countryState'
 
 import { useCountryIso, useI18n, useUserInfo } from '@webapp/components/hooks'
 import Icon from '@webapp/components/icon'
@@ -17,7 +14,6 @@ const CountrySelection = () => {
   const countryIso = useCountryIso()
   const userInfo = useUserInfo()
   const i18n = useI18n()
-  const country = useSelector(CountryState.getCountryByCountryIso(countryIso))
 
   const countrySelectionRef = useRef(null)
   const [open, setOpen] = useState(false)
@@ -46,31 +42,29 @@ const CountrySelection = () => {
         ref={countrySelectionRef}
         onClick={() => setOpen(!open)}
       >
-        {countryIso && Area.isISOCountry(countryIso) && (
-          <div
-            className="country-selection__flag"
-            style={{
-              backgroundImage: `url('/img/flags/1x1/${countryIso}.svg'), url('/img/flags/1x1/ATL.svg')`,
-            }}
-          />
-        )}
-
-        <div className="country-selection__info">
-          <span className="country-selection__country-name">
-            {countryIso ? i18n.t(`area.${countryIso}.listName`) : `- ${i18n.t('common.select')} -`}
-          </span>
-
-          {userInfo && country && (
-            <span className="country-selection__user-role">
-              {` - ${i18n.t(getRoleForCountryLabelKey(countryIso, userInfo))}`}
-            </span>
-          )}
-        </div>
-
+        <div>- {i18n.t('common.select')}</div>
         <Icon name="small-down" />
-
         {open && <CountryList />}
       </button>
+
+      {countryIso && (
+        <div className="country-selection__country">
+          {Area.isISOCountry(countryIso) && (
+            <div
+              className="flag"
+              style={{
+                backgroundImage: `url('/img/flags/1x1/${countryIso}.svg'), url('/img/flags/1x1/ATL.svg')`,
+              }}
+            />
+          )}
+
+          <div className="name">{i18n.t(`area.${countryIso}.listName`)}</div>
+
+          {userInfo && (
+            <div className="user-role">&nbsp;-&nbsp;{i18n.t(getRoleForCountryLabelKey(countryIso, userInfo))}</div>
+          )}
+        </div>
+      )}
     </div>
   )
 }
