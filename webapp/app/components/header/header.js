@@ -20,9 +20,10 @@ const Header = () => {
 
       <div className="app-header__separator" />
 
-      <div className="app-header__global-fra">{i18n.t('common.globalFRA')}</div>
-
-      <AutoSaveStatusText />
+      <div className="app-header__global-fra">
+        {i18n.t('common.globalFRA')}
+        <AutoSaveStatusText />
+      </div>
 
       <div className="app-header__menu">
         <LanguageSelection />
