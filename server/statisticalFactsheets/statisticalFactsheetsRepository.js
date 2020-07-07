@@ -22,16 +22,7 @@ const getStatisticalFactsheetData = async (schemaName, level, rowNames) => {
   return camelize(result.rows)
 }
 
-const getStatisticalFactsheetLevelISOs = async (schemaName) => {
-  const result = await db.query(
-    `select distinct level from ${schemaName}.statistical_factsheets_view where level not like 'X%' order by level`
-  )
-
-  return result.rows.map((row) => row.level)
-}
-
 module.exports = {
   getStatisticalFactsheetTableAgg,
-  getStatisticalFactsheetLevelISOs,
   getStatisticalFactsheetData,
 }
