@@ -15,13 +15,18 @@
   font-weight: 400;
 }
 
+.country-selection__select-label {
+  font-size: @font-xxl;
+  margin-right: 32px;
+}
+
 .btn-country-selection {
+  position: relative;
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
   min-width: 320px;
   padding: 7px 14px;
-  margin-left: 16px;
   background-color: white;
   border: @ui-thin-border;
   text-align: left;
@@ -41,8 +46,8 @@
 .country-selection__flag {
   background-repeat: no-repeat;
   background-size: cover;
-  width: 23px;
-  height: 23px;
+  width: 18px;
+  height: 18px;
   box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.15);
   border-radius: 2px;
 }
@@ -51,18 +56,14 @@
   flex-grow: 1;
   margin-left: 8px;
   margin-right: 4px;
+  font-weight: normal;
 }
 
 .country-selection__country-name {
   color: @text-body;
-  display: block;
-  font-weight: 700;
-  line-height: 16px;
 }
 
 .country-selection__user-role {
   color: @text-mute;
-  display: block;
-  font-size: @font-s;
-  line-height: 16px;
+  font-weight: 600;
 }

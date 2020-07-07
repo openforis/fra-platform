@@ -43,7 +43,7 @@ const Table = (props) => {
                         {t(row[key])}
                       </th>
                     ) : (
-                      <td key={`${row.rowName}-${row[key]}-${key}`} className="fra-table__calculated-cell">
+                      <td key={`${row.rowName}-${row[key]}-${key}`} className="fra-table__cell">
                         {t(row[key])}
                       </td>
                     )

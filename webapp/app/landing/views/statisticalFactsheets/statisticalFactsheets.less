@@ -1,8 +1,8 @@
 .statistical-factsheets {
   display: grid;
-  width: 100vw;
+  width: 100%;
   grid-template-columns: repeat(6, 1fr);
-  grid-template-rows: 250px 250px 200px 200px;
+  grid-template-rows: 250px 250px 200px 340px;
   grid-template-areas:
     'forest-area forest-area forest-area carbon-growing-stock carbon-growing-stock carbon-growing-stock'
     'forest-area-percent forest-area-percent primary-forest primary-forest forest-ownership forest-ownership'
@@ -15,5 +15,9 @@
 
   .header {
     text-align: center;
+  }
+
+  .fra-table__cell {
+    padding: 10px;
   }
 }

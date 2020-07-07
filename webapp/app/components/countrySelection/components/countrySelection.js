@@ -38,6 +38,8 @@ const CountrySelection = () => {
     <div className="country-selection">
       <ToggleNavigationControl />
 
+      <div className="country-selection__select-label">{i18n.t('common.selectArea')}</div>
+
       <button
         type="button"
         className="btn btn-country-selection no-print"
@@ -55,19 +57,20 @@ const CountrySelection = () => {
 
         <div className="country-selection__info">
           <span className="country-selection__country-name">
-            {countryIso ? i18n.t(`area.${countryIso}.listName`) : i18n.t('countrySelection.selectCountry')}
+            {countryIso ? i18n.t(`area.${countryIso}.listName`) : `- ${i18n.t('common.select')} -`}
           </span>
 
           {userInfo && country && (
             <span className="country-selection__user-role">
-              {i18n.t(getRoleForCountryLabelKey(countryIso, userInfo))}
+              {` - ${i18n.t(getRoleForCountryLabelKey(countryIso, userInfo))}`}
             </span>
           )}
         </div>
 
         <Icon name="small-down" />
+
+        {open && <CountryList />}
       </button>
-      {open && <CountryList />}
     </div>
   )
 }
