@@ -6,7 +6,7 @@ import * as BasePaths from '@webapp/main/basePaths'
 
 import { useCountryIso, useI18n } from '@webapp/components/hooks'
 
-import * as LandingState from '@webapp/app/landing/landingState'
+import * as LandingState from '@webapp/app/countryLanding/landingState'
 import { fetchAuditFeed } from '@webapp/app/components/audit/actions'
 
 import RecentActivityItem from './recentActivityItem'

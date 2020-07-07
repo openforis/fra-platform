@@ -3,13 +3,13 @@ import React from 'react'
 import { useCountryIso } from '@webapp/components/hooks'
 import useI18n from '@webapp/components/hooks/useI18n'
 import { useDispatch, useSelector } from 'react-redux'
-import * as LandingState from '@webapp/app/landing/landingState'
+import * as LandingState from '@webapp/app/countryLanding/landingState'
 import { i18nUserRole, profilePictureUri } from '@common/userUtils'
 import Icon from '@webapp/components/icon'
 import * as UserState from '@webapp/user/userState'
 
 import { openChat } from '@webapp/app/user/chat/actions'
-import { closeCountryMessageBoard } from '@webapp/app/landing/views/messageBoard/actions'
+import { closeCountryMessageBoard } from '@webapp/app/countryLanding/views/messageBoard/actions'
 
 const Users = () => {
   const countryIso = useCountryIso()

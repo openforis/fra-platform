@@ -21,8 +21,8 @@ module.exports.translation = {
     variable: 'ОЛР Переменная',
     column: 'Столбец',
     other: 'Другое',
-    select: 'Select',
-    selectArea: 'Select geographical area',
+    select: 'Выбрать',
+    selectArea: 'Выбрать географический район',
     unknown: 'Отсутствует/неизвестна',
   },
 

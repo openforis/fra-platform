@@ -3,7 +3,7 @@ import { NavLink, useLocation } from 'react-router-dom'
 
 import useI18n from '@webapp/components/hooks/useI18n'
 import useCountryIso from '@webapp/components/hooks/useCountryIso'
-import useLandingViewSections from '@webapp/app/landing/useLandingViewSections'
+import useCountryLandingSections from '@webapp/app/countryLanding/useCountryLandingSections'
 
 import * as BasePaths from '@webapp/main/basePaths'
 
@@ -12,7 +12,7 @@ const LinkLanding = () => {
 
   const countryIso = useCountryIso()
   const location = useLocation()
-  const sections = useLandingViewSections()
+  const sections = useCountryLandingSections()
 
   const isActive = (match) =>
     match && (match.isExact || sections.find((section) => location.pathname.indexOf(section.name) > 0))

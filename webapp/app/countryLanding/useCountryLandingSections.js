@@ -4,13 +4,13 @@ import { isAllowedToChangeRole } from '@common/userManagementAccessControl'
 import useUserInfo from '@webapp/components/hooks/useUserInfo'
 import useCountryIso from '@webapp/components/hooks/useCountryIso'
 
-import MessageBoard from '@webapp/app/landing/views/messageBoard'
-import RecentActivityView from '@webapp/app/landing/views/recentActivityView'
-import AboutView from '@webapp/app/landing/views/aboutView'
-import LinksView from '@webapp/app/landing/views/linksView'
-import ManageCollaboratorsView from '@webapp/app/landing/views/manageCollaboratorsView'
-import ContentCheckView from '@webapp/app/landing/views/contentCheck/contentCheckView'
-import StatisticalFactsheets from '@webapp/app/landing/views/statisticalFactsheets'
+import MessageBoard from '@webapp/app/countryLanding/views/messageBoard'
+import RecentActivityView from '@webapp/app/countryLanding/views/recentActivityView'
+import AboutView from '@webapp/app/countryLanding/views/aboutView'
+import LinksView from '@webapp/app/countryLanding/views/linksView'
+import ManageCollaboratorsView from '@webapp/app/countryLanding/views/manageCollaboratorsView'
+import ContentCheckView from '@webapp/app/countryLanding/views/contentCheck/contentCheckView'
+import StatisticalFactsheets from '@webapp/app/countryLanding/views/statisticalFactsheets'
 
 const getSections = (countryIso, userInfo) => {
   const sections = [
