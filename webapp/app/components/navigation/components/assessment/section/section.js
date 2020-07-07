@@ -38,23 +38,19 @@ const Section = (props) => {
 
   // On mount check whether the location matches a child path
   useEffect(() => {
-    const match = Object.entries(section.children).find(([_, subsection]) => {
-      const pathDataEntry = BasePaths.assessmentSection.replace(':section', subsection.name)
-      const pathDataExport = BasePaths.getDataExportSectionLink(assessmentType, subsection.name)
-      return matchPath(pathname, { path: [pathDataEntry, pathDataExport] })
+    const match = Object.values(section.children).find((subsection) => {
+      const path = BasePaths.assessmentSection.replace(':section', subsection.name)
+      return matchPath(pathname, { path })
     })
     if (match) {
       setExpanded(true)
     }
   }, [])
 
-  const visible = (subsection) =>
-    matchPath(pathname, { path: BasePaths.dataExport }) &&
-    SectionSpec.getSectionSpec(assessmentType, subsection.name).dataExport.included
-
-  const filterDataExportChildren = (children) => children.filter((x) => visible(x))
   const children = Object.values(section.children)
-  const filteredChildren = isDataExport ? filterDataExportChildren(children) : children
+  const filteredChildren = isDataExport
+    ? children.filter((subsection) => SectionSpec.getSectionSpec(assessmentType, subsection.name).dataExport.included)
+    : children
 
   if (!filteredChildren.length) {
     return null

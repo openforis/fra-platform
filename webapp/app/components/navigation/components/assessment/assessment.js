@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
-import Header from '@webapp/app/components/navigation/components/assessment/header'
-import Section from '@webapp/app/components/navigation/components/assessment/section'
+import Header from './header'
+import Section from './section'
 
 const Assessment = (props) => {
   const {

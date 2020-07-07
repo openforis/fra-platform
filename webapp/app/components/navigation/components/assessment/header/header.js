@@ -4,12 +4,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import * as Assessment from '@common/assessment/assessment'
-import { Area } from '@common/country'
 
 import * as BasePaths from '@webapp/main/basePaths'
 import Icon from '@webapp/components/icon'
 import { Link } from 'react-router-dom'
-import useCountryIso from '@webapp/components/hooks/useCountryIso'
+import { useCountryIso, useIsDataExportView } from '@webapp/components/hooks'
 
 import Lock from './lock'
 import Status from './status'
@@ -25,8 +24,9 @@ const Header = (props) => {
   } = props
 
   const countryIso = useCountryIso()
+  const isDataExportView = useIsDataExportView()
 
-  if (Assessment.isTypePanEuropean(assessmentType) || !Area.isISOCountry(countryIso)) {
+  if (Assessment.isTypePanEuropean(assessmentType) || isDataExportView) {
     return (
       <div className="nav-assessment-header">
         <div className="nav-assessment-header__label">

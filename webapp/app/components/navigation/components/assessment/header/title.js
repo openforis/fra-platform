@@ -1,20 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { useCountryIso, useI18n } from '@webapp/components/hooks'
-
-import { Area } from '@common/country'
+import { useI18n, useIsDataExportView } from '@webapp/components/hooks'
 
 const Title = (props) => {
   const { type, deskStudy } = props
 
   const i18n = useI18n()
-  const countryIso = useCountryIso()
+  const isDataExportView = useIsDataExportView()
 
   return (
     <div>
       {i18n.t(`assessment.${type}`)}
-      {Area.isISOCountry(countryIso) ? '' : ` - ${i18n.t('common.dataExport')}`}
+      {isDataExportView ? ` - ${i18n.t('common.dataExport')}` : ''}
       {deskStudy && <div className="desk-study">({i18n.t('assessment.deskStudy')})</div>}
     </div>
   )
