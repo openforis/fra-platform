@@ -27,7 +27,7 @@ const sections = [
   {
     name: 'dataExport',
     component: DataExportView,
-    labelKey: 'landing.sections.dataExport'
+    labelKey: 'common.dataExport'
   },
   {
     name: 'versioning',
