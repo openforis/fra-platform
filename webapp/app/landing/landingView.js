@@ -10,6 +10,7 @@ import useCountryIso from '@webapp/components/hooks/useCountryIso'
 import useI18n from '@webapp/components/hooks/useI18n'
 import useUserInfo from '@webapp/components/hooks/useUserInfo'
 import useLandingViewSections from '@webapp/app/landing/useLandingViewSections'
+import StatisticalFactsheets from '@webapp/app/landing/views/statisticalFactsheets'
 
 const LandingView = () => {
   const countryIso = useCountryIso()
@@ -42,7 +43,7 @@ const LandingView = () => {
         )}
       </div>
 
-      {userAndCountry ? (
+      {userAndCountry && (
         <Switch>
           <Route exact path={['/', url]}>
             <Redirect to={BasePaths.getCountrySectionLink(countryIso, 'overview')} />
@@ -51,9 +52,9 @@ const LandingView = () => {
             <Route key={section} path={BasePaths.getCountrySectionLink(countryIso, section)} component={component} />
           ))}
         </Switch>
-      ) : (
-        <AboutView />
       )}
+      {!userAndCountry && !countryIso && <AboutView />}
+      {!userAndCountry && countryIso && <StatisticalFactsheets />}
     </div>
   )
 }
