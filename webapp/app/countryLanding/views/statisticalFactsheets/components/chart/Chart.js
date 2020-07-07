@@ -23,11 +23,7 @@ const ChartComponent = (props) => {
     return () => (!componentIsMounted.current ? chart2.destroy : null)
   }, [canvasRef, chart, options, chartUpdateFunction, componentIsMounted])
 
-  return (
-    <div>
-      <canvas id={id} ref={canvasRef} />
-    </div>
-  )
+  return <canvas id={id} ref={canvasRef} />
 }
 
 ChartComponent.defaultProps = {

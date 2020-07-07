@@ -1,6 +1,8 @@
 .statistical-factsheets {
-  display: grid;
   width: 100%;
+  display: grid;
+  grid-column-gap: 40px;
+  grid-row-gap: 80px;
   grid-template-columns: repeat(6, 1fr);
   grid-template-rows: 250px 250px 200px 340px;
   grid-template-areas:
@@ -10,7 +12,7 @@
     'primary-designated-management-objective primary-designated-management-objective primary-designated-management-objective naturally-regenerating-forest naturally-regenerating-forest naturally-regenerating-forest';
 
   > div {
-    padding: 12px 24px;
+    position: relative;
   }
 
   .header {
