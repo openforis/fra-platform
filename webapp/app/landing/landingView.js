@@ -12,6 +12,8 @@ import useUserInfo from '@webapp/components/hooks/useUserInfo'
 import useLandingViewSections from '@webapp/app/landing/useLandingViewSections'
 import StatisticalFactsheets from '@webapp/app/landing/views/statisticalFactsheets'
 
+import * as Area from '@common/country/area'
+
 const LandingView = () => {
   const countryIso = useCountryIso()
   const userInfo = useUserInfo()
@@ -20,6 +22,7 @@ const LandingView = () => {
   const url = `/${countryIso}/`
   const sections = useLandingViewSections()
   const userAndCountry = userInfo && countryIso
+  const displayTabs = userAndCountry && Area.isISOCountry(countryIso)
 
   return (
     <div className="app-view__content">
@@ -27,7 +30,7 @@ const LandingView = () => {
         <h1 className="landing__page-title">
           {countryIso ? i18n.t(`area.${countryIso}.listName`) : i18n.t('common.fraPlatform')}
         </h1>
-        {userAndCountry && (
+        {displayTabs && (
           <div className="landing__page-menu">
             {sections.map(({ name: section }) => (
               <NavLink

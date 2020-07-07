@@ -31,7 +31,7 @@ const Routes = () => {
         <LoginView />
       </Route>
       <Route
-        path={[BasePaths.dataExport, BasePaths.statisticalFactsheets, BasePaths.user, BasePaths.admin, `/country${BasePaths.country}`, BasePaths.country, BasePaths.root]}
+        path={[BasePaths.dataExport, BasePaths.user, BasePaths.admin, `/country${BasePaths.country}`, BasePaths.country, BasePaths.root]}
         render={(props) => (
           <DynamicImport
             {...props}
