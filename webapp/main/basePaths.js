@@ -7,7 +7,6 @@ const pathFragments = {
   onlyTables: 'onlyTables',
   print: 'print',
   profilePicture: 'profilePicture',
-  statisticalFactsheets: 'statisticalFactsheets',
   export: 'export',
   user: 'user',
   users: 'users',
@@ -32,11 +31,6 @@ const _pathGenerator = (...parts) => `/${parts.filter((p) => !!p).join('/')}/`
 // ==== application paths
 export const root = '/'
 export const login = _pathGenerator(pathFragments.login)
-export const statisticalFactsheets = _pathGenerator(pathFragments.statisticalFactsheets)
-export const statisticalFactsheetsLevelIso = _pathGenerator(
-  pathFragments.statisticalFactsheets,
-  pathFragments.params.levelIso
-)
 
 export const dataExport = _pathGenerator(pathFragments.export)
 export const dataExportSection = _pathGenerator(
@@ -115,6 +109,3 @@ export const getAdminVersioningLink = () => _pathGenerator(pathFragments.admin, 
 // /export/:assessmentType/:section/
 export const getDataExportSectionLink = (assessmentType, section) =>
   _pathGenerator(pathFragments.export, assessmentType, section)
-
-export const getStatisticalFactsheetsWithLevelIso = (levelIso) =>
-  _pathGenerator(pathFragments.statisticalFactsheets, levelIso)
