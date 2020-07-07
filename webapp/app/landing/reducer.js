@@ -2,7 +2,7 @@ import * as R from 'ramda'
 
 import { exportReducer } from '@webapp/utils/reduxUtils'
 import { lastAuditFeedReceived } from '@webapp/app/components/audit/actions'
-import { countryMessageBoardAllMessagesLoad } from '@webapp/app/landing/messageBoard/actions'
+import { countryMessageBoardAllMessagesLoad } from '@webapp/app/landing/views/messageBoard/actions'
 
 import { countryOverviewLoaded, fileRepositoryFilesListLoad } from './actions'
 import * as LandingState from './landingState'
