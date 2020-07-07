@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react'
 import { connect, useSelector } from 'react-redux'
 import * as R from 'ramda'
 
-import FraReviewFooter from '../../assessment/components/review/reviewFooter'
+import FraReviewFooter from '../../../assessment/components/review/reviewFooter'
 import Icon from '@webapp/components/icon'
 import useI18n from '@webapp/components/hooks/useI18n'
 

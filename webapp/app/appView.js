@@ -12,7 +12,7 @@ import CountrySelection from '@webapp/app/components/countrySelection'
 import Navigation from '@webapp/app/components/navigation/navigation'
 import Review from '@webapp/app/assessment/components/review/review'
 import UserChat from '@webapp/app/user/chat/userChatView'
-import CountryMessageBoardView from '@webapp/app/landing/messageBoard/countryMessageBoardView'
+import CountryMessageBoardView from '@webapp/app/landing/views/messageBoard/countryMessageBoardView'
 import ErrorComponent from '@webapp/app/components/error/errorComponent'
 import AssessmentPrintView from '@webapp/app/assessment/components/print/assessmentPrintView'
 

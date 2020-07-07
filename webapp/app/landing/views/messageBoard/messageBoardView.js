@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { closeChat } from '@webapp/app/user/chat/actions'
-import { closeCountryMessageBoard } from '@webapp/app/landing/messageBoard/actions'
+import { closeCountryMessageBoard } from '@webapp/app/landing/views/messageBoard/actions'
 
 import * as AppState from '@webapp/app/appState'
 
