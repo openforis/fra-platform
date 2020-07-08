@@ -4,8 +4,10 @@ const levels = {
 }
 
 const isISOCountry = (isoCode) => isoCode.length === 3
+const isISORegion = (isoCode) => levels.regions.includes(isoCode)
 
 module.exports = {
   levels,
+  isISORegion,
   isISOCountry,
 }
