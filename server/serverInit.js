@@ -1,21 +1,21 @@
+const path = require('path')
+const express = require('express')
+const bodyParser = require('body-parser')
+const compression = require('compression')
+const fileUpload = require('express-fileupload')
+const morgan = require('morgan')
+
+const sessionInit = require('./sessionInit')
+const apiRouter = require('./apiRouter')
+const authApi = require('./auth/authApi')
+const resourceCacheControl = require('./resourceCacheControl')
+const definitionsApi = require('./definitions/api')
+const { sendErr } = require('./utils/requestUtils')
+
 module.exports = () => {
-  const path = require('path')
-  const express = require('express')
-  const bodyParser = require('body-parser')
-  const compression = require('compression')
-  const fileUpload = require('express-fileupload')
-
-  const sessionInit = require('./sessionInit')
-  const apiRouter = require('./apiRouter')
-  const authApi = require('./auth/authApi')
-  const resourceCacheControl = require('./resourceCacheControl')
-  const definitionsApi = require('./definitions/api')
-  const { sendErr } = require('./utils/requestUtils')
-
   const app = express()
 
   if (process.env.NODE_ENV === 'development') {
-    const morgan = require('morgan')
     app.use(morgan('dev'))
   }
 
@@ -31,6 +31,7 @@ module.exports = () => {
   app.use('/img/', express.static(`${__dirname}/../web-resources/img`))
   app.use('/css/', express.static(`${__dirname}/../web-resources/css`))
   app.use('/ckeditor', express.static(`${__dirname}/../web-resources/ckeditor`))
+  app.use('/video', express.static(`${__dirname}/../web-resources/video`))
 
   app.use(fileUpload())
   app.use('/api', apiRouter.router)
