@@ -53,6 +53,10 @@
   display: flex;
   align-items: center;
 
+  > * {
+    margin: 0 4px;
+  }
+
   .popover-control__menu {
     top: 60px;
     right: 12px;
@@ -72,6 +76,7 @@
 .app-header__separator {
   background-color: @text-body;
   height: @ui-app-header-height / 2;
+  width: 1px;
 }
 
 @keyframes fadeInComplete {
