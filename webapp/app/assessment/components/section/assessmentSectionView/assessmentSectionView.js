@@ -13,7 +13,7 @@ import { fetchTableData } from '@webapp/app/assessment/components/dataTable/acti
 import { fetchLastSectionUpdateTimestamp, resetSectionUpdateTimestamp } from '@webapp/app/components/audit/actions'
 
 import DataExport from '@webapp/app/dataExport'
-import * as Area from '@common/country/area'
+import { useIsDataExportView } from '@webapp/components/hooks'
 
 import AssessmentSection from './assessmentSection'
 import useSectionTables from './useSectionTables'
@@ -22,7 +22,7 @@ const AssessmentSectionView = () => {
   const { assessmentType, section: sectionName } = useParams()
 
   const countryIso = useCountryIso()
-  const isCountry = Area.isISOCountry(countryIso)
+  const isDataExport = useIsDataExportView()
   const dispatch = useDispatch()
   const tables = useSectionTables(assessmentType, sectionName)
   const viewRef = useRef(null)
@@ -50,7 +50,7 @@ const AssessmentSectionView = () => {
     }
   }, [sectionName, countryIso])
 
-  if (!isCountry) {
+  if (isDataExport) {
     return <DataExport ref={viewRef} />
   }
 
