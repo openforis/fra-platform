@@ -11,19 +11,21 @@ module.exports.translation = {
   },
 
   common: {
+    column: 'Столбец',
+    countries: 'Страны',
+    dataExport: 'Экспорт данных',
     fraPlatform: 'Платформой ОЛР',
     globalFRA: 'Глобальная оценка лесных ресурсов',
     login: 'Логин',
-    statisticalFactsheets: 'Статистические бюллетени',
-    dataExport: 'Экспорт данных',
+    other: 'Другое',
+    regions: 'Регионы',
+    select: 'Выбрать',
     selectAll: 'Выделить все',
+    selectArea: 'Выбрать географический район',
+    statisticalFactsheets: 'Статистические бюллетени',
+    unknown: 'Отсутствует/неизвестна',
     unselectAll: 'Снять выделение',
     variable: 'ОЛР Переменная',
-    column: 'Столбец',
-    other: 'Другое',
-    select: 'Выбрать',
-    selectArea: 'Выбрать географический район',
-    unknown: 'Отсутствует/неизвестна',
   },
 
   unit: {
