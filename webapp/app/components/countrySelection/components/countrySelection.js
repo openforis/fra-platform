@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { getRoleForCountryLabelKey } from '@common/countryRole'
 import { Area } from '@common/country'
 
-import { useCountryIso, useI18n, useUserInfo } from '@webapp/components/hooks'
+import { useCountryIso, useI18n, useIsHome, useUserInfo } from '@webapp/components/hooks'
 import Icon from '@webapp/components/icon'
 
 import CountryList from './countryList'
@@ -14,6 +14,7 @@ const CountrySelection = () => {
   const countryIso = useCountryIso()
   const userInfo = useUserInfo()
   const i18n = useI18n()
+  const isHome = useIsHome()
 
   const countrySelectionRef = useRef(null)
   const [open, setOpen] = useState(false)
@@ -47,7 +48,7 @@ const CountrySelection = () => {
         {open && <CountryList />}
       </button>
 
-      {countryIso && (
+      {countryIso && !isHome && (
         <div className="country-selection__country">
           {Area.isISOCountry(countryIso) && (
             <div
