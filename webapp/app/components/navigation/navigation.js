@@ -23,7 +23,6 @@ const Navigation = () => {
   return (
     <div className="nav no-print">
       <LinkLanding />
-      <div className="nav__divider" />
 
       <Assessment assessment={FRA} />
 

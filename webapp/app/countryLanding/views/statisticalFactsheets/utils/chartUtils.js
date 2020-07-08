@@ -84,6 +84,9 @@ const chartOptions = {
   pie: {
     ...commonOptions,
     height: 350,
+    legend: {
+      position: 'left',
+    },
   },
   bar: {
     ...commonOptions,
