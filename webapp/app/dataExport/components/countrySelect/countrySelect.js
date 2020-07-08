@@ -6,7 +6,7 @@ import { useCountryIso, useI18n } from '@webapp/components/hooks'
 import ButtonCheckBox from '@webapp/components/buttonCheckBox'
 import { useParams } from 'react-router'
 import { isTypePanEuropean } from '@common/assessment/assessment'
-import * as Area from '@common/country/area'
+import { Area, Country } from '@common/country'
 
 const CountrySelect = (props) => {
   const { countries, selectionCountries, setSelectionCountries } = props
@@ -65,8 +65,8 @@ const CountrySelect = (props) => {
           else
             setSelectionCountries(
               countries.map((country) => ({
-                label: country[propName],
-                param: country.countryIso,
+                label: `area.${Country.getCountryIso(country)}.listName`,
+                param: Country.getCountryIso(country),
                 deskStudy: isDeskStudy(country),
               }))
             )
@@ -77,19 +77,23 @@ const CountrySelect = (props) => {
 
       <div className="export__form-section-variables">
         {countriesFiltered.map((country) => {
-          const selected = selectionCountries.filter(({ param }) => param === country.countryIso).length > 0
+          const selected = selectionCountries.filter(({ param }) => param === Country.getCountryIso(country)).length > 0
           return (
             <ButtonCheckBox
-              key={country.countryIso}
+              key={Country.getCountryIso(country)}
               checked={selected}
-              label={country[propName]}
+              label={`area.${Country.getCountryIso(country)}.listName`}
               suffix={getDeskStudyValue(country)}
               onClick={() => {
                 const selectionCountriesUpdate = selected
-                  ? selectionCountries.filter(({ param }) => param !== country.countryIso)
+                  ? selectionCountries.filter(({ param }) => param !== Country.getCountryIso(country))
                   : [
                       ...selectionCountries,
-                      { label: country[propName], param: country.countryIso, deskStudy: isDeskStudy(country) },
+                      {
+                        label: `area.${Country.getCountryIso(country)}.listName`,
+                        param: Country.getCountryIso(country),
+                        deskStudy: isDeskStudy(country),
+                      },
                     ]
                 setSelectionCountries(selectionCountriesUpdate)
               }}
