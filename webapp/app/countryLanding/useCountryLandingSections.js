@@ -6,7 +6,6 @@ import useCountryIso from '@webapp/components/hooks/useCountryIso'
 
 import MessageBoard from '@webapp/app/countryLanding/views/messageBoard'
 import RecentActivityView from '@webapp/app/countryLanding/views/recentActivityView'
-import AboutView from '@webapp/app/countryLanding/views/aboutView'
 import LinksView from '@webapp/app/countryLanding/views/linksView'
 import ManageCollaboratorsView from '@webapp/app/countryLanding/views/manageCollaboratorsView'
 import ContentCheckView from '@webapp/app/countryLanding/views/contentCheck/contentCheckView'
@@ -17,7 +16,6 @@ const getSections = (countryIso, userInfo) => {
     { name: 'overview', component: StatisticalFactsheets },
     { name: 'messageBoard', component: MessageBoard },
     { name: 'recentActivity', component: RecentActivityView },
-    { name: 'about', component: AboutView },
     { name: 'links', component: LinksView },
   ]
 
