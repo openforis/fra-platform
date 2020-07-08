@@ -28,6 +28,17 @@ module.exports.translation = {
     variable: 'ОЛР Переменная',
   },
 
+  disclaimer: {
+    part1: 'This website has been produced with the assistance of the ',
+    europeanUnion: 'European Union',
+    part2: ', the ',
+    govFinland: 'Government of Finland',
+    part3: ' and the ',
+    govNorway: 'Government of Norway',
+    part4:
+      '. Its contents are the sole responsibility of FAO and can in no way be taken to reflect the views of the European Union, the Government of Finland and the Government of Norway.',
+  },
+
   unit: {
     haThousand: '1000 га',
     ha: 'га',

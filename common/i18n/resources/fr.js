@@ -28,6 +28,16 @@ module.exports.translation = {
     variable: 'FRA Variable',
   },
 
+  disclaimer: {
+    part1: `Ce site web a été réalisé avec le concours de l'`,
+    europeanUnion: 'Union européenne',
+    part2: ',  du ',
+    govFinland: 'Gouvernement de Finlande',
+    part3: ' et du ',
+    govNorway: 'Gouvernement de Norvège',
+    part4: `. La FAO est la seule responsable de son contenu et celui-ci ne peut en aucun cas être considéré comme le reflet des opinions de l'Union européenne, du Gouvernement de Finlande et du Gouvernement de Norvège.`,
+  },
+
   unit: {
     haThousand: '1000 ha',
     ha: 'ha',

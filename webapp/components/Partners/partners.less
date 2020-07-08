@@ -1,30 +1,31 @@
 @import (reference) 'webapp/main/styles/config';
 
-@items-margin: 24px;
+@img-margin: 24px;
+@row-gap: 64px;
 
 .partners {
   display: grid;
-  grid-row-gap: 64px;
-  padding: 64px 0;
+  grid-row-gap: @row-gap;
+  padding: @row-gap 0;
   color: @text-body;
+}
 
-  > div {
-    height: 70px;
-    display: flex;
-    justify-content: center;
-    justify-items: center;
-    align-items: center;
-    overflow-y: hidden;
+.partners__imgs {
+  height: 70px;
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+  overflow-y: hidden;
 
-    img {
-      margin: 0 @items-margin;
-      height: 60px;
-    }
+  img {
+    margin: 0 @img-margin;
+    height: 60px;
+  }
 
-    img.mfafi {
-      height: 90px;
-      margin-top: 20px;
-    }
+  img.mfafi {
+    height: 90px;
+    margin-top: 20px;
   }
 }
 
@@ -32,8 +33,25 @@
   max-width: 150px;
   display: flex;
   align-items: center;
-  margin-left: @items-margin;
+  margin-left: @img-margin;
   font-size: @font-s;
   font-weight: 200;
   text-align: right;
+}
+
+.partners__disclaimer {
+  color: @text-link;
+  padding: 0 @row-gap;
+  text-align: center;
+  font-size: @font-s;
+  line-height: 24px;
+
+  a {
+    color: @text-body;
+    text-decoration: underline;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
 }
