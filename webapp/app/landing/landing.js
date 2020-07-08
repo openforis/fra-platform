@@ -1,7 +1,14 @@
+import './landing.less'
 import React from 'react'
 
+import Introduction from './Introduction'
+
 const Landing = () => {
-  return <div>App landing placeholder</div>
+  return (
+    <div className="home">
+      <Introduction />
+    </div>
+  )
 }
 
 export default Landing
