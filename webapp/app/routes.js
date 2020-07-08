@@ -1,7 +1,5 @@
 import * as BasePaths from '@webapp/main/basePaths'
 
-import DataExport from '@webapp/app/dataExport'
-
 import ExtentOfForestView from '@webapp/app/assessment/fra/sections/extentOfForest/extentOfForestView'
 import GrowingStockView from '@webapp/app/assessment/fra/sections/growingStock/growingStockView'
 import SpecificForestCategoriesView from '@webapp/app/assessment/fra/sections/specificForestCategories/specificForestCategoriesView'
@@ -75,7 +73,6 @@ const routes = [
 
   { path: BasePaths.admin, component: AdminView },
   { path: BasePaths.user, component: EditUserView },
-  { path: [BasePaths.dataExportSection, BasePaths.dataExport], component: DataExport },
   { path: BasePaths.country, component: CountryLandingView },
   { path: BasePaths.root, component: Landing },
 ]
