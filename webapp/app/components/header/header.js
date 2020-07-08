@@ -9,6 +9,7 @@ import { useI18n, useUserInfo } from '@webapp/components/hooks'
 import UserInfoLinks from './components/userInfo'
 import LanguageSelection from './components/languageSelection'
 import AutoSaveStatusText from './components/autoSaveStatusText'
+import LinkHome from './components/linkHome'
 
 const Header = () => {
   const userInfo = useUserInfo()
@@ -27,12 +28,17 @@ const Header = () => {
 
       <div className="app-header__menu">
         <LanguageSelection />
-        <UserInfoLinks />
-        {!userInfo && (
+
+        {userInfo ? (
+          <UserInfoLinks />
+        ) : (
           <Link key="admin-link" to={BasePaths.login} className="app-header__menu-item">
             {i18n.t('common.login')}
           </Link>
         )}
+
+        <div className="app-header__separator" />
+        <LinkHome />
       </div>
     </div>
   )

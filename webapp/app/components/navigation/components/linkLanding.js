@@ -19,12 +19,12 @@ const LinkLanding = () => {
 
   return (
     <NavLink
-      className="nav__link"
       to={BasePaths.getCountryHomeLink(countryIso)}
+      className="nav__link-landing"
       activeClassName="selected"
       isActive={isActive}
     >
-      <div className="nav__link-label">{i18n.t('landing.home')}</div>
+      <div className="nav__link-label">{i18n.t(`area.${countryIso}.listName`)}</div>
     </NavLink>
   )
 }
