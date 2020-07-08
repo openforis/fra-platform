@@ -37,6 +37,7 @@ const Header = () => {
           </Link>
         )}
 
+        <div className="app-header__separator" />
         <LinkHome />
       </div>
     </div>

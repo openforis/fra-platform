@@ -42,7 +42,7 @@ const CountrySelection = () => {
         ref={countrySelectionRef}
         onClick={() => setOpen(!open)}
       >
-        <div>- {i18n.t('common.select')}</div>
+        <div>- {i18n.t('common.select')} -</div>
         <Icon name="small-down" />
         {open && <CountryList />}
       </button>
