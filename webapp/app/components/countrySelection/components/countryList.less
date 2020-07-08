@@ -6,8 +6,9 @@
 .country-selection-list {
   display: block;
   position: absolute;
-  top: 60px;
-  left: 16px;
+  top: 30px;
+  left: 0;
+  max-width: 550px;
   background: white;
   border-radius: 2px;
   box-shadow: @shadow-3;
@@ -56,6 +57,7 @@
   align-items: center;
   line-height: 16px;
   padding: 8px 16px;
+  font-weight: normal;
 }
 
 .country-selection-list__header {
@@ -63,7 +65,7 @@
 }
 
 .country-selection-list__row {
-  color: @text-body;
+  color: @text-link;
   text-decoration: none;
 
   &:hover {

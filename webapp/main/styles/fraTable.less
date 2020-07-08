@@ -1,7 +1,7 @@
-@import (reference) '~@webapp/main/styles/config';
-@import (reference) '~@webapp/main/styles/form';
-@import (reference) '~@webapp/main/styles/inputMixins';
-@import (reference) '~@webapp/main/styles/fraValidation';
+@import (reference) 'webapp/main/styles/config';
+@import (reference) 'webapp/main/styles/form';
+@import (reference) 'webapp/main/styles/inputMixins';
+@import (reference) 'webapp/main/styles/fraValidation';
 
 .fra-table__container {
   position: relative;
@@ -42,18 +42,18 @@
 }
 
 .fra-table__header-cell {
-  .mixin-table-cell(700, center, 10px);
+  .mixin-table-cell(600, center, 10px);
 }
 
 .fra-table__header-cell-left {
-  .mixin-table-cell(700, left, 10px);
+  .mixin-table-cell(600, left, 10px);
 }
 
 .fra-table__category-cell {
   .mixin-table-cell(400, left, 10px);
 
   .link {
-    font-weight: 700;
+    font-weight: 600;
   }
 }
 
@@ -76,7 +76,7 @@
 }
 
 .fra-table__calculated-cell {
-  .mixin-table-cell(700, right, 10px, true);
+  .mixin-table-cell(600, right, 10px, true);
   cursor: default;
 
   &:empty:after {
@@ -229,5 +229,5 @@
 }
 
 .fra-secondary-table__heading-cell {
-  .mixin-table-cell(700, left, 10px);
+  .mixin-table-cell(600, left, 10px);
 }

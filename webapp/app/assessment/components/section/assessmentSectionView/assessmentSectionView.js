@@ -12,6 +12,9 @@ import useCountryIso from '@webapp/components/hooks/useCountryIso'
 import { fetchTableData } from '@webapp/app/assessment/components/dataTable/actions'
 import { fetchLastSectionUpdateTimestamp, resetSectionUpdateTimestamp } from '@webapp/app/components/audit/actions'
 
+import DataExport from '@webapp/app/dataExport'
+import { useIsDataExportView } from '@webapp/components/hooks'
+
 import AssessmentSection from './assessmentSection'
 import useSectionTables from './useSectionTables'
 
@@ -19,6 +22,7 @@ const AssessmentSectionView = () => {
   const { assessmentType, section: sectionName } = useParams()
 
   const countryIso = useCountryIso()
+  const isDataExport = useIsDataExportView()
   const dispatch = useDispatch()
   const tables = useSectionTables(assessmentType, sectionName)
   const viewRef = useRef(null)
@@ -45,6 +49,10 @@ const AssessmentSectionView = () => {
       dispatch(resetSectionUpdateTimestamp())
     }
   }, [sectionName, countryIso])
+
+  if (isDataExport) {
+    return <DataExport ref={viewRef} />
+  }
 
   return <AssessmentSection assessmentType={assessmentType} sectionName={sectionName} ref={viewRef} />
 }

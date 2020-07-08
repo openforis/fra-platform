@@ -11,16 +11,21 @@ module.exports.translation = {
   },
 
   common: {
-    fraPlatform: 'Plateforme de FRA',
-    login: 'Connexion',
-    statisticalFactsheets: 'Fiches statistiques',
+    column: 'Colonne',
+    countries: 'Pays',
     dataExport: 'Exportation de données',
+    fraPlatform: 'Plateforme de FRA',
+    globalFRA: 'Évaluation des ressources forestières mondiales',
+    login: 'Connexion',
+    other: 'Autre',
+    regions: 'Régions',
+    select: 'Choisissez',
     selectAll: 'Tout sélectionner',
+    selectArea: 'Choisissez une zone géographique',
+    statisticalFactsheets: 'Fiches statistiques',
+    unknown: 'Aucune fonction/Fonction inconnue',
     unselectAll: 'Tout déselectionner',
     variable: 'FRA Variable',
-    column: 'Colonne',
-    other: 'Autre',
-    unknown: 'Aucune fonction/Fonction inconnue',
   },
 
   unit: {
@@ -96,6 +101,7 @@ module.exports.translation = {
     home: 'Accueil',
     sections: {
       overview: 'Aperçu',
+      messageBoard: "Panneau d'affichage",
       about: 'À propos de FRA',
       recentActivity: 'Activité récente',
       userManagement: 'Gérer collaborateurs',

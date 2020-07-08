@@ -1,0 +1,29 @@
+@import (reference) 'webapp/main/styles/config';
+
+.statistical-factsheets {
+  width: 100%;
+  display: grid;
+  grid-column-gap: 40px;
+  grid-row-gap: 80px;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 220px 200px 200px 340px;
+  grid-template-areas:
+    'forest-area carbon-growing-stock'
+    'forest-area-percent primary-forest'
+    'forest-area-protected-areas forest-ownership'
+    'primary-designated-management-objective naturally-regenerating-forest';
+
+  > div {
+    position: relative;
+  }
+
+  .header {
+    text-align: center;
+    font-size: @font-l;
+    margin-bottom: 12px;
+  }
+
+  .fra-table__cell {
+    padding: 10px;
+  }
+}

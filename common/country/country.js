@@ -6,12 +6,14 @@ const keys = {
   listName: 'listName',
   lastEdit: 'lastEdit',
   region: 'region',
+  regionIso: 'regionIso',
   fra2020Assessment: 'fra2020Assessment',
   fra2020DeskStudy: 'fra2020DeskStudy',
   panEuropean: 'panEuropean',
 }
 
 const getCountryIso = R.prop(keys.countryIso)
+const getRegionIso = R.prop(keys.regionIso)
 const getFullName = (lang) => R.path([keys.fullName, lang])
 const getListName = (lang) => R.path([keys.listName, lang])
 const getLastEdit = R.prop(keys.lastEdit)
@@ -23,6 +25,7 @@ module.exports = {
   keys,
 
   getCountryIso,
+  getRegionIso,
   getFullName,
   getListName,
   getLastEdit,

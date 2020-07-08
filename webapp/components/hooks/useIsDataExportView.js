@@ -1,7 +1,8 @@
-import { useLocation, matchPath } from 'react-router'
-import * as BasePaths from '@webapp/main/basePaths'
+import { Area } from '@common/country'
+
+import useCountryIso from './useCountryIso'
 
 export default () => {
-  const { pathname } = useLocation()
-  return !!matchPath(pathname, { path: BasePaths.dataExport })
+  const countryIso = useCountryIso()
+  return countryIso && !Area.isISOCountry(countryIso)
 }

@@ -31,6 +31,7 @@ const getStatuses = groupedRows =>
 const getCountryProperties = country => ({
   countryIso: country.countryIso,
   region: country.region,
+  regionIso: country.regionIso,
   listName: {
     en: country.listNameEn,
     es: country.listNameEs,
@@ -83,7 +84,7 @@ const getAllCountries = (role, schemaName = 'public') => {
       GROUP BY country_iso
     )
     SELECT
-      c.country_iso, c.region, c.list_name_en, c.full_name_en, c.list_name_es, c.full_name_es, c.list_name_fr, c.full_name_fr, c.list_name_ru, c.full_name_ru, c.pan_european,
+      c.country_iso, c.region, c.region_iso, c.list_name_en, c.full_name_en, c.list_name_es, c.full_name_es, c.list_name_fr, c.full_name_fr, c.list_name_ru, c.full_name_ru, c.pan_european,
       a.type, a.status, a.desk_study,
       fa.last_edited
     FROM
@@ -107,6 +108,7 @@ WITH assessment AS (
 )
 SELECT c.country_iso,
        c.region,
+       c.region_iso,
        c.list_name_en,
        c.full_name_en,
        c.list_name_es,
@@ -145,7 +147,7 @@ const getAllowedCountries = (roles, schemaName = 'public') => {
         GROUP BY country_iso
       )
       SELECT
-        c.country_iso, c.region, c.list_name_en, c.full_name_en, c.list_name_es, c.full_name_es, c.list_name_fr, c.full_name_fr, c.list_name_ru, c.full_name_ru, c.pan_european,
+        c.country_iso, c.region, c.region_iso, c.list_name_en, c.full_name_en, c.list_name_es, c.full_name_es, c.list_name_fr, c.full_name_fr, c.list_name_ru, c.full_name_ru, c.pan_european,
         a.type, a.status, a.desk_study,
         fa.last_edited
       FROM

@@ -1,7 +1,5 @@
 import * as BasePaths from '@webapp/main/basePaths'
 
-import DataExport from '@webapp/app/dataExport'
-
 import ExtentOfForestView from '@webapp/app/assessment/fra/sections/extentOfForest/extentOfForestView'
 import GrowingStockView from '@webapp/app/assessment/fra/sections/growingStock/growingStockView'
 import SpecificForestCategoriesView from '@webapp/app/assessment/fra/sections/specificForestCategories/specificForestCategoriesView'
@@ -33,7 +31,8 @@ import EditUserView from './user/userManagement/editUserView'
 import PanEuropeanIndicatorsView from './assessment/panEuropean/sections/indicators/panEuropeanIndicatorsView'
 import OriginalDataListView from './assessment/fra/sections/originalDataPoint/originalDataListView'
 import OriginalDataPointView from './assessment/fra/sections/originalDataPoint/originalDataPointView'
-import LandingView from './landing/landingView'
+import CountryLandingView from './countryLanding/countryLandingView'
+import Landing from './landing'
 
 const routes = [
   { path: BasePaths.assessmentSection, component: AssessmentSectionView },
@@ -68,14 +67,14 @@ const routes = [
   { path: '/country/:countryIso/sustainableDevelopment/', component: SustainableDevelopmentView },
   { path: '/country/:countryIso/contactPersons/', component: ContactPersonsView },
   { path: '/country/:countryIso/panEuropeanIndicators/', component: PanEuropeanIndicatorsView },
-  { path: '/country/:countryIso/', component: LandingView },
+  { path: '/country/:countryIso/', component: CountryLandingView },
   { path: '/country/:countryIso/*', component: NotFound },
   // === End Routes to be removed or updated
 
   { path: BasePaths.admin, component: AdminView },
   { path: BasePaths.user, component: EditUserView },
-  { path: [BasePaths.dataExportSection, BasePaths.dataExport], component: DataExport },
-  { path: [BasePaths.root, BasePaths.country], component: LandingView },
+  { path: BasePaths.country, component: CountryLandingView },
+  { path: BasePaths.root, component: Landing },
 ]
 
 export default routes

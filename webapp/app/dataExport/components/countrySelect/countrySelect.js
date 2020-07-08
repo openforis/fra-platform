@@ -2,16 +2,19 @@ import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import camelize from 'camelize'
 
-import { useI18n } from '@webapp/components/hooks'
+import { useCountryIso, useI18n } from '@webapp/components/hooks'
 import ButtonCheckBox from '@webapp/components/buttonCheckBox'
 import { useParams } from 'react-router'
 import { isTypePanEuropean } from '@common/assessment/assessment'
+import { Area, Country } from '@common/country'
 
 const CountrySelect = (props) => {
   const { countries, selectionCountries, setSelectionCountries } = props
   const { assessmentType } = useParams()
 
   const i18n = useI18n()
+  const countryIso = useCountryIso()
+
   const [countriesFiltered, setCountriesFiltered] = useState(countries)
   const propName = camelize(`list_name_${i18n.language}`)
 
@@ -22,7 +25,15 @@ const CountrySelect = (props) => {
   const checkMatch = (country, value) =>
     normalizeString(`${country[propName]}${getDeskStudyValue(country)}`).includes(value)
 
-  useEffect(() => setCountriesFiltered(countries), [countries])
+  useEffect(
+    () =>
+      setCountriesFiltered(
+        Area.isISORegion(countryIso)
+          ? countries.filter((country) => Country.getRegionIso(country) === countryIso)
+          : countries
+      ),
+    [countries]
+  )
 
   return (
     <div className="export__form-section export-select-all">
@@ -56,8 +67,8 @@ const CountrySelect = (props) => {
           else
             setSelectionCountries(
               countries.map((country) => ({
-                label: country[propName],
-                param: country.countryIso,
+                label: `area.${Country.getCountryIso(country)}.listName`,
+                param: Country.getCountryIso(country),
                 deskStudy: isDeskStudy(country),
               }))
             )
@@ -68,20 +79,23 @@ const CountrySelect = (props) => {
 
       <div className="export__form-section-variables">
         {countriesFiltered.map((country) => {
-          const { countryIso } = country
-          const selected = selectionCountries.filter(({ param }) => param === country.countryIso).length > 0
+          const selected = selectionCountries.filter(({ param }) => param === Country.getCountryIso(country)).length > 0
           return (
             <ButtonCheckBox
-              key={countryIso}
+              key={Country.getCountryIso(country)}
               checked={selected}
-              label={country[propName]}
+              label={`area.${Country.getCountryIso(country)}.listName`}
               suffix={getDeskStudyValue(country)}
               onClick={() => {
                 const selectionCountriesUpdate = selected
-                  ? selectionCountries.filter(({ param }) => param !== country.countryIso)
+                  ? selectionCountries.filter(({ param }) => param !== Country.getCountryIso(country))
                   : [
                       ...selectionCountries,
-                      { label: country[propName], param: countryIso, deskStudy: isDeskStudy(country) },
+                      {
+                        label: `area.${Country.getCountryIso(country)}.listName`,
+                        param: Country.getCountryIso(country),
+                        deskStudy: isDeskStudy(country),
+                      },
                     ]
                 setSelectionCountries(selectionCountriesUpdate)
               }}

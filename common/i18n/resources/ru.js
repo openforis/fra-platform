@@ -11,16 +11,21 @@ module.exports.translation = {
   },
 
   common: {
-    fraPlatform: 'Платформой ОЛР',
-    login: 'Логин',
-    statisticalFactsheets: 'Статистические бюллетени',
+    column: 'Столбец',
+    countries: 'Страны',
     dataExport: 'Экспорт данных',
+    fraPlatform: 'Платформой ОЛР',
+    globalFRA: 'Глобальная оценка лесных ресурсов',
+    login: 'Логин',
+    other: 'Другое',
+    regions: 'Регионы',
+    select: 'Выбрать',
     selectAll: 'Выделить все',
+    selectArea: 'Выбрать географический район',
+    statisticalFactsheets: 'Статистические бюллетени',
+    unknown: 'Отсутствует/неизвестна',
     unselectAll: 'Снять выделение',
     variable: 'ОЛР Переменная',
-    column: 'Столбец',
-    other: 'Другое',
-    unknown: 'Отсутствует/неизвестна',
   },
 
   unit: {
@@ -104,6 +109,7 @@ module.exports.translation = {
     home: 'Главная',
     sections: {
       overview: 'Обзор',
+      messageBoard: 'Доска сообщений',
       about: 'Информация об ОЛР',
       recentActivity: 'Недавняя активность',
       userManagement: 'Координировать сотрудников',

@@ -7,8 +7,6 @@ const pathFragments = {
   onlyTables: 'onlyTables',
   print: 'print',
   profilePicture: 'profilePicture',
-  statisticalFactsheets: 'statisticalFactsheets',
-  export: 'export',
   user: 'user',
   users: 'users',
   versioning: 'versioning',
@@ -32,18 +30,7 @@ const _pathGenerator = (...parts) => `/${parts.filter((p) => !!p).join('/')}/`
 // ==== application paths
 export const root = '/'
 export const login = _pathGenerator(pathFragments.login)
-export const statisticalFactsheets = _pathGenerator(pathFragments.statisticalFactsheets)
-export const statisticalFactsheetsLevelIso = _pathGenerator(
-  pathFragments.statisticalFactsheets,
-  pathFragments.params.levelIso
-)
 
-export const dataExport = _pathGenerator(pathFragments.export)
-export const dataExportSection = _pathGenerator(
-  pathFragments.export,
-  pathFragments.params.assessmentType,
-  pathFragments.params.section
-)
 export const country = _pathGenerator(pathFragments.params.countryIso)
 export const admin = _pathGenerator(pathFragments.admin)
 
@@ -80,6 +67,9 @@ export const user = _pathGenerator(pathFragments.users, pathFragments.params.use
 // /:countryIso/
 export const getCountryHomeLink = (countryIso) => _pathGenerator(countryIso)
 
+// /:countryIso/:section
+export const getCountrySectionLink = (countryIso, section) => _pathGenerator(countryIso, section)
+
 // /:countryIso/assessment/:assessmentType/:sectionName/
 export const getAssessmentSectionLink = (countryIso, assessmentType, sectionName) =>
   _pathGenerator(countryIso, pathFragments.assessment, assessmentType, sectionName)
@@ -108,10 +98,3 @@ export const getUserProfileLink = (userId) => _pathGenerator(pathFragments.users
 
 // /admin/versioning/
 export const getAdminVersioningLink = () => _pathGenerator(pathFragments.admin, pathFragments.versioning)
-
-// /export/:assessmentType/:section/
-export const getDataExportSectionLink = (assessmentType, section) =>
-  _pathGenerator(pathFragments.export, assessmentType, section)
-
-export const getStatisticalFactsheetsWithLevelIso = (levelIso) =>
-  _pathGenerator(pathFragments.statisticalFactsheets, levelIso)

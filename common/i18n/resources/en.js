@@ -11,16 +11,21 @@ module.exports.translation = {
   },
 
   common: {
-    fraPlatform: 'Fra platform',
-    login: 'Login',
-    statisticalFactsheets: 'Statistical factsheets',
+    column: 'Column',
+    countries: 'Countries',
     dataExport: 'Data Export',
+    fraPlatform: 'Fra platform',
+    globalFRA: 'Global Forest Resources Assessment',
+    login: 'Login',
+    other: 'Other',
+    regions: 'Regions',
+    select: 'Select',
     selectAll: 'Select all',
+    selectArea: 'Select geographical area',
+    statisticalFactsheets: 'Statistical factsheets',
+    unknown: 'None/unknown',
     unselectAll: 'Unselect all',
     variable: 'FRA Variable',
-    column: 'Column',
-    other: 'Other',
-    unknown: 'None/unknown',
   },
 
   statisticalFactsheets: {
@@ -60,6 +65,7 @@ module.exports.translation = {
     primaryDesignatedManagementObjective: {
       title: 'Primary Designated Management Objective (1990 - 2020)',
       rowName: '',
+      conservation: '$t(designatedManagementObjective.biodiversityConservation)',
       multiple_use: 'Multiple use',
       other: 'Other',
       production: 'Production',
@@ -174,13 +180,13 @@ The FRA team fra@fao.org
     home: 'Home',
     sections: {
       overview: 'Overview',
+      messageBoard: 'Message board',
       about: 'About FRA',
       recentActivity: 'Recent activity',
       userManagement: 'Manage collaborators',
       externalData: 'External data',
       links: 'Links & Repository',
       contentCheck: 'Content / Check',
-      dataExport: 'Data export',
       versioning: 'Versioning',
     },
     overview: {

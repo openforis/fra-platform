@@ -3,14 +3,13 @@ import './header.less'
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import * as BasePaths from '@webapp/main/basePaths'
+import * as Assessment from '@common/assessment/assessment'
 
+import * as BasePaths from '@webapp/main/basePaths'
 import Icon from '@webapp/components/icon'
 import { Link } from 'react-router-dom'
-import useCountryIso from '@webapp/components/hooks/useCountryIso'
-import { useIsDataExportView } from '@webapp/components/hooks'
+import { useCountryIso, useIsDataExportView } from '@webapp/components/hooks'
 
-import { isTypePanEuropean } from '@common/assessment/assessment'
 import Lock from './lock'
 import Status from './status'
 import AssessmentTitle from './title'
@@ -25,7 +24,9 @@ const Header = (props) => {
   } = props
 
   const countryIso = useCountryIso()
-  if (useIsDataExportView() || isTypePanEuropean(assessmentType)) {
+  const isDataExportView = useIsDataExportView()
+
+  if (Assessment.isTypePanEuropean(assessmentType) || isDataExportView) {
     return (
       <div className="nav-assessment-header">
         <div className="nav-assessment-header__label">
