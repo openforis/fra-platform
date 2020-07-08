@@ -2,6 +2,8 @@ import './introduction.less'
 import React from 'react'
 import { useI18n } from '@webapp/components/hooks'
 
+import AreaSelector from './AreaSelector'
+
 const Introduction = () => {
   const i18n = useI18n()
 
@@ -15,6 +17,8 @@ const Introduction = () => {
         <a href="http://www.fao.org/forest-resources-assessment/en/" target="_blank" rel="noreferrer">
           &gt; {i18n.t('landing.about.linkFraProcess')}
         </a>
+
+        <AreaSelector />
       </div>
     </div>
   )
