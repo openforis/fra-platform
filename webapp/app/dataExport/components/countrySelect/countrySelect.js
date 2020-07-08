@@ -28,7 +28,9 @@ const CountrySelect = (props) => {
   useEffect(
     () =>
       setCountriesFiltered(
-        Area.isISORegion(countryIso) ? countries.filter((country) => country.regionIso === countryIso) : countries
+        Area.isISORegion(countryIso)
+          ? countries.filter((country) => Country.getRegionIso(country) === countryIso)
+          : countries
       ),
     [countries]
   )
