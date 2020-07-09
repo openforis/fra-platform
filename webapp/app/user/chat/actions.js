@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { applicationError } from '../../components/error/actions'
+import { applicationError } from '../../../components/error/actions'
 
 import { getCountryOverview } from '../../countryLanding/actions'
 

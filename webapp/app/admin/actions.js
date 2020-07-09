@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { applicationError } from '@webapp/app/components/error/actions'
+import { applicationError } from '@webapp/components/error/actions'
 
 import FRAVersion from '@common/versioning/fraVersion'
 import * as AdminState from '@webapp/app/admin/adminState'

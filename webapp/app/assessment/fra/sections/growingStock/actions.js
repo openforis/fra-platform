@@ -5,7 +5,7 @@ import * as FRA from '@common/assessment/fra'
 
 import * as GrowingStockState from '@webapp/app/assessment/fra/sections/growingStock/growingStockState'
 
-import { applicationError } from '@webapp/app/components/error/actions'
+import { applicationError } from '@webapp/components/error/actions'
 import * as autosave from '@webapp/app/components/autosave/actions'
 
 import { acceptNextDecimal } from '@webapp/utils/numberInput'

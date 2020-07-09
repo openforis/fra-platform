@@ -7,6 +7,7 @@ import * as BasePaths from '@webapp/main/basePaths'
 import DynamicImport from '@webapp/components/dynamicImport'
 import Login from '@webapp/Login'
 import Loading from '@webapp/components/loading'
+import ErrorComponent from '@webapp/components/error/errorComponent'
 
 import * as AppState from '@webapp/app/appState'
 
@@ -26,21 +27,23 @@ const Routes = () => {
   }
 
   return (
-    <Switch>
-      <Route exact path={BasePaths.login}>
-        <Login />
-      </Route>
-      <Route
-        path={[BasePaths.user, BasePaths.admin, `/country${BasePaths.country}`, BasePaths.country, BasePaths.root]}
-        render={(props) => (
-          <DynamicImport
-            {...props}
-            load={() => import('../app/appViewExport')}
-          />
-        )}
-      />
-      }
-    </Switch>
+    <>
+      <Switch>
+        <Route exact path={BasePaths.login}>
+          <Login />
+        </Route>
+        <Route
+          path={[BasePaths.user, BasePaths.admin, `/country${BasePaths.country}`, BasePaths.country, BasePaths.root]}
+          render={(props) => (
+            <DynamicImport
+              {...props}
+              load={() => import('../app/appViewExport')}
+            />
+          )}
+        />
+      </Switch>
+      <ErrorComponent/>
+    </>
   )
 }
 
