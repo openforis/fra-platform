@@ -88,13 +88,13 @@ and China.`,
       title: 'Primary forest % of forest area (2020)',
     },
     forestOwnership: {
-      title: 'Forest Ownership (2015)',
+      title: '$t(forestOwnership.forestOwnership) (2015)',
     },
     forestAreaWithinProtectedAreas: {
-      title: 'Forest Area within Protected Areas (1990 - 2020)',
+      title: '$t(forestAreaWithinProtectedAreas.header) (1990 - 2020)',
     },
     primaryDesignatedManagementObjective: {
-      title: 'Primary Designated Management Objective (1990 - 2020)',
+      title: '$t(designatedManagementObjective.primaryDesignatedManagementObjective) (1990 - 2020)',
       rowName: '',
       conservation: '$t(designatedManagementObjective.biodiversityConservation)',
       multiple_use: '$t(designatedManagementObjective.multipleUse)',

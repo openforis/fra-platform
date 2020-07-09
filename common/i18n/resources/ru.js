@@ -48,6 +48,55 @@ and China.`,
     sendFeedback: 'Направить отзыв',
   },
 
+  statisticalFactsheets: {
+    rowName: {
+      forest_area: 'Площадь лесов',
+      natural_forest_area: 'Natural forest area',
+      planted_forest: '$t(forestCharacteristics.plantedForest)',
+      forest_area_within_protected_areas: '$t(forestAreaWithinProtectedAreas.header)',
+      land_area: 'Land Area',
+      primary_forest: '$t(specificForestCategories.primaryForest)',
+      private_ownership: '$t(forestOwnership.privateOwnership)',
+      public_ownership: '$t(forestOwnership.publicOwnership)',
+      other_or_unknown: 'Other or unknown',
+    },
+    forestArea: {
+      title: 'Площадь лесов (1990 - 2020)',
+    },
+    carbonAndGrowingStock: {
+      title: 'Carbon and Growing Stock (1990 - 2020)',
+      rowName: '',
+      carbon_stock_biomass_total: 'Carbon stock in biomass',
+      carbon_stock_total: 'Total carbon stock',
+      growing_stock_total: '$t(growingStock.growingStock)',
+    },
+    forestAreaPercent: {
+      title: 'Площадь лесов (2020)',
+    },
+    primaryForest: {
+      title: 'Primary forest % of forest area (2020)',
+    },
+    forestOwnership: {
+      title: '$t(forestOwnership.forestOwnership) (2015)',
+    },
+    forestAreaWithinProtectedAreas: {
+      title: '$t(forestAreaWithinProtectedAreas.header) (1990 - 2020)',
+    },
+    primaryDesignatedManagementObjective: {
+      title: '$t(designatedManagementObjective.primaryDesignatedManagementObjective) (1990 - 2020)',
+      rowName: '',
+      conservation: '$t(designatedManagementObjective.biodiversityConservation)',
+      multiple_use: '$t(designatedManagementObjective.multipleUse)',
+      other: '$t(designatedManagementObjective.other)',
+      production: '$t(designatedManagementObjective.production)',
+      protection_of_soil_and_water: '$t(designatedManagementObjective.soilWaterProtection)',
+      social_services: '$t(designatedManagementObjective.socialServices)',
+    },
+    naturallyRegeneratingForest: {
+      title: 'Naturally regenerating forest and planted forest (1990 - 2020)',
+    },
+  },
+
   disclaimer: {
     part1: 'This website has been produced with the assistance of the ',
     europeanUnion: 'European Union',
