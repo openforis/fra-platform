@@ -4,9 +4,10 @@ import React, { useEffect, useRef, useState } from 'react'
 import { getRoleForCountryLabelKey } from '@common/countryRole'
 import { Area } from '@common/country'
 
-import { useCountryIso, useI18n, useIsHome, useUserInfo } from '@webapp/components/hooks'
+import { useCountryIso, useI18n, useIsHome, useNavigationVisible, useUserInfo } from '@webapp/components/hooks'
 import Icon from '@webapp/components/icon'
 
+import LinkLanding from './linkLanding'
 import CountryList from './countryList'
 import ToggleNavigationControl from './toggleNavigationControl'
 
@@ -15,6 +16,7 @@ const CountrySelection = () => {
   const userInfo = useUserInfo()
   const i18n = useI18n()
   const isHome = useIsHome()
+  const navigationVisible = useNavigationVisible()
 
   const countrySelectionRef = useRef(null)
   const [open, setOpen] = useState(false)
@@ -33,6 +35,8 @@ const CountrySelection = () => {
 
   return (
     <div className="country-selection">
+      {navigationVisible && <LinkLanding />}
+
       <ToggleNavigationControl />
 
       <div className="country-selection__select-label">{i18n.t('common.selectArea')}</div>

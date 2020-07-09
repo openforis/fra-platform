@@ -11,7 +11,6 @@ import * as FRA from '@common/assessment/fra'
 // import * as CountryState from '@webapp/app/country/countryState'
 
 import Assessment from './components/assessment'
-import LinkLanding from './components/linkLanding'
 import LinkPanEuropeanIndicators from './components/linkPanEuropeanIndicators'
 
 const Navigation = () => {
@@ -21,8 +20,6 @@ const Navigation = () => {
 
   return (
     <div className="nav no-print">
-      <LinkLanding />
-
       <Assessment assessment={FRA} />
 
       <LinkPanEuropeanIndicators />
