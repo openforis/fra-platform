@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import { applicationError } from '@webapp/app/components/error/actions'
+import { applicationError } from '@webapp/components/error/actions'
 
 export const sustainableDevelopmentFetchCompleted = 'sustainableDevelopment/fetch/completed'
 

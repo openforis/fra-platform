@@ -13,7 +13,6 @@ import Navigation from '@webapp/app/components/navigation/navigation'
 import Review from '@webapp/app/assessment/components/review/review'
 import UserChat from '@webapp/app/user/chat/userChatView'
 import MessageBoardPanel from '@webapp/app/countryLanding/views/messageBoard/messageBoardPanel'
-import ErrorComponent from '@webapp/app/components/error/errorComponent'
 import AssessmentPrintView from '@webapp/app/assessment/components/print/assessmentPrintView'
 
 import * as CountryState from '@webapp/app/country/countryState'
@@ -78,7 +77,6 @@ const LoggedInView = () => {
             </Switch>
           </div>
         </div>
-        <ErrorComponent />
       </Route>
     </Switch>
   )

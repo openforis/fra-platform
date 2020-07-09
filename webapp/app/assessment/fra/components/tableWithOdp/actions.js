@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { applicationError } from '@webapp/app/components/error/actions'
+import { applicationError } from '@webapp/components/error/actions'
 import * as autosave from '../../../../components/autosave/actions'
 
 export const valuesFetched = name => `${name}/value/fetch/completed`

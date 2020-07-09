@@ -2,7 +2,7 @@ import * as table from './table'
 import * as R from 'ramda'
 import axios from 'axios'
 import * as autosave from '../../../components/autosave/actions'
-import { applicationError } from '@webapp/app/components/error/actions'
+import { applicationError } from '@webapp/components/error/actions'
 
 export const tableValueChangedAction = 'traditionalTable/tableValueChanged'
 
