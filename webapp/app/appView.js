@@ -18,6 +18,8 @@ import AssessmentPrintView from '@webapp/app/assessment/components/print/assessm
 import * as CountryState from '@webapp/app/country/countryState'
 import { fetchCountryInitialData, fetchCountryList } from '@webapp/app/country/actions'
 
+import Footer from '@webapp/components/footer'
+
 import routes from './routes'
 
 const LoggedInView = () => {
@@ -77,6 +79,7 @@ const LoggedInView = () => {
             </Switch>
           </div>
         </div>
+        <Footer />
       </Route>
     </Switch>
   )

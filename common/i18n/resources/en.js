@@ -50,6 +50,15 @@ the Russian Federation, Brazil, Canada, the United States of America
 and China.`,
   },
 
+  footer: {
+    contactUs: 'Contact us',
+    termsAndConditions: 'Terms and Conditions',
+    scamAlert: 'Scam Alert',
+    reportMisconduct: 'Report Misconduct',
+    userGuide: 'User guide',
+    sendFeedback: 'Send feedback',
+  },
+
   statisticalFactsheets: {
     rowName: {
       forest_area: 'Forest area',
@@ -435,13 +444,11 @@ The FRA team
     showAll: 'Show all',
     support: {
       dontDelete: 'System information please don’t remove',
-      sendFeedback: 'Send feedback',
       feedbackEmailSubject: 'FRA Platform Feedback',
       platformVersion: 'Platform version',
       userAgent: 'User agent',
       user: 'User',
       manageCollaborators: 'Manage collaborators',
-      userGuide: 'User guide',
     },
     sectionHeaders: {
       introduction: 'Introduction',

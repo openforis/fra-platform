@@ -39,6 +39,15 @@ the Russian Federation, Brazil, Canada, the United States of America
 and China.`,
   },
 
+  footer: {
+    contactUs: 'Связь с нами',
+    termsAndConditions: 'Положения и условия',
+    scamAlert: 'Опасайтесь мошенников',
+    reportMisconduct: 'Сообщить о нарушении',
+    userGuide: 'Руководство пользователя',
+    sendFeedback: 'Направить отзыв',
+  },
+
   disclaimer: {
     part1: 'This website has been produced with the assistance of the ',
     europeanUnion: 'European Union',
@@ -286,13 +295,11 @@ and China.`,
     showAll: 'Показать все',
     support: {
       dontDelete: 'Системная информация, просьба не удалять',
-      sendFeedback: 'Направить отзыв',
       feedbackEmailSubject: 'Обратная связь с платформой ОЛР',
       platformVersion: 'Версия платформы',
       userAgent: 'Агент пользователя',
       user: 'Пользователь',
       manageCollaborators: 'Координировать сотрудников',
-      userGuide: 'Руководство пользователя',
     },
     sectionHeaders: {
       introduction: 'Введение',

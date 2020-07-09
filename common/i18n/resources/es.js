@@ -40,6 +40,15 @@ el resto está localizado en las regiones boreales, templadas y subtropicales.`,
 países: la Federación de Rusia, Brasil, Canadá, los Estados Unidos de América y China.`,
   },
 
+  footer: {
+    contactUs: 'Contacto',
+    termsAndConditions: 'Términos y condiciones',
+    scamAlert: 'Alerta de estafa',
+    reportMisconduct: 'Reportar mala conducta',
+    userGuide: 'Guía del usuario',
+    sendFeedback: 'Enviar comentarios',
+  },
+
   disclaimer: {
     part1: 'Este portal se ha realizado con la asistencia de la ',
     europeanUnion: 'Unión Europea',
@@ -280,13 +289,11 @@ El equipo de FRA
     showAll: 'Mostrar todo',
     support: {
       dontDelete: 'No elimine la información del sistema',
-      sendFeedback: 'Enviar comentarios',
       feedbackEmailSubject: 'Comentarios de la plataforma de FRA',
       platformVersion: 'Versión de la plataforma',
       userAgent: 'Agente de usuario',
       user: 'Usuario',
       manageCollaborators: 'Gestionar colaboradores',
-      userGuide: 'Guía del usuario',
     },
     sectionHeaders: {
       introduction: 'Introducción',

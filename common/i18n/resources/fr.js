@@ -40,6 +40,15 @@ pays uniquement: la Fédération de Russie, le Brésil, le Canada, les États-Un
 d'Amérique et la Chine.`,
   },
 
+  footer: {
+    contactUs: 'Contactez-nous',
+    termsAndConditions: 'Termes et conditions',
+    scamAlert: 'Alerte aux messages frauduleux',
+    reportMisconduct: 'Signaler un cas de mauvaise conduite',
+    userGuide: "Guide de l'utilisateur",
+    sendFeedback: 'Envoyer réactions',
+  },
+
   disclaimer: {
     part1: `Ce site web a été réalisé avec le concours de l'`,
     europeanUnion: 'Union européenne',
@@ -281,13 +290,11 @@ L'équipe de FRA
     showAll: 'Montrer tout',
     support: {
       dontDelete: 'Information de système, ne pas supprimer',
-      sendFeedback: 'Envoyer réactions',
       feedbackEmailSubject: 'Réactions sur la plateforme de FRA',
       platformVersion: 'Version plateforme',
       userAgent: 'Agent utilisateur',
       user: 'Utilisateur',
       manageCollaborators: 'Gérer collaborateurs',
-      userGuide: "Guide de l'utilisateur",
     },
     sectionHeaders: {
       introduction: 'Introduction',
