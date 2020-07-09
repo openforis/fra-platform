@@ -11,8 +11,6 @@ const { findLocalUserByEmail, findUserById, fetchInvitation, findUserByEmail } =
 const { createResetPassword, findResetPassword, changePassword } = require('../user/userResetPasswordRepository')
 const { sendResetPasswordEmail } = require('./resetPassword')
 
-const Auth = require('./authApiMiddleware')
-
 const authenticationFailed = (req, res) => {
   req.logout()
   res.redirect('/login?loginFailed=true')
