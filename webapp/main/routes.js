@@ -8,10 +8,13 @@ import DynamicImport from '@webapp/components/dynamicImport'
 import Login from '@webapp/Login'
 import Loading from '@webapp/components/loading'
 import ErrorComponent from '@webapp/components/error/errorComponent'
+import Footer from '@webapp/components/footer'
 
 import * as AppState from '@webapp/app/appState'
 
 import { initApp } from '@webapp/app/actions'
+import Header from '@webapp/components/Header'
+import Landing from '@webapp/app/landing'
 
 const Routes = () => {
   const dispatch = useDispatch()
@@ -28,21 +31,21 @@ const Routes = () => {
 
   return (
     <>
+      <Header />
+
       <Switch>
-        <Route exact path={[BasePaths.login, BasePaths.resetPassword]}>
-          <Login />
-        </Route>
+        <Route exact path={BasePaths.root} component={Landing} />
+
+        <Route exact path={[BasePaths.login, BasePaths.resetPassword]} component={Login} />
+
         <Route
-          path={[BasePaths.user, BasePaths.admin, `/country${BasePaths.country}`, BasePaths.country, BasePaths.root]}
-          render={(props) => (
-            <DynamicImport
-              {...props}
-              load={() => import('../app/appViewExport')}
-            />
-          )}
+          path={[BasePaths.user, BasePaths.admin, `/country${BasePaths.country}`, BasePaths.country]}
+          render={(props) => <DynamicImport {...props} load={() => import('../app/appViewExport')} />}
         />
       </Switch>
-      <ErrorComponent/>
+
+      <Footer />
+      <ErrorComponent />
     </>
   )
 }

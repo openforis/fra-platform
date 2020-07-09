@@ -2,11 +2,11 @@
 
 .app-view {
   display: grid;
-  grid-template-rows: @ui-app-header-height calc(100% - @ui-app-header-height);
-  height: 100vh;
-  width: 100vw;
-  //overflow-y: hidden;
-  //overflow-x: auto;
+  grid-template-columns: 0 1fr;
+  grid-template-areas: 'navigation content';
+  &.navigation-on {
+    grid-template-columns: @ui-app-navigation-width 1fr;
+  }
 
   .margin-right {
     margin-right: 8px;
@@ -37,23 +37,10 @@
   width: ~'calc(100vw - @{ui-app-review-width})';
 }
 
-.app-view__container {
-  display: grid;
-  grid-template-columns: 0 1fr;
-  grid-template-rows: @ui-app-area-select-height 1fr;
-  grid-template-areas: 'navigation country-selection' 'navigation content';
-
-  &.navigation-on {
-    grid-template-columns: @ui-app-navigation-width 1fr;
-  }
-}
-
 .app-view__content {
   grid-area: content;
   height: 100%;
   padding: 28px 32px 48px 32px;
-  overflow-x: hidden;
-  overflow-y: auto;
 }
 
 .app-view__page-header {

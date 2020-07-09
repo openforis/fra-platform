@@ -7,8 +7,7 @@ import * as BasePaths from '@webapp/main/basePaths'
 import { batchActions } from '@webapp/main/reduxBatch'
 
 import { useNavigationVisible, useUserInfo } from '@webapp/components/hooks'
-import Header from '@webapp/components/Header'
-import CountrySelection from '@webapp/app/components/countrySelection'
+import CountrySelection from '@webapp/components/countrySelection'
 import Navigation from '@webapp/app/components/navigation/navigation'
 import Review from '@webapp/app/assessment/components/review/review'
 import UserChat from '@webapp/app/user/chat/userChatView'
@@ -17,8 +16,6 @@ import AssessmentPrintView from '@webapp/app/assessment/components/print/assessm
 
 import * as CountryState from '@webapp/app/country/countryState'
 import { fetchCountryInitialData, fetchCountryList } from '@webapp/app/country/actions'
-
-import Footer from '@webapp/components/footer'
 
 import routes from './routes'
 
@@ -67,19 +64,16 @@ const LoggedInView = () => {
             <MessageBoardPanel />
           </>
         )}
-        <div className="app-view">
-          <Header />
-          <div className={`app-view__container ${navigationVisible ? ' navigation-on' : ''}`}>
-            <Navigation />
-            <CountrySelection />
-            <Switch>
-              {routes.map((route) => (
-                <Route key={route.path} path={route.path} component={route.component} />
-              ))}
-            </Switch>
-          </div>
+
+        <CountrySelection />
+        <div className={`app-view ${navigationVisible ? ' navigation-on' : ''}`}>
+          <Navigation />
+          <Switch>
+            {routes.map((route) => (
+              <Route key={route.path} path={route.path} component={route.component} />
+            ))}
+          </Switch>
         </div>
-        <Footer />
       </Route>
     </Switch>
   )
