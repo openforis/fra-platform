@@ -9,7 +9,7 @@ import Header from '@webapp/components/Header'
 import Partners from '@webapp/components/Partners'
 
 import LoginForm from './LoginForm'
-import ResetPasswordForm from './components/resetPasswordForm'
+import ResetPasswordForm from './ResetPasswordForm'
 
 const Login = () => (
   <div className="app-view">
