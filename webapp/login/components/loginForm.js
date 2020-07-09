@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import * as R from 'ramda'
 
-import { userType } from '@common/userUtils'
 import { getUrlParameter } from '@webapp/utils/urlUtils'
 
 import Icon from '@webapp/components/icon'
@@ -23,9 +22,7 @@ const LoginFailed = () => (
 )
 
 const LoginForm = () => {
-  const { status, invitation, user } = useSelector(R.path(['login', 'login']))
-  const onlyLoginGoogle = user.id && user.type === userType.google
-  const onlyLoginLocal = user.id && user.type === userType.local
+  const { status, invitation, user } = useSelector(R.pathOr({}, ['login', 'login']))
 
   const dispatch = useDispatch()
   const [loginLocal, setLoginLocal] = useState(false)
@@ -33,7 +30,7 @@ const LoginForm = () => {
 
   useEffect(() => {
     dispatch(initLogin())
-  })
+  }, [])
 
   if (status !== 'loaded') return null
 
@@ -41,23 +38,17 @@ const LoginForm = () => {
     <div>
       {loginFailed && <LoginFailed />}
 
-      {loginLocal || onlyLoginLocal ? (
-        <LocalLoginForm
-          onCancel={() => setLoginLocal(false)}
-          user={user}
-          onlyLocalLogin={onlyLoginLocal}
-          invitation={invitation}
-        />
+      {loginLocal ? (
+        <LocalLoginForm onCancel={() => setLoginLocal(false)} user={user} invitation={invitation} />
       ) : (
         <div>
           <a className="btn" href={`/auth/google${invitation ? `?i=${invitation.invitationUuid}` : ''}`}>
             Sign in with Google
           </a>
-          {!onlyLoginGoogle && (
-            <button className="btn" type="button" onClick={() => setLoginLocal(true)}>
-              Sign in with FRA
-            </button>
-          )}
+
+          <button className="btn" type="button" onClick={() => setLoginLocal(true)}>
+            Sign in with FRA
+          </button>
         </div>
       )}
     </div>
