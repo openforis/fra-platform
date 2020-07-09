@@ -21,6 +21,11 @@ const LocalLoginForm = (props) => {
     dispatch(localLoginReset())
   }, [])
 
+  const updateUserProp = (prop, value) => {
+    dispatch(loginUserPropChange(prop, value))
+    dispatch(localLoginReset())
+  }
+
   return (
     <>
       {forgotPassword && <ForgotPasswordFormModal onClose={() => setForgotPassword(false)} />}
@@ -45,14 +50,14 @@ const LocalLoginForm = (props) => {
           disabled={!!invitationUuid || !!user.id}
           type="text"
           placeholder="Email"
-          onChange={(event) => dispatch(loginUserPropChange('email', event.target.value))}
+          onChange={(event) => updateUserProp('email', event.target.value)}
         />
 
         <input
           value={user.password}
           type="password"
           placeholder="Password"
-          onChange={(event) => dispatch(loginUserPropChange('password', event.target.value))}
+          onChange={(event) => updateUserProp('password', event.target.value)}
         />
 
         {invitationUuid && !user.id && (
@@ -60,7 +65,7 @@ const LocalLoginForm = (props) => {
             value={user.password2}
             type="password"
             placeholder="Repeat password"
-            onChange={(event) => dispatch(loginUserPropChange('password2', event.target.value))}
+            onChange={(event) => updateUserProp('password2', event.target.value)}
           />
         )}
 
