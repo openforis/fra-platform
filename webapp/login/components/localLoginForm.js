@@ -1,98 +1,94 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import PropTypes from 'prop-types'
+import { useDispatch, useSelector } from 'react-redux'
 import * as R from 'ramda'
 
-import { connect } from 'react-redux'
-
-import { loginUserPropChange, localLoginSubmit, localLoginReset } from './../actions'
-
-import ForgotPasswordFormModal from './forgotPasswordFormModal'
 import Icon from '@webapp/components/icon'
 
-class LocalLoginForm extends React.Component {
+import { loginUserPropChange, localLoginSubmit, localLoginReset } from '../actions'
 
-  constructor (props) {
-    super(props)
-    this.state = {forgotPassword: false}
-  }
+import ForgotPasswordFormModal from './forgotPasswordFormModal'
 
-  componentDidMount () {
-    this.props.localLoginReset()
-  }
+const LocalLoginForm = (props) => {
+  const { invitation, user, onCancel } = props
+  const { invitationUuid } = invitation
 
-  render () {
-    const {
-      onCancel,
-      onlyLocalLogin,
-      user,
-      invitation = {},
-      localLoginSubmit,
-      loginUserPropChange,
-      message
-    } = this.props
+  const dispatch = useDispatch()
+  const message = useSelector(R.path(['login', 'localLogin', 'message']))
+  const [forgotPassword, setForgotPassword] = useState(false)
 
-    const {invitationUuid} = invitation
+  useEffect(() => {
+    dispatch(localLoginReset())
+  }, [])
 
-    return <div className="login__form">
+  return (
+    <>
+      {forgotPassword && <ForgotPasswordFormModal onClose={() => setForgotPassword(false)} />}
 
-      <input value={user.email} disabled={!!invitationUuid || !!user.id} type="text" placeholder="Email"
-             onChange={e => loginUserPropChange('email', e.target.value)}/>
-
-      <input value={user.password} type="password" placeholder="Password"
-             onChange={e => loginUserPropChange('password', e.target.value)}/>
-
-      {
-        invitationUuid && !user.id
-          ? <input value={user.password2} type="password" placeholder="Repeat password"
-                   onChange={e => loginUserPropChange('password2', e.target.value)}/>
-          : null
-      }
-
-      {
-        message
-          ? <div className="alert-error">
-            <div className="alert-icon">
-              <Icon name="alert"/>
-            </div>
-            <div className="alert-message">{
-              message.split('\n').map((item, i) =>
-                <span key={i}>{item}<br/></span>
-              )
-            }</div>
+      {message && (
+        <div className="login-form__error">
+          <Icon name="alert" />
+          <div>
+            {message.split('\n').map((item, i) => (
+              <span key={String(i)}>
+                {item}
+                <br />
+              </span>
+            ))}
           </div>
-          : null
-      }
+        </div>
+      )}
 
-      <div className="login__buttons">
-        {
-          onlyLocalLogin
-            ? null
-            : <button className="btn"
-                      type="reset"
-                      onClick={onCancel}>
-              Cancel
-            </button>
-        }
-        <button className="btn" type="button"
-                onClick={e => localLoginSubmit(user, invitationUuid)}>
-          Login
+      <div className="login__form">
+        <input
+          value={user.email}
+          disabled={!!invitationUuid || !!user.id}
+          type="text"
+          placeholder="Email"
+          onChange={(event) => dispatch(loginUserPropChange('email', event.target.value))}
+        />
+
+        <input
+          value={user.password}
+          type="password"
+          placeholder="Password"
+          onChange={(event) => dispatch(loginUserPropChange('password', event.target.value))}
+        />
+
+        {invitationUuid && !user.id && (
+          <input
+            value={user.password2}
+            type="password"
+            placeholder="Repeat password"
+            onChange={(event) => dispatch(loginUserPropChange('password2', event.target.value))}
+          />
+        )}
+
+        <div>
+          <button type="button" className="btn" onClick={onCancel}>
+            Cancel
+          </button>
+          <button type="button" className="btn" onClick={() => dispatch(localLoginSubmit(user, invitationUuid))}>
+            Login
+          </button>
+        </div>
+
+        <button type="button" className="btn-forgot-pwd" onClick={() => setForgotPassword(true)}>
+          Forgot your password ?
         </button>
       </div>
-
-      <a className="btn-forgot-pwd" onClick={() => this.setState({forgotPassword: true})}>Forgot your password ?</a>
-
-      {
-        this.state.forgotPassword
-          ? <ForgotPasswordFormModal email={R.path(['user', 'email'], this.state)}
-                                     onClose={() => this.setState({forgotPassword: false})}/>
-          : null
-      }
-
-    </div>
-  }
+    </>
+  )
 }
 
-const mapStateToProps = state => ({
-  message: R.path(['login', 'localLogin', 'message'], state)
-})
+LocalLoginForm.propTypes = {
+  invitation: PropTypes.object,
+  user: PropTypes.object.isRequired,
+  onCancel: PropTypes.func.isRequired,
+}
 
-export default connect(mapStateToProps, {loginUserPropChange, localLoginSubmit, localLoginReset})(LocalLoginForm)
+LocalLoginForm.defaultProps = {
+  invitation: {},
+}
+
+export default LocalLoginForm

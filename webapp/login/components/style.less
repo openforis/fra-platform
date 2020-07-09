@@ -15,6 +15,7 @@
   button {
     transition: all 0.2s;
     cursor: pointer;
+    outline: none;
   }
 
   .btn {
@@ -51,6 +52,7 @@
     padding: 14px 20px;
     outline: none;
     text-align: center;
+    color: @text-body;
   }
 
   input[type='text']:disabled {
@@ -58,20 +60,50 @@
   }
 
   .btn-forgot-pwd {
-    color: @text-body;
-    font-size: @font-s;
-    padding: 4px 0;
-    border-bottom: 1px solid transparent;
     justify-self: right;
+    align-self: start;
     margin-top: -30px;
-    margin-right: 14px;
+    padding: 4px 0;
+    border-top: unset;
+    border-right: unset;
+    border-left: unset;
+    border-bottom: 1px solid transparent;
+    border-radius: unset;
+    background-color: unset;
+    color: @text-link;
+    font-size: @font-s;
+    font-weight: normal;
 
     &:hover {
-      border-bottom: 1px solid @text-mute;
+      border-bottom: 1px solid rgba(@text-link, 0.7);
     }
   }
 }
 
+.login-form__error {
+  position: absolute;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  padding: 16px 0;
+  line-height: 16px;
+  background-color: @ui-destructive;
+
+  .icon {
+    margin-right: 8px;
+    flex-shrink: 0;
+    display: inline-block;
+    color: white;
+    fill: currentColor;
+    stroke: none;
+    height: 16px;
+    width: 16px;
+  }
+}
 //.login__container {
 //  position: absolute;
 //  width: 100vw;
