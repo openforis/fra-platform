@@ -46,6 +46,7 @@ d'Amérique et la Chine.`,
     scamAlert: 'Alerte aux messages frauduleux',
     reportMisconduct: 'Signaler un cas de mauvaise conduite',
     userGuide: "Guide de l'utilisateur",
+    sendFeedback: 'Envoyer réactions',
   },
 
   disclaimer: {
@@ -289,13 +290,11 @@ L'équipe de FRA
     showAll: 'Montrer tout',
     support: {
       dontDelete: 'Information de système, ne pas supprimer',
-      sendFeedback: 'Envoyer réactions',
       feedbackEmailSubject: 'Réactions sur la plateforme de FRA',
       platformVersion: 'Version plateforme',
       userAgent: 'Agent utilisateur',
       user: 'Utilisateur',
       manageCollaborators: 'Gérer collaborateurs',
-      userGuide: "Guide de l'utilisateur",
     },
     sectionHeaders: {
       introduction: 'Introduction',
