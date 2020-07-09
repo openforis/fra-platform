@@ -11,8 +11,6 @@ const { findLocalUserByEmail, findUserById, fetchInvitation, findUserByEmail } =
 const { createResetPassword, findResetPassword, changePassword } = require('../user/userResetPasswordRepository')
 const { sendResetPasswordEmail } = require('./resetPassword')
 
-const Auth = require('./authApiMiddleware')
-
 const authenticationFailed = (req, res) => {
   req.logout()
   res.redirect('/login?loginFailed=true')
@@ -137,7 +135,7 @@ module.exports.init = app => {
     }
   })
 
-  app.post('/auth/local/changePassword', Auth.requireCountryEditPermission, async (req, res) => {
+  app.post('/auth/local/changePassword', async (req, res) => {
     try {
 
       const sendResp = (error = null, message = null) =>

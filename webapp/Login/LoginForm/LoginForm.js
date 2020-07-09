@@ -6,7 +6,7 @@ import { getUrlParameter } from '@webapp/utils/urlUtils'
 
 import { initLogin } from '../actions'
 
-import Error from './Error'
+import Error from '../Error'
 import LocalLogin from './LocalLogin'
 
 const LoginForm = () => {
