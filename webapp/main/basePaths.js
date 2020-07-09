@@ -7,6 +7,7 @@ const pathFragments = {
   onlyTables: 'onlyTables',
   print: 'print',
   profilePicture: 'profilePicture',
+  resetPassword: 'resetPassword',
   user: 'user',
   users: 'users',
   versioning: 'versioning',
@@ -30,6 +31,7 @@ const _pathGenerator = (...parts) => `/${parts.filter((p) => !!p).join('/')}/`
 // ==== application paths
 export const root = '/'
 export const login = _pathGenerator(pathFragments.login)
+export const resetPassword = _pathGenerator(pathFragments.login, pathFragments.resetPassword)
 
 export const country = _pathGenerator(pathFragments.params.countryIso)
 export const admin = _pathGenerator(pathFragments.admin)

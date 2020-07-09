@@ -1,98 +1,67 @@
-import React from 'react'
-import { connect } from 'react-redux'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import * as R from 'ramda'
 
 import { userType } from '@common/userUtils'
-
-import { initLogin } from '../actions'
 import { getUrlParameter } from '@webapp/utils/urlUtils'
 
 import Icon from '@webapp/components/icon'
 
+import { initLogin } from '../actions'
+
 import LocalLoginForm from './localLoginForm'
 
-const LoginFailed = () =>
+const LoginFailed = () => (
   <div className="alert-container">
     <div className="alert-error">
       <div className="alert-icon">
-        <Icon name="alert"/>
+        <Icon name="alert" />
       </div>
       <div className="alert-message">User not authorized</div>
     </div>
   </div>
+)
 
-class LoginForm extends React.Component {
+const LoginForm = () => {
+  const { status, invitation, user } = useSelector(R.path(['login', 'login']))
+  const onlyLoginGoogle = user.id && user.type === userType.google
+  const onlyLoginLocal = user.id && user.type === userType.local
 
-  constructor () {
-    super()
-    this.state = {localLogin: false}
-  }
+  const dispatch = useDispatch()
+  const [loginLocal, setLoginLocal] = useState(false)
+  const loginFailed = getUrlParameter('loginFailed')
 
-  componentDidMount () {
-    this.props.initLogin()
-  }
+  useEffect(() => {
+    dispatch(initLogin())
+  })
 
-  onlyLoginType (type) {
-    const {user} = this.props
-    return user.id && user.type === type
-  }
+  if (status !== 'loaded') return null
 
-  onlyLocalLogin () {
-    return this.onlyLoginType(userType.local)
+  return (
+    <div>
+      {loginFailed && <LoginFailed />}
 
-  }
-
-  onlyGoogleLogin () {
-    return this.onlyLoginType(userType.google)
-
-  }
-
-  render () {
-    const loginFailed = getUrlParameter('loginFailed')
-
-    const {status, invitation, user} = this.props
-
-    return status === 'loaded'
-      ? <div>
-        {
-          loginFailed
-            ? <LoginFailed/>
-            : null
-        }
-
-        <h2>Login to FRA Platform</h2>
-        {
-          this.state.localLogin || this.onlyLocalLogin()
-            ? <LocalLoginForm
-              onCancel={() => this.setState({localLogin: false})}
-              user={user}
-              onlyLocalLogin={this.onlyLocalLogin()}
-              invitation={invitation}
-            />
-            : <div>
-              <a className="btn"
-                 href={`/auth/google${invitation ? `?i=${invitation.invitationUuid}` : ''}`}>
-                Sign in with Google
-              </a>
-              {
-                this.onlyGoogleLogin()
-                  ? null
-                  : <button className="btn" type="button"
-                            onClick={() => this.setState({localLogin: true})}>
-                    Sign in with FRA
-                  </button>
-              }
-            </div>
-        }
-      </div>
-      : null
-  }
+      {loginLocal || onlyLoginLocal ? (
+        <LocalLoginForm
+          onCancel={() => setLoginLocal(false)}
+          user={user}
+          onlyLocalLogin={onlyLoginLocal}
+          invitation={invitation}
+        />
+      ) : (
+        <div>
+          <a className="btn" href={`/auth/google${invitation ? `?i=${invitation.invitationUuid}` : ''}`}>
+            Sign in with Google
+          </a>
+          {!onlyLoginGoogle && (
+            <button className="btn" type="button" onClick={() => setLoginLocal(true)}>
+              Sign in with FRA
+            </button>
+          )}
+        </div>
+      )}
+    </div>
+  )
 }
 
-const mapStateToProps = state => ({
-  status: R.path(['login', 'login', 'status'], state),
-  invitation: R.path(['login', 'login', 'invitation'], state),
-  user: R.path(['login', 'login', 'user'], state)
-})
-
-export default connect(mapStateToProps, {initLogin})(LoginForm)
+export default LoginForm

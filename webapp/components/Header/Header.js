@@ -1,6 +1,6 @@
 import './header.less'
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, matchPath, useLocation } from 'react-router-dom'
 
 import * as BasePaths from '@webapp/main/basePaths'
 
@@ -14,6 +14,8 @@ import LinkHome from './components/linkHome'
 const Header = () => {
   const userInfo = useUserInfo()
   const i18n = useI18n()
+  const { pathname } = useLocation()
+  const isLogin = Boolean(matchPath(pathname, { path: BasePaths.login }))
 
   return (
     <div className="app-header no-print">
@@ -29,9 +31,9 @@ const Header = () => {
       <div className="app-header__menu">
         <LanguageSelection />
 
-        {userInfo ? (
-          <UserInfoLinks />
-        ) : (
+        {userInfo && <UserInfoLinks />}
+
+        {!userInfo && !isLogin && (
           <Link key="admin-link" to={BasePaths.login} className="app-header__menu-item">
             {i18n.t('common.login')}
           </Link>
