@@ -13,7 +13,6 @@ import * as FRA from '@common/assessment/fra'
 import Assessment from './components/assessment'
 import LinkLanding from './components/linkLanding'
 import LinkPanEuropeanIndicators from './components/linkPanEuropeanIndicators'
-import Footer from './components/footer'
 
 const Navigation = () => {
   // const countryIso = useCountryIso()
@@ -35,8 +34,6 @@ const Navigation = () => {
       {/*     <div className="nav__divider" /> */}
       {/*   </> */}
       {/* )} */}
-
-      <Footer />
     </div>
   )
 }

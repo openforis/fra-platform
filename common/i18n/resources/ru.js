@@ -39,6 +39,14 @@ the Russian Federation, Brazil, Canada, the United States of America
 and China.`,
   },
 
+  footer: {
+    contactUs: 'Связь с нами',
+    termsAndConditions: 'Положения и условия',
+    scamAlert: 'Опасайтесь мошенников',
+    reportMisconduct: 'Сообщить о нарушении',
+    userGuide: 'Руководство пользователя',
+  },
+
   disclaimer: {
     part1: 'This website has been produced with the assistance of the ',
     europeanUnion: 'European Union',

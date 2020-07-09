@@ -50,6 +50,14 @@ the Russian Federation, Brazil, Canada, the United States of America
 and China.`,
   },
 
+  footer: {
+    contactUs: 'Contact us',
+    termsAndConditions: 'Terms and Conditions',
+    scamAlert: 'Scam Alert',
+    reportMisconduct: 'Report Misconduct',
+    userGuide: 'User guide',
+  },
+
   statisticalFactsheets: {
     rowName: {
       forest_area: 'Forest area',
@@ -441,7 +449,6 @@ The FRA team
       userAgent: 'User agent',
       user: 'User',
       manageCollaborators: 'Manage collaborators',
-      userGuide: 'User guide',
     },
     sectionHeaders: {
       introduction: 'Introduction',

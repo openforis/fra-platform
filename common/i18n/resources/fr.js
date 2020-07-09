@@ -40,6 +40,14 @@ pays uniquement: la Fédération de Russie, le Brésil, le Canada, les États-Un
 d'Amérique et la Chine.`,
   },
 
+  footer: {
+    contactUs: 'Contactez-nous',
+    termsAndConditions: 'Termes et conditions',
+    scamAlert: 'Alerte aux messages frauduleux',
+    reportMisconduct: 'Signaler un cas de mauvaise conduite',
+    userGuide: "Guide de l'utilisateur",
+  },
+
   disclaimer: {
     part1: `Ce site web a été réalisé avec le concours de l'`,
     europeanUnion: 'Union européenne',
