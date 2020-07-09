@@ -11,6 +11,11 @@
   background-color: @ui-bg;
   border-bottom: @ui-thin-border;
   height: 50px;
+  // allowing full width of box shadow
+  box-shadow: 0 5px 4px -4px rgba(@text-body, 0.5);
+  width: calc(100vw + 10px);
+  margin-left: -5px;
+  padding: 0 5px;
 }
 
 .btn-toggle-navigation {
@@ -50,7 +55,7 @@
 
 .country-selection__country {
   position: absolute;
-  right: 22px;
+  right: 30px;
   display: flex;
   align-items: center;
   color: @text-body;
