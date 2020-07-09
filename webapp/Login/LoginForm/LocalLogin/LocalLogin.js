@@ -3,13 +3,12 @@ import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 import * as R from 'ramda'
 
-import Icon from '@webapp/components/icon'
+import { loginUserPropChange, localLoginSubmit, localLoginReset } from '../../actions'
 
-import { loginUserPropChange, localLoginSubmit, localLoginReset } from '../actions'
+import Error from '../Error'
+import ForgotPassword from '../ForgotPassword'
 
-import ForgotPasswordFormModal from './forgotPasswordFormModal'
-
-const LocalLoginForm = (props) => {
+const LocalLogin = (props) => {
   const { invitation, user, onCancel } = props
   const { invitationUuid } = invitation
 
@@ -26,23 +25,11 @@ const LocalLoginForm = (props) => {
     dispatch(localLoginReset())
   }
 
+  if (forgotPassword) return <ForgotPassword onClose={() => setForgotPassword(false)} />
+
   return (
     <>
-      {forgotPassword && <ForgotPasswordFormModal onClose={() => setForgotPassword(false)} />}
-
-      {message && (
-        <div className="login-form__error">
-          <Icon name="alert" />
-          <div>
-            {message.split('\n').map((item, i) => (
-              <span key={String(i)}>
-                {item}
-                <br />
-              </span>
-            ))}
-          </div>
-        </div>
-      )}
+      <Error error={message} />
 
       <div className="login__form">
         <input
@@ -86,14 +73,14 @@ const LocalLoginForm = (props) => {
   )
 }
 
-LocalLoginForm.propTypes = {
+LocalLogin.propTypes = {
   invitation: PropTypes.object,
   user: PropTypes.object.isRequired,
   onCancel: PropTypes.func.isRequired,
 }
 
-LocalLoginForm.defaultProps = {
+LocalLogin.defaultProps = {
   invitation: {},
 }
 
-export default LocalLoginForm
+export default LocalLogin

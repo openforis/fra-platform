@@ -1,4 +1,4 @@
-import './components/style.less'
+import './login.less'
 
 import React from 'react'
 import { Route } from 'react-router-dom'
@@ -8,10 +8,10 @@ import * as BasePaths from '@webapp/main/basePaths'
 import Header from '@webapp/components/Header'
 import Partners from '@webapp/components/Partners'
 
-import LoginForm from './components/loginForm'
+import LoginForm from './LoginForm'
 import ResetPasswordForm from './components/resetPasswordForm'
 
-const LoginView = () => (
+const Login = () => (
   <div className="app-view">
     <Header />
     <div>
@@ -31,4 +31,4 @@ const LoginView = () => (
   </div>
 )
 
-export default LoginView
+export default Login

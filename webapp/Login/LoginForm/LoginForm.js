@@ -4,22 +4,10 @@ import * as R from 'ramda'
 
 import { getUrlParameter } from '@webapp/utils/urlUtils'
 
-import Icon from '@webapp/components/icon'
-
 import { initLogin } from '../actions'
 
-import LocalLoginForm from './localLoginForm'
-
-const LoginFailed = () => (
-  <div className="alert-container">
-    <div className="alert-error">
-      <div className="alert-icon">
-        <Icon name="alert" />
-      </div>
-      <div className="alert-message">User not authorized</div>
-    </div>
-  </div>
-)
+import Error from './Error'
+import LocalLogin from './LocalLogin'
 
 const LoginForm = () => {
   const { status, invitation, user } = useSelector(R.pathOr({}, ['login', 'login']))
@@ -36,10 +24,10 @@ const LoginForm = () => {
 
   return (
     <div>
-      {loginFailed && <LoginFailed />}
+      <Error error={loginFailed ? 'User not authorized' : null} />
 
       {loginLocal ? (
-        <LocalLoginForm onCancel={() => setLoginLocal(false)} user={user} invitation={invitation} />
+        <LocalLogin onCancel={() => setLoginLocal(false)} user={user} invitation={invitation} />
       ) : (
         <div>
           <a className="btn" href={`/auth/google${invitation ? `?i=${invitation.invitationUuid}` : ''}`}>
