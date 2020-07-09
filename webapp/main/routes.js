@@ -9,12 +9,12 @@ import Login from '@webapp/Login'
 import Loading from '@webapp/components/loading'
 import ErrorComponent from '@webapp/components/error/errorComponent'
 import Footer from '@webapp/components/footer'
+import Header from '@webapp/components/Header'
+import Landing from '@webapp/app/landing'
 
 import * as AppState from '@webapp/app/appState'
 
 import { initApp } from '@webapp/app/actions'
-import Header from '@webapp/components/Header'
-import Landing from '@webapp/app/landing'
 
 const Routes = () => {
   const dispatch = useDispatch()
@@ -39,7 +39,7 @@ const Routes = () => {
         <Route exact path={[BasePaths.login, BasePaths.resetPassword]} component={Login} />
 
         <Route
-          path={[BasePaths.user, BasePaths.admin, `/country${BasePaths.country}`, BasePaths.country]}
+          path={[BasePaths.user, BasePaths.admin, BasePaths.country]}
           render={(props) => <DynamicImport {...props} load={() => import('../app/appViewExport')} />}
         />
       </Switch>

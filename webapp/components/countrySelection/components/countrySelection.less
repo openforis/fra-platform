@@ -1,7 +1,10 @@
 @import (reference) 'webapp/main/styles/config';
 
 .country-selection {
-  position: relative;
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 0;
+  z-index: @z-index-select-area;
   grid-area: country-selection;
   display: flex;
   align-items: center;

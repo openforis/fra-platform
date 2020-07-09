@@ -1,5 +1,6 @@
 import './countrySelection.less'
 import React, { useEffect, useRef, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { getRoleForCountryLabelKey } from '@common/countryRole'
 import { Area } from '@common/country'
@@ -7,16 +8,21 @@ import { Area } from '@common/country'
 import { useCountryIso, useI18n, useIsHome, useNavigationVisible, useUserInfo } from '@webapp/components/hooks'
 import Icon from '@webapp/components/icon'
 
+import * as CountryState from '@webapp/app/country/countryState'
+import { fetchCountryList } from '@webapp/app/country/actions'
+
 import LinkLanding from './linkLanding'
 import CountryList from './countryList'
 import ToggleNavigationControl from './toggleNavigationControl'
 
 const CountrySelection = () => {
+  const dispatch = useDispatch()
   const countryIso = useCountryIso()
   const userInfo = useUserInfo()
   const i18n = useI18n()
   const isHome = useIsHome()
   const navigationVisible = useNavigationVisible()
+  const countriesLoaded = useSelector(CountryState.hasCountries)
 
   const countrySelectionRef = useRef(null)
   const [open, setOpen] = useState(false)
@@ -26,6 +32,7 @@ const CountrySelection = () => {
   }
 
   useEffect(() => {
+    dispatch(fetchCountryList())
     window.addEventListener('click', outsideClick)
 
     return () => {
@@ -46,6 +53,7 @@ const CountrySelection = () => {
         className="btn btn-country-selection no-print"
         ref={countrySelectionRef}
         onClick={() => setOpen(!open)}
+        disabled={!countriesLoaded}
       >
         <div>- {i18n.t('common.select')} -</div>
         <Icon name="small-down" />

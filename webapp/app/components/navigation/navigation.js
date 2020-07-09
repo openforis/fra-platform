@@ -23,7 +23,6 @@ const Navigation = () => {
       <Assessment assessment={FRA} />
 
       <LinkPanEuropeanIndicators />
-      <div className="nav__divider" />
 
       {/* {showPanEuropean && ( */}
       {/*   <> */}

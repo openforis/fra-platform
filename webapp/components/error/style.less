@@ -1,11 +1,11 @@
-@import (reference) "~@webapp/main/styles/config";
+@import (reference) 'webapp/main/styles/config';
 
 .alert-container {
   position: fixed;
   top: 0;
   right: 0;
   left: 0;
-  z-index: 10;
+  z-index: @z-index-popover;
 }
 
 .alert-error {
@@ -23,7 +23,7 @@
   line-height: 16px;
 
   svg {
-    color: white
+    color: white;
   }
 
   .alert-icon {
