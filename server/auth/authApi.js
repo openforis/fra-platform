@@ -95,7 +95,7 @@ module.exports.init = app => {
 
   // reset / change passwords apis
 
-  app.post('/auth/local/resetPassword', Auth.requireCountryEditPermission, async (req, res) => {
+  app.post('/auth/local/resetPassword', async (req, res) => {
     try {
 
       const email = req.body.email
