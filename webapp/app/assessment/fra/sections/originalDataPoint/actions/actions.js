@@ -9,7 +9,7 @@ import { readPasteClipboard } from '@webapp/utils/copyPasteUtil'
 import { acceptNextDecimal } from '@webapp/utils/numberInput'
 
 import * as AppState from '@webapp/app/appState'
-import { applicationError } from '@webapp/app/components/error/actions'
+import { applicationError } from '@webapp/components/error/actions'
 import * as autosave from '@webapp/app/components/autosave/actions'
 import { fetchCountryOverviewStatus } from '@webapp/app/country/actions'
 

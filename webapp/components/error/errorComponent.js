@@ -5,7 +5,7 @@ import Icon from '@webapp/components/icon'
 import './style.less'
 
 import * as AppState from '@webapp/app/appState'
-import * as ApplicationErrorState from '@webapp/app/components/error/applicationErrorState'
+import * as ApplicationErrorState from '@webapp/components/error/applicationErrorState'
 
 const ErrorBox = ({error, i18n, clearApplicationError}) =>
   <div className="alert-container">
