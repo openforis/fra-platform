@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 import * as R from 'ramda'
 
-import Error from '../Error'
+import Error from '../../Error'
 
 import { resetPassword, resetPasswordFormReset } from '../../actions'
 

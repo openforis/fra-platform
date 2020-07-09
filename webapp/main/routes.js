@@ -29,7 +29,7 @@ const Routes = () => {
   return (
     <>
       <Switch>
-        <Route exact path={BasePaths.login}>
+        <Route exact path={[BasePaths.login, BasePaths.resetPassword]}>
           <Login />
         </Route>
         <Route

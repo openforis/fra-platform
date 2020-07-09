@@ -137,7 +137,7 @@ module.exports.init = app => {
     }
   })
 
-  app.post('/auth/local/changePassword', Auth.requireCountryEditPermission, async (req, res) => {
+  app.post('/auth/local/changePassword', async (req, res) => {
     try {
 
       const sendResp = (error = null, message = null) =>

@@ -5,7 +5,7 @@ import * as R from 'ramda'
 
 import { loginUserPropChange, localLoginSubmit, localLoginReset } from '../../actions'
 
-import Error from '../Error'
+import Error from '../../Error'
 import ForgotPassword from '../ForgotPassword'
 
 const LocalLogin = (props) => {
@@ -33,7 +33,7 @@ const LocalLogin = (props) => {
 
       <div className="login__form">
         <input
-          value={user.email}
+          value={user.email || ''}
           disabled={!!invitationUuid || !!user.id}
           type="text"
           placeholder="Email"
@@ -41,7 +41,7 @@ const LocalLogin = (props) => {
         />
 
         <input
-          value={user.password}
+          value={user.password || ''}
           type="password"
           placeholder="Password"
           onChange={(event) => updateUserProp('password', event.target.value)}
@@ -49,7 +49,7 @@ const LocalLogin = (props) => {
 
         {invitationUuid && !user.id && (
           <input
-            value={user.password2}
+            value={user.password2 || ''}
             type="password"
             placeholder="Repeat password"
             onChange={(event) => updateUserProp('password2', event.target.value)}
