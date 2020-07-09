@@ -5,7 +5,6 @@ import { useDispatch } from 'react-redux'
 import { useParams } from 'react-router'
 import { batchActions } from '@webapp/main/reduxBatch'
 
-import { Area } from '@common/country'
 import * as SectionSpec from '@webapp/app/assessment/components/section/sectionSpec'
 
 import { useCountryIso, useIsDataExportView } from '@webapp/components/hooks'
@@ -27,11 +26,9 @@ const AssessmentSectionView = () => {
 
   // eslint-disable-next-line consistent-return
   useEffect(() => {
-    // scroll to top
     document.documentElement.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
 
-    // fetch data if it's country
-    if (Area.isISOCountry(countryIso)) {
+    if (!isDataExport) {
       dispatch(
         batchActions([
           ...tables.map((table) =>

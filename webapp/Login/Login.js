@@ -5,27 +5,21 @@ import { Route } from 'react-router-dom'
 
 import * as BasePaths from '@webapp/main/basePaths'
 
-import Partners from '@webapp/components/Partners'
-
 import LoginForm from './LoginForm'
 import ResetPasswordForm from './ResetPasswordForm'
 
 const Login = () => (
-  <>
-    <div className="login">
-      <Route exact path={BasePaths.resetPassword}>
-        <ResetPasswordForm />
-      </Route>
+  <div className="login">
+    <Route exact path={BasePaths.resetPassword}>
+      <ResetPasswordForm />
+    </Route>
 
-      <Route exact path={BasePaths.login}>
-        <LoginForm />
-      </Route>
+    <Route exact path={BasePaths.login}>
+      <LoginForm />
+    </Route>
 
-      <img alt="" src="/img/tucan.svg" className="login__tucan" />
-    </div>
-
-    <Partners />
-  </>
+    <img alt="" src="/img/tucan.svg" className="login__tucan" />
+  </div>
 )
 
 export default Login

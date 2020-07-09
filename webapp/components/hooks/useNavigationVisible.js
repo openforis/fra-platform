@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import * as NavigationState from '@webapp/app/components/navigation/navigationState'
 
 import useCountryIso from './useCountryIso'
-import useIsHome from './useIsHome'
+import { useIsHome } from './useIsPath'
 
 export const useNavigationVisible = () => {
   const countryIso = useCountryIso()

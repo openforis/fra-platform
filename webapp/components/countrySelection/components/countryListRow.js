@@ -7,8 +7,7 @@ import { noRole } from '@common/countryRole'
 import * as BasePaths from '@webapp/main/basePaths'
 import { getRelativeDate } from '@webapp/utils/relativeDate'
 
-import useI18n from '@webapp/components/hooks/useI18n'
-import useCountryIso from '@webapp/components/hooks/useCountryIso'
+import { useIsHome, useCountryIso, useI18n } from '@webapp/components/hooks'
 
 const CountryListRow = (props) => {
   const { role, country } = props
@@ -16,11 +15,12 @@ const CountryListRow = (props) => {
 
   const i18n = useI18n()
   const countryIso = useCountryIso()
+  const isHome = useIsHome()
   const countryIsoCurrent = Country.getCountryIso(country)
   const fra2020Assessment = Country.getFra2020Assessment(country)
   const countryNameRef = useRef(null)
 
-  const selected = countryIsoCurrent === countryIso
+  const selected = countryIsoCurrent === countryIso && !isHome
 
   useEffect(() => {
     if (selected) {

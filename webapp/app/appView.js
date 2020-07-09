@@ -6,7 +6,6 @@ import { matchPath, Route, Switch, useLocation, useParams } from 'react-router-d
 import * as BasePaths from '@webapp/main/basePaths'
 
 import { useNavigationVisible, useUserInfo } from '@webapp/components/hooks'
-import CountrySelection from '@webapp/components/countrySelection'
 import Navigation from '@webapp/app/components/navigation/navigation'
 import Review from '@webapp/app/assessment/components/review/review'
 import UserChat from '@webapp/app/user/chat/userChatView'
@@ -54,7 +53,6 @@ const LoggedInView = () => {
           </>
         )}
 
-        <CountrySelection />
         <div className={`app-view ${navigationVisible ? ' navigation-on' : ''}`}>
           <Navigation />
           <Switch>

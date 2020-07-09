@@ -32,7 +32,8 @@ const CountrySelection = () => {
   }
 
   useEffect(() => {
-    dispatch(fetchCountryList())
+    if (!countriesLoaded) dispatch(fetchCountryList())
+
     window.addEventListener('click', outsideClick)
 
     return () => {
