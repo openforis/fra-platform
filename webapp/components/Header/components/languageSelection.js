@@ -14,10 +14,10 @@ const LanguageSelection = () => {
 
   const supportedLangs = ['en', 'fr', 'es', 'ru']
   const languageSelectionItems = R.pipe(
-    R.reject(l => l === i18n.language),
-    R.map(lang => ({
+    R.reject((l) => l === i18n.language),
+    R.map((lang) => ({
       content: i18n.t(`language.${lang}`),
-      onClick: () => dispatch(switchLanguage(lang))
+      onClick: () => dispatch(switchLanguage(lang)),
     }))
   )(supportedLangs)
 
@@ -25,7 +25,7 @@ const LanguageSelection = () => {
     <PopoverControl items={languageSelectionItems}>
       <div className="app-header__menu-item">
         {i18n.t(`language.${i18n.language}`)}
-        <Icon className="icon-middle" name="small-down"/>
+        <Icon className="icon-middle" name="small-down" />
       </div>
     </PopoverControl>
   )

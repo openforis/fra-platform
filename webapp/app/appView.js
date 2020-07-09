@@ -7,7 +7,7 @@ import * as BasePaths from '@webapp/main/basePaths'
 import { batchActions } from '@webapp/main/reduxBatch'
 
 import { useNavigationVisible, useUserInfo } from '@webapp/components/hooks'
-import Header from '@webapp/app/components/header/header'
+import Header from '@webapp/components/Header'
 import CountrySelection from '@webapp/app/components/countrySelection'
 import Navigation from '@webapp/app/components/navigation/navigation'
 import Review from '@webapp/app/assessment/components/review/review'

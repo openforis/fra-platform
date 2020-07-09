@@ -5,7 +5,7 @@ import { Route, Switch } from 'react-router-dom'
 import * as BasePaths from '@webapp/main/basePaths'
 
 import DynamicImport from '@webapp/components/dynamicImport'
-import LoginView from '@webapp/login/loginView'
+import Login from '@webapp/Login'
 import Loading from '@webapp/components/loading'
 
 import * as AppState from '@webapp/app/appState'
@@ -28,7 +28,7 @@ const Routes = () => {
   return (
     <Switch>
       <Route exact path={BasePaths.login}>
-        <LoginView />
+        <Login />
       </Route>
       <Route
         path={[BasePaths.user, BasePaths.admin, `/country${BasePaths.country}`, BasePaths.country, BasePaths.root]}
