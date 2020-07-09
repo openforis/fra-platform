@@ -45,6 +45,7 @@ and China.`,
     scamAlert: 'Опасайтесь мошенников',
     reportMisconduct: 'Сообщить о нарушении',
     userGuide: 'Руководство пользователя',
+    sendFeedback: 'Направить отзыв',
   },
 
   disclaimer: {
@@ -294,13 +295,11 @@ and China.`,
     showAll: 'Показать все',
     support: {
       dontDelete: 'Системная информация, просьба не удалять',
-      sendFeedback: 'Направить отзыв',
       feedbackEmailSubject: 'Обратная связь с платформой ОЛР',
       platformVersion: 'Версия платформы',
       userAgent: 'Агент пользователя',
       user: 'Пользователь',
       manageCollaborators: 'Координировать сотрудников',
-      userGuide: 'Руководство пользователя',
     },
     sectionHeaders: {
       introduction: 'Введение',

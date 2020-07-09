@@ -22,7 +22,7 @@ ${i18n.t('navigation.support.userAgent')}: ${navigator.userAgent}
 
   return (
     <a target="_top" href={`mailto:fra@fao.org?subject=${subject}&body=${body}`}>
-      {i18n.t('navigation.support.sendFeedback')}
+      {i18n.t('footer.sendFeedback')}
     </a>
   )
 }

@@ -56,6 +56,7 @@ and China.`,
     scamAlert: 'Scam Alert',
     reportMisconduct: 'Report Misconduct',
     userGuide: 'User guide',
+    sendFeedback: 'Send feedback',
   },
 
   statisticalFactsheets: {
@@ -443,7 +444,6 @@ The FRA team
     showAll: 'Show all',
     support: {
       dontDelete: 'System information please don’t remove',
-      sendFeedback: 'Send feedback',
       feedbackEmailSubject: 'FRA Platform Feedback',
       platformVersion: 'Platform version',
       userAgent: 'User agent',
