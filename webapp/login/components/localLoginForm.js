@@ -78,7 +78,7 @@ class LocalLoginForm extends React.Component {
         </button>
       </div>
 
-      <a onClick={() => this.setState({forgotPassword: true})}>Forgot your password ?</a>
+      <a className="btn-forgot-pwd" onClick={() => this.setState({forgotPassword: true})}>Forgot your password ?</a>
 
       {
         this.state.forgotPassword
