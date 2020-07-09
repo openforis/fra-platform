@@ -28,6 +28,28 @@ module.exports.translation = {
     variable: 'FRA Variable',
   },
 
+  home: {
+    keyFindings1: `Le monde compte une superficie forestière totale de 4,06 milliards d'hectares
+(ha), ce qui correspond à 31 pour cent de la superficie totale des terres. Cela
+équivaut à 0,52 ha par personne - bien que les forêts ne soient pas également
+réparties entre les populations du monde ou sur le plan géographique. Le domaine
+tropical compte la plus grande part de forêts du monde (45 pour cent), suivi
+des domaines boréal, tempéré et sous-tropical`,
+    keyFindings2: `Plus de la moitié (54 pour cent) des forêts du monde se trouve dans cinq
+pays uniquement: la Fédération de Russie, le Brésil, le Canada, les États-Unis
+d'Amérique et la Chine.`,
+  },
+
+  disclaimer: {
+    part1: `Ce site web a été réalisé avec le concours de l'`,
+    europeanUnion: 'Union européenne',
+    part2: ',  du ',
+    govFinland: 'Gouvernement de Finlande',
+    part3: ' et du ',
+    govNorway: 'Gouvernement de Norvège',
+    part4: `. La FAO est la seule responsable de son contenu et celui-ci ne peut en aucun cas être considéré comme le reflet des opinions de l'Union européenne, du Gouvernement de Finlande et du Gouvernement de Norvège.`,
+  },
+
   unit: {
     haThousand: '1000 ha',
     ha: 'ha',

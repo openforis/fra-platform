@@ -17,7 +17,7 @@ const Header = () => {
 
   return (
     <div className="app-header no-print">
-      <img alt="FAO" src={`/img/FAO${i18n.language}.svg`} />
+      <img alt="FAO" src={`/img/fao/FAO${i18n.language}.svg`} />
 
       <div className="app-header__separator" />
 
@@ -37,7 +37,6 @@ const Header = () => {
           </Link>
         )}
 
-        <div className="app-header__separator" />
         <LinkHome />
       </div>
     </div>
