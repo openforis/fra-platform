@@ -6,6 +6,7 @@ export const getData = (
   dupCols = true,
   dupRows = true,
   textMode = true,
+  formatToNumber = true,
 ) => {
 
   if (!tableElement) {
@@ -23,7 +24,8 @@ export const getData = (
     // Handle both table haders and table cells
     Array.from(row.cells).forEach(column => {
       const { rowSpan, colSpan } = column
-      const content = textMode ? column.innerText.trim().replace(/\s/g, ' ') : column.innerHTML
+      let content = textMode ? column.innerText.trim().replace(/\s/g, ' ') : column.innerHTML
+      if (formatToNumber) content = isNaN(content.replace(/\s/g, '')) ? content : content.replace(/\s/g, '')
 
       // Handle spanning cells
       for (let x = 0; x < rowSpan; x++) {
