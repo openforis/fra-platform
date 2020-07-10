@@ -34,7 +34,7 @@ const ForestAreaPercent = (props) => {
   }
 
   return (
-    <div className="statistical-factsheets-forest-area-percent">
+    <div className="row-m">
       <h3 className="header">{i18n.t(`statisticalFactsheets.${section}.title`)}</h3>
       <Chart type="pie" data={chartData} options={ChartUtils.getOptions('pie')} />
     </div>

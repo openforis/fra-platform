@@ -12,7 +12,7 @@ const CarbonGrowingStock = (props) => {
   const section = 'carbonAndGrowingStock'
 
   return (
-    <div className="statistical-factsheets-carbon-growing-stock">
+    <div className="row-m">
       <h3 className="header">{i18n.t(`statisticalFactsheets.${section}.title`)}</h3>
 
       <Table columns={columns} rows={rows} section={section} levelIso={levelIso} />

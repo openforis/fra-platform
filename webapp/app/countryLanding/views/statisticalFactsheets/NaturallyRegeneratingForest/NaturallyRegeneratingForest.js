@@ -14,7 +14,7 @@ const NaturallyRegeneratingForest = (props) => {
   const { data, loaded } = useStatisticalFactsheetsState(section, levelIso)
 
   return (
-    <div className="statistical-factsheets-naturally-regenerating-forest">
+    <div className="row-l">
       <h3 className="header">{i18n.t(`statisticalFactsheets.${section}.title`)}</h3>
       {loaded && (
         <Chart

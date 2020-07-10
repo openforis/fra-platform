@@ -18,7 +18,7 @@ const PrimaryDesignatedManagementObjective = (props) => {
   const section = 'primaryDesignatedManagementObjective'
 
   return (
-    <div className="statistical-factsheets-naturally-primary-designated-management-objective">
+    <div className="row-l">
       <h3 className="header">{i18n.t(`statisticalFactsheets.${section}.title`)}</h3>
 
       <Table rows={rows} columns={columns} section={section} levelIso={levelIso} />
