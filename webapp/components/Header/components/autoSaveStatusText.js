@@ -12,6 +12,8 @@ const AutoSaveStatusText = () => {
   const userInfo = useUserInfo()
 
   const lastSaveTimeStamp = useSelector(AutoSaveState.getLastSaveTimeStamp)
+  // Because of strange behavior, we cannot use ex. useSelector(AutoSaveState.getState) or similar
+  // This is the working solution for autosave state
   const autosave = useSelector((state) => state.autosave)
   const status = autosave && autosave.status
   const hasStatus = userInfo && !R.isNil(status)
