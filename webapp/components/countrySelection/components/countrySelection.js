@@ -72,11 +72,10 @@ const CountrySelection = () => {
             />
           )}
 
-          <div className="name">{i18n.t(`area.${countryIso}.listName`)}</div>
-
-          {userInfo && (
-            <div className="user-role">&nbsp;-&nbsp;{i18n.t(getRoleForCountryLabelKey(countryIso, userInfo))}</div>
-          )}
+          <div className="name-wrapper">
+            <div className="name">{i18n.t(`area.${countryIso}.listName`)}</div>
+            {userInfo && <div className="user-role">{i18n.t(getRoleForCountryLabelKey(countryIso, userInfo))}</div>}
+          </div>
         </div>
       )}
     </div>

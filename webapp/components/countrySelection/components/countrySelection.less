@@ -70,7 +70,18 @@
     margin-right: 8px;
   }
 
-  .name {
-    font-weight: 600;
+  .name-wrapper {
+    display: grid;
+    justify-items: center;
+
+    .name {
+      font-weight: 600;
+    }
+
+    .user-role {
+      font-size: @font-xs;
+      color: @text-disabled;
+      margin-top: -5px;
+    }
   }
 }
