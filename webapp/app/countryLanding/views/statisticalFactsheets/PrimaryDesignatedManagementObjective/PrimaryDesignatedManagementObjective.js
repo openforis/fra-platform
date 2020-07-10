@@ -1,4 +1,3 @@
-import './primaryDesignatedManagementObjective.less'
 import React from 'react'
 import PropTypes from 'prop-types'
 import { useI18n } from '@webapp/components/hooks'
@@ -19,7 +18,7 @@ const PrimaryDesignatedManagementObjective = (props) => {
   const section = 'primaryDesignatedManagementObjective'
 
   return (
-    <div className="statistical-factsheets-naturally-primary-designated-management-objective">
+    <div className="row-l">
       <h3 className="header">{i18n.t(`statisticalFactsheets.${section}.title`)}</h3>
 
       <Table rows={rows} columns={columns} section={section} levelIso={levelIso} />

@@ -1,4 +1,3 @@
-import './primaryForest.less'
 import React from 'react'
 import PropTypes from 'prop-types'
 import { useI18n } from '@webapp/components/hooks'
@@ -42,7 +41,7 @@ const PrimaryForest = (props) => {
   }
 
   return (
-    <div className="statistical-factsheets-primary-forest">
+    <div className="row-m">
       <h3 className="header">{i18n.t(`statisticalFactsheets.${section}.title`)}</h3>
       <Chart type="pie" data={chartData} options={ChartUtils.getOptions('pie')} />
     </div>

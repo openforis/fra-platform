@@ -1,4 +1,3 @@
-import './forestAreaPercent.less'
 import React from 'react'
 import PropTypes from 'prop-types'
 import { useI18n } from '@webapp/components/hooks'
@@ -35,7 +34,7 @@ const ForestAreaPercent = (props) => {
   }
 
   return (
-    <div className="statistical-factsheets-forest-area-percent">
+    <div className="row-m">
       <h3 className="header">{i18n.t(`statisticalFactsheets.${section}.title`)}</h3>
       <Chart type="pie" data={chartData} options={ChartUtils.getOptions('pie')} />
     </div>
