@@ -1,5 +1,6 @@
-ALTER TABLE country
-    ADD region_iso VARCHAR;
+ALTER TABLE country DROP COLUMN IF EXISTS region_iso;
+
+ALTER TABLE country ADD region_iso VARCHAR;
 
 UPDATE country SET region_iso = 'AF' WHERE region = 'africa';
 UPDATE country SET region_iso = 'AS' WHERE region = 'asia';
