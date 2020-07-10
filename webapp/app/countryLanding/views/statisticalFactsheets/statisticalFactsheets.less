@@ -2,16 +2,10 @@
 
 .statistical-factsheets {
   width: 100%;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: 260px 240px 240px 380px;
-  grid-template-areas:
-    'forest-area carbon-growing-stock'
-    'forest-area-percent primary-forest'
-    'forest-area-protected-areas forest-ownership'
-    'primary-designated-management-objective naturally-regenerating-forest';
 
   > div {
+    width: 50%;
+    float: left;
     display: grid;
     grid-template-rows: auto 1fr;
     padding: 30px 40px;

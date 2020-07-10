@@ -22,11 +22,12 @@ const StatisticalFactsheets = () => {
 
         <ForestAreaPercent levelIso={levelIso} />
         <PrimaryForest levelIso={levelIso} />
-        <ForestOwnership levelIso={levelIso} />
 
         <ForestAreaWithinProtectedAreas levelIso={levelIso} />
-        <NaturallyRegeneratingForest levelIso={levelIso} />
+        <ForestOwnership levelIso={levelIso} />
+
         <PrimaryDesignatedManagementObjective levelIso={levelIso} />
+        <NaturallyRegeneratingForest levelIso={levelIso} />
       </div>
     </>
   )

@@ -1,4 +1,3 @@
-import './carbonGrowingStock.less'
 import React from 'react'
 import PropTypes from 'prop-types'
 import { useI18n } from '@webapp/components/hooks'

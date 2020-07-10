@@ -1,4 +1,3 @@
-import './forestOwnership.less'
 import React from 'react'
 import PropTypes from 'prop-types'
 import Chart from '@webapp/app/countryLanding/views/statisticalFactsheets/components/chart/Chart'
