@@ -16,6 +16,7 @@ const Header = () => {
   const i18n = useI18n()
   const { pathname } = useLocation()
   const isLogin = Boolean(matchPath(pathname, { path: BasePaths.login }))
+  const isCountry = Boolean(matchPath(pathname, { path: BasePaths.country, exact: true }))
 
   return (
     <div className="app-header no-print">
@@ -25,7 +26,7 @@ const Header = () => {
 
       <div className="app-header__global-fra">
         {i18n.t('common.globalFRA')}
-        <AutoSaveStatusText />
+        {!isCountry && <AutoSaveStatusText />}
       </div>
 
       <div className="app-header__menu">
