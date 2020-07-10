@@ -12,7 +12,8 @@ const AutoSaveStatusText = () => {
   const userInfo = useUserInfo()
 
   const lastSaveTimeStamp = useSelector(AutoSaveState.getLastSaveTimeStamp)
-  const status = useSelector(AutoSaveState.getStatus)
+  const autosave = useSelector((state) => state.autosave)
+  const status = autosave && autosave.status
   const hasStatus = userInfo && !R.isNil(status)
   const islastSaveTimestampReceived = status === 'lastSaveTimestampReceived'
 
