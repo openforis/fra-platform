@@ -5,16 +5,14 @@ import * as R from 'ramda'
 import { getRelativeDate } from '@webapp/utils/relativeDate'
 import { useI18n, useUserInfo } from '@webapp/components/hooks'
 
-import * as AutoSaveState from '@webapp/app/components/autosave/autosaveState'
-
 const AutoSaveStatusText = () => {
   const i18n = useI18n()
   const userInfo = useUserInfo()
 
-  const lastSaveTimeStamp = useSelector(AutoSaveState.getLastSaveTimeStamp)
   // Because of strange behavior, we cannot use ex. useSelector(AutoSaveState.getState) or similar
   // This is the working solution for autosave state
   const autosave = useSelector((state) => state.autosave)
+  const lastSaveTimeStamp = autosave && autosave.lastSaveTimeStamp
   const status = autosave && autosave.status
   const hasStatus = userInfo && !R.isNil(status)
   const islastSaveTimestampReceived = status === 'lastSaveTimestampReceived'
