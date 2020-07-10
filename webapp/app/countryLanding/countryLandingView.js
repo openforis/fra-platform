@@ -18,7 +18,6 @@ const CountryLandingView = () => {
   const userInfo = useUserInfo()
   const i18n = useI18n()
 
-  const url = BasePaths.getCountryHomeLink(countryIso)
   const sections = useCountryLandingSections()
   const userAndCountry = userInfo && countryIso
 
@@ -50,11 +49,11 @@ const CountryLandingView = () => {
 
       {displayTabs ? (
         <Switch>
-          <Route exact path={['/', url]}>
+          <Route exact path={BasePaths.getCountryHomeLink(countryIso)}>
             <Redirect to={BasePaths.getCountrySectionLink(countryIso, 'overview')} />
           </Route>
           {sections.map(({ name: section, component }) => (
-            <Route key={section} path={BasePaths.getCountrySectionLink(countryIso, section)} component={component} />
+            <Route key={section} path={BasePaths.getCountrySectionLink(':countryIso', section)} component={component} />
           ))}
         </Switch>
       ) : (

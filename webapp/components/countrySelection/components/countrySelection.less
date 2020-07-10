@@ -1,13 +1,21 @@
 @import (reference) 'webapp/main/styles/config';
 
 .country-selection {
-  position: relative;
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 0;
+  z-index: @z-index-area-selector;
   grid-area: country-selection;
   display: flex;
   align-items: center;
   background-color: @ui-bg;
   border-bottom: @ui-thin-border;
-  padding: 0 16px;
+  height: 50px;
+  // allowing full width of box shadow
+  box-shadow: 0 5px 4px -4px rgba(@text-body, 0.5);
+  width: calc(100vw + 10px);
+  margin-left: -5px;
+  padding: 0 5px;
 }
 
 .btn-toggle-navigation {
@@ -47,7 +55,7 @@
 
 .country-selection__country {
   position: absolute;
-  right: 22px;
+  right: 30px;
   display: flex;
   align-items: center;
   color: @text-body;
@@ -62,7 +70,18 @@
     margin-right: 8px;
   }
 
-  .name {
-    font-weight: 600;
+  .name-wrapper {
+    display: grid;
+    justify-items: center;
+
+    .name {
+      font-weight: 600;
+    }
+
+    .user-role {
+      font-size: @font-xs;
+      color: @text-disabled;
+      margin-top: -5px;
+    }
   }
 }

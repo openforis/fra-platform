@@ -1,3 +1,4 @@
+import './linkLanding.less'
 import React from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
 
@@ -20,7 +21,7 @@ const LinkLanding = () => {
   return (
     <NavLink
       to={BasePaths.getCountryHomeLink(countryIso)}
-      className="nav__link-landing"
+      className="country-selection-link-landing"
       activeClassName="selected"
       isActive={isActive}
     >

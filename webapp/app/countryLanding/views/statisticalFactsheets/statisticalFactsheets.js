@@ -1,7 +1,6 @@
 import './statisticalFactsheets.less'
 import React from 'react'
-
-import { useCountryIso } from '@webapp/components/hooks'
+import { useParams } from 'react-router'
 
 import ForestArea from './ForestArea'
 import CarbonGrowingStock from './CarbonGrowingStock'
@@ -13,7 +12,7 @@ import NaturallyRegeneratingForest from './NaturallyRegeneratingForest'
 import PrimaryDesignatedManagementObjective from './PrimaryDesignatedManagementObjective'
 
 const StatisticalFactsheets = () => {
-  const levelIso = useCountryIso()
+  const { countryIso: levelIso } = useParams()
 
   return (
     <>

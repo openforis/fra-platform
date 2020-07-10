@@ -29,14 +29,8 @@ module.exports.translation = {
   },
 
   home: {
-    keyFindings1: `The world has a total forest area of 4.06 billion hectares (ha), which is 31 percent 
-of the total land area. This area is equivalent to 0.52 ha per person - although 
-forests are not distributed equally among the world's peoples or geographically. 
-The tropical domain has the largest proportion of the world's forests (45 percent), 
-followed by the boreal, temperate and subtropical domains.`,
-    keyFindings2: `More than half (54 percent) of the world's forests is in only five countries - 
-the Russian Federation, Brazil, Canada, the United States of America 
-and China.`,
+    keyFindings1: ` Общая площадь лесов в мире составляет 4,06 млрд гектаров (га), или 31 процент от общей площади суши. Это значит, что на душу населения приходится по 0,52 га, однако леса неравномерно распределены между народами и регионами мира. Наибольшая часть лесов (45 процентов) находится в тропическом поясе, далее следуют бореальный, умеренный и субтропический пояса.`,
+    keyFindings2: ` Более половины (54 процента) лесов мира приходится всего на пять стран: Российскую Федерацию, Бразилию, Канаду, Соединенные Штаты Америки и Китай.`,
   },
 
   footer: {
@@ -98,14 +92,14 @@ and China.`,
   },
 
   disclaimer: {
-    part1: 'This website has been produced with the assistance of the ',
-    europeanUnion: 'European Union',
-    part2: ', the ',
-    govFinland: 'Government of Finland',
-    part3: ' and the ',
-    govNorway: 'Government of Norway',
+    part1: 'Настоящий веб-сайт создан при содействии ',
+    europeanUnion: 'Европейского союза',
+    part2: ', ',
+    govFinland: 'правительства Финляндии',
+    part3: ' и ',
+    govNorway: 'правительства Норвегии',
     part4:
-      '. Its contents are the sole responsibility of FAO and can in no way be taken to reflect the views of the European Union, the Government of Finland and the Government of Norway.',
+      '. ФАО несет исключительную ответственность за его содержание, которое ни в коей мере не отражает точку зрения Европейского союза, правительства Финляндии или правительства Норвегии.',
   },
 
   unit: {

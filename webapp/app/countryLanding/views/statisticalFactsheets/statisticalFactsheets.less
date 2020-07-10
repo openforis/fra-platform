@@ -3,10 +3,8 @@
 .statistical-factsheets {
   width: 100%;
   display: grid;
-  grid-column-gap: 40px;
-  grid-row-gap: 80px;
   grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: 220px 200px 200px 340px;
+  grid-template-rows: 260px 240px 240px 380px;
   grid-template-areas:
     'forest-area carbon-growing-stock'
     'forest-area-percent primary-forest'
@@ -17,6 +15,10 @@
     position: relative;
     display: grid;
     grid-template-rows: auto 1fr;
+    padding: 30px 40px;
+    &:not(:nth-child(1)):not(:nth-child(2)) {
+      border-top: @ui-thin-border;
+    }
   }
 
   .header {
@@ -25,7 +27,15 @@
     margin-bottom: 12px;
   }
 
-  .fra-table__cell {
-    padding: 10px;
+  .fra-table__container {
+    margin-bottom: unset;
+  }
+
+  .fra-table {
+    tbody th,
+    tbody td {
+      padding: 10px;
+      min-width: unset;
+    }
   }
 }

@@ -1,5 +1,5 @@
 import './dataExport.less'
-import React, { forwardRef } from 'react'
+import React from 'react'
 
 import ResultsTable from '@webapp/app/dataExport/components/resultsTable'
 import useDataExportState from './useDataExportState'
@@ -7,7 +7,7 @@ import CountrySelect from './components/countrySelect'
 import VariableSelect from './components/variableSelect'
 import ColumnSelect from './components/columnSelect'
 
-const DataExport = forwardRef((props, ref) => {
+const DataExport = () => {
   const {
     countries,
     selection,
@@ -22,7 +22,7 @@ const DataExport = forwardRef((props, ref) => {
   } = useDataExportState()
 
   return (
-    <div className="app-view__content export" ref={ref}>
+    <div className="app-view__content export">
       <div className="export__form">
         <CountrySelect
           countries={countries}
@@ -47,6 +47,6 @@ const DataExport = forwardRef((props, ref) => {
       </div>
     </div>
   )
-})
+}
 
 export default DataExport

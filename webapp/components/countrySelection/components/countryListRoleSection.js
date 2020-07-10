@@ -5,7 +5,7 @@ import * as R from 'ramda'
 import { getRoleLabelKey, noRole } from '@common/countryRole'
 import { Country } from '@common/country'
 
-import CountryListRow from '@webapp/app/components/countrySelection/components/countryListRow'
+import CountryListRow from '@webapp/components/countrySelection/components/countryListRow'
 import useI18n from '@webapp/components/hooks/useI18n'
 import useUserInfo from '@webapp/components/hooks/useUserInfo'
 
