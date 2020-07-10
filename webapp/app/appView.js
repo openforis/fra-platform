@@ -15,6 +15,7 @@ import AssessmentPrintView from '@webapp/app/assessment/components/print/assessm
 import * as CountryState from '@webapp/app/country/countryState'
 import { fetchCountryInitialData } from '@webapp/app/country/actions'
 
+import { toggleNavigation } from '@webapp/app/components/navigation/actions'
 import routes from './routes'
 
 const LoggedInView = () => {
@@ -27,6 +28,10 @@ const LoggedInView = () => {
 
   const printView = !!matchPath(pathname, { path: BasePaths.assessmentPrint })
   const printOnlyTablesView = !!matchPath(pathname, { path: BasePaths.assessmentPrintOnlyTables, exact: true })
+
+  useEffect(() => {
+    if (!navigationVisible && countryStatusLoaded) dispatch(toggleNavigation())
+  }, [])
 
   useEffect(() => {
     dispatch(fetchCountryInitialData(countryIso, printView, printOnlyTablesView))
