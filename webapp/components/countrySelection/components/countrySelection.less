@@ -33,7 +33,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-width: 220px;
+  min-width: 250px;
   padding: 4px 12px;
   background-color: white;
   border: @ui-thin-border;
@@ -54,8 +54,6 @@
 }
 
 .country-selection__country {
-  position: absolute;
-  right: 30px;
   display: flex;
   align-items: center;
   color: @text-body;
@@ -63,25 +61,20 @@
   .flag {
     background-repeat: no-repeat;
     background-size: cover;
-    width: 24px;
-    height: 24px;
+    width: 18px;
+    height: 18px;
     box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.15);
     border-radius: 2px;
     margin-right: 8px;
   }
 
-  .name-wrapper {
-    display: grid;
-    justify-items: center;
+  .name {
+    font-weight: 600;
+  }
 
-    .name {
-      font-weight: 600;
-    }
-
-    .user-role {
-      font-size: @font-xs;
-      color: @text-disabled;
-      margin-top: -5px;
-    }
+  .user-role {
+    font-size: @font-s;
+    color: @text-disabled;
+    margin: 0 8px;
   }
 }
