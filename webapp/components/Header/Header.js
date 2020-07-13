@@ -8,7 +8,6 @@ import { useI18n, useUserInfo } from '@webapp/components/hooks'
 
 import UserInfoLinks from './components/userInfo'
 import LanguageSelection from './components/languageSelection'
-import AutoSaveStatusText from './components/autoSaveStatusText'
 import LinkHome from './components/linkHome'
 
 const Header = () => {
@@ -23,10 +22,7 @@ const Header = () => {
 
       <div className="app-header__separator" />
 
-      <div className="app-header__global-fra">
-        {i18n.t('common.globalFRA')}
-        <AutoSaveStatusText />
-      </div>
+      <div className="app-header__global-fra">{i18n.t('common.globalFRA')}</div>
 
       <div className="app-header__menu">
         <LanguageSelection />

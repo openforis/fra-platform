@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getRoleForCountryLabelKey } from '@common/countryRole'
 import { Area } from '@common/country'
 
-import { useCountryIso, useI18n, useIsHome, useNavigationVisible, useUserInfo } from '@webapp/components/hooks'
+import { useCountryIso, useI18n, useNavigationVisible, useUserInfo } from '@webapp/components/hooks'
 import Icon from '@webapp/components/icon'
 
 import * as CountryState from '@webapp/app/country/countryState'
@@ -14,13 +14,13 @@ import { fetchCountryList } from '@webapp/app/country/actions'
 import LinkLanding from './linkLanding'
 import CountryList from './countryList'
 import ToggleNavigationControl from './toggleNavigationControl'
+import AutoSaveStatusText from './autoSaveStatusText'
 
 const CountrySelection = () => {
   const dispatch = useDispatch()
   const countryIso = useCountryIso()
   const userInfo = useUserInfo()
   const i18n = useI18n()
-  const isHome = useIsHome()
   const navigationVisible = useNavigationVisible()
   const countriesLoaded = useSelector(CountryState.hasCountries)
 
@@ -56,28 +56,31 @@ const CountrySelection = () => {
         onClick={() => setOpen(!open)}
         disabled={!countriesLoaded}
       >
-        <div>- {i18n.t('common.select')} -</div>
+        <div>
+          {countryIso ? (
+            <div className="country-selection__country">
+              {Area.isISOCountry(countryIso) && (
+                <div
+                  className="flag"
+                  style={{
+                    backgroundImage: `url('/img/flags/1x1/${countryIso}.svg'), url('/img/flags/1x1/ATL.svg')`,
+                  }}
+                />
+              )}
+
+              <div className="name">{i18n.t(`area.${countryIso}.listName`)}</div>
+              {userInfo && <div className="user-role">{i18n.t(getRoleForCountryLabelKey(countryIso, userInfo))}</div>}
+            </div>
+          ) : (
+            `- ${i18n.t('common.select')} -`
+          )}
+        </div>
         <Icon name="small-down" />
+
         {open && <CountryList />}
       </button>
 
-      {countryIso && !isHome && (
-        <div className="country-selection__country">
-          {Area.isISOCountry(countryIso) && (
-            <div
-              className="flag"
-              style={{
-                backgroundImage: `url('/img/flags/1x1/${countryIso}.svg'), url('/img/flags/1x1/ATL.svg')`,
-              }}
-            />
-          )}
-
-          <div className="name-wrapper">
-            <div className="name">{i18n.t(`area.${countryIso}.listName`)}</div>
-            {userInfo && <div className="user-role">{i18n.t(getRoleForCountryLabelKey(countryIso, userInfo))}</div>}
-          </div>
-        </div>
-      )}
+      <AutoSaveStatusText />
     </div>
   )
 }

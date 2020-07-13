@@ -21,6 +21,8 @@ const DataExport = () => {
     setSelectionColumns,
   } = useDataExportState()
 
+  if (countries.length === 0) return null
+
   return (
     <div className="app-view__content export">
       <div className="export__form">

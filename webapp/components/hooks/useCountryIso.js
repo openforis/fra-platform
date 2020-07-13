@@ -1,4 +1,10 @@
 import { useSelector } from 'react-redux'
 import * as AppState from '@webapp/app/appState'
 
-export default () => useSelector(AppState.getCountryIso)
+import { useIsHome } from './useIsPath'
+
+export default () => {
+  const countryIso = useSelector(AppState.getCountryIso)
+  const isHome = useIsHome()
+  return isHome ? null : countryIso
+}
