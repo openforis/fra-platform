@@ -14,6 +14,7 @@ import { fetchCountryList } from '@webapp/app/country/actions'
 import LinkLanding from './linkLanding'
 import CountryList from './countryList'
 import ToggleNavigationControl from './toggleNavigationControl'
+import AutoSaveStatusText from './autoSaveStatusText'
 
 const CountrySelection = () => {
   const dispatch = useDispatch()
@@ -78,6 +79,8 @@ const CountrySelection = () => {
 
         {open && <CountryList />}
       </button>
+
+      <AutoSaveStatusText />
     </div>
   )
 }

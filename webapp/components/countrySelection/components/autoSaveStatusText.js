@@ -1,3 +1,4 @@
+import './autoSaveStatusText.less'
 import React from 'react'
 import { useSelector } from 'react-redux'
 import * as R from 'ramda'
@@ -25,7 +26,7 @@ const AutoSaveStatusText = () => {
   let statusText = i18n.t(`header.autoSave.${status}`)
   if (islastSaveTimestampReceived) statusText += getRelativeDate(lastSaveTimeStamp, i18n).toLowerCase()
 
-  return <div className={`app-header__autosave status-${status}`}>{statusText}</div>
+  return <div className={`autosave-status status-${status}`}>{statusText}</div>
 }
 
 export default AutoSaveStatusText
