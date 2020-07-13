@@ -1,39 +1,30 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import camelize from 'camelize'
-
-import { useCountryIso, useI18n } from '@webapp/components/hooks'
-import ButtonCheckBox from '@webapp/components/buttonCheckBox'
 import { useParams } from 'react-router'
+
+import { useI18n } from '@webapp/components/hooks'
+import ButtonCheckBox from '@webapp/components/buttonCheckBox'
+
 import { isTypePanEuropean } from '@common/assessment/assessment'
-import { Area, Country } from '@common/country'
+import { Country } from '@common/country'
 
 const CountrySelect = (props) => {
   const { countries, selectionCountries, setSelectionCountries } = props
-  const { assessmentType } = useParams()
 
   const i18n = useI18n()
-  const countryIso = useCountryIso()
-
+  const { assessmentType } = useParams()
   const [countriesFiltered, setCountriesFiltered] = useState(countries)
-  const propName = camelize(`list_name_${i18n.language}`)
 
   const isDeskStudy = (country) => !isTypePanEuropean(assessmentType) && country.assessment.fra2020.deskStudy
   const getDeskStudyValue = (country) => (isDeskStudy(country) ? ` (${i18n.t('assessment.deskStudy')})` : null)
 
   const normalizeString = (str) => str.trim().toLowerCase().replace(/\s/g, '')
-  const checkMatch = (country, value) =>
-    normalizeString(`${country[propName]}${getDeskStudyValue(country)}`).includes(value)
 
-  useEffect(
-    () =>
-      setCountriesFiltered(
-        Area.isISORegion(countryIso)
-          ? countries.filter((country) => Country.getRegionIso(country) === countryIso)
-          : countries
-      ),
-    [countries]
-  )
+  const checkMatch = (country, value) => {
+    const countryLabel = i18n.t(`area.${Country.getCountryIso(country)}.listName`)
+    const searchString = normalizeString(`${countryLabel}${getDeskStudyValue(country)}`)
+    return searchString.includes(value)
+  }
 
   return (
     <div className="export__form-section export-select-all">

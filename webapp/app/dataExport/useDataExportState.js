@@ -10,6 +10,8 @@ import { throttle } from '@webapp/utils/functionUtils'
 import { formatColumn, formatSection } from '@webapp/app/dataExport/utils/format'
 import Assessment from '@common/assessment/assessment'
 import * as Country from '@common/country/country'
+import { Area } from '@common/country'
+import { useCountryIso } from '@webapp/components/hooks'
 
 const initialSelection = {
   countries: [],
@@ -19,7 +21,8 @@ const initialSelection = {
 }
 
 export default () => {
-  const { section = '', assessmentType } = useParams()
+  const countryIso = useCountryIso()
+  const { assessmentType, section } = useParams()
   const [variables, setVariables] = useState([])
   const [columns, setColumns] = useState([])
 
@@ -79,8 +82,10 @@ export default () => {
   const setSelectionColumns = (value) => setSelection({ ...selection, columns: value })
   const setSelectionVariable = (value) => setSelection({ ...selection, variable: value })
 
-  const panEuropeanCountries = allCountries.filter(Country.isPanEuropean)
-  const countries = Assessment.isTypePanEuropean(assessmentType) ? panEuropeanCountries : allCountries
+  let countries = allCountries
+  if (Assessment.isTypePanEuropean(assessmentType)) countries = countries.filter(Country.isPanEuropean)
+  if (Area.isISORegion(countryIso))
+    countries = countries.filter((country) => Country.getRegionIso(country) === countryIso)
 
   return {
     results,
