@@ -2,18 +2,27 @@
 
 .home-key-findings {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 68vw 1fr;
   align-items: center;
   justify-items: center;
+  padding: 40px 20px;
   background-color: rgba(@ui-accent, 0.3);
 }
 
 .home-key-findings__map {
-  padding: 40px 40px 15px;
+  display: flex;
+
+  .legend {
+    align-self: flex-start;
+  }
+
+  .map {
+    width: 90%;
+  }
 }
 
 .home-key-findings__text {
   padding: 0 64px;
   display: grid;
-  grid-row-gap: 23px;
+  grid-row-gap: 24px;
 }

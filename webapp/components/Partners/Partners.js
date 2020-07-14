@@ -19,7 +19,7 @@ const Partners = () => {
 
       <div className="partners__imgs">
         <div className="partners__support">{i18n.t('landing.overview.withFinancialSupportOf')}</div>
-        <img alt="" src="/img/partners/EC.png" />
+        <img alt="" src="/img/partners/EU.jpg" />
         <img alt="" src="/img/partners/NICFI.png" />
         <img alt="" src="/img/partners/mfafi.gif" className="mfafi" />
         <img alt="" src="/img/partners/mmmfi.png" />
