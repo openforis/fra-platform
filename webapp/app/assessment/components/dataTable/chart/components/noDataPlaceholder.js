@@ -65,8 +65,6 @@ class NoDataPlaceholder extends React.Component {
   }
 
   render () {
-    const { wrapperWidth, i18n } = this.props
-
     return <g className="chart__no-data-placeholder" ref="container">
       <image ref="tucan" href="/img/tucan.svg" width={tucanWidth} height={tucanHeight} x={this.getTucanX()} y={tucanY} style={{opacity: 0}}/>
     </g>
