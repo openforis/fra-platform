@@ -1,6 +1,25 @@
 // Inspiration/base from cheerio-tableparser
 //
 
+const normalizeString = (string = '') => string.trim().replace(/\s/g, ' ')
+
+const getElementText = ({ element }) => {
+  const { children, innerText } = element
+
+  if (element.nodeName === 'SELECT') {
+    return normalizeString(element.options[element.selectedIndex].text)
+  }
+
+  if (children.length > 0) {
+    return Array.from(children).reduce(
+      (text, child) => normalizeString(`${text} ${getElementText({ element: child })}`),
+      ''
+    )
+  }
+
+  return normalizeString(innerText)
+}
+
 export const getData = (tableElement, dupCols = true, dupRows = true, textMode = true, formatToNumber = true) => {
   if (!tableElement) {
     return []
@@ -17,7 +36,7 @@ export const getData = (tableElement, dupCols = true, dupRows = true, textMode =
     // Handle both table haders and table cells
     Array.from(row.cells).forEach((column) => {
       const { rowSpan, colSpan } = column
-      let content = textMode ? column.innerText.trim().replace(/\s/g, ' ') : column.innerHTML
+      let content = textMode ? getElementText({ element: column }) : column.innerHTML
       if (formatToNumber)
         content = Number.isNaN(Number.parseFloat(content.replace(/\s/g, ''))) ? content : content.replace(/\s/g, '')
 
