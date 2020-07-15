@@ -32,10 +32,10 @@ const ResultsTableTitle = (props) => {
     i18n.t('description.loading')
   ) : (
     <>
-      {i18n.t(getCustomVariableI18nMappings(label), labelParam)}
+      <span>{i18n.t(getCustomVariableI18nMappings(label), labelParam)}</span>
       {Object.keys(UnitSpec.factors).includes(baseUnit) ? (
         <>
-          <span> ( </span>
+          <span> (</span>
           <select className="select-s" defaultValue={baseUnit} onChange={(event) => setSelected(event.target.value)}>
             <option value={baseUnit}>{i18n.t(getUnitI18nMappings(baseUnit))}</option>
             {Object.keys(UnitSpec.factors[baseUnit]).map(
@@ -47,7 +47,7 @@ const ResultsTableTitle = (props) => {
                 )
             )}
           </select>
-          <span> )</span>
+          <span>)</span>
         </>
       ) : (
         <span>{baseUnit ? ` (${i18n.t(`unit.${baseUnit}`)})` : ''}</span>
