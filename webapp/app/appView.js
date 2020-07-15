@@ -66,7 +66,11 @@ const LoggedInView = () => {
         component={AssessmentPrintView}
       />
 
-      <Route exact path={BasePaths.statisticalFactsheets} component={StatisticalFactsheets} />
+      <Route
+        exact
+        path={[BasePaths.statisticalFactsheets, BasePaths.statisticalFactsheetsLevelIso]}
+        component={StatisticalFactsheets}
+      />
 
       <Route>
         {userInfo && (

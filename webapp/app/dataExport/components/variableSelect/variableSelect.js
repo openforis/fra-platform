@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 
 import { useI18n } from '@webapp/components/hooks'
 import ButtonCheckBox from '@webapp/components/buttonCheckBox'
+import { getCustomVariableI18nMappings } from '@webapp/app/dataExport/utils/format'
 
 const VariableSelect = (props) => {
   const { setSelectionVariable, variables, selectionVariable } = props
@@ -19,8 +20,11 @@ const VariableSelect = (props) => {
       <div className="export__form-section-variables">
         {variables.map((variable) => {
           const { cols, variableExport } = variable
-          const label = cols[0].labelKey
+          const label = getCustomVariableI18nMappings(cols[0].labelKey)
+
           const labelParam = cols[0].labelParams
+          // Some variables have special mapping: ex.
+          // Other (specify in comments) => Other
 
           const selected = variableExport === selectionVariable.param
           return (

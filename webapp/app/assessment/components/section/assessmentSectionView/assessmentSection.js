@@ -15,6 +15,7 @@ import GeneralComments from '@webapp/app/assessment/components/section/component
 import { useI18n, usePrintView } from '@webapp/components/hooks'
 
 import * as FraState from '@webapp/app/assessment/fra/fraState'
+import { isTypePanEuropean } from '@common/assessment/assessment'
 
 const AssessmentSection = forwardRef((props, ref) => {
   const { assessmentType, sectionName } = props
@@ -24,7 +25,8 @@ const AssessmentSection = forwardRef((props, ref) => {
 
   const i18n = useI18n()
   const [printView, printOnlyTablesView] = usePrintView()
-  const disabled = useSelector(FraState.isSectionEditDisabled(sectionName))
+  const isSectionDisabled = useSelector(FraState.isSectionEditDisabled(sectionName))
+  const disabled = isTypePanEuropean(assessmentType) || isSectionDisabled
 
   return (
     <div className={`app-view__content assessment-section__${sectionName}`} ref={ref}>
@@ -36,7 +38,9 @@ const AssessmentSection = forwardRef((props, ref) => {
 
       <CustomHeader assessmentType={assessmentType} sectionName={sectionName} disabled={disabled} />
 
-      <Descriptions sectionName={sectionName} descriptions={descriptions} disabled={disabled} />
+      {!isTypePanEuropean(assessmentType) && (
+        <Descriptions sectionName={sectionName} descriptions={descriptions} disabled={disabled} />
+      )}
 
       {showTitle && <Title assessmentType={assessmentType} sectionName={sectionName} sectionAnchor={sectionAnchor} />}
 
