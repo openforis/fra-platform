@@ -10,10 +10,10 @@ const PrimaryDesignatedManagementObjective = (props) => {
   const rows = [
     'production',
     'multiple_use',
-    'conservation',
-    'other',
+    'conservation_of_biodiversity',
     'protection_of_soil_and_water',
     'social_services',
+    'other',
   ]
   const section = 'primaryDesignatedManagementObjective'
 

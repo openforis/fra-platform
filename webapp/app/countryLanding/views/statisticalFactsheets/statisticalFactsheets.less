@@ -6,29 +6,34 @@
   > div {
     width: 50%;
     float: left;
-    display: grid;
-    grid-template-rows: 50px 1fr;
-    padding: 30px 40px;
+    padding: 20px 40px;
     &:not(:nth-child(1)):not(:nth-child(2)) {
       border-top: @ui-thin-border;
     }
   }
 
   .header {
-    text-align: center;
     font-size: @font-l;
-    margin-bottom: 12px;
+    height: 50px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+  }
+
+  .chart {
+    position: relative;
+    height: calc(100% - 50px);
   }
 
   .fra-table__container {
     margin-bottom: unset;
-  }
 
-  .fra-table {
-    tbody th,
-    tbody td {
-      padding: 10px;
-      min-width: unset;
+    .fra-table {
+      tbody th,
+      tbody td {
+        padding: 10px;
+        min-width: unset;
+      }
     }
   }
 

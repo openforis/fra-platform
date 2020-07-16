@@ -15,21 +15,19 @@ const StatisticalFactsheets = () => {
   const { countryIso: levelIso } = useParams()
 
   return (
-    <>
-      <div className="statistical-factsheets">
-        <ForestArea levelIso={levelIso} />
-        <CarbonGrowingStock levelIso={levelIso} />
+    <div className="statistical-factsheets">
+      <ForestArea levelIso={levelIso} />
+      <CarbonGrowingStock levelIso={levelIso} />
 
-        <ForestAreaPercent levelIso={levelIso} />
-        <PrimaryForest levelIso={levelIso} />
+      <ForestAreaPercent levelIso={levelIso} />
+      <PrimaryForest levelIso={levelIso} />
 
-        <ForestAreaWithinProtectedAreas levelIso={levelIso} />
-        <ForestOwnership levelIso={levelIso} />
+      <ForestAreaWithinProtectedAreas levelIso={levelIso} />
+      <ForestOwnership levelIso={levelIso} />
 
-        <PrimaryDesignatedManagementObjective levelIso={levelIso} />
-        <NaturallyRegeneratingForest levelIso={levelIso} />
-      </div>
-    </>
+      <PrimaryDesignatedManagementObjective levelIso={levelIso} />
+      <NaturallyRegeneratingForest levelIso={levelIso} />
+    </div>
   )
 }
 
