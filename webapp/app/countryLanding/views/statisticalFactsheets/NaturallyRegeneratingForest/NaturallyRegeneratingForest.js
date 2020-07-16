@@ -10,6 +10,7 @@ const NaturallyRegeneratingForest = (props) => {
   const i18n = useI18n()
   const section = 'naturallyRegeneratingForest'
   const chartHeads = ['1990', '2000', '2010', '2020']
+  const unit = i18n.t('unit.haMillion')
 
   const { data, loaded } = useStatisticalFactsheetsState(section, levelIso)
 
@@ -19,8 +20,12 @@ const NaturallyRegeneratingForest = (props) => {
       {loaded && (
         <Chart
           type="bar"
-          data={ChartUtils.getData(data, chartHeads, section, loaded, i18n)}
-          options={ChartUtils.getOptions('stackedBar')}
+          data={ChartUtils.getData(data, chartHeads, section, loaded, i18n, unit)}
+          options={ChartUtils.getOptions({
+            type: ChartUtils.types.bar,
+            xAxisLabel: i18n.t('common.year'),
+            yAxisLabel: unit,
+          })}
         />
       )}
     </div>

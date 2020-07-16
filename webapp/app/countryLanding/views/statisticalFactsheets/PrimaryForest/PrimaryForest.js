@@ -23,27 +23,30 @@ const PrimaryForest = (props) => {
   const { rowNames: variables } = APIUtils.getParams('primaryForest')
 
   const [forestArea, primaryForest] = getVariableValuesByYear({ data, variables, year })
+  const otherForest = forestArea - primaryForest
+  const unit = i18n.t('unit.haMillion')
 
   const chartData = {
     datasets: [
       {
-        data: [forestArea, primaryForest],
+        data: [primaryForest, otherForest],
         borderWidth: 0,
         backgroundColor: [ChartUtils.colors.green, ChartUtils.colors.lightGreen],
         hoverBackgroundColor: [ChartUtils.colors.greenHover, ChartUtils.colors.lightGreenHover],
+        unit,
       },
     ],
 
     labels: [
-      i18n.t('statisticalFactsheets.rowName.forest_area'),
       i18n.t('statisticalFactsheets.rowName.primary_forest'),
+      i18n.t('statisticalFactsheets.rowName.other_forest'),
     ],
   }
 
   return (
     <div className="row-m">
       <h3 className="header">{i18n.t(`statisticalFactsheets.${section}.title`)}</h3>
-      <Chart type="pie" data={chartData} options={ChartUtils.getOptions('pie')} />
+      <Chart type="pie" data={chartData} options={ChartUtils.getOptions({ type: ChartUtils.types.pie })} />
     </div>
   )
 }

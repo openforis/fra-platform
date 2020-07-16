@@ -8,7 +8,7 @@ const CarbonGrowingStock = (props) => {
   const i18n = useI18n()
 
   const columns = ['rowName', '1990', '2000', '2010', '2020']
-  const rows = ['carbon_stock_biomass_total', 'growing_stock_total', 'carbon_stock_total']
+  const rows = ['growing_stock_total', 'carbon_stock_biomass_total', 'carbon_stock_total']
   const section = 'carbonAndGrowingStock'
 
   return (

@@ -12,6 +12,7 @@ const ForestOwnership = (props) => {
   const { levelIso } = props
   const i18n = useI18n()
   const section = 'forestOwnership'
+  const unit = i18n.t('unit.haThousand')
 
   const { data, loaded } = useStatisticalFactsheetsState(section, levelIso)
 
@@ -35,12 +36,13 @@ const ForestOwnership = (props) => {
           ChartUtils.colors.orangeHover,
           ChartUtils.colors.greenHover,
         ],
+        unit,
       },
     ],
 
     labels: [
-      i18n.t('statisticalFactsheets.rowName.public_ownership'),
-      i18n.t('statisticalFactsheets.rowName.private_ownership'),
+      i18n.t('statisticalFactsheets.forestOwnership.public'),
+      i18n.t('statisticalFactsheets.forestOwnership.private'),
       i18n.t('statisticalFactsheets.rowName.other_or_unknown'),
     ],
   }
@@ -48,7 +50,7 @@ const ForestOwnership = (props) => {
   return (
     <div className="row-m">
       <h3 className="header">{i18n.t(`statisticalFactsheets.${section}.title`)}</h3>
-      <Chart type="pie" data={chartData} options={ChartUtils.getOptions('pie')} />
+      <Chart type="pie" data={chartData} options={ChartUtils.getOptions({ type: ChartUtils.types.pie })} />
     </div>
   )
 }

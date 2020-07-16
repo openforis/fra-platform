@@ -27,6 +27,7 @@ const ForestAreaPercent = (props) => {
         borderWidth: 0,
         backgroundColor: [ChartUtils.colors.green, ChartUtils.colors.gray],
         hoverBackgroundColor: [ChartUtils.colors.greenHover, ChartUtils.colors.grayHover],
+        unit: '%',
       },
     ],
 
@@ -36,7 +37,7 @@ const ForestAreaPercent = (props) => {
   return (
     <div className="row-m">
       <h3 className="header">{i18n.t(`statisticalFactsheets.${section}.title`)}</h3>
-      <Chart type="pie" data={chartData} options={ChartUtils.getOptions('pie')} />
+      <Chart type="pie" data={chartData} options={ChartUtils.getOptions({ type: ChartUtils.types.pie })} />
     </div>
   )
 }

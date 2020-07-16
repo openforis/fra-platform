@@ -1,3 +1,11 @@
+import * as R from 'ramda'
+import * as NumberUtils from '@common/bignumberUtils'
+
+export const types = {
+  bar: 'bar',
+  pie: 'pie',
+}
+
 export const colors = {
   // Greens
   green: 'rgb(0,141,156)',
@@ -60,7 +68,7 @@ const getDatasetAndLabel = (data, chartHeads) => {
   }
 }
 
-export const getData = (fetchedData, chartHeads, chartName, loaded, i18n) => {
+export const getData = (fetchedData, chartHeads, chartName, loaded, i18n, unit) => {
   if (!loaded) return {}
 
   const datasets = fetchedData
@@ -69,6 +77,7 @@ export const getData = (fetchedData, chartHeads, chartName, loaded, i18n) => {
       ...preferences[i],
       label: i18n ? i18n.t(i18n.t(`statisticalFactsheets.rowName.${label}`)) : label,
       data,
+      unit,
     }))
 
   return {
@@ -79,37 +88,47 @@ export const getData = (fetchedData, chartHeads, chartName, loaded, i18n) => {
 
 const commonOptions = {
   maintainAspectRatio: false,
+  responsive: true,
+  responsiveAnimationDuration: 200,
+  tooltips: {
+    backgroundColor: 'rgba(45, 45, 45, 0.95)',
+    caretSize: 4,
+    cornerRadius: 3,
+    position: 'nearest',
+    xPadding: 12,
+    yPadding: 18,
+    titleAlign: 'center',
+    titleFontFamily: `'Open Sans', sans-serif`,
+    titleFontSize: 14,
+    titleFontStyle: '600',
+    titleMarginBottom: 12,
+    bodyFontFamily: `'Open Sans', sans-serif`,
+    bodyFontSize: 13,
+    bodySpacing: 6,
+    callbacks: {
+      label: (tooltipItem, data) => {
+        const { datasetIndex, index } = tooltipItem
+        const { datasets, labels } = data
+        const dataset = datasets[datasetIndex]
+
+        const labelStr = dataset.label || labels[index]
+        const value = dataset.data[index]
+
+        return `${labelStr}: ${NumberUtils.formatNumber(value)} (${dataset.unit})`
+      },
+    },
+  },
 }
-const chartOptions = {
-  pie: {
+
+const optionsByType = {
+  [types.pie]: {
     ...commonOptions,
-    height: 350,
     legend: {
       position: 'left',
     },
   },
-  bar: {
-    ...commonOptions,
-    legend: {
-      display: false,
-    },
-    scales: {
-      xAxes: [
-        {
-          stacked: true,
-        },
-      ],
-      yAxes: [
-        {
-          ticks: {
-            maxTicksLimit: 6,
-            beginAtZero: true,
-          },
-        },
-      ],
-    },
-  },
-  stackedBar: {
+
+  [types.bar]: {
     ...commonOptions,
     legend: {
       display: false,
@@ -126,6 +145,7 @@ const chartOptions = {
           ticks: {
             maxTicksLimit: 6,
             beginAtZero: true,
+            stepSize: 0.75,
           },
         },
       ],
@@ -133,4 +153,21 @@ const chartOptions = {
   },
 }
 
-export const getOptions = (chartType) => (chartOptions[chartType] ? chartOptions[chartType] : {})
+const _getScaleLabel = (labelString) => ({
+  display: true,
+  fontFamily: `'Open Sans', sans-serif`,
+  fontSize: 11,
+  lineHeight: 1,
+  labelString,
+})
+
+export const getOptions = ({ type, xAxisLabel = null, yAxisLabel = null }) => {
+  const options = optionsByType[type]
+
+  if (!options) throw new Error(`Unknown chart type ${type}`)
+
+  return R.pipe(
+    R.when(R.always(xAxisLabel), R.assocPath(['scales', 'xAxes', 0, 'scaleLabel'], _getScaleLabel(xAxisLabel))),
+    R.when(R.always(yAxisLabel), R.assocPath(['scales', 'yAxes', 0, 'scaleLabel'], _getScaleLabel(yAxisLabel)))
+  )(options)
+}
