@@ -2,6 +2,8 @@ import './statisticalFactsheets.less'
 import React from 'react'
 import { useParams } from 'react-router'
 
+import { Area } from '@common/country'
+
 import ForestArea from './ForestArea'
 import CarbonGrowingStock from './CarbonGrowingStock'
 import ForestAreaPercent from './ForestAreaPercent'
@@ -13,9 +15,9 @@ import PrimaryDesignatedManagementObjective from './PrimaryDesignatedManagementO
 
 const StatisticalFactsheets = () => {
   const { countryIso: levelIso } = useParams()
-
+  const isCountry = Area.isISOCountry(levelIso)
   return (
-    <div className="statistical-factsheets">
+    <div className={`statistical-factsheets${isCountry ? ' country' : ''}`}>
       <ForestArea levelIso={levelIso} />
       <CarbonGrowingStock levelIso={levelIso} />
 

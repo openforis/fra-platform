@@ -19,7 +19,7 @@ const ForestAreaWithinProtectedAreas = (props) => {
   const { data, loaded } = useStatisticalFactsheetsState(section, levelIso)
 
   return (
-    <div className="row-m">
+    <div className="row-s">
       <h3 className="header">{i18n.t(`statisticalFactsheets.${section}.title`)}</h3>
       {loaded && (
         <Chart
