@@ -51,13 +51,15 @@ des domaines boréal, tempéré et sous-tropical`,
   statisticalFactsheets,
 
   disclaimer: {
-    part1: `Ce site web a été réalisé avec le concours de l'`,
+    part1: `Ce site a été élaboré avec l’aide de l'`,
     europeanUnion: 'Union européenne',
     part2: ',  du ',
     govFinland: 'Gouvernement de Finlande',
-    part3: ' et du ',
+    part3: ', du ',
     govNorway: 'Gouvernement de Norvège',
-    part4: `. La FAO est la seule responsable de son contenu et celui-ci ne peut en aucun cas être considéré comme le reflet des opinions de l'Union européenne, du Gouvernement de Finlande et du Gouvernement de Norvège.`,
+    part4: ' et du ',
+    gef: `Fonds pour l'environnement mondial`,
+    part5: `. Son contenu relève de la seule responsabilité de la FAO  et ne peut en aucun cas être considéré comme reflétant la position de l'Union européenne du Gouvernement de Finlande, du Gouvernement de Norvège ou du Fonds pour l'environnement mondial.`,
   },
 
   unit: {

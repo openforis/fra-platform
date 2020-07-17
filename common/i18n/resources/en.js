@@ -35,10 +35,12 @@ module.exports.translation = {
     europeanUnion: 'European Union',
     part2: ', the ',
     govFinland: 'Government of Finland',
-    part3: ' and the ',
+    part3: ', the ',
     govNorway: 'Government of Norway',
-    part4:
-      '. Its contents are the sole responsibility of FAO and can in no way be taken to reflect the views of the European Union, the Government of Finland and the Government of Norway.',
+    part4: ' and the ',
+    gef: 'Global Environment Facility',
+    part5:
+      '. Its contents are the sole responsibility of FAO and can in no way be taken to reflect the views of the European Union, the Government of Finland, the Government of Norway and the Global Environment Facility.',
   },
 
   home: {

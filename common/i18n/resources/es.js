@@ -56,10 +56,12 @@ el resto está localizado en las regiones boreales, templadas y subtropicales.`,
     europeanUnion: 'Unión Europea',
     part2: ', el ',
     govFinland: 'Gobierno de Finlandia',
-    part3: ' y el ',
+    part3: ', el ',
     govNorway: 'Gobierno de Noruega',
-    part4:
-      '. Su contenido es responsabilidad exclusiva de la FAO y no puede considerarse que refleje en modo alguno las opiniones de la Unión Europea, el Gobierno de Finlandia y el Gobierno de Noruega.',
+    part4: ' y el ',
+    gef: 'Fondo para el Medio Ambiente Mundial',
+    part5:
+      '. Su contenido es responsabilidad exclusiva de la FAO y no puede considerarse que refleje en modo alguno las opiniones de la Unión Europea, el Gobierno de Finlandia, el Gobierno de Noruega y el Fondo para el Medio Ambiente Mundial.',
   },
 
   unit: {

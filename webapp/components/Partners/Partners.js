@@ -44,6 +44,10 @@ const Partners = () => {
           {i18n.t('disclaimer.govNorway')}
         </a>
         {i18n.t('disclaimer.part4')}
+        <a href="https://www.thegef.org" target="_blank" rel="noreferrer">
+          {i18n.t('disclaimer.gef')}
+        </a>
+        {i18n.t('disclaimer.part5')}
       </div>
     </div>
   )
