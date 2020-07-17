@@ -75,6 +75,7 @@ des domaines boréal, tempéré et sous-tropical`,
     millionsCubicMeterOverBark: 'millions de m³ sur écorce',
     billionCubicMeter: 'billion m³',
     gt: 'Gt',
+    fte1000: '1000 EPT',
   },
 
   countrySelection: {

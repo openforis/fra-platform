@@ -77,6 +77,7 @@ el resto está localizado en las regiones boreales, templadas y subtropicales.`,
     millionsCubicMeterOverBark: 'millones de m³ sobre corteza',
     billionCubicMeter: 'billion m³',
     gt: 'Gt',
+    fte1000: '1000 EDC',
   },
 
   countrySelection: {
