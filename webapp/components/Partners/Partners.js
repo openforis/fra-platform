@@ -15,7 +15,6 @@ const Partners = () => {
         <img alt="" src="/img/partners/COMIFAC.png" />
         <img alt="" src="/img/partners/ITTO.gif" />
         <img alt="" src="/img/partners/MontrealProcess.png" />
-        <img alt="" src="/img/partners/GEF.png" />
       </div>
 
       <div className="partners__imgs">
@@ -24,6 +23,7 @@ const Partners = () => {
         <img alt="" src="/img/partners/NICFI.png" />
         <img alt="" src="/img/partners/mfafi.gif" className="mfafi" />
         <img alt="" src="/img/partners/mmmfi.png" />
+        <img alt="" src="/img/partners/GEF.png" />
       </div>
 
       <div className="partners__disclaimer">

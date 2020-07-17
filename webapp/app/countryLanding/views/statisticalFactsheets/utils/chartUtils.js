@@ -110,11 +110,14 @@ const commonOptions = {
         const { datasetIndex, index } = tooltipItem
         const { datasets, labels } = data
         const dataset = datasets[datasetIndex]
-
-        const labelStr = dataset.label || labels[index]
+        return dataset.label || labels[index]
+      },
+      afterLabel: (tooltipItem, data) => {
+        const { datasetIndex, index } = tooltipItem
+        const { datasets } = data
+        const dataset = datasets[datasetIndex]
         const value = dataset.data[index]
-
-        return `${labelStr}: ${NumberUtils.formatNumber(value)} (${dataset.unit})`
+        return `${NumberUtils.formatNumber(value)} (${dataset.unit})`
       },
     },
   },
