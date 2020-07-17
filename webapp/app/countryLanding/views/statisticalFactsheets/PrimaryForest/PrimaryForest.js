@@ -1,10 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+
+import * as NumberUtils from '@common/bignumberUtils'
 import { useI18n } from '@webapp/components/hooks'
-import * as APIUtils from '@webapp/app/countryLanding/views/statisticalFactsheets/utils/apiUtils'
-import * as ChartUtils from '../utils/chartUtils'
-import useStatisticalFactsheetsState from '../hooks/useStatisticalFactsheetsState'
+
 import Chart from '../components/chart'
+import useStatisticalFactsheetsState from '../hooks/useStatisticalFactsheetsState'
+import * as APIUtils from '../utils/apiUtils'
+import * as ChartUtils from '../utils/chartUtils'
 import { getVariableValuesByYear } from '../utils/propUtils'
 
 const PrimaryForest = (props) => {
@@ -22,18 +25,20 @@ const PrimaryForest = (props) => {
   const year = '2020'
   const { rowNames: variables } = APIUtils.getParams('primaryForest')
 
-  const [forestArea, primaryForest] = getVariableValuesByYear({ data, variables, year })
-  const otherForest = forestArea - primaryForest
-  const unit = i18n.t('unit.haMillion')
+  const [forestArea = 0, primaryForest = 0] = getVariableValuesByYear({ data, variables, year })
+  const otherForest = NumberUtils.sub(forestArea, primaryForest) || 0
+
+  const primaryForestPercent = NumberUtils.mul(NumberUtils.div(primaryForest, forestArea), 100)
+  const otherForestPercent = NumberUtils.mul(NumberUtils.div(otherForest, forestArea), 100)
 
   const chartData = {
     datasets: [
       {
-        data: [primaryForest, otherForest],
+        data: [primaryForestPercent.toString(), otherForestPercent.toString()],
         borderWidth: 0,
         backgroundColor: [ChartUtils.colors.green, ChartUtils.colors.lightGreen],
         hoverBackgroundColor: [ChartUtils.colors.greenHover, ChartUtils.colors.lightGreenHover],
-        unit,
+        unit: '%',
       },
     ],
 
