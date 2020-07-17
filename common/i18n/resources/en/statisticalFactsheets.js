@@ -8,6 +8,7 @@ module.exports = {
     primary_forest: '$t(specificForestCategories.primaryForest)',
     private_ownership: '$t(forestOwnership.privateOwnership)',
     public_ownership: '$t(forestOwnership.publicOwnership)',
+    other_area: 'Other area',
     other_forest: 'Other forest',
     other_or_unknown: 'Other or unknown',
   },

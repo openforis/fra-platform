@@ -18,12 +18,12 @@ const ForestAreaPercent = (props) => {
 
   // Get the value for year 2020
   const forestArea = Number(data[0]['2020'])
-  const landArea = 100 - forestArea
+  const otherArea = 100 - forestArea
 
   const chartData = {
     datasets: [
       {
-        data: [forestArea, landArea],
+        data: [forestArea, otherArea],
         borderWidth: 0,
         backgroundColor: [ChartUtils.colors.green, ChartUtils.colors.gray],
         hoverBackgroundColor: [ChartUtils.colors.greenHover, ChartUtils.colors.grayHover],
@@ -31,7 +31,7 @@ const ForestAreaPercent = (props) => {
       },
     ],
 
-    labels: [i18n.t('statisticalFactsheets.rowName.forest_area'), i18n.t('statisticalFactsheets.rowName.land_area')],
+    labels: [i18n.t('statisticalFactsheets.rowName.forest_area'), i18n.t('statisticalFactsheets.rowName.other_area')],
   }
 
   return (
