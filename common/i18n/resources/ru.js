@@ -67,6 +67,8 @@ module.exports.translation = {
     haThousandPerYear: '1000 га/год',
     tonnesPerHa: 'тонн/га',
     millionsCubicMeterOverBark: 'млн. м³ с корой',
+    gt: 'Gt',
+    billionCubicMeter: 'billion m³',
   },
 
   countrySelection: {

@@ -73,6 +73,8 @@ el resto está localizado en las regiones boreales, templadas y subtropicales.`,
     haThousandPerYear: '1000 ha / an',
     tonnesPerHa: 'toneladas / ha',
     millionsCubicMeterOverBark: 'millones de m³ sobre corteza',
+    billionCubicMeter: 'billion m³',
+    gt: 'Gt',
   },
 
   countrySelection: {

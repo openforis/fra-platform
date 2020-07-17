@@ -71,6 +71,8 @@ des domaines boréal, tempéré et sous-tropical`,
     haThousandPerYear: '1000 ha / an',
     tonnesPerHa: 'tonnes / ha',
     millionsCubicMeterOverBark: 'millions de m³ sur écorce',
+    billionCubicMeter: 'billion m³',
+    gt: 'Gt',
   },
 
   countrySelection: {

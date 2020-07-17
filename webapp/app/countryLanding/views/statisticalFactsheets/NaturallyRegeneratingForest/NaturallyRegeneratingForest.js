@@ -1,6 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+
+import { Area } from '@common/country'
 import { useI18n } from '@webapp/components/hooks'
+
 import * as ChartUtils from '../utils/chartUtils'
 import useStatisticalFactsheetsState from '../hooks/useStatisticalFactsheetsState'
 import Chart from '../components/chart'
@@ -10,7 +13,7 @@ const NaturallyRegeneratingForest = (props) => {
   const i18n = useI18n()
   const section = 'naturallyRegeneratingForest'
   const chartHeads = ['1990', '2000', '2010', '2020']
-  const unit = i18n.t('unit.haMillion')
+  const unit = Area.isISOCountry(levelIso) ? i18n.t('unit.haThousand') : i18n.t('unit.haMillion')
 
   const { data, loaded } = useStatisticalFactsheetsState(section, levelIso)
 

@@ -7,7 +7,7 @@ import useStatisticalFactsheetsState from '../../hooks/useStatisticalFactsheetsS
 
 const Table = (props) => {
   const i18n = useI18n()
-  const { columns, rows, section, levelIso } = props
+  const { columns, rows, section, levelIso, units } = props
   const tableRef = useRef(null)
 
   const { data, loaded } = useStatisticalFactsheetsState(section, levelIso)
@@ -26,20 +26,20 @@ const Table = (props) => {
             <tr>
               {columns.map((key) => (
                 <th key={key} className="fra-table__header-cell">
-                  {i18n.t(t(key))}
+                  {t(key)}
                 </th>
               ))}
             </tr>
           </thead>
           <tbody>
-            {rows.map((tableRow) => {
+            {rows.map((tableRow, rowIdx) => {
               const row = data.find((entry) => entry.rowName === tableRow) || {}
               return (
                 <tr key={tableRow}>
                   {columns.map((column, i) =>
                     i === 0 ? (
                       <th key={`${tableRow}-${column}`} className="fra-table__category-cell">
-                        {t(tableRow)}
+                        {`${t(tableRow)} (${i18n.t(`unit.${units[rowIdx]}`)})`}
                       </th>
                     ) : (
                       <td key={`${tableRow}-${column}`} className="fra-table__cell">
@@ -60,6 +60,7 @@ const Table = (props) => {
 Table.propTypes = {
   columns: PropTypes.array.isRequired,
   rows: PropTypes.array.isRequired,
+  units: PropTypes.array.isRequired,
   levelIso: PropTypes.string.isRequired,
   section: PropTypes.string.isRequired,
 }

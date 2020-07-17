@@ -13,14 +13,14 @@ module.exports = {
     other_or_unknown: 'Autre ou inconnu',
   },
   forestArea: {
-    title: 'Superficie forestière (1990 - 2020)',
+    title: 'Superficie forestière (1990 — 2020)',
   },
   carbonAndGrowingStock: {
-    title: 'Volume de bois sur pied et Carbone (1990 - 2020)',
+    title: 'Volume de bois sur pied et Carbone (1990 — 2020)',
     rowName: '',
-    carbon_stock_biomass_total: 'Stock de carbone dans la biomasse (Gt)',
-    carbon_stock_total: 'Stock de carbone total (Gt)',
-    growing_stock_total: '$t(growingStock.growingStock) (billion m³)',
+    carbon_stock_biomass_total: 'Stock de carbone dans la biomasse',
+    carbon_stock_total: 'Stock de carbone total',
+    growing_stock_total: '$t(growingStock.growingStock)',
   },
   forestAreaPercent: {
     title: 'Superficie de forêt en % de la superficie des terres (2020)',
@@ -34,10 +34,10 @@ module.exports = {
     private: 'Privée',
   },
   forestAreaWithinProtectedAreas: {
-    title: '$t(forestAreaWithinProtectedAreas.header) (1990 - 2020)',
+    title: '$t(forestAreaWithinProtectedAreas.header) (1990 — 2020)',
   },
   primaryDesignatedManagementObjective: {
-    title: '$t(designatedManagementObjective.primaryDesignatedManagementObjective) (1990 - 2020)',
+    title: '$t(designatedManagementObjective.primaryDesignatedManagementObjective) (1990 — 2020)',
     rowName: '',
     conservation_of_biodiversity: '$t(designatedManagementObjective.biodiversityConservation)',
     multiple_use: '$t(designatedManagementObjective.multipleUse)',
@@ -47,6 +47,6 @@ module.exports = {
     social_services: '$t(designatedManagementObjective.socialServices)',
   },
   naturallyRegeneratingForest: {
-    title: 'Superficie de forêt naturellement régénérée (1990 - 2020)',
+    title: 'Superficie de forêt naturellement régénérée (1990 — 2020)',
   },
 }

@@ -71,6 +71,8 @@ followed by the boreal, temperate and subtropical domains.`,
     haThousandPerYear: '1000 ha/year',
     tonnesPerHa: 'tonnes/ha',
     millionsCubicMeterOverBark: 'million m³ over bark',
+    billionCubicMeter: 'billion m³',
+    gt: 'Gt',
   },
 
   countrySelection: {
