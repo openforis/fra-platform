@@ -29,12 +29,12 @@ const ForestOwnership = (props) => {
     datasets: [
       {
         data: [publicOwnership, privateOwnership, otherOrUnknown],
-        backgroundColor: [ChartUtils.colors.purple, ChartUtils.colors.orange, ChartUtils.colors.green],
+        backgroundColor: [ChartUtils.colors.purple, ChartUtils.colors.orange, ChartUtils.colors.gray],
         borderWidth: 0,
         hoverBackgroundColor: [
           ChartUtils.colors.purpleHover,
           ChartUtils.colors.orangeHover,
-          ChartUtils.colors.greenHover,
+          ChartUtils.colors.grayHover,
         ],
         unit,
       },
@@ -48,7 +48,7 @@ const ForestOwnership = (props) => {
   }
 
   return (
-    <div className="row-m">
+    <div className="row-s">
       <h3 className="header">{i18n.t(`statisticalFactsheets.${section}.title`)}</h3>
       <Chart type="pie" data={chartData} options={ChartUtils.getOptions({ type: ChartUtils.types.pie })} />
     </div>

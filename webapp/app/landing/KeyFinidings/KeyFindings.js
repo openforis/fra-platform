@@ -1,22 +1,34 @@
 import './keyFindings.less'
 import React from 'react'
+
 import { useI18n } from '@webapp/components/hooks'
+
+const climaticDomains = {
+  tropical: 45,
+  boreal: 27,
+  temperate: 16,
+  subtropical: 11,
+}
 
 const KeyFindings = () => {
   const i18n = useI18n()
-  const { language } = i18n
-  const mapLegendLang = language === 'ru' ? 'en' : language
 
   return (
     <div className="home-key-findings">
       <div className="home-key-findings__map">
-        <img alt="" src={`/img/mapLegend_${mapLegendLang}.png`} className="legend" />
         <img alt="" src="/img/map.png" className="map" />
       </div>
 
-      <div className="home-key-findings__text">
-        <div>{i18n.t('home.keyFindings1')}</div>
-        <div>{i18n.t('home.keyFindings2')}</div>
+      <div>{i18n.t('home.keyFindings')}</div>
+
+      <div className="home-key-findings__map-legend">
+        {Object.entries(climaticDomains).map(([key, value]) => (
+          <div key={key} className="legend">
+            <img className="legend-icon" alt="" src={`/img/mapLegend_${key}.svg`} />
+            <div className="legend-key">{i18n.t(`climaticDomain.${key}`)}</div>
+            <div className="legend-value">{value}%</div>
+          </div>
+        ))}
       </div>
     </div>
   )

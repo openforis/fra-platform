@@ -31,15 +31,13 @@ module.exports.translation = {
   },
 
   home: {
-    keyFindings1: `El área total de bosques en el mundo es de 4 060 millones de hectáreas (ha),
+    keyFindings: `El área total de bosques en el mundo es de 4 060 millones de hectáreas (ha),
 que corresponde al 31 por ciento de la superficie total de la tierra. Esta área
 es equivalente a 0,52 ha por persona
 , aunque los bosques no están distribuidos
 de manera equitativa por población mundial o situación geográfica. Las zonas
 tropicales poseen la mayor proporción de los bosques del mundo (45 por ciento),
 el resto está localizado en las regiones boreales, templadas y subtropicales.`,
-    keyFindings2: `Más de la mitad (54 por ciento) de los bosques del mundo está situada en solo cinco
-países: la Federación de Rusia, Brasil, Canadá, los Estados Unidos de América y China.`,
   },
 
   footer: {
@@ -58,10 +56,12 @@ países: la Federación de Rusia, Brasil, Canadá, los Estados Unidos de Améric
     europeanUnion: 'Unión Europea',
     part2: ', el ',
     govFinland: 'Gobierno de Finlandia',
-    part3: ' y el ',
+    part3: ', el ',
     govNorway: 'Gobierno de Noruega',
-    part4:
-      '. Su contenido es responsabilidad exclusiva de la FAO y no puede considerarse que refleje en modo alguno las opiniones de la Unión Europea, el Gobierno de Finlandia y el Gobierno de Noruega.',
+    part4: ' y el ',
+    gef: 'Fondo para el Medio Ambiente Mundial',
+    part5:
+      '. Su contenido es responsabilidad exclusiva de la FAO y no puede considerarse que refleje en modo alguno las opiniones de la Unión Europea, el Gobierno de Finlandia, el Gobierno de Noruega y el Fondo para el Medio Ambiente Mundial.',
   },
 
   unit: {
@@ -71,10 +71,13 @@ países: la Federación de Rusia, Brasil, Canadá, los Estados Unidos de Améric
     mileSq: 'mi²',
     acre1000: '1000 acres',
     acre: 'acre',
-    haMillion: 'millones de hectáreas',
+    haMillion: 'millones de ha',
     haThousandPerYear: '1000 ha / an',
     tonnesPerHa: 'toneladas / ha',
     millionsCubicMeterOverBark: 'millones de m³ sobre corteza',
+    billionCubicMeter: 'billion m³',
+    gt: 'Gt',
+    fte1000: '1000 EDC',
   },
 
   countrySelection: {

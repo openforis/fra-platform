@@ -5,6 +5,7 @@ export const units = {
   haThousandPerYear: 'haThousandPerYear',
   tonnesPerHa: 'tonnesPerHa',
   millionsCubicMeterOverBark: 'millionsCubicMeterOverBark',
+  fte1000: 'fte1000',
 }
 
 export const factors = {

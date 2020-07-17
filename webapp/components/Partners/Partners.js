@@ -23,6 +23,7 @@ const Partners = () => {
         <img alt="" src="/img/partners/NICFI.png" />
         <img alt="" src="/img/partners/mfafi.gif" className="mfafi" />
         <img alt="" src="/img/partners/mmmfi.png" />
+        <img alt="" src="/img/partners/GEF.png" />
       </div>
 
       <div className="partners__disclaimer">
@@ -43,6 +44,10 @@ const Partners = () => {
           {i18n.t('disclaimer.govNorway')}
         </a>
         {i18n.t('disclaimer.part4')}
+        <a href="https://www.thegef.org" target="_blank" rel="noreferrer">
+          {i18n.t('disclaimer.gef')}
+        </a>
+        {i18n.t('disclaimer.part5')}
       </div>
     </div>
   )

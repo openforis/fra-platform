@@ -8,7 +8,7 @@
     float: left;
     padding: 20px 40px;
     &:not(:nth-child(1)):not(:nth-child(2)) {
-      border-top: @ui-thin-border;
+      border-top: 3px double @ui-border;
     }
   }
 
@@ -37,11 +37,26 @@
     }
   }
 
-  .row-m {
+  .row-s {
     height: 260px;
+  }
+
+  .row-m {
+    height: 280px;
   }
 
   .row-l {
     height: 390px;
+  }
+}
+
+.app-view.navigation-on {
+  .statistical-factsheets.country {
+    .row-m {
+      height: 380px;
+    }
+    .row-l {
+      height: 520px;
+    }
   }
 }

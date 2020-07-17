@@ -35,21 +35,20 @@ module.exports.translation = {
     europeanUnion: 'European Union',
     part2: ', the ',
     govFinland: 'Government of Finland',
-    part3: ' and the ',
+    part3: ', the ',
     govNorway: 'Government of Norway',
-    part4:
-      '. Its contents are the sole responsibility of FAO and can in no way be taken to reflect the views of the European Union, the Government of Finland and the Government of Norway.',
+    part4: ' and the ',
+    gef: 'Global Environment Facility',
+    part5:
+      '. Its contents are the sole responsibility of FAO and can in no way be taken to reflect the views of the European Union, the Government of Finland, the Government of Norway and the Global Environment Facility.',
   },
 
   home: {
-    keyFindings1: `The world has a total forest area of 4.06 billion hectares (ha), which is 31 percent 
+    keyFindings: `The world has a total forest area of 4.06 billion hectares (ha), which is 31 percent 
 of the total land area. This area is equivalent to 0.52 ha per person - although 
 forests are not distributed equally among the world's peoples or geographically. 
 The tropical domain has the largest proportion of the world's forests (45 percent), 
 followed by the boreal, temperate and subtropical domains.`,
-    keyFindings2: `More than half (54 percent) of the world's forests is in only five countries - 
-the Russian Federation, Brazil, Canada, the United States of America 
-and China.`,
   },
 
   footer: {
@@ -70,10 +69,13 @@ and China.`,
     mileSq: 'mi²',
     acre1000: '1000 acres',
     acre: 'acre',
-    haMillion: 'million hectares',
+    haMillion: 'million ha',
     haThousandPerYear: '1000 ha/year',
     tonnesPerHa: 'tonnes/ha',
     millionsCubicMeterOverBark: 'million m³ over bark',
+    billionCubicMeter: 'billion m³',
+    gt: 'Gt',
+    fte1000: '1000 FTE',
   },
 
   countrySelection: {

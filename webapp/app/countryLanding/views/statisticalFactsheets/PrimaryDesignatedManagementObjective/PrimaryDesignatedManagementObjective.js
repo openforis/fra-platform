@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { useI18n } from '@webapp/components/hooks'
+import { Area } from '@common/country'
 import Table from '../components/table'
 
 const PrimaryDesignatedManagementObjective = (props) => {
@@ -15,13 +16,16 @@ const PrimaryDesignatedManagementObjective = (props) => {
     'social_services',
     'other',
   ]
+  const units = Area.isISOCountry(levelIso)
+    ? ['haThousand', 'haThousand', 'haThousand', 'haThousand', 'haThousand', 'haThousand']
+    : ['haMillion', 'haMillion', 'haMillion', 'haMillion', 'haMillion', 'haMillion']
   const section = 'primaryDesignatedManagementObjective'
 
   return (
     <div className="row-l">
       <h3 className="header">{i18n.t(`statisticalFactsheets.${section}.title`)}</h3>
 
-      <Table rows={rows} columns={columns} section={section} levelIso={levelIso} />
+      <Table rows={rows} units={units} columns={columns} section={section} levelIso={levelIso} />
     </div>
   )
 }
