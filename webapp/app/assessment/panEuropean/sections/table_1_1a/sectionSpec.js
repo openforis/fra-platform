@@ -13,6 +13,8 @@ const variables = [
   '_of_which_with_tree_cover',
 ]
 
+const years = [...PanEuropean.years].reverse();
+
 const tableSpec = SectionSpec.newTableSpec({
   [SectionSpec.KEYS_TABLE.name]: section.tables.table_1_1a,
   [SectionSpec.KEYS_TABLE.columnsExport]: ['area'],
@@ -33,7 +35,7 @@ const tableSpec = SectionSpec.newTableSpec({
 
     // rows data
     ...variables.flatMap((variable) =>
-      PanEuropean.years.reverse().map((year) =>
+      years.map((year) =>
         SectionSpec.newRowData({
           [SectionSpec.KEYS_ROW.labelKey]: `panEuropean.forestArea.${variable}`,
           [SectionSpec.KEYS_ROW.labelParams]: { year },
