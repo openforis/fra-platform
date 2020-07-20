@@ -620,6 +620,8 @@ El equipo de FRA
   },
 
   growingStockComposition: {
+    native: 'Nativa',
+    introduced: 'Introducida',
     growingStockComposition: 'Composición de las existencias en formación',
     categoryHeader: 'Categorías de FRA',
     nativeTreeSpecies: 'Especies de árboles nativos',

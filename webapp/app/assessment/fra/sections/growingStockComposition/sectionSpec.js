@@ -63,6 +63,7 @@ const tableSpec = SectionSpec.newTableSpec({
     ...GrowingStockCompositionState.rowIndexes.native.map((idx) =>
       SectionSpec.newRowData({
         [SectionSpec.KEYS_ROW.labelKey]: 'growingStockComposition.rank',
+        [SectionSpec.KEYS_ROW.labelPrefixKey]: 'growingStockComposition.native',
         [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES[`native_rank${idx + 1}`],
         [SectionSpec.KEYS_ROW.labelParams]: { idx: idx + 1 },
         [SectionSpec.KEYS_ROW.cols]: [
@@ -104,6 +105,7 @@ const tableSpec = SectionSpec.newTableSpec({
     ...GrowingStockCompositionState.rowIndexes.introduced.map((rowIdx, idx) =>
       SectionSpec.newRowData({
         [SectionSpec.KEYS_ROW.labelKey]: 'growingStockComposition.rank',
+        [SectionSpec.KEYS_ROW.labelPrefixKey]: 'growingStockComposition.introduced',
         [SectionSpec.KEYS_ROW.variableExport]: SectionSpec.VARIABLES[`introduced_rank${idx + 1}`],
         [SectionSpec.KEYS_ROW.labelParams]: { idx: idx + 1 },
         [SectionSpec.KEYS_ROW.cols]: [

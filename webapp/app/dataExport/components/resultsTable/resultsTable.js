@@ -20,7 +20,7 @@ const ResultsTableTitle = (props) => {
   const {
     baseUnit,
     selection: {
-      variable: { label, labelParam },
+      variable: { label, labelParam, labelPrefixKey },
     },
     resultsLoading,
     setSelected,
@@ -32,7 +32,10 @@ const ResultsTableTitle = (props) => {
     i18n.t('description.loading')
   ) : (
     <>
-      <span>{i18n.t(getCustomVariableI18nMappings(label), labelParam)}</span>
+      <span>
+        {labelPrefixKey && `${i18n.t(labelPrefixKey)} `}
+        {i18n.t(getCustomVariableI18nMappings(label), labelParam)}
+      </span>
       {Object.keys(UnitSpec.factors).includes(baseUnit) ? (
         <>
           <span> (</span>

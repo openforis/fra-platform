@@ -724,6 +724,8 @@ The FRA team fra@fao.org
   },
 
   growingStockComposition: {
+    native: 'Native',
+    introduced: 'Introduced',
     growingStockComposition: 'Growing stock composition',
     categoryHeader: 'FRA categories',
     nativeTreeSpecies: 'Native tree species',
