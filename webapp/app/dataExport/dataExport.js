@@ -13,6 +13,7 @@ const DataExport = () => {
     selection,
     variables,
     columns,
+    columnsAlwaysExport,
     results,
     resultsLoading,
     hasSelection,
@@ -44,7 +45,13 @@ const DataExport = () => {
       </div>
       <div className="export__table">
         {hasSelection && (
-          <ResultsTable resultsLoading={resultsLoading} columns={columns} selection={selection} results={results} />
+          <ResultsTable
+            resultsLoading={resultsLoading}
+            columns={columns}
+            columnsAlwaysExport={columnsAlwaysExport}
+            selection={selection}
+            results={results}
+          />
         )}
       </div>
     </div>

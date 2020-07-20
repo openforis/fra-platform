@@ -68,8 +68,9 @@ ResultsTableTitle.propTypes = {
 }
 
 const ResultsTable = (props) => {
-  const { results, selection, columns, resultsLoading } = props
+  const { results, selection, columns, columnsAlwaysExport, resultsLoading } = props
   const filteredColumns = columns.filter((column) => selection.columns.map(({ param }) => param).includes(column))
+  const columnsResults = [...columnsAlwaysExport, ...filteredColumns]
 
   const { assessmentType, section } = useParams()
   const i18n = useI18n()
@@ -103,7 +104,7 @@ const ResultsTable = (props) => {
             <th className="fra-table__header-cell-left" colSpan="1" rowSpan="2">
               &nbsp;
             </th>
-            <th className="fra-table__header-cell" colSpan={selection.columns.length + 1}>
+            <th className="fra-table__header-cell" colSpan={columnsResults.length + 1}>
               <ResultsTableTitle
                 baseUnit={baseUnit}
                 selected={unit}
@@ -114,7 +115,7 @@ const ResultsTable = (props) => {
             </th>
           </tr>
           <tr>
-            {filteredColumns.map((column) => (
+            {columnsResults.map((column) => (
               <th key={column} className="fra-table__header-cell">
                 {getI18nKey(column, section, assessmentType).map((key) => `${i18n.t(key)} `)}
               </th>
@@ -127,7 +128,7 @@ const ResultsTable = (props) => {
               <th className="fra-table__category-cell" colSpan="1">
                 {i18n.t(label)} {deskStudy && `(${i18n.t('assessment.deskStudy')})`}
               </th>
-              {filteredColumns.map((column) => {
+              {columnsResults.map((column) => {
                 const { columnKey, value } = getValue(column, countryIso, results, section)
 
                 return (
@@ -164,6 +165,7 @@ ResultsTable.propTypes = {
   resultsLoading: PropTypes.bool.isRequired,
   results: PropTypes.object,
   columns: PropTypes.array.isRequired,
+  columnsAlwaysExport: PropTypes.array.isRequired,
   selection: PropTypes.object.isRequired,
 }
 
