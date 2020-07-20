@@ -72,6 +72,7 @@ module.exports.translation = {
     billionCubicMeter: 'млрд. м³',
     gt: 'гт',
     fte1000: '1000 ЭПЗ',
+    numberOfStudents: '$t(graduationOfStudents.numberOfStudents)',
   },
 
   countrySelection: {

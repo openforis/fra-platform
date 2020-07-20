@@ -78,6 +78,7 @@ el resto está localizado en las regiones boreales, templadas y subtropicales.`,
     billionCubicMeter: 'billion m³',
     gt: 'Gt',
     fte1000: '1000 EDC',
+    numberOfStudents: '$t(graduationOfStudents.numberOfStudents)',
   },
 
   countrySelection: {

@@ -76,6 +76,7 @@ des domaines boréal, tempéré et sous-tropical`,
     billionCubicMeter: 'billion m³',
     gt: 'Gt',
     fte1000: '1000 EPT',
+    numberOfStudents: '$t(graduationOfStudents.numberOfStudents)',
   },
 
   countrySelection: {
