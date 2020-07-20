@@ -1,34 +1,48 @@
 import './style.less'
 
 import React from 'react'
-import { NavLink, Redirect, Route, Switch } from 'react-router-dom'
+import { Link, matchPath, NavLink, Redirect, Route, Switch, useLocation } from 'react-router-dom'
 
+import { Area } from '@common/country'
 import * as BasePaths from '@webapp/main/basePaths'
 
-import useCountryIso from '@webapp/components/hooks/useCountryIso'
-import useI18n from '@webapp/components/hooks/useI18n'
-import useUserInfo from '@webapp/components/hooks/useUserInfo'
+import { useCountryIso, useI18n, useUserInfo } from '@webapp/components/hooks'
+import Icon from '@webapp/components/icon'
 import useCountryLandingSections from '@webapp/app/countryLanding/useCountryLandingSections'
 import StatisticalFactsheets from '@webapp/app/countryLanding/views/statisticalFactsheets'
 
-import * as Area from '@common/country/area'
-
 const CountryLandingView = () => {
+  const { pathname } = useLocation()
   const countryIso = useCountryIso()
   const userInfo = useUserInfo()
   const i18n = useI18n()
-
   const sections = useCountryLandingSections()
-  const userAndCountry = userInfo && countryIso
 
+  const overviewPath = BasePaths.getCountrySectionLink(countryIso, 'overview')
+  const matchOverview = matchPath(pathname, {
+    path: [BasePaths.getCountryHomeLink(countryIso), overviewPath],
+    exact: true,
+  })
   // tabs are available when user is logged-in and selected area is country
-  const displayTabs = userAndCountry && Area.isISOCountry(countryIso)
+  const displayTabs = userInfo && countryIso && Area.isISOCountry(countryIso)
 
   return (
     <div className="app-view__content">
       <div className="landing__page-header">
         <h1 className="landing__page-title">
-          {countryIso ? i18n.t(`area.${countryIso}.listName`) : i18n.t('common.fraPlatform')}
+          {i18n.t(`area.${countryIso}.listName`)}
+
+          {!Area.isISOCountry(countryIso) && matchOverview && (
+            <Link
+              className="btn-s btn-primary landing__btn-download"
+              to={`/api/fileRepository/statisticalFactsheets/${countryIso}/${i18n.language}`}
+              target="_top"
+              alt=""
+            >
+              <Icon name="hit-down" className="icon-hit-down icon-white" />
+              <Icon name="icon-table2" className="icon-no-margin icon-white" />
+            </Link>
+          )}
         </h1>
 
         {displayTabs && (
@@ -50,7 +64,7 @@ const CountryLandingView = () => {
       {displayTabs ? (
         <Switch>
           <Route exact path={BasePaths.getCountryHomeLink(countryIso)}>
-            <Redirect to={BasePaths.getCountrySectionLink(countryIso, 'overview')} />
+            <Redirect to={overviewPath} />
           </Route>
           {sections.map(({ name: section, component }) => (
             <Route key={section} path={BasePaths.getCountrySectionLink(':countryIso', section)} component={component} />
