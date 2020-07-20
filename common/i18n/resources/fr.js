@@ -76,6 +76,7 @@ des domaines boréal, tempéré et sous-tropical`,
     billionCubicMeter: 'billion m³',
     gt: 'Gt',
     fte1000: '1000 EPT',
+    numberOfStudents: '$t(graduationOfStudents.numberOfStudents)',
   },
 
   countrySelection: {
@@ -622,6 +623,8 @@ L'équipe de FRA fra@fao.org
   },
 
   growingStockComposition: {
+    native: 'Indigène',
+    introduced: 'Introduite',
     growingStockComposition: 'Composition du matériel sur pied',
     categoryHeader: 'Catégories de FRA',
     nativeTreeSpecies: "Espèce d'arbre indigène",

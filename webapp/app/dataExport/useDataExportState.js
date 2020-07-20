@@ -25,6 +25,7 @@ export default () => {
   const { assessmentType, section } = useParams()
   const [variables, setVariables] = useState([])
   const [columns, setColumns] = useState([])
+  const [columnsAlwaysExport, setColumnsAlwaysExport] = useState([])
 
   const [selection, setSelection] = useState({ ...initialSelection })
 
@@ -39,7 +40,7 @@ export default () => {
     loading: resultsLoading,
   } = useGetRequest(`/api/export/${assessmentType}/${snake(formatSection(section, assessmentType))}`, {
     params: {
-      columns: selection.columns.map(({ param }) => param).map((column) => formatColumn(column, section)),
+      columns: [...columnsAlwaysExport, ...selection.columns.map(({ param }) => formatColumn(param, section))],
       countries: selection.countries.map(({ param }) => param),
       variable: selection.variable.param,
     },
@@ -59,10 +60,9 @@ export default () => {
 
     if (assessmentType && section) {
       const tableSpec = SectionSpecs.getTableSpecExport(assessmentType, section)
-      const rowsExport = TableSpec.getRowsExport(tableSpec)
-      const colsExport = TableSpec.getColumnsExport(tableSpec)
-      setVariables(rowsExport)
-      setColumns(colsExport)
+      setVariables(TableSpec.getRowsExport(tableSpec))
+      setColumns(TableSpec.getColumnsExport(tableSpec))
+      setColumnsAlwaysExport(TableSpec.getColumnsExportAlways(tableSpec))
     }
   }, [section])
 
@@ -92,6 +92,7 @@ export default () => {
     resultsLoading,
     countries,
     columns,
+    columnsAlwaysExport,
     selection,
     variables,
     hasSelection,

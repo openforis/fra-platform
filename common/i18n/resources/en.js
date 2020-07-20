@@ -76,6 +76,7 @@ followed by the boreal, temperate and subtropical domains.`,
     billionCubicMeter: 'billion m³',
     gt: 'Gt',
     fte1000: '1000 FTE',
+    numberOfStudents: '$t(graduationOfStudents.numberOfStudents)',
   },
 
   countrySelection: {
@@ -724,6 +725,8 @@ The FRA team fra@fao.org
   },
 
   growingStockComposition: {
+    native: 'Native',
+    introduced: 'Introduced',
     growingStockComposition: 'Growing stock composition',
     categoryHeader: 'FRA categories',
     nativeTreeSpecies: 'Native tree species',

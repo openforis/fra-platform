@@ -75,9 +75,10 @@ el resto está localizado en las regiones boreales, templadas y subtropicales.`,
     haThousandPerYear: '1000 ha / an',
     tonnesPerHa: 'toneladas / ha',
     millionsCubicMeterOverBark: 'millones de m³ sobre corteza',
-    billionCubicMeter: 'billion m³',
+    billionCubicMeter: 'mil millones m³',
     gt: 'Gt',
     fte1000: '1000 EDC',
+    numberOfStudents: '$t(graduationOfStudents.numberOfStudents)',
   },
 
   countrySelection: {
@@ -620,6 +621,8 @@ El equipo de FRA
   },
 
   growingStockComposition: {
+    native: 'Nativa',
+    introduced: 'Introducida',
     growingStockComposition: 'Composición de las existencias en formación',
     categoryHeader: 'Categorías de FRA',
     nativeTreeSpecies: 'Especies de árboles nativos',
