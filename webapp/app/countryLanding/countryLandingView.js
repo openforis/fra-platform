@@ -18,13 +18,14 @@ const CountryLandingView = () => {
   const i18n = useI18n()
   const sections = useCountryLandingSections()
 
+  const isCountry = Area.isISOCountry(countryIso)
   const overviewPath = BasePaths.getCountrySectionLink(countryIso, 'overview')
   const matchOverview = matchPath(pathname, {
     path: [BasePaths.getCountryHomeLink(countryIso), overviewPath],
     exact: true,
   })
   // tabs are available when user is logged-in and selected area is country
-  const displayTabs = userInfo && countryIso && Area.isISOCountry(countryIso)
+  const displayTabs = userInfo && isCountry
 
   return (
     <div className="app-view__content">
@@ -32,7 +33,7 @@ const CountryLandingView = () => {
         <h1 className="landing__page-title">
           {i18n.t(`area.${countryIso}.listName`)}
 
-          {!Area.isISOCountry(countryIso) && matchOverview && (
+          {!isCountry && matchOverview && (
             <Link
               className="btn-s btn-primary landing__btn-download"
               to={`/api/fileRepository/statisticalFactsheets/${countryIso}/${i18n.language}`}
