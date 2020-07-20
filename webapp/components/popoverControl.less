@@ -1,4 +1,4 @@
-@import (reference) "../app-styles/config";
+@import (reference) 'webapp/main/styles/config';
 
 .popover-control__wrapper {
   position: relative;
@@ -12,13 +12,13 @@
   background-color: white;
   border-radius: 2px;
   box-shadow: @shadow-3;
-  z-index: 10;
+  z-index: @z-index-popover;
 }
 
 .popover-control__item {
   padding: 8px 16px;
   line-height: 16px;
-  color: @text-body;
+  color: @text-link;
 
   &:hover {
     background-color: darken(@ui-bg, 4%);

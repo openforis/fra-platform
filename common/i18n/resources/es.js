@@ -1,20 +1,98 @@
+const area = require('./es/area')
+const statisticalFactsheets = require('./es/statisticalFactsheets')
+
 module.exports.translation = {
+  area,
 
   language: {
     en: 'English',
     es: 'Español',
     fr: 'Français',
-    ru: 'Русский'
+    ru: 'Русский',
+  },
+
+  common: {
+    column: 'Columna',
+    countries: 'Países',
+    dataExport: 'Exportación de datos',
+    fraPlatform: 'Plataforma de FRA',
+    globalFRA: 'Evaluación de los recursos forestales mundiales',
+    login: 'Entrar',
+    other: 'Otros',
+    regions: 'Regiones',
+    select: 'Seleccionar',
+    selectAll: 'Seleccionar todo',
+    selectArea: 'Seleccionar área geográfica',
+    statisticalFactsheets: 'Fichas estadísticas',
+    unknown: 'Ninguno/desconocido',
+    unselectAll: 'Deseleccionar todo',
+    variable: 'FRA Variable',
+    year: 'Año',
+  },
+
+  home: {
+    keyFindings: `El área total de bosques en el mundo es de 4 060 millones de hectáreas (ha),
+que corresponde al 31 por ciento de la superficie total de la tierra. Esta área
+es equivalente a 0,52 ha por persona
+, aunque los bosques no están distribuidos
+de manera equitativa por población mundial o situación geográfica. Las zonas
+tropicales poseen la mayor proporción de los bosques del mundo (45 por ciento),
+el resto está localizado en las regiones boreales, templadas y subtropicales.`,
+  },
+
+  footer: {
+    contactUs: 'Contacto',
+    termsAndConditions: 'Términos y condiciones',
+    scamAlert: 'Alerta de estafa',
+    reportMisconduct: 'Reportar mala conducta',
+    userGuide: 'Guía del usuario',
+    sendFeedback: 'Enviar comentarios',
+  },
+
+  statisticalFactsheets,
+
+  disclaimer: {
+    part1: 'Este portal se ha realizado con la asistencia de la ',
+    europeanUnion: 'Unión Europea',
+    part2: ', el ',
+    govFinland: 'Gobierno de Finlandia',
+    part3: ', el ',
+    govNorway: 'Gobierno de Noruega',
+    part4: ' y el ',
+    gef: 'Fondo para el Medio Ambiente Mundial',
+    part5:
+      '. Su contenido es responsabilidad exclusiva de la FAO y no puede considerarse que refleje en modo alguno las opiniones de la Unión Europea, el Gobierno de Finlandia, el Gobierno de Noruega y el Fondo para el Medio Ambiente Mundial.',
+  },
+
+  unit: {
+    haThousand: '1000 ha',
+    ha: 'ha',
+    kmSq: 'km²',
+    mileSq: 'mi²',
+    acre1000: '1000 acres',
+    acre: 'acre',
+    haMillion: 'millones de ha',
+    haThousandPerYear: '1000 ha / an',
+    tonnesPerHa: 'toneladas / ha',
+    millionsCubicMeterOverBark: 'millones de m³ sobre corteza',
+    billionCubicMeter: 'mil millones m³',
+    gt: 'Gt',
+    fte1000: '1000 EDC',
+    numberOfStudents: '$t(graduationOfStudents.numberOfStudents)',
+  },
+
+  countrySelection: {
+    selectCountry: 'Seleccionar país',
   },
 
   definition: {
     definitionLabel: 'Véanse las definiciones',
-    faqLabel: 'Preguntas frecuentes'
+    faqLabel: 'Preguntas frecuentes',
   },
 
   audit: {
     notStarted: 'No iniciado',
-    edited: 'Editado'
+    edited: 'Editado',
   },
 
   yesNoTextSelect: {
@@ -34,14 +112,14 @@ module.exports.translation = {
       collaborator: 'Colaborador',
       collaborator_plural: 'Colaboradores',
       administrator: 'Administrador',
-      noRole: 'N/A'
-    }
+      noRole: 'N/A',
+    },
   },
 
   fraClass: {
     forest: 'Bosque',
     otherWoodedLand: 'Otras tierras boscosas',
-    otherLand: 'Otras tierras'
+    otherLand: 'Otras tierras',
   },
 
   fraForestCharacteristicsClass: {
@@ -49,29 +127,30 @@ module.exports.translation = {
     plantationForest: 'Plantación forestal',
     ofWhichIntroduced: '…de la cual con especies introducidas',
     otherPlantedForest: 'Otro bosque plantado',
-    totalForest: 'Área de bosque total'
+    totalForest: 'Área de bosque total',
   },
 
   fraOtherLandClass: {
     palms: '…de las cuales palmas (aceitera, cocotera, dátiles, etc)',
     treeOrchards: '…de las cuales huertos de árboles (frutas, frutos secos, aceitunas,etc.)',
     agroforestry: '…de las cuales agroforestería',
-    treesUrbanSettings: '…de las cuales árboles en espacios urbanos'
+    treesUrbanSettings: '…de las cuales árboles en espacios urbanos',
   },
 
   landing: {
     home: 'Inicio',
     sections: {
       overview: 'Visión general',
+      messageBoard: 'Tablero de mensajes',
       about: 'Acerca de FRA',
       recentActivity: 'Actividad reciente',
       userManagement: 'Gestionar colaboradores',
       externalData: 'Datos externos',
-      links: 'Enlaces y Repositorio'
+      links: 'Enlaces y Repositorio',
     },
     overview: {
       loadingMap: 'Cargando mapa…',
-      withFinancialSupportOf: 'Con el apoyo financiero de'
+      withFinancialSupportOf: 'Con el apoyo financiero de',
     },
     milestones: {
       milestones: 'Logros',
@@ -90,24 +169,26 @@ module.exports.translation = {
       date5: 'Marzo',
       date6: 'Julio',
       date7: 'Marzo – Diciembre',
-      date8: 'Agosto'
+      date8: 'Agosto',
     },
     users: {
       users: 'Contactos',
-      message: 'Mensaje'
+      message: 'Mensaje',
     },
     about: {
       contact: 'Contacto',
       seniorForestryOfficer: 'Oficial Forestal Superior',
       faoForestryDepartment: 'Departamento Forestal de la FAO',
       email: 'Correo electrónico',
-      fraProcess: 'La FAO ha estado monitoreando los bosques del mundo en intervalos de 5 a 10 años desde 1946. Las recientes Evaluaciones de los Recursos Forestales Mundiales (FRA) se llevan a cabo ahora cada 5 años, en un esfuerzo por proporcionar un enfoque conherente para describir los bosques del mundo y cómo estos están cambiando. La evaluación se basa en dos principales fuentes de datos: los informes nacionales desarrollados por Corresponsales Naciones y la teledetección, llevada a cabo por la FAO junto con los coordinadores nacionales y los asociados regionales. El alcance de FRA ha cambiado de forma regular desde que se publicó la primera evaluación en 1948. Dichas evaluaciones constituyen una interesante historia sobre los intereses forestales mundiales, tanto en lo que respecta a su contenido sustancial como a su alcance cambiante.',
+      fraProcess:
+        'La FAO ha estado monitoreando los bosques del mundo en intervalos de 5 a 10 años desde 1946. Las recientes Evaluaciones de los Recursos Forestales Mundiales (FRA) se llevan a cabo ahora cada 5 años, en un esfuerzo por proporcionar un enfoque conherente para describir los bosques del mundo y cómo estos están cambiando. La evaluación se basa en dos principales fuentes de datos: los informes nacionales desarrollados por Corresponsales Naciones y la teledetección, llevada a cabo por la FAO junto con los coordinadores nacionales y los asociados regionales. El alcance de FRA ha cambiado de forma regular desde que se publicó la primera evaluación en 1948. Dichas evaluaciones constituyen una interesante historia sobre los intereses forestales mundiales, tanto en lo que respecta a su contenido sustancial como a su alcance cambiante.',
       linkFraProcess: 'Más información sobre el proceso de FRA',
-      or: 'O'
+      or: 'O',
     },
     recentActivity: {
       noRecentActivityTitle: 'Parece que no hay ninguna actividad reciente',
-      noRecentActivityBody: 'Los cambios realizados en la plataforma aparecerán aquí, para que se pueda poner al día sobre lo que ha estado ocurriendo mientras estaba ausente.',
+      noRecentActivityBody:
+        'Los cambios realizados en la plataforma aparecerán aquí, para que se pueda poner al día sobre lo que ha estado ocurriendo mientras estaba ausente.',
       getStarted: 'Para empezar',
       actions: {
         added: 'ha añadido',
@@ -118,17 +199,18 @@ module.exports.translation = {
         edited: 'ha editado',
         resolved: 'ha resuelto el asunto',
         status: 'ha cambiado el estado a',
-        addUser: 'ha añadido a {{user}} como {{role}}', //Legacy, no longer created
+        addUser: 'ha añadido a {{user}} como {{role}}',
         updateUser: 'ha editado a {{user}}',
         removeUser: 'ha eliminado a {{user}}',
         acceptInvitation: 'ha sido incorporado/a como {{role}}',
         addInvitation: 'ha invitado a {{user}} como {{role}}',
         removeInvitation: 'ha eliminado la invitación de {{user}} como {{role}}',
         updateInvitation: 'ha actualizado la invitación de {{user}} como {{role}}',
-        updateAssessmentStatus: 'ha cambiado el estado de {{assessment}} a {{status}}'
+        updateAssessmentStatus: 'ha cambiado el estado de {{assessment}} a {{status}}',
       },
-      fraProcess: 'La FAO ha estado monitoreando los bosques del mundo en intervalos de 5 a 10 años desde 1946. Las recientes Evaluaciones de los Recursos Forestales Mundiales (FRA) se llevan a cabo cada 5 años, en un esfuerzo por proporcionar un enfoque conherente para describir los bosques del mundo y cómo estos están cambiando. La evaluación se basa en dos principales fuentes de datos: los informes nacionales desarrollados por Corresponsales Naciones y la teledetección, llevada a cabo por la FAO junto con los coordinadores nacionales y los asociados regionales. El alcance de FRA ha cambiado de forma regular desde que se publicó la primera evaluación en 1948. Dichas evaluaciones constituyen una interesante historia sobre los intereses forestales mundiales, tanto en lo que respecta a su contenido sustancial como a su alcance cambiante.',
-      linkFraProcess: 'Más información sobre el proceso de FRA'
+      fraProcess:
+        'La FAO ha estado monitoreando los bosques del mundo en intervalos de 5 a 10 años desde 1946. Las recientes Evaluaciones de los Recursos Forestales Mundiales (FRA) se llevan a cabo cada 5 años, en un esfuerzo por proporcionar un enfoque conherente para describir los bosques del mundo y cómo estos están cambiando. La evaluación se basa en dos principales fuentes de datos: los informes nacionales desarrollados por Corresponsales Naciones y la teledetección, llevada a cabo por la FAO junto con los coordinadores nacionales y los asociados regionales. El alcance de FRA ha cambiado de forma regular desde que se publicó la primera evaluación en 1948. Dichas evaluaciones constituyen una interesante historia sobre los intereses forestales mundiales, tanto en lo que respecta a su contenido sustancial como a su alcance cambiante.',
+      linkFraProcess: 'Más información sobre el proceso de FRA',
     },
     links: {
       links: 'Enlaces',
@@ -139,7 +221,7 @@ module.exports.translation = {
       repository: 'Repositorio',
       uploadFile: 'Cargar un archivo',
       confirmDelete: '¿Borrar {{file}}? Esta acción no puede deshacerse.',
-    }
+    },
   },
 
   userChat: {
@@ -169,38 +251,45 @@ El equipo de FRA
 El equipo de FRA
 <br/>
 {{- url}}
-    `
-    }
+    `,
+    },
   },
 
   // error messages
   error: {
     access: {
-      countryRoleNotSpecified: 'Error: El usuario {{user}} intentó acceder {{countryIso}} pero no se había especificado ninguna función',
+      countryRoleNotSpecified:
+        'Error: El usuario {{user}} intentó acceder {{countryIso}} pero no se había especificado ninguna función',
       countryUserNotReviewer: 'Error: El usuario {{user}} intentó acceder {{countryIso}}, del cual no es evaluador',
-      roleChangeNotAllowed: 'Error: El usuario {{user}} intentó asignar otra función de usuario a {{role}}, lo que está prohibido para el usuario conectado',
-      invitationAlreadyUsed: 'Error: La invitación {{invitationUuid}} ya se ha utilizado, ¡el robo del {{loginEmail}} está prohibido!',
+      roleChangeNotAllowed:
+        'Error: El usuario {{user}} intentó asignar otra función de usuario a {{role}}, lo que está prohibido para el usuario conectado',
+      invitationAlreadyUsed:
+        'Error: La invitación {{invitationUuid}} ya se ha utilizado, ¡el robo del {{loginEmail}} está prohibido!',
       countryDoesNotMatch: 'Error: El país {{countyryIso}} no coincide',
-      assessmentEditingNotAllowed: 'Error: El usuario {{user}} en función {{role}} no puede editar la evaluación en el estado {{assessmentStatus}} por país {{countryIso}}',
-      assessmentCommentingNotAllowed: 'Error: El usuario {{user}} en función {{role}} no puede comentar la evaluación en el estado {{assessmentStatus}} por país {{countryIso}}'
+      assessmentEditingNotAllowed:
+        'Error: El usuario {{user}} en función {{role}} no puede editar la evaluación en el estado {{assessmentStatus}} por país {{countryIso}}',
+      assessmentCommentingNotAllowed:
+        'Error: El usuario {{user}} en función {{role}} no puede comentar la evaluación en el estado {{assessmentStatus}} por país {{countryIso}}',
     },
     assessment: {
-      transitionNotAllowed: 'Error: El paso de {{currentStatus}} a {{status}} está prohibido en el caso de la función {{role}}',
-      deskStudyNotAllowed: 'Error: El administrador es el único que puede cambiar el estado del estudio técnico'
+      transitionNotAllowed:
+        'Error: El paso de {{currentStatus}} a {{status}} está prohibido en el caso de la función {{role}}',
+      deskStudyNotAllowed: 'Error: El administrador es el único que puede cambiar el estado del estudio técnico',
     },
     review: {
       commentDeleteNotOwner: 'Error: El usuario {{user}} intentó borrar un comentario que no es suyo',
-      commentEnterResolvedIssue: 'Error: El usuario {{user}} intentó introducir un comentario a un asunto que ya se había resuelto'
+      commentEnterResolvedIssue:
+        'Error: El usuario {{user}} intentó introducir un comentario a un asunto que ya se había resuelto',
     },
     ndp: {
-      previousNdpNotFound: 'No es posible encontrar ningún punto de información nacional anterior a {{year}}'
-    }
+      previousNdpNotFound: 'No es posible encontrar ningún punto de información nacional anterior a {{year}}',
+    },
   },
   // components
 
   countryListing: {
     annuallyUpdated: 'Actualizado anualmente',
-    fra2020: 'FRA 2020'
+    fra2020: 'FRA 2020',
   },
 
   navigation: {
@@ -208,13 +297,11 @@ El equipo de FRA
     showAll: 'Mostrar todo',
     support: {
       dontDelete: 'No elimine la información del sistema',
-      sendFeedback: 'Enviar comentarios',
       feedbackEmailSubject: 'Comentarios de la plataforma de FRA',
       platformVersion: 'Versión de la plataforma',
       userAgent: 'Agente de usuario',
       user: 'Usuario',
       manageCollaborators: 'Gestionar colaboradores',
-      userGuide: 'Guía del usuario'
     },
     sectionHeaders: {
       introduction: 'Introducción',
@@ -226,12 +313,12 @@ El equipo de FRA
       forestPolicyAndLegislation: 'Política y legislación forestal',
       employmentEducationAndNwfp: 'Empleo, educación y PFNM',
       sustainableDevelopment: 'Objetivo de Desarrollo Sostenible 15',
-      panEuropeanIndicators: 'Indicadores paneuropeos'
+      panEuropeanIndicators: 'Indicadores paneuropeos',
     },
     submit: 'Enviar',
     cancel: 'Cancelar',
     changeStatusTextPlaceholder: 'Añadir un mensaje opcional',
-    doNotNotifyUsers: 'No notificar a los usuarios'
+    doNotNotifyUsers: 'No notificar a los usuarios',
   },
 
   header: {
@@ -242,8 +329,8 @@ El equipo de FRA
     autoSave: {
       saving: 'Guardando…',
       complete: 'Todos los cambios han sido guardados',
-      lastSaveTimestampReceived: 'Editado por última vez'
-    }
+      lastSaveTimestampReceived: 'Editado por última vez',
+    },
   },
 
   time: {
@@ -253,7 +340,7 @@ El equipo de FRA
     day_plural: '{{count}} hace días',
     week: '{{count}} hace una semana',
     week_plural: '{{count}} hace semanas',
-    aMomentAgo: 'hace un momento'
+    aMomentAgo: 'hace un momento',
   },
 
   review: {
@@ -267,7 +354,7 @@ El equipo de FRA
     writeComment: 'Escriba un comentario…',
     commentingClosed: 'Se han desactivado los comentarios',
     add: 'Añadir',
-    cancel: 'Cancelar'
+    cancel: 'Cancelar',
   },
 
   description: {
@@ -284,10 +371,11 @@ El equipo de FRA
     nationalData: 'Datos nacionales',
     analysisAndProcessing: 'Análisis y procesamiento de datos nacionales',
     estimationAndForecasting: 'Estimación y proyección',
-    reclassification: 'Reclasificación en categorías de FRA 2020'
+    reclassification: 'Reclasificación en categorías de FRA 2020',
   },
 
   nationalDataPoint: {
+    clickOnNDP: 'Haga clic en el año para acceder a los datos originales',
     nationalDataPoint: 'Punto de datos nacionales',
     addNationalDataPoint: 'Añadir un punto de datos nacionales',
     noNationalDataAdded: 'No se ha añadido ningún punto de datos nacionales',
@@ -328,13 +416,13 @@ El equipo de FRA
       sampleBasedRemoteSensingAssessment: 'Evaluación de teledetección por muestreo',
       fullCoverMaps: 'Bosque de cubierta total/mapas de vegetación',
       registersQuestionnaires: 'Registros/cuestionarios',
-      other: 'Otros (especificar en comentarios)'
+      other: 'Otros (especificar en comentarios)',
     },
     appliesToVariablesOptions: {
       forest: 'Bosque',
       otherWoodedLand: 'Otras tierras boscosas',
-      otherLand: 'Otras tierras'
-    }
+      otherLand: 'Otras tierras',
+    },
   },
 
   userManagement: {
@@ -382,8 +470,8 @@ Ha sido invitado/a a acceder a la plataforma de FRA como {{role}} para {{country
 El equipo de FRA
 <br/>
 {{- url}}
-    `
-    }
+    `,
+    },
   },
 
   // FRA 2020 questionare
@@ -401,7 +489,7 @@ El equipo de FRA
     email: 'Correo electrónico',
     tables: 'Tablas',
     all: 'Todas',
-    none: 'Ninguna'
+    none: 'Ninguna',
   },
 
   extentOfForest: {
@@ -412,7 +500,7 @@ El equipo de FRA
     forestArea: 'Bosque',
     chart: {
       placeholderLine1: 'Para empezar, añada nuevos puntos de datos nacionales y úselos',
-      placeholderLine2: 'para generar los valores de FRA de forma automática.'
+      placeholderLine2: 'para generar los valores de FRA de forma automática.',
     },
     otherLandCategories: 'Otras categorías de tierras',
     ofWhichPalms: '…de las cuales palmas (aceitera, cocotera, dátiles, etc.)',
@@ -425,7 +513,8 @@ El equipo de FRA
     useOriginalDataPoints: 'Usar puntos de datos nacionales',
     dontUseOriginalDataPoints: 'No usar puntos de datos nacionales',
     whatIsThis: '¿Qué significa esto?',
-    tableNoticeMessage: 'La superficie de tierra registrada según FAOSTAT para el año 2015 se usa para todos los años de referencia',
+    tableNoticeMessage:
+      'La superficie de tierra registrada según FAOSTAT para el año 2015 se usa para todos los años de referencia',
     ndpMissingValues: 'El punto de datos nacionales tiene valores faltantes',
     showNDPs: 'Mostrar puntos de datos nacionales',
     hideNDPs: 'Esconder puntos de datos nacionales',
@@ -439,7 +528,7 @@ El equipo de FRA
     boreal: 'Boreal',
     temperate: 'Templada',
     subtropical: 'Subtropical',
-    tropical: 'Tropical'
+    tropical: 'Tropical',
   },
 
   forestCharacteristics: {
@@ -455,7 +544,7 @@ El equipo de FRA
     totalForestArea: 'Área de bosque total',
     total: 'Total',
     useOriginalDataPoints: 'Usar puntos de datos nacionales',
-    dontUseOriginalDataPoints: 'No usar puntos de datos nacionales'
+    dontUseOriginalDataPoints: 'No usar puntos de datos nacionales',
   },
 
   tableWithOdp: {
@@ -469,7 +558,7 @@ El equipo de FRA
     clearTable: 'Despejar la tabla',
     copyToClipboard: 'Copiar valores',
     placeholderSelect: 'Estimación y proyección',
-    _1000haYear: '1000 ha/año'
+    _1000haYear: '1000 ha/año',
   },
 
   forestAreaChange: {
@@ -481,18 +570,18 @@ El equipo de FRA
     ofWhichNaturalExpansion: '…de la cual con expansión natural',
     deforestation: 'Deforestación',
     forestAreaNetChange: 'Cambio neto en el área de bosque',
-    netChangeDoesNotMatch: 'No coincide con el cambio neto en el área de bosque'
+    netChangeDoesNotMatch: 'No coincide con el cambio neto en el área de bosque',
   },
 
   annualReforestation: {
     annualReforestation: 'Reforestación anual',
     categoryHeader: 'Categorías de FRA',
     areaUnitLabel: 'Área (1000 ha/año)',
-    reforestation: 'Reforestación'
+    reforestation: 'Reforestación',
   },
 
   specificForestCategories: {
-    specificForestCategories: 'Categorías específicas de los bosques',
+    specificForestCategories: 'Bosque primario y categorías especiales de los bosques',
     categoryHeader: 'Categorías de FRA',
     areaUnitLabel: 'Área (1000 ha)',
     bamboo: 'Bambúes',
@@ -500,7 +589,7 @@ El equipo de FRA
     temporarilyUnstocked: 'Bosque temporalmente sin cubierta de árboles y/o recientemente regenerado',
     primaryForest: 'Bosque primario',
     exceedsNaturallyRegeneratingForest: 'Excede el bosque regenerado de forma natural (1b)',
-    rubberWood: 'Madera de caucho'
+    rubberWood: 'Madera de caucho',
   },
 
   otherLandWithTreeCover: {
@@ -513,7 +602,7 @@ El equipo de FRA
     treesinurbansettings: 'Árboles en espacios urbanos',
     total: 'Total',
     otherLandArea: 'Área de otras tierras',
-    other: 'Otros (especificar en comentarios)'
+    other: 'Otros (especificar en comentarios)',
   },
 
   growingStock: {
@@ -528,10 +617,12 @@ El equipo de FRA
     otherPlantedForest: '…del cual con otro bosque plantado',
     forest: 'Bosque',
     otherWoodedLand: 'Otras tierras boscosas',
-    copyToClipboard: 'Copiar valores'
+    copyToClipboard: 'Copiar valores',
   },
 
   growingStockComposition: {
+    native: 'Nativa',
+    introduced: 'Introducida',
     growingStockComposition: 'Composición de las existencias en formación',
     categoryHeader: 'Categorías de FRA',
     nativeTreeSpecies: 'Especies de árboles nativos',
@@ -539,13 +630,13 @@ El equipo de FRA
     areaUnitLabel: 'Existencias en formación en el bosque (millones de m³ sobre la corteza)',
     scientificName: 'Nombre científico',
     commonName: 'Nombre común',
-    rank: 'Clasificadas en cuanto al volumen',
+    rank: '#{{idx}} Clasificadas en cuanto al volumen',
     remainingNative: 'Especies de árboles nativos restantes',
     remainingIntroduced: 'Especies introducidas restantes',
     totalNative: 'Volumen total de especies de árboles nativos ',
     totalIntroduced: 'Volumen total de especies introducidas',
     totalGrowingStock: 'Existencias totales en formación',
-    rankingYear: 'Clasificación en el año 2015'
+    rankingYear: 'Clasificación en el año 2015',
   },
 
   biomassStock: {
@@ -555,7 +646,7 @@ El equipo de FRA
     aboveGround: 'Biomasa por encima del suelo',
     belowGround: 'Biomasa por debajo del suelo',
     deadWood: 'Madera muerta',
-    downloadExcel: 'Descargar calculadora de excel'
+    downloadExcel: 'Descargar calculadora de excel',
   },
 
   carbonStock: {
@@ -573,9 +664,11 @@ El equipo de FRA
   designatedManagementObjective: {
     designatedManagementObjective: 'Objetivo de gestión designado',
     primaryDesignatedManagementObjective: 'Objetivo primario de gestión designado',
-    primaryDesignatedManagementObjectiveSupport: 'El objetivo primario de gestión designado es significativamente más importante que otros objetivos de gestión. Los diferentes objetivos primarios de gestión son *exclusivos* y las áreas reportadas bajo un objetivo primario de gestión no deben ser reportadas para ningún otro objetivo primario de gestión. La suma de los diferentes objetivos de gestión se debe añadir al área de bosque.',
+    primaryDesignatedManagementObjectiveSupport:
+      'El objetivo primario de gestión designado es significativamente más importante que otros objetivos de gestión. Los diferentes objetivos primarios de gestión son *exclusivos* y las áreas reportadas bajo un objetivo primario de gestión no deben ser reportadas para ningún otro objetivo primario de gestión. La suma de los diferentes objetivos de gestión se debe añadir al área de bosque.',
     totalAreaWithDesignatedManagementObjective: 'Área total con un objetivo de gestión designado',
-    totalAreaWithDesignatedManagementObjectiveSupport: 'Objetivo de gestión designado, independientemente de si es primario o no. Las diferentes categorías de designación *no son exclusivas*. Por lo tanto, las áreas se pueden reportar más de una vez. Por ejemplo, el área de bosque reportado como objetivo primario de gestión "de uso múltiple" debe ser reportado para cada objetivo de gestión específico. De este modo, la suma de los diferentes objetivos de gestión puede ser superior al área de bosque total.',
+    totalAreaWithDesignatedManagementObjectiveSupport:
+      'Objetivo de gestión designado, independientemente de si es primario o no. Las diferentes categorías de designación *no son exclusivas*. Por lo tanto, las áreas se pueden reportar más de una vez. Por ejemplo, el área de bosque reportado como objetivo primario de gestión "de uso múltiple" debe ser reportado para cada objetivo de gestión específico. De este modo, la suma de los diferentes objetivos de gestión puede ser superior al área de bosque total.',
     categoryHeader: 'Categorías de FRA 2020',
     areaUnitLabel: 'Área forestal (1000 ha)',
     production: 'Producción',
@@ -586,16 +679,17 @@ El equipo de FRA
     other: 'Otros (especificar en comentarios)',
     unknown: 'Ninguno/desconocido',
     totalForestArea: 'Área de bosque total',
-    total: 'Total'
+    total: 'Total',
   },
 
   forestAreaWithinProtectedAreas: {
-    forestAreaWithinProtectedAreas: 'Área de bosque dentro de áreas protegidas legalmente establecidas y área de bosque con plan de gestión a largo plazo',
+    forestAreaWithinProtectedAreas:
+      'Área de bosque dentro de áreas protegidas legalmente establecidas y área de bosque con plan de gestión a largo plazo',
     categoryHeader: 'Categorías de FRA',
     areaUnitLabel: 'Área (1000 ha)',
     header: 'Área de bosque dentro de áreas protegidas legalmente establecidas',
     forestAreaWithLongTermManagementPlan: 'Área de bosque con plan de gestión a largo plazo',
-    ofWhichInProtectedAreas: '…de la cual en áreas protegidas'
+    ofWhichInProtectedAreas: '…de la cual en áreas protegidas',
   },
 
   forestOwnership: {
@@ -609,7 +703,7 @@ El equipo de FRA
     publicOwnership: 'Propiedad pública',
     otherOrUnknown: 'Desconocidas/otras (especificar en comentarios)',
     totalForestArea: 'Área de bosque total',
-    total: 'Total'
+    total: 'Total',
   },
 
   holderOfManagementRights: {
@@ -623,7 +717,7 @@ El equipo de FRA
     other: 'Desconocidas/otras (especificar en comentarios)',
     totalPublicOwnership: 'Propiedad pública total',
     total: 'Total',
-    publicOwnershipDoesNotMatch: 'No coincide con la propiedad pública total'
+    publicOwnershipDoesNotMatch: 'No coincide con la propiedad pública total',
   },
 
   disturbances: {
@@ -635,7 +729,7 @@ El equipo de FRA
     severeWeatherEvents: 'Eventos climáticos extremos',
     other: 'Otras (especificar en comentarios)',
     totalForestArea: 'Área de bosque total',
-    total: 'Total'
+    total: 'Total',
   },
 
   areaAffectedByFire: {
@@ -643,7 +737,7 @@ El equipo de FRA
     categoryHeader: 'Categorías de FRA',
     areaUnitLabel: 'Área (1000 ha)',
     totalLandAreaAffectedByFire: 'Área total afectada por incendios',
-    ofWhichForest: '…de la cual en el bosque'
+    ofWhichForest: '…de la cual en el bosque',
   },
 
   degradedForest: {
@@ -655,22 +749,24 @@ El equipo de FRA
   },
 
   forestPolicy: {
-    forestPolicy: 'Políticas, legislación y plataforma nacional para la participación de los grupos de interés en la política forestal',
+    forestPolicy:
+      'Políticas, legislación y plataforma nacional para la participación de los grupos de interés en la política forestal',
     categoryHeader: 'Indicar la existencia de',
     areaUnitLabel: 'Booleana (Sí/No)',
     national: 'Nacional',
     subnational: 'Subnacional',
     policiesSFM: 'Políticas que apoyan la gestión forestal sostenible',
     legislationsSFM: 'Leyes y/o reglamentos que apoyan la gestión forestal sostenible',
-    stakeholderParticipation: 'Platforma que fomenta o permite la participación de grupos de interés en la elaboración de políticas forestales',
-    existenceOfTraceabilitySystem: 'Sistema/s de trazabilidad para los productos madereros'
+    stakeholderParticipation:
+      'Platforma que fomenta o permite la participación de grupos de interés en la elaboración de políticas forestales',
+    existenceOfTraceabilitySystem: 'Sistema/s de trazabilidad para los productos madereros',
   },
 
   areaOfPermanentForestEstate: {
     areaOfPermanentForestEstate: 'Área de zona forestal permanente',
     categoryHeader: 'Categorías de FRA 2020',
     areaUnitLabel: 'Área de bosque (1000 ha)',
-    applicable: '¿Es aplicable?'
+    applicable: '¿Es aplicable?',
   },
 
   employment: {
@@ -685,7 +781,7 @@ El equipo de FRA
     ofWhichSupport: '…del cual en los servicios de apoyo a la silvicultura',
     total: 'Total',
     female: 'Mujeres',
-    male: 'Hombres'
+    male: 'Hombres',
   },
 
   graduationOfStudents: {
@@ -699,7 +795,7 @@ El equipo de FRA
     technicianCertificate: 'Certificado/diploma de técnico',
     total: 'Total',
     female: 'Mujeres',
-    male: 'Hombres'
+    male: 'Hombres',
   },
 
   nonWoodForestProductsRemovals: {
@@ -732,7 +828,7 @@ El equipo de FRA
     allOtherAnimalProducts: 'Todos los demás productos animales',
     total: 'Total',
     currency: 'Nombre de la moneda local',
-    notSelected: ''
+    notSelected: '',
   },
 
   sustainableDevelopment: {
@@ -747,10 +843,12 @@ El equipo de FRA
     forestAreaAnnualNetChangeRate: 'Porcentaje anual de cambio neto en el área de bosque',
     aboveGroundBiomassStockForests: 'Biomasa por encima del suelo en los bosques',
     percent2015ForestAreaBaseline: 'Porcentaje (referencia del área de bosque en 2015)',
-    proportionForestAreaLegallyEstablishedProtectedAreas: 'Porcentaje de área de bosque dentro de las áreas protegidas legalmente establecidas',
+    proportionForestAreaLegallyEstablishedProtectedAreas:
+      'Porcentaje de área de bosque dentro de las áreas protegidas legalmente establecidas',
     proportionForestAreaLongTermForestManagement: 'Porcentaje de área de bosque con plan de gestión a largo plazo',
     forestArea1000Ha: 'Área de bosque (1000 ha)',
-    forestAreaVerifiedForestManagement: 'Área de bosque bajo sistemas de certificación de manejo forestal verificados de forma independiente'
+    forestAreaVerifiedForestManagement:
+      'Área de bosque bajo sistemas de certificación de manejo forestal verificados de forma independiente',
   },
 
   panEuropeanIndicators: {
@@ -762,16 +860,15 @@ El equipo de FRA
     remove: 'Eliminar',
     noQuestionnaire: 'Ningún cuestionario seleccionado',
     panEuropeanQualitativeIndicators: 'Indicadores cualitativos paneuropeos para la gestión forestal sostenible',
-    accessReportingPage: 'Acceder a la página de informes'
+    accessReportingPage: 'Acceder a la página de informes',
   },
 
   assessment: {
     fra2020: 'FRA 2020',
     deskStudy: 'Estudio técnico',
-    statusChangeNotification:
-      {
-        subject: 'El estado de {{country}} cambió a {{status}} en la plataforma de FRA',
-        textMessage: `Estimado/a {{recipientName}},
+    statusChangeNotification: {
+      subject: 'El estado de {{country}} cambió a {{status}} en la plataforma de FRA',
+      textMessage: `Estimado/a {{recipientName}},
 
 {{changer}} ha cambiado el estado de {{assessment}} a "{{status}}" para {{country}} en la plataforma de FRA.
 
@@ -781,7 +878,7 @@ Visite la plataforma en la siguiente dirección: {{- serverUrl}}
 
 El equipo de FRA
 {{- serverUrl}}`,
-        htmlMessage: `Estimado/a {{recipientName}},
+      htmlMessage: `Estimado/a {{recipientName}},
 <br/><br/>
 {{changer}} ha cambiado el estado de {{assessment}} a "{{status}}" para {{country}} en la plataforma de FRA.
 <br/><br/>
@@ -791,15 +888,15 @@ El equipo de FRA
 <br/><br/>
 El equipo de FRA
 <br/>
-{{- serverUrl}}`
-      },
+{{- serverUrl}}`,
+    },
     status: {
       changing: {
-        label: 'Cambiando…'
+        label: 'Cambiando…',
       },
       editing: {
         label: 'Editando',
-        previous: 'Volver a editar'
+        previous: 'Volver a editar',
       },
       review: {
         label: 'En revisión',
@@ -809,18 +906,18 @@ El equipo de FRA
       approval: {
         label: 'Esperando aprobación',
         next: 'Enviar para aprobación',
-        previous: 'Volver a aprobación'
+        previous: 'Volver a aprobación',
       },
       accepted: {
         label: 'Aceptado',
         next: 'Aceptar',
-        previous: ''
-      }
-    }
+        previous: '',
+      },
+    },
   },
 
   multiSelect: {
-    placeholder: 'Elegir…'
+    placeholder: 'Elegir…',
   },
 
   generalValidation: {
@@ -847,8 +944,8 @@ El equipo de FRA
         objects: 'Objetos',
         symbols: 'Símbolos',
         flags: 'Banderas',
-      }
-    }
+      },
+    },
   },
 
   editUser: {
@@ -861,7 +958,7 @@ El equipo de FRA
     position: 'Cargo',
     done: 'Guardar',
     cancel: 'Cancelar',
-    picture1MbMax: 'La foto de perfil no puede ser superior a 1MB'
+    picture1MbMax: 'La foto de perfil no puede ser superior a 1MB',
   },
 
   country: {
@@ -872,8 +969,8 @@ El equipo de FRA
       north_and_central_america: 'América del Norte y Central',
       south_america: 'América del Sur',
       africa: 'África',
-      atlantis: 'Atlántida'
-    }
+      atlantis: 'Atlántida',
+    },
   },
 
   admin: {
@@ -881,17 +978,21 @@ El equipo de FRA
     filter: 'Filtrar por',
     language: 'Idioma',
     country: 'País',
-    invitationPending: 'Invitación pendiente'
+    invitationPending: 'Invitación pendiente',
   },
 
   countryMessageBoard: {
     messageBoard: 'Tablero de mensajes',
     messageBoardDesc: 'Los mensajes publicados aquí son visibles para todos los miembros del país.',
-    oneToOneMessages: 'Mensajes individuales'
+    oneToOneMessages: 'Mensajes individuales',
   },
 
   fraReportPrint: {
     title: 'Informe FRA 2020',
     titleTables: 'Tablas de informe FRA 2020',
+    tableOfContent: 'Tabla de contenido',
+    disclaimer: `La FAO ha estado monitoreando los bosques del mundo en intervalos de 5 a 10 años desde 1946. Las recientes Evaluaciones de los Recursos Forestales Mundiales (FRA) se llevan a cabo ahora cada 5 años, en un esfuerzo por proporcionar un enfoque coherente para describir los bosques del mundo y cómo estos están cambiando. FRA es un proceso impulsado por los países y las evaluaciones se basan en los informes desarrollados por los corresponsales nacionales oficialmente designados. Si un informe no está disponible, la secretaría de FRA elabora un estudio de gabinete utilizando informes anteriores, informaciones existentes y/o análisis obtenidos mediante teledetección.`,
+    disclaimerGenerated: `Este documento se generó automáticamente utilizando el informe que se puso a disposición como contribución a la Evaluación de los Recursos Forestales Mundiales 2020 de la FAO, y que se presentó a la FAO como documento oficial de gobierno. El contenido y las opiniones expresadas en este informe son responsabilidad de la entidad que presenta el informe a la FAO. La FAO no se hace responsable del uso que pueda hacerse de la información contenida en este informe.`,
+    disclaimerGeneratedDeskStudy: `Este documento fue generado automáticamente a partir de un estudio de gabinete. La FAO no se hace responsable del uso que pueda hacerse de la información contenida en este informe.`,
   },
 }

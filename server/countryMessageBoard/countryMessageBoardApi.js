@@ -1,14 +1,14 @@
 const {sendErr, sendOk} = require('../utils/requestUtils')
-const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
 
 const db = require('../db/db')
 
 const {persistMessage, fetchCountryMessages, fetchCountryUnreadMessages} = require('./countryMessageBoardRepository')
 
+const Auth = require('../auth/authApiMiddleware')
+
 module.exports.init = app => {
-  app.get('/countryMessageBoard/:countryIso/messages/all', async (req, res) => {
+  app.get('/countryMessageBoard/:countryIso/messages/all', Auth.requireCountryEditPermission, async (req, res) => {
     try {
-      checkCountryAccessFromReqParams(req)
       const {countryIso} = req.params
       const userId = req.user.id
 
@@ -21,9 +21,8 @@ module.exports.init = app => {
     }
   })
 
-  app.get('/countryMessageBoard/:countryIso/messages/new', async (req, res) => {
+  app.get('/countryMessageBoard/:countryIso/messages/new', Auth.requireCountryEditPermission, async (req, res) => {
     try {
-      checkCountryAccessFromReqParams(req)
       const {countryIso} = req.params
       const userId = req.user.id
 
@@ -36,10 +35,8 @@ module.exports.init = app => {
     }
   })
 
-  app.post('/countryMessageBoard/:countryIso/message', async (req, res) => {
+  app.post('/countryMessageBoard/:countryIso/message', Auth.requireCountryEditPermission, async (req, res) => {
     try {
-      checkCountryAccessFromReqParams(req)
-
       const {message, fromUserId} = req.body
       const {countryIso} = req.params
 

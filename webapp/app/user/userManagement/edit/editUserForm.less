@@ -1,0 +1,190 @@
+@import (reference) "~@webapp/main/styles/buttons";;
+@import (reference) "~@webapp/main/styles/buttons";;
+
+.edit-user__form-item {
+  display: flex;
+  padding: 10px;
+  height: 60px;
+}
+
+.edit-user__form-label {
+  flex: 0 1 30%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: @font-xxs;
+  color: lighten(@text-mute, 10%);;
+}
+
+.edit-user__form-field {
+  position: relative;
+  border: @ui-thin-border;
+  flex: 0 1 40%;
+  display: flex;
+  justify-content: center;
+}
+
+.edit-user__form-field-disabled {
+  .edit-user__form-field;
+  color: @text-disabled;
+}
+
+.edit-user__form-item-picture {
+  .edit-user__form-item;
+  height: auto;
+
+  .edit-user__form-field {
+    border: none;
+    padding: 10px 0;
+  }
+
+  .btn {
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+  }
+}
+
+.edit-user__picture-img {
+  border-radius: 100%;
+  width: 85px;
+  height: 85px;
+}
+
+.edit-user__picture-img-invalid {
+  position: absolute;
+  bottom: -5px;
+  color: lighten(@ui-destructive, 1%);
+  font-weight: bold;
+  font-size: @font-xs;
+}
+
+.edit-user__form-item-buttons {
+  .edit-user__form-item;
+  margin-top: 20px;
+  height: auto;
+}
+
+.edit-user__form-field-buttons {
+  .edit-user__form-field;
+  border: none;
+  .btn {
+    min-width: 80px;
+    margin: 0 6px;
+  }
+}
+
+.edit-user__form-item-roles {
+  .edit-user__form-item;
+  height: auto;
+}
+
+.edit-user__form-field-roles {
+  .edit-user__form-field;
+  flex-direction: column;
+}
+
+.edit-user__form-field-role-container {
+  padding: 12px 0;
+}
+
+.edit-user__form-field-role-container:not(:last-of-type) {
+  border-bottom: @ui-thin-border;
+}
+
+.edit-user__form-field-role {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .role {
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 0 6px;
+  }
+}
+
+.edit-user__form-field-role-admin {
+  .edit-user__form-field-role;
+  cursor: pointer;
+}
+
+.edit-user__form-field-role-countries {
+  .edit-user__form-field-role;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+.edit-user__form-field-country-box {
+  border: @ui-thin-border;
+  padding: 4px 8px;
+  border-radius: 3px;
+  background-color: lighten(@ui-bg, 1%);
+  color: darken(@text-disabled, 15%);
+  margin: 5px 2.5px 0;
+}
+
+.edit-user__form-field-country-selector {
+  cursor: pointer;
+  display: flex;
+  padding: 5px;
+  align-items: center;
+
+  .fra-checkbox {
+    margin-right: 4px;
+  }
+
+  &.disabled {
+    cursor: not-allowed !important;
+    color: @text-disabled;
+    .fra-checkbox {
+      border: 1px solid @ui-border-light;
+    }
+  }
+}
+
+.edit-user__form-field-country-selection {
+  display: flex;
+  /* flex-wrap: wrap; */
+  justify-content: space-evenly;
+}
+
+.edit-user__form-field-country-label {
+  flex: 0 1 100%;
+}
+
+.edit-user__form-field-region-container {
+  display: flex;
+  flex: 0 1 15%;
+  flex-flow: column;
+}
+
+.edit-user__form-field-region-label {
+  font-weight: bold;
+  margin-bottom: 10px;
+  padding-left: 15px;
+}
+
+.country-selection {
+  .modal-content {
+    margin: 2.5vh;
+    animation-duration: 0.1s;
+  }
+
+  .modal-header {
+    height: 5vh;
+  }
+
+  .modal-body {
+    overflow: auto;
+    height: 80vh;
+  }
+
+  .modal-footer {
+    padding: 0;
+    height: 10vh;
+  }
+}

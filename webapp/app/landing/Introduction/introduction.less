@@ -1,0 +1,65 @@
+@import (reference) 'webapp/main/styles/config';
+
+.home-introduction {
+  position: relative;
+  height: 75vh;
+}
+
+.home-introduction__about-fra {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    110deg,
+    rgba(@text-heading, 1) 0%,
+    rgba(@text-heading, 0.9) 10%,
+    rgba(@text-heading, 0.8) 20%,
+    rgba(@text-heading, 0.7) 30%,
+    rgba(@text-heading, 0.6) 40%,
+    rgba(@text-heading, 0.5) 50%,
+    rgba(@text-heading, 0.4) 60%,
+    rgba(@text-heading, 0.3) 70%,
+    rgba(@text-heading, 0.2) 80%,
+    rgba(@text-heading, 0.1) 90%,
+    rgba(@text-heading, 0) 100%
+  );
+  display: grid;
+  grid-row-gap: 24px;
+  align-content: center;
+  padding: 0 36px;
+  color: white;
+
+  .header {
+    font-size: @font-xl + 1;
+    font-weight: 600;
+  }
+
+  .process {
+    max-width: 38%;
+  }
+
+  a {
+    justify-self: start;
+    color: white;
+    outline: none;
+    padding: 6px 0;
+    border-bottom: 1px solid transparent;
+    transition: all 0.25s;
+    font-size: @font-l;
+    font-weight: 600;
+    text-decoration: unset;
+    cursor: pointer;
+
+    &:hover {
+      border-bottom: 1px solid rgba(white, 0.6);
+    }
+  }
+}
+
+.home-introduction__video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

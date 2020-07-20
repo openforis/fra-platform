@@ -1,0 +1,49 @@
+- main (ex app)
+    - style (ex app-styles)
+- app
+    - admin
+    - country
+    - components
+        - autosave 
+        - header
+        - countrySelection
+        - error
+        - navigation
+    - landing
+        - messageBoard
+        - feed
+        - overview 
+        - repository
+    - admin
+        - versions
+    - assessment
+        - components
+            - descriptions
+            - review
+            - traditionalTable
+            - print
+        - [fra]
+            - components
+                - tableWithOdp
+            - sections
+                - extentOfForest
+                - forestCharacteristics
+                - growingStock
+                - originalDataPoint
+                - sustainableDevelopment
+                - ... all tables
+        - [panEuropean]
+            - sections
+                - indicators
+    - user
+        - chat
+        - list
+        - profile
+- components
+- login
+- utils
+
+# TODO 
+- merge /user with /app/user
+- refactor /app/user/userManagement in /app/user/list and /app/user/profile
+- merge /app/components/audit/actions into /app/components/autosave/actions

@@ -1,4 +1,4 @@
-DROP VIEW IF EXISTS public.ndp_view;
+DROP VIEW IF EXISTS public.ndp_view CASCADE;
 CREATE VIEW
   ndp_view AS
   (
@@ -37,4 +37,3 @@ CREATE VIEW
     GROUP BY
       1,2,3,4
   );
-  

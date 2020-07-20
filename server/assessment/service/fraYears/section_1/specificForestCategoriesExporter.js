@@ -1,13 +1,8 @@
 const TraditionalTableExporter = require('../../exporter/traditionalTableExporter')
 
 class SpecificForestCategoriesExporter extends TraditionalTableExporter {
-
-  constructor () {
-    super(
-      'specificForestCategories',
-      ['bamboos', 'mangroves', 'tempUnstocked', 'primary', 'rubber'],
-      '1e'
-    )
+  constructor() {
+    super('specificForestCategories', ['primary', 'tempUnstocked', 'bamboos', 'mangroves', 'rubber'], '1c')
   }
 }
 

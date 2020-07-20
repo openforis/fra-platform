@@ -2,6 +2,8 @@ const R = require('ramda')
 const db = require('../db/db')
 const camelize = require('camelize')
 
+const CountryRole = require('../../common/countryRole')
+
 /*
  * Determine the "overall status" from multiple statuses.
  * For example, one review is enough to determine that overall
@@ -29,6 +31,7 @@ const getStatuses = groupedRows =>
 const getCountryProperties = country => ({
   countryIso: country.countryIso,
   region: country.region,
+  regionIso: country.regionIso,
   listName: {
     en: country.listNameEn,
     es: country.listNameEs,
@@ -67,23 +70,27 @@ const handleCountryResult = resolveRole => result => {
   )(grouped)
 }
 
-const getAllCountries = role => {
+const getAllCountries = (role, schemaName = 'public') => {
   const excludedMsgs = ['createIssue', 'createComment', 'deleteComment']
+  const tableNameFraAudit = `${schemaName}.fra_audit`
+  const tableNameCountry = `${schemaName}.country`
+  const tableNameAssessment = `${schemaName}.assessment`
+
   return db.query(`
     WITH fa AS (
       SELECT country_iso, to_char(max(time), 'YYYY-MM-DD"T"HH24:MI:ssZ') as last_edited
-      FROM fra_audit
+      FROM ${tableNameFraAudit}
       WHERE NOT (message in ($1))
       GROUP BY country_iso
     )
     SELECT
-      c.country_iso, c.region, c.list_name_en, c.full_name_en, c.list_name_es, c.full_name_es, c.list_name_fr, c.full_name_fr, c.list_name_ru, c.full_name_ru, c.pan_european,
+      c.country_iso, c.region, c.region_iso, c.list_name_en, c.full_name_en, c.list_name_es, c.full_name_es, c.list_name_fr, c.full_name_fr, c.list_name_ru, c.full_name_ru, c.pan_european,
       a.type, a.status, a.desk_study,
       fa.last_edited
     FROM
-      country c
+      ${tableNameCountry} c
     LEFT OUTER JOIN
-      assessment a ON c.country_iso = a.country_iso
+      ${tableNameAssessment} a ON c.country_iso = a.country_iso
     LEFT OUTER JOIN
       fa ON fa.country_iso = c.country_iso
     ORDER BY list_name_en ASC`, [excludedMsgs])
@@ -92,27 +99,41 @@ const getAllCountries = role => {
 
 const getAllCountriesList = async () => {
   const rs = await db.query(`
-      SELECT c.country_iso,
-             c.region,
-             c.list_name_en,
-             c.full_name_en,
-             c.list_name_es,
-             c.full_name_es,
-             c.list_name_fr,
-             c.full_name_fr,
-             c.list_name_ru,
-             c.full_name_ru,
-             c.pan_european
-      FROM country c
-      ORDER BY c.country_iso
+WITH assessment AS (
+    SELECT a.country_iso,
+           json_object_agg(a.type::TEXT,
+                           json_build_object('desk_study', a.desk_study, 'status', a.status)) AS assessment
+    FROM assessment a
+    GROUP BY a.country_iso
+)
+SELECT c.country_iso,
+       c.region,
+       c.region_iso,
+       c.list_name_en,
+       c.full_name_en,
+       c.list_name_es,
+       c.full_name_es,
+       c.list_name_fr,
+       c.full_name_fr,
+       c.list_name_ru,
+       c.full_name_ru,
+       c.pan_european,
+       a.assessment
+FROM country c
+LEFT JOIN assessment a
+ON c.country_iso = a.country_iso
+ORDER BY c.country_iso
   `)
   return camelize(rs.rows)
 }
 
-const getAllowedCountries = roles => {
-  const hasRole = (role) => R.find(R.propEq('role', role), roles)
-  if (hasRole('ADMINISTRATOR')) {
-    return getAllCountries('ADMINISTRATOR')
+const getAllowedCountries = (roles, schemaName = 'public') => {
+  const isAdmin = R.find(R.propEq('role', CountryRole.administrator.role), roles)
+
+  if (R.isEmpty(roles)) {
+    return getAllCountries(CountryRole.noRole.role, schemaName)
+  } else if (isAdmin) {
+    return getAllCountries(CountryRole.administrator.role)
   } else {
     const excludedMsgs = ['createIssue', 'createComment', 'deleteComment']
     const allowedCountryIsos = R.pipe(R.map(R.prop('countryIso')), R.reject(R.isNil))(roles)
@@ -126,7 +147,7 @@ const getAllowedCountries = roles => {
         GROUP BY country_iso
       )
       SELECT
-        c.country_iso, c.region, c.list_name_en, c.full_name_en, c.list_name_es, c.full_name_es, c.list_name_fr, c.full_name_fr, c.list_name_ru, c.full_name_ru, c.pan_european,
+        c.country_iso, c.region, c.region_iso, c.list_name_en, c.full_name_en, c.list_name_es, c.full_name_es, c.list_name_fr, c.full_name_fr, c.list_name_ru, c.full_name_ru, c.pan_european,
         a.type, a.status, a.desk_study,
         fa.last_edited
       FROM
@@ -142,10 +163,11 @@ const getAllowedCountries = roles => {
   }
 }
 
-const getDynamicCountryConfiguration = async countryIso => {
+const getDynamicCountryConfiguration = async (countryIso, schemaName = 'public') => {
+  const tableName = `${schemaName}.dynamic_country_configuration`
   const result = await db.query(`
               SELECT config
-              FROM dynamic_country_configuration
+              FROM ${tableName}
               WHERE country_iso = $1
     `,
     [countryIso])

@@ -1,0 +1,50 @@
+@import (reference) 'webapp/main/styles/config';
+@import (reference) 'webapp/main/styles/statusMixins';
+@import (reference) 'webapp/app/components/navigation/navigationMixins.less';
+
+.nav-base {
+  background-color: @ui-bg;
+  border-right: @ui-thin-border;
+}
+
+.nav {
+  &:extend(.nav-base);
+  grid-area: navigation;
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: 100%;
+  padding: 8px 0;
+}
+
+.nav__divider {
+  height: 1px;
+  background-color: @ui-border;
+  margin: 8px 0;
+}
+
+.nav__scroll-content {
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: calc(~'100vh - 64px');
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+// Basic link item
+
+.nav__link {
+  .mixin-nav-secondary-base(12px, true);
+}
+
+.nav__link-label {
+  font-weight: 700;
+}
+
+.nav__link-count {
+  color: @text-mute;
+  margin-left: 8px;
+}
+
+.nav__link-status-content {
+  .mixin-status-content-base;
+}

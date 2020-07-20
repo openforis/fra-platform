@@ -1,21 +1,22 @@
 const db = require('../db/db')
 const repository = require('./traditionalTableRepository')
-const {sendErr, sendOk} = require('../utils/requestUtils')
-const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
+const { sendErr, sendOk } = require('../utils/requestUtils')
 
-module.exports.init = app => {
+const Auth = require('../auth/authApiMiddleware')
+const VersionService = require('../versioning/service')
 
-  app.post('/traditionalTable/:countryIso/:tableSpecName', async (req, res) => {
+const Assessment = require('../../common/assessment/assessment')
+
+module.exports.init = (app) => {
+  app.post('/traditionalTable/:countryIso/:tableSpecName', Auth.requireCountryEditPermission, async (req, res) => {
     try {
-      checkCountryAccessFromReqParams(req)
+      const {
+        user,
+        body,
+        params: { countryIso, tableSpecName },
+      } = req
 
-      const tableSpecName = req.params.tableSpecName
-      const countryIso = req.params.countryIso
-
-      await db.transaction(
-        repository.save,
-        [req.user, countryIso, tableSpecName, req.body]
-      )
+      await db.transaction(repository.save, [user, countryIso, tableSpecName, body])
 
       sendOk(res)
     } catch (err) {
@@ -23,15 +24,18 @@ module.exports.init = app => {
     }
   })
 
-  app.get('/traditionalTable/:countryIso/:tableSpecName', async (req, res) => {
+  app.get('/traditionalTable/:assessmentType/:countryIso/:tableSpecName', async (req, res) => {
     try {
-      checkCountryAccessFromReqParams(req)
-
-      const result = await repository.read(req.params.countryIso, req.params.tableSpecName)
+      const {
+        params: { assessmentType, countryIso, tableSpecName },
+      } = req
+      const schemaName = Assessment.isTypePanEuropean(assessmentType)
+        ? 'pan_european'
+        : await VersionService.getDatabaseSchema(req)
+      const result = await repository.read(countryIso, tableSpecName, schemaName)
       res.json(result)
     } catch (err) {
       sendErr(res, err)
     }
   })
-
 }

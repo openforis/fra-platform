@@ -18,6 +18,8 @@
     }
   },
   "production": {
-    "ssl": true
+    "ssl": {
+      "rejectUnauthorized": false
+    }
   }
 }

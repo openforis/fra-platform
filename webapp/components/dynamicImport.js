@@ -1,30 +1,32 @@
 import React, { useState, useEffect } from 'react'
-import { injectReducers } from '../state/store'
+import PropTypes from 'prop-types'
+import { injectReducers } from '@webapp/main/store'
 
-const DynamicImport = props => {
-  const { module: _module, load, ...rest } = props
-  const [component, setComponent] = useState(null)
+import Loading from '@webapp/components/loading'
+
+const DynamicImport = (props) => {
+  const { load } = props
+  const [Component, setComponent] = useState(null)
 
   useEffect(() => {
-    const init = async () => {
+    ;(async () => {
       const module = await load()
       const { component, reducers } = module
       if (reducers) {
-        reducers.forEach(reducer => {
+        reducers.forEach((reducer) => {
           injectReducers(reducer.name, reducer.fn)
         })
       }
 
-      setComponent(
-        component ? component : module.default,
-      )
-    }
-    // Needed to run async function inside of useEffect
-    init()
-
+      setComponent(component || module.default)
+    })()
   }, [])
 
-  return component ? React.createElement(component, rest) : null
+  return Component ? React.createElement(Component) : <Loading />
+}
+
+DynamicImport.propTypes = {
+  load: PropTypes.func.isRequired,
 }
 
 export default DynamicImport

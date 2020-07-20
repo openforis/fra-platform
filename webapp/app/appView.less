@@ -1,0 +1,76 @@
+@import (reference) 'webapp/main/styles/config';
+
+.app-view {
+  display: grid;
+  grid-template-columns: 0 1fr;
+  grid-template-areas: 'navigation content';
+  &.navigation-on {
+    grid-template-columns: @ui-app-navigation-width 1fr;
+  }
+
+  .margin-right {
+    margin-right: 8px;
+  }
+
+  .margin-right-big {
+    margin-right: 16px;
+  }
+
+  .margin-left {
+    margin-left: 8px;
+  }
+
+  .margin-left-big {
+    margin-left: 16px;
+  }
+
+  .align-left {
+    margin-right: auto;
+  }
+
+  .align-right {
+    margin-left: auto;
+  }
+}
+
+.fra-review__container + .country-selection + .app-view {
+  width: ~'calc(100vw - @{ui-app-review-width})';
+}
+
+.app-view__content {
+  grid-area: content;
+  height: 100%;
+  padding: 28px 32px 48px 32px;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.app-view__page-header {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  .mixin-header-items;
+}
+
+.app-view__section-toolbar {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8px;
+  margin-bottom: 16px;
+  .mixin-header-items;
+}
+
+.mixin-header-items() {
+  .support-text {
+    color: @text-mute;
+  }
+
+  .full-width {
+    margin-top: 8px;
+    width: 100%;
+  }
+}

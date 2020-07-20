@@ -10,14 +10,21 @@ const {sendErr, sendOk} = require('../utils/requestUtils')
 const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
 const {allowedToEditDataCheck} = require('../assessment/assessmentEditAccessControl')
 
+const VersionService = require('../versioning/service')
+
+const Auth = require('../auth/authApiMiddleware')
+
 module.exports.init = app => {
 
   app.get('/odp', async (req, res) => {
     try {
-      checkCountryAccessFromReqParams(req)
+      const schemaName = await VersionService.getDatabaseSchema(req)
 
-      const odp = R.isNil(req.query.odpId) ? Promise.resolve({}) : odpRepository.getOdp(req.query.odpId)
-      const odps = odpRepository.listOriginalDataPoints(req.query.countryIso)
+      const odp = R.isNil(req.query.odpId)
+        ? Promise.resolve({})
+        : odpRepository.getOdp(req.query.odpId, schemaName)
+
+        const odps = odpRepository.listOriginalDataPoints(req.query.countryIso, schemaName)
 
       const [odpResult, odpsResult] = await Promise.all([odp, odps])
 
@@ -41,28 +48,30 @@ module.exports.init = app => {
 
   app.get('/odps/:countryIso', async (req, res) => {
       try {
-        checkCountryAccessFromReqParams(req)
-
         const odps = await odpRepository.listAndValidateOriginalDataPoints(req.params.countryIso)
 
-        const issues = odps.map(odp =>
-          reviewRepository
-            .getIssuesSummary(req.params.countryIso, 'odp', odp.odpId, req.user, true)
-            .then(issues => R.assoc('issuesSummary', issues, odp))
-        )
-        const odpsWithIssues = await Promise.all(issues)
+        if (req.user) {
+          checkCountryAccessFromReqParams(req)
 
-        res.json(odpsWithIssues)
+          const issues = odps.map((odp) =>
+            reviewRepository
+              .getIssuesSummary(req.params.countryIso, 'odp', odp.odpId, req.user, true)
+              .then((issues) => R.assoc('issuesSummary', issues, odp))
+          )
+          const odpsWithIssues = await Promise.all(issues)
+
+          res.json(odpsWithIssues)
+        } else {
+          res.json(odps)
+        }
       } catch (err) {
         sendErr(res, err)
       }
     }
   )
 
-  app.delete('/odp', async (req, res) => {
+  app.delete('/odp', Auth.requireCountryEditPermission, async (req, res) => {
     try {
-      checkCountryAccessFromReqParams(req)
-
       const countryIso = req.query.countryIso
       await allowedToEditDataCheck(countryIso, req.user, 'extentOfForest')
 
@@ -74,13 +83,9 @@ module.exports.init = app => {
     }
   })
 
-  app.post('/odp/draft', async (req, res) => {
+  app.post('/odp/draft', Auth.requireCountryEditPermission, async (req, res) => {
     try {
-      checkCountryAccessFromReqParams(req)
-
       const countryIso = req.query.countryIso
-      await allowedToEditDataCheck(countryIso, req.user, 'extentOfForest')
-
       const result = await db.transaction(odpRepository.saveDraft, [countryIso, req.user, req.body])
       res.json(result)
 
@@ -89,25 +94,22 @@ module.exports.init = app => {
     }
   })
 
-  app.delete('/odp/draft', async (req, res) => {
+  app.delete('/odp/draft', Auth.requireCountryEditPermission, async (req, res) => {
     try {
-      checkCountryAccessFromReqParams(req)
-
       const countryIso = req.query.countryIso
       await allowedToEditDataCheck(countryIso, req.user, 'extentOfForest')
 
-      await db.transaction(odpRepository.deleteDraft, [req.query.odpId, req.user])
+      const { odpId } = await db.transaction(odpRepository.deleteDraft, [req.query.odpId, req.user])
+      const odp = await odpRepository.getOdp(odpId)
 
-      sendOk(res)
+      res.json({ odp })
     } catch (err) {
       sendErr(res, err)
     }
   })
 
-  app.get('/prevOdp/:countryIso/:year', async (req, res) => {
+  app.get('/prevOdp/:countryIso/:year', Auth.requireCountryEditPermission, async (req, res) => {
     try {
-      checkCountryAccessFromReqParams(req)
-
       const countryIso = req.query.countryIso
       await allowedToEditDataCheck(countryIso, req.user, 'extentOfForest')
 
@@ -131,13 +133,8 @@ module.exports.init = app => {
     }
   })
 
-  app.post('/odp/markAsActual', async (req, res) => {
+  app.post('/odp/markAsActual', Auth.requireCountryEditPermission, async (req, res) => {
     try {
-      checkCountryAccessFromReqParams(req)
-
-      const countryIso = req.query.countryIso
-      await allowedToEditDataCheck(countryIso, req.user, 'extentOfForest')
-
       await db.transaction(odpRepository.markAsActual, [req.query.odpId, req.user])
 
       sendOk(res)

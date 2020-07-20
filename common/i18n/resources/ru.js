@@ -1,20 +1,92 @@
+const area = require('./ru/area')
+const statisticalFactsheets = require('./ru/statisticalFactsheets')
+
 module.exports.translation = {
+  area,
 
   language: {
     en: 'English',
     es: 'Español',
     fr: 'Français',
-    ru: 'Русский'
+    ru: 'Русский',
+  },
+
+  common: {
+    column: 'Столбец',
+    countries: 'Страны',
+    dataExport: 'Экспорт данных',
+    fraPlatform: 'Платформой ОЛР',
+    globalFRA: 'Глобальная оценка лесных ресурсов',
+    login: 'Логин',
+    other: 'Другое',
+    regions: 'Регионы',
+    select: 'Выбрать',
+    selectAll: 'Выделить все',
+    selectArea: 'Выбрать географический район',
+    statisticalFactsheets: 'Статистические бюллетени',
+    unknown: 'Отсутствует/неизвестна',
+    unselectAll: 'Снять выделение',
+    variable: 'ОЛР Переменная',
+    year: 'Год',
+  },
+
+  home: {
+    keyFindings: `Общая площадь лесов в мире составляет 4,06 млрд гектаров (га), или 31 процент от общей площади суши. Это значит, что на душу населения приходится по 0,52 га, однако леса неравномерно распределены между народами и регионами мира. Наибольшая часть лесов (45 процентов) находится в тропическом поясе, далее следуют бореальный, умеренный и субтропический пояса.`,
+  },
+
+  footer: {
+    contactUs: 'Связь с нами',
+    termsAndConditions: 'Положения и условия',
+    scamAlert: 'Опасайтесь мошенников',
+    reportMisconduct: 'Сообщить о нарушении',
+    userGuide: 'Руководство пользователя',
+    sendFeedback: 'Направить отзыв',
+  },
+
+  statisticalFactsheets,
+
+  disclaimer: {
+    part1: 'Этот веб-сайт был создан при содействии ',
+    europeanUnion: 'Европейского союза',
+    part2: ', ',
+    govFinland: 'правительства Финляндии',
+    part3: ' и ',
+    govNorway: 'правительства Норвегии',
+    part4: ' и ',
+    gef: 'Фонда глобальной окружающей среды',
+    part5:
+      '. Его содержание является исключительной обязанностью ФАО и никоим образом не может рассматриваться как отражающее мнения Европейского союза, правительства Финляндии, правительства Норвегии и Фонда глобальной окружающей среды.',
+  },
+
+  unit: {
+    haThousand: '1000 га',
+    ha: 'га',
+    kmSq: 'кв. км (км²)',
+    mileSq: 'кв. миль',
+    acre1000: '1000 акров',
+    acre: 'акр',
+    haMillion: 'млн. га',
+    haThousandPerYear: '1000 га/год',
+    tonnesPerHa: 'тонн/га',
+    millionsCubicMeterOverBark: 'млн. м³ с корой',
+    billionCubicMeter: 'млрд. м³',
+    gt: 'гт',
+    fte1000: '1000 ЭПЗ',
+    numberOfStudents: '$t(graduationOfStudents.numberOfStudents)',
+  },
+
+  countrySelection: {
+    selectCountry: 'Выберите страну',
   },
 
   definition: {
     definitionLabel: 'См. определения',
-    faqLabel: 'Часто задаваемые вопросы'
+    faqLabel: 'Часто задаваемые вопросы',
   },
 
   audit: {
     notStarted: 'Не начато',
-    edited: 'Отредактировано'
+    edited: 'Отредактировано',
   },
 
   yesNoTextSelect: {
@@ -42,14 +114,14 @@ module.exports.translation = {
       collaborator_1: 'Сотрудника',
       collaborator_2: 'Сотрудников',
       administrator: 'Администратор',
-      noRole: 'Нет сведений'
-    }
+      noRole: 'Нет сведений',
+    },
   },
 
   fraClass: {
     forest: 'Леса',
     otherWoodedLand: 'Прочие лесопокрытые земли',
-    otherLand: 'Другие земельные площади'
+    otherLand: 'Другие земельные площади',
   },
 
   fraForestCharacteristicsClass: {
@@ -57,29 +129,30 @@ module.exports.translation = {
     plantationForest: 'Плантационные лесные культуры',
     ofWhichIntroduced: '…в том числе интродуцированные породы',
     otherPlantedForest: 'Другие лесные культуры',
-    totalForest: 'Всего лесов'
+    totalForest: 'Всего лесов',
   },
 
   fraOtherLandClass: {
     palms: '…в том числе пальмы (масличные, кокосовые, финиковые и т.д.)',
     treeOrchards: '…в том числе древесные сады (включает фруктовые, ореховые,оливковые деревья и т.д)',
     agroforestry: '…в том числе агролесоводство',
-    treesUrbanSettings: '…в том числе деревья в городской среде'
+    treesUrbanSettings: '…в том числе деревья в городской среде',
   },
 
   landing: {
     home: 'Главная',
     sections: {
       overview: 'Обзор',
+      messageBoard: 'Доска сообщений',
       about: 'Информация об ОЛР',
       recentActivity: 'Недавняя активность',
       userManagement: 'Координировать сотрудников',
       externalData: 'Внешние данные',
-      links: 'Ссылки и хранилище данных'
+      links: 'Ссылки и хранилище данных',
     },
     overview: {
       loadingMap: 'Загрузка карты…',
-      withFinancialSupportOf: 'При финансовой поддержке '
+      withFinancialSupportOf: 'При финансовой поддержке ',
     },
     milestones: {
       milestones: 'Этапы работ',
@@ -98,24 +171,26 @@ module.exports.translation = {
       date5: 'Март',
       date6: 'Июль',
       date7: 'Март - Декабрь',
-      date8: 'Август'
+      date8: 'Август',
     },
     users: {
       users: 'Контакты',
-      message: 'Сообщение'
+      message: 'Сообщение',
     },
     about: {
       contact: 'Контакт',
       seniorForestryOfficer: 'Старший специалист по лесному хозяйству',
       faoForestryDepartment: 'Департамент лесного хозяйства ФАО',
       email: 'Электронная почта',
-      fraProcess: 'С 1946 года ФАО осуществляет мониторинг мировых лесов с периодичностью 5-10 лет. Современные Глобальные оценки лесных ресурсов (ОЛР) подготавливаются каждые пять лет с целью обеспечения последовательного подхода к описанию мировых лесов и их изменений.Оценка основывается на двух главных источниках данных: страновые доклады, подготовленные национальными корреспондентами и дистанционное зондирование, проводимое ФАО совместно с национальными координаторами и региональными партнерами.   Масштаб ОЛР регулярно изменяется со времени проведения первой оценки, опубликованной в 1948 году. Данные оценки создают историю глобальных лесных интересов, как с точки зрения основного содержания, так и их меняющегося масштаба.',
+      fraProcess:
+        'С 1946 года ФАО осуществляет мониторинг мировых лесов с периодичностью 5-10 лет. Современные Глобальные оценки лесных ресурсов (ОЛР) подготавливаются каждые пять лет с целью обеспечения последовательного подхода к описанию мировых лесов и их изменений.Оценка основывается на двух главных источниках данных: страновые доклады, подготовленные национальными корреспондентами и дистанционное зондирование, проводимое ФАО совместно с национальными координаторами и региональными партнерами.   Масштаб ОЛР регулярно изменяется со времени проведения первой оценки, опубликованной в 1948 году. Данные оценки создают историю глобальных лесных интересов, как с точки зрения основного содержания, так и их меняющегося масштаба.',
       linkFraProcess: 'Более подробная информация о процессе ОЛР',
-      or: 'Или'
+      or: 'Или',
     },
     recentActivity: {
       noRecentActivityTitle: 'Нет недавней активности',
-      noRecentActivityBody: 'Здесь отразятся изменения, сделанные на платформе, чтобы Вы могли быстрее разобраться, что происходило во время Вашего отсутствия.',
+      noRecentActivityBody:
+        'Здесь отразятся изменения, сделанные на платформе, чтобы Вы могли быстрее разобраться, что происходило во время Вашего отсутствия.',
       getStarted: 'Начать',
       actions: {
         added: 'добавил',
@@ -126,17 +201,18 @@ module.exports.translation = {
         edited: 'отредактировал',
         resolved: 'разрешил проблему в',
         status: 'изменил статус на',
-        addUser: 'добавил {{user}} как {{role}}', //Legacy, no longer created
+        addUser: 'добавил {{user}} как {{role}}', // Legacy, no longer created
         updateUser: 'отредактировал {{user}}',
         removeUser: 'удалил {{user}}',
         acceptInvitation: 'присоединился как {{role}}',
         addInvitation: 'пригласил {{user}} как {{role}}',
         removeInvitation: 'удалил приглашение от {{user}} как {{role}}',
         updateInvitation: 'приглашение обновлено для {{user}} как {{role}}',
-        updateAssessmentStatus: 'изменил статус с {{assessment}} на {{status}}'
+        updateAssessmentStatus: 'изменил статус с {{assessment}} на {{status}}',
       },
-      fraProcess: 'С 1946 года ФАО осуществляет мониторинг мировых лесов с периодичностью 5-10 лет. Современные Глобальные оценки лесных ресурсов (ОЛР) подготавливаются каждые пять лет с целью обеспечения последовательного подхода к описанию мировых лесов и их изменений.Оценка основывается на двух главных источниках данных: страновые доклады, подготовленные национальными корреспондентами и дистанционное зондирование, проводимое ФАО совместно с национальными координаторами и региональными партнерами.   Масштаб ОЛР регулярно изменяется со времени проведения первой оценки, опубликованной в 1948 году. Данные оценки создают историю глобальных лесных интересов, как с точки зрения основного содержания, так и их меняющегося масштаба.',
-      linkFraProcess: 'Более подробная информация о процессе ОЛР'
+      fraProcess:
+        'С 1946 года ФАО осуществляет мониторинг мировых лесов с периодичностью 5-10 лет. Современные Глобальные оценки лесных ресурсов (ОЛР) подготавливаются каждые пять лет с целью обеспечения последовательного подхода к описанию мировых лесов и их изменений.Оценка основывается на двух главных источниках данных: страновые доклады, подготовленные национальными корреспондентами и дистанционное зондирование, проводимое ФАО совместно с национальными координаторами и региональными партнерами.   Масштаб ОЛР регулярно изменяется со времени проведения первой оценки, опубликованной в 1948 году. Данные оценки создают историю глобальных лесных интересов, как с точки зрения основного содержания, так и их меняющегося масштаба.',
+      linkFraProcess: 'Более подробная информация о процессе ОЛР',
     },
     links: {
       links: 'Ссылки',
@@ -147,7 +223,7 @@ module.exports.translation = {
       repository: 'Хранилище данных',
       uploadFile: 'Загрузить файл',
       confirmDelete: 'Удалить {{file}}? Его невозможно будет восстановить.',
-    }
+    },
   },
 
   userChat: {
@@ -177,38 +253,44 @@ module.exports.translation = {
 Группа по ОЛР
 <br/>
 {{- url}}
-    `
-    }
+    `,
+    },
   },
 
   // error messages
   error: {
     access: {
-      countryRoleNotSpecified: 'Ошибка: Пользователь {{user}} попытался получить доступ к {{countryIso}} но не была указана роль',
-      countryUserNotReviewer: 'Ошибка: Пользователь {{user}} попытался получить доступ к {{countryIso}} не являясь рецензентом этой страны',
-      roleChangeNotAllowed: 'Ошибка: Пользователь {{user}} попытался назначить роль другого пользователя {{role}}, что не разрешается вошедшему пользователю',
-      invitationAlreadyUsed: 'Ошибка: приглащение {{invitationUuid}} уже было использовано, захват {{loginEmail}} не разрешается!',
+      countryRoleNotSpecified:
+        'Ошибка: Пользователь {{user}} попытался получить доступ к {{countryIso}} но не была указана роль',
+      countryUserNotReviewer:
+        'Ошибка: Пользователь {{user}} попытался получить доступ к {{countryIso}} не являясь рецензентом этой страны',
+      roleChangeNotAllowed:
+        'Ошибка: Пользователь {{user}} попытался назначить роль другого пользователя {{role}}, что не разрешается вошедшему пользователю',
+      invitationAlreadyUsed:
+        'Ошибка: приглащение {{invitationUuid}} уже было использовано, захват {{loginEmail}} не разрешается!',
       countryDoesNotMatch: 'Ошибка: страна{{countyryIso}}не совпадает',
-      assessmentEditingNotAllowed: 'Ошибка: Пользователь {{user}} в роли {{role}} не может редактировать оценку в состоянии {{assessmentStatus}} для страны {{countryIso}}',
-      assessmentCommentingNotAllowed: 'Ошибка: Пользователь {{user}} в роли {{role}} не может комментировать оценку в состоянии {{assessmentStatus}} для страны {{countryIso}}'
+      assessmentEditingNotAllowed:
+        'Ошибка: Пользователь {{user}} в роли {{role}} не может редактировать оценку в состоянии {{assessmentStatus}} для страны {{countryIso}}',
+      assessmentCommentingNotAllowed:
+        'Ошибка: Пользователь {{user}} в роли {{role}} не может комментировать оценку в состоянии {{assessmentStatus}} для страны {{countryIso}}',
     },
     assessment: {
       transitionNotAllowed: 'Ошибка: Переход от {{currentStatus}} к {{status}} не разрешается для роли {{role}}',
-      deskStudyNotAllowed: 'Ошибка: Только администратор может изменять статус кабинетного исследования'
+      deskStudyNotAllowed: 'Ошибка: Только администратор может изменять статус кабинетного исследования',
     },
     review: {
       commentDeleteNotOwner: 'Ошибка: Пользователь {{user}} попытался удалить чужой комментарий',
-      commentEnterResolvedIssue: 'Ошибка: Пользователь {{user}} попытался добавить комментарий к разрешенной проблеме'
+      commentEnterResolvedIssue: 'Ошибка: Пользователь {{user}} попытался добавить комментарий к разрешенной проблеме',
     },
     ndp: {
-      previousNdpNotFound: 'Невозможно найти Национальные отчетные годы до до {{year}}'
-    }
+      previousNdpNotFound: 'Невозможно найти Национальные отчетные годы до до {{year}}',
+    },
   },
   // components
 
   countryListing: {
     annuallyUpdated: 'Ежегодно обновляется',
-    fra2020: 'ОЛР-2020'
+    fra2020: 'ОЛР-2020',
   },
 
   navigation: {
@@ -216,13 +298,11 @@ module.exports.translation = {
     showAll: 'Показать все',
     support: {
       dontDelete: 'Системная информация, просьба не удалять',
-      sendFeedback: 'Направить отзыв',
       feedbackEmailSubject: 'Обратная связь с платформой ОЛР',
       platformVersion: 'Версия платформы',
       userAgent: 'Агент пользователя',
       user: 'Пользователь',
       manageCollaborators: 'Координировать сотрудников',
-      userGuide: 'Руководство пользователя'
     },
     sectionHeaders: {
       introduction: 'Введение',
@@ -234,12 +314,12 @@ module.exports.translation = {
       forestPolicyAndLegislation: 'Лесохозяйственная политика и законодательство',
       employmentEducationAndNwfp: 'Занятость, образование и НДЛП',
       sustainableDevelopment: 'Цель устойчивого развития 15',
-      panEuropeanIndicators: 'Общеевропейские индикаторы'
+      panEuropeanIndicators: 'Общеевропейские индикаторы',
     },
     submit: 'Представить на рассмотрение',
     cancel: 'Отмена',
     changeStatusTextPlaceholder: 'Добавить комментарий по выбору',
-    doNotNotifyUsers: 'Не уведомлять пользователей'
+    doNotNotifyUsers: 'Не уведомлять пользователей',
   },
 
   header: {
@@ -250,8 +330,8 @@ module.exports.translation = {
     autoSave: {
       saving: 'Сохранение…',
       complete: 'Все изменения сохранены',
-      lastSaveTimestampReceived: 'Последний раз отредактировано '
-    }
+      lastSaveTimestampReceived: 'Последний раз отредактировано ',
+    },
   },
 
   time: {
@@ -267,7 +347,7 @@ module.exports.translation = {
     week_0: '{{count}} неделю назад',
     week_1: '{{count}} недели назад',
     week_2: '{{count}} недель назад',
-    aMomentAgo: 'минуту назад'
+    aMomentAgo: 'минуту назад',
   },
 
   review: {
@@ -281,7 +361,7 @@ module.exports.translation = {
     writeComment: 'Написать комментарий…',
     commentingClosed: 'Комментирование закрыто',
     add: 'Добавить',
-    cancel: 'Отмена'
+    cancel: 'Отмена',
   },
 
   description: {
@@ -298,10 +378,11 @@ module.exports.translation = {
     nationalData: 'Национальные данные',
     analysisAndProcessing: 'Анализ и обработка национальных данных',
     estimationAndForecasting: 'Оценка и прогнозирование',
-    reclassification: 'Реклассификация в категории ОЛР-2020'
+    reclassification: 'Реклассификация в категории ОЛР-2020',
   },
 
   nationalDataPoint: {
+    clickOnNDP: 'Нажмите на год, чтобы получить доступ к исходным данным',
     nationalDataPoint: 'Национальный отчетный год',
     addNationalDataPoint: 'Добавить национальный отчетный год',
     noNationalDataAdded: 'Национальные данные не добавлены',
@@ -342,13 +423,13 @@ module.exports.translation = {
       sampleBasedRemoteSensingAssessment: 'Выборочная оценка с помощью дистанционного зондирования',
       fullCoverMaps: 'Полные карты лесов/растительности',
       registersQuestionnaires: 'Реестры/опросники',
-      other: 'Другое (указать в комментариях)'
+      other: 'Другое (указать в комментариях)',
     },
     appliesToVariablesOptions: {
       forest: 'Леса',
       otherWoodedLand: 'Прочие лесопокрытые земли',
-      otherLand: 'Другие земельные площади'
-    }
+      otherLand: 'Другие земельные площади',
+    },
   },
 
   userManagement: {
@@ -396,8 +477,8 @@ module.exports.translation = {
 Группа по ОЛР fra@fao.org
 <br/>
 {{- url}}
-    `
-    }
+    `,
+    },
   },
 
   // FRA 2020 questionare
@@ -415,7 +496,7 @@ module.exports.translation = {
     email: 'Электронная почта',
     tables: 'Таблицы',
     all: 'Все',
-    none: 'Ни одна'
+    none: 'Ни одна',
   },
 
   extentOfForest: {
@@ -426,7 +507,7 @@ module.exports.translation = {
     forestArea: 'Леса',
     chart: {
       placeholderLine1: 'Чтобы начать, добавьте новые национальные отчетные годы и используйте',
-      placeholderLine2: 'их для получения значений ОЛР автоматически.'
+      placeholderLine2: 'их для получения значений ОЛР автоматически.',
     },
     otherLandCategories: 'Категории других земельных площадей',
     ofWhichPalms: '…в том числе пальмы (масличные, кокосовые, финиковые и т.д.)',
@@ -453,7 +534,7 @@ module.exports.translation = {
     boreal: 'Бореальная',
     temperate: 'Умеренная',
     subtropical: 'Субтропическая',
-    tropical: 'Тропическая'
+    tropical: 'Тропическая',
   },
 
   forestCharacteristics: {
@@ -469,7 +550,7 @@ module.exports.translation = {
     totalForestArea: 'Общая площадь лесов',
     total: 'Итого',
     useOriginalDataPoints: 'Использовать национальные отчетные годы',
-    dontUseOriginalDataPoints: 'Не использовать национальные отчетные годы'
+    dontUseOriginalDataPoints: 'Не использовать национальные отчетные годы',
   },
 
   tableWithOdp: {
@@ -483,7 +564,7 @@ module.exports.translation = {
     clearTable: 'Очистить таблицу',
     copyToClipboard: 'Скопировать значения',
     placeholderSelect: 'Оценка и прогнозирование',
-    _1000haYear: '1000 га/год'
+    _1000haYear: '1000 га/год',
   },
 
   forestAreaChange: {
@@ -495,18 +576,18 @@ module.exports.translation = {
     ofWhichNaturalExpansion: '…в том числе естественное расширение лесов',
     deforestation: 'Обезлесение',
     forestAreaNetChange: 'Чистое изменение лесной площади',
-    netChangeDoesNotMatch: 'Не совпадает с Чистым изменением лесной площади'
+    netChangeDoesNotMatch: 'Не совпадает с Чистым изменением лесной площади',
   },
 
   annualReforestation: {
     annualReforestation: 'Ежегодное лесовосстановление',
     categoryHeader: 'Категории ОЛР',
     areaUnitLabel: 'Площадь лесов (1000 га/год)',
-    reforestation: 'Лесовосстановление'
+    reforestation: 'Лесовосстановление',
   },
 
   specificForestCategories: {
-    specificForestCategories: 'Специальные категории леса',
+    specificForestCategories: 'Девственные леса и специальные категории лесов',
     categoryHeader: 'Категории ОЛР',
     areaUnitLabel: 'Площадь (1000 га)',
     bamboo: 'Бамбуковые леса',
@@ -514,7 +595,7 @@ module.exports.translation = {
     temporarilyUnstocked: 'Временно обезлесенные и/или недавно возобновленные',
     primaryForest: 'Девственные леса',
     exceedsNaturallyRegeneratingForest: 'Превышает естественно возобновляемые леса (1b)',
-    rubberWood: 'Каучуковые деревья'
+    rubberWood: 'Каучуковые деревья',
   },
 
   otherLandWithTreeCover: {
@@ -527,7 +608,7 @@ module.exports.translation = {
     treesinurbansettings: 'Деревья в городской среде',
     total: 'Итого',
     otherLandArea: 'Другие земельные площади',
-    other: 'Другое (указать в комментариях)'
+    other: 'Другое (указать в комментариях)',
   },
 
   growingStock: {
@@ -542,10 +623,12 @@ module.exports.translation = {
     otherPlantedForest: '…в том числе другие лесные культуры',
     forest: 'Леса',
     otherWoodedLand: 'Прочие лесопокрытые земли',
-    copyToClipboard: 'Скопировать значения'
+    copyToClipboard: 'Скопировать значения',
   },
 
   growingStockComposition: {
+    native: 'Местные',
+    introduced: 'Интродуцированные',
     growingStockComposition: 'Состав древостоя',
     categoryHeader: 'Категории ОЛР',
     nativeTreeSpecies: 'Местные древесные породы',
@@ -553,13 +636,13 @@ module.exports.translation = {
     areaUnitLabel: 'Запас древостоя (млн. м³ с корой)',
     scientificName: 'Научное название',
     commonName: 'Общее название',
-    rank: 'Классифицированы по объему',
+    rank: '#{{idx}} Классифицированы по объему',
     remainingNative: 'Остальные местные древесные породы ',
     remainingIntroduced: 'Остальные интродуцированные древесные породы ',
     totalNative: 'Общий объем местных древесных пород',
     totalIntroduced: 'Общий объем интродуцированных древесных пород',
     totalGrowingStock: 'Общий запас древостоя',
-    rankingYear: 'Год классификации 2015'
+    rankingYear: 'Год классификации 2015',
   },
 
   biomassStock: {
@@ -569,7 +652,7 @@ module.exports.translation = {
     aboveGround: 'Надземная биомасса',
     belowGround: 'Подземная биомасса',
     deadWood: 'Мертвая древесина',
-    downloadExcel: 'Скачать калькулятор excel'
+    downloadExcel: 'Скачать калькулятор excel',
   },
 
   carbonStock: {
@@ -587,9 +670,11 @@ module.exports.translation = {
   designatedManagementObjective: {
     designatedManagementObjective: 'Назначенная цель управления лесами',
     primaryDesignatedManagementObjective: 'Главная назначенная цель управления ',
-    primaryDesignatedManagementObjectiveSupport: 'Главная назначенная цель управления значительно важнее других целей управления. Различные главные цели управления являются *исключительными* и площади, представленные под одной главной целью управления лесами, не должны быть представлены для каких-либо других главных целей управления лесами.  Сумма различных целей управления должна суммироваться в площадь лесов.',
+    primaryDesignatedManagementObjectiveSupport:
+      'Главная назначенная цель управления значительно важнее других целей управления. Различные главные цели управления являются *исключительными* и площади, представленные под одной главной целью управления лесами, не должны быть представлены для каких-либо других главных целей управления лесами.  Сумма различных целей управления должна суммироваться в площадь лесов.',
     totalAreaWithDesignatedManagementObjective: 'Общая площадь с назначенной целью управления',
-    totalAreaWithDesignatedManagementObjectiveSupport: 'Назначенная цель управления, вне зависимости от того, является ли она главной или нет. Различные категории назначения *не исключительны*. Поэтому данные о площадях могут представляться более одного раза, например, данные о площади лесов с главной целью управления «Многоцелевое использование» должны представляться по каждой цели управления. Следовательно, сумма различных целей управления может быть больше общей площади лесов.',
+    totalAreaWithDesignatedManagementObjectiveSupport:
+      'Назначенная цель управления, вне зависимости от того, является ли она главной или нет. Различные категории назначения *не исключительны*. Поэтому данные о площадях могут представляться более одного раза, например, данные о площади лесов с главной целью управления «Многоцелевое использование» должны представляться по каждой цели управления. Следовательно, сумма различных целей управления может быть больше общей площади лесов.',
     categoryHeader: 'Категории ОЛР-2020',
     areaUnitLabel: 'Площадь лесов (1000 га)',
     production: 'Производство',
@@ -600,16 +685,17 @@ module.exports.translation = {
     other: 'Другие виды (указать в комментариях)',
     unknown: 'Отсутствует/неизвестна',
     totalForestArea: 'Общая площадь лесов',
-    total: 'Итого'
+    total: 'Итого',
   },
 
   forestAreaWithinProtectedAreas: {
-    forestAreaWithinProtectedAreas: 'Лесные площади на охраняемых территориях и лесные площади с долгосрочным планами управления лесами',
+    forestAreaWithinProtectedAreas:
+      'Лесные площади на охраняемых территориях и лесные площади с долгосрочным планами управления лесами',
     categoryHeader: 'Категории ОЛР',
     areaUnitLabel: 'Площадь (1000 га)',
     header: 'Лесная площадь на охраняемых территориях',
     forestAreaWithLongTermManagementPlan: 'Лесная площадь с долгосрочным планом управления лесами',
-    ofWhichInProtectedAreas: '…в том числе на охраняемых территориях'
+    ofWhichInProtectedAreas: '…в том числе на охраняемых территориях',
   },
 
   forestOwnership: {
@@ -623,7 +709,7 @@ module.exports.translation = {
     publicOwnership: 'Государственная собственность',
     otherOrUnknown: 'Неизвестны/другие формы собственности (указать в комментариях)',
     totalForestArea: 'Общая площадь лесов',
-    total: 'Итого'
+    total: 'Итого',
   },
 
   holderOfManagementRights: {
@@ -637,7 +723,7 @@ module.exports.translation = {
     other: 'Неизвестны/другие формы прав управления лесами (указать в комментариях)',
     totalPublicOwnership: 'Общая площадь в государственной собственности',
     total: 'Итого',
-    publicOwnershipDoesNotMatch: 'Не совпадает с "Общая площадь в государственной собственности"'
+    publicOwnershipDoesNotMatch: 'Не совпадает с "Общая площадь в государственной собственности"',
   },
 
   disturbances: {
@@ -649,7 +735,7 @@ module.exports.translation = {
     severeWeatherEvents: 'Суровые погодные явления',
     other: 'Другое (указать в комментариях)',
     totalForestArea: 'Общая площадь лесов',
-    total: 'Итого'
+    total: 'Итого',
   },
 
   areaAffectedByFire: {
@@ -657,7 +743,7 @@ module.exports.translation = {
     categoryHeader: 'Категории ОЛР',
     areaUnitLabel: 'Площадь (1000 га)',
     totalLandAreaAffectedByFire: 'Общая земельная площадь, пораженная пожарами',
-    ofWhichForest: '…в том числе леса'
+    ofWhichForest: '…в том числе леса',
   },
 
   degradedForest: {
@@ -669,22 +755,24 @@ module.exports.translation = {
   },
 
   forestPolicy: {
-    forestPolicy: 'Политика, законодательство и национальная платформа для участия заинтересованных сторон в лесохозяйственной политике',
+    forestPolicy:
+      'Политика, законодательство и национальная платформа для участия заинтересованных сторон в лесохозяйственной политике',
     categoryHeader: 'Указать наличие',
     areaUnitLabel: 'Логические значения (Да/Нет)',
     national: 'Национальные',
     subnational: 'Субнациональные',
     policiesSFM: 'Политика, содействующая устойчивому управлению лесами',
     legislationsSFM: 'Законодательные и/или нормативные акты, содействующие устойчивому управлению лесами',
-    stakeholderParticipation: 'Платформа, содействующая участию заинтересованных сторон в развитии лесохозяйственной политики',
-    existenceOfTraceabilitySystem: 'Система(-ы) отслеживания происхождения древесной продукции'
+    stakeholderParticipation:
+      'Платформа, содействующая участию заинтересованных сторон в развитии лесохозяйственной политики',
+    existenceOfTraceabilitySystem: 'Система(-ы) отслеживания происхождения древесной продукции',
   },
 
   areaOfPermanentForestEstate: {
     areaOfPermanentForestEstate: 'Площадь постоянного лесного фонда',
     categoryHeader: 'Категории ОЛР-2020',
     areaUnitLabel: 'Площадь лесов (1000 га)',
-    applicable: 'Применимо?'
+    applicable: 'Применимо?',
   },
 
   employment: {
@@ -699,7 +787,7 @@ module.exports.translation = {
     ofWhichSupport: '…в том числе занятость во вспомогательных услугах в лесном хозяйстве',
     total: 'Всего',
     female: 'Женщины',
-    male: 'Мужчины'
+    male: 'Мужчины',
   },
 
   graduationOfStudents: {
@@ -713,7 +801,7 @@ module.exports.translation = {
     technicianCertificate: 'Свидетельство/ диплом о профессионально-техническом образовании',
     total: 'Всего',
     female: 'Женщины',
-    male: 'Мужчины'
+    male: 'Мужчины',
   },
 
   nonWoodForestProductsRemovals: {
@@ -746,7 +834,7 @@ module.exports.translation = {
     allOtherAnimalProducts: 'Все остальные продукты животного происхождения',
     total: 'Итого',
     currency: 'Название валюты',
-    notSelected: ''
+    notSelected: '',
   },
 
   sustainableDevelopment: {
@@ -761,10 +849,12 @@ module.exports.translation = {
     forestAreaAnnualNetChangeRate: 'Темп чистого изменения лесной площади',
     aboveGroundBiomassStockForests: 'Запас надземной биомассы в лесах',
     percent2015ForestAreaBaseline: 'Процент (Площадь лесов 2015 - исходная отметка)',
-    proportionForestAreaLegallyEstablishedProtectedAreas: 'Доля площади лесов, находящихся на законно установленных охраняемых территориях',
+    proportionForestAreaLegallyEstablishedProtectedAreas:
+      'Доля площади лесов, находящихся на законно установленных охраняемых территориях',
     proportionForestAreaLongTermForestManagement: 'Доля площади лесов под долгосрочным планом управления лесами',
     forestArea1000Ha: 'Площадь лесов (1000 га)',
-    forestAreaVerifiedForestManagement: 'Площадь лесов под независимо проверяемыми системами сертификации управления лесами'
+    forestAreaVerifiedForestManagement:
+      'Площадь лесов под независимо проверяемыми системами сертификации управления лесами',
   },
 
   panEuropeanIndicators: {
@@ -776,16 +866,15 @@ module.exports.translation = {
     remove: 'Удалить',
     noQuestionnaire: 'Вопросник не выбран',
     panEuropeanQualitativeIndicators: 'Общеевропейские качественные индикаторы устойчивого управления лесами',
-    accessReportingPage: 'Зайти на страницу отчетности'
+    accessReportingPage: 'Зайти на страницу отчетности',
   },
 
   assessment: {
     fra2020: 'ОЛР-2020',
     deskStudy: 'Кабинетное исследование',
-    statusChangeNotification:
-      {
-        subject: '{{country}} статус изменен на {{status}} на платформе ОЛР',
-        textMessage: `Уважаемый(ая){{recipientName}},
+    statusChangeNotification: {
+      subject: '{{country}} статус изменен на {{status}} на платформе ОЛР',
+      textMessage: `Уважаемый(ая){{recipientName}},
 
 {{changer}} изменил статус с {{assessment}} на "{{status}}" для {{country}} на платформе ОЛР.
 
@@ -795,7 +884,7 @@ module.exports.translation = {
 
 Группа по ОЛР
 {{- serverUrl}}`,
-        htmlMessage: `Уважаемый(ая) {{recipientName}},
+      htmlMessage: `Уважаемый(ая) {{recipientName}},
 <br/><br/>
 {{changer}} изменил статус с {{assessment}} на "{{status}}" для {{country}} на платформе ОЛР.
 <br/><br/>
@@ -805,15 +894,15 @@ module.exports.translation = {
 <br/><br/>
 Группа по ОЛР
 <br/>
-{{- serverUrl}}`
-      },
+{{- serverUrl}}`,
+    },
     status: {
       changing: {
-        label: 'Изменяется…'
+        label: 'Изменяется…',
       },
       editing: {
         label: 'Редактируется',
-        previous: 'Вернуться к редактированию'
+        previous: 'Вернуться к редактированию',
       },
       review: {
         label: 'На рассмотрении',
@@ -823,18 +912,18 @@ module.exports.translation = {
       approval: {
         label: 'Ожидает утверждения',
         next: 'Отправить на утверждение',
-        previous: 'Вернуться к утверждению'
+        previous: 'Вернуться к утверждению',
       },
       accepted: {
         label: 'Принят',
         next: 'Принять',
-        previous: ''
-      }
-    }
+        previous: '',
+      },
+    },
   },
 
   multiSelect: {
-    placeholder: 'Выбрать…'
+    placeholder: 'Выбрать…',
   },
 
   generalValidation: {
@@ -861,8 +950,8 @@ module.exports.translation = {
         objects: 'Предметы',
         symbols: 'Символы',
         flags: 'Флаги',
-      }
-    }
+      },
+    },
   },
 
   editUser: {
@@ -877,7 +966,7 @@ module.exports.translation = {
     cancel: 'Отмена',
     deactivate: 'Деактивировать',
     activate: 'Активировать',
-    picture1MbMax: 'Картинка в профиле не может превышать 1MB'
+    picture1MbMax: 'Картинка в профиле не может превышать 1MB',
   },
 
   country: {
@@ -888,8 +977,8 @@ module.exports.translation = {
       north_and_central_america: 'Северная и Центральная Америка',
       south_america: 'Южная Америка',
       africa: 'Африка',
-      atlantis: 'Атлантида'
-    }
+      atlantis: 'Атлантида',
+    },
   },
 
   admin: {
@@ -897,17 +986,21 @@ module.exports.translation = {
     filter: 'Фильтровать по',
     language: 'Язык',
     country: 'Страна',
-    invitationPending: 'Приглашение в стадии рассмотрения'
+    invitationPending: 'Приглашение в стадии рассмотрения',
   },
 
   countryMessageBoard: {
     messageBoard: 'Доска сообщений',
     messageBoardDesc: 'Оставленные здесь сообщения видны всем участникам от страны',
-    oneToOneMessages: 'Личные сообщения'
+    oneToOneMessages: 'Личные сообщения',
   },
 
   fraReportPrint: {
     title: 'Доклад ОЛР–2020',
     titleTables: 'Таблицы отчетности для ОЛР–2020',
+    tableOfContent: 'Содержание',
+    disclaimer: `С 1946 года ФАО осуществляет мониторинг мировых лесов каждые 5-10 лет. Глобальные оценки лесных ресурсов (ОЛР) в настоящее время подготавливаются каждые пять лет в попытке обеспечения последовательного подхода к описанию лесов мира и их изменений. ОЛР представляет собой процесс, осуществляемый по инициативе стран, и оценки основываются на докладах, подготовленных официально назначенными национальными корреспондентами. Если доклад отсутствует, секретариат ОЛР подготавливает кабинетное исследование с использованием предыдущих докладов, имеющейся информации и/или результатов анализа на основе дистанционного зондирования.`,
+    disclaimerGenerated: `Настоящий документ был подготовлен автоматически с использованием доклада, представленного в качестве вклада в Глобальную оценку лесных ресурсов ФАО 2020 года, и представлен ФАО в качестве официального правительственного документа. Ответственность за содержание и мнения, выраженные в настоящем докладе, несет орган, представляющий доклад ФАО. ФАО не может нести ответственность за любое использование информации, содержащейся в настоящем документе.`,
+    disclaimerGeneratedDeskStudy: `Этот документ был подготовлен автоматически на основе кабинетного исследования. ФАО не может нести ответственность за любое использование информации, содержащейся в настоящем документе.`,
   },
 }

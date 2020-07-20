@@ -1,46 +1,38 @@
 const db = require('../db/db')
-const {sendErr, sendOk} = require('../utils/requestUtils')
+const { sendErr, sendOk } = require('../utils/requestUtils')
 const repository = require('./descriptionsRepository')
-const {checkCountryAccessFromReqParams} = require('../utils/accessControl')
 const auditRepository = require('./../audit/auditRepository')
-const {allowedToEditDataCheck} = require('../assessment/assessmentEditAccessControl')
+
+const Auth = require('../auth/authApiMiddleware')
+const VersionService = require('../versioning/service')
 
 module.exports.init = app => {
-
   app.get('/country/descriptions/:countryIso/:section/:name', async (req, res) => {
-      try {
-        checkCountryAccessFromReqParams(req)
+    try {
+      const schemaName = await VersionService.getDatabaseSchema(req)
+      const result = await db.transaction(repository.readDescriptions, [
+        req.params.countryIso,
+        req.params.section,
+        req.params.name,
+        schemaName,
+      ])
 
-        const result = await db.transaction(repository.readDescriptions, [req.params.countryIso, req.params.section, req.params.name])
-
-        res.json(result)
-      } catch (err) {
-        sendErr(res, err)
-      }
+      res.json(result)
+    } catch (err) {
+      sendErr(res, err)
     }
-  )
+  })
 
-  app.post('/country/descriptions/:countryIso/:section/:name', async (req, res) => {
-      const countryIso = req.params.countryIso
-      const section = req.params.section
-      try {
-        checkCountryAccessFromReqParams(req)
-        await allowedToEditDataCheck(countryIso, req.user, section)
+  app.post('/country/descriptions/:countryIso/:section/:name', Auth.requireCountryEditPermission, async (req, res) => {
+    const { countryIso, section, name } = req.params
+    const { content } = req.body
+    try {
+      await db.transaction(auditRepository.insertAudit, [req.user.id, 'saveDescriptions', countryIso, section])
+      await db.transaction(repository.persistDescriptions, [countryIso, section, name, content])
 
-        await db.transaction(
-          auditRepository.insertAudit,
-          [req.user.id, 'saveDescriptions', countryIso, section]
-        )
-        await db.transaction(
-          repository.persistDescriptions,
-          [countryIso, section, req.params.name, req.body.content]
-        )
-
-        sendOk(res)
-      } catch (err) {
-        sendErr(res, err)
-      }
+      sendOk(res)
+    } catch (err) {
+      sendErr(res, err)
     }
-  )
-
+  })
 }

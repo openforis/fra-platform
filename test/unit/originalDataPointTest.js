@@ -1,5 +1,5 @@
 const assert = require('chai').assert
-const originalDataPoint = require('../../webapp/originalDataPoint/originalDataPoint')
+const originalDataPoint = require('../../webapp/app/assessment/fra/sections/originalDataPoint/originalDataPoint')
 
 describe('originalDataPoint', () => {
   it('calculates correct total forest amount', () => {

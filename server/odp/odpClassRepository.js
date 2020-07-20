@@ -3,14 +3,15 @@ const Promise = require('bluebird')
 
 const {deleteIssuesByIds} = require('../review/reviewRepository')
 
-const getOdpNationalClasses = async (client, odpVersionId) => {
+const getOdpNationalClasses = async (client, odpVersionId, schemaName = 'public') => {
+  const tableName = `${schemaName}.odp_class`
   const res = await client.query(`
     SELECT
       name, definition, area,
       forest_percent, other_wooded_land_percent, forest_natural_percent,
       forest_plantation_percent, forest_plantation_introduced_percent, other_planted_forest_percent,
       uuid
-    FROM odp_class
+    FROM ${tableName}
     WHERE odp_version_id = $1
     ORDER BY id`
     ,

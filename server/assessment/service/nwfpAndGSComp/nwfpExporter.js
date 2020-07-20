@@ -1,5 +1,5 @@
 const R = require('ramda')
-const { totalSum } = require('../../../../webapp/traditionalTable/aggregate')
+const { totalSum } = require('../../../../common/aggregate')
 
 const TraditionalTableService = require('../../../traditionalTable/traditionalTableRepository')
 const CsvOutput = require('../csvOutput')
