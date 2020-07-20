@@ -1,19 +1,28 @@
 const db = require('../db/db')
 
-const {sendErr} = require('../utils/requestUtils')
+const { sendErr } = require('../utils/requestUtils')
 
 const Auth = require('../auth/authApiMiddleware')
 
-const {persistFile, getFilesList, getFile, deleteFile} = require('./fileRepositoryRepository')
+const { persistFile, getFilesList, getFile, deleteFile } = require('./fileRepositoryRepository')
 
-const {fileTypes, downloadFile} = require('./fileRepository')
+const { fileTypes, downloadFile } = require('./fileRepository')
 
-module.exports.init = app => {
-
+module.exports.init = (app) => {
   // get user guide
   app.get('/fileRepository/userGuide/:lang', Auth.requireCountryEditPermission, async (req, res) => {
     try {
       downloadFile(res, fileTypes.userGuide, req.params.lang)
+    } catch (err) {
+      sendErr(res, err)
+    }
+  })
+
+  // statistical factsheets
+  app.get('/fileRepository/statisticalFactsheets/:countryIso/:lang', async (req, res) => {
+    try {
+      const { countryIso, lang } = req.params
+      downloadFile(res, fileTypes.statisticalFactsheets(countryIso), lang)
     } catch (err) {
       sendErr(res, err)
     }
@@ -30,7 +39,6 @@ module.exports.init = app => {
       const filesList = await db.transaction(persistFile, [req.user, countryIso, req.files.file, fileCountryIso])
 
       res.json(filesList)
-
     } catch (err) {
       sendErr(res, err)
     }
@@ -42,7 +50,6 @@ module.exports.init = app => {
       const filesList = await getFilesList(req.params.countryIso)
 
       res.json(filesList)
-
     } catch (err) {
       sendErr(res, err)
     }
@@ -59,7 +66,6 @@ module.exports.init = app => {
       } else {
         res.status(404).send('404 / Page not found')
       }
-
     } catch (err) {
       sendErr(res, err)
     }
@@ -71,7 +77,6 @@ module.exports.init = app => {
       const filesList = await db.transaction(deleteFile, [req.user, req.params.countryIso, req.params.fileId])
 
       res.json(filesList)
-
     } catch (err) {
       sendErr(res, err)
     }
