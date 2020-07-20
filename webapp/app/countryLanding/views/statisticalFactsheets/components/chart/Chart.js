@@ -26,8 +26,9 @@ const ChartComponent = (props) => {
   // update chart to reflect labels update
   useOnUpdate(() => {
     chart.data = data
+    chart.options = options
     chart.update({ duration: 0, lazy: true })
-  }, [i18n, data])
+  }, [i18n, data, options])
 
   return (
     <div className="chart">

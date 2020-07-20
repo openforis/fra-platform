@@ -1,32 +1,32 @@
 module.exports = {
   rowName: {
     forest_area: 'Площадь лесов',
-    natural_forest_area: 'Natural regenerating forest',
+    natural_forest_area: 'Естественно возобновляемые леса',
     planted_forest: '$t(forestCharacteristics.plantedForest)',
     forest_area_within_protected_areas: '$t(forestAreaWithinProtectedAreas.header)',
-    land_area: 'Land area',
+    land_area: 'Площадь земель',
     primary_forest: '$t(specificForestCategories.primaryForest)',
     private_ownership: '$t(forestOwnership.privateOwnership)',
     public_ownership: '$t(forestOwnership.publicOwnership)',
-    other_area: 'Other area',
-    other_forest: 'Other forest',
-    other_or_unknown: 'Other or unknown',
+    other_area: ' Прочие площади',
+    other_forest: 'Прочие леса',
+    other_or_unknown: 'Другое или неизвестно',
   },
   forestArea: {
     title: 'Площадь лесов (1990 — 2020)',
   },
   carbonAndGrowingStock: {
-    title: 'Growing Stock and Carbon (1990 — 2020)',
+    title: 'Запасы древостоя и углерода (1990 — 2020)',
     rowName: '',
-    carbon_stock_biomass_total: 'Carbon stock in biomass',
-    carbon_stock_total: 'Total carbon stock',
+    carbon_stock_biomass_total: 'Запас углерода в биомассе',
+    carbon_stock_total: 'Общий запас углерода',
     growing_stock_total: '$t(growingStock.growingStock)',
   },
   forestAreaPercent: {
-    title: 'Forest area % of land area (2020)',
+    title: 'Площадь лесов % от площади суши (2020)',
   },
   primaryForest: {
-    title: 'Primary forest % of forest area (2020)',
+    title: 'Девственные леса % от площади лесов (2020)',
   },
   forestOwnership: {
     title: '$t(forestOwnership.forestOwnership) (2015)',
@@ -47,6 +47,6 @@ module.exports = {
     social_services: '$t(designatedManagementObjective.socialServices)',
   },
   naturallyRegeneratingForest: {
-    title: 'Naturally regenerating forest area (1990 — 2020)',
+    title: 'Площадь естественно возобновляемых лесов (1990 — 2020)',
   },
 }

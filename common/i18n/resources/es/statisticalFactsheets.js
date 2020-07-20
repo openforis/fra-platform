@@ -1,32 +1,32 @@
 module.exports = {
   rowName: {
     forest_area: 'Área forestal',
-    natural_forest_area: 'Natural regenerating forest',
+    natural_forest_area: 'Bosque regenerado de forma natural',
     planted_forest: '$t(forestCharacteristics.plantedForest)',
     forest_area_within_protected_areas: '$t(forestAreaWithinProtectedAreas.header)',
-    land_area: 'Land area',
+    land_area: 'Superficie de la terra',
     primary_forest: '$t(specificForestCategories.primaryForest)',
     private_ownership: '$t(forestOwnership.privateOwnership)',
     public_ownership: '$t(forestOwnership.publicOwnership)',
-    other_area: 'Other area',
-    other_forest: 'Other forest',
-    other_or_unknown: 'Other or unknown',
+    other_area: 'Otras tierras',
+    other_forest: 'Otros bosques',
+    other_or_unknown: 'Desconocidas/otras',
   },
   forestArea: {
     title: 'Área forestal (1990 — 2020)',
   },
   carbonAndGrowingStock: {
-    title: 'Growing Stock and Carbon (1990 — 2020)',
+    title: 'Existencias en formación y carbono (1990 — 2020)',
     rowName: '',
-    carbon_stock_biomass_total: 'Carbon stock in biomass',
-    carbon_stock_total: 'Total carbon stock',
+    carbon_stock_biomass_total: 'Carbono en la biomasa',
+    carbon_stock_total: 'Total de carbono',
     growing_stock_total: '$t(growingStock.growingStock)',
   },
   forestAreaPercent: {
-    title: 'Forest area % of land area (2020)',
+    title: 'Superficie forestal % de la superficie total (2020)',
   },
   primaryForest: {
-    title: 'Primary forest % of forest area (2020)',
+    title: 'Bosque primario % de area forestal (2020)',
   },
   forestOwnership: {
     title: '$t(forestOwnership.forestOwnership) (2015)',
@@ -47,6 +47,6 @@ module.exports = {
     social_services: '$t(designatedManagementObjective.socialServices)',
   },
   naturallyRegeneratingForest: {
-    title: 'Naturally regenerating forest area (1990 — 2020)',
+    title: 'Bosque regenerado de forma natural (1990 — 2020)',
   },
 }
